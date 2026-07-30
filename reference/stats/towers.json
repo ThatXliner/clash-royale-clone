@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "snapshot": {
+    "as_of": "2023-02-18",
+    "tournament_level": 11,
+    "ruleset": "standard 1v1 before Card Evolutions and Tower Troops"
+  },
+  "towers": [
+    {
+      "key": "king_tower",
+      "name": "King Tower",
+      "count_per_side": 1,
+      "hitpoints": 4824,
+      "damage": 109,
+      "hit_speed_seconds": 1.0,
+      "first_hit_seconds": 3.3,
+      "range_tiles": 7.0,
+      "targets": "air_and_ground",
+      "area_damage_radius_tiles": null,
+      "activation_rule": "Inactive until damaged or until either friendly Princess Tower is destroyed.",
+      "unverified_fields": [
+        "first_hit_seconds"
+      ]
+    },
+    {
+      "key": "princess_tower",
+      "name": "Princess Tower",
+      "count_per_side": 2,
+      "hitpoints": 3052,
+      "damage": 109,
+      "hit_speed_seconds": 0.8,
+      "first_hit_seconds": null,
+      "range_tiles": 7.5,
+      "targets": "air_and_ground",
+      "area_damage_radius_tiles": null,
+      "activation_rule": "Always active while standing.",
+      "unverified_fields": []
+    }
+  ]
+}

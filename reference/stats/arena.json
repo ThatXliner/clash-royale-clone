@@ -1,0 +1,177 @@
+{
+  "schema_version": "1.0.0",
+  "snapshot": {
+    "as_of": "2023-02-18",
+    "mode": "standard 1v1"
+  },
+  "playfield": {
+    "width_tiles": 18,
+    "length_tiles": 32,
+    "coordinate_system": {
+      "origin": "southwest outer edge of the blue-side playfield",
+      "x_axis": "east, from 0 to 18",
+      "y_axis": "north, from 0 to 32",
+      "position_semantics": "Coordinates are tile-edge units; half values denote tile centers. Positions below are screenshot-derived approximations."
+    },
+    "river": {
+      "y_bounds": [
+        15,
+        17
+      ],
+      "crossable_only_at_bridges_for_ground_units": true
+    },
+    "bridges": [
+      {
+        "lane": "left",
+        "approximate_center": [
+          3.5,
+          16.0
+        ],
+        "approximate_footprint": {
+          "x_bounds": [
+            2.5,
+            4.5
+          ],
+          "y_bounds": [
+            15,
+            17
+          ]
+        }
+      },
+      {
+        "lane": "right",
+        "approximate_center": [
+          14.5,
+          16.0
+        ],
+        "approximate_footprint": {
+          "x_bounds": [
+            13.5,
+            15.5
+          ],
+          "y_bounds": [
+            15,
+            17
+          ]
+        }
+      }
+    ],
+    "tower_positions": {
+      "blue": {
+        "king": {
+          "approximate_center": [
+            9.0,
+            3.0
+          ],
+          "nominal_footprint_tiles": [
+            4,
+            4
+          ]
+        },
+        "left_princess": {
+          "approximate_center": [
+            3.5,
+            7.5
+          ],
+          "nominal_footprint_tiles": [
+            3,
+            3
+          ]
+        },
+        "right_princess": {
+          "approximate_center": [
+            14.5,
+            7.5
+          ],
+          "nominal_footprint_tiles": [
+            3,
+            3
+          ]
+        }
+      },
+      "red": {
+        "king": {
+          "approximate_center": [
+            9.0,
+            29.0
+          ],
+          "nominal_footprint_tiles": [
+            4,
+            4
+          ]
+        },
+        "left_princess": {
+          "approximate_center": [
+            14.5,
+            24.5
+          ],
+          "nominal_footprint_tiles": [
+            3,
+            3
+          ]
+        },
+        "right_princess": {
+          "approximate_center": [
+            3.5,
+            24.5
+          ],
+          "nominal_footprint_tiles": [
+            3,
+            3
+          ]
+        }
+      }
+    }
+  },
+  "deployment": {
+    "initial_unit_and_building_zone": "Own-side walkable ground only; excludes the river, tower footprints, arena edge exclusions, and the blocked strips behind the King Tower.",
+    "after_enemy_princess_tower_destroyed": "Unlock the forward deployment pocket in that destroyed tower's lane. The opposite lane and the area around the enemy King Tower remain unavailable.",
+    "spells": "May target the full 18x32 playfield unless the spell creates a unit and has a card-specific placement restriction.",
+    "exceptions": [
+      "Miner and Goblin Drill may be aimed on enemy-side ground.",
+      "Goblin Barrel may be aimed on enemy-side ground and towers but not river-only cells.",
+      "Royal Recruits require enough horizontal room for their line formation."
+    ]
+  },
+  "elixir": {
+    "capacity": 10,
+    "starting_elixir": 5,
+    "tick_seconds": {
+      "single": 2.8,
+      "double": 1.4,
+      "triple": 0.933
+    },
+    "phases": [
+      {
+        "from_match_start_seconds": 0,
+        "to_match_start_seconds": 120,
+        "rate": "single"
+      },
+      {
+        "from_match_start_seconds": 120,
+        "to_match_start_seconds": 240,
+        "rate": "double"
+      },
+      {
+        "from_match_start_seconds": 240,
+        "to_match_start_seconds": 300,
+        "rate": "triple"
+      }
+    ]
+  },
+  "timing": {
+    "regulation_seconds": 180,
+    "overtime_seconds": 120,
+    "maximum_match_seconds": 300,
+    "overtime_rule": "Sudden death: the first tower destroyed ends the match.",
+    "tiebreaker_rule": "If crowns remain tied when overtime expires, tower hitpoints drain until the side with the lowest tower loses."
+  },
+  "unverified_fields": [
+    "playfield.bridges[*].approximate_center",
+    "playfield.bridges[*].approximate_footprint",
+    "playfield.tower_positions.*.*.approximate_center",
+    "playfield.tower_positions.*.*.nominal_footprint_tiles",
+    "deployment.after_enemy_princess_tower_destroyed exact cell mask",
+    "elixir.starting_elixir"
+  ]
+}
