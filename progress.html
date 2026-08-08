@@ -28,10 +28,10 @@
   <div class="cards">
     <div class="card"><div class="num">145</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">106</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">235</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">236</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">24</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Active target: <strong>GAME-001GH — Sustained active-match composite history</strong>.</p>
+  <p class="note">Active target: <strong>GAME-001HBA — Shared building mechanic authority seam</strong>.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -1176,10 +1176,10 @@
       <tr>
         <td><code>GAME-001HBA</code></td>
         <td>Shared building mechanic authority seam</td>
-        <td class="state-pending">PENDING</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>The current component owns a private second session; GameSession has no building host/materialization seam</td>
+        <td class="state-building">BUILDING</td>
+        <td>10/10</td>
+        <td>1</td>
+        <td>Round 1 failed: fresh setup accepts shape-valid forged building mechanics instead of the exact canonical catalog receipt</td>
       </tr>
       <tr>
         <td><code>GAME-001HB</code></td>
@@ -1435,6 +1435,7 @@
       <li><strong>R233 FAIL</strong> · GAME-001HT — Unified-session troop roster mechanics<br>Make LiveBattle own a serialized/forkable SessionTroopRuntime intent reducer across deploy/pre-move/pre-combat/post-combat and expose its canonical ability actions through GameSession.</li>
       <li><strong>R234 FAIL</strong> · GAME-001HB — Unified-session building roster mechanics<br>Integrate all eight admitted building mechanics into GameSession/game-side-deploy so one authoritative battle, deck, elixir, tower/unit, history and restore graph owns and steps them, then register the selector and nondeterminism inventory.</li>
       <li><strong>R235 FAIL</strong> · GAME-001GH — Sustained active-match composite history<br>Make compact checkpoints genuinely private/module-capability-only rather than public continuationFork prototype methods, while retaining the documented public serialize/restore/replay/fork contracts.</li>
+      <li><strong>R236 FAIL</strong> · GAME-001HBA — Shared building mechanic authority seam<br>Pin every admitted building profile to its exact canonical catalog receipt; current fresh setups accept structurally valid forged mechanics.</li>
   </ol>
 </body>
 </html>

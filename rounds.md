@@ -4359,3 +4359,21 @@ LiveBattle, BattleMovement, MatchClock, ElixirMatch and related authorities.
 BIGGEST GAP: Make compact checkpoints genuinely private/module-capability-only
 rather than public `continuationFork()` prototype methods, while retaining the
 documented public serialize/restore/replay/fork contracts.
+
+## Round 236 — 2026-08-08
+
+PIECE: GAME-001HBA — Shared building mechanic authority seam
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- game-building-runtime` passed 10/10. An independent
+forged-profile probe changed fresh canonical
+`bulwark-needle.buildingRuntime.damage` from 212 to 989;
+`parseLiveBattleSetup`, `new LiveBattle(...)`, and `new GameSession(...)` each
+accepted the forged value. The regulation tick-18,000 smoke passed in 46.7s.
+The shared host seam therefore executes, but its fresh setup boundary validates
+only the profile shape and does not prove that mechanics came from the exact
+canonical content receipt.
+
+BIGGEST GAP: Pin every admitted building profile to its exact canonical catalog
+receipt; current fresh setups accept structurally valid forged mechanics.
