@@ -643,7 +643,11 @@ function buildDefensiveIntents(intents, boundary, structure, profile) {
       type: "structure-attack" });
     if (profile.variant === "splash") {
       const targets = candidateList(next, boundary, { ...profile, minRangeMillitiles: 0,
-        maxRangeMillitiles: profile.areaDamageRadiusMillitiles, targetMode: "air_and_ground" })
+        // Target eligibility belongs to the impact circle, not a second
+        // source-to-candidate range check.  The primary target has already
+        // passed this building's real maximum/minimum range; every eligible
+        // enemy in its inclusive impact radius receives the same contact.
+        maxRangeMillitiles: MAX_POSITION, targetMode: "air_and_ground" })
         .filter((candidate) => withinDistance(target.position, candidate.position,
           profile.areaDamageRadiusMillitiles));
       for (const candidate of targets) queueHit(intents, boundary, next, candidate, amount,
