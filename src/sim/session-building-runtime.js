@@ -8,6 +8,7 @@ import {
   serializeMovementState,
 } from "./movement.js";
 import { findGroundPath } from "./pathfinding.js";
+import { assertSessionBuildingProfileReceipt } from "./session-building-profile-receipts.js";
 
 /**
  * GAME-001HBA's intentionally small capability boundary.
@@ -317,6 +318,11 @@ function checkedProfileReceipt(value) {
     if (!ADMITTED.has(entry.cardId) || profiles.has(entry.cardId)) {
       throw new TypeError("session building profile receipt identities are invalid");
     }
+    // This reducer is public but cannot be a second admission route.  Its
+    // profile receipt is pinned to the same immutable catalog receipt that
+    // LiveBattle checks before it reaches the host boundary.
+    assertSessionBuildingProfileReceipt(entry.cardId, canonical(entry.profile),
+      `session building profile receipt.profiles[${index}].profile`);
     profiles.set(entry.cardId, freeze(checkedProfile(entry.profile, entry.cardId)));
   }
   return profiles;

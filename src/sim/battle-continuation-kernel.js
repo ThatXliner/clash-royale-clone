@@ -20,6 +20,7 @@ import {
   createSessionBuildingRuntime,
   isSessionBuildingCardId,
 } from "./session-building-runtime.js";
+import { assertSessionBuildingProfileReceipt } from "./session-building-profile-receipts.js";
 import { MAX_SPATIAL_MILLITILES, validateCircle, validatePosition } from "./spatial.js";
 import { retainOrAcquireTarget, targetCandidate } from "./targeting.js";
 import { createStageSideDeployment } from "./game-side-deploy-core.js";
@@ -4478,7 +4479,10 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
         targetMode: string(card.targetMode, `${label}.targetMode`),
       };
       if (cardKind === "structure" && hasBuildingRuntime) {
-        normalizedCard.buildingRuntime = clone(card.buildingRuntime);
+        const buildingRuntime = clone(card.buildingRuntime);
+        assertSessionBuildingProfileReceipt(normalizedCard.id, canonical(buildingRuntime),
+          `${label}.buildingRuntime`);
+        normalizedCard.buildingRuntime = buildingRuntime;
       }
       return normalizedCard;
     });

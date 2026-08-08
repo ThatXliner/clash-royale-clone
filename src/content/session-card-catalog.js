@@ -3,6 +3,7 @@ import { createDeathEffectsQuestions } from "./cards/death-effects.js";
 import { createDefensiveBuildingRuntimeProfiles } from "./cards/buildings-defensive.js";
 import { createResourceBuildingQuestionRecords } from "./cards/buildings-resource.js";
 import { createUndergroundTravelBuildingQuestionRecords } from "./cards/buildings-travel.js";
+import { assertSessionBuildingProfileReceipt } from "../sim/session-building-profile-receipts.js";
 
 const CLAIMS = Object.freeze([
   ["createBasicFlyingCatalog", ["copperskiff", "skymaul"]],
@@ -74,30 +75,30 @@ const TRAVEL_RUNTIME = questionValues(createUndergroundTravelBuildingQuestionRec
 const DEATH_RUNTIME = questionValues(createDeathEffectsQuestions());
 
 function buildingRuntimeProfile(id, source) {
+  let profile;
   if (Object.hasOwn(DEFENSIVE_RUNTIME, id)) {
-    const { policy: _policy, ...profile } = DEFENSIVE_RUNTIME[id];
-    return { class: "defensive", ...clone(profile) };
-  }
-  if (id === "aether-well") {
-    return { class: "resource", deployTicks: source.deployTimeTicks,
+    const { policy: _policy, ...defensiveProfile } = DEFENSIVE_RUNTIME[id];
+    profile = { class: "defensive", ...clone(defensiveProfile) };
+  } else if (id === "aether-well") {
+    profile = { class: "resource", deployTicks: source.deployTimeTicks,
       generationAmount: RESOURCE_RUNTIME.generationAmount,
       generationCadenceTicks: RESOURCE_RUNTIME.generationCadenceTicks,
       hitpoints: source.hitpoints, lifetimeTicks: RESOURCE_RUNTIME.lifetimeTicks };
-  }
-  if (id === "burrow-rig") {
-    return { class: "travel", deployTicks: source.deployTimeTicks,
+  } else if (id === "burrow-rig") {
+    profile = { class: "travel", deployTicks: source.deployTimeTicks,
       emergenceSpawnDelayTicks: TRAVEL_RUNTIME.emergenceSpawnDelayTicks,
       hitpoints: source.hitpoints, lifetimeTicks: TRAVEL_RUNTIME.lifetimeTicks,
       travelSpeedMillitilesPerSecond: TRAVEL_RUNTIME.travelSpeedMillitilesPerSecond };
-  }
-  if (id === "cinder-reliquary") {
-    return { class: "death-effect", damage: source.damage, deployTicks: source.deployTimeTicks,
+  } else if (id === "cinder-reliquary") {
+    profile = { class: "death-effect", damage: source.damage, deployTicks: source.deployTimeTicks,
       firstHitTicks: source.firstHitTicks, hitSpeedTicks: source.hitSpeedTicks,
       hitpoints: source.hitpoints, radius: DEATH_RUNTIME.radius,
       rangeMillitiles: source.rangeMillitiles, targetMode: "ground",
       towerModifier: clone(DEATH_RUNTIME.towerModifier) };
   }
-  return null;
+  if (profile !== undefined) assertSessionBuildingProfileReceipt(id, canonical(profile),
+    "session card catalog building runtime profile");
+  return profile ?? null;
 }
 
 function freeze(value) { if (value && typeof value === "object" && !Object.isFrozen(value)) {

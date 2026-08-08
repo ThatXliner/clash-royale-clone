@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { runInNewContext } from "node:vm";
 
 import { createPlayableRoster, createPlayableRosterQuestionRecords } from "../src/content/playable-roster.js";
 import {
@@ -29,7 +30,9 @@ function canonical(value) {
 
 function buildingRoster(cardId) {
   const roster = structuredClone(createPlayableRoster());
-  roster.splice(0, 1, projectSessionNonUnitBattleCard(cardId));
+  // The catalog’s public projection is frozen. Test fixtures must make a
+  // detached copy so they can model hostile caller-supplied canonical bytes.
+  roster.splice(0, 1, structuredClone(projectSessionNonUnitBattleCard(cardId)));
   const referenced = new Set(roster.flatMap(({ entities }) => entities.flatMap((entity) =>
     [entity.bodyRadiusPolicy, entity.projectileSpeedPolicy]
       .filter((policy) => policy.kind === "question").map(({ questionKey }) => questionKey))));
@@ -51,6 +54,80 @@ function sessionSetup(cardId) {
     questions, roster }), deck, legalNorthDeployments: [], rosterWitness: canonical({ questions, roster }),
   seed: seedFor(deck, cardId), startingElixir: { north: 10, south: 10 },
   thinkIntervalTicks: 3_600, thinkOffsetTicks: 0 });
+}
+
+/**
+ * Fresh-entry witnesses deliberately carry mutable copies.  They model the
+ * only caller-controlled route to a building profile: canonical setup text
+ * passed directly to parseLiveBattleSetup, LiveBattle, or GameSession.
+ */
+function freshProfileFixtures(cardId, mutate = () => {}) {
+  const { questions, roster } = buildingRoster(cardId);
+  const battle = { initialWindupTicks: { central: 0, lane: 0 }, questions, roster };
+  const card = battle.roster.find(({ id }) => id === cardId);
+  assert.ok(card?.buildingRuntime, `${cardId} must have a catalog runtime receipt`);
+  mutate(card.buildingRuntime, card, battle);
+  const deck = battle.roster.map(({ id }) => id);
+  const battleSetup = canonical(battle);
+  const setup = canonical({ battleSetup, deck, legalNorthDeployments: [],
+    rosterWitness: canonical({ questions: battle.questions, roster: battle.roster }),
+    seed: seedFor(deck, cardId), startingElixir: { north: 10, south: 10 },
+    thinkIntervalTicks: 3_600, thinkOffsetTicks: 0 });
+  return { battleSetup, setup };
+}
+
+function profileFromFixture(fixture, cardId) {
+  const battle = JSON.parse(fixture.battleSetup);
+  const card = battle.roster.find(({ id }) => id === cardId);
+  assert.ok(card?.buildingRuntime, `${cardId} profile must be present`);
+  return card.buildingRuntime;
+}
+
+function primitiveProfilePaths(value, prefix = []) {
+  if (Array.isArray(value)) return value.flatMap((entry, index) =>
+    primitiveProfilePaths(entry, [...prefix, index]));
+  if (value !== null && typeof value === "object") return Object.keys(value).flatMap((key) =>
+    primitiveProfilePaths(value[key], [...prefix, key]));
+  return [prefix];
+}
+
+function profileContainerPaths(value, prefix = []) {
+  if (Array.isArray(value)) return [{ kind: "array", path: prefix }, ...value.flatMap((entry, index) =>
+    profileContainerPaths(entry, [...prefix, index]))];
+  if (value !== null && typeof value === "object") {
+    return [{ kind: "object", path: prefix }, ...Object.keys(value).flatMap((key) =>
+      profileContainerPaths(value[key], [...prefix, key]))];
+  }
+  return [];
+}
+
+function atPath(value, path) {
+  return path.reduce((current, key) => current[key], value);
+}
+
+function replaceAtPath(value, path, replacement) {
+  const parent = atPath(value, path.slice(0, -1));
+  parent[path.at(-1)] = replacement;
+}
+
+function forgedLeafValue(value) {
+  if (value === null) return 0;
+  if (typeof value === "number") return value + 1;
+  if (typeof value === "string") return `${value}-forged`;
+  throw new TypeError("profile leaves must be scalar data");
+}
+
+function assertFreshProfileRejected(fixture, label) {
+  const beforeBattle = fixture.battleSetup;
+  const beforeSession = fixture.setup;
+  assert.throws(() => parseLiveBattleSetup(fixture.battleSetup), /canonical session-card receipt/u,
+    `${label}: parseLiveBattleSetup`);
+  assert.throws(() => new LiveBattle(fixture.battleSetup), /canonical session-card receipt/u,
+    `${label}: LiveBattle`);
+  assert.throws(() => new GameSession(fixture.setup), /canonical session-card receipt/u,
+    `${label}: GameSession`);
+  assert.equal(fixture.battleSetup, beforeBattle, `${label}: battle input remained byte-exact`);
+  assert.equal(fixture.setup, beforeSession, `${label}: session input remained byte-exact`);
 }
 
 function legacyStructureSessionSetup(cardId) {
@@ -89,6 +166,21 @@ function legacyLiveBattleSnapshot(cardId) {
   delete legacySetup.roster.find(({ id }) => id === cardId).buildingRuntime;
   snapshot.setup = legacySetup;
   return canonical(snapshot);
+}
+
+/** The exact nested v1 shape used before compact v2 LiveBattle witnesses. */
+function legacyLiveBattleV1Snapshot(cardId) {
+  const current = JSON.parse(legacyLiveBattleSnapshot(cardId));
+  const tower = JSON.parse(current.battle);
+  const combat = JSON.parse(tower.combat);
+  assert.equal(current.version, 2);
+  assert.equal(tower.version, 2);
+  assert.equal(combat.version, 2);
+  const legacyCombat = { history: combat.history, setup: combat.setup, version: 1 };
+  const legacyTower = { combat: canonical(legacyCombat), history: tower.history, setup: tower.setup,
+    towers: tower.towers, version: 1 };
+  return canonical({ battle: canonical(legacyTower), history: current.history,
+    movements: current.movements, setup: current.setup, version: 1 });
 }
 
 function sessionFor(cardId) { return new GameSession(sessionSetup(cardId)); }
@@ -149,6 +241,125 @@ test("game building runtime: pure reducer has no independent session authority a
     (_, id) => ({ ...materialized, id: id + 1 })), tick: 0, towers: [], units: [] })), /bound/u);
 });
 
+test("game building runtime: every fresh entry point accepts only exact catalog profile receipts", () => {
+  for (const cardId of SESSION_BUILDING_ADMITTED_IDS) {
+    const fixture = freshProfileFixtures(cardId);
+    const parsed = parseLiveBattleSetup(fixture.battleSetup);
+    assert.deepEqual(profileFromFixture(fixture, cardId),
+      projectSessionNonUnitBattleCard(cardId).buildingRuntime, `${cardId}: catalog receipt bytes`);
+    assert.doesNotThrow(() => new LiveBattle(fixture.battleSetup), `${cardId}: direct LiveBattle`);
+    assert.doesNotThrow(() => new LiveBattle(parsed), `${cardId}: admitted LiveBattle`);
+    assert.doesNotThrow(() => new GameSession(fixture.setup), `${cardId}: GameSession`);
+  }
+});
+
+test("game building runtime: fresh admission pins every profile leaf, shape, and card identity", () => {
+  // This is the blind-critic reproduction in its exact original form before
+  // the exhaustive matrix below: a plausible bulwark number is not enough.
+  assertFreshProfileRejected(freshProfileFixtures("bulwark-needle", (profile) => {
+    profile.damage = 989;
+  }), "bulwark 212-to-989 damage forge");
+
+  const catalogProfiles = new Map(SESSION_BUILDING_ADMITTED_IDS.map((cardId) => {
+    const fixture = freshProfileFixtures(cardId);
+    return [cardId, profileFromFixture(fixture, cardId)];
+  }));
+  for (const cardId of SESSION_BUILDING_ADMITTED_IDS) {
+    const profile = catalogProfiles.get(cardId);
+    for (const path of primitiveProfilePaths(profile)) {
+      assertFreshProfileRejected(freshProfileFixtures(cardId, (candidate) => {
+        replaceAtPath(candidate, path, forgedLeafValue(atPath(candidate, path)));
+      }), `${cardId}: forged ${path.join(".")}`);
+    }
+    for (const { kind, path } of profileContainerPaths(profile)) {
+      if (kind === "object") {
+        for (const key of Object.keys(atPath(profile, path))) {
+          assertFreshProfileRejected(freshProfileFixtures(cardId, (candidate) => {
+            delete atPath(candidate, path)[key];
+          }), `${cardId}: missing ${[...path, key].join(".")}`);
+        }
+        assertFreshProfileRejected(freshProfileFixtures(cardId, (candidate) => {
+          atPath(candidate, path).untrustedProfileField = 1;
+        }), `${cardId}: extra ${path.length === 0 ? "root" : path.join(".")} key`);
+      } else {
+        const source = atPath(profile, path);
+        for (let index = 0; index < source.length; index += 1) {
+          assertFreshProfileRejected(freshProfileFixtures(cardId, (candidate) => {
+            atPath(candidate, path).splice(index, 1);
+          }), `${cardId}: missing ${[...path, index].join(".")}`);
+        }
+        assertFreshProfileRejected(freshProfileFixtures(cardId, (candidate) => {
+          const target = atPath(candidate, path);
+          target.push(forgedLeafValue(target.at(-1)));
+        }), `${cardId}: extra ${path.join(".")} item`);
+      }
+    }
+    for (const [otherCardId, otherProfile] of catalogProfiles) {
+      if (otherCardId === cardId) continue;
+      assertFreshProfileRejected(freshProfileFixtures(cardId, (_candidate, card) => {
+        card.buildingRuntime = structuredClone(otherProfile);
+      }), `${cardId}: swapped ${otherCardId} profile`);
+    }
+  }
+
+  const forgedRuntimeReceipt = structuredClone(catalogProfiles.get("bulwark-needle"));
+  forgedRuntimeReceipt.damage = 989;
+  assert.throws(() => createSessionBuildingRuntime(canonical({ profiles: [{
+    cardId: "bulwark-needle", profile: forgedRuntimeReceipt,
+  }], version: 1 })), /canonical session-card receipt/u,
+  "the public pure reducer cannot become a second profile-admission route");
+});
+
+test("game building runtime: hostile fresh inputs are non-observing at all three boundaries", () => {
+  let observations = 0;
+  const accessor = {};
+  Object.defineProperty(accessor, "buildingRuntime", { enumerable: true,
+    get() { observations += 1; throw new Error("accessor observed"); } });
+  const symbol = {};
+  Object.defineProperty(symbol, Symbol("building-runtime"), { enumerable: true,
+    get() { observations += 1; throw new Error("symbol observed"); } });
+  const proxy = new Proxy({}, {
+    defineProperty() { observations += 1; throw new Error("proxy mutated"); },
+    deleteProperty() { observations += 1; throw new Error("proxy mutated"); },
+    get() { observations += 1; throw new Error("proxy observed"); },
+    getOwnPropertyDescriptor() { observations += 1; throw new Error("proxy observed"); },
+    getPrototypeOf() { observations += 1; throw new Error("proxy observed"); },
+    ownKeys() { observations += 1; throw new Error("proxy observed"); },
+    set() { observations += 1; throw new Error("proxy mutated"); },
+  });
+  class ProfileTextSubclass extends String {
+    get buildingRuntime() { observations += 1; throw new Error("subclass observed"); }
+  }
+  const foreignContext = { observations: 0 };
+  const crossRealm = runInNewContext(`({
+    get buildingRuntime() { observations += 1; throw new Error("cross-realm observed"); }
+  })`, foreignContext);
+  const hostileInputs = [accessor, symbol, proxy, new ProfileTextSubclass("{}"), crossRealm];
+  for (const input of hostileInputs) {
+    assert.throws(() => parseLiveBattleSetup(input), /canonical JSON text or an admitted snapshot/u);
+    assert.throws(() => new LiveBattle(input), /must come from parseLiveBattleSetup/u);
+    assert.throws(() => new GameSession(input), /canonical JSON text/u);
+  }
+  assert.equal(observations, 0, "no local accessor, symbol, proxy, or subclass callback ran");
+  assert.equal(foreignContext.observations, 0, "no cross-realm accessor callback ran");
+});
+
+test("game building runtime: versioned restore keeps any present profile pinned", () => {
+  const fixture = freshProfileFixtures("bulwark-needle");
+  const liveSnapshot = JSON.parse(new LiveBattle(fixture.battleSetup).serialize());
+  assert.equal(liveSnapshot.version, 2, "a no-state current snapshot uses the v2 envelope");
+  liveSnapshot.setup.roster.find(({ id }) => id === "bulwark-needle").buildingRuntime.damage = 989;
+  assert.throws(() => LiveBattle.restore(canonical(liveSnapshot)), /canonical session-card receipt/u);
+
+  const sessionSnapshot = JSON.parse(new GameSession(fixture.setup).serialize());
+  const battleSetup = JSON.parse(sessionSnapshot.setup.battleSetup);
+  battleSetup.roster.find(({ id }) => id === "bulwark-needle").buildingRuntime.damage = 989;
+  sessionSnapshot.setup.battleSetup = canonical(battleSetup);
+  sessionSnapshot.setup.rosterWitness = canonical({ questions: battleSetup.questions,
+    roster: battleSetup.roster });
+  assert.throws(() => GameSession.restore(canonical(sessionSnapshot)), /canonical session-card receipt/u);
+});
+
 test("game building runtime: real GameSession typed route materializes bulwark once under the shared global ID authority", () => {
   const session = sessionFor("bulwark-needle");
   const before = session.state;
@@ -185,6 +396,11 @@ test("game building runtime: v2 route-only structures restore through the legacy
   const battleBytes = legacyLiveBattleSnapshot("bulwark-needle");
   assert.equal(JSON.parse(battleBytes).version, 2, "the actual base-format battle envelope is v2");
   assert.equal(LiveBattle.restore(battleBytes).serialize(), battleBytes);
+
+  const v1Bytes = legacyLiveBattleV1Snapshot("bulwark-needle");
+  assert.equal(JSON.parse(v1Bytes).version, 1, "the earlier nested base-format battle envelope is v1");
+  assert.equal(LiveBattle.restore(v1Bytes).serialize(), battleBytes,
+    "only versioned restore upgrades the inert v1 route to its canonical v2 envelope");
 
   const bytes = legacyStructureSessionSnapshot("bulwark-needle");
   assert.equal(JSON.parse(bytes).version, 2, "the actual base-format session envelope is v2");
