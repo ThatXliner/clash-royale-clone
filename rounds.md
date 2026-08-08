@@ -4514,3 +4514,23 @@ visible QUESTION result.
 
 BIGGEST GAP: Reject admitted-but-unprofiled effects atomically and visibly as
 QUESTION before GameSession spends, cycles or records a route.
+
+## Round 244 — 2026-08-08
+
+PIECE: GAME-001HSA — Shared spell-effect authority seam
+
+VERDICT: PASS
+
+EVIDENCE: The exact static-burst tick-1 command rejected with a visible
+QUESTION and unchanged state, serialization, replay, deck, elixir and history.
+All 16 combinations of eight admitted effect identities and deploy/spell aliases
+rejected unsupported profiles atomically, including Squall in a no-profile
+setup. Profiled Squall still applied one exact 689 hit to a shared unit, cycled
+once, spent four and created zero placeholders. Focused spell runtime passed
+10/10, roster admission 7/7, GameSession 8/8, battle 11/11, nondeterminism 9/9,
+shipping isolation 13/13 and bounded endurance 1/1 at tick 1,800 with a
+55,436-byte snapshot. Direct effect, forged/cross-card profile, import, syntax
+and diff probes passed. The only spell selector failure was the unchanged parent
+instant-source hash pin reproduced at `d949220`.
+
+BIGGEST GAP: None on the judged shared spell-effect authority seam.
