@@ -4336,3 +4336,26 @@ BIGGEST GAP: Integrate all eight admitted building mechanics into
 GameSession/game-side-deploy so one authoritative battle, deck, elixir,
 tower/unit, history and restore graph owns and steps them, then register the
 selector and nondeterminism inventory.
+
+## Round 235 — 2026-08-08
+
+PIECE: GAME-001GH — Sustained active-match composite history
+
+VERDICT: FAIL
+
+EVIDENCE: Exact `npm test -- game-session-endurance` passed 1/1 in
+1,504,815 ms. Direct segments were 911–10,636 ms and canonical snapshots grew
+from 30,916 to 319,534 bytes at tick 18,000. BattleMovement 9/9,
+BattleTowers 15/15, GameBattle 11/11, history-cap 5/5, GameSession 8/8,
+Elixir 20/20, match-timing 21/21, nondeterminism 9/9 and shipping isolation
+13/13 passed. Independent probes preserved pending projectile provenance,
+two-sided paid cadence, malformed/stale atomicity, transcript bounds, exact
+2–2 `tiebreak_exact_tie` terminal behavior and post-terminal immutability.
+However `BattleTowerCombat.prototype.continuationFork()` was publicly callable
+and returned a live state/step-capable compact authority; only its later public
+transcript call rejected. Equivalent public continuation methods existed on
+LiveBattle, BattleMovement, MatchClock, ElixirMatch and related authorities.
+
+BIGGEST GAP: Make compact checkpoints genuinely private/module-capability-only
+rather than public `continuationFork()` prototype methods, while retaining the
+documented public serialize/restore/replay/fork contracts.
