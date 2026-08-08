@@ -4,6 +4,9 @@ import { createDefensiveBuildingRuntimeProfiles } from "./cards/buildings-defens
 import { createResourceBuildingQuestionRecords } from "./cards/buildings-resource.js";
 import { createUndergroundTravelBuildingQuestionRecords } from "./cards/buildings-travel.js";
 import { assertSessionBuildingProfileReceipt } from "../sim/session-building-profile-receipts.js";
+import {
+  createPlayableRoster,
+} from "./playable-roster.js";
 
 const CLAIMS = Object.freeze([
   ["createBasicFlyingCatalog", ["copperskiff", "skymaul"]],
@@ -239,69 +242,71 @@ export function projectSessionNonUnitBattleCard(id) {
   return freeze(projection);
 }
 
-/**
- * Produces the narrow GAME-001HTA representative-mechanic fixture profile.
- * It does not project a troop, add a roster claim, or assert that an ordinary
- * basic melee card has a player-facing manual ability. The profile adapts one
- * already-projected source-melee contact through LiveBattle's shared combat
- * authority solely to prove that host seam.
- *
- * Its only effect is intentionally value-free: LiveBattle derives delivery
- * and damage from the materialized source unit. That keeps the existing
- * CONTENT-002 mossguard runtime as the sole stat authority rather than
- * copying a damage literal into this catalog or simulation layer.
- */
-export function createSessionTroopRuntimeProfiles(selection) {
-  if (!selection || typeof selection !== "object" || Array.isArray(selection) ||
-      Object.getPrototypeOf(selection) !== Object.prototype) {
-    throw new TypeError("session troop runtime profile selection must be a plain object");
+function sourceProfileFromPlayableMossguard() {
+  const roster = createPlayableRoster();
+  const card = roster.find(({ id }) => id === "mossguard");
+  const entity = card?.entities[0];
+  if (card?.kind !== "unit" || card.entities.length !== 1 || entity?.role !== "primary" ||
+      entity.delivery !== "melee") {
+    throw new TypeError("CONTENT-002 mossguard production projection is unavailable");
   }
-  const keys = Object.keys(selection).sort();
-  if (canonical(keys) !== canonical(["actionCardId", "deployCardId"])) {
-    throw new TypeError("session troop runtime profile selection has an invalid shape");
-  }
-  const admittedUnit = (id, label) => {
-    const record = getSessionCardAdmissionRecord(id);
-    if (record.kind !== "unit") {
-      throw new TypeError(`${label} must identify an admitted unit card`);
-    }
-    return record.id;
+
+  // Every numeric field below is copied from the existing sourced combat
+  // projection, never handwritten here. QUESTION-only body-radius and other
+  // runtime-estimate fields intentionally do not enter this source receipt.
+  // LiveBattle separately uses its existing shared geometry state for range
+  // validation before a contact witness can be minted.
+  return {
+    combat: {
+      damage: entity.damage,
+      delivery: entity.delivery,
+      deployTimeTicks: entity.deployTimeTicks,
+      firstHitTicks: entity.firstHitTicks,
+      hitSpeedTicks: entity.hitSpeedTicks,
+      layer: entity.layer,
+      rangeMillitiles: entity.rangeMillitiles,
+      sightRangeMillitiles: entity.sightRangeMillitiles,
+      targetMode: entity.targetMode,
+    },
+    entity: {
+      archetypeId: entity.archetypeId,
+      memberIndex: 0,
+      role: entity.role,
+    },
   };
-  const actionCardId = admittedUnit(selection.actionCardId, "actionCardId");
-  const deployCardId = admittedUnit(selection.deployCardId, "deployCardId");
-  if (actionCardId === deployCardId) {
-    throw new TypeError("session troop runtime profiles require distinct source cards");
+}
+
+/**
+ * Produces the one narrow GAME-001HTA current profile: an observation of the
+ * already projected CONTENT-002 Mossguard ordinary melee contact. It is not a
+ * troop roster declaration, a player ability, a cost/cooldown rule, or a
+ * second combat implementation. Damage and all mutable effect facts remain
+ * host-derived from LiveBattle's existing shared unit graph.
+ */
+export function createSessionTroopRuntimeProfiles(...args) {
+  if (args.length !== 0) {
+    throw new TypeError("current session troop runtime profiles take no selection");
   }
-  if (actionCardId !== "mossguard") {
-    throw new TypeError("session troop runtime representative action is fixed to basic melee mossguard");
+  const admitted = getSessionCardAdmissionRecord("mossguard");
+  if (admitted.kind !== "unit") {
+    throw new TypeError("CONTENT-002 mossguard is not an admitted unit");
   }
-  const basicMeleeSource = records("createBasicMeleeCatalog")
-    .find(({ id }) => id === actionCardId);
-  if (basicMeleeSource?.kind !== "unit" || !Number.isSafeInteger(basicMeleeSource.damage) ||
-      basicMeleeSource.damage < 1) {
-    throw new TypeError("session troop runtime representative source must retain its basic melee runtime");
-  }
-  const passes = ["pre-move", "pre-combat", "post-combat"];
-  const profiles = [
-    {
-      action: null,
-      cardId: deployCardId,
-      claim: "receipt-witness",
-      deploy: "receipt-only",
-      passes,
-    },
-    {
-      action: {
-        abilityCost: null,
-        effect: "source-melee-contact",
-        id: "basic-melee-contact-fixture",
-        target: "unit",
+  const sourceProfile = sourceProfileFromPlayableMossguard();
+  return freeze(clone({
+    profiles: [{
+      cardId: admitted.id,
+      claim: "representative-live-contact",
+      contact: {
+        delivery: sourceProfile.combat.delivery,
+        effect: "ordinary-live-contact",
+        provenance: {
+          confidence: "medium-high-unverified-per-value",
+          contentPiece: "CONTENT-002",
+          verification: "cards-basic-melee",
+        },
       },
-      cardId: actionCardId,
-      claim: "representative-mechanic",
-      deploy: "receipt-only",
-      passes,
-    },
-  ].sort((left, right) => left.cardId.localeCompare(right.cardId));
-  return freeze(clone({ profiles, version: 2 }));
+      sourceProfile,
+    }],
+    version: 3,
+  }));
 }

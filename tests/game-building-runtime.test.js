@@ -413,7 +413,7 @@ test("game building runtime: v2 route-only structures restore through the legacy
 
 test("game building runtime: structures and ordinary units share one non-colliding host entity allocator", () => {
   const battle = liveFor("bulwark-needle");
-  battle.scheduleDeploy({ cardId: "mossguard", point: SOUTH, sequence: 0, side: "south", tick: 0 });
+  battle.scheduleDeploy(canonical({ cardId: "mossguard", point: SOUTH, sequence: 0, side: "south", tick: 0 }));
   battle.scheduleStructure({ cardId: "bulwark-needle", destination: null, point: SOUTH,
     sequence: 1, side: "south", tick: 0 });
   battle.step();
@@ -506,8 +506,8 @@ test("game building runtime: live host applies unit contact, cinder death effect
   direct.scheduleStructure({ cardId: "cinder-reliquary", destination: null, point: SOUTH,
     sequence: 0, side: "south", tick: 0 });
   for (let index = 0; index < 4; index += 1) {
-    direct.scheduleDeploy({ cardId: "mossguard", point: { x: 3_500, y: 17_500 },
-      sequence: index + 1, side: "north", tick: 0 });
+    direct.scheduleDeploy(canonical({ cardId: "mossguard", point: { x: 3_500, y: 17_500 },
+      sequence: index + 1, side: "north", tick: 0 }));
   }
   direct.stepMany(220);
   const structure = direct.state.structures[0];

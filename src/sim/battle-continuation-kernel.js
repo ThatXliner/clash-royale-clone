@@ -21,6 +21,14 @@ import {
   isSessionBuildingCardId,
 } from "./session-building-runtime.js";
 import { assertSessionBuildingProfileReceipt } from "./session-building-profile-receipts.js";
+import {
+  SESSION_TROOP_RUNTIME_ACTION_PROFILE_VERSION,
+  SESSION_TROOP_RUNTIME_LEGACY_VERSION,
+  SESSION_TROOP_RUNTIME_MAX_SOURCES,
+  SESSION_TROOP_RUNTIME_VERSION,
+  parseSessionTroopRuntimeProfiles,
+  SessionTroopRuntime,
+} from "./session-troop-runtime.js";
 import { MAX_SPATIAL_MILLITILES, validateCircle, validatePosition } from "./spatial.js";
 import { retainOrAcquireTarget, targetCandidate } from "./targeting.js";
 import { createStageSideDeployment } from "./game-side-deploy-core.js";
@@ -4079,6 +4087,7 @@ function defineLiveBattle(BattleMovement, BattleTowerCombat, battleMovementCompa
 
 const MAX_LIVE_BATTLE_STEP_TICKS = 18_000;
 const MAX_LIVE_BATTLE_DEPLOYMENTS = 1_024;
+const MAX_LIVE_BATTLE_TROOP_ACTIONS = 1_024;
 const MAX_LIVE_BATTLE_UNITS = 1_024;
 const MAX_LIVE_BATTLE_STRUCTURES = SESSION_BUILDING_MAX_STRUCTURES;
 
@@ -4086,6 +4095,7 @@ const MAX_HISTORY = 100_000;
 const EXPLICIT_HISTORY_TAIL = 256;
 const MAX_SNAPSHOT_BYTES = 8_388_608;
 const MAX_SETUP_BYTES = 1_048_576;
+const MAX_COMMAND_BYTES = 16_384;
 const MAX_SETUP_DEPTH = 32;
 const MAX_SETUP_NODES = 10_000;
 const ADMITTED_SETUPS = new WeakSet();
@@ -4105,9 +4115,44 @@ const SNAPSHOT_GRAPH_LIMITS = Object.freeze({
   nodes: 200_000,
   stringLength: 4_194_304,
 });
+const COMMAND_GRAPH_LIMITS = Object.freeze({
+  arrayLength: 16,
+  containers: 16,
+  depth: 8,
+  keys: 16,
+  nodes: 64,
+  stringLength: 256,
+});
 const SIDES = new Set(["north", "south"]);
 const DEPLOY_KEYS = ["cardId", "point", "sequence", "side", "tick"];
 const STRUCTURE_DEPLOY_KEYS = ["cardId", "destination", "point", "sequence", "side", "tick"];
+const TROOP_ACTION_KEYS = [
+  "actionId", "commandId", "point", "side", "sourceId", "targetId", "tick", "type",
+];
+const TROOP_INTENT_KEYS = [
+  "actionId", "cardId", "commandId", "kind", "phase", "point", "sourceId", "targetId",
+  "side", "tick", "type",
+];
+const CURRENT_TROOP_CONTACT_INTENT_KEYS = [
+  "attackSequence", "cardId", "kind", "phase", "side", "sourceId", "targetId", "tick", "type",
+];
+const TROOP_STATUS_KEYS = [
+  "actionId", "cardId", "commandId", "key", "kind", "phase", "point", "sourceId",
+  "side", "targetId", "tick",
+];
+const REPRESENTATIVE_TROOP_STATUS_KEYS = [
+  "actionId", "cardId", "commandId", "damage", "delivery", "effect", "externalSourceId",
+  "key", "kind", "phase", "point", "sourceId", "side", "targetId", "tick",
+];
+const CURRENT_TROOP_CONTACT_STATUS_KEYS = [
+  "attackSequence", "cardId", "contactId", "damage", "delivery", "effect", "hostSourceIdentity",
+  "key", "kind", "phase", "provenance", "side", "sourceId", "sourceProfile", "targetId", "tick",
+];
+const TROOP_PHASES = new Set(["combat", "deploy", "pre-move", "pre-combat", "post-combat"]);
+const TROOP_INTENT_KINDS = new Set(["action", "contact", "deploy", "pass"]);
+const TROOP_REPRESENTATIVE_EFFECTS = new Set(["source-melee-contact"]);
+const CURRENT_TROOP_CONTACT_EFFECT = "ordinary-live-contact";
+const TROOP_STATUS_LIMIT = MAX_LIVE_BATTLE_UNITS * 5;
 const SETUP_KEYS = ["initialWindupTicks", "questions", "roster"];
 const CARD_KEYS = [
   "areaDamageRadiusMillitiles", "cost", "count", "damage", "deployTimeTicks",
@@ -4279,6 +4324,25 @@ function parsedSetupBytes(serialized) {
   preflightParsedGraph(parsed, SETUP_GRAPH_LIMITS, "live battle setup");
   if (canonical(parsed) !== serialized) {
     throw new TypeError("live battle setup must be canonical JSON text");
+  }
+  return parsed;
+}
+
+// Public deploy/action admission begins at canonical text, so hostile objects
+// cannot trigger getters or Proxy traps before being rejected.
+function parsedCommandBytes(serialized, label) {
+  if (typeof serialized !== "string") {
+    throw new TypeError(`${label} must be canonical JSON text`);
+  }
+  if (new TextEncoder().encode(serialized).byteLength > MAX_COMMAND_BYTES) {
+    throw new RangeError(`${label} exceeds its byte bound`);
+  }
+  let parsed;
+  try { parsed = JSON.parse(serialized); }
+  catch { throw new TypeError(`${label} must be valid JSON text`); }
+  preflightParsedGraph(parsed, COMMAND_GRAPH_LIMITS, label);
+  if (canonical(parsed) !== serialized) {
+    throw new TypeError(`${label} must be canonical JSON text`);
   }
   return parsed;
 }
@@ -4603,6 +4667,210 @@ function checkedStructureDeploy(value, currentTick, rosterById) {
     point: { ...point }, sequence, side: command.side, tick };
 }
 
+function checkedTroopAction(value, currentTick, { requireCurrent = true } = {}) {
+  const action = exact(value, TROOP_ACTION_KEYS, "live battle troop action");
+  if (action.type !== "ability") throw new TypeError("live battle troop action.type is invalid");
+  const tick = integer(action.tick, currentTick, MAX_LIVE_BATTLE_STEP_TICKS,
+    "live battle troop action.tick");
+  if (requireCurrent && tick !== currentTick) {
+    throw new RangeError("live battle troop action.tick must equal the current tick");
+  }
+  const side = string(action.side, "live battle troop action.side");
+  if (!SIDES.has(side)) throw new TypeError("live battle troop action.side is invalid");
+  const point = action.point === null ? null : validateArenaPoint(action.point,
+    "live battle troop action.point");
+  const targetId = action.targetId === null ? null : integer(action.targetId, 1,
+    Number.MAX_SAFE_INTEGER, "live battle troop action.targetId");
+  return {
+    actionId: string(action.actionId, "live battle troop action.actionId"),
+    commandId: integer(action.commandId, 0, Number.MAX_SAFE_INTEGER,
+      "live battle troop action.commandId"),
+    point: point === null ? null : { ...point },
+    side,
+    sourceId: integer(action.sourceId, 1, Number.MAX_SAFE_INTEGER,
+      "live battle troop action.sourceId"),
+    targetId,
+    tick,
+    type: "ability",
+  };
+}
+
+function checkedLegacyTroopIntent(value, tick) {
+  const intent = exact(value, TROOP_INTENT_KEYS, "live battle troop runtime intent");
+  if (intent.type !== "troop-runtime-intent" || !["action", "deploy", "pass"].includes(intent.kind) ||
+      !["deploy", "pre-move", "pre-combat", "post-combat"].includes(intent.phase)) {
+    throw new TypeError("live battle troop runtime intent is invalid");
+  }
+  const intentTick = integer(intent.tick, 0, MAX_LIVE_BATTLE_STEP_TICKS,
+    "live battle troop runtime intent.tick");
+  if (intentTick !== tick) throw new RangeError("live battle troop runtime intent tick is stale");
+  const side = string(intent.side, "live battle troop runtime intent.side");
+  if (!SIDES.has(side)) throw new TypeError("live battle troop runtime intent.side is invalid");
+  const sourceId = integer(intent.sourceId, 1, Number.MAX_SAFE_INTEGER,
+    "live battle troop runtime intent.sourceId");
+  const targetId = intent.targetId === null ? null : integer(intent.targetId, 1,
+    Number.MAX_SAFE_INTEGER, "live battle troop runtime intent.targetId");
+  const point = intent.point === null ? null : validateArenaPoint(intent.point,
+    "live battle troop runtime intent.point");
+  const actionId = intent.actionId === null ? null : string(intent.actionId,
+    "live battle troop runtime intent.actionId");
+  const commandId = intent.commandId === null ? null : integer(intent.commandId, 0,
+    Number.MAX_SAFE_INTEGER, "live battle troop runtime intent.commandId");
+  const cardId = string(intent.cardId, "live battle troop runtime intent.cardId");
+  if (intent.kind === "action") {
+    if (intent.phase !== "pre-combat" || actionId === null || commandId === null ||
+        targetId === null || point !== null) {
+      throw new TypeError("live battle troop action intent is noncanonical");
+    }
+  } else if (actionId !== null || commandId !== null || targetId !== null || point !== null) {
+    throw new TypeError("live battle passive troop intent is noncanonical");
+  }
+  return { actionId, cardId, commandId, kind: intent.kind, phase: intent.phase,
+    point: point === null ? null : { ...point }, side, sourceId, targetId, tick: intentTick,
+    type: "troop-runtime-intent" };
+}
+
+function checkedCurrentTroopContactIntent(value, tick) {
+  const intent = exact(value, CURRENT_TROOP_CONTACT_INTENT_KEYS,
+    "live battle current troop contact intent");
+  if (intent.type !== "troop-runtime-intent" || intent.kind !== "contact" ||
+      intent.phase !== "combat") {
+    throw new TypeError("live battle current troop contact intent is invalid");
+  }
+  const intentTick = integer(intent.tick, 0, MAX_LIVE_BATTLE_STEP_TICKS,
+    "live battle current troop contact intent.tick");
+  if (intentTick !== tick) throw new RangeError("live battle current troop contact intent tick is stale");
+  const side = string(intent.side, "live battle current troop contact intent.side");
+  if (!SIDES.has(side)) throw new TypeError("live battle current troop contact intent.side is invalid");
+  return {
+    attackSequence: integer(intent.attackSequence, 1, Number.MAX_SAFE_INTEGER,
+      "live battle current troop contact intent.attackSequence"),
+    cardId: string(intent.cardId, "live battle current troop contact intent.cardId"),
+    kind: "contact",
+    phase: "combat",
+    side,
+    sourceId: integer(intent.sourceId, 1, Number.MAX_SAFE_INTEGER,
+      "live battle current troop contact intent.sourceId"),
+    targetId: integer(intent.targetId, 1, Number.MAX_SAFE_INTEGER,
+      "live battle current troop contact intent.targetId"),
+    tick: intentTick,
+    type: "troop-runtime-intent",
+  };
+}
+
+function checkedTroopIntent(value, tick, version) {
+  return version === SESSION_TROOP_RUNTIME_VERSION
+    ? checkedCurrentTroopContactIntent(value, tick)
+    : checkedLegacyTroopIntent(value, tick);
+}
+
+function sideRank(side) {
+  return side === "north" ? 0 : 1;
+}
+
+function troopStatusKey({ cardId, kind, phase, sourceId }) {
+  return `${cardId}:${sourceId}:${kind}:${phase}`;
+}
+
+function troopExternalSourceId(intent) {
+  return `troop-runtime:${intent.side}:${intent.commandId}:${intent.sourceId}:${intent.actionId}`;
+}
+
+function troopHostSourceIdentity({ side, sourceId }) {
+  return `live-battle-unit:${side}:${sourceId}`;
+}
+
+function troopContactIdentity({ attackSequence, side, sourceId, targetId, tick }) {
+  return `live-contact:${side}:${sourceId}:${attackSequence}:${targetId}:${tick}`;
+}
+
+function checkedTroopStatus(value, { profile = null, version } = {}) {
+  if (version === SESSION_TROOP_RUNTIME_VERSION) {
+    const status = exact(value, CURRENT_TROOP_CONTACT_STATUS_KEYS,
+      "live battle current troop contact status");
+    const intent = checkedCurrentTroopContactIntent({
+      attackSequence: status.attackSequence,
+      cardId: status.cardId,
+      kind: status.kind,
+      phase: status.phase,
+      side: status.side,
+      sourceId: status.sourceId,
+      targetId: status.targetId,
+      tick: status.tick,
+      type: "troop-runtime-intent",
+    }, status.tick);
+    const key = string(status.key, "live battle current troop contact status.key");
+    if (key !== troopStatusKey(intent) || status.effect !== CURRENT_TROOP_CONTACT_EFFECT ||
+        status.delivery !== "melee" || !Number.isSafeInteger(status.damage) || status.damage < 1 ||
+        status.damage > 1_000_000_000 ||
+        status.hostSourceIdentity !== troopHostSourceIdentity(intent) ||
+        status.contactId !== troopContactIdentity(intent)) {
+      throw new TypeError("live battle current troop contact status is noncanonical");
+    }
+    if (profile === null || profile.cardId !== intent.cardId ||
+        canonical(status.provenance) !== canonical(profile.contact.provenance) ||
+        canonical(status.sourceProfile) !== canonical(profile.sourceProfile)) {
+      throw new TypeError("live battle current troop contact status profile diverges");
+    }
+    return {
+      attackSequence: intent.attackSequence,
+      cardId: intent.cardId,
+      contactId: status.contactId,
+      damage: status.damage,
+      delivery: "melee",
+      effect: CURRENT_TROOP_CONTACT_EFFECT,
+      hostSourceIdentity: status.hostSourceIdentity,
+      key,
+      kind: "contact",
+      phase: "combat",
+      provenance: clone(profile.contact.provenance),
+      side: intent.side,
+      sourceId: intent.sourceId,
+      sourceProfile: clone(profile.sourceProfile),
+      targetId: intent.targetId,
+      tick: intent.tick,
+    };
+  }
+
+  const representative = version === SESSION_TROOP_RUNTIME_ACTION_PROFILE_VERSION;
+  const status = exact(value, representative ? REPRESENTATIVE_TROOP_STATUS_KEYS : TROOP_STATUS_KEYS,
+    "live battle troop runtime status");
+  const intent = checkedLegacyTroopIntent({
+    actionId: status.actionId,
+    cardId: status.cardId,
+    commandId: status.commandId,
+    kind: status.kind,
+    phase: status.phase,
+    point: status.point,
+    side: status.side,
+    sourceId: status.sourceId,
+    targetId: status.targetId,
+    tick: status.tick,
+    type: "troop-runtime-intent",
+  }, status.tick);
+  const key = string(status.key, "live battle troop runtime status.key");
+  if (key !== troopStatusKey(intent)) {
+    throw new TypeError("live battle troop runtime status key is noncanonical");
+  }
+  const { type: ignored, ...statusData } = intent;
+  void ignored;
+  if (!representative) return { ...statusData, key };
+  const effect = status.effect;
+  const delivery = status.delivery;
+  const damage = status.damage;
+  const externalSourceId = status.externalSourceId;
+  if (intent.kind !== "action") {
+    if (effect !== null || delivery !== null || damage !== null || externalSourceId !== null) {
+      throw new TypeError("live battle passive representative status must not carry an effect");
+    }
+  } else if (!TROOP_REPRESENTATIVE_EFFECTS.has(effect) || delivery !== "melee" ||
+      !Number.isSafeInteger(damage) || damage < 1 || damage > 1_000_000_000 ||
+      externalSourceId !== troopExternalSourceId(intent)) {
+    throw new TypeError("live battle representative action status is noncanonical");
+  }
+  return { ...statusData, damage, delivery, effect, externalSourceId, key };
+}
+
 function otherSide(side) {
   return side === "north" ? "south" : "north";
 }
@@ -4694,6 +4962,55 @@ function combatSpec(entity, side) {
   };
 }
 
+function currentContactSourceProfileFromRoster(card) {
+  if (card.kind !== "unit" || card.entities.length !== 1 || card.entities[0].count !== 1) {
+    throw new TypeError("current troop contact profile requires one materializable source entity");
+  }
+  const entity = card.entities[0];
+  if (entity.projectileSpeedPolicy.kind !== "not-applicable") {
+    throw new TypeError("current troop contact profile requires a non-projectile source");
+  }
+  return {
+    combat: {
+      damage: entity.damage,
+      delivery: entity.delivery,
+      deployTimeTicks: entity.deployTimeTicks,
+      firstHitTicks: entity.firstHitTicks,
+      hitSpeedTicks: entity.hitSpeedTicks,
+      layer: entity.layer,
+      rangeMillitiles: entity.rangeMillitiles,
+      sightRangeMillitiles: entity.sightRangeMillitiles,
+      targetMode: entity.targetMode,
+    },
+    entity: {
+      archetypeId: entity.archetypeId,
+      memberIndex: 0,
+      role: entity.role,
+    },
+  };
+}
+
+function currentContactSourceProfileFromMaterialized(unit, metadata) {
+  return {
+    combat: {
+      damage: unit.damage,
+      delivery: unit.delivery,
+      deployTimeTicks: unit.deployTicks,
+      firstHitTicks: unit.firstHitTicks,
+      hitSpeedTicks: unit.cadenceTicks,
+      layer: unit.layer,
+      rangeMillitiles: unit.reach,
+      sightRangeMillitiles: unit.sightRange,
+      targetMode: unit.targetMode === "air_and_ground" ? "ground-and-air" : unit.targetMode,
+    },
+    entity: {
+      archetypeId: metadata.archetypeId,
+      memberIndex: metadata.memberIndex,
+      role: metadata.role,
+    },
+  };
+}
+
 function movementWitnesses(movements, metadata) {
   return [...movements].sort(([left], [right]) => left - right).map(([id, movement]) => ({
     bytes: movement.serialize(),
@@ -4734,12 +5051,15 @@ class LiveBattle {
   #pending;
   #pendingBuildingHits;
   #pendingStructures;
+  #pendingTroopActions;
   #questionValues;
   #rosterById;
   #setup;
   #structures;
+  #troopRuntime;
+  #troopStatuses;
 
-  constructor(value) {
+  constructor(value, troopRuntimeProfiles = undefined) {
     runtimeInstances.add(this);
     const setup = admittedSetup(value);
     this.#battle = new BattleTowerCombat({
@@ -4757,11 +5077,28 @@ class LiveBattle {
     this.#pending = [];
     this.#pendingBuildingHits = [];
     this.#pendingStructures = [];
+    this.#pendingTroopActions = [];
     this.#setup = setup;
     this.#buildingRuntime = createSessionBuildingRuntime(buildingProfileReceipt(setup));
     this.#structures = [];
     this.#questionValues = new Map(setup.questions.map(({ key, value: answer }) => [key, answer]));
     this.#rosterById = new Map(setup.roster.map((card) => [card.id, card]));
+    this.#troopRuntime = troopRuntimeProfiles === undefined
+      ? new SessionTroopRuntime()
+      : new SessionTroopRuntime(troopRuntimeProfiles);
+    this.#troopStatuses = new Map();
+    for (const profile of this.#troopRuntime.configuration.profiles) {
+      const card = this.#rosterById.get(profile.cardId);
+      if (card === undefined || card.kind !== "unit" || card.entities.length === 0) {
+        throw new TypeError("live battle troop runtime profile card is not a materializable roster unit");
+      }
+      if (this.#troopRuntime.version === SESSION_TROOP_RUNTIME_VERSION) {
+        const expected = currentContactSourceProfileFromRoster(card);
+        if (canonical(profile.sourceProfile) !== canonical(expected)) {
+          throw new TypeError("live battle current troop contact source profile diverges from roster");
+        }
+      }
+    }
   }
 
   #battleRuntime() {
@@ -4780,7 +5117,7 @@ class LiveBattle {
 
   get state() {
     const state = this.#battleRuntime().state;
-    return freeze({
+    const publicState = {
       activationHistory: clone(state.activationHistory),
       pendingBuildingHits: clone(this.#pendingBuildingHits),
       pendingDeployments: clone(this.#pending),
@@ -4797,7 +5134,17 @@ class LiveBattle {
         movement: unit.alive ? clone(this.#movementRuntime(this.#movements.get(unit.id)).state) : null,
         role: this.#metadata.get(unit.id).role,
       })),
-    });
+    };
+    if (this.#hasTroopRuntime()) {
+      publicState.troopRuntime = {
+        configuration: clone(this.#troopRuntime.state),
+        statuses: this.#troopStatusWitnesses(),
+      };
+      if (this.#allowsLegacyTroopActions()) {
+        publicState.pendingTroopActions = clone(this.#pendingTroopActions);
+      }
+    }
+    return freeze(publicState);
   }
 
   get events() {
@@ -4807,6 +5154,10 @@ class LiveBattle {
 
   get replay() {
     return this.events;
+  }
+
+  get allowsLegacyTroopActions() {
+    return this.#allowsLegacyTroopActions();
   }
 
   /** Whether this admitted roster has the canonical profile needed to materialize a structure. */
@@ -4827,7 +5178,12 @@ class LiveBattle {
   static {
     compact = (value) => value.#runtimeClone(false);
   }
-  scheduleDeploy(command) {
+  scheduleDeploy(serialized) {
+    const command = parsedCommandBytes(serialized, "live battle deploy command");
+    return this.#scheduleDeployChecked(command);
+  }
+
+  #scheduleDeployChecked(command) {
     if (this.#historyCount >= MAX_HISTORY || this.#pending.length >= MAX_LIVE_BATTLE_DEPLOYMENTS) {
       throw new RangeError("live battle deployment/history bound exceeded");
     }
@@ -4839,7 +5195,7 @@ class LiveBattle {
     }
     this.#pending.push(clone(checked));
     this.#pending.sort((left, right) => left.tick - right.tick ||
-      left.sequence - right.sequence || left.side.localeCompare(right.side));
+      left.sequence - right.sequence || sideRank(left.side) - sideRank(right.side));
     this.#appendHistory({ command: clone(checked), type: "deploy" });
     const event = { ...clone(checked), scheduledAt: battle.state.tick, type: "deploy-scheduled" };
     this.#events.push(event);
@@ -4848,6 +5204,13 @@ class LiveBattle {
 
   /** Schedules one typed, host-owned structure placement for the shared tick. */
   scheduleStructure(command) {
+    const parsed = typeof command === "string"
+      ? parsedCommandBytes(command, "live battle structure deploy command")
+      : command;
+    return this.#scheduleStructureChecked(parsed);
+  }
+
+  #scheduleStructureChecked(command) {
     if (this.#historyCount >= MAX_HISTORY ||
         this.#pendingStructures.length >= MAX_LIVE_BATTLE_DEPLOYMENTS) {
       throw new RangeError("live battle structure deployment/history bound exceeded");
@@ -4861,10 +5224,70 @@ class LiveBattle {
     }
     this.#pendingStructures.push(clone(checked));
     this.#pendingStructures.sort((left, right) => left.tick - right.tick ||
-      left.sequence - right.sequence || left.side.localeCompare(right.side));
+      left.sequence - right.sequence || sideRank(left.side) - sideRank(right.side));
     this.#appendHistory({ command: clone(checked), type: "structure-deploy" });
     const event = { ...clone(checked), scheduledAt: battle.state.tick,
       type: "structure-deploy-scheduled" };
+    this.#events.push(event);
+    return freeze(clone(event));
+  }
+
+  /**
+   * Pure current-boundary inspection for legacy GameSession action replay.
+   * Current profiles intentionally expose no player-triggered action.
+   */
+  inspectTroopAction(serialized) {
+    const command = parsedCommandBytes(serialized, "live battle troop action");
+    return this.#inspectTroopActionChecked(command);
+  }
+
+  #inspectTroopActionChecked(command) {
+    const action = checkedTroopAction(command, this.#battleRuntime().state.tick);
+    if (!this.#allowsLegacyTroopActions()) {
+      throw new RangeError("current live battle troop runtime does not admit player actions");
+    }
+    if (action.targetId === null || action.point !== null) {
+      throw new RangeError("live battle troop action requires exactly one unit target");
+    }
+    const source = this.#troopSource(action.sourceId, { requireAlive: true });
+    if (source.side !== action.side) {
+      throw new RangeError("live battle troop action source side is divergent");
+    }
+    const target = this.#troopSource(action.targetId, { requireAlive: true });
+    if (target.side === source.side) {
+      throw new RangeError("live battle troop action target must be opposing");
+    }
+    const inspected = this.#troopRuntime.inspectAction({ action, source });
+    if (inspected.effect === "source-melee-contact") {
+      this.#representativeContact(action, source, target);
+    }
+    return freeze(clone(inspected));
+  }
+
+  scheduleTroopAction(serialized) {
+    const command = parsedCommandBytes(serialized, "live battle troop action");
+    return this.#scheduleTroopActionChecked(command);
+  }
+
+  #scheduleTroopActionChecked(command) {
+    if (this.#historyCount >= MAX_HISTORY ||
+        this.#pendingTroopActions.length >= MAX_LIVE_BATTLE_TROOP_ACTIONS) {
+      throw new RangeError("live battle troop action/history bound exceeded");
+    }
+    const action = checkedTroopAction(command, this.#battleRuntime().state.tick);
+    this.#inspectTroopActionChecked(action);
+    if (this.#pendingTroopActions.some((entry) => entry.side === action.side &&
+        entry.commandId === action.commandId) || this.#history.some((entry) =>
+      entry.type === "action" && entry.command.side === action.side &&
+        entry.command.commandId === action.commandId)) {
+      throw new RangeError("live battle troop action identity is duplicate");
+    }
+    this.#pendingTroopActions.push(clone(action));
+    this.#pendingTroopActions.sort((left, right) => left.tick - right.tick ||
+      sideRank(left.side) - sideRank(right.side) || left.commandId - right.commandId);
+    this.#appendHistory({ command: clone(action), type: "action" });
+    const event = { ...clone(action), scheduledAt: this.#battleRuntime().state.tick,
+      type: "troop-action-scheduled" };
     this.#events.push(event);
     return freeze(clone(event));
   }
@@ -4898,14 +5321,42 @@ class LiveBattle {
     const tailStart = Math.max(0, this.#history.length - EXPLICIT_HISTORY_TAIL);
     const hasBuildingState = this.#structures.length > 0 || this.#pendingStructures.length > 0 ||
       this.#pendingBuildingHits.length > 0;
-    const snapshot = {
+    const common = {
       battle: this.#battleRuntime().serialize(),
       history: this.#history.slice(tailStart),
       movements: movementWitnesses(this.#movementRuntimes(), this.#metadata),
       setup: this.#setup,
       transcript: compactLiveHistory(this.#history.slice(0, tailStart)),
-      version: hasBuildingState ? 3 : 2,
     };
+    let snapshot;
+    if (!this.#hasTroopRuntime()) {
+      snapshot = { ...common, version: hasBuildingState ? 3 : 2 };
+    } else if (this.#troopRuntime.version === SESSION_TROOP_RUNTIME_LEGACY_VERSION) {
+      snapshot = {
+        ...common,
+        pendingTroopActions: this.#pendingTroopActions,
+        runtime: this.#troopRuntime.serialize(),
+        troopStatuses: this.#troopStatusWitnesses(),
+        version: hasBuildingState ? 6 : 3,
+      };
+    } else if (this.#troopRuntime.version === SESSION_TROOP_RUNTIME_ACTION_PROFILE_VERSION) {
+      snapshot = {
+        ...common,
+        pendingTroopActions: this.#pendingTroopActions,
+        runtime: this.#troopRuntime.serialize(),
+        troopStatuses: this.#troopStatusWitnesses(),
+        version: hasBuildingState ? 7 : 4,
+      };
+    } else {
+      // Current v3 has no player action queue. A building witness is additive
+      // only when a shared structure has actually materialized or queued work.
+      snapshot = {
+        ...common,
+        runtime: this.#troopRuntime.serialize(),
+        troopStatuses: this.#troopStatusWitnesses(),
+        version: 5,
+      };
+    }
     if (hasBuildingState) snapshot.building = this.#buildingWitness();
     const serialized = canonical(snapshot);
     if (new TextEncoder().encode(serialized).byteLength > MAX_SNAPSHOT_BYTES) {
@@ -4926,20 +5377,81 @@ class LiveBattle {
     if (canonical(snapshot) !== serialized) throw new TypeError("serialized live battle must be canonical JSON");
     const snapshotShape = plain(snapshot, "live battle snapshot");
     const version = snapshotShape.version?.value;
-    const checked = version === 1
-      ? exact(snapshot, ["battle", "history", "movements", "setup", "version"],
-        "live battle snapshot")
-      : version === 2
-        ? exact(snapshot, ["battle", "history", "movements", "setup", "transcript", "version"],
-          "live battle snapshot")
-        : version === 3
-          ? exact(snapshot, ["battle", "building", "history", "movements", "setup", "transcript", "version"],
-            "live battle snapshot")
-        : (() => { throw new TypeError("unsupported live battle snapshot version"); })();
+    const hasBuildingWitness = Object.hasOwn(snapshot, "building");
+    const legacyRuntimeSnapshot = version === 3 && !hasBuildingWitness || version === 4 ||
+      version === 6 || version === 7;
+    const currentRuntimeSnapshot = version === 5;
+    const hasTroopRuntimeWitness = legacyRuntimeSnapshot || currentRuntimeSnapshot;
+    let checked;
+    if (version === 1) {
+      checked = exact(snapshot, ["battle", "history", "movements", "setup", "version"],
+        "live battle snapshot");
+    } else if (version === 2) {
+      checked = exact(snapshot, ["battle", "history", "movements", "setup", "transcript", "version"],
+        "live battle snapshot");
+    } else if (version === 3 && hasBuildingWitness) {
+      checked = exact(snapshot, ["battle", "building", "history", "movements", "setup", "transcript", "version"],
+        "live battle snapshot");
+    } else if (version === 3 || version === 4) {
+      checked = exact(snapshot, ["battle", "history", "movements", "pendingTroopActions", "runtime",
+        "setup", "transcript", "troopStatuses", "version"], "live battle snapshot");
+    } else if (version === 5) {
+      checked = exact(snapshot, hasBuildingWitness
+        ? ["battle", "building", "history", "movements", "runtime", "setup", "transcript",
+          "troopStatuses", "version"]
+        : ["battle", "history", "movements", "runtime", "setup", "transcript", "troopStatuses",
+          "version"], "live battle snapshot");
+    } else if (version === 6 || version === 7) {
+      checked = exact(snapshot, ["battle", "building", "history", "movements", "pendingTroopActions",
+        "runtime", "setup", "transcript", "troopStatuses", "version"], "live battle snapshot");
+    } else {
+      throw new TypeError("unsupported live battle snapshot version");
+    }
     const history = denseArray(checked.history, "live battle snapshot.history", MAX_HISTORY);
     const transcript = version >= 2
       ? denseArray(checked.transcript, "live battle snapshot.transcript", MAX_HISTORY)
       : [];
+    let runtimeBytes;
+    let pendingTroopActions = [];
+    let troopStatuses = [];
+    if (hasTroopRuntimeWitness) {
+      if (typeof checked.runtime !== "string") {
+        throw new TypeError("live battle troop runtime witness must be canonical JSON text");
+      }
+      const runtime = SessionTroopRuntime.restore(checked.runtime);
+      const expectedRuntimeVersion = version === 3 || version === 6
+        ? SESSION_TROOP_RUNTIME_LEGACY_VERSION
+        : version === 4 || version === 7
+          ? SESSION_TROOP_RUNTIME_ACTION_PROFILE_VERSION
+          : SESSION_TROOP_RUNTIME_VERSION;
+      if (runtime.configuration.profiles.length === 0 || runtime.serialize() !== checked.runtime ||
+          runtime.configuration.version !== expectedRuntimeVersion) {
+        throw new TypeError("live battle troop runtime witness is noncanonical");
+      }
+      runtimeBytes = runtime.serialize();
+      if (legacyRuntimeSnapshot) {
+        pendingTroopActions = denseArray(checked.pendingTroopActions,
+          "live battle snapshot.pendingTroopActions", MAX_LIVE_BATTLE_TROOP_ACTIONS)
+          .map((action) => checkedTroopAction(action, 0, { requireCurrent: false }));
+        pendingTroopActions.sort((left, right) => left.tick - right.tick ||
+          sideRank(left.side) - sideRank(right.side) || left.commandId - right.commandId);
+        if (canonical(pendingTroopActions) !== canonical(checked.pendingTroopActions) ||
+            new Set(pendingTroopActions.map(({ commandId, side }) => `${side}:${commandId}`)).size !==
+              pendingTroopActions.length) {
+          throw new TypeError("live battle pending troop actions are noncanonical");
+        }
+      }
+      troopStatuses = denseArray(checked.troopStatuses, "live battle snapshot.troopStatuses",
+        TROOP_STATUS_LIMIT).map((status) => checkedTroopStatus(status, {
+          profile: runtime.profile(status.cardId),
+          version: runtime.version,
+        }))
+        .sort((left, right) => left.key.localeCompare(right.key));
+      if (canonical(troopStatuses) !== canonical(checked.troopStatuses) ||
+          new Set(troopStatuses.map(({ key }) => key)).size !== troopStatuses.length) {
+        throw new TypeError("live battle troop statuses are noncanonical");
+      }
+    }
     let expandedOperations = history.length;
     for (let index = 0; index < transcript.length; index += 1) {
       const descriptors = plain(transcript[index], `live battle snapshot.transcript[${index}]`);
@@ -4957,18 +5469,21 @@ class LiveBattle {
       }
       expandedOperations += added;
     }
-    // Versions 1 and 2 predate the canonical building receipt. Version 3 is
-    // the current building witness format and retains strict fresh admission.
+    // Versions 1 and 2 predate canonical building receipts. Later witnesses
+    // are fresh-admitted, including the ambiguous v3 building/legacy-troop fork.
     const restored = new LiveBattle(checkedSetup(checked.setup,
-      { legacyStructureReceipts: version <= 2 }));
+      { legacyStructureReceipts: version <= 2 }), runtimeBytes);
     const replayOperation = (operation, index, label) => {
       plain(operation, `live battle snapshot.history[${index}]`);
       if (operation.type === "deploy") {
         const entry = exact(operation, ["command", "type"], `history[${index}]`);
-        restored.scheduleDeploy(entry.command);
+        restored.#scheduleDeployChecked(entry.command);
       } else if (operation.type === "structure-deploy") {
         const entry = exact(operation, ["command", "type"], `history[${index}]`);
-        restored.scheduleStructure(entry.command);
+        restored.#scheduleStructureChecked(entry.command);
+      } else if (operation.type === "action") {
+        const entry = exact(operation, ["command", "type"], `history[${index}]`);
+        restored.#scheduleTroopActionChecked(entry.command);
       } else if (operation.type === "step") {
         const entry = exact(operation, ["tick", "type"], `history[${index}]`);
         integer(entry.tick, 0, MAX_LIVE_BATTLE_STEP_TICKS, `history[${index}].tick`);
@@ -5011,9 +5526,14 @@ class LiveBattle {
         return canonical(legacy.state) === canonical(restored.#battleRuntime().state) &&
           canonical(legacy.replay) === canonical(restored.#battleRuntime().replay);
       })();
-    const buildingWitnessMatches = version !== 3 || canonical(restored.#buildingWitness()) ===
+    const buildingWitnessMatches = !hasBuildingWitness || canonical(restored.#buildingWitness()) ===
       canonical(checked.building);
-    if (!battleWitnessMatches || !buildingWitnessMatches ||
+    const runtimeWitnessMatches = !hasTroopRuntimeWitness || (
+      restored.#troopRuntime.serialize() === runtimeBytes &&
+      (!legacyRuntimeSnapshot || canonical(restored.#pendingTroopActions) === canonical(pendingTroopActions)) &&
+      canonical(restored.#troopStatusWitnesses()) === canonical(troopStatuses)
+    );
+    if (!battleWitnessMatches || !buildingWitnessMatches || !runtimeWitnessMatches ||
         canonical(movementWitnesses(restored.#movementRuntimes(), restored.#metadata)) !==
           canonical(checked.movements) || (version >= 2 && restored.serialize() !== serialized)) {
       throw new TypeError("live battle snapshot witnesses are not causal");
@@ -5027,13 +5547,36 @@ class LiveBattle {
     const tick = battle.state.tick;
     const boundary = [];
     const due = this.#pending.filter((entry) => entry.tick === tick);
+    const dueTroopActions = this.#allowsLegacyTroopActions()
+      ? this.#pendingTroopActions.filter((entry) => entry.tick === tick)
+      : [];
     this.#pending = this.#pending.filter((entry) => entry.tick !== tick);
-    for (const deployment of due) boundary.push(...this.#materialize(deployment));
+    if (this.#allowsLegacyTroopActions()) {
+      this.#pendingTroopActions = this.#pendingTroopActions.filter((entry) => entry.tick !== tick);
+    }
+    const deploySources = [];
+    for (const deployment of due) {
+      const materialized = this.#materialize(deployment);
+      boundary.push(...materialized);
+      const deployed = materialized.find(({ type }) => type === "deployed");
+      for (const sourceId of deployed.entityIds) {
+        deploySources.push(this.#troopSource(sourceId, { requireAlive: false }));
+      }
+    }
 
     const dueStructures = this.#pendingStructures.filter((entry) => entry.tick === tick);
     this.#pendingStructures = this.#pendingStructures.filter((entry) => entry.tick !== tick);
     for (const deployment of dueStructures) {
       boundary.push(...this.#materializeStructure(deployment));
+    }
+
+    // Only v1/v2 retain deploy/pass witness receipts. The current v3 profile
+    // observes a real host combat event and creates no placeholder record.
+    if (this.#hasTroopRuntime()) {
+      boundary.push(...this.#troopReceipts(this.#runTroopRuntime("deploy", deploySources, null, tick)));
+      boundary.push(...this.#troopReceipts(this.#runTroopRuntime(
+        "pre-move", this.#phaseTroopSources(), null, tick,
+      )));
     }
 
     // Building contacts are emitted at the prior shared boundary and consumed
@@ -5101,20 +5644,57 @@ class LiveBattle {
     if (positionCommands.length > 0) {
       boundary.push(...battle.updatePositions({ positions: positionCommands, tick }));
     }
+    const beforeCombat = battle.state;
+    const actionPlans = [];
+    if (this.#hasTroopRuntime()) {
+      boundary.push(...this.#troopReceipts(this.#runTroopRuntime(
+        "pre-combat", this.#phaseTroopSources(), null, tick,
+      )));
+      for (const action of dueTroopActions) {
+        const source = this.#troopSource(action.sourceId, { requireAlive: true });
+        this.#inspectTroopActionChecked(action);
+        const plans = this.#runTroopRuntime("pre-combat", [source], action, tick);
+        actionPlans.push(...plans);
+        boundary.push(...this.#troopReceipts(plans));
+      }
+    }
+    externalHits.push(...actionPlans.flatMap(({ externalHit }) => externalHit === null ? [] : [externalHit]));
+    externalHits.sort((left, right) => left.targetUnitId - right.targetUnitId ||
+      (left.sourceId < right.sourceId ? -1 : left.sourceId > right.sourceId ? 1 : 0) ||
+      left.damage - right.damage);
     const structureCandidates = this.#battleStructureCandidates();
     // Preserve the established unit-only path byte-for-byte. The reducer still
     // runs once below; richer ingress is needed only while host structures or
     // their contacts are present.
+    let combatEvents;
     if (structureCandidates.length === 0 && externalHits.length === 0 && externalTowerHits.length === 0) {
-      boundary.push(...battle.step(tick));
+      combatEvents = battle.step(tick);
     } else {
-      boundary.push(...battle.stepBoundary({ externalHits, externalProjectiles: [], externalTowerHits,
-        structures: structureCandidates, tick }));
+      combatEvents = battle.stepBoundary({ externalHits, externalProjectiles: [], externalTowerHits,
+        structures: structureCandidates, tick });
+    }
+    boundary.push(...combatEvents);
+
+    if (this.#usesCurrentContactRuntime()) {
+      const contacts = this.#currentContactBatch(combatEvents, beforeCombat, tick);
+      const plans = this.#runTroopRuntime("combat",
+        this.#phaseTroopSourcesFromState(beforeCombat), null, tick, {
+          beforeCombat,
+          combatEvents,
+          contacts,
+        });
+      boundary.push(...this.#troopReceipts(plans));
+    }
+
+    if (this.#hasTroopRuntime()) {
+      boundary.push(...this.#troopReceipts(this.#runTroopRuntime(
+        "post-combat", this.#phaseTroopSources(), null, tick,
+      )));
     }
 
     // BattleCombat emits unit-to-building contacts for data-only targets;
     // LiveBattle owns the corresponding structure-health transition exactly once.
-    for (const contact of boundary.filter((event) => event.type === "external-structure-contact" &&
+    for (const contact of combatEvents.filter((event) => event.type === "external-structure-contact" &&
       typeof event.structureId === "string" && event.structureId.startsWith("building:"))) {
       const id = Number(contact.structureId.slice("building:".length));
       const structure = this.#structures.find((entry) => entry.id === id);
@@ -5134,6 +5714,281 @@ class LiveBattle {
     this.#appendHistory({ tick, type: "step" });
     this.#events.push(...clone(boundary));
     return boundary;
+  }
+
+  #runTroopRuntime(phase, sources, action, tick, contactWitness = null) {
+    const canonicalSources = [...sources].sort((left, right) => left.sourceId - right.sourceId);
+    const input = this.#usesCurrentContactRuntime()
+      ? {
+          contacts: (contactWitness?.contacts ?? []).map((contact) => clone(contact)),
+          phase,
+          sources: canonicalSources.map((source) => clone(source)),
+          tick,
+        }
+      : {
+          action: action === null ? null : clone(action),
+          phase,
+          sources: canonicalSources.map((source) => clone(source)),
+          tick,
+        };
+    const intents = this.#troopRuntime.reduce(input);
+    return intents.map((intent) => this.#applyTroopIntent(intent, tick, contactWitness));
+  }
+
+  #troopReceipts(plans) {
+    return plans.map(({ receipt }) => receipt);
+  }
+
+  #applyTroopIntent(value, tick, contactWitness = null) {
+    const version = this.#troopRuntime.version;
+    const intent = checkedTroopIntent(value, tick, version);
+    if (version === SESSION_TROOP_RUNTIME_VERSION) {
+      return this.#applyCurrentTroopContact(intent, tick, contactWitness);
+    }
+    return this.#applyLegacyTroopIntent(intent, tick);
+  }
+
+  #applyLegacyTroopIntent(intent, tick) {
+    const source = this.#troopSource(intent.sourceId, { requireAlive: intent.kind === "action" });
+    if (source.cardId !== intent.cardId || source.side !== intent.side) {
+      throw new TypeError("live battle troop runtime intent source diverges");
+    }
+    const profile = this.#troopRuntime.profile(intent.cardId);
+    const legacy = this.#troopRuntime.version === SESSION_TROOP_RUNTIME_LEGACY_VERSION;
+    const admittedClaim = legacy
+      ? profile?.claim === "unclaimed"
+      : profile?.claim === "receipt-witness" || profile?.claim === "representative-mechanic";
+    if (profile === null || !admittedClaim || profile.deploy !== "receipt-only") {
+      throw new TypeError("live battle troop runtime intent profile is unavailable");
+    }
+    let contact = null;
+    if (intent.kind === "action") {
+      if (profile.action === null || profile.action.id !== intent.actionId ||
+          profile.action.abilityCost !== null) {
+        throw new TypeError("live battle troop runtime action intent diverges from its profile");
+      }
+      const target = this.#troopSource(intent.targetId, { requireAlive: true });
+      if (target.side === source.side) {
+        throw new RangeError("live battle troop runtime action target must be opposing");
+      }
+      if (profile.action.effect === "source-melee-contact") {
+        contact = this.#representativeContact(intent, source, target);
+      } else if (!legacy) {
+        throw new TypeError("live battle troop runtime action effect is unsupported");
+      }
+    } else if ((intent.kind === "deploy" && intent.phase !== "deploy") ||
+        (intent.kind === "pass" && (intent.phase === "deploy" ||
+          !profile.passes.includes(intent.phase)))) {
+      throw new TypeError("live battle troop runtime passive intent diverges from its profile");
+    }
+    const key = troopStatusKey(intent);
+    if (!this.#troopStatuses.has(key) && this.#troopStatuses.size >= TROOP_STATUS_LIMIT) {
+      throw new RangeError("live battle troop runtime status bound exceeded");
+    }
+    const status = { ...intent, key };
+    delete status.type;
+    if (this.#troopRuntime.version === SESSION_TROOP_RUNTIME_ACTION_PROFILE_VERSION) {
+      Object.assign(status, {
+        damage: contact?.damage ?? null,
+        delivery: contact?.delivery ?? null,
+        effect: contact?.effect ?? null,
+        externalSourceId: contact?.externalSourceId ?? null,
+      });
+    }
+    this.#troopStatuses.set(key, status);
+    return {
+      externalHit: contact === null ? null : {
+        damage: contact.damage,
+        delivery: contact.delivery,
+        sourceId: contact.externalSourceId,
+        targetUnitId: intent.targetId,
+      },
+      receipt: { ...clone(status), type: "troop-runtime-receipt" },
+    };
+  }
+
+  #currentContactBatch(combatEvents, beforeCombat, tick) {
+    const units = new Map(beforeCombat.units.map((unit) => [unit.id, unit]));
+    const contacts = [];
+    for (const event of combatEvents.filter(({ type }) => type === "attack")
+      .sort((left, right) => left.attackerId - right.attackerId || left.sequence - right.sequence ||
+        left.targetId - right.targetId)) {
+      const source = units.get(event.attackerId);
+      const target = units.get(event.targetId);
+      const metadata = this.#metadata.get(event.attackerId);
+      if (source === undefined || target === undefined || metadata === undefined ||
+          this.#troopRuntime.profile(metadata.cardId) === null) continue;
+      contacts.push({ attackSequence: event.sequence, sourceId: event.attackerId, targetId: event.targetId });
+    }
+    if (contacts.length > SESSION_TROOP_RUNTIME_MAX_SOURCES) {
+      throw new RangeError("live battle current troop contact batch exceeds its source bound");
+    }
+    if (contacts.some(({ attackSequence, sourceId, targetId }) =>
+      !Number.isSafeInteger(attackSequence) || !Number.isSafeInteger(sourceId) ||
+      !Number.isSafeInteger(targetId) || sourceId < 1 || targetId < 1)) {
+      throw new TypeError("live battle current troop contact batch is invalid");
+    }
+    void tick;
+    return contacts;
+  }
+
+  #applyCurrentTroopContact(intent, tick, contactWitness) {
+    if (contactWitness === null || contactWitness.beforeCombat?.tick !== tick ||
+        !Array.isArray(contactWitness.combatEvents)) {
+      throw new TypeError("live battle current troop contact lacks a causal host boundary");
+    }
+    const profile = this.#troopRuntime.profile(intent.cardId);
+    const source = contactWitness.beforeCombat.units.find(({ id }) => id === intent.sourceId);
+    const target = contactWitness.beforeCombat.units.find(({ id }) => id === intent.targetId);
+    const metadata = this.#metadata.get(intent.sourceId);
+    const card = this.#rosterById.get(intent.cardId);
+    if (profile === null || profile.claim !== "representative-live-contact" ||
+        source === undefined || target === undefined || metadata === undefined || card === undefined ||
+        !source.alive || !target.alive || source.side !== intent.side || target.side === source.side) {
+      throw new RangeError("live battle current troop contact endpoints are not causal");
+    }
+    if (canonical(profile.sourceProfile) !== canonical(currentContactSourceProfileFromRoster(card)) ||
+        canonical(profile.sourceProfile) !== canonical(currentContactSourceProfileFromMaterialized(source, metadata))) {
+      throw new TypeError("live battle current troop contact source profile diverges from the shared host");
+    }
+    if (source.delivery !== profile.contact.delivery || source.delivery !== "melee" ||
+        !layerEligible(source.targetMode, target.layer)) {
+      throw new RangeError("live battle current troop contact delivery or target layer is invalid");
+    }
+    const range = source.radius + source.reach + target.radius;
+    if (squaredDistance(source.position, target.position) > BigInt(range) * BigInt(range)) {
+      throw new RangeError("live battle current troop contact target is out of range");
+    }
+    if (source.attack.phase === "deploying" || source.attack.nextTick !== tick ||
+        !["winding", "cycling"].includes(source.attack.phase) ||
+        source.attack.nextAttackTick !== tick || source.attack.targetId !== intent.targetId ||
+        intent.attackSequence !== source.attack.attackSequence + 1) {
+      throw new RangeError("live battle current troop contact attack timing is not eligible");
+    }
+    const attacks = contactWitness.combatEvents.filter((event) => event.type === "attack" &&
+      event.attackerId === intent.sourceId && event.sequence === intent.attackSequence &&
+      event.targetId === intent.targetId && event.tick === tick);
+    const damage = contactWitness.combatEvents.filter((event) => event.type === "damage" &&
+      event.attackerId === intent.sourceId && event.delivery === "melee" &&
+      event.targetId === intent.targetId && event.tick === tick);
+    if (attacks.length !== 1 || damage.length !== 1 || damage[0].amount !== source.damage) {
+      throw new RangeError("live battle current troop contact normal attack evidence is absent");
+    }
+    const key = troopStatusKey(intent);
+    const contactId = troopContactIdentity(intent);
+    if (this.#troopStatuses.get(key)?.contactId === contactId) {
+      throw new RangeError("live battle current troop contact identity is duplicate");
+    }
+    if (!this.#troopStatuses.has(key) && this.#troopStatuses.size >= TROOP_STATUS_LIMIT) {
+      throw new RangeError("live battle troop runtime status bound exceeded");
+    }
+    const status = {
+      attackSequence: intent.attackSequence,
+      cardId: intent.cardId,
+      contactId,
+      damage: damage[0].amount,
+      delivery: "melee",
+      effect: CURRENT_TROOP_CONTACT_EFFECT,
+      hostSourceIdentity: troopHostSourceIdentity(intent),
+      key,
+      kind: "contact",
+      phase: "combat",
+      provenance: clone(profile.contact.provenance),
+      side: intent.side,
+      sourceId: intent.sourceId,
+      sourceProfile: clone(profile.sourceProfile),
+      targetId: intent.targetId,
+      tick,
+    };
+    this.#troopStatuses.set(key, status);
+    return { externalHit: null, receipt: { ...clone(status), type: "troop-runtime-receipt" } };
+  }
+
+  #representativeContact(intent, source, target) {
+    const state = this.#battleRuntime().state;
+    const sourceUnit = state.units.find(({ id }) => id === source.sourceId);
+    const targetUnit = state.units.find(({ id }) => id === target.sourceId);
+    if (sourceUnit === undefined || targetUnit === undefined || !sourceUnit.alive || !targetUnit.alive) {
+      throw new RangeError("live battle representative contact endpoints must be live");
+    }
+    if (sourceUnit.side !== intent.side || targetUnit.side === sourceUnit.side) {
+      throw new RangeError("live battle representative contact sides are divergent");
+    }
+    if (sourceUnit.delivery !== "melee") {
+      throw new RangeError("live battle representative contact source must be melee");
+    }
+    if (!layerEligible(sourceUnit.targetMode, targetUnit.layer)) {
+      throw new RangeError("live battle representative contact target layer is ineligible");
+    }
+    const radius = sourceUnit.radius + sourceUnit.reach + targetUnit.radius;
+    if (squaredDistance(sourceUnit.position, targetUnit.position) > BigInt(radius) * BigInt(radius)) {
+      throw new RangeError("live battle representative contact target is out of range");
+    }
+    if (!Number.isSafeInteger(sourceUnit.damage) || sourceUnit.damage < 1 ||
+        sourceUnit.damage > 1_000_000_000) {
+      throw new TypeError("live battle representative contact source damage is invalid");
+    }
+    return {
+      damage: sourceUnit.damage,
+      delivery: "melee",
+      effect: "source-melee-contact",
+      externalSourceId: troopExternalSourceId(intent),
+    };
+  }
+
+  #troopSource(sourceId, { requireAlive }) {
+    if (!Number.isSafeInteger(sourceId) || sourceId < 1) {
+      throw new TypeError("live battle troop source ID is invalid");
+    }
+    const unit = this.#battleRuntime().state.units.find(({ id }) => id === sourceId);
+    const metadata = this.#metadata.get(sourceId);
+    if (unit === undefined || metadata === undefined) {
+      throw new RangeError("live battle troop source is unknown");
+    }
+    if (requireAlive && !unit.alive) {
+      throw new RangeError("live battle troop source is not live");
+    }
+    return { cardId: metadata.cardId, side: unit.side, sourceId };
+  }
+
+  #troopSourceFromUnit(unit, { requireAlive }) {
+    const metadata = this.#metadata.get(unit.id);
+    if (metadata === undefined) {
+      throw new RangeError("live battle troop source metadata is unknown");
+    }
+    if (requireAlive && !unit.alive) {
+      throw new RangeError("live battle troop source is not live");
+    }
+    return { cardId: metadata.cardId, side: unit.side, sourceId: unit.id };
+  }
+
+  #phaseTroopSources() {
+    return this.#phaseTroopSourcesFromState(this.#battleRuntime().state);
+  }
+
+  #phaseTroopSourcesFromState(state) {
+    if (!this.#hasTroopRuntime()) return [];
+    return state.units.filter(({ alive }) => alive).sort((left, right) => left.id - right.id)
+      .map((unit) => this.#troopSourceFromUnit(unit, { requireAlive: true }))
+      .filter(({ cardId }) => this.#troopRuntime.profile(cardId) !== null);
+  }
+
+  #troopStatusWitnesses() {
+    return [...this.#troopStatuses.values()].map((status) => clone(status))
+      .sort((left, right) => left.key.localeCompare(right.key));
+  }
+
+  #hasTroopRuntime() {
+    return this.#troopRuntime.hasProfiles;
+  }
+
+  #allowsLegacyTroopActions() {
+    return this.#hasTroopRuntime() && this.#troopRuntime.allowsLegacyActions;
+  }
+
+  #usesCurrentContactRuntime() {
+    return this.#hasTroopRuntime() &&
+      this.#troopRuntime.version === SESSION_TROOP_RUNTIME_VERSION;
   }
 
   #preflightBoundary() {
@@ -5421,7 +6276,8 @@ class LiveBattle {
   }
 
   #runtimeClone(includeTranscript = true) {
-    const candidate = new LiveBattle(this.#setup);
+    const candidate = new LiveBattle(this.#setup,
+      this.#hasTroopRuntime() ? this.#troopRuntime.serialize() : undefined);
     const retainTranscript = includeTranscript && !this.#isContinuation;
     const battle = this.#battleRuntime();
     candidate.#battle = retainTranscript ? battle.fork() : battleTowerCompactClone(battle);
@@ -5438,10 +6294,14 @@ class LiveBattle {
     candidate.#pending = clone(this.#pending);
     candidate.#pendingBuildingHits = clone(this.#pendingBuildingHits);
     candidate.#pendingStructures = clone(this.#pendingStructures);
+    candidate.#pendingTroopActions = clone(this.#pendingTroopActions);
     candidate.#questionValues = new Map(this.#questionValues);
     candidate.#setup = this.#setup;
     candidate.#rosterById = new Map(candidate.#setup.roster.map((card) => [card.id, card]));
     candidate.#structures = clone(this.#structures);
+    candidate.#troopRuntime = this.#troopRuntime.fork();
+    candidate.#troopStatuses = new Map([...this.#troopStatuses]
+      .map(([key, status]) => [key, clone(status)]));
     return candidate;
   }
 
@@ -5459,15 +6319,18 @@ class LiveBattle {
     this.#pending = candidate.#pending;
     this.#pendingBuildingHits = candidate.#pendingBuildingHits;
     this.#pendingStructures = candidate.#pendingStructures;
+    this.#pendingTroopActions = candidate.#pendingTroopActions;
     this.#questionValues = candidate.#questionValues;
     this.#rosterById = candidate.#rosterById;
     this.#setup = candidate.#setup;
     this.#structures = candidate.#structures;
+    this.#troopRuntime = candidate.#troopRuntime;
+    this.#troopStatuses = candidate.#troopStatuses;
   }
 }
 
-function createLegacyLiveBattleForRestore(setup) {
-  return new LiveBattle(checkedSetup(setup, { legacyStructureReceipts: true }));
+function createLegacyLiveBattleForRestore(setup, troopRuntimeProfiles = undefined) {
+  return new LiveBattle(checkedSetup(setup, { legacyStructureReceipts: true }), troopRuntimeProfiles);
 }
 
 function getLiveBattlePlayableCardIds(setup) {
@@ -7859,6 +8722,10 @@ const COMMAND_GRAPH_LIMITS = Object.freeze({ arrayLength: 32, containers: 32, de
   keys: 16, nodes: 64, stringLength: 8_192 });
 const SETUP_KEYS = ["battleSetup", "deck", "legalNorthDeployments", "rosterWitness",
   "seed", "startingElixir", "thinkIntervalTicks", "thinkOffsetTicks"];
+const SETUP_KEYS_WITH_TROOP_RUNTIME = [...SETUP_KEYS, "troopRuntimeProfiles"];
+const ABILITY_COMMAND_KEYS = [
+  "actionId", "commandId", "point", "side", "sourceId", "targetId", "tick", "type",
+];
 const authenticGameSessions = new WeakSet();
 const authenticGameSessionProjectionSnapshots = new WeakSet();
 // Module-private capability: only restore/restart can instantiate a pre-HBA
@@ -7955,9 +8822,10 @@ function parsed(serialized, label, maximum = GAME_SESSION_MAX_SNAPSHOT_BYTES,
   return value;
 }
 function validateSetup(bytes, { allowLegacyStructureReceipts = false } = {}) {
-  const setup = exact(parsed(bytes, "game session setup", GAME_SESSION_MAX_SETUP_BYTES,
-    GAME_SESSION_SETUP_GRAPH_LIMITS),
-    SETUP_KEYS, "game session setup");
+  const rawSetup = parsed(bytes, "game session setup", GAME_SESSION_MAX_SETUP_BYTES,
+    GAME_SESSION_SETUP_GRAPH_LIMITS);
+  const setup = exact(rawSetup, Object.hasOwn(rawSetup, "troopRuntimeProfiles")
+    ? SETUP_KEYS_WITH_TROOP_RUNTIME : SETUP_KEYS, "game session setup");
   const battleSetupValue = parsed(setup.battleSetup, "game session battle setup", GAME_SESSION_MAX_SETUP_BYTES,
     GAME_SESSION_SETUP_GRAPH_LIMITS);
   parsed(setup.rosterWitness, "game session roster witness", GAME_SESSION_MAX_SETUP_BYTES,
@@ -7965,9 +8833,15 @@ function validateSetup(bytes, { allowLegacyStructureReceipts = false } = {}) {
   const legacyStructureReceipts = Array.isArray(battleSetupValue.roster) &&
     battleSetupValue.roster.some((card) => card !== null && typeof card === "object" &&
       !Array.isArray(card) && card.kind === "structure" && !Object.hasOwn(card, "buildingRuntime"));
+  const troopRuntimeProfiles = Object.hasOwn(setup, "troopRuntimeProfiles")
+    ? canonical(parseSessionTroopRuntimeProfiles(canonical(setup.troopRuntimeProfiles)))
+    : undefined;
+  if (troopRuntimeProfiles !== undefined && troopRuntimeProfiles !== canonical(setup.troopRuntimeProfiles)) {
+    throw new TypeError("session troop runtime profiles diverge from their canonical setup");
+  }
   const battle = legacyStructureReceipts && allowLegacyStructureReceipts
-    ? createLegacyLiveBattleForRestore(battleSetupValue)
-    : new LiveBattle(setup.battleSetup);
+    ? createLegacyLiveBattleForRestore(battleSetupValue, troopRuntimeProfiles)
+    : new LiveBattle(setup.battleSetup, troopRuntimeProfiles);
   if (setup.rosterWitness !== canonical({ questions: battleSetupValue.questions,
     roster: battleSetupValue.roster })) throw new TypeError("session roster witness diverges");
   const cards = battleSetupValue.roster.map(({ cost, id }) => ({ cost, id }));
@@ -7992,11 +8866,12 @@ function validateSetup(bytes, { allowLegacyStructureReceipts = false } = {}) {
     const decision = evaluateDeployment({ destroyedOpposingLaneTowers: [],
       placementClass: admitted.placementClass, point: entry.point, side: "north" });
     if (!decision.legal) throw new RangeError(`north deployment is illegal: ${decision.reason}`);
-    if (admitted.kind === "unit") battle.scheduleDeploy({ ...entry, sequence,
-      side: "north", tick: 0 });
+    if (admitted.kind === "unit") battle.scheduleDeploy(canonical({ cardId: entry.cardId,
+      point: entry.point, sequence, side: "north", tick: 0 }));
   });
   return { battleSetupValue: legacyStructureReceipts ? freeze(clone(battleSetupValue)) : null,
-    cardRuntime, cards, costs, legacyStructureReceipts, setup: freeze(clone(setup)) };
+    cardRuntime, cards, costs, legacyStructureReceipts, setup: freeze(clone(setup)),
+    troopRuntimeProfiles };
 }
 function initialMatchTowers(battle) {
   const order = ["north:central", "north:lane:left", "north:lane:right",
@@ -8007,6 +8882,25 @@ function initialMatchTowers(battle) {
 }
 function commandText(value) {
   const decoded = parsed(value, "player session command", 16_384, COMMAND_GRAPH_LIMITS);
+  if (decoded.type === "ability") {
+    const command = exact(decoded, ABILITY_COMMAND_KEYS, "player session ability command");
+    if (typeof command.actionId !== "string" || command.actionId.length === 0 ||
+        !Number.isSafeInteger(command.commandId) || command.commandId < 0 ||
+        !["north", "south"].includes(command.side) ||
+        !Number.isSafeInteger(command.sourceId) || command.sourceId < 1 ||
+        !(command.targetId === null || (Number.isSafeInteger(command.targetId) && command.targetId >= 1)) ||
+        !Number.isSafeInteger(command.tick) || command.tick < 0 || command.tick >= MATCH_MAX_TICKS) {
+      throw new TypeError("player session ability command is invalid");
+    }
+    if (command.point !== null) {
+      exact(command.point, ["x", "y"], "player session ability command.point");
+      if (!Number.isSafeInteger(command.point.x) || !Number.isSafeInteger(command.point.y)) {
+        throw new TypeError("player session ability point is invalid");
+      }
+    }
+    return clone(command);
+  }
+  if (decoded.type !== "deploy") throw new TypeError("player session command type is invalid");
   const hasDestination = Object.hasOwn(decoded, "destination");
   const command = exact(decoded, hasDestination
     ? ["cardId", "commandId", "destination", "point", "slot", "tick", "type"]
@@ -8043,8 +8937,8 @@ class GameSession {
     this.#cardRuntime = checked.cardRuntime;
     this.#costs = checked.costs; this.#legal = this.#setup.legalNorthDeployments;
     this.#battle = this.#legacyStructureReceipts
-      ? createLegacyLiveBattleForRestore(checked.battleSetupValue)
-      : new LiveBattle(this.#setup.battleSetup);
+      ? createLegacyLiveBattleForRestore(checked.battleSetupValue, checked.troopRuntimeProfiles)
+      : new LiveBattle(this.#setup.battleSetup, checked.troopRuntimeProfiles);
     this.#elixir = new ElixirMatch({ startingElixir: this.#setup.startingElixir });
     this.#decks = { north: new DeckCycle({ deck: this.#setup.deck, seed: `${this.#setup.seed}:north` }),
       south: new DeckCycle({ deck: this.#setup.deck, seed: `${this.#setup.seed}:south` }) };
@@ -8123,41 +9017,57 @@ class GameSession {
       throw new RangeError("game session transcript exceeds its operation bound");
     }
     if (this.#paused || clock.state.result !== null || command.tick < clock.tick ||
-        !this.#costs.has(command.cardId) || this.#processed.has(command.commandId) ||
+        this.#processed.has(command.commandId) ||
         this.#pending.some((entry) => entry.commandId === command.commandId || entry.tick === command.tick)) {
       throw new RangeError("player session command is stale, duplicate, terminal, or unknown");
     }
-    const placement = evaluateDeployment({ destroyedOpposingLaneTowers: [],
-      placementClass: this.#cardRuntime.card(command.cardId).placementClass,
-      point: command.point, side: "south" });
-    if (!placement.legal) throw new RangeError(`player session command is illegal: ${placement.reason}`);
-    const admitted = this.#cardRuntime.card(command.cardId);
-    if (admitted.kind === "structure") {
-      const destination = Object.hasOwn(command, "destination") ? command.destination : null;
-      if (this.#battleRuntime().supportsStructureRuntime(command.cardId)) {
-        if (!isSessionBuildingCardId(command.cardId)) {
-          throw new RangeError("player session structure has no admitted shared building runtime");
-        }
-        if ((command.cardId === "burrow-rig") !== (destination !== null)) {
-          throw new TypeError("underground travel player command requires exactly one destination");
-        }
-        if (destination !== null) {
-          const destinationPlacement = evaluateDeployment({ destroyedOpposingLaneTowers: [],
-            placementClass: admitted.placementClass, point: destination, side: "south" });
-          if (!destinationPlacement.legal) {
-            throw new RangeError(`player session destination is illegal: ${destinationPlacement.reason}`);
-          }
-        }
-      } else if (destination !== null) {
-        throw new TypeError("legacy inert structures have no sourced destination route");
+    if (command.type === "ability") {
+      if (command.side !== "south" || command.tick !== clock.tick) {
+        throw new RangeError("player session ability command must be current and south-owned");
       }
-    } else if (Object.hasOwn(command, "destination") && command.destination !== null) {
-      throw new TypeError("only underground travel structures accept a destination");
-    }
-    if (command.tick === clock.tick &&
-        (this.#decks.south.state.hand[command.slot] !== command.cardId ||
-         this.#costs.get(command.cardId) > elixir.state.sides.south.amount)) {
-      throw new RangeError("player session command is divergent or unaffordable");
+      if (!this.#battleRuntime().allowsLegacyTroopActions) {
+        throw new RangeError("current session troop runtime does not admit player actions");
+      }
+      const inspected = this.#battleRuntime().inspectTroopAction(canonical(command));
+      if (inspected.abilityCost !== null) {
+        throw new TypeError("player session ability cost is not sourced");
+      }
+    } else {
+      if (!this.#costs.has(command.cardId)) {
+        throw new RangeError("player session deploy card is unknown");
+      }
+      const placement = evaluateDeployment({ destroyedOpposingLaneTowers: [],
+        placementClass: this.#cardRuntime.card(command.cardId).placementClass,
+        point: command.point, side: "south" });
+      if (!placement.legal) throw new RangeError(`player session command is illegal: ${placement.reason}`);
+      const admitted = this.#cardRuntime.card(command.cardId);
+      if (admitted.kind === "structure") {
+        const destination = Object.hasOwn(command, "destination") ? command.destination : null;
+        if (this.#battleRuntime().supportsStructureRuntime(command.cardId)) {
+          if (!isSessionBuildingCardId(command.cardId)) {
+            throw new RangeError("player session structure has no admitted shared building runtime");
+          }
+          if ((command.cardId === "burrow-rig") !== (destination !== null)) {
+            throw new TypeError("underground travel player command requires exactly one destination");
+          }
+          if (destination !== null) {
+            const destinationPlacement = evaluateDeployment({ destroyedOpposingLaneTowers: [],
+              placementClass: admitted.placementClass, point: destination, side: "south" });
+            if (!destinationPlacement.legal) {
+              throw new RangeError(`player session destination is illegal: ${destinationPlacement.reason}`);
+            }
+          }
+        } else if (destination !== null) {
+          throw new TypeError("legacy inert structures have no sourced destination route");
+        }
+      } else if (Object.hasOwn(command, "destination") && command.destination !== null) {
+        throw new TypeError("only underground travel structures accept a destination");
+      }
+      if (command.tick === clock.tick &&
+          (this.#decks.south.state.hand[command.slot] !== command.cardId ||
+           this.#costs.get(command.cardId) > elixir.state.sides.south.amount)) {
+        throw new RangeError("player session command is divergent or unaffordable");
+      }
     }
     this.#pending.push(command); this.#pending.sort((a, b) => a.tick - b.tick || a.commandId - b.commandId);
     this.#history.push({ command: clone(command), type: "submit" });
@@ -8269,10 +9179,24 @@ class GameSession {
     for (let tick = firstTick; tick < endTick; tick += 1) {
       const player = this.#pending.find((entry) => entry.tick === tick) ?? null;
       if (player) {
-        staged.push({ ...stageSideDeployment({ battle,
-          cardCosts: this.#costs, command: { ...player, side: "south" },
-          deck: this.#decks.south, deploymentSequence: this.#nextDeploymentSequence++,
-          elixir, sessionCards: this.#cardRuntime }) });
+        if (player.type === "ability") {
+          if (!battle.allowsLegacyTroopActions) {
+            throw new RangeError("current session troop runtime does not admit player actions");
+          }
+          const inspected = battle.inspectTroopAction(canonical(player));
+          if (inspected.abilityCost !== null) {
+            throw new TypeError("session troop action cost is not sourced");
+          }
+          battle.scheduleTroopAction(canonical(player));
+          staged.push({ actionId: player.actionId, commandId: player.commandId,
+            side: player.side, sourceId: player.sourceId, targetId: player.targetId,
+            tick: player.tick, type: "troop-action-staged" });
+        } else {
+          staged.push({ ...stageSideDeployment({ battle,
+            cardCosts: this.#costs, command: { ...player, side: "south" },
+            deck: this.#decks.south, deploymentSequence: this.#nextDeploymentSequence++,
+            elixir, sessionCards: this.#cardRuntime }) });
+        }
       }
       const hand = this.#decks.north.state.hand;
       // The deterministic opponent proposal has no sourced destination field;
@@ -8302,6 +9226,7 @@ class GameSession {
           tick: grant.tick, type: "building-resource-granted" });
       }
       for (const stage of staged.filter((entry) => entry.tick === tick)) {
+        if (stage.type === "troop-action-staged") continue;
         const spend = elixirEvents.find((event) => event.type === "spend" &&
           event.sequence === stage.spendSequence);
         if (!spend?.accepted) throw new RangeError("session deployment spend failed");
@@ -8311,7 +9236,17 @@ class GameSession {
     const sessionEvents = [];
     for (const stage of staged) {
       let committed = stage.route;
-      if (stage.kind === "unit") {
+      if (stage.type === "troop-action-staged") {
+        const receipt = battleEvents.find((event) => event.type === "troop-runtime-receipt" &&
+          event.kind === "action" && event.side === stage.side &&
+          event.commandId === stage.commandId && event.actionId === stage.actionId &&
+          event.sourceId === stage.sourceId && event.targetId === stage.targetId &&
+          event.tick === stage.tick);
+        if (!receipt) throw new Error("session troop action did not receive a host receipt");
+        committed = { ability: clone(receipt), side: stage.side, tick: stage.tick,
+          type: "session-ability" };
+        sessionEvents.push(committed);
+      } else if (stage.kind === "unit") {
         const deployment = battleEvents.find((event) => event.type === "deployed" &&
           event.sequence === stage.deploymentSequence);
         if (!deployment) throw new Error("session deployment did not materialize");

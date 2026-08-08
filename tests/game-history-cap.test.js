@@ -44,20 +44,20 @@ function setup() {
 function activeBattle() {
   const battle = new LiveBattle(setup());
   for (let index = 0; index < 4; index += 1) {
-    battle.scheduleDeploy({
+    battle.scheduleDeploy(canonical({
       cardId: "coilblade",
       point: { x: 3_500 + index * 500, y: 14_500 },
       sequence: index * 2,
       side: "south",
       tick: 0,
-    });
-    battle.scheduleDeploy({
+    }));
+    battle.scheduleDeploy(canonical({
       cardId: "coilblade",
       point: { x: 3_500 + index * 500, y: 17_500 },
       sequence: index * 2 + 1,
       side: "north",
       tick: 0,
-    });
+    }));
   }
   return battle;
 }

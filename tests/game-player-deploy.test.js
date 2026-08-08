@@ -148,9 +148,9 @@ test("game player deploy: illegal, insufficient, wrong slot/card, side and tick 
 test("game player deploy: battle capacity/materialization failure rolls back every owned system", () => {
   const battle = configuredBattle();
   for (let sequence = 0; sequence < 1_024; sequence += 1) {
-    battle.scheduleDeploy({
+    battle.scheduleDeploy(canonical({
       cardId: "coilblade", point: { ...POINT }, sequence, side: "south", tick: 0,
-    });
+    }));
   }
   const bridge = bridgeFor("mossguard", {
     battle,

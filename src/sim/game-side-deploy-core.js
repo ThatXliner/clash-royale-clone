@@ -93,22 +93,22 @@ export function createStageSideDeployment({
     const structureMaterializes = admittedCard.kind === "structure" &&
       battle.supportsStructureRuntime(cardId);
     if (admittedCard.kind === "unit") {
-      battle.scheduleDeploy({
+      battle.scheduleDeploy(JSON.stringify({
         cardId,
-        point,
+        point: { x: point.x, y: point.y },
         sequence: deploymentSequence,
         side,
         tick,
-      });
+      }));
     } else if (structureMaterializes) {
-      battle.scheduleStructure({
+      battle.scheduleStructure(JSON.stringify({
         cardId,
-        destination,
-        point,
+        destination: destination === null ? null : { x: destination.x, y: destination.y },
+        point: { x: point.x, y: point.y },
         sequence: deploymentSequence,
         side,
         tick,
-      });
+      }));
     }
     const legacy = {
       cardId,

@@ -443,13 +443,13 @@ export class PlayerDeployBridge {
     if (!deckEvent.accepted || deckEvent.slot !== receipt.slot) {
       throw new Error("player deploy deck rejected a prevalidated receipt");
     }
-    this.#battle.scheduleDeploy({
+    this.#battle.scheduleDeploy(canonical({
       cardId: receipt.cardId,
       point: receipt.point,
       sequence: receipt.commandId,
       side: receipt.side,
       tick: receipt.tick,
-    });
+    }));
     const elixirEvents = this.#elixir.step();
     const spend = elixirEvents.find((event) => event.type === "spend" &&
       event.sequence === spendSequence);

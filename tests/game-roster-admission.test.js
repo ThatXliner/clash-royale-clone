@@ -164,16 +164,16 @@ test("game roster admission: non-unit battle cards admit but can never materiali
   const battleSetup = mixedBattleSetup();
   const battle = new LiveBattle(canonical(battleSetup));
   const before = battle.serialize();
-  assert.throws(() => battle.scheduleDeploy({ cardId: "squall-orb", point: NORTH,
-    sequence: 0, side: "south", tick: 0 }), /not a materializable unit/u);
-  assert.throws(() => battle.scheduleDeploy({ cardId: "bulwark-needle", point: SOUTH,
-    sequence: 0, side: "south", tick: 0 }), /not a materializable unit/u);
+  assert.throws(() => battle.scheduleDeploy(canonical({ cardId: "squall-orb", point: NORTH,
+    sequence: 0, side: "south", tick: 0 })), /not a materializable unit/u);
+  assert.throws(() => battle.scheduleDeploy(canonical({ cardId: "bulwark-needle", point: SOUTH,
+    sequence: 0, side: "south", tick: 0 })), /not a materializable unit/u);
   assert.equal(battle.serialize(), before);
   assert.equal(battle.state.units.length, 0);
   assert.equal(battle.state.pendingDeployments.length, 0);
 
-  battle.scheduleDeploy({ cardId: "copperskiff", point: SOUTH,
-    sequence: 0, side: "south", tick: 0 });
+  battle.scheduleDeploy(canonical({ cardId: "copperskiff", point: SOUTH,
+    sequence: 0, side: "south", tick: 0 }));
   battle.step();
   assert.ok(battle.state.units.some(({ cardId }) => cardId === "copperskiff"));
   assert.equal(LiveBattle.restore(battle.serialize()).serialize(), battle.serialize());

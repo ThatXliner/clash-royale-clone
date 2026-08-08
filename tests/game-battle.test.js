@@ -28,7 +28,7 @@ function setup(initialWindupTicks = { central: 0, lane: 0 }) {
 }
 
 function deploy(battle, cardId, side, sequence, tick = 0, point = side === "south" ? south : north) {
-  return battle.scheduleDeploy({ cardId, point, sequence, side, tick });
+  return battle.scheduleDeploy(canonicalJson({ cardId, point, sequence, side, tick }));
 }
 
 function canonicalJson(value) {

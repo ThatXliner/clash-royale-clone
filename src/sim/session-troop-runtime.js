@@ -1,15 +1,15 @@
 /**
  * Profile-only troop reducer used by LiveBattle's shared-world host seam.
  *
- * This module deliberately owns no dynamic match state. In particular, it
- * owns no tick, entity IDs, health, statuses, action queue, receipt history,
- * deck, elixir, clock, or random source. LiveBattle supplies host facts for
- * one phase and remains the only authority that can validate and apply the
- * immutable intents returned here.
+ * It owns no dynamic match state: no tick, entity IDs, health, statuses,
+ * action queue, receipt/history, deck, elixir, clock, or random source.
+ * LiveBattle supplies one bounded host observation and is the only component
+ * that can validate or apply the immutable intent returned here.
  */
 
-export const SESSION_TROOP_RUNTIME_VERSION = 2;
+export const SESSION_TROOP_RUNTIME_VERSION = 3;
 export const SESSION_TROOP_RUNTIME_LEGACY_VERSION = 1;
+export const SESSION_TROOP_RUNTIME_ACTION_PROFILE_VERSION = 2;
 export const SESSION_TROOP_RUNTIME_MAX_PROFILES = 8;
 export const SESSION_TROOP_RUNTIME_MAX_SOURCES = 1_024;
 
@@ -18,18 +18,29 @@ const MAX_GRAPH_DEPTH = 16;
 const MAX_GRAPH_NODES = 512;
 const MAX_STRING_LENGTH = 128;
 const LEGACY_ACTION_KEYS = ["abilityCost", "id", "target"];
-const REPRESENTATIVE_ACTION_KEYS = ["abilityCost", "effect", "id", "target"];
+const PRIOR_ACTION_KEYS = ["abilityCost", "effect", "id", "target"];
 const ACTION_TARGETS = new Set(["unit"]);
-const ACTION_EFFECTS = new Set(["source-melee-contact"]);
-const INTENT_PHASES = new Set(["deploy", "pre-move", "pre-combat", "post-combat"]);
+const PRIOR_ACTION_EFFECTS = new Set(["source-melee-contact"]);
+const LEGACY_INTENT_PHASES = new Set(["deploy", "pre-move", "pre-combat", "post-combat"]);
+const CURRENT_INTENT_PHASES = new Set([...LEGACY_INTENT_PHASES, "combat"]);
 const PASS_PHASES = Object.freeze(["pre-move", "pre-combat", "post-combat"]);
-const PROFILE_KEYS = ["action", "cardId", "claim", "deploy", "passes"];
+const LEGACY_PROFILE_KEYS = ["action", "cardId", "claim", "deploy", "passes"];
+const CURRENT_PROFILE_KEYS = ["cardId", "claim", "contact", "sourceProfile"];
 const PROFILE_SET_KEYS = ["profiles", "version"];
 const SOURCE_KEYS = ["cardId", "side", "sourceId"];
 const ACTION_COMMAND_KEYS = [
   "actionId", "commandId", "point", "side", "sourceId", "targetId", "tick", "type",
 ];
 const POINT_KEYS = ["x", "y"];
+const CONTACT_KEYS = ["attackSequence", "sourceId", "targetId"];
+const CONTACT_PROVENANCE_KEYS = ["confidence", "contentPiece", "verification"];
+const CONTACT_KEYS_PROFILE = ["delivery", "effect", "provenance"];
+const SOURCE_PROFILE_KEYS = ["combat", "entity"];
+const SOURCE_PROFILE_COMBAT_KEYS = [
+  "damage", "delivery", "deployTimeTicks", "firstHitTicks", "hitSpeedTicks", "layer",
+  "rangeMillitiles", "sightRangeMillitiles", "targetMode",
+];
+const SOURCE_PROFILE_ENTITY_KEYS = ["archetypeId", "memberIndex", "role"];
 const EMPTY_PROFILE_BYTES = '{"profiles":[],"version":1}';
 
 function canonical(value) {
@@ -140,11 +151,10 @@ function parse(textValue, label) {
   return value;
 }
 
-function checkedActionProfile(value, label, version) {
+function checkedLegacyActionProfile(value, label, version) {
   if (value === null) return null;
   const action = exact(value, version === SESSION_TROOP_RUNTIME_LEGACY_VERSION
-    ? LEGACY_ACTION_KEYS
-    : REPRESENTATIVE_ACTION_KEYS, label);
+    ? LEGACY_ACTION_KEYS : PRIOR_ACTION_KEYS, label);
   if (action.abilityCost !== null) {
     throw new TypeError(`${label}.abilityCost must remain explicit null until sourced`);
   }
@@ -153,22 +163,22 @@ function checkedActionProfile(value, label, version) {
   const checked = { abilityCost: null, id: text(action.id, `${label}.id`), target };
   if (version === SESSION_TROOP_RUNTIME_LEGACY_VERSION) return checked;
   const effect = text(action.effect, `${label}.effect`);
-  if (!ACTION_EFFECTS.has(effect)) throw new TypeError(`${label}.effect is unsupported`);
+  if (!PRIOR_ACTION_EFFECTS.has(effect)) throw new TypeError(`${label}.effect is unsupported`);
   return { abilityCost: null, effect, id: checked.id, target };
 }
 
-function checkedProfile(value, index, version) {
-  const profile = exact(value, PROFILE_KEYS, `session troop profile[${index}]`);
-  const action = checkedActionProfile(profile.action, `session troop profile[${index}].action`, version);
+function checkedLegacyProfile(value, index, version) {
+  const profile = exact(value, LEGACY_PROFILE_KEYS, `session troop profile[${index}]`);
+  const action = checkedLegacyActionProfile(profile.action, `session troop profile[${index}].action`, version);
   const claim = text(profile.claim, `session troop profile[${index}].claim`);
   if (version === SESSION_TROOP_RUNTIME_LEGACY_VERSION && claim !== "unclaimed") {
     throw new TypeError(`session troop profile[${index}].claim must remain unclaimed`);
   }
-  if (version === SESSION_TROOP_RUNTIME_VERSION &&
+  if (version === SESSION_TROOP_RUNTIME_ACTION_PROFILE_VERSION &&
       !["receipt-witness", "representative-mechanic"].includes(claim)) {
     throw new TypeError(`session troop profile[${index}].claim is unsupported`);
   }
-  if (version === SESSION_TROOP_RUNTIME_VERSION &&
+  if (version === SESSION_TROOP_RUNTIME_ACTION_PROFILE_VERSION &&
       ((claim === "representative-mechanic") !== (action !== null))) {
     throw new TypeError(`session troop profile[${index}].claim/action must agree`);
   }
@@ -195,14 +205,95 @@ function checkedProfile(value, index, version) {
   };
 }
 
+function checkedContactProvenance(value, label) {
+  const provenance = exact(value, CONTACT_PROVENANCE_KEYS, label);
+  return {
+    confidence: text(provenance.confidence, `${label}.confidence`),
+    contentPiece: text(provenance.contentPiece, `${label}.contentPiece`),
+    verification: text(provenance.verification, `${label}.verification`),
+  };
+}
+
+function checkedCurrentContact(value, label) {
+  const contact = exact(value, CONTACT_KEYS_PROFILE, label);
+  if (contact.delivery !== "melee" || contact.effect !== "ordinary-live-contact") {
+    throw new TypeError(`${label} must identify the ordinary melee host contact`);
+  }
+  return {
+    delivery: "melee",
+    effect: "ordinary-live-contact",
+    provenance: checkedContactProvenance(contact.provenance, `${label}.provenance`),
+  };
+}
+
+function checkedSourceProfile(value, label) {
+  const source = exact(value, SOURCE_PROFILE_KEYS, label);
+  const combat = exact(source.combat, SOURCE_PROFILE_COMBAT_KEYS, `${label}.combat`);
+  if (combat.delivery !== "melee" || !["air", "ground"].includes(combat.layer) ||
+      !["air", "air_and_ground", "buildings", "ground", "none"].includes(combat.targetMode)) {
+    throw new TypeError(`${label}.combat is not an ordinary melee source`);
+  }
+  const entity = exact(source.entity, SOURCE_PROFILE_ENTITY_KEYS, `${label}.entity`);
+  if (entity.memberIndex !== 0) {
+    throw new TypeError(`${label} source projection is inconsistent`);
+  }
+  return {
+    combat: {
+      damage: integer(combat.damage, 1, 1_000_000_000, `${label}.combat.damage`),
+      delivery: "melee",
+      deployTimeTicks: integer(combat.deployTimeTicks, 0, 1_000_000_000,
+        `${label}.combat.deployTimeTicks`),
+      firstHitTicks: integer(combat.firstHitTicks, 0, 1_000_000_000,
+        `${label}.combat.firstHitTicks`),
+      hitSpeedTicks: integer(combat.hitSpeedTicks, 1, 1_000_000_000,
+        `${label}.combat.hitSpeedTicks`),
+      layer: combat.layer,
+      rangeMillitiles: integer(combat.rangeMillitiles, 0, 1_000_000_000,
+        `${label}.combat.rangeMillitiles`),
+      sightRangeMillitiles: integer(combat.sightRangeMillitiles, 0, 1_000_000_000,
+        `${label}.combat.sightRangeMillitiles`),
+      targetMode: combat.targetMode,
+    },
+    entity: {
+      archetypeId: text(entity.archetypeId, `${label}.entity.archetypeId`),
+      memberIndex: 0,
+      role: text(entity.role, `${label}.entity.role`),
+    },
+  };
+}
+
+function checkedCurrentProfile(value, index) {
+  const profile = exact(value, CURRENT_PROFILE_KEYS, `session troop profile[${index}]`);
+  const cardId = text(profile.cardId, `session troop profile[${index}].cardId`);
+  if (cardId !== "mossguard" || profile.claim !== "representative-live-contact") {
+    throw new TypeError(`session troop profile[${index}] is not the current Mossguard contact profile`);
+  }
+  const contact = checkedCurrentContact(profile.contact, `session troop profile[${index}].contact`);
+  const sourceProfile = checkedSourceProfile(profile.sourceProfile,
+    `session troop profile[${index}].sourceProfile`);
+  if (contact.delivery !== sourceProfile.combat.delivery ||
+      sourceProfile.entity.archetypeId !== cardId || sourceProfile.entity.role !== "primary") {
+    throw new TypeError(`session troop profile[${index}] contact/source profile diverges`);
+  }
+  return { cardId, claim: "representative-live-contact", contact, sourceProfile };
+}
+
 function checkedProfiles(value) {
   const set = exact(value, PROFILE_SET_KEYS, "session troop profiles");
-  if (![SESSION_TROOP_RUNTIME_LEGACY_VERSION, SESSION_TROOP_RUNTIME_VERSION].includes(set.version)) {
+  if (![SESSION_TROOP_RUNTIME_LEGACY_VERSION, SESSION_TROOP_RUNTIME_ACTION_PROFILE_VERSION,
+    SESSION_TROOP_RUNTIME_VERSION].includes(set.version)) {
     throw new TypeError("session troop profiles version is unsupported");
   }
   const version = set.version;
-  const profiles = denseArray(set.profiles, SESSION_TROOP_RUNTIME_MAX_PROFILES,
-    "session troop profiles.profiles").map((profile, index) => checkedProfile(profile, index, version))
+  const rawProfiles = denseArray(set.profiles, SESSION_TROOP_RUNTIME_MAX_PROFILES,
+    "session troop profiles.profiles");
+  if (version === SESSION_TROOP_RUNTIME_VERSION) {
+    if (rawProfiles.length !== 1) {
+      throw new TypeError("current session troop runtime requires exactly one source profile");
+    }
+    return freeze({ profiles: [checkedCurrentProfile(rawProfiles[0], 0)], version });
+  }
+  const profiles = rawProfiles.map((profile, index) => checkedLegacyProfile(profile, index, version))
     .sort((left, right) => left.cardId.localeCompare(right.cardId));
   if (new Set(profiles.map(({ cardId }) => cardId)).size !== profiles.length) {
     throw new TypeError("session troop profiles must have unique card IDs");
@@ -224,6 +315,16 @@ function checkedSource(value, index) {
   };
 }
 
+function checkedSources(value) {
+  const sources = denseArray(value, SESSION_TROOP_RUNTIME_MAX_SOURCES,
+    "session troop runtime boundary.sources").map(checkedSource)
+    .sort((left, right) => left.sourceId - right.sourceId);
+  if (new Set(sources.map(({ sourceId }) => sourceId)).size !== sources.length) {
+    throw new TypeError("session troop runtime boundary sources must be unique");
+  }
+  return sources;
+}
+
 function checkedActionCommand(value, label = "session troop action") {
   const action = exact(value, ACTION_COMMAND_KEYS, label);
   if (action.type !== "ability") throw new TypeError(`${label}.type is invalid`);
@@ -243,18 +344,29 @@ function checkedActionCommand(value, label = "session troop action") {
   };
 }
 
-function checkedBoundary(value) {
+function checkedContact(value, index) {
+  const contact = exact(value, CONTACT_KEYS, `session troop runtime contact[${index}]`);
+  const sourceId = integer(contact.sourceId, 1, Number.MAX_SAFE_INTEGER,
+    `session troop runtime contact[${index}].sourceId`);
+  const targetId = integer(contact.targetId, 1, Number.MAX_SAFE_INTEGER,
+    `session troop runtime contact[${index}].targetId`);
+  if (targetId === sourceId) {
+    throw new TypeError(`session troop runtime contact[${index}] self-targets`);
+  }
+  return {
+    attackSequence: integer(contact.attackSequence, 1, Number.MAX_SAFE_INTEGER,
+      `session troop runtime contact[${index}].attackSequence`),
+    sourceId,
+    targetId,
+  };
+}
+
+function checkedLegacyBoundary(value) {
   const boundary = exact(value, ["action", "phase", "sources", "tick"],
     "session troop runtime boundary");
   const phase = text(boundary.phase, "session troop runtime boundary.phase");
-  if (!INTENT_PHASES.has(phase)) {
+  if (!LEGACY_INTENT_PHASES.has(phase)) {
     throw new TypeError("session troop runtime boundary.phase is invalid");
-  }
-  const sources = denseArray(boundary.sources, SESSION_TROOP_RUNTIME_MAX_SOURCES,
-    "session troop runtime boundary.sources").map(checkedSource)
-    .sort((left, right) => left.sourceId - right.sourceId);
-  if (new Set(sources.map(({ sourceId }) => sourceId)).size !== sources.length) {
-    throw new TypeError("session troop runtime boundary sources must be unique");
   }
   const action = boundary.action === null ? null : checkedActionCommand(boundary.action,
     "session troop runtime boundary.action");
@@ -264,13 +376,41 @@ function checkedBoundary(value) {
   return {
     action,
     phase,
-    sources,
+    sources: checkedSources(boundary.sources),
     tick: integer(boundary.tick, 0, Number.MAX_SAFE_INTEGER,
       "session troop runtime boundary.tick"),
   };
 }
 
-function intent({ action = null, cardId, phase, side, sourceId, tick, type }) {
+function checkedCurrentBoundary(value) {
+  const boundary = exact(value, ["contacts", "phase", "sources", "tick"],
+    "session troop runtime boundary");
+  const phase = text(boundary.phase, "session troop runtime boundary.phase");
+  if (!CURRENT_INTENT_PHASES.has(phase)) {
+    throw new TypeError("session troop runtime boundary.phase is invalid");
+  }
+  const contacts = denseArray(boundary.contacts, SESSION_TROOP_RUNTIME_MAX_SOURCES,
+    "session troop runtime boundary.contacts").map(checkedContact)
+    .sort((left, right) => left.sourceId - right.sourceId || left.targetId - right.targetId ||
+      left.attackSequence - right.attackSequence);
+  if (canonical(contacts) !== canonical(boundary.contacts) ||
+      new Set(contacts.map(({ attackSequence, sourceId, targetId }) =>
+        `${sourceId}:${targetId}:${attackSequence}`)).size !== contacts.length) {
+    throw new TypeError("session troop runtime contacts must be unique and canonically ordered");
+  }
+  if (phase !== "combat" && contacts.length !== 0) {
+    throw new TypeError("session troop runtime contacts belong only to combat");
+  }
+  return {
+    contacts,
+    phase,
+    sources: checkedSources(boundary.sources),
+    tick: integer(boundary.tick, 0, Number.MAX_SAFE_INTEGER,
+      "session troop runtime boundary.tick"),
+  };
+}
+
+function legacyIntent({ action = null, cardId, phase, side, sourceId, tick, type }) {
   return freeze({
     actionId: action?.actionId ?? null,
     cardId,
@@ -281,6 +421,20 @@ function intent({ action = null, cardId, phase, side, sourceId, tick, type }) {
     side,
     sourceId,
     targetId: action?.targetId ?? null,
+    tick,
+    type: "troop-runtime-intent",
+  });
+}
+
+function contactIntent({ attackSequence, cardId, side, sourceId, targetId, tick }) {
+  return freeze({
+    attackSequence,
+    cardId,
+    kind: "contact",
+    phase: "combat",
+    side,
+    sourceId,
+    targetId,
     tick,
     type: "troop-runtime-intent",
   });
@@ -298,10 +452,7 @@ export function serializeSessionTroopRuntimeProfiles(value) {
   return canonical(checkedProfiles(value));
 }
 
-/**
- * A deterministic, configuration-only reducer. Dynamic facts are supplied by
- * LiveBattle for a single boundary and cannot be retained here.
- */
+/** A deterministic, configuration-only reducer. */
 export class SessionTroopRuntime {
   #profiles;
   #byCard;
@@ -323,6 +474,15 @@ export class SessionTroopRuntime {
     return this.#profiles.profiles.length > 0;
   }
 
+  get version() {
+    return this.#profiles.version;
+  }
+
+  get allowsLegacyActions() {
+    return this.#profiles.version === SESSION_TROOP_RUNTIME_LEGACY_VERSION ||
+      this.#profiles.version === SESSION_TROOP_RUNTIME_ACTION_PROFILE_VERSION;
+  }
+
   profile(cardId) {
     if (typeof cardId !== "string") throw new TypeError("session troop profile card ID must be primitive");
     const profile = this.#byCard.get(cardId);
@@ -330,6 +490,9 @@ export class SessionTroopRuntime {
   }
 
   inspectAction({ action, source }) {
+    if (!this.allowsLegacyActions) {
+      throw new RangeError("current session troop runtime does not admit player actions");
+    }
     const checkedAction = checkedActionCommand(action, "session troop action inspection.action");
     const checkedSourceFact = checkedSource(source, 0);
     if (checkedSourceFact.sourceId !== checkedAction.sourceId ||
@@ -353,20 +516,39 @@ export class SessionTroopRuntime {
       sourceId: checkedSourceFact.sourceId,
       target: profile.action.target,
     };
-    if (this.#profiles.version === SESSION_TROOP_RUNTIME_VERSION) {
+    if (this.#profiles.version === SESSION_TROOP_RUNTIME_ACTION_PROFILE_VERSION) {
       inspected.effect = profile.action.effect;
     }
     return freeze(inspected);
   }
 
   reduce(boundary) {
-    const checked = checkedBoundary(boundary);
+    if (this.#profiles.version === SESSION_TROOP_RUNTIME_VERSION) {
+      const checked = checkedCurrentBoundary(boundary);
+      if (checked.phase !== "combat") return freeze([]);
+      const intents = [];
+      for (const contact of checked.contacts) {
+        const source = checked.sources.find(({ sourceId }) => sourceId === contact.sourceId);
+        if (source === undefined) {
+          throw new RangeError("session troop contact source is absent from its host boundary");
+        }
+        const profile = this.#byCard.get(source.cardId);
+        if (profile === undefined || profile.contact === undefined) {
+          throw new RangeError("session troop contact source is not profiled");
+        }
+        intents.push(contactIntent({ ...contact, cardId: source.cardId, side: source.side,
+          sourceId: source.sourceId, tick: checked.tick }));
+      }
+      return freeze(intents);
+    }
+
+    const checked = checkedLegacyBoundary(boundary);
     const intents = [];
     if (checked.action !== null) {
       const source = checked.sources.find(({ sourceId }) => sourceId === checked.action.sourceId);
       if (source === undefined) throw new RangeError("session troop action source is absent from its host boundary");
       this.inspectAction({ action: checked.action, source });
-      intents.push(intent({ action: checked.action, cardId: source.cardId,
+      intents.push(legacyIntent({ action: checked.action, cardId: source.cardId,
         phase: checked.phase, side: source.side, sourceId: source.sourceId,
         tick: checked.tick, type: "action" }));
       return freeze(intents);
@@ -375,10 +557,10 @@ export class SessionTroopRuntime {
       const profile = this.#byCard.get(source.cardId);
       if (profile === undefined) continue;
       if (checked.phase === "deploy" && profile.deploy === "receipt-only") {
-        intents.push(intent({ cardId: source.cardId, phase: checked.phase,
+        intents.push(legacyIntent({ cardId: source.cardId, phase: checked.phase,
           side: source.side, sourceId: source.sourceId, tick: checked.tick, type: "deploy" }));
       } else if (checked.phase !== "deploy" && profile.passes.includes(checked.phase)) {
-        intents.push(intent({ cardId: source.cardId, phase: checked.phase,
+        intents.push(legacyIntent({ cardId: source.cardId, phase: checked.phase,
           side: source.side, sourceId: source.sourceId, tick: checked.tick, type: "pass" }));
       }
     }

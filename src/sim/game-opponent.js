@@ -284,9 +284,9 @@ function validateSetup(serialized) {
     "setup.thinkOffsetTicks");
 
   const probe = new LiveBattle(raw.battleSetup);
-  candidates.forEach((entry, sequence) => probe.scheduleDeploy({
+  candidates.forEach((entry, sequence) => probe.scheduleDeploy(canonical({
     cardId: entry.cardId, point: entry.point, sequence, side: "north", tick: 0,
-  }));
+  })));
   return { costs: freeze(clone(rosterAuthority)), setup: freeze(clone({ ...raw,
     deck, legalNorthDeployments: candidates, startingElixir })) };
 }
@@ -426,9 +426,9 @@ export class OpponentBattleRuntime {
         const cycle = this.#deck.play(proposal.cardId);
         if (!cycle.accepted) throw new Error("proposed deployment deck cycle was rejected");
         battleEvents.push(...this.#battle.stepMany(tick - this.#battle.state.tick));
-        this.#battle.scheduleDeploy({ cardId: proposal.cardId,
+        this.#battle.scheduleDeploy(canonical({ cardId: proposal.cardId,
           point: proposal.point, sequence: proposal.sequence, side: proposal.side,
-          tick: proposal.tick });
+          tick: proposal.tick }));
         commit = { cardId: proposal.cardId, commandId: `north:${proposal.sequence}`,
           cycle: { drawnCard: cycle.drawnCard, sequence: cycle.sequence, slot: cycle.slot },
           point: proposal.point, proposalSequence: proposal.sequence,
