@@ -778,6 +778,38 @@ export function createDefensiveBuildingCatalog() {
   return createCardCatalog(CARD_DEFINITIONS);
 }
 
+/**
+ * Runtime-facing projection of the already verified defensive reducer data.
+ *
+ * This deliberately exposes no encounter state or private reducer. A unified
+ * session can share one clock, ID stream, target list, and event history while
+ * preserving the individual building policies that the isolated reducer
+ * established. Fields whose behaviour is corpus-absent remain labelled as a
+ * QUESTION policy by the caller; this projection only prevents a second copy
+ * of the card constants from becoming a competing source of truth.
+ */
+export function createDefensiveBuildingRuntimeProfiles(...args) {
+  if (args.length !== 0) {
+    throw new TypeError("defensive building runtime profiles do not accept overrides");
+  }
+  return deepFreeze(Object.fromEntries(Object.entries(ARCHETYPES).map(([id, value]) => [id, {
+    areaDamageRadiusMillitiles: value.areaDamageRadiusMillitiles,
+    damage: value.damage,
+    deployTicks: value.deployTicks,
+    firstHitTicks: value.firstHitTicks,
+    hitSpeedTicks: value.hitSpeedTicks,
+    hitpoints: value.hitpoints,
+    lifetimeTicks: value.lifetimeTicks,
+    maxRangeMillitiles: value.maxRange,
+    minRangeMillitiles: value.minRange,
+    policy: { disposition: "question", source: SOURCE },
+    rampStages: clone(value.stages),
+    rampThresholds: clone(value.thresholds),
+    targetMode: value.mode,
+    variant: value.variant,
+  }])));
+}
+
 export function createDefensiveBuildingCorpusRecords() {
   return Object.fromEntries(Object.entries(ARCHETYPES).map(([id, value]) => [
     id,

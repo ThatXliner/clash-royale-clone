@@ -89,6 +89,7 @@ const EXPECTED_SIMULATION_MODULES = Object.freeze([
   "pathfinding.js",
   "projectile.js",
   "rng.js",
+  "session-building-runtime.js",
   "session-card-runtime.js",
   "spatial.js",
   "targeting.js",
@@ -219,6 +220,10 @@ test("nondeterminism-guard: scans every simulation module and probes its runtime
   assert.ok(
     files.some((file) => basename(file) === "live-battle.js"),
     "the live battle orchestrator must be in the audited simulation inventory",
+  );
+  assert.ok(
+    files.some((file) => basename(file) === "session-building-runtime.js"),
+    "the host-driven building reducer must remain in the audited simulation inventory",
   );
   assert.ok(
     files.some((file) => basename(file) === "opponent-controller.js"),

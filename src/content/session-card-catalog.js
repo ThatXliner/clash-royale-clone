@@ -1,4 +1,8 @@
 import * as content from "./index.js";
+import { createDeathEffectsQuestions } from "./cards/death-effects.js";
+import { createDefensiveBuildingRuntimeProfiles } from "./cards/buildings-defensive.js";
+import { createResourceBuildingQuestionRecords } from "./cards/buildings-resource.js";
+import { createUndergroundTravelBuildingQuestionRecords } from "./cards/buildings-travel.js";
 
 const CLAIMS = Object.freeze([
   ["createBasicFlyingCatalog", ["copperskiff", "skymaul"]],
@@ -58,8 +62,44 @@ const QUESTION_ONLY = Object.freeze([
   ["DeployedUnitCloneEncounter", "clone card identity and mechanics are intentionally unclaimed"],
 ]);
 const KINDS = new Set(["effect", "structure", "unit"]);
-
 function clone(value) { return structuredClone(value); }
+
+function questionValues(records) {
+  return Object.fromEntries(Object.entries(records).map(([key, record]) => [key, clone(record.value)]));
+}
+
+const DEFENSIVE_RUNTIME = createDefensiveBuildingRuntimeProfiles();
+const RESOURCE_RUNTIME = questionValues(createResourceBuildingQuestionRecords());
+const TRAVEL_RUNTIME = questionValues(createUndergroundTravelBuildingQuestionRecords());
+const DEATH_RUNTIME = questionValues(createDeathEffectsQuestions());
+
+function buildingRuntimeProfile(id, source) {
+  if (Object.hasOwn(DEFENSIVE_RUNTIME, id)) {
+    const { policy: _policy, ...profile } = DEFENSIVE_RUNTIME[id];
+    return { class: "defensive", ...clone(profile) };
+  }
+  if (id === "aether-well") {
+    return { class: "resource", deployTicks: source.deployTimeTicks,
+      generationAmount: RESOURCE_RUNTIME.generationAmount,
+      generationCadenceTicks: RESOURCE_RUNTIME.generationCadenceTicks,
+      hitpoints: source.hitpoints, lifetimeTicks: RESOURCE_RUNTIME.lifetimeTicks };
+  }
+  if (id === "burrow-rig") {
+    return { class: "travel", deployTicks: source.deployTimeTicks,
+      emergenceSpawnDelayTicks: TRAVEL_RUNTIME.emergenceSpawnDelayTicks,
+      hitpoints: source.hitpoints, lifetimeTicks: TRAVEL_RUNTIME.lifetimeTicks,
+      travelSpeedMillitilesPerSecond: TRAVEL_RUNTIME.travelSpeedMillitilesPerSecond };
+  }
+  if (id === "cinder-reliquary") {
+    return { class: "death-effect", damage: source.damage, deployTicks: source.deployTimeTicks,
+      firstHitTicks: source.firstHitTicks, hitSpeedTicks: source.hitSpeedTicks,
+      hitpoints: source.hitpoints, radius: DEATH_RUNTIME.radius,
+      rangeMillitiles: source.rangeMillitiles, targetMode: "ground",
+      towerModifier: clone(DEATH_RUNTIME.towerModifier) };
+  }
+  return null;
+}
+
 function freeze(value) { if (value && typeof value === "object" && !Object.isFrozen(value)) {
   for (const child of Object.values(value)) freeze(child); Object.freeze(value); } return value; }
 function canonical(value) {
@@ -169,7 +209,11 @@ export function projectSessionNonUnitBattleCard(id) {
   if (admitted.kind === "unit") throw new TypeError("unit runtime projection belongs to troop binding");
   const sourceExport = admitted.occurrenceExports[0];
   const source = records(sourceExport).find((record) => record.id === id);
-  return freeze({
+  const buildingRuntime = source.kind === "structure" ? buildingRuntimeProfile(id, source) : null;
+  if (source.kind === "structure" && buildingRuntime === null) {
+    throw new Error("admitted structure lacks a shared building runtime profile");
+  }
+  const projection = {
     areaDamageRadiusMillitiles: source.areaDamageRadiusMillitiles,
     cost: source.cost,
     count: source.count,
@@ -189,5 +233,7 @@ export function projectSessionNonUnitBattleCard(id) {
     rarity: source.rarity,
     sightRangeMillitiles: source.sightRangeMillitiles,
     targetMode: source.targetMode,
-  });
+  };
+  if (buildingRuntime !== null) projection.buildingRuntime = buildingRuntime;
+  return freeze(projection);
 }

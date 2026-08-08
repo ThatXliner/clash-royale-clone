@@ -14,6 +14,12 @@ import { MOVEMENT_TICKS_PER_SECOND } from "./movement.js";
 import { findGroundPath, isGroundNavigationNode } from "./pathfinding.js";
 import { SeededRandom } from "./rng.js";
 import { SessionCardRuntime, isAuthenticSessionCardRuntime } from "./session-card-runtime.js";
+import {
+  SESSION_BUILDING_MAX_INTENTS,
+  SESSION_BUILDING_MAX_STRUCTURES,
+  createSessionBuildingRuntime,
+  isSessionBuildingCardId,
+} from "./session-building-runtime.js";
 import { MAX_SPATIAL_MILLITILES, validateCircle, validatePosition } from "./spatial.js";
 import { retainOrAcquireTarget, targetCandidate } from "./targeting.js";
 import { createStageSideDeployment } from "./game-side-deploy-core.js";
@@ -3195,6 +3201,7 @@ const TOWER_IDS = new Map([
   ["north:lane:east", Number.MAX_SAFE_INTEGER],
 ]);
 const TOWER_NUMERIC_IDS = new Set(TOWER_IDS.values());
+const TOWER_TEXT_IDS = new Set(TOWER_IDS.keys());
 // Ceiling of the center-to-corner distance for the existing estimated arena
 // footprints: sqrt(1,500^2 + 1,500^2) and sqrt(2,000^2 + 2,000^2).
 // The combat kernel is circular, so the circumscribed radius represents the
@@ -3386,7 +3393,35 @@ function candidatesFrom(combat) {
 
 function towerDamageFrom(events) {
   return events.filter(({ type }) => type === "external-structure-contact")
+    .filter(({ structureId }) => TOWER_TEXT_IDS.has(structureId))
     .map(({ damage, structureId }) => ({ amount: damage, towerId: structureId }));
+}
+
+function checkedBuildingBoundary(value, currentTick) {
+  const boundary = exact(value, ["externalHits", "externalProjectiles", "externalTowerHits",
+    "structures", "tick"], "battle tower external boundary");
+  if (boundary.tick !== currentTick) {
+    throw new RangeError("battle tower external boundary tick must equal the current tick");
+  }
+  const hits = denseArray(boundary.externalTowerHits, "battle tower external tower hits", 1_024)
+    .map((entry, index) => {
+      const hit = exact(entry, ["amount", "sourceId", "towerId"],
+        `battle tower external tower hits[${index}]`);
+      integer(hit.amount, 0, Number.MAX_SAFE_INTEGER,
+        `battle tower external tower hits[${index}].amount`);
+      if (typeof hit.sourceId !== "string" || hit.sourceId.length === 0 ||
+          !TOWER_TEXT_IDS.has(hit.towerId)) {
+        throw new TypeError(`battle tower external tower hits[${index}] is invalid`);
+      }
+      return clone(hit);
+    }).sort((left, right) => left.towerId.localeCompare(right.towerId) ||
+      left.sourceId.localeCompare(right.sourceId) || left.amount - right.amount);
+  if (new Set(hits.map(({ sourceId, towerId }) => `${towerId}:${sourceId}`)).size !== hits.length) {
+    throw new TypeError("battle tower external tower hit identities must be unique");
+  }
+  return { externalHits: clone(boundary.externalHits),
+    externalProjectiles: clone(boundary.externalProjectiles), externalTowerHits: hits,
+    structures: clone(boundary.structures), tick: boundary.tick };
 }
 
 function projectileFor(shot, projectileId) {
@@ -3674,6 +3709,37 @@ class BattleTowerCombat {
     return freeze(clone(this.#advance()));
   }
 
+  /**
+   * One host-owned boundary with data-only external structures and already
+   * validated building contacts. BattleCombat remains the unit authority and
+   * CrownTowerBattle remains the tower authority; this adapter only joins the
+   * shared tick so neither can be advanced out of order.
+   */
+  stepBoundary(command) {
+    if (this.#historyCount >= MAX_HISTORY) {
+      throw new RangeError("battle tower history bound exceeded");
+    }
+    const checked = checkedBuildingBoundary(command, this.state.tick);
+    const towerStructures = structuresFrom(this.#towerRuntime().state.towers);
+    const structureIds = new Set(towerStructures.map(({ id }) => id));
+    const structureNames = new Set(towerStructures.map(({ structureId }) => structureId));
+    for (const structure of checked.structures) {
+      if (structureIds.has(structure.id) || structureNames.has(structure.structureId)) {
+        throw new RangeError("battle tower external structure identity collides with a crown tower");
+      }
+      structureIds.add(structure.id);
+      structureNames.add(structure.structureId);
+    }
+    // Validate the complete unit ingress and external structure graph before
+    // touching either live child authority.
+    this.#combatRuntime().previewBoundary({ externalHits: checked.externalHits,
+      externalProjectiles: checked.externalProjectiles,
+      structures: [...towerStructures, ...checked.structures], tick: checked.tick });
+    this.#towerRuntime().previewLive({ candidates: candidatesFrom(this.#combatRuntime()),
+      damage: checked.externalTowerHits.map(({ amount, towerId }) => ({ amount, towerId })) });
+    return freeze(clone(this.#advance(checked, "boundary")));
+  }
+
   stepMany(ticks) {
     integer(ticks, 0, MAX_BATTLE_TOWER_STEP_TICKS, "battle tower step ticks");
     if (this.state.tick + ticks > MAX_TICK) {
@@ -3746,6 +3812,8 @@ class BattleTowerCombat {
           ["command", "type"], `${label}[${index}]`).command);
         else if (operation.type === "positions") restored.updatePositions(exact(operation,
           ["command", "type"], `${label}[${index}]`).command);
+        else if (operation.type === "boundary") restored.stepBoundary(exact(operation,
+          ["command", "type"], `${label}[${index}]`).command);
         else if (operation.type === "step") {
           const entry = exact(operation, ["tick", "type"], `${label}[${index}]`);
           if (entry.tick !== restored.state.tick) throw new TypeError("noncausal battle tower step history");
@@ -3816,6 +3884,9 @@ class BattleTowerCombat {
       } else if (operation.type === "positions") {
         const entry = exact(operation, ["command", "type"], `history[${index}]`);
         restored.updatePositions(entry.command);
+      } else if (operation.type === "boundary") {
+        const entry = exact(operation, ["command", "type"], `history[${index}]`);
+        restored.stepBoundary(entry.command);
       } else if (operation.type === "step") {
         const entry = exact(operation, ["tick", "type"], `history[${index}]`);
         if (entry.tick !== restored.state.tick) {
@@ -3836,20 +3907,31 @@ class BattleTowerCombat {
     return restored;
   }
 
-  #advance() {
+  #advance(external = null, historyType = "step") {
     this.#assertSynchronized();
     const combat = this.#combatRuntime();
     const towers = this.#towerRuntime();
     const tick = combat.state.tick;
-    const structures = structuresFrom(towers.state.towers);
+    const checkedExternal = external === null ? {
+      externalHits: [], externalProjectiles: [], externalTowerHits: [], structures: [], tick,
+    } : external;
+    if (checkedExternal.tick !== tick) {
+      throw new RangeError("battle tower boundary is not current");
+    }
+    const towerStructures = structuresFrom(towers.state.towers);
+    const structures = [...towerStructures, ...checkedExternal.structures];
     const candidates = candidatesFrom(combat);
 
     const previewEvents = combat.previewBoundary({
-      externalHits: [], externalProjectiles: [], structures, tick,
+      externalHits: checkedExternal.externalHits,
+      externalProjectiles: checkedExternal.externalProjectiles,
+      structures,
+      tick,
     });
     const towerInput = {
       candidates,
-      damage: towerDamageFrom(previewEvents),
+      damage: [...towerDamageFrom(previewEvents), ...checkedExternal.externalTowerHits
+        .map(({ amount, towerId }) => ({ amount, towerId }))],
     };
     const towerEvents = towers.previewLive(towerInput);
     const ready = towerEvents.filter(({ type }) => type === "shot-ready");
@@ -3877,8 +3959,9 @@ class BattleTowerCombat {
       identity: clone(shot.projectileIdentity),
     }));
     const combatInput = {
-      externalHits: [],
-      externalProjectiles: ingresses.map(({ command }) => command),
+      externalHits: checkedExternal.externalHits,
+      externalProjectiles: [...checkedExternal.externalProjectiles,
+        ...ingresses.map(({ command }) => command)],
       structures,
       tick,
     };
@@ -3891,11 +3974,17 @@ class BattleTowerCombat {
     towers.stepLive(towerInput);
     combat.stepBoundaryAfterPreview(combatInput, combatEvents);
     this.#nextTowerProjectileId += shots.length;
-    this.#appendHistory({ tick, type: "step" });
+    this.#appendHistory(historyType === "step" ? { tick, type: "step" } : {
+      command: clone(checkedExternal), type: "boundary",
+    });
     const currentOrigins = currentUnitOrigins(combatEvents);
     const unitOrigins = pendingUnitOrigins(this.#unitProjectileOrigins, currentOrigins);
     const events = unifiedEvents(combatEvents, towerEvents, shots, ingresses,
       currentOrigins, unitOrigins);
+    for (const hit of checkedExternal.externalTowerHits) {
+      events.push({ damage: hit.amount, delivery: "building", sourceId: hit.sourceId,
+        structureId: hit.towerId, tick, type: "external-structure-contact" });
+    }
     for (const event of combatEvents) {
       if (event.type === "projectile-impact" && !unitOrigins.delete(event.projectileId)) {
         throw new TypeError("unit projectile impact lacks retained provenance");
@@ -3990,6 +4079,7 @@ function defineLiveBattle(BattleMovement, BattleTowerCombat, battleMovementCompa
 const MAX_LIVE_BATTLE_STEP_TICKS = 18_000;
 const MAX_LIVE_BATTLE_DEPLOYMENTS = 1_024;
 const MAX_LIVE_BATTLE_UNITS = 1_024;
+const MAX_LIVE_BATTLE_STRUCTURES = SESSION_BUILDING_MAX_STRUCTURES;
 
 const MAX_HISTORY = 100_000;
 const EXPLICIT_HISTORY_TAIL = 256;
@@ -4016,6 +4106,7 @@ const SNAPSHOT_GRAPH_LIMITS = Object.freeze({
 });
 const SIDES = new Set(["north", "south"]);
 const DEPLOY_KEYS = ["cardId", "point", "sequence", "side", "tick"];
+const STRUCTURE_DEPLOY_KEYS = ["cardId", "destination", "point", "sequence", "side", "tick"];
 const SETUP_KEYS = ["initialWindupTicks", "questions", "roster"];
 const CARD_KEYS = [
   "areaDamageRadiusMillitiles", "cost", "count", "damage", "deployTimeTicks",
@@ -4023,6 +4114,8 @@ const CARD_KEYS = [
   "hitpoints", "id", "kind", "movementMillitilesPerSecond", "rangeMillitiles",
   "rarity", "sightRangeMillitiles", "targetMode",
 ];
+const STRUCTURE_CARD_KEYS = [...CARD_KEYS, "buildingRuntime"];
+const MAX_PENDING_BUILDING_HITS = SESSION_BUILDING_MAX_INTENTS;
 const ENTITY_KEYS = [
   "archetypeId", "areaDamageRadiusMillitiles", "bodyRadiusPolicy", "count",
   "damage", "delivery", "deployTimeTicks", "displayName", "firstHitTicks",
@@ -4226,7 +4319,7 @@ function checkedPolicy(value, label, { projectile = false } = {}) {
   return { kind: policy.kind, questionKey: string(policy.questionKey, `${label}.questionKey`) };
 }
 
-function checkedSetup(value) {
+function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
   const setup = exact(value, SETUP_KEYS, "live battle setup");
   const windups = exact(setup.initialWindupTicks, ["central", "lane"],
     "live battle setup.initialWindupTicks");
@@ -4256,10 +4349,19 @@ function checkedSetup(value) {
   const referencedQuestionKeys = new Set();
   const roster = denseArray(setup.roster, "live battle setup.roster", 8)
     .map((value, cardIndex) => {
-      const card = exact(value, CARD_KEYS, `live battle setup.roster[${cardIndex}]`);
+      const hasBuildingRuntime = value !== null && typeof value === "object" &&
+        !Array.isArray(value) && Object.hasOwn(value, "buildingRuntime");
+      const card = exact(value, value?.kind === "structure" && hasBuildingRuntime
+        ? STRUCTURE_CARD_KEYS : CARD_KEYS, `live battle setup.roster[${cardIndex}]`);
       const cardKind = string(card.kind, `roster[${cardIndex}].kind`);
       if (!["effect", "structure", "unit"].includes(cardKind)) {
         throw new TypeError(`roster[${cardIndex}].kind is invalid`);
+      }
+      // Fresh HBA setup always carries the receipt needed to materialize a
+      // structure. Pre-HBA route-only structures are accepted only by the
+      // explicit versioned-restore path below.
+      if (cardKind === "structure" && !hasBuildingRuntime && !legacyStructureReceipts) {
+        throw new TypeError(`roster[${cardIndex}] structure lacks a canonical buildingRuntime receipt`);
       }
       const entities = denseArray(card.entities, `roster[${cardIndex}].entities`, 16)
         .map((raw, entityIndex) => {
@@ -4337,7 +4439,7 @@ function checkedSetup(value) {
         throw new TypeError(`roster[${cardIndex}].formation is inconsistent`);
       }
       const label = `roster[${cardIndex}]`;
-      return {
+      const normalizedCard = {
         areaDamageRadiusMillitiles: nullableNonnegative(card.areaDamageRadiusMillitiles,
           `${label}.areaDamageRadiusMillitiles`),
         cost: nonnegative(card.cost, `${label}.cost`),
@@ -4375,6 +4477,10 @@ function checkedSetup(value) {
           nullableNonnegative(card.sightRangeMillitiles, `${label}.sightRangeMillitiles`),
         targetMode: string(card.targetMode, `${label}.targetMode`),
       };
+      if (cardKind === "structure" && hasBuildingRuntime) {
+        normalizedCard.buildingRuntime = clone(card.buildingRuntime);
+      }
+      return normalizedCard;
     });
   if (roster.length !== 8 || new Set(roster.map(({ id }) => id)).size !== roster.length) {
     throw new TypeError("live battle setup roster must contain eight unique cards");
@@ -4417,6 +4523,12 @@ function admittedSetup(value) {
   throw new TypeError("live battle setup object must come from parseLiveBattleSetup");
 }
 
+function buildingProfileReceipt(setup) {
+  return canonical({ profiles: setup.roster.filter(({ buildingRuntime, kind }) =>
+    kind === "structure" && buildingRuntime !== undefined)
+    .map(({ buildingRuntime, id }) => ({ cardId: id, profile: buildingRuntime })), version: 1 });
+}
+
 function parseLiveBattleSetup(serialized) {
   return checkedSetup(parsedSetupBytes(serialized));
 }
@@ -4449,6 +4561,42 @@ function checkedDeploy(value, currentTick, rosterById) {
   });
   if (!decision.legal) throw new RangeError(`live battle deployment is illegal: ${decision.reason}`);
   return { cardId: command.cardId, point: { ...point }, sequence, side: command.side, tick };
+}
+
+function checkedStructureDeploy(value, currentTick, rosterById) {
+  const command = exact(value, STRUCTURE_DEPLOY_KEYS, "live battle structure deploy command");
+  const tick = integer(command.tick, currentTick, MAX_LIVE_BATTLE_STEP_TICKS,
+    "live battle structure deploy command.tick");
+  const sequence = integer(command.sequence, 0, Number.MAX_SAFE_INTEGER,
+    "live battle structure deploy command.sequence");
+  if (!SIDES.has(command.side)) {
+    throw new TypeError("live battle structure deploy command.side is invalid");
+  }
+  const card = rosterById.get(command.cardId);
+  if (!card || card.kind !== "structure" || !Object.hasOwn(card, "buildingRuntime") ||
+      !isSessionBuildingCardId(command.cardId)) {
+    throw new TypeError("live battle structure deploy command.cardId is not a supported structure");
+  }
+  const point = validateArenaPoint(command.point, "live battle structure deploy command.point");
+  const destination = command.destination === null ? null : validateArenaPoint(command.destination,
+    "live battle structure deploy command.destination");
+  if ((command.cardId === "burrow-rig") !== (destination !== null)) {
+    throw new TypeError("underground travel structures require exactly one destination");
+  }
+  const decision = evaluateDeployment({ destroyedOpposingLaneTowers: [],
+    placementClass: "ground_entity", point, side: command.side });
+  if (!decision.legal) {
+    throw new RangeError(`live battle structure deployment is illegal: ${decision.reason}`);
+  }
+  if (destination !== null) {
+    const destinationDecision = evaluateDeployment({ destroyedOpposingLaneTowers: [],
+      placementClass: "ground_entity", point: destination, side: command.side });
+    if (!destinationDecision.legal) {
+      throw new RangeError(`live battle structure destination is illegal: ${destinationDecision.reason}`);
+    }
+  }
+  return { cardId: command.cardId, destination: destination === null ? null : { ...destination },
+    point: { ...point }, sequence, side: command.side, tick };
 }
 
 function otherSide(side) {
@@ -4570,6 +4718,7 @@ function compactLiveHistory(history) {
 
 class LiveBattle {
   #battle;
+  #buildingRuntime;
   #events;
   #history;
   #historyCount;
@@ -4579,9 +4728,12 @@ class LiveBattle {
   #movementsOpaque;
   #nextEntityId;
   #pending;
+  #pendingBuildingHits;
+  #pendingStructures;
   #questionValues;
   #rosterById;
   #setup;
+  #structures;
 
   constructor(value) {
     runtimeInstances.add(this);
@@ -4599,7 +4751,11 @@ class LiveBattle {
     this.#movementsOpaque = false;
     this.#nextEntityId = 1;
     this.#pending = [];
+    this.#pendingBuildingHits = [];
+    this.#pendingStructures = [];
     this.#setup = setup;
+    this.#buildingRuntime = createSessionBuildingRuntime(buildingProfileReceipt(setup));
+    this.#structures = [];
     this.#questionValues = new Map(setup.questions.map(({ key, value: answer }) => [key, answer]));
     this.#rosterById = new Map(setup.roster.map((card) => [card.id, card]));
   }
@@ -4622,8 +4778,11 @@ class LiveBattle {
     const state = this.#battleRuntime().state;
     return freeze({
       activationHistory: clone(state.activationHistory),
+      pendingBuildingHits: clone(this.#pendingBuildingHits),
       pendingDeployments: clone(this.#pending),
+      pendingStructures: clone(this.#pendingStructures),
       projectiles: clone(state.projectiles),
+      structures: clone(this.#structures),
       tick: state.tick,
       towers: clone(state.towers),
       units: state.units.map((unit) => ({
@@ -4644,6 +4803,14 @@ class LiveBattle {
 
   get replay() {
     return this.events;
+  }
+
+  /** Whether this admitted roster has the canonical profile needed to materialize a structure. */
+  supportsStructureRuntime(cardId) {
+    if (typeof cardId !== "string") return false;
+    const card = this.#rosterById.get(cardId);
+    return card?.kind === "structure" && Object.hasOwn(card, "buildingRuntime") &&
+      isSessionBuildingCardId(cardId);
   }
 
   /** Returns an independent transactional continuation without history replay. */
@@ -4675,6 +4842,29 @@ class LiveBattle {
     return freeze(clone(event));
   }
 
+  /** Schedules one typed, host-owned structure placement for the shared tick. */
+  scheduleStructure(command) {
+    if (this.#historyCount >= MAX_HISTORY ||
+        this.#pendingStructures.length >= MAX_LIVE_BATTLE_DEPLOYMENTS) {
+      throw new RangeError("live battle structure deployment/history bound exceeded");
+    }
+    const battle = this.#battleRuntime();
+    const checked = checkedStructureDeploy(command, battle.state.tick, this.#rosterById);
+    if (this.#pendingStructures.some((entry) => entry.tick === checked.tick &&
+        entry.sequence === checked.sequence) || this.#pending.some((entry) =>
+      entry.tick === checked.tick && entry.sequence === checked.sequence)) {
+      throw new RangeError("live battle deployment tick/sequence must be globally unique");
+    }
+    this.#pendingStructures.push(clone(checked));
+    this.#pendingStructures.sort((left, right) => left.tick - right.tick ||
+      left.sequence - right.sequence || left.side.localeCompare(right.side));
+    this.#appendHistory({ command: clone(checked), type: "structure-deploy" });
+    const event = { ...clone(checked), scheduledAt: battle.state.tick,
+      type: "structure-deploy-scheduled" };
+    this.#events.push(event);
+    return freeze(clone(event));
+  }
+
   step(tick = this.#battleRuntime().state.tick) {
     integer(tick, 0, MAX_LIVE_BATTLE_STEP_TICKS, "live battle step tick");
     if (tick !== this.#battleRuntime().state.tick) throw new RangeError("live battle step tick is not current");
@@ -4702,14 +4892,18 @@ class LiveBattle {
   serialize() {
     this.#assertPublicTranscript();
     const tailStart = Math.max(0, this.#history.length - EXPLICIT_HISTORY_TAIL);
-    const serialized = canonical({
+    const hasBuildingState = this.#structures.length > 0 || this.#pendingStructures.length > 0 ||
+      this.#pendingBuildingHits.length > 0;
+    const snapshot = {
       battle: this.#battleRuntime().serialize(),
       history: this.#history.slice(tailStart),
       movements: movementWitnesses(this.#movementRuntimes(), this.#metadata),
       setup: this.#setup,
       transcript: compactLiveHistory(this.#history.slice(0, tailStart)),
-      version: 2,
-    });
+      version: hasBuildingState ? 3 : 2,
+    };
+    if (hasBuildingState) snapshot.building = this.#buildingWitness();
+    const serialized = canonical(snapshot);
     if (new TextEncoder().encode(serialized).byteLength > MAX_SNAPSHOT_BYTES) {
       throw new RangeError("serialized live battle exceeds the byte bound");
     }
@@ -4734,9 +4928,12 @@ class LiveBattle {
       : version === 2
         ? exact(snapshot, ["battle", "history", "movements", "setup", "transcript", "version"],
           "live battle snapshot")
+        : version === 3
+          ? exact(snapshot, ["battle", "building", "history", "movements", "setup", "transcript", "version"],
+            "live battle snapshot")
         : (() => { throw new TypeError("unsupported live battle snapshot version"); })();
     const history = denseArray(checked.history, "live battle snapshot.history", MAX_HISTORY);
-    const transcript = version === 2
+    const transcript = version >= 2
       ? denseArray(checked.transcript, "live battle snapshot.transcript", MAX_HISTORY)
       : [];
     let expandedOperations = history.length;
@@ -4756,12 +4953,18 @@ class LiveBattle {
       }
       expandedOperations += added;
     }
-    const restored = new LiveBattle(checkedSetup(checked.setup));
+    // Versions 1 and 2 predate the canonical building receipt. Version 3 is
+    // the current building witness format and retains strict fresh admission.
+    const restored = new LiveBattle(checkedSetup(checked.setup,
+      { legacyStructureReceipts: version <= 2 }));
     const replayOperation = (operation, index, label) => {
       plain(operation, `live battle snapshot.history[${index}]`);
       if (operation.type === "deploy") {
         const entry = exact(operation, ["command", "type"], `history[${index}]`);
         restored.scheduleDeploy(entry.command);
+      } else if (operation.type === "structure-deploy") {
+        const entry = exact(operation, ["command", "type"], `history[${index}]`);
+        restored.scheduleStructure(entry.command);
       } else if (operation.type === "step") {
         const entry = exact(operation, ["tick", "type"], `history[${index}]`);
         integer(entry.tick, 0, MAX_LIVE_BATTLE_STEP_TICKS, `history[${index}].tick`);
@@ -4769,7 +4972,7 @@ class LiveBattle {
         restored.#advance();
       } else throw new TypeError(`live battle snapshot.${label}[${index}] is invalid`);
     };
-    if (version === 2) {
+    if (version >= 2) {
       let operations = 0;
       for (const [index, record] of transcript.entries()) {
         plain(record, `live battle snapshot.transcript[${index}]`);
@@ -4794,7 +4997,7 @@ class LiveBattle {
         replayOperation(operation, index, "history");
       }
     }
-    const battleWitnessMatches = version === 2
+    const battleWitnessMatches = version >= 2
       ? restored.#battleRuntime().serialize() === checked.battle
       : (() => {
         const legacy = BattleTowerCombat.restore(checked.battle);
@@ -4804,8 +5007,11 @@ class LiveBattle {
         return canonical(legacy.state) === canonical(restored.#battleRuntime().state) &&
           canonical(legacy.replay) === canonical(restored.#battleRuntime().replay);
       })();
-    if (!battleWitnessMatches || canonical(movementWitnesses(restored.#movementRuntimes(), restored.#metadata)) !==
-          canonical(checked.movements) || (version === 2 && restored.serialize() !== serialized)) {
+    const buildingWitnessMatches = version !== 3 || canonical(restored.#buildingWitness()) ===
+      canonical(checked.building);
+    if (!battleWitnessMatches || !buildingWitnessMatches ||
+        canonical(movementWitnesses(restored.#movementRuntimes(), restored.#metadata)) !==
+          canonical(checked.movements) || (version >= 2 && restored.serialize() !== serialized)) {
       throw new TypeError("live battle snapshot witnesses are not causal");
     }
     return restored;
@@ -4819,6 +5025,49 @@ class LiveBattle {
     const due = this.#pending.filter((entry) => entry.tick === tick);
     this.#pending = this.#pending.filter((entry) => entry.tick !== tick);
     for (const deployment of due) boundary.push(...this.#materialize(deployment));
+
+    const dueStructures = this.#pendingStructures.filter((entry) => entry.tick === tick);
+    this.#pendingStructures = this.#pendingStructures.filter((entry) => entry.tick !== tick);
+    for (const deployment of dueStructures) {
+      boundary.push(...this.#materializeStructure(deployment));
+    }
+
+    // Building contacts are emitted at the prior shared boundary and consumed
+    // here with ordinary BattleTowerCombat ingress. A stale target publishes
+    // an ordered miss rather than mutating a later graph.
+    const dueBuilding = this.#pendingBuildingHits.filter(({ applyTick }) => applyTick === tick);
+    this.#pendingBuildingHits = this.#pendingBuildingHits.filter(({ applyTick }) => applyTick !== tick);
+    const externalHits = [];
+    const externalTowerHits = [];
+    for (const hit of dueBuilding) {
+      if (hit.targetKind === "structure") {
+        const target = this.#structures.find(({ id }) => id === hit.targetId);
+        if (target?.alive) {
+          boundary.push(...this.#damageStructure(target, hit.amount,
+            `building:${hit.sourceId}`, hit.origin));
+        } else {
+          boundary.push(this.#buildingMiss(hit));
+        }
+      } else if (hit.targetKind === "unit") {
+        const target = battle.state.units.find(({ alive, id }) => alive && id === hit.targetId);
+        if (target) {
+          externalHits.push({ damage: hit.amount, delivery: "melee",
+            sourceId: `building:${hit.sourceId}`, targetUnitId: hit.targetId });
+        } else {
+          boundary.push(this.#buildingMiss(hit));
+        }
+      } else if (hit.targetKind === "tower") {
+        const target = battle.state.towers.find(({ hitpoints, id }) => hitpoints > 0 && id === hit.targetId);
+        if (target) {
+          externalTowerHits.push({ amount: hit.amount, sourceId: `building:${hit.sourceId}`,
+            towerId: hit.targetId });
+        } else {
+          boundary.push(this.#buildingMiss(hit));
+        }
+      } else {
+        throw new Error("live battle queued building target kind is invalid");
+      }
+    }
 
     const before = battle.state;
     const positionCommands = [];
@@ -4848,7 +5097,36 @@ class LiveBattle {
     if (positionCommands.length > 0) {
       boundary.push(...battle.updatePositions({ positions: positionCommands, tick }));
     }
-    boundary.push(...battle.step(tick));
+    const structureCandidates = this.#battleStructureCandidates();
+    // Preserve the established unit-only path byte-for-byte. The reducer still
+    // runs once below; richer ingress is needed only while host structures or
+    // their contacts are present.
+    if (structureCandidates.length === 0 && externalHits.length === 0 && externalTowerHits.length === 0) {
+      boundary.push(...battle.step(tick));
+    } else {
+      boundary.push(...battle.stepBoundary({ externalHits, externalProjectiles: [], externalTowerHits,
+        structures: structureCandidates, tick }));
+    }
+
+    // BattleCombat emits unit-to-building contacts for data-only targets;
+    // LiveBattle owns the corresponding structure-health transition exactly once.
+    for (const contact of boundary.filter((event) => event.type === "external-structure-contact" &&
+      typeof event.structureId === "string" && event.structureId.startsWith("building:"))) {
+      const id = Number(contact.structureId.slice("building:".length));
+      const structure = this.#structures.find((entry) => entry.id === id);
+      if (structure?.alive) {
+        boundary.push(...this.#damageStructure(structure, contact.damage,
+          contact.sourceUnitId ?? contact.sourceId ?? null, "combat-damage", tick));
+      }
+    }
+
+    const building = this.#buildingRuntime.reduceBoundary(canonical({ structures: this.#structures,
+      tick, towers: battle.state.towers.map(({ hitpoints, id, position, side }) =>
+        ({ hitpoints, id, position, side })), units: battle.state.units.map((unit) => ({
+        alive: unit.alive, id: unit.id, layer: unit.layer, position: unit.position, radius: unit.radius,
+        side: unit.side, targetable: unit.alive,
+      })) }));
+    boundary.push(...this.#applyBuildingIntents(building, tick));
     this.#appendHistory({ tick, type: "step" });
     this.#events.push(...clone(boundary));
     return boundary;
@@ -4858,6 +5136,7 @@ class LiveBattle {
     const battle = this.#battleRuntime();
     const tick = battle.state.tick;
     const due = this.#pending.filter((entry) => entry.tick === tick);
+    const dueStructures = this.#pendingStructures.filter((entry) => entry.tick === tick);
     const added = due.reduce((sum, deployment) => {
       const card = this.#rosterById.get(deployment.cardId);
       if (card === undefined) throw new TypeError("live battle pending card identity is unknown");
@@ -4867,8 +5146,14 @@ class LiveBattle {
     if (!Number.isSafeInteger(added) || existing + added > MAX_LIVE_BATTLE_UNITS) {
       throw new RangeError("live battle boundary unit capacity exceeded");
     }
-    if (this.#nextEntityId + added > Number.MAX_SAFE_INTEGER) {
+    if (this.#structures.length + dueStructures.length > MAX_LIVE_BATTLE_STRUCTURES) {
+      throw new RangeError("live battle boundary structure capacity exceeded");
+    }
+    if (this.#nextEntityId + added + dueStructures.length > Number.MAX_SAFE_INTEGER) {
       throw new RangeError("live battle entity identity capacity exceeded");
+    }
+    if (this.#pendingBuildingHits.length > MAX_PENDING_BUILDING_HITS) {
+      throw new RangeError("live battle pending building contact capacity exceeded");
     }
   }
 
@@ -4912,6 +5197,156 @@ class LiveBattle {
     return events;
   }
 
+  #materializeStructure(deployment) {
+    const id = this.#nextEntityId;
+    const structure = this.#buildingRuntime.materializePlacement(canonical({
+      cardId: deployment.cardId,
+      destination: deployment.destination,
+      id,
+      point: deployment.point,
+      side: deployment.side,
+      tick: deployment.tick,
+    }));
+    this.#nextEntityId += 1;
+    this.#structures.push(clone(structure));
+    this.#structures.sort((left, right) => left.id - right.id);
+    return [{ cardId: deployment.cardId, destination: clone(deployment.destination),
+      point: clone(deployment.point), sequence: deployment.sequence, side: deployment.side,
+      structureId: id, tick: deployment.tick, type: "structure-materialized" }];
+  }
+
+  #battleStructureCandidates() {
+    return this.#structures.map((structure) => ({
+      alive: structure.alive,
+      id: structure.id,
+      kind: "structure",
+      layer: "ground",
+      position: clone(structure.position),
+      radius: 0,
+      side: structure.side,
+      structureId: `building:${structure.id}`,
+      targetable: structure.targetable,
+    })).sort((left, right) => left.id - right.id);
+  }
+
+  #buildingMiss(hit) {
+    return { amount: hit.amount, origin: hit.origin, sourceId: hit.sourceId,
+      targetId: hit.targetId, targetKind: hit.targetKind, tick: this.#battleRuntime().state.tick,
+      type: "building-contact-missed" };
+  }
+
+  #damageStructure(structure, amount, sourceId, origin, tick = this.#battleRuntime().state.tick) {
+    if (!structure.alive || amount <= 0) return [];
+    const applied = Math.min(structure.hitpoints, amount);
+    structure.hitpoints -= applied;
+    const events = [{ amountApplied: applied, amountRequested: amount, buildingId: structure.id,
+      origin, sourceId, tick, type: "structure-damaged" }];
+    if (structure.hitpoints === 0) {
+      structure.alive = false;
+      structure.deathCause = "combat-damage";
+      structure.targetable = false;
+      if (structure.class === "travel") {
+        structure.phase = "dead";
+        events.push({ buildingId: structure.id, reason: "damage", tick,
+          type: "travel-building-destroyed" });
+      } else {
+        events.push({ buildingId: structure.id, cause: "combat-damage", reason: "damage", sourceId,
+          tick, type: "structure-destroyed" });
+      }
+    }
+    return events;
+  }
+
+  #applyBuildingIntents(result, tick) {
+    if (!result || result.tick !== tick || !Array.isArray(result.intents) ||
+        result.intents.length > SESSION_BUILDING_MAX_INTENTS) {
+      throw new TypeError("live battle building runtime result is invalid");
+    }
+    const replacements = new Map();
+    const queued = [];
+    const published = [];
+    const structures = new Map(this.#structures.map((structure) => [structure.id, structure]));
+    const battle = this.#battleRuntime();
+    const unitIds = new Set(battle.state.units.map(({ id }) => id));
+    const towerIds = new Set(battle.state.towers.map(({ id }) => id));
+    for (let index = 0; index < result.intents.length; index += 1) {
+      const intent = result.intents[index];
+      if (!intent || typeof intent !== "object" || intent.order !== index || typeof intent.type !== "string") {
+        throw new TypeError("live battle building runtime intent is invalid");
+      }
+      if (intent.type === "replace-structure") {
+        const replacement = this.#buildingRuntime.validateStructureReceipt(canonical(intent.structure));
+        const current = replacement && structures.get(replacement.id);
+        if (!current || replacements.has(replacement.id) || replacement.cardId !== current.cardId ||
+            replacement.class !== current.class || replacement.side !== current.side ||
+            replacement.maxHitpoints !== current.maxHitpoints ||
+            replacement.placedTick !== current.placedTick ||
+            !Number.isSafeInteger(replacement.hitpoints) || replacement.hitpoints < 0 ||
+            replacement.hitpoints > current.maxHitpoints || typeof replacement.alive !== "boolean" ||
+            typeof replacement.targetable !== "boolean") {
+          throw new TypeError("live battle building replacement intent is invalid");
+        }
+        replacements.set(replacement.id, clone(replacement));
+      } else if (intent.type === "queue-hit") {
+        if (!Number.isSafeInteger(intent.amount) || intent.amount < 1 ||
+            intent.amount > Number.MAX_SAFE_INTEGER || intent.applyTick !== result.tick + 1 ||
+            !Number.isSafeInteger(intent.sourceId) || !structures.has(intent.sourceId) ||
+            !["structure", "tower", "unit"].includes(intent.targetKind) ||
+            typeof intent.origin !== "string") {
+          throw new TypeError("live battle building contact intent is invalid");
+        }
+        if ((intent.targetKind === "unit" || intent.targetKind === "structure") &&
+            (!Number.isSafeInteger(intent.targetId) ||
+             (intent.targetKind === "unit" ? !unitIds.has(intent.targetId) : !structures.has(intent.targetId)))) {
+          throw new RangeError("live battle building contact target is unknown");
+        }
+        if (intent.targetKind === "tower" && (typeof intent.targetId !== "string" ||
+            !towerIds.has(intent.targetId))) {
+          throw new RangeError("live battle building tower contact target is unknown");
+        }
+        queued.push({ amount: intent.amount, applyTick: intent.applyTick, origin: intent.origin,
+          sourceId: intent.sourceId, targetId: intent.targetId, targetKind: intent.targetKind });
+      } else if (intent.type === "resource-grant") {
+        const source = structures.get(intent.sourceId);
+        if (!Number.isSafeInteger(intent.amount) || intent.amount < 1 || intent.amount > 10 ||
+            !SIDES.has(intent.side) || !Number.isSafeInteger(intent.sourceId) ||
+            !source || source.class !== "resource" || source.side !== intent.side ||
+            intent.tick !== result.tick) {
+          throw new TypeError("live battle building resource intent is invalid");
+        }
+        published.push({ amount: intent.amount, sourceId: intent.sourceId, side: intent.side,
+          tick: intent.tick, type: "building-resource-grant" });
+      } else if (intent.type === "event") {
+        const value = intent.value;
+        if (!value || typeof value !== "object" || Array.isArray(value) || value.tick !== result.tick ||
+            typeof value.type !== "string") {
+          throw new TypeError("live battle building event intent is invalid");
+        }
+        published.push(clone(value));
+      } else {
+        throw new TypeError("live battle building runtime intent type is invalid");
+      }
+    }
+    if (this.#pendingBuildingHits.length + queued.length > MAX_PENDING_BUILDING_HITS) {
+      throw new RangeError("live battle pending building contact capacity exceeded");
+    }
+    this.#structures = this.#structures.map((structure) => replacements.has(structure.id)
+      ? replacements.get(structure.id) : structure).sort((left, right) => left.id - right.id);
+    this.#pendingBuildingHits.push(...queued);
+    this.#pendingBuildingHits.sort((left, right) => left.applyTick - right.applyTick ||
+      left.sourceId - right.sourceId || String(left.targetId).localeCompare(String(right.targetId)) ||
+      left.targetKind.localeCompare(right.targetKind));
+    return published;
+  }
+
+  #buildingWitness() {
+    return {
+      pendingHits: clone(this.#pendingBuildingHits),
+      pendingStructures: clone(this.#pendingStructures),
+      structures: clone(this.#structures),
+    };
+  }
+
   #desiredTarget(unit, state) {
     const metadata = this.#metadata.get(unit.id);
     const enemies = state.units.filter((candidate) => candidate.alive && candidate.side !== unit.side &&
@@ -4933,6 +5368,24 @@ class LiveBattle {
       return {
         key: `unit:${enemy.id}:${point.x}:${point.y}`,
         target: { position: point, radius: enemy.radius, range: unit.reach },
+      };
+    }
+    const structures = this.#structures.filter((candidate) => candidate.alive &&
+      candidate.targetable && candidate.side !== unit.side);
+    structures.sort((left, right) => {
+      const distance = squaredDistance(unit.position, left.position) -
+        squaredDistance(unit.position, right.position);
+      return distance < 0n ? -1 : distance > 0n ? 1 : left.id - right.id;
+    });
+    if (structures.length > 0) {
+      const targetStructure = structures[0];
+      const structureKey = `structure:${targetStructure.id}`;
+      if (metadata.targetKey === structureKey) return { key: structureKey, target: null };
+      const point = unit.layer === "ground" ? nearestGroundNode(targetStructure.position) :
+        targetStructure.position;
+      return {
+        key: structureKey,
+        target: { position: point, radius: 0, range: unit.reach },
       };
     }
     const towers = state.towers.filter((tower) => tower.hitpoints > 0 && tower.side === otherSide(unit.side));
@@ -4968,6 +5421,7 @@ class LiveBattle {
     const retainTranscript = includeTranscript && !this.#isContinuation;
     const battle = this.#battleRuntime();
     candidate.#battle = retainTranscript ? battle.fork() : battleTowerCompactClone(battle);
+    candidate.#buildingRuntime = this.#buildingRuntime;
     candidate.#events = retainTranscript ? [...this.#events] : [];
     candidate.#history = retainTranscript ? [...this.#history] : [];
     candidate.#historyCount = this.#historyCount;
@@ -4978,14 +5432,18 @@ class LiveBattle {
     candidate.#movementsOpaque = true;
     candidate.#nextEntityId = this.#nextEntityId;
     candidate.#pending = clone(this.#pending);
+    candidate.#pendingBuildingHits = clone(this.#pendingBuildingHits);
+    candidate.#pendingStructures = clone(this.#pendingStructures);
     candidate.#questionValues = new Map(this.#questionValues);
     candidate.#setup = this.#setup;
     candidate.#rosterById = new Map(candidate.#setup.roster.map((card) => [card.id, card]));
+    candidate.#structures = clone(this.#structures);
     return candidate;
   }
 
   #adopt(candidate) {
     this.#battle = candidate.#battle;
+    this.#buildingRuntime = candidate.#buildingRuntime;
     this.#events = candidate.#events;
     this.#history = candidate.#history;
     this.#historyCount = candidate.#historyCount;
@@ -4995,10 +5453,17 @@ class LiveBattle {
     this.#movementsOpaque = candidate.#movementsOpaque;
     this.#nextEntityId = candidate.#nextEntityId;
     this.#pending = candidate.#pending;
+    this.#pendingBuildingHits = candidate.#pendingBuildingHits;
+    this.#pendingStructures = candidate.#pendingStructures;
     this.#questionValues = candidate.#questionValues;
     this.#rosterById = candidate.#rosterById;
     this.#setup = candidate.#setup;
+    this.#structures = candidate.#structures;
   }
+}
+
+function createLegacyLiveBattleForRestore(setup) {
+  return new LiveBattle(checkedSetup(setup, { legacyStructureReceipts: true }));
 }
 
 function getLiveBattlePlayableCardIds(setup) {
@@ -5010,7 +5475,9 @@ function getLiveBattlePlayableCardIds(setup) {
     }
     return compact(value);
   }, registerCompact);
-  return { getLiveBattlePlayableCardIds, LiveBattle, MAX_LIVE_BATTLE_DEPLOYMENTS, MAX_LIVE_BATTLE_STEP_TICKS, MAX_LIVE_BATTLE_UNITS, parseLiveBattleSetup };
+  return { createLegacyLiveBattleForRestore, getLiveBattlePlayableCardIds, LiveBattle, MAX_LIVE_BATTLE_DEPLOYMENTS,
+    MAX_LIVE_BATTLE_STEP_TICKS, MAX_LIVE_BATTLE_STRUCTURES, MAX_LIVE_BATTLE_UNITS,
+    parseLiveBattleSetup };
 }
 
 let compactMovement, resolveMovement, compactCombat, resolveCombat, compactCrownTower,
@@ -5052,6 +5519,7 @@ export const IntegratedBattleTowers = battleTowers.IntegratedBattleTowers;
 export const MAX_LIVE_BATTLE_STEP_TICKS = liveBattle.MAX_LIVE_BATTLE_STEP_TICKS;
 export const MAX_LIVE_BATTLE_DEPLOYMENTS = liveBattle.MAX_LIVE_BATTLE_DEPLOYMENTS;
 export const MAX_LIVE_BATTLE_UNITS = liveBattle.MAX_LIVE_BATTLE_UNITS;
+export const MAX_LIVE_BATTLE_STRUCTURES = liveBattle.MAX_LIVE_BATTLE_STRUCTURES;
 export const parseLiveBattleSetup = liveBattle.parseLiveBattleSetup;
 export const LiveBattle = liveBattle.LiveBattle;
 export const getLiveBattlePlayableCardIds = liveBattle.getLiveBattlePlayableCardIds;
@@ -7372,7 +7840,7 @@ class OpponentController {
 function defineGameSession(ElixirMatch, LiveBattle, MATCH_MAX_TICKS, MatchClock,
   OpponentController, TOWER_COMBAT_CONFIG, compactElixirMatch, compactLiveBattle,
   compactMatchClock, compactOpponentController, resolveElixirMatch, resolveLiveBattle,
-  resolveMatchClock, resolveOpponentController) {
+  resolveMatchClock, resolveOpponentController, createLegacyLiveBattleForRestore) {
 
 const GAME_SESSION_MAX_BATCH_TICKS = 18_000;
 const GAME_SESSION_MAX_SETUP_BYTES = 2 * 1_024 * 1_024;
@@ -7389,6 +7857,9 @@ const SETUP_KEYS = ["battleSetup", "deck", "legalNorthDeployments", "rosterWitne
   "seed", "startingElixir", "thinkIntervalTicks", "thinkOffsetTicks"];
 const authenticGameSessions = new WeakSet();
 const authenticGameSessionProjectionSnapshots = new WeakSet();
+// Module-private capability: only restore/restart can instantiate a pre-HBA
+// route-only structure setup. Fresh construction is always strict.
+const LEGACY_STRUCTURE_RESTORE = Symbol("legacy structure restore");
 
 function isAuthenticGameSession(value) {
   return authenticGameSessions.has(value);
@@ -7479,27 +7950,31 @@ function parsed(serialized, label, maximum = GAME_SESSION_MAX_SNAPSHOT_BYTES,
   if (canonical(value) !== serialized) throw new TypeError(`${label} must be canonical JSON`);
   return value;
 }
-function validateSetup(bytes) {
+function validateSetup(bytes, { allowLegacyStructureReceipts = false } = {}) {
   const setup = exact(parsed(bytes, "game session setup", GAME_SESSION_MAX_SETUP_BYTES,
     GAME_SESSION_SETUP_GRAPH_LIMITS),
     SETUP_KEYS, "game session setup");
-  parsed(setup.battleSetup, "game session battle setup", GAME_SESSION_MAX_SETUP_BYTES,
+  const battleSetupValue = parsed(setup.battleSetup, "game session battle setup", GAME_SESSION_MAX_SETUP_BYTES,
     GAME_SESSION_SETUP_GRAPH_LIMITS);
   parsed(setup.rosterWitness, "game session roster witness", GAME_SESSION_MAX_SETUP_BYTES,
     GAME_SESSION_SETUP_GRAPH_LIMITS);
-  const battle = new LiveBattle(setup.battleSetup);
-  const battleSetup = JSON.parse(setup.battleSetup);
-  if (setup.rosterWitness !== canonical({ questions: battleSetup.questions,
-    roster: battleSetup.roster })) throw new TypeError("session roster witness diverges");
-  const cards = battleSetup.roster.map(({ cost, id }) => ({ cost, id }));
+  const legacyStructureReceipts = Array.isArray(battleSetupValue.roster) &&
+    battleSetupValue.roster.some((card) => card !== null && typeof card === "object" &&
+      !Array.isArray(card) && card.kind === "structure" && !Object.hasOwn(card, "buildingRuntime"));
+  const battle = legacyStructureReceipts && allowLegacyStructureReceipts
+    ? createLegacyLiveBattleForRestore(battleSetupValue)
+    : new LiveBattle(setup.battleSetup);
+  if (setup.rosterWitness !== canonical({ questions: battleSetupValue.questions,
+    roster: battleSetupValue.roster })) throw new TypeError("session roster witness diverges");
+  const cards = battleSetupValue.roster.map(({ cost, id }) => ({ cost, id }));
   if (cards.length !== 8 || canonical(setup.deck) !== canonical(cards.map(({ id }) => id))) {
     throw new TypeError("session deck must exactly equal the admitted roster");
   }
   const costs = new Map(cards.map(({ cost, id }) => [id, cost]));
-  const cardRuntime = new SessionCardRuntime(canonical(battleSetup.roster.map(({ cost, id, kind }) => ({
+  const cardRuntime = new SessionCardRuntime(canonical(battleSetupValue.roster.map(({ cost, id, kind }) => ({
     cost, id, kind, placementClass: kind === "effect" ? "global_effect" : "ground_entity",
   }))));
-  for (const card of battleSetup.roster) {
+  for (const card of battleSetupValue.roster) {
     const admitted = cardRuntime.card(card.id);
     if (admitted.cost !== card.cost || admitted.kind !== card.kind) {
       throw new TypeError("session card admission diverges from battle roster");
@@ -7516,7 +7991,8 @@ function validateSetup(bytes) {
     if (admitted.kind === "unit") battle.scheduleDeploy({ ...entry, sequence,
       side: "north", tick: 0 });
   });
-  return { cardRuntime, cards, costs, setup: freeze(clone(setup)) };
+  return { battleSetupValue: legacyStructureReceipts ? freeze(clone(battleSetupValue)) : null,
+    cardRuntime, cards, costs, legacyStructureReceipts, setup: freeze(clone(setup)) };
 }
 function initialMatchTowers(battle) {
   const order = ["north:central", "north:lane:left", "north:lane:right",
@@ -7526,8 +8002,11 @@ function initialMatchTowers(battle) {
     order.indexOf(left.id) - order.indexOf(right.id));
 }
 function commandText(value) {
-  const command = exact(parsed(value, "player session command", 16_384, COMMAND_GRAPH_LIMITS),
-    ["cardId", "commandId", "point", "slot", "tick", "type"], "player session command");
+  const decoded = parsed(value, "player session command", 16_384, COMMAND_GRAPH_LIMITS);
+  const hasDestination = Object.hasOwn(decoded, "destination");
+  const command = exact(decoded, hasDestination
+    ? ["cardId", "commandId", "destination", "point", "slot", "tick", "type"]
+    : ["cardId", "commandId", "point", "slot", "tick", "type"], "player session command");
   if (command.type !== "deploy" || typeof command.cardId !== "string" ||
       !Number.isSafeInteger(command.commandId) || command.commandId < 0 ||
       !Number.isSafeInteger(command.slot) || command.slot < 0 || command.slot > 3 ||
@@ -7538,6 +8017,12 @@ function commandText(value) {
   if (!Number.isSafeInteger(command.point.x) || !Number.isSafeInteger(command.point.y)) {
     throw new TypeError("player session command point is invalid");
   }
+  if (hasDestination && command.destination !== null) {
+    exact(command.destination, ["x", "y"], "player session command.destination");
+    if (!Number.isSafeInteger(command.destination.x) || !Number.isSafeInteger(command.destination.y)) {
+      throw new TypeError("player session command destination is invalid");
+    }
+  }
   return clone(command);
 }
 
@@ -7545,13 +8030,17 @@ class GameSession {
   #battle; #cardRuntime; #clock; #controller; #costs; #decks; #elixir; #events = [];
   #history = []; #legal; #nextDeploymentSequence = 0; #paused = false; #pending = [];
   #processed = new Map(); #projectionSequence = 0; #projectionSource = Object.freeze({}); #setup;
-  #towerEvidence; #isContinuation = false;
+  #towerEvidence; #legacyStructureReceipts = false; #isContinuation = false;
 
-  constructor(canonicalSetup) {
-    const checked = validateSetup(canonicalSetup); this.#setup = checked.setup;
+  constructor(canonicalSetup, restoreCapability = null) {
+    const checked = validateSetup(canonicalSetup, { allowLegacyStructureReceipts:
+      restoreCapability === LEGACY_STRUCTURE_RESTORE }); this.#setup = checked.setup;
+    this.#legacyStructureReceipts = checked.legacyStructureReceipts;
     this.#cardRuntime = checked.cardRuntime;
     this.#costs = checked.costs; this.#legal = this.#setup.legalNorthDeployments;
-    this.#battle = new LiveBattle(this.#setup.battleSetup);
+    this.#battle = this.#legacyStructureReceipts
+      ? createLegacyLiveBattleForRestore(checked.battleSetupValue)
+      : new LiveBattle(this.#setup.battleSetup);
     this.#elixir = new ElixirMatch({ startingElixir: this.#setup.startingElixir });
     this.#decks = { north: new DeckCycle({ deck: this.#setup.deck, seed: `${this.#setup.seed}:north` }),
       south: new DeckCycle({ deck: this.#setup.deck, seed: `${this.#setup.seed}:south` }) };
@@ -7638,6 +8127,29 @@ class GameSession {
       placementClass: this.#cardRuntime.card(command.cardId).placementClass,
       point: command.point, side: "south" });
     if (!placement.legal) throw new RangeError(`player session command is illegal: ${placement.reason}`);
+    const admitted = this.#cardRuntime.card(command.cardId);
+    if (admitted.kind === "structure") {
+      const destination = Object.hasOwn(command, "destination") ? command.destination : null;
+      if (this.#battleRuntime().supportsStructureRuntime(command.cardId)) {
+        if (!isSessionBuildingCardId(command.cardId)) {
+          throw new RangeError("player session structure has no admitted shared building runtime");
+        }
+        if ((command.cardId === "burrow-rig") !== (destination !== null)) {
+          throw new TypeError("underground travel player command requires exactly one destination");
+        }
+        if (destination !== null) {
+          const destinationPlacement = evaluateDeployment({ destroyedOpposingLaneTowers: [],
+            placementClass: admitted.placementClass, point: destination, side: "south" });
+          if (!destinationPlacement.legal) {
+            throw new RangeError(`player session destination is illegal: ${destinationPlacement.reason}`);
+          }
+        }
+      } else if (destination !== null) {
+        throw new TypeError("legacy inert structures have no sourced destination route");
+      }
+    } else if (Object.hasOwn(command, "destination") && command.destination !== null) {
+      throw new TypeError("only underground travel structures accept a destination");
+    }
     if (command.tick === clock.tick &&
         (this.#decks.south.state.hand[command.slot] !== command.cardId ||
          this.#costs.get(command.cardId) > elixir.state.sides.south.amount)) {
@@ -7656,7 +8168,8 @@ class GameSession {
       throw new RangeError("game session transcript exceeds its operation bound");
     } this.#paused = false; this.#history.push({ type: "resume" }); } return this.state; }
   restart() { const freshSetup = clone(this.#setup); freshSetup.seed = 0;
-    const fresh = new GameSession(canonical(freshSetup)); this.#adopt(fresh); return this.state; }
+    const fresh = new GameSession(canonical(freshSetup), this.#legacyStructureReceipts
+      ? LEGACY_STRUCTURE_RESTORE : null); this.#adopt(fresh); return this.state; }
   step() { return this.stepMany(1); }
   stepMany(count) {
     if (!Number.isSafeInteger(count) || count < 0 || count > GAME_SESSION_MAX_BATCH_TICKS) {
@@ -7704,7 +8217,9 @@ class GameSession {
         value.transcript.length > GAME_SESSION_MAX_TRANSCRIPT) {
       throw new TypeError("unsupported or oversized game session snapshot");
     }
-    const session = new GameSession(canonical(value.setup));
+    // The outer v2 snapshot is the only public path allowed to invoke the
+    // module-private legacy setup capability.
+    const session = new GameSession(canonical(value.setup), LEGACY_STRUCTURE_RESTORE);
     for (let index = 0; index < value.transcript.length;) {
       const operation = value.transcript[index];
       if (!operation || typeof operation !== "object" || Array.isArray(operation)) {
@@ -7746,34 +8261,42 @@ class GameSession {
     const battle = this.#battleRuntime(), clock = this.#clockRuntime();
     const elixir = this.#elixirRuntime(), controller = this.#controllerRuntime();
     const firstTick = clock.tick, endTick = firstTick + count;
-    const staged = [], battleEvents = [], towerRecords = clone(battle.state.towers);
-    const flushBattleTo = (tick) => {
-      battleEvents.push(...battle.stepMany(tick - battle.state.tick));
-    };
+    const staged = [], battleEvents = [], resourceEvents = [], towerRecords = clone(battle.state.towers);
     for (let tick = firstTick; tick < endTick; tick += 1) {
       const player = this.#pending.find((entry) => entry.tick === tick) ?? null;
       if (player) {
-        flushBattleTo(tick);
         staged.push({ ...stageSideDeployment({ battle,
           cardCosts: this.#costs, command: { ...player, side: "south" },
           deck: this.#decks.south, deploymentSequence: this.#nextDeploymentSequence++,
           elixir, sessionCards: this.#cardRuntime }) });
       }
       const hand = this.#decks.north.state.hand;
-      const observation = { legalNorthDeployments: this.#legal.filter(({ cardId }) => hand.includes(cardId)),
+      // The deterministic opponent proposal has no sourced destination field;
+      // underground travel remains player-only until one exists.
+      const observation = { legalNorthDeployments: this.#legal.filter(({ cardId }) =>
+        hand.includes(cardId) && cardId !== "burrow-rig"),
         northCardCosts: hand.map((cardId) => ({ cardId, cost: this.#costs.get(cardId) }))
           .sort((a, b) => a.cardId < b.cardId ? -1 : 1),
         northElixir: elixir.state.sides.north.amount, northHand: hand, tick };
       const proposal = controller.step(observation)[0] ?? null;
       if (proposal) {
-        flushBattleTo(tick);
         staged.push({ ...stageSideDeployment({ battle,
           cardCosts: this.#costs, command: { ...proposal,
             commandId: proposal.sequence, slot: hand.indexOf(proposal.cardId) },
           deck: this.#decks.north, deploymentSequence: this.#nextDeploymentSequence++,
           elixir, sessionCards: this.#cardRuntime }) });
       }
-      const elixirEvents = elixir.step();
+      const tickBattleEvents = battle.step(tick);
+      battleEvents.push(...tickBattleEvents);
+      const grants = tickBattleEvents.filter(({ type }) => type === "building-resource-grant")
+        .map(({ amount, side, sourceId }) => ({ amount, side, sourceId }));
+      const elixirEvents = elixir.step({ grants });
+      for (const grant of elixirEvents.filter(({ sourceId, type }) =>
+        type === "grant" && sourceId !== null)) {
+        resourceEvents.push({ amountAfter: grant.amountAfter, amountGranted: grant.amountGranted,
+          amountRequested: grant.amountRequested, buildingId: grant.sourceId, side: grant.side,
+          tick: grant.tick, type: "building-resource-granted" });
+      }
       for (const stage of staged.filter((entry) => entry.tick === tick)) {
         const spend = elixirEvents.find((event) => event.type === "spend" &&
           event.sequence === stage.spendSequence);
@@ -7781,7 +8304,6 @@ class GameSession {
         stage.resolvedSpend = spend;
       }
     }
-    flushBattleTo(endTick);
     const sessionEvents = [];
     for (const stage of staged) {
       let committed = stage.route;
@@ -7791,6 +8313,13 @@ class GameSession {
         if (!deployment) throw new Error("session deployment did not materialize");
         committed = { deployment: clone(deployment), side: stage.side,
           spend: clone(stage.resolvedSpend), tick: stage.tick, type: "session-deployed" };
+        sessionEvents.push(committed);
+      } else if (stage.kind === "structure" && stage.structureMaterializes) {
+        const materialization = battleEvents.find((event) => event.type === "structure-materialized" &&
+          event.sequence === stage.deploymentSequence);
+        if (!materialization) throw new Error("session structure deployment did not materialize");
+        committed = { materialization: clone(materialization), route: clone(stage.route), side: stage.side,
+          spend: clone(stage.resolvedSpend), tick: stage.tick, type: "session-structure-deployed" };
         sessionEvents.push(committed);
       }
       if (stage.side === "south") { this.#processed.set(stage.commandId, clone(committed));
@@ -7821,17 +8350,19 @@ class GameSession {
       "attack",
       "damage",
       "death",
+      "external-structure-contact",
       "projectile-impact",
       "projectile-launch",
       "tower-destroyed",
-    ].includes(type));
-    sessionEvents.push(...meaningfulBattle, ...clockEvents);
+    ].includes(type) || /^(building|structure|death-effect|travel|underground|ramp)-/u.test(type));
+    sessionEvents.push(...meaningfulBattle, ...resourceEvents, ...clockEvents);
     sessionEvents.sort((a, b) => (a.tick ?? 0) - (b.tick ?? 0));
     this.#events.push(...clone(sessionEvents));
     return sessionEvents;
   }
   #runtimeClone() {
-    const value = new GameSession(canonical(this.#setup));
+    const value = new GameSession(canonical(this.#setup), this.#legacyStructureReceipts
+      ? LEGACY_STRUCTURE_RESTORE : null);
     const battle = this.#battleRuntime(), clock = this.#clockRuntime();
     const controller = this.#controllerRuntime(), elixir = this.#elixirRuntime();
     value.#battle = compactLiveBattle(battle);
@@ -7849,6 +8380,7 @@ class GameSession {
     value.#paused = this.#paused; value.#pending = clone(this.#pending);
     value.#processed = new Map([...this.#processed.entries()].map(([key, entry]) => [key, clone(entry)]));
     value.#towerEvidence = mapLiveBattleTowerStateToMatchEvidence(value.#battleRuntime().state.towers);
+    value.#legacyStructureReceipts = this.#legacyStructureReceipts;
     return value;
   }
   #adopt(other) { this.#battle = other.#battle; this.#cardRuntime = other.#cardRuntime;
@@ -7860,6 +8392,7 @@ class GameSession {
     this.#projectionSource = other.#projectionSource;
     this.#paused = other.#paused; this.#pending = other.#pending; this.#processed = other.#processed;
     this.#setup = other.#setup; this.#towerEvidence = other.#towerEvidence;
+    this.#legacyStructureReceipts = other.#legacyStructureReceipts;
     this.#isContinuation = other.#isContinuation; }
 }
   return {
@@ -7898,7 +8431,7 @@ const gameSession = defineGameSession(elixir.ElixirMatch, liveBattle.LiveBattle,
   match.MATCH_MAX_TICKS, match.MatchClock, opponent.OpponentController,
   towers.TOWER_COMBAT_CONFIG, compactElixirMatch, compactLiveBattle,
   compactMatchClock, compactOpponentController, resolveElixirMatch, resolveLiveBattle,
-  resolveMatchClock, resolveOpponentController);
+  resolveMatchClock, resolveOpponentController, liveBattle.createLegacyLiveBattleForRestore);
 
 export const ELIXIR_TICKS_PER_SECOND = elixir.ELIXIR_TICKS_PER_SECOND;
 export const ELIXIR_ACCUMULATOR_DENOMINATOR = elixir.ELIXIR_ACCUMULATOR_DENOMINATOR;
