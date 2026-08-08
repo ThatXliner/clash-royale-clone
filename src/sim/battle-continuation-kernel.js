@@ -8337,7 +8337,7 @@ class GameSession {
     for (const [tick, contacts] of [...contactsByTick].sort((a, b) => a[0] - b[0])) {
       for (const contact of contacts) {
         const tower = towerRecords.find(({ id }) => id === contact.structureId);
-        tower.hitpoints = Math.max(0, tower.hitpoints - contact.damage);
+        if (tower) tower.hitpoints = Math.max(0, tower.hitpoints - contact.damage);
       }
       const evidence = mapLiveBattleTowerStateToMatchEvidence(towerRecords);
       clock.scheduleTowerEvidence(tick, evidence); this.#towerEvidence = evidence;
