@@ -4493,3 +4493,24 @@ documented exports, nine public authority classes and zero opaque-handle leaks.
 The 34-module/61-edge import graph is acyclic and syntax/diff checks passed.
 
 BIGGEST GAP: None on the judged sustained-history/private-capability dimension.
+
+## Round 243 — 2026-08-08
+
+PIECE: GAME-001HSA — Shared spell-effect authority seam
+
+VERDICT: FAIL
+
+EVIDENCE: Spell runtime passed 8/8, roster admission 7/7, battle 11/11,
+nondeterminism 9/9 and shipping isolation 13/13. Three spell selectors failed
+only the same stale instant-source hash pin reproduced at parent `0b09af4`.
+Independent LiveBattle proof applied one exact 689 hit to a shared unit
+(1,766→1,077) with zero placeholders and exact v3/v4 snapshots; illegal point,
+tower target, unprofiled/no-profile and sequence collision rejected atomically
+there. However, real GameSession accepted
+`{"cardId":"static-burst","commandId":88,"point":{"x":3500,"y":14500},"slot":0,"tick":1,"type":"deploy"}`,
+advanced the deck once, spent two elixir and recorded a routed effect while
+changing no unit/effect state, emitting no step/replay event and returning no
+visible QUESTION result.
+
+BIGGEST GAP: Reject admitted-but-unprofiled effects atomically and visibly as
+QUESTION before GameSession spends, cycles or records a route.
