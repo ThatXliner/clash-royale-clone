@@ -4534,3 +4534,23 @@ and diff probes passed. The only spell selector failure was the unchanged parent
 instant-source hash pin reproduced at `d949220`.
 
 BIGGEST GAP: None on the judged shared spell-effect authority seam.
+
+## Round 245 — 2026-08-08
+
+PIECE: GAME-001HTA — Shared troop mechanic authority seam
+
+VERDICT: PASS
+
+EVIDENCE: All 65 required checks passed: focused 7/7, roster admission 7/7,
+GameSession 8/8, battle 11/11, movement 9/9, guards 22/22 and bounded endurance
+1/1 at tick 1,800. Independent replay had zero attacks and damage through tick
+101. At tick 102 it produced exactly one canonical source-1→target-2 attack,
+one 202 melee hit (1,361→1,159), then one causal contact receipt. Profiled and
+no-profile public events, gameplay and resources were exact, with no external
+ingress or duplicate damage. Early/pending and provenance/damage/range/source/
+target v5 forgeries rejected. Raw deploy/action/restore proxy and accessor
+inputs executed zero traps; empty v2 plus v3/v5 restore/fork/chunk were exact.
+The current profile matches the live Mossguard projection and excludes
+body-radius and all legacy action/cost/fixture fields.
+
+BIGGEST GAP: None on the judged shared troop mechanic authority seam.
