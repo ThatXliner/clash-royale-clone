@@ -1,0 +1,4293 @@
+# Gauntlet Rounds
+
+## Round 1 — 2026-07-30
+
+PIECE: SIM-001 — Fixed-step world and replay log
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- fixed-step` reported 5 tests, 5 pass, 0 fail.
+Exact-tick, two-fresh-run, serialize/restore, JSON isolation, and source-scan
+subtests all reported `ok`. Focused critic probes found
+`process.hrtime.bigint()` violations = 0 and aliased
+`node:perf_hooks` `performance.now()` violations = 0. A reducer using ambient
+randomness produced unequal fresh-world bytes.
+
+BIGGEST GAP: The nondeterminism source gate misses wall-clock APIs such as
+`process.hrtime.bigint()` and aliased `node:perf_hooks` imports, so it does not
+satisfy the requirement to reject wall-clock timing in simulation code.
+
+## Round 2 — 2026-07-30
+
+PIECE: SIM-001 — Fixed-step world and replay log
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- fixed-step` reported 5 tests, 5 pass, 0 fail,
+including exact ticks and byte-identical fresh/restore runs. Focused probes of
+the source gate returned no violations for `const rng = Math; rng.random()`,
+`const { random } = Math; random()`, or
+`globalThis["Math"]["random"]()`.
+
+BIGGEST GAP: Strengthen the source gate to detect aliased, destructured, and
+computed access to ambient random APIs.
+
+## Round 3 — 2026-07-30
+
+PIECE: SIM-001 — Fixed-step world and replay log
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- fixed-step` reported 5 tests, 5 pass, 0 fail.
+Focused probes returned no violations for `Math?.random()`,
+`Math?.["random"]()`, `Reflect.get(Math, "random")()`, or
+`globalThis["crypto"]?.randomUUID()`.
+
+BIGGEST GAP: Replace or strengthen the regex source gate so optional-chained
+and indirect ambient-random access such as `Math?.random()` and
+`Reflect.get(Math, "random")()` is rejected.
+
+DISPOSITION: Three rounds failed on the same source-gate gap. The piece was
+wrong-shaped: fixed-step/replay behavior is executable, while proving the
+absence of every aliased JavaScript ambient API requires a separate static
+enforcement design. The kernel is split to SIM-001K; the enforcement question
+is parked as GUARD-001.
+
+## Round 4 — 2026-07-30
+
+PIECE: SIM-001K — Fixed-step world and replay kernel
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- fixed-step-kernel` reported 4 tests, 4 pass, 0 fail:
+exact integer-tick resolution/stable same-tick order, fresh-run byte identity,
+serialize/restore byte identity, and JSON isolation. A focused critic probe
+reported negative and fractional ticks rejected, sequence 0 then 1 at tick 0,
+copies isolated, and restore bytes identical. Scoped import scan found no
+`reference/` usage.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 57 — 2026-07-30
+
+PIECE: CONTENT-008R — Attack-triggered recoil displacement
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- special-movement-recoil` reported 15/15 pass and
+`npm test` exited 0. Independent BigInt-oracle probes passed 17 cases across
+both axes, both signs, and all four exact 3-4-5 diagonals. The former Round 56
+case at distance 9,007,199,254,740,991 now rejects before clamping; exact
+last-safe axis sums reached ±9,007,199,254,740,991 and one-over inputs rejected.
+Eight lifecycle variants passed 1,273 every-tick restore splits. Open launch
+emitted `attack-projectile-launched` before `attack-recoil`; edge recoil
+clamped to `{x:400,y:400}` from `{x:-700,y:-1100}`. Projectile origin remained
+snapshotted after recoil, launch-boundary interruption suppressed both effects,
+and post-launch target death preserved recoil and projectile flight. All 14
+reference base fields matched while unsourced mechanics remained isolated
+questions. Mutation probes were isolated, runtime identity remained
+`cinderback`, and protected-identity/runtime-reference-import hits were zero.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 58 — 2026-07-30
+
+PIECE: CONTENT-009C — Chained target attacks
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- special-projectiles-chain` reported 23/23 pass and
+`npm test` reported 373/373 pass across 30 runner groups. Independent probes
+reported 144/144 pass: all 14 benchmark base fields matched side by side, all
+11 absent chain values/policies were frozen non-authoritative QUESTION records,
+and primary-first selection, nearest eligible unhit hops, inclusive edge and
+one-millitile miss, stable-ID reversed-order ties, target cap/no repeats,
+ground/air/structure filtering, pre-selection death, per-hop damage/death
+ordering, attacker cancellation boundaries, and lethal-origin continuation
+matched the declared fixture. Fresh, reordered, and chunked runs agreed;
+88/88 causal restore splits were byte-identical. The terminal trace stopped at
+tick 87 with 10 replay events and a 618-byte snapshot. Protected-name and
+runtime-reference-import hits were both zero; shipped identity was Stormkite.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 59 — 2026-07-30
+
+PIECE: CONTENT-009P — Linear piercing projectiles
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- special-projectiles-pierce` reported 24/24 pass and
+`npm test` exited 0. All 14 test-only base mappings matched the benchmark with
+the required confidence caveats, and all 17 special values/policies were
+independently frozen QUESTION records. A separate BigInt capsule oracle agreed
+with runtime on horizontal/vertical corridor and end-cap tangencies,
+one-millitile misses, 3-4-5 and signed diagonals, and far behind/beyond
+rejection. It found two exact mismatches:
+`h-start-tangent oracle=true runtime=false` and
+`v-start-tangent oracle=true runtime=false`.
+
+BIGGEST GAP: The finite capsule omits its start cap—targets exactly 250
+millitiles behind the launch origin are rejected—while the declared geometry
+only names the corridor and end cap.
+
+## Round 60 — 2026-07-30
+
+PIECE: CONTENT-009P — Linear piercing projectiles
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- special-projectiles-pierce` reported 28/28 pass and
+`npm test` exited 0. An independent BigInt finite-capsule oracle reported
+104 cases with zero mismatches across signed axes, all four signed 3-4-5
+diagonals, nonzero radii, start/corridor/end tangency and one-over,
+negative/zero/positive segment parameters, far-behind/beyond misses, and hit
+ordering. Both Round 59 probes now reported `oracle=true runtime=true`.
+Base mapping was 14/14, QUESTION records 17/17 valid and deeply frozen,
+restore splits 49/49, and protected identity/reference import hits zero.
+However, `collisionGeometryRule` still returned
+`static-directed-finite-segment-with-inclusive-corridor-and-end-cap`, which
+contradicts the newly implemented inclusive start cap.
+
+BIGGEST GAP: Update the frozen collision-geometry QUESTION declaration and its
+assertion to explicitly include the inclusive start cap, so the declared policy
+matches the finite-capsule behavior.
+
+## Round 61 — 2026-07-30
+
+PIECE: CONTENT-009P — Linear piercing projectiles
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- special-projectiles-pierce` reported 28/28 pass and the
+full `npm test` exited 0. The frozen fixture and exact assertion both returned
+`static-directed-finite-segment-with-inclusive-start-cap-corridor-and-end-cap`.
+An independent 104-case BigInt capsule probe found zero mismatches across signed
+axes and diagonals, radii, tangencies, misses, and start/corridor/end regions;
+ordering matched forward parameter then stable ID. All 49 restore splits were
+byte-identical. Base mappings passed 14/14, all 17 QUESTION records were valid
+and deeply frozen, and protected-identity plus five-module runtime import-graph
+scans found zero hits.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 62 — 2026-07-30
+
+PIECE: CONTENT-009R — Outbound and returning projectiles
+
+VERDICT: FAIL
+
+EVIDENCE: The visible Codex critic task ran
+`npm test -- special-projectiles-return` with 25/25 pass and the full
+`npm test` with exit 0. All 14 base mappings matched with the 10 expected
+unverified reference fields, and 20 absent return values/policies were frozen
+non-authoritative QUESTION records. Independent runtime probes passed positive
+and negative axes plus all four signed 3-4-5 directions, with exact tangent
+hits and one-over misses. The trace launched at tick 24, hit outbound at
+26/29, turned at 31, hit inbound at 33/36, and completed at 38; ordering,
+per-leg hits, lifecycle, phases, and restore were sound. However, the committed
+focused suite covers only positive-X caps/corridor and one positive 3-4
+corridor case, with no full signed cap matrix and no executable launch-snapshot
+test.
+
+BIGGEST GAP: Add focused signed-axis and all-signed-3-4-5 start/corridor/end
+boundary regressions plus an executable launch-snapshot mutation test, so
+future geometry or snapshot regressions cannot pass the declared bar.
+
+## Round 63 — 2026-07-30
+
+PIECE: CONTENT-009R — Outbound and returning projectiles
+
+VERDICT: PASS
+
+EVIDENCE: The visible Codex critic task reported
+`npm test -- special-projectiles-return` at 27/27 pass and the full suite at
+428/428 pass across 32 child suites. Its independent exact BigInt oracle passed
+48 boundary cases and 96 outbound/inbound leg checks across all signed axes and
+signed 3-4-5 directions with radius 100. Caller mutation after launch preserved
+outbound IDs `[201,202,203]`, inbound IDs `[203,202,201]`, replay, state,
+snapshot, and restored continuation; all equality flags were true. Base
+mappings passed 14/14, all 20 QUESTION records were frozen/caveated, and
+lifecycle, every-tick restore, hostile bounds, catalog isolation, protected
+identity, and runtime-only import checks passed.
+
+BIGGEST GAP: None on the judged dimension; return-specific geometry and timing
+remain explicitly non-authoritative QUESTION fixtures.
+
+## Round 64 — 2026-07-30
+
+PIECE: CONTENT-009M — Fixed-fan pellet volleys
+
+VERDICT: PASS
+
+EVIDENCE: The visible Codex critic task reported
+`npm test -- special-projectiles-pellets` at 30/30 pass, the full suite at
+458/458 pass across 33 TAP groups, and `python3 reference/stats/validate.py`
+validating 109 cards, 2 tower types, arena/schema, and all 10 spot checks.
+The critic's independent exact BigInt oracle passed 72 inclusive
+start/corridor/end and one-millitile-miss cases across signed cardinal and
+signed/permuted 3-4-5 orientations with zero mismatches. Independent probes
+confirmed stable pellet IDs 1–10, first-contact stopping, stable-ID ties,
+10-pellet damage aggregation of 840 in pellet-ID order, ten-target ray
+splitting, and dead/untargetable filtering. All 96 every-tick restore splits
+matched; caller mutation preserved replay/state/snapshot hashes; command-first
+lifecycle, hostile-accessor rejection with zero getter calls, bounds, original
+runtime identity, and reference-import isolation passed. All 30 absent
+mechanic records were independent and recursively frozen QUESTION fixtures.
+
+BIGGEST GAP: None on the judged numeric/mechanical dimension; pellet-specific
+values and policies remain explicitly non-authoritative QUESTION fixtures.
+
+## Round 65 — 2026-07-30
+
+PIECE: CONTENT-010R — Consecutive-target ramping attacks
+
+VERDICT: PASS
+
+EVIDENCE: The visible Codex critic task reported `npm test --
+combat-status-ramp` at 13/13 pass, the full suite at 471/471 pass across 34 TAP
+blocks, and the reference validator passing 109 cards, 2 tower types,
+arena/schema, and 10 spot checks. Independent contacts were exactly ticks
+2/26/50/74/98 with damage 10/10/20/20/40, then saturated at stage 2 through
+ticks 122/146/170. Loss, target change, death, interruption, and explicit reset
+all returned the next contact to damage 10; command-first same-boundary
+interrupt/reset/loss/death emitted no old-target damage. Fresh, reordered, and
+chunked bytes matched; 301 mixed-timeline plus 131 stage-focused causal restore
+cuts continued byte-identically through cadence, windup, and contact at all
+three stages. The critic rejected 27 hostile/malformed/bounded-input cases and
+14 forged noncausal snapshots with zero hostile getter calls. All 25 absent
+mechanic records were recursively frozen QUESTION fixtures; runtime identity,
+reference-import, time/randomness, and floating-logic scans passed.
+
+BIGGEST GAP: None on the judged dimension; ramp values and policies remain
+explicit non-authoritative QUESTION fixtures.
+
+## Round 66 — 2026-07-30
+
+PIECE: CONTENT-010U — Timed full-disable stun
+
+VERDICT: FAIL
+
+EVIDENCE: The visible Codex critic task reported 17/17 focused tests, 488/488
+full-suite tests, and a clean reference validator. Its independent oracle
+matched 11 lifecycle scenarios, 476 causal restore cuts, and 11
+fresh/reordered/chunked executions. Identity, 35 recursively frozen QUESTION
+records, exact 30-tick disable/resumption, phase pausing, refresh/reapply,
+death/interruption, hostile inputs, and source scans passed. However, an
+allowed `lose-target` command while already targetless emitted
+`{"targetId":null,"tick":0,"type":"target-lost"}`. The module then rejected its
+own history: both `serialize()` and `stepMany(1)` threw
+`TypeError: stun history event 0.targetId must be a bounded safe integer`.
+Repeated target loss and loss after death reproduced the same poisoned state.
+
+BIGGEST GAP: A valid target-loss command can emit an internally invalid
+null-target event, permanently breaking causal serialization and continuation
+when no target exists.
+
+## Round 67 — 2026-07-30
+
+PIECE: CONTENT-010U — Timed full-disable stun
+
+VERDICT: PASS
+
+EVIDENCE: The visible Codex critic task reported 23/23 focused and 494/494
+full-suite tests plus a clean reference validator. Independent reproduction
+showed idle, repeated, and post-death targetless losses emit no malformed
+events, remain serializable, restore, and continue through tick 40. A real
+target loss emitted exactly once with stable ID `9007199254740991`. Post-loss
+continuation acquired target 88, applied stun at tick 2, expired at 31,
+launched at 36, and contacted at 38. Fresh/reordered/chunked runs and all 65
+loss-focused cuts matched byte-for-byte; the Round 1 11-scenario lifecycle
+oracle and all 476 causal cuts also passed. Hostile inputs had zero getter
+reads, forged null-target history still rejected, all 35 QUESTION records were
+recursively frozen, and identity/import/nondeterminism scans were clean.
+
+BIGGEST GAP: None within the judged dimension; targetless loss is now a
+deterministic serializable no-op without observable regression.
+
+## Round 68 — 2026-07-30
+
+PIECE: CONTENT-010L — Timed movement-and-attack slow
+
+VERDICT: PASS
+
+EVIDENCE: The visible Codex critic task reported 21/21 focused and 515/515
+full-suite tests plus a clean reference validator. Its independent scalar
+BigInt oracle using only literal `13,20,60,72,102,1000,1200` matched
+3,132/3,132 lifecycle boundaries and restore cuts, 3,120 post-restore
+continuations, and 24 fresh/reordered/chunk identities. Exact normal, T0,
+T20, refresh, expiry-reapply, ready-boundary, loss/change/death, double-apply,
+and negative-direction positions, remainders, work, attack ticks, source IDs,
+and event ordering matched. A 4,096-tick continuous-refresh probe completed
+with exact restore and no accumulated drift. The critic rejected 29 malformed
+inputs and 37 forged snapshots, passed 8 atomicity and 9 mutation checks, found
+zero time/random calls, and verified all 43 separate recursively frozen
+QUESTION records plus deferred-scope exclusions.
+
+BIGGEST GAP: None on the judged dimension; authoritative slow percentages,
+duration, stacking, refresh, targeting, and composition remain explicit
+non-authoritative QUESTION records.
+
+## Round 69 — 2026-07-30
+
+PIECE: CONTENT-010N — Timed movement-only snare
+
+VERDICT: PASS
+
+EVIDENCE: The visible Codex critic task reported 21/21 focused and 536/536
+full-suite tests plus a clean reference validator. Its independent integer
+oracle passed 460 movement cases and 231 restore cuts: pre-snare
+position/remainder `(166,40)` stayed exact through inclusive tick 99, then
+resumed at `(183,20)` on tick 100 in both signed directions. Ordinary launches
+remained `[71,179,287]` with contacts `[73,181,289]`; acquisition during snare
+produced launches `[81,189,297]` and contacts `[83,191,299]`. Phase application,
+same/different-source refresh, expiry-boundary reapply, lifecycle/stable-ID
+cases, arbitrary chunks, mutation isolation, unchanged health, hostile and
+forged inputs, atomic stepping, all 43 frozen QUESTION records, and
+identity/reference/nondeterminism/deferred-scope scans passed.
+
+BIGGEST GAP: None on the judged dimension; source-projectile delivery and
+cross-status composition remain explicitly deferred QUESTION policies.
+
+## Round 70 — 2026-07-30
+
+PIECE: CONTENT-010X — Instantaneous combat reset composition
+
+VERDICT: PASS
+
+EVIDENCE: The visible Codex critic task reported 22/22 reset tests, 13/13
+legacy ramp tests, 558/558 full-suite tests across 38 TAP groups, and a clean
+reference validator. Its independent integer oracle found zero mismatches
+across 40 windup/launch/contact/cadence/ramp-stage/counter states and reset
+ticks 1–80. Untouched contacts remained ticks 8/16/24/32/40 with damage
+10/10/20/20/40; every accepted reset made the next launch `reset+6` and
+contact `reset+8` at damage 10/stage 0. Idle, ready, pending-contact,
+contact-boundary, cadence, repeated reset, eligibility/immunity, stable death,
+interruption, and command-first cases passed. All 129 causal restore cuts and
+fresh/reordered/chunked runs matched. Hostile inputs, atomic bounds, forged
+snapshots, all 43 frozen QUESTION records, deferred scope, and runtime scans
+passed; the existing ramp source/tests stayed byte-identical and retained
+their original tick/damage trace.
+
+BIGGEST GAP: None on the judged dimension; reset delivery and cross-status
+composition remain deferred non-authoritative QUESTION policies.
+
+## Round 71 — 2026-07-30
+
+PIECE: CONTENT-011A — Spawn batch materialization and deterministic placement
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- spawn-placement` reported 9/9 pass,
+`npm test` reported 567/567 pass, and the reference validator reported 109
+cards, 2 tower types, arena constants, schema, and 10 spot checks valid.
+Independent probes matched 120 formation coordinates across batch sizes 1–15,
+mixed radii and roles, signed anchors, reversed child order, IDs 1–120, and
+next ID 121. Exact boundary tangency, 45 hostile inputs with zero getter
+calls, atomic ID exhaustion after 9,007,199,254,740,989, multi-batch restore,
+mutation isolation, and all three recursively frozen QUESTION records passed.
+However, restore accepted and canonicalized a noncanonical 45-byte snapshot,
+accepted foreign entity data `{"alien":true}`, accepted a 1,000,000-character
+archetype ID, and accepted a 1,000,065-byte snapshot.
+
+BIGGEST GAP: Restore does not enforce canonical encoding, the materializer's
+entity schema, or snapshot-size bounds, so forged foreign lifecycle state can
+enter CONTENT-011A.
+
+## Round 72 — 2026-07-30
+
+PIECE: CONTENT-011A — Spawn batch materialization and deterministic placement
+
+VERDICT: FAIL
+
+EVIDENCE: Focused tests reported 14/14 pass, the full suite 572/572 pass,
+and the reference validator passed. All four Round 71 failures now reject.
+Independent probes accepted 6/6 valid Unicode boundary cases and rejected 7/7
+over-limit or lone-surrogate cases; rejected 12/12 noncanonical encodings,
+33/33 malformed entity schemas, and 13/13 foreign lifecycle shapes; enforced
+the exact 131,071/131,072/131,073-byte boundary; matched 120 entities and 560
+geometry checks across batch sizes 1–15; and preserved atomic ID/snapshot
+exhaustion. Restore nevertheless accepted three unreachable canonical states:
+empty entities with next ID 2, only entity ID 2 with next ID 3, and an ID-1
+entity whose offset/position implied impossible attached-placement history.
+
+BIGGEST GAP: Restore validates bytes and entity schema but not whether the
+snapshot is reachable through this spawn-only materializer.
+
+## Round 73 — 2026-07-30
+
+PIECE: CONTENT-011A — Spawn batch materialization and deterministic placement
+
+VERDICT: PASS
+
+EVIDENCE: Focused tests reported 18/18 and the full snapshot 689/689 across 45
+TAP blocks. The critic passed 67/67 independent probes: 21 valid causal
+restores, 45 hostile rejections, and one atomic overflow. All three prior
+unreachable-state probes rejected. Twenty-six ledger/store mutations covering
+anchors, children, order, grouping, IDs, next ID, positions, offsets,
+attribution, radius, role, and archetype rejected. Sizes 1–15, mixed radii,
+multi-batch continuation, Unicode/canonical/byte boundaries, the 1,024-entry
+ledger limit, and snapshot-overflow rollback passed. QUESTION records remained
+fresh, frozen, non-authoritative, and placement-only.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 74 — 2026-07-30
+
+PIECE: CONTENT-013H — Instant healing and maximum-health cap
+
+VERDICT: PASS
+
+EVIDENCE: The delegated builder and its separate clean critic reported
+`npm test -- combat-status-heal` 12/12, the unchanged damage suite 9/9, and
+the then-current full suite 579/579; root reruns confirmed both focused suites.
+An independent integer ledger matched cap, duplicate, self-heal, and zero
+applications `[5,5,30,0,0]`, resulting health `[95,100,80,100,80]`.
+Same-tick damage resolved targets `[9,2,7]`, deaths in ascending order `[2,9]`,
+then target 7 healed `[10,25]` to 85. Lethal source/target cases applied zero,
+nonlethal damage then heal applied 20, and missing/enemy/ineligible/dead cases
+were valid no-ops. All 47 ordinary/mechanic QUESTION records were fresh,
+recursively frozen, non-authoritative, and provenance-tagged. Hostile inputs,
+atomic failure, canonical snapshots, arbitrary chunks, and every causal
+restore cut passed.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 75 — 2026-07-30
+
+PIECE: CONTENT-013I — Invisibility, reveal, and reacquisition
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- combat-status-invisibility` reported 26/26 pass and
+the delegated clean critic confirmed the gameplay timelines, all 31 restore
+cuts, and a deterministic 4,096-tick bounded run. Exact traces included
+hide/reveal/re-hide `2→5→9→14`, reacquire and launch `0→3→6→9`, stable-ID
+ties `3@0,9@2,3@5`, and launched-projectile contact after hiding at ticks
+`3→4→5`. However, the two test-only benchmark mappings expose 12 and 11
+unverified fields while the suite enforced only six generic mapped QUESTION
+keys.
+
+BIGGEST GAP: The provenance test does not freeze one distinct QUESTION record
+per actual mapped unverified field, so omissions can pass silently.
+
+## Round 76 — 2026-07-30
+
+PIECE: CONTENT-012T — Retarget and attack-cycle lifecycle
+
+VERDICT: PASS
+
+EVIDENCE: Focused tests reported 18/18, shared primitives 34/34, and the
+critic's full snapshot 590/590. An independent reducer matched acquisition
+`201@0→202@102→203@144`, readiness `203@186`, uninterrupted readiness
+`102/174/246`, sight edges `5799/5800/5801`, attack edges
+`1499/1500/1501`, signed ties, mode/kind/layer filtering, and lethal
+command-first order. Five authoritative and nine QUESTION-backed ordinary
+fields matched; all 24 mechanic QUESTION records were fresh and recursively
+frozen. Protected-identity, reference, time, and random scans had zero hits.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 77 — 2026-07-30
+
+PIECE: CONTENT-012K — Instantaneous forced knockback displacement
+
+VERDICT: PASS
+
+EVIDENCE: Focused tests reported 17/17 and the critic's full snapshot 607/607.
+An independent BigInt oracle passed 86 probes: 16 projection/eligibility/order,
+24 edge/corner tangencies, 3 huge/overflow atomicity cases, 8 hostile inputs,
+18 fresh/chunked/restore cases, and 17 provenance/isolation checks. It verified
+all signed axes and 3-4-5 vectors, requested/applied/blocked displacement,
+command-first interruption, arena-only collision, canonical bounded snapshots,
+and all 11 fresh recursively frozen QUESTION records.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 78 — 2026-07-30
+
+PIECE: CONTENT-012E — Death damage and triggered effects
+
+VERDICT: FAIL
+
+EVIDENCE: Focused tests reported 16/16 and the critic's full snapshot 623/623.
+An independent BigInt/FIFO oracle passed 154 valid probes across geometry,
+eligibility, chains/cycles, overflow, replay, hostile inputs, snapshots,
+questions, and isolation. The decisive counterprobe applied zero combat
+damage followed by lethal expiry damage: the runtime attributed death to the
+zero-damage first command and incorrectly fired the combat-death trigger,
+leaving target HP 800. Reversing the competing cause order changed whether the
+trigger fired.
+
+BIGGEST GAP: Same-tick death-cause attribution uses the first command even when
+it applies zero damage, so an expiry-only death can fire a combat-death effect.
+
+## Round 79 — 2026-07-30
+
+PIECE: CONTENT-013I — Invisibility, reveal, and reacquisition
+
+VERDICT: PASS
+
+EVIDENCE: The repaired focused suite reported 26/26 and a separate blind
+critic passed the unchanged gameplay traces. Provenance coverage is now a
+bijection: benchmark mappings `cards.json#26000050` and `#26000087` cover
+12/12 and 11/11 unverified fields, yielding expected/actual/unique
+`23/23/23` with zero missing, extra, duplicate, shared, or mismatched records.
+Two calls produced 46 distinct deeply frozen objects with stable
+`mappedField:<fixture>:<field>` keys and exact values/provenance. The complete
+inventory is 41 generic plus 23 mapped-field QUESTION records. Reacquisition
+`0/3/6/9`, hide/reveal/re-hide `2/5/9/14`, 31 restore cuts, and the
+4,096-tick deterministic run remained unchanged.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 80 — 2026-07-30
+
+PIECE: CONTENT-013F — Deterministic projectile reflection
+
+VERDICT: FAIL
+
+EVIDENCE: Focused tests reported 24/24 and the critic's full snapshot 685/685.
+The independent oracle matched launch ID 1 at tick 0, reflection ID 2 at tick
+4, and contact/damage 140 at tick 8; 16 submitted signed boundary cases, 9
+restore cuts, all 30 QUESTION records, ordering, provenance, lifecycle,
+hostile-input, and snapshot checks passed. However, 8/8 additional valid
+safe-integer diagonal setups were accepted and later threw because an
+intermediate projectile step was nonintegral. One such throw occurred after
+mutating source HP 1000→0 while tick and serialization remained unchanged.
+
+BIGGEST GAP: The accepted setup domain admits diagonals that cannot advance on
+integer coordinates, causing mid-step failure and non-atomic state mutation.
+
+## Round 81 — 2026-07-30
+
+PIECE: CONTENT-013R — Timed movement-and-attack rage
+
+VERDICT: PASS
+
+EVIDENCE: Focused tests reported 17/17 and the critic's full snapshot 706/706;
+slow 21/21, movement 8/8, attack-cycle 8/8, and melee 6/6 also passed. An
+independent BigInt oracle confirmed normal/rage/slow/composed rates
+`80/140/52/91`, exact launch/contact timelines, positions/remainders,
+application in every phase, refresh and expiry-boundary order, all 281 restore
+cuts, five chunk schedules, and a 4,096-tick drift run ending at position
+70,399 with remainder 800 and 40 launches/contacts. Thirty-three additional
+hostile or forged snapshots rejected atomically. All 48 QUESTION records were
+fresh, recursively frozen, unverified, and non-authoritative.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 82 — 2026-07-30
+
+PIECE: CONTENT-012E — Death damage and triggered effects
+
+VERDICT: PASS
+
+EVIDENCE: Focused tests reported 21/21 and the critic's full snapshot 711/711
+across 46 suites. All 1,513 independent probes passed: 1,463 attribution
+cases, both Round 1 reproductions, lethal/overkill/already-dead boundaries,
+simultaneous FIFO/chains, geometry, huge aggregation, chunk/restore cuts,
+snapshot rollback, and QUESTION/scope checks. Zero and post-lethal requests
+never owned death; the final positive FIFO contributor did; only combat-owned
+deaths triggered the effect.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 83 — 2026-07-30
+
+PIECE: CONTENT-013F — Deterministic projectile reflection
+
+VERDICT: PASS
+
+EVIDENCE: Focused tests reported 28/28 and the critic's full snapshot 735/735.
+Independent probes rejected 8/8 signed nonintegral original 5-12-13 paths and
+8/8 signed or rotated nonintegral reflected legs during construction, before
+commands or execution; all inputs remained byte-identical. Eight integral
+diagonal controls executed deterministically, 11 diagonal restore cuts matched
+terminal reflection/contact ticks 5/10, and five forced `step`, `stepMany`, and
+`run` failures left replay, snapshot, and state byte-identical. The 10 mapped
+benchmark values matched the corpus with its confidence caveats, while all 31
+reflection values and policies remained deeply frozen non-authoritative
+QUESTION records.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 84 — 2026-07-30
+
+PIECE: CONTENT-011P — Periodic spawn cadence and lifetime stop
+
+VERDICT: PASS
+
+EVIDENCE: Focused periodic tests reported 20/20, spawn placement 18/18, and the
+critic's full snapshot 735/735. An independent oracle checked 22 lethal
+timings and confirmed absolute due ticks 3/7/11, expiry at tick 15, and
+expiry→command→due ordering. All three batches delegated to
+`SpawnBatchMaterializer`, producing IDs 1–6 at x=1099/1301, y=-800, owner 17,
+source 73. The critic passed 585 arbitrary chunkings and 375 restore cuts;
+rejected 22 noncausal schedule/source/state/history/ledger forgeries, 14
+hostile inputs with zero getter observations, and seven canonical/bounds
+attacks. All 13 absent policies remained separate, fresh, recursively frozen,
+non-authoritative QUESTION records.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 85 — 2026-07-30
+
+PIECE: CONTENT-012D — Dash interruption, arrival, and retarget composition
+
+VERDICT: FAIL
+
+EVIDENCE: Focused composition tests reported 17/17; dash 17/17, knockback
+17/17, retarget 18/18, and the full suite 752/752. An independent oracle
+confirmed launch tick 60, all 30 transit positions, arrival tick 89, damage
+386, health 614, reacquisition tick 90, readiness tick 126, signed geometry,
+384 chunk schedules, 13,536 restore cuts, and hostile/canonical probes.
+However, direct dependency-trace comparison found two schema losses: tick-60
+interruption omitted the primitive's `targetId: 202`, and target deaths at
+ticks 59/60/70/89 omitted the primitive's `currentHealth: 0`.
+
+BIGGEST GAP: Preserve the passed dash primitive's exact interruption and
+target-death event schema, with direct dependency-trace regressions.
+
+## Round 86 — 2026-07-30
+
+PIECE: CONTENT-012L — Leap interruption, landing, and retarget composition
+
+VERDICT: FAIL
+
+EVIDENCE: Focused composition tests reported 17/17; jump 15/15, knockback
+17/17, retarget 18/18, area damage 11/11, and the full suite exited zero. The
+critic independently confirmed takeoff tick 60, all 36 moves through landing
+tick 96, exact landing damage/death order, all 201 restore cuts, and four
+35–36-case transit mutation matrices. A counterexample interrupted and
+invalidated the target at tick 80: interruption and targetability events fired
+at 80, but target loss and stable-ID reacquisition were delayed to tick 97
+instead of the next boundary 81. Forced-displacement interruption likewise
+delayed readiness to tick 139 instead of a fresh 42-tick windup ending at 123.
+
+BIGGEST GAP: Schedule retargeting on the first boundary after either landing or
+interruption, with tick-81 reacquisition and tick-123 readiness regressions.
+
+## Round 87 — 2026-07-30
+
+PIECE: CONTENT-012C — Charged-strike interruption and retarget composition
+
+VERDICT: FAIL
+
+EVIDENCE: Focused composition tests reported 19/19; charge 12/12, knockback
+17/17, retarget 18/18, full suite 788/788, and reference validation passed.
+The independent oracle confirmed the route, arm tick 269, reach tick 326,
+charged 784 strike/consume tick 380, ordinary 392 strike tick 464, displacement
+phase resets, and death/reacquisition timing. Atomicity failed: a zero-vector
+command at tick 100 made `stepMany(101)` throw after serialized tick advanced
+0→100 and position advanced to (3500,12166), while replay remained empty.
+Duplicate knockback commands were accepted, and a MAX_SAFE_INTEGER distance
+passed fixture validation before failing at runtime on unsafe projected
+position.
+
+BIGGEST GAP: Validate all knockback commands and duplicates before execution,
+or make multi-step execution transactional, so late geometry failures cannot
+partially advance hidden state.
+
+## Round 88 — 2026-07-30
+
+PIECE: CONTENT-011D — Exactly-once death-triggered spawns
+
+VERDICT: PASS
+
+EVIDENCE: The builder's separate critic reported 16/16 focused tests and
+785/785 full tests across 53 files. The literal tick-3 order was
+damage→death→source-despawn→death-triggered→spawn-batch, with command-first
+cancellation of the same-boundary periodic batch and deterministic child IDs
+1/2 at offsets -91/+91. Builder evidence included 31 restore cuts, 22 hostile
+inputs, 13 snapshot forgeries, and eight bound probes. The critic added 46
+adversarial probes, including 64 recursive triggers, 63 batches, 64 entities,
+and 319 events. All 33 graph/count/cause/timing/ownership/order/recursion
+choices remained fresh recursively frozen non-authoritative QUESTION records.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 89 — 2026-07-30
+
+PIECE: CONTENT-012L — Leap interruption, landing, and retarget composition
+
+VERDICT: PASS
+
+EVIDENCE: Focused composition tests reported 18/18, four primitives 61/61,
+and the full suite 789/789 across 50 groups. An independent 4,016-assertion
+probe reproduced interruption and invalidation at tick 80 with loss and
+stable-ID 203 acquisition at 81, plus forced-displacement interruption with
+windup starting 81 and readiness 123. The uninterrupted trace stayed takeoff
+60, 36 moves at 61–96, landing 96, retarget/windup 97, readiness 139. The
+critic passed 36 interruption cuts, 35 displacement cuts, 35 invalidation
+cuts, 36 restoration cuts, 35 stable-ID ties, 900 chunk schedules, 603 restore
+cuts, and 13 hostile/canonical/atomic probes; all 20 QUESTION records and four
+primitive hashes remained unchanged.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 90 — 2026-07-30
+
+PIECE: CONTENT-012D — Dash interruption, arrival, and retarget composition
+
+VERDICT: PASS
+
+EVIDENCE: Focused composition tests reported 19/19, the three primitives
+52/52, and the full suite 807/807. Independent probes confirmed whole-event
+parity with the dash primitive for prelaunch interruption at tick 60 including
+`targetId: 202`, and target deaths at ticks 59/60/70/89 including
+`currentHealth: 0`. Transit interruption at tick 70 remained exact and
+correctly omitted targetId. The normal trace retained 30 moves from 60 through
+89, damage 386 at 89, reacquisition 90, readiness 126. All 1,410 restore cuts,
+nine hostile cases, ten canonical cases, atomic rollback, 22 QUESTION records,
+and primitive schemas passed.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 91 — 2026-07-30
+
+PIECE: CONTENT-013C — Curse-triggered death conversion and spawn ownership
+
+VERDICT: FAIL
+
+EVIDENCE: Focused tests reported 15/15 with death-spawns 16/16, placement
+18/18, damage 9/9, content schema 20/20, full suite exit zero, and reference
+validation clean. The literal tick-3 trace and ownership/placement behavior
+were test-clean, and all 38 conversion choices were frozen QUESTION records.
+However, the independent critic found that the implementation directly
+reimplemented damage, death resolution, and ordinary death spawning. It
+delegated only placement, so future fixes to the passed `DeathSpawnEncounter`
+would not govern conversion's ordinary death lifecycle.
+
+BIGGEST GAP: Delegate damage/death/ordinary death-spawn resolution to the
+shared `DeathSpawnEncounter` instead of maintaining a parallel implementation.
+
+## Round 92 — 2026-07-30
+
+PIECE: CONTENT-012C — Charged-strike interruption and retarget composition
+
+VERDICT: PASS
+
+EVIDENCE: Focused composition tests reported 24/24, three primitives 47/47,
+and the full suite 812/812 across 51 groups. An independent 1,631-assertion
+probe passed eight atomic step/stepMany failures at ticks 0/137, late tick-100
+zero-vector rejection through fixture/constructor/restore, final-command
+preflight, four signed limits, 15 overflow paths, three duplicate variants
+across nine setup paths, canonical snapshots, all 501 restore cuts, and the
+exact 269/326/380 trace. All 24 QUESTION records and the three primitive
+hashes remained unchanged.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 93 — 2026-07-30
+
+PIECE: BUILDING-001 — Defensive buildings
+
+VERDICT: FAIL
+
+EVIDENCE: Focused tests reported 19/19, prerequisite primitives 86/86, full
+suite 846/846, and all five runtime/corpus tuples and independent traces
+matched. Geometry, placement, targeting, lifetime, 261 restore cuts, hostile
+inputs, snapshots, bounds, and 23 QUESTION records also passed. Import and
+hash audit found only deployment, targeting, and attack-cycle were composed.
+Ramping, splash, concealment, and projectile/contact behavior were implemented
+locally, with instant damage and no primitive-hash regressions.
+
+BIGGEST GAP: Replace local ramp, splash, concealment, and contact behavior with
+composition over passed ramp, area-damage, invisibility, and projectile
+primitives, and pin all primitive hashes.
+
+## Round 94 — 2026-07-30
+
+PIECE: SPELL-001 — Instant radius damage spells
+
+VERDICT: FAIL
+
+EVIDENCE: Focused and dependency suites reported 101/101, full suite 863/863,
+and reference validation passed. Independent probes passed all 36 BigInt
+radius cases, mapped values, crown damage 207, cast/impact timing, same-tick
+effect order, 129 restore cuts, knockback/stun equivalence, atomicity, and 25
+QUESTION records. Reset differential failed: after target 32 died at impact,
+the adapter emitted `applied:true, retainedTargetId:32` while the reset
+primitive returned `applied:false, reason:"idle"`. An ineligible target
+likewise produced adapter success versus primitive `target-ineligible`.
+
+BIGGEST GAP: Preserve retained-target liveness and eligibility when invoking
+the reset primitive, so dead or ineligible targets cannot reset successfully.
+
+## Round 95 — 2026-07-30
+
+PIECE: CONTENT-014 — Champion abilities
+
+VERDICT: FAIL
+
+EVIDENCE: Focused tests reported 18/18, eight primitive suites 153/153, full
+suite 873 tests with exit zero, and validator passed. Five timelines, 105
+restore cuts, hostile/canonical probes, all 116 QUESTION records, and nine
+differential primitive traces/hashes matched. But actual controller activation
+emitted only `deployed, activated`; controller state and snapshots contained no
+primitive state or events. The shared encounters were invoked only by the
+disconnected `probeChampionAbilityAdapters()` helper.
+
+BIGGEST GAP: Invoke each shared primitive from the actual activation path and
+serialize its resulting state/events, rather than recording an adapter name.
+
+## Round 96 — 2026-07-30
+
+PIECE: CONTENT-013C — Curse-triggered death conversion and spawn ownership
+
+VERDICT: FAIL
+
+EVIDENCE: Focused conversion tests reported 19/19, dependencies 43/43, full
+suite 885/885, and validator passed. Independent probes found shared
+replay/state/children/snapshot parity for lethal, zero, overkill,
+already-dead, simultaneous/recursive deaths and placement; 257 restore cuts
+and 38 QUESTION records passed. But one shared death batch became two public
+batches (`ordinary-death`, `conversion`), with two outer placement batches
+versus one shared batch and owners 8/7 versus shared 8/8. The façade
+rematerialized children through a parallel placement reducer. Periodic data
+was rejected by the conversion entity schema, and the periodic test exercised
+only the primitive.
+
+BIGGEST GAP: Derive public batches/children directly from shared output,
+overlaying only conversion ownership/attribution, and carry periodic lifecycle
+data through the shared encounter.
+
+## Round 97 — 2026-07-30
+
+PIECE: SPELL-001 — Instant radius damage spells
+
+VERDICT: PASS
+
+EVIDENCE: Focused tests reported 19/19, reset/stun/knockback and other
+dependency primitives 84/84, content schema 20/20, and the full `npm test`
+entrypoint exited zero. The reference validator accepted 109 cards, two tower
+types, arena constants, schema, and 10 spot checks. Independent differential
+probes matched 60 retained-target eligibility combinations and all requested
+liveness routes: alive, dead before impact, killed by the impact, same-boundary
+death, missing, untargetable, wrong layer/kind/mode, and source cancellation.
+Replay, state, and serialized bytes matched at all 129 restore cuts. Reset,
+stun, and knockback SHA-256 hashes matched their pins.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 98 — 2026-07-30
+
+PIECE: CONTENT-013C — Curse-triggered death conversion and spawn ownership
+
+VERDICT: FAIL
+
+EVIDENCE: Focused tests reported 19/19; death-spawns 16/16,
+periodic-spawns 20/20, spawn-placement 18/18, full `npm test` exited zero,
+and the validator passed. The critic confirmed one shared batch/placement
+ledger, byte-identical placement bytes/IDs/positions, provenance-only
+ownership overlay, simultaneous/recursive conversions, 257 restore cuts,
+hostile/canonical/atomic probes, and 38 QUESTION records. An independent
+exported-runtime probe exposed index-dependent initial state: entity IDs
+`[101,110]` gave periodic source 110 `bornTick:1` and batches `[[2,[1]]]`,
+while source 110 alone gave `bornTick:0` and batches
+`[[1,[1]],[2,[2]]]`. Its tick-1 prior child vanished and later IDs shifted.
+
+BIGGEST GAP: Fix shared `DeathSpawnEncounter.initialState` so
+`setup.entities.map(runtimeEntity)` does not pass the array index as
+`bornTick`; every initial entity must start at tick zero.
+
+## Round 99 — 2026-07-30
+
+PIECE: CONTENT-014 — Champion abilities
+
+VERDICT: PASS
+
+EVIDENCE: Focused champions passed 19/19, eight primitive suites 153/153,
+and full `npm test` passed 888/888 across 55 groups. Independent
+actual-controller probes passed five activations, nine full
+state/event/serialized-snapshot differentials, 105 restore cuts, 7/7
+provenance-wrapped emitted events, simultaneous owners `[101,202]`,
+cancellation/cooldown/redeploy, hostile/canonical/atomic bounds, and all
+65+51 QUESTION records. Exact cost/active/cooldown tuples were
+`(1,5,11)`, `(2,4,11)`, `(1,6,14)`, `(1,3,8)`, `(1,4,10)`. Validator,
+isolation gates, syntax/static checks, and eight unique primitive hashes
+passed.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 100 — 2026-07-30
+
+PIECE: BUILDING-001 — Defensive buildings
+
+VERDICT: FAIL
+
+EVIDENCE: Focused tests passed 23/23, seven primitive suites 86/86, and
+the full suite 892/892 across 55 groups. Validator, syntax/static checks,
+261 restore cuts, 23 QUESTION records, hostile/canonical/atomic bounds,
+seven primitive hashes, five catalog tuples, and visible traces passed.
+Architectural probes found the outer runtime did not preserve the canonical
+primitive histories: Prism reset replaced `{consecutive:2,stage:1}` with
+`rampPrimitive:null`; Ember stored no area-damage ledger; Buried recreated
+short synthetic visibility histories whose ticks rewound; and resolved
+Bulwark/Horizon projectile states/events were translated and discarded after
+contact or fizzle.
+
+BIGGEST GAP: Persist and restore the actual evolving ramp, area-damage,
+visibility, and resolved projectile primitive states/events—including
+canonical reset, contact, and fizzle events—instead of nulling, recreating,
+translating, or discarding them.
+
+## Round 101 — 2026-07-30
+
+PIECE: SPELL-005A — Previous-card copy effect
+
+VERDICT: FAIL
+
+EVIDENCE: Focused tests passed 14/14, DeckCycle 7/7, CONTENT-007 15/15,
+and full `npm test` exited zero. Validator, identity/reference isolation,
+syntax/static checks, history/exclusion/cost/level/order probes, direct cycle
+mutation, restore cuts, bounds, and all 10 QUESTION records passed.
+Independent canonical-byte probes found `restore()` accepted both a leading
+space and reordered object keys.
+
+BIGGEST GAP: Make `PreviousCardCopyMatch.restore()` reject noncanonical
+snapshot bytes rather than silently accepting whitespace or reordered keys.
+
+## Round 102 — 2026-07-30
+
+PIECE: SPELL-005B — Deployed-unit clone effect
+
+VERDICT: PASS
+
+EVIDENCE: Focused tests passed 16/16, DeckCycle 7/7, shield/form 15/15,
+and the full suite 935/935. Validator, syntax, and diff checks passed.
+Independent probes confirmed 12 signed axis/diagonal inclusive-radius cases,
+all exclusions/ownership rules, stable same-boundary batches, direct
+DeckCycle and shared-form differentials, 16 restore cuts plus arbitrary
+chunks, atomic 2,048-entity and ID-exhaustion bounds, 25 unique frozen
+QUESTION records, and clean identity/reference isolation.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 103 — 2026-07-30
+
+PIECE: SPELL-004 — Spawn spells
+
+VERDICT: FAIL
+
+EVIDENCE: Focused tests passed 13/13; RNG 6/6, deployment 12/12,
+spawn-placement 18/18, periodic-spawns 20/20, instant-spells 19/19, and
+full `npm test` exited zero. Validator, syntax/static, counts 3/15,
+boundaries 5/9/13, ordering, ownership, 14 QUESTION records, chunks, and
+129 restore cuts passed. A causal-ledger differential found the adapter
+emitted one outer batch but called `SpawnBatchMaterializer.materialize()`
+once per child, producing three or five primitive ledger batches per boundary
+and exposing no nested placement ledger.
+
+BIGGEST GAP: Materialize every boundary's children through one shared
+`SpawnBatchMaterializer` causal batch and expose or differentially verify that
+single primitive ledger entry.
+
+## Round 104 — 2026-07-30
+
+PIECE: SPELL-002A — Traveling spell line and impact
+
+VERDICT: FAIL
+
+EVIDENCE: Focused tests passed 15/15, ProjectileCombat 8/8,
+instant-spell 19/19, and full `npm test` exited zero. Validator, syntax/static,
+signed axis/diagonal capsule geometry, stable order, 129 restore cuts,
+14 QUESTION records, primitive hashes, projectile timing, and instant damage
+passed. Independent chronology probes placed earliest launch/midpoint/endpoint
+contacts at ticks 0/3/5, but runtime emitted all three retrospectively at tick
+5.
+
+BIGGEST GAP: Emit and latch each line contact at its exact first
+swept-capsule boundary, including preserving a tick-3 contact when that target
+dies before the tick-5 terminal impact.
+
+## Round 105 — 2026-07-30
+
+PIECE: SPELL-003 — Periodic area spells
+
+VERDICT: FAIL
+
+EVIDENCE: Focused tests passed 20/20, AreaDamageSystem 11/11,
+timed-slow 21/21, and full `npm test` exited zero. Validator, mapping
+confidence, tick sequences, damage/modifiers, geometry, filters, ordering,
+status/death behavior, 130 restore cuts, hostile/canonical/atomic bounds,
+27 QUESTION records, and shared area/slow calls passed. Signed non-perfect
+square pull probes failed: `(±1,±1)` produced components `±1000,±1000`
+instead of `±707,±707`; `(±2,±3)` produced `±666,±1000` instead of
+`±554,±832`.
+
+BIGGEST GAP: Normalize pull vectors against the exact Euclidean length rather
+than its floored integer square root, and cover non-perfect-square signed
+vectors.
+
+## Round 106 — 2026-07-30
+
+PIECE: CONTENT-013C — Curse-triggered death conversion and spawn ownership
+
+VERDICT: PASS
+
+EVIDENCE: Death-spawns passed 18/18, death-conversion 20/20,
+periodic-spawns 20/20, placement 18/18, and full `npm test` exited zero.
+Validator, syntax/static checks, 38 QUESTION records, hostile/canonical/atomic
+bounds, and no-shadow-materializer checks passed. Source 110 alone and with
+101 both produced `bornTick:0` and batches `[[1,[1]],[2,[2]]]`; all six
+permutations produced initial born ticks `[[101,0],[110,0],[120,0]]`,
+tick-1 child `[1]`, and tick-2 death child `[2]`. Mixed conversion retained
+one shared death batch `[2,3]` and overlaid only child 3 from owner 8 to 7;
+shared/public placement bytes matched. Chunk/restore, same-boundary death,
+prior-child survival, future cancellation, and forged-bornTick rejection
+passed.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 107 — 2026-07-30
+
+PIECE: SPELL-005A — Previous-card copy effect
+
+VERDICT: FAIL
+
+EVIDENCE: Focused tests passed 14/14, DeckCycle 7/7, content schema 20/20,
+and full `npm test` completed successfully. Validator, syntax/static checks,
+61 noncanonical variants, 33/33 restore cuts, a 24-step DeckCycle
+differential, and all 10 QUESTION records passed. A byte-bound probe produced
+`{"jsCodeUnits":1050664,"utf8Bytes":2100664,"restored":true}`: the
+2,000,000-byte snapshot limit used UTF-16 code units.
+
+BIGGEST GAP: Enforce the snapshot limit using UTF-8 byte length so oversized
+canonical non-ASCII snapshots cannot restore.
+
+## Round 108 — 2026-07-30
+
+PIECE: SPELL-002A — Traveling spell line and impact
+
+VERDICT: PASS
+
+EVIDENCE: Focused tests passed 15/15, projectile 8/8, instant-spell 19/19,
+and full `npm test` exited zero. An independent BigInt oracle matched all
+signed axes and 3-4-5 diagonals with start/quarter/tangent/three-quarter/end
+contacts at ticks 0/2/3/4/5; tangent minus one excluded while tangent and plus
+one included. Same-tick ordering, prior contact surviving later death/cancel,
+simultaneous casts, 129/129 restore cuts, canonical/hostile/atomic bounds,
+14 QUESTION records, direct projectile/instant differentials, primitive
+hashes, validator, and syntax/static checks passed.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 109 — 2026-07-30
+
+PIECE: SPELL-003 — Periodic area spells
+
+VERDICT: PASS
+
+EVIDENCE: Focused tests passed 21/21, dependencies 32/32, and full
+`npm test` exited zero. An independent exact squared-inequality oracle passed
+52 signed vectors including axes, `(±1,±1)`, `(±2,±3)`, broader coprime and
+non-square cases, tangent, zero, four arena-overflow edges, and reversed-input
+stable order. Chunks, restore cuts 0..130, atomicity, mappings, shared
+area/slow behavior, 28 QUESTION records, validator, syntax, and the no-float
+static scan passed.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 110 — 2026-07-30
+
+PIECE: SPELL-004 — Spawn spells
+
+VERDICT: PASS
+
+EVIDENCE: Focused tests passed 14/14, dependencies 75/75, and full
+`npm test` exited zero. One outward materialize call site produced runtime
+batches `[3,5,5,5]` at ticks `[2,5,9,13]`, four matching ledger entries,
+and 18 children with no per-child materialization. Cancellation produced
+`[3,5,5]` at `[2,5,9]` then cancellation at 10. Nested ledger
+serialization/restore preserved byte-identical IDs, positions, order,
+ownership, replay, and hashes; arbitrary chunks, all 129 cuts,
+same-boundary ordering, hostile/canonical/atomic probes, all 14 QUESTION
+records, validator, and syntax/static checks passed.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 111 — 2026-07-30
+
+PIECE: BUILDING-001 — Defensive buildings
+
+VERDICT: PASS
+
+EVIDENCE: Focused tests passed 23/23, primitive suites 86/86, and full
+`npm test` exited zero. Independent probes found Prism's non-null canonical
+reset state/event, Ember's retained area ledger and raw events, Buried's
+monotonic aligned visibility history, and Bulwark/Horizon retained
+contact/fizzle/cancellation snapshots and raw histories. Three chunkings and
+all 261 restore cuts were byte-identical; the 4096 bound rejected atomically;
+hostile/canonical/atomic probes, 23 QUESTION records, five catalog tuples,
+seven primitive hashes, validator, and syntax/static checks passed.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 112 — 2026-07-30
+
+PIECE: SPELL-005A — Previous-card copy effect
+
+VERDICT: PASS
+
+EVIDENCE: Focused tests passed 14/14, dependencies 27/27, and full
+`npm test` exited zero. Independent probes restored exact 2,000,000-byte
+canonical snapshots containing ASCII, 2/3/4-byte characters, combining
+sequences, BOM-in-string, and canonical escaped lone/malformed surrogates.
+Inputs of 2,000,001–2,000,003 bytes rejected before `JSON.parse`. All 61
+noncanonical variants, 33/33 restore cuts, 24/24 DeckCycle differential
+steps, 10 QUESTION records, hostile/atomic probes, validator, static, and
+syntax checks passed.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 113 — 2026-07-30
+
+PIECE: SPELL-002C — Returning traveling spell
+
+VERDICT: FAIL
+
+EVIDENCE: Focused tests passed 9/9, line/return-projectile/instant
+dependencies 61/61, and full `npm test` exited zero. Validator,
+syntax/static, geometry/order/turn/repeat behavior, simultaneous lethals,
+129 restore cuts, hostile/atomic checks, and 14 QUESTION records passed.
+An independent composition probe reported
+`{"lineConstructors":2,"instantConstructors":1,"returnConstructors":0,"returnFixtureReads":1}`:
+the return primitive was not executed. After post-launch source death, the
+primitive completed with four hits while SPELL-002C cancelled with zero
+contacts.
+
+BIGGEST GAP: Replace the manually copied outbound/turn/inbound state machine
+with actual return-projectile primitive delegation, preserve its causal
+contract, and pin its hash.
+
+## Round 114 — 2026-07-30
+
+PIECE: SPELL-002B — Three-wave traveling spell
+
+VERDICT: PASS
+
+EVIDENCE: Focused tests passed 13/13, line 15/15, instant-spell 19/19,
+and full `npm test` exited zero. Independent probes matched launches at
+0/1/2, contacts/impacts at 5/6/7, signed geometry, radius edges, stable deaths
+and overlaps, cancel/source/target-death boundaries, all 129 restore cuts,
+canonical/hostile/atomic behavior, 11 QUESTION records, primitive calls and
+hashes, identity/reference isolation, validator, and syntax/static checks.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 115 — 2026-07-30
+
+PIECE: SPELL-002D — Rolling collision spell
+
+VERDICT: FAIL
+
+EVIDENCE: Focused tests passed 15/15, line 15/15, projectile 8/8,
+instant 19/19, and full `npm test` exited zero. Signed geometry, expiry,
+latches, damage/order, ordinary obstacle cases, cancellation/death,
+simultaneous effects, 129 restore cuts, canonical/atomic behavior,
+17 QUESTION records, primitive calls/hashes, validator, and syntax/static
+passed. Unequal-radius probes failed: true entries were obstacle id20 at 100
+then target id10 at 500, but the runtime emitted target contact/damage before
+the obstacle stop because it sorted collider centers.
+
+BIGGEST GAP: Compute and sort by exact swept-capsule entry distance including
+collider radius, so the earliest blocking obstacle suppresses equal-or-later
+contacts.
+
+## Round 116 — 2026-07-30
+
+PIECE: BUILDING-002 — Spawner buildings
+
+VERDICT: PASS
+
+EVIDENCE: Focused spawner/defensive/periodic/death/placement/deployment
+suites all passed, and full `npm test` exited zero. Three independent facade
+differentials matched shared `DeathSpawnEncounter` events, children, projected
+state, and nested bytes at 65 boundaries. Tick-7 lethal cancellation and
+lifetime tick 15 produced exactly one death batch; both archetypes,
+ownership/source, chunks, all 31 restore cuts, canonical UTF-8/hostile/atomic
+bounds, 13 QUESTION records, identities, validator, static, and syntax checks
+passed.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 117 — 2026-07-30
+
+PIECE: BUILDING-003A — Resource-generation buildings
+
+VERDICT: FAIL
+
+EVIDENCE: Focused tests passed 12/12, defensive 23/23, elixir 17/17,
+and full `npm test` exited zero. Exact deployment/pulses/amount/cap/lifetime,
+stable order, boundary commands, chunks, 32 restore cuts,
+canonical/hostile/atomic behavior, 12 QUESTION records, catalog confidence,
+validator, and syntax/static passed. Composition failed: only
+`ELIXIR_CAPACITY` was imported. At tick 511 canonical `ElixirMatch` south
+state was `{accumulator:7,amount:3}`, while the building's divergent local
+ledger was `1`, and canonical elixir state was rejected as invalid input.
+
+BIGGEST GAP: Replace the local resource ledger with composition over canonical
+elixir state while preserving accumulator, ordinary generation, spending,
+cap, replay, and restore behavior.
+
+## Round 118 — 2026-07-30
+
+PIECE: BUILDING-003B — Underground travel buildings
+
+VERDICT: PASS
+
+EVIDENCE: Focused tests passed 13/13; deployment 12/12, movement 8/8,
+pathfinding 10/10, defensive buildings 23/23, and full `npm test` exited
+zero. Independent probes confirmed deploy 60, exact three-node path, emerge
+140, spawn 152 with owner 7/ID 1:1, underground untargetability, zero
+movement-primitive differentials, path ties/failures, command-first
+interruption/death, all 301 restore cuts, chunk equality,
+canonical/hostile/atomic behavior, 14 QUESTION records, no resource behavior,
+validator, static, and syntax checks.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 119 — 2026-07-30
+
+PIECE: SPELL-002D — Rolling collision spell
+
+VERDICT: PASS
+
+EVIDENCE: Focused tests passed 15/15, dependencies 42/42, and full
+`npm test` exited zero. An independent exact quadratic BigInt oracle passed
+51 probes with zero mismatches across unequal radii, obstacle-before/equal/
+after on every axis and signed diagonal, stable target/obstacle ID ties,
+tangency ±1, legal maximum coordinates/radii, unsafe overflow rejection, and
+atomic rollback. Earliest obstacles suppressed equal/later contacts. All 129
+restore cuts, 17 QUESTION records, hostile/canonical/atomic checks, primitive
+hashes, validator, static, and syntax checks passed.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 120 — 2026-07-30
+
+PIECE: SPELL-002C — Returning traveling spell
+
+VERDICT: FAIL
+
+EVIDENCE: Focused tests passed 15/15, dependencies 61/61, all 129 restore
+cuts, full `npm test`, validator, static, syntax, hostile/canonical/atomic
+checks, and primitive hash pin. Instrumentation confirmed actual
+`ReturnEncounter` construction/restoration and exact launch 24, outbound hits
+25/27, turn 31, inbound hits 35/37, and completion 38. Independent
+differential state/snapshot bytes matched through prelaunch, launch, outbound,
+turn, and inbound, but cut 39 had no nested primitive while the direct
+primitive retained terminal state. QUESTION cardinality also changed from 14
+to 15.
+
+BIGGEST GAP: Preserve and verify the actual terminal ReturnEncounter
+state/snapshot bytes instead of deleting the nested primitive immediately on
+completion.
+
+## Round 121 — 2026-07-30
+
+PIECE: BUILDING-003A — Resource-generation buildings
+
+VERDICT: FAIL
+
+EVIDENCE: Focused resource 12/12, Elixir 17/17, defensive 23/23, full
+`npm test`, validator, static, and syntax checks passed. Independent
+differential matched canonical Elixir state for all 4,201 ticks through 4200,
+all 1,701 cuts, and the pinned replay hash. A post-grant scheduled spend
+exposed that version-3 snapshots serialize spends and grants separately:
+original spend sequence 2/grant sequence 1 restored as spend sequence 1/grant
+sequence 2, changing event and replay order despite equal snapshot bytes and
+balances.
+
+BIGGEST GAP: Preserve the unified spend/grant command sequence across
+ElixirMatch version-3 serialization and restoration so interleaved post-grant
+scheduling reproduces byte-identical events and replay.
+
+## Round 122 — 2026-07-30
+
+PIECE: SPELL-002C — Returning traveling spell
+
+VERDICT: PASS
+
+EVIDENCE: Focused tests passed 15/15, dependencies 61/61, full `npm test`,
+reference validator, syntax, and static checks. Independent direct-primitive
+differentials matched exact 352-byte nested snapshots at launch, outbound
+hits, turn, inbound hits, completion cut 39, and retained terminal cut 128.
+Restoring at terminal and continuing emitted no events and preserved final
+bytes/replay. Lifecycle was launch 24, hits 25/27, turn 31, hits 35/37,
+complete 38. All 129 cuts, actual constructor/restore instrumentation,
+post-launch death/cancel behavior, primitive hash, hostile/canonical/atomic
+checks, and exactly 14 unique frozen QUESTION records passed.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 123 — 2026-07-30
+
+PIECE: UI-001A — Original empty-arena render shell
+
+VERDICT: FAIL
+
+EVIDENCE: Focused 6/6, direct runner 6/6, full `npm test`, syntax,
+static/provenance, hostile mount, browser console, local-resource, reload DOM,
+and byte-identical screenshot checks passed. The 720×1280 render contained the
+arena, two lanes, river, two bridges, six tower pads, two HUD rails, four-card
+hand, next slot, timer, and ten elixir segments. Browser geometry showed the
+nominal 540×960 arena becomes a 532×952 inner playfield under border-box, and a
+nominal square tower pad rendered 118.21875×119 pixels.
+
+BIGGEST GAP: The arena border participates in the centralized playfield
+dimensions, producing unequal horizontal and vertical tile scales and visibly
+non-square geometry instead of one consistent 18×32 projection.
+
+## Round 124 — 2026-07-30
+
+PIECE: BUILDING-003A — Resource-generation buildings
+
+VERDICT: PASS
+
+EVIDENCE: Resource 13/13, Elixir 19/19, defensive 23/23, and full
+`npm test` passed. Independent Round 121 reproduction preserved explicit
+unified sequences through restore and later same-boundary grants with identical
+events, logs, replay/state/snapshot bytes, and balances. An arbitrary
+multi-owner interleaving matched; direct Elixir state/bytes matched on all
+4,201 ticks and all 1,701 restore cuts. Legacy v2 and sequence-less v3 restored;
+malformed, mixed, duplicate, noncontiguous, noncausal, future, noncanonical,
+hostile, and oversized cases rejected atomically. All 12 QUESTION records,
+validator/static/syntax checks, and replay SHA-256
+`f893cf55647390534e6aa7cf8fd3bed51c5b518791eec4af1ffecac093d1dd5c`
+passed.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 125 — 2026-07-30
+
+PIECE: GUARD-002 — Reference and protected-identity shipping isolation
+
+VERDICT: FAIL
+
+EVIDENCE: Focused 13/13, live CLI, and syntax checks passed. Independent
+adversarial probes showed four fail-open cases: a bare runtime package
+containing a protected identity returned `ok: true`; an aliased `require`
+hid its reached module; a protected identity embedded in a shipped string was
+accepted; and unreachable distributable files exceeded `maxTotalBytes` without
+failure. The returned report, issues array, and stats object were also mutable.
+
+BIGGEST GAP: The resolver graph is not closed over actual runtime code—bare
+package dependencies and aliased loaders can ship protected bytes while the
+guard reports success.
+
+## Round 126 — 2026-07-30
+
+PIECE: GUARD-001 — Simulation nondeterminism enforcement
+
+VERDICT: FAIL
+
+EVIDENCE: Focused 6/6, fixed-step kernel 4/4, current fixed-step 5/5,
+syntax, all 20 simulation modules, canonical/frozen/atomic output, and bounds
+passed. On Node 22.22.3, a dormant exported function returning
+`process.binding('natives')['internal/deps/acorn/acorn/dist/acorn']` had zero
+static violations, passed the VM module probe, then returned 242,818 bytes in
+normal execution. Dormant block-scoped `var` retention of `Math.random`,
+`Reflect.apply(Reflect.get, ...)`, computed dynamic import, and an escaped
+re-export graph also passed; a top-level computed attack was correctly denied.
+
+BIGGEST GAP: Dormant exported functions are never capability-tested, while
+incomplete static scope/reflection/import/process analysis lets them retain
+ambient capabilities—including `process.binding('natives')`—for later
+normal-runtime invocation.
+
+## Round 127 — 2026-07-30
+
+PIECE: UI-001A — Original empty-arena render shell
+
+VERDICT: PASS
+
+EVIDENCE: Focused and direct runners passed 7/7; full `npm test`, syntax,
+static/provenance, hostile mount, and browser console checks passed. At exactly
+720×1280 the arena measured 548×968 border-box with 4px borders and an exact
+540×960 inner box: 18×32 tiles at 30×30 pixels. Central pads were 120×120,
+four lane pads 90×90, and bridges 60×60. All required shell primitives were
+present and only local resources loaded. Two reload-separated captures and
+DOMs were byte-identical: 70,641-byte screenshot SHA-256
+`c3b7e26bf1c753f8c2c569ae7f4ae466be353dee0aa5d44690f920b4d717d752`
+and DOM SHA-256
+`252cf93290c5ac87cf3ee065b68960b2fd45ce1787ca0dfc3aa319bf3844bd2a`.
+
+BIGGEST GAP: None on the judged shell dimension; benchmark likeness remains
+unevaluated because the reference capture is absent.
+
+## Round 128 — 2026-07-30
+
+PIECE: GUARD-002 — Reference and protected-identity shipping isolation
+
+VERDICT: FAIL
+
+EVIDENCE: Focused 13/13, syntax, live CLI, and full `npm test` passed. The
+five Round 125 regressions, bare/aliased packages, contained identities,
+dist/build aggregate bytes, recursive freezing, subpath/transitive packages,
+package JSON, URL aliases, corpus bytes, traversal/symlinks, chunks/maps,
+bounds, canonical output, atomicity, and no-execution passed. Four resolver
+probes reported `ok:true` while Node executed protected bytes through exports
+browser-before-import, browser-before-require, browser string hiding main, and
+browser-map hiding main. A `Function`-constructed dynamic import and a
+protected single-word identity embedded with prefix/suffix also passed.
+
+BIGGEST GAP: Close package resolution over actual import/require/browser/main/
+module condition branches instead of selecting one synthetic browser-first
+target, because ordinary Node can execute protected package bytes while the
+guard reports success.
+
+## Round 129 — 2026-07-30
+
+PIECE: GUARD-001 — Simulation nondeterminism enforcement
+
+VERDICT: FAIL
+
+EVIDENCE: Focused 7/7, fixed-step kernel 4/4, fixed-step 5/5, syntax, and
+full `npm test` passed. All 27 built-in attacks, 11 permits, Round 126 dormant
+export/native/module/retained-random/reflection/computed-import/graph/symlink
+bypasses, bounds, canonical/frozen/atomic output, runtime-only top-level
+denial, and all 20 simulation modules passed. Independent valid code failed:
+an arrow parameter shadowing `Math` was reported as ambient; ordinary
+`catch (e)` and shadowing `catch (Math)` crashed with `TypeError: value is not
+iterable`; and a clean two-module import cycle failed VM linking with
+`ERR_VM_MODULE_LINK_FAILURE`.
+
+BIGGEST GAP: The analyzer/runtime probe still rejects valid deterministic
+arrow-parameter, catch-scope, and cyclic-module programs, violating the
+required no-false-positive capability boundary.
+
+## Round 130 — 2026-07-30
+
+PIECE: UI-001B — Deterministic HUD and hand projection
+
+VERDICT: FAIL
+
+EVIDENCE: Focused HUD 9/9, dependencies/guards 77/77, full `npm test`, syntax,
+canonical boundaries, crowns, elixir, deck cycle, replay/restore, escaping, and
+deterministic bytes passed. The shipped browser page showed four empty hand
+slots, empty next slot, no elixir amount, and no timer phase because
+`arena-shell-entry.js` never imports or invokes the HUD binder. Independent
+hostile probes showed duplicate singleton timers were accepted, and a throwing
+setter left the timer and first hand slot partially mutated after six target
+accessor calls.
+
+BIGGEST GAP: The shipped UI never creates or binds a HUD view model, leaving
+every hand/next/elixir hook empty despite the standalone projection library
+passing its tests.
+
+## Round 131 — 2026-07-30
+
+PIECE: GUARD-001 — Simulation nondeterminism enforcement
+
+VERDICT: PASS
+
+EVIDENCE: Focused guard 9/9, fixed-step kernel 4/4, current fixed-step 5/5,
+guard/test/all-20-simulation syntax checks passed. Independent probes passed 14
+valid shadow scopes, rejected three ambient parameter-default/catch-boundary
+cases and all nine Round 126 attacks, denied the runtime-only top-level/local
+re-export/symlink bypasses, and accepted recursive 2/3-node, duplicate-import,
+and top-level-await cycles. Canonical repetition, atomic multi-violation
+collection, frozen reports, AST/binding/file/total-byte/depth/count bounds, and
+static plus runtime probing of all 20 simulation modules passed.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 132 — 2026-07-30
+
+PIECE: GUARD-002 — Reference and protected-identity shipping isolation
+
+VERDICT: FAIL
+
+EVIDENCE: Focused 13/13, syntax, 12/12 reference and 11/11 identity
+adversaries passed. The four Round 128 packages executed their real Node
+targets and audited every browser/main/module/exports candidate; nested arrays,
+wildcards, browser maps, transitive packages, cycles, symlinks, bounds, token
+embedding, canonical/frozen/atomic/no-execution behavior, and the live 73-file
+graph passed. A custom exports condition omitted `bad.js`, returned `ok:true`,
+then Node executed its protected bytes under `--conditions=custom`. Five
+computed/reflective loader forms using `globalThis['Function']`, prototype
+constructors, indirect eval, and bound `module.require` likewise audited one
+file, returned `ok:true`, and executed protected bytes.
+
+BIGGEST GAP: Executable target discovery remains fail-open for non-hardcoded
+exports conditions and computed/reflective code-loader aliases, allowing Node
+to execute protected package bytes absent from the audit graph.
+
+## Round 133 — 2026-07-30
+
+PIECE: INTEGRATION-001 — Canonical interaction suite
+
+VERDICT: FAIL
+
+EVIDENCE: The two-pass focused audit completed in 290,844 ms; all JavaScript
+syntax passed. Independent enumeration confirmed 41 catalog surfaces, 58
+occurrences, 53 unique IDs, three intentional shared IDs, and five executed
+QUESTION-only exports. Missing/duplicate/stale/shared-ID checks and V8
+zero-execution rejection exist. The audit never parses TAP and accepts stable
+fake output with exit zero; coverage shows catalog/fixture functions ran, not
+claimed interaction/replay execution. Its manifest hashes duration-normalized
+runner console output and contains no replay bytes. The claimed hash is not
+pinned or printed. Static isolation was bypassable, and atomic rename failure
+left its temporary file behind.
+
+BIGGEST GAP: The “replay artifact” is only a self-consistent hash of
+unvalidated TAP text, so the audit can pass without proving that any claimed
+interaction replay executed or that its bytes were deterministic.
+
+## Round 134 — 2026-07-30
+
+PIECE: UI-001B — Deterministic HUD and hand projection
+
+VERDICT: PASS
+
+EVIDENCE: Focused HUD 9/9 and shell/deck/elixir/match/tower/guard dependencies
+86/86 passed. Shipped-source invocation plus DOM harness produced
+regulation/3:00/tick 0; hand mossguard, cinderlings, briar-band, reedsting;
+next skymaul; south elixir 5/accumulator 0/50%; zero crowns. Two fresh
+controllers and tick-1 updates were byte-identical. Duplicate timer/hand
+targets rejected without mutation, the shell query accessor was read once, a
+throwing setter fully rolled back, hostile HTML escaped, and the page had one
+entry module and one singleton controller with no ambient time/randomness.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 135 — 2026-07-30
+
+PIECE: UI-001C — Arena pointer and card-play interaction
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- ui-input` passed 10/10, and the shell, HUD,
+deployment, deck, elixir, nondeterminism, and shipping-isolation dependency
+checks passed 76/76 for 86/86 total. Independent boundary/history probes
+confirmed inclusive arena corners, outside rejection, integer projection, and
+the 30,000-action bound. A downstream failure injection made
+`commitSystems()` throw after HUD projection: controller, deck, and elixir
+bytes remained unchanged, but the HUD had already received the uncommitted
+cycled hand and pending spend.
+
+BIGGEST GAP: Make HUD projection and system commit one rollback-safe
+transaction so a commit-hook failure cannot leave visible state describing a
+play the controller rejected.
+
+## Round 136 — 2026-07-30
+
+PIECE: UI-001C — Arena pointer and card-play interaction
+
+VERDICT: FAIL
+
+EVIDENCE: Focused, dependency, and guard checks passed 87/87. The exact Round
+135 mutation-then-throw case now restores controller bytes, visible HUD, old
+external deck/elixir references, selection, and commands, and a subsequent
+normal commit succeeds. An independent compensation probe then made the
+rollback hook throw before reinstalling the originals. The controller
+reported an `AggregateError`, restored its own bytes and HUD, and retained
+the selection, but external systems still referenced the rejected candidate
+deck/elixir while the controller remained usable.
+
+BIGGEST GAP: If compensating system rollback cannot restore the original
+references, poison or otherwise fail-close the controller so it cannot
+continue while external and canonical state disagree.
+
+## Round 137 — 2026-07-30
+
+PIECE: UI-001C — Arena pointer and card-play interaction
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- ui-input` passed 12/12 and the proportional shell,
+HUD, nondeterminism, and shipping checks passed 38/38. The exact failed
+compensation path now latches `commit_rollback_failed`; serialization and all
+mutating continuations reject before reading hostile inputs or invoking
+hooks. Independent probes found the state-bearing getters still expose the
+controller's last canonical selection, commands, deck, elixir, and replay
+after external state may have diverged.
+
+BIGGEST GAP: The poison policy does not define whether last-known canonical
+diagnostic getters remain observable after an arbitrary external callback
+made rollback impossible.
+
+DISPOSITION: Three rounds failed on the same external-transaction proof gap.
+The piece was wrong-shaped: shipped pointer/card-play behavior is executable,
+while proving recovery from arbitrary callbacks that mutate external state
+and then defeat compensation is a separate fault-containment policy. The
+shipped kernel is split to UI-001CK; the hostile callback question is parked
+as UI-001CT.
+
+## Round 138 — 2026-07-30
+
+PIECE: UI-001CK — Shipped arena card-play kernel
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- ui-input` passed 12/12; shell, HUD, arena geometry, and
+both guard suites passed 47/47. Independent command/replay probes produced
+two valid same-tick deploys and byte-identical restore. Browser geometry
+reproduction showed the shipped binding passes the arena's decorative
+548×968 border box at (86,104) into the mapper instead of the 540×960 inner
+playfield at (90,108): inner corners mapped to (131,132) and
+(17868,31867), while the decorative border corner was incorrectly accepted
+as (0,0).
+
+BIGGEST GAP: Derive the actual inner client playfield rectangle in the
+shipped browser binding so exact inner edges map to arena edges and decorative
+border clicks reject.
+
+## Round 139 — 2026-07-30
+
+PIECE: UI-001CK — Shipped arena card-play kernel
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- ui-input` passed 13/13; shell, HUD, arena geometry,
+deployment, and both guards passed 59/59. Independent mounted reproduction
+used border box (86,104,548,968) and native client metrics (4,4,540,960):
+inner corners mapped exactly to (0,0) and (18000,32000), while four
+just-outside points and decorative-border clicks rejected without changing
+bytes. A normal mounted play committed (6000,12000), restored byte-identically,
+and produced a 966-byte snapshot with SHA-256
+`9e66d4c90bae6d7b9571573a82fbc678b3cd22c9c281742a843c1dab8dcebe78`.
+Mouse/touch commands matched, native-like metric accessors were read exactly
+four times, hostile metrics failed atomically, and an oversized action
+history restore rejected.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 140 — 2026-07-30
+
+PIECE: INTEGRATION-001 — Canonical interaction suite
+
+VERDICT: FAIL
+
+EVIDENCE: The required `npm test -- integration-audit` run passed 5/5 in
+313.6 seconds, reproduced 58 occurrences / 53 IDs and pinned two-run SHA-256
+`59d6cd6facbb80612beba5a6931f8f34f51b2ed36d7acec3e3118c4208d5d964`,
+and passed its shipping API check. Hostile missing/noncanonical/reused
+artifact probes rejected. Independent direct recorder samples for six
+single-ID claims contained none of their claimed IDs: selector-global
+first-use state/event/replay bytes were wrapped afterward with identity
+metadata. The returning-spell sample captured its inner primitive's state
+and `return-launch`, not the claimed facade occurrence. Both swarm direct
+adapters emitted only static layout arrays rather than an interaction.
+Independent TAP probes also found duplicate and out-of-plan test numbers
+accepted.
+
+BIGGEST GAP: Replace selector-global first-use evidence and metadata wrappers
+with direct per-occurrence mechanic adapters for all 58 claims, including
+real swarm interactions, and validate exact TAP test numbering.
+
+## Round 145 — 2026-07-30
+
+PIECE: INTEGRATION-001 — Canonical interaction suite
+
+VERDICT: FAIL
+
+EVIDENCE: The mandatory `npm test -- integration-audit` completed 6/6 in
+277.6 seconds, covered 58 occurrences / 53 IDs, reproduced two fresh hashes
+at `000725ddd594cfdecda968ebaee41bf18abd2e3ef03f1a9eb12d8de562c8d5db`,
+and passed strict TAP, coverage, shipping, raw schema, pin count, swapped
+payload rejection, distinct shared facades, and real swarm damage/death.
+Independent enumeration found charge, dash, jump, and charge-knockback
+adapters stop at their first generic `target-acquired` event rather than
+reaching defining events at ticks 269, 60, 60, and 269. The selected card
+record is adjacent `exportCall` metadata rather than a causal fixture input;
+40/58 mechanic-only payloads contain no claimed ID.
+
+BIGGEST GAP: Advance each facade through a defining claimed-mechanic event and
+prove the selected export record configures that execution instead of merely
+being co-packaged.
+
+DISPOSITION: Three rounds failed on the same exhaustive occurrence-binding
+gap. The piece was wrong-shaped: deterministic selector/runtime event-surface
+integration is executable, while proving every exported record causally
+configures every specialized fixture is a separate evidence-model question.
+The runtime kernel is split to INTEGRATION-001K; exhaustive causal binding is
+parked as INTEGRATION-001C.
+
+## Round 146 — 2026-07-30
+
+PIECE: INTEGRATION-001K — Deterministic runtime event-surface integration
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- integration-audit` passed 6/6 in 274.3 seconds,
+covered 58 occurrences / 53 IDs across 41 facades/selectors, and reproduced
+two-run SHA-256
+`000725ddd594cfdecda968ebaee41bf18abd2e3ef03f1a9eb12d8de562c8d5db`.
+Independent artifacts were 58 unique nonempty canonical state/event/replay
+payloads containing actual runtime events; aggregate binding SHA-256 was
+`665fc81228d0f0ea0b25a623351dbc7125653434e7fc9edddf2db43958cce3b1`.
+Shipping reported 75 files, 231 dependencies, zero issues; bounds and
+tampering rejected. Four hostile streams with `Bail out!` before/after the
+plan/summary or arbitrary garbage before/after the TAP document were all
+accepted when paired with forged clean counters.
+
+BIGGEST GAP: Reject TAP bailouts and unrecognized top-level output so a
+semantically failed or corrupted runner cannot satisfy strict execution
+proof with forged clean summaries.
+
+## Round 147 — 2026-08-03
+
+PIECE: INTEGRATION-001K — Deterministic runtime event-surface integration
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- integration-audit` passed 6/6 in 283.4 seconds,
+reproduced two-run SHA-256
+`000725ddd594cfdecda968ebaee41bf18abd2e3ef03f1a9eb12d8de562c8d5db`,
+and covered 58 occurrences / 53 IDs. Independent artifacts remained 58
+nonempty canonical state/event/replay records across 41 selectors/facades;
+shipping reported 75 files, 231 dependencies, zero issues. Sixteen ordinary
+bailout/garbage/header/plan/counter/directive/control/size attacks rejected.
+Replacing a legitimate indented result with `    not ok 1 - inner`, adding an
+orphan indented failure, or adding indented crash prose all remained
+accepted beneath forged clean top-level counters. Conversely, valid
+diagnostics or test names that merely mention reserved words were rejected.
+
+BIGGEST GAP: Parse nested TAP by indentation and context so nested failures,
+bailouts, and arbitrary prose reject without treating reserved words inside
+valid diagnostics or test names as control records.
+
+## Round 148 — 2026-08-03
+
+PIECE: INTEGRATION-001K — Deterministic runtime event-surface integration
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- integration-audit` passed 6/6 in 283.1 seconds with
+46 runners, 58 occurrences / 53 IDs, and two-run SHA-256
+`000725ddd594cfdecda968ebaee41bf18abd2e3ef03f1a9eb12d8de562c8d5db`.
+Independent probing found exactly 58 nonempty canonical occurrence-unique
+artifacts across 41 facades; shipping returned zero issues. Twenty-four of
+twenty-six recursive parser attacks behaved correctly, including nested
+failure masking, bailouts, indentation, plans, numbering, names, counters,
+YAML, controls, and bounds. Matched result/subtest names ending in
+`# SKIP reason` or `# TODO reason` were still accepted with forged zero
+skipped/todo summaries.
+
+BIGGEST GAP: Reject TAP SKIP/TODO directives as result metadata even when the
+matched subtest announcement repeats the directive text.
+
+DISPOSITION: Three rounds failed on the same exhaustive TAP-language proof
+gap. The piece remained wrong-shaped: deterministic execution and artifact
+integration are executable, while proving a bespoke parser sound for all
+hostile TAP13 syntax is a separate enforcement problem. Runtime artifacts
+split to INTEGRATION-001R; exhaustive TAP proof is parked as GUARD-003.
+
+## Round 149 — 2026-08-03
+
+PIECE: INTEGRATION-001R — Deterministic registered runtime artifacts
+
+VERDICT: PASS
+
+EVIDENCE: Authoritative `npm test -- integration-audit` completed in
+283073.865583ms with 6/6 pass and no failure, skip, todo, or cancellation.
+All 46 registered runner streams executed under coverage. Two fresh sweeps
+were byte-identical at SHA-256
+`000725ddd594cfdecda968ebaee41bf18abd2e3ef03f1a9eb12d8de562c8d5db`.
+Independent probing confirmed exactly 58 artifacts across 41 facades; each
+state/event/replay set was 58/58 nonempty, canonical JSON, and
+occurrence-unique. Shipping returned `ok:true`, zero issues, 66 files, 202
+dependencies, and SHA-256
+`4ab94eda15f608a87285c8d5bb08b88605810753fb06646c428ec9b0bedb709d`.
+
+BIGGEST GAP: None on the judged dimension; hostile TAP-language soundness is
+GUARD-003 and exhaustive per-card causality is INTEGRATION-001C.
+
+## Round 150 — 2026-08-03
+
+PIECE: UI-002B — Entity, tower-health, and targeting projection
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- ui-combat-state` passed 11/11. Towers, arena shell,
+HUD, placement feedback, nondeterminism guard, and shipping isolation passed
+72/72. Test-only reference comparison matched central HP `4824=4824` and lane
+HP `3052=3052`. Independent reordered projection serialized identically in
+815 bytes at SHA-256
+`19f9ed233185e147043cbe63cef1ff994b120d8db421ce3fe1f64d41d6348f5b`.
+Damage, death, target links, exact millitile coordinates, terminal DOM restore,
+seven hostile states, two restore forgeries, and maximum 512-entity/2048-event/
+16-tower bounds all passed; the 235523-byte maximum snapshot restored
+byte-identically.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 151 — 2026-08-03
+
+PIECE: AUDIO-001A — Deterministic audio cue projection
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- audio-events` passed 9/9 and match, projectile,
+damage, nondeterminism, and shipping suites passed 68/68. Independent actual
+runtime probing found lethal defensive-building output `[damage,
+target-destroyed]`; damage mapped correctly but `target-destroyed` was unknown
+and emitted no death cue. Repeated accepted tower evidence for the same zero-HP
+lane tower at ticks 2 and 3 awarded exactly one canonical crown in match state
+but projected two `crown-award` cues.
+
+BIGGEST GAP: Track previously credited destroyed tower IDs in causal projection
+state so repeated accepted evidence produces explicit no-cue instead of a
+duplicate crown award.
+
+## Round 152 — 2026-08-03
+
+PIECE: UI-002D — Crown score and match-end feedback
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- ui-match-feedback` passed 9/9 and MATCH timing,
+towers, combat UI, HUD, nondeterminism, and shipping passed 73/73. Four actual
+MatchClock regulation/overtime/tiebreak/draw projections were deterministic
+and restore/fresh-run byte-identical. Yet mutually consistent forged state and
+event pairs were accepted and rendered: crowns `0-1` with winner north, crowns
+`0-1` as a draw, tick 42 `tiebreak_exact_tie` as a north win, and tick 17
+`tiebreak_lowest_hp` as a draw.
+
+BIGGEST GAP: Terminal validation must causally bind winner, draw status,
+reason, and end tick to crowns, tower evidence, overtime, and tiebreak events
+instead of merely requiring state/event agreement.
+
+## Round 153 — 2026-08-03
+
+PIECE: AUDIO-001A — Deterministic audio cue projection
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- audio-events` passed 12/12 and match timing,
+defensive buildings, nondeterminism, and shipping passed 77/77. Independent
+actual MatchClock evidence produced `[crown,crown,no-new-destruction]` for two
+new same-tick lane towers followed by cumulative repetition, exactly matching
+canonical crowns. Central destruction emitted one crown; rejected post-terminal
+evidence emitted no cue. Lethal building `[damage,target-destroyed]` mapped to
+`[damage,death]`. Chunk/restore bytes matched, backwards time rejected
+atomically, and the exact 16384-record, 1004723-byte capacity restored
+byte-identically while record 16385 rejected without mutation.
+
+BIGGEST GAP: None on the judged deterministic cue-projection dimension.
+
+## Round 154 — 2026-08-03
+
+PIECE: UI-002C — Projectile and area-effect feedback
+
+VERDICT: FAIL
+
+EVIDENCE: Focused UI, projectile, area, return, pierce, pellet,
+nondeterminism, and shipping suites passed 133/133. Independent raw replay
+feeds did not: actual pellet launch rejected signed endpoint geometry as
+`endpoint.yNumerator must be a canonical nonnegative decimal`; actual return
+and pierce launch-cancellation replays rejected `external-damage` as
+unsupported. A forged restore containing `key:"forged"` and
+`sourceSequence:4095` was accepted and round-tripped byte-identically.
+
+BIGGEST GAP: Consume actual signed and cancellation replay events from every
+encounter, preserve overlapping path identities, and reject restore states
+that cannot originate from canonical event projection.
+
+## Round 155 — 2026-08-03
+
+PIECE: UI-002C — Projectile and area-effect feedback
+
+VERDICT: FAIL
+
+EVIDENCE: Focused/dependency/guard suites passed 168/168. Independent signed
+axis/diagonal testing passed 1456/1456 serialize/restore and DOM-byte
+comparisons across 24 actual return/pierce/pellet encounters. An actual
+concurrent TravelingLineSpellEncounter failed at tick 4 on canonical
+`travel-spell-impact`. Conversely, forged replay events with incomplete
+launch/impact/effect shapes and extra `forged:true` fields were accepted,
+restored, and round-tripped while producing projectile impact and area output.
+
+BIGGEST GAP: Define exact per-event replay schemas that accept canonical travel
+companion events while rejecting impossible, incomplete, or extra-field raw
+events before snapshot restoration.
+
+## Round 156 — 2026-08-03
+
+PIECE: UI-002D — Crown score and match-end feedback
+
+VERDICT: FAIL
+
+EVIDENCE: Focused UI and match/tower/combat/guard dependencies passed. The
+suite covered terminal causal rules, but coordinated canonical forgeries still
+passed: a real lowest-HP tiebreak minimum `north=500` changed to 499; an exact
+tie `333/333` changed to `1/1`; and a drained north-left lane was co-forged to
+north-right by changing both terminal zero HP and destroyed IDs. Each retained
+the same rendered winner/draw overlay.
+
+BIGGEST GAP: Exact tiebreak minima and drained identities are reconstructed
+from mutually forgeable terminal event/state because retained history omits
+the pre-drain tower HP evidence needed to distinguish the actual tiebreak.
+
+## Round 157 — 2026-08-03
+
+PIECE: AUDIO-001B — Original audio rendering and provenance
+
+VERDICT: FAIL
+
+EVIDENCE: Audio renderer 9/9, audio events 12/12, and shipping 13/13 passed;
+independent node:crypto matched all 11 recipe hashes and the shipped binary
+audio inventory was empty. No production oscillator, PCM, Web Audio, waveform,
+or decoding implementation existed: tests only passed recipe metadata to an
+injected apply function. An apply-then-throw backend externally recorded the
+same voice-1 start twice on retry while renderer state stayed empty; an
+apply-then-return-Promise mute changed backend output while renderer retained
+`muted:false`.
+
+BIGGEST GAP: Implement and exercise bounded deterministic synthesis for every
+recipe, link provenance to generated waveform bytes, and make uncertain
+backend commits terminal/idempotent so retries cannot duplicate voices or
+diverge renderer/backend state.
+
+## Round 158 — 2026-08-03
+
+PIECE: UI-002D — Crown score and match-end feedback
+
+VERDICT: PASS
+
+EVIDENCE: UI match feedback passed 15/15 and match timing, towers, combat UI,
+nondeterminism, and shipping passed 73/73. Actual central destruction,
+regulation-crowns termination, active overtime, lowest-HP tiebreak, and exact
+tie projected correctly and restored byte-identically. Independent hostile
+probes rejected altered canonical snapshot ticks/evidence, omitted/added/
+reordered replay commands and events, coordinated snapshot/replay/state
+forgeries, winner-preserving minima changes, drained-ID changes, result
+changes, and noncanonical encoding. The projector restores MatchClock and
+derives pre-drain HP, minima, drained towers, crowns, and result from exact
+replay evidence.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 159 — 2026-08-03
+
+PIECE: UI-002C — Projectile and area-effect feedback
+
+VERDICT: FAIL
+
+EVIDENCE: Focused/dependency/guard suites passed 171/171. An actual
+ReturningSpellEncounter with post-launch source death projected through launch
+tick 24, then failed at tick 25 on exported
+`return-primitive-return-command`, `return-primitive-external-damage`, and
+`return-primitive-external-death` companions. Conversely, forged standalone
+`hit`, `return-contact`, and `travel-spell-impact` events without causal launch
+or effect ancestry were accepted and replay-backed restore round-tripped them.
+
+BIGGEST GAP: Complete causal replay validation requires a closed exported
+event protocol: primitive companion events need support and every companion
+needs provable launch/effect/command ancestry.
+
+DISPOSITION: QUESTION after three rounds on the same underlying raw-replay
+contract gap. Visual geometry, signed/concurrent paths, DOM bytes, and restore
+are independently green, but exhaustive companion causality is wrong-shaped
+until simulation facades expose one canonical closed UI event stream.
+
+## Round 160 — 2026-08-03
+
+PIECE: AUDIO-001B — Original audio rendering and provenance
+
+VERDICT: PASS
+
+EVIDENCE: Audio renderer passed 11/11, audio events 12/12, and shipping 13/13.
+Two fresh processes produced byte-identical PCM matching all 11 manifest
+waveform hashes; all were distinct, nonzero, signed-16-bit bounded, and ended
+at zero. Independent 300/600 Hz probes measured 599/1199 zero crossings;
+attack/decay/sustain/release and all four oscillator variants were distinct.
+Fresh buffers were isolated, inventory matched zero binary assets, tampering
+rejected, exact 4096-active/16384-lifetime bounds ran, and duplicate/gapped/
+divergent transactions plus throw/thenable uncertain commits enforced
+idempotency or permanent no-retry faults.
+
+BIGGEST GAP: None within the renderer/provenance boundary; hardware playback
+is the host sink boundary.
+
+## Round 161 — 2026-08-03
+
+PIECE: RELEASE-001A — Reproducible production artifact
+
+VERDICT: FAIL
+
+EVIDENCE: Release build passed 11/11 and shipping passed 13/13. Two actual
+default builds matched at 76 files and 1288186 bytes with manifest SHA-256
+`1c9a3f83eb89c6f6945567e92f9137cc653d30f4afe69d62713f02987b25c6`.
+Independent fixtures nevertheless accepted valid missing dependencies via
+no-whitespace bare/named imports and exports, JSON imports with missing/wrong
+attributes, escaped CSS `url`, external HTML `<base>`, and missing HTML image
+resources; omitted files were absent from certified manifests.
+
+BIGGEST GAP: Replace regex dependency discovery with syntax-complete,
+fail-closed HTML/CSS/ES-module parsing including no-whitespace syntax, JSON
+attributes, CSS escapes, and HTML base/resource semantics.
+
+## Round 162 — 2026-08-03
+
+PIECE: RELEASE-001A — Reproducible production artifact
+
+VERDICT: FAIL
+
+EVIDENCE: Release build passed 14/14 and shipping 13/13. Two default builds
+again matched 76 files and 1288186 bytes; every hash/size recomputed and every
+JS file parsed. Round-1 hostile forms now rejected atomically. Independent
+browser-graph probes still copied root `app.js` instead of `assets/app.js` for
+`<base href="../assets/?v=1">`/fragment forms, omitted valid CSS
+`image-set()` URLs, accepted an unterminated CSS block, omitted inline-style
+URLs and responsive preload `imagesrcset`, and treated SVG with a nested image
+dependency as an opaque leaf.
+
+BIGGEST GAP: Match browser URL resolution recursively across base query/
+fragment paths, CSS image functions, inline styles/responsive HTML resources,
+and nested SVG while rejecting malformed syntax.
+
+## Round 163 — 2026-08-03
+
+PIECE: RELEASE-001A — Reproducible production artifact
+
+VERDICT: FAIL
+
+EVIDENCE: Release build passed 18/18, shipping passed 13/13, and two real
+76-file builds remained byte-identical with all hashes, totals, JavaScript,
+and entry URLs verified. Prior compact imports, base semantics, CSS image-set,
+inline resources, malformed structures, and recursive SVG attacks were closed.
+Independent valid browser-fetching forms still passed while dependencies were
+omitted: SVG `xml-stylesheet`, XHTML images inside `foreignObject`, escaped
+SVG presentation `url()`, HTML prefetch, input images, and iframe `srcdoc`
+subdocuments.
+
+BIGGEST GAP: The custom HTML/SVG graph parser still accepts browser-fetching
+syntax it does not traverse, so artifact graph closure is not fail-closed.
+
+DISPOSITION: QUESTION after three rounds on the same browser-graph closure
+gap. The 76-file artifact is reproducible, bounded, and clean on its exercised
+graph, but exhaustive browser fetch closure requires a real browser/bundler
+dependency graph rather than another custom dependency-free parser extension.
+
+## Round 141 — 2026-07-30
+
+PIECE: UI-002A — Placement preview and deploy feedback
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- ui-placement-feedback` passed 8/8; UI input, HUD,
+shell, deployment, and both guards passed 63/63. Independent shipped mounting
+confirmed exact legal (6000,12000), river (9000,16000), border rejection,
+mouse/touch identity, canonical accepted command, deterministic DOM/state
+SHA-256 `dcc586384f78b20eae68c4452d92696fa403ad026c1983915ea1e49f4652d279`,
+idempotent cleanup, and the 256-entry history bound. A forged accepted result
+with only `{type:"deploy",point}` nevertheless rendered an accepted marker
+with command ID `undefined`; serialization then emitted JavaScript
+`undefined` and was not valid JSON. Rejected results also accepted unexpected
+properties.
+
+BIGGEST GAP: Exact-shape and causality-validate accepted/rejected placement
+results and deploy commands before any view/DOM mutation so malformed or
+forged results cannot display success or corrupt canonical bytes.
+
+## Round 142 — 2026-07-30
+
+PIECE: UI-002A — Placement preview and deploy feedback
+
+VERDICT: FAIL
+
+EVIDENCE: Focused UI placement passed 11/11 and UI/deployment/guard
+dependencies passed 63/63. The Round141 incomplete, extra, undefined, symbol,
+accessor, prototype, stale, replayed, and skipped-ID cases now reject
+atomically. Independent causal probes showed only command count and the
+newest command are retained: after accepting command 1, the controller
+accepted command 2 with command 1 silently rewritten to a different card,
+cost, point, and spend sequence. A fresh controller also accepted a forged
+first command claiming cinderlings cost 10 and spend sequence 777 when the
+same forgery was supplied as the purported history.
+
+BIGGEST GAP: Retain and compare the complete accepted command prefix, bind
+the first/new command to the controller's selected card and immutable catalog
+cost, and validate spend provenance from the canonical input source rather
+than trusting a caller-provided lookalike history.
+
+## Round 143 — 2026-07-30
+
+PIECE: UI-002A — Placement preview and deploy feedback
+
+VERDICT: FAIL
+
+EVIDENCE: Focused UI placement passed 12/12 and UI/deployment/guard
+dependencies passed 63/63. Plain/proxy/accessor/replayed/cross-source receipt
+attacks rejected; private snapshots ignored public shadowing; retained
+prefixes, catalog costs, source identity, and Elixir spends held. Two normal
+accepts produced IDs [1,2], spend sequences [0,1], and controller SHA-256
+`35b4f7f47e30031f539de29905b3877c94d8f63fce93e88096ff8d34a678f440`.
+An exact shipped-seam reproduction delivered compatibility `touchend` and
+`pointerup` for one release. The first event accepted command 1, while the
+second produced `nothing_selected` and overwrote the accepted marker with an
+illegal marker, although only one canonical command existed.
+
+BIGGEST GAP: Choose one event family per browser capability or otherwise
+deduplicate compatibility pointer/touch releases without wall-clock state so
+one physical touch produces one placement result and one feedback record.
+
+## Round 144 — 2026-07-30
+
+PIECE: UI-002A — Placement preview and deploy feedback
+
+VERDICT: PASS
+
+EVIDENCE: Focused UI placement passed 13/13 and UI/deployment/guard
+dependencies passed 63/63. Pointer-capable mounting bound one `pointerup` and
+one `pointermove` with no legacy listeners; mouse, touch, and pen each
+produced one command, one accepted entry, and a final accepted marker. Legacy
+matrices covered missing/present `sourceCapabilities`, same/different
+coordinates, both compatibility event orders, coordinate drift, repeated
+touch deployments, and cleanup. Two repeated touch deployments produced
+exactly two commands; the final compatibility pair left bytes unchanged at
+SHA-256 `3ea3f5d3eff41d2f4b119261412823938eab22d4767175c6801521c48daaf5da`.
+Opaque receipt authority, catalog/Elixir provenance, exact geometry,
+legal/illegal original visuals, DOM atomicity, history bounds, and listener
+cleanup all remained green, with no clock/timer/random heuristic.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 32 — 2026-07-30
+
+
+PIECE: CONTENT-001 — Original runtime card schema and validation
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- content-schema` reported 14 tests, 14 pass, 0 fail.
+Independent schema fuzz accepted 6/6 valid shapes, rejected 17/17 invalid
+hostile shapes with zero getters, handled duplicates/canonical bytes and
+conversion boundaries correctly. The 168-token protected gate detected all
+218 quoted/template/case injections but detected zero Unicode-escaped,
+hex-escaped, or concatenated protected identities.
+
+BIGGEST GAP: Decode JavaScript/JSON string escapes in the protected-identity
+scanner and add all-218-token escaped injection tests so exact protected
+runtime identities cannot bypass the shipping gate.
+
+## Round 33 — 2026-07-30
+
+PIECE: CONTENT-001 — Original runtime card schema and validation
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- content-schema` reported 14 tests, 14 pass, 0 fail,
+with 2,180/2,180 built-in encoded/static identity injections detected;
+`npm test` reported 204/204 pass. Independent full-set probes detected
+1,744/1,744 escaped, mixed-case, JSON, template, commented,
+line-continuation, and nested-parenthesized forms with 0/654 benign-substring
+false positives and zero hostile code execution. The actual 23-file shipping
+scope had no protected identities or raw reference paths. Unsupported
+computed constructions were explicitly disclaimed. However, the isolation
+gate accepted both a literal-concatenated `reference/stats/cards.json` import
+and a Unicode-escaped spelling of that same import path.
+
+BIGGEST GAP: The reference-import gate only matches a raw contiguous
+`reference/` path, so escaped or statically concatenated benchmark imports can
+bypass validation and be bundled.
+
+## Round 34 — 2026-07-30
+
+PIECE: CONTENT-001 — Original runtime card schema and validation
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- content-schema` reported 15 tests, 15 pass, 0 fail,
+including 2,180/2,180 encoded/static identity injections; `npm test` reported
+205/205 pass. Independent probes detected 352/352 hostile
+escaped/concatenated/commented/nested/mixed-separator/context forms, allowed
+10/10 benign lookalikes, and caused zero execution side effects. However,
+20/20 terminal-segment probes were missed: dynamic import, export-from,
+`require`, and package-shaped forms ending in `reference?raw` or
+`reference#fixture` returned no hit even though URL resolution produced a
+pathname ending in `/reference`.
+
+BIGGEST GAP: Treat query (`?`) and fragment (`#`) boundaries as valid
+terminators of a protected `reference` path segment in covered static
+specifier contexts.
+
+## Round 35 — 2026-07-30
+
+PIECE: CONTENT-001 — Original runtime card schema and validation
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- content-schema` reported 16 tests, 16 pass, 0 fail,
+including 2,180/2,180 protected-identity and 48/48 terminal query/fragment
+injections; `npm test` reported 206/206 pass. Independent probes caught the
+prior 20/20 regression cases plus 44/44 delimiter-order, empty-suffix,
+Windows/UNC/file-URL, nested-query, and escaped-delimiter cases, allowed
+32/32 benign lookalikes, caused zero execution, and found the 22-file shipping
+scope clean. Percent-encoded path letters were nevertheless detected 0/16:
+partial, mixed-case, and fully encoded specifiers resolved to the same
+`reference` filesystem segment in every covered context.
+
+BIGGEST GAP: The static isolation gate does not URL-decode protected path
+segments before matching, so another valid static specifier encoding bypasses
+it.
+
+DISPOSITION: This is the third consecutive failure on exhaustive static
+reference-path isolation (Rounds 33–35). The combined piece is wrong-shaped:
+runtime schema correctness is executable, while proving build isolation needs
+module-resolver/bundler graph enforcement. It is split into CONTENT-001S and
+GUARD-002; release remains blocked on GUARD-002.
+
+## Round 36 — 2026-07-30
+
+PIECE: CONTENT-001S — Original runtime card schema
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- content-schema` reported 16 tests, 16 pass, 0 fail.
+An independent 256-probe fuzz matrix covered all three card kinds, all four
+component roles, hostile object shapes, null/zero rules, primary/count
+invariants, folded duplicates, canonical bytes, and mutation isolation:
+252/256 probes passed. `secondsToTicksExact(0.9833333333333334)` incorrectly
+returned 59 even though `59 / 60` is a different JavaScript number, while the
+exact tick-derived values `999/60`, `1000/60`, and `1000000/60` were rejected.
+Original sample identities were distinct from comparison identities.
+
+BIGGEST GAP: Replace rounded multiplication with an integer-candidate
+round-trip contract so seconds conversion accepts exactly tick-derived values
+and rejects nearby nonrepresentable decimals.
+
+## Round 37 — 2026-07-30
+
+PIECE: CONTENT-001S — Original runtime card schema
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- content-schema` reported 17/17 pass and the full suite
+reported 207/207 pass. Independent exhaustive probes passed 1,250,001 low
+ticks, a 200,001-tick million boundary, and all 1,000,001 final safe ticks,
+including 933,333 ambiguous quotient collisions. A 200,001-value window around
+`2^52` nevertheless produced 20,001 false rejections. For tick
+4,503,599,627,270,498, division by 60 yields a unique JavaScript quotient, but
+multiplying that quotient by 60 rounds to a half-integer and the implementation
+throws. A 30,051-case base/adjacent-float comparison against an independent
+binary-search oracle found 167 mismatches. Invalid/coercive inputs, negative
+zero, tile conversion, and all other schema/catalog dimensions behaved
+correctly.
+
+BIGGEST GAP: Derive the integer tick candidate without rounded multiplication;
+use monotonic safe-integer search over `tick / 60`, then enforce unique
+round-trip equality.
+
+## Round 38 — 2026-07-30
+
+PIECE: CONTENT-001S — Original runtime card schema
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- content-schema` reported 20/20 pass. An independent
+BigInt IEEE-754 rounding-cell oracle checked 1,254,857 probes across low
+values, exponent transitions, the prior `2^52` failure window, the final safe
+range, deterministic full-domain samples, and adjacent floating-point values:
+825,014 unique values were accepted, 191,536 aliased quotients and 238,307
+no-preimage values were rejected, with zero mismatches. The prior
+4,503,599,627,270,498-tick counterexample passed and termination never
+exceeded 106 iterations. A separate schema/catalog matrix passed 143/143
+assertions for units, null/zero semantics, invalid/coercive shapes, getter
+safety, canonical ordering, deep isolation, duplicate rejection, and tile
+conversion.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 39 — 2026-07-30
+
+PIECE: CONTENT-002 — Basic single melee troops
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- cards-basic-melee` reported 7/7 pass; the full suite
+reported 217/217 pass and included the focused tests. Independent comparison
+found 28/28 field matches (9 authoritative, 19 questions). Runtime-projected
+duels produced Mossguard mirror resolution at tick 678, Coilblade mirror at
+tick 222, and the cross-duel at tick 318 with Coilblade at 553 HP. Nine
+independent determinism and isolation probes passed across fresh runs, reversed
+arrays/IDs/placements, chunking, tick-317/318 boundaries, restore bytes, and
+catalog mutation. Runtime identities and source scope were clean, and body
+radius/position were explicitly battle geometry. A synthetic low-confidence
+mismatch was correctly labeled `question` but still failed the unconditional
+28-match assertion.
+
+BIGGEST GAP: Separate authoritative parity failures from low-confidence
+question reporting so an unverified mismatch is surfaced without failing the
+acceptance test.
+
+## Round 40 — 2026-07-30
+
+PIECE: CONTENT-002 — Basic single melee troops
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- cards-basic-melee` reported 9/9 pass and the full suite
+reported 219/219 pass. Direct parity fuzz passed all 28 mapped
+match/mismatch cases with exact expected/actual/runtime-card/field records.
+The representative cross-duel still resolved at tick 318 with winner 202 at
+553 HP, and fresh/restore continuation remained byte-identical. However,
+injecting `elixir_cost` into a cloned benchmark card's `unverified_fields`, or
+overriding that array's `includes`, downgraded an authoritative 999-versus-3
+mismatch to a non-failing question. Sparse, duplicate, extra-property,
+malformed-element, getter/prototype, unsafe-number, and duplicate-mapping
+inputs were also accepted.
+
+BIGGEST GAP: Snapshot and validate corpus provenance behind an immutable
+evaluator boundary so comparison callers cannot supply, mutate, or forge the
+confidence classification.
+
+## Round 41 — 2026-07-30
+
+PIECE: CONTENT-002 — Basic single melee troops
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- cards-basic-melee` reported 12/12 pass and the full
+suite reported 222/222 pass. An independent 35-case boundary probe rejected
+malformed, sparse, accessor, prototype, NaN, unsafe, duplicate, unknown,
+overridden-method, alias, and case inputs. Post-construction mutations of
+source cards, mappings, allowed keys, and returned reports preserved one
+authoritative failure and one visible question. The actual corpus produced 28
+records: 9 authoritative matches and 19 trusted question-backed matches. The
+cross-duel matched across 100 fresh/input-reversed runs; snapshot continuation
+was byte-identical and resolved at tick 318 with winner 202 at 553 HP. Runtime
+source contained no protected identity or reference-path token.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 42 — 2026-07-30
+
+PIECE: CONTENT-003 — Basic ranged ground troops
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- cards-basic-ranged` reported 9/9 pass, the full suite
+reported 231/231 pass, and the reference validator passed 109 cards plus 10
+spot checks. Trusted parity compared 28 fields with zero authoritative
+failures and 20 low-confidence questions. Cadence probes confirmed launches
+at ticks 72/81/123/132, same-boundary impacts, mirror trades,
+reversal/chunking equality, and byte-identical restore at 14 boundaries.
+Source/replay confirmed ground entities, target-mode projection, explicit
+synthetic geometry, and damage routed through `ProjectileCombat`. Altering a
+serialized launch command's damage from 218 to 1 was nevertheless accepted
+and restored the opponent at an impossible 259 HP; forged setup damage was
+also accepted.
+
+BIGGEST GAP: Restore must validate or reconstruct every projectile setup and
+launch command field from canonical runtime card definitions, not merely
+check cadence counts.
+
+## Round 43 — 2026-07-30
+
+PIECE: CONTENT-003 — Basic ranged ground troops
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- cards-basic-ranged` reported 11/11 pass, the full suite
+reported 233/233 pass, and the reference validator passed. Independent probes
+restored canonical bytes at 11 lifecycle boundaries and rejected 2,215 scalar
+mutations plus 402 setup/history/key/array/stat forgeries, including the prior
+setup and launch-damage attacks. Valid alternate card/entity identities and
+canonical replay-prefix truncation restored; state/replay/catalog/input
+isolation held. Restore nevertheless traversed forged 200,000-entry (5.9 MB)
+and 1,000,000-entry (29.9 MB) histories before rejection, taking 143.6 ms and
+777.3 ms with linear growth.
+
+BIGGEST GAP: Derive a strict maximum possible launch/history length from the
+two canonical runtime combatants and reject oversized arrays before any deep
+canonical traversal.
+
+## Round 44 — 2026-07-30
+
+PIECE: CONTENT-003 — Basic ranged ground troops
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- cards-basic-ranged` reported 14/14 pass and the full
+suite reported 236/236 pass. An independent oracle restored 647 canonical
+snapshots across every preterminal and terminal tick. It independently derived
+the same pair bounds: Brassbolt mirror boundary 252/tick 253/history 261,
+mixed boundary 132/tick 133/history 137, and Reedsting mirror boundary
+123/tick 124/history 128. Twenty-six one-over, false-history, causal-damage,
+overflow, ID, and identity-loosening forgeries rejected. A 1,000,000-entry
+history rejected with zero element scans; sparse/accessor probes executed no
+index/getter reads. Runtime source was deterministic and clean. Parity was
+28/28, with low-confidence values retained as questions and projectile travel
+explicitly unsourced/non-claimed.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 45 — 2026-07-30
+
+PIECE: CONTENT-004 — Basic flying troops
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- cards-basic-flying` reported 13/13 pass and the full
+suite reported 249/249 pass. Independent reference extraction matched 28/28
+fields, classified as eight authoritative matches and 20 question-backed
+single-source mechanics. All 16 card/ID/input-order duel variants passed:
+Skymaul mirror drew at tick 324, Copperskiff mirror at tick 294, and Skymaul
+won either cross-side at tick 228 with 324 HP. Layer, inclusive-range,
+four-axis movement, chunk/restore, bounds, simultaneous terminal events,
+post-terminal rejection, causal mutation, all-pair history ceilings, and
+million-entry preflight probes passed. Damage routed through
+`ProjectileCombat`; runtime source was clean and explicitly disclaimed
+collision, projectile-travel, and moving-target parity.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 46 — 2026-07-30
+
+PIECE: CONTENT-005 — Swarms and mixed squads
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- cards-swarms` reported 13/13 pass, the full suite
+reported 262/262 pass, and formation tests reported 8/8 pass. Independent
+comparison confirmed exact 3/6 counts plus 28 top-level and 33 nested
+provenance-aware fields with zero authoritative failures. Safe-limit IDs,
+overflow, unknown/coercive/hostile shapes, output isolation, and 34 schema
+invariant mutations passed. Formation counts 1–15 across five radii were
+symmetric, non-overlapping, bounded, and byte-repeatable. Three scrambled
+damage orders at the 603/604 boundary produced deterministic events; aggregate
+offense independently recomputed to 243 and 603. Runtime scope was clean and
+formation/radius/projectile/full-match non-claims were explicit.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 47 — 2026-07-30
+
+PIECE: CONTENT-006 — Building-targeting troops
+
+VERDICT: FAIL
+
+EVIDENCE: The prescribed `npm test -- cards-building-targeters` selector
+failed as unknown, while the implementation-specific
+`npm test -- cards-structure-seeker` selector passed 11/11 and the full suite
+passed 273/273. Independent probes confirmed phase boundaries at
+59/60/522/523/582/583, hits at 583/673/763/853, terminal tick 854, legal
+symmetric bridge nodes, shared targeting edges, huge-tick termination, and
+state isolation. End-to-end encounter probes for nearer, dead, missing,
+out-of-sight, wrong-kind, exact-edge, equidistant, and alternate-start cases
+were rejected because the adapter accepts only one fixed fixture.
+
+BIGGEST GAP: Expose the required selector and a strictly validated bounded
+encounter fixture so nearest eligible structure behavior is independently
+testable beyond the single canonical demonstration.
+
+## Round 48 — 2026-07-30
+
+PIECE: CONTENT-006 — Building-targeting troops
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- cards-building-targeters` reported 14/14 pass and the
+full suite reported 276/276 pass. Independent probes checked 1,710
+canonical/alternate lifecycle snapshots byte-exactly; candidate counts 1–8,
+hostile mutations with zero accessor reads, nearest/tie/reorder selection,
+eligibility filters, inclusive sight/reach, no-target inertness, safe IDs,
+east/west mirrored bridges, illegal endpoints, and all 476 legal graph nodes
+passed. Both lanes produced hits at 583/673/763/853 with 254 damage. Trusted
+parity had no authoritative failures and ten question-backed mechanics.
+Runtime scope was deterministic and clean.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 49 — 2026-07-30
+
+PIECE: CONTENT-007 — Shields and form transitions
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- shields-forms` reported 15/15 pass and the full suite
+reported 291/291 pass. An independent recursive audit of cards, towers, and
+arena found zero shield/form/transform/revival/overflow keys, while SOURCES
+explicitly excludes shields from the common schema. Damage amounts from zero
+through one million, exact nine-event ordering, discarded overflow, body
+isolation, one-only transition/death/no-op, unchanged combat fields, all seven
+restore boundaries, command-only snapshots, causal ordering, byte/command/tick
+bounds, hostile shapes, and atomic rejection passed.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 50 — 2026-07-30
+
+PIECE: CONTENT-008C — Charge arming and charged strike
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- special-movement-charge` reported 10/10 pass and the
+full suite reported 301 subtests. Independent probes confirmed the legal
+bridge route, arm/reach/strike ticks 269/326/380, progress
+3483→3500→3533, charged strike HP 4216, reset base strike HP 4608, 382 restore
+splits, and 196 chunk partitions. Runtime source nevertheless held arm
+distance 3500 and charged speed 2000 only as opaque local constants; the
+exported question fixture contained commands but no special-value contract,
+so direct 3499/3500/3501 threshold probes could not be constructed.
+
+BIGGEST GAP: Expose the non-authoritative special values through a strict,
+isolated question-fixture API and a pure boundary evaluator so threshold
+behavior is executable without claiming benchmark authority.
+
+## Round 51 — 2026-07-30
+
+PIECE: CONTENT-008C — Charge arming and charged strike
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- special-movement-charge` reported 12/12 pass and the
+full suite reported 303/303 pass. Independent probes confirmed the exact
+eight-key question-fixture shape, per-field unverified/question/unsourced
+provenance, deep mutation isolation, strict inputs, and canonical outputs at
+0/3499/3500/3501/MAX_SAFE. Export monkeypatches rejected and mutated returned
+fixtures/catalogs/results did not affect encounter behavior. Both evaluator
+and encounter consumed the same fixture values: arm at tick 269/distance
+3500, speed 2000, and tick-380 damage 784 from 392 base plus 392 bonus.
+Interruption/reset, causal restore, terminal bounds, and non-claims passed.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 52 — 2026-07-30
+
+PIECE: CONTENT-008D — Targeted dash and untargetable transit
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- special-movement-dash` reported 14/14 pass and the full
+suite reported 317/317 pass. Independent probes passed 627
+fresh/chunk/restore checkpoints across default, loss, interruption, and target
+death variants. Launch boundaries returned false/true/true/false at
+3499/3500/6000/6001. Public fixture construction nevertheless rejected target
+death commands at ticks 59 and 60 and interruption at tick 60 as noncausal;
+only ticks 61–89 were representable.
+
+BIGGEST GAP: Permit and explicitly order prelaunch and first-transit-boundary
+death/interruption commands so cancellation, event order, and no-post-death
+damage are executable at the full boundary surface.
+
+## Round 53 — 2026-07-30
+
+PIECE: CONTENT-008D — Targeted dash and untargetable transit
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- special-movement-dash` reported 17/17 pass and the full
+suite reported 320/320 pass. Exact prior death commands at ticks 59/60
+cancelled with zero movement or damage, while interruption at 60 stayed at
+y=11500. Exhaustive ticks 0–90 established the precise causal accept/reject
+surface. Death at 61/88/89 preceded movement and produced no damage; interrupt
+positions at 60/61/88/89 were exact and immediately targetable. All 121
+variants passed fresh/chunk comparison and 11,011 restore checkpoints;
+post-terminal and conflicting commands rejected atomically. Special-value
+provenance remained unverified and unsourced.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 54 — 2026-07-30
+
+PIECE: CONTENT-008J — Jump transit and landing impact
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- special-movement-jump` reported 15/15 pass and the
+full suite reported 335/335 pass. Independent probes covered 196 command
+variants, 10,490 every-tick restore continuations, all 36 truncated transit
+positions, and exact 3499/3500/5000/5001 trigger boundaries. Base fields
+matched 14/14 with all 11 non-authoritative mechanics question-backed; the
+reference contained no jump substats. The fixed landing candidate set,
+however, contained only troop kinds, so structure handling could not be
+exercised through the public fixture.
+
+BIGGEST GAP: Add an explicit structure candidate at the landing boundary and
+verify shared area-engine kind eligibility and event ordering without
+generalizing arbitrary caller-defined candidates.
+
+## Round 55 — 2026-07-30
+
+PIECE: CONTENT-008J — Jump transit and landing impact
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- special-movement-jump` reported 15/15 pass and the
+full suite exited cleanly. Independent probes found normal landing victims
+202/203/207 and deaths 203/207, while post-takeoff target death left victims
+203/207. Candidate 207 was a ground structure at the exact 1300-millitile
+boundary and died through `AreaDamageSystem`; an independent shared-engine
+probe hit a structure at 1300 and missed one at 1301. State mutation did not
+alter candidate 207 health. Source inspection confirmed the wrapper delegates
+selection, hit, damage, and death ordering to `AreaDamageSystem`; all prior
+transit, causal restore, question provenance, and non-claim tests remained
+green.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 56 — 2026-07-30
+
+PIECE: CONTENT-008R — Attack-triggered recoil displacement
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- special-movement-recoil` reported 13/13 pass and the
+full suite exited cleanly. A separate read-only critic passed 23
+geometry/hostile-input assertions and 881 lifecycle restore splits; launch
+preceded recoil at tick 144, projectile snapshots remained independent, and
+the 14 mapped base fields/provenance plus 13 per-value question records were
+correct. A maximum-safe recoil distance nevertheless returned displacement
+9,007,199,254,740,991 and an unsafe rounded unclamped x-coordinate
+9,007,199,254,749,992 before clamping to arena x=18,000.
+
+BIGGEST GAP: Reject any recoil whose displacement or origin-plus-displacement
+intermediate is not a safe exact integer before applying arena clamping.
+
+## Round 30 — 2026-07-30
+
+PIECE: MATCH-004 — Regulation, overtime, tiebreak, and crowns
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- match-timing` reported 18 tests, 18 pass, 0 fail.
+Reference timing, all boundary scenarios, crown matrices, duplicates/central,
+overtime destruction, confidence, tiebreak matrices, evidence consistency,
+permanence, isolation, malformed data, and scope passed. After exactly 18,000
+direct `step()` calls, state remained overtime with no result; restoring its
+canonical serialization instead produced a tick-18000 exact-tie tiebreak.
+
+BIGGEST GAP: Resolve the tick-18000 tiebreak and maximum-tick evidence
+rejection inside the canonical step transition so `step()`, `advanceTicks()`,
+and restore produce byte-identical state and history.
+
+## Round 31 — 2026-07-30
+
+PIECE: MATCH-004 — Regulation, overtime, tiebreak, and crowns
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- match-timing` reported 20 tests, 20 pass, 0 fail.
+Reference timing boundaries matched. 18,000 single steps, chunks, runToTick,
+and restore-at-17999 produced identical serialization/state/events/replay
+hashes for unique-min, equal-min, and multiple-min tiebreaks. Tick-17999
+evidence applied, tick-18000 tiebreak resolved, and post-end evidence/commands
+rejected unchanged. Missing/forged evidence rejected atomically; central,
+regulation, overtime, triple, snapshot schema, and runtime isolation passed.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 29 — 2026-07-30
+
+PIECE: MATCH-003 — Deck, hand, next card, and deterministic cycle
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- deck` reported 7 tests, 7 pass, 0 fail. Three seeded
+opening orders and hashes were pinned; same/different seed identity held.
+Twelve manual plays preserved fixed slots, queue, and next; eight accepted
+plays returned to the initial cycle. Invalid/not-in-hand/duplicate deck cases
+were atomic. The 10,000-command snapshot restored byte/state-identically and
++1 rejected unchanged. Mid-cycle restore, derived-field/extra/version
+forgeries, valid history mutation derivation, zero-getter accessors, output
+isolation, clean scope, and original-configurable fidelity metadata passed.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 26 — 2026-07-30
+
+PIECE: MATCH-002 — Elixir generation and spending
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- elixir` reported 10 tests, 10 pass, 0 fail. Exact
+168/84/56 rates, boundary accumulator behavior, spend-before-generation,
+ordered spends, cap freeze/restart, valid/invalid costs, 18,000-tick
+chunk/single bytes/replay, restore, limits, confidence, isolation, and clean
+scope passed. Restore accepted a contradictory spend acceptance flag, a forged
+amountAfter value, and an appended fabricated generation event.
+
+BIGGEST GAP: Make restore reject snapshots whose replay/history and event
+stream are not semantically consistent with the commands, prior state, tick
+order, and deterministic regeneration.
+
+## Round 27 — 2026-07-30
+
+PIECE: MATCH-002 — Elixir generation and spending
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- elixir` reported 15 tests, 15 pass, 0 fail. The v2
+snapshot contained only commands, startingElixir, tick, and version; all old
+derived-data forgeries and v1 shapes rejected; valid command mutations
+re-derived outcomes; timing, pending/resolved ordering, cap, full-match restore,
+both sides, estimates, safety, and reference comparisons passed. The exported
+100,000 history limit was inconsistent: 99,998 resolved commands restored,
+while 99,999 and 100,000 failed during replay due to a lower event budget.
+
+BIGGEST GAP: Make the advertised 100,000-entry resolved-history boundary
+replay successfully, or explicitly validate and expose the lower
+event-constrained limit instead of accepting its shape and failing during
+deterministic replay.
+
+## Round 28 — 2026-07-30
+
+PIECE: MATCH-002 — Elixir generation and spending
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- elixir` reported 17 tests, 17 pass, 0 fail. Exported
+limits 100000 resolved, 10000 pending, 384 generated, and 100384 derived
+matched independent phase math and feasible schedules. Insufficient-heavy,
+accepted-max, and generation-max patterns at limit-1/limit restored with exact
+event counts and byte/state/replay identity; limit+1 rejected early. Combined
+110000 canonical commands restored; pending/resolved +1 and runtime overflow
+attempts rejected atomically. Timing, cap, causal snapshots, mutation,
+malformed data, and runtime isolation passed.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 23 — 2026-07-30
+
+PIECE: MATCH-001 — Crown towers and activation
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- towers` reported 8 tests, 8 pass, 0 fail.
+Side-by-side counts, HP, damage, cadence, range, targets, estimated positions,
+windup confidence, activation paths, simultaneous lane deaths, cadence,
+targeting, shot JSON, chunk/restore, and atomicity probes passed. A forged
+snapshot marking a full-health central tower active while both friendly lane
+towers remained alive was accepted, despite being unreachable under modeled
+activation rules.
+
+BIGGEST GAP: Reject and test snapshots that mark a full-health central tower
+active while both friendly lane towers remain alive, or persist sufficient
+activation history to validate that state.
+
+## Round 24 — 2026-07-30
+
+PIECE: MATCH-001 — Crown towers and activation
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- towers` reported 10 tests, 10 pass, 0 fail. Most
+activationHistory state combinations rejected correctly and generated restore,
+direct lethal, simultaneous lane deaths, cause precedence, permanence,
+numeric stats, and cadence passed. But a pristine snapshot forged to active,
+damaged HP, and `{cause:"damaged",tick:0}` was accepted and canonicalized
+byte-for-byte to a genuinely generated activation because no causal damage or
+lane-death evidence was serialized.
+
+BIGGEST GAP: Serialize replayable activation-causing damage and lane-death
+evidence and derive restored activation state from it, because the current
+self-asserted `{cause,tick}` metadata lets pristine snapshots be forged into
+accepted active states.
+
+## Round 25 — 2026-07-30
+
+PIECE: MATCH-001 — Crown towers and activation
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- towers` reported 11 tests, 11 pass, 0 fail.
+Pristine v3 snapshots contain only windups and empty causal steps. v1/v2
+metadata, asserted state/cache fields, and top-level active fields rejected.
+Deleting, inserting, reordering, or validly mutating causal steps derived the
+corresponding legitimate HP/activation state. Direct damage, lane death,
+direct lethal, simultaneous lane deaths, and precedence passed. Mid-run target,
+shot ticks/sequences, terminal bytes/state, limits, accessor atomicity, numeric
+stats, cadence, and clean runtime imports passed.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 21 — 2026-07-30
+
+PIECE: ARENA-004 — Deployment legality
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- deployment` reported 10 tests, 10 pass, 0 fail.
+Qualitative own-side, river, full-effect, intact-side, destroyed-lane,
+opposite-lane, central-lock, both-lanes, metadata confidence, and hostile-input
+probes passed. Exact boundary rotations failed: south west-pocket (500,20000)
+was legal while rotated north (17500,12000) was locked; south east split
+(9000,20000) was legal while rotated north west was locked; river-edge and
+tower-boundary decisions also disagreed under 180° rotation.
+
+BIGGEST GAP: Make all estimated rectangle boundary semantics
+180°-symmetric, including pocket splits, river edges, and rotated tower
+footprints, and add exact-boundary rotation tests.
+
+## Round 22 — 2026-07-30
+
+PIECE: ARENA-004 — Deployment legality
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- deployment` reported 12 tests, 12 pass, 0 fail.
+Independent enumeration covered 14 masks with 16 boundary probes each: 224
+full decision rotations and zero mismatches. Every prior pocket, river, and
+tower boundary failure now returned identical legal/reason/confidence under
+rotation. Global effects, intact/destroyed transitions, opposite/central locks,
+confidence metadata, hostile/accessor rejection, and clean source scope passed.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 20 — 2026-07-30
+
+PIECE: ARENA-003 — Flying movement over terrain
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- flying` reported 8 tests, 8 pass, 0 fail. Focused
+probes passed 240 speed/phase and 240 chunk-v-single cases; non-bridge river
+flight and all six tower centers were crossed exactly; radius-250 bounds
+stopped at x 250/17750 and y 250/31750; 480 terminal cases had no overshoot.
+Target/stop/restart, mid-phase byte-identical restore, and rotated cases
+matched. Diagonal targets rejected atomically under the explicit axis-aligned
+scope; seven malformed snapshots rejected; JSON isolation and clean imports
+passed.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 18 — 2026-07-30
+
+PIECE: ARENA-002 — Ground pathfinding through bridges
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- pathfinding` reported 7 tests, 7 pass, 0 fail.
+Independent BFS matched west/east/equal route lengths 14/14/22; all waypoints,
+segments, and midpoints were walkable; six tower routes were shortest; rotated
+routes had equal lengths; 101 runs were byte-identical; invalid/accessor
+contracts passed. But every graph node used coordinates divisible by 1000,
+96 nodes lay on outer arena boundaries, `allTileCenters=false`, and declared
+bridge centers (3500,16000)/(14500,16000) were not graph nodes. The
+implementation was a tile-intersection lattice despite its tile-center claim.
+
+BIGGEST GAP: Shift the navigation lattice to actual tile centers and update
+endpoint, bridge, boundary, symmetry, and shortest-path tests accordingly.
+
+## Round 19 — 2026-07-30
+
+PIECE: ARENA-002 — Ground pathfinding through bridges
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- pathfinding` reported 10 tests, 10 pass, 0 fail.
+All 476 legal nodes had x/y congruent to 500 mod 1000, with zero
+bad-congruence or outer-boundary nodes. The only river-crossing edges had
+midpoints (3500,16000) and (14500,16000), exactly the declared bridge centers.
+Independent BFS matched straight/detour/west/east/equal-tie route lengths;
+all six tower detours had zero node/midpoint hits; repeat/reordered-input route
+bytes matched; rotation lengths matched; endpoint and isolation contracts
+passed. The point-agent and estimate confidence caveats remained explicit.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 17 — 2026-07-30
+
+PIECE: ARENA-001 — 18×32 arena and static obstacles
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- arena-geometry` reported 9 tests, 9 pass, 0 fail.
+Runtime/reference matched 18,000×32,000, river [15,000,17,000), both bridge
+estimates, and all six tower estimates. All eight approximate features retained
+estimate confidence matching reference unverified flags. Closed outer bounds,
+half-open rectangle edges, river/bridge openings, every tower
+center/interior/edge, pairwise non-overlap, and full 180° feature symmetry
+passed. Mutation isolation, JSON, malformed/accessor rejection with zero
+getter calls, neutral identifiers, no imports, and clean scope passed.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 16 — 2026-07-30
+
+PIECE: SIM-012 — Multi-unit formations
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- formations` reported 8 tests, 8 pass, 0 fail.
+Pinned offsets for counts 2/3/4/5/6/15 were symmetric and centered. All 105
+pairwise comparisons in a heterogeneous 15-unit layout had distance squared
+strictly greater than summed-radius squared. Repeated input was byte-identical;
+mixed roles/IDs mapped to exact slots; reordering changed only documented slot
+assignment. Exact spatial edges/corners passed and one millitile beyond each
+failed. Empty/16/sparse/duplicate/role/prototype/key/unsafe/accessor cases
+rejected with zero getter calls. Output mutation did not affect fresh output,
+JSON round trip passed, and source scope was clean.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 14 — 2026-07-30
+
+PIECE: SIM-011 — Area damage
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- area-damage` reported 10 tests, 10 pass, 0 fail.
+Focused boundary, mode, reversed-order, one-hit, simultaneous-death,
+dead/untargetable, monotonic-ID, duplicate-atomicity, and normal restore probes
+passed. At the ID boundary, however, an accepted snapshot with nextEffectId
+9007199254740990 resolved that ID and serialized nextEffectId
+9007199254740991; restoring this system-generated snapshot threw
+`TypeError: snapshot nextEffectId is outside the ID space`.
+
+BIGGEST GAP: Make every snapshot emitted by `serialize()`, including the
+exhausted effect-ID state, valid for byte-identical restoration.
+
+## Round 15 — 2026-07-30
+
+PIECE: SIM-011 — Area damage
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- area-damage` reported 11 tests, 11 pass, 0 fail.
+The last usable effect ID 9007199254740990 serialized terminal nextEffectId
+9007199254740991; generated, restored, independently continued, and
+terminal-restored snapshots were byte-identical. Three repeated terminal
+attempts on original and restored systems each threw the exhausted error
+without changing bytes/replay. Invalid IDs and malformed snapshots rejected.
+Regression boundary/order output hit [5,6,9] with matching target event order
+and expected HP.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 13 — 2026-07-30
+
+PIECE: SIM-010 — Projectile combat
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- projectile` reported 8 tests, 8 pass, 0 fail.
+Focused probes passed the complete target-mode matrix, accepted center range
+5000 and rejected 5001 atomically, and matched seven expected/observed impact
+ticks including contact at tick 0 and diagonal travel. Projectile IDs remained
+monotonic. Same-tick impacts ordered IDs [1,2], batched damage, and emitted one
+death. A target killed before impact produced target_dead, no damage, and no
+retarget. Mid-flight restore matched bytes/state/replay/tail/final bytes;
+invalid/malformed inputs were atomic; returned-event mutation did not alter
+replay. Runtime imports only passed primitives and documents static straight
+flight without moving/homing claims.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 12 — 2026-07-30
+
+PIECE: SIM-009 — Melee contact combat
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- melee` reported 6 tests, 6 pass, 0 fail. A
+tick-zero mutual lethal replay ordered targets, attacks, damage, then ascending
+deaths and ended in a draw. Movement/contact clamping was symmetric under
+reversed IDs/sides. The test-only reference-derived estimate cases matched all
+expected hit ticks, hit counts, death ticks, winner IDs, and remaining HP:
+4/3 hits ending tick 318 with 553 HP, and 9/7 hits ending tick 684 with 90 HP.
+Tests retained `unverified_fields` and labeled these baselines as questions,
+not authoritative claims. Chunk/single, mid-duel restore, and reversed setup
+matched bytes/replay/state. Invalid/malformed data rejected atomically; runtime
+had no benchmark/reference or prohibited-scope matches.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 11 — 2026-07-30
+
+PIECE: SIM-008 — Attack windup and cycle
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- attack-cycle` reported 8 tests, 8 pass, 0 fail.
+Princess Tower 0.8s and Cannon 0.9s converted to 48 and 54 ticks; focused
+cadences were [0,48,96] and [0,54,108]. Deploy, acquisition, first-fire, and
+next-fire boundaries were exact. Target loss cleared deadlines; same-target
+retention preserved them; changed, missing, and reacquired targets restarted
+windup as documented. Chunk/single execution matched events and bytes; invalid
+chunks were atomic. Mid-windup and mid-cooldown restores matched initial,
+result, and final bytes. Malformed/overflow states rejected atomically, JSON
+round trips passed, and source scope was clean.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 10 — 2026-07-30
+
+PIECE: SIM-007 — Movement integration
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- movement` reported 8 tests, 8 pass, 0 fail.
+At 3,600 ticks, the 0.75/1/1.5/2 tile-per-second rates ended at exactly
+45,000/60,000/90,000/120,000 millitiles with zero remainder. Positive and
+negative delta sequences were exact opposites. One-shot, repeated-single, and
+mixed chunks were byte-equal. Stop cleared phase, restart was deterministic,
+fractional-phase restore continued with identical results and bytes, exact
+signed spatial bounds were accepted, outward moves threw without mutation,
+invalid inputs and nine malformed snapshots were rejected, and public state
+round-tripped as strict JSON. Source scope was clean.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 9 — 2026-07-30
+
+PIECE: SIM-006 — Target eligibility and acquisition
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- targeting` reported 8 tests, 8 pass, 0 fail.
+Focused probes confirmed every target-mode/kind/layer matrix, structures as
+building targets, exact sight boundary at 2000 versus 2001 millitiles,
+reversed equal-distance ties choosing ID 2, sticky current ID 9 despite nearer
+ID 1, and deterministic ID 2 reacquisition for death, untargetable,
+ineligible layer/kind, out-of-sight, missing, and null-current cases. Empty and
+none modes returned null. Malformed, duplicate, sparse, accessor, unsafe,
+symbol, foreign-prototype, non-enumerable, extra-key, and invalid-mode inputs
+threw; getter calls remained zero. Outputs were isolated exact JSON and source
+scope was clean.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 8 — 2026-07-30
+
+PIECE: SIM-005 — Spatial coordinates and collision queries
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- spatial` reported 9 tests, 9 pass, 0 fail.
+Focused probes converted 0.001 tiles to 1 millitile and rejected non-exact or
+unsafe values; the 3-4-5 squared distance was 25,000,000. One-millitile-in,
+tangent, and one-millitile-out overlap behaved exactly for inclusive/strict
+boundaries. Range queries distinguished just-in, exact boundary, and just-out.
+Reversed equal-distance candidates chose ID 3 both times; layer queries chose
+the expected ground/air/both IDs. Duplicate, sparse, accessor, unsafe, and NaN
+inputs threw without executing getters. Public outputs serialized to exact
+JSON and no ambient nondeterminism or reference import was found.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 7 — 2026-07-30
+
+PIECE: SIM-004 — Damage, health, death, and simultaneous trades
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- damage` reported 9 tests, 9 pass, 0 fail.
+Focused probes showed mutual lethal IDs 2 and 9 both at zero; repeated 7+7
+hits reduced 10→3→0 with one death; 99 overkill clamped 10→0 and later
+damage returned dead with no events; zero damage preserved HP; missing targets
+were explicit. Negative, overflow, and malformed batches threw without
+changing serialized state. Opposite-ID input emitted damage events [20,3]
+then deaths [3,20]. Malformed snapshots threw, and restored continuation
+matched both result and bytes.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 6 — 2026-07-30
+
+PIECE: SIM-003 — Entity lifecycle and stable ordering
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- entities` reported 6 tests, 6 pass, 0 fail.
+Focused probes issued IDs 1, 2, 3, then 4 after restore and 5 after another
+death; same-batch results followed array order; repeated and missing despawns
+returned false; duplicate, reordered, unsafe, fractional, extra-key, and
+otherwise malformed snapshots were rejected. Restored continuation serialized
+to the same 100 bytes as uninterrupted execution. No ambient nondeterminism or
+reference import was found.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 5 — 2026-07-30
+
+PIECE: SIM-002 — Seeded random stream
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- rng` reported 6 tests, 6 pass, 0 fail. Independent
+critic probes found `int(1)=0`; `int(2^32)` matched the direct uint32 output;
+restore continuation matched eight exact values; named fork output remained
+identical across parent draws and reversed fork order; a 10,000-value rerun
+had zero mismatches, byte equality true, 40,000 bytes, and SHA-256
+`a743e9b9d8ae361ab73879b23b03c4bc789b53d88d229808d3eb9e1a81005930`.
+Seventy thousand `int(7)` selections had bucket spread 388. Invalid inputs
+threw explicit errors; no ambient randomness, wall-clock, or reference import
+was found.
+
+BIGGEST GAP: None on the judged dimension.
+## Round 164 — 2026-08-03
+
+PIECE: GAME-001R — Playable eight-card runtime roster
+
+VERDICT: FAIL
+
+EVIDENCE: `node tests/playable-roster-runner.js playable-roster` passed 7/7;
+the four catalog dependencies passed 52/52, validation and syntax passed, and
+shipping isolation passed 13/13. Independent projection reproduced all eight
+cards with entity totals `1,1,1,1,1,1,6,3`, nine explicit archetypes, 13
+QUESTION records, and canonical SHA-256
+`6fb8d84121ca039ea9315b7e505c8f02d5d7839e8fd5fc5cd19013a0d2b7fadb`.
+Hostile resolver probes nevertheless accepted accessor-bearing policy and
+QUESTION records, executed their getters, and accepted a QUESTION record with
+a hidden Symbol property. The nondeterminism guard also needed its explicit
+simulation-module inventory updated from 20 to 21.
+
+BIGGEST GAP: `resolvePlayableRosterQuestion` is fail-open to accessor-bearing
+and hidden-property inputs, executing attacker-controlled getters instead of
+rejecting them atomically.
+
+## Round 165 — 2026-08-03
+
+PIECE: GAME-001O — Deterministic opponent decision kernel
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- opponent-controller` passed 8/8, RNG passed 6/6,
+and the nondeterminism guard passed 9/9. Static review found no clock,
+ambient RNG, crypto, reference, or LiveBattle dependency; reversed candidate
+order and nested accessors rejected atomically. Independent snapshot forgeries
+preserved the RNG choice index/count/state while substituting a different or
+unaffordable proposal. Restore accepted and canonically round-tripped those
+bytes, then continued from the forged choice.
+
+BIGGEST GAP: Snapshots retain only eligible-candidate count and RNG index, not
+the canonical eligible candidate identities, so restore cannot prove that a
+recorded proposal was the seeded legal affordable choice.
+
+## Round 166 — 2026-08-03
+
+PIECE: GAME-001R — Playable eight-card runtime roster
+
+VERDICT: FAIL
+
+EVIDENCE: The focused roster suite passed 8/8, catalog dependencies passed
+52/52, shipping isolation 13/13 and nondeterminism 9/9. Independent probes
+confirmed top-level symbol/hidden/extra keys, sparse/reordered arrays,
+non-plain prototypes and forged records reject atomically. Canonical bytes and
+the eight cards/nine archetypes remained unchanged. But an enumerable getter
+nested inside each data-valued QUESTION field executed once before rejection;
+the six field probes produced getter counts 1 through 6.
+
+BIGGEST GAP: The resolver canonicalizes unchecked nested QUESTION field values
+before proving they are primitive canonical data, so attacker-controlled
+getters still execute during rejection.
+
+## Round 167 — 2026-08-03
+
+PIECE: GAME-001O — Deterministic opponent decision kernel
+
+VERDICT: PASS
+
+EVIDENCE: The focused suite passed 10/10, RNG 6/6 and nondeterminism 9/9;
+deck, elixir, deployment, placement and arena dependencies all passed.
+Independent seed-0 reproduction selected the exact second affordable canonical
+candidate. Thirteen causal forgeries spanning proposal identity/point/sequence/
+tick, candidate substitution/reordering, affordability, observation provenance,
+choice index and final RNG all rejected atomically. Candidate/observation size
+edges and restore continuation matched exact state, snapshot and replay bytes.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 168 — 2026-08-03
+
+PIECE: GAME-001P — Continuous deterministic battle movement
+
+VERDICT: FAIL
+
+EVIDENCE: Battle movement passed 8/8; movement, pathfinding, flying and the
+nondeterminism guard all passed. Signed-diagonal air movement and target-bar
+arrival were symmetric and restore-identical. A forged ground snapshot whose
+first segment crossed the river at x=8500 restored successfully and occupied
+blocked river positions outside both bridges. A separate noncanonical but
+walkable route also restored. Legitimate routing with radius 600 left the
+radius-inset arena, and the module could not restore its own resulting bytes.
+
+BIGGEST GAP: Restore does not prove the active ground segment is the canonical
+`findGroundPath` route, and route nodes are not made body-radius safe.
+
+## Round 169 — 2026-08-03
+
+PIECE: GAME-001R — Playable eight-card runtime roster
+
+VERDICT: PASS
+
+EVIDENCE: The roster suite passed 9/9, catalog dependencies 52/52, shipping
+isolation 13/13, validation and nondeterminism 9/9. An independent hostile
+matrix rejected all 36 combinations of six QUESTION fields with nested
+accessor/object/array/proxy/thenable/cross-realm values while executing zero
+attacker code; all 13 exact primitive records resolved. The exact eight cards,
+nine archetypes, 13 QUESTION records and canonical SHA-256
+`6fb8d84121ca039ea9315b7e505c8f02d5d7839e8fd5fc5cd19013a0d2b7fadb`
+remained unchanged.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 170 — 2026-08-03
+
+PIECE: GAME-001K — Dynamic ordinary-unit combat kernel
+
+VERDICT: FAIL
+
+EVIDENCE: The focused combat suite passed 7/7, four primitive dependencies
+passed 33/33, syntax/import scans passed, and direct nondeterminism analysis
+found zero violations across 24 modules. An independent capacity probe queued
+1,024 tick-1 spawns after one live tick-0 unit. Stepping threw the expected
+unit-bound error, but partially activated 1,023 units and deleted the pending
+schedule; state changed while replay/history misleadingly remained unchanged.
+Aggregate selector/inventory registration was concurrently pending.
+
+BIGGEST GAP: Deferred-spawn capacity failure mutates live and pending entity
+state before throwing instead of rejecting the whole tick atomically.
+
+## Round 171 — 2026-08-03
+
+PIECE: GAME-001V — Tower-state to match-victory evidence bridge
+
+VERDICT: FAIL
+
+EVIDENCE: Tower evidence passed 8/8, towers 11/11, match timing 20/20 and
+nondeterminism 9/9. Independent real tower→bridge→clock probes confirmed side
+mapping, crowns, simultaneous ordering, draw and restore deduplication. Forged
+event streams with missing activations, false activation causes, reversed
+destruction order and spurious shot-ready events were nevertheless accepted
+and survived canonical serialize/restore; resurrection and hidden properties
+did reject atomically.
+
+BIGGEST GAP: The bridge trusts event arrays without proving they are the
+canonical CrownTowerBattle transition for the supplied prior/current states.
+
+## Round 172 — 2026-08-03
+
+PIECE: GAME-001P — Continuous deterministic battle movement
+
+VERDICT: FAIL
+
+EVIDENCE: Battle movement passed 8/8 and all movement/path/arena dependencies
+passed. River, removed-node, backtracking and route-index-only forgeries now
+rejected; radius-600 compatible/incompatible paths and signed air diagonals
+behaved correctly. Restore still accepted impossible tick-zero progressed and
+routeIndex-5 states, an alternate active edge, and a stopped state with
+routeIndex 999.
+
+BIGGEST GAP: Route shape is checked, but elapsed tick/progress/index provenance
+is not causally replayed, so impossible canonical suffix states still restore.
+
+## Round 173 — 2026-08-03
+
+PIECE: GAME-001K — Dynamic ordinary-unit combat kernel
+
+VERDICT: PASS
+
+EVIDENCE: Battle combat passed 9/9, primitive dependencies 33/33 and
+nondeterminism 9/9. Independent bounds proved 1,023 due spawns commit while
+1,024 reject with exact state/pending/replay bytes unchanged. Multi-step calls
+rolled back earlier successful boundaries when a later boundary failed; five
+mixed command failures were atomic. Duplicate-ID, noncausal, latent-capacity
+and oversized restore forgeries rejected.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 174 — 2026-08-03
+
+PIECE: GAME-001V — Tower-state to match-victory evidence bridge
+
+VERDICT: PASS
+
+EVIDENCE: Tower evidence passed 10/10, towers 11/11, match timing 20/20 and
+nondeterminism 9/9. A real tower replay produced exact mapped destruction
+ordinals and a south 3–1 MatchClock result; every restore cut deduplicated.
+Reversed/divergent/short/noncanonical/spurious snapshots and malformed hidden/
+accessor inputs rejected atomically, while caller-supplied event streams no
+longer have an accepted API.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 175 — 2026-08-03
+
+PIECE: GAME-001P — Continuous deterministic battle movement
+
+VERDICT: FAIL
+
+EVIDENCE: The focused suite and all dependencies/guards passed. Live air,
+radius-600 ground and stopped-retarget restore cuts were byte-identical; every
+prior tick/progress/index/route forgery now rejected. Restore still accepted a
+history with an overridden same-tick target command omitted, and a history
+with an extra identical target command inserted.
+
+BIGGEST GAP: After three restore-provenance rounds, the combined bar remains
+wrong-shaped: live movement is green, but exhaustive minimal hostile command-
+history canonicalization remains open. Split into GAME-001PK and GAME-001PH.
+
+## Round 176 — 2026-08-03
+
+PIECE: GAME-001KX — External structure-target and damage ingress
+
+VERDICT: FAIL
+
+EVIDENCE: The direct external-combat suite passed 5/5, existing combat 9/9,
+primitive dependencies 33/33 and nondeterminism 9/9; aggregate selector
+registration was still missing. A projectile launched at a hostile structure
+whose same ID/name was later reassigned to the friendly side still contacted
+and dealt damage. Two identical same-boundary melee contacts from one tower
+were both accepted, applying duplicate damage with identical provenance.
+
+BIGGEST GAP: Structure identity does not immutably bind ownership, so in-flight
+projectiles can hit a now-friendly structure; duplicate contact provenance is
+also not rejected.
+
+## Round 177 — 2026-08-03
+
+PIECE: GAME-001KX — External structure-target and damage ingress
+
+VERDICT: FAIL
+
+EVIDENCE: External combat passed 7/7, existing combat 9/9, primitive
+dependencies 33/33 and nondeterminism 9/9. Side/kind/layer mutation and
+duplicate melee provenance now rejected; distinct sources, due-spawn deaths,
+legacy restore and projectile liveness passed. After registering structure ID
+900 and omitting it on a later boundary, scheduling a unit with ID 900 still
+succeeded live and after restore; the forged boundary→spawn history restored
+canonically. Projectile launch/contact records also lacked the originating
+attackSequence.
+
+BIGGEST GAP: External numeric IDs are not permanently reserved against later
+unit spawn/schedule, so structure identity can still be reassigned through a
+different authoritative entity kind.
+
+## Round 178 — 2026-08-03
+
+PIECE: GAME-001KX — External structure-target and damage ingress
+
+VERDICT: PASS
+
+EVIDENCE: External and existing combat passed 9/9 each, primitive dependencies
+33/33 and nondeterminism 9/9. Twelve independent live/restore probes rejected
+structure→unit and unit→structure reuse across live/scheduled/dead entities,
+all identity-field reassignments and forged histories. Exactly 1,024 permanent
+reservations restored canonically; 1,025 rejected atomically. Projectile launch
+and contact retained matching projectileId and attackSequence through restore.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 179 — 2026-08-03
+
+PIECE: GAME-001TX — Side-aware crown-tower target feed
+
+VERDICT: PASS
+
+EVIDENCE: Live towers passed 9/9, legacy towers 11/11, targeting/attack-cycle
+16/16 and nondeterminism 9/9. A simultaneous probe produced exactly one shot
+from every tower, always at the opposite candidate side with explicit source,
+target, delivery and projectile provenance; v4 restore bytes matched. Live and
+forged attempts to return an omitted ID on the opposite side rejected without
+mutation. Layer/range/liveness/ties, 4,096 identities, mixed v4 and legacy v3
+bytes passed.
+
+BIGGEST GAP: None on the judged dimension.
+
+## Round 180 — 2026-08-03
+
+PIECE: GAME-001T — Dynamic unit-to-tower combat adapter
+
+VERDICT: FAIL
+
+EVIDENCE: Adapter, ingress, live towers, primitive dependencies and
+nondeterminism all passed. In a simultaneous boundary, BattleCombat projectile
+1 hit a tower while tower projectile 1 hit the unit. State was correct, but the
+unit-origin contact was falsely enriched with the tower projectile's source
+because the adapter joined provenance on unscoped numeric projectile ID.
+Constructor setup also accepted a maximum-safe unit ID colliding with external
+tower candidate IDs; restore preserved it and only step later failed.
+
+BIGGEST GAP: Unit and tower projectile namespaces collide in provenance joins,
+so simultaneous equal IDs can rewrite the source identity of unit→tower hits.
+
+## Round 181 — 2026-08-03
+
+PIECE: GAME-001T — Dynamic unit-to-tower combat adapter
+
+VERDICT: FAIL
+
+EVIDENCE: Adapter, ingress, live towers, combat/tower dependencies and
+nondeterminism all passed. Equal numeric unit/tower projectile IDs were now
+correctly namespaced and reserved IDs rejected on every construction path.
+Independent enumeration found `external-structure-attack` still lacked a
+projectile ID/scope/full identity, while later launch/impact/contact were
+complete; serialized tower ingress also omitted attack sequence/direction.
+
+BIGGEST GAP: The projectile identity chain still begins after the structure-
+attack event, so not every causal projectile event can be joined explicitly.
+
+## Round 182 — 2026-08-03
+
+PIECE: GAME-001T — Dynamic unit-to-tower combat adapter
+
+VERDICT: FAIL
+
+EVIDENCE: Adapter 11/11 and all ingress/tower/combat dependencies and guards
+passed. Equal-ID scopes, external ingress, reserved IDs, witness forgeries,
+chunks, preview and lethal suppression passed. Raw unit-to-unit `attack` and
+projectile records still lacked the complete identity; the adapter enriched
+launch only by matching neighboring events, and restore accepted that
+reconstruction.
+
+BIGGEST GAP: After three provenance rounds, the combined bar is wrong-shaped:
+live unit↔tower state composition is green, while exhaustive identity on raw
+unit-to-unit upstream events remains open. Split into GAME-001TK/GAME-001TH.
+
+## Round 183 — 2026-08-03
+
+PIECE: GAME-001PK — Live-produced battle movement kernel
+
+VERDICT: PASS
+
+EVIDENCE: The focused kernel passed 5/5, movement/path/arena dependencies
+43/43 and nondeterminism 9/9. Independent live-only reproduction passed eight
+ground/air journeys, 220 valid restore cuts, both bridges, radii 0/100/400/600,
+signed diagonals, exact speeds 750/1000/1500/2000 with zero 60-tick remainder,
+one-step/chunk event and byte equality, stop/retarget and three rejected-command
+atomicity probes. Evidence SHA-256 was
+`f256ddf5fa8a62a09b05a90f4940728f170bf2a412847440ec0b81bb582f57c0`.
+
+BIGGEST GAP: None on the judged live-produced movement dimension.
+
+## Round 184 — 2026-08-03
+
+PIECE: GAME-001TK — Live-produced unit↔tower combat kernel
+
+VERDICT: PASS
+
+EVIDENCE: The focused kernel passed 7/7; adapter/ingress/live-tower/combat/
+tower/damage/targeting/cycle dependencies all passed and nondeterminism 9/9.
+Independent live reproduction activated both central towers, suppressed a
+lethally destroyed lane while the central responded, emitted five preview-
+backed contacts exactly once, and matched tower HP, state, replay and bytes
+across every restore cut.
+
+BIGGEST GAP: None on the judged live-produced kernel dimension.
+
+## Round 185 — 2026-08-03
+
+PIECE: GAME-001A — Live battle state and ordinary troop combat
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- game-battle` passed 4/4 and all roster/movement/combat/
+tower/arena dependencies passed. It proved eight-card materialization, 15
+entities, short two-sided movement/combat/tower damage, chunk/restore and
+hostile rejection. Nondeterminism failed 8/9 because `src/sim/live-battle.js`
+imports `src/content/playable-roster.js` outside the enforced simulation graph.
+No committed proof covered troop death, tower-origin damage, tower destruction,
+simultaneous trade, both sides using every card, or many restore cuts; an
+independent 360-boundary journey exceeded 60 seconds and was interrupted.
+
+BIGGEST GAP: LiveBattle crosses the simulation graph boundary for roster data,
+and replay-based per-boundary cloning is too slow for a real-time match.
+
+## Round 186 — 2026-08-03
+
+PIECE: GAME-001A — Live battle state and ordinary troop combat
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- game-battle` passed 6/6; its 600-tick case completed in
+25.35 seconds and covered tower launches, tower-origin damage, south-west lane
+destruction, alternate chunks and seven restore cuts. All named dependencies
+and nondeterminism passed. An independent mirrored south-to-north journey
+produced 11 tower launches and 11 unit-damage events but zero unit-to-structure
+contacts, deaths or tower destruction: eight Coilblades stopped at
+`(14500,21500)`, 3,000 millitiles from the north-east tower center while the
+contact allowance was 2,800. Independently scheduling 171 legal six-member
+squads at tick 0 made `step(0)` throw for the combat unit bound only after its
+bytes grew from 31,964 to 1,370,054, 1,024 units were installed and all pending
+deployments were removed.
+
+BIGGEST GAP: Mirrored ground path/contact geometry leaves south-side attackers
+permanently 200 millitiles outside the north-east tower, and failed capacity
+steps are not byte-atomic.
+
+## Round 187 — 2026-08-03
+
+PIECE: GAME-001A — Live battle state and ordinary troop combat
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- game-battle` passed 7/7. All named dependencies and the
+nondeterminism guard passed. Independent 600-tick journeys passed in both
+directions in 2.335 and 2.111 seconds, destroying the correct lane tower and
+activating the central tower; both capacity APIs and mixed downstream-invalid
+materialization rejected byte-atomically. All-eight-card deployment, deaths,
+simultaneous trade, alternate chunks, restore cuts and self-contained snapshots
+also passed. However, changing Mossguard's archetype and formation identity to
+`coilblade` was accepted, so two different cards materialized units with the
+same archetype identity. An extra unreferenced QUESTION record was likewise
+accepted, serialized and restored.
+
+BIGGEST GAP: Injected setup validation does not require globally unique
+archetype identities or an exact referenced QUESTION inventory, so canonical
+snapshots admit ambiguous live identities and arbitrary unused policy records.
+
+## Round 188 — 2026-08-03
+
+PIECE: GAME-001A — Live battle state and ordinary troop combat
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- game-battle` passed 8/8; every named dependency and the
+nondeterminism guard passed. Prior ambiguous-archetype and nonexact-QUESTION
+attacks now reject, QUESTION permutations canonicalize to identical bytes, and
+bounded independent gameplay/atomicity probes remained green. But hostile
+Proxy-backed QUESTION records were accepted while `getPrototypeOf`, `ownKeys`
+and `getOwnPropertyDescriptor` traps executed one, two and six times.
+
+BIGGEST GAP: Setup validation reflectively interrogates and accepts Proxy-backed
+records, executing attacker code instead of enforcing a zero-execution input
+boundary.
+
+## Round 189 — 2026-08-03
+
+PIECE: GAME-001A — Live battle state and ordinary troop combat
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- game-battle` passed 9/9; every named dependency and the
+nondeterminism guard passed. Proxy probes at twelve setup layers plus restore
+kept all seven trap counters at zero; noncanonical text forms rejected; mirrored
+combat and capacity atomicity remained green. A canonical restore forgery with
+20,000 nested arrays nevertheless reached recursive canonicalization and threw
+raw `RangeError: Maximum call stack size exceeded`; a 200,001-node forgery was
+fully traversed before shape rejection. Escaped lone-surrogate setup text was
+also accepted byte-identically.
+
+BIGGEST GAP: After three consecutive setup/snapshot-validation rounds, the
+combined piece is wrong-shaped: the original live-battle bar is repeatedly
+green, while hostile admission bounds remain open. The live dimension is
+accepted as GAME-001A; full hostile admission is split to GAME-001AH.
+
+## Round 190 — 2026-08-03
+
+PIECE: GAME-001AH — Hostile LiveBattle setup and snapshot admission
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- game-battle` passed 10/10. Independent exact-limit and
+one-over probes passed for bytes, depth, nodes, arrays, containers, keys,
+strings, safe integers, Unicode scalars, canonical JSON and prototype-named
+keys. The 20,000-depth input returned a controlled depth error in 2 ms and the
+200,001-node input a controlled node error in 14 ms before recursive work. A
+legitimate tick-600 snapshot restored byte-identically at 1,374,876 bytes;
+capacity rejection remained atomic, dependencies passed and nondeterminism was
+9/9.
+
+BIGGEST GAP: None on the judged hostile setup/snapshot admission dimension.
+
+## Round 191 — 2026-08-03
+
+PIECE: GAME-001B — Player command-to-battle bridge
+
+VERDICT: FAIL
+
+EVIDENCE: The focused bridge passed 5/5 and all UI/deck/elixir/deployment/
+LiveBattle/guard dependencies passed. All eight cards, exact squad IDs,
+idempotency, atomic failure, saturated rollback, provenance, chunks and seven
+restore cuts passed. But a real accepted `ArenaInputController` play mutated
+the controller's own deck/elixir and emitted a command missing the bridge's
+required `accepted`, `commandId` and `slot`; direct routing rejected, while
+manufacturing them created a second spend/cycle authority. A Proxy receipt was
+accepted after executing reflection traps, and a 20,000-deep bridge snapshot
+leaked `Maximum call stack size exceeded`.
+
+BIGGEST GAP: The actual browser input seam cannot feed the bridge through one
+pre-commit authority, so the current implementation double-owns spend/cycle
+state and does not safely bound hostile command/snapshot admission.
+
+## Round 192 — 2026-08-03
+
+PIECE: GAME-001B — Player command-to-battle bridge
+
+VERDICT: FAIL
+
+EVIDENCE: Focused bridge 7/7 and all UI/feedback/LiveBattle/deck/elixir/
+deployment/guard dependencies passed. The real configured all-eight-card path,
+single spend/cycle/materialization, proxy-zero-callback admission, deep/wide
+bounds, restore/chunks and capacity rollback passed. Independently, preparing A
+and B then committing A followed by stale B replaced A entirely; reentrant
+placement from `hudUpdate` recorded two accepted duplicate-ID controller
+commands/external commits while the bridge retained one deployment; and a HUD
+callback that published then threw left external state advanced while bridge
+and controller rolled back. Thenables were ignored, and a legacy controller
+could coexist over the same initial systems and commit the same gesture again.
+
+BIGGEST GAP: Prepared transactions lack epoch/single-flight freshness, and
+projection/reentrancy failures can make controller, bridge and external views
+observably divergent.
+
+## Round 193 — 2026-08-03
+
+PIECE: GAME-001B — Player command-to-battle bridge
+
+VERDICT: FAIL
+
+EVIDENCE: Focused bridge 11/11 and all UI/feedback/LiveBattle/deck/elixir/
+deployment/guard dependencies passed; prior token freshness and covered
+placement reentrancy failures closed. Independently, nested projection deck
+state remained mutable, two controllers could share one unclaimed bridge and
+publish twice, selection-phase reentrancy produced contradictory accepted
+actions, terminal-fault getters still exposed mutable live systems, and thrown
+AggregateError structures were unfrozen.
+
+BIGGEST GAP: After three authority-boundary rounds, the combined piece is
+wrong-shaped: the core atomic player command bridge is repeatedly green, while
+capability-safe controller ownership/projection remains open. The core is
+accepted as GAME-001B; lifecycle hardening is split to GAME-001BH.
+
+## Round 194 — 2026-08-03
+
+PIECE: GAME-001BH — Capability-safe player-controller authority lifecycle
+
+VERDICT: FAIL
+
+EVIDENCE: Focused lifecycle 13/13, UI 15/15, feedback 13/13, LiveBattle 10/10
+and arena shell 7/7 passed. Prior mutable projection/getter, duplicate bridge,
+selection reentry and terminal-error leaks closed. Independently, listener
+registration failure after controller construction leaked authority claims and
+blocked recreation; dispose/recreate after command 1 reset the cursor to 1 and
+the bridge rejected a divergent duplicate; and a rejected feedback-reentrant
+touch still mutated pending compatibility state, incorrectly suppressing the
+next mouse event. The temporary 8/9 guard was solely concurrent unregistered
+GAME-001C inventory and was not counted.
+
+BIGGEST GAP: Mount/authority handoff is not transactional and remount does not
+continue the bridge command cursor; rejected nested input can mutate seam state
+before the common reentrancy guard.
+
+## Round 195 — 2026-08-03
+
+PIECE: GAME-001C — Opponent-to-battle integration
+
+VERDICT: FAIL
+
+EVIDENCE: Focused integration 7/7, opponent controller 10/10, LiveBattle 10/10
+and guard 9/9 passed. All-eight-card squads, affordability, four autonomous
+plays, crossing/combat/death/tower damage, chunks, six restore cuts and atomic
+capacity failure passed. Independently, setup admitted Coilblade at cost 1
+despite LiveBattle roster cost 4 and deployed it with one elixir; cost 0 created
+an admitted runtime whose first proposal could not advance. A no-unit runtime's
+last successful tick was only 873; tick 874 atomically hit BattleCombat's 1 MiB
+transcript cap while the composed snapshot was 2,465,110 bytes.
+
+BIGGEST GAP: Bind deck/cost authority exactly to the injected LiveBattle roster,
+and resolve the shared tick-874 unbounded transcript cap before opponent play
+can support a full match. The shared cap is split to GAME-001HC.
+
+## Round 196 — 2026-08-03
+
+PIECE: GAME-001BH — Capability-safe player-controller authority lifecycle
+
+VERDICT: FAIL
+
+EVIDENCE: Bridge 14/14, UI 17/17, feedback 13/13, arena 7/7, LiveBattle 10/10
+and shipping guard 13/13 passed. Listener installation/removal unwind, claim
+release, exact 1→2→3 remount cursor continuation, every reentrant input path,
+compatibility state and prior capability hardening passed independently. But
+mount invoked each hostile HUD accessor once for `cards`, `deck`, `elixir`,
+`replaceInteractionSystems`, `update` and `deployBridge` before rejecting.
+
+BIGGEST GAP: Mount admits the HUD through reflective property reads instead of
+a private data-only capability, violating zero-execution admission.
+
+## Round 197 — 2026-08-03
+
+PIECE: GAME-001C-R — Opponent roster and cost authority closure
+
+VERDICT: FAIL
+
+EVIDENCE: The narrowed roster test and seven non-cap gameplay/restore tests
+passed; guard was 9/9. Prior cost-map/deck/roster/witness attacks rejected and
+exact cost-4 affordability passed. But lone high and low surrogate seeds were
+both accepted and collapsed through UTF-8 replacement into identical decisions,
+while a canonical 20,000-level setup leaked `Maximum call stack size exceeded`.
+
+BIGGEST GAP: Iteratively enforce Unicode-scalar, depth and node bounds before
+canonicalization so distinct invalid seeds cannot collide or exhaust the stack.
+
+## Round 198 — 2026-08-03
+
+PIECE: GAME-001C-A — Opponent canonical setup and restore admission
+
+VERDICT: FAIL
+
+EVIDENCE: Eleven non-cap tests and guard 9/9 passed. Unicode scalar validity,
+distinct valid seeds, recursion closure, canonical encodings, prototype names,
+zero-callback admission and N−1/N/N+1 value-string/graph/byte bounds passed.
+But the declared string-length bound was not applied to object keys: setup and
+restore keys at one over their respective limits bypassed the bound and reached
+later shape rejection.
+
+BIGGEST GAP: Apply the per-string bound to every object key at setup, nested
+witness and restore levels with exact threshold coverage.
+
+## Round 199 — 2026-08-03
+
+PIECE: GAME-001BH — Capability-safe player-controller authority lifecycle
+
+VERDICT: FAIL
+
+EVIDENCE: UI 18/18, bridge 14/14, feedback 13/13, arena 7/7, LiveBattle 10/10
+and shipping guard 13/13 passed. Raw mount objects/proxies rejected trap-zero,
+production used the brand and all prior lifecycle fixes remained green. But a
+documented reusable token retained its initial deck/elixir: after one legacy
+commit, cleanup/remount rewound to zero commands and original state; after an
+authoritative commit it could not remount against the advanced bridge. Cards,
+deck and elixir positional Proxies also executed 13/1/1 traps during capability
+construction.
+
+BIGGEST GAP: After three lifecycle rounds the combined piece is wrong-shaped:
+trap-zero capability admission and fresh authoritative remount continuation
+must be judged separately. Split into GAME-001BHA and GAME-001BHR.
+
+## Round 200 — 2026-08-03
+
+PIECE: GAME-001HC — Bounded full-match battle history and checkpoints
+
+VERDICT: FAIL
+
+EVIDENCE: Exact cap suite 4/4, 48 shared tests, 27 ranged/flying consumers and
+guard passed. Empty and active tick-18,000 snapshots were 2,716,481 and
+3,101,890 bytes and restored exactly; chunks, compaction cuts and forged runs
+passed. But compact BattleCombat's incompatible five-key schema still emitted
+`version:1`, colliding with legacy three-key v1, and a 20,000-level 40,001-byte
+snapshot reached recursive canonicalization and leaked a stack overflow before
+decoder bounds.
+
+BIGGEST GAP: Give compact BattleCombat an explicit v2 schema and iteratively
+bound the full decoder graph before canonicalization or run expansion.
+
+## Round 201 — 2026-08-03
+
+PIECE: GAME-001C-A — Opponent canonical setup and restore admission
+
+VERDICT: PASS
+
+EVIDENCE: Dependency-enabled opponent integration passed 13/13 through tick
+18,000 in 93.7 seconds and guard passed 9/9. Independent N−1/N/N+1 probes
+passed for UTF-16 keys at setup root, decoded battle setup, decoded roster
+witness, snapshot root/history, mixed astral keys, outer byte caps and opaque
+strings. Nested targets were parsed exactly once and no recursive overflow or
+replacement-scalar collision remained.
+
+BIGGEST GAP: None on the judged canonical admission boundary.
+
+## Round 202 — 2026-08-03
+
+PIECE: GAME-001BHA — Zero-execution single-use HUD capability admission
+
+VERDICT: FAIL
+
+EVIDENCE: UI 18/18, bridge 14/14, feedback 13/13, arena 7/7, LiveBattle 10/10
+and shipping guard 13/13 passed. Primitive state Proxies rejected trap-zero,
+callbacks remained deferred, production had no raw fallback and successful/
+failed-listener tokens were permanently consumed. But bridge witness creation
+invoked a Proxy's `getPrototypeOf` trap and accepted a Proxy spoofing
+`PlayerDeployBridge.prototype`; an invalid shell also failed before consuming
+the valid HUD token, which could then mount successfully.
+
+BIGGEST GAP: Move bridge authenticity to an unforgeable private instance brand
+and consume the HUD token before any shell validation or argument inspection.
+
+## Round 203 — 2026-08-03
+
+PIECE: GAME-001HC — Bounded full-match battle history and checkpoints
+
+VERDICT: FAIL
+
+EVIDENCE: Cap 5/5, Combat 10/10, towers 11/11, LiveBattle 10/10 and guard 9/9
+passed. Tick-18,000 sizes/restores, strict v2 versus legacy v1 schemas, exact
+decoder thresholds, 20,000-depth controlled rejection, expansion bombs,
+forgeries and recent-history consumers all passed. But a genuine LiveBattle v1
+containing BattleTower v1 with standalone-valid nested BattleCombat v1 rejected
+as noncausal; the tower layer compared legacy nested bytes against newly
+serialized Combat v2 bytes. Only pre-upgraded nested v2 passed.
+
+BIGGEST GAP: Validate nested legacy combat by exact restored semantics/replay,
+then canonically upgrade it, so genuine historical Live→Tower→Combat v1 chains
+remain restorable without weakening forgery checks.
+
+## Round 204 — 2026-08-03
+
+PIECE: GAME-001BHA — Zero-execution single-use HUD capability admission
+
+VERDICT: FAIL
+
+EVIDENCE: Bridge 15/15, UI 18/18, feedback 13/13, arena 7/7, LiveBattle 10/10
+and shipping guard 13/13 passed. Private bridge branding, subclass/prototype/
+Proxy forgery, token consumption before shell access and primitive admission all
+passed. But two fresh tokens minted from identical canonical state and the same
+commit/update callbacks mounted concurrently, each accepted command ID 1 and
+produced two publications/four updates because their restored deck/elixir object
+identities were distinct.
+
+BIGGEST GAP: Bind fresh capabilities sharing one sink/bridge authority to a
+single active mount claim, while allowing sequential fresh-token continuation.
+
+## Round 206 — 2026-08-03
+
+PIECE: GAME-001HC — Bounded full-match battle history and checkpoints
+
+VERDICT: FAIL
+
+EVIDENCE: Cap 5/5, towers 12/12, combat 10/10, LiveBattle 10/10 and guard 9/9
+passed; current empty/active tick-18,000 v2 runs and restores remained bounded
+and exact. Genuine nested v1 cuts upgraded and continued, but legacy comparison
+accepted boundary→step substitution and erased/dropped structure reservations.
+The forged upgrade then allowed a future structure-ID remap that genuine history
+rejected, proving public state/replay omitted hidden continuation semantics.
+
+BIGGEST GAP: After three HC rounds the current full-match v2 bar is repeatedly
+green while continuation-complete nested legacy compatibility remains open.
+Accept GAME-001HC and split the legacy identity proof to GAME-001HCL.
+
+## Round 207 — 2026-08-03
+
+PIECE: GAME-001HCL — Continuation-complete nested legacy history upgrade
+
+VERDICT: FAIL
+
+EVIDENCE: Cap 5/5, Combat 10/10, Towers 13/13, LiveBattle 10/10 and guard 9/9
+passed. All 12 private continuation fields were covered and prior hidden-state
+forgeries rejected. But a genuine 256-unit/70-tick legacy Combat v1 of 151,697
+bytes replayed 36,352 valid events and was rejected only because the separately
+materialized continuation witness exceeded its arbitrary 4 MiB ceiling, while
+both legacy/current tower snapshots remained about 3.07 MiB and within bounds.
+
+BIGGEST GAP: Compare continuation-complete decoded state without an underbounded
+materialized proof string, or derive the proof ceiling from admitted legacy
+amplification with exact worst-case bounds.
+
+## Round 208 — 2026-08-03
+
+PIECE: GAME-001BHR — Fresh-token authoritative remount continuation
+
+VERDICT: FAIL
+
+EVIDENCE: Remount 3/3 and all UI/player/feedback/arena/shipping/LiveBattle gates
+passed. Sixteen synthetic mounts preserved identities and failures. But shipped
+`mountArenaShellWithHud` still created a legacy capability without a real
+PlayerDeployBridge witness, so production continuation explicitly threw. A HUD
+catalog with forged `displayName` but matching id/cost was also admitted because
+authoritative seeding compared only id and cost.
+
+BIGGEST GAP: Wire the shipped arena entry to the real authoritative bridge and
+compare its full canonical card witness so production—not only tests—can remount.
+
+## Round 210 — 2026-08-03
+
+PIECE: GAME-001BHR — Fresh-token authoritative remount continuation
+
+VERDICT: FAIL
+
+EVIDENCE: Remount 5/5 and all feedback/input/deploy/HUD/arena/shipping gates
+passed. Production constructed the real bridge and exact full roster. But the
+returned session exposed its mutable live bridge: independently calling
+`session.bridge.stepMany(1)` advanced bridge tick 0→1 while input stayed 0, and
+the next real gesture rejected as stale/future.
+
+BIGGEST GAP: Hide live authority and route advance/restore through session-owned
+lifecycle operations that keep bridge, input, feedback and HUD synchronized.
+
+## Round 211 — 2026-08-03
+
+PIECE: GAME-001BHR — Fresh-token authoritative remount continuation
+
+VERDICT: FAIL
+
+EVIDENCE: Remount 6/6 and every UI/deploy/HUD/arena/guard gate passed. Live
+authorities were sealed behind frozen diagnostics and the production three-
+command advance/restore journey passed. But raw entry options still used
+`Object.getOwnPropertyDescriptors`/`getPrototypeOf`; a rejected Proxy executed
+`ownKeys` and `getPrototypeOf` traps.
+
+BIGGEST GAP: After three remount rounds the production lifecycle is green while
+trap-zero entry option admission remains open. Accept GAME-001BHR and split the
+option boundary to GAME-001BHRA.
+
+## Round 212 — 2026-08-03
+
+PIECE: GAME-001BHRA — Trap-zero production session option admission
+
+VERDICT: PASS
+
+EVIDENCE: Remount 7/7, input 18/18, HUD 9/9, arena 7/7, shipping guard 13/13
+and stabilized nondeterminism guard 9/9 passed. Independent object, callable,
+revoked, cross-realm, accessor and primitive probes caused zero traps, zero root
+reads and zero admissions. Genuine tokens were frozen, fieldless, captured by
+value and consumed before root validation; authoritative commands 1→2→3 passed.
+
+BIGGEST GAP: None on the judged production option admission boundary.
+
+## Round 213 — 2026-08-03
+
+PIECE: GAME-001D — Unified match session loop
+
+VERDICT: FAIL
+
+EVIDENCE: Session 5/5 and all battle/player/tower/match/guard dependencies passed.
+One battle authority, both-side roster/combat, pause/restart/chunks/restores and
+tick-18,000 terminal passed. But 20,000 nesting leaked stack overflow; UTF-8
+bytes bypassed the UTF-16 cap; lone surrogates were accepted. Restore trusted
+forged events, pending/processed records, paused/sequence state and a separately
+causal MatchClock falsely awarding a crown for a tower the authoritative battle
+had not lost.
+
+BIGGEST GAP: Restore from setup plus causal session transitions, deriving every
+collection and clock/tower result from the sole LiveBattle authority under
+iterative bounded admission.
+
+## Round 214 — 2026-08-03
+
+PIECE: GAME-001D — Unified match session loop
+
+VERDICT: FAIL
+
+EVIDENCE: Session 7/7 and all environment-enabled dependencies/guard passed.
+Bounded admission and causal transcript restore closed round-one attacks. But
+the batch path advanced battle/controller/decks/elixir through the full request
+before advancing MatchClock once. A live tower terminal inside the batch would
+therefore leave other authorities past the terminal tick; only isolated clock/
+tower tests covered same-tick destruction, not the composed session path.
+
+BIGGEST GAP: Resolve live tower evidence chronologically and adopt only the exact
+prefix through the first terminal tick, with one-step/batch equality under real
+simultaneous tower destruction.
+
+## Round 209 — 2026-08-03
+
+PIECE: GAME-001HCL — Continuation-complete nested legacy history upgrade
+
+VERDICT: PASS
+
+EVIDENCE: History cap 5/5, Towers 14/14, Combat 10/10, LiveBattle 10/10 and
+guard 9/9 passed. The exact 256-unit/70-tick/36,352-event legacy fixture restored,
+upgraded and continued with identical bytes/replay. Iterative equality covered
+all 12 private continuation fields with exact types/keys/order and no giant proof
+string; prior boundary/structure/event/schedule omissions rejected while current
+v2 remained exact.
+
+BIGGEST GAP: None on the judged continuation-complete legacy upgrade boundary.
+
+## Round 205 — 2026-08-03
+
+PIECE: GAME-001BHA — Zero-execution single-use HUD capability admission
+
+VERDICT: PASS
+
+EVIDENCE: UI 18/18, bridge 15/15, feedback 13/13, arena 7/7, LiveBattle 10/10
+and shipping guard 13/13 passed. Same-sink fresh tokens conflicted before shell
+access with zero traps and only one command/publication; cleanup and direct
+dispose released authority for a fresh token using committed bytes, while old
+tokens stayed consumed. Callable Proxies were uninspected until documented
+invocation; prior primitive, bridge-brand, shell-order, listener, reentrancy and
+terminal-fault probes remained green.
+
+BIGGEST GAP: None on the judged single-use admission/authority-claim boundary.
+
+## Round 215 — 2026-08-03
+
+PIECE: GAME-001E2 — Browser input-to-session delivery
+
+VERDICT: FAIL
+
+EVIDENCE: Input bridge 5/5, player deploy 15/15, UI input 18/18,
+placement feedback 14/14, shipping guard 13/13 and nondeterminism guard
+9/9 passed. Pointer/touch delivery, compatibility suppression, atomic rejection,
+unsubscribe/restore and independent feedback receipts executed successfully.
+Independent all-trap Proxy probes showed that constructor and restore each
+executed the supplied session's `getPrototypeOf` trap before rejecting it
+(`sessionTraps: 2`).
+
+BIGGEST GAP: Replace reflective session validation with module-owned trap-zero
+GameSession authentication in construction and restore.
+
+## Round 216 — 2026-08-03
+
+PIECE: GAME-001E2 — Browser input-to-session delivery
+
+VERDICT: PASS
+
+EVIDENCE: Input bridge 6/6, player deploy 15/15, UI input 18/18,
+placement feedback 14/14, shipping guard 13/13 and nondeterminism guard 9/9
+passed. Ordinary, callable, revoked, cross-realm, prototype-forged, subclass and
+all-trap Proxy impostors were rejected with zero callbacks and zero browser/DOM
+reads. Current and restored genuine sessions authenticated; stale history restore
+rejected atomically. Pointer/touch exact-once delivery, compatibility suppression,
+illegal/unaffordable rejection, feedback independence, unsubscribe and restore
+without redelivery all passed executable tests.
+
+BIGGEST GAP: None on the judged delivery/authentication dimension.
+
+## Round 217 — 2026-08-03
+
+PIECE: GAME-001E1 — Atomic session-to-view projection
+
+VERDICT: FAIL
+
+EVIDENCE: Projection 6/6, HUD 9/9, combat 11/11, effects 15/15,
+match-feedback 15/15, GameSession 8/8 and both guards passed. Independent
+mutate-then-throw probes failed atomicity at all four commit positions: in each
+case the failed layer advanced to tick 1 while the other three remained at tick
+0, and visible DOM bytes changed. Hostile object-Proxy frame admission also
+executed `getPrototypeOf` once.
+
+BIGGEST GAP: Include the failing layer in rollback after a partial commit and
+replace reflective frame admission with module-owned trap-zero authentication.
+
+## Round 218 — 2026-08-03
+
+PIECE: GAME-001D — Unified match session loop
+
+VERDICT: PASS
+
+EVIDENCE: GameSession 8/8, tower evidence 11/11, player deploy 15/15,
+match timing 20/20 and guard 9/9 passed; opponent passed 12 with its separately
+gated full-match test skipped. Independent public-roster executions made opposing
+lane towers die in stable order at tick 818 and the south central tower plus
+`match_end` occur at tick 1589. Oversized batch, chunks and the final public step
+matched state, events, replay and snapshot bytes. Session, battle, clock, elixir
+and opponent all froze at tick 1590; the terminal transcript held one submit and
+exactly 1590 steps. Post-terminal stepping emitted nothing and changed no bytes;
+registered restore cuts 817, 819, 1589 and 1590 remained exact.
+
+BIGGEST GAP: None on the judged terminal-prefix and chronological live-destruction dimension.
+
+## Round 219 — 2026-08-03
+
+PIECE: GAME-001E1 — Atomic session-to-view projection
+
+VERDICT: FAIL
+
+EVIDENCE: Projection 11/11 and every relevant UI/session/guard dependency passed.
+Independent 4/4 mutate-then-throw probes now preserved exact DOM bytes, and
+object/callable/revoked/cross-realm/accessor frame probes executed zero callbacks.
+But an all-trap options Proxy executed once; a same-tick stale frame was accepted
+and changed visible bytes; instrumentation observed two `GameSession.restore`
+calls for a single frame, creating two replayed simulation copies.
+
+BIGGEST GAP: Replace the two per-frame restore replays with one module-owned
+immutable projection snapshot from the authoritative session.
+
+## Round 220 — 2026-08-03
+
+PIECE: GAME-001F1 — Session event-to-audio feed
+
+VERDICT: FAIL
+
+EVIDENCE: The required `npm test -- game-audio-runtime` command failed with
+`unknown test selector`; the direct runner passed 6/6 and audio/guard dependencies
+passed. Authentic LiveBattle deploy/attack/projectile/impact/damage/death/tower/
+crown/end records rendered once in order without a second simulation. But session
+restart changed gain 2500→10000 and muted true→false, and a 20,000-level hostile
+snapshot escaped as raw `RangeError: Maximum call stack size exceeded`.
+
+BIGGEST GAP: Register the mandatory runner, preserve user gain/mute through a
+session-generation reset, and bound hostile snapshot admission iteratively.
+
+## Round 221 — 2026-08-03
+
+PIECE: GAME-001E1 — Atomic session-to-view projection
+
+VERDICT: FAIL
+
+EVIDENCE: Projection 14/14 and every UI/session/guard dependency passed. One
+snapshot mint and zero restores were observed; snapshot/frame identity and all
+ticks matched; snapshots were recursively frozen, detached and stable after live
+advance. Hostile probes caused zero callbacks; 4/4 partial commits rolled back;
+stale/foreign frames and cleanup passed. But authoritative tower records omitted
+maximum HP while the combat view supplied denominators 3052/4824 from UI-local
+`TOWER_MAX`, duplicating values separately owned by the simulation.
+
+BIGGEST GAP: Carry authoritative maximum hitpoints in the GameSession projection
+snapshot and remove the UI-local tower-health authority.
+
+## Round 222 — 2026-08-03
+
+PIECE: GAME-001F1 — Session event-to-audio feed
+
+VERDICT: PASS
+
+EVIDENCE: Exact audio runtime 7/7, audio events 12/12, renderer 11/11,
+GameSession 8/8 and both guards passed. Two authentic restarts advanced generations
+1→2, reset cue cursor/graph, preserved gain 2718 and mute, and rendered fresh cues
+at zero effective gain. Depth 129/20,000 and >8 MiB snapshots rejected with
+controlled bounds; hostile proxies caused zero callbacks/mutation. Authentic
+terminal playback contained deploy, attack, launch, impact, damage, death, tower,
+crown and match-end cues in canonical order once, then cleaned all voices.
+
+BIGGEST GAP: None on the judged session-to-audio feed dimension.
+
+## Round 223 — 2026-08-03
+
+PIECE: GAME-001E1 — Atomic session-to-view projection
+
+VERDICT: FAIL
+
+EVIDENCE: Projection 15/15 and every UI/session/guard dependency passed. All six
+tower snapshot maxima and rendered denominators matched the sole simulation
+authority (central 4824, lane 3052); one snapshot/zero restore, trap-zero,
+rollback, stale/foreign rejection and cleanup passed. But an authentic tick-120
+session threw `combat effects events[0] has an invalid shape` on its ordinary
+projectile damage replay at tick 79, and a live terminal tick-1590 session threw
+`live combat source n:1 targets a missing or dead ID`.
+
+BIGGEST GAP: Normalize authoritative live session combat state/replay into the
+combat/effects view schemas, including clearing dead target references.
+
+## Round 224 — 2026-08-03
+
+PIECE: GAME-001E3 — Browser entry lifecycle and scheduler
+
+VERDICT: FAIL
+
+EVIDENCE: The exact npm selector was unregistered. Direct scheduler tests passed
+6/6 and GameSession/guards passed, but arena-shell failed 1/7 after the shipped
+HTML entry change. An independent real mount advanced RAF from tick 0→1, then a
+valid card gesture submitted command `{commandId:1,tick:0}` to the sole session at
+tick 1 and raised `player session command is stale, duplicate, terminal, or unknown`.
+
+BIGGEST GAP: Synchronize the mounted input controller with every authoritative
+session frame and preserve tick/command continuation across restore/remount.
+
+## Round 225 — 2026-08-03
+
+PIECE: GAME-001E1 — Atomic session-to-view projection
+
+VERDICT: PASS
+
+EVIDENCE: Projection 18/18 and all HUD/combat/effects/feedback/GameSession/guard
+dependencies passed. Independent active combat normalized all 26 authoritative
+launch/impact/damage/death records with exact IDs, ticks, order and values, with
+no invented radius. Tick-120 and seed-2 terminal tick-1590 batch/chunk/restore
+combat/effects bytes matched. Live links exactly matched snapshot-derived links
+and only the genuinely dead target was cleared. One snapshot/zero restore,
+authoritative tower maxima, same-tick layers, trap-zero admission, stale/foreign
+rejection, 4/4 rollback and cleanup all passed.
+
+BIGGEST GAP: None on the judged atomic session-to-view projection dimension.
+
+## Round 226 — 2026-08-03
+
+PIECE: GAME-001E3 — Browser entry lifecycle and scheduler
+
+VERDICT: PASS
+
+EVIDENCE: Exact browser-loop 6/6, UI dependencies 49/49, GameSession 8/8,
+audio dependencies 37/37 and both guards passed. Independent shipped mount
+delivered commands `(1,1)`, `(2,2)`, `(3,3)` exactly once across RAF and restore;
+authoritative hand, session and DOM stayed aligned through tick 4. Pause removed
+all arena/hand/RAF listeners, resume restored one set, terminal/disposal removed
+all listeners. Backlog used one `stepMany(120)` per frame with no public `step()`.
+Active tick 120 and live terminal tick 1590 projected all four layers exactly;
+duplicate mount and HTML auto-entry contract passed.
+
+BIGGEST GAP: None on the judged browser lifecycle/scheduler dimension.
+
+## Round 227 — 2026-08-03
+
+PIECE: GAME-001F2 — Audible browser backend and controls
+
+VERDICT: FAIL
+
+EVIDENCE: Browser audio 7/7 and all E3/F1/audio/shell/guard dependencies passed.
+An independent strict two-voice context forced the second `source.start()` to
+throw; the first source remained active, `activeVoiceCount` was 1, browser sink
+reported unfaulted while the renderer faulted. A context whose `close()` returned
+a rejected Promise produced an unhandled rejection despite otherwise idempotent
+gain disconnect/close cleanup.
+
+BIGGEST GAP: Roll back every earlier source in a failed multi-voice transaction,
+fault the sink consistently, and observe asynchronous context-close rejection.
+
+## Round 228 — 2026-08-03
+
+PIECE: GAME-001F2 — Audible browser backend and controls
+
+VERDICT: FAIL
+
+EVIDENCE: A strict local output transaction forced `gain.setValueAtTime(0.25)`
+to throw. Backend committed log remained `[1]`, runtime/renderer retained gain
+10000, sink/renderer faulted, cleanup disconnected/suspended/closed and retry
+failed fast. But browser-sink state retained rejected `gainBasisPoints:2500`, so
+policy mutation was not atomic. Async rejection coverage produced no unhandled
+rejection. Concurrent HA session changes temporarily redlined aggregate browser
+dependencies and were excluded from this F2 verdict.
+
+BIGGEST GAP: Stage gain/mute policy locally and commit it only after the Web Audio
+gain-node update succeeds.
+
+## Round 229 — 2026-08-03
+
+PIECE: GAME-001F2 — Audible browser backend and controls
+
+VERDICT: PASS
+
+EVIDENCE: Browser audio 11/11 and all E3/F1/audio/shell/guard dependencies passed.
+Independent failed gain and mute transactions retained exact committed policy
+10000/false in sink/runtime/renderer, excluded failed transaction 3 from backend
+log `[1,2]`, stopped/disconnected both sources once, left zero active voices,
+faulted sink/runtime permanently and created no retry sources. Later-source
+failure rolled back prior/current voices. Sync/async cleanup failures including
+null/undefined reasons attempted all cleanup with zero unhandled rejections;
+trusted unlock, controls, restore/restart and app disposal passed.
+
+BIGGEST GAP: None on the judged audible browser backend/control dimension.
+
+## Round 230 — 2026-08-03
+
+PIECE: GAME-001HA — Heterogeneous session card admission and typed history
+
+VERDICT: PASS
+
+EVIDENCE: Admission 7/7, integration audit 6/6, LiveBattle 10/10,
+GameSession 8/8, browser regressions 41/41 and guards 22/22 passed. Independent
+reconciliation found 58 occurrences/53 IDs with exact duplicates and admission
+of 52 occurrences/47 IDs. All 47 eight-card witnesses were unique/legal; six
+identity-only records and five QUESTION-only exports were visibly excluded with
+sourced reasons. Public effect/structure/unit plays spent 4/3/4, cycled once and
+routed once by kind; nonunits produced zero entities/deploy events, unit one.
+Chunk/restore bytes, hostile bounds/trap-zero admission and no secondary clocks
+passed; squall-orb claimed identity only, not invented four-way mechanics.
+
+BIGGEST GAP: None on the judged heterogeneous admission/history dimension.
+
+## Round 231 — 2026-08-03
+
+PIECE: GAME-001E4 — Restart control and fresh-session lifecycle
+
+VERDICT: PASS
+
+EVIDENCE: Restart 3/3 and all E3/F2/shell/remount/input/guard/release dependencies
+passed. Independent authentic seed-2 graph terminated at tick 1590, preserved
+audio policy 2500/muted, and restarted into byte/deep-exact seed-0 session/HUD
+with stale entities/effects/overlay removed. Every old listener, voice, context,
+RAF callback and retained pointer/restart handler was inert/disposed; the new
+graph owned exactly one restart, one arena and four hand listeners. Restoring the
+terminal and restarting again produced a second exact graph. Preterminal/untrusted
+restart rejected. Hostile cleanup aggregated all failures, exhausted disposal,
+mounted no replacement and left no split authority.
+
+BIGGEST GAP: None on the judged fresh-session lifecycle dimension.
+
+## Round 232 — 2026-08-03
+
+PIECE: GAME-001GS — Short authentic browser match journey
+
+VERDICT: PASS
+
+EVIDENCE: Hard-capped exact real-Chrome selector passed 1/1 in 14.35s. All five
+720×1280 captures were nonblank: initial, both-side deploy, moving/projectile
+combat with destroyed towers/crowns 1–1/timer 2:42, full 3–1 terminal overlay and
+clean 3:00/0–0 restart. HTTP/controller checks reported no overlay, pending
+resources, console or unhandled errors. Trusted clicks unlocked one audio context
+and deployed both sides. Authentic public-profile session ended tick 1590 with
+21 combat events and changed HP/crowns. Restart bytes matched fresh seed0 and the
+next trusted 600-tick prefix matched direct simulation. No browser/server orphans.
+
+BIGGEST GAP: None on the judged short authentic browser journey; sustained
+default-match endurance remains separately open in GAME-001GH/GP.

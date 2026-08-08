@@ -1,0 +1,390 @@
+{
+  "schemaVersion": 1,
+  "entrypoints": [
+    "public/ui-arena-shell.html"
+  ],
+  "fileCount": 76,
+  "totalBytes": 1288186,
+  "files": [
+    {
+      "path": "public/ui-arena-shell.html",
+      "size": 486,
+      "sha256": "a88bd327867dd946abdfaa79239e4046b481471e42627034ab68a4b84dbb32be"
+    },
+    {
+      "path": "src/content/cards/basic-flying.js",
+      "size": 16299,
+      "sha256": "6037912f3ad759a7b042eebb6f268828a14eac0dcec5e070ef115a26ed62d083"
+    },
+    {
+      "path": "src/content/cards/basic-melee.js",
+      "size": 3418,
+      "sha256": "2e9bc8b269f84a02e1b49d5a4e15a1e3f8a8240d29e0482e719cfd29f09e8bd0"
+    },
+    {
+      "path": "src/content/cards/basic-ranged.js",
+      "size": 15100,
+      "sha256": "2a59298577d779a771c7969845d8742afd2974857d6bcf01ef1337049fb02cab"
+    },
+    {
+      "path": "src/content/cards/buildings-defensive.js",
+      "size": 34496,
+      "sha256": "3a7cc3d47719e5d0b3d204eef181407b7de5a9230f56fea8d1669d8e71a36fc1"
+    },
+    {
+      "path": "src/content/cards/buildings-resource.js",
+      "size": 19672,
+      "sha256": "090fa84c77b9ba739d5d5817030e43ca4c878b227d7ed6be5dd0bce483c0cfd9"
+    },
+    {
+      "path": "src/content/cards/buildings-spawner.js",
+      "size": 14636,
+      "sha256": "fc4f394028fc1fd83083ea5a434080fd88ee32c1a6fab4ea4829c684dbcc2e66"
+    },
+    {
+      "path": "src/content/cards/buildings-travel.js",
+      "size": 19238,
+      "sha256": "dab7e62e3c10244ab604aefb3f1e2237c65f289fa258faea926105f169a7b766"
+    },
+    {
+      "path": "src/content/cards/champion-abilities.js",
+      "size": 23744,
+      "sha256": "22f94ae4f916e43d0bcff483e1905fa711744a8efe450e1b1f28ae9b6705c7a5"
+    },
+    {
+      "path": "src/content/cards/combat-status-heal.js",
+      "size": 20663,
+      "sha256": "d1f2d19217e79f40bbccfaf2462654f6eccebfeaa962cc1eacc44c1203ee8fe0"
+    },
+    {
+      "path": "src/content/cards/combat-status-invisibility.js",
+      "size": 31498,
+      "sha256": "306d99f8e818ab93a597e53b3dd7f0b19fc53c4f7f463a997ecee1528f2c809b"
+    },
+    {
+      "path": "src/content/cards/combat-status-stun.js",
+      "size": 22255,
+      "sha256": "7c81178932fe7139f7abc068de8f4bc5da8657605941f1c9a3c4206bcd9be58d"
+    },
+    {
+      "path": "src/content/cards/death-conversion-delegated.js",
+      "size": 19327,
+      "sha256": "7ef2560fb0bc341141af1d6da5e2fd4ec188f648e05fd9404117da31689a4ae6"
+    },
+    {
+      "path": "src/content/cards/death-conversion.js",
+      "size": 15565,
+      "sha256": "82def77c5a9ff8df4450cb8b0b6f5bb6197685517fb091a7544b03a172504f61"
+    },
+    {
+      "path": "src/content/cards/death-effects.js",
+      "size": 18260,
+      "sha256": "10969eb6d3ec687f43f7e9bb89537975d90c131c125829147fa44c8a99e78a81"
+    },
+    {
+      "path": "src/content/cards/death-spawns.js",
+      "size": 25322,
+      "sha256": "9cc78915b271c965592b7b7c6696ed39307d73906d321690a0688a65d9340fd5"
+    },
+    {
+      "path": "src/content/cards/periodic-spawns.js",
+      "size": 19418,
+      "sha256": "de2d554f27a54a72b5aef665501786d983436f6e8bd69abf3df37eb322891269"
+    },
+    {
+      "path": "src/content/cards/shields-forms.js",
+      "size": 10199,
+      "sha256": "e78d1484c9dd0b20633e81eb48c32223497ac08fa4c20f6b16c4e2461f7329c8"
+    },
+    {
+      "path": "src/content/cards/spawn-placement.js",
+      "size": 12784,
+      "sha256": "6aa7e846528c9263e09bc46f625337000d8a63a82948eaf073d329269a3feb5c"
+    },
+    {
+      "path": "src/content/cards/special-combat-rage.js",
+      "size": 24915,
+      "sha256": "6b91168d0fa7a4e3c21f811b40bf4f11d724b62a5dfa83066c8165c253285c61"
+    },
+    {
+      "path": "src/content/cards/special-combat-ramp.js",
+      "size": 22611,
+      "sha256": "c643f8063f31394b95d605a817b86f377a411cb087a3e53adc2647edeab25c67"
+    },
+    {
+      "path": "src/content/cards/special-combat-reset.js",
+      "size": 25794,
+      "sha256": "a7f44f7f97f78a5b713e1090e56e5fb9060322317895c9f39ec4ff652fb163c5"
+    },
+    {
+      "path": "src/content/cards/special-combat-slow.js",
+      "size": 21724,
+      "sha256": "e5abbf25edec21f91a3b1b3f4a4b601a3c4ed04d4e3ce4af53d2bc5e560af536"
+    },
+    {
+      "path": "src/content/cards/special-combat-snare.js",
+      "size": 23377,
+      "sha256": "31ff46ce654560a2a1f9813fa06fbc0486fdbe6722b1617edfb656b9ce90720b"
+    },
+    {
+      "path": "src/content/cards/special-movement-charge-knockback.js",
+      "size": 25324,
+      "sha256": "ae063d833d78cd4bd1e4f8e9dd86eedde3adc6df64989622c5245642bb8e1a7b"
+    },
+    {
+      "path": "src/content/cards/special-movement-charge.js",
+      "size": 17698,
+      "sha256": "0ab1102bc859c75e4f20e05092ec9730fe132e21eb814e49070ba5731ffa74ec"
+    },
+    {
+      "path": "src/content/cards/special-movement-dash-knockback.js",
+      "size": 19264,
+      "sha256": "ef16c4fb3aaf4b2bd6d2ab0adfc9933a2df774770a340ff1db632ac9eeace649"
+    },
+    {
+      "path": "src/content/cards/special-movement-dash.js",
+      "size": 17995,
+      "sha256": "715f3d43530dc10436e3295b9da2e8b3c851ae546f0ed47e05763686d10259f6"
+    },
+    {
+      "path": "src/content/cards/special-movement-jump.js",
+      "size": 18772,
+      "sha256": "cb7b76760f1662905ac7ccf84bb89d720eecd30899385c924b1c768f8be5454b"
+    },
+    {
+      "path": "src/content/cards/special-movement-knockback.js",
+      "size": 18070,
+      "sha256": "d587f7bcc29628a597b17cb7b1787b442cf29f797b0b7b45e4d9884dc6c38d8f"
+    },
+    {
+      "path": "src/content/cards/special-movement-leap-knockback.js",
+      "size": 21027,
+      "sha256": "2ecb904c41881d76aba385c94c0128fc014ec8301c870ea18dad83f1ebecc8e8"
+    },
+    {
+      "path": "src/content/cards/special-movement-recoil.js",
+      "size": 19091,
+      "sha256": "f0f13f05ce1b40b6632c7ad80088ff3f495a4313db9c78e960e7def43d5d422f"
+    },
+    {
+      "path": "src/content/cards/special-movement-retarget.js",
+      "size": 15203,
+      "sha256": "48635cb6af9054eaba37121c62b055d6a1994280063d158456d05bc2f0013758"
+    },
+    {
+      "path": "src/content/cards/special-projectiles-chain.js",
+      "size": 18563,
+      "sha256": "a837cad6adc731dc6a8916ed39a1021c092b283ebdb82a982be44817c4712c86"
+    },
+    {
+      "path": "src/content/cards/special-projectiles-pellets.js",
+      "size": 22279,
+      "sha256": "c08956182728d94eed2f22930d26bb35bbb64122676a02f837ce960608b8a32c"
+    },
+    {
+      "path": "src/content/cards/special-projectiles-pierce.js",
+      "size": 20450,
+      "sha256": "ef71fd7fb4cb64894ab38110035f2a75fda5c03e33e3b3cefd5a29ad8cc3f4a9"
+    },
+    {
+      "path": "src/content/cards/special-projectiles-reflection.js",
+      "size": 24645,
+      "sha256": "06df161e5ff98bd266a82da2bea779c2fe3b8cb3d847f458b4262968261b0715"
+    },
+    {
+      "path": "src/content/cards/special-projectiles-return.js",
+      "size": 21827,
+      "sha256": "e34fe64880369975d09e14edfe004b572dbba6ea17bf0bf8e1a80e3d45ddf602"
+    },
+    {
+      "path": "src/content/cards/spells-clone-unit.js",
+      "size": 21402,
+      "sha256": "7d91880195f6ba7f545799dc3a939db483cc3bca889ff9e9c319adddfa23940b"
+    },
+    {
+      "path": "src/content/cards/spells-copy-card.js",
+      "size": 14371,
+      "sha256": "2942438d285a54ccb400042411095e6cb65940b7927e8b0c88840c3d07be4622"
+    },
+    {
+      "path": "src/content/cards/spells-instant.js",
+      "size": 26159,
+      "sha256": "ca6018cbbcea0013560655e9c2739c294af4d4f1f06658096e0452a8cb9bc035"
+    },
+    {
+      "path": "src/content/cards/spells-periodic.js",
+      "size": 26792,
+      "sha256": "6d769245f3a755f127e220e45c7d4966700bdf3b3e187ef179380b7be8a3a970"
+    },
+    {
+      "path": "src/content/cards/spells-return.js",
+      "size": 20100,
+      "sha256": "261a6cef3bc4478aa0eef2411b0154431d7c1d7178ba2588a00584c4e4f30d76"
+    },
+    {
+      "path": "src/content/cards/spells-roll.js",
+      "size": 29605,
+      "sha256": "1830d21114c5546f9cef0a43dea6d24ecfa7edc44eff08fd2fbc648005ffe0d5"
+    },
+    {
+      "path": "src/content/cards/spells-spawn.js",
+      "size": 19759,
+      "sha256": "fd7577ef91cebfeb13ace49f7e98f579b33c95d15e50cb47a340dfbef9f0d34b"
+    },
+    {
+      "path": "src/content/cards/spells-three-wave.js",
+      "size": 18267,
+      "sha256": "addae2fa892c46207abccf30d5e662204b4e65c86a77127b1eccd7f4ab43237a"
+    },
+    {
+      "path": "src/content/cards/spells-travel-line.js",
+      "size": 27269,
+      "sha256": "e50fee7697c067e44a35a3ebcb0507ba98834f3308be96f28f6c5cd723c04597"
+    },
+    {
+      "path": "src/content/cards/structure-seeker.js",
+      "size": 18226,
+      "sha256": "21f5ee94fd3f6be4a439dcc597678aeac8743edc55b67186a95c9ae8b9d12fd9"
+    },
+    {
+      "path": "src/content/cards/swarms.js",
+      "size": 5024,
+      "sha256": "16dc7229e3f31bea636022aed2d1dae9fd52c360cef96386635eb9f692d01a7d"
+    },
+    {
+      "path": "src/content/index.js",
+      "size": 8434,
+      "sha256": "e428aaba11076bdde7e9c98f8bd32c1ab1071174e65557b282b199ee683e7eb8"
+    },
+    {
+      "path": "src/content/schema.js",
+      "size": 12776,
+      "sha256": "4fee9ba313a778c49253a1ff902ae2a49648d0a1be1fb19aa3b2dd2c0561c6f4"
+    },
+    {
+      "path": "src/sim/area-damage.js",
+      "size": 8922,
+      "sha256": "7836fb4e98109d63488ae6b7b3bc32247c8724c40c2f2d242704deb6c521af32"
+    },
+    {
+      "path": "src/sim/arena-geometry.js",
+      "size": 8223,
+      "sha256": "78763d497d6346e35d6c311f21d36b091ce46b5885bf2832fea9f3a7d50759dd"
+    },
+    {
+      "path": "src/sim/attack-cycle.js",
+      "size": 12207,
+      "sha256": "0c3d752dd98d2770b855c46738d4d2d19fe0c4cd06ac46f1c45c394118049a20"
+    },
+    {
+      "path": "src/sim/damage.js",
+      "size": 8680,
+      "sha256": "8e704ba06da85355e0749372ca0de4c480808930929fb31bff0a8f4d64744a28"
+    },
+    {
+      "path": "src/sim/deck.js",
+      "size": 7833,
+      "sha256": "8e6d179c248ffbb2f2c434d82efc00e127ccd01e5c9ee06e719dd2e2590fbb77"
+    },
+    {
+      "path": "src/sim/deployment.js",
+      "size": 8820,
+      "sha256": "f22067c2bfbd1ccdad6f913a50efa19899c7ee4254ffac35b473e3fb8978b563"
+    },
+    {
+      "path": "src/sim/elixir.js",
+      "size": 24004,
+      "sha256": "e82274d200e5c6512d756051d0f250571a99564ea2001a0739cf6c39d5faf021"
+    },
+    {
+      "path": "src/sim/entities.js",
+      "size": 7903,
+      "sha256": "3bcf5072de4091f37bb9ef0fdc9080b44e3488bb69c43639a263ec27c591684a"
+    },
+    {
+      "path": "src/sim/flying.js",
+      "size": 8381,
+      "sha256": "0d1640fac3663e539643a1d851a8198b819bb1713cfb10dc08c1fa66eca1174b"
+    },
+    {
+      "path": "src/sim/formations.js",
+      "size": 7615,
+      "sha256": "0749bc802edb64c572a707e8e7b25e75796fa77007b4d5483be901bd35675fac"
+    },
+    {
+      "path": "src/sim/match.js",
+      "size": 20405,
+      "sha256": "99e53046bc6932da41f1ba39cc1f43f571be8678c0270835810b35ea4e84b678"
+    },
+    {
+      "path": "src/sim/movement.js",
+      "size": 5688,
+      "sha256": "0988abf424abf5edb9d4d4da1dfbfc9f4a56732c065436ee1fc04ccbdd667586"
+    },
+    {
+      "path": "src/sim/pathfinding.js",
+      "size": 5865,
+      "sha256": "49729ea021c954e66b2fe0c6f027410974a2cb994f3d092e92a175d6af72d296"
+    },
+    {
+      "path": "src/sim/projectile.js",
+      "size": 13960,
+      "sha256": "7065af4288d2cb6617cecd5b18e37f75194ccb4e69013ea425ebb1749d1147aa"
+    },
+    {
+      "path": "src/sim/rng.js",
+      "size": 5778,
+      "sha256": "529e8755c760a816c20b0b837e1dee068b92fa3372736cdf8851256d636b2d17"
+    },
+    {
+      "path": "src/sim/spatial.js",
+      "size": 10584,
+      "sha256": "6afee6321acfe9eada77d68d3d88361bdff3c08685debf916f1685cf6491607e"
+    },
+    {
+      "path": "src/sim/targeting.js",
+      "size": 8267,
+      "sha256": "18bbad382730fe976e13934c98f50a7c999363429abeb7aa7501b78929f56470"
+    },
+    {
+      "path": "src/sim/towers.js",
+      "size": 20196,
+      "sha256": "51eda08b560a0ec7efa525570b20885135aa23a822dd495a5dd2ee66c2d197bd"
+    },
+    {
+      "path": "src/ui/arena-shell-entry.js",
+      "size": 3057,
+      "sha256": "9217538f7f3af93f6f3d172efed1d5c94a79e70cd521fc2c97911b56fac5d39a"
+    },
+    {
+      "path": "src/ui/arena-shell.css",
+      "size": 7065,
+      "sha256": "c59ef6d9979fc19e9357037714b5d97c27d69c3c1ef44a875d58e1fc0904ad5a"
+    },
+    {
+      "path": "src/ui/arena-shell.js",
+      "size": 4186,
+      "sha256": "7f6869349736519dc553d5c42da71832c830d314a7bb9befaf6c7c7675fdf57d"
+    },
+    {
+      "path": "src/ui/combat-state.js",
+      "size": 20013,
+      "sha256": "09f9f9657607ce925b22cc38cd88e0b81726a261377f992226c1133518d6d589"
+    },
+    {
+      "path": "src/ui/hud-state.js",
+      "size": 22303,
+      "sha256": "37293c154f763df41c5896d9876d9d25648b4fc3e3892c732b09b88567edc152"
+    },
+    {
+      "path": "src/ui/input-controller.js",
+      "size": 25791,
+      "sha256": "7402c2fe1df760a453a08a8385f94449eb51ad5300a86cce54811a96099063e7"
+    },
+    {
+      "path": "src/ui/placement-feedback.js",
+      "size": 23247,
+      "sha256": "35d3c10f16bfb97c0133d7bb9366f67d079cc3a0cb384a3ae24d3066dba9ca50"
+    }
+  ]
+}

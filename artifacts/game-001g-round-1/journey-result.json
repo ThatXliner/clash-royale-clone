@@ -1,0 +1,526 @@
+{
+  "combatEventCount": 21,
+  "consoleErrors": [],
+  "initial": {
+    "audio": {
+      "active": true,
+      "audio": {
+        "activeVoiceCount": 0,
+        "contextCreated": true,
+        "disposed": false,
+        "faulted": false,
+        "gainBasisPoints": 10000,
+        "muted": true,
+        "resumeCount": 1,
+        "transactionCount": 4,
+        "unlockCount": 1,
+        "unlocked": true
+      },
+      "gainBasisPoints": 10000,
+      "muted": true
+    },
+    "bodyText": "Sound off\n3:00\n5\n2:59\n1\nCinderlings\n4\nCopperskiff\n4\nCoilblade\n3\nSkymaul\n4\nBrassbolt",
+    "crowns": {
+      "north": 0,
+      "south": 0
+    },
+    "elixir": {
+      "north": {
+        "accumulator": 85,
+        "amount": 6
+      },
+      "south": {
+        "accumulator": 0,
+        "amount": 10
+      }
+    },
+    "effects": 0,
+    "overlay": null,
+    "restartHidden": true,
+    "state": {
+      "active": true,
+      "backlogTicks": 0,
+      "domTick": 85,
+      "paused": false,
+      "running": false,
+      "scheduled": false,
+      "selectedCardId": null,
+      "sessionTick": 85,
+      "terminal": false,
+      "restartCount": 0
+    },
+    "timer": {
+      "display": "block",
+      "height": 45,
+      "text": "2:59",
+      "width": 110
+    },
+    "towers": [
+      {
+        "hitpoints": 4824,
+        "id": "south:central"
+      },
+      {
+        "hitpoints": 3052,
+        "id": "south:lane:west"
+      },
+      {
+        "hitpoints": 3052,
+        "id": "south:lane:east"
+      },
+      {
+        "hitpoints": 4824,
+        "id": "north:central"
+      },
+      {
+        "hitpoints": 3052,
+        "id": "north:lane:west"
+      },
+      {
+        "hitpoints": 3052,
+        "id": "north:lane:east"
+      }
+    ],
+    "units": [
+      {
+        "id": "1",
+        "side": "north",
+        "visible": true,
+        "x": "3500",
+        "y": "16625"
+      }
+    ]
+  },
+  "interactive": {
+    "blank": false,
+    "controller": true,
+    "controls": [
+      {
+        "hidden": false,
+        "text": "Sound on",
+        "ui": "audio-toggle"
+      },
+      {
+        "hidden": true,
+        "text": "Play again",
+        "ui": "restart"
+      }
+    ],
+    "errorOverlay": false,
+    "pendingResources": []
+  },
+  "repeated": {
+    "crowns": {
+      "north": 0,
+      "south": 0
+    },
+    "elixir": {
+      "north": {
+        "accumulator": 96,
+        "amount": 0
+      },
+      "south": {
+        "accumulator": 0,
+        "amount": 10
+      }
+    },
+    "tick": 600,
+    "units": [
+      {
+        "id": "1",
+        "side": "south",
+        "x": "4500",
+        "y": "21619"
+      },
+      {
+        "id": "3",
+        "side": "north",
+        "x": "4500",
+        "y": "18498"
+      },
+      {
+        "id": "4",
+        "side": "north",
+        "x": "4140",
+        "y": "19926"
+      },
+      {
+        "id": "5",
+        "side": "north",
+        "x": "3500",
+        "y": "15100"
+      }
+    ]
+  },
+  "responseReplay": {
+    "north": true,
+    "south": true
+  },
+  "terminal": {
+    "browser": {
+      "active": true,
+      "backlogTicks": 0,
+      "domTick": 1590,
+      "paused": false,
+      "running": false,
+      "scheduled": false,
+      "selectedCardId": null,
+      "sessionTick": 1590,
+      "terminal": true,
+      "restartCount": 0
+    },
+    "browserSnapshotBytes": 62943,
+    "crowns": {
+      "north": 3,
+      "south": 1
+    },
+    "elapsedMilliseconds": 3609,
+    "entityCount": 2,
+    "eventCount": 22,
+    "fromTick": 1106,
+    "replayCount": 43,
+    "result": {
+      "crowns": {
+        "north": 3,
+        "south": 1
+      },
+      "endedAtTick": 1589,
+      "kind": "win",
+      "reason": "central_destroyed",
+      "winner": "north"
+    },
+    "sessionSnapshotBytes": 50902,
+    "towers": [
+      {
+        "active": true,
+        "attack": {
+          "attackSequence": 0,
+          "config": {
+            "deployTicks": 0,
+            "firstHitTicks": 10000,
+            "hitSpeedTicks": 60
+          },
+          "nextAttackTick": null,
+          "nextTick": 1590,
+          "phase": "idle",
+          "targetId": null
+        },
+        "hitpoints": 0,
+        "id": "south:central",
+        "lane": null,
+        "position": {
+          "x": 9000,
+          "y": 3000
+        },
+        "role": "central",
+        "side": "south"
+      },
+      {
+        "active": true,
+        "attack": {
+          "attackSequence": 0,
+          "config": {
+            "deployTicks": 0,
+            "firstHitTicks": 10000,
+            "hitSpeedTicks": 48
+          },
+          "nextAttackTick": null,
+          "nextTick": 1590,
+          "phase": "idle",
+          "targetId": null
+        },
+        "hitpoints": 0,
+        "id": "south:lane:west",
+        "lane": "west",
+        "position": {
+          "x": 3500,
+          "y": 7500
+        },
+        "role": "lane",
+        "side": "south"
+      },
+      {
+        "active": true,
+        "attack": {
+          "attackSequence": 0,
+          "config": {
+            "deployTicks": 0,
+            "firstHitTicks": 10000,
+            "hitSpeedTicks": 48
+          },
+          "nextAttackTick": null,
+          "nextTick": 1590,
+          "phase": "idle",
+          "targetId": null
+        },
+        "hitpoints": 3052,
+        "id": "south:lane:east",
+        "lane": "east",
+        "position": {
+          "x": 14500,
+          "y": 7500
+        },
+        "role": "lane",
+        "side": "south"
+      },
+      {
+        "active": true,
+        "attack": {
+          "attackSequence": 0,
+          "config": {
+            "deployTicks": 0,
+            "firstHitTicks": 10000,
+            "hitSpeedTicks": 60
+          },
+          "nextAttackTick": null,
+          "nextTick": 1590,
+          "phase": "idle",
+          "targetId": null
+        },
+        "hitpoints": 4824,
+        "id": "north:central",
+        "lane": null,
+        "position": {
+          "x": 9000,
+          "y": 29000
+        },
+        "role": "central",
+        "side": "north"
+      },
+      {
+        "active": true,
+        "attack": {
+          "attackSequence": 0,
+          "config": {
+            "deployTicks": 0,
+            "firstHitTicks": 10000,
+            "hitSpeedTicks": 48
+          },
+          "nextAttackTick": 10962,
+          "nextTick": 1590,
+          "phase": "winding",
+          "targetId": 2
+        },
+        "hitpoints": 172,
+        "id": "north:lane:west",
+        "lane": "west",
+        "position": {
+          "x": 3500,
+          "y": 24500
+        },
+        "role": "lane",
+        "side": "north"
+      },
+      {
+        "active": true,
+        "attack": {
+          "attackSequence": 0,
+          "config": {
+            "deployTicks": 0,
+            "firstHitTicks": 10000,
+            "hitSpeedTicks": 48
+          },
+          "nextAttackTick": null,
+          "nextTick": 1590,
+          "phase": "idle",
+          "targetId": null
+        },
+        "hitpoints": 0,
+        "id": "north:lane:east",
+        "lane": "east",
+        "position": {
+          "x": 14500,
+          "y": 24500
+        },
+        "role": "lane",
+        "side": "north"
+      }
+    ],
+    "toTick": 1590,
+    "segments": [
+      {
+        "browser": {
+          "active": true,
+          "backlogTicks": 0,
+          "domTick": 1590,
+          "paused": false,
+          "running": false,
+          "scheduled": false,
+          "selectedCardId": null,
+          "sessionTick": 1590,
+          "terminal": true,
+          "restartCount": 0
+        },
+        "browserSnapshotBytes": 62943,
+        "crowns": {
+          "north": 3,
+          "south": 1
+        },
+        "elapsedMilliseconds": 3609,
+        "entityCount": 2,
+        "eventCount": 22,
+        "fromTick": 1106,
+        "replayCount": 43,
+        "result": {
+          "crowns": {
+            "north": 3,
+            "south": 1
+          },
+          "endedAtTick": 1589,
+          "kind": "win",
+          "reason": "central_destroyed",
+          "winner": "north"
+        },
+        "sessionSnapshotBytes": 50902,
+        "towers": [
+          {
+            "active": true,
+            "attack": {
+              "attackSequence": 0,
+              "config": {
+                "deployTicks": 0,
+                "firstHitTicks": 10000,
+                "hitSpeedTicks": 60
+              },
+              "nextAttackTick": null,
+              "nextTick": 1590,
+              "phase": "idle",
+              "targetId": null
+            },
+            "hitpoints": 0,
+            "id": "south:central",
+            "lane": null,
+            "position": {
+              "x": 9000,
+              "y": 3000
+            },
+            "role": "central",
+            "side": "south"
+          },
+          {
+            "active": true,
+            "attack": {
+              "attackSequence": 0,
+              "config": {
+                "deployTicks": 0,
+                "firstHitTicks": 10000,
+                "hitSpeedTicks": 48
+              },
+              "nextAttackTick": null,
+              "nextTick": 1590,
+              "phase": "idle",
+              "targetId": null
+            },
+            "hitpoints": 0,
+            "id": "south:lane:west",
+            "lane": "west",
+            "position": {
+              "x": 3500,
+              "y": 7500
+            },
+            "role": "lane",
+            "side": "south"
+          },
+          {
+            "active": true,
+            "attack": {
+              "attackSequence": 0,
+              "config": {
+                "deployTicks": 0,
+                "firstHitTicks": 10000,
+                "hitSpeedTicks": 48
+              },
+              "nextAttackTick": null,
+              "nextTick": 1590,
+              "phase": "idle",
+              "targetId": null
+            },
+            "hitpoints": 3052,
+            "id": "south:lane:east",
+            "lane": "east",
+            "position": {
+              "x": 14500,
+              "y": 7500
+            },
+            "role": "lane",
+            "side": "south"
+          },
+          {
+            "active": true,
+            "attack": {
+              "attackSequence": 0,
+              "config": {
+                "deployTicks": 0,
+                "firstHitTicks": 10000,
+                "hitSpeedTicks": 60
+              },
+              "nextAttackTick": null,
+              "nextTick": 1590,
+              "phase": "idle",
+              "targetId": null
+            },
+            "hitpoints": 4824,
+            "id": "north:central",
+            "lane": null,
+            "position": {
+              "x": 9000,
+              "y": 29000
+            },
+            "role": "central",
+            "side": "north"
+          },
+          {
+            "active": true,
+            "attack": {
+              "attackSequence": 0,
+              "config": {
+                "deployTicks": 0,
+                "firstHitTicks": 10000,
+                "hitSpeedTicks": 48
+              },
+              "nextAttackTick": 10962,
+              "nextTick": 1590,
+              "phase": "winding",
+              "targetId": 2
+            },
+            "hitpoints": 172,
+            "id": "north:lane:west",
+            "lane": "west",
+            "position": {
+              "x": 3500,
+              "y": 24500
+            },
+            "role": "lane",
+            "side": "north"
+          },
+          {
+            "active": true,
+            "attack": {
+              "attackSequence": 0,
+              "config": {
+                "deployTicks": 0,
+                "firstHitTicks": 10000,
+                "hitSpeedTicks": 48
+              },
+              "nextAttackTick": null,
+              "nextTick": 1590,
+              "phase": "idle",
+              "targetId": null
+            },
+            "hitpoints": 0,
+            "id": "north:lane:east",
+            "lane": "east",
+            "position": {
+              "x": 14500,
+              "y": 24500
+            },
+            "role": "lane",
+            "side": "north"
+          }
+        ],
+        "toTick": 1590
+      }
+    ]
+  },
+  "unhandled": []
+}
