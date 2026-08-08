@@ -24,11 +24,11 @@
 </head>
 <body>
   <h1>Gauntlet progress</h1>
-  <p class="sub">Updated 2026-08-03 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
+  <p class="sub">Updated 2026-08-08 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
-    <div class="card"><div class="num">143</div><div class="label">tracked pieces</div></div>
+    <div class="card"><div class="num">145</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">106</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">230</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">234</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">24</div><div class="label">open questions</div></div>
   </div>
   <p class="note">Active target: <strong>GAME-001GH — Sustained active-match composite history</strong>.</p>
@@ -1158,20 +1158,36 @@
         <td>Round 1 passed exact 58/53 accounting, 47 admitted legal deck witnesses, six sourced QUESTION exclusions, typed once-only routing, zero non-unit placeholders and bounded canonical history</td>
       </tr>
       <tr>
-        <td><code>GAME-001HT</code></td>
-        <td>Unified-session troop roster mechanics</td>
+        <td><code>GAME-001HTA</code></td>
+        <td>Shared troop mechanic authority seam</td>
         <td class="state-pending">PENDING</td>
         <td>0/0</td>
         <td>0</td>
-        <td>Thirty-three troop IDs remain isolated across encounter facades rather than the common session runtime</td>
+        <td>No honest shared reducer/action seam exists; a detached troop encounter would be a prohibited second simulation</td>
+      </tr>
+      <tr>
+        <td><code>GAME-001HT</code></td>
+        <td>Unified-session troop roster mechanics</td>
+        <td class="state-blocked">BLOCKED</td>
+        <td>0/0</td>
+        <td>1</td>
+        <td>Round 1 failed: 31 IDs/33 occurrences admitted, 23 admitted IDs unprojected, and no serialized shared mechanic/ability-action seam</td>
+      </tr>
+      <tr>
+        <td><code>GAME-001HBA</code></td>
+        <td>Shared building mechanic authority seam</td>
+        <td class="state-pending">PENDING</td>
+        <td>0/0</td>
+        <td>0</td>
+        <td>The current component owns a private second session; GameSession has no building host/materialization seam</td>
       </tr>
       <tr>
         <td><code>GAME-001HB</code></td>
         <td>Unified-session building roster mechanics</td>
-        <td class="state-pending">PENDING</td>
+        <td class="state-blocked">BLOCKED</td>
         <td>0/0</td>
-        <td>0</td>
-        <td>Ten building IDs remain isolated from the common session runtime</td>
+        <td>1</td>
+        <td>Round 1 failed: real GameSession only records a structure route; the component separately owns deck/elixir/tower/unit/tick/transcript authority</td>
       </tr>
       <tr>
         <td><code>GAME-001HS</code></td>
@@ -1416,6 +1432,8 @@
       <li><strong>R230 PASS</strong> · GAME-001HA — Heterogeneous session card admission and typed history<br>None on the judged heterogeneous admission/history dimension.</li>
       <li><strong>R231 PASS</strong> · GAME-001E4 — Restart control and fresh-session lifecycle<br>None on the judged fresh-session lifecycle dimension.</li>
       <li><strong>R232 PASS</strong> · GAME-001GS — Short authentic browser match journey<br>None on the judged short authentic browser journey; sustained default-match endurance remains separately open in GAME-001GH/GP.</li>
+      <li><strong>R233 FAIL</strong> · GAME-001HT — Unified-session troop roster mechanics<br>Make LiveBattle own a serialized/forkable SessionTroopRuntime intent reducer across deploy/pre-move/pre-combat/post-combat and expose its canonical ability actions through GameSession.</li>
+      <li><strong>R234 FAIL</strong> · GAME-001HB — Unified-session building roster mechanics<br>Integrate all eight admitted building mechanics into GameSession/game-side-deploy so one authoritative battle, deck, elixir, tower/unit, history and restore graph owns and steps them, then register the selector and nondeterminism inventory.</li>
   </ol>
 </body>
 </html>

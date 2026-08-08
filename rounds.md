@@ -4291,3 +4291,48 @@ next trusted 600-tick prefix matched direct simulation. No browser/server orphan
 
 BIGGEST GAP: None on the judged short authentic browser journey; sustained
 default-match endurance remains separately open in GAME-001GH/GP.
+
+## Round 233 — 2026-08-08
+
+PIECE: GAME-001HT — Unified-session troop roster mechanics
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- game-roster-troops` exited 1 with
+`TypeError: unknown test selector: game-roster-troops`. Admission 7/7,
+GameSession 8/8, nondeterminism guard 9/9 and shipping guard 13/13 passed.
+Independent manifest probes found 31 admitted troop IDs / 33 occurrences;
+`ashen-nest` and `gloam-shepherd` remain explicit identity-only QUESTION claims
+and cannot enter legal decks without fabricated fields. Only eight basic troop
+IDs have supplied LiveBattle projections, leaving 23 admitted IDs unprojected.
+An `action` command was rejected as an invalid player-session command,
+`emberlance` unit projection rejected as belonging to a troop binding, and no
+LiveBattle mechanic/action reducer exists. No implementation was accepted: a
+detached troop runtime would create the prohibited second simulation.
+
+BIGGEST GAP: Make LiveBattle own a serialized/forkable SessionTroopRuntime
+intent reducer across deploy/pre-move/pre-combat/post-combat and expose its
+canonical ability actions through GameSession.
+
+## Round 234 — 2026-08-08
+
+PIECE: GAME-001HB — Unified-session building roster mechanics
+
+VERDICT: FAIL
+
+EVIDENCE: The direct component runner passed 9/9, while
+`npm test -- game-roster-buildings` exited 1 with `unknown test selector`.
+Admission 7/7, defensive 23/23, spawner 18/18, resource 13/13, travel 13/13
+and shipping isolation 13/13 passed. Nondeterminism failed 1/9 because the new
+simulation module was absent from its static inventory. The six-file artifact
+left `GameSession` and `game-side-deploy` untouched and no production source
+imported its runtime. An independent real GameSession play of `bulwark-needle`
+recorded one structure route but zero battle units, materialization/deployment
+events or owned structure snapshot. The component separately constructed its
+own deck, elixir, units, towers, tick and transcript. Its cinder scenario used
+external damage and produced zero tower-damage events with all towers unchanged.
+
+BIGGEST GAP: Integrate all eight admitted building mechanics into
+GameSession/game-side-deploy so one authoritative battle, deck, elixir,
+tower/unit, history and restore graph owns and steps them, then register the
+selector and nondeterminism inventory.
