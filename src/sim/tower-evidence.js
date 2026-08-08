@@ -1,5 +1,11 @@
 import { MATCH_MAX_EVIDENCE_COMMANDS, MATCH_MAX_TICKS } from "./match.js";
+import {
+  mapBattleTowerIdToMatchTowerId,
+  mapLiveBattleTowerStateToMatchEvidence,
+} from "./tower-evidence-map.js";
 import { CrownTowerBattle, TOWER_COMBAT_CONFIG } from "./towers.js";
+
+export { mapBattleTowerIdToMatchTowerId, mapLiveBattleTowerStateToMatchEvidence };
 
 export const TOWER_EVIDENCE_MAX_STEPS = 100_000;
 export const TOWER_EVIDENCE_MAX_SNAPSHOT_BYTES = 8 * 1024 * 1024;
@@ -132,25 +138,6 @@ function evidenceFromHitpoints(hitpoints) {
   };
 }
 
-/** Pure mapping for callers that already own an authoritative live battle. */
-export function mapLiveBattleTowerStateToMatchEvidence(towers) {
-  const values = exactArray(towers, "live battle towers");
-  if (values.length !== BATTLE_IDS.length) {
-    throw new TypeError("live battle towers must contain all six towers");
-  }
-  const hitpoints = {};
-  for (const [index, value] of values.entries()) {
-    const tower = exactObject(value, ["active", "attack", "hitpoints", "id", "lane",
-      "position", "role", "side"], `live battle towers[${index}]`);
-    if (!BATTLE_IDS.includes(tower.id) || Object.hasOwn(hitpoints, tower.id) ||
-        !Number.isSafeInteger(tower.hitpoints) || tower.hitpoints < 0) {
-      throw new TypeError(`live battle towers[${index}] is invalid`);
-    }
-    hitpoints[tower.id] = tower.hitpoints;
-  }
-  return deepFreeze(evidenceFromHitpoints(hitpoints));
-}
-
 function stepsArePrefix(previous, next) {
   return previous.length <= next.length && previous.every(
     (step, index) => canonicalJson(step) === canonicalJson(next[index]),
@@ -271,9 +258,4 @@ export class TowerEvidenceBridge {
     if (bridge.serialize() !== serialized) throw new TypeError("tower evidence snapshot must use canonical bytes");
     return bridge;
   }
-}
-
-export function mapBattleTowerIdToMatchTowerId(id) {
-  if (typeof id !== "string" || !Object.hasOwn(ID_MAP, id)) throw new TypeError("battle tower ID is unknown");
-  return ID_MAP[id];
 }

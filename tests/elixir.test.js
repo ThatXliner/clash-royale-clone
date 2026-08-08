@@ -178,14 +178,14 @@ test("elixir: chunked and single-step execution are byte-identical", () => {
   assert.equal(chunked.replayBytes(), stepped.replayBytes());
 });
 
-test("elixir: continuation forks copy present authority without changing public logs", () => {
+test("elixir: public restore copies present authority without changing public logs", () => {
   const source = new ElixirMatch({ startingElixir: { north: 7, south: 6 } });
   source.scheduleSpend(1, "south", 2);
   source.scheduleSpend(4, "north", 3);
   source.step({ grants: [{ amount: 1, side: "south", sourceId: 9 }] });
   const bytes = source.serialize();
   const replay = source.replayBytes();
-  const fork = source.continuationFork();
+  const fork = ElixirMatch.restore(bytes);
 
   assert.equal(source.serialize(), bytes);
   assert.equal(fork.serialize(), bytes);

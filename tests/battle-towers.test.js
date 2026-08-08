@@ -170,7 +170,7 @@ test("battle towers: unit projectiles use the arena tower footprint for contact 
   assert.equal(next.some(({ type }) => type === "external-structure-contact"), false);
 });
 
-test("battle towers: compact continuations retain only pending unit projectile provenance", () => {
+test("battle towers: public forks retain pending unit projectile provenance", () => {
   const source = new BattleTowerCombat(setup([
     unit(35, "north", {
       cadenceTicks: 100,
@@ -195,13 +195,12 @@ test("battle towers: compact continuations retain only pending unit projectile p
   assert.equal(source.state.projectiles.length, 1);
   const sourceBytes = source.serialize();
   const publicFork = source.fork();
-  const continuation = source.continuationFork().continuationFork();
+  const continuation = source.fork();
 
   assert.equal(source.serialize(), sourceBytes);
   assert.deepEqual(continuation.state, publicFork.state);
-  assert.throws(() => continuation.serialize(), /internal battle tower continuation/u);
-  assert.throws(() => continuation.replay, /internal battle tower continuation/u);
-  assert.throws(() => continuation.fork(), /internal battle tower continuation/u);
+  assert.equal(continuation.serialize(), publicFork.serialize());
+  assert.deepEqual(continuation.replay, publicFork.replay);
   assert.equal(source.serialize(), sourceBytes);
 
   const expected = publicFork.step(1);

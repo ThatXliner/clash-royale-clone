@@ -65,6 +65,7 @@ const EXPECTED_SIMULATION_MODULES = Object.freeze([
   "arena-geometry.js",
   "attack-cycle.js",
   "battle-combat.js",
+  "battle-continuation-kernel.js",
   "battle-movement.js",
   "battle-towers.js",
   "damage.js",
@@ -78,6 +79,7 @@ const EXPECTED_SIMULATION_MODULES = Object.freeze([
   "game-opponent.js",
   "game-player-deploy.js",
   "game-session.js",
+  "game-side-deploy-core.js",
   "game-side-deploy.js",
   "live-battle.js",
   "match.js",
@@ -90,6 +92,7 @@ const EXPECTED_SIMULATION_MODULES = Object.freeze([
   "session-card-runtime.js",
   "spatial.js",
   "targeting.js",
+  "tower-evidence-map.js",
   "tower-evidence.js",
   "towers.js",
 ]);

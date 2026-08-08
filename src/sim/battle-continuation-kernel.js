@@ -1,0 +1,7941 @@
+import {
+  ARENA_LENGTH_MILLITILES,
+  ARENA_WIDTH_MILLITILES,
+  getArenaGeometry,
+  isPointInArena,
+  validateArenaPoint,
+} from "./arena-geometry.js";
+import { AttackCycle, attackSecondsToTicks } from "./attack-cycle.js";
+import { DamageSystem } from "./damage.js";
+import { DeckCycle } from "./deck.js";
+import { evaluateDeployment } from "./deployment.js";
+import { layoutFormation } from "./formations.js";
+import { MOVEMENT_TICKS_PER_SECOND } from "./movement.js";
+import { findGroundPath, isGroundNavigationNode } from "./pathfinding.js";
+import { SeededRandom } from "./rng.js";
+import { SessionCardRuntime, isAuthenticSessionCardRuntime } from "./session-card-runtime.js";
+import { MAX_SPATIAL_MILLITILES, validateCircle, validatePosition } from "./spatial.js";
+import { retainOrAcquireTarget, targetCandidate } from "./targeting.js";
+import { createStageSideDeployment } from "./game-side-deploy-core.js";
+import {
+  mapBattleTowerIdToMatchTowerId,
+  mapLiveBattleTowerStateToMatchEvidence,
+} from "./tower-evidence-map.js";
+
+function assertOpaqueContinuationHandle(handle) {
+  if (Object.getPrototypeOf(handle) !== null || !Object.isFrozen(handle) ||
+      Reflect.ownKeys(handle).length !== 0 || JSON.stringify(handle) !== "{}" ||
+      ["fork", "replay", "restore", "serialize"].some((name) => name in handle)) {
+    throw new Error("internal compact continuation handle is observable");
+  }
+}
+
+// Bootstrap the shape invariant once as well as for each issued handle. The
+// value is module lexical and deliberately has no identity-bearing fields.
+assertOpaqueContinuationHandle(Object.freeze(Object.create(null)));
+
+function opaqueContinuation(copy, register) {
+  const runtimes = new WeakMap();
+  const issue = (value) => {
+    // Validate and clone before allocating the capability. An invalid receiver
+    // therefore leaves the capability map and owning transaction untouched.
+    const runtime = copy(value);
+    const handle = Object.freeze(Object.create(null));
+    assertOpaqueContinuationHandle(handle);
+    runtimes.set(handle, runtime);
+    return handle;
+  };
+  const resolve = (handle) => {
+    // WeakMap identity admission never invokes traps on forged, proxied, or
+    // revoked candidate handles. Only a handle issued by this lexical scope
+    // reaches an underlying runtime.
+    if (!runtimes.has(handle)) {
+      throw new TypeError("internal compact continuation handle is invalid");
+    }
+    return runtimes.get(handle);
+  };
+  register(issue, resolve);
+}
+
+function defineBattleMovement(registerCompact) {
+  let compact;
+  const runtimeInstances = new WeakSet();
+
+const BATTLE_MOVEMENT_MODES = Object.freeze({
+  air: "air",
+  ground: "ground",
+});
+
+const MAX_BATTLE_MOVEMENT_STEP_TICKS = 18_000;
+const MAX_SNAPSHOT_BYTES = 262_144;
+const MAX_ROUTE_POINTS = 1_024;
+const MAX_COMMANDS = 1_024;
+const MAX_TICK = 18_000;
+const MAX_SPEED = 1_000_000;
+const STATE_KEYS = [
+  "anchor",
+  "bodyRadius",
+  "commands",
+  "edgeStart",
+  "initialPosition",
+  "mode",
+  "position",
+  "remainder",
+  "route",
+  "routeIndex",
+  "routeOrigin",
+  "segmentLength",
+  "segmentProgress",
+  "segmentStart",
+  "speed",
+  "target",
+  "tick",
+];
+const TARGET_KEYS = ["position", "radius", "range"];
+const STOP_COMMAND_KEYS = ["kind", "tick"];
+const TARGET_COMMAND_KEYS = ["kind", "target", "tick"];
+
+function assertPlainObject(value, label) {
+  if (
+    value === null ||
+    typeof value !== "object" ||
+    Array.isArray(value) ||
+    (Object.getPrototypeOf(value) !== Object.prototype &&
+      Object.getPrototypeOf(value) !== null) ||
+    Object.getOwnPropertySymbols(value).length !== 0
+  ) {
+    throw new TypeError(`${label} must be a plain string-keyed data object`);
+  }
+  for (const [key, descriptor] of Object.entries(
+    Object.getOwnPropertyDescriptors(value),
+  )) {
+    if (!descriptor.enumerable || !Object.hasOwn(descriptor, "value")) {
+      throw new TypeError(`${label}.${key} must be an enumerable data property`);
+    }
+  }
+}
+
+function assertExactKeys(value, keys, label) {
+  assertPlainObject(value, label);
+  const actual = Object.keys(value).sort();
+  const expected = [...keys].sort();
+  if (
+    actual.length !== expected.length ||
+    actual.some((key, index) => key !== expected[index])
+  ) {
+    throw new TypeError(`${label} has an invalid shape`);
+  }
+}
+
+function integer(value, minimum, maximum, label) {
+  if (!Number.isSafeInteger(value) || value < minimum || value > maximum) {
+    throw new TypeError(
+      `${label} must be a safe integer from ${minimum} through ${maximum}`,
+    );
+  }
+  return value;
+}
+
+function point(value, label) {
+  const checked = validateArenaPoint(value, label);
+  if (!isPointInArena(checked)) {
+    throw new RangeError(`${label} must be inside the arena`);
+  }
+  return { x: checked.x, y: checked.y };
+}
+
+function assertBodyFits(position, radius, label) {
+  if (
+    position.x < radius ||
+    position.x > ARENA_WIDTH_MILLITILES - radius ||
+    position.y < radius ||
+    position.y > ARENA_LENGTH_MILLITILES - radius
+  ) {
+    throw new RangeError(`${label} must fit inside the radius-inset arena`);
+  }
+}
+
+function target(value, label = "battle movement target") {
+  if (value === null) return null;
+  assertExactKeys(value, TARGET_KEYS, label);
+  return {
+    position: point(value.position, `${label}.position`),
+    radius: integer(value.radius, 0, ARENA_WIDTH_MILLITILES, `${label}.radius`),
+    range: integer(value.range, 0, ARENA_LENGTH_MILLITILES, `${label}.range`),
+  };
+}
+
+function clonePoint(value) {
+  return { x: value.x, y: value.y };
+}
+
+function samePoint(left, right) {
+  return left.x === right.x && left.y === right.y;
+}
+
+function pointsEqual(left, right) {
+  return left.length === right.length && left.every((entry, index) =>
+    samePoint(entry, right[index]));
+}
+
+function isPointOnAxisSegment(candidate, from, to) {
+  if (samePoint(from, to)) return samePoint(candidate, from);
+  if (from.x === to.x && candidate.x === from.x) {
+    return candidate.y >= Math.min(from.y, to.y) &&
+      candidate.y <= Math.max(from.y, to.y);
+  }
+  if (from.y === to.y && candidate.y === from.y) {
+    return candidate.x >= Math.min(from.x, to.x) &&
+      candidate.x <= Math.max(from.x, to.x);
+  }
+  return false;
+}
+
+function cloneTarget(value) {
+  return value === null
+    ? null
+    : {
+        position: clonePoint(value.position),
+        radius: value.radius,
+        range: value.range,
+      };
+}
+
+function frozenTarget(value) {
+  const copy = cloneTarget(value);
+  return Object.freeze({
+    position: Object.freeze(copy.position),
+    radius: copy.radius,
+    range: copy.range,
+  });
+}
+
+function cloneCommand(value) {
+  return value.kind === "stop"
+    ? { kind: "stop", tick: value.tick }
+    : { kind: "target", target: cloneTarget(value.target), tick: value.tick };
+}
+
+function frozenCommand(value) {
+  const copy = cloneCommand(value);
+  if (copy.kind === "target") copy.target = frozenTarget(copy.target);
+  return Object.freeze(copy);
+}
+
+function validateCommands(value, snapshotTick, label) {
+  if (!Array.isArray(value) || value.length > MAX_COMMANDS) {
+    throw new TypeError(`${label} must be a bounded command array`);
+  }
+  let priorTick = 0;
+  return value.map((entry, index) => {
+    const commandLabel = `${label}[${index}]`;
+    assertPlainObject(entry, commandLabel);
+    if (entry.kind === "stop") {
+      assertExactKeys(entry, STOP_COMMAND_KEYS, commandLabel);
+      const tick = integer(entry.tick, priorTick, snapshotTick, `${commandLabel}.tick`);
+      priorTick = tick;
+      return { kind: "stop", tick };
+    }
+    if (entry.kind === "target") {
+      assertExactKeys(entry, TARGET_COMMAND_KEYS, commandLabel);
+      const tick = integer(entry.tick, priorTick, snapshotTick, `${commandLabel}.tick`);
+      priorTick = tick;
+      return {
+        kind: "target",
+        target: target(entry.target, `${commandLabel}.target`),
+        tick,
+      };
+    }
+    throw new TypeError(`${commandLabel}.kind must be target or stop`);
+  });
+}
+
+function squaredDistance(left, right) {
+  const dx = BigInt(left.x) - BigInt(right.x);
+  const dy = BigInt(left.y) - BigInt(right.y);
+  return dx * dx + dy * dy;
+}
+
+function isInBar(position, bodyRadius, destination) {
+  const bar = BigInt(bodyRadius + destination.radius + destination.range);
+  return squaredDistance(position, destination.position) <= bar * bar;
+}
+
+function integerSquareRoot(value) {
+  if (value < 0n) throw new RangeError("square root input must be non-negative");
+  if (value < 2n) return value;
+  let low = 1n;
+  let high = value;
+  while (low <= high) {
+    const middle = (low + high) >> 1n;
+    const square = middle * middle;
+    if (square === value) return middle;
+    if (square < value) low = middle + 1n;
+    else high = middle - 1n;
+  }
+  return high;
+}
+
+function segmentLength(from, to) {
+  const square = squaredDistance(from, to);
+  const floor = integerSquareRoot(square);
+  return Number(floor * floor === square ? floor : floor + 1n);
+}
+
+function interpolate(from, to, progress, length) {
+  if (progress === length) return clonePoint(to);
+  const result = {};
+  for (const axis of ["x", "y"]) {
+    const delta = BigInt(to[axis]) - BigInt(from[axis]);
+    const magnitude = delta < 0n ? -delta : delta;
+    const offset = (magnitude * BigInt(progress)) / BigInt(length);
+    result[axis] = from[axis] + (delta < 0n ? -Number(offset) : Number(offset));
+  }
+  return result;
+}
+
+function firstProgressInBar(from, to, length, bodyRadius, destination) {
+  if (isInBar(from, bodyRadius, destination)) return 0;
+  if (!isInBar(to, bodyRadius, destination)) return length;
+  let low = 1;
+  let high = length;
+  while (low < high) {
+    const middle = Math.floor((low + high) / 2);
+    if (isInBar(interpolate(from, to, middle, length), bodyRadius, destination)) {
+      high = middle;
+    } else {
+      low = middle + 1;
+    }
+  }
+  return low;
+}
+
+function event(kind, tick, position, extra = {}) {
+  return Object.freeze({
+    kind,
+    position: Object.freeze(clonePoint(position)),
+    tick,
+    ...extra,
+  });
+}
+
+function frozenEvents(events) {
+  return Object.freeze(events);
+}
+
+function deepFrozenState(state) {
+  const copy = {
+    anchor: state.anchor === null ? null : Object.freeze(clonePoint(state.anchor)),
+    bodyRadius: state.bodyRadius,
+    commands: Object.freeze(state.commands.map(frozenCommand)),
+    edgeStart: state.edgeStart === null
+      ? null
+      : Object.freeze(clonePoint(state.edgeStart)),
+    initialPosition: Object.freeze(clonePoint(state.initialPosition)),
+    mode: state.mode,
+    position: Object.freeze(clonePoint(state.position)),
+    remainder: state.remainder,
+    route: Object.freeze(state.route.map((entry) => Object.freeze(clonePoint(entry)))),
+    routeIndex: state.routeIndex,
+    routeOrigin: state.routeOrigin === null
+      ? null
+      : Object.freeze(clonePoint(state.routeOrigin)),
+    segmentLength: state.segmentLength,
+    segmentProgress: state.segmentProgress,
+    segmentStart: Object.freeze(clonePoint(state.segmentStart)),
+    speed: state.speed,
+    target: state.target === null
+      ? null
+      : Object.freeze({
+          position: Object.freeze(clonePoint(state.target.position)),
+          radius: state.target.radius,
+          range: state.target.range,
+        }),
+    tick: state.tick,
+  };
+  return Object.freeze(copy);
+}
+
+function canonicalState(state) {
+  return {
+    anchor: state.anchor === null ? null : clonePoint(state.anchor),
+    bodyRadius: state.bodyRadius,
+    commands: state.commands.map(cloneCommand),
+    edgeStart: state.edgeStart === null ? null : clonePoint(state.edgeStart),
+    initialPosition: clonePoint(state.initialPosition),
+    mode: state.mode,
+    position: clonePoint(state.position),
+    remainder: state.remainder,
+    route: state.route.map(clonePoint),
+    routeIndex: state.routeIndex,
+    routeOrigin: state.routeOrigin === null ? null : clonePoint(state.routeOrigin),
+    segmentLength: state.segmentLength,
+    segmentProgress: state.segmentProgress,
+    segmentStart: clonePoint(state.segmentStart),
+    speed: state.speed,
+    target: cloneTarget(state.target),
+    tick: state.tick,
+  };
+}
+
+function validateState(value, label = "battle movement state") {
+  assertExactKeys(value, STATE_KEYS, label);
+  if (!Object.values(BATTLE_MOVEMENT_MODES).includes(value.mode)) {
+    throw new TypeError(`${label}.mode must be ground or air`);
+  }
+  const bodyRadius = integer(
+    value.bodyRadius,
+    0,
+    Math.floor(ARENA_WIDTH_MILLITILES / 2),
+    `${label}.bodyRadius`,
+  );
+  const position = point(value.position, `${label}.position`);
+  assertBodyFits(position, bodyRadius, `${label}.position`);
+  const initialPosition = point(value.initialPosition, `${label}.initialPosition`);
+  assertBodyFits(initialPosition, bodyRadius, `${label}.initialPosition`);
+  if (value.mode === BATTLE_MOVEMENT_MODES.ground &&
+      !isGroundNavigationNode(initialPosition)) {
+    throw new RangeError(`${label}.initialPosition must be a ground navigation node`);
+  }
+  const speed = integer(value.speed, 0, MAX_SPEED, `${label}.speed`);
+  const remainder = integer(
+    value.remainder,
+    0,
+    MOVEMENT_TICKS_PER_SECOND - 1,
+    `${label}.remainder`,
+  );
+  const tick = integer(value.tick, 0, MAX_TICK, `${label}.tick`);
+  const commands = validateCommands(value.commands, tick, `${label}.commands`);
+  const destination = target(value.target, `${label}.target`);
+  const anchor = value.anchor === null
+    ? null
+    : point(value.anchor, `${label}.anchor`);
+  if (value.mode === BATTLE_MOVEMENT_MODES.air && anchor !== null) {
+    throw new RangeError(`${label}.anchor must be null for air movement`);
+  }
+  if (value.mode === BATTLE_MOVEMENT_MODES.ground &&
+      (anchor === null || !isGroundNavigationNode(anchor))) {
+    throw new RangeError(`${label}.anchor must be a ground navigation node`);
+  }
+  const edgeStart = value.edgeStart === null
+    ? null
+    : point(value.edgeStart, `${label}.edgeStart`);
+  if (value.mode === BATTLE_MOVEMENT_MODES.air && edgeStart !== null) {
+    throw new RangeError(`${label}.edgeStart must be null for air movement`);
+  }
+  if (value.mode === BATTLE_MOVEMENT_MODES.ground &&
+      (edgeStart === null || !isGroundNavigationNode(edgeStart))) {
+    throw new RangeError(`${label}.edgeStart must be a ground navigation node`);
+  }
+  if (anchor !== null) assertBodyFits(anchor, bodyRadius, `${label}.anchor`);
+  if (edgeStart !== null) {
+    assertBodyFits(edgeStart, bodyRadius, `${label}.edgeStart`);
+    if (!samePoint(edgeStart, anchor)) {
+      const edge = findGroundPath(edgeStart, anchor);
+      if (edge === null || edge.length !== 2 ||
+          !samePoint(edge[0], edgeStart) || !samePoint(edge[1], anchor)) {
+        throw new RangeError(`${label} has a noncanonical active ground edge`);
+      }
+    }
+  }
+  const routeOrigin = value.routeOrigin === null
+    ? null
+    : point(value.routeOrigin, `${label}.routeOrigin`);
+  const routeIndex = integer(
+    value.routeIndex,
+    0,
+    MAX_ROUTE_POINTS,
+    `${label}.routeIndex`,
+  );
+  if (value.mode === BATTLE_MOVEMENT_MODES.air &&
+      (routeOrigin !== null || routeIndex !== 0)) {
+    throw new RangeError(`${label} cannot use ground route provenance in air mode`);
+  }
+  if (value.mode === BATTLE_MOVEMENT_MODES.ground &&
+      (routeOrigin === null || !isGroundNavigationNode(routeOrigin))) {
+    throw new RangeError(`${label}.routeOrigin must be a ground navigation node`);
+  }
+  if (routeOrigin !== null) {
+    assertBodyFits(routeOrigin, bodyRadius, `${label}.routeOrigin`);
+  }
+  if (!Array.isArray(value.route) || value.route.length > MAX_ROUTE_POINTS) {
+    throw new TypeError(`${label}.route must be a bounded array`);
+  }
+  const route = value.route.map((entry, index) => {
+    const checked = point(entry, `${label}.route[${index}]`);
+    assertBodyFits(checked, bodyRadius, `${label}.route[${index}]`);
+    if (value.mode === BATTLE_MOVEMENT_MODES.ground &&
+        !isGroundNavigationNode(checked)) {
+      throw new RangeError(`${label}.route[${index}] must be a ground navigation node`);
+    }
+    return checked;
+  });
+  const segmentStart = point(value.segmentStart, `${label}.segmentStart`);
+  assertBodyFits(segmentStart, bodyRadius, `${label}.segmentStart`);
+  if (value.mode === BATTLE_MOVEMENT_MODES.ground &&
+      (!isPointOnAxisSegment(segmentStart, edgeStart, anchor) ||
+       !isPointOnAxisSegment(position, edgeStart, anchor))) {
+    throw new RangeError(`${label} is not on its canonical active ground edge`);
+  }
+  const checkedLength = integer(
+    value.segmentLength,
+    0,
+    ARENA_WIDTH_MILLITILES + ARENA_LENGTH_MILLITILES,
+    `${label}.segmentLength`,
+  );
+  const checkedProgress = integer(
+    value.segmentProgress,
+    0,
+    checkedLength,
+    `${label}.segmentProgress`,
+  );
+  if (route.length === 0) {
+    if (checkedLength !== 0 || checkedProgress !== 0 || remainder !== 0 ||
+        segmentStart.x !== position.x || segmentStart.y !== position.y) {
+      throw new RangeError(`${label} has inconsistent idle segment state`);
+    }
+    if (value.mode === BATTLE_MOVEMENT_MODES.ground && destination !== null &&
+        speed > 0 && !isInBar(position, bodyRadius, destination)) {
+      throw new RangeError(`${label} stopped outside its target bar`);
+    }
+    if (value.mode === BATTLE_MOVEMENT_MODES.ground && destination === null &&
+        (routeIndex !== 0 || !samePoint(routeOrigin, anchor))) {
+      throw new RangeError(`${label} has noncanonical stopped route provenance`);
+    }
+  } else {
+    const expectedLength = segmentLength(segmentStart, route[0]);
+    if (expectedLength === 0 || checkedLength !== expectedLength ||
+        checkedProgress >= checkedLength) {
+      throw new RangeError(`${label} has inconsistent active segment state`);
+    }
+    const expectedPosition = interpolate(
+      segmentStart,
+      route[0],
+      checkedProgress,
+      checkedLength,
+    );
+    if (expectedPosition.x !== position.x || expectedPosition.y !== position.y) {
+      throw new RangeError(`${label}.position does not match segment progress`);
+    }
+    if (destination === null || speed === 0) {
+      throw new RangeError(`${label} cannot route without a moving command`);
+    }
+    if (value.mode === BATTLE_MOVEMENT_MODES.ground) {
+      if (anchor.x !== route[0].x || anchor.y !== route[0].y) {
+        throw new RangeError(`${label}.anchor must be the next ground waypoint`);
+      }
+      const canonical = findGroundPath(routeOrigin, destination.position);
+      const expected = canonical?.slice(routeIndex);
+      if (canonical === null || !pointsEqual(route, expected)) {
+        throw new RangeError(
+          `${label}.route must exactly match the canonical ground path`,
+        );
+      }
+    } else if (route.length !== 1 ||
+        route[0].x !== destination.position.x ||
+        route[0].y !== destination.position.y) {
+      throw new RangeError(`${label}.route must be the direct air segment`);
+    }
+  }
+  if ((destination === null || speed === 0) && remainder !== 0) {
+    throw new RangeError(`${label}.remainder must be zero while stopped`);
+  }
+  return {
+    anchor,
+    bodyRadius,
+    commands,
+    edgeStart,
+    initialPosition,
+    mode: value.mode,
+    position,
+    remainder,
+    route,
+    routeIndex,
+    routeOrigin,
+    segmentLength: checkedLength,
+    segmentProgress: checkedProgress,
+    segmentStart,
+    speed,
+    target: destination,
+    tick,
+  };
+}
+
+function initialState({ bodyRadius = 0, mode, position, speed = 0 }) {
+  if (!Object.values(BATTLE_MOVEMENT_MODES).includes(mode)) {
+    throw new TypeError("battle movement mode must be ground or air");
+  }
+  const checkedPosition = point(position, "battle movement position");
+  const checkedRadius = integer(
+    bodyRadius,
+    0,
+    Math.floor(ARENA_WIDTH_MILLITILES / 2),
+    "battle movement bodyRadius",
+  );
+  assertBodyFits(checkedPosition, checkedRadius, "battle movement position");
+  if (mode === BATTLE_MOVEMENT_MODES.ground &&
+      !isGroundNavigationNode(checkedPosition)) {
+    throw new RangeError("ground battle movement position must be a navigation node");
+  }
+  const checkedSpeed = integer(speed, 0, MAX_SPEED, "battle movement speed");
+  return {
+    anchor: mode === BATTLE_MOVEMENT_MODES.ground
+      ? clonePoint(checkedPosition)
+      : null,
+    bodyRadius: checkedRadius,
+    commands: [],
+    edgeStart: mode === BATTLE_MOVEMENT_MODES.ground
+      ? clonePoint(checkedPosition)
+      : null,
+    initialPosition: clonePoint(checkedPosition),
+    mode,
+    position: checkedPosition,
+    remainder: 0,
+    route: [],
+    routeIndex: 0,
+    routeOrigin: mode === BATTLE_MOVEMENT_MODES.ground
+      ? clonePoint(checkedPosition)
+      : null,
+    segmentLength: 0,
+    segmentProgress: 0,
+    segmentStart: clonePoint(checkedPosition),
+    speed: checkedSpeed,
+    target: null,
+    tick: 0,
+  };
+}
+
+function idleAt(state, position = state.position) {
+  state.position = clonePoint(position);
+  state.remainder = 0;
+  state.route = [];
+  state.segmentLength = 0;
+  state.segmentProgress = 0;
+  state.segmentStart = clonePoint(position);
+}
+
+function startSegment(state) {
+  state.segmentStart = clonePoint(state.position);
+  state.segmentProgress = 0;
+  state.segmentLength = state.route.length === 0
+    ? 0
+    : segmentLength(state.segmentStart, state.route[0]);
+}
+
+function routingAnchor(state) {
+  if (state.mode !== BATTLE_MOVEMENT_MODES.ground) return null;
+  if (isGroundNavigationNode(state.position)) return clonePoint(state.position);
+  return clonePoint(state.anchor);
+}
+
+class BattleMovement {
+  #state;
+
+  constructor(configuration) {
+    runtimeInstances.add(this);
+    assertPlainObject(configuration, "battle movement configuration");
+    const keys = Object.keys(configuration).sort();
+    const allowed = ["bodyRadius", "mode", "position", "speed"];
+    if (keys.some((key) => !allowed.includes(key)) ||
+        !keys.includes("mode") || !keys.includes("position")) {
+      throw new TypeError("battle movement configuration has an invalid shape");
+    }
+    this.#state = initialState(configuration);
+  }
+
+  get state() {
+    return deepFrozenState(this.#state);
+  }
+
+  setTarget(value) {
+    const checked = target(value);
+    if (checked === null) {
+      throw new TypeError("battle movement target command requires a target");
+    }
+    if (this.#state.mode === BATTLE_MOVEMENT_MODES.ground &&
+        !isGroundNavigationNode(checked.position)) {
+      throw new RangeError("ground battle movement target must be a navigation node");
+    }
+
+    let route;
+    let nextAnchor = this.#state.anchor;
+    let nextEdgeStart = this.#state.edgeStart;
+    let nextRouteIndex = this.#state.routeIndex;
+    let nextRouteOrigin = this.#state.routeOrigin;
+    if (isInBar(this.#state.position, this.#state.bodyRadius, checked) ||
+        this.#state.speed === 0) {
+      route = [];
+    } else if (this.#state.mode === BATTLE_MOVEMENT_MODES.air) {
+      assertBodyFits(checked.position, this.#state.bodyRadius, "air movement target");
+      route = [clonePoint(checked.position)];
+    } else {
+      const anchor = routingAnchor(this.#state);
+      const suffix = findGroundPath(anchor, checked.position);
+      if (suffix === null) {
+        throw new RangeError("ground battle movement target has no route");
+      }
+      route = [];
+      nextRouteOrigin = clonePoint(anchor);
+      if (this.#state.position.x !== anchor.x || this.#state.position.y !== anchor.y) {
+        route.push(anchor);
+        nextAnchor = clonePoint(anchor);
+        nextRouteIndex = 0;
+      }
+      route.push(...suffix.slice(1).map(clonePoint));
+      if (samePoint(this.#state.position, anchor) && route.length > 0) {
+        nextEdgeStart = clonePoint(this.#state.position);
+        nextAnchor = clonePoint(route[0]);
+        nextRouteIndex = 1;
+      }
+      for (let index = 0; index < route.length; index += 1) {
+        assertBodyFits(
+          route[index],
+          this.#state.bodyRadius,
+          `ground movement route[${index}]`,
+        );
+      }
+    }
+
+    if (this.#state.commands.length >= MAX_COMMANDS) {
+      throw new RangeError("battle movement command bound exceeded");
+    }
+    this.#state.target = checked;
+    this.#state.remainder = 0;
+    this.#state.route = route;
+    if (this.#state.mode === BATTLE_MOVEMENT_MODES.ground && route.length > 0) {
+      this.#state.anchor = nextAnchor;
+      this.#state.edgeStart = nextEdgeStart;
+      this.#state.routeIndex = nextRouteIndex;
+      this.#state.routeOrigin = nextRouteOrigin;
+    }
+    if (route.length === 0) idleAt(this.#state);
+    else startSegment(this.#state);
+    this.#state.commands.push({
+      kind: "target",
+      target: cloneTarget(checked),
+      tick: this.#state.tick,
+    });
+    return frozenEvents([
+      event("target-set", this.#state.tick, this.#state.position, {
+        target: frozenTarget(checked),
+      }),
+    ]);
+  }
+
+  stop() {
+    if (this.#state.commands.length >= MAX_COMMANDS) {
+      throw new RangeError("battle movement command bound exceeded");
+    }
+    if (this.#state.mode === BATTLE_MOVEMENT_MODES.ground) {
+      const anchor = routingAnchor(this.#state);
+      if (samePoint(this.#state.position, anchor)) {
+        this.#state.edgeStart = clonePoint(anchor);
+      }
+      this.#state.anchor = clonePoint(anchor);
+      this.#state.routeOrigin = clonePoint(anchor);
+      this.#state.routeIndex = 0;
+    }
+    this.#state.target = null;
+    idleAt(this.#state);
+    this.#state.commands.push({ kind: "stop", tick: this.#state.tick });
+    return frozenEvents([event("stopped", this.#state.tick, this.#state.position)]);
+  }
+
+  step() {
+    return this.stepMany(1);
+  }
+
+  stepMany(ticks) {
+    integer(
+      ticks,
+      0,
+      MAX_BATTLE_MOVEMENT_STEP_TICKS,
+      "battle movement step ticks",
+    );
+    if (this.#state.tick + ticks > MAX_TICK) {
+      throw new RangeError("battle movement tick bound exceeded");
+    }
+    const events = [];
+    for (let count = 0; count < ticks; count += 1) {
+      this.#state.tick += 1;
+      if (this.#state.route.length === 0 || this.#state.speed === 0) continue;
+      const before = clonePoint(this.#state.position);
+      const accumulated =
+        BigInt(this.#state.remainder) + BigInt(this.#state.speed);
+      let budget = Number(accumulated / BigInt(MOVEMENT_TICKS_PER_SECOND));
+      this.#state.remainder = Number(
+        accumulated % BigInt(MOVEMENT_TICKS_PER_SECOND),
+      );
+
+      while (budget > 0 && this.#state.route.length > 0) {
+        const finalSegment = this.#state.route.length === 1;
+        const limit = finalSegment
+          ? firstProgressInBar(
+              this.#state.segmentStart,
+              this.#state.route[0],
+              this.#state.segmentLength,
+              this.#state.bodyRadius,
+              this.#state.target,
+            )
+          : this.#state.segmentLength;
+        const remaining = limit - this.#state.segmentProgress;
+        const travel = Math.min(budget, Math.max(0, remaining));
+        this.#state.segmentProgress += travel;
+        budget -= travel;
+        this.#state.position = interpolate(
+          this.#state.segmentStart,
+          this.#state.route[0],
+          this.#state.segmentProgress,
+          this.#state.segmentLength,
+        );
+
+        if (this.#state.segmentProgress === limit) {
+          if (finalSegment) {
+            if (this.#state.mode === BATTLE_MOVEMENT_MODES.ground) {
+              this.#state.anchor = clonePoint(this.#state.target.position);
+              this.#state.routeIndex += 1;
+            }
+            idleAt(this.#state);
+            break;
+          }
+          this.#state.position = clonePoint(this.#state.route[0]);
+          if (this.#state.mode === BATTLE_MOVEMENT_MODES.ground) {
+            this.#state.edgeStart = clonePoint(this.#state.position);
+            this.#state.routeIndex += 1;
+          }
+          this.#state.route.shift();
+          if (this.#state.mode === BATTLE_MOVEMENT_MODES.ground) {
+            this.#state.anchor = clonePoint(this.#state.route[0]);
+          }
+          startSegment(this.#state);
+        }
+      }
+
+      if (before.x !== this.#state.position.x || before.y !== this.#state.position.y) {
+        events.push(event("moved", this.#state.tick, this.#state.position, {
+          from: Object.freeze(before),
+        }));
+      }
+      if (this.#state.route.length === 0) {
+        this.#state.remainder = 0;
+        events.push(event("arrived", this.#state.tick, this.#state.position));
+      }
+    }
+    return frozenEvents(events);
+  }
+
+  serialize() {
+    return JSON.stringify({ state: canonicalState(this.#state), version: 1 });
+  }
+
+  /**
+   * Copies the complete present movement authority without reconstructing it
+   * from the public command history. The serialized history remains intact.
+   */
+  static {
+    compact = (value) => value.#runtimeClone();
+  }
+
+  #runtimeClone() {
+    const candidate = new BattleMovement({
+      bodyRadius: this.#state.bodyRadius,
+      mode: this.#state.mode,
+      position: this.#state.initialPosition,
+      speed: this.#state.speed,
+    });
+    candidate.#state = canonicalState(this.#state);
+    return candidate;
+  }
+
+  static restore(serialized) {
+    if (typeof serialized !== "string") {
+      throw new TypeError("serialized battle movement must be a string");
+    }
+    if (new TextEncoder().encode(serialized).byteLength > MAX_SNAPSHOT_BYTES) {
+      throw new RangeError("serialized battle movement exceeds the byte bound");
+    }
+    let snapshot;
+    try {
+      snapshot = JSON.parse(serialized);
+    } catch {
+      throw new TypeError("serialized battle movement must be valid JSON");
+    }
+    if (JSON.stringify(snapshot) !== serialized) {
+      throw new TypeError("serialized battle movement must be canonical JSON");
+    }
+    assertExactKeys(snapshot, ["state", "version"], "battle movement snapshot");
+    if (snapshot.version !== 1) {
+      throw new TypeError("battle movement snapshot has an unsupported version");
+    }
+    const checked = validateState(snapshot.state, "battle movement snapshot.state");
+    const replayed = new BattleMovement({
+      bodyRadius: checked.bodyRadius,
+      mode: checked.mode,
+      position: checked.initialPosition,
+      speed: checked.speed,
+    });
+    for (const command of checked.commands) {
+      replayed.stepMany(command.tick - replayed.#state.tick);
+      if (command.kind === "target") replayed.setTarget(command.target);
+      else replayed.stop();
+    }
+    replayed.stepMany(checked.tick - replayed.#state.tick);
+    if (JSON.stringify(canonicalState(replayed.#state)) !==
+        JSON.stringify(canonicalState(checked))) {
+      throw new RangeError(
+        "battle movement snapshot state is not reachable from its command history",
+      );
+    }
+    const restored = new BattleMovement({
+      mode: BATTLE_MOVEMENT_MODES.air,
+      position: { x: 0, y: 0 },
+      speed: 0,
+    });
+    restored.#state = checked;
+    if (restored.serialize() !== serialized) {
+      throw new TypeError("battle movement snapshot is not canonical");
+    }
+    return restored;
+  }
+}
+  opaqueContinuation((value) => {
+    if (!runtimeInstances.has(value)) {
+      throw new TypeError("internal defineBattleMovement continuation receiver is invalid");
+    }
+    return compact(value);
+  }, registerCompact);
+  return { BATTLE_MOVEMENT_MODES, BattleMovement, MAX_BATTLE_MOVEMENT_STEP_TICKS };
+}
+
+function defineBattleCombat(registerCompact) {
+  let compact;
+  const runtimeInstances = new WeakSet();
+
+const MAX_BATTLE_COMBAT_STEP_TICKS = 18_000;
+
+const MAX_TICK = 1_000_000_000;
+const MAX_UNITS = 1_024;
+const MAX_HISTORY = 100_000;
+const MAX_SNAPSHOT_BYTES = 1_048_576;
+const MAX_STAT = 1_000_000_000;
+const MAX_EXTERNAL_ENTRIES = 1_024;
+const EXPLICIT_HISTORY_TAIL = 256;
+const SNAPSHOT_GRAPH_LIMITS = Object.freeze({
+  arrayLength: 200_000,
+  containers: 100_000,
+  depth: 128,
+  keys: 1_024,
+  nodes: 200_000,
+  stringLength: 524_288,
+});
+const SIDES = new Set(["north", "south"]);
+const LAYERS = new Set(["air", "ground"]);
+const TARGET_MODES = new Set(["air", "air_and_ground", "buildings", "ground", "none"]);
+const DELIVERIES = new Set(["melee", "projectile"]);
+const UNIT_KEYS = [
+  "cadenceTicks", "damage", "delivery", "deployTicks", "firstHitTicks",
+  "id", "layer", "maxHealth", "position", "projectileSpeed", "radius",
+  "reach", "side", "sightRange", "targetMode",
+];
+const SPAWN_KEYS = [...UNIT_KEYS, "tick"];
+const POSITION_KEYS = ["id", "position", "tick"];
+const POSITIONS_KEYS = ["positions", "tick"];
+const STRUCTURE_KEYS = [
+  "alive", "id", "kind", "layer", "position", "radius", "side",
+  "structureId", "targetable",
+];
+const EXTERNAL_HIT_KEYS = ["damage", "delivery", "sourceId", "targetUnitId"];
+const EXTERNAL_PROJECTILE_KEYS = [
+  "attackSequence", "damage", "direction", "projectileId", "sourceId",
+  "targetUnitId",
+];
+const BOUNDARY_KEYS = ["externalHits", "externalProjectiles", "structures", "tick"];
+
+function plain(value, label) {
+  if (value === null || typeof value !== "object" || Array.isArray(value) ||
+      (Object.getPrototypeOf(value) !== Object.prototype &&
+       Object.getPrototypeOf(value) !== null) ||
+      Object.getOwnPropertySymbols(value).length !== 0) {
+    throw new TypeError(`${label} must be a plain string-keyed data object`);
+  }
+  const descriptors = Object.getOwnPropertyDescriptors(value);
+  for (const [key, descriptor] of Object.entries(descriptors)) {
+    if (!descriptor.enumerable || !Object.hasOwn(descriptor, "value")) {
+      throw new TypeError(`${label}.${key} must be an enumerable data property`);
+    }
+  }
+  return descriptors;
+}
+
+function exact(value, keys, label) {
+  const descriptors = plain(value, label);
+  const actual = Reflect.ownKeys(descriptors).sort();
+  const expected = [...keys].sort();
+  if (actual.length !== expected.length ||
+      actual.some((key, index) => key !== expected[index])) {
+    throw new TypeError(`${label} has an invalid shape`);
+  }
+  return Object.fromEntries(keys.map((key) => [key, descriptors[key].value]));
+}
+
+function denseArray(value, label, maximum = MAX_UNITS) {
+  if (!Array.isArray(value) || value.length > maximum) {
+    throw new TypeError(`${label} must be a bounded array`);
+  }
+  const descriptors = Object.getOwnPropertyDescriptors(value);
+  for (const key of Reflect.ownKeys(descriptors)) {
+    if (key === "length") continue;
+    if (typeof key !== "string" || !/^(0|[1-9]\d*)$/.test(key) ||
+        Number(key) >= value.length) {
+      throw new TypeError(`${label} must contain only indexed data`);
+    }
+  }
+  return Array.from({ length: value.length }, (_, index) => {
+    const descriptor = descriptors[index];
+    if (descriptor === undefined || !descriptor.enumerable ||
+        !Object.hasOwn(descriptor, "value")) {
+      throw new TypeError(`${label}[${index}] must be an enumerable data property`);
+    }
+    return descriptor.value;
+  });
+}
+
+function integer(value, minimum, maximum, label) {
+  if (!Number.isSafeInteger(value) || value < minimum || value > maximum) {
+    throw new TypeError(`${label} must be a safe integer from ${minimum} through ${maximum}`);
+  }
+  return value;
+}
+
+function checkedUnit(value, label = "battle combat unit") {
+  const unit = exact(value, UNIT_KEYS, label);
+  integer(unit.id, 1, Number.MAX_SAFE_INTEGER, `${label}.id`);
+  if (!SIDES.has(unit.side)) throw new TypeError(`${label}.side is invalid`);
+  if (!LAYERS.has(unit.layer)) throw new TypeError(`${label}.layer is invalid`);
+  if (!TARGET_MODES.has(unit.targetMode)) {
+    throw new TypeError(`${label}.targetMode is invalid`);
+  }
+  if (!DELIVERIES.has(unit.delivery)) {
+    throw new TypeError(`${label}.delivery is invalid`);
+  }
+  const position = validatePosition(unit.position, `${label}.position`);
+  validateCircle({ position, radius: unit.radius }, `${label} circle`);
+  integer(unit.sightRange, 0, MAX_SPATIAL_MILLITILES, `${label}.sightRange`);
+  integer(unit.reach, 0, MAX_SPATIAL_MILLITILES, `${label}.reach`);
+  integer(unit.maxHealth, 1, MAX_STAT, `${label}.maxHealth`);
+  integer(unit.damage, 0, MAX_STAT, `${label}.damage`);
+  integer(unit.deployTicks, 0, MAX_TICK, `${label}.deployTicks`);
+  integer(unit.firstHitTicks, 0, MAX_TICK, `${label}.firstHitTicks`);
+  integer(unit.cadenceTicks, 1, MAX_TICK, `${label}.cadenceTicks`);
+  if (unit.delivery === "melee") {
+    if (unit.projectileSpeed !== null) {
+      throw new TypeError(`${label}.projectileSpeed must be null for melee delivery`);
+    }
+  } else {
+    integer(unit.projectileSpeed, 1, MAX_STAT, `${label}.projectileSpeed`);
+  }
+  return { ...unit, position: { ...position } };
+}
+
+function checkedSpawn(value, label = "battle combat spawn") {
+  const command = exact(value, SPAWN_KEYS, label);
+  const tick = integer(command.tick, 0, MAX_TICK, `${label}.tick`);
+  const spec = checkedUnit(
+    Object.fromEntries(UNIT_KEYS.map((key) => [key, command[key]])),
+    `${label}.unit`,
+  );
+  return { ...spec, tick };
+}
+
+function checkedPosition(value) {
+  const command = exact(value, POSITION_KEYS, "battle combat position command");
+  return {
+    id: integer(command.id, 1, Number.MAX_SAFE_INTEGER, "position command.id"),
+    position: validatePosition(command.position, "position command.position"),
+    tick: integer(command.tick, 0, MAX_TICK, "position command.tick"),
+  };
+}
+
+function checkedPositions(value) {
+  const command = exact(value, POSITIONS_KEYS, "battle combat positions command");
+  const positions = denseArray(command.positions, "positions command.positions", MAX_UNITS)
+    .map((entry) => {
+      const checked = exact(entry, ["id", "position"], "positions command entry");
+      return {
+        id: integer(checked.id, 1, Number.MAX_SAFE_INTEGER, "positions command entry.id"),
+        position: validatePosition(checked.position, "positions command entry.position"),
+      };
+    });
+  if (new Set(positions.map(({ id }) => id)).size !== positions.length) {
+    throw new TypeError("positions command unit IDs must be unique");
+  }
+  return { positions, tick: integer(command.tick, 0, MAX_TICK, "positions command.tick") };
+}
+
+function nonEmptyText(value, label) {
+  if (typeof value !== "string" || value.length < 1 || value.length > 256 ||
+      value.normalize("NFC") !== value || /[\u0000-\u001f\u007f]/u.test(value)) {
+    throw new TypeError(`${label} must be bounded normalized text`);
+  }
+  return value;
+}
+
+function checkedStructure(value, index) {
+  const label = `battle combat boundary.structures[${index}]`;
+  const structure = exact(value, STRUCTURE_KEYS, label);
+  if (structure.kind !== "structure") throw new TypeError(`${label}.kind is invalid`);
+  if (!SIDES.has(structure.side)) throw new TypeError(`${label}.side is invalid`);
+  if (structure.layer !== "ground") throw new TypeError(`${label}.layer is invalid`);
+  if (typeof structure.alive !== "boolean" || typeof structure.targetable !== "boolean") {
+    throw new TypeError(`${label} flags must be booleans`);
+  }
+  integer(structure.id, 1, Number.MAX_SAFE_INTEGER, `${label}.id`);
+  nonEmptyText(structure.structureId, `${label}.structureId`);
+  const position = validatePosition(structure.position, `${label}.position`);
+  validateCircle({ position, radius: structure.radius }, `${label} circle`);
+  return { ...structure, position: { ...position } };
+}
+
+function checkedExternalHit(value, index) {
+  const label = `battle combat boundary.externalHits[${index}]`;
+  const hit = exact(value, EXTERNAL_HIT_KEYS, label);
+  integer(hit.damage, 0, MAX_STAT, `${label}.damage`);
+  if (hit.delivery !== "melee") throw new TypeError(`${label}.delivery is invalid`);
+  nonEmptyText(hit.sourceId, `${label}.sourceId`);
+  integer(hit.targetUnitId, 1, Number.MAX_SAFE_INTEGER, `${label}.targetUnitId`);
+  return { ...hit };
+}
+
+function checkedExternalProjectile(value, index) {
+  const label = `battle combat boundary.externalProjectiles[${index}]`;
+  const descriptors = plain(value, label);
+  const actual = Reflect.ownKeys(descriptors).sort();
+  const legacyKeys = ["damage", "projectileId", "sourceId", "targetUnitId"];
+  const legacy = actual.length === legacyKeys.length &&
+    actual.every((key, keyIndex) => key === [...legacyKeys].sort()[keyIndex]);
+  const projectile = legacy
+    ? exact(value, legacyKeys, label)
+    : exact(value, EXTERNAL_PROJECTILE_KEYS, label);
+  if (legacy) {
+    projectile.attackSequence = projectile.projectileId;
+    projectile.direction = "tower-to-unit";
+  }
+  integer(projectile.attackSequence, 1, Number.MAX_SAFE_INTEGER,
+    `${label}.attackSequence`);
+  integer(projectile.damage, 0, MAX_STAT, `${label}.damage`);
+  if (projectile.direction !== "tower-to-unit") {
+    throw new TypeError(`${label}.direction is invalid`);
+  }
+  integer(projectile.projectileId, 1, Number.MAX_SAFE_INTEGER, `${label}.projectileId`);
+  nonEmptyText(projectile.sourceId, `${label}.sourceId`);
+  integer(projectile.targetUnitId, 1, Number.MAX_SAFE_INTEGER, `${label}.targetUnitId`);
+  return { ...projectile };
+}
+
+function compareText(left, right) {
+  return left < right ? -1 : left > right ? 1 : 0;
+}
+
+function checkedBoundary(value) {
+  const boundary = exact(value, BOUNDARY_KEYS, "battle combat boundary");
+  const tick = integer(boundary.tick, 0, MAX_TICK, "battle combat boundary.tick");
+  const structures = denseArray(
+    boundary.structures, "battle combat boundary.structures", MAX_EXTERNAL_ENTRIES,
+  ).map(checkedStructure).sort((left, right) =>
+    left.id - right.id || compareText(left.structureId, right.structureId));
+  const ids = new Set();
+  const structureIds = new Set();
+  for (const structure of structures) {
+    if (ids.has(structure.id) || structureIds.has(structure.structureId)) {
+      throw new TypeError("battle combat boundary structures must have unique IDs");
+    }
+    ids.add(structure.id);
+    structureIds.add(structure.structureId);
+  }
+  const externalHits = denseArray(
+    boundary.externalHits, "battle combat boundary.externalHits", MAX_EXTERNAL_ENTRIES,
+  ).map(checkedExternalHit).sort((left, right) =>
+    left.targetUnitId - right.targetUnitId || compareText(left.sourceId, right.sourceId) ||
+    left.damage - right.damage);
+  const hitIdentities = new Set();
+  for (const hit of externalHits) {
+    const identity = canonical({
+      delivery: hit.delivery,
+      sourceId: hit.sourceId,
+      targetUnitId: hit.targetUnitId,
+    });
+    if (hitIdentities.has(identity)) {
+      throw new TypeError("battle combat boundary external hit identities must be unique");
+    }
+    hitIdentities.add(identity);
+  }
+  const externalProjectiles = denseArray(
+    boundary.externalProjectiles,
+    "battle combat boundary.externalProjectiles",
+    MAX_EXTERNAL_ENTRIES,
+  ).map(checkedExternalProjectile).sort((left, right) =>
+    left.projectileId - right.projectileId);
+  if (new Set(externalProjectiles.map(({ projectileId }) => projectileId)).size !==
+      externalProjectiles.length) {
+    throw new TypeError("battle combat boundary external projectile IDs must be unique");
+  }
+  return { externalHits, externalProjectiles, structures, tick };
+}
+
+function emptyBoundary(tick) {
+  return { externalHits: [], externalProjectiles: [], structures: [], tick };
+}
+
+function clone(value) {
+  return JSON.parse(JSON.stringify(value));
+}
+
+function deepFreeze(value) {
+  if (value !== null && typeof value === "object" && !Object.isFrozen(value)) {
+    for (const child of Object.values(value)) deepFreeze(child);
+    Object.freeze(value);
+  }
+  return value;
+}
+
+function canonical(value) {
+  if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
+  if (value !== null && typeof value === "object") {
+    return `{${Object.keys(value).sort().map((key) =>
+      `${JSON.stringify(key)}:${canonical(value[key])}`).join(",")}}`;
+  }
+  return JSON.stringify(value);
+}
+
+function scalarString(value, maximum, label) {
+  if (value.length > maximum) throw new RangeError(`${label} string length bound exceeded`);
+  for (let index = 0; index < value.length; index += 1) {
+    const code = value.charCodeAt(index);
+    if (code >= 0xD800 && code <= 0xDBFF) {
+      const next = value.charCodeAt(index + 1);
+      if (!(next >= 0xDC00 && next <= 0xDFFF)) {
+        throw new TypeError(`${label} strings must contain only Unicode scalar values`);
+      }
+      index += 1;
+    } else if (code >= 0xDC00 && code <= 0xDFFF) {
+      throw new TypeError(`${label} strings must contain only Unicode scalar values`);
+    }
+  }
+}
+
+function preflightParsedGraph(root, limits, label) {
+  const pending = [{ depth: 0, value: root }];
+  let nodes = 0;
+  let containers = 0;
+  while (pending.length > 0) {
+    const { depth, value } = pending.pop();
+    nodes += 1;
+    if (nodes > limits.nodes) throw new RangeError(`${label} node bound exceeded`);
+    if (depth > limits.depth) throw new RangeError(`${label} depth bound exceeded`);
+    if (typeof value === "string") {
+      scalarString(value, limits.stringLength, label);
+      continue;
+    }
+    if (typeof value === "number") {
+      if (!Number.isSafeInteger(value)) throw new TypeError(`${label} numbers must be safe integers`);
+      continue;
+    }
+    if (value === null || typeof value !== "object") continue;
+    containers += 1;
+    if (containers > limits.containers) throw new RangeError(`${label} container bound exceeded`);
+    if (Array.isArray(value)) {
+      if (value.length > limits.arrayLength) {
+        throw new RangeError(`${label} array length bound exceeded`);
+      }
+      for (let index = 0; index < value.length; index += 1) {
+        pending.push({ depth: depth + 1, value: value[index] });
+      }
+    } else {
+      const keys = Object.keys(value);
+      if (keys.length > limits.keys) throw new RangeError(`${label} object key bound exceeded`);
+      for (const key of keys) {
+        scalarString(key, limits.stringLength, `${label} key`);
+        pending.push({ depth: depth + 1, value: value[key] });
+      }
+    }
+  }
+}
+
+function same(left, right) {
+  return canonical(left) === canonical(right);
+}
+
+// Both values come from independently decoded BattleCombat runtimes, never
+// from a caller-owned graph. Compare their JSON-like continuation fields
+// without recursively walking or materializing a second canonical transcript.
+// Work and auxiliary memory are linear in the already-admitted runtime graphs.
+function iterativeSemanticEqual(left, right) {
+  const pending = [[left, right]];
+  while (pending.length > 0) {
+    const [leftValue, rightValue] = pending.pop();
+    if (leftValue === rightValue) continue;
+    if (leftValue === null || rightValue === null ||
+        typeof leftValue !== typeof rightValue || typeof leftValue !== "object") {
+      return false;
+    }
+    const leftArray = Array.isArray(leftValue);
+    if (leftArray !== Array.isArray(rightValue)) return false;
+    const leftDescriptors = Object.getOwnPropertyDescriptors(leftValue);
+    const rightDescriptors = Object.getOwnPropertyDescriptors(rightValue);
+    const leftKeys = Reflect.ownKeys(leftDescriptors)
+      .filter((key) => !(leftArray && key === "length")).sort();
+    const rightKeys = Reflect.ownKeys(rightDescriptors)
+      .filter((key) => !(leftArray && key === "length")).sort();
+    if (leftArray && leftValue.length !== rightValue.length) return false;
+    if (leftKeys.length !== rightKeys.length ||
+        leftKeys.some((key, index) => key !== rightKeys[index])) return false;
+    for (let index = leftKeys.length - 1; index >= 0; index -= 1) {
+      const key = leftKeys[index];
+      const leftDescriptor = leftDescriptors[key];
+      const rightDescriptor = rightDescriptors[key];
+      if (!Object.hasOwn(leftDescriptor, "value") ||
+          !Object.hasOwn(rightDescriptor, "value") ||
+          leftDescriptor.enumerable !== rightDescriptor.enumerable) return false;
+      pending.push([leftDescriptor.value, rightDescriptor.value]);
+    }
+  }
+  return true;
+}
+
+function boundaryPayload(command, structureSet) {
+  return {
+    externalHits: command.externalHits,
+    externalProjectiles: command.externalProjectiles,
+    structureSet,
+  };
+}
+
+function positionVelocity(left, right) {
+  if (left.length !== right.length) return null;
+  const velocity = [];
+  for (let index = 0; index < left.length; index += 1) {
+    if (left[index].id !== right[index].id) return null;
+    velocity.push({
+      dx: right[index].position.x - left[index].position.x,
+      dy: right[index].position.y - left[index].position.y,
+      id: left[index].id,
+    });
+  }
+  return velocity;
+}
+
+function applyVelocity(positions, velocity) {
+  return positions.map((entry, index) => ({
+    id: entry.id,
+    position: {
+      x: entry.position.x + velocity[index].dx,
+      y: entry.position.y + velocity[index].dy,
+    },
+  }));
+}
+
+function compactHistory(history) {
+  const structureSets = [];
+  const structureIndexes = new Map();
+  const structureSet = (structures) => {
+    const key = canonical(structures);
+    let index = structureIndexes.get(key);
+    if (index === undefined) {
+      index = structureSets.length;
+      structureIndexes.set(key, index);
+      structureSets.push(clone(structures));
+    }
+    return index;
+  };
+  const transcript = [];
+  for (let index = 0; index < history.length;) {
+    const operation = history[index];
+    if (operation.type === "step") {
+      let ticks = 1;
+      while (history[index + ticks]?.type === "step" &&
+          history[index + ticks].tick === operation.tick + ticks) ticks += 1;
+      transcript.push({ tick: operation.tick, ticks, type: "step-run" });
+      index += ticks;
+      continue;
+    }
+    if (operation.type === "positions" && history[index + 1]?.type === "boundary" &&
+        operation.command.tick === history[index + 1].command.tick) {
+      const firstPositions = clone(operation.command.positions);
+      const firstBoundary = history[index + 1].command;
+      const payload = boundaryPayload(firstBoundary, structureSet(firstBoundary.structures));
+      let ticks = 1;
+      let velocity = null;
+      let prior = firstPositions;
+      while (history[index + ticks * 2]?.type === "positions" &&
+          history[index + ticks * 2 + 1]?.type === "boundary") {
+        const nextPositions = history[index + ticks * 2].command;
+        const nextBoundary = history[index + ticks * 2 + 1].command;
+        if (nextPositions.tick !== operation.command.tick + ticks ||
+            nextBoundary.tick !== nextPositions.tick ||
+            !same(payload, boundaryPayload(nextBoundary, structureSet(nextBoundary.structures)))) break;
+        const delta = positionVelocity(prior, nextPositions.positions);
+        if (delta === null || (velocity !== null && !same(delta, velocity))) break;
+        velocity ??= delta;
+        prior = nextPositions.positions;
+        ticks += 1;
+      }
+      transcript.push({
+        boundary: payload,
+        positions: firstPositions,
+        tick: operation.command.tick,
+        ticks,
+        type: "position-boundary-run",
+        velocity: velocity ?? firstPositions.map(({ id }) => ({ dx: 0, dy: 0, id })),
+      });
+      index += ticks * 2;
+      continue;
+    }
+    if (operation.type === "boundary") {
+      const payload = boundaryPayload(operation.command, structureSet(operation.command.structures));
+      let ticks = 1;
+      while (history[index + ticks]?.type === "boundary" &&
+          history[index + ticks].command.tick === operation.command.tick + ticks &&
+          same(payload, boundaryPayload(history[index + ticks].command,
+            structureSet(history[index + ticks].command.structures)))) ticks += 1;
+      transcript.push({ boundary: payload, tick: operation.command.tick, ticks, type: "boundary-run" });
+      index += ticks;
+      continue;
+    }
+    transcript.push(clone(operation));
+    index += 1;
+  }
+  return { structureSets, transcript };
+}
+
+
+function inRange(attacker, target, range) {
+  const dx = BigInt(attacker.position.x) - BigInt(target.position.x);
+  const dy = BigInt(attacker.position.y) - BigInt(target.position.y);
+  const radius = BigInt(attacker.radius + range + target.radius);
+  return dx * dx + dy * dy <= radius * radius;
+}
+
+function travelTicks(attacker, target, speed) {
+  const dx = BigInt(attacker.position.x) - BigInt(target.position.x);
+  const dy = BigInt(attacker.position.y) - BigInt(target.position.y);
+  const distanceSquared = dx * dx + dy * dy;
+  const contact = BigInt(target.radius);
+  if (distanceSquared <= contact * contact) return 0;
+  const velocity = BigInt(speed);
+  const reached = (ticks) => {
+    const distance = contact + velocity * ticks;
+    return distance * distance >= distanceSquared;
+  };
+  let low = 0n;
+  let high = 1n;
+  while (!reached(high)) high *= 2n;
+  while (low + 1n < high) {
+    const middle = (low + high) / 2n;
+    if (reached(middle)) high = middle;
+    else low = middle;
+  }
+  if (high > BigInt(MAX_TICK)) throw new RangeError("projectile flight exceeds tick bounds");
+  return Number(high);
+}
+
+function publicUnit(unit, health) {
+  return {
+    alive: !health.dead,
+    attack: clone(unit.attack.state),
+    cadenceTicks: unit.cadenceTicks,
+    damage: unit.damage,
+    delivery: unit.delivery,
+    deployTicks: unit.deployTicks,
+    firstHitTicks: unit.firstHitTicks,
+    hitpoints: health.currentHealth,
+    id: unit.id,
+    layer: unit.layer,
+    maxHealth: unit.maxHealth,
+    position: { ...unit.position },
+    projectileSpeed: unit.projectileSpeed,
+    radius: unit.radius,
+    reach: unit.reach,
+    side: unit.side,
+    sightRange: unit.sightRange,
+    spawnedAt: unit.spawnedAt,
+    targetId: unit.targetId,
+    targetMode: unit.targetMode,
+  };
+}
+
+/**
+ * Dynamic deterministic combat for ordinary units.
+ *
+ * Boundary order is: scheduled spawns, target retention/acquisition, attack
+ * readiness and launches, projectile contacts, one simultaneous damage/death
+ * window, then tick advance. Position changes are explicit commands between
+ * boundaries; this kernel deliberately owns no movement policy.
+ */
+class BattleCombat {
+  #damage = new DamageSystem();
+  #events = [];
+  #history = [];
+  #knownExternalStructures = [];
+  #nextProjectileId = 1;
+  #nextScheduleSequence = 0;
+  #projectiles = [];
+  #scheduled = [];
+  #seenExternalProjectileIds = [];
+  #setup;
+  #tick = 0;
+  #units = [];
+
+  constructor(setup = { units: [] }) {
+    runtimeInstances.add(this);
+    const checked = exact(setup, ["units"], "battle combat setup");
+    const units = denseArray(checked.units, "battle combat setup.units")
+      .map((unit, index) => checkedUnit(unit, `battle combat setup.units[${index}]`));
+    if (new Set(units.map(({ id }) => id)).size !== units.length) {
+      throw new TypeError("battle combat setup unit IDs must be unique");
+    }
+    const canonicalUnits = [...units].sort((left, right) => left.id - right.id);
+    this.#setup = { units: clone(canonicalUnits) };
+    for (const unit of canonicalUnits) {
+      this.#activate(unit, 0);
+    }
+  }
+
+  get replay() {
+    return deepFreeze(clone(this.#events));
+  }
+
+  get state() {
+    return deepFreeze({
+      nextProjectileId: this.#nextProjectileId,
+      pendingSpawns: clone(this.#scheduled),
+      projectiles: clone(this.#projectiles),
+      tick: this.#tick,
+      units: this.#units.map((unit) => publicUnit(unit, this.#damage.get(unit.id))),
+    });
+  }
+
+  /** Exact comparison of all twelve fields that determine future behavior. */
+  static continuationEquivalent(left, right) {
+    if (!(left instanceof BattleCombat) || !(right instanceof BattleCombat)) {
+      throw new TypeError("battle combat continuation comparison requires two runtimes");
+    }
+    return iterativeSemanticEqual(left.#continuationFields(), right.#continuationFields());
+  }
+
+  #continuationFields() {
+    return {
+      damage: this.#damage.serialize(),
+      events: this.#events,
+      history: this.#history,
+      knownExternalStructures: this.#knownExternalStructures,
+      nextProjectileId: this.#nextProjectileId,
+      nextScheduleSequence: this.#nextScheduleSequence,
+      projectiles: this.#projectiles,
+      scheduled: this.#scheduled,
+      seenExternalProjectileIds: this.#seenExternalProjectileIds,
+      setup: this.#setup,
+      tick: this.#tick,
+      units: this.#units.map((unit) => ({
+        ...Object.fromEntries(UNIT_KEYS.map((key) => [key, unit[key]])),
+        attack: unit.attack.serialize(),
+        spawnedAt: unit.spawnedAt,
+        targetId: unit.targetId,
+      })),
+    };
+  }
+
+  /**
+   * Returns an independent in-memory continuation without replaying history.
+   * The fork carries no shared mutable state and is suitable for transactional
+   * previews by owning adapters.
+   */
+  fork() {
+    return this.#runtimeClone();
+  }
+
+  /** Internal-composition checkpoint: exact continuation without duplicate provenance. */
+  static {
+    compact = (value) => value.#runtimeClone(false);
+  }
+  /** Computes one boundary on a witness-free fork without retaining history. */
+  previewBoundary(command) {
+    const checked = this.#checkBoundary(command);
+    const candidate = this.#runtimeClone(false);
+    return deepFreeze(clone(candidate.#applyBoundary(checked)));
+  }
+
+  /**
+   * Commits a boundary only after independently reproducing the supplied
+   * preview. This avoids copying cumulative transcripts on the hot path while
+   * preserving pre-mutation validation and atomic failure for hostile input.
+   */
+  stepBoundaryAfterPreview(command, previewEvents) {
+    const checked = this.#checkBoundary(command);
+    const expected = denseArray(previewEvents, "battle combat preview events", MAX_HISTORY);
+    const witness = this.#runtimeClone(false).#applyBoundary(checked);
+    if (canonical(witness) !== canonical(expected)) {
+      throw new TypeError("battle combat preview witness diverged");
+    }
+    return deepFreeze(clone(this.#applyBoundary(checked)));
+  }
+
+  spawn(command) {
+    const checked = checkedSpawn(command);
+    if (checked.tick !== this.#tick) {
+      throw new RangeError("spawn.tick must equal the current battle combat tick");
+    }
+    this.#assertNewId(checked.id);
+    this.#reserveHistory();
+    this.#activate(checked, checked.tick);
+    this.#record({ command: checked, type: "spawn" });
+    return deepFreeze(clone(this.#events.at(-1)));
+  }
+
+  scheduleSpawn(command) {
+    const checked = checkedSpawn(command, "battle combat scheduled spawn");
+    if (checked.tick < this.#tick) {
+      throw new RangeError("scheduled spawn.tick must not precede the current tick");
+    }
+    this.#assertNewId(checked.id);
+    if (this.#units.length + this.#scheduled.length >= MAX_UNITS) {
+      throw new RangeError("battle combat unit bound exceeded");
+    }
+    this.#reserveHistory();
+    const scheduled = { ...checked, sequence: this.#nextScheduleSequence };
+    this.#nextScheduleSequence += 1;
+    this.#scheduled.push(scheduled);
+    this.#scheduled.sort((left, right) =>
+      left.tick - right.tick || left.id - right.id || left.sequence - right.sequence);
+    this.#record({ command: checked, type: "schedule-spawn" });
+    return deepFreeze(clone(scheduled));
+  }
+
+  updatePosition(command) {
+    const checked = checkedPosition(command);
+    if (checked.tick !== this.#tick) {
+      throw new RangeError("position command.tick must equal the current battle combat tick");
+    }
+    const unit = this.#unit(checked.id);
+    if (unit === null || this.#damage.get(checked.id).dead) {
+      throw new RangeError("position command requires a live unit");
+    }
+    this.#reserveHistory();
+    const from = { ...unit.position };
+    unit.position = { ...checked.position };
+    const event = {
+      from,
+      id: unit.id,
+      position: { ...unit.position },
+      tick: this.#tick,
+      type: "position",
+    };
+    this.#events.push(event);
+    this.#record({ command: checked, type: "position" });
+    return deepFreeze(clone(event));
+  }
+
+  updatePositions(command) {
+    const checked = checkedPositions(command);
+    if (checked.tick !== this.#tick) {
+      throw new RangeError("positions command.tick must equal the current battle combat tick");
+    }
+    if (this.#history.length >= MAX_HISTORY) {
+      throw new RangeError("battle combat history bound exceeded");
+    }
+    for (const entry of checked.positions) {
+      const unit = this.#unit(entry.id);
+      if (unit === null || this.#damage.get(entry.id).dead) {
+        throw new RangeError("positions command requires live units");
+      }
+    }
+    const events = checked.positions.map((entry) => {
+      const unit = this.#unit(entry.id);
+      const from = { ...unit.position };
+      unit.position = { ...entry.position };
+      return { from, id: unit.id, position: { ...unit.position }, tick: this.#tick, type: "position" };
+    });
+    this.#events.push(...events);
+    this.#record({ command: checked, type: "positions" });
+    return deepFreeze(clone(events));
+  }
+
+  step(tick = this.#tick) {
+    integer(tick, 0, MAX_TICK, "battle combat step tick");
+    if (tick !== this.#tick) {
+      throw new RangeError("battle combat step tick must equal the current tick");
+    }
+    return this.stepMany(1);
+  }
+
+  /**
+   * Advances one boundary with structures and already-contacting external
+   * damage supplied by an owning session. External structures remain data-only
+   * targets: this kernel owns unit health/attack state and emits contacts for
+   * the session to apply to its authoritative structure health exactly once.
+   */
+  stepBoundary(command) {
+    const checked = this.#checkBoundary(command);
+    const candidate = this.#runtimeClone();
+    const events = candidate.#applyBoundary(checked);
+    this.#adopt(candidate);
+    return deepFreeze(clone(events));
+  }
+
+  #checkBoundary(command) {
+    const checked = checkedBoundary(command);
+    if (checked.tick !== this.#tick) {
+      throw new RangeError("battle combat boundary.tick must equal the current tick");
+    }
+    if (this.#history.length >= MAX_HISTORY) {
+      throw new RangeError("battle combat history bound exceeded");
+    }
+    const occupied = new Set([
+      ...this.#units.map(({ id }) => id),
+      ...this.#scheduled.map(({ id }) => id),
+    ]);
+    for (const structure of checked.structures) {
+      if (occupied.has(structure.id)) {
+        throw new RangeError("external structure candidate ID collides with a unit ID");
+      }
+    }
+    const newStructureCount = checked.structures.filter((structure) =>
+      !this.#knownExternalStructures.some(({ id }) => id === structure.id)).length;
+    if (this.#knownExternalStructures.length + newStructureCount > MAX_UNITS) {
+      throw new RangeError("external structure identity reservation bound exceeded");
+    }
+    const seen = new Set(this.#seenExternalProjectileIds);
+    for (const projectile of checked.externalProjectiles) {
+      if (seen.has(projectile.projectileId)) {
+        throw new RangeError("external projectile ID has already contacted battle combat");
+      }
+      seen.add(projectile.projectileId);
+    }
+    for (const ingress of [...checked.externalHits, ...checked.externalProjectiles]) {
+      const unit = this.#unit(ingress.targetUnitId);
+      const due = this.#scheduled.some(({ id, tick }) =>
+        id === ingress.targetUnitId && tick === this.#tick);
+      if ((unit === null && !due) || (unit !== null && this.#damage.get(unit.id).dead)) {
+        throw new RangeError("external ingress must target a live battle combat unit");
+      }
+    }
+    for (const structure of checked.structures) {
+      const knownId = this.#knownExternalStructures.find(({ id }) => id === structure.id);
+      const knownName = this.#knownExternalStructures.find(
+        ({ structureId }) => structureId === structure.structureId,
+      );
+      if ((knownId !== undefined && knownId.structureId !== structure.structureId) ||
+          (knownName !== undefined && knownName.id !== structure.id) ||
+          (knownId !== undefined &&
+            (knownId.side !== structure.side || knownId.kind !== structure.kind ||
+             knownId.layer !== structure.layer))) {
+        throw new RangeError("external structure identity mapping must remain stable");
+      }
+    }
+    return checked;
+  }
+
+  #applyBoundary(checked) {
+    const events = this.#advance(checked);
+    for (const structure of checked.structures) {
+      if (!this.#knownExternalStructures.some(({ id }) => id === structure.id)) {
+        this.#knownExternalStructures.push({
+          id: structure.id,
+          kind: structure.kind,
+          layer: structure.layer,
+          side: structure.side,
+          structureId: structure.structureId,
+        });
+      }
+    }
+    this.#knownExternalStructures.sort((left, right) => left.id - right.id);
+    this.#seenExternalProjectileIds.push(
+      ...checked.externalProjectiles.map(({ projectileId }) => projectileId),
+    );
+    this.#seenExternalProjectileIds.sort((left, right) => left - right);
+    this.#history.push({ command: checked, type: "boundary" });
+    return events;
+  }
+
+  stepMany(ticks) {
+    integer(ticks, 0, MAX_BATTLE_COMBAT_STEP_TICKS, "battle combat step ticks");
+    if (this.#tick + ticks > MAX_TICK) {
+      throw new RangeError("battle combat tick bound exceeded");
+    }
+    if (this.#history.length + ticks > MAX_HISTORY) {
+      throw new RangeError("battle combat history bound exceeded");
+    }
+    const candidate = this.#runtimeClone();
+    const events = [];
+    for (let count = 0; count < ticks; count += 1) {
+      events.push(...candidate.#advance(emptyBoundary(candidate.#tick)));
+      candidate.#history.push({ tick: candidate.#tick - 1, type: "step" });
+    }
+    this.#adopt(candidate);
+    return deepFreeze(clone(events));
+  }
+
+  serialize() {
+    const tailStart = Math.max(0, this.#history.length - EXPLICIT_HISTORY_TAIL);
+    const compacted = compactHistory(this.#history.slice(0, tailStart));
+    const serialized = canonical({
+      history: this.#history.slice(tailStart),
+      setup: this.#setup,
+      structureSets: compacted.structureSets,
+      transcript: compacted.transcript,
+      version: 2,
+    });
+    if (new TextEncoder().encode(serialized).byteLength > MAX_SNAPSHOT_BYTES) {
+      throw new RangeError("serialized battle combat exceeds the byte bound");
+    }
+    return serialized;
+  }
+
+  static restore(serialized) {
+    if (typeof serialized !== "string") {
+      throw new TypeError("serialized battle combat must be a string");
+    }
+    if (new TextEncoder().encode(serialized).byteLength > MAX_SNAPSHOT_BYTES) {
+      throw new RangeError("serialized battle combat exceeds the byte bound");
+    }
+    let snapshot;
+    try { snapshot = JSON.parse(serialized); }
+    catch { throw new TypeError("serialized battle combat must be valid JSON"); }
+    preflightParsedGraph(snapshot, SNAPSHOT_GRAPH_LIMITS, "battle combat snapshot");
+    if (canonical(snapshot) !== serialized) {
+      throw new TypeError("serialized battle combat must be canonical JSON");
+    }
+    const snapshotShape = plain(snapshot, "battle combat snapshot");
+    const version = snapshotShape.version?.value;
+    if (version === 1) {
+      const checked = exact(snapshot, ["history", "setup", "version"], "battle combat snapshot");
+      exact(checked.setup, ["units"], "battle combat snapshot.setup");
+      const restored = new BattleCombat(checked.setup);
+      BattleCombat.#replayOperations(restored,
+        denseArray(checked.history, "battle combat snapshot.history", MAX_HISTORY));
+      return restored;
+    }
+    if (version !== 2) throw new TypeError("unsupported battle combat snapshot version");
+    const checked = exact(snapshot,
+      ["history", "setup", "structureSets", "transcript", "version"],
+      "battle combat snapshot");
+    exact(checked.setup, ["units"], "battle combat snapshot.setup");
+    const transcript = denseArray(checked.transcript,
+      "battle combat snapshot.transcript", MAX_HISTORY);
+    const history = denseArray(checked.history, "battle combat snapshot.history", MAX_HISTORY);
+    let expandedOperations = history.length;
+    for (let index = 0; index < transcript.length; index += 1) {
+      const record = transcript[index];
+      const descriptors = plain(record, `battle combat snapshot.transcript[${index}]`);
+      const type = descriptors.type?.value;
+      let added = 1;
+      if (type === "step-run" || type === "boundary-run" || type === "position-boundary-run") {
+        const tick = integer(descriptors.tick?.value, 0, MAX_TICK,
+          `battle combat snapshot.transcript[${index}].tick`);
+        const ticks = integer(descriptors.ticks?.value, 1, MAX_HISTORY,
+          `battle combat snapshot.transcript[${index}].ticks`);
+        if (ticks - 1 > MAX_TICK - tick) {
+          throw new RangeError("battle combat transcript tick bound exceeded");
+        }
+        added = type === "position-boundary-run" ? ticks * 2 : ticks;
+      }
+      if (added > MAX_HISTORY - expandedOperations) {
+        throw new RangeError("battle combat transcript operation bound exceeded");
+      }
+      expandedOperations += added;
+    }
+    const structureSets = denseArray(checked.structureSets,
+      "battle combat snapshot.structureSets", MAX_EXTERNAL_ENTRIES).map((structures, index) =>
+      checkedBoundary({ externalHits: [], externalProjectiles: [], structures, tick: 0 }).structures);
+    const restored = new BattleCombat(checked.setup);
+    let operations = 0;
+    const structuresFor = (value, label) => {
+      const index = integer(value, 0, structureSets.length - 1, `${label}.structureSet`);
+      return structureSets[index];
+    };
+    for (let index = 0; index < transcript.length; index += 1) {
+      const record = transcript[index];
+      plain(record, `battle combat snapshot.transcript[${index}]`);
+      if (record.type === "step-run") {
+        const run = exact(record, ["tick", "ticks", "type"], `transcript[${index}]`);
+        integer(run.tick, 0, MAX_TICK, `transcript[${index}].tick`);
+        const ticks = integer(run.ticks, 1, MAX_HISTORY, `transcript[${index}].ticks`);
+        for (let count = 0; count < ticks; count += 1) {
+          BattleCombat.#replayOperations(restored,
+            [{ tick: run.tick + count, type: "step" }]);
+        }
+        operations += ticks;
+      } else if (record.type === "boundary-run") {
+        const run = exact(record, ["boundary", "tick", "ticks", "type"], `transcript[${index}]`);
+        const payload = exact(run.boundary,
+          ["externalHits", "externalProjectiles", "structureSet"], `transcript[${index}].boundary`);
+        const structures = structuresFor(payload.structureSet, `transcript[${index}].boundary`);
+        const ticks = integer(run.ticks, 1, MAX_HISTORY, `transcript[${index}].ticks`);
+        for (let count = 0; count < ticks; count += 1) restored.stepBoundary({
+          externalHits: payload.externalHits,
+          externalProjectiles: payload.externalProjectiles,
+          structures,
+          tick: run.tick + count,
+        });
+        operations += ticks;
+      } else if (record.type === "position-boundary-run") {
+        const run = exact(record,
+          ["boundary", "positions", "tick", "ticks", "type", "velocity"],
+          `transcript[${index}]`);
+        const payload = exact(run.boundary,
+          ["externalHits", "externalProjectiles", "structureSet"], `transcript[${index}].boundary`);
+        const structures = structuresFor(payload.structureSet, `transcript[${index}].boundary`);
+        let positions = checkedPositions({ positions: run.positions, tick: run.tick }).positions;
+        const velocity = denseArray(run.velocity, `transcript[${index}].velocity`, MAX_UNITS)
+          .map((entry, velocityIndex) => {
+            const delta = exact(entry, ["dx", "dy", "id"], `velocity[${velocityIndex}]`);
+            integer(delta.id, 1, Number.MAX_SAFE_INTEGER, `velocity[${velocityIndex}].id`);
+            integer(delta.dx, -MAX_SPATIAL_MILLITILES, MAX_SPATIAL_MILLITILES,
+              `velocity[${velocityIndex}].dx`);
+            integer(delta.dy, -MAX_SPATIAL_MILLITILES, MAX_SPATIAL_MILLITILES,
+              `velocity[${velocityIndex}].dy`);
+            return delta;
+          });
+        if (velocity.length !== positions.length ||
+            velocity.some((entry, velocityIndex) => entry.id !== positions[velocityIndex].id)) {
+          throw new TypeError("position-boundary-run velocity identities diverge");
+        }
+        const ticks = integer(run.ticks, 1, MAX_HISTORY, `transcript[${index}].ticks`);
+        for (let count = 0; count < ticks; count += 1) {
+          const tick = run.tick + count;
+          restored.updatePositions({ positions, tick });
+          restored.stepBoundary({
+            externalHits: payload.externalHits,
+            externalProjectiles: payload.externalProjectiles,
+            structures,
+            tick,
+          });
+          positions = applyVelocity(positions, velocity);
+        }
+        operations += ticks * 2;
+      } else {
+        BattleCombat.#replayOperations(restored, [record]);
+        operations += 1;
+      }
+      if (operations > MAX_HISTORY) throw new RangeError("battle combat transcript operation bound exceeded");
+    }
+    BattleCombat.#replayOperations(restored,
+      history);
+    if (restored.serialize() !== serialized) {
+      throw new TypeError("battle combat snapshot is not canonical or causal");
+    }
+    return restored;
+  }
+
+  static #replayOperations(restored, history) {
+    for (let index = 0; index < history.length; index += 1) {
+      const operation = history[index];
+      plain(operation, `battle combat history[${index}]`);
+      if (operation.type === "spawn") {
+        restored.spawn(exact(operation, ["command", "type"], `history[${index}]`).command);
+      } else if (operation.type === "schedule-spawn") {
+        restored.scheduleSpawn(exact(operation, ["command", "type"], `history[${index}]`).command);
+      } else if (operation.type === "position") {
+        restored.updatePosition(exact(operation, ["command", "type"], `history[${index}]`).command);
+      } else if (operation.type === "positions") {
+        restored.updatePositions(exact(operation, ["command", "type"], `history[${index}]`).command);
+      } else if (operation.type === "step") {
+        const entry = exact(operation, ["tick", "type"], `history[${index}]`);
+        if (entry.tick !== restored.#tick) throw new TypeError("noncausal battle combat step history");
+        restored.#advance(emptyBoundary(restored.#tick));
+        restored.#history.push({ tick: entry.tick, type: "step" });
+      } else if (operation.type === "boundary") {
+        restored.stepBoundary(exact(operation, ["command", "type"], `history[${index}]`).command);
+      } else throw new TypeError(`battle combat history[${index}] is invalid`);
+    }
+  }
+
+  #advance(external) {
+    const tick = this.#tick;
+    const boundary = [];
+    const dueSpawns = this.#scheduled.filter((entry) => entry.tick === tick);
+    if (dueSpawns.length > 0) {
+      if (this.#units.length + dueSpawns.length > MAX_UNITS) {
+        throw new RangeError("due battle combat spawns exceed the live unit bound");
+      }
+      const occupied = new Set(this.#units.map(({ id }) => id));
+      for (let index = 0; index < dueSpawns.length; index += 1) {
+        const entry = dueSpawns[index];
+        integer(entry.sequence, 0, MAX_HISTORY, `due spawn ${index}.sequence`);
+        if (entry.tick !== tick) throw new RangeError(`due spawn ${index} has the wrong tick`);
+        checkedUnit(
+          Object.fromEntries(UNIT_KEYS.map((key) => [key, entry[key]])),
+          `due spawn ${index}.unit`,
+        );
+        if (occupied.has(entry.id)) {
+          throw new RangeError(`due spawn ${index} has an occupied unit ID`);
+        }
+        occupied.add(entry.id);
+      }
+      const ids = new Set(dueSpawns.map(({ id }) => id));
+      this.#scheduled = this.#scheduled.filter((entry) => !ids.has(entry.id));
+      for (const entry of dueSpawns) {
+        const { sequence: ignored, tick: spawnTick, ...unit } = entry;
+        void ignored;
+        this.#activate(unit, spawnTick, boundary);
+      }
+    }
+
+    const liveAtStart = this.#units.filter((unit) => !this.#damage.get(unit.id).dead);
+    const externalById = new Map(external.structures.map((structure) =>
+      [structure.id, structure]));
+    const attacks = [];
+    for (const attacker of liveAtStart.sort((left, right) => left.id - right.id)) {
+      const unitCandidates = liveAtStart
+        .filter((target) => target.side !== attacker.side)
+        .map((target) => ({
+          alive: true,
+          id: target.id,
+          kind: "troop",
+          layer: target.layer,
+          position: target.position,
+          radius: target.radius,
+          targetable: true,
+        }));
+      const structureCandidates = external.structures
+        .filter((target) => target.side !== attacker.side)
+        .map((target) => ({
+          alive: target.alive,
+          id: target.id,
+          kind: target.kind,
+          layer: target.layer,
+          position: target.position,
+          radius: target.radius,
+          targetable: target.targetable,
+        }));
+      const target = retainOrAcquireTarget(
+        { position: attacker.position, radius: attacker.radius },
+        [...unitCandidates, ...structureCandidates],
+        {
+          currentTargetId: attacker.targetId,
+          mode: attacker.targetMode,
+          sightRange: attacker.sightRange,
+        },
+      );
+      const previous = attacker.targetId;
+      attacker.targetId = target?.id ?? null;
+      if (previous !== attacker.targetId) {
+        boundary.push({
+          fromTargetId: previous,
+          id: attacker.id,
+          targetId: attacker.targetId,
+          tick,
+          type: "target",
+        });
+      }
+      const targetUnit = target === null ? null : this.#unit(target.id);
+      const targetStructure = target === null ? null : externalById.get(target.id) ?? null;
+      const attackTarget = targetUnit ?? targetStructure;
+      const eligible = attackTarget !== null && inRange(attacker, attackTarget, attacker.reach);
+      const ready = attacker.attack.step({
+        targetEligible: eligible,
+        targetId: eligible ? attackTarget.id : null,
+      });
+      for (const event of ready) {
+        attacks.push({
+          attacker,
+          sequence: event.sequence,
+          structure: targetStructure,
+          target: attackTarget,
+        });
+      }
+    }
+
+    const dueProjectiles = this.#projectiles
+      .filter((projectile) => projectile.impactTick === tick)
+      .sort((left, right) => left.id - right.id);
+    const hits = [];
+    const hitSources = [];
+    for (const attack of attacks) {
+      boundary.push({
+        attackerId: attack.attacker.id,
+        sequence: attack.sequence,
+        targetId: attack.target.id,
+        tick,
+        type: "attack",
+      });
+      const duration = attack.attacker.delivery === "projectile"
+        ? travelTicks(attack.attacker, attack.target, attack.attacker.projectileSpeed)
+        : 0;
+      if (attack.structure !== null) {
+        boundary.push({
+          contactTick: tick + duration,
+          attackSequence: attack.sequence,
+          damage: attack.attacker.damage,
+          delivery: attack.attacker.delivery,
+          sourceUnitId: attack.attacker.id,
+          structureId: attack.structure.structureId,
+          tick,
+          type: "external-structure-attack",
+        });
+      }
+      if (attack.attacker.delivery === "melee") {
+        if (attack.structure === null) {
+          hits.push({ amount: attack.attacker.damage, targetId: attack.target.id });
+          hitSources.push({ attackerId: attack.attacker.id, delivery: "melee" });
+        } else {
+          boundary.push({
+            contactTick: tick,
+            attackSequence: attack.sequence,
+            damage: attack.attacker.damage,
+            delivery: "melee",
+            sourceUnitId: attack.attacker.id,
+            structureId: attack.structure.structureId,
+            tick,
+            type: "external-structure-contact",
+          });
+        }
+      } else {
+        if (tick + duration > MAX_TICK) throw new RangeError("projectile impact exceeds tick bounds");
+        const projectile = {
+          attackerId: attack.attacker.id,
+          damage: attack.attacker.damage,
+          id: this.#nextProjectileId,
+          impactTick: tick + duration,
+          launchTick: tick,
+          origin: { ...attack.attacker.position },
+          speed: attack.attacker.projectileSpeed,
+          targetId: attack.target.id,
+          targetPosition: { ...attack.target.position },
+        };
+        if (attack.structure !== null) {
+          projectile.attackSequence = attack.sequence;
+          projectile.structureKind = attack.structure.kind;
+          projectile.structureLayer = attack.structure.layer;
+          projectile.structureSide = attack.structure.side;
+          projectile.structureId = attack.structure.structureId;
+        }
+        this.#nextProjectileId += 1;
+        this.#projectiles.push(projectile);
+        boundary.push({ projectile: clone(projectile), tick, type: "projectile-launch" });
+        if (duration === 0) dueProjectiles.push(projectile);
+      }
+    }
+    dueProjectiles.sort((left, right) => left.id - right.id);
+    for (const projectile of dueProjectiles) {
+      const targetStructure = Object.hasOwn(projectile, "structureId")
+        ? externalById.get(projectile.targetId) ?? null
+        : null;
+      const health = Object.hasOwn(projectile, "structureId")
+        ? null
+        : this.#damage.get(projectile.targetId);
+      const status = Object.hasOwn(projectile, "structureId")
+        ? targetStructure === null || targetStructure.structureId !== projectile.structureId ||
+          targetStructure.side !== projectile.structureSide ||
+          targetStructure.kind !== projectile.structureKind ||
+          targetStructure.layer !== projectile.structureLayer
+          ? "target_missing"
+          : !targetStructure.alive || !targetStructure.targetable ? "target_dead" : "contact"
+        : health === null ? "target_missing" : health.dead ? "target_dead" : "contact";
+      boundary.push({
+        projectileId: projectile.id,
+        status,
+        targetId: projectile.targetId,
+        tick,
+        type: "projectile-impact",
+      });
+      if (status === "contact") {
+        if (targetStructure === null) {
+          hits.push({ amount: projectile.damage, targetId: projectile.targetId });
+          hitSources.push({ attackerId: projectile.attackerId, delivery: "projectile",
+            projectileId: projectile.id });
+        } else {
+          boundary.push({
+            contactTick: tick,
+            attackSequence: projectile.attackSequence,
+            damage: projectile.damage,
+            delivery: "projectile",
+            projectileId: projectile.id,
+            sourceUnitId: projectile.attackerId,
+            structureId: projectile.structureId,
+            tick,
+            type: "external-structure-contact",
+          });
+        }
+      }
+    }
+    if (dueProjectiles.length > 0) {
+      const ids = new Set(dueProjectiles.map(({ id }) => id));
+      this.#projectiles = this.#projectiles.filter(({ id }) => !ids.has(id));
+    }
+    for (const hit of external.externalHits) {
+      boundary.push({
+        contactTick: tick,
+        damage: hit.damage,
+        delivery: hit.delivery,
+        sourceId: hit.sourceId,
+        targetUnitId: hit.targetUnitId,
+        tick,
+        type: "external-unit-contact",
+      });
+      hits.push({ amount: hit.damage, targetId: hit.targetUnitId });
+      hitSources.push({ delivery: hit.delivery, externalSourceId: hit.sourceId });
+    }
+    for (const projectile of external.externalProjectiles) {
+      const projectileIdentity = {
+        attackSequence: projectile.attackSequence,
+        direction: projectile.direction,
+        projectileId: projectile.projectileId,
+        sourceId: projectile.sourceId,
+      };
+      boundary.push({
+        attackSequence: projectile.attackSequence,
+        contactTick: tick,
+        damage: projectile.damage,
+        delivery: "projectile",
+        direction: projectile.direction,
+        projectileIdentity,
+        projectileId: projectile.projectileId,
+        sourceId: projectile.sourceId,
+        targetUnitId: projectile.targetUnitId,
+        tick,
+        type: "external-unit-contact",
+      });
+      hits.push({ amount: projectile.damage, targetId: projectile.targetUnitId });
+      hitSources.push({
+        attackSequence: projectile.attackSequence,
+        delivery: "projectile",
+        direction: projectile.direction,
+        externalProjectileId: projectile.projectileId,
+        externalSourceId: projectile.sourceId,
+        projectileIdentity,
+      });
+    }
+    const resolved = this.#damage.damageSimultaneously(hits);
+    let sourceIndex = 0;
+    for (const event of resolved.events) {
+      if (event.type === "damage") {
+        boundary.push({ ...event, ...hitSources[sourceIndex], tick });
+        sourceIndex += 1;
+      } else {
+        boundary.push({ ...event, tick });
+      }
+    }
+    this.#tick += 1;
+    this.#events.push(...boundary);
+    return boundary;
+  }
+
+  #activate(spec, tick, sink = this.#events) {
+    if (this.#units.length >= MAX_UNITS) throw new RangeError("battle combat unit bound exceeded");
+    const canonicalSpec = Object.fromEntries(UNIT_KEYS.map((key) => [key, clone(spec[key])]));
+    const unit = {
+      ...canonicalSpec,
+      attack: new AttackCycle({
+        deployTicks: spec.deployTicks,
+        firstHitTicks: spec.firstHitTicks,
+        hitSpeedTicks: spec.cadenceTicks,
+      }),
+      spawnedAt: tick,
+      targetId: null,
+    };
+    this.#damage.add(unit.id, unit.maxHealth);
+    const insertion = this.#units.findIndex(({ id }) => id > unit.id);
+    if (insertion === -1) this.#units.push(unit);
+    else this.#units.splice(insertion, 0, unit);
+    const event = { id: unit.id, position: { ...unit.position }, side: unit.side, tick, type: "spawn" };
+    sink.push(event);
+    if (sink !== this.#events) return event;
+    return event;
+  }
+
+  #assertNewId(id) {
+    if (this.#unit(id) !== null || this.#scheduled.some((entry) => entry.id === id) ||
+        this.#knownExternalStructures.some((entry) => entry.id === id)) {
+      throw new RangeError(
+        `battle combat unit ${id} already exists, is scheduled, or is externally reserved`,
+      );
+    }
+  }
+
+  #unit(id) {
+    return this.#units.find((unit) => unit.id === id) ?? null;
+  }
+
+  #reserveHistory() {
+    if (this.#history.length >= MAX_HISTORY) throw new RangeError("battle combat history bound exceeded");
+  }
+
+  #record(operation) {
+    this.#history.push(clone(operation));
+  }
+
+  #runtimeClone(includeTranscript = true) {
+    const candidate = new BattleCombat();
+    candidate.#damage = DamageSystem.restore(this.#damage.serialize());
+    candidate.#events = includeTranscript ? clone(this.#events) : [];
+    candidate.#history = includeTranscript ? clone(this.#history) : [];
+    candidate.#knownExternalStructures = clone(this.#knownExternalStructures);
+    candidate.#nextProjectileId = this.#nextProjectileId;
+    candidate.#nextScheduleSequence = this.#nextScheduleSequence;
+    candidate.#projectiles = clone(this.#projectiles);
+    candidate.#scheduled = clone(this.#scheduled);
+    candidate.#seenExternalProjectileIds = clone(this.#seenExternalProjectileIds);
+    candidate.#setup = clone(this.#setup);
+    candidate.#tick = this.#tick;
+    candidate.#units = this.#units.map((unit) => ({
+      ...Object.fromEntries(UNIT_KEYS.map((key) => [key, clone(unit[key])])),
+      attack: AttackCycle.restore(unit.attack.serialize()),
+      spawnedAt: unit.spawnedAt,
+      targetId: unit.targetId,
+    }));
+    return candidate;
+  }
+
+  #adopt(candidate) {
+    this.#damage = candidate.#damage;
+    this.#events = candidate.#events;
+    this.#history = candidate.#history;
+    this.#knownExternalStructures = candidate.#knownExternalStructures;
+    this.#nextProjectileId = candidate.#nextProjectileId;
+    this.#nextScheduleSequence = candidate.#nextScheduleSequence;
+    this.#projectiles = candidate.#projectiles;
+    this.#scheduled = candidate.#scheduled;
+    this.#seenExternalProjectileIds = candidate.#seenExternalProjectileIds;
+    this.#setup = candidate.#setup;
+    this.#tick = candidate.#tick;
+    this.#units = candidate.#units;
+  }
+}
+
+const DynamicBattleCombat = BattleCombat;
+  opaqueContinuation((value) => {
+    if (!runtimeInstances.has(value)) {
+      throw new TypeError("internal defineBattleCombat continuation receiver is invalid");
+    }
+    return compact(value);
+  }, registerCompact);
+  return { BattleCombat, DynamicBattleCombat, MAX_BATTLE_COMBAT_STEP_TICKS };
+}
+
+function defineTowers(registerCompact) {
+  let compact;
+  const runtimeInstances = new WeakSet();
+
+const TOWER_TICKS_PER_SECOND = 60;
+
+// Combat values are the level-11, pre-Evolutions comparison values. Tower
+// positions remain the centralized screenshot-derived arena estimate.
+const TOWER_COMBAT_CONFIG = Object.freeze({
+  central: Object.freeze({
+    countPerSide: 1,
+    damage: 109,
+    hitSpeedTicks: 60,
+    hitpoints: 4824,
+    rangeMillitiles: 7000,
+    targets: "air_and_ground",
+  }),
+  lane: Object.freeze({
+    countPerSide: 2,
+    damage: 109,
+    hitSpeedTicks: 48,
+    hitpoints: 3052,
+    rangeMillitiles: 7500,
+    targets: "air_and_ground",
+  }),
+});
+
+// Windup is deliberately not part of TOWER_COMBAT_CONFIG. The comparison
+// corpus marks central 3.3 s as unverified and supplies no lane first-hit
+// value, so callers must choose explicit, non-authoritative simulation values.
+const TOWER_WINDUP_ESTIMATE = Object.freeze({
+  central: Object.freeze({
+    confidence: "unverified_estimate",
+    ticks: 198,
+  }),
+  lane: Object.freeze({
+    confidence: "unspecified_estimate",
+    ticks: 0,
+  }),
+});
+
+const TOWER_LIVE_SHOT_DELIVERY = Object.freeze({
+  delivery: "projectile",
+  projectileResolution: "external",
+});
+
+const SIDES = new Set(["north", "south"]);
+const ROLES = new Set(["central", "lane"]);
+const ACTIVATION_CAUSES = new Set(["damaged", "friendly-lane-destroyed"]);
+const MAX_REPLAY_TICKS = 100_000;
+const MAX_CANDIDATES_PER_TICK = 256;
+const MAX_DAMAGE_ENTRIES_PER_TICK = 256;
+const MAX_LIVE_CANDIDATE_IDENTITIES = 4_096;
+
+function canonicalJson(value) {
+  if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`;
+  if (value !== null && typeof value === "object") {
+    return `{${Object.keys(value).sort().map((key) =>
+      `${JSON.stringify(key)}:${canonicalJson(value[key])}`
+    ).join(",")}}`;
+  }
+  return JSON.stringify(value);
+}
+
+function plainObject(value, keys, label) {
+  if (
+    value === null ||
+    typeof value !== "object" ||
+    Array.isArray(value) ||
+    (Object.getPrototypeOf(value) !== Object.prototype &&
+      Object.getPrototypeOf(value) !== null)
+  ) {
+    throw new TypeError(`${label} must be a plain object`);
+  }
+  const descriptors = Object.getOwnPropertyDescriptors(value);
+  const actual = Reflect.ownKeys(descriptors);
+  if (actual.some((key) => typeof key !== "string")) {
+    throw new TypeError(`${label} must contain only string keys`);
+  }
+  const sortedActual = [...actual].sort();
+  const sortedExpected = [...keys].sort();
+  if (
+    sortedActual.length !== sortedExpected.length ||
+    sortedActual.some((key, index) => key !== sortedExpected[index])
+  ) {
+    throw new TypeError(`${label} has an invalid shape`);
+  }
+  const result = {};
+  for (const key of keys) {
+    const descriptor = descriptors[key];
+    if (!descriptor.enumerable || !Object.hasOwn(descriptor, "value")) {
+      throw new TypeError(`${label}.${key} must be an enumerable data property`);
+    }
+    result[key] = descriptor.value;
+  }
+  return result;
+}
+
+function safeNonNegativeInteger(value, label) {
+  if (!Number.isSafeInteger(value) || value < 0) {
+    throw new TypeError(`${label} must be a non-negative safe integer`);
+  }
+  return value;
+}
+
+function checkedWindups(value) {
+  const windups = plainObject(
+    value,
+    ["central", "lane"],
+    "tower initial windups",
+  );
+  return {
+    central: safeNonNegativeInteger(
+      windups.central,
+      "tower initial windups.central",
+    ),
+    lane: safeNonNegativeInteger(
+      windups.lane,
+      "tower initial windups.lane",
+    ),
+  };
+}
+
+function checkedActivationHistory(value, nextTick) {
+  const history = plainObject(
+    value,
+    ["north", "south"],
+    "tower activation history",
+  );
+  const result = {};
+  for (const side of ["north", "south"]) {
+    const entry = history[side];
+    if (entry === null) {
+      result[side] = null;
+      continue;
+    }
+    const activation = plainObject(
+      entry,
+      ["cause", "tick"],
+      `tower activation history.${side}`,
+    );
+    if (
+      typeof activation.cause !== "string" ||
+      !ACTIVATION_CAUSES.has(activation.cause)
+    ) {
+      throw new TypeError(
+        `tower activation history.${side}.cause is invalid`,
+      );
+    }
+    safeNonNegativeInteger(
+      activation.tick,
+      `tower activation history.${side}.tick`,
+    );
+    if (activation.tick >= nextTick) {
+      throw new TypeError(
+        `tower activation history.${side}.tick must precede nextTick`,
+      );
+    }
+    result[side] = { cause: activation.cause, tick: activation.tick };
+  }
+  return result;
+}
+
+function towerId(side, role, lane) {
+  return role === "central"
+    ? `${side}:central`
+    : `${side}:lane:${lane}`;
+}
+
+function createInitialTowers(windups) {
+  return getArenaGeometry().towers.map((layout) => {
+    const config = TOWER_COMBAT_CONFIG[layout.role];
+    return {
+      active: layout.role === "lane",
+      attackCycle: new AttackCycle({
+        deployTicks: 0,
+        firstHitTicks: windups[layout.role],
+        hitSpeedTicks: config.hitSpeedTicks,
+      }),
+      hitpoints: config.hitpoints,
+      id: towerId(layout.side, layout.role, layout.lane),
+      lane: layout.lane ?? null,
+      position: { ...layout.center },
+      role: layout.role,
+      side: layout.side,
+    };
+  });
+}
+
+function cloneTower(tower) {
+  return {
+    active: tower.active,
+    attack: tower.attackCycle.state,
+    hitpoints: tower.hitpoints,
+    id: tower.id,
+    lane: tower.lane,
+    position: { ...tower.position },
+    role: tower.role,
+    side: tower.side,
+  };
+}
+
+function checkedDamage(value, index, validIds) {
+  const damage = plainObject(
+    value,
+    ["amount", "towerId"],
+    `tower damage ${index}`,
+  );
+  if (typeof damage.towerId !== "string" || !validIds.has(damage.towerId)) {
+    throw new TypeError(`tower damage ${index}.towerId is unknown`);
+  }
+  safeNonNegativeInteger(damage.amount, `tower damage ${index}.amount`);
+  return { amount: damage.amount, towerId: damage.towerId };
+}
+
+function checkedArray(value, label) {
+  if (!Array.isArray(value)) throw new TypeError(`${label} must be an array`);
+  const descriptors = Object.getOwnPropertyDescriptors(value);
+  for (const key of Reflect.ownKeys(descriptors)) {
+    if (key === "length") continue;
+    if (
+      typeof key !== "string" ||
+      !/^(0|[1-9]\d*)$/.test(key) ||
+      Number(key) >= value.length
+    ) {
+      throw new TypeError(`${label} must contain only indexed data`);
+    }
+  }
+  const result = [];
+  for (let index = 0; index < value.length; index += 1) {
+    const descriptor = descriptors[index];
+    if (
+      descriptor === undefined ||
+      !descriptor.enumerable ||
+      !Object.hasOwn(descriptor, "value")
+    ) {
+      throw new TypeError(`${label}[${index}] must be an enumerable data property`);
+    }
+    result.push(descriptor.value);
+  }
+  return result;
+}
+
+function checkedStepInput(value, validIds, label = "tower step input") {
+  const input = plainObject(value, ["candidates", "damage"], label);
+  const candidateValues = checkedArray(input.candidates, `${label}.candidates`);
+  if (candidateValues.length > MAX_CANDIDATES_PER_TICK) {
+    throw new RangeError(
+      `${label}.candidates exceeds ${MAX_CANDIDATES_PER_TICK} entries`,
+    );
+  }
+  const candidates = candidateValues.map((candidate, index) =>
+      targetCandidate(candidate, `${label}.candidates[${index}]`)
+  );
+  const candidateIds = new Set();
+  for (const candidate of candidates) {
+    if (candidateIds.has(candidate.id)) {
+      throw new TypeError(`${label}.candidates must have unique IDs`);
+    }
+    candidateIds.add(candidate.id);
+  }
+  const damageValues = checkedArray(input.damage, `${label}.damage`);
+  if (damageValues.length > MAX_DAMAGE_ENTRIES_PER_TICK) {
+    throw new RangeError(
+      `${label}.damage exceeds ${MAX_DAMAGE_ENTRIES_PER_TICK} entries`,
+    );
+  }
+  const damage = damageValues.map(
+    (entry, index) => checkedDamage(entry, index, validIds),
+  );
+  return { candidates, damage };
+}
+
+function checkedLiveCandidate(value, index, label) {
+  const owned = plainObject(
+    value,
+    ["alive", "id", "kind", "layer", "position", "radius", "side", "targetable"],
+    `${label}.candidates[${index}]`,
+  );
+  if (typeof owned.side !== "string" || !SIDES.has(owned.side)) {
+    throw new TypeError(`${label}.candidates[${index}].side is invalid`);
+  }
+  const candidate = targetCandidate({
+    alive: owned.alive,
+    id: owned.id,
+    kind: owned.kind,
+    layer: owned.layer,
+    position: owned.position,
+    radius: owned.radius,
+    targetable: owned.targetable,
+  }, `${label}.candidates[${index}]`);
+  return { ...candidate, side: owned.side };
+}
+
+function checkedLiveStepInput(value, validIds, label = "live tower step input") {
+  const input = plainObject(value, ["candidates", "damage"], label);
+  const candidateValues = checkedArray(input.candidates, `${label}.candidates`);
+  if (candidateValues.length > MAX_CANDIDATES_PER_TICK) {
+    throw new RangeError(`${label}.candidates exceeds ${MAX_CANDIDATES_PER_TICK} entries`);
+  }
+  const candidates = candidateValues.map((candidate, index) =>
+    checkedLiveCandidate(candidate, index, label)
+  );
+  const candidateIds = new Set();
+  for (const candidate of candidates) {
+    if (candidateIds.has(candidate.id)) throw new TypeError(`${label}.candidates must have unique IDs`);
+    candidateIds.add(candidate.id);
+  }
+  const damageValues = checkedArray(input.damage, `${label}.damage`);
+  if (damageValues.length > MAX_DAMAGE_ENTRIES_PER_TICK) {
+    throw new RangeError(`${label}.damage exceeds ${MAX_DAMAGE_ENTRIES_PER_TICK} entries`);
+  }
+  return {
+    candidates,
+    damage: damageValues.map((entry, index) => checkedDamage(entry, index, validIds)),
+  };
+}
+
+function cloneStepInput(input) {
+  return {
+    candidates: input.candidates.map((candidate) => ({
+      alive: candidate.alive,
+      id: candidate.id,
+      kind: candidate.kind,
+      layer: candidate.layer,
+      position: { ...candidate.position },
+      radius: candidate.radius,
+      targetable: candidate.targetable,
+    })),
+    damage: input.damage.map((entry) => ({ ...entry })),
+  };
+}
+
+function cloneLiveStepInput(input) {
+  return {
+    candidates: input.candidates.map((candidate) => ({
+      alive: candidate.alive,
+      id: candidate.id,
+      kind: candidate.kind,
+      layer: candidate.layer,
+      position: { ...candidate.position },
+      radius: candidate.radius,
+      side: candidate.side,
+      targetable: candidate.targetable,
+    })),
+    damage: input.damage.map((entry) => ({ ...entry })),
+  };
+}
+
+function compareText(left, right) {
+  return left < right ? -1 : left > right ? 1 : 0;
+}
+
+function applyDamage(state, input, events) {
+  const totals = new Map();
+  for (const damage of input.damage) {
+    totals.set(
+      damage.towerId,
+      (totals.get(damage.towerId) ?? 0) + damage.amount,
+    );
+    if (!Number.isSafeInteger(totals.get(damage.towerId))) {
+      throw new RangeError("tower damage total exceeds the safe integer range");
+    }
+  }
+
+  const newlyDestroyed = [];
+  const directlyDamagedCentral = [];
+  for (const [id, amount] of [...totals].sort(([a], [b]) => compareText(a, b))) {
+    if (amount === 0) continue;
+    const tower = state.towers.find((candidate) => candidate.id === id);
+    if (tower.hitpoints === 0) continue;
+    const previousHitpoints = tower.hitpoints;
+    tower.hitpoints = Math.max(0, tower.hitpoints - amount);
+    if (tower.role === "central" && !tower.active) {
+      directlyDamagedCentral.push(tower);
+    }
+    if (previousHitpoints > 0 && tower.hitpoints === 0) {
+      newlyDestroyed.push(tower);
+    }
+  }
+
+  const activationCauses = new Map();
+  for (const tower of directlyDamagedCentral) {
+    activationCauses.set(tower.id, "damaged");
+  }
+  for (const tower of newlyDestroyed) {
+    if (tower.role !== "lane") continue;
+    const centralId = `${tower.side}:central`;
+    if (!activationCauses.has(centralId)) {
+      activationCauses.set(centralId, "friendly-lane-destroyed");
+    }
+  }
+  for (const [id, cause] of [...activationCauses].sort(([a], [b]) =>
+    compareText(a, b)
+  )) {
+    const central = state.towers.find((tower) => tower.id === id);
+    if (!central.active) {
+      central.active = true;
+      state.activationHistory[central.side] = {
+        cause,
+        tick: state.nextTick,
+      };
+      events.push({
+        cause,
+        tick: state.nextTick,
+        towerId: central.id,
+        type: "tower-activated",
+      });
+    }
+  }
+  for (const tower of newlyDestroyed.sort((a, b) => compareText(a.id, b.id))) {
+    events.push({
+      tick: state.nextTick,
+      towerId: tower.id,
+      type: "tower-destroyed",
+    });
+  }
+}
+
+function stepChecked(state, input, { sideAware = false } = {}) {
+  const events = [];
+  applyDamage(state, input, events);
+
+  for (const tower of state.towers) {
+    const standingAndActive = tower.hitpoints > 0 && tower.active;
+    const currentTargetId = standingAndActive
+      ? tower.attackCycle.state.targetId
+      : null;
+    const candidates = sideAware
+      ? input.candidates.filter((candidate) => candidate.side !== tower.side)
+      : input.candidates;
+    const targetCandidates = sideAware
+      ? candidates.map(({ side: _side, ...candidate }) => candidate)
+      : candidates;
+    const target = standingAndActive
+      ? retainOrAcquireTarget(
+        { position: tower.position, radius: 0 },
+        targetCandidates,
+        {
+          currentTargetId,
+          mode: TOWER_COMBAT_CONFIG[tower.role].targets,
+          sightRange: TOWER_COMBAT_CONFIG[tower.role].rangeMillitiles,
+        },
+      )
+      : null;
+    const attackEvents = tower.attackCycle.step({
+      targetEligible: target !== null,
+      targetId: target?.id ?? null,
+    });
+    for (const attack of attackEvents) {
+      const event = {
+        damage: TOWER_COMBAT_CONFIG[tower.role].damage,
+        sequence: attack.sequence,
+        targetId: attack.targetId,
+        tick: attack.tick,
+        towerId: tower.id,
+        type: "shot-ready",
+      };
+      if (sideAware) {
+        const liveTarget = candidates.find(({ id }) => id === attack.targetId) ?? null;
+        if (liveTarget === null) {
+          throw new TypeError("live tower shot requires retained target provenance");
+        }
+        Object.assign(event, {
+          delivery: TOWER_LIVE_SHOT_DELIVERY.delivery,
+          projectileResolution: TOWER_LIVE_SHOT_DELIVERY.projectileResolution,
+          sourceId: tower.id,
+          sourceSide: tower.side,
+          targetSide: liveTarget.side,
+        });
+      }
+      events.push(event);
+    }
+  }
+
+  if (state.nextTick === Number.MAX_SAFE_INTEGER) {
+    throw new RangeError("tower tick exceeds the safe integer range");
+  }
+  state.nextTick += 1;
+  return events;
+}
+
+function snapshotState(state) {
+  return {
+    activationHistory: {
+      north: state.activationHistory.north === null
+        ? null
+        : { ...state.activationHistory.north },
+      south: state.activationHistory.south === null
+        ? null
+        : { ...state.activationHistory.south },
+    },
+    initialWindupTicks: { ...state.initialWindupTicks },
+    nextTick: state.nextTick,
+    towers: state.towers.map((tower) => ({
+      active: tower.active,
+      attackCycle: JSON.parse(tower.attackCycle.serialize()),
+      hitpoints: tower.hitpoints,
+      id: tower.id,
+      lane: tower.lane,
+      position: { ...tower.position },
+      role: tower.role,
+      side: tower.side,
+    })),
+  };
+}
+
+function restoreState(value) {
+  const state = plainObject(
+    value,
+    ["activationHistory", "initialWindupTicks", "nextTick", "towers"],
+    "tower snapshot state",
+  );
+  const windups = checkedWindups(state.initialWindupTicks);
+  safeNonNegativeInteger(state.nextTick, "tower snapshot state.nextTick");
+  const activationHistory = checkedActivationHistory(
+    state.activationHistory,
+    state.nextTick,
+  );
+  const initial = createInitialTowers(windups);
+  const towerValues = checkedArray(state.towers, "tower snapshot state.towers");
+  if (towerValues.length !== initial.length) {
+    throw new TypeError("tower snapshot must contain exactly six towers");
+  }
+  const towers = towerValues.map((value, index) => {
+    const tower = plainObject(
+      value,
+      [
+        "active",
+        "attackCycle",
+        "hitpoints",
+        "id",
+        "lane",
+        "position",
+        "role",
+        "side",
+      ],
+      `tower snapshot tower ${index}`,
+    );
+    const expected = initial[index];
+    if (
+      tower.id !== expected.id ||
+      tower.lane !== expected.lane ||
+      tower.role !== expected.role ||
+      tower.side !== expected.side ||
+      canonicalJson(tower.position) !== canonicalJson(expected.position)
+    ) {
+      throw new TypeError(`tower snapshot tower ${index} has invalid identity`);
+    }
+    if (typeof tower.active !== "boolean") {
+      throw new TypeError(`tower snapshot tower ${index}.active must be boolean`);
+    }
+    safeNonNegativeInteger(
+      tower.hitpoints,
+      `tower snapshot tower ${index}.hitpoints`,
+    );
+    if (tower.hitpoints > TOWER_COMBAT_CONFIG[tower.role].hitpoints) {
+      throw new TypeError(`tower snapshot tower ${index}.hitpoints is too high`);
+    }
+    const attackCycle = AttackCycle.restore(canonicalJson(tower.attackCycle));
+    if (attackCycle.state.nextTick !== state.nextTick) {
+      throw new TypeError(`tower snapshot tower ${index} tick is inconsistent`);
+    }
+    const expectedAttackConfig = {
+      deployTicks: 0,
+      firstHitTicks: windups[tower.role],
+      hitSpeedTicks: TOWER_COMBAT_CONFIG[tower.role].hitSpeedTicks,
+    };
+    if (
+      canonicalJson(attackCycle.state.config) !==
+      canonicalJson(expectedAttackConfig)
+    ) {
+      throw new TypeError(
+        `tower snapshot tower ${index} attack config is inconsistent`,
+      );
+    }
+    if (
+      (!tower.active || tower.hitpoints === 0) &&
+      attackCycle.state.targetId !== null
+    ) {
+      throw new TypeError(
+        `tower snapshot tower ${index} cannot retain a target`,
+      );
+    }
+    return { ...expected, active: tower.active, attackCycle, hitpoints: tower.hitpoints };
+  });
+  for (const tower of towers) {
+    if (tower.role === "lane" && !tower.active) {
+      throw new TypeError("lane towers must remain active");
+    }
+    if (tower.role !== "central") continue;
+    const activation = activationHistory[tower.side];
+    const friendlyLaneDestroyed = towers.some(
+      (candidate) =>
+        candidate.side === tower.side &&
+        candidate.role === "lane" &&
+        candidate.hitpoints === 0,
+    );
+    if (!tower.active) {
+      if (
+        activation !== null ||
+        tower.hitpoints !== TOWER_COMBAT_CONFIG.central.hitpoints ||
+        friendlyLaneDestroyed
+      ) {
+        throw new TypeError("inactive central tower violates activation history");
+      }
+      continue;
+    }
+    if (activation === null) {
+      throw new TypeError("active central tower requires activation history");
+    }
+    if (
+      activation.cause === "damaged" &&
+      tower.hitpoints === TOWER_COMBAT_CONFIG.central.hitpoints
+    ) {
+      throw new TypeError(
+        "damaged central activation requires direct damage provenance",
+      );
+    }
+    if (
+      activation.cause === "friendly-lane-destroyed" &&
+      !friendlyLaneDestroyed
+    ) {
+      throw new TypeError(
+        "lane-destruction activation requires a destroyed friendly lane",
+      );
+    }
+  }
+  return {
+    activationHistory,
+    initialWindupTicks: windups,
+    nextTick: state.nextTick,
+    towers,
+  };
+}
+
+/**
+ * Deterministic six-tower state for one arena.
+ *
+ * Damage for a boundary is resolved as a simultaneous batch before activation,
+ * target selection, and shot readiness. Events are stable by tower ID. This
+ * model intentionally emits shot readiness only; projectile travel is external.
+ * Central activation provenance is irreversible and written exactly when the
+ * activation event is emitted. Direct damage wins when direct damage and a
+ * friendly lane death occur on the same boundary.
+ */
+class CrownTowerBattle {
+  #candidateSides;
+  #state;
+  #stepHistory;
+
+  constructor({ initialWindupTicks }) {
+    runtimeInstances.add(this);
+    const windups = checkedWindups(initialWindupTicks);
+    this.#state = {
+      activationHistory: { north: null, south: null },
+      initialWindupTicks: windups,
+      nextTick: 0,
+      towers: createInitialTowers(windups),
+    };
+    this.#candidateSides = new Map();
+    this.#stepHistory = [];
+  }
+
+  get state() {
+    return {
+      activationHistory: {
+        north: this.#state.activationHistory.north === null
+          ? null
+          : { ...this.#state.activationHistory.north },
+        south: this.#state.activationHistory.south === null
+          ? null
+          : { ...this.#state.activationHistory.south },
+      },
+      initialWindupTicks: { ...this.#state.initialWindupTicks },
+      nextTick: this.#state.nextTick,
+      towers: this.#state.towers.map(cloneTower),
+    };
+  }
+
+  /** Returns an independent continuation without replaying prior ticks. */
+  fork() {
+    const candidate = new CrownTowerBattle({
+      initialWindupTicks: this.#state.initialWindupTicks,
+    });
+    candidate.#state = restoreState(snapshotState(this.#state));
+    candidate.#candidateSides = new Map(this.#candidateSides);
+    candidate.#stepHistory = this.#stepHistory.map(({ input, mode }) => ({
+      input: mode === "side-aware" ? cloneLiveStepInput(input) : cloneStepInput(input),
+      mode,
+    }));
+    return candidate;
+  }
+
+  /** Internal-composition checkpoint: exact continuation without duplicate step provenance. */
+  static {
+    compact = (value) => value.#runtimeClone();
+  }
+
+  #runtimeClone() {
+    const candidate = new CrownTowerBattle({ initialWindupTicks: this.#state.initialWindupTicks });
+    candidate.#state = restoreState(snapshotState(this.#state));
+    candidate.#candidateSides = new Map(this.#candidateSides);
+    return candidate;
+  }
+
+  /** Computes a live boundary without copying or retaining replay history. */
+  previewLive(input) {
+    const candidate = new CrownTowerBattle({
+      initialWindupTicks: this.#state.initialWindupTicks,
+    });
+    candidate.#state = restoreState(snapshotState(this.#state));
+    candidate.#candidateSides = new Map(this.#candidateSides);
+    return candidate.stepLive(input);
+  }
+
+  step(input) {
+    return this.stepMany([input]);
+  }
+
+  stepMany(inputs) {
+    const rawInputs = checkedArray(inputs, "tower step inputs");
+    if (rawInputs.length > MAX_REPLAY_TICKS - this.#stepHistory.length) {
+      throw new RangeError(
+        `tower step history exceeds ${MAX_REPLAY_TICKS} ticks`,
+      );
+    }
+    const validIds = new Set(this.#state.towers.map((tower) => tower.id));
+    const checkedInputs = rawInputs.map((input, index) =>
+      checkedStepInput(input, validIds, `tower step input ${index}`)
+    );
+    const candidate = restoreState(snapshotState(this.#state));
+    const events = [];
+    for (const input of checkedInputs) events.push(...stepChecked(candidate, input));
+    this.#state = candidate;
+    this.#stepHistory.push(...checkedInputs.map((input) => ({
+      input: cloneStepInput(input),
+      mode: "legacy",
+    })));
+    return events;
+  }
+
+  stepLive(input) {
+    return this.stepManyLive([input]);
+  }
+
+  stepManyLive(inputs) {
+    const rawInputs = checkedArray(inputs, "live tower step inputs");
+    if (rawInputs.length > MAX_REPLAY_TICKS - this.#stepHistory.length) {
+      throw new RangeError(`tower step history exceeds ${MAX_REPLAY_TICKS} ticks`);
+    }
+    const validIds = new Set(this.#state.towers.map((tower) => tower.id));
+    const checkedInputs = rawInputs.map((input, index) =>
+      checkedLiveStepInput(input, validIds, `live tower step input ${index}`)
+    );
+    const candidateSides = new Map(this.#candidateSides);
+    for (const input of checkedInputs) {
+      for (const candidate of input.candidates) {
+        const known = candidateSides.get(candidate.id);
+        if (known !== undefined && known !== candidate.side) {
+          throw new TypeError(`live tower candidate ${candidate.id} cannot change side`);
+        }
+        candidateSides.set(candidate.id, candidate.side);
+        if (candidateSides.size > MAX_LIVE_CANDIDATE_IDENTITIES) {
+          throw new RangeError(`live tower candidate identities exceed ${MAX_LIVE_CANDIDATE_IDENTITIES}`);
+        }
+      }
+    }
+    const candidate = restoreState(snapshotState(this.#state));
+    const events = [];
+    for (const input of checkedInputs) {
+      events.push(...stepChecked(candidate, input, { sideAware: true }));
+    }
+    this.#state = candidate;
+    this.#candidateSides = candidateSides;
+    this.#stepHistory.push(...checkedInputs.map((input) => ({
+      input: cloneLiveStepInput(input),
+      mode: "side-aware",
+    })));
+    return events;
+  }
+
+  serialize() {
+    const hasLiveSteps = this.#stepHistory.some(({ mode }) => mode === "side-aware");
+    return canonicalJson({
+      initialWindupTicks: { ...this.#state.initialWindupTicks },
+      steps: hasLiveSteps
+        ? this.#stepHistory.map(({ input, mode }) => ({
+          input: mode === "side-aware" ? cloneLiveStepInput(input) : cloneStepInput(input),
+          mode,
+        }))
+        : this.#stepHistory.map(({ input }) => cloneStepInput(input)),
+      version: hasLiveSteps ? 4 : 3,
+    });
+  }
+
+  static restore(serialized) {
+    if (typeof serialized !== "string") {
+      throw new TypeError("serialized tower state must be a string");
+    }
+    let value;
+    try {
+      value = JSON.parse(serialized);
+    } catch {
+      throw new TypeError("serialized tower state must be valid JSON");
+    }
+    const snapshot = plainObject(
+      value,
+      ["initialWindupTicks", "steps", "version"],
+      "tower snapshot",
+    );
+    if (snapshot.version !== 3 && snapshot.version !== 4) {
+      throw new TypeError("tower snapshot has an unsupported version");
+    }
+    const windups = checkedWindups(snapshot.initialWindupTicks);
+    const steps = checkedArray(snapshot.steps, "tower snapshot.steps");
+    if (steps.length > MAX_REPLAY_TICKS) {
+      throw new RangeError(
+        `tower snapshot.steps exceeds ${MAX_REPLAY_TICKS} ticks`,
+      );
+    }
+    const battle = new CrownTowerBattle({
+      initialWindupTicks: windups,
+    });
+    // HP, deaths, activation provenance, targets, and attack-cycle continuation
+    // all derive from the immutable initial roster by the normal transition.
+    // No serialized current-state field is trusted as an independent authority.
+    if (snapshot.version === 3) {
+      battle.stepMany(steps);
+    } else {
+      let hasLiveStep = false;
+      for (let index = 0; index < steps.length; index += 1) {
+        const entry = plainObject(
+          steps[index],
+          ["input", "mode"],
+          `tower snapshot.steps[${index}]`,
+        );
+        if (entry.mode === "legacy") battle.step(entry.input);
+        else if (entry.mode === "side-aware") {
+          hasLiveStep = true;
+          battle.stepLive(entry.input);
+        }
+        else throw new TypeError(`tower snapshot.steps[${index}].mode is invalid`);
+      }
+      if (!hasLiveStep) throw new TypeError("tower snapshot version 4 requires a side-aware step");
+    }
+    return battle;
+  }
+}
+
+function towerSecondsToTicks(seconds) {
+  return attackSecondsToTicks(seconds);
+}
+  opaqueContinuation((value) => {
+    if (!runtimeInstances.has(value)) {
+      throw new TypeError("internal defineTowers continuation receiver is invalid");
+    }
+    return compact(value);
+  }, registerCompact);
+  return { CrownTowerBattle, TOWER_COMBAT_CONFIG, TOWER_LIVE_SHOT_DELIVERY, TOWER_TICKS_PER_SECOND, TOWER_WINDUP_ESTIMATE, towerSecondsToTicks };
+}
+
+function defineBattleTowers(BattleCombat, CrownTowerBattle, MAX_BATTLE_COMBAT_STEP_TICKS,
+  battleCombatCompactClone, resolveBattleCombat, crownTowerCompactClone,
+  resolveCrownTower, registerCompact) {
+  let compact;
+  const runtimeInstances = new WeakSet();
+
+const MAX_BATTLE_TOWER_STEP_TICKS = MAX_BATTLE_COMBAT_STEP_TICKS;
+
+const MAX_HISTORY = 100_000;
+const MAX_SNAPSHOT_BYTES = 4_194_304;
+const EXPLICIT_HISTORY_TAIL = 256;
+const MAX_TICK = 1_000_000_000;
+const TOWER_IDS = new Map([
+  ["south:central", Number.MAX_SAFE_INTEGER - 5],
+  ["south:lane:west", Number.MAX_SAFE_INTEGER - 4],
+  ["south:lane:east", Number.MAX_SAFE_INTEGER - 3],
+  ["north:central", Number.MAX_SAFE_INTEGER - 2],
+  ["north:lane:west", Number.MAX_SAFE_INTEGER - 1],
+  ["north:lane:east", Number.MAX_SAFE_INTEGER],
+]);
+const TOWER_NUMERIC_IDS = new Set(TOWER_IDS.values());
+// Ceiling of the center-to-corner distance for the existing estimated arena
+// footprints: sqrt(1,500^2 + 1,500^2) and sqrt(2,000^2 + 2,000^2).
+// The combat kernel is circular, so the circumscribed radius represents the
+// whole authoritative square footprint without a side-dependent correction.
+const TOWER_FOOTPRINT_RADII = Object.freeze({ central: 2_829, lane: 2_122 });
+
+function plain(value, label) {
+  if (value === null || typeof value !== "object" || Array.isArray(value) ||
+      (Object.getPrototypeOf(value) !== Object.prototype &&
+       Object.getPrototypeOf(value) !== null) ||
+      Object.getOwnPropertySymbols(value).length !== 0) {
+    throw new TypeError(`${label} must be a plain string-keyed data object`);
+  }
+  const descriptors = Object.getOwnPropertyDescriptors(value);
+  for (const [key, descriptor] of Object.entries(descriptors)) {
+    if (!descriptor.enumerable || !Object.hasOwn(descriptor, "value")) {
+      throw new TypeError(`${label}.${key} must be an enumerable data property`);
+    }
+  }
+  return descriptors;
+}
+
+function exact(value, keys, label) {
+  const descriptors = plain(value, label);
+  const actual = Reflect.ownKeys(descriptors).sort();
+  const expected = [...keys].sort();
+  if (actual.length !== expected.length ||
+      actual.some((key, index) => key !== expected[index])) {
+    throw new TypeError(`${label} has an invalid shape`);
+  }
+  return Object.fromEntries(keys.map((key) => [key, descriptors[key].value]));
+}
+
+function denseArray(value, label, maximum = MAX_HISTORY) {
+  if (!Array.isArray(value) || value.length > maximum) {
+    throw new TypeError(`${label} must be a bounded array`);
+  }
+  const descriptors = Object.getOwnPropertyDescriptors(value);
+  for (const key of Reflect.ownKeys(descriptors)) {
+    if (key === "length") continue;
+    if (typeof key !== "string" || !/^(0|[1-9]\d*)$/.test(key) ||
+        Number(key) >= value.length) {
+      throw new TypeError(`${label} must contain only indexed data`);
+    }
+  }
+  return Array.from({ length: value.length }, (_, index) => {
+    const descriptor = descriptors[index];
+    if (descriptor === undefined || !descriptor.enumerable ||
+        !Object.hasOwn(descriptor, "value")) {
+      throw new TypeError(`${label}[${index}] must be an enumerable data property`);
+    }
+    return descriptor.value;
+  });
+}
+
+function integer(value, minimum, maximum, label) {
+  if (!Number.isSafeInteger(value) || value < minimum || value > maximum) {
+    throw new TypeError(`${label} must be a safe integer from ${minimum} through ${maximum}`);
+  }
+  return value;
+}
+
+function clone(value) {
+  return JSON.parse(JSON.stringify(value));
+}
+
+function freeze(value) {
+  if (value !== null && typeof value === "object" && !Object.isFrozen(value)) {
+    for (const child of Object.values(value)) freeze(child);
+    Object.freeze(value);
+  }
+  return value;
+}
+
+function canonical(value) {
+  if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
+  if (value !== null && typeof value === "object") {
+    return `{${Object.keys(value).sort().map((key) =>
+      `${JSON.stringify(key)}:${canonical(value[key])}`).join(",")}}`;
+  }
+  return JSON.stringify(value);
+}
+
+function positionVelocity(left, right) {
+  if (left.length !== right.length) return null;
+  return left.map((entry, index) => entry.id === right[index].id ? {
+    dx: right[index].position.x - entry.position.x,
+    dy: right[index].position.y - entry.position.y,
+    id: entry.id,
+  } : null).includes(null) ? null : left.map((entry, index) => ({
+    dx: right[index].position.x - entry.position.x,
+    dy: right[index].position.y - entry.position.y,
+    id: entry.id,
+  }));
+}
+
+function applyVelocity(positions, velocity) {
+  return positions.map((entry, index) => ({ id: entry.id, position: {
+    x: entry.position.x + velocity[index].dx,
+    y: entry.position.y + velocity[index].dy,
+  } }));
+}
+
+function compactTowerHistory(history) {
+  const transcript = [];
+  for (let index = 0; index < history.length;) {
+    const operation = history[index];
+    if (operation.type === "positions" && history[index + 1]?.type === "step" &&
+        operation.command.tick === history[index + 1].tick) {
+      const positions = clone(operation.command.positions);
+      let prior = positions, velocity = null, ticks = 1;
+      while (history[index + ticks * 2]?.type === "positions" &&
+          history[index + ticks * 2 + 1]?.type === "step") {
+        const next = history[index + ticks * 2].command;
+        if (next.tick !== operation.command.tick + ticks ||
+            history[index + ticks * 2 + 1].tick !== next.tick) break;
+        const delta = positionVelocity(prior, next.positions);
+        if (delta === null || (velocity !== null && canonical(delta) !== canonical(velocity))) break;
+        velocity ??= delta; prior = next.positions; ticks += 1;
+      }
+      transcript.push({ positions, tick: operation.command.tick, ticks,
+        type: "position-step-run", velocity: velocity ?? positions.map(({ id }) =>
+          ({ dx: 0, dy: 0, id })) });
+      index += ticks * 2; continue;
+    }
+    if (operation.type === "step") {
+      let ticks = 1;
+      while (history[index + ticks]?.type === "step" &&
+          history[index + ticks].tick === operation.tick + ticks) ticks += 1;
+      transcript.push({ tick: operation.tick, ticks, type: "step-run" });
+      index += ticks; continue;
+    }
+    transcript.push(clone(operation)); index += 1;
+  }
+  return transcript;
+}
+
+function preflightUnitIds(units, label = "battle tower setup.units") {
+  for (const [index, unit] of denseArray(units, label, 1_024).entries()) {
+    const descriptors = plain(unit, `${label}[${index}]`);
+    const id = descriptors.id?.value;
+    if (TOWER_NUMERIC_IDS.has(id)) {
+      throw new RangeError(`${label}[${index}].id is reserved for a crown tower structure`);
+    }
+  }
+}
+
+function structuresFrom(towers) {
+  return towers.map((tower) => ({
+    alive: tower.hitpoints > 0,
+    id: TOWER_IDS.get(tower.id),
+    kind: "structure",
+    layer: "ground",
+    position: { ...tower.position },
+    radius: TOWER_FOOTPRINT_RADII[tower.role],
+    side: tower.side,
+    structureId: tower.id,
+    targetable: tower.hitpoints > 0,
+  }));
+}
+
+function candidatesFrom(combat) {
+  const state = combat.state;
+  const candidates = state.units.filter(({ alive }) => alive).map((unit) => ({
+    alive: true,
+    id: unit.id,
+    kind: "troop",
+    layer: unit.layer,
+    position: { ...unit.position },
+    radius: unit.radius,
+    side: unit.side,
+    targetable: true,
+  }));
+  for (const pending of state.pendingSpawns) {
+    if (pending.tick !== state.tick || candidates.some(({ id }) => id === pending.id)) continue;
+    candidates.push({
+      alive: true,
+      id: pending.id,
+      kind: "troop",
+      layer: pending.layer,
+      position: { ...pending.position },
+      radius: pending.radius,
+      side: pending.side,
+      targetable: true,
+    });
+  }
+  return candidates.sort((left, right) => left.id - right.id);
+}
+
+function towerDamageFrom(events) {
+  return events.filter(({ type }) => type === "external-structure-contact")
+    .map(({ damage, structureId }) => ({ amount: damage, towerId: structureId }));
+}
+
+function projectileFor(shot, projectileId) {
+  return {
+    attackSequence: shot.attackSequence,
+    damage: shot.damage,
+    direction: shot.projectileIdentity.direction,
+    projectileId,
+    sourceId: shot.sourceId,
+    targetUnitId: shot.targetUnitId,
+  };
+}
+
+function identity(direction, sourceId, attackSequence, projectileId) {
+  return { attackSequence, direction, projectileId, sourceId };
+}
+
+function withIdentity(event, projectileIdentity) {
+  if (Object.hasOwn(event, "projectileIdentity") &&
+      canonical(event.projectileIdentity) !== canonical(projectileIdentity)) {
+    throw new TypeError("projectile event contains divergent identity provenance");
+  }
+  for (const [key, expected] of [
+    ["attackSequence", projectileIdentity.attackSequence],
+    ["direction", projectileIdentity.direction],
+    ["projectileId", projectileIdentity.projectileId],
+    ["sourceId", projectileIdentity.sourceId],
+  ]) {
+    if (Object.hasOwn(event, key) && event[key] !== expected) {
+      throw new TypeError(`projectile event contains divergent ${key} provenance`);
+    }
+  }
+  return {
+    ...event,
+    attackSequence: projectileIdentity.attackSequence,
+    projectileIdentity: clone(projectileIdentity),
+    projectileId: projectileIdentity.projectileId,
+    projectileScope: projectileIdentity.direction,
+    sourceId: projectileIdentity.sourceId,
+  };
+}
+
+function currentUnitOrigins(combatEvents) {
+  return combatEvents.filter(({ type }) => type === "projectile-launch").map((event) => {
+    const projectile = event.projectile;
+    const sequence = projectile.attackSequence ?? combatEvents.find((candidate) =>
+      candidate.type === "attack" && candidate.attackerId === projectile.attackerId &&
+      candidate.targetId === projectile.targetId && candidate.tick === projectile.launchTick)?.sequence;
+    if (!Number.isSafeInteger(sequence)) {
+      throw new TypeError("unit projectile launch lacks exact attack-sequence provenance");
+    }
+    return {
+      identity: identity(
+        Object.hasOwn(projectile, "structureId") ? "unit-to-tower" : "unit-to-unit",
+        projectile.attackerId,
+        sequence,
+        projectile.id,
+      ),
+      structureId: projectile.structureId ?? null,
+      targetId: projectile.targetId,
+    };
+  });
+}
+
+function exactOne(values, label) {
+  if (values.length !== 1) throw new TypeError(`${label} must resolve exactly once`);
+  return values[0];
+}
+
+function pendingUnitOrigins(previous, current) {
+  const origins = new Map(previous);
+  for (const origin of current) {
+    const projectileId = origin.identity.projectileId;
+    if (origins.has(projectileId)) {
+      throw new TypeError("unit projectile provenance was not retired before its ID was reused");
+    }
+    origins.set(projectileId, origin);
+  }
+  return origins;
+}
+
+function unitOriginFor(origins, projectileId, targetId, sourceId, label) {
+  const origin = origins.get(projectileId);
+  if (origin === undefined || origin.targetId !== targetId ||
+      (sourceId !== undefined && origin.identity.sourceId !== sourceId)) {
+    throw new TypeError(`${label} provenance is missing or divergent`);
+  }
+  return origin;
+}
+
+function towerIngressFor(event, ingresses) {
+  const attackSequence = event.attackSequence ?? event.projectileIdentity?.attackSequence;
+  const direction = event.direction ?? event.projectileIdentity?.direction;
+  const sourceId = event.sourceId ?? event.externalSourceId;
+  const projectileId = event.projectileId ?? event.externalProjectileId;
+  const targetUnitId = event.targetUnitId ?? event.targetId;
+  const damage = event.damage ?? event.amount;
+  return exactOne(ingresses.filter((ingress) =>
+    ingress.command.attackSequence === attackSequence &&
+    ingress.command.damage === damage &&
+    ingress.command.direction === direction &&
+    ingress.command.projectileId === projectileId &&
+    ingress.command.sourceId === sourceId &&
+    ingress.command.targetUnitId === targetUnitId), "tower projectile ingress provenance");
+}
+
+function enrichCombatEvents(combatEvents, ingresses, currentOrigins, unitOrigins) {
+  return combatEvents.map((event) => {
+    if (event.type === "projectile-launch") {
+      const origin = unitOriginFor(unitOrigins, event.projectile.id, event.projectile.targetId,
+        event.projectile.attackerId, "unit projectile launch");
+      return withIdentity(event, origin.identity);
+    }
+    if (event.type === "external-structure-attack" && event.delivery === "projectile") {
+      const origin = exactOne(currentOrigins.filter(({ identity: candidate, structureId }) =>
+        candidate.direction === "unit-to-tower" &&
+        candidate.sourceId === event.sourceUnitId &&
+        candidate.attackSequence === event.attackSequence &&
+        structureId === event.structureId), "unit structure attack projectile provenance");
+      return withIdentity(event, origin.identity);
+    }
+    if (event.type === "external-structure-contact" && event.delivery === "projectile") {
+      return withIdentity(event, identity(
+        "unit-to-tower", event.sourceUnitId, event.attackSequence, event.projectileId,
+      ));
+    }
+    if (event.type === "external-unit-contact" && event.delivery === "projectile") {
+      return withIdentity(event, towerIngressFor(event, ingresses).identity);
+    }
+    if (event.type === "damage" && event.externalProjectileId !== undefined) {
+      return withIdentity(event, towerIngressFor(event, ingresses).identity);
+    }
+    if ((event.type === "projectile-impact" ||
+         (event.type === "damage" && event.delivery === "projectile")) &&
+        event.projectileId !== undefined) {
+      const sourceId = event.attackerId;
+      const origin = unitOriginFor(unitOrigins, event.projectileId, event.targetId,
+        sourceId, "unit projectile event");
+      return withIdentity(event, origin.identity);
+    }
+    return event;
+  });
+}
+
+function unifiedEvents(combatEvents, towerEvents, shots, ingresses, currentOrigins, unitOrigins) {
+  const enrichedCombat = enrichCombatEvents(combatEvents, ingresses, currentOrigins, unitOrigins);
+  const nonShotTowerEvents = towerEvents.filter(({ type }) => type !== "shot-ready");
+  const phase = (event) => {
+    if (event.type === "tower-activated" || event.type === "tower-destroyed") return 1;
+    if (event.type === "tower-projectile-launch") return 2;
+    if (event.type === "external-unit-contact") return 3;
+    if (event.type === "damage" || event.type === "death") return 4;
+    return 0;
+  };
+  return [...enrichedCombat, ...nonShotTowerEvents, ...shots]
+    .map((event, index) => ({ event, index, phase: phase(event) }))
+    .sort((left, right) => left.phase - right.phase || left.index - right.index)
+    .map(({ event }) => event);
+}
+
+/**
+ * One deterministic authority boundary joining ordinary units and crown towers.
+ * BattleCombat remains the sole unit-health authority; CrownTowerBattle remains
+ * the sole tower-health authority. A preview is discarded and exists only to
+ * discover same-boundary structure contacts before either authority commits.
+ */
+class BattleTowerCombat {
+  #combat;
+  #childrenOpaque;
+  #events;
+  #history;
+  #historyCount;
+  #isContinuation;
+  #nextTowerProjectileId;
+  #setup;
+  #towers;
+  #unitProjectileOrigins;
+
+  constructor(value) {
+    runtimeInstances.add(this);
+    const setup = exact(
+      value,
+      ["initialWindupTicks", "units"],
+      "battle tower setup",
+    );
+    preflightUnitIds(setup.units);
+    this.#combat = new BattleCombat({ units: setup.units });
+    this.#towers = new CrownTowerBattle({
+      initialWindupTicks: setup.initialWindupTicks,
+    });
+    this.#setup = clone(setup);
+    this.#history = [];
+    this.#historyCount = 0;
+    this.#isContinuation = false;
+    this.#childrenOpaque = false;
+    this.#events = clone(this.#combat.replay);
+    this.#nextTowerProjectileId = 1;
+    this.#unitProjectileOrigins = new Map();
+    this.#assertSynchronized();
+  }
+
+  // Compact child handles are never public objects. This owner resolves them
+  // only through the lexical weak-map capability passed to this factory.
+  #combatRuntime() {
+    return this.#childrenOpaque ? resolveBattleCombat(this.#combat) : this.#combat;
+  }
+
+  #towerRuntime() {
+    return this.#childrenOpaque ? resolveCrownTower(this.#towers) : this.#towers;
+  }
+
+  get state() {
+    this.#assertSynchronized();
+    const combat = this.#combatRuntime().state;
+    const towers = this.#towerRuntime().state;
+    return freeze({
+      activationHistory: clone(towers.activationHistory),
+      pendingSpawns: clone(combat.pendingSpawns),
+      projectiles: clone(combat.projectiles),
+      tick: combat.tick,
+      towers: clone(towers.towers),
+      units: clone(combat.units),
+    });
+  }
+
+  get replay() {
+    this.#assertPublicTranscript();
+    return freeze(clone(this.#events));
+  }
+
+  /** Returns an independent transactional continuation without history replay. */
+  fork() {
+    this.#assertPublicTranscript();
+    return this.#runtimeClone();
+  }
+
+  /** Internal composite checkpoint. Public history remains owned by the caller. */
+  static {
+    compact = (value) => value.#runtimeClone(false);
+  }
+  spawn(command) {
+    this.#reserveHistory();
+    this.#assertUnitId(command);
+    const event = this.#combatRuntime().spawn(command);
+    this.#appendHistory({ command: clone(command), type: "spawn" });
+    this.#events.push(clone(event));
+    return freeze(clone(event));
+  }
+
+  scheduleSpawn(command) {
+    this.#reserveHistory();
+    this.#assertUnitId(command);
+    const scheduled = this.#combatRuntime().scheduleSpawn(command);
+    this.#appendHistory({ command: clone(command), type: "schedule-spawn" });
+    const event = { id: scheduled.id, tick: this.#combatRuntime().state.tick,
+      toTick: scheduled.tick, type: "schedule-spawn" };
+    this.#events.push(event);
+    return freeze(clone(scheduled));
+  }
+
+  updatePosition(command) {
+    this.#reserveHistory();
+    const event = this.#combatRuntime().updatePosition(command);
+    this.#appendHistory({ command: clone(command), type: "position" });
+    this.#events.push(clone(event));
+    return freeze(clone(event));
+  }
+
+  updatePositions(command) {
+    this.#reserveHistory();
+    const events = this.#combatRuntime().updatePositions(command);
+    this.#appendHistory({ command: clone(command), type: "positions" });
+    this.#events.push(...clone(events));
+    return freeze(clone(events));
+  }
+
+  step(tick = this.state.tick) {
+    integer(tick, 0, MAX_TICK, "battle tower step tick");
+    if (tick !== this.state.tick) {
+      throw new RangeError("battle tower step tick must equal the current tick");
+    }
+    if (this.#historyCount >= MAX_HISTORY) {
+      throw new RangeError("battle tower history bound exceeded");
+    }
+    return freeze(clone(this.#advance()));
+  }
+
+  stepMany(ticks) {
+    integer(ticks, 0, MAX_BATTLE_TOWER_STEP_TICKS, "battle tower step ticks");
+    if (this.state.tick + ticks > MAX_TICK) {
+      throw new RangeError("battle tower tick bound exceeded");
+    }
+    if (this.#historyCount + ticks > MAX_HISTORY) {
+      throw new RangeError("battle tower history bound exceeded");
+    }
+    const candidate = this.#runtimeClone();
+    const events = [];
+    for (let count = 0; count < ticks; count += 1) {
+      events.push(...candidate.#advance());
+    }
+    this.#adopt(candidate);
+    return freeze(clone(events));
+  }
+
+  serialize() {
+    this.#assertPublicTranscript();
+    if (this.#history.length > EXPLICIT_HISTORY_TAIL) {
+      const tailStart = this.#history.length - EXPLICIT_HISTORY_TAIL;
+      const serialized = canonical({ history: this.#history.slice(tailStart), setup: this.#setup,
+        transcript: compactTowerHistory(this.#history.slice(0, tailStart)), version: 3 });
+      if (new TextEncoder().encode(serialized).byteLength > MAX_SNAPSHOT_BYTES) {
+        throw new RangeError("serialized battle tower combat exceeds the byte bound");
+      }
+      return serialized;
+    }
+    const serialized = canonical({
+      combat: this.#combatRuntime().serialize(),
+      history: this.#history,
+      setup: this.#setup,
+      towers: this.#towerRuntime().serialize(),
+      version: 2,
+    });
+    if (new TextEncoder().encode(serialized).byteLength > MAX_SNAPSHOT_BYTES) {
+      throw new RangeError("serialized battle tower combat exceeds the byte bound");
+    }
+    return serialized;
+  }
+
+  static restore(serialized) {
+    if (typeof serialized !== "string") {
+      throw new TypeError("serialized battle tower combat must be a string");
+    }
+    if (new TextEncoder().encode(serialized).byteLength > MAX_SNAPSHOT_BYTES) {
+      throw new RangeError("serialized battle tower combat exceeds the byte bound");
+    }
+    let snapshot;
+    try { snapshot = JSON.parse(serialized); }
+    catch { throw new TypeError("serialized battle tower combat must be valid JSON"); }
+    if (canonical(snapshot) !== serialized) {
+      throw new TypeError("serialized battle tower combat must be canonical JSON");
+    }
+    if (snapshot.version === 3) {
+      const checked = exact(snapshot, ["history", "setup", "transcript", "version"],
+        "battle tower snapshot");
+      const history = denseArray(checked.history, "battle tower snapshot.history");
+      const transcript = denseArray(checked.transcript, "battle tower snapshot.transcript");
+      const restored = new BattleTowerCombat(
+        exact(checked.setup, ["initialWindupTicks", "units"], "snapshot setup"));
+      let operations = history.length;
+      const replay = (operation, index, label) => {
+        plain(operation, `${label}[${index}]`);
+        if (operation.type === "spawn") restored.spawn(exact(operation,
+          ["command", "type"], `${label}[${index}]`).command);
+        else if (operation.type === "schedule-spawn") restored.scheduleSpawn(exact(operation,
+          ["command", "type"], `${label}[${index}]`).command);
+        else if (operation.type === "position") restored.updatePosition(exact(operation,
+          ["command", "type"], `${label}[${index}]`).command);
+        else if (operation.type === "positions") restored.updatePositions(exact(operation,
+          ["command", "type"], `${label}[${index}]`).command);
+        else if (operation.type === "step") {
+          const entry = exact(operation, ["tick", "type"], `${label}[${index}]`);
+          if (entry.tick !== restored.state.tick) throw new TypeError("noncausal battle tower step history");
+          restored.#advance();
+        } else throw new TypeError(`battle tower snapshot.${label}[${index}] is invalid`);
+      };
+      for (const [index, record] of transcript.entries()) {
+        plain(record, `battle tower snapshot.transcript[${index}]`);
+        if (record.type === "step-run") {
+          const run = exact(record, ["tick", "ticks", "type"], `transcript[${index}]`);
+          const ticks = integer(run.ticks, 1, MAX_HISTORY, `transcript[${index}].ticks`);
+          if (run.tick !== restored.state.tick) throw new TypeError("noncausal battle tower step run");
+          if (ticks > MAX_HISTORY - operations) throw new RangeError("battle tower history bound exceeded");
+          for (let count = 0; count < ticks; count += 1) restored.#advance();
+          operations += ticks;
+        } else if (record.type === "position-step-run") {
+          const run = exact(record, ["positions", "tick", "ticks", "type", "velocity"],
+            `transcript[${index}]`);
+          const ticks = integer(run.ticks, 1, MAX_HISTORY, `transcript[${index}].ticks`);
+          const positions = denseArray(run.positions, `transcript[${index}].positions`, 1_024);
+          const velocity = denseArray(run.velocity, `transcript[${index}].velocity`, 1_024)
+            .map((entry, velocityIndex) => exact(entry, ["dx", "dy", "id"],
+              `transcript[${index}].velocity[${velocityIndex}]`));
+          if (positions.length !== velocity.length || velocity.some((entry, velocityIndex) =>
+            entry.id !== positions[velocityIndex]?.id) || run.tick !== restored.state.tick) {
+            throw new TypeError("battle tower position-step run identities diverge");
+          }
+          if (ticks * 2 > MAX_HISTORY - operations) throw new RangeError("battle tower history bound exceeded");
+          let current = clone(positions);
+          for (let count = 0; count < ticks; count += 1) {
+            restored.updatePositions({ positions: current, tick: run.tick + count });
+            restored.#advance(); current = applyVelocity(current, velocity);
+          }
+          operations += ticks * 2;
+        } else { replay(record, index, "transcript"); operations += 1; }
+      }
+      for (const [index, operation] of history.entries()) replay(operation, index, "history");
+      if (restored.serialize() !== serialized) {
+        throw new TypeError("battle tower snapshot witnesses are not causal");
+      }
+      return restored;
+    }
+    const checked = exact(snapshot, ["combat", "history", "setup", "towers", "version"],
+      "battle tower snapshot");
+    if (checked.version !== 1 && checked.version !== 2) {
+      throw new TypeError("unsupported battle tower snapshot version");
+    }
+    const combatWitness = BattleCombat.restore(checked.combat);
+    const combatSnapshot = JSON.parse(checked.combat);
+    if (combatSnapshot.version !== checked.version) {
+      throw new TypeError("battle tower and combat snapshot versions are mixed");
+    }
+    const setup = exact(checked.setup, ["initialWindupTicks", "units"], "snapshot setup");
+    const history = denseArray(checked.history, "battle tower snapshot.history");
+    const restored = new BattleTowerCombat(setup);
+    for (let index = 0; index < history.length; index += 1) {
+      const operation = history[index];
+      plain(operation, `battle tower snapshot.history[${index}]`);
+      if (operation.type === "spawn") {
+        const entry = exact(operation, ["command", "type"], `history[${index}]`);
+        restored.spawn(entry.command);
+      } else if (operation.type === "schedule-spawn") {
+        const entry = exact(operation, ["command", "type"], `history[${index}]`);
+        restored.scheduleSpawn(entry.command);
+      } else if (operation.type === "position") {
+        const entry = exact(operation, ["command", "type"], `history[${index}]`);
+        restored.updatePosition(entry.command);
+      } else if (operation.type === "positions") {
+        const entry = exact(operation, ["command", "type"], `history[${index}]`);
+        restored.updatePositions(entry.command);
+      } else if (operation.type === "step") {
+        const entry = exact(operation, ["tick", "type"], `history[${index}]`);
+        if (entry.tick !== restored.state.tick) {
+          throw new TypeError("noncausal battle tower step history");
+        }
+        restored.#advance();
+      } else {
+        throw new TypeError(`battle tower snapshot.history[${index}] is invalid`);
+      }
+    }
+    const combatWitnessMatches = checked.version === 2
+      ? restored.#combatRuntime().serialize() === checked.combat
+      : BattleCombat.continuationEquivalent(combatWitness, restored.#combatRuntime());
+    if (!combatWitnessMatches || restored.#towerRuntime().serialize() !== checked.towers ||
+        (checked.version === 2 && restored.serialize() !== serialized)) {
+      throw new TypeError("battle tower snapshot witnesses are not causal");
+    }
+    return restored;
+  }
+
+  #advance() {
+    this.#assertSynchronized();
+    const combat = this.#combatRuntime();
+    const towers = this.#towerRuntime();
+    const tick = combat.state.tick;
+    const structures = structuresFrom(towers.state.towers);
+    const candidates = candidatesFrom(combat);
+
+    const previewEvents = combat.previewBoundary({
+      externalHits: [], externalProjectiles: [], structures, tick,
+    });
+    const towerInput = {
+      candidates,
+      damage: towerDamageFrom(previewEvents),
+    };
+    const towerEvents = towers.previewLive(towerInput);
+    const ready = towerEvents.filter(({ type }) => type === "shot-ready");
+    const shots = ready.map((shot, index) => ({
+      attackSequence: shot.sequence,
+      damage: shot.damage,
+      delivery: shot.delivery,
+      projectileId: this.#nextTowerProjectileId + index,
+      sourceId: shot.sourceId,
+      sourceSide: shot.sourceSide,
+      targetSide: shot.targetSide,
+      targetUnitId: shot.targetId,
+      tick,
+      towerId: shot.towerId,
+      type: "tower-projectile-launch",
+    }));
+    for (const shot of shots) {
+      shot.projectileIdentity = identity(
+        "tower-to-unit", shot.sourceId, shot.attackSequence, shot.projectileId,
+      );
+      shot.projectileScope = shot.projectileIdentity.direction;
+    }
+    const ingresses = shots.map((shot) => ({
+      command: projectileFor(shot, shot.projectileId),
+      identity: clone(shot.projectileIdentity),
+    }));
+    const combatInput = {
+      externalHits: [],
+      externalProjectiles: ingresses.map(({ command }) => command),
+      structures,
+      tick,
+    };
+    const combatEvents = combat.previewBoundary(combatInput);
+    const actualDamage = towerDamageFrom(combatEvents);
+    if (canonical(actualDamage) !== canonical(towerDamageFrom(previewEvents))) {
+      throw new TypeError("battle tower preview diverged from committed structure contacts");
+    }
+
+    towers.stepLive(towerInput);
+    combat.stepBoundaryAfterPreview(combatInput, combatEvents);
+    this.#nextTowerProjectileId += shots.length;
+    this.#appendHistory({ tick, type: "step" });
+    const currentOrigins = currentUnitOrigins(combatEvents);
+    const unitOrigins = pendingUnitOrigins(this.#unitProjectileOrigins, currentOrigins);
+    const events = unifiedEvents(combatEvents, towerEvents, shots, ingresses,
+      currentOrigins, unitOrigins);
+    for (const event of combatEvents) {
+      if (event.type === "projectile-impact" && !unitOrigins.delete(event.projectileId)) {
+        throw new TypeError("unit projectile impact lacks retained provenance");
+      }
+    }
+    this.#unitProjectileOrigins = unitOrigins;
+    this.#events.push(...clone(events));
+    this.#assertSynchronized();
+    return events;
+  }
+
+  #assertSynchronized() {
+    if (this.#combatRuntime().state.tick !== this.#towerRuntime().state.nextTick) {
+      throw new TypeError("battle combat and crown towers are not tick-synchronized");
+    }
+  }
+
+  #assertUnitId(command) {
+    const descriptors = plain(command, "battle tower unit command");
+    const id = descriptors.id?.value;
+    if (TOWER_NUMERIC_IDS.has(id)) {
+      throw new RangeError("unit ID is reserved for a crown tower structure");
+    }
+  }
+
+  #reserveHistory() {
+    if (this.#historyCount >= MAX_HISTORY) {
+      throw new RangeError("battle tower history bound exceeded");
+    }
+  }
+
+  #appendHistory(operation) {
+    this.#history.push(operation);
+    this.#historyCount += 1;
+  }
+
+  #assertPublicTranscript() {
+    if (this.#isContinuation) {
+      throw new TypeError("internal battle tower continuation cannot expose a public transcript");
+    }
+  }
+
+  #runtimeClone(includeTranscript = true) {
+    const candidate = new BattleTowerCombat(this.#setup);
+    const retainTranscript = includeTranscript && !this.#isContinuation;
+    const checkpointed = !retainTranscript || this.#history.length > EXPLICIT_HISTORY_TAIL;
+    const combat = this.#combatRuntime();
+    const towers = this.#towerRuntime();
+    candidate.#combat = checkpointed ? battleCombatCompactClone(combat) : combat.fork();
+    candidate.#towers = checkpointed ? crownTowerCompactClone(towers) : towers.fork();
+    candidate.#events = retainTranscript ? [...this.#events] : [];
+    candidate.#history = retainTranscript ? [...this.#history] : [];
+    candidate.#historyCount = this.#historyCount;
+    candidate.#isContinuation = !retainTranscript;
+    candidate.#childrenOpaque = checkpointed;
+    candidate.#nextTowerProjectileId = this.#nextTowerProjectileId;
+    candidate.#setup = clone(this.#setup);
+    candidate.#unitProjectileOrigins = new Map([...this.#unitProjectileOrigins]
+      .map(([projectileId, origin]) => [projectileId, clone(origin)]));
+    return candidate;
+  }
+
+  #adopt(candidate) {
+    this.#combat = candidate.#combat;
+    this.#towers = candidate.#towers;
+    this.#events = candidate.#events;
+    this.#history = candidate.#history;
+    this.#historyCount = candidate.#historyCount;
+    this.#isContinuation = candidate.#isContinuation;
+    this.#childrenOpaque = candidate.#childrenOpaque;
+    this.#nextTowerProjectileId = candidate.#nextTowerProjectileId;
+    this.#setup = candidate.#setup;
+    this.#unitProjectileOrigins = candidate.#unitProjectileOrigins;
+  }
+}
+
+const IntegratedBattleTowers = BattleTowerCombat;
+  opaqueContinuation((value) => {
+    if (!runtimeInstances.has(value)) {
+      throw new TypeError("internal defineBattleTowers continuation receiver is invalid");
+    }
+    return compact(value);
+  }, registerCompact);
+  return { BattleTowerCombat, IntegratedBattleTowers, MAX_BATTLE_TOWER_STEP_TICKS };
+}
+
+function defineLiveBattle(BattleMovement, BattleTowerCombat, battleMovementCompactClone,
+  resolveBattleMovement, battleTowerCompactClone, resolveBattleTower, registerCompact) {
+  let compact;
+  const runtimeInstances = new WeakSet();
+
+const MAX_LIVE_BATTLE_STEP_TICKS = 18_000;
+const MAX_LIVE_BATTLE_DEPLOYMENTS = 1_024;
+const MAX_LIVE_BATTLE_UNITS = 1_024;
+
+const MAX_HISTORY = 100_000;
+const EXPLICIT_HISTORY_TAIL = 256;
+const MAX_SNAPSHOT_BYTES = 8_388_608;
+const MAX_SETUP_BYTES = 1_048_576;
+const MAX_SETUP_DEPTH = 32;
+const MAX_SETUP_NODES = 10_000;
+const ADMITTED_SETUPS = new WeakSet();
+const SETUP_GRAPH_LIMITS = Object.freeze({
+  arrayLength: 1_024,
+  containers: 2_048,
+  depth: MAX_SETUP_DEPTH,
+  keys: 64,
+  nodes: MAX_SETUP_NODES,
+  stringLength: 256,
+});
+const SNAPSHOT_GRAPH_LIMITS = Object.freeze({
+  arrayLength: 200_000,
+  containers: 100_000,
+  depth: 128,
+  keys: 1_024,
+  nodes: 200_000,
+  stringLength: 4_194_304,
+});
+const SIDES = new Set(["north", "south"]);
+const DEPLOY_KEYS = ["cardId", "point", "sequence", "side", "tick"];
+const SETUP_KEYS = ["initialWindupTicks", "questions", "roster"];
+const CARD_KEYS = [
+  "areaDamageRadiusMillitiles", "cost", "count", "damage", "deployTimeTicks",
+  "displayName", "entities", "firstHitTicks", "formation", "hitSpeedTicks",
+  "hitpoints", "id", "kind", "movementMillitilesPerSecond", "rangeMillitiles",
+  "rarity", "sightRangeMillitiles", "targetMode",
+];
+const ENTITY_KEYS = [
+  "archetypeId", "areaDamageRadiusMillitiles", "bodyRadiusPolicy", "count",
+  "damage", "delivery", "deployTimeTicks", "displayName", "firstHitTicks",
+  "hitSpeedTicks", "hitpoints", "kind", "layer",
+  "movementMillitilesPerSecond", "projectileSpeedPolicy", "rangeMillitiles",
+  "role", "sightRangeMillitiles", "targetMode",
+];
+const QUESTION_KEYS = [
+  "authoritative", "confidence", "disposition", "key", "source", "value",
+];
+const POLICY_KEYS = ["kind", "questionKey"];
+const FORMATION_KEYS = ["componentOrder", "expansionOrder", "totalCount"];
+const GROUND_NODES = Object.freeze(Array.from({ length: 32 }, (_, row) =>
+  Array.from({ length: 18 }, (_, column) => ({
+    x: column * 1_000 + 500,
+    y: row * 1_000 + 500,
+  }))).flat().filter((point) => isGroundNavigationNode(point))
+  .map((point) => Object.freeze(point)));
+
+function plain(value, label) {
+  if (value === null || typeof value !== "object" || Array.isArray(value) ||
+      (Object.getPrototypeOf(value) !== Object.prototype &&
+       Object.getPrototypeOf(value) !== null) ||
+      Object.getOwnPropertySymbols(value).length !== 0) {
+    throw new TypeError(`${label} must be a plain string-keyed data object`);
+  }
+  const descriptors = Object.getOwnPropertyDescriptors(value);
+  for (const [key, descriptor] of Object.entries(descriptors)) {
+    if (!descriptor.enumerable || !Object.hasOwn(descriptor, "value")) {
+      throw new TypeError(`${label}.${key} must be an enumerable data property`);
+    }
+  }
+  return descriptors;
+}
+
+function exact(value, keys, label) {
+  const descriptors = plain(value, label);
+  const actual = Reflect.ownKeys(descriptors).sort();
+  const expected = [...keys].sort();
+  if (actual.length !== expected.length ||
+      actual.some((key, index) => key !== expected[index])) {
+    throw new TypeError(`${label} has an invalid shape`);
+  }
+  return Object.fromEntries(keys.map((key) => [key, descriptors[key].value]));
+}
+
+function denseArray(value, label, maximum = MAX_HISTORY) {
+  if (!Array.isArray(value) || value.length > maximum) {
+    throw new TypeError(`${label} must be a bounded array`);
+  }
+  const descriptors = Object.getOwnPropertyDescriptors(value);
+  for (const key of Reflect.ownKeys(descriptors)) {
+    if (key === "length") continue;
+    if (typeof key !== "string" || !/^(0|[1-9]\d*)$/.test(key) ||
+        Number(key) >= value.length) {
+      throw new TypeError(`${label} must contain only indexed data`);
+    }
+  }
+  return Array.from({ length: value.length }, (_, index) => {
+    const descriptor = descriptors[index];
+    if (descriptor === undefined || !descriptor.enumerable ||
+        !Object.hasOwn(descriptor, "value")) {
+      throw new TypeError(`${label}[${index}] must be an enumerable data property`);
+    }
+    return descriptor.value;
+  });
+}
+
+function integer(value, minimum, maximum, label) {
+  if (!Number.isSafeInteger(value) || value < minimum || value > maximum) {
+    throw new TypeError(`${label} must be a safe integer from ${minimum} through ${maximum}`);
+  }
+  return value;
+}
+
+function clone(value) {
+  return JSON.parse(JSON.stringify(value));
+}
+
+function freeze(value) {
+  if (value !== null && typeof value === "object" && !Object.isFrozen(value)) {
+    for (const child of Object.values(value)) freeze(child);
+    Object.freeze(value);
+  }
+  return value;
+}
+
+function canonical(value) {
+  if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
+  if (value !== null && typeof value === "object") {
+    return `{${Object.keys(value).sort().map((key) =>
+      `${JSON.stringify(key)}:${canonical(value[key])}`).join(",")}}`;
+  }
+  return JSON.stringify(value);
+}
+
+function scalarString(value, maximum, label) {
+  if (value.length > maximum) throw new RangeError(`${label} string length bound exceeded`);
+  for (let index = 0; index < value.length; index += 1) {
+    const code = value.charCodeAt(index);
+    if (code >= 0xD800 && code <= 0xDBFF) {
+      const next = value.charCodeAt(index + 1);
+      if (!(next >= 0xDC00 && next <= 0xDFFF)) {
+        throw new TypeError(`${label} strings must contain only Unicode scalar values`);
+      }
+      index += 1;
+    } else if (code >= 0xDC00 && code <= 0xDFFF) {
+      throw new TypeError(`${label} strings must contain only Unicode scalar values`);
+    }
+  }
+}
+
+function preflightParsedGraph(root, limits, label) {
+  const pending = [{ depth: 0, value: root }];
+  let nodes = 0;
+  let containers = 0;
+  while (pending.length > 0) {
+    const { depth, value } = pending.pop();
+    nodes += 1;
+    if (nodes > limits.nodes) throw new RangeError(`${label} node bound exceeded`);
+    if (depth > limits.depth) throw new RangeError(`${label} depth bound exceeded`);
+    if (typeof value === "string") {
+      scalarString(value, limits.stringLength, label);
+      continue;
+    }
+    if (typeof value === "number") {
+      if (!Number.isSafeInteger(value)) {
+        throw new TypeError(`${label} numbers must be safe integers`);
+      }
+      continue;
+    }
+    if (value === null || typeof value !== "object") continue;
+    containers += 1;
+    if (containers > limits.containers) throw new RangeError(`${label} container bound exceeded`);
+    if (Array.isArray(value)) {
+      if (value.length > limits.arrayLength) {
+        throw new RangeError(`${label} array length bound exceeded`);
+      }
+    } else {
+      const keys = Object.keys(value);
+      if (keys.length > limits.keys) throw new RangeError(`${label} object key bound exceeded`);
+      for (const key of keys) scalarString(key, limits.stringLength, `${label} key`);
+    }
+    for (const child of Array.isArray(value) ? value : Object.values(value)) {
+      pending.push({ depth: depth + 1, value: child });
+    }
+  }
+}
+
+function parsedSetupBytes(serialized) {
+  if (typeof serialized !== "string") {
+    throw new TypeError("live battle setup must be canonical JSON text or an admitted snapshot");
+  }
+  if (new TextEncoder().encode(serialized).byteLength > MAX_SETUP_BYTES) {
+    throw new RangeError("live battle setup byte bound exceeded");
+  }
+  let parsed;
+  try { parsed = JSON.parse(serialized); }
+  catch { throw new TypeError("live battle setup must be valid JSON text"); }
+  preflightParsedGraph(parsed, SETUP_GRAPH_LIMITS, "live battle setup");
+  if (canonical(parsed) !== serialized) {
+    throw new TypeError("live battle setup must be canonical JSON text");
+  }
+  return parsed;
+}
+
+function string(value, label) {
+  if (typeof value !== "string" || value.length === 0 || value.length > 128) {
+    throw new TypeError(`${label} must be a bounded non-empty primitive string`);
+  }
+  return value;
+}
+
+function identity(value, displayName, label) {
+  const checked = string(value, label);
+  const display = string(displayName, `${label} display name`);
+  if (!/^[A-Za-z0-9]+(?: [A-Za-z0-9]+)*$/u.test(display)) {
+    throw new TypeError(`${label} display name cannot form a canonical identity`);
+  }
+  const derived = display.toLowerCase().replaceAll(" ", "-");
+  if (checked !== derived) {
+    throw new TypeError(`${label} must be the canonical identity of its display name`);
+  }
+  return checked;
+}
+
+function nonnegative(value, label) {
+  return integer(value, 0, Number.MAX_SAFE_INTEGER, label);
+}
+
+function nullableNonnegative(value, label) {
+  return value === null ? null : nonnegative(value, label);
+}
+
+function checkedPolicy(value, label, { projectile = false } = {}) {
+  const policy = exact(value, POLICY_KEYS, label);
+  if (policy.kind === "not-applicable" && projectile && policy.questionKey === null) {
+    return { kind: policy.kind, questionKey: null };
+  }
+  if (policy.kind !== "question") throw new TypeError(`${label}.kind is invalid`);
+  return { kind: policy.kind, questionKey: string(policy.questionKey, `${label}.questionKey`) };
+}
+
+function checkedSetup(value) {
+  const setup = exact(value, SETUP_KEYS, "live battle setup");
+  const windups = exact(setup.initialWindupTicks, ["central", "lane"],
+    "live battle setup.initialWindupTicks");
+  const initialWindupTicks = {
+    central: nonnegative(windups.central, "live battle setup.initialWindupTicks.central"),
+    lane: nonnegative(windups.lane, "live battle setup.initialWindupTicks.lane"),
+  };
+  const questions = denseArray(setup.questions, "live battle setup.questions", 256)
+    .map((value, index) => {
+      const record = exact(value, QUESTION_KEYS, `live battle setup.questions[${index}]`);
+      if (record.authoritative !== false || record.disposition !== "question") {
+        throw new TypeError(`live battle setup.questions[${index}] must be non-authoritative`);
+      }
+      return {
+        authoritative: false,
+        confidence: string(record.confidence, `questions[${index}].confidence`),
+        disposition: "question",
+        key: string(record.key, `questions[${index}].key`),
+        source: string(record.source, `questions[${index}].source`),
+        value: integer(record.value, 1, Number.MAX_SAFE_INTEGER, `questions[${index}].value`),
+      };
+    });
+  if (new Set(questions.map(({ key }) => key)).size !== questions.length) {
+    throw new TypeError("live battle setup question keys must be unique");
+  }
+  const questionKeys = new Set(questions.map(({ key }) => key));
+  const referencedQuestionKeys = new Set();
+  const roster = denseArray(setup.roster, "live battle setup.roster", 8)
+    .map((value, cardIndex) => {
+      const card = exact(value, CARD_KEYS, `live battle setup.roster[${cardIndex}]`);
+      const cardKind = string(card.kind, `roster[${cardIndex}].kind`);
+      if (!["effect", "structure", "unit"].includes(cardKind)) {
+        throw new TypeError(`roster[${cardIndex}].kind is invalid`);
+      }
+      const entities = denseArray(card.entities, `roster[${cardIndex}].entities`, 16)
+        .map((raw, entityIndex) => {
+          const label = `roster[${cardIndex}].entities[${entityIndex}]`;
+          const entity = exact(raw, ENTITY_KEYS, label);
+          const bodyRadiusPolicy = checkedPolicy(entity.bodyRadiusPolicy, `${label}.bodyRadiusPolicy`);
+          const projectileSpeedPolicy = checkedPolicy(
+            entity.projectileSpeedPolicy, `${label}.projectileSpeedPolicy`, { projectile: true },
+          );
+          for (const policy of [bodyRadiusPolicy, projectileSpeedPolicy]) {
+            if (policy.kind === "question" && !questionKeys.has(policy.questionKey)) {
+              throw new TypeError(`${label} has an unresolved question policy`);
+            }
+            if (policy.kind === "question") referencedQuestionKeys.add(policy.questionKey);
+          }
+          if (!["melee", "projectile"].includes(entity.delivery) ||
+              !["air", "ground"].includes(entity.layer)) {
+            throw new TypeError(`${label} has an invalid delivery or layer`);
+          }
+          if ((entity.delivery === "projectile") !==
+              (projectileSpeedPolicy.kind === "question") || entity.kind !== "unit" ||
+              !["buildings", "ground", "ground-and-air"].includes(entity.targetMode)) {
+            throw new TypeError(`${label} has inconsistent combat metadata`);
+          }
+          const archetypeId = identity(entity.archetypeId, entity.displayName,
+            `${label}.archetypeId`);
+          const expectedBodyKey = `${archetypeId}.body-radius-millitiles`;
+          const expectedProjectileKey = `${archetypeId}.projectile-speed-millitiles-per-tick`;
+          if (bodyRadiusPolicy.questionKey !== expectedBodyKey ||
+              (projectileSpeedPolicy.kind === "question" &&
+                projectileSpeedPolicy.questionKey !== expectedProjectileKey)) {
+            throw new TypeError(`${label} policy identities are inconsistent with its archetype`);
+          }
+          if (entity.role !== (entityIndex === 0 ? "primary" : "secondary")) {
+            throw new TypeError(`${label}.role is inconsistent with component ownership`);
+          }
+          return {
+            archetypeId,
+            areaDamageRadiusMillitiles: nullableNonnegative(entity.areaDamageRadiusMillitiles,
+              `${label}.areaDamageRadiusMillitiles`),
+            bodyRadiusPolicy,
+            count: integer(entity.count, 1, 64, `${label}.count`),
+            damage: nonnegative(entity.damage, `${label}.damage`),
+            delivery: entity.delivery,
+            deployTimeTicks: nonnegative(entity.deployTimeTicks, `${label}.deployTimeTicks`),
+            displayName: string(entity.displayName, `${label}.displayName`),
+            firstHitTicks: nonnegative(entity.firstHitTicks, `${label}.firstHitTicks`),
+            hitSpeedTicks: integer(entity.hitSpeedTicks, 1, Number.MAX_SAFE_INTEGER,
+              `${label}.hitSpeedTicks`),
+            hitpoints: integer(entity.hitpoints, 1, Number.MAX_SAFE_INTEGER, `${label}.hitpoints`),
+            kind: string(entity.kind, `${label}.kind`),
+            layer: entity.layer,
+            movementMillitilesPerSecond: nonnegative(entity.movementMillitilesPerSecond,
+              `${label}.movementMillitilesPerSecond`),
+            projectileSpeedPolicy,
+            rangeMillitiles: nonnegative(entity.rangeMillitiles, `${label}.rangeMillitiles`),
+            role: string(entity.role, `${label}.role`),
+            sightRangeMillitiles: nonnegative(entity.sightRangeMillitiles,
+              `${label}.sightRangeMillitiles`),
+            targetMode: string(entity.targetMode, `${label}.targetMode`),
+          };
+        });
+      if ((cardKind === "unit") !== (entities.length > 0)) {
+        throw new TypeError(`roster[${cardIndex}] entity inventory is inconsistent with its kind`);
+      }
+      const formation = exact(card.formation, FORMATION_KEYS, `roster[${cardIndex}].formation`);
+      const componentOrder = denseArray(formation.componentOrder,
+        `roster[${cardIndex}].formation.componentOrder`, 16)
+        .map((id, index) => string(id, `formation.componentOrder[${index}]`));
+      if (formation.expansionOrder !== "component-order-then-member-index" ||
+          canonical(componentOrder) !== canonical(entities.map(({ archetypeId }) => archetypeId)) ||
+          formation.totalCount !== entities.reduce((sum, entity) => sum + entity.count, 0) ||
+          (cardKind === "unit" ? card.count !== formation.totalCount :
+            formation.totalCount !== 0)) {
+        throw new TypeError(`roster[${cardIndex}].formation is inconsistent`);
+      }
+      const label = `roster[${cardIndex}]`;
+      return {
+        areaDamageRadiusMillitiles: nullableNonnegative(card.areaDamageRadiusMillitiles,
+          `${label}.areaDamageRadiusMillitiles`),
+        cost: nonnegative(card.cost, `${label}.cost`),
+        count: integer(card.count, 1, 64, `${label}.count`),
+        damage: cardKind === "unit" ? nonnegative(card.damage, `${label}.damage`) :
+          nullableNonnegative(card.damage, `${label}.damage`),
+        deployTimeTicks: cardKind === "unit" ?
+          nonnegative(card.deployTimeTicks, `${label}.deployTimeTicks`) :
+          nullableNonnegative(card.deployTimeTicks, `${label}.deployTimeTicks`),
+        displayName: string(card.displayName, `${label}.displayName`),
+        entities,
+        firstHitTicks: cardKind === "unit" ? nonnegative(card.firstHitTicks, `${label}.firstHitTicks`) :
+          nullableNonnegative(card.firstHitTicks, `${label}.firstHitTicks`),
+        formation: { componentOrder, expansionOrder: formation.expansionOrder,
+          totalCount: formation.totalCount },
+        hitSpeedTicks: cardKind === "unit" ? integer(card.hitSpeedTicks, 1,
+          Number.MAX_SAFE_INTEGER, `${label}.hitSpeedTicks`) : card.hitSpeedTicks === null ? null :
+          integer(card.hitSpeedTicks, 1, Number.MAX_SAFE_INTEGER, `${label}.hitSpeedTicks`),
+        hitpoints: cardKind === "unit" ? integer(card.hitpoints, 1,
+          Number.MAX_SAFE_INTEGER, `${label}.hitpoints`) : card.hitpoints === null ? null :
+          integer(card.hitpoints, 1, Number.MAX_SAFE_INTEGER, `${label}.hitpoints`),
+        id: identity(card.id, card.displayName, `${label}.id`),
+        kind: cardKind,
+        movementMillitilesPerSecond: cardKind === "unit" ?
+          nonnegative(card.movementMillitilesPerSecond,
+            `${label}.movementMillitilesPerSecond`) :
+          nullableNonnegative(card.movementMillitilesPerSecond,
+            `${label}.movementMillitilesPerSecond`),
+        rangeMillitiles: cardKind === "unit" ?
+          nonnegative(card.rangeMillitiles, `${label}.rangeMillitiles`) :
+          nullableNonnegative(card.rangeMillitiles, `${label}.rangeMillitiles`),
+        rarity: string(card.rarity, `${label}.rarity`),
+        sightRangeMillitiles: cardKind === "unit" ?
+          nonnegative(card.sightRangeMillitiles, `${label}.sightRangeMillitiles`) :
+          nullableNonnegative(card.sightRangeMillitiles, `${label}.sightRangeMillitiles`),
+        targetMode: string(card.targetMode, `${label}.targetMode`),
+      };
+    });
+  if (roster.length !== 8 || new Set(roster.map(({ id }) => id)).size !== roster.length) {
+    throw new TypeError("live battle setup roster must contain eight unique cards");
+  }
+  const archetypes = roster.flatMap(({ entities }) => entities.map(({ archetypeId }) => archetypeId));
+  if (new Set(archetypes).size !== archetypes.length) {
+    throw new TypeError("live battle setup archetype identities must be globally unique");
+  }
+  const cardOwners = new Set(roster.map(({ id }) => id));
+  for (const card of roster) {
+    if (card.entities.length === 1 && card.entities[0].count === 1 &&
+        card.entities[0].archetypeId !== card.id) {
+      throw new TypeError("live battle singleton card must own its matching archetype identity");
+    }
+    for (const entity of card.entities) {
+      if (cardOwners.has(entity.archetypeId) && entity.archetypeId !== card.id) {
+        throw new TypeError("live battle archetype cannot alias another card identity");
+      }
+    }
+  }
+  const expectedQuestions = [...referencedQuestionKeys].sort();
+  const actualQuestions = questions.map(({ key }) => key).sort();
+  if (canonical(actualQuestions) !== canonical(expectedQuestions)) {
+    throw new TypeError("live battle questions must be the canonical exact referenced inventory");
+  }
+  if (new Set(questions.map(({ source }) => source)).size !== 1 ||
+      questions.some(({ confidence }) => confidence !== "unverified")) {
+    throw new TypeError("live battle questions must share canonical unverified provenance");
+  }
+  const canonicalQuestions = [...questions].sort((left, right) =>
+    left.key < right.key ? -1 : left.key > right.key ? 1 : 0);
+  const normalized = freeze({ initialWindupTicks, questions: canonicalQuestions, roster });
+  ADMITTED_SETUPS.add(normalized);
+  return normalized;
+}
+
+function admittedSetup(value) {
+  if (typeof value === "string") return checkedSetup(parsedSetupBytes(value));
+  if (value !== null && typeof value === "object" && ADMITTED_SETUPS.has(value)) return value;
+  throw new TypeError("live battle setup object must come from parseLiveBattleSetup");
+}
+
+function parseLiveBattleSetup(serialized) {
+  return checkedSetup(parsedSetupBytes(serialized));
+}
+
+function resolveQuestion(policy, questionValues) {
+  if (policy.kind !== "question") return null;
+  return questionValues.get(policy.questionKey);
+}
+
+function checkedDeploy(value, currentTick, rosterById) {
+  const command = exact(value, DEPLOY_KEYS, "live battle deploy command");
+  const tick = integer(command.tick, currentTick, MAX_LIVE_BATTLE_STEP_TICKS,
+    "live battle deploy command.tick");
+  const sequence = integer(command.sequence, 0, Number.MAX_SAFE_INTEGER,
+    "live battle deploy command.sequence");
+  if (!SIDES.has(command.side)) throw new TypeError("live battle deploy command.side is invalid");
+  const card = rosterById.get(command.cardId);
+  if (!card) {
+    throw new TypeError("live battle deploy command.cardId is not playable");
+  }
+  if (card.kind !== "unit" || card.entities.length === 0) {
+    throw new TypeError("live battle deploy command.cardId is not a materializable unit");
+  }
+  const point = validateArenaPoint(command.point, "live battle deploy command.point");
+  const decision = evaluateDeployment({
+    destroyedOpposingLaneTowers: [],
+    placementClass: "ground_entity",
+    point,
+    side: command.side,
+  });
+  if (!decision.legal) throw new RangeError(`live battle deployment is illegal: ${decision.reason}`);
+  return { cardId: command.cardId, point: { ...point }, sequence, side: command.side, tick };
+}
+
+function otherSide(side) {
+  return side === "north" ? "south" : "north";
+}
+
+function squaredDistance(left, right) {
+  const dx = BigInt(left.x) - BigInt(right.x);
+  const dy = BigInt(left.y) - BigInt(right.y);
+  return dx * dx + dy * dy;
+}
+
+function targetMode(value) {
+  return value === "ground-and-air" ? "air_and_ground" : value;
+}
+
+function layerEligible(mode, layer) {
+  return mode === "air_and_ground" || mode === layer;
+}
+
+function nearestGroundNode(point, occupied = new Set()) {
+  let best = null;
+  let bestDistance = null;
+  for (const candidate of GROUND_NODES) {
+    if (!occupied.has(`${candidate.x}:${candidate.y}`)) {
+      const distance = squaredDistance(candidate, point);
+      if (best === null || distance < bestDistance ||
+          (distance === bestDistance && (candidate.y < best.y ||
+            (candidate.y === best.y && candidate.x < best.x)))) {
+        best = candidate;
+        bestDistance = distance;
+      }
+    }
+  }
+  if (best === null) throw new RangeError("no ground navigation node is available");
+  return best;
+}
+
+function expandedEntities(card, firstId, questionValues) {
+  const entities = [];
+  let id = firstId;
+  for (const component of card.entities) {
+    const radius = resolveQuestion(component.bodyRadiusPolicy, questionValues);
+    const projectileSpeed = component.projectileSpeedPolicy.kind === "question"
+      ? resolveQuestion(component.projectileSpeedPolicy, questionValues)
+      : null;
+    for (let memberIndex = 0; memberIndex < component.count; memberIndex += 1) {
+      entities.push({ component, id, memberIndex, projectileSpeed, radius });
+      id += 1;
+    }
+  }
+  return entities;
+}
+
+function placedEntities(card, point, firstId, questionValues) {
+  const expanded = expandedEntities(card, firstId, questionValues);
+  const laidOut = layoutFormation(point, expanded.map(({ component, id, radius }) => ({
+    id,
+    radius,
+    role: component.role,
+  })));
+  const occupied = new Set();
+  return expanded.map((entry, index) => {
+    const desired = laidOut[index].position;
+    const position = entry.component.layer === "ground"
+      ? nearestGroundNode(desired, occupied)
+      : desired;
+    if (entry.component.layer === "ground") occupied.add(`${position.x}:${position.y}`);
+    return { ...entry, position };
+  });
+}
+
+function combatSpec(entity, side) {
+  const component = entity.component;
+  return {
+    cadenceTicks: component.hitSpeedTicks,
+    damage: component.damage,
+    delivery: component.delivery,
+    deployTicks: component.deployTimeTicks,
+    firstHitTicks: component.firstHitTicks,
+    id: entity.id,
+    layer: component.layer,
+    maxHealth: component.hitpoints,
+    position: { ...entity.position },
+    projectileSpeed: entity.projectileSpeed,
+    radius: entity.radius,
+    reach: component.rangeMillitiles,
+    side,
+    sightRange: component.sightRangeMillitiles,
+    targetMode: targetMode(component.targetMode),
+  };
+}
+
+function movementWitnesses(movements, metadata) {
+  return [...movements].sort(([left], [right]) => left - right).map(([id, movement]) => ({
+    bytes: movement.serialize(),
+    id,
+    targetKey: metadata.get(id).targetKey,
+  }));
+}
+
+function compactLiveHistory(history) {
+  const transcript = [];
+  for (let index = 0; index < history.length;) {
+    const operation = history[index];
+    if (operation.type !== "step") {
+      transcript.push(clone(operation));
+      index += 1;
+      continue;
+    }
+    let ticks = 1;
+    while (history[index + ticks]?.type === "step" &&
+        history[index + ticks].tick === operation.tick + ticks) ticks += 1;
+    transcript.push({ tick: operation.tick, ticks, type: "step-run" });
+    index += ticks;
+  }
+  return transcript;
+}
+
+class LiveBattle {
+  #battle;
+  #events;
+  #history;
+  #historyCount;
+  #isContinuation;
+  #metadata;
+  #movements;
+  #movementsOpaque;
+  #nextEntityId;
+  #pending;
+  #questionValues;
+  #rosterById;
+  #setup;
+
+  constructor(value) {
+    runtimeInstances.add(this);
+    const setup = admittedSetup(value);
+    this.#battle = new BattleTowerCombat({
+      initialWindupTicks: setup.initialWindupTicks,
+      units: [],
+    });
+    this.#events = [];
+    this.#history = [];
+    this.#historyCount = 0;
+    this.#isContinuation = false;
+    this.#metadata = new Map();
+    this.#movements = new Map();
+    this.#movementsOpaque = false;
+    this.#nextEntityId = 1;
+    this.#pending = [];
+    this.#setup = setup;
+    this.#questionValues = new Map(setup.questions.map(({ key, value: answer }) => [key, answer]));
+    this.#rosterById = new Map(setup.roster.map((card) => [card.id, card]));
+  }
+
+  #battleRuntime() {
+    return this.#isContinuation ? resolveBattleTower(this.#battle) : this.#battle;
+  }
+
+  #movementRuntime(movement) {
+    return this.#movementsOpaque ? resolveBattleMovement(movement) : movement;
+  }
+
+  #movementRuntimes() {
+    if (!this.#movementsOpaque) return this.#movements;
+    return new Map([...this.#movements].map(([id, movement]) =>
+      [id, this.#movementRuntime(movement)]));
+  }
+
+  get state() {
+    const state = this.#battleRuntime().state;
+    return freeze({
+      activationHistory: clone(state.activationHistory),
+      pendingDeployments: clone(this.#pending),
+      projectiles: clone(state.projectiles),
+      tick: state.tick,
+      towers: clone(state.towers),
+      units: state.units.map((unit) => ({
+        ...clone(unit),
+        archetypeId: this.#metadata.get(unit.id).archetypeId,
+        cardId: this.#metadata.get(unit.id).cardId,
+        memberIndex: this.#metadata.get(unit.id).memberIndex,
+        movement: unit.alive ? clone(this.#movementRuntime(this.#movements.get(unit.id)).state) : null,
+        role: this.#metadata.get(unit.id).role,
+      })),
+    });
+  }
+
+  get events() {
+    this.#assertPublicTranscript();
+    return freeze(clone(this.#events));
+  }
+
+  get replay() {
+    return this.events;
+  }
+
+  /** Returns an independent transactional continuation without history replay. */
+  fork() {
+    this.#assertPublicTranscript();
+    return this.#runtimeClone();
+  }
+
+  /** Internal composite checkpoint. Public history remains owned by the caller. */
+  static {
+    compact = (value) => value.#runtimeClone(false);
+  }
+  scheduleDeploy(command) {
+    if (this.#historyCount >= MAX_HISTORY || this.#pending.length >= MAX_LIVE_BATTLE_DEPLOYMENTS) {
+      throw new RangeError("live battle deployment/history bound exceeded");
+    }
+    const battle = this.#battleRuntime();
+    const checked = checkedDeploy(command, battle.state.tick, this.#rosterById);
+    if (this.#pending.some((entry) =>
+      entry.tick === checked.tick && entry.sequence === checked.sequence)) {
+      throw new RangeError("live battle deployment tick/sequence must be unique");
+    }
+    this.#pending.push(clone(checked));
+    this.#pending.sort((left, right) => left.tick - right.tick ||
+      left.sequence - right.sequence || left.side.localeCompare(right.side));
+    this.#appendHistory({ command: clone(checked), type: "deploy" });
+    const event = { ...clone(checked), scheduledAt: battle.state.tick, type: "deploy-scheduled" };
+    this.#events.push(event);
+    return freeze(clone(event));
+  }
+
+  step(tick = this.#battleRuntime().state.tick) {
+    integer(tick, 0, MAX_LIVE_BATTLE_STEP_TICKS, "live battle step tick");
+    if (tick !== this.#battleRuntime().state.tick) throw new RangeError("live battle step tick is not current");
+    if (this.#historyCount >= MAX_HISTORY) throw new RangeError("live battle history bound exceeded");
+    this.#preflightBoundary();
+    const candidate = this.#runtimeClone();
+    const events = candidate.#advance();
+    this.#adopt(candidate);
+    return freeze(clone(events));
+  }
+
+  stepMany(ticks) {
+    integer(ticks, 0, MAX_LIVE_BATTLE_STEP_TICKS, "live battle step ticks");
+    if (this.#battleRuntime().state.tick + ticks > MAX_LIVE_BATTLE_STEP_TICKS) {
+      throw new RangeError("live battle tick bound exceeded");
+    }
+    if (this.#historyCount + ticks > MAX_HISTORY) throw new RangeError("live battle history bound exceeded");
+    const candidate = this.#runtimeClone();
+    const events = [];
+    for (let count = 0; count < ticks; count += 1) events.push(...candidate.#advance());
+    this.#adopt(candidate);
+    return freeze(clone(events));
+  }
+
+  serialize() {
+    this.#assertPublicTranscript();
+    const tailStart = Math.max(0, this.#history.length - EXPLICIT_HISTORY_TAIL);
+    const serialized = canonical({
+      battle: this.#battleRuntime().serialize(),
+      history: this.#history.slice(tailStart),
+      movements: movementWitnesses(this.#movementRuntimes(), this.#metadata),
+      setup: this.#setup,
+      transcript: compactLiveHistory(this.#history.slice(0, tailStart)),
+      version: 2,
+    });
+    if (new TextEncoder().encode(serialized).byteLength > MAX_SNAPSHOT_BYTES) {
+      throw new RangeError("serialized live battle exceeds the byte bound");
+    }
+    return serialized;
+  }
+
+  static restore(serialized) {
+    if (typeof serialized !== "string") throw new TypeError("serialized live battle must be a string");
+    if (new TextEncoder().encode(serialized).byteLength > MAX_SNAPSHOT_BYTES) {
+      throw new RangeError("serialized live battle exceeds the byte bound");
+    }
+    let snapshot;
+    try { snapshot = JSON.parse(serialized); }
+    catch { throw new TypeError("serialized live battle must be valid JSON"); }
+    preflightParsedGraph(snapshot, SNAPSHOT_GRAPH_LIMITS, "live battle snapshot");
+    if (canonical(snapshot) !== serialized) throw new TypeError("serialized live battle must be canonical JSON");
+    const snapshotShape = plain(snapshot, "live battle snapshot");
+    const version = snapshotShape.version?.value;
+    const checked = version === 1
+      ? exact(snapshot, ["battle", "history", "movements", "setup", "version"],
+        "live battle snapshot")
+      : version === 2
+        ? exact(snapshot, ["battle", "history", "movements", "setup", "transcript", "version"],
+          "live battle snapshot")
+        : (() => { throw new TypeError("unsupported live battle snapshot version"); })();
+    const history = denseArray(checked.history, "live battle snapshot.history", MAX_HISTORY);
+    const transcript = version === 2
+      ? denseArray(checked.transcript, "live battle snapshot.transcript", MAX_HISTORY)
+      : [];
+    let expandedOperations = history.length;
+    for (let index = 0; index < transcript.length; index += 1) {
+      const descriptors = plain(transcript[index], `live battle snapshot.transcript[${index}]`);
+      let added = 1;
+      if (descriptors.type?.value === "step-run") {
+        const tick = integer(descriptors.tick?.value, 0, MAX_LIVE_BATTLE_STEP_TICKS,
+          `transcript[${index}].tick`);
+        added = integer(descriptors.ticks?.value, 1, MAX_HISTORY, `transcript[${index}].ticks`);
+        if (added > MAX_LIVE_BATTLE_STEP_TICKS - tick) {
+          throw new RangeError("live battle transcript tick bound exceeded");
+        }
+      }
+      if (added > MAX_HISTORY - expandedOperations) {
+        throw new RangeError("live battle transcript operation bound exceeded");
+      }
+      expandedOperations += added;
+    }
+    const restored = new LiveBattle(checkedSetup(checked.setup));
+    const replayOperation = (operation, index, label) => {
+      plain(operation, `live battle snapshot.history[${index}]`);
+      if (operation.type === "deploy") {
+        const entry = exact(operation, ["command", "type"], `history[${index}]`);
+        restored.scheduleDeploy(entry.command);
+      } else if (operation.type === "step") {
+        const entry = exact(operation, ["tick", "type"], `history[${index}]`);
+        integer(entry.tick, 0, MAX_LIVE_BATTLE_STEP_TICKS, `history[${index}].tick`);
+        if (entry.tick !== restored.state.tick) throw new TypeError("noncausal live battle step history");
+        restored.#advance();
+      } else throw new TypeError(`live battle snapshot.${label}[${index}] is invalid`);
+    };
+    if (version === 2) {
+      let operations = 0;
+      for (const [index, record] of transcript.entries()) {
+        plain(record, `live battle snapshot.transcript[${index}]`);
+        if (record.type === "step-run") {
+          const run = exact(record, ["tick", "ticks", "type"], `transcript[${index}]`);
+          const ticks = integer(run.ticks, 1, MAX_HISTORY, `transcript[${index}].ticks`);
+          for (let count = 0; count < ticks; count += 1) {
+            replayOperation({ tick: run.tick + count, type: "step" }, index, "transcript");
+          }
+          operations += ticks;
+        } else {
+          replayOperation(record, index, "transcript");
+          operations += 1;
+        }
+        if (operations > MAX_HISTORY) throw new RangeError("live battle transcript operation bound exceeded");
+      }
+      for (const [index, operation] of history.entries()) {
+        replayOperation(operation, index, "history");
+      }
+    } else {
+      for (const [index, operation] of history.entries()) {
+        replayOperation(operation, index, "history");
+      }
+    }
+    const battleWitnessMatches = version === 2
+      ? restored.#battleRuntime().serialize() === checked.battle
+      : (() => {
+        const legacy = BattleTowerCombat.restore(checked.battle);
+        if (JSON.parse(checked.battle).version !== 1) {
+          throw new TypeError("live battle and battle tower snapshot versions are mixed");
+        }
+        return canonical(legacy.state) === canonical(restored.#battleRuntime().state) &&
+          canonical(legacy.replay) === canonical(restored.#battleRuntime().replay);
+      })();
+    if (!battleWitnessMatches || canonical(movementWitnesses(restored.#movementRuntimes(), restored.#metadata)) !==
+          canonical(checked.movements) || (version === 2 && restored.serialize() !== serialized)) {
+      throw new TypeError("live battle snapshot witnesses are not causal");
+    }
+    return restored;
+  }
+
+  #advance() {
+    this.#preflightBoundary();
+    const battle = this.#battleRuntime();
+    const tick = battle.state.tick;
+    const boundary = [];
+    const due = this.#pending.filter((entry) => entry.tick === tick);
+    this.#pending = this.#pending.filter((entry) => entry.tick !== tick);
+    for (const deployment of due) boundary.push(...this.#materialize(deployment));
+
+    const before = battle.state;
+    const positionCommands = [];
+    for (const unit of before.units.filter(({ alive }) => alive).sort((a, b) => a.id - b.id)) {
+      const movement = this.#movementRuntime(this.#movements.get(unit.id));
+      const desired = this.#desiredTarget(unit, before);
+      const metadata = this.#metadata.get(unit.id);
+      if (desired.key !== metadata.targetKey) {
+        if (desired.target === null) {
+          if (movement.state.target !== null) movement.stop();
+        } else movement.setTarget(desired.target);
+        metadata.targetKey = desired.key;
+      }
+      const movementEvents = movement.step();
+      if (movementEvents.length > 0) {
+        boundary.push(...movementEvents.map((event) => ({
+          event: clone(event), tick, type: "movement", unitId: unit.id,
+        })));
+      }
+      if (movement.state.position.x !== unit.position.x || movement.state.position.y !== unit.position.y) {
+        positionCommands.push({
+          id: unit.id,
+          position: movement.state.position,
+        });
+      }
+    }
+    if (positionCommands.length > 0) {
+      boundary.push(...battle.updatePositions({ positions: positionCommands, tick }));
+    }
+    boundary.push(...battle.step(tick));
+    this.#appendHistory({ tick, type: "step" });
+    this.#events.push(...clone(boundary));
+    return boundary;
+  }
+
+  #preflightBoundary() {
+    const battle = this.#battleRuntime();
+    const tick = battle.state.tick;
+    const due = this.#pending.filter((entry) => entry.tick === tick);
+    const added = due.reduce((sum, deployment) => {
+      const card = this.#rosterById.get(deployment.cardId);
+      if (card === undefined) throw new TypeError("live battle pending card identity is unknown");
+      return sum + card.formation.totalCount;
+    }, 0);
+    const existing = battle.state.units.length;
+    if (!Number.isSafeInteger(added) || existing + added > MAX_LIVE_BATTLE_UNITS) {
+      throw new RangeError("live battle boundary unit capacity exceeded");
+    }
+    if (this.#nextEntityId + added > Number.MAX_SAFE_INTEGER) {
+      throw new RangeError("live battle entity identity capacity exceeded");
+    }
+  }
+
+  #materialize(deployment) {
+    const card = this.#rosterById.get(deployment.cardId);
+    const entities = placedEntities(card, deployment.point, this.#nextEntityId,
+      this.#questionValues);
+    const events = [];
+    const battle = this.#battleRuntime();
+    for (const entity of entities) {
+      const spec = combatSpec(entity, deployment.side);
+      events.push(battle.spawn({ ...spec, tick: deployment.tick }));
+      const movement = new BattleMovement({
+        bodyRadius: entity.radius,
+        mode: entity.component.layer,
+        position: entity.position,
+        speed: entity.component.movementMillitilesPerSecond,
+      });
+      movement.stepMany(deployment.tick);
+      this.#movements.set(entity.id, this.#movementsOpaque
+        ? battleMovementCompactClone(movement)
+        : movement);
+      this.#metadata.set(entity.id, {
+        archetypeId: entity.component.archetypeId,
+        cardId: card.id,
+        memberIndex: entity.memberIndex,
+        role: entity.component.role,
+        targetKey: null,
+      });
+    }
+    this.#nextEntityId += entities.length;
+    events.push({
+      cardId: card.id,
+      entityIds: entities.map(({ id }) => id),
+      point: { ...deployment.point },
+      sequence: deployment.sequence,
+      side: deployment.side,
+      tick: deployment.tick,
+      type: "deployed",
+    });
+    return events;
+  }
+
+  #desiredTarget(unit, state) {
+    const metadata = this.#metadata.get(unit.id);
+    const enemies = state.units.filter((candidate) => candidate.alive && candidate.side !== unit.side &&
+      layerEligible(unit.targetMode, candidate.layer));
+    enemies.sort((left, right) => {
+      const distance = squaredDistance(unit.position, left.position) -
+        squaredDistance(unit.position, right.position);
+      return distance < 0n ? -1 : distance > 0n ? 1 : left.id - right.id;
+    });
+    const sight = BigInt(unit.radius + unit.sightRange + (enemies[0]?.radius ?? 0));
+    const enemy = enemies[0] !== undefined &&
+      squaredDistance(unit.position, enemies[0].position) <= sight * sight ? enemies[0] : null;
+    if (enemy !== null) {
+      const inReach = BigInt(unit.radius + unit.reach + enemy.radius);
+      if (squaredDistance(unit.position, enemy.position) <= inReach * inReach) {
+        return { key: `hold-unit:${enemy.id}`, target: null };
+      }
+      const point = unit.layer === "ground" ? nearestGroundNode(enemy.position) : enemy.position;
+      return {
+        key: `unit:${enemy.id}:${point.x}:${point.y}`,
+        target: { position: point, radius: enemy.radius, range: unit.reach },
+      };
+    }
+    const towers = state.towers.filter((tower) => tower.hitpoints > 0 && tower.side === otherSide(unit.side));
+    towers.sort((left, right) => {
+      const distance = squaredDistance(unit.position, left.position) -
+        squaredDistance(unit.position, right.position);
+      return distance < 0n ? -1 : distance > 0n ? 1 : left.id.localeCompare(right.id);
+    });
+    if (towers.length === 0) return { key: "idle", target: null };
+    const targetTower = towers[0];
+    const towerKey = `tower:${targetTower.id}`;
+    if (metadata.targetKey === towerKey) return { key: towerKey, target: null };
+    const point = unit.layer === "ground" ? nearestGroundNode(targetTower.position) : targetTower.position;
+    return {
+      key: towerKey,
+      target: { position: point, radius: 0, range: unit.reach },
+    };
+  }
+
+  #appendHistory(operation) {
+    this.#history.push(operation);
+    this.#historyCount += 1;
+  }
+
+  #assertPublicTranscript() {
+    if (this.#isContinuation) {
+      throw new TypeError("internal live battle continuation cannot expose a public transcript");
+    }
+  }
+
+  #runtimeClone(includeTranscript = true) {
+    const candidate = new LiveBattle(this.#setup);
+    const retainTranscript = includeTranscript && !this.#isContinuation;
+    const battle = this.#battleRuntime();
+    candidate.#battle = retainTranscript ? battle.fork() : battleTowerCompactClone(battle);
+    candidate.#events = retainTranscript ? [...this.#events] : [];
+    candidate.#history = retainTranscript ? [...this.#history] : [];
+    candidate.#historyCount = this.#historyCount;
+    candidate.#isContinuation = !retainTranscript;
+    candidate.#metadata = new Map([...this.#metadata].map(([id, data]) => [id, clone(data)]));
+    candidate.#movements = new Map([...this.#movements].map(([id, movement]) =>
+      [id, battleMovementCompactClone(this.#movementRuntime(movement))]));
+    candidate.#movementsOpaque = true;
+    candidate.#nextEntityId = this.#nextEntityId;
+    candidate.#pending = clone(this.#pending);
+    candidate.#questionValues = new Map(this.#questionValues);
+    candidate.#setup = this.#setup;
+    candidate.#rosterById = new Map(candidate.#setup.roster.map((card) => [card.id, card]));
+    return candidate;
+  }
+
+  #adopt(candidate) {
+    this.#battle = candidate.#battle;
+    this.#events = candidate.#events;
+    this.#history = candidate.#history;
+    this.#historyCount = candidate.#historyCount;
+    this.#isContinuation = candidate.#isContinuation;
+    this.#metadata = candidate.#metadata;
+    this.#movements = candidate.#movements;
+    this.#movementsOpaque = candidate.#movementsOpaque;
+    this.#nextEntityId = candidate.#nextEntityId;
+    this.#pending = candidate.#pending;
+    this.#questionValues = candidate.#questionValues;
+    this.#rosterById = candidate.#rosterById;
+    this.#setup = candidate.#setup;
+  }
+}
+
+function getLiveBattlePlayableCardIds(setup) {
+  return freeze(admittedSetup(setup).roster.map(({ id }) => id));
+}
+  opaqueContinuation((value) => {
+    if (!runtimeInstances.has(value)) {
+      throw new TypeError("internal defineLiveBattle continuation receiver is invalid");
+    }
+    return compact(value);
+  }, registerCompact);
+  return { getLiveBattlePlayableCardIds, LiveBattle, MAX_LIVE_BATTLE_DEPLOYMENTS, MAX_LIVE_BATTLE_STEP_TICKS, MAX_LIVE_BATTLE_UNITS, parseLiveBattleSetup };
+}
+
+let compactMovement, resolveMovement, compactCombat, resolveCombat, compactCrownTower,
+  resolveCrownTower, compactBattleTowers, resolveBattleTowers, compactLiveBattle,
+  resolveLiveBattle;
+const movement = defineBattleMovement((clone, resolve) => {
+  compactMovement = clone; resolveMovement = resolve;
+});
+const combat = defineBattleCombat((clone, resolve) => {
+  compactCombat = clone; resolveCombat = resolve;
+});
+const towers = defineTowers((clone, resolve) => {
+  compactCrownTower = clone; resolveCrownTower = resolve;
+});
+const battleTowers = defineBattleTowers(combat.BattleCombat, towers.CrownTowerBattle,
+  combat.MAX_BATTLE_COMBAT_STEP_TICKS, compactCombat, resolveCombat, compactCrownTower,
+  resolveCrownTower, (clone, resolve) => {
+    compactBattleTowers = clone; resolveBattleTowers = resolve;
+  });
+const liveBattle = defineLiveBattle(movement.BattleMovement, battleTowers.BattleTowerCombat,
+  compactMovement, resolveMovement, compactBattleTowers, resolveBattleTowers,
+  (clone, resolve) => { compactLiveBattle = clone; resolveLiveBattle = resolve; });
+
+export const BATTLE_MOVEMENT_MODES = movement.BATTLE_MOVEMENT_MODES;
+export const MAX_BATTLE_MOVEMENT_STEP_TICKS = movement.MAX_BATTLE_MOVEMENT_STEP_TICKS;
+export const BattleMovement = movement.BattleMovement;
+export const MAX_BATTLE_COMBAT_STEP_TICKS = combat.MAX_BATTLE_COMBAT_STEP_TICKS;
+export const BattleCombat = combat.BattleCombat;
+export const DynamicBattleCombat = combat.DynamicBattleCombat;
+export const TOWER_TICKS_PER_SECOND = towers.TOWER_TICKS_PER_SECOND;
+export const TOWER_COMBAT_CONFIG = towers.TOWER_COMBAT_CONFIG;
+export const TOWER_WINDUP_ESTIMATE = towers.TOWER_WINDUP_ESTIMATE;
+export const TOWER_LIVE_SHOT_DELIVERY = towers.TOWER_LIVE_SHOT_DELIVERY;
+export const CrownTowerBattle = towers.CrownTowerBattle;
+export const towerSecondsToTicks = towers.towerSecondsToTicks;
+export const MAX_BATTLE_TOWER_STEP_TICKS = battleTowers.MAX_BATTLE_TOWER_STEP_TICKS;
+export const BattleTowerCombat = battleTowers.BattleTowerCombat;
+export const IntegratedBattleTowers = battleTowers.IntegratedBattleTowers;
+export const MAX_LIVE_BATTLE_STEP_TICKS = liveBattle.MAX_LIVE_BATTLE_STEP_TICKS;
+export const MAX_LIVE_BATTLE_DEPLOYMENTS = liveBattle.MAX_LIVE_BATTLE_DEPLOYMENTS;
+export const MAX_LIVE_BATTLE_UNITS = liveBattle.MAX_LIVE_BATTLE_UNITS;
+export const parseLiveBattleSetup = liveBattle.parseLiveBattleSetup;
+export const LiveBattle = liveBattle.LiveBattle;
+export const getLiveBattlePlayableCardIds = liveBattle.getLiveBattlePlayableCardIds;
+
+
+function defineElixir(registerCompact) {
+  let compact;
+  const runtimeInstances = new WeakSet();
+const ELIXIR_TICKS_PER_SECOND = 60;
+const ELIXIR_ACCUMULATOR_DENOMINATOR = 168;
+const ELIXIR_CAPACITY = 10;
+const ESTIMATED_STARTING_ELIXIR = 5;
+const ELIXIR_MATCH_TICKS = 18_000;
+const ELIXIR_MAX_PENDING_SPENDS = 10_000;
+const ELIXIR_MAX_HISTORY_ENTRIES = 100_000;
+
+const SIDES = Object.freeze(["south", "north"]);
+const SIDE_SET = new Set(SIDES);
+const PHASES = Object.freeze([
+  Object.freeze({
+    name: "single",
+    fromTick: 0,
+    toTick: 7_200,
+    numeratorPerTick: 1,
+    ticksPerElixir: 168,
+    confidence: "high",
+  }),
+  Object.freeze({
+    name: "double",
+    fromTick: 7_200,
+    toTick: 14_400,
+    numeratorPerTick: 2,
+    ticksPerElixir: 84,
+    confidence: "high",
+  }),
+  Object.freeze({
+    name: "triple",
+    fromTick: 14_400,
+    toTick: 18_000,
+    numeratorPerTick: 3,
+    ticksPerElixir: 56,
+    confidence: "normalized_exact_third",
+  }),
+]);
+const ELIXIR_MAX_GENERATED_EVENTS =
+  SIDES.length *
+  Math.floor(
+    PHASES.reduce(
+      (total, phase) =>
+        total +
+        (phase.toTick - phase.fromTick) * phase.numeratorPerTick,
+      0,
+    ) / ELIXIR_ACCUMULATOR_DENOMINATOR,
+  );
+const ELIXIR_MAX_EVENT_ENTRIES =
+  ELIXIR_MAX_HISTORY_ENTRIES + ELIXIR_MAX_GENERATED_EVENTS;
+
+function isPlainObject(value) {
+  return (
+    value !== null &&
+    typeof value === "object" &&
+    !Array.isArray(value) &&
+    (Object.getPrototypeOf(value) === Object.prototype ||
+      Object.getPrototypeOf(value) === null) &&
+    Object.getOwnPropertySymbols(value).length === 0
+  );
+}
+
+function assertExactKeys(value, expected, label) {
+  if (!isPlainObject(value)) {
+    throw new TypeError(`${label} must be a plain object`);
+  }
+  const actual = Object.keys(value).sort();
+  const wanted = [...expected].sort();
+  if (
+    actual.length !== wanted.length ||
+    actual.some((key, index) => key !== wanted[index])
+  ) {
+    throw new TypeError(`${label} has an invalid shape`);
+  }
+}
+
+function assertSafeTick(value, label = "tick") {
+  if (!Number.isSafeInteger(value) || value < 0) {
+    throw new TypeError(`${label} must be a non-negative safe integer`);
+  }
+}
+
+function cloneJson(value) {
+  return JSON.parse(JSON.stringify(value));
+}
+
+function canonicalize(value) {
+  if (Array.isArray(value)) return value.map(canonicalize);
+  if (isPlainObject(value)) {
+    const result = {};
+    for (const key of Object.keys(value).sort()) {
+      result[key] = canonicalize(value[key]);
+    }
+    return result;
+  }
+  return value;
+}
+
+function canonicalJson(value) {
+  return JSON.stringify(canonicalize(value));
+}
+
+function validateSideState(value, label) {
+  assertExactKeys(value, ["accumulator", "amount"], label);
+  if (
+    !Number.isInteger(value.amount) ||
+    value.amount < 0 ||
+    value.amount > ELIXIR_CAPACITY
+  ) {
+    throw new TypeError(`${label}.amount must be an integer from 0 to 10`);
+  }
+  if (
+    !Number.isInteger(value.accumulator) ||
+    value.accumulator < 0 ||
+    value.accumulator >= ELIXIR_ACCUMULATOR_DENOMINATOR
+  ) {
+    throw new TypeError(
+      `${label}.accumulator must be an integer from 0 to 167`,
+    );
+  }
+  if (value.amount === ELIXIR_CAPACITY && value.accumulator !== 0) {
+    throw new TypeError(`${label} cannot retain progress at capacity`);
+  }
+}
+
+function validateHistoryEntry(entry, index) {
+  assertExactKeys(entry, ["command", "events", "sequence", "tick"], `history[${index}]`);
+  assertSafeTick(entry.tick, `history[${index}].tick`);
+  if (!Number.isSafeInteger(entry.sequence) || entry.sequence < 0) {
+    throw new TypeError(`history[${index}].sequence must be a safe integer`);
+  }
+  validateCommand(entry.command, `history[${index}].command`);
+  if (!Array.isArray(entry.events) || entry.events.length !== 1) {
+    throw new TypeError(`history[${index}].events must contain one spend event`);
+  }
+  validateEvent(entry.events[0], `history[${index}].events[0]`);
+  if (
+    entry.events[0].type !== "spend" ||
+    entry.events[0].tick !== entry.tick ||
+    entry.events[0].sequence !== entry.sequence ||
+    entry.events[0].side !== entry.command.side ||
+    entry.events[0].cost !== entry.command.cost
+  ) {
+    throw new TypeError(`history[${index}] command and event must correspond`);
+  }
+}
+
+function validateCommand(command, label = "command") {
+  assertExactKeys(command, ["cost", "side"], label);
+  if (typeof command.side !== "string") {
+    throw new TypeError(`${label}.side must be a string`);
+  }
+  if (typeof command.cost !== "number" || !Number.isFinite(command.cost)) {
+    throw new TypeError(`${label}.cost must be a finite number`);
+  }
+}
+
+function validateEvent(event, label) {
+  if (!isPlainObject(event)) {
+    throw new TypeError(`${label} must be a plain object`);
+  }
+  if (event.type === "generated") {
+    assertExactKeys(event, ["amountAfter", "side", "tick", "type"], label);
+    if (
+      !SIDE_SET.has(event.side) ||
+      !Number.isInteger(event.amountAfter) ||
+      event.amountAfter < 1 ||
+      event.amountAfter > ELIXIR_CAPACITY
+    ) {
+      throw new TypeError(`${label} has invalid generation values`);
+    }
+    assertSafeTick(event.tick, `${label}.tick`);
+    return;
+  }
+  if (event.type === "spend") {
+    assertExactKeys(
+      event,
+      [
+        "accepted",
+        "amountAfter",
+        "cost",
+        "reason",
+        "sequence",
+        "side",
+        "tick",
+        "type",
+      ],
+      label,
+    );
+    if (
+      typeof event.accepted !== "boolean" ||
+      !Number.isSafeInteger(event.sequence) ||
+      event.sequence < 0 ||
+      typeof event.side !== "string" ||
+      typeof event.cost !== "number" ||
+      !Number.isFinite(event.cost) ||
+      ![
+        "accepted",
+        "insufficient_elixir",
+        "invalid_cost",
+        "invalid_side",
+      ].includes(event.reason) ||
+      (event.amountAfter !== null &&
+        (!Number.isInteger(event.amountAfter) ||
+          event.amountAfter < 0 ||
+          event.amountAfter > ELIXIR_CAPACITY))
+    ) {
+      throw new TypeError(`${label} has invalid spend values`);
+    }
+    assertSafeTick(event.tick, `${label}.tick`);
+    return;
+  }
+  throw new TypeError(`${label}.type is invalid`);
+}
+
+function phaseForTick(tick) {
+  return PHASES.find((phase) => tick >= phase.fromTick && tick < phase.toTick);
+}
+
+function maximumGeneratedEventsThroughTick(tick) {
+  let numerator = 0;
+  for (const phase of PHASES) {
+    const phaseTicks = Math.max(
+      0,
+      Math.min(tick, phase.toTick) - phase.fromTick,
+    );
+    numerator += phaseTicks * phase.numeratorPerTick;
+  }
+  return (
+    SIDES.length *
+    Math.floor(numerator / ELIXIR_ACCUMULATOR_DENOMINATOR)
+  );
+}
+
+/** Return the generation phase for a match-start tick. */
+function getElixirPhase(tick) {
+  assertSafeTick(tick);
+  const phase = phaseForTick(tick);
+  if (!phase) {
+    throw new RangeError(`tick must be before ${ELIXIR_MATCH_TICKS}`);
+  }
+  return cloneJson(phase);
+}
+
+/** Fresh JSON calibration data. Starting elixir is deliberately an estimate. */
+function getElixirRules() {
+  return {
+    tickRateHz: ELIXIR_TICKS_PER_SECOND,
+    capacity: ELIXIR_CAPACITY,
+    startingElixir: {
+      value: ESTIMATED_STARTING_ELIXIR,
+      confidence: "estimate",
+      note: "not independently corroborated in the reference corpus",
+    },
+    accumulator: {
+      denominator: ELIXIR_ACCUMULATOR_DENOMINATOR,
+      phaseChangePolicy: "preserve_fractional_progress",
+      capacityPolicy: "reset_and_freeze",
+    },
+    tickSemantics: {
+      interval: "[fromTick,toTick)",
+      orderWithinTick: ["scheduled_spends_in_sequence_order", "generation"],
+      firstDoubleTick: 7_200,
+      firstTripleTick: 14_400,
+    },
+    resourceLimits: {
+      resolvedCommands: ELIXIR_MAX_HISTORY_ENTRIES,
+      pendingCommands: ELIXIR_MAX_PENDING_SPENDS,
+      generatedEvents: ELIXIR_MAX_GENERATED_EVENTS,
+      derivedEventLogEntries: ELIXIR_MAX_EVENT_ENTRIES,
+    },
+    phases: cloneJson(PHASES),
+  };
+}
+
+class ElixirMatch {
+  #startingElixir;
+  #tick;
+  #sides;
+  #pending;
+  #history;
+  #events;
+  #nextSequence;
+  #grants;
+
+  constructor({ startingElixir = ESTIMATED_STARTING_ELIXIR } = {}) {
+    runtimeInstances.add(this);
+    const startingSides = Number.isInteger(startingElixir)
+      ? { north: startingElixir, south: startingElixir }
+      : startingElixir;
+    assertExactKeys(startingSides, SIDES, "startingElixir");
+    for (const side of SIDES) {
+      if (
+        !Number.isInteger(startingSides[side]) ||
+        startingSides[side] < 0 ||
+        startingSides[side] > ELIXIR_CAPACITY
+      ) {
+        throw new TypeError(
+          `startingElixir.${side} must be an integer from 0 to 10`,
+        );
+      }
+    }
+    this.#startingElixir = Number.isInteger(startingElixir)
+      ? startingElixir
+      : cloneJson(startingSides);
+    this.#tick = 0;
+    this.#sides = {
+      north: { accumulator: 0, amount: startingSides.north },
+      south: { accumulator: 0, amount: startingSides.south },
+    };
+    this.#pending = [];
+    this.#history = [];
+    this.#events = [];
+    this.#nextSequence = 0;
+    this.#grants = [];
+  }
+
+  get tick() {
+    return this.#tick;
+  }
+
+  get state() {
+    return cloneJson({ tick: this.#tick, sides: this.#sides });
+  }
+
+  get eventLog() {
+    return cloneJson(this.#events);
+  }
+
+  get replayLog() {
+    return cloneJson([...this.#history, ...this.#grants].sort(
+      (left, right) =>
+        left.tick - right.tick ||
+        left.order - right.order ||
+        left.sequence - right.sequence,
+    ).map(({ order: _order, ...entry }) => entry));
+  }
+
+  phase() {
+    return getElixirPhase(this.#tick);
+  }
+
+  scheduleSpend(tick, side, cost) {
+    assertSafeTick(tick, "scheduled tick");
+    if (tick < this.#tick) {
+      throw new RangeError("cannot schedule a spend in a resolved tick");
+    }
+    if (tick >= ELIXIR_MATCH_TICKS) {
+      throw new RangeError(`scheduled tick must be before ${ELIXIR_MATCH_TICKS}`);
+    }
+    if (this.#pending.length >= ELIXIR_MAX_PENDING_SPENDS) {
+      throw new RangeError("pending spend limit exceeded");
+    }
+    if (this.#nextSequence >= Number.MAX_SAFE_INTEGER) {
+      throw new RangeError("spend sequence limit exceeded");
+    }
+    if (typeof side !== "string") {
+      throw new TypeError("side must be a string");
+    }
+    if (typeof cost !== "number" || !Number.isFinite(cost)) {
+      throw new TypeError("cost must be a finite number");
+    }
+    const entry = {
+      command: { cost, side },
+      sequence: this.#nextSequence,
+      tick,
+    };
+    this.#nextSequence += 1;
+    this.#pending.push(entry);
+    this.#pending.sort(
+      (left, right) =>
+        left.tick - right.tick || left.sequence - right.sequence,
+    );
+    return entry.sequence;
+  }
+
+  step({ grants = [] } = {}) {
+    return this.#stepWithGrantSequences(grants);
+  }
+
+  #stepWithGrantSequences(grants, restoredGrantSequences = null) {
+    if (this.#tick >= ELIXIR_MATCH_TICKS) {
+      throw new RangeError("all configured elixir phase ticks are resolved");
+    }
+    if (!Array.isArray(grants) || grants.length > ELIXIR_MAX_PENDING_SPENDS) {
+      throw new TypeError("grants must be a bounded array");
+    }
+    if (
+      restoredGrantSequences !== null &&
+      (!Array.isArray(restoredGrantSequences) ||
+        restoredGrantSequences.length !== grants.length)
+    ) {
+      throw new TypeError("restored grant sequences must correspond to grants");
+    }
+    const checkedGrants = grants.map((grant, index) => {
+      assertExactKeys(
+        grant, ["amount", "side", "sourceId"], `grants[${index}]`,
+      );
+      if (!SIDE_SET.has(grant.side)) {
+        throw new TypeError(`grants[${index}].side is invalid`);
+      }
+      if (!Number.isSafeInteger(grant.amount) || grant.amount < 1) {
+        throw new TypeError(`grants[${index}].amount must be a positive integer`);
+      }
+      if (
+        grant.sourceId !== null &&
+        (!Number.isSafeInteger(grant.sourceId) || grant.sourceId < 1)
+      ) {
+        throw new TypeError(`grants[${index}].sourceId is invalid`);
+      }
+      return cloneJson(grant);
+    });
+    let dueCount = 0;
+    while (this.#pending[dueCount]?.tick === this.#tick) dueCount += 1;
+    const due = this.#pending.slice(0, dueCount);
+    if (
+      this.#history.length + this.#grants.length +
+        due.length + checkedGrants.length >
+        ELIXIR_MAX_HISTORY_ENTRIES
+    ) {
+      throw new RangeError("resolved elixir command history limit exceeded");
+    }
+    if (
+      restoredGrantSequences === null &&
+      this.#nextSequence >
+      Number.MAX_SAFE_INTEGER - checkedGrants.length
+    ) {
+      throw new RangeError("elixir command sequence limit exceeded");
+    }
+    this.#pending.splice(0, dueCount);
+
+    const tickEvents = [];
+    for (const entry of due) {
+      const events = [this.#resolveSpend(entry)];
+      this.#history.push({ ...entry, events });
+      tickEvents.push(...events);
+    }
+
+    const phase = phaseForTick(this.#tick);
+    for (const side of SIDES) {
+      const generated = this.#generate(side, phase.numeratorPerTick);
+      if (generated) tickEvents.push(generated);
+    }
+    for (const [order, grant] of checkedGrants.entries()) {
+      const sequence = restoredGrantSequences === null
+        ? this.#nextSequence++
+        : restoredGrantSequences[order];
+      const sideState = this.#sides[grant.side];
+      const amountGranted = Math.min(
+        grant.amount,
+        ELIXIR_CAPACITY - sideState.amount,
+      );
+      sideState.amount += amountGranted;
+      if (sideState.amount === ELIXIR_CAPACITY) sideState.accumulator = 0;
+      const event = {
+        amountAfter: sideState.amount,
+        amountGranted,
+        amountRequested: grant.amount,
+        side: grant.side,
+        sourceId: grant.sourceId,
+        tick: this.#tick,
+        type: "grant",
+      };
+      this.#grants.push({
+        command: { ...grant, type: "grant" },
+        events: [event],
+        order: due.length + order,
+        sequence,
+        tick: this.#tick,
+      });
+      tickEvents.push(event);
+    }
+    this.#events.push(...tickEvents);
+    if (this.#events.length > ELIXIR_MAX_EVENT_ENTRIES) {
+      throw new Error("derived elixir event log invariant exceeded");
+    }
+    this.#tick += 1;
+    return cloneJson(tickEvents);
+  }
+
+  advanceTicks(count) {
+    if (!Number.isSafeInteger(count) || count < 0) {
+      throw new TypeError("count must be a non-negative safe integer");
+    }
+    if (count > ELIXIR_MATCH_TICKS - this.#tick) {
+      throw new RangeError("advance exceeds configured elixir phases");
+    }
+    const events = [];
+    for (let index = 0; index < count; index += 1) {
+      events.push(...this.step());
+    }
+    return events;
+  }
+
+  runToTick(targetTick) {
+    assertSafeTick(targetTick, "target tick");
+    if (targetTick < this.#tick) {
+      throw new RangeError("target tick is already resolved");
+    }
+    return this.advanceTicks(targetTick - this.#tick);
+  }
+
+  replayBytes() {
+    return canonicalJson(this.replayLog);
+  }
+
+  /**
+   * Copies every present authority without replaying the public command log.
+   * Composite session candidates use this internal checkpoint only; public
+   * serialization and restoration remain the complete command transcript.
+   */
+  static {
+    compact = (value) => value.#runtimeClone();
+  }
+
+  #runtimeClone() {
+    const candidate = new ElixirMatch({ startingElixir: cloneJson(this.#startingElixir) });
+    candidate.#tick = this.#tick;
+    candidate.#sides = cloneJson(this.#sides);
+    candidate.#pending = cloneJson(this.#pending);
+    candidate.#history = cloneJson(this.#history);
+    candidate.#events = cloneJson(this.#events);
+    candidate.#nextSequence = this.#nextSequence;
+    candidate.#grants = cloneJson(this.#grants);
+    return candidate;
+  }
+
+  serialize() {
+    const commands = [...this.#history, ...this.#pending]
+      .sort((left, right) => left.sequence - right.sequence)
+      .map(({ command, sequence, tick }) => ({ ...command, sequence, tick }));
+    if (this.#grants.length === 0) return canonicalJson({
+      commands: commands.map(({ sequence: _sequence, ...command }) => command),
+      startingElixir: this.#startingElixir,
+      tick: this.#tick,
+      version: 2,
+    });
+    return canonicalJson({
+      commands,
+      grants: this.#grants.map(({ command, sequence, tick }) => ({
+        amount: command.amount,
+        sequence,
+        side: command.side,
+        sourceId: command.sourceId,
+        tick,
+      })),
+      startingElixir: this.#startingElixir,
+      tick: this.#tick,
+      version: 3,
+    });
+  }
+
+  static restore(serialized) {
+    if (typeof serialized !== "string") {
+      throw new TypeError("serialized snapshot must be a string");
+    }
+    let snapshot;
+    try {
+      snapshot = JSON.parse(serialized);
+    } catch {
+      throw new TypeError("serialized snapshot must be valid JSON");
+    }
+    if (snapshot?.version === 2) {
+      assertExactKeys(
+        snapshot,
+        ["commands", "startingElixir", "tick", "version"],
+        "snapshot",
+      );
+    } else if (snapshot?.version === 3) {
+      assertExactKeys(
+        snapshot,
+        ["commands", "grants", "startingElixir", "tick", "version"],
+        "snapshot",
+      );
+    } else {
+      throw new TypeError("snapshot version must be 2 or 3");
+    }
+    assertSafeTick(snapshot.tick, "snapshot.tick");
+    if (snapshot.tick > ELIXIR_MATCH_TICKS) {
+      throw new TypeError("snapshot.tick exceeds configured phases");
+    }
+    const startingSides = Number.isInteger(snapshot.startingElixir)
+      ? { north: snapshot.startingElixir, south: snapshot.startingElixir }
+      : snapshot.startingElixir;
+    assertExactKeys(startingSides, SIDES, "snapshot.startingElixir");
+    for (const side of SIDES) {
+      if (
+        !Number.isInteger(startingSides[side]) ||
+        startingSides[side] < 0 ||
+        startingSides[side] > ELIXIR_CAPACITY
+      ) {
+        throw new TypeError(
+          `snapshot.startingElixir.${side} must be an integer from 0 to 10`,
+        );
+      }
+    }
+    if (
+      !Array.isArray(snapshot.commands) ||
+      snapshot.commands.length >
+        ELIXIR_MAX_HISTORY_ENTRIES + ELIXIR_MAX_PENDING_SPENDS
+    ) {
+      throw new TypeError("snapshot.commands has an invalid length");
+    }
+    const versionThreeEntries = snapshot.version === 3
+      ? [...snapshot.commands, ...snapshot.grants]
+      : [];
+    const hasEncodedSequences = versionThreeEntries.some((value) =>
+      isPlainObject(value) &&
+      Object.prototype.hasOwnProperty.call(value, "sequence")
+    );
+    if (
+      hasEncodedSequences &&
+      versionThreeEntries.some((value) =>
+        !isPlainObject(value) ||
+        !Object.prototype.hasOwnProperty.call(value, "sequence")
+      )
+    ) {
+      throw new TypeError("version 3 command sequences must be encoded uniformly");
+    }
+    const entries = snapshot.commands.map((value, index) => {
+      assertExactKeys(
+        value,
+        hasEncodedSequences
+          ? ["cost", "sequence", "side", "tick"]
+          : ["cost", "side", "tick"],
+        `commands[${index}]`,
+      );
+      const command = { cost: value.cost, side: value.side };
+      validateCommand(command, `commands[${index}]`);
+      const sequence = hasEncodedSequences ? value.sequence : index;
+      if (!Number.isSafeInteger(sequence) || sequence < 0) {
+        throw new TypeError(`commands[${index}].sequence must be a safe integer`);
+      }
+      assertSafeTick(value.tick, `commands[${index}].tick`);
+      if (value.tick >= ELIXIR_MATCH_TICKS) {
+        throw new TypeError(
+          `commands[${index}].tick exceeds configured phases`,
+        );
+      }
+      return { command, sequence, tick: value.tick };
+    });
+    const resolvedCount = entries.reduce(
+      (count, entry) => count + Number(entry.tick < snapshot.tick),
+      0,
+    );
+    const pendingCount = entries.length - resolvedCount;
+    if (resolvedCount > ELIXIR_MAX_HISTORY_ENTRIES) {
+      throw new TypeError("snapshot resolved command history is too long");
+    }
+    if (pendingCount > ELIXIR_MAX_PENDING_SPENDS) {
+      throw new TypeError("snapshot pending command history is too long");
+    }
+    if (
+      resolvedCount + maximumGeneratedEventsThroughTick(snapshot.tick) >
+      ELIXIR_MAX_EVENT_ENTRIES
+    ) {
+      throw new TypeError(
+        "snapshot exceeds the derived elixir event log limit",
+      );
+    }
+
+    if (
+      snapshot.version === 3 &&
+      (!Array.isArray(snapshot.grants) ||
+        snapshot.grants.length > ELIXIR_MAX_HISTORY_ENTRIES)
+    ) {
+      throw new TypeError("snapshot.grants has an invalid length");
+    }
+    const grants = snapshot.version === 3
+      ? snapshot.grants.map((grant, index) => {
+        assertExactKeys(
+          grant,
+          hasEncodedSequences
+            ? ["amount", "sequence", "side", "sourceId", "tick"]
+            : ["amount", "side", "sourceId", "tick"],
+          `grants[${index}]`,
+        );
+        const sequence = hasEncodedSequences
+          ? grant.sequence
+          : entries.length + index;
+        if (!Number.isSafeInteger(sequence) || sequence < 0) {
+          throw new TypeError(`grants[${index}].sequence must be a safe integer`);
+        }
+        assertSafeTick(grant.tick, `grants[${index}].tick`);
+        if (grant.tick >= snapshot.tick) {
+          throw new TypeError(`grants[${index}].tick is not resolved`);
+        }
+        return {
+          amount: grant.amount,
+          sequence,
+          side: grant.side,
+          sourceId: grant.sourceId,
+          tick: grant.tick,
+        };
+      })
+      : [];
+    if (resolvedCount + grants.length > ELIXIR_MAX_HISTORY_ENTRIES) {
+      throw new TypeError("snapshot resolved elixir command history is too long");
+    }
+    const unifiedSequences = [...entries, ...grants]
+      .map(({ sequence }) => sequence)
+      .sort((left, right) => left - right);
+    if (
+      unifiedSequences.some((sequence, index) => sequence !== index)
+    ) {
+      throw new TypeError(
+        "snapshot elixir command sequences must be unique and contiguous",
+      );
+    }
+    if (hasEncodedSequences) {
+      let lastGrantTick = -1;
+      for (const entry of [...entries, ...grants]
+        .sort((left, right) => left.sequence - right.sequence)) {
+        if ("amount" in entry) {
+          if (entry.tick < lastGrantTick) {
+            throw new TypeError(
+              "snapshot grant sequences are not causally ordered",
+            );
+          }
+          lastGrantTick = entry.tick;
+        } else if (entry.tick <= lastGrantTick) {
+          throw new TypeError(
+            "snapshot spend sequence is not causally schedulable",
+          );
+        }
+      }
+    }
+    const match = new ElixirMatch({
+      startingElixir: snapshot.startingElixir,
+    });
+    // Commands are the sole causal authority. Cached balances, accumulators,
+    // results, sequence numbers, and generated events have no snapshot
+    // representation and are rebuilt by the normal deterministic transition.
+    match.#pending = entries.sort(
+      (left, right) =>
+        left.tick - right.tick || left.sequence - right.sequence,
+    );
+    match.#nextSequence = unifiedSequences.length;
+    while (match.tick < snapshot.tick) {
+      const tickGrants = grants.filter(({ tick }) => tick === match.tick);
+      match.#stepWithGrantSequences(
+        tickGrants.map(({
+          sequence: _sequence,
+          tick: _tick,
+          ...grant
+        }) => grant),
+        tickGrants.map(({ sequence }) => sequence),
+      );
+    }
+    return match;
+  }
+
+  #resolveSpend(entry) {
+    const { side, cost } = entry.command;
+    let reason = "accepted";
+    let accepted = true;
+    if (!SIDE_SET.has(side)) {
+      accepted = false;
+      reason = "invalid_side";
+    } else if (!Number.isInteger(cost) || cost < 1 || cost > ELIXIR_CAPACITY) {
+      accepted = false;
+      reason = "invalid_cost";
+    } else if (this.#sides[side].amount < cost) {
+      accepted = false;
+      reason = "insufficient_elixir";
+    } else {
+      this.#sides[side].amount -= cost;
+    }
+    return {
+      accepted,
+      amountAfter: SIDE_SET.has(side) ? this.#sides[side].amount : null,
+      cost,
+      reason,
+      sequence: entry.sequence,
+      side,
+      tick: this.#tick,
+      type: "spend",
+    };
+  }
+
+  #generate(side, numerator) {
+    const state = this.#sides[side];
+    if (state.amount === ELIXIR_CAPACITY) {
+      state.accumulator = 0;
+      return null;
+    }
+    state.accumulator += numerator;
+    if (state.accumulator < ELIXIR_ACCUMULATOR_DENOMINATOR) {
+      return null;
+    }
+    state.accumulator -= ELIXIR_ACCUMULATOR_DENOMINATOR;
+    state.amount += 1;
+    if (state.amount === ELIXIR_CAPACITY) state.accumulator = 0;
+    return {
+      amountAfter: state.amount,
+      side,
+      tick: this.#tick,
+      type: "generated",
+    };
+  }
+}
+  opaqueContinuation((value) => {
+    if (!runtimeInstances.has(value)) {
+      throw new TypeError("internal defineElixir continuation receiver is invalid");
+    }
+    return compact(value);
+  }, registerCompact);
+  return { ELIXIR_ACCUMULATOR_DENOMINATOR, ELIXIR_CAPACITY, ELIXIR_MATCH_TICKS, ELIXIR_MAX_EVENT_ENTRIES, ELIXIR_MAX_GENERATED_EVENTS, ELIXIR_MAX_HISTORY_ENTRIES, ELIXIR_MAX_PENDING_SPENDS, ELIXIR_TICKS_PER_SECOND, ESTIMATED_STARTING_ELIXIR, ElixirMatch, getElixirPhase, getElixirRules };
+}
+
+function defineMatch(registerCompact) {
+  let compact;
+  const runtimeInstances = new WeakSet();
+const MATCH_TICKS_PER_SECOND = 60;
+const MATCH_REGULATION_TICKS = 10_800;
+const MATCH_TRIPLE_ELIXIR_TICK = 14_400;
+const MATCH_MAX_TICKS = 18_000;
+const MATCH_MAX_EVIDENCE_COMMANDS = 10_000;
+
+const SIDES = Object.freeze(["north", "south"]);
+const TOWER_IDS = Object.freeze([
+  "north:central",
+  "north:lane:left",
+  "north:lane:right",
+  "south:central",
+  "south:lane:left",
+  "south:lane:right",
+]);
+const TOWER_ID_SET = new Set(TOWER_IDS);
+
+function otherSide(side) {
+  return side === "north" ? "south" : "north";
+}
+
+function towerSide(id) {
+  return id.startsWith("north:") ? "north" : "south";
+}
+
+function towerRole(id) {
+  return id.endsWith(":central") ? "central" : "lane";
+}
+
+function isPlainObject(value) {
+  return (
+    value !== null &&
+    typeof value === "object" &&
+    !Array.isArray(value) &&
+    (Object.getPrototypeOf(value) === Object.prototype ||
+      Object.getPrototypeOf(value) === null) &&
+    Object.getOwnPropertySymbols(value).length === 0
+  );
+}
+
+function exactObject(value, keys, label) {
+  if (!isPlainObject(value)) {
+    throw new TypeError(`${label} must be a plain object`);
+  }
+  const descriptors = Object.getOwnPropertyDescriptors(value);
+  const actual = Reflect.ownKeys(descriptors);
+  if (actual.some((key) => typeof key !== "string")) {
+    throw new TypeError(`${label} must contain only string keys`);
+  }
+  const wanted = [...keys].sort();
+  const sorted = [...actual].sort();
+  if (
+    sorted.length !== wanted.length ||
+    sorted.some((key, index) => key !== wanted[index])
+  ) {
+    throw new TypeError(`${label} has an invalid shape`);
+  }
+  const result = {};
+  for (const key of keys) {
+    const descriptor = descriptors[key];
+    if (!descriptor.enumerable || !Object.hasOwn(descriptor, "value")) {
+      throw new TypeError(`${label}.${key} must be an enumerable data property`);
+    }
+    result[key] = descriptor.value;
+  }
+  return result;
+}
+
+function exactArray(value, length, label) {
+  if (!Array.isArray(value) || value.length !== length) {
+    throw new TypeError(`${label} must be an array of length ${length}`);
+  }
+  const descriptors = Object.getOwnPropertyDescriptors(value);
+  for (const key of Reflect.ownKeys(descriptors)) {
+    if (key === "length") continue;
+    if (
+      typeof key !== "string" ||
+      !/^(0|[1-9]\d*)$/.test(key) ||
+      Number(key) >= length
+    ) {
+      throw new TypeError(`${label} must contain only indexed data`);
+    }
+    const descriptor = descriptors[key];
+    if (!descriptor.enumerable || !Object.hasOwn(descriptor, "value")) {
+      throw new TypeError(`${label}[${key}] must be an enumerable data property`);
+    }
+  }
+  return Array.from(value);
+}
+
+function safeTick(value, label) {
+  if (!Number.isSafeInteger(value) || value < 0) {
+    throw new TypeError(`${label} must be a non-negative safe integer`);
+  }
+  return value;
+}
+
+function canonicalize(value) {
+  if (Array.isArray(value)) return value.map(canonicalize);
+  if (isPlainObject(value)) {
+    const result = {};
+    for (const key of Object.keys(value).sort()) {
+      result[key] = canonicalize(value[key]);
+    }
+    return result;
+  }
+  return value;
+}
+
+function canonicalJson(value) {
+  return JSON.stringify(canonicalize(value));
+}
+
+function cloneJson(value) {
+  return JSON.parse(JSON.stringify(value));
+}
+
+function checkedTowerArray(value, label, { allowZero }) {
+  const towers = exactArray(value, TOWER_IDS.length, label).map(
+    (raw, index) => {
+      const tower = exactObject(
+        raw,
+        ["hitpoints", "id"],
+        `${label}[${index}]`,
+      );
+      if (tower.id !== TOWER_IDS[index]) {
+        throw new TypeError(
+          `${label}[${index}].id must be ${TOWER_IDS[index]}`,
+        );
+      }
+      if (
+        !Number.isSafeInteger(tower.hitpoints) ||
+        tower.hitpoints < (allowZero ? 0 : 1)
+      ) {
+        throw new TypeError(
+          `${label}[${index}].hitpoints must be a ${allowZero ? "non-negative" : "positive"} safe integer`,
+        );
+      }
+      return { hitpoints: tower.hitpoints, id: tower.id };
+    },
+  );
+  return towers;
+}
+
+function checkedEvidence(value, label = "evidence") {
+  const evidence = exactObject(
+    value,
+    ["destroyedTowerIds", "towers"],
+    label,
+  );
+  const towers = checkedTowerArray(evidence.towers, `${label}.towers`, {
+    allowZero: true,
+  });
+  const destroyedTowerIds = exactArray(
+    evidence.destroyedTowerIds,
+    towers.filter((tower) => tower.hitpoints === 0).length,
+    `${label}.destroyedTowerIds`,
+  );
+  const expected = towers
+    .filter((tower) => tower.hitpoints === 0)
+    .map((tower) => tower.id);
+  if (
+    destroyedTowerIds.some(
+      (id, index) =>
+        typeof id !== "string" ||
+        !TOWER_ID_SET.has(id) ||
+        id !== expected[index],
+    )
+  ) {
+    throw new TypeError(
+      `${label}.destroyedTowerIds must exactly match zero-HP towers`,
+    );
+  }
+  return { destroyedTowerIds: [...destroyedTowerIds], towers };
+}
+
+function towerMap(towers) {
+  return Object.fromEntries(
+    towers.map((tower) => [tower.id, tower.hitpoints]),
+  );
+}
+
+function validateEvidenceTransition(previousTowers, nextTowers) {
+  const previous = towerMap(previousTowers);
+  for (const tower of nextTowers) {
+    if (tower.hitpoints > previous[tower.id]) {
+      throw new TypeError(
+        `tower evidence cannot increase hitpoints for ${tower.id}`,
+      );
+    }
+    if (previous[tower.id] === 0 && tower.hitpoints !== 0) {
+      throw new TypeError(
+        `tower evidence cannot revive destroyed tower ${tower.id}`,
+      );
+    }
+  }
+}
+
+function commandOrder(left, right) {
+  return left.tick - right.tick || left.sequence - right.sequence;
+}
+
+function insertionIndex(ordered, entry) {
+  let low = 0;
+  let high = ordered.length;
+  while (low < high) {
+    const middle = Math.floor((low + high) / 2);
+    if (commandOrder(ordered[middle], entry) <= 0) low = middle + 1;
+    else high = middle;
+  }
+  return low;
+}
+
+function resultObject({ crowns, endedAtTick, kind, reason, winner }) {
+  return {
+    crowns: { north: crowns.north, south: crowns.south },
+    endedAtTick,
+    kind,
+    reason,
+    winner,
+  };
+}
+
+/**
+ * Return the neutral match clock phase. Boundaries are half-open:
+ * regulation=[0,10800), overtime=[10800,18000), ended={18000}.
+ */
+function getMatchPhase(tick) {
+  safeTick(tick, "tick");
+  if (tick > MATCH_MAX_TICKS) {
+    throw new RangeError(`tick must not exceed ${MATCH_MAX_TICKS}`);
+  }
+  if (tick === MATCH_MAX_TICKS) {
+    return {
+      clock: "ended",
+      elixirRate: null,
+      fromTick: MATCH_MAX_TICKS,
+      toTick: MATCH_MAX_TICKS,
+    };
+  }
+  return {
+    clock: tick < MATCH_REGULATION_TICKS ? "regulation" : "overtime",
+    elixirRate:
+      tick < 7_200 ? "single" : tick < MATCH_TRIPLE_ELIXIR_TICK ? "double" : "triple",
+    fromTick:
+      tick < 7_200
+        ? 0
+        : tick < MATCH_REGULATION_TICKS
+          ? 7_200
+          : tick < MATCH_TRIPLE_ELIXIR_TICK
+            ? MATCH_REGULATION_TICKS
+            : MATCH_TRIPLE_ELIXIR_TICK,
+    toTick:
+      tick < 7_200
+        ? 7_200
+        : tick < MATCH_REGULATION_TICKS
+          ? MATCH_REGULATION_TICKS
+          : tick < MATCH_TRIPLE_ELIXIR_TICK
+            ? MATCH_TRIPLE_ELIXIR_TICK
+            : MATCH_MAX_TICKS,
+  };
+}
+
+function getMatchRules() {
+  return {
+    simultaneousOvertimeDestruction: {
+      confidence: "corpus_silent_deterministic_policy",
+      policy: "opposing destructions on the first overtime destruction tick draw",
+    },
+    tickRateHz: MATCH_TICKS_PER_SECOND,
+    tickSemantics: {
+      interval: "[fromTick,toTick)",
+      orderAtRegulationBoundary: [
+        "regulation_result_or_enter_overtime",
+        "tick_10800_evidence",
+      ],
+      orderAtMaximumBoundary: [
+        "tiebreak_from_last_completed_evidence",
+        "reject_tick_18000_evidence",
+      ],
+      sameTickEvidence: "sequence_order_then_one_combined_destruction_result",
+    },
+    resourceLimits: {
+      evidenceCommands: MATCH_MAX_EVIDENCE_COMMANDS,
+    },
+    tiebreak: {
+      model:
+        "instant comparison is the mathematical result of equal-rate HP drain",
+      tiePolicy:
+        "all towers at each side's equal minimum drain simultaneously; exact inter-side tie is a draw",
+    },
+    timings: {
+      maximumTicks: MATCH_MAX_TICKS,
+      overtimeTicks: MATCH_MAX_TICKS - MATCH_REGULATION_TICKS,
+      regulationTicks: MATCH_REGULATION_TICKS,
+      tripleElixirFromTick: MATCH_TRIPLE_ELIXIR_TICK,
+    },
+    towerIds: [...TOWER_IDS],
+  };
+}
+
+class MatchClock {
+  #initialTowers;
+  #tick;
+  #commands;
+  #orderedCommands;
+  #pending;
+  #nextSequence;
+  #towers;
+  #crowns;
+  #destroyed;
+  #overtime;
+  #result;
+  #events;
+  #replay;
+
+  constructor({ initialTowers } = {}) {
+    runtimeInstances.add(this);
+    this.#initialTowers = checkedTowerArray(
+      initialTowers,
+      "initialTowers",
+      { allowZero: false },
+    );
+    this.#tick = 0;
+    this.#commands = [];
+    this.#orderedCommands = [];
+    this.#pending = [];
+    this.#nextSequence = 0;
+    this.#resetDerived();
+  }
+
+  #resetDerived() {
+    this.#towers = towerMap(this.#initialTowers);
+    this.#crowns = { north: 0, south: 0 };
+    this.#destroyed = new Set();
+    this.#overtime = false;
+    this.#result = null;
+    this.#events = [];
+    this.#replay = [];
+  }
+
+  get tick() {
+    return this.#tick;
+  }
+
+  get state() {
+    return cloneJson({
+      crowns: this.#crowns,
+      destroyedTowerIds: TOWER_IDS.filter((id) => this.#destroyed.has(id)),
+      phase: this.#result
+        ? "ended"
+        : this.#overtime
+          ? "overtime"
+          : "regulation",
+      result: this.#result,
+      tick: this.#tick,
+      towers: TOWER_IDS.map((id) => ({ hitpoints: this.#towers[id], id })),
+    });
+  }
+
+  get eventLog() {
+    return cloneJson(this.#events);
+  }
+
+  get replayLog() {
+    return cloneJson(this.#replay);
+  }
+
+  phase() {
+    if (this.#result) {
+      return {
+        clock: "ended",
+        elixirRate:
+          this.#tick < MATCH_MAX_TICKS
+            ? getMatchPhase(this.#tick).elixirRate
+            : null,
+        result: cloneJson(this.#result),
+      };
+    }
+    return getMatchPhase(this.#tick);
+  }
+
+  scheduleTowerEvidence(tick, evidence) {
+    safeTick(tick, "scheduled tick");
+    if (this.#tick === MATCH_MAX_TICKS) {
+      throw new RangeError("maximum match tick is already resolved");
+    }
+    if (tick < this.#tick) {
+      throw new RangeError("cannot schedule evidence in a resolved tick");
+    }
+    if (tick > MATCH_MAX_TICKS) {
+      throw new RangeError(`scheduled tick must not exceed ${MATCH_MAX_TICKS}`);
+    }
+    if (this.#commands.length >= MATCH_MAX_EVIDENCE_COMMANDS) {
+      throw new RangeError("tower evidence command limit exceeded");
+    }
+    if (this.#nextSequence >= Number.MAX_SAFE_INTEGER) {
+      throw new RangeError("tower evidence sequence limit exceeded");
+    }
+    const entry = {
+      evidence: checkedEvidence(evidence),
+      sequence: this.#nextSequence,
+      tick,
+    };
+    const orderedIndex = insertionIndex(this.#orderedCommands, entry);
+    const previousTowers =
+      orderedIndex === 0
+        ? this.#initialTowers
+        : this.#orderedCommands[orderedIndex - 1].evidence.towers;
+    const nextTowers =
+      this.#orderedCommands[orderedIndex]?.evidence.towers ?? null;
+    validateEvidenceTransition(previousTowers, entry.evidence.towers);
+    if (nextTowers) {
+      validateEvidenceTransition(entry.evidence.towers, nextTowers);
+    }
+    this.#nextSequence += 1;
+    this.#commands.push(entry);
+    this.#orderedCommands.splice(orderedIndex, 0, entry);
+    const pendingIndex = insertionIndex(this.#pending, entry);
+    this.#pending.splice(pendingIndex, 0, entry);
+    return entry.sequence;
+  }
+
+  step() {
+    if (this.#tick >= MATCH_MAX_TICKS) {
+      throw new RangeError("maximum match tick is already resolved");
+    }
+    const tickEvents = [];
+    tickEvents.push(...this.#resolveEvidenceAtCurrentTick());
+    this.#tick += 1;
+    if (this.#tick === MATCH_REGULATION_TICKS) {
+      tickEvents.push(...this.#resolveRegulationBoundary());
+    } else if (this.#tick === MATCH_MAX_TICKS) {
+      // A successful step resolves every automatic boundary at the tick it
+      // reaches. Evidence for tick 17999 has already been applied above, so
+      // the tiebreak uses the latest complete tower state. Evidence stamped
+      // 18000 is outside [0,18000) and is rejected only after that result is
+      // permanent.
+      tickEvents.push(...this.#resolveTiebreak());
+      tickEvents.push(...this.#rejectMaximumTickEvidence());
+    }
+    this.#events.push(...tickEvents);
+    return cloneJson(tickEvents);
+  }
+
+  advanceTicks(count) {
+    if (!Number.isSafeInteger(count) || count < 0) {
+      throw new TypeError("count must be a non-negative safe integer");
+    }
+    if (count > MATCH_MAX_TICKS - this.#tick) {
+      throw new RangeError("advance exceeds maximum match time");
+    }
+    const events = [];
+    for (let index = 0; index < count; index += 1) {
+      events.push(...this.step());
+    }
+    return cloneJson(events);
+  }
+
+  runToTick(targetTick) {
+    safeTick(targetTick, "target tick");
+    if (targetTick < this.#tick) {
+      throw new RangeError("target tick is already resolved");
+    }
+    return this.advanceTicks(targetTick - this.#tick);
+  }
+
+  serialize() {
+    return canonicalJson({
+      commands: [...this.#commands]
+        .sort((left, right) => left.sequence - right.sequence)
+        .map(({ evidence, tick }) => ({ evidence, tick })),
+      initialTowers: this.#initialTowers,
+      tick: this.#tick,
+      version: 1,
+    });
+  }
+
+  replayBytes() {
+    return canonicalJson(this.#replay);
+  }
+
+  /**
+   * Copies every present authority without reconstructing it from the public
+   * command transcript. Composite owners use this only for an internal
+   * transactional candidate; the normal serialize/restore contract is
+   * unchanged.
+   */
+  static {
+    compact = (value) => value.#runtimeClone();
+  }
+
+  #runtimeClone() {
+    const candidate = new MatchClock({ initialTowers: cloneJson(this.#initialTowers) });
+    candidate.#tick = this.#tick;
+    candidate.#commands = cloneJson(this.#commands);
+    candidate.#orderedCommands = cloneJson(this.#orderedCommands);
+    candidate.#pending = cloneJson(this.#pending);
+    candidate.#nextSequence = this.#nextSequence;
+    candidate.#towers = cloneJson(this.#towers);
+    candidate.#crowns = cloneJson(this.#crowns);
+    candidate.#destroyed = new Set(this.#destroyed);
+    candidate.#overtime = this.#overtime;
+    candidate.#result = this.#result === null ? null : cloneJson(this.#result);
+    candidate.#events = cloneJson(this.#events);
+    candidate.#replay = cloneJson(this.#replay);
+    return candidate;
+  }
+
+  static restore(serialized) {
+    if (typeof serialized !== "string") {
+      throw new TypeError("serialized snapshot must be a string");
+    }
+    let snapshot;
+    try {
+      snapshot = JSON.parse(serialized);
+    } catch {
+      throw new TypeError("serialized snapshot must be valid JSON");
+    }
+    const checked = exactObject(
+      snapshot,
+      ["commands", "initialTowers", "tick", "version"],
+      "snapshot",
+    );
+    if (checked.version !== 1) {
+      throw new TypeError("snapshot.version must be 1");
+    }
+    safeTick(checked.tick, "snapshot.tick");
+    if (checked.tick > MATCH_MAX_TICKS) {
+      throw new TypeError("snapshot.tick exceeds maximum match time");
+    }
+    const initialTowers = checkedTowerArray(
+      checked.initialTowers,
+      "snapshot.initialTowers",
+      { allowZero: false },
+    );
+    if (
+      !Array.isArray(checked.commands) ||
+      checked.commands.length > MATCH_MAX_EVIDENCE_COMMANDS
+    ) {
+      throw new TypeError("snapshot.commands has an invalid length");
+    }
+    exactArray(
+      checked.commands,
+      checked.commands.length,
+      "snapshot.commands",
+    );
+    const match = new MatchClock({ initialTowers });
+    for (let index = 0; index < checked.commands.length; index += 1) {
+      const command = exactObject(
+        checked.commands[index],
+        ["evidence", "tick"],
+        `snapshot.commands[${index}]`,
+      );
+      safeTick(command.tick, `snapshot.commands[${index}].tick`);
+      if (command.tick > MATCH_MAX_TICKS) {
+        throw new TypeError(
+          `snapshot.commands[${index}].tick exceeds maximum match time`,
+        );
+      }
+      match.scheduleTowerEvidence(command.tick, command.evidence);
+    }
+    match.runToTick(checked.tick);
+    return match;
+  }
+
+  #resolveRegulationBoundary() {
+    if (this.#result) return [];
+    if (this.#crowns.north !== this.#crowns.south) {
+      const winner =
+        this.#crowns.north > this.#crowns.south ? "north" : "south";
+      this.#end("win", "regulation_crowns", winner, this.#tick);
+      return [{ result: cloneJson(this.#result), tick: this.#tick, type: "match_end" }];
+    }
+    this.#overtime = true;
+    return [{ tick: this.#tick, type: "overtime_started" }];
+  }
+
+  #resolveEvidenceAtCurrentTick() {
+    let dueCount = 0;
+    while (this.#pending[dueCount]?.tick === this.#tick) dueCount += 1;
+    if (dueCount === 0) return [];
+    const due = this.#pending.splice(0, dueCount);
+    if (this.#result) {
+      return due.map((entry) => this.#rejectedEntry(entry));
+    }
+    const events = [];
+    const newlyDestroyed = [];
+    for (const entry of due) {
+      const before = { ...this.#towers };
+      for (const tower of entry.evidence.towers) {
+        this.#towers[tower.id] = tower.hitpoints;
+        if (
+          tower.hitpoints === 0 &&
+          before[tower.id] > 0 &&
+          !this.#destroyed.has(tower.id)
+        ) {
+          this.#destroyed.add(tower.id);
+          newlyDestroyed.push(tower.id);
+        }
+      }
+      const event = {
+        accepted: true,
+        destroyedTowerIds: entry.evidence.destroyedTowerIds,
+        sequence: entry.sequence,
+        tick: this.#tick,
+        type: "tower_evidence",
+      };
+      events.push(event);
+      this.#replay.push({
+        command: { evidence: entry.evidence, tick: entry.tick },
+        event,
+        sequence: entry.sequence,
+      });
+    }
+    if (newlyDestroyed.length > 0) {
+      this.#awardCrowns(newlyDestroyed);
+      events.push(...this.#resolveDestructionResult(newlyDestroyed));
+    }
+    return events;
+  }
+
+  #awardCrowns(ids) {
+    for (const id of ids) {
+      const scorer = otherSide(towerSide(id));
+      if (towerRole(id) === "central") {
+        this.#crowns[scorer] = 3;
+      } else if (this.#crowns[scorer] < 3) {
+        this.#crowns[scorer] += 1;
+      }
+    }
+  }
+
+  #resolveDestructionResult(ids) {
+    const losingSides = new Set(ids.map(towerSide));
+    const centralLosingSides = new Set(
+      ids.filter((id) => towerRole(id) === "central").map(towerSide),
+    );
+    let reason = null;
+    if (centralLosingSides.size > 0) reason = "central_destroyed";
+    else if (this.#overtime) reason = "overtime_sudden_death";
+    if (!reason) return [];
+
+    let kind;
+    let winner;
+    if (losingSides.size === 2) {
+      if (this.#crowns.north === this.#crowns.south) {
+        kind = "draw";
+        winner = null;
+      } else {
+        kind = "win";
+        winner =
+          this.#crowns.north > this.#crowns.south ? "north" : "south";
+      }
+    } else {
+      kind = "win";
+      winner = otherSide([...losingSides][0]);
+    }
+    this.#end(kind, reason, winner, this.#tick);
+    return [{ result: cloneJson(this.#result), tick: this.#tick, type: "match_end" }];
+  }
+
+  #resolveTiebreak() {
+    if (this.#result) return [];
+    const minima = {};
+    for (const side of SIDES) {
+      minima[side] = Math.min(
+        ...TOWER_IDS.filter(
+          (id) => towerSide(id) === side && this.#towers[id] > 0,
+        ).map((id) => this.#towers[id]),
+      );
+    }
+    const losingSides =
+      minima.north === minima.south
+        ? ["north", "south"]
+        : [minima.north < minima.south ? "north" : "south"];
+    const drained = TOWER_IDS.filter(
+      (id) =>
+        losingSides.includes(towerSide(id)) &&
+        this.#towers[id] === minima[towerSide(id)],
+    );
+    for (const id of drained) {
+      this.#towers[id] = 0;
+      this.#destroyed.add(id);
+    }
+    this.#awardCrowns(drained);
+    const winner =
+      losingSides.length === 2 ? null : otherSide(losingSides[0]);
+    this.#end(
+      winner === null ? "draw" : "win",
+      winner === null ? "tiebreak_exact_tie" : "tiebreak_lowest_hp",
+      winner,
+      MATCH_MAX_TICKS,
+    );
+    return [{
+      drainedTowerIds: drained,
+      minima,
+      result: cloneJson(this.#result),
+      tick: MATCH_MAX_TICKS,
+      type: "tiebreak",
+    }];
+  }
+
+  #rejectMaximumTickEvidence() {
+    const due = this.#pending.filter((entry) => entry.tick === MATCH_MAX_TICKS);
+    this.#pending = this.#pending.filter(
+      (entry) => entry.tick !== MATCH_MAX_TICKS,
+    );
+    return due.map((entry) => this.#rejectedEntry(entry));
+  }
+
+  #rejectedEntry(entry) {
+    const event = {
+      accepted: false,
+      reason: "match_ended",
+      sequence: entry.sequence,
+      tick: this.#tick,
+      type: "tower_evidence",
+    };
+    this.#replay.push({
+      command: { evidence: entry.evidence, tick: entry.tick },
+      event,
+      sequence: entry.sequence,
+    });
+    return event;
+  }
+
+  #end(kind, reason, winner, endedAtTick) {
+    if (this.#result) return;
+    this.#result = resultObject({
+      crowns: this.#crowns,
+      endedAtTick,
+      kind,
+      reason,
+      winner,
+    });
+  }
+}
+  opaqueContinuation((value) => {
+    if (!runtimeInstances.has(value)) {
+      throw new TypeError("internal defineMatch continuation receiver is invalid");
+    }
+    return compact(value);
+  }, registerCompact);
+  return { MATCH_MAX_EVIDENCE_COMMANDS, MATCH_MAX_TICKS, MATCH_REGULATION_TICKS, MATCH_TICKS_PER_SECOND, MATCH_TRIPLE_ELIXIR_TICK, MatchClock, getMatchPhase, getMatchRules };
+}
+
+function defineOpponentController(registerCompact) {
+  let compact;
+  const runtimeInstances = new WeakSet();
+
+const OPPONENT_CONTROLLER_ALGORITHM =
+  "bounded-seeded-opponent-controller-v1";
+const OPPONENT_CONTROLLER_MAX_BATCH_TICKS = 4_096;
+const OPPONENT_CONTROLLER_MAX_CANDIDATES = 1_024;
+const OPPONENT_CONTROLLER_MAX_DECISIONS = 10_000;
+const OPPONENT_CONTROLLER_MAX_REPLAY_BYTES = 3 * 1_024 * 1_024;
+const OPPONENT_CONTROLLER_MAX_TICKS = 1_000_000;
+
+const SNAPSHOT_MAX_BYTES = 4 * 1_024 * 1_024;
+const CARD_ID_PATTERN = /^[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?$/u;
+const SNAPSHOT_KEYS = Object.freeze([
+  "algorithm",
+  "nextSequence",
+  "nextTick",
+  "replay",
+  "rng",
+  "seed",
+  "thinkIntervalTicks",
+  "thinkOffsetTicks",
+  "version",
+]);
+
+const hasOwn = (value, key) =>
+  Object.prototype.hasOwnProperty.call(value, key);
+
+function assertPlainRecord(value, label, expectedKeys) {
+  if (
+    value === null ||
+    typeof value !== "object" ||
+    Array.isArray(value) ||
+    (Object.getPrototypeOf(value) !== Object.prototype &&
+      Object.getPrototypeOf(value) !== null)
+  ) {
+    throw new TypeError(`${label} must be a plain object`);
+  }
+  const descriptors = Object.getOwnPropertyDescriptors(value);
+  const keys = Object.keys(descriptors).sort();
+  if (keys.join(",") !== [...expectedKeys].sort().join(",")) {
+    throw new TypeError(`${label} has an invalid shape`);
+  }
+  for (const key of keys) {
+    if (!("value" in descriptors[key])) {
+      throw new TypeError(`${label}.${key} must be a data property`);
+    }
+  }
+  return descriptors;
+}
+
+function assertSafeInteger(value, label, minimum, maximum) {
+  if (
+    !Number.isSafeInteger(value) ||
+    value < minimum ||
+    value > maximum
+  ) {
+    throw new TypeError(
+      `${label} must be a safe integer from ${minimum} through ${maximum}`,
+    );
+  }
+  return value;
+}
+
+function assertCardId(value, label) {
+  if (typeof value !== "string" || !CARD_ID_PATTERN.test(value)) {
+    throw new TypeError(`${label} must be a canonical card id`);
+  }
+  return value;
+}
+
+function assertSeed(value) {
+  if (
+    (typeof value === "string" &&
+      new TextEncoder().encode(value).length <= 256) ||
+    Number.isSafeInteger(value)
+  ) return value;
+  throw new TypeError("seed must be a string or safe integer");
+}
+
+function assertDenseArray(value, label, maximumLength) {
+  if (!Array.isArray(value) || value.length > maximumLength) {
+    throw new TypeError(`${label} must contain at most ${maximumLength} entries`);
+  }
+  const descriptors = Object.getOwnPropertyDescriptors(value);
+  const enumerableKeys = Object.keys(descriptors)
+    .filter((key) => descriptors[key].enumerable)
+    .sort();
+  const expectedKeys = Array.from({ length: value.length }, (_, index) =>
+    String(index)).sort();
+  if (enumerableKeys.join(",") !== expectedKeys.join(",")) {
+    throw new TypeError(`${label} must be a dense data array`);
+  }
+  for (const key of expectedKeys) {
+    if (!("value" in descriptors[key])) {
+      throw new TypeError(`${label} must be a dense data array`);
+    }
+  }
+  return descriptors;
+}
+
+function canonicalize(value) {
+  if (Array.isArray(value)) return value.map(canonicalize);
+  if (value !== null && typeof value === "object") {
+    const result = {};
+    for (const key of Object.keys(value).sort()) {
+      result[key] = canonicalize(value[key]);
+    }
+    return result;
+  }
+  return value;
+}
+
+function canonicalJson(value) {
+  return JSON.stringify(canonicalize(value));
+}
+
+function deepFreeze(value) {
+  if (value !== null && typeof value === "object" && !Object.isFrozen(value)) {
+    for (const child of Object.values(value)) deepFreeze(child);
+    Object.freeze(value);
+  }
+  return value;
+}
+
+function isolated(value) {
+  return deepFreeze(canonicalize(value));
+}
+
+function compareCandidates(left, right) {
+  return (
+    (left.cardId < right.cardId ? -1 : left.cardId > right.cardId ? 1 : 0) ||
+    left.point.x - right.point.x ||
+    left.point.y - right.point.y
+  );
+}
+
+function checkCanonicalOrder(values, compare, label) {
+  for (let index = 1; index < values.length; index += 1) {
+    if (compare(values[index - 1], values[index]) >= 0) {
+      throw new TypeError(`${label} must be unique and canonically ordered`);
+    }
+  }
+}
+
+function validateObservation(value, expectedTick) {
+  const fields = assertPlainRecord(value, "observation", [
+    "legalNorthDeployments",
+    "northCardCosts",
+    "northElixir",
+    "northHand",
+    "tick",
+  ]);
+  const tick = assertSafeInteger(
+    fields.tick.value,
+    "observation.tick",
+    0,
+    OPPONENT_CONTROLLER_MAX_TICKS - 1,
+  );
+  if (tick !== expectedTick) {
+    throw new RangeError(
+      `observation.tick must equal next unresolved tick ${expectedTick}`,
+    );
+  }
+  const northElixir = assertSafeInteger(
+    fields.northElixir.value,
+    "observation.northElixir",
+    0,
+    10,
+  );
+
+  const northHandRaw = fields.northHand.value;
+  const handDescriptors = assertDenseArray(
+    northHandRaw,
+    "observation.northHand",
+    8,
+  );
+  const northHand = [];
+  const handSet = new Set();
+  for (let index = 0; index < northHandRaw.length; index += 1) {
+    const descriptor = handDescriptors[String(index)];
+    const cardId = assertCardId(
+      descriptor.value,
+      `observation.northHand[${index}]`,
+    );
+    if (handSet.has(cardId)) {
+      throw new TypeError("observation.northHand must not contain duplicates");
+    }
+    handSet.add(cardId);
+    northHand.push(cardId);
+  }
+
+  const costsRaw = fields.northCardCosts.value;
+  const costDescriptors = assertDenseArray(
+    costsRaw,
+    "observation.northCardCosts",
+    8,
+  );
+  if (costsRaw.length !== northHand.length) {
+    throw new TypeError(
+      "observation.northCardCosts must contain exactly one cost per hand card",
+    );
+  }
+  const northCardCosts = [];
+  const costMap = new Map();
+  for (let index = 0; index < costsRaw.length; index += 1) {
+    const descriptor = costDescriptors[String(index)];
+    const costFields = assertPlainRecord(
+      descriptor.value,
+      `observation.northCardCosts[${index}]`,
+      ["cardId", "cost"],
+    );
+    const cardId = assertCardId(
+      costFields.cardId.value,
+      `observation.northCardCosts[${index}].cardId`,
+    );
+    const cost = assertSafeInteger(
+      costFields.cost.value,
+      `observation.northCardCosts[${index}].cost`,
+      0,
+      10,
+    );
+    if (!handSet.has(cardId) || costMap.has(cardId)) {
+      throw new TypeError(
+        "observation.northCardCosts must uniquely cover the north hand",
+      );
+    }
+    costMap.set(cardId, cost);
+    northCardCosts.push({ cardId, cost });
+  }
+  checkCanonicalOrder(
+    northCardCosts,
+    (left, right) =>
+      left.cardId < right.cardId ? -1 : left.cardId > right.cardId ? 1 : 0,
+    "observation.northCardCosts",
+  );
+
+  const candidatesRaw = fields.legalNorthDeployments.value;
+  const candidateDescriptors = assertDenseArray(
+    candidatesRaw,
+    "observation.legalNorthDeployments",
+    OPPONENT_CONTROLLER_MAX_CANDIDATES,
+  );
+  const legalNorthDeployments = [];
+  for (let index = 0; index < candidatesRaw.length; index += 1) {
+    const descriptor = candidateDescriptors[String(index)];
+    const candidateFields = assertPlainRecord(
+      descriptor.value,
+      `observation.legalNorthDeployments[${index}]`,
+      ["cardId", "point"],
+    );
+    const cardId = assertCardId(
+      candidateFields.cardId.value,
+      `observation.legalNorthDeployments[${index}].cardId`,
+    );
+    if (!handSet.has(cardId)) {
+      throw new TypeError(
+        "observation.legalNorthDeployments must reference only hand cards",
+      );
+    }
+    const pointFields = assertPlainRecord(
+      candidateFields.point.value,
+      `observation.legalNorthDeployments[${index}].point`,
+      ["x", "y"],
+    );
+    const point = {
+      x: assertSafeInteger(
+        pointFields.x.value,
+        `observation.legalNorthDeployments[${index}].point.x`,
+        0,
+        1_000_000,
+      ),
+      y: assertSafeInteger(
+        pointFields.y.value,
+        `observation.legalNorthDeployments[${index}].point.y`,
+        0,
+        1_000_000,
+      ),
+    };
+    legalNorthDeployments.push({ cardId, point });
+  }
+  checkCanonicalOrder(
+    legalNorthDeployments,
+    compareCandidates,
+    "observation.legalNorthDeployments",
+  );
+
+  return { legalNorthDeployments, northCardCosts, northElixir, northHand, tick };
+}
+
+function validateProposal(value, expectedTick, expectedSequence) {
+  const fields = assertPlainRecord(value, "replay proposal", [
+    "cardId",
+    "point",
+    "sequence",
+    "side",
+    "tick",
+    "type",
+  ]);
+  if (fields.type.value !== "deploy" || fields.side.value !== "north") {
+    throw new TypeError("replay proposal has an invalid type or side");
+  }
+  const cardId = assertCardId(fields.cardId.value, "replay proposal.cardId");
+  const tick = assertSafeInteger(
+    fields.tick.value,
+    "replay proposal.tick",
+    0,
+    OPPONENT_CONTROLLER_MAX_TICKS - 1,
+  );
+  const sequence = assertSafeInteger(
+    fields.sequence.value,
+    "replay proposal.sequence",
+    0,
+    OPPONENT_CONTROLLER_MAX_DECISIONS - 1,
+  );
+  if (tick !== expectedTick || sequence !== expectedSequence) {
+    throw new TypeError("replay proposal is not causally contiguous");
+  }
+  const pointFields = assertPlainRecord(fields.point.value, "replay proposal.point", [
+    "x",
+    "y",
+  ]);
+  return {
+    cardId,
+    point: {
+      x: assertSafeInteger(pointFields.x.value, "replay proposal.point.x", 0, 1_000_000),
+      y: assertSafeInteger(pointFields.y.value, "replay proposal.point.y", 0, 1_000_000),
+    },
+    sequence,
+    side: "north",
+    tick,
+    type: "deploy",
+  };
+}
+
+class OpponentController {
+  #nextSequence = 0;
+  #nextTick = 0;
+  #replay = [];
+  #rng;
+  #seed;
+  #thinkIntervalTicks;
+  #thinkOffsetTicks;
+
+  constructor(options = {}) {
+    runtimeInstances.add(this);
+    if (
+      options === null ||
+      typeof options !== "object" ||
+      Array.isArray(options) ||
+      Object.getPrototypeOf(options) !== Object.prototype
+    ) {
+      throw new TypeError("controller options must be a plain object");
+    }
+    const descriptors = Object.getOwnPropertyDescriptors(options);
+    const optionKeys = Object.keys(descriptors).sort();
+    if (
+      optionKeys.some((key) =>
+        !["seed", "thinkIntervalTicks", "thinkOffsetTicks"].includes(key)) ||
+      !hasOwn(descriptors, "seed")
+    ) {
+      throw new TypeError("controller options have an invalid shape");
+    }
+    for (const key of optionKeys) {
+      if (!("value" in descriptors[key])) {
+        throw new TypeError(`controller option ${key} must be a data property`);
+      }
+    }
+    const seed = descriptors.seed.value;
+    const thinkIntervalTicks = hasOwn(descriptors, "thinkIntervalTicks")
+      ? descriptors.thinkIntervalTicks.value
+      : 30;
+    const thinkOffsetTicks = hasOwn(descriptors, "thinkOffsetTicks")
+      ? descriptors.thinkOffsetTicks.value
+      : 0;
+    this.#seed = assertSeed(seed);
+    this.#thinkIntervalTicks = assertSafeInteger(
+      thinkIntervalTicks,
+      "thinkIntervalTicks",
+      1,
+      3_600,
+    );
+    this.#thinkOffsetTicks = assertSafeInteger(
+      thinkOffsetTicks,
+      "thinkOffsetTicks",
+      0,
+      this.#thinkIntervalTicks - 1,
+    );
+    this.#rng = new SeededRandom(this.#seed).fork(
+      OPPONENT_CONTROLLER_ALGORITHM,
+    );
+  }
+
+  get state() {
+    return isolated({
+      nextSequence: this.#nextSequence,
+      nextTick: this.#nextTick,
+      thinkIntervalTicks: this.#thinkIntervalTicks,
+      thinkOffsetTicks: this.#thinkOffsetTicks,
+    });
+  }
+
+  get replayLog() {
+    return isolated(this.#replay);
+  }
+
+  /** Composite-session checkpoint with exact continuation and no duplicate provenance. */
+  static {
+    compact = (value) => value.#runtimeClone();
+  }
+
+  #runtimeClone() {
+    const candidate = new OpponentController({ seed: this.#seed,
+      thinkIntervalTicks: this.#thinkIntervalTicks, thinkOffsetTicks: this.#thinkOffsetTicks });
+    candidate.#nextSequence = this.#nextSequence;
+    candidate.#nextTick = this.#nextTick;
+    candidate.#rng = SeededRandom.restore(this.#rng.serialize());
+    return candidate;
+  }
+
+  step(observation) {
+    return this.stepMany([observation]);
+  }
+
+  stepMany(observations) {
+    const observationDescriptors = assertDenseArray(
+      observations,
+      "observations",
+      OPPONENT_CONTROLLER_MAX_BATCH_TICKS,
+    );
+    if (this.#nextTick + observations.length > OPPONENT_CONTROLLER_MAX_TICKS) {
+      throw new RangeError("controller cannot exceed its total tick bound");
+    }
+
+    const checked = [];
+    let expectedTick = this.#nextTick;
+    let addedDecisions = 0;
+    for (let index = 0; index < observations.length; index += 1) {
+      const descriptor = observationDescriptors[String(index)];
+      const observation = validateObservation(descriptor.value, expectedTick);
+      checked.push(observation);
+      if (this.#isThinkTick(expectedTick)) addedDecisions += 1;
+      expectedTick += 1;
+    }
+    if (this.#replay.length + addedDecisions > OPPONENT_CONTROLLER_MAX_DECISIONS) {
+      throw new RangeError("controller cannot exceed its decision history bound");
+    }
+
+    const stagedRng = SeededRandom.restore(this.#rng.serialize());
+    let stagedSequence = this.#nextSequence;
+    const additions = [];
+    const proposals = [];
+    for (const observation of checked) {
+      if (this.#isThinkTick(observation.tick)) {
+        const costs = new Map(
+          observation.northCardCosts.map(({ cardId, cost }) => [cardId, cost]),
+        );
+        const eligible = observation.legalNorthDeployments.filter(
+          ({ cardId }) => costs.get(cardId) <= observation.northElixir,
+        ).map(({ cardId, point }) => ({
+          cardId,
+          cost: costs.get(cardId),
+          point,
+        }));
+        let choiceIndex = null;
+        let proposal = null;
+        if (eligible.length > 0) {
+          choiceIndex = stagedRng.int(eligible.length);
+          const selected = eligible[choiceIndex];
+          proposal = isolated({
+            cardId: selected.cardId,
+            point: selected.point,
+            sequence: stagedSequence,
+            side: "north",
+            tick: observation.tick,
+            type: "deploy",
+          });
+          stagedSequence += 1;
+          proposals.push(proposal);
+        }
+        additions.push(
+          isolated({
+            choiceIndex,
+            eligibleCandidates: eligible,
+            eligibleCount: eligible.length,
+            observation: {
+              legalNorthDeployments: observation.legalNorthDeployments,
+              northCardCosts: observation.northCardCosts,
+              northElixir: observation.northElixir,
+              northHand: observation.northHand,
+            },
+            proposal,
+            tick: observation.tick,
+          }),
+        );
+      }
+    }
+    const replay = [...this.#replay, ...additions];
+    if (
+      new TextEncoder().encode(canonicalJson(replay)).length >
+      OPPONENT_CONTROLLER_MAX_REPLAY_BYTES
+    ) {
+      throw new RangeError("controller cannot exceed its replay byte bound");
+    }
+    this.#rng = stagedRng;
+    this.#nextSequence = stagedSequence;
+    this.#nextTick += checked.length;
+    this.#replay = replay;
+    return isolated(proposals);
+  }
+
+  replayBytes() {
+    return canonicalJson(this.#replay);
+  }
+
+  serialize() {
+    return canonicalJson({
+      algorithm: OPPONENT_CONTROLLER_ALGORITHM,
+      nextSequence: this.#nextSequence,
+      nextTick: this.#nextTick,
+      replay: this.#replay,
+      rng: this.#rng.serialize(),
+      seed: this.#seed,
+      thinkIntervalTicks: this.#thinkIntervalTicks,
+      thinkOffsetTicks: this.#thinkOffsetTicks,
+      version: 1,
+    });
+  }
+
+  static restore(serialized) {
+    if (typeof serialized !== "string") {
+      throw new TypeError("serialized controller snapshot must be a string");
+    }
+    if (new TextEncoder().encode(serialized).length > SNAPSHOT_MAX_BYTES) {
+      throw new RangeError("serialized controller snapshot exceeds its byte bound");
+    }
+    let snapshot;
+    try {
+      snapshot = JSON.parse(serialized);
+    } catch {
+      throw new TypeError("serialized controller snapshot must be valid JSON");
+    }
+    const fields = assertPlainRecord(snapshot, "controller snapshot", SNAPSHOT_KEYS);
+    if (canonicalJson(snapshot) !== serialized) {
+      throw new TypeError("serialized controller snapshot must be canonical JSON");
+    }
+    if (
+      fields.algorithm.value !== OPPONENT_CONTROLLER_ALGORITHM ||
+      fields.version.value !== 1
+    ) {
+      throw new TypeError("controller snapshot has an unsupported algorithm");
+    }
+    const seed = assertSeed(fields.seed.value);
+    const thinkIntervalTicks = assertSafeInteger(
+      fields.thinkIntervalTicks.value,
+      "snapshot.thinkIntervalTicks",
+      1,
+      3_600,
+    );
+    const thinkOffsetTicks = assertSafeInteger(
+      fields.thinkOffsetTicks.value,
+      "snapshot.thinkOffsetTicks",
+      0,
+      thinkIntervalTicks - 1,
+    );
+    const nextTick = assertSafeInteger(
+      fields.nextTick.value,
+      "snapshot.nextTick",
+      0,
+      OPPONENT_CONTROLLER_MAX_TICKS,
+    );
+    const nextSequence = assertSafeInteger(
+      fields.nextSequence.value,
+      "snapshot.nextSequence",
+      0,
+      OPPONENT_CONTROLLER_MAX_DECISIONS,
+    );
+    const replayRaw = fields.replay.value;
+    if (
+      !Array.isArray(replayRaw) ||
+      replayRaw.length > OPPONENT_CONTROLLER_MAX_DECISIONS
+    ) {
+      throw new TypeError("snapshot.replay exceeds its decision history bound");
+    }
+
+    const controller = new OpponentController({
+      seed,
+      thinkIntervalTicks,
+      thinkOffsetTicks,
+    });
+    const replay = [];
+    let proposalSequence = 0;
+    let expectedDecisionTick = thinkOffsetTicks;
+    for (let index = 0; index < replayRaw.length; index += 1) {
+      const descriptor = Object.getOwnPropertyDescriptor(replayRaw, String(index));
+      if (descriptor === undefined || !("value" in descriptor)) {
+        throw new TypeError("snapshot.replay must be a dense data array");
+      }
+      const replayFields = assertPlainRecord(
+        descriptor.value,
+        `snapshot.replay[${index}]`,
+        [
+          "choiceIndex",
+          "eligibleCandidates",
+          "eligibleCount",
+          "observation",
+          "proposal",
+          "tick",
+        ],
+      );
+      const tick = assertSafeInteger(
+        replayFields.tick.value,
+        `snapshot.replay[${index}].tick`,
+        0,
+        OPPONENT_CONTROLLER_MAX_TICKS - 1,
+      );
+      if (tick !== expectedDecisionTick || tick >= nextTick) {
+        throw new TypeError("snapshot.replay decision ticks are not causal");
+      }
+      const eligibleCount = assertSafeInteger(
+        replayFields.eligibleCount.value,
+        `snapshot.replay[${index}].eligibleCount`,
+        0,
+        OPPONENT_CONTROLLER_MAX_CANDIDATES,
+      );
+      const observationFields = assertPlainRecord(
+        replayFields.observation.value,
+        `snapshot.replay[${index}].observation`,
+        [
+          "legalNorthDeployments",
+          "northCardCosts",
+          "northElixir",
+          "northHand",
+        ],
+      );
+      const observation = validateObservation(
+        {
+          legalNorthDeployments:
+            observationFields.legalNorthDeployments.value,
+          northCardCosts: observationFields.northCardCosts.value,
+          northElixir: observationFields.northElixir.value,
+          northHand: observationFields.northHand.value,
+          tick,
+        },
+        tick,
+      );
+      const costs = new Map(
+        observation.northCardCosts.map(({ cardId, cost }) => [cardId, cost]),
+      );
+      const expectedEligible = observation.legalNorthDeployments
+        .filter(({ cardId }) => costs.get(cardId) <= observation.northElixir)
+        .map(({ cardId, point }) => ({
+          cardId,
+          cost: costs.get(cardId),
+          point,
+        }));
+      if (
+        eligibleCount !== expectedEligible.length ||
+        canonicalJson(replayFields.eligibleCandidates.value) !==
+          canonicalJson(expectedEligible)
+      ) {
+        throw new TypeError(
+          "snapshot eligible candidates do not match their causal observation",
+        );
+      }
+      let choiceIndex = replayFields.choiceIndex.value;
+      let proposal = replayFields.proposal.value;
+      if (eligibleCount === 0) {
+        if (choiceIndex !== null || proposal !== null) {
+          throw new TypeError("empty replay decisions cannot contain a choice");
+        }
+      } else {
+        choiceIndex = assertSafeInteger(
+          choiceIndex,
+          `snapshot.replay[${index}].choiceIndex`,
+          0,
+          eligibleCount - 1,
+        );
+        const expectedChoice = controller.#rng.int(eligibleCount);
+        if (choiceIndex !== expectedChoice) {
+          throw new TypeError("snapshot replay does not match its seeded RNG");
+        }
+        proposal = validateProposal(proposal, tick, proposalSequence);
+        const selected = expectedEligible[choiceIndex];
+        if (
+          proposal.cardId !== selected.cardId ||
+          proposal.point.x !== selected.point.x ||
+          proposal.point.y !== selected.point.y
+        ) {
+          throw new TypeError(
+            "snapshot proposal does not match its seeded eligible candidate",
+          );
+        }
+        proposalSequence += 1;
+      }
+      replay.push(isolated({
+        choiceIndex,
+        eligibleCandidates: expectedEligible,
+        eligibleCount,
+        observation: {
+          legalNorthDeployments: observation.legalNorthDeployments,
+          northCardCosts: observation.northCardCosts,
+          northElixir: observation.northElixir,
+          northHand: observation.northHand,
+        },
+        proposal,
+        tick,
+      }));
+      expectedDecisionTick += thinkIntervalTicks;
+    }
+    const expectedDecisionCount =
+      nextTick <= thinkOffsetTicks
+        ? 0
+        : Math.floor((nextTick - 1 - thinkOffsetTicks) / thinkIntervalTicks) + 1;
+    if (
+      replay.length !== expectedDecisionCount ||
+      proposalSequence !== nextSequence ||
+      new TextEncoder().encode(canonicalJson(replay)).length >
+        OPPONENT_CONTROLLER_MAX_REPLAY_BYTES
+    ) {
+      throw new TypeError("snapshot replay is incomplete or noncontiguous");
+    }
+    const restoredRng = SeededRandom.restore(fields.rng.value);
+    if (canonicalJson(restoredRng.serialize()) !== canonicalJson(controller.#rng.serialize())) {
+      throw new TypeError("snapshot RNG state does not match its replay");
+    }
+
+    controller.#nextTick = nextTick;
+    controller.#nextSequence = nextSequence;
+    controller.#replay = replay;
+    controller.#rng = restoredRng;
+    return controller;
+  }
+
+  #isThinkTick(tick) {
+    return (
+      tick >= this.#thinkOffsetTicks &&
+      (tick - this.#thinkOffsetTicks) % this.#thinkIntervalTicks === 0
+    );
+  }
+}
+  opaqueContinuation((value) => {
+    if (!runtimeInstances.has(value)) {
+      throw new TypeError("internal defineOpponentController continuation receiver is invalid");
+    }
+    return compact(value);
+  }, registerCompact);
+  return { OPPONENT_CONTROLLER_ALGORITHM, OPPONENT_CONTROLLER_MAX_BATCH_TICKS, OPPONENT_CONTROLLER_MAX_CANDIDATES, OPPONENT_CONTROLLER_MAX_DECISIONS, OPPONENT_CONTROLLER_MAX_REPLAY_BYTES, OPPONENT_CONTROLLER_MAX_TICKS, OpponentController };
+}
+
+function defineGameSession(ElixirMatch, LiveBattle, MATCH_MAX_TICKS, MatchClock,
+  OpponentController, TOWER_COMBAT_CONFIG, compactElixirMatch, compactLiveBattle,
+  compactMatchClock, compactOpponentController, resolveElixirMatch, resolveLiveBattle,
+  resolveMatchClock, resolveOpponentController) {
+
+const GAME_SESSION_MAX_BATCH_TICKS = 18_000;
+const GAME_SESSION_MAX_SETUP_BYTES = 2 * 1_024 * 1_024;
+const GAME_SESSION_MAX_SNAPSHOT_BYTES = 32 * 1_024 * 1_024;
+const GAME_SESSION_MAX_TRANSCRIPT = 20_000;
+const GAME_SESSION_SETUP_GRAPH_LIMITS = Object.freeze({ arrayLength: 4_096,
+  containers: 4_096, depth: 64, keys: 128, nodes: 12_000, stringLength: 1_048_576 });
+const GAME_SESSION_SNAPSHOT_GRAPH_LIMITS = Object.freeze({ arrayLength: 20_000,
+  containers: 100_000, depth: 128, keys: 1_024, nodes: 200_000,
+  stringLength: 8_388_608 });
+const COMMAND_GRAPH_LIMITS = Object.freeze({ arrayLength: 32, containers: 32, depth: 8,
+  keys: 16, nodes: 64, stringLength: 8_192 });
+const SETUP_KEYS = ["battleSetup", "deck", "legalNorthDeployments", "rosterWitness",
+  "seed", "startingElixir", "thinkIntervalTicks", "thinkOffsetTicks"];
+const authenticGameSessions = new WeakSet();
+const authenticGameSessionProjectionSnapshots = new WeakSet();
+
+function isAuthenticGameSession(value) {
+  return authenticGameSessions.has(value);
+}
+
+function isAuthenticGameSessionProjectionSnapshot(value) {
+  return authenticGameSessionProjectionSnapshots.has(value);
+}
+
+function canonical(value) {
+  if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
+  if (value !== null && typeof value === "object") return `{${Object.keys(value).sort()
+    .map((key) => `${JSON.stringify(key)}:${canonical(value[key])}`).join(",")}}`;
+  return JSON.stringify(value);
+}
+const clone = (value) => JSON.parse(JSON.stringify(value));
+function freeze(value) { if (value && typeof value === "object" && !Object.isFrozen(value)) {
+  for (const child of Object.values(value)) freeze(child); Object.freeze(value); } return value; }
+function exact(value, keys, label) {
+  if (!value || typeof value !== "object" || Array.isArray(value) ||
+      Object.getPrototypeOf(value) !== Object.prototype) throw new TypeError(`${label} must be a plain object`);
+  const actual = Object.keys(value).sort(), expected = [...keys].sort();
+  if (actual.length !== expected.length || actual.some((key, index) => key !== expected[index])) {
+    throw new TypeError(`${label} has an invalid shape`);
+  }
+  return value;
+}
+function scalarByteLength(text, label) {
+  let bytes = 0;
+  for (let index = 0; index < text.length; index += 1) {
+    const code = text.charCodeAt(index);
+    if (code >= 0xd800 && code <= 0xdbff) {
+      const low = text.charCodeAt(index + 1);
+      if (!(low >= 0xdc00 && low <= 0xdfff)) throw new TypeError(`${label} contains a lone surrogate`);
+      bytes += 4; index += 1;
+    } else if (code >= 0xdc00 && code <= 0xdfff) {
+      throw new TypeError(`${label} contains a lone surrogate`);
+    } else bytes += code <= 0x7f ? 1 : code <= 0x7ff ? 2 : 3;
+  }
+  return bytes;
+}
+function preflight(value, limits, label) {
+  const stack = [{ depth: 0, value }]; let containers = 0, nodes = 0;
+  while (stack.length) {
+    const current = stack.pop(); nodes += 1;
+    if (nodes > limits.nodes) throw new RangeError(`${label} exceeds its node bound`);
+    if (current.depth > limits.depth) throw new RangeError(`${label} exceeds its depth bound`);
+    const entry = current.value;
+    if (typeof entry === "string") {
+      if (entry.length > limits.stringLength) throw new RangeError(`${label} exceeds its string bound`);
+      scalarByteLength(entry, label); continue;
+    }
+    if (typeof entry === "number" && (!Number.isSafeInteger(entry) || !Number.isFinite(entry))) {
+      throw new TypeError(`${label} contains a non-safe integer`);
+    }
+    if (entry === null || typeof entry === "boolean" || typeof entry === "number") continue;
+    if (!entry || typeof entry !== "object") throw new TypeError(`${label} contains an invalid value`);
+    containers += 1;
+    if (containers > limits.containers) throw new RangeError(`${label} exceeds its container bound`);
+    if (Array.isArray(entry)) {
+      if (entry.length > limits.arrayLength) throw new RangeError(`${label} exceeds its array bound`);
+      for (let index = entry.length - 1; index >= 0; index -= 1) {
+        stack.push({ depth: current.depth + 1, value: entry[index] });
+      }
+      continue;
+    }
+    if (Object.getPrototypeOf(entry) !== Object.prototype) throw new TypeError(`${label} contains a non-plain object`);
+    const keys = Object.keys(entry);
+    if (keys.length > limits.keys) throw new RangeError(`${label} exceeds its key bound`);
+    for (let index = keys.length - 1; index >= 0; index -= 1) {
+      const key = keys[index];
+      if (key.length > limits.stringLength) throw new RangeError(`${label} exceeds its string bound`);
+      scalarByteLength(key, label);
+      if (["__proto__", "constructor", "prototype"].includes(key)) {
+        throw new TypeError(`${label} contains a forbidden key`);
+      }
+      stack.push({ depth: current.depth + 1, value: entry[key] });
+    }
+  }
+  return value;
+}
+function parsed(serialized, label, maximum = GAME_SESSION_MAX_SNAPSHOT_BYTES,
+  limits = GAME_SESSION_SNAPSHOT_GRAPH_LIMITS) {
+  if (typeof serialized !== "string") throw new TypeError(`${label} must be canonical JSON text`);
+  if (scalarByteLength(serialized, label) > maximum) throw new RangeError(`${label} exceeds its byte bound`);
+  let value; try { value = JSON.parse(serialized); } catch { throw new TypeError(`${label} must be valid JSON`); }
+  preflight(value, limits, label);
+  if (canonical(value) !== serialized) throw new TypeError(`${label} must be canonical JSON`);
+  return value;
+}
+function validateSetup(bytes) {
+  const setup = exact(parsed(bytes, "game session setup", GAME_SESSION_MAX_SETUP_BYTES,
+    GAME_SESSION_SETUP_GRAPH_LIMITS),
+    SETUP_KEYS, "game session setup");
+  parsed(setup.battleSetup, "game session battle setup", GAME_SESSION_MAX_SETUP_BYTES,
+    GAME_SESSION_SETUP_GRAPH_LIMITS);
+  parsed(setup.rosterWitness, "game session roster witness", GAME_SESSION_MAX_SETUP_BYTES,
+    GAME_SESSION_SETUP_GRAPH_LIMITS);
+  const battle = new LiveBattle(setup.battleSetup);
+  const battleSetup = JSON.parse(setup.battleSetup);
+  if (setup.rosterWitness !== canonical({ questions: battleSetup.questions,
+    roster: battleSetup.roster })) throw new TypeError("session roster witness diverges");
+  const cards = battleSetup.roster.map(({ cost, id }) => ({ cost, id }));
+  if (cards.length !== 8 || canonical(setup.deck) !== canonical(cards.map(({ id }) => id))) {
+    throw new TypeError("session deck must exactly equal the admitted roster");
+  }
+  const costs = new Map(cards.map(({ cost, id }) => [id, cost]));
+  const cardRuntime = new SessionCardRuntime(canonical(battleSetup.roster.map(({ cost, id, kind }) => ({
+    cost, id, kind, placementClass: kind === "effect" ? "global_effect" : "ground_entity",
+  }))));
+  for (const card of battleSetup.roster) {
+    const admitted = cardRuntime.card(card.id);
+    if (admitted.cost !== card.cost || admitted.kind !== card.kind) {
+      throw new TypeError("session card admission diverges from battle roster");
+    }
+  }
+  const legal = setup.legalNorthDeployments;
+  if (!Array.isArray(legal) || legal.length > 1_024) throw new TypeError("north deployments are invalid");
+  legal.forEach((raw, sequence) => {
+    const entry = exact(raw, ["cardId", "point"], `north deployment ${sequence}`);
+    const admitted = cardRuntime.card(entry.cardId);
+    const decision = evaluateDeployment({ destroyedOpposingLaneTowers: [],
+      placementClass: admitted.placementClass, point: entry.point, side: "north" });
+    if (!decision.legal) throw new RangeError(`north deployment is illegal: ${decision.reason}`);
+    if (admitted.kind === "unit") battle.scheduleDeploy({ ...entry, sequence,
+      side: "north", tick: 0 });
+  });
+  return { cardRuntime, cards, costs, setup: freeze(clone(setup)) };
+}
+function initialMatchTowers(battle) {
+  const order = ["north:central", "north:lane:left", "north:lane:right",
+    "south:central", "south:lane:left", "south:lane:right"];
+  return battle.state.towers.map(({ hitpoints, id }) => ({ hitpoints,
+    id: mapBattleTowerIdToMatchTowerId(id) })).sort((left, right) =>
+    order.indexOf(left.id) - order.indexOf(right.id));
+}
+function commandText(value) {
+  const command = exact(parsed(value, "player session command", 16_384, COMMAND_GRAPH_LIMITS),
+    ["cardId", "commandId", "point", "slot", "tick", "type"], "player session command");
+  if (command.type !== "deploy" || typeof command.cardId !== "string" ||
+      !Number.isSafeInteger(command.commandId) || command.commandId < 0 ||
+      !Number.isSafeInteger(command.slot) || command.slot < 0 || command.slot > 3 ||
+      !Number.isSafeInteger(command.tick) || command.tick < 0 || command.tick >= MATCH_MAX_TICKS) {
+    throw new TypeError("player session command is invalid");
+  }
+  exact(command.point, ["x", "y"], "player session command.point");
+  if (!Number.isSafeInteger(command.point.x) || !Number.isSafeInteger(command.point.y)) {
+    throw new TypeError("player session command point is invalid");
+  }
+  return clone(command);
+}
+
+class GameSession {
+  #battle; #cardRuntime; #clock; #controller; #costs; #decks; #elixir; #events = [];
+  #history = []; #legal; #nextDeploymentSequence = 0; #paused = false; #pending = [];
+  #processed = new Map(); #projectionSequence = 0; #projectionSource = Object.freeze({}); #setup;
+  #towerEvidence; #isContinuation = false;
+
+  constructor(canonicalSetup) {
+    const checked = validateSetup(canonicalSetup); this.#setup = checked.setup;
+    this.#cardRuntime = checked.cardRuntime;
+    this.#costs = checked.costs; this.#legal = this.#setup.legalNorthDeployments;
+    this.#battle = new LiveBattle(this.#setup.battleSetup);
+    this.#elixir = new ElixirMatch({ startingElixir: this.#setup.startingElixir });
+    this.#decks = { north: new DeckCycle({ deck: this.#setup.deck, seed: `${this.#setup.seed}:north` }),
+      south: new DeckCycle({ deck: this.#setup.deck, seed: `${this.#setup.seed}:south` }) };
+    this.#controller = new OpponentController({ seed: this.#setup.seed,
+      thinkIntervalTicks: this.#setup.thinkIntervalTicks,
+      thinkOffsetTicks: this.#setup.thinkOffsetTicks });
+    this.#clock = new MatchClock({ initialTowers: initialMatchTowers(this.#battle) });
+    this.#towerEvidence = mapLiveBattleTowerStateToMatchEvidence(this.#battle.state.towers);
+    if (new.target === GameSession) authenticGameSessions.add(this);
+  }
+
+  #battleRuntime() {
+    return this.#isContinuation ? resolveLiveBattle(this.#battle) : this.#battle;
+  }
+
+  #clockRuntime() {
+    return this.#isContinuation ? resolveMatchClock(this.#clock) : this.#clock;
+  }
+
+  #controllerRuntime() {
+    return this.#isContinuation ? resolveOpponentController(this.#controller) : this.#controller;
+  }
+
+  #elixirRuntime() {
+    return this.#isContinuation ? resolveElixirMatch(this.#elixir) : this.#elixir;
+  }
+
+  get state() { const battle = this.#battleRuntime(), clock = this.#clockRuntime();
+    const elixir = this.#elixirRuntime(), controller = this.#controllerRuntime(); return freeze({ battle: clone(battle.state),
+    cardRuntime: clone(this.#cardRuntime.state), clock: clone(clock.state),
+    decks: { north: clone(this.#decks.north.state), south: clone(this.#decks.south.state) },
+    elixir: clone(elixir.state), opponent: clone(controller.state),
+    paused: this.#paused, pendingPlayerCommands: clone(this.#pending),
+    terminal: clock.state.result !== null, tick: clock.tick }); }
+  get replay() { return freeze(clone(this.#events)); }
+  replayBytes() { return canonical(this.#events); }
+
+  /**
+   * One immutable, module-branded read of every authority needed by browser
+   * projections. It does not replay, restore, or expose live mutable state.
+   */
+  projectionSnapshot() {
+    if (!Number.isSafeInteger(this.#projectionSequence) ||
+        this.#projectionSequence === Number.MAX_SAFE_INTEGER) {
+      throw new RangeError("game session projection sequence bound exceeded");
+    }
+    const battleRuntime = this.#battleRuntime(), clock = this.#clockRuntime();
+    const elixir = this.#elixirRuntime(), controller = this.#controllerRuntime();
+    const battle = clone(battleRuntime.state);
+    battle.towers = battle.towers.map((tower) => ({
+      ...tower,
+      maxHitpoints: TOWER_COMBAT_CONFIG[tower.role].hitpoints,
+    }));
+    const state = { battle, cardRuntime: clone(this.#cardRuntime.state), clock: clone(clock.state),
+      decks: { north: clone(this.#decks.north.state), south: clone(this.#decks.south.state) },
+      elixir: clone(elixir.state), opponent: clone(controller.state),
+      paused: this.#paused, pendingPlayerCommands: clone(this.#pending),
+      terminal: clock.state.result !== null, tick: clock.tick };
+    const snapshot = freeze({
+      replay: clone(this.#events),
+      sequence: this.#projectionSequence,
+      setup: clone(this.#setup),
+      source: this.#projectionSource,
+      state,
+      version: 1,
+    });
+    this.#projectionSequence += 1;
+    authenticGameSessionProjectionSnapshots.add(snapshot);
+    return snapshot;
+  }
+
+  submitPlayerCommand(text) {
+    const command = commandText(text), before = this.serialize();
+    const clock = this.#clockRuntime(), elixir = this.#elixirRuntime();
+    if (this.#history.length >= GAME_SESSION_MAX_TRANSCRIPT) {
+      throw new RangeError("game session transcript exceeds its operation bound");
+    }
+    if (this.#paused || clock.state.result !== null || command.tick < clock.tick ||
+        !this.#costs.has(command.cardId) || this.#processed.has(command.commandId) ||
+        this.#pending.some((entry) => entry.commandId === command.commandId || entry.tick === command.tick)) {
+      throw new RangeError("player session command is stale, duplicate, terminal, or unknown");
+    }
+    const placement = evaluateDeployment({ destroyedOpposingLaneTowers: [],
+      placementClass: this.#cardRuntime.card(command.cardId).placementClass,
+      point: command.point, side: "south" });
+    if (!placement.legal) throw new RangeError(`player session command is illegal: ${placement.reason}`);
+    if (command.tick === clock.tick &&
+        (this.#decks.south.state.hand[command.slot] !== command.cardId ||
+         this.#costs.get(command.cardId) > elixir.state.sides.south.amount)) {
+      throw new RangeError("player session command is divergent or unaffordable");
+    }
+    this.#pending.push(command); this.#pending.sort((a, b) => a.tick - b.tick || a.commandId - b.commandId);
+    this.#history.push({ command: clone(command), type: "submit" });
+    if (before === this.serialize()) throw new Error("player command admission invariant failed");
+    return freeze(clone({ accepted: true, commandId: command.commandId, tick: command.tick,
+      type: "player-command-admitted" }));
+  }
+  pause() { if (!this.#paused) { if (this.#history.length >= GAME_SESSION_MAX_TRANSCRIPT) {
+      throw new RangeError("game session transcript exceeds its operation bound");
+    } this.#paused = true; this.#history.push({ type: "pause" }); } return this.state; }
+  resume() { if (this.#paused) { if (this.#history.length >= GAME_SESSION_MAX_TRANSCRIPT) {
+      throw new RangeError("game session transcript exceeds its operation bound");
+    } this.#paused = false; this.#history.push({ type: "resume" }); } return this.state; }
+  restart() { const freshSetup = clone(this.#setup); freshSetup.seed = 0;
+    const fresh = new GameSession(canonical(freshSetup)); this.#adopt(fresh); return this.state; }
+  step() { return this.stepMany(1); }
+  stepMany(count) {
+    if (!Number.isSafeInteger(count) || count < 0 || count > GAME_SESSION_MAX_BATCH_TICKS) {
+      throw new TypeError("session step count is invalid");
+    }
+    const clock = this.#clockRuntime();
+    if (this.#paused || clock.state.result !== null) return freeze([]);
+    if (clock.tick + count > MATCH_MAX_TICKS) throw new RangeError("session step exceeds match bound");
+    let candidate = this.#runtimeClone();
+    let events = candidate.#advanceMany(count), committedCount = count;
+    const discovered = candidate.#clockRuntime().state.result;
+    if (discovered !== null) {
+      const boundaryResult = discovered.reason === "regulation_crowns" ||
+        discovered.reason === "tiebreak_exact_tie" || discovered.reason === "tiebreak_lowest_hp";
+      const terminalTick = discovered.endedAtTick + (boundaryResult ? 0 : 1);
+      if (terminalTick < candidate.#clockRuntime().tick) {
+        committedCount = terminalTick - clock.tick;
+        if (committedCount <= 0) throw new Error("session terminal prefix is invalid");
+        candidate = this.#runtimeClone();
+        events = candidate.#advanceMany(committedCount);
+        const rebuilt = candidate.#clockRuntime().state.result;
+        if (rebuilt === null || canonical(rebuilt) !== canonical(discovered)) {
+          throw new Error("session terminal prefix did not reproduce its result");
+        }
+      }
+    }
+    if (this.#history.length + committedCount > GAME_SESSION_MAX_TRANSCRIPT) {
+      throw new RangeError("game session transcript exceeds its operation bound");
+    }
+    for (let index = 0; index < committedCount; index += 1) candidate.#history.push({ type: "step" });
+    candidate.serialize(); this.#adopt(candidate); return freeze(clone(events));
+  }
+
+  serialize() {
+    const bytes = canonical({ setup: this.#setup, transcript: this.#history, version: 2 });
+    if (scalarByteLength(bytes, "game session snapshot") > GAME_SESSION_MAX_SNAPSHOT_BYTES) {
+      throw new RangeError("game session snapshot exceeds byte bound");
+    }
+    return bytes;
+  }
+  static restore(serialized) {
+    const value = exact(parsed(serialized, "game session snapshot"),
+      ["setup", "transcript", "version"], "game session snapshot");
+    if (value.version !== 2 || !Array.isArray(value.transcript) ||
+        value.transcript.length > GAME_SESSION_MAX_TRANSCRIPT) {
+      throw new TypeError("unsupported or oversized game session snapshot");
+    }
+    const session = new GameSession(canonical(value.setup));
+    for (let index = 0; index < value.transcript.length;) {
+      const operation = value.transcript[index];
+      if (!operation || typeof operation !== "object" || Array.isArray(operation)) {
+        throw new TypeError("game session transcript operation is invalid");
+      }
+      if (operation.type === "step") {
+        exact(operation, ["type"], "game session step operation");
+        let count = 1;
+        while (index + count < value.transcript.length &&
+          canonical(value.transcript[index + count]) === '{"type":"step"}') count += 1;
+        if (session.#paused || session.#clockRuntime().state.result !== null) {
+          throw new TypeError("game session transcript contains an uncaused step");
+        }
+        session.stepMany(count); index += count; continue;
+      }
+      if (operation.type === "submit") {
+        exact(operation, ["command", "type"], "game session submit operation");
+        session.submitPlayerCommand(canonical(operation.command)); index += 1; continue;
+      }
+      if (operation.type === "pause") {
+        exact(operation, ["type"], "game session pause operation");
+        if (session.#paused) throw new TypeError("game session transcript contains an uncaused pause");
+        session.pause(); index += 1; continue;
+      }
+      if (operation.type === "resume") {
+        exact(operation, ["type"], "game session resume operation");
+        if (!session.#paused) throw new TypeError("game session transcript contains an uncaused resume");
+        session.resume(); index += 1; continue;
+      }
+      throw new TypeError("game session transcript operation type is invalid");
+    }
+    if (session.serialize() !== serialized) {
+      throw new TypeError("game session transcript did not reproduce its snapshot");
+    }
+    return session;
+  }
+
+  #advanceMany(count) {
+    const battle = this.#battleRuntime(), clock = this.#clockRuntime();
+    const elixir = this.#elixirRuntime(), controller = this.#controllerRuntime();
+    const firstTick = clock.tick, endTick = firstTick + count;
+    const staged = [], battleEvents = [], towerRecords = clone(battle.state.towers);
+    const flushBattleTo = (tick) => {
+      battleEvents.push(...battle.stepMany(tick - battle.state.tick));
+    };
+    for (let tick = firstTick; tick < endTick; tick += 1) {
+      const player = this.#pending.find((entry) => entry.tick === tick) ?? null;
+      if (player) {
+        flushBattleTo(tick);
+        staged.push({ ...stageSideDeployment({ battle,
+          cardCosts: this.#costs, command: { ...player, side: "south" },
+          deck: this.#decks.south, deploymentSequence: this.#nextDeploymentSequence++,
+          elixir, sessionCards: this.#cardRuntime }) });
+      }
+      const hand = this.#decks.north.state.hand;
+      const observation = { legalNorthDeployments: this.#legal.filter(({ cardId }) => hand.includes(cardId)),
+        northCardCosts: hand.map((cardId) => ({ cardId, cost: this.#costs.get(cardId) }))
+          .sort((a, b) => a.cardId < b.cardId ? -1 : 1),
+        northElixir: elixir.state.sides.north.amount, northHand: hand, tick };
+      const proposal = controller.step(observation)[0] ?? null;
+      if (proposal) {
+        flushBattleTo(tick);
+        staged.push({ ...stageSideDeployment({ battle,
+          cardCosts: this.#costs, command: { ...proposal,
+            commandId: proposal.sequence, slot: hand.indexOf(proposal.cardId) },
+          deck: this.#decks.north, deploymentSequence: this.#nextDeploymentSequence++,
+          elixir, sessionCards: this.#cardRuntime }) });
+      }
+      const elixirEvents = elixir.step();
+      for (const stage of staged.filter((entry) => entry.tick === tick)) {
+        const spend = elixirEvents.find((event) => event.type === "spend" &&
+          event.sequence === stage.spendSequence);
+        if (!spend?.accepted) throw new RangeError("session deployment spend failed");
+        stage.resolvedSpend = spend;
+      }
+    }
+    flushBattleTo(endTick);
+    const sessionEvents = [];
+    for (const stage of staged) {
+      let committed = stage.route;
+      if (stage.kind === "unit") {
+        const deployment = battleEvents.find((event) => event.type === "deployed" &&
+          event.sequence === stage.deploymentSequence);
+        if (!deployment) throw new Error("session deployment did not materialize");
+        committed = { deployment: clone(deployment), side: stage.side,
+          spend: clone(stage.resolvedSpend), tick: stage.tick, type: "session-deployed" };
+        sessionEvents.push(committed);
+      }
+      if (stage.side === "south") { this.#processed.set(stage.commandId, clone(committed));
+        this.#pending = this.#pending.filter(({ commandId }) => commandId !== stage.commandId); }
+    }
+    const contactsByTick = new Map();
+    for (const event of battleEvents) if (event.type === "external-structure-contact") {
+      if (!contactsByTick.has(event.tick)) contactsByTick.set(event.tick, []);
+      contactsByTick.get(event.tick).push(event);
+    }
+    for (const [tick, contacts] of [...contactsByTick].sort((a, b) => a[0] - b[0])) {
+      for (const contact of contacts) {
+        const tower = towerRecords.find(({ id }) => id === contact.structureId);
+        tower.hitpoints = Math.max(0, tower.hitpoints - contact.damage);
+      }
+      const evidence = mapLiveBattleTowerStateToMatchEvidence(towerRecords);
+      clock.scheduleTowerEvidence(tick, evidence); this.#towerEvidence = evidence;
+    }
+    const finalEvidence = mapLiveBattleTowerStateToMatchEvidence(battle.state.towers);
+    if (canonical(finalEvidence) !== canonical(this.#towerEvidence)) {
+      throw new Error("session tower evidence did not reproduce the authoritative battle");
+    }
+    const clockEvents = clock.advanceTicks(count);
+    // Publish the already-authoritative audible combat boundary in its original
+    // LiveBattle order. This is projection only: stepping and authority remain
+    // owned by LiveBattle above.
+    const meaningfulBattle = battleEvents.filter(({ type }) => [
+      "attack",
+      "damage",
+      "death",
+      "projectile-impact",
+      "projectile-launch",
+      "tower-destroyed",
+    ].includes(type));
+    sessionEvents.push(...meaningfulBattle, ...clockEvents);
+    sessionEvents.sort((a, b) => (a.tick ?? 0) - (b.tick ?? 0));
+    this.#events.push(...clone(sessionEvents));
+    return sessionEvents;
+  }
+  #runtimeClone() {
+    const value = new GameSession(canonical(this.#setup));
+    const battle = this.#battleRuntime(), clock = this.#clockRuntime();
+    const controller = this.#controllerRuntime(), elixir = this.#elixirRuntime();
+    value.#battle = compactLiveBattle(battle);
+    value.#cardRuntime = this.#cardRuntime.fork();
+    value.#clock = compactMatchClock(clock);
+    value.#controller = compactOpponentController(controller);
+    value.#decks = { north: DeckCycle.restore(this.#decks.north.serializeJson()),
+      south: DeckCycle.restore(this.#decks.south.serializeJson()) };
+    value.#elixir = compactElixirMatch(elixir);
+    value.#isContinuation = true;
+    value.#events = [...this.#events]; value.#history = [...this.#history];
+    value.#nextDeploymentSequence = this.#nextDeploymentSequence;
+    value.#projectionSequence = this.#projectionSequence;
+    value.#projectionSource = this.#projectionSource;
+    value.#paused = this.#paused; value.#pending = clone(this.#pending);
+    value.#processed = new Map([...this.#processed.entries()].map(([key, entry]) => [key, clone(entry)]));
+    value.#towerEvidence = mapLiveBattleTowerStateToMatchEvidence(value.#battleRuntime().state.towers);
+    return value;
+  }
+  #adopt(other) { this.#battle = other.#battle; this.#cardRuntime = other.#cardRuntime;
+    this.#clock = other.#clock;
+    this.#controller = other.#controller; this.#costs = other.#costs; this.#decks = other.#decks;
+    this.#elixir = other.#elixir; this.#events = other.#events; this.#history = other.#history;
+    this.#legal = other.#legal; this.#nextDeploymentSequence = other.#nextDeploymentSequence;
+    this.#projectionSequence = other.#projectionSequence;
+    this.#projectionSource = other.#projectionSource;
+    this.#paused = other.#paused; this.#pending = other.#pending; this.#processed = other.#processed;
+    this.#setup = other.#setup; this.#towerEvidence = other.#towerEvidence;
+    this.#isContinuation = other.#isContinuation; }
+}
+  return {
+    GAME_SESSION_MAX_BATCH_TICKS,
+    GAME_SESSION_MAX_SETUP_BYTES,
+    GAME_SESSION_MAX_SNAPSHOT_BYTES,
+    GAME_SESSION_MAX_TRANSCRIPT,
+    GAME_SESSION_SETUP_GRAPH_LIMITS,
+    GAME_SESSION_SNAPSHOT_GRAPH_LIMITS,
+    GameSession,
+    isAuthenticGameSession,
+    isAuthenticGameSessionProjectionSnapshot,
+  };
+}
+
+let compactElixirMatch, resolveElixirMatch, compactMatchClock, resolveMatchClock,
+  compactOpponentController, resolveOpponentController;
+const elixir = defineElixir((clone, resolve) => {
+  compactElixirMatch = clone; resolveElixirMatch = resolve;
+});
+const match = defineMatch((clone, resolve) => {
+  compactMatchClock = clone; resolveMatchClock = resolve;
+});
+const opponent = defineOpponentController((clone, resolve) => {
+  compactOpponentController = clone; resolveOpponentController = resolve;
+});
+const stageSideDeployment = createStageSideDeployment({
+  DeckCycle,
+  ElixirMatch: elixir.ElixirMatch,
+  LiveBattle: liveBattle.LiveBattle,
+  SessionCardRuntime,
+  evaluateDeployment,
+  isAuthenticSessionCardRuntime,
+});
+const gameSession = defineGameSession(elixir.ElixirMatch, liveBattle.LiveBattle,
+  match.MATCH_MAX_TICKS, match.MatchClock, opponent.OpponentController,
+  towers.TOWER_COMBAT_CONFIG, compactElixirMatch, compactLiveBattle,
+  compactMatchClock, compactOpponentController, resolveElixirMatch, resolveLiveBattle,
+  resolveMatchClock, resolveOpponentController);
+
+export const ELIXIR_TICKS_PER_SECOND = elixir.ELIXIR_TICKS_PER_SECOND;
+export const ELIXIR_ACCUMULATOR_DENOMINATOR = elixir.ELIXIR_ACCUMULATOR_DENOMINATOR;
+export const ELIXIR_CAPACITY = elixir.ELIXIR_CAPACITY;
+export const ESTIMATED_STARTING_ELIXIR = elixir.ESTIMATED_STARTING_ELIXIR;
+export const ELIXIR_MATCH_TICKS = elixir.ELIXIR_MATCH_TICKS;
+export const ELIXIR_MAX_PENDING_SPENDS = elixir.ELIXIR_MAX_PENDING_SPENDS;
+export const ELIXIR_MAX_HISTORY_ENTRIES = elixir.ELIXIR_MAX_HISTORY_ENTRIES;
+export const ELIXIR_MAX_GENERATED_EVENTS = elixir.ELIXIR_MAX_GENERATED_EVENTS;
+export const ELIXIR_MAX_EVENT_ENTRIES = elixir.ELIXIR_MAX_EVENT_ENTRIES;
+export const getElixirPhase = elixir.getElixirPhase;
+export const getElixirRules = elixir.getElixirRules;
+export const ElixirMatch = elixir.ElixirMatch;
+
+export const MATCH_TICKS_PER_SECOND = match.MATCH_TICKS_PER_SECOND;
+export const MATCH_REGULATION_TICKS = match.MATCH_REGULATION_TICKS;
+export const MATCH_TRIPLE_ELIXIR_TICK = match.MATCH_TRIPLE_ELIXIR_TICK;
+export const MATCH_MAX_TICKS = match.MATCH_MAX_TICKS;
+export const MATCH_MAX_EVIDENCE_COMMANDS = match.MATCH_MAX_EVIDENCE_COMMANDS;
+export const getMatchPhase = match.getMatchPhase;
+export const getMatchRules = match.getMatchRules;
+export const MatchClock = match.MatchClock;
+
+export const OPPONENT_CONTROLLER_ALGORITHM = opponent.OPPONENT_CONTROLLER_ALGORITHM;
+export const OPPONENT_CONTROLLER_MAX_BATCH_TICKS = opponent.OPPONENT_CONTROLLER_MAX_BATCH_TICKS;
+export const OPPONENT_CONTROLLER_MAX_CANDIDATES = opponent.OPPONENT_CONTROLLER_MAX_CANDIDATES;
+export const OPPONENT_CONTROLLER_MAX_DECISIONS = opponent.OPPONENT_CONTROLLER_MAX_DECISIONS;
+export const OPPONENT_CONTROLLER_MAX_REPLAY_BYTES = opponent.OPPONENT_CONTROLLER_MAX_REPLAY_BYTES;
+export const OPPONENT_CONTROLLER_MAX_TICKS = opponent.OPPONENT_CONTROLLER_MAX_TICKS;
+export const OpponentController = opponent.OpponentController;
+
+export const GAME_SESSION_MAX_BATCH_TICKS = gameSession.GAME_SESSION_MAX_BATCH_TICKS;
+export const GAME_SESSION_MAX_SETUP_BYTES = gameSession.GAME_SESSION_MAX_SETUP_BYTES;
+export const GAME_SESSION_MAX_SNAPSHOT_BYTES = gameSession.GAME_SESSION_MAX_SNAPSHOT_BYTES;
+export const GAME_SESSION_MAX_TRANSCRIPT = gameSession.GAME_SESSION_MAX_TRANSCRIPT;
+export const GAME_SESSION_SETUP_GRAPH_LIMITS = gameSession.GAME_SESSION_SETUP_GRAPH_LIMITS;
+export const GAME_SESSION_SNAPSHOT_GRAPH_LIMITS = gameSession.GAME_SESSION_SNAPSHOT_GRAPH_LIMITS;
+export const GameSession = gameSession.GameSession;
+export const isAuthenticGameSession = gameSession.isAuthenticGameSession;
+export const isAuthenticGameSessionProjectionSnapshot = gameSession.isAuthenticGameSessionProjectionSnapshot;

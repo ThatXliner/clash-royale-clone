@@ -241,7 +241,7 @@ test("battle movement: chunking and restore cuts are byte-identical", () => {
   }
 });
 
-test("battle movement: continuation forks retain full public command history without replay", () => {
+test("battle movement: public snapshots retain full command history", () => {
   const source = new BattleMovement({
     bodyRadius: 100,
     mode: "air",
@@ -251,7 +251,7 @@ test("battle movement: continuation forks retain full public command history wit
   source.setTarget(destination({ x: 15_000, y: 27_000 }, 200, 300));
   source.stepMany(257);
   const bytes = source.serialize();
-  const continuation = source.continuationFork().continuationFork();
+  const continuation = BattleMovement.restore(bytes);
 
   assert.equal(source.serialize(), bytes);
   assert.equal(continuation.serialize(), bytes);

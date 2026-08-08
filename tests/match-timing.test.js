@@ -225,14 +225,14 @@ test("match timing: same-tick evidence sequence has stable combined destruction 
   );
 });
 
-test("match timing: continuation forks copy present authority without replaying commands", () => {
+test("match timing: public restore copies present authority without changing commands", () => {
   const source = match();
   source.scheduleTowerEvidence(2, evidence({ "north:lane:left": laneHp - 50 }));
   source.scheduleTowerEvidence(4, evidence({ "north:lane:left": laneHp - 75 }));
   source.runToTick(1);
   const bytes = source.serialize();
   const replay = source.replayBytes();
-  const fork = source.continuationFork();
+  const fork = MatchClock.restore(bytes);
 
   assert.equal(source.serialize(), bytes);
   assert.equal(fork.serialize(), bytes);
