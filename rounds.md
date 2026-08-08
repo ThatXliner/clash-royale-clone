@@ -4435,3 +4435,23 @@ coordinator-directed stop of the redundant full run. Import closure contains no
 sim→content dependency and no exported receipt bypass.
 
 BIGGEST GAP: None on the judged shared building-authority seam.
+
+## Round 240 — 2026-08-08
+
+PIECE: GAME-001HTA — Shared troop mechanic authority seam
+
+VERDICT: FAIL
+
+EVIDENCE: Exact selectors passed 65/65: troop runtime 7/7, roster admission
+7/7, GameSession 8/8, battle 11/11, movement 9/9, nondeterminism guard
+9/9, shipping isolation 13/13 and bounded endurance 1/1. An independent real
+GameSession control produced one `session-ability` and one external 202-damage
+event; the target was 1,361→1,159 versus 1,361 in the control while decks,
+elixir, towers and projectiles remained equal. Atomic stale/wrong-side/
+duplicate/dead and forged target/source/effect/damage rejections passed, as did
+pending restore/fork/chunk and legacy restores. However, the only action is the
+costless `basic-melee-contact-fixture`, admitted at tick 20 while its Mossguard
+source still reports `attack.phase: "deploying"` and `deployTicks: 60`.
+
+BIGGEST GAP: Replace the premature fixture with a sourced live reducer intent
+that cannot apply before the source's authoritative deployment/attack phase.
