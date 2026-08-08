@@ -29,6 +29,10 @@ import {
   parseSessionTroopRuntimeProfiles,
   SessionTroopRuntime,
 } from "./session-troop-runtime.js";
+import {
+  createSpellIntentRuntime,
+  parseSpellIntentProfileReceipts,
+} from "./spell-intent-runtime.js";
 import { MAX_SPATIAL_MILLITILES, validateCircle, validatePosition } from "./spatial.js";
 import { retainOrAcquireTarget, targetCandidate } from "./targeting.js";
 import { createStageSideDeployment } from "./game-side-deploy-core.js";
@@ -3433,6 +3437,35 @@ function checkedBuildingBoundary(value, currentTick) {
     structures: clone(boundary.structures), tick: boundary.tick };
 }
 
+// Spell profiles are admitted by LiveBattle, then translated to the exact
+// unit-health ingress BattleCombat already owns.  Keeping this small typed
+// envelope here lets the tower bridge preserve a distinct causal witness for
+// a sourced effect boundary without granting an effect reducer tower authority.
+function checkedEffects(value) {
+  const effects = exact(value, ["unitHits"], "battle tower effects");
+  const unitHits = denseArray(effects.unitHits, "battle tower effects.unitHits", 1_024)
+    .map((value, index) => {
+      const entry = exact(value, ["damage", "effectId", "sourceId", "targetUnitId"],
+        `battle tower effects.unitHits[${index}]`);
+      return {
+        damage: integer(entry.damage, 0, Number.MAX_SAFE_INTEGER,
+          `battle tower effects.unitHits[${index}].damage`),
+        effectId: integer(entry.effectId, 1, Number.MAX_SAFE_INTEGER,
+          `battle tower effects.unitHits[${index}].effectId`),
+        sourceId: typeof entry.sourceId === "string" && entry.sourceId.length > 0 &&
+            entry.sourceId.length <= 128
+          ? entry.sourceId
+          : (() => { throw new TypeError(`battle tower effects.unitHits[${index}].sourceId is invalid`); })(),
+        targetUnitId: integer(entry.targetUnitId, 1, Number.MAX_SAFE_INTEGER,
+          `battle tower effects.unitHits[${index}].targetUnitId`),
+      };
+    });
+  if (new Set(unitHits.map(({ effectId }) => effectId)).size !== unitHits.length) {
+    throw new TypeError("battle tower effects must have unique effect IDs");
+  }
+  return { unitHits: unitHits.sort((left, right) => left.effectId - right.effectId) };
+}
+
 function projectileFor(shot, projectileId) {
   return {
     attackSequence: shot.attackSequence,
@@ -3719,6 +3752,31 @@ class BattleTowerCombat {
   }
 
   /**
+   * Applies already-admitted LiveBattle effect ingress at this shared combat
+   * boundary. Unit and tower health remain owned by the two child authorities.
+   */
+  stepWithEffects(tick, effects) {
+    integer(tick, 0, MAX_TICK, "battle tower effect step tick");
+    if (tick !== this.state.tick) {
+      throw new RangeError("battle tower effect step tick must equal the current tick");
+    }
+    if (this.#historyCount >= MAX_HISTORY) {
+      throw new RangeError("battle tower history bound exceeded");
+    }
+    const checked = checkedEffects(effects);
+    const external = {
+      externalHits: checked.unitHits.map(({ damage, sourceId, targetUnitId }) => ({
+        damage, delivery: "melee", sourceId, targetUnitId,
+      })),
+      externalProjectiles: [],
+      externalTowerHits: [],
+      structures: [],
+      tick,
+    };
+    return freeze(clone(this.#advance(external, "effect-step", checked)));
+  }
+
+  /**
    * One host-owned boundary with data-only external structures and already
    * validated building contacts. BattleCombat remains the unit authority and
    * CrownTowerBattle remains the tower authority; this adapter only joins the
@@ -3768,10 +3826,11 @@ class BattleTowerCombat {
 
   serialize() {
     this.#assertPublicTranscript();
-    if (this.#history.length > EXPLICIT_HISTORY_TAIL) {
-      const tailStart = this.#history.length - EXPLICIT_HISTORY_TAIL;
+    const hasEffects = this.#history.some(({ type }) => type === "effect-step");
+    if (hasEffects || this.#history.length > EXPLICIT_HISTORY_TAIL) {
+      const tailStart = Math.max(0, this.#history.length - EXPLICIT_HISTORY_TAIL);
       const serialized = canonical({ history: this.#history.slice(tailStart), setup: this.#setup,
-        transcript: compactTowerHistory(this.#history.slice(0, tailStart)), version: 3 });
+        transcript: compactTowerHistory(this.#history.slice(0, tailStart)), version: hasEffects ? 4 : 3 });
       if (new TextEncoder().encode(serialized).byteLength > MAX_SNAPSHOT_BYTES) {
         throw new RangeError("serialized battle tower combat exceeds the byte bound");
       }
@@ -3803,7 +3862,8 @@ class BattleTowerCombat {
     if (canonical(snapshot) !== serialized) {
       throw new TypeError("serialized battle tower combat must be canonical JSON");
     }
-    if (snapshot.version === 3) {
+    if (snapshot.version === 3 || snapshot.version === 4) {
+      const hasEffects = snapshot.version === 4;
       const checked = exact(snapshot, ["history", "setup", "transcript", "version"],
         "battle tower snapshot");
       const history = denseArray(checked.history, "battle tower snapshot.history");
@@ -3823,6 +3883,14 @@ class BattleTowerCombat {
           ["command", "type"], `${label}[${index}]`).command);
         else if (operation.type === "boundary") restored.stepBoundary(exact(operation,
           ["command", "type"], `${label}[${index}]`).command);
+        else if (operation.type === "effect-step") {
+          if (!hasEffects) throw new TypeError("legacy battle tower snapshot cannot contain effects");
+          const entry = exact(operation, ["effects", "tick", "type"], `${label}[${index}]`);
+          if (entry.tick !== restored.state.tick) {
+            throw new TypeError("noncausal battle tower effect history");
+          }
+          restored.stepWithEffects(entry.tick, checkedEffects(entry.effects));
+        }
         else if (operation.type === "step") {
           const entry = exact(operation, ["tick", "type"], `${label}[${index}]`);
           if (entry.tick !== restored.state.tick) throw new TypeError("noncausal battle tower step history");
@@ -3860,6 +3928,9 @@ class BattleTowerCombat {
         } else { replay(record, index, "transcript"); operations += 1; }
       }
       for (const [index, operation] of history.entries()) replay(operation, index, "history");
+      if (hasEffects && !restored.#history.some(({ type }) => type === "effect-step")) {
+        throw new TypeError("battle tower effect snapshot lacks an effect boundary");
+      }
       if (restored.serialize() !== serialized) {
         throw new TypeError("battle tower snapshot witnesses are not causal");
       }
@@ -3916,7 +3987,7 @@ class BattleTowerCombat {
     return restored;
   }
 
-  #advance(external = null, historyType = "step") {
+  #advance(external = null, historyType = "step", effectWitness = null) {
     this.#assertSynchronized();
     const combat = this.#combatRuntime();
     const towers = this.#towerRuntime();
@@ -3983,9 +4054,13 @@ class BattleTowerCombat {
     towers.stepLive(towerInput);
     combat.stepBoundaryAfterPreview(combatInput, combatEvents);
     this.#nextTowerProjectileId += shots.length;
-    this.#appendHistory(historyType === "step" ? { tick, type: "step" } : {
-      command: clone(checkedExternal), type: "boundary",
-    });
+    if (historyType === "step") {
+      this.#appendHistory({ tick, type: "step" });
+    } else if (historyType === "effect-step") {
+      this.#appendHistory({ effects: clone(effectWitness), tick, type: "effect-step" });
+    } else {
+      this.#appendHistory({ command: clone(checkedExternal), type: "boundary" });
+    }
     const currentOrigins = currentUnitOrigins(combatEvents);
     const unitOrigins = pendingUnitOrigins(this.#unitProjectileOrigins, currentOrigins);
     const events = unifiedEvents(combatEvents, towerEvents, shots, ingresses,
@@ -4154,6 +4229,7 @@ const TROOP_REPRESENTATIVE_EFFECTS = new Set(["source-melee-contact"]);
 const CURRENT_TROOP_CONTACT_EFFECT = "ordinary-live-contact";
 const TROOP_STATUS_LIMIT = MAX_LIVE_BATTLE_UNITS * 5;
 const SETUP_KEYS = ["initialWindupTicks", "questions", "roster"];
+const SPELL_SETUP_KEYS = [...SETUP_KEYS, "spellProfileReceipts"];
 const CARD_KEYS = [
   "areaDamageRadiusMillitiles", "cost", "count", "damage", "deployTimeTicks",
   "displayName", "entities", "firstHitTicks", "formation", "hitSpeedTicks",
@@ -4385,7 +4461,16 @@ function checkedPolicy(value, label, { projectile = false } = {}) {
 }
 
 function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
-  const setup = exact(value, SETUP_KEYS, "live battle setup");
+  const descriptors = plain(value, "live battle setup");
+  const actual = Reflect.ownKeys(descriptors).sort();
+  const hasSpellProfiles = actual.length === SPELL_SETUP_KEYS.length && actual.every((key, index) =>
+    key === [...SPELL_SETUP_KEYS].sort()[index]);
+  const expected = hasSpellProfiles ? SPELL_SETUP_KEYS : SETUP_KEYS;
+  if (actual.length !== expected.length || actual.some((key, index) =>
+    key !== [...expected].sort()[index])) {
+    throw new TypeError("live battle setup has an invalid shape");
+  }
+  const setup = Object.fromEntries(expected.map((key) => [key, descriptors[key].value]));
   const windups = exact(setup.initialWindupTicks, ["central", "lane"],
     "live battle setup.initialWindupTicks");
   const initialWindupTicks = {
@@ -4580,7 +4665,20 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
   }
   const canonicalQuestions = [...questions].sort((left, right) =>
     left.key < right.key ? -1 : left.key > right.key ? 1 : 0);
-  const normalized = freeze({ initialWindupTicks, questions: canonicalQuestions, roster });
+  const spellProfileReceipts = hasSpellProfiles
+    ? parseSpellIntentProfileReceipts(setup.spellProfileReceipts)
+    : null;
+  if (spellProfileReceipts !== null) {
+    const fact = spellProfileReceipts.profiles[0].fact;
+    const card = roster.find(({ id }) => id === fact.cardId);
+    if (card === undefined || card.kind !== fact.kind || card.cost !== fact.cost ||
+        card.count !== fact.count || card.damage !== fact.damage) {
+      throw new TypeError("live battle spell receipt diverges from its admitted roster fact");
+    }
+  }
+  const normalized = freeze(spellProfileReceipts === null
+    ? { initialWindupTicks, questions: canonicalQuestions, roster }
+    : { initialWindupTicks, questions: canonicalQuestions, roster, spellProfileReceipts });
   ADMITTED_SETUPS.add(normalized);
   return normalized;
 }
@@ -5055,6 +5153,7 @@ class LiveBattle {
   #questionValues;
   #rosterById;
   #setup;
+  #spells;
   #structures;
   #troopRuntime;
   #troopStatuses;
@@ -5083,6 +5182,9 @@ class LiveBattle {
     this.#structures = [];
     this.#questionValues = new Map(setup.questions.map(({ key, value: answer }) => [key, answer]));
     this.#rosterById = new Map(setup.roster.map((card) => [card.id, card]));
+    this.#spells = setup.spellProfileReceipts === undefined
+      ? null
+      : createSpellIntentRuntime(setup.spellProfileReceipts);
     this.#troopRuntime = troopRuntimeProfiles === undefined
       ? new SessionTroopRuntime()
       : new SessionTroopRuntime(troopRuntimeProfiles);
@@ -5144,6 +5246,7 @@ class LiveBattle {
         publicState.pendingTroopActions = clone(this.#pendingTroopActions);
       }
     }
+    if (this.#spells !== null) publicState.pendingSpellIntents = clone(this.#spells.state.pending);
     return freeze(publicState);
   }
 
@@ -5168,6 +5271,15 @@ class LiveBattle {
       isSessionBuildingCardId(cardId);
   }
 
+  hasSpellProfile(cardId) {
+    if (typeof cardId !== "string") throw new TypeError("live battle spell card ID must be primitive");
+    return this.#spells !== null && this.#spells.hasCard(cardId);
+  }
+
+  validateSpell(command) {
+    return freeze(clone(this.#validatedSpellCommand(command)));
+  }
+
   /** Returns an independent transactional continuation without history replay. */
   fork() {
     this.#assertPublicTranscript();
@@ -5190,7 +5302,10 @@ class LiveBattle {
     const battle = this.#battleRuntime();
     const checked = checkedDeploy(command, battle.state.tick, this.#rosterById);
     if (this.#pending.some((entry) =>
-      entry.tick === checked.tick && entry.sequence === checked.sequence)) {
+      entry.tick === checked.tick && entry.sequence === checked.sequence) ||
+        this.#pendingStructures.some((entry) => entry.tick === checked.tick &&
+          entry.sequence === checked.sequence) ||
+        this.#spells?.hasPendingSequence(checked.tick, checked.sequence)) {
       throw new RangeError("live battle deployment tick/sequence must be unique");
     }
     this.#pending.push(clone(checked));
@@ -5200,6 +5315,26 @@ class LiveBattle {
     const event = { ...clone(checked), scheduledAt: battle.state.tick, type: "deploy-scheduled" };
     this.#events.push(event);
     return freeze(clone(event));
+  }
+
+  /** Schedules one exact sourced effect against a shared live unit. */
+  scheduleSpell(command) {
+    if (this.#spells === null) throw new RangeError("live battle has no sourced spell profile");
+    if (this.#historyCount >= MAX_HISTORY) {
+      throw new RangeError("live battle spell/history bound exceeded");
+    }
+    const checked = this.#validatedSpellCommand(command);
+    const scheduled = this.#spells.schedule(checked, this.#battleRuntime().state.tick, () => true);
+    this.#appendHistory({ command: {
+      cardId: scheduled.cardId,
+      point: clone(scheduled.point),
+      sequence: scheduled.sequence,
+      side: scheduled.side,
+      target: clone(scheduled.target),
+      tick: scheduled.tick,
+    }, type: "spell" });
+    this.#events.push(clone(scheduled));
+    return freeze(clone(scheduled));
   }
 
   /** Schedules one typed, host-owned structure placement for the shared tick. */
@@ -5219,7 +5354,8 @@ class LiveBattle {
     const checked = checkedStructureDeploy(command, battle.state.tick, this.#rosterById);
     if (this.#pendingStructures.some((entry) => entry.tick === checked.tick &&
         entry.sequence === checked.sequence) || this.#pending.some((entry) =>
-      entry.tick === checked.tick && entry.sequence === checked.sequence)) {
+      entry.tick === checked.tick && entry.sequence === checked.sequence) ||
+        this.#spells?.hasPendingSequence(checked.tick, checked.sequence)) {
       throw new RangeError("live battle deployment tick/sequence must be globally unique");
     }
     this.#pendingStructures.push(clone(checked));
@@ -5321,6 +5457,7 @@ class LiveBattle {
     const tailStart = Math.max(0, this.#history.length - EXPLICIT_HISTORY_TAIL);
     const hasBuildingState = this.#structures.length > 0 || this.#pendingStructures.length > 0 ||
       this.#pendingBuildingHits.length > 0;
+    const hasSpellRuntime = this.#spells !== null;
     const common = {
       battle: this.#battleRuntime().serialize(),
       history: this.#history.slice(tailStart),
@@ -5330,22 +5467,27 @@ class LiveBattle {
     };
     let snapshot;
     if (!this.#hasTroopRuntime()) {
-      snapshot = { ...common, version: hasBuildingState ? 3 : 2 };
+      snapshot = hasSpellRuntime
+        ? { ...common, ...(hasBuildingState ? { building: this.#buildingWitness() } : {}),
+          spellRuntime: this.#spells.state, version: hasBuildingState ? 8 : 3 }
+        : { ...common, version: hasBuildingState ? 3 : 2 };
     } else if (this.#troopRuntime.version === SESSION_TROOP_RUNTIME_LEGACY_VERSION) {
       snapshot = {
         ...common,
         pendingTroopActions: this.#pendingTroopActions,
         runtime: this.#troopRuntime.serialize(),
+        ...(hasSpellRuntime ? { spellRuntime: this.#spells.state } : {}),
         troopStatuses: this.#troopStatusWitnesses(),
-        version: hasBuildingState ? 6 : 3,
+        version: hasSpellRuntime ? (hasBuildingState ? 10 : 9) : (hasBuildingState ? 6 : 3),
       };
     } else if (this.#troopRuntime.version === SESSION_TROOP_RUNTIME_ACTION_PROFILE_VERSION) {
       snapshot = {
         ...common,
         pendingTroopActions: this.#pendingTroopActions,
         runtime: this.#troopRuntime.serialize(),
+        ...(hasSpellRuntime ? { spellRuntime: this.#spells.state } : {}),
         troopStatuses: this.#troopStatusWitnesses(),
-        version: hasBuildingState ? 7 : 4,
+        version: hasSpellRuntime ? (hasBuildingState ? 12 : 11) : (hasBuildingState ? 7 : 4),
       };
     } else {
       // Current v3 has no player action queue. A building witness is additive
@@ -5353,11 +5495,14 @@ class LiveBattle {
       snapshot = {
         ...common,
         runtime: this.#troopRuntime.serialize(),
+        ...(hasSpellRuntime ? { spellRuntime: this.#spells.state } : {}),
         troopStatuses: this.#troopStatusWitnesses(),
-        version: 5,
+        version: hasSpellRuntime ? (hasBuildingState ? 14 : 13) : 5,
       };
     }
-    if (hasBuildingState) snapshot.building = this.#buildingWitness();
+    if (hasBuildingState && !Object.hasOwn(snapshot, "building")) {
+      snapshot.building = this.#buildingWitness();
+    }
     const serialized = canonical(snapshot);
     if (new TextEncoder().encode(serialized).byteLength > MAX_SNAPSHOT_BYTES) {
       throw new RangeError("serialized live battle exceeds the byte bound");
@@ -5378,9 +5523,11 @@ class LiveBattle {
     const snapshotShape = plain(snapshot, "live battle snapshot");
     const version = snapshotShape.version?.value;
     const hasBuildingWitness = Object.hasOwn(snapshot, "building");
-    const legacyRuntimeSnapshot = version === 3 && !hasBuildingWitness || version === 4 ||
-      version === 6 || version === 7;
-    const currentRuntimeSnapshot = version === 5;
+    const hasSpellRuntimeWitness = (version === 3 && !hasBuildingWitness &&
+      Object.hasOwn(snapshot, "spellRuntime")) || [8, 9, 10, 11, 12, 13, 14].includes(version);
+    const legacyRuntimeSnapshot = (version === 3 && !hasBuildingWitness &&
+      !hasSpellRuntimeWitness) || [4, 6, 7, 9, 10, 11, 12].includes(version);
+    const currentRuntimeSnapshot = [5, 13, 14].includes(version);
     const hasTroopRuntimeWitness = legacyRuntimeSnapshot || currentRuntimeSnapshot;
     let checked;
     if (version === 1) {
@@ -5392,6 +5539,9 @@ class LiveBattle {
     } else if (version === 3 && hasBuildingWitness) {
       checked = exact(snapshot, ["battle", "building", "history", "movements", "setup", "transcript", "version"],
         "live battle snapshot");
+    } else if (version === 3 && hasSpellRuntimeWitness) {
+      checked = exact(snapshot, ["battle", "history", "movements", "setup", "spellRuntime",
+        "transcript", "version"], "live battle snapshot");
     } else if (version === 3 || version === 4) {
       checked = exact(snapshot, ["battle", "history", "movements", "pendingTroopActions", "runtime",
         "setup", "transcript", "troopStatuses", "version"], "live battle snapshot");
@@ -5404,6 +5554,23 @@ class LiveBattle {
     } else if (version === 6 || version === 7) {
       checked = exact(snapshot, ["battle", "building", "history", "movements", "pendingTroopActions",
         "runtime", "setup", "transcript", "troopStatuses", "version"], "live battle snapshot");
+    } else if (version === 8) {
+      checked = exact(snapshot, ["battle", "building", "history", "movements", "setup", "spellRuntime",
+        "transcript", "version"], "live battle snapshot");
+    } else if (version === 9 || version === 11) {
+      checked = exact(snapshot, ["battle", "history", "movements", "pendingTroopActions", "runtime",
+        "setup", "spellRuntime", "transcript", "troopStatuses", "version"],
+      "live battle snapshot");
+    } else if (version === 10 || version === 12) {
+      checked = exact(snapshot, ["battle", "building", "history", "movements", "pendingTroopActions",
+        "runtime", "setup", "spellRuntime", "transcript", "troopStatuses", "version"],
+      "live battle snapshot");
+    } else if (version === 13) {
+      checked = exact(snapshot, ["battle", "history", "movements", "runtime", "setup", "spellRuntime",
+        "transcript", "troopStatuses", "version"], "live battle snapshot");
+    } else if (version === 14) {
+      checked = exact(snapshot, ["battle", "building", "history", "movements", "runtime", "setup",
+        "spellRuntime", "transcript", "troopStatuses", "version"], "live battle snapshot");
     } else {
       throw new TypeError("unsupported live battle snapshot version");
     }
@@ -5419,9 +5586,9 @@ class LiveBattle {
         throw new TypeError("live battle troop runtime witness must be canonical JSON text");
       }
       const runtime = SessionTroopRuntime.restore(checked.runtime);
-      const expectedRuntimeVersion = version === 3 || version === 6
+      const expectedRuntimeVersion = version === 3 || version === 6 || version === 9 || version === 10
         ? SESSION_TROOP_RUNTIME_LEGACY_VERSION
-        : version === 4 || version === 7
+        : version === 4 || version === 7 || version === 11 || version === 12
           ? SESSION_TROOP_RUNTIME_ACTION_PROFILE_VERSION
           : SESSION_TROOP_RUNTIME_VERSION;
       if (runtime.configuration.profiles.length === 0 || runtime.serialize() !== checked.runtime ||
@@ -5451,6 +5618,17 @@ class LiveBattle {
           new Set(troopStatuses.map(({ key }) => key)).size !== troopStatuses.length) {
         throw new TypeError("live battle troop statuses are noncanonical");
       }
+    }
+    let spellRuntimeState = null;
+    if (hasSpellRuntimeWitness) {
+      const witness = exact(checked.spellRuntime, ["nextEffectId", "pending", "version"],
+        "live battle spell runtime witness");
+      if (witness.version !== 1 || !Number.isSafeInteger(witness.nextEffectId) ||
+          witness.nextEffectId < 1 || !Array.isArray(witness.pending) ||
+          witness.pending.length > MAX_LIVE_BATTLE_DEPLOYMENTS) {
+        throw new TypeError("live battle spell runtime witness is noncanonical");
+      }
+      spellRuntimeState = clone(witness);
     }
     let expandedOperations = history.length;
     for (let index = 0; index < transcript.length; index += 1) {
@@ -5484,6 +5662,12 @@ class LiveBattle {
       } else if (operation.type === "action") {
         const entry = exact(operation, ["command", "type"], `history[${index}]`);
         restored.#scheduleTroopActionChecked(entry.command);
+      } else if (operation.type === "spell") {
+        if (!hasSpellRuntimeWitness) {
+          throw new TypeError("legacy live battle snapshot cannot contain spell intents");
+        }
+        const entry = exact(operation, ["command", "type"], `history[${index}]`);
+        restored.scheduleSpell(entry.command);
       } else if (operation.type === "step") {
         const entry = exact(operation, ["tick", "type"], `history[${index}]`);
         integer(entry.tick, 0, MAX_LIVE_BATTLE_STEP_TICKS, `history[${index}].tick`);
@@ -5533,7 +5717,10 @@ class LiveBattle {
       (!legacyRuntimeSnapshot || canonical(restored.#pendingTroopActions) === canonical(pendingTroopActions)) &&
       canonical(restored.#troopStatusWitnesses()) === canonical(troopStatuses)
     );
+    const spellWitnessMatches = !hasSpellRuntimeWitness || (restored.#spells !== null &&
+      canonical(restored.#spells.state) === canonical(spellRuntimeState));
     if (!battleWitnessMatches || !buildingWitnessMatches || !runtimeWitnessMatches ||
+        !spellWitnessMatches ||
         canonical(movementWitnesses(restored.#movementRuntimes(), restored.#metadata)) !==
           canonical(checked.movements) || (version >= 2 && restored.serialize() !== serialized)) {
       throw new TypeError("live battle snapshot witnesses are not causal");
@@ -5644,6 +5831,14 @@ class LiveBattle {
     if (positionCommands.length > 0) {
       boundary.push(...battle.updatePositions({ positions: positionCommands, tick }));
     }
+    const spellActions = this.#spells === null ? [] : this.#spells.resolve(tick);
+    const spellEffects = { unitHits: [] };
+    for (const action of spellActions) {
+      const sourceId = `spell-intent:${String(action.effectId).padStart(16, "0")}`;
+      boundary.push({ ...clone(action), sourceId, type: "spell-intent-resolved" });
+      spellEffects.unitHits.push({ damage: action.damage, effectId: action.effectId, sourceId,
+        targetUnitId: action.target.id });
+    }
     const beforeCombat = battle.state;
     const actionPlans = [];
     if (this.#hasTroopRuntime()) {
@@ -5667,9 +5862,19 @@ class LiveBattle {
     // runs once below; richer ingress is needed only while host structures or
     // their contacts are present.
     let combatEvents;
-    if (structureCandidates.length === 0 && externalHits.length === 0 && externalTowerHits.length === 0) {
+    if (spellEffects.unitHits.length > 0 && structureCandidates.length === 0 &&
+        externalHits.length === 0 && externalTowerHits.length === 0) {
+      combatEvents = battle.stepWithEffects(tick, spellEffects);
+    } else if (structureCandidates.length === 0 && externalHits.length === 0 &&
+        externalTowerHits.length === 0) {
       combatEvents = battle.step(tick);
     } else {
+      externalHits.push(...spellEffects.unitHits.map(({ damage, sourceId, targetUnitId }) => ({
+        damage, delivery: "melee", sourceId, targetUnitId,
+      })));
+      externalHits.sort((left, right) => left.targetUnitId - right.targetUnitId ||
+        (left.sourceId < right.sourceId ? -1 : left.sourceId > right.sourceId ? 1 : 0) ||
+        left.damage - right.damage);
       combatEvents = battle.stepBoundary({ externalHits, externalProjectiles: [], externalTowerHits,
         structures: structureCandidates, tick });
     }
@@ -5991,6 +6196,38 @@ class LiveBattle {
       this.#troopRuntime.version === SESSION_TROOP_RUNTIME_VERSION;
   }
 
+  #hasLiveSpellTarget(target) {
+    return this.#battleRuntime().state.units.some((unit) => unit.id === target.id && unit.alive);
+  }
+
+  #validatedSpellCommand(command) {
+    if (this.#spells === null) throw new RangeError("live battle has no sourced spell profile");
+    const checked = this.#spells.validate(command, this.#battleRuntime().state.tick);
+    const card = this.#rosterById.get(checked.cardId);
+    if (card === undefined || card.kind !== "effect") {
+      throw new TypeError("live spell command card is not an admitted effect");
+    }
+    const placement = evaluateDeployment({
+      destroyedOpposingLaneTowers: [],
+      placementClass: "global_effect",
+      point: checked.point,
+      side: checked.side,
+    });
+    if (!placement.legal) {
+      throw new RangeError(`live spell command is illegal: ${placement.reason}`);
+    }
+    if (this.#pending.some((entry) => entry.tick === checked.tick && entry.sequence === checked.sequence) ||
+        this.#pendingStructures.some((entry) => entry.tick === checked.tick &&
+          entry.sequence === checked.sequence) ||
+        this.#spells.hasPendingSequence(checked.tick, checked.sequence)) {
+      throw new RangeError("live battle spell tick/sequence must be unique");
+    }
+    if (!this.#hasLiveSpellTarget(checked.target)) {
+      throw new RangeError("live spell command target is not a live shared entity");
+    }
+    return checked;
+  }
+
   #preflightBoundary() {
     const battle = this.#battleRuntime();
     const tick = battle.state.tick;
@@ -6298,6 +6535,7 @@ class LiveBattle {
     candidate.#questionValues = new Map(this.#questionValues);
     candidate.#setup = this.#setup;
     candidate.#rosterById = new Map(candidate.#setup.roster.map((card) => [card.id, card]));
+    candidate.#spells = this.#spells === null ? null : this.#spells.fork();
     candidate.#structures = clone(this.#structures);
     candidate.#troopRuntime = this.#troopRuntime.fork();
     candidate.#troopStatuses = new Map([...this.#troopStatuses]
@@ -6323,6 +6561,7 @@ class LiveBattle {
     this.#questionValues = candidate.#questionValues;
     this.#rosterById = candidate.#rosterById;
     this.#setup = candidate.#setup;
+    this.#spells = candidate.#spells;
     this.#structures = candidate.#structures;
     this.#troopRuntime = candidate.#troopRuntime;
     this.#troopStatuses = candidate.#troopStatuses;
@@ -8900,6 +9139,25 @@ function commandText(value) {
     }
     return clone(command);
   }
+  if (decoded.type === "spell") {
+    const command = exact(decoded, ["cardId", "commandId", "point", "side", "slot", "target", "tick", "type"],
+      "player session spell command");
+    if (typeof command.cardId !== "string" || !Number.isSafeInteger(command.commandId) ||
+        command.commandId < 0 || command.side !== "south" || !Number.isSafeInteger(command.slot) ||
+        command.slot < 0 || command.slot > 3 || !Number.isSafeInteger(command.tick) ||
+        command.tick < 0 || command.tick >= MATCH_MAX_TICKS) {
+      throw new TypeError("player session spell command is invalid");
+    }
+    exact(command.point, ["x", "y"], "player session spell command.point");
+    if (!Number.isSafeInteger(command.point.x) || !Number.isSafeInteger(command.point.y)) {
+      throw new TypeError("player session spell command point is invalid");
+    }
+    const target = exact(command.target, ["id", "kind"], "player session spell command.target");
+    if (target.kind !== "unit" || !Number.isSafeInteger(target.id) || target.id < 1) {
+      throw new TypeError("player session spell command target is invalid");
+    }
+    return clone(command);
+  }
   if (decoded.type !== "deploy") throw new TypeError("player session command type is invalid");
   const hasDestination = Object.hasOwn(decoded, "destination");
   const command = exact(decoded, hasDestination
@@ -9036,14 +9294,23 @@ class GameSession {
       if (!this.#costs.has(command.cardId)) {
         throw new RangeError("player session deploy card is unknown");
       }
+      const battle = this.#battleRuntime();
+      const admitted = this.#cardRuntime.card(command.cardId);
+      const hasSourcedSpellProfile = battle.hasSpellProfile(command.cardId);
+      if ((command.type === "spell") !== hasSourcedSpellProfile ||
+          (hasSourcedSpellProfile && admitted.kind !== "effect")) {
+        throw new RangeError("player session command does not match a sourced spell profile");
+      }
+      if (hasSourcedSpellProfile && command.tick !== clock.tick) {
+        throw new RangeError("player spell command must target the current shared tick");
+      }
       const placement = evaluateDeployment({ destroyedOpposingLaneTowers: [],
-        placementClass: this.#cardRuntime.card(command.cardId).placementClass,
+        placementClass: admitted.placementClass,
         point: command.point, side: "south" });
       if (!placement.legal) throw new RangeError(`player session command is illegal: ${placement.reason}`);
-      const admitted = this.#cardRuntime.card(command.cardId);
       if (admitted.kind === "structure") {
         const destination = Object.hasOwn(command, "destination") ? command.destination : null;
-        if (this.#battleRuntime().supportsStructureRuntime(command.cardId)) {
+        if (battle.supportsStructureRuntime(command.cardId)) {
           if (!isSessionBuildingCardId(command.cardId)) {
             throw new RangeError("player session structure has no admitted shared building runtime");
           }
@@ -9067,6 +9334,11 @@ class GameSession {
           (this.#decks.south.state.hand[command.slot] !== command.cardId ||
            this.#costs.get(command.cardId) > elixir.state.sides.south.amount)) {
         throw new RangeError("player session command is divergent or unaffordable");
+      }
+      if (hasSourcedSpellProfile) {
+        battle.validateSpell({ cardId: command.cardId, point: command.point,
+          sequence: this.#nextDeploymentSequence, side: command.side, target: command.target,
+          tick: command.tick });
       }
     }
     this.#pending.push(command); this.#pending.sort((a, b) => a.tick - b.tick || a.commandId - b.commandId);
@@ -9202,7 +9474,7 @@ class GameSession {
       // The deterministic opponent proposal has no sourced destination field;
       // underground travel remains player-only until one exists.
       const observation = { legalNorthDeployments: this.#legal.filter(({ cardId }) =>
-        hand.includes(cardId) && cardId !== "burrow-rig"),
+        hand.includes(cardId) && cardId !== "burrow-rig" && !battle.hasSpellProfile(cardId)),
         northCardCosts: hand.map((cardId) => ({ cardId, cost: this.#costs.get(cardId) }))
           .sort((a, b) => a.cardId < b.cardId ? -1 : 1),
         northElixir: elixir.state.sides.north.amount, northHand: hand, tick };
@@ -9252,6 +9524,13 @@ class GameSession {
         if (!deployment) throw new Error("session deployment did not materialize");
         committed = { deployment: clone(deployment), side: stage.side,
           spend: clone(stage.resolvedSpend), tick: stage.tick, type: "session-deployed" };
+        sessionEvents.push(committed);
+      } else if (stage.spellIntent !== undefined) {
+        const resolution = battleEvents.find((event) => event.type === "spell-intent-resolved" &&
+          event.effectId === stage.spellIntent.effectId);
+        if (!resolution) throw new Error("session spell intent did not resolve exactly once");
+        committed = { intent: clone(stage.spellIntent), resolution: clone(resolution), side: stage.side,
+          spend: clone(stage.resolvedSpend), tick: stage.tick, type: "session-spell-played" };
         sessionEvents.push(committed);
       } else if (stage.kind === "structure" && stage.structureMaterializes) {
         const materialization = battleEvents.find((event) => event.type === "structure-materialized" &&

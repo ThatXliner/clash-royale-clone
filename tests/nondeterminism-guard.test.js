@@ -94,6 +94,7 @@ const EXPECTED_SIMULATION_MODULES = Object.freeze([
   "session-card-runtime.js",
   "session-troop-runtime.js",
   "spatial.js",
+  "spell-intent-runtime.js",
   "targeting.js",
   "tower-evidence-map.js",
   "tower-evidence.js",

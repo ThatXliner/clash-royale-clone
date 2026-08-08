@@ -74,8 +74,10 @@ function checkedDeck(value) {
   return cards;
 }
 function checkedRoute(value) {
-  const route = exact(value, ["cardId", "commandId", "point", "sequence", "side", "tick"],
-    "session card route");
+  const hasTarget = Object.hasOwn(value, "target");
+  const route = exact(value, hasTarget
+    ? ["cardId", "commandId", "point", "sequence", "side", "target", "tick"]
+    : ["cardId", "commandId", "point", "sequence", "side", "tick"], "session card route");
   exact(route.point, ["x", "y"], "session card route.point");
   if (typeof route.cardId !== "string" || !["north", "south"].includes(route.side) ||
       !Number.isSafeInteger(route.commandId) || route.commandId < 0 ||
@@ -84,7 +86,12 @@ function checkedRoute(value) {
       !Number.isSafeInteger(route.point.x) || !Number.isSafeInteger(route.point.y)) {
     throw new TypeError("session card route is invalid");
   }
-  return clone(route);
+  if (!hasTarget) return clone(route);
+  const target = exact(route.target, ["id", "kind"], "session card route.target");
+  if (target.kind === "unit" && Number.isSafeInteger(target.id) && target.id > 0) {
+    return { ...clone(route), target: { id: target.id, kind: target.kind } };
+  }
+  throw new TypeError("session card route.target must name one shared unit");
 }
 
 export function isAuthenticSessionCardRuntime(value) {
@@ -132,10 +139,15 @@ export class SessionCardRuntime {
     const placement = evaluateDeployment({ destroyedOpposingLaneTowers: [],
       placementClass: card.placementClass, point: route.point, side: route.side });
     if (!placement.legal) throw new RangeError(`session card route is illegal: ${placement.reason}`);
-    const event = freeze({ cardId: route.cardId, commandId: route.commandId,
+    if (Object.hasOwn(route, "target") && card.kind !== "effect") {
+      throw new TypeError("session card route target requires an effect card");
+    }
+    const event = { cardId: route.cardId, commandId: route.commandId,
       kind: card.kind, placementClass: card.placementClass, point: route.point,
       sequence: route.sequence, side: route.side, tick: route.tick,
-      type: "session-card-routed" });
+      type: "session-card-routed" };
+    if (Object.hasOwn(route, "target")) event.target = route.target;
+    freeze(event);
     this.#history.push(clone(event));
     return event;
   }
@@ -155,8 +167,11 @@ export class SessionCardRuntime {
     }
     const runtime = new SessionCardRuntime(canonical(value.cards));
     for (const route of value.history) {
-      const input = exact(route, ["cardId", "commandId", "kind", "placementClass", "point",
-        "sequence", "side", "tick", "type"], "session card history route");
+      const input = exact(route, Object.hasOwn(route, "target")
+        ? ["cardId", "commandId", "kind", "placementClass", "point", "sequence", "side",
+          "target", "tick", "type"]
+        : ["cardId", "commandId", "kind", "placementClass", "point", "sequence", "side",
+          "tick", "type"], "session card history route");
       const card = runtime.card(input.cardId);
       if (input.type !== "session-card-routed" || input.kind !== card.kind ||
           input.placementClass !== card.placementClass) {
@@ -164,7 +179,8 @@ export class SessionCardRuntime {
       }
       const reproduced = runtime.route(canonical({ cardId: input.cardId,
         commandId: input.commandId, point: input.point, sequence: input.sequence,
-        side: input.side, tick: input.tick }));
+        side: input.side, ...(Object.hasOwn(input, "target") ? { target: input.target } : {}),
+        tick: input.tick }));
       if (canonical(reproduced) !== canonical(input)) {
         throw new TypeError("session card history route is noncanonical");
       }

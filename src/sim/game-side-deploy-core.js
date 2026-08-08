@@ -33,7 +33,7 @@ export function createStageSideDeployment({
     ) {
       throw new TypeError("side deployment requires exact session systems");
     }
-    const { cardId, commandId, destination = null, point, side, slot, tick } = command;
+    const { cardId, commandId, destination = null, point, side, slot, target, tick } = command;
     if (
       !Number.isSafeInteger(commandId) || commandId < 0 ||
       !Number.isSafeInteger(slot) || slot < 0 || slot > 3 ||
@@ -64,6 +64,10 @@ export function createStageSideDeployment({
     const admittedCard = hasSessionCards
       ? sessionCards.card(cardId)
       : { kind: "unit", placementClass: "ground_entity" };
+    const hasSourcedSpellProfile = admittedCard.kind === "effect" && battle.hasSpellProfile(cardId);
+    if (!hasSourcedSpellProfile && target !== undefined) {
+      throw new TypeError("side deployment target is only admitted for a sourced spell profile");
+    }
     const placement = evaluateDeployment({
       destroyedOpposingLaneTowers: [],
       placementClass: admittedCard.placementClass,
@@ -79,16 +83,9 @@ export function createStageSideDeployment({
       throw new Error("prevalidated side deployment failed to cycle its deck");
     }
     const route = hasSessionCards
-      ? sessionCards.route(
-        JSON.stringify({
-          cardId,
-          commandId,
-          point,
-          sequence: deploymentSequence,
-          side,
-          tick,
-        }),
-      )
+      ? sessionCards.route(JSON.stringify(hasSourcedSpellProfile
+        ? { cardId, commandId, point, sequence: deploymentSequence, side, target, tick }
+        : { cardId, commandId, point, sequence: deploymentSequence, side, tick }))
       : null;
     const structureMaterializes = admittedCard.kind === "structure" &&
       battle.supportsStructureRuntime(cardId);
@@ -109,6 +106,27 @@ export function createStageSideDeployment({
         side,
         tick,
       }));
+    } else if (hasSourcedSpellProfile) {
+      const spellIntent = battle.scheduleSpell({ cardId, point: { x: point.x, y: point.y },
+        sequence: deploymentSequence, side, target: { ...target }, tick });
+      const staged = {
+        cardId,
+        commandId,
+        cost,
+        cycle: Object.freeze(cycle),
+        deploymentSequence,
+        destination: null,
+        kind: admittedCard.kind,
+        point: Object.freeze({ ...point }),
+        route,
+        side,
+        spendSequence,
+        spellIntent,
+        structureMaterializes,
+        tick,
+        type: "side-deployment-staged",
+      };
+      return Object.freeze(staged);
     }
     const legacy = {
       cardId,

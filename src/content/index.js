@@ -274,6 +274,11 @@ export {
 } from "./cards/spells-instant.js";
 
 export {
+  createSessionSpellProfileReceipts,
+  serializeSessionSpellProfileReceipts,
+} from "./session-spell-profile-receipts.js";
+
+export {
   COPY_CARD_MAX_TICK,
   COPY_CARD_RULE_VERSION,
   PREVIOUS_CARD_COPY_QUESTIONS,
