@@ -8,7 +8,8 @@
  * immutable intents returned here.
  */
 
-export const SESSION_TROOP_RUNTIME_VERSION = 1;
+export const SESSION_TROOP_RUNTIME_VERSION = 2;
+export const SESSION_TROOP_RUNTIME_LEGACY_VERSION = 1;
 export const SESSION_TROOP_RUNTIME_MAX_PROFILES = 8;
 export const SESSION_TROOP_RUNTIME_MAX_SOURCES = 1_024;
 
@@ -16,8 +17,10 @@ const MAX_BYTES = 16_384;
 const MAX_GRAPH_DEPTH = 16;
 const MAX_GRAPH_NODES = 512;
 const MAX_STRING_LENGTH = 128;
-const ACTION_KEYS = ["abilityCost", "id", "target"];
+const LEGACY_ACTION_KEYS = ["abilityCost", "id", "target"];
+const REPRESENTATIVE_ACTION_KEYS = ["abilityCost", "effect", "id", "target"];
 const ACTION_TARGETS = new Set(["unit"]);
+const ACTION_EFFECTS = new Set(["source-melee-contact"]);
 const INTENT_PHASES = new Set(["deploy", "pre-move", "pre-combat", "post-combat"]);
 const PASS_PHASES = Object.freeze(["pre-move", "pre-combat", "post-combat"]);
 const PROFILE_KEYS = ["action", "cardId", "claim", "deploy", "passes"];
@@ -137,21 +140,37 @@ function parse(textValue, label) {
   return value;
 }
 
-function checkedActionProfile(value, label) {
+function checkedActionProfile(value, label, version) {
   if (value === null) return null;
-  const action = exact(value, ACTION_KEYS, label);
+  const action = exact(value, version === SESSION_TROOP_RUNTIME_LEGACY_VERSION
+    ? LEGACY_ACTION_KEYS
+    : REPRESENTATIVE_ACTION_KEYS, label);
   if (action.abilityCost !== null) {
     throw new TypeError(`${label}.abilityCost must remain explicit null until sourced`);
   }
   const target = text(action.target, `${label}.target`);
   if (!ACTION_TARGETS.has(target)) throw new TypeError(`${label}.target is unsupported`);
-  return { abilityCost: null, id: text(action.id, `${label}.id`), target };
+  const checked = { abilityCost: null, id: text(action.id, `${label}.id`), target };
+  if (version === SESSION_TROOP_RUNTIME_LEGACY_VERSION) return checked;
+  const effect = text(action.effect, `${label}.effect`);
+  if (!ACTION_EFFECTS.has(effect)) throw new TypeError(`${label}.effect is unsupported`);
+  return { abilityCost: null, effect, id: checked.id, target };
 }
 
-function checkedProfile(value, index) {
+function checkedProfile(value, index, version) {
   const profile = exact(value, PROFILE_KEYS, `session troop profile[${index}]`);
-  if (profile.claim !== "unclaimed") {
+  const action = checkedActionProfile(profile.action, `session troop profile[${index}].action`, version);
+  const claim = text(profile.claim, `session troop profile[${index}].claim`);
+  if (version === SESSION_TROOP_RUNTIME_LEGACY_VERSION && claim !== "unclaimed") {
     throw new TypeError(`session troop profile[${index}].claim must remain unclaimed`);
+  }
+  if (version === SESSION_TROOP_RUNTIME_VERSION &&
+      !["receipt-witness", "representative-mechanic"].includes(claim)) {
+    throw new TypeError(`session troop profile[${index}].claim is unsupported`);
+  }
+  if (version === SESSION_TROOP_RUNTIME_VERSION &&
+      ((claim === "representative-mechanic") !== (action !== null))) {
+    throw new TypeError(`session troop profile[${index}].claim/action must agree`);
   }
   if (profile.deploy !== "receipt-only") {
     throw new TypeError(`session troop profile[${index}].deploy must be receipt-only`);
@@ -168,9 +187,9 @@ function checkedProfile(value, index) {
     throw new TypeError(`session troop profile[${index}].passes must cover every host phase`);
   }
   return {
-    action: checkedActionProfile(profile.action, `session troop profile[${index}].action`),
+    action,
     cardId: text(profile.cardId, `session troop profile[${index}].cardId`),
-    claim: "unclaimed",
+    claim,
     deploy: "receipt-only",
     passes,
   };
@@ -178,16 +197,17 @@ function checkedProfile(value, index) {
 
 function checkedProfiles(value) {
   const set = exact(value, PROFILE_SET_KEYS, "session troop profiles");
-  if (set.version !== SESSION_TROOP_RUNTIME_VERSION) {
+  if (![SESSION_TROOP_RUNTIME_LEGACY_VERSION, SESSION_TROOP_RUNTIME_VERSION].includes(set.version)) {
     throw new TypeError("session troop profiles version is unsupported");
   }
+  const version = set.version;
   const profiles = denseArray(set.profiles, SESSION_TROOP_RUNTIME_MAX_PROFILES,
-    "session troop profiles.profiles").map(checkedProfile)
+    "session troop profiles.profiles").map((profile, index) => checkedProfile(profile, index, version))
     .sort((left, right) => left.cardId.localeCompare(right.cardId));
   if (new Set(profiles.map(({ cardId }) => cardId)).size !== profiles.length) {
     throw new TypeError("session troop profiles must have unique card IDs");
   }
-  return freeze({ profiles, version: SESSION_TROOP_RUNTIME_VERSION });
+  return freeze({ profiles, version });
 }
 
 function checkedSource(value, index) {
@@ -326,13 +346,17 @@ export class SessionTroopRuntime {
     if (profile.action.target === "unit" && (checkedAction.targetId === null || checkedAction.point !== null)) {
       throw new RangeError("session troop action requires exactly one unit target");
     }
-    return freeze({
+    const inspected = {
       abilityCost: null,
       actionId: checkedAction.actionId,
       cardId: checkedSourceFact.cardId,
       sourceId: checkedSourceFact.sourceId,
       target: profile.action.target,
-    });
+    };
+    if (this.#profiles.version === SESSION_TROOP_RUNTIME_VERSION) {
+      inspected.effect = profile.action.effect;
+    }
+    return freeze(inspected);
   }
 
   reduce(boundary) {

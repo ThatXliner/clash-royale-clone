@@ -240,14 +240,16 @@ export function projectSessionNonUnitBattleCard(id) {
 }
 
 /**
- * Produces an explicitly unclaimed, receipt-only profile set for exercising
- * the shared troop-runtime host seam. It does not project a troop, assert a
- * card mechanic, or add a roster claim: the caller must still provide these
- * already-admitted unit identities in its actual LiveBattle roster.
+ * Produces the narrow GAME-001HTA representative-mechanic fixture profile.
+ * It does not project a troop, add a roster claim, or assert that an ordinary
+ * basic melee card has a player-facing manual ability. The profile adapts one
+ * already-projected source-melee contact through LiveBattle's shared combat
+ * authority solely to prove that host seam.
  *
- * Ability costs, cooldowns, and effects are intentionally absent from the
- * corpus authority. The sole action profile therefore carries an explicit
- * null ability cost and can only produce a host receipt.
+ * Its only effect is intentionally value-free: LiveBattle derives delivery
+ * and damage from the materialized source unit. That keeps the existing
+ * CONTENT-002 mossguard runtime as the sole stat authority rather than
+ * copying a damage literal into this catalog or simulation layer.
  */
 export function createSessionTroopRuntimeProfiles(selection) {
   if (!selection || typeof selection !== "object" || Array.isArray(selection) ||
@@ -270,22 +272,36 @@ export function createSessionTroopRuntimeProfiles(selection) {
   if (actionCardId === deployCardId) {
     throw new TypeError("session troop runtime profiles require distinct source cards");
   }
+  if (actionCardId !== "mossguard") {
+    throw new TypeError("session troop runtime representative action is fixed to basic melee mossguard");
+  }
+  const basicMeleeSource = records("createBasicMeleeCatalog")
+    .find(({ id }) => id === actionCardId);
+  if (basicMeleeSource?.kind !== "unit" || !Number.isSafeInteger(basicMeleeSource.damage) ||
+      basicMeleeSource.damage < 1) {
+    throw new TypeError("session troop runtime representative source must retain its basic melee runtime");
+  }
   const passes = ["pre-move", "pre-combat", "post-combat"];
   const profiles = [
     {
       action: null,
       cardId: deployCardId,
-      claim: "unclaimed",
+      claim: "receipt-witness",
       deploy: "receipt-only",
       passes,
     },
     {
-      action: { abilityCost: null, id: "seam-target-receipt", target: "unit" },
+      action: {
+        abilityCost: null,
+        effect: "source-melee-contact",
+        id: "basic-melee-contact-fixture",
+        target: "unit",
+      },
       cardId: actionCardId,
-      claim: "unclaimed",
+      claim: "representative-mechanic",
       deploy: "receipt-only",
       passes,
     },
   ].sort((left, right) => left.cardId.localeCompare(right.cardId));
-  return freeze(clone({ profiles, version: 1 }));
+  return freeze(clone({ profiles, version: 2 }));
 }
