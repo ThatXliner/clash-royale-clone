@@ -274,6 +274,7 @@ export {
 } from "./cards/spells-instant.js";
 
 export {
+  createUnprofiledAdmittedEffectProfileQuestion,
   createSessionSpellProfileReceipts,
   serializeSessionSpellProfileReceipts,
 } from "./session-spell-profile-receipts.js";

@@ -65,6 +65,12 @@ export function createStageSideDeployment({
       ? sessionCards.card(cardId)
       : { kind: "unit", placementClass: "ground_entity" };
     const hasSourcedSpellProfile = admittedCard.kind === "effect" && battle.hasSpellProfile(cardId);
+    const effectQuestion = admittedCard.kind === "effect"
+      ? battle.getSpellProfileQuestion(cardId)
+      : null;
+    if (effectQuestion !== null) {
+      throw new RangeError(`side deployment effect ${effectQuestion.cardId} remains an explicit QUESTION (${effectQuestion.id}): ${effectQuestion.reason}`);
+    }
     if (!hasSourcedSpellProfile && target !== undefined) {
       throw new TypeError("side deployment target is only admitted for a sourced spell profile");
     }

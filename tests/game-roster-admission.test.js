@@ -189,8 +189,8 @@ test("game roster admission: non-unit battle cards admit but can never materiali
 });
 
 test("game roster admission: GameSession spends, cycles, and records one typed route per play", () => {
-  for (const [cardId, kind] of [["squall-orb", "effect"],
-    ["bulwark-needle", "structure"], ["copperskiff", "unit"]]) {
+  for (const [cardId, kind] of [["bulwark-needle", "structure"],
+    ["copperskiff", "unit"]]) {
     const session = new GameSession(sessionSetup(seedWithCard(cardId)));
     const before = session.state;
     session.submitPlayerCommand(command(session, cardId));
@@ -215,14 +215,16 @@ test("game roster admission: GameSession spends, cycles, and records one typed r
   assert.throws(() => structure.submitPlayerCommand(canonical(invalid)), /illegal/u);
   assert.equal(structure.serialize(), bytes);
   const effect = new GameSession(sessionSetup(seedWithCard("squall-orb")));
-  assert.doesNotThrow(() => effect.submitPlayerCommand(command(effect, "squall-orb")));
+  const effectBytes = effect.serialize();
+  assert.throws(() => effect.submitPlayerCommand(command(effect, "squall-orb")), /explicit QUESTION/u);
+  assert.equal(effect.serialize(), effectBytes);
 });
 
 test("game roster admission: non-unit session history is chunk- and restore-exact", () => {
-  const configured = sessionSetup(seedWithCard("squall-orb"));
+  const configured = sessionSetup(seedWithCard("bulwark-needle"));
   const run = (chunks) => {
     const session = new GameSession(configured);
-    session.submitPlayerCommand(command(session, "squall-orb"));
+    session.submitPlayerCommand(command(session, "bulwark-needle"));
     for (const ticks of chunks) session.stepMany(ticks);
     return session;
   };

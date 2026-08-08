@@ -31,6 +31,7 @@ import {
 } from "./session-troop-runtime.js";
 import {
   createSpellIntentRuntime,
+  getUnprofiledAdmittedEffectProfileQuestion,
   parseSpellIntentProfileReceipts,
 } from "./spell-intent-runtime.js";
 import { MAX_SPATIAL_MILLITILES, validateCircle, validatePosition } from "./spatial.js";
@@ -5276,6 +5277,13 @@ class LiveBattle {
     return this.#spells !== null && this.#spells.hasCard(cardId);
   }
 
+  getSpellProfileQuestion(cardId) {
+    if (typeof cardId !== "string") throw new TypeError("live battle spell card ID must be primitive");
+    const card = this.#rosterById.get(cardId);
+    if (card === undefined || card.kind !== "effect" || this.hasSpellProfile(cardId)) return null;
+    return getUnprofiledAdmittedEffectProfileQuestion(cardId);
+  }
+
   validateSpell(command) {
     return freeze(clone(this.#validatedSpellCommand(command)));
   }
@@ -6202,6 +6210,13 @@ class LiveBattle {
 
   #validatedSpellCommand(command) {
     if (this.#spells === null) throw new RangeError("live battle has no sourced spell profile");
+    const descriptors = plain(command, "live spell command");
+    const question = typeof descriptors.cardId?.value === "string"
+      ? this.getSpellProfileQuestion(descriptors.cardId.value)
+      : null;
+    if (question !== null) {
+      throw new RangeError(`live battle effect ${question.cardId} remains an explicit QUESTION (${question.id}): ${question.reason}`);
+    }
     const checked = this.#spells.validate(command, this.#battleRuntime().state.tick);
     const card = this.#rosterById.get(checked.cardId);
     if (card === undefined || card.kind !== "effect") {
@@ -9297,6 +9312,12 @@ class GameSession {
       const battle = this.#battleRuntime();
       const admitted = this.#cardRuntime.card(command.cardId);
       const hasSourcedSpellProfile = battle.hasSpellProfile(command.cardId);
+      const effectQuestion = admitted.kind === "effect"
+        ? battle.getSpellProfileQuestion(command.cardId)
+        : null;
+      if (effectQuestion !== null) {
+        throw new RangeError(`player session effect ${effectQuestion.cardId} remains an explicit QUESTION (${effectQuestion.id}): ${effectQuestion.reason}`);
+      }
       if ((command.type === "spell") !== hasSourcedSpellProfile ||
           (hasSourcedSpellProfile && admitted.kind !== "effect")) {
         throw new RangeError("player session command does not match a sourced spell profile");
@@ -9474,7 +9495,8 @@ class GameSession {
       // The deterministic opponent proposal has no sourced destination field;
       // underground travel remains player-only until one exists.
       const observation = { legalNorthDeployments: this.#legal.filter(({ cardId }) =>
-        hand.includes(cardId) && cardId !== "burrow-rig" && !battle.hasSpellProfile(cardId)),
+        hand.includes(cardId) && this.#cardRuntime.card(cardId).kind !== "effect" &&
+          cardId !== "burrow-rig" && !battle.hasSpellProfile(cardId)),
         northCardCosts: hand.map((cardId) => ({ cardId, cost: this.#costs.get(cardId) }))
           .sort((a, b) => a.cardId < b.cardId ? -1 : 1),
         northElixir: elixir.state.sides.north.amount, northHand: hand, tick };

@@ -42,6 +42,26 @@ function sourcedInstantFact() {
   };
 }
 
+const UNPROFILED_ADMITTED_EFFECT_QUESTION = freeze({
+  disposition: "question",
+  id: "admitted-effect-without-exact-executable-profile",
+  profileId: PROFILE_ID,
+  reason: "an admitted effect without an exact sourced executable profile remains QUESTION and cannot be staged",
+  status: "question",
+});
+
+/**
+ * This is an admission classification, not another spell profile or a game
+ * mechanic. Keep it separate from the v1 receipt bytes so existing profile
+ * snapshots continue to replay their exact receipt unchanged.
+ */
+export function createUnprofiledAdmittedEffectProfileQuestion(...args) {
+  if (args.length !== 0) {
+    throw new TypeError("unprofiled admitted effect profile question takes no arguments");
+  }
+  return freeze(clone(UNPROFILED_ADMITTED_EFFECT_QUESTION));
+}
+
 /**
  * The opt-in session receipt is intentionally narrower than a spell card
  * definition. It authorizes one direct, caller-selected damage fact solely

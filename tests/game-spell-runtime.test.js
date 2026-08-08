@@ -3,8 +3,11 @@ import test from "node:test";
 
 import { createPlayableRoster,
   createPlayableRosterQuestionRecords } from "../src/content/playable-roster.js";
-import { createSessionSpellProfileReceipts } from "../src/content/session-spell-profile-receipts.js";
-import { projectSessionNonUnitBattleCard } from "../src/content/session-card-catalog.js";
+import { createSessionSpellProfileReceipts,
+  createUnprofiledAdmittedEffectProfileQuestion,
+  serializeSessionSpellProfileReceipts } from "../src/content/session-spell-profile-receipts.js";
+import { createSessionCardManifest,
+  projectSessionNonUnitBattleCard } from "../src/content/session-card-catalog.js";
 import { DeckCycle } from "../src/sim/deck.js";
 import { GameSession } from "../src/sim/game-session.js";
 import { LiveBattle } from "../src/sim/live-battle.js";
@@ -12,6 +15,26 @@ import { LiveBattle } from "../src/sim/live-battle.js";
 const NORTH_CARD = "mossguard";
 const NORTH_POINT = Object.freeze({ x: 3_500, y: 17_500 });
 const POINT = Object.freeze({ x: 3_500, y: 14_500 });
+const ROUND_ONE_RECEIPT = Object.freeze({
+  exclusions: Object.freeze([
+    Object.freeze({ id: "squall-orb-radius-target-knockback-travel-return",
+      reason: "all radius, target-policy, knockback, travel, return, and four-facade composition fields remain QUESTION" }),
+    Object.freeze({ id: "squall-orb-crown-tower-damage-modifier",
+      reason: "crown-tower damage ratio and rounding remain QUESTION, so crown-tower targets are disabled" }),
+    Object.freeze({ id: "periodic", reason: "cadence, duration, damage, radius, and target composition remain QUESTION" }),
+    Object.freeze({ id: "spawn", reason: "spawn identities lack sourced kind/cost/deploy admission and all spawn mechanics remain QUESTION" }),
+    Object.freeze({ id: "status", reason: "status duration, multiplier, target, refresh, and expiry mechanics remain QUESTION" }),
+    Object.freeze({ id: "traveling", reason: "travel timing, geometry, damage, target, and return mechanics remain QUESTION" }),
+  ]),
+  profiles: Object.freeze([Object.freeze({
+    claims: Object.freeze(["cardId", "kind", "cost", "count", "damage"]),
+    fact: Object.freeze({ cardId: "squall-orb", count: 1, cost: 4, damage: 689,
+      kind: "effect", sourceExport: "createInstantSpellCatalog" }),
+    mode: "isolated-direct-command-target-damage-not-card-composition",
+    profileId: "isolated-sourced-instant-v1",
+  })]),
+  version: 1,
+});
 
 function canonical(value) {
   if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
@@ -20,11 +43,11 @@ function canonical(value) {
   return JSON.stringify(value);
 }
 
-function profiledBattle({ profile = true, unprofiledEffect = false } = {}) {
+function profiledBattle({ profile = true, unprofiledEffectId = null } = {}) {
   const roster = structuredClone(createPlayableRoster());
   roster[0] = structuredClone(projectSessionNonUnitBattleCard("squall-orb"));
-  if (unprofiledEffect) {
-    roster[roster.length - 1] = structuredClone(projectSessionNonUnitBattleCard("static-burst"));
+  if (unprofiledEffectId !== null) {
+    roster[roster.length - 1] = structuredClone(projectSessionNonUnitBattleCard(unprofiledEffectId));
   }
   const referenced = new Set(roster.flatMap(({ entities }) => entities.flatMap((entity) =>
     [entity.bodyRadiusPolicy, entity.projectileSpeedPolicy]
@@ -37,22 +60,22 @@ function profiledBattle({ profile = true, unprofiledEffect = false } = {}) {
   return battle;
 }
 
-function seedWithWitness(deck, { unprofiledEffect = false } = {}) {
+function seedWithWitness(deck, { unprofiledEffectId = null } = {}) {
   for (let seed = 0; seed < 10_000; seed += 1) {
     const south = new DeckCycle({ deck, seed: `${seed}:south` }).state.hand;
     const north = new DeckCycle({ deck, seed: `${seed}:north` }).state.hand;
     if (south.includes("squall-orb") && north.includes(NORTH_CARD) &&
-        (!unprofiledEffect || south.includes("static-burst"))) {
+        (unprofiledEffectId === null || south.includes(unprofiledEffectId))) {
       return seed;
     }
   }
   throw new Error("missing deterministic spell/unit hand witness");
 }
 
-function setup({ profile = true, north = false, seed = undefined, unprofiledEffect = false } = {}) {
-  const battle = profiledBattle({ profile, unprofiledEffect });
+function setup({ profile = true, north = false, seed = undefined, unprofiledEffectId = null } = {}) {
+  const battle = profiledBattle({ profile, unprofiledEffectId });
   const deck = battle.roster.map(({ id }) => id);
-  const selectedSeed = seed ?? seedWithWitness(deck, { unprofiledEffect });
+  const selectedSeed = seed ?? seedWithWitness(deck, { unprofiledEffectId });
   return canonical({ battleSetup: canonical(battle), deck, legalNorthDeployments: north
     ? [{ cardId: NORTH_CARD, point: { ...NORTH_POINT } }] : [],
     rosterWitness: canonical({ questions: battle.questions, roster: battle.roster }),
@@ -69,6 +92,21 @@ function spellCommand(session, { commandId = 7, point = POINT, target,
     target: { ...target }, tick, type: "spell" });
 }
 
+function unprofiledEffectCommand(session, cardId, type, commandId) {
+  const slot = session.state.decks.south.hand.indexOf(cardId);
+  assert.notEqual(slot, -1, `the deterministic witness must put ${cardId} in hand`);
+  const command = { cardId, commandId, point: { ...POINT }, slot,
+    tick: session.state.tick, type };
+  return canonical(type === "spell"
+    ? { ...command, side: "south", target: { id: 1, kind: "unit" } }
+    : command);
+}
+
+function admittedEffectIds() {
+  return createSessionCardManifest().cards.filter(({ kind }) => kind === "effect")
+    .map(({ id }) => id);
+}
+
 function deployedNorthTarget(session) {
   const state = session.state.battle ?? session.state;
   const unit = state.units.find(({ cardId, side }) =>
@@ -83,8 +121,8 @@ function unitHitpoints(session, target) {
   return unit.hitpoints;
 }
 
-function liveProfileBattle() {
-  return new LiveBattle(canonical(profiledBattle()));
+function liveProfileBattle({ unprofiledEffectId = null } = {}) {
+  return new LiveBattle(canonical(profiledBattle({ unprofiledEffectId })));
 }
 
 function stageLiveNorthUnit(battle) {
@@ -94,8 +132,8 @@ function stageLiveNorthUnit(battle) {
   return deployedNorthTarget(battle);
 }
 
-function scheduleLiveSpell(battle, target, sequence, point = POINT) {
-  return battle.scheduleSpell({ cardId: "squall-orb", point: { ...point }, sequence,
+function scheduleLiveSpell(battle, target, sequence, { cardId = "squall-orb", point = POINT } = {}) {
+  return battle.scheduleSpell({ cardId, point: { ...point }, sequence,
     side: "south", target: { ...target }, tick: battle.state.tick });
 }
 
@@ -159,6 +197,9 @@ test("game spell runtime: isolated sourced receipt changes one shared GameSessio
 
 test("game spell runtime: receipt is non-roster/non-fidelity and visibly excludes QUESTION mechanics", () => {
   const receipt = createSessionSpellProfileReceipts();
+  assert.deepEqual(receipt, ROUND_ONE_RECEIPT,
+    "round-two refusal must not change the round-one exact v1 receipt");
+  assert.equal(receipt.version, 1);
   assert.deepEqual(receipt.profiles, [{
     claims: ["cardId", "kind", "cost", "count", "damage"],
     fact: { cardId: "squall-orb", count: 1, cost: 4, damage: 689, kind: "effect",
@@ -175,6 +216,80 @@ test("game spell runtime: receipt is non-roster/non-fidelity and visibly exclude
   assert.match(text, /four-facade composition fields remain QUESTION/u);
   assert.match(text, /crown-tower damage ratio and rounding remain QUESTION/u);
   assert.doesNotMatch(text, /areaDamageRadiusMillitiles|targetMode|impactDelay|knockbackDistance/u);
+  assert.equal(serializeSessionSpellProfileReceipts(), canonical(ROUND_ONE_RECEIPT),
+    "the round-one v1 receipt bytes remain the exact profile witness");
+  assert.doesNotMatch(text, /admitted-effect-without-exact-executable-profile/u,
+    "the new admission refusal remains outside persisted v1 receipt bytes");
+  assert.deepEqual(createUnprofiledAdmittedEffectProfileQuestion(), {
+    disposition: "question",
+    id: "admitted-effect-without-exact-executable-profile",
+    profileId: "isolated-sourced-instant-v1",
+    reason: "an admitted effect without an exact sourced executable profile remains QUESTION and cannot be staged",
+    status: "question",
+  });
+});
+
+test("game spell runtime: every admitted effect without the exact profile rejects before routing", () => {
+  const effects = admittedEffectIds();
+  assert.deepEqual(effects, [
+    "blight-ring", "fault-pulse", "gravity-well", "ironbark-roller", "skyshard-volley",
+    "squall-orb", "static-burst", "tempo-field",
+  ]);
+  const unsupported = effects.map((cardId) => ({
+    cardId,
+    profile: cardId === "squall-orb" ? false : true,
+    unprofiledEffectId: cardId === "squall-orb" ? null : cardId,
+  }));
+  for (const [cardIndex, { cardId, profile, unprofiledEffectId }] of unsupported.entries()) {
+    for (const [offset, type] of ["deploy", "spell"].entries()) {
+      const session = new GameSession(setup({ profile, unprofiledEffectId }));
+      const before = {
+        replay: session.replayBytes(),
+        serialize: session.serialize(),
+        state: session.state,
+      };
+      const command = unprofiledEffectCommand(session, cardId, type, 88 + cardIndex * 2 + offset);
+      assert.throws(() => session.submitPlayerCommand(command), (error) =>
+        error instanceof RangeError &&
+        error.message.includes("explicit QUESTION") &&
+        error.message.includes("admitted-effect-without-exact-executable-profile") &&
+        error.message.includes(cardId));
+      assert.equal(session.serialize(), before.serialize, `${cardId}/${type} serialize`);
+      assert.deepEqual(session.state, before.state, `${cardId}/${type} state`);
+      assert.equal(session.replayBytes(), before.replay, `${cardId}/${type} replay`);
+      assert.deepEqual(session.state.cardRuntime.history, [], `${cardId}/${type} card route`);
+      assert.equal(session.state.decks.south.sequence, before.state.decks.south.sequence,
+        `${cardId}/${type} deck`);
+      assert.equal(session.state.elixir.sides.south.amount,
+        before.state.elixir.sides.south.amount, `${cardId}/${type} elixir`);
+    }
+  }
+});
+
+test("game spell runtime: LiveBattle rejects unprofiled and no-profile effects atomically", () => {
+  const battle = liveProfileBattle({ unprofiledEffectId: "static-burst" });
+  const target = stageLiveNorthUnit(battle);
+  assert.deepEqual(battle.getSpellProfileQuestion("static-burst"), {
+    cardId: "static-burst",
+    ...createUnprofiledAdmittedEffectProfileQuestion(),
+  });
+  assert.equal(battle.getSpellProfileQuestion("squall-orb"), null);
+  const before = battle.serialize();
+  assert.throws(() => scheduleLiveSpell(battle, target, 1, { cardId: "static-burst" }),
+    /explicit QUESTION/u);
+  assert.equal(battle.serialize(), before);
+
+  const noProfile = new LiveBattle(canonical(profiledBattle({ profile: false,
+    unprofiledEffectId: "static-burst" })));
+  assert.deepEqual(noProfile.getSpellProfileQuestion("static-burst"), {
+    cardId: "static-burst",
+    ...createUnprofiledAdmittedEffectProfileQuestion(),
+  });
+  const noProfileBytes = noProfile.serialize();
+  assert.throws(() => noProfile.scheduleSpell({ cardId: "static-burst", point: { ...POINT },
+    sequence: 0, side: "south", target: { id: 1, kind: "unit" }, tick: 0 }),
+  /no sourced spell profile/u);
+  assert.equal(noProfile.serialize(), noProfileBytes);
 });
 
 test("game spell runtime: LiveBattle profile snapshots, forks, restores, and legacy no-profile bytes are causal", () => {
@@ -184,6 +299,8 @@ test("game spell runtime: LiveBattle profile snapshots, forks, restores, and leg
   const pending = battle.serialize();
   assert.equal(JSON.parse(pending).version, 3);
   assert.equal(JSON.parse(JSON.parse(pending).battle).version, 2);
+  assert.equal(canonical(JSON.parse(pending).setup.spellProfileReceipts),
+    serializeSessionSpellProfileReceipts(), "round-one v1 receipt remains the v3 witness");
   assert.equal(LiveBattle.restore(pending).serialize(), pending);
   assert.equal(battle.continuationFork, undefined);
 
@@ -207,7 +324,7 @@ test("game spell runtime: same-tick reducer order is sequence then effect ID, an
   const battle = liveProfileBattle();
   const target = stageLiveNorthUnit(battle);
   const illegalBytes = battle.serialize();
-  assert.throws(() => scheduleLiveSpell(battle, target, 1, { x: -1, y: 0 }), /illegal/u);
+  assert.throws(() => scheduleLiveSpell(battle, target, 1, { point: { x: -1, y: 0 } }), /illegal/u);
   assert.equal(battle.serialize(), illegalBytes);
   scheduleLiveSpell(battle, target, 3);
   scheduleLiveSpell(battle, target, 1);
@@ -323,7 +440,7 @@ test("game spell runtime: hostile profile/command shapes and the action/event ce
 });
 
 test("game spell runtime: invalid target, unprofiled card, stale, duplicate, and illegal commands are atomic", () => {
-  const session = new GameSession(setup({ north: true, unprofiledEffect: true }));
+  const session = new GameSession(setup({ north: true, unprofiledEffectId: "static-burst" }));
   session.step();
   const target = deployedNorthTarget(session);
   const before = session.serialize();
@@ -341,7 +458,7 @@ test("game spell runtime: invalid target, unprofiled card, stale, duplicate, and
   assert.notEqual(effectSlot, -1, "the deterministic witness must put the unprofiled effect in hand");
   assert.throws(() => session.submitPlayerCommand(canonical({ cardId: "static-burst", commandId: 8,
     point: { ...POINT }, side: "south", slot: effectSlot, target, tick: 1,
-    type: "spell" })), /sourced spell profile/u);
+    type: "spell" })), /explicit QUESTION/u);
   assert.equal(session.serialize(), before);
 
   assert.throws(() => session.submitPlayerCommand(spellCommand(session, {
@@ -392,12 +509,11 @@ test("game spell runtime: chunks and restore reproduce profile actions; empty-pr
 
   const legacySetup = setup({ profile: false });
   const legacy = new GameSession(legacySetup);
-  assert.equal(legacy.serialize(), canonical({ setup: JSON.parse(legacySetup), transcript: [], version: 2 }));
+  const legacyBytes = canonical({ setup: JSON.parse(legacySetup), transcript: [], version: 2 });
+  assert.equal(legacy.serialize(), legacyBytes);
   const slot = legacy.state.decks.south.hand.indexOf("squall-orb");
-  legacy.submitPlayerCommand(canonical({ cardId: "squall-orb", commandId: 3,
-    point: { ...POINT }, slot, tick: 0, type: "deploy" }));
-  legacy.step();
-  assert.equal(legacy.state.battle.towers.find(({ id }) => id === "north:lane:west").hitpoints, 3_052);
-  assert.equal(legacy.state.battle.units.length, 0);
-  assert.equal(GameSession.restore(legacy.serialize()).serialize(), legacy.serialize());
+  assert.throws(() => legacy.submitPlayerCommand(canonical({ cardId: "squall-orb", commandId: 3,
+    point: { ...POINT }, slot, tick: 0, type: "deploy" })), /explicit QUESTION/u);
+  assert.equal(legacy.serialize(), legacyBytes);
+  assert.equal(GameSession.restore(legacyBytes).serialize(), legacyBytes);
 });

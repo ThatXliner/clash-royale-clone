@@ -7,6 +7,16 @@ const MAX_ACTIONS = 1_024;
 const MAX_EFFECT_ID = Number.MAX_SAFE_INTEGER - 1;
 const PROFILE_ID = "isolated-sourced-instant-v1";
 
+// Copied exactly from the content-side profile-boundary producer. It is kept
+// outside the receipt itself so v1 profile receipt bytes remain replayable.
+const UNPROFILED_ADMITTED_EFFECT_QUESTION = Object.freeze({
+  disposition: "question",
+  id: "admitted-effect-without-exact-executable-profile",
+  profileId: PROFILE_ID,
+  reason: "an admitted effect without an exact sourced executable profile remains QUESTION and cannot be staged",
+  status: "question",
+});
+
 const CANONICAL_RECEIPTS = Object.freeze({
   exclusions: Object.freeze([
     Object.freeze({ id: "squall-orb-radius-target-knockback-travel-return",
@@ -130,6 +140,18 @@ export function parseSpellIntentProfileReceipts(value) {
 export function getSpellIntentQuestionExclusions(...args) {
   if (args.length !== 0) throw new TypeError("spell intent question exclusions take no arguments");
   return freeze(clone(CANONICAL_RECEIPTS.exclusions));
+}
+
+/**
+ * A profile-boundary refusal record, not a zero-effect fallback. LiveBattle
+ * attaches this only after its own admitted roster identifies the card as an
+ * effect and finds no exact executable profile for that identity.
+ */
+export function getUnprofiledAdmittedEffectProfileQuestion(cardId) {
+  if (typeof cardId !== "string" || cardId.length === 0 || cardId.length > 128) {
+    throw new TypeError("unprofiled admitted effect card ID must be a bounded primitive string");
+  }
+  return freeze({ cardId, ...clone(UNPROFILED_ADMITTED_EFFECT_QUESTION) });
 }
 
 class SpellIntentRuntime {
