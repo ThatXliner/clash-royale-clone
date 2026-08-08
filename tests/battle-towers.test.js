@@ -170,6 +170,52 @@ test("battle towers: unit projectiles use the arena tower footprint for contact 
   assert.equal(next.some(({ type }) => type === "external-structure-contact"), false);
 });
 
+test("battle towers: compact continuations retain only pending unit projectile provenance", () => {
+  const source = new BattleTowerCombat(setup([
+    unit(35, "north", {
+      cadenceTicks: 100,
+      damage: 25,
+      delivery: "projectile",
+      maxHealth: 500,
+      position: { x: 9_000, y: 16_000 },
+      projectileSpeed: 1_000,
+      reach: 1_000,
+      targetMode: "ground",
+    }),
+    unit(36, "south", {
+      damage: 0,
+      firstHitTicks: 999,
+      maxHealth: 500,
+      position: { x: 9_000, y: 16_500 },
+      targetMode: "none",
+    }),
+  ], { central: 999, lane: 999 }));
+  const launch = source.step(0);
+  assert.ok(launch.some(({ type }) => type === "projectile-launch"));
+  assert.equal(source.state.projectiles.length, 1);
+  const sourceBytes = source.serialize();
+  const publicFork = source.fork();
+  const continuation = source.continuationFork().continuationFork();
+
+  assert.equal(source.serialize(), sourceBytes);
+  assert.deepEqual(continuation.state, publicFork.state);
+  assert.throws(() => continuation.serialize(), /internal battle tower continuation/u);
+  assert.throws(() => continuation.replay, /internal battle tower continuation/u);
+  assert.throws(() => continuation.fork(), /internal battle tower continuation/u);
+  assert.equal(source.serialize(), sourceBytes);
+
+  const expected = publicFork.step(1);
+  const actual = continuation.step(1);
+  assert.deepEqual(actual, expected);
+  assert.deepEqual(continuation.state, publicFork.state);
+  assert.ok(actual.some(({ type }) => type === "projectile-impact"));
+
+  const restored = BattleTowerCombat.restore(publicFork.serialize());
+  assert.equal(restored.serialize(), publicFork.serialize());
+  assert.deepEqual(restored.replay, publicFork.replay);
+  assert.equal(source.serialize(), sourceBytes);
+});
+
 test("battle towers: scheduled boundary units participate and chunking/restore cuts are byte-identical", () => {
   const configure = () => {
     const battle = new BattleTowerCombat(setup([], { central: 5, lane: 2 }));

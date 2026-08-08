@@ -590,6 +590,8 @@ export class LiveBattle {
   #battle;
   #events;
   #history;
+  #historyCount;
+  #isContinuation;
   #metadata;
   #movements;
   #nextEntityId;
@@ -606,6 +608,8 @@ export class LiveBattle {
     });
     this.#events = [];
     this.#history = [];
+    this.#historyCount = 0;
+    this.#isContinuation = false;
     this.#metadata = new Map();
     this.#movements = new Map();
     this.#nextEntityId = 1;
@@ -635,6 +639,7 @@ export class LiveBattle {
   }
 
   get events() {
+    this.#assertPublicTranscript();
     return freeze(clone(this.#events));
   }
 
@@ -644,11 +649,17 @@ export class LiveBattle {
 
   /** Returns an independent transactional continuation without history replay. */
   fork() {
+    this.#assertPublicTranscript();
     return this.#runtimeClone();
   }
 
+  /** Internal composite checkpoint. Public history remains owned by the caller. */
+  continuationFork() {
+    return this.#runtimeClone(false);
+  }
+
   scheduleDeploy(command) {
-    if (this.#history.length >= MAX_HISTORY || this.#pending.length >= MAX_LIVE_BATTLE_DEPLOYMENTS) {
+    if (this.#historyCount >= MAX_HISTORY || this.#pending.length >= MAX_LIVE_BATTLE_DEPLOYMENTS) {
       throw new RangeError("live battle deployment/history bound exceeded");
     }
     const checked = checkedDeploy(command, this.#battle.state.tick, this.#rosterById);
@@ -659,7 +670,7 @@ export class LiveBattle {
     this.#pending.push(clone(checked));
     this.#pending.sort((left, right) => left.tick - right.tick ||
       left.sequence - right.sequence || left.side.localeCompare(right.side));
-    this.#history.push({ command: clone(checked), type: "deploy" });
+    this.#appendHistory({ command: clone(checked), type: "deploy" });
     const event = { ...clone(checked), scheduledAt: this.#battle.state.tick, type: "deploy-scheduled" };
     this.#events.push(event);
     return freeze(clone(event));
@@ -668,7 +679,7 @@ export class LiveBattle {
   step(tick = this.#battle.state.tick) {
     integer(tick, 0, MAX_LIVE_BATTLE_STEP_TICKS, "live battle step tick");
     if (tick !== this.#battle.state.tick) throw new RangeError("live battle step tick is not current");
-    if (this.#history.length >= MAX_HISTORY) throw new RangeError("live battle history bound exceeded");
+    if (this.#historyCount >= MAX_HISTORY) throw new RangeError("live battle history bound exceeded");
     this.#preflightBoundary();
     const candidate = this.#runtimeClone();
     const events = candidate.#advance();
@@ -681,7 +692,7 @@ export class LiveBattle {
     if (this.#battle.state.tick + ticks > MAX_LIVE_BATTLE_STEP_TICKS) {
       throw new RangeError("live battle tick bound exceeded");
     }
-    if (this.#history.length + ticks > MAX_HISTORY) throw new RangeError("live battle history bound exceeded");
+    if (this.#historyCount + ticks > MAX_HISTORY) throw new RangeError("live battle history bound exceeded");
     const candidate = this.#runtimeClone();
     const events = [];
     for (let count = 0; count < ticks; count += 1) events.push(...candidate.#advance());
@@ -690,6 +701,7 @@ export class LiveBattle {
   }
 
   serialize() {
+    this.#assertPublicTranscript();
     const tailStart = Math.max(0, this.#history.length - EXPLICIT_HISTORY_TAIL);
     const serialized = canonical({
       battle: this.#battle.serialize(),
@@ -837,7 +849,7 @@ export class LiveBattle {
       boundary.push(...this.#battle.updatePositions({ positions: positionCommands, tick }));
     }
     boundary.push(...this.#battle.step(tick));
-    this.#history.push({ tick, type: "step" });
+    this.#appendHistory({ tick, type: "step" });
     this.#events.push(...clone(boundary));
     return boundary;
   }
@@ -936,14 +948,28 @@ export class LiveBattle {
     };
   }
 
-  #runtimeClone() {
+  #appendHistory(operation) {
+    this.#history.push(operation);
+    this.#historyCount += 1;
+  }
+
+  #assertPublicTranscript() {
+    if (this.#isContinuation) {
+      throw new TypeError("internal live battle continuation cannot expose a public transcript");
+    }
+  }
+
+  #runtimeClone(includeTranscript = true) {
     const candidate = new LiveBattle(this.#setup);
-    candidate.#battle = this.#battle.fork();
-    candidate.#events = [...this.#events];
-    candidate.#history = [...this.#history];
+    const retainTranscript = includeTranscript && !this.#isContinuation;
+    candidate.#battle = retainTranscript ? this.#battle.fork() : this.#battle.continuationFork();
+    candidate.#events = retainTranscript ? [...this.#events] : [];
+    candidate.#history = retainTranscript ? [...this.#history] : [];
+    candidate.#historyCount = this.#historyCount;
+    candidate.#isContinuation = !retainTranscript;
     candidate.#metadata = new Map([...this.#metadata].map(([id, data]) => [id, clone(data)]));
     candidate.#movements = new Map([...this.#movements].map(([id, movement]) =>
-      [id, BattleMovement.restore(movement.serialize())]));
+      [id, movement.continuationFork()]));
     candidate.#nextEntityId = this.#nextEntityId;
     candidate.#pending = clone(this.#pending);
     candidate.#questionValues = new Map(this.#questionValues);
@@ -956,6 +982,8 @@ export class LiveBattle {
     this.#battle = candidate.#battle;
     this.#events = candidate.#events;
     this.#history = candidate.#history;
+    this.#historyCount = candidate.#historyCount;
+    this.#isContinuation = candidate.#isContinuation;
     this.#metadata = candidate.#metadata;
     this.#movements = candidate.#movements;
     this.#nextEntityId = candidate.#nextEntityId;

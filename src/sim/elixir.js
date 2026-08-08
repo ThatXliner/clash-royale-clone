@@ -501,6 +501,23 @@ export class ElixirMatch {
     return canonicalJson(this.replayLog);
   }
 
+  /**
+   * Copies every present authority without replaying the public command log.
+   * Composite session candidates use this internal checkpoint only; public
+   * serialization and restoration remain the complete command transcript.
+   */
+  continuationFork() {
+    const candidate = new ElixirMatch({ startingElixir: cloneJson(this.#startingElixir) });
+    candidate.#tick = this.#tick;
+    candidate.#sides = cloneJson(this.#sides);
+    candidate.#pending = cloneJson(this.#pending);
+    candidate.#history = cloneJson(this.#history);
+    candidate.#events = cloneJson(this.#events);
+    candidate.#nextSequence = this.#nextSequence;
+    candidate.#grants = cloneJson(this.#grants);
+    return candidate;
+  }
+
   serialize() {
     const commands = [...this.#history, ...this.#pending]
       .sort((left, right) => left.sequence - right.sequence)

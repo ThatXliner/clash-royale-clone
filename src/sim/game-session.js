@@ -445,13 +445,13 @@ export class GameSession {
   }
   #runtimeClone() {
     const value = new GameSession(canonical(this.#setup));
-    value.#battle = this.#battle.fork();
+    value.#battle = this.#battle.continuationFork();
     value.#cardRuntime = this.#cardRuntime.fork();
-    value.#clock = MatchClock.restore(this.#clock.serialize());
+    value.#clock = this.#clock.continuationFork();
     value.#controller = this.#controller.continuationFork();
     value.#decks = { north: DeckCycle.restore(this.#decks.north.serializeJson()),
       south: DeckCycle.restore(this.#decks.south.serializeJson()) };
-    value.#elixir = ElixirMatch.restore(this.#elixir.serialize());
+    value.#elixir = this.#elixir.continuationFork();
     value.#events = [...this.#events]; value.#history = [...this.#history];
     value.#nextDeploymentSequence = this.#nextDeploymentSequence;
     value.#projectionSequence = this.#projectionSequence;

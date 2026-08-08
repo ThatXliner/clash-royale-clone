@@ -66,6 +66,31 @@ test("game battle: all eight starter cards materialize stable singles and squad 
   assert.equal(battle.state.tick, 1);
 });
 
+test("game battle: composite continuations preserve causal state without exposing nested transcripts", () => {
+  const source = new LiveBattle(setup({ central: 999, lane: 999 }));
+  deploy(source, "brassbolt", "south", 0, 0);
+  deploy(source, "brassbolt", "north", 1, 0);
+  source.stepMany(2);
+  const sourceBytes = source.serialize();
+  const publicFork = source.fork();
+  const continuation = source.continuationFork().continuationFork();
+
+  assert.equal(source.serialize(), sourceBytes);
+  assert.deepEqual(continuation.state, publicFork.state);
+  assert.throws(() => continuation.serialize(), /internal live battle continuation/u);
+  assert.throws(() => continuation.events, /internal live battle continuation/u);
+  assert.throws(() => continuation.replay, /internal live battle continuation/u);
+  assert.throws(() => continuation.fork(), /internal live battle continuation/u);
+  assert.equal(source.serialize(), sourceBytes);
+
+  assert.deepEqual(continuation.stepMany(12), publicFork.stepMany(12));
+  assert.deepEqual(continuation.state, publicFork.state);
+  const restored = LiveBattle.restore(publicFork.serialize());
+  assert.equal(restored.serialize(), publicFork.serialize());
+  assert.deepEqual(restored.replay, publicFork.replay);
+  assert.equal(source.serialize(), sourceBytes);
+});
+
 test("game battle: mirrored 600-tick journeys include deaths, tower destruction, chunks, and restore cuts", () => {
   const configure = (side = "north") => {
     const battle = new LiveBattle(setup());

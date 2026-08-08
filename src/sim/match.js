@@ -479,6 +479,29 @@ export class MatchClock {
     return canonicalJson(this.#replay);
   }
 
+  /**
+   * Copies every present authority without reconstructing it from the public
+   * command transcript. Composite owners use this only for an internal
+   * transactional candidate; the normal serialize/restore contract is
+   * unchanged.
+   */
+  continuationFork() {
+    const candidate = new MatchClock({ initialTowers: cloneJson(this.#initialTowers) });
+    candidate.#tick = this.#tick;
+    candidate.#commands = cloneJson(this.#commands);
+    candidate.#orderedCommands = cloneJson(this.#orderedCommands);
+    candidate.#pending = cloneJson(this.#pending);
+    candidate.#nextSequence = this.#nextSequence;
+    candidate.#towers = cloneJson(this.#towers);
+    candidate.#crowns = cloneJson(this.#crowns);
+    candidate.#destroyed = new Set(this.#destroyed);
+    candidate.#overtime = this.#overtime;
+    candidate.#result = this.#result === null ? null : cloneJson(this.#result);
+    candidate.#events = cloneJson(this.#events);
+    candidate.#replay = cloneJson(this.#replay);
+    return candidate;
+  }
+
   static restore(serialized) {
     if (typeof serialized !== "string") {
       throw new TypeError("serialized snapshot must be a string");

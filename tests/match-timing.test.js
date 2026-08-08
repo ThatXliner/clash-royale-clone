@@ -225,6 +225,26 @@ test("match timing: same-tick evidence sequence has stable combined destruction 
   );
 });
 
+test("match timing: continuation forks copy present authority without replaying commands", () => {
+  const source = match();
+  source.scheduleTowerEvidence(2, evidence({ "north:lane:left": laneHp - 50 }));
+  source.scheduleTowerEvidence(4, evidence({ "north:lane:left": laneHp - 75 }));
+  source.runToTick(1);
+  const bytes = source.serialize();
+  const replay = source.replayBytes();
+  const fork = source.continuationFork();
+
+  assert.equal(source.serialize(), bytes);
+  assert.equal(fork.serialize(), bytes);
+  assert.equal(fork.replayBytes(), replay);
+  assert.deepEqual(fork.state, source.state);
+  source.runToTick(5);
+  fork.runToTick(5);
+  assert.equal(fork.serialize(), source.serialize());
+  assert.equal(fork.replayBytes(), source.replayBytes());
+  assert.deepEqual(fork.eventLog, source.eventLog);
+});
+
 test("match timing: tick 17999 evidence participates in tiebreak", () => {
   const game = match();
   game.scheduleTowerEvidence(

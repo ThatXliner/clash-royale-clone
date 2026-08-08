@@ -275,19 +275,30 @@ function currentUnitOrigins(combatEvents) {
   });
 }
 
-function priorUnitOrigins(events) {
-  return events.filter((event) => event.type === "projectile-launch" &&
-    event.projectileIdentity?.direction?.startsWith("unit-to-"))
-    .map((event) => ({
-      identity: clone(event.projectileIdentity),
-      structureId: event.projectile.structureId ?? null,
-      targetId: event.projectile.targetId,
-    }));
-}
-
 function exactOne(values, label) {
   if (values.length !== 1) throw new TypeError(`${label} must resolve exactly once`);
   return values[0];
+}
+
+function pendingUnitOrigins(previous, current) {
+  const origins = new Map(previous);
+  for (const origin of current) {
+    const projectileId = origin.identity.projectileId;
+    if (origins.has(projectileId)) {
+      throw new TypeError("unit projectile provenance was not retired before its ID was reused");
+    }
+    origins.set(projectileId, origin);
+  }
+  return origins;
+}
+
+function unitOriginFor(origins, projectileId, targetId, sourceId, label) {
+  const origin = origins.get(projectileId);
+  if (origin === undefined || origin.targetId !== targetId ||
+      (sourceId !== undefined && origin.identity.sourceId !== sourceId)) {
+    throw new TypeError(`${label} provenance is missing or divergent`);
+  }
+  return origin;
 }
 
 function towerIngressFor(event, ingresses) {
@@ -306,18 +317,15 @@ function towerIngressFor(event, ingresses) {
     ingress.command.targetUnitId === targetUnitId), "tower projectile ingress provenance");
 }
 
-function enrichCombatEvents(combatEvents, ingresses, previousEvents) {
-  const unitOrigins = [...priorUnitOrigins(previousEvents), ...currentUnitOrigins(combatEvents)];
+function enrichCombatEvents(combatEvents, ingresses, currentOrigins, unitOrigins) {
   return combatEvents.map((event) => {
     if (event.type === "projectile-launch") {
-      const origin = exactOne(unitOrigins.filter(({ identity: candidate, targetId }) =>
-        candidate.projectileId === event.projectile.id &&
-        candidate.sourceId === event.projectile.attackerId &&
-        targetId === event.projectile.targetId), "unit projectile launch provenance");
+      const origin = unitOriginFor(unitOrigins, event.projectile.id, event.projectile.targetId,
+        event.projectile.attackerId, "unit projectile launch");
       return withIdentity(event, origin.identity);
     }
     if (event.type === "external-structure-attack" && event.delivery === "projectile") {
-      const origin = exactOne(unitOrigins.filter(({ identity: candidate, structureId }) =>
+      const origin = exactOne(currentOrigins.filter(({ identity: candidate, structureId }) =>
         candidate.direction === "unit-to-tower" &&
         candidate.sourceId === event.sourceUnitId &&
         candidate.attackSequence === event.attackSequence &&
@@ -339,18 +347,16 @@ function enrichCombatEvents(combatEvents, ingresses, previousEvents) {
          (event.type === "damage" && event.delivery === "projectile")) &&
         event.projectileId !== undefined) {
       const sourceId = event.attackerId;
-      const origin = exactOne(unitOrigins.filter(({ identity: candidate, targetId }) =>
-        candidate.projectileId === event.projectileId && targetId === event.targetId &&
-        (sourceId === undefined || candidate.sourceId === sourceId)),
-      "unit projectile event provenance");
+      const origin = unitOriginFor(unitOrigins, event.projectileId, event.targetId,
+        sourceId, "unit projectile event");
       return withIdentity(event, origin.identity);
     }
     return event;
   });
 }
 
-function unifiedEvents(combatEvents, towerEvents, shots, ingresses, previousEvents) {
-  const enrichedCombat = enrichCombatEvents(combatEvents, ingresses, previousEvents);
+function unifiedEvents(combatEvents, towerEvents, shots, ingresses, currentOrigins, unitOrigins) {
+  const enrichedCombat = enrichCombatEvents(combatEvents, ingresses, currentOrigins, unitOrigins);
   const nonShotTowerEvents = towerEvents.filter(({ type }) => type !== "shot-ready");
   const phase = (event) => {
     if (event.type === "tower-activated" || event.type === "tower-destroyed") return 1;
@@ -375,9 +381,12 @@ export class BattleTowerCombat {
   #combat;
   #events;
   #history;
+  #historyCount;
+  #isContinuation;
   #nextTowerProjectileId;
   #setup;
   #towers;
+  #unitProjectileOrigins;
 
   constructor(value) {
     const setup = exact(
@@ -392,8 +401,11 @@ export class BattleTowerCombat {
     });
     this.#setup = clone(setup);
     this.#history = [];
+    this.#historyCount = 0;
+    this.#isContinuation = false;
     this.#events = clone(this.#combat.replay);
     this.#nextTowerProjectileId = 1;
+    this.#unitProjectileOrigins = new Map();
     this.#assertSynchronized();
   }
 
@@ -412,19 +424,26 @@ export class BattleTowerCombat {
   }
 
   get replay() {
+    this.#assertPublicTranscript();
     return freeze(clone(this.#events));
   }
 
   /** Returns an independent transactional continuation without history replay. */
   fork() {
+    this.#assertPublicTranscript();
     return this.#runtimeClone();
+  }
+
+  /** Internal composite checkpoint. Public history remains owned by the caller. */
+  continuationFork() {
+    return this.#runtimeClone(false);
   }
 
   spawn(command) {
     this.#reserveHistory();
     this.#assertUnitId(command);
     const event = this.#combat.spawn(command);
-    this.#history.push({ command: clone(command), type: "spawn" });
+    this.#appendHistory({ command: clone(command), type: "spawn" });
     this.#events.push(clone(event));
     return freeze(clone(event));
   }
@@ -433,7 +452,7 @@ export class BattleTowerCombat {
     this.#reserveHistory();
     this.#assertUnitId(command);
     const scheduled = this.#combat.scheduleSpawn(command);
-    this.#history.push({ command: clone(command), type: "schedule-spawn" });
+    this.#appendHistory({ command: clone(command), type: "schedule-spawn" });
     const event = { id: scheduled.id, tick: this.#combat.state.tick,
       toTick: scheduled.tick, type: "schedule-spawn" };
     this.#events.push(event);
@@ -443,7 +462,7 @@ export class BattleTowerCombat {
   updatePosition(command) {
     this.#reserveHistory();
     const event = this.#combat.updatePosition(command);
-    this.#history.push({ command: clone(command), type: "position" });
+    this.#appendHistory({ command: clone(command), type: "position" });
     this.#events.push(clone(event));
     return freeze(clone(event));
   }
@@ -451,7 +470,7 @@ export class BattleTowerCombat {
   updatePositions(command) {
     this.#reserveHistory();
     const events = this.#combat.updatePositions(command);
-    this.#history.push({ command: clone(command), type: "positions" });
+    this.#appendHistory({ command: clone(command), type: "positions" });
     this.#events.push(...clone(events));
     return freeze(clone(events));
   }
@@ -461,7 +480,7 @@ export class BattleTowerCombat {
     if (tick !== this.state.tick) {
       throw new RangeError("battle tower step tick must equal the current tick");
     }
-    if (this.#history.length >= MAX_HISTORY) {
+    if (this.#historyCount >= MAX_HISTORY) {
       throw new RangeError("battle tower history bound exceeded");
     }
     return freeze(clone(this.#advance()));
@@ -472,7 +491,7 @@ export class BattleTowerCombat {
     if (this.state.tick + ticks > MAX_TICK) {
       throw new RangeError("battle tower tick bound exceeded");
     }
-    if (this.#history.length + ticks > MAX_HISTORY) {
+    if (this.#historyCount + ticks > MAX_HISTORY) {
       throw new RangeError("battle tower history bound exceeded");
     }
     const candidate = this.#runtimeClone();
@@ -485,6 +504,7 @@ export class BattleTowerCombat {
   }
 
   serialize() {
+    this.#assertPublicTranscript();
     if (this.#history.length > EXPLICIT_HISTORY_TAIL) {
       const tailStart = this.#history.length - EXPLICIT_HISTORY_TAIL;
       const serialized = canonical({ history: this.#history.slice(tailStart), setup: this.#setup,
@@ -681,8 +701,17 @@ export class BattleTowerCombat {
     this.#towers.stepLive(towerInput);
     this.#combat.stepBoundaryAfterPreview(combatInput, combatEvents);
     this.#nextTowerProjectileId += shots.length;
-    this.#history.push({ tick, type: "step" });
-    const events = unifiedEvents(combatEvents, towerEvents, shots, ingresses, this.#events);
+    this.#appendHistory({ tick, type: "step" });
+    const currentOrigins = currentUnitOrigins(combatEvents);
+    const unitOrigins = pendingUnitOrigins(this.#unitProjectileOrigins, currentOrigins);
+    const events = unifiedEvents(combatEvents, towerEvents, shots, ingresses,
+      currentOrigins, unitOrigins);
+    for (const event of combatEvents) {
+      if (event.type === "projectile-impact" && !unitOrigins.delete(event.projectileId)) {
+        throw new TypeError("unit projectile impact lacks retained provenance");
+      }
+    }
+    this.#unitProjectileOrigins = unitOrigins;
     this.#events.push(...clone(events));
     this.#assertSynchronized();
     return events;
@@ -703,20 +732,36 @@ export class BattleTowerCombat {
   }
 
   #reserveHistory() {
-    if (this.#history.length >= MAX_HISTORY) {
+    if (this.#historyCount >= MAX_HISTORY) {
       throw new RangeError("battle tower history bound exceeded");
     }
   }
 
-  #runtimeClone() {
+  #appendHistory(operation) {
+    this.#history.push(operation);
+    this.#historyCount += 1;
+  }
+
+  #assertPublicTranscript() {
+    if (this.#isContinuation) {
+      throw new TypeError("internal battle tower continuation cannot expose a public transcript");
+    }
+  }
+
+  #runtimeClone(includeTranscript = true) {
     const candidate = new BattleTowerCombat(this.#setup);
-    const checkpointed = this.#history.length > EXPLICIT_HISTORY_TAIL;
+    const retainTranscript = includeTranscript && !this.#isContinuation;
+    const checkpointed = !retainTranscript || this.#history.length > EXPLICIT_HISTORY_TAIL;
     candidate.#combat = checkpointed ? this.#combat.continuationFork() : this.#combat.fork();
     candidate.#towers = checkpointed ? this.#towers.continuationFork() : this.#towers.fork();
-    candidate.#events = [...this.#events];
-    candidate.#history = [...this.#history];
+    candidate.#events = retainTranscript ? [...this.#events] : [];
+    candidate.#history = retainTranscript ? [...this.#history] : [];
+    candidate.#historyCount = this.#historyCount;
+    candidate.#isContinuation = !retainTranscript;
     candidate.#nextTowerProjectileId = this.#nextTowerProjectileId;
     candidate.#setup = clone(this.#setup);
+    candidate.#unitProjectileOrigins = new Map([...this.#unitProjectileOrigins]
+      .map(([projectileId, origin]) => [projectileId, clone(origin)]));
     return candidate;
   }
 
@@ -725,8 +770,11 @@ export class BattleTowerCombat {
     this.#towers = candidate.#towers;
     this.#events = candidate.#events;
     this.#history = candidate.#history;
+    this.#historyCount = candidate.#historyCount;
+    this.#isContinuation = candidate.#isContinuation;
     this.#nextTowerProjectileId = candidate.#nextTowerProjectileId;
     this.#setup = candidate.#setup;
+    this.#unitProjectileOrigins = candidate.#unitProjectileOrigins;
   }
 }
 

@@ -776,6 +776,21 @@ export class BattleMovement {
     return JSON.stringify({ state: canonicalState(this.#state), version: 1 });
   }
 
+  /**
+   * Copies the complete present movement authority without reconstructing it
+   * from the public command history. The serialized history remains intact.
+   */
+  continuationFork() {
+    const candidate = new BattleMovement({
+      bodyRadius: this.#state.bodyRadius,
+      mode: this.#state.mode,
+      position: this.#state.initialPosition,
+      speed: this.#state.speed,
+    });
+    candidate.#state = canonicalState(this.#state);
+    return candidate;
+  }
+
   static restore(serialized) {
     if (typeof serialized !== "string") {
       throw new TypeError("serialized battle movement must be a string");
