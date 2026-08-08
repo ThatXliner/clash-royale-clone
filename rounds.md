@@ -4475,3 +4475,21 @@ hit a secondary outside source range (`43,810,000 > 36,000,000`) but inside the
 primary impact circle (`810,000 <= 1,000,000`).
 
 BIGGEST GAP: None on the judged unified-session building roster dimension.
+
+## Round 242 — 2026-08-08
+
+PIECE: GAME-001GH — Sustained active-match composite history
+
+VERDICT: PASS
+
+EVIDENCE: The hostile compact-capability probe passed 4/4, focused regressions
+exited 0, nondeterminism passed 9/9, shipping isolation passed 13/13 and reduced
+endurance passed at tick 1,800 with a 55,436-byte snapshot. The sole independent
+exact `npm test -- game-session-endurance` passed 1/1 in 1,554,689 ms: direct,
+chunked and restore cuts at ticks 2,100, 9,000 and 17,700 matched exactly through
+tick 18,000; the terminal snapshot was 319,534 bytes and the worst direct
+300-tick segment was 10,611 ms. An independent kernel/helper probe found 57
+documented exports, nine public authority classes and zero opaque-handle leaks.
+The 34-module/61-edge import graph is acyclic and syntax/diff checks passed.
+
+BIGGEST GAP: None on the judged sustained-history/private-capability dimension.
