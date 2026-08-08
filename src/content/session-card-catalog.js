@@ -238,3 +238,54 @@ export function projectSessionNonUnitBattleCard(id) {
   if (buildingRuntime !== null) projection.buildingRuntime = buildingRuntime;
   return freeze(projection);
 }
+
+/**
+ * Produces an explicitly unclaimed, receipt-only profile set for exercising
+ * the shared troop-runtime host seam. It does not project a troop, assert a
+ * card mechanic, or add a roster claim: the caller must still provide these
+ * already-admitted unit identities in its actual LiveBattle roster.
+ *
+ * Ability costs, cooldowns, and effects are intentionally absent from the
+ * corpus authority. The sole action profile therefore carries an explicit
+ * null ability cost and can only produce a host receipt.
+ */
+export function createSessionTroopRuntimeProfiles(selection) {
+  if (!selection || typeof selection !== "object" || Array.isArray(selection) ||
+      Object.getPrototypeOf(selection) !== Object.prototype) {
+    throw new TypeError("session troop runtime profile selection must be a plain object");
+  }
+  const keys = Object.keys(selection).sort();
+  if (canonical(keys) !== canonical(["actionCardId", "deployCardId"])) {
+    throw new TypeError("session troop runtime profile selection has an invalid shape");
+  }
+  const admittedUnit = (id, label) => {
+    const record = getSessionCardAdmissionRecord(id);
+    if (record.kind !== "unit") {
+      throw new TypeError(`${label} must identify an admitted unit card`);
+    }
+    return record.id;
+  };
+  const actionCardId = admittedUnit(selection.actionCardId, "actionCardId");
+  const deployCardId = admittedUnit(selection.deployCardId, "deployCardId");
+  if (actionCardId === deployCardId) {
+    throw new TypeError("session troop runtime profiles require distinct source cards");
+  }
+  const passes = ["pre-move", "pre-combat", "post-combat"];
+  const profiles = [
+    {
+      action: null,
+      cardId: deployCardId,
+      claim: "unclaimed",
+      deploy: "receipt-only",
+      passes,
+    },
+    {
+      action: { abilityCost: null, id: "seam-target-receipt", target: "unit" },
+      cardId: actionCardId,
+      claim: "unclaimed",
+      deploy: "receipt-only",
+      passes,
+    },
+  ].sort((left, right) => left.cardId.localeCompare(right.cardId));
+  return freeze(clone({ profiles, version: 1 }));
+}
