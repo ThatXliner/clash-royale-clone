@@ -4455,3 +4455,23 @@ source still reports `attack.phase: "deploying"` and `deployTicks: 60`.
 
 BIGGEST GAP: Replace the premature fixture with a sourced live reducer intent
 that cannot apply before the source's authoritative deployment/attack phase.
+
+## Round 241 — 2026-08-08
+
+PIECE: GAME-001HB — Unified-session building roster mechanics
+
+VERDICT: PASS
+
+EVIDENCE: Commit `74fed79` is clean. Required suites passed: roster buildings
+10/10, building runtime 14/14, roster admission 7/7, GameSession 8/8, battle
+11/11, guards 9/9 and 13/13, bounded endurance 1/1, and 146/146 relevant
+building/death selectors. Independent GameSession-only probes confirmed the
+58-occurrence/53-ID global manifest and exact building slice of eight admitted
+plus two visible QUESTION identities. Forged receipts and QUESTION commands
+rejected atomically. Defensive state used shared unit ID 1 and structure ID 2;
+Aether grants/elixir and restore matched; Burrow emitted the unsourced-child
+QUESTION without a unit; Cinder's combat death triggered once. Ember splash
+hit a secondary outside source range (`43,810,000 > 36,000,000`) but inside the
+primary impact circle (`810,000 <= 1,000,000`).
+
+BIGGEST GAP: None on the judged unified-session building roster dimension.
