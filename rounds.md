@@ -4377,3 +4377,41 @@ canonical content receipt.
 
 BIGGEST GAP: Pin every admitted building profile to its exact canonical catalog
 receipt; current fresh setups accept structurally valid forged mechanics.
+
+## Round 237 — 2026-08-08
+
+PIECE: GAME-001GP — Sustained 720x1280 browser endurance journey
+
+VERDICT: FAIL
+
+EVIDENCE: The required `npm test -- game-browser-endurance` ran once at commit
+`0ab8558` and exited 1. Real Chrome recorded a driven 53 ms `self` LongTask at
+tick 900 against the strict 50 ms cap. Initialization passed separately at
+212/300 ms. The run exercised three-tick yielding slices, 100-tick
+projection/audio commits, direct parity through tick 300 and a genuine 600→300
+restore with audible starts unchanged at 46. Server cleanup completed, console
+and resource errors were empty, no browser/server orphan remained, and the
+720×1280 active capture was nonblank. The run never reached terminal/restart.
+
+BIGGEST GAP: The shipped default-GH browser drive breaches the hard 50 ms
+LongTask cap by tick 900 and therefore never reaches the required tick-18,000
+terminal/restart journey.
+
+## Round 238 — 2026-08-08
+
+PIECE: GAME-001HTA — Shared troop mechanic authority seam
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- game-troop-runtime` passed 6/6. Independent configured
+GameSession action/restore/chunk probes passed structurally, but the sole ability
+profile is explicitly `abilityCost:null`, `claim:"unclaimed"` and
+`deploy:"receipt-only"`. Its action left authoritative units, towers,
+projectiles and resources byte-identical to a no-action control and emitted only
+one `session-ability` receipt. Phase order, atomic invalid-action rejection, v3
+hostile/proxy/depth/size rejection, 1,800-tick restore/fork parity, parent-v2
+byte parity, admission 7/7, movement 9/9 and kernel 5/5 passed.
+
+BIGGEST GAP: Replace the costless receipt-only marker façade with one sourced
+representative reducer intent that LiveBattle legally applies to authoritative
+shared combat/status state.

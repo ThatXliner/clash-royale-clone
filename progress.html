@@ -28,7 +28,7 @@
   <div class="cards">
     <div class="card"><div class="num">145</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">106</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">236</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">238</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">24</div><div class="label">open questions</div></div>
   </div>
   <p class="note">Active target: <strong>GAME-001HBA — Shared building mechanic authority seam</strong>.</p>
@@ -1120,10 +1120,10 @@
       <tr>
         <td><code>GAME-001GP</code></td>
         <td>Sustained browser-match throughput</td>
-        <td class="state-blocked">BLOCKED</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Chrome remained at ~100% CPU beyond five minutes inside active-match simulation/history growth; profile/fix after GAME-001GH bounds are correct</td>
+        <td class="state-building">BUILDING</td>
+        <td>0/1</td>
+        <td>1</td>
+        <td>Round 1 failed at tick 900 with a 53 ms driven task against the hard 50 ms cap; terminal/restart remain unproven pending the GAME-001GH round-2 continuation rewrite</td>
       </tr>
       <tr>
         <td><code>GAME-001GS</code></td>
@@ -1160,10 +1160,10 @@
       <tr>
         <td><code>GAME-001HTA</code></td>
         <td>Shared troop mechanic authority seam</td>
-        <td class="state-pending">PENDING</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>No honest shared reducer/action seam exists; a detached troop encounter would be a prohibited second simulation</td>
+        <td class="state-building">BUILDING</td>
+        <td>6/6</td>
+        <td>1</td>
+        <td>Round 1 failed: the green phase/action seam is explicitly unclaimed, costless and receipt-only, so authoritative shared combat/status state matches a no-action control</td>
       </tr>
       <tr>
         <td><code>GAME-001HT</code></td>
@@ -1436,6 +1436,8 @@
       <li><strong>R234 FAIL</strong> · GAME-001HB — Unified-session building roster mechanics<br>Integrate all eight admitted building mechanics into GameSession/game-side-deploy so one authoritative battle, deck, elixir, tower/unit, history and restore graph owns and steps them, then register the selector and nondeterminism inventory.</li>
       <li><strong>R235 FAIL</strong> · GAME-001GH — Sustained active-match composite history<br>Make compact checkpoints genuinely private/module-capability-only rather than public continuationFork prototype methods, while retaining the documented public serialize/restore/replay/fork contracts.</li>
       <li><strong>R236 FAIL</strong> · GAME-001HBA — Shared building mechanic authority seam<br>Pin every admitted building profile to its exact canonical catalog receipt; current fresh setups accept structurally valid forged mechanics.</li>
+      <li><strong>R237 FAIL</strong> · GAME-001GP — Sustained 720x1280 browser endurance journey<br>The shipped default-GH drive breaches the hard 50 ms task cap by tick 900 and never reaches terminal/restart.</li>
+      <li><strong>R238 FAIL</strong> · GAME-001HTA — Shared troop mechanic authority seam<br>Replace the costless receipt-only marker façade with one sourced representative reducer intent that LiveBattle applies to authoritative shared state.</li>
   </ol>
 </body>
 </html>
