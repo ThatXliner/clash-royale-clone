@@ -4415,3 +4415,23 @@ byte parity, admission 7/7, movement 9/9 and kernel 5/5 passed.
 BIGGEST GAP: Replace the costless receipt-only marker façade with one sourced
 representative reducer intent that LiveBattle legally applies to authoritative
 shared combat/status state.
+
+## Round 239 — 2026-08-08
+
+PIECE: GAME-001HBA — Shared building mechanic authority seam
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- game-building-runtime` passed 14/14. Independent probes
+admitted 32 exact legitimate receipts and rejected the original bulwark damage
+212→989 forgery at parser, LiveBattle, GameSession and public reducer entry.
+Across all eight profiles, 97 primitive-leaf mutations, 127 nested shape
+mutations and 56 cross-card swaps rejected at all four boundaries. Eight hostile
+values caused zero traps, rejection was atomic, forged present-profile restores
+rejected, and exact no-profile LiveBattle v1/v2 plus GameSession v2 restored only
+through public restore. Admission 7/7, nondeterminism 9/9 and shipping isolation
+13/13 passed. Endurance reached tick 3,300 with a 79,827-byte snapshot before a
+coordinator-directed stop of the redundant full run. Import closure contains no
+sim→content dependency and no exported receipt bypass.
+
+BIGGEST GAP: None on the judged shared building-authority seam.
