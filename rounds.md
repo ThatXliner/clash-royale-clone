@@ -4554,3 +4554,24 @@ The current profile matches the live Mossguard projection and excludes
 body-radius and all legacy action/cost/fixture fields.
 
 BIGGEST GAP: None on the judged shared troop mechanic authority seam.
+
+## Round 246 — 2026-08-08
+
+PIECE: GAME-001HI — Shared roster authority integration
+
+VERDICT: PASS
+
+EVIDENCE: The blind critic verified HEAD `a402ec3`. The exact shared-runtime
+integration selector passed 1/1; roster admission passed 7/7, compact hostile
+checks passed 4/4, nondeterminism passed 9/9 and shipping isolation passed
+13/13. Independent public probes measured Bulwark-control damage delta 212 and
+Squall-control damage delta 689, exactly five once-only route/spend commits with
+sequences 0–4, one Cinder death effect and two resource grants with exact
+restore behavior. The graph created no effect or building placeholders. Forged
+spell/card receipts and swapped building receipts rejected, and unsupported
+QUESTION commands were byte-atomic.
+
+BIGGEST GAP: The mixed fixture does not co-stage Aether resource generation
+with Cinder death, although a separate real GameSession probe verified both
+resource grants exactly once; no gap remains on the judged shared-integration
+dimension.
