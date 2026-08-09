@@ -6,8 +6,17 @@ import {
   InMemoryPcmAudioBackend,
 } from "./audio-renderer.js";
 
-const VERSION = 1;
+const VERSION = 2;
 const MAX_SNAPSHOT_BYTES = 8 * 1_024 * 1_024;
+/**
+ * Accelerated browser advancement may observe a dense authority batch.  It
+ * never replays an unbounded historical sound burst: at most this many newly
+ * observed cues become audible in one transactional accelerated frame.
+ */
+export const GAME_AUDIO_RUNTIME_MAX_ACCELERATED_CUES = 32;
+const ACCELERATED_PRIORITY_FAMILIES = new Set([
+  "matchEnd", "crown", "tower", "overtime", "tiebreak",
+]);
 const authenticGameAudioRuntimes = new WeakSet();
 const runtimeSinkCapabilities = new WeakMap();
 const consumedRuntimeSinkCapabilities = new WeakSet();
@@ -108,12 +117,15 @@ function checkedSnapshot(bytes) {
   preflightSnapshotGraph(parsed);
   if (canonical(parsed) !== bytes || parsed === null || Array.isArray(parsed) ||
       Object.getPrototypeOf(parsed) !== Object.prototype ||
-      Object.keys(parsed).sort().join(",") !==
-        "cursor,disposed,eventBytes,gainBasisPoints,generation,muted,projection,sessionBytes,version" ||
-      parsed.version !== VERSION || !Number.isSafeInteger(parsed.cursor) ||
-      parsed.cursor < 0 || !Number.isSafeInteger(parsed.generation) ||
+      !Number.isSafeInteger(parsed.cursor) ||
+      parsed.cursor < 0 ||
+      (parsed.version === 2 && (!Number.isSafeInteger(parsed.projectionOffset) ||
+        parsed.projectionOffset < 0 || parsed.projectionOffset > parsed.cursor)) ||
+      !Number.isSafeInteger(parsed.generation) ||
       parsed.generation < 0 || !Array.isArray(parsed.eventBytes) ||
-      parsed.eventBytes.length !== parsed.cursor ||
+      (parsed.version === 1 && parsed.eventBytes.length !== parsed.cursor) ||
+      (parsed.version === 2 && parsed.eventBytes.length !==
+        parsed.cursor - parsed.projectionOffset) ||
       parsed.eventBytes.some((entry) => typeof entry !== "string") ||
       typeof parsed.projection !== "string" || typeof parsed.sessionBytes !== "string" ||
       (parsed.disposed !== true && parsed.disposed !== false) ||
@@ -122,7 +134,40 @@ function checkedSnapshot(bytes) {
       (parsed.muted !== true && parsed.muted !== false)) {
     throw new TypeError("game audio runtime snapshot is invalid");
   }
+  const legacyKeys = "cursor,disposed,eventBytes,gainBasisPoints,generation,muted,projection,sessionBytes,version";
+  const currentKeys = "cursor,disposed,eventBytes,gainBasisPoints,generation,muted,projection,projectionOffset,sessionBytes,suppressedAcceleratedCueCount,version";
+  if (parsed.version === 1 && Object.keys(parsed).sort().join(",") === legacyKeys) {
+    return { ...parsed, projectionOffset: 0, suppressedAcceleratedCueCount: 0 };
+  }
+  if (parsed.version !== VERSION || Object.keys(parsed).sort().join(",") !== currentKeys ||
+      !Number.isSafeInteger(parsed.suppressedAcceleratedCueCount) ||
+      parsed.suppressedAcceleratedCueCount < 0) {
+    throw new TypeError("game audio runtime snapshot is invalid");
+  }
   return parsed;
+}
+
+function absoluteRecords(records, offset) {
+  return records.map((record) => ({ ...record, sequence: record.sequence + offset }));
+}
+
+function acceleratedCues(candidates) {
+  if (candidates.length <= GAME_AUDIO_RUNTIME_MAX_ACCELERATED_CUES) return candidates;
+  const chosen = new Set();
+  // Select newest critical cues first.  A dense terminal batch can itself
+  // contain more than the budget, so priority is a deterministic preference,
+  // never permission to exceed the audible cap.
+  for (let index = candidates.length - 1;
+    index >= 0 && chosen.size < GAME_AUDIO_RUNTIME_MAX_ACCELERATED_CUES; index -= 1) {
+    if (ACCELERATED_PRIORITY_FAMILIES.has(candidates[index].family)) {
+      chosen.add(candidates[index]);
+    }
+  }
+  for (let index = candidates.length - 1;
+    index >= 0 && chosen.size < GAME_AUDIO_RUNTIME_MAX_ACCELERATED_CUES; index -= 1) {
+    chosen.add(candidates[index]);
+  }
+  return candidates.filter((cue) => chosen.has(cue));
 }
 
 export function isAuthenticGameAudioRuntime(value) {
@@ -147,9 +192,11 @@ export class GameAudioRuntime {
   #generation = 0;
   #observedTick;
   #projection;
+  #projectionOffset = 0;
   #renderer;
   #session;
   #sink = null;
+  #suppressedAcceleratedCueCount = 0;
 
   constructor(session, sinkCapability) {
     if ((arguments.length !== 1 && arguments.length !== 2) ||
@@ -175,7 +222,8 @@ export class GameAudioRuntime {
     Object.freeze(this);
   }
 
-  #resetAudioGraph(gainBasisPoints = 10_000, muted = false) {
+  #resetAudioGraph(gainBasisPoints = 10_000, muted = false,
+    suppressedAcceleratedCueCount = 0) {
     this.#backend = new InMemoryPcmAudioBackend(
       this.#sink === null ? {} : { sink: this.#sink },
     );
@@ -187,16 +235,36 @@ export class GameAudioRuntime {
     this.#projection = new AudioEventProjection();
     this.#cursor = 0;
     this.#eventBytes = [];
+    this.#projectionOffset = 0;
+    this.#suppressedAcceleratedCueCount = suppressedAcceleratedCueCount;
     this.#disposed = false;
   }
 
   #isPrefix(replay) {
-    return this.#cursor <= replay.length && this.#eventBytes.every(
-      (bytes, index) => canonical(replay[index]) === bytes,
+    return this.#cursor <= replay.length && this.#cursor ===
+      this.#projectionOffset + this.#eventBytes.length && this.#eventBytes.every(
+      (bytes, index) => canonical(replay[this.#projectionOffset + index]) === bytes,
     );
   }
 
-  renderFrame() {
+  #assertRebaseable(session) {
+    if (!isAuthenticGameSession(session)) {
+      throw new TypeError("game audio runtime rebase requires an authentic GameSession");
+    }
+    const restoredReplay = session.replay;
+    const knownReplay = this.#session.replay;
+    if (restoredReplay.length > this.#cursor || restoredReplay.length > knownReplay.length) {
+      throw new RangeError("game audio runtime restore contains unseen authority records");
+    }
+    for (let index = 0; index < restoredReplay.length; index += 1) {
+      if (canonical(restoredReplay[index]) !== canonical(knownReplay[index])) {
+        throw new RangeError("game audio runtime restore diverges from consumed authority");
+      }
+    }
+    return true;
+  }
+
+  #renderFrame(accelerated) {
     if (this.#renderer.state.faulted) {
       throw new Error("game audio runtime is permanently faulted");
     }
@@ -210,15 +278,22 @@ export class GameAudioRuntime {
     }
     this.#observedTick = sessionTick;
     if (this.#disposed) {
-      return isolated({ cues: [], starts: [], stops: [], state: this.state });
+      return isolated({ accelerated, candidateCueCount: 0, cues: [], skippedCueCount: 0,
+        starts: [], stops: [], state: this.state });
     }
-    const entries = replay.slice(this.#cursor).map((event, offset) => ({
+    const cursor = this.#cursor;
+    const entries = replay.slice(cursor).map((event, offset) => ({
       event: normalizeSessionEvent(event),
-      sequence: this.#cursor + offset,
+      sequence: cursor + offset - this.#projectionOffset,
       tick: event.tick ?? this.#session.state.tick,
     }));
-    const records = entries.length === 0 ? [] : this.#projection.projectBatch(entries);
-    const cues = records.filter(({ cueId }) => cueId !== null);
+    const records = entries.length === 0 ? [] : absoluteRecords(
+      this.#projection.projectBatch(entries), this.#projectionOffset,
+    );
+    const candidates = records.filter(({ cueId }) => cueId !== null);
+    const cues = accelerated ? acceleratedCues(candidates) : candidates;
+    const skippedCueCount = candidates.length - cues.length;
+    this.#suppressedAcceleratedCueCount += skippedCueCount;
     const starts = [];
     const stops = [];
     for (let index = 0; index < cues.length;) {
@@ -233,7 +308,7 @@ export class GameAudioRuntime {
       }
       index = end;
     }
-    this.#eventBytes.push(...replay.slice(this.#cursor).map(canonical));
+    this.#eventBytes.push(...replay.slice(cursor).map(canonical));
     this.#cursor = replay.length;
     const tick = sessionTick;
     stops.push(...this.#renderer.cleanupThroughTick(tick));
@@ -241,7 +316,21 @@ export class GameAudioRuntime {
       stops.push(...this.#renderer.dispose());
       this.#disposed = true;
     }
-    return isolated({ cues, starts, stops, state: this.state });
+    return isolated({ accelerated, candidateCueCount: candidates.length, cues,
+      skippedCueCount, starts, stops, state: this.state });
+  }
+
+  /** Render every newly observed cue; normal RAF presentation uses this policy. */
+  renderFrame() {
+    return this.#renderFrame(false);
+  }
+
+  /**
+   * Consume every newly observed replay record exactly once while audibly
+   * coalescing a fast-forward batch to a fixed latest/critical cue budget.
+   */
+  renderAcceleratedFrame() {
+    return this.#renderFrame(true);
   }
 
   restart(session) {
@@ -254,6 +343,71 @@ export class GameAudioRuntime {
     this.#generation += 1;
     this.#resetAudioGraph(controls.gainBasisPoints, controls.muted);
     this.#observedTick = session.state.tick;
+    return this.state;
+  }
+
+  /** Verify that a restore cannot make unseen authority records look heard. */
+  assertRebaseable(session) {
+    return this.#assertRebaseable(session);
+  }
+
+  /**
+   * Attach to a restored session without synthesizing its already-heard cue
+   * history.  The source cursor is rebased at the restored replay boundary;
+   * only later authority records are projected and can become audible.
+   */
+  rebase(session) {
+    this.#assertRebaseable(session);
+    const controls = this.#renderer.state;
+    if (!this.#disposed) this.#renderer.dispose();
+    const replayLength = session.replay.length;
+    this.#session = session;
+    this.#generation += 1;
+    this.#resetAudioGraph(controls.gainBasisPoints, controls.muted,
+      this.#suppressedAcceleratedCueCount);
+    this.#cursor = replayLength;
+    this.#projectionOffset = replayLength;
+    this.#observedTick = session.state.tick;
+    if (session.state.terminal) {
+      this.#renderer.dispose();
+      this.#disposed = true;
+    }
+    return this.state;
+  }
+
+  /**
+   * Consume an otherwise-unseen restored replay through the projection only.
+   * This is intentionally distinct from rebase(): callers must choose the
+   * explicit silent policy instead of claiming unseen authority was already
+   * heard. Batching bounds the work and emits no renderer starts.
+   */
+  rebaseSilently(session) {
+    if (!isAuthenticGameSession(session)) {
+      throw new TypeError("game audio runtime silent rebase requires an authentic GameSession");
+    }
+    const controls = this.#renderer.state;
+    if (!this.#disposed) this.#renderer.dispose();
+    this.#session = session;
+    this.#generation += 1;
+    this.#resetAudioGraph(controls.gainBasisPoints, controls.muted,
+      this.#suppressedAcceleratedCueCount);
+    const replay = session.replay;
+    const batchSize = 256;
+    for (let from = 0; from < replay.length; from += batchSize) {
+      const values = replay.slice(from, from + batchSize);
+      const entries = values.map((event, offset) => ({
+        event: normalizeSessionEvent(event), sequence: from + offset,
+        tick: event.tick ?? session.state.tick,
+      }));
+      this.#projection.projectBatch(entries);
+      this.#eventBytes.push(...values.map(canonical));
+      this.#cursor += values.length;
+    }
+    this.#observedTick = session.state.tick;
+    if (session.state.terminal) {
+      this.#renderer.dispose();
+      this.#disposed = true;
+    }
     return this.state;
   }
 
@@ -274,20 +428,22 @@ export class GameAudioRuntime {
     return stopped;
   }
 
-  get cues() { return this.#projection.cues; }
+  get cues() { return isolated(absoluteRecords(this.#projection.cues, this.#projectionOffset)); }
 
   get state() {
     return isolated({
       cursor: this.#cursor,
       cueCount: this.#projection.cues.length,
       disposed: this.#disposed,
-      eventCount: this.#projection.records.length,
+      eventCount: this.#projectionOffset + this.#projection.records.length,
       faulted: this.#renderer.state.faulted,
       gainBasisPoints: this.#renderer.state.gainBasisPoints,
       generation: this.#generation,
       muted: this.#renderer.state.muted,
+      projectionOffset: this.#projectionOffset,
       renderer: this.#renderer.state,
       sessionTick: this.#session.state.tick,
+      suppressedAcceleratedCueCount: this.#suppressedAcceleratedCueCount,
       terminal: this.#session.state.terminal,
       transactionCount: this.#backend.state.transactionCount,
     });
@@ -304,7 +460,9 @@ export class GameAudioRuntime {
       generation: this.#generation,
       muted: this.#renderer.state.muted,
       projection: this.#projection.serialize(),
+      projectionOffset: this.#projectionOffset,
       sessionBytes: this.#session.serialize(),
+      suppressedAcceleratedCueCount: this.#suppressedAcceleratedCueCount,
       version: VERSION,
     });
   }
@@ -321,12 +479,12 @@ export class GameAudioRuntime {
       throw new TypeError("game audio runtime snapshot diverges from session");
     }
     const projection = AudioEventProjection.restore(snapshot.projection);
-    if (projection.state.nextSequence !== snapshot.cursor) {
+    if (projection.state.nextSequence !== snapshot.cursor - snapshot.projectionOffset) {
       throw new TypeError("game audio runtime projection cursor diverges");
     }
     const replay = session.replay;
     if (replay.length !== snapshot.cursor || snapshot.eventBytes.some(
-      (event, index) => event !== canonical(replay[index]),
+      (event, index) => event !== canonical(replay[snapshot.projectionOffset + index]),
     )) {
       throw new TypeError("game audio runtime event prefix diverges");
     }
@@ -336,7 +494,9 @@ export class GameAudioRuntime {
     runtime.#projection = projection;
     runtime.#cursor = snapshot.cursor;
     runtime.#eventBytes = [...snapshot.eventBytes];
+    runtime.#projectionOffset = snapshot.projectionOffset;
     runtime.#generation = snapshot.generation;
+    runtime.#suppressedAcceleratedCueCount = snapshot.suppressedAcceleratedCueCount;
     if (snapshot.gainBasisPoints !== 10_000) {
       runtime.#renderer.setGainBasisPoints(snapshot.gainBasisPoints);
     }

@@ -81,6 +81,7 @@ export class BrowserPcmAudioSink {
   #muted = false;
   #resumeCount = 0;
   #runtimeBound = false;
+  #startCount = 0;
   #transactionCount = 0;
   #unlockCount = 0;
   #unlockPromise = null;
@@ -212,6 +213,7 @@ export class BrowserPcmAudioSink {
       };
       this.#active.set(command.voiceId, source);
       source.start(context.currentTime);
+      this.#startCount += 1;
     } catch (error) {
       this.#active.delete(command.voiceId);
       try { source.stop(context.currentTime); } catch {}
@@ -254,6 +256,7 @@ export class BrowserPcmAudioSink {
   get state() {
     return frozen({
       activeVoiceCount: this.#active.size,
+      audibleStartCount: this.#startCount,
       contextCreated: this.#context !== null,
       disposed: this.#disposed,
       faulted: this.#fault !== null,

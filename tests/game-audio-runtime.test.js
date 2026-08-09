@@ -1,7 +1,10 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { GameAudioRuntime } from "../src/audio/game-audio-runtime.js";
+import {
+  GAME_AUDIO_RUNTIME_MAX_ACCELERATED_CUES,
+  GameAudioRuntime,
+} from "../src/audio/game-audio-runtime.js";
 import {
   createPlayableRoster,
   createPlayableRosterQuestionRecords,
@@ -155,6 +158,81 @@ test("game audio runtime: restore retains prefix without replay and continues on
   assert.equal(restored.state.cueCount >= cueCount, true);
 });
 
+test("game audio runtime: accelerated batches are bounded and rebase is silent", () => {
+  const session = new GameSession(sessionSetup({ accelerated: true }));
+  const runtime = new GameAudioRuntime(session);
+  submitPlayable(session, 1, "reedsting");
+  session.stepMany(300);
+  const accelerated = runtime.renderAcceleratedFrame();
+  assert.equal(session.state.terminal, true);
+  assert.equal(accelerated.cues.length, GAME_AUDIO_RUNTIME_MAX_ACCELERATED_CUES);
+  assert.equal(accelerated.starts.length <= GAME_AUDIO_RUNTIME_MAX_ACCELERATED_CUES, true);
+  assert.equal(accelerated.candidateCueCount > accelerated.cues.length, true);
+  assert.equal(accelerated.skippedCueCount,
+    accelerated.candidateCueCount - accelerated.cues.length);
+  assert.equal(runtime.state.suppressedAcceleratedCueCount,
+    accelerated.skippedCueCount);
+
+  const restoredSession = GameSession.restore(session.serialize());
+  const beforeRebase = runtime.state;
+  const rebased = runtime.rebase(restoredSession);
+  assert.equal(rebased.cursor, restoredSession.replay.length);
+  assert.equal(rebased.eventCount, restoredSession.replay.length);
+  assert.equal(rebased.projectionOffset, restoredSession.replay.length);
+  assert.equal(rebased.suppressedAcceleratedCueCount,
+    beforeRebase.suppressedAcceleratedCueCount);
+  const silent = runtime.renderAcceleratedFrame();
+  assert.deepEqual(silent.cues, []);
+  assert.deepEqual(silent.starts, []);
+});
+
+test("game audio runtime: version one snapshots restore as version two", () => {
+  const session = new GameSession(sessionSetup());
+  const runtime = new GameAudioRuntime(session);
+  submitPlayable(session);
+  session.step();
+  runtime.renderFrame();
+  const legacy = JSON.parse(runtime.serialize());
+  delete legacy.projectionOffset;
+  delete legacy.suppressedAcceleratedCueCount;
+  legacy.version = 1;
+  const restored = GameAudioRuntime.restore(canonical(legacy),
+    GameSession.restore(session.serialize()));
+  assert.equal(restored.state.cursor, session.replay.length);
+  assert.equal(restored.state.suppressedAcceleratedCueCount, 0);
+  assert.equal(JSON.parse(restored.serialize()).version, 2);
+});
+
+test("game audio runtime: rebase rejects unseen authority atomically", () => {
+  const session = new GameSession(sessionSetup({ accelerated: true }));
+  const runtime = new GameAudioRuntime(session);
+  submitPlayable(session, 1, "reedsting");
+  session.stepMany(30);
+  runtime.renderFrame();
+  const before = runtime.serialize();
+  const later = GameSession.restore(session.serialize());
+  const beforeReplay = later.replay.length;
+  submitPlayable(later, 2);
+  later.step();
+  assert.equal(later.replay.length > beforeReplay, true);
+  assert.throws(() => runtime.rebase(later), /unseen authority records/u);
+  assert.equal(runtime.serialize(), before);
+  assert.equal(runtime.assertRebaseable(GameSession.restore(session.serialize())), true);
+
+  const silentlyConsumed = runtime.rebaseSilently(later);
+  assert.equal(silentlyConsumed.cursor, later.replay.length);
+  assert.equal(silentlyConsumed.eventCount, later.replay.length,
+    "unseen restore records are actually projected rather than assigned as an offset");
+  assert.equal(silentlyConsumed.projectionOffset, 0);
+  assert.deepEqual(runtime.renderFrame().cues, [],
+    "the silent restore itself produces no retrospective audible cue burst");
+  later.step();
+  const continued = runtime.renderFrame();
+  assert.equal(runtime.state.cursor, later.replay.length);
+  assert.equal(new Set(continued.cues.map(({ sequence }) => sequence)).size,
+    continued.cues.length, "new authority after silent restore remains deduplicated");
+});
+
 test("game audio runtime: session restart creates a fresh dedupe generation", () => {
   const session = new GameSession(sessionSetup());
   const runtime = new GameAudioRuntime(session);
@@ -260,7 +338,7 @@ test("game audio runtime: hostile admission and divergent restore are atomic", (
   assert.equal(objectProxy.calls(), 0);
   assert.equal(callableProxy.calls(), 0);
   assert.equal(revokedCalls, 0);
-  const forged = runtime.serialize().replace('"version":1', '"version":2');
+  const forged = runtime.serialize().replace('"version":2', '"version":3');
   assert.throws(() => GameAudioRuntime.restore(forged, session), /snapshot is invalid/u);
   assert.equal(session.serialize(), beforeSession);
   assert.deepEqual(runtime.transactions, beforeTransactions);

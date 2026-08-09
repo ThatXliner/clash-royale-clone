@@ -6,7 +6,10 @@ import {
   BrowserPcmAudioSink,
   createBrowserAudioContextFactoryCapability,
 } from "../audio/browser-audio.js";
-import { GameAudioRuntime } from "../audio/game-audio-runtime.js";
+import {
+  GAME_AUDIO_RUNTIME_MAX_ACCELERATED_CUES,
+  GameAudioRuntime,
+} from "../audio/game-audio-runtime.js";
 import { DeckCycle } from "../sim/deck.js";
 import { ElixirMatch } from "../sim/elixir.js";
 import { GameSession } from "../sim/game-session.js";
@@ -14,7 +17,8 @@ import { mountArenaShell } from "./arena-shell.js";
 import { getCombatEffectsStyleText } from "./combat-effects.js";
 import { getCombatStyleText } from "./combat-state.js";
 import { assertGameBrowserRootAvailable,
-  mountGameBrowserLoop } from "./game-browser-loop.js";
+  GAME_BROWSER_SNAPSHOT_VERSION, mountGameBrowserLoop } from "./game-browser-loop.js";
+import { createGameSessionRestoreContinuation } from "./game-session-restore-continuation.js";
 import {
   createArenaInputSessionContinuationCapability,
   mountArenaInputController,
@@ -25,6 +29,24 @@ import { getMatchFeedbackStyleText } from "./match-feedback.js";
 
 const LOCAL_SIDE = "south";
 
+/**
+ * The sustained browser path is deliberately smaller than an ordinary manual
+ * fast-forward. Simulation is sliced into fixed small batches below the
+ * long-task cap, while input is
+ * suspended and complete DOM/audio transactions are coalesced at a stable
+ * presentation cadence before yielding back to real RAF.
+ */
+// A public three-tick GameSession slice can itself exceed the 40 ms browser
+// margin under the active GH workload. Keep every simulation call to one
+// explicit tick, then yield before any more work. Presentation remains on the
+// separate fixed 100-tick cadence below.
+export const GAME_BROWSER_ENDURANCE_MAX_CHUNK_TICKS = 1;
+export const GAME_BROWSER_ENDURANCE_MAX_SEGMENT_TICKS = 300;
+// Coalesce the exact GH workload into bounded, replay-derived transactions:
+// three complete DOM/audio presentations per 300-tick attempt segment rather
+// than allocating one after every tiny simulation slice.
+export const GAME_BROWSER_ENDURANCE_PRESENTATION_TICKS = 100;
+
 function canonical(value) {
   if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
   if (value !== null && typeof value === "object") {
@@ -32,6 +54,29 @@ function canonical(value) {
       `${JSON.stringify(key)}:${canonical(value[key])}`).join(",")}}`;
   }
   return JSON.stringify(value);
+}
+
+// The loop validates again immediately before its atomic commit. This early,
+// side-effect-free preflight avoids starting an asynchronous replay for a
+// malformed browser envelope while keeping session reconstruction inside the
+// bounded continuation below.
+function enduranceRestoreSessionBytes(bytes) {
+  if (typeof bytes !== "string" || bytes.length > 64 * 1_024 * 1_024) {
+    throw new TypeError("game browser snapshot must be bounded canonical JSON");
+  }
+  let snapshot;
+  try { snapshot = JSON.parse(bytes); } catch {
+    throw new TypeError("game browser snapshot must be valid JSON");
+  }
+  if (!snapshot || typeof snapshot !== "object" || Array.isArray(snapshot) ||
+      Object.getPrototypeOf(snapshot) !== Object.prototype ||
+      Object.keys(snapshot).sort().join(",") !== "bridge,running,session,version" ||
+      typeof snapshot.bridge !== "string" || typeof snapshot.running !== "boolean" ||
+      typeof snapshot.session !== "string" || snapshot.version !== GAME_BROWSER_SNAPSHOT_VERSION ||
+      canonical(snapshot) !== bytes) {
+    throw new TypeError("game browser snapshot is invalid");
+  }
+  return snapshot.session;
 }
 
 export function createShippedGameSessionSetup(seed = 0, profile = "standard") {
@@ -57,10 +102,45 @@ export function createShippedGameSessionSetup(seed = 0, profile = "standard") {
   });
 }
 
-function inputSystems(session, cards) {
+function sameValues(left, right) {
+  return Array.isArray(left) && Array.isArray(right) && left.length === right.length &&
+    left.every((value, index) => value === right[index]);
+}
+
+/**
+ * Input owns a local deck/elixir mirror solely to make the next physical
+ * gesture legal before the session consumes it.  During a yielding segment
+ * that mirror can continue from its last trusted public state instead of
+ * repeatedly reconstructing an ever-longer session transcript.  The cache is
+ * owned by one input-factory closure and keyed by the exact live session.
+ * It is never command authority: GameInputBridge still validates/delivers to
+ * GameSession. Cache use is invalidated by (1) a restore or restart session
+ * identity change, (2) a rollback/non-monotonic mirror tick, and (3) any
+ * public deck or elixir mismatch after the permitted tick-only catch-up. Each
+ * invalidation falls back to canonical public session bytes; the WeakMap also
+ * releases unreachable prior sessions with its owning graph.
+ */
+function matchesInputSystems(systems, state) {
+  const deck = systems.deck.state;
+  const expectedDeck = state.decks.south;
+  const elixir = systems.elixir.state;
+  const expectedElixir = state.elixir.sides.south;
+  return deck.sequence === expectedDeck.sequence && deck.next === expectedDeck.next &&
+    sameValues(deck.hand, expectedDeck.hand) && sameValues(deck.queue, expectedDeck.queue) &&
+    elixir.tick === state.tick && elixir.sides.south.amount === expectedElixir.amount &&
+    elixir.sides.south.accumulator === expectedElixir.accumulator;
+}
+
+function inputSystems(session, cards, cache) {
+  const state = session.state;
+  const continued = cache.get(session);
+  if (continued !== undefined && continued.elixir.tick <= state.tick) {
+    continued.elixir.advanceTicks(state.tick - continued.elixir.tick);
+    if (matchesInputSystems(continued, state)) return continued;
+  }
+
   const snapshot = JSON.parse(session.serialize());
   const setup = snapshot.setup;
-  const state = session.state;
   const costs = new Map(cards.map(({ cost, id }) => [id, cost]));
   const deck = new DeckCycle({ deck: setup.deck, seed: `${setup.seed}:${LOCAL_SIDE}` });
   const elixir = new ElixirMatch({ startingElixir: setup.startingElixir });
@@ -80,7 +160,9 @@ function inputSystems(session, cards) {
     }
     elixir.step();
   }
-  return { deck, elixir };
+  const systems = { deck, elixir };
+  cache.set(session, systems);
+  return systems;
 }
 
 function createProjectionLayers(shell) {
@@ -107,8 +189,9 @@ function createProjectionLayers(shell) {
 
 function createInputFactory(shell, cards) {
   const cardsText = serializeArenaInputCards(cards);
+  const inputSystemCache = new WeakMap();
   return (session, nextCommandId, selectedCardId = null) => {
-    const systems = inputSystems(session, cards);
+    const systems = inputSystems(session, cards, inputSystemCache);
     const updateHooks = (_selected = null, projected = systems) => {
       const slots = Array.from(shell.querySelectorAll('[data-ui="card-slot"]'));
       for (let index = 0; index < slots.length; index += 1) {
@@ -164,6 +247,12 @@ export function mountShippedGameBrowser(
   let replacing = false;
   let restartCount = 0;
   let lastSession = session ?? new GameSession(createShippedGameSessionSetup());
+  let enduranceDrive = null;
+  let enduranceYield = null;
+  let enduranceYieldPolicy = scheduler.scheduler !== null &&
+    (typeof scheduler.scheduler === "object" || typeof scheduler.scheduler === "function") &&
+    typeof scheduler.scheduler.yield === "function"
+    ? "raf-scheduler-yield-raf" : "raf-raf";
 
   const cleanup = (candidate) => {
     const errors = [];
@@ -188,6 +277,93 @@ export function mountShippedGameBrowser(
   const assertActive = () => {
     if (!active || graph === null) throw new RangeError("shipped browser is disposed");
     if (replacing) throw new Error("shipped browser reentrant operation rejected");
+  };
+  const cancelEnduranceYield = () => {
+    const pending = enduranceYield;
+    if (pending === null) return false;
+    enduranceYield = null;
+    try {
+      if (pending.frameHandle !== null) scheduler.cancelAnimationFrame(pending.frameHandle);
+    } catch {}
+    try {
+      if (pending.secondFrameHandle !== null) {
+        scheduler.cancelAnimationFrame(pending.secondFrameHandle);
+      }
+    } catch {}
+    pending.reject(new Error("shipped browser endurance drive was cancelled"));
+    return true;
+  };
+  const yieldToBrowser = () => new Promise((resolve, reject) => {
+    if (!active || graph === null) {
+      reject(new RangeError("shipped browser is disposed"));
+      return;
+    }
+    const pending = { frameHandle: null, secondFrameHandle: null, reject };
+    enduranceYield = pending;
+    const complete = () => {
+      if (enduranceYield !== pending) return;
+      enduranceYield = null;
+      resolve();
+    };
+    const completeOnSecondFrame = () => {
+      if (enduranceYield !== pending) return;
+      try {
+        pending.secondFrameHandle = scheduler.requestAnimationFrame(() => {
+          pending.secondFrameHandle = null;
+          complete();
+        });
+      } catch (error) {
+        if (enduranceYield === pending) enduranceYield = null;
+        reject(error);
+      }
+    };
+    try {
+      pending.frameHandle = scheduler.requestAnimationFrame(() => {
+        if (enduranceYield !== pending) return;
+        pending.frameHandle = null;
+        // RAF is scheduler authority. Chrome's task scheduler then yields an
+        // event-loop/GC seam. Older or fake schedulers use one more
+        // cancellable RAF. Neither value enters GameSession simulation.
+        const taskScheduler = scheduler.scheduler;
+        if (taskScheduler !== null &&
+            (typeof taskScheduler === "object" || typeof taskScheduler === "function") &&
+            typeof taskScheduler.yield === "function") {
+          let yielded;
+          try { yielded = taskScheduler.yield(); }
+          catch (error) { if (enduranceYield === pending) enduranceYield = null; reject(error); return; }
+          if (yielded === null || (typeof yielded !== "object" &&
+              typeof yielded !== "function") || typeof yielded.then !== "function") {
+            if (enduranceYield === pending) enduranceYield = null;
+            reject(new TypeError("shipped browser scheduler yield is invalid"));
+            return;
+          }
+          Promise.resolve(yielded).then(completeOnSecondFrame, (error) => {
+            if (enduranceYield !== pending) return;
+            enduranceYield = null;
+            reject(error);
+          });
+          return;
+        }
+        enduranceYieldPolicy = "raf-raf";
+        completeOnSecondFrame();
+      });
+    } catch (error) {
+      if (enduranceYield === pending) enduranceYield = null;
+      reject(error);
+    }
+  });
+  const consumedRestoreCandidate = (bytes) => {
+    if (typeof bytes !== "string") return null;
+    try {
+      const snapshot = JSON.parse(bytes);
+      if (snapshot === null || Array.isArray(snapshot) ||
+          typeof snapshot.session !== "string") return null;
+      return GameSession.restore(snapshot.session);
+    } catch {
+      // The loop remains the canonical snapshot validator and will report its
+      // own error without replacing either graph for malformed snapshots.
+      return null;
+    }
   };
   const buildGraph = (authenticSession, policy) => {
     const browserAudio = new BrowserPcmAudioSink(
@@ -254,11 +430,41 @@ export function mountShippedGameBrowser(
       throw error;
     }
   };
+  const advanceManualSegment = (count, accelerated) => {
+    const events = graph.loop.stepMany(count);
+    const audio = accelerated
+      ? graph.audioRuntime.renderAcceleratedFrame()
+      : graph.audioRuntime.renderFrame();
+    renderRestart(graph);
+    return { audio, events };
+  };
   const api = Object.freeze({
     get audio() { assertActive(); return graph.controls.state; },
+    get audioDiagnostics() { assertActive(); return graph.audioRuntime.state; },
+    // Read-only continuation witness: intentionally excludes the browser sink's
+    // already-heard transaction history and reset generation, neither of which
+    // can affect future deterministic audio projection after a restore.
+    get audioContinuationBytes() {
+      assertActive();
+      const audio = graph.audioRuntime.state;
+      return canonical({ cursor: audio.cursor, disposed: audio.disposed,
+        gainBasisPoints: audio.gainBasisPoints, muted: audio.muted,
+        sessionBytes: graph.loop.session.serialize(),
+        suppressedAcceleratedCueCount: audio.suppressedAcceleratedCueCount,
+        terminal: audio.terminal, version: 1 });
+    },
+    get enduranceYieldPolicy() { assertActive(); return enduranceYieldPolicy; },
     dispose() {
       if (!active) return false;
-      assertActive();
+      if (graph === null || replacing) {
+        throw new Error("shipped browser reentrant operation rejected");
+      }
+      // Rejecting a pending RAF yield is asynchronous.  Detach the loop's
+      // endurance transaction first so loop.dispose() cannot observe a stale
+      // input-suspended transaction while this public disposal continues.
+      cancelEnduranceYield();
+      graph.loop.abortEnduranceSegment();
+      enduranceDrive = null;
       active = false;
       const current = graph;
       graph = null;
@@ -275,16 +481,113 @@ export function mountShippedGameBrowser(
       if (changed) manualStepMode = true;
       return changed;
     },
-    /** Advance one bounded deterministic segment without synthesizing skipped audio. */
+    /**
+     * Advance one bounded manual segment.  This compatibility path is kept for
+     * the short browser journey; sustained play uses driveEnduranceSegment().
+     */
     fastForwardSegment(count) {
       assertActive();
       if (!manualStepMode || !Number.isSafeInteger(count) || count < 0 || count > 1_200) {
         throw new TypeError("shipped browser fast-forward segment is invalid");
       }
       const remaining = 18_000 - graph.loop.state.sessionTick;
-      const events = graph.loop.stepMany(Math.min(count, remaining));
-      renderRestart(graph);
-      return events;
+      return advanceManualSegment(Math.min(count, remaining), true).events;
+    },
+    /**
+     * Browser endurance driver: fixed one-tick simulation slices yield through real
+     * RAF. Input is detached for that short segment; every 100 ticks (and the
+     * terminal/final boundary) the loop atomically projects DOM and the audio runtime
+     * consumes every new authority record with its bounded accelerated policy.
+     * RAF is only an event-loop yield seam and never enters simulation state.
+     */
+    async driveEnduranceSegment(count) {
+      assertActive();
+      if (!manualStepMode || !Number.isSafeInteger(count) || count < 1 ||
+          count > GAME_BROWSER_ENDURANCE_MAX_SEGMENT_TICKS) {
+        throw new TypeError("shipped browser endurance segment is invalid");
+      }
+      if (enduranceDrive !== null) {
+        throw new Error("shipped browser endurance drive is already active");
+      }
+      const token = Object.freeze({});
+      enduranceDrive = token;
+      const candidate = graph;
+      const chunks = [];
+      let remaining = Math.min(count, 18_000 - candidate.loop.state.sessionTick);
+      let opened = false;
+      try {
+        candidate.loop.beginEnduranceSegment();
+        opened = true;
+        let simulationSliceCount = 0;
+        let simulationTickCount = 0;
+        let presentationEventCount = 0;
+        while (remaining > 0 && !candidate.loop.state.terminal) {
+          const fromTick = candidate.loop.state.sessionTick;
+          const slice = candidate.loop.advanceEnduranceSlice(
+            Math.min(GAME_BROWSER_ENDURANCE_MAX_CHUNK_TICKS, remaining,
+              GAME_BROWSER_ENDURANCE_PRESENTATION_TICKS - simulationTickCount),
+          );
+          const advanced = slice.sessionTick - fromTick;
+          if (advanced <= 0) throw new Error("shipped browser endurance segment did not advance");
+          remaining -= advanced;
+          simulationSliceCount += 1;
+          simulationTickCount += advanced;
+          presentationEventCount += slice.events.length;
+          const present = simulationTickCount >= GAME_BROWSER_ENDURANCE_PRESENTATION_TICKS ||
+            remaining === 0 || slice.terminal;
+          if (present) {
+            // The final one-tick simulation continuation and its complete
+            // 100-tick presentation are both required work, but need not run
+            // in one browser task. Keep their exact simulation boundary and
+            // single DOM/audio transaction intact while giving Chrome the
+            // same real scheduler seam used between ordinary slices.
+            await yieldToBrowser();
+            const state = candidate.loop.presentEnduranceFrame();
+            // Projection is one atomic same-tick DOM transaction. Its audio
+            // authority transaction is equally required, but the browser may
+            // schedule it in the following task without changing any
+            // simulation tick, event cursor, or presentation cadence.
+            await yieldToBrowser();
+            const audio = candidate.audioRuntime.renderAcceleratedFrame();
+            // Keep the bounded audio transaction intact, then give the
+            // post-audio view bookkeeping and final input remount their own
+            // browser task. No simulation or audio authority can advance
+            // across this seam because the transaction remains suspended.
+            await yieldToBrowser();
+            renderRestart(candidate);
+            chunks.push(Object.freeze({
+              audio: Object.freeze({
+                authorityRecordCount: audio.state.eventCount,
+                audibleCueCap: GAME_AUDIO_RUNTIME_MAX_ACCELERATED_CUES,
+                candidateCueCount: audio.candidateCueCount,
+                cursor: audio.state.cursor,
+                cueSequences: Object.freeze(audio.cues.map(({ sequence }) => sequence)),
+                skippedCueCount: audio.skippedCueCount,
+                startSequences: Object.freeze(audio.starts.map(({ sequence }) => sequence)),
+                transactionCount: audio.state.transactionCount,
+              }),
+              domTick: state.domTick,
+              eventCount: presentationEventCount,
+              fromTick: state.sessionTick - simulationTickCount,
+              sessionTick: state.sessionTick,
+              simulationChunkTicks: GAME_BROWSER_ENDURANCE_MAX_CHUNK_TICKS,
+              simulationSliceCount,
+              simulationTickCount,
+            }));
+            simulationSliceCount = 0;
+            simulationTickCount = 0;
+            presentationEventCount = 0;
+          }
+          if (remaining > 0 && !slice.terminal) await yieldToBrowser();
+        }
+        candidate.loop.finishEnduranceSegment();
+        opened = false;
+        return Object.freeze({ chunks: Object.freeze(chunks), state: api.state,
+          yieldPolicy: enduranceYieldPolicy });
+      } finally {
+        if (opened) candidate.loop.abortEnduranceSegment();
+        if (enduranceDrive === token) enduranceDrive = null;
+      }
     },
     pause() {
       assertActive();
@@ -297,6 +600,7 @@ export function mountShippedGameBrowser(
       assertActive();
       if (!graph.loop.state.terminal) return false;
       replacing = true;
+      cancelEnduranceYield(); graph.loop.abortEnduranceSegment(); enduranceDrive = null;
       const previous = graph;
       const policy = {
         gainBasisPoints: previous.controls.state.gainBasisPoints,
@@ -326,12 +630,88 @@ export function mountShippedGameBrowser(
     },
     restore(bytes) {
       assertActive();
+      // Preflight before loop.restore() swaps DOM/input graph so an unseen
+      // snapshot cannot be silently marked as heard by a prefix rebase.
+      const candidate = consumedRestoreCandidate(bytes);
+      let audioRestorePolicy = "prefix";
+      if (candidate !== null) {
+        try { graph.audioRuntime.assertRebaseable(candidate); }
+        catch (error) {
+          if (!(error instanceof RangeError)) throw error;
+          // A valid restore after a fresh restart has authority this runtime
+          // never observed. It must be projected silently, never relabelled
+          // as already heard and never replayed into the browser sink.
+          audioRestorePolicy = "silent-unseen";
+        }
+      }
       const state = graph.loop.restore(bytes);
-      graph.audioRuntime.restart(graph.loop.session);
-      graph.audioRuntime.renderFrame();
+      if (audioRestorePolicy === "prefix") {
+        // Rebase instead of replaying a previously consumed prefix into sink.
+        graph.audioRuntime.rebase(graph.loop.session);
+      } else graph.audioRuntime.rebaseSilently(graph.loop.session);
       lastSession = graph.loop.session;
       renderRestart(graph);
       return state;
+    },
+    /**
+     * Restore a serialized browser snapshot without a synchronous transcript
+     * reconstruction task. The existing session transcript remains the sole
+     * authority: every replayed simulation advancement is one explicit tick,
+     * and browser yields are only seams between those public operations.
+     */
+    async restoreEndurance(bytes) {
+      assertActive();
+      if (!manualStepMode) {
+        throw new Error("shipped browser endurance restore requires manual step mode");
+      }
+      if (enduranceDrive !== null) {
+        throw new Error("shipped browser endurance drive is already active");
+      }
+      const token = Object.freeze({});
+      enduranceDrive = token;
+      const candidate = graph;
+      let opened = false;
+      try {
+        // Detach E2 input before any yielded reconstruction. The loop commits
+        // the completed, byte-witnessed session directly from this same
+        // transaction, so no half-restored graph becomes observable.
+        candidate.loop.beginEnduranceSegment();
+        opened = true;
+        const continuation = createGameSessionRestoreContinuation(
+          enduranceRestoreSessionBytes(bytes),
+        );
+        // Keep envelope/setup preflight separate from the first replay tick.
+        await yieldToBrowser();
+        while (!continuation.ready) {
+          continuation.advance();
+          // This includes the final replay operation: exact byte witnessing is
+          // intentionally a later, independently yielded transaction.
+          await yieldToBrowser();
+        }
+        continuation.finalize();
+        await yieldToBrowser();
+
+        let audioRestorePolicy = "prefix";
+        try { candidate.audioRuntime.assertRebaseable(continuation.session); }
+        catch (error) {
+          if (!(error instanceof RangeError)) throw error;
+          audioRestorePolicy = "silent-unseen";
+        }
+        await yieldToBrowser();
+
+        const capability = candidate.loop.prepareEnduranceRestore(bytes, continuation);
+        const state = candidate.loop.commitEnduranceRestore(bytes, capability);
+        opened = false;
+        if (audioRestorePolicy === "prefix") {
+          candidate.audioRuntime.rebase(candidate.loop.session);
+        } else candidate.audioRuntime.rebaseSilently(candidate.loop.session);
+        lastSession = candidate.loop.session;
+        renderRestart(candidate);
+        return state;
+      } finally {
+        if (opened) candidate.loop.abortEnduranceSegment();
+        if (enduranceDrive === token) enduranceDrive = null;
+      }
     },
     resume() {
       assertActive();
@@ -358,10 +738,7 @@ export function mountShippedGameBrowser(
     },
     stepMany(count = 1) {
       assertActive();
-      const events = graph.loop.stepMany(count);
-      graph.audioRuntime.renderFrame();
-      renderRestart(graph);
-      return events;
+      return advanceManualSegment(count, false).events;
     },
   });
   try {
