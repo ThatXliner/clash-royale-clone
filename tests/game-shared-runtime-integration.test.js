@@ -112,10 +112,23 @@ function sharedCoil(session) {
   return { id: unit.id, kind: "unit" };
 }
 
+function captureError(operation, pattern, label) {
+  let error = null;
+  try {
+    operation();
+  } catch (caught) {
+    error = caught;
+  }
+  assert.ok(error instanceof Error, `${label} throws`);
+  assert.match(error.message, pattern, label);
+  return error;
+}
+
 function assertAtomicQuestion(session, command, pattern, label) {
   const before = byteViews(session);
-  assert.throws(() => session.submitPlayerCommand(command), pattern, label);
+  const error = captureError(() => session.submitPlayerCommand(command), pattern, label);
   assert.deepEqual(byteViews(session), before, `${label} preserves all canonical bytes`);
+  return error;
 }
 
 function assertQuestionBoundaries(session, target) {
@@ -126,11 +139,18 @@ function assertQuestionBoundaries(session, target) {
     { target, type: "spell" }), /explicit QUESTION.*admitted-effect-without-exact-executable-profile/u,
   "unprofiled effect spell");
   for (const [index, cardId] of ["bramble-cage", "ember-roost"].entries()) {
-    assert.throws(() => getSessionCardAdmissionRecord(cardId), /explicit QUESTION/u,
+    const catalogQuestion = captureError(() => getSessionCardAdmissionRecord(cardId), /explicit QUESTION/u,
       `${cardId} remains a content QUESTION`);
     const command = canonical({ cardId, commandId: 92 + index, point: { ...SOUTH }, slot: 0,
       tick: session.state.tick, type: "deploy" });
-    assertAtomicQuestion(session, command, /unknown/u, `${cardId} excluded session command`);
+    const sessionRejection = assertAtomicQuestion(session, command, /unknown/u,
+      `${cardId} excluded session command`);
+    assert.match(catalogQuestion.message, new RegExp(`session card ${cardId} remains an explicit QUESTION`),
+      "the real-session command is blocked because the same catalog identity is explicitly excluded");
+    assert.match(sessionRejection.message, new RegExp(`player session deploy card is unknown`),
+      "GameSession cannot admit an identity which the catalog has refused to admit");
+    assert.equal(JSON.parse(command).cardId, cardId,
+      "the byte-atomic real GameSession attempt uses the exact catalog-QUESTION building identity");
   }
 }
 
@@ -182,6 +202,15 @@ function causalReceipts(session) {
   };
 }
 
+function committedCardEvents(session) {
+  return session.replay.filter(({ type }) => ["session-deployed", "session-structure-deployed",
+    "session-spell-played"].includes(type)).map((event) => {
+    const cardId = event.deployment?.cardId ?? event.materialization?.cardId ?? event.intent?.cardId;
+    const sequence = event.deployment?.sequence ?? event.materialization?.sequence ?? event.intent?.sequence;
+    return { cardId, sequence, side: event.side, spend: event.spend, tick: event.tick, type: event.type };
+  });
+}
+
 function assertIntegratedGraph(session) {
   const state = session.state;
   const receipts = causalReceipts(session);
@@ -213,14 +242,49 @@ function assertIntegratedGraph(session) {
     ["bulwark-needle", "cinder-reliquary", "squall-orb", "static-burst"].includes(cardId)), false,
   "structures and effects are never fabricated as placeholder units");
   const routes = state.cardRuntime.history;
-  assert.equal(routes.filter(({ cardId }) => cardId === "mossguard").length, 1);
-  assert.equal(routes.filter(({ cardId }) => cardId === "bulwark-needle").length, 1);
-  assert.equal(routes.filter(({ cardId }) => cardId === "cinder-reliquary").length, 1);
-  assert.equal(routes.filter(({ cardId }) => cardId === "squall-orb").length, 1);
+  assert.deepEqual(routes.map(({ cardId, commandId, kind, sequence, side, tick, type }) =>
+    ({ cardId, commandId, kind, sequence, side, tick, type })), [
+    { cardId: "mossguard", commandId: 0, kind: "unit", sequence: 0, side: "south", tick: 0,
+      type: "session-card-routed" },
+    { cardId: "coilblade", commandId: 0, kind: "unit", sequence: 1, side: "north", tick: 0,
+      type: "session-card-routed" },
+    { cardId: "bulwark-needle", commandId: 1, kind: "structure", sequence: 2, side: "south", tick: 1,
+      type: "session-card-routed" },
+    { cardId: "cinder-reliquary", commandId: 1, kind: "structure", sequence: 3, side: "north", tick: 1,
+      type: "session-card-routed" },
+    { cardId: "squall-orb", commandId: 3, kind: "effect", sequence: 4, side: "south", tick: 2,
+      type: "session-card-routed" },
+  ], "each card has one globally sequenced canonical route");
+  assert.equal(new Set(routes.map(({ sequence }) => sequence)).size, routes.length,
+    "all deck/card routes consume one sequence exactly once");
+  assert.deepEqual(committedCardEvents(session), [
+    { cardId: "mossguard", sequence: 0, side: "south", tick: 0, type: "session-deployed",
+      spend: { accepted: true, amountAfter: 7, cost: 3, reason: "accepted", sequence: 0,
+        side: "south", tick: 0, type: "spend" } },
+    { cardId: "coilblade", sequence: 1, side: "north", tick: 0, type: "session-deployed",
+      spend: { accepted: true, amountAfter: 6, cost: 4, reason: "accepted", sequence: 1,
+        side: "north", tick: 0, type: "spend" } },
+    { cardId: "bulwark-needle", sequence: 2, side: "south", tick: 1,
+      type: "session-structure-deployed", spend: { accepted: true, amountAfter: 4, cost: 3,
+        reason: "accepted", sequence: 2, side: "south", tick: 1, type: "spend" } },
+    { cardId: "cinder-reliquary", sequence: 3, side: "north", tick: 1,
+      type: "session-structure-deployed", spend: { accepted: true, amountAfter: 2, cost: 4,
+        reason: "accepted", sequence: 3, side: "north", tick: 1, type: "spend" } },
+    { cardId: "squall-orb", sequence: 4, side: "south", tick: 2, type: "session-spell-played",
+      spend: { accepted: true, amountAfter: 0, cost: 4, reason: "accepted", sequence: 4,
+        side: "south", tick: 2, type: "spend" } },
+  ], "every accepted route publishes one exact commit and one exact sourced elixir spend");
   assert.equal(state.decks.south.sequence, 3, "south deck cycles exactly once per accepted card");
   assert.equal(state.decks.north.sequence, 2, "north deck cycles exactly once per accepted card");
-  assert.equal(state.elixir.sides.south.amount >= 0, true);
-  assert.equal(state.elixir.sides.north.amount >= 0, true);
+  assert.deepEqual(state.elixir, {
+    tick: FINAL_TICK,
+    sides: {
+      north: { accumulator: 24, amount: 4 },
+      south: { accumulator: 24, amount: 2 },
+    },
+  }, "post-regeneration balances prove the five exact debits occurred once with no phantom credit");
+  assert.deepEqual(session.replay.filter(({ type }) => /building-resource-(grant|granted)/u.test(type)), [],
+    "the Cinder branch introduces no hidden building-elixir credit");
 }
 
 test("game shared runtime integration: one GameSession graph preserves unit, structure, and profiled-effect causality across continuations", () => {
