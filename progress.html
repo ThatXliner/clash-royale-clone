@@ -26,10 +26,10 @@
   <h1>Gauntlet progress</h1>
   <p class="sub">Updated 2026-08-12 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
-    <div class="card"><div class="num">155</div><div class="label">tracked pieces</div></div>
+    <div class="card"><div class="num">165</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">114</div><div class="label">passed</div></div>
     <div class="card"><div class="num">248</div><div class="label">completed rounds</div></div>
-    <div class="card"><div class="num">24</div><div class="label">open questions</div></div>
+    <div class="card"><div class="num">23</div><div class="label">open questions</div></div>
   </div>
   <p class="note">Active target: <strong>GAME-001PH — Hostile movement-history canonicalization</strong>.</p>
   <h2>Every piece</h2>
@@ -1231,11 +1231,59 @@
       </tr>
       <tr>
         <td><code>GAME-001HT</code></td>
-        <td>Unified-session troop roster mechanics</td>
+        <td>Unified-session troop roster mechanics umbrella</td>
         <td class="state-blocked">BLOCKED</td>
         <td>0/0</td>
         <td>1</td>
-        <td>Round 1 failed: only 31 IDs/33 occurrences are admitted, 23 admitted IDs lack LiveBattle projections, and shared troop mechanics/ability actions have no serialized authority seam</td>
+        <td>Round 1 failed; split by independently executable projection/mechanic families after audit found 31 admitted IDs, two QUESTION identities and no honest one-patch shared-runtime path</td>
+      </tr>
+      <tr>
+        <td><code>GAME-001HTP</code></td>
+        <td>Troop occurrence and session-profile contract</td>
+        <td class="state-pending">PENDING</td>
+        <td>0/0</td>
+        <td>0</td>
+        <td>Freeze exact occurrence-to-session claims before implementing mechanics</td>
+      </tr>
+      <tr>
+        <td><code>GAME-001HTO</code></td>
+        <td>Ordinary troop projection into eight-card witness sessions</td>
+        <td class="state-pending">PENDING</td>
+        <td>0/0</td>
+        <td>0</td>
+        <td>Current LiveBattle projects only the original eight-card roster</td>
+      </tr>
+      <tr>
+        <td><code>GAME-001HTM</code></td>
+        <td>Shared troop movement and form mechanics</td>
+        <td class="state-blocked">BLOCKED</td>
+        <td>0/0</td>
+        <td>0</td>
+        <td>Await source-backed per-occurrence movement/form contracts; isolated encounter fixtures are not session authority</td>
+      </tr>
+      <tr>
+        <td><code>GAME-001HTJ</code></td>
+        <td>Shared troop projectile mechanics</td>
+        <td class="state-blocked">BLOCKED</td>
+        <td>0/0</td>
+        <td>0</td>
+        <td>Depends on explicit cross-module projectile identity and source-backed per-card projectile contracts</td>
+      </tr>
+      <tr>
+        <td><code>GAME-001HTS</code></td>
+        <td>Shared troop status, heal and visibility mechanics</td>
+        <td class="state-blocked">BLOCKED</td>
+        <td>0/0</td>
+        <td>0</td>
+        <td>Common reference schema explicitly omits most ability/status values; source contracts are required before coding</td>
+      </tr>
+      <tr>
+        <td><code>GAME-001HTC</code></td>
+        <td>Shared champion and duplicated-facade troop composition</td>
+        <td class="state-blocked">BLOCKED</td>
+        <td>0/0</td>
+        <td>0</td>
+        <td>Missing canonical composition receipts for charge/knockback and reflection/champion claims</td>
       </tr>
       <tr>
         <td><code>GAME-001HBA</code></td>
@@ -1271,11 +1319,43 @@
       </tr>
       <tr>
         <td><code>GAME-001HS</code></td>
-        <td>Unified-session spell roster mechanics</td>
-        <td class="state-question">QUESTION</td>
+        <td>Unified-session spell roster mechanics umbrella</td>
+        <td class="state-blocked">BLOCKED</td>
         <td>0/0</td>
         <td>0</td>
-        <td>Squall-orb has four separately claimed facades but no authoritative common-session composition; choosing one or running four private encounters would be false coverage</td>
+        <td>Split by profile/effect family; Squall's four private facades cannot count until one source-backed common-session composition exists</td>
+      </tr>
+      <tr>
+        <td><code>GAME-001HSQ</code></td>
+        <td>Spell occurrence and common-composition evidence contract</td>
+        <td class="state-blocked">BLOCKED</td>
+        <td>0/0</td>
+        <td>0</td>
+        <td>Required Squall union facts are absent; existing per-facade QUESTION inventories do not authorize a composition</td>
+      </tr>
+      <tr>
+        <td><code>GAME-001HSP</code></td>
+        <td>Shared periodic spell mechanics</td>
+        <td class="state-blocked">BLOCKED</td>
+        <td>0/0</td>
+        <td>0</td>
+        <td>Isolated periodic reducers exist, but no canonical shared-session profile receipts are frozen</td>
+      </tr>
+      <tr>
+        <td><code>GAME-001HSS</code></td>
+        <td>Shared instant and status spell mechanics</td>
+        <td class="state-blocked">BLOCKED</td>
+        <td>0/0</td>
+        <td>0</td>
+        <td>Current session safely rejects these admitted-but-unprofiled effects; source-backed shared profiles remain absent</td>
+      </tr>
+      <tr>
+        <td><code>GAME-001HST</code></td>
+        <td>Shared traveling, wave, return and roll spell mechanics</td>
+        <td class="state-blocked">BLOCKED</td>
+        <td>0/0</td>
+        <td>0</td>
+        <td>Isolated line/wave/return/roll facades are deterministic but lack common-session composition receipts</td>
       </tr>
       </tbody>
     </table>
