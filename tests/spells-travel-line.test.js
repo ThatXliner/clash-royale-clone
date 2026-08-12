@@ -573,7 +573,7 @@ test("travel line spell: failing bounds and composed launch are atomic", () => {
 test("travel line spell: passed projectile and instant-spell primitives are pinned and imported", () => {
   const hashes = {
     "../src/content/cards/spells-instant.js":
-      "ca6018cbbcea0013560655e9c2739c294af4d4f1f06658096e0452a8cb9bc035",
+      "d62c418b375be6ed28c7f79a115fa3e9c2e425db210018a0d9919bdb7993325a",
     "../src/sim/projectile.js":
       "7065af4288d2cb6617cecd5b18e37f75194ccb4e69013ea425ebb1749d1147aa",
   };

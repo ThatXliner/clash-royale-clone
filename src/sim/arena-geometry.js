@@ -117,6 +117,21 @@ function safeCoordinate(descriptor, label) {
   return value;
 }
 
+function pointIsInArena(point) {
+  return point.x >= 0 && point.x <= ARENA_WIDTH_MILLITILES &&
+    point.y >= 0 && point.y <= ARENA_LENGTH_MILLITILES;
+}
+
+function rectangleIsInArena(rectangle) {
+  return rectangle.minX >= 0 && rectangle.maxX <= ARENA_WIDTH_MILLITILES &&
+    rectangle.minY >= 0 && rectangle.maxY <= ARENA_LENGTH_MILLITILES;
+}
+
+function trustedRectangleContainsPoint(rectangle, point) {
+  return point.x >= rectangle.minX && point.x < rectangle.maxX &&
+    point.y >= rectangle.minY && point.y < rectangle.maxY;
+}
+
 export function validateArenaPoint(value, label = "arena point") {
   const descriptors = assertPlainDataObject(value, ["x", "y"], label);
   return {
@@ -146,18 +161,34 @@ export function validateArenaRectangle(value, label = "arena rectangle") {
   return rectangle;
 }
 
+// Static obstacle bounds are validated once from this module's frozen literal
+// layout. They are private, never caller-provided, and live for the module
+// lifetime; the public geometry APIs still validate every caller point and
+// rectangle. There is no exported capability or mutable per-session cache.
+const CANONICAL_STATIC_OBSTACLES = (() => {
+  const admitted = (rectangle, label) => {
+    const checked = validateArenaRectangle(rectangle, label);
+    if (!rectangleIsInArena(checked)) {
+      throw new RangeError(`${label} must be within the arena`);
+    }
+    return Object.freeze(checked);
+  };
+  return Object.freeze({
+    bridges: Object.freeze(ESTIMATED_LAYOUT.bridges.map(({ bounds }, index) =>
+      admitted(bounds, `canonical bridge ${index}`))),
+    river: admitted(ESTIMATED_LAYOUT.river, "canonical river"),
+    towers: Object.freeze(ESTIMATED_LAYOUT.towers.map(({ bounds }, index) =>
+      admitted(bounds, `canonical tower ${index}`))),
+  });
+})();
+
 /**
  * Arena coordinate bounds are closed: outer tile edges (0 and width/length)
  * are valid coordinates.
  */
 export function isPointInArena(value) {
   const point = validateArenaPoint(value);
-  return (
-    point.x >= 0 &&
-    point.x <= ARENA_WIDTH_MILLITILES &&
-    point.y >= 0 &&
-    point.y <= ARENA_LENGTH_MILLITILES
-  );
+  return pointIsInArena(point);
 }
 
 /**
@@ -166,29 +197,19 @@ export function isPointInArena(value) {
  */
 export function isRectangleInArena(value) {
   const rectangle = validateArenaRectangle(value);
-  return (
-    rectangle.minX >= 0 &&
-    rectangle.maxX <= ARENA_WIDTH_MILLITILES &&
-    rectangle.minY >= 0 &&
-    rectangle.maxY <= ARENA_LENGTH_MILLITILES
-  );
+  return rectangleIsInArena(rectangle);
 }
 
 /** Returns true for min edges and false for max edges. */
 export function rectangleContainsPoint(rectangleValue, pointValue) {
   const rectangle = validateArenaRectangle(rectangleValue);
   const point = validateArenaPoint(pointValue);
-  return (
-    point.x >= rectangle.minX &&
-    point.x < rectangle.maxX &&
-    point.y >= rectangle.minY &&
-    point.y < rectangle.maxY
-  );
+  return trustedRectangleContainsPoint(rectangle, point);
 }
 
 export function rotateArenaPoint180(value) {
   const point = validateArenaPoint(value);
-  if (!isPointInArena(point)) {
+  if (!pointIsInArena(point)) {
     throw new RangeError("arena point must be within the closed arena bounds");
   }
   return {
@@ -199,7 +220,7 @@ export function rotateArenaPoint180(value) {
 
 export function rotateArenaRectangle180(value) {
   const rectangle = validateArenaRectangle(value);
-  if (!isRectangleInArena(rectangle)) {
+  if (!rectangleIsInArena(rectangle)) {
     throw new RangeError(
       "arena rectangle must be within the closed arena bounds",
     );
@@ -219,14 +240,14 @@ export function rotateArenaRectangle180(value) {
  */
 export function isGroundStaticallyBlocked(value) {
   const point = validateArenaPoint(value);
-  if (!isPointInArena(point)) return true;
+  if (!pointIsInArena(point)) return true;
 
-  for (const tower of ESTIMATED_LAYOUT.towers) {
-    if (rectangleContainsPoint(tower.bounds, point)) return true;
+  for (const tower of CANONICAL_STATIC_OBSTACLES.towers) {
+    if (trustedRectangleContainsPoint(tower, point)) return true;
   }
-  if (!rectangleContainsPoint(ESTIMATED_LAYOUT.river, point)) return false;
-  return !ESTIMATED_LAYOUT.bridges.some((bridge) =>
-    rectangleContainsPoint(bridge.bounds, point)
+  if (!trustedRectangleContainsPoint(CANONICAL_STATIC_OBSTACLES.river, point)) return false;
+  return !CANONICAL_STATIC_OBSTACLES.bridges.some((bridge) =>
+    trustedRectangleContainsPoint(bridge, point)
   );
 }
 

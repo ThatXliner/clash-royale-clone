@@ -392,6 +392,90 @@ test("audio renderer: concrete PCM backend synthesizes, isolates, deduplicates, 
   assert.equal(sinkCalls, 1);
 });
 
+test("audio renderer: verified PCM reuse retains hostile waveform admission and voice isolation", () => {
+  const backend = new InMemoryPcmAudioBackend();
+  const value = renderer(backend);
+  const [first] = value.renderBatch([cue("attack", 0, 2)]);
+  const firstBytes = backend.activeVoices[0].bytes;
+  value.cleanupThroughTick(first.endTick);
+  value.renderBatch([cue("attack", 1, first.endTick)]);
+  const secondBytes = backend.activeVoices[0].bytes;
+  assert.deepEqual(secondBytes, firstBytes);
+  assert.notEqual(secondBytes, firstBytes);
+
+  const before = backend.state;
+  assert.throws(() => backend.apply({
+    commands: [{
+      ...first,
+      source: {
+        ...first.source,
+        waveform: { ...first.source.waveform, sampleCount: 1 },
+      },
+      voiceId: 99,
+    }],
+    transactionId: before.transactionCount + 1,
+  }), /invalid PCM metadata/);
+  assert.deepEqual(backend.state, before);
+});
+
+test("audio renderer: direct backend bounds procedural reuse and overflow remains atomic", () => {
+  const backend = new InMemoryPcmAudioBackend();
+  const base = createAudioProvenanceManifest().recipes[0];
+  const sourceAt = (frequency) => {
+    const recipe = {
+      ...base.recipe,
+      endFrequencyHz: frequency,
+      startFrequencyHz: frequency,
+    };
+    const pcm = synthesizeProceduralPcm(recipe);
+    return {
+      kind: "procedural",
+      recipe,
+      waveform: {
+        channels: pcm.channels,
+        format: pcm.format,
+        sampleCount: pcm.sampleCount,
+        sampleRateHz: pcm.sampleRateHz,
+        sha256: createHash("sha256").update(pcm.bytes).digest("hex"),
+      },
+    };
+  };
+  // The twelfth distinct valid source crosses the fixed eleven-family cache
+  // capacity. It still succeeds, but may not create an unbounded retained key.
+  for (let index = 0; index < 12; index += 1) {
+    backend.apply({
+      commands: [{
+        cueId: base.cueId,
+        effectiveGainBasisPoints: 1,
+        endTick: 2,
+        kind: "start",
+        source: sourceAt(100 + index),
+        startTick: 1,
+        voiceId: index + 1,
+      }],
+      transactionId: index + 1,
+    });
+  }
+  const before = backend.state;
+  assert.equal(before.activeVoiceCount, 12);
+  assert.equal(before.transactionCount, 12);
+  const invalid = sourceAt(200);
+  invalid.waveform.sampleCount = 1;
+  assert.throws(() => backend.apply({
+    commands: [{
+      cueId: base.cueId,
+      effectiveGainBasisPoints: 1,
+      endTick: 2,
+      kind: "start",
+      source: invalid,
+      startTick: 1,
+      voiceId: 99,
+    }],
+    transactionId: 13,
+  }), /invalid PCM metadata/);
+  assert.deepEqual(backend.state, before);
+});
+
 test("audio renderer: invalid batches are atomic and uncertain backend outcomes permanently fault", () => {
   const backend = fakeBackend();
   const value = renderer(backend.adapter);

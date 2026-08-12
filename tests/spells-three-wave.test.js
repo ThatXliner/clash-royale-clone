@@ -407,9 +407,9 @@ test("three-wave spell: hostile input and execution bounds reject atomically", (
 test("three-wave spell: passed primitives are pinned and scope excludes return and roll", () => {
   const hashes = {
     "../src/content/cards/spells-instant.js":
-      "ca6018cbbcea0013560655e9c2739c294af4d4f1f06658096e0452a8cb9bc035",
+      "d62c418b375be6ed28c7f79a115fa3e9c2e425db210018a0d9919bdb7993325a",
     "../src/content/cards/spells-travel-line.js":
-      "e50fee7697c067e44a35a3ebcb0507ba98834f3308be96f28f6c5cd723c04597",
+      "43c5d1a0e64545bec21d57bd8a9e2620fb9d4aceea42f2cec8820e6e0717b469",
   };
   for (const [path, expected] of Object.entries(hashes)) {
     const contents = readFileSync(new URL(path, import.meta.url));

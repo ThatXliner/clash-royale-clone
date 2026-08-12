@@ -302,7 +302,7 @@ test("buildings defensive differential: Prism stages and reset are canonical ram
   );
   pinnedHash(
     "../src/sim/attack-cycle.js",
-    "0c3d752dd98d2770b855c46738d4d2d19fe0c4cd06ac46f1c45c394118049a20",
+    "983c30f8a27c144bf01917eaebe058adf4af4e210f00ad0d138a5731950ab6b8",
   );
   const value = encounter("prism-furnace", [target(8, 4000)]);
   value.stepMany(231);

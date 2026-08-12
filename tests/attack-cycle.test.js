@@ -143,6 +143,33 @@ test("attack-cycle: chunking and serialize/restore are identical", () => {
   assert.equal(restored.serialize(), chunked.serialize());
 });
 
+test("attack-cycle: fork is an independent ordinary continuation", () => {
+  const source = new AttackCycle({
+    deployTicks: 0,
+    firstHitTicks: 2,
+    hitSpeedTicks: 3,
+  });
+  source.step(target(4));
+  const fork = source.fork();
+
+  assert.ok(fork instanceof AttackCycle);
+  assert.notEqual(fork, source);
+  assert.deepEqual(fork.state, source.state);
+  assert.equal(fork.serialize(), source.serialize());
+
+  assert.deepEqual(fork.step(target(4)), []);
+  assert.equal(fork.state.nextTick, 2);
+  assert.equal(source.state.nextTick, 1);
+  assert.notEqual(fork.serialize(), source.serialize());
+
+  assert.deepEqual(source.step(target(4)), []);
+  assert.equal(fork.serialize(), source.serialize());
+  assert.throws(
+    () => AttackCycle.prototype.fork.call(new Proxy(source, {})),
+    TypeError,
+  );
+});
+
 test("attack-cycle: invalid operations reject without mutation", () => {
   const cycle = new AttackCycle({
     deployTicks: 0,

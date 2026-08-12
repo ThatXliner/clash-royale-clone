@@ -928,7 +928,7 @@ class BattleMovement {
 }
 
 function defineBattleCombat(registerCompact) {
-  let compact;
+  let compact, currentTick;
   const runtimeInstances = new WeakSet();
 
 const MAX_BATTLE_COMBAT_STEP_TICKS = 18_000;
@@ -1576,6 +1576,12 @@ class BattleCombat {
   /** Internal-composition checkpoint: exact continuation without duplicate provenance. */
   static {
     compact = (value) => value.#runtimeClone(false);
+    currentTick = (value) => {
+      if (!runtimeInstances.has(value)) {
+        throw new TypeError("internal defineBattleCombat tick receiver is invalid");
+      }
+      return value.#tick;
+    };
   }
   /** Computes one boundary on a witness-free fork without retaining history. */
   previewBoundary(command) {
@@ -2299,7 +2305,11 @@ class BattleCombat {
     candidate.#tick = this.#tick;
     candidate.#units = this.#units.map((unit) => ({
       ...Object.fromEntries(UNIT_KEYS.map((key) => [key, clone(unit[key])])),
-      attack: AttackCycle.restore(unit.attack.serialize()),
+      // Each unit owns an authentic private AttackCycle. Forking it preserves
+      // an independent continuation without repeatedly serializing, parsing,
+      // and re-admitting that trusted internal authority for every session
+      // transaction.
+      attack: unit.attack.fork(),
       spawnedAt: unit.spawnedAt,
       targetId: unit.targetId,
     }));
@@ -2329,11 +2339,11 @@ const DynamicBattleCombat = BattleCombat;
     }
     return compact(value);
   }, registerCompact);
-  return { BattleCombat, DynamicBattleCombat, MAX_BATTLE_COMBAT_STEP_TICKS };
+  return { BattleCombat, DynamicBattleCombat, MAX_BATTLE_COMBAT_STEP_TICKS, currentTick };
 }
 
 function defineTowers(registerCompact) {
-  let compact;
+  let compact, currentTick;
   const runtimeInstances = new WeakSet();
 
 const TOWER_TICKS_PER_SECOND = 60;
@@ -3029,6 +3039,12 @@ class CrownTowerBattle {
   /** Internal-composition checkpoint: exact continuation without duplicate step provenance. */
   static {
     compact = (value) => value.#runtimeClone();
+    currentTick = (value) => {
+      if (!runtimeInstances.has(value)) {
+        throw new TypeError("internal defineTowers tick receiver is invalid");
+      }
+      return value.#state.nextTick;
+    };
   }
 
   #runtimeClone() {
@@ -3191,13 +3207,13 @@ function towerSecondsToTicks(seconds) {
     }
     return compact(value);
   }, registerCompact);
-  return { CrownTowerBattle, TOWER_COMBAT_CONFIG, TOWER_LIVE_SHOT_DELIVERY, TOWER_TICKS_PER_SECOND, TOWER_WINDUP_ESTIMATE, towerSecondsToTicks };
+  return { CrownTowerBattle, TOWER_COMBAT_CONFIG, TOWER_LIVE_SHOT_DELIVERY, TOWER_TICKS_PER_SECOND, TOWER_WINDUP_ESTIMATE, currentTick, towerSecondsToTicks };
 }
 
 function defineBattleTowers(BattleCombat, CrownTowerBattle, MAX_BATTLE_COMBAT_STEP_TICKS,
   battleCombatCompactClone, resolveBattleCombat, crownTowerCompactClone,
-  resolveCrownTower, registerCompact) {
-  let compact;
+  resolveCrownTower, battleCombatCurrentTick, crownTowerCurrentTick, registerCompact) {
+  let compact, towerSnapshot;
   const runtimeInstances = new WeakSet();
 
 const MAX_BATTLE_TOWER_STEP_TICKS = MAX_BATTLE_COMBAT_STEP_TICKS;
@@ -3690,6 +3706,14 @@ class BattleTowerCombat {
     });
   }
 
+  // This remains lexical-only through defineBattleTowers(). GameSession needs
+  // this narrow read for its independent tower-evidence witness, not the
+  // complete public combat projection (which also clones every unit).
+  #towerSnapshot() {
+    this.#assertSynchronized();
+    return clone(this.#towerRuntime().state.towers);
+  }
+
   get replay() {
     this.#assertPublicTranscript();
     return freeze(clone(this.#events));
@@ -3704,6 +3728,12 @@ class BattleTowerCombat {
   /** Internal composite checkpoint. Public history remains owned by the caller. */
   static {
     compact = (value) => value.#runtimeClone(false);
+    towerSnapshot = (value) => {
+      if (!runtimeInstances.has(value)) {
+        throw new TypeError("internal defineBattleTowers tower snapshot receiver is invalid");
+      }
+      return value.#towerSnapshot();
+    };
   }
   spawn(command) {
     this.#reserveHistory();
@@ -3992,7 +4022,7 @@ class BattleTowerCombat {
     this.#assertSynchronized();
     const combat = this.#combatRuntime();
     const towers = this.#towerRuntime();
-    const tick = combat.state.tick;
+    const tick = battleCombatCurrentTick(combat);
     const checkedExternal = external === null ? {
       externalHits: [], externalProjectiles: [], externalTowerHits: [], structures: [], tick,
     } : external;
@@ -4082,7 +4112,8 @@ class BattleTowerCombat {
   }
 
   #assertSynchronized() {
-    if (this.#combatRuntime().state.tick !== this.#towerRuntime().state.nextTick) {
+    if (battleCombatCurrentTick(this.#combatRuntime()) !==
+        crownTowerCurrentTick(this.#towerRuntime())) {
       throw new TypeError("battle combat and crown towers are not tick-synchronized");
     }
   }
@@ -4153,12 +4184,13 @@ const IntegratedBattleTowers = BattleTowerCombat;
     }
     return compact(value);
   }, registerCompact);
-  return { BattleTowerCombat, IntegratedBattleTowers, MAX_BATTLE_TOWER_STEP_TICKS };
+  return { BattleTowerCombat, IntegratedBattleTowers, MAX_BATTLE_TOWER_STEP_TICKS, towerSnapshot };
 }
 
 function defineLiveBattle(BattleMovement, BattleTowerCombat, battleMovementCompactClone,
-  resolveBattleMovement, battleTowerCompactClone, resolveBattleTower, registerCompact) {
-  let compact;
+  resolveBattleMovement, battleTowerCompactClone, resolveBattleTower, battleTowerSnapshot,
+  registerCompact) {
+  let compact, towerSnapshot, advanceFromSession;
   const runtimeInstances = new WeakSet();
 
 const MAX_LIVE_BATTLE_STEP_TICKS = 18_000;
@@ -4696,6 +4728,13 @@ function buildingProfileReceipt(setup) {
     .map(({ buildingRuntime, id }) => ({ cardId: id, profile: buildingRuntime })), version: 1 });
 }
 
+// These two runtimes are immutable configuration capabilities. Sharing their
+// empty instances keeps a unit-only continuation from reparsing an empty
+// shared-runtime receipt on every already-isolated GameSession candidate.
+const EMPTY_BUILDING_PROFILE_RECEIPT = canonical({ profiles: [], version: 1 });
+const EMPTY_BUILDING_RUNTIME = createSessionBuildingRuntime(EMPTY_BUILDING_PROFILE_RECEIPT);
+const EMPTY_TROOP_RUNTIME = new SessionTroopRuntime();
+
 function parseLiveBattleSetup(serialized) {
   return checkedSetup(parsedSetupBytes(serialized));
 }
@@ -5179,7 +5218,13 @@ class LiveBattle {
     this.#pendingStructures = [];
     this.#pendingTroopActions = [];
     this.#setup = setup;
-    this.#buildingRuntime = createSessionBuildingRuntime(buildingProfileReceipt(setup));
+    const hasBuildingProfile = setup.roster.some(({ buildingRuntime, kind }) =>
+      kind === "structure" && buildingRuntime !== undefined);
+    const buildingReceipt = hasBuildingProfile ? buildingProfileReceipt(setup) :
+      EMPTY_BUILDING_PROFILE_RECEIPT;
+    this.#buildingRuntime = buildingReceipt === EMPTY_BUILDING_PROFILE_RECEIPT
+      ? EMPTY_BUILDING_RUNTIME
+      : createSessionBuildingRuntime(buildingReceipt);
     this.#structures = [];
     this.#questionValues = new Map(setup.questions.map(({ key, value: answer }) => [key, answer]));
     this.#rosterById = new Map(setup.roster.map((card) => [card.id, card]));
@@ -5187,7 +5232,7 @@ class LiveBattle {
       ? null
       : createSpellIntentRuntime(setup.spellProfileReceipts);
     this.#troopRuntime = troopRuntimeProfiles === undefined
-      ? new SessionTroopRuntime()
+      ? EMPTY_TROOP_RUNTIME
       : new SessionTroopRuntime(troopRuntimeProfiles);
     this.#troopStatuses = new Map();
     for (const profile of this.#troopRuntime.configuration.profiles) {
@@ -5206,6 +5251,10 @@ class LiveBattle {
 
   #battleRuntime() {
     return this.#isContinuation ? resolveBattleTower(this.#battle) : this.#battle;
+  }
+
+  #towerSnapshot() {
+    return battleTowerSnapshot(this.#battleRuntime());
   }
 
   #movementRuntime(movement) {
@@ -5297,6 +5346,23 @@ class LiveBattle {
   /** Internal composite checkpoint. Public history remains owned by the caller. */
   static {
     compact = (value) => value.#runtimeClone(false);
+    towerSnapshot = (value) => {
+      if (!runtimeInstances.has(value)) {
+        throw new TypeError("internal defineLiveBattle tower snapshot receiver is invalid");
+      }
+      return value.#towerSnapshot();
+    };
+    // GameSession has already cloned this LiveBattle into an unobservable
+    // transactional candidate. Re-cloning it through public stepMany() would
+    // duplicate every live combat/movement authority on each fixed session
+    // slice without adding rollback protection. This closure never leaves the
+    // module and authenticates the receiver without touching attacker data.
+    advanceFromSession = (value, ticks) => {
+      if (!runtimeInstances.has(value)) {
+        throw new TypeError("internal defineLiveBattle session advance receiver is invalid");
+      }
+      return value.#advanceFromSession(ticks);
+    };
   }
   scheduleDeploy(serialized) {
     const command = parsedCommandBytes(serialized, "live battle deploy command");
@@ -5308,7 +5374,12 @@ class LiveBattle {
       throw new RangeError("live battle deployment/history bound exceeded");
     }
     const battle = this.#battleRuntime();
-    const checked = checkedDeploy(command, battle.state.tick, this.#rosterById);
+    // `BattleTowerCombat.state` is a complete immutable projection. Capture
+    // the current tick once: admission and the observable scheduling event
+    // must name the same boundary, and a second projection needlessly clones
+    // every live unit/projectile during an active deployment transaction.
+    const battleTick = battle.state.tick;
+    const checked = checkedDeploy(command, battleTick, this.#rosterById);
     if (this.#pending.some((entry) =>
       entry.tick === checked.tick && entry.sequence === checked.sequence) ||
         this.#pendingStructures.some((entry) => entry.tick === checked.tick &&
@@ -5320,7 +5391,7 @@ class LiveBattle {
     this.#pending.sort((left, right) => left.tick - right.tick ||
       left.sequence - right.sequence || sideRank(left.side) - sideRank(right.side));
     this.#appendHistory({ command: clone(checked), type: "deploy" });
-    const event = { ...clone(checked), scheduledAt: battle.state.tick, type: "deploy-scheduled" };
+    const event = { ...clone(checked), scheduledAt: battleTick, type: "deploy-scheduled" };
     this.#events.push(event);
     return freeze(clone(event));
   }
@@ -5458,6 +5529,25 @@ class LiveBattle {
     for (let count = 0; count < ticks; count += 1) events.push(...candidate.#advance());
     this.#adopt(candidate);
     return freeze(clone(events));
+  }
+
+  /**
+   * Closure-private fast path for GameSession's already-isolated candidate.
+   * Public callers retain stepMany()'s independent clone/adopt transaction;
+   * any failure here instead discards the enclosing GameSession candidate.
+   */
+  #advanceFromSession(ticks) {
+    integer(ticks, 0, MAX_LIVE_BATTLE_STEP_TICKS, "live battle session advance ticks");
+    // GameSession has already checked its synchronized match-clock boundary
+    // before constructing this candidate. Reading BattleTowerCombat.state here
+    // would clone every active unit only to repeat that same 18,000-tick cap;
+    // #advance() obtains the one authoritative pre-boundary snapshot below.
+    if (this.#historyCount + ticks > MAX_HISTORY) {
+      throw new RangeError("live battle history bound exceeded");
+    }
+    const events = [];
+    for (let count = 0; count < ticks; count += 1) events.push(...this.#advance());
+    return events;
   }
 
   serialize() {
@@ -5737,37 +5827,57 @@ class LiveBattle {
   }
 
   #advance() {
-    this.#preflightBoundary();
     const battle = this.#battleRuntime();
-    const tick = battle.state.tick;
+    // BattleTowerCombat.state is deliberately a complete immutable public
+    // snapshot. Reuse the pre-materialization read for admission and target
+    // selection rather than repeatedly cloning every live unit on a normal
+    // one-tick transactional continuation. A deployment changes the unit set,
+    // so only that path obtains the one required post-materialization view.
+    let before = battle.state;
+    const due = this.#preflightBoundary(before);
+    const tick = before.tick;
     const boundary = [];
-    const due = this.#pending.filter((entry) => entry.tick === tick);
-    const dueTroopActions = this.#allowsLegacyTroopActions()
+    const unitOnlyBoundary = this.#buildingRuntime === EMPTY_BUILDING_RUNTIME &&
+      this.#troopRuntime === EMPTY_TROOP_RUNTIME && this.#spells === null &&
+      this.#structures.length === 0 && this.#pendingStructures.length === 0 &&
+      this.#pendingBuildingHits.length === 0 && this.#pendingTroopActions.length === 0;
+    const hasTroopRuntime = this.#hasTroopRuntime();
+    const allowsLegacyTroopActions = hasTroopRuntime && this.#troopRuntime.allowsLegacyActions;
+    const usesCurrentContactRuntime = hasTroopRuntime &&
+      this.#troopRuntime.version === SESSION_TROOP_RUNTIME_VERSION;
+    const dueTroopActions = unitOnlyBoundary ? null : allowsLegacyTroopActions
       ? this.#pendingTroopActions.filter((entry) => entry.tick === tick)
       : [];
     this.#pending = this.#pending.filter((entry) => entry.tick !== tick);
-    if (this.#allowsLegacyTroopActions()) {
+    if (allowsLegacyTroopActions) {
       this.#pendingTroopActions = this.#pendingTroopActions.filter((entry) => entry.tick !== tick);
     }
-    const deploySources = [];
+    const deploySources = unitOnlyBoundary ? null : [];
     for (const deployment of due) {
       const materialized = this.#materialize(deployment);
       boundary.push(...materialized);
-      const deployed = materialized.find(({ type }) => type === "deployed");
-      for (const sourceId of deployed.entityIds) {
-        deploySources.push(this.#troopSource(sourceId, { requireAlive: false }));
+      if (!unitOnlyBoundary) {
+        const deployed = materialized.find(({ type }) => type === "deployed");
+        for (const sourceId of deployed.entityIds) {
+          deploySources.push(this.#troopSource(sourceId, { requireAlive: false }));
+        }
       }
     }
 
-    const dueStructures = this.#pendingStructures.filter((entry) => entry.tick === tick);
-    this.#pendingStructures = this.#pendingStructures.filter((entry) => entry.tick !== tick);
-    for (const deployment of dueStructures) {
-      boundary.push(...this.#materializeStructure(deployment));
+    const dueStructures = unitOnlyBoundary ? null :
+      this.#pendingStructures.filter((entry) => entry.tick === tick);
+    let externalHits = null;
+    let externalTowerHits = null;
+    if (!unitOnlyBoundary) {
+      this.#pendingStructures = this.#pendingStructures.filter((entry) => entry.tick !== tick);
+      for (const deployment of dueStructures) {
+        boundary.push(...this.#materializeStructure(deployment));
+      }
     }
 
     // Only v1/v2 retain deploy/pass witness receipts. The current v3 profile
     // observes a real host combat event and creates no placeholder record.
-    if (this.#hasTroopRuntime()) {
+    if (hasTroopRuntime) {
       boundary.push(...this.#troopReceipts(this.#runTroopRuntime("deploy", deploySources, null, tick)));
       boundary.push(...this.#troopReceipts(this.#runTroopRuntime(
         "pre-move", this.#phaseTroopSources(), null, tick,
@@ -5777,41 +5887,44 @@ class LiveBattle {
     // Building contacts are emitted at the prior shared boundary and consumed
     // here with ordinary BattleTowerCombat ingress. A stale target publishes
     // an ordered miss rather than mutating a later graph.
-    const dueBuilding = this.#pendingBuildingHits.filter(({ applyTick }) => applyTick === tick);
-    this.#pendingBuildingHits = this.#pendingBuildingHits.filter(({ applyTick }) => applyTick !== tick);
-    const externalHits = [];
-    const externalTowerHits = [];
-    for (const hit of dueBuilding) {
-      if (hit.targetKind === "structure") {
-        const target = this.#structures.find(({ id }) => id === hit.targetId);
-        if (target?.alive) {
-          boundary.push(...this.#damageStructure(target, hit.amount,
-            `building:${hit.sourceId}`, hit.origin));
+    const dueBuilding = unitOnlyBoundary ? null :
+      this.#pendingBuildingHits.filter(({ applyTick }) => applyTick === tick);
+    if (!unitOnlyBoundary) {
+      this.#pendingBuildingHits = this.#pendingBuildingHits.filter(({ applyTick }) => applyTick !== tick);
+      externalHits = [];
+      externalTowerHits = [];
+      for (const hit of dueBuilding) {
+        if (hit.targetKind === "structure") {
+          const target = this.#structures.find(({ id }) => id === hit.targetId);
+          if (target?.alive) {
+            boundary.push(...this.#damageStructure(target, hit.amount,
+              `building:${hit.sourceId}`, hit.origin));
+          } else {
+            boundary.push(this.#buildingMiss(hit));
+          }
+        } else if (hit.targetKind === "unit") {
+          const target = battle.state.units.find(({ alive, id }) => alive && id === hit.targetId);
+          if (target) {
+            externalHits.push({ damage: hit.amount, delivery: "melee",
+              sourceId: `building:${hit.sourceId}`, targetUnitId: hit.targetId });
+          } else {
+            boundary.push(this.#buildingMiss(hit));
+          }
+        } else if (hit.targetKind === "tower") {
+          const target = battle.state.towers.find(({ hitpoints, id }) => hitpoints > 0 && id === hit.targetId);
+          if (target) {
+            externalTowerHits.push({ amount: hit.amount, sourceId: `building:${hit.sourceId}`,
+              towerId: hit.targetId });
+          } else {
+            boundary.push(this.#buildingMiss(hit));
+          }
         } else {
-          boundary.push(this.#buildingMiss(hit));
+          throw new Error("live battle queued building target kind is invalid");
         }
-      } else if (hit.targetKind === "unit") {
-        const target = battle.state.units.find(({ alive, id }) => alive && id === hit.targetId);
-        if (target) {
-          externalHits.push({ damage: hit.amount, delivery: "melee",
-            sourceId: `building:${hit.sourceId}`, targetUnitId: hit.targetId });
-        } else {
-          boundary.push(this.#buildingMiss(hit));
-        }
-      } else if (hit.targetKind === "tower") {
-        const target = battle.state.towers.find(({ hitpoints, id }) => hitpoints > 0 && id === hit.targetId);
-        if (target) {
-          externalTowerHits.push({ amount: hit.amount, sourceId: `building:${hit.sourceId}`,
-            towerId: hit.targetId });
-        } else {
-          boundary.push(this.#buildingMiss(hit));
-        }
-      } else {
-        throw new Error("live battle queued building target kind is invalid");
       }
     }
 
-    const before = battle.state;
+    if (due.length > 0) before = battle.state;
     const positionCommands = [];
     for (const unit of before.units.filter(({ alive }) => alive).sort((a, b) => a.id - b.id)) {
       const movement = this.#movementRuntime(this.#movements.get(unit.id));
@@ -5839,6 +5952,12 @@ class LiveBattle {
     if (positionCommands.length > 0) {
       boundary.push(...battle.updatePositions({ positions: positionCommands, tick }));
     }
+    if (unitOnlyBoundary) {
+      boundary.push(...battle.step(tick));
+      this.#appendHistory({ tick, type: "step" });
+      this.#events.push(...clone(boundary));
+      return boundary;
+    }
     const spellActions = this.#spells === null ? [] : this.#spells.resolve(tick);
     const spellEffects = { unitHits: [] };
     for (const action of spellActions) {
@@ -5847,9 +5966,9 @@ class LiveBattle {
       spellEffects.unitHits.push({ damage: action.damage, effectId: action.effectId, sourceId,
         targetUnitId: action.target.id });
     }
-    const beforeCombat = battle.state;
+    const beforeCombat = usesCurrentContactRuntime ? battle.state : null;
     const actionPlans = [];
-    if (this.#hasTroopRuntime()) {
+    if (hasTroopRuntime) {
       boundary.push(...this.#troopReceipts(this.#runTroopRuntime(
         "pre-combat", this.#phaseTroopSources(), null, tick,
       )));
@@ -5888,7 +6007,7 @@ class LiveBattle {
     }
     boundary.push(...combatEvents);
 
-    if (this.#usesCurrentContactRuntime()) {
+    if (usesCurrentContactRuntime) {
       const contacts = this.#currentContactBatch(combatEvents, beforeCombat, tick);
       const plans = this.#runTroopRuntime("combat",
         this.#phaseTroopSourcesFromState(beforeCombat), null, tick, {
@@ -5899,7 +6018,7 @@ class LiveBattle {
       boundary.push(...this.#troopReceipts(plans));
     }
 
-    if (this.#hasTroopRuntime()) {
+    if (hasTroopRuntime) {
       boundary.push(...this.#troopReceipts(this.#runTroopRuntime(
         "post-combat", this.#phaseTroopSources(), null, tick,
       )));
@@ -5917,13 +6036,19 @@ class LiveBattle {
       }
     }
 
-    const building = this.#buildingRuntime.reduceBoundary(canonical({ structures: this.#structures,
-      tick, towers: battle.state.towers.map(({ hitpoints, id, position, side }) =>
-        ({ hitpoints, id, position, side })), units: battle.state.units.map((unit) => ({
-        alive: unit.alive, id: unit.id, layer: unit.layer, position: unit.position, radius: unit.radius,
-        side: unit.side, targetable: unit.alive,
-      })) }));
-    boundary.push(...this.#applyBuildingIntents(building, tick));
+    // An empty building runtime is semantically inert. Do not serialize and
+    // revalidate the complete unit/tower graph until a structure or its queued
+    // causal work actually exists. Once present, the authoritative reducer and
+    // intent validation remain on the exact shared boundary below.
+    if (this.#structures.length > 0 || dueStructures.length > 0 || dueBuilding.length > 0) {
+      const building = this.#buildingRuntime.reduceBoundary(canonical({ structures: this.#structures,
+        tick, towers: battle.state.towers.map(({ hitpoints, id, position, side }) =>
+          ({ hitpoints, id, position, side })), units: battle.state.units.map((unit) => ({
+          alive: unit.alive, id: unit.id, layer: unit.layer, position: unit.position, radius: unit.radius,
+          side: unit.side, targetable: unit.alive,
+        })) }));
+      boundary.push(...this.#applyBuildingIntents(building, tick));
+    }
     this.#appendHistory({ tick, type: "step" });
     this.#events.push(...clone(boundary));
     return boundary;
@@ -6243,29 +6368,30 @@ class LiveBattle {
     return checked;
   }
 
-  #preflightBoundary() {
-    const battle = this.#battleRuntime();
-    const tick = battle.state.tick;
+  #preflightBoundary(state = this.#battleRuntime().state) {
+    const tick = state.tick;
     const due = this.#pending.filter((entry) => entry.tick === tick);
-    const dueStructures = this.#pendingStructures.filter((entry) => entry.tick === tick);
+    const dueStructures = this.#pendingStructures.length === 0 ? null :
+      this.#pendingStructures.filter((entry) => entry.tick === tick);
     const added = due.reduce((sum, deployment) => {
       const card = this.#rosterById.get(deployment.cardId);
       if (card === undefined) throw new TypeError("live battle pending card identity is unknown");
       return sum + card.formation.totalCount;
     }, 0);
-    const existing = battle.state.units.length;
+    const existing = state.units.length;
     if (!Number.isSafeInteger(added) || existing + added > MAX_LIVE_BATTLE_UNITS) {
       throw new RangeError("live battle boundary unit capacity exceeded");
     }
-    if (this.#structures.length + dueStructures.length > MAX_LIVE_BATTLE_STRUCTURES) {
+    if (this.#structures.length + (dueStructures?.length ?? 0) > MAX_LIVE_BATTLE_STRUCTURES) {
       throw new RangeError("live battle boundary structure capacity exceeded");
     }
-    if (this.#nextEntityId + added + dueStructures.length > Number.MAX_SAFE_INTEGER) {
+    if (this.#nextEntityId + added + (dueStructures?.length ?? 0) > Number.MAX_SAFE_INTEGER) {
       throw new RangeError("live battle entity identity capacity exceeded");
     }
     if (this.#pendingBuildingHits.length > MAX_PENDING_BUILDING_HITS) {
       throw new RangeError("live battle pending building contact capacity exceeded");
     }
+    return due;
   }
 
   #materialize(deployment) {
@@ -6544,17 +6670,22 @@ class LiveBattle {
     candidate.#movementsOpaque = true;
     candidate.#nextEntityId = this.#nextEntityId;
     candidate.#pending = clone(this.#pending);
-    candidate.#pendingBuildingHits = clone(this.#pendingBuildingHits);
-    candidate.#pendingStructures = clone(this.#pendingStructures);
-    candidate.#pendingTroopActions = clone(this.#pendingTroopActions);
+    candidate.#pendingBuildingHits = this.#pendingBuildingHits.length === 0
+      ? [] : clone(this.#pendingBuildingHits);
+    candidate.#pendingStructures = this.#pendingStructures.length === 0
+      ? [] : clone(this.#pendingStructures);
+    candidate.#pendingTroopActions = this.#pendingTroopActions.length === 0
+      ? [] : clone(this.#pendingTroopActions);
     candidate.#questionValues = new Map(this.#questionValues);
     candidate.#setup = this.#setup;
     candidate.#rosterById = new Map(candidate.#setup.roster.map((card) => [card.id, card]));
     candidate.#spells = this.#spells === null ? null : this.#spells.fork();
-    candidate.#structures = clone(this.#structures);
-    candidate.#troopRuntime = this.#troopRuntime.fork();
-    candidate.#troopStatuses = new Map([...this.#troopStatuses]
-      .map(([key, status]) => [key, clone(status)]));
+    candidate.#structures = this.#structures.length === 0 ? [] : clone(this.#structures);
+    candidate.#troopRuntime = this.#hasTroopRuntime()
+      ? this.#troopRuntime.fork()
+      : EMPTY_TROOP_RUNTIME;
+    candidate.#troopStatuses = this.#troopStatuses.size === 0 ? new Map() : new Map(
+      [...this.#troopStatuses].map(([key, status]) => [key, clone(status)]));
     return candidate;
   }
 
@@ -6596,31 +6727,37 @@ function getLiveBattlePlayableCardIds(setup) {
     }
     return compact(value);
   }, registerCompact);
-  return { createLegacyLiveBattleForRestore, getLiveBattlePlayableCardIds, LiveBattle, MAX_LIVE_BATTLE_DEPLOYMENTS,
-    MAX_LIVE_BATTLE_STEP_TICKS, MAX_LIVE_BATTLE_STRUCTURES, MAX_LIVE_BATTLE_UNITS,
-    parseLiveBattleSetup };
+  return { advanceFromSession, createLegacyLiveBattleForRestore, getLiveBattlePlayableCardIds, LiveBattle,
+    MAX_LIVE_BATTLE_DEPLOYMENTS, MAX_LIVE_BATTLE_STEP_TICKS, MAX_LIVE_BATTLE_STRUCTURES,
+    MAX_LIVE_BATTLE_UNITS, parseLiveBattleSetup, towerSnapshot };
 }
 
 let compactMovement, resolveMovement, compactCombat, resolveCombat, compactCrownTower,
-  resolveCrownTower, compactBattleTowers, resolveBattleTowers, compactLiveBattle,
-  resolveLiveBattle;
+  resolveCrownTower, battleCombatCurrentTick, crownTowerCurrentTick, compactBattleTowers,
+  resolveBattleTowers, compactLiveBattle, resolveLiveBattle, liveBattleAdvanceFromSession,
+  liveBattleTowerSnapshot;
 const movement = defineBattleMovement((clone, resolve) => {
   compactMovement = clone; resolveMovement = resolve;
 });
 const combat = defineBattleCombat((clone, resolve) => {
   compactCombat = clone; resolveCombat = resolve;
 });
+battleCombatCurrentTick = combat.currentTick;
 const towers = defineTowers((clone, resolve) => {
   compactCrownTower = clone; resolveCrownTower = resolve;
 });
+crownTowerCurrentTick = towers.currentTick;
 const battleTowers = defineBattleTowers(combat.BattleCombat, towers.CrownTowerBattle,
   combat.MAX_BATTLE_COMBAT_STEP_TICKS, compactCombat, resolveCombat, compactCrownTower,
-  resolveCrownTower, (clone, resolve) => {
+  resolveCrownTower, battleCombatCurrentTick, crownTowerCurrentTick, (clone, resolve) => {
     compactBattleTowers = clone; resolveBattleTowers = resolve;
   });
 const liveBattle = defineLiveBattle(movement.BattleMovement, battleTowers.BattleTowerCombat,
   compactMovement, resolveMovement, compactBattleTowers, resolveBattleTowers,
+  battleTowers.towerSnapshot,
   (clone, resolve) => { compactLiveBattle = clone; resolveLiveBattle = resolve; });
+liveBattleAdvanceFromSession = liveBattle.advanceFromSession;
+liveBattleTowerSnapshot = liveBattle.towerSnapshot;
 
 export const BATTLE_MOVEMENT_MODES = movement.BATTLE_MOVEMENT_MODES;
 export const MAX_BATTLE_MOVEMENT_STEP_TICKS = movement.MAX_BATTLE_MOVEMENT_STEP_TICKS;
@@ -8985,6 +9122,13 @@ const authenticGameSessionProjectionSnapshots = new WeakSet();
 // Module-private capability: only restore/restart can instantiate a pre-HBA
 // route-only structure setup. Fresh construction is always strict.
 const LEGACY_STRUCTURE_RESTORE = Symbol("legacy structure restore");
+const GAME_SESSION_SNAPSHOT_SUFFIX = "],\"version\":2}";
+const GAME_SESSION_SNAPSHOT_SUFFIX_BYTES = GAME_SESSION_SNAPSHOT_SUFFIX.length;
+// A clone shell may reuse only this frozen setup graph, which has already
+// passed the complete public setup admission. The fieldless token itself is
+// private to GameSession instances; WeakMap identity lookup cannot inspect a
+// forged, proxied, or revoked caller-supplied value.
+const prevalidatedGameSessionSetups = new WeakMap();
 
 function isAuthenticGameSession(value) {
   return authenticGameSessions.has(value);
@@ -9123,9 +9267,22 @@ function validateSetup(bytes, { allowLegacyStructureReceipts = false } = {}) {
     if (admitted.kind === "unit") battle.scheduleDeploy(canonical({ cardId: entry.cardId,
       point: entry.point, sequence, side: "north", tick: 0 }));
   });
-  return { battleSetupValue: legacyStructureReceipts ? freeze(clone(battleSetupValue)) : null,
+  return { batchBattleAdvance: !battleSetupValue.roster.some(({ kind }) => kind === "structure"),
+    battleSetupValue: legacyStructureReceipts ? freeze(clone(battleSetupValue)) : null,
     cardRuntime, cards, costs, legacyStructureReceipts, setup: freeze(clone(setup)),
     troopRuntimeProfiles };
+}
+function issuePrevalidatedGameSessionSetup(setup, batchBattleAdvance) {
+  const snapshotPrefix = `{\"setup\":${canonical(setup)},\"transcript\":[`;
+  const token = Object.freeze(Object.create(null));
+  assertOpaqueContinuationHandle(token);
+  prevalidatedGameSessionSetups.set(token, Object.freeze({
+    batchBattleAdvance,
+    setup,
+    snapshotPrefix,
+    snapshotPrefixBytes: scalarByteLength(snapshotPrefix, "game session snapshot"),
+  }));
+  return token;
 }
 function initialMatchTowers(battle) {
   const order = ["north:central", "north:lane:left", "north:lane:right",
@@ -9199,14 +9356,33 @@ function commandText(value) {
 
 class GameSession {
   #battle; #cardRuntime; #clock; #controller; #costs; #decks; #elixir; #events = [];
-  #history = []; #legal; #nextDeploymentSequence = 0; #paused = false; #pending = [];
+  #history = []; #historyBytes = []; #historyByteLength = 0; #legal;
+  #nextDeploymentSequence = 0; #paused = false; #pending = [];
   #processed = new Map(); #projectionSequence = 0; #projectionSource = Object.freeze({}); #setup;
-  #towerEvidence; #legacyStructureReceipts = false; #isContinuation = false;
+  #setupToken; #snapshotPrefix; #snapshotPrefixBytes; #towerEvidence; #isContinuation = false;
+  #legacyStructureReceipts = false;
+  #batchBattleAdvance = true;
 
   constructor(canonicalSetup, restoreCapability = null) {
+    const prevalidated = new.target === GameSession
+      ? prevalidatedGameSessionSetups.get(canonicalSetup) : undefined;
+    if (prevalidated !== undefined) {
+      // This branch is reachable only from #runtimeClone() with an opaque
+      // lexical token. All mutable authorities are installed independently by
+      // that method before the candidate can escape or be observed.
+      this.#setup = prevalidated.setup;
+      this.#legal = prevalidated.setup.legalNorthDeployments;
+      this.#batchBattleAdvance = prevalidated.batchBattleAdvance;
+      this.#setupToken = canonicalSetup;
+      this.#snapshotPrefix = prevalidated.snapshotPrefix;
+      this.#snapshotPrefixBytes = prevalidated.snapshotPrefixBytes;
+      authenticGameSessions.add(this);
+      return;
+    }
     const checked = validateSetup(canonicalSetup, { allowLegacyStructureReceipts:
       restoreCapability === LEGACY_STRUCTURE_RESTORE }); this.#setup = checked.setup;
     this.#legacyStructureReceipts = checked.legacyStructureReceipts;
+    this.#batchBattleAdvance = checked.batchBattleAdvance;
     this.#cardRuntime = checked.cardRuntime;
     this.#costs = checked.costs; this.#legal = this.#setup.legalNorthDeployments;
     this.#battle = this.#legacyStructureReceipts
@@ -9220,6 +9396,10 @@ class GameSession {
       thinkOffsetTicks: this.#setup.thinkOffsetTicks });
     this.#clock = new MatchClock({ initialTowers: initialMatchTowers(this.#battle) });
     this.#towerEvidence = mapLiveBattleTowerStateToMatchEvidence(this.#battle.state.towers);
+    this.#setupToken = issuePrevalidatedGameSessionSetup(this.#setup, this.#batchBattleAdvance);
+    const prevalidatedSetup = prevalidatedGameSessionSetups.get(this.#setupToken);
+    this.#snapshotPrefix = prevalidatedSetup.snapshotPrefix;
+    this.#snapshotPrefixBytes = prevalidatedSetup.snapshotPrefixBytes;
     if (new.target === GameSession) authenticGameSessions.add(this);
   }
 
@@ -9237,6 +9417,25 @@ class GameSession {
 
   #elixirRuntime() {
     return this.#isContinuation ? resolveElixirMatch(this.#elixir) : this.#elixir;
+  }
+
+  // The public transcript is append-only after its fully validated setup.
+  // Retaining each exact canonical operation fragment makes the transactional
+  // snapshot bound O(new operations), while public serialize() still returns
+  // the identical canonical v2 bytes.
+  #appendHistory(operation) {
+    const bytes = canonical(operation);
+    this.#history.push(operation);
+    this.#historyBytes.push(bytes);
+    this.#historyByteLength += scalarByteLength(bytes, "game session snapshot") +
+      (this.#historyBytes.length === 1 ? 0 : 1);
+  }
+
+  #assertSnapshotBound() {
+    if (this.#snapshotPrefixBytes + this.#historyByteLength +
+        GAME_SESSION_SNAPSHOT_SUFFIX_BYTES > GAME_SESSION_MAX_SNAPSHOT_BYTES) {
+      throw new RangeError("game session snapshot exceeds its byte bound");
+    }
   }
 
   get state() { const battle = this.#battleRuntime(), clock = this.#clockRuntime();
@@ -9363,17 +9562,17 @@ class GameSession {
       }
     }
     this.#pending.push(command); this.#pending.sort((a, b) => a.tick - b.tick || a.commandId - b.commandId);
-    this.#history.push({ command: clone(command), type: "submit" });
+    this.#appendHistory({ command: clone(command), type: "submit" });
     if (before === this.serialize()) throw new Error("player command admission invariant failed");
     return freeze(clone({ accepted: true, commandId: command.commandId, tick: command.tick,
       type: "player-command-admitted" }));
   }
   pause() { if (!this.#paused) { if (this.#history.length >= GAME_SESSION_MAX_TRANSCRIPT) {
       throw new RangeError("game session transcript exceeds its operation bound");
-    } this.#paused = true; this.#history.push({ type: "pause" }); } return this.state; }
+    } this.#paused = true; this.#appendHistory({ type: "pause" }); } return this.state; }
   resume() { if (this.#paused) { if (this.#history.length >= GAME_SESSION_MAX_TRANSCRIPT) {
       throw new RangeError("game session transcript exceeds its operation bound");
-    } this.#paused = false; this.#history.push({ type: "resume" }); } return this.state; }
+    } this.#paused = false; this.#appendHistory({ type: "resume" }); } return this.state; }
   restart() { const freshSetup = clone(this.#setup); freshSetup.seed = 0;
     const fresh = new GameSession(canonical(freshSetup), this.#legacyStructureReceipts
       ? LEGACY_STRUCTURE_RESTORE : null); this.#adopt(fresh); return this.state; }
@@ -9406,16 +9605,13 @@ class GameSession {
     if (this.#history.length + committedCount > GAME_SESSION_MAX_TRANSCRIPT) {
       throw new RangeError("game session transcript exceeds its operation bound");
     }
-    for (let index = 0; index < committedCount; index += 1) candidate.#history.push({ type: "step" });
-    candidate.serialize(); this.#adopt(candidate); return freeze(clone(events));
+    for (let index = 0; index < committedCount; index += 1) candidate.#appendHistory({ type: "step" });
+    candidate.#assertSnapshotBound(); this.#adopt(candidate); return freeze(clone(events));
   }
 
   serialize() {
-    const bytes = canonical({ setup: this.#setup, transcript: this.#history, version: 2 });
-    if (scalarByteLength(bytes, "game session snapshot") > GAME_SESSION_MAX_SNAPSHOT_BYTES) {
-      throw new RangeError("game session snapshot exceeds byte bound");
-    }
-    return bytes;
+    this.#assertSnapshotBound();
+    return `${this.#snapshotPrefix}${this.#historyBytes.join(",")}${GAME_SESSION_SNAPSHOT_SUFFIX}`;
   }
   static restore(serialized) {
     const value = exact(parsed(serialized, "game session snapshot"),
@@ -9468,10 +9664,35 @@ class GameSession {
     const battle = this.#battleRuntime(), clock = this.#clockRuntime();
     const elixir = this.#elixirRuntime(), controller = this.#controllerRuntime();
     const firstTick = clock.tick, endTick = firstTick + count;
-    const staged = [], battleEvents = [], resourceEvents = [], towerRecords = clone(battle.state.towers);
+    // Tower evidence deliberately owns an independent six-record witness. Do
+    // not build LiveBattle.state here: that public projection also clones all
+    // active units and movement histories although this path consumes towers
+    // only. The lexical reader preserves BattleTowerCombat synchronization.
+    const batchBattleAdvance = this.#batchBattleAdvance;
+    const staged = [], battleEvents = [], resourceEvents = batchBattleAdvance ? null : [],
+      towerRecords = clone(liveBattleTowerSnapshot(battle));
+    let battleTick = firstTick;
+    const flushBattleTo = (tick) => {
+      if (tick < battleTick) throw new RangeError("session battle cursor moved backwards");
+      if (tick > battleTick) {
+        battleEvents.push(...liveBattleAdvanceFromSession(battle, tick - battleTick));
+      }
+      battleTick = tick;
+    };
+    // Structures have a live resource/contact reducer whose grants must reach
+    // ElixirMatch on their originating boundary. Keep that authoritative
+    // cadence intact; unit-only sessions can use the authenticated in-place
+    // continuation on this already-isolated GameSession candidate.
+    // Card kind and sourced spell admission are setup invariants. Derive the
+    // controller's materializable candidate set once instead of revalidating
+    // every legal card through SessionCardRuntime on every fixed tick.
+    const northLegalDeployments = this.#legal.filter(({ cardId }) =>
+      this.#cardRuntime.card(cardId).kind !== "effect" && cardId !== "burrow-rig" &&
+      !battle.hasSpellProfile(cardId));
     for (let tick = firstTick; tick < endTick; tick += 1) {
       const player = this.#pending.find((entry) => entry.tick === tick) ?? null;
       if (player) {
+        if (batchBattleAdvance) flushBattleTo(tick);
         if (player.type === "ability") {
           if (!battle.allowsLegacyTroopActions) {
             throw new RangeError("current session troop runtime does not admit player actions");
@@ -9494,30 +9715,37 @@ class GameSession {
       const hand = this.#decks.north.state.hand;
       // The deterministic opponent proposal has no sourced destination field;
       // underground travel remains player-only until one exists.
-      const observation = { legalNorthDeployments: this.#legal.filter(({ cardId }) =>
-        hand.includes(cardId) && this.#cardRuntime.card(cardId).kind !== "effect" &&
-          cardId !== "burrow-rig" && !battle.hasSpellProfile(cardId)),
+      const observation = { legalNorthDeployments: northLegalDeployments.filter(({ cardId }) =>
+        hand.includes(cardId)),
         northCardCosts: hand.map((cardId) => ({ cardId, cost: this.#costs.get(cardId) }))
           .sort((a, b) => a.cardId < b.cardId ? -1 : 1),
         northElixir: elixir.state.sides.north.amount, northHand: hand, tick };
       const proposal = controller.step(observation)[0] ?? null;
       if (proposal) {
+        if (batchBattleAdvance) flushBattleTo(tick);
         staged.push({ ...stageSideDeployment({ battle,
           cardCosts: this.#costs, command: { ...proposal,
             commandId: proposal.sequence, slot: hand.indexOf(proposal.cardId) },
           deck: this.#decks.north, deploymentSequence: this.#nextDeploymentSequence++,
           elixir, sessionCards: this.#cardRuntime }) });
       }
-      const tickBattleEvents = battle.step(tick);
-      battleEvents.push(...tickBattleEvents);
-      const grants = tickBattleEvents.filter(({ type }) => type === "building-resource-grant")
-        .map(({ amount, side, sourceId }) => ({ amount, side, sourceId }));
-      const elixirEvents = elixir.step({ grants });
-      for (const grant of elixirEvents.filter(({ sourceId, type }) =>
-        type === "grant" && sourceId !== null)) {
-        resourceEvents.push({ amountAfter: grant.amountAfter, amountGranted: grant.amountGranted,
-          amountRequested: grant.amountRequested, buildingId: grant.sourceId, side: grant.side,
-          tick: grant.tick, type: "building-resource-granted" });
+      let elixirEvents;
+      if (batchBattleAdvance) {
+        elixirEvents = elixir.step();
+      } else {
+        const tickBattleEvents = battle.step(tick);
+        battleEvents.push(...tickBattleEvents);
+        const grants = tickBattleEvents.filter(({ type }) => type === "building-resource-grant")
+          .map(({ amount, side, sourceId }) => ({ amount, side, sourceId }));
+        elixirEvents = elixir.step({ grants });
+      }
+      if (!batchBattleAdvance) {
+        for (const grant of elixirEvents.filter(({ sourceId, type }) =>
+          type === "grant" && sourceId !== null)) {
+          resourceEvents.push({ amountAfter: grant.amountAfter, amountGranted: grant.amountGranted,
+            amountRequested: grant.amountRequested, buildingId: grant.sourceId, side: grant.side,
+            tick: grant.tick, type: "building-resource-granted" });
+        }
       }
       for (const stage of staged.filter((entry) => entry.tick === tick)) {
         if (stage.type === "troop-action-staged") continue;
@@ -9527,6 +9755,7 @@ class GameSession {
         stage.resolvedSpend = spend;
       }
     }
+    if (batchBattleAdvance) flushBattleTo(endTick);
     const sessionEvents = [];
     for (const stage of staged) {
       let committed = stage.route;
@@ -9578,7 +9807,7 @@ class GameSession {
       const evidence = mapLiveBattleTowerStateToMatchEvidence(towerRecords);
       clock.scheduleTowerEvidence(tick, evidence); this.#towerEvidence = evidence;
     }
-    const finalEvidence = mapLiveBattleTowerStateToMatchEvidence(battle.state.towers);
+    const finalEvidence = mapLiveBattleTowerStateToMatchEvidence(liveBattleTowerSnapshot(battle));
     if (canonical(finalEvidence) !== canonical(this.#towerEvidence)) {
       throw new Error("session tower evidence did not reproduce the authoritative battle");
     }
@@ -9595,44 +9824,58 @@ class GameSession {
       "projectile-launch",
       "tower-destroyed",
     ].includes(type) || /^(building|structure|death-effect|travel|underground|ramp)-/u.test(type));
-    sessionEvents.push(...meaningfulBattle, ...resourceEvents, ...clockEvents);
+    sessionEvents.push(...meaningfulBattle, ...(resourceEvents ?? []), ...clockEvents);
     sessionEvents.sort((a, b) => (a.tick ?? 0) - (b.tick ?? 0));
     this.#events.push(...clone(sessionEvents));
     return sessionEvents;
   }
   #runtimeClone() {
-    const value = new GameSession(canonical(this.#setup), this.#legacyStructureReceipts
-      ? LEGACY_STRUCTURE_RESTORE : null);
+    const value = new GameSession(this.#setupToken);
     const battle = this.#battleRuntime(), clock = this.#clockRuntime();
     const controller = this.#controllerRuntime(), elixir = this.#elixirRuntime();
     value.#battle = compactLiveBattle(battle);
     value.#cardRuntime = this.#cardRuntime.fork();
     value.#clock = compactMatchClock(clock);
     value.#controller = compactOpponentController(controller);
+    value.#costs = new Map(this.#costs);
     value.#decks = { north: DeckCycle.restore(this.#decks.north.serializeJson()),
       south: DeckCycle.restore(this.#decks.south.serializeJson()) };
     value.#elixir = compactElixirMatch(elixir);
     value.#isContinuation = true;
     value.#events = [...this.#events]; value.#history = [...this.#history];
+    value.#historyBytes = [...this.#historyBytes]; value.#historyByteLength = this.#historyByteLength;
     value.#nextDeploymentSequence = this.#nextDeploymentSequence;
     value.#projectionSequence = this.#projectionSequence;
     value.#projectionSource = this.#projectionSource;
     value.#paused = this.#paused; value.#pending = clone(this.#pending);
     value.#processed = new Map([...this.#processed.entries()].map(([key, entry]) => [key, clone(entry)]));
-    value.#towerEvidence = mapLiveBattleTowerStateToMatchEvidence(value.#battleRuntime().state.towers);
+    value.#setupToken = this.#setupToken;
+    value.#snapshotPrefix = this.#snapshotPrefix;
+    value.#snapshotPrefixBytes = this.#snapshotPrefixBytes;
     value.#legacyStructureReceipts = this.#legacyStructureReceipts;
+    value.#batchBattleAdvance = this.#batchBattleAdvance;
+    // Every committed source session has already compared this frozen evidence
+    // with its authoritative live battle at the preceding boundary. A clone
+    // owns an independent copy; rebuilding it through LiveBattle.state would
+    // clone all live units just to read six tower records.
+    value.#towerEvidence = clone(this.#towerEvidence);
     return value;
   }
   #adopt(other) { this.#battle = other.#battle; this.#cardRuntime = other.#cardRuntime;
     this.#clock = other.#clock;
     this.#controller = other.#controller; this.#costs = other.#costs; this.#decks = other.#decks;
     this.#elixir = other.#elixir; this.#events = other.#events; this.#history = other.#history;
+    this.#historyBytes = other.#historyBytes; this.#historyByteLength = other.#historyByteLength;
     this.#legal = other.#legal; this.#nextDeploymentSequence = other.#nextDeploymentSequence;
     this.#projectionSequence = other.#projectionSequence;
     this.#projectionSource = other.#projectionSource;
     this.#paused = other.#paused; this.#pending = other.#pending; this.#processed = other.#processed;
-    this.#setup = other.#setup; this.#towerEvidence = other.#towerEvidence;
+    this.#setup = other.#setup; this.#setupToken = other.#setupToken;
+    this.#snapshotPrefix = other.#snapshotPrefix;
+    this.#snapshotPrefixBytes = other.#snapshotPrefixBytes;
+    this.#towerEvidence = other.#towerEvidence;
     this.#legacyStructureReceipts = other.#legacyStructureReceipts;
+    this.#batchBattleAdvance = other.#batchBattleAdvance;
     this.#isContinuation = other.#isContinuation; }
 }
   return {

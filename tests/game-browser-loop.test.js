@@ -11,6 +11,8 @@ import {
   GAME_BROWSER_MAX_TICKS_PER_FRAME,
   mountGameBrowserLoop,
 } from "../src/ui/game-browser-loop.js";
+import { createGameSessionRestoreContinuation } from
+  "../src/ui/game-session-restore-continuation.js";
 import {
   createArenaInputSessionContinuationCapability,
   mountArenaInputController,
@@ -214,6 +216,154 @@ test("game browser loop: input reaches the sole session and restore replaces lis
   assert.equal(value.loop.dispose(), true);
   assert.equal(value.arena.listenerCount(), 0);
   assert.equal(value.hand.reduce((sum, node) => sum + node.listenerCount(), 0), 0);
+});
+
+test("game browser loop: endurance slices yield with input detached then commit one coherent remount", () => {
+  const value = fixture();
+  assert.equal(value.loop.enterManualStepMode(), true);
+  const stalePointer = [...value.arena.listeners.get("pointerup")][0];
+  assert.equal(value.loop.beginEnduranceSegment().fromTick, 0);
+  assert.equal(value.loop.state.enduranceActive, true);
+  assert.equal(value.arena.listenerCount(), 0);
+  assert.equal(value.hand.reduce((sum, node) => sum + node.listenerCount(), 0), 0);
+  assert.throws(() => stalePointer({ clientX: 270, clientY: 708 }), /disposed/u);
+  assert.deepEqual(value.loop.advanceEnduranceSlice(1).fromTick, 0);
+  assert.deepEqual(value.loop.advanceEnduranceSlice(1).sessionTick, 2);
+  assert.equal(value.loop.state.domTick, 0, "simulation remains unpresented until its transaction");
+  value.loop.presentEnduranceFrame(); assertTicks(value, 2);
+  assert.equal(value.loop.finishEnduranceSegment().state.enduranceActive, false);
+  assert.equal(value.arena.listenerCount(), 1);
+  assert.equal(value.hand.reduce((sum, node) => sum + node.listenerCount(), 0), 4);
+  value.loop.dispose();
+});
+
+test("game browser loop: endurance entry separates slice, projection, and audio without changing commits", async () => {
+  const fs = await import("node:fs/promises");
+  const source = await fs.readFile(new URL("../src/ui/game-browser-entry.js", import.meta.url),
+    "utf8");
+  const start = source.indexOf("async driveEnduranceSegment(count)");
+  const end = source.indexOf("    pause() {", start);
+  assert.ok(start >= 0 && end > start, "the shipped endurance driver is present");
+  const driver = source.slice(start, end);
+  const present = driver.indexOf("if (present) {");
+  const firstYield = driver.indexOf("await yieldToBrowser();", present);
+  const projection = driver.indexOf("candidate.loop.presentEnduranceFrame()", present);
+  const secondYield = driver.indexOf("await yieldToBrowser();", projection);
+  const audio = driver.indexOf("candidate.audioRuntime.renderAcceleratedFrame()", secondYield);
+  const thirdYield = driver.indexOf("await yieldToBrowser();", audio);
+  const chunk = driver.indexOf("chunks.push", thirdYield);
+  assert.ok(present >= 0 && firstYield > present && projection > firstYield &&
+    secondYield > projection && audio > secondYield && thirdYield > audio && chunk > thirdYield,
+  "each completed slice yields before projection, audio, and post-audio chunk/finalization work");
+  assert.match(driver, /simulationTickCount >= GAME_BROWSER_ENDURANCE_PRESENTATION_TICKS\s*\|\|\s*remaining === 0\s*\|\|\s*slice\.terminal/u,
+    "the exact 100-tick, final-segment, and terminal commit boundaries remain intact");
+
+  const seamSetup = setup({ seed: "endurance-entry-seam" });
+  const expected = new GameSession(seamSetup);
+  const value = fixture(new GameSession(seamSetup));
+  assert.equal(value.loop.enterManualStepMode(), true);
+  value.loop.beginEnduranceSegment();
+  for (let tick = 0; tick < 100; tick += 1) {
+    value.loop.advanceEnduranceSlice(1);
+    expected.stepMany(1);
+  }
+  assert.equal(value.loop.session.serialize(), expected.serialize(),
+    "all one-tick slices retain exact canonical session bytes before presentation");
+  assert.equal(value.loop.state.domTick, 0,
+    "the full 100-tick transaction remains unpresented until its one commit");
+  value.loop.presentEnduranceFrame();
+  assertTicks(value, 100);
+  assert.equal(value.loop.session.serialize(), expected.serialize(),
+    "projection leaves the exact simulation bytes unchanged");
+  value.loop.finishEnduranceSegment();
+  assert.equal(value.arena.listenerCount(), 1,
+    "the committed transaction performs exactly one resumed input controller mount");
+  value.loop.dispose();
+});
+
+test("game browser loop: yielded restore cursor preserves exact session bytes and operation cuts", () => {
+  const source = new GameSession(setup({ seed: "yielded-restore", think: 7 }));
+  source.stepMany(9);
+  source.pause();
+  source.resume();
+  source.stepMany(11);
+  const bytes = source.serialize();
+  const cursor = createGameSessionRestoreContinuation(bytes);
+  assert.equal(cursor.complete, false);
+  let advances = 0;
+  while (!cursor.ready) {
+    const result = cursor.advance();
+    advances += 1;
+    assert.equal(result.index, advances);
+    assert.equal(result.complete, false);
+  }
+  assert.throws(() => cursor.session, /incomplete/u);
+  assert.equal(cursor.finalize().complete, true);
+  assert.equal(cursor.complete, true);
+  assert.equal(cursor.session.serialize(), bytes);
+  assert.equal(cursor.session.serialize(), GameSession.restore(bytes).serialize());
+  assert.equal(cursor.advance().complete, true);
+
+  const empty = new GameSession(setup({ seed: "yielded-empty", think: 7 })).serialize();
+  const emptyCursor = createGameSessionRestoreContinuation(empty);
+  assert.equal(emptyCursor.ready, true);
+  assert.equal(emptyCursor.finalize().complete, true);
+  assert.equal(emptyCursor.session.serialize(), empty);
+
+  let traps = 0;
+  const hostile = new Proxy({}, { get() { traps += 1; throw new Error("observed"); },
+    getPrototypeOf() { traps += 1; throw new Error("observed"); } });
+  assert.throws(() => createGameSessionRestoreContinuation(hostile), /canonical JSON text/u);
+  assert.equal(traps, 0);
+  const malformed = JSON.parse(bytes);
+  malformed.transcript.push({ type: "invalid" });
+  const malformedCursor = createGameSessionRestoreContinuation(canonical(malformed));
+  for (let index = 0; index < malformed.transcript.length - 1; index += 1) {
+    malformedCursor.advance();
+  }
+  assert.throws(() => malformedCursor.advance(), /operation type/u);
+});
+
+test("game browser loop: prepared endurance restore is opaque, exact-byte, owner-bound, and single-use", () => {
+  const value = fixture();
+  assert.equal(value.loop.enterManualStepMode(), true);
+  const snapshot = value.loop.serialize();
+  const cursor = createGameSessionRestoreContinuation(JSON.parse(snapshot).session);
+  while (!cursor.ready) cursor.advance();
+  cursor.finalize();
+
+  assert.equal(value.loop.beginEnduranceSegment().fromTick, 0);
+  let traps = 0;
+  const proxyCursor = new Proxy(cursor, { get() { traps += 1; throw new Error("observed"); } });
+  assert.throws(() => value.loop.prepareEnduranceRestore(snapshot, proxyCursor), /continuation/u);
+  assert.equal(traps, 0, "forged continuation admission is trap-zero");
+  const capability = value.loop.prepareEnduranceRestore(snapshot, cursor);
+  assert.throws(() => value.loop.prepareEnduranceRestore(snapshot, cursor), /continuation/u);
+
+  const hostileCapability = new Proxy({}, { get() { traps += 1; throw new Error("observed"); } });
+  assert.throws(() => value.loop.commitEnduranceRestore(snapshot, hostileCapability), /capability/u);
+  assert.equal(traps, 0, "forged capability admission is trap-zero");
+  assert.throws(() => value.loop.commitEnduranceRestore(snapshot, cursor.session), /capability/u,
+    "a raw authentic session is never an install authority");
+  const wrong = JSON.parse(snapshot); wrong.running = true;
+  assert.throws(() => value.loop.commitEnduranceRestore(canonical(wrong), capability), /capability/u,
+    "capability is tied to the exact browser snapshot session bytes");
+
+  const other = fixture();
+  assert.equal(other.loop.enterManualStepMode(), true);
+  other.loop.beginEnduranceSegment();
+  assert.throws(() => other.loop.commitEnduranceRestore(snapshot, capability), /cross-loop/u);
+  assert.equal(other.loop.state.enduranceActive, true);
+  other.loop.abortEnduranceSegment();
+
+  const committed = value.loop.commitEnduranceRestore(snapshot, capability);
+  assert.equal(committed.enduranceActive, false);
+  assertTicks(value, 0);
+  assert.equal(value.loop.beginEnduranceSegment().fromTick, 0);
+  assert.throws(() => value.loop.commitEnduranceRestore(snapshot, capability), /capability/u,
+    "a consumed capability cannot be replayed");
+  value.loop.abortEnduranceSegment();
+  value.loop.dispose(); other.loop.dispose();
 });
 
 test("game browser loop: duplicate mount rejects and cleanup is idempotent", () => {

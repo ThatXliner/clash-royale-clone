@@ -5,6 +5,10 @@ import {
 } from "../sim/game-session.js";
 import { GameInputBridge } from "./game-input-bridge.js";
 import { createGameUiFrame, mountGameUiProjection } from "./game-ui-projection.js";
+import {
+  consumeGameBrowserRestoreCapability,
+  createGameBrowserRestoreCapability,
+} from "./game-session-restore-continuation.js";
 
 export const GAME_BROWSER_TICKS_PER_SECOND = 60;
 export const GAME_BROWSER_MAX_TICKS_PER_FRAME = 120;
@@ -116,12 +120,21 @@ export function mountGameBrowserLoop(options) {
   let fractionalTicks = 0;
   let backlogTicks = 0;
   let domTick = -1;
+  // An endurance transaction deliberately holds pointer input detached while
+  // simulation yields back to the browser.  That prevents a stale controller
+  // from observing a half-presented session; finishEnduranceSegment() mounts
+  // exactly one fresh controller against the committed session state.
+  let endurance = null;
   let inOperation = false;
   let selectedCardId = null;
+  // This never leaves the loop closure. A prepared restore capability minted
+  // for one loop cannot be consumed by any other mounted loop.
+  const preparedRestoreOwner = Object.freeze({});
 
   const assertActive = () => {
     if (!active) throw new RangeError("game browser loop is disposed");
     if (inOperation) throw new Error("game browser loop reentrant operation rejected");
+    if (endurance !== null) throw new Error("game browser endurance transaction is active");
   };
   const render = () => {
     const frame = createGameUiFrame(session);
@@ -195,6 +208,60 @@ export function mountGameBrowserLoop(options) {
     suspendInput();
     return true;
   };
+  const checkedRestoreCandidate = (snapshot, candidate) => {
+    if (!isAuthenticGameSession(candidate) || candidate.serialize() !== snapshot.session) {
+      throw new TypeError("game browser restore candidate is not the supplied session snapshot");
+    }
+    if (snapshot.running && (candidate.state.paused || candidate.state.terminal)) {
+      throw new TypeError("game browser running snapshot is incoherent");
+    }
+    return candidate;
+  };
+  const restoreCandidate = (snapshot, candidate) => {
+    inOperation = true;
+    try {
+      cancel();
+      const cleanupErrors = cleanupGraph(graph); graph = null;
+      if (cleanupErrors.length) {
+        active = false; ACTIVE_ROOTS.delete(checked.root);
+        throw new AggregateError(cleanupErrors, "game browser restore cleanup failed");
+      }
+      session = candidate; selectedCardId = null;
+      buildGraph(session, snapshot.bridge);
+      running = snapshot.running; lastTimestamp = null; fractionalTicks = 0; backlogTicks = 0;
+      render();
+      if (session.state.paused || session.state.terminal) suspendInput();
+      if (running) schedule();
+      return api.state;
+    } catch (error) {
+      cancel(); running = false;
+      if (graph === null) {
+        active = false; ACTIVE_ROOTS.delete(checked.root);
+      }
+      throw error;
+    } finally { inOperation = false; }
+  };
+  const assertEndurance = () => {
+    if (endurance === null) throw new Error("game browser endurance transaction is inactive");
+  };
+  const finishEndurance = (aborted) => {
+    assertEndurance();
+    inOperation = true;
+    try {
+      // A caller may end a segment early only on failure.  Keep the DOM
+      // transactional even then, so cleanup or a later caller never observes
+      // a simulation tick that was not projected.
+      if (domTick !== session.state.tick) render();
+      if (session.state.terminal) stopAtTerminal(); else resumeInput();
+      endurance = null;
+      return Object.freeze({ aborted, state: api.state });
+    } catch (error) {
+      running = false; cancel();
+      // The graph remains safely input-suspended if rehydration failed.
+      endurance = null;
+      throw error;
+    } finally { inOperation = false; }
+  };
   const schedule = () => {
     if (!active || !running || handle !== null || session.state.terminal) return false;
     handle = scheduler.requestAnimationFrame(onFrame);
@@ -247,12 +314,71 @@ export function mountGameBrowserLoop(options) {
       running = false; cancel(); lastTimestamp = null; fractionalTicks = 0; backlogTicks = 0;
       return true;
     },
+    /**
+     * Begin a bounded asynchronous endurance segment.  RAF remains stopped
+     * in manual mode; the entry layer supplies real RAF yields between the
+     * explicit simulation slices.  Input is intentionally detached until the
+     * final coherent DOM/audio presentation commits.
+     */
+    beginEnduranceSegment() {
+      assertActive();
+      const state = session.state;
+      if (running || state.paused || state.terminal) {
+        throw new Error("game browser endurance requires an active manual session");
+      }
+      inOperation = true;
+      try {
+        suspendInput();
+        endurance = Object.freeze({ fromTick: state.tick, sessionTick: state.tick });
+        return Object.freeze({ fromTick: state.tick, domTick });
+      } finally { inOperation = false; }
+    },
+    /** Advance simulation only; presentation is committed separately. */
+    advanceEnduranceSlice(count) {
+      if (!active) throw new RangeError("game browser loop is disposed");
+      if (inOperation) throw new Error("game browser loop reentrant operation rejected");
+      assertEndurance();
+      if (!Number.isSafeInteger(count) || count < 1 || count > GAME_SESSION_MAX_BATCH_TICKS) {
+        throw new TypeError("game browser endurance slice count is invalid");
+      }
+      inOperation = true;
+      try {
+        const fromTick = endurance.sessionTick;
+        const events = session.stepMany(count);
+        const state = session.state;
+        endurance = Object.freeze({ fromTick: endurance.fromTick, sessionTick: state.tick });
+        return Object.freeze({ events, fromTick, sessionTick: state.tick, terminal: state.terminal });
+      } finally { inOperation = false; }
+    },
+    /** Commit one complete DOM projection for all prior endurance slices. */
+    presentEnduranceFrame() {
+      if (!active) throw new RangeError("game browser loop is disposed");
+      if (inOperation) throw new Error("game browser loop reentrant operation rejected");
+      assertEndurance();
+      inOperation = true;
+      try { render(); if (session.state.terminal) stopAtTerminal(); return api.state; }
+      finally { inOperation = false; }
+    },
+    /** Commit a final frame and remount E2 input once for the next segment. */
+    finishEnduranceSegment() {
+      if (!active) throw new RangeError("game browser loop is disposed");
+      if (inOperation) throw new Error("game browser loop reentrant operation rejected");
+      return finishEndurance(false);
+    },
+    /** Failure-safe counterpart used by the shipped entry's async finally. */
+    abortEnduranceSegment() {
+      if (!active) return false;
+      if (inOperation || endurance === null) return false;
+      finishEndurance(true);
+      return true;
+    },
     get session() { return session; },
-    get state() { return Object.freeze({ active, backlogTicks, domTick,
-      paused: session.state.paused, running, scheduled: handle !== null,
+    get state() { const state = session.state; return Object.freeze({ active, backlogTicks, domTick,
+      enduranceActive: endurance !== null,
+      paused: state.paused, running, scheduled: handle !== null,
       selectedCardId: typeof graph?.input?.selectedCardId === "string"
         ? graph.input.selectedCardId : selectedCardId,
-      sessionTick: session.state.tick, terminal: session.state.terminal }); },
+      sessionTick: state.tick, terminal: state.terminal }); },
     pause() {
       assertActive();
       if (session.state.paused || session.state.terminal) return false;
@@ -292,32 +418,33 @@ export function mountGameBrowserLoop(options) {
     restore(bytes) {
       assertActive();
       const snapshot = checkedSnapshot(bytes);
-      const candidate = GameSession.restore(snapshot.session);
-      if (snapshot.running && (candidate.state.paused || candidate.state.terminal)) {
-        throw new TypeError("game browser running snapshot is incoherent");
-      }
-      inOperation = true;
-      try {
-        cancel();
-        const cleanupErrors = cleanupGraph(graph); graph = null;
-        if (cleanupErrors.length) {
-          active = false; ACTIVE_ROOTS.delete(checked.root);
-          throw new AggregateError(cleanupErrors, "game browser restore cleanup failed");
-        }
-        session = candidate; selectedCardId = null;
-        buildGraph(session, snapshot.bridge);
-        running = snapshot.running; lastTimestamp = null; fractionalTicks = 0; backlogTicks = 0;
-        render();
-        if (session.state.paused || session.state.terminal) suspendInput();
-        if (running) schedule();
-        return api.state;
-      } catch (error) {
-        cancel(); running = false;
-        if (graph === null) {
-          active = false; ACTIVE_ROOTS.delete(checked.root);
-        }
-        throw error;
-      } finally { inOperation = false; }
+      const candidate = checkedRestoreCandidate(snapshot, GameSession.restore(snapshot.session));
+      return restoreCandidate(snapshot, candidate);
+    },
+    /** Mint an opaque, exact-browser-byte restore handle while input is suspended. */
+    prepareEnduranceRestore(bytes, continuation) {
+      if (!active) throw new RangeError("game browser loop is disposed");
+      if (inOperation) throw new Error("game browser loop reentrant operation rejected");
+      assertEndurance();
+      const snapshot = checkedSnapshot(bytes);
+      return createGameBrowserRestoreCapability(continuation, bytes, snapshot.session,
+        preparedRestoreOwner);
+    },
+    /**
+     * Atomically install a session rebuilt by the bounded public restore cursor.
+     * This is valid only inside the suspended transaction, and accepts only a
+     * loop-owned opaque capability, never a raw session.
+     */
+    commitEnduranceRestore(bytes, capability) {
+      if (!active) throw new RangeError("game browser loop is disposed");
+      if (inOperation) throw new Error("game browser loop reentrant operation rejected");
+      assertEndurance();
+      const snapshot = checkedSnapshot(bytes);
+      const candidate = consumeGameBrowserRestoreCapability(capability, bytes,
+        preparedRestoreOwner);
+      checkedRestoreCandidate(snapshot, candidate);
+      endurance = null;
+      return restoreCandidate(snapshot, candidate);
     },
   });
   ACTIVE_ROOTS.set(checked.root, api);

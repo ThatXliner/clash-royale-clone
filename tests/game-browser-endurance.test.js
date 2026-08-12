@@ -1,0 +1,880 @@
+import assert from "node:assert/strict";
+import { spawn } from "node:child_process";
+import { once } from "node:events";
+import { existsSync, mkdirSync, writeFileSync } from "node:fs";
+import { performance } from "node:perf_hooks";
+import test from "node:test";
+
+import {
+  createPlayableRoster,
+  createPlayableRosterQuestionRecords,
+} from "../src/content/playable-roster.js";
+import { GameSession } from "../src/sim/game-session.js";
+import {
+  GAME_BROWSER_ENDURANCE_MAX_CHUNK_TICKS,
+  GAME_BROWSER_ENDURANCE_MAX_SEGMENT_TICKS,
+  GAME_BROWSER_ENDURANCE_PRESENTATION_TICKS,
+  createShippedGameSessionSetup,
+} from "../src/ui/game-browser-entry.js";
+
+const PLAYWRIGHT = process.env.GAME_BROWSER_PLAYWRIGHT ??
+  "/Users/me/.codex/worktrees/d092a29e-844b-459d-b145-c548db10d485/billion/node_modules/.pnpm/playwright@1.58.2/node_modules/playwright/index.mjs";
+const CHROME = process.env.GAME_BROWSER_CHROME ??
+  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+const ARTIFACTS = new URL("../artifacts/game-001gp-browser-endurance/", import.meta.url).pathname;
+
+const SEGMENT_TICKS = 300;
+const TERMINAL_TICK = 18_000;
+const TEST_END_TICK = process.env.GAME_BROWSER_ENDURANCE_TICKS === undefined
+  ? TERMINAL_TICK : Number(process.env.GAME_BROWSER_ENDURANCE_TICKS);
+const MAX_BROWSER_LONG_TASK_MS = 50;
+const MAX_EXPLICIT_SLICE_MS = 40;
+// Module parse plus the first real shell mount are intentionally measured
+// separately from scheduler work. This Chrome-specific budget is grounded in
+// the complete 720x1280 initialization transaction, rather than hiding it.
+const MAX_INITIALIZATION_LONG_TASK_MS = 300;
+const MAX_SEGMENT_WALL_CLOCK_MS = 30_000;
+const MAX_ENDURANCE_WALL_CLOCK_MS = 1_200_000;
+const FULL_RUN = TEST_END_TICK === TERMINAL_TICK;
+
+if (!Number.isSafeInteger(TEST_END_TICK) || TEST_END_TICK < 900 ||
+    TEST_END_TICK > TERMINAL_TICK || TEST_END_TICK % SEGMENT_TICKS !== 0) {
+  throw new TypeError("GAME_BROWSER_ENDURANCE_TICKS must be a 300-tick multiple from 900 to 18000");
+}
+if (GAME_BROWSER_ENDURANCE_MAX_SEGMENT_TICKS !== SEGMENT_TICKS) {
+  throw new Error("browser endurance segment no longer matches the GH 300-tick cadence");
+}
+
+function canonical(value) {
+  if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
+  if (value !== null && typeof value === "object") {
+    return `{${Object.keys(value).sort().map((key) =>
+      `${JSON.stringify(key)}:${canonical(value[key])}`).join(",")}}`;
+  }
+  return JSON.stringify(value);
+}
+
+const ROSTER = createPlayableRoster();
+const DECK = ROSTER.map(({ id }) => id);
+const COSTS = new Map(ROSTER.map(({ cost, id }) => [id, cost]));
+const DEFENSIVE_PROFILE = new Map(ROSTER.map((card) => [card.id, {
+  airPressure: card.entities.filter(({ targetMode }) => targetMode === "ground-and-air")
+    .reduce((total, entity) => total + entity.count * entity.damage * 1_000 /
+      entity.hitSpeedTicks, 0),
+  durability: card.entities.reduce((total, entity) => total + entity.count * entity.hitpoints, 0),
+  groundPressure: card.entities.reduce((total, entity) => total + entity.count * entity.damage * 1_000 /
+    entity.hitSpeedTicks, 0),
+  range: Math.max(...card.entities.map(({ rangeMillitiles }) => rangeMillitiles)),
+  speed: card.entities.reduce((total, entity) =>
+    total + entity.count * entity.movementMillitilesPerSecond, 0),
+}]));
+
+/** Exact GAME-001GH seed-zero setup; this is not the shipped short profile. */
+function exactGhSetup() {
+  const questions = createPlayableRosterQuestionRecords();
+  const roster = createPlayableRoster();
+  const battleSetup = canonical({ initialWindupTicks: { central: 0, lane: 0 },
+    questions, roster });
+  const legalNorthDeployments = DECK.flatMap((cardId) => [
+    { cardId, point: { x: 3_500, y: 17_500 } },
+    { cardId, point: { x: 14_500, y: 17_500 } },
+  ]).sort((left, right) => left.cardId.localeCompare(right.cardId) ||
+    left.point.x - right.point.x);
+  return canonical({ battleSetup, deck: DECK, legalNorthDeployments,
+    rosterWitness: canonical({ questions, roster }), seed: 0,
+    startingElixir: { north: 10, south: 10 }, thinkIntervalTicks: 1,
+    thinkOffsetTicks: 0 });
+}
+
+/**
+ * The exact GH decision rule, deliberately separated from transport IDs.
+ * GH names every 300-tick attempt; E2 names only accepted browser deliveries.
+ */
+function plannedSouthAttempt(session) {
+  const state = session.state;
+  const incoming = state.battle.units.filter(({ alive, position, side }) =>
+    alive && side === "north" && position.y < 15_000);
+  const lastSouthDeploymentTick = state.cardRuntime.history
+    .filter(({ side }) => side === "south").at(-1)?.tick ?? 0;
+  const guardRefreshDue = state.tick - lastSouthDeploymentTick >= 900;
+  if (incoming.length === 0 && !guardRefreshDue) return null;
+  const candidates = state.decks.south.hand.map((cardId, slot) =>
+    ({ ...DEFENSIVE_PROFILE.get(cardId), cardId, cost: COSTS.get(cardId), slot }))
+    .sort((left, right) => right.durability - left.durability || left.speed - right.speed ||
+      left.cost - right.cost || left.cardId.localeCompare(right.cardId));
+  const airThreat = incoming.some(({ layer }) => layer === "air");
+  const card = incoming.length === 0
+    ? candidates[0]
+    : candidates.filter(({ cost }) => cost <= state.elixir.sides.south.amount)
+      .sort((left, right) => {
+        const pressure = airThreat ? "airPressure" : "groundPressure";
+        return right[pressure] - left[pressure] || right.range - left.range ||
+          right.durability - left.durability || left.speed - right.speed ||
+          left.cost - right.cost || left.cardId.localeCompare(right.cardId);
+      })[0];
+  if (card === undefined || card.cost > state.elixir.sides.south.amount) return null;
+  const lanes = state.battle.towers.filter(({ id }) => id.startsWith("south:lane:"));
+  const nearestThreat = incoming.sort((left, right) =>
+    left.position.y - right.position.y || left.id - right.id)[0];
+  const lane = nearestThreat === undefined
+    ? lanes.sort((left, right) => left.hitpoints - right.hitpoints ||
+      left.id.localeCompare(right.id))[0]
+    : lanes.sort((left, right) => Math.abs(left.position.x - nearestThreat.position.x) -
+      Math.abs(right.position.x - nearestThreat.position.x) || left.id.localeCompare(right.id))[0];
+  assert.ok(lane, "a threatened south lane is present in canonical tower state");
+  return {
+    cardId: card.cardId,
+    point: { x: lane.position.x, y: lane.position.y - 2_000 },
+    slot: card.slot,
+    tick: state.tick,
+  };
+}
+
+function normalizedCommand(command) {
+  return { cardId: command.cardId, point: command.point, slot: command.slot,
+    tick: command.tick };
+}
+
+function stateDigest(state) {
+  return {
+    crowns: state.clock.crowns,
+    deck: state.decks.south,
+    elixir: state.elixir.sides,
+    terminal: state.terminal,
+    tick: state.tick,
+    towers: state.battle.towers.map(({ hitpoints, id }) => ({ hitpoints, id })),
+  };
+}
+
+async function firstLine(stream) {
+  let text = "";
+  stream.setEncoding("utf8");
+  for await (const chunk of stream) {
+    text += chunk;
+    const end = text.indexOf("\n");
+    if (end >= 0) return text.slice(0, end);
+  }
+  throw new Error("browser endurance server exited before readiness");
+}
+
+async function stopServer(server) {
+  if (server === undefined || server.exitCode !== null) return true;
+  const exited = once(server, "exit").then(() => true, () => false);
+  server.kill("SIGTERM");
+  let didExit = await Promise.race([
+    exited, new Promise((resolve) => setTimeout(() => resolve(false), 2_000)),
+  ]);
+  if (!didExit && server.exitCode === null) {
+    server.kill("SIGKILL");
+    didExit = await Promise.race([
+      exited, new Promise((resolve) => setTimeout(() => resolve(false), 2_000)),
+    ]);
+  }
+  return didExit && (server.exitCode !== null || server.signalCode !== null);
+}
+
+async function browserView(page, options = {}) {
+  const checked = { audioContinuation: false, bridge: false, bytes: false, digest: false,
+    loop: false, ...options };
+  return page.evaluate((requested) => {
+    const controller = globalThis.__gameBrowserEnduranceController;
+    const diagnostics = controller.audioDiagnostics;
+    const state = requested.digest ? controller.session.state : null;
+    const loopSnapshot = requested.bridge ? JSON.parse(controller.serialize()) : null;
+    const layers = Object.fromEntries([...document.querySelectorAll(".game-browser-layer")]
+      .map((layer) => [layer.dataset.gameBrowserLayer,
+        layer.firstElementChild?.dataset.tick ?? null]));
+    const overlay = document.querySelector(".match-feedback__overlay");
+    const overlayBox = overlay?.getBoundingClientRect();
+    return {
+      audio: controller.audio,
+      audioContinuationBytes: requested.audioContinuation
+        ? controller.audioContinuationBytes : null,
+      audioDiagnostics: diagnostics,
+      bridge: loopSnapshot === null ? null : JSON.parse(loopSnapshot.bridge),
+      layers,
+      pendingResources: performance.getEntriesByType("resource")
+        .filter(({ duration, responseEnd }) => duration === 0 && responseEnd === 0)
+        .map(({ name }) => name),
+      replayLength: diagnostics.cursor,
+      restartHidden: document.querySelector('[data-ui="restart"]').hidden,
+      sessionBytes: requested.bytes ? controller.session.serialize() : null,
+      state: requested.loop ? controller.state : null,
+      stateDigest: state === null ? null : {
+        crowns: state.clock.crowns,
+        deck: state.decks.south,
+        elixir: state.elixir.sides,
+        terminal: state.terminal,
+        tick: state.tick,
+        towers: state.battle.towers.map(({ hitpoints, id }) => ({ hitpoints, id })),
+      },
+      terminalOverlay: overlayBox === undefined ? null : {
+        height: Math.round(overlayBox.height), width: Math.round(overlayBox.width),
+      },
+    };
+  }, checked);
+}
+
+async function deliverPhysicalPlan(page, plan) {
+  const before = await browserView(page, { bridge: true });
+  const card = page.locator(`[data-ui="card-slot"][data-card-id="${plan.cardId}"]`).first();
+  await card.click();
+  const clientPoint = await page.evaluate((point) => {
+    const arena = document.querySelector('[data-ui="arena"]');
+    const rect = arena.getBoundingClientRect();
+    return {
+      x: rect.left + arena.clientLeft + point.x * arena.clientWidth / 18_000,
+      y: rect.top + arena.clientTop + arena.clientHeight - point.y * arena.clientHeight / 32_000,
+    };
+  }, plan.point);
+  await page.mouse.click(clientPoint.x, clientPoint.y);
+  const after = await browserView(page, { bridge: true });
+  assert.equal(after.bridge.deliveries.length, before.bridge.deliveries.length + 1,
+    "one physical card/arena gesture produces exactly one E2 delivery");
+  return after.bridge.deliveries.at(-1);
+}
+
+async function driveBrowserSegment(page, count) {
+  const driven = await page.evaluate(async (ticks) => {
+    const controller = globalThis.__gameBrowserEnduranceController;
+    const timing = globalThis.__gameBrowserEndurancePerformance;
+    const started = performance.now();
+    timing.timingContext = { kind: "drive", nextTick: controller.state.sessionTick };
+    try {
+      const result = await controller.driveEnduranceSegment(ticks);
+      const finished = performance.now();
+      return { elapsedMilliseconds: Math.round(finished - started), finishedAt: finished,
+        result, startedAt: started };
+    } finally {
+      timing.timingContext = null;
+    }
+  }, count);
+  await page.waitForTimeout(0);
+  return driven;
+}
+
+async function restoreBrowserSnapshot(page, snapshot) {
+  const restored = await page.evaluate(async (bytes) => {
+    const controller = globalThis.__gameBrowserEnduranceController;
+    const telemetry = globalThis.__gameBrowserEndurancePerformance;
+    const before = { audio: controller.audio, audioContinuationBytes: controller.audioContinuationBytes,
+      diagnostics: controller.audioDiagnostics, bridge: JSON.parse(controller.serialize()).bridge,
+      sessionBytes: controller.session.serialize() };
+    const startedAt = performance.now();
+    telemetry.timingContext = { kind: "restore", nextTick: 0 };
+    try {
+      // An async function executes through its first yield before returning its
+      // promise. This is the real continuation envelope/setup preflight task.
+      const pending = controller.restoreEndurance(bytes);
+      const dispatchedAt = performance.now();
+      telemetry.recordTiming("restorePreflightDispatch", startedAt,
+        { bytes: bytes.length, elapsedMilliseconds: dispatchedAt - startedAt });
+      const state = await pending;
+      const finishedAt = performance.now();
+      return { after: { audio: controller.audio,
+        audioContinuationBytes: controller.audioContinuationBytes,
+        diagnostics: controller.audioDiagnostics,
+        bridge: JSON.parse(controller.serialize()).bridge, state,
+        sessionBytes: controller.session.serialize() }, before,
+        elapsedMilliseconds: Math.round(finishedAt - startedAt), finishedAt, startedAt };
+    } finally {
+      telemetry.timingContext = null;
+    }
+  }, snapshot);
+  // Allow the observer delivery task to run before its cursor is sampled.
+  await page.waitForTimeout(0);
+  return restored;
+}
+
+async function readNewLongTasks(page, cursor) {
+  return page.evaluate((index) => {
+    const telemetry = globalThis.__gameBrowserEndurancePerformance;
+    return {
+      cursor: telemetry.longTasks.length,
+      supported: telemetry.supported,
+      tasks: telemetry.longTasks.slice(index),
+    };
+  }, cursor);
+}
+
+async function readAndResetTiming(page) {
+  return page.evaluate(() => {
+    const performance = globalThis.__gameBrowserEndurancePerformance;
+    const timing = JSON.parse(JSON.stringify(performance.timing));
+    performance.timing = Object.create(null);
+    return timing;
+  });
+}
+
+function assertSegmentTransactions(driven, fromTick, seenCueSequences, seenStartSequences) {
+  const chunks = driven.result.chunks;
+  assert.ok(chunks.length > 0, "endurance segment contains yielding transactions");
+  let expectedTick = fromTick;
+  for (const chunk of chunks) {
+    assert.equal(chunk.fromTick, expectedTick);
+    assert.ok(chunk.sessionTick > chunk.fromTick);
+    assert.ok(chunk.simulationTickCount >= 1 &&
+      chunk.simulationTickCount <= GAME_BROWSER_ENDURANCE_PRESENTATION_TICKS,
+      "each transactional browser presentation stays inside the documented cadence");
+    assert.equal(chunk.sessionTick - chunk.fromTick, chunk.simulationTickCount,
+      "presentation telemetry names the exact simulated tick range");
+    assert.ok(chunk.simulationSliceCount >= Math.ceil(
+      chunk.simulationTickCount / GAME_BROWSER_ENDURANCE_MAX_CHUNK_TICKS,
+    ) && chunk.simulationSliceCount <= chunk.simulationTickCount,
+    "each presentation records its true count of bounded yielding simulation calls");
+    assert.equal(chunk.simulationChunkTicks, GAME_BROWSER_ENDURANCE_MAX_CHUNK_TICKS,
+      "each yielding simulation call uses the documented fixed batch size");
+    assert.equal(chunk.domTick, chunk.sessionTick,
+      "projection commits the same tick as the session transaction");
+    assert.equal(chunk.audio.authorityRecordCount, chunk.audio.cursor,
+      "audio authority cursor consumes every replay record through this transaction");
+    assert.equal(chunk.audio.candidateCueCount,
+      chunk.audio.cueSequences.length + chunk.audio.skippedCueCount,
+      "accelerated audio explicitly accounts for every candidate cue");
+    assert.ok(chunk.audio.cueSequences.length <= chunk.audio.audibleCueCap,
+      "accelerated audio stays within its audible cue cap");
+    assert.deepEqual(chunk.audio.startSequences, chunk.audio.cueSequences,
+      "each selected live/accelerated cue starts once");
+    for (const sequence of chunk.audio.cueSequences) {
+      assert.equal(seenCueSequences.has(sequence), false,
+        `audio cue authority record ${sequence} was not duplicated`);
+      seenCueSequences.add(sequence);
+    }
+    for (const sequence of chunk.audio.startSequences) {
+      assert.equal(seenStartSequences.has(sequence), false,
+        `audible start authority record ${sequence} was not duplicated`);
+      seenStartSequences.add(sequence);
+    }
+    expectedTick = chunk.sessionTick;
+  }
+  assert.equal(driven.result.state.sessionTick, expectedTick);
+  assert.equal(driven.result.state.domTick, expectedTick);
+  return expectedTick;
+}
+
+test("game browser endurance: exact GH seed-zero workload yields through Chrome to terminal", {
+  timeout: MAX_ENDURANCE_WALL_CLOCK_MS + 60_000,
+}, async () => {
+  assert.ok(existsSync(PLAYWRIGHT), "installed Playwright equivalent is required");
+  assert.ok(existsSync(CHROME), "installed Chrome is required");
+  mkdirSync(ARTIFACTS, { recursive: true });
+
+  const telemetry = {
+    architecture: {
+      audioPolicy: "Each 100-tick-or-terminal presentation consumes all authority records; accelerated rendering selects newest critical then newest remaining cues up to a fixed cap.",
+      browserApi: "mountShippedGameBrowser().enterManualStepMode().driveEnduranceSegment(300)",
+      chunkTicks: GAME_BROWSER_ENDURANCE_MAX_CHUNK_TICKS,
+      initializationLongTaskCapMilliseconds: MAX_INITIALIZATION_LONG_TASK_MS,
+      longTaskCapMilliseconds: MAX_BROWSER_LONG_TASK_MS,
+      presentationPolicy: "Input is suspended for each 300-tick segment. Every fixed one-tick simulation slice yields through real RAF; every 100 ticks (or terminal) one complete DOM/audio transaction commits, then exactly one E2 input controller remounts at segment finish.",
+      presentationTicks: GAME_BROWSER_ENDURANCE_PRESENTATION_TICKS,
+      restorePolicy: "Only a consumed replay prefix may rebase; restored history is not rendered into the audio sink.",
+      segmentTicks: GAME_BROWSER_ENDURANCE_MAX_SEGMENT_TICKS,
+      transportNormalization: "GH attempts use their 300-tick attempt index; browser E2 uses contiguous accepted command IDs. Byte parity is browser-vs-direct-E2, while attempt records compare normalized semantic commands.",
+      yieldPolicy: "Each fixed simulation slice awaits RAF, then Chrome scheduler.yield() when available, then a second cancellable RAF; unsupported schedulers use the two-RAF policy.",
+    },
+    consoleErrors: [],
+    durationMilliseconds: null,
+    explicitTimings: [],
+    longTasks: [],
+    pendingResources: [],
+    resourceErrors: [],
+    segments: [],
+    terminal: null,
+    transportIdNormalization: [],
+    unhandled: [],
+  };
+  let browser;
+  let server;
+  let serverStderr = "";
+  let testFailure = null;
+  const started = performance.now();
+  try {
+    server = spawn(process.execPath, [
+      new URL("./game-browser-endurance-server.js", import.meta.url).pathname,
+    ], { stdio: ["ignore", "pipe", "pipe"] });
+    server.stderr.setEncoding("utf8");
+    server.stderr.on("data", (chunk) => { serverStderr += chunk; });
+    const ready = JSON.parse(await firstLine(server.stdout));
+    const { chromium } = await import(PLAYWRIGHT);
+    browser = await chromium.launch({ executablePath: CHROME, headless: true });
+    const context = await browser.newContext({ deviceScaleFactor: 1,
+      viewport: { height: 1_280, width: 720 } });
+    const page = await context.newPage();
+    page.on("console", (message) => {
+      if (message.type() === "error") telemetry.consoleErrors.push(message.text());
+    });
+    page.on("pageerror", (error) => telemetry.unhandled.push(String(error)));
+    page.on("requestfailed", (request) => telemetry.resourceErrors.push({
+      failure: request.failure()?.errorText ?? "request failed", url: request.url(),
+    }));
+    page.on("response", (response) => {
+      if (response.status() >= 400) telemetry.resourceErrors.push({
+        status: response.status(), url: response.url(),
+      });
+    });
+    await page.addInitScript(() => {
+      const longTasks = [];
+      const supported = typeof PerformanceObserver === "function" &&
+        PerformanceObserver.supportedEntryTypes?.includes("longtask") === true;
+      globalThis.__gameBrowserEndurancePerformance = {
+        longTasks,
+        supported,
+        timing: Object.create(null),
+      };
+      if (supported) {
+        new PerformanceObserver((list) => {
+          for (const entry of list.getEntries()) {
+            longTasks.push({ duration: entry.duration, name: entry.name,
+              startTime: entry.startTime });
+          }
+        }).observe({ buffered: true, type: "longtask" });
+      }
+    });
+    const response = await page.goto(
+      `http://${ready.host}:${ready.port}/tests/game-browser-endurance.html`,
+      { waitUntil: "domcontentloaded" },
+    );
+    assert.equal(response.status(), 200);
+    await page.waitForSelector("[data-arena-shell-root]", { state: "attached" });
+
+    const setup = exactGhSetup();
+    const mounted = await page.evaluate(async (setupBytes) => {
+      const [
+        { GameSession },
+        { mountShippedGameBrowser },
+        { GameAudioRuntime },
+        { DeckCycle },
+        { ElixirMatch },
+      ] = await Promise.all([
+        import("/src/sim/game-session.js"), import("/src/ui/game-browser-entry.js"),
+        import("/src/audio/game-audio-runtime.js"), import("/src/sim/deck.js"),
+        import("/src/sim/elixir.js"),
+      ]);
+      const recordTiming = (label, startedAt, detail = null) => {
+        const telemetry = globalThis.__gameBrowserEndurancePerformance;
+        const duration = performance.now() - startedAt;
+        const bucket = telemetry.timing[label] ?? {
+          count: 0,
+          maxMilliseconds: 0,
+          totalMilliseconds: 0,
+          slowest: [],
+        };
+        bucket.count += 1;
+        bucket.maxMilliseconds = Math.max(bucket.maxMilliseconds, duration);
+        bucket.totalMilliseconds += duration;
+        bucket.slowest.push({ detail, duration });
+        bucket.slowest.sort((left, right) => right.duration - left.duration);
+        bucket.slowest.length = Math.min(bucket.slowest.length, 12);
+        telemetry.timing[label] = bucket;
+      };
+      globalThis.__gameBrowserEndurancePerformance.recordTiming = recordTiming;
+      const wrap = (target, key, label, detail = () => null) => {
+        const original = target[key];
+        target[key] = function wrappedEnduranceProbe(...argumentsList) {
+          const startedAt = performance.now();
+          try { return original.apply(this, argumentsList); }
+          finally { recordTiming(label, startedAt, detail(argumentsList)); }
+        };
+      };
+      const sessionRestore = GameSession.restore;
+      GameSession.restore = function wrappedSessionRestore(...argumentsList) {
+        const startedAt = performance.now();
+        try { return sessionRestore.apply(this, argumentsList); }
+        finally { recordTiming("sessionRestore", startedAt); }
+      };
+      const sessionStepMany = GameSession.prototype.stepMany;
+      GameSession.prototype.stepMany = function wrappedSessionStepMany(...argumentsList) {
+        const startedAt = performance.now();
+        const telemetry = globalThis.__gameBrowserEndurancePerformance;
+        const context = telemetry.timingContext;
+        const label = context?.kind === "drive" ? "sessionStepSlice"
+          : context?.kind === "restore" ? "restoreStepSlice" : "unscopedSessionStepMany";
+        const fromTick = context?.kind === "drive" || context?.kind === "restore"
+          ? context.nextTick : null;
+        try { return sessionStepMany.apply(this, argumentsList); }
+        finally {
+          const count = argumentsList[0];
+          if (fromTick !== null) context.nextTick += count;
+          recordTiming(label, startedAt, fromTick === null ? { count } : {
+            count,
+            fromTick,
+            sessionTick: fromTick + count,
+          });
+        }
+      };
+      const sessionSerialize = GameSession.prototype.serialize;
+      GameSession.prototype.serialize = function wrappedSessionSerialize(...argumentsList) {
+        const startedAt = performance.now();
+        const context = globalThis.__gameBrowserEndurancePerformance.timingContext;
+        const label = context?.kind === "restore"
+          ? "restoreSessionSerialize" : "sessionSerialize";
+        try { return sessionSerialize.apply(this, argumentsList); }
+        finally { recordTiming(label, startedAt); }
+      };
+      wrap(GameAudioRuntime.prototype, "renderAcceleratedFrame", "audioPresentation");
+      wrap(GameAudioRuntime.prototype, "renderFrame", "audioFrame");
+      wrap(GameAudioRuntime.prototype, "assertRebaseable", "audioRestorePreflight");
+      wrap(GameAudioRuntime.prototype, "rebase", "audioRebase");
+      wrap(GameAudioRuntime.prototype, "rebaseSilently", "audioSilentRebase");
+      wrap(DeckCycle, "restore", "deckRestore");
+      wrap(ElixirMatch, "restore", "elixirRestore");
+      const requestAnimationFrame = window.requestAnimationFrame.bind(window);
+      window.requestAnimationFrame = (callback) => requestAnimationFrame((timestamp) => {
+        const startedAt = performance.now();
+        try { return callback(timestamp); }
+        finally { recordTiming("rafCallback", startedAt); }
+      });
+      const replaceChildren = Element.prototype.replaceChildren;
+      Element.prototype.replaceChildren = function wrappedReplaceChildren(...children) {
+        const startedAt = performance.now();
+        const context = globalThis.__gameBrowserEndurancePerformance.timingContext;
+        try { return replaceChildren.apply(this, children); }
+        finally { recordTiming(context?.kind === "restore" ? "restoreDomCommit" : "domCommit",
+          startedAt, { childCount: children.length }); }
+      };
+      const root = document.querySelector("[data-arena-shell-root]");
+      // Exercise cancellation while driveEnduranceSegment() is awaiting its
+      // first real RAF. The same root then remounts a fresh exact setup,
+      // proving the loop did not retain ACTIVE_ROOTS or stale listeners.
+      const cancelled = mountShippedGameBrowser(root, window, new GameSession(setupBytes));
+      if (!cancelled.enterManualStepMode()) {
+        throw new Error("cancellation browser mount did not enter manual mode");
+      }
+      const pending = cancelled.driveEnduranceSegment(300);
+      const disposed = cancelled.dispose();
+      let rejected = null;
+      try { await pending; } catch (error) { rejected = String(error?.message ?? error); }
+      if (!disposed || !rejected?.includes("cancelled")) {
+        throw new Error("endurance cancellation did not dispose its suspended transaction");
+      }
+      const session = new GameSession(setupBytes);
+      const controller = mountShippedGameBrowser(root, window, session);
+      if (!controller.enterManualStepMode()) {
+        throw new Error("exact GH browser mount did not enter manual endurance mode");
+      }
+      globalThis.__gameBrowserEnduranceController = controller;
+      return { cancellation: { disposed, rejected }, initialBytes: controller.session.serialize(),
+        manual: controller.state.running === false, tick: controller.state.sessionTick };
+    }, setup);
+    assert.equal(mounted.initialBytes, new GameSession(setup).serialize(),
+      "browser harness constructs a fresh exact GH GameSession through public mount API");
+    assert.deepEqual({ manual: mounted.manual, tick: mounted.tick }, { manual: true, tick: 0 });
+    assert.equal(mounted.cancellation.disposed, true);
+    assert.match(mounted.cancellation.rejected, /cancelled/u);
+    telemetry.cancellation = mounted.cancellation;
+    telemetry.schedulerYieldSupported = await page.evaluate(() =>
+      typeof globalThis.scheduler?.yield === "function");
+
+    // A real physical gesture at a verified non-control point unlocks audio
+    // without toggling mute or placing a card.
+    const shellBox = await page.locator('[data-ui="arena-shell"]').boundingBox();
+    assert.ok(shellBox, "mounted shell has a physical browser box");
+    await page.mouse.click(shellBox.x + 20, shellBox.y + 60);
+    await page.waitForFunction(() =>
+      globalThis.__gameBrowserEnduranceController.audio.audio.unlocked === true,
+    );
+    const interactive = await browserView(page);
+    assert.equal(interactive.audio.muted, false);
+    assert.equal(interactive.audio.audio.unlocked, true);
+    const initializationTasks = await readNewLongTasks(page, 0);
+    telemetry.initializationLongTasks = initializationTasks.tasks;
+    telemetry.maxInitializationLongTaskMilliseconds = Math.max(0,
+      ...initializationTasks.tasks.map(({ duration }) => duration));
+    assert.equal(initializationTasks.tasks.every(({ duration }) =>
+      duration <= MAX_INITIALIZATION_LONG_TASK_MS), true,
+    `initial browser mount stays inside the ${MAX_INITIALIZATION_LONG_TASK_MS}ms cap`);
+    await page.evaluate(async () => {
+      globalThis.__gameBrowserEndurancePerformance.longTasks.length = 0;
+      globalThis.__gameBrowserEndurancePerformance.timing = Object.create(null);
+    });
+    assert.equal(initializationTasks.supported, true,
+      "Chrome PerformanceObserver longtask evidence is available");
+
+    let direct = new GameSession(setup);
+    let longTaskCursor = 0;
+    let restored = false;
+    let restoreCut = null;
+    let restoreBranch = null;
+    let replayParityProven = false;
+    let postRestoreDelivery = false;
+    let lastSuccessfulTick = 0;
+    const seenCueSequences = new Set();
+    const seenStartSequences = new Set();
+    const pauseTick = 300;
+    const restoreTick = 300;
+    while (direct.state.tick < TEST_END_TICK) {
+      const fromTick = direct.state.tick;
+      const attemptId = fromTick / SEGMENT_TICKS;
+      const plan = plannedSouthAttempt(direct);
+      let delivery = null;
+      if (plan !== null) {
+        delivery = await deliverPhysicalPlan(page, plan);
+        assert.deepEqual(normalizedCommand(delivery.command), plan,
+          "physical E2 gesture preserves the GH semantic card, slot, point, and tick");
+        direct.submitPlayerCommand(canonical(delivery.command));
+        lastSuccessfulTick = fromTick;
+        if (restored) postRestoreDelivery = true;
+      }
+      telemetry.transportIdNormalization.push({
+        acceptedBrowserCommandId: delivery?.command.commandId ?? null,
+        ghAttemptId: attemptId,
+        normalized: delivery === null ? null : normalizedCommand(delivery.command),
+        planned: plan,
+        tick: fromTick,
+        timeline: restored ? "replayed" : "primary",
+      });
+
+      const driven = await driveBrowserSegment(page, Math.min(SEGMENT_TICKS,
+        TEST_END_TICK - fromTick));
+      const explicitTiming = await readAndResetTiming(page);
+      telemetry.explicitTimings.push({
+        fromTick,
+        tick: driven.result.state.sessionTick,
+        timing: explicitTiming,
+      });
+      const sliceTiming = explicitTiming.sessionStepSlice;
+      assert.ok(sliceTiming && sliceTiming.count > 0,
+        "each endurance transaction records public GameSession slice timings");
+      assert.ok(sliceTiming.maxMilliseconds <= MAX_EXPLICIT_SLICE_MS,
+        `no explicit simulation slice exceeds the ${MAX_EXPLICIT_SLICE_MS}ms target`);
+      assert.ok(driven.elapsedMilliseconds <= MAX_SEGMENT_WALL_CLOCK_MS,
+        `browser segment at ${fromTick} stayed within its wall-clock cap`);
+      const browserTick = assertSegmentTransactions(driven, fromTick,
+        seenCueSequences, seenStartSequences);
+      for (const chunk of driven.result.chunks) {
+        direct.stepMany(chunk.sessionTick - chunk.fromTick);
+      }
+      assert.equal(direct.state.tick, browserTick);
+      assert.equal(direct.state.tick - lastSuccessfulTick <= 900, true,
+        "exact GH policy makes one paid south deployment in every 900-tick window");
+
+      const browserState = await browserView(page);
+      assert.equal(driven.result.state.sessionTick, direct.state.tick);
+      assert.equal(driven.result.state.domTick, direct.state.tick);
+      assert.equal(browserState.replayLength, direct.replay.length);
+      assert.equal(browserState.audioDiagnostics.cursor, browserState.replayLength);
+      assert.equal(browserState.audioDiagnostics.eventCount, browserState.replayLength);
+      assert.equal(browserState.pendingResources.length, 0);
+      assert.equal(Object.values(browserState.layers).every((tick) => tick === String(direct.state.tick)),
+        true, "every projection layer commits the current session tick");
+      if (direct.state.tick === SEGMENT_TICKS) {
+        await page.screenshot({ path: `${ARTIFACTS}active.png` });
+      }
+      const taskUpdate = await readNewLongTasks(page, longTaskCursor);
+      longTaskCursor = taskUpdate.cursor;
+      telemetry.longTasks.push(...taskUpdate.tasks);
+      telemetry.segments.push({
+        audioEpoch: restored ? 1 : 0,
+        chunks: driven.result.chunks,
+        elapsedMilliseconds: driven.elapsedMilliseconds,
+        finishedAt: driven.finishedAt,
+        longTasks: taskUpdate.tasks,
+        startedAt: driven.startedAt,
+        tick: direct.state.tick,
+        timing: explicitTiming,
+        yieldPolicy: driven.result.yieldPolicy,
+      });
+      telemetry.yieldPolicy = driven.result.yieldPolicy;
+      assert.ok(["raf-raf", "raf-scheduler-yield-raf"].includes(driven.result.yieldPolicy),
+        "the shipped endurance driver reports its real browser yield policy");
+      assert.equal(taskUpdate.tasks.every(({ duration }) => duration <= MAX_BROWSER_LONG_TASK_MS), true,
+        `no browser long task exceeds ${MAX_BROWSER_LONG_TASK_MS}ms`);
+      assert.ok(performance.now() - started <= MAX_ENDURANCE_WALL_CLOCK_MS,
+        "browser endurance run stayed inside the documented overall cap");
+
+      if (direct.state.tick === pauseTick) {
+        const beforePause = await browserView(page, { bytes: true });
+        assert.equal(beforePause.sessionBytes, direct.serialize());
+        const lifecycle = await page.evaluate(() => {
+          const controller = globalThis.__gameBrowserEnduranceController;
+          const paused = controller.pause();
+          const resumed = controller.resume();
+          const manual = controller.enterManualStepMode();
+          return { manual, paused, resumed, state: controller.state,
+            sessionBytes: controller.session.serialize() };
+        });
+        direct.pause(); direct.resume();
+        assert.deepEqual({ manual: lifecycle.manual, paused: lifecycle.paused,
+          resumed: lifecycle.resumed }, { manual: true, paused: true, resumed: true });
+        assert.equal(lifecycle.sessionBytes, direct.serialize(),
+          "pause/resume cannot change canonical simulation bytes");
+      }
+
+      if (direct.state.tick === restoreTick && restoreCut === null) {
+        const cutView = await browserView(page, { bytes: true, bridge: true });
+        const browserSnapshot = await page.evaluate(() =>
+          globalThis.__gameBrowserEnduranceController.serialize());
+        assert.equal(cutView.sessionBytes, direct.serialize());
+        restoreCut = {
+          bridge: JSON.parse(browserSnapshot).bridge,
+          browserSnapshot,
+          directBytes: direct.serialize(),
+          tick: restoreTick,
+        };
+        telemetry.restoreCut = { snapshotBytes: browserSnapshot.length, tick: restoreTick };
+      }
+
+      if (restoreCut !== null && !restored &&
+          direct.state.tick === restoreTick + SEGMENT_TICKS) {
+        const branchView = await browserView(page, { audioContinuation: true, bridge: true,
+          bytes: true });
+        const branchSnapshot = await page.evaluate(() =>
+          globalThis.__gameBrowserEnduranceController.serialize());
+        restoreBranch = {
+          audioContinuationBytes: branchView.audioContinuationBytes,
+          audioDiagnostics: branchView.audioDiagnostics,
+          browserSnapshot: branchSnapshot,
+          bridge: branchView.bridge,
+          directBytes: direct.serialize(),
+          layers: branchView.layers,
+          replayLength: branchView.replayLength,
+          tick: direct.state.tick,
+        };
+        const restoredView = await restoreBrowserSnapshot(page, restoreCut.browserSnapshot);
+        const restoreTiming = await readAndResetTiming(page);
+        telemetry.explicitTimings.push({ kind: "restore", fromTick: restoreBranch.tick,
+          tick: restoreCut.tick, timing: restoreTiming });
+        const restoreSteps = restoreTiming.restoreStepSlice;
+        assert.ok(restoreTiming.restorePreflightDispatch?.count === 1,
+          "one shipped restore preflight is measured before its first browser yield");
+        assert.ok(restoreTiming.restorePreflightDispatch.maxMilliseconds <= MAX_EXPLICIT_SLICE_MS,
+          `restore envelope/setup preflight stays inside ${MAX_EXPLICIT_SLICE_MS}ms`);
+        assert.ok(restoreSteps && restoreSteps.count > 0,
+          "every replayed restore simulation tick is explicitly timed");
+        assert.equal(restoreSteps.slowest.every(({ detail }) => detail.count === 1), true,
+          "restore continuation never batches transcript simulation ticks");
+        assert.ok(restoreSteps.maxMilliseconds <= MAX_EXPLICIT_SLICE_MS,
+          `restore simulation slices stay inside ${MAX_EXPLICIT_SLICE_MS}ms`);
+        assert.ok(restoreTiming.restoreSessionSerialize?.count >= 1,
+          "restore final canonical byte witness/install serialization is measured");
+        assert.ok(restoreTiming.restoreSessionSerialize.maxMilliseconds <= MAX_EXPLICIT_SLICE_MS,
+          `restore canonical byte witness/install serialization stays inside ${MAX_EXPLICIT_SLICE_MS}ms`);
+        assert.ok(restoreTiming.restoreDomCommit?.count >= 1,
+          "restore atomic remount projection is measured");
+        assert.ok(restoreTiming.restoreDomCommit.maxMilliseconds <= MAX_EXPLICIT_SLICE_MS,
+          `restore atomic remount projection stays inside ${MAX_EXPLICIT_SLICE_MS}ms`);
+        assert.equal(restoreTiming.sessionRestore?.count ?? 0, 0,
+          "endurance restore never calls synchronous GameSession.restore");
+        direct = GameSession.restore(restoreCut.directBytes);
+        assert.equal(restoredView.after.sessionBytes, direct.serialize(),
+          "yielded browser restore bytes equal a direct public GameSession restore");
+        assert.equal(restoredView.after.bridge, restoreCut.bridge,
+          "restore rewinds to its canonical E2 delivery history");
+        assert.equal(restoredView.after.diagnostics.cursor, direct.replay.length);
+        assert.equal(restoredView.after.diagnostics.eventCount, direct.replay.length);
+        assert.equal(restoredView.after.diagnostics.projectionOffset, direct.replay.length);
+        assert.equal(restoredView.after.diagnostics.cueCount, 0,
+          "restore rebases rather than rendering the restored cue history");
+        assert.equal(restoredView.after.audio.audio.audibleStartCount,
+          restoredView.before.audio.audio.audibleStartCount,
+          "restore creates zero duplicate audible browser starts");
+        await page.waitForTimeout(0);
+        const restoreTasks = await readNewLongTasks(page, longTaskCursor);
+        longTaskCursor = restoreTasks.cursor;
+        telemetry.longTasks.push(...restoreTasks.tasks);
+        telemetry.restore = { ...restoredView, longTasks: restoreTasks.tasks, timing: restoreTiming,
+          rewindFromTick: restoreBranch.tick, rewindToTick: restoreCut.tick };
+        assert.equal(restoreTasks.tasks.every(({ duration }) =>
+          duration <= MAX_BROWSER_LONG_TASK_MS), true,
+        `restore stays inside the ${MAX_BROWSER_LONG_TASK_MS}ms long-task cap`);
+        lastSuccessfulTick = direct.state.cardRuntime.history
+          .filter(({ side }) => side === "south").at(-1)?.tick ?? 0;
+        seenCueSequences.clear(); seenStartSequences.clear();
+        restored = true;
+        continue;
+      }
+
+      if (restored && restoreBranch !== null && !replayParityProven &&
+          direct.state.tick === restoreBranch.tick) {
+        const replayedSnapshot = await page.evaluate(() =>
+          globalThis.__gameBrowserEnduranceController.serialize());
+        const replayed = await browserView(page, { audioContinuation: true, bridge: true,
+          bytes: true });
+        assert.equal(replayedSnapshot, restoreBranch.browserSnapshot,
+          "600→300→600 browser replay reproduces its exact loop/input continuation bytes");
+        assert.equal(replayed.sessionBytes, restoreBranch.directBytes,
+          "600→300→600 browser replay reproduces direct canonical session bytes");
+        assert.deepEqual(replayed.layers, restoreBranch.layers,
+          "600→300→600 browser replay reproduces every projected view layer");
+        assert.deepEqual(replayed.bridge, restoreBranch.bridge,
+          "600→300→600 browser replay reproduces its exact E2 bridge bytes");
+        assert.equal(replayed.audioContinuationBytes, restoreBranch.audioContinuationBytes,
+          "600→300→600 browser replay reproduces exact future-audio continuation bytes");
+        assert.equal(replayed.replayLength, restoreBranch.replayLength,
+          "replayed audio authority cursor returns to the same branch boundary");
+        assert.deepEqual({ cursor: replayed.audioDiagnostics.cursor,
+          eventCount: replayed.audioDiagnostics.eventCount,
+          sessionTick: replayed.audioDiagnostics.sessionTick,
+          suppressedAcceleratedCueCount: replayed.audioDiagnostics.suppressedAcceleratedCueCount },
+        { cursor: restoreBranch.audioDiagnostics.cursor,
+          eventCount: restoreBranch.audioDiagnostics.eventCount,
+          sessionTick: restoreBranch.audioDiagnostics.sessionTick,
+          suppressedAcceleratedCueCount:
+            restoreBranch.audioDiagnostics.suppressedAcceleratedCueCount },
+        "replayed audio authority/continuation diagnostics return to the branch boundary");
+        replayParityProven = true;
+      }
+    }
+
+    const finalView = await browserView(page, { bytes: true, digest: true, loop: true });
+    assert.equal(finalView.sessionBytes, direct.serialize(),
+      "terminal browser bytes equal direct GameSession E2 mirror bytes");
+    assert.deepEqual(finalView.stateDigest, stateDigest(direct.state),
+      "terminal browser state equals the direct E2 mirror state");
+    assert.equal(direct.state.tick, TEST_END_TICK);
+    assert.equal(direct.state.terminal, FULL_RUN);
+    assert.equal(finalView.state.terminal, FULL_RUN);
+    const activeSides = new Set(direct.state.cardRuntime.history.map(({ side }) => side));
+    assert.equal(activeSides.has("north") && activeSides.has("south"), true,
+      "exact GH workload retains paid active play for both sides");
+    assert.equal(FULL_RUN ? postRestoreDelivery : true, true,
+      "a post-restore physical E2 delivery proves no stale input callback remains");
+    assert.equal(replayParityProven, true,
+      "a divergent restore cut replays through the same browser bytes and input history");
+    if (FULL_RUN) {
+      assert.equal(finalView.audioDiagnostics.disposed, true,
+        "terminal audio renderer cleans up its graph");
+      assert.equal(finalView.audio.audio.activeVoiceCount, 0,
+        "terminal browser audio leaves no active voice");
+      assert.equal(finalView.restartHidden, false);
+      assert.ok(finalView.terminalOverlay?.width > 0 && finalView.terminalOverlay?.height > 0,
+        "terminal feedback remains visible in the real 720x1280 shell");
+      await page.screenshot({ path: `${ARTIFACTS}terminal.png` });
+      await page.locator('[data-ui="restart"]').click();
+      const restarted = await browserView(page, { bytes: true, loop: true });
+      assert.equal(restarted.sessionBytes,
+        new GameSession(createShippedGameSessionSetup(0)).serialize(),
+        "terminal restart creates the exact shipped seed-zero session");
+      assert.equal(restarted.state.sessionTick, 0);
+      assert.equal(restarted.restartHidden, true);
+      assert.equal(restarted.terminalOverlay, null);
+      await page.screenshot({ path: `${ARTIFACTS}restart.png` });
+      telemetry.terminal = { finalView, restarted };
+    } else {
+      telemetry.terminal = { smoke: true, finalView };
+    }
+    telemetry.pendingResources = finalView.pendingResources;
+    assert.deepEqual(telemetry.consoleErrors, []);
+    assert.deepEqual(telemetry.unhandled, []);
+    assert.deepEqual(telemetry.resourceErrors, []);
+  } catch (error) {
+    telemetry.failure = { message: String(error?.message ?? error), stack: error?.stack ?? null };
+    testFailure = error;
+  } finally {
+    telemetry.durationMilliseconds = Math.round(performance.now() - started);
+    telemetry.serverStderr = serverStderr;
+    try { await browser?.close(); } catch (error) { telemetry.browserCloseError = String(error); }
+    telemetry.serverExited = await stopServer(server);
+    telemetry.maxDrivenLongTaskMilliseconds = Math.max(0,
+      ...telemetry.longTasks.map(({ duration }) => duration));
+    telemetry.maxInitializationLongTaskMilliseconds ??= Math.max(0,
+      ...(telemetry.initializationLongTasks ?? []).map(({ duration }) => duration));
+    telemetry.maxLongTaskMilliseconds = Math.max(telemetry.maxDrivenLongTaskMilliseconds,
+      telemetry.maxInitializationLongTaskMilliseconds);
+    writeFileSync(`${ARTIFACTS}endurance-result.json`,
+      `${JSON.stringify(telemetry, null, 2)}\n`);
+  }
+  assert.equal(telemetry.serverExited, true, "browser endurance server exits without an orphan");
+  if (testFailure !== null) throw testFailure;
+});
