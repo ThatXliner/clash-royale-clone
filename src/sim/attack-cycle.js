@@ -301,6 +301,29 @@ export class AttackCycle {
     return JSON.parse(JSON.stringify(this.#state));
   }
 
+  /**
+   * Returns an independent continuation of this already-authentic cycle.
+   *
+   * This is intentionally an ordinary AttackCycle instance, not a compact
+   * capability or a restore shortcut: construction and serialized restore
+   * retain their full hostile-input validation paths. The private state is
+   * known-valid because it can only originate in this constructor, stepMany,
+   * or restore; copying it avoids a serialize/parse/validate round trip for
+   * internal transactional runtime clones.
+   */
+  fork() {
+    const copy = new AttackCycle(this.#state.config);
+    copy.#state = {
+      attackSequence: this.#state.attackSequence,
+      config: { ...this.#state.config },
+      nextAttackTick: this.#state.nextAttackTick,
+      nextTick: this.#state.nextTick,
+      phase: this.#state.phase,
+      targetId: this.#state.targetId,
+    };
+    return copy;
+  }
+
   step(input) {
     return this.stepMany([input]);
   }

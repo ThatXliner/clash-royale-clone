@@ -18,6 +18,7 @@ const LICENSE_ID = "CC0-1.0";
 const LICENSE_STATEMENT =
   "The authors dedicate these procedural recipes and their generated waveforms to the public domain under CC0-1.0.";
 const FAMILY_ENTRIES = Object.freeze(Object.entries(AUDIO_CUE_TAXONOMY));
+const MAX_PROCEDURAL_PCM_CACHE_ENTRIES = FAMILY_ENTRIES.length;
 const CUE_TO_FAMILY = new Map(FAMILY_ENTRIES.map(([family, cueId]) => [cueId, family]));
 const OSCILLATORS = new Set(["sawtooth", "sine", "square", "triangle"]);
 const AUDIO_ASSET_PATTERN = /^src\/audio\/assets\/[a-z0-9][a-z0-9/_-]*\.(?:ogg|wav)$/u;
@@ -283,8 +284,7 @@ function envelopeGain(recipe, sampleIndex, sampleCount) {
   return sustain;
 }
 
-export function synthesizeProceduralPcm(recipeValue) {
-  const recipe = checkedRecipe(recipeValue, "procedural audio recipe");
+function synthesizeCheckedProceduralPcm(recipe) {
   const sampleCount = recipe.durationTicks * AUDIO_PCM_SAMPLES_PER_TICK;
   const bytes = new Uint8Array(sampleCount * 2);
   let phase = 0;
@@ -312,7 +312,13 @@ export function synthesizeProceduralPcm(recipeValue) {
   });
 }
 
-function checkedWaveform(value, recipe, label) {
+export function synthesizeProceduralPcm(recipeValue) {
+  return synthesizeCheckedProceduralPcm(
+    checkedRecipe(recipeValue, "procedural audio recipe"),
+  );
+}
+
+function checkedWaveformMetadata(value, recipe, label) {
   const waveform = exactRecord(value, [
     "channels", "format", "sampleCount", "sampleRateHz", "sha256",
   ], label);
@@ -322,11 +328,16 @@ function checkedWaveform(value, recipe, label) {
       !SHA256_PATTERN.test(waveform.sha256)) {
     throw new TypeError(`${label} has invalid PCM metadata`);
   }
-  const generated = synthesizeProceduralPcm(recipe);
+  return { ...waveform };
+}
+
+function checkedWaveform(value, recipe, label) {
+  const waveform = checkedWaveformMetadata(value, recipe, label);
+  const generated = synthesizeCheckedProceduralPcm(recipe);
   if (sha256Bytes(generated.bytes) !== waveform.sha256) {
     throw new TypeError(`${label} has an invalid generated waveform hash`);
   }
-  return { ...waveform };
+  return waveform;
 }
 
 export function audioRecipeSha256(family, cueId, recipe) {
@@ -500,6 +511,10 @@ export class InMemoryPcmAudioBackend {
   #faultTransactionId = null;
   #gainBasisPoints = 10_000;
   #muted = false;
+  // A backend owns this bounded-by-taxonomy cache. A cache hit still fully
+  // checks untrusted recipe/waveform data before it reuses a previously
+  // verified internal PCM value; every outward voice receives fresh bytes.
+  #proceduralPcm = new Map();
   #sink;
   #transactions = [];
   #voices = new Map();
@@ -544,6 +559,30 @@ export class InMemoryPcmAudioBackend {
     return isolated(this.#transactions);
   }
 
+  #checkedProceduralPcm(recipeValue, waveformValue) {
+    const recipe = checkedRecipe(recipeValue, "procedural audio recipe");
+    const waveform = checkedWaveformMetadata(
+      waveformValue,
+      recipe,
+      "start source waveform",
+    );
+    const key = `${waveform.sha256}:${canonicalJson(recipe)}`;
+    let pcm = this.#proceduralPcm.get(key);
+    if (pcm === undefined) {
+      pcm = synthesizeCheckedProceduralPcm(recipe);
+      if (sha256Bytes(pcm.bytes) !== waveform.sha256) {
+        throw new TypeError("start source waveform has an invalid generated waveform hash");
+      }
+      // InMemoryPcmAudioBackend also has a direct hostile-input API, so do
+      // not let distinct otherwise-valid external recipes grow this cache.
+      // The shipped taxonomy has one recipe per family and fits this bound.
+      if (this.#proceduralPcm.size < MAX_PROCEDURAL_PCM_CACHE_ENTRIES) {
+        this.#proceduralPcm.set(key, pcm);
+      }
+    }
+    return { pcm, waveform };
+  }
+
   #applyTransaction(transactionValue) {
     if (this.#faultTransactionId !== null) {
       throw new Error("PCM backend is permanently faulted");
@@ -579,11 +618,10 @@ export class InMemoryPcmAudioBackend {
         if (command.source?.kind !== "procedural") {
           throw new TypeError("PCM backend supports procedural sources only");
         }
-        const pcm = synthesizeProceduralPcm(command.source.recipe);
-        const waveform = checkedWaveform(command.source.waveform, command.source.recipe, "start source waveform");
-        if (sha256Bytes(pcm.bytes) !== waveform.sha256) {
-          throw new Error("start source PCM does not match provenance");
-        }
+        const { pcm, waveform } = this.#checkedProceduralPcm(
+          command.source.recipe,
+          command.source.waveform,
+        );
         voices.set(command.voiceId, {
           bytes: new Uint8Array(pcm.bytes),
           cueId: command.cueId,

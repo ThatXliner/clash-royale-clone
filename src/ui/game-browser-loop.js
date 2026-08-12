@@ -322,14 +322,15 @@ export function mountGameBrowserLoop(options) {
      */
     beginEnduranceSegment() {
       assertActive();
-      if (running || session.state.paused || session.state.terminal) {
+      const state = session.state;
+      if (running || state.paused || state.terminal) {
         throw new Error("game browser endurance requires an active manual session");
       }
       inOperation = true;
       try {
         suspendInput();
-        endurance = Object.freeze({ fromTick: session.state.tick });
-        return Object.freeze({ fromTick: session.state.tick, domTick });
+        endurance = Object.freeze({ fromTick: state.tick, sessionTick: state.tick });
+        return Object.freeze({ fromTick: state.tick, domTick });
       } finally { inOperation = false; }
     },
     /** Advance simulation only; presentation is committed separately. */
@@ -342,10 +343,11 @@ export function mountGameBrowserLoop(options) {
       }
       inOperation = true;
       try {
-        const fromTick = session.state.tick;
+        const fromTick = endurance.sessionTick;
         const events = session.stepMany(count);
-        return Object.freeze({ events, fromTick, sessionTick: session.state.tick,
-          terminal: session.state.terminal });
+        const state = session.state;
+        endurance = Object.freeze({ fromTick: endurance.fromTick, sessionTick: state.tick });
+        return Object.freeze({ events, fromTick, sessionTick: state.tick, terminal: state.terminal });
       } finally { inOperation = false; }
     },
     /** Commit one complete DOM projection for all prior endurance slices. */
@@ -371,12 +373,12 @@ export function mountGameBrowserLoop(options) {
       return true;
     },
     get session() { return session; },
-    get state() { return Object.freeze({ active, backlogTicks, domTick,
+    get state() { const state = session.state; return Object.freeze({ active, backlogTicks, domTick,
       enduranceActive: endurance !== null,
-      paused: session.state.paused, running, scheduled: handle !== null,
+      paused: state.paused, running, scheduled: handle !== null,
       selectedCardId: typeof graph?.input?.selectedCardId === "string"
         ? graph.input.selectedCardId : selectedCardId,
-      sessionTick: session.state.tick, terminal: session.state.terminal }); },
+      sessionTick: state.tick, terminal: state.terminal }); },
     pause() {
       assertActive();
       if (session.state.paused || session.state.terminal) return false;

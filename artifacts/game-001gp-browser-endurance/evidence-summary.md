@@ -1,40 +1,66 @@
 # GAME-001GP browser endurance evidence
 
-Chrome ran at a 720×1280 viewport. The driven scheduler cap is 50 ms; the
-separate initialization cap is 300 ms. Both are reported independently so the
-first module/shell mount is not hidden by the sustained-play measurement.
+The shipped scheduler ran the exact GAME-001GH workload in real Chrome at a
+720×1280 viewport. The sustained-play caps are 50 ms for driven LongTasks and
+40 ms for each explicit public `GameSession.stepMany(1)` slice. Initialization
+LongTasks are reported separately against their 300 ms cap.
 
-## Historical clean 900-tick tuning run
+## Final exact selector
 
-This predecessor run used the first coalesced scheduler configuration before
-later diagnostic rewrites replaced `endurance-result.json`:
+Command: `npm test -- game-browser-endurance`
+
+Artifact: `endurance-result.json`
 
 | Metric | Result |
 | --- | --- |
-| Duration | 21,703 ms |
-| Initialization max | 219 ms / 300 ms cap |
-| Driven max | 0 ms / 50 ms cap |
-| Segment elapsed times | tick 300: 2,583 ms; tick 600: 2,928 ms; rewound tick 600: 2,866 ms; tick 900: 3,574 ms |
-| Console / unhandled / resource errors | none / none / none |
-| Server cleanup | `serverExited: true` |
+| Browser artifact duration | 488,817 ms |
+| Terminal / restart | tick 18,000 terminal; restart tick 0, seed-zero bytes, restart count 1 |
+| Maximum explicit simulation slice | 34.3 ms at 16,328→16,329 / 40 ms cap |
+| Driven LongTasks | 0; maximum 0 ms / 50 ms cap |
+| Initialization LongTasks | 2; maximum 190 ms / 300 ms cap |
+| Restore/replay cut | 600→300→600 byte parity; preflight 5.1 ms; slice max 5.8 ms |
+| Presentation/input/audio | exact transaction and cursor assertions passed |
+| Console / unhandled / resource / pending errors | 0 / 0 / 0 / 0 |
+| Browser server cleanup | `serverExited: true`, empty stderr |
 
-It also exercised the real divergent restore/replay cut and cancellation path.
-It is tuning evidence only, not an 18,000-tick selector pass.
+`terminal.png` and `restart.png` are the final 720×1280 captures. The terminal
+capture contains the visible result overlay and restart control. The restart
+capture contains the fresh 3:00 board with no terminal overlay. The selector
+also asserts terminal browser bytes against the direct GAME-001GH mirror and
+the restarted bytes against a newly constructed shipped seed-zero session.
 
-## Blocked base-commit diagnostics
+## Retained bounded evidence
 
-`endurance-attempt-1-failed-tick1200.json` and
-`endurance-attempt-2-failed-tick900.json` are failed default-selector attempts.
-Attempts 3–7 are bounded Chrome diagnostics that varied presentation cadence
-and fixed `stepMany` batch size without changing the GAME-001GH workload.
-They consistently show a clean browser surface and server cleanup, but a
-driven long task above the 50 ms cap as continuation history grows. The final
-attempt used a three-tick simulation batch, 100-tick transactional
-presentation cadence, and `RAF → scheduler.yield() → RAF`; it reached a
-52 ms driven task at tick 900. Therefore this directory is evidence of a
-blocked base `0b09af4` integration, not a pass claim.
+| Artifact | Purpose | Result |
+| --- | --- | --- |
+| `endurance-baseline-c2ca58a-tick9000.json` | checkpoint A arm | failed at 8,700→8,701: 42.4 ms; driven LongTasks 0 |
+| `endurance-optimized-prevalidated-shell-tick9000-sample1.json` | private setup-token B arm | 9,000 ticks; max 38.0 ms; driven LongTasks 0 |
+| `endurance-optimized-prevalidated-shell-tick9000-sample2.json` | reproducibility B arm | 9,000 ticks; max 37.3 ms; driven LongTasks 0 |
+| `endurance-preflight-tick1800-prevalidated-shell.json` | bounded restore/scheduler preflight | 1,800 ticks; max 17.3 ms; restore slice max 5.7 ms |
+| `endurance-post-transcript-witness-tick16500-sample1.json` | final-code late-match sample | 16,500 ticks; max 34.1 ms at 16,328; driven LongTasks 0 |
+| `endurance-post-transcript-witness-tick16500-sample2.json` | final-code reproducibility sample | 16,500 ticks; max 34.5 ms at 16,328; driven LongTasks 0 |
 
-`active.png` was visually inspected: it shows the complete active 720×1280
-shell at tick 300 with HUD, arena, both sides' structures, river, card hand,
-and live units aligned. Terminal/restart screenshots cannot exist until the
-50 ms gate is satisfied through tick 18,000.
+All retained bounded runs have empty console, unhandled, resource, and pending
+error arrays and `serverExited: true`. Failed tuning attempts, rejected
+experiments, and temporary profiler artifacts were removed.
+
+## Final focused gates
+
+| Command | Result |
+| --- | --- |
+| `npm test -- game-session` | 9/9, 72.777 s |
+| `npm test -- game-history-cap` | 5/5, 95.224 s |
+| `node --test tests/compact-capability-hostile.test.js` | 4/4, 1.698 s |
+| `npm test -- nondeterminism-guard` | 9/9, 0.624 s |
+| `npm test -- game-browser-loop` | 10/10, 8.013 s |
+| `npm test -- game-input-bridge` | 6/6, 0.178 s |
+| `npm test -- game-audio-runtime` | 10/10, 2.757 s |
+| `npm test -- game-restart` | 3/3, 13.455 s |
+| `node --test tests/game-battle.test.js` | 11/11, 22.367 s |
+| `npm test -- attack-cycle` | 9/9, 0.057 s |
+| `npm test -- audio-renderer` | 13/13, 1.122 s |
+
+The standalone exact `game-session-endurance` selector was intentionally not
+rerun before Chrome under the explicit round override; the 1,800-tick browser
+restore preflight and the stronger exact terminal/restart selector cover the
+requested final workflow.

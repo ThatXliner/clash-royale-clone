@@ -908,7 +908,7 @@ class BattleMovement {
 }
 
 function defineBattleCombat(registerCompact) {
-  let compact;
+  let compact, currentTick;
   const runtimeInstances = new WeakSet();
 
 const MAX_BATTLE_COMBAT_STEP_TICKS = 18_000;
@@ -1556,6 +1556,12 @@ class BattleCombat {
   /** Internal-composition checkpoint: exact continuation without duplicate provenance. */
   static {
     compact = (value) => value.#runtimeClone(false);
+    currentTick = (value) => {
+      if (!runtimeInstances.has(value)) {
+        throw new TypeError("internal defineBattleCombat tick receiver is invalid");
+      }
+      return value.#tick;
+    };
   }
   /** Computes one boundary on a witness-free fork without retaining history. */
   previewBoundary(command) {
@@ -2279,7 +2285,11 @@ class BattleCombat {
     candidate.#tick = this.#tick;
     candidate.#units = this.#units.map((unit) => ({
       ...Object.fromEntries(UNIT_KEYS.map((key) => [key, clone(unit[key])])),
-      attack: AttackCycle.restore(unit.attack.serialize()),
+      // Each unit owns an authentic private AttackCycle. Forking it preserves
+      // an independent continuation without repeatedly serializing, parsing,
+      // and re-admitting that trusted internal authority for every session
+      // transaction.
+      attack: unit.attack.fork(),
       spawnedAt: unit.spawnedAt,
       targetId: unit.targetId,
     }));
@@ -2309,11 +2319,11 @@ const DynamicBattleCombat = BattleCombat;
     }
     return compact(value);
   }, registerCompact);
-  return { BattleCombat, DynamicBattleCombat, MAX_BATTLE_COMBAT_STEP_TICKS };
+  return { BattleCombat, DynamicBattleCombat, MAX_BATTLE_COMBAT_STEP_TICKS, currentTick };
 }
 
 function defineTowers(registerCompact) {
-  let compact;
+  let compact, currentTick;
   const runtimeInstances = new WeakSet();
 
 const TOWER_TICKS_PER_SECOND = 60;
@@ -3009,6 +3019,12 @@ class CrownTowerBattle {
   /** Internal-composition checkpoint: exact continuation without duplicate step provenance. */
   static {
     compact = (value) => value.#runtimeClone();
+    currentTick = (value) => {
+      if (!runtimeInstances.has(value)) {
+        throw new TypeError("internal defineTowers tick receiver is invalid");
+      }
+      return value.#state.nextTick;
+    };
   }
 
   #runtimeClone() {
@@ -3171,13 +3187,13 @@ function towerSecondsToTicks(seconds) {
     }
     return compact(value);
   }, registerCompact);
-  return { CrownTowerBattle, TOWER_COMBAT_CONFIG, TOWER_LIVE_SHOT_DELIVERY, TOWER_TICKS_PER_SECOND, TOWER_WINDUP_ESTIMATE, towerSecondsToTicks };
+  return { CrownTowerBattle, TOWER_COMBAT_CONFIG, TOWER_LIVE_SHOT_DELIVERY, TOWER_TICKS_PER_SECOND, TOWER_WINDUP_ESTIMATE, currentTick, towerSecondsToTicks };
 }
 
 function defineBattleTowers(BattleCombat, CrownTowerBattle, MAX_BATTLE_COMBAT_STEP_TICKS,
   battleCombatCompactClone, resolveBattleCombat, crownTowerCompactClone,
-  resolveCrownTower, registerCompact) {
-  let compact;
+  resolveCrownTower, battleCombatCurrentTick, crownTowerCurrentTick, registerCompact) {
+  let compact, towerSnapshot;
   const runtimeInstances = new WeakSet();
 
 const MAX_BATTLE_TOWER_STEP_TICKS = MAX_BATTLE_COMBAT_STEP_TICKS;
@@ -3612,6 +3628,14 @@ class BattleTowerCombat {
     });
   }
 
+  // This remains lexical-only through defineBattleTowers(). GameSession needs
+  // this narrow read for its independent tower-evidence witness, not the
+  // complete public combat projection (which also clones every unit).
+  #towerSnapshot() {
+    this.#assertSynchronized();
+    return clone(this.#towerRuntime().state.towers);
+  }
+
   get replay() {
     this.#assertPublicTranscript();
     return freeze(clone(this.#events));
@@ -3626,6 +3650,12 @@ class BattleTowerCombat {
   /** Internal composite checkpoint. Public history remains owned by the caller. */
   static {
     compact = (value) => value.#runtimeClone(false);
+    towerSnapshot = (value) => {
+      if (!runtimeInstances.has(value)) {
+        throw new TypeError("internal defineBattleTowers tower snapshot receiver is invalid");
+      }
+      return value.#towerSnapshot();
+    };
   }
   spawn(command) {
     this.#reserveHistory();
@@ -3840,7 +3870,7 @@ class BattleTowerCombat {
     this.#assertSynchronized();
     const combat = this.#combatRuntime();
     const towers = this.#towerRuntime();
-    const tick = combat.state.tick;
+    const tick = battleCombatCurrentTick(combat);
     const structures = structuresFrom(towers.state.towers);
     const candidates = candidatesFrom(combat);
 
@@ -3908,7 +3938,8 @@ class BattleTowerCombat {
   }
 
   #assertSynchronized() {
-    if (this.#combatRuntime().state.tick !== this.#towerRuntime().state.nextTick) {
+    if (battleCombatCurrentTick(this.#combatRuntime()) !==
+        crownTowerCurrentTick(this.#towerRuntime())) {
       throw new TypeError("battle combat and crown towers are not tick-synchronized");
     }
   }
@@ -3979,12 +4010,13 @@ const IntegratedBattleTowers = BattleTowerCombat;
     }
     return compact(value);
   }, registerCompact);
-  return { BattleTowerCombat, IntegratedBattleTowers, MAX_BATTLE_TOWER_STEP_TICKS };
+  return { BattleTowerCombat, IntegratedBattleTowers, MAX_BATTLE_TOWER_STEP_TICKS, towerSnapshot };
 }
 
 function defineLiveBattle(BattleMovement, BattleTowerCombat, battleMovementCompactClone,
-  resolveBattleMovement, battleTowerCompactClone, resolveBattleTower, registerCompact) {
-  let compact;
+  resolveBattleMovement, battleTowerCompactClone, resolveBattleTower, battleTowerSnapshot,
+  registerCompact) {
+  let compact, towerSnapshot, advanceFromSession;
   const runtimeInstances = new WeakSet();
 
 const MAX_LIVE_BATTLE_STEP_TICKS = 18_000;
@@ -4608,6 +4640,10 @@ class LiveBattle {
     return this.#isContinuation ? resolveBattleTower(this.#battle) : this.#battle;
   }
 
+  #towerSnapshot() {
+    return battleTowerSnapshot(this.#battleRuntime());
+  }
+
   #movementRuntime(movement) {
     return this.#movementsOpaque ? resolveBattleMovement(movement) : movement;
   }
@@ -4655,13 +4691,35 @@ class LiveBattle {
   /** Internal composite checkpoint. Public history remains owned by the caller. */
   static {
     compact = (value) => value.#runtimeClone(false);
+    towerSnapshot = (value) => {
+      if (!runtimeInstances.has(value)) {
+        throw new TypeError("internal defineLiveBattle tower snapshot receiver is invalid");
+      }
+      return value.#towerSnapshot();
+    };
+    // GameSession has already cloned this LiveBattle into an unobservable
+    // transactional candidate. Re-cloning it through public stepMany() would
+    // duplicate every live combat/movement authority on each fixed session
+    // slice without adding rollback protection. This closure never leaves the
+    // module and authenticates the receiver without touching attacker data.
+    advanceFromSession = (value, ticks) => {
+      if (!runtimeInstances.has(value)) {
+        throw new TypeError("internal defineLiveBattle session advance receiver is invalid");
+      }
+      return value.#advanceFromSession(ticks);
+    };
   }
   scheduleDeploy(command) {
     if (this.#historyCount >= MAX_HISTORY || this.#pending.length >= MAX_LIVE_BATTLE_DEPLOYMENTS) {
       throw new RangeError("live battle deployment/history bound exceeded");
     }
     const battle = this.#battleRuntime();
-    const checked = checkedDeploy(command, battle.state.tick, this.#rosterById);
+    // `BattleTowerCombat.state` is a complete immutable projection. Capture
+    // the current tick once: admission and the observable scheduling event
+    // must name the same boundary, and a second projection needlessly clones
+    // every live unit/projectile during an active deployment transaction.
+    const battleTick = battle.state.tick;
+    const checked = checkedDeploy(command, battleTick, this.#rosterById);
     if (this.#pending.some((entry) =>
       entry.tick === checked.tick && entry.sequence === checked.sequence)) {
       throw new RangeError("live battle deployment tick/sequence must be unique");
@@ -4670,7 +4728,7 @@ class LiveBattle {
     this.#pending.sort((left, right) => left.tick - right.tick ||
       left.sequence - right.sequence || left.side.localeCompare(right.side));
     this.#appendHistory({ command: clone(checked), type: "deploy" });
-    const event = { ...clone(checked), scheduledAt: battle.state.tick, type: "deploy-scheduled" };
+    const event = { ...clone(checked), scheduledAt: battleTick, type: "deploy-scheduled" };
     this.#events.push(event);
     return freeze(clone(event));
   }
@@ -4697,6 +4755,25 @@ class LiveBattle {
     for (let count = 0; count < ticks; count += 1) events.push(...candidate.#advance());
     this.#adopt(candidate);
     return freeze(clone(events));
+  }
+
+  /**
+   * Closure-private fast path for GameSession's already-isolated candidate.
+   * Public callers retain stepMany()'s independent clone/adopt transaction;
+   * any failure here instead discards the enclosing GameSession candidate.
+   */
+  #advanceFromSession(ticks) {
+    integer(ticks, 0, MAX_LIVE_BATTLE_STEP_TICKS, "live battle session advance ticks");
+    // GameSession has already checked its synchronized match-clock boundary
+    // before constructing this candidate. Reading BattleTowerCombat.state here
+    // would clone every active unit only to repeat that same 18,000-tick cap;
+    // #advance() obtains the one authoritative pre-boundary snapshot below.
+    if (this.#historyCount + ticks > MAX_HISTORY) {
+      throw new RangeError("live battle history bound exceeded");
+    }
+    const events = [];
+    for (let count = 0; count < ticks; count += 1) events.push(...this.#advance());
+    return events;
   }
 
   serialize() {
@@ -4812,15 +4889,19 @@ class LiveBattle {
   }
 
   #advance() {
-    this.#preflightBoundary();
     const battle = this.#battleRuntime();
-    const tick = battle.state.tick;
+    // BattleTowerCombat.state is deliberately a complete immutable public
+    // snapshot. Reuse the pre-materialization read for admission and target
+    // selection rather than repeatedly cloning every live unit on a normal
+    // one-tick transactional continuation. A deployment changes the unit set,
+    // so only that path obtains the one required post-materialization view.
+    let before = battle.state;
+    const due = this.#preflightBoundary(before);
+    const tick = before.tick;
     const boundary = [];
-    const due = this.#pending.filter((entry) => entry.tick === tick);
     this.#pending = this.#pending.filter((entry) => entry.tick !== tick);
     for (const deployment of due) boundary.push(...this.#materialize(deployment));
-
-    const before = battle.state;
+    if (due.length > 0) before = battle.state;
     const positionCommands = [];
     for (const unit of before.units.filter(({ alive }) => alive).sort((a, b) => a.id - b.id)) {
       const movement = this.#movementRuntime(this.#movements.get(unit.id));
@@ -4854,22 +4935,22 @@ class LiveBattle {
     return boundary;
   }
 
-  #preflightBoundary() {
-    const battle = this.#battleRuntime();
-    const tick = battle.state.tick;
+  #preflightBoundary(state = this.#battleRuntime().state) {
+    const tick = state.tick;
     const due = this.#pending.filter((entry) => entry.tick === tick);
     const added = due.reduce((sum, deployment) => {
       const card = this.#rosterById.get(deployment.cardId);
       if (card === undefined) throw new TypeError("live battle pending card identity is unknown");
       return sum + card.formation.totalCount;
     }, 0);
-    const existing = battle.state.units.length;
+    const existing = state.units.length;
     if (!Number.isSafeInteger(added) || existing + added > MAX_LIVE_BATTLE_UNITS) {
       throw new RangeError("live battle boundary unit capacity exceeded");
     }
     if (this.#nextEntityId + added > Number.MAX_SAFE_INTEGER) {
       throw new RangeError("live battle entity identity capacity exceeded");
     }
+    return due;
   }
 
   #materialize(deployment) {
@@ -5010,29 +5091,35 @@ function getLiveBattlePlayableCardIds(setup) {
     }
     return compact(value);
   }, registerCompact);
-  return { getLiveBattlePlayableCardIds, LiveBattle, MAX_LIVE_BATTLE_DEPLOYMENTS, MAX_LIVE_BATTLE_STEP_TICKS, MAX_LIVE_BATTLE_UNITS, parseLiveBattleSetup };
+  return { advanceFromSession, getLiveBattlePlayableCardIds, LiveBattle, MAX_LIVE_BATTLE_DEPLOYMENTS, MAX_LIVE_BATTLE_STEP_TICKS, MAX_LIVE_BATTLE_UNITS, parseLiveBattleSetup, towerSnapshot };
 }
 
 let compactMovement, resolveMovement, compactCombat, resolveCombat, compactCrownTower,
-  resolveCrownTower, compactBattleTowers, resolveBattleTowers, compactLiveBattle,
-  resolveLiveBattle;
+  resolveCrownTower, battleCombatCurrentTick, crownTowerCurrentTick, compactBattleTowers,
+  resolveBattleTowers, compactLiveBattle, resolveLiveBattle, liveBattleAdvanceFromSession,
+  liveBattleTowerSnapshot;
 const movement = defineBattleMovement((clone, resolve) => {
   compactMovement = clone; resolveMovement = resolve;
 });
 const combat = defineBattleCombat((clone, resolve) => {
   compactCombat = clone; resolveCombat = resolve;
 });
+battleCombatCurrentTick = combat.currentTick;
 const towers = defineTowers((clone, resolve) => {
   compactCrownTower = clone; resolveCrownTower = resolve;
 });
+crownTowerCurrentTick = towers.currentTick;
 const battleTowers = defineBattleTowers(combat.BattleCombat, towers.CrownTowerBattle,
   combat.MAX_BATTLE_COMBAT_STEP_TICKS, compactCombat, resolveCombat, compactCrownTower,
-  resolveCrownTower, (clone, resolve) => {
+  resolveCrownTower, battleCombatCurrentTick, crownTowerCurrentTick, (clone, resolve) => {
     compactBattleTowers = clone; resolveBattleTowers = resolve;
   });
 const liveBattle = defineLiveBattle(movement.BattleMovement, battleTowers.BattleTowerCombat,
   compactMovement, resolveMovement, compactBattleTowers, resolveBattleTowers,
+  battleTowers.towerSnapshot,
   (clone, resolve) => { compactLiveBattle = clone; resolveLiveBattle = resolve; });
+liveBattleAdvanceFromSession = liveBattle.advanceFromSession;
+liveBattleTowerSnapshot = liveBattle.towerSnapshot;
 
 export const BATTLE_MOVEMENT_MODES = movement.BATTLE_MOVEMENT_MODES;
 export const MAX_BATTLE_MOVEMENT_STEP_TICKS = movement.MAX_BATTLE_MOVEMENT_STEP_TICKS;
@@ -7389,6 +7476,13 @@ const SETUP_KEYS = ["battleSetup", "deck", "legalNorthDeployments", "rosterWitne
   "seed", "startingElixir", "thinkIntervalTicks", "thinkOffsetTicks"];
 const authenticGameSessions = new WeakSet();
 const authenticGameSessionProjectionSnapshots = new WeakSet();
+const GAME_SESSION_SNAPSHOT_SUFFIX = "],\"version\":2}";
+const GAME_SESSION_SNAPSHOT_SUFFIX_BYTES = GAME_SESSION_SNAPSHOT_SUFFIX.length;
+// A clone shell may reuse only this frozen setup graph, which has already
+// passed the complete public setup admission. The fieldless token itself is
+// private to GameSession instances; WeakMap identity lookup cannot inspect a
+// forged, proxied, or revoked caller-supplied value.
+const prevalidatedGameSessionSetups = new WeakMap();
 
 function isAuthenticGameSession(value) {
   return authenticGameSessions.has(value);
@@ -7518,6 +7612,17 @@ function validateSetup(bytes) {
   });
   return { cardRuntime, cards, costs, setup: freeze(clone(setup)) };
 }
+function issuePrevalidatedGameSessionSetup(setup) {
+  const snapshotPrefix = `{\"setup\":${canonical(setup)},\"transcript\":[`;
+  const token = Object.freeze(Object.create(null));
+  assertOpaqueContinuationHandle(token);
+  prevalidatedGameSessionSetups.set(token, Object.freeze({
+    setup,
+    snapshotPrefix,
+    snapshotPrefixBytes: scalarByteLength(snapshotPrefix, "game session snapshot"),
+  }));
+  return token;
+}
 function initialMatchTowers(battle) {
   const order = ["north:central", "north:lane:left", "north:lane:right",
     "south:central", "south:lane:left", "south:lane:right"];
@@ -7543,11 +7648,26 @@ function commandText(value) {
 
 class GameSession {
   #battle; #cardRuntime; #clock; #controller; #costs; #decks; #elixir; #events = [];
-  #history = []; #legal; #nextDeploymentSequence = 0; #paused = false; #pending = [];
+  #history = []; #historyBytes = []; #historyByteLength = 0; #legal;
+  #nextDeploymentSequence = 0; #paused = false; #pending = [];
   #processed = new Map(); #projectionSequence = 0; #projectionSource = Object.freeze({}); #setup;
-  #towerEvidence; #isContinuation = false;
+  #setupToken; #snapshotPrefix; #snapshotPrefixBytes; #towerEvidence; #isContinuation = false;
 
   constructor(canonicalSetup) {
+    const prevalidated = new.target === GameSession
+      ? prevalidatedGameSessionSetups.get(canonicalSetup) : undefined;
+    if (prevalidated !== undefined) {
+      // This branch is reachable only from #runtimeClone() with an opaque
+      // lexical token. All mutable authorities are installed independently by
+      // that method before the candidate can escape or be observed.
+      this.#setup = prevalidated.setup;
+      this.#legal = prevalidated.setup.legalNorthDeployments;
+      this.#setupToken = canonicalSetup;
+      this.#snapshotPrefix = prevalidated.snapshotPrefix;
+      this.#snapshotPrefixBytes = prevalidated.snapshotPrefixBytes;
+      authenticGameSessions.add(this);
+      return;
+    }
     const checked = validateSetup(canonicalSetup); this.#setup = checked.setup;
     this.#cardRuntime = checked.cardRuntime;
     this.#costs = checked.costs; this.#legal = this.#setup.legalNorthDeployments;
@@ -7560,6 +7680,10 @@ class GameSession {
       thinkOffsetTicks: this.#setup.thinkOffsetTicks });
     this.#clock = new MatchClock({ initialTowers: initialMatchTowers(this.#battle) });
     this.#towerEvidence = mapLiveBattleTowerStateToMatchEvidence(this.#battle.state.towers);
+    this.#setupToken = issuePrevalidatedGameSessionSetup(this.#setup);
+    const prevalidatedSetup = prevalidatedGameSessionSetups.get(this.#setupToken);
+    this.#snapshotPrefix = prevalidatedSetup.snapshotPrefix;
+    this.#snapshotPrefixBytes = prevalidatedSetup.snapshotPrefixBytes;
     if (new.target === GameSession) authenticGameSessions.add(this);
   }
 
@@ -7577,6 +7701,25 @@ class GameSession {
 
   #elixirRuntime() {
     return this.#isContinuation ? resolveElixirMatch(this.#elixir) : this.#elixir;
+  }
+
+  // The public transcript is append-only after its fully validated setup.
+  // Retaining each exact canonical operation fragment makes the transactional
+  // snapshot bound O(new operations), while public serialize() still returns
+  // the identical canonical v2 bytes.
+  #appendHistory(operation) {
+    const bytes = canonical(operation);
+    this.#history.push(operation);
+    this.#historyBytes.push(bytes);
+    this.#historyByteLength += scalarByteLength(bytes, "game session snapshot") +
+      (this.#historyBytes.length === 1 ? 0 : 1);
+  }
+
+  #assertSnapshotBound() {
+    if (this.#snapshotPrefixBytes + this.#historyByteLength +
+        GAME_SESSION_SNAPSHOT_SUFFIX_BYTES > GAME_SESSION_MAX_SNAPSHOT_BYTES) {
+      throw new RangeError("game session snapshot exceeds its byte bound");
+    }
   }
 
   get state() { const battle = this.#battleRuntime(), clock = this.#clockRuntime();
@@ -7644,17 +7787,17 @@ class GameSession {
       throw new RangeError("player session command is divergent or unaffordable");
     }
     this.#pending.push(command); this.#pending.sort((a, b) => a.tick - b.tick || a.commandId - b.commandId);
-    this.#history.push({ command: clone(command), type: "submit" });
+    this.#appendHistory({ command: clone(command), type: "submit" });
     if (before === this.serialize()) throw new Error("player command admission invariant failed");
     return freeze(clone({ accepted: true, commandId: command.commandId, tick: command.tick,
       type: "player-command-admitted" }));
   }
   pause() { if (!this.#paused) { if (this.#history.length >= GAME_SESSION_MAX_TRANSCRIPT) {
       throw new RangeError("game session transcript exceeds its operation bound");
-    } this.#paused = true; this.#history.push({ type: "pause" }); } return this.state; }
+    } this.#paused = true; this.#appendHistory({ type: "pause" }); } return this.state; }
   resume() { if (this.#paused) { if (this.#history.length >= GAME_SESSION_MAX_TRANSCRIPT) {
       throw new RangeError("game session transcript exceeds its operation bound");
-    } this.#paused = false; this.#history.push({ type: "resume" }); } return this.state; }
+    } this.#paused = false; this.#appendHistory({ type: "resume" }); } return this.state; }
   restart() { const freshSetup = clone(this.#setup); freshSetup.seed = 0;
     const fresh = new GameSession(canonical(freshSetup)); this.#adopt(fresh); return this.state; }
   step() { return this.stepMany(1); }
@@ -7686,16 +7829,13 @@ class GameSession {
     if (this.#history.length + committedCount > GAME_SESSION_MAX_TRANSCRIPT) {
       throw new RangeError("game session transcript exceeds its operation bound");
     }
-    for (let index = 0; index < committedCount; index += 1) candidate.#history.push({ type: "step" });
-    candidate.serialize(); this.#adopt(candidate); return freeze(clone(events));
+    for (let index = 0; index < committedCount; index += 1) candidate.#appendHistory({ type: "step" });
+    candidate.#assertSnapshotBound(); this.#adopt(candidate); return freeze(clone(events));
   }
 
   serialize() {
-    const bytes = canonical({ setup: this.#setup, transcript: this.#history, version: 2 });
-    if (scalarByteLength(bytes, "game session snapshot") > GAME_SESSION_MAX_SNAPSHOT_BYTES) {
-      throw new RangeError("game session snapshot exceeds byte bound");
-    }
-    return bytes;
+    this.#assertSnapshotBound();
+    return `${this.#snapshotPrefix}${this.#historyBytes.join(",")}${GAME_SESSION_SNAPSHOT_SUFFIX}`;
   }
   static restore(serialized) {
     const value = exact(parsed(serialized, "game session snapshot"),
@@ -7746,9 +7886,18 @@ class GameSession {
     const battle = this.#battleRuntime(), clock = this.#clockRuntime();
     const elixir = this.#elixirRuntime(), controller = this.#controllerRuntime();
     const firstTick = clock.tick, endTick = firstTick + count;
-    const staged = [], battleEvents = [], towerRecords = clone(battle.state.towers);
+    // Tower evidence deliberately owns an independent six-record witness. Do
+    // not build LiveBattle.state here: that public projection also clones all
+    // active units and movement histories although this path consumes towers
+    // only. The lexical reader preserves BattleTowerCombat synchronization.
+    const staged = [], battleEvents = [], towerRecords = clone(liveBattleTowerSnapshot(battle));
+    let battleTick = firstTick;
     const flushBattleTo = (tick) => {
-      battleEvents.push(...battle.stepMany(tick - battle.state.tick));
+      if (tick < battleTick) throw new RangeError("session battle cursor moved backwards");
+      if (tick > battleTick) {
+        battleEvents.push(...liveBattleAdvanceFromSession(battle, tick - battleTick));
+      }
+      battleTick = tick;
     };
     for (let tick = firstTick; tick < endTick; tick += 1) {
       const player = this.#pending.find((entry) => entry.tick === tick) ?? null;
@@ -7809,7 +7958,7 @@ class GameSession {
       const evidence = mapLiveBattleTowerStateToMatchEvidence(towerRecords);
       clock.scheduleTowerEvidence(tick, evidence); this.#towerEvidence = evidence;
     }
-    const finalEvidence = mapLiveBattleTowerStateToMatchEvidence(battle.state.towers);
+    const finalEvidence = mapLiveBattleTowerStateToMatchEvidence(liveBattleTowerSnapshot(battle));
     if (canonical(finalEvidence) !== canonical(this.#towerEvidence)) {
       throw new Error("session tower evidence did not reproduce the authoritative battle");
     }
@@ -7831,35 +7980,48 @@ class GameSession {
     return sessionEvents;
   }
   #runtimeClone() {
-    const value = new GameSession(canonical(this.#setup));
+    const value = new GameSession(this.#setupToken);
     const battle = this.#battleRuntime(), clock = this.#clockRuntime();
     const controller = this.#controllerRuntime(), elixir = this.#elixirRuntime();
     value.#battle = compactLiveBattle(battle);
     value.#cardRuntime = this.#cardRuntime.fork();
     value.#clock = compactMatchClock(clock);
     value.#controller = compactOpponentController(controller);
+    value.#costs = new Map(this.#costs);
     value.#decks = { north: DeckCycle.restore(this.#decks.north.serializeJson()),
       south: DeckCycle.restore(this.#decks.south.serializeJson()) };
     value.#elixir = compactElixirMatch(elixir);
     value.#isContinuation = true;
     value.#events = [...this.#events]; value.#history = [...this.#history];
+    value.#historyBytes = [...this.#historyBytes]; value.#historyByteLength = this.#historyByteLength;
     value.#nextDeploymentSequence = this.#nextDeploymentSequence;
     value.#projectionSequence = this.#projectionSequence;
     value.#projectionSource = this.#projectionSource;
     value.#paused = this.#paused; value.#pending = clone(this.#pending);
     value.#processed = new Map([...this.#processed.entries()].map(([key, entry]) => [key, clone(entry)]));
-    value.#towerEvidence = mapLiveBattleTowerStateToMatchEvidence(value.#battleRuntime().state.towers);
+    value.#setupToken = this.#setupToken;
+    value.#snapshotPrefix = this.#snapshotPrefix;
+    value.#snapshotPrefixBytes = this.#snapshotPrefixBytes;
+    // Every committed source session has already compared this frozen evidence
+    // with its authoritative live battle at the preceding boundary. A clone
+    // owns an independent copy; rebuilding it through LiveBattle.state would
+    // clone all live units just to read six tower records.
+    value.#towerEvidence = clone(this.#towerEvidence);
     return value;
   }
   #adopt(other) { this.#battle = other.#battle; this.#cardRuntime = other.#cardRuntime;
     this.#clock = other.#clock;
     this.#controller = other.#controller; this.#costs = other.#costs; this.#decks = other.#decks;
     this.#elixir = other.#elixir; this.#events = other.#events; this.#history = other.#history;
+    this.#historyBytes = other.#historyBytes; this.#historyByteLength = other.#historyByteLength;
     this.#legal = other.#legal; this.#nextDeploymentSequence = other.#nextDeploymentSequence;
     this.#projectionSequence = other.#projectionSequence;
     this.#projectionSource = other.#projectionSource;
     this.#paused = other.#paused; this.#pending = other.#pending; this.#processed = other.#processed;
-    this.#setup = other.#setup; this.#towerEvidence = other.#towerEvidence;
+    this.#setup = other.#setup; this.#setupToken = other.#setupToken;
+    this.#snapshotPrefix = other.#snapshotPrefix;
+    this.#snapshotPrefixBytes = other.#snapshotPrefixBytes;
+    this.#towerEvidence = other.#towerEvidence;
     this.#isContinuation = other.#isContinuation; }
 }
   return {

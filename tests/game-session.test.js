@@ -108,6 +108,24 @@ test("game session: pause, resume, restart, chunks, and restore cuts preserve ex
   }
 });
 
+test("game session: append-only transcript witness stays canonical across isolated ticks", () => {
+  const configured = setup({ seed: "cached-transcript", think: 7 });
+  const session = new GameSession(configured);
+  for (let tick = 0; tick < 48; tick += 1) {
+    if (tick === 12) session.submitPlayerCommand(command(session, 0));
+    if (tick === 24) { session.pause(); session.resume(); }
+    session.stepMany(1);
+    const bytes = session.serialize();
+    assert.equal(bytes, canonical(JSON.parse(bytes)), `canonical bytes at tick ${tick + 1}`);
+  }
+  const checkpoint = session.serialize();
+  const restored = GameSession.restore(checkpoint);
+  restored.stepMany(12);
+  assert.equal(session.serialize(), checkpoint, "restored continuation cannot mutate source bytes");
+  assert.equal(GameSession.restore(checkpoint).serialize(), checkpoint,
+    "cached transcript reconstructs the exact public restore witness");
+});
+
 test("game session: full regulation/overtime/tiebreak reaches one frozen terminal result", () => {
   const session = new GameSession(setup({ candidates: [], starting: 0, think: 3_600 }));
   session.stepMany(18_000);

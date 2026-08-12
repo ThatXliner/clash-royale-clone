@@ -513,7 +513,10 @@ export function mountShippedGameBrowser(
       enduranceDrive = token;
       const candidate = graph;
       const chunks = [];
-      let remaining = Math.min(count, 18_000 - candidate.loop.state.sessionTick);
+      const initialState = candidate.loop.state;
+      let currentTick = initialState.sessionTick;
+      let terminal = initialState.terminal;
+      let remaining = Math.min(count, 18_000 - currentTick);
       let opened = false;
       try {
         candidate.loop.beginEnduranceSegment();
@@ -521,8 +524,8 @@ export function mountShippedGameBrowser(
         let simulationSliceCount = 0;
         let simulationTickCount = 0;
         let presentationEventCount = 0;
-        while (remaining > 0 && !candidate.loop.state.terminal) {
-          const fromTick = candidate.loop.state.sessionTick;
+        while (remaining > 0 && !terminal) {
+          const fromTick = currentTick;
           const slice = candidate.loop.advanceEnduranceSlice(
             Math.min(GAME_BROWSER_ENDURANCE_MAX_CHUNK_TICKS, remaining,
               GAME_BROWSER_ENDURANCE_PRESENTATION_TICKS - simulationTickCount),
@@ -530,6 +533,8 @@ export function mountShippedGameBrowser(
           const advanced = slice.sessionTick - fromTick;
           if (advanced <= 0) throw new Error("shipped browser endurance segment did not advance");
           remaining -= advanced;
+          currentTick = slice.sessionTick;
+          terminal = slice.terminal;
           simulationSliceCount += 1;
           simulationTickCount += advanced;
           presentationEventCount += slice.events.length;
