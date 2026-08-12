@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import test from "node:test";
 
 import {
@@ -113,6 +114,244 @@ function driveTo(mover, endTick, commandAt, commandTicks, chunked = false, inclu
   }
   return events;
 }
+
+function authority(state) {
+  const copyState = copy(state);
+  copyState.commands = [];
+  return JSON.stringify(copyState);
+}
+
+function commandSequenceCompare(left, right) {
+  if (left.length !== right.length) return left.length - right.length;
+  const leftBytes = JSON.stringify(left);
+  const rightBytes = JSON.stringify(right);
+  return leftBytes < rightBytes ? -1 : leftBytes > rightBytes ? 1 : 0;
+}
+
+function replayCommands(configuration, commands, tick) {
+  const mover = new BattleMovement(configuration);
+  for (const command of commands) {
+    mover.stepMany(command.tick - mover.state.tick);
+    if (command.kind === "stop") mover.stop();
+    else mover.setTarget(command.target);
+  }
+  mover.stepMany(tick - mover.state.tick);
+  return mover;
+}
+
+function shortestSubsequence(configuration, commands, tick, expectedAuthority) {
+  let best = null;
+  for (let mask = 0; mask < 2 ** commands.length; mask += 1) {
+    const candidate = commands.filter((_, index) => (mask & (2 ** index)) !== 0);
+    if (authority(replayCommands(configuration, candidate, tick).state) !== expectedAuthority) {
+      continue;
+    }
+    if (best === null || commandSequenceCompare(candidate, best) < 0) best = candidate;
+  }
+  return best;
+}
+
+function seededRandom(seed) {
+  let value = seed >>> 0;
+  return () => {
+    value = (value * 1_664_525 + 1_013_904_223) >>> 0;
+    return value / 2 ** 32;
+  };
+}
+
+test("battle movement history: critic cross-tick case is rejected and live serialization is canonical", () => {
+  const target = destination({ x: 14_000, y: 23_000 });
+  const mover = new BattleMovement({
+    mode: "air",
+    position: { x: 1_000, y: 1_000 },
+    speed: 60,
+  });
+  for (const tick of [0, 5, 10, 20]) {
+    mover.stepMany(tick - mover.state.tick);
+    mover.setTarget(target);
+  }
+  const longer = rawSnapshot(mover);
+  assert.deepEqual(longer.state.commands.map(({ tick }) => tick), [0, 5, 10, 20]);
+  assertRejectsSnapshot(longer, /canonical/u);
+
+  const canonical = mover.serialize();
+  assert.deepEqual(JSON.parse(canonical).state.commands.map(({ tick }) => tick), [0, 5, 20]);
+  const restored = BattleMovement.restore(canonical);
+  assert.equal(restored.serialize(), canonical);
+  assert.deepEqual(restored.state, mover.state);
+});
+
+test("battle movement history: changing-position redundancy covers signed air and bridge ground paths", () => {
+  const cases = [
+    {
+      configuration: {
+        mode: "air",
+        position: { x: 16_000, y: 12_000 },
+        speed: 750,
+      },
+      commands: [
+        { kind: "target", target: destination({ x: 2_000, y: 12_000 }), tick: 0 },
+        { kind: "target", target: destination({ x: 2_000, y: 12_000 }), tick: 1 },
+        { kind: "target", target: destination({ x: 2_000, y: 12_000 }), tick: 3 },
+        { kind: "target", target: destination({ x: 15_000, y: 5_000 }), tick: 4 },
+      ],
+      tick: 24,
+    },
+    {
+      configuration: {
+        bodyRadius: 600,
+        mode: "ground",
+        position: { x: 8_500, y: 10_500 },
+        speed: 1_500,
+      },
+      commands: [
+        { kind: "target", target: destination({ x: 8_500, y: 21_500 }, 100, 100), tick: 0 },
+        { kind: "target", target: destination({ x: 8_500, y: 21_500 }, 100, 100), tick: 1 },
+        { kind: "target", target: destination({ x: 8_500, y: 21_500 }, 100, 100), tick: 2 },
+        { kind: "target", target: destination({ x: 14_500, y: 22_500 }, 100, 100), tick: 3 },
+      ],
+      tick: 23,
+    },
+  ];
+  for (const { configuration, commands, tick } of cases) {
+    const full = replayCommands(configuration, commands, tick);
+    const expectedAuthority = authority(full.state);
+    const shortest = shortestSubsequence(configuration, commands, tick, expectedAuthority);
+    assert.ok(shortest.length < commands.length);
+    const hostile = copy(rawSnapshot(full));
+    hostile.state.commands = copy(commands);
+    assertRejectsSnapshot(hostile, /canonical/u);
+    assert.deepEqual(JSON.parse(full.serialize()).state.commands, shortest);
+    assert.equal(authority(BattleMovement.restore(full.serialize()).state), expectedAuthority);
+  }
+});
+
+test("battle movement history: arrival and A-to-B-to-A reductions preserve the final continuation", () => {
+  const arrivalConfiguration = {
+    mode: "air",
+    position: { x: 5_000, y: 5_000 },
+    speed: 1_000,
+  };
+  const arrivalTarget = destination({ x: 5_000, y: 10_000 });
+  const arrivalCommands = [
+    { kind: "target", target: arrivalTarget, tick: 0 },
+    { kind: "target", target: arrivalTarget, tick: 400 },
+  ];
+  const arrived = replayCommands(arrivalConfiguration, arrivalCommands, 450);
+  const arrivedAuthority = authority(arrived.state);
+  const arrivedShortest = shortestSubsequence(
+    arrivalConfiguration,
+    arrivalCommands,
+    450,
+    arrivedAuthority,
+  );
+  assert.deepEqual(arrivedShortest.map(({ tick }) => tick), [0]);
+  const arrivedHostile = copy(rawSnapshot(arrived));
+  arrivedHostile.state.commands = copy(arrivalCommands);
+  assertRejectsSnapshot(arrivedHostile, /canonical/u);
+  assert.deepEqual(JSON.parse(arrived.serialize()).state.commands, arrivedShortest);
+
+  const loopConfiguration = {
+    mode: "air",
+    position: { x: 1_000, y: 1_000 },
+    speed: 1_000,
+  };
+  const pointA = destination({ x: 14_000, y: 23_000 });
+  const pointB = destination({ x: 2_000, y: 2_000 });
+  const loopCommands = [
+    { kind: "target", target: pointA, tick: 0 },
+    { kind: "target", target: pointB, tick: 1 },
+    { kind: "target", target: pointA, tick: 86 },
+  ];
+  const loop = replayCommands(loopConfiguration, loopCommands, 87);
+  const loopAuthority = authority(loop.state);
+  const loopShortest = shortestSubsequence(loopConfiguration, loopCommands, 87, loopAuthority);
+  assert.equal(loopShortest.length, 2);
+  const loopHostile = copy(rawSnapshot(loop));
+  loopHostile.state.commands = copy(loopCommands);
+  assertRejectsSnapshot(loopHostile, /canonical/u);
+  assert.deepEqual(JSON.parse(loop.serialize()).state.commands, loopShortest);
+});
+
+test("battle movement history: joint redundancy reaches one shortest lexicographic fixed point", () => {
+  const targets = [
+    destination({ x: 3_500, y: 22_500 }, 200, 100),
+    destination({ x: 15_000, y: 5_000 }),
+    destination({ x: 2_000, y: 2_000 }),
+    destination({ x: 5_000, y: 25_000 }),
+    destination({ x: 14_000, y: 23_000 }),
+  ];
+  const configuration = { mode: "air", position: { x: 1_000, y: 1_000 }, speed: 600 };
+  const commands = [
+    { kind: "target", target: targets[0], tick: 1 },
+    { kind: "target", target: targets[0], tick: 2 },
+    { kind: "stop", tick: 2 },
+    { kind: "stop", tick: 2 },
+    { kind: "target", target: targets[3], tick: 3 },
+    { kind: "target", target: targets[1], tick: 5 },
+    { kind: "stop", tick: 5 },
+    { kind: "target", target: targets[4], tick: 7 },
+  ];
+  const full = replayCommands(configuration, commands, 8);
+  const expectedAuthority = authority(full.state);
+  const shortest = shortestSubsequence(configuration, commands, 8, expectedAuthority);
+  assert.deepEqual(shortest.map(({ kind, tick }) => ({ kind, tick })), [
+    { kind: "target", tick: 2 },
+    { kind: "target", tick: 3 },
+    { kind: "stop", tick: 5 },
+    { kind: "target", tick: 7 },
+  ]);
+
+  const hostile = copy(rawSnapshot(full));
+  hostile.state.commands = commands;
+  assertRejectsSnapshot(hostile, /canonical/u);
+  const accepted = copy(hostile);
+  accepted.state.commands = shortest;
+  const restored = BattleMovement.restore(bytes(accepted));
+  assert.equal(restored.serialize(), bytes(accepted));
+  assert.equal(authority(restored.state), expectedAuthority);
+});
+
+test("battle movement history: seeded exhaustive subsequences choose the independent shortest representative", () => {
+  const targets = [
+    destination({ x: 14_000, y: 23_000 }),
+    destination({ x: 2_000, y: 2_000 }),
+    destination({ x: 15_000, y: 5_000 }, 100, 200),
+    destination({ x: 5_000, y: 25_000 }, 200, 100),
+  ];
+  const configuration = { mode: "air", position: { x: 1_000, y: 1_000 }, speed: 600 };
+  const random = seededRandom(0x5eed_001);
+  for (let trial = 0; trial < 1_000; trial += 1) {
+    const count = 1 + Math.floor(random() * 7);
+    const commands = [];
+    let tick = 0;
+    for (let index = 0; index < count; index += 1) {
+      tick += 1 + Math.floor(random() * 3);
+      commands.push(random() < 0.2
+        ? { kind: "stop", tick }
+        : {
+            kind: "target",
+            target: copy(targets[Math.floor(random() * targets.length)]),
+            tick,
+          });
+    }
+    const horizon = tick + Math.floor(random() * 5);
+    const full = replayCommands(configuration, commands, horizon);
+    const expectedAuthority = authority(full.state);
+    const expected = shortestSubsequence(configuration, commands, horizon, expectedAuthority);
+    assert.deepEqual(
+      JSON.parse(full.serialize()).state.commands,
+      expected,
+      `seeded history ${trial}`,
+    );
+  }
+});
+
+test("battle movement history: semantic admission has no guessed-position canonicalization gate", () => {
+  const source = readFileSync(new URL("../src/sim/battle-continuation-kernel.js", import.meta.url), "utf8");
+  assert.doesNotMatch(source, /mayHaveCrossTickRedundancy/u);
+  assert.doesNotMatch(source, /priorCommandPosition/u);
+});
 
 test("battle movement history: same-tick overrides and duplicate stop/target forms are not admitted", () => {
   const targetA = destination({ x: 6_000, y: 6_000 });

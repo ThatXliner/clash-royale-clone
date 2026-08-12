@@ -781,6 +781,10 @@ function sameAuthoritativeState(left, right) {
     JSON.stringify(authoritativeState(right));
 }
 
+function authoritativeSignature(state) {
+  return JSON.stringify(authoritativeState(state));
+}
+
 function applyCommandState(state, command) {
   if (command.kind === "target") applyTargetState(state, command.target);
   else applyStopState(state);
@@ -796,36 +800,213 @@ function replayCommandState(configuration, commands, snapshotTick) {
   return state;
 }
 
-function reachesAuthoritativeState(configuration, commands, snapshotTick, expected) {
+const EXACT_CANONICAL_HISTORY_COMMANDS = 24;
+const PAIR_CANONICAL_HISTORY_COMMANDS = 64;
+
+function commandLexicalKey(command) {
+  return JSON.stringify(command);
+}
+
+function compareCommandSequences(left, right) {
+  if (left.length !== right.length) return left.length - right.length;
+  for (let index = 0; index < left.length; index += 1) {
+    const leftKey = commandLexicalKey(left[index]);
+    const rightKey = commandLexicalKey(right[index]);
+    if (leftKey < rightKey) return -1;
+    if (leftKey > rightKey) return 1;
+  }
+  return 0;
+}
+
+function rememberCanonicalState(states, state, sequence) {
+  const key = authoritativeSignature(state);
+  const prior = states.get(key);
+  if (prior === undefined || compareCommandSequences(sequence, prior.sequence) < 0) {
+    states.set(key, { sequence, state });
+  }
+}
+
+/*
+ * Find the shortest subsequence that reaches the expected authority. The
+ * frontier contains one shortest, lexicographically smallest sequence for
+ * every exact authoritative state at the current command boundary. Omitting
+ * or retaining the next command are the only transitions, so induction over
+ * the input proves that no strict subsequence is skipped. State signatures
+ * include every continuation field except the history itself, including all
+ * ground route provenance and the air segment/remainder.
+ *
+ * This exact frontier is intentionally used for small hostile histories. It
+ * also handles joint redundancy: a pair that is not removable separately is
+ * still represented by the branch that omits both commands.
+ */
+function shortestCanonicalCommandHistory(configuration, commands, snapshotTick, expected) {
+  let frontier = new Map();
+  const initial = initialState(configuration);
+  rememberCanonicalState(frontier, initial, []);
+
+  for (const command of commands) {
+    const next = new Map();
+    for (const { state, sequence } of frontier.values()) {
+      const advanced = canonicalState(state);
+      advanceStateOnly(advanced, command.tick - advanced.tick);
+      rememberCanonicalState(next, advanced, sequence);
+
+      const included = canonicalState(advanced);
+      try {
+        applyCommandState(included, command);
+      } catch {
+        continue;
+      }
+      rememberCanonicalState(
+        next,
+        included,
+        [...sequence, cloneCommand(command)],
+      );
+    }
+    frontier = next;
+  }
+
+  const expectedKey = authoritativeSignature(expected);
+  let best = null;
+  for (const { state, sequence } of frontier.values()) {
+    advanceStateOnly(state, snapshotTick - state.tick);
+    if (authoritativeSignature(state) !== expectedKey) continue;
+    if (best === null || compareCommandSequences(sequence, best) < 0) {
+      best = sequence;
+    }
+  }
+  if (best === null) {
+    throw new RangeError("battle movement command history has no canonical subsequence");
+  }
+  return best;
+}
+
+function prefixStates(configuration, commands) {
+  const state = initialState(configuration);
+  const prefixes = [];
+  for (const command of commands) {
+    advanceStateOnly(state, command.tick - state.tick);
+    prefixes.push(canonicalState(state));
+    applyCommandState(state, command);
+  }
+  return prefixes;
+}
+
+function replayFromPrefix(prefix, commands, startIndex, snapshotTick) {
+  const state = canonicalState(prefix);
+  for (let index = startIndex; index < commands.length; index += 1) {
+    const command = commands[index];
+    advanceStateOnly(state, command.tick - state.tick);
+    applyCommandState(state, command);
+  }
+  advanceStateOnly(state, snapshotTick - state.tick);
+  return state;
+}
+
+function omissionMatchesExpected(commands, snapshotTick, expectedKey, prefixes, index) {
+  const candidate = commands.slice(0, index).concat(commands.slice(index + 1));
   try {
-    return sameAuthoritativeState(
-      replayCommandState(configuration, commands, snapshotTick),
-      expected,
-    );
+    const state = replayFromPrefix(prefixes[index], candidate, index, snapshotTick);
+    return authoritativeSignature(state) === expectedKey;
+  } catch {
+    return false;
+  }
+}
+
+function pairMatchesExpected(commands, snapshotTick, expectedKey, prefixes, first, second) {
+  const candidate = commands.slice(0, first)
+    .concat(commands.slice(first + 1, second))
+    .concat(commands.slice(second + 1));
+  try {
+    const state = replayFromPrefix(prefixes[first], candidate, first, snapshotTick);
+    return authoritativeSignature(state) === expectedKey;
   } catch {
     return false;
   }
 }
 
 /*
- * A command is removable only when the complete authoritative continuation
- * (not merely the visible target or position) survives its omission. Testing
- * one omission at a time gives a deterministic left-to-right normal form. The
- * replay used here advances integer movement budget in bulk between commands;
- * it never performs the MAX_TICK x MAX_COMMANDS tick-by-candidate replay.
+ * For larger histories the exact frontier can have exponentially many
+ * distinct states. The bounded public format still admits a deterministic
+ * fixed-point reduction: scan omissions in source order, remove the first
+ * command whose complete authoritative continuation is unchanged, rebuild
+ * prefix checkpoints, and repeat. For histories small enough to expose
+ * attacker-chosen joint redundancy, the exact frontier above is used; for
+ * the larger bounded path, adjacent reductions are supplemented by an
+ * exhaustive pair pass when the quadratic candidate set remains bounded.
+ * Every accepted history is compared against the resulting fixed point.
  */
-function canonicalCommandHistory(configuration, commands, snapshotTick, expected) {
-  const kept = commands.map(cloneCommand);
-  let index = 0;
-  while (index < kept.length) {
-    const candidate = kept.slice(0, index).concat(kept.slice(index + 1));
-    if (reachesAuthoritativeState(configuration, candidate, snapshotTick, expected)) {
+function fixedPointCanonicalCommandHistory(configuration, commands, snapshotTick, expected) {
+  let kept = commands.map(cloneCommand);
+  const expectedKey = authoritativeSignature(expected);
+  let scanStart = 0;
+  while (kept.length > 1) {
+    const prefixes = prefixStates(configuration, kept);
+    let removed = false;
+    for (let index = scanStart; index < kept.length; index += 1) {
+      if (!omissionMatchesExpected(
+        kept,
+        snapshotTick,
+        expectedKey,
+        prefixes,
+        index,
+      )) continue;
       kept.splice(index, 1);
+      scanStart = Math.max(0, index - 1);
+      removed = true;
+      break;
+    }
+    if (removed) continue;
+
+    // A later deletion can expose an earlier deletion. Once the forward scan
+    // reaches the end, perform one complete pass before declaring the fixed
+    // point. This preserves the reduction order while avoiding a full-prefix
+    // replay after every deletion in long histories.
+    if (scanStart !== 0) {
+      scanStart = 0;
       continue;
     }
-    index += 1;
+
+    if (kept.length <= PAIR_CANONICAL_HISTORY_COMMANDS) {
+      let pairRemoved = false;
+      for (let first = 0; first < kept.length && !pairRemoved; first += 1) {
+        for (let second = first + 1; second < kept.length; second += 1) {
+          if (!pairMatchesExpected(
+            kept,
+            snapshotTick,
+            expectedKey,
+            prefixes,
+            first,
+            second,
+          )) continue;
+          kept.splice(second, 1);
+          kept.splice(first, 1);
+          pairRemoved = true;
+          break;
+        }
+      }
+      if (pairRemoved) continue;
+    }
+    break;
   }
   return kept;
+}
+
+function canonicalCommandHistory(configuration, commands, snapshotTick, expected) {
+  if (commands.length <= EXACT_CANONICAL_HISTORY_COMMANDS) {
+    return shortestCanonicalCommandHistory(
+      configuration,
+      commands,
+      snapshotTick,
+      expected,
+    );
+  }
+  return fixedPointCanonicalCommandHistory(
+    configuration,
+    commands,
+    snapshotTick,
+    expected,
+  );
 }
 
 function movementDistanceToArrival(state) {
@@ -974,10 +1155,7 @@ class BattleMovement {
   #commandBase = null;
   #commandGroup = [];
   #commandTick = null;
-  #historyNeedsCanonicalization = false;
-  #lastCommandKind = null;
-  #lastCommandPosition = null;
-  #lastStopHadActiveTarget = false;
+  #serializedSnapshot = null;
 
   constructor(configuration) {
     runtimeInstances.add(this);
@@ -1010,8 +1188,6 @@ class BattleMovement {
       throw new RangeError("battle movement command bound exceeded");
     }
     const candidate = canonicalState(this.#state);
-    const previousCommandKind = this.#lastCommandKind;
-    const previousStopHadActiveTarget = this.#lastStopHadActiveTarget;
     const command = {
       kind: "target",
       target: cloneTarget(checked),
@@ -1030,15 +1206,7 @@ class BattleMovement {
     candidate.commands = this.#commandBase.commands.concat(effectiveGroup);
     this.#state = candidate;
     this.#commandGroup = rawGroup;
-    if (this.#lastCommandPosition !== null &&
-        samePoint(this.#lastCommandPosition, this.#state.position) &&
-        !(previousCommandKind === "stop" && previousStopHadActiveTarget)) {
-      this.#historyNeedsCanonicalization = true;
-    }
-    this.#lastCommandKind = "target";
-    this.#lastStopHadActiveTarget = false;
-    this.#lastCommandPosition = clonePoint(this.#state.position);
-    this.#canonicalizeLiveHistory();
+    this.#serializedSnapshot = null;
     return frozenEvents([
       event("target-set", this.#state.tick, this.#state.position, {
         target: frozenTarget(checked),
@@ -1053,8 +1221,6 @@ class BattleMovement {
       throw new RangeError("battle movement command bound exceeded");
     }
     const candidate = canonicalState(this.#state);
-    const stopHadActiveTarget = this.#state.target !== null &&
-      this.#state.route.length > 0 && this.#state.speed > 0;
     const command = { kind: "stop", tick: this.#state.tick };
     applyStopState(candidate);
     const rawGroup = [...this.#commandGroup, command];
@@ -1069,14 +1235,7 @@ class BattleMovement {
     candidate.commands = this.#commandBase.commands.concat(effectiveGroup);
     this.#state = candidate;
     this.#commandGroup = rawGroup;
-    if (this.#lastCommandPosition !== null &&
-        samePoint(this.#lastCommandPosition, this.#state.position)) {
-      this.#historyNeedsCanonicalization = true;
-    }
-    this.#lastCommandKind = "stop";
-    this.#lastStopHadActiveTarget = stopHadActiveTarget;
-    this.#lastCommandPosition = clonePoint(this.#state.position);
-    this.#canonicalizeLiveHistory();
+    this.#serializedSnapshot = null;
     return frozenEvents([event("stopped", this.#state.tick, this.#state.position)]);
   }
 
@@ -1094,6 +1253,7 @@ class BattleMovement {
     if (this.#state.tick + ticks > MAX_TICK) {
       throw new RangeError("battle movement tick bound exceeded");
     }
+    if (ticks > 0) this.#serializedSnapshot = null;
     const events = [];
     for (let count = 0; count < ticks; count += 1) {
       this.#state.tick += 1;
@@ -1126,8 +1286,10 @@ class BattleMovement {
   }
 
   serialize() {
+    if (this.#serializedSnapshot !== null) return this.#serializedSnapshot;
     this.#canonicalizeLiveHistory();
-    return JSON.stringify({ state: canonicalState(this.#state), version: 1 });
+    this.#serializedSnapshot = JSON.stringify({ state: canonicalState(this.#state), version: 1 });
+    return this.#serializedSnapshot;
   }
 
   /**
@@ -1151,12 +1313,7 @@ class BattleMovement {
       : canonicalState(this.#commandBase);
     candidate.#commandGroup = this.#commandGroup.map(cloneCommand);
     candidate.#commandTick = this.#commandTick;
-    candidate.#historyNeedsCanonicalization = this.#historyNeedsCanonicalization;
-    candidate.#lastCommandKind = this.#lastCommandKind;
-    candidate.#lastCommandPosition = this.#lastCommandPosition === null
-      ? null
-      : clonePoint(this.#lastCommandPosition);
-    candidate.#lastStopHadActiveTarget = this.#lastStopHadActiveTarget;
+    candidate.#serializedSnapshot = this.#serializedSnapshot;
     return candidate;
   }
 
@@ -1168,9 +1325,7 @@ class BattleMovement {
   }
 
   #canonicalizeLiveHistory() {
-    if (!this.#historyNeedsCanonicalization || this.#state.commands.length < 2) {
-      return;
-    }
+    if (this.#state.commands.length < 2) return;
     const configuration = {
       bodyRadius: this.#state.bodyRadius,
       mode: this.#state.mode,
@@ -1190,7 +1345,6 @@ class BattleMovement {
       this.#commandBase = null;
       this.#commandGroup = [];
     }
-    this.#historyNeedsCanonicalization = false;
   }
 
   static restore(serialized) {
@@ -1219,52 +1373,32 @@ class BattleMovement {
       throw new TypeError("battle movement snapshot has an unsupported version");
     }
     const checked = validateState(snapshot.state, "battle movement snapshot.state");
-    const replayed = new BattleMovement({
-      bodyRadius: checked.bodyRadius,
-      mode: checked.mode,
-      position: checked.initialPosition,
-      speed: checked.speed,
-    });
-    let mayHaveCrossTickRedundancy = false;
-    let priorCommandPosition = null;
-    for (const command of checked.commands) {
-      replayed.stepMany(command.tick - replayed.#state.tick);
-      if (priorCommandPosition !== null &&
-          samePoint(priorCommandPosition, replayed.#state.position)) {
-        mayHaveCrossTickRedundancy = true;
-      }
-      if (command.kind === "target") replayed.setTarget(command.target);
-      else replayed.stop();
-      priorCommandPosition = clonePoint(replayed.#state.position);
-    }
-    replayed.stepMany(checked.tick - replayed.#state.tick);
-    if (JSON.stringify(canonicalState(replayed.#state)) !==
-        JSON.stringify(canonicalState(checked))) {
-      throw new RangeError(
-        "battle movement snapshot state is not reachable from its command history",
-      );
-    }
-    if (checked.commands.length > 1 && replayed.#state.route.length === 0) {
-      mayHaveCrossTickRedundancy = true;
-    }
     const configuration = {
       bodyRadius: checked.bodyRadius,
       mode: checked.mode,
       position: checked.initialPosition,
       speed: checked.speed,
     };
-    if (mayHaveCrossTickRedundancy) {
-      const canonicalCommands = canonicalCommandHistory(
-        configuration,
-        checked.commands,
-        checked.tick,
-        checked,
+    const replayed = replayCommandState(
+      configuration,
+      checked.commands,
+      checked.tick,
+    );
+    if (!sameAuthoritativeState(replayed, checked)) {
+      throw new RangeError(
+        "battle movement snapshot state is not reachable from its command history",
       );
-      if (JSON.stringify(canonicalCommands) !== JSON.stringify(checked.commands)) {
-        throw new TypeError(
-          "battle movement snapshot command history is not minimal canonical history",
-        );
-      }
+    }
+    const canonicalCommands = canonicalCommandHistory(
+      configuration,
+      checked.commands,
+      checked.tick,
+      checked,
+    );
+    if (JSON.stringify(canonicalCommands) !== JSON.stringify(checked.commands)) {
+      throw new TypeError(
+        "battle movement snapshot command history is not minimal canonical history",
+      );
     }
     const restored = new BattleMovement({
       mode: BATTLE_MOVEMENT_MODES.air,
@@ -1272,9 +1406,10 @@ class BattleMovement {
       speed: 0,
     });
     restored.#state = checked;
-    if (restored.serialize() !== serialized) {
+    if (JSON.stringify({ state: canonicalState(checked), version: 1 }) !== serialized) {
       throw new TypeError("battle movement snapshot is not canonical");
     }
+    restored.#serializedSnapshot = serialized;
     return restored;
   }
 }
