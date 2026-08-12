@@ -802,6 +802,9 @@ function replayCommandState(configuration, commands, snapshotTick) {
 
 const EXACT_CANONICAL_HISTORY_COMMANDS = 24;
 const PAIR_CANONICAL_HISTORY_COMMANDS = 64;
+const EXACT_CANONICAL_WINDOW_COMMANDS = 16;
+const EXACT_CANONICAL_WINDOW_OVERLAP = 8;
+const EXACT_CANONICAL_WINDOW_HISTORY_LIMIT = 128;
 
 function commandLexicalKey(command) {
   return JSON.stringify(command);
@@ -839,19 +842,27 @@ function rememberCanonicalState(states, state, sequence) {
  * also handles joint redundancy: a pair that is not removable separately is
  * still represented by the branch that omits both commands.
  */
-function shortestCanonicalCommandHistory(configuration, commands, snapshotTick, expected) {
+function shortestCanonicalCommandSubsequence(
+  initial,
+  commands,
+  snapshotTick,
+  expected,
+) {
   let frontier = new Map();
-  const initial = initialState(configuration);
-  rememberCanonicalState(frontier, initial, []);
+  const start = canonicalState(initial);
+  start.commands = [];
+  rememberCanonicalState(frontier, start, []);
 
   for (const command of commands) {
     const next = new Map();
     for (const { state, sequence } of frontier.values()) {
       const advanced = canonicalState(state);
+      advanced.commands = [];
       advanceStateOnly(advanced, command.tick - advanced.tick);
       rememberCanonicalState(next, advanced, sequence);
 
       const included = canonicalState(advanced);
+      included.commands = [];
       try {
         applyCommandState(included, command);
       } catch {
@@ -881,19 +892,32 @@ function shortestCanonicalCommandHistory(configuration, commands, snapshotTick, 
   return best;
 }
 
+function shortestCanonicalCommandHistory(configuration, commands, snapshotTick, expected) {
+  return shortestCanonicalCommandSubsequence(
+    initialState(configuration),
+    commands,
+    snapshotTick,
+    expected,
+  );
+}
+
 function prefixStates(configuration, commands) {
   const state = initialState(configuration);
   const prefixes = [];
   for (const command of commands) {
     advanceStateOnly(state, command.tick - state.tick);
-    prefixes.push(canonicalState(state));
+    const prefix = canonicalState(state);
+    prefix.commands = [];
+    prefixes.push(prefix);
     applyCommandState(state, command);
+    state.commands = [];
   }
   return prefixes;
 }
 
 function replayFromPrefix(prefix, commands, startIndex, snapshotTick) {
   const state = canonicalState(prefix);
+  state.commands = [];
   for (let index = startIndex; index < commands.length; index += 1) {
     const command = commands[index];
     advanceStateOnly(state, command.tick - state.tick);
@@ -936,77 +960,123 @@ function pairMatchesExpected(commands, snapshotTick, expectedKey, prefixes, firs
  * exhaustive pair pass when the quadratic candidate set remains bounded.
  * Every accepted history is compared against the resulting fixed point.
  */
-function fixedPointCanonicalCommandHistory(configuration, commands, snapshotTick, expected) {
-  let kept = commands.map(cloneCommand);
+function globalOmissionPass(configuration, kept, snapshotTick, expected) {
   const expectedKey = authoritativeSignature(expected);
-  let scanStart = 0;
-  while (kept.length > 1) {
-    const prefixes = prefixStates(configuration, kept);
-    let removed = false;
-    for (let index = scanStart; index < kept.length; index += 1) {
-      if (!omissionMatchesExpected(
+  const prefixes = prefixStates(configuration, kept);
+  for (let index = 0; index < kept.length; index += 1) {
+    if (!omissionMatchesExpected(
+      kept,
+      snapshotTick,
+      expectedKey,
+      prefixes,
+      index,
+    )) continue;
+    kept.splice(index, 1);
+    return true;
+  }
+
+  if (kept.length > PAIR_CANONICAL_HISTORY_COMMANDS) return false;
+  for (let first = 0; first < kept.length; first += 1) {
+    for (let second = first + 1; second < kept.length; second += 1) {
+      if (!pairMatchesExpected(
         kept,
         snapshotTick,
         expectedKey,
         prefixes,
-        index,
+        first,
+        second,
       )) continue;
-      kept.splice(index, 1);
-      scanStart = Math.max(0, index - 1);
-      removed = true;
-      break;
+      kept.splice(second, 1);
+      kept.splice(first, 1);
+      return true;
     }
-    if (removed) continue;
-
-    // A later deletion can expose an earlier deletion. Once the forward scan
-    // reaches the end, perform one complete pass before declaring the fixed
-    // point. This preserves the reduction order while avoiding a full-prefix
-    // replay after every deletion in long histories.
-    if (scanStart !== 0) {
-      scanStart = 0;
-      continue;
-    }
-
-    if (kept.length <= PAIR_CANONICAL_HISTORY_COMMANDS) {
-      let pairRemoved = false;
-      for (let first = 0; first < kept.length && !pairRemoved; first += 1) {
-        for (let second = first + 1; second < kept.length; second += 1) {
-          if (!pairMatchesExpected(
-            kept,
-            snapshotTick,
-            expectedKey,
-            prefixes,
-            first,
-            second,
-          )) continue;
-          kept.splice(second, 1);
-          kept.splice(first, 1);
-          pairRemoved = true;
-          break;
-        }
-      }
-      if (pairRemoved) continue;
-    }
-    break;
   }
-  return kept;
+  return false;
 }
 
-function canonicalCommandHistory(configuration, commands, snapshotTick, expected) {
-  if (commands.length <= EXACT_CANONICAL_HISTORY_COMMANDS) {
+function fixedPointCanonicalCommandHistory(configuration, commands, snapshotTick, expected) {
+  const kept = commands.map(cloneCommand);
+  while (kept.length > EXACT_CANONICAL_HISTORY_COMMANDS) {
+    if (exactWindowPass(configuration, kept, snapshotTick, expected)) continue;
+    if (globalOmissionPass(configuration, kept, snapshotTick, expected)) continue;
+    break;
+  }
+  if (kept.length <= EXACT_CANONICAL_HISTORY_COMMANDS) {
+    // Crossing the exact frontier is an immediate handoff. The returned
+    // sequence is fed back through the outer byte-fixed-point loop below.
     return shortestCanonicalCommandHistory(
       configuration,
-      commands,
+      kept,
       snapshotTick,
       expected,
     );
   }
-  return fixedPointCanonicalCommandHistory(
-    configuration,
-    commands,
-    snapshotTick,
-    expected,
+  return kept;
+}
+
+function exactWindowReplacement(
+  configuration,
+  commands,
+  start,
+  end,
+  boundaryTick,
+  boundaryState,
+  prefixes,
+) {
+  return shortestCanonicalCommandSubsequence(
+    prefixes[start],
+    commands.slice(start, end),
+    boundaryTick,
+    boundaryState,
   );
+}
+
+function exactWindowPass(configuration, kept, snapshotTick, expected) {
+  if (kept.length <= EXACT_CANONICAL_HISTORY_COMMANDS ||
+      kept.length > EXACT_CANONICAL_WINDOW_HISTORY_LIMIT) return false;
+
+  const prefixes = prefixStates(configuration, kept);
+  const starts = [];
+  const stride = EXACT_CANONICAL_WINDOW_COMMANDS - EXACT_CANONICAL_WINDOW_OVERLAP;
+  for (let start = 0;
+       start + EXACT_CANONICAL_WINDOW_COMMANDS < kept.length;
+       start += stride) {
+    starts.push(start);
+  }
+  const finalStart = Math.max(0, kept.length - EXACT_CANONICAL_WINDOW_COMMANDS);
+  if (!starts.includes(finalStart)) starts.push(finalStart);
+
+  for (const start of starts) {
+    const end = Math.min(start + EXACT_CANONICAL_WINDOW_COMMANDS, kept.length);
+    if (end - start < 2) continue;
+    const boundaryTick = end < kept.length ? kept[end].tick : snapshotTick;
+    const boundaryState = end < kept.length ? prefixes[end] : expected;
+    const replacement = exactWindowReplacement(
+      configuration,
+      kept,
+      start,
+      end,
+      boundaryTick,
+      boundaryState,
+      prefixes,
+    );
+    const current = kept.slice(start, end);
+    if (JSON.stringify(replacement) === JSON.stringify(current)) continue;
+    kept.splice(start, end - start, ...replacement);
+    return true;
+  }
+  return false;
+}
+
+function canonicalCommandHistory(configuration, commands, snapshotTick, expected) {
+  let kept = commands.map(cloneCommand);
+  while (true) {
+    const before = JSON.stringify(kept);
+    kept = kept.length <= EXACT_CANONICAL_HISTORY_COMMANDS
+      ? shortestCanonicalCommandHistory(configuration, kept, snapshotTick, expected)
+      : fixedPointCanonicalCommandHistory(configuration, kept, snapshotTick, expected);
+    if (JSON.stringify(kept) === before) return kept;
+  }
 }
 
 function movementDistanceToArrival(state) {

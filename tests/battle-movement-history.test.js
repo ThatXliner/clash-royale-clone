@@ -181,6 +181,82 @@ test("battle movement history: critic cross-tick case is rejected and live seria
   assert.deepEqual(restored.state, mover.state);
 });
 
+test("battle movement history: round-three 27-command trace crosses the exact frontier", () => {
+  const configuration = {
+    mode: "air",
+    position: { x: 1_000, y: 1_000 },
+    speed: 600,
+  };
+  const targets = new Map([
+    [0, destination({ x: 2_000, y: 2_000 })],
+    [2, destination({ x: 3_500, y: 22_500 })],
+    [7, destination({ x: 2_000, y: 25_000 })],
+    [10, destination({ x: 5_000, y: 5_000 })],
+    [12, destination({ x: 15_000, y: 25_000 })],
+    [14, destination({ x: 14_000, y: 23_000 })],
+    [15, destination({ x: 2_000, y: 12_000 })],
+    [16, destination({ x: 15_000, y: 5_000 })],
+    [17, destination({ x: 5_000, y: 25_000 })],
+    [18, destination({ x: 12_000, y: 22_000 })],
+    [19, destination({ x: 2_000, y: 2_000 })],
+    [20, destination({ x: 15_000, y: 15_000 })],
+    [21, destination({ x: 3_500, y: 22_500 })],
+    [22, destination({ x: 8_000, y: 20_000 })],
+    [23, destination({ x: 5_000, y: 5_000 })],
+    [24, destination({ x: 15_000, y: 25_000 })],
+    [25, destination({ x: 12_000, y: 5_000 })],
+    [26, destination({ x: 2_000, y: 25_000 })],
+    [27, destination({ x: 14_000, y: 23_000 })],
+    [28, destination({ x: 5_000, y: 25_000 })],
+    [29, destination({ x: 15_000, y: 5_000 })],
+    [30, destination({ x: 8_000, y: 8_000 })],
+    [31, destination({ x: 15_000, y: 15_000 })],
+    [32, destination({ x: 2_000, y: 12_000 })],
+    [33, destination({ x: 12_000, y: 22_000 })],
+  ]);
+  const stops = new Set([5, 13]);
+  const mover = new BattleMovement(configuration);
+  for (let tick = 0; tick <= 33; tick += 1) {
+    mover.stepMany(tick - mover.state.tick);
+    if (stops.has(tick)) mover.stop();
+    else if (targets.has(tick)) mover.setTarget(targets.get(tick));
+  }
+  mover.stepMany(1);
+  assert.equal(mover.state.commands.length, 27);
+
+  const bytesBeforeCanonicalization = rawSnapshot(mover);
+  const liveBytes = mover.serialize();
+  assert.equal(JSON.parse(liveBytes).state.commands.length, 23);
+  assert.equal(new TextEncoder().encode(liveBytes).byteLength, 2_389);
+  assert.throws(() => BattleMovement.restore(liveBytes), /minimal canonical history/u);
+
+  const replayedLive = replayCommands(
+    configuration,
+    JSON.parse(liveBytes).state.commands,
+    34,
+  );
+  const replayedBytes = replayedLive.serialize();
+  assert.equal(JSON.parse(replayedBytes).state.commands.length, 8);
+  assert.equal(new TextEncoder().encode(replayedBytes).byteLength, 1_146);
+
+  const canonical = JSON.parse(mover.serialize());
+  const expectedCommands = [
+    { kind: "target", target: destination({ x: 3_500, y: 22_500 }), tick: 2 },
+    { kind: "target", target: destination({ x: 14_000, y: 23_000 }), tick: 14 },
+    { kind: "target", target: destination({ x: 15_000, y: 5_000 }), tick: 16 },
+    { kind: "target", target: destination({ x: 12_000, y: 5_000 }), tick: 25 },
+    { kind: "target", target: destination({ x: 2_000, y: 25_000 }), tick: 26 },
+    { kind: "target", target: destination({ x: 5_000, y: 25_000 }), tick: 28 },
+    { kind: "target", target: destination({ x: 2_000, y: 12_000 }), tick: 32 },
+    { kind: "target", target: destination({ x: 12_000, y: 22_000 }), tick: 33 },
+  ];
+  assert.deepEqual(canonical.state.commands, expectedCommands);
+  assert.notDeepEqual(bytesBeforeCanonicalization.state.commands, canonical.state.commands);
+  const restored = BattleMovement.restore(JSON.stringify(canonical));
+  assert.equal(restored.serialize(), JSON.stringify(canonical));
+  assert.deepEqual(restored.state, mover.state);
+});
+
 test("battle movement history: changing-position redundancy covers signed air and bridge ground paths", () => {
   const cases = [
     {
