@@ -2150,7 +2150,6 @@ BIGGEST GAP: None on the judged dimension.
 
 ## Round 32 — 2026-07-30
 
-
 PIECE: CONTENT-001 — Original runtime card schema and validation
 
 VERDICT: FAIL
@@ -3113,6 +3112,7 @@ threw explicit errors; no ambient randomness, wall-clock, or reference import
 was found.
 
 BIGGEST GAP: None on the judged dimension.
+
 ## Round 164 — 2026-08-03
 
 PIECE: GAME-001R — Playable eight-card runtime roster
@@ -4575,3 +4575,26 @@ BIGGEST GAP: The mixed fixture does not co-stage Aether resource generation
 with Cinder death, although a separate real GameSession probe verified both
 resource grants exactly once; no gap remains on the judged shared-integration
 dimension.
+
+## Round 247 — 2026-08-12
+
+PIECE: GAME-001GP — Sustained browser-match throughput
+
+VERDICT: PASS
+
+EVIDENCE: The blind critic judged integrated merge `a63eb9c`. The exact
+`npm test -- game-browser-endurance` command passed 1/1 in real Chrome at
+720×1280 through the default tick 18,000 workload. Its 61 yielding segments
+measured a 33.3 ms maximum explicit simulation slice against the 40 ms cap,
+zero driven long tasks, zero console/unhandled/resource/pending errors and a
+clean server exit. Terminal layers were synchronized at tick 18,000 with a
+visible overlay; trusted restart produced synchronized tick-0 layers. The
+600→300→600 restore cut preserved session bytes, audio continuation and DOM
+state. GameSession passed 9/9, battle 11/11, building runtime 14/14, roster
+buildings 10/10, troop runtime 7/7, spell runtime 10/10, attack cycle 9/9,
+audio renderer 13/13, browser loop 10/10 and both guards 22/22. Independent
+non-empty building, spell and troop probes remained byte/replay/state-identical
+to one-tick stepping, proving the unit-only optimization does not skip shared
+runtime authority.
+
+BIGGEST GAP: None on the judged sustained browser-throughput dimension.

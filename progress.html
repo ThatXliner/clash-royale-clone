@@ -24,14 +24,14 @@
 </head>
 <body>
   <h1>Gauntlet progress</h1>
-  <p class="sub">Updated 2026-08-08 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
+  <p class="sub">Updated 2026-08-12 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
-    <div class="card"><div class="num">147</div><div class="label">tracked pieces</div></div>
-    <div class="card"><div class="num">112</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">246</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">155</div><div class="label">tracked pieces</div></div>
+    <div class="card"><div class="num">114</div><div class="label">passed</div></div>
+    <div class="card"><div class="num">247</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">24</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Active target: <strong>GAME-001GP — Sustained browser-match throughput</strong>.</p>
+  <p class="note">Active target: <strong>GAME-001PH — Hostile movement-history canonicalization</strong>.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -806,6 +806,70 @@
         <td>Required footage absent</td>
       </tr>
       <tr>
+        <td><code>VIS-003</code></td>
+        <td>Production presentation polish umbrella</td>
+        <td class="state-blocked">BLOCKED</td>
+        <td>0/0</td>
+        <td>0</td>
+        <td>Newly split into independently buildable production-polish pieces</td>
+      </tr>
+      <tr>
+        <td><code>VIS-003A</code></td>
+        <td>Original art direction and asset provenance</td>
+        <td class="state-pending">PENDING</td>
+        <td>0/0</td>
+        <td>0</td>
+        <td>Replace the current prototype language with a coherent, legally original production art system</td>
+      </tr>
+      <tr>
+        <td><code>VIS-003B</code></td>
+        <td>Arena, river, bridges, and tower art</td>
+        <td class="state-pending">PENDING</td>
+        <td>0/0</td>
+        <td>0</td>
+        <td>Current arena is clean but visually flat and prototype-like</td>
+      </tr>
+      <tr>
+        <td><code>VIS-003C</code></td>
+        <td>Combatant, projectile, and effect assets</td>
+        <td class="state-pending">PENDING</td>
+        <td>0/0</td>
+        <td>0</td>
+        <td>Replace generic circles/links with authored combat art while retaining deterministic projection</td>
+      </tr>
+      <tr>
+        <td><code>VIS-003D</code></td>
+        <td>Card, hand, HUD, and match-feedback art</td>
+        <td class="state-pending">PENDING</td>
+        <td>0/0</td>
+        <td>0</td>
+        <td>Current cards and HUD are functional but not presentation-ready</td>
+      </tr>
+      <tr>
+        <td><code>VIS-003E</code></td>
+        <td>Deterministic animation and interaction polish</td>
+        <td class="state-pending">PENDING</td>
+        <td>0/0</td>
+        <td>0</td>
+        <td>Add readable timing, weight, and transitions without weakening deterministic state authority</td>
+      </tr>
+      <tr>
+        <td><code>AUDIO-002</code></td>
+        <td>Authored original soundscape and mix polish</td>
+        <td class="state-pending">PENDING</td>
+        <td>0/0</td>
+        <td>0</td>
+        <td>Upgrade the technically complete audio path into a cohesive authored game mix</td>
+      </tr>
+      <tr>
+        <td><code>VIS-003G</code></td>
+        <td>Integrated production-polish browser journey</td>
+        <td class="state-blocked">BLOCKED</td>
+        <td>0/0</td>
+        <td>0</td>
+        <td>Final integrated quality gate; blocked until the independent polish pieces and sustained browser throughput pass</td>
+      </tr>
+      <tr>
         <td><code>AUDIO-001</code></td>
         <td>Original audio event system (superseded)</td>
         <td class="state-question">QUESTION</td>
@@ -888,10 +952,10 @@
       <tr>
         <td><code>GAME-001PH</code></td>
         <td>Hostile movement-history canonicalization</td>
-        <td class="state-pending">PENDING</td>
+        <td class="state-building">BUILDING</td>
         <td>0/0</td>
         <td>0</td>
-        <td>Nonminimal same-tick overridden/duplicate target histories remain accepted</td>
+        <td>Round 1 builder is implementing a bounded semantic minimal-history verifier and hostile matrix</td>
       </tr>
       <tr>
         <td><code>GAME-001K</code></td>
@@ -1115,15 +1179,15 @@
         <td class="state-pass">PASS</td>
         <td>1/1</td>
         <td>2</td>
-        <td>Round 2 passed exact tick 18,000, 319,534-byte terminal snapshot, exact restore cuts, private null-prototype handles and zero authority leaks</td>
+        <td>Round 2 passed exact tick 18,000 with 319,534-byte terminal snapshot, exact restore cuts and private null-prototype compact handles; independent export/proxy/import probes found no authority leak</td>
       </tr>
       <tr>
         <td><code>GAME-001GP</code></td>
         <td>Sustained browser-match throughput</td>
-        <td class="state-building">BUILDING</td>
-        <td>0/1</td>
-        <td>1</td>
-        <td>Round 1 failed at tick 900 with a 53 ms driven task against the hard 50 ms cap; terminal/restart remain unproven pending the GAME-001GH round-2 continuation rewrite</td>
+        <td class="state-pass">PASS</td>
+        <td>1/1</td>
+        <td>2</td>
+        <td>Round 2 passed integrated real Chrome at 720×1280 through tick 18,000: 33.3 ms worst slice, zero driven long tasks/errors, exact restore/audio/DOM continuation, terminal and tick-0 restart</td>
       </tr>
       <tr>
         <td><code>GAME-001GS</code></td>
@@ -1136,10 +1200,10 @@
       <tr>
         <td><code>GAME-001G</code></td>
         <td>Playable browser match journey umbrella</td>
-        <td class="state-blocked">BLOCKED</td>
+        <td class="state-pass">PASS</td>
         <td>0/0</td>
         <td>0</td>
-        <td>Short real Chrome journey passed; sustained default play remains blocked on GAME-001GH/GP after a tick-2,100 snapshot-bound failure</td>
+        <td>GAME-001GS proves trusted real controls and authentic bounded terminal/restart; GAME-001GP proves the default active match through tick 18,000 within browser throughput caps</td>
       </tr>
       <tr>
         <td><code>GAME-001H</code></td>
@@ -1147,7 +1211,7 @@
         <td class="state-blocked">BLOCKED</td>
         <td>0/0</td>
         <td>0</td>
-        <td>Split into independently judged shared admission, troop, building and spell session bindings</td>
+        <td>Split into independently judged shared admission, authority integration, troop, building and spell session bindings</td>
       </tr>
       <tr>
         <td><code>GAME-001HA</code></td>
@@ -1163,7 +1227,7 @@
         <td class="state-pass">PASS</td>
         <td>7/7</td>
         <td>3</td>
-        <td>Round 3 passed: canonical tick-102 attack → 202 damage → causal receipt, no external ingress/gameplay delta, exact early/forged rejection and trap-zero admission</td>
+        <td>Round 3 passed: the seam observes the canonical tick-102 Mossguard attack→202 damage→causal receipt with no external ingress or gameplay delta; early/forged contacts and hostile inputs reject exactly</td>
       </tr>
       <tr>
         <td><code>GAME-001HT</code></td>
@@ -1171,7 +1235,7 @@
         <td class="state-blocked">BLOCKED</td>
         <td>0/0</td>
         <td>1</td>
-        <td>Round 1 failed: 31 IDs/33 occurrences admitted, 23 admitted IDs unprojected, and no serialized shared mechanic/ability-action seam</td>
+        <td>Round 1 failed: only 31 IDs/33 occurrences are admitted, 23 admitted IDs lack LiveBattle projections, and shared troop mechanics/ability actions have no serialized authority seam</td>
       </tr>
       <tr>
         <td><code>GAME-001HBA</code></td>
@@ -1179,7 +1243,7 @@
         <td class="state-pass">PASS</td>
         <td>14/14</td>
         <td>2</td>
-        <td>Round 2 passed exact canonical receipt pinning across all fresh boundaries, hostile leaf/shape/swap rejection, private legacy restore and guard closure</td>
+        <td>Round 2 passed: exact frozen catalog receipts are pinned across parser, LiveBattle, GameSession and reducer; forged leaves/shapes/swaps reject trap-zero while private legacy restore remains exact</td>
       </tr>
       <tr>
         <td><code>GAME-001HB</code></td>
@@ -1187,7 +1251,7 @@
         <td class="state-pass">PASS</td>
         <td>10/10</td>
         <td>2</td>
-        <td>Round 2 passed: eight admitted/two QUESTION identities execute through real GameSession with shared IDs, combat, elixir, travel, death, restore and exact manifest coverage</td>
+        <td>Round 2 passed: eight admitted/two QUESTION building identities execute through real GameSession with shared IDs/combat/elixir/travel/death history; manifest, splash boundary, restore and guards are exact</td>
       </tr>
       <tr>
         <td><code>GAME-001HSA</code></td>
@@ -1195,7 +1259,7 @@
         <td class="state-pass">PASS</td>
         <td>10/10</td>
         <td>2</td>
-        <td>Round 2 passed: all unprofiled admitted effects reject visibly and atomically before spend/cycle/route under both aliases; profiled Squall retains exact shared 689 damage</td>
+        <td>Round 2 passed: all admitted effects without an exact profile reject visibly and byte-atomically before spend/cycle/route under both aliases; profiled Squall retains exact shared 689 damage and zero placeholders</td>
       </tr>
       <tr>
         <td><code>GAME-001HI</code></td>
@@ -1203,7 +1267,7 @@
         <td class="state-pass">PASS</td>
         <td>1/1</td>
         <td>1</td>
-        <td>Round 1 passed one mixed GameSession graph with exact cross-kind routes/spends, shared effects, continuation parity, hostile rejection and no placeholders</td>
+        <td>Round 1 passed one real mixed GameSession graph with exact once-only cross-kind routes/spends, shared combat/effects, byte-identical continuation paths, hostile receipt rejection and no placeholders</td>
       </tr>
       <tr>
         <td><code>GAME-001HS</code></td>
@@ -1329,6 +1393,7 @@
       <li><strong>R142 FAIL</strong> · UI-002A — Placement preview and deploy feedback<br>Retain and compare the complete accepted command prefix, bind the first/new command to the controller's selected card and immutable catalog cost, and validate spend provenance from the canonical input source rather than trusting a caller-provided lookalike history.</li>
       <li><strong>R143 FAIL</strong> · UI-002A — Placement preview and deploy feedback<br>Choose one event family per browser capability or otherwise deduplicate compatibility pointer/touch releases without wall-clock state so one physical touch produces one placement result and one feedback record.</li>
       <li><strong>R144 PASS</strong> · UI-002A — Placement preview and deploy feedback<br>None on the judged dimension.</li>
+      <li><strong>R32 FAIL</strong> · CONTENT-001 — Original runtime card schema and validation<br>Decode JavaScript/JSON string escapes in the protected-identity scanner and add all-218-token escaped injection tests so exact protected runtime identities cannot bypass the shipping gate.</li>
       <li><strong>R33 FAIL</strong> · CONTENT-001 — Original runtime card schema and validation<br>The reference-import gate only matches a raw contiguous `reference/` path, so escaped or statically concatenated benchmark imports can bypass validation and be bundled.</li>
       <li><strong>R34 FAIL</strong> · CONTENT-001 — Original runtime card schema and validation<br>Treat query (`?`) and fragment (`#`) boundaries as valid terminators of a protected `reference` path segment in covered static specifier contexts.</li>
       <li><strong>R35 FAIL</strong> · CONTENT-001 — Original runtime card schema and validation<br>The static isolation gate does not URL-decode protected path segments before matching, so another valid static specifier encoding bypasses it.</li>
@@ -1379,7 +1444,8 @@
       <li><strong>R8 PASS</strong> · SIM-005 — Spatial coordinates and collision queries<br>None on the judged dimension.</li>
       <li><strong>R7 PASS</strong> · SIM-004 — Damage, health, death, and simultaneous trades<br>None on the judged dimension.</li>
       <li><strong>R6 PASS</strong> · SIM-003 — Entity lifecycle and stable ordering<br>None on the judged dimension.</li>
-      <li><strong>R5 PASS</strong> · SIM-002 — Seeded random stream<br>None on the judged dimension. ## Round 164 — 2026-08-03 PIECE: GAME-001R — Playable eight-card runtime roster VERDICT: FAIL EVIDENCE: `node tests/playable-roster-runner.js playable-roster` passed 7/7; the four catalog dependencies passed 52/52, validation and syntax passed, and shipping isolation passed 13/13. Independent projection reproduced all eight cards with entity totals `1,1,1,1,1,1,6,3`, nine explicit archetypes, 13 QUESTION records, and canonical SHA-256 `6fb8d84121ca039ea9315b7e505c8f02d5d7839e8fd5fc5cd19013a0d2b7fadb`. Hostile resolver probes nevertheless accepted accessor-bearing policy and QUESTION records, executed their getters, and accepted a QUESTION record with a hidden Symbol property. The nondeterminism guard also needed its explicit simulation-module inventory updated from 20 to 21. BIGGEST GAP: `resolvePlayableRosterQuestion` is fail-open to accessor-bearing and hidden-property inputs, executing attacker-controlled getters instead of rejecting them atomically.</li>
+      <li><strong>R5 PASS</strong> · SIM-002 — Seeded random stream<br>None on the judged dimension.</li>
+      <li><strong>R164 FAIL</strong> · GAME-001R — Playable eight-card runtime roster<br>`resolvePlayableRosterQuestion` is fail-open to accessor-bearing and hidden-property inputs, executing attacker-controlled getters instead of rejecting them atomically.</li>
       <li><strong>R165 FAIL</strong> · GAME-001O — Deterministic opponent decision kernel<br>Snapshots retain only eligible-candidate count and RNG index, not the canonical eligible candidate identities, so restore cannot prove that a recorded proposal was the seeded legal affordable choice.</li>
       <li><strong>R166 FAIL</strong> · GAME-001R — Playable eight-card runtime roster<br>The resolver canonicalizes unchecked nested QUESTION field values before proving they are primitive canonical data, so attacker-controlled getters still execute during rejection.</li>
       <li><strong>R167 PASS</strong> · GAME-001O — Deterministic opponent decision kernel<br>None on the judged dimension.</li>
@@ -1450,18 +1516,19 @@
       <li><strong>R232 PASS</strong> · GAME-001GS — Short authentic browser match journey<br>None on the judged short authentic browser journey; sustained default-match endurance remains separately open in GAME-001GH/GP.</li>
       <li><strong>R233 FAIL</strong> · GAME-001HT — Unified-session troop roster mechanics<br>Make LiveBattle own a serialized/forkable SessionTroopRuntime intent reducer across deploy/pre-move/pre-combat/post-combat and expose its canonical ability actions through GameSession.</li>
       <li><strong>R234 FAIL</strong> · GAME-001HB — Unified-session building roster mechanics<br>Integrate all eight admitted building mechanics into GameSession/game-side-deploy so one authoritative battle, deck, elixir, tower/unit, history and restore graph owns and steps them, then register the selector and nondeterminism inventory.</li>
-      <li><strong>R235 FAIL</strong> · GAME-001GH — Sustained active-match composite history<br>Make compact checkpoints genuinely private/module-capability-only rather than public continuationFork prototype methods, while retaining the documented public serialize/restore/replay/fork contracts.</li>
+      <li><strong>R235 FAIL</strong> · GAME-001GH — Sustained active-match composite history<br>Make compact checkpoints genuinely private/module-capability-only rather than public `continuationFork()` prototype methods, while retaining the documented public serialize/restore/replay/fork contracts.</li>
       <li><strong>R236 FAIL</strong> · GAME-001HBA — Shared building mechanic authority seam<br>Pin every admitted building profile to its exact canonical catalog receipt; current fresh setups accept structurally valid forged mechanics.</li>
-      <li><strong>R237 FAIL</strong> · GAME-001GP — Sustained 720x1280 browser endurance journey<br>The shipped default-GH drive breaches the hard 50 ms task cap by tick 900 and never reaches terminal/restart.</li>
-      <li><strong>R238 FAIL</strong> · GAME-001HTA — Shared troop mechanic authority seam<br>Replace the costless receipt-only marker façade with one sourced representative reducer intent that LiveBattle applies to authoritative shared state.</li>
+      <li><strong>R237 FAIL</strong> · GAME-001GP — Sustained 720x1280 browser endurance journey<br>The shipped default-GH browser drive breaches the hard 50 ms LongTask cap by tick 900 and therefore never reaches the required tick-18,000 terminal/restart journey.</li>
+      <li><strong>R238 FAIL</strong> · GAME-001HTA — Shared troop mechanic authority seam<br>Replace the costless receipt-only marker façade with one sourced representative reducer intent that LiveBattle legally applies to authoritative shared combat/status state.</li>
       <li><strong>R239 PASS</strong> · GAME-001HBA — Shared building mechanic authority seam<br>None on the judged shared building-authority seam.</li>
       <li><strong>R240 FAIL</strong> · GAME-001HTA — Shared troop mechanic authority seam<br>Replace the premature fixture with a sourced live reducer intent that cannot apply before the source's authoritative deployment/attack phase.</li>
       <li><strong>R241 PASS</strong> · GAME-001HB — Unified-session building roster mechanics<br>None on the judged unified-session building roster dimension.</li>
       <li><strong>R242 PASS</strong> · GAME-001GH — Sustained active-match composite history<br>None on the judged sustained-history/private-capability dimension.</li>
-      <li><strong>R243 FAIL</strong> · GAME-001HSA — Shared spell-effect authority seam<br>Reject admitted-but-unprofiled effects atomically and visibly as QUESTION before spend, cycle or route history.</li>
+      <li><strong>R243 FAIL</strong> · GAME-001HSA — Shared spell-effect authority seam<br>Reject admitted-but-unprofiled effects atomically and visibly as QUESTION before GameSession spends, cycles or records a route.</li>
       <li><strong>R244 PASS</strong> · GAME-001HSA — Shared spell-effect authority seam<br>None on the judged shared spell-effect authority seam.</li>
       <li><strong>R245 PASS</strong> · GAME-001HTA — Shared troop mechanic authority seam<br>None on the judged shared troop mechanic authority seam.</li>
-      <li><strong>R246 PASS</strong> · GAME-001HI — Shared roster authority integration<br>None on the judged shared-integration dimension; the mixed graph preserved exact once-only routes/spends, shared effects and continuation bytes without placeholders.</li>
+      <li><strong>R246 PASS</strong> · GAME-001HI — Shared roster authority integration<br>The mixed fixture does not co-stage Aether resource generation with Cinder death, although a separate real GameSession probe verified both resource grants exactly once; no gap remains on the judged shared-integration dimension.</li>
+      <li><strong>R247 PASS</strong> · GAME-001GP — Sustained browser-match throughput<br>None on the judged sustained browser-throughput dimension.</li>
   </ol>
 </body>
 </html>
