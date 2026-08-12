@@ -4618,3 +4618,25 @@ fires, so this live redundant history bypasses the canonicality check.
 BIGGEST GAP: Validate semantic minimality for every history, not only histories
 selected by a heuristic redundancy predicate, while retaining bounded restore
 cost and live snapshot compatibility.
+
+## Round 249 — 2026-08-12
+
+PIECE: GAME-001PH — Hostile movement-history canonicalization
+
+VERDICT: FAIL
+
+EVIDENCE: The focused selector passed and the Round-248 `[0,5,10,20]`
+counterexample now rejects the longer history while live serialization emits
+canonical `[0,5,20]`. A new independent air-speed-600 trace with 27 live
+target/stop commands through tick 34 nevertheless serialized to a 23-command,
+2,389-byte history that `BattleMovement.restore()` rejected as nonminimal.
+Replaying those 23 commands and serializing again emitted an accepted
+8-command, 1,146-byte representative. Both forms reached identical complete
+authority at tick 34 and identical events/state for the following 60 ticks.
+The exact/exhaustive path below 25 commands and bounded fixed-point path above
+24 therefore disagree, and live `serialize()` is not idempotent with restore.
+
+BIGGEST GAP: Replace the size-frontier split with one idempotent canonical
+normal form; every live serialization must already equal the representation
+that restore independently derives, including histories that shrink across the
+exact-search frontier.

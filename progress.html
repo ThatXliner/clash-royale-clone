@@ -28,7 +28,7 @@
   <div class="cards">
     <div class="card"><div class="num">165</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">114</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">248</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">249</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">23</div><div class="label">open questions</div></div>
   </div>
   <p class="note">Active target: <strong>GAME-001PH — Hostile movement-history canonicalization</strong>.</p>
@@ -953,9 +953,9 @@
         <td><code>GAME-001PH</code></td>
         <td>Hostile movement-history canonicalization</td>
         <td class="state-building">BUILDING</td>
-        <td>0/1</td>
-        <td>1</td>
-        <td>Round 1 failed: live identical-target commands at ticks 0/5/10/20 and the strict 0/5/20 subsequence restore to identical authority/continuation because cross-tick minimization is heuristically gated</td>
+        <td>0/2</td>
+        <td>2</td>
+        <td>Round 2 failed: a live 27-command history serializes to 23 commands that restore rejects; replaying those bytes serializes to the accepted 8-command representative, exposing a non-idempotent &gt;24 frontier</td>
       </tr>
       <tr>
         <td><code>GAME-001K</code></td>
@@ -1610,6 +1610,7 @@
       <li><strong>R246 PASS</strong> · GAME-001HI — Shared roster authority integration<br>The mixed fixture does not co-stage Aether resource generation with Cinder death, although a separate real GameSession probe verified both resource grants exactly once; no gap remains on the judged shared-integration dimension.</li>
       <li><strong>R247 PASS</strong> · GAME-001GP — Sustained browser-match throughput<br>None on the judged sustained browser-throughput dimension.</li>
       <li><strong>R248 FAIL</strong> · GAME-001PH — Hostile movement-history canonicalization<br>Validate semantic minimality for every history, not only histories selected by a heuristic redundancy predicate, while retaining bounded restore cost and live snapshot compatibility.</li>
+      <li><strong>R249 FAIL</strong> · GAME-001PH — Hostile movement-history canonicalization<br>Replace the size-frontier split with one idempotent canonical normal form; every live serialization must already equal the representation that restore independently derives, including histories that shrink across the exact-search frontier.</li>
   </ol>
 </body>
 </html>
