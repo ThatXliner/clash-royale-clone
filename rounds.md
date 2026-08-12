@@ -4598,3 +4598,23 @@ to one-tick stepping, proving the unit-only optimization does not skip shared
 runtime authority.
 
 BIGGEST GAP: None on the judged sustained browser-throughput dimension.
+
+## Round 248 — 2026-08-12
+
+PIECE: GAME-001PH — Hostile movement-history canonicalization
+
+VERDICT: FAIL
+
+EVIDENCE: The focused movement-history selector passed 10/10, movement passed
+9/9, movement kernel 5/5, battle 11/11, GameSession 9/9, nondeterminism 9/9
+and shipping isolation 13/13. Independent public-API proof nevertheless
+created an air mover at speed 60 with the identical target set at ticks 0, 5,
+10 and 20. Removing only the tick-10 command produced the same complete
+authority at tick 20 and identical events/authority for the next 60 ticks.
+Both distinct snapshot byte strings restored successfully. The implementation
+only invokes cross-tick minimization when a guessed position-shape predicate
+fires, so this live redundant history bypasses the canonicality check.
+
+BIGGEST GAP: Validate semantic minimality for every history, not only histories
+selected by a heuristic redundancy predicate, while retaining bounded restore
+cost and live snapshot compatibility.
