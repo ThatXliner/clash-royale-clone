@@ -1185,6 +1185,33 @@ function advanceStateOnly(state, ticks) {
     return;
   }
 
+  // Indexed history admission replays many independent air candidates with
+  // one active direct segment. Seek that common non-arrival case without
+  // rebuilding the route-distance accumulator on every command boundary.
+  if (state.mode === BATTLE_MOVEMENT_MODES.air && state.route.length === 1) {
+    const limit = firstProgressInBar(
+      state.segmentStart,
+      state.route[0],
+      state.segmentLength,
+      state.bodyRadius,
+      state.target,
+    );
+    const accumulated = state.remainder + state.speed * ticks;
+    const travel = Math.floor(accumulated / MOVEMENT_TICKS_PER_SECOND);
+    if (travel < limit - state.segmentProgress) {
+      state.remainder = accumulated % MOVEMENT_TICKS_PER_SECOND;
+      state.segmentProgress += travel;
+      state.position = interpolate(
+        state.segmentStart,
+        state.route[0],
+        state.segmentProgress,
+        state.segmentLength,
+      );
+      state.tick += ticks;
+      return;
+    }
+  }
+
   const distance = movementDistanceToArrival(state);
   const numerator = distance * MOVEMENT_TICKS_PER_SECOND - state.remainder;
   const arrivalTicks = Math.max(
