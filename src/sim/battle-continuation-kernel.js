@@ -77,6 +77,54 @@ function opaqueContinuation(copy, register) {
   register(issue, resolve);
 }
 
+function preflightMovementSnapshotGraph(root, limits, label) {
+  const pending = [{ depth: 0, value: root }];
+  let nodes = 0;
+  let containers = 0;
+  while (pending.length > 0) {
+    const { depth, value } = pending.pop();
+    nodes += 1;
+    if (nodes > limits.nodes) throw new RangeError(`${label} node bound exceeded`);
+    if (depth > limits.depth) throw new RangeError(`${label} depth bound exceeded`);
+    if (typeof value === "string") {
+      if (value.length > limits.stringLength) {
+        throw new RangeError(`${label} string length bound exceeded`);
+      }
+      continue;
+    }
+    if (typeof value === "number") {
+      if (!Number.isSafeInteger(value)) {
+        throw new TypeError(`${label} numbers must be safe integers`);
+      }
+      continue;
+    }
+    if (value === null || typeof value !== "object") continue;
+    containers += 1;
+    if (containers > limits.containers) {
+      throw new RangeError(`${label} container bound exceeded`);
+    }
+    if (Array.isArray(value)) {
+      if (value.length > limits.arrayLength) {
+        throw new RangeError(`${label} array length bound exceeded`);
+      }
+      for (let index = 0; index < value.length; index += 1) {
+        pending.push({ depth: depth + 1, value: value[index] });
+      }
+    } else {
+      const keys = Object.keys(value);
+      if (keys.length > limits.keys) {
+        throw new RangeError(`${label} object key bound exceeded`);
+      }
+      for (const key of keys) {
+        if (key.length > limits.stringLength) {
+          throw new RangeError(`${label} key string length bound exceeded`);
+        }
+        pending.push({ depth: depth + 1, value: value[key] });
+      }
+    }
+  }
+}
+
 function defineBattleMovement(registerCompact) {
   let compact;
   const runtimeInstances = new WeakSet();
@@ -92,6 +140,14 @@ const MAX_ROUTE_POINTS = 1_024;
 const MAX_COMMANDS = 1_024;
 const MAX_TICK = 18_000;
 const MAX_SPEED = 1_000_000;
+const SNAPSHOT_GRAPH_LIMITS = Object.freeze({
+  arrayLength: MAX_COMMANDS + MAX_ROUTE_POINTS + 64,
+  containers: 8_192,
+  depth: 64,
+  keys: 64,
+  nodes: 65_536,
+  stringLength: MAX_SNAPSHOT_BYTES,
+});
 const STATE_KEYS = [
   "anchor",
   "bodyRadius",
@@ -648,8 +704,280 @@ function routingAnchor(state) {
   return clonePoint(state.anchor);
 }
 
+function applyTargetState(state, checked) {
+  let route;
+  let nextAnchor = state.anchor;
+  let nextEdgeStart = state.edgeStart;
+  let nextRouteIndex = state.routeIndex;
+  let nextRouteOrigin = state.routeOrigin;
+  if (isInBar(state.position, state.bodyRadius, checked) || state.speed === 0) {
+    route = [];
+  } else if (state.mode === BATTLE_MOVEMENT_MODES.air) {
+    assertBodyFits(checked.position, state.bodyRadius, "air movement target");
+    route = [clonePoint(checked.position)];
+  } else {
+    const anchor = routingAnchor(state);
+    const suffix = findGroundPath(anchor, checked.position);
+    if (suffix === null) {
+      throw new RangeError("ground battle movement target has no route");
+    }
+    route = [];
+    nextRouteOrigin = clonePoint(anchor);
+    if (state.position.x !== anchor.x || state.position.y !== anchor.y) {
+      route.push(anchor);
+      nextAnchor = clonePoint(anchor);
+      nextRouteIndex = 0;
+    }
+    route.push(...suffix.slice(1).map(clonePoint));
+    if (samePoint(state.position, anchor) && route.length > 0) {
+      nextEdgeStart = clonePoint(state.position);
+      nextAnchor = clonePoint(route[0]);
+      nextRouteIndex = 1;
+    }
+    for (let index = 0; index < route.length; index += 1) {
+      assertBodyFits(
+        route[index],
+        state.bodyRadius,
+        `ground movement route[${index}]`,
+      );
+    }
+  }
+
+  state.target = cloneTarget(checked);
+  state.remainder = 0;
+  state.route = route;
+  if (state.mode === BATTLE_MOVEMENT_MODES.ground && route.length > 0) {
+    state.anchor = nextAnchor;
+    state.edgeStart = nextEdgeStart;
+    state.routeIndex = nextRouteIndex;
+    state.routeOrigin = nextRouteOrigin;
+  }
+  if (route.length === 0) idleAt(state);
+  else startSegment(state);
+}
+
+function applyStopState(state) {
+  if (state.mode === BATTLE_MOVEMENT_MODES.ground) {
+    const anchor = routingAnchor(state);
+    if (samePoint(state.position, anchor)) {
+      state.edgeStart = clonePoint(anchor);
+    }
+    state.anchor = clonePoint(anchor);
+    state.routeOrigin = clonePoint(anchor);
+    state.routeIndex = 0;
+  }
+  state.target = null;
+  idleAt(state);
+}
+
+function authoritativeState(state) {
+  const copy = canonicalState(state);
+  copy.commands = [];
+  return copy;
+}
+
+function sameAuthoritativeState(left, right) {
+  return JSON.stringify(authoritativeState(left)) ===
+    JSON.stringify(authoritativeState(right));
+}
+
+function applyCommandState(state, command) {
+  if (command.kind === "target") applyTargetState(state, command.target);
+  else applyStopState(state);
+}
+
+function replayCommandState(configuration, commands, snapshotTick) {
+  const state = initialState(configuration);
+  for (const command of commands) {
+    advanceStateOnly(state, command.tick - state.tick);
+    applyCommandState(state, command);
+  }
+  advanceStateOnly(state, snapshotTick - state.tick);
+  return state;
+}
+
+function reachesAuthoritativeState(configuration, commands, snapshotTick, expected) {
+  try {
+    return sameAuthoritativeState(
+      replayCommandState(configuration, commands, snapshotTick),
+      expected,
+    );
+  } catch {
+    return false;
+  }
+}
+
+/*
+ * A command is removable only when the complete authoritative continuation
+ * (not merely the visible target or position) survives its omission. Testing
+ * one omission at a time gives a deterministic left-to-right normal form. The
+ * replay used here advances integer movement budget in bulk between commands;
+ * it never performs the MAX_TICK x MAX_COMMANDS tick-by-candidate replay.
+ */
+function canonicalCommandHistory(configuration, commands, snapshotTick, expected) {
+  const kept = commands.map(cloneCommand);
+  let index = 0;
+  while (index < kept.length) {
+    const candidate = kept.slice(0, index).concat(kept.slice(index + 1));
+    if (reachesAuthoritativeState(configuration, candidate, snapshotTick, expected)) {
+      kept.splice(index, 1);
+      continue;
+    }
+    index += 1;
+  }
+  return kept;
+}
+
+function movementDistanceToArrival(state) {
+  let distance = 0;
+  let from = clonePoint(state.segmentStart);
+  let progress = state.segmentProgress;
+  let length = state.segmentLength;
+  for (let index = 0; index < state.route.length; index += 1) {
+    const finalSegment = index === state.route.length - 1;
+    const limit = finalSegment
+      ? firstProgressInBar(
+          from,
+          state.route[index],
+          length,
+          state.bodyRadius,
+          state.target,
+        )
+      : length;
+    distance += limit - progress;
+    from = clonePoint(state.route[index]);
+    progress = 0;
+    if (index + 1 < state.route.length) {
+      length = segmentLength(from, state.route[index + 1]);
+    }
+  }
+  return distance;
+}
+
+function consumeMovementBudget(state, budget) {
+  while (budget > 0 && state.route.length > 0) {
+    const finalSegment = state.route.length === 1;
+    const limit = finalSegment
+      ? firstProgressInBar(
+          state.segmentStart,
+          state.route[0],
+          state.segmentLength,
+          state.bodyRadius,
+          state.target,
+        )
+      : state.segmentLength;
+    const remaining = limit - state.segmentProgress;
+    const travel = Math.min(budget, Math.max(0, remaining));
+    state.segmentProgress += travel;
+    budget -= travel;
+    state.position = interpolate(
+      state.segmentStart,
+      state.route[0],
+      state.segmentProgress,
+      state.segmentLength,
+    );
+
+    if (state.segmentProgress === limit) {
+      if (finalSegment) {
+        if (state.mode === BATTLE_MOVEMENT_MODES.ground) {
+          state.anchor = clonePoint(state.target.position);
+          state.routeIndex += 1;
+        }
+        idleAt(state);
+        break;
+      }
+      state.position = clonePoint(state.route[0]);
+      if (state.mode === BATTLE_MOVEMENT_MODES.ground) {
+        state.edgeStart = clonePoint(state.position);
+        state.routeIndex += 1;
+      }
+      state.route.shift();
+      if (state.mode === BATTLE_MOVEMENT_MODES.ground) {
+        state.anchor = clonePoint(state.route[0]);
+      }
+      startSegment(state);
+    }
+  }
+}
+
+function advanceStateOnly(state, ticks) {
+  if (ticks === 0) return;
+  if (state.route.length === 0 || state.speed === 0) {
+    state.tick += ticks;
+    return;
+  }
+
+  const distance = movementDistanceToArrival(state);
+  const numerator = distance * MOVEMENT_TICKS_PER_SECOND - state.remainder;
+  const arrivalTicks = Math.max(
+    1,
+    numerator <= 0 ? 1 : Math.ceil(numerator / state.speed),
+  );
+  if (arrivalTicks <= ticks) {
+    const accumulated = state.remainder + state.speed * arrivalTicks;
+    state.remainder = accumulated % MOVEMENT_TICKS_PER_SECOND;
+    consumeMovementBudget(
+      state,
+      Math.floor(accumulated / MOVEMENT_TICKS_PER_SECOND),
+    );
+    state.tick += ticks;
+    state.remainder = 0;
+    return;
+  }
+
+  const accumulated = state.remainder + state.speed * ticks;
+  state.remainder = accumulated % MOVEMENT_TICKS_PER_SECOND;
+  consumeMovementBudget(
+    state,
+    Math.floor(accumulated / MOVEMENT_TICKS_PER_SECOND),
+  );
+  state.tick += ticks;
+  if (state.route.length === 0) state.remainder = 0;
+}
+
+function sameTickState(base, commands) {
+  const state = canonicalState(base);
+  state.commands = [];
+  for (const command of commands) applyCommandState(state, command);
+  return state;
+}
+
+function canonicalSameTickGroup(base, commands, expected) {
+  if (sameAuthoritativeState(base, expected)) return [];
+  if (commands.length === 1) return commands.map(cloneCommand);
+
+  const last = commands.at(-1);
+  if (sameAuthoritativeState(sameTickState(base, [last]), expected)) {
+    return [cloneCommand(last)];
+  }
+
+  // Ground retargets can deliberately retain route provenance from an
+  // earlier same-tick command. Preserve that causal prefix, but remove any
+  // individual command whose omission is semantically invisible. This local
+  // minimizer never advances simulation time and is therefore bounded by the
+  // same-tick command group rather than MAX_TICK.
+  const kept = commands.map(cloneCommand);
+  let index = 0;
+  while (index < kept.length) {
+    const candidate = kept.slice(0, index).concat(kept.slice(index + 1));
+    if (sameAuthoritativeState(sameTickState(base, candidate), expected)) {
+      kept.splice(index, 1);
+      continue;
+    }
+    index += 1;
+  }
+  return kept;
+}
+
 class BattleMovement {
   #state;
+  #commandBase = null;
+  #commandGroup = [];
+  #commandTick = null;
+  #historyNeedsCanonicalization = false;
+  #lastCommandKind = null;
+  #lastCommandPosition = null;
+  #lastStopHadActiveTarget = false;
 
   constructor(configuration) {
     runtimeInstances.add(this);
@@ -676,65 +1004,41 @@ class BattleMovement {
         !isGroundNavigationNode(checked.position)) {
       throw new RangeError("ground battle movement target must be a navigation node");
     }
-
-    let route;
-    let nextAnchor = this.#state.anchor;
-    let nextEdgeStart = this.#state.edgeStart;
-    let nextRouteIndex = this.#state.routeIndex;
-    let nextRouteOrigin = this.#state.routeOrigin;
-    if (isInBar(this.#state.position, this.#state.bodyRadius, checked) ||
-        this.#state.speed === 0) {
-      route = [];
-    } else if (this.#state.mode === BATTLE_MOVEMENT_MODES.air) {
-      assertBodyFits(checked.position, this.#state.bodyRadius, "air movement target");
-      route = [clonePoint(checked.position)];
-    } else {
-      const anchor = routingAnchor(this.#state);
-      const suffix = findGroundPath(anchor, checked.position);
-      if (suffix === null) {
-        throw new RangeError("ground battle movement target has no route");
-      }
-      route = [];
-      nextRouteOrigin = clonePoint(anchor);
-      if (this.#state.position.x !== anchor.x || this.#state.position.y !== anchor.y) {
-        route.push(anchor);
-        nextAnchor = clonePoint(anchor);
-        nextRouteIndex = 0;
-      }
-      route.push(...suffix.slice(1).map(clonePoint));
-      if (samePoint(this.#state.position, anchor) && route.length > 0) {
-        nextEdgeStart = clonePoint(this.#state.position);
-        nextAnchor = clonePoint(route[0]);
-        nextRouteIndex = 1;
-      }
-      for (let index = 0; index < route.length; index += 1) {
-        assertBodyFits(
-          route[index],
-          this.#state.bodyRadius,
-          `ground movement route[${index}]`,
-        );
-      }
-    }
-
-    if (this.#state.commands.length >= MAX_COMMANDS) {
+    this.#beginCommandGroup();
+    if (this.#commandGroup.length >= MAX_COMMANDS ||
+        this.#state.commands.length >= MAX_COMMANDS) {
       throw new RangeError("battle movement command bound exceeded");
     }
-    this.#state.target = checked;
-    this.#state.remainder = 0;
-    this.#state.route = route;
-    if (this.#state.mode === BATTLE_MOVEMENT_MODES.ground && route.length > 0) {
-      this.#state.anchor = nextAnchor;
-      this.#state.edgeStart = nextEdgeStart;
-      this.#state.routeIndex = nextRouteIndex;
-      this.#state.routeOrigin = nextRouteOrigin;
-    }
-    if (route.length === 0) idleAt(this.#state);
-    else startSegment(this.#state);
-    this.#state.commands.push({
+    const candidate = canonicalState(this.#state);
+    const previousCommandKind = this.#lastCommandKind;
+    const previousStopHadActiveTarget = this.#lastStopHadActiveTarget;
+    const command = {
       kind: "target",
       target: cloneTarget(checked),
       tick: this.#state.tick,
-    });
+    };
+    applyTargetState(candidate, checked);
+    const rawGroup = [...this.#commandGroup, command];
+    const effectiveGroup = canonicalSameTickGroup(
+      this.#commandBase,
+      rawGroup,
+      candidate,
+    );
+    if (this.#commandBase.commands.length + effectiveGroup.length > MAX_COMMANDS) {
+      throw new RangeError("battle movement command bound exceeded");
+    }
+    candidate.commands = this.#commandBase.commands.concat(effectiveGroup);
+    this.#state = candidate;
+    this.#commandGroup = rawGroup;
+    if (this.#lastCommandPosition !== null &&
+        samePoint(this.#lastCommandPosition, this.#state.position) &&
+        !(previousCommandKind === "stop" && previousStopHadActiveTarget)) {
+      this.#historyNeedsCanonicalization = true;
+    }
+    this.#lastCommandKind = "target";
+    this.#lastStopHadActiveTarget = false;
+    this.#lastCommandPosition = clonePoint(this.#state.position);
+    this.#canonicalizeLiveHistory();
     return frozenEvents([
       event("target-set", this.#state.tick, this.#state.position, {
         target: frozenTarget(checked),
@@ -743,21 +1047,36 @@ class BattleMovement {
   }
 
   stop() {
-    if (this.#state.commands.length >= MAX_COMMANDS) {
+    this.#beginCommandGroup();
+    if (this.#commandGroup.length >= MAX_COMMANDS ||
+        this.#state.commands.length >= MAX_COMMANDS) {
       throw new RangeError("battle movement command bound exceeded");
     }
-    if (this.#state.mode === BATTLE_MOVEMENT_MODES.ground) {
-      const anchor = routingAnchor(this.#state);
-      if (samePoint(this.#state.position, anchor)) {
-        this.#state.edgeStart = clonePoint(anchor);
-      }
-      this.#state.anchor = clonePoint(anchor);
-      this.#state.routeOrigin = clonePoint(anchor);
-      this.#state.routeIndex = 0;
+    const candidate = canonicalState(this.#state);
+    const stopHadActiveTarget = this.#state.target !== null &&
+      this.#state.route.length > 0 && this.#state.speed > 0;
+    const command = { kind: "stop", tick: this.#state.tick };
+    applyStopState(candidate);
+    const rawGroup = [...this.#commandGroup, command];
+    const effectiveGroup = canonicalSameTickGroup(
+      this.#commandBase,
+      rawGroup,
+      candidate,
+    );
+    if (this.#commandBase.commands.length + effectiveGroup.length > MAX_COMMANDS) {
+      throw new RangeError("battle movement command bound exceeded");
     }
-    this.#state.target = null;
-    idleAt(this.#state);
-    this.#state.commands.push({ kind: "stop", tick: this.#state.tick });
+    candidate.commands = this.#commandBase.commands.concat(effectiveGroup);
+    this.#state = candidate;
+    this.#commandGroup = rawGroup;
+    if (this.#lastCommandPosition !== null &&
+        samePoint(this.#lastCommandPosition, this.#state.position)) {
+      this.#historyNeedsCanonicalization = true;
+    }
+    this.#lastCommandKind = "stop";
+    this.#lastStopHadActiveTarget = stopHadActiveTarget;
+    this.#lastCommandPosition = clonePoint(this.#state.position);
+    this.#canonicalizeLiveHistory();
     return frozenEvents([event("stopped", this.#state.tick, this.#state.position)]);
   }
 
@@ -786,50 +1105,7 @@ class BattleMovement {
       this.#state.remainder = Number(
         accumulated % BigInt(MOVEMENT_TICKS_PER_SECOND),
       );
-
-      while (budget > 0 && this.#state.route.length > 0) {
-        const finalSegment = this.#state.route.length === 1;
-        const limit = finalSegment
-          ? firstProgressInBar(
-              this.#state.segmentStart,
-              this.#state.route[0],
-              this.#state.segmentLength,
-              this.#state.bodyRadius,
-              this.#state.target,
-            )
-          : this.#state.segmentLength;
-        const remaining = limit - this.#state.segmentProgress;
-        const travel = Math.min(budget, Math.max(0, remaining));
-        this.#state.segmentProgress += travel;
-        budget -= travel;
-        this.#state.position = interpolate(
-          this.#state.segmentStart,
-          this.#state.route[0],
-          this.#state.segmentProgress,
-          this.#state.segmentLength,
-        );
-
-        if (this.#state.segmentProgress === limit) {
-          if (finalSegment) {
-            if (this.#state.mode === BATTLE_MOVEMENT_MODES.ground) {
-              this.#state.anchor = clonePoint(this.#state.target.position);
-              this.#state.routeIndex += 1;
-            }
-            idleAt(this.#state);
-            break;
-          }
-          this.#state.position = clonePoint(this.#state.route[0]);
-          if (this.#state.mode === BATTLE_MOVEMENT_MODES.ground) {
-            this.#state.edgeStart = clonePoint(this.#state.position);
-            this.#state.routeIndex += 1;
-          }
-          this.#state.route.shift();
-          if (this.#state.mode === BATTLE_MOVEMENT_MODES.ground) {
-            this.#state.anchor = clonePoint(this.#state.route[0]);
-          }
-          startSegment(this.#state);
-        }
-      }
+      consumeMovementBudget(this.#state, budget);
 
       if (before.x !== this.#state.position.x || before.y !== this.#state.position.y) {
         events.push(event("moved", this.#state.tick, this.#state.position, {
@@ -841,10 +1117,16 @@ class BattleMovement {
         events.push(event("arrived", this.#state.tick, this.#state.position));
       }
     }
+    if (ticks > 0) {
+      this.#commandTick = null;
+      this.#commandBase = null;
+      this.#commandGroup = [];
+    }
     return frozenEvents(events);
   }
 
   serialize() {
+    this.#canonicalizeLiveHistory();
     return JSON.stringify({ state: canonicalState(this.#state), version: 1 });
   }
 
@@ -864,7 +1146,51 @@ class BattleMovement {
       speed: this.#state.speed,
     });
     candidate.#state = canonicalState(this.#state);
+    candidate.#commandBase = this.#commandBase === null
+      ? null
+      : canonicalState(this.#commandBase);
+    candidate.#commandGroup = this.#commandGroup.map(cloneCommand);
+    candidate.#commandTick = this.#commandTick;
+    candidate.#historyNeedsCanonicalization = this.#historyNeedsCanonicalization;
+    candidate.#lastCommandKind = this.#lastCommandKind;
+    candidate.#lastCommandPosition = this.#lastCommandPosition === null
+      ? null
+      : clonePoint(this.#lastCommandPosition);
+    candidate.#lastStopHadActiveTarget = this.#lastStopHadActiveTarget;
     return candidate;
+  }
+
+  #beginCommandGroup() {
+    if (this.#commandTick === this.#state.tick) return;
+    this.#commandTick = this.#state.tick;
+    this.#commandBase = canonicalState(this.#state);
+    this.#commandGroup = [];
+  }
+
+  #canonicalizeLiveHistory() {
+    if (!this.#historyNeedsCanonicalization || this.#state.commands.length < 2) {
+      return;
+    }
+    const configuration = {
+      bodyRadius: this.#state.bodyRadius,
+      mode: this.#state.mode,
+      position: this.#state.initialPosition,
+      speed: this.#state.speed,
+    };
+    const canonicalCommands = canonicalCommandHistory(
+      configuration,
+      this.#state.commands,
+      this.#state.tick,
+      this.#state,
+    );
+    if (canonicalCommands.length !== this.#state.commands.length ||
+        JSON.stringify(canonicalCommands) !== JSON.stringify(this.#state.commands)) {
+      this.#state.commands = canonicalCommands;
+      this.#commandTick = null;
+      this.#commandBase = null;
+      this.#commandGroup = [];
+    }
+    this.#historyNeedsCanonicalization = false;
   }
 
   static restore(serialized) {
@@ -880,6 +1206,11 @@ class BattleMovement {
     } catch {
       throw new TypeError("serialized battle movement must be valid JSON");
     }
+    preflightMovementSnapshotGraph(
+      snapshot,
+      SNAPSHOT_GRAPH_LIMITS,
+      "battle movement snapshot",
+    );
     if (JSON.stringify(snapshot) !== serialized) {
       throw new TypeError("serialized battle movement must be canonical JSON");
     }
@@ -894,10 +1225,17 @@ class BattleMovement {
       position: checked.initialPosition,
       speed: checked.speed,
     });
+    let mayHaveCrossTickRedundancy = false;
+    let priorCommandPosition = null;
     for (const command of checked.commands) {
       replayed.stepMany(command.tick - replayed.#state.tick);
+      if (priorCommandPosition !== null &&
+          samePoint(priorCommandPosition, replayed.#state.position)) {
+        mayHaveCrossTickRedundancy = true;
+      }
       if (command.kind === "target") replayed.setTarget(command.target);
       else replayed.stop();
+      priorCommandPosition = clonePoint(replayed.#state.position);
     }
     replayed.stepMany(checked.tick - replayed.#state.tick);
     if (JSON.stringify(canonicalState(replayed.#state)) !==
@@ -905,6 +1243,28 @@ class BattleMovement {
       throw new RangeError(
         "battle movement snapshot state is not reachable from its command history",
       );
+    }
+    if (checked.commands.length > 1 && replayed.#state.route.length === 0) {
+      mayHaveCrossTickRedundancy = true;
+    }
+    const configuration = {
+      bodyRadius: checked.bodyRadius,
+      mode: checked.mode,
+      position: checked.initialPosition,
+      speed: checked.speed,
+    };
+    if (mayHaveCrossTickRedundancy) {
+      const canonicalCommands = canonicalCommandHistory(
+        configuration,
+        checked.commands,
+        checked.tick,
+        checked,
+      );
+      if (JSON.stringify(canonicalCommands) !== JSON.stringify(checked.commands)) {
+        throw new TypeError(
+          "battle movement snapshot command history is not minimal canonical history",
+        );
+      }
     }
     const restored = new BattleMovement({
       mode: BATTLE_MOVEMENT_MODES.air,
