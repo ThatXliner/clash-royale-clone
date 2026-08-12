@@ -225,10 +225,45 @@ test("battle movement history: round-three 27-command trace crosses the exact fr
   assert.equal(mover.state.commands.length, 27);
 
   const bytesBeforeCanonicalization = rawSnapshot(mover);
+  const hostileIntermediateCommands = [
+    { kind: "target", target: destination({ x: 2_000, y: 2_000 }), tick: 0 },
+    { kind: "target", target: destination({ x: 3_500, y: 22_500 }), tick: 2 },
+    { kind: "stop", tick: 5 },
+    { kind: "target", target: destination({ x: 2_000, y: 25_000 }), tick: 7 },
+    { kind: "target", target: destination({ x: 5_000, y: 5_000 }), tick: 10 },
+    { kind: "stop", tick: 13 },
+    { kind: "target", target: destination({ x: 14_000, y: 23_000 }), tick: 14 },
+    { kind: "target", target: destination({ x: 2_000, y: 12_000 }), tick: 15 },
+    { kind: "target", target: destination({ x: 15_000, y: 5_000 }), tick: 16 },
+    { kind: "target", target: destination({ x: 5_000, y: 25_000 }), tick: 17 },
+    { kind: "target", target: destination({ x: 12_000, y: 22_000 }), tick: 18 },
+    { kind: "target", target: destination({ x: 2_000, y: 2_000 }), tick: 19 },
+    { kind: "target", target: destination({ x: 3_500, y: 22_500 }), tick: 21 },
+    { kind: "target", target: destination({ x: 5_000, y: 5_000 }), tick: 23 },
+    { kind: "target", target: destination({ x: 15_000, y: 25_000 }), tick: 24 },
+    { kind: "target", target: destination({ x: 12_000, y: 5_000 }), tick: 25 },
+    { kind: "target", target: destination({ x: 2_000, y: 25_000 }), tick: 26 },
+    { kind: "target", target: destination({ x: 14_000, y: 23_000 }), tick: 27 },
+    { kind: "target", target: destination({ x: 5_000, y: 25_000 }), tick: 28 },
+    { kind: "target", target: destination({ x: 15_000, y: 5_000 }), tick: 29 },
+    { kind: "target", target: destination({ x: 8_000, y: 8_000 }), tick: 30 },
+    { kind: "target", target: destination({ x: 2_000, y: 12_000 }), tick: 32 },
+    { kind: "target", target: destination({ x: 12_000, y: 22_000 }), tick: 33 },
+  ];
+  const hostileIntermediate = copy(bytesBeforeCanonicalization);
+  hostileIntermediate.state.commands = copy(hostileIntermediateCommands);
+  assert.equal(
+    authority(replayCommands(configuration, hostileIntermediateCommands, 34).state),
+    authority(mover.state),
+  );
+  assert.throws(
+    () => BattleMovement.restore(bytes(hostileIntermediate)),
+    /minimal canonical history/u,
+  );
+
   const liveBytes = mover.serialize();
-  assert.equal(JSON.parse(liveBytes).state.commands.length, 23);
-  assert.equal(new TextEncoder().encode(liveBytes).byteLength, 2_389);
-  assert.throws(() => BattleMovement.restore(liveBytes), /minimal canonical history/u);
+  assert.equal(JSON.parse(liveBytes).state.commands.length, 7);
+  assert.equal(new TextEncoder().encode(liveBytes).byteLength, 1_053);
 
   const replayedLive = replayCommands(
     configuration,
@@ -236,25 +271,181 @@ test("battle movement history: round-three 27-command trace crosses the exact fr
     34,
   );
   const replayedBytes = replayedLive.serialize();
-  assert.equal(JSON.parse(replayedBytes).state.commands.length, 8);
-  assert.equal(new TextEncoder().encode(replayedBytes).byteLength, 1_146);
+  assert.equal(JSON.parse(replayedBytes).state.commands.length, 7);
+  assert.equal(replayedBytes, liveBytes);
 
   const canonical = JSON.parse(mover.serialize());
   const expectedCommands = [
     { kind: "target", target: destination({ x: 3_500, y: 22_500 }), tick: 2 },
-    { kind: "target", target: destination({ x: 14_000, y: 23_000 }), tick: 14 },
+    { kind: "target", target: destination({ x: 2_000, y: 12_000 }), tick: 15 },
     { kind: "target", target: destination({ x: 15_000, y: 5_000 }), tick: 16 },
-    { kind: "target", target: destination({ x: 12_000, y: 5_000 }), tick: 25 },
+    { kind: "target", target: destination({ x: 8_000, y: 20_000 }), tick: 22 },
     { kind: "target", target: destination({ x: 2_000, y: 25_000 }), tick: 26 },
-    { kind: "target", target: destination({ x: 5_000, y: 25_000 }), tick: 28 },
-    { kind: "target", target: destination({ x: 2_000, y: 12_000 }), tick: 32 },
+    { kind: "target", target: destination({ x: 15_000, y: 5_000 }), tick: 29 },
     { kind: "target", target: destination({ x: 12_000, y: 22_000 }), tick: 33 },
   ];
   assert.deepEqual(canonical.state.commands, expectedCommands);
   assert.notDeepEqual(bytesBeforeCanonicalization.state.commands, canonical.state.commands);
-  const restored = BattleMovement.restore(JSON.stringify(canonical));
-  assert.equal(restored.serialize(), JSON.stringify(canonical));
+  const restored = BattleMovement.restore(liveBytes);
+  assert.equal(restored.serialize(), liveBytes);
   assert.deepEqual(restored.state, mover.state);
+
+  assert.notDeepEqual(bytesBeforeCanonicalization.state.commands, replayedLive.state.commands);
+  assert.equal(authority(replayedLive.state), authority(mover.state));
+
+  const originalEvents = mover.stepMany(60);
+  const restoredEvents = restored.stepMany(60);
+  const replayedEvents = replayedLive.stepMany(60);
+  assert.deepEqual(restoredEvents, originalEvents);
+  assert.deepEqual(replayedEvents, originalEvents);
+  assert.equal(authority(restored.state), authority(mover.state));
+  assert.equal(authority(replayedLive.state), authority(mover.state));
+});
+
+test("battle movement history: compact frontier size matrix is byte and continuation idempotent", () => {
+  const configuration = {
+    mode: "air",
+    position: { x: 1_000, y: 1_000 },
+    speed: 600,
+  };
+  const trace = [
+    { kind: "target", target: destination({ x: 2_000, y: 2_000 }), tick: 0 },
+    { kind: "target", target: destination({ x: 3_500, y: 22_500 }), tick: 2 },
+    { kind: "stop", tick: 5 },
+    { kind: "target", target: destination({ x: 2_000, y: 25_000 }), tick: 7 },
+    { kind: "target", target: destination({ x: 5_000, y: 5_000 }), tick: 10 },
+    { kind: "target", target: destination({ x: 15_000, y: 25_000 }), tick: 12 },
+    { kind: "stop", tick: 13 },
+    { kind: "target", target: destination({ x: 14_000, y: 23_000 }), tick: 14 },
+    { kind: "target", target: destination({ x: 2_000, y: 12_000 }), tick: 15 },
+    { kind: "target", target: destination({ x: 15_000, y: 5_000 }), tick: 16 },
+    { kind: "target", target: destination({ x: 5_000, y: 25_000 }), tick: 17 },
+    { kind: "target", target: destination({ x: 12_000, y: 22_000 }), tick: 18 },
+    { kind: "target", target: destination({ x: 2_000, y: 2_000 }), tick: 19 },
+    { kind: "target", target: destination({ x: 15_000, y: 15_000 }), tick: 20 },
+    { kind: "target", target: destination({ x: 3_500, y: 22_500 }), tick: 21 },
+    { kind: "target", target: destination({ x: 8_000, y: 20_000 }), tick: 22 },
+    { kind: "target", target: destination({ x: 5_000, y: 5_000 }), tick: 23 },
+    { kind: "target", target: destination({ x: 15_000, y: 25_000 }), tick: 24 },
+    { kind: "target", target: destination({ x: 12_000, y: 5_000 }), tick: 25 },
+    { kind: "target", target: destination({ x: 2_000, y: 25_000 }), tick: 26 },
+    { kind: "target", target: destination({ x: 14_000, y: 23_000 }), tick: 27 },
+    { kind: "target", target: destination({ x: 5_000, y: 25_000 }), tick: 28 },
+    { kind: "target", target: destination({ x: 15_000, y: 5_000 }), tick: 29 },
+    { kind: "target", target: destination({ x: 8_000, y: 8_000 }), tick: 30 },
+    { kind: "target", target: destination({ x: 15_000, y: 15_000 }), tick: 31 },
+    { kind: "target", target: destination({ x: 2_000, y: 12_000 }), tick: 32 },
+    { kind: "target", target: destination({ x: 12_000, y: 22_000 }), tick: 33 },
+  ];
+  const extensionTargets = [
+    destination({ x: 3_500, y: 22_500 }),
+    destination({ x: 15_000, y: 5_000 }),
+    destination({ x: 5_000, y: 25_000 }),
+    destination({ x: 12_000, y: 5_000 }),
+    destination({ x: 2_000, y: 25_000 }),
+    destination({ x: 14_000, y: 23_000 }),
+    destination({ x: 8_000, y: 8_000 }),
+  ];
+  const sizes = [23, 24, 25, 26, 27, 31, 48, 64];
+  for (const size of sizes) {
+    const commands = trace.slice(0, size);
+    for (let index = commands.length; index < size; index += 1) {
+      commands.push({
+        kind: "target",
+        target: extensionTargets[index % extensionTargets.length],
+        tick: 34 + index - trace.length,
+      });
+    }
+    const snapshotTick = commands.at(-1).tick + 1;
+    const mover = replayCommands(configuration, commands, snapshotTick);
+    const rawCount = mover.state.commands.length;
+    assert.equal(rawCount, size);
+    const expectedAuthority = authority(mover.state);
+    const liveBytes = mover.serialize();
+    const canonicalBytes = mover.serialize();
+    assert.equal(canonicalBytes, liveBytes, `matrix ${size} second live serialization`);
+
+    const restored = BattleMovement.restore(liveBytes);
+    assert.equal(restored.serialize(), liveBytes, `matrix ${size} restore bytes`);
+    const emitted = JSON.parse(liveBytes).state.commands;
+    const replayed = replayCommands(configuration, emitted, snapshotTick);
+    assert.equal(replayed.serialize(), liveBytes, `matrix ${size} replay bytes`);
+    assert.equal(authority(restored.state), expectedAuthority, `matrix ${size} restore authority`);
+    assert.equal(authority(replayed.state), expectedAuthority, `matrix ${size} replay authority`);
+
+    const originalEvents = mover.stepMany(60);
+    const restoredEvents = restored.stepMany(60);
+    const replayedEvents = replayed.stepMany(60);
+    assert.deepEqual(restoredEvents, originalEvents, `matrix ${size} restore events`);
+    assert.deepEqual(replayedEvents, originalEvents, `matrix ${size} replay events`);
+    assert.equal(authority(restored.state), authority(mover.state), `matrix ${size} restored continuation`);
+    assert.equal(authority(replayed.state), authority(mover.state), `matrix ${size} replayed continuation`);
+  }
+});
+
+test("battle movement history: padded joint redundancy crosses exact windows", () => {
+  const configuration = {
+    mode: "air",
+    position: { x: 1_000, y: 1_000 },
+    speed: 600,
+  };
+  const commands = [
+    { kind: "target", target: destination({ x: 3_500, y: 22_500 }), tick: 1 },
+    { kind: "target", target: destination({ x: 12_000, y: 22_000 }), tick: 5 },
+    { kind: "target", target: destination({ x: 8_000, y: 20_000 }), tick: 6 },
+    { kind: "target", target: destination({ x: 5_000, y: 5_000 }), tick: 10 },
+    { kind: "stop", tick: 11 },
+    { kind: "stop", tick: 12 },
+    { kind: "target", target: destination({ x: 8_000, y: 20_000 }), tick: 16 },
+    { kind: "target", target: destination({ x: 15_000, y: 25_000 }), tick: 17 },
+    { kind: "target", target: destination({ x: 3_500, y: 22_500 }), tick: 18 },
+    { kind: "stop", tick: 21 },
+    { kind: "target", target: destination({ x: 12_000, y: 22_000 }), tick: 24 },
+    { kind: "target", target: destination({ x: 15_000, y: 25_000 }), tick: 28 },
+    { kind: "target", target: destination({ x: 14_000, y: 23_000 }), tick: 29 },
+    { kind: "stop", tick: 30 },
+    { kind: "target", target: destination({ x: 8_000, y: 20_000 }), tick: 34 },
+    { kind: "target", target: destination({ x: 3_500, y: 22_500 }), tick: 35 },
+    { kind: "target", target: destination({ x: 5_000, y: 5_000 }), tick: 39 },
+    { kind: "target", target: destination({ x: 2_000, y: 2_000 }), tick: 40 },
+    { kind: "target", target: destination({ x: 3_500, y: 22_500 }), tick: 42 },
+    { kind: "target", target: destination({ x: 5_000, y: 5_000 }), tick: 43 },
+    { kind: "target", target: destination({ x: 3_500, y: 22_500 }), tick: 45 },
+    { kind: "target", target: destination({ x: 12_000, y: 22_000 }), tick: 49 },
+    { kind: "stop", tick: 50 },
+    { kind: "target", target: destination({ x: 2_000, y: 2_000 }), tick: 52 },
+    { kind: "target", target: destination({ x: 5_000, y: 5_000 }), tick: 53 },
+    { kind: "stop", tick: 56 },
+    { kind: "target", target: destination({ x: 12_000, y: 22_000 }), tick: 57 },
+  ];
+  const snapshotTick = 59;
+  const full = replayCommands(configuration, commands, snapshotTick);
+  const expectedAuthority = authority(full.state);
+  const withoutFirst = commands.filter((_, index) => index !== 1);
+  const withoutSecond = commands.filter((_, index) => index !== 24);
+  const withoutPair = commands.filter((_, index) => index !== 1 && index !== 24);
+  assert.notEqual(
+    authority(replayCommands(configuration, withoutFirst, snapshotTick).state),
+    expectedAuthority,
+  );
+  assert.notEqual(
+    authority(replayCommands(configuration, withoutSecond, snapshotTick).state),
+    expectedAuthority,
+  );
+  assert.equal(
+    authority(replayCommands(configuration, withoutPair, snapshotTick).state),
+    expectedAuthority,
+  );
+
+  const hostile = copy(rawSnapshot(full));
+  hostile.state.commands = copy(commands);
+  assertRejectsSnapshot(hostile, /canonical/u);
+  const canonical = full.serialize();
+  const emitted = JSON.parse(canonical).state.commands;
+  assert.ok(emitted.length < commands.length);
+  const restored = BattleMovement.restore(canonical);
+  assert.equal(restored.serialize(), canonical);
+  assert.equal(authority(restored.state), expectedAuthority);
 });
 
 test("battle movement history: changing-position redundancy covers signed air and bridge ground paths", () => {
@@ -427,6 +618,14 @@ test("battle movement history: semantic admission has no guessed-position canoni
   const source = readFileSync(new URL("../src/sim/battle-continuation-kernel.js", import.meta.url), "utf8");
   assert.doesNotMatch(source, /mayHaveCrossTickRedundancy/u);
   assert.doesNotMatch(source, /priorCommandPosition/u);
+  const canonicalizerStart = source.indexOf("function canonicalCommandHistory");
+  const canonicalizerEnd = source.indexOf("function movementDistanceToArrival");
+  const canonicalizer = source.slice(canonicalizerStart, canonicalizerEnd);
+  assert.match(canonicalizer, /while \(true\)/u);
+  assert.match(canonicalizer, /shortestCanonicalCommandHistory/u);
+  assert.match(canonicalizer, /fixedPointCanonicalCommandHistory/u);
+  assert.match(source, /exactWindowPass/u);
+  assert.match(source, /globalOmissionPass/u);
 });
 
 test("battle movement history: same-tick overrides and duplicate stop/target forms are not admitted", () => {
@@ -699,7 +898,7 @@ test("battle movement history: every representative live cut restores bytes and 
   }
 });
 
-test("battle movement history: MAX_COMMANDS, MAX_TICK, and byte bounds remain fixed", () => {
+test("battle movement history: MAX_COMMANDS, MAX_TICK, byte bounds, and timing remain fixed", () => {
   const mover = new BattleMovement({
     mode: "air",
     position: { x: 8_000, y: 12_000 },
@@ -714,12 +913,20 @@ test("battle movement history: MAX_COMMANDS, MAX_TICK, and byte bounds remain fi
     if (index + 1 < MAX_COMMANDS) mover.stepMany(17);
   }
   assert.equal(mover.state.commands.length, MAX_COMMANDS);
+  const serializeStart = performance.now();
   const atCommandBound = mover.serialize();
+  const serializeMs = performance.now() - serializeStart;
   assert.ok(new TextEncoder().encode(atCommandBound).byteLength <= MAX_SNAPSHOT_BYTES);
   const beforeRejectedCommand = mover.serialize();
   assert.throws(() => mover.setTarget(targets[0]), /command bound/u);
   assert.equal(mover.serialize(), beforeRejectedCommand);
-  assertRestores(mover, "MAX_COMMANDS");
+  const restoreStart = performance.now();
+  const restoredAtCommandBound = BattleMovement.restore(atCommandBound);
+  const restoreMs = performance.now() - restoreStart;
+  assert.ok(serializeMs <= 6_530, `1,024-command serialize took ${serializeMs.toFixed(1)}ms`);
+  assert.ok(restoreMs <= 3_130, `1,024-command restore took ${restoreMs.toFixed(1)}ms`);
+  assert.equal(restoredAtCommandBound.serialize(), atCommandBound);
+  assert.deepEqual(restoredAtCommandBound.state, mover.state);
 
   const maxTick = new BattleMovement({
     mode: "air",

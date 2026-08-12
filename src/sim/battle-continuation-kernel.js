@@ -927,10 +927,34 @@ function replayFromPrefix(prefix, commands, startIndex, snapshotTick) {
   return state;
 }
 
+function replayFromPrefixSkipping(
+  prefix,
+  commands,
+  startIndex,
+  skippedIndex,
+  snapshotTick,
+) {
+  const state = canonicalState(prefix);
+  state.commands = [];
+  for (let index = startIndex; index < commands.length; index += 1) {
+    if (index === skippedIndex) continue;
+    const command = commands[index];
+    advanceStateOnly(state, command.tick - state.tick);
+    applyCommandState(state, command);
+  }
+  advanceStateOnly(state, snapshotTick - state.tick);
+  return state;
+}
+
 function omissionMatchesExpected(commands, snapshotTick, expectedKey, prefixes, index) {
-  const candidate = commands.slice(0, index).concat(commands.slice(index + 1));
   try {
-    const state = replayFromPrefix(prefixes[index], candidate, index, snapshotTick);
+    const state = replayFromPrefixSkipping(
+      prefixes[index],
+      commands,
+      index + 1,
+      -1,
+      snapshotTick,
+    );
     return authoritativeSignature(state) === expectedKey;
   } catch {
     return false;
@@ -938,11 +962,14 @@ function omissionMatchesExpected(commands, snapshotTick, expectedKey, prefixes, 
 }
 
 function pairMatchesExpected(commands, snapshotTick, expectedKey, prefixes, first, second) {
-  const candidate = commands.slice(0, first)
-    .concat(commands.slice(first + 1, second))
-    .concat(commands.slice(second + 1));
   try {
-    const state = replayFromPrefix(prefixes[first], candidate, first, snapshotTick);
+    const state = replayFromPrefixSkipping(
+      prefixes[first],
+      commands,
+      first + 1,
+      second,
+      snapshotTick,
+    );
     return authoritativeSignature(state) === expectedKey;
   } catch {
     return false;
