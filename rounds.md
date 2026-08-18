@@ -4640,3 +4640,34 @@ BIGGEST GAP: Replace the size-frontier split with one idempotent canonical
 normal form; every live serialization must already equal the representation
 that restore independently derives, including histories that shrink across the
 exact-search frontier.
+
+## Round 250 — 2026-08-17
+
+PIECE: GAME-001PH — Hostile movement-history canonicalization
+
+VERDICT: FAIL
+
+EVIDENCE: At pinned commit `2d3691f`, the exact
+`npm test -- battle-movement-history` selector passed 19/19 in 96,863.526 ms.
+The round-three implementation reduced the prior 27-command frontier trace to
+an accepted seven-command, 1,053-byte fixed point with exact restore, replay and
+next-60 continuation. Independent hostile evidence nevertheless produced a
+reachable 129-command air trace at tick 265 (command SHA-256
+`1fb4a440a879a081b36f403a7f75b3ba7e2bc5e93307982dd27f3be2abf407c1`)
+with no singly removable command but jointly redundant command IDs 1 and 23.
+Restore accepted the raw 129-command bytes as byte-fixed; removing the pair
+produced a distinct accepted 29-command fixed point with identical complete
+authority and next-60 events. A 180-degree mirrored trace (SHA-256
+`9451279853fbddfea737e5cfc9e5d19021f05e40e7516bd1627dece4d7b07893`)
+confirmed the same result. Source audit found the exact cause: pair removal is
+bounded to 64 commands and the exact-window pass to 128 commands.
+
+BIGGEST GAP: The bounded canonicalizer cannot prove the bar's unique global
+minimal history above its cutoffs, so two distinct byte-fixed histories remain
+accepted for one reachable authority.
+
+DISPOSITION: Wrong-shaped after three failures on the same canonicality gap.
+Stop patching this piece. Preserve live-produced movement determinism under
+GAME-001PK, and redesign any future hostile-history requirement around bounded
+causal validity or authenticated provenance rather than global semantic
+minimality.

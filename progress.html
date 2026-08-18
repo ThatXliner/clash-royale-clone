@@ -24,14 +24,14 @@
 </head>
 <body>
   <h1>Gauntlet progress</h1>
-  <p class="sub">Updated 2026-08-12 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
+  <p class="sub">Updated 2026-08-17 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
     <div class="card"><div class="num">165</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">114</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">249</div><div class="label">completed rounds</div></div>
-    <div class="card"><div class="num">23</div><div class="label">open questions</div></div>
+    <div class="card"><div class="num">250</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">24</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Active target: <strong>GAME-001PH — Hostile movement-history canonicalization</strong>.</p>
+  <p class="note">Latest pass: <strong>ARENA-002 — Ground pathfinding through bridges</strong>. Next dependency-ready target: ARENA-003 — Flying movement over terrain.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -952,10 +952,10 @@
       <tr>
         <td><code>GAME-001PH</code></td>
         <td>Hostile movement-history canonicalization</td>
-        <td class="state-building">BUILDING</td>
-        <td>0/2</td>
-        <td>2</td>
-        <td>Round 2 failed: a live 27-command history serializes to 23 commands that restore rejects; replaying those bytes serializes to the accepted 8-command representative, exposing a non-idempotent &gt;24 frontier</td>
+        <td class="state-question">QUESTION</td>
+        <td>0/3</td>
+        <td>3</td>
+        <td>Wrong-shaped after three canonicality rounds: the bounded &gt;64 pair and &gt;128 exact-window cutoffs accept distinct 129-command and 29-command byte-fixed histories with identical reachable authority; exact global minimality is incompatible with the current bounded online-history bar</td>
       </tr>
       <tr>
         <td><code>GAME-001K</code></td>
@@ -1611,6 +1611,7 @@
       <li><strong>R247 PASS</strong> · GAME-001GP — Sustained browser-match throughput<br>None on the judged sustained browser-throughput dimension.</li>
       <li><strong>R248 FAIL</strong> · GAME-001PH — Hostile movement-history canonicalization<br>Validate semantic minimality for every history, not only histories selected by a heuristic redundancy predicate, while retaining bounded restore cost and live snapshot compatibility.</li>
       <li><strong>R249 FAIL</strong> · GAME-001PH — Hostile movement-history canonicalization<br>Replace the size-frontier split with one idempotent canonical normal form; every live serialization must already equal the representation that restore independently derives, including histories that shrink across the exact-search frontier.</li>
+      <li><strong>R250 FAIL</strong> · GAME-001PH — Hostile movement-history canonicalization<br>The bounded canonicalizer cannot prove the bar's unique global minimal history above its cutoffs, so two distinct byte-fixed histories remain accepted for one reachable authority.</li>
   </ol>
 </body>
 </html>
