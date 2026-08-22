@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
+import { runInNewContext } from "node:vm";
 
 import { BattleCombat } from "../src/sim/battle-combat.js";
 import { BattleTowerCombat } from "../src/sim/battle-towers.js";
@@ -141,6 +142,27 @@ function legacyTowerSnapshot(serialized) {
   });
   current.version = 1;
   return canonical(current);
+}
+
+function combatSnapshot(combat) {
+  return {
+    replay: combat.replay,
+    serialize: combat.serialize(),
+    state: combat.state,
+  };
+}
+
+function assertCombatUnchanged(combat, before) {
+  assert.deepEqual(combat.replay, before.replay);
+  assert.equal(combat.serialize(), before.serialize);
+  assert.deepEqual(combat.state, before.state);
+}
+
+function assertDeepFrozen(value, seen = new Set()) {
+  if (value === null || typeof value !== "object" || seen.has(value)) return;
+  seen.add(value);
+  assert.equal(Object.isFrozen(value), true);
+  for (const child of Object.values(value)) assertDeepFrozen(child, seen);
 }
 
 test("projectile history: raw unit-to-unit ranged attack carries one identity from attack through damage", () => {
@@ -575,6 +597,179 @@ test("projectile history: missing, swapped, duplicate, and wrong ingress identit
     assert.throws(() => BattleTowerCombat.restore(canonical(forged)));
     assert.equal(battle.serialize(), before);
   }
+});
+
+test("projectile history: preview capability admission is trap-zero and atomic", () => {
+  const setup = { units: [
+    unit(60, "north", {
+      delivery: "projectile",
+      position: { x: 0, y: 0 },
+      projectileSpeed: 1_000,
+    }),
+    unit(61, "south", {
+      damage: 0,
+      firstHitTicks: 999,
+    }),
+  ] };
+  const command = boundary(0);
+  const combat = new BattleCombat(setup);
+  const preview = combat.previewBoundary(command);
+  assert.ok(preview.length > 0);
+  assertDeepFrozen(preview);
+  const projectileIndex = preview.findIndex(({ projectileIdentity }) => projectileIdentity);
+  assert.notEqual(projectileIndex, -1);
+
+  const hostileValues = [
+    ["plain forged array", () => []],
+    ["structured clone", () => structuredClone(preview)],
+    ["outer array accessor", (trap) => {
+      const forged = [];
+      forged.length = preview.length;
+      Object.defineProperty(forged, "0", {
+        configurable: true,
+        enumerable: true,
+        get() { trap(); return preview[0]; },
+      });
+      return forged;
+    }],
+    ["event projectile identity accessor", (trap) => {
+      const forged = structuredClone(preview);
+      Object.defineProperty(forged[projectileIndex], "projectileIdentity", {
+        configurable: true,
+        enumerable: true,
+        get() { trap(); return preview[projectileIndex].projectileIdentity; },
+      });
+      return forged;
+    }],
+    ["nested projectile identity accessors", (trap) => {
+      const forged = structuredClone(preview);
+      const identity = { ...forged[projectileIndex].projectileIdentity };
+      for (const key of IDENTITY_KEYS) {
+        const value = identity[key];
+        Object.defineProperty(identity, key, {
+          configurable: true,
+          enumerable: true,
+          get() { trap(); return value; },
+        });
+      }
+      forged[projectileIndex].projectileIdentity = identity;
+      return forged;
+    }],
+    ["event proxy", (trap) => {
+      const forged = structuredClone(preview);
+      forged[projectileIndex] = new Proxy(forged[projectileIndex], {
+        get(target, key, receiver) {
+          trap();
+          return Reflect.get(target, key, receiver);
+        },
+      });
+      return forged;
+    }],
+    ["nested identity proxy", (trap) => {
+      const forged = structuredClone(preview);
+      forged[projectileIndex].projectileIdentity = new Proxy(
+        forged[projectileIndex].projectileIdentity,
+        { get(target, key, receiver) {
+          trap();
+          return Reflect.get(target, key, receiver);
+        } },
+      );
+      return forged;
+    }],
+    ["callable proxy", (trap) => new Proxy(() => {}, {
+      apply() { trap(); },
+      get() { trap(); },
+    })],
+    ["revoked proxy", (trap) => {
+      const revocable = Proxy.revocable({}, { get() { trap(); } });
+      revocable.revoke();
+      return revocable.proxy;
+    }],
+    ["cross-realm array", () => runInNewContext("[]")],
+    ["cross-realm object", () => runInNewContext("({})")],
+    ["forged Array prototype", () => {
+      const forged = {};
+      Object.setPrototypeOf(forged, Array.prototype);
+      return forged;
+    }],
+    ["authentic preview wrapped in Proxy", (trap) => new Proxy(preview, {
+      get(target, key, receiver) {
+        trap();
+        return Reflect.get(target, key, receiver);
+      },
+    })],
+  ];
+
+  for (const [label, makeHostile] of hostileValues) {
+    let callbacks = 0;
+    const before = combatSnapshot(combat);
+    const hostile = makeHostile(() => { callbacks += 1; });
+    assert.throws(() => combat.stepBoundaryAfterPreview(command, hostile), undefined, label);
+    assert.equal(callbacks, 0, `${label} executed a callback`);
+    assertCombatUnchanged(combat, before);
+  }
+
+  const expected = new BattleCombat(setup).stepBoundary(command);
+  const committed = combat.stepBoundaryAfterPreview(command, preview);
+  assert.deepEqual(committed, expected);
+  assert.notEqual(committed, preview);
+  assert.notEqual(committed[projectileIndex], preview[projectileIndex]);
+  assertDeepFrozen(committed);
+  assert.doesNotMatch(combat.serialize(), /stateToken|previewReceipts|consumed/u);
+
+  const afterCommit = combatSnapshot(combat);
+  assert.throws(() => combat.stepBoundaryAfterPreview(command, preview));
+  assertCombatUnchanged(combat, afterCommit);
+});
+
+test("projectile history: preview receipts bind owner, generation, and retry rule", () => {
+  const setup = { units: [
+    unit(70, "north", {
+      delivery: "projectile",
+      position: { x: 0, y: 0 },
+      projectileSpeed: 1_000,
+    }),
+    unit(71, "south", { damage: 0, firstHitTicks: 999 }),
+  ] };
+  const command = boundary(0);
+
+  const owner = new BattleCombat(setup);
+  const ownerPreview = owner.previewBoundary(command);
+  const otherPreview = new BattleCombat(setup).previewBoundary(command);
+  const forkPreview = owner.fork().previewBoundary(command);
+  const restoredPreview = BattleCombat.restore(owner.serialize()).previewBoundary(command);
+  const before = combatSnapshot(owner);
+  for (const [label, preview] of [
+    ["other instance", otherPreview],
+    ["fork", forkPreview],
+    ["restored instance", restoredPreview],
+  ]) {
+    assert.throws(() => owner.stepBoundaryAfterPreview(command, preview), undefined, label);
+    assertCombatUnchanged(owner, before);
+  }
+
+  const sameTick = new BattleCombat(setup);
+  const sameTickPreview = sameTick.previewBoundary(command);
+  sameTick.scheduleSpawn({ ...unit(72, "north"), tick: 0 });
+  const sameTickAfterMutation = combatSnapshot(sameTick);
+  assert.throws(() => sameTick.stepBoundaryAfterPreview(command, sameTickPreview));
+  assertCombatUnchanged(sameTick, sameTickAfterMutation);
+
+  const advanced = new BattleCombat(setup);
+  const advancedPreview = advanced.previewBoundary(command);
+  advanced.step(0);
+  const advancedAfterMutation = combatSnapshot(advanced);
+  assert.throws(() => advanced.stepBoundaryAfterPreview(command, advancedPreview));
+  assertCombatUnchanged(advanced, advancedAfterMutation);
+
+  // A command admission error does not consume the receipt. Retrying the
+  // exact command with the exact current-state capability remains valid.
+  const retry = new BattleCombat(setup);
+  const retryPreview = retry.previewBoundary(command);
+  const beforeRetry = combatSnapshot(retry);
+  assert.throws(() => retry.stepBoundaryAfterPreview(boundary(1), retryPreview));
+  assertCombatUnchanged(retry, beforeRetry);
+  assert.ok(retry.stepBoundaryAfterPreview(command, retryPreview).length > 0);
 });
 
 test("projectile history: no adjacent-event lookup remains in the provenance authority", () => {

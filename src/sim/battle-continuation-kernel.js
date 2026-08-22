@@ -1549,6 +1549,7 @@ class BattleMovement {
 function defineBattleCombat(registerCompact) {
   let compact, currentTick;
   const runtimeInstances = new WeakSet();
+  const previewReceipts = new WeakMap();
 
 const MAX_BATTLE_COMBAT_STEP_TICKS = 18_000;
 
@@ -2236,6 +2237,7 @@ class BattleCombat {
   #scheduled = [];
   #seenExternalProjectileIds = [];
   #setup;
+  #stateToken = {};
   #tick = 0;
   #units = [];
 
@@ -2321,22 +2323,50 @@ class BattleCombat {
   previewBoundary(command) {
     const checked = this.#checkBoundary(command);
     const candidate = this.#runtimeClone(false);
-    return deepFreeze(clone(candidate.#applyBoundary(checked)));
+    const trustedEvents = candidate.#applyBoundary(checked);
+    const previewEvents = deepFreeze(clone(trustedEvents));
+    previewReceipts.set(previewEvents, {
+      command: checked,
+      commandWitness: canonical(checked),
+      owner: this,
+      stateToken: this.#stateToken,
+      trustedEvents,
+      consumed: false,
+    });
+    return previewEvents;
   }
 
   /**
-   * Commits a boundary only after independently reproducing the supplied
-   * preview. This avoids copying cumulative transcripts on the hot path while
-   * preserving pre-mutation validation and atomic failure for hostile input.
+   * Commits only a module-minted preview capability. The capability remains
+   * retryable after command admission failure; any state mutation or a
+   * successful commit makes it stale or consumed. The trusted receipt keeps
+   * caller-visible preview data out of the commit path while an independent
+   * witness preserves atomicity without copying cumulative transcripts.
    */
   stepBoundaryAfterPreview(command, previewEvents) {
+    const receipt = previewReceipts.get(previewEvents);
+    if (receipt === undefined || receipt.owner !== this || receipt.consumed ||
+        receipt.stateToken !== this.#stateToken) {
+      throw new TypeError("battle combat preview capability is invalid or stale");
+    }
     const checked = this.#checkBoundary(command);
-    const expected = denseArray(previewEvents, "battle combat preview events", MAX_HISTORY);
-    const witness = this.#runtimeClone(false).#applyBoundary(checked);
-    if (canonical(witness) !== canonical(expected)) {
+    if (receipt.stateToken !== this.#stateToken || receipt.consumed) {
+      throw new TypeError("battle combat preview capability is invalid or stale");
+    }
+    if (canonical(checked) !== receipt.commandWitness) {
+      throw new TypeError("battle combat preview command diverged");
+    }
+    const candidate = this.#runtimeClone(false);
+    const witness = candidate.#applyBoundary(receipt.command);
+    if (canonical(witness) !== canonical(receipt.trustedEvents)) {
       throw new TypeError("battle combat preview witness diverged");
     }
-    return deepFreeze(clone(this.#applyBoundary(checked)));
+    if (receipt.stateToken !== this.#stateToken || receipt.consumed) {
+      throw new TypeError("battle combat preview capability is invalid or stale");
+    }
+    this.#adoptBoundary(candidate);
+    receipt.consumed = true;
+    return deepFreeze(clone(witness));
   }
 
   spawn(command) {
@@ -2348,6 +2378,7 @@ class BattleCombat {
     this.#reserveHistory();
     this.#activate(checked, checked.tick);
     this.#record({ command: checked, type: "spawn" });
+    this.#stateToken = {};
     return deepFreeze(clone(this.#events.at(-1)));
   }
 
@@ -2367,6 +2398,7 @@ class BattleCombat {
     this.#scheduled.sort((left, right) =>
       left.tick - right.tick || left.id - right.id || left.sequence - right.sequence);
     this.#record({ command: checked, type: "schedule-spawn" });
+    this.#stateToken = {};
     return deepFreeze(clone(scheduled));
   }
 
@@ -2391,6 +2423,7 @@ class BattleCombat {
     };
     this.#events.push(event);
     this.#record({ command: checked, type: "position" });
+    this.#stateToken = {};
     return deepFreeze(clone(event));
   }
 
@@ -2416,6 +2449,7 @@ class BattleCombat {
     });
     this.#events.push(...events);
     this.#record({ command: checked, type: "positions" });
+    this.#stateToken = {};
     return deepFreeze(clone(events));
   }
 
@@ -2513,6 +2547,7 @@ class BattleCombat {
     );
     this.#seenExternalProjectileIds.sort((left, right) => left - right);
     this.#history.push({ command: checked, type: "boundary" });
+    this.#stateToken = {};
     return events;
   }
 
@@ -2703,6 +2738,7 @@ class BattleCombat {
         if (entry.tick !== restored.#tick) throw new TypeError("noncausal battle combat step history");
         restored.#advance(emptyBoundary(restored.#tick));
         restored.#history.push({ tick: entry.tick, type: "step" });
+        restored.#stateToken = {};
       } else if (operation.type === "boundary") {
         restored.stepBoundary(exact(operation, ["command", "type"], `history[${index}]`).command);
       } else throw new TypeError(`battle combat history[${index}] is invalid`);
@@ -3005,6 +3041,7 @@ class BattleCombat {
     }
     this.#tick += 1;
     this.#events.push(...boundary);
+    this.#stateToken = {};
     return boundary;
   }
 
@@ -3091,6 +3128,22 @@ class BattleCombat {
     this.#setup = candidate.#setup;
     this.#tick = candidate.#tick;
     this.#units = candidate.#units;
+    this.#stateToken = {};
+  }
+
+  #adoptBoundary(candidate) {
+    this.#damage = candidate.#damage;
+    this.#events = [...this.#events, ...candidate.#events];
+    this.#history = [...this.#history, ...candidate.#history];
+    this.#knownExternalStructures = candidate.#knownExternalStructures;
+    this.#nextProjectileId = candidate.#nextProjectileId;
+    this.#nextScheduleSequence = candidate.#nextScheduleSequence;
+    this.#projectiles = candidate.#projectiles;
+    this.#scheduled = candidate.#scheduled;
+    this.#seenExternalProjectileIds = candidate.#seenExternalProjectileIds;
+    this.#tick = candidate.#tick;
+    this.#units = candidate.#units;
+    this.#stateToken = {};
   }
 }
 
