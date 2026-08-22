@@ -30,6 +30,12 @@ import {
   SessionTroopRuntime,
 } from "./session-troop-runtime.js";
 import {
+  SESSION_TROOP_STATUS_RUNTIME_MAX_COMMANDS,
+  SESSION_TROOP_STATUS_RUNTIME_MAX_SOURCES,
+  parseSessionTroopStatusRuntimeProfiles,
+  SessionTroopStatusRuntime,
+} from "./session-troop-status-runtime.js";
+import {
   createSpellIntentRuntime,
   getUnprofiledAdmittedEffectProfileQuestion,
   parseSpellIntentProfileReceipts,
@@ -1367,6 +1373,23 @@ class BattleMovement {
     return this.stepMany(1);
   }
 
+  /**
+   * Advances the shared movement clock without consuming route distance.
+   * Status runtime owns why a boundary is paused. This method keeps the
+   * movement authority's target, route, progress, and remainder intact.
+   */
+  stepPaused() {
+    if (this.#state.tick >= MAX_TICK) {
+      throw new RangeError("battle movement tick bound exceeded");
+    }
+    this.#state.tick += 1;
+    this.#commandTick = null;
+    this.#commandBase = null;
+    this.#commandGroup = [];
+    this.#serializedSnapshot = null;
+    return frozenEvents([]);
+  }
+
   stepMany(ticks) {
     integer(
       ticks,
@@ -1590,6 +1613,9 @@ const EXTERNAL_PROJECTILE_KEYS = [
   "projectileIdentity", "targetUnitId",
 ];
 const BOUNDARY_KEYS = ["externalHits", "externalProjectiles", "structures", "tick"];
+const STATUS_BOUNDARY_KEYS = [...BOUNDARY_KEYS, "unitControls", "unitHeals"];
+const UNIT_CONTROL_KEYS = ["attackBlocked", "attackStep", "id", "targetable"];
+const UNIT_HEAL_KEYS = ["amount", "commandId", "sourceId", "targetUnitId"];
 const PROJECTILE_IDENTITY_KEYS = [
   "attackSequence", "direction", "projectileId", "sourceId",
 ];
@@ -1794,12 +1820,49 @@ function checkedExternalProjectile(value, index) {
   return { ...projectile, projectileIdentity: expectedIdentity };
 }
 
+function checkedUnitControl(value, index) {
+  const label = `battle combat boundary.unitControls[${index}]`;
+  const control = exact(value, UNIT_CONTROL_KEYS, label);
+  integer(control.id, 1, Number.MAX_SAFE_INTEGER, `${label}.id`);
+  if (typeof control.attackBlocked !== "boolean" || typeof control.targetable !== "boolean" ||
+      !["normal", "pause"].includes(control.attackStep)) {
+    throw new TypeError(`${label} contains invalid status control flags`);
+  }
+  return {
+    attackBlocked: control.attackBlocked,
+    attackStep: control.attackStep,
+    id: control.id,
+    targetable: control.targetable,
+  };
+}
+
+function checkedUnitHeal(value, index) {
+  const label = `battle combat boundary.unitHeals[${index}]`;
+  const heal = exact(value, UNIT_HEAL_KEYS, label);
+  integer(heal.amount, 0, MAX_STAT, `${label}.amount`);
+  integer(heal.commandId, 0, Number.MAX_SAFE_INTEGER, `${label}.commandId`);
+  integer(heal.sourceId, 1, Number.MAX_SAFE_INTEGER, `${label}.sourceId`);
+  integer(heal.targetUnitId, 1, Number.MAX_SAFE_INTEGER, `${label}.targetUnitId`);
+  return { ...heal };
+}
+
 function compareText(left, right) {
   return left < right ? -1 : left > right ? 1 : 0;
 }
 
 function checkedBoundary(value) {
-  const boundary = exact(value, BOUNDARY_KEYS, "battle combat boundary");
+  const descriptors = plain(value, "battle combat boundary");
+  const actual = Reflect.ownKeys(descriptors).sort();
+  const base = [...BOUNDARY_KEYS].sort();
+  const status = [...STATUS_BOUNDARY_KEYS].sort();
+  const hasStatus = actual.length === status.length &&
+    actual.every((key, index) => key === status[index]);
+  if (!hasStatus && (actual.length !== base.length ||
+      actual.some((key, index) => key !== base[index]))) {
+    throw new TypeError("battle combat boundary has an invalid shape");
+  }
+  const boundary = exact(value, hasStatus ? STATUS_BOUNDARY_KEYS : BOUNDARY_KEYS,
+    "battle combat boundary");
   const tick = integer(boundary.tick, 0, MAX_TICK, "battle combat boundary.tick");
   const structures = denseArray(
     boundary.structures, "battle combat boundary.structures", MAX_EXTERNAL_ENTRIES,
@@ -1841,7 +1904,23 @@ function checkedBoundary(value) {
       externalProjectiles.length) {
     throw new TypeError("battle combat boundary external projectile IDs must be unique");
   }
-  return { externalHits, externalProjectiles, structures, tick };
+  if (!hasStatus) return { externalHits, externalProjectiles, structures, tick };
+  const unitControls = denseArray(boundary.unitControls,
+    "battle combat boundary.unitControls", MAX_UNITS)
+    .map(checkedUnitControl,)
+    .sort((left, right) => left.id - right.id);
+  if (new Set(unitControls.map(({ id }) => id)).size !== unitControls.length) {
+    throw new TypeError("battle combat boundary unit control IDs must be unique");
+  }
+  const unitHeals = denseArray(boundary.unitHeals,
+    "battle combat boundary.unitHeals", MAX_EXTERNAL_ENTRIES)
+    .map(checkedUnitHeal)
+    .sort((left, right) => left.commandId - right.commandId ||
+      left.sourceId - right.sourceId || left.targetUnitId - right.targetUnitId);
+  if (new Set(unitHeals.map(({ commandId }) => commandId)).size !== unitHeals.length) {
+    throw new TypeError("battle combat boundary unit heal command IDs must be unique");
+  }
+  return { externalHits, externalProjectiles, structures, tick, unitControls, unitHeals };
 }
 
 function emptyBoundary(tick) {
@@ -2504,12 +2583,26 @@ class BattleCombat {
       }
       seen.add(projectile.projectileId);
     }
-    for (const ingress of [...checked.externalHits, ...checked.externalProjectiles]) {
+    const unitHeals = checked.unitHeals ?? [];
+    for (const ingress of [
+      ...checked.externalHits,
+      ...checked.externalProjectiles,
+      ...unitHeals.map(({ sourceId: _sourceId, targetUnitId, ...heal }) => ({
+        ...heal,
+        targetUnitId,
+      })),
+    ]) {
       const unit = this.#unit(ingress.targetUnitId);
       const due = this.#scheduled.some(({ id, tick }) =>
         id === ingress.targetUnitId && tick === this.#tick);
       if ((unit === null && !due) || (unit !== null && this.#damage.get(unit.id).dead)) {
         throw new RangeError("external ingress must target a live battle combat unit");
+      }
+    }
+    for (const heal of unitHeals) {
+      const source = this.#unit(heal.sourceId);
+      if (source === null || this.#damage.get(source.id).dead) {
+        throw new RangeError("unit heal ingress must have a live source unit");
       }
     }
     for (const structure of checked.structures) {
@@ -2777,6 +2870,7 @@ class BattleCombat {
     }
 
     const liveAtStart = this.#units.filter((unit) => !this.#damage.get(unit.id).dead);
+    const controls = new Map((external.unitControls ?? []).map((control) => [control.id, control]));
     const externalById = new Map(external.structures.map((structure) =>
       [structure.id, structure]));
     const attacks = [];
@@ -2790,7 +2884,7 @@ class BattleCombat {
           layer: target.layer,
           position: target.position,
           radius: target.radius,
-          targetable: true,
+          targetable: controls.get(target.id)?.targetable ?? true,
         }));
       const structureCandidates = external.structures
         .filter((target) => target.side !== attacker.side)
@@ -2803,9 +2897,14 @@ class BattleCombat {
           radius: target.radius,
           targetable: target.targetable,
         }));
+      const control = controls.get(attacker.id);
+      const allCandidates = [...unitCandidates, ...structureCandidates];
+      const targetCandidates = control?.attackBlocked && attacker.targetId !== null
+        ? allCandidates.filter(({ id }) => id === attacker.targetId)
+        : allCandidates;
       const target = retainOrAcquireTarget(
         { position: attacker.position, radius: attacker.radius },
-        [...unitCandidates, ...structureCandidates],
+        targetCandidates,
         {
           currentTargetId: attacker.targetId,
           mode: attacker.targetMode,
@@ -2827,10 +2926,13 @@ class BattleCombat {
       const targetStructure = target === null ? null : externalById.get(target.id) ?? null;
       const attackTarget = targetUnit ?? targetStructure;
       const eligible = attackTarget !== null && inRange(attacker, attackTarget, attacker.reach);
-      const ready = attacker.attack.step({
+      const attackInput = {
         targetEligible: eligible,
         targetId: eligible ? attackTarget.id : null,
-      });
+      };
+      const ready = control?.attackBlocked || control?.attackStep === "pause"
+        ? attacker.attack.stepPaused(attackInput)
+        : attacker.attack.step(attackInput);
       for (const event of ready) {
         attacks.push({
           attacker,
@@ -3038,6 +3140,41 @@ class BattleCombat {
       } else {
         boundary.push({ ...event, tick });
       }
+    }
+    for (const heal of external.unitHeals ?? []) {
+      const source = this.#damage.get(heal.sourceId);
+      let result;
+      if (source === null) {
+        result = {
+          amount: heal.amount,
+          appliedAmount: 0,
+          currentHealth: null,
+          status: "source-missing",
+          targetId: heal.targetUnitId,
+        };
+      } else if (source.dead) {
+        const target = this.#damage.get(heal.targetUnitId);
+        result = {
+          amount: heal.amount,
+          appliedAmount: 0,
+          currentHealth: target?.currentHealth ?? null,
+          status: "source-dead",
+          targetId: heal.targetUnitId,
+        };
+      } else {
+        result = this.#damage.heal(heal.targetUnitId, heal.amount);
+      }
+      boundary.push({
+        amount: heal.amount,
+        appliedAmount: result.appliedAmount ?? 0,
+        commandId: heal.commandId,
+        currentHealth: result.currentHealth,
+        sourceId: heal.sourceId,
+        status: result.status,
+        targetId: heal.targetUnitId,
+        tick,
+        type: "heal",
+      });
     }
     this.#tick += 1;
     this.#events.push(...boundary);
@@ -4145,6 +4282,28 @@ function integer(value, minimum, maximum, label) {
   return value;
 }
 
+function checkedUnitControl(value, index) {
+  const label = `battle tower external boundary.unitControls[${index}]`;
+  const control = exact(value, ["attackBlocked", "attackStep", "id", "targetable"], label);
+  integer(control.id, 1, Number.MAX_SAFE_INTEGER, `${label}.id`);
+  if (typeof control.attackBlocked !== "boolean" ||
+      typeof control.targetable !== "boolean" ||
+      !["normal", "pause"].includes(control.attackStep)) {
+    throw new TypeError(`${label} contains invalid status control flags`);
+  }
+  return { ...control };
+}
+
+function checkedUnitHeal(value, index) {
+  const label = `battle tower external boundary.unitHeals[${index}]`;
+  const heal = exact(value, ["amount", "commandId", "sourceId", "targetUnitId"], label);
+  integer(heal.amount, 0, Number.MAX_SAFE_INTEGER, `${label}.amount`);
+  integer(heal.commandId, 0, Number.MAX_SAFE_INTEGER, `${label}.commandId`);
+  integer(heal.sourceId, 1, Number.MAX_SAFE_INTEGER, `${label}.sourceId`);
+  integer(heal.targetUnitId, 1, Number.MAX_SAFE_INTEGER, `${label}.targetUnitId`);
+  return { ...heal };
+}
+
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
 }
@@ -4244,8 +4403,9 @@ function structuresFrom(towers) {
   }));
 }
 
-function candidatesFrom(combat) {
+function candidatesFrom(combat, unitControls = []) {
   const state = combat.state;
+  const controls = new Map(unitControls.map((control) => [control.id, control]));
   const candidates = state.units.filter(({ alive }) => alive).map((unit) => ({
     alive: true,
     id: unit.id,
@@ -4254,7 +4414,7 @@ function candidatesFrom(combat) {
     position: { ...unit.position },
     radius: unit.radius,
     side: unit.side,
-    targetable: true,
+    targetable: controls.get(unit.id)?.targetable ?? true,
   }));
   for (const pending of state.pendingSpawns) {
     if (pending.tick !== state.tick || candidates.some(({ id }) => id === pending.id)) continue;
@@ -4266,7 +4426,7 @@ function candidatesFrom(combat) {
       position: { ...pending.position },
       radius: pending.radius,
       side: pending.side,
-      targetable: true,
+      targetable: controls.get(pending.id)?.targetable ?? true,
     });
   }
   return candidates.sort((left, right) => left.id - right.id);
@@ -4322,8 +4482,19 @@ function checkedTowerProjectile(value, index) {
 }
 
 function checkedBuildingBoundary(value, currentTick) {
-  const boundary = exact(value, ["externalHits", "externalProjectiles", "externalTowerHits",
-    "structures", "tick"], "battle tower external boundary");
+  const baseKeys = ["externalHits", "externalProjectiles", "externalTowerHits", "structures", "tick"];
+  const statusKeys = [...baseKeys, "unitControls", "unitHeals"];
+  const descriptors = plain(value, "battle tower external boundary");
+  const actual = Reflect.ownKeys(descriptors).sort();
+  const hasStatus = actual.length === statusKeys.length &&
+    actual.every((key, index) => key === [...statusKeys].sort()[index]);
+  const sortedBase = [...baseKeys].sort();
+  if (!hasStatus && (actual.length !== sortedBase.length ||
+      actual.some((key, index) => key !== sortedBase[index]))) {
+    throw new TypeError("battle tower external boundary has an invalid shape");
+  }
+  const boundary = exact(value, hasStatus ? statusKeys : baseKeys,
+    "battle tower external boundary");
   if (boundary.tick !== currentTick) {
     throw new RangeError("battle tower external boundary tick must equal the current tick");
   }
@@ -4353,9 +4524,25 @@ function checkedBuildingBoundary(value, currentTick) {
       externalProjectiles.length) {
     throw new TypeError("battle tower external projectile IDs must be unique");
   }
-  return { externalHits: clone(boundary.externalHits),
+  if (!hasStatus) return { externalHits: clone(boundary.externalHits),
     externalProjectiles, externalTowerHits: hits,
     structures: clone(boundary.structures), tick: boundary.tick };
+  const unitControls = denseArray(boundary.unitControls,
+    "battle tower external boundary.unitControls", 1_024)
+    .map(checkedUnitControl)
+    .sort((left, right) => left.id - right.id);
+  const unitHeals = denseArray(boundary.unitHeals,
+    "battle tower external boundary.unitHeals", 1_024)
+    .map(checkedUnitHeal)
+    .sort((left, right) => left.commandId - right.commandId ||
+      left.sourceId - right.sourceId || left.targetUnitId - right.targetUnitId);
+  if (new Set(unitControls.map(({ id }) => id)).size !== unitControls.length ||
+      new Set(unitHeals.map(({ commandId }) => commandId)).size !== unitHeals.length) {
+    throw new TypeError("battle tower status ingress identities must be unique");
+  }
+  return { externalHits: clone(boundary.externalHits),
+    externalProjectiles, externalTowerHits: hits,
+    structures: clone(boundary.structures), tick: boundary.tick, unitControls, unitHeals };
 }
 
 // Spell profiles are admitted by LiveBattle, then translated to the exact
@@ -4765,8 +4952,12 @@ class BattleTowerCombat {
     // touching either live child authority.
     this.#combatRuntime().previewBoundary({ externalHits: checked.externalHits,
       externalProjectiles: checked.externalProjectiles,
-      structures: [...towerStructures, ...checked.structures], tick: checked.tick });
-    this.#towerRuntime().previewLive({ candidates: candidatesFrom(this.#combatRuntime()),
+      structures: [...towerStructures, ...checked.structures], tick: checked.tick,
+      ...(checked.unitControls === undefined ? {} : {
+        unitControls: checked.unitControls, unitHeals: checked.unitHeals,
+      }) });
+    this.#towerRuntime().previewLive({ candidates: candidatesFrom(this.#combatRuntime(),
+      checked.unitControls ?? []),
       damage: checked.externalTowerHits.map(({ amount, towerId }) => ({ amount, towerId })) });
     return freeze(clone(this.#advance(checked, "boundary")));
   }
@@ -4964,13 +5155,18 @@ class BattleTowerCombat {
     }
     const towerStructures = structuresFrom(towers.state.towers);
     const structures = [...towerStructures, ...checkedExternal.structures];
-    const candidates = candidatesFrom(combat);
+    const candidates = candidatesFrom(combat, checkedExternal.unitControls ?? []);
+    const statusIngress = checkedExternal.unitControls === undefined ? {} : {
+      unitControls: checkedExternal.unitControls,
+      unitHeals: checkedExternal.unitHeals,
+    };
 
     const previewEvents = combat.previewBoundary({
       externalHits: checkedExternal.externalHits,
       externalProjectiles: checkedExternal.externalProjectiles,
       structures,
       tick,
+      ...statusIngress,
     });
     const towerInput = {
       candidates,
@@ -5002,6 +5198,7 @@ class BattleTowerCombat {
         ...ingresses.map(({ command }) => command)],
       structures,
       tick,
+      ...statusIngress,
     };
     const combatEvents = combat.previewBoundary(combatInput);
     const actualDamage = towerDamageFrom(combatEvents);
@@ -5597,7 +5794,7 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
       }
       const label = `roster[${cardIndex}]`;
       const hasDamageQuestion = entities.some(({ damagePolicy }) => damagePolicy !== undefined);
-      if ((card.damage === null) !== hasDamageQuestion) {
+      if (cardKind === "unit" && (card.damage === null) !== hasDamageQuestion) {
         throw new TypeError(`${label}.damage must agree with its damage question policy`);
       }
       const normalizedCard = {
@@ -5823,6 +6020,36 @@ function checkedTroopAction(value, currentTick, { requireCurrent = true } = {}) 
     targetId,
     tick,
     type: "ability",
+  };
+}
+
+function checkedTroopStatusAction(value, currentTick, { requireCurrent = true } = {}) {
+  const action = exact(value, TROOP_ACTION_KEYS, "live battle troop status action");
+  if (action.type !== "status") {
+    throw new TypeError("live battle troop status action.type is invalid");
+  }
+  const tick = integer(action.tick, currentTick, MAX_LIVE_BATTLE_STEP_TICKS,
+    "live battle troop status action.tick");
+  if (requireCurrent && tick !== currentTick) {
+    throw new RangeError("live battle troop status action.tick must equal the current tick");
+  }
+  const side = string(action.side, "live battle troop status action.side");
+  if (!SIDES.has(side)) throw new TypeError("live battle troop status action.side is invalid");
+  const point = action.point === null ? null : validateArenaPoint(action.point,
+    "live battle troop status action.point");
+  const targetId = action.targetId === null ? null : integer(action.targetId, 1,
+    Number.MAX_SAFE_INTEGER, "live battle troop status action.targetId");
+  return {
+    actionId: string(action.actionId, "live battle troop status action.actionId"),
+    commandId: integer(action.commandId, 0, Number.MAX_SAFE_INTEGER,
+      "live battle troop status action.commandId"),
+    point: point === null ? null : { ...point },
+    side,
+    sourceId: integer(action.sourceId, 1, Number.MAX_SAFE_INTEGER,
+      "live battle troop status action.sourceId"),
+    targetId,
+    tick,
+    type: "status",
   };
 }
 
@@ -6195,15 +6422,18 @@ class LiveBattle {
   #pendingBuildingHits;
   #pendingStructures;
   #pendingTroopActions;
+  #pendingTroopStatusActions;
   #questionValues;
   #rosterById;
   #setup;
   #spells;
   #structures;
+  #statusEffects;
+  #statusRuntime;
   #troopRuntime;
   #troopStatuses;
 
-  constructor(value, troopRuntimeProfiles = undefined) {
+  constructor(value, troopRuntimeProfiles = undefined, statusRuntimeProfiles = undefined) {
     runtimeInstances.add(this);
     const setup = admittedSetup(value);
     this.#battle = new BattleTowerCombat({
@@ -6222,6 +6452,7 @@ class LiveBattle {
     this.#pendingBuildingHits = [];
     this.#pendingStructures = [];
     this.#pendingTroopActions = [];
+    this.#pendingTroopStatusActions = [];
     this.#setup = setup;
     const hasBuildingProfile = setup.roster.some(({ buildingRuntime, kind }) =>
       kind === "structure" && buildingRuntime !== undefined);
@@ -6239,6 +6470,10 @@ class LiveBattle {
     this.#troopRuntime = troopRuntimeProfiles === undefined
       ? EMPTY_TROOP_RUNTIME
       : new SessionTroopRuntime(troopRuntimeProfiles);
+    this.#statusRuntime = statusRuntimeProfiles === undefined
+      ? null
+      : new SessionTroopStatusRuntime(statusRuntimeProfiles);
+    this.#statusEffects = new Map();
     this.#troopStatuses = new Map();
     for (const profile of this.#troopRuntime.configuration.profiles) {
       const card = this.#rosterById.get(profile.cardId);
@@ -6301,6 +6536,13 @@ class LiveBattle {
       if (this.#allowsLegacyTroopActions()) {
         publicState.pendingTroopActions = clone(this.#pendingTroopActions);
       }
+    }
+    if (this.#hasStatusRuntime()) {
+      publicState.statusRuntime = {
+        configuration: this.#statusRuntime.state,
+        effects: this.#statusEffectWitnesses(),
+        pending: clone(this.#pendingTroopStatusActions),
+      };
     }
     if (this.#spells !== null) publicState.pendingSpellIntents = clone(this.#spells.state.pending);
     return freeze(publicState);
@@ -6513,6 +6755,73 @@ class LiveBattle {
     return freeze(clone(event));
   }
 
+  /** Pure admission for the narrow status-runtime command route. */
+  inspectTroopStatus(serialized) {
+    const command = parsedCommandBytes(serialized, "live battle troop status action");
+    return this.#inspectTroopStatusChecked(command);
+  }
+
+  #inspectTroopStatusChecked(command) {
+    const action = checkedTroopStatusAction(command, this.#battleRuntime().state.tick);
+    if (!this.#hasStatusRuntime()) {
+      throw new RangeError("live battle troop status action has no admitted status profile");
+    }
+    if (action.point !== null) {
+      throw new RangeError("live battle troop status action must be point-free");
+    }
+    const source = this.#troopSource(action.sourceId, { requireAlive: true });
+    if (source.side !== action.side) {
+      throw new RangeError("live battle troop status action source side is divergent");
+    }
+    const resolved = this.#statusRuntime.inspect({
+      actionId: action.actionId,
+      cardId: source.cardId,
+      sourceId: action.sourceId,
+      targetId: action.targetId,
+    });
+    return freeze(clone({
+      actionId: action.actionId,
+      cardId: source.cardId,
+      effect: resolved.effect,
+      parameters: resolved.parameters,
+      sourceId: action.sourceId,
+      targetId: action.targetId,
+      type: "troop-status-inspection",
+    }));
+  }
+
+  scheduleTroopStatus(serialized) {
+    const command = parsedCommandBytes(serialized, "live battle troop status action");
+    return this.#scheduleTroopStatusChecked(command);
+  }
+
+  #scheduleTroopStatusChecked(command) {
+    if (!this.#hasStatusRuntime()) {
+      throw new RangeError("live battle troop status action has no admitted status profile");
+    }
+    if (this.#historyCount >= MAX_HISTORY ||
+        this.#pendingTroopStatusActions.length >= SESSION_TROOP_STATUS_RUNTIME_MAX_COMMANDS) {
+      throw new RangeError("live battle troop status action/history bound exceeded");
+    }
+    const action = checkedTroopStatusAction(command, this.#battleRuntime().state.tick);
+    this.#inspectTroopStatusChecked(action);
+    if (this.#pendingTroopStatusActions.some((entry) => entry.side === action.side &&
+        entry.commandId === action.commandId) || this.#pendingTroopActions.some((entry) =>
+      entry.side === action.side && entry.commandId === action.commandId) || this.#history.some((entry) =>
+      ["action", "status"].includes(entry.type) && entry.command.side === action.side &&
+      entry.command.commandId === action.commandId)) {
+      throw new RangeError("live battle troop status action identity is duplicate");
+    }
+    this.#pendingTroopStatusActions.push(clone(action));
+    this.#pendingTroopStatusActions.sort((left, right) => left.tick - right.tick ||
+      sideRank(left.side) - sideRank(right.side) || left.commandId - right.commandId);
+    this.#appendHistory({ command: clone(action), type: "status" });
+    const event = { ...clone(action), scheduledAt: this.#battleRuntime().state.tick,
+      type: "troop-status-scheduled" };
+    this.#events.push(event);
+    return freeze(clone(event));
+  }
+
   step(tick = this.#battleRuntime().state.tick) {
     integer(tick, 0, MAX_LIVE_BATTLE_STEP_TICKS, "live battle step tick");
     if (tick !== this.#battleRuntime().state.tick) throw new RangeError("live battle step tick is not current");
@@ -6570,7 +6879,51 @@ class LiveBattle {
       transcript: compactLiveHistory(this.#history.slice(0, tailStart)),
     };
     let snapshot;
-    if (!this.#hasTroopRuntime()) {
+    if (this.#hasStatusRuntime()) {
+      const statusRuntime = {
+        configuration: this.#statusRuntime.serialize(),
+        effects: this.#statusEffectWitnesses(),
+        pending: clone(this.#pendingTroopStatusActions),
+      };
+      if (!this.#hasTroopRuntime()) {
+        snapshot = {
+          ...common,
+          ...(hasBuildingState ? { building: this.#buildingWitness() } : {}),
+          ...(hasSpellRuntime ? { spellRuntime: this.#spells.state } : {}),
+          statusRuntime,
+          version: 15 + (hasBuildingState ? 1 : 0) + (hasSpellRuntime ? 2 : 0),
+        };
+      } else if (this.#troopRuntime.version === SESSION_TROOP_RUNTIME_LEGACY_VERSION) {
+        snapshot = {
+          ...common,
+          pendingTroopActions: this.#pendingTroopActions,
+          runtime: this.#troopRuntime.serialize(),
+          ...(hasSpellRuntime ? { spellRuntime: this.#spells.state } : {}),
+          statusRuntime,
+          troopStatuses: this.#troopStatusWitnesses(),
+          version: 19 + (hasBuildingState ? 1 : 0) + (hasSpellRuntime ? 2 : 0),
+        };
+      } else if (this.#troopRuntime.version === SESSION_TROOP_RUNTIME_ACTION_PROFILE_VERSION) {
+        snapshot = {
+          ...common,
+          pendingTroopActions: this.#pendingTroopActions,
+          runtime: this.#troopRuntime.serialize(),
+          ...(hasSpellRuntime ? { spellRuntime: this.#spells.state } : {}),
+          statusRuntime,
+          troopStatuses: this.#troopStatusWitnesses(),
+          version: 23 + (hasBuildingState ? 1 : 0) + (hasSpellRuntime ? 2 : 0),
+        };
+      } else {
+        snapshot = {
+          ...common,
+          runtime: this.#troopRuntime.serialize(),
+          ...(hasSpellRuntime ? { spellRuntime: this.#spells.state } : {}),
+          statusRuntime,
+          troopStatuses: this.#troopStatusWitnesses(),
+          version: 27 + (hasBuildingState ? 1 : 0) + (hasSpellRuntime ? 2 : 0),
+        };
+      }
+    } else if (!this.#hasTroopRuntime()) {
       snapshot = hasSpellRuntime
         ? { ...common, ...(hasBuildingState ? { building: this.#buildingWitness() } : {}),
           spellRuntime: this.#spells.state, version: hasBuildingState ? 8 : 3 }
@@ -6626,15 +6979,48 @@ class LiveBattle {
     if (canonical(snapshot) !== serialized) throw new TypeError("serialized live battle must be canonical JSON");
     const snapshotShape = plain(snapshot, "live battle snapshot");
     const version = snapshotShape.version?.value;
+    const hasStatusRuntimeWitness = Number.isInteger(version) && version >= 15 && version <= 30;
     const hasBuildingWitness = Object.hasOwn(snapshot, "building");
     const hasSpellRuntimeWitness = (version === 3 && !hasBuildingWitness &&
-      Object.hasOwn(snapshot, "spellRuntime")) || [8, 9, 10, 11, 12, 13, 14].includes(version);
+      Object.hasOwn(snapshot, "spellRuntime")) || [8, 9, 10, 11, 12, 13, 14].includes(version) ||
+      [17, 18, 21, 22, 25, 26, 29, 30].includes(version);
     const legacyRuntimeSnapshot = (version === 3 && !hasBuildingWitness &&
-      !hasSpellRuntimeWitness) || [4, 6, 7, 9, 10, 11, 12].includes(version);
-    const currentRuntimeSnapshot = [5, 13, 14].includes(version);
-    const hasTroopRuntimeWitness = legacyRuntimeSnapshot || currentRuntimeSnapshot;
+      !hasSpellRuntimeWitness) || [4, 6, 7, 9, 10, 11, 12].includes(version) ||
+      [19, 20, 21, 22].includes(version);
+    const actionRuntimeSnapshot = [4, 7, 11, 12, 23, 24, 25, 26].includes(version);
+    const currentRuntimeSnapshot = [5, 13, 14, 27, 28, 29, 30].includes(version);
+    const hasTroopRuntimeWitness = legacyRuntimeSnapshot || actionRuntimeSnapshot ||
+      currentRuntimeSnapshot;
     let checked;
-    if (version === 1) {
+    if (version === 15) {
+      checked = exact(snapshot, ["battle", "history", "movements", "setup", "statusRuntime",
+        "transcript", "version"], "live battle snapshot");
+    } else if (version === 16) {
+      checked = exact(snapshot, ["battle", "building", "history", "movements", "setup", "statusRuntime",
+        "transcript", "version"], "live battle snapshot");
+    } else if (version === 17) {
+      checked = exact(snapshot, ["battle", "history", "movements", "setup", "spellRuntime", "statusRuntime",
+        "transcript", "version"], "live battle snapshot");
+    } else if (version === 18) {
+      checked = exact(snapshot, ["battle", "building", "history", "movements", "setup", "spellRuntime",
+        "statusRuntime", "transcript", "version"], "live battle snapshot");
+    } else if (version === 19 || version === 23 || version === 27) {
+      checked = exact(snapshot, ["battle", "history", "movements", ...(version === 19 || version === 23 ? ["pendingTroopActions"] : []),
+        ...(version >= 19 ? ["runtime"] : []), "setup", "statusRuntime", "transcript", "troopStatuses", "version"],
+      "live battle snapshot");
+    } else if (version === 20 || version === 24 || version === 28) {
+      checked = exact(snapshot, ["battle", "building", "history", "movements", ...(version === 20 || version === 24 ? ["pendingTroopActions"] : []),
+        "runtime", "setup", "statusRuntime", "transcript", "troopStatuses", "version"],
+      "live battle snapshot");
+    } else if (version === 21 || version === 25 || version === 29) {
+      checked = exact(snapshot, ["battle", "history", "movements", ...(version === 21 || version === 25 ? ["pendingTroopActions"] : []),
+        "runtime", "setup", "spellRuntime", "statusRuntime", "transcript", "troopStatuses", "version"],
+      "live battle snapshot");
+    } else if (version === 22 || version === 26 || version === 30) {
+      checked = exact(snapshot, ["battle", "building", "history", "movements", ...(version === 22 || version === 26 ? ["pendingTroopActions"] : []),
+        "runtime", "setup", "spellRuntime", "statusRuntime", "transcript", "troopStatuses", "version"],
+      "live battle snapshot");
+    } else if (version === 1) {
       checked = exact(snapshot, ["battle", "history", "movements", "setup", "version"],
         "live battle snapshot");
     } else if (version === 2) {
@@ -6690,9 +7076,11 @@ class LiveBattle {
         throw new TypeError("live battle troop runtime witness must be canonical JSON text");
       }
       const runtime = SessionTroopRuntime.restore(checked.runtime);
-      const expectedRuntimeVersion = version === 3 || version === 6 || version === 9 || version === 10
+      const expectedRuntimeVersion = version === 3 || version === 6 || version === 9 || version === 10 ||
+        version === 19 || version === 20 || version === 21 || version === 22
         ? SESSION_TROOP_RUNTIME_LEGACY_VERSION
-        : version === 4 || version === 7 || version === 11 || version === 12
+        : version === 4 || version === 7 || version === 11 || version === 12 ||
+            version === 23 || version === 24 || version === 25 || version === 26
           ? SESSION_TROOP_RUNTIME_ACTION_PROFILE_VERSION
           : SESSION_TROOP_RUNTIME_VERSION;
       if (runtime.configuration.profiles.length === 0 || runtime.serialize() !== checked.runtime ||
@@ -6700,7 +7088,7 @@ class LiveBattle {
         throw new TypeError("live battle troop runtime witness is noncanonical");
       }
       runtimeBytes = runtime.serialize();
-      if (legacyRuntimeSnapshot) {
+      if (legacyRuntimeSnapshot || actionRuntimeSnapshot) {
         pendingTroopActions = denseArray(checked.pendingTroopActions,
           "live battle snapshot.pendingTroopActions", MAX_LIVE_BATTLE_TROOP_ACTIONS)
           .map((action) => checkedTroopAction(action, 0, { requireCurrent: false }));
@@ -6721,6 +7109,125 @@ class LiveBattle {
       if (canonical(troopStatuses) !== canonical(checked.troopStatuses) ||
           new Set(troopStatuses.map(({ key }) => key)).size !== troopStatuses.length) {
         throw new TypeError("live battle troop statuses are noncanonical");
+      }
+    }
+    let statusRuntimeBytes;
+    let statusEffects = [];
+    let pendingTroopStatusActions = [];
+    if (hasStatusRuntimeWitness) {
+      const witness = exact(checked.statusRuntime, ["configuration", "effects", "pending"],
+        "live battle status runtime witness");
+      if (typeof witness.configuration !== "string") {
+        throw new TypeError("live battle status runtime configuration must be canonical JSON text");
+      }
+      const statusRuntime = new SessionTroopStatusRuntime(witness.configuration);
+      if (statusRuntime.serialize() !== witness.configuration) {
+        throw new TypeError("live battle status runtime configuration is noncanonical");
+      }
+      statusRuntimeBytes = statusRuntime.serialize();
+      statusEffects = denseArray(witness.effects, "live battle status runtime effects",
+        MAX_LIVE_BATTLE_UNITS).map((effect, index) => {
+          const checkedEffect = exact(effect,
+            ["hides", "revealUntil", "slow", "snare", "stun", "targetId"],
+            `live battle status runtime effects[${index}]`);
+          integer(checkedEffect.targetId, 1, Number.MAX_SAFE_INTEGER,
+            `live battle status runtime effects[${index}].targetId`);
+          if (!Array.isArray(checkedEffect.hides) || checkedEffect.hides.length > MAX_LIVE_BATTLE_UNITS) {
+            throw new TypeError("live battle status runtime hide witness is invalid");
+          }
+          const hides = checkedEffect.hides.map((hide, hideIndex) => {
+            const checkedHide = exact(hide, ["applyTick", "expiryTick", "sourceId"],
+              `live battle status runtime hide ${index}/${hideIndex}`);
+            const applyTick = integer(checkedHide.applyTick, 0, MAX_LIVE_BATTLE_STEP_TICKS,
+              "status hide applyTick");
+            const expiryTick = integer(checkedHide.expiryTick, 0, MAX_LIVE_BATTLE_STEP_TICKS,
+              "status hide expiryTick");
+            if (expiryTick < applyTick) throw new TypeError("status hide interval is inverted");
+            return {
+              applyTick,
+              expiryTick,
+              sourceId: integer(checkedHide.sourceId, 1, Number.MAX_SAFE_INTEGER,
+                "status hide sourceId"),
+            };
+          }).sort((left, right) => left.sourceId - right.sourceId);
+          const checkedRecord = (record, label) => {
+            if (record === null) return null;
+            const checkedRecordValue = exact(record,
+              ["applyTick", "expiryTick", "sourceId"], label);
+            const applyTick = integer(checkedRecordValue.applyTick, 0, MAX_LIVE_BATTLE_STEP_TICKS,
+              `${label}.applyTick`);
+            const expiryTick = integer(checkedRecordValue.expiryTick, 0, MAX_LIVE_BATTLE_STEP_TICKS,
+              `${label}.expiryTick`);
+            if (expiryTick < applyTick) throw new TypeError(`${label} interval is inverted`);
+            return {
+              applyTick,
+              expiryTick,
+              sourceId: integer(checkedRecordValue.sourceId, 1, Number.MAX_SAFE_INTEGER,
+                `${label}.sourceId`),
+            };
+          };
+          const checkedSlow = checkedEffect.slow === null ? null : (() => {
+            const slow = exact(checkedEffect.slow,
+              ["applyTick", "attackRate", "attackRemainder", "expiryTick", "movementRate",
+                "movementRemainder", "sourceId"],
+              `live battle status runtime effects[${index}].slow`);
+            const rate = (value, label) => {
+              const checkedRateValue = exact(value, ["denominator", "numerator"], label);
+              const denominator = integer(checkedRateValue.denominator, 1, Number.MAX_SAFE_INTEGER,
+                `${label}.denominator`);
+              const numerator = integer(checkedRateValue.numerator, 1, denominator - 1,
+                `${label}.numerator`);
+              return {
+                denominator,
+                numerator,
+              };
+            };
+            const applyTick = integer(slow.applyTick, 0, MAX_LIVE_BATTLE_STEP_TICKS,
+              "status slow applyTick");
+            const expiryTick = integer(slow.expiryTick, 0, MAX_LIVE_BATTLE_STEP_TICKS,
+              "status slow expiryTick");
+            if (expiryTick < applyTick) throw new TypeError("status slow interval is inverted");
+            const attackRate = rate(slow.attackRate, "status slow attackRate");
+            const movementRate = rate(slow.movementRate, "status slow movementRate");
+            return {
+              applyTick,
+              attackRate,
+              attackRemainder: integer(slow.attackRemainder, 0, attackRate.denominator - 1,
+                "status slow attackRemainder"),
+              expiryTick,
+              movementRate,
+              movementRemainder: integer(slow.movementRemainder, 0, movementRate.denominator - 1,
+                "status slow movementRemainder"),
+              sourceId: integer(slow.sourceId, 1, Number.MAX_SAFE_INTEGER, "status slow sourceId"),
+            };
+          })();
+          const revealUntil = checkedEffect.revealUntil === null ? null : integer(
+            checkedEffect.revealUntil, 0, MAX_LIVE_BATTLE_STEP_TICKS,
+            `live battle status runtime effects[${index}].revealUntil`);
+          return {
+            hides,
+            revealUntil,
+            slow: checkedSlow,
+            snare: checkedRecord(checkedEffect.snare,
+              `live battle status runtime effects[${index}].snare`),
+            stun: checkedRecord(checkedEffect.stun,
+              `live battle status runtime effects[${index}].stun`),
+            targetId: checkedEffect.targetId,
+          };
+        }).sort((left, right) => left.targetId - right.targetId);
+      if (canonical(statusEffects) !== canonical(witness.effects) ||
+          new Set(statusEffects.map(({ targetId }) => targetId)).size !== statusEffects.length) {
+        throw new TypeError("live battle status runtime effects are noncanonical");
+      }
+      pendingTroopStatusActions = denseArray(witness.pending,
+        "live battle status runtime pending", SESSION_TROOP_STATUS_RUNTIME_MAX_COMMANDS)
+        .map((action) => checkedTroopStatusAction(action, 0, { requireCurrent: false }))
+        .sort((left, right) => left.tick - right.tick || sideRank(left.side) - sideRank(right.side) ||
+          left.commandId - right.commandId);
+      if (canonical(pendingTroopStatusActions) !== canonical(witness.pending) ||
+          new Set(pendingTroopStatusActions.map(({ side, commandId }) => `${side}:${commandId}`)).size !==
+            pendingTroopStatusActions.length) {
+        throw new TypeError("live battle status runtime pending actions are noncanonical");
       }
     }
     let spellRuntimeState = null;
@@ -6754,7 +7261,7 @@ class LiveBattle {
     // Versions 1 and 2 predate canonical building receipts. Later witnesses
     // are fresh-admitted, including the ambiguous v3 building/legacy-troop fork.
     const restored = new LiveBattle(checkedSetup(checked.setup,
-      { legacyStructureReceipts: version <= 2 }), runtimeBytes);
+      { legacyStructureReceipts: version <= 2 }), runtimeBytes, statusRuntimeBytes);
     const replayOperation = (operation, index, label) => {
       plain(operation, `live battle snapshot.history[${index}]`);
       if (operation.type === "deploy") {
@@ -6766,6 +7273,9 @@ class LiveBattle {
       } else if (operation.type === "action") {
         const entry = exact(operation, ["command", "type"], `history[${index}]`);
         restored.#scheduleTroopActionChecked(entry.command);
+      } else if (operation.type === "status") {
+        const entry = exact(operation, ["command", "type"], `history[${index}]`);
+        restored.#scheduleTroopStatusChecked(entry.command);
       } else if (operation.type === "spell") {
         if (!hasSpellRuntimeWitness) {
           throw new TypeError("legacy live battle snapshot cannot contain spell intents");
@@ -6821,9 +7331,15 @@ class LiveBattle {
       (!legacyRuntimeSnapshot || canonical(restored.#pendingTroopActions) === canonical(pendingTroopActions)) &&
       canonical(restored.#troopStatusWitnesses()) === canonical(troopStatuses)
     );
+    const statusWitnessMatches = !hasStatusRuntimeWitness || (
+      restored.#statusRuntime.serialize() === statusRuntimeBytes &&
+      canonical(restored.#statusEffectWitnesses()) === canonical(statusEffects) &&
+      canonical(restored.#pendingTroopStatusActions) === canonical(pendingTroopStatusActions)
+    );
     const spellWitnessMatches = !hasSpellRuntimeWitness || (restored.#spells !== null &&
       canonical(restored.#spells.state) === canonical(spellRuntimeState));
     if (!battleWitnessMatches || !buildingWitnessMatches || !runtimeWitnessMatches ||
+        !statusWitnessMatches ||
         !spellWitnessMatches ||
         canonical(movementWitnesses(restored.#movementRuntimes(), restored.#metadata)) !==
           canonical(checked.movements) || (version >= 2 && restored.serialize() !== serialized)) {
@@ -6846,7 +7362,8 @@ class LiveBattle {
     const unitOnlyBoundary = this.#buildingRuntime === EMPTY_BUILDING_RUNTIME &&
       this.#troopRuntime === EMPTY_TROOP_RUNTIME && this.#spells === null &&
       this.#structures.length === 0 && this.#pendingStructures.length === 0 &&
-      this.#pendingBuildingHits.length === 0 && this.#pendingTroopActions.length === 0;
+      this.#pendingBuildingHits.length === 0 && this.#pendingTroopActions.length === 0 &&
+      this.#pendingTroopStatusActions.length === 0 && !this.#hasStatusRuntime();
     const hasTroopRuntime = this.#hasTroopRuntime();
     const allowsLegacyTroopActions = hasTroopRuntime && this.#troopRuntime.allowsLegacyActions;
     const usesCurrentContactRuntime = hasTroopRuntime &&
@@ -6854,10 +7371,14 @@ class LiveBattle {
     const dueTroopActions = unitOnlyBoundary ? null : allowsLegacyTroopActions
       ? this.#pendingTroopActions.filter((entry) => entry.tick === tick)
       : [];
+    const dueStatusActions = this.#hasStatusRuntime()
+      ? this.#pendingTroopStatusActions.filter((entry) => entry.tick === tick)
+      : [];
     this.#pending = this.#pending.filter((entry) => entry.tick !== tick);
     if (allowsLegacyTroopActions) {
       this.#pendingTroopActions = this.#pendingTroopActions.filter((entry) => entry.tick !== tick);
     }
+    this.#pendingTroopStatusActions = this.#pendingTroopStatusActions.filter((entry) => entry.tick !== tick);
     const deploySources = unitOnlyBoundary ? null : [];
     for (const deployment of due) {
       const materialized = this.#materialize(deployment);
@@ -6888,6 +7409,11 @@ class LiveBattle {
       boundary.push(...this.#troopReceipts(this.#runTroopRuntime(
         "pre-move", this.#phaseTroopSources(), null, tick,
       )));
+    }
+
+    if (this.#hasStatusRuntime()) {
+      this.#expireStatusEffects(tick, boundary);
+      this.#clearDeadStatusEffects(tick, boundary);
     }
 
     // Building contacts are emitted at the prior shared boundary and consumed
@@ -6931,6 +7457,14 @@ class LiveBattle {
     }
 
     if (due.length > 0) before = battle.state;
+    let statusPlans = [];
+    if (this.#hasStatusRuntime()) {
+      statusPlans = this.#runStatusRuntime("pre-move",
+        this.#phaseStatusSourcesFromState(before), dueStatusActions, tick);
+      for (const plan of statusPlans) {
+        if (plan.heal === null) boundary.push(clone(plan.receipt));
+      }
+    }
     const positionCommands = [];
     for (const unit of before.units.filter(({ alive }) => alive).sort((a, b) => a.id - b.id)) {
       const movement = this.#movementRuntime(this.#movements.get(unit.id));
@@ -6942,7 +7476,10 @@ class LiveBattle {
         } else movement.setTarget(desired.target);
         metadata.targetKey = desired.key;
       }
-      const movementEvents = movement.step();
+      const movementEvents = this.#hasStatusRuntime() &&
+        this.#statusMovementPaused(unit.id, tick, movement)
+        ? movement.stepPaused()
+        : movement.step();
       if (movementEvents.length > 0) {
         boundary.push(...movementEvents.map((event) => ({
           event: clone(event), tick, type: "movement", unitId: unit.id,
@@ -6972,7 +7509,7 @@ class LiveBattle {
       spellEffects.unitHits.push({ damage: action.damage, effectId: action.effectId, sourceId,
         targetUnitId: action.target.id });
     }
-    const beforeCombat = usesCurrentContactRuntime ? battle.state : null;
+    const beforeCombat = usesCurrentContactRuntime || this.#hasStatusRuntime() ? battle.state : null;
     const actionPlans = [];
     if (hasTroopRuntime) {
       boundary.push(...this.#troopReceipts(this.#runTroopRuntime(
@@ -6995,10 +7532,17 @@ class LiveBattle {
     // runs once below; richer ingress is needed only while host structures or
     // their contacts are present.
     let combatEvents;
-    if (spellEffects.unitHits.length > 0 && structureCandidates.length === 0 &&
+    const statusControls = this.#hasStatusRuntime()
+      ? beforeCombat.units.filter(({ alive }) => alive).sort((left, right) => left.id - right.id)
+        .map((unit) => this.#statusControl(unit, tick))
+      : null;
+    const statusHeals = this.#hasStatusRuntime()
+      ? statusPlans.filter(({ heal }) => heal !== null).map(({ heal }) => heal)
+      : null;
+    if (!this.#hasStatusRuntime() && spellEffects.unitHits.length > 0 && structureCandidates.length === 0 &&
         externalHits.length === 0 && externalTowerHits.length === 0) {
       combatEvents = battle.stepWithEffects(tick, spellEffects);
-    } else if (structureCandidates.length === 0 && externalHits.length === 0 &&
+    } else if (!this.#hasStatusRuntime() && structureCandidates.length === 0 && externalHits.length === 0 &&
         externalTowerHits.length === 0) {
       combatEvents = battle.step(tick);
     } else {
@@ -7009,9 +7553,18 @@ class LiveBattle {
         (left.sourceId < right.sourceId ? -1 : left.sourceId > right.sourceId ? 1 : 0) ||
         left.damage - right.damage);
       combatEvents = battle.stepBoundary({ externalHits, externalProjectiles: [], externalTowerHits,
-        structures: structureCandidates, tick });
+        structures: structureCandidates, tick,
+        ...(this.#hasStatusRuntime() ? {
+          unitControls: statusControls,
+          unitHeals: statusHeals,
+        } : {}) });
     }
     boundary.push(...combatEvents);
+
+    if (this.#hasStatusRuntime()) {
+      this.#finalizeStatusPlans(statusPlans, combatEvents, boundary, tick);
+      this.#clearDeadStatusEffects(tick, boundary);
+    }
 
     if (usesCurrentContactRuntime) {
       const contacts = this.#currentContactBatch(combatEvents, beforeCombat, tick);
@@ -7077,6 +7630,150 @@ class LiveBattle {
         };
     const intents = this.#troopRuntime.reduce(input);
     return intents.map((intent) => this.#applyTroopIntent(intent, tick, contactWitness));
+  }
+
+  #runStatusRuntime(phase, sources, actions, tick) {
+    if (!this.#hasStatusRuntime()) return [];
+    const input = {
+      commands: actions.map((action) => ({
+        actionId: action.actionId,
+        commandId: action.commandId,
+        side: action.side,
+        sourceId: action.sourceId,
+        targetId: action.targetId,
+        tick: action.tick,
+        type: "status",
+      })),
+      phase,
+      sources: [...sources].sort((left, right) => left.sourceId - right.sourceId)
+        .map((source) => ({ cardId: source.cardId, side: source.side, sourceId: source.sourceId })),
+      tick,
+    };
+    const intents = this.#statusRuntime.reduce(input);
+    return intents.map((intent) => this.#applyStatusIntent(intent, tick));
+  }
+
+  #applyStatusIntent(value, tick) {
+    const intent = exact(value, [
+      "actionId", "cardId", "commandId", "effect", "parameters", "phase", "side",
+      "sourceId", "targetId", "tick", "type",
+    ], "live battle troop status intent");
+    if (intent.type !== "troop-status-intent" || intent.phase !== "pre-move" || intent.tick !== tick ||
+        !["heal", "hide", "reveal", "slow", "snare", "stun"].includes(intent.effect)) {
+      throw new TypeError("live battle troop status intent is invalid");
+    }
+    const source = this.#battleRuntime().state.units.find(({ id }) => id === intent.sourceId);
+    const metadata = this.#metadata.get(intent.sourceId);
+    if (source === undefined || metadata === undefined || !source.alive ||
+        metadata.cardId !== intent.cardId || source.side !== intent.side) {
+      throw new RangeError("live battle troop status intent source is not causal");
+    }
+    const resolved = this.#statusRuntime.inspect({
+      actionId: intent.actionId,
+      cardId: intent.cardId,
+      sourceId: intent.sourceId,
+      targetId: intent.targetId,
+    });
+    if (canonical(resolved.parameters) !== canonical(intent.parameters) ||
+        resolved.effect !== intent.effect) {
+      throw new TypeError("live battle troop status intent diverges from its admitted receipt");
+    }
+    const target = intent.targetId === null ? null : this.#battleRuntime().state.units.find(({ id }) =>
+      id === intent.targetId);
+    const receipt = {
+      actionId: intent.actionId,
+      cardId: intent.cardId,
+      commandId: intent.commandId,
+      effect: intent.effect,
+      parameters: clone(intent.parameters),
+      phase: intent.phase,
+      side: intent.side,
+      sourceId: intent.sourceId,
+      status: "no-op",
+      targetId: intent.targetId,
+      tick,
+      type: "troop-status-receipt",
+    };
+    if (intent.effect === "heal") {
+      const heal = target !== null && target.alive && target.side === source.side
+        ? {
+            amount: intent.parameters.amount,
+            commandId: intent.commandId,
+            sourceId: intent.sourceId,
+            targetUnitId: target.id,
+          }
+        : null;
+      return { heal, receipt };
+    }
+    if (intent.effect === "hide" || intent.effect === "reveal") {
+      const effect = this.#statusEffect(source.id, true);
+      const expiryTick = tick + intent.parameters.durationTicks - 1;
+      if (!Number.isSafeInteger(expiryTick)) throw new RangeError("status expiry exceeds the safe tick range");
+      if (intent.effect === "hide") {
+        const prior = effect.hides.find(({ sourceId }) => sourceId === source.id);
+        if (prior === undefined) effect.hides.push({
+          applyTick: tick, expiryTick, sourceId: source.id,
+        });
+        else prior.expiryTick = Math.max(prior.expiryTick, expiryTick);
+        effect.hides.sort((left, right) => left.sourceId - right.sourceId);
+      } else {
+        effect.revealUntil = Math.max(effect.revealUntil ?? -1, expiryTick);
+      }
+      receipt.status = "applied";
+      receipt.expiryTick = expiryTick;
+      return { heal: null, receipt };
+    }
+    if (target === null || !target.alive || target.side === source.side) {
+      return { heal: null, receipt };
+    }
+    const effect = this.#statusEffect(target.id, true);
+    const expiryTick = tick + intent.parameters.durationTicks - 1;
+    if (!Number.isSafeInteger(expiryTick)) throw new RangeError("status expiry exceeds the safe tick range");
+    if (intent.effect === "stun") {
+      const prior = effect.stun;
+      effect.stun = {
+        applyTick: tick,
+        expiryTick: Math.max(prior?.expiryTick ?? -1, expiryTick),
+        sourceId: source.id,
+      };
+    } else if (intent.effect === "snare") {
+      const prior = effect.snare;
+      effect.snare = {
+        applyTick: tick,
+        expiryTick: Math.max(prior?.expiryTick ?? -1, expiryTick),
+        sourceId: source.id,
+      };
+    } else if (intent.effect === "slow") {
+      const prior = effect.slow;
+      effect.slow = {
+        applyTick: tick,
+        attackRate: clone(intent.parameters.attackRate),
+        attackRemainder: prior?.attackRemainder ?? 0,
+        expiryTick: Math.max(prior?.expiryTick ?? -1, expiryTick),
+        movementRate: clone(intent.parameters.movementRate),
+        movementRemainder: prior?.movementRemainder ?? 0,
+        sourceId: source.id,
+      };
+    }
+    receipt.status = "applied";
+    receipt.expiryTick = expiryTick;
+    return { heal: null, receipt };
+  }
+
+  #finalizeStatusPlans(plans, combatEvents, boundary, tick) {
+    for (const plan of plans) {
+      if (plan.heal === null) continue;
+      const event = combatEvents.find(({ commandId, type }) =>
+        type === "heal" && commandId === plan.heal.commandId);
+      boundary.push({
+        ...clone(plan.receipt),
+        appliedAmount: event?.appliedAmount ?? 0,
+        currentHealth: event?.currentHealth ?? null,
+        status: event?.status === "applied" && event.appliedAmount > 0 ? "applied" :
+          event?.status === "applied" ? "capped" : event?.status ?? plan.receipt.status,
+        tick,
+      });
+    }
   }
 
   #troopReceipts(plans) {
@@ -7317,9 +8014,168 @@ class LiveBattle {
       .filter(({ cardId }) => this.#troopRuntime.profile(cardId) !== null);
   }
 
+  #phaseStatusSourcesFromState(state) {
+    if (!this.#hasStatusRuntime()) return [];
+    return state.units.filter(({ alive }) => alive).sort((left, right) => left.id - right.id)
+      .map((unit) => this.#troopSourceFromUnit(unit, { requireAlive: true }))
+      .filter(({ cardId }) => this.#statusRuntime.profile(cardId) !== null);
+  }
+
   #troopStatusWitnesses() {
     return [...this.#troopStatuses.values()].map((status) => clone(status))
       .sort((left, right) => left.key.localeCompare(right.key));
+  }
+
+  #hasStatusRuntime() {
+    return this.#statusRuntime !== null;
+  }
+
+  #statusEffectWitnesses() {
+    return [...this.#statusEffects.values()].map((effect) => ({
+      hides: effect.hides.map((hide) => clone(hide)).sort((left, right) =>
+        left.sourceId - right.sourceId),
+      revealUntil: effect.revealUntil,
+      slow: effect.slow === null ? null : clone(effect.slow),
+      snare: effect.snare === null ? null : clone(effect.snare),
+      stun: effect.stun === null ? null : clone(effect.stun),
+      targetId: effect.targetId,
+    })).sort((left, right) => left.targetId - right.targetId);
+  }
+
+  #statusEffect(targetId, create = false) {
+    let effect = this.#statusEffects.get(targetId);
+    if (effect === undefined && create) {
+      effect = {
+        hides: [],
+        revealUntil: null,
+        slow: null,
+        snare: null,
+        stun: null,
+        targetId,
+      };
+      this.#statusEffects.set(targetId, effect);
+    }
+    return effect ?? null;
+  }
+
+  #statusEffectEmpty(effect) {
+    return effect.hides.length === 0 && effect.revealUntil === null &&
+      effect.slow === null && effect.snare === null && effect.stun === null;
+  }
+
+  #statusTargetable(targetId, tick) {
+    const effect = this.#statusEffect(targetId);
+    if (effect === null || effect.revealUntil !== null && effect.revealUntil >= tick) return true;
+    return !effect.hides.some(({ expiryTick }) => expiryTick >= tick);
+  }
+
+  #statusActive(record, tick) {
+    return record !== null && record.expiryTick >= tick;
+  }
+
+  #expireStatusEffects(tick, boundary) {
+    for (const effect of [...this.#statusEffects.values()].sort((left, right) =>
+      left.targetId - right.targetId)) {
+      for (const field of ["stun", "slow", "snare"]) {
+        const record = effect[field];
+        if (record !== null && record.expiryTick < tick) {
+          boundary.push({ effect: field, sourceId: record.sourceId, targetId: effect.targetId,
+            tick, type: "troop-status-expired" });
+          effect[field] = null;
+        }
+      }
+      const expiredHides = effect.hides.filter(({ expiryTick }) => expiryTick < tick);
+      for (const record of expiredHides) {
+        boundary.push({ effect: "hide", sourceId: record.sourceId, targetId: effect.targetId,
+          tick, type: "troop-status-expired" });
+      }
+      effect.hides = effect.hides.filter(({ expiryTick }) => expiryTick >= tick);
+      if (effect.revealUntil !== null && effect.revealUntil < tick) {
+        boundary.push({ effect: "reveal", targetId: effect.targetId, tick,
+          type: "troop-status-expired" });
+        effect.revealUntil = null;
+      }
+      if (this.#statusEffectEmpty(effect)) this.#statusEffects.delete(effect.targetId);
+    }
+  }
+
+  #clearDeadStatusEffects(tick, boundary) {
+    const units = new Map(this.#battleRuntime().state.units.map((unit) => [unit.id, unit]));
+    for (const effect of [...this.#statusEffects.values()].sort((left, right) =>
+      left.targetId - right.targetId)) {
+      const target = units.get(effect.targetId);
+      if (target === undefined || !target.alive) {
+        for (const field of ["stun", "slow", "snare"]) {
+          if (effect[field] !== null) {
+            boundary.push({ effect: field, reason: "target-death", sourceId: effect[field].sourceId,
+              targetId: effect.targetId, tick, type: "troop-status-cancelled" });
+            effect[field] = null;
+          }
+        }
+        if (effect.hides.length > 0) {
+          boundary.push({ effect: "hide", reason: "target-death", targetId: effect.targetId,
+            tick, type: "troop-status-cancelled" });
+          effect.hides = [];
+        }
+      }
+      for (const field of ["stun", "snare"]) {
+        const record = effect[field];
+        if (record !== null && (!units.get(record.sourceId)?.alive)) {
+          boundary.push({ effect: field, reason: "source-death", sourceId: record.sourceId,
+            targetId: effect.targetId, tick, type: "troop-status-cancelled" });
+          effect[field] = null;
+        }
+      }
+      effect.hides = effect.hides.filter((record) => {
+        if (units.get(record.sourceId)?.alive) return true;
+        boundary.push({ effect: "hide", reason: "source-death", sourceId: record.sourceId,
+          targetId: effect.targetId, tick, type: "troop-status-cancelled" });
+        return false;
+      });
+      if (this.#statusEffectEmpty(effect)) this.#statusEffects.delete(effect.targetId);
+    }
+  }
+
+  #statusControl(unit, tick) {
+    const effect = this.#statusEffect(unit.id);
+    const stun = this.#statusActive(effect?.stun ?? null, tick);
+    const slow = this.#statusActive(effect?.slow ?? null, tick);
+    let attackStep = "normal";
+    if (stun) {
+      attackStep = "pause";
+    } else if (slow) {
+      const rate = effect.slow.attackRate;
+      const readyAtBoundary = unit.attack.nextAttackTick === tick;
+      if (!readyAtBoundary && unit.attack.nextAttackTick !== null) {
+        effect.slow.attackRemainder += rate.numerator;
+        if (effect.slow.attackRemainder >= rate.denominator) {
+          effect.slow.attackRemainder -= rate.denominator;
+        } else {
+          attackStep = "pause";
+        }
+      }
+    }
+    return {
+      attackBlocked: stun,
+      attackStep,
+      id: unit.id,
+      targetable: this.#statusTargetable(unit.id, tick),
+    };
+  }
+
+  #statusMovementPaused(unitId, tick, movement) {
+    const effect = this.#statusEffect(unitId);
+    if (this.#statusActive(effect?.stun ?? null, tick) ||
+        this.#statusActive(effect?.snare ?? null, tick)) return true;
+    if (!this.#statusActive(effect?.slow ?? null, tick)) return false;
+    if (movement !== undefined && movement.state.target === null) return false;
+    const rate = effect.slow.movementRate;
+    effect.slow.movementRemainder += rate.numerator;
+    if (effect.slow.movementRemainder >= rate.denominator) {
+      effect.slow.movementRemainder -= rate.denominator;
+      return false;
+    }
+    return true;
   }
 
   #hasTroopRuntime() {
@@ -7594,7 +8450,8 @@ class LiveBattle {
   #desiredTarget(unit, state) {
     const metadata = this.#metadata.get(unit.id);
     const enemies = state.units.filter((candidate) => candidate.alive && candidate.side !== unit.side &&
-      layerEligible(unit.targetMode, candidate.layer));
+      layerEligible(unit.targetMode, candidate.layer) &&
+      (!this.#hasStatusRuntime() || this.#statusTargetable(candidate.id, state.tick)));
     enemies.sort((left, right) => {
       const distance = squaredDistance(unit.position, left.position) -
         squaredDistance(unit.position, right.position);
@@ -7662,7 +8519,8 @@ class LiveBattle {
 
   #runtimeClone(includeTranscript = true) {
     const candidate = new LiveBattle(this.#setup,
-      this.#hasTroopRuntime() ? this.#troopRuntime.serialize() : undefined);
+      this.#hasTroopRuntime() ? this.#troopRuntime.serialize() : undefined,
+      this.#hasStatusRuntime() ? this.#statusRuntime.serialize() : undefined);
     const retainTranscript = includeTranscript && !this.#isContinuation;
     const battle = this.#battleRuntime();
     candidate.#battle = retainTranscript ? battle.fork() : battleTowerCompactClone(battle);
@@ -7683,11 +8541,15 @@ class LiveBattle {
       ? [] : clone(this.#pendingStructures);
     candidate.#pendingTroopActions = this.#pendingTroopActions.length === 0
       ? [] : clone(this.#pendingTroopActions);
+    candidate.#pendingTroopStatusActions = this.#pendingTroopStatusActions.length === 0
+      ? [] : clone(this.#pendingTroopStatusActions);
     candidate.#questionValues = new Map(this.#questionValues);
     candidate.#setup = this.#setup;
     candidate.#rosterById = new Map(candidate.#setup.roster.map((card) => [card.id, card]));
     candidate.#spells = this.#spells === null ? null : this.#spells.fork();
     candidate.#structures = this.#structures.length === 0 ? [] : clone(this.#structures);
+    candidate.#statusEffects = this.#statusEffects.size === 0 ? new Map() : new Map(
+      [...this.#statusEffects].map(([key, effect]) => [key, clone(effect)]));
     candidate.#troopRuntime = this.#hasTroopRuntime()
       ? this.#troopRuntime.fork()
       : EMPTY_TROOP_RUNTIME;
@@ -7711,18 +8573,23 @@ class LiveBattle {
     this.#pendingBuildingHits = candidate.#pendingBuildingHits;
     this.#pendingStructures = candidate.#pendingStructures;
     this.#pendingTroopActions = candidate.#pendingTroopActions;
+    this.#pendingTroopStatusActions = candidate.#pendingTroopStatusActions;
     this.#questionValues = candidate.#questionValues;
     this.#rosterById = candidate.#rosterById;
     this.#setup = candidate.#setup;
     this.#spells = candidate.#spells;
     this.#structures = candidate.#structures;
+    this.#statusEffects = candidate.#statusEffects;
+    this.#statusRuntime = candidate.#statusRuntime;
     this.#troopRuntime = candidate.#troopRuntime;
     this.#troopStatuses = candidate.#troopStatuses;
   }
 }
 
-function createLegacyLiveBattleForRestore(setup, troopRuntimeProfiles = undefined) {
-  return new LiveBattle(checkedSetup(setup, { legacyStructureReceipts: true }), troopRuntimeProfiles);
+function createLegacyLiveBattleForRestore(setup, troopRuntimeProfiles = undefined,
+  statusRuntimeProfiles = undefined) {
+  return new LiveBattle(checkedSetup(setup, { legacyStructureReceipts: true }),
+    troopRuntimeProfiles, statusRuntimeProfiles);
 }
 
 function getLiveBattlePlayableCardIds(setup) {
@@ -10121,6 +10988,10 @@ const COMMAND_GRAPH_LIMITS = Object.freeze({ arrayLength: 32, containers: 32, de
 const SETUP_KEYS = ["battleSetup", "deck", "legalNorthDeployments", "rosterWitness",
   "seed", "startingElixir", "thinkIntervalTicks", "thinkOffsetTicks"];
 const SETUP_KEYS_WITH_TROOP_RUNTIME = [...SETUP_KEYS, "troopRuntimeProfiles"];
+const SETUP_KEYS_WITH_STATUS_RUNTIME = [...SETUP_KEYS, "statusRuntimeProfiles"];
+const SETUP_KEYS_WITH_BOTH_RUNTIMES = [
+  ...SETUP_KEYS, "statusRuntimeProfiles", "troopRuntimeProfiles",
+];
 const ABILITY_COMMAND_KEYS = [
   "actionId", "commandId", "point", "side", "sourceId", "targetId", "tick", "type",
 ];
@@ -10178,7 +11049,7 @@ function scalarByteLength(text, label) {
   return bytes;
 }
 function preflight(value, limits, label) {
-  const stack = [{ depth: 0, value }]; let containers = 0, nodes = 0;
+  const stack = [{ depth: 0, path: [], value }]; let containers = 0, nodes = 0;
   while (stack.length) {
     const current = stack.pop(); nodes += 1;
     if (nodes > limits.nodes) throw new RangeError(`${label} exceeds its node bound`);
@@ -10188,7 +11059,9 @@ function preflight(value, limits, label) {
       if (entry.length > limits.stringLength) throw new RangeError(`${label} exceeds its string bound`);
       scalarByteLength(entry, label); continue;
     }
-    if (typeof entry === "number" && (!Number.isSafeInteger(entry) || !Number.isFinite(entry))) {
+    const isStatusReceiptProvenance = current.path.includes("statusRuntimeProfiles");
+    if (typeof entry === "number" && (!Number.isSafeInteger(entry) || !Number.isFinite(entry)) &&
+        !(isStatusReceiptProvenance && Number.isFinite(entry))) {
       throw new TypeError(`${label} contains a non-safe integer`);
     }
     if (entry === null || typeof entry === "boolean" || typeof entry === "number") continue;
@@ -10198,7 +11071,7 @@ function preflight(value, limits, label) {
     if (Array.isArray(entry)) {
       if (entry.length > limits.arrayLength) throw new RangeError(`${label} exceeds its array bound`);
       for (let index = entry.length - 1; index >= 0; index -= 1) {
-        stack.push({ depth: current.depth + 1, value: entry[index] });
+        stack.push({ depth: current.depth + 1, path: [...current.path, index], value: entry[index] });
       }
       continue;
     }
@@ -10212,7 +11085,8 @@ function preflight(value, limits, label) {
       if (["__proto__", "constructor", "prototype"].includes(key)) {
         throw new TypeError(`${label} contains a forbidden key`);
       }
-      stack.push({ depth: current.depth + 1, value: entry[key] });
+      stack.push({ depth: current.depth + 1, path: current.path.length === 0
+        ? [key] : [...current.path, key], value: entry[key] });
     }
   }
   return value;
@@ -10229,8 +11103,13 @@ function parsed(serialized, label, maximum = GAME_SESSION_MAX_SNAPSHOT_BYTES,
 function validateSetup(bytes, { allowLegacyStructureReceipts = false } = {}) {
   const rawSetup = parsed(bytes, "game session setup", GAME_SESSION_MAX_SETUP_BYTES,
     GAME_SESSION_SETUP_GRAPH_LIMITS);
-  const setup = exact(rawSetup, Object.hasOwn(rawSetup, "troopRuntimeProfiles")
-    ? SETUP_KEYS_WITH_TROOP_RUNTIME : SETUP_KEYS, "game session setup");
+  const hasTroopRuntimeProfiles = Object.hasOwn(rawSetup, "troopRuntimeProfiles");
+  const hasStatusRuntimeProfiles = Object.hasOwn(rawSetup, "statusRuntimeProfiles");
+  const setup = exact(rawSetup, hasTroopRuntimeProfiles && hasStatusRuntimeProfiles
+    ? SETUP_KEYS_WITH_BOTH_RUNTIMES
+    : hasTroopRuntimeProfiles ? SETUP_KEYS_WITH_TROOP_RUNTIME
+      : hasStatusRuntimeProfiles ? SETUP_KEYS_WITH_STATUS_RUNTIME : SETUP_KEYS,
+  "game session setup");
   const battleSetupValue = parsed(setup.battleSetup, "game session battle setup", GAME_SESSION_MAX_SETUP_BYTES,
     GAME_SESSION_SETUP_GRAPH_LIMITS);
   parsed(setup.rosterWitness, "game session roster witness", GAME_SESSION_MAX_SETUP_BYTES,
@@ -10244,9 +11123,16 @@ function validateSetup(bytes, { allowLegacyStructureReceipts = false } = {}) {
   if (troopRuntimeProfiles !== undefined && troopRuntimeProfiles !== canonical(setup.troopRuntimeProfiles)) {
     throw new TypeError("session troop runtime profiles diverge from their canonical setup");
   }
+  const statusRuntimeProfiles = Object.hasOwn(setup, "statusRuntimeProfiles")
+    ? canonical(parseSessionTroopStatusRuntimeProfiles(canonical(setup.statusRuntimeProfiles)))
+    : undefined;
+  if (statusRuntimeProfiles !== undefined &&
+      statusRuntimeProfiles !== canonical(setup.statusRuntimeProfiles)) {
+    throw new TypeError("session troop status runtime profiles diverge from their canonical setup");
+  }
   const battle = legacyStructureReceipts && allowLegacyStructureReceipts
-    ? createLegacyLiveBattleForRestore(battleSetupValue, troopRuntimeProfiles)
-    : new LiveBattle(setup.battleSetup, troopRuntimeProfiles);
+    ? createLegacyLiveBattleForRestore(battleSetupValue, troopRuntimeProfiles, statusRuntimeProfiles)
+    : new LiveBattle(setup.battleSetup, troopRuntimeProfiles, statusRuntimeProfiles);
   if (setup.rosterWitness !== canonical({ questions: battleSetupValue.questions,
     roster: battleSetupValue.roster })) throw new TypeError("session roster witness diverges");
   const cards = battleSetupValue.roster.map(({ cost, id }) => ({ cost, id }));
@@ -10277,7 +11163,7 @@ function validateSetup(bytes, { allowLegacyStructureReceipts = false } = {}) {
   return { batchBattleAdvance: !battleSetupValue.roster.some(({ kind }) => kind === "structure"),
     battleSetupValue: legacyStructureReceipts ? freeze(clone(battleSetupValue)) : null,
     cardRuntime, cards, costs, legacyStructureReceipts, setup: freeze(clone(setup)),
-    troopRuntimeProfiles };
+    statusRuntimeProfiles, troopRuntimeProfiles };
 }
 function issuePrevalidatedGameSessionSetup(setup, batchBattleAdvance) {
   const snapshotPrefix = `{\"setup\":${canonical(setup)},\"transcript\":[`;
@@ -10300,9 +11186,10 @@ function initialMatchTowers(battle) {
 }
 function commandText(value) {
   const decoded = parsed(value, "player session command", 16_384, COMMAND_GRAPH_LIMITS);
-  if (decoded.type === "ability") {
+  if (decoded.type === "ability" || decoded.type === "status") {
     const command = exact(decoded, ABILITY_COMMAND_KEYS, "player session ability command");
-    if (typeof command.actionId !== "string" || command.actionId.length === 0 ||
+    if (!["ability", "status"].includes(command.type) ||
+        typeof command.actionId !== "string" || command.actionId.length === 0 ||
         !Number.isSafeInteger(command.commandId) || command.commandId < 0 ||
         !["north", "south"].includes(command.side) ||
         !Number.isSafeInteger(command.sourceId) || command.sourceId < 1 ||
@@ -10393,8 +11280,10 @@ class GameSession {
     this.#cardRuntime = checked.cardRuntime;
     this.#costs = checked.costs; this.#legal = this.#setup.legalNorthDeployments;
     this.#battle = this.#legacyStructureReceipts
-      ? createLegacyLiveBattleForRestore(checked.battleSetupValue, checked.troopRuntimeProfiles)
-      : new LiveBattle(this.#setup.battleSetup, checked.troopRuntimeProfiles);
+      ? createLegacyLiveBattleForRestore(checked.battleSetupValue, checked.troopRuntimeProfiles,
+        checked.statusRuntimeProfiles)
+      : new LiveBattle(this.#setup.battleSetup, checked.troopRuntimeProfiles,
+        checked.statusRuntimeProfiles);
     this.#elixir = new ElixirMatch({ startingElixir: this.#setup.startingElixir });
     this.#decks = { north: new DeckCycle({ deck: this.#setup.deck, seed: `${this.#setup.seed}:north` }),
       south: new DeckCycle({ deck: this.#setup.deck, seed: `${this.#setup.seed}:south` }) };
@@ -10511,6 +11400,11 @@ class GameSession {
       if (inspected.abilityCost !== null) {
         throw new TypeError("player session ability cost is not sourced");
       }
+    } else if (command.type === "status") {
+      if (command.side !== "south" || command.tick !== clock.tick) {
+        throw new RangeError("player session status command must be current and south-owned");
+      }
+      this.#battleRuntime().inspectTroopStatus(canonical(command));
     } else {
       if (!this.#costs.has(command.cardId)) {
         throw new RangeError("player session deploy card is unknown");
@@ -10712,6 +11606,12 @@ class GameSession {
           staged.push({ actionId: player.actionId, commandId: player.commandId,
             side: player.side, sourceId: player.sourceId, targetId: player.targetId,
             tick: player.tick, type: "troop-action-staged" });
+        } else if (player.type === "status") {
+          battle.inspectTroopStatus(canonical(player));
+          battle.scheduleTroopStatus(canonical(player));
+          staged.push({ actionId: player.actionId, commandId: player.commandId,
+            side: player.side, sourceId: player.sourceId, targetId: player.targetId,
+            tick: player.tick, type: "troop-status-staged" });
         } else {
           staged.push({ ...stageSideDeployment({ battle,
             cardCosts: this.#costs, command: { ...player, side: "south" },
@@ -10755,7 +11655,7 @@ class GameSession {
         }
       }
       for (const stage of staged.filter((entry) => entry.tick === tick)) {
-        if (stage.type === "troop-action-staged") continue;
+        if (stage.type === "troop-action-staged" || stage.type === "troop-status-staged") continue;
         const spend = elixirEvents.find((event) => event.type === "spend" &&
           event.sequence === stage.spendSequence);
         if (!spend?.accepted) throw new RangeError("session deployment spend failed");
@@ -10775,6 +11675,15 @@ class GameSession {
         if (!receipt) throw new Error("session troop action did not receive a host receipt");
         committed = { ability: clone(receipt), side: stage.side, tick: stage.tick,
           type: "session-ability" };
+        sessionEvents.push(committed);
+      } else if (stage.type === "troop-status-staged") {
+        const receipt = battleEvents.find((event) => event.type === "troop-status-receipt" &&
+          event.side === stage.side && event.commandId === stage.commandId &&
+          event.actionId === stage.actionId && event.sourceId === stage.sourceId &&
+          event.targetId === stage.targetId && event.tick === stage.tick);
+        if (!receipt) throw new Error("session troop status did not receive a host receipt");
+        committed = { status: clone(receipt), side: stage.side, tick: stage.tick,
+          type: "session-status" };
         sessionEvents.push(committed);
       } else if (stage.kind === "unit") {
         const deployment = battleEvents.find((event) => event.type === "deployed" &&
@@ -10826,10 +11735,14 @@ class GameSession {
       "attack",
       "damage",
       "death",
+      "heal",
       "external-structure-contact",
       "projectile-impact",
       "projectile-launch",
       "tower-destroyed",
+      "troop-status-receipt",
+      "troop-status-expired",
+      "troop-status-cancelled",
     ].includes(type) || /^(building|structure|death-effect|travel|underground|ramp)-/u.test(type));
     sessionEvents.push(...meaningfulBattle, ...(resourceEvents ?? []), ...clockEvents);
     sessionEvents.sort((a, b) => (a.tick ?? 0) - (b.tick ?? 0));

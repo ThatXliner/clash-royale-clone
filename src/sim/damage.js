@@ -119,6 +119,56 @@ export class DamageSystem {
   }
 
   /**
+   * Resolves one health restoration without ever reviving a dead combatant.
+   * Missing and dead targets are valid no-op results, matching damage's
+   * deterministic admission behavior.
+   */
+  heal(targetId, amount) {
+    assertId(targetId, "heal targetId");
+    assertDamage(amount, "heal amount");
+    const index = this.#findIndex(targetId);
+    if (index === -1) {
+      return {
+        amount,
+        currentHealth: null,
+        events: [],
+        status: "missing",
+        targetId,
+      };
+    }
+    const combatant = this.#combatants[index];
+    if (combatant.dead) {
+      return {
+        amount,
+        currentHealth: 0,
+        events: [],
+        status: "dead",
+        targetId,
+      };
+    }
+    const before = combatant.currentHealth;
+    const room = combatant.maxHealth - before;
+    const applied = Math.min(room, amount);
+    combatant.currentHealth += applied;
+    const event = {
+      amount: applied,
+      currentHealthAfter: combatant.currentHealth,
+      currentHealthBefore: before,
+      requestedAmount: amount,
+      targetId,
+      type: "heal",
+    };
+    return {
+      amount,
+      appliedAmount: applied,
+      currentHealth: combatant.currentHealth,
+      events: [event],
+      status: "applied",
+      targetId,
+    };
+  }
+
+  /**
    * Resolves hits from one simultaneous timing window.
    *
    * All input is validated before mutation. Every target that was alive before

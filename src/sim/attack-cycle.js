@@ -10,6 +10,7 @@ const STATE_KEYS = [
   "phase",
   "targetId",
 ];
+const PAUSED_STATE_KEYS = [...STATE_KEYS, "statusWork"];
 const PHASES = new Set(["deploying", "idle", "winding", "cycling"]);
 
 function assertExactDataObject(value, expectedKeys, label) {
@@ -98,7 +99,22 @@ function checkedInput(value, label = "attack-cycle input") {
 }
 
 function checkedState(value, label = "attack-cycle state") {
-  const state = assertExactDataObject(value, STATE_KEYS, label);
+  const descriptors = value === null || typeof value !== "object" || Array.isArray(value)
+    ? null
+    : Object.getOwnPropertyDescriptors(value);
+  const actual = descriptors === null ? [] : Reflect.ownKeys(descriptors).sort();
+  const base = [...STATE_KEYS].sort();
+  const extended = [...PAUSED_STATE_KEYS].sort();
+  const expected = actual.length === extended.length &&
+    actual.every((key, index) => key === extended[index]) ? PAUSED_STATE_KEYS : STATE_KEYS;
+  const state = assertExactDataObject(value, expected, label);
+  let statusWork = null;
+  if (expected === PAUSED_STATE_KEYS) {
+    statusWork = assertExactDataObject(state.statusWork, ["mode"], `${label}.statusWork`);
+    if (statusWork.mode !== "paused") {
+      throw new TypeError(`${label}.statusWork.mode is invalid`);
+    }
+  }
   const config = checkedConfig(state.config, `${label}.config`);
   assertSafeTick(state.nextTick, `${label}.nextTick`);
   assertSafeTick(state.attackSequence, `${label}.attackSequence`);
@@ -135,14 +151,14 @@ function checkedState(value, label = "attack-cycle state") {
   if (
     state.phase === "winding" &&
     (config.firstHitTicks === 0 ||
-      state.nextAttackTick - state.nextTick >= config.firstHitTicks)
+      (statusWork === null && state.nextAttackTick - state.nextTick >= config.firstHitTicks))
   ) {
     throw new TypeError(`${label} has an inconsistent winding deadline`);
   }
   if (
     state.phase === "cycling" &&
     (state.attackSequence === 0 ||
-      state.nextAttackTick - state.nextTick >= config.hitSpeedTicks)
+      (statusWork === null && state.nextAttackTick - state.nextTick >= config.hitSpeedTicks))
   ) {
     throw new TypeError(`${label} has an inconsistent cadence deadline`);
   }
@@ -154,7 +170,7 @@ function checkedState(value, label = "attack-cycle state") {
     throw new TypeError(`${label} leaves deployment before its deadline`);
   }
 
-  return {
+  const checked = {
     attackSequence: state.attackSequence,
     config,
     nextAttackTick: state.nextAttackTick,
@@ -162,6 +178,8 @@ function checkedState(value, label = "attack-cycle state") {
     phase: state.phase,
     targetId: state.targetId,
   };
+  if (statusWork !== null) checked.statusWork = { mode: statusWork.mode };
+  return checked;
 }
 
 function canonicalJson(value) {
@@ -268,6 +286,40 @@ function advanceChecked(state, input) {
   return events;
 }
 
+function pauseChecked(state, input) {
+  const tick = state.nextTick;
+  if (state.phase === "deploying" && tick >= state.config.deployTicks) {
+    state.phase = "idle";
+  }
+
+  const eligibleId = input.targetEligible ? input.targetId : null;
+  if (state.targetId !== eligibleId) {
+    state.targetId = eligibleId;
+    if (eligibleId === null) {
+      state.phase = "idle";
+      state.nextAttackTick = null;
+    } else {
+      state.phase = "winding";
+      state.nextAttackTick = tick + state.config.firstHitTicks;
+      if (!Number.isSafeInteger(state.nextAttackTick)) {
+        throw new RangeError("next attack tick exceeds the safe integer range");
+      }
+    }
+  } else if (state.targetId !== null && state.nextAttackTick !== null) {
+    if (state.nextAttackTick === Number.MAX_SAFE_INTEGER) {
+      throw new RangeError("next attack tick exceeds the safe integer range");
+    }
+    state.nextAttackTick += 1;
+  }
+
+  if (tick === Number.MAX_SAFE_INTEGER) {
+    throw new RangeError("attack-cycle tick exceeds the safe integer range");
+  }
+  state.nextTick += 1;
+  state.statusWork = { mode: "paused" };
+  return [];
+}
+
 /**
  * Deterministic target-to-attack timing at 60 boundaries per second.
  *
@@ -321,11 +373,28 @@ export class AttackCycle {
       phase: this.#state.phase,
       targetId: this.#state.targetId,
     };
+    if (this.#state.statusWork !== undefined) {
+      copy.#state.statusWork = { ...this.#state.statusWork };
+    }
     return copy;
   }
 
   step(input) {
     return this.stepMany([input]);
+  }
+
+  /**
+   * Advances one boundary while preserving the current target and exact
+   * remaining attack deadline. LiveBattle uses this for a host-owned disable
+   * or rational progress slice; ordinary attack-cycle callers retain the
+   * original six-field state and byte format until this method is used.
+   */
+  stepPaused(input) {
+    const checked = checkedInput(input);
+    const candidate = checkedState(this.#state);
+    const events = pauseChecked(candidate, checked);
+    this.#state = candidate;
+    return events;
   }
 
   /**
