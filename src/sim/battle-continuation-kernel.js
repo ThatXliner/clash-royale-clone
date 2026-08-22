@@ -25,6 +25,7 @@ import {
   SESSION_TROOP_RUNTIME_ACTION_PROFILE_VERSION,
   SESSION_TROOP_RUNTIME_LEGACY_VERSION,
   SESSION_TROOP_RUNTIME_MAX_SOURCES,
+  SESSION_TROOP_RUNTIME_MOVEMENT_VERSION,
   SESSION_TROOP_RUNTIME_VERSION,
   parseSessionTroopRuntimeProfiles,
   SessionTroopRuntime,
@@ -5357,6 +5358,9 @@ const TROOP_INTENT_KEYS = [
 const CURRENT_TROOP_CONTACT_INTENT_KEYS = [
   "attackSequence", "cardId", "kind", "phase", "side", "sourceId", "targetId", "tick", "type",
 ];
+const TROOP_MOVEMENT_INTENT_KEYS = [
+  "cardId", "claimFamily", "kind", "layer", "pathScope", "phase", "side", "sourceId", "tick", "type",
+];
 const TROOP_STATUS_KEYS = [
   "actionId", "cardId", "commandId", "key", "kind", "phase", "point", "sourceId",
   "side", "targetId", "tick",
@@ -6120,8 +6124,64 @@ function checkedCurrentTroopContactIntent(value, tick) {
   };
 }
 
+function checkedTroopMovementCommand(value, currentTick, { requireCurrent = true } = {}) {
+  const command = exact(value,
+    ["cardId", "claimFamily", "phase", "side", "sourceId", "tick", "type"],
+    "live battle troop movement command");
+  if (command.type !== "troop-movement") {
+    throw new TypeError("live battle troop movement command.type is invalid");
+  }
+  const tick = integer(command.tick, currentTick, MAX_LIVE_BATTLE_STEP_TICKS,
+    "live battle troop movement command.tick");
+  if (requireCurrent && tick !== currentTick) {
+    throw new RangeError("live battle troop movement command.tick must equal the current tick");
+  }
+  const side = string(command.side, "live battle troop movement command.side");
+  if (!SIDES.has(side)) throw new TypeError("live battle troop movement command.side is invalid");
+  return {
+    cardId: string(command.cardId, "live battle troop movement command.cardId"),
+    claimFamily: string(command.claimFamily, "live battle troop movement command.claimFamily"),
+    phase: string(command.phase, "live battle troop movement command.phase"),
+    side,
+    sourceId: integer(command.sourceId, 1, Number.MAX_SAFE_INTEGER,
+      "live battle troop movement command.sourceId"),
+    tick,
+    type: "troop-movement",
+  };
+}
+
+function checkedTroopMovementIntent(value, tick) {
+  const intent = exact(value, TROOP_MOVEMENT_INTENT_KEYS,
+    "live battle troop movement intent");
+  if (intent.type !== "troop-runtime-intent" || intent.kind !== "flight" ||
+      intent.claimFamily !== "flight" || intent.layer !== "air" ||
+      intent.pathScope !== "axis-aligned-only" || intent.phase !== "pre-move") {
+    throw new TypeError("live battle troop movement intent is invalid");
+  }
+  const intentTick = integer(intent.tick, 0, MAX_LIVE_BATTLE_STEP_TICKS,
+    "live battle troop movement intent.tick");
+  if (intentTick !== tick) throw new RangeError("live battle troop movement intent tick is stale");
+  const side = string(intent.side, "live battle troop movement intent.side");
+  if (!SIDES.has(side)) throw new TypeError("live battle troop movement intent.side is invalid");
+  return {
+    cardId: string(intent.cardId, "live battle troop movement intent.cardId"),
+    claimFamily: "flight",
+    kind: "flight",
+    layer: "air",
+    pathScope: "axis-aligned-only",
+    phase: "pre-move",
+    side,
+    sourceId: integer(intent.sourceId, 1, Number.MAX_SAFE_INTEGER,
+      "live battle troop movement intent.sourceId"),
+    tick: intentTick,
+    type: "troop-runtime-intent",
+  };
+}
+
 function checkedTroopIntent(value, tick, version) {
-  return version === SESSION_TROOP_RUNTIME_VERSION
+  return version === SESSION_TROOP_RUNTIME_MOVEMENT_VERSION
+    ? checkedTroopMovementIntent(value, tick)
+    : version === SESSION_TROOP_RUNTIME_VERSION
     ? checkedCurrentTroopContactIntent(value, tick)
     : checkedLegacyTroopIntent(value, tick);
 }
@@ -6271,7 +6331,7 @@ function nearestGroundNode(point, occupied = new Set()) {
   return best;
 }
 
-function expandedEntities(card, firstId, questionValues) {
+function expandedEntities(card, firstId, questionValues, movementOverride = null) {
   const entities = [];
   let id = firstId;
   for (const component of card.entities) {
@@ -6288,7 +6348,11 @@ function expandedEntities(card, firstId, questionValues) {
     const damage = component.damagePolicy?.kind === "question"
       ? resolveQuestion(component.damagePolicy, questionValues)
       : component.damage;
-    const runtimeComponent = { ...component, damage, delivery, layer };
+    const override = movementOverride !== null ? {
+      layer: movementOverride.layer,
+      movementMillitilesPerSecond: movementOverride.speed,
+    } : null;
+    const runtimeComponent = { ...component, damage, delivery, layer, ...override };
     for (let memberIndex = 0; memberIndex < component.count; memberIndex += 1) {
       entities.push({ component: runtimeComponent, id, memberIndex, projectileSpeed, radius });
       id += 1;
@@ -6297,8 +6361,8 @@ function expandedEntities(card, firstId, questionValues) {
   return entities;
 }
 
-function placedEntities(card, point, firstId, questionValues) {
-  const expanded = expandedEntities(card, firstId, questionValues);
+function placedEntities(card, point, firstId, questionValues, movementOverride = null) {
+  const expanded = expandedEntities(card, firstId, questionValues, movementOverride);
   const laidOut = layoutFormation(point, expanded.map(({ component, id, radius }) => ({
     id,
     radius,
@@ -6491,11 +6555,19 @@ class LiveBattle {
     this.#troopRuntime = troopRuntimeProfiles === undefined
       ? EMPTY_TROOP_RUNTIME
       : new SessionTroopRuntime(troopRuntimeProfiles);
+    if (this.#troopRuntime.version === SESSION_TROOP_RUNTIME_MOVEMENT_VERSION) {
+      this.#troopRuntime.assertSourceRoster(setup.roster);
+    }
     this.#statusRuntime = statusRuntime;
     this.#statusEffects = new Map();
     this.#troopStatuses = new Map();
     for (const profile of this.#troopRuntime.configuration.profiles) {
-      const card = this.#rosterById.get(profile.cardId);
+      const profileCardId = this.#troopRuntime.version === SESSION_TROOP_RUNTIME_MOVEMENT_VERSION
+        ? profile.id : profile.cardId;
+      const card = this.#rosterById.get(profileCardId);
+      if (card === undefined && this.#troopRuntime.version === SESSION_TROOP_RUNTIME_MOVEMENT_VERSION) {
+        continue;
+      }
       if (card === undefined || card.kind !== "unit" || card.entities.length === 0) {
         throw new TypeError("live battle troop runtime profile card is not a materializable roster unit");
       }
@@ -6597,6 +6669,39 @@ class LiveBattle {
     if (cardId === null) return true;
     if (typeof cardId !== "string") throw new TypeError("live battle projectile card ID must be primitive");
     return this.#projectileRuntime.profile(cardId) !== null;
+  }
+
+  /** Whether this battle is bound to the closed HTMP movement receipt. */
+  supportsMovementRuntime(cardId = null) {
+    if (this.#troopRuntime.version !== SESSION_TROOP_RUNTIME_MOVEMENT_VERSION) return false;
+    if (cardId === null) return true;
+    if (typeof cardId !== "string") throw new TypeError("live battle movement card ID must be primitive");
+    return this.#troopRuntime.movementProfile(cardId) !== null;
+  }
+
+  /** Pure admission for a sourced movement family or its frozen QUESTION path. */
+  inspectTroopMovement(serialized) {
+    if (!this.supportsMovementRuntime()) {
+      throw new RangeError("live battle has no sourced movement profile receipt");
+    }
+    const command = parsedCommandBytes(serialized, "live battle troop movement command");
+    const checked = checkedTroopMovementCommand(command, this.#battleRuntime().state.tick);
+    const source = this.#troopSource(checked.sourceId, { requireAlive: true });
+    if (source.cardId !== checked.cardId || source.side !== checked.side) {
+      throw new RangeError("live battle troop movement command source is not causal");
+    }
+    this.#troopRuntime.assertSourceRoster(this.#setup.roster);
+    return freeze(clone(this.#troopRuntime.inspectMovement(checked)));
+  }
+
+  scheduleTroopMovement(serialized) {
+    const inspection = this.inspectTroopMovement(serialized);
+    if (inspection.disposition === "question") {
+      throw new RangeError(
+        `live battle movement ${inspection.cardId} ${inspection.claimFamily} remains an explicit QUESTION`,
+      );
+    }
+    return inspection;
   }
 
   /**
@@ -7057,6 +7162,15 @@ class LiveBattle {
           troopStatuses: this.#troopStatusWitnesses(),
           version: 23 + (hasBuildingState ? 1 : 0) + (hasSpellRuntime ? 2 : 0),
         };
+      } else if (this.#troopRuntime.version === SESSION_TROOP_RUNTIME_MOVEMENT_VERSION) {
+        snapshot = {
+          ...common,
+          runtime: this.#troopRuntime.serialize(),
+          ...(hasSpellRuntime ? { spellRuntime: this.#spells.state } : {}),
+          statusRuntime,
+          troopStatuses: this.#troopStatusWitnesses(),
+          version: 35 + (hasBuildingState ? 1 : 0) + (hasSpellRuntime ? 2 : 0),
+        };
       } else {
         snapshot = {
           ...common,
@@ -7089,6 +7203,14 @@ class LiveBattle {
         ...(hasSpellRuntime ? { spellRuntime: this.#spells.state } : {}),
         troopStatuses: this.#troopStatusWitnesses(),
         version: hasSpellRuntime ? (hasBuildingState ? 12 : 11) : (hasBuildingState ? 7 : 4),
+      };
+    } else if (this.#troopRuntime.version === SESSION_TROOP_RUNTIME_MOVEMENT_VERSION) {
+      snapshot = {
+        ...common,
+        runtime: this.#troopRuntime.serialize(),
+        ...(hasSpellRuntime ? { spellRuntime: this.#spells.state } : {}),
+        troopStatuses: this.#troopStatusWitnesses(),
+        version: hasSpellRuntime ? (hasBuildingState ? 34 : 33) : (hasBuildingState ? 32 : 31),
       };
     } else {
       // Current v3 has no player action queue. A building witness is additive
@@ -7123,11 +7245,14 @@ class LiveBattle {
     if (canonical(snapshot) !== serialized) throw new TypeError("serialized live battle must be canonical JSON");
     const snapshotShape = plain(snapshot, "live battle snapshot");
     const version = snapshotShape.version?.value;
-    const hasStatusRuntimeWitness = Number.isInteger(version) && version >= 15 && version <= 30;
+    const hasStatusRuntimeWitness = [
+      15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+      35, 36, 37, 38,
+    ].includes(version);
     const hasBuildingWitness = Object.hasOwn(snapshot, "building");
     const hasSpellRuntimeWitness = (version === 3 && !hasBuildingWitness &&
       Object.hasOwn(snapshot, "spellRuntime")) || [8, 9, 10, 11, 12, 13, 14].includes(version) ||
-      [17, 18, 21, 22, 25, 26, 29, 30].includes(version);
+      [17, 18, 21, 22, 25, 26, 29, 30, 33, 34, 37, 38].includes(version);
     const hasProjectileRuntimeWitness = Object.hasOwn(snapshot, "projectileRuntime");
     const projectileRuntimeSnapshot = hasProjectileRuntimeWitness
       ? snapshot.projectileRuntime : null;
@@ -7136,8 +7261,9 @@ class LiveBattle {
       [19, 20, 21, 22].includes(version);
     const actionRuntimeSnapshot = [4, 7, 11, 12, 23, 24, 25, 26].includes(version);
     const currentRuntimeSnapshot = [5, 13, 14, 27, 28, 29, 30].includes(version);
+    const movementRuntimeSnapshot = [31, 32, 33, 34, 35, 36, 37, 38].includes(version);
     const hasTroopRuntimeWitness = legacyRuntimeSnapshot || actionRuntimeSnapshot ||
-      currentRuntimeSnapshot;
+      currentRuntimeSnapshot || movementRuntimeSnapshot;
     // Projectile runtime state is additive to every existing LiveBattle
     // snapshot version.  Strip the additive witness only for the historical
     // shape table below; it is validated and replay-checked separately.
@@ -7173,6 +7299,31 @@ class LiveBattle {
     } else if (version === 22 || version === 26 || version === 30) {
       checked = exact(snapshot, ["battle", "building", "history", "movements", ...(version === 22 || version === 26 ? ["pendingTroopActions"] : []),
         "runtime", "setup", "spellRuntime", "statusRuntime", "transcript", "troopStatuses", "version"],
+      "live battle snapshot");
+    } else if (version === 31) {
+      checked = exact(snapshot, ["battle", "history", "movements", "runtime", "setup", "transcript",
+        "troopStatuses", "version"], "live battle snapshot");
+    } else if (version === 32) {
+      checked = exact(snapshot, ["battle", "building", "history", "movements", "runtime", "setup",
+        "transcript", "troopStatuses", "version"], "live battle snapshot");
+    } else if (version === 33) {
+      checked = exact(snapshot, ["battle", "history", "movements", "runtime", "setup", "spellRuntime",
+        "transcript", "troopStatuses", "version"], "live battle snapshot");
+    } else if (version === 34) {
+      checked = exact(snapshot, ["battle", "building", "history", "movements", "runtime", "setup",
+        "spellRuntime", "transcript", "troopStatuses", "version"], "live battle snapshot");
+    } else if (version === 35) {
+      checked = exact(snapshot, ["battle", "history", "movements", "runtime", "setup", "statusRuntime",
+        "transcript", "troopStatuses", "version"], "live battle snapshot");
+    } else if (version === 36) {
+      checked = exact(snapshot, ["battle", "building", "history", "movements", "runtime", "setup",
+        "statusRuntime", "transcript", "troopStatuses", "version"], "live battle snapshot");
+    } else if (version === 37) {
+      checked = exact(snapshot, ["battle", "history", "movements", "runtime", "setup", "spellRuntime",
+        "statusRuntime", "transcript", "troopStatuses", "version"], "live battle snapshot");
+    } else if (version === 38) {
+      checked = exact(snapshot, ["battle", "building", "history", "movements", "runtime", "setup",
+        "spellRuntime", "statusRuntime", "transcript", "troopStatuses", "version"],
       "live battle snapshot");
     } else if (version === 1) {
       checked = exact(snapshot, ["battle", "history", "movements", "setup", "version"],
@@ -7236,7 +7387,9 @@ class LiveBattle {
         : version === 4 || version === 7 || version === 11 || version === 12 ||
             version === 23 || version === 24 || version === 25 || version === 26
           ? SESSION_TROOP_RUNTIME_ACTION_PROFILE_VERSION
-          : SESSION_TROOP_RUNTIME_VERSION;
+          : movementRuntimeSnapshot
+            ? SESSION_TROOP_RUNTIME_MOVEMENT_VERSION
+            : SESSION_TROOP_RUNTIME_VERSION;
       if (runtime.configuration.profiles.length === 0 || runtime.serialize() !== checked.runtime ||
           runtime.configuration.version !== expectedRuntimeVersion) {
         throw new TypeError("live battle troop runtime witness is noncanonical");
@@ -7254,8 +7407,13 @@ class LiveBattle {
           throw new TypeError("live battle pending troop actions are noncanonical");
         }
       }
-      troopStatuses = denseArray(checked.troopStatuses, "live battle snapshot.troopStatuses",
-        TROOP_STATUS_LIMIT).map((status) => checkedTroopStatus(status, {
+      const rawTroopStatuses = denseArray(checked.troopStatuses,
+        "live battle snapshot.troopStatuses", TROOP_STATUS_LIMIT);
+      if (movementRuntimeSnapshot && rawTroopStatuses.length !== 0) {
+        throw new TypeError("live battle movement runtime cannot carry troop status state");
+      }
+      troopStatuses = movementRuntimeSnapshot ? [] : rawTroopStatuses.map((status) =>
+        checkedTroopStatus(status, {
           profile: runtime.profile(status.cardId),
           version: runtime.version,
         }))
@@ -7641,6 +7799,11 @@ class LiveBattle {
       const movement = this.#movementRuntime(this.#movements.get(unit.id));
       const desired = this.#desiredTarget(unit, before);
       const metadata = this.#metadata.get(unit.id);
+      if (this.#troopRuntime.version === SESSION_TROOP_RUNTIME_MOVEMENT_VERSION &&
+          desired.target !== null && desired.target.position.x !== unit.position.x &&
+          desired.target.position.y !== unit.position.y) {
+        throw new RangeError("live battle troop flight target is outside the sourced axis-aligned path");
+      }
       if (desired.key !== metadata.targetKey) {
         if (desired.target === null) {
           if (movement.state.target !== null) movement.stop();
@@ -7798,7 +7961,13 @@ class LiveBattle {
 
   #runTroopRuntime(phase, sources, action, tick, contactWitness = null) {
     const canonicalSources = [...sources].sort((left, right) => left.sourceId - right.sourceId);
-    const input = this.#usesCurrentContactRuntime()
+    const input = this.#troopRuntime.version === SESSION_TROOP_RUNTIME_MOVEMENT_VERSION
+      ? {
+          phase,
+          sources: canonicalSources.map((source) => clone(source)),
+          tick,
+        }
+      : this.#usesCurrentContactRuntime()
       ? {
           contacts: (contactWitness?.contacts ?? []).map((contact) => clone(contact)),
           phase,
@@ -7995,10 +8164,62 @@ class LiveBattle {
   #applyTroopIntent(value, tick, contactWitness = null) {
     const version = this.#troopRuntime.version;
     const intent = checkedTroopIntent(value, tick, version);
+    if (version === SESSION_TROOP_RUNTIME_MOVEMENT_VERSION) {
+      return this.#applyTroopMovementIntent(intent, tick);
+    }
     if (version === SESSION_TROOP_RUNTIME_VERSION) {
       return this.#applyCurrentTroopContact(intent, tick, contactWitness);
     }
     return this.#applyLegacyTroopIntent(intent, tick);
+  }
+
+  #applyTroopMovementIntent(intent, tick) {
+    const source = this.#battleRuntime().state.units.find(({ id }) => id === intent.sourceId);
+    const metadata = this.#metadata.get(intent.sourceId);
+    if (source === undefined || metadata === undefined || !source.alive ||
+        metadata.cardId !== intent.cardId || source.side !== intent.side) {
+      throw new RangeError("live battle troop movement intent source is not causal");
+    }
+    const profile = this.#troopRuntime.flightProfile(intent.cardId);
+    const movement = this.#movementRuntime(this.#movements.get(intent.sourceId));
+    if (profile === null || profile.layer !== intent.layer || profile.pathScope !== intent.pathScope ||
+        source.layer !== "air" || movement.state.mode !== "air" ||
+        movement.state.speed !== profile.speed) {
+      throw new TypeError("live battle troop movement intent diverges from the exact HTMP receipt");
+    }
+    const admission = this.#troopRuntime.inspectMovement({
+      cardId: intent.cardId,
+      claimFamily: intent.claimFamily,
+      phase: intent.phase,
+      side: intent.side,
+      sourceId: intent.sourceId,
+      tick,
+      type: "troop-movement",
+    });
+    if (admission.disposition !== "admitted" || admission.layer !== intent.layer ||
+        admission.pathScope !== intent.pathScope) {
+      throw new TypeError("live battle troop movement intent has no matching receipt admission");
+    }
+    const target = movement.state.target;
+    if (target !== null && target.position.x !== source.position.x &&
+        target.position.y !== source.position.y) {
+      throw new RangeError("live battle troop flight target is outside the sourced axis-aligned path");
+    }
+    return {
+      externalHit: null,
+      receipt: {
+        cardId: intent.cardId,
+        claimFamily: "flight",
+        kind: "flight",
+        layer: "air",
+        pathScope: "axis-aligned-only",
+        phase: "pre-move",
+        side: intent.side,
+        sourceId: intent.sourceId,
+        tick,
+        type: "troop-runtime-receipt",
+      },
+    };
   }
 
   #applyLegacyTroopIntent(intent, tick) {
@@ -8492,7 +8713,7 @@ class LiveBattle {
   #materialize(deployment) {
     const card = this.#rosterById.get(deployment.cardId);
     const entities = placedEntities(card, deployment.point, this.#nextEntityId,
-      this.#questionValues);
+      this.#questionValues, this.#troopRuntime.flightProfile(card.id));
     const events = [];
     const battle = this.#battleRuntime();
     for (const entity of entities) {

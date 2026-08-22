@@ -8,6 +8,7 @@
  */
 
 export const SESSION_TROOP_RUNTIME_VERSION = 3;
+export const SESSION_TROOP_RUNTIME_MOVEMENT_VERSION = 4;
 export const SESSION_TROOP_RUNTIME_LEGACY_VERSION = 1;
 export const SESSION_TROOP_RUNTIME_ACTION_PROFILE_VERSION = 2;
 export const SESSION_TROOP_RUNTIME_MAX_PROFILES = 8;
@@ -17,6 +18,29 @@ const MAX_BYTES = 16_384;
 const MAX_GRAPH_DEPTH = 16;
 const MAX_GRAPH_NODES = 512;
 const MAX_STRING_LENGTH = 128;
+const MOVEMENT_MAX_GRAPH_DEPTH = 64;
+const MOVEMENT_MAX_GRAPH_NODES = 50_000;
+const SESSION_TROOP_MOVEMENT_RUNTIME_RECEIPT_FINGERPRINT = "d3ae59740b427e22";
+const SESSION_TROOP_MOVEMENT_RUNTIME_MAX_RECEIPT_BYTES = 1_048_576;
+const MOVEMENT_MAX_STRING_LENGTH = SESSION_TROOP_MOVEMENT_RUNTIME_MAX_RECEIPT_BYTES;
+
+function assertSessionTroopMovementAuthorityReceipt(serialized) {
+  if (typeof serialized !== "string") {
+    throw new TypeError("session troop movement receipt must be canonical JSON text");
+  }
+  const bytes = new TextEncoder().encode(serialized);
+  let left = 2_166_136_261;
+  let right = 2_166_136_261;
+  for (let index = 0; index < bytes.length; index += 1) {
+    const byte = bytes[index];
+    left = Math.imul(left ^ byte, 16_777_619) >>> 0;
+    right = Math.imul(right ^ (byte + ((index * 31) & 255)), 16_777_619) >>> 0;
+  }
+  const fingerprint = `${left.toString(16).padStart(8, "0")}${right.toString(16).padStart(8, "0")}`;
+  if (fingerprint !== SESSION_TROOP_MOVEMENT_RUNTIME_RECEIPT_FINGERPRINT) {
+    throw new TypeError("session troop movement receipt diverges from the exact passed HTMP receipt");
+  }
+}
 const LEGACY_ACTION_KEYS = ["abilityCost", "id", "target"];
 const PRIOR_ACTION_KEYS = ["abilityCost", "effect", "id", "target"];
 const ACTION_TARGETS = new Set(["unit"]);
@@ -42,6 +66,76 @@ const SOURCE_PROFILE_COMBAT_KEYS = [
 ];
 const SOURCE_PROFILE_ENTITY_KEYS = ["archetypeId", "memberIndex", "role"];
 const EMPTY_PROFILE_BYTES = '{"profiles":[],"version":1}';
+const MOVEMENT_PROFILE_IDS = Object.freeze([
+  "cinderback", "copperskiff", "emberlance", "railward", "skymaul",
+  "stonevault", "veilrunner", "wayfinder",
+]);
+const MOVEMENT_PROFILE_CLAIMS = Object.freeze([
+  Object.freeze({ id: "cinderback", claims: Object.freeze([
+    Object.freeze({ claimFamily: "recoil", exportName: "createRecoilSpecialCatalog" }),
+  ]) }),
+  Object.freeze({ id: "copperskiff", claims: Object.freeze([
+    Object.freeze({ claimFamily: "flight", exportName: "createBasicFlyingCatalog" }),
+  ]) }),
+  Object.freeze({ id: "emberlance", claims: Object.freeze([
+    Object.freeze({ claimFamily: "charge-knockback-membership", exportName: "createChargeKnockbackCatalog" }),
+    Object.freeze({ claimFamily: "charge", exportName: "createChargeSpecialCatalog" }),
+  ]) }),
+  Object.freeze({ id: "railward", claims: Object.freeze([
+    Object.freeze({ claimFamily: "shield-form", exportName: "createShieldFormCatalog" }),
+  ]) }),
+  Object.freeze({ id: "skymaul", claims: Object.freeze([
+    Object.freeze({ claimFamily: "flight", exportName: "createBasicFlyingCatalog" }),
+  ]) }),
+  Object.freeze({ id: "stonevault", claims: Object.freeze([
+    Object.freeze({ claimFamily: "jump", exportName: "createJumpSpecialCatalog" }),
+  ]) }),
+  Object.freeze({ id: "veilrunner", claims: Object.freeze([
+    Object.freeze({ claimFamily: "dash", exportName: "createDashSpecialCatalog" }),
+  ]) }),
+  Object.freeze({ id: "wayfinder", claims: Object.freeze([
+    Object.freeze({ claimFamily: "retarget", exportName: "createRetargetSpecialCatalog" }),
+  ]) }),
+]);
+const MOVEMENT_OCCURRENCES = Object.freeze([
+  Object.freeze({ exportName: "createRecoilSpecialCatalog", id: "cinderback", status: "admitted" }),
+  Object.freeze({ exportName: "createBasicFlyingCatalog", id: "copperskiff", status: "admitted" }),
+  Object.freeze({ exportName: "createChargeKnockbackCatalog", id: "emberlance", status: "admitted" }),
+  Object.freeze({ exportName: "createChargeSpecialCatalog", id: "emberlance", status: "admitted" }),
+  Object.freeze({ exportName: "createShieldFormCatalog", id: "railward", status: "admitted" }),
+  Object.freeze({ exportName: "createBasicFlyingCatalog", id: "skymaul", status: "admitted" }),
+  Object.freeze({ exportName: "createJumpSpecialCatalog", id: "stonevault", status: "admitted" }),
+  Object.freeze({ exportName: "createDashSpecialCatalog", id: "veilrunner", status: "admitted" }),
+  Object.freeze({ exportName: "createRetargetSpecialCatalog", id: "wayfinder", status: "admitted" }),
+]);
+const MOVEMENT_COUNTS = Object.freeze({
+  duplicatedIds: 1,
+  ids: 8,
+  occurrences: 9,
+  profiles: 8,
+  questionBearingClaims: 6,
+  unresolvedOnlyClaims: 1,
+});
+const MOVEMENT_SOURCE_CARD_FIELDS = Object.freeze([
+  "areaDamageRadiusMillitiles", "cost", "count", "damage", "deployTimeTicks",
+  "displayName", "firstHitTicks", "hitSpeedTicks", "hitpoints", "id", "kind",
+  "movementMillitilesPerSecond", "rangeMillitiles", "rarity", "sightRangeMillitiles",
+  "targetMode",
+]);
+const MOVEMENT_SOURCE_ENTITY_FIELDS = Object.freeze([
+  "areaDamageRadiusMillitiles", "count", "damage", "deployTimeTicks", "displayName",
+  "firstHitTicks", "hitSpeedTicks", "hitpoints", "kind", "movementMillitilesPerSecond",
+  "rangeMillitiles", "sightRangeMillitiles", "targetMode",
+]);
+const MOVEMENT_QUESTION_REASONS = Object.freeze({
+  charge: "charge stage fields remain explicit QUESTION values",
+  "charge-knockback-membership": "charge and knockback composition remains an explicit QUESTION",
+  dash: "dash stage fields remain explicit QUESTION values",
+  jump: "jump stage fields remain explicit QUESTION values",
+  recoil: "recoil stage fields remain explicit QUESTION values",
+  retarget: "retarget stage fields remain explicit QUESTION values",
+  "shield-form": "shield/form fields remain unresolved QUESTION values",
+});
 
 function canonical(value) {
   if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
@@ -91,8 +185,8 @@ function denseArray(value, maximum, label) {
   });
 }
 
-function text(value, label) {
-  if (typeof value !== "string" || value.length === 0 || value.length > MAX_STRING_LENGTH ||
+function text(value, label, maximum = MAX_STRING_LENGTH) {
+  if (typeof value !== "string" || value.length === 0 || value.length > maximum ||
       value.normalize("NFC") !== value || /[\u0000-\u001f\u007f]/u.test(value)) {
     throw new TypeError(`${label} must be bounded normalized text`);
   }
@@ -115,9 +209,14 @@ function checkedPoint(value, label, { nullable = false } = {}) {
   };
 }
 
-function parse(textValue, label) {
+function parse(textValue, label, {
+  maximum = MAX_BYTES,
+  graphDepth = MAX_GRAPH_DEPTH,
+  graphNodes = MAX_GRAPH_NODES,
+  stringLength = MAX_STRING_LENGTH,
+} = {}) {
   if (typeof textValue !== "string") throw new TypeError(`${label} must be canonical JSON text`);
-  if (new TextEncoder().encode(textValue).byteLength > MAX_BYTES) {
+  if (new TextEncoder().encode(textValue).byteLength > maximum) {
     throw new RangeError(`${label} exceeds its byte bound`);
   }
   let value;
@@ -128,12 +227,12 @@ function parse(textValue, label) {
   while (stack.length > 0) {
     const current = stack.pop();
     nodes += 1;
-    if (nodes > MAX_GRAPH_NODES || current.depth > MAX_GRAPH_DEPTH) {
+    if (nodes > graphNodes || current.depth > graphDepth) {
       throw new RangeError(`${label} exceeds its graph bound`);
     }
     const entry = current.value;
     if (typeof entry === "string") {
-      text(entry, label);
+      text(entry, label, stringLength);
       continue;
     }
     if (typeof entry === "number" && !Number.isSafeInteger(entry)) {
@@ -278,7 +377,355 @@ function checkedCurrentProfile(value, index) {
   return { cardId, claim: "representative-live-contact", contact, sourceProfile };
 }
 
+function movementManifestFromReceipt(receipt) {
+  const manifest = parse(receipt.manifest, "session troop movement source manifest", {
+    graphDepth: MOVEMENT_MAX_GRAPH_DEPTH,
+    graphNodes: MOVEMENT_MAX_GRAPH_NODES,
+    maximum: SESSION_TROOP_MOVEMENT_RUNTIME_MAX_RECEIPT_BYTES,
+    stringLength: MOVEMENT_MAX_STRING_LENGTH,
+  });
+  const checkedManifest = exact(manifest,
+    ["counts", "occurrences", "profiles", "version"],
+    "session troop movement source manifest");
+  if (checkedManifest.version !== 1 || canonical(checkedManifest.counts) !==
+      canonical(MOVEMENT_COUNTS)) {
+    throw new TypeError("session troop movement source manifest counts are not the HTMP receipt");
+  }
+  const occurrences = denseArray(checkedManifest.occurrences, MOVEMENT_OCCURRENCES.length,
+    "session troop movement source manifest.occurrences");
+  if (canonical(occurrences) !== canonical(MOVEMENT_OCCURRENCES)) {
+    throw new TypeError("session troop movement source manifest occurrences diverge");
+  }
+  const profiles = denseArray(checkedManifest.profiles, MOVEMENT_PROFILE_IDS.length,
+    "session troop movement source manifest.profiles");
+  if (profiles.length !== MOVEMENT_PROFILE_IDS.length) {
+    throw new TypeError("session troop movement source manifest profile count diverges");
+  }
+  for (let index = 0; index < profiles.length; index += 1) {
+    const expected = MOVEMENT_PROFILE_CLAIMS[index];
+    const profile = exact(profiles[index], [
+      "claims", ...(expected.id === "emberlance" ? ["composition"] : []),
+      "cost", "deployTimeTicks", "displayName", "id", "kind",
+      "occurrenceExports", "placementClass", "sourceRecords",
+    ], `session troop movement source manifest.profiles[${index}]`);
+    if (profile.id !== expected.id || profile.kind !== "unit" ||
+        profile.placementClass !== "ground_entity" ||
+        canonical(profile.occurrenceExports) !== canonical(
+          expected.claims.map(({ exportName }) => exportName),
+        )) {
+      throw new TypeError("session troop movement source manifest profile identity diverges");
+    }
+    const claims = denseArray(profile.claims, expected.claims.length,
+      `session troop movement source manifest.profiles[${index}].claims`);
+    if (claims.length !== expected.claims.length) {
+      throw new TypeError("session troop movement source manifest claim count diverges");
+    }
+    for (let claimIndex = 0; claimIndex < claims.length; claimIndex += 1) {
+      const claim = claims[claimIndex];
+      const expectedClaim = expected.claims[claimIndex];
+      if (claim === null || typeof claim !== "object" ||
+          claim.claimFamily !== expectedClaim.claimFamily ||
+          claim.exportName !== expectedClaim.exportName ||
+          typeof claim.sourceRecordCanonical !== "string") {
+        throw new TypeError("session troop movement source manifest claim diverges");
+      }
+      if (claim.claimFamily === "flight") {
+        const behavior = exact(claim.flightBehavior,
+          ["excludedMechanics", "exportedFunctions", "pathScope", "roundTrip",
+            "sourceTest", "speedField"],
+          `session troop movement flight claim ${profile.id}.flightBehavior`);
+        if (behavior.pathScope !== "axis-aligned-only" ||
+            behavior.speedField !== "movementMillitilesPerSecond" ||
+            behavior.roundTrip !== "serialize-restore-byte-stable") {
+          throw new TypeError("session troop movement flight behavior is not source-authoritative");
+        }
+      } else if (claim.claimFamily === "shield-form") {
+        if (claim.unresolvedOnly !== true || !Array.isArray(claim.unresolvedFields) ||
+            claim.unresolvedFields.length !== 5 || typeof claim.unresolvedReason !== "string") {
+          throw new TypeError("session troop movement shield/form claim is not unresolved-only");
+        }
+      } else if (claim.questionPolicy === null ||
+          !Array.isArray(claim.questionPolicy.records)) {
+        throw new TypeError("session troop movement QUESTION claim lacks its receipt records");
+      }
+      movementSourceRecord(claim, `session troop movement claim ${profile.id}`);
+    }
+  }
+  return { manifest: checkedManifest, profiles };
+}
+
+function movementSourceRecord(claim, label) {
+  const source = parse(claim.sourceRecordCanonical, `${label}.sourceRecordCanonical`, {
+    graphDepth: MOVEMENT_MAX_GRAPH_DEPTH,
+    graphNodes: MOVEMENT_MAX_GRAPH_NODES,
+    maximum: SESSION_TROOP_MOVEMENT_RUNTIME_MAX_RECEIPT_BYTES,
+    stringLength: MOVEMENT_MAX_STRING_LENGTH,
+  });
+  exact(source, [
+    "areaDamageRadiusMillitiles", "components", "cost", "count", "damage",
+    "deployTimeTicks", "displayName", "firstHitTicks", "hitSpeedTicks", "hitpoints",
+    "id", "kind", "movementMillitilesPerSecond", "rangeMillitiles", "rarity",
+    "sightRangeMillitiles", "targetMode",
+  ], `${label}.sourceRecord`);
+  if (source.kind !== "unit" || !Array.isArray(source.components) ||
+      source.components.length > 16) {
+    throw new TypeError(`${label}.sourceRecord is not a bounded unit record`);
+  }
+  return source;
+}
+
+function movementProfilePublic(profile) {
+  return {
+    claims: profile.claims.map((claim) => {
+      const publicClaim = {
+        claimFamily: claim.claimFamily,
+        exportName: claim.exportName,
+        sourceRecordCanonical: claim.sourceRecordCanonical,
+      };
+      if (claim.flightBehavior !== undefined) {
+        publicClaim.flightBehavior = clone(claim.flightBehavior);
+      }
+      if (claim.questionPolicy !== null && claim.questionPolicy !== undefined) {
+        publicClaim.questionKeys = denseArray(claim.questionPolicy.records,
+          MOVEMENT_MAX_GRAPH_NODES, "session troop movement QUESTION records")
+          .map((record, index) => exact(record,
+            ["authoritative", "confidence", "disposition", "key", "source", "value"],
+            `session troop movement QUESTION record ${index}`).key)
+          .sort();
+      }
+      if (claim.unresolvedOnly === true) {
+        publicClaim.unresolvedFields = clone(claim.unresolvedFields);
+        publicClaim.unresolvedOnly = true;
+        publicClaim.unresolvedReason = claim.unresolvedReason;
+      }
+      return publicClaim;
+    }),
+    id: profile.id,
+  };
+}
+
+function movementFlightProfile(profile) {
+  const claim = profile.claims.find(({ claimFamily }) => claimFamily === "flight");
+  if (claim === undefined) return null;
+  const source = movementSourceRecord(claim, `session troop movement flight ${profile.id}`);
+  if (!Number.isSafeInteger(source.movementMillitilesPerSecond) ||
+      source.movementMillitilesPerSecond < 0) {
+    throw new TypeError(`session troop movement flight ${profile.id} has no sourced speed`);
+  }
+  return {
+    cardId: profile.id,
+    claimFamily: "flight",
+    layer: "air",
+    pathScope: claim.flightBehavior.pathScope,
+    sourceRecordCanonical: claim.sourceRecordCanonical,
+    speed: source.movementMillitilesPerSecond,
+  };
+}
+
+function movementQuestionKeys(claim) {
+  if (claim.unresolvedOnly === true) return [...claim.unresolvedFields].sort();
+  if (claim.questionPolicy === null || claim.questionPolicy === undefined) return [];
+  return denseArray(claim.questionPolicy.records, MOVEMENT_MAX_GRAPH_NODES,
+    "session troop movement QUESTION records")
+    .map((record, index) => exact(record,
+      ["authoritative", "confidence", "disposition", "key", "source", "value"],
+      `session troop movement QUESTION record ${index}`).key)
+    .sort();
+}
+
+function movementClaim(profile, claimFamily) {
+  const claim = profile.claims.find(({ claimFamily: candidate }) => candidate === claimFamily);
+  if (claim === undefined) {
+    throw new RangeError("session troop movement claim family is not admitted for this card");
+  }
+  return claim;
+}
+
+function checkedMovementCommand(value) {
+  const command = exact(value,
+    ["cardId", "claimFamily", "phase", "side", "sourceId", "tick", "type"],
+    "session troop movement command");
+  if (command.type !== "troop-movement") {
+    throw new TypeError("session troop movement command.type is invalid");
+  }
+  const phase = text(command.phase, "session troop movement command.phase");
+  if (!CURRENT_INTENT_PHASES.has(phase)) {
+    throw new TypeError("session troop movement command.phase is invalid");
+  }
+  const side = text(command.side, "session troop movement command.side");
+  if (side !== "north" && side !== "south") {
+    throw new TypeError("session troop movement command.side is invalid");
+  }
+  return {
+    cardId: text(command.cardId, "session troop movement command.cardId"),
+    claimFamily: text(command.claimFamily, "session troop movement command.claimFamily"),
+    phase,
+    side,
+    sourceId: integer(command.sourceId, 1, Number.MAX_SAFE_INTEGER,
+      "session troop movement command.sourceId"),
+    tick: integer(command.tick, 0, Number.MAX_SAFE_INTEGER,
+      "session troop movement command.tick"),
+    type: "troop-movement",
+  };
+}
+
+function movementQuestion({ cardId, claim, phase, side, sourceId, tick }) {
+  return freeze({
+    cardId,
+    claimFamily: claim.claimFamily,
+    disposition: "question",
+    phase,
+    questionKeys: movementQuestionKeys(claim),
+    reason: claim.unresolvedOnly === true
+      ? claim.unresolvedReason
+      : MOVEMENT_QUESTION_REASONS[claim.claimFamily],
+    side,
+    sourceId,
+    tick,
+    type: "troop-movement-question",
+  });
+}
+
+function movementAdmission({ cardId, claim, flight, phase, side, sourceId, tick }) {
+  return freeze({
+    cardId,
+    claimFamily: claim.claimFamily,
+    disposition: "admitted",
+    layer: flight.layer,
+    pathScope: flight.pathScope,
+    phase,
+    side,
+    sourceId,
+    tick,
+    type: "troop-movement-admission",
+  });
+}
+
+function assertMovementSourceRoster(roster, profiles) {
+  if (!Array.isArray(roster) || roster.length > 8) {
+    throw new TypeError("session troop movement source roster must be a bounded array");
+  }
+  const cards = new Map(roster.map((card) => [card.id, card]));
+  for (const profile of profiles) {
+    const card = cards.get(profile.id);
+    if (card === undefined) continue;
+    if (card.kind !== "unit") {
+      throw new TypeError(`session troop movement source ${profile.id} is not a unit`);
+    }
+    const source = movementSourceRecord(profile.claims[0],
+      `session troop movement source ${profile.id}`);
+    for (const field of MOVEMENT_SOURCE_CARD_FIELDS) {
+      if (canonical(card[field]) !== canonical(source[field])) {
+        throw new TypeError(`session troop movement source ${profile.id}.${field} diverges from HTMP`);
+      }
+    }
+    const expectedEntities = source.components.length === 0
+      ? [{ ...source, id: source.id, role: "primary" }]
+      : source.components;
+    if (!Array.isArray(card.entities) || card.entities.length !== expectedEntities.length) {
+      throw new TypeError(`session troop movement source ${profile.id} entity join diverges`);
+    }
+    for (let index = 0; index < expectedEntities.length; index += 1) {
+      const expected = expectedEntities[index];
+      const entity = card.entities[index];
+      if (entity.archetypeId !== expected.id || entity.role !== expected.role) {
+        throw new TypeError(`session troop movement source ${profile.id} entity identity diverges`);
+      }
+      for (const field of MOVEMENT_SOURCE_ENTITY_FIELDS) {
+        if (canonical(entity[field]) !== canonical(expected[field])) {
+          throw new TypeError(`session troop movement source ${profile.id} entity field diverges`);
+        }
+      }
+    }
+    const flight = movementFlightProfile(profile);
+    if (flight !== null && card.entities.some(({ layer }) => layer !== "air")) {
+      throw new TypeError(`session troop movement flight source ${profile.id} is not in the air layer`);
+    }
+  }
+  return true;
+}
+
+function checkedMovementBoundary(value) {
+  const boundary = exact(value, ["phase", "sources", "tick"],
+    "session troop movement boundary");
+  const phase = text(boundary.phase, "session troop movement boundary.phase");
+  if (!CURRENT_INTENT_PHASES.has(phase)) {
+    throw new TypeError("session troop movement boundary.phase is invalid");
+  }
+  const sources = checkedSources(boundary.sources);
+  if (canonical(sources) !== canonical(boundary.sources)) {
+    throw new TypeError("session troop movement boundary sources must use canonical source order");
+  }
+  return {
+    phase,
+    sources,
+    tick: integer(boundary.tick, 0, Number.MAX_SAFE_INTEGER,
+      "session troop movement boundary.tick"),
+  };
+}
+
+function movementIntent({ cardId, claim, flight, side, sourceId, tick }) {
+  return freeze({
+    cardId,
+    claimFamily: claim.claimFamily,
+    kind: "flight",
+    layer: flight.layer,
+    pathScope: flight.pathScope,
+    phase: "pre-move",
+    side,
+    sourceId,
+    tick,
+    type: "troop-runtime-intent",
+  });
+}
+
+function checkedMovementReceipt(value) {
+  const receipt = exact(value, ["manifest", "profiles", "version"],
+    "session troop movement runtime receipt");
+  if (receipt.version !== SESSION_TROOP_RUNTIME_MOVEMENT_VERSION ||
+      typeof receipt.manifest !== "string") {
+    throw new TypeError("session troop movement runtime receipt version is unsupported");
+  }
+  const { profiles: manifestProfiles } = movementManifestFromReceipt(receipt);
+  const profiles = denseArray(receipt.profiles, MOVEMENT_PROFILE_IDS.length,
+    "session troop movement runtime receipt.profiles").map((profile, index) => {
+    const expected = MOVEMENT_PROFILE_CLAIMS[index];
+    const checked = exact(profile, ["claims", "id"],
+      `session troop movement runtime receipt.profiles[${index}]`);
+    const claims = denseArray(checked.claims, expected.claims.length,
+      `session troop movement runtime receipt.profiles[${index}].claims`).map((claim, claimIndex) => {
+      const expectedClaim = expected.claims[claimIndex];
+      const value = exact(claim, ["claimFamily", "exportName"],
+        `session troop movement runtime receipt claim ${index}/${claimIndex}`);
+      if (value.claimFamily !== expectedClaim.claimFamily ||
+          value.exportName !== expectedClaim.exportName) {
+        throw new TypeError("session troop movement runtime receipt claim diverges");
+      }
+      return { claimFamily: value.claimFamily, exportName: value.exportName };
+    });
+    if (checked.id !== expected.id || canonical(claims) !== canonical(expected.claims) ||
+        manifestProfiles[index].id !== expected.id) {
+      throw new TypeError("session troop movement runtime receipt profile diverges");
+    }
+    return { claims, id: checked.id };
+  });
+  const normalized = {
+    manifest: receipt.manifest,
+    profiles,
+    version: SESSION_TROOP_RUNTIME_MOVEMENT_VERSION,
+  };
+  if (canonical(normalized) !== canonical(receipt)) {
+    throw new TypeError("session troop movement runtime receipt is not canonical");
+  }
+  assertSessionTroopMovementAuthorityReceipt(canonical(normalized));
+  return freeze(normalized);
+}
+
 function checkedProfiles(value) {
+  if (value !== null && typeof value === "object" && value.version ===
+      SESSION_TROOP_RUNTIME_MOVEMENT_VERSION) {
+    return checkedMovementReceipt(value);
+  }
   const set = exact(value, PROFILE_SET_KEYS, "session troop profiles");
   if (![SESSION_TROOP_RUNTIME_LEGACY_VERSION, SESSION_TROOP_RUNTIME_ACTION_PROFILE_VERSION,
     SESSION_TROOP_RUNTIME_VERSION].includes(set.version)) {
@@ -441,7 +888,27 @@ function contactIntent({ attackSequence, cardId, side, sourceId, targetId, tick 
 }
 
 export function parseSessionTroopRuntimeProfiles(serialized) {
-  const checked = checkedProfiles(parse(serialized, "session troop profiles"));
+  if (typeof serialized !== "string") {
+    throw new TypeError("session troop profiles must be canonical JSON text");
+  }
+  const bytes = new TextEncoder().encode(serialized).byteLength;
+  const parsed = parse(serialized, "session troop profiles", bytes > MAX_BYTES ? {
+    graphDepth: MOVEMENT_MAX_GRAPH_DEPTH,
+    graphNodes: MOVEMENT_MAX_GRAPH_NODES,
+    maximum: SESSION_TROOP_MOVEMENT_RUNTIME_MAX_RECEIPT_BYTES,
+    stringLength: MOVEMENT_MAX_STRING_LENGTH,
+  } : undefined);
+  if (parsed.version === SESSION_TROOP_RUNTIME_MOVEMENT_VERSION) {
+    const receipt = checkedMovementReceipt(parsed);
+    if (canonical(receipt) !== serialized) {
+      throw new TypeError("session troop movement runtime receipt must be canonical JSON");
+    }
+    return receipt;
+  }
+  if (bytes > MAX_BYTES) {
+    throw new RangeError("session troop profiles exceeds its byte bound");
+  }
+  const checked = checkedProfiles(parsed);
   if (canonical(checked) !== serialized) {
     throw new TypeError("session troop profiles must use canonical profile ordering");
   }
@@ -449,6 +916,10 @@ export function parseSessionTroopRuntimeProfiles(serialized) {
 }
 
 export function serializeSessionTroopRuntimeProfiles(value) {
+  if (value !== null && typeof value === "object" && value.version ===
+      SESSION_TROOP_RUNTIME_MOVEMENT_VERSION) {
+    return canonical(checkedMovementReceipt(value));
+  }
   return canonical(checkedProfiles(value));
 }
 
@@ -456,9 +927,16 @@ export function serializeSessionTroopRuntimeProfiles(value) {
 export class SessionTroopRuntime {
   #profiles;
   #byCard;
+  #movementProfiles = null;
 
   constructor(canonicalProfiles = EMPTY_PROFILE_BYTES) {
     this.#profiles = parseSessionTroopRuntimeProfiles(canonicalProfiles);
+    if (this.#profiles.version === SESSION_TROOP_RUNTIME_MOVEMENT_VERSION) {
+      const manifest = movementManifestFromReceipt(this.#profiles);
+      this.#movementProfiles = manifest.profiles;
+      this.#byCard = new Map(this.#movementProfiles.map((profile) => [profile.id, profile]));
+      return;
+    }
     this.#byCard = new Map(this.#profiles.profiles.map((profile) => [profile.cardId, profile]));
   }
 
@@ -486,7 +964,53 @@ export class SessionTroopRuntime {
   profile(cardId) {
     if (typeof cardId !== "string") throw new TypeError("session troop profile card ID must be primitive");
     const profile = this.#byCard.get(cardId);
-    return profile === undefined ? null : freeze(clone(profile));
+    if (profile === undefined) return null;
+    return this.#movementProfiles === null
+      ? freeze(clone(profile))
+      : freeze(clone(movementProfilePublic(profile)));
+  }
+
+  movementProfile(cardId) {
+    if (this.#movementProfiles === null) return null;
+    if (typeof cardId !== "string") {
+      throw new TypeError("session troop movement profile card ID must be primitive");
+    }
+    const profile = this.#byCard.get(cardId);
+    return profile === undefined ? null : freeze(clone(movementProfilePublic(profile)));
+  }
+
+  flightProfile(cardId) {
+    if (this.#movementProfiles === null) return null;
+    if (typeof cardId !== "string") {
+      throw new TypeError("session troop flight profile card ID must be primitive");
+    }
+    const profile = this.#byCard.get(cardId);
+    return profile === undefined ? null : freeze(clone(movementFlightProfile(profile)));
+  }
+
+  assertSourceRoster(roster) {
+    if (this.#movementProfiles === null) return true;
+    return assertMovementSourceRoster(roster, this.#movementProfiles);
+  }
+
+  inspectMovement(value) {
+    if (this.#movementProfiles === null) {
+      throw new RangeError("session troop runtime has no movement receipt");
+    }
+    const command = checkedMovementCommand(value);
+    if (command.phase !== "pre-move") {
+      throw new RangeError("session troop movement invocation must be pre-move");
+    }
+    const profile = this.#byCard.get(command.cardId);
+    if (profile === undefined) {
+      throw new RangeError("session troop movement card is not admitted by the HTMP receipt");
+    }
+    const claim = movementClaim(profile, command.claimFamily);
+    const flight = command.claimFamily === "flight" ? movementFlightProfile(profile) : null;
+    if (flight !== null) {
+      return movementAdmission({ ...command, claim, flight });
+    }
+    return movementQuestion({ ...command, claim });
   }
 
   inspectAction({ action, source }) {
@@ -523,6 +1047,20 @@ export class SessionTroopRuntime {
   }
 
   reduce(boundary) {
+    if (this.#profiles.version === SESSION_TROOP_RUNTIME_MOVEMENT_VERSION) {
+      const checked = checkedMovementBoundary(boundary);
+      if (checked.phase !== "pre-move") return freeze([]);
+      const intents = [];
+      for (const source of checked.sources) {
+        const profile = this.#byCard.get(source.cardId);
+        if (profile === undefined) continue;
+        const claim = profile.claims.find(({ claimFamily }) => claimFamily === "flight");
+        if (claim === undefined) continue;
+        intents.push(movementIntent({ ...source, claim,
+          flight: movementFlightProfile(profile), tick: checked.tick }));
+      }
+      return freeze(intents);
+    }
     if (this.#profiles.version === SESSION_TROOP_RUNTIME_VERSION) {
       const checked = checkedCurrentBoundary(boundary);
       if (checked.phase !== "combat") return freeze([]);
