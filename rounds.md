@@ -110,6 +110,28 @@ non-finite values to `null`.
 BIGGEST GAP: Require damage to be `null` or a safe integer and reject non-finite
 numbers before canonicalization so they cannot collide with a pinned null.
 
+## Round 267 — 2026-08-21
+
+PIECE: GAME-001HTJP — Projectile source-profile contract, round 3
+
+VERDICT: FAIL
+
+EVIDENCE: Focused projectile profiles passed 18/18 through both entry points;
+HTP 11/11; HTO 14/14; projectile history 17/17; basic ranged/flying/swarms
+14/13/13; the five special suites 23/28/27/30/28; guards 9/9 and 13/13;
+syntax and git checks passed. Independent measurement confirmed five sourced
+special claims, zero ordinary claims, four delivery QUESTIONs, 26 exclusions,
+35 HTP occurrences, all eleven source rows across eight catalogs, and a
+66,903-byte manifest with SHA-256
+`d01b60123c2ac10a7cf8f3846a8c8fcd87eda22a65cb9166cb99d69f47fdb31d`.
+Source, metadata, component, row-set, two-read, HTP and HTO drifts rejected;
+key-order-only normalization passed. Actual chain, pierce, return, pellet and
+reflection traces ran at their pinned boundaries. However, custom-prototype
+source rows and nested components both passed and emitted the same manifest.
+
+BIGGEST GAP: Reject non-plain source-record and component prototypes before
+canonicalization so hostile custom-prototype shapes cannot escape.
+
 ## Round 57 — 2026-07-30
 
 PIECE: CONTENT-008R — Attack-triggered recoil displacement
