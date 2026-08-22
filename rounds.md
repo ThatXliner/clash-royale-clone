@@ -1,5 +1,31 @@
 # Gauntlet Rounds
 
+## Round 272 — 2026-08-22
+
+PIECE: GAME-001HTJP — Projectile source-profile contract, round 5
+
+VERDICT: FAIL
+
+EVIDENCE: Clean HEAD `48b3655`; HTP 11/11, HTO 14/14, projectile profiles
+21/21, projectile history 17/17, movement profiles 17/17, building runtime
+14/14, nondeterminism 9/9, shipping isolation 13/13 and all eight source
+selectors passed. The manifest remained 66,903 bytes with SHA-256
+`d01b60123c2ac10a7cf8f3846a8c8fcd87eda22a65cb9166cb99d69f47fdb31d`,
+with five special claims, zero ordinary claims, four delivery dependencies,
+26 exclusions, 35 HTP occurrences and eleven records across eight exports.
+Independent pre-evaluation VM attacks rejected 132/132 direct, aliased,
+computed, reflected and revocable Proxy/accessor cases across all eight
+bindings and four entry paths with zero callbacks, zero traps and zero exposed
+outputs. However, mutating a scalar and returning
+`createCardCatalog(records)` caused session-card-catalog, HTP and HTO to accept
+and expose rebranded drift for Brassbolt, Copperskiff, Briar Band, Stormkite,
+Prism Warden, Rune Reaver and Scatterguard; only the later projectile witness
+rejected it.
+
+BIGGEST GAP: Separate public catalog cloning from private authoritative source
+admission so session-card-catalog, HTP and HTO reject rebranded source-value
+drift before projection.
+
 ## Round 271 — 2026-08-22
 
 PIECE: GAME-001HTS — Shared troop status, heal, and visibility mechanics,
