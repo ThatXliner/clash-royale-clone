@@ -28,10 +28,10 @@
   <div class="cards">
     <div class="card"><div class="num">168</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">118</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">270</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">271</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">24</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Active targets: <strong>GAME-001HTMP round 6 complete Proxy admission, GAME-001HTJP round 5 shared source admission, and GAME-001HTS round 1 critique</strong>.</p>
+  <p class="note">Active targets: <strong>GAME-001HTMP round 6 complete Proxy admission, GAME-001HTJP round 5 shared source admission, and GAME-001HTS round 2 target admission</strong>.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -1296,10 +1296,10 @@
       <tr>
         <td><code>GAME-001HTS</code></td>
         <td>Shared troop status, heal and visibility mechanics</td>
-        <td class="state-blocked">BLOCKED</td>
+        <td class="state-building">BUILDING</td>
         <td>0/0</td>
-        <td>0</td>
-        <td>Await the canonical status/heal/visibility profile receipt before wiring shared mutations</td>
+        <td>1</td>
+        <td>Round 1 executed six shared mechanics and passed restore cuts, but five target-bearing effects accept a nonexistent target, mutate session history and crash the next shared tick</td>
       </tr>
       <tr>
         <td><code>GAME-001HTC</code></td>
@@ -1646,6 +1646,7 @@
       <li><strong>R258 FAIL</strong> · GAME-001HTO — Ordinary troop projection into eight-card witness sessions<br>LiveBattle treats a policy-less entity as valid legacy data even when the rest of the same setup uses HTO ordinary policies. Setup admission must be uniformly legacy or uniformly QUESTION-backed and reject mixed mode before exposure or mutation.</li>
       <li><strong>R259 PASS</strong> · GAME-001HTO — Ordinary troop projection into eight-card witness sessions<br>None on the judged ordinary troop projection dimension.</li>
       <li><strong>R270 FAIL</strong> · GAME-001HTMP — Movement/form source-profile contract<br>Make every trusted canonical-admission path reject untrusted Proxy graphs before reflection, including alias-created Proxies that bypass the transformed-source text guard.</li>
+      <li><strong>R271 FAIL</strong> · GAME-001HTS — Shared troop status, heal, and visibility mechanics<br>Reject a missing status target atomically during GameSession or LiveBattle admission before it can enter history or crash the shared tick.</li>
   </ol>
 </body>
 </html>

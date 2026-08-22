@@ -1,5 +1,28 @@
 # Gauntlet Rounds
 
+## Round 271 — 2026-08-22
+
+PIECE: GAME-001HTS — Shared troop status, heal, and visibility mechanics,
+round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Focused status tests passed 12/12 through all three entry points and
+profiles passed 15/15. GameSession 9/9, GameBattle 11/11, history cap 5/5,
+troop runtime 7/7, shared integration 1/1, ordinary projection 14/14, spell
+10/10, building 14/14, browser loop 10/10, guards, damage and attack-cycle
+regressions all passed. Independent legal sessions produced one deployment
+route and one live status receipt for all six executable identities; restore
+cuts 0/1/2/4/8/12 matched one-step and chunked bytes. Bloom healed exactly
+240 from 641 to 881 and Dawnmender exactly 120 from 641 to 761, once each and
+capped. However, Bloom Wisp, Dawnmender, Pulse Sentry, Rime Adept and Tether
+Rider all accepted nonexistent `targetId: 999999`, changed canonical session
+bytes, remained pending and then crashed `step()` while reading `alive` from
+an undefined target.
+
+BIGGEST GAP: Reject a missing status target atomically during GameSession or
+LiveBattle admission before it can enter history or crash the shared tick.
+
 ## Round 270 — 2026-08-22
 
 PIECE: GAME-001HTMP — Movement/form source-profile contract, round 5
