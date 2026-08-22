@@ -1,5 +1,27 @@
 # Gauntlet Rounds
 
+## Round 276 — 2026-08-22
+
+PIECE: GAME-001HTS — Shared troop status, heal, and visibility mechanics,
+round 3
+
+VERDICT: FAIL
+
+EVIDENCE: The focused status runner passed 32/32, including 228 single-field
+live-card mutations, 25 target rejections, all six witnesses at cuts
+0/1/2/4/8/12 and exact replay/snapshot hashes. Bloom remained exactly 240 and
+Dawnmender exactly 120. Status profiles passed 15/15, HTP 11/11, HTO 14/14,
+GameSession 9/9, GameBattle 11/11 and history cap 5/5. An independent matrix
+rejected 228/228 claimed mutations and 24/24 extra identity, component and
+formation variants before GameSession exposure. However, coupling Rime
+Adept's live entity layer change from ground to air with its still-correct
+`rime-adept.layer` QUESTION value change from 1 to 2 admitted a GameSession
+and emitted one slow status receipt. A unilateral layer mutation rejected.
+
+BIGGEST GAP: Bind every profiled status QUESTION resolution and derived live
+policy field to its pinned receipt value so matching-key coupled drift cannot
+authorize altered live status sources.
+
 ## Round 275 — 2026-08-22
 
 PIECE: GAME-001HTMP — Movement/form source-profile contract, round 6
