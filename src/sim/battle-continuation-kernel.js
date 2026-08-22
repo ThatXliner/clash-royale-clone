@@ -6443,7 +6443,7 @@ class LiveBattle {
     if (statusRuntime === null) {
       assertSessionTroopStatusSourceRoster(setup.roster);
     } else {
-      statusRuntime.assertSourceRoster(setup.roster);
+      statusRuntime.assertSourceRoster(setup.roster, setup.questions);
     }
     this.#battle = new BattleTowerCombat({
       initialWindupTicks: setup.initialWindupTicks,
@@ -6783,7 +6783,7 @@ class LiveBattle {
     if (!this.#hasStatusRuntime()) {
       throw new RangeError("live battle troop status action has no admitted status profile");
     }
-    this.#statusRuntime.assertSourceRoster(this.#setup.roster);
+    this.#statusRuntime.assertSourceRoster(this.#setup.roster, this.#setup.questions);
     if (action.point !== null) {
       throw new RangeError("live battle troop status action must be point-free");
     }
@@ -11253,7 +11253,9 @@ function validateSetup(bytes, { allowLegacyStructureReceipts = false } = {}) {
       statusRuntimeProfiles !== canonical(setup.statusRuntimeProfiles)) {
     throw new TypeError("session troop status runtime profiles diverge from their canonical setup");
   }
-  assertSessionTroopStatusSourceRoster(battleSetupValue.roster, statusRuntimeProfiles);
+  assertSessionTroopStatusSourceRoster(
+    battleSetupValue.roster, statusRuntimeProfiles, battleSetupValue.questions,
+  );
   const battle = legacyStructureReceipts && allowLegacyStructureReceipts
     ? createLegacyLiveBattleForRestore(battleSetupValue, troopRuntimeProfiles, statusRuntimeProfiles)
     : new LiveBattle(setup.battleSetup, troopRuntimeProfiles, statusRuntimeProfiles);

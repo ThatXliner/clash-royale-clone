@@ -140,6 +140,23 @@ const SOURCE_CARD_FIELDS = Object.freeze(SOURCE_RECORD_KEYS.filter((key) =>
   key !== "components"));
 const SOURCE_ENTITY_FIELDS = Object.freeze(SOURCE_COMPONENT_KEYS.filter((key) =>
   key !== "id" && key !== "role"));
+const STATUS_CARD_KEYS = Object.freeze([
+  ...SOURCE_RECORD_KEYS.filter((key) => key !== "components"), "entities", "formation",
+]);
+const STATUS_ENTITY_KEYS = Object.freeze([
+  "archetypeId", "areaDamageRadiusMillitiles", "bodyRadiusPolicy", "count",
+  "damage", "delivery", "deployTimeTicks", "displayName", "firstHitTicks",
+  "hitSpeedTicks", "hitpoints", "kind", "layer", "movementMillitilesPerSecond",
+  "projectileSpeedPolicy", "rangeMillitiles", "role", "sightRangeMillitiles",
+  "targetMode", "deliveryPolicy", "layerPolicy",
+]);
+const STATUS_QUESTION_KEYS = Object.freeze([
+  "authoritative", "confidence", "disposition", "key", "source", "value",
+]);
+const STATUS_QUESTION_SOURCE = "runtime-playability-estimate-not-comparison-corpus";
+const STATUS_LAYER_RESOLUTION = 1;
+const STATUS_PROJECTILE_SPEED_RESOLUTION = 500;
+const STATUS_MAX_QUESTIONS = 256;
 
 function fingerprint(serialized) {
   const bytes = new TextEncoder().encode(serialized);
@@ -255,6 +272,36 @@ function statusRosterData(value) {
   return normalized;
 }
 
+function statusQuestionData(value) {
+  const normalized = dataTree(value, "status runtime question inventory");
+  if (!Array.isArray(normalized) || normalized.length > STATUS_MAX_QUESTIONS) {
+    throw new TypeError("status runtime question inventory must be a bounded array");
+  }
+  const records = normalized.map((raw, index) => {
+    const record = exact(raw, STATUS_QUESTION_KEYS,
+      `status runtime question inventory[${index}]`);
+    if (record.authoritative !== false || record.confidence !== "unverified" ||
+        record.disposition !== "question" || typeof record.key !== "string" ||
+        record.key.length === 0 || typeof record.source !== "string" ||
+        record.source.length === 0) {
+      throw new TypeError(`status runtime question inventory[${index}] is not an unresolved QUESTION`);
+    }
+    return {
+      authoritative: false,
+      confidence: "unverified",
+      disposition: "question",
+      key: record.key,
+      source: record.source,
+      value: integer(record.value, 1, Number.MAX_SAFE_INTEGER,
+        `status runtime question inventory[${index}].value`),
+    };
+  });
+  if (new Set(records.map(({ key }) => key)).size !== records.length) {
+    throw new TypeError("status runtime question inventory keys must be unique");
+  }
+  return new Map(records.map((record) => [record.key, record]));
+}
+
 function policy(value, label) {
   const checked = exact(value, ["kind", "questionKey"], label);
   return { kind: checked.kind, questionKey: checked.questionKey };
@@ -282,9 +329,69 @@ function assertProjectilePolicy(value, entity, label) {
   }
 }
 
-function assertStatusEntityPolicies(entity, label) {
+
+function statusDeliveryResolution(profile, label) {
+  if (profile.claimFamily === "reflection" &&
+      profile.sourceExport === "createReflectionSpecialCatalog") {
+    return "projectile";
+  }
+  if (["heal", "invisibility", "shield-form", "slow", "snare", "stun"].includes(
+    profile.claimFamily)) {
+    return "melee";
+  }
+  throw new RangeError(`${label} has no receipt-authorized delivery resolution`);
+}
+
+function statusQuestionResolution(profile, source, suffix, label) {
+  if (suffix === "body-radius-millitiles") {
+    return source.count === 1 ? 500 : 300;
+  }
+  if (suffix === "delivery") {
+    return statusDeliveryResolution(profile, label) === "projectile" ? 2 : 1;
+  }
+  if (suffix === "layer") {
+    // The passed status receipt contains no air-layer claim. Its canonical
+    // status projection therefore pins the unresolved layer to the existing
+    // ground witness; an air layer needs a new sourced receipt.
+    if (profile.sourceRecord.targetMode === "air") return 2;
+    if (["ground", "ground-and-air", "structures"].includes(
+      profile.sourceRecord.targetMode)) return STATUS_LAYER_RESOLUTION;
+    throw new RangeError(`${label} has no receipt-authorized layer resolution`);
+  }
+  if (suffix === "projectile-speed-millitiles-per-tick") {
+    if (statusDeliveryResolution(profile, label) !== "projectile") {
+      throw new TypeError(`${label} has a projectile QUESTION without a delivery claim`);
+    }
+    return STATUS_PROJECTILE_SPEED_RESOLUTION;
+  }
+  throw new TypeError(`${label} has an unsupported status projection QUESTION`);
+}
+
+function assertPinnedProjectionQuestion(questionMap, key, value, label) {
+  if (questionMap === null) return;
+  const actual = questionMap.get(key);
+  const expected = {
+    authoritative: false,
+    confidence: "unverified",
+    disposition: "question",
+    key,
+    source: STATUS_QUESTION_SOURCE,
+    value,
+  };
+  if (actual === undefined || canonical(actual) !== canonical(expected)) {
+    throw new TypeError(`${label} diverges from its pinned QUESTION resolution`);
+  }
+}
+
+function assertReceiptStatusEntityPolicies(entity, profile, source, questionMap, label) {
   if (typeof entity.archetypeId !== "string" || entity.archetypeId.length === 0) {
     throw new TypeError(`${label}.archetypeId is invalid`);
+  }
+  exact(entity, STATUS_ENTITY_KEYS, label);
+  const delivery = statusDeliveryResolution(profile, label);
+  const layer = STATUS_LAYER_RESOLUTION === 2 ? "air" : "ground";
+  if (entity.delivery !== delivery || entity.layer !== layer) {
+    throw new TypeError(`${label} diverges from the receipt-derived delivery/layer tuple`);
   }
   assertQuestionPolicy(entity.bodyRadiusPolicy,
     `${entity.archetypeId}.body-radius-millitiles`, `${label}.bodyRadiusPolicy`);
@@ -294,9 +401,13 @@ function assertStatusEntityPolicies(entity, label) {
     `${label}.deliveryPolicy`);
   assertQuestionPolicy(entity.layerPolicy, `${entity.archetypeId}.layer`,
     `${label}.layerPolicy`);
-  if (!(["air", "ground"].includes(entity.layer)) ||
-      !["melee", "projectile"].includes(entity.delivery)) {
-    throw new TypeError(`${label} has an invalid unresolved delivery/layer fact`);
+  for (const suffix of ["body-radius-millitiles", "delivery", "layer",
+    ...(delivery === "projectile" ? ["projectile-speed-millitiles-per-tick"] : [])]) {
+    const key = `${entity.archetypeId}.${suffix}`;
+    assertPinnedProjectionQuestion(questionMap,
+      key,
+      statusQuestionResolution(profile, source, suffix, label),
+      `${label}.${suffix}`);
   }
 }
 
@@ -308,12 +419,13 @@ function comparePinnedFields(live, pinned, fields, label) {
   }
 }
 
-function assertPinnedStatusCard(card, profile) {
+function assertPinnedStatusCard(card, profile, questionMap = null) {
   const label = `status runtime source ${profile.id}`;
   if (card === null || typeof card !== "object" || Array.isArray(card) ||
       card.id !== profile.id || card.kind !== "unit") {
     throw new TypeError(`${label} card identity is not admitted`);
   }
+  exact(card, STATUS_CARD_KEYS, label);
   const source = exact(profile.sourceRecord, SOURCE_RECORD_KEYS, `${label}.sourceRecord`);
   if (source.id !== profile.id || source.kind !== "unit" ||
       typeof profile.sourceWitness !== "string" ||
@@ -351,7 +463,8 @@ function assertPinnedStatusCard(card, profile) {
     }
     comparePinnedFields(entity, expected, SOURCE_ENTITY_FIELDS,
       `${label}.entities[${index}]`);
-    assertStatusEntityPolicies(entity, `${label}.entities[${index}]`);
+    assertReceiptStatusEntityPolicies(entity, profile, expected, questionMap,
+      `${label}.entities[${index}]`);
     totalCount += entity.count;
   }
   if (formation.totalCount !== totalCount || card.count !== totalCount) {
@@ -377,8 +490,9 @@ function statusSignals(roster) {
   return { cardIds, cards, entityClaims };
 }
 
-function validateSourceRoster(roster, receipt) {
+function validateSourceRoster(roster, receipt, questions = undefined) {
   const normalized = statusRosterData(roster);
+  const questionMap = questions === undefined ? null : statusQuestionData(questions);
   const { cardIds, cards, entityClaims } = statusSignals(normalized);
   if (receipt === undefined) {
     // Legacy ordinary projections can contain a card that later gained a
@@ -398,11 +512,11 @@ function validateSourceRoster(roster, receipt) {
   }
   for (const cardId of cardIds) {
     const profile = profiles.get(cardId);
-    const card = cards.find((candidate) => candidate.id === cardId);
-    if (profile === undefined || card === undefined) {
+    const matchingCards = cards.filter((candidate) => candidate.id === cardId);
+    if (profile === undefined || matchingCards.length !== 1) {
       throw new TypeError(`status source ${cardId} has no pinned profile`);
     }
-    assertPinnedStatusCard(card, profile);
+    assertPinnedStatusCard(matchingCards[0], profile, questionMap);
   }
 }
 
@@ -430,16 +544,18 @@ export function serializeSessionTroopStatusRuntimeProfiles(value) {
   return canonical(receipt);
 }
 
-export function assertSessionTroopStatusSourceRoster(roster, serialized = undefined) {
+export function assertSessionTroopStatusSourceRoster(
+  roster, serialized = undefined, questions = undefined,
+) {
   if (serialized === undefined) {
-    validateSourceRoster(roster, undefined);
+    validateSourceRoster(roster, undefined, questions);
     return;
   }
   if (typeof serialized !== "string") {
     throw new TypeError("session troop status source receipt must be canonical JSON text");
   }
   const receipt = parseSessionTroopStatusRuntimeProfiles(serialized);
-  validateSourceRoster(roster, receipt);
+  validateSourceRoster(roster, receipt, questions);
 }
 
 function checkedSource(value, index) {
@@ -594,8 +710,8 @@ export class SessionTroopStatusRuntime {
     return new SessionTroopStatusRuntime(this.serialize());
   }
 
-  assertSourceRoster(roster) {
-    validateSourceRoster(roster, this.#receipt);
+  assertSourceRoster(roster, questions = undefined) {
+    validateSourceRoster(roster, this.#receipt, questions);
   }
 
   profile(cardId) {

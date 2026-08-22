@@ -406,6 +406,72 @@ test("game roster troop status: pinned live source fields reject before setup ex
   assert.equal(attempts, ids.length * mutations.length);
 });
 
+test("game roster troop status: coupled QUESTION projection mutations fail closed", () => {
+  const projectionCases = [
+    {
+      label: "rime-layer-1-to-2",
+      mutate(card, entity, questions) {
+        if (card.id === "rime-adept") assert.equal(entity.layer, "ground");
+        entity.layer = "air";
+        const record = questions.get(entity.layerPolicy.questionKey);
+        if (card.id === "rime-adept") assert.equal(record.value, 1);
+        record.value = 2;
+      },
+    },
+    {
+      label: "delivery-melee-to-projectile",
+      mutate(_card, entity, questions, witness) {
+        const nextDelivery = entity.delivery === "melee" ? "projectile" : "melee";
+        entity.delivery = nextDelivery;
+        const delivery = questions.get(entity.deliveryPolicy.questionKey);
+        delivery.value = nextDelivery === "projectile" ? 2 : 1;
+        const key = `${entity.archetypeId}.projectile-speed-millitiles-per-tick`;
+        if (nextDelivery === "projectile") {
+          entity.projectileSpeedPolicy = { kind: "question", questionKey: key };
+          witness.questions.push({
+            authoritative: false,
+            confidence: "unverified",
+            disposition: "question",
+            key,
+            source: "runtime-playability-estimate-not-comparison-corpus",
+            value: 500,
+          });
+        } else {
+          entity.projectileSpeedPolicy = { kind: "not-applicable", questionKey: null };
+          witness.questions = witness.questions.filter((record) => record.key !== key);
+        }
+      },
+    },
+    {
+      label: "target-mode-ground-and-air-to-ground",
+      mutate(card, entity) {
+        const nextTargetMode = card.targetMode === "ground-and-air" ? "ground" : "ground-and-air";
+        card.targetMode = nextTargetMode;
+        entity.targetMode = nextTargetMode;
+      },
+    },
+  ];
+  let attempts = 0;
+  for (const id of STATUS_IDS) {
+    for (const { label, mutate } of projectionCases) {
+      const setup = setupObject(id);
+      const witness = JSON.parse(setup.battleSetup);
+      const card = witness.roster.find(({ id: cardId }) => cardId === id);
+      assert.ok(card, `${id} coupled witness must contain its source card`);
+      const entity = card.entities[0];
+      const questions = new Map(witness.questions.map((record) => [record.key, record]));
+      mutate(card, entity, questions, witness);
+      setup.battleSetup = canonical(witness);
+      setup.rosterWitness = canonical({ questions: witness.questions, roster: witness.roster });
+      attempts += 1;
+      assert.throws(() => new GameSession(canonical(setup)),
+        /QUESTION|delivery|layer|targetMode|pinned|receipt|source|status/u,
+      `${id} ${label} must reject before GameSession exposure`);
+    }
+  }
+  assert.equal(attempts, STATUS_IDS.length * projectionCases.length);
+});
+
 test("game roster troop status: source binding fails closed for omissions, mixed modes, identity claims, and command preflight", () => {
   const base = setupObject("rime-adept");
 
