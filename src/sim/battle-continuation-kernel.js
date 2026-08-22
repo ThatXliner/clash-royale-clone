@@ -7799,7 +7799,7 @@ class LiveBattle {
       const movement = this.#movementRuntime(this.#movements.get(unit.id));
       const desired = this.#desiredTarget(unit, before);
       const metadata = this.#metadata.get(unit.id);
-      if (this.#troopRuntime.version === SESSION_TROOP_RUNTIME_MOVEMENT_VERSION &&
+      if (this.#admittedFlightProfile(metadata.cardId) !== null &&
           desired.target !== null && desired.target.position.x !== unit.position.x &&
           desired.target.position.y !== unit.position.y) {
         throw new RangeError("live battle troop flight target is outside the sourced axis-aligned path");
@@ -8180,7 +8180,7 @@ class LiveBattle {
         metadata.cardId !== intent.cardId || source.side !== intent.side) {
       throw new RangeError("live battle troop movement intent source is not causal");
     }
-    const profile = this.#troopRuntime.flightProfile(intent.cardId);
+    const profile = this.#admittedFlightProfile(metadata.cardId);
     const movement = this.#movementRuntime(this.#movements.get(intent.sourceId));
     if (profile === null || profile.layer !== intent.layer || profile.pathScope !== intent.pathScope ||
         source.layer !== "air" || movement.state.mode !== "air" ||
@@ -8444,7 +8444,21 @@ class LiveBattle {
     if (!this.#hasTroopRuntime()) return [];
     return state.units.filter(({ alive }) => alive).sort((left, right) => left.id - right.id)
       .map((unit) => this.#troopSourceFromUnit(unit, { requireAlive: true }))
-      .filter(({ cardId }) => this.#troopRuntime.profile(cardId) !== null);
+      .filter(({ cardId }) => this.#troopRuntime.version === SESSION_TROOP_RUNTIME_MOVEMENT_VERSION
+        ? this.#admittedFlightProfile(cardId) !== null
+        : this.#troopRuntime.profile(cardId) !== null);
+  }
+
+  #admittedFlightProfile(cardId) {
+    if (this.#troopRuntime.version !== SESSION_TROOP_RUNTIME_MOVEMENT_VERSION) return null;
+    const profile = this.#troopRuntime.flightProfile(cardId);
+    if (profile === null) return null;
+    if (profile.cardId !== cardId || profile.claimFamily !== "flight" ||
+        profile.layer !== "air" || profile.pathScope !== "axis-aligned-only" ||
+        !Number.isSafeInteger(profile.speed) || profile.speed < 0) {
+      throw new TypeError("live battle flight profile is not the exact admitted source profile");
+    }
+    return profile;
   }
 
   #projectileSourcesFromState(state) {
@@ -8713,7 +8727,7 @@ class LiveBattle {
   #materialize(deployment) {
     const card = this.#rosterById.get(deployment.cardId);
     const entities = placedEntities(card, deployment.point, this.#nextEntityId,
-      this.#questionValues, this.#troopRuntime.flightProfile(card.id));
+      this.#questionValues, this.#admittedFlightProfile(card.id));
     const events = [];
     const battle = this.#battleRuntime();
     for (const entity of entities) {

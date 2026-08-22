@@ -24,9 +24,17 @@ import {
 
 const SOUTH = Object.freeze({ x: 3_500, y: 14_500 });
 const NORTH = Object.freeze({ x: 3_500, y: 17_500 });
+const DIAGONAL_NORTH = Object.freeze({ x: 4_500, y: 17_500 });
 const PROFILE_IDS = Object.freeze([
   "cinderback", "copperskiff", "emberlance", "railward", "skymaul",
   "stonevault", "veilrunner", "wayfinder",
+]);
+const FLIGHT_IDS = Object.freeze(["copperskiff", "skymaul"]);
+const NON_FLIGHT_HTMP_IDS = Object.freeze([
+  "cinderback", "emberlance", "railward", "stonevault", "veilrunner", "wayfinder",
+]);
+const ORDINARY_GROUND_IDS = Object.freeze([
+  "coilblade", "mossguard", "brassbolt", "reedsting", "briar-band", "cinderlings",
 ]);
 
 function canonical(value) {
@@ -42,15 +50,45 @@ function clone(value) {
   return JSON.parse(JSON.stringify(value));
 }
 
-function liveBattle(id) {
+function liveBattle(id, movementReceipt) {
   return new LiveBattle(
     parseLiveBattleSetup(serializeSessionTroopWitness(id)),
-    serializeSessionTroopMovementRuntimeProfiles(),
+    arguments.length < 2 ? serializeSessionTroopMovementRuntimeProfiles() : movementReceipt,
   );
+}
+
+function ordinaryLiveBattle(id) {
+  return new LiveBattle(parseLiveBattleSetup(serializeSessionTroopWitness(id)));
 }
 
 function deploy(battle, { cardId, point, sequence, side, tick = 0 }) {
   return battle.scheduleDeploy(canonical({ cardId, point, sequence, side, tick }));
+}
+
+function deployDiagonalPair(battle, sourceCardId, targetCardId = "coilblade") {
+  deploy(battle, { cardId: sourceCardId, point: SOUTH, sequence: 0, side: "south" });
+  deploy(battle, {
+    cardId: targetCardId,
+    point: DIAGONAL_NORTH,
+    sequence: 1,
+    side: "north",
+  });
+}
+
+function sharedOrdinarySnapshotBytes(battle) {
+  const snapshot = JSON.parse(battle.serialize());
+  if (Object.hasOwn(snapshot, "runtime")) {
+    delete snapshot.runtime;
+    delete snapshot.troopStatuses;
+    snapshot.version = 2;
+  }
+  return canonical(snapshot);
+}
+
+function sharedOrdinaryStateBytes(battle) {
+  const { troopRuntime: ignored, ...state } = battle.state;
+  void ignored;
+  return canonical(state);
 }
 
 function sessionSetup(id) {
@@ -134,6 +172,270 @@ test("troop movement runtime: the closed HTMP receipt admits all eight profiles 
   assert.equal(question.type, "troop-movement-question");
   assert.equal(question.questionKeys.includes("chargeKnockbackInteraction"), false);
   assert.match(question.reason, /composition/u);
+});
+
+test("troop movement runtime: the exact Mossguard/Coilblade diagonal regression is ordinary-host byte-identical", () => {
+  const profiled = liveBattle("mossguard");
+  const control = ordinaryLiveBattle("mossguard");
+  deployDiagonalPair(profiled, "mossguard");
+  deployDiagonalPair(control, "mossguard");
+
+  assert.equal(sharedOrdinarySnapshotBytes(profiled), control.serialize(),
+    "v4 receipt is inert before the ordinary tick");
+  const expectedEvents = control.step();
+  const actualEvents = profiled.step();
+  assert.deepEqual(actualEvents, expectedEvents,
+    "ordinary diagonal movement emits the exact pre-v4 host events");
+  assert.equal(profiled.state.tick, 1);
+  assert.equal(sharedOrdinaryStateBytes(profiled), sharedOrdinaryStateBytes(control));
+  assert.equal(sharedOrdinarySnapshotBytes(profiled), control.serialize(),
+    "v4 ordinary snapshot differs only by its closed receipt witness");
+  assert.equal(actualEvents.filter(({ type }) => type === "troop-runtime-receipt" ||
+    type === "troop-movement-question").length, 0);
+  assert.deepEqual(profiled.state.units.map(({ id, cardId, hitpoints, movement, position }) => ({
+    cardId, hitpoints, id, movement, position,
+  })), control.state.units.map(({ id, cardId, hitpoints, movement, position }) => ({
+    cardId, hitpoints, id, movement, position,
+  })));
+});
+
+test("troop movement runtime: every non-flight HTMP and ordinary HTO ground witness stays off the v4 flight path", () => {
+  const ids = [...new Set([...NON_FLIGHT_HTMP_IDS, ...ORDINARY_GROUND_IDS])];
+  for (const id of ids) {
+    const targetCardId = id === "coilblade" ? "mossguard" : "coilblade";
+    const profiled = liveBattle(id);
+    const control = ordinaryLiveBattle(id);
+    deployDiagonalPair(profiled, id, targetCardId);
+    deployDiagonalPair(control, id, targetCardId);
+
+    const actualEvents = profiled.step();
+    const expectedEvents = control.step();
+    assert.deepEqual(actualEvents, expectedEvents, `${id} ordinary events`);
+    assert.equal(sharedOrdinaryStateBytes(profiled), sharedOrdinaryStateBytes(control),
+      `${id} ordinary state`);
+    assert.equal(sharedOrdinarySnapshotBytes(profiled), control.serialize(),
+      `${id} ordinary snapshot`);
+    assert.equal(actualEvents.filter(({ type }) => type === "troop-runtime-receipt" ||
+      type === "troop-movement-question").length, 0, `${id} has no v4 movement receipt`);
+    assert.ok(profiled.state.units.every(({ movement }) => movement.mode === "ground"),
+      `${id} remains on the ordinary ground movement mode`);
+  }
+});
+
+test("troop movement runtime: ordinary-only v4/control differential preserves 320 ticks, target changes, death, redeploy, restores, forks, and chunks", () => {
+  const makePair = () => ({
+    control: ordinaryLiveBattle("mossguard"),
+    profiled: liveBattle("mossguard"),
+  });
+  const seedPair = () => {
+    const pair = makePair();
+    deployDiagonalPair(pair.profiled, "mossguard");
+    deployDiagonalPair(pair.control, "mossguard");
+    return pair;
+  };
+  const maybeRedeploy = (battle) => {
+    if (battle.state.tick === 319 && battle.state.units.some(({ id, alive }) => id === 1 && !alive)) {
+      return deploy(battle, {
+        cardId: "mossguard",
+        point: { x: 5_500, y: 14_500 },
+        sequence: 2,
+        side: "south",
+        tick: battle.state.tick,
+      });
+    }
+    return null;
+  };
+  const direct = seedPair();
+  const checkpoints = new Set([1, 120, 300, 318, 319, 320]);
+  for (let count = 0; count < 320; count += 1) {
+    const expectedEvents = direct.control.step();
+    const actualEvents = direct.profiled.step();
+    assert.deepEqual(actualEvents, expectedEvents,
+      `ordinary event at tick ${direct.control.state.tick}`);
+    const controlRedeploy = maybeRedeploy(direct.control);
+    const profiledRedeploy = maybeRedeploy(direct.profiled);
+    assert.deepEqual(profiledRedeploy, controlRedeploy,
+      `ordinary redeploy at tick ${direct.control.state.tick}`);
+    if (checkpoints.has(direct.control.state.tick)) {
+      assert.equal(sharedOrdinaryStateBytes(direct.profiled),
+        sharedOrdinaryStateBytes(direct.control), `ordinary state at ${direct.control.state.tick}`);
+      assert.equal(sharedOrdinarySnapshotBytes(direct.profiled), direct.control.serialize(),
+        `ordinary bytes at ${direct.control.state.tick}`);
+    }
+  }
+  assert.equal(direct.control.state.tick, 320);
+  assert.equal(direct.profiled.state.tick, 320);
+  assert.deepEqual(direct.profiled.events, direct.control.events,
+    "ordinary v4 emits no additional events");
+  assert.deepEqual(direct.profiled.replay, direct.control.replay,
+    "ordinary v4 replay is unchanged");
+  assert.ok(direct.profiled.events.some(({ type, targetId }) => type === "death" && targetId === 1));
+  assert.ok(direct.profiled.events.some(({ type, sequence }) => type === "deploy-scheduled" && sequence === 2));
+  assert.ok(direct.profiled.events.some(({ type, attackerId }) => type === "attack" && attackerId === 1));
+  assert.ok(direct.profiled.events.some(({ type, targetId }) => type === "damage" && targetId === 2));
+  assert.equal(sharedOrdinarySnapshotBytes(direct.profiled), direct.control.serialize());
+
+  const advanceTo = (battle, targetTick, chunked = false) => {
+    while (battle.state.tick < targetTick) {
+      const nextBoundary = battle.state.tick < 319 ? 319 : targetTick;
+      const amount = chunked
+        ? Math.min(17, targetTick - battle.state.tick, nextBoundary - battle.state.tick)
+        : 1;
+      if (amount === 1) battle.step();
+      else battle.stepMany(amount);
+      maybeRedeploy(battle);
+    }
+  };
+  for (const cut of [0, 319]) {
+    const pair = seedPair();
+    advanceTo(pair.profiled, cut);
+    advanceTo(pair.control, cut);
+    const restoredProfiled = LiveBattle.restore(pair.profiled.serialize());
+    const restoredControl = LiveBattle.restore(pair.control.serialize());
+    assert.equal(sharedOrdinarySnapshotBytes(restoredProfiled), restoredControl.serialize(),
+      `restore cut ${cut} preserves ordinary bytes`);
+    advanceTo(restoredProfiled, 320);
+    advanceTo(restoredControl, 320);
+    assert.equal(sharedOrdinarySnapshotBytes(restoredProfiled), restoredControl.serialize(),
+      `restore cut ${cut} preserves final ordinary bytes`);
+    assert.deepEqual(restoredProfiled.events, restoredControl.events,
+      `restore cut ${cut} preserves ordinary events`);
+  }
+
+  const chunked = seedPair();
+  advanceTo(chunked.profiled, 150, true);
+  advanceTo(chunked.control, 150, true);
+  const forkedProfiled = chunked.profiled.fork();
+  const forkedControl = chunked.control.fork();
+  advanceTo(forkedProfiled, 320, true);
+  advanceTo(forkedControl, 320, true);
+  assert.equal(sharedOrdinarySnapshotBytes(forkedProfiled), forkedControl.serialize(),
+    "forked chunked ordinary bytes remain identical");
+  assert.deepEqual(forkedProfiled.events, forkedControl.events,
+    "forked chunked ordinary events remain identical");
+  assert.equal(sharedOrdinaryStateBytes(forkedProfiled), sharedOrdinaryStateBytes(direct.control),
+    "fork/chunk result matches the direct ordinary state");
+});
+
+test("troop movement runtime: mixed diagonal ground paths coexist with exactly one v4 intent per flyer", () => {
+  const profiled = liveBattle("mossguard");
+  const control = ordinaryLiveBattle("mossguard");
+  const deployments = [
+    { cardId: "mossguard", point: SOUTH, sequence: 0, side: "south" },
+    { cardId: "coilblade", point: DIAGONAL_NORTH, sequence: 1, side: "north" },
+    { cardId: "skymaul", point: { x: 1_500, y: 14_500 }, sequence: 2, side: "south" },
+    { cardId: "copperskiff", point: { x: 1_500, y: 17_500 }, sequence: 3, side: "north" },
+  ];
+  for (const battle of [profiled, control]) {
+    for (const command of deployments) deploy(battle, command);
+  }
+  const actualEvents = profiled.step();
+  const expectedEvents = control.step();
+  const receipts = actualEvents.filter(({ type }) => type === "troop-runtime-receipt");
+  assert.deepEqual(receipts.map(({ cardId, kind, sourceId }) => ({ cardId, kind, sourceId })), [
+    { cardId: "skymaul", kind: "flight", sourceId: 3 },
+    { cardId: "copperskiff", kind: "flight", sourceId: 4 },
+  ]);
+  assert.equal(actualEvents.filter(({ type }) => type === "troop-runtime-receipt" ||
+    type === "troop-movement-question").length, FLIGHT_IDS.length);
+  assert.equal(expectedEvents.filter(({ type }) => type === "troop-runtime-receipt").length, 0);
+  assert.deepEqual(actualEvents.filter(({ type }) => type !== "troop-runtime-receipt"), expectedEvents,
+    "ordinary diagonal events remain the control path");
+  for (const id of [1, 2]) {
+    const actual = profiled.state.units.find(({ id: candidate }) => candidate === id);
+    const expected = control.state.units.find(({ id: candidate }) => candidate === id);
+    assert.deepEqual(actual, expected, `ordinary unit ${id} remains unchanged`);
+  }
+  assert.ok(profiled.state.units.filter(({ cardId }) => FLIGHT_IDS.includes(cardId))
+    .every(({ movement }) => movement.mode === "air"));
+});
+
+test("troop movement runtime: both admitted flyers reject diagonal paths atomically", () => {
+  for (const id of FLIGHT_IDS) {
+    const battle = liveBattle(id);
+    deploy(battle, { cardId: id, point: { x: 5_500, y: 14_500 }, sequence: 0, side: "south" });
+    const before = battle.serialize();
+    assert.throws(() => battle.step(), /axis-aligned/u, `${id} rejects a diagonal flight target`);
+    assert.equal(battle.state.tick, 0, `${id} rejection is trap-zero`);
+    assert.equal(battle.serialize(), before, `${id} rejection is byte-atomic`);
+  }
+});
+
+test("troop movement runtime: wrong-card, layer, and source aliases cannot cross the flight boundary", () => {
+  const setupMutations = [
+    ["ordinary layer", "mossguard", (witness) => {
+      witness.roster.find(({ id }) => id === "mossguard").entities[0].layer = "air";
+    }],
+    ["ordinary card alias", "mossguard", (witness) => {
+      const card = witness.roster.find(({ id }) => id === "mossguard");
+      card.id = "skymaul";
+      card.displayName = "Skymaul";
+    }],
+    ["ordinary archetype alias", "mossguard", (witness) => {
+      const entity = witness.roster.find(({ id }) => id === "mossguard").entities[0];
+      entity.archetypeId = "skymaul";
+      entity.displayName = "Skymaul";
+    }],
+    ["flyer layer alias", "skymaul", (witness) => {
+      witness.roster.find(({ id }) => id === "skymaul").entities[0].layer = "ground";
+    }],
+    ["flyer card alias", "skymaul", (witness) => {
+      const card = witness.roster.find(({ id }) => id === "skymaul");
+      card.id = "mossguard";
+      card.displayName = "Mossguard";
+    }],
+  ];
+  for (const [label, id, mutate] of setupMutations) {
+    const witness = clone(createSessionTroopWitness(id));
+    mutate(witness);
+    assert.throws(() => new LiveBattle(
+      parseLiveBattleSetup(canonical(witness)),
+      serializeSessionTroopMovementRuntimeProfiles(),
+    ), /diverge|identity|ordinary|roster|policy/u, label);
+  }
+
+  for (const [id, point] of [["mossguard", { x: 5_500, y: 14_500 }], ["skymaul", SOUTH]]) {
+    const battle = liveBattle(id);
+    deploy(battle, { cardId: id, point, sequence: 0, side: "south" });
+    battle.step();
+    const before = battle.serialize();
+    const snapshotMutations = [
+      (snapshot) => {
+        snapshot.history.find(({ type }) => type === "deploy").command.cardId =
+          id === "mossguard" ? "skymaul" : "mossguard";
+      },
+      (snapshot) => { snapshot.history.find(({ type }) => type === "deploy").command.side = "north"; },
+      (snapshot) => { snapshot.movements[0].id = 2; },
+      (snapshot) => {
+        const movement = JSON.parse(snapshot.movements[0].bytes);
+        movement.state.mode = id === "mossguard" ? "air" : "ground";
+        snapshot.movements[0].bytes = canonical(movement);
+      },
+    ];
+    for (const mutate of snapshotMutations) {
+      const forged = JSON.parse(before);
+      mutate(forged);
+      assert.throws(() => LiveBattle.restore(canonical(forged)),
+        /causal|deployment|flight|witnesses/u, `${id} forged snapshot`);
+      assert.equal(battle.serialize(), before, `${id} restore rejection is atomic`);
+    }
+  }
+
+  const flyer = liveBattle("skymaul");
+  deploy(flyer, { cardId: "skymaul", point: SOUTH, sequence: 0, side: "south" });
+  flyer.step();
+  for (const command of [
+    { cardId: "mossguard", claimFamily: "flight", phase: "pre-move", side: "south",
+      sourceId: 1, tick: flyer.state.tick, type: "troop-movement" },
+    { cardId: "skymaul", claimFamily: "flight", phase: "pre-move", side: "north",
+      sourceId: 1, tick: flyer.state.tick, type: "troop-movement" },
+    { cardId: "skymaul", claimFamily: "flight", phase: "pre-move", side: "south",
+      sourceId: 2, tick: flyer.state.tick, type: "troop-movement" },
+  ]) {
+    const before = flyer.serialize();
+    assert.throws(() => flyer.scheduleTroopMovement(canonical(command)), /causal|source/u);
+    assert.equal(flyer.serialize(), before, "forged flyer source admission is trap-zero");
+  }
 });
 
 test("troop movement runtime: every legal GameSession witness projects flight through shared IDs, layer, tick, and history", () => {
