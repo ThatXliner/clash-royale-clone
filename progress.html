@@ -28,7 +28,7 @@
   <div class="cards">
     <div class="card"><div class="num">165</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">114</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">250</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">251</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">24</div><div class="label">open questions</div></div>
   </div>
   <p class="note">Active target: <strong>GAME-001TH — Exhaustive cross-module projectile identity chain</strong>.</p>
@@ -1001,9 +1001,9 @@
         <td><code>GAME-001TH</code></td>
         <td>Exhaustive cross-module projectile identity chain</td>
         <td class="state-building">BUILDING</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Round 1 resumed with explicit unit-to-unit, unit-to-tower and tower-to-unit identity propagation; adjacent-event reconstruction must be removed</td>
+        <td>0/1</td>
+        <td>1</td>
+        <td>Round 1 failed: emitted identities match, but BattleTowerCombat still retains unit projectile origins and reconstructs later impact/contact/damage ancestry by launch-derived ID, target and source lookup</td>
       </tr>
       <tr>
         <td><code>GAME-001A</code></td>
@@ -1612,6 +1612,7 @@
       <li><strong>R248 FAIL</strong> · GAME-001PH — Hostile movement-history canonicalization<br>Validate semantic minimality for every history, not only histories selected by a heuristic redundancy predicate, while retaining bounded restore cost and live snapshot compatibility.</li>
       <li><strong>R249 FAIL</strong> · GAME-001PH — Hostile movement-history canonicalization<br>Replace the size-frontier split with one idempotent canonical normal form; every live serialization must already equal the representation that restore independently derives, including histories that shrink across the exact-search frontier.</li>
       <li><strong>R250 FAIL</strong> · GAME-001PH — Hostile movement-history canonicalization<br>The bounded canonicalizer cannot prove the bar's unique global minimal history above its cutoffs, so two distinct byte-fixed histories remain accepted for one reachable authority.</li>
+      <li><strong>R251 FAIL</strong> · GAME-001TH — Exhaustive cross-module projectile identity chain<br>Remove `#unitProjectileOrigins` and every launch-derived ancestry lookup, then forward and validate the source-minted identity directly on every projectile-bearing record.</li>
   </ol>
 </body>
 </html>

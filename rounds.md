@@ -4671,3 +4671,28 @@ Stop patching this piece. Preserve live-produced movement determinism under
 GAME-001PK, and redesign any future hostile-history requirement around bounded
 causal validity or authenticated provenance rather than global semantic
 minimality.
+
+## Round 251 — 2026-08-21
+
+PIECE: GAME-001TH — Exhaustive cross-module projectile identity chain
+
+VERDICT: FAIL
+
+EVIDENCE: The focused `npm test -- battle-projectile-history` selector passed
+11/11. Battle combat passed 10/10, external combat 9/9, battle towers 15/15,
+tower kernel 7/7, live tower targets 9/9, game battle 11/11 and GameSession 9/9.
+An independent live probe observed complete matching identities for all three
+directions: unit-to-unit `{1,unit-to-unit,1,1}`, unit-to-tower
+`{1,unit-to-tower,1,3}` and tower-to-unit
+`{1,tower-to-unit,1,"south:lane:west"}`. Simultaneous unit and tower launches
+both used projectile ID 1 without colliding because their scopes differed.
+Despite those correct records, `battle-continuation-kernel.js:4452-4560` still
+builds `currentUnitOrigins`, retains `pendingUnitOrigins`, looks up ancestry via
+`unitOriginFor` and `unitStructureOriginFor`, then enriches impacts, contacts
+and damage from that launch-derived map. `#advance` calls the reconstruction at
+lines 5017-5029. The adapter therefore keeps a second provenance authority
+instead of forwarding the identity already minted by the projectile owner.
+
+BIGGEST GAP: Remove `#unitProjectileOrigins` and every launch-derived ancestry
+lookup, then forward and validate the source-minted identity directly on every
+projectile-bearing record.
