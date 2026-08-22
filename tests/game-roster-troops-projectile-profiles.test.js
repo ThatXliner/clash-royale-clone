@@ -129,6 +129,9 @@ const SOURCE_MODULE_PATHS = Object.freeze(Object.fromEntries(
 const PROJECTILE_SOURCE_MODULE_PATH = fileURLToPath(new URL(
   "../src/content/session-troop-projectile-profiles.js", import.meta.url,
 ));
+const PROJECTILE_SOURCE_ADMISSION_MODULE_PATH = fileURLToPath(new URL(
+  "../src/content/session-troop-projectile-source-admission.js", import.meta.url,
+));
 const HTP_MODULE_PATH = fileURLToPath(new URL(
   "../src/content/session-troop-profile-catalog.js", import.meta.url,
 ));
@@ -156,6 +159,51 @@ const SHARED_ADMISSION_ENTRY_POINTS = Object.freeze([
     exportName: "createSessionTroopProjectileProfileManifest",
     path: PROJECTILE_SOURCE_MODULE_PATH,
   }),
+]);
+const REBRANDED_SOURCE_BINDINGS = Object.freeze([
+  Object.freeze(["createBasicRangedCatalog", "brassbolt"]),
+  Object.freeze(["createBasicFlyingCatalog", "copperskiff"]),
+  Object.freeze(["createSwarmCatalog", "briar-band"]),
+  Object.freeze(["createChainSpecialCatalog", "stormkite"]),
+  Object.freeze(["createPierceSpecialCatalog", "prism-warden"]),
+  Object.freeze(["createReturnSpecialCatalog", "rune-reaver"]),
+  Object.freeze(["createPelletSpecialCatalog", "scatterguard"]),
+  Object.freeze(["createReflectionSpecialCatalog", "aegis-sage"]),
+]);
+const REBRANDED_SOURCE_FIELD_MUTATIONS = Object.freeze([
+  Object.freeze(["areaDamageRadiusMillitiles", "record.areaDamageRadiusMillitiles = record.areaDamageRadiusMillitiles === null ? 1 : record.areaDamageRadiusMillitiles + 1;"]),
+  Object.freeze(["cost", "record.cost += 1;"]),
+  Object.freeze(["count", "record.count += 1;"]),
+  Object.freeze(["damage", "record.damage += 1;"]),
+  Object.freeze(["deployTimeTicks", "record.deployTimeTicks += 1;"]),
+  Object.freeze(["displayName", "record.displayName += \" Drift\";"]),
+  Object.freeze(["firstHitTicks", "record.firstHitTicks += 1;"]),
+  Object.freeze(["hitSpeedTicks", "record.hitSpeedTicks += 1;"]),
+  Object.freeze(["hitpoints", "record.hitpoints += 1;"]),
+  Object.freeze(["id", "record.id += \"-drift\";"]),
+  Object.freeze(["kind", "record.kind = \"structure\";"]),
+  Object.freeze(["movementMillitilesPerSecond", "record.movementMillitilesPerSecond += 1;"]),
+  Object.freeze(["rangeMillitiles", "record.rangeMillitiles += 1;"]),
+  Object.freeze(["rarity", "record.rarity = record.rarity === \"standard\" ? \"uncommon\" : \"standard\";"]),
+  Object.freeze(["sightRangeMillitiles", "record.sightRangeMillitiles += 1;"]),
+  Object.freeze(["targetMode", "record.targetMode = record.targetMode === \"ground\" ? \"ground-and-air\" : \"ground\";"]),
+]);
+const REBRANDED_BRIAR_COMPONENT_FIELD_MUTATIONS = Object.freeze([
+  Object.freeze(["areaDamageRadiusMillitiles", "record.components[0].areaDamageRadiusMillitiles = record.components[0].areaDamageRadiusMillitiles === null ? 1 : record.components[0].areaDamageRadiusMillitiles + 1;"]),
+  Object.freeze(["count", "record.components[0].count += 1;"]),
+  Object.freeze(["damage", "record.components[0].damage += 1;"]),
+  Object.freeze(["deployTimeTicks", "record.components[0].deployTimeTicks += 1;"]),
+  Object.freeze(["displayName", "record.components[0].displayName += \" Drift\";"]),
+  Object.freeze(["firstHitTicks", "record.components[0].firstHitTicks += 1;"]),
+  Object.freeze(["hitSpeedTicks", "record.components[0].hitSpeedTicks += 1;"]),
+  Object.freeze(["hitpoints", "record.components[0].hitpoints += 1;"]),
+  Object.freeze(["id", "record.components[0].id += \"-drift\";"]),
+  Object.freeze(["kind", "record.components[0].kind = \"structure\";"]),
+  Object.freeze(["movementMillitilesPerSecond", "record.components[0].movementMillitilesPerSecond += 1;"]),
+  Object.freeze(["rangeMillitiles", "record.components[0].rangeMillitiles += 1;"]),
+  Object.freeze(["role", "record.components[0].role = \"spawn\";"]),
+  Object.freeze(["sightRangeMillitiles", "record.components[0].sightRangeMillitiles += 1;"]),
+  Object.freeze(["targetMode", "record.components[0].targetMode = \"ground-and-air\";"]),
 ]);
 const EXPECTED_SOURCE_PAIRS = [
   ["createBasicRangedCatalog", "brassbolt"],
@@ -315,9 +363,9 @@ function sourceWrapperCase(exportName, id, mutation, options = {}) {
       `const record = records.find(({ id: candidateId }) => candidateId === ${JSON.stringify(id)});`,
       'if (record === undefined) throw new Error("source wrapper record is missing");',
       mutationSource,
-      options.rebuildWithTrustedConstructor
+      options.returnExpression ?? (options.rebuildWithTrustedConstructor
         ? "return createCardCatalog(records);"
-        : "return records;",
+        : "return records;"),
     ].filter(Boolean).join("\n"),
     targetPath: SOURCE_MODULE_PATHS[exportName],
   };
@@ -417,7 +465,7 @@ test("projectile profiles: exact admitted occurrence/card/archetype domain and p
 });
 
 test("projectile profiles: the complete witness map covers exactly the eight source export sets", () => {
-  const source = readFileSync(PROJECTILE_SOURCE_MODULE_PATH, "utf8");
+  const source = readFileSync(PROJECTILE_SOURCE_ADMISSION_MODULE_PATH, "utf8");
   const pinnedPairs = [...source.matchAll(
     /\[sourceRecordKey\("([^"]+)", "([^"]+)"\)\]: canonical\(\{/gu,
   )].map(([, exportName, id]) => [exportName, id]);
@@ -425,9 +473,9 @@ test("projectile profiles: the complete witness map covers exactly the eight sou
     leftId.localeCompare(rightId) || leftExport.localeCompare(rightExport));
   assert.equal(pinnedPairs.length, 11);
   assert.deepEqual(sortPairs(pinnedPairs), sortPairs(EXPECTED_SOURCE_PAIRS));
-  assert.match(source, /const EXPECTED_SOURCE_IDS_BY_EXPORT = Object\.freeze\(\{/u);
+  assert.match(source, /const AUTHORITATIVE_PROJECTILE_SOURCE_IDS_BY_EXPORT = Object\.freeze\(\{/u);
   assert.match(source, /const EXPECTED_SOURCE_WITNESS_MAP = Object\.freeze\(\{/u);
-  assert.match(source, /assertExpectedWitnessCoverage\(\);/u);
+  assert.match(source, /assertWitness\(exportName, firstRows\);/u);
   assert.deepEqual(Object.keys(SOURCE_CATALOGS).sort(), [
     "createBasicFlyingCatalog",
     "createBasicRangedCatalog",
@@ -454,6 +502,147 @@ test("projectile profiles: every bound row rejects same-ID scalar drift", () => 
     rejects += 1;
   }
   assert.equal(rejects, 11);
+});
+
+test("projectile source admission: rebranded cost drift rejects before every shared consumer", () => {
+  let probes = 0;
+  for (const [exportName, id] of REBRANDED_SOURCE_BINDINGS) {
+    for (const entry of SHARED_ADMISSION_ENTRY_POINTS) {
+      const result = runSourceWrapperProbe({
+        ...sourceWrapperCase(exportName, id, "record.cost += 1;", {
+          rebuildWithTrustedConstructor: true,
+          probeExposure: true,
+        }),
+        entryArgs: entry.args,
+        entryExport: entry.exportName,
+        entryPath: entry.path,
+      });
+      assert.equal(result.accepted, false, `${entry.exportName}/${exportName} cost drift was accepted`);
+      assert.equal(result.exposed, false, `${entry.exportName}/${exportName} exposed drifted output`);
+      probes += 1;
+    }
+  }
+  assert.equal(probes, 32);
+});
+
+test("projectile source admission: rebranded canonical key order stays usable in every shared consumer", () => {
+  let probes = 0;
+  for (const [exportName, id] of REBRANDED_SOURCE_BINDINGS) {
+    for (const entry of SHARED_ADMISSION_ENTRY_POINTS) {
+      const result = runSourceWrapperProbe({
+        ...sourceWrapperCase(
+          exportName,
+          id,
+          "records[records.indexOf(record)] = Object.fromEntries(Object.entries(record).reverse());",
+          { expect: "accept", rebuildWithTrustedConstructor: true, probeExposure: true },
+        ),
+        entryArgs: entry.args,
+        entryExport: entry.exportName,
+        entryPath: entry.path,
+      });
+      assert.equal(result.accepted, true, `${entry.exportName}/${exportName} key order was rejected`);
+      assert.equal(result.exposed, true, `${entry.exportName}/${exportName} did not expose its valid output`);
+      probes += 1;
+    }
+  }
+  assert.equal(probes, 32);
+});
+
+test("projectile source admission: every scalar source field rejects rebranding through every shared consumer", () => {
+  let probes = 0;
+  for (const [exportName, id] of REBRANDED_SOURCE_BINDINGS) {
+    for (const [field, mutation] of REBRANDED_SOURCE_FIELD_MUTATIONS) {
+      for (const entry of SHARED_ADMISSION_ENTRY_POINTS) {
+        const result = runSourceWrapperProbe({
+          ...sourceWrapperCase(exportName, id, mutation, {
+            rebuildWithTrustedConstructor: true,
+            probeExposure: true,
+          }),
+          entryArgs: entry.args,
+          entryExport: entry.exportName,
+          entryPath: entry.path,
+        });
+        assert.equal(result.accepted, false,
+          `${entry.exportName}/${exportName}/${field} drift was accepted`);
+        assert.equal(result.exposed, false,
+          `${entry.exportName}/${exportName}/${field} exposed drifted output`);
+        probes += 1;
+      }
+    }
+  }
+  for (const [field, mutation] of REBRANDED_BRIAR_COMPONENT_FIELD_MUTATIONS) {
+    for (const entry of SHARED_ADMISSION_ENTRY_POINTS) {
+      const result = runSourceWrapperProbe({
+        ...sourceWrapperCase("createSwarmCatalog", "briar-band", mutation, {
+          rebuildWithTrustedConstructor: true,
+          probeExposure: true,
+        }),
+        entryArgs: entry.args,
+        entryExport: entry.exportName,
+        entryPath: entry.path,
+      });
+      assert.equal(result.accepted, false,
+        `${entry.exportName}/briar-band/component.${field} drift was accepted`);
+      assert.equal(result.exposed, false,
+        `${entry.exportName}/briar-band/component.${field} exposed drifted output`);
+      probes += 1;
+    }
+  }
+  assert.equal(probes, 572);
+});
+
+test("projectile source admission: rebranded first-versus-second reads reject before every shared consumer", () => {
+  let probes = 0;
+  for (const [exportName, id] of REBRANDED_SOURCE_BINDINGS) {
+    for (const entry of SHARED_ADMISSION_ENTRY_POINTS) {
+      const result = runSourceWrapperProbe({
+        ...sourceWrapperCase(exportName, id, "record.damage += 1;", {
+          alternatingReads: true,
+          rebuildWithTrustedConstructor: true,
+          probeExposure: true,
+        }),
+        entryArgs: entry.args,
+        entryExport: entry.exportName,
+        entryPath: entry.path,
+      });
+      assert.equal(result.accepted, false,
+        `${entry.exportName}/${exportName} changed second read was accepted`);
+      assert.equal(result.exposed, false,
+        `${entry.exportName}/${exportName} exposed changed second read`);
+      probes += 1;
+    }
+  }
+  assert.equal(probes, 32);
+});
+
+test("projectile source admission: rebranded source shape and nested drift fail before output", () => {
+  const cases = [
+    ["added row", "records.push({ ...record, id: \"unexpected-card\", displayName: \"Unexpected Card\" });"],
+    ["removed row", "records.pop();"],
+    ["duplicate row", "records.push(record);"],
+    ["reordered array", "record.components.reverse();"],
+    ["unexpected metadata", "record.metadata = { source: \"attacker\" };"],
+    ["unexpected provenance", "record.provenance = { source: \"attacker\" };"],
+    ["nested component", "record.components[1].damage += 1;"],
+  ];
+  let probes = 0;
+  for (const [label, mutation] of cases) {
+    for (const entry of SHARED_ADMISSION_ENTRY_POINTS) {
+      const result = runSourceWrapperProbe({
+        ...sourceWrapperCase("createSwarmCatalog", "briar-band", mutation, {
+          rebuildWithTrustedConstructor: true,
+          probeExposure: true,
+        }),
+        entryArgs: entry.args,
+        entryExport: entry.exportName,
+        entryPath: entry.path,
+      });
+      assert.equal(result.accepted, false, `${entry.exportName}/${label} was accepted`);
+      assert.equal(result.exposed, false, `${entry.exportName}/${label} exposed output`);
+      probes += 1;
+    }
+  }
+  assert.equal(probes, 28);
 });
 
 test("projectile profiles: representative source fields, shapes, and nested Briar changes fail closed", () => {
@@ -686,6 +875,35 @@ test("projectile profiles: source rows and every nested component reject hostile
     `row proxy invoked ${proxyRow.traps} hostile callbacks`);
   assert.equal(proxyComponent.traps, 0,
     `component proxy invoked ${proxyComponent.traps} hostile callbacks`);
+
+  const proxyRoot = reject(
+    "rootProxyAllTraps",
+    "createSwarmCatalog",
+    "briar-band",
+    "void 0;",
+    {
+      prefix: trapPrefix,
+      reportTraps: true,
+      returnExpression: `return new Proxy(records, ${proxyHandler});`,
+      skipCalls: 6,
+    },
+  );
+  assert.equal(proxyRoot.traps, 0,
+    `root proxy invoked ${proxyRoot.traps} hostile callbacks`);
+
+  const unbrandedChild = reject(
+    "unbrandedChildInBrandedRoot",
+    componentExport,
+    componentCard,
+    `record.components[${componentIndex}] = structuredClone(record.components[${componentIndex}]);`,
+    {
+      prefix: trapPrefix,
+      reportTraps: true,
+      skipCalls: 6,
+    },
+  );
+  assert.equal(unbrandedChild.traps, 0,
+    `unbranded child invoked ${unbrandedChild.traps} hostile callbacks`);
 
   const partialFailure = runSourceWrapperProbe(sourceWrapperCase(
     "createSwarmCatalog",

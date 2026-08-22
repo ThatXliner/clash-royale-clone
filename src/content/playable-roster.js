@@ -1,7 +1,5 @@
-import { createBasicFlyingCatalog } from "./cards/basic-flying.js";
 import { createBasicMeleeCatalog } from "./cards/basic-melee.js";
-import { createBasicRangedCatalog } from "./cards/basic-ranged.js";
-import { createSwarmCatalog } from "./cards/swarms.js";
+import { assertAuthoritativeProjectileSourceCatalogs } from "./session-troop-projectile-source-admission.js";
 
 export const PLAYABLE_CARD_IDS = Object.freeze([
   "coilblade",
@@ -163,11 +161,12 @@ function sameQuestionRecord(left, right) {
 }
 
 function catalog() {
+  const authoritative = assertAuthoritativeProjectileSourceCatalogs();
   const cards = [
     ...createBasicMeleeCatalog(),
-    ...createBasicFlyingCatalog(),
-    ...createBasicRangedCatalog(),
-    ...createSwarmCatalog(),
+    ...authoritative.createBasicFlyingCatalog,
+    ...authoritative.createBasicRangedCatalog,
+    ...authoritative.createSwarmCatalog,
   ];
   return new Map(cards.map((card) => [card.id, card]));
 }

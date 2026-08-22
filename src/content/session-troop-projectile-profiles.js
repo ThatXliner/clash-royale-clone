@@ -1,27 +1,22 @@
-import { createBasicFlyingCatalog } from "./cards/basic-flying.js";
-import { createBasicRangedCatalog } from "./cards/basic-ranged.js";
-import { createSwarmCatalog } from "./cards/swarms.js";
 import {
   createChainQuestionFixture,
-  createChainSpecialCatalog,
 } from "./cards/special-projectiles-chain.js";
 import {
   createPierceQuestionFixture,
-  createPierceSpecialCatalog,
 } from "./cards/special-projectiles-pierce.js";
 import {
   createReturnQuestionFixture,
-  createReturnSpecialCatalog,
 } from "./cards/special-projectiles-return.js";
 import {
   createPelletQuestionFixture,
-  createPelletSpecialCatalog,
 } from "./cards/special-projectiles-pellets.js";
 import {
   createReflectionQuestionFixture,
-  createReflectionSpecialCatalog,
 } from "./cards/special-projectiles-reflection.js";
-import { assertTrustedCardCatalog } from "./schema.js";
+import {
+  AUTHORITATIVE_PROJECTILE_SOURCE_IDS_BY_EXPORT,
+  assertAuthoritativeProjectileSourceCatalogs,
+} from "./session-troop-projectile-source-admission.js";
 import { createSessionTroopProfileManifest } from "./session-troop-profile-catalog.js";
 import { createSessionTroopWitnessQuestions } from "./session-troop-roster.js";
 
@@ -367,8 +362,6 @@ const COMPONENT_FIELDS = Object.freeze([
 
 const SOURCE_BINDINGS = new Map([
   ["createBasicRangedCatalog", {
-    catalog: createBasicRangedCatalog,
-    expectedIds: ["brassbolt", "reedsting"],
     evidence: {
       delivery: "not-sourced",
       verification: "cards-basic-ranged",
@@ -377,8 +370,6 @@ const SOURCE_BINDINGS = new Map([
     },
   }],
   ["createBasicFlyingCatalog", {
-    catalog: createBasicFlyingCatalog,
-    expectedIds: ["copperskiff", "skymaul"],
     evidence: {
       delivery: "not-sourced",
       verification: "cards-basic-flying",
@@ -387,8 +378,6 @@ const SOURCE_BINDINGS = new Map([
     },
   }],
   ["createSwarmCatalog", {
-    catalog: createSwarmCatalog,
-    expectedIds: ["briar-band", "cinderlings"],
     evidence: {
       delivery: "not-sourced",
       verification: "cards-swarms",
@@ -397,8 +386,6 @@ const SOURCE_BINDINGS = new Map([
     },
   }],
   ["createChainSpecialCatalog", {
-    catalog: createChainSpecialCatalog,
-    expectedIds: ["stormkite"],
     evidence: {
       delivery: "special-projectile",
       verification: "special-projectiles-chain",
@@ -409,8 +396,6 @@ const SOURCE_BINDINGS = new Map([
     questionSource: "unsourced-chained-target-attack-fixture",
   }],
   ["createPierceSpecialCatalog", {
-    catalog: createPierceSpecialCatalog,
-    expectedIds: ["prism-warden"],
     evidence: {
       delivery: "special-projectile",
       verification: "special-projectiles-pierce",
@@ -421,8 +406,6 @@ const SOURCE_BINDINGS = new Map([
     questionSource: "unsourced-linear-through-shot-fixture",
   }],
   ["createReturnSpecialCatalog", {
-    catalog: createReturnSpecialCatalog,
-    expectedIds: ["rune-reaver"],
     evidence: {
       delivery: "special-projectile",
       verification: "special-projectiles-return",
@@ -433,8 +416,6 @@ const SOURCE_BINDINGS = new Map([
     questionSource: "unsourced-outbound-returning-projectile-fixture",
   }],
   ["createPelletSpecialCatalog", {
-    catalog: createPelletSpecialCatalog,
-    expectedIds: ["scatterguard"],
     evidence: {
       delivery: "special-projectile",
       verification: "special-projectiles-pellets",
@@ -445,8 +426,6 @@ const SOURCE_BINDINGS = new Map([
     questionSource: "unsourced-fixed-fan-pellet-volley-fixture",
   }],
   ["createReflectionSpecialCatalog", {
-    catalog: createReflectionSpecialCatalog,
-    expectedIds: ["aegis-sage"],
     evidence: {
       delivery: "special-projectile",
       verification: "special-projectiles-reflection",
@@ -457,19 +436,6 @@ const SOURCE_BINDINGS = new Map([
     questionSource: "unsourced-projectile-reflection-fixture",
   }],
 ]);
-
-// These complete ID sets define the entire bound catalog row domain, not only
-// the five rows that become projectile claims.
-const EXPECTED_SOURCE_IDS_BY_EXPORT = Object.freeze({
-  createBasicRangedCatalog: Object.freeze(["brassbolt", "reedsting"]),
-  createBasicFlyingCatalog: Object.freeze(["copperskiff", "skymaul"]),
-  createSwarmCatalog: Object.freeze(["briar-band", "cinderlings"]),
-  createChainSpecialCatalog: Object.freeze(["stormkite"]),
-  createPierceSpecialCatalog: Object.freeze(["prism-warden"]),
-  createReturnSpecialCatalog: Object.freeze(["rune-reaver"]),
-  createPelletSpecialCatalog: Object.freeze(["scatterguard"]),
-  createReflectionSpecialCatalog: Object.freeze(["aegis-sage"]),
-});
 
 const QUESTION_SPECS = Object.freeze({
   chain: {
@@ -673,282 +639,6 @@ function sourceRecordKey(exportName, id) {
   return `${exportName}\u0000${id}`;
 }
 
-// This is the complete source-update barrier for the eight bound catalogs.
-// Each value is the canonical serialization of the full row, including every
-// nested component. An ID match alone is intentionally insufficient authority.
-const EXPECTED_SOURCE_WITNESS_MAP = Object.freeze({
-  [sourceRecordKey("createBasicRangedCatalog", "brassbolt")]: canonical({
-    areaDamageRadiusMillitiles: null,
-    components: [],
-    cost: 4,
-    count: 1,
-    damage: 218,
-    deployTimeTicks: 60,
-    displayName: "Brassbolt",
-    firstHitTicks: 12,
-    hitSpeedTicks: 60,
-    hitpoints: 720,
-    id: "brassbolt",
-    kind: "unit",
-    movementMillitilesPerSecond: 1000,
-    rangeMillitiles: 6000,
-    rarity: "uncommon",
-    sightRangeMillitiles: 6000,
-    targetMode: "ground-and-air",
-  }),
-  [sourceRecordKey("createBasicRangedCatalog", "reedsting")]: canonical({
-    areaDamageRadiusMillitiles: null,
-    components: [],
-    cost: 3,
-    count: 1,
-    damage: 131,
-    deployTimeTicks: 60,
-    displayName: "Reedsting",
-    firstHitTicks: 21,
-    hitSpeedTicks: 42,
-    hitpoints: 260,
-    id: "reedsting",
-    kind: "unit",
-    movementMillitilesPerSecond: 2000,
-    rangeMillitiles: 6500,
-    rarity: "uncommon",
-    sightRangeMillitiles: 7500,
-    targetMode: "ground-and-air",
-  }),
-  [sourceRecordKey("createBasicFlyingCatalog", "copperskiff")]: canonical({
-    areaDamageRadiusMillitiles: null,
-    components: [],
-    cost: 4,
-    count: 1,
-    damage: 171,
-    deployTimeTicks: 60,
-    displayName: "Copperskiff",
-    firstHitTicks: 36,
-    hitSpeedTicks: 66,
-    hitpoints: 614,
-    id: "copperskiff",
-    kind: "unit",
-    movementMillitilesPerSecond: 1500,
-    rangeMillitiles: 6000,
-    rarity: "uncommon",
-    sightRangeMillitiles: 6000,
-    targetMode: "ground-and-air",
-  }),
-  [sourceRecordKey("createBasicFlyingCatalog", "skymaul")]: canonical({
-    areaDamageRadiusMillitiles: null,
-    components: [],
-    cost: 3,
-    count: 1,
-    damage: 311,
-    deployTimeTicks: 60,
-    displayName: "Skymaul",
-    firstHitTicks: 72,
-    hitSpeedTicks: 96,
-    hitpoints: 837,
-    id: "skymaul",
-    kind: "unit",
-    movementMillitilesPerSecond: 1000,
-    rangeMillitiles: 1600,
-    rarity: "uncommon",
-    sightRangeMillitiles: 5500,
-    targetMode: "ground-and-air",
-  }),
-  [sourceRecordKey("createSwarmCatalog", "briar-band")]: canonical({
-    areaDamageRadiusMillitiles: null,
-    components: [
-      {
-        areaDamageRadiusMillitiles: null,
-        count: 3,
-        damage: 120,
-        deployTimeTicks: 60,
-        displayName: "Briar Runner",
-        firstHitTicks: 42,
-        hitSpeedTicks: 66,
-        hitpoints: 202,
-        id: "briar-runner",
-        kind: "unit",
-        movementMillitilesPerSecond: 2000,
-        rangeMillitiles: 500,
-        role: "primary",
-        sightRangeMillitiles: 5500,
-        targetMode: "ground",
-      },
-      {
-        areaDamageRadiusMillitiles: null,
-        count: 3,
-        damage: 81,
-        deployTimeTicks: 60,
-        displayName: "Briar Darter",
-        firstHitTicks: 72,
-        hitSpeedTicks: 102,
-        hitpoints: 133,
-        id: "briar-darter",
-        kind: "unit",
-        movementMillitilesPerSecond: 2000,
-        rangeMillitiles: 5000,
-        role: "secondary",
-        sightRangeMillitiles: 5500,
-        targetMode: "ground-and-air",
-      },
-    ],
-    cost: 3,
-    count: 6,
-    damage: 120,
-    deployTimeTicks: 60,
-    displayName: "Briar Band",
-    firstHitTicks: 42,
-    hitSpeedTicks: 66,
-    hitpoints: 202,
-    id: "briar-band",
-    kind: "unit",
-    movementMillitilesPerSecond: 2000,
-    rangeMillitiles: 500,
-    rarity: "standard",
-    sightRangeMillitiles: 5500,
-    targetMode: "ground",
-  }),
-  [sourceRecordKey("createSwarmCatalog", "cinderlings")]: canonical({
-    areaDamageRadiusMillitiles: null,
-    components: [{
-      areaDamageRadiusMillitiles: null,
-      count: 3,
-      damage: 81,
-      deployTimeTicks: 60,
-      displayName: "Cinderling",
-      firstHitTicks: 30,
-      hitSpeedTicks: 60,
-      hitpoints: 81,
-      id: "cinderling",
-      kind: "unit",
-      movementMillitilesPerSecond: 1500,
-      rangeMillitiles: 500,
-      role: "primary",
-      sightRangeMillitiles: 5500,
-      targetMode: "ground",
-    }],
-    cost: 1,
-    count: 3,
-    damage: 81,
-    deployTimeTicks: 60,
-    displayName: "Cinderlings",
-    firstHitTicks: 30,
-    hitSpeedTicks: 60,
-    hitpoints: 81,
-    id: "cinderlings",
-    kind: "unit",
-    movementMillitilesPerSecond: 1500,
-    rangeMillitiles: 500,
-    rarity: "standard",
-    sightRangeMillitiles: 5500,
-    targetMode: "ground",
-  }),
-  [sourceRecordKey("createChainSpecialCatalog", "stormkite")]: canonical({
-    areaDamageRadiusMillitiles: null,
-    components: [],
-    cost: 5,
-    count: 1,
-    damage: 192,
-    deployTimeTicks: 60,
-    displayName: "Stormkite",
-    firstHitTicks: 84,
-    hitSpeedTicks: 126,
-    hitpoints: 950,
-    id: "stormkite",
-    kind: "unit",
-    movementMillitilesPerSecond: 1000,
-    rangeMillitiles: 3500,
-    rarity: "special",
-    sightRangeMillitiles: 5500,
-    targetMode: "ground-and-air",
-  }),
-  [sourceRecordKey("createPierceSpecialCatalog", "prism-warden")]: canonical({
-    areaDamageRadiusMillitiles: null,
-    components: [],
-    cost: 4,
-    count: 1,
-    damage: 134,
-    deployTimeTicks: 60,
-    displayName: "Prism Warden",
-    firstHitTicks: 36,
-    hitSpeedTicks: 66,
-    hitpoints: 532,
-    id: "prism-warden",
-    kind: "unit",
-    movementMillitilesPerSecond: 1000,
-    rangeMillitiles: 7000,
-    rarity: "mythic",
-    sightRangeMillitiles: 7500,
-    targetMode: "ground-and-air",
-  }),
-  [sourceRecordKey("createReturnSpecialCatalog", "rune-reaver")]: canonical({
-    areaDamageRadiusMillitiles: null,
-    components: [],
-    cost: 5,
-    count: 1,
-    damage: 169,
-    deployTimeTicks: 60,
-    displayName: "Rune Reaver",
-    firstHitTicks: 24,
-    hitSpeedTicks: 54,
-    hitpoints: 1280,
-    id: "rune-reaver",
-    kind: "unit",
-    movementMillitilesPerSecond: 1000,
-    rangeMillitiles: 4500,
-    rarity: "special",
-    sightRangeMillitiles: 5500,
-    targetMode: "ground-and-air",
-  }),
-  [sourceRecordKey("createPelletSpecialCatalog", "scatterguard")]: canonical({
-    areaDamageRadiusMillitiles: 70,
-    components: [],
-    cost: 4,
-    count: 1,
-    damage: 84,
-    deployTimeTicks: 60,
-    displayName: "Scatterguard",
-    firstHitTicks: 84,
-    hitSpeedTicks: 132,
-    hitpoints: 838,
-    id: "scatterguard",
-    kind: "unit",
-    movementMillitilesPerSecond: 1000,
-    rangeMillitiles: 4000,
-    rarity: "special",
-    sightRangeMillitiles: 5500,
-    targetMode: "ground-and-air",
-  }),
-  [sourceRecordKey("createReflectionSpecialCatalog", "aegis-sage")]: canonical({
-    areaDamageRadiusMillitiles: null,
-    components: [],
-    cost: 5,
-    count: 1,
-    damage: 140,
-    deployTimeTicks: 60,
-    displayName: "Aegis Sage",
-    firstHitTicks: 36,
-    hitSpeedTicks: 48,
-    hitpoints: 2000,
-    id: "aegis-sage",
-    kind: "unit",
-    movementMillitilesPerSecond: 1000,
-    rangeMillitiles: 1200,
-    rarity: "heroic",
-    sightRangeMillitiles: 5500,
-    targetMode: "ground",
-  }),
-});
-
-function assertExpectedWitnessCoverage() {
-  const expectedKeys = Object.entries(EXPECTED_SOURCE_IDS_BY_EXPORT)
-    .flatMap(([exportName, ids]) => ids.map((id) => sourceRecordKey(exportName, id)))
-    .sort(compareText);
-  const actualKeys = Object.keys(EXPECTED_SOURCE_WITNESS_MAP).sort(compareText);
-  if (canonical(actualKeys) !== canonical(expectedKeys)) {
-    throw new Error("projectile source witness key set is missing, stale, or extra");
-  }
-}
-
 function validateComponent(component, label) {
   exactKeys(component, COMPONENT_FIELDS, label, { exactPrototype: true });
   if (
@@ -1028,7 +718,6 @@ function validateSourceRecord(record, label) {
 }
 
 function validateSourceCatalog(value, binding) {
-  assertTrustedCardCatalog(value, `${binding.exportName} result`);
   denseArray(value, MAX_SOURCE_CATALOG_ROWS, `${binding.exportName} result`);
   return value.map((record, index) =>
     validateSourceRecord(record, `${binding.exportName}[${index}]`));
@@ -1039,65 +728,29 @@ function assertExpectedSourceIds(binding, rows) {
   if (new Set(actual).size !== actual.length) {
     throw new Error(`${binding.exportName} source catalog has duplicate IDs`);
   }
-  const expected = [...EXPECTED_SOURCE_IDS_BY_EXPORT[binding.exportName]].sort(compareText);
+  const expected = [...AUTHORITATIVE_PROJECTILE_SOURCE_IDS_BY_EXPORT[binding.exportName]]
+    .sort(compareText);
   if (canonical([...actual].sort(compareText)) !== canonical(expected)) {
     throw new Error(`${binding.exportName} source catalog has a missing, stale, or extra source record`);
   }
 }
 
-function assertFreshSourceReads(firstValue, secondValue, firstRows, secondRows, binding) {
-  if (
-    firstValue === secondValue ||
-    firstRows.length !== secondRows.length ||
-    firstRows.some((row, index) =>
-      row === secondRows[index] ||
-      row.components === secondRows[index].components ||
-      row.components.some((component, componentIndex) =>
-        component === secondRows[index].components[componentIndex]))
-  ) {
-    throw new Error(`${binding.exportName} source catalog reads are not fresh`);
-  }
-  if (canonical(firstRows) !== canonical(secondRows)) {
-    throw new Error(`${binding.exportName} source catalog changed between reads`);
-  }
-}
-
-function assertPinnedSourceWitnesses(binding, rows) {
-  for (const row of rows) {
-    const key = sourceRecordKey(binding.exportName, row.id);
-    const expected = EXPECTED_SOURCE_WITNESS_MAP[key];
-    if (typeof expected !== "string" || canonical(row) !== expected) {
-      throw new Error(`${binding.exportName}/${row.id} differs from its pinned source witness`);
-    }
-  }
-}
-
 function buildSourceCatalogCache() {
-  assertExpectedWitnessCoverage();
+  const authoritative = assertAuthoritativeProjectileSourceCatalogs();
   const cache = new Map();
   for (const [exportName, binding] of SOURCE_BINDINGS) {
-    if (cache.has(exportName) || typeof binding.catalog !== "function") {
+    if (cache.has(exportName) || !Object.hasOwn(authoritative, exportName)) {
       throw new Error(`${exportName} source catalog binding is invalid or duplicated`);
     }
-    const firstValue = binding.catalog();
-    const firstRows = validateSourceCatalog(firstValue, { ...binding, exportName });
-    const secondValue = binding.catalog();
-    const secondRows = validateSourceCatalog(secondValue, { ...binding, exportName });
-    assertExpectedSourceIds({ ...binding, exportName }, firstRows);
-    assertExpectedSourceIds({ ...binding, exportName }, secondRows);
-    assertFreshSourceReads(firstValue, secondValue, firstRows, secondRows, {
-      ...binding,
-      exportName,
-    });
-    assertPinnedSourceWitnesses({ ...binding, exportName }, firstRows);
-    assertPinnedSourceWitnesses({ ...binding, exportName }, secondRows);
-    const records = firstRows.map(clone);
+    const rows = validateSourceCatalog(authoritative[exportName], { ...binding, exportName });
+    assertExpectedSourceIds({ ...binding, exportName }, rows);
+    const records = rows.map(clone);
     cache.set(exportName, {
       byId: new Map(records.map((record) => [record.id, record])),
       records,
     });
   }
-  if (cache.size !== Object.keys(EXPECTED_SOURCE_IDS_BY_EXPORT).length) {
+  if (cache.size !== Object.keys(AUTHORITATIVE_PROJECTILE_SOURCE_IDS_BY_EXPORT).length) {
     throw new Error("projectile source catalog cache is incomplete");
   }
   return cache;

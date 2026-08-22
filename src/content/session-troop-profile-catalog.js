@@ -1,6 +1,7 @@
 import * as content from "./index.js";
-import { assertTrustedCardCatalog } from "./schema.js";
+import { assertSafeCardCatalogGraph } from "./schema.js";
 import { createSessionCardManifest } from "./session-card-catalog.js";
+import { assertAuthoritativeProjectileSourceCatalogs } from "./session-troop-projectile-source-admission.js";
 
 const VERSION = 1;
 const QUESTION_REASON =
@@ -87,13 +88,16 @@ function canonical(value) {
   return JSON.stringify(value);
 }
 
-function sourceRecords(exportName) {
+function sourceRecords(exportName, authoritative = null) {
+  if (authoritative !== null && Object.hasOwn(authoritative, exportName)) {
+    return authoritative[exportName];
+  }
   if (!Object.hasOwn(content, exportName)) {
     throw new Error(`session troop source export ${exportName} is missing`);
   }
   const value = content[exportName];
   const records = typeof value === "function"
-    ? assertTrustedCardCatalog(value(), `${exportName} source catalog`)
+    ? assertSafeCardCatalogGraph(value(), `${exportName} source catalog`)
     : Array.isArray(value)
     ? value
     : value !== null && typeof value === "object" && typeof value.id === "string"
@@ -107,8 +111,8 @@ function sourceRecords(exportName) {
   return records;
 }
 
-function sourceRecordFor(exportName, id) {
-  const matches = sourceRecords(exportName).filter((record) =>
+function sourceRecordFor(exportName, id, authoritative = null) {
+  const matches = sourceRecords(exportName, authoritative).filter((record) =>
     record !== null && typeof record === "object" && record.id === id
   );
   if (matches.length !== 1) {
@@ -175,7 +179,7 @@ function assertUniqueOccurrencePairs(occurrences, label) {
   }
 }
 
-function assertQuestionClassification(cardManifest, questionRows) {
+function assertQuestionClassification(cardManifest, questionRows, authoritative = null) {
   const allRows = cardManifest.occurrences;
   for (const classification of UNIT_QUESTION_CLASSIFICATIONS) {
     const rows = allRows.filter(({ exportName, id }) =>
@@ -190,7 +194,7 @@ function assertQuestionClassification(cardManifest, questionRows) {
     if (cardManifest.cards.some(({ id }) => id === classification.id)) {
       throw new Error(`${classification.id} became an admitted session card; update its QUESTION pin`);
     }
-    const record = sourceRecordFor(classification.exportName, classification.id);
+    const record = sourceRecordFor(classification.exportName, classification.id, authoritative);
     if (isCompleteUnitAdmissionRecord(record, classification.id)) {
       throw new Error(`${classification.id} gained a complete unit admission record; update its QUESTION pin`);
     }
@@ -204,7 +208,7 @@ function assertQuestionClassification(cardManifest, questionRows) {
   }
 }
 
-function assertDerivedTroopSurface(cardManifest) {
+function assertDerivedTroopSurface(cardManifest, authoritative = null) {
   if (!Array.isArray(cardManifest.cards) || !Array.isArray(cardManifest.occurrences)) {
     throw new TypeError("session card manifest has no canonical card occurrence surface");
   }
@@ -221,7 +225,7 @@ function assertDerivedTroopSurface(cardManifest) {
   const questions = derived.filter(({ status }) => status === "question")
     .map(({ exportName, id, reason, status }) => ({ exportName, id, reason, status }))
     .sort(compareOccurrences);
-  assertQuestionClassification(cardManifest, questions);
+  assertQuestionClassification(cardManifest, questions, authoritative);
 
   for (const card of cardManifest.cards.filter(({ kind }) => kind === "unit")) {
     const exports = admitted.filter(({ id }) => id === card.id)
@@ -261,11 +265,11 @@ function assertDerivedTroopSurface(cardManifest) {
   return { admitted, count, occurrences, questions, unitIds };
 }
 
-function buildProfiles(cardManifest, admittedOccurrences, unitIds) {
+function buildProfiles(cardManifest, admittedOccurrences, unitIds, authoritative = null) {
   const sourceIdentities = new Map();
   const occurrenceExports = new Map();
   for (const { exportName, id } of admittedOccurrences) {
-    const record = sourceRecordFor(exportName, id);
+    const record = sourceRecordFor(exportName, id, authoritative);
     const identity = unitAdmissionIdentity(record, exportName, id);
     const prior = sourceIdentities.get(id);
     if (prior !== undefined && canonical(prior) !== canonical(identity)) {
@@ -316,10 +320,11 @@ function buildComposition(id, claims, profiles) {
 }
 
 function buildManifest() {
+  const authoritative = assertAuthoritativeProjectileSourceCatalogs();
   const cardManifest = createSessionCardManifest();
   const { admitted, count, occurrences, questions, unitIds } =
-    assertDerivedTroopSurface(cardManifest);
-  const profiles = buildProfiles(cardManifest, admitted, unitIds);
+    assertDerivedTroopSurface(cardManifest, authoritative);
+  const profiles = buildProfiles(cardManifest, admitted, unitIds, authoritative);
   const duplicateProfiles = profiles.filter(({ occurrenceExports }) => occurrenceExports.length > 1);
   const duplicateIds = duplicateProfiles.map(({ id }) => id).sort(compareText);
   const expectedDuplicateIds = EXPECTED_COMPOSITIONS.map(({ id }) => id).sort(compareText);

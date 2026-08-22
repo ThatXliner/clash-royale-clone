@@ -28,6 +28,8 @@ import {
   PLAYABLE_CARD_IDS,
 } from "./playable-roster.js";
 import { createSessionTroopProfileManifest } from "./session-troop-profile-catalog.js";
+import { assertSafeCardCatalogGraph } from "./schema.js";
+import { assertAuthoritativeProjectileSourceCatalogs } from "./session-troop-projectile-source-admission.js";
 
 const QUESTION_SOURCE = "runtime-playability-estimate-not-comparison-corpus";
 const DELIVERY_VALUES = Object.freeze({ melee: 1, projectile: 2 });
@@ -163,18 +165,22 @@ function exactFields(value, fields, label) {
   return value;
 }
 
-function sourceRecords(exportName) {
+function sourceRecords(exportName, authoritative = null) {
+  if (authoritative !== null && Object.hasOwn(authoritative, exportName)) {
+    return authoritative[exportName];
+  }
   const factory = SOURCE_FACTORIES[exportName];
   if (typeof factory !== "function") {
     throw new Error(`session troop source export ${exportName} is missing`);
   }
   const records = factory();
+  assertSafeCardCatalogGraph(records, `${exportName} source catalog`);
   if (!Array.isArray(records)) throw new TypeError(`${exportName} does not provide source records`);
   return records;
 }
 
-function sourceRecordFor(exportName, id) {
-  const matches = sourceRecords(exportName).filter((record) =>
+function sourceRecordFor(exportName, id, authoritative = null) {
+  const matches = sourceRecords(exportName, authoritative).filter((record) =>
     record !== null && typeof record === "object" && record.id === id);
   if (matches.length !== 1) {
     throw new Error(`${exportName}/${id} does not provide exactly one source record`);
@@ -194,6 +200,7 @@ function validateSourceRecord(record, label) {
 }
 
 function sourceProjectionState() {
+  const authoritative = assertAuthoritativeProjectileSourceCatalogs();
   const manifest = createSessionTroopProfileManifest();
   const occurrenceExports = new Set(
     manifest.profiles.flatMap(({ occurrenceExports: exports }) => exports),
@@ -206,7 +213,7 @@ function sourceProjectionState() {
   const exportsById = new Map();
   for (const profile of manifest.profiles) {
     const records = profile.occurrenceExports.map((exportName) =>
-      validateSourceRecord(sourceRecordFor(exportName, profile.id),
+      validateSourceRecord(sourceRecordFor(exportName, profile.id, authoritative),
         `${exportName}/${profile.id}`));
     const sourceBytes = canonical(records[0]);
     if (records.some((record) => canonical(record) !== sourceBytes)) {
@@ -222,7 +229,12 @@ function sourceProjectionState() {
 }
 
 const { byId: SOURCE_BY_ID, exportsById: EXPORTS_BY_ID } = sourceProjectionState();
-const PLAYABLE_BY_ID = new Map(createPlayableRoster().map((card) => [card.id, card]));
+const PLAYABLE_BY_ID = (() => {
+  // The playable-roster adapter is another HTO projection path. Re-admit the
+  // closed source witness immediately before it reflects source fields.
+  assertAuthoritativeProjectileSourceCatalogs();
+  return new Map(createPlayableRoster().map((card) => [card.id, card]));
+})();
 const PLAYABLE_QUESTIONS_BY_KEY = new Map(
   createPlayableRosterQuestionRecords().map((record) => [record.key, record]),
 );

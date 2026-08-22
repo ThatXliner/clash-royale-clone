@@ -4,7 +4,8 @@ import { createDefensiveBuildingRuntimeProfiles } from "./cards/buildings-defens
 import { createResourceBuildingQuestionRecords } from "./cards/buildings-resource.js";
 import { createUndergroundTravelBuildingQuestionRecords } from "./cards/buildings-travel.js";
 import { assertSessionBuildingProfileReceipt } from "../sim/session-building-profile-receipts.js";
-import { assertTrustedCardCatalog } from "./schema.js";
+import { assertSafeCardCatalogGraph } from "./schema.js";
+import { assertAuthoritativeProjectileSourceCatalogs } from "./session-troop-projectile-source-admission.js";
 import {
   createPlayableRoster,
 } from "./playable-roster.js";
@@ -121,12 +122,15 @@ function canonical(value) {
     .map((key) => `${JSON.stringify(key)}:${canonical(value[key])}`).join(",")}}`;
   return JSON.stringify(value);
 }
-function records(exportName) {
+function records(exportName, authoritative = null) {
+  if (authoritative !== null && Object.hasOwn(authoritative, exportName)) {
+    return authoritative[exportName];
+  }
   const value = content[exportName];
   if (typeof value === "function") {
     const catalog = value();
     if (!UNBRANDED_QUESTION_CATALOG_EXPORTS.has(exportName)) {
-      assertTrustedCardCatalog(catalog, `${exportName} source catalog`);
+      assertSafeCardCatalogGraph(catalog, `${exportName} source catalog`);
     }
     return catalog;
   }
@@ -146,10 +150,12 @@ function checkedCatalogRecord(record, exportName) {
 }
 
 function buildManifest() {
+  const authoritative = assertAuthoritativeProjectileSourceCatalogs();
   const occurrences = [];
   const admittedById = new Map();
   for (const [exportName, expectedIds] of CLAIMS) {
-    const byId = new Map(records(exportName).map((record) => [record.id, record]));
+    const byId = new Map(records(exportName, authoritative)
+      .map((record) => [record.id, record]));
     if (canonical([...byId.keys()]) !== canonical(expectedIds)) {
       throw new Error(`${exportName} diverges from the canonical integration claim`);
     }
@@ -224,10 +230,11 @@ export function createSessionCardDeckWitnesses(...args) {
 }
 
 export function projectSessionNonUnitBattleCard(id) {
+  const authoritative = assertAuthoritativeProjectileSourceCatalogs();
   const admitted = getSessionCardAdmissionRecord(id);
   if (admitted.kind === "unit") throw new TypeError("unit runtime projection belongs to troop binding");
   const sourceExport = admitted.occurrenceExports[0];
-  const source = records(sourceExport).find((record) => record.id === id);
+  const source = records(sourceExport, authoritative).find((record) => record.id === id);
   const buildingRuntime = source.kind === "structure" ? buildingRuntimeProfile(id, source) : null;
   if (source.kind === "structure" && buildingRuntime === null) {
     throw new Error("admitted structure lacks a shared building runtime profile");

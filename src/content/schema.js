@@ -66,13 +66,15 @@ const hasOwn = (value, key) =>
   Object.prototype.hasOwnProperty.call(value, key);
 
 // Catalog outputs stay mutable for caller isolation tests and runtime use, so
-// structural shape alone cannot identify a trusted source boundary. Keep the
-// capability private: consumers may ask whether a graph is one of our exact
-// outputs, but no caller can brand a replacement object.
-const TRUSTED_CATALOG_GRAPH = new WeakSet();
-const TRUSTED_CATALOG_SHAPES = new WeakMap();
+// structural shape alone cannot identify a safe-to-inspect source graph. Keep
+// the capability private: consumers may ask whether a graph is one of our
+// exact outputs, but no caller can brand a replacement object. This metadata
+// proves graph construction and descriptor safety only; it never proves that
+// the graph contains authoritative source values.
+const SAFE_CATALOG_GRAPH = new WeakSet();
+const SAFE_CATALOG_SHAPES = new WeakMap();
 
-function assertTrustedDataRecord(value, keys, label) {
+function assertSafeDataRecord(value, keys, label) {
   if (Object.getPrototypeOf(value) !== Object.prototype) {
     throw new TypeError(`${label} is not a canonical catalog record`);
   }
@@ -91,7 +93,7 @@ function assertTrustedDataRecord(value, keys, label) {
   }
 }
 
-function assertTrustedDataArray(value, expectedValues, label) {
+function assertSafeDataArray(value, expectedValues, label) {
   if (Object.getPrototypeOf(value) !== Array.prototype) {
     throw new TypeError(`${label} is not a canonical catalog array`);
   }
@@ -117,7 +119,7 @@ function assertTrustedDataArray(value, expectedValues, label) {
       !descriptor ||
       !descriptor.enumerable ||
       !hasOwn(descriptor, "value") ||
-      !TRUSTED_CATALOG_GRAPH.has(descriptor.value) ||
+      !SAFE_CATALOG_GRAPH.has(descriptor.value) ||
       descriptor.value !== expectedValues[index]
     ) {
       throw new TypeError(`${label} graph identity changed`);
@@ -125,34 +127,34 @@ function assertTrustedDataArray(value, expectedValues, label) {
   }
 }
 
-function assertTrustedCatalogGraph(catalog, shape, label) {
+function assertSafeCatalogGraph(catalog, shape, label) {
   const expectedCards = shape.cards.map(({ card }) => card);
-  assertTrustedDataArray(catalog, expectedCards, label);
+  assertSafeDataArray(catalog, expectedCards, label);
   for (let index = 0; index < shape.cards.length; index += 1) {
     const expected = shape.cards[index];
     const card = expectedCards[index];
-    if (!TRUSTED_CATALOG_GRAPH.has(card) || card !== expected.card) {
+    if (!SAFE_CATALOG_GRAPH.has(card) || card !== expected.card) {
       throw new TypeError(`${label} graph identity changed`);
     }
-    assertTrustedDataRecord(card, CARD_KEYS, `${label}[${index}]`);
+    assertSafeDataRecord(card, CARD_KEYS, `${label}[${index}]`);
     const components = Object.getOwnPropertyDescriptor(card, "components").value;
     if (
-      !TRUSTED_CATALOG_GRAPH.has(components) ||
+      !SAFE_CATALOG_GRAPH.has(components) ||
       components !== expected.components
     ) {
       throw new TypeError(`${label}[${index}].components graph identity changed`);
     }
-    assertTrustedDataArray(
+    assertSafeDataArray(
       components,
       expected.components,
       `${label}[${index}].components`,
     );
     for (let componentIndex = 0; componentIndex < expected.components.length; componentIndex += 1) {
       const component = expected.components[componentIndex];
-      if (!TRUSTED_CATALOG_GRAPH.has(component)) {
+      if (!SAFE_CATALOG_GRAPH.has(component)) {
         throw new TypeError(`${label}[${index}].components graph identity changed`);
       }
-      assertTrustedDataRecord(
+      assertSafeDataRecord(
         component,
         COMPONENT_KEYS,
         `${label}[${index}].components[${componentIndex}]`,
@@ -162,35 +164,40 @@ function assertTrustedCatalogGraph(catalog, shape, label) {
 }
 
 /**
- * Admits only a catalog graph produced by createCardCatalog. The initial
+ * Admits only a safe-to-inspect catalog graph produced by createCardCatalog.
+ * The initial
  * WeakSet check is intentionally the first operation so Proxy wrappers are
  * rejected without invoking any proxy trap; descriptor inspection happens
  * only after exact graph identity has been established.
  */
-export function assertTrustedCardCatalog(catalog, label = "card catalog") {
-  if (!TRUSTED_CATALOG_GRAPH.has(catalog)) {
+export function assertSafeCardCatalogGraph(catalog, label = "card catalog") {
+  if (!SAFE_CATALOG_GRAPH.has(catalog)) {
     throw new TypeError(`${label} was not produced by the canonical catalog constructor`);
   }
-  const shape = TRUSTED_CATALOG_SHAPES.get(catalog);
+  const shape = SAFE_CATALOG_SHAPES.get(catalog);
   if (shape === undefined) {
     throw new TypeError(`${label} is not a canonical catalog root`);
   }
-  assertTrustedCatalogGraph(catalog, shape, label);
+  assertSafeCatalogGraph(catalog, shape, label);
   return catalog;
 }
 
-function registerTrustedCatalog(catalog) {
+// Compatibility name for existing internal callers. This is deliberately only
+// the safe graph admission check above, not an authoritative-value admission.
+export const assertTrustedCardCatalog = assertSafeCardCatalogGraph;
+
+function registerSafeCatalog(catalog) {
   const cards = catalog.map((card) => ({
     card,
     components: card.components,
   }));
-  TRUSTED_CATALOG_GRAPH.add(catalog);
+  SAFE_CATALOG_GRAPH.add(catalog);
   for (const { card, components } of cards) {
-    TRUSTED_CATALOG_GRAPH.add(card);
-    TRUSTED_CATALOG_GRAPH.add(components);
-    for (const component of components) TRUSTED_CATALOG_GRAPH.add(component);
+    SAFE_CATALOG_GRAPH.add(card);
+    SAFE_CATALOG_GRAPH.add(components);
+    for (const component of components) SAFE_CATALOG_GRAPH.add(component);
   }
-  TRUSTED_CATALOG_SHAPES.set(catalog, { cards });
+  SAFE_CATALOG_SHAPES.set(catalog, { cards });
   return catalog;
 }
 
@@ -456,7 +463,7 @@ export function createCardCatalog(definitions) {
   cards.sort((left, right) => (
     left.id < right.id ? -1 : left.id > right.id ? 1 : 0
   ));
-  return registerTrustedCatalog(cards.map((card) => validateCardDefinition(card)));
+  return registerSafeCatalog(cards.map((card) => validateCardDefinition(card)));
 }
 
 function exactScale(value, scale, label) {
