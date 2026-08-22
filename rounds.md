@@ -1,5 +1,26 @@
 # Gauntlet Rounds
 
+## Round 278 — 2026-08-22
+
+PIECE: GAME-001HTS — Shared troop status, heal and visibility mechanics,
+round 4
+
+VERDICT: PASS
+
+EVIDENCE: Registered and direct status runners passed 33/33. Independent
+probes rejected 228/228 prior fields, 24/24 identity/component/formation
+variants, 25/25 live QUESTION projections and 40/40 receipt-coherent target,
+range, radius, count and spawn mutations before exposure. Exact Rime layer
+1→2, alternate ordering, copied/rebranded receipts, 16 duplicate/swapped
+QUESTION cases, accessor/Proxy/two-read drift and 8/8 stale setups rejected.
+Bloom remained 240 and Dawnmender 120; six witnesses and 36 restore cuts
+passed with exact hashes/events. Profiles 15/15, HTP 11/11, HTO 14/14,
+GameSession 9/9, GameBattle 11/11, history 5/5, building 14/14, spell 10/10,
+shared integration 1/1, nondeterminism 9/9 and shipping isolation 13/13 all
+passed. Commit `a70e52e` remained clean.
+
+BIGGEST GAP: None on the judged dimension.
+
 ## Round 277 — 2026-08-22
 
 PIECE: GAME-001HTMP — Movement/form source-profile contract, round 7
