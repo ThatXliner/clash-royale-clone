@@ -38,18 +38,28 @@ function sourceCards() {
 }
 
 test("playable roster: exact browser-shell deck order is centralized and immutable", () => {
+  const roster = createPlayableRoster();
   const shellCards = createInitialArenaHudSystems().cards;
+  const displayCard = ({ cost, displayName, id }) => ({
+    cost,
+    displayName,
+    id,
+  });
+
+  assert.deepEqual(shellCards, roster);
+  assert.notEqual(shellCards, roster);
+  assert.notEqual(shellCards[0], roster[0]);
+  assert.notEqual(shellCards[0].entities, roster[0].entities);
+  assert.equal(recursivelyFrozen(shellCards), true);
   assert.deepEqual(
     shellCards.map(({ id }) => id),
     [...PLAYABLE_CARD_IDS],
   );
   assert.deepEqual(
-    createPlayableRoster().map(({ cost, displayName, id }) => ({
-      cost,
-      displayName,
-      id,
-    })),
-    shellCards,
+    shellCards.map(displayCard),
+    PLAYABLE_CARD_IDS.map((id) => displayCard(
+      roster.find((card) => card.id === id),
+    )),
   );
   assert.equal(Object.isFrozen(PLAYABLE_CARD_IDS), true);
 });
