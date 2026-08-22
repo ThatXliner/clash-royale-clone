@@ -28,10 +28,10 @@
   <div class="cards">
     <div class="card"><div class="num">168</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">118</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">272</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">273</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">24</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Active targets: <strong>GAME-001HTMP round 6 private source admission, GAME-001HTJP round 6 authoritative source admission, and GAME-001HTS round 2 target admission</strong>.</p>
+  <p class="note">Active targets: <strong>GAME-001HTMP round 6 private source admission, GAME-001HTJP round 6 authoritative source admission, and GAME-001HTS round 3 live-source binding</strong>.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -1298,8 +1298,8 @@
         <td>Shared troop status, heal and visibility mechanics</td>
         <td class="state-building">BUILDING</td>
         <td>0/0</td>
-        <td>1</td>
-        <td>Round 1 executed six shared mechanics and passed restore cuts, but five target-bearing effects accept a nonexistent target, mutate session history and crash the next shared tick</td>
+        <td>2</td>
+        <td>Round 2 made 25 invalid-target cases byte-atomic and preserved all continuations, but a forged live status card can drift from its pinned source-profile roster facts and still execute</td>
       </tr>
       <tr>
         <td><code>GAME-001HTC</code></td>
@@ -1648,6 +1648,7 @@
       <li><strong>R270 FAIL</strong> · GAME-001HTMP — Movement/form source-profile contract<br>Make every trusted canonical-admission path reject untrusted Proxy graphs before reflection, including alias-created Proxies that bypass the transformed-source text guard.</li>
       <li><strong>R271 FAIL</strong> · GAME-001HTS — Shared troop status, heal, and visibility mechanics<br>Reject a missing status target atomically during GameSession or LiveBattle admission before it can enter history or crash the shared tick.</li>
       <li><strong>R272 FAIL</strong> · GAME-001HTJP — Projectile source-profile contract<br>Separate public catalog cloning from private authoritative source admission so session-card-catalog, HTP and HTO reject rebranded source-value drift before projection.</li>
+      <li><strong>R273 FAIL</strong> · GAME-001HTS — Shared troop status, heal, and visibility mechanics<br>Bind each live status source card's authoritative roster facts to its pinned status-profile source record before allowing status admission.</li>
   </ol>
 </body>
 </html>

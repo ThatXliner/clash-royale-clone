@@ -1,5 +1,25 @@
 # Gauntlet Rounds
 
+## Round 273 — 2026-08-22
+
+PIECE: GAME-001HTS — Shared troop status, heal, and visibility mechanics,
+round 2
+
+VERDICT: FAIL
+
+EVIDENCE: Status passed 23/23, profiles 15/15, GameSession 9/9, GameBattle
+11/11, shared integration 1/1, history cap 5/5, building runtime 14/14,
+nondeterminism 9/9 and shipping isolation 13/13. Independent probes passed
+15 missing/wrong-side/wrong-kind session rejections, five structure-target and
+five dead-target rejections, and all six valid continuation witnesses at cuts
+0/1/2/4/8/12. However, a forged canonical GameSession setup changed Rime
+Adept's live `targetMode` from the pinned status-profile source record's
+`ground-and-air` to `ground`; parsing accepted it and the shared session still
+emitted a normal slow receipt with duration 60 and rates 13/20.
+
+BIGGEST GAP: Bind each live status source card's authoritative roster facts to
+its pinned status-profile source record before allowing status admission.
+
 ## Round 272 — 2026-08-22
 
 PIECE: GAME-001HTJP — Projectile source-profile contract, round 5
