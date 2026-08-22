@@ -4696,3 +4696,28 @@ instead of forwarding the identity already minted by the projectile owner.
 BIGGEST GAP: Remove `#unitProjectileOrigins` and every launch-derived ancestry
 lookup, then forward and validate the source-minted identity directly on every
 projectile-bearing record.
+
+## Round 252 — 2026-08-21
+
+PIECE: GAME-001TH — Exhaustive cross-module projectile identity chain
+
+VERDICT: FAIL
+
+EVIDENCE: The focused projectile-history selector passed 15/15. Battle combat
+passed 10/10, external combat 9/9, tower kernel 7/7, live tower targets 9/9,
+game battle 11/11, GameSession 9/9, browser loop 10/10 and both guards 22/22.
+The full battle-towers selector passed 15/15 in 187,882 ms. Independent delayed
+continuation emitted no launch in the later slice while impact and damage both
+carried `{attackSequence:1,direction:"unit-to-unit",projectileId:1,sourceId:101}`.
+Fork/restore bytes matched, legacy state upgraded byte-exactly and no adapter
+origin-map symbols remained. However, public
+`BattleCombat.stepBoundaryAfterPreview(command, previewEvents)` accepted
+caller-executable current records and committed them. An event identity
+accessor executed one trap, a nested source accessor executed one, an event
+Proxy executed nine and an identity Proxy executed four. Every case advanced
+to tick 1 and changed serialized state. Only an accessor on the outer array
+rejected without executing attacker code.
+
+BIGGEST GAP: `stepBoundaryAfterPreview` must reject Proxy/accessor-wrapped
+current projectile events and nested identity records before observing traps
+or mutating state.
