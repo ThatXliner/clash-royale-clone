@@ -4441,123 +4441,76 @@ function withIdentity(event, projectileIdentity) {
   };
 }
 
-function forwardIdentity(event, expected, label) {
-  const actual = checkedProjectileIdentity(event.projectileIdentity, label);
-  if (canonical(actual) !== canonical(expected)) {
-    throw new TypeError(`${label} does not match its scoped identity`);
+function strictProjectileEvent(event, label) {
+  const identity = checkedProjectileIdentity(event.projectileIdentity,
+    `${label}.projectileIdentity`);
+  for (const [key, expected] of [
+    ["attackSequence", identity.attackSequence],
+    ["direction", identity.direction],
+    ["projectileId", identity.projectileId],
+    ["sourceId", identity.sourceId],
+    ["projectileScope", identity.direction],
+  ]) {
+    if (!Object.hasOwn(event, key) || event[key] !== expected) {
+      throw new TypeError(`${label}.${key} does not match its current identity`);
+    }
   }
-  return withIdentity(event, actual);
-}
-
-function currentUnitOrigins(combatEvents) {
-  return combatEvents.filter(({ type }) => type === "projectile-launch").map((event) => {
+  if (Object.hasOwn(event, "sequence") && event.sequence !== identity.attackSequence) {
+    throw new TypeError(`${label}.sequence does not match its current identity`);
+  }
+  if (Object.hasOwn(event, "attackerId") && event.attackerId !== identity.sourceId) {
+    throw new TypeError(`${label}.attackerId does not match its current identity`);
+  }
+  if (Object.hasOwn(event, "sourceUnitId") && event.sourceUnitId !== identity.sourceId) {
+    throw new TypeError(`${label}.sourceUnitId does not match its current identity`);
+  }
+  if (Object.hasOwn(event, "projectile")) {
     const projectile = event.projectile;
-    if (projectile === null || typeof projectile !== "object") {
-      throw new TypeError("unit projectile launch lacks projectile data");
+    if (projectile === null || typeof projectile !== "object" || Array.isArray(projectile)) {
+      throw new TypeError(`${label}.projectile is invalid`);
     }
-    const projectileIdentity = checkedProjectileIdentity(
-      event.projectileIdentity,
-      "unit projectile launch identity",
-    );
-    if (projectile.projectileIdentity === undefined ||
-        canonical(projectile.projectileIdentity) !== canonical(projectileIdentity) ||
-        projectile.id !== projectileIdentity.projectileId ||
-        projectile.projectileId !== projectileIdentity.projectileId ||
-        projectile.attackerId !== projectileIdentity.sourceId ||
-        projectile.sourceId !== projectileIdentity.sourceId ||
-        projectile.attackSequence !== projectileIdentity.attackSequence ||
-        projectile.direction !== projectileIdentity.direction ||
-        projectile.projectileScope !== projectileIdentity.direction ||
-        event.projectileId !== projectileIdentity.projectileId ||
-        event.sourceId !== projectileIdentity.sourceId ||
-        event.attackSequence !== projectileIdentity.attackSequence ||
-        event.direction !== projectileIdentity.direction ||
-        event.projectileScope !== projectileIdentity.direction) {
-      throw new TypeError("unit projectile launch contains divergent identity provenance");
+    const nested = checkedProjectileIdentity(projectile.projectileIdentity,
+      `${label}.projectile.projectileIdentity`);
+    if (canonical(nested) !== canonical(identity)) {
+      throw new TypeError(`${label}.projectile identity does not match its event identity`);
     }
-    const hasStructure = Object.hasOwn(projectile, "structureId");
-    const expectedDirection = hasStructure ? "unit-to-tower" : "unit-to-unit";
-    if (projectileIdentity.direction !== expectedDirection) {
-      throw new TypeError("unit projectile launch direction is inconsistent with its target");
+    for (const [key, expected] of [
+      ["attackSequence", identity.attackSequence],
+      ["direction", identity.direction],
+      ["projectileId", identity.projectileId],
+      ["sourceId", identity.sourceId],
+      ["projectileScope", identity.direction],
+      ["id", identity.projectileId],
+      ["attackerId", identity.sourceId],
+    ]) {
+      if (!Object.hasOwn(projectile, key) || projectile[key] !== expected) {
+        throw new TypeError(`${label}.projectile.${key} does not match its identity`);
+      }
     }
-    return {
-      identity: projectileIdentity,
-      structureId: projectile.structureId ?? null,
-      targetId: projectile.targetId,
-    };
-  });
-}
-
-function pendingUnitOrigins(previous, current) {
-  const origins = new Map(previous);
-  for (const origin of current) {
-    const projectileId = origin.identity.projectileId;
-    if (origins.has(projectileId)) {
-      throw new TypeError("unit projectile provenance was not retired before its ID was reused");
-    }
-    origins.set(projectileId, origin);
   }
-  return origins;
+  return withIdentity(event, identity);
 }
 
-function unitOriginFor(origins, projectileId, targetId, sourceId, label) {
-  const origin = origins.get(projectileId);
-  if (origin === undefined || origin.targetId !== targetId ||
-      (sourceId !== undefined && origin.identity.sourceId !== sourceId)) {
-    throw new TypeError(`${label} provenance is missing or divergent`);
-  }
-  return origin;
+function isProjectileEvent(event) {
+  return event.type === "projectile-launch" ||
+    event.type === "projectile-impact" ||
+    event.projectileId !== undefined ||
+    event.externalProjectileId !== undefined ||
+    event.projectile !== undefined ||
+    (event.delivery === "projectile" && [
+      "attack", "damage", "external-structure-attack", "external-structure-contact",
+      "external-unit-contact",
+    ].includes(event.type));
 }
 
-function unitStructureOriginFor(origins, event, label) {
-  const origin = origins.get(event.projectileId);
-  if (origin === undefined || origin.structureId !== event.structureId ||
-      origin.identity.direction !== "unit-to-tower" ||
-      origin.identity.sourceId !== event.sourceUnitId ||
-      origin.identity.attackSequence !== event.attackSequence) {
-    throw new TypeError(`${label} provenance is missing or divergent`);
-  }
-  return origin;
+function validateCombatEvents(combatEvents) {
+  return combatEvents.map((event) => isProjectileEvent(event)
+    ? strictProjectileEvent(event, "battle combat event")
+    : event);
 }
 
-function enrichCombatEvents(combatEvents, unitOrigins) {
-  return combatEvents.map((event) => {
-    if (event.type === "projectile-launch") {
-      const origin = unitOriginFor(unitOrigins, event.projectile.id, event.projectile.targetId,
-        event.projectile.attackerId, "unit projectile launch");
-      return forwardIdentity(event, origin.identity, "unit projectile launch identity");
-    }
-    if (event.type === "external-structure-attack" && event.delivery === "projectile") {
-      const origin = unitStructureOriginFor(unitOrigins, event,
-        "unit structure attack projectile");
-      return forwardIdentity(event, origin.identity, "unit structure attack identity");
-    }
-    if (event.type === "external-structure-contact" && event.delivery === "projectile") {
-      const origin = unitStructureOriginFor(unitOrigins, event,
-        "unit structure contact projectile");
-      return forwardIdentity(event, origin.identity, "unit structure contact identity");
-    }
-    if (event.type === "damage" && event.externalProjectileId !== undefined) {
-      return forwardIdentity(event, event.projectileIdentity, "external projectile damage identity");
-    }
-    if ((event.type === "projectile-impact" ||
-         (event.type === "damage" && event.delivery === "projectile")) &&
-        event.projectileId !== undefined) {
-      const sourceId = event.attackerId;
-      const origin = unitOriginFor(unitOrigins, event.projectileId, event.targetId,
-        sourceId, "unit projectile event");
-      return forwardIdentity(event, origin.identity, "unit projectile event identity");
-    }
-    if (event.type === "external-unit-contact" && event.delivery === "projectile") {
-      return forwardIdentity(event, event.projectileIdentity,
-        "external projectile contact identity");
-    }
-    return event;
-  });
-}
-
-function unifiedEvents(combatEvents, towerEvents, shots, unitOrigins) {
-  const enrichedCombat = enrichCombatEvents(combatEvents, unitOrigins);
+function unifiedEvents(combatEvents, towerEvents, shots) {
+  const validatedCombat = validateCombatEvents(combatEvents);
   const nonShotTowerEvents = towerEvents.filter(({ type }) => type !== "shot-ready");
   const phase = (event) => {
     if (event.type === "tower-activated" || event.type === "tower-destroyed") return 1;
@@ -4566,7 +4519,7 @@ function unifiedEvents(combatEvents, towerEvents, shots, unitOrigins) {
     if (event.type === "damage" || event.type === "death") return 4;
     return 0;
   };
-  return [...enrichedCombat, ...nonShotTowerEvents, ...shots]
+  return [...validatedCombat, ...nonShotTowerEvents, ...shots]
     .map((event, index) => ({ event, index, phase: phase(event) }))
     .sort((left, right) => left.phase - right.phase || left.index - right.index)
     .map(({ event }) => event);
@@ -4587,7 +4540,6 @@ class BattleTowerCombat {
   #isContinuation;
   #setup;
   #towers;
-  #unitProjectileOrigins;
 
   constructor(value) {
     runtimeInstances.add(this);
@@ -4607,7 +4559,6 @@ class BattleTowerCombat {
     this.#isContinuation = false;
     this.#childrenOpaque = false;
     this.#events = clone(this.#combat.replay);
-    this.#unitProjectileOrigins = new Map();
     this.#assertSynchronized();
   }
 
@@ -5014,19 +4965,11 @@ class BattleTowerCombat {
     } else {
       this.#appendHistory({ command: clone(checkedExternal), type: "boundary" });
     }
-    const currentOrigins = currentUnitOrigins(combatEvents);
-    const unitOrigins = pendingUnitOrigins(this.#unitProjectileOrigins, currentOrigins);
-    const events = unifiedEvents(combatEvents, towerEvents, shots, unitOrigins);
+    const events = unifiedEvents(combatEvents, towerEvents, shots);
     for (const hit of checkedExternal.externalTowerHits) {
       events.push({ damage: hit.amount, delivery: "building", sourceId: hit.sourceId,
         structureId: hit.towerId, tick, type: "external-structure-contact" });
     }
-    for (const event of combatEvents) {
-      if (event.type === "projectile-impact" && !unitOrigins.delete(event.projectileId)) {
-        throw new TypeError("unit projectile impact lacks retained provenance");
-      }
-    }
-    this.#unitProjectileOrigins = unitOrigins;
     this.#events.push(...clone(events));
     this.#assertSynchronized();
     return events;
@@ -5078,8 +5021,6 @@ class BattleTowerCombat {
     candidate.#isContinuation = !retainTranscript;
     candidate.#childrenOpaque = checkpointed;
     candidate.#setup = clone(this.#setup);
-    candidate.#unitProjectileOrigins = new Map([...this.#unitProjectileOrigins]
-      .map(([projectileId, origin]) => [projectileId, clone(origin)]));
     return candidate;
   }
 
@@ -5092,7 +5033,6 @@ class BattleTowerCombat {
     this.#isContinuation = candidate.#isContinuation;
     this.#childrenOpaque = candidate.#childrenOpaque;
     this.#setup = candidate.#setup;
-    this.#unitProjectileOrigins = candidate.#unitProjectileOrigins;
   }
 }
 

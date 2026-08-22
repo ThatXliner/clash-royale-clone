@@ -128,6 +128,21 @@ function identityFrom(events, type, direction) {
     event.projectileIdentity?.direction === direction)?.projectileIdentity;
 }
 
+function legacyTowerSnapshot(serialized) {
+  const current = JSON.parse(serialized);
+  const combat = JSON.parse(current.combat);
+  assert.equal(current.version, 2);
+  assert.equal(combat.version, 2);
+  assert.deepEqual(combat.transcript, []);
+  current.combat = canonical({
+    history: combat.history,
+    setup: combat.setup,
+    version: 1,
+  });
+  current.version = 1;
+  return canonical(current);
+}
+
 test("projectile history: raw unit-to-unit ranged attack carries one identity from attack through damage", () => {
   const combat = new BattleCombat({ units: [
     unit(1, "north", {
@@ -302,6 +317,130 @@ test("projectile history: fresh, chunks, and every restore cut preserve identity
   }
 });
 
+test("projectile history: delayed impact and damage use their own current identity", () => {
+  const battle = new BattleTowerCombat(setup([
+    unit(22, "north", {
+      damage: 17,
+      delivery: "projectile",
+      position: { x: 0, y: 0 },
+      projectileSpeed: 1_000,
+      targetMode: "ground",
+    }),
+    unit(23, "south", {
+      damage: 0,
+      firstHitTicks: 999,
+      position: { x: 1_000, y: 0 },
+      targetMode: "none",
+    }),
+  ], { central: 999, lane: 999 }));
+  const launch = battle.step(0).find(({ type }) => type === "projectile-launch");
+  const identity = launch.projectileIdentity;
+  const inFlightBytes = battle.serialize();
+  const fork = battle.fork();
+  const restored = BattleTowerCombat.restore(inFlightBytes);
+
+  const continuations = [battle, fork, restored].map((candidate) => candidate.step(1));
+  for (const events of continuations) {
+    assert.equal(events.some(({ type }) => type === "projectile-launch"), false);
+    const impact = events.find(({ type }) => type === "projectile-impact");
+    const damage = events.find(({ type, targetId }) => type === "damage" && targetId === 23);
+    assert.ok(impact);
+    assert.ok(damage);
+    assertIdentity(impact);
+    assertIdentity(damage);
+    assert.deepEqual(impact.projectileIdentity, identity);
+    assert.deepEqual(damage.projectileIdentity, identity);
+  }
+  assert.equal(fork.serialize(), battle.serialize());
+  assert.equal(restored.serialize(), battle.serialize());
+});
+
+test("projectile history: unit-to-tower contact forwards its current identity into tower damage", () => {
+  const battle = new BattleTowerCombat(setup([unit(24, "north", {
+    cadenceTicks: 100,
+    damage: 29,
+    delivery: "projectile",
+    position: { x: 3_500, y: 6_500 },
+    projectileSpeed: 1_000,
+    reach: 1_000,
+    targetMode: "buildings",
+  })], { central: 999, lane: 999 }));
+  const first = battle.step(0);
+  const attack = first.find(({ type }) => type === "external-structure-attack");
+  assert.ok(attack);
+  assertIdentity(attack);
+  const identity = attack.projectileIdentity;
+  let contact = first.find(({ type }) => type === "external-structure-contact") ?? null;
+  for (let tick = 1; contact === null && tick <= attack.contactTick; tick += 1) {
+    const events = battle.step(tick);
+    contact = events.find(({ type }) => type === "external-structure-contact") ?? null;
+  }
+  assert.ok(contact);
+  assertIdentity(contact);
+  assert.deepEqual(contact.projectileIdentity, identity);
+  assert.equal(
+    battle.state.towers.find(({ id }) => id === "south:lane:west").hitpoints,
+    3_052 - attack.damage,
+  );
+});
+
+test("projectile history: current adapter bytes omit origin state and legacy upgrade never trusts forged origins", () => {
+  const battle = new BattleTowerCombat(setup([unit(25, "north", {
+    damage: 25,
+    delivery: "projectile",
+    position: { x: 3_500, y: 7_500 },
+    projectileSpeed: 1_000,
+    targetMode: "buildings",
+  })], { central: 999, lane: 999 }));
+  battle.step(0);
+  const current = battle.serialize();
+  assert.doesNotMatch(current,
+    /unitProjectileOrigins|pendingUnitOrigins|unitOriginFor|unitStructureOriginFor/u);
+  const legacy = legacyTowerSnapshot(current);
+  const upgraded = BattleTowerCombat.restore(legacy);
+  assert.equal(upgraded.serialize(), current);
+
+  const forged = JSON.parse(legacy);
+  forged.unitProjectileOrigins = [{ projectileId: 1, sourceId: 25 }];
+  assert.throws(() => BattleTowerCombat.restore(canonical(forged)));
+});
+
+test("projectile history: current raw identity and mirrors reject atomically without prior-launch repair", () => {
+  const combat = new BattleCombat({ units: [
+    unit(26, "north", {
+      damage: 19,
+      delivery: "projectile",
+      position: { x: 0, y: 0 },
+      projectileSpeed: 1_000,
+    }),
+    unit(27, "south", {
+      damage: 0,
+      firstHitTicks: 999,
+      position: { x: 1_000, y: 0 },
+      targetMode: "none",
+    }),
+  ] });
+  combat.step(0);
+  const before = combat.serialize();
+  const preview = combat.previewBoundary(boundary(1));
+  assert.equal(preview.some(({ type }) => type === "projectile-launch"), false);
+  assert.ok(preview.some(({ type }) => type === "projectile-impact"));
+  for (const mutate of [
+    (events) => { delete events.find(({ type }) => type === "projectile-impact").projectileIdentity; },
+    (events) => {
+      events.find(({ type }) => type === "projectile-impact").projectileIdentity.sourceId = 999;
+    },
+    (events) => {
+      events.find(({ type }) => type === "projectile-impact").projectileScope = "tower-to-unit";
+    },
+  ]) {
+    const forged = structuredClone(preview);
+    mutate(forged);
+    assert.throws(() => combat.stepBoundaryAfterPreview(boundary(1), forged));
+    assert.equal(combat.serialize(), before);
+  }
+});
+
 test("projectile history: legacy ingress normalizes once to current nested identity", () => {
   const combat = new BattleCombat({ units: [unit(30, "north", {
     damage: 0,
@@ -440,5 +579,18 @@ test("projectile history: missing, swapped, duplicate, and wrong ingress identit
 
 test("projectile history: no adjacent-event lookup remains in the provenance authority", () => {
   const source = readFileSync(new URL("../src/sim/battle-continuation-kernel.js", import.meta.url), "utf8");
-  assert.doesNotMatch(source, /currentUnitOrigins[\s\S]{0,180}combatEvents\.find/u);
+  for (const forbidden of [
+    "currentUnitOrigins",
+    "pendingUnitOrigins",
+    "unitOriginFor",
+    "unitStructureOriginFor",
+    "#unitProjectileOrigins",
+  ]) {
+    assert.equal(source.includes(forbidden), false, `forbidden provenance symbol: ${forbidden}`);
+  }
+  const provenanceAdapter = source.slice(
+    source.indexOf("function strictProjectileEvent"),
+    source.indexOf("function unifiedEvents"),
+  );
+  assert.doesNotMatch(provenanceAdapter, /\b(?:Map|WeakMap)\b|\.find\(|\.some\(|\.filter\(/u);
 });
