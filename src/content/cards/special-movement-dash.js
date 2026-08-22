@@ -2,6 +2,13 @@ import { DamageSystem } from "../../sim/damage.js";
 import { acquireTarget } from "../../sim/targeting.js";
 import { validatePosition } from "../../sim/spatial.js";
 import { createCardCatalog } from "../schema.js";
+import {
+  DASH_QUESTION_RUNTIME,
+  createDashQuestionFixture as createDashQuestionFixtureUnwrapped,
+} from "../session-troop-movement-question-authority.js";
+
+const createDashQuestionFixture = createDashQuestionFixtureUnwrapped;
+export { createDashQuestionFixture };
 
 const DEFINITIONS = [
   {
@@ -24,38 +31,6 @@ const DEFINITIONS = [
     components: [],
   },
 ];
-
-const QUESTION_VALUE_PROVENANCE = Object.freeze({
-  confidence: "unverified",
-  disposition: "question",
-  source: "unsourced-targeted-dash-fixture",
-});
-const QUESTION_FIXTURE_VALUES = Object.freeze({
-  authoritative: false,
-  bonusDamage: 193,
-  confidence: "unverified",
-  disposition: "question",
-  inclusiveLaunchBoundary: true,
-  interruptionRule: "cancel-at-last-completed-position",
-  interpolationRule: "integer-truncate-toward-zero",
-  launchMaximumMillitiles: 6000,
-  launchMinimumMillitiles: 3500,
-  provenance: Object.freeze({
-    bonusDamage: QUESTION_VALUE_PROVENANCE,
-    inclusiveLaunchBoundary: QUESTION_VALUE_PROVENANCE,
-    interruptionRule: QUESTION_VALUE_PROVENANCE,
-    interpolationRule: QUESTION_VALUE_PROVENANCE,
-    launchMaximumMillitiles: QUESTION_VALUE_PROVENANCE,
-    launchMinimumMillitiles: QUESTION_VALUE_PROVENANCE,
-    targetDeathRule: QUESTION_VALUE_PROVENANCE,
-    transitTicks: QUESTION_VALUE_PROVENANCE,
-    untargetableDuringTransit: QUESTION_VALUE_PROVENANCE,
-  }),
-  source: "unsourced-targeted-dash-fixture",
-  targetDeathRule: "continue-to-snapshot-and-skip-damage",
-  transitTicks: 30,
-  untargetableDuringTransit: true,
-});
 
 const IDENTITY = Object.freeze({
   encounter: "northbound-targeted-dash-v1",
@@ -83,243 +58,10 @@ const MAX_COMMANDS = 1;
 const MAX_SNAPSHOT_BYTES = 4096;
 const MAX_TICK = 100;
 
-const QUESTION_GRAPH_NODES = new WeakSet();
-const QUESTION_GRAPH_PROTOTYPES = new WeakMap();
-const MAX_QUESTION_GRAPH_NODES = 4096;
-
-function questionGraphError(label, message) {
-  throw new TypeError(`${label} ${message}`);
-}
-
-function copyQuestionGraph(source, label) {
-  const active = new Set();
-  const nodes = [];
-  function copy(value, path) {
-    if (value === null) return null;
-    const type = typeof value;
-    if (type === "string" || type === "boolean") return value;
-    if (type === "number") {
-      if (!Number.isFinite(value) || Object.is(value, -0)) {
-        questionGraphError(path, "must contain finite JSON numbers");
-      }
-      return value;
-    }
-    if (type !== "object") questionGraphError(path, "must contain JSON data");
-    if (active.has(value)) questionGraphError(path, "must not contain cycles");
-    if (nodes.length >= MAX_QUESTION_GRAPH_NODES) {
-      questionGraphError(path, "exceeds the graph node bound");
-    }
-    let isArray;
-    let prototype;
-    let descriptors;
-    try {
-      isArray = Array.isArray(value);
-      prototype = Object.getPrototypeOf(value);
-      descriptors = Object.getOwnPropertyDescriptors(value);
-    } catch {
-      questionGraphError(path, "must contain inspectable data");
-    }
-    const ownKeys = Reflect.ownKeys(descriptors);
-    let keys;
-    if (isArray) {
-      const lengthDescriptor = descriptors.length;
-      const length = lengthDescriptor?.value;
-      if (
-        prototype !== Array.prototype ||
-        !lengthDescriptor ||
-        !Object.hasOwn(lengthDescriptor, "value") ||
-        lengthDescriptor.enumerable ||
-        !Number.isSafeInteger(length) ||
-        length < 0 ||
-        length > 128 ||
-        ownKeys.length !== length + 1
-      ) {
-        questionGraphError(path, "must be a dense bounded data array");
-      }
-      keys = Array.from({ length }, (_, index) => String(index));
-      if (ownKeys.some((key) => key !== "length" && !keys.includes(key))) {
-        questionGraphError(path, "must contain only indexed data");
-      }
-    } else {
-      if (prototype !== Object.prototype && prototype !== null) {
-        questionGraphError(path, "must use a plain object prototype");
-      }
-      keys = ownKeys;
-      if (keys.some((key) => typeof key !== "string")) {
-        questionGraphError(path, "must contain only string data keys");
-      }
-    }
-    for (const key of keys) {
-      const descriptor = descriptors[key];
-      if (
-        descriptor === undefined ||
-        !descriptor.enumerable ||
-        !Object.hasOwn(descriptor, "value")
-      ) {
-        questionGraphError(path, "must contain enumerable data properties");
-      }
-    }
-    const target = isArray
-      ? []
-      : prototype === null ? Object.create(null) : {};
-    nodes.push({ prototype: isArray ? Array.prototype : prototype, target });
-    active.add(value);
-    try {
-      for (const key of keys) {
-        Object.defineProperty(target, key, {
-          configurable: true,
-          enumerable: true,
-          value: copy(descriptors[key].value, `${path}.${key}`),
-          writable: true,
-        });
-      }
-    } finally {
-      active.delete(value);
-    }
-    return target;
-  }
-  const result = copy(source, label);
-  for (const { prototype, target } of nodes) {
-    QUESTION_GRAPH_NODES.add(target);
-    QUESTION_GRAPH_PROTOTYPES.set(target, prototype);
-  }
-  return result;
-}
-
-function inspectQuestionNode(value, label, requireFrozen) {
-  // Identity is the first operation on every object; this is trap-free for
-  // unadmitted roots and nested values, including every kind of Proxy.
-  if (!QUESTION_GRAPH_NODES.has(value)) {
-    questionGraphError(label, "must be source-admitted data");
-  }
-  if (requireFrozen && !Object.isFrozen(value)) {
-    questionGraphError(label, "must be deeply frozen source data");
-  }
-  const expectedPrototype = QUESTION_GRAPH_PROTOTYPES.get(value);
-  let actualPrototype;
-  let descriptors;
-  try {
-    actualPrototype = Object.getPrototypeOf(value);
-    descriptors = Object.getOwnPropertyDescriptors(value);
-  } catch {
-    questionGraphError(label, "must contain inspectable data");
-  }
-  if (actualPrototype !== expectedPrototype) {
-    questionGraphError(label, "must retain its source-admitted prototype");
-  }
-  const ownKeys = Reflect.ownKeys(descriptors);
-  if (expectedPrototype === Array.prototype) {
-    const lengthDescriptor = descriptors.length;
-    const length = lengthDescriptor?.value;
-    if (
-      !lengthDescriptor ||
-      !Object.hasOwn(lengthDescriptor, "value") ||
-      lengthDescriptor.enumerable ||
-      !Number.isSafeInteger(length) ||
-      length < 0 ||
-      length > 128 ||
-      ownKeys.length !== length + 1
-    ) {
-      questionGraphError(label, "must be a dense bounded data array");
-    }
-    const keys = Array.from({ length }, (_, index) => String(index));
-    if (ownKeys.some((key) => key !== "length" && !keys.includes(key))) {
-      questionGraphError(label, "must contain only indexed data");
-    }
-    for (const key of keys) {
-      const descriptor = descriptors[key];
-      if (!descriptor?.enumerable || !Object.hasOwn(descriptor, "value")) {
-        questionGraphError(label, "must contain dense data properties");
-      }
-    }
-    return keys;
-  }
-  if (ownKeys.some((key) => typeof key !== "string")) {
-    questionGraphError(label, "must contain only string data keys");
-  }
-  for (const key of ownKeys) {
-    const descriptor = descriptors[key];
-    if (!descriptor.enumerable || !Object.hasOwn(descriptor, "value")) {
-      questionGraphError(label, "must contain enumerable data properties");
-    }
-  }
-  return ownKeys;
-}
-
-function assertQuestionGraph(value, label = "QUESTION graph", requireFrozen = false) {
-  if (value === null || typeof value !== "object") {
-    questionGraphError(label, "must be a source-admitted graph");
-  }
-  const active = new Set();
-  let count = 0;
-  function visit(candidate, path) {
-    if (candidate === null) return;
-    const type = typeof candidate;
-    if (type === "string" || type === "boolean") return;
-    if (type === "number") {
-      if (!Number.isFinite(candidate) || Object.is(candidate, -0)) {
-        questionGraphError(path, "must contain finite JSON numbers");
-      }
-      return;
-    }
-    if (type !== "object") questionGraphError(path, "must contain JSON data");
-    const keys = inspectQuestionNode(candidate, path, requireFrozen);
-    if (active.has(candidate)) questionGraphError(path, "must not contain cycles");
-    count += 1;
-    if (count > MAX_QUESTION_GRAPH_NODES) {
-      questionGraphError(path, "exceeds the graph node bound");
-    }
-    active.add(candidate);
-    try {
-      for (const key of keys) {
-        visit(
-          Object.getOwnPropertyDescriptor(candidate, key).value,
-          `${path}.${key}`,
-        );
-      }
-    } finally {
-      active.delete(candidate);
-    }
-  }
-  visit(value, label);
-  return value;
-}
-
-function recursivelyFreezeQuestionGraph(value, label) {
-  assertQuestionGraph(value, label);
-  const active = new Set();
-  function freezeNode(candidate) {
-    if (candidate === null || typeof candidate !== "object" || active.has(candidate)) return;
-    active.add(candidate);
-    const descriptors = Object.getOwnPropertyDescriptors(candidate);
-    for (const key of Reflect.ownKeys(descriptors)) {
-      if (key !== "length") freezeNode(descriptors[key].value);
-    }
-    Object.freeze(candidate);
-    active.delete(candidate);
-  }
-  freezeNode(value);
-  return value;
-}
-
-function createQuestionFixtureDraft() {
-  return copyQuestionGraph(QUESTION_FIXTURE_VALUES, "QUESTION fixture");
-}
-
-export function assertDashQuestionGraph(value, label = "dash question graph") {
-  return assertQuestionGraph(value, label, true);
-}
-
+const QUESTION_RUNTIME = DASH_QUESTION_RUNTIME;
 
 function clone(value) {
-  if (value === QUESTION_FIXTURE_VALUES) {
-    return createQuestionFixtureDraft();
-  }
   return JSON.parse(JSON.stringify(value));
-}
-
-function questionFixtureDraft() {
-  return clone(QUESTION_FIXTURE_VALUES);
 }
 
 function canonicalJson(value) {
@@ -466,27 +208,6 @@ export function createDashSpecialFixture(commands = []) {
 }
 
 /**
- * Returns an isolated, explicitly non-authoritative record of every dash-only
- * mechanic assumed by this encounter.
- */
-function createDashQuestionFixtureUnwrapped(...args) {
-  if (args.length !== 0) {
-    throw new TypeError("dash question fixture does not accept overrides");
-  }
-  return recursivelyFreezeQuestionGraph(
-    questionFixtureDraft(),
-    "dash question fixture",
-  );
-}
-
-const createDashQuestionFixture = createDashQuestionFixtureUnwrapped;
-export { createDashQuestionFixture };
-export const MOVEMENT_QUESTION_FACTORY_AUTHORITY = Object.freeze({
-  assertGraph: assertDashQuestionGraph,
-  factory: createDashQuestionFixtureUnwrapped,
-});
-
-/**
  * Pure inclusive launch-boundary evaluator for the QUESTION fixture.
  */
 export function evaluateDashQuestionBoundary(distanceMillitiles, ...extra) {
@@ -501,12 +222,12 @@ export function evaluateDashQuestionBoundary(distanceMillitiles, ...extra) {
   }
   return {
     eligible:
-      distanceMillitiles >= QUESTION_FIXTURE_VALUES.launchMinimumMillitiles &&
-      distanceMillitiles <= QUESTION_FIXTURE_VALUES.launchMaximumMillitiles,
+      distanceMillitiles >= QUESTION_RUNTIME.launchMinimumMillitiles &&
+      distanceMillitiles <= QUESTION_RUNTIME.launchMaximumMillitiles,
     launchMaximumMillitiles:
-      QUESTION_FIXTURE_VALUES.launchMaximumMillitiles,
+      QUESTION_RUNTIME.launchMaximumMillitiles,
     launchMinimumMillitiles:
-      QUESTION_FIXTURE_VALUES.launchMinimumMillitiles,
+      QUESTION_RUNTIME.launchMinimumMillitiles,
   };
 }
 
@@ -706,7 +427,7 @@ export class DashEncounter {
         this.#launch.from,
         this.#launch.to,
         this.#launch.elapsedTicks,
-        QUESTION_FIXTURE_VALUES.transitTicks,
+        QUESTION_RUNTIME.transitTicks,
       );
       events.push({
         elapsedTicks: this.#launch.elapsedTicks,
@@ -715,7 +436,7 @@ export class DashEncounter {
         type: "dash-move",
       });
       if (
-        this.#launch.elapsedTicks === QUESTION_FIXTURE_VALUES.transitTicks
+        this.#launch.elapsedTicks === QUESTION_RUNTIME.transitTicks
       ) {
         const targetId = this.#launch.targetId;
         this.#launch = null;
@@ -733,12 +454,12 @@ export class DashEncounter {
         });
         if (this.#targetAlive) {
           const amount = this.#card.damage +
-            QUESTION_FIXTURE_VALUES.bonusDamage;
+            QUESTION_RUNTIME.bonusDamage;
           const result = this.#damage.damage(targetId, amount);
           events.push({
             amount,
             baseAmount: this.#card.damage,
-            bonusAmount: QUESTION_FIXTURE_VALUES.bonusDamage,
+            bonusAmount: QUESTION_RUNTIME.bonusDamage,
             currentHealth: result.currentHealth,
             targetId,
             tick: boundary,

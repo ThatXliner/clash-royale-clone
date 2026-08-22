@@ -6,6 +6,13 @@ import {
 } from "../../sim/movement.js";
 import { findGroundPath } from "../../sim/pathfinding.js";
 import { createCardCatalog } from "../schema.js";
+import {
+  CHARGE_QUESTION_RUNTIME,
+  createChargeQuestionFixture as createChargeQuestionFixtureUnwrapped,
+} from "../session-troop-movement-question-authority.js";
+
+const createChargeQuestionFixture = createChargeQuestionFixtureUnwrapped;
+export { createChargeQuestionFixture };
 
 const DEFINITIONS = [
   {
@@ -46,25 +53,6 @@ const IDENTITY = Object.freeze({
   }),
 });
 
-const QUESTION_VALUE_PROVENANCE = Object.freeze({
-  confidence: "unverified",
-  disposition: "question",
-  source: "unsourced-special-mechanic-fixture",
-});
-const QUESTION_FIXTURE_VALUES = Object.freeze({
-  armDistanceMillitiles: 3500,
-  authoritative: false,
-  bonusDamage: DEFINITIONS[0].damage,
-  chargedMovementMillitilesPerSecond: 2000,
-  confidence: "unverified",
-  disposition: "question",
-  provenance: Object.freeze({
-    armDistanceMillitiles: QUESTION_VALUE_PROVENANCE,
-    bonusDamage: QUESTION_VALUE_PROVENANCE,
-    chargedMovementMillitilesPerSecond: QUESTION_VALUE_PROVENANCE,
-  }),
-  source: "unsourced-special-mechanic-fixture",
-});
 const COMMAND_KEYS = ["tick", "type"];
 const COMMAND_TYPES = new Set(["target-acquired", "target-lost"]);
 const SETUP_KEYS = ["commands"];
@@ -73,235 +61,6 @@ const IDENTITY_KEYS = ["commands", "encounter"];
 const MAX_COMMANDS = 32;
 const MAX_SNAPSHOT_BYTES = 8192;
 const MAX_TICK = 1000;
-
-const QUESTION_GRAPH_NODES = new WeakSet();
-const QUESTION_GRAPH_PROTOTYPES = new WeakMap();
-const MAX_QUESTION_GRAPH_NODES = 4096;
-
-function questionGraphError(label, message) {
-  throw new TypeError(`${label} ${message}`);
-}
-
-function copyQuestionGraph(source, label) {
-  const active = new Set();
-  const nodes = [];
-
-  function copy(value, path) {
-    if (value === null) return null;
-    const type = typeof value;
-    if (type === "string" || type === "boolean") return value;
-    if (type === "number") {
-      if (!Number.isFinite(value) || Object.is(value, -0)) {
-        questionGraphError(path, "must contain finite JSON numbers");
-      }
-      return value;
-    }
-    if (type !== "object") questionGraphError(path, "must contain JSON data");
-    if (active.has(value)) questionGraphError(path, "must not contain cycles");
-    if (nodes.length >= MAX_QUESTION_GRAPH_NODES) {
-      questionGraphError(path, "exceeds the graph node bound");
-    }
-
-    let isArray;
-    let prototype;
-    let descriptors;
-    try {
-      isArray = Array.isArray(value);
-      prototype = Object.getPrototypeOf(value);
-      descriptors = Object.getOwnPropertyDescriptors(value);
-    } catch {
-      questionGraphError(path, "must contain inspectable data");
-    }
-    const ownKeys = Reflect.ownKeys(descriptors);
-    let keys;
-    if (isArray) {
-      const lengthDescriptor = descriptors.length;
-      const length = lengthDescriptor?.value;
-      if (
-        prototype !== Array.prototype ||
-        !lengthDescriptor ||
-        !Object.hasOwn(lengthDescriptor, "value") ||
-        lengthDescriptor.enumerable ||
-        !Number.isSafeInteger(length) ||
-        length < 0 ||
-        length > 128 ||
-        ownKeys.length !== length + 1
-      ) {
-        questionGraphError(path, "must be a dense bounded data array");
-      }
-      keys = Array.from({ length }, (_, index) => String(index));
-      if (ownKeys.some((key) => key !== "length" && !keys.includes(key))) {
-        questionGraphError(path, "must contain only indexed data");
-      }
-    } else {
-      if (prototype !== Object.prototype && prototype !== null) {
-        questionGraphError(path, "must use a plain object prototype");
-      }
-      keys = ownKeys;
-      if (keys.some((key) => typeof key !== "string")) {
-        questionGraphError(path, "must contain only string data keys");
-      }
-    }
-    for (const key of keys) {
-      const descriptor = descriptors[key];
-      if (
-        descriptor === undefined ||
-        !descriptor.enumerable ||
-        !Object.hasOwn(descriptor, "value")
-      ) {
-        questionGraphError(path, "must contain enumerable data properties");
-      }
-    }
-
-    const target = isArray
-      ? []
-      : prototype === null ? Object.create(null) : {};
-    nodes.push({ prototype: isArray ? Array.prototype : prototype, target });
-    active.add(value);
-    try {
-      for (const key of keys) {
-        Object.defineProperty(target, key, {
-          configurable: true,
-          enumerable: true,
-          value: copy(descriptors[key].value, `${path}.${key}`),
-          writable: true,
-        });
-      }
-    } finally {
-      active.delete(value);
-    }
-    return target;
-  }
-
-  const result = copy(source, label);
-  for (const { prototype, target } of nodes) {
-    QUESTION_GRAPH_NODES.add(target);
-    QUESTION_GRAPH_PROTOTYPES.set(target, prototype);
-  }
-  return result;
-}
-
-function inspectQuestionNode(value, label, requireFrozen) {
-  // This identity check must remain the first operation on every object.
-  if (!QUESTION_GRAPH_NODES.has(value)) {
-    questionGraphError(label, "must be source-admitted data");
-  }
-  if (requireFrozen && !Object.isFrozen(value)) {
-    questionGraphError(label, "must be deeply frozen source data");
-  }
-  const expectedPrototype = QUESTION_GRAPH_PROTOTYPES.get(value);
-  let actualPrototype;
-  let descriptors;
-  try {
-    actualPrototype = Object.getPrototypeOf(value);
-    descriptors = Object.getOwnPropertyDescriptors(value);
-  } catch {
-    questionGraphError(label, "must contain inspectable data");
-  }
-  if (actualPrototype !== expectedPrototype) {
-    questionGraphError(label, "must retain its source-admitted prototype");
-  }
-  const ownKeys = Reflect.ownKeys(descriptors);
-  if (expectedPrototype === Array.prototype) {
-    const lengthDescriptor = descriptors.length;
-    const length = lengthDescriptor?.value;
-    if (
-      !lengthDescriptor ||
-      !Object.hasOwn(lengthDescriptor, "value") ||
-      lengthDescriptor.enumerable ||
-      !Number.isSafeInteger(length) ||
-      length < 0 ||
-      length > 128 ||
-      ownKeys.length !== length + 1
-    ) {
-      questionGraphError(label, "must be a dense bounded data array");
-    }
-    const keys = Array.from({ length }, (_, index) => String(index));
-    if (ownKeys.some((key) => key !== "length" && !keys.includes(key))) {
-      questionGraphError(label, "must contain only indexed data");
-    }
-    for (const key of keys) {
-      const descriptor = descriptors[key];
-      if (!descriptor?.enumerable || !Object.hasOwn(descriptor, "value")) {
-        questionGraphError(label, "must contain dense data properties");
-      }
-    }
-    return keys;
-  }
-  if (ownKeys.some((key) => typeof key !== "string")) {
-    questionGraphError(label, "must contain only string data keys");
-  }
-  for (const key of ownKeys) {
-    const descriptor = descriptors[key];
-    if (!descriptor.enumerable || !Object.hasOwn(descriptor, "value")) {
-      questionGraphError(label, "must contain enumerable data properties");
-    }
-  }
-  return ownKeys;
-}
-
-function assertQuestionGraph(value, label = "charge question graph", requireFrozen = false) {
-  if (value === null || typeof value !== "object") {
-    questionGraphError(label, "must be a source-admitted graph");
-  }
-  const active = new Set();
-  let count = 0;
-  function visit(candidate, path) {
-    if (candidate === null) return;
-    const type = typeof candidate;
-    if (type === "string" || type === "boolean") return;
-    if (type === "number") {
-      if (!Number.isFinite(candidate) || Object.is(candidate, -0)) {
-        questionGraphError(path, "must contain finite JSON numbers");
-      }
-      return;
-    }
-    if (type !== "object") questionGraphError(path, "must contain JSON data");
-    const keys = inspectQuestionNode(candidate, path, requireFrozen);
-    if (active.has(candidate)) questionGraphError(path, "must not contain cycles");
-    count += 1;
-    if (count > MAX_QUESTION_GRAPH_NODES) {
-      questionGraphError(path, "exceeds the graph node bound");
-    }
-    active.add(candidate);
-    try {
-      for (const key of keys) visit(
-        Object.getOwnPropertyDescriptor(candidate, key).value,
-        `${path}.${key}`,
-      );
-    } finally {
-      active.delete(candidate);
-    }
-  }
-  visit(value, label);
-  return value;
-}
-
-function recursivelyFreezeQuestionGraph(value, label) {
-  assertQuestionGraph(value, label);
-  const active = new Set();
-  function freezeNode(candidate) {
-    if (candidate === null || typeof candidate !== "object" || active.has(candidate)) return;
-    active.add(candidate);
-    const descriptors = Object.getOwnPropertyDescriptors(candidate);
-    for (const key of Reflect.ownKeys(descriptors)) {
-      if (key !== "length") freezeNode(descriptors[key].value);
-    }
-    Object.freeze(candidate);
-    active.delete(candidate);
-  }
-  freezeNode(value);
-  return value;
-}
-
-function createQuestionFixtureDraft() {
-  return copyQuestionGraph(QUESTION_FIXTURE_VALUES, "charge question fixture");
-}
-
-export function assertChargeQuestionGraph(value, label = "charge question graph") {
-  return assertQuestionGraph(value, label, true);
-}
-
 function exactRecord(value, keys, label) {
   if (
     value === null ||
@@ -408,15 +167,10 @@ function canonicalJson(value) {
 }
 
 function clone(value) {
-  if (value === QUESTION_FIXTURE_VALUES) {
-    return createQuestionFixtureDraft();
-  }
   return JSON.parse(JSON.stringify(value));
 }
 
-function questionFixtureDraft() {
-  return clone(QUESTION_FIXTURE_VALUES);
-}
+const QUESTION_RUNTIME = CHARGE_QUESTION_RUNTIME;
 
 function fixedIdentity(commands) {
   return {
@@ -467,28 +221,6 @@ export function createChargeSpecialFixture(commands = []) {
 }
 
 /**
- * Returns the complete, deliberately non-authoritative QUESTION_FIXTURE used
- * for the charge special. The returned graph is detached and deeply frozen;
- * callers may inspect it without changing simulation behavior.
- */
-function createChargeQuestionFixtureUnwrapped(...args) {
-  if (args.length !== 0) {
-    throw new TypeError("charge question fixture does not accept overrides");
-  }
-  return recursivelyFreezeQuestionGraph(
-    questionFixtureDraft(),
-    "charge question fixture",
-  );
-}
-
-const createChargeQuestionFixture = createChargeQuestionFixtureUnwrapped;
-export { createChargeQuestionFixture };
-export const MOVEMENT_QUESTION_FACTORY_AUTHORITY = Object.freeze({
-  assertGraph: assertChargeQuestionGraph,
-  factory: createChargeQuestionFixtureUnwrapped,
-});
-
-/**
  * Evaluates the exact arm boundary without allowing callers to replace any
  * QUESTION_FIXTURE value. This is a narrow executable description of the
  * unsourced special-mechanic assumption, not an authoritative game claim.
@@ -507,12 +239,12 @@ export function evaluateChargeQuestionBoundary(
     );
   }
   const armed =
-    distanceMillitiles >= QUESTION_FIXTURE_VALUES.armDistanceMillitiles;
-  const bonusAmount = armed ? QUESTION_FIXTURE_VALUES.bonusDamage : 0;
+    distanceMillitiles >= QUESTION_RUNTIME.armDistanceMillitiles;
+  const bonusAmount = armed ? QUESTION_RUNTIME.bonusDamage : 0;
   return {
     armed,
     movementMillitilesPerSecond: armed
-      ? QUESTION_FIXTURE_VALUES.chargedMovementMillitilesPerSecond
+      ? QUESTION_RUNTIME.chargedMovementMillitilesPerSecond
       : DEFINITIONS[0].movementMillitilesPerSecond,
     strike: {
       amount: DEFINITIONS[0].damage + bonusAmount,
@@ -681,7 +413,7 @@ export class ChargeSpecialEncounter {
       });
       if (
         !this.#charged &&
-        this.#chargeProgress >= QUESTION_FIXTURE_VALUES.armDistanceMillitiles
+        this.#chargeProgress >= QUESTION_RUNTIME.armDistanceMillitiles
       ) {
         this.#charged = true;
         this.#movement = createMovementState({
@@ -689,11 +421,11 @@ export class ChargeSpecialEncounter {
           position: this.#movement.position,
           remainder: this.#movement.remainder,
           speed:
-            QUESTION_FIXTURE_VALUES.chargedMovementMillitilesPerSecond,
+            QUESTION_RUNTIME.chargedMovementMillitilesPerSecond,
         });
         events.push({
           distanceMillitiles:
-            QUESTION_FIXTURE_VALUES.armDistanceMillitiles,
+            QUESTION_RUNTIME.armDistanceMillitiles,
           tick: boundary,
           type: "charge-armed",
         });
@@ -717,7 +449,7 @@ export class ChargeSpecialEncounter {
     for (const event of ready) {
       const chargedStrike = this.#charged;
       const bonus = chargedStrike
-        ? QUESTION_FIXTURE_VALUES.bonusDamage
+        ? QUESTION_RUNTIME.bonusDamage
         : 0;
       const amount = this.#card.damage + bonus;
       const result = this.#damage.damage(event.targetId, amount);

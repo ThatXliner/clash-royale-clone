@@ -15,6 +15,15 @@ import * as recoilSource from "../src/content/cards/special-movement-recoil.js";
 import * as retargetSource from "../src/content/cards/special-movement-retarget.js";
 import * as shieldFormSource from "../src/content/cards/shields-forms.js";
 import * as movementQuestionGraph from "../src/content/movement-question-graph.js";
+import {
+  assertChargeKnockbackQuestionGraph,
+  assertChargeQuestionGraph,
+  assertDashQuestionGraph,
+  assertJumpQuestionGraph,
+  assertRecoilQuestionGraph,
+  assertRetargetQuestionGraph,
+  createChargeQuestionFixture as authorityChargeQuestionFixture,
+} from "../src/content/session-troop-movement-question-authority.js";
 import { createSessionTroopProfileManifest } from "../src/content/session-troop-profile-catalog.js";
 import {
   createSessionTroopMovementProfileManifest,
@@ -113,12 +122,12 @@ const SOURCE_MODULES = {
   createShieldFormCatalog: shieldFormSource,
 };
 const QUESTION_GRAPH_BINDINGS = Object.freeze([
-  [chargeSource.createChargeQuestionFixture, chargeSource.assertChargeQuestionGraph],
-  [chargeKnockbackSource.createChargeKnockbackQuestionRecords, chargeKnockbackSource.assertChargeKnockbackQuestionGraph],
-  [dashSource.createDashQuestionFixture, dashSource.assertDashQuestionGraph],
-  [jumpSource.createJumpQuestionFixture, jumpSource.assertJumpQuestionGraph],
-  [recoilSource.createRecoilQuestionFixture, recoilSource.assertRecoilQuestionGraph],
-  [retargetSource.createRetargetQuestionRecords, retargetSource.assertRetargetQuestionGraph],
+  [chargeSource.createChargeQuestionFixture, assertChargeQuestionGraph],
+  [chargeKnockbackSource.createChargeKnockbackQuestionRecords, assertChargeKnockbackQuestionGraph],
+  [dashSource.createDashQuestionFixture, assertDashQuestionGraph],
+  [jumpSource.createJumpQuestionFixture, assertJumpQuestionGraph],
+  [recoilSource.createRecoilQuestionFixture, assertRecoilQuestionGraph],
+  [retargetSource.createRetargetQuestionRecords, assertRetargetQuestionGraph],
 ]);
 const NULLABLE_SOURCE_NUMERIC_FIELDS = Object.freeze([
   "damage",
@@ -157,6 +166,9 @@ const SOURCE_MODULE_PATHS = Object.freeze(Object.fromEntries(
 const MOVEMENT_SOURCE_MODULE_PATH = fileURLToPath(new URL(
   "../src/content/session-troop-movement-profiles.js", import.meta.url
 ));
+const QUESTION_AUTHORITY_MODULE_PATH = fileURLToPath(new URL(
+  "../src/content/session-troop-movement-question-authority.js", import.meta.url
+));
 const MOVEMENT_SOURCE_WRAPPER_PROBE = String.raw`
 import vm from "node:vm";
 import { createHash } from "node:crypto";
@@ -174,14 +186,22 @@ const context = vm.createContext({
   console,
   process,
   structuredClone,
+  vm,
 });
 
 function transformedSource(source, filename) {
   if (filename !== config.targetPath) return source;
-  if (!source.includes(config.marker)) {
+  let transformed = source;
+  if (config.importMarker !== undefined) {
+    if (!transformed.includes(config.importMarker)) {
+      throw new Error("source import marker is missing");
+    }
+    transformed = transformed.replace(config.importMarker, config.importReplacement);
+  }
+  if (!transformed.includes(config.marker)) {
     throw new Error("source wrapper marker is missing");
   }
-  return (config.prefix ?? "") + source.replace(config.marker, config.replacement);
+  return (config.prefix ?? "") + transformed.replace(config.marker, config.replacement);
 }
 
 let movementModule = null;
@@ -194,6 +214,9 @@ function probeResult(payload) {
   }
   if (config.reportFactoryTraps) {
     payload.factoryTraps = context.__factoryTraps ?? 0;
+  }
+  if (config.reportAuthorityGets) {
+    payload.authorityGets = context.__authorityGets ?? 0;
   }
   if (config.probeExposure) {
     payload.exposed = false;
@@ -351,39 +374,78 @@ function questionFactoryWrapperCase(factoryName, mutation, options = {}) {
     ? `__questionFactoryReadCount += 1; if (__questionFactoryReadCount === 1) { ${mutation} }`
     : mutation;
   if (info.kind === "fixture") {
+    const marker = {
+      createChargeQuestionFixture:
+        'return recursivelyFreezeQuestionGraph(\n    copyQuestionGraph(CHARGE_QUESTION_VALUES, "charge question fixture"),\n    "charge question fixture",\n  );',
+      createDashQuestionFixture:
+        'return recursivelyFreezeQuestionGraph(\n    copyQuestionGraph(DASH_QUESTION_VALUES, "QUESTION fixture"),\n    "QUESTION fixture",\n  );',
+      createJumpQuestionFixture:
+        'return recursivelyFreezeQuestionGraph(\n    copyQuestionGraph(JUMP_QUESTION_VALUES, "QUESTION fixture"),\n    "QUESTION fixture",\n  );',
+      createRecoilQuestionFixture:
+        'return recursivelyFreezeQuestionGraph(\n    copyQuestionGraph(RECOIL_QUESTION_VALUES, "QUESTION fixture"),\n    "QUESTION fixture",\n  );',
+    }[factoryName];
+    const fixtureConstant = {
+      createChargeQuestionFixture: ["CHARGE_QUESTION_VALUES", "charge question fixture"],
+      createDashQuestionFixture: ["DASH_QUESTION_VALUES", "QUESTION fixture"],
+      createJumpQuestionFixture: ["JUMP_QUESTION_VALUES", "QUESTION fixture"],
+      createRecoilQuestionFixture: ["RECOIL_QUESTION_VALUES", "QUESTION fixture"],
+    }[factoryName];
+    assert.ok(marker, `missing authority fixture marker for ${factoryName}`);
+    assert.ok(fixtureConstant, `missing authority fixture constant for ${factoryName}`);
+    const [constant, label] = fixtureConstant;
     return {
       expect: options.expect ?? "reject",
-      marker: "return clone(QUESTION_FIXTURE_VALUES);",
+      marker,
       prefix: [
         firstReadOnly ? "let __questionFactoryReadCount = 0;" : "",
         options.prefix ?? "",
       ].filter(Boolean).join("\n") + (firstReadOnly || options.prefix ? "\n" : ""),
       replacement: [
-        "let __question = clone(QUESTION_FIXTURE_VALUES);",
+        `let __question = copyQuestionGraph(${constant}, ${JSON.stringify(label)});`,
         guardedMutation,
-        "return __question;",
+        `return recursivelyFreezeQuestionGraph(__question, ${JSON.stringify(label)});`,
       ].join("\n"),
       reportTraps: options.reportTraps ?? false,
       probeExposure: options.probeExposure ?? false,
-      targetPath: SOURCE_MODULE_PATHS[info.exportName],
+      targetPath: QUESTION_AUTHORITY_MODULE_PATH,
     };
   }
+  const marker = {
+    createChargeKnockbackQuestionRecords:
+      'return recursivelyFreezeQuestionGraph(\n    createQuestionRecordsDraft(\n      CHARGE_KNOCKBACK_QUESTION_VALUES,\n      "unsourced-charge-forced-knockback-retarget-composition",\n      "question records",\n    ),\n    "question records",\n  );',
+    createRetargetQuestionRecords:
+      'return recursivelyFreezeQuestionGraph(\n    createQuestionRecordsDraft(\n      RETARGET_QUESTION_VALUES,\n      "unsourced-retarget-attack-lifecycle-composition",\n      "retarget question records",\n    ),\n    "question records",\n  );',
+  }[factoryName];
+  const recordConstant = {
+    createChargeKnockbackQuestionRecords: [
+      "CHARGE_KNOCKBACK_QUESTION_VALUES",
+      "unsourced-charge-forced-knockback-retarget-composition",
+      "question records",
+    ],
+    createRetargetQuestionRecords: [
+      "RETARGET_QUESTION_VALUES",
+      "unsourced-retarget-attack-lifecycle-composition",
+      "retarget question records",
+    ],
+  }[factoryName];
+  assert.ok(marker, `missing authority records marker for ${factoryName}`);
+  assert.ok(recordConstant, `missing authority records constant for ${factoryName}`);
+  const [constant, source, label] = recordConstant;
   return {
     expect: options.expect ?? "reject",
-    marker: "    Object.freeze(value);",
+    marker,
     prefix: [
       firstReadOnly ? "let __questionFactoryReadCount = 0;" : "",
       options.prefix ?? "",
     ].filter(Boolean).join("\n") + (firstReadOnly || options.prefix ? "\n" : ""),
     replacement: [
-      "    if (!Array.isArray(value) && !Object.hasOwn(value, \"authoritative\") && Object.values(value).every((entry) => entry !== null && typeof entry === \"object\" && entry.authoritative === false && typeof entry.key === \"string\")) {",
-      `      ${guardedMutation}`,
-      "    }",
-      "    Object.freeze(value);",
+      `let value = createQuestionRecordsDraft(${constant}, ${JSON.stringify(source)}, ${JSON.stringify(label)});`,
+      guardedMutation,
+      `return recursivelyFreezeQuestionGraph(value, ${JSON.stringify("question records")});`,
     ].join("\n"),
     reportTraps: options.reportTraps ?? false,
     probeExposure: options.probeExposure ?? false,
-    targetPath: SOURCE_MODULE_PATHS[info.exportName],
+    targetPath: QUESTION_AUTHORITY_MODULE_PATH,
   };
 }
 
@@ -391,15 +453,24 @@ function questionFactoryExportWrapperCase(factoryName, replacement, options = {}
   const info = QUESTION_FACTORY_INFO[factoryName];
   assert.ok(info, `missing QUESTION factory test info for ${factoryName}`);
   const unwrappedName = `${factoryName}Unwrapped`;
+  const fakeAuthority = options.fakeAuthority
+    ? `\nexport const MOVEMENT_QUESTION_FACTORY_AUTHORITY = Object.defineProperty({}, ${JSON.stringify(factoryName)}, { enumerable: true, get() { globalThis.__authorityGets += 1; return ${factoryName}; } });`
+    : "";
   return {
     expect: options.expect ?? "reject",
     marker: `const ${factoryName} = ${unwrappedName};`,
-    prefix: options.prefix ?? "",
-    replacement: `const ${factoryName} = ${replacement};`,
+    prefix: [
+      options.fakeAuthority ? "globalThis.__authorityGets = 0;" : "",
+      options.prefix ?? "",
+    ].filter(Boolean).join("\n") + (options.fakeAuthority || options.prefix ? "\n" : ""),
+    replacement: `const ${factoryName} = ${replacement};${fakeAuthority}`,
+    importMarker: options.importMarker,
+    importReplacement: options.importReplacement,
     reportFactoryCallbacks: options.reportFactoryCallbacks ?? false,
     reportFactoryTraps: options.reportFactoryTraps ?? false,
+    reportAuthorityGets: options.reportAuthorityGets ?? false,
     probeExposure: options.probeExposure ?? false,
-    targetPath: SOURCE_MODULE_PATHS[info.exportName],
+    targetPath: options.targetPath ?? SOURCE_MODULE_PATHS[info.exportName],
   };
 }
 
@@ -1359,10 +1430,10 @@ test("movement profile contract: QUESTION factories reject aliased Proxy roots a
   assert.equal(admittedNodeCount, 99);
   assert.equal(directTrapCount, 0);
 
-  const alteredCharge = structuredClone(chargeSource.createChargeQuestionFixture());
+  const alteredCharge = structuredClone(authorityChargeQuestionFixture());
   alteredCharge.bonusDamage = 999999;
   assert.throws(
-    () => chargeSource.assertChargeQuestionGraph(alteredCharge),
+    () => assertChargeQuestionGraph(alteredCharge),
     /source-admitted/u,
   );
 });
@@ -1412,15 +1483,24 @@ test("movement profile contract: QUESTION factory dispatch rejects transformed b
       "};",
       `function __hostileFactory(...args) { __bumpFactoryCallback(); const __raw = ${unwrappedName}(...args); return new Proxy(__raw, __hostileGraphHandler); }`,
       "function __countedDuplicateFactory(...args) { __bumpFactoryCallback(); return __duplicateFactory(...args); }",
+      "function __crossRealmFactoryBump() { __bumpFactoryCallback(); }",
+      "const __crossRealmFactory = vm.runInNewContext(\"(function(target, bump) { return function(...args) { bump(); return target(...args); }; })(__target, __bump)\", { __target: __hostileFactory, __bump: __crossRealmFactoryBump });",
+      "const __copiedFactory = function(...args) { __bumpFactoryCallback(); return __hostileFactory(...args); };",
+      "Object.defineProperty(__copiedFactory, \"name\", { configurable: true, value: __hostileFactory.name });",
+      "Object.setPrototypeOf(__copiedFactory, Object.getPrototypeOf(__hostileFactory));",
+      "Object.defineProperty(__copiedFactory, \"toString\", { configurable: true, value: Function.prototype.toString.bind(__hostileFactory) });",
     ].join("\n") + "\n";
     const attacks = [
       ["bind", "__hostileFactory.bind(undefined)"],
+      ["transparent Proxy", "new Proxy(__hostileFactory, {})"],
       ["direct Proxy", "new Proxy(__hostileFactory, __factoryProxyHandler)"],
       ["globalThis.Proxy alias", "(() => { const __P = globalThis.Proxy; return new __P(__hostileFactory, __factoryProxyHandler); })()"],
       ["callable wrapper", "(...args) => { __bumpFactoryCallback(); return __hostileFactory(...args); }"],
       ["Function.apply wrapper", "(...args) => { __bumpFactoryCallback(); return Function.prototype.apply.call(__hostileFactory, undefined, args); }"],
       ["Function.call wrapper", "(...args) => { __bumpFactoryCallback(); return Function.prototype.call.call(__hostileFactory, undefined, ...args); }"],
       ["Reflect.apply wrapper", "(...args) => { __bumpFactoryCallback(); return Reflect.apply(__hostileFactory, undefined, args); }"],
+      ["cross-realm wrapper", "__crossRealmFactory"],
+      ["copied name/prototype/toString", "__copiedFactory"],
       ["revoked Proxy", "(() => { const __revocable = Proxy.revocable(__hostileFactory, __factoryProxyHandler); __revocable.revoke(); return __revocable.proxy; })()"],
       ["duplicate module factory", "__duplicateFactory"],
       ["counted duplicate module factory", "__countedDuplicateFactory"],
@@ -1449,8 +1529,134 @@ test("movement profile contract: QUESTION factory dispatch rejects transformed b
 
   assert.deepEqual({ callbackTotal, cases, trapTotal }, {
     callbackTotal: 0,
-    cases: 60,
+    cases: 78,
     trapTotal: 0,
+  });
+});
+
+test("movement profile contract: independent QUESTION authority ignores source lookalikes and duplicate identities", async () => {
+  const baseline = serializeSessionTroopMovementProfileManifest();
+  const baselineHash = createHash("sha256").update(baseline).digest("hex");
+  const authorityImport = "../session-troop-movement-question-authority.js";
+  const profileAuthorityImport = "./session-troop-movement-question-authority.js";
+
+  let canonicalLookalikeCases = 0;
+  for (const factoryName of Object.keys(QUESTION_FACTORY_INFO)) {
+    const result = runSourceWrapperProbe(questionFactoryExportWrapperCase(
+      factoryName,
+      `${factoryName}Unwrapped`,
+      {
+        expect: "accept",
+        fakeAuthority: true,
+        reportAuthorityGets: true,
+      },
+    ));
+    assert.deepEqual(result, {
+      accepted: true,
+      authorityGets: 0,
+      length: baseline.length,
+      sha256: baselineHash,
+    }, `${factoryName} read the fake authority export`);
+    canonicalLookalikeCases += 1;
+  }
+
+  const hostileFactoryPrefix = [
+    "globalThis.__factoryCallbacks = 0;",
+    "globalThis.__factoryTraps = 0;",
+    "const __hostileGraphHandler = {",
+    "  getPrototypeOf() { globalThis.__factoryTraps += 1; throw new Error(\"hostile graph trap\"); },",
+    "  ownKeys() { globalThis.__factoryTraps += 1; throw new Error(\"hostile graph trap\"); },",
+    "  getOwnPropertyDescriptor() { globalThis.__factoryTraps += 1; throw new Error(\"hostile graph trap\"); },",
+    "  get() { globalThis.__factoryTraps += 1; throw new Error(\"hostile graph trap\"); },",
+    "};",
+  ].join("\n");
+  let coherentWrapperCases = 0;
+  for (const factoryName of Object.keys(QUESTION_FACTORY_INFO)) {
+    const unwrappedName = `${factoryName}Unwrapped`;
+    const result = runSourceWrapperProbe(questionFactoryExportWrapperCase(
+      factoryName,
+      `(...args) => { globalThis.__factoryCallbacks += 1; const __raw = ${unwrappedName}(...args); return new Proxy(__raw, __hostileGraphHandler); }`,
+      {
+        fakeAuthority: true,
+        prefix: hostileFactoryPrefix,
+        reportAuthorityGets: true,
+        reportFactoryCallbacks: true,
+        reportFactoryTraps: true,
+        probeExposure: true,
+      },
+    ));
+    assert.equal(result.accepted, false, `${factoryName} coherent source wrapper was accepted`);
+    assert.equal(result.authorityGets, 0, `${factoryName} fake authority accessor was read`);
+    assert.equal(result.exposed, false, `${factoryName} exposed a partial manifest`);
+    assert.equal(result.factoryCallbacks, 0, `${factoryName} coherent source wrapper was reached`);
+    assert.equal(result.factoryTraps, 0, `${factoryName} hostile graph trap was reached`);
+    assert.doesNotMatch(result.error, /hostile graph trap/u);
+    coherentWrapperCases += 1;
+  }
+
+  let sourceQueryCases = 0;
+  for (const factoryName of Object.keys(QUESTION_FACTORY_INFO)) {
+    const result = runSourceWrapperProbe(questionFactoryExportWrapperCase(
+      factoryName,
+      `${factoryName}Unwrapped`,
+      {
+        importMarker: authorityImport,
+        importReplacement: `${authorityImport}?source-query=${factoryName}`,
+        prefix: "globalThis.__factoryCallbacks = 0; globalThis.__factoryTraps = 0;",
+        reportFactoryCallbacks: true,
+        reportFactoryTraps: true,
+        probeExposure: true,
+      },
+    ));
+    assert.equal(result.accepted, false, `${factoryName} query-imported source authority was accepted`);
+    assert.equal(result.exposed, false, `${factoryName} query-imported source exposed a partial manifest`);
+    assert.equal(result.factoryCallbacks, 0, `${factoryName} query-imported source invoked a factory`);
+    assert.equal(result.factoryTraps, 0, `${factoryName} query-imported source invoked a trap`);
+    sourceQueryCases += 1;
+  }
+
+  const profileQuery = runSourceWrapperProbe({
+    expect: "reject",
+    marker: "const VERSION = 1;",
+    replacement: "const VERSION = 1;",
+    importMarker: profileAuthorityImport,
+    importReplacement: `${profileAuthorityImport}?profile-query=authority`,
+    prefix: "globalThis.__factoryCallbacks = 0; globalThis.__factoryTraps = 0;",
+    reportFactoryCallbacks: true,
+    reportFactoryTraps: true,
+    probeExposure: true,
+    targetPath: MOVEMENT_SOURCE_MODULE_PATH,
+  });
+  assert.equal(profileQuery.accepted, false, "query-imported profile authority was accepted");
+  assert.equal(profileQuery.exposed, false, "query-imported profile authority exposed a partial manifest");
+  assert.equal(profileQuery.factoryCallbacks, 0, "query-imported profile authority invoked a factory");
+  assert.equal(profileQuery.factoryTraps, 0, "query-imported profile authority invoked a trap");
+
+  let duplicateGraphRejects = 0;
+  for (const [factory, assertor] of QUESTION_GRAPH_BINDINGS) {
+    const factoryName = Object.keys(QUESTION_FACTORY_INFO).find((name) =>
+      QUESTION_SOURCES[QUESTION_FACTORY_INFO[name].exportName]?.[1] === factory
+    );
+    assert.ok(factoryName, "missing QUESTION factory name for duplicate graph probe");
+    const duplicateAuthority = await import(
+      `../src/content/session-troop-movement-question-authority.js?duplicate-graph=${factoryName}`
+    );
+    const duplicateGraph = duplicateAuthority[factoryName]();
+    assert.notEqual(duplicateGraph, factory(), `${factoryName} duplicate factory reused identity`);
+    assert.throws(() => assertor(duplicateGraph), /source-admitted/u);
+    duplicateGraphRejects += 1;
+  }
+
+  assert.deepEqual({
+    canonicalLookalikeCases,
+    coherentWrapperCases,
+    duplicateGraphRejects,
+    sourceQueryCases,
+  }, {
+    canonicalLookalikeCases: 6,
+    coherentWrapperCases: 6,
+    duplicateGraphRejects: 6,
+    sourceQueryCases: 6,
   });
 });
 

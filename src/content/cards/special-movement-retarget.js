@@ -1,6 +1,12 @@
 import { AttackCycle } from "../../sim/attack-cycle.js";
 import { retainOrAcquireTarget } from "../../sim/targeting.js";
 import { createCardCatalog } from "../schema.js";
+import {
+  createRetargetQuestionRecords as createRetargetQuestionRecordsUnwrapped,
+} from "../session-troop-movement-question-authority.js";
+
+const createRetargetQuestionRecords = createRetargetQuestionRecordsUnwrapped;
+export { createRetargetQuestionRecords };
 
 const DEFINITION = Object.freeze({
   areaDamageRadiusMillitiles: null,
@@ -44,39 +50,6 @@ const CANDIDATE_KEYS = [
 const COMMAND_KEYS = ["candidate", "targetId", "tick", "type"];
 const SETUP_KEYS = ["candidates", "commands"];
 const COMMAND_TYPES = new Set(["remove-candidate", "set-candidate"]);
-
-const QUESTION_VALUES = Object.freeze({
-  attackBoundaryInclusive: true,
-  attackReachEligibility: "independent-from-sight-retention",
-  attackerPosition: ATTACKER.position,
-  attackerRadiusMillitiles: ATTACKER.radius,
-  candidateMutationPriority: "commands-before-selection",
-  damageApplication: "ready-event-applies-one-damage-value",
-  deathInvalidation: true,
-  deathOnReadyBoundarySuppression: true,
-  differentIdReacquisition: "full-first-hit-windup",
-  distanceMetric: "exact-bigint-squared-center-distance",
-  eligibilityLossCancellation: true,
-  eligibilityReentry: "full-first-hit-windup",
-  eventOrdering: Object.freeze([
-    "target-lost",
-    "target-acquired",
-    "attack-ready",
-    "damage",
-    "death",
-  ]),
-  idLossCancellation: true,
-  missingIdInvalidation: true,
-  modeInvalidation: true,
-  readinessPriority: "selection-before-readiness",
-  sameIdReentry: "full-first-hit-windup",
-  sightBoundaryInclusive: true,
-  sightInvalidation: true,
-  stickyRetention: "valid-current-target-is-retained",
-  syntheticCandidateHealth: 1_000,
-  targetableInvalidation: true,
-  tieBreak: "ascending-stable-id",
-});
 
 function exactRecord(value, keys, label) {
   if (
@@ -258,246 +231,6 @@ function clone(value) {
   return JSON.parse(JSON.stringify(value));
 }
 
-const QUESTION_GRAPH_NODES = new WeakSet();
-const QUESTION_GRAPH_PROTOTYPES = new WeakMap();
-const MAX_QUESTION_GRAPH_NODES = 4096;
-
-function questionGraphError(label, message) {
-  throw new TypeError(`${label} ${message}`);
-}
-
-function copyQuestionGraph(source, label) {
-  const active = new Set();
-  const nodes = [];
-  function copy(value, path) {
-    if (value === null) return null;
-    const type = typeof value;
-    if (type === "string" || type === "boolean") return value;
-    if (type === "number") {
-      if (!Number.isFinite(value) || Object.is(value, -0)) {
-        questionGraphError(path, "must contain finite JSON numbers");
-      }
-      return value;
-    }
-    if (type !== "object") questionGraphError(path, "must contain JSON data");
-    if (active.has(value)) questionGraphError(path, "must not contain cycles");
-    if (nodes.length >= MAX_QUESTION_GRAPH_NODES) {
-      questionGraphError(path, "exceeds the graph node bound");
-    }
-    let isArray;
-    let prototype;
-    let descriptors;
-    try {
-      isArray = Array.isArray(value);
-      prototype = Object.getPrototypeOf(value);
-      descriptors = Object.getOwnPropertyDescriptors(value);
-    } catch {
-      questionGraphError(path, "must contain inspectable data");
-    }
-    const ownKeys = Reflect.ownKeys(descriptors);
-    let keys;
-    if (isArray) {
-      const lengthDescriptor = descriptors.length;
-      const length = lengthDescriptor?.value;
-      if (
-        prototype !== Array.prototype ||
-        !lengthDescriptor ||
-        !Object.hasOwn(lengthDescriptor, "value") ||
-        lengthDescriptor.enumerable ||
-        !Number.isSafeInteger(length) ||
-        length < 0 ||
-        length > 128 ||
-        ownKeys.length !== length + 1
-      ) {
-        questionGraphError(path, "must be a dense bounded data array");
-      }
-      keys = Array.from({ length }, (_, index) => String(index));
-      if (ownKeys.some((key) => key !== "length" && !keys.includes(key))) {
-        questionGraphError(path, "must contain only indexed data");
-      }
-    } else {
-      if (prototype !== Object.prototype && prototype !== null) {
-        questionGraphError(path, "must use a plain object prototype");
-      }
-      keys = ownKeys;
-      if (keys.some((key) => typeof key !== "string")) {
-        questionGraphError(path, "must contain only string data keys");
-      }
-    }
-    for (const key of keys) {
-      const descriptor = descriptors[key];
-      if (
-        descriptor === undefined ||
-        !descriptor.enumerable ||
-        !Object.hasOwn(descriptor, "value")
-      ) {
-        questionGraphError(path, "must contain enumerable data properties");
-      }
-    }
-    const target = isArray
-      ? []
-      : prototype === null ? Object.create(null) : {};
-    nodes.push({ prototype: isArray ? Array.prototype : prototype, target });
-    active.add(value);
-    try {
-      for (const key of keys) {
-        Object.defineProperty(target, key, {
-          configurable: true,
-          enumerable: true,
-          value: copy(descriptors[key].value, `${path}.${key}`),
-          writable: true,
-        });
-      }
-    } finally {
-      active.delete(value);
-    }
-    return target;
-  }
-  const result = copy(source, label);
-  for (const { prototype, target } of nodes) {
-    QUESTION_GRAPH_NODES.add(target);
-    QUESTION_GRAPH_PROTOTYPES.set(target, prototype);
-  }
-  return result;
-}
-
-function inspectQuestionNode(value, label, requireFrozen) {
-  if (!QUESTION_GRAPH_NODES.has(value)) {
-    questionGraphError(label, "must be source-admitted data");
-  }
-  if (requireFrozen && !Object.isFrozen(value)) {
-    questionGraphError(label, "must be deeply frozen source data");
-  }
-  const expectedPrototype = QUESTION_GRAPH_PROTOTYPES.get(value);
-  let actualPrototype;
-  let descriptors;
-  try {
-    actualPrototype = Object.getPrototypeOf(value);
-    descriptors = Object.getOwnPropertyDescriptors(value);
-  } catch {
-    questionGraphError(label, "must contain inspectable data");
-  }
-  if (actualPrototype !== expectedPrototype) {
-    questionGraphError(label, "must retain its source-admitted prototype");
-  }
-  const ownKeys = Reflect.ownKeys(descriptors);
-  if (expectedPrototype === Array.prototype) {
-    const lengthDescriptor = descriptors.length;
-    const length = lengthDescriptor?.value;
-    if (
-      !lengthDescriptor ||
-      !Object.hasOwn(lengthDescriptor, "value") ||
-      lengthDescriptor.enumerable ||
-      !Number.isSafeInteger(length) ||
-      length < 0 ||
-      length > 128 ||
-      ownKeys.length !== length + 1
-    ) {
-      questionGraphError(label, "must be a dense bounded data array");
-    }
-    const keys = Array.from({ length }, (_, index) => String(index));
-    if (ownKeys.some((key) => key !== "length" && !keys.includes(key))) {
-      questionGraphError(label, "must contain only indexed data");
-    }
-    for (const key of keys) {
-      const descriptor = descriptors[key];
-      if (!descriptor?.enumerable || !Object.hasOwn(descriptor, "value")) {
-        questionGraphError(label, "must contain dense data properties");
-      }
-    }
-    return keys;
-  }
-  if (ownKeys.some((key) => typeof key !== "string")) {
-    questionGraphError(label, "must contain only string data keys");
-  }
-  for (const key of ownKeys) {
-    const descriptor = descriptors[key];
-    if (!descriptor.enumerable || !Object.hasOwn(descriptor, "value")) {
-      questionGraphError(label, "must contain enumerable data properties");
-    }
-  }
-  return ownKeys;
-}
-
-function assertQuestionGraph(value, label = "QUESTION graph", requireFrozen = false) {
-  if (value === null || typeof value !== "object") {
-    questionGraphError(label, "must be a source-admitted graph");
-  }
-  const active = new Set();
-  let count = 0;
-  function visit(candidate, path) {
-    if (candidate === null) return;
-    const type = typeof candidate;
-    if (type === "string" || type === "boolean") return;
-    if (type === "number") {
-      if (!Number.isFinite(candidate) || Object.is(candidate, -0)) {
-        questionGraphError(path, "must contain finite JSON numbers");
-      }
-      return;
-    }
-    if (type !== "object") questionGraphError(path, "must contain JSON data");
-    const keys = inspectQuestionNode(candidate, path, requireFrozen);
-    if (active.has(candidate)) questionGraphError(path, "must not contain cycles");
-    count += 1;
-    if (count > MAX_QUESTION_GRAPH_NODES) {
-      questionGraphError(path, "exceeds the graph node bound");
-    }
-    active.add(candidate);
-    try {
-      for (const key of keys) {
-        visit(
-          Object.getOwnPropertyDescriptor(candidate, key).value,
-          `${path}.${key}`,
-        );
-      }
-    } finally {
-      active.delete(candidate);
-    }
-  }
-  visit(value, label);
-  return value;
-}
-
-function recursivelyFreeze(value) {
-  if (value !== null && typeof value === "object") {
-    assertQuestionGraph(value, "question records");
-    for (const child of Object.values(value)) recursivelyFreeze(child);
-    Object.freeze(value);
-  }
-  return value;
-}
-
-function createQuestionRecordsDraft() {
-  return copyQuestionGraph(
-    Object.fromEntries(
-      Object.entries(QUESTION_VALUES).map(([key, value]) => [
-        key,
-        questionRecord(key, value),
-      ]),
-    ),
-    "retarget question records",
-  );
-}
-
-export function assertRetargetQuestionGraph(
-  value,
-  label = "retarget question graph",
-) {
-  return assertQuestionGraph(value, label, true);
-}
-
-
-function questionRecord(key, value) {
-  return {
-    authoritative: false,
-    confidence: "unverified",
-    disposition: "question",
-    key,
-    source: "unsourced-retarget-attack-lifecycle-composition",
-    value: clone(value),
-  };
-}
-
 function targetView(candidate) {
   return {
     alive: candidate.alive,
@@ -526,20 +259,6 @@ function event(type, tick, fields = {}) {
 export function createRetargetSpecialCatalog() {
   return createCardCatalog([DEFINITION]);
 }
-
-function createRetargetQuestionRecordsUnwrapped(...args) {
-  if (args.length !== 0) {
-    throw new TypeError("retarget question records do not accept overrides");
-  }
-  return recursivelyFreeze(createQuestionRecordsDraft());
-}
-
-const createRetargetQuestionRecords = createRetargetQuestionRecordsUnwrapped;
-export { createRetargetQuestionRecords };
-export const MOVEMENT_QUESTION_FACTORY_AUTHORITY = Object.freeze({
-  assertGraph: assertRetargetQuestionGraph,
-  factory: createRetargetQuestionRecordsUnwrapped,
-});
 
 export function createRetargetFixture(candidates = [], commands = []) {
   return clone(checkedSetup({ candidates, commands }));

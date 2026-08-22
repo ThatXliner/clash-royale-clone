@@ -8,6 +8,20 @@ import * as retargetSource from "./cards/special-movement-retarget.js";
 import * as shieldFormSource from "./cards/shields-forms.js";
 import { assertTrustedCardCatalog } from "./schema.js";
 import { createSessionTroopProfileManifest } from "./session-troop-profile-catalog.js";
+import {
+  assertChargeKnockbackQuestionGraph,
+  assertChargeQuestionGraph,
+  assertDashQuestionGraph,
+  assertJumpQuestionGraph,
+  assertRecoilQuestionGraph,
+  assertRetargetQuestionGraph,
+  createChargeKnockbackQuestionRecords,
+  createChargeQuestionFixture,
+  createDashQuestionFixture,
+  createJumpQuestionFixture,
+  createRecoilQuestionFixture,
+  createRetargetQuestionRecords,
+} from "./session-troop-movement-question-authority.js";
 
 const VERSION = 1;
 const RUNTIME_INTEGRATION_STATUS = "pending-shared-host";
@@ -153,66 +167,56 @@ const SOURCE_MODULES_BY_EXPORT = Object.freeze({
   createShieldFormCatalog: shieldFormSource,
 });
 const TRUSTED_SOURCE_FACTORIES = new WeakSet(
-  Object.values(SOURCE_MODULES_BY_EXPORT).flatMap((sourceModule) =>
-    Object.values(sourceModule).filter((value) => typeof value === "function")
-  ),
+  Object.entries(SOURCE_MODULES_BY_EXPORT)
+    .map(([exportName, sourceModule]) => sourceModule[exportName])
+    .filter((value) => typeof value === "function"),
 );
 
-// The dispatcher is deliberately closed over the six exact source bindings.
-// It has no caller-controlled registration path: a factory must be the
-// module-owned function and its result must be admitted by that same module's
-// private identity set before any graph inspection occurs.
-const QUESTION_GRAPH_ASSERTORS_BY_FACTORY = new WeakMap([
-  [chargeSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.factory, chargeSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.assertGraph],
-  [chargeKnockbackSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.factory, chargeKnockbackSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.assertGraph],
-  [dashSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.factory, dashSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.assertGraph],
-  [jumpSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.factory, jumpSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.assertGraph],
-  [recoilSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.factory, recoilSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.assertGraph],
-  [retargetSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.factory, retargetSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.assertGraph],
-]);
-
+// The dispatcher is deliberately closed over the six direct bindings from
+// the independent QUESTION authority module. Source modules are checked only
+// as public re-export surfaces; their values are never invoked here.
 const QUESTION_FACTORY_BINDINGS = Object.freeze([
   Object.freeze({
     exportName: "createChargeSpecialCatalog",
     factoryName: "createChargeQuestionFixture",
     sourceModule: chargeSource,
-    factory: chargeSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.factory,
-    assertGraph: chargeSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.assertGraph,
+    factory: createChargeQuestionFixture,
+    assertGraph: assertChargeQuestionGraph,
   }),
   Object.freeze({
     exportName: "createChargeKnockbackCatalog",
     factoryName: "createChargeKnockbackQuestionRecords",
     sourceModule: chargeKnockbackSource,
-    factory: chargeKnockbackSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.factory,
-    assertGraph: chargeKnockbackSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.assertGraph,
+    factory: createChargeKnockbackQuestionRecords,
+    assertGraph: assertChargeKnockbackQuestionGraph,
   }),
   Object.freeze({
     exportName: "createDashSpecialCatalog",
     factoryName: "createDashQuestionFixture",
     sourceModule: dashSource,
-    factory: dashSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.factory,
-    assertGraph: dashSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.assertGraph,
+    factory: createDashQuestionFixture,
+    assertGraph: assertDashQuestionGraph,
   }),
   Object.freeze({
     exportName: "createJumpSpecialCatalog",
     factoryName: "createJumpQuestionFixture",
     sourceModule: jumpSource,
-    factory: jumpSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.factory,
-    assertGraph: jumpSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.assertGraph,
+    factory: createJumpQuestionFixture,
+    assertGraph: assertJumpQuestionGraph,
   }),
   Object.freeze({
     exportName: "createRecoilSpecialCatalog",
     factoryName: "createRecoilQuestionFixture",
     sourceModule: recoilSource,
-    factory: recoilSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.factory,
-    assertGraph: recoilSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.assertGraph,
+    factory: createRecoilQuestionFixture,
+    assertGraph: assertRecoilQuestionGraph,
   }),
   Object.freeze({
     exportName: "createRetargetSpecialCatalog",
     factoryName: "createRetargetQuestionRecords",
     sourceModule: retargetSource,
-    factory: retargetSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.factory,
-    assertGraph: retargetSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.assertGraph,
+    factory: createRetargetQuestionRecords,
+    assertGraph: assertRetargetQuestionGraph,
   }),
 ]);
 const QUESTION_FACTORY_BINDINGS_BY_EXPORT = new Map(
@@ -1281,9 +1285,6 @@ function questionFactoryBindingFor(spec) {
   // the source module's unwrapped authority record.
   if (binding.sourceModule[binding.factoryName] !== binding.factory) {
     throw new TypeError(`${spec.questionFactory} is not the exact module-owned factory`);
-  }
-  if (QUESTION_GRAPH_ASSERTORS_BY_FACTORY.get(binding.factory) !== binding.assertGraph) {
-    throw new TypeError(`${spec.questionFactory} has no exact module-owned graph authority`);
   }
   return binding;
 }
