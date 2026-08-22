@@ -28,6 +28,37 @@ function recursivelyFrozen(value) {
   return Object.isFrozen(value) && Object.values(value).every(recursivelyFrozen);
 }
 
+// This test-only walker is bounded to the known, acyclic shell/roster graphs
+// passed by the first test. It deliberately does not inspect arbitrary input.
+function assertDetachedGraph(expected, actual, label) {
+  assert.deepEqual(expected, actual, `${label} value`);
+  if (expected === null || typeof expected !== "object") return 0;
+
+  assert.notEqual(expected, actual, `${label} identity`);
+  assert.equal(
+    Array.isArray(expected),
+    Array.isArray(actual),
+    `${label} array shape`,
+  );
+  const expectedKeys = Object.keys(expected);
+  assert.deepEqual(
+    expectedKeys,
+    Object.keys(actual),
+    `${label} keys`,
+  );
+  const childLabel = (key) => Array.isArray(expected)
+    ? `${label}[${key}]`
+    : `${label}.${key}`;
+  return 1 + expectedKeys.reduce(
+    (count, key) => count + assertDetachedGraph(
+      expected[key],
+      actual[key],
+      childLabel(key),
+    ),
+    0,
+  );
+}
+
 function sourceCards() {
   return [
     ...createBasicMeleeCatalog(),
@@ -50,6 +81,58 @@ test("playable roster: exact browser-shell deck order is centralized and immutab
   assert.notEqual(shellCards, roster);
   assert.notEqual(shellCards[0], roster[0]);
   assert.notEqual(shellCards[0].entities, roster[0].entities);
+  for (let cardIndex = 0; cardIndex < shellCards.length; cardIndex += 1) {
+    const shellCard = shellCards[cardIndex];
+    const freshCard = roster[cardIndex];
+    assert.notEqual(shellCard, freshCard, `card[${cardIndex}] identity`);
+    assert.notEqual(
+      shellCard.entities,
+      freshCard.entities,
+      `card[${cardIndex}].entities identity`,
+    );
+    for (let entityIndex = 0; entityIndex < shellCard.entities.length; entityIndex += 1) {
+      const shellEntity = shellCard.entities[entityIndex];
+      const freshEntity = freshCard.entities[entityIndex];
+      const entityLabel = `card[${cardIndex}].entities[${entityIndex}]`;
+      assert.notEqual(shellEntity, freshEntity, `${entityLabel} identity`);
+      for (const [field, shellValue] of Object.entries(shellEntity)) {
+        if (shellValue === null || typeof shellValue !== "object") continue;
+        assert.notEqual(
+          shellValue,
+          freshEntity[field],
+          `${entityLabel}.${field} identity`,
+        );
+        assert.deepEqual(
+          shellValue,
+          freshEntity[field],
+          `${entityLabel}.${field} value`,
+        );
+      }
+    }
+  }
+  const nestedObjectCount = assertDetachedGraph(
+    shellCards,
+    roster,
+    "playable roster",
+  );
+  assert.ok(nestedObjectCount > shellCards.length, "nested graph was traversed");
+
+  const entityAliasProbe = shellCards.map((card) => ({
+    ...card,
+    entities: [...card.entities],
+  }));
+  assert.throws(
+    () => assertDetachedGraph(entityAliasProbe, shellCards, "entity record alias probe"),
+    /entity record alias probe.*entities\[0\].*identity/u,
+  );
+  const policyAliasProbe = shellCards.map((card) => ({
+    ...card,
+    entities: card.entities.map((entity) => ({ ...entity })),
+  }));
+  assert.throws(
+    () => assertDetachedGraph(policyAliasProbe, shellCards, "policy alias probe"),
+    /policy alias probe.*bodyRadiusPolicy.*identity/u,
+  );
   assert.equal(recursivelyFrozen(shellCards), true);
   assert.deepEqual(
     shellCards.map(({ id }) => id),
