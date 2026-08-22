@@ -1,5 +1,27 @@
 # Gauntlet Rounds
 
+## Round 274 — 2026-08-22
+
+PIECE: GAME-001HTJP — Projectile source-profile contract, round 6
+
+VERDICT: PASS
+
+EVIDENCE: Clean commit `25b2fd4`; focused projectile profiles passed 26/26,
+HTP 11/11 and HTO 14/14. Independent probes rejected 1,105/1,105
+rebranded scalar and nested mutations across all eleven rows and five
+consumers. The exact 132-case hostile family and an expanded 320-case matrix
+both rejected with zero callbacks or Proxy traps; 32/32 microtask TOCTOU
+probes preserved bytes and 8/8 authority-forgery, prototype and descriptor
+attacks rejected. A public rebranded safe graph exposed damage 219 while the
+closed authority remained 218. The canonical manifest remained 66,903 bytes
+with SHA-256
+`d01b60123c2ac10a7cf8f3846a8c8fcd87eda22a65cb9166cb99d69f47fdb31d`.
+Movement 17/17, building 14/14, projectile history 17/17 and 5/5,
+projectile kernel 8/8, schema 20/20, nondeterminism 9/9 and shipping isolation
+13/13 passed; the critic worktree remained clean.
+
+BIGGEST GAP: None on the judged dimension.
+
 ## Round 273 — 2026-08-22
 
 PIECE: GAME-001HTS — Shared troop status, heal, and visibility mechanics,
