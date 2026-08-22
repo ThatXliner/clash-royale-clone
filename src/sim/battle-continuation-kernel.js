@@ -5190,6 +5190,12 @@ const ENTITY_KEYS = [
   "movementMillitilesPerSecond", "projectileSpeedPolicy", "rangeMillitiles",
   "role", "sightRangeMillitiles", "targetMode",
 ];
+const ENTITY_ORDINARY_POLICY_KEYS = ["deliveryPolicy", "layerPolicy"];
+const ENTITY_DAMAGE_POLICY_KEYS = ["damagePolicy"];
+const ENTITY_ORDINARY_KEYS = [...ENTITY_KEYS, ...ENTITY_ORDINARY_POLICY_KEYS];
+const ENTITY_ORDINARY_DAMAGE_KEYS = [
+  ...ENTITY_ORDINARY_KEYS, ...ENTITY_DAMAGE_POLICY_KEYS,
+];
 const QUESTION_KEYS = [
   "authoritative", "confidence", "disposition", "key", "source", "value",
 ];
@@ -5441,6 +5447,7 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
     throw new TypeError("live battle setup question keys must be unique");
   }
   const questionKeys = new Set(questions.map(({ key }) => key));
+  const questionValues = new Map(questions.map(({ key, value: answer }) => [key, answer]));
   const referencedQuestionKeys = new Set();
   const roster = denseArray(setup.roster, "live battle setup.roster", 8)
     .map((value, cardIndex) => {
@@ -5461,11 +5468,27 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
       const entities = denseArray(card.entities, `roster[${cardIndex}].entities`, 16)
         .map((raw, entityIndex) => {
           const label = `roster[${cardIndex}].entities[${entityIndex}]`;
-          const entity = exact(raw, ENTITY_KEYS, label);
+          const hasOrdinaryPolicies = raw !== null && typeof raw === "object" &&
+            !Array.isArray(raw) &&
+            (Object.hasOwn(raw, "deliveryPolicy") || Object.hasOwn(raw, "layerPolicy"));
+          const hasDamagePolicy = raw !== null && typeof raw === "object" &&
+            !Array.isArray(raw) && Object.hasOwn(raw, "damagePolicy");
+          const entity = exact(raw, hasOrdinaryPolicies
+            ? (hasDamagePolicy ? ENTITY_ORDINARY_DAMAGE_KEYS : ENTITY_ORDINARY_KEYS)
+            : ENTITY_KEYS, label);
           const bodyRadiusPolicy = checkedPolicy(entity.bodyRadiusPolicy, `${label}.bodyRadiusPolicy`);
           const projectileSpeedPolicy = checkedPolicy(
             entity.projectileSpeedPolicy, `${label}.projectileSpeedPolicy`, { projectile: true },
           );
+          const deliveryPolicy = hasOrdinaryPolicies
+            ? checkedPolicy(entity.deliveryPolicy, `${label}.deliveryPolicy`)
+            : null;
+          const layerPolicy = hasOrdinaryPolicies
+            ? checkedPolicy(entity.layerPolicy, `${label}.layerPolicy`)
+            : null;
+          const damagePolicy = hasDamagePolicy
+            ? checkedPolicy(entity.damagePolicy, `${label}.damagePolicy`)
+            : null;
           for (const policy of [bodyRadiusPolicy, projectileSpeedPolicy]) {
             if (policy.kind === "question" && !questionKeys.has(policy.questionKey)) {
               throw new TypeError(`${label} has an unresolved question policy`);
@@ -5478,7 +5501,7 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
           }
           if ((entity.delivery === "projectile") !==
               (projectileSpeedPolicy.kind === "question") || entity.kind !== "unit" ||
-              !["buildings", "ground", "ground-and-air"].includes(entity.targetMode)) {
+              !["buildings", "ground", "ground-and-air", "structures"].includes(entity.targetMode)) {
             throw new TypeError(`${label} has inconsistent combat metadata`);
           }
           const archetypeId = identity(entity.archetypeId, entity.displayName,
@@ -5490,16 +5513,49 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
                 projectileSpeedPolicy.questionKey !== expectedProjectileKey)) {
             throw new TypeError(`${label} policy identities are inconsistent with its archetype`);
           }
+          if (hasOrdinaryPolicies) {
+            const expectedDeliveryKey = `${archetypeId}.delivery`;
+            const expectedLayerKey = `${archetypeId}.layer`;
+            if (deliveryPolicy.kind !== "question" || layerPolicy.kind !== "question" ||
+                deliveryPolicy.questionKey !== expectedDeliveryKey ||
+                layerPolicy.questionKey !== expectedLayerKey ||
+                !questionKeys.has(deliveryPolicy.questionKey) ||
+                !questionKeys.has(layerPolicy.questionKey)) {
+              throw new TypeError(`${label} ordinary runtime policies are unresolved`);
+            }
+            referencedQuestionKeys.add(deliveryPolicy.questionKey);
+            referencedQuestionKeys.add(layerPolicy.questionKey);
+            const deliveryAnswer = questionValues.get(deliveryPolicy.questionKey);
+            const layerAnswer = questionValues.get(layerPolicy.questionKey);
+            const expectedDelivery = deliveryAnswer === 1 ? "melee" :
+              deliveryAnswer === 2 ? "projectile" : null;
+            const expectedLayer = layerAnswer === 1 ? "ground" :
+              layerAnswer === 2 ? "air" : null;
+            if (expectedDelivery === null || expectedLayer === null ||
+                entity.delivery !== expectedDelivery || entity.layer !== expectedLayer) {
+              throw new TypeError(`${label} ordinary runtime policies disagree with estimates`);
+            }
+          }
+          if (hasDamagePolicy) {
+            const expectedDamageKey = `${archetypeId}.damage`;
+            if (damagePolicy.kind !== "question" || damagePolicy.questionKey !== expectedDamageKey ||
+                !questionKeys.has(damagePolicy.questionKey) || entity.damage !== null ||
+                questionValues.get(damagePolicy.questionKey) === undefined) {
+              throw new TypeError(`${label} damage policy is unresolved`);
+            }
+            referencedQuestionKeys.add(damagePolicy.questionKey);
+          }
           if (entity.role !== (entityIndex === 0 ? "primary" : "secondary")) {
             throw new TypeError(`${label}.role is inconsistent with component ownership`);
           }
-          return {
+          const normalizedEntity = {
             archetypeId,
             areaDamageRadiusMillitiles: nullableNonnegative(entity.areaDamageRadiusMillitiles,
               `${label}.areaDamageRadiusMillitiles`),
             bodyRadiusPolicy,
             count: integer(entity.count, 1, 64, `${label}.count`),
-            damage: nonnegative(entity.damage, `${label}.damage`),
+            damage: hasDamagePolicy ? nullableNonnegative(entity.damage, `${label}.damage`) :
+              nonnegative(entity.damage, `${label}.damage`),
             delivery: entity.delivery,
             deployTimeTicks: nonnegative(entity.deployTimeTicks, `${label}.deployTimeTicks`),
             displayName: string(entity.displayName, `${label}.displayName`),
@@ -5518,6 +5574,12 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
               `${label}.sightRangeMillitiles`),
             targetMode: string(entity.targetMode, `${label}.targetMode`),
           };
+          if (hasOrdinaryPolicies) {
+            normalizedEntity.deliveryPolicy = deliveryPolicy;
+            normalizedEntity.layerPolicy = layerPolicy;
+          }
+          if (hasDamagePolicy) normalizedEntity.damagePolicy = damagePolicy;
+          return normalizedEntity;
         });
       if ((cardKind === "unit") !== (entities.length > 0)) {
         throw new TypeError(`roster[${cardIndex}] entity inventory is inconsistent with its kind`);
@@ -5534,12 +5596,18 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
         throw new TypeError(`roster[${cardIndex}].formation is inconsistent`);
       }
       const label = `roster[${cardIndex}]`;
+      const hasDamageQuestion = entities.some(({ damagePolicy }) => damagePolicy !== undefined);
+      if ((card.damage === null) !== hasDamageQuestion) {
+        throw new TypeError(`${label}.damage must agree with its damage question policy`);
+      }
       const normalizedCard = {
         areaDamageRadiusMillitiles: nullableNonnegative(card.areaDamageRadiusMillitiles,
           `${label}.areaDamageRadiusMillitiles`),
         cost: nonnegative(card.cost, `${label}.cost`),
         count: integer(card.count, 1, 64, `${label}.count`),
-        damage: cardKind === "unit" ? nonnegative(card.damage, `${label}.damage`) :
+        damage: cardKind === "unit" ? (hasDamageQuestion
+          ? nullableNonnegative(card.damage, `${label}.damage`)
+          : nonnegative(card.damage, `${label}.damage`)) :
           nullableNonnegative(card.damage, `${label}.damage`),
         deployTimeTicks: cardKind === "unit" ?
           nonnegative(card.deployTimeTicks, `${label}.deployTimeTicks`) :
@@ -5932,7 +6000,9 @@ function squaredDistance(left, right) {
 }
 
 function targetMode(value) {
-  return value === "ground-and-air" ? "air_and_ground" : value;
+  if (value === "ground-and-air") return "air_and_ground";
+  if (value === "structures") return "buildings";
+  return value;
 }
 
 function layerEligible(mode, layer) {
@@ -5965,8 +6035,18 @@ function expandedEntities(card, firstId, questionValues) {
     const projectileSpeed = component.projectileSpeedPolicy.kind === "question"
       ? resolveQuestion(component.projectileSpeedPolicy, questionValues)
       : null;
+    const delivery = component.deliveryPolicy?.kind === "question"
+      ? (resolveQuestion(component.deliveryPolicy, questionValues) === 2 ? "projectile" : "melee")
+      : component.delivery;
+    const layer = component.layerPolicy?.kind === "question"
+      ? (resolveQuestion(component.layerPolicy, questionValues) === 2 ? "air" : "ground")
+      : component.layer;
+    const damage = component.damagePolicy?.kind === "question"
+      ? resolveQuestion(component.damagePolicy, questionValues)
+      : component.damage;
+    const runtimeComponent = { ...component, damage, delivery, layer };
     for (let memberIndex = 0; memberIndex < component.count; memberIndex += 1) {
-      entities.push({ component, id, memberIndex, projectileSpeed, radius });
+      entities.push({ component: runtimeComponent, id, memberIndex, projectileSpeed, radius });
       id += 1;
     }
   }
@@ -6194,6 +6274,7 @@ class LiveBattle {
         ...clone(unit),
         archetypeId: this.#metadata.get(unit.id).archetypeId,
         cardId: this.#metadata.get(unit.id).cardId,
+        count: this.#metadata.get(unit.id).count,
         memberIndex: this.#metadata.get(unit.id).memberIndex,
         movement: unit.alive ? clone(this.#movementRuntime(this.#movements.get(unit.id)).state) : null,
         role: this.#metadata.get(unit.id).role,
@@ -7328,6 +7409,7 @@ class LiveBattle {
       this.#metadata.set(entity.id, {
         archetypeId: entity.component.archetypeId,
         cardId: card.id,
+        count: entity.component.count,
         memberIndex: entity.memberIndex,
         role: entity.component.role,
         targetKey: null,
