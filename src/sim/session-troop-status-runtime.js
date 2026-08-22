@@ -24,10 +24,11 @@ const FAMILIES = new Set([
   "stun",
 ]);
 const SOURCE_KEYS = ["cardId", "side", "sourceId"];
+const TARGET_KEYS = ["alive", "id", "kind", "layer", "side", "targetable"];
 const COMMAND_KEYS = [
   "actionId", "commandId", "side", "sourceId", "targetId", "tick", "type",
 ];
-const OBSERVATION_KEYS = ["commands", "phase", "sources", "tick"];
+const OBSERVATION_KEYS = ["commands", "phase", "sources", "targets", "tick"];
 const INTENT_KEYS = [
   "actionId", "cardId", "commandId", "effect", "parameters", "phase", "side",
   "sourceId", "targetId", "tick", "type",
@@ -265,6 +266,26 @@ function checkedSource(value, index) {
   return { cardId: source.cardId, side: source.side, sourceId };
 }
 
+// Target facts are resolved by LiveBattle from its authoritative shared
+// state. The reducer only authenticates the bounded host witness that it is
+// handed; it never looks up units, towers, health, teams, layers, or time.
+function checkedTarget(value, index) {
+  if (value === null) return null;
+  const target = exact(value, TARGET_KEYS, `status runtime target ${index}`);
+  const id = integer(target.id, 1, Number.MAX_SAFE_INTEGER,
+    `status runtime target ${index}.id`);
+  if (target.kind !== "unit" || !["air", "ground"].includes(target.layer) ||
+      !["north", "south"].includes(target.side) ||
+      typeof target.alive !== "boolean" || typeof target.targetable !== "boolean") {
+    throw new TypeError(`status runtime target ${index} is invalid`);
+  }
+  if (!target.alive) {
+    throw new RangeError(`status runtime target ${index} is not an admitted live host fact`);
+  }
+  return { alive: true, id, kind: "unit", layer: target.layer,
+    side: target.side, targetable: target.targetable };
+}
+
 function checkedCommand(value, currentTick, index) {
   const command = exact(value, COMMAND_KEYS, `status runtime command ${index}`);
   if (command.type !== "status") throw new TypeError("status runtime command.type is invalid");
@@ -420,12 +441,17 @@ export class SessionTroopStatusRuntime {
     const commands = boundedArray(checked.commands, "status runtime observation.commands",
       SESSION_TROOP_STATUS_RUNTIME_MAX_COMMANDS).map((command, index) =>
       checkedCommand(command, tick, index));
+    const targets = boundedArray(checked.targets, "status runtime observation.targets",
+      SESSION_TROOP_STATUS_RUNTIME_MAX_COMMANDS).map(checkedTarget);
+    if (targets.length !== commands.length) {
+      throw new TypeError("status runtime observation targets must align with commands");
+    }
     const commandIdentities = new Set(commands.map(({ commandId, side }) =>
       `${side}:${commandId}`));
     if (commandIdentities.size !== commands.length) {
       throw new TypeError("status runtime observation command identities must be unique");
     }
-    const intents = commands.map((command) => {
+    const intents = commands.map((command, index) => {
       const source = sourceById.get(command.sourceId);
       if (source === undefined || source.cardId === undefined || source.side !== command.side) {
         throw new RangeError("status runtime command source is not admitted");
@@ -442,6 +468,14 @@ export class SessionTroopStatusRuntime {
       });
       if (command.actionId !== "hide" && command.actionId !== "reveal" && command.targetId === null) {
         throw new RangeError("status runtime command target is an explicit QUESTION");
+      }
+      const target = targets[index];
+      if (command.targetId === null) {
+        if (target !== null) {
+          throw new TypeError("status runtime command target witness is noncanonical");
+        }
+      } else if (target === null || target.id !== command.targetId) {
+        throw new RangeError("status runtime command target witness is stale");
       }
       return {
         actionId: command.actionId,

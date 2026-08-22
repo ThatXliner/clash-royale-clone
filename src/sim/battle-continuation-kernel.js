@@ -6761,31 +6761,126 @@ class LiveBattle {
     return this.#inspectTroopStatusChecked(command);
   }
 
-  #inspectTroopStatusChecked(command) {
-    const action = checkedTroopStatusAction(command, this.#battleRuntime().state.tick);
+  #statusTargetLayerEligible(source, target, effect) {
+    // Heal's sourced eligibility is living troop only; its ordinary attack
+    // target mode is not evidence for a healing-layer restriction. The
+    // control profiles that actually claim a layer policy are ground-and-air
+    // in the admitted roster. A structures attack mode has no sourced status
+    // target-class claim, so retain the existing explicit unit witness until
+    // that question is resolved rather than inventing one.
+    if (effect === "heal" || source.targetMode === "buildings") return true;
+    return layerEligible(source.targetMode, target.layer);
+  }
+
+  #statusAdmission(action, state = this.#battleRuntime().state, { checkIdentity = false } = {}) {
     if (!this.#hasStatusRuntime()) {
       throw new RangeError("live battle troop status action has no admitted status profile");
     }
     if (action.point !== null) {
       throw new RangeError("live battle troop status action must be point-free");
     }
-    const source = this.#troopSource(action.sourceId, { requireAlive: true });
-    if (source.side !== action.side) {
+    if (checkIdentity && (this.#pendingTroopStatusActions.some((entry) =>
+        entry.side === action.side && entry.commandId === action.commandId) ||
+        this.#pendingTroopActions.some((entry) =>
+          entry.side === action.side && entry.commandId === action.commandId) ||
+        this.#history.some((entry) => ["action", "status"].includes(entry.type) &&
+          entry.command.side === action.side && entry.command.commandId === action.commandId))) {
+      throw new RangeError("live battle troop status action identity is duplicate");
+    }
+    const sourceUnit = state.units.find(({ id }) => id === action.sourceId);
+    const sourceMetadata = this.#metadata.get(action.sourceId);
+    const sourceCard = sourceMetadata === undefined ? null : this.#rosterById.get(sourceMetadata.cardId);
+    if (sourceUnit === undefined || sourceMetadata === undefined || sourceCard?.kind !== "unit") {
+      throw new RangeError("live battle troop status source is unknown");
+    }
+    if (!sourceUnit.alive) {
+      throw new RangeError("live battle troop status source is not live");
+    }
+    if (sourceUnit.side !== action.side) {
       throw new RangeError("live battle troop status action source side is divergent");
     }
     const resolved = this.#statusRuntime.inspect({
       actionId: action.actionId,
-      cardId: source.cardId,
+      cardId: sourceMetadata.cardId,
       sourceId: action.sourceId,
       targetId: action.targetId,
     });
+    const source = {
+      cardId: sourceMetadata.cardId,
+      id: sourceUnit.id,
+      kind: "unit",
+      layer: sourceUnit.layer,
+      side: sourceUnit.side,
+      sourceId: sourceUnit.id,
+      targetMode: sourceUnit.targetMode,
+    };
+    let target = null;
+    if (action.targetId !== null) {
+      const targetUnit = state.units.find(({ id }) => id === action.targetId);
+      const targetMetadata = this.#metadata.get(action.targetId);
+      const targetCard = targetMetadata === undefined ? null : this.#rosterById.get(targetMetadata.cardId);
+      if (targetUnit === undefined) {
+        if (this.#structures.some(({ id }) => id === action.targetId)) {
+          throw new RangeError("live battle troop status target kind is not eligible");
+        }
+        throw new RangeError("live battle troop status target is unknown");
+      }
+      if (targetMetadata === undefined || targetCard?.kind !== "unit") {
+        throw new RangeError("live battle troop status target kind is not eligible");
+      }
+      if (!targetUnit.alive) {
+        throw new RangeError("live battle troop status target is not live");
+      }
+      const friendly = resolved.effect === "heal";
+      if ((friendly && targetUnit.side !== sourceUnit.side) ||
+          (!friendly && targetUnit.side === sourceUnit.side)) {
+        throw new RangeError(`live battle troop status target ${friendly ? "must be friendly" : "must be opposing"}`);
+      }
+      if (!this.#statusTargetLayerEligible(sourceUnit, targetUnit, resolved.effect)) {
+        throw new RangeError("live battle troop status target layer is not eligible");
+      }
+      if (!friendly && !this.#statusTargetable(targetUnit.id, state.tick)) {
+        throw new RangeError("live battle troop status target is not targetable");
+      }
+      target = {
+        alive: true,
+        id: targetUnit.id,
+        kind: "unit",
+        layer: targetUnit.layer,
+        side: targetUnit.side,
+        targetable: this.#statusTargetable(targetUnit.id, state.tick),
+      };
+    }
     return freeze(clone({
       actionId: action.actionId,
       cardId: source.cardId,
+      commandId: action.commandId,
       effect: resolved.effect,
       parameters: resolved.parameters,
+      phase: "pre-move",
+      side: action.side,
+      source,
       sourceId: action.sourceId,
+      target,
       targetId: action.targetId,
+      tick: action.tick,
+      type: "troop-status-admission",
+    }));
+  }
+
+  #inspectTroopStatusChecked(command) {
+    const state = this.#battleRuntime().state;
+    const action = checkedTroopStatusAction(command, state.tick);
+    const admission = this.#statusAdmission(action, state);
+    return freeze(clone({
+      actionId: admission.actionId,
+      cardId: admission.cardId,
+      effect: admission.effect,
+      parameters: admission.parameters,
+      source: admission.source,
+      sourceId: admission.sourceId,
+      target: admission.target,
+      targetId: admission.targetId,
       type: "troop-status-inspection",
     }));
   }
@@ -6796,22 +6891,13 @@ class LiveBattle {
   }
 
   #scheduleTroopStatusChecked(command) {
-    if (!this.#hasStatusRuntime()) {
-      throw new RangeError("live battle troop status action has no admitted status profile");
-    }
     if (this.#historyCount >= MAX_HISTORY ||
         this.#pendingTroopStatusActions.length >= SESSION_TROOP_STATUS_RUNTIME_MAX_COMMANDS) {
       throw new RangeError("live battle troop status action/history bound exceeded");
     }
-    const action = checkedTroopStatusAction(command, this.#battleRuntime().state.tick);
-    this.#inspectTroopStatusChecked(action);
-    if (this.#pendingTroopStatusActions.some((entry) => entry.side === action.side &&
-        entry.commandId === action.commandId) || this.#pendingTroopActions.some((entry) =>
-      entry.side === action.side && entry.commandId === action.commandId) || this.#history.some((entry) =>
-      ["action", "status"].includes(entry.type) && entry.command.side === action.side &&
-      entry.command.commandId === action.commandId)) {
-      throw new RangeError("live battle troop status action identity is duplicate");
-    }
+    const state = this.#battleRuntime().state;
+    const action = checkedTroopStatusAction(command, state.tick);
+    this.#statusAdmission(action, state, { checkIdentity: true });
     this.#pendingTroopStatusActions.push(clone(action));
     this.#pendingTroopStatusActions.sort((left, right) => left.tick - right.tick ||
       sideRank(left.side) - sideRank(right.side) || left.commandId - right.commandId);
@@ -7460,7 +7546,7 @@ class LiveBattle {
     let statusPlans = [];
     if (this.#hasStatusRuntime()) {
       statusPlans = this.#runStatusRuntime("pre-move",
-        this.#phaseStatusSourcesFromState(before), dueStatusActions, tick);
+        this.#phaseStatusSourcesFromState(before), dueStatusActions, tick, before);
       for (const plan of statusPlans) {
         if (plan.heal === null) boundary.push(clone(plan.receipt));
       }
@@ -7632,8 +7718,9 @@ class LiveBattle {
     return intents.map((intent) => this.#applyTroopIntent(intent, tick, contactWitness));
   }
 
-  #runStatusRuntime(phase, sources, actions, tick) {
+  #runStatusRuntime(phase, sources, actions, tick, state = this.#battleRuntime().state) {
     if (!this.#hasStatusRuntime()) return [];
+    const admissions = actions.map((action) => this.#statusAdmission(action, state));
     const input = {
       commands: actions.map((action) => ({
         actionId: action.actionId,
@@ -7647,13 +7734,29 @@ class LiveBattle {
       phase,
       sources: [...sources].sort((left, right) => left.sourceId - right.sourceId)
         .map((source) => ({ cardId: source.cardId, side: source.side, sourceId: source.sourceId })),
+      targets: admissions.map(({ target }) => target === null ? null : {
+        alive: target.alive,
+        id: target.id,
+        kind: target.kind,
+        layer: target.layer,
+        side: target.side,
+        targetable: target.targetable,
+      }),
       tick,
     };
     const intents = this.#statusRuntime.reduce(input);
-    return intents.map((intent) => this.#applyStatusIntent(intent, tick));
+    return intents.map((intent) => {
+      const admission = admissions.find((candidate) =>
+        candidate.commandId === intent.commandId && candidate.side === intent.side &&
+        candidate.sourceId === intent.sourceId);
+      if (admission === undefined) {
+        throw new RangeError("live battle troop status intent has no admission receipt");
+      }
+      return this.#applyStatusIntent(intent, tick, admission);
+    });
   }
 
-  #applyStatusIntent(value, tick) {
+  #applyStatusIntent(value, tick, admission) {
     const intent = exact(value, [
       "actionId", "cardId", "commandId", "effect", "parameters", "phase", "side",
       "sourceId", "targetId", "tick", "type",
@@ -7678,8 +7781,20 @@ class LiveBattle {
         resolved.effect !== intent.effect) {
       throw new TypeError("live battle troop status intent diverges from its admitted receipt");
     }
+    if (admission === undefined || admission.type !== "troop-status-admission" ||
+        admission.actionId !== intent.actionId || admission.cardId !== intent.cardId ||
+        admission.commandId !== intent.commandId || admission.effect !== intent.effect ||
+        admission.side !== intent.side || admission.sourceId !== intent.sourceId ||
+        admission.targetId !== intent.targetId || admission.tick !== intent.tick ||
+        canonical(admission.parameters) !== canonical(intent.parameters)) {
+      throw new TypeError("live battle troop status intent diverges from its admission receipt");
+    }
     const target = intent.targetId === null ? null : this.#battleRuntime().state.units.find(({ id }) =>
       id === intent.targetId);
+    if (intent.targetId !== null && (target === undefined || !target.alive ||
+        admission.target === null || target.id !== admission.target.id)) {
+      throw new RangeError("live battle troop status intent target is no longer causal");
+    }
     const receipt = {
       actionId: intent.actionId,
       cardId: intent.cardId,

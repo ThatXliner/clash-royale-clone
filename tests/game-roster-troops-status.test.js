@@ -8,6 +8,7 @@ import {
 } from "../src/content/session-troop-status-runtime-profiles.js";
 import { DeckCycle } from "../src/sim/deck.js";
 import { GameSession } from "../src/sim/game-session.js";
+import { LiveBattle, parseLiveBattleSetup } from "../src/sim/live-battle.js";
 import {
   parseSessionTroopStatusRuntimeProfiles,
   serializeSessionTroopStatusRuntimeProfiles,
@@ -133,6 +134,83 @@ function statusReceipts(session) {
 
 function statusEffects(session) {
   return session.state.battle.statusRuntime.effects;
+}
+
+function statusActionId(id) {
+  return id === "bloom-wisp" || id === "dawnmender" ? "heal" :
+    id === "pulse-sentry" ? "stun" : id === "rime-adept" ? "slow" : "snare";
+}
+
+function statusAtomicWitness(session) {
+  const state = session.state;
+  return {
+    bytes: session.serialize(),
+    battle: clone(state.battle),
+    decks: clone(state.decks),
+    elixir: clone(state.elixir),
+    pending: clone(state.pendingPlayerCommands),
+    replay: session.replayBytes(),
+    events: clone(session.replay),
+    statusPending: clone(state.battle.statusRuntime?.pending ?? []),
+    entityIds: state.battle.units.map(({ id }) => id).concat(
+      state.battle.structures.map(({ id }) => id),
+    ),
+  };
+}
+
+function liveStatusCommand({ actionId, commandId, sourceId, targetId, tick }) {
+  return canonical({
+    actionId,
+    commandId,
+    point: null,
+    side: "south",
+    sourceId,
+    targetId,
+    tick,
+    type: "status",
+  });
+}
+
+function makeDeadTargetLiveBattle(id) {
+  const witness = createSessionTroopWitness(id);
+  const battle = new LiveBattle(
+    parseLiveBattleSetup(canonical(witness)),
+    undefined,
+    canonical(createSessionTroopStatusRuntimeProfiles()),
+  );
+  battle.scheduleDeploy(canonical({
+    cardId: id,
+    point: { x: 500, y: 14_500 },
+    sequence: 0,
+    side: "south",
+    tick: 0,
+  }));
+  battle.scheduleDeploy(canonical({
+    cardId: "coilblade",
+    point: { x: 14_500, y: 14_500 },
+    sequence: 1,
+    side: "south",
+    tick: 0,
+  }));
+  battle.scheduleDeploy(canonical({
+    cardId: "briar-band",
+    point: { x: 14_500, y: 17_500 },
+    sequence: 2,
+    side: "north",
+    tick: 0,
+  }));
+  battle.step();
+  const source = battle.state.units.find(({ cardId, side }) => cardId === id && side === "south");
+  const target = battle.state.units.find(({ cardId, side }) =>
+    cardId === "briar-band" && side === "north");
+  assert.ok(source);
+  assert.ok(target);
+  for (let count = 0; count < 240 && target.alive; count += 1) battle.step();
+  assert.equal(battle.state.units.find(({ id: unitId }) => unitId === target.id).alive, false,
+    `${id} dead-target witness must remove the target at the scheduling boundary`);
+  assert.equal(battle.state.units.find(({ id: unitId }) => unitId === source.id).alive, true,
+    `${id} dead-target witness must retain its live source`);
+  return { battle, source, target };
 }
 
 test("game roster troop status: the exact eight identities and sourced executable facts are admitted", () => {
@@ -318,6 +396,108 @@ for (const unresolved of [
     assert.deepEqual(session.state, beforeState);
   });
 }
+
+for (const spec of EXECUTABLE.filter(({ id }) => id !== "veil-prowler")) {
+  test(`game roster troop status: ${spec.id} rejects missing and wrong-side targets atomically`, () => {
+    const cases = [
+      { label: "missing", targetId: 999_999 },
+      {
+        label: "wrong-side",
+        targetId: spec.target === "enemy" ? "source" : "enemy",
+      },
+    ];
+    for (const invalid of cases) {
+      const { session, slot } = makeSession(spec.id);
+      const { source, target } = deployWitness(session, spec.id, slot);
+      const targetId = invalid.targetId === "source" ? source.id :
+        invalid.targetId === "enemy" ? target.id : invalid.targetId;
+      const before = statusAtomicWitness(session);
+      assert.throws(() => session.submitPlayerCommand(statusCommand({
+        actionId: spec.actionId,
+        commandId: 1,
+        sourceId: source.id,
+        targetId,
+        tick: session.state.tick,
+      })), /target|eligible|unknown/u, `${spec.id} ${invalid.label}`);
+      assert.deepEqual(statusAtomicWitness(session), before,
+        `${spec.id} ${invalid.label} admission must be byte and state atomic`);
+      assert.doesNotThrow(() => session.stepMany(4),
+        `${spec.id} ${invalid.label} rejection must not remain pending`);
+      assert.equal(session.state.battle.statusRuntime.pending.length, 0,
+        `${spec.id} ${invalid.label} rejection must not leave reducer pending state`);
+      assert.equal(session.replay.filter(({ type, commandId }) =>
+        type === "session-status" && commandId === 1).length, 0,
+      `${spec.id} ${invalid.label} rejection must not emit a delayed session status`);
+    }
+  });
+}
+
+for (const spec of EXECUTABLE.filter(({ id }) => id !== "veil-prowler")) {
+  test(`game roster troop status: ${spec.id} rejects a dead target at the scheduling boundary`, () => {
+    const { battle, source, target } = makeDeadTargetLiveBattle(spec.id);
+    const before = {
+      bytes: battle.serialize(),
+      state: clone(battle.state),
+      replay: clone(battle.replay),
+      events: clone(battle.events),
+      pending: clone(battle.state.statusRuntime.pending),
+      entityIds: battle.state.units.map(({ id }) => id),
+    };
+    assert.throws(() => battle.scheduleTroopStatus(liveStatusCommand({
+      actionId: statusActionId(spec.id),
+      commandId: 1,
+      sourceId: source.id,
+      targetId: target.id,
+      tick: battle.state.tick,
+    })), /live|target|eligible/u, `${spec.id} dead target`);
+    assert.deepEqual({
+      bytes: battle.serialize(),
+      state: clone(battle.state),
+      replay: clone(battle.replay),
+      events: clone(battle.events),
+      pending: clone(battle.state.statusRuntime.pending),
+      entityIds: battle.state.units.map(({ id }) => id),
+    }, before, `${spec.id} dead-target admission must be atomic`);
+    assert.doesNotThrow(() => battle.stepMany(4),
+      `${spec.id} dead-target rejection must not crash later steps`);
+    assert.equal(battle.state.statusRuntime.pending.length, 0);
+    assert.equal(battle.events.filter(({ type, commandId }) =>
+      type === "troop-status-receipt" && commandId === 1).length, 0);
+  });
+}
+
+test("game roster troop status: status admission receipts are frozen and carry resolved host facts", () => {
+  // GameSession admission is intentionally the authoritative public route;
+  // the nested LiveBattle inspection receipt is checked directly below.
+  const live = new LiveBattle(
+    parseLiveBattleSetup(canonical(createSessionTroopWitness("pulse-sentry"))),
+    undefined,
+    canonical(createSessionTroopStatusRuntimeProfiles()),
+  );
+  live.scheduleDeploy(canonical({ cardId: "pulse-sentry", point: SOUTH_POINT,
+    sequence: 0, side: "south", tick: 0 }));
+  live.scheduleDeploy(canonical({ cardId: "coilblade", point: NORTH_POINT,
+    sequence: 1, side: "north", tick: 0 }));
+  live.step();
+  const liveSource = live.state.units.find(({ cardId, side }) =>
+    cardId === "pulse-sentry" && side === "south");
+  const liveTarget = live.state.units.find(({ cardId, side }) =>
+    cardId === "coilblade" && side === "north");
+  const inspection = live.inspectTroopStatus(liveStatusCommand({
+    actionId: "stun",
+    commandId: 1,
+    sourceId: liveSource.id,
+    targetId: liveTarget.id,
+    tick: live.state.tick,
+  }));
+  assert.equal(inspection.type, "troop-status-inspection");
+  assert.equal(inspection.source.sourceId, liveSource.id);
+  assert.equal(inspection.target.id, liveTarget.id);
+  assert.equal(inspection.target.kind, "unit");
+  assert.equal(Object.isFrozen(inspection), true);
+  assert.equal(Object.isFrozen(inspection.source), true);
+  assert.equal(Object.isFrozen(inspection.target), true);
+});
 
 test("game roster troop status: deterministic session continuation hashes stay stable", () => {
   const expectedHashes = Object.freeze({
