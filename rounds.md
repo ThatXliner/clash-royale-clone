@@ -1,5 +1,27 @@
 # Gauntlet Rounds
 
+## Round 277 — 2026-08-22
+
+PIECE: GAME-001HTMP — Movement/form source-profile contract, round 7
+
+VERDICT: FAIL
+
+EVIDENCE: Both focused entry points passed 20/20. HTP passed 11/11, HTO
+14/14, Projectile R6 26/26, nondeterminism 9/9, shipping isolation 13/13,
+and all eight movement selectors passed. The manifest remained 67,284 bytes
+with SHA-256
+`d4ad6e7684047fbd4194fd83a017700b56ecf4198aa7a39bd5bc01bc67388082`.
+Six factories produced 99 fresh frozen nodes; 470 scalar forgeries, 198 copied
+nodes, 99 transparent proxies, 99 revoked proxies and six accessors all
+rejected with zero traps. However, bind, an alias-built `globalThis.Proxy`,
+and callable wrappers around an exported QUESTION factory were accepted and
+emitted the manifest, executing four callbacks. A proxy returning a proxy
+graph rejected only after two factory-apply callbacks.
+
+BIGGEST GAP: Authenticate each QUESTION factory against its exact unwrapped
+module-owned identity before invoking it, so bound, proxied and callable
+wrappers cannot execute callbacks or enter admission.
+
 ## Round 276 — 2026-08-22
 
 PIECE: GAME-001HTS — Shared troop status, heal, and visibility mechanics,
