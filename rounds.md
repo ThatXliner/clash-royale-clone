@@ -4977,3 +4977,27 @@ BIGGEST GAP: Brassbolt and Reedsting are admitted from a generic synthetic
 launch constructor with no card-specific delivery discriminator. Ordinary
 delivery must remain QUESTION unless a card-specific source receipt exists,
 and every bound source record must reject same-ID value drift.
+
+## Round 264 — 2026-08-21
+
+PIECE: GAME-001HTSP — Status/heal/visibility source-profile contract, round 2
+
+VERDICT: PASS
+
+EVIDENCE: Clean HEAD `3925179`; both focused entry points passed 15/15, HTP
+11/11, ordinary troops 14/14, and heal/invisibility/reflection/shield/slow/
+snare/stun passed 12/26/28/15/21/21/23. Both guards passed 9/9 and 13/13.
+An independent temporary transformed-module probe rejected 153 adversaries
+before export, covering all seven catalogs' future append/prepend/insert/
+replace/duplicate/malformed rows; sparse, exotic, accessor, symbol, Proxy and
+coercion shapes; repeated-read byte/count/ID drift; heal ordering/removal/swap/
+conflict; and shared row/component identities. The clean fixture observed
+exactly two reads for each export. Six fresh override-rejecting factories
+produced 31+47+35+43+43+41 = 240 exact records. Serialization remained 82,575
+UTF-8 bytes with SHA-256
+`1cc9ce7c735abcf14f5967372c0d150bdb6f1a5814f0ed6c40a55c798e1eff88`.
+Independent checks confirmed deep freeze/detachment, trap-zero lookup,
+Railward unresolved-only with no numeric policy, Aegis pending composition,
+no Encounter/shared-runtime claim and clean isolation/syntax/registration.
+
+BIGGEST GAP: None on the judged dimension.
