@@ -28,7 +28,7 @@
   <div class="cards">
     <div class="card"><div class="num">165</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">115</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">255</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">256</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">24</div><div class="label">open questions</div></div>
   </div>
   <p class="note">Active target: <strong>GAME-001R — Playable eight-card runtime roster</strong>.</p>
@@ -929,9 +929,9 @@
         <td><code>GAME-001R</code></td>
         <td>Playable eight-card runtime roster</td>
         <td class="state-building">BUILDING</td>
-        <td>8/9</td>
-        <td>3</td>
-        <td>Regression round launched: the UI now exposes full immutable roster records, but the legacy shell-order assertion still compares them directly with display-only records</td>
+        <td>0/1</td>
+        <td>4</td>
+        <td>Regression Round 4 failed: shape/order/full-value checks pass, but the repaired test does not yet prove entity-record and nested-policy detachment; Round 5 adds those exact identity assertions</td>
       </tr>
       <tr>
         <td><code>GAME-001P</code></td>
@@ -1617,6 +1617,7 @@
       <li><strong>R253 PASS</strong> · GAME-001TH — Exhaustive cross-module projectile identity chain<br>None on the judged projectile identity and preview-capability dimension. Future BattleCombat mutation methods must replace the private state token so stale receipts cannot survive.</li>
       <li><strong>R254 PASS</strong> · GAME-001HTP — Troop occurrence and session-profile contract<br>None on the judged immutable occurrence/profile contract. Runtime projection and mechanics remain separate later pieces.</li>
       <li><strong>R255 FAIL</strong> · GAME-001HTO — Ordinary troop projection into eight-card witness sessions<br>`compileProjection()` reuses the eight legacy playable cards verbatim inside HTO witnesses. HTO must attach explicit delivery/layer QUESTION policies to those witness projections without changing the shipped legacy browser roster or its canonical bytes.</li>
+      <li><strong>R256 FAIL</strong> · GAME-001R — Playable eight-card runtime roster regression<br>Add explicit identity assertions for every entity record and each nested policy object so the test proves full graph detachment, not only detached containers.</li>
   </ol>
 </body>
 </html>

@@ -4805,3 +4805,23 @@ BIGGEST GAP: `compileProjection()` reuses the eight legacy playable cards
 verbatim inside HTO witnesses. HTO must attach explicit delivery/layer QUESTION
 policies to those witness projections without changing the shipped legacy
 browser roster or its canonical bytes.
+
+## Round 256 — 2026-08-21
+
+PIECE: GAME-001R — Playable eight-card runtime roster regression
+
+VERDICT: FAIL
+
+EVIDENCE: The repaired roster selector passed 9/9, HUD state 9/9, UI input
+18/18, browser loop 10/10, HTO ordinary projection 6/6 and both guards 22/22.
+The exact repair diff changed only `tests/playable-roster.test.js`; production
+files and functions were byte-identical and the canonical roster SHA-256
+remained `6fb8d84121ca039ea9315b7e505c8f02d5d7839e8fd5fc5cd19013a0d2b7fadb`.
+Controlled probes confirmed the new assertion rejects truncation, reorder,
+nested policy value divergence and root/card/entity-array aliases. It still
+accepted fresh root/card/entity arrays that shared the entity records or their
+nested body/projectile policy objects with the comparison roster.
+
+BIGGEST GAP: Add explicit identity assertions for every entity record and each
+nested policy object so the test proves full graph detachment, not only
+detached containers.
