@@ -1,5 +1,25 @@
 # Gauntlet Rounds
 
+## Round 282 — 2026-08-22
+
+PIECE: GAME-001HTMP — Movement/form source-profile contract, round 9
+
+VERDICT: FAIL
+
+EVIDENCE: The focused selector passed 22/22 and its 78 wrapper attacks reported
+zero callbacks and traps. An independent cross-assertor probe found all 36/36
+factory/assertor pairings accepted, including 30/30 cross-domain pairings. A
+minimal resolver-only rewrite that appended one query alias to the authority
+module for the profile and all six card sources admitted the duplicate graph
+with zero callbacks/traps and exposed the exact 67,284-byte manifest, SHA-256
+`d4ad6e7684047fbd4194fd83a017700b56ecf4198aa7a39bd5bc01bc67388082`.
+A coherent one-card wrapper/fake-authority probe correctly rejected with zero
+callbacks, getter reads or exposure.
+
+BIGGEST GAP: Bind every admitted graph node to its exact mechanic domain and
+make the authority module reject query/fragment duplicate instantiation so a
+coherent resolver alias cannot replace the canonical authority graph.
+
 ## Round 281 — 2026-08-22
 
 PIECE: GAME-001HTJ — Shared troop projectile mechanics, round 2
