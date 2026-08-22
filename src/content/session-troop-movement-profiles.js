@@ -64,6 +64,7 @@ const COMPONENT_INTEGER_RULES = Object.freeze(
   SOURCE_INTEGER_RULES.filter(({ field }) => field !== "cost"),
 );
 const CANONICAL_MAX_ARRAY_LENGTH = 1_000_000;
+const ADMITTED_CANONICAL_OBJECTS = new WeakSet();
 
 const EXPECTED_OCCURRENCES = Object.freeze([
   Object.freeze({ exportName: "createRecoilSpecialCatalog", id: "cinderback", status: "admitted" }),
@@ -179,50 +180,8 @@ function compareOccurrence(left, right) {
   return compareText(left.id, right.id) || compareText(left.exportName, right.exportName);
 }
 
-function samePrototypeSurface(actual, expected) {
-  let left = actual;
-  let right = expected;
-  while (true) {
-    if (left === right) return true;
-    if (
-      left === null ||
-      right === null ||
-      typeof left !== "object" ||
-      typeof right !== "object"
-    ) {
-      return false;
-    }
-    let leftDescriptors;
-    try {
-      leftDescriptors = Object.getOwnPropertyDescriptors(left);
-      structuredClone(left);
-    } catch {
-      return false;
-    }
-    const leftKeys = Reflect.ownKeys(leftDescriptors).map((key) =>
-      typeof key === "symbol" ? `symbol:${key.description ?? ""}` : `string:${key}`
-    ).sort(compareText);
-    const rightKeys = Reflect.ownKeys(Object.getOwnPropertyDescriptors(right)).map((key) =>
-      typeof key === "symbol" ? `symbol:${key.description ?? ""}` : `string:${key}`
-    ).sort(compareText);
-    if (
-      leftKeys.length !== rightKeys.length ||
-      leftKeys.some((key, index) => key !== rightKeys[index])
-    ) {
-      return false;
-    }
-    try {
-      left = Object.getPrototypeOf(left);
-      right = Object.getPrototypeOf(right);
-    } catch {
-      return false;
-    }
-  }
-}
-
 function canonical(value) {
   const active = new Set();
-  const graph = [];
 
   function visit(candidate) {
     if (candidate === null) return "null";
@@ -236,6 +195,12 @@ function canonical(value) {
     }
     if (type !== "object") {
       throw new TypeError("canonical data must contain only JSON values");
+    }
+    // This check is deliberately the first operation on an object. WeakSet.has
+    // does not consult Proxy traps, so no caller-owned object can reach the
+    // descriptor, prototype, property, iteration, or clone operations below.
+    if (!ADMITTED_CANONICAL_OBJECTS.has(candidate)) {
+      throw new TypeError("canonical data must be admitted data");
     }
     if (active.has(candidate)) {
       throw new TypeError("canonical data must not contain cycles");
@@ -294,7 +259,6 @@ function canonical(value) {
       }
     }
 
-    graph.push({ candidate, isArray });
     active.add(candidate);
     try {
       const encoded = isArray
@@ -308,34 +272,183 @@ function canonical(value) {
     }
   }
 
-  const encoded = visit(value);
-  if (graph.length !== 0) {
-    try {
-      structuredClone(value);
-    } catch {
-      throw new TypeError("canonical data must be cloneable JSON data");
+  return visit(value);
+}
+
+function samePrototypeSurface(actual, expected) {
+  let left = actual;
+  let right = expected;
+  while (true) {
+    if (left === right) return true;
+    if (
+      left === null ||
+      right === null ||
+      typeof left !== "object" ||
+      typeof right !== "object"
+    ) {
+      return false;
     }
-    for (const { candidate, isArray } of graph) {
-      let prototype;
-      try {
-        prototype = Object.getPrototypeOf(candidate);
-      } catch {
-        throw new TypeError("canonical data must use an inspectable prototype");
-      }
-      if (
-        isArray
-          ? !samePrototypeSurface(prototype, Array.prototype)
-          : prototype !== null && !samePrototypeSurface(prototype, Object.prototype)
-      ) {
-        throw new TypeError("canonical data must use plain JSON prototypes");
-      }
+    let leftDescriptors;
+    let rightDescriptors;
+    try {
+      leftDescriptors = Object.getOwnPropertyDescriptors(left);
+      rightDescriptors = Object.getOwnPropertyDescriptors(right);
+    } catch {
+      return false;
+    }
+    const leftKeys = Reflect.ownKeys(leftDescriptors).map((key) =>
+      typeof key === "symbol" ? `symbol:${key.description ?? ""}` : `string:${key}`
+    ).sort(compareText);
+    const rightKeys = Reflect.ownKeys(rightDescriptors).map((key) =>
+      typeof key === "symbol" ? `symbol:${key.description ?? ""}` : `string:${key}`
+    ).sort(compareText);
+    if (
+      leftKeys.length !== rightKeys.length ||
+      leftKeys.some((key, index) => key !== rightKeys[index])
+    ) {
+      return false;
+    }
+    try {
+      left = Object.getPrototypeOf(left);
+      right = Object.getPrototypeOf(right);
+    } catch {
+      return false;
     }
   }
-  return encoded;
+}
+
+function admitCanonicalGraph(value, label = "canonical data") {
+  const active = new Set();
+  const nodes = [];
+
+  function copy(candidate, path) {
+    if (candidate === null) return null;
+    const type = typeof candidate;
+    if (type === "string" || type === "boolean") return candidate;
+    if (type === "number") {
+      if (!Number.isFinite(candidate)) {
+        throw new TypeError(`${path} must contain finite JSON numbers`);
+      }
+      return candidate;
+    }
+    if (type !== "object") {
+      throw new TypeError(`${path} must contain only JSON values`);
+    }
+    if (active.has(candidate)) {
+      throw new TypeError(`${path} must not contain cycles`);
+    }
+
+    let isArray;
+    let prototype;
+    let descriptors;
+    try {
+      isArray = Array.isArray(candidate);
+      prototype = Object.getPrototypeOf(candidate);
+      descriptors = Object.getOwnPropertyDescriptors(candidate);
+    } catch {
+      throw new TypeError(`${path} must be inspectable data`);
+    }
+    if (
+      isArray
+        ? !samePrototypeSurface(prototype, Array.prototype)
+        : prototype !== null && !samePrototypeSurface(prototype, Object.prototype)
+    ) {
+      throw new TypeError(`${path} must use plain JSON prototypes`);
+    }
+
+    const ownKeys = Reflect.ownKeys(descriptors);
+    let keys;
+    if (isArray) {
+      const lengthDescriptor = descriptors.length;
+      const length = lengthDescriptor?.value;
+      if (
+        !lengthDescriptor ||
+        !Object.hasOwn(lengthDescriptor, "value") ||
+        lengthDescriptor.enumerable ||
+        !Number.isSafeInteger(length) ||
+        length < 0 ||
+        length > CANONICAL_MAX_ARRAY_LENGTH ||
+        ownKeys.length !== length + 1
+      ) {
+        throw new TypeError(`${path} must be a dense and bounded array`);
+      }
+      keys = Array.from({ length }, (_, index) => String(index));
+      const expectedKeys = new Set(["length", ...keys]);
+      if (ownKeys.some((key) => !expectedKeys.has(key))) {
+        throw new TypeError(`${path} must contain only indexed data`);
+      }
+    } else {
+      keys = [...ownKeys].sort(compareText);
+      if (keys.some((key) => typeof key !== "string")) {
+        throw new TypeError(`${path} must contain only string data keys`);
+      }
+    }
+    for (const key of keys) {
+      const descriptor = descriptors[key];
+      if (
+        descriptor === undefined ||
+        !descriptor.enumerable ||
+        !Object.hasOwn(descriptor, "value")
+      ) {
+        throw new TypeError(`${path}.${key} must be an enumerable data property`);
+      }
+    }
+
+    const copyTarget = isArray
+      ? []
+      : prototype === null ? Object.create(null) : {};
+    active.add(candidate);
+    try {
+      for (const key of keys) {
+        const child = copy(descriptors[key].value, `${path}.${key}`);
+        if (isArray) {
+          copyTarget[key] = child;
+        } else {
+          Object.defineProperty(copyTarget, key, {
+            configurable: true,
+            enumerable: true,
+            value: child,
+            writable: true,
+          });
+        }
+      }
+    } finally {
+      active.delete(candidate);
+    }
+    nodes.push(copyTarget);
+    return copyTarget;
+  }
+
+  const copyValue = copy(value, label);
+  for (const node of nodes) ADMITTED_CANONICAL_OBJECTS.add(node);
+  return copyValue;
+}
+
+function canonicalTrusted(value, label = "canonical data") {
+  if (value !== null && typeof value === "object") {
+    return canonical(admitCanonicalGraph(value, label));
+  }
+  return canonical(value);
 }
 
 function sourceRecordKey(exportName, id) {
   return `${exportName}\u0000${id}`;
+}
+
+function assertFactoryShapeSurface(factory, label) {
+  let source;
+  try {
+    source = Function.prototype.toString.call(factory);
+  } catch {
+    throw new TypeError(`${label} is not an inspectable source factory`);
+  }
+  // Source factories are trusted module capabilities, but their returned
+  // graphs are still validated below. Reject shape-changing wrapper code
+  // before invoking it so a transformed or hostile factory cannot create a
+  // Proxy/accessor/custom-prototype graph whose inspection would call back.
+  if (/(?:new\s+Proxy|Proxy\.revocable|Object\.defineProperty|Object\.setPrototypeOf)/u.test(source)) {
+    throw new TypeError(`${label} contains an unadmitted object shape transform`);
+  }
 }
 
 const EXPECTED_QUESTION_FACTORIES = Object.freeze([
@@ -365,7 +478,7 @@ function assertExpectedQuestionWitnessCoverage() {
   const actualKeys = Object.keys(EXPECTED_QUESTION_WITNESS).sort(compareText);
   if (
     expectedKeys.length !== 6 ||
-    canonical(actualKeys) !== canonical(expectedKeys) ||
+    canonicalTrusted(actualKeys) !== canonicalTrusted(expectedKeys) ||
     actualKeys.some((key) => typeof EXPECTED_QUESTION_WITNESS[key] !== "string")
   ) {
     throw new Error("movement question witness key set is missing, stale, or extra");
@@ -376,7 +489,7 @@ function assertExpectedQuestionWitnessCoverage() {
 // source records, serialized with the same canonical format used by the
 // public receipt; an ID match alone is not sufficient authority.
 const EXPECTED_SOURCE_WITNESS_MAP = Object.freeze({
-  [sourceRecordKey("createBasicFlyingCatalog", "copperskiff")]: canonical({
+  [sourceRecordKey("createBasicFlyingCatalog", "copperskiff")]: canonicalTrusted({
     areaDamageRadiusMillitiles: null,
     components: [],
     cost: 4,
@@ -395,7 +508,7 @@ const EXPECTED_SOURCE_WITNESS_MAP = Object.freeze({
     sightRangeMillitiles: 6000,
     targetMode: "ground-and-air",
   }),
-  [sourceRecordKey("createBasicFlyingCatalog", "skymaul")]: canonical({
+  [sourceRecordKey("createBasicFlyingCatalog", "skymaul")]: canonicalTrusted({
     areaDamageRadiusMillitiles: null,
     components: [],
     cost: 3,
@@ -414,7 +527,7 @@ const EXPECTED_SOURCE_WITNESS_MAP = Object.freeze({
     sightRangeMillitiles: 5500,
     targetMode: "ground-and-air",
   }),
-  [sourceRecordKey("createShieldFormCatalog", "railward")]: canonical({
+  [sourceRecordKey("createShieldFormCatalog", "railward")]: canonicalTrusted({
     areaDamageRadiusMillitiles: null,
     components: [],
     cost: 5,
@@ -433,7 +546,7 @@ const EXPECTED_SOURCE_WITNESS_MAP = Object.freeze({
     sightRangeMillitiles: 6000,
     targetMode: "ground",
   }),
-  [sourceRecordKey("createChargeSpecialCatalog", "emberlance")]: canonical({
+  [sourceRecordKey("createChargeSpecialCatalog", "emberlance")]: canonicalTrusted({
     areaDamageRadiusMillitiles: null,
     components: [],
     cost: 5,
@@ -452,7 +565,7 @@ const EXPECTED_SOURCE_WITNESS_MAP = Object.freeze({
     sightRangeMillitiles: 5500,
     targetMode: "ground",
   }),
-  [sourceRecordKey("createChargeKnockbackCatalog", "emberlance")]: canonical({
+  [sourceRecordKey("createChargeKnockbackCatalog", "emberlance")]: canonicalTrusted({
     areaDamageRadiusMillitiles: null,
     components: [],
     cost: 5,
@@ -471,7 +584,7 @@ const EXPECTED_SOURCE_WITNESS_MAP = Object.freeze({
     sightRangeMillitiles: 5500,
     targetMode: "ground",
   }),
-  [sourceRecordKey("createDashSpecialCatalog", "veilrunner")]: canonical({
+  [sourceRecordKey("createDashSpecialCatalog", "veilrunner")]: canonicalTrusted({
     areaDamageRadiusMillitiles: null,
     components: [],
     cost: 3,
@@ -490,7 +603,7 @@ const EXPECTED_SOURCE_WITNESS_MAP = Object.freeze({
     sightRangeMillitiles: 6000,
     targetMode: "ground",
   }),
-  [sourceRecordKey("createJumpSpecialCatalog", "stonevault")]: canonical({
+  [sourceRecordKey("createJumpSpecialCatalog", "stonevault")]: canonicalTrusted({
     areaDamageRadiusMillitiles: 1300,
     components: [],
     cost: 7,
@@ -509,7 +622,7 @@ const EXPECTED_SOURCE_WITNESS_MAP = Object.freeze({
     sightRangeMillitiles: 5500,
     targetMode: "ground",
   }),
-  [sourceRecordKey("createRecoilSpecialCatalog", "cinderback")]: canonical({
+  [sourceRecordKey("createRecoilSpecialCatalog", "cinderback")]: canonicalTrusted({
     areaDamageRadiusMillitiles: null,
     components: [],
     cost: 3,
@@ -528,7 +641,7 @@ const EXPECTED_SOURCE_WITNESS_MAP = Object.freeze({
     sightRangeMillitiles: 8500,
     targetMode: "ground-and-air",
   }),
-  [sourceRecordKey("createRetargetSpecialCatalog", "wayfinder")]: canonical({
+  [sourceRecordKey("createRetargetSpecialCatalog", "wayfinder")]: canonicalTrusted({
     areaDamageRadiusMillitiles: null,
     components: [],
     cost: 3,
@@ -554,7 +667,7 @@ function assertExpectedWitnessCoverage() {
     .map(({ exportName, id }) => sourceRecordKey(exportName, id))
     .sort(compareText);
   const actualKeys = Object.keys(EXPECTED_SOURCE_WITNESS_MAP).sort(compareText);
-  if (canonical(actualKeys) !== canonical(expectedKeys)) {
+  if (canonicalTrusted(actualKeys) !== canonicalTrusted(expectedKeys)) {
     throw new Error("movement source witness key set is missing, stale, or extra");
   }
 }
@@ -641,14 +754,6 @@ function assertDenseDataArray(value, label, maximum = 16, verifyPrototype = true
   return descriptors;
 }
 
-function assertCloneableSourceRecord(value, label) {
-  try {
-    structuredClone(value);
-  } catch {
-    throw new TypeError(`${label} must be cloneable data`);
-  }
-}
-
 function assertSourceInteger(value, rule, label) {
   if (
     (rule.allowNull && value === null) ||
@@ -687,6 +792,7 @@ function validateSourceRecord(record, label) {
 
   const components = recordValue("components");
   const componentDescriptors = assertDenseDataArray(components, `${label}.components`, 16, false);
+  const normalizedComponents = [];
   for (let index = 0; index < componentDescriptors.length.value; index += 1) {
     const component = componentDescriptors[index].value;
     const descriptors = assertExactDataObject(
@@ -714,14 +820,18 @@ function validateSourceRecord(record, label) {
         `${label}.components[${index}].${rule.field}`,
       );
     }
-    assertCloneableSourceRecord(component, `${label}.components[${index}]`);
     assertPlainDataObject(component, `${label}.components[${index}]`);
+    normalizedComponents.push(Object.fromEntries(
+      COMPONENT_RECORD_KEYS.map((field) => [field, componentValue(field)]),
+    ));
   }
-  assertCloneableSourceRecord(components, `${label}.components`);
   assertPlainDataArray(components, `${label}.components`);
-  assertCloneableSourceRecord(record, label);
   assertPlainDataObject(record, label);
-  return record;
+  const normalized = Object.fromEntries(SOURCE_RECORD_KEYS.map((field) => [
+    field,
+    field === "components" ? normalizedComponents : recordValue(field),
+  ]));
+  return admitCanonicalGraph(normalized, label);
 }
 
 function sourceRecordsFor(exportName) {
@@ -730,13 +840,15 @@ function sourceRecordsFor(exportName) {
   if (typeof factory !== "function") {
     throw new Error(`movement source export ${exportName} is missing`);
   }
+  assertFactoryShapeSurface(factory, exportName);
   const records = factory();
   if (!Array.isArray(records)) {
     throw new TypeError(`${exportName} must return a catalog array`);
   }
-  return records.map((record, index) =>
+  const normalizedRecords = records.map((record, index) =>
     validateSourceRecord(record, `${exportName}[${index}]`)
   );
+  return admitCanonicalGraph(normalizedRecords, `${exportName} catalog`);
 }
 
 function expectedIdsForExport(exportName, occurrences) {
@@ -752,12 +864,12 @@ function buildCatalogCache(occurrences) {
   for (const exportName of [...EXPECTED_EXPORT_SET].sort(compareText)) {
     const records = sourceRecordsFor(exportName);
     const secondRead = sourceRecordsFor(exportName);
-    if (canonical(records) !== canonical(secondRead)) {
+    if (canonicalTrusted(records) !== canonicalTrusted(secondRead)) {
       throw new Error(`${exportName} is not deterministic across source reads`);
     }
     const ids = records.map(({ id }) => id).sort(compareText);
     const expectedIds = expectedIdsForExport(exportName, occurrences);
-    if (canonical(ids) !== canonical(expectedIds)) {
+    if (canonicalTrusted(ids) !== canonicalTrusted(expectedIds)) {
       throw new Error(`${exportName} has a missing, stale, or extra source record`);
     }
     if (new Set(ids).size !== ids.length) {
@@ -766,7 +878,7 @@ function buildCatalogCache(occurrences) {
     for (const record of records) {
       const key = sourceRecordKey(exportName, record.id);
       const expectedWitness = EXPECTED_SOURCE_WITNESS_MAP[key];
-      if (typeof expectedWitness !== "string" || canonical(record) !== expectedWitness) {
+      if (typeof expectedWitness !== "string" || canonicalTrusted(record) !== expectedWitness) {
         throw new Error(`${exportName}/${record.id} differs from its pinned source witness`);
       }
     }
@@ -802,7 +914,7 @@ function assertQuestionSourceSurface() {
   for (const [sourceModule, expected] of expectations) {
     const actual = sourceQuestionExports(sourceModule);
     const sortedExpected = [...expected].sort(compareText);
-    if (canonical(actual) !== canonical(sortedExpected)) {
+    if (canonicalTrusted(actual) !== canonicalTrusted(sortedExpected)) {
       throw new Error("movement question source exports are missing, stale, or extra");
     }
   }
@@ -823,7 +935,7 @@ function deriveOccurrences() {
     EXPECTED_EXPORT_SET.has(exportName) || EXPECTED_ID_SET.has(id)
   ).sort(compareOccurrence);
   const expectedRows = [...EXPECTED_OCCURRENCES].sort(compareOccurrence);
-  if (canonical(candidateRows) !== canonical(expectedRows)) {
+  if (canonicalTrusted(candidateRows) !== canonicalTrusted(expectedRows)) {
     throw new Error("movement/form occurrence surface diverges from HTP");
   }
   if (candidateRows.some(({ status }) => status !== "admitted")) {
@@ -842,7 +954,7 @@ function deriveOccurrences() {
       .filter((row) => row.id === id)
       .map(({ exportName }) => exportName)
       .sort(compareText);
-    if (profile === undefined || canonical(profile.occurrenceExports) !== canonical(expectedExports)) {
+    if (profile === undefined || canonicalTrusted(profile.occurrenceExports) !== canonicalTrusted(expectedExports)) {
       throw new Error(`movement/form HTP profile membership is stale for ${id}`);
     }
   }
@@ -904,14 +1016,14 @@ function prototypeSurfaceMatches(actual, expected) {
   }
   const actualNames = Object.getOwnPropertyNames(actual).sort(compareText);
   const expectedNames = Object.getOwnPropertyNames(expected).sort(compareText);
-  if (canonical(actualNames) !== canonical(expectedNames)) return false;
+  if (canonicalTrusted(actualNames) !== canonicalTrusted(expectedNames)) return false;
   const actualSymbols = Object.getOwnPropertySymbols(actual)
     .map((symbol) => symbol.description ?? "")
     .sort(compareText);
   const expectedSymbols = Object.getOwnPropertySymbols(expected)
     .map((symbol) => symbol.description ?? "")
     .sort(compareText);
-  return canonical(actualSymbols) === canonical(expectedSymbols);
+  return canonicalTrusted(actualSymbols) === canonicalTrusted(expectedSymbols);
 }
 
 function assertQuestionDataGraph(value, label, active = new Set()) {
@@ -1041,13 +1153,16 @@ function normalizeQuestionPolicy(spec) {
   if (typeof factory !== "function") {
     throw new Error(`${spec.questionFactory} is not exported by ${spec.exportName} source module`);
   }
-  const first = factory();
-  const second = factory();
-  if (first === second) {
+  assertFactoryShapeSurface(factory, spec.questionFactory);
+  const firstRaw = factory();
+  const secondRaw = factory();
+  if (firstRaw === secondRaw) {
     throw new Error(`${spec.questionFactory} is not fresh and deterministic`);
   }
-  const firstShape = assertQuestionFactoryShape(first, `${spec.questionFactory} first read`);
-  const secondShape = assertQuestionFactoryShape(second, `${spec.questionFactory} second read`);
+  const firstShape = assertQuestionFactoryShape(firstRaw, `${spec.questionFactory} first read`);
+  const secondShape = assertQuestionFactoryShape(secondRaw, `${spec.questionFactory} second read`);
+  const first = admitCanonicalGraph(firstRaw, `${spec.questionFactory} first read`);
+  const second = admitCanonicalGraph(secondRaw, `${spec.questionFactory} second read`);
   if (firstShape.kind !== secondShape.kind) {
     throw new Error(`${spec.questionFactory} changed output shape across reads`);
   }
@@ -1118,7 +1233,7 @@ function buildFlightBehavior(id, sourceRecord) {
   if (
     initial.speed !== sourceRecord.movementMillitilesPerSecond ||
     advanced.speed !== sourceRecord.movementMillitilesPerSecond ||
-    canonical(restored) !== canonical(initial)
+    canonicalTrusted(restored) !== canonicalTrusted(initial)
   ) {
     throw new Error(`basic flying public movement functions diverge for ${id}`);
   }
@@ -1156,7 +1271,7 @@ function buildClaim(spec, id, sourceRecord) {
     claimFamily: spec.claimFamily,
     exportName: spec.exportName,
     runtimeIntegrationStatus: RUNTIME_INTEGRATION_STATUS,
-    sourceRecordCanonical: canonical(sourceRecord),
+    sourceRecordCanonical: canonicalTrusted(sourceRecord),
     questionPolicy: normalizeQuestionPolicy(spec),
   };
   if (spec.claimFamily === "flight") {
@@ -1188,7 +1303,7 @@ function baseIdentity(sourceRecord, htpProfile, id) {
     kind: htpProfile.kind,
     placementClass: htpProfile.placementClass,
   };
-  if (canonical(base) !== canonical(expected)) {
+  if (canonicalTrusted(base) !== canonicalTrusted(expected)) {
     throw new Error(`movement/form base identity diverges from HTP for ${id}`);
   }
   return base;
@@ -1218,7 +1333,7 @@ function buildManifest() {
     const sourceRows = occurrenceExports.map((exportName) => {
       const record = sourceRecordByOccurrence.get(`${exportName}\u0000${id}`);
       if (record === undefined) throw new Error(`missing source witness for ${exportName}/${id}`);
-      return { exportName, recordCanonical: canonical(record) };
+      return { exportName, recordCanonical: canonicalTrusted(record) };
     });
     const claims = profileOccurrences.map(({ exportName }) => {
       const spec = CLAIM_SPEC_BY_EXPORT.get(exportName);
@@ -1266,7 +1381,7 @@ function buildManifest() {
     questionBearingClaims,
     unresolvedOnlyClaims,
   };
-  if (canonical(counts) !== canonical({
+  if (canonicalTrusted(counts) !== canonicalTrusted({
     duplicatedIds: 1,
     ids: 8,
     occurrences: 9,
@@ -1289,7 +1404,7 @@ function buildManifest() {
     profiles: profileRows,
     version: VERSION,
   };
-  return freeze(manifest);
+  return freeze(admitCanonicalGraph(manifest, "movement profile manifest"));
 }
 
 function profilesWithDuplicateExports(profiles) {
@@ -1297,7 +1412,7 @@ function profilesWithDuplicateExports(profiles) {
     .filter(({ occurrenceExports }) => occurrenceExports.length > 1)
     .map(({ id }) => id)
     .sort(compareText);
-  if (canonical(duplicateIds) !== canonical(["emberlance"])) {
+  if (canonicalTrusted(duplicateIds) !== canonicalTrusted(["emberlance"])) {
     throw new Error("movement/form duplicated profile IDs diverge from HTP");
   }
   return duplicateIds.length;

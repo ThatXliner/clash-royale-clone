@@ -175,6 +175,24 @@ function transformedSource(source, filename) {
   return (config.prefix ?? "") + source.replace(config.marker, config.replacement);
 }
 
+let movementModule = null;
+
+function probeResult(payload) {
+  if (config.reportTraps) payload.traps = context.__sourceProbeTraps ?? 0;
+  if (config.probeExposure) {
+    payload.exposed = false;
+    if (movementModule !== null) {
+      try {
+        movementModule.namespace.serializeSessionTroopMovementProfileManifest();
+        payload.exposed = true;
+      } catch {
+        // An errored module must not expose a partially initialized manifest.
+      }
+    }
+  }
+  return payload;
+}
+
 function loadModule(url) {
   if (moduleCache.has(url)) return moduleCache.get(url);
   const promise = (async () => {
@@ -200,7 +218,7 @@ function loadModule(url) {
 
 let exitCode = 0;
 try {
-  const movementModule = await loadModule(pathToFileURL(config.movementPath).href);
+  movementModule = await loadModule(pathToFileURL(config.movementPath).href);
   await movementModule.evaluate();
   const bytes = movementModule.namespace.serializeSessionTroopMovementProfileManifest();
   const payload = {
@@ -208,14 +226,14 @@ try {
     length: bytes.length,
     sha256: createHash("sha256").update(bytes).digest("hex"),
   };
-  console.log(JSON.stringify(payload));
+  console.log(JSON.stringify(probeResult(payload)));
   if (config.expect === "reject") exitCode = 2;
 } catch (error) {
   if (config.expect === "reject") {
-    console.log(JSON.stringify({
+    console.log(JSON.stringify(probeResult({
       accepted: false,
       error: error instanceof Error ? error.message : String(error),
-    }));
+    })));
   } else {
     console.error(error instanceof Error ? error.stack : String(error));
     exitCode = 1;
@@ -255,18 +273,34 @@ function sourceWrapperCase(exportName, id, mutation, options = {}) {
   const catalogExpression = usesSingularDefinition
     ? "[DEFINITION]"
     : "DEFINITIONS";
+  const callPrefix = options.skipCalls === undefined
+    ? ""
+    : [
+      "__sourceProbeCallCount += 1;",
+      "globalThis.__sourceProbeCallCount = __sourceProbeCallCount;",
+    ].join("\n");
+  const guardedMutation = options.skipCalls === undefined
+    ? mutation
+    : `if (__sourceProbeCallCount > ${options.skipCalls}) { ${mutation} }`;
   const replacement = [
     `const records = createCardCatalog(${catalogExpression});`,
+    callPrefix,
     options.alternatingReads ? "__sourceReadCount += 1;" : "",
     `const record = records.find(({ id: candidateId }) => candidateId === ${JSON.stringify(id)});`,
     'if (record === undefined) throw new Error("source wrapper record is missing");',
-    mutation,
+    guardedMutation,
     "return records;",
   ].filter(Boolean).join("\n");
   return {
     expect: options.expect ?? "reject",
     marker: `return createCardCatalog(${catalogExpression});`,
-    prefix: options.alternatingReads ? "let __sourceReadCount = 0;\n" : "",
+    prefix: [
+      options.alternatingReads ? "let __sourceReadCount = 0;" : "",
+      options.skipCalls === undefined ? "" : "let __sourceProbeCallCount = 0;",
+      options.prefix ?? "",
+    ].filter(Boolean).join("\n") + (options.alternatingReads || options.skipCalls !== undefined || options.prefix ? "\n" : ""),
+    reportTraps: options.reportTraps ?? false,
+    probeExposure: options.probeExposure ?? false,
     replacement,
     targetPath: SOURCE_MODULE_PATHS[exportName],
   };
@@ -277,7 +311,7 @@ function canonicalWrapperCase(setup, options = {}) {
     expect: options.expect ?? "reject",
     marker: "return canonical(MANIFEST);",
     prefix: `let __canonicalTraps = 0;\n${setup}\n`,
-    replacement: "try { return canonical(__canonicalValue); } finally { if (__canonicalTraps !== 0) throw new Error(\"attacker callback\"); }",
+    replacement: `try { return ${options.trusted ? "canonicalTrusted" : "canonical"}(__canonicalValue); } finally { if (__canonicalTraps !== 0) throw new Error(\"attacker callback\"); }`,
     targetPath: MOVEMENT_SOURCE_MODULE_PATH,
   };
 }
@@ -736,6 +770,12 @@ test("movement profile contract: outputs are detached, deeply frozen, and canoni
     serializeSessionTroopMovementProfileManifest(),
     serializeSessionTroopMovementProfileManifest(),
   );
+  for (let iteration = 0; iteration < 8; iteration += 1) {
+    const repeated = createSessionTroopMovementProfileManifest();
+    assert.ok(deepFrozen(repeated));
+    assert.equal(serializeSessionTroopMovementProfileManifest(), canonical(repeated));
+    assert.equal(getSessionTroopMovementProfile("emberlance").id, "emberlance");
+  }
   assert.throws(() => createSessionTroopMovementProfileManifest("override"), /no arguments/u);
   assert.throws(() => serializeSessionTroopMovementProfileManifest("override"), /no arguments/u);
 
@@ -814,7 +854,7 @@ test("movement profile contract: module has no comparison-path, identity, clock,
 test("movement profile contract: pinned witness map has the exact nine pair domain", () => {
   const source = readFileSync(MOVEMENT_SOURCE_MODULE_PATH, "utf8");
   const pinnedPairs = [...source.matchAll(
-    /\[sourceRecordKey\("([^"]+)", "([^"]+)"\)\]: canonical\(\{/gu
+    /\[sourceRecordKey\("([^"]+)", "([^"]+)"\)\]: canonicalTrusted\(\{/gu
   )].map(([, exportName, id]) => [exportName, id]);
   const expectedPairs = EXPECTED_OCCURRENCES
     .map(([exportName, id]) => [exportName, id])
@@ -904,6 +944,62 @@ test("movement profile contract: complete source witnesses reject the adversaria
     nestedRejects += 1;
   }
 
+  const trapPrefix = [
+    "let __sourceProbeTraps = 0;",
+    "globalThis.__sourceProbeTraps = 0;",
+    "const __bumpSourceProbeTrap = () => { __sourceProbeTraps += 1; globalThis.__sourceProbeTraps = __sourceProbeTraps; };",
+  ].join("\n");
+  const proxyHandler = `({
+    getPrototypeOf() { __bumpSourceProbeTrap(); throw new Error("proxy getPrototypeOf"); },
+    setPrototypeOf() { __bumpSourceProbeTrap(); throw new Error("proxy setPrototypeOf"); },
+    isExtensible() { __bumpSourceProbeTrap(); throw new Error("proxy isExtensible"); },
+    preventExtensions() { __bumpSourceProbeTrap(); throw new Error("proxy preventExtensions"); },
+    getOwnPropertyDescriptor() { __bumpSourceProbeTrap(); throw new Error("proxy getOwnPropertyDescriptor"); },
+    defineProperty() { __bumpSourceProbeTrap(); throw new Error("proxy defineProperty"); },
+    has() { __bumpSourceProbeTrap(); throw new Error("proxy has"); },
+    get() { __bumpSourceProbeTrap(); throw new Error("proxy get"); },
+    set() { __bumpSourceProbeTrap(); throw new Error("proxy set"); },
+    deleteProperty() { __bumpSourceProbeTrap(); throw new Error("proxy deleteProperty"); },
+    ownKeys() { __bumpSourceProbeTrap(); throw new Error("proxy ownKeys"); },
+  })`;
+  const hostileShapeCases = [
+    [
+      "source row Proxy",
+      `records[records.indexOf(record)] = new Proxy(record, ${proxyHandler});`,
+    ],
+    [
+      "source component Proxy",
+      `record.components.push(new Proxy({}, ${proxyHandler}));`,
+    ],
+    [
+      "source row accessor",
+      "Object.defineProperty(record, \"damage\", { configurable: true, enumerable: true, get() { __bumpSourceProbeTrap(); throw new Error(\"row accessor\"); } });",
+    ],
+    [
+      "source component accessor",
+      "record.components.push({}); Object.defineProperty(record.components[0], \"damage\", { configurable: true, enumerable: true, get() { __bumpSourceProbeTrap(); throw new Error(\"component accessor\"); } });",
+    ],
+  ];
+  let hostileShapeCallbacks = 0;
+  for (const [label, mutation] of hostileShapeCases) {
+    const result = runSourceWrapperProbe(sourceWrapperCase(
+      "createBasicFlyingCatalog",
+      "copperskiff",
+      mutation,
+      {
+        expect: "reject",
+        prefix: trapPrefix,
+        reportTraps: true,
+        probeExposure: true,
+        skipCalls: 3,
+      },
+    ));
+    assert.equal(result.accepted, false, `${label} was accepted`);
+    assert.equal(result.traps, 0, `${label} invoked hostile callbacks`);
+    assert.equal(result.exposed, false, `${label} exposed a partial manifest`);
+    hostileShapeCallbacks += result.traps;
+  }
+
   const alternatingRead = runSourceWrapperProbe(sourceWrapperCase(
     "createDashSpecialCatalog",
     "veilrunner",
@@ -929,6 +1025,8 @@ test("movement profile contract: complete source witnesses reject the adversaria
   assert.equal(fieldRejects, 17);
   assert.equal(shapeRejects, 6);
   assert.equal(nestedRejects, 2);
+  assert.equal(hostileShapeCases.length, 4);
+  assert.equal(hostileShapeCallbacks, 0);
 });
 
 test("movement profile contract: every pinned null numeric path rejects non-finite and non-integer drift", () => {
@@ -1022,6 +1120,18 @@ test("movement profile contract: canonicalization fails closed for non-JSON valu
       "  getPrototypeOf() { __canonicalTraps += 1; throw new Error(\"prototype callback\"); },",
       "});",
     ].join("\n")],
+    ["cycle", [
+      "const __canonicalValue = {};",
+      "__canonicalValue.self = __canonicalValue;",
+    ].join("\n")],
+    ["sparse array", [
+      "const __canonicalValue = [];",
+      "__canonicalValue.length = 1;",
+    ].join("\n")],
+    ["custom prototype", [
+      "const __canonicalValue = Object.create({ hostile: true });",
+      "__canonicalValue.value = 1;",
+    ].join("\n")],
   ];
   for (const [label, setup] of cases) {
     const result = runSourceWrapperProbe(canonicalWrapperCase(setup));
@@ -1033,13 +1143,63 @@ test("movement profile contract: canonicalization fails closed for non-JSON valu
     "const __canonicalValue = {};",
     "__canonicalValue.z = 1;",
     "__canonicalValue.a = 2;",
-  ].join("\n"), { expect: "accept" }));
+  ].join("\n"), { expect: "accept", trusted: true }));
   const expected = canonical({ a: 2, z: 1 });
   assert.deepEqual(reordered, {
     accepted: true,
     length: expected.length,
     sha256: createHash("sha256").update(expected).digest("hex"),
   });
+
+  const trapNames = [
+    "ownKeys",
+    "getOwnPropertyDescriptor",
+    "get",
+    "getPrototypeOf",
+    "has",
+    "set",
+    "deleteProperty",
+    "defineProperty",
+    "isExtensible",
+    "preventExtensions",
+    "setPrototypeOf",
+  ];
+  let trapCases = 0;
+  let callbackCases = 0;
+  for (const trapName of trapNames) {
+    const result = runSourceWrapperProbe(canonicalWrapperCase([
+      "const __canonicalTarget = { value: 1 };",
+      `const __canonicalValue = new Proxy(__canonicalTarget, { ${trapName}() { __canonicalTraps += 1; throw new Error(\"${trapName} callback\"); } });`,
+    ].join("\n")));
+    assert.equal(result.accepted, false, `${trapName} Proxy was accepted`);
+    if (/callback/u.test(result.error)) callbackCases += 1;
+    trapCases += 1;
+  }
+
+  const callableTrapCases = ["apply", "construct"];
+  for (const trapName of callableTrapCases) {
+    const result = runSourceWrapperProbe(canonicalWrapperCase([
+      "const __canonicalTarget = function canonicalTarget() {};",
+      `const __canonicalValue = new Proxy(__canonicalTarget, { ${trapName}() { __canonicalTraps += 1; throw new Error(\"${trapName} callback\"); } });`,
+    ].join("\n")));
+    assert.equal(result.accepted, false, `${trapName} Proxy was accepted`);
+    if (/callback/u.test(result.error)) callbackCases += 1;
+    trapCases += 1;
+  }
+
+  const allTraps = trapNames.map((trapName) =>
+    `${trapName}() { __canonicalTraps += 1; throw new Error(\"${trapName} callback\"); }`
+  ).join(",\n");
+  const combined = runSourceWrapperProbe(canonicalWrapperCase([
+    "const __canonicalTarget = { value: 1 };",
+    `const __canonicalValue = new Proxy(__canonicalTarget, { ${allTraps} });`,
+  ].join("\n")));
+  assert.equal(combined.accepted, false, "combined hostile Proxy was accepted");
+  if (/callback/u.test(combined.error)) callbackCases += 1;
+  trapCases += 1;
+
+  assert.equal(trapCases, 14);
+  assert.equal(callbackCases, 0);
 });
 
 test("movement profile contract: complete QUESTION witnesses reject content, shape, metadata, and read drift", () => {
