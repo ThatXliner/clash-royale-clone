@@ -326,9 +326,19 @@ function projectFromSource(id) {
   };
 }
 
+function withOrdinaryPolicies(card) {
+  const detached = clone(card);
+  detached.entities = detached.entities.map((entity) => ({
+    ...entity,
+    deliveryPolicy: questionPolicy(`${entity.archetypeId}.delivery`),
+    layerPolicy: questionPolicy(`${entity.archetypeId}.layer`),
+  }));
+  return detached;
+}
+
 function compileProjection(id) {
-  if (PLAYABLE_BY_ID.has(id)) return PLAYABLE_BY_ID.get(id);
-  return projectFromSource(id);
+  const playable = PLAYABLE_BY_ID.get(id);
+  return withOrdinaryPolicies(playable === undefined ? projectFromSource(id) : playable);
 }
 
 const PROJECTED_BY_ID = new Map(

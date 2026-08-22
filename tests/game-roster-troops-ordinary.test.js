@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import test from "node:test";
 
 import * as content from "../src/content/index.js";
@@ -16,6 +17,7 @@ import {
   createPlayableRoster,
   createPlayableRosterQuestionRecords,
   PLAYABLE_CARD_IDS,
+  serializePlayableRoster,
 } from "../src/content/playable-roster.js";
 import { DeckCycle } from "../src/sim/deck.js";
 import { GameSession } from "../src/sim/game-session.js";
@@ -150,10 +152,16 @@ function expectedEntityRuntime(entity, questions) {
     ? expectedQuestionValue(questions, entity.projectileSpeedPolicy.questionKey) : null;
   const damage = entity.damagePolicy?.kind === "question"
     ? expectedQuestionValue(questions, entity.damagePolicy.questionKey) : entity.damage;
+  const delivery = expectedQuestionValue(questions, entity.deliveryPolicy.questionKey) === 2
+    ? "projectile" : "melee";
+  const layer = expectedQuestionValue(questions, entity.layerPolicy.questionKey) === 2
+    ? "air" : "ground";
   return {
     damage,
-    delivery: entity.delivery,
-    layer: entity.layer,
+    delivery,
+    layer,
+    directDelivery: entity.delivery,
+    directLayer: entity.layer,
     projectileSpeed,
     radius,
   };
@@ -172,7 +180,6 @@ test("ordinary troop projection domain is exactly the admitted profile surface",
 
 test("every projection is complete, source-agreeing, ordinary-only, and component-stable", () => {
   const manifest = createSessionTroopProfileManifest();
-  const playable = new Set(PLAYABLE_CARD_IDS);
   for (const profile of manifest.profiles) {
     const rows = sourceRows(profile);
     assert.equal(rows.length, profile.occurrenceExports.length, profile.id);
@@ -195,10 +202,8 @@ test("every projection is complete, source-agreeing, ordinary-only, and componen
     for (let index = 0; index < projected.entities.length; index += 1) {
       const entity = projected.entities[index];
       const sourceEntity = entitySource(source, index);
-      const allowedKeys = playable.has(profile.id)
-        ? ENTITY_KEYS
-        : [...ENTITY_KEYS, ...ORDINARY_POLICY_KEYS,
-          ...(sourceEntity.damage === null ? ["damagePolicy"] : [])];
+      const allowedKeys = [...ENTITY_KEYS, ...ORDINARY_POLICY_KEYS,
+        ...(sourceEntity.damage === null ? ["damagePolicy"] : [])];
       assert.deepEqual(Object.keys(entity).sort(), [...allowedKeys].sort(),
         `${profile.id} ordinary entity shape`);
       for (const field of ENTITY_KEYS) {
@@ -214,12 +219,14 @@ test("every projection is complete, source-agreeing, ordinary-only, and componen
           assert.deepEqual(entity[field], sourceEntity[field], `${profile.id}.${field}`);
         }
       }
-      if (!playable.has(profile.id)) {
-        assert.equal(entity.deliveryPolicy.kind, "question", `${profile.id} delivery policy`);
-        assert.equal(entity.layerPolicy.kind, "question", `${profile.id} layer policy`);
-        assert.equal(entity.deliveryPolicy.questionKey, `${entity.archetypeId}.delivery`);
-        assert.equal(entity.layerPolicy.questionKey, `${entity.archetypeId}.layer`);
-      }
+      assert.deepEqual(entity.deliveryPolicy, {
+        kind: "question",
+        questionKey: `${entity.archetypeId}.delivery`,
+      }, `${profile.id} delivery policy`);
+      assert.deepEqual(entity.layerPolicy, {
+        kind: "question",
+        questionKey: `${entity.archetypeId}.layer`,
+      }, `${profile.id} layer policy`);
       if (sourceEntity.damage === null) {
         assert.equal(entity.damage, null, `${profile.id} preserves missing damage`);
         assert.equal(entity.damagePolicy.questionKey, `${entity.archetypeId}.damage`);
@@ -241,6 +248,9 @@ test("every witness closes its exact questions, cards, and archetypes through Li
     const archetypes = roster.flatMap(({ entities }) => entities.map(({ archetypeId }) => archetypeId));
     assert.equal(new Set(archetypes).size, archetypes.length, `${id} archetypes`);
     const referenced = [...new Set(questionReferences(roster))].sort();
+    const references = questionReferences(roster);
+    assert.equal(references.length, new Set(references).size, `${id} policy references are unique`);
+    assert.equal(references.length, questions.length, `${id} has no unused question records`);
     assert.deepEqual(questions.map(({ key }) => key), referenced, `${id} question closure`);
     assert.equal(new Set(questions.map(({ key }) => key)).size, questions.length, id);
     assert.ok(questions.every(({ authoritative, confidence, disposition, source, value }) =>
@@ -252,7 +262,91 @@ test("every witness closes its exact questions, cards, and archetypes through Li
   const originalQuestions = new Map(createPlayableRosterQuestionRecords().map((record) => [record.key, record]));
   const shellWitness = createSessionTroopWitness("coilblade");
   for (const record of shellWitness.questions) {
-    assert.deepEqual(record, originalQuestions.get(record.key), record.key);
+    if (originalQuestions.has(record.key)) {
+      assert.deepEqual(record, originalQuestions.get(record.key), record.key);
+    }
+  }
+});
+
+function stripOrdinaryPolicies(card) {
+  return {
+    ...card,
+    entities: card.entities.map(({ deliveryPolicy, layerPolicy, ...entity }) => entity),
+  };
+}
+
+test("legacy HTO projections are detached exact playable cards plus ordinary policies", () => {
+  const playableById = new Map(createPlayableRoster().map((card) => [card.id, card]));
+  assert.equal(PLAYABLE_CARD_IDS.length, 8);
+  for (const id of PLAYABLE_CARD_IDS) {
+    const projected = projectSessionTroopBattleCard(id);
+    assert.deepEqual(stripOrdinaryPolicies(projected), playableById.get(id), id);
+    assert.notEqual(projected, playableById.get(id), `${id} card is detached`);
+    assert.notEqual(projected.entities, playableById.get(id).entities, `${id} entities are detached`);
+    assert.ok(projected.entities.every(({ deliveryPolicy, layerPolicy }) =>
+      deliveryPolicy?.kind === "question" && layerPolicy?.kind === "question"), id);
+  }
+});
+
+test("legacy playable roster bytes and QUESTION records remain unchanged", () => {
+  const roster = createPlayableRoster();
+  const questions = createPlayableRosterQuestionRecords();
+  assert.ok(roster.every(({ entities }) => entities.every((entity) =>
+    !Object.hasOwn(entity, "deliveryPolicy") && !Object.hasOwn(entity, "layerPolicy"))));
+  assert.ok(questions.every(({ key }) => !key.endsWith(".delivery") && !key.endsWith(".layer")));
+  const bytes = serializePlayableRoster();
+  assert.equal(bytes.length, 11_154);
+  assert.equal(
+    createHash("sha256").update(bytes).digest("hex"),
+    "6fb8d84121ca039ea9315b7e505c8f02d5d7839e8fd5fc5cd19013a0d2b7fadb",
+  );
+});
+
+test("legacy delivery/layer policy and QUESTION tampering rejects atomically", () => {
+  for (const id of PLAYABLE_CARD_IDS) {
+    const witness = createSessionTroopWitness(id);
+    const originalBytes = canonical(witness);
+    const target = witness.roster.find(({ id: cardId }) => cardId === id);
+    for (let entityIndex = 0; entityIndex < target.entities.length; entityIndex += 1) {
+      for (const field of ORDINARY_POLICY_KEYS) {
+        const policyKey = target.entities[entityIndex][field].questionKey;
+        const omitPolicy = clone(witness);
+        delete omitPolicy.roster[0].entities[entityIndex][field];
+        assert.throws(() => parseLiveBattleSetup(canonical(omitPolicy)),
+          `${id}.${field} omission`);
+
+        const omitQuestion = clone(witness);
+        omitQuestion.questions = omitQuestion.questions.filter(({ key }) => key !== policyKey);
+        assert.throws(() => parseLiveBattleSetup(canonical(omitQuestion)),
+          `${id}.${field} question omission`);
+
+        const swapPolicy = clone(witness);
+        const opposite = field === "deliveryPolicy" ? "layerPolicy" : "deliveryPolicy";
+        swapPolicy.roster[0].entities[entityIndex][field] = {
+          ...swapPolicy.roster[0].entities[entityIndex][field],
+          questionKey: target.entities[entityIndex][opposite].questionKey,
+        };
+        assert.throws(() => parseLiveBattleSetup(canonical(swapPolicy)),
+          `${id}.${field} policy swap`);
+
+        const forgeQuestion = clone(witness);
+        forgeQuestion.questions = forgeQuestion.questions.map((record) =>
+          record.key === policyKey ? { ...record, value: record.value + 7 } : record);
+        assert.throws(() => parseLiveBattleSetup(canonical(forgeQuestion)),
+          `${id}.${field} question forgery`);
+
+        const forgeDirect = clone(witness);
+        const directField = field === "deliveryPolicy" ? "delivery" : "layer";
+        forgeDirect.roster[0].entities[entityIndex][directField] = directField === "delivery"
+          ? (target.entities[entityIndex].delivery === "melee" ? "projectile" : "melee")
+          : (target.entities[entityIndex].layer === "ground" ? "air" : "ground");
+        assert.throws(() => parseLiveBattleSetup(canonical(forgeDirect)),
+          `${id}.${directField} forgery`);
+
+        assert.equal(canonical(parseLiveBattleSetup(originalBytes)), originalBytes,
+          `${id} remains atomically admitted after ${field} attacks`);
+      }
+    }
   }
 });
 
@@ -305,9 +399,11 @@ test("all admitted troop witnesses use one shared LiveBattle deployment and enti
     const targetEntities = target.entities.length === 0 ? [target] : target.entities;
     assert.equal(targetUnits.length, target.formation.totalCount, `${id} entity expansion total`);
     let entityIndex = 0;
-    for (const entity of targetEntities) {
-      const expected = expectedEntityRuntime(entity, witness.questions);
-      for (let memberIndex = 0; memberIndex < entity.count; memberIndex += 1) {
+      for (const entity of targetEntities) {
+        const expected = expectedEntityRuntime(entity, witness.questions);
+        assert.equal(expected.delivery, expected.directDelivery, `${id}.${entity.archetypeId} delivery estimate`);
+        assert.equal(expected.layer, expected.directLayer, `${id}.${entity.archetypeId} layer estimate`);
+        for (let memberIndex = 0; memberIndex < entity.count; memberIndex += 1) {
         const unit = targetUnits[entityIndex];
         assert.equal(unit.cardId, id);
         assert.equal(unit.archetypeId, entity.archetypeId);
