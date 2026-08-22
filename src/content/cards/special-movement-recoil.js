@@ -497,7 +497,7 @@ export function createRecoilSpecialFixture(
 }
 
 /** Returns every unsourced recoil/composition assumption as a QUESTION value. */
-export function createRecoilQuestionFixture(...args) {
+function createRecoilQuestionFixtureUnwrapped(...args) {
   if (args.length !== 0) {
     throw new TypeError("recoil question fixture does not accept overrides");
   }
@@ -506,6 +506,13 @@ export function createRecoilQuestionFixture(...args) {
     "recoil question fixture",
   );
 }
+
+const createRecoilQuestionFixture = createRecoilQuestionFixtureUnwrapped;
+export { createRecoilQuestionFixture };
+export const MOVEMENT_QUESTION_FACTORY_AUTHORITY = Object.freeze({
+  assertGraph: assertRecoilQuestionGraph,
+  factory: createRecoilQuestionFixtureUnwrapped,
+});
 
 /**
  * Pure recoil projection and arena-boundary evaluator.

@@ -640,12 +640,19 @@ export function createChargeKnockbackCatalog() {
   return createCardCatalog([DEFINITION]);
 }
 
-export function createChargeKnockbackQuestionRecords(...args) {
+function createChargeKnockbackQuestionRecordsUnwrapped(...args) {
   if (args.length !== 0) {
     throw new TypeError("composition question records do not accept overrides");
   }
   return recursivelyFreeze(createQuestionRecordsDraft());
 }
+
+const createChargeKnockbackQuestionRecords = createChargeKnockbackQuestionRecordsUnwrapped;
+export { createChargeKnockbackQuestionRecords };
+export const MOVEMENT_QUESTION_FACTORY_AUTHORITY = Object.freeze({
+  assertGraph: assertChargeKnockbackQuestionGraph,
+  factory: createChargeKnockbackQuestionRecordsUnwrapped,
+});
 
 export function createChargeKnockbackFixture(
   candidates = clone(DEFAULT_CANDIDATES),

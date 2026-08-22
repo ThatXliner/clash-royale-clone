@@ -189,6 +189,12 @@ let movementModule = null;
 function probeResult(payload) {
   if (config.reportTraps) payload.traps = context.__sourceProbeTraps ?? 0;
   if (config.reportCanonicalTraps) payload.canonicalTraps = context.__canonicalTraps ?? 0;
+  if (config.reportFactoryCallbacks) {
+    payload.factoryCallbacks = context.__factoryCallbacks ?? 0;
+  }
+  if (config.reportFactoryTraps) {
+    payload.factoryTraps = context.__factoryTraps ?? 0;
+  }
   if (config.probeExposure) {
     payload.exposed = false;
     if (movementModule !== null) {
@@ -376,6 +382,22 @@ function questionFactoryWrapperCase(factoryName, mutation, options = {}) {
       "    Object.freeze(value);",
     ].join("\n"),
     reportTraps: options.reportTraps ?? false,
+    probeExposure: options.probeExposure ?? false,
+    targetPath: SOURCE_MODULE_PATHS[info.exportName],
+  };
+}
+
+function questionFactoryExportWrapperCase(factoryName, replacement, options = {}) {
+  const info = QUESTION_FACTORY_INFO[factoryName];
+  assert.ok(info, `missing QUESTION factory test info for ${factoryName}`);
+  const unwrappedName = `${factoryName}Unwrapped`;
+  return {
+    expect: options.expect ?? "reject",
+    marker: `const ${factoryName} = ${unwrappedName};`,
+    prefix: options.prefix ?? "",
+    replacement: `const ${factoryName} = ${replacement};`,
+    reportFactoryCallbacks: options.reportFactoryCallbacks ?? false,
+    reportFactoryTraps: options.reportFactoryTraps ?? false,
     probeExposure: options.probeExposure ?? false,
     targetPath: SOURCE_MODULE_PATHS[info.exportName],
   };
@@ -1343,6 +1365,93 @@ test("movement profile contract: QUESTION factories reject aliased Proxy roots a
     () => chargeSource.assertChargeQuestionGraph(alteredCharge),
     /source-admitted/u,
   );
+});
+
+test("movement profile contract: QUESTION factory dispatch rejects transformed bindings before apply", () => {
+  const duplicateImports = Object.freeze({
+    createChargeQuestionFixture: ["./special-movement-dash.js", "createDashQuestionFixture"],
+    createChargeKnockbackQuestionRecords: ["./special-movement-retarget.js", "createRetargetQuestionRecords"],
+    createDashQuestionFixture: ["./special-movement-charge.js", "createChargeQuestionFixture"],
+    createJumpQuestionFixture: ["./special-movement-recoil.js", "createRecoilQuestionFixture"],
+    createRecoilQuestionFixture: ["./special-movement-jump.js", "createJumpQuestionFixture"],
+    createRetargetQuestionRecords: ["./special-movement-charge-knockback.js", "createChargeKnockbackQuestionRecords"],
+  });
+  const attackNames = [
+    "bind",
+    "direct Proxy",
+    "globalThis.Proxy alias",
+    "callable wrapper",
+    "Function.apply wrapper",
+    "Function.call wrapper",
+    "Reflect.apply wrapper",
+    "revoked Proxy",
+    "duplicate module factory",
+    "counted duplicate module factory",
+  ];
+  let cases = 0;
+  let callbackTotal = 0;
+  let trapTotal = 0;
+
+  for (const factoryName of Object.keys(QUESTION_FACTORY_INFO)) {
+    const unwrappedName = `${factoryName}Unwrapped`;
+    const [duplicateModule, duplicateExport] = duplicateImports[factoryName];
+    const prefix = [
+      `import { ${duplicateExport} as __duplicateFactory } from ${JSON.stringify(duplicateModule)};`,
+      "globalThis.__factoryCallbacks = 0;",
+      "globalThis.__factoryTraps = 0;",
+      "function __bumpFactoryCallback() { globalThis.__factoryCallbacks += 1; }",
+      "function __bumpFactoryTrap() { globalThis.__factoryTraps += 1; throw new Error(\"hostile factory trap\"); }",
+      "const __hostileGraphHandler = {",
+      "  getPrototypeOf() { __bumpFactoryTrap(); },",
+      "  ownKeys() { __bumpFactoryTrap(); },",
+      "  getOwnPropertyDescriptor() { __bumpFactoryTrap(); },",
+      "  get() { __bumpFactoryTrap(); },",
+      "};",
+      "const __factoryProxyHandler = {",
+      "  apply(target, thisArg, args) { __bumpFactoryTrap(); return Reflect.apply(target, thisArg, args); },",
+      "};",
+      `function __hostileFactory(...args) { __bumpFactoryCallback(); const __raw = ${unwrappedName}(...args); return new Proxy(__raw, __hostileGraphHandler); }`,
+      "function __countedDuplicateFactory(...args) { __bumpFactoryCallback(); return __duplicateFactory(...args); }",
+    ].join("\n") + "\n";
+    const attacks = [
+      ["bind", "__hostileFactory.bind(undefined)"],
+      ["direct Proxy", "new Proxy(__hostileFactory, __factoryProxyHandler)"],
+      ["globalThis.Proxy alias", "(() => { const __P = globalThis.Proxy; return new __P(__hostileFactory, __factoryProxyHandler); })()"],
+      ["callable wrapper", "(...args) => { __bumpFactoryCallback(); return __hostileFactory(...args); }"],
+      ["Function.apply wrapper", "(...args) => { __bumpFactoryCallback(); return Function.prototype.apply.call(__hostileFactory, undefined, args); }"],
+      ["Function.call wrapper", "(...args) => { __bumpFactoryCallback(); return Function.prototype.call.call(__hostileFactory, undefined, ...args); }"],
+      ["Reflect.apply wrapper", "(...args) => { __bumpFactoryCallback(); return Reflect.apply(__hostileFactory, undefined, args); }"],
+      ["revoked Proxy", "(() => { const __revocable = Proxy.revocable(__hostileFactory, __factoryProxyHandler); __revocable.revoke(); return __revocable.proxy; })()"],
+      ["duplicate module factory", "__duplicateFactory"],
+      ["counted duplicate module factory", "__countedDuplicateFactory"],
+    ];
+    for (const [label, replacement] of attacks) {
+      const result = runSourceWrapperProbe(questionFactoryExportWrapperCase(
+        factoryName,
+        replacement,
+        {
+          prefix,
+          reportFactoryCallbacks: true,
+          reportFactoryTraps: true,
+          probeExposure: true,
+        },
+      ));
+      assert.equal(result.accepted, false, `${factoryName} ${label} was accepted`);
+      assert.equal(result.factoryCallbacks, 0, `${factoryName} ${label} executed the factory`);
+      assert.equal(result.factoryTraps, 0, `${factoryName} ${label} executed a trap`);
+      assert.equal(result.exposed, false, `${factoryName} ${label} exposed a partial manifest`);
+      assert.doesNotMatch(result.error, /hostile factory trap|hostile graph/u);
+      callbackTotal += result.factoryCallbacks;
+      trapTotal += result.factoryTraps;
+      cases += 1;
+    }
+  }
+
+  assert.deepEqual({ callbackTotal, cases, trapTotal }, {
+    callbackTotal: 0,
+    cases: 60,
+    trapTotal: 0,
+  });
 });
 
 test("movement profile contract: canonicalization fails closed for non-JSON values without traps", () => {

@@ -471,7 +471,7 @@ export function createChargeSpecialFixture(commands = []) {
  * for the charge special. The returned graph is detached and deeply frozen;
  * callers may inspect it without changing simulation behavior.
  */
-export function createChargeQuestionFixture(...args) {
+function createChargeQuestionFixtureUnwrapped(...args) {
   if (args.length !== 0) {
     throw new TypeError("charge question fixture does not accept overrides");
   }
@@ -480,6 +480,13 @@ export function createChargeQuestionFixture(...args) {
     "charge question fixture",
   );
 }
+
+const createChargeQuestionFixture = createChargeQuestionFixtureUnwrapped;
+export { createChargeQuestionFixture };
+export const MOVEMENT_QUESTION_FACTORY_AUTHORITY = Object.freeze({
+  assertGraph: assertChargeQuestionGraph,
+  factory: createChargeQuestionFixtureUnwrapped,
+});
 
 /**
  * Evaluates the exact arm boundary without allowing callers to replace any

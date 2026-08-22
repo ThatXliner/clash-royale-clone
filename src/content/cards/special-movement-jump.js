@@ -524,7 +524,7 @@ export function createJumpSpecialFixture(commands = []) {
 /**
  * Returns every unsourced jump-only assumption as an isolated QUESTION value.
  */
-export function createJumpQuestionFixture(...args) {
+function createJumpQuestionFixtureUnwrapped(...args) {
   if (args.length !== 0) {
     throw new TypeError("jump question fixture does not accept overrides");
   }
@@ -533,6 +533,13 @@ export function createJumpQuestionFixture(...args) {
     "jump question fixture",
   );
 }
+
+const createJumpQuestionFixture = createJumpQuestionFixtureUnwrapped;
+export { createJumpQuestionFixture };
+export const MOVEMENT_QUESTION_FACTORY_AUTHORITY = Object.freeze({
+  assertGraph: assertJumpQuestionGraph,
+  factory: createJumpQuestionFixtureUnwrapped,
+});
 
 /**
  * Pure exact evaluator for the inclusive QUESTION trigger interval.

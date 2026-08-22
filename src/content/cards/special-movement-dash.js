@@ -469,7 +469,7 @@ export function createDashSpecialFixture(commands = []) {
  * Returns an isolated, explicitly non-authoritative record of every dash-only
  * mechanic assumed by this encounter.
  */
-export function createDashQuestionFixture(...args) {
+function createDashQuestionFixtureUnwrapped(...args) {
   if (args.length !== 0) {
     throw new TypeError("dash question fixture does not accept overrides");
   }
@@ -478,6 +478,13 @@ export function createDashQuestionFixture(...args) {
     "dash question fixture",
   );
 }
+
+const createDashQuestionFixture = createDashQuestionFixtureUnwrapped;
+export { createDashQuestionFixture };
+export const MOVEMENT_QUESTION_FACTORY_AUTHORITY = Object.freeze({
+  assertGraph: assertDashQuestionGraph,
+  factory: createDashQuestionFixtureUnwrapped,
+});
 
 /**
  * Pure inclusive launch-boundary evaluator for the QUESTION fixture.

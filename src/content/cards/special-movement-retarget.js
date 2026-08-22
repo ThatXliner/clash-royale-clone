@@ -527,12 +527,19 @@ export function createRetargetSpecialCatalog() {
   return createCardCatalog([DEFINITION]);
 }
 
-export function createRetargetQuestionRecords(...args) {
+function createRetargetQuestionRecordsUnwrapped(...args) {
   if (args.length !== 0) {
     throw new TypeError("retarget question records do not accept overrides");
   }
   return recursivelyFreeze(createQuestionRecordsDraft());
 }
+
+const createRetargetQuestionRecords = createRetargetQuestionRecordsUnwrapped;
+export { createRetargetQuestionRecords };
+export const MOVEMENT_QUESTION_FACTORY_AUTHORITY = Object.freeze({
+  assertGraph: assertRetargetQuestionGraph,
+  factory: createRetargetQuestionRecordsUnwrapped,
+});
 
 export function createRetargetFixture(candidates = [], commands = []) {
   return clone(checkedSetup({ candidates, commands }));

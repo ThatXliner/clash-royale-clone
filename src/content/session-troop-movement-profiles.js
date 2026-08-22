@@ -163,13 +163,61 @@ const TRUSTED_SOURCE_FACTORIES = new WeakSet(
 // module-owned function and its result must be admitted by that same module's
 // private identity set before any graph inspection occurs.
 const QUESTION_GRAPH_ASSERTORS_BY_FACTORY = new WeakMap([
-  [chargeSource.createChargeQuestionFixture, chargeSource.assertChargeQuestionGraph],
-  [chargeKnockbackSource.createChargeKnockbackQuestionRecords, chargeKnockbackSource.assertChargeKnockbackQuestionGraph],
-  [dashSource.createDashQuestionFixture, dashSource.assertDashQuestionGraph],
-  [jumpSource.createJumpQuestionFixture, jumpSource.assertJumpQuestionGraph],
-  [recoilSource.createRecoilQuestionFixture, recoilSource.assertRecoilQuestionGraph],
-  [retargetSource.createRetargetQuestionRecords, retargetSource.assertRetargetQuestionGraph],
+  [chargeSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.factory, chargeSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.assertGraph],
+  [chargeKnockbackSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.factory, chargeKnockbackSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.assertGraph],
+  [dashSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.factory, dashSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.assertGraph],
+  [jumpSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.factory, jumpSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.assertGraph],
+  [recoilSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.factory, recoilSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.assertGraph],
+  [retargetSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.factory, retargetSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.assertGraph],
 ]);
+
+const QUESTION_FACTORY_BINDINGS = Object.freeze([
+  Object.freeze({
+    exportName: "createChargeSpecialCatalog",
+    factoryName: "createChargeQuestionFixture",
+    sourceModule: chargeSource,
+    factory: chargeSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.factory,
+    assertGraph: chargeSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.assertGraph,
+  }),
+  Object.freeze({
+    exportName: "createChargeKnockbackCatalog",
+    factoryName: "createChargeKnockbackQuestionRecords",
+    sourceModule: chargeKnockbackSource,
+    factory: chargeKnockbackSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.factory,
+    assertGraph: chargeKnockbackSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.assertGraph,
+  }),
+  Object.freeze({
+    exportName: "createDashSpecialCatalog",
+    factoryName: "createDashQuestionFixture",
+    sourceModule: dashSource,
+    factory: dashSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.factory,
+    assertGraph: dashSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.assertGraph,
+  }),
+  Object.freeze({
+    exportName: "createJumpSpecialCatalog",
+    factoryName: "createJumpQuestionFixture",
+    sourceModule: jumpSource,
+    factory: jumpSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.factory,
+    assertGraph: jumpSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.assertGraph,
+  }),
+  Object.freeze({
+    exportName: "createRecoilSpecialCatalog",
+    factoryName: "createRecoilQuestionFixture",
+    sourceModule: recoilSource,
+    factory: recoilSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.factory,
+    assertGraph: recoilSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.assertGraph,
+  }),
+  Object.freeze({
+    exportName: "createRetargetSpecialCatalog",
+    factoryName: "createRetargetQuestionRecords",
+    sourceModule: retargetSource,
+    factory: retargetSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.factory,
+    assertGraph: retargetSource.MOVEMENT_QUESTION_FACTORY_AUTHORITY.assertGraph,
+  }),
+]);
+const QUESTION_FACTORY_BINDINGS_BY_EXPORT = new Map(
+  QUESTION_FACTORY_BINDINGS.map((binding) => [binding.exportName, binding]),
+);
 
 const EXPECTED_ID_SET = new Set(EXPECTED_OCCURRENCES.map(({ id }) => id));
 const EXPECTED_EXPORT_SET = new Set(EXPECTED_OCCURRENCES.map(({ exportName }) => exportName));
@@ -1223,19 +1271,29 @@ function assertQuestionFactoryShape(value, label) {
   return { kind: "records", keys };
 }
 
+function questionFactoryBindingFor(spec) {
+  const binding = QUESTION_FACTORY_BINDINGS_BY_EXPORT.get(spec.exportName);
+  if (binding === undefined || binding.factoryName !== spec.questionFactory) {
+    throw new TypeError(`${spec.questionFactory} is not the expected factory for ${spec.exportName}`);
+  }
+  // The source-module export is an audit surface only. The dispatcher never
+  // invokes this lookup result; it must be the exact identity captured from
+  // the source module's unwrapped authority record.
+  if (binding.sourceModule[binding.factoryName] !== binding.factory) {
+    throw new TypeError(`${spec.questionFactory} is not the exact module-owned factory`);
+  }
+  if (QUESTION_GRAPH_ASSERTORS_BY_FACTORY.get(binding.factory) !== binding.assertGraph) {
+    throw new TypeError(`${spec.questionFactory} has no exact module-owned graph authority`);
+  }
+  return binding;
+}
+
 function normalizeQuestionPolicy(spec) {
   assertExpectedQuestionWitnessCoverage();
   if (spec.questionFactory === null) return null;
-  const sourceModule = SOURCE_MODULES_BY_EXPORT[spec.exportName];
-  const factory = sourceModule?.[spec.questionFactory];
-  if (typeof factory !== "function") {
-    throw new Error(`${spec.questionFactory} is not exported by ${spec.exportName} source module`);
-  }
-  const assertSourceQuestionGraph = QUESTION_GRAPH_ASSERTORS_BY_FACTORY.get(factory);
-  if (typeof assertSourceQuestionGraph !== "function") {
-    throw new TypeError(`${spec.questionFactory} is not an authenticated QUESTION factory`);
-  }
-  assertFactoryShapeSurface(factory, spec.questionFactory);
+  const binding = questionFactoryBindingFor(spec);
+  const factory = binding.factory;
+  const assertSourceQuestionGraph = binding.assertGraph;
   const firstRaw = factory();
   const secondRaw = factory();
   if (firstRaw === secondRaw) {
