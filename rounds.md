@@ -1,5 +1,26 @@
 # Gauntlet Rounds
 
+## Round 275 — 2026-08-22
+
+PIECE: GAME-001HTMP — Movement/form source-profile contract, round 6
+
+VERDICT: FAIL
+
+EVIDENCE: Both focused entry points passed 20/20, HTP 11/11, HTO 14/14,
+Projectile R6 26/26 and the eight source suites 129/129. The manifest remained
+67,284 bytes with SHA-256
+`d4ad6e7684047fbd4194fd83a017700b56ecf4198aa7a39bd5bc01bc67388082`.
+Independent probes rejected all eight aliases at fixture root and record level
+with zero traps/exposure, 99/99 scalar source rebrands, six copied QUESTION
+roots and six transparent proxies. However, exported
+`constructMovementQuestionGraph` accepted a changed fixture with forged
+`bonusDamage: 999999`. Passing a direct Proxy invoked one callback, and a real
+transformed source using an alias-built `globalThis.Proxy` invoked one trap
+before rejection.
+
+BIGGEST GAP: Make QUESTION construction private and trap-zero so no exported
+constructor can mint identity for altered data or inspect hostile source graphs.
+
 ## Round 274 — 2026-08-22
 
 PIECE: GAME-001HTJP — Projectile source-profile contract, round 6
