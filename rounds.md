@@ -4844,3 +4844,27 @@ the value bar. The canonical roster remained 11,154 bytes with SHA-256
 `6fb8d84121ca039ea9315b7e505c8f02d5d7839e8fd5fc5cd19013a0d2b7fadb`.
 
 BIGGEST GAP: None on the judged playable-roster regression dimension.
+
+## Round 258 — 2026-08-21
+
+PIECE: GAME-001HTO — Ordinary troop projection into eight-card witness sessions
+
+VERDICT: FAIL
+
+EVIDENCE: The ordinary selector passed 9/9, playable roster 9/9, profiles
+11/11, admission 7/7, battle 11/11, GameSession 9/9, troop runtime 7/7,
+shared integration 1/1, browser loop 10/10 and both guards 22/22. Independent
+probes reproduced 31 cards, 32 entities and 64 ordinary policies, including
+eight legacy cards, nine entities and 18 policies. All 31 witnesses had exact
+question closure and deployed 38 entities through real GameSessions without
+special events. Twenty hostile APIs rejected trap-zero. The shipped legacy
+roster remained 11,154 bytes with the same SHA-256. Single policy omission,
+question omission, swaps, value forgeries and direct-field forgeries rejected
+for all 18 legacy policy classes. However, removing both delivery/layer policy
+fields and their two questions from one legacy HTO entity admitted 9/9 legacy
+entities and materialized their direct values.
+
+BIGGEST GAP: LiveBattle treats a policy-less entity as valid legacy data even
+when the rest of the same setup uses HTO ordinary policies. Setup admission
+must be uniformly legacy or uniformly QUESTION-backed and reject mixed mode
+before exposure or mutation.
