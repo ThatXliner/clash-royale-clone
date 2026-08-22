@@ -4933,3 +4933,23 @@ BIGGEST GAP: Copperskiff lacks card-specific source proof of projectile
 delivery. A generic flying duel cannot justify admitting Copperskiff while
 excluding Skymaul; add a specific source receipt or keep Copperskiff as an
 explicit delivery QUESTION.
+
+## Round 262 — 2026-08-21
+
+PIECE: GAME-001HTMP — Movement/form source-profile contract, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: The committed tree was clean at `88546b2`. Both registered movement
+commands passed 11/11; all relevant source, HTP, ordinary troop and isolation
+selectors plus syntax checks passed. Independent probes confirmed exactly nine
+pairs/eight IDs/nine catalog records; six question factories with
+3/24/9/13/13/24 = 86 raw QUESTION records; recursive freeze/detachment; zero
+hostile callbacks; and pending-shared-host-only receipts with manifest SHA-256
+prefix/suffix `d4ad6e…67388082`. In-memory drift probes rejected extra, missing
+and duplicate records, Emberlance conflicts and extra QUESTION exports. A
+same-ID Veilrunner source wrapper changing movement from 1500 to 1501 was
+nevertheless accepted and exposed in the receipt.
+
+BIGGEST GAP: The profile accepts changed same-ID source values rather than
+failing closed on future source-record drift.
