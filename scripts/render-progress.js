@@ -75,7 +75,7 @@ const html = `<!doctype html>
 </head>
 <body>
   <h1>Gauntlet progress</h1>
-  <p class="sub">Updated 2026-08-17 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
+  <p class="sub">Updated 2026-08-21 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
     <div class="card"><div class="num">${pieces.length}</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">${passed}</div><div class="label">passed</div></div>
