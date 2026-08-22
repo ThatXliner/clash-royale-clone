@@ -111,6 +111,24 @@ const SOURCE_MODULES = {
   createRetargetSpecialCatalog: retargetSource,
   createShieldFormCatalog: shieldFormSource,
 };
+const NULLABLE_SOURCE_NUMERIC_FIELDS = Object.freeze([
+  "damage",
+  "deployTimeTicks",
+  "firstHitTicks",
+  "hitSpeedTicks",
+  "hitpoints",
+  "movementMillitilesPerSecond",
+  "rangeMillitiles",
+  "sightRangeMillitiles",
+  "areaDamageRadiusMillitiles",
+]);
+const INVALID_NUMERIC_MUTATIONS = Object.freeze([
+  ["NaN", "Number.NaN"],
+  ["Infinity", "Number.POSITIVE_INFINITY"],
+  ["-Infinity", "Number.NEGATIVE_INFINITY"],
+  ["fractional", "1.5"],
+  ["unsafe integer", "Number.MAX_SAFE_INTEGER + 1"],
+]);
 
 const SOURCE_MODULE_PATHS = Object.freeze(Object.fromEntries(
   Object.entries({
@@ -251,6 +269,16 @@ function sourceWrapperCase(exportName, id, mutation, options = {}) {
     prefix: options.alternatingReads ? "let __sourceReadCount = 0;\n" : "",
     replacement,
     targetPath: SOURCE_MODULE_PATHS[exportName],
+  };
+}
+
+function canonicalWrapperCase(setup, options = {}) {
+  return {
+    expect: options.expect ?? "reject",
+    marker: "return canonical(MANIFEST);",
+    prefix: `let __canonicalTraps = 0;\n${setup}\n`,
+    replacement: "try { return canonical(__canonicalValue); } finally { if (__canonicalTraps !== 0) throw new Error(\"attacker callback\"); }",
+    targetPath: MOVEMENT_SOURCE_MODULE_PATH,
   };
 }
 
@@ -901,6 +929,117 @@ test("movement profile contract: complete source witnesses reject the adversaria
   assert.equal(fieldRejects, 17);
   assert.equal(shapeRejects, 6);
   assert.equal(nestedRejects, 2);
+});
+
+test("movement profile contract: every pinned null numeric path rejects non-finite and non-integer drift", () => {
+  const nullPaths = [];
+  for (const [exportName, id] of EXPECTED_OCCURRENCES) {
+    const source = sourceRecord(exportName, id);
+    for (const field of NULLABLE_SOURCE_NUMERIC_FIELDS) {
+      if (source[field] === null) {
+        nullPaths.push({
+          exportName,
+          id,
+          field,
+          target: `record[${JSON.stringify(field)}]`,
+        });
+      }
+    }
+    for (let index = 0; index < source.components.length; index += 1) {
+      const component = source.components[index];
+      for (const field of NULLABLE_SOURCE_NUMERIC_FIELDS) {
+        if (component[field] === null) {
+          nullPaths.push({
+            exportName,
+            id,
+            field,
+            target: `record.components[${index}][${JSON.stringify(field)}]`,
+          });
+        }
+      }
+    }
+  }
+
+  let probes = 0;
+  let nonFiniteProbes = 0;
+  let cinderbackDamageProbes = 0;
+  for (const path of nullPaths) {
+    for (const [mutationLabel, mutationValue] of INVALID_NUMERIC_MUTATIONS) {
+      const result = runSourceWrapperProbe(sourceWrapperCase(
+        path.exportName,
+        path.id,
+        `${path.target} = ${mutationValue};`,
+      ));
+      assert.equal(
+        result.accepted,
+        false,
+        `${path.exportName}/${path.id}.${path.field} accepted ${mutationLabel}`,
+      );
+      probes += 1;
+      if (["NaN", "Infinity", "-Infinity"].includes(mutationLabel)) nonFiniteProbes += 1;
+      if (path.id === "cinderback" && path.field === "damage") {
+        cinderbackDamageProbes += 1;
+      }
+    }
+  }
+
+  assert.equal(nullPaths.length, 9);
+  assert.equal(cinderbackDamageProbes, 5);
+  assert.equal(nonFiniteProbes, 27);
+  assert.equal(probes, 45);
+
+  const baselineBytes = serializeSessionTroopMovementProfileManifest();
+  const cinderbackPropertyOrder = runSourceWrapperProbe(sourceWrapperCase(
+    "createRecoilSpecialCatalog",
+    "cinderback",
+    "records[records.indexOf(record)] = Object.fromEntries(Object.entries(record).reverse());",
+    { expect: "accept" },
+  ));
+  assert.deepEqual(cinderbackPropertyOrder, {
+    accepted: true,
+    length: baselineBytes.length,
+    sha256: createHash("sha256").update(baselineBytes).digest("hex"),
+  });
+});
+
+test("movement profile contract: canonicalization fails closed for non-JSON values without traps", () => {
+  const cases = [
+    ["undefined", "const __canonicalValue = undefined;"],
+    ["BigInt", "const __canonicalValue = 1n;"],
+    ["function", "const __canonicalValue = () => 1;"],
+    ["symbol", "const __canonicalValue = Symbol(\"canonical-drift\");"],
+    ["numeric wrapper", "const __canonicalValue = new Number(1);"],
+    ["NaN", "const __canonicalValue = Number.NaN;"],
+    ["Infinity", "const __canonicalValue = Number.POSITIVE_INFINITY;"],
+    ["-Infinity", "const __canonicalValue = Number.NEGATIVE_INFINITY;"],
+    ["getter", [
+      "const __canonicalValue = {};",
+      "Object.defineProperty(__canonicalValue, \"value\", { enumerable: true, get() { __canonicalTraps += 1; throw new Error(\"getter callback\"); } });",
+    ].join("\n")],
+    ["proxy", [
+      "const __canonicalValue = new Proxy({ value: 1 }, {",
+      "  get() { __canonicalTraps += 1; throw new Error(\"proxy callback\"); },",
+      "  getPrototypeOf() { __canonicalTraps += 1; throw new Error(\"prototype callback\"); },",
+      "});",
+    ].join("\n")],
+  ];
+  for (const [label, setup] of cases) {
+    const result = runSourceWrapperProbe(canonicalWrapperCase(setup));
+    assert.equal(result.accepted, false, `${label} canonical input was accepted`);
+    assert.doesNotMatch(result.error, /attacker callback|callback/u, `${label} invoked a trap`);
+  }
+
+  const reordered = runSourceWrapperProbe(canonicalWrapperCase([
+    "const __canonicalValue = {};",
+    "__canonicalValue.z = 1;",
+    "__canonicalValue.a = 2;",
+  ].join("\n"), { expect: "accept" }));
+  const expected = canonical({ a: 2, z: 1 });
+  assert.deepEqual(reordered, {
+    accepted: true,
+    length: expected.length,
+    sha256: createHash("sha256").update(expected).digest("hex"),
+  });
 });
 
 test("movement profile contract: complete QUESTION witnesses reject content, shape, metadata, and read drift", () => {

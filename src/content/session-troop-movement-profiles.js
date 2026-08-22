@@ -30,17 +30,40 @@ const SOURCE_RECORD_KEYS = [
   "sightRangeMillitiles",
   "targetMode",
 ];
-const ORDINARY_INTEGER_FIELDS = [
-  "cost",
+const SOURCE_INTEGER_RULES = Object.freeze([
+  Object.freeze({ field: "cost", allowNull: false, minimum: 1, maximum: 10 }),
+  Object.freeze({ field: "count", allowNull: false, minimum: 1, maximum: Number.MAX_SAFE_INTEGER }),
+  Object.freeze({ field: "damage", allowNull: true, minimum: 1, maximum: Number.MAX_SAFE_INTEGER }),
+  Object.freeze({ field: "deployTimeTicks", allowNull: true, minimum: 0, maximum: Number.MAX_SAFE_INTEGER }),
+  Object.freeze({ field: "firstHitTicks", allowNull: true, minimum: 0, maximum: Number.MAX_SAFE_INTEGER }),
+  Object.freeze({ field: "hitSpeedTicks", allowNull: true, minimum: 1, maximum: Number.MAX_SAFE_INTEGER }),
+  Object.freeze({ field: "hitpoints", allowNull: true, minimum: 1, maximum: Number.MAX_SAFE_INTEGER }),
+  Object.freeze({ field: "movementMillitilesPerSecond", allowNull: true, minimum: 0, maximum: Number.MAX_SAFE_INTEGER }),
+  Object.freeze({ field: "rangeMillitiles", allowNull: true, minimum: 0, maximum: Number.MAX_SAFE_INTEGER }),
+  Object.freeze({ field: "sightRangeMillitiles", allowNull: true, minimum: 1, maximum: Number.MAX_SAFE_INTEGER }),
+  Object.freeze({ field: "areaDamageRadiusMillitiles", allowNull: true, minimum: 1, maximum: Number.MAX_SAFE_INTEGER }),
+]);
+const COMPONENT_RECORD_KEYS = [
+  "areaDamageRadiusMillitiles",
   "count",
+  "damage",
   "deployTimeTicks",
+  "displayName",
   "firstHitTicks",
   "hitSpeedTicks",
   "hitpoints",
+  "id",
+  "kind",
   "movementMillitilesPerSecond",
   "rangeMillitiles",
+  "role",
   "sightRangeMillitiles",
+  "targetMode",
 ];
+const COMPONENT_INTEGER_RULES = Object.freeze(
+  SOURCE_INTEGER_RULES.filter(({ field }) => field !== "cost"),
+);
+const CANONICAL_MAX_ARRAY_LENGTH = 1_000_000;
 
 const EXPECTED_OCCURRENCES = Object.freeze([
   Object.freeze({ exportName: "createRecoilSpecialCatalog", id: "cinderback", status: "admitted" }),
@@ -156,15 +179,158 @@ function compareOccurrence(left, right) {
   return compareText(left.id, right.id) || compareText(left.exportName, right.exportName);
 }
 
-function canonical(value) {
-  if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
-  if (value !== null && typeof value === "object") {
-    return `{${Object.keys(value).sort().map((key) =>
-      `${JSON.stringify(key)}:${canonical(value[key])}`
-    ).join(",")}}`;
+function samePrototypeSurface(actual, expected) {
+  let left = actual;
+  let right = expected;
+  while (true) {
+    if (left === right) return true;
+    if (
+      left === null ||
+      right === null ||
+      typeof left !== "object" ||
+      typeof right !== "object"
+    ) {
+      return false;
+    }
+    let leftDescriptors;
+    try {
+      leftDescriptors = Object.getOwnPropertyDescriptors(left);
+      structuredClone(left);
+    } catch {
+      return false;
+    }
+    const leftKeys = Reflect.ownKeys(leftDescriptors).map((key) =>
+      typeof key === "symbol" ? `symbol:${key.description ?? ""}` : `string:${key}`
+    ).sort(compareText);
+    const rightKeys = Reflect.ownKeys(Object.getOwnPropertyDescriptors(right)).map((key) =>
+      typeof key === "symbol" ? `symbol:${key.description ?? ""}` : `string:${key}`
+    ).sort(compareText);
+    if (
+      leftKeys.length !== rightKeys.length ||
+      leftKeys.some((key, index) => key !== rightKeys[index])
+    ) {
+      return false;
+    }
+    try {
+      left = Object.getPrototypeOf(left);
+      right = Object.getPrototypeOf(right);
+    } catch {
+      return false;
+    }
   }
-  const encoded = JSON.stringify(value);
-  if (encoded === undefined) throw new TypeError("canonical data cannot contain undefined");
+}
+
+function canonical(value) {
+  const active = new Set();
+  const graph = [];
+
+  function visit(candidate) {
+    if (candidate === null) return "null";
+    const type = typeof candidate;
+    if (type === "string" || type === "boolean") return JSON.stringify(candidate);
+    if (type === "number") {
+      if (!Number.isFinite(candidate)) {
+        throw new TypeError("canonical data must contain finite JSON numbers");
+      }
+      return JSON.stringify(candidate);
+    }
+    if (type !== "object") {
+      throw new TypeError("canonical data must contain only JSON values");
+    }
+    if (active.has(candidate)) {
+      throw new TypeError("canonical data must not contain cycles");
+    }
+
+    let isArray;
+    let descriptors;
+    try {
+      isArray = Array.isArray(candidate);
+      descriptors = Object.getOwnPropertyDescriptors(candidate);
+    } catch {
+      throw new TypeError("canonical data must be inspectable data");
+    }
+    const ownKeys = Reflect.ownKeys(descriptors);
+    let keys;
+    if (isArray) {
+      const lengthDescriptor = descriptors.length;
+      const length = lengthDescriptor?.value;
+      if (
+        !lengthDescriptor ||
+        !Object.hasOwn(lengthDescriptor, "value") ||
+        lengthDescriptor.enumerable ||
+        !Number.isSafeInteger(length) ||
+        length < 0 ||
+        length > CANONICAL_MAX_ARRAY_LENGTH ||
+        ownKeys.length !== length + 1
+      ) {
+        throw new TypeError("canonical arrays must be dense and bounded");
+      }
+      keys = Array.from({ length }, (_, index) => String(index));
+      const expectedKeys = new Set(["length", ...keys]);
+      if (ownKeys.some((key) => !expectedKeys.has(key))) {
+        throw new TypeError("canonical arrays must contain only indexed data");
+      }
+      for (const key of keys) {
+        const descriptor = descriptors[key];
+        if (
+          descriptor === undefined ||
+          !descriptor.enumerable ||
+          !Object.hasOwn(descriptor, "value")
+        ) {
+          throw new TypeError("canonical arrays must contain enumerable data");
+        }
+      }
+    } else {
+      keys = [...ownKeys].sort(compareText);
+      for (const key of keys) {
+        const descriptor = descriptors[key];
+        if (
+          typeof key !== "string" ||
+          !descriptor.enumerable ||
+          !Object.hasOwn(descriptor, "value")
+        ) {
+          throw new TypeError("canonical objects must contain enumerable data");
+        }
+      }
+    }
+
+    graph.push({ candidate, isArray });
+    active.add(candidate);
+    try {
+      const encoded = isArray
+        ? `[${keys.map((key) => visit(descriptors[key].value)).join(",")}]`
+        : `{${keys.map((key) =>
+          `${JSON.stringify(key)}:${visit(descriptors[key].value)}`
+        ).join(",")}}`;
+      return encoded;
+    } finally {
+      active.delete(candidate);
+    }
+  }
+
+  const encoded = visit(value);
+  if (graph.length !== 0) {
+    try {
+      structuredClone(value);
+    } catch {
+      throw new TypeError("canonical data must be cloneable JSON data");
+    }
+    for (const { candidate, isArray } of graph) {
+      let prototype;
+      try {
+        prototype = Object.getPrototypeOf(candidate);
+      } catch {
+        throw new TypeError("canonical data must use an inspectable prototype");
+      }
+      if (
+        isArray
+          ? !samePrototypeSurface(prototype, Array.prototype)
+          : prototype !== null && !samePrototypeSurface(prototype, Object.prototype)
+      ) {
+        throw new TypeError("canonical data must use plain JSON prototypes");
+      }
+    }
+  }
   return encoded;
 }
 
@@ -397,13 +563,35 @@ function assertNoArguments(args, label) {
   if (args.length !== 0) throw new TypeError(`${label} takes no arguments`);
 }
 
-function assertExactDataObject(value, keys, label) {
+function assertPlainDataObject(value, label) {
+  let prototype;
+  try {
+    prototype = Object.getPrototypeOf(value);
+  } catch {
+    throw new TypeError(`${label} must be a plain data object`);
+  }
+  if (prototype !== Object.prototype && prototype !== null) {
+    throw new TypeError(`${label} must be a plain data object`);
+  }
+}
+
+function assertPlainDataArray(value, label) {
+  let prototype;
+  try {
+    prototype = Object.getPrototypeOf(value);
+  } catch {
+    throw new TypeError(`${label} must be a bounded array`);
+  }
+  if (prototype !== Array.prototype) {
+    throw new TypeError(`${label} must be a bounded array`);
+  }
+}
+
+function assertExactDataObject(value, keys, label, verifyPrototype = true) {
   if (
     value === null ||
     typeof value !== "object" ||
-    Array.isArray(value) ||
-    (Object.getPrototypeOf(value) !== Object.prototype &&
-      Object.getPrototypeOf(value) !== null)
+    Array.isArray(value)
   ) {
     throw new TypeError(`${label} must be a plain data object`);
   }
@@ -421,27 +609,36 @@ function assertExactDataObject(value, keys, label) {
   ) {
     throw new TypeError(`${label} has an invalid data shape`);
   }
-  return value;
+  if (verifyPrototype) assertPlainDataObject(value, label);
+  return descriptors;
 }
 
-function assertDenseDataArray(value, label, maximum = 16) {
-  if (
-    !Array.isArray(value) ||
-    Object.getPrototypeOf(value) !== Array.prototype ||
-    value.length > maximum
-  ) {
+function assertDenseDataArray(value, label, maximum = 16, verifyPrototype = true) {
+  if (!Array.isArray(value)) {
     throw new TypeError(`${label} must be a bounded array`);
   }
   const descriptors = Object.getOwnPropertyDescriptors(value);
+  const length = descriptors.length?.value;
   if (
-    Reflect.ownKeys(descriptors).length !== value.length + 1 ||
-    Array.from({ length: value.length }, (_, index) => index).some((index) =>
+    !descriptors.length ||
+    !Object.hasOwn(descriptors.length, "value") ||
+    descriptors.length.enumerable ||
+    !Number.isSafeInteger(length) ||
+    length < 0 ||
+    length > maximum
+  ) {
+    throw new TypeError(`${label} must be a bounded array`);
+  }
+  if (
+    Reflect.ownKeys(descriptors).length !== length + 1 ||
+    Array.from({ length }, (_, index) => index).some((index) =>
       !descriptors[index]?.enumerable || !Object.hasOwn(descriptors[index], "value")
     )
   ) {
     throw new TypeError(`${label} must be a dense data array`);
   }
-  return value;
+  if (verifyPrototype) assertPlainDataArray(value, label);
+  return descriptors;
 }
 
 function assertCloneableSourceRecord(value, label) {
@@ -452,32 +649,78 @@ function assertCloneableSourceRecord(value, label) {
   }
 }
 
-function validateSourceRecord(record, label) {
-  assertExactDataObject(record, SOURCE_RECORD_KEYS, label);
+function assertSourceInteger(value, rule, label) {
   if (
-    typeof record.id !== "string" ||
-    record.id.length === 0 ||
-    typeof record.displayName !== "string" ||
-    record.displayName.length === 0 ||
-    record.kind !== "unit" ||
-    !["standard", "uncommon", "rare", "epic", "legendary", "mythic", "special", "champion"].includes(record.rarity) ||
-    !["ground", "air", "ground-and-air"].includes(record.targetMode)
+    (rule.allowNull && value === null) ||
+    (
+      typeof value === "number" &&
+      Number.isSafeInteger(value) &&
+      value >= rule.minimum &&
+      value <= rule.maximum
+    )
+  ) {
+    return;
+  }
+  const nullable = rule.allowNull ? " or null" : "";
+  throw new TypeError(
+    `${label} must be a safe integer between ${rule.minimum} and ${rule.maximum}${nullable}`,
+  );
+}
+
+function validateSourceRecord(record, label) {
+  const recordDescriptors = assertExactDataObject(record, SOURCE_RECORD_KEYS, label, false);
+  const recordValue = (field) => recordDescriptors[field].value;
+  if (
+    typeof recordValue("id") !== "string" ||
+    recordValue("id").length === 0 ||
+    typeof recordValue("displayName") !== "string" ||
+    recordValue("displayName").length === 0 ||
+    recordValue("kind") !== "unit" ||
+    !["standard", "uncommon", "rare", "epic", "legendary", "mythic", "special", "champion"].includes(recordValue("rarity")) ||
+    !["ground", "air", "ground-and-air"].includes(recordValue("targetMode"))
   ) {
     throw new TypeError(`${label} is not a complete unit catalog record`);
   }
-  for (const field of ORDINARY_INTEGER_FIELDS) {
-    if (record[field] !== null && !Number.isSafeInteger(record[field])) {
-      throw new TypeError(`${label}.${field} must be an exact integer or null`);
+  for (const rule of SOURCE_INTEGER_RULES) {
+    assertSourceInteger(recordValue(rule.field), rule, `${label}.${rule.field}`);
+  }
+
+  const components = recordValue("components");
+  const componentDescriptors = assertDenseDataArray(components, `${label}.components`, 16, false);
+  for (let index = 0; index < componentDescriptors.length.value; index += 1) {
+    const component = componentDescriptors[index].value;
+    const descriptors = assertExactDataObject(
+      component,
+      COMPONENT_RECORD_KEYS,
+      `${label}.components[${index}]`,
+      false,
+    );
+    const componentValue = (field) => descriptors[field].value;
+    if (
+      typeof componentValue("id") !== "string" ||
+      componentValue("id").length === 0 ||
+      typeof componentValue("displayName") !== "string" ||
+      componentValue("displayName").length === 0 ||
+      !["unit", "structure", "effect"].includes(componentValue("kind")) ||
+      !["primary", "secondary", "spawn", "spawn-over-time"].includes(componentValue("role")) ||
+      !["none", "ground", "air", "ground-and-air", "structures"].includes(componentValue("targetMode"))
+    ) {
+      throw new TypeError(`${label}.components[${index}] is not a complete source component`);
     }
+    for (const rule of COMPONENT_INTEGER_RULES) {
+      assertSourceInteger(
+        componentValue(rule.field),
+        rule,
+        `${label}.components[${index}].${rule.field}`,
+      );
+    }
+    assertCloneableSourceRecord(component, `${label}.components[${index}]`);
+    assertPlainDataObject(component, `${label}.components[${index}]`);
   }
-  if (
-    record.areaDamageRadiusMillitiles !== null &&
-    !Number.isSafeInteger(record.areaDamageRadiusMillitiles)
-  ) {
-    throw new TypeError(`${label}.areaDamageRadiusMillitiles must be an exact integer or null`);
-  }
-  assertDenseDataArray(record.components, `${label}.components`);
+  assertCloneableSourceRecord(components, `${label}.components`);
+  assertPlainDataArray(components, `${label}.components`);
   assertCloneableSourceRecord(record, label);
+  assertPlainDataObject(record, label);
   return record;
 }
 
