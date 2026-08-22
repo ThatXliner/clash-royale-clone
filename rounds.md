@@ -4953,3 +4953,27 @@ nevertheless accepted and exposed in the receipt.
 
 BIGGEST GAP: The profile accepts changed same-ID source values rather than
 failing closed on future source-record drift.
+
+## Round 263 — 2026-08-21
+
+PIECE: GAME-001HTJP — Projectile source-profile contract, round 2
+
+VERDICT: FAIL
+
+EVIDENCE: Both focused entries passed 14/14; HTP 11/11, HTO 14/14,
+GAME-001TH 17/17, basic ranged/flying/swarms 14/13/13, five special suites
+23/28/27/30/28, and guards 9/13. Clean HEAD was `3925179`; syntax and read-only
+git checks passed. Independent probes confirmed seven profiles, two exact HTO
+QUESTION joins, fixture counts 11/17/20/30/31, 69,014 bytes and SHA-256
+`fb838b304f057475c7fa4a0c4363b2b3ad621d95ca966cae9fe22f377fc598fd`.
+Flying evidence is absent from production and Copperskiff/Skymaul are now
+classified correctly. However, transformed and instrumented probes found the
+same generic radius/speed/impact-offset and identical launch keys for
+Brassbolt, Reedsting, Copperskiff and Skymaul, with no delivery discriminator.
+Same-ID Brassbolt damage 218→219 and Briar Darter component damage 81→82 also
+loaded despite structural drift checks.
+
+BIGGEST GAP: Brassbolt and Reedsting are admitted from a generic synthetic
+launch constructor with no card-specific delivery discriminator. Ordinary
+delivery must remain QUESTION unless a card-specific source receipt exists,
+and every bound source record must reject same-ID value drift.
