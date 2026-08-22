@@ -168,6 +168,197 @@ function canonical(value) {
   return encoded;
 }
 
+function sourceRecordKey(exportName, id) {
+  return `${exportName}\u0000${id}`;
+}
+
+// This is an intentional source-update barrier. These are complete runtime
+// source records, serialized with the same canonical format used by the
+// public receipt; an ID match alone is not sufficient authority.
+const EXPECTED_SOURCE_WITNESS_MAP = Object.freeze({
+  [sourceRecordKey("createBasicFlyingCatalog", "copperskiff")]: canonical({
+    areaDamageRadiusMillitiles: null,
+    components: [],
+    cost: 4,
+    count: 1,
+    damage: 171,
+    deployTimeTicks: 60,
+    displayName: "Copperskiff",
+    firstHitTicks: 36,
+    hitSpeedTicks: 66,
+    hitpoints: 614,
+    id: "copperskiff",
+    kind: "unit",
+    movementMillitilesPerSecond: 1500,
+    rangeMillitiles: 6000,
+    rarity: "uncommon",
+    sightRangeMillitiles: 6000,
+    targetMode: "ground-and-air",
+  }),
+  [sourceRecordKey("createBasicFlyingCatalog", "skymaul")]: canonical({
+    areaDamageRadiusMillitiles: null,
+    components: [],
+    cost: 3,
+    count: 1,
+    damage: 311,
+    deployTimeTicks: 60,
+    displayName: "Skymaul",
+    firstHitTicks: 72,
+    hitSpeedTicks: 96,
+    hitpoints: 837,
+    id: "skymaul",
+    kind: "unit",
+    movementMillitilesPerSecond: 1000,
+    rangeMillitiles: 1600,
+    rarity: "uncommon",
+    sightRangeMillitiles: 5500,
+    targetMode: "ground-and-air",
+  }),
+  [sourceRecordKey("createShieldFormCatalog", "railward")]: canonical({
+    areaDamageRadiusMillitiles: null,
+    components: [],
+    cost: 5,
+    count: 1,
+    damage: 212,
+    deployTimeTicks: 60,
+    displayName: "Railward",
+    firstHitTicks: 24,
+    hitSpeedTicks: 60,
+    hitpoints: 892,
+    id: "railward",
+    kind: "unit",
+    movementMillitilesPerSecond: 1000,
+    rangeMillitiles: 5500,
+    rarity: "special",
+    sightRangeMillitiles: 6000,
+    targetMode: "ground",
+  }),
+  [sourceRecordKey("createChargeSpecialCatalog", "emberlance")]: canonical({
+    areaDamageRadiusMillitiles: null,
+    components: [],
+    cost: 5,
+    count: 1,
+    damage: 392,
+    deployTimeTicks: 60,
+    displayName: "Emberlance",
+    firstHitTicks: 54,
+    hitSpeedTicks: 84,
+    hitpoints: 1920,
+    id: "emberlance",
+    kind: "unit",
+    movementMillitilesPerSecond: 1000,
+    rangeMillitiles: 1600,
+    rarity: "special",
+    sightRangeMillitiles: 5500,
+    targetMode: "ground",
+  }),
+  [sourceRecordKey("createChargeKnockbackCatalog", "emberlance")]: canonical({
+    areaDamageRadiusMillitiles: null,
+    components: [],
+    cost: 5,
+    count: 1,
+    damage: 392,
+    deployTimeTicks: 60,
+    displayName: "Emberlance",
+    firstHitTicks: 54,
+    hitSpeedTicks: 84,
+    hitpoints: 1920,
+    id: "emberlance",
+    kind: "unit",
+    movementMillitilesPerSecond: 1000,
+    rangeMillitiles: 1600,
+    rarity: "special",
+    sightRangeMillitiles: 5500,
+    targetMode: "ground",
+  }),
+  [sourceRecordKey("createDashSpecialCatalog", "veilrunner")]: canonical({
+    areaDamageRadiusMillitiles: null,
+    components: [],
+    cost: 3,
+    count: 1,
+    damage: 193,
+    deployTimeTicks: 60,
+    displayName: "Veilrunner",
+    firstHitTicks: 36,
+    hitSpeedTicks: 60,
+    hitpoints: 907,
+    id: "veilrunner",
+    kind: "unit",
+    movementMillitilesPerSecond: 1500,
+    rangeMillitiles: 750,
+    rarity: "mythic",
+    sightRangeMillitiles: 6000,
+    targetMode: "ground",
+  }),
+  [sourceRecordKey("createJumpSpecialCatalog", "stonevault")]: canonical({
+    areaDamageRadiusMillitiles: 1300,
+    components: [],
+    cost: 7,
+    count: 1,
+    damage: 268,
+    deployTimeTicks: 60,
+    displayName: "Stonevault",
+    firstHitTicks: 72,
+    hitSpeedTicks: 102,
+    hitpoints: 3993,
+    id: "stonevault",
+    kind: "unit",
+    movementMillitilesPerSecond: 1000,
+    rangeMillitiles: 1200,
+    rarity: "mythic",
+    sightRangeMillitiles: 5500,
+    targetMode: "ground",
+  }),
+  [sourceRecordKey("createRecoilSpecialCatalog", "cinderback")]: canonical({
+    areaDamageRadiusMillitiles: null,
+    components: [],
+    cost: 3,
+    count: 1,
+    damage: null,
+    deployTimeTicks: 60,
+    displayName: "Cinderback",
+    firstHitTicks: 144,
+    hitSpeedTicks: 180,
+    hitpoints: 304,
+    id: "cinderback",
+    kind: "unit",
+    movementMillitilesPerSecond: 1500,
+    rangeMillitiles: 6000,
+    rarity: "standard",
+    sightRangeMillitiles: 8500,
+    targetMode: "ground-and-air",
+  }),
+  [sourceRecordKey("createRetargetSpecialCatalog", "wayfinder")]: canonical({
+    areaDamageRadiusMillitiles: null,
+    components: [],
+    cost: 3,
+    count: 1,
+    damage: 202,
+    deployTimeTicks: 60,
+    displayName: "Wayfinder",
+    firstHitTicks: 42,
+    hitSpeedTicks: 72,
+    hitpoints: 1766,
+    id: "wayfinder",
+    kind: "unit",
+    movementMillitilesPerSecond: 1000,
+    rangeMillitiles: 1200,
+    rarity: "standard",
+    sightRangeMillitiles: 5500,
+    targetMode: "ground",
+  }),
+});
+
+function assertExpectedWitnessCoverage() {
+  const expectedKeys = EXPECTED_OCCURRENCES
+    .map(({ exportName, id }) => sourceRecordKey(exportName, id))
+    .sort(compareText);
+  const actualKeys = Object.keys(EXPECTED_SOURCE_WITNESS_MAP).sort(compareText);
+  if (canonical(actualKeys) !== canonical(expectedKeys)) {
+    throw new Error("movement source witness key set is missing, stale, or extra");
+  }
+}
+
 function assertNoArguments(args, label) {
   if (args.length !== 0) throw new TypeError(`${label} takes no arguments`);
 }
@@ -219,6 +410,14 @@ function assertDenseDataArray(value, label, maximum = 16) {
   return value;
 }
 
+function assertCloneableSourceRecord(value, label) {
+  try {
+    structuredClone(value);
+  } catch {
+    throw new TypeError(`${label} must be cloneable data`);
+  }
+}
+
 function validateSourceRecord(record, label) {
   assertExactDataObject(record, SOURCE_RECORD_KEYS, label);
   if (
@@ -244,6 +443,7 @@ function validateSourceRecord(record, label) {
     throw new TypeError(`${label}.areaDamageRadiusMillitiles must be an exact integer or null`);
   }
   assertDenseDataArray(record.components, `${label}.components`);
+  assertCloneableSourceRecord(record, label);
   return record;
 }
 
@@ -270,6 +470,7 @@ function expectedIdsForExport(exportName, occurrences) {
 }
 
 function buildCatalogCache(occurrences) {
+  assertExpectedWitnessCoverage();
   const cache = new Map();
   for (const exportName of [...EXPECTED_EXPORT_SET].sort(compareText)) {
     const records = sourceRecordsFor(exportName);
@@ -284,6 +485,13 @@ function buildCatalogCache(occurrences) {
     }
     if (new Set(ids).size !== ids.length) {
       throw new Error(`${exportName} has duplicate source IDs`);
+    }
+    for (const record of records) {
+      const key = sourceRecordKey(exportName, record.id);
+      const expectedWitness = EXPECTED_SOURCE_WITNESS_MAP[key];
+      if (typeof expectedWitness !== "string" || canonical(record) !== expectedWitness) {
+        throw new Error(`${exportName}/${record.id} differs from its pinned source witness`);
+      }
     }
     cache.set(exportName, records);
   }

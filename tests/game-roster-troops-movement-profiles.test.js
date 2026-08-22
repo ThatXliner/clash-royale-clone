@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
@@ -70,6 +71,148 @@ const SOURCE_MODULES = {
   createRetargetSpecialCatalog: retargetSource,
   createShieldFormCatalog: shieldFormSource,
 };
+
+const SOURCE_MODULE_PATHS = Object.freeze(Object.fromEntries(
+  Object.entries({
+    createBasicFlyingCatalog: "cards/basic-flying.js",
+    createChargeKnockbackCatalog: "cards/special-movement-charge-knockback.js",
+    createChargeSpecialCatalog: "cards/special-movement-charge.js",
+    createDashSpecialCatalog: "cards/special-movement-dash.js",
+    createJumpSpecialCatalog: "cards/special-movement-jump.js",
+    createRecoilSpecialCatalog: "cards/special-movement-recoil.js",
+    createRetargetSpecialCatalog: "cards/special-movement-retarget.js",
+    createShieldFormCatalog: "cards/shields-forms.js",
+  }).map(([exportName, relativePath]) => [
+    exportName,
+    fileURLToPath(new URL(`../src/content/${relativePath}`, import.meta.url)),
+  ]),
+));
+const MOVEMENT_SOURCE_MODULE_PATH = fileURLToPath(new URL(
+  "../src/content/session-troop-movement-profiles.js", import.meta.url
+));
+const MOVEMENT_SOURCE_WRAPPER_PROBE = String.raw`
+import vm from "node:vm";
+import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
+import { fileURLToPath, pathToFileURL } from "node:url";
+import path from "node:path";
+
+const config = JSON.parse(process.env.MOVEMENT_SOURCE_PROBE);
+const moduleCache = new Map();
+const context = vm.createContext({
+  URL,
+  URLSearchParams,
+  TextDecoder,
+  TextEncoder,
+  console,
+  process,
+  structuredClone,
+});
+
+function transformedSource(source, filename) {
+  if (filename !== config.targetPath) return source;
+  if (!source.includes(config.marker)) {
+    throw new Error("source wrapper marker is missing");
+  }
+  return (config.prefix ?? "") + source.replace(config.marker, config.replacement);
+}
+
+function loadModule(url) {
+  if (moduleCache.has(url)) return moduleCache.get(url);
+  const promise = (async () => {
+    const filename = fileURLToPath(url);
+    const module = new vm.SourceTextModule(
+      transformedSource(readFileSync(filename, "utf8"), filename),
+      {
+        context,
+        identifier: url,
+        initializeImportMeta(meta) {
+          meta.url = url;
+        },
+      },
+    );
+    await module.link((specifier, referencingModule) =>
+      loadModule(new URL(specifier, referencingModule.identifier).href)
+    );
+    return module;
+  })();
+  moduleCache.set(url, promise);
+  return promise;
+}
+
+let exitCode = 0;
+try {
+  const movementModule = await loadModule(pathToFileURL(config.movementPath).href);
+  await movementModule.evaluate();
+  const bytes = movementModule.namespace.serializeSessionTroopMovementProfileManifest();
+  const payload = {
+    accepted: true,
+    length: bytes.length,
+    sha256: createHash("sha256").update(bytes).digest("hex"),
+  };
+  console.log(JSON.stringify(payload));
+  if (config.expect === "reject") exitCode = 2;
+} catch (error) {
+  if (config.expect === "reject") {
+    console.log(JSON.stringify({
+      accepted: false,
+      error: error instanceof Error ? error.message : String(error),
+    }));
+  } else {
+    console.error(error instanceof Error ? error.stack : String(error));
+    exitCode = 1;
+  }
+}
+process.exitCode = exitCode;
+`;
+
+function runSourceWrapperProbe(config) {
+  const result = spawnSync(process.execPath, [
+    "--experimental-vm-modules",
+    "--input-type=module",
+    "-e",
+    MOVEMENT_SOURCE_WRAPPER_PROBE,
+  ], {
+    encoding: "utf8",
+    env: {
+      ...process.env,
+      MOVEMENT_SOURCE_PROBE: JSON.stringify({
+        movementPath: MOVEMENT_SOURCE_MODULE_PATH,
+        ...config,
+      }),
+    },
+  });
+  assert.equal(result.error, undefined, result.error?.message);
+  assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+  const output = result.stdout.trim().split(/\r?\n/u).at(-1);
+  assert.ok(output, `source wrapper probe produced no JSON: ${result.stderr}`);
+  return JSON.parse(output);
+}
+
+function sourceWrapperCase(exportName, id, mutation, options = {}) {
+  const usesSingularDefinition = [
+    "createChargeKnockbackCatalog",
+    "createRetargetSpecialCatalog",
+  ].includes(exportName);
+  const catalogExpression = usesSingularDefinition
+    ? "[DEFINITION]"
+    : "DEFINITIONS";
+  const replacement = [
+    `const records = createCardCatalog(${catalogExpression});`,
+    options.alternatingReads ? "__sourceReadCount += 1;" : "",
+    `const record = records.find(({ id: candidateId }) => candidateId === ${JSON.stringify(id)});`,
+    'if (record === undefined) throw new Error("source wrapper record is missing");',
+    mutation,
+    "return records;",
+  ].filter(Boolean).join("\n");
+  return {
+    expect: options.expect ?? "reject",
+    marker: `return createCardCatalog(${catalogExpression});`,
+    prefix: options.alternatingReads ? "let __sourceReadCount = 0;\n" : "",
+    replacement,
+    targetPath: SOURCE_MODULE_PATHS[exportName],
+  };
+}
 
 function canonical(value) {
   if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
@@ -426,6 +569,126 @@ test("movement profile contract: module has no comparison-path, identity, clock,
   assert.doesNotMatch(source, /(?:setTimeout|setInterval|queueMicrotask)\s*\(/u);
   assert.doesNotMatch(source, /(?:^|[^\w])(?:import\s*\(|require\s*\()/u);
   assert.doesNotMatch(source, /\b\d+\.\d+\b/u);
+});
+
+test("movement profile contract: pinned witness map has the exact nine pair domain", () => {
+  const source = readFileSync(MOVEMENT_SOURCE_MODULE_PATH, "utf8");
+  const pinnedPairs = [...source.matchAll(
+    /\[sourceRecordKey\("([^"]+)", "([^"]+)"\)\]: canonical\(\{/gu
+  )].map(([, exportName, id]) => [exportName, id]);
+  const expectedPairs = EXPECTED_OCCURRENCES
+    .map(([exportName, id]) => [exportName, id])
+    .sort(([leftExport, leftId], [rightExport, rightId]) =>
+      leftId.localeCompare(rightId) || leftExport.localeCompare(rightExport)
+    );
+  assert.equal(pinnedPairs.length, 9);
+  assert.deepEqual(
+    pinnedPairs.sort(([leftExport, leftId], [rightExport, rightId]) =>
+      leftId.localeCompare(rightId) || leftExport.localeCompare(rightExport)
+    ),
+    expectedPairs,
+  );
+  assert.match(source, /const EXPECTED_SOURCE_WITNESS_MAP = Object\.freeze\(\{/u);
+  assert.match(source, /assertExpectedWitnessCoverage\(\);/u);
+});
+
+test("movement profile contract: complete source witnesses reject the adversarial drift matrix", () => {
+  let pairRejects = 0;
+  for (const [exportName, id] of EXPECTED_OCCURRENCES) {
+    const result = runSourceWrapperProbe(sourceWrapperCase(
+      exportName,
+      id,
+      "record.cost += 1;",
+    ));
+    assert.equal(result.accepted, false, `${exportName}/${id} scalar drift was accepted`);
+    pairRejects += 1;
+  }
+
+  const fieldCases = [
+    ["areaDamageRadiusMillitiles", "createJumpSpecialCatalog", "stonevault", "record.areaDamageRadiusMillitiles = 1301;"],
+    ["components", "createBasicFlyingCatalog", "copperskiff", "record.components.push({ id: \"component-drift\" });"],
+    ["cost", "createBasicFlyingCatalog", "copperskiff", "record.cost = 5;"],
+    ["count", "createBasicFlyingCatalog", "copperskiff", "record.count = 2;"],
+    ["damage", "createChargeSpecialCatalog", "emberlance", "record.damage = 393;"],
+    ["deployTimeTicks", "createBasicFlyingCatalog", "copperskiff", "record.deployTimeTicks = 61;"],
+    ["displayName", "createBasicFlyingCatalog", "copperskiff", "record.displayName = \"Copperskiff Drift\";"],
+    ["firstHitTicks", "createBasicFlyingCatalog", "copperskiff", "record.firstHitTicks = 37;"],
+    ["hitSpeedTicks", "createBasicFlyingCatalog", "copperskiff", "record.hitSpeedTicks = 67;"],
+    ["hitpoints", "createBasicFlyingCatalog", "copperskiff", "record.hitpoints = 615;"],
+    ["id", "createBasicFlyingCatalog", "copperskiff", "record.id = \"copperskiff-drift\";"],
+    ["kind", "createBasicFlyingCatalog", "copperskiff", "record.kind = \"structure\";"],
+    ["movementMillitilesPerSecond", "createDashSpecialCatalog", "veilrunner", "record.movementMillitilesPerSecond = 1501;"],
+    ["rangeMillitiles", "createBasicFlyingCatalog", "copperskiff", "record.rangeMillitiles = 6001;"],
+    ["rarity", "createBasicFlyingCatalog", "copperskiff", "record.rarity = \"mythic\";"],
+    ["sightRangeMillitiles", "createBasicFlyingCatalog", "copperskiff", "record.sightRangeMillitiles = 6001;"],
+    ["targetMode", "createBasicFlyingCatalog", "copperskiff", "record.targetMode = \"ground\";"],
+  ];
+  let fieldRejects = 0;
+  for (const [field, exportName, id, mutation] of fieldCases) {
+    const result = runSourceWrapperProbe(sourceWrapperCase(exportName, id, mutation));
+    assert.equal(result.accepted, false, `${field} drift was accepted`);
+    fieldRejects += 1;
+  }
+
+  const shapeCases = [
+    ["extra field", "record.extraField = 1;"],
+    ["missing field", "delete record.damage;"],
+    ["accessor", "Object.defineProperty(record, \"damage\", { configurable: true, enumerable: true, get() { throw new Error(\"source accessor\"); } });"],
+    ["non-enumerable", "Object.defineProperty(record, \"extraField\", { value: 1, enumerable: false });"],
+    ["symbol", "record[Symbol(\"drift\")] = 1;"],
+    ["proxy", "records[records.indexOf(record)] = new Proxy(record, {});"],
+  ];
+  let shapeRejects = 0;
+  for (const [label, mutation] of shapeCases) {
+    const result = runSourceWrapperProbe(sourceWrapperCase(
+      "createBasicFlyingCatalog",
+      "copperskiff",
+      mutation,
+    ));
+    assert.equal(result.accepted, false, `${label} source shape was accepted`);
+    shapeRejects += 1;
+  }
+
+  const nestedCases = [
+    "record.components.push({ id: \"component-a\" }, { id: \"component-b\" }); record.components.reverse();",
+    "record.components.push({ nested: { value: 1 } }); record.components[0].nested.value = 2;",
+  ];
+  let nestedRejects = 0;
+  for (const mutation of nestedCases) {
+    const result = runSourceWrapperProbe(sourceWrapperCase(
+      "createBasicFlyingCatalog",
+      "copperskiff",
+      mutation,
+    ));
+    assert.equal(result.accepted, false, "nested component drift was accepted");
+    nestedRejects += 1;
+  }
+
+  const alternatingRead = runSourceWrapperProbe(sourceWrapperCase(
+    "createDashSpecialCatalog",
+    "veilrunner",
+    "if ((__sourceReadCount % 2) === 0) record.movementMillitilesPerSecond = 1501;",
+    { alternatingReads: true },
+  ));
+  assert.equal(alternatingRead.accepted, false, "changed second source read was accepted");
+
+  const propertyOrder = runSourceWrapperProbe(sourceWrapperCase(
+    "createRetargetSpecialCatalog",
+    "wayfinder",
+    "records[records.indexOf(record)] = Object.fromEntries(Object.entries(record).reverse());",
+    { expect: "accept" },
+  ));
+  const baselineBytes = serializeSessionTroopMovementProfileManifest();
+  assert.deepEqual(propertyOrder, {
+    accepted: true,
+    length: baselineBytes.length,
+    sha256: createHash("sha256").update(baselineBytes).digest("hex"),
+  });
+
+  assert.equal(pairRejects, 9);
+  assert.equal(fieldRejects, 17);
+  assert.equal(shapeRejects, 6);
+  assert.equal(nestedRejects, 2);
 });
 
 test("movement profile contract: builder-owned runner accepts only its exact selector", () => {
