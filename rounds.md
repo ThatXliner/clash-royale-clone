@@ -89,6 +89,27 @@ bytes), a changed Dash QUESTION value (86 records) and a removed record (85).
 BIGGEST GAP: QUESTION factory contents are not pinned, so future value or
 record-count changes are exposed instead of failing closed.
 
+## Round 266 — 2026-08-21
+
+PIECE: GAME-001HTMP — Movement/form source-profile contract, round 3
+
+VERDICT: FAIL
+
+EVIDENCE: Clean HEAD `c8d24a1`; focused movement commands passed 15/15, HTP
+11/11, HTO 14/14, guards 9/9 and 13/13, all eight source selectors, syntax and
+git checks passed. Independent probes matched all nine full source receipts,
+all six exact QUESTION witnesses and the 67,284-byte manifest SHA-256
+`d4ad6e7684047fbd4194fd83a017700b56ecf4198aa7a39bd5bc01bc67388082`.
+Added, removed, value, metadata, shape and two-read drift rejected for every
+QUESTION factory; source field drifts rejected; key-order-only normalization
+passed; hostile traps stayed at zero. However, changing Cinderback's same-ID
+damage from pinned `null` to `NaN` or `Infinity` was accepted and emitted the
+unchanged canonical manifest because JSON serialization collapses both
+non-finite values to `null`.
+
+BIGGEST GAP: Require damage to be `null` or a safe integer and reject non-finite
+numbers before canonicalization so they cannot collide with a pinned null.
+
 ## Round 57 — 2026-07-30
 
 PIECE: CONTENT-008R — Attack-triggered recoil displacement
