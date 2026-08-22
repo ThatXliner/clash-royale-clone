@@ -4721,3 +4721,35 @@ rejected without executing attacker code.
 BIGGEST GAP: `stepBoundaryAfterPreview` must reject Proxy/accessor-wrapped
 current projectile events and nested identity records before observing traps
 or mutating state.
+
+## Round 253 — 2026-08-21
+
+PIECE: GAME-001TH — Exhaustive cross-module projectile identity chain
+
+VERDICT: PASS
+
+EVIDENCE: At frozen commit `b09d6347adf23ff77d298718fabf0d9b1ef81ad6`,
+projectile history passed 17/17, battle combat 10/10, external combat 9/9,
+tower kernel 7/7, live targets 9/9, game battle 11/11, GameSession 9/9,
+browser loop 10/10 and both guards 22/22. Full battle towers passed 15/15 in
+127,566.565 ms. An independent admission probe covered 16 hostile values:
+forged and cloned arrays, outer/event/nested accessors, event/identity/callable/
+revoked proxies, cross-realm values, a forged Array prototype and a Proxy
+around the authentic preview. Every case rejected with zero callbacks and
+unchanged bytes, state, events, history and tick. The first operation on the
+preview is the private `WeakMap.get`. Authentic previews remained frozen and
+detached. Wrong owner, fork, restore, same-tick spawn/schedule/position updates,
+tick advancement, multiple previews, reuse, failed-command retry and forced
+witness-divergence retry all preserved the documented single-use state-bound
+receipt lifecycle. Capability state did not affect serialized bytes.
+Independent events carried exact identities for unit-to-unit
+`{1,unit-to-unit,1,1}`, unit-to-tower `{1,unit-to-tower,1,3}` and tower-to-unit
+`{1,tower-to-unit,1,"south:lane:west"}`. Simultaneous projectile ID 1 values
+remained distinct by scope. Terminal target-dead and target-missing impacts,
+delayed damage and tower contact retained identity without a later launch.
+No origin-map symbols or equivalent adapter lookup remained, and a forged
+current ingress rejected despite a valid earlier launch.
+
+BIGGEST GAP: None on the judged projectile identity and preview-capability
+dimension. Future BattleCombat mutation methods must replace the private state
+token so stale receipts cannot survive.

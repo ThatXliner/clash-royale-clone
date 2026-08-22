@@ -27,11 +27,11 @@
   <p class="sub">Updated 2026-08-21 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
     <div class="card"><div class="num">165</div><div class="label">tracked pieces</div></div>
-    <div class="card"><div class="num">114</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">252</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">115</div><div class="label">passed</div></div>
+    <div class="card"><div class="num">253</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">24</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Active target: <strong>GAME-001TH — Exhaustive cross-module projectile identity chain</strong>.</p>
+  <p class="note">Latest pass: <strong>ARENA-002 — Ground pathfinding through bridges</strong>. Next dependency-ready target: ARENA-003 — Flying movement over terrain.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -1000,10 +1000,10 @@
       <tr>
         <td><code>GAME-001TH</code></td>
         <td>Exhaustive cross-module projectile identity chain</td>
-        <td class="state-building">BUILDING</td>
-        <td>0/2</td>
-        <td>2</td>
-        <td>Round 2 failed: origin reconstruction is gone, but public stepBoundaryAfterPreview accepts accessor/Proxy event identities, executes 1-9 traps and commits the tick instead of rejecting atomically</td>
+        <td class="state-pass">PASS</td>
+        <td>17/17</td>
+        <td>3</td>
+        <td>Round 3 passed: all three directions carry source-minted identity; no origin lookup remains; 16 hostile preview forms reject trap-zero and the single-use state-bound receipt lifecycle is exact</td>
       </tr>
       <tr>
         <td><code>GAME-001A</code></td>
@@ -1614,6 +1614,7 @@
       <li><strong>R250 FAIL</strong> · GAME-001PH — Hostile movement-history canonicalization<br>The bounded canonicalizer cannot prove the bar's unique global minimal history above its cutoffs, so two distinct byte-fixed histories remain accepted for one reachable authority.</li>
       <li><strong>R251 FAIL</strong> · GAME-001TH — Exhaustive cross-module projectile identity chain<br>Remove `#unitProjectileOrigins` and every launch-derived ancestry lookup, then forward and validate the source-minted identity directly on every projectile-bearing record.</li>
       <li><strong>R252 FAIL</strong> · GAME-001TH — Exhaustive cross-module projectile identity chain<br>`stepBoundaryAfterPreview` must reject Proxy/accessor-wrapped current projectile events and nested identity records before observing traps or mutating state.</li>
+      <li><strong>R253 PASS</strong> · GAME-001TH — Exhaustive cross-module projectile identity chain<br>None on the judged projectile identity and preview-capability dimension. Future BattleCombat mutation methods must replace the private state token so stale receipts cannot survive.</li>
   </ol>
 </body>
 </html>
