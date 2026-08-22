@@ -500,7 +500,7 @@ test("battle towers: simultaneous unit-origin and tower-origin projectile ID 1 r
   const boundary = combat.history.find(({ type }) => type === "boundary");
   boundary.command.externalProjectiles[0].sourceId = "north:lane:east";
   forged.combat = JSON.stringify(combat);
-  assert.throws(() => BattleTowerCombat.restore(JSON.stringify(forged)), /witnesses/u);
+  assert.throws(() => BattleTowerCombat.restore(JSON.stringify(forged)), /witnesses|projectileIdentity/u);
 });
 
 test("battle towers: every tower candidate ID is rejected for initial, spawned, and scheduled units", () => {
@@ -586,6 +586,12 @@ test("battle towers: every projectile-bearing causal event has one complete scop
     damage: 109,
     direction: "tower-to-unit",
     projectileId: 1,
+    projectileIdentity: {
+      attackSequence: 1,
+      direction: "tower-to-unit",
+      projectileId: 1,
+      sourceId: "south:lane:west",
+    },
     sourceId: "south:lane:west",
     targetUnitId: 80,
   });

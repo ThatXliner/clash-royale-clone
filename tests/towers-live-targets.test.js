@@ -80,9 +80,19 @@ test("tower live targets: shot readiness carries explicit external projectile pr
     candidate({ id: 41, side: "north" }),
   ])));
   assert.deepEqual(shot, {
+    attackSequence: 1,
     damage: 109,
     delivery: "projectile",
+    direction: "tower-to-unit",
+    projectileId: 1,
+    projectileIdentity: {
+      attackSequence: 1,
+      direction: "tower-to-unit",
+      projectileId: 1,
+      sourceId: "south:lane:west",
+    },
     projectileResolution: "external",
+    projectileScope: "tower-to-unit",
     sequence: 1,
     sourceId: "south:lane:west",
     sourceSide: "south",

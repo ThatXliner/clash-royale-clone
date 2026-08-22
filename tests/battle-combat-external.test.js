@@ -91,7 +91,12 @@ test("battle combat external: projectile contacts use launch geometry and curren
     .find(({ type }) => type === "external-structure-contact");
   assert.deepEqual(contact, {
     attackSequence: 1, contactTick: 5, damage: 29, delivery: "projectile", projectileId: 1,
-    sourceUnitId: 1, structureId: "south:lane:west", tick: 5,
+    direction: "unit-to-tower",
+    projectileIdentity: {
+      attackSequence: 1, direction: "unit-to-tower", projectileId: 1, sourceId: 1,
+    },
+    projectileScope: "unit-to-tower", sourceId: 1, sourceUnitId: 1,
+    structureId: "south:lane:west", tick: 5,
     type: "external-structure-contact",
   });
   assert.deepEqual(restoredContact, contact);
