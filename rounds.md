@@ -1,5 +1,27 @@
 # Gauntlet Rounds
 
+## Round 270 — 2026-08-22
+
+PIECE: GAME-001HTMP — Movement/form source-profile contract, round 5
+
+VERDICT: FAIL
+
+EVIDENCE: Clean HEAD `4c7ce65`; both focused entry points passed 17/17,
+troop profiles 11/11, ordinary projection 14/14, all eight source selectors,
+nondeterminism 9/9, shipping isolation 13/13, syntax and git checks. The
+manifest remained exactly 67,284 bytes with SHA-256
+`d4ad6e7684047fbd4194fd83a017700b56ecf4198aa7a39bd5bc01bc67388082`.
+Independent probes rejected 5/5 public hostile inputs with zero traps, all
+90/90 numeric/null mutations, 57/57 source mutations, 54/54 QUESTION
+mutations and 6/6 read drifts; 8/8 safe key reorderings passed. However,
+`canonicalTrusted` and `admitCanonicalGraph` each invoked one trap for hostile
+root and nested Proxies, and an alias-built `globalThis.Proxy` source row
+bypassed the text guard and invoked one callback before rejection.
+
+BIGGEST GAP: Make every trusted canonical-admission path reject untrusted Proxy
+graphs before reflection, including alias-created Proxies that bypass the
+transformed-source text guard.
+
 ## Round 1 — 2026-07-30
 
 PIECE: SIM-001 — Fixed-step world and replay log
