@@ -2,6 +2,10 @@ import { DamageSystem } from "../../sim/damage.js";
 import { acquireTarget } from "../../sim/targeting.js";
 import { validatePosition } from "../../sim/spatial.js";
 import { createCardCatalog } from "../schema.js";
+import {
+  cloneMovementQuestionGraph,
+  constructMovementQuestionGraph,
+} from "../movement-question-graph.js";
 
 const DEFINITIONS = [
   {
@@ -82,8 +86,18 @@ const SNAPSHOT_IDENTITY_KEYS = ["commands", "encounter"];
 const MAX_COMMANDS = 1;
 const MAX_SNAPSHOT_BYTES = 4096;
 const MAX_TICK = 100;
+const ADMITTED_QUESTION_FIXTURE = constructMovementQuestionGraph(
+  QUESTION_FIXTURE_VALUES,
+  "dash question fixture",
+);
 
 function clone(value) {
+  if (value === QUESTION_FIXTURE_VALUES) {
+    return cloneMovementQuestionGraph(
+      ADMITTED_QUESTION_FIXTURE,
+      "dash question fixture",
+    );
+  }
   return JSON.parse(JSON.stringify(value));
 }
 

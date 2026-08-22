@@ -7,6 +7,11 @@ import { findGroundPath } from "../../sim/pathfinding.js";
 import { retainOrAcquireTarget } from "../../sim/targeting.js";
 import { createCardCatalog } from "../schema.js";
 import { evaluateForcedKnockbackQuestionBoundary } from "./special-movement-knockback.js";
+import {
+  assertMovementQuestionGraph,
+  constructMovementQuestionGraph,
+  isMovementQuestionGraphNode,
+} from "../movement-question-graph.js";
 
 const DEFINITION = Object.freeze({
   areaDamageRadiusMillitiles: null,
@@ -126,6 +131,10 @@ const QUESTION_VALUES = Object.freeze({
 
 function recursivelyFreeze(value) {
   if (value !== null && typeof value === "object") {
+    if (!isMovementQuestionGraphNode(value)) {
+      throw new TypeError("question records must be source-admitted data");
+    }
+    assertMovementQuestionGraph(value, "question records");
     for (const child of Object.values(value)) recursivelyFreeze(child);
     Object.freeze(value);
   }
@@ -133,7 +142,7 @@ function recursivelyFreeze(value) {
 }
 
 function clone(value) {
-  return structuredClone(value);
+  return JSON.parse(JSON.stringify(value));
 }
 
 function canonicalJson(value) {
@@ -416,18 +425,21 @@ export function createChargeKnockbackQuestionRecords(...args) {
   if (args.length !== 0) {
     throw new TypeError("composition question records do not accept overrides");
   }
-  return recursivelyFreeze(Object.fromEntries(
-    Object.entries(QUESTION_VALUES).map(([key, value]) => [
-      key,
-      recursivelyFreeze({
-        authoritative: false,
-        confidence: "unverified",
-        disposition: "question",
+  return recursivelyFreeze(constructMovementQuestionGraph(
+    Object.fromEntries(
+      Object.entries(QUESTION_VALUES).map(([key, value]) => [
         key,
-        source: QUESTION_SOURCE,
-        value: clone(value),
-      }),
-    ]),
+        {
+          authoritative: false,
+          confidence: "unverified",
+          disposition: "question",
+          key,
+          source: QUESTION_SOURCE,
+          value: clone(value),
+        },
+      ]),
+    ),
+    "charge-knockback question records",
   ));
 }
 

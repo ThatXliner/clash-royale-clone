@@ -179,6 +179,7 @@ let movementModule = null;
 
 function probeResult(payload) {
   if (config.reportTraps) payload.traps = context.__sourceProbeTraps ?? 0;
+  if (config.reportCanonicalTraps) payload.canonicalTraps = context.__canonicalTraps ?? 0;
   if (config.probeExposure) {
     payload.exposed = false;
     if (movementModule !== null) {
@@ -302,6 +303,7 @@ function sourceWrapperCase(exportName, id, mutation, options = {}) {
       options.prefix ?? "",
     ].filter(Boolean).join("\n") + (options.alternatingReads || options.skipCalls !== undefined || options.prefix ? "\n" : ""),
     reportTraps: options.reportTraps ?? false,
+    reportCanonicalTraps: options.reportCanonicalTraps ?? false,
     probeExposure: options.probeExposure ?? false,
     replacement,
     targetPath: SOURCE_MODULE_PATHS[exportName],
@@ -309,11 +311,19 @@ function sourceWrapperCase(exportName, id, mutation, options = {}) {
 }
 
 function canonicalWrapperCase(setup, options = {}) {
+  const canonicalExpression = options.manifest
+    ? "canonicalTrusted(MANIFEST.profiles[0])"
+    : options.admit
+    ? "canonical(admitCanonicalGraph(__canonicalValue))"
+    : options.construct
+    ? "canonical(constructCanonicalGraph(__canonicalValue))"
+    : options.trusted ? "canonicalTrusted(__canonicalValue)" : "canonical(__canonicalValue)";
   return {
     expect: options.expect ?? "reject",
     marker: "return canonical(MANIFEST);",
-    prefix: `let __canonicalTraps = 0;\n${setup}\n`,
-    replacement: `try { return ${options.trusted ? "canonicalTrusted" : "canonical"}(__canonicalValue); } finally { if (__canonicalTraps !== 0) throw new Error(\"attacker callback\"); }`,
+    prefix: `let __canonicalTraps = 0; globalThis.__canonicalTraps = 0;\n${setup}\n`,
+    replacement: `try { return ${canonicalExpression}; } finally { globalThis.__canonicalTraps = __canonicalTraps; if (__canonicalTraps !== 0) throw new Error(\"attacker callback\"); }`,
+    reportCanonicalTraps: options.reportCanonicalTraps ?? false,
     targetPath: MOVEMENT_SOURCE_MODULE_PATH,
   };
 }
@@ -329,25 +339,35 @@ function questionFactoryWrapperCase(factoryName, mutation, options = {}) {
     return {
       expect: options.expect ?? "reject",
       marker: "return clone(QUESTION_FIXTURE_VALUES);",
-      prefix: firstReadOnly ? "let __questionFactoryReadCount = 0;\n" : "",
+      prefix: [
+        firstReadOnly ? "let __questionFactoryReadCount = 0;" : "",
+        options.prefix ?? "",
+      ].filter(Boolean).join("\n") + (firstReadOnly || options.prefix ? "\n" : ""),
       replacement: [
         "let __question = clone(QUESTION_FIXTURE_VALUES);",
         guardedMutation,
         "return __question;",
       ].join("\n"),
+      reportTraps: options.reportTraps ?? false,
+      probeExposure: options.probeExposure ?? false,
       targetPath: SOURCE_MODULE_PATHS[info.exportName],
     };
   }
   return {
     expect: options.expect ?? "reject",
     marker: "    Object.freeze(value);",
-    prefix: firstReadOnly ? "let __questionFactoryReadCount = 0;\n" : "",
+    prefix: [
+      firstReadOnly ? "let __questionFactoryReadCount = 0;" : "",
+      options.prefix ?? "",
+    ].filter(Boolean).join("\n") + (firstReadOnly || options.prefix ? "\n" : ""),
     replacement: [
       "    if (!Array.isArray(value) && !Object.hasOwn(value, \"authoritative\") && Object.values(value).every((entry) => entry !== null && typeof entry === \"object\" && entry.authoritative === false && typeof entry.key === \"string\")) {",
       `      ${guardedMutation}`,
       "    }",
       "    Object.freeze(value);",
     ].join("\n"),
+    reportTraps: options.reportTraps ?? false,
+    probeExposure: options.probeExposure ?? false,
     targetPath: SOURCE_MODULE_PATHS[info.exportName],
   };
 }
@@ -856,7 +876,7 @@ test("movement profile contract: module has no comparison-path, identity, clock,
 test("movement profile contract: pinned witness map has the exact nine pair domain", () => {
   const source = readFileSync(MOVEMENT_SOURCE_MODULE_PATH, "utf8");
   const pinnedPairs = [...source.matchAll(
-    /\[sourceRecordKey\("([^"]+)", "([^"]+)"\)\]: canonicalTrusted\(\{/gu
+    /\[sourceRecordKey\("([^"]+)", "([^"]+)"\)\]: canonical(?:Trusted|Fresh)\(\{/gu
   )].map(([, exportName, id]) => [exportName, id]);
   const expectedPairs = EXPECTED_OCCURRENCES
     .map(([exportName, id]) => [exportName, id])
@@ -1031,6 +1051,77 @@ test("movement profile contract: complete source witnesses reject the adversaria
   assert.equal(hostileShapeCallbacks, 0);
 });
 
+test("movement profile contract: source catalog rows and component arrays reject every Proxy alias before reflection", () => {
+  const trapPrefix = [
+    "let __sourceProbeTraps = 0;",
+    "globalThis.__sourceProbeTraps = 0;",
+    "const __bumpSourceProbeTrap = () => { __sourceProbeTraps += 1; globalThis.__sourceProbeTraps = __sourceProbeTraps; };",
+  ].join("\n");
+  const handler = `({
+    getPrototypeOf() { __bumpSourceProbeTrap(); throw new Error("getPrototypeOf callback"); },
+    ownKeys() { __bumpSourceProbeTrap(); throw new Error("ownKeys callback"); },
+    getOwnPropertyDescriptor() { __bumpSourceProbeTrap(); throw new Error("getOwnPropertyDescriptor callback"); },
+    get() { __bumpSourceProbeTrap(); throw new Error("get callback"); },
+    has() { __bumpSourceProbeTrap(); throw new Error("has callback"); },
+    isExtensible() { __bumpSourceProbeTrap(); throw new Error("isExtensible callback"); },
+    preventExtensions() { __bumpSourceProbeTrap(); throw new Error("preventExtensions callback"); },
+    defineProperty() { __bumpSourceProbeTrap(); throw new Error("defineProperty callback"); },
+    setPrototypeOf() { __bumpSourceProbeTrap(); throw new Error("setPrototypeOf callback"); },
+    deleteProperty() { __bumpSourceProbeTrap(); throw new Error("deleteProperty callback"); },
+    set() { __bumpSourceProbeTrap(); throw new Error("set callback"); },
+  })`;
+  const aliasFactories = [
+    ["direct Proxy", `new Proxy(__target, __handler)`],
+    ["globalThis.Proxy alias", `const __P = globalThis.Proxy; new __P(__target, __handler)`],
+    ["Reflect.construct", `const __P = globalThis.Proxy; Reflect.construct(__P, [__target, __handler])`],
+    ["computed Proxy alias", `const __P = globalThis["Proxy"]; new __P(__target, __handler)`],
+    ["multi-hop Proxy alias", `const __P0 = globalThis.Proxy; const __P1 = __P0; const __P2 = __P1; new __P2(__target, __handler)`],
+    ["Proxy.revocable", `const __P = globalThis.Proxy; __P.revocable(__target, __handler).proxy`],
+    ["Function-built Proxy alias", `const __P = Function("return globalThis.Proxy")(); new __P(__target, __handler)`],
+    ["eval-built Proxy alias", `const __P = Function("return (0, eval)(\\"globalThis.Proxy\\")")(); new __P(__target, __handler)`],
+  ];
+  let cases = 0;
+  let callbackTotal = 0;
+  const publicRebrand = runSourceWrapperProbe(sourceWrapperCase(
+    "createBasicFlyingCatalog",
+    "copperskiff",
+    "record.cost += 1;",
+    { expect: "reject", rebuildWithTrustedConstructor: true },
+  ));
+  assert.equal(publicRebrand.accepted, false, "public constructor branding bypassed the source witness");
+  for (const [label, factory] of aliasFactories) {
+    for (const placement of ["row", "component"]) {
+      const mutation = [
+        `const __target = ${placement === "row" ? "record" : "{}"};`,
+        `const __handler = ${handler};`,
+        `const __hostile = ${factory};`,
+        placement === "row"
+          ? "records[records.indexOf(record)] = __hostile;"
+          : "record.components.push(__hostile);",
+      ].join("\n");
+      const result = runSourceWrapperProbe(sourceWrapperCase(
+        "createBasicFlyingCatalog",
+        "copperskiff",
+        mutation,
+        {
+          expect: "reject",
+          prefix: trapPrefix,
+          reportTraps: true,
+          probeExposure: true,
+          skipCalls: 3,
+        },
+      ));
+      assert.equal(result.accepted, false, `${label} ${placement} was accepted`);
+      assert.equal(result.traps, 0, `${label} ${placement} invoked a trap`);
+      assert.equal(result.exposed, false, `${label} ${placement} exposed a partial manifest`);
+      callbackTotal += result.traps;
+      cases += 1;
+    }
+  }
+  assert.equal(cases, 16);
+  assert.equal(callbackTotal, 0);
+});
+
 test("movement profile contract: every pinned null numeric path rejects non-finite and non-integer drift", () => {
   const nullPaths = [];
   for (const [exportName, id] of EXPECTED_OCCURRENCES) {
@@ -1102,6 +1193,72 @@ test("movement profile contract: every pinned null numeric path rejects non-fini
   });
 });
 
+test("movement profile contract: QUESTION factories reject aliased Proxy roots and nested values before reflection", () => {
+  const trapPrefix = [
+    "let __sourceProbeTraps = 0;",
+    "globalThis.__sourceProbeTraps = 0;",
+    "const __bumpSourceProbeTrap = () => { __sourceProbeTraps += 1; globalThis.__sourceProbeTraps = __sourceProbeTraps; };",
+  ].join("\n");
+  const handler = `({
+    getPrototypeOf() { __bumpSourceProbeTrap(); throw new Error("getPrototypeOf callback"); },
+    ownKeys() { __bumpSourceProbeTrap(); throw new Error("ownKeys callback"); },
+    getOwnPropertyDescriptor() { __bumpSourceProbeTrap(); throw new Error("getOwnPropertyDescriptor callback"); },
+    get() { __bumpSourceProbeTrap(); throw new Error("get callback"); },
+    has() { __bumpSourceProbeTrap(); throw new Error("has callback"); },
+    isExtensible() { __bumpSourceProbeTrap(); throw new Error("isExtensible callback"); },
+    preventExtensions() { __bumpSourceProbeTrap(); throw new Error("preventExtensions callback"); },
+    defineProperty() { __bumpSourceProbeTrap(); throw new Error("defineProperty callback"); },
+    setPrototypeOf() { __bumpSourceProbeTrap(); throw new Error("setPrototypeOf callback"); },
+    deleteProperty() { __bumpSourceProbeTrap(); throw new Error("deleteProperty callback"); },
+    set() { __bumpSourceProbeTrap(); throw new Error("set callback"); },
+  })`;
+  const aliasFactories = [
+    ["direct Proxy", `new Proxy(__target, __handler)`],
+    ["globalThis.Proxy alias", `const __P = globalThis.Proxy; new __P(__target, __handler)`],
+    ["Reflect.construct", `const __P = globalThis.Proxy; Reflect.construct(__P, [__target, __handler])`],
+    ["computed Proxy alias", `const __P = globalThis["Proxy"]; new __P(__target, __handler)`],
+    ["multi-hop Proxy alias", `const __P0 = globalThis.Proxy; const __P1 = __P0; const __P2 = __P1; new __P2(__target, __handler)`],
+    ["Proxy.revocable", `const __P = globalThis.Proxy; __P.revocable(__target, __handler).proxy`],
+    ["Function-built Proxy alias", `const __P = Function("return globalThis.Proxy")(); new __P(__target, __handler)`],
+    ["eval-built Proxy alias", `const __P = Function("return (0, eval)(\\"globalThis.Proxy\\")")(); new __P(__target, __handler)`],
+  ];
+  const placements = [
+    ["fixture root", "createChargeQuestionFixture", `__question`, `__question = __hostile;`],
+    ["fixture provenance", "createChargeQuestionFixture", `__question.provenance`, `__question.provenance = __hostile;`],
+    ["records root", "createRetargetQuestionRecords", `value`, `return __hostile;`],
+    ["records QUESTION value", "createRetargetQuestionRecords", `value["attackerPosition"].value`, `value["attackerPosition"].value = __hostile;`],
+  ];
+  let cases = 0;
+  let callbackTotal = 0;
+  for (const [placementLabel, factoryName, targetExpression, assignment] of placements) {
+    for (const [aliasLabel, factory] of aliasFactories) {
+      const mutation = [
+        `const __target = ${targetExpression};`,
+        `const __handler = ${handler};`,
+        `const __hostile = ${factory};`,
+        assignment,
+      ].join("\n");
+      const result = runSourceWrapperProbe(questionFactoryWrapperCase(
+        factoryName,
+        mutation,
+        {
+          expect: "reject",
+          prefix: trapPrefix,
+          reportTraps: true,
+          probeExposure: true,
+        },
+      ));
+      assert.equal(result.accepted, false, `${aliasLabel} ${placementLabel} was accepted`);
+      assert.equal(result.traps, 0, `${aliasLabel} ${placementLabel} invoked a trap`);
+      assert.equal(result.exposed, false, `${aliasLabel} ${placementLabel} exposed a partial manifest`);
+      callbackTotal += result.traps;
+      cases += 1;
+    }
+  }
+  assert.equal(cases, 32);
+  assert.equal(callbackTotal, 0);
+});
+
 test("movement profile contract: canonicalization fails closed for non-JSON values without traps", () => {
   const cases = [
     ["undefined", "const __canonicalValue = undefined;"],
@@ -1141,12 +1298,11 @@ test("movement profile contract: canonicalization fails closed for non-JSON valu
     assert.doesNotMatch(result.error, /attacker callback|callback/u, `${label} invoked a trap`);
   }
 
-  const reordered = runSourceWrapperProbe(canonicalWrapperCase([
-    "const __canonicalValue = {};",
-    "__canonicalValue.z = 1;",
-    "__canonicalValue.a = 2;",
-  ].join("\n"), { expect: "accept", trusted: true }));
-  const expected = canonical({ a: 2, z: 1 });
+  const reordered = runSourceWrapperProbe(canonicalWrapperCase(
+    "",
+    { expect: "accept", manifest: true },
+  ));
+  const expected = canonical(createSessionTroopMovementProfileManifest().profiles[0]);
   assert.deepEqual(reordered, {
     accepted: true,
     length: expected.length,
@@ -1202,6 +1358,50 @@ test("movement profile contract: canonicalization fails closed for non-JSON valu
 
   assert.equal(trapCases, 14);
   assert.equal(callbackCases, 0);
+});
+
+test("movement profile contract: every canonical admission helper rejects aliased Proxy roots before reflection", () => {
+  const trapHandler = `({
+    getPrototypeOf() { __canonicalTraps += 1; throw new Error("getPrototypeOf callback"); },
+    ownKeys() { __canonicalTraps += 1; throw new Error("ownKeys callback"); },
+    getOwnPropertyDescriptor() { __canonicalTraps += 1; throw new Error("getOwnPropertyDescriptor callback"); },
+    get() { __canonicalTraps += 1; throw new Error("get callback"); },
+    has() { __canonicalTraps += 1; throw new Error("has callback"); },
+    isExtensible() { __canonicalTraps += 1; throw new Error("isExtensible callback"); },
+    preventExtensions() { __canonicalTraps += 1; throw new Error("preventExtensions callback"); },
+    defineProperty() { __canonicalTraps += 1; throw new Error("defineProperty callback"); },
+    setPrototypeOf() { __canonicalTraps += 1; throw new Error("setPrototypeOf callback"); },
+    deleteProperty() { __canonicalTraps += 1; throw new Error("deleteProperty callback"); },
+    set() { __canonicalTraps += 1; throw new Error("set callback"); },
+  })`;
+  const aliasCases = [
+    ["direct Proxy", `const __canonicalTarget = { value: 1 }; const __canonicalValue = new Proxy(__canonicalTarget, ${trapHandler});`],
+    ["globalThis.Proxy alias", `const __P = globalThis.Proxy; const __canonicalTarget = { value: 1 }; const __canonicalValue = new __P(__canonicalTarget, ${trapHandler});`],
+    ["Reflect.construct", `const __P = globalThis.Proxy; const __canonicalTarget = { value: 1 }; const __canonicalValue = Reflect.construct(__P, [__canonicalTarget, ${trapHandler}]);`],
+    ["computed Proxy alias", `const __P = globalThis["Proxy"]; const __canonicalTarget = { value: 1 }; const __canonicalValue = new __P(__canonicalTarget, ${trapHandler});`],
+    ["multi-hop Proxy alias", `const __P0 = globalThis.Proxy; const __P1 = __P0; const __P2 = __P1; const __canonicalTarget = { value: 1 }; const __canonicalValue = new __P2(__canonicalTarget, ${trapHandler});`],
+    ["Proxy.revocable", `const __P = globalThis.Proxy; const __canonicalTarget = { value: 1 }; const __canonicalValue = __P.revocable(__canonicalTarget, ${trapHandler}).proxy;`],
+    ["Function-built Proxy alias", `const __P = Function("return globalThis.Proxy")(); const __canonicalTarget = { value: 1 }; const __canonicalValue = new __P(__canonicalTarget, ${trapHandler});`],
+    ["eval-built Proxy alias", `const __P = Function("return (0, eval)(\\"globalThis.Proxy\\")")(); const __canonicalTarget = { value: 1 }; const __canonicalValue = new __P(__canonicalTarget, ${trapHandler});`],
+  ];
+  let helperCases = 0;
+  let callbackTotal = 0;
+  for (const [label, setup] of aliasCases) {
+    for (const helper of ["canonical", "canonicalTrusted", "admit", "construct"]) {
+      const result = runSourceWrapperProbe(canonicalWrapperCase(setup, {
+        admit: helper === "admit",
+        construct: helper === "construct",
+        reportCanonicalTraps: true,
+      }));
+      assert.equal(result.accepted, false, `${label} reached ${helper}`);
+      assert.equal(result.canonicalTraps, 0, `${label} invoked a trap through ${helper}`);
+      assert.doesNotMatch(result.error, /callback/u, `${label} exposed a callback through ${helper}`);
+      callbackTotal += result.canonicalTraps;
+      helperCases += 1;
+    }
+  }
+  assert.equal(helperCases, 32);
+  assert.equal(callbackTotal, 0);
 });
 
 test("movement profile contract: complete QUESTION witnesses reject content, shape, metadata, and read drift", () => {

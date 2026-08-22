@@ -6,6 +6,10 @@ import {
 import { ProjectileCombat } from "../../sim/projectile.js";
 import { validateCircle, validatePosition } from "../../sim/spatial.js";
 import { createCardCatalog } from "../schema.js";
+import {
+  cloneMovementQuestionGraph,
+  constructMovementQuestionGraph,
+} from "../movement-question-graph.js";
 
 const DEFINITIONS = [{
   id: "cinderback",
@@ -71,6 +75,10 @@ const QUESTION_FIXTURE_VALUES = Object.freeze({
 });
 
 const ACTOR_ID = 101;
+const ADMITTED_QUESTION_FIXTURE = constructMovementQuestionGraph(
+  QUESTION_FIXTURE_VALUES,
+  "recoil question fixture",
+);
 const TARGET_ID = 202;
 const KILL_SOURCE_ID = 303;
 const ACTOR_RADIUS = 400;
@@ -102,6 +110,12 @@ const IMPACT_TICK =
 const MAX_TICK = IMPACT_TICK + 2;
 
 function clone(value) {
+  if (value === QUESTION_FIXTURE_VALUES) {
+    return cloneMovementQuestionGraph(
+      ADMITTED_QUESTION_FIXTURE,
+      "recoil question fixture",
+    );
+  }
   return JSON.parse(JSON.stringify(value));
 }
 

@@ -6,6 +6,10 @@ import {
 } from "../../sim/movement.js";
 import { findGroundPath } from "../../sim/pathfinding.js";
 import { createCardCatalog } from "../schema.js";
+import {
+  cloneMovementQuestionGraph,
+  constructMovementQuestionGraph,
+} from "../movement-question-graph.js";
 
 const DEFINITIONS = [
   {
@@ -66,6 +70,10 @@ const QUESTION_FIXTURE_VALUES = Object.freeze({
   source: "unsourced-special-mechanic-fixture",
 });
 const COMMAND_KEYS = ["tick", "type"];
+const ADMITTED_QUESTION_FIXTURE = constructMovementQuestionGraph(
+  QUESTION_FIXTURE_VALUES,
+  "charge question fixture",
+);
 const COMMAND_TYPES = new Set(["target-acquired", "target-lost"]);
 const SETUP_KEYS = ["commands"];
 const SNAPSHOT_KEYS = ["identity", "tick", "version"];
@@ -180,6 +188,12 @@ function canonicalJson(value) {
 }
 
 function clone(value) {
+  if (value === QUESTION_FIXTURE_VALUES) {
+    return cloneMovementQuestionGraph(
+      ADMITTED_QUESTION_FIXTURE,
+      "charge question fixture",
+    );
+  }
   return JSON.parse(JSON.stringify(value));
 }
 

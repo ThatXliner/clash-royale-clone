@@ -1,6 +1,11 @@
 import { AttackCycle } from "../../sim/attack-cycle.js";
 import { retainOrAcquireTarget } from "../../sim/targeting.js";
 import { createCardCatalog } from "../schema.js";
+import {
+  assertMovementQuestionGraph,
+  constructMovementQuestionGraph,
+  isMovementQuestionGraphNode,
+} from "../movement-question-graph.js";
 
 const DEFINITION = Object.freeze({
   areaDamageRadiusMillitiles: null,
@@ -260,6 +265,10 @@ function clone(value) {
 
 function recursivelyFreeze(value) {
   if (value !== null && typeof value === "object") {
+    if (!isMovementQuestionGraphNode(value)) {
+      throw new TypeError("question records must be source-admitted data");
+    }
+    assertMovementQuestionGraph(value, "question records");
     for (const child of Object.values(value)) recursivelyFreeze(child);
     Object.freeze(value);
   }
@@ -267,14 +276,14 @@ function recursivelyFreeze(value) {
 }
 
 function questionRecord(key, value) {
-  return recursivelyFreeze({
+  return {
     authoritative: false,
     confidence: "unverified",
     disposition: "question",
     key,
     source: "unsourced-retarget-attack-lifecycle-composition",
     value: clone(value),
-  });
+  };
 }
 
 function targetView(candidate) {
@@ -310,11 +319,14 @@ export function createRetargetQuestionRecords(...args) {
   if (args.length !== 0) {
     throw new TypeError("retarget question records do not accept overrides");
   }
-  return recursivelyFreeze(Object.fromEntries(
-    Object.entries(QUESTION_VALUES).map(([key, value]) => [
-      key,
-      questionRecord(key, value),
-    ]),
+  return recursivelyFreeze(constructMovementQuestionGraph(
+    Object.fromEntries(
+      Object.entries(QUESTION_VALUES).map(([key, value]) => [
+        key,
+        questionRecord(key, value),
+      ]),
+    ),
+    "retarget question records",
   ));
 }
 

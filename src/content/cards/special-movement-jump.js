@@ -2,6 +2,10 @@ import { AreaDamageSystem } from "../../sim/area-damage.js";
 import { acquireTarget } from "../../sim/targeting.js";
 import { validatePosition } from "../../sim/spatial.js";
 import { createCardCatalog } from "../schema.js";
+import {
+  cloneMovementQuestionGraph,
+  constructMovementQuestionGraph,
+} from "../movement-question-graph.js";
 
 const DEFINITIONS = [
   {
@@ -138,8 +142,18 @@ const MAX_SNAPSHOT_BYTES = 4096;
 const MAX_TICK = 120;
 const TAKEOFF_TICK = 60;
 const LANDING_TICK = TAKEOFF_TICK + QUESTION_FIXTURE_VALUES.transitTicks;
+const ADMITTED_QUESTION_FIXTURE = constructMovementQuestionGraph(
+  QUESTION_FIXTURE_VALUES,
+  "jump question fixture",
+);
 
 function clone(value) {
+  if (value === QUESTION_FIXTURE_VALUES) {
+    return cloneMovementQuestionGraph(
+      ADMITTED_QUESTION_FIXTURE,
+      "jump question fixture",
+    );
+  }
   return JSON.parse(JSON.stringify(value));
 }
 
