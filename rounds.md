@@ -1,5 +1,29 @@
 # Gauntlet Rounds
 
+## Round 280 — 2026-08-22
+
+PIECE: GAME-001HTMP — Movement/form source-profile contract, round 8
+
+VERDICT: FAIL
+
+EVIDENCE: Both focused entry points passed 21/21, HTP passed 11/11 and HTO
+14/14. Canonical factories produced the exact 67,284-byte manifest with
+SHA-256
+`d4ad6e7684047fbd4194fd83a017700b56ecf4198aa7a39bd5bc01bc67388082`.
+The independent 60-case public-wrapper matrix rejected bind, proxy,
+alias-proxy, callable/apply/call/Reflect, revoked, two-read and hostile-graph
+attacks with zero callbacks, traps or exposure. However, replacing the
+`factory` data property on `MOVEMENT_QUESTION_FACTORY_AUTHORITY` with an
+accessor returning the original factory executed the accessor twice and was
+accepted for all six sources. Coherently wrapping both the public export and
+authority property also passed identity checking, invoked four callbacks per
+source and emitted the exact manifest. Commit `4606073` remained clean.
+
+BIGGEST GAP: The source module still supplies both sides of its own factory
+identity check through an accessor-capable exported authority object; move
+the trusted factory and graph authority behind an independent direct-binding
+module and never read caller-controlled authority properties.
+
 ## Round 279 — 2026-08-22
 
 PIECE: GAME-001HTJ — Shared troop projectile mechanics, round 1
