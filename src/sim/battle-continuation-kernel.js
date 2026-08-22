@@ -5651,6 +5651,19 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
   if (roster.length !== 8 || new Set(roster.map(({ id }) => id)).size !== roster.length) {
     throw new TypeError("live battle setup roster must contain eight unique cards");
   }
+  // Ordinary-policy mode is uniform over materializable unit entities only;
+  // effect and structure cards have empty entity inventories and own separate schemas.
+  const unitEntities = roster
+    .filter(({ kind }) => kind === "unit")
+    .flatMap(({ entities }) => entities);
+  const ordinaryPolicyEntities = unitEntities.filter(({ deliveryPolicy, layerPolicy }) =>
+    deliveryPolicy !== undefined && layerPolicy !== undefined);
+  if (ordinaryPolicyEntities.length !== 0 &&
+      ordinaryPolicyEntities.length !== unitEntities.length) {
+    throw new TypeError(
+      "live battle ordinary runtime policies must use one uniform mode across unit entities",
+    );
+  }
   const archetypes = roster.flatMap(({ entities }) => entities.map(({ archetypeId }) => archetypeId));
   if (new Set(archetypes).size !== archetypes.length) {
     throw new TypeError("live battle setup archetype identities must be globally unique");

@@ -101,6 +101,10 @@ function questionMap(questions) {
   return new Map(questions.map((question) => [question.key, question]));
 }
 
+function ordinaryQuestionKeys(entity) {
+  return ORDINARY_POLICY_KEYS.map((field) => entity[field].questionKey);
+}
+
 function witnessSetup(id) {
   const witness = createSessionTroopWitness(id);
   const deck = witness.roster.map(({ id: cardId }) => cardId);
@@ -288,12 +292,48 @@ test("legacy HTO projections are detached exact playable cards plus ordinary pol
   }
 });
 
+test("all official witnesses use uniform HTO policies with exact projection counts", () => {
+  const projectedCards = ADMITTED_IDS.map((id) => projectSessionTroopBattleCard(id));
+  const projectedEntities = projectedCards.flatMap(({ entities }) => entities);
+  const projectedPolicies = projectedEntities.flatMap((entity) =>
+    ORDINARY_POLICY_KEYS.map((field) => entity[field]));
+  assert.equal(ADMITTED_IDS.length, 31);
+  assert.equal(projectedEntities.length, 32);
+  assert.equal(new Set(projectedEntities.map(({ archetypeId }) => archetypeId)).size, 32);
+  assert.equal(projectedPolicies.length, 64);
+  assert.ok(projectedPolicies.every((policy) => policy.kind === "question"));
+
+  for (const id of ADMITTED_IDS) {
+    const witness = createSessionTroopWitness(id);
+    const witnessEntities = witness.roster.flatMap(({ entities }) => entities);
+    assert.equal(witnessEntities.length, 9, id);
+    assert.ok(witnessEntities.every((entity) =>
+      ORDINARY_POLICY_KEYS.every((field) => entity[field]?.kind === "question")), id);
+  }
+
+  const legacyEntities = createPlayableRoster().flatMap(({ entities }) => entities);
+  assert.equal(legacyEntities.length, 9);
+  assert.equal(legacyEntities.filter((entity) =>
+    ORDINARY_POLICY_KEYS.some((field) => Object.hasOwn(entity, field))).length, 0);
+  const legacyHtoEntities = PLAYABLE_CARD_IDS.flatMap((id) =>
+    projectSessionTroopBattleCard(id).entities);
+  assert.equal(legacyHtoEntities.length, 9);
+  assert.equal(legacyHtoEntities.flatMap((entity) =>
+    ORDINARY_POLICY_KEYS.map((field) => entity[field])).length, 18);
+});
+
 test("legacy playable roster bytes and QUESTION records remain unchanged", () => {
   const roster = createPlayableRoster();
   const questions = createPlayableRosterQuestionRecords();
   assert.ok(roster.every(({ entities }) => entities.every((entity) =>
     !Object.hasOwn(entity, "deliveryPolicy") && !Object.hasOwn(entity, "layerPolicy"))));
   assert.ok(questions.every(({ key }) => !key.endsWith(".delivery") && !key.endsWith(".layer")));
+  const admitted = parseLiveBattleSetup(canonical({
+    initialWindupTicks: { central: 0, lane: 0 },
+    questions,
+    roster,
+  }));
+  assert.equal(canonical(admitted.roster), canonical(roster));
   const bytes = serializePlayableRoster();
   assert.equal(bytes.length, 11_154);
   assert.equal(
@@ -348,6 +388,71 @@ test("legacy delivery/layer policy and QUESTION tampering rejects atomically", (
       }
     }
   }
+});
+
+test("paired ordinary-policy omission rejects every one of the 32 entity projections", () => {
+  const variants = ["retain", "remove", "reorder", "forge"];
+  for (const id of ADMITTED_IDS) {
+    const projected = projectSessionTroopBattleCard(id);
+    for (const [entityIndex, projectedEntity] of projected.entities.entries()) {
+      for (const variant of variants) {
+        const witness = clone(createSessionTroopWitness(id));
+        const target = witness.roster.find(({ id: cardId }) => cardId === id);
+        const entity = target.entities[entityIndex];
+        const questionKeys = ordinaryQuestionKeys(entity);
+        delete entity.deliveryPolicy;
+        delete entity.layerPolicy;
+        if (variant === "remove") {
+          witness.questions = witness.questions.filter(({ key }) => !questionKeys.includes(key));
+        } else if (variant === "reorder") {
+          const [first, ...rest] = witness.questions;
+          witness.questions = [...rest, first];
+        } else if (variant === "forge") {
+          witness.questions = witness.questions.map((record) => questionKeys.includes(record.key)
+            ? { ...record, value: record.value + 7 }
+            : record);
+        }
+        assert.throws(() => parseLiveBattleSetup(canonical(witness)),
+          `${id}.${projectedEntity.archetypeId}.${variant}`);
+      }
+      assert.equal(canonical(parseLiveBattleSetup(serializeSessionTroopWitness(id))),
+        serializeSessionTroopWitness(id), `${id}.${projectedEntity.archetypeId} baseline`);
+    }
+  }
+});
+
+test("removing all ordinary policies from one card rejects a partially downgraded roster", () => {
+  for (const id of ADMITTED_IDS) {
+    const witness = clone(createSessionTroopWitness(id));
+    const target = witness.roster.find(({ id: cardId }) => cardId === id);
+    const questionKeys = target.entities.flatMap(ordinaryQuestionKeys);
+    for (const entity of target.entities) {
+      delete entity.deliveryPolicy;
+      delete entity.layerPolicy;
+    }
+    witness.questions = witness.questions.filter(({ key }) => !questionKeys.includes(key));
+    assert.throws(() => parseLiveBattleSetup(canonical(witness)), id);
+  }
+});
+
+test("a genuine legacy card cannot be mixed with seven HTO policy-backed cards", () => {
+  const witness = clone(createSessionTroopWitness("wayfinder"));
+  const legacyId = "coilblade";
+  const legacyCard = createPlayableRoster().find(({ id }) => id === legacyId);
+  const cardIndex = witness.roster.findIndex(({ id }) => id === legacyId);
+  assert.notEqual(cardIndex, -1);
+  witness.roster[cardIndex] = clone(legacyCard);
+  const questionKeys = legacyCard.entities.flatMap((entity) => [
+    `${entity.archetypeId}.delivery`,
+    `${entity.archetypeId}.layer`,
+  ]);
+  witness.questions = witness.questions.filter(({ key }) => !questionKeys.includes(key));
+  const malformed = canonical(witness);
+  assert.throws(() => parseLiveBattleSetup(malformed), /uniform|ordinary/u);
+  assert.throws(() => new LiveBattle(malformed), /uniform|ordinary/u);
+
+  const valid = new LiveBattle(serializeSessionTroopWitness("wayfinder"));
+  assert.deepEqual(valid.replay, []);
 });
 
 test("all admitted troop witnesses use one shared LiveBattle deployment and entity expansion", () => {
@@ -432,6 +537,28 @@ test("all admitted troop witnesses use one shared LiveBattle deployment and enti
       !["troop-action-scheduled", "troop-action", "troop-status", "special-mechanic"].includes(type)),
     `${id} ordinary path has no special runtime event`);
   }
+});
+
+test("fully HTO LiveBattle setup deploys, restores, and forks exactly", () => {
+  const id = "stormkite";
+  const battle = new LiveBattle(serializeSessionTroopWitness(id));
+  assert.equal(battle.scheduleDeploy(canonical({
+    cardId: id,
+    point: SOUTH,
+    sequence: 0,
+    side: "south",
+    tick: 0,
+  })).type, "deploy-scheduled");
+  battle.step();
+  const bytes = battle.serialize();
+  assert.equal(LiveBattle.restore(bytes).serialize(), bytes);
+  assert.equal(battle.fork().serialize(), bytes);
+
+  const direct = LiveBattle.restore(bytes);
+  const fork = battle.fork();
+  direct.step();
+  fork.step();
+  assert.equal(fork.serialize(), direct.serialize());
 });
 
 test("representative ordinary projection is chunk, fork, and restore exact", () => {
