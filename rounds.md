@@ -4753,3 +4753,28 @@ current ingress rejected despite a valid earlier launch.
 BIGGEST GAP: None on the judged projectile identity and preview-capability
 dimension. Future BattleCombat mutation methods must replace the private state
 token so stale receipts cannot survive.
+
+## Round 254 — 2026-08-21
+
+PIECE: GAME-001HTP — Troop occurrence and session-profile contract
+
+VERDICT: PASS
+
+EVIDENCE: At integrated commit `c6d0f8db9345f2fe865c42864eaa21e6940906cb`,
+the focused troop-profile selector passed 11/11, roster admission 7/7, troop
+runtime 7/7, shared-runtime integration 1/1, nondeterminism guard 9/9 and
+shipping-isolation guard 13/13. An independent join against
+`createSessionCardManifest()` reproduced exactly 35 claimed occurrences and 33
+IDs: 33 admitted occurrences across 31 profiles plus the two identity-only
+QUESTION rows for `ashen-nest` and `gloam-shepherd`. All 33 admitted occurrence
+records matched their live content exports. `aegis-sage` and `emberlance` each
+had one profile, one composition and their exact two export members; ordering,
+damage, radius, ability cost, cancellation, targeting and phase timing remained
+explicit QUESTIONs. Isolated VM fixtures made each QUESTION source complete
+and both failed closed. Proxy, revoked Proxy, accessor, boxed-string,
+cross-realm, extra-argument and Unicode-confusable probes executed zero traps
+and could not contaminate later calls. Returned manifests, profiles and
+occurrences were fresh, detached, deeply frozen and canonically repeatable.
+
+BIGGEST GAP: None on the judged immutable occurrence/profile contract. Runtime
+projection and mechanics remain separate later pieces.
