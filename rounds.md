@@ -1,5 +1,27 @@
 # Gauntlet Rounds
 
+## Round 281 — 2026-08-22
+
+PIECE: GAME-001HTJ — Shared troop projectile mechanics, round 2
+
+VERDICT: PASS
+
+EVIDENCE: Independent authority probes ran in 40 fresh processes across import
+order, query duplicates and direct/bind/proxy/wrapper/call/apply/Reflect
+routes with zero callbacks and zero traps; canonical use remained valid. The
+receipt was exactly 66,903 bytes with SHA-256
+`d01b60123c2ac10a7cf8f3846a8c8fcd87eda22a65cb9166cb99d69f47fdb31d`;
+113 altered receipts and 11 facade mismatch cases rejected. The guard audited
+41 modules, deduplicated four realpath aliases to one module and rejected
+out-of-root paths and a same-named content symlink. Required selectors passed
+165/165: HTJ 6, HTJP 26, HTP 11, HTO 14, GAME-001TH 17, GameSession 9,
+GameBattle 11, status 33, building 14, shared integration 1,
+nondeterminism 10 and shipping isolation 13. Commit `c676abf`, tree
+`90c5fe3cf1a5b3dea8d71b1a7532146fce602489`, syntax/diff checks and worktree
+were clean.
+
+BIGGEST GAP: None on the judged dimension.
+
 ## Round 280 — 2026-08-22
 
 PIECE: GAME-001HTMP — Movement/form source-profile contract, round 8
