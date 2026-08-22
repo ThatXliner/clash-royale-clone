@@ -145,8 +145,9 @@ test("recoil special: every unsourced mechanic value is an isolated question", (
       source: "unsourced-attack-recoil-fixture",
     });
   }
-  fixture.recoilDistanceMillitiles = 1;
-  fixture.provenance.boundsRule.disposition = "match";
+  assert.equal(Object.isFrozen(fixture), true);
+  assert.equal(Object.isFrozen(fixture.provenance), true);
+  assert.equal(Object.isFrozen(fixture.provenance.boundsRule), true);
   assert.equal(createRecoilQuestionFixture().recoilDistanceMillitiles, 2000);
   assert.equal(
     createRecoilQuestionFixture().provenance.boundsRule.disposition,

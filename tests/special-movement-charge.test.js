@@ -75,10 +75,9 @@ test("charge special: question fixture is explicit and isolated", () => {
     source: "unsourced-special-mechanic-fixture",
   });
 
-  fixture.armDistanceMillitiles = 0;
-  fixture.bonusDamage = 0;
-  fixture.confidence = "authoritative";
-  fixture.provenance.bonusDamage.disposition = "match";
+  assert.equal(Object.isFrozen(fixture), true);
+  assert.equal(Object.isFrozen(fixture.provenance), true);
+  assert.equal(Object.isFrozen(fixture.provenance.bonusDamage), true);
   assert.deepEqual(createChargeQuestionFixture(), {
     armDistanceMillitiles: 3500,
     authoritative: false,

@@ -14,6 +14,7 @@ import * as jumpSource from "../src/content/cards/special-movement-jump.js";
 import * as recoilSource from "../src/content/cards/special-movement-recoil.js";
 import * as retargetSource from "../src/content/cards/special-movement-retarget.js";
 import * as shieldFormSource from "../src/content/cards/shields-forms.js";
+import * as movementQuestionGraph from "../src/content/movement-question-graph.js";
 import { createSessionTroopProfileManifest } from "../src/content/session-troop-profile-catalog.js";
 import {
   createSessionTroopMovementProfileManifest,
@@ -111,6 +112,14 @@ const SOURCE_MODULES = {
   createRetargetSpecialCatalog: retargetSource,
   createShieldFormCatalog: shieldFormSource,
 };
+const QUESTION_GRAPH_BINDINGS = Object.freeze([
+  [chargeSource.createChargeQuestionFixture, chargeSource.assertChargeQuestionGraph],
+  [chargeKnockbackSource.createChargeKnockbackQuestionRecords, chargeKnockbackSource.assertChargeKnockbackQuestionGraph],
+  [dashSource.createDashQuestionFixture, dashSource.assertDashQuestionGraph],
+  [jumpSource.createJumpQuestionFixture, jumpSource.assertJumpQuestionGraph],
+  [recoilSource.createRecoilQuestionFixture, recoilSource.assertRecoilQuestionGraph],
+  [retargetSource.createRetargetQuestionRecords, retargetSource.assertRetargetQuestionGraph],
+]);
 const NULLABLE_SOURCE_NUMERIC_FIELDS = Object.freeze([
   "damage",
   "deployTimeTicks",
@@ -499,6 +508,22 @@ function questionRecords(factory) {
     }));
   }
   return Object.keys(raw).sort().map((key) => raw[key]);
+}
+
+function graphNodes(root) {
+  const nodes = [];
+  const seen = new Set();
+  function visit(value) {
+    if (value === null || typeof value !== "object" || seen.has(value)) return;
+    seen.add(value);
+    nodes.push(value);
+    for (const key of Reflect.ownKeys(value)) {
+      if (key === "length") continue;
+      visit(Object.getOwnPropertyDescriptor(value, key).value);
+    }
+  }
+  visit(root);
+  return nodes;
 }
 
 test("movement profile contract: exact HTP-derived 9 occurrence pairs and 8 IDs", () => {
@@ -1257,6 +1282,67 @@ test("movement profile contract: QUESTION factories reject aliased Proxy roots a
   }
   assert.equal(cases, 32);
   assert.equal(callbackTotal, 0);
+
+  assert.deepEqual(Object.keys(movementQuestionGraph), []);
+  assert.equal(Object.hasOwn(movementQuestionGraph, "constructMovementQuestionGraph"), false);
+  assert.equal(Object.hasOwn(movementQuestionGraph, "cloneMovementQuestionGraph"), false);
+
+  const hostileTraps = {
+    getPrototypeOf() { directTrapCount += 1; },
+    ownKeys() { directTrapCount += 1; },
+    getOwnPropertyDescriptor() { directTrapCount += 1; },
+    get() { directTrapCount += 1; },
+    has() { directTrapCount += 1; },
+    isExtensible() { directTrapCount += 1; },
+  };
+  let directTrapCount = 0;
+  let admittedNodeCount = 0;
+  for (const [factory, assertor] of QUESTION_GRAPH_BINDINGS) {
+    const first = factory();
+    const second = factory();
+    assert.notEqual(first, second);
+    assert.equal(canonical(first), canonical(second));
+    assert.ok(deepFrozen(first));
+    assertor(first);
+
+    const nodes = graphNodes(first);
+    admittedNodeCount += nodes.length;
+    for (const node of nodes) {
+      const transparent = new Proxy(node, hostileTraps);
+      assert.throws(() => assertor(transparent), /source-admitted/u);
+      const revocable = Proxy.revocable(node, hostileTraps);
+      revocable.revoke();
+      assert.throws(() => assertor(revocable.proxy), /source-admitted/u);
+
+      const descriptorCopy = Object.create(
+        Object.getPrototypeOf(node),
+        Object.getOwnPropertyDescriptors(node),
+      );
+      assert.throws(() => assertor(descriptorCopy), /source-admitted/u);
+      const prototypeCopy = Object.create(Object.getPrototypeOf(node));
+      assert.throws(() => assertor(prototypeCopy), /source-admitted/u);
+    }
+
+    const forged = structuredClone(first);
+    if (Object.hasOwn(forged, "bonusDamage")) {
+      forged.bonusDamage = 999999;
+    } else {
+      forged.forgedQuestion = 999999;
+    }
+    assert.throws(() => assertor(forged), /source-admitted/u);
+
+    const hostileArgument = new Proxy({}, hostileTraps);
+    assert.throws(() => factory(hostileArgument), /override|argument/u);
+  }
+  assert.equal(admittedNodeCount, 99);
+  assert.equal(directTrapCount, 0);
+
+  const alteredCharge = structuredClone(chargeSource.createChargeQuestionFixture());
+  alteredCharge.bonusDamage = 999999;
+  assert.throws(
+    () => chargeSource.assertChargeQuestionGraph(alteredCharge),
+    /source-admitted/u,
+  );
 });
 
 test("movement profile contract: canonicalization fails closed for non-JSON values without traps", () => {

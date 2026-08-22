@@ -6,7 +6,6 @@ import * as jumpSource from "./cards/special-movement-jump.js";
 import * as recoilSource from "./cards/special-movement-recoil.js";
 import * as retargetSource from "./cards/special-movement-retarget.js";
 import * as shieldFormSource from "./cards/shields-forms.js";
-import { assertMovementQuestionGraph } from "./movement-question-graph.js";
 import { assertTrustedCardCatalog } from "./schema.js";
 import { createSessionTroopProfileManifest } from "./session-troop-profile-catalog.js";
 
@@ -158,6 +157,19 @@ const TRUSTED_SOURCE_FACTORIES = new WeakSet(
     Object.values(sourceModule).filter((value) => typeof value === "function")
   ),
 );
+
+// The dispatcher is deliberately closed over the six exact source bindings.
+// It has no caller-controlled registration path: a factory must be the
+// module-owned function and its result must be admitted by that same module's
+// private identity set before any graph inspection occurs.
+const QUESTION_GRAPH_ASSERTORS_BY_FACTORY = new WeakMap([
+  [chargeSource.createChargeQuestionFixture, chargeSource.assertChargeQuestionGraph],
+  [chargeKnockbackSource.createChargeKnockbackQuestionRecords, chargeKnockbackSource.assertChargeKnockbackQuestionGraph],
+  [dashSource.createDashQuestionFixture, dashSource.assertDashQuestionGraph],
+  [jumpSource.createJumpQuestionFixture, jumpSource.assertJumpQuestionGraph],
+  [recoilSource.createRecoilQuestionFixture, recoilSource.assertRecoilQuestionGraph],
+  [retargetSource.createRetargetQuestionRecords, retargetSource.assertRetargetQuestionGraph],
+]);
 
 const EXPECTED_ID_SET = new Set(EXPECTED_OCCURRENCES.map(({ id }) => id));
 const EXPECTED_EXPORT_SET = new Set(EXPECTED_OCCURRENCES.map(({ exportName }) => exportName));
@@ -1219,17 +1231,20 @@ function normalizeQuestionPolicy(spec) {
   if (typeof factory !== "function") {
     throw new Error(`${spec.questionFactory} is not exported by ${spec.exportName} source module`);
   }
+  const assertSourceQuestionGraph = QUESTION_GRAPH_ASSERTORS_BY_FACTORY.get(factory);
+  if (typeof assertSourceQuestionGraph !== "function") {
+    throw new TypeError(`${spec.questionFactory} is not an authenticated QUESTION factory`);
+  }
   assertFactoryShapeSurface(factory, spec.questionFactory);
   const firstRaw = factory();
   const secondRaw = factory();
   if (firstRaw === secondRaw) {
     throw new Error(`${spec.questionFactory} is not fresh and deterministic`);
   }
-  // QUESTION factories return nodes made by the movement source constructor.
-  // Admit those identities before any shape reflection; transformed wrappers
-  // therefore reject root and nested Proxies without invoking their traps.
-  assertMovementQuestionGraph(firstRaw, `${spec.questionFactory} first read`);
-  assertMovementQuestionGraph(secondRaw, `${spec.questionFactory} second read`);
+  // This module-owned assertion is the identity boundary. It must precede all
+  // property, descriptor, prototype, iterator, and serialization reads.
+  assertSourceQuestionGraph(firstRaw, `${spec.questionFactory} first read`);
+  assertSourceQuestionGraph(secondRaw, `${spec.questionFactory} second read`);
   const firstShape = assertQuestionFactoryShape(firstRaw, `${spec.questionFactory} first read`);
   const secondShape = assertQuestionFactoryShape(secondRaw, `${spec.questionFactory} second read`);
   const first = constructCanonicalGraph(

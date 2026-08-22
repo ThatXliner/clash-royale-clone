@@ -146,8 +146,9 @@ test("jump special: every mechanic is an isolated per-value question", () => {
       source: "unsourced-targeted-jump-fixture",
     });
   }
-  fixture.landingDamage = 1;
-  fixture.provenance.transitTicks.disposition = "match";
+  assert.equal(Object.isFrozen(fixture), true);
+  assert.equal(Object.isFrozen(fixture.provenance), true);
+  assert.equal(Object.isFrozen(fixture.provenance.transitTicks), true);
   assert.equal(createJumpQuestionFixture().landingDamage, 536);
   assert.equal(
     createJumpQuestionFixture().provenance.transitTicks.disposition,

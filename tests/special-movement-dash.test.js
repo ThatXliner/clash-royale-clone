@@ -146,8 +146,9 @@ test("dash special: question fixture is complete, explicit, and isolated", () =>
   };
   const fixture = createDashQuestionFixture();
   assert.deepEqual(fixture, expected);
-  fixture.bonusDamage = 0;
-  fixture.provenance.transitTicks.disposition = "match";
+  assert.equal(Object.isFrozen(fixture), true);
+  assert.equal(Object.isFrozen(fixture.provenance), true);
+  assert.equal(Object.isFrozen(fixture.provenance.transitTicks), true);
   assert.deepEqual(createDashQuestionFixture(), expected);
   assert.throws(
     () => createDashQuestionFixture({ transitTicks: 1 }),
