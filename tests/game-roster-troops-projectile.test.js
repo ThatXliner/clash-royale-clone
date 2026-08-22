@@ -1,4 +1,6 @@
 import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import test from "node:test";
 
 import {
@@ -347,4 +349,233 @@ test("closed receipt admission rejects forged plans and roster TOCTOU", () => {
   snapshot.projectileRuntime.configuration = forgedBytes;
   assert.throws(() => LiveBattle.restore(canonical(snapshot)),
     /closed HTJP snapshot|host-admitted capability|diverges|witness is invalid/u);
+});
+
+const AUTHORITY_RUNTIME_PATH = fileURLToPath(new URL(
+  "../src/sim/session-troop-projectile-runtime.js", import.meta.url,
+));
+const AUTHORITY_SHARED_PATH = fileURLToPath(new URL(
+  "../src/shared/session-troop-projectile-authority.js", import.meta.url,
+));
+const AUTHORITY_CONTENT_PATH = fileURLToPath(new URL(
+  "../src/content/session-troop-projectile-profiles.js", import.meta.url,
+));
+const AUTHORITY_BATTLE_PATH = fileURLToPath(new URL(
+  "../src/sim/live-battle.js", import.meta.url,
+));
+const AUTHORITY_SESSION_PATH = fileURLToPath(new URL(
+  "../src/sim/game-session.js", import.meta.url,
+));
+
+const AUTHORITY_PROBE = String.raw`
+import assert from "node:assert/strict";
+import { pathToFileURL } from "node:url";
+
+const config = JSON.parse(process.env.PROJECTILE_AUTHORITY_PROBE);
+const callback = () => {
+  globalThis.__projectileAuthorityCallbacks = (globalThis.__projectileAuthorityCallbacks ?? 0) + 1;
+  throw new Error("hostile authority callback");
+};
+globalThis.__projectileAuthorityCallbacks = 0;
+globalThis.__projectileAuthorityTraps = 0;
+
+function canonical(value) {
+  if (Array.isArray(value)) return "[" + value.map(canonical).join(",") + "]";
+  if (value !== null && typeof value === "object") {
+    return "{" + Object.keys(value).sort().map((key) =>
+      JSON.stringify(key) + ":" + canonical(value[key])).join(",") + "}";
+  }
+  return JSON.stringify(value);
+}
+
+function url(path, query) {
+  return pathToFileURL(path).href + (query ?? "");
+}
+
+async function loadModules() {
+  const query = config.duplicate ? "?authority=" + config.order + "&route=" + config.route : "";
+  const runtimeUrl = url(config.runtimePath, query);
+  const sharedUrl = url(config.sharedPath, query);
+  const contentUrl = url(config.contentPath, query);
+  if (config.order === "runtime-first") {
+    const runtime = await import(runtimeUrl);
+    const shared = await import(sharedUrl);
+    const content = await import(contentUrl);
+    return { content, runtime, shared };
+  }
+  if (config.order === "content-first") {
+    const content = await import(contentUrl);
+    const shared = await import(sharedUrl);
+    const runtime = await import(runtimeUrl);
+    return { content, runtime, shared };
+  }
+  if (config.order === "parallel") {
+    const [content, runtime, shared] = await Promise.all([
+      import(contentUrl), import(runtimeUrl), import(sharedUrl),
+    ]);
+    return { content, runtime, shared };
+  }
+  const [runtime, runtimeDuplicate, shared, sharedDuplicate, content, contentDuplicate] =
+    await Promise.all([
+      import(url(config.runtimePath, "?authority=one&route=" + config.route)),
+      import(url(config.runtimePath, "?authority=two&route=" + config.route)),
+      import(url(config.sharedPath, "?authority=one&route=" + config.route)),
+      import(url(config.sharedPath, "?authority=two&route=" + config.route)),
+      import(url(config.contentPath, "?authority=one&route=" + config.route)),
+      import(url(config.contentPath, "?authority=two&route=" + config.route)),
+    ]);
+  assert.deepEqual(runtimeDuplicate.SESSION_TROOP_PROJECTILE_RUNTIME_VERSION,
+    runtime.SESSION_TROOP_PROJECTILE_RUNTIME_VERSION);
+  assert.equal(sharedDuplicate.SESSION_TROOP_PROJECTILE_AUTHORITY_RECEIPT,
+    shared.SESSION_TROOP_PROJECTILE_AUTHORITY_RECEIPT);
+  assert.equal(contentDuplicate.serializeSessionTroopProjectileProfileManifest(),
+    content.serializeSessionTroopProjectileProfileManifest());
+  return { content, runtime, shared };
+}
+
+function attackRegistrationRoutes(runtime) {
+  const candidate = runtime.registerSessionTroopProjectileRuntimeAuthority;
+  if (candidate !== undefined) {
+    throw new Error("removed projectile registrar remains publicly exported");
+  }
+  for (const route of ["direct", "bind", "proxy", "wrapper", "call", "apply", "reflect"]) {
+    if (candidate === undefined) continue;
+    const target = route === "proxy" ? new Proxy(candidate, {
+      apply() { globalThis.__projectileAuthorityTraps += 1; return callback(); },
+    }) : candidate;
+    const invoke = route === "bind" ? target.bind(null, callback)
+      : route === "wrapper" ? (...args) => target(...args)
+        : target;
+    try {
+      if (route === "call") invoke.call(null, callback);
+      else if (route === "apply") invoke.apply(null, [callback]);
+      else if (route === "reflect") Reflect.apply(invoke, null, [callback]);
+      else invoke(callback);
+    } catch {
+      // Rejection is expected for every legacy route.
+    }
+  }
+}
+
+function attackPublicInputs(modules) {
+  const { content, runtime, shared } = modules;
+  const inventories = [
+    ["content", content],
+    ["runtime", runtime],
+    ["shared", shared],
+  ];
+  for (const [moduleName, module] of inventories) {
+    const exportedNames = Object.keys(module).sort();
+    if (exportedNames.some((name) => /register|provider|issuer|plan/u.test(name))) {
+      throw new Error(moduleName + " authority exposes a generic authority export: " + exportedNames.join(","));
+    }
+  }
+  const sharedNames = Object.keys(shared).sort();
+  assert.deepEqual(sharedNames, [
+    "SESSION_TROOP_PROJECTILE_AUTHORITY_RECEIPT",
+    "assertSessionTroopProjectileAuthorityReceipt",
+    "getSessionTroopProjectileAuthorityReceipt",
+  ]);
+  const runtimeNames = Object.keys(runtime).sort();
+  assert.ok(runtimeNames.includes("SessionTroopProjectileRuntime"));
+  assert.ok(runtimeNames.includes("admitSessionTroopProjectileRuntimeProfiles"));
+  if (runtimeNames.some((name) => /register|provider|issuer|plan/u.test(name))) {
+    throw new Error("runtime authority exposes a generic authority export: " + runtimeNames.join(","));
+  }
+  for (const [name, value] of Object.entries(shared)) {
+    if (typeof value !== "function") continue;
+    try { value(callback); } catch { /* hostile callback/object must be rejected or ignored */ }
+  }
+  attackRegistrationRoutes(runtime);
+  const hostile = new Proxy({
+    get() { globalThis.__projectileAuthorityTraps += 1; return callback(); },
+    getPrototypeOf() { globalThis.__projectileAuthorityTraps += 1; return callback(); },
+  }, {
+    get() { globalThis.__projectileAuthorityTraps += 1; return callback(); },
+    getPrototypeOf() { globalThis.__projectileAuthorityTraps += 1; return callback(); },
+  });
+  const accessor = Object.defineProperty({}, "value", {
+    enumerable: true,
+    get() { globalThis.__projectileAuthorityTraps += 1; return callback(); },
+  });
+  const hostileInputs = [hostile, accessor, new String(config.receipt), {}];
+  for (const value of hostileInputs) {
+    for (const admit of [
+      runtime.admitSessionTroopProjectileRuntimeProfiles,
+      shared.assertSessionTroopProjectileAuthorityReceipt,
+    ]) {
+      assert.equal(typeof admit, "function");
+      assert.throws(() => admit(value));
+    }
+  }
+  assert.throws(() => runtime.SessionTroopProjectileRuntime.fromReceipt("{}"));
+  assert.throws(() => new runtime.SessionTroopProjectileRuntime({
+    configuration: config.receipt,
+    profiles: [],
+    questions: [],
+  }));
+  assert.throws(() => new globalThis.LiveBattle(config.battleSetup,
+    undefined, undefined, "{}"));
+  assert.throws(() => new globalThis.GameSession("{}"));
+  const forgedSetup = JSON.parse(config.setup);
+  forgedSetup.projectileRuntimeProfiles = "{}";
+  assert.throws(() => new globalThis.GameSession(canonical(forgedSetup)));
+  assert.equal(shared.getSessionTroopProjectileAuthorityReceipt(), config.receipt);
+  assert.equal(runtime.admitSessionTroopProjectileRuntimeProfiles(config.receipt), config.receipt);
+  assert.equal(content.serializeSessionTroopProjectileProfileManifest(), config.receipt);
+}
+
+const modules = await loadModules();
+const battleModule = await import(url(config.battlePath,
+  config.duplicate ? "?authority=" + config.order : ""));
+const sessionModule = await import(url(config.sessionPath,
+  config.duplicate ? "?authority=" + config.order : ""));
+globalThis.LiveBattle = battleModule.LiveBattle;
+globalThis.GameSession = sessionModule.GameSession;
+attackPublicInputs(modules);
+console.log(JSON.stringify({
+  accepted: true,
+  callbacks: globalThis.__projectileAuthorityCallbacks,
+  traps: globalThis.__projectileAuthorityTraps,
+  runtimeExports: Object.keys(modules.runtime).sort(),
+  sharedExports: Object.keys(modules.shared).sort(),
+}));
+`;
+
+test("closed projectile authority has no public registrar and survives fresh-process preemption routes", () => {
+  const orders = ["runtime-first", "content-first", "parallel", "duplicate-modules"];
+  const routes = ["direct", "bind", "proxy", "wrapper", "call", "apply", "reflect"];
+  const setup = canonical(witnessSetup("stormkite"));
+  let probes = 0;
+  for (const order of orders) {
+    for (const route of routes) {
+      const result = spawnSync(process.execPath, ["--input-type=module", "-e", AUTHORITY_PROBE], {
+        encoding: "utf8",
+        env: {
+          ...process.env,
+          PROJECTILE_AUTHORITY_PROBE: JSON.stringify({
+            battleSetup: JSON.parse(setup).battleSetup,
+            battlePath: AUTHORITY_BATTLE_PATH,
+            contentPath: AUTHORITY_CONTENT_PATH,
+            duplicate: order === "duplicate-modules",
+            order,
+            receipt: RECEIPT,
+            route,
+            runtimePath: AUTHORITY_RUNTIME_PATH,
+            sessionPath: AUTHORITY_SESSION_PATH,
+            setup,
+            sharedPath: AUTHORITY_SHARED_PATH,
+          }),
+        },
+      });
+      assert.equal(result.error, undefined, result.error?.message);
+      assert.equal(result.status, 0, `${order}/${route}\n${result.stdout}\n${result.stderr}`);
+      const output = JSON.parse(result.stdout.trim().split(/\r?\n/u).at(-1));
+      assert.equal(output.accepted, true, `${order}/${route}`);
+      assert.equal(output.callbacks, 0, `${order}/${route} callback count`);
+      assert.equal(output.traps, 0, `${order}/${route} trap count`);
+      probes += 1;
+    }
+  }
+  assert.equal(probes, 28);
 });

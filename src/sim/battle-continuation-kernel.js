@@ -6444,7 +6444,9 @@ class LiveBattle {
     const setup = admittedSetup(value);
     const projectileRuntime = projectileRuntimePlan === undefined
       ? null
-      : new SessionTroopProjectileRuntime(projectileRuntimePlan);
+      : typeof projectileRuntimePlan === "string"
+        ? SessionTroopProjectileRuntime.fromReceipt(projectileRuntimePlan)
+        : new SessionTroopProjectileRuntime(projectileRuntimePlan);
     projectileRuntime?.assertSourceRoster(setup.roster);
     const statusRuntime = statusRuntimeProfiles === undefined
       ? null
@@ -11387,7 +11389,7 @@ function validateSetup(bytes, { allowLegacyStructureReceipts = false,
     ? setup.projectileRuntimeProfiles : undefined;
   if (projectileRuntimeProfiles !== undefined &&
       (typeof projectileRuntimeProfiles !== "string" || projectileRuntimePlan === undefined ||
-       projectileRuntimePlan.configuration !== projectileRuntimeProfiles)) {
+       projectileRuntimePlan !== projectileRuntimeProfiles)) {
     throw new TypeError("session troop projectile runtime profiles require the admitted host plan");
   }
   assertSessionTroopStatusSourceRoster(

@@ -1,3 +1,7 @@
+import {
+  assertSessionTroopProjectileAuthorityReceipt,
+} from "../shared/session-troop-projectile-authority.js";
+
 /**
  * Shared projectile-mechanic continuation for the admitted troop projectile
  * receipt.
@@ -62,7 +66,6 @@ const EVENT_ORDER = new Map([
   ["death", 3],
 ]);
 const internalProjectilePlans = new WeakSet();
-let projectileProfileAuthority = null;
 
 function clone(value) {
   return structuredClone(value);
@@ -361,10 +364,42 @@ function checkedSourceCard(value, label) {
   return card;
 }
 
-function issuePlan(value) {
-  const candidate = exact(value, ["configuration", "profiles", "questions"],
+function privatePlanFromReceipt(serialized) {
+  assertSessionTroopProjectileAuthorityReceipt(serialized);
+  let manifest;
+  try { manifest = JSON.parse(serialized); }
+  catch { throw new TypeError("projectile runtime authority receipt is invalid"); }
+  const profiles = manifest.profiles.map((profile) => ({
+    claimFamily: profile.claims[0].claimFamily,
+    id: profile.id,
+    questions: clone(profile.claims[0].questions),
+    sourceCard: clone(profile.sourceCard),
+  }));
+  const questions = manifest.unresolvedDeliveryDependencies.flatMap((dependency) => {
+    const dependencyQuestions = Object.fromEntries(Object.entries(dependency.questions).map(
+      ([key, record]) => {
+        const { key: _questionKey, ...withoutKey } = record;
+        return [key, withoutKey];
+      }));
+    const base = {
+      claimFamily: dependency.claimFamily,
+      questions: dependencyQuestions,
+    };
+    return [
+      { cardId: dependency.id, ...base },
+      ...(dependency.component === null || dependency.component === undefined ? [] : [
+        { cardId: dependency.component.id, ...base },
+      ]),
+    ];
+  });
+  return { configuration: serialized, profiles, questions };
+}
+
+function admitPlanFromReceipt(serialized) {
+  const candidate = privatePlanFromReceipt(serialized);
+  const checkedCandidate = exact(candidate, ["configuration", "profiles", "questions"],
     "projectile runtime admitted plan");
-  const plan = freeze(clone(candidate));
+  const plan = freeze(clone(checkedCandidate));
   internalProjectilePlans.add(plan);
   checkedPlan(plan);
   return plan;
@@ -700,6 +735,10 @@ export class SessionTroopProjectileRuntime {
     this.#configuration = checkedPlan(configuration);
   }
 
+  static fromReceipt(serialized) {
+    return new SessionTroopProjectileRuntime(admitPlanFromReceipt(serialized));
+  }
+
   get configuration() {
     return this.#configuration.bytes;
   }
@@ -960,7 +999,9 @@ export class SessionTroopProjectileRuntime {
   static restore(serialized, configuration) {
     const snapshot = parseCanonical(serialized, "serialized projectile runtime");
     const checked = checkedSnapshot(snapshot);
-    const restored = new SessionTroopProjectileRuntime(configuration);
+    const plan = typeof configuration === "string"
+      ? admitPlanFromReceipt(configuration) : configuration;
+    const restored = new SessionTroopProjectileRuntime(plan);
     assertSnapshotPlan(restored.#configuration, checked);
     if (restored.configuration !== checked.configuration.bytes) {
       throw new TypeError("projectile runtime snapshot configuration diverges from its host plan");
@@ -981,23 +1022,6 @@ export class SessionTroopProjectileRuntime {
   }
 }
 
-export function registerSessionTroopProjectileRuntimeAuthority(admit) {
-  if (typeof admit !== "function") {
-    throw new TypeError("projectile runtime authority must be a function");
-  }
-  if (projectileProfileAuthority !== null && projectileProfileAuthority !== admit) {
-    throw new TypeError("projectile runtime authority is already registered");
-  }
-  projectileProfileAuthority = (serialized) => issuePlan(admit(serialized));
-}
-
-function admitProjectileProfiles(serialized) {
-  if (projectileProfileAuthority === null) {
-    throw new TypeError("projectile runtime content authority is not loaded");
-  }
-  return projectileProfileAuthority(serialized);
-}
-
 function parseAuthorityEnvelope(serialized) {
   if (typeof serialized !== "string") return undefined;
   try { return JSON.parse(serialized); }
@@ -1005,14 +1029,15 @@ function parseAuthorityEnvelope(serialized) {
 }
 
 export function admitSessionTroopProjectileRuntimeProfiles(serialized) {
-  return admitProjectileProfiles(serialized);
+  assertSessionTroopProjectileAuthorityReceipt(serialized);
+  return serialized;
 }
 
 export function admitSessionTroopProjectileRuntimeFromSetup(serializedSetup) {
   const setup = parseAuthorityEnvelope(serializedSetup);
   if (setup === null || typeof setup !== "object" || Array.isArray(setup) ||
       !Object.hasOwn(setup, "projectileRuntimeProfiles")) return undefined;
-  return admitProjectileProfiles(setup.projectileRuntimeProfiles);
+  return admitSessionTroopProjectileRuntimeProfiles(setup.projectileRuntimeProfiles);
 }
 
 export function admitSessionTroopProjectileRuntimeFromGameSnapshot(serializedSnapshot) {
@@ -1032,5 +1057,5 @@ export function admitSessionTroopProjectileRuntimeFromBattleSnapshot(serializedS
   if (runtime === null || typeof runtime !== "object" || Array.isArray(runtime)) {
     throw new TypeError("live battle projectile runtime witness is invalid");
   }
-  return admitProjectileProfiles(runtime.configuration);
+  return admitSessionTroopProjectileRuntimeProfiles(runtime.configuration);
 }

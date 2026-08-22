@@ -1,7 +1,7 @@
 import { spawnSync } from "node:child_process";
 import { readFileSync, realpathSync } from "node:fs";
 import { readdir, realpath } from "node:fs/promises";
-import { dirname, extname, isAbsolute, join, resolve, sep } from "node:path";
+import { dirname, extname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import vm from "node:vm";
 
@@ -46,6 +46,12 @@ const DIRECT_FORBIDDEN = new Map([
 ]);
 
 const ACORN_SOURCE_KEY = "internal/deps/acorn/acorn/dist/acorn";
+const REPOSITORY_SOURCE_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "../src");
+const SIMULATION_GRAPH_ROOT = resolve(REPOSITORY_SOURCE_ROOT, "sim");
+const SIMULATION_NEUTRAL_MODULE = resolve(
+  REPOSITORY_SOURCE_ROOT,
+  "shared/session-troop-projectile-authority.js",
+);
 let parser;
 
 function loadPlatformParser() {
@@ -821,8 +827,24 @@ function graphModuleSpecifiers(tree) {
   return specifiers;
 }
 
-function collectLocalModuleGraph(entryPaths, rootPath = commonDirectory(entryPaths)) {
+function graphAllowedPaths(root) {
+  if (root === SIMULATION_GRAPH_ROOT) {
+    // The simulation may consume this one dependency-direction-neutral,
+    // deterministic authority. Do not admit the rest of src/shared: an
+    // import escape must remain outside the simulation closure.
+    return { directories: [root], files: [SIMULATION_NEUTRAL_MODULE] };
+  }
+  return { directories: [root], files: [] };
+}
+
+function collectLocalModuleGraph(
+  entryPaths,
+  rootPath = commonDirectory(entryPaths),
+  allowedPathPolicy = graphAllowedPaths(realpathSync(rootPath)),
+) {
   const root = realpathSync(rootPath);
+  const allowedDirectories = allowedPathPolicy.directories.map((path) => realpathSync(path));
+  const allowedFiles = allowedPathPolicy.files.map((path) => resolve(path));
   const pending = entryPaths.map((path) => ({ depth: 0, path }));
   const sources = [];
   const paths = [];
@@ -837,7 +859,10 @@ function collectLocalModuleGraph(entryPaths, rootPath = commonDirectory(entryPat
       );
     }
     const resolvedPath = realpathSync(path);
-    if (resolvedPath !== root && !resolvedPath.startsWith(`${root}${sep}`)) {
+    const allowed = allowedDirectories.some((allowedDirectory) =>
+      resolvedPath === allowedDirectory || resolvedPath.startsWith(`${allowedDirectory}${sep}`)) ||
+      allowedFiles.includes(resolvedPath);
+    if (!allowed) {
       throw new NondeterminismGuardError(
         `${path} resolves outside module graph root ${root}`,
         { code: "GRAPH_ROOT_ESCAPE" },
@@ -861,7 +886,7 @@ function collectLocalModuleGraph(entryPaths, rootPath = commonDirectory(entryPat
     }
     const tree = parseModule(source, resolvedPath);
     paths.push(resolvedPath);
-    sources.push({ file: resolvedPath.slice(root.length + 1), source });
+    sources.push({ file: relative(root, resolvedPath), source });
     for (const specifier of graphModuleSpecifiers(tree)) {
       if (!specifier.startsWith(".") && !specifier.startsWith("/")) continue;
       const dependency = resolve(dirname(resolvedPath), specifier);
@@ -897,7 +922,7 @@ export async function guardSimulationDirectory(directory) {
   const graph = collectLocalModuleGraph(paths, resolve(directoryPath));
   const result = assertDeterministicSources(graph.sources);
   probeModuleGraph(graph.paths, { audited: true, root: graph.root });
-  return Object.freeze({ ...result, runtimeProbed: paths.length });
+  return Object.freeze({ ...result, runtimeProbed: graph.paths.length });
 }
 
 function runtimePayload(paths) {

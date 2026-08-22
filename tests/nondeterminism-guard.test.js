@@ -1,10 +1,10 @@
 import assert from "node:assert/strict";
-import { mkdtempSync, writeFileSync } from "node:fs";
+import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { basename, join } from "node:path";
 import test from "node:test";
-import { pathToFileURL } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 import {
   GUARD_LIMITS,
@@ -240,10 +240,54 @@ test("nondeterminism-guard: scans every simulation module and probes its runtime
   );
   const result = await guardSimulationDirectory(directory);
   assert.deepEqual(result, {
-    files: EXPECTED_SIMULATION_MODULES.length,
-    runtimeProbed: EXPECTED_SIMULATION_MODULES.length,
+    files: EXPECTED_SIMULATION_MODULES.length + 1,
+    runtimeProbed: EXPECTED_SIMULATION_MODULES.length + 1,
     violations: [],
   });
+});
+
+test("nondeterminism-guard: simulation closure admits only the exact neutral authority", () => {
+  const simulationRoot = fileURLToPath(new URL("../src/sim/", import.meta.url));
+  const authority = join(
+    simulationRoot,
+    "../shared/session-troop-projectile-authority.js",
+  );
+  const hostileSibling = join(
+    simulationRoot,
+    "../shared/.nondeterminism-hostile-sibling.js",
+  );
+  const hostileImporter = join(simulationRoot, ".nondeterminism-hostile-import.js");
+  writeFileSync(hostileSibling, "export const value = 1;\n");
+  writeFileSync(
+    hostileImporter,
+    "export { value } from '../shared/.nondeterminism-hostile-sibling.js';\n",
+  );
+  try {
+    assert.deepEqual(probeModuleGraph([authority], { root: simulationRoot }), {
+      modules: 1,
+      status: "ok",
+    });
+    assert.throws(
+      () => probeModuleGraph([hostileImporter], { root: simulationRoot }),
+      (error) => error instanceof NondeterminismGuardError &&
+        error.code === "RUNTIME_CAPABILITY_VIOLATION" &&
+        /outside module graph root/.test(error.message),
+      "a simulation import must not widen to a shared sibling",
+    );
+    assert.throws(
+      () => probeModuleGraph(
+        [join(simulationRoot, "../content/session-troop-projectile-profiles.js")],
+        { root: simulationRoot },
+      ),
+      (error) => error instanceof NondeterminismGuardError &&
+        error.code === "RUNTIME_CAPABILITY_VIOLATION" &&
+        /outside module graph root/.test(error.message),
+      "content remains outside the simulation graph closure",
+    );
+  } finally {
+    rmSync(hostileImporter, { force: true });
+    rmSync(hostileSibling, { force: true });
+  }
 });
 
 test("nondeterminism-guard: runtime probe denies computed capabilities the analyzer cannot resolve", async (context) => {

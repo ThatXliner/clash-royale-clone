@@ -20,8 +20,8 @@ import {
 import { createSessionTroopProfileManifest } from "./session-troop-profile-catalog.js";
 import { createSessionTroopWitnessQuestions } from "./session-troop-roster.js";
 import {
-  registerSessionTroopProjectileRuntimeProfileAdmission,
-} from "./session-troop-projectile-admission.js";
+  getSessionTroopProjectileAuthorityReceipt,
+} from "../shared/session-troop-projectile-authority.js";
 
 const VERSION = 1;
 const MAX_SOURCE_CATALOG_ROWS = 64;
@@ -1264,7 +1264,13 @@ function buildManifest() {
   });
 }
 
-const MANIFEST = buildManifest();
+const MANIFEST = (() => {
+  const manifest = buildManifest();
+  if (canonical(manifest) !== getSessionTroopProjectileAuthorityReceipt()) {
+    throw new TypeError("projectile profile manifest diverges from the closed HTJP authority");
+  }
+  return manifest;
+})();
 
 function assertNoArguments(args, label) {
   if (args.length !== 0) throw new TypeError(`${label} takes no arguments`);
@@ -1277,7 +1283,7 @@ export function createSessionTroopProjectileProfileManifest(...args) {
 
 export function serializeSessionTroopProjectileProfileManifest(...args) {
   assertNoArguments(args, "session troop projectile profile serialization");
-  return canonical(MANIFEST);
+  return getSessionTroopProjectileAuthorityReceipt();
 }
 
 export function getSessionTroopProjectileProfile(id, ...args) {
@@ -1301,7 +1307,3 @@ export function getSessionTroopProjectileProfile(id, ...args) {
   }
   return deepFreezeClone(profile);
 }
-
-registerSessionTroopProjectileRuntimeProfileAdmission({
-  serializeManifest: serializeSessionTroopProjectileProfileManifest,
-});
