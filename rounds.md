@@ -4912,3 +4912,24 @@ source-catalog row and still returned the current 8/240 manifest.
 BIGGEST GAP: `sourceRows()` finds each requested ID but never verifies the
 complete source catalog ID set. An extra future catalog row is silently ignored
 instead of failing closed.
+
+## Round 261 — 2026-08-21
+
+PIECE: GAME-001HTJP — Projectile source-profile contract, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Both focused entry points passed 11/11, HTP passed 11/11, HTO passed
+14/14, GAME-001TH passed 17/17, both isolation guards passed 9/9 and 13/13,
+and `node --check` plus clean committed-tree checks passed. Independent probes
+confirmed eight exact HTP/source joins; chain, pierce, return, pellet and
+reflection fixtures at 11/17/20/30/31 records; recursive freeze/detachment;
+source-drift rejection; and zero invoked duel/combatant constructors. However,
+`BasicFlyingDuel(copperskiff, skymaul)` emitted the same synthetic projectile
+launch for both cards. The flying catalog contains no delivery field, and its
+fixture claims cadence and layer only.
+
+BIGGEST GAP: Copperskiff lacks card-specific source proof of projectile
+delivery. A generic flying duel cannot justify admitting Copperskiff while
+excluding Skymaul; add a specific source receipt or keep Copperskiff as an
+explicit delivery QUESTION.
