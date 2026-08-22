@@ -1,4 +1,5 @@
 import * as content from "./index.js";
+import { assertTrustedCardCatalog } from "./schema.js";
 import { createSessionCardManifest } from "./session-card-catalog.js";
 
 const VERSION = 1;
@@ -92,7 +93,7 @@ function sourceRecords(exportName) {
   }
   const value = content[exportName];
   const records = typeof value === "function"
-    ? value()
+    ? assertTrustedCardCatalog(value(), `${exportName} source catalog`)
     : Array.isArray(value)
     ? value
     : value !== null && typeof value === "object" && typeof value.id === "string"

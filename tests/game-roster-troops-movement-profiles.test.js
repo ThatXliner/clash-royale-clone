@@ -289,7 +289,9 @@ function sourceWrapperCase(exportName, id, mutation, options = {}) {
     `const record = records.find(({ id: candidateId }) => candidateId === ${JSON.stringify(id)});`,
     'if (record === undefined) throw new Error("source wrapper record is missing");',
     guardedMutation,
-    "return records;",
+    options.rebuildWithTrustedConstructor
+      ? "return createCardCatalog(records);"
+      : "return records;",
   ].filter(Boolean).join("\n");
   return {
     expect: options.expect ?? "reject",
@@ -1012,7 +1014,7 @@ test("movement profile contract: complete source witnesses reject the adversaria
     "createRetargetSpecialCatalog",
     "wayfinder",
     "records[records.indexOf(record)] = Object.fromEntries(Object.entries(record).reverse());",
-    { expect: "accept" },
+    { expect: "accept", rebuildWithTrustedConstructor: true },
   ));
   const baselineBytes = serializeSessionTroopMovementProfileManifest();
   assert.deepEqual(propertyOrder, {
@@ -1091,7 +1093,7 @@ test("movement profile contract: every pinned null numeric path rejects non-fini
     "createRecoilSpecialCatalog",
     "cinderback",
     "records[records.indexOf(record)] = Object.fromEntries(Object.entries(record).reverse());",
-    { expect: "accept" },
+    { expect: "accept", rebuildWithTrustedConstructor: true },
   ));
   assert.deepEqual(cinderbackPropertyOrder, {
     accepted: true,

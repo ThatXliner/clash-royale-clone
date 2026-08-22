@@ -21,6 +21,7 @@ import {
   createReflectionQuestionFixture,
   createReflectionSpecialCatalog,
 } from "./cards/special-projectiles-reflection.js";
+import { assertTrustedCardCatalog } from "./schema.js";
 import { createSessionTroopProfileManifest } from "./session-troop-profile-catalog.js";
 import { createSessionTroopWitnessQuestions } from "./session-troop-roster.js";
 
@@ -549,22 +550,6 @@ const AEGIS_COMPOSITION_PENDING = Object.freeze({
   targetOwnership: Object.freeze({ owner: "GAME-001HTC", status: "pending" }),
 });
 
-// Node exposes a trap-free proxy brand check through util.types. The content
-// modules also run in the trusted transformed-module probe, where process is
-// an explicitly supplied host capability. Browser builds do not expose that
-// capability, so ordinary source data still goes through the structural
-// checks below.
-const NODE_UTIL_TYPES = (() => {
-  const processValue = Object.getOwnPropertyDescriptor(globalThis, "process")?.value;
-  const getBuiltinModule = processValue?.getBuiltinModule;
-  if (typeof getBuiltinModule !== "function") return null;
-  try {
-    return getBuiltinModule("node:util")?.types ?? null;
-  } catch {
-    return null;
-  }
-})();
-
 function clone(value) {
   return structuredClone(value);
 }
@@ -590,12 +575,6 @@ function canonical(value) {
   const encoded = JSON.stringify(value);
   if (encoded === undefined) throw new TypeError("canonical data cannot contain undefined");
   return encoded;
-}
-
-function isProxy(value) {
-  return NODE_UTIL_TYPES !== null &&
-    typeof NODE_UTIL_TYPES.isProxy === "function" &&
-    NODE_UTIL_TYPES.isProxy(value);
 }
 
 function isArray(value) {
@@ -625,7 +604,6 @@ function exactKeys(value, expected, label, { exactPrototype = false } = {}) {
   if (
     value === null ||
     typeof value !== "object" ||
-    isProxy(value) ||
     isArray(value)
   ) {
     throw new TypeError(`${label} must be a plain data object`);
@@ -651,7 +629,6 @@ function exactKeys(value, expected, label, { exactPrototype = false } = {}) {
 
 function denseArray(value, maximum, label) {
   if (
-    isProxy(value) ||
     !isArray(value) ||
     Object.getPrototypeOf(value) !== Array.prototype ||
     value.length > maximum
@@ -1051,6 +1028,7 @@ function validateSourceRecord(record, label) {
 }
 
 function validateSourceCatalog(value, binding) {
+  assertTrustedCardCatalog(value, `${binding.exportName} result`);
   denseArray(value, MAX_SOURCE_CATALOG_ROWS, `${binding.exportName} result`);
   return value.map((record, index) =>
     validateSourceRecord(record, `${binding.exportName}[${index}]`));

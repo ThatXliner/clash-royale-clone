@@ -65,6 +65,135 @@ const PRIMARY_FIELDS = Object.freeze([
 const hasOwn = (value, key) =>
   Object.prototype.hasOwnProperty.call(value, key);
 
+// Catalog outputs stay mutable for caller isolation tests and runtime use, so
+// structural shape alone cannot identify a trusted source boundary. Keep the
+// capability private: consumers may ask whether a graph is one of our exact
+// outputs, but no caller can brand a replacement object.
+const TRUSTED_CATALOG_GRAPH = new WeakSet();
+const TRUSTED_CATALOG_SHAPES = new WeakMap();
+
+function assertTrustedDataRecord(value, keys, label) {
+  if (Object.getPrototypeOf(value) !== Object.prototype) {
+    throw new TypeError(`${label} is not a canonical catalog record`);
+  }
+  const descriptors = Object.getOwnPropertyDescriptors(value);
+  const actual = Reflect.ownKeys(descriptors);
+  if (
+    actual.length !== keys.length ||
+    actual.some((key) => typeof key !== "string" || !keys.includes(key)) ||
+    keys.some((key) => (
+      !hasOwn(descriptors, key) ||
+      !descriptors[key].enumerable ||
+      !hasOwn(descriptors[key], "value")
+    ))
+  ) {
+    throw new TypeError(`${label} is not a canonical catalog record`);
+  }
+}
+
+function assertTrustedDataArray(value, expectedValues, label) {
+  if (Object.getPrototypeOf(value) !== Array.prototype) {
+    throw new TypeError(`${label} is not a canonical catalog array`);
+  }
+  const descriptors = Object.getOwnPropertyDescriptors(value);
+  const expectedKeys = new Set([
+    "length",
+    ...expectedValues.map((_, index) => String(index)),
+  ]);
+  const actualKeys = Reflect.ownKeys(descriptors);
+  if (
+    actualKeys.length !== expectedKeys.size ||
+    actualKeys.some((key) => typeof key !== "string" || !expectedKeys.has(key)) ||
+    !hasOwn(descriptors, "length") ||
+    descriptors.length.enumerable ||
+    !hasOwn(descriptors.length, "value") ||
+    descriptors.length.value !== expectedValues.length
+  ) {
+    throw new TypeError(`${label} is not a canonical catalog array`);
+  }
+  for (let index = 0; index < expectedValues.length; index += 1) {
+    const descriptor = descriptors[String(index)];
+    if (
+      !descriptor ||
+      !descriptor.enumerable ||
+      !hasOwn(descriptor, "value") ||
+      !TRUSTED_CATALOG_GRAPH.has(descriptor.value) ||
+      descriptor.value !== expectedValues[index]
+    ) {
+      throw new TypeError(`${label} graph identity changed`);
+    }
+  }
+}
+
+function assertTrustedCatalogGraph(catalog, shape, label) {
+  const expectedCards = shape.cards.map(({ card }) => card);
+  assertTrustedDataArray(catalog, expectedCards, label);
+  for (let index = 0; index < shape.cards.length; index += 1) {
+    const expected = shape.cards[index];
+    const card = expectedCards[index];
+    if (!TRUSTED_CATALOG_GRAPH.has(card) || card !== expected.card) {
+      throw new TypeError(`${label} graph identity changed`);
+    }
+    assertTrustedDataRecord(card, CARD_KEYS, `${label}[${index}]`);
+    const components = Object.getOwnPropertyDescriptor(card, "components").value;
+    if (
+      !TRUSTED_CATALOG_GRAPH.has(components) ||
+      components !== expected.components
+    ) {
+      throw new TypeError(`${label}[${index}].components graph identity changed`);
+    }
+    assertTrustedDataArray(
+      components,
+      expected.components,
+      `${label}[${index}].components`,
+    );
+    for (let componentIndex = 0; componentIndex < expected.components.length; componentIndex += 1) {
+      const component = expected.components[componentIndex];
+      if (!TRUSTED_CATALOG_GRAPH.has(component)) {
+        throw new TypeError(`${label}[${index}].components graph identity changed`);
+      }
+      assertTrustedDataRecord(
+        component,
+        COMPONENT_KEYS,
+        `${label}[${index}].components[${componentIndex}]`,
+      );
+    }
+  }
+}
+
+/**
+ * Admits only a catalog graph produced by createCardCatalog. The initial
+ * WeakSet check is intentionally the first operation so Proxy wrappers are
+ * rejected without invoking any proxy trap; descriptor inspection happens
+ * only after exact graph identity has been established.
+ */
+export function assertTrustedCardCatalog(catalog, label = "card catalog") {
+  if (!TRUSTED_CATALOG_GRAPH.has(catalog)) {
+    throw new TypeError(`${label} was not produced by the canonical catalog constructor`);
+  }
+  const shape = TRUSTED_CATALOG_SHAPES.get(catalog);
+  if (shape === undefined) {
+    throw new TypeError(`${label} is not a canonical catalog root`);
+  }
+  assertTrustedCatalogGraph(catalog, shape, label);
+  return catalog;
+}
+
+function registerTrustedCatalog(catalog) {
+  const cards = catalog.map((card) => ({
+    card,
+    components: card.components,
+  }));
+  TRUSTED_CATALOG_GRAPH.add(catalog);
+  for (const { card, components } of cards) {
+    TRUSTED_CATALOG_GRAPH.add(card);
+    TRUSTED_CATALOG_GRAPH.add(components);
+    for (const component of components) TRUSTED_CATALOG_GRAPH.add(component);
+  }
+  TRUSTED_CATALOG_SHAPES.set(catalog, { cards });
+  return catalog;
+}
+
 function assertPlainExactRecord(value, keys, label) {
   if (
     value === null ||
@@ -327,7 +456,7 @@ export function createCardCatalog(definitions) {
   cards.sort((left, right) => (
     left.id < right.id ? -1 : left.id > right.id ? 1 : 0
   ));
-  return cards.map((card) => validateCardDefinition(card));
+  return registerTrustedCatalog(cards.map((card) => validateCardDefinition(card)));
 }
 
 function exactScale(value, scale, label) {

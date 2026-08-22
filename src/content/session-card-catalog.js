@@ -4,6 +4,7 @@ import { createDefensiveBuildingRuntimeProfiles } from "./cards/buildings-defens
 import { createResourceBuildingQuestionRecords } from "./cards/buildings-resource.js";
 import { createUndergroundTravelBuildingQuestionRecords } from "./cards/buildings-travel.js";
 import { assertSessionBuildingProfileReceipt } from "../sim/session-building-profile-receipts.js";
+import { assertTrustedCardCatalog } from "./schema.js";
 import {
   createPlayableRoster,
 } from "./playable-roster.js";
@@ -65,6 +66,14 @@ const QUESTION_ONLY = Object.freeze([
   ["PreviousCardCopyMatch", "copy card identity and mechanics are intentionally unclaimed"],
   ["DeployedUnitCloneEncounter", "clone card identity and mechanics are intentionally unclaimed"],
 ]);
+// These two effect rosters intentionally remain question-only records rather
+// than schema catalogs: their effect rarity is outside the original runtime
+// card schema. The supported unit/building/effect catalogs all enter through
+// createCardCatalog and therefore use the private identity boundary below.
+const UNBRANDED_QUESTION_CATALOG_EXPORTS = new Set([
+  "createRollingSpellCatalog",
+  "createThreeWaveTravelingSpellCatalog",
+]);
 const KINDS = new Set(["effect", "structure", "unit"]);
 function clone(value) { return structuredClone(value); }
 
@@ -114,7 +123,13 @@ function canonical(value) {
 }
 function records(exportName) {
   const value = content[exportName];
-  if (typeof value === "function") return value();
+  if (typeof value === "function") {
+    const catalog = value();
+    if (!UNBRANDED_QUESTION_CATALOG_EXPORTS.has(exportName)) {
+      assertTrustedCardCatalog(catalog, `${exportName} source catalog`);
+    }
+    return catalog;
+  }
   if (Array.isArray(value)) return value;
   if (value && typeof value === "object" && typeof value.id === "string") return [value];
   return Object.values(value);

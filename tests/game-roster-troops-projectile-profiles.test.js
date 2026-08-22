@@ -43,7 +43,11 @@ import {
   serializeSessionTroopProjectileProfileManifest,
 } from "../src/content/session-troop-projectile-profiles.js";
 import { createSessionTroopProfileManifest } from "../src/content/session-troop-profile-catalog.js";
-import { createSessionTroopWitnessQuestions } from "../src/content/session-troop-roster.js";
+import {
+  createSessionTroopWitness,
+  createSessionTroopWitnessQuestions,
+} from "../src/content/session-troop-roster.js";
+import { LiveBattle } from "../src/sim/live-battle.js";
 
 const EXPECTED_OCCURRENCES = [
   ["aegis-sage", "createReflectionSpecialCatalog", "aegis-sage", "reflection"],
@@ -131,6 +135,28 @@ const HTP_MODULE_PATH = fileURLToPath(new URL(
 const HTO_MODULE_PATH = fileURLToPath(new URL(
   "../src/content/session-troop-roster.js", import.meta.url,
 ));
+const SHARED_ADMISSION_ENTRY_POINTS = Object.freeze([
+  Object.freeze({
+    args: [],
+    exportName: "createSessionCardManifest",
+    path: fileURLToPath(new URL("../src/content/session-card-catalog.js", import.meta.url)),
+  }),
+  Object.freeze({
+    args: [],
+    exportName: "createSessionTroopProfileManifest",
+    path: HTP_MODULE_PATH,
+  }),
+  Object.freeze({
+    args: ["mossguard"],
+    exportName: "createSessionTroopWitness",
+    path: HTO_MODULE_PATH,
+  }),
+  Object.freeze({
+    args: [],
+    exportName: "createSessionTroopProjectileProfileManifest",
+    path: PROJECTILE_SOURCE_MODULE_PATH,
+  }),
+]);
 const EXPECTED_SOURCE_PAIRS = [
   ["createBasicRangedCatalog", "brassbolt"],
   ["createBasicRangedCatalog", "reedsting"],
@@ -171,13 +197,15 @@ function transformedSource(source, filename) {
 
 function probeResult(payload) {
   if (config.reportTraps) payload.traps = context.__sourceProbeTraps ?? 0;
+  if (config.reportCallbacks) payload.callbacks = context.__sourceProbeCallbacks ?? 0;
   if (config.probeExposure) {
     payload.exposed = false;
     if (projectile !== null) {
       try {
-        const factory = projectile.namespace.createSessionTroopProjectileProfileManifest;
+        const factory = projectile.namespace[config.entryExport ??
+          "createSessionTroopProjectileProfileManifest"];
         if (typeof factory === "function") {
-          factory();
+          factory(...(config.entryArgs ?? []));
           payload.exposed = true;
         }
       } catch {
@@ -211,14 +239,21 @@ function loadModule(url) {
 let exitCode = 0;
 let projectile = null;
 try {
-  projectile = await loadModule(pathToFileURL(config.projectilePath).href);
+  projectile = await loadModule(pathToFileURL(
+    config.entryPath ?? config.projectilePath,
+  ).href);
   await projectile.evaluate();
-  const bytes = projectile.namespace.serializeSessionTroopProjectileProfileManifest();
-  console.log(JSON.stringify(probeResult({
-    accepted: true,
-    length: bytes.length,
-    sha256: createHash("sha256").update(bytes).digest("hex"),
-  })));
+  if (config.entryExport) {
+    projectile.namespace[config.entryExport](...(config.entryArgs ?? []));
+    console.log(JSON.stringify(probeResult({ accepted: true })));
+  } else {
+    const bytes = projectile.namespace.serializeSessionTroopProjectileProfileManifest();
+    console.log(JSON.stringify(probeResult({
+      accepted: true,
+      length: bytes.length,
+      sha256: createHash("sha256").update(bytes).digest("hex"),
+    })));
+  }
   if (config.expect === "reject") exitCode = 2;
 } catch (error) {
   if (config.expect === "reject") {
@@ -271,6 +306,7 @@ function sourceWrapperCase(exportName, id, mutation, options = {}) {
     marker: "return createCardCatalog(DEFINITIONS);",
     prefix: prefixes.length > 0 ? `${prefixes.join("\n")}\n` : "",
     probeExposure: options.probeExposure ?? false,
+    reportCallbacks: options.reportCallbacks ?? false,
     reportTraps: options.reportTraps ?? false,
     replacement: [
       "const records = createCardCatalog(DEFINITIONS);",
@@ -279,7 +315,9 @@ function sourceWrapperCase(exportName, id, mutation, options = {}) {
       `const record = records.find(({ id: candidateId }) => candidateId === ${JSON.stringify(id)});`,
       'if (record === undefined) throw new Error("source wrapper record is missing");',
       mutationSource,
-      "return records;",
+      options.rebuildWithTrustedConstructor
+        ? "return createCardCatalog(records);"
+        : "return records;",
     ].filter(Boolean).join("\n"),
     targetPath: SOURCE_MODULE_PATHS[exportName],
   };
@@ -492,7 +530,7 @@ test("projectile profiles: source reads, HTP, and HTO drift reject before exposu
     "createSwarmCatalog",
     "briar-band",
     "records[records.indexOf(record)] = Object.fromEntries(Object.entries(record).reverse());",
-    { expect: "accept" },
+    { expect: "accept", rebuildWithTrustedConstructor: true },
   ));
   const baseline = serializeSessionTroopProjectileProfileManifest();
   assert.deepEqual(propertyOrder, {
@@ -657,6 +695,92 @@ test("projectile profiles: source rows and every nested component reject hostile
   ));
   assert.equal(partialFailure.accepted, false);
   assert.equal(partialFailure.exposed, false);
+});
+
+test("projectile profiles: every source binding is admitted before first-read hostile access", () => {
+  const counterPrefix = [
+    "let __sourceProbeCallbacks = 0;",
+    "globalThis.__sourceProbeCallbacks = 0;",
+    "const __bumpSourceProbeCallback = () => { __sourceProbeCallbacks += 1; globalThis.__sourceProbeCallbacks = __sourceProbeCallbacks; };",
+    "let __sourceProbeTraps = 0;",
+    "globalThis.__sourceProbeTraps = 0;",
+    "const __bumpSourceProbeTrap = () => { __sourceProbeTraps += 1; globalThis.__sourceProbeTraps = __sourceProbeTraps; };",
+  ].join("\n");
+  const proxyHandler = `({
+    ownKeys() { __bumpSourceProbeTrap(); throw new Error("proxy ownKeys"); },
+    getOwnPropertyDescriptor() { __bumpSourceProbeTrap(); throw new Error("proxy descriptor"); },
+    get() { __bumpSourceProbeTrap(); throw new Error("proxy get"); },
+    getPrototypeOf() { __bumpSourceProbeTrap(); throw new Error("proxy prototype"); },
+    preventExtensions() { __bumpSourceProbeTrap(); throw new Error("proxy preventExtensions"); },
+  })`;
+  const attacks = [
+    [
+      "first-read accessor",
+      "Object.defineProperty(record, \"cost\", { configurable: true, enumerable: true, get() { __bumpSourceProbeCallback(); throw new Error(\"source accessor\"); } });",
+    ],
+    [
+      "proxy",
+      `records[records.indexOf(record)] = new Proxy(record, ${proxyHandler});`,
+    ],
+    [
+      "hostile prototype",
+      "Object.setPrototypeOf(record, { get cost() { __bumpSourceProbeCallback(); throw new Error(\"hostile prototype\"); } });",
+    ],
+  ];
+  let probes = 0;
+  for (const [exportName, id] of [
+    ["createBasicRangedCatalog", "brassbolt"],
+    ["createBasicFlyingCatalog", "copperskiff"],
+    ["createSwarmCatalog", "briar-band"],
+    ["createChainSpecialCatalog", "stormkite"],
+    ["createPierceSpecialCatalog", "prism-warden"],
+    ["createReturnSpecialCatalog", "rune-reaver"],
+    ["createPelletSpecialCatalog", "scatterguard"],
+    ["createReflectionSpecialCatalog", "aegis-sage"],
+  ]) {
+    for (const [label, mutation] of attacks) {
+      for (const entry of SHARED_ADMISSION_ENTRY_POINTS) {
+        const result = runSourceWrapperProbe({
+          ...sourceWrapperCase(exportName, id, mutation, {
+            expect: "reject",
+            prefix: counterPrefix,
+            probeExposure: true,
+            reportCallbacks: true,
+            reportTraps: true,
+          }),
+          entryArgs: entry.args,
+          entryExport: entry.exportName,
+          entryPath: entry.path,
+        });
+        assert.equal(result.accepted, false, `${entry.exportName}/${exportName}/${label} was accepted`);
+        assert.equal(result.callbacks, 0,
+          `${entry.exportName}/${exportName}/${label} invoked a source callback`);
+        assert.equal(result.traps, 0,
+          `${entry.exportName}/${exportName}/${label} invoked a Proxy trap`);
+        assert.equal(result.exposed, false,
+          `${entry.exportName}/${exportName}/${label} exposed a partial result`);
+        probes += 1;
+      }
+    }
+  }
+  assert.equal(probes, 96);
+});
+
+test("projectile profiles: a normal admitted catalog remains usable by the shared runtime", () => {
+  const catalog = createBasicRangedCatalog();
+  const brassbolt = catalog.find(({ id }) => id === "brassbolt");
+  assert.equal(brassbolt?.damage, 218);
+  const battle = new LiveBattle(canonical(createSessionTroopWitness("brassbolt")));
+  assert.equal(battle.scheduleDeploy(canonical({
+    cardId: "brassbolt",
+    point: { x: 3_500, y: 14_500 },
+    sequence: 0,
+    side: "south",
+    tick: 0,
+  })).type, "deploy-scheduled");
+  battle.step();
+  assert.equal(battle.state.units.filter(({ cardId }) => cardId === "brassbolt").length, 1);
+  assert.equal(battle.replay.filter(({ type }) => type === "deployed").length, 1);
 });
 
 test("projectile profiles: every claimed source join is exact and profiles are one-per-ID", () => {
