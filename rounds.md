@@ -1,5 +1,26 @@
 # Gauntlet Rounds
 
+## Round 286 — 2026-08-22
+
+PIECE: GAME-001HTM — Shared troop movement and form mechanics, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Declared selectors passed: movement 8/8, troop runtime 7/7, HTP
+11/11, HTO 14/14, movement profiles 25/25, nondeterminism 10/10 and shipping
+isolation 13/13. The HTMP manifest remained 67,284 bytes and the v4 receipt
+78,025 bytes. An independent LiveBattle probe deployed only ordinary ground
+Mossguard and Coilblade units on a legal diagonal target path. The control
+advanced to tick 1; the identical setup with the v4 receipt threw
+`RangeError: live battle troop flight target is outside the sourced
+axis-aligned path` before tick 1 and retained byte-identical tick-0 state. The
+flight-only guard was applied globally to every living source rather than only
+the two admitted flight IDs.
+
+BIGGEST GAP: Scope the sourced axis-aligned flight policy and movement intent
+materialization strictly to Copperskiff and Skymaul so enabling the v4 receipt
+cannot alter or reject ordinary ground movement.
+
 ## Round 285 — 2026-08-22
 
 PIECE: GAME-001HTMP — Movement/form source-profile contract, round 12

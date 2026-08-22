@@ -28,10 +28,10 @@
   <div class="cards">
     <div class="card"><div class="num">168</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">122</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">285</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">286</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">24</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Active target: <strong>GAME-001HTM round 1 shared troop movement and form runtime</strong>.</p>
+  <p class="note">Active target: <strong>GAME-001HTM round 2 flight-policy isolation</strong>.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -1266,8 +1266,8 @@
         <td>Shared troop movement and form mechanics</td>
         <td class="state-building">BUILDING</td>
         <td>0/0</td>
-        <td>0</td>
-        <td>Round 1 building canonical profile receipts into the existing LiveBattle-owned reducer and shared ID/tick/movement authority</td>
+        <td>1</td>
+        <td>Round 1 wires v4 shared movement, but its flight-only axis guard applies to every living unit and breaks legal ordinary diagonal movement before tick 1</td>
       </tr>
       <tr>
         <td><code>GAME-001HTJP</code></td>
@@ -1661,6 +1661,7 @@
       <li><strong>R283 FAIL</strong> · GAME-001HTMP — Movement/form source-profile contract<br>Parse <code>import.meta.url</code> without mutable global or prototype capabilities so duplicate authority instances reject before exports or trusted graph state become usable.</li>
       <li><strong>R284 FAIL</strong> · GAME-001HTMP — Movement/form source-profile contract<br>Recognize arbitrarily nested percent encoding of query/hash delimiters so <code>%253F</code>-style preserve-symlink aliases cannot instantiate a coherent duplicate authority.</li>
       <li><strong>R285 PASS</strong> · GAME-001HTMP — Movement/form source-profile contract<br>None on the judged dimension.</li>
+      <li><strong>R286 FAIL</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>Scope the sourced flight policy strictly to Copperskiff and Skymaul so enabling v4 cannot alter or reject ordinary ground movement.</li>
   </ol>
 </body>
 </html>
