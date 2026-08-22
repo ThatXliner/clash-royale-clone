@@ -169,6 +169,25 @@ function transformedSource(source, filename) {
   return (config.prefix ?? "") + source.replace(config.marker, config.replacement);
 }
 
+function probeResult(payload) {
+  if (config.reportTraps) payload.traps = context.__sourceProbeTraps ?? 0;
+  if (config.probeExposure) {
+    payload.exposed = false;
+    if (projectile !== null) {
+      try {
+        const factory = projectile.namespace.createSessionTroopProjectileProfileManifest;
+        if (typeof factory === "function") {
+          factory();
+          payload.exposed = true;
+        }
+      } catch {
+        // An errored module must not expose its partially initialized exports.
+      }
+    }
+  }
+  return payload;
+}
+
 function loadModule(url) {
   if (moduleCache.has(url)) return moduleCache.get(url);
   const promise = (async () => {
@@ -190,22 +209,23 @@ function loadModule(url) {
 }
 
 let exitCode = 0;
+let projectile = null;
 try {
-  const projectile = await loadModule(pathToFileURL(config.projectilePath).href);
+  projectile = await loadModule(pathToFileURL(config.projectilePath).href);
   await projectile.evaluate();
   const bytes = projectile.namespace.serializeSessionTroopProjectileProfileManifest();
-  console.log(JSON.stringify({
+  console.log(JSON.stringify(probeResult({
     accepted: true,
     length: bytes.length,
     sha256: createHash("sha256").update(bytes).digest("hex"),
-  }));
+  })));
   if (config.expect === "reject") exitCode = 2;
 } catch (error) {
   if (config.expect === "reject") {
-    console.log(JSON.stringify({
+    console.log(JSON.stringify(probeResult({
       accepted: false,
       error: error instanceof Error ? error.message : String(error),
-    }));
+    })));
   } else {
     console.error(error instanceof Error ? error.stack : String(error));
     exitCode = 1;
@@ -238,16 +258,27 @@ function runSourceWrapperProbe(config) {
 }
 
 function sourceWrapperCase(exportName, id, mutation, options = {}) {
+  const prefixes = [
+    options.alternatingReads ? "let __sourceReadCount = 0;" : "",
+    options.skipCalls === undefined ? "" : "let __sourceProbeCallCount = 0;",
+    options.prefix ?? "",
+  ].filter(Boolean);
+  const mutationSource = options.skipCalls === undefined
+    ? mutation
+    : `if (__sourceProbeCallCount > ${options.skipCalls}) { ${mutation} }`;
   return {
     expect: options.expect ?? "reject",
     marker: "return createCardCatalog(DEFINITIONS);",
-    prefix: options.alternatingReads ? "let __sourceReadCount = 0;\n" : "",
+    prefix: prefixes.length > 0 ? `${prefixes.join("\n")}\n` : "",
+    probeExposure: options.probeExposure ?? false,
+    reportTraps: options.reportTraps ?? false,
     replacement: [
       "const records = createCardCatalog(DEFINITIONS);",
       options.alternatingReads ? "__sourceReadCount += 1;" : "",
+      options.skipCalls === undefined ? "" : "__sourceProbeCallCount += 1;",
       `const record = records.find(({ id: candidateId }) => candidateId === ${JSON.stringify(id)});`,
       'if (record === undefined) throw new Error("source wrapper record is missing");',
-      mutation,
+      mutationSource,
       "return records;",
     ].filter(Boolean).join("\n"),
     targetPath: SOURCE_MODULE_PATHS[exportName],
@@ -485,6 +516,147 @@ test("projectile profiles: source reads, HTP, and HTO drift reject before exposu
     targetPath: HTO_MODULE_PATH,
   });
   assert.equal(htoMutation.accepted, false, "HTO question drift was accepted");
+});
+
+test("projectile profiles: source rows and every nested component reject hostile shapes trap-zero", () => {
+  const trapPrefix = [
+    "let __sourceProbeTraps = 0;",
+    "globalThis.__sourceProbeTraps = 0;",
+    "const __bumpSourceProbeTrap = () => { __sourceProbeTraps += 1; globalThis.__sourceProbeTraps = __sourceProbeTraps; };",
+  ].join("\n");
+  const proxyHandler = `({
+    getPrototypeOf() { __bumpSourceProbeTrap(); throw new Error("proxy getPrototypeOf"); },
+    setPrototypeOf() { __bumpSourceProbeTrap(); throw new Error("proxy setPrototypeOf"); },
+    isExtensible() { __bumpSourceProbeTrap(); throw new Error("proxy isExtensible"); },
+    preventExtensions() { __bumpSourceProbeTrap(); throw new Error("proxy preventExtensions"); },
+    getOwnPropertyDescriptor() { __bumpSourceProbeTrap(); throw new Error("proxy getOwnPropertyDescriptor"); },
+    defineProperty() { __bumpSourceProbeTrap(); throw new Error("proxy defineProperty"); },
+    has() { __bumpSourceProbeTrap(); throw new Error("proxy has"); },
+    get() { __bumpSourceProbeTrap(); throw new Error("proxy get"); },
+    set() { __bumpSourceProbeTrap(); throw new Error("proxy set"); },
+    deleteProperty() { __bumpSourceProbeTrap(); throw new Error("proxy deleteProperty"); },
+    ownKeys() { __bumpSourceProbeTrap(); throw new Error("proxy ownKeys"); },
+    apply() { __bumpSourceProbeTrap(); throw new Error("proxy apply"); },
+    construct() { __bumpSourceProbeTrap(); throw new Error("proxy construct"); },
+  })`;
+  const componentPositions = [
+    ["createSwarmCatalog", "briar-band", 0, "briar-runner"],
+    ["createSwarmCatalog", "briar-band", 1, "briar-darter"],
+    ["createSwarmCatalog", "cinderlings", 0, "cinderling"],
+  ];
+  const reject = (label, exportName, id, mutation, options = {}) => {
+    const result = runSourceWrapperProbe(sourceWrapperCase(
+      exportName,
+      id,
+      mutation,
+      { ...options, expect: "reject" },
+    ));
+    assert.equal(result.accepted, false, `${label} was accepted`);
+    return result;
+  };
+
+  const customPrototypeCases = [
+    ["rowCustomPrototype", "createSwarmCatalog", "briar-band",
+      "Object.setPrototypeOf(record, { hostile: true });"],
+    ...componentPositions.map(([exportName, id, index, componentId]) => [
+      `componentCustomPrototype:${componentId}`,
+      exportName,
+      id,
+      `Object.setPrototypeOf(record.components[${index}], { hostile: true });`,
+    ]),
+  ];
+  for (const [label, exportName, id, mutation] of customPrototypeCases) {
+    reject(label, exportName, id, mutation);
+  }
+  assert.equal(customPrototypeCases.length, 4);
+
+  const nestedComponent = componentPositions[0];
+  const [componentExport, componentCard, componentIndex, componentId] = nestedComponent;
+  const structuralCases = [
+    ["rowNullPrototype", "createSwarmCatalog", "briar-band",
+      "Object.setPrototypeOf(record, null);"],
+    ["componentNullPrototype", componentExport, componentCard,
+      `Object.setPrototypeOf(record.components[${componentIndex}], null);`],
+    ["rowClassInstance", "createSwarmCatalog", "briar-band",
+      "class HostileRow {}; records[records.indexOf(record)] = Object.assign(new HostileRow(), record);"],
+    ["componentClassInstance", componentExport, componentCard,
+      `class HostileComponent {}; record.components[${componentIndex}] = Object.assign(new HostileComponent(), record.components[${componentIndex}]);`],
+    ["rowCrossRealm", "createSwarmCatalog", "briar-band",
+      "records[records.indexOf(record)] = structuredClone(record);"],
+    ["componentCrossRealm", componentExport, componentCard,
+      `record.components[${componentIndex}] = structuredClone(record.components[${componentIndex}]);`],
+    ["rowAccessor", "createSwarmCatalog", "briar-band",
+      "Object.defineProperty(record, \"damage\", { configurable: true, enumerable: true, get() { __bumpSourceProbeTrap(); throw new Error(\"row accessor\"); } });"],
+    ["componentAccessor", componentExport, componentCard,
+      `Object.defineProperty(record.components[${componentIndex}], \"damage\", { configurable: true, enumerable: true, get() { __bumpSourceProbeTrap(); throw new Error(\"component accessor\"); } });`],
+    ["rowSymbolKey", "createSwarmCatalog", "briar-band",
+      "record[Symbol(\"hostile-row\")] = 1;"],
+    ["componentSymbolKey", componentExport, componentCard,
+      `record.components[${componentIndex}][Symbol("hostile-component")] = 1;`],
+  ];
+  let structuralTraps = 0;
+  for (const [label, exportName, id, mutation] of structuralCases) {
+    const result = reject(label, exportName, id, mutation, {
+      prefix: trapPrefix,
+      reportTraps: true,
+      skipCalls: 6,
+    });
+    assert.equal(result.traps, 0, `${label} invoked hostile callbacks`);
+    structuralTraps += result.traps;
+  }
+  assert.equal(structuralTraps, 0);
+
+  const wrapperCases = [
+    ["rowStringWrapper", "records[records.indexOf(record)] = new String(record.id);"],
+    ["rowNumberWrapper", "records[records.indexOf(record)] = new Number(record.cost);"],
+    ["componentStringWrapper", `record.components[${componentIndex}] = new String(record.components[${componentIndex}].id);`],
+    ["componentNumberWrapper", `record.components[${componentIndex}] = new Number(record.components[${componentIndex}].count);`],
+  ];
+  for (const [label, mutation] of wrapperCases) {
+    const isComponent = label.startsWith("component");
+    reject(
+      label,
+      isComponent ? componentExport : "createSwarmCatalog",
+      isComponent ? componentCard : "briar-band",
+      mutation,
+    );
+  }
+
+  const proxyRow = reject(
+    "rowProxyAllTraps",
+    "createSwarmCatalog",
+    "briar-band",
+    `records[records.indexOf(record)] = new Proxy(record, ${proxyHandler});`,
+    {
+      prefix: trapPrefix,
+      reportTraps: true,
+      skipCalls: 6,
+    },
+  );
+  const proxyComponent = reject(
+    "componentProxyAllTraps",
+    componentExport,
+    componentCard,
+    `record.components[${componentIndex}] = new Proxy(record.components[${componentIndex}], ${proxyHandler});`,
+    {
+      prefix: trapPrefix,
+      reportTraps: true,
+      skipCalls: 6,
+    },
+  );
+  assert.equal(proxyRow.traps, 0,
+    `row proxy invoked ${proxyRow.traps} hostile callbacks`);
+  assert.equal(proxyComponent.traps, 0,
+    `component proxy invoked ${proxyComponent.traps} hostile callbacks`);
+
+  const partialFailure = runSourceWrapperProbe(sourceWrapperCase(
+    "createSwarmCatalog",
+    "briar-band",
+    "record.cost += 1;",
+    { probeExposure: true },
+  ));
+  assert.equal(partialFailure.accepted, false);
+  assert.equal(partialFailure.exposed, false);
 });
 
 test("projectile profiles: every claimed source join is exact and profiles are one-per-ID", () => {

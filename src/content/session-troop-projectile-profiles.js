@@ -549,6 +549,22 @@ const AEGIS_COMPOSITION_PENDING = Object.freeze({
   targetOwnership: Object.freeze({ owner: "GAME-001HTC", status: "pending" }),
 });
 
+// Node exposes a trap-free proxy brand check through util.types. The content
+// modules also run in the trusted transformed-module probe, where process is
+// an explicitly supplied host capability. Browser builds do not expose that
+// capability, so ordinary source data still goes through the structural
+// checks below.
+const NODE_UTIL_TYPES = (() => {
+  const processValue = Object.getOwnPropertyDescriptor(globalThis, "process")?.value;
+  const getBuiltinModule = processValue?.getBuiltinModule;
+  if (typeof getBuiltinModule !== "function") return null;
+  try {
+    return getBuiltinModule("node:util")?.types ?? null;
+  } catch {
+    return null;
+  }
+})();
+
 function clone(value) {
   return structuredClone(value);
 }
@@ -576,6 +592,20 @@ function canonical(value) {
   return encoded;
 }
 
+function isProxy(value) {
+  return NODE_UTIL_TYPES !== null &&
+    typeof NODE_UTIL_TYPES.isProxy === "function" &&
+    NODE_UTIL_TYPES.isProxy(value);
+}
+
+function isArray(value) {
+  try {
+    return Array.isArray(value);
+  } catch {
+    return false;
+  }
+}
+
 function compareText(left, right) {
   return left < right ? -1 : left > right ? 1 : 0;
 }
@@ -591,12 +621,16 @@ function compareClaims(left, right) {
     compareText(left.claimFamily, right.claimFamily);
 }
 
-function exactKeys(value, expected, label) {
+function exactKeys(value, expected, label, { exactPrototype = false } = {}) {
   if (
     value === null ||
     typeof value !== "object" ||
-    Array.isArray(value)
+    isProxy(value) ||
+    isArray(value)
   ) {
+    throw new TypeError(`${label} must be a plain data object`);
+  }
+  if (exactPrototype && Object.getPrototypeOf(value) !== Object.prototype) {
     throw new TypeError(`${label} must be a plain data object`);
   }
   const descriptors = Object.getOwnPropertyDescriptors(value);
@@ -617,7 +651,8 @@ function exactKeys(value, expected, label) {
 
 function denseArray(value, maximum, label) {
   if (
-    !Array.isArray(value) ||
+    isProxy(value) ||
+    !isArray(value) ||
     Object.getPrototypeOf(value) !== Array.prototype ||
     value.length > maximum
   ) {
@@ -938,7 +973,7 @@ function assertExpectedWitnessCoverage() {
 }
 
 function validateComponent(component, label) {
-  exactKeys(component, COMPONENT_FIELDS, label);
+  exactKeys(component, COMPONENT_FIELDS, label, { exactPrototype: true });
   if (
     typeof component.id !== "string" ||
     component.id.length === 0 ||
@@ -971,7 +1006,7 @@ function validateComponent(component, label) {
 }
 
 function validateSourceRecord(record, label) {
-  exactKeys(record, SOURCE_RECORD_FIELDS, label);
+  exactKeys(record, SOURCE_RECORD_FIELDS, label, { exactPrototype: true });
   if (
     typeof record.id !== "string" ||
     record.id.length === 0 ||
@@ -1510,9 +1545,9 @@ function buildExclusions(htpMap) {
 }
 
 function buildManifest() {
+  const sourceCache = buildSourceCatalogCache();
   const htpManifest = createSessionTroopProfileManifest();
   const { htpMap } = assertHtpSurface(htpManifest);
-  const sourceCache = buildSourceCatalogCache();
   const fixtures = validateQuestionFixtures();
 
   const claims = CLAIM_SPECS.map((spec) => {
