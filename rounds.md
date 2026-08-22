@@ -1,5 +1,30 @@
 # Gauntlet Rounds
 
+## Round 288 — 2026-08-22
+
+PIECE: GAME-001HTM — Shared troop movement and form mechanics, round 3
+
+VERDICT: FAIL
+
+EVIDENCE: Battle movement history 21/21, movement kernel 5/5 and the full
+GAME-001HTM selector 15/15 passed with the prior tick-121 counterexample
+continuing through tick 320. A fresh independent process then deployed north
+Cinderlings at tick 0 and south Cinderlings at tick 96. Calling `serialize()`
+once at tick 177 and advancing to tick 200 produced control bytes of 64,073
+with SHA-256
+`10f4b50391fc6caa46727d87108744291769ef30a05f61f06e964fd654196bcb`;
+both control and v4 restore rejected with `TypeError: live battle snapshot
+witnesses are not causal`. Without the tick-177 serialization, the same
+tick-200 control remained 64,073 bytes but SHA-256
+`07525d6e712c40fe9c9bb473f173ae7604f224a04f67eef12c0a0d3fc319d02d`
+and restored. Ticks 199 and 201 restored; tick 200 alone failed. The only
+movement-witness difference was ID 2's second canonical target command moving
+from tick 166 to tick 176 while all authority fields remained identical.
+
+BIGGEST GAP: Make intermediate movement-history canonicalization preserve the
+command tick required for LiveBattle replay, so serialization is pure and a
+tick-177 serialize cannot create a noncausal tick-200 witness.
+
 ## Round 287 — 2026-08-22
 
 PIECE: GAME-001HTM — Shared troop movement and form mechanics, round 2

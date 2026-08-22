@@ -28,10 +28,10 @@
   <div class="cards">
     <div class="card"><div class="num">170</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">122</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">287</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">288</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">24</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Active target: <strong>GAME-001HTM round 3 ordinary movement-history canonicalization</strong>.</p>
+  <p class="note">Active target: <strong>GAME-001HTM round 4 serialization purity at arrival boundaries</strong>.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -1265,9 +1265,9 @@
         <td><code>GAME-001HTM</code></td>
         <td>Shared troop movement and form mechanics</td>
         <td class="state-building">BUILDING</td>
-        <td>14/14</td>
-        <td>2</td>
-        <td>Round 2 isolates flight policy correctly; the remaining gap is an upstream ordinary two-deployment Cinderlings history that fails canonical serialization at tick 121 in both v4 and control</td>
+        <td>15/15</td>
+        <td>3</td>
+        <td>Round 3 fixes bulk replay and tick 121, but a tick-177 serialization rewrites witness 2's target-command tick from 166 to 176 and makes the otherwise identical tick-200 snapshot noncausal</td>
       </tr>
       <tr>
         <td><code>GAME-001HTJP</code></td>
@@ -1679,6 +1679,7 @@
       <li><strong>R285 PASS</strong> · GAME-001HTMP — Movement/form source-profile contract<br>None on the judged dimension.</li>
       <li><strong>R286 FAIL</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>Scope the sourced flight policy strictly to Copperskiff and Skymaul so enabling v4 cannot alter or reject ordinary ground movement.</li>
       <li><strong>R287 FAIL</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>Fix ordinary multi-entity BattleMovement command-history canonicalization so the Cinderlings redeploy scenario serializes and completes the required continuation differential.</li>
+      <li><strong>R288 FAIL</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>Preserve the command tick required for LiveBattle replay so intermediate serialization is pure and cannot create a noncausal later snapshot.</li>
   </ol>
 </body>
 </html>
