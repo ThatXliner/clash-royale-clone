@@ -1,5 +1,29 @@
 # Gauntlet Rounds
 
+## Round 287 — 2026-08-22
+
+PIECE: GAME-001HTM — Shared troop movement and form mechanics, round 2
+
+VERDICT: FAIL
+
+EVIDENCE: Movement 14/14, troop runtime 7/7, troop profiles 11/11,
+ordinary 14/14, jump 15/15, leap-knockback 18/18, nondeterminism 10/10,
+shipping isolation 13/13 and `reference/stats/validate.py` all passed. The exact
+Mossguard/Coilblade diagonal probe advanced byte-identically; mixed sessions
+issued exactly two flight receipts to Skymaul/Copperskiff and zero to ordinary
+units; both flyer diagonal paths rejected byte-atomically; 20 hostile
+command/setup/snapshot/receipt cases rejected with zero traps. The 78,025-byte
+receipt retained SHA-256
+`57a423d4e07a433c9ba677e0dc8a518176da45b2d1d986a02d68cf2c7bb4c57e`.
+However, both v4 and pre-v4 control sessions that deploy north Cinderlings at
+tick 0 and south Cinderlings at tick 96 match through tick 120, then both throw
+`RangeError: battle movement command history has no canonical subsequence` at
+tick 121. This blocks the required 320-tick serialize/restore/fork/chunk proof.
+
+BIGGEST GAP: Fix ordinary multi-entity BattleMovement command-history
+canonicalization so the Cinderlings redeploy scenario serializes and completes
+the required continuation differential.
+
 ## Round 286 — 2026-08-22
 
 PIECE: GAME-001HTM — Shared troop movement and form mechanics, round 1

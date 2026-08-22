@@ -28,10 +28,10 @@
   <div class="cards">
     <div class="card"><div class="num">168</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">122</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">286</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">287</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">24</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Active target: <strong>GAME-001HTM round 2 flight-policy isolation</strong>.</p>
+  <p class="note">Active target: <strong>GAME-001HTM round 3 ordinary movement-history canonicalization</strong>.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -1265,9 +1265,9 @@
         <td><code>GAME-001HTM</code></td>
         <td>Shared troop movement and form mechanics</td>
         <td class="state-building">BUILDING</td>
-        <td>0/0</td>
-        <td>1</td>
-        <td>Round 1 wires v4 shared movement, but its flight-only axis guard applies to every living unit and breaks legal ordinary diagonal movement before tick 1</td>
+        <td>14/14</td>
+        <td>2</td>
+        <td>Round 2 isolates flight policy correctly; the remaining gap is an upstream ordinary two-deployment Cinderlings history that fails canonical serialization at tick 121 in both v4 and control</td>
       </tr>
       <tr>
         <td><code>GAME-001HTJP</code></td>
@@ -1662,6 +1662,7 @@
       <li><strong>R284 FAIL</strong> · GAME-001HTMP — Movement/form source-profile contract<br>Recognize arbitrarily nested percent encoding of query/hash delimiters so <code>%253F</code>-style preserve-symlink aliases cannot instantiate a coherent duplicate authority.</li>
       <li><strong>R285 PASS</strong> · GAME-001HTMP — Movement/form source-profile contract<br>None on the judged dimension.</li>
       <li><strong>R286 FAIL</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>Scope the sourced flight policy strictly to Copperskiff and Skymaul so enabling v4 cannot alter or reject ordinary ground movement.</li>
+      <li><strong>R287 FAIL</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>Fix ordinary multi-entity BattleMovement command-history canonicalization so the Cinderlings redeploy scenario serializes and completes the required continuation differential.</li>
   </ol>
 </body>
 </html>
