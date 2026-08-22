@@ -1,14 +1,19 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
 import vm from "node:vm";
 
 import {
+  BasicFlyingDuel,
   createBasicFlyingCatalog,
+  createBasicFlyingCombatant,
 } from "../src/content/cards/basic-flying.js";
 import {
+  BasicRangedDuel,
   createBasicRangedCatalog,
+  createBasicRangedCombatant,
 } from "../src/content/cards/basic-ranged.js";
 import { createSwarmCatalog } from "../src/content/cards/swarms.js";
 import {
@@ -36,16 +41,22 @@ import {
   getSessionTroopProjectileProfile,
   serializeSessionTroopProjectileProfileManifest,
 } from "../src/content/session-troop-projectile-profiles.js";
+import { createSessionTroopProfileManifest } from "../src/content/session-troop-profile-catalog.js";
+import { createSessionTroopWitnessQuestions } from "../src/content/session-troop-roster.js";
 
 const EXPECTED_OCCURRENCES = [
   ["aegis-sage", "createReflectionSpecialCatalog", "aegis-sage", "reflection"],
   ["brassbolt", "createBasicRangedCatalog", "brassbolt", "ordinary-single-projectile"],
-  ["copperskiff", "createBasicFlyingCatalog", "copperskiff", "ordinary-single-projectile"],
   ["prism-warden", "createPierceSpecialCatalog", "prism-warden", "pierce"],
   ["reedsting", "createBasicRangedCatalog", "reedsting", "ordinary-single-projectile"],
   ["rune-reaver", "createReturnSpecialCatalog", "rune-reaver", "return"],
   ["scatterguard", "createPelletSpecialCatalog", "scatterguard", "pellets"],
   ["stormkite", "createChainSpecialCatalog", "stormkite", "chain"],
+];
+
+const EXPECTED_UNRESOLVED_DELIVERY = [
+  ["briar-band", "createSwarmCatalog", "briar-darter", "briar-darter.delivery", 2],
+  ["copperskiff", "createBasicFlyingCatalog", "copperskiff", "copperskiff.delivery", 2],
 ];
 
 const EXPECTED_EXCLUDED = [
@@ -120,40 +131,82 @@ function profileById(manifest, id) {
   return manifest.profiles.find((profile) => profile.id === id);
 }
 
+function firstLaunch(Duel, createCombatant, cardId, opponentId) {
+  const duel = new Duel({
+    combatants: [
+      createCombatant(cardId, 1),
+      createCombatant(opponentId, 2),
+    ],
+  });
+  for (let tick = 0; tick < 400; tick += 1) {
+    duel.step();
+    const launch = duel.replay.find(({ type, projectile }) =>
+      type === "launch" && projectile.attackerId === 1);
+    if (launch !== undefined) return launch;
+  }
+  throw new Error(`${cardId} did not produce a source launch`);
+}
+
+function genericFlyingLaunchEvidence(cardId) {
+  const opponentId = cardId === "copperskiff" ? "skymaul" : "copperskiff";
+  const launch = firstLaunch(BasicFlyingDuel, createBasicFlyingCombatant, cardId, opponentId);
+  const { projectile } = launch;
+  return {
+    impactOffset: projectile.impactTick - projectile.launchTick,
+    origin: projectile.origin,
+    radius: projectile.radius,
+    speed: projectile.speed,
+    targetPosition: projectile.targetPosition,
+    targetRadius: projectile.targetRadius,
+  };
+}
+
 test("projectile profiles: exact admitted occurrence/card/archetype domain and pinned remainder", () => {
   const manifest = createSessionTroopProjectileProfileManifest();
   assert.deepEqual(manifest.occurrences.map(({ id, exportName, archetype, claimFamily }) =>
     [id, exportName, archetype, claimFamily]), EXPECTED_OCCURRENCES);
   assert.deepEqual(manifest.excludedOccurrences.map(({ id, exportName }) => [id, exportName]),
     EXPECTED_EXCLUDED);
-  assert.deepEqual(
-    [manifest.unresolvedDeliveryDependencies[0].id,
-      manifest.unresolvedDeliveryDependencies[0].source.catalogExport,
-      manifest.unresolvedDeliveryDependencies[0].archetype],
-    ["briar-band", "createSwarmCatalog", "briar-darter"],
-  );
+  assert.deepEqual(manifest.unresolvedDeliveryDependencies.map((dependency) => [
+    dependency.id,
+    dependency.source.catalogExport,
+    dependency.archetype,
+    dependency.questions.delivery.key,
+    dependency.questions.delivery.value,
+  ]), EXPECTED_UNRESOLVED_DELIVERY);
   assert.deepEqual(manifest.counts, {
-    claimedOccurrencePairs: 8,
-    uniqueCardIds: 8,
-    ordinarySourceClaims: 3,
+    claimedOccurrencePairs: 7,
+    uniqueCardIds: 7,
+    ordinarySourceClaims: 2,
     specialSourceClaims: 5,
-    questionBearingClaims: 8,
-    unresolvedDeliveryDependencies: 1,
+    questionBearingClaims: 7,
+    unresolvedDeliveryDependencies: 2,
     duplicatedCompositionOwnedIds: 1,
   });
   assert.deepEqual(manifest.profiles.map(({ id }) => id), [
-    "aegis-sage", "brassbolt", "copperskiff", "prism-warden", "reedsting",
+    "aegis-sage", "brassbolt", "prism-warden", "reedsting",
     "rune-reaver", "scatterguard", "stormkite",
   ]);
+  const htpKeys = new Set(createSessionTroopProfileManifest().occurrences.map(({ exportName, id }) =>
+    `${exportName}\u0000${id}`));
+  const classifiedKeys = [
+    ...manifest.occurrences.map(({ exportName, id }) => `${exportName}\u0000${id}`),
+    ...manifest.unresolvedDeliveryDependencies.map(({ source }) =>
+      `${source.catalogExport}\u0000${source.record.id}`),
+    ...manifest.excludedOccurrences.map(({ exportName, id }) => `${exportName}\u0000${id}`),
+  ];
+  assert.equal(classifiedKeys.length, 35);
+  assert.equal(new Set(classifiedKeys).size, 35);
+  assert.deepEqual(new Set(classifiedKeys), htpKeys);
 });
 
 test("projectile profiles: every claimed source join is exact and profiles are one-per-ID", () => {
   const manifest = createSessionTroopProjectileProfileManifest();
   const claims = claimRows(manifest);
-  assert.equal(claims.length, 8);
-  assert.equal(new Set(manifest.profiles.map(({ id }) => id)).size, 8);
+  assert.equal(claims.length, 7);
+  assert.equal(new Set(manifest.profiles.map(({ id }) => id)).size, 7);
   assert.equal(new Set(manifest.occurrences.map(({ exportName, id }) =>
-    `${exportName}\u0000${id}`)).size, 8);
+    `${exportName}\u0000${id}`)).size, 7);
 
   for (const claim of claims) {
     const catalog = SOURCE_CATALOGS[claim.source.catalogExport];
@@ -180,7 +233,10 @@ test("projectile profiles: every claimed source join is exact and profiles are o
 
 test("projectile profiles: components stay owned by their card and duplicated compositions do not double count", () => {
   const manifest = createSessionTroopProjectileProfileManifest();
-  const unresolved = manifest.unresolvedDeliveryDependencies[0];
+  const unresolved = manifest.unresolvedDeliveryDependencies.find(({ id }) => id === "briar-band");
+  const copperskiff = manifest.unresolvedDeliveryDependencies.find(({ id }) => id === "copperskiff");
+  assert.ok(unresolved);
+  assert.ok(copperskiff);
   assert.equal(profileById(manifest, "briar-band"), undefined);
   assert.equal(manifest.profiles.some(({ id }) => id === "briar-darter"), false);
   assert.deepEqual({
@@ -193,6 +249,11 @@ test("projectile profiles: components stay owned by their card and duplicated co
     role: "secondary",
   });
   assert.equal(manifest.occurrences.some(({ archetype }) => archetype === "briar-darter"), false);
+  assert.equal(profileById(manifest, "copperskiff"), undefined);
+  assert.equal(manifest.occurrences.some(({ id }) => id === "copperskiff"), false);
+  assert.equal(copperskiff.component, null);
+  assert.equal(copperskiff.source.record.id, "copperskiff");
+  assert.equal(copperskiff.source.catalogExport, "createBasicFlyingCatalog");
 
   const aegis = profileById(manifest, "aegis-sage");
   assert.ok(aegis);
@@ -205,6 +266,37 @@ test("projectile profiles: components stay owned by their card and duplicated co
   assert.deepEqual(aegis.composition.sourceRecords.map(({ exportName }) => exportName), [
     "createChampionAbilityCatalog", "createReflectionSpecialCatalog",
   ]);
+});
+
+test("projectile profiles: unresolved delivery dependencies join exact HTO QUESTION records", () => {
+  const manifest = createSessionTroopProjectileProfileManifest();
+  for (const dependency of manifest.unresolvedDeliveryDependencies) {
+    const delivery = dependency.questions.delivery;
+    const hto = createSessionTroopWitnessQuestions(dependency.id)
+      .filter(({ key }) => key === delivery.key);
+    assert.equal(hto.length, 1, dependency.id);
+    assert.deepEqual(delivery, hto[0], dependency.id);
+    assert.deepEqual({
+      authoritative: delivery.authoritative,
+      confidence: delivery.confidence,
+      disposition: delivery.disposition,
+      key: delivery.key,
+      source: delivery.source,
+      value: delivery.value,
+    }, {
+      authoritative: false,
+      confidence: "unverified",
+      disposition: "question",
+      key: `${dependency.archetype}.delivery`,
+      source: "runtime-playability-estimate-not-comparison-corpus",
+      value: 2,
+    }, dependency.id);
+    assert.equal(dependency.delivery.classification, "question", dependency.id);
+    assert.equal(dependency.delivery.estimateOnly, true, dependency.id);
+    assert.equal(dependency.source.evidence.delivery, "not-sourced", dependency.id);
+  }
+  assert.throws(() => getSessionTroopProjectileProfile("briar-band"), /QUESTION/u);
+  assert.throws(() => getSessionTroopProjectileProfile("copperskiff"), /QUESTION/u);
 });
 
 test("projectile profiles: all five question fixtures are exact, fresh, and provenance-preserving", () => {
@@ -241,7 +333,7 @@ test("projectile profiles: absent ordinary geometry remains QUESTION and special
   const ordinary = claimRows(manifest).filter(({ claimFamily }) =>
     claimFamily === "ordinary-single-projectile");
   assert.deepEqual(ordinary.map(({ archetype }) => archetype), [
-    "brassbolt", "copperskiff", "reedsting",
+    "brassbolt", "reedsting",
   ]);
   for (const claim of ordinary) {
     assert.deepEqual(Object.keys(claim.questions).sort(), [
@@ -273,6 +365,68 @@ test("projectile profiles: absent ordinary geometry remains QUESTION and special
   assert.deepEqual(pellets.questions.rayPattern.value[0], { x: 375, y: -200 });
   assert.equal(reflection.questions.reflectionRadiusMillitiles.value, 500);
   assert.equal(reflection.questions.loopPolicy.value, "one-reflection-maximum");
+});
+
+test("projectile profiles: basic ranged source contract emits card-specific launches", () => {
+  const sourceById = new Map(createBasicRangedCatalog().map((record) => [record.id, record]));
+  for (const cardId of ["brassbolt", "reedsting"]) {
+    const opponentId = cardId === "brassbolt" ? "reedsting" : "brassbolt";
+    const launch = firstLaunch(BasicRangedDuel, createBasicRangedCombatant, cardId, opponentId);
+    const source = sourceById.get(cardId);
+    assert.ok(source, cardId);
+    assert.equal(launch.type, "launch", cardId);
+    assert.equal(launch.projectile.damage, source.damage, cardId);
+    assert.equal(launch.projectile.launchTick,
+      source.deployTimeTicks + source.firstHitTicks, cardId);
+    assert.equal(launch.projectile.impactTick, launch.projectile.launchTick, cardId);
+    assert.equal(launch.projectile.radius, 0, cardId);
+    assert.equal(launch.projectile.speed, 1, cardId);
+    assert.equal(launch.projectile.targetId, 2, cardId);
+  }
+  const ordinary = claimRows(createSessionTroopProjectileProfileManifest())
+    .filter(({ claimFamily }) => claimFamily === "ordinary-single-projectile");
+  assert.deepEqual(ordinary.map(({ source, delivery }) => [
+    source.catalogExport,
+    source.evidence.sourceExports,
+    delivery.classification,
+    delivery.delivery,
+  ]), [
+    ["createBasicRangedCatalog",
+      ["createBasicRangedCatalog", "createBasicRangedCombatant", "BasicRangedDuel"],
+      "sourced", "projectile"],
+    ["createBasicRangedCatalog",
+      ["createBasicRangedCatalog", "createBasicRangedCombatant", "BasicRangedDuel"],
+      "sourced", "projectile"],
+  ]);
+});
+
+test("projectile profiles: generic flying launch evidence cannot admit Copperskiff", () => {
+  assert.deepEqual(
+    genericFlyingLaunchEvidence("copperskiff"),
+    genericFlyingLaunchEvidence("skymaul"),
+  );
+  assert.deepEqual(genericFlyingLaunchEvidence("copperskiff"), {
+    impactOffset: 0,
+    origin: { x: 0, y: 0 },
+    radius: 0,
+    speed: 1,
+    targetPosition: { x: 0, y: 0 },
+    targetRadius: 0,
+  });
+  const manifest = createSessionTroopProjectileProfileManifest();
+  assert.equal(manifest.profiles.some(({ id }) => id === "copperskiff"), false);
+  assert.equal(manifest.occurrences.some(({ id }) => id === "copperskiff"), false);
+  assert.throws(() => getSessionTroopProjectileProfile("skymaul"), /unknown|admitted/u);
+  const skymaul = manifest.excludedOccurrences.find(({ id }) => id === "skymaul");
+  assert.deepEqual({
+    htpStatus: skymaul.htpStatus,
+    reason: skymaul.reason,
+    status: skymaul.status,
+  }, {
+    htpStatus: "admitted",
+    reason: "the source and HTO projection do not claim delivery for this card; name and range are not delivery evidence",
+    status: "excluded",
+  });
 });
 
 test("projectile profiles: Aegis composition remains pending for GAME-001HTC", () => {
@@ -318,6 +472,8 @@ test("projectile profiles: no encounter/private simulator execution or coverage 
   const source = readFileSync(pathname, "utf8");
   assert.doesNotMatch(source, /Encounter/u);
   assert.doesNotMatch(source, /ProjectileCombat/u);
+  assert.doesNotMatch(source, /BasicFlyingDuel/u);
+  assert.doesNotMatch(source, /createBasicFlyingCombatant/u);
   assert.doesNotMatch(source, /new\s+(?:[A-Za-z]*Encounter|ProjectileCombat)/u);
   assert.doesNotMatch(source, /execution\s+coverage|private\s+simulator/u);
   assert.ok(createSessionTroopProjectileProfileManifest().profiles.every(({ sharedHostIntegration }) =>
@@ -331,9 +487,12 @@ test("projectile profiles: outputs are fresh, deeply frozen, detached, and canon
   assert.notEqual(first.profiles, second.profiles);
   assert.ok(deepFrozen(first));
   assert.ok(deepFrozen(second));
-  assert.equal(serializeSessionTroopProjectileProfileManifest(), canonical(first));
-  assert.equal(serializeSessionTroopProjectileProfileManifest(),
-    serializeSessionTroopProjectileProfileManifest());
+  const serialized = serializeSessionTroopProjectileProfileManifest();
+  assert.equal(serialized, canonical(first));
+  assert.equal(serialized, serializeSessionTroopProjectileProfileManifest());
+  assert.equal(serialized.length, 69014);
+  assert.equal(createHash("sha256").update(serialized).digest("hex"),
+    "fb838b304f057475c7fa4a0c4363b2b3ad621d95ca966cae9fe22f377fc598fd");
   assert.throws(() => { first.profiles[0].id = "forged"; }, TypeError);
   assert.throws(() => { first.questionFixtures.pellets.rayPattern.value[0].x = 0; }, TypeError);
   assert.throws(() => { first.profiles.push(null); }, TypeError);

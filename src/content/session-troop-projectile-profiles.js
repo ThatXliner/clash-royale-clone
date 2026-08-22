@@ -1,7 +1,5 @@
 import {
-  BasicFlyingDuel,
   createBasicFlyingCatalog,
-  createBasicFlyingCombatant,
 } from "./cards/basic-flying.js";
 import {
   BasicRangedDuel,
@@ -40,15 +38,16 @@ const VERSION = 1;
 const MAX_SOURCE_RECORDS = 64;
 const MAX_COMPONENTS = 16;
 const MAX_QUESTION_RECORDS = 64;
+const MAX_UNRESOLVED_DELIVERY_DEPENDENCIES = 16;
 const MAX_ID_LENGTH = 128;
 
 const EXPECTED_COUNTS = Object.freeze({
-  claimedOccurrencePairs: 8,
-  uniqueCardIds: 8,
-  ordinarySourceClaims: 3,
+  claimedOccurrencePairs: 7,
+  uniqueCardIds: 7,
+  ordinarySourceClaims: 2,
   specialSourceClaims: 5,
-  questionBearingClaims: 8,
-  unresolvedDeliveryDependencies: 1,
+  questionBearingClaims: 7,
+  unresolvedDeliveryDependencies: 2,
   duplicatedCompositionOwnedIds: 1,
 });
 
@@ -87,14 +86,6 @@ const CLAIM_SPECS = Object.freeze([
     componentId: null,
     exportName: "createBasicRangedCatalog",
     id: "reedsting",
-    sourceKind: "ordinary",
-  },
-  {
-    archetype: "copperskiff",
-    claimFamily: "ordinary-single-projectile",
-    componentId: null,
-    exportName: "createBasicFlyingCatalog",
-    id: "copperskiff",
     sourceKind: "ordinary",
   },
   {
@@ -139,14 +130,30 @@ const CLAIM_SPECS = Object.freeze([
   },
 ]);
 
-const UNRESOLVED_DELIVERY_SPEC = Object.freeze({
-  archetype: "briar-darter",
-  claimFamily: "ordinary-component-projectile",
-  componentId: "briar-darter",
-  exportName: "createSwarmCatalog",
-  id: "briar-band",
-  sourceKind: "ordinary",
-});
+const UNRESOLVED_DELIVERY_SPECS = Object.freeze([
+  Object.freeze({
+    archetype: "briar-darter",
+    claimFamily: "ordinary-component-projectile",
+    componentId: "briar-darter",
+    exportName: "createSwarmCatalog",
+    htoDeliveryQuestionKey: "briar-darter.delivery",
+    htoDeliveryQuestionSource: "runtime-playability-estimate-not-comparison-corpus",
+    htoDeliveryQuestionValue: 2,
+    id: "briar-band",
+    sourceKind: "ordinary",
+  }),
+  Object.freeze({
+    archetype: "copperskiff",
+    claimFamily: "ordinary-single-projectile",
+    componentId: null,
+    exportName: "createBasicFlyingCatalog",
+    htoDeliveryQuestionKey: "copperskiff.delivery",
+    htoDeliveryQuestionSource: "runtime-playability-estimate-not-comparison-corpus",
+    htoDeliveryQuestionValue: 2,
+    id: "copperskiff",
+    sourceKind: "ordinary",
+  }),
+]);
 
 // This is the complete non-projectile remainder of the HTP occurrence
 // surface. Keeping it explicit prevents a range or name from becoming a
@@ -269,7 +276,7 @@ const EXCLUDED_OCCURRENCE_SPECS = Object.freeze([
   {
     exportName: "createBasicFlyingCatalog",
     id: "skymaul",
-    reason: "the flying source does not pin this close-range card as a projectile occurrence",
+    reason: "the source and HTO projection do not claim delivery for this card; name and range are not delivery evidence",
     status: "admitted",
   },
   {
@@ -334,19 +341,13 @@ const SOURCE_BINDINGS = new Map([
     catalog: createBasicFlyingCatalog,
     expectedIds: ["copperskiff", "skymaul"],
     evidence: {
-      delivery: "projectile",
+      delivery: "not-sourced",
       verification: "cards-basic-flying",
-      sourceExports: [
-        "createBasicFlyingCatalog",
-        "createBasicFlyingCombatant",
-        "BasicFlyingDuel",
-      ],
+      sourceExports: ["createBasicFlyingCatalog"],
       sourceModule: "cards/basic-flying",
     },
     interfaces: {
-      BasicFlyingDuel,
       createBasicFlyingCatalog,
-      createBasicFlyingCombatant,
     },
   }],
   ["createSwarmCatalog", {
@@ -662,6 +663,42 @@ function occurrenceKey(spec) {
   return `${spec.exportName}\u0000${spec.id}`;
 }
 
+function assertUnresolvedSpecSurface() {
+  if (UNRESOLVED_DELIVERY_SPECS.length === 0 ||
+      UNRESOLVED_DELIVERY_SPECS.length > MAX_UNRESOLVED_DELIVERY_DEPENDENCIES) {
+    throw new RangeError("projectile unresolved delivery spec collection is unbounded or empty");
+  }
+  const occurrenceKeys = new Set();
+  const archetypes = new Set();
+  for (const spec of UNRESOLVED_DELIVERY_SPECS) {
+    exactKeys(spec, [
+      "archetype", "claimFamily", "componentId", "exportName",
+      "htoDeliveryQuestionKey", "htoDeliveryQuestionSource",
+      "htoDeliveryQuestionValue", "id", "sourceKind",
+    ], "unresolved delivery spec");
+    const key = occurrenceKey(spec);
+    if (occurrenceKeys.has(key)) {
+      throw new Error("projectile unresolved delivery specs contain a duplicate occurrence");
+    }
+    occurrenceKeys.add(key);
+    if (archetypes.has(spec.archetype)) {
+      throw new Error("projectile unresolved delivery specs contain duplicate archetypes");
+    }
+    archetypes.add(spec.archetype);
+    if (spec.sourceKind !== "ordinary" ||
+        typeof spec.htoDeliveryQuestionKey !== "string" ||
+        spec.htoDeliveryQuestionKey !== `${spec.archetype}.delivery` ||
+        spec.htoDeliveryQuestionSource !== "runtime-playability-estimate-not-comparison-corpus" ||
+        spec.htoDeliveryQuestionValue !== 2) {
+      throw new Error(`unresolved delivery spec ${spec.exportName}/${spec.id} is not a pinned HTO question`);
+    }
+    if (spec.componentId !== null && typeof spec.componentId !== "string") {
+      throw new TypeError(`unresolved delivery spec ${spec.exportName}/${spec.id} has an invalid component ID`);
+    }
+  }
+  return occurrenceKeys;
+}
+
 function assertHtpJoin(htpMap, spec, label) {
   const occurrence = htpMap.get(occurrenceKey(spec));
   if (occurrence === undefined || occurrence.status !== "admitted") {
@@ -672,8 +709,9 @@ function assertHtpJoin(htpMap, spec, label) {
 
 function assertHtpSurface(htpManifest) {
   const htpMap = htpOccurrenceMap(htpManifest);
+  const unresolvedSpecKeys = assertUnresolvedSpecSurface();
   const claimed = CLAIM_SPECS.map((spec) => occurrenceKey(spec));
-  const unresolved = [occurrenceKey(UNRESOLVED_DELIVERY_SPEC)];
+  const unresolved = [...unresolvedSpecKeys];
   const excluded = EXCLUDED_OCCURRENCE_SPECS.map((spec) => occurrenceKey(spec));
   const classified = [...claimed, ...unresolved, ...excluded];
   if (new Set(classified).size !== classified.length) {
@@ -684,18 +722,16 @@ function assertHtpSurface(htpManifest) {
     throw new Error("projectile HTP classification has a stale, missing, or extra occurrence");
   }
   for (const spec of CLAIM_SPECS) assertHtpJoin(htpMap, spec, `${spec.exportName}/${spec.id}`);
-  const unresolvedOccurrence = assertHtpJoin(
-    htpMap,
-    UNRESOLVED_DELIVERY_SPEC,
-    `${UNRESOLVED_DELIVERY_SPEC.exportName}/${UNRESOLVED_DELIVERY_SPEC.id}`,
-  );
+  for (const spec of UNRESOLVED_DELIVERY_SPECS) {
+    assertHtpJoin(htpMap, spec, `${spec.exportName}/${spec.id}`);
+  }
   for (const spec of EXCLUDED_OCCURRENCE_SPECS) {
     const occurrence = htpMap.get(occurrenceKey(spec));
     if (occurrence?.status !== spec.status) {
       throw new Error(`projectile exclusion status changed for ${spec.exportName}/${spec.id}`);
     }
   }
-  return { htpMap, unresolvedOccurrence };
+  return { htpMap };
 }
 
 function assertAdmissionIdentity(profile, record, label) {
@@ -717,18 +753,19 @@ function componentFor(record, componentId, expectedRole, label) {
   return matches[0];
 }
 
-function validateUnresolvedComponent(record) {
+function validateUnresolvedComponent(record, spec) {
+  if (spec.componentId === null) return null;
   const component = componentFor(
     record,
-    UNRESOLVED_DELIVERY_SPEC.componentId,
+    spec.componentId,
     "secondary",
-    "createSwarmCatalog/briar-band",
+    `${spec.exportName}/${spec.id}`,
   );
-  const members = createSquadMembers("briar-band", 1);
+  const members = createSquadMembers(spec.id, 1);
   if (!Array.isArray(members) || members.length !== 6 ||
       members.filter(({ componentId, role }) =>
-        componentId === "briar-darter" && role === "secondary").length !== 3) {
-    throw new Error("briar-darter component expansion is stale");
+        componentId === spec.componentId && role === "secondary").length !== 3) {
+    throw new Error(`${spec.componentId} component expansion is stale`);
   }
   return component;
 }
@@ -873,26 +910,62 @@ function buildAegisComposition(reflectionRecord, htpProfile) {
   };
 }
 
-function buildUnresolvedDependency(htpMap, component) {
-  const spec = UNRESOLVED_DELIVERY_SPEC;
-  const record = sourceRowFor(spec.exportName, spec.id);
-  const htoQuestions = createSessionTroopWitnessQuestions(spec.id)
-    .filter(({ key }) => key === "briar-darter.delivery" ||
-      key === "briar-darter.projectile-speed-millitiles-per-tick");
-  if (htoQuestions.length !== 2) {
-    throw new Error("Briar Darter HTO delivery questions are stale");
+function assertHtoQuestion(question, spec, expectedKey, expectedValue, label) {
+  if (question === undefined) {
+    throw new Error(`${label} is missing from the HTO witness`);
   }
-  const deliveryQuestion = htoQuestions.find(({ key }) => key === "briar-darter.delivery");
-  const speedQuestion = htoQuestions.find(({ key }) =>
-    key === "briar-darter.projectile-speed-millitiles-per-tick");
-  if (deliveryQuestion === undefined || speedQuestion === undefined) {
-    throw new Error("Briar Darter HTO delivery question mapping is incomplete");
+  exactKeys(question, ["authoritative", "confidence", "disposition", "key", "source", "value"], label);
+  if (question.key !== expectedKey || question.value !== expectedValue ||
+      question.authoritative !== false || question.confidence !== "unverified" ||
+      question.disposition !== "question" ||
+      question.source !== spec.htoDeliveryQuestionSource) {
+    throw new Error(`${label} is not the exact HTO delivery QUESTION record`);
   }
-  const occurrence = htpMap.get(occurrenceKey(spec));
+  return question;
+}
+
+function buildUnresolvedDependency(htpManifest, htpMap, sourceCache, spec) {
+  const occurrence = assertHtpJoin(htpMap, spec, `${spec.exportName}/${spec.id}`);
+  const htpProfile = htpManifest.profiles.find(({ id }) => id === spec.id);
+  if (htpProfile === undefined || !htpProfile.occurrenceExports.includes(spec.exportName)) {
+    throw new Error(`${spec.exportName}/${spec.id} has no exact HTP profile join`);
+  }
+  const record = sourceCache.get(spec.exportName).find(({ id }) => id === spec.id);
+  if (record === undefined) throw new Error(`${spec.exportName}/${spec.id} source record is missing`);
+  assertAdmissionIdentity(htpProfile, record, `${spec.exportName}/${spec.id}`);
+  const component = validateUnresolvedComponent(record, spec);
+  const htoQuestions = createSessionTroopWitnessQuestions(spec.id);
+  const deliveryQuestions = htoQuestions.filter(({ key }) =>
+    key === spec.htoDeliveryQuestionKey);
+  if (deliveryQuestions.length !== 1) {
+    throw new Error(`${spec.archetype} HTO delivery question mapping is stale`);
+  }
+  const deliveryQuestion = assertHtoQuestion(
+    deliveryQuestions[0],
+    spec,
+    spec.htoDeliveryQuestionKey,
+    spec.htoDeliveryQuestionValue,
+    `${spec.archetype}.delivery`,
+  );
+  const speedKey = `${spec.archetype}.projectile-speed-millitiles-per-tick`;
+  const speedQuestions = htoQuestions.filter(({ key }) => key === speedKey);
+  if (speedQuestions.length !== 1) {
+    throw new Error(`${spec.archetype} HTO projectile speed question mapping is stale`);
+  }
+  const speedQuestion = speedQuestions[0];
+  exactKeys(speedQuestion,
+    ["authoritative", "confidence", "disposition", "key", "source", "value"],
+    `${spec.archetype}.projectile-speed-millitiles-per-tick`);
+  if (speedQuestion.key !== speedKey || speedQuestion.value !== 500 ||
+      speedQuestion.authoritative !== false || speedQuestion.confidence !== "unverified" ||
+      speedQuestion.disposition !== "question" ||
+      speedQuestion.source !== spec.htoDeliveryQuestionSource) {
+    throw new Error(`${spec.archetype} HTO projectile speed QUESTION record is stale`);
+  }
   return {
     archetype: spec.archetype,
     claimFamily: spec.claimFamily,
-    component: clone(component),
+    component: component === null ? null : clone(component),
     delivery: {
       classification: "question",
       estimateOnly: true,
@@ -951,10 +1024,9 @@ function buildManifest() {
     return { claim, htpOccurrence, htpProfile, record, spec };
   }).sort(({ spec: left }, { spec: right }) => compareClaims(left, right));
 
-  const briarRecord = sourceCache.get("createSwarmCatalog").find(({ id }) => id === "briar-band");
-  if (briarRecord === undefined) throw new Error("createSwarmCatalog/briar-band source record is missing");
-  const briarComponent = validateUnresolvedComponent(briarRecord);
-  const unresolved = buildUnresolvedDependency(htpMap, briarComponent);
+  const unresolved = UNRESOLVED_DELIVERY_SPECS
+    .map((spec) => buildUnresolvedDependency(htpManifest, htpMap, sourceCache, spec))
+    .sort(compareOccurrences);
   const exclusions = buildExclusions(htpMap);
 
   const profileIds = [...new Set(claims.map(({ spec }) => spec.id))].sort(compareText);
@@ -999,7 +1071,7 @@ function buildManifest() {
     ordinarySourceClaims: claims.filter(({ spec }) => spec.sourceKind === "ordinary").length,
     specialSourceClaims: claims.filter(({ spec }) => spec.sourceKind === "special").length,
     questionBearingClaims: claims.filter(({ claim }) => Object.keys(claim.questions).length > 0).length,
-    unresolvedDeliveryDependencies: [unresolved].length,
+    unresolvedDeliveryDependencies: unresolved.length,
     duplicatedCompositionOwnedIds: compositionOwnedIds.length,
   };
   if (canonical(counts) !== canonical(EXPECTED_COUNTS)) {
@@ -1017,7 +1089,7 @@ function buildManifest() {
     occurrences,
     profiles,
     questionFixtures,
-    unresolvedDeliveryDependencies: [unresolved],
+    unresolvedDeliveryDependencies: unresolved,
     version: VERSION,
   });
 }
