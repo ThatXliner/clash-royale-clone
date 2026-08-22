@@ -188,16 +188,28 @@ const context = vm.createContext({
   structuredClone,
   vm,
 });
+const entryPath = config.entryPath ?? config.movementPath;
+const entrySuffix = config.entrySuffix ?? "";
+const entryUrl = pathToFileURL(entryPath).href + entrySuffix;
+const entryMetaSuffix = config.entryMetaSuffix ?? "";
 
 function transformedSource(source, filename) {
-  if (filename !== config.targetPath) return source;
+  const rewriteAuthorityImports = config.rewriteAuthorityImports !== undefined;
+  if (filename !== config.targetPath && !rewriteAuthorityImports) return source;
   let transformed = source;
-  if (config.importMarker !== undefined) {
+  if (filename === config.targetPath && config.importMarker !== undefined) {
     if (!transformed.includes(config.importMarker)) {
       throw new Error("source import marker is missing");
     }
     transformed = transformed.replace(config.importMarker, config.importReplacement);
   }
+  if (rewriteAuthorityImports) {
+    const authorityImport = "session-troop-movement-question-authority.js\"";
+    transformed = transformed.split(authorityImport).join(
+      authorityImport.slice(0, -1) + config.rewriteAuthorityImports + "\"",
+    );
+  }
+  if (filename !== config.targetPath) return transformed;
   if (!transformed.includes(config.marker)) {
     throw new Error("source wrapper marker is missing");
   }
@@ -217,6 +229,9 @@ function probeResult(payload) {
   }
   if (config.reportAuthorityGets) {
     payload.authorityGets = context.__authorityGets ?? 0;
+  }
+  if (config.reportPrimitiveCounters) {
+    payload.primitiveCounters = context.__primitiveCounters ?? null;
   }
   if (config.probeExposure) {
     payload.exposed = false;
@@ -242,7 +257,7 @@ function loadModule(url) {
         context,
         identifier: url,
         initializeImportMeta(meta) {
-          meta.url = url;
+          meta.url = url === entryUrl ? url + entryMetaSuffix : url;
         },
       },
     );
@@ -257,20 +272,28 @@ function loadModule(url) {
 
 let exitCode = 0;
 try {
-  movementModule = await loadModule(pathToFileURL(config.movementPath).href);
+  if (config.contextSetup !== undefined) {
+    vm.runInContext(config.contextSetup, context);
+  }
+  movementModule = await loadModule(entryUrl);
   await movementModule.evaluate();
-  const bytes = movementModule.namespace.serializeSessionTroopMovementProfileManifest();
-  const payload = {
-    accepted: true,
-    length: bytes.length,
-    sha256: createHash("sha256").update(bytes).digest("hex"),
-  };
+  const payload = config.importOnly
+    ? { accepted: true, exposed: config.probeAuthorityExposure === true }
+    : (() => {
+      const bytes = movementModule.namespace.serializeSessionTroopMovementProfileManifest();
+      return {
+        accepted: true,
+        length: bytes.length,
+        sha256: createHash("sha256").update(bytes).digest("hex"),
+      };
+    })();
   console.log(JSON.stringify(probeResult(payload)));
   if (config.expect === "reject") exitCode = 2;
 } catch (error) {
   if (config.expect === "reject") {
     console.log(JSON.stringify(probeResult({
       accepted: false,
+      ...(config.importOnly ? { exposed: false } : {}),
       error: error instanceof Error ? error.message : String(error),
     })));
   } else {
@@ -302,6 +325,52 @@ function runSourceWrapperProbe(config) {
   const output = result.stdout.trim().split(/\r?\n/u).at(-1);
   assert.ok(output, `source wrapper probe produced no JSON: ${result.stderr}`);
   return JSON.parse(output);
+}
+
+function primitiveGuardContextSetup(urlKind, guardHelpers = true) {
+  assert.ok(["fake-class", "subclass", "constructor-proxy"].includes(urlKind));
+  const setup = [
+    "globalThis.__primitiveCounters = { getters: 0, calls: 0, proxies: 0 };",
+    "const __primitiveCounters = globalThis.__primitiveCounters;",
+    "const __nativeDefineProperty = Object.defineProperty;",
+    `const __urlKind = ${JSON.stringify(urlKind)};`,
+    "class __FakeURL {",
+    "  constructor() { __primitiveCounters.calls += 1; this.search = ''; this.hash = ''; }",
+    "}",
+    "class __FakeURLSubclass extends __FakeURL {}",
+    "const __urlConstructor = __urlKind === 'subclass' ? __FakeURLSubclass : __FakeURL;",
+    "const __urlProxy = new Proxy(__urlConstructor, {",
+    "  construct() { __primitiveCounters.proxies += 1; return { search: '', hash: '' }; },",
+    "});",
+    "const __urlValue = __urlKind === 'constructor-proxy' ? __urlProxy : __urlConstructor;",
+    "__nativeDefineProperty(globalThis, 'URL', {",
+    "  configurable: true,",
+    "  get() { __primitiveCounters.getters += 1; return __urlValue; },",
+    "});",
+    "__nativeDefineProperty(globalThis, 'URLSearchParams', {",
+    "  configurable: true,",
+    "  get() { __primitiveCounters.getters += 1; return __urlValue; },",
+    "});",
+  ];
+  if (guardHelpers) {
+    setup.push(
+      "function __guard(__owner, __key) {",
+      "  const __throwing = function() { __primitiveCounters.calls += 1; __primitiveCounters.last = __key; throw new Error('mutable helper used'); };",
+      "  __nativeDefineProperty(__owner, __key, {",
+      "    configurable: true,",
+      "    get() { __primitiveCounters.getters += 1; return __throwing; },",
+      "  });",
+      "}",
+      "for (const __key of ['charAt', 'includes', 'indexOf', 'slice', 'split', 'startsWith', 'endsWith', 'toLowerCase', 'toUpperCase']) __guard(String.prototype, __key);",
+      "for (const __key of ['exec', 'test']) __guard(RegExp.prototype, __key);",
+      "for (const __key of ['apply', 'construct', 'get', 'ownKeys']) __guard(Reflect, __key);",
+      "for (const __key of ['create', 'defineProperty', 'entries', 'fromEntries', 'getOwnPropertyDescriptor', 'getOwnPropertyDescriptors', 'getPrototypeOf', 'hasOwn', 'isFrozen', 'values']) __guard(Object, __key);",
+      "for (const __key of ['from', 'isArray']) __guard(Array, __key);",
+      "for (const __key of ['hasOwnProperty']) __guard(Object.prototype, __key);",
+      "for (const __key of ['filter', 'find', 'includes', 'map', 'push', 'some', 'sort']) __guard(Array.prototype, __key);",
+    );
+  }
+  return setup.join("\n");
 }
 
 function sourceWrapperCase(exportName, id, mutation, options = {}) {
@@ -1756,6 +1825,130 @@ test("movement profile contract: independent QUESTION authority ignores source l
     sourceQueryCases: 24,
   });
   assert.equal(serializeSessionTroopMovementProfileManifest(), baseline);
+});
+
+test("movement profile contract: fresh authority imports ignore mutable URL and helper capabilities", () => {
+  const aliasSuffixes = [
+    "?cache-bust=round11-a",
+    "?cache-bust=round11-b",
+    "#fragment-alias=round11",
+    "?query-alias=round11#fragment-alias=round11",
+    "?encoded=%23round11",
+    "?encoded=%3Fround11",
+    "?encoded=%3fround11",
+    "?encoded=%23ROUND11",
+  ];
+  const counterZero = { getters: 0, calls: 0, proxies: 0 };
+  let canonicalImports = 0;
+  let directAliasRejects = 0;
+  let encodedMetaRejects = 0;
+  let loaderPercentRejects = 0;
+  let coherentResolverRejects = 0;
+
+  for (const urlKind of ["fake-class", "subclass", "constructor-proxy"]) {
+    const canonical = runSourceWrapperProbe({
+      entryPath: QUESTION_AUTHORITY_MODULE_PATH,
+      importOnly: true,
+      probeAuthorityExposure: true,
+      contextSetup: primitiveGuardContextSetup(urlKind),
+      reportPrimitiveCounters: true,
+    });
+    assert.deepEqual(canonical, {
+      accepted: true,
+      exposed: true,
+      primitiveCounters: counterZero,
+    }, `${urlKind} canonical import touched a mutable capability`);
+    canonicalImports += 1;
+
+    for (const suffix of aliasSuffixes) {
+      const aliased = runSourceWrapperProbe({
+        expect: "reject",
+        entryPath: QUESTION_AUTHORITY_MODULE_PATH,
+        entrySuffix: suffix,
+        importOnly: true,
+        probeAuthorityExposure: true,
+        contextSetup: primitiveGuardContextSetup(urlKind),
+        reportPrimitiveCounters: true,
+      });
+      assert.equal(aliased.accepted, false, `${urlKind}${suffix} authority alias was accepted`);
+      assert.equal(aliased.exposed, false, `${urlKind}${suffix} authority alias exposed exports`);
+      assert.deepEqual(aliased.primitiveCounters, counterZero,
+        `${urlKind}${suffix} touched a mutable capability`);
+      assert.match(aliased.error, /canonical module URL/u);
+      directAliasRejects += 1;
+    }
+
+    for (const suffix of ["%3F", "%3f", "%23"]) {
+      const encodedMeta = runSourceWrapperProbe({
+        expect: "reject",
+        entryPath: QUESTION_AUTHORITY_MODULE_PATH,
+        entryMetaSuffix: suffix,
+        importOnly: true,
+        probeAuthorityExposure: true,
+        contextSetup: primitiveGuardContextSetup(urlKind),
+        reportPrimitiveCounters: true,
+      });
+      assert.equal(encodedMeta.accepted, false,
+        `${urlKind}${suffix} encoded meta URL was accepted`);
+      assert.equal(encodedMeta.exposed, false,
+        `${urlKind}${suffix} encoded meta URL exposed exports`);
+      assert.deepEqual(encodedMeta.primitiveCounters, counterZero,
+        `${urlKind}${suffix} encoded meta URL touched a mutable capability`);
+      assert.match(encodedMeta.error, /canonical module URL/u);
+      encodedMetaRejects += 1;
+    }
+
+    for (const suffix of ["%3F", "%3f", "%23"]) {
+      const loaderPath = runSourceWrapperProbe({
+        expect: "reject",
+        entryPath: QUESTION_AUTHORITY_MODULE_PATH,
+        entrySuffix: suffix,
+        importOnly: true,
+        probeAuthorityExposure: true,
+        contextSetup: primitiveGuardContextSetup(urlKind),
+        reportPrimitiveCounters: true,
+      });
+      assert.equal(loaderPath.accepted, false,
+        `${urlKind}${suffix} encoded loader path was accepted`);
+      assert.equal(loaderPath.exposed, false,
+        `${urlKind}${suffix} encoded loader path exposed exports`);
+      assert.deepEqual(loaderPath.primitiveCounters, counterZero,
+        `${urlKind}${suffix} encoded loader path touched a mutable capability`);
+      assert.match(loaderPath.error, /ENOENT|no such file/u);
+      loaderPercentRejects += 1;
+    }
+
+    const coherent = runSourceWrapperProbe({
+      expect: "reject",
+      marker: "const VERSION = 1;",
+      replacement: "const VERSION = 1;",
+      rewriteAuthorityImports: `?coherent-round11-${urlKind}`,
+      contextSetup: primitiveGuardContextSetup(urlKind, false),
+      reportPrimitiveCounters: true,
+      probeExposure: true,
+      targetPath: MOVEMENT_SOURCE_MODULE_PATH,
+    });
+    assert.equal(coherent.accepted, false, `${urlKind} coherent resolver alias was accepted`);
+    assert.equal(coherent.exposed, false, `${urlKind} coherent resolver alias exposed a manifest`);
+    assert.deepEqual(coherent.primitiveCounters, counterZero,
+      `${urlKind} coherent resolver alias touched a mutable capability`);
+    assert.match(coherent.error, /canonical module URL/u);
+    coherentResolverRejects += 1;
+  }
+
+  assert.deepEqual({
+    canonicalImports,
+    coherentResolverRejects,
+    directAliasRejects,
+    encodedMetaRejects,
+    loaderPercentRejects,
+  }, {
+    canonicalImports: 3,
+    coherentResolverRejects: 3,
+    directAliasRejects: 24,
+    encodedMetaRejects: 9,
+    loaderPercentRejects: 9,
+  });
 });
 
 test("movement profile contract: canonicalization fails closed for non-JSON values without traps", () => {

@@ -2,11 +2,25 @@
 // independently of every card source module.  The card modules may re-export
 // their exact factory bindings, but they do not own the admission identity.
 
-const AUTHORITY_MODULE_URL = new globalThis["URL"](import.meta.url);
-if (AUTHORITY_MODULE_URL.search !== "" || AUTHORITY_MODULE_URL.hash !== "") {
-  throw new TypeError(
-    "movement QUESTION authority must be loaded from its canonical module URL",
-  );
+const AUTHORITY_MODULE_URL = import.meta.url;
+if (typeof AUTHORITY_MODULE_URL !== "string") {
+  throw "movement QUESTION authority must be loaded from its canonical module URL";
+}
+for (let index = 0; index < AUTHORITY_MODULE_URL.length; index += 1) {
+  const codeUnit = AUTHORITY_MODULE_URL[index];
+  const nextCodeUnit = AUTHORITY_MODULE_URL[index + 1];
+  const nextNextCodeUnit = AUTHORITY_MODULE_URL[index + 2];
+  if (
+    codeUnit === "?" ||
+    codeUnit === "#" ||
+    codeUnit === "%" && (
+      (nextCodeUnit === "2" && nextNextCodeUnit === "3") ||
+      (nextCodeUnit === "3" &&
+        (nextNextCodeUnit === "F" || nextNextCodeUnit === "f"))
+    )
+  ) {
+    throw "movement QUESTION authority must be loaded from its canonical module URL";
+  }
 }
 
 const QUESTION_GRAPH_NODES = new WeakSet();
