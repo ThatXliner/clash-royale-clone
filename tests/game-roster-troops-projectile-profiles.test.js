@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -46,17 +47,17 @@ import { createSessionTroopWitnessQuestions } from "../src/content/session-troop
 
 const EXPECTED_OCCURRENCES = [
   ["aegis-sage", "createReflectionSpecialCatalog", "aegis-sage", "reflection"],
-  ["brassbolt", "createBasicRangedCatalog", "brassbolt", "ordinary-single-projectile"],
   ["prism-warden", "createPierceSpecialCatalog", "prism-warden", "pierce"],
-  ["reedsting", "createBasicRangedCatalog", "reedsting", "ordinary-single-projectile"],
   ["rune-reaver", "createReturnSpecialCatalog", "rune-reaver", "return"],
   ["scatterguard", "createPelletSpecialCatalog", "scatterguard", "pellets"],
   ["stormkite", "createChainSpecialCatalog", "stormkite", "chain"],
 ];
 
 const EXPECTED_UNRESOLVED_DELIVERY = [
+  ["brassbolt", "createBasicRangedCatalog", "brassbolt", "brassbolt.delivery", 2],
   ["briar-band", "createSwarmCatalog", "briar-darter", "briar-darter.delivery", 2],
   ["copperskiff", "createBasicFlyingCatalog", "copperskiff", "copperskiff.delivery", 2],
+  ["reedsting", "createBasicRangedCatalog", "reedsting", "reedsting.delivery", 2],
 ];
 
 const EXPECTED_EXCLUDED = [
@@ -105,6 +106,153 @@ const SPECIAL_FIXTURES = {
   pellets: createPelletQuestionFixture,
   reflection: createReflectionQuestionFixture,
 };
+
+const SOURCE_MODULE_PATHS = Object.freeze(Object.fromEntries(
+  Object.entries({
+    createBasicRangedCatalog: "cards/basic-ranged.js",
+    createBasicFlyingCatalog: "cards/basic-flying.js",
+    createSwarmCatalog: "cards/swarms.js",
+    createChainSpecialCatalog: "cards/special-projectiles-chain.js",
+    createPierceSpecialCatalog: "cards/special-projectiles-pierce.js",
+    createReturnSpecialCatalog: "cards/special-projectiles-return.js",
+    createPelletSpecialCatalog: "cards/special-projectiles-pellets.js",
+    createReflectionSpecialCatalog: "cards/special-projectiles-reflection.js",
+  }).map(([exportName, relativePath]) => [
+    exportName,
+    fileURLToPath(new URL(`../src/content/${relativePath}`, import.meta.url)),
+  ]),
+));
+const PROJECTILE_SOURCE_MODULE_PATH = fileURLToPath(new URL(
+  "../src/content/session-troop-projectile-profiles.js", import.meta.url,
+));
+const HTP_MODULE_PATH = fileURLToPath(new URL(
+  "../src/content/session-troop-profile-catalog.js", import.meta.url,
+));
+const HTO_MODULE_PATH = fileURLToPath(new URL(
+  "../src/content/session-troop-roster.js", import.meta.url,
+));
+const EXPECTED_SOURCE_PAIRS = [
+  ["createBasicRangedCatalog", "brassbolt"],
+  ["createBasicRangedCatalog", "reedsting"],
+  ["createBasicFlyingCatalog", "copperskiff"],
+  ["createBasicFlyingCatalog", "skymaul"],
+  ["createSwarmCatalog", "briar-band"],
+  ["createSwarmCatalog", "cinderlings"],
+  ["createChainSpecialCatalog", "stormkite"],
+  ["createPierceSpecialCatalog", "prism-warden"],
+  ["createReturnSpecialCatalog", "rune-reaver"],
+  ["createPelletSpecialCatalog", "scatterguard"],
+  ["createReflectionSpecialCatalog", "aegis-sage"],
+];
+
+const PROJECTILE_SOURCE_WRAPPER_PROBE = String.raw`
+import vm from "node:vm";
+import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
+import { fileURLToPath, pathToFileURL } from "node:url";
+
+const config = JSON.parse(process.env.PROJECTILE_SOURCE_PROBE);
+const moduleCache = new Map();
+const context = vm.createContext({
+  URL,
+  URLSearchParams,
+  TextDecoder,
+  TextEncoder,
+  console,
+  process,
+  structuredClone,
+});
+
+function transformedSource(source, filename) {
+  if (filename !== config.targetPath) return source;
+  if (!source.includes(config.marker)) throw new Error("source wrapper marker is missing");
+  return (config.prefix ?? "") + source.replace(config.marker, config.replacement);
+}
+
+function loadModule(url) {
+  if (moduleCache.has(url)) return moduleCache.get(url);
+  const promise = (async () => {
+    const filename = fileURLToPath(url);
+    const module = new vm.SourceTextModule(
+      transformedSource(readFileSync(filename, "utf8"), filename),
+      {
+        context,
+        identifier: url,
+        initializeImportMeta(meta) { meta.url = url; },
+      },
+    );
+    await module.link((specifier, referencingModule) =>
+      loadModule(new URL(specifier, referencingModule.identifier).href));
+    return module;
+  })();
+  moduleCache.set(url, promise);
+  return promise;
+}
+
+let exitCode = 0;
+try {
+  const projectile = await loadModule(pathToFileURL(config.projectilePath).href);
+  await projectile.evaluate();
+  const bytes = projectile.namespace.serializeSessionTroopProjectileProfileManifest();
+  console.log(JSON.stringify({
+    accepted: true,
+    length: bytes.length,
+    sha256: createHash("sha256").update(bytes).digest("hex"),
+  }));
+  if (config.expect === "reject") exitCode = 2;
+} catch (error) {
+  if (config.expect === "reject") {
+    console.log(JSON.stringify({
+      accepted: false,
+      error: error instanceof Error ? error.message : String(error),
+    }));
+  } else {
+    console.error(error instanceof Error ? error.stack : String(error));
+    exitCode = 1;
+  }
+}
+process.exitCode = exitCode;
+`;
+
+function runSourceWrapperProbe(config) {
+  const result = spawnSync(process.execPath, [
+    "--experimental-vm-modules",
+    "--input-type=module",
+    "-e",
+    PROJECTILE_SOURCE_WRAPPER_PROBE,
+  ], {
+    encoding: "utf8",
+    env: {
+      ...process.env,
+      PROJECTILE_SOURCE_PROBE: JSON.stringify({
+        projectilePath: PROJECTILE_SOURCE_MODULE_PATH,
+        ...config,
+      }),
+    },
+  });
+  assert.equal(result.error, undefined, result.error?.message);
+  assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+  const output = result.stdout.trim().split(/\r?\n/u).at(-1);
+  assert.ok(output, `source wrapper probe produced no JSON: ${result.stderr}`);
+  return JSON.parse(output);
+}
+
+function sourceWrapperCase(exportName, id, mutation, options = {}) {
+  return {
+    expect: options.expect ?? "reject",
+    marker: "return createCardCatalog(DEFINITIONS);",
+    prefix: options.alternatingReads ? "let __sourceReadCount = 0;\n" : "",
+    replacement: [
+      "const records = createCardCatalog(DEFINITIONS);",
+      options.alternatingReads ? "__sourceReadCount += 1;" : "",
+      `const record = records.find(({ id: candidateId }) => candidateId === ${JSON.stringify(id)});`,
+      'if (record === undefined) throw new Error("source wrapper record is missing");',
+      mutation,
+      "return records;",
+    ].filter(Boolean).join("\n"),
+    targetPath: SOURCE_MODULE_PATHS[exportName],
+  };
+}
 
 function canonical(value) {
   if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
@@ -175,17 +323,16 @@ test("projectile profiles: exact admitted occurrence/card/archetype domain and p
     dependency.questions.delivery.value,
   ]), EXPECTED_UNRESOLVED_DELIVERY);
   assert.deepEqual(manifest.counts, {
-    claimedOccurrencePairs: 7,
-    uniqueCardIds: 7,
-    ordinarySourceClaims: 2,
+    claimedOccurrencePairs: 5,
+    uniqueCardIds: 5,
+    ordinarySourceClaims: 0,
     specialSourceClaims: 5,
-    questionBearingClaims: 7,
-    unresolvedDeliveryDependencies: 2,
+    questionBearingClaims: 5,
+    unresolvedDeliveryDependencies: 4,
     duplicatedCompositionOwnedIds: 1,
   });
   assert.deepEqual(manifest.profiles.map(({ id }) => id), [
-    "aegis-sage", "brassbolt", "prism-warden", "reedsting",
-    "rune-reaver", "scatterguard", "stormkite",
+    "aegis-sage", "prism-warden", "rune-reaver", "scatterguard", "stormkite",
   ]);
   const htpKeys = new Set(createSessionTroopProfileManifest().occurrences.map(({ exportName, id }) =>
     `${exportName}\u0000${id}`));
@@ -200,13 +347,153 @@ test("projectile profiles: exact admitted occurrence/card/archetype domain and p
   assert.deepEqual(new Set(classifiedKeys), htpKeys);
 });
 
+test("projectile profiles: the complete witness map covers exactly the eight source export sets", () => {
+  const source = readFileSync(PROJECTILE_SOURCE_MODULE_PATH, "utf8");
+  const pinnedPairs = [...source.matchAll(
+    /\[sourceRecordKey\("([^"]+)", "([^"]+)"\)\]: canonical\(\{/gu,
+  )].map(([, exportName, id]) => [exportName, id]);
+  const sortPairs = (pairs) => [...pairs].sort(([leftExport, leftId], [rightExport, rightId]) =>
+    leftId.localeCompare(rightId) || leftExport.localeCompare(rightExport));
+  assert.equal(pinnedPairs.length, 11);
+  assert.deepEqual(sortPairs(pinnedPairs), sortPairs(EXPECTED_SOURCE_PAIRS));
+  assert.match(source, /const EXPECTED_SOURCE_IDS_BY_EXPORT = Object\.freeze\(\{/u);
+  assert.match(source, /const EXPECTED_SOURCE_WITNESS_MAP = Object\.freeze\(\{/u);
+  assert.match(source, /assertExpectedWitnessCoverage\(\);/u);
+  assert.deepEqual(Object.keys(SOURCE_CATALOGS).sort(), [
+    "createBasicFlyingCatalog",
+    "createBasicRangedCatalog",
+    "createChainSpecialCatalog",
+    "createPelletSpecialCatalog",
+    "createPierceSpecialCatalog",
+    "createReflectionSpecialCatalog",
+    "createReturnSpecialCatalog",
+  ]);
+  assert.deepEqual(createSwarmCatalog().map(({ id }) => id).sort(), [
+    "briar-band", "cinderlings",
+  ]);
+});
+
+test("projectile profiles: every bound row rejects same-ID scalar drift", () => {
+  let rejects = 0;
+  for (const [exportName, id] of EXPECTED_SOURCE_PAIRS) {
+    const result = runSourceWrapperProbe(sourceWrapperCase(
+      exportName,
+      id,
+      "record.cost += 1;",
+    ));
+    assert.equal(result.accepted, false, `${exportName}/${id} scalar drift was accepted`);
+    rejects += 1;
+  }
+  assert.equal(rejects, 11);
+});
+
+test("projectile profiles: representative source fields, shapes, and nested Briar changes fail closed", () => {
+  const fieldCases = [
+    ["areaDamageRadiusMillitiles", "createPelletSpecialCatalog", "scatterguard", "record.areaDamageRadiusMillitiles = 71;"],
+    ["components", "createSwarmCatalog", "briar-band", "record.components.push({});"],
+    ["cost", "createBasicFlyingCatalog", "copperskiff", "record.cost = 5;"],
+    ["count", "createSwarmCatalog", "briar-band", "record.count = 7;"],
+    ["damage", "createBasicRangedCatalog", "brassbolt", "record.damage = 219;"],
+    ["deployTimeTicks", "createBasicFlyingCatalog", "copperskiff", "record.deployTimeTicks = 61;"],
+    ["displayName", "createBasicFlyingCatalog", "copperskiff", "record.displayName = \"Copperskiff Drift\";"],
+    ["firstHitTicks", "createBasicFlyingCatalog", "copperskiff", "record.firstHitTicks = 37;"],
+    ["hitSpeedTicks", "createBasicFlyingCatalog", "copperskiff", "record.hitSpeedTicks = 67;"],
+    ["hitpoints", "createBasicFlyingCatalog", "copperskiff", "record.hitpoints = 615;"],
+    ["id", "createBasicFlyingCatalog", "copperskiff", "record.id = \"copperskiff-drift\";"],
+    ["kind", "createBasicFlyingCatalog", "copperskiff", "record.kind = \"structure\";"],
+    ["movementMillitilesPerSecond", "createBasicFlyingCatalog", "copperskiff", "record.movementMillitilesPerSecond = 1501;"],
+    ["rangeMillitiles", "createBasicFlyingCatalog", "copperskiff", "record.rangeMillitiles = 6001;"],
+    ["rarity", "createBasicFlyingCatalog", "copperskiff", "record.rarity = \"mythic\";"],
+    ["sightRangeMillitiles", "createBasicFlyingCatalog", "copperskiff", "record.sightRangeMillitiles = 6001;"],
+    ["targetMode", "createBasicFlyingCatalog", "copperskiff", "record.targetMode = \"ground\";"],
+  ];
+  for (const [field, exportName, id, mutation] of fieldCases) {
+    const result = runSourceWrapperProbe(sourceWrapperCase(exportName, id, mutation));
+    assert.equal(result.accepted, false, `${field} drift was accepted`);
+  }
+
+  const shapeCases = [
+    ["extra row", "records.push(records[0]);"],
+    ["missing row", "records.pop();"],
+    ["duplicate row", "records.splice(1, 0, records[0]);"],
+    ["extra field", "record.extraField = 1;"],
+    ["missing field", "delete record.damage;"],
+    ["accessor", "Object.defineProperty(record, \"damage\", { configurable: true, enumerable: true, get() { throw new Error(\"source accessor\"); } });"],
+  ];
+  for (const [label, mutation] of shapeCases) {
+    const result = runSourceWrapperProbe(sourceWrapperCase(
+      "createSwarmCatalog",
+      "briar-band",
+      mutation,
+    ));
+    assert.equal(result.accepted, false, `${label} source shape was accepted`);
+  }
+
+  const nestedCases = [
+    ["component scalar", "record.components[1].damage = 82;"],
+    ["component add", "record.components.push({ id: \"component-drift\" });"],
+    ["component remove", "record.components.splice(1, 1);"],
+    ["component reorder", "record.components.reverse();"],
+  ];
+  for (const [label, mutation] of nestedCases) {
+    const result = runSourceWrapperProbe(sourceWrapperCase(
+      "createSwarmCatalog",
+      "briar-band",
+      mutation,
+    ));
+    assert.equal(result.accepted, false, `${label} was accepted`);
+  }
+  assert.equal(fieldCases.length, 17);
+  assert.equal(shapeCases.length, 6);
+  assert.equal(nestedCases.length, 4);
+});
+
+test("projectile profiles: source reads, HTP, and HTO drift reject before exposure", () => {
+  const alternating = runSourceWrapperProbe(sourceWrapperCase(
+    "createBasicRangedCatalog",
+    "brassbolt",
+    "if ((__sourceReadCount % 2) === 0) record.damage = 219;",
+    { alternatingReads: true },
+  ));
+  assert.equal(alternating.accepted, false, "changed second source read was accepted");
+
+  const propertyOrder = runSourceWrapperProbe(sourceWrapperCase(
+    "createSwarmCatalog",
+    "briar-band",
+    "records[records.indexOf(record)] = Object.fromEntries(Object.entries(record).reverse());",
+    { expect: "accept" },
+  ));
+  const baseline = serializeSessionTroopProjectileProfileManifest();
+  assert.deepEqual(propertyOrder, {
+    accepted: true,
+    length: baseline.length,
+    sha256: createHash("sha256").update(baseline).digest("hex"),
+  });
+
+  const htpMissing = runSourceWrapperProbe({
+    expect: "reject",
+    marker: "return freeze(clone(MANIFEST));",
+    replacement: "const output = clone(MANIFEST); output.occurrences[0] = { ...output.occurrences[0], id: \"drifted-occurrence\" }; return freeze(output);",
+    targetPath: HTP_MODULE_PATH,
+  });
+  assert.equal(htpMissing.accepted, false, "HTP occurrence drift was accepted");
+
+  const htoMutation = runSourceWrapperProbe({
+    expect: "reject",
+    marker: "return clonePublic(witness.questions);",
+    replacement: "const output = clone(witness.questions); output.find(({ key }) => key === \"brassbolt.delivery\").value = 3; return freeze(output);",
+    targetPath: HTO_MODULE_PATH,
+  });
+  assert.equal(htoMutation.accepted, false, "HTO question drift was accepted");
+});
+
 test("projectile profiles: every claimed source join is exact and profiles are one-per-ID", () => {
   const manifest = createSessionTroopProjectileProfileManifest();
   const claims = claimRows(manifest);
-  assert.equal(claims.length, 7);
-  assert.equal(new Set(manifest.profiles.map(({ id }) => id)).size, 7);
+  assert.equal(claims.length, 5);
+  assert.equal(new Set(manifest.profiles.map(({ id }) => id)).size, 5);
   assert.equal(new Set(manifest.occurrences.map(({ exportName, id }) =>
-    `${exportName}\u0000${id}`)).size, 7);
+    `${exportName}\u0000${id}`)).size, 5);
 
   for (const claim of claims) {
     const catalog = SOURCE_CATALOGS[claim.source.catalogExport];
@@ -296,6 +583,7 @@ test("projectile profiles: unresolved delivery dependencies join exact HTO QUEST
     assert.equal(dependency.source.evidence.delivery, "not-sourced", dependency.id);
   }
   assert.throws(() => getSessionTroopProjectileProfile("briar-band"), /QUESTION/u);
+  assert.throws(() => getSessionTroopProjectileProfile("briar-darter"), /QUESTION/u);
   assert.throws(() => getSessionTroopProjectileProfile("copperskiff"), /QUESTION/u);
 });
 
@@ -328,27 +616,18 @@ test("projectile profiles: all five question fixtures are exact, fresh, and prov
   assert.throws(() => createReflectionQuestionFixture({}));
 });
 
-test("projectile profiles: absent ordinary geometry remains QUESTION and special geometry stays fixture-owned", () => {
+test("projectile profiles: ordinary delivery remains QUESTION and special geometry stays fixture-owned", () => {
   const manifest = createSessionTroopProjectileProfileManifest();
-  const ordinary = claimRows(manifest).filter(({ claimFamily }) =>
-    claimFamily === "ordinary-single-projectile");
-  assert.deepEqual(ordinary.map(({ archetype }) => archetype), [
-    "brassbolt", "reedsting",
-  ]);
-  for (const claim of ordinary) {
-    assert.deepEqual(Object.keys(claim.questions).sort(), [
-      "projectileLengthMillitiles",
-      "projectileSpeedMillitilesPerTick",
-      "projectileTravelTicks",
-      "projectileWidthMillitiles",
-    ]);
-    for (const question of Object.values(claim.questions)) {
-      assert.equal(question.disposition, "question");
-      assert.equal(question.authoritative, false);
-      assert.equal(question.value, null);
-    }
-    assert.equal(Object.hasOwn(claim.source.record, "projectileSpeed"), false);
-    assert.equal(Object.hasOwn(claim.source.record, "projectileTravelTicks"), false);
+  assert.equal(claimRows(manifest).filter(({ claimFamily }) =>
+    claimFamily === "ordinary-single-projectile").length, 0);
+  for (const dependency of manifest.unresolvedDeliveryDependencies) {
+    assert.equal(dependency.delivery.classification, "question");
+    assert.equal(dependency.source.evidence.delivery, "not-sourced");
+    assert.equal(dependency.questions.delivery.authoritative, false);
+    assert.equal(dependency.questions.delivery.disposition, "question");
+    assert.equal(dependency.questions.delivery.value, 2);
+    assert.equal(Object.hasOwn(dependency.source.record, "projectileSpeed"), false);
+    assert.equal(Object.hasOwn(dependency.source.record, "projectileTravelTicks"), false);
   }
 
   const chain = claimRows(manifest).find(({ claimFamily }) => claimFamily === "chain");
@@ -367,8 +646,9 @@ test("projectile profiles: absent ordinary geometry remains QUESTION and special
   assert.equal(reflection.questions.loopPolicy.value, "one-reflection-maximum");
 });
 
-test("projectile profiles: basic ranged source contract emits card-specific launches", () => {
+test("projectile profiles: generic basic-ranged launch evidence is test-only and cannot admit either card", () => {
   const sourceById = new Map(createBasicRangedCatalog().map((record) => [record.id, record]));
+  const launches = [];
   for (const cardId of ["brassbolt", "reedsting"]) {
     const opponentId = cardId === "brassbolt" ? "reedsting" : "brassbolt";
     const launch = firstLaunch(BasicRangedDuel, createBasicRangedCombatant, cardId, opponentId);
@@ -382,22 +662,31 @@ test("projectile profiles: basic ranged source contract emits card-specific laun
     assert.equal(launch.projectile.radius, 0, cardId);
     assert.equal(launch.projectile.speed, 1, cardId);
     assert.equal(launch.projectile.targetId, 2, cardId);
+    launches.push(launch);
   }
-  const ordinary = claimRows(createSessionTroopProjectileProfileManifest())
-    .filter(({ claimFamily }) => claimFamily === "ordinary-single-projectile");
-  assert.deepEqual(ordinary.map(({ source, delivery }) => [
-    source.catalogExport,
-    source.evidence.sourceExports,
-    delivery.classification,
-    delivery.delivery,
-  ]), [
-    ["createBasicRangedCatalog",
-      ["createBasicRangedCatalog", "createBasicRangedCombatant", "BasicRangedDuel"],
-      "sourced", "projectile"],
-    ["createBasicRangedCatalog",
-      ["createBasicRangedCatalog", "createBasicRangedCombatant", "BasicRangedDuel"],
-      "sourced", "projectile"],
-  ]);
+  assert.deepEqual(
+    launches.map(({ projectile }) => [
+      Object.keys(projectile).sort(),
+      projectile.origin,
+      projectile.radius,
+      projectile.speed,
+      projectile.impactTick - projectile.launchTick,
+    ]),
+    launches.map(({ projectile }) => [
+      Object.keys(projectile).sort(),
+      { x: 0, y: 0 },
+      0,
+      1,
+      0,
+    ]),
+  );
+  const manifest = createSessionTroopProjectileProfileManifest();
+  assert.deepEqual(manifest.unresolvedDeliveryDependencies
+    .filter(({ id }) => ["brassbolt", "reedsting"].includes(id))
+    .map(({ id, source, delivery }) => [id, source.evidence.sourceExports, delivery.classification]), [
+      ["brassbolt", ["createBasicRangedCatalog"], "question"],
+      ["reedsting", ["createBasicRangedCatalog"], "question"],
+    ]);
 });
 
 test("projectile profiles: generic flying launch evidence cannot admit Copperskiff", () => {
@@ -490,9 +779,9 @@ test("projectile profiles: outputs are fresh, deeply frozen, detached, and canon
   const serialized = serializeSessionTroopProjectileProfileManifest();
   assert.equal(serialized, canonical(first));
   assert.equal(serialized, serializeSessionTroopProjectileProfileManifest());
-  assert.equal(serialized.length, 69014);
+  assert.equal(serialized.length, 66903);
   assert.equal(createHash("sha256").update(serialized).digest("hex"),
-    "fb838b304f057475c7fa4a0c4363b2b3ad621d95ca966cae9fe22f377fc598fd");
+    "d01b60123c2ac10a7cf8f3846a8c8fcd87eda22a65cb9166cb99d69f47fdb31d");
   assert.throws(() => { first.profiles[0].id = "forged"; }, TypeError);
   assert.throws(() => { first.questionFixtures.pellets.rayPattern.value[0].x = 0; }, TypeError);
   assert.throws(() => { first.profiles.push(null); }, TypeError);
@@ -557,16 +846,19 @@ test("projectile profiles: static isolation and source-change bounds are explici
   assert.doesNotMatch(source, /(?:Date|performance|Math\.random|randomUUID|getRandomValues)\s*[.(]/u);
   assert.doesNotMatch(source, /(?:^|[^\w])(?:import\s*\(|require\s*\()/u);
   assert.doesNotMatch(source, /readFile|cards\.json/u);
+  assert.doesNotMatch(source, /BasicRangedDuel|createBasicRangedCombatant|createBasicFlyingCombatant/u);
+  assert.doesNotMatch(source, /createBasicRangedCatalog[\s\S]{0,240}(?:Duel|Combatant)/u);
   const manifest = createSessionTroopProjectileProfileManifest();
   assert.ok(manifest.occurrences.length <= 64);
   assert.ok(manifest.excludedOccurrences.length <= 64);
   assert.ok(manifest.unresolvedDeliveryDependencies.length <= 16);
   const sourceCatalog = createBasicRangedCatalog();
   sourceCatalog[0].damage = 1;
-  assert.equal(getSessionTroopProjectileProfile("brassbolt").sourceCard.damage, 218);
-  assert.equal(getSessionTroopProjectileProfile("brassbolt").claims[0].source.record.damage, 218);
-  assert.equal(getSessionTroopProjectileProfile("reedsting").sourceCard.damage,
-    createBasicRangedCatalog().find(({ id }) => id === "reedsting").damage);
+  assert.throws(() => getSessionTroopProjectileProfile("brassbolt"), /QUESTION/u);
+  assert.equal(manifest.unresolvedDeliveryDependencies.find(({ id }) => id === "brassbolt")
+    .source.record.damage, 218);
+  assert.equal(manifest.unresolvedDeliveryDependencies.find(({ id }) => id === "reedsting")
+    .source.record.damage, createBasicRangedCatalog().find(({ id }) => id === "reedsting").damage);
   assert.equal(createSwarmCatalog().find(({ id }) => id === "briar-band")
     .components.find(({ id }) => id === "briar-darter").role, "secondary");
 });

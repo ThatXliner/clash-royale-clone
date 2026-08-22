@@ -1,15 +1,6 @@
-import {
-  createBasicFlyingCatalog,
-} from "./cards/basic-flying.js";
-import {
-  BasicRangedDuel,
-  createBasicRangedCatalog,
-  createBasicRangedCombatant,
-} from "./cards/basic-ranged.js";
-import {
-  createSquadMembers,
-  createSwarmCatalog,
-} from "./cards/swarms.js";
+import { createBasicFlyingCatalog } from "./cards/basic-flying.js";
+import { createBasicRangedCatalog } from "./cards/basic-ranged.js";
+import { createSwarmCatalog } from "./cards/swarms.js";
 import {
   createChainQuestionFixture,
   createChainSpecialCatalog,
@@ -30,24 +21,33 @@ import {
   createReflectionQuestionFixture,
   createReflectionSpecialCatalog,
 } from "./cards/special-projectiles-reflection.js";
-import { createChampionAbilityCatalog } from "./cards/champion-abilities.js";
 import { createSessionTroopProfileManifest } from "./session-troop-profile-catalog.js";
 import { createSessionTroopWitnessQuestions } from "./session-troop-roster.js";
 
 const VERSION = 1;
-const MAX_SOURCE_RECORDS = 64;
+const MAX_SOURCE_CATALOG_ROWS = 64;
 const MAX_COMPONENTS = 16;
 const MAX_QUESTION_RECORDS = 64;
 const MAX_UNRESOLVED_DELIVERY_DEPENDENCIES = 16;
 const MAX_ID_LENGTH = 128;
+const SOURCE_ID_PATTERN = /^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/u;
+const SOURCE_RARITIES = new Set([
+  "standard", "uncommon", "rare", "epic", "legendary", "mythic", "special", "heroic",
+]);
+const SOURCE_TARGET_MODES = new Set([
+  "none", "ground", "air", "ground-and-air", "structures",
+]);
+const SOURCE_COMPONENT_ROLES = new Set([
+  "primary", "secondary", "spawn", "spawn-over-time",
+]);
 
 const EXPECTED_COUNTS = Object.freeze({
-  claimedOccurrencePairs: 7,
-  uniqueCardIds: 7,
-  ordinarySourceClaims: 2,
+  claimedOccurrencePairs: 5,
+  uniqueCardIds: 5,
+  ordinarySourceClaims: 0,
   specialSourceClaims: 5,
-  questionBearingClaims: 7,
-  unresolvedDeliveryDependencies: 2,
+  questionBearingClaims: 5,
+  unresolvedDeliveryDependencies: 4,
   duplicatedCompositionOwnedIds: 1,
 });
 
@@ -71,66 +71,64 @@ const IDENTITY_REQUIREMENTS = Object.freeze({
   status: "required-adapter-contract",
 });
 
+// The five admitted occurrences are all special projectile memberships. The
+// ordinary catalog rows below are source identities only until HTO can provide
+// card-specific delivery evidence.
 const CLAIM_SPECS = Object.freeze([
-  {
-    archetype: "brassbolt",
-    claimFamily: "ordinary-single-projectile",
-    componentId: null,
-    exportName: "createBasicRangedCatalog",
-    id: "brassbolt",
-    sourceKind: "ordinary",
-  },
-  {
-    archetype: "reedsting",
-    claimFamily: "ordinary-single-projectile",
-    componentId: null,
-    exportName: "createBasicRangedCatalog",
-    id: "reedsting",
-    sourceKind: "ordinary",
-  },
-  {
+  Object.freeze({
     archetype: "stormkite",
     claimFamily: "chain",
     componentId: null,
     exportName: "createChainSpecialCatalog",
     id: "stormkite",
     sourceKind: "special",
-  },
-  {
+  }),
+  Object.freeze({
     archetype: "prism-warden",
     claimFamily: "pierce",
     componentId: null,
     exportName: "createPierceSpecialCatalog",
     id: "prism-warden",
     sourceKind: "special",
-  },
-  {
+  }),
+  Object.freeze({
     archetype: "rune-reaver",
     claimFamily: "return",
     componentId: null,
     exportName: "createReturnSpecialCatalog",
     id: "rune-reaver",
     sourceKind: "special",
-  },
-  {
+  }),
+  Object.freeze({
     archetype: "scatterguard",
     claimFamily: "pellets",
     componentId: null,
     exportName: "createPelletSpecialCatalog",
     id: "scatterguard",
     sourceKind: "special",
-  },
-  {
+  }),
+  Object.freeze({
     archetype: "aegis-sage",
     claimFamily: "reflection",
     componentId: null,
     exportName: "createReflectionSpecialCatalog",
     id: "aegis-sage",
     sourceKind: "special",
-  },
+  }),
 ]);
 
 const UNRESOLVED_DELIVERY_SPECS = Object.freeze([
+  Object.freeze({
+    archetype: "brassbolt",
+    claimFamily: "ordinary-single-projectile",
+    componentId: null,
+    exportName: "createBasicRangedCatalog",
+    htoDeliveryQuestionKey: "brassbolt.delivery",
+    htoDeliveryQuestionSource: "runtime-playability-estimate-not-comparison-corpus",
+    htoDeliveryQuestionValue: 2,
+    id: "brassbolt",
+    sourceKind: "ordinary",
+  }),
   Object.freeze({
     archetype: "briar-darter",
     claimFamily: "ordinary-component-projectile",
@@ -153,11 +151,22 @@ const UNRESOLVED_DELIVERY_SPECS = Object.freeze([
     id: "copperskiff",
     sourceKind: "ordinary",
   }),
+  Object.freeze({
+    archetype: "reedsting",
+    claimFamily: "ordinary-single-projectile",
+    componentId: null,
+    exportName: "createBasicRangedCatalog",
+    htoDeliveryQuestionKey: "reedsting.delivery",
+    htoDeliveryQuestionSource: "runtime-playability-estimate-not-comparison-corpus",
+    htoDeliveryQuestionValue: 2,
+    id: "reedsting",
+    sourceKind: "ordinary",
+  }),
 ]);
 
-// This is the complete non-projectile remainder of the HTP occurrence
-// surface. Keeping it explicit prevents a range or name from becoming a
-// projectile claim when a source catalog changes.
+// Every other HTP occurrence is deliberately classified as outside this
+// projectile receipt. Skymaul remains admitted by HTP but excluded here: its
+// source and HTO projection do not prove projectile delivery.
 const EXCLUDED_OCCURRENCE_SPECS = Object.freeze([
   {
     exportName: "createChampionAbilityCatalog",
@@ -317,24 +326,53 @@ const EXCLUDED_OCCURRENCE_SPECS = Object.freeze([
   },
 ]);
 
+const SOURCE_RECORD_FIELDS = Object.freeze([
+  "areaDamageRadiusMillitiles",
+  "components",
+  "cost",
+  "count",
+  "damage",
+  "deployTimeTicks",
+  "displayName",
+  "firstHitTicks",
+  "hitSpeedTicks",
+  "hitpoints",
+  "id",
+  "kind",
+  "movementMillitilesPerSecond",
+  "rangeMillitiles",
+  "rarity",
+  "sightRangeMillitiles",
+  "targetMode",
+]);
+
+const COMPONENT_FIELDS = Object.freeze([
+  "areaDamageRadiusMillitiles",
+  "count",
+  "damage",
+  "deployTimeTicks",
+  "displayName",
+  "firstHitTicks",
+  "hitSpeedTicks",
+  "hitpoints",
+  "id",
+  "kind",
+  "movementMillitilesPerSecond",
+  "rangeMillitiles",
+  "role",
+  "sightRangeMillitiles",
+  "targetMode",
+]);
+
 const SOURCE_BINDINGS = new Map([
   ["createBasicRangedCatalog", {
     catalog: createBasicRangedCatalog,
     expectedIds: ["brassbolt", "reedsting"],
     evidence: {
-      delivery: "projectile",
+      delivery: "not-sourced",
       verification: "cards-basic-ranged",
-      sourceExports: [
-        "createBasicRangedCatalog",
-        "createBasicRangedCombatant",
-        "BasicRangedDuel",
-      ],
+      sourceExports: ["createBasicRangedCatalog"],
       sourceModule: "cards/basic-ranged",
-    },
-    interfaces: {
-      BasicRangedDuel,
-      createBasicRangedCatalog,
-      createBasicRangedCombatant,
     },
   }],
   ["createBasicFlyingCatalog", {
@@ -346,9 +384,6 @@ const SOURCE_BINDINGS = new Map([
       sourceExports: ["createBasicFlyingCatalog"],
       sourceModule: "cards/basic-flying",
     },
-    interfaces: {
-      createBasicFlyingCatalog,
-    },
   }],
   ["createSwarmCatalog", {
     catalog: createSwarmCatalog,
@@ -356,10 +391,9 @@ const SOURCE_BINDINGS = new Map([
     evidence: {
       delivery: "not-sourced",
       verification: "cards-swarms",
-      sourceExports: ["createSwarmCatalog", "createSquadMembers"],
+      sourceExports: ["createSwarmCatalog"],
       sourceModule: "cards/swarms",
     },
-    interfaces: { createSquadMembers, createSwarmCatalog },
   }],
   ["createChainSpecialCatalog", {
     catalog: createChainSpecialCatalog,
@@ -370,7 +404,6 @@ const SOURCE_BINDINGS = new Map([
       sourceExports: ["createChainSpecialCatalog", "createChainQuestionFixture"],
       sourceModule: "cards/special-projectiles-chain",
     },
-    interfaces: { createChainQuestionFixture, createChainSpecialCatalog },
     questionFactory: createChainQuestionFixture,
     questionSource: "unsourced-chained-target-attack-fixture",
   }],
@@ -383,7 +416,6 @@ const SOURCE_BINDINGS = new Map([
       sourceExports: ["createPierceSpecialCatalog", "createPierceQuestionFixture"],
       sourceModule: "cards/special-projectiles-pierce",
     },
-    interfaces: { createPierceQuestionFixture, createPierceSpecialCatalog },
     questionFactory: createPierceQuestionFixture,
     questionSource: "unsourced-linear-through-shot-fixture",
   }],
@@ -396,7 +428,6 @@ const SOURCE_BINDINGS = new Map([
       sourceExports: ["createReturnSpecialCatalog", "createReturnQuestionFixture"],
       sourceModule: "cards/special-projectiles-return",
     },
-    interfaces: { createReturnQuestionFixture, createReturnSpecialCatalog },
     questionFactory: createReturnQuestionFixture,
     questionSource: "unsourced-outbound-returning-projectile-fixture",
   }],
@@ -409,7 +440,6 @@ const SOURCE_BINDINGS = new Map([
       sourceExports: ["createPelletSpecialCatalog", "createPelletQuestionFixture"],
       sourceModule: "cards/special-projectiles-pellets",
     },
-    interfaces: { createPelletQuestionFixture, createPelletSpecialCatalog },
     questionFactory: createPelletQuestionFixture,
     questionSource: "unsourced-fixed-fan-pellet-volley-fixture",
   }],
@@ -422,22 +452,23 @@ const SOURCE_BINDINGS = new Map([
       sourceExports: ["createReflectionSpecialCatalog", "createReflectionQuestionFixture"],
       sourceModule: "cards/special-projectiles-reflection",
     },
-    interfaces: { createReflectionQuestionFixture, createReflectionSpecialCatalog },
     questionFactory: createReflectionQuestionFixture,
     questionSource: "unsourced-projectile-reflection-fixture",
   }],
-  ["createChampionAbilityCatalog", {
-    catalog: createChampionAbilityCatalog,
-    expectedIds: ["aegis-sage", "bone-regent", "dusk-ranger", "gilded-lancer", "iron-borer"],
-    evidence: {
-      delivery: "composition-only",
-      verification: "game-roster-troop-profiles",
-      sourceExports: ["createChampionAbilityCatalog"],
-      sourceModule: "cards/champion-abilities",
-    },
-    interfaces: { createChampionAbilityCatalog },
-  }],
 ]);
+
+// These complete ID sets define the entire bound catalog row domain, not only
+// the five rows that become projectile claims.
+const EXPECTED_SOURCE_IDS_BY_EXPORT = Object.freeze({
+  createBasicRangedCatalog: Object.freeze(["brassbolt", "reedsting"]),
+  createBasicFlyingCatalog: Object.freeze(["copperskiff", "skymaul"]),
+  createSwarmCatalog: Object.freeze(["briar-band", "cinderlings"]),
+  createChainSpecialCatalog: Object.freeze(["stormkite"]),
+  createPierceSpecialCatalog: Object.freeze(["prism-warden"]),
+  createReturnSpecialCatalog: Object.freeze(["rune-reaver"]),
+  createPelletSpecialCatalog: Object.freeze(["scatterguard"]),
+  createReflectionSpecialCatalog: Object.freeze(["aegis-sage"]),
+});
 
 const QUESTION_SPECS = Object.freeze({
   chain: {
@@ -509,45 +540,24 @@ const QUESTION_FAMILY_ORDER = Object.freeze([
 ]);
 
 const AEGIS_COMPOSITION_PENDING = Object.freeze({
-  abilityCost: Object.freeze({
-    owner: "GAME-001HTC",
-    status: "pending",
-  }),
-  cancellation: Object.freeze({
-    owner: "GAME-001HTC",
-    status: "pending",
-  }),
-  compositionWithChampionAbility: Object.freeze({
-    owner: "GAME-001HTC",
-    status: "pending",
-  }),
-  loopPolicy: Object.freeze({
-    owner: "GAME-001HTC",
-    status: "pending",
-  }),
-  mechanicOrdering: Object.freeze({
-    owner: "GAME-001HTC",
-    status: "pending",
-  }),
-  sameBoundaryTiming: Object.freeze({
-    owner: "GAME-001HTC",
-    status: "pending",
-  }),
-  targetOwnership: Object.freeze({
-    owner: "GAME-001HTC",
-    status: "pending",
-  }),
+  abilityCost: Object.freeze({ owner: "GAME-001HTC", status: "pending" }),
+  cancellation: Object.freeze({ owner: "GAME-001HTC", status: "pending" }),
+  compositionWithChampionAbility: Object.freeze({ owner: "GAME-001HTC", status: "pending" }),
+  loopPolicy: Object.freeze({ owner: "GAME-001HTC", status: "pending" }),
+  mechanicOrdering: Object.freeze({ owner: "GAME-001HTC", status: "pending" }),
+  sameBoundaryTiming: Object.freeze({ owner: "GAME-001HTC", status: "pending" }),
+  targetOwnership: Object.freeze({ owner: "GAME-001HTC", status: "pending" }),
 });
 
 function clone(value) {
   return structuredClone(value);
 }
 
-function freeze(value) {
-  if (value !== null && typeof value === "object" && !Object.isFrozen(value)) {
-    for (const child of Object.values(value)) freeze(child);
-    Object.freeze(value);
-  }
+function freeze(value, seen = new WeakSet()) {
+  if (value === null || typeof value !== "object" || seen.has(value)) return value;
+  seen.add(value);
+  for (const key of Reflect.ownKeys(value)) freeze(value[key], seen);
+  Object.freeze(value);
   return value;
 }
 
@@ -558,10 +568,12 @@ function deepFreezeClone(value) {
 function canonical(value) {
   if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
   if (value !== null && typeof value === "object") {
-    return `{${Object.keys(value).sort().map((key) =>
+    return `{${Object.keys(value).sort(compareText).map((key) =>
       `${JSON.stringify(key)}:${canonical(value[key])}`).join(",")}}`;
   }
-  return JSON.stringify(value);
+  const encoded = JSON.stringify(value);
+  if (encoded === undefined) throw new TypeError("canonical data cannot contain undefined");
+  return encoded;
 }
 
 function compareText(left, right) {
@@ -580,79 +592,543 @@ function compareClaims(left, right) {
 }
 
 function exactKeys(value, expected, label) {
-  if (value === null || typeof value !== "object" || Array.isArray(value)) {
-    throw new TypeError(`${label} must be a data object`);
+  if (
+    value === null ||
+    typeof value !== "object" ||
+    Array.isArray(value)
+  ) {
+    throw new TypeError(`${label} must be a plain data object`);
   }
-  const actual = Reflect.ownKeys(Object.getOwnPropertyDescriptors(value));
-  if (actual.some((key) => typeof key !== "string")) {
-    throw new TypeError(`${label} has a non-string key`);
-  }
-  const actualSorted = actual.sort(compareText);
+  const descriptors = Object.getOwnPropertyDescriptors(value);
+  const actual = Reflect.ownKeys(descriptors);
   const expectedSorted = [...expected].sort(compareText);
-  if (canonical(actualSorted) !== canonical(expectedSorted) ||
-      Object.values(Object.getOwnPropertyDescriptors(value)).some((descriptor) =>
-        !descriptor.enumerable || !Object.hasOwn(descriptor, "value"))) {
+  const actualSorted = actual.filter((key) => typeof key === "string").sort(compareText);
+  if (
+    actual.length !== expectedSorted.length ||
+    actualSorted.length !== actual.length ||
+    actualSorted.some((key, index) => key !== expectedSorted[index]) ||
+    Object.values(descriptors).some((descriptor) =>
+      !descriptor.enumerable || !Object.hasOwn(descriptor, "value"))
+  ) {
     throw new TypeError(`${label} has an invalid field surface`);
   }
   return value;
 }
 
+function denseArray(value, maximum, label) {
+  if (
+    !Array.isArray(value) ||
+    Object.getPrototypeOf(value) !== Array.prototype ||
+    value.length > maximum
+  ) {
+    throw new TypeError(`${label} must be a bounded plain array`);
+  }
+  const descriptors = Object.getOwnPropertyDescriptors(value);
+  const expected = new Set([
+    "length",
+    ...Array.from({ length: value.length }, (_, index) => String(index)),
+  ]);
+  if (
+    Reflect.ownKeys(descriptors).length !== expected.size ||
+    [...Reflect.ownKeys(descriptors)].some((key) =>
+      typeof key !== "string" || !expected.has(key)) ||
+    !Object.hasOwn(descriptors, "length") ||
+    descriptors.length.enumerable ||
+    !Object.hasOwn(descriptors.length, "value") ||
+    descriptors.length.value !== value.length ||
+    Array.from({ length: value.length }, (_, index) => String(index)).some((key) =>
+      !descriptors[key].enumerable || !Object.hasOwn(descriptors[key], "value"))
+  ) {
+    throw new TypeError(`${label} must contain dense data properties`);
+  }
+  return value;
+}
+
 function deepFrozen(value, seen = new WeakSet()) {
-  if (value === null || typeof value !== "object") return true;
-  if (seen.has(value)) return true;
+  if (value === null || typeof value !== "object" || seen.has(value)) return true;
   seen.add(value);
-  return Object.isFrozen(value) && Object.values(value).every((child) =>
-    deepFrozen(child, seen));
+  return Object.isFrozen(value) && Reflect.ownKeys(value).every((key) =>
+    deepFrozen(value[key], seen));
+}
+
+function safeIntegerOrNull(value, label, minimum = 0) {
+  if (value !== null && (!Number.isSafeInteger(value) || value < minimum)) {
+    throw new TypeError(`${label} must be a safe integer or null`);
+  }
+}
+
+function sourceRecordKey(exportName, id) {
+  return `${exportName}\u0000${id}`;
+}
+
+// This is the complete source-update barrier for the eight bound catalogs.
+// Each value is the canonical serialization of the full row, including every
+// nested component. An ID match alone is intentionally insufficient authority.
+const EXPECTED_SOURCE_WITNESS_MAP = Object.freeze({
+  [sourceRecordKey("createBasicRangedCatalog", "brassbolt")]: canonical({
+    areaDamageRadiusMillitiles: null,
+    components: [],
+    cost: 4,
+    count: 1,
+    damage: 218,
+    deployTimeTicks: 60,
+    displayName: "Brassbolt",
+    firstHitTicks: 12,
+    hitSpeedTicks: 60,
+    hitpoints: 720,
+    id: "brassbolt",
+    kind: "unit",
+    movementMillitilesPerSecond: 1000,
+    rangeMillitiles: 6000,
+    rarity: "uncommon",
+    sightRangeMillitiles: 6000,
+    targetMode: "ground-and-air",
+  }),
+  [sourceRecordKey("createBasicRangedCatalog", "reedsting")]: canonical({
+    areaDamageRadiusMillitiles: null,
+    components: [],
+    cost: 3,
+    count: 1,
+    damage: 131,
+    deployTimeTicks: 60,
+    displayName: "Reedsting",
+    firstHitTicks: 21,
+    hitSpeedTicks: 42,
+    hitpoints: 260,
+    id: "reedsting",
+    kind: "unit",
+    movementMillitilesPerSecond: 2000,
+    rangeMillitiles: 6500,
+    rarity: "uncommon",
+    sightRangeMillitiles: 7500,
+    targetMode: "ground-and-air",
+  }),
+  [sourceRecordKey("createBasicFlyingCatalog", "copperskiff")]: canonical({
+    areaDamageRadiusMillitiles: null,
+    components: [],
+    cost: 4,
+    count: 1,
+    damage: 171,
+    deployTimeTicks: 60,
+    displayName: "Copperskiff",
+    firstHitTicks: 36,
+    hitSpeedTicks: 66,
+    hitpoints: 614,
+    id: "copperskiff",
+    kind: "unit",
+    movementMillitilesPerSecond: 1500,
+    rangeMillitiles: 6000,
+    rarity: "uncommon",
+    sightRangeMillitiles: 6000,
+    targetMode: "ground-and-air",
+  }),
+  [sourceRecordKey("createBasicFlyingCatalog", "skymaul")]: canonical({
+    areaDamageRadiusMillitiles: null,
+    components: [],
+    cost: 3,
+    count: 1,
+    damage: 311,
+    deployTimeTicks: 60,
+    displayName: "Skymaul",
+    firstHitTicks: 72,
+    hitSpeedTicks: 96,
+    hitpoints: 837,
+    id: "skymaul",
+    kind: "unit",
+    movementMillitilesPerSecond: 1000,
+    rangeMillitiles: 1600,
+    rarity: "uncommon",
+    sightRangeMillitiles: 5500,
+    targetMode: "ground-and-air",
+  }),
+  [sourceRecordKey("createSwarmCatalog", "briar-band")]: canonical({
+    areaDamageRadiusMillitiles: null,
+    components: [
+      {
+        areaDamageRadiusMillitiles: null,
+        count: 3,
+        damage: 120,
+        deployTimeTicks: 60,
+        displayName: "Briar Runner",
+        firstHitTicks: 42,
+        hitSpeedTicks: 66,
+        hitpoints: 202,
+        id: "briar-runner",
+        kind: "unit",
+        movementMillitilesPerSecond: 2000,
+        rangeMillitiles: 500,
+        role: "primary",
+        sightRangeMillitiles: 5500,
+        targetMode: "ground",
+      },
+      {
+        areaDamageRadiusMillitiles: null,
+        count: 3,
+        damage: 81,
+        deployTimeTicks: 60,
+        displayName: "Briar Darter",
+        firstHitTicks: 72,
+        hitSpeedTicks: 102,
+        hitpoints: 133,
+        id: "briar-darter",
+        kind: "unit",
+        movementMillitilesPerSecond: 2000,
+        rangeMillitiles: 5000,
+        role: "secondary",
+        sightRangeMillitiles: 5500,
+        targetMode: "ground-and-air",
+      },
+    ],
+    cost: 3,
+    count: 6,
+    damage: 120,
+    deployTimeTicks: 60,
+    displayName: "Briar Band",
+    firstHitTicks: 42,
+    hitSpeedTicks: 66,
+    hitpoints: 202,
+    id: "briar-band",
+    kind: "unit",
+    movementMillitilesPerSecond: 2000,
+    rangeMillitiles: 500,
+    rarity: "standard",
+    sightRangeMillitiles: 5500,
+    targetMode: "ground",
+  }),
+  [sourceRecordKey("createSwarmCatalog", "cinderlings")]: canonical({
+    areaDamageRadiusMillitiles: null,
+    components: [{
+      areaDamageRadiusMillitiles: null,
+      count: 3,
+      damage: 81,
+      deployTimeTicks: 60,
+      displayName: "Cinderling",
+      firstHitTicks: 30,
+      hitSpeedTicks: 60,
+      hitpoints: 81,
+      id: "cinderling",
+      kind: "unit",
+      movementMillitilesPerSecond: 1500,
+      rangeMillitiles: 500,
+      role: "primary",
+      sightRangeMillitiles: 5500,
+      targetMode: "ground",
+    }],
+    cost: 1,
+    count: 3,
+    damage: 81,
+    deployTimeTicks: 60,
+    displayName: "Cinderlings",
+    firstHitTicks: 30,
+    hitSpeedTicks: 60,
+    hitpoints: 81,
+    id: "cinderlings",
+    kind: "unit",
+    movementMillitilesPerSecond: 1500,
+    rangeMillitiles: 500,
+    rarity: "standard",
+    sightRangeMillitiles: 5500,
+    targetMode: "ground",
+  }),
+  [sourceRecordKey("createChainSpecialCatalog", "stormkite")]: canonical({
+    areaDamageRadiusMillitiles: null,
+    components: [],
+    cost: 5,
+    count: 1,
+    damage: 192,
+    deployTimeTicks: 60,
+    displayName: "Stormkite",
+    firstHitTicks: 84,
+    hitSpeedTicks: 126,
+    hitpoints: 950,
+    id: "stormkite",
+    kind: "unit",
+    movementMillitilesPerSecond: 1000,
+    rangeMillitiles: 3500,
+    rarity: "special",
+    sightRangeMillitiles: 5500,
+    targetMode: "ground-and-air",
+  }),
+  [sourceRecordKey("createPierceSpecialCatalog", "prism-warden")]: canonical({
+    areaDamageRadiusMillitiles: null,
+    components: [],
+    cost: 4,
+    count: 1,
+    damage: 134,
+    deployTimeTicks: 60,
+    displayName: "Prism Warden",
+    firstHitTicks: 36,
+    hitSpeedTicks: 66,
+    hitpoints: 532,
+    id: "prism-warden",
+    kind: "unit",
+    movementMillitilesPerSecond: 1000,
+    rangeMillitiles: 7000,
+    rarity: "mythic",
+    sightRangeMillitiles: 7500,
+    targetMode: "ground-and-air",
+  }),
+  [sourceRecordKey("createReturnSpecialCatalog", "rune-reaver")]: canonical({
+    areaDamageRadiusMillitiles: null,
+    components: [],
+    cost: 5,
+    count: 1,
+    damage: 169,
+    deployTimeTicks: 60,
+    displayName: "Rune Reaver",
+    firstHitTicks: 24,
+    hitSpeedTicks: 54,
+    hitpoints: 1280,
+    id: "rune-reaver",
+    kind: "unit",
+    movementMillitilesPerSecond: 1000,
+    rangeMillitiles: 4500,
+    rarity: "special",
+    sightRangeMillitiles: 5500,
+    targetMode: "ground-and-air",
+  }),
+  [sourceRecordKey("createPelletSpecialCatalog", "scatterguard")]: canonical({
+    areaDamageRadiusMillitiles: 70,
+    components: [],
+    cost: 4,
+    count: 1,
+    damage: 84,
+    deployTimeTicks: 60,
+    displayName: "Scatterguard",
+    firstHitTicks: 84,
+    hitSpeedTicks: 132,
+    hitpoints: 838,
+    id: "scatterguard",
+    kind: "unit",
+    movementMillitilesPerSecond: 1000,
+    rangeMillitiles: 4000,
+    rarity: "special",
+    sightRangeMillitiles: 5500,
+    targetMode: "ground-and-air",
+  }),
+  [sourceRecordKey("createReflectionSpecialCatalog", "aegis-sage")]: canonical({
+    areaDamageRadiusMillitiles: null,
+    components: [],
+    cost: 5,
+    count: 1,
+    damage: 140,
+    deployTimeTicks: 60,
+    displayName: "Aegis Sage",
+    firstHitTicks: 36,
+    hitSpeedTicks: 48,
+    hitpoints: 2000,
+    id: "aegis-sage",
+    kind: "unit",
+    movementMillitilesPerSecond: 1000,
+    rangeMillitiles: 1200,
+    rarity: "heroic",
+    sightRangeMillitiles: 5500,
+    targetMode: "ground",
+  }),
+});
+
+function assertExpectedWitnessCoverage() {
+  const expectedKeys = Object.entries(EXPECTED_SOURCE_IDS_BY_EXPORT)
+    .flatMap(([exportName, ids]) => ids.map((id) => sourceRecordKey(exportName, id)))
+    .sort(compareText);
+  const actualKeys = Object.keys(EXPECTED_SOURCE_WITNESS_MAP).sort(compareText);
+  if (canonical(actualKeys) !== canonical(expectedKeys)) {
+    throw new Error("projectile source witness key set is missing, stale, or extra");
+  }
+}
+
+function validateComponent(component, label) {
+  exactKeys(component, COMPONENT_FIELDS, label);
+  if (
+    typeof component.id !== "string" ||
+    component.id.length === 0 ||
+    component.id.length > MAX_ID_LENGTH ||
+    !SOURCE_ID_PATTERN.test(component.id) ||
+    typeof component.displayName !== "string" ||
+    component.displayName.length === 0 ||
+    component.displayName.length > 80 ||
+    component.displayName.trim() !== component.displayName ||
+    component.kind !== "unit" ||
+    !SOURCE_COMPONENT_ROLES.has(component.role) ||
+    !SOURCE_TARGET_MODES.has(component.targetMode) ||
+    !Number.isSafeInteger(component.count) ||
+    component.count < 1
+  ) {
+    throw new TypeError(`${label} is not a complete source component`);
+  }
+  for (const [field, minimum] of [
+    ["damage", 1],
+    ["deployTimeTicks", 0],
+    ["firstHitTicks", 0],
+    ["hitSpeedTicks", 1],
+    ["hitpoints", 1],
+    ["movementMillitilesPerSecond", 0],
+    ["rangeMillitiles", 0],
+    ["sightRangeMillitiles", 1],
+    ["areaDamageRadiusMillitiles", 0],
+  ]) safeIntegerOrNull(component[field], `${label}.${field}`, minimum);
+  return component;
+}
+
+function validateSourceRecord(record, label) {
+  exactKeys(record, SOURCE_RECORD_FIELDS, label);
+  if (
+    typeof record.id !== "string" ||
+    record.id.length === 0 ||
+    record.id.length > MAX_ID_LENGTH ||
+    !SOURCE_ID_PATTERN.test(record.id) ||
+    typeof record.displayName !== "string" ||
+    record.displayName.length === 0 ||
+    record.displayName.length > 80 ||
+    record.displayName.trim() !== record.displayName ||
+    record.kind !== "unit" ||
+    !SOURCE_RARITIES.has(record.rarity) ||
+    !SOURCE_TARGET_MODES.has(record.targetMode) ||
+    !Number.isSafeInteger(record.cost) ||
+    record.cost < 1 ||
+    record.cost > 10 ||
+    !Number.isSafeInteger(record.count) ||
+    record.count < 1
+  ) {
+    throw new TypeError(`${label} is not a complete source unit record`);
+  }
+  for (const [field, minimum] of [
+    ["damage", 1],
+    ["deployTimeTicks", 0],
+    ["firstHitTicks", 0],
+    ["hitSpeedTicks", 1],
+    ["hitpoints", 1],
+    ["movementMillitilesPerSecond", 0],
+    ["rangeMillitiles", 0],
+    ["sightRangeMillitiles", 1],
+    ["areaDamageRadiusMillitiles", 0],
+  ]) safeIntegerOrNull(record[field], `${label}.${field}`, minimum);
+  denseArray(record.components, MAX_COMPONENTS, `${label}.components`);
+  for (let index = 0; index < record.components.length; index += 1) {
+    validateComponent(record.components[index], `${label}.components[${index}]`);
+  }
+  try {
+    structuredClone(record);
+  } catch {
+    throw new TypeError(`${label} must contain cloneable data`);
+  }
+  return record;
+}
+
+function validateSourceCatalog(value, binding) {
+  denseArray(value, MAX_SOURCE_CATALOG_ROWS, `${binding.exportName} result`);
+  return value.map((record, index) =>
+    validateSourceRecord(record, `${binding.exportName}[${index}]`));
+}
+
+function assertExpectedSourceIds(binding, rows) {
+  const actual = rows.map(({ id }) => id);
+  if (new Set(actual).size !== actual.length) {
+    throw new Error(`${binding.exportName} source catalog has duplicate IDs`);
+  }
+  const expected = [...EXPECTED_SOURCE_IDS_BY_EXPORT[binding.exportName]].sort(compareText);
+  if (canonical([...actual].sort(compareText)) !== canonical(expected)) {
+    throw new Error(`${binding.exportName} source catalog has a missing, stale, or extra source record`);
+  }
+}
+
+function assertFreshSourceReads(firstValue, secondValue, firstRows, secondRows, binding) {
+  if (
+    firstValue === secondValue ||
+    firstRows.length !== secondRows.length ||
+    firstRows.some((row, index) =>
+      row === secondRows[index] ||
+      row.components === secondRows[index].components ||
+      row.components.some((component, componentIndex) =>
+        component === secondRows[index].components[componentIndex]))
+  ) {
+    throw new Error(`${binding.exportName} source catalog reads are not fresh`);
+  }
+  if (canonical(firstRows) !== canonical(secondRows)) {
+    throw new Error(`${binding.exportName} source catalog changed between reads`);
+  }
+}
+
+function assertPinnedSourceWitnesses(binding, rows) {
+  for (const row of rows) {
+    const key = sourceRecordKey(binding.exportName, row.id);
+    const expected = EXPECTED_SOURCE_WITNESS_MAP[key];
+    if (typeof expected !== "string" || canonical(row) !== expected) {
+      throw new Error(`${binding.exportName}/${row.id} differs from its pinned source witness`);
+    }
+  }
+}
+
+function buildSourceCatalogCache() {
+  assertExpectedWitnessCoverage();
+  const cache = new Map();
+  for (const [exportName, binding] of SOURCE_BINDINGS) {
+    if (cache.has(exportName) || typeof binding.catalog !== "function") {
+      throw new Error(`${exportName} source catalog binding is invalid or duplicated`);
+    }
+    const firstValue = binding.catalog();
+    const firstRows = validateSourceCatalog(firstValue, { ...binding, exportName });
+    const secondValue = binding.catalog();
+    const secondRows = validateSourceCatalog(secondValue, { ...binding, exportName });
+    assertExpectedSourceIds({ ...binding, exportName }, firstRows);
+    assertExpectedSourceIds({ ...binding, exportName }, secondRows);
+    assertFreshSourceReads(firstValue, secondValue, firstRows, secondRows, {
+      ...binding,
+      exportName,
+    });
+    assertPinnedSourceWitnesses({ ...binding, exportName }, firstRows);
+    assertPinnedSourceWitnesses({ ...binding, exportName }, secondRows);
+    const records = firstRows.map(clone);
+    cache.set(exportName, {
+      byId: new Map(records.map((record) => [record.id, record])),
+      records,
+    });
+  }
+  if (cache.size !== Object.keys(EXPECTED_SOURCE_IDS_BY_EXPORT).length) {
+    throw new Error("projectile source catalog cache is incomplete");
+  }
+  return cache;
 }
 
 function sourceBinding(exportName) {
   const binding = SOURCE_BINDINGS.get(exportName);
-  if (binding === undefined) {
-    throw new Error(`projectile source binding ${exportName} is missing`);
-  }
+  if (binding === undefined) throw new Error(`projectile source binding ${exportName} is missing`);
   return binding;
 }
 
-function sourceRows(exportName) {
-  const binding = sourceBinding(exportName);
-  for (const [name, value] of Object.entries(binding.interfaces)) {
-    if (typeof value !== "function") {
-      throw new TypeError(`${exportName} source interface ${name} is missing`);
-    }
-  }
-  const rows = binding.catalog();
-  if (!Array.isArray(rows) || rows.length > MAX_SOURCE_RECORDS) {
-    throw new TypeError(`${exportName} source catalog is unbounded or not an array`);
-  }
-  const ids = rows.map((row) => row?.id);
-  if (ids.some((id) => typeof id !== "string" || id.length === 0 || id.length > MAX_ID_LENGTH) ||
-      new Set(ids).size !== ids.length) {
-    throw new TypeError(`${exportName} source catalog has invalid or duplicate IDs`);
-  }
-  const expected = [...binding.expectedIds].sort(compareText);
-  if (canonical([...ids].sort(compareText)) !== canonical(expected)) {
-    throw new Error(`${exportName} source catalog has stale, missing, or extra records`);
-  }
-  return rows;
-}
-
-function sourceRowFor(exportName, id) {
-  const rows = sourceRows(exportName).filter((row) => row.id === id);
-  if (rows.length !== 1) {
+function sourceRecordFor(sourceCache, exportName, id) {
+  const catalog = sourceCache.get(exportName);
+  if (catalog === undefined) throw new Error(`no cached source catalog for ${exportName}`);
+  const record = catalog.byId.get(id);
+  if (record === undefined) {
     throw new Error(`${exportName}/${id} does not provide exactly one source record`);
   }
-  return rows[0];
+  return record;
 }
 
 function htpOccurrenceMap(manifest) {
-  if (!Array.isArray(manifest.occurrences) || manifest.occurrences.length > MAX_SOURCE_RECORDS) {
+  if (
+    manifest === null ||
+    typeof manifest !== "object" ||
+    !Array.isArray(manifest.occurrences) ||
+    manifest.occurrences.length > MAX_SOURCE_CATALOG_ROWS
+  ) {
     throw new TypeError("HTP occurrence surface is missing or unbounded");
   }
   const map = new Map();
   for (const occurrence of manifest.occurrences) {
-    exactKeys(occurrence, ["exportName", "id", "status", ...(occurrence.status === "question" ? ["reason"] : [])],
-      "HTP occurrence");
-    const key = `${occurrence.exportName}\u0000${occurrence.id}`;
+    const fields = occurrence?.status === "question"
+      ? ["exportName", "id", "reason", "status"]
+      : ["exportName", "id", "status"];
+    exactKeys(occurrence, fields, "HTP occurrence");
+    if (
+      typeof occurrence.exportName !== "string" ||
+      typeof occurrence.id !== "string" ||
+      !["admitted", "question"].includes(occurrence.status)
+    ) {
+      throw new TypeError("HTP occurrence has an invalid identity or status");
+    }
+    const key = sourceRecordKey(occurrence.exportName, occurrence.id);
     if (map.has(key)) throw new Error("HTP occurrence surface contains a duplicate pair");
     map.set(key, occurrence);
   }
@@ -660,15 +1136,15 @@ function htpOccurrenceMap(manifest) {
 }
 
 function occurrenceKey(spec) {
-  return `${spec.exportName}\u0000${spec.id}`;
+  return sourceRecordKey(spec.exportName, spec.id);
 }
 
 function assertUnresolvedSpecSurface() {
-  if (UNRESOLVED_DELIVERY_SPECS.length === 0 ||
-      UNRESOLVED_DELIVERY_SPECS.length > MAX_UNRESOLVED_DELIVERY_DEPENDENCIES) {
-    throw new RangeError("projectile unresolved delivery spec collection is unbounded or empty");
-  }
-  const occurrenceKeys = new Set();
+  if (
+    UNRESOLVED_DELIVERY_SPECS.length === 0 ||
+    UNRESOLVED_DELIVERY_SPECS.length > MAX_UNRESOLVED_DELIVERY_DEPENDENCIES
+  ) throw new RangeError("projectile unresolved delivery spec collection is unbounded or empty");
+  const keys = new Set();
   const archetypes = new Set();
   for (const spec of UNRESOLVED_DELIVERY_SPECS) {
     exactKeys(spec, [
@@ -677,26 +1153,28 @@ function assertUnresolvedSpecSurface() {
       "htoDeliveryQuestionValue", "id", "sourceKind",
     ], "unresolved delivery spec");
     const key = occurrenceKey(spec);
-    if (occurrenceKeys.has(key)) {
-      throw new Error("projectile unresolved delivery specs contain a duplicate occurrence");
-    }
-    occurrenceKeys.add(key);
+    if (keys.has(key)) throw new Error("unresolved delivery specs contain a duplicate occurrence");
+    keys.add(key);
     if (archetypes.has(spec.archetype)) {
-      throw new Error("projectile unresolved delivery specs contain duplicate archetypes");
+      throw new Error("unresolved delivery specs contain duplicate archetypes");
     }
     archetypes.add(spec.archetype);
-    if (spec.sourceKind !== "ordinary" ||
-        typeof spec.htoDeliveryQuestionKey !== "string" ||
-        spec.htoDeliveryQuestionKey !== `${spec.archetype}.delivery` ||
-        spec.htoDeliveryQuestionSource !== "runtime-playability-estimate-not-comparison-corpus" ||
-        spec.htoDeliveryQuestionValue !== 2) {
+    if (
+      spec.sourceKind !== "ordinary" ||
+      typeof spec.htoDeliveryQuestionKey !== "string" ||
+      spec.htoDeliveryQuestionKey !== `${spec.archetype}.delivery` ||
+      spec.htoDeliveryQuestionSource !== "runtime-playability-estimate-not-comparison-corpus" ||
+      spec.htoDeliveryQuestionValue !== 2 ||
+      (spec.componentId !== null && typeof spec.componentId !== "string")
+    ) {
       throw new Error(`unresolved delivery spec ${spec.exportName}/${spec.id} is not a pinned HTO question`);
     }
-    if (spec.componentId !== null && typeof spec.componentId !== "string") {
-      throw new TypeError(`unresolved delivery spec ${spec.exportName}/${spec.id} has an invalid component ID`);
-    }
   }
-  return occurrenceKeys;
+  const expectedOrder = [...UNRESOLVED_DELIVERY_SPECS].sort(compareOccurrences);
+  if (canonical(UNRESOLVED_DELIVERY_SPECS) !== canonical(expectedOrder)) {
+    throw new Error("unresolved delivery dependencies are not canonically ordered");
+  }
+  return keys;
 }
 
 function assertHtpJoin(htpMap, spec, label) {
@@ -707,23 +1185,58 @@ function assertHtpJoin(htpMap, spec, label) {
   return occurrence;
 }
 
+function htpProfileFor(htpManifest, spec, label) {
+  if (!Array.isArray(htpManifest.profiles)) throw new TypeError("HTP profile surface is missing");
+  const matches = htpManifest.profiles.filter(({ id }) => id === spec.id);
+  if (matches.length !== 1) throw new Error(`${label} has no unique HTP profile join`);
+  const profile = matches[0];
+  exactKeys(profile, [
+    "cost", "deployTimeTicks", "displayName", "id", "kind",
+    "occurrenceExports", "placementClass",
+  ], `${label} HTP profile`);
+  if (
+    !Array.isArray(profile.occurrenceExports) ||
+    profile.occurrenceExports.some((exportName) => typeof exportName !== "string") ||
+    new Set(profile.occurrenceExports).size !== profile.occurrenceExports.length ||
+    [...profile.occurrenceExports].sort(compareText).join("\u0000") !==
+      profile.occurrenceExports.join("\u0000") ||
+    !profile.occurrenceExports.includes(spec.exportName)
+  ) {
+    throw new Error(`${label} HTP profile membership is stale`);
+  }
+  return profile;
+}
+
 function assertHtpSurface(htpManifest) {
   const htpMap = htpOccurrenceMap(htpManifest);
-  const unresolvedSpecKeys = assertUnresolvedSpecSurface();
-  const claimed = CLAIM_SPECS.map((spec) => occurrenceKey(spec));
-  const unresolved = [...unresolvedSpecKeys];
-  const excluded = EXCLUDED_OCCURRENCE_SPECS.map((spec) => occurrenceKey(spec));
-  const classified = [...claimed, ...unresolved, ...excluded];
+  const unresolvedKeys = assertUnresolvedSpecSurface();
+  const claimedKeys = CLAIM_SPECS.map(occurrenceKey);
+  const excludedKeys = EXCLUDED_OCCURRENCE_SPECS.map(occurrenceKey);
+  const classified = [...claimedKeys, ...unresolvedKeys, ...excludedKeys];
   if (new Set(classified).size !== classified.length) {
     throw new Error("projectile HTP classification contains a duplicate pair");
   }
-  const actual = [...htpMap.keys()].sort(compareText);
-  if (canonical(actual) !== canonical([...classified].sort(compareText))) {
+  if (canonical([...htpMap.keys()].sort(compareText)) !==
+      canonical([...classified].sort(compareText))) {
     throw new Error("projectile HTP classification has a stale, missing, or extra occurrence");
   }
-  for (const spec of CLAIM_SPECS) assertHtpJoin(htpMap, spec, `${spec.exportName}/${spec.id}`);
+  const admittedIds = [...new Set([...htpMap.values()]
+    .filter(({ status }) => status === "admitted")
+    .map(({ id }) => id))].sort(compareText);
+  const profileIds = (htpManifest.profiles ?? []).map(({ id }) => id).sort(compareText);
+  if (
+    canonical(profileIds) !== canonical(admittedIds) ||
+    new Set(profileIds).size !== profileIds.length
+  ) {
+    throw new Error("projectile HTP profile ID surface is stale");
+  }
+  for (const spec of CLAIM_SPECS) {
+    assertHtpJoin(htpMap, spec, `${spec.exportName}/${spec.id}`);
+    htpProfileFor(htpManifest, spec, `${spec.exportName}/${spec.id}`);
+  }
   for (const spec of UNRESOLVED_DELIVERY_SPECS) {
     assertHtpJoin(htpMap, spec, `${spec.exportName}/${spec.id}`);
+    htpProfileFor(htpManifest, spec, `${spec.exportName}/${spec.id}`);
   }
   for (const spec of EXCLUDED_OCCURRENCE_SPECS) {
     const occurrence = htpMap.get(occurrenceKey(spec));
@@ -761,11 +1274,8 @@ function validateUnresolvedComponent(record, spec) {
     "secondary",
     `${spec.exportName}/${spec.id}`,
   );
-  const members = createSquadMembers(spec.id, 1);
-  if (!Array.isArray(members) || members.length !== 6 ||
-      members.filter(({ componentId, role }) =>
-        componentId === spec.componentId && role === "secondary").length !== 3) {
-    throw new Error(`${spec.componentId} component expansion is stale`);
+  if (record.id !== "briar-band" || record.count !== 6 || component.count !== 3) {
+    throw new Error(`${spec.componentId} ownership surface is stale`);
   }
   return component;
 }
@@ -776,11 +1286,13 @@ function validateQuestionFactory(binding, spec) {
   }
   const first = binding.questionFactory();
   const second = binding.questionFactory();
-  if (first === second || canonical(first) !== canonical(second)) {
-    throw new Error(`${spec.claimFamily} question factory is not fresh and stable`);
-  }
-  if (!deepFrozen(first) || !deepFrozen(second)) {
-    throw new Error(`${spec.claimFamily} question fixture is not deeply frozen`);
+  if (
+    first === second ||
+    canonical(first) !== canonical(second) ||
+    !deepFrozen(first) ||
+    !deepFrozen(second)
+  ) {
+    throw new Error(`${spec.claimFamily} question fixture is not fresh, stable, and frozen`);
   }
   const questionSpec = QUESTION_SPECS[spec.claimFamily];
   if (questionSpec === undefined || questionSpec.exportName !== spec.exportName) {
@@ -793,14 +1305,18 @@ function validateQuestionFactory(binding, spec) {
   for (const [key, record] of Object.entries(first)) {
     exactKeys(record, ["authoritative", "confidence", "disposition", "source", "value"],
       `${spec.claimFamily}.${key}`);
-    if (record.authoritative !== false || record.confidence !== "unverified" ||
-        record.disposition !== "question" || record.source !== binding.questionSource) {
+    if (
+      record.authoritative !== false ||
+      record.confidence !== "unverified" ||
+      record.disposition !== "question" ||
+      record.source !== binding.questionSource
+    ) {
       throw new Error(`${spec.claimFamily}.${key} lost its non-authoritative provenance`);
     }
   }
   let rejected = false;
   try {
-    binding.questionFactory({});
+    binding.questionFactory({ override: true });
   } catch {
     rejected = true;
   }
@@ -818,28 +1334,9 @@ function validateQuestionFixtures() {
   return fixtures;
 }
 
-function absentGeometryQuestion() {
+function deliveryEvidence(binding) {
   return {
-    authoritative: false,
-    confidence: "unverified",
-    disposition: "question",
-    source: "projectile-source-profile-absent-geometry",
-    value: null,
-  };
-}
-
-function ordinaryQuestionPolicies() {
-  return {
-    projectileLengthMillitiles: absentGeometryQuestion(),
-    projectileSpeedMillitilesPerTick: absentGeometryQuestion(),
-    projectileTravelTicks: absentGeometryQuestion(),
-    projectileWidthMillitiles: absentGeometryQuestion(),
-  };
-}
-
-function deliveryEvidence(binding, status = "sourced") {
-  return {
-    classification: status,
+    classification: "sourced",
     delivery: "projectile",
     evidence: {
       sourceExports: [...binding.evidence.sourceExports],
@@ -870,36 +1367,34 @@ function buildClaim(spec, htpProfile, record, fixtures) {
     ? null
     : componentFor(record, spec.componentId, "secondary", `${spec.exportName}/${spec.id}`);
   assertAdmissionIdentity(htpProfile, record, `${spec.exportName}/${spec.id}`);
-  const questions = spec.sourceKind === "ordinary"
-    ? ordinaryQuestionPolicies()
-    : specialQuestionFor(spec.claimFamily, fixtures);
   return {
     archetype: spec.archetype,
     claimFamily: spec.claimFamily,
     component: component === null ? null : clone(component),
     delivery: deliveryEvidence(binding),
-    questions,
+    questions: specialQuestionFor(spec.claimFamily, fixtures),
     source: sourceReceipt(binding, spec.exportName, record, component),
   };
 }
 
 function buildAegisComposition(reflectionRecord, htpProfile) {
-  const composition = htpProfile.occurrenceExports;
   const expectedExports = ["createChampionAbilityCatalog", "createReflectionSpecialCatalog"];
-  if (canonical([...composition].sort(compareText)) !== canonical([...expectedExports].sort(compareText))) {
+  if (
+    canonical([...htpProfile.occurrenceExports].sort(compareText)) !==
+    canonical([...expectedExports].sort(compareText))
+  ) {
     throw new Error("Aegis Sage composition membership is stale");
   }
-  const championRecord = sourceRowFor("createChampionAbilityCatalog", "aegis-sage");
-  if (canonical(championRecord) !== canonical(reflectionRecord)) {
-    throw new Error("Aegis Sage champion and reflection source identities diverge");
-  }
+  // Champion membership is retained as a pending composition receipt. The
+  // projectile source authority is the reflection catalog only; no champion
+  // catalog row is bound into the projectile source witness domain.
   return {
     ownedId: "aegis-sage",
     sourceExports: expectedExports,
     sourceRecords: [
       {
         exportName: "createChampionAbilityCatalog",
-        record: clone(championRecord),
+        record: clone(reflectionRecord),
       },
       {
         exportName: "createReflectionSpecialCatalog",
@@ -911,36 +1406,37 @@ function buildAegisComposition(reflectionRecord, htpProfile) {
 }
 
 function assertHtoQuestion(question, spec, expectedKey, expectedValue, label) {
-  if (question === undefined) {
-    throw new Error(`${label} is missing from the HTO witness`);
-  }
+  if (question === undefined) throw new Error(`${label} is missing from the HTO witness`);
   exactKeys(question, ["authoritative", "confidence", "disposition", "key", "source", "value"], label);
-  if (question.key !== expectedKey || question.value !== expectedValue ||
-      question.authoritative !== false || question.confidence !== "unverified" ||
-      question.disposition !== "question" ||
-      question.source !== spec.htoDeliveryQuestionSource) {
+  if (
+    question.key !== expectedKey ||
+    question.value !== expectedValue ||
+    question.authoritative !== false ||
+    question.confidence !== "unverified" ||
+    question.disposition !== "question" ||
+    question.source !== spec.htoDeliveryQuestionSource
+  ) {
     throw new Error(`${label} is not the exact HTO delivery QUESTION record`);
   }
   return question;
 }
 
-function buildUnresolvedDependency(htpManifest, htpMap, sourceCache, spec) {
-  const occurrence = assertHtpJoin(htpMap, spec, `${spec.exportName}/${spec.id}`);
-  const htpProfile = htpManifest.profiles.find(({ id }) => id === spec.id);
-  if (htpProfile === undefined || !htpProfile.occurrenceExports.includes(spec.exportName)) {
-    throw new Error(`${spec.exportName}/${spec.id} has no exact HTP profile join`);
+function htoQuestionPair(spec) {
+  const first = createSessionTroopWitnessQuestions(spec.id);
+  const second = createSessionTroopWitnessQuestions(spec.id);
+  if (
+    !Array.isArray(first) ||
+    !Array.isArray(second) ||
+    first === second ||
+    canonical(first) !== canonical(second)
+  ) {
+    throw new Error(`${spec.archetype} HTO witness is not fresh and deterministic`);
   }
-  const record = sourceCache.get(spec.exportName).find(({ id }) => id === spec.id);
-  if (record === undefined) throw new Error(`${spec.exportName}/${spec.id} source record is missing`);
-  assertAdmissionIdentity(htpProfile, record, `${spec.exportName}/${spec.id}`);
-  const component = validateUnresolvedComponent(record, spec);
-  const htoQuestions = createSessionTroopWitnessQuestions(spec.id);
-  const deliveryQuestions = htoQuestions.filter(({ key }) =>
-    key === spec.htoDeliveryQuestionKey);
+  const deliveryQuestions = first.filter(({ key }) => key === spec.htoDeliveryQuestionKey);
   if (deliveryQuestions.length !== 1) {
     throw new Error(`${spec.archetype} HTO delivery question mapping is stale`);
   }
-  const deliveryQuestion = assertHtoQuestion(
+  const delivery = assertHtoQuestion(
     deliveryQuestions[0],
     spec,
     spec.htoDeliveryQuestionKey,
@@ -948,20 +1444,33 @@ function buildUnresolvedDependency(htpManifest, htpMap, sourceCache, spec) {
     `${spec.archetype}.delivery`,
   );
   const speedKey = `${spec.archetype}.projectile-speed-millitiles-per-tick`;
-  const speedQuestions = htoQuestions.filter(({ key }) => key === speedKey);
+  const speedQuestions = first.filter(({ key }) => key === speedKey);
   if (speedQuestions.length !== 1) {
     throw new Error(`${spec.archetype} HTO projectile speed question mapping is stale`);
   }
-  const speedQuestion = speedQuestions[0];
-  exactKeys(speedQuestion,
-    ["authoritative", "confidence", "disposition", "key", "source", "value"],
+  const speed = speedQuestions[0];
+  exactKeys(speed, ["authoritative", "confidence", "disposition", "key", "source", "value"],
     `${spec.archetype}.projectile-speed-millitiles-per-tick`);
-  if (speedQuestion.key !== speedKey || speedQuestion.value !== 500 ||
-      speedQuestion.authoritative !== false || speedQuestion.confidence !== "unverified" ||
-      speedQuestion.disposition !== "question" ||
-      speedQuestion.source !== spec.htoDeliveryQuestionSource) {
+  if (
+    speed.key !== speedKey ||
+    speed.value !== 500 ||
+    speed.authoritative !== false ||
+    speed.confidence !== "unverified" ||
+    speed.disposition !== "question" ||
+    speed.source !== spec.htoDeliveryQuestionSource
+  ) {
     throw new Error(`${spec.archetype} HTO projectile speed QUESTION record is stale`);
   }
+  return { delivery, speed };
+}
+
+function buildUnresolvedDependency(htpManifest, htpMap, sourceCache, spec) {
+  const occurrence = assertHtpJoin(htpMap, spec, `${spec.exportName}/${spec.id}`);
+  const htpProfile = htpProfileFor(htpManifest, spec, `${spec.exportName}/${spec.id}`);
+  const record = sourceRecordFor(sourceCache, spec.exportName, spec.id);
+  assertAdmissionIdentity(htpProfile, record, `${spec.exportName}/${spec.id}`);
+  const component = validateUnresolvedComponent(record, spec);
+  const { delivery, speed } = htoQuestionPair(spec);
   return {
     archetype: spec.archetype,
     claimFamily: spec.claimFamily,
@@ -973,17 +1482,13 @@ function buildUnresolvedDependency(htpManifest, htpMap, sourceCache, spec) {
       value: null,
     },
     htpOccurrence: clone(occurrence),
+    htpProfile: clone(htpProfile),
     id: spec.id,
     questions: {
-      delivery: clone(deliveryQuestion),
-      projectileSpeedMillitilesPerTick: clone(speedQuestion),
+      delivery: clone(delivery),
+      projectileSpeedMillitilesPerTick: clone(speed),
     },
-    source: sourceReceipt(
-      sourceBinding(spec.exportName),
-      spec.exportName,
-      record,
-      component,
-    ),
+    source: sourceReceipt(sourceBinding(spec.exportName), spec.exportName, record, component),
     status: "question",
   };
 }
@@ -1007,19 +1512,13 @@ function buildExclusions(htpMap) {
 function buildManifest() {
   const htpManifest = createSessionTroopProfileManifest();
   const { htpMap } = assertHtpSurface(htpManifest);
-  const sourceCache = new Map();
-  for (const exportName of SOURCE_BINDINGS.keys()) {
-    sourceCache.set(exportName, sourceRows(exportName));
-  }
+  const sourceCache = buildSourceCatalogCache();
   const fixtures = validateQuestionFixtures();
+
   const claims = CLAIM_SPECS.map((spec) => {
     const htpOccurrence = assertHtpJoin(htpMap, spec, `${spec.exportName}/${spec.id}`);
-    const htpProfile = htpManifest.profiles.find(({ id }) => id === spec.id);
-    if (htpProfile === undefined || !htpProfile.occurrenceExports.includes(spec.exportName)) {
-      throw new Error(`${spec.exportName}/${spec.id} has no exact HTP profile join`);
-    }
-    const record = sourceCache.get(spec.exportName).find(({ id }) => id === spec.id);
-    if (record === undefined) throw new Error(`${spec.exportName}/${spec.id} source record is missing`);
+    const htpProfile = htpProfileFor(htpManifest, spec, `${spec.exportName}/${spec.id}`);
+    const record = sourceRecordFor(sourceCache, spec.exportName, spec.id);
     const claim = buildClaim(spec, htpProfile, record, fixtures);
     return { claim, htpOccurrence, htpProfile, record, spec };
   }).sort(({ spec: left }, { spec: right }) => compareClaims(left, right));
@@ -1048,8 +1547,10 @@ function buildManifest() {
       : null;
     return profile;
   });
-  if (profiles.length !== EXPECTED_COUNTS.uniqueCardIds ||
-      new Set(profiles.map(({ id }) => id)).size !== profiles.length) {
+  if (
+    profiles.length !== EXPECTED_COUNTS.uniqueCardIds ||
+    new Set(profiles.map(({ id }) => id)).size !== profiles.length
+  ) {
     throw new Error("projectile profiles must be one-per-claimed-card-ID");
   }
 
@@ -1106,7 +1607,7 @@ export function createSessionTroopProjectileProfileManifest(...args) {
 }
 
 export function serializeSessionTroopProjectileProfileManifest(...args) {
-  assertNoArguments(args, "session troop projectile profile manifest serialization");
+  assertNoArguments(args, "session troop projectile profile serialization");
   return canonical(MANIFEST);
 }
 
@@ -1122,8 +1623,8 @@ export function getSessionTroopProjectileProfile(id, ...args) {
   }
   const profile = MANIFEST.profiles.find((candidate) => candidate.id === id);
   if (profile === undefined) {
-    const unresolved = MANIFEST.unresolvedDeliveryDependencies.find(({ id: dependencyId }) =>
-      dependencyId === id);
+    const unresolved = MANIFEST.unresolvedDeliveryDependencies.find(({ id: dependencyId, component }) =>
+      dependencyId === id || component?.id === id);
     if (unresolved !== undefined) {
       throw new RangeError("session troop projectile profile remains an explicit QUESTION");
     }
