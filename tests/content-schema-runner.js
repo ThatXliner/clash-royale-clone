@@ -28,6 +28,7 @@ for (const selector of selectors) {
       "game-roster-troop-profiles",
       "game-roster-troops-movement-profiles",
       "game-roster-troops-ordinary",
+      "game-roster-troops-projectile",
       "game-roster-troops-projectile-profiles",
       "game-roster-troops-status-profiles",
       "game-roster-troops-status",
@@ -163,6 +164,7 @@ const foundationRunners = [
     "game-roster-troops-movement-profiles-runner.js",
   ],
   ["game-roster-troops-ordinary", "game-roster-troops-ordinary-runner.js"],
+  ["game-roster-troops-projectile", "game-roster-troops-projectile-runner.js"],
   [
     "game-roster-troops-projectile-profiles",
     "game-roster-troops-projectile-profiles-runner.js",

@@ -19,6 +19,9 @@ import {
 } from "./session-troop-projectile-source-admission.js";
 import { createSessionTroopProfileManifest } from "./session-troop-profile-catalog.js";
 import { createSessionTroopWitnessQuestions } from "./session-troop-roster.js";
+import {
+  registerSessionTroopProjectileRuntimeProfileAdmission,
+} from "./session-troop-projectile-admission.js";
 
 const VERSION = 1;
 const MAX_SOURCE_CATALOG_ROWS = 64;
@@ -1298,3 +1301,7 @@ export function getSessionTroopProjectileProfile(id, ...args) {
   }
   return deepFreezeClone(profile);
 }
+
+registerSessionTroopProjectileRuntimeProfileAdmission({
+  serializeManifest: serializeSessionTroopProjectileProfileManifest,
+});

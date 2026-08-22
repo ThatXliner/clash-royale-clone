@@ -1,4 +1,33 @@
-// Public facade. Compact continuation machinery is lexical to the ownership kernel.
+import {
+  GAME_SESSION_MAX_BATCH_TICKS,
+  GAME_SESSION_MAX_SETUP_BYTES,
+  GAME_SESSION_MAX_SNAPSHOT_BYTES,
+  GAME_SESSION_MAX_TRANSCRIPT,
+  GAME_SESSION_SETUP_GRAPH_LIMITS,
+  GAME_SESSION_SNAPSHOT_GRAPH_LIMITS,
+  GameSession as KernelGameSession,
+  isAuthenticGameSession,
+  isAuthenticGameSessionProjectionSnapshot,
+} from "./battle-continuation-kernel.js";
+import {
+  admitSessionTroopProjectileRuntimeFromGameSnapshot,
+  admitSessionTroopProjectileRuntimeFromSetup,
+} from "./session-troop-projectile-runtime.js";
+
+export class GameSession extends KernelGameSession {
+  constructor(canonicalSetup, restoreCapability = null) {
+    super(canonicalSetup, restoreCapability,
+      admitSessionTroopProjectileRuntimeFromSetup(canonicalSetup));
+  }
+
+  static restore(serialized) {
+    const plan = admitSessionTroopProjectileRuntimeFromGameSnapshot(serialized);
+    const restored = KernelGameSession.restore(serialized, plan);
+    Object.setPrototypeOf(restored, GameSession.prototype);
+    return restored;
+  }
+}
+
 export {
   GAME_SESSION_MAX_BATCH_TICKS,
   GAME_SESSION_MAX_SETUP_BYTES,
@@ -6,7 +35,6 @@ export {
   GAME_SESSION_MAX_TRANSCRIPT,
   GAME_SESSION_SETUP_GRAPH_LIMITS,
   GAME_SESSION_SNAPSHOT_GRAPH_LIMITS,
-  GameSession,
   isAuthenticGameSession,
   isAuthenticGameSessionProjectionSnapshot,
-} from "./battle-continuation-kernel.js";
+};

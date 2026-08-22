@@ -37,6 +37,9 @@ import {
   SessionTroopStatusRuntime,
 } from "./session-troop-status-runtime.js";
 import {
+  SessionTroopProjectileRuntime,
+} from "./session-troop-projectile-runtime.js";
+import {
   createSpellIntentRuntime,
   getUnprofiledAdmittedEffectProfileQuestion,
   parseSpellIntentProfileReceipts,
@@ -6424,6 +6427,7 @@ class LiveBattle {
   #pendingStructures;
   #pendingTroopActions;
   #pendingTroopStatusActions;
+  #projectileRuntime;
   #questionValues;
   #rosterById;
   #setup;
@@ -6434,9 +6438,14 @@ class LiveBattle {
   #troopRuntime;
   #troopStatuses;
 
-  constructor(value, troopRuntimeProfiles = undefined, statusRuntimeProfiles = undefined) {
+  constructor(value, troopRuntimeProfiles = undefined, statusRuntimeProfiles = undefined,
+    projectileRuntimePlan = undefined) {
     runtimeInstances.add(this);
     const setup = admittedSetup(value);
+    const projectileRuntime = projectileRuntimePlan === undefined
+      ? null
+      : new SessionTroopProjectileRuntime(projectileRuntimePlan);
+    projectileRuntime?.assertSourceRoster(setup.roster);
     const statusRuntime = statusRuntimeProfiles === undefined
       ? null
       : new SessionTroopStatusRuntime(statusRuntimeProfiles);
@@ -6462,6 +6471,7 @@ class LiveBattle {
     this.#pendingStructures = [];
     this.#pendingTroopActions = [];
     this.#pendingTroopStatusActions = [];
+    this.#projectileRuntime = projectileRuntime;
     this.#setup = setup;
     const hasBuildingProfile = setup.roster.some(({ buildingRuntime, kind }) =>
       kind === "structure" && buildingRuntime !== undefined);
@@ -6551,6 +6561,9 @@ class LiveBattle {
         pending: clone(this.#pendingTroopStatusActions),
       };
     }
+    if (this.#projectileRuntime !== null) {
+      publicState.projectileRuntime = clone(this.#projectileRuntime.state);
+    }
     if (this.#spells !== null) publicState.pendingSpellIntents = clone(this.#spells.state.pending);
     return freeze(publicState);
   }
@@ -6574,6 +6587,39 @@ class LiveBattle {
     const card = this.#rosterById.get(cardId);
     return card?.kind === "structure" && Object.hasOwn(card, "buildingRuntime") &&
       isSessionBuildingCardId(cardId);
+  }
+
+  /** Whether this battle is bound to the closed troop projectile receipt. */
+  supportsProjectileRuntime(cardId = null) {
+    if (this.#projectileRuntime === null) return false;
+    if (cardId === null) return true;
+    if (typeof cardId !== "string") throw new TypeError("live battle projectile card ID must be primitive");
+    return this.#projectileRuntime.profile(cardId) !== null;
+  }
+
+  /**
+   * Pure mechanic admission.  QUESTION-dependent continuation never reaches
+   * the host mutation boundary; callers receive the frozen rejection witness.
+   */
+  inspectProjectileMechanic(serialized) {
+    if (this.#projectileRuntime === null) {
+      throw new RangeError("live battle has no sourced projectile profile receipt");
+    }
+    const command = parsedCommandBytes(serialized, "live battle projectile mechanic command");
+    this.#projectileRuntime.assertSourceRoster(this.#setup.roster);
+    const state = this.#battleRuntime().state;
+    const sources = this.#projectileSourcesFromState(state);
+    return freeze(clone(this.#projectileRuntime.inspectMechanic(command, sources)));
+  }
+
+  scheduleProjectileMechanic(serialized) {
+    const inspection = this.inspectProjectileMechanic(serialized);
+    if (inspection.disposition === "question") {
+      throw new RangeError(
+        `live battle projectile ${inspection.claimFamily} remains an explicit QUESTION`,
+      );
+    }
+    return inspection;
   }
 
   hasSpellProfile(cardId) {
@@ -6965,10 +7011,12 @@ class LiveBattle {
     const hasBuildingState = this.#structures.length > 0 || this.#pendingStructures.length > 0 ||
       this.#pendingBuildingHits.length > 0;
     const hasSpellRuntime = this.#spells !== null;
+    const hasProjectileRuntime = this.#projectileRuntime !== null;
     const common = {
       battle: this.#battleRuntime().serialize(),
       history: this.#history.slice(tailStart),
       movements: movementWitnesses(this.#movementRuntimes(), this.#metadata),
+      ...(hasProjectileRuntime ? { projectileRuntime: this.#projectileRuntime.serialize() } : {}),
       setup: this.#setup,
       transcript: compactLiveHistory(this.#history.slice(0, tailStart)),
     };
@@ -7061,7 +7109,7 @@ class LiveBattle {
     return serialized;
   }
 
-  static restore(serialized) {
+  static restore(serialized, projectileRuntimePlan = undefined) {
     if (typeof serialized !== "string") throw new TypeError("serialized live battle must be a string");
     if (new TextEncoder().encode(serialized).byteLength > MAX_SNAPSHOT_BYTES) {
       throw new RangeError("serialized live battle exceeds the byte bound");
@@ -7078,6 +7126,9 @@ class LiveBattle {
     const hasSpellRuntimeWitness = (version === 3 && !hasBuildingWitness &&
       Object.hasOwn(snapshot, "spellRuntime")) || [8, 9, 10, 11, 12, 13, 14].includes(version) ||
       [17, 18, 21, 22, 25, 26, 29, 30].includes(version);
+    const hasProjectileRuntimeWitness = Object.hasOwn(snapshot, "projectileRuntime");
+    const projectileRuntimeSnapshot = hasProjectileRuntimeWitness
+      ? snapshot.projectileRuntime : null;
     const legacyRuntimeSnapshot = (version === 3 && !hasBuildingWitness &&
       !hasSpellRuntimeWitness) || [4, 6, 7, 9, 10, 11, 12].includes(version) ||
       [19, 20, 21, 22].includes(version);
@@ -7085,6 +7136,13 @@ class LiveBattle {
     const currentRuntimeSnapshot = [5, 13, 14, 27, 28, 29, 30].includes(version);
     const hasTroopRuntimeWitness = legacyRuntimeSnapshot || actionRuntimeSnapshot ||
       currentRuntimeSnapshot;
+    // Projectile runtime state is additive to every existing LiveBattle
+    // snapshot version.  Strip the additive witness only for the historical
+    // shape table below; it is validated and replay-checked separately.
+    if (hasProjectileRuntimeWitness) {
+      snapshot = Object.fromEntries(Object.entries(snapshot)
+        .filter(([key]) => key !== "projectileRuntime"));
+    }
     let checked;
     if (version === 15) {
       checked = exact(snapshot, ["battle", "history", "movements", "setup", "statusRuntime",
@@ -7324,6 +7382,17 @@ class LiveBattle {
         throw new TypeError("live battle status runtime pending actions are noncanonical");
       }
     }
+    let projectileRuntime = null;
+    if (hasProjectileRuntimeWitness) {
+      if (typeof projectileRuntimeSnapshot !== "string") {
+        throw new TypeError("live battle projectile runtime witness must be canonical JSON text");
+      }
+      projectileRuntime = SessionTroopProjectileRuntime.restore(projectileRuntimeSnapshot,
+        projectileRuntimePlan);
+      if (projectileRuntime.serialize() !== projectileRuntimeSnapshot) {
+        throw new TypeError("live battle projectile runtime witness is noncanonical");
+      }
+    }
     let spellRuntimeState = null;
     if (hasSpellRuntimeWitness) {
       const witness = exact(checked.spellRuntime, ["nextEffectId", "pending", "version"],
@@ -7355,7 +7424,8 @@ class LiveBattle {
     // Versions 1 and 2 predate canonical building receipts. Later witnesses
     // are fresh-admitted, including the ambiguous v3 building/legacy-troop fork.
     const restored = new LiveBattle(checkedSetup(checked.setup,
-      { legacyStructureReceipts: version <= 2 }), runtimeBytes, statusRuntimeBytes);
+      { legacyStructureReceipts: version <= 2 }), runtimeBytes, statusRuntimeBytes,
+      projectileRuntimePlan);
     const replayOperation = (operation, index, label) => {
       plain(operation, `live battle snapshot.history[${index}]`);
       if (operation.type === "deploy") {
@@ -7432,9 +7502,13 @@ class LiveBattle {
     );
     const spellWitnessMatches = !hasSpellRuntimeWitness || (restored.#spells !== null &&
       canonical(restored.#spells.state) === canonical(spellRuntimeState));
+    const projectileWitnessMatches = !hasProjectileRuntimeWitness || (
+      restored.#projectileRuntime !== null &&
+      restored.#projectileRuntime.serialize() === projectileRuntimeSnapshot);
     if (!battleWitnessMatches || !buildingWitnessMatches || !runtimeWitnessMatches ||
         !statusWitnessMatches ||
         !spellWitnessMatches ||
+        !projectileWitnessMatches ||
         canonical(movementWitnesses(restored.#movementRuntimes(), restored.#metadata)) !==
           canonical(checked.movements) || (version >= 2 && restored.serialize() !== serialized)) {
       throw new TypeError("live battle snapshot witnesses are not causal");
@@ -7455,6 +7529,7 @@ class LiveBattle {
     const boundary = [];
     const unitOnlyBoundary = this.#buildingRuntime === EMPTY_BUILDING_RUNTIME &&
       this.#troopRuntime === EMPTY_TROOP_RUNTIME && this.#spells === null &&
+      this.#projectileRuntime === null &&
       this.#structures.length === 0 && this.#pendingStructures.length === 0 &&
       this.#pendingBuildingHits.length === 0 && this.#pendingTroopActions.length === 0 &&
       this.#pendingTroopStatusActions.length === 0 && !this.#hasStatusRuntime();
@@ -7654,6 +7729,18 @@ class LiveBattle {
         } : {}) });
     }
     boundary.push(...combatEvents);
+
+    if (this.#projectileRuntime !== null) {
+      // The host event list is the sole source of projectile identity.  The
+      // reducer may retain only those identities and QUESTION receipts; it
+      // cannot mint a projectile, advance the host tick, or touch health.
+      this.#projectileRuntime.assertSourceRoster(this.#setup.roster);
+      boundary.push(...this.#projectileRuntime.step({
+        events: combatEvents,
+        sources: this.#projectileSourcesFromState(before),
+        tick,
+      }));
+    }
 
     if (this.#hasStatusRuntime()) {
       this.#finalizeStatusPlans(statusPlans, combatEvents, boundary, tick);
@@ -8135,6 +8222,27 @@ class LiveBattle {
     return state.units.filter(({ alive }) => alive).sort((left, right) => left.id - right.id)
       .map((unit) => this.#troopSourceFromUnit(unit, { requireAlive: true }))
       .filter(({ cardId }) => this.#troopRuntime.profile(cardId) !== null);
+  }
+
+  #projectileSourcesFromState(state) {
+    if (this.#projectileRuntime === null) return [];
+    return state.units.sort((left, right) => left.id - right.id)
+      .map((unit) => ({
+        cardId: this.#metadata.get(unit.id)?.cardId,
+        damage: unit.damage,
+        delivery: unit.delivery,
+        layer: unit.layer,
+        maxHealth: unit.maxHealth,
+        projectileSpeed: unit.projectileSpeed,
+        rangeMillitiles: unit.reach,
+        sightRangeMillitiles: unit.sightRange,
+        side: unit.side,
+        sourceId: unit.id,
+        targetMode: unit.targetMode,
+      }))
+      .filter(({ cardId }) => cardId !== undefined &&
+        (this.#projectileRuntime.profile(cardId) !== null ||
+          this.#projectileRuntime.question(cardId) !== null));
   }
 
   #phaseStatusSourcesFromState(state) {
@@ -8676,6 +8784,8 @@ class LiveBattle {
     candidate.#troopRuntime = this.#hasTroopRuntime()
       ? this.#troopRuntime.fork()
       : EMPTY_TROOP_RUNTIME;
+    candidate.#projectileRuntime = this.#projectileRuntime === null
+      ? null : this.#projectileRuntime.fork();
     candidate.#troopStatuses = this.#troopStatuses.size === 0 ? new Map() : new Map(
       [...this.#troopStatuses].map(([key, status]) => [key, clone(status)]));
     return candidate;
@@ -8705,14 +8815,15 @@ class LiveBattle {
     this.#statusEffects = candidate.#statusEffects;
     this.#statusRuntime = candidate.#statusRuntime;
     this.#troopRuntime = candidate.#troopRuntime;
+    this.#projectileRuntime = candidate.#projectileRuntime;
     this.#troopStatuses = candidate.#troopStatuses;
   }
 }
 
 function createLegacyLiveBattleForRestore(setup, troopRuntimeProfiles = undefined,
-  statusRuntimeProfiles = undefined) {
+  statusRuntimeProfiles = undefined, projectileRuntimePlan = undefined) {
   return new LiveBattle(checkedSetup(setup, { legacyStructureReceipts: true }),
-    troopRuntimeProfiles, statusRuntimeProfiles);
+    troopRuntimeProfiles, statusRuntimeProfiles, projectileRuntimePlan);
 }
 
 function getLiveBattlePlayableCardIds(setup) {
@@ -11115,6 +11226,16 @@ const SETUP_KEYS_WITH_STATUS_RUNTIME = [...SETUP_KEYS, "statusRuntimeProfiles"];
 const SETUP_KEYS_WITH_BOTH_RUNTIMES = [
   ...SETUP_KEYS, "statusRuntimeProfiles", "troopRuntimeProfiles",
 ];
+const SETUP_KEYS_WITH_PROJECTILE_RUNTIME = [...SETUP_KEYS, "projectileRuntimeProfiles"];
+const SETUP_KEYS_WITH_TROOP_AND_PROJECTILE_RUNTIME = [
+  ...SETUP_KEYS, "projectileRuntimeProfiles", "troopRuntimeProfiles",
+];
+const SETUP_KEYS_WITH_STATUS_AND_PROJECTILE_RUNTIME = [
+  ...SETUP_KEYS, "projectileRuntimeProfiles", "statusRuntimeProfiles",
+];
+const SETUP_KEYS_WITH_ALL_RUNTIMES = [
+  ...SETUP_KEYS, "projectileRuntimeProfiles", "statusRuntimeProfiles", "troopRuntimeProfiles",
+];
 const ABILITY_COMMAND_KEYS = [
   "actionId", "commandId", "point", "side", "sourceId", "targetId", "tick", "type",
 ];
@@ -11223,15 +11344,24 @@ function parsed(serialized, label, maximum = GAME_SESSION_MAX_SNAPSHOT_BYTES,
   if (canonical(value) !== serialized) throw new TypeError(`${label} must be canonical JSON`);
   return value;
 }
-function validateSetup(bytes, { allowLegacyStructureReceipts = false } = {}) {
+function validateSetup(bytes, { allowLegacyStructureReceipts = false,
+  projectileRuntimePlan = undefined } = {}) {
   const rawSetup = parsed(bytes, "game session setup", GAME_SESSION_MAX_SETUP_BYTES,
     GAME_SESSION_SETUP_GRAPH_LIMITS);
   const hasTroopRuntimeProfiles = Object.hasOwn(rawSetup, "troopRuntimeProfiles");
   const hasStatusRuntimeProfiles = Object.hasOwn(rawSetup, "statusRuntimeProfiles");
-  const setup = exact(rawSetup, hasTroopRuntimeProfiles && hasStatusRuntimeProfiles
-    ? SETUP_KEYS_WITH_BOTH_RUNTIMES
-    : hasTroopRuntimeProfiles ? SETUP_KEYS_WITH_TROOP_RUNTIME
-      : hasStatusRuntimeProfiles ? SETUP_KEYS_WITH_STATUS_RUNTIME : SETUP_KEYS,
+  const hasProjectileRuntimeProfiles = Object.hasOwn(rawSetup, "projectileRuntimeProfiles");
+  const setup = exact(rawSetup, hasTroopRuntimeProfiles && hasStatusRuntimeProfiles &&
+    hasProjectileRuntimeProfiles ? SETUP_KEYS_WITH_ALL_RUNTIMES
+    : hasTroopRuntimeProfiles && hasProjectileRuntimeProfiles
+      ? SETUP_KEYS_WITH_TROOP_AND_PROJECTILE_RUNTIME
+      : hasStatusRuntimeProfiles && hasProjectileRuntimeProfiles
+        ? SETUP_KEYS_WITH_STATUS_AND_PROJECTILE_RUNTIME
+        : hasProjectileRuntimeProfiles ? SETUP_KEYS_WITH_PROJECTILE_RUNTIME
+          : hasTroopRuntimeProfiles && hasStatusRuntimeProfiles
+            ? SETUP_KEYS_WITH_BOTH_RUNTIMES
+            : hasTroopRuntimeProfiles ? SETUP_KEYS_WITH_TROOP_RUNTIME
+              : hasStatusRuntimeProfiles ? SETUP_KEYS_WITH_STATUS_RUNTIME : SETUP_KEYS,
   "game session setup");
   const battleSetupValue = parsed(setup.battleSetup, "game session battle setup", GAME_SESSION_MAX_SETUP_BYTES,
     GAME_SESSION_SETUP_GRAPH_LIMITS);
@@ -11253,12 +11383,21 @@ function validateSetup(bytes, { allowLegacyStructureReceipts = false } = {}) {
       statusRuntimeProfiles !== canonical(setup.statusRuntimeProfiles)) {
     throw new TypeError("session troop status runtime profiles diverge from their canonical setup");
   }
+  const projectileRuntimeProfiles = Object.hasOwn(setup, "projectileRuntimeProfiles")
+    ? setup.projectileRuntimeProfiles : undefined;
+  if (projectileRuntimeProfiles !== undefined &&
+      (typeof projectileRuntimeProfiles !== "string" || projectileRuntimePlan === undefined ||
+       projectileRuntimePlan.configuration !== projectileRuntimeProfiles)) {
+    throw new TypeError("session troop projectile runtime profiles require the admitted host plan");
+  }
   assertSessionTroopStatusSourceRoster(
     battleSetupValue.roster, statusRuntimeProfiles, battleSetupValue.questions,
   );
   const battle = legacyStructureReceipts && allowLegacyStructureReceipts
-    ? createLegacyLiveBattleForRestore(battleSetupValue, troopRuntimeProfiles, statusRuntimeProfiles)
-    : new LiveBattle(setup.battleSetup, troopRuntimeProfiles, statusRuntimeProfiles);
+    ? createLegacyLiveBattleForRestore(battleSetupValue, troopRuntimeProfiles, statusRuntimeProfiles,
+      projectileRuntimePlan)
+    : new LiveBattle(setup.battleSetup, troopRuntimeProfiles, statusRuntimeProfiles,
+      projectileRuntimePlan);
   if (setup.rosterWitness !== canonical({ questions: battleSetupValue.questions,
     roster: battleSetupValue.roster })) throw new TypeError("session roster witness diverges");
   const cards = battleSetupValue.roster.map(({ cost, id }) => ({ cost, id }));
@@ -11289,7 +11428,7 @@ function validateSetup(bytes, { allowLegacyStructureReceipts = false } = {}) {
   return { batchBattleAdvance: !battleSetupValue.roster.some(({ kind }) => kind === "structure"),
     battleSetupValue: legacyStructureReceipts ? freeze(clone(battleSetupValue)) : null,
     cardRuntime, cards, costs, legacyStructureReceipts, setup: freeze(clone(setup)),
-    statusRuntimeProfiles, troopRuntimeProfiles };
+    projectileRuntimePlan, projectileRuntimeProfiles, statusRuntimeProfiles, troopRuntimeProfiles };
 }
 function issuePrevalidatedGameSessionSetup(setup, batchBattleAdvance) {
   const snapshotPrefix = `{\"setup\":${canonical(setup)},\"transcript\":[`;
@@ -11382,8 +11521,9 @@ class GameSession {
   #setupToken; #snapshotPrefix; #snapshotPrefixBytes; #towerEvidence; #isContinuation = false;
   #legacyStructureReceipts = false;
   #batchBattleAdvance = true;
+  #projectileRuntimePlan;
 
-  constructor(canonicalSetup, restoreCapability = null) {
+  constructor(canonicalSetup, restoreCapability = null, projectileRuntimePlan = undefined) {
     const prevalidated = new.target === GameSession
       ? prevalidatedGameSessionSetups.get(canonicalSetup) : undefined;
     if (prevalidated !== undefined) {
@@ -11400,16 +11540,17 @@ class GameSession {
       return;
     }
     const checked = validateSetup(canonicalSetup, { allowLegacyStructureReceipts:
-      restoreCapability === LEGACY_STRUCTURE_RESTORE }); this.#setup = checked.setup;
+      restoreCapability === LEGACY_STRUCTURE_RESTORE, projectileRuntimePlan }); this.#setup = checked.setup;
     this.#legacyStructureReceipts = checked.legacyStructureReceipts;
     this.#batchBattleAdvance = checked.batchBattleAdvance;
+    this.#projectileRuntimePlan = checked.projectileRuntimePlan;
     this.#cardRuntime = checked.cardRuntime;
     this.#costs = checked.costs; this.#legal = this.#setup.legalNorthDeployments;
     this.#battle = this.#legacyStructureReceipts
       ? createLegacyLiveBattleForRestore(checked.battleSetupValue, checked.troopRuntimeProfiles,
-        checked.statusRuntimeProfiles)
+        checked.statusRuntimeProfiles, checked.projectileRuntimePlan)
       : new LiveBattle(this.#setup.battleSetup, checked.troopRuntimeProfiles,
-        checked.statusRuntimeProfiles);
+        checked.statusRuntimeProfiles, checked.projectileRuntimePlan);
     this.#elixir = new ElixirMatch({ startingElixir: this.#setup.startingElixir });
     this.#decks = { north: new DeckCycle({ deck: this.#setup.deck, seed: `${this.#setup.seed}:north` }),
       south: new DeckCycle({ deck: this.#setup.deck, seed: `${this.#setup.seed}:south` }) };
@@ -11422,7 +11563,7 @@ class GameSession {
     const prevalidatedSetup = prevalidatedGameSessionSetups.get(this.#setupToken);
     this.#snapshotPrefix = prevalidatedSetup.snapshotPrefix;
     this.#snapshotPrefixBytes = prevalidatedSetup.snapshotPrefixBytes;
-    if (new.target === GameSession) authenticGameSessions.add(this);
+    authenticGameSessions.add(this);
   }
 
   #battleRuntime() {
@@ -11602,7 +11743,8 @@ class GameSession {
     } this.#paused = false; this.#appendHistory({ type: "resume" }); } return this.state; }
   restart() { const freshSetup = clone(this.#setup); freshSetup.seed = 0;
     const fresh = new GameSession(canonical(freshSetup), this.#legacyStructureReceipts
-      ? LEGACY_STRUCTURE_RESTORE : null); this.#adopt(fresh); return this.state; }
+      ? LEGACY_STRUCTURE_RESTORE : null, this.#projectileRuntimePlan);
+    this.#adopt(fresh); return this.state; }
   step() { return this.stepMany(1); }
   stepMany(count) {
     if (!Number.isSafeInteger(count) || count < 0 || count > GAME_SESSION_MAX_BATCH_TICKS) {
@@ -11640,7 +11782,7 @@ class GameSession {
     this.#assertSnapshotBound();
     return `${this.#snapshotPrefix}${this.#historyBytes.join(",")}${GAME_SESSION_SNAPSHOT_SUFFIX}`;
   }
-  static restore(serialized) {
+  static restore(serialized, projectileRuntimePlan = undefined) {
     const value = exact(parsed(serialized, "game session snapshot"),
       ["setup", "transcript", "version"], "game session snapshot");
     if (value.version !== 2 || !Array.isArray(value.transcript) ||
@@ -11649,7 +11791,8 @@ class GameSession {
     }
     // The outer v2 snapshot is the only public path allowed to invoke the
     // module-private legacy setup capability.
-    const session = new GameSession(canonical(value.setup), LEGACY_STRUCTURE_RESTORE);
+    const session = new GameSession(canonical(value.setup), LEGACY_STRUCTURE_RESTORE,
+      projectileRuntimePlan);
     for (let index = 0; index < value.transcript.length;) {
       const operation = value.transcript[index];
       if (!operation || typeof operation !== "object" || Array.isArray(operation)) {
@@ -11865,6 +12008,8 @@ class GameSession {
       "external-structure-contact",
       "projectile-impact",
       "projectile-launch",
+      "projectile-runtime-question",
+      "projectile-runtime-receipt",
       "tower-destroyed",
       "troop-status-receipt",
       "troop-status-expired",
@@ -11905,6 +12050,7 @@ class GameSession {
     // owns an independent copy; rebuilding it through LiveBattle.state would
     // clone all live units just to read six tower records.
     value.#towerEvidence = clone(this.#towerEvidence);
+    value.#projectileRuntimePlan = this.#projectileRuntimePlan;
     return value;
   }
   #adopt(other) { this.#battle = other.#battle; this.#cardRuntime = other.#cardRuntime;
@@ -11920,6 +12066,7 @@ class GameSession {
     this.#snapshotPrefix = other.#snapshotPrefix;
     this.#snapshotPrefixBytes = other.#snapshotPrefixBytes;
     this.#towerEvidence = other.#towerEvidence;
+    this.#projectileRuntimePlan = other.#projectileRuntimePlan;
     this.#legacyStructureReceipts = other.#legacyStructureReceipts;
     this.#batchBattleAdvance = other.#batchBattleAdvance;
     this.#isContinuation = other.#isContinuation; }
