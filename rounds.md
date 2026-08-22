@@ -132,6 +132,28 @@ source rows and nested components both passed and emitted the same manifest.
 BIGGEST GAP: Reject non-plain source-record and component prototypes before
 canonicalization so hostile custom-prototype shapes cannot escape.
 
+## Round 268 — 2026-08-21
+
+PIECE: GAME-001HTMP — Movement/form source-profile contract, round 4
+
+VERDICT: FAIL
+
+EVIDENCE: Clean HEAD `f7ed6c1`; focused entry points passed 17/17, HTP 11/11,
+HTO 14/14, all eight source selectors, guards 9/9 and 13/13, syntax and git
+checks. Independent probes matched all nine source/profile joins, all six exact
+QUESTION witnesses, and the 67,284-byte manifest SHA-256
+`d4ad6e7684047fbd4194fd83a017700b56ecf4198aa7a39bd5bc01bc67388082`.
+All 45 current nullable-path mutations and 45 future nested-component numeric
+mutations rejected, including Cinderback `NaN`, `Infinity` and `-Infinity`.
+Legitimate nulls and property reordering stayed byte-identical; outputs were
+fresh and frozen; reads were bounded; Emberlance remained membership-only and
+Railward unresolved-only. Direct canonicalization rejected every hostile case,
+but a Proxy with an `ownKeys` trap produced `accepted:false, traps:1,
+error:"Error: TRAPS=1"`.
+
+BIGGEST GAP: Reject Proxy input before `Object.getOwnPropertyDescriptors` so
+canonicalization never invokes a hostile `ownKeys` trap.
+
 ## Round 57 — 2026-07-30
 
 PIECE: CONTENT-008R — Attack-triggered recoil displacement
