@@ -1,6 +1,9 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
+import { createHash } from "node:crypto";
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import test from "node:test";
 import vm from "node:vm";
 
@@ -56,6 +59,207 @@ const SOURCE_FACTORIES = {
   createSnareSpecialCatalog,
   createStunSpecialCatalog,
 };
+
+const STATUS_PROFILE_SOURCE_PATH = fileURLToPath(new URL(
+  "../src/content/session-troop-status-profiles.js", import.meta.url,
+));
+const STATUS_PROFILE_SOURCE = readFileSync(STATUS_PROFILE_SOURCE_PATH, "utf8");
+const STATUS_PROFILE_SERIALIZED_BYTES = 82575;
+const STATUS_PROFILE_SERIALIZED_SHA256 =
+  "1cc9ce7c735abcf14f5967372c0d150bdb6f1a5814f0ed6c40a55c798e1eff88";
+const SOURCE_EXPORTS = Object.keys(SOURCE_FACTORIES).sort();
+const GENERAL_SOURCE_MUTATIONS = [
+  "append-future",
+  "prepend-future",
+  "insert-future",
+  "replace-with-future",
+  "duplicate-expected",
+  "duplicate-future",
+  "malformed-future",
+];
+const SHAPE_SOURCE_MUTATIONS = [
+  "sparse-array",
+  "exotic-array",
+  "proxy-array",
+  "proxy-row",
+  "accessor-row",
+  "symbol-row",
+  "non-string-id",
+  "empty-id",
+  "oversized-id",
+];
+
+function transformedStatusProfileSource() {
+  return STATUS_PROFILE_SOURCE
+    .replace(/from "\.\/cards\/[^"]+"/gu, 'from "./status-catalog-fixture.js"')
+    .replace(
+      'from "./session-troop-profile-catalog.js"',
+      'from "./status-catalog-fixture.js"',
+    );
+}
+
+function sourceCatalogFixtureSource(targetExport, mutation, sourceRoot) {
+  const source = (relativePath) => JSON.stringify(pathToFileURL(
+    join(sourceRoot, relativePath),
+  ).href);
+  return `
+import * as heal from ${source("src/content/cards/combat-status-heal.js")};
+import * as invisibility from ${source("src/content/cards/combat-status-invisibility.js")};
+import * as reflection from ${source("src/content/cards/special-projectiles-reflection.js")};
+import * as shield from ${source("src/content/cards/shields-forms.js")};
+import * as slow from ${source("src/content/cards/special-combat-slow.js")};
+import * as snare from ${source("src/content/cards/special-combat-snare.js")};
+import * as stun from ${source("src/content/cards/combat-status-stun.js")};
+import { createSessionTroopProfileManifest } from ${source("src/content/session-troop-profile-catalog.js")};
+
+const target = ${JSON.stringify(targetExport)};
+const mode = ${JSON.stringify(mutation)};
+const calls = Object.create(null);
+const stable = new Map();
+
+function copy(value) {
+  return structuredClone(value);
+}
+
+function futureRow(rows) {
+  const row = copy(rows[0]);
+  row.id = "future-source-row";
+  return row;
+}
+
+function firstRowWithId(rows, id) {
+  return rows.find((row) => row.id === id);
+}
+
+function mutate(exportName, rows, call) {
+  if (exportName !== target) return rows;
+  if (mode === "repeat-same-array") {
+    if (!stable.has(exportName)) stable.set(exportName, rows);
+    return stable.get(exportName);
+  }
+  if (mode.startsWith("repeat-") && call !== 2) return rows;
+  if (mode === "append-future" || mode === "third-row" || mode === "repeat-count") {
+    rows.push(futureRow(rows));
+  } else if (mode === "prepend-future") {
+    rows.unshift(futureRow(rows));
+  } else if (mode === "insert-future") {
+    rows.splice(1, 0, futureRow(rows));
+  } else if (mode === "replace-with-future") {
+    rows[0] = futureRow(rows);
+  } else if (mode === "duplicate-expected" || mode === "duplicate-bloom") {
+    rows = [rows[0], copy(rows[0])];
+  } else if (mode === "duplicate-dawn") {
+    rows = [firstRowWithId(rows, "dawnmender"), copy(firstRowWithId(rows, "dawnmender"))];
+  } else if (mode === "duplicate-future") {
+    const future = futureRow(rows);
+    rows = [future, copy(future)];
+  } else if (mode === "malformed-future") {
+    const malformed = futureRow(rows);
+    delete malformed.displayName;
+    rows.push(malformed);
+  } else if (mode === "remove-bloom") {
+    rows = rows.filter((row) => row.id !== "bloom-wisp");
+  } else if (mode === "remove-dawn") {
+    rows = rows.filter((row) => row.id !== "dawnmender");
+  } else if (mode === "swap-heal-ids") {
+    const firstId = rows[0].id;
+    rows[0].id = rows[1].id;
+    rows[1].id = firstId;
+  } else if (mode === "conflicting-duplicate") {
+    const conflicting = copy(rows[0]);
+    conflicting.damage += 1;
+    rows = [rows[0], conflicting];
+  } else if (mode === "sparse-array") {
+    delete rows[0];
+  } else if (mode === "exotic-array") {
+    Object.setPrototypeOf(rows, null);
+  } else if (mode === "proxy-array") {
+    return new Proxy(rows, {});
+  } else if (mode === "proxy-row") {
+    rows[0] = new Proxy(rows[0], {});
+  } else if (mode === "accessor-row") {
+    Object.defineProperty(rows[0], "id", {
+      configurable: true,
+      enumerable: true,
+      get() { throw new Error("source accessor probe"); },
+    });
+  } else if (mode === "symbol-row") {
+    rows[0][Symbol("source probe")] = true;
+  } else if (mode === "non-string-id") {
+    rows[0].id = 7;
+  } else if (mode === "empty-id") {
+    rows[0].id = "";
+  } else if (mode === "oversized-id") {
+    rows[0].id = "x".repeat(129);
+  } else if (mode === "repeat-bytes") {
+    rows[0].damage += 1;
+  } else if (mode === "repeat-order") {
+    rows.reverse();
+  } else if (mode === "repeat-id") {
+    rows[0].id = "future-source-row";
+  }
+  return rows;
+}
+
+function wrap(exportName, factory) {
+  return function wrappedFactory(...args) {
+    const count = (calls[exportName] ?? 0) + 1;
+    calls[exportName] = count;
+    return mutate(exportName, factory(...args), count);
+  };
+}
+
+export const createHealCatalog = wrap("createHealCatalog", heal.createHealCatalog);
+export const createInvisibilitySpecialCatalog = wrap(
+  "createInvisibilitySpecialCatalog", invisibility.createInvisibilitySpecialCatalog,
+);
+export const createReflectionSpecialCatalog = wrap(
+  "createReflectionSpecialCatalog", reflection.createReflectionSpecialCatalog,
+);
+export const createShieldFormCatalog = wrap(
+  "createShieldFormCatalog", shield.createShieldFormCatalog,
+);
+export const createSlowSpecialCatalog = wrap(
+  "createSlowSpecialCatalog", slow.createSlowSpecialCatalog,
+);
+export const createSnareSpecialCatalog = wrap(
+  "createSnareSpecialCatalog", snare.createSnareSpecialCatalog,
+);
+export const createStunSpecialCatalog = wrap(
+  "createStunSpecialCatalog", stun.createStunSpecialCatalog,
+);
+export const createHealQuestionRecords = heal.createHealQuestionRecords;
+export const createInvisibilityQuestionRecords = invisibility.createInvisibilityQuestionRecords;
+export const createReflectionQuestionFixture = reflection.createReflectionQuestionFixture;
+export const createSlowQuestionRecords = slow.createSlowQuestionRecords;
+export const createSnareQuestionRecords = snare.createSnareQuestionRecords;
+export const createStunQuestionRecords = stun.createStunQuestionRecords;
+export { createSessionTroopProfileManifest };
+`;
+}
+
+async function assertTransformedCatalogRejected(targetExport, mutation) {
+  const directory = mkdtempSync(join(tmpdir(), "status-catalog-probe-"));
+  const modulePath = join(directory, "session-troop-status-profiles.js");
+  try {
+    writeFileSync(
+      join(directory, "status-catalog-fixture.js"),
+      sourceCatalogFixtureSource(
+        targetExport,
+        mutation,
+        fileURLToPath(new URL("..", import.meta.url)),
+      ),
+      "utf8",
+    );
+    writeFileSync(modulePath, transformedStatusProfileSource(), "utf8");
+    await assert.rejects(
+      import(`${pathToFileURL(modulePath).href}?${targetExport}-${mutation}`),
+      Error,
+    );
+  } finally {
+    rmSync(directory, { force: true, recursive: true });
+  }
+}
 
 function canonical(value) {
   if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
@@ -140,6 +344,40 @@ test("game roster troop status profiles: exact counts and one profile per ID", (
     assert.equal(profile.integration.status, "pending");
     assert.equal(profile.questionReceipt, claim.questionReceipt);
   }
+});
+
+test("game roster troop status profiles: valid catalog cache is pinned at 8/240 and canonical bytes", () => {
+  const manifest = createSessionTroopStatusProfileManifest();
+  const serialized = serializeSessionTroopStatusProfileManifest();
+  assert.equal(manifest.profiles.length, 8);
+  assert.equal(manifest.counts.questionRecords, 240);
+  assert.equal(Buffer.byteLength(serialized, "utf8"), STATUS_PROFILE_SERIALIZED_BYTES);
+  assert.equal(
+    createHash("sha256").update(serialized, "utf8").digest("hex"),
+    STATUS_PROFILE_SERIALIZED_SHA256,
+  );
+});
+
+test("game roster troop status profiles: every source catalog mutation fails closed independently", async () => {
+  const cases = [
+    ...GENERAL_SOURCE_MUTATIONS.flatMap((mutation) =>
+      SOURCE_EXPORTS.map((exportName) => [exportName, mutation])),
+    ...SHAPE_SOURCE_MUTATIONS.flatMap((mutation) =>
+      SOURCE_EXPORTS.map((exportName) => [exportName, mutation])),
+    ...["repeat-bytes", "repeat-count", "repeat-id", "repeat-same-array"].flatMap((mutation) =>
+      SOURCE_EXPORTS.map((exportName) => [exportName, mutation])),
+    ["createHealCatalog", "repeat-order"],
+    ["createHealCatalog", "remove-bloom"],
+    ["createHealCatalog", "remove-dawn"],
+    ["createHealCatalog", "duplicate-bloom"],
+    ["createHealCatalog", "duplicate-dawn"],
+    ["createHealCatalog", "third-row"],
+    ["createHealCatalog", "swap-heal-ids"],
+    ["createHealCatalog", "conflicting-duplicate"],
+  ];
+  assert.equal(cases.length, 148);
+  await Promise.all(cases.map(([exportName, mutation]) =>
+    assertTransformedCatalogRejected(exportName, mutation)));
 });
 
 test("game roster troop status profiles: every source export joins one complete witness", () => {
