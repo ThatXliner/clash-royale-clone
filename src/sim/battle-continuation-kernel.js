@@ -32,6 +32,7 @@ import {
 import {
   SESSION_TROOP_STATUS_RUNTIME_MAX_COMMANDS,
   SESSION_TROOP_STATUS_RUNTIME_MAX_SOURCES,
+  assertSessionTroopStatusSourceRoster,
   parseSessionTroopStatusRuntimeProfiles,
   SessionTroopStatusRuntime,
 } from "./session-troop-status-runtime.js";
@@ -6436,6 +6437,14 @@ class LiveBattle {
   constructor(value, troopRuntimeProfiles = undefined, statusRuntimeProfiles = undefined) {
     runtimeInstances.add(this);
     const setup = admittedSetup(value);
+    const statusRuntime = statusRuntimeProfiles === undefined
+      ? null
+      : new SessionTroopStatusRuntime(statusRuntimeProfiles);
+    if (statusRuntime === null) {
+      assertSessionTroopStatusSourceRoster(setup.roster);
+    } else {
+      statusRuntime.assertSourceRoster(setup.roster);
+    }
     this.#battle = new BattleTowerCombat({
       initialWindupTicks: setup.initialWindupTicks,
       units: [],
@@ -6470,9 +6479,7 @@ class LiveBattle {
     this.#troopRuntime = troopRuntimeProfiles === undefined
       ? EMPTY_TROOP_RUNTIME
       : new SessionTroopRuntime(troopRuntimeProfiles);
-    this.#statusRuntime = statusRuntimeProfiles === undefined
-      ? null
-      : new SessionTroopStatusRuntime(statusRuntimeProfiles);
+    this.#statusRuntime = statusRuntime;
     this.#statusEffects = new Map();
     this.#troopStatuses = new Map();
     for (const profile of this.#troopRuntime.configuration.profiles) {
@@ -6776,6 +6783,7 @@ class LiveBattle {
     if (!this.#hasStatusRuntime()) {
       throw new RangeError("live battle troop status action has no admitted status profile");
     }
+    this.#statusRuntime.assertSourceRoster(this.#setup.roster);
     if (action.point !== null) {
       throw new RangeError("live battle troop status action must be point-free");
     }
@@ -11245,6 +11253,7 @@ function validateSetup(bytes, { allowLegacyStructureReceipts = false } = {}) {
       statusRuntimeProfiles !== canonical(setup.statusRuntimeProfiles)) {
     throw new TypeError("session troop status runtime profiles diverge from their canonical setup");
   }
+  assertSessionTroopStatusSourceRoster(battleSetupValue.roster, statusRuntimeProfiles);
   const battle = legacyStructureReceipts && allowLegacyStructureReceipts
     ? createLegacyLiveBattleForRestore(battleSetupValue, troopRuntimeProfiles, statusRuntimeProfiles)
     : new LiveBattle(setup.battleSetup, troopRuntimeProfiles, statusRuntimeProfiles);

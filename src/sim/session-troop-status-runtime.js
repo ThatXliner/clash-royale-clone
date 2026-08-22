@@ -124,6 +124,22 @@ const RECEIPT_FINGERPRINT = "5ce7a9c35c0be1b9";
 const PROFILE_ID_SET = new Set(PROFILE_IDS);
 const RECEIPT_MAX_DEPTH = 64;
 const RECEIPT_MAX_NODES = 50_000;
+const SOURCE_RECORD_KEYS = Object.freeze([
+  "areaDamageRadiusMillitiles", "components", "cost", "count", "damage",
+  "deployTimeTicks", "displayName", "firstHitTicks", "hitSpeedTicks",
+  "hitpoints", "id", "kind", "movementMillitilesPerSecond", "rangeMillitiles",
+  "rarity", "sightRangeMillitiles", "targetMode",
+]);
+const SOURCE_COMPONENT_KEYS = Object.freeze([
+  "areaDamageRadiusMillitiles", "count", "damage", "deployTimeTicks",
+  "displayName", "firstHitTicks", "hitSpeedTicks", "hitpoints", "id", "kind",
+  "movementMillitilesPerSecond", "rangeMillitiles", "role", "sightRangeMillitiles",
+  "targetMode",
+]);
+const SOURCE_CARD_FIELDS = Object.freeze(SOURCE_RECORD_KEYS.filter((key) =>
+  key !== "components"));
+const SOURCE_ENTITY_FIELDS = Object.freeze(SOURCE_COMPONENT_KEYS.filter((key) =>
+  key !== "id" && key !== "role"));
 
 function fingerprint(serialized) {
   const bytes = new TextEncoder().encode(serialized);
@@ -231,6 +247,165 @@ function checkedReceiptObject(value, label) {
   return clone(receipt);
 }
 
+function statusRosterData(value) {
+  const normalized = dataTree(value, "status runtime source roster");
+  if (!Array.isArray(normalized) || normalized.length > 8) {
+    throw new TypeError("status runtime source roster must be a bounded array");
+  }
+  return normalized;
+}
+
+function policy(value, label) {
+  const checked = exact(value, ["kind", "questionKey"], label);
+  return { kind: checked.kind, questionKey: checked.questionKey };
+}
+
+function assertQuestionPolicy(value, expectedKey, label) {
+  const checked = policy(value, label);
+  if (checked.kind !== "question" || checked.questionKey !== expectedKey) {
+    throw new TypeError(`${label} diverges from its pinned QUESTION path`);
+  }
+}
+
+function assertProjectilePolicy(value, entity, label) {
+  const checked = policy(value, label);
+  if (entity.delivery === "projectile") {
+    if (checked.kind !== "question" ||
+        checked.questionKey !== `${entity.archetypeId}.projectile-speed-millitiles-per-tick`) {
+      throw new TypeError(`${label} diverges from its pinned projectile QUESTION path`);
+    }
+    return;
+  }
+  if (entity.delivery !== "melee" || checked.kind !== "not-applicable" ||
+      checked.questionKey !== null) {
+    throw new TypeError(`${label} diverges from its pinned delivery policy`);
+  }
+}
+
+function assertStatusEntityPolicies(entity, label) {
+  if (typeof entity.archetypeId !== "string" || entity.archetypeId.length === 0) {
+    throw new TypeError(`${label}.archetypeId is invalid`);
+  }
+  assertQuestionPolicy(entity.bodyRadiusPolicy,
+    `${entity.archetypeId}.body-radius-millitiles`, `${label}.bodyRadiusPolicy`);
+  assertProjectilePolicy(entity.projectileSpeedPolicy, entity,
+    `${label}.projectileSpeedPolicy`);
+  assertQuestionPolicy(entity.deliveryPolicy, `${entity.archetypeId}.delivery`,
+    `${label}.deliveryPolicy`);
+  assertQuestionPolicy(entity.layerPolicy, `${entity.archetypeId}.layer`,
+    `${label}.layerPolicy`);
+  if (!(["air", "ground"].includes(entity.layer)) ||
+      !["melee", "projectile"].includes(entity.delivery)) {
+    throw new TypeError(`${label} has an invalid unresolved delivery/layer fact`);
+  }
+}
+
+function comparePinnedFields(live, pinned, fields, label) {
+  for (const field of fields) {
+    if (canonical(live[field]) !== canonical(pinned[field])) {
+      throw new TypeError(`${label}.${field} diverges from the pinned status source`);
+    }
+  }
+}
+
+function assertPinnedStatusCard(card, profile) {
+  const label = `status runtime source ${profile.id}`;
+  if (card === null || typeof card !== "object" || Array.isArray(card) ||
+      card.id !== profile.id || card.kind !== "unit") {
+    throw new TypeError(`${label} card identity is not admitted`);
+  }
+  const source = exact(profile.sourceRecord, SOURCE_RECORD_KEYS, `${label}.sourceRecord`);
+  if (source.id !== profile.id || source.kind !== "unit" ||
+      typeof profile.sourceWitness !== "string" ||
+      profile.sourceWitness !== canonical(source)) {
+    throw new TypeError(`${label} source provenance is not the pinned record`);
+  }
+  comparePinnedFields(card, source, SOURCE_CARD_FIELDS, label);
+
+  const sourceComponents = boundedArray(source.components, `${label}.components`, 16);
+  const entities = boundedArray(card.entities, `${label}.entities`, 16);
+  const expectedComponents = sourceComponents.length === 0
+    ? [{ ...source, id: source.id, role: "primary" }]
+    : sourceComponents.map((component) => exact(component, SOURCE_COMPONENT_KEYS,
+      `${label}.components`));
+  if (entities.length !== expectedComponents.length) {
+    throw new TypeError(`${label}.entity/component inventory diverges from the pinned source`);
+  }
+  const expectedOrder = expectedComponents.map(({ id }) => id);
+  const formation = exact(card.formation, ["componentOrder", "expansionOrder", "totalCount"],
+    `${label}.formation`);
+  const componentOrder = boundedArray(formation.componentOrder,
+    `${label}.formation.componentOrder`, 16);
+  if (formation.expansionOrder !== "component-order-then-member-index" ||
+      canonical(componentOrder) !== canonical(expectedOrder)) {
+    throw new TypeError(`${label}.component order diverges from the pinned source`);
+  }
+  let totalCount = 0;
+  for (let index = 0; index < expectedComponents.length; index += 1) {
+    const expected = expectedComponents[index];
+    const entity = entities[index];
+    if (entity === null || typeof entity !== "object" || Array.isArray(entity) ||
+        entity.archetypeId !== expected.id ||
+        entity.role !== expected.role) {
+      throw new TypeError(`${label}.entities[${index}] identity/order diverges from the pinned source`);
+    }
+    comparePinnedFields(entity, expected, SOURCE_ENTITY_FIELDS,
+      `${label}.entities[${index}]`);
+    assertStatusEntityPolicies(entity, `${label}.entities[${index}]`);
+    totalCount += entity.count;
+  }
+  if (formation.totalCount !== totalCount || card.count !== totalCount) {
+    throw new TypeError(`${label}.formation count diverges from the pinned source`);
+  }
+}
+
+function statusSignals(roster) {
+  const cards = roster.filter((card) => card !== null && typeof card === "object" &&
+    !Array.isArray(card));
+  const cardIds = new Set();
+  const entityClaims = [];
+  for (const card of cards) {
+    if (typeof card.id === "string" && PROFILE_ID_SET.has(card.id)) cardIds.add(card.id);
+    if (!Array.isArray(card.entities)) continue;
+    for (const entity of card.entities) {
+      if (entity !== null && typeof entity === "object" && !Array.isArray(entity) &&
+          typeof entity.archetypeId === "string" && PROFILE_ID_SET.has(entity.archetypeId)) {
+        entityClaims.push({ cardId: card.id, entityId: entity.archetypeId });
+      }
+    }
+  }
+  return { cardIds, cards, entityClaims };
+}
+
+function validateSourceRoster(roster, receipt) {
+  const normalized = statusRosterData(roster);
+  const { cardIds, cards, entityClaims } = statusSignals(normalized);
+  if (receipt === undefined) {
+    // Legacy ordinary projections can contain a card that later gained a
+    // sourced status family. They remain inert until the status runtime is
+    // explicitly profiled; the command route still fails closed because it
+    // has no runtime to inspect or schedule the effect.
+    return;
+  }
+  const profiles = new Map(receipt.profiles.map((profile) => [profile.id, profile]));
+  if (cardIds.size === 0) {
+    throw new RangeError("status profile receipt has no live status source card");
+  }
+  for (const claim of entityClaims) {
+    if (claim.cardId !== claim.entityId) {
+      throw new TypeError("live status entity claims another supported status identity");
+    }
+  }
+  for (const cardId of cardIds) {
+    const profile = profiles.get(cardId);
+    const card = cards.find((candidate) => candidate.id === cardId);
+    if (profile === undefined || card === undefined) {
+      throw new TypeError(`status source ${cardId} has no pinned profile`);
+    }
+    assertPinnedStatusCard(card, profile);
+  }
+}
+
 export function parseSessionTroopStatusRuntimeProfiles(serialized) {
   if (typeof serialized !== "string") {
     throw new TypeError("session troop status runtime profiles must be canonical JSON text");
@@ -253,6 +428,18 @@ export function parseSessionTroopStatusRuntimeProfiles(serialized) {
 export function serializeSessionTroopStatusRuntimeProfiles(value) {
   const receipt = checkedReceiptObject(value, "session troop status runtime profiles");
   return canonical(receipt);
+}
+
+export function assertSessionTroopStatusSourceRoster(roster, serialized = undefined) {
+  if (serialized === undefined) {
+    validateSourceRoster(roster, undefined);
+    return;
+  }
+  if (typeof serialized !== "string") {
+    throw new TypeError("session troop status source receipt must be canonical JSON text");
+  }
+  const receipt = parseSessionTroopStatusRuntimeProfiles(serialized);
+  validateSourceRoster(roster, receipt);
 }
 
 function checkedSource(value, index) {
@@ -405,6 +592,10 @@ export class SessionTroopStatusRuntime {
 
   fork() {
     return new SessionTroopStatusRuntime(this.serialize());
+  }
+
+  assertSourceRoster(roster) {
+    validateSourceRoster(roster, this.#receipt);
   }
 
   profile(cardId) {

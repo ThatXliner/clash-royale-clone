@@ -6,10 +6,12 @@ import { createSessionTroopWitness } from "../src/content/session-troop-roster.j
 import {
   createSessionTroopStatusRuntimeProfiles,
 } from "../src/content/session-troop-status-runtime-profiles.js";
+import { projectSessionNonUnitBattleCard } from "../src/content/session-card-catalog.js";
 import { DeckCycle } from "../src/sim/deck.js";
 import { GameSession } from "../src/sim/game-session.js";
 import { LiveBattle, parseLiveBattleSetup } from "../src/sim/live-battle.js";
 import {
+  assertSessionTroopStatusSourceRoster,
   parseSessionTroopStatusRuntimeProfiles,
   serializeSessionTroopStatusRuntimeProfiles,
   SessionTroopStatusRuntime,
@@ -87,6 +89,17 @@ function setupObject(id, { legalNorthDeployments = null, seed = null } = {}) {
     thinkIntervalTicks: 1_000,
     thinkOffsetTicks: 0,
   };
+}
+
+function mutatedStatusSetup(id, mutate) {
+  const setup = setupObject(id);
+  const witness = JSON.parse(setup.battleSetup);
+  const card = witness.roster.find(({ id: cardId }) => cardId === id);
+  assert.ok(card, `${id} mutation witness must contain the source card`);
+  mutate(card, card.entities?.[0] ?? null, witness);
+  setup.battleSetup = canonical(witness);
+  setup.rosterWitness = canonical({ questions: witness.questions, roster: witness.roster });
+  return canonical(setup);
 }
 
 function makeSession(id) {
@@ -213,6 +226,47 @@ function makeDeadTargetLiveBattle(id) {
   return { battle, source, target };
 }
 
+function makeStructureTargetLiveBattle(id) {
+  const witness = structuredClone(createSessionTroopWitness(id));
+  const replacementIndex = witness.roster.findIndex(({ id: cardId }) => cardId === "briar-band");
+  assert.notEqual(replacementIndex, -1);
+  const removedArchetypes = new Set(witness.roster[replacementIndex].entities.map(({ archetypeId }) =>
+    archetypeId));
+  witness.roster[replacementIndex] = structuredClone(
+    projectSessionNonUnitBattleCard("bulwark-needle"),
+  );
+  witness.questions = witness.questions.filter(({ key }) =>
+    ![...removedArchetypes].some((archetypeId) => key.startsWith(`${archetypeId}.`)));
+  const battle = new LiveBattle(
+    parseLiveBattleSetup(canonical(witness)),
+    undefined,
+    canonical(createSessionTroopStatusRuntimeProfiles()),
+  );
+  battle.scheduleDeploy(canonical({
+    cardId: id,
+    point: { x: 3_500, y: 14_500 },
+    sequence: 0,
+    side: "south",
+    tick: 0,
+  }));
+  battle.scheduleStructure(canonical({
+    cardId: "bulwark-needle",
+    destination: null,
+    point: { x: 3_500, y: 17_500 },
+    sequence: 1,
+    side: "north",
+    tick: 0,
+  }));
+  battle.step();
+  const source = battle.state.units.find(({ cardId, side }) =>
+    cardId === id && side === "south");
+  const target = battle.state.structures.find(({ cardId, side }) =>
+    cardId === "bulwark-needle" && side === "north");
+  assert.ok(source);
+  assert.ok(target);
+  return { battle, source, target };
+}
+
 test("game roster troop status: the exact eight identities and sourced executable facts are admitted", () => {
   const receipt = createSessionTroopStatusRuntimeProfiles();
   assert.deepEqual(receipt.profiles.map(({ id }) => id), STATUS_IDS);
@@ -268,6 +322,220 @@ test("game roster troop status: setup receipt mutations reject atomically before
   });
   assert.throws(() => serializeSessionTroopStatusRuntimeProfiles(accessor), /data property|shape/u);
   assert.equal(getterReads, 0);
+});
+
+test("game roster troop status: pinned live source fields reject before setup exposure", () => {
+  const ids = EXECUTABLE.map(({ id }) => id);
+  const mutations = [
+    ["card.areaDamageRadiusMillitiles", (card) => {
+      card.areaDamageRadiusMillitiles = card.areaDamageRadiusMillitiles === null ? 1 : null;
+    }],
+    ["card.cost", (card) => { card.cost += 1; }],
+    ["card.count", (card) => { card.count += 1; }],
+    ["card.damage", (card) => { card.damage += 1; }],
+    ["card.deployTimeTicks", (card) => { card.deployTimeTicks += 1; }],
+    ["card.displayName", (card) => { card.displayName += " X"; }],
+    ["card.firstHitTicks", (card) => { card.firstHitTicks += 1; }],
+    ["card.hitSpeedTicks", (card) => { card.hitSpeedTicks += 1; }],
+    ["card.hitpoints", (card) => { card.hitpoints += 1; }],
+    ["card.kind", (card) => { card.kind = "effect"; }],
+    ["card.movementMillitilesPerSecond", (card) => {
+      card.movementMillitilesPerSecond += 1;
+    }],
+    ["card.rangeMillitiles", (card) => { card.rangeMillitiles += 1; }],
+    ["card.rarity", (card) => { card.rarity = card.rarity === "uncommon" ? "special" : "uncommon"; }],
+    ["card.sightRangeMillitiles", (card) => { card.sightRangeMillitiles += 1; }],
+    ["card.targetMode", (card) => {
+      card.targetMode = card.targetMode === "ground" ? "ground-and-air" : "ground";
+    }],
+    ["entity.areaDamageRadiusMillitiles", (_card, entity) => {
+      entity.areaDamageRadiusMillitiles = entity.areaDamageRadiusMillitiles === null ? 1 : null;
+    }],
+    ["entity.archetypeId", (_card, entity) => {
+      entity.archetypeId = entity.archetypeId === "dawnmender" ? "pulse-sentry" : "dawnmender";
+    }],
+    ["entity.count", (_card, entity) => { entity.count += 1; }],
+    ["entity.damage", (_card, entity) => { entity.damage += 1; }],
+    ["entity.deployTimeTicks", (_card, entity) => { entity.deployTimeTicks += 1; }],
+    ["entity.displayName", (_card, entity) => { entity.displayName += " X"; }],
+    ["entity.firstHitTicks", (_card, entity) => { entity.firstHitTicks += 1; }],
+    ["entity.hitSpeedTicks", (_card, entity) => { entity.hitSpeedTicks += 1; }],
+    ["entity.hitpoints", (_card, entity) => { entity.hitpoints += 1; }],
+    ["entity.kind", (_card, entity) => { entity.kind = "effect"; }],
+    ["entity.layer", (_card, entity) => { entity.layer = "air"; }],
+    ["entity.movementMillitilesPerSecond", (_card, entity) => {
+      entity.movementMillitilesPerSecond += 1;
+    }],
+    ["entity.rangeMillitiles", (_card, entity) => { entity.rangeMillitiles += 1; }],
+    ["entity.role", (_card, entity) => { entity.role = "secondary"; }],
+    ["entity.sightRangeMillitiles", (_card, entity) => { entity.sightRangeMillitiles += 1; }],
+    ["entity.targetMode", (_card, entity) => {
+      entity.targetMode = entity.targetMode === "ground" ? "ground-and-air" : "ground";
+    }],
+    ["entity.delivery", (_card, entity) => { entity.delivery = "projectile"; }],
+    ["entity.bodyRadiusPolicy", (_card, entity) => {
+      entity.bodyRadiusPolicy.questionKey = "foreign.body-radius-millitiles";
+    }],
+    ["entity.projectileSpeedPolicy", (_card, entity) => {
+      entity.projectileSpeedPolicy = { kind: "question", questionKey: `${entity.archetypeId}.projectile-speed-millitiles-per-tick` };
+    }],
+    ["entity.deliveryPolicy", (_card, entity) => {
+      entity.deliveryPolicy.questionKey = "foreign.delivery";
+    }],
+    ["entity.layerPolicy", (_card, entity) => {
+      entity.layerPolicy.questionKey = "foreign.layer";
+    }],
+    ["formation.componentOrder", (card) => {
+      card.formation.componentOrder[0] = card.id === "dawnmender" ? "pulse-sentry" : "dawnmender";
+    }],
+    ["entities.duplicate", (card) => {
+      card.entities.push(structuredClone(card.entities[0]));
+      card.formation.componentOrder.push(card.entities[0].archetypeId);
+      card.formation.totalCount += 1;
+    }],
+  ];
+  let attempts = 0;
+  for (const id of ids) {
+    for (const [label, mutate] of mutations) {
+      attempts += 1;
+      assert.throws(() => new GameSession(mutatedStatusSetup(id, mutate)),
+        /status|source|pinned|profile|roster|canonical|identity|policy|component|target/u,
+      `${id} ${label} must fail closed at setup`);
+    }
+  }
+  assert.equal(attempts, ids.length * mutations.length);
+});
+
+test("game roster troop status: source binding fails closed for omissions, mixed modes, identity claims, and command preflight", () => {
+  const base = setupObject("rime-adept");
+
+  const noReceipt = clone(base);
+  delete noReceipt.statusRuntimeProfiles;
+  const legacy = new GameSession(canonical(noReceipt));
+  const legacySlot = legacy.state.decks.south.hand.indexOf("rime-adept");
+  legacy.submitPlayerCommand(canonical({
+    cardId: "rime-adept",
+    commandId: 0,
+    point: SOUTH_POINT,
+    slot: legacySlot,
+    tick: legacy.state.tick,
+    type: "deploy",
+  }));
+  legacy.step();
+  const legacySource = legacy.state.battle.units.find(({ cardId, side }) =>
+    cardId === "rime-adept" && side === "south");
+  const legacyBytes = legacy.serialize();
+  assert.throws(() => legacy.submitPlayerCommand(statusCommand({
+    actionId: "slow",
+    commandId: 1,
+    sourceId: legacySource.id,
+    targetId: legacySource.id,
+    tick: legacy.state.tick,
+  })), /no admitted status profile|status/u);
+  assert.equal(legacy.serialize(), legacyBytes);
+
+  const noCard = clone(base);
+  const noCardWitness = JSON.parse(noCard.battleSetup);
+  noCardWitness.roster = noCardWitness.roster.filter(({ id }) => id !== "rime-adept");
+  noCard.battleSetup = canonical(noCardWitness);
+  noCard.rosterWitness = canonical({
+    questions: noCardWitness.questions,
+    roster: noCardWitness.roster,
+  });
+  assert.throws(() => new GameSession(canonical(noCard)), /no live status source|status/u);
+
+  const omittedProfile = clone(base);
+  omittedProfile.statusRuntimeProfiles.profiles.pop();
+  assert.throws(() => new GameSession(canonical(omittedProfile)), /status|profile|identity/u);
+
+  const staleReceipt = clone(base);
+  staleReceipt.statusRuntimeProfiles.profiles.find(({ id }) => id === "rime-adept")
+    .sourceWitness = "stale";
+  assert.throws(() => new GameSession(canonical(staleReceipt)), /status|canonical|manifest|receipt/u);
+
+  const claimedEntity = clone(base);
+  const claimedWitness = JSON.parse(claimedEntity.battleSetup);
+  claimedWitness.roster.find(({ id }) => id === "rime-adept").entities[0].archetypeId = "dawnmender";
+  claimedEntity.battleSetup = canonical(claimedWitness);
+  claimedEntity.rosterWitness = canonical({
+    questions: claimedWitness.questions,
+    roster: claimedWitness.roster,
+  });
+  assert.throws(() => new GameSession(canonical(claimedEntity)), /claim|identity|status|source/u);
+
+  const runtime = new SessionTroopStatusRuntime(canonical(createSessionTroopStatusRuntimeProfiles()));
+  const staleRoster = structuredClone(JSON.parse(base.battleSetup).roster);
+  staleRoster.find(({ id }) => id === "rime-adept").targetMode = "ground";
+  assert.throws(() => runtime.assertSourceRoster(staleRoster), /targetMode|pinned|source/u);
+  assert.throws(() => assertSessionTroopStatusSourceRoster(
+    staleRoster,
+    canonical(createSessionTroopStatusRuntimeProfiles()),
+  ), /targetMode|pinned|source/u);
+});
+
+test("game roster troop status: source binding reads hostile wrappers once and never invokes accessors", () => {
+  const receipt = canonical(createSessionTroopStatusRuntimeProfiles());
+  const roster = structuredClone(createSessionTroopWitness("rime-adept").roster);
+  let getterReads = 0;
+  Object.defineProperty(roster[0], "targetMode", {
+    configurable: true,
+    enumerable: true,
+    get() {
+      getterReads += 1;
+      return "ground-and-air";
+    },
+  });
+  assert.throws(() => assertSessionTroopStatusSourceRoster(roster, receipt), /data property|source/u);
+  assert.equal(getterReads, 0);
+
+  const hostile = structuredClone(createSessionTroopWitness("rime-adept").roster);
+  Object.setPrototypeOf(hostile[0], { hostile: true });
+  assert.throws(() => assertSessionTroopStatusSourceRoster(hostile, receipt), /plain|source/u);
+
+  let getTraps = 0;
+  const proxied = new Proxy(structuredClone(createSessionTroopWitness("rime-adept").roster), {
+    get(target, key, receiver) {
+      getTraps += 1;
+      return Reflect.get(target, key, receiver);
+    },
+  });
+  assert.doesNotThrow(() => assertSessionTroopStatusSourceRoster(proxied, receipt));
+  assert.equal(getTraps, 0);
+
+  const driftRoster = structuredClone(createSessionTroopWitness("rime-adept").roster);
+  const driftCard = driftRoster[0];
+  const driftCardBefore = structuredClone(driftCard);
+  let targetModeReads = 0;
+  let ownKeysTraps = 0;
+  let descriptorTraps = 0;
+  const driftProxy = new Proxy(driftCard, {
+    ownKeys(target) {
+      ownKeysTraps += 1;
+      return Reflect.ownKeys(target);
+    },
+    getOwnPropertyDescriptor(target, key) {
+      descriptorTraps += 1;
+      const descriptor = Reflect.getOwnPropertyDescriptor(target, key);
+      if (key === "targetMode") {
+        targetModeReads += 1;
+        return { ...descriptor, value: targetModeReads === 1 ? descriptor.value : "ground" };
+      }
+      return descriptor;
+    },
+    get(target, key, receiver) {
+      getTraps += 1;
+      return Reflect.get(target, key, receiver);
+    },
+  });
+  driftRoster[0] = driftProxy;
+  assert.doesNotThrow(() => assertSessionTroopStatusSourceRoster(driftRoster, receipt));
+  assert.equal(targetModeReads, 1);
+  assert.throws(() => assertSessionTroopStatusSourceRoster(driftRoster, receipt), /targetMode|pinned|source/u);
+  assert.equal(targetModeReads, 2);
+  assert.ok(ownKeysTraps >= 2);
+  assert.ok(descriptorTraps >= ownKeysTraps);
+  assert.equal(getTraps, 0);
+  assert.deepEqual(driftCard, driftCardBefore);
 });
 
 test("game roster troop status: heal changes shared authoritative health once, caps, and restores exactly", () => {
@@ -401,6 +669,7 @@ for (const spec of EXECUTABLE.filter(({ id }) => id !== "veil-prowler")) {
   test(`game roster troop status: ${spec.id} rejects missing and wrong-side targets atomically`, () => {
     const cases = [
       { label: "missing", targetId: 999_999 },
+      { label: "targetless", targetId: null },
       {
         label: "wrong-side",
         targetId: spec.target === "enemy" ? "source" : "enemy",
@@ -429,6 +698,43 @@ for (const spec of EXECUTABLE.filter(({ id }) => id !== "veil-prowler")) {
         type === "session-status" && commandId === 1).length, 0,
       `${spec.id} ${invalid.label} rejection must not emit a delayed session status`);
     }
+  });
+}
+
+for (const spec of EXECUTABLE.filter(({ id }) => id !== "veil-prowler")) {
+  test(`game roster troop status: ${spec.id} rejects a structure target atomically`, () => {
+    const { battle, source, target } = makeStructureTargetLiveBattle(spec.id);
+    const before = {
+      bytes: battle.serialize(),
+      state: clone(battle.state),
+      replay: clone(battle.replay),
+      events: clone(battle.events),
+      pending: clone(battle.state.statusRuntime.pending),
+      entityIds: battle.state.units.map(({ id }) => id).concat(
+        battle.state.structures.map(({ id }) => id),
+      ),
+    };
+    assert.throws(() => battle.scheduleTroopStatus(liveStatusCommand({
+      actionId: spec.actionId,
+      commandId: 1,
+      sourceId: source.id,
+      targetId: target.id,
+      tick: battle.state.tick,
+    })), /kind|eligible|target|live/u, `${spec.id} structure target`);
+    assert.deepEqual({
+      bytes: battle.serialize(),
+      state: clone(battle.state),
+      replay: clone(battle.replay),
+      events: clone(battle.events),
+      pending: clone(battle.state.statusRuntime.pending),
+      entityIds: battle.state.units.map(({ id }) => id).concat(
+        battle.state.structures.map(({ id }) => id),
+      ),
+    }, before, `${spec.id} structure-target admission must be atomic`);
+    assert.doesNotThrow(() => battle.stepMany(4));
+    assert.equal(battle.state.statusRuntime.pending.length, 0);
+    assert.equal(battle.events.filter(({ type, commandId }) =>
+      type === "troop-status-receipt" && commandId === 1).length, 0);
   });
 }
 
@@ -548,4 +854,30 @@ test("game roster troop status: deterministic session continuation hashes stay s
   })));
   assert.equal(new Set(hashes.map(({ replay, snapshot }) => `${replay}:${snapshot}`)).size, hashes.length);
   assert.equal(hashes.length, 6);
+});
+
+test("game roster troop status: all six valid witnesses restore at cuts 0/1/2/4/8/12", () => {
+  const cuts = [0, 1, 2, 4, 8, 12];
+  let witnesses = 0;
+  for (const spec of EXECUTABLE) {
+    for (const cut of cuts) {
+      const { session, slot } = makeSession(spec.id);
+      const { source, target } = deployWitness(session, spec.id, slot);
+      session.submitPlayerCommand(statusCommand({
+        actionId: spec.actionId,
+        commandId: 1,
+        sourceId: source.id,
+        targetId: spec.target === "enemy" ? target.id : spec.target === null ? null : source.id,
+        tick: session.state.tick,
+      }));
+      session.stepMany(cut);
+      const restored = GameSession.restore(session.serialize());
+      session.stepMany(12 - cut);
+      restored.stepMany(12 - cut);
+      assert.equal(restored.serialize(), session.serialize(), `${spec.id} cut ${cut} bytes`);
+      assert.equal(restored.replayBytes(), session.replayBytes(), `${spec.id} cut ${cut} replay`);
+      witnesses += 1;
+    }
+  }
+  assert.equal(witnesses, 36);
 });
