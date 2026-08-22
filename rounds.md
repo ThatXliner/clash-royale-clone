@@ -4868,3 +4868,26 @@ BIGGEST GAP: LiveBattle treats a policy-less entity as valid legacy data even
 when the rest of the same setup uses HTO ordinary policies. Setup admission
 must be uniformly legacy or uniformly QUESTION-backed and reject mixed mode
 before exposure or mutation.
+
+## Round 259 — 2026-08-21
+
+PIECE: GAME-001HTO — Ordinary troop projection into eight-card witness sessions
+
+VERDICT: PASS
+
+EVIDENCE: All required selectors passed 101/101: ordinary projection 14,
+playable roster 9, troop profiles 11, admission 7, battle 11, GameSession 9,
+troop runtime 7, shared integration 1, browser loop 10 and both guards 22.
+Independent probes rejected 128 paired omissions, 31 whole-card omissions and
+64 each of one-field, policy-swap, direct-field and value forgeries. All 31
+question-closed GameSessions performed exactly one schedule, deploy, route,
+spend and cycle, materialized 38 shared entities and emitted no special events.
+Six chunk/restore/replay/fork continuations matched exactly. Mixed policy modes
+rejected in both orderings and in valid unit/effect/structure deck shapes;
+fully legacy and fully HTO decks admitted. Twenty-one hostile inputs executed
+zero Proxy traps and five bounds probes rejected atomically. The uniformity
+check runs before setup admission or LiveBattle state creation. The shipped
+legacy roster remained 11,154 bytes with SHA-256
+`6fb8d84121ca039ea9315b7e505c8f02d5d7839e8fd5fc5cd19013a0d2b7fadb`.
+
+BIGGEST GAP: None on the judged ordinary troop projection dimension.
