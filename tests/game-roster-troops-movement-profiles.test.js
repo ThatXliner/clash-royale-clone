@@ -1,8 +1,15 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { readFileSync } from "node:fs";
+import {
+  mkdtempSync,
+  readFileSync,
+  rmSync,
+  symlinkSync,
+} from "node:fs";
 import { spawnSync } from "node:child_process";
-import { fileURLToPath } from "node:url";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import test from "node:test";
 import vm from "node:vm";
 
@@ -324,6 +331,188 @@ function runSourceWrapperProbe(config) {
   assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
   const output = result.stdout.trim().split(/\r?\n/u).at(-1);
   assert.ok(output, `source wrapper probe produced no JSON: ${result.stderr}`);
+  return JSON.parse(output);
+}
+
+const REAL_QUESTION_SOURCE_RELATIVE_PATHS = Object.freeze([
+  ["chargeKnockback", "content/cards/special-movement-charge-knockback.js"],
+  ["charge", "content/cards/special-movement-charge.js"],
+  ["dash", "content/cards/special-movement-dash.js"],
+  ["jump", "content/cards/special-movement-jump.js"],
+  ["recoil", "content/cards/special-movement-recoil.js"],
+  ["retarget", "content/cards/special-movement-retarget.js"],
+]);
+const MOVEMENT_SOURCE_ROOT_PATH = fileURLToPath(new URL(
+  "../src/", import.meta.url
+));
+
+const REAL_PRESERVE_SYMLINK_PROBE = String.raw`
+import { createHash } from "node:crypto";
+
+const config = JSON.parse(process.env.MOVEMENT_REAL_ESM_PROBE);
+const counters = { getters: 0, calls: 0, traps: 0 };
+const nativeDefineProperty = Object.defineProperty;
+const nativeGetOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+const originals = [];
+
+function replace(owner, key, descriptor) {
+  const original = nativeGetOwnPropertyDescriptor(owner, key);
+  if (!original || original.configurable !== true) {
+    throw new Error("probe target is not configurable: " + key);
+  }
+  originals.push([owner, key, original]);
+  nativeDefineProperty(owner, key, descriptor);
+}
+
+function poisonGlobal(name) {
+  const hostile = new Proxy(function() {}, {
+    apply() {
+      counters.traps += 1;
+      throw new Error("poisoned URL helper trap");
+    },
+    construct() {
+      counters.traps += 1;
+      throw new Error("poisoned URL helper trap");
+    },
+    get() {
+      counters.traps += 1;
+      throw new Error("poisoned URL helper trap");
+    },
+  });
+  replace(globalThis, name, {
+    configurable: true,
+    enumerable: false,
+    get() {
+      counters.getters += 1;
+      return hostile;
+    },
+  });
+}
+
+function poisonStringHelper(name) {
+  replace(String.prototype, name, {
+    configurable: true,
+    enumerable: false,
+    get() {
+      counters.getters += 1;
+      return function() {
+        counters.calls += 1;
+        throw new Error("poisoned string helper");
+      };
+    },
+  });
+}
+
+function installPoison() {
+  poisonGlobal("URL");
+  poisonGlobal("URLSearchParams");
+  for (const name of [
+    "charAt",
+    "includes",
+    "indexOf",
+    "slice",
+    "split",
+    "startsWith",
+    "endsWith",
+    "toLowerCase",
+    "toUpperCase",
+  ]) {
+    poisonStringHelper(name);
+  }
+}
+
+function restorePoison() {
+  for (let index = originals.length - 1; index >= 0; index -= 1) {
+    const [owner, key, descriptor] = originals[index];
+    nativeDefineProperty(owner, key, descriptor);
+  }
+}
+
+const namespaces = new Map();
+async function importEntry(label, url) {
+  try {
+    const namespace = await import(url);
+    namespaces.set(label, namespace);
+    return {
+      accepted: true,
+      exports: Object.keys(namespace),
+    };
+  } catch (error) {
+    return {
+      accepted: false,
+      exports: [],
+      error: error instanceof Error ? error.message : String(error),
+    };
+  }
+}
+
+let results;
+let manifest = null;
+let fatalError = null;
+try {
+  if (config.poison !== false) installPoison();
+  results = {};
+  for (const [label, url] of Object.entries(config.paths)) {
+    results[label] = await importEntry(label, url);
+  }
+  const profile = namespaces.get("profile");
+  if (profile !== undefined) {
+    const bytes = profile.serializeSessionTroopMovementProfileManifest();
+    manifest = {
+      length: bytes.length,
+      sha256: createHash("sha256").update(bytes).digest("hex"),
+    };
+  }
+} catch (error) {
+  fatalError = error instanceof Error ? error.stack : String(error);
+} finally {
+  restorePoison();
+}
+
+if (fatalError !== null) {
+  console.error(fatalError);
+  process.exitCode = 1;
+} else {
+  console.log(JSON.stringify({
+    counters,
+    manifest,
+    results,
+  }));
+}
+`;
+
+function realMovementModulePaths(rootPath) {
+  const pathFor = (relativePath) => pathToFileURL(join(rootPath, relativePath)).href;
+  return Object.fromEntries([
+    ["authority", pathFor("content/session-troop-movement-question-authority.js")],
+    ["profile", pathFor("content/session-troop-movement-profiles.js")],
+    ...REAL_QUESTION_SOURCE_RELATIVE_PATHS.map(([label, relativePath]) => [
+      label,
+      pathFor(relativePath),
+    ]),
+  ]);
+}
+
+function runRealPreserveSymlinkProbe(paths, options = {}) {
+  const result = spawnSync(process.execPath, [
+    "--preserve-symlinks",
+    "--input-type=module",
+    "-e",
+    REAL_PRESERVE_SYMLINK_PROBE,
+  ], {
+    encoding: "utf8",
+    env: {
+      ...process.env,
+      MOVEMENT_REAL_ESM_PROBE: JSON.stringify({
+        paths,
+        poison: options.poison !== false,
+      }),
+    },
+  });
+  assert.equal(result.error, undefined, result.error?.message);
+  assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+  const output = result.stdout.trim().split(/\r?\n/u).at(-1);
+  assert.ok(output, `real ESM probe produced no JSON: ${result.stderr}`);
   return JSON.parse(output);
 }
 
@@ -1949,6 +2138,106 @@ test("movement profile contract: fresh authority imports ignore mutable URL and 
     encodedMetaRejects: 9,
     loaderPercentRejects: 9,
   });
+});
+
+test("movement profile contract: primitive URL preamble rejects nested encoded delimiters", () => {
+  const counterZero = { getters: 0, calls: 0, proxies: 0 };
+  const allowedSuffixes = ["", "%20", "%25", "%2520", "%252520"];
+  let allowedCases = 0;
+  for (const suffix of allowedSuffixes) {
+    const result = runSourceWrapperProbe({
+      expect: "accept",
+      entryPath: QUESTION_AUTHORITY_MODULE_PATH,
+      entryMetaSuffix: suffix,
+      importOnly: true,
+      probeAuthorityExposure: true,
+      contextSetup: primitiveGuardContextSetup("fake-class"),
+      reportPrimitiveCounters: true,
+    });
+    assert.deepEqual(result, {
+      accepted: true,
+      exposed: true,
+      primitiveCounters: counterZero,
+    }, `${suffix || "canonical"} URL preamble used a mutable capability`);
+    allowedCases += 1;
+  }
+
+  let nestedRejects = 0;
+  for (let depth = 0; depth <= 16; depth += 1) {
+    for (const delimiter of ["3F", "3f", "23"]) {
+      const suffix = "%" + "25".repeat(depth) + delimiter;
+      const result = runSourceWrapperProbe({
+        expect: "reject",
+        entryPath: QUESTION_AUTHORITY_MODULE_PATH,
+        entryMetaSuffix: suffix,
+        importOnly: true,
+        probeAuthorityExposure: true,
+        contextSetup: primitiveGuardContextSetup("fake-class"),
+        reportPrimitiveCounters: true,
+      });
+      assert.equal(result.accepted, false, `${suffix} nested delimiter was accepted`);
+      assert.equal(result.exposed, false, `${suffix} nested delimiter exposed exports`);
+      assert.deepEqual(result.primitiveCounters, counterZero,
+        `${suffix} nested delimiter touched a mutable capability`);
+      assert.match(result.error, /canonical module URL/u);
+      nestedRejects += 1;
+    }
+  }
+
+  assert.deepEqual({ allowedCases, nestedRejects }, {
+    allowedCases: 5,
+    nestedRejects: 51,
+  });
+});
+
+test("movement profile contract: real preserve-symlinks aliases fail before duplicate authority graphs", () => {
+  const canonical = runRealPreserveSymlinkProbe(
+    realMovementModulePaths(MOVEMENT_SOURCE_ROOT_PATH),
+    { poison: false },
+  );
+  const expectedCounters = { getters: 0, calls: 0, traps: 0 };
+  const expectedManifest = {
+    length: 67284,
+    sha256: "d4ad6e7684047fbd4194fd83a017700b56ecf4198aa7a39bd5bc01bc67388082",
+  };
+  assert.deepEqual(canonical.counters, expectedCounters);
+  assert.deepEqual(canonical.manifest, expectedManifest);
+  for (const label of Object.keys(canonical.results)) {
+    assert.equal(canonical.results[label].accepted, true, `canonical ${label} rejected`);
+    assert.ok(canonical.results[label].exports.length > 0, `canonical ${label} exposed no exports`);
+  }
+
+  const temporaryRoot = mkdtempSync(join(tmpdir(), "movement-question-authority-"));
+  const aliasDirectoryNames = [
+    "alias%3F",
+    "alias%3f",
+    "alias%23",
+    "alias%253F",
+    "alias%2523",
+  ];
+  let aliasGraphs = 0;
+  try {
+    for (const directoryName of aliasDirectoryNames) {
+      const graphRoot = mkdtempSync(join(temporaryRoot, "graph-"));
+      const aliasRoot = join(graphRoot, directoryName);
+      symlinkSync(MOVEMENT_SOURCE_ROOT_PATH, aliasRoot, "dir");
+      const alias = runRealPreserveSymlinkProbe(realMovementModulePaths(aliasRoot));
+      assert.deepEqual(alias.counters, expectedCounters, `${directoryName} used a poisoned capability`);
+      assert.equal(alias.manifest, null, `${directoryName} admitted a full manifest`);
+      assert.deepEqual(Object.keys(alias.results), Object.keys(canonical.results));
+      for (const [label, result] of Object.entries(alias.results)) {
+        assert.equal(result.accepted, false, `${directoryName} ${label} was accepted`);
+        assert.deepEqual(result.exports, [], `${directoryName} ${label} exposed exports`);
+        assert.match(result.error, /canonical module URL/u,
+          `${directoryName} ${label} failed for a different reason`);
+      }
+      aliasGraphs += 1;
+    }
+  } finally {
+    rmSync(temporaryRoot, { recursive: true, force: true });
+  }
+
+  assert.equal(aliasGraphs, 5);
 });
 
 test("movement profile contract: canonicalization fails closed for non-JSON values without traps", () => {

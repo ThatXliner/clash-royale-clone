@@ -8,15 +8,24 @@ if (typeof AUTHORITY_MODULE_URL !== "string") {
 }
 for (let index = 0; index < AUTHORITY_MODULE_URL.length; index += 1) {
   const codeUnit = AUTHORITY_MODULE_URL[index];
-  const nextCodeUnit = AUTHORITY_MODULE_URL[index + 1];
-  const nextNextCodeUnit = AUTHORITY_MODULE_URL[index + 2];
+  if (codeUnit === "?" || codeUnit === "#") {
+    throw "movement QUESTION authority must be loaded from its canonical module URL";
+  }
+  if (codeUnit !== "%") continue;
+  let encodedIndex = index + 1;
+  while (
+    encodedIndex + 1 < AUTHORITY_MODULE_URL.length &&
+    AUTHORITY_MODULE_URL[encodedIndex] === "2" &&
+    AUTHORITY_MODULE_URL[encodedIndex + 1] === "5"
+  ) {
+    encodedIndex += 2;
+  }
+  const encodedDelimiter = AUTHORITY_MODULE_URL[encodedIndex];
+  const encodedDelimiterTail = AUTHORITY_MODULE_URL[encodedIndex + 1];
   if (
-    codeUnit === "?" ||
-    codeUnit === "#" ||
-    codeUnit === "%" && (
-      (nextCodeUnit === "2" && nextNextCodeUnit === "3") ||
-      (nextCodeUnit === "3" &&
-        (nextNextCodeUnit === "F" || nextNextCodeUnit === "f"))
+    (encodedDelimiter === "2" && encodedDelimiterTail === "3") ||
+    (encodedDelimiter === "3" &&
+      (encodedDelimiterTail === "F" || encodedDelimiterTail === "f")
     )
   ) {
     throw "movement QUESTION authority must be loaded from its canonical module URL";
