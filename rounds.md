@@ -154,6 +154,28 @@ error:"Error: TRAPS=1"`.
 BIGGEST GAP: Reject Proxy input before `Object.getOwnPropertyDescriptors` so
 canonicalization never invokes a hostile `ownKeys` trap.
 
+## Round 269 — 2026-08-21
+
+PIECE: GAME-001HTJP — Projectile source-profile contract, round 4
+
+VERDICT: FAIL
+
+EVIDENCE: Clean HEAD `f0b21c0`; both focused entry points passed 19/19, HTP
+11/11, HTO 14/14, projectile history 17/17, basic source suites 14/13/13, five
+special suites 23/28/27/30/28, guards 9/9 and 13/13, syntax and git checks.
+Independent execution confirmed all five special traces, honest 5 special / 0
+ordinary / 4 unresolved / 26 excluded accounting, all eleven rows across eight
+exports, and the 66,903-byte manifest SHA-256
+`d01b60123c2ac10a7cf8f3846a8c8fcd87eda22a65cb9166cb99d69f47fdb31d`.
+It rejected 11 custom-prototype rows, three nested components, 12 hostile
+row/component shapes, four all-trap Proxies with zero callbacks, and 12 drift
+classes. However, a first-read cost getter in each of the eight source bindings
+ran once inside `session-card-catalog.js` before the projectile source validator:
+`{"allTrapZero":false,"callbacks":1,"calls":1}`.
+
+BIGGEST GAP: Validate source rows at the shared catalog-admission seam before
+session-card-catalog, HTP or HTO can read any field.
+
 ## Round 57 — 2026-07-30
 
 PIECE: CONTENT-008R — Attack-triggered recoil displacement
