@@ -1,5 +1,27 @@
 # Gauntlet Rounds
 
+## Round 285 — 2026-08-22
+
+PIECE: GAME-001HTMP — Movement/form source-profile contract, round 12
+
+VERDICT: PASS
+
+EVIDENCE: The focused selector passed 25/25. Independent real Node
+`--preserve-symlinks` probes rejected 80/80 encoded-alias entries across ten
+roots, including nesting through depth 64, with zero hostile effects. A
+synthetic module-URL probe rejected 210 raw/encoded delimiter cases and
+accepted 22 unrelated/truncated encodings. The independent graph matrix
+admitted exactly 6/6 same-domain pairs and rejected all 30 cross-domain pairs,
+copies, frozen copies, Proxies, hostile arguments and nested splices with zero
+traps. The manifest remained eight profiles, nine source pairs, 86 QUESTION
+records and 67,284 bytes with SHA-256
+`d4ad6e7684047fbd4194fd83a017700b56ecf4198aa7a39bd5bc01bc67388082`.
+Troop profiles 11/11, ordinary 14/14, projectile profiles 26/26, projectile
+runtime 6/6, nondeterminism 10/10, shipping isolation 13/13 and all
+movement/form selectors passed.
+
+BIGGEST GAP: None on the judged dimension.
+
 ## Round 284 — 2026-08-22
 
 PIECE: GAME-001HTMP — Movement/form source-profile contract, round 11
