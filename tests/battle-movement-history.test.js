@@ -159,6 +159,177 @@ function seededRandom(seed) {
   };
 }
 
+function driveTrace(configuration, commands, snapshotTick, chunked = false) {
+  const mover = new BattleMovement(configuration);
+  const events = [];
+  const advanceTo = (tick) => {
+    while (mover.state.tick < tick) {
+      if (!chunked) {
+        events.push(...mover.step());
+        continue;
+      }
+      const count = Math.min(
+        [1, 7, 19, 43, 101, 257][mover.state.tick % 6],
+        tick - mover.state.tick,
+      );
+      events.push(...mover.stepMany(count));
+    }
+  };
+  for (const command of commands) {
+    advanceTo(command.tick);
+    events.push(...(command.kind === "stop"
+      ? mover.stop()
+      : mover.setTarget(command.target)));
+  }
+  advanceTo(snapshotTick);
+  return { events, mover };
+}
+
+test("battle movement history: ground arrival frontier replays the exact Cinderlings trace", () => {
+  const configuration = {
+    bodyRadius: 250,
+    mode: BATTLE_MOVEMENT_MODES.ground,
+    position: { x: 13_500, y: 17_500 },
+    speed: 1_500,
+  };
+  const commands = [
+    { kind: "target", target: destination({ x: 14_500, y: 5_500 }, 0, 500), tick: 0 },
+    { kind: "target", target: destination({ x: 15_500, y: 14_500 }, 250, 500), tick: 96 },
+    { kind: "target", target: destination({ x: 14_500, y: 14_500 }, 250, 500), tick: 116 },
+  ];
+  const oneStep = driveTrace(configuration, commands, 121);
+  const fullAuthority = authority(oneStep.mover.state);
+  assert.equal(oneStep.mover.state.route.length, 0);
+  assert.equal(oneStep.mover.state.routeIndex, 2);
+  assert.equal(
+    authority(replayCommands(configuration, commands, 121).state),
+    fullAuthority,
+    "the complete supplied history reaches the current authority",
+  );
+
+  const raw = rawSnapshot(oneStep.mover);
+  assert.deepEqual(raw.state.commands, commands);
+  assertRejectsSnapshot(raw, /minimal canonical history/u);
+
+  const canonical = oneStep.mover.serialize();
+  const canonicalSnapshot = JSON.parse(canonical);
+  assert.deepEqual(canonicalSnapshot.state.commands, [commands[0], commands[2]]);
+  assert.equal(oneStep.mover.serialize(), canonical, "live canonicalization is idempotent");
+  const restored = BattleMovement.restore(canonical);
+  assert.equal(restored.serialize(), canonical, "restore accepts the exact fixed point");
+  assert.deepEqual(restored.state, oneStep.mover.state);
+
+  for (const index of [0, 1]) {
+    const omitted = copy(canonicalSnapshot);
+    omitted.state.commands.splice(index, 1);
+    assertRejectsSnapshot(omitted, /reachable|canonical/u);
+  }
+  for (const index of [0, 1]) {
+    const duplicated = copy(canonicalSnapshot);
+    duplicated.state.commands.splice(index, 0, copy(duplicated.state.commands[index]));
+    assertRejectsSnapshot(duplicated, /reachable|canonical/u);
+  }
+  const reordered = copy(canonicalSnapshot);
+  reordered.state.commands.reverse();
+  assertRejectsSnapshot(reordered, /tick|canonical|reachable/u);
+
+  const forgedPosition = copy(canonicalSnapshot);
+  forgedPosition.state.position.y += 1;
+  assertRejectsSnapshot(forgedPosition, /segment|reachable|canonical/u);
+  const forgedRoute = copy(canonicalSnapshot);
+  forgedRoute.state.routeIndex = 1;
+  assertRejectsSnapshot(forgedRoute, /reachable|canonical/u);
+  const forgedOrigin = copy(canonicalSnapshot);
+  forgedOrigin.state.routeOrigin = { x: 14_500, y: 16_500 };
+  assertRejectsSnapshot(forgedOrigin, /reachable|canonical/u);
+  const forgedInitial = copy(canonicalSnapshot);
+  forgedInitial.state.initialPosition = { x: 14_500, y: 17_500 };
+  assertRejectsSnapshot(forgedInitial, /reachable|canonical/u);
+  assert.equal(oneStep.mover.serialize(), canonical, "hostile restore is atomic");
+
+  const chunked = driveTrace(configuration, commands, 121, true);
+  assert.deepEqual(chunked.events, oneStep.events, "chunked replay reaches the same events");
+  assert.equal(authority(chunked.mover.state), fullAuthority);
+  assert.equal(chunked.mover.serialize(), canonical, "chunked serialization reaches the same fixed point");
+
+  const directContinuation = BattleMovement.restore(canonical);
+  const forkedContinuation = BattleMovement.restore(canonical);
+  const directEvents = directContinuation.stepMany(79);
+  const forkedEvents = [];
+  for (const count of [1, 7, 19, 43, 9]) forkedEvents.push(...forkedContinuation.stepMany(count));
+  assert.deepEqual(forkedEvents, directEvents, "restored fork continuation is exact");
+  assert.deepEqual(forkedContinuation.state, directContinuation.state);
+  assert.equal(forkedContinuation.serialize(), directContinuation.serialize());
+});
+
+test("battle movement history: arrival-boundary matrix preserves signed, routed, and air controls", () => {
+  const cases = [
+    {
+      label: "ground north radius",
+      configuration: { bodyRadius: 250, mode: "ground", position: { x: 13_500, y: 17_500 }, speed: 1_500 },
+      commands: [
+        { kind: "target", target: destination({ x: 14_500, y: 5_500 }, 0, 500), tick: 0 },
+        { kind: "target", target: destination({ x: 15_500, y: 14_500 }, 250, 500), tick: 96 },
+        { kind: "target", target: destination({ x: 14_500, y: 14_500 }, 250, 500), tick: 116 },
+      ],
+    },
+    {
+      label: "ground south bridge",
+      configuration: { bodyRadius: 600, mode: "ground", position: { x: 8_500, y: 21_500 }, speed: 1_200 },
+      commands: [
+        { kind: "target", target: destination({ x: 8_500, y: 10_500 }, 100, 100), tick: 0 },
+        { kind: "target", target: destination({ x: 3_500, y: 10_500 }, 100, 100), tick: 33 },
+        { kind: "target", target: destination({ x: 3_500, y: 21_500 }, 100, 100), tick: 67 },
+      ],
+    },
+    {
+      label: "ground low-speed narrow body",
+      configuration: { bodyRadius: 0, mode: "ground", position: { x: 3_500, y: 10_500 }, speed: 600 },
+      commands: [
+        { kind: "target", target: destination({ x: 3_500, y: 21_500 }, 0, 0), tick: 0 },
+        { kind: "target", target: destination({ x: 4_500, y: 21_500 }, 0, 0), tick: 109 },
+        { kind: "target", target: destination({ x: 4_500, y: 10_500 }, 0, 0), tick: 173 },
+      ],
+    },
+    {
+      label: "air positive signed",
+      configuration: { bodyRadius: 250, mode: "air", position: { x: 2_000, y: 12_000 }, speed: 750 },
+      commands: [
+        { kind: "target", target: destination({ x: 16_000, y: 12_000 }, 100, 100), tick: 0 },
+        { kind: "target", target: destination({ x: 16_000, y: 12_000 }, 100, 100), tick: 1 },
+        { kind: "target", target: destination({ x: 2_000, y: 12_000 }, 100, 100), tick: 1 + 1 },
+      ],
+    },
+    {
+      label: "air negative signed arrival",
+      configuration: { bodyRadius: 150, mode: "air", position: { x: 16_000, y: 12_000 }, speed: 1_000 },
+      commands: [
+        { kind: "target", target: destination({ x: 2_000, y: 12_000 }, 100, 100), tick: 0 },
+        { kind: "target", target: destination({ x: 2_000, y: 12_000 }, 100, 100), tick: 82 },
+        { kind: "target", target: destination({ x: 16_000, y: 12_000 }, 100, 100), tick: 83 },
+      ],
+    },
+  ];
+  for (const { label, configuration, commands } of cases) {
+    const horizon = commands.at(-1).tick + 11;
+    const oneStep = driveTrace(configuration, commands, horizon);
+    const chunked = driveTrace(configuration, commands, horizon, true);
+    assert.deepEqual(chunked.events, oneStep.events, `${label} events`);
+    assert.deepEqual(chunked.mover.state, oneStep.mover.state, `${label} state`);
+    const bytesAtCut = oneStep.mover.serialize();
+    assert.equal(oneStep.mover.serialize(), bytesAtCut, `${label} live bytes`);
+    assert.equal(chunked.mover.serialize(), bytesAtCut, `${label} chunk bytes`);
+    const restored = BattleMovement.restore(bytesAtCut);
+    assert.equal(restored.serialize(), bytesAtCut, `${label} restore bytes`);
+    const directEvents = restored.stepMany(17);
+    const chunkedRestored = BattleMovement.restore(bytesAtCut);
+    const continuedEvents = [];
+    for (const count of [1, 7, 9]) continuedEvents.push(...chunkedRestored.stepMany(count));
+    assert.deepEqual(continuedEvents, directEvents, `${label} continuation events`);
+    assert.deepEqual(chunkedRestored.state, restored.state, `${label} continuation state`);
+  }
+});
+
 test("battle movement history: critic cross-tick case is rejected and live serialization is canonical", () => {
   const target = destination({ x: 14_000, y: 23_000 });
   const mover = new BattleMovement({

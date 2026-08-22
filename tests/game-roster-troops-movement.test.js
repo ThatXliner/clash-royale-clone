@@ -119,6 +119,121 @@ function submitTarget(session, id) {
   }));
 }
 
+function cinderlingsPair() {
+  const pair = {
+    control: ordinaryLiveBattle("mossguard"),
+    profiled: liveBattle("mossguard"),
+    secondScheduled: false,
+  };
+  for (const battle of [pair.control, pair.profiled]) {
+    deploy(battle, {
+      cardId: "cinderlings",
+      point: { x: 12_500, y: 17_500 },
+      sequence: 5,
+      side: "north",
+      tick: 0,
+    });
+  }
+  return pair;
+}
+
+function scheduleCinderlingsRedeploy(pair) {
+  if (pair.secondScheduled || pair.control.state.tick !== 96) return [];
+  pair.secondScheduled = true;
+  return [pair.control, pair.profiled].map((battle) => deploy(battle, {
+    cardId: "cinderlings",
+    point: { x: 15_500, y: 14_500 },
+    sequence: 6,
+    side: "south",
+    tick: 96,
+  }));
+}
+
+function advanceCinderlingsPair(pair, targetTick, chunked = false) {
+  const events = { control: [], profiled: [] };
+  const chunks = [1, 7, 19, 43, 101, 257];
+  while (true) {
+    scheduleCinderlingsRedeploy(pair);
+    if (pair.control.state.tick === targetTick) return events;
+    const nextBoundary = pair.control.state.tick < 96 ?
+      Math.min(targetTick, 96) : targetTick;
+    const remaining = nextBoundary - pair.control.state.tick;
+    const count = chunked ? Math.min(
+      chunks[pair.control.state.tick % chunks.length],
+      remaining,
+    ) : 1;
+    events.control.push(...(count === 1 ? pair.control.step() : pair.control.stepMany(count)));
+    events.profiled.push(...(count === 1 ? pair.profiled.step() : pair.profiled.stepMany(count)));
+  }
+}
+
+function cinderlingsEvidence(pair) {
+  const controlBytes = pair.control.serialize();
+  const profiledBytes = pair.profiled.serialize();
+  const controlSnapshot = JSON.parse(controlBytes);
+  const profiledSnapshot = JSON.parse(profiledBytes);
+  assert.equal(sharedOrdinarySnapshotBytes(pair.profiled), controlBytes,
+    "receipt-enabled ordinary snapshot is control-byte equivalent");
+  assert.equal(sharedOrdinaryStateBytes(pair.profiled), sharedOrdinaryStateBytes(pair.control),
+    "receipt-enabled ordinary state is control-state equivalent");
+  assert.deepEqual(pair.profiled.events, pair.control.events,
+    "ordinary events do not gain movement-runtime records");
+  assert.deepEqual(pair.profiled.replay, pair.control.replay,
+    "ordinary replay does not gain movement-runtime records");
+  assert.deepEqual(profiledSnapshot.history, controlSnapshot.history,
+    "ordinary history remains shared");
+  assert.deepEqual(profiledSnapshot.transcript, controlSnapshot.transcript,
+    "ordinary transcript remains shared");
+  assert.equal(pair.control.serialize(), controlBytes, "control serialization is idempotent");
+  assert.equal(pair.profiled.serialize(), profiledBytes, "receipt serialization is idempotent");
+  const specialTypes = new Set([
+    "troop-movement-question",
+    "troop-runtime-intent",
+    "troop-runtime-receipt",
+  ]);
+  assert.equal(pair.profiled.events.filter(({ type }) => specialTypes.has(type)).length, 0,
+    "Cinderlings emit no flight receipt, QUESTION, or intent");
+  assert.ok(pair.profiled.state.units.every(({ alive, movement }) => !alive ||
+    movement.mode === "ground"), "Cinderlings remain on ordinary ground movement");
+  return {
+    controlBytes,
+    controlEvents: pair.control.events,
+    controlReplay: pair.control.replay,
+    controlSnapshot,
+    controlState: sharedOrdinaryStateBytes(pair.control),
+    profiledBytes,
+    profiledSnapshot,
+    profiledState: sharedOrdinaryStateBytes(pair.profiled),
+  };
+}
+
+function cinderlingsTickEvidence(pair) {
+  const controlBytes = pair.control.serialize();
+  const profiledBytes = pair.profiled.serialize();
+  const normalized = JSON.parse(profiledBytes);
+  delete normalized.runtime;
+  delete normalized.troopStatuses;
+  normalized.version = 2;
+  assert.equal(JSON.stringify(normalized), controlBytes,
+    "receipt-enabled ordinary snapshot is control-byte equivalent");
+  const controlState = clone(pair.control.state);
+  const profiledState = clone(pair.profiled.state);
+  delete profiledState.troopRuntime;
+  assert.equal(JSON.stringify(profiledState), JSON.stringify(controlState),
+    "receipt-enabled ordinary state is control-state equivalent");
+  assert.equal(pair.control.serialize(), controlBytes, "control serialization is idempotent");
+  assert.equal(pair.profiled.serialize(), profiledBytes, "receipt serialization is idempotent");
+  return { controlBytes, profiledBytes };
+}
+
+function restoreCinderlingsPair(pair) {
+  return {
+    control: LiveBattle.restore(pair.control.serialize()),
+    profiled: LiveBattle.restore(pair.profiled.serialize()),
+    secondScheduled: pair.secondScheduled,
+  };
+}
+
 test("troop movement runtime: the closed HTMP receipt admits all eight profiles and only flight reduces", () => {
   const bytes = serializeSessionTroopMovementRuntimeProfiles();
   assert.equal(Buffer.byteLength(bytes), 78_025);
@@ -197,6 +312,100 @@ test("troop movement runtime: the exact Mossguard/Coilblade diagonal regression 
   })), control.state.units.map(({ id, cardId, hitpoints, movement, position }) => ({
     cardId, hitpoints, id, movement, position,
   })));
+});
+
+test("troop movement runtime: ordinary two-Cinderlings continuation stays canonical through the ground arrival frontier", () => {
+  const direct = cinderlingsPair();
+  assert.deepEqual(direct.control.events.filter(({ type }) => type === "deploy-scheduled")
+    .map(({ cardId, point, sequence, side, tick }) => ({ cardId, point, sequence, side, tick })), [
+      { cardId: "cinderlings", point: { x: 12_500, y: 17_500 }, sequence: 5, side: "north", tick: 0 },
+    ]);
+
+  let tick120ControlBytes = null;
+  for (let count = 0; count < 320; count += 1) {
+    const scheduled = scheduleCinderlingsRedeploy(direct);
+    if (direct.control.state.tick === 96) {
+      assert.deepEqual(scheduled.map(({ cardId, point, sequence, side, tick }) =>
+        ({ cardId, point, sequence, side, tick })), [
+        { cardId: "cinderlings", point: { x: 15_500, y: 14_500 }, sequence: 6, side: "south", tick: 96 },
+        { cardId: "cinderlings", point: { x: 15_500, y: 14_500 }, sequence: 6, side: "south", tick: 96 },
+      ]);
+    } else {
+      assert.equal(scheduled.length, 0);
+    }
+    const expectedEvents = direct.control.step();
+    const actualEvents = direct.profiled.step();
+    assert.deepEqual(actualEvents, expectedEvents,
+      `ordinary two-Cinderlings events at tick ${direct.control.state.tick}`);
+    const evidence = cinderlingsTickEvidence(direct);
+    if (direct.control.state.tick === 120) {
+      tick120ControlBytes = evidence.controlBytes;
+      assert.equal(new TextEncoder().encode(evidence.controlBytes).byteLength, 417_386);
+      assert.equal(createHash("sha256").update(evidence.controlBytes).digest("hex"),
+        "0263778593d12c500721bb3914123269940e3e702ae5fc841f93613d2c2d0cb5");
+    }
+    if (direct.control.state.tick === 121) {
+      assert.ok(tick120ControlBytes, "tick 120 was serialized before the frontier tick");
+      assert.notEqual(evidence.controlBytes, tick120ControlBytes,
+        "tick 121 has its own canonical continuation bytes");
+    }
+  }
+  assert.equal(direct.control.state.tick, 320);
+  assert.equal(direct.profiled.state.tick, 320);
+  assert.deepEqual(direct.control.events.filter(({ type }) => type === "deployed")
+    .map(({ cardId, point, sequence, side, tick }) => ({ cardId, point, sequence, side, tick })), [
+      { cardId: "cinderlings", point: { x: 12_500, y: 17_500 }, sequence: 5, side: "north", tick: 0 },
+      { cardId: "cinderlings", point: { x: 15_500, y: 14_500 }, sequence: 6, side: "south", tick: 96 },
+    ]);
+  const finalEvidence = cinderlingsEvidence(direct);
+
+  const assertSameEvidence = (actual, expected, label) => {
+    assert.equal(actual.controlBytes, expected.controlBytes, `${label} control bytes`);
+    assert.equal(actual.profiledBytes, expected.profiledBytes, `${label} receipt bytes`);
+    assert.equal(actual.controlState, expected.controlState, `${label} state`);
+    assert.deepEqual(actual.controlEvents, expected.controlEvents, `${label} events`);
+    assert.deepEqual(actual.controlReplay, expected.controlReplay, `${label} replay`);
+    assert.deepEqual(actual.controlSnapshot.history, expected.controlSnapshot.history,
+      `${label} history`);
+    assert.deepEqual(actual.controlSnapshot.transcript, expected.controlSnapshot.transcript,
+      `${label} transcript`);
+    assert.deepEqual(actual.profiledSnapshot.movements, expected.profiledSnapshot.movements,
+      `${label} movement witnesses`);
+  };
+
+  for (const cut of [95, 96, 97, 120, 121, 122, 200, 319]) {
+    const fresh = cinderlingsPair();
+    advanceCinderlingsPair(fresh, cut, false);
+    const freshEvidence = cinderlingsEvidence(fresh);
+
+    const mixed = cinderlingsPair();
+    advanceCinderlingsPair(mixed, cut, true);
+    assertSameEvidence(cinderlingsEvidence(mixed), freshEvidence,
+      `mixed chunks at cut ${cut}`);
+
+    const forked = {
+      control: fresh.control.fork(),
+      profiled: fresh.profiled.fork(),
+      secondScheduled: fresh.secondScheduled,
+    };
+    assertSameEvidence(cinderlingsEvidence(forked), freshEvidence,
+      `public fork at cut ${cut}`);
+
+    const restored = restoreCinderlingsPair(fresh);
+    assertSameEvidence(cinderlingsEvidence(restored), freshEvidence,
+      `restore at cut ${cut}`);
+
+    for (const [label, continuation, chunked] of [
+      ["fresh one-step", fresh, false],
+      ["mixed chunks", mixed, true],
+      ["public fork", forked, true],
+      ["restored", restored, true],
+    ]) {
+      advanceCinderlingsPair(continuation, 320, chunked);
+      assertSameEvidence(cinderlingsEvidence(continuation), finalEvidence,
+        `${label} continuation from cut ${cut}`);
+    }
+  }
 });
 
 test("troop movement runtime: every non-flight HTMP and ordinary HTO ground witness stays off the v4 flight path", () => {

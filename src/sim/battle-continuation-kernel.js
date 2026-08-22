@@ -1191,64 +1191,77 @@ function consumeMovementBudget(state, budget) {
 
 function advanceStateOnly(state, ticks) {
   if (ticks === 0) return;
-  if (state.route.length === 0 || state.speed === 0) {
-    state.tick += ticks;
-    return;
-  }
-
-  // Indexed history admission replays many independent air candidates with
-  // one active direct segment. Seek that common non-arrival case without
-  // rebuilding the route-distance accumulator on every command boundary.
-  if (state.mode === BATTLE_MOVEMENT_MODES.air && state.route.length === 1) {
-    const limit = firstProgressInBar(
-      state.segmentStart,
-      state.route[0],
-      state.segmentLength,
-      state.bodyRadius,
-      state.target,
-    );
-    const accumulated = state.remainder + state.speed * ticks;
-    const travel = Math.floor(accumulated / MOVEMENT_TICKS_PER_SECOND);
-    if (travel < limit - state.segmentProgress) {
-      state.remainder = accumulated % MOVEMENT_TICKS_PER_SECOND;
-      state.segmentProgress += travel;
-      state.position = interpolate(
-        state.segmentStart,
-        state.route[0],
-        state.segmentProgress,
-        state.segmentLength,
-      );
-      state.tick += ticks;
+  let remainingTicks = ticks;
+  while (remainingTicks > 0) {
+    if (state.route.length === 0 || state.speed === 0) {
+      state.tick += remainingTicks;
       return;
     }
-  }
 
-  const distance = movementDistanceToArrival(state);
-  const numerator = distance * MOVEMENT_TICKS_PER_SECOND - state.remainder;
-  const arrivalTicks = Math.max(
-    1,
-    numerator <= 0 ? 1 : Math.ceil(numerator / state.speed),
-  );
-  if (arrivalTicks <= ticks) {
+    // Indexed history admission replays many independent air candidates with
+    // one active direct segment. Seek that common non-arrival case without
+    // rebuilding the route-distance accumulator on every command boundary.
+    if (state.mode === BATTLE_MOVEMENT_MODES.air && state.route.length === 1) {
+      const limit = firstProgressInBar(
+        state.segmentStart,
+        state.route[0],
+        state.segmentLength,
+        state.bodyRadius,
+        state.target,
+      );
+      const accumulated = state.remainder + state.speed * remainingTicks;
+      const travel = Math.floor(accumulated / MOVEMENT_TICKS_PER_SECOND);
+      if (travel < limit - state.segmentProgress) {
+        state.remainder = accumulated % MOVEMENT_TICKS_PER_SECOND;
+        state.segmentProgress += travel;
+        state.position = interpolate(
+          state.segmentStart,
+          state.route[0],
+          state.segmentProgress,
+          state.segmentLength,
+        );
+        state.tick += remainingTicks;
+        return;
+      }
+    }
+
+    const distance = movementDistanceToArrival(state);
+    const numerator = distance * MOVEMENT_TICKS_PER_SECOND - state.remainder;
+    const arrivalTicks = Math.max(
+      1,
+      numerator <= 0 ? 1 : Math.ceil(numerator / state.speed),
+    );
+    if (arrivalTicks > remainingTicks) {
+      const accumulated = state.remainder + state.speed * remainingTicks;
+      state.remainder = accumulated % MOVEMENT_TICKS_PER_SECOND;
+      consumeMovementBudget(
+        state,
+        Math.floor(accumulated / MOVEMENT_TICKS_PER_SECOND),
+      );
+      state.tick += remainingTicks;
+      if (state.route.length === 0) state.remainder = 0;
+      return;
+    }
+
+    // Consume only through the next arrival boundary. If the budget lands on
+    // an intermediate waypoint whose next segment is already inside the
+    // target bar, the public one-tick loop resolves that zero-distance segment
+    // on the following tick. Keep the unused chunk ticks and iterate so this
+    // bulk replay has the same boundary semantics.
     const accumulated = state.remainder + state.speed * arrivalTicks;
     state.remainder = accumulated % MOVEMENT_TICKS_PER_SECOND;
     consumeMovementBudget(
       state,
       Math.floor(accumulated / MOVEMENT_TICKS_PER_SECOND),
     );
-    state.tick += ticks;
-    state.remainder = 0;
-    return;
+    state.tick += arrivalTicks;
+    remainingTicks -= arrivalTicks;
+    if (state.route.length === 0) {
+      state.remainder = 0;
+      state.tick += remainingTicks;
+      return;
+    }
   }
-
-  const accumulated = state.remainder + state.speed * ticks;
-  state.remainder = accumulated % MOVEMENT_TICKS_PER_SECOND;
-  consumeMovementBudget(
-    state,
-    Math.floor(accumulated / MOVEMENT_TICKS_PER_SECOND),
-  );
-  state.tick += ticks;
-  if (state.route.length === 0) state.remainder = 0;
 }
 
 function sameTickState(base, commands) {
