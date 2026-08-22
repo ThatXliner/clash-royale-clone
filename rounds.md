@@ -4825,3 +4825,22 @@ nested body/projectile policy objects with the comparison roster.
 BIGGEST GAP: Add explicit identity assertions for every entity record and each
 nested policy object so the test proves full graph detachment, not only
 detached containers.
+
+## Round 257 — 2026-08-21
+
+PIECE: GAME-001R — Playable eight-card runtime roster regression
+
+VERDICT: PASS
+
+EVIDENCE: The roster selector passed 9/9, HUD state 9/9, UI input 18/18,
+browser loop 10/10, ordinary troop projection 9/9 and both guards 22/22. The
+exact Round 5 diff added assertions only to `tests/playable-roster.test.js`;
+all production blobs remained parent-identical. Independent probes traversed
+all eight cards, nine entities and 60/60 frozen acyclic object/array nodes.
+Every paired node was detached. Root, card, formation, component-order,
+entity-array, entity-record, body-policy and projectile-policy aliases each
+failed the identity bar; truncation, reorder and nested value divergence failed
+the value bar. The canonical roster remained 11,154 bytes with SHA-256
+`6fb8d84121ca039ea9315b7e505c8f02d5d7839e8fd5fc5cd19013a0d2b7fadb`.
+
+BIGGEST GAP: None on the judged playable-roster regression dimension.
