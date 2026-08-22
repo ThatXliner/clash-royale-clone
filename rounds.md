@@ -1,5 +1,25 @@
 # Gauntlet Rounds
 
+## Round 279 — 2026-08-22
+
+PIECE: GAME-001HTJ — Shared troop projectile mechanics, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Fresh-process preemption at
+`session-troop-projectile-runtime.js:984` succeeded through direct, bound,
+proxy, wrapper, call, apply and Reflect callbacks. Every route returned an
+internally minted plan and then blocked legitimate content registration with
+`projectile runtime authority is already registered`. A forged `{}` plan was
+accepted by LiveBattle and a real GameSession, producing launches, health
+mutation and projectile history. The normal selectors still passed: HTJ 5/5,
+HTJP 26/26, HTP 11/11, HTO 14/14 and GAME-001TH 17/17. Integrated commit
+`752479a` and tree `9bb30aba6406ec76dc647b942af7fd84e7768bd7` remained clean.
+
+BIGGEST GAP: Remove the public registrar and every generic plan-mint path so
+only exact module-owned content authority can produce an accepted internal
+projectile plan and no earlier importer can deny registration.
+
 ## Round 278 — 2026-08-22
 
 PIECE: GAME-001HTS — Shared troop status, heal and visibility mechanics,
