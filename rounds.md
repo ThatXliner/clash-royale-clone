@@ -1,5 +1,27 @@
 # Gauntlet Rounds
 
+## Round 284 — 2026-08-22
+
+PIECE: GAME-001HTMP — Movement/form source-profile contract, round 11
+
+VERDICT: FAIL
+
+EVIDENCE: The focused selector passed 23/23; troop profiles 11/11, ordinary
+troops 14/14 and nondeterminism 10/10 passed. Independent probes preserved the
+exact 6/6 same-domain acceptance and rejected all 30 cross-domain plus copied,
+frozen-copy, Proxy and hostile-argument graphs with zero traps. The manifest
+remained eight profiles, nine source pairs, 86 QUESTION records and 67,284
+bytes with SHA-256
+`d4ad6e7684047fbd4194fd83a017700b56ecf4198aa7a39bd5bc01bc67388082`.
+But real Node ESM under `--preserve-symlinks` loaded canonical plus `%3F` and
+`%23` directory aliases as `%253F` and `%2523`; all three authorities differed,
+all six sources routed to each duplicate, and every graph emitted the pinned
+manifest/hash with zero hostile URL/helper effects.
+
+BIGGEST GAP: Recognize arbitrarily nested percent encoding of query/hash
+delimiter spellings in the primitive module-URL scan so `%253F`-style aliases
+cannot instantiate a coherent duplicate authority.
+
 ## Round 283 — 2026-08-22
 
 PIECE: GAME-001HTMP — Movement/form source-profile contract, round 10
