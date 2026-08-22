@@ -68,6 +68,27 @@ copies isolated, and restore bytes identical. Scoped import scan found no
 
 BIGGEST GAP: None on the judged dimension.
 
+## Round 265 — 2026-08-21
+
+PIECE: GAME-001HTMP — Movement/form source-profile contract, round 2
+
+VERDICT: FAIL
+
+EVIDENCE: Clean HEAD `3925179`; both focused commands passed 13/13, HTP 11/11,
+HTO 14/14, all nine relevant source selectors exited zero, guards passed 9/9
+and 13/13, and syntax/git checks passed. An independent transformed-module
+probe confirmed nine pairs, eight IDs/profiles, nine exact source pins, six
+factories/86 records, 67,284 UTF-8 bytes, SHA-256
+`d4ad6e7684047fbd4194fd83a017700b56ecf4198aa7a39bd5bc01bc67388082`
+and zero hostile traps. It rejected nine pair drifts, 17 field drifts, seven
+structural drifts, second-read drift, three pin-key drifts and missing/extra
+QUESTION exports while accepting key-order normalization. It nevertheless
+accepted a metadata-valid added Dash QUESTION record (87 records, 67,669
+bytes), a changed Dash QUESTION value (86 records) and a removed record (85).
+
+BIGGEST GAP: QUESTION factory contents are not pinned, so future value or
+record-count changes are exposed instead of failing closed.
+
 ## Round 57 — 2026-07-30
 
 PIECE: CONTENT-008R — Attack-triggered recoil displacement
