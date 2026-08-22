@@ -2,15 +2,30 @@
 // independently of every card source module.  The card modules may re-export
 // their exact factory bindings, but they do not own the admission identity.
 
+const AUTHORITY_MODULE_URL = new globalThis["URL"](import.meta.url);
+if (AUTHORITY_MODULE_URL.search !== "" || AUTHORITY_MODULE_URL.hash !== "") {
+  throw new TypeError(
+    "movement QUESTION authority must be loaded from its canonical module URL",
+  );
+}
+
 const QUESTION_GRAPH_NODES = new WeakSet();
 const QUESTION_GRAPH_PROTOTYPES = new WeakMap();
+const QUESTION_GRAPH_DOMAINS = new WeakMap();
 const MAX_QUESTION_GRAPH_NODES = 4096;
+
+const CHARGE_DOMAIN_TOKEN = Object.freeze({});
+const CHARGE_KNOCKBACK_DOMAIN_TOKEN = Object.freeze({});
+const DASH_DOMAIN_TOKEN = Object.freeze({});
+const JUMP_DOMAIN_TOKEN = Object.freeze({});
+const RECOIL_DOMAIN_TOKEN = Object.freeze({});
+const RETARGET_DOMAIN_TOKEN = Object.freeze({});
 
 function questionGraphError(label, message) {
   throw new TypeError(`${label} ${message}`);
 }
 
-function copyQuestionGraph(source, label) {
+function copyQuestionGraph(source, label, domainToken) {
   const active = new Set();
   const nodes = [];
 
@@ -105,15 +120,25 @@ function copyQuestionGraph(source, label) {
   for (const { prototype, target } of nodes) {
     QUESTION_GRAPH_NODES.add(target);
     QUESTION_GRAPH_PROTOTYPES.set(target, prototype);
+    QUESTION_GRAPH_DOMAINS.set(target, domainToken);
   }
   return result;
 }
 
-function inspectQuestionNode(value, label, requireFrozen) {
+function inspectQuestionNode(value, label, requireFrozen, domainToken) {
   // WeakSet.has is the first operation on every object.  It cannot invoke a
   // Proxy trap, so hostile aliases fail before reflection or property reads.
   if (!QUESTION_GRAPH_NODES.has(value)) {
     questionGraphError(label, "must be source-admitted data");
+  }
+  // The domain identity check must precede every reflective operation.  A
+  // graph admitted by another mechanic factory is not interchangeable even
+  // when its shape and values happen to be identical.
+  if (QUESTION_GRAPH_DOMAINS.get(value) !== domainToken) {
+    questionGraphError(
+      label,
+      "must be source-admitted data for its exact mechanic domain",
+    );
   }
   if (requireFrozen && !Object.isFrozen(value)) {
     questionGraphError(label, "must be deeply frozen source data");
@@ -169,7 +194,12 @@ function inspectQuestionNode(value, label, requireFrozen) {
   return ownKeys;
 }
 
-function assertQuestionGraph(value, label = "QUESTION graph", requireFrozen = false) {
+function assertQuestionGraph(
+  value,
+  label = "QUESTION graph",
+  requireFrozen = false,
+  domainToken,
+) {
   if (value === null || typeof value !== "object") {
     questionGraphError(label, "must be a source-admitted graph");
   }
@@ -187,7 +217,7 @@ function assertQuestionGraph(value, label = "QUESTION graph", requireFrozen = fa
       return;
     }
     if (type !== "object") questionGraphError(path, "must contain JSON data");
-    const keys = inspectQuestionNode(candidate, path, requireFrozen);
+    const keys = inspectQuestionNode(candidate, path, requireFrozen, domainToken);
     if (active.has(candidate)) questionGraphError(path, "must not contain cycles");
     count += 1;
     if (count > MAX_QUESTION_GRAPH_NODES) {
@@ -210,8 +240,8 @@ function assertQuestionGraph(value, label = "QUESTION graph", requireFrozen = fa
   return value;
 }
 
-function recursivelyFreezeQuestionGraph(value, label) {
-  assertQuestionGraph(value, label);
+function recursivelyFreezeQuestionGraph(value, label, domainToken) {
+  assertQuestionGraph(value, label, false, domainToken);
   const active = new Set();
 
   function freezeNode(candidate) {
@@ -235,7 +265,7 @@ function cloneQuestionValue(value) {
   return JSON.parse(JSON.stringify(value));
 }
 
-function createQuestionRecordsDraft(values, source, label) {
+function createQuestionRecordsDraft(values, source, label, domainToken) {
   return copyQuestionGraph(
     Object.fromEntries(
       Object.entries(values).map(([key, value]) => [
@@ -251,6 +281,7 @@ function createQuestionRecordsDraft(values, source, label) {
       ]),
     ),
     label,
+    domainToken,
   );
 }
 
@@ -466,13 +497,14 @@ function createChargeQuestionFixture(...args) {
     throw new TypeError("charge question fixture does not accept overrides");
   }
   return recursivelyFreezeQuestionGraph(
-    copyQuestionGraph(CHARGE_QUESTION_VALUES, "charge question fixture"),
+    copyQuestionGraph(CHARGE_QUESTION_VALUES, "charge question fixture", CHARGE_DOMAIN_TOKEN),
     "charge question fixture",
+    CHARGE_DOMAIN_TOKEN,
   );
 }
 
 function assertChargeQuestionGraph(value, label = "charge question graph") {
-  return assertQuestionGraph(value, label, true);
+  return assertQuestionGraph(value, label, true, CHARGE_DOMAIN_TOKEN);
 }
 
 function createChargeKnockbackQuestionRecords(...args) {
@@ -484,8 +516,10 @@ function createChargeKnockbackQuestionRecords(...args) {
       CHARGE_KNOCKBACK_QUESTION_VALUES,
       "unsourced-charge-forced-knockback-retarget-composition",
       "question records",
+      CHARGE_KNOCKBACK_DOMAIN_TOKEN,
     ),
     "question records",
+    CHARGE_KNOCKBACK_DOMAIN_TOKEN,
   );
 }
 
@@ -493,7 +527,7 @@ function assertChargeKnockbackQuestionGraph(
   value,
   label = "charge-knockback question graph",
 ) {
-  return assertQuestionGraph(value, label, true);
+  return assertQuestionGraph(value, label, true, CHARGE_KNOCKBACK_DOMAIN_TOKEN);
 }
 
 function createDashQuestionFixture(...args) {
@@ -501,13 +535,14 @@ function createDashQuestionFixture(...args) {
     throw new TypeError("dash question fixture does not accept overrides");
   }
   return recursivelyFreezeQuestionGraph(
-    copyQuestionGraph(DASH_QUESTION_VALUES, "QUESTION fixture"),
+    copyQuestionGraph(DASH_QUESTION_VALUES, "QUESTION fixture", DASH_DOMAIN_TOKEN),
     "QUESTION fixture",
+    DASH_DOMAIN_TOKEN,
   );
 }
 
 function assertDashQuestionGraph(value, label = "dash question graph") {
-  return assertQuestionGraph(value, label, true);
+  return assertQuestionGraph(value, label, true, DASH_DOMAIN_TOKEN);
 }
 
 function createJumpQuestionFixture(...args) {
@@ -515,13 +550,14 @@ function createJumpQuestionFixture(...args) {
     throw new TypeError("jump question fixture does not accept overrides");
   }
   return recursivelyFreezeQuestionGraph(
-    copyQuestionGraph(JUMP_QUESTION_VALUES, "QUESTION fixture"),
+    copyQuestionGraph(JUMP_QUESTION_VALUES, "QUESTION fixture", JUMP_DOMAIN_TOKEN),
     "QUESTION fixture",
+    JUMP_DOMAIN_TOKEN,
   );
 }
 
 function assertJumpQuestionGraph(value, label = "jump question graph") {
-  return assertQuestionGraph(value, label, true);
+  return assertQuestionGraph(value, label, true, JUMP_DOMAIN_TOKEN);
 }
 
 function createRecoilQuestionFixture(...args) {
@@ -529,13 +565,14 @@ function createRecoilQuestionFixture(...args) {
     throw new TypeError("recoil question fixture does not accept overrides");
   }
   return recursivelyFreezeQuestionGraph(
-    copyQuestionGraph(RECOIL_QUESTION_VALUES, "QUESTION fixture"),
+    copyQuestionGraph(RECOIL_QUESTION_VALUES, "QUESTION fixture", RECOIL_DOMAIN_TOKEN),
     "QUESTION fixture",
+    RECOIL_DOMAIN_TOKEN,
   );
 }
 
 function assertRecoilQuestionGraph(value, label = "recoil question graph") {
-  return assertQuestionGraph(value, label, true);
+  return assertQuestionGraph(value, label, true, RECOIL_DOMAIN_TOKEN);
 }
 
 function createRetargetQuestionRecords(...args) {
@@ -547,8 +584,10 @@ function createRetargetQuestionRecords(...args) {
       RETARGET_QUESTION_VALUES,
       "unsourced-retarget-attack-lifecycle-composition",
       "retarget question records",
+      RETARGET_DOMAIN_TOKEN,
     ),
     "question records",
+    RETARGET_DOMAIN_TOKEN,
   );
 }
 
@@ -556,7 +595,7 @@ function assertRetargetQuestionGraph(
   value,
   label = "retarget question graph",
 ) {
-  return assertQuestionGraph(value, label, true);
+  return assertQuestionGraph(value, label, true, RETARGET_DOMAIN_TOKEN);
 }
 
 export {

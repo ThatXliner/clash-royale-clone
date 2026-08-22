@@ -376,13 +376,13 @@ function questionFactoryWrapperCase(factoryName, mutation, options = {}) {
   if (info.kind === "fixture") {
     const marker = {
       createChargeQuestionFixture:
-        'return recursivelyFreezeQuestionGraph(\n    copyQuestionGraph(CHARGE_QUESTION_VALUES, "charge question fixture"),\n    "charge question fixture",\n  );',
+        'return recursivelyFreezeQuestionGraph(\n    copyQuestionGraph(CHARGE_QUESTION_VALUES, "charge question fixture", CHARGE_DOMAIN_TOKEN),\n    "charge question fixture",\n    CHARGE_DOMAIN_TOKEN,\n  );',
       createDashQuestionFixture:
-        'return recursivelyFreezeQuestionGraph(\n    copyQuestionGraph(DASH_QUESTION_VALUES, "QUESTION fixture"),\n    "QUESTION fixture",\n  );',
+        'return recursivelyFreezeQuestionGraph(\n    copyQuestionGraph(DASH_QUESTION_VALUES, "QUESTION fixture", DASH_DOMAIN_TOKEN),\n    "QUESTION fixture",\n    DASH_DOMAIN_TOKEN,\n  );',
       createJumpQuestionFixture:
-        'return recursivelyFreezeQuestionGraph(\n    copyQuestionGraph(JUMP_QUESTION_VALUES, "QUESTION fixture"),\n    "QUESTION fixture",\n  );',
+        'return recursivelyFreezeQuestionGraph(\n    copyQuestionGraph(JUMP_QUESTION_VALUES, "QUESTION fixture", JUMP_DOMAIN_TOKEN),\n    "QUESTION fixture",\n    JUMP_DOMAIN_TOKEN,\n  );',
       createRecoilQuestionFixture:
-        'return recursivelyFreezeQuestionGraph(\n    copyQuestionGraph(RECOIL_QUESTION_VALUES, "QUESTION fixture"),\n    "QUESTION fixture",\n  );',
+        'return recursivelyFreezeQuestionGraph(\n    copyQuestionGraph(RECOIL_QUESTION_VALUES, "QUESTION fixture", RECOIL_DOMAIN_TOKEN),\n    "QUESTION fixture",\n    RECOIL_DOMAIN_TOKEN,\n  );',
     }[factoryName];
     const fixtureConstant = {
       createChargeQuestionFixture: ["CHARGE_QUESTION_VALUES", "charge question fixture"],
@@ -401,9 +401,9 @@ function questionFactoryWrapperCase(factoryName, mutation, options = {}) {
         options.prefix ?? "",
       ].filter(Boolean).join("\n") + (firstReadOnly || options.prefix ? "\n" : ""),
       replacement: [
-        `let __question = copyQuestionGraph(${constant}, ${JSON.stringify(label)});`,
+        `let __question = copyQuestionGraph(${constant}, ${JSON.stringify(label)}, ${factoryName.replace("create", "").replace("QuestionFixture", "").toUpperCase()}_DOMAIN_TOKEN);`,
         guardedMutation,
-        `return recursivelyFreezeQuestionGraph(__question, ${JSON.stringify(label)});`,
+        `return recursivelyFreezeQuestionGraph(__question, ${JSON.stringify(label)}, ${factoryName.replace("create", "").replace("QuestionFixture", "").toUpperCase()}_DOMAIN_TOKEN);`,
       ].join("\n"),
       reportTraps: options.reportTraps ?? false,
       probeExposure: options.probeExposure ?? false,
@@ -412,9 +412,9 @@ function questionFactoryWrapperCase(factoryName, mutation, options = {}) {
   }
   const marker = {
     createChargeKnockbackQuestionRecords:
-      'return recursivelyFreezeQuestionGraph(\n    createQuestionRecordsDraft(\n      CHARGE_KNOCKBACK_QUESTION_VALUES,\n      "unsourced-charge-forced-knockback-retarget-composition",\n      "question records",\n    ),\n    "question records",\n  );',
+      'return recursivelyFreezeQuestionGraph(\n    createQuestionRecordsDraft(\n      CHARGE_KNOCKBACK_QUESTION_VALUES,\n      "unsourced-charge-forced-knockback-retarget-composition",\n      "question records",\n      CHARGE_KNOCKBACK_DOMAIN_TOKEN,\n    ),\n    "question records",\n    CHARGE_KNOCKBACK_DOMAIN_TOKEN,\n  );',
     createRetargetQuestionRecords:
-      'return recursivelyFreezeQuestionGraph(\n    createQuestionRecordsDraft(\n      RETARGET_QUESTION_VALUES,\n      "unsourced-retarget-attack-lifecycle-composition",\n      "retarget question records",\n    ),\n    "question records",\n  );',
+      'return recursivelyFreezeQuestionGraph(\n    createQuestionRecordsDraft(\n      RETARGET_QUESTION_VALUES,\n      "unsourced-retarget-attack-lifecycle-composition",\n      "retarget question records",\n      RETARGET_DOMAIN_TOKEN,\n    ),\n    "question records",\n    RETARGET_DOMAIN_TOKEN,\n  );',
   }[factoryName];
   const recordConstant = {
     createChargeKnockbackQuestionRecords: [
@@ -439,9 +439,9 @@ function questionFactoryWrapperCase(factoryName, mutation, options = {}) {
       options.prefix ?? "",
     ].filter(Boolean).join("\n") + (firstReadOnly || options.prefix ? "\n" : ""),
     replacement: [
-      `let value = createQuestionRecordsDraft(${constant}, ${JSON.stringify(source)}, ${JSON.stringify(label)});`,
+      `let value = createQuestionRecordsDraft(${constant}, ${JSON.stringify(source)}, ${JSON.stringify(label)}, ${factoryName === "createChargeKnockbackQuestionRecords" ? "CHARGE_KNOCKBACK" : "RETARGET"}_DOMAIN_TOKEN);`,
       guardedMutation,
-      `return recursivelyFreezeQuestionGraph(value, ${JSON.stringify("question records")});`,
+      `return recursivelyFreezeQuestionGraph(value, ${JSON.stringify("question records")}, ${factoryName === "createChargeKnockbackQuestionRecords" ? "CHARGE_KNOCKBACK" : "RETARGET"}_DOMAIN_TOKEN);`,
     ].join("\n"),
     reportTraps: options.reportTraps ?? false,
     probeExposure: options.probeExposure ?? false,
@@ -1390,30 +1390,33 @@ test("movement profile contract: QUESTION factories reject aliased Proxy roots a
   };
   let directTrapCount = 0;
   let admittedNodeCount = 0;
-  for (const [factory, assertor] of QUESTION_GRAPH_BINDINGS) {
+  let sameDomainAccepts = 0;
+  let crossDomainRejects = 0;
+  const factoryGraphs = [];
+  for (const [factory] of QUESTION_GRAPH_BINDINGS) {
     const first = factory();
     const second = factory();
     assert.notEqual(first, second);
     assert.equal(canonical(first), canonical(second));
     assert.ok(deepFrozen(first));
-    assertor(first);
+    factoryGraphs.push(first);
 
     const nodes = graphNodes(first);
     admittedNodeCount += nodes.length;
     for (const node of nodes) {
       const transparent = new Proxy(node, hostileTraps);
-      assert.throws(() => assertor(transparent), /source-admitted/u);
+      assert.throws(() => QUESTION_GRAPH_BINDINGS[factoryGraphs.length - 1][1](transparent), /source-admitted/u);
       const revocable = Proxy.revocable(node, hostileTraps);
       revocable.revoke();
-      assert.throws(() => assertor(revocable.proxy), /source-admitted/u);
+      assert.throws(() => QUESTION_GRAPH_BINDINGS[factoryGraphs.length - 1][1](revocable.proxy), /source-admitted/u);
 
       const descriptorCopy = Object.create(
         Object.getPrototypeOf(node),
         Object.getOwnPropertyDescriptors(node),
       );
-      assert.throws(() => assertor(descriptorCopy), /source-admitted/u);
+      assert.throws(() => QUESTION_GRAPH_BINDINGS[factoryGraphs.length - 1][1](descriptorCopy), /source-admitted/u);
       const prototypeCopy = Object.create(Object.getPrototypeOf(node));
-      assert.throws(() => assertor(prototypeCopy), /source-admitted/u);
+      assert.throws(() => QUESTION_GRAPH_BINDINGS[factoryGraphs.length - 1][1](prototypeCopy), /source-admitted/u);
     }
 
     const forged = structuredClone(first);
@@ -1422,13 +1425,98 @@ test("movement profile contract: QUESTION factories reject aliased Proxy roots a
     } else {
       forged.forgedQuestion = 999999;
     }
-    assert.throws(() => assertor(forged), /source-admitted/u);
+    assert.throws(
+      () => QUESTION_GRAPH_BINDINGS[factoryGraphs.length - 1][1](forged),
+      /source-admitted/u,
+    );
 
     const hostileArgument = new Proxy({}, hostileTraps);
     assert.throws(() => factory(hostileArgument), /override|argument/u);
   }
+
+  for (let factoryIndex = 0; factoryIndex < factoryGraphs.length; factoryIndex += 1) {
+    for (let assertorIndex = 0; assertorIndex < QUESTION_GRAPH_BINDINGS.length; assertorIndex += 1) {
+      const assertor = QUESTION_GRAPH_BINDINGS[assertorIndex][1];
+      if (factoryIndex === assertorIndex) {
+        assertor(factoryGraphs[factoryIndex]);
+        sameDomainAccepts += 1;
+        continue;
+      }
+      assert.throws(
+        () => assertor(factoryGraphs[factoryIndex]),
+        /source-admitted/u,
+      );
+      const proxied = new Proxy(factoryGraphs[factoryIndex], hostileTraps);
+      assert.throws(() => assertor(proxied), /source-admitted/u);
+      crossDomainRejects += 1;
+    }
+  }
+
   assert.equal(admittedNodeCount, 99);
   assert.equal(directTrapCount, 0);
+  assert.deepEqual({ crossDomainRejects, sameDomainAccepts }, {
+    crossDomainRejects: 30,
+    sameDomainAccepts: 6,
+  });
+
+  const nestedSplices = [
+    [
+      "createChargeQuestionFixture",
+      "DASH_QUESTION_VALUES",
+      "DASH_DOMAIN_TOKEN",
+      "__question.provenance = __crossDomainChild;",
+    ],
+    [
+      "createChargeKnockbackQuestionRecords",
+      "RETARGET_QUESTION_VALUES",
+      "RETARGET_DOMAIN_TOKEN",
+      'value["eventOrdering"].value = __crossDomainChild;',
+    ],
+    [
+      "createDashQuestionFixture",
+      "JUMP_QUESTION_VALUES",
+      "JUMP_DOMAIN_TOKEN",
+      "__question.provenance = __crossDomainChild;",
+    ],
+    [
+      "createJumpQuestionFixture",
+      "RECOIL_QUESTION_VALUES",
+      "RECOIL_DOMAIN_TOKEN",
+      "__question.provenance = __crossDomainChild;",
+    ],
+    [
+      "createRecoilQuestionFixture",
+      "CHARGE_QUESTION_VALUES",
+      "CHARGE_DOMAIN_TOKEN",
+      "__question.provenance = __crossDomainChild;",
+    ],
+    [
+      "createRetargetQuestionRecords",
+      "CHARGE_KNOCKBACK_QUESTION_VALUES",
+      "CHARGE_KNOCKBACK_DOMAIN_TOKEN",
+      'value["attackerPosition"].value = __crossDomainChild;',
+    ],
+  ];
+  let nestedSpliceRejects = 0;
+  let nestedSpliceTraps = 0;
+  for (const [factoryName, childValues, childDomain, mutation] of nestedSplices) {
+    const result = runSourceWrapperProbe(questionFactoryWrapperCase(
+      factoryName,
+      `const __crossDomainChild = copyQuestionGraph(${childValues}, "cross-domain child", ${childDomain}); ${mutation}`,
+      {
+        prefix: "globalThis.__sourceProbeTraps = 0;",
+        reportTraps: true,
+      },
+    ));
+    assert.equal(result.accepted, false, `${factoryName} accepted a nested cross-domain splice`);
+    assert.equal(result.traps, 0, `${factoryName} nested splice invoked a trap`);
+    nestedSpliceRejects += 1;
+    nestedSpliceTraps += result.traps;
+  }
+  assert.deepEqual({ nestedSpliceRejects, nestedSpliceTraps }, {
+    nestedSpliceRejects: 6,
+    nestedSpliceTraps: 0,
+  });
 
   const alteredCharge = structuredClone(authorityChargeQuestionFixture());
   alteredCharge.bonusDamage = 999999;
@@ -1594,70 +1682,80 @@ test("movement profile contract: independent QUESTION authority ignores source l
     coherentWrapperCases += 1;
   }
 
+  const authorityUrlVariants = (factoryName) => [
+    `?critic-minimal-duplicate=${factoryName}`,
+    `#fragment-alias=${factoryName}`,
+    `?query-alias=${factoryName}#fragment-alias=${factoryName}`,
+    `?percent-query=%23${factoryName}`,
+  ];
   let sourceQueryCases = 0;
   for (const factoryName of Object.keys(QUESTION_FACTORY_INFO)) {
-    const result = runSourceWrapperProbe(questionFactoryExportWrapperCase(
-      factoryName,
-      `${factoryName}Unwrapped`,
-      {
-        importMarker: authorityImport,
-        importReplacement: `${authorityImport}?source-query=${factoryName}`,
-        prefix: "globalThis.__factoryCallbacks = 0; globalThis.__factoryTraps = 0;",
-        reportFactoryCallbacks: true,
-        reportFactoryTraps: true,
-        probeExposure: true,
-      },
-    ));
-    assert.equal(result.accepted, false, `${factoryName} query-imported source authority was accepted`);
-    assert.equal(result.exposed, false, `${factoryName} query-imported source exposed a partial manifest`);
-    assert.equal(result.factoryCallbacks, 0, `${factoryName} query-imported source invoked a factory`);
-    assert.equal(result.factoryTraps, 0, `${factoryName} query-imported source invoked a trap`);
-    sourceQueryCases += 1;
+    for (const suffix of authorityUrlVariants(factoryName)) {
+      const result = runSourceWrapperProbe(questionFactoryExportWrapperCase(
+        factoryName,
+        `${factoryName}Unwrapped`,
+        {
+          importMarker: authorityImport,
+          importReplacement: `${authorityImport}${suffix}`,
+          prefix: "globalThis.__factoryCallbacks = 0; globalThis.__factoryTraps = 0;",
+          reportFactoryCallbacks: true,
+          reportFactoryTraps: true,
+          probeExposure: true,
+        },
+      ));
+      assert.equal(result.accepted, false, `${factoryName}${suffix} source authority was accepted`);
+      assert.equal(result.exposed, false, `${factoryName}${suffix} source exposed a partial manifest`);
+      assert.equal(result.factoryCallbacks, 0, `${factoryName}${suffix} source invoked a factory`);
+      assert.equal(result.factoryTraps, 0, `${factoryName}${suffix} source invoked a trap`);
+      sourceQueryCases += 1;
+    }
   }
 
-  const profileQuery = runSourceWrapperProbe({
-    expect: "reject",
-    marker: "const VERSION = 1;",
-    replacement: "const VERSION = 1;",
-    importMarker: profileAuthorityImport,
-    importReplacement: `${profileAuthorityImport}?profile-query=authority`,
-    prefix: "globalThis.__factoryCallbacks = 0; globalThis.__factoryTraps = 0;",
-    reportFactoryCallbacks: true,
-    reportFactoryTraps: true,
-    probeExposure: true,
-    targetPath: MOVEMENT_SOURCE_MODULE_PATH,
-  });
-  assert.equal(profileQuery.accepted, false, "query-imported profile authority was accepted");
-  assert.equal(profileQuery.exposed, false, "query-imported profile authority exposed a partial manifest");
-  assert.equal(profileQuery.factoryCallbacks, 0, "query-imported profile authority invoked a factory");
-  assert.equal(profileQuery.factoryTraps, 0, "query-imported profile authority invoked a trap");
+  let profileQueryCases = 0;
+  for (const suffix of authorityUrlVariants("profile")) {
+    const profileQuery = runSourceWrapperProbe({
+      expect: "reject",
+      marker: "const VERSION = 1;",
+      replacement: "const VERSION = 1;",
+      importMarker: profileAuthorityImport,
+      importReplacement: `${profileAuthorityImport}${suffix}`,
+      prefix: "globalThis.__factoryCallbacks = 0; globalThis.__factoryTraps = 0;",
+      reportFactoryCallbacks: true,
+      reportFactoryTraps: true,
+      probeExposure: true,
+      targetPath: MOVEMENT_SOURCE_MODULE_PATH,
+    });
+    assert.equal(profileQuery.accepted, false, `${suffix} profile authority was accepted`);
+    assert.equal(profileQuery.exposed, false, `${suffix} profile authority exposed a partial manifest`);
+    assert.equal(profileQuery.factoryCallbacks, 0, `${suffix} profile authority invoked a factory`);
+    assert.equal(profileQuery.factoryTraps, 0, `${suffix} profile authority invoked a trap`);
+    profileQueryCases += 1;
+  }
 
-  let duplicateGraphRejects = 0;
-  for (const [factory, assertor] of QUESTION_GRAPH_BINDINGS) {
-    const factoryName = Object.keys(QUESTION_FACTORY_INFO).find((name) =>
-      QUESTION_SOURCES[QUESTION_FACTORY_INFO[name].exportName]?.[1] === factory
+  let directAuthorityRejects = 0;
+  for (const suffix of authorityUrlVariants("direct")) {
+    await assert.rejects(
+      import(`../src/content/session-troop-movement-question-authority.js${suffix}`),
+      /canonical module URL/u,
+      `direct authority ${suffix} produced usable exports`,
     );
-    assert.ok(factoryName, "missing QUESTION factory name for duplicate graph probe");
-    const duplicateAuthority = await import(
-      `../src/content/session-troop-movement-question-authority.js?duplicate-graph=${factoryName}`
-    );
-    const duplicateGraph = duplicateAuthority[factoryName]();
-    assert.notEqual(duplicateGraph, factory(), `${factoryName} duplicate factory reused identity`);
-    assert.throws(() => assertor(duplicateGraph), /source-admitted/u);
-    duplicateGraphRejects += 1;
+    directAuthorityRejects += 1;
   }
 
   assert.deepEqual({
     canonicalLookalikeCases,
     coherentWrapperCases,
-    duplicateGraphRejects,
+    directAuthorityRejects,
+    profileQueryCases,
     sourceQueryCases,
   }, {
     canonicalLookalikeCases: 6,
     coherentWrapperCases: 6,
-    duplicateGraphRejects: 6,
-    sourceQueryCases: 6,
+    directAuthorityRejects: 4,
+    profileQueryCases: 4,
+    sourceQueryCases: 24,
   });
+  assert.equal(serializeSessionTroopMovementProfileManifest(), baseline);
 });
 
 test("movement profile contract: canonicalization fails closed for non-JSON values without traps", () => {
