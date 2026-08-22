@@ -28,7 +28,7 @@
   <div class="cards">
     <div class="card"><div class="num">165</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">115</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">254</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">255</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">24</div><div class="label">open questions</div></div>
   </div>
   <p class="note">Active target: <strong>GAME-001R — Playable eight-card runtime roster</strong>.</p>
@@ -1249,9 +1249,9 @@
         <td><code>GAME-001HTO</code></td>
         <td>Ordinary troop projection into eight-card witness sessions</td>
         <td class="state-building">BUILDING</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Round 1 launched: generalize the eight-card projection and prove one shared-session deploy witness for every admitted troop without claiming special mechanics</td>
+        <td>0/1</td>
+        <td>1</td>
+        <td>Round 1 failed: all 31 sessions execute, but the eight legacy cards bypass HTO delivery/layer QUESTION policies; Round 2 must policy-wrap them without changing shipped browser roster bytes</td>
       </tr>
       <tr>
         <td><code>GAME-001HTM</code></td>
@@ -1616,6 +1616,7 @@
       <li><strong>R252 FAIL</strong> · GAME-001TH — Exhaustive cross-module projectile identity chain<br>`stepBoundaryAfterPreview` must reject Proxy/accessor-wrapped current projectile events and nested identity records before observing traps or mutating state.</li>
       <li><strong>R253 PASS</strong> · GAME-001TH — Exhaustive cross-module projectile identity chain<br>None on the judged projectile identity and preview-capability dimension. Future BattleCombat mutation methods must replace the private state token so stale receipts cannot survive.</li>
       <li><strong>R254 PASS</strong> · GAME-001HTP — Troop occurrence and session-profile contract<br>None on the judged immutable occurrence/profile contract. Runtime projection and mechanics remain separate later pieces.</li>
+      <li><strong>R255 FAIL</strong> · GAME-001HTO — Ordinary troop projection into eight-card witness sessions<br>`compileProjection()` reuses the eight legacy playable cards verbatim inside HTO witnesses. HTO must attach explicit delivery/layer QUESTION policies to those witness projections without changing the shipped legacy browser roster or its canonical bytes.</li>
   </ol>
 </body>
 </html>

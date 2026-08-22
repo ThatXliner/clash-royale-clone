@@ -4778,3 +4778,30 @@ occurrences were fresh, detached, deeply frozen and canonically repeatable.
 
 BIGGEST GAP: None on the judged immutable occurrence/profile contract. Runtime
 projection and mechanics remain separate later pieces.
+
+## Round 255 — 2026-08-21
+
+PIECE: GAME-001HTO — Ordinary troop projection into eight-card witness sessions
+
+VERDICT: FAIL
+
+EVIDENCE: The focused ordinary selector passed 6/6, troop profiles 11/11,
+admission 7/7, battle 11/11, GameSession 9/9, troop runtime 7/7, shared-runtime
+integration 1/1, browser loop 10/10 and both guards 22/22. Independent
+production probes covered all 31 IDs, 33 source rows, 31 legal eight-card
+witnesses, 31 schedules/deploys/routes and 38 materialized entities.
+Representative melee, ranged, air, swarm, champion and special-claim ordinary
+continuations were chunk/fork/restore/replay exact. Thirty hostile API values
+rejected with zero Proxy traps. The legacy browser roster remained byte-exact
+at 11,154 bytes with SHA-256
+`6fb8d84121ca039ea9315b7e505c8f02d5d7839e8fd5fc5cd19013a0d2b7fadb`.
+However, an independent eight-card probe found `deliveryPolicy` and
+`layerPolicy` absent from every legacy HTO projection. Their witness QUESTION
+inventories omit those keys, so LiveBattle materializes direct delivery/layer
+values rather than visibly resolving the same non-authoritative policy used by
+the 23 newly projected cards.
+
+BIGGEST GAP: `compileProjection()` reuses the eight legacy playable cards
+verbatim inside HTO witnesses. HTO must attach explicit delivery/layer QUESTION
+policies to those witness projections without changing the shipped legacy
+browser roster or its canonical bytes.
