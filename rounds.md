@@ -1,5 +1,27 @@
 # Gauntlet Rounds
 
+## Round 283 — 2026-08-22
+
+PIECE: GAME-001HTMP — Movement/form source-profile contract, round 10
+
+VERDICT: FAIL
+
+EVIDENCE: The focused selector passed 22/22; HTP 11/11, HTO 14/14,
+projectile profiles 26/26, merged projectile 6/6, nondeterminism 10/10 and
+shipping isolation 13/13 also passed. Fresh-process probes admitted exactly
+6/6 same-domain graph pairs and rejected 30/30 cross-domain pairs plus 30/30
+nested cross-domain splices with zero callbacks or Proxy traps. The canonical
+manifest remained 67,284 bytes with SHA-256
+`d4ad6e7684047fbd4194fd83a017700b56ecf4198aa7a39bd5bc01bc67388082`.
+However, replacing `globalThis.URL` before a query-aliased import exposed
+usable authority factories; URL subclass, constructor Proxy and fragment
+variants succeeded 4/4. A coherent profile/source resolver rewrite then
+admitted the full eight-profile manifest through the duplicate authority.
+
+BIGGEST GAP: Parse `import.meta.url` without any mutable global or prototype
+capability so query/fragment duplicate authority instances reject before
+exports or trusted graph state become usable.
+
 ## Round 282 — 2026-08-22
 
 PIECE: GAME-001HTMP — Movement/form source-profile contract, round 9
