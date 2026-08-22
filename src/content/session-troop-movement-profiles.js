@@ -172,6 +172,40 @@ function sourceRecordKey(exportName, id) {
   return `${exportName}\u0000${id}`;
 }
 
+const EXPECTED_QUESTION_FACTORIES = Object.freeze([
+  "createChargeQuestionFixture",
+  "createChargeKnockbackQuestionRecords",
+  "createDashQuestionFixture",
+  "createJumpQuestionFixture",
+  "createRecoilQuestionFixture",
+  "createRetargetQuestionRecords",
+]);
+
+// These are complete raw factory results serialized by the canonical
+// serializer below. They are intentional conscious-update barriers: a
+// question factory may not change its records, values, metadata, nesting, or
+// array order without updating this profile contract.
+const EXPECTED_QUESTION_WITNESS = Object.freeze({
+  createChargeQuestionFixture: "{\"armDistanceMillitiles\":3500,\"authoritative\":false,\"bonusDamage\":392,\"chargedMovementMillitilesPerSecond\":2000,\"confidence\":\"unverified\",\"disposition\":\"question\",\"provenance\":{\"armDistanceMillitiles\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-special-mechanic-fixture\"},\"bonusDamage\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-special-mechanic-fixture\"},\"chargedMovementMillitilesPerSecond\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-special-mechanic-fixture\"}},\"source\":\"unsourced-special-mechanic-fixture\"}",
+  createChargeKnockbackQuestionRecords: "{\"attackAfterDisplacement\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"attackAfterDisplacement\",\"source\":\"unsourced-charge-forced-knockback-retarget-composition\",\"value\":\"reach-is-recomputed-before-readiness\"},\"attackBoundaryInclusive\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"attackBoundaryInclusive\",\"source\":\"unsourced-charge-forced-knockback-retarget-composition\",\"value\":true},\"attackDamageOrder\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"attackDamageOrder\",\"source\":\"unsourced-charge-forced-knockback-retarget-composition\",\"value\":\"damage-then-death-then-charge-consumption\"},\"chargeArmDistanceMillitiles\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"chargeArmDistanceMillitiles\",\"source\":\"unsourced-charge-forced-knockback-retarget-composition\",\"value\":3500},\"chargeBonusDamage\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"chargeBonusDamage\",\"source\":\"unsourced-charge-forced-knockback-retarget-composition\",\"value\":392},\"chargeConsumption\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"chargeConsumption\",\"source\":\"unsourced-charge-forced-knockback-retarget-composition\",\"value\":\"first-ready-strike-only\"},\"chargeResetOnDisplacement\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"chargeResetOnDisplacement\",\"source\":\"unsourced-charge-forced-knockback-retarget-composition\",\"value\":\"any-applied-forced-displacement\"},\"chargeResetOnTargetChange\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"chargeResetOnTargetChange\",\"source\":\"unsourced-charge-forced-knockback-retarget-composition\",\"value\":\"any-loss-or-different-id-reacquisition\"},\"chargedMovementMillitilesPerSecond\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"chargedMovementMillitilesPerSecond\",\"source\":\"unsourced-charge-forced-knockback-retarget-composition\",\"value\":2000},\"commandPriority\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"commandPriority\",\"source\":\"unsourced-charge-forced-knockback-retarget-composition\",\"value\":\"all-commands-before-selection-movement-and-readiness\"},\"deathInvalidation\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"deathInvalidation\",\"source\":\"unsourced-charge-forced-knockback-retarget-composition\",\"value\":\"dead-target-is-lost-on-next-boundary\"},\"displacementEligibility\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"displacementEligibility\",\"source\":\"unsourced-charge-forced-knockback-retarget-composition\",\"value\":\"living-charger-only\"},\"displacementGeometry\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"displacementGeometry\",\"source\":\"unsourced-charge-forced-knockback-retarget-composition\",\"value\":\"delegate-exact-forced-knockback-projection\"},\"displacementRoutePolicy\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"displacementRoutePolicy\",\"source\":\"unsourced-charge-forced-knockback-retarget-composition\",\"value\":\"reanchor-manhattan-route-from-exact-displaced-position\"},\"eventOrdering\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"eventOrdering\",\"source\":\"unsourced-charge-forced-knockback-retarget-composition\",\"value\":[\"forced-knockback\",\"target-lost\",\"target-acquired\",\"charge-reset\",\"move\",\"charge-armed\",\"reached\",\"attack\",\"death\",\"charge-consumed\"]},\"firstHitAfterReacquisition\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"firstHitAfterReacquisition\",\"source\":\"unsourced-charge-forced-knockback-retarget-composition\",\"value\":\"full-54-tick-windup\"},\"knockbackAttackCancellation\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"knockbackAttackCancellation\",\"source\":\"unsourced-charge-forced-knockback-retarget-composition\",\"value\":\"reach-loss-cancels-current-windup\"},\"movementAfterCommand\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"movementAfterCommand\",\"source\":\"unsourced-charge-forced-knockback-retarget-composition\",\"value\":\"same-boundary-after-selection\"},\"retargetPolicy\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"retargetPolicy\",\"source\":\"unsourced-charge-forced-knockback-retarget-composition\",\"value\":\"sticky-valid-then-nearest-with-ascending-stable-id-ties\"},\"routeDistanceCompatibility\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"routeDistanceCompatibility\",\"source\":\"unsourced-charge-forced-knockback-retarget-composition\",\"value\":\"undisplaced-trace-identical-to-content-008c\"},\"sightBoundaryInclusive\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"sightBoundaryInclusive\",\"source\":\"unsourced-charge-forced-knockback-retarget-composition\",\"value\":true},\"sightRangeCompositionMillitiles\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"sightRangeCompositionMillitiles\",\"source\":\"unsourced-charge-forced-knockback-retarget-composition\",\"value\":7000},\"targetHealthFixture\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"targetHealthFixture\",\"source\":\"unsourced-charge-forced-knockback-retarget-composition\",\"value\":5000},\"targetMode\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"targetMode\",\"source\":\"unsourced-charge-forced-knockback-retarget-composition\",\"value\":\"ground\"}}",
+  createDashQuestionFixture: "{\"authoritative\":false,\"bonusDamage\":193,\"confidence\":\"unverified\",\"disposition\":\"question\",\"inclusiveLaunchBoundary\":true,\"interpolationRule\":\"integer-truncate-toward-zero\",\"interruptionRule\":\"cancel-at-last-completed-position\",\"launchMaximumMillitiles\":6000,\"launchMinimumMillitiles\":3500,\"provenance\":{\"bonusDamage\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-targeted-dash-fixture\"},\"inclusiveLaunchBoundary\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-targeted-dash-fixture\"},\"interpolationRule\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-targeted-dash-fixture\"},\"interruptionRule\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-targeted-dash-fixture\"},\"launchMaximumMillitiles\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-targeted-dash-fixture\"},\"launchMinimumMillitiles\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-targeted-dash-fixture\"},\"targetDeathRule\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-targeted-dash-fixture\"},\"transitTicks\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-targeted-dash-fixture\"},\"untargetableDuringTransit\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-targeted-dash-fixture\"}},\"source\":\"unsourced-targeted-dash-fixture\",\"targetDeathRule\":\"continue-to-snapshot-and-skip-damage\",\"transitTicks\":30,\"untargetableDuringTransit\":true}",
+  createJumpQuestionFixture: "{\"authoritative\":false,\"commandsResolveBeforeMovement\":true,\"confidence\":\"unverified\",\"destinationRule\":\"snapshot-at-takeoff\",\"disposition\":\"question\",\"inclusiveTriggerBoundary\":true,\"interpolationRule\":\"integer-truncate-toward-zero\",\"interruptionRule\":\"cancel-at-last-completed-position-without-impact\",\"landingDamage\":536,\"landingMode\":\"ground\",\"landingRadiusMillitiles\":1300,\"provenance\":{\"commandsResolveBeforeMovement\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-targeted-jump-fixture\"},\"destinationRule\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-targeted-jump-fixture\"},\"inclusiveTriggerBoundary\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-targeted-jump-fixture\"},\"interpolationRule\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-targeted-jump-fixture\"},\"interruptionRule\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-targeted-jump-fixture\"},\"landingDamage\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-targeted-jump-fixture\"},\"landingMode\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-targeted-jump-fixture\"},\"landingRadiusMillitiles\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-targeted-jump-fixture\"},\"targetDeathRule\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-targeted-jump-fixture\"},\"transitTicks\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-targeted-jump-fixture\"},\"triggerMaximumMillitiles\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-targeted-jump-fixture\"},\"triggerMinimumMillitiles\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-targeted-jump-fixture\"},\"untargetableDuringTransit\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-targeted-jump-fixture\"}},\"source\":\"unsourced-targeted-jump-fixture\",\"targetDeathRule\":\"cancel-before-takeoff; continue-to-snapshot-after-takeoff-and-exclude-dead-target\",\"transitTicks\":36,\"triggerMaximumMillitiles\":5000,\"triggerMinimumMillitiles\":3500,\"untargetableDuringTransit\":true}",
+  createRecoilQuestionFixture: "{\"authoritative\":false,\"boundsRule\":\"clamp-center-to-radius-inset-closed-arena\",\"commandsResolveBeforeLaunch\":true,\"confidence\":\"unverified\",\"directionRule\":\"opposite-snapshotted-target-vector\",\"displacementProjectionRule\":\"euclidean-components-divide-by-exact-integer-vector-length\",\"disposition\":\"question\",\"interruptionRule\":\"interrupt-at-or-before-launch-boundary-suppresses-projectile-and-recoil\",\"launchBoundaryTick\":144,\"projectileDamage\":1,\"projectileRadiusMillitiles\":0,\"projectileSpeedMillitilesPerTick\":100,\"provenance\":{\"boundsRule\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-attack-recoil-fixture\"},\"commandsResolveBeforeLaunch\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-attack-recoil-fixture\"},\"directionRule\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-attack-recoil-fixture\"},\"displacementProjectionRule\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-attack-recoil-fixture\"},\"interruptionRule\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-attack-recoil-fixture\"},\"launchBoundaryTick\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-attack-recoil-fixture\"},\"projectileDamage\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-attack-recoil-fixture\"},\"projectileRadiusMillitiles\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-attack-recoil-fixture\"},\"projectileSpeedMillitilesPerTick\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-attack-recoil-fixture\"},\"recoilDistanceMillitiles\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-attack-recoil-fixture\"},\"targetDeathRule\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-attack-recoil-fixture\"},\"timingRule\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-attack-recoil-fixture\"},\"zeroVectorRule\":{\"confidence\":\"unverified\",\"disposition\":\"question\",\"source\":\"unsourced-attack-recoil-fixture\"}},\"recoilDistanceMillitiles\":2000,\"source\":\"unsourced-attack-recoil-fixture\",\"targetDeathRule\":\"death-after-launch-does-not-undo-recoil-or-remove-in-flight-projectile\",\"timingRule\":\"same-boundary-immediately-after-projectile-launch\",\"zeroVectorRule\":\"reject-undefined-direction\"}",
+  createRetargetQuestionRecords: "{\"attackBoundaryInclusive\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"attackBoundaryInclusive\",\"source\":\"unsourced-retarget-attack-lifecycle-composition\",\"value\":true},\"attackReachEligibility\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"attackReachEligibility\",\"source\":\"unsourced-retarget-attack-lifecycle-composition\",\"value\":\"independent-from-sight-retention\"},\"attackerPosition\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"attackerPosition\",\"source\":\"unsourced-retarget-attack-lifecycle-composition\",\"value\":{\"x\":0,\"y\":0}},\"attackerRadiusMillitiles\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"attackerRadiusMillitiles\",\"source\":\"unsourced-retarget-attack-lifecycle-composition\",\"value\":300},\"candidateMutationPriority\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"candidateMutationPriority\",\"source\":\"unsourced-retarget-attack-lifecycle-composition\",\"value\":\"commands-before-selection\"},\"damageApplication\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"damageApplication\",\"source\":\"unsourced-retarget-attack-lifecycle-composition\",\"value\":\"ready-event-applies-one-damage-value\"},\"deathInvalidation\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"deathInvalidation\",\"source\":\"unsourced-retarget-attack-lifecycle-composition\",\"value\":true},\"deathOnReadyBoundarySuppression\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"deathOnReadyBoundarySuppression\",\"source\":\"unsourced-retarget-attack-lifecycle-composition\",\"value\":true},\"differentIdReacquisition\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"differentIdReacquisition\",\"source\":\"unsourced-retarget-attack-lifecycle-composition\",\"value\":\"full-first-hit-windup\"},\"distanceMetric\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"distanceMetric\",\"source\":\"unsourced-retarget-attack-lifecycle-composition\",\"value\":\"exact-bigint-squared-center-distance\"},\"eligibilityLossCancellation\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"eligibilityLossCancellation\",\"source\":\"unsourced-retarget-attack-lifecycle-composition\",\"value\":true},\"eligibilityReentry\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"eligibilityReentry\",\"source\":\"unsourced-retarget-attack-lifecycle-composition\",\"value\":\"full-first-hit-windup\"},\"eventOrdering\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"eventOrdering\",\"source\":\"unsourced-retarget-attack-lifecycle-composition\",\"value\":[\"target-lost\",\"target-acquired\",\"attack-ready\",\"damage\",\"death\"]},\"idLossCancellation\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"idLossCancellation\",\"source\":\"unsourced-retarget-attack-lifecycle-composition\",\"value\":true},\"missingIdInvalidation\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"missingIdInvalidation\",\"source\":\"unsourced-retarget-attack-lifecycle-composition\",\"value\":true},\"modeInvalidation\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"modeInvalidation\",\"source\":\"unsourced-retarget-attack-lifecycle-composition\",\"value\":true},\"readinessPriority\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"readinessPriority\",\"source\":\"unsourced-retarget-attack-lifecycle-composition\",\"value\":\"selection-before-readiness\"},\"sameIdReentry\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"sameIdReentry\",\"source\":\"unsourced-retarget-attack-lifecycle-composition\",\"value\":\"full-first-hit-windup\"},\"sightBoundaryInclusive\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"sightBoundaryInclusive\",\"source\":\"unsourced-retarget-attack-lifecycle-composition\",\"value\":true},\"sightInvalidation\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"sightInvalidation\",\"source\":\"unsourced-retarget-attack-lifecycle-composition\",\"value\":true},\"stickyRetention\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"stickyRetention\",\"source\":\"unsourced-retarget-attack-lifecycle-composition\",\"value\":\"valid-current-target-is-retained\"},\"syntheticCandidateHealth\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"syntheticCandidateHealth\",\"source\":\"unsourced-retarget-attack-lifecycle-composition\",\"value\":1000},\"targetableInvalidation\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"targetableInvalidation\",\"source\":\"unsourced-retarget-attack-lifecycle-composition\",\"value\":true},\"tieBreak\":{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"tieBreak\",\"source\":\"unsourced-retarget-attack-lifecycle-composition\",\"value\":\"ascending-stable-id\"}}",
+});
+
+function assertExpectedQuestionWitnessCoverage() {
+  const expectedKeys = [...EXPECTED_QUESTION_FACTORIES].sort(compareText);
+  const actualKeys = Object.keys(EXPECTED_QUESTION_WITNESS).sort(compareText);
+  if (
+    expectedKeys.length !== 6 ||
+    canonical(actualKeys) !== canonical(expectedKeys) ||
+    actualKeys.some((key) => typeof EXPECTED_QUESTION_WITNESS[key] !== "string")
+  ) {
+    throw new Error("movement question witness key set is missing, stale, or extra");
+  }
+}
+
 // This is an intentional source-update barrier. These are complete runtime
 // source records, serialized with the same canonical format used by the
 // public receipt; an ID match alone is not sufficient authority.
@@ -605,7 +639,159 @@ function assertQuestionRecord(value, key, label) {
   return value;
 }
 
+const QUESTION_FIXTURE_METADATA_KEYS = Object.freeze([
+  "authoritative",
+  "confidence",
+  "disposition",
+  "provenance",
+  "source",
+]);
+
+function prototypeSurfaceMatches(actual, expected) {
+  if (actual === expected) return true;
+  if (actual === null || typeof actual !== "object") return false;
+  const expectedParent = Object.getPrototypeOf(expected);
+  const actualParent = Object.getPrototypeOf(actual);
+  if (
+    expectedParent === null
+      ? actualParent !== null
+      : !prototypeSurfaceMatches(actualParent, expectedParent)
+  ) {
+    return false;
+  }
+  const actualNames = Object.getOwnPropertyNames(actual).sort(compareText);
+  const expectedNames = Object.getOwnPropertyNames(expected).sort(compareText);
+  if (canonical(actualNames) !== canonical(expectedNames)) return false;
+  const actualSymbols = Object.getOwnPropertySymbols(actual)
+    .map((symbol) => symbol.description ?? "")
+    .sort(compareText);
+  const expectedSymbols = Object.getOwnPropertySymbols(expected)
+    .map((symbol) => symbol.description ?? "")
+    .sort(compareText);
+  return canonical(actualSymbols) === canonical(expectedSymbols);
+}
+
+function assertQuestionDataGraph(value, label, active = new Set()) {
+  if (value === null) return value;
+  const type = typeof value;
+  if (type === "string" || type === "boolean") return value;
+  if (type === "number") {
+    if (!Number.isFinite(value) || Object.is(value, -0)) {
+      throw new TypeError(`${label} must contain finite JSON numbers`);
+    }
+    return value;
+  }
+  if (type !== "object") {
+    throw new TypeError(`${label} must contain cloneable JSON data`);
+  }
+  if (active.has(value)) {
+    throw new TypeError(`${label} must not contain cycles`);
+  }
+
+  let prototype;
+  let descriptors;
+  try {
+    prototype = Object.getPrototypeOf(value);
+    descriptors = Object.getOwnPropertyDescriptors(value);
+  } catch {
+    throw new TypeError(`${label} must be inspectable data`);
+  }
+  const ownKeys = Reflect.ownKeys(descriptors);
+  if (Array.isArray(value)) {
+    if (
+      !prototypeSurfaceMatches(prototype, Array.prototype) ||
+      value.length > 16
+    ) {
+      throw new TypeError(`${label} must use the ordinary array prototype`);
+    }
+    if (
+      ownKeys.length !== value.length + 1 ||
+      !Object.hasOwn(descriptors, "length") ||
+      !Object.hasOwn(descriptors.length, "value") ||
+      descriptors.length.enumerable ||
+      Array.from({ length: value.length }, (_, index) => String(index))
+        .some((key) => {
+          const descriptor = descriptors[key];
+          return descriptor === undefined ||
+            !descriptor.enumerable ||
+            !Object.hasOwn(descriptor, "value");
+        })
+    ) {
+      throw new TypeError(`${label} must be a dense data array`);
+    }
+  } else if (!prototypeSurfaceMatches(prototype, Object.prototype)) {
+    throw new TypeError(`${label} must use a plain object prototype`);
+  }
+  if (ownKeys.some((key) => {
+    const descriptor = descriptors[key];
+    if (key === "length" && Array.isArray(value)) return false;
+    return typeof key !== "string" ||
+      !descriptor.enumerable ||
+      !Object.hasOwn(descriptor, "value");
+  })) {
+    throw new TypeError(`${label} must contain enumerable data properties`);
+  }
+
+  active.add(value);
+  try {
+    for (const key of ownKeys) {
+      if (key === "length" && Array.isArray(value)) continue;
+      assertQuestionDataGraph(descriptors[key].value, `${label}.${String(key)}`, active);
+    }
+  } finally {
+    active.delete(value);
+  }
+  try {
+    structuredClone(value);
+  } catch {
+    throw new TypeError(`${label} must be cloneable data`);
+  }
+  return value;
+}
+
+function assertQuestionFactoryShape(value, label) {
+  assertQuestionDataGraph(value, label);
+  if (Object.hasOwn(value, "provenance")) {
+    const provenance = value.provenance;
+    const provenanceKeys = Object.keys(provenance).sort(compareText);
+    if (provenanceKeys.some((key) => QUESTION_FIXTURE_METADATA_KEYS.includes(key))) {
+      throw new TypeError(`${label}.provenance contains a reserved key`);
+    }
+    assertExactDataObject(value, [
+      ...QUESTION_FIXTURE_METADATA_KEYS,
+      ...provenanceKeys,
+    ], label);
+    assertExactDataObject(provenance, provenanceKeys, `${label}.provenance`);
+    if (
+      value.authoritative !== false ||
+      value.confidence !== "unverified" ||
+      value.disposition !== "question" ||
+      typeof value.source !== "string"
+    ) {
+      throw new TypeError(`${label} has invalid fixture-level question metadata`);
+    }
+    if (provenanceKeys.length === 0) {
+      throw new Error(`${label} has an empty question surface`);
+    }
+    for (const key of provenanceKeys) {
+      assertQuestionMetadata(provenance[key], `${label}.provenance.${key}`);
+    }
+    return { kind: "fixture", keys: provenanceKeys };
+  }
+
+  const keys = Object.keys(value).sort(compareText);
+  assertExactDataObject(value, keys, label);
+  if (keys.length === 0) {
+    throw new Error(`${label} has an empty question surface`);
+  }
+  for (const key of keys) {
+    assertQuestionRecord(value[key], key, `${label}.${key}`);
+  }
+  return { kind: "records", keys };
+}
+
 function normalizeQuestionPolicy(spec) {
+  assertExpectedQuestionWitnessCoverage();
   if (spec.questionFactory === null) return null;
   const sourceModule = SOURCE_MODULES_BY_EXPORT[spec.exportName];
   const factory = sourceModule?.[spec.questionFactory];
@@ -614,8 +800,21 @@ function normalizeQuestionPolicy(spec) {
   }
   const first = factory();
   const second = factory();
-  if (first === second || canonical(first) !== canonical(second)) {
+  if (first === second) {
     throw new Error(`${spec.questionFactory} is not fresh and deterministic`);
+  }
+  const firstShape = assertQuestionFactoryShape(first, `${spec.questionFactory} first read`);
+  const secondShape = assertQuestionFactoryShape(second, `${spec.questionFactory} second read`);
+  if (firstShape.kind !== secondShape.kind) {
+    throw new Error(`${spec.questionFactory} changed output shape across reads`);
+  }
+  const firstCanonical = canonical(first);
+  if (firstCanonical !== canonical(second)) {
+    throw new Error(`${spec.questionFactory} is not fresh and deterministic`);
+  }
+  const expectedWitness = EXPECTED_QUESTION_WITNESS[spec.questionFactory];
+  if (firstCanonical !== expectedWitness) {
+    throw new Error(`${spec.questionFactory} differs from its pinned QUESTION witness`);
   }
   try {
     factory("override");
@@ -633,28 +832,10 @@ function normalizeQuestionPolicy(spec) {
     throw new Error(`${spec.questionFactory} accepts a policy override`);
   }
 
-  let kind;
   let records;
-  if (Object.hasOwn(first, "provenance")) {
-    kind = "fixture";
-    assertExactDataObject(first.provenance,
-      Object.keys(first.provenance), `${spec.questionFactory}.provenance`);
-    if (
-      first.authoritative !== false ||
-      first.confidence !== "unverified" ||
-      first.disposition !== "question" ||
-      typeof first.source !== "string"
-    ) {
-      throw new TypeError(`${spec.questionFactory} has invalid fixture-level question metadata`);
-    }
-    const keys = Object.keys(first.provenance).sort(compareText);
-    records = keys.map((key) => {
-      if (!Object.hasOwn(first, key)) {
-        throw new Error(`${spec.questionFactory} provenance names a missing question value`);
-      }
-      const provenance = assertQuestionMetadata(
-        first.provenance[key], `${spec.questionFactory}.provenance.${key}`
-      );
+  if (firstShape.kind === "fixture") {
+    records = firstShape.keys.map((key) => {
+      const provenance = first.provenance[key];
       return {
         authoritative: first.authoritative,
         confidence: provenance.confidence,
@@ -665,11 +846,7 @@ function normalizeQuestionPolicy(spec) {
       };
     });
   } else {
-    kind = "records";
-    const keys = Object.keys(first).sort(compareText);
-    records = keys.map((key) => clone(
-      assertQuestionRecord(first[key], key, `${spec.questionFactory}.${key}`)
-    ));
+    records = firstShape.keys.map((key) => clone(first[key]));
   }
   if (records.length === 0 || records.some((record) =>
     record.authoritative !== false ||
@@ -680,9 +857,9 @@ function normalizeQuestionPolicy(spec) {
   }
   return {
     factory: spec.questionFactory,
-    kind,
+    kind: firstShape.kind,
     raw: clone(first),
-    rawCanonical: canonical(first),
+    rawCanonical: firstCanonical,
     records,
   };
 }
@@ -775,6 +952,7 @@ function baseIdentity(sourceRecord, htpProfile, id) {
 }
 
 function buildManifest() {
+  assertExpectedQuestionWitnessCoverage();
   assertQuestionSourceSurface();
   const { profileManifest, occurrences, ids, profiles: htpProfiles } = deriveOccurrences();
   const catalogCache = buildCatalogCache(occurrences);

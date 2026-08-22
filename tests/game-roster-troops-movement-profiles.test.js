@@ -61,6 +61,46 @@ const QUESTION_SOURCES = {
   createRecoilSpecialCatalog: ["createRecoilQuestionFixture", recoilSource.createRecoilQuestionFixture],
   createRetargetSpecialCatalog: ["createRetargetQuestionRecords", retargetSource.createRetargetQuestionRecords],
 };
+const EXPECTED_QUESTION_FACTORY_WITNESSES = Object.freeze({
+  createChargeQuestionFixture: { count: 3, length: 596, sha256: "238a16d34b7e68f960061ee05672e5ba7e8dd5bc3598273b9e712044f04aff20" },
+  createChargeKnockbackQuestionRecords: { count: 24, length: 5667, sha256: "a912c97c45df327a3ee1e7ee832e7374c9de1316b696b62445b515d10cb5e92a" },
+  createDashQuestionFixture: { count: 9, length: 1513, sha256: "546745faa531e17056dd3cc98e236553e75334375646449b1354af9c0eb6d516" },
+  createJumpQuestionFixture: { count: 13, length: 2188, sha256: "0aa785da18d2755799b2a9cc40cdb33dca7943d05fa5f00af4f9bd6393749c0c" },
+  createRecoilQuestionFixture: { count: 13, length: 2344, sha256: "fd6d4a82fcab233aa57e3d37b225e6fb39787ea47166786b80559fbc42834870" },
+  createRetargetQuestionRecords: { count: 24, length: 5063, sha256: "3934152579f1c6879a8e79841f65617209c1041ea5507703fdca027b8b361852" },
+});
+const QUESTION_FACTORY_INFO = Object.freeze({
+  createChargeQuestionFixture: {
+    exportName: "createChargeSpecialCatalog",
+    kind: "fixture",
+    valueKey: "bonusDamage",
+  },
+  createChargeKnockbackQuestionRecords: {
+    exportName: "createChargeKnockbackCatalog",
+    kind: "records",
+    valueKey: "chargeBonusDamage",
+  },
+  createDashQuestionFixture: {
+    exportName: "createDashSpecialCatalog",
+    kind: "fixture",
+    valueKey: "bonusDamage",
+  },
+  createJumpQuestionFixture: {
+    exportName: "createJumpSpecialCatalog",
+    kind: "fixture",
+    valueKey: "landingDamage",
+  },
+  createRecoilQuestionFixture: {
+    exportName: "createRecoilSpecialCatalog",
+    kind: "fixture",
+    valueKey: "projectileDamage",
+  },
+  createRetargetQuestionRecords: {
+    exportName: "createRetargetSpecialCatalog",
+    kind: "records",
+    valueKey: "attackerRadiusMillitiles",
+  },
+});
 const SOURCE_MODULES = {
   createBasicFlyingCatalog: basicFlyingSource,
   createChargeKnockbackCatalog: chargeKnockbackSource,
@@ -212,6 +252,120 @@ function sourceWrapperCase(exportName, id, mutation, options = {}) {
     replacement,
     targetPath: SOURCE_MODULE_PATHS[exportName],
   };
+}
+
+function questionFactoryWrapperCase(factoryName, mutation, options = {}) {
+  const info = QUESTION_FACTORY_INFO[factoryName];
+  assert.ok(info, `missing QUESTION factory test info for ${factoryName}`);
+  const firstReadOnly = options.firstReadOnly === true;
+  const guardedMutation = firstReadOnly
+    ? `__questionFactoryReadCount += 1; if (__questionFactoryReadCount === 1) { ${mutation} }`
+    : mutation;
+  if (info.kind === "fixture") {
+    return {
+      expect: options.expect ?? "reject",
+      marker: "return clone(QUESTION_FIXTURE_VALUES);",
+      prefix: firstReadOnly ? "let __questionFactoryReadCount = 0;\n" : "",
+      replacement: [
+        "let __question = clone(QUESTION_FIXTURE_VALUES);",
+        guardedMutation,
+        "return __question;",
+      ].join("\n"),
+      targetPath: SOURCE_MODULE_PATHS[info.exportName],
+    };
+  }
+  return {
+    expect: options.expect ?? "reject",
+    marker: "    Object.freeze(value);",
+    prefix: firstReadOnly ? "let __questionFactoryReadCount = 0;\n" : "",
+    replacement: [
+      "    if (!Array.isArray(value) && !Object.hasOwn(value, \"authoritative\") && Object.values(value).every((entry) => entry !== null && typeof entry === \"object\" && entry.authoritative === false && typeof entry.key === \"string\")) {",
+      `      ${guardedMutation}`,
+      "    }",
+      "    Object.freeze(value);",
+    ].join("\n"),
+    targetPath: SOURCE_MODULE_PATHS[info.exportName],
+  };
+}
+
+function questionMutation(factoryName, kind) {
+  const info = QUESTION_FACTORY_INFO[factoryName];
+  const key = JSON.stringify(info.valueKey);
+  const target = info.kind === "fixture" ? "__question" : "value";
+  if (kind === "add") {
+    return info.kind === "fixture"
+      ? `__question.addedQuestion = structuredClone(__question[${key}]); __question.provenance.addedQuestion = structuredClone(__question.provenance[${key}]);`
+      : `value.addedQuestion = { ...value[${key}], key: "addedQuestion", value: structuredClone(value[${key}].value) };`;
+  }
+  if (kind === "remove") {
+    return info.kind === "fixture"
+      ? `delete __question[${key}]; delete __question.provenance[${key}];`
+      : `delete value[${key}];`;
+  }
+  if (kind === "duplicate") {
+    return info.kind === "fixture"
+      ? `__question.duplicateQuestion = structuredClone(__question[${key}]); __question.provenance.duplicateQuestion = structuredClone(__question.provenance[${key}]);`
+      : `value.duplicateQuestion = { ...value[${key}], key: "duplicateQuestion", value: structuredClone(value[${key}].value) };`;
+  }
+  if (kind === "reorder") {
+    return `const __entries = Object.entries(${target}).reverse(); for (const __key of Object.keys(${target})) delete ${target}[__key]; for (const [__key, __entry] of __entries) ${target}[__key] = __entry;`;
+  }
+  if (kind === "value") {
+    return info.kind === "fixture"
+      ? `__question[${key}] += 1;`
+      : `value[${key}] = { ...value[${key}], value: value[${key}].value + 1 };`;
+  }
+  if (kind === "key") {
+    return info.kind === "fixture"
+      ? `__question.renamedQuestion = __question[${key}]; __question.provenance.renamedQuestion = __question.provenance[${key}]; delete __question[${key}]; delete __question.provenance[${key}];`
+      : `value.renamedQuestion = { ...value[${key}], key: "renamedQuestion", value: structuredClone(value[${key}].value) }; delete value[${key}];`;
+  }
+  if (["authoritative", "confidence", "disposition", "source"].includes(kind)) {
+    const changed = {
+      authoritative: "true",
+      confidence: "verified",
+      disposition: "admitted",
+      source: "\"updated-question-source\"",
+    }[kind];
+    return info.kind === "fixture"
+      ? `__question[${kind}] = ${changed};`
+      : `value[${key}] = { ...value[${key}], ${kind}: ${changed} };`;
+  }
+  if (kind === "extra") {
+    return info.kind === "fixture"
+      ? "__question.extraField = 1;"
+      : `value[${key}] = { ...value[${key}], extraField: 1 };`;
+  }
+  if (kind === "missing") {
+    return info.kind === "fixture"
+      ? "delete __question.source;"
+      : `const { source: __source, ...__record } = value[${key}]; value[${key}] = __record;`;
+  }
+  if (kind === "nested") {
+    if (factoryName === "createRetargetQuestionRecords") {
+      return `value["attackerPosition"] = { ...value["attackerPosition"], value: { ...value["attackerPosition"].value, x: 1 } };`;
+    }
+    return `value["eventOrdering"] = { ...value["eventOrdering"], value: [...value["eventOrdering"].value].reverse() };`;
+  }
+  if (kind === "accessor") {
+    return info.kind === "fixture"
+      ? `Object.defineProperty(__question, ${key}, { configurable: true, enumerable: true, get() { return 1; } });`
+      : `Object.defineProperty(value, ${key}, { configurable: true, enumerable: true, get() { return value[${key}]; } });`;
+  }
+  if (kind === "symbol") {
+    return `${target}[Symbol("question-drift")] = 1;`;
+  }
+  if (kind === "proxy") {
+    return info.kind === "fixture"
+      ? `__question.provenance = new Proxy(__question.provenance, {});`
+      : `value[${key}] = new Proxy(value[${key}], {});`;
+  }
+  if (kind === "noncloneable") {
+    return info.kind === "fixture"
+      ? `__question[${key}] = () => 1;`
+      : `value[${key}] = { ...value[${key}], value: () => 1 };`;
+  }
+  throw new Error(`unknown QUESTION mutation ${kind}`);
 }
 
 function canonical(value) {
@@ -393,6 +547,64 @@ test("movement profile contract: all six question factories are represented exac
     }
   }
   assert.equal(recordCount, 86);
+});
+
+test("movement profile contract: complete QUESTION factory witnesses pin six domains and raw bytes", () => {
+  const source = readFileSync(MOVEMENT_SOURCE_MODULE_PATH, "utf8");
+  const pinnedFactories = [...source.matchAll(
+    /^\s{2}(create(?:ChargeQuestionFixture|ChargeKnockbackQuestionRecords|DashQuestionFixture|JumpQuestionFixture|RecoilQuestionFixture|RetargetQuestionRecords)):/gmu
+  )].map(([, factoryName]) => factoryName);
+  assert.deepEqual(
+    [...new Set(pinnedFactories)].sort(),
+    Object.keys(EXPECTED_QUESTION_FACTORY_WITNESSES).sort(),
+  );
+  assert.equal(pinnedFactories.length, 6);
+  assert.match(source, /const EXPECTED_QUESTION_WITNESS = Object\.freeze\(\{/u);
+  assert.match(source, /assertExpectedQuestionWitnessCoverage\(\);/u);
+
+  for (const [exportName, [factoryName, factory]] of Object.entries(QUESTION_SOURCES)) {
+    const raw = factory();
+    const bytes = canonical(raw);
+    const expected = EXPECTED_QUESTION_FACTORY_WITNESSES[factoryName];
+    const count = Object.hasOwn(raw, "provenance")
+      ? Object.keys(raw.provenance).length
+      : Object.keys(raw).length;
+    assert.deepEqual({
+      count,
+      length: bytes.length,
+      sha256: createHash("sha256").update(bytes).digest("hex"),
+    }, expected, factoryName);
+    const claim = claimFor(
+      createSessionTroopMovementProfileManifest(),
+      exportName === "createChargeKnockbackCatalog" || exportName === "createChargeSpecialCatalog"
+        ? "emberlance"
+        : exportName === "createDashSpecialCatalog"
+          ? "veilrunner"
+          : exportName === "createJumpSpecialCatalog"
+            ? "stonevault"
+            : exportName === "createRecoilSpecialCatalog"
+              ? "cinderback"
+              : "wayfinder",
+      exportName === "createChargeKnockbackCatalog"
+        ? "charge-knockback-membership"
+        : exportName === "createChargeSpecialCatalog"
+          ? "charge"
+          : exportName === "createDashSpecialCatalog"
+            ? "dash"
+            : exportName === "createJumpSpecialCatalog"
+              ? "jump"
+              : exportName === "createRecoilSpecialCatalog"
+                ? "recoil"
+                : "retarget",
+    );
+    assert.equal(claim.questionPolicy.rawCanonical, bytes);
+  }
+  const manifestBytes = serializeSessionTroopMovementProfileManifest();
+  assert.equal(manifestBytes.length, 67284);
+  assert.equal(
+    createHash("sha256").update(manifestBytes).digest("hex"),
+    "d4ad6e7684047fbd4194fd83a017700b56ecf4198aa7a39bd5bc01bc67388082",
+  );
 });
 
 test("movement profile contract: Railward is unresolved-only with no fabricated form policy", () => {
@@ -689,6 +901,114 @@ test("movement profile contract: complete source witnesses reject the adversaria
   assert.equal(fieldRejects, 17);
   assert.equal(shapeRejects, 6);
   assert.equal(nestedRejects, 2);
+});
+
+test("movement profile contract: complete QUESTION witnesses reject content, shape, metadata, and read drift", () => {
+  const contentCases = [
+    "add",
+    "remove",
+    "duplicate",
+    "value",
+    "key",
+    "authoritative",
+    "confidence",
+    "disposition",
+    "source",
+    "extra",
+    "missing",
+  ];
+  let contentRejects = 0;
+  for (const factoryName of Object.keys(EXPECTED_QUESTION_FACTORY_WITNESSES)) {
+    for (const kind of contentCases) {
+      const result = runSourceWrapperProbe(questionFactoryWrapperCase(
+        factoryName,
+        questionMutation(factoryName, kind),
+      ));
+      assert.equal(result.accepted, false, `${factoryName} ${kind} drift was accepted`);
+      contentRejects += 1;
+    }
+  }
+
+  let keyOrderAccepts = 0;
+  for (const factoryName of Object.keys(EXPECTED_QUESTION_FACTORY_WITNESSES)) {
+    const result = runSourceWrapperProbe(questionFactoryWrapperCase(
+      factoryName,
+      questionMutation(factoryName, "reorder"),
+      { expect: "accept" },
+    ));
+    const baseline = serializeSessionTroopMovementProfileManifest();
+    assert.deepEqual(result, {
+      accepted: true,
+      length: baseline.length,
+      sha256: createHash("sha256").update(baseline).digest("hex"),
+    }, `${factoryName} key-order normalization changed the manifest`);
+    keyOrderAccepts += 1;
+  }
+
+  const nestedCases = [
+    "createChargeKnockbackQuestionRecords",
+    "createRetargetQuestionRecords",
+  ];
+  let nestedRejects = 0;
+  for (const factoryName of nestedCases) {
+    const result = runSourceWrapperProbe(questionFactoryWrapperCase(
+      factoryName,
+      questionMutation(factoryName, "nested"),
+    ));
+    assert.equal(result.accepted, false, `${factoryName} nested/array drift was accepted`);
+    nestedRejects += 1;
+  }
+
+  const shapeCases = ["accessor", "symbol", "proxy", "noncloneable"];
+  let shapeRejects = 0;
+  for (const factoryName of Object.keys(EXPECTED_QUESTION_FACTORY_WITNESSES)) {
+    for (const kind of shapeCases) {
+      const result = runSourceWrapperProbe(questionFactoryWrapperCase(
+        factoryName,
+        questionMutation(factoryName, kind),
+      ));
+      assert.equal(result.accepted, false, `${factoryName} ${kind} shape was accepted`);
+      shapeRejects += 1;
+    }
+  }
+
+  let alternatingReadRejects = 0;
+  for (const factoryName of Object.keys(EXPECTED_QUESTION_FACTORY_WITNESSES)) {
+    const result = runSourceWrapperProbe(questionFactoryWrapperCase(
+      factoryName,
+      questionMutation(factoryName, "value"),
+      { firstReadOnly: true },
+    ));
+    assert.equal(result.accepted, false, `${factoryName} first/second read drift was accepted`);
+    alternatingReadRejects += 1;
+  }
+
+  const dashCases = ["add", "value", "remove"];
+  let dashRejects = 0;
+  for (const kind of dashCases) {
+    const result = runSourceWrapperProbe(questionFactoryWrapperCase(
+      "createDashQuestionFixture",
+      questionMutation("createDashQuestionFixture", kind),
+    ));
+    assert.equal(result.accepted, false, `Dash ${kind} drift was accepted`);
+    dashRejects += 1;
+  }
+
+  assert.deepEqual({
+    alternatingReadRejects,
+    contentRejects,
+    dashRejects,
+    keyOrderAccepts,
+    nestedRejects,
+    shapeRejects,
+  }, {
+    alternatingReadRejects: 6,
+    contentRejects: 66,
+    dashRejects: 3,
+    keyOrderAccepts: 6,
+    nestedRejects: 2,
+    shapeRejects: 24,
+  });
 });
 
 test("movement profile contract: builder-owned runner accepts only its exact selector", () => {
