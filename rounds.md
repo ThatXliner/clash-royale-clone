@@ -4891,3 +4891,24 @@ legacy roster remained 11,154 bytes with SHA-256
 `6fb8d84121ca039ea9315b7e505c8f02d5d7839e8fd5fc5cd19013a0d2b7fadb`.
 
 BIGGEST GAP: None on the judged ordinary troop projection dimension.
+
+## Round 260 — 2026-08-21
+
+PIECE: GAME-001HTSP — Status/heal/visibility source-profile contract, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: The committed tree was clean at `88546b2`. Both registered status
+commands passed 13/13. HTP, ordinary troop, movement/profile, projectile/profile,
+all eight relevant source selectors, both isolation guards and `node --check`
+passed. Independent probes confirmed exactly eight occurrence pairs/eight IDs,
+eight source rows, six fresh override-rejecting factories with 240 exact records,
+zero Railward QUESTION exports, exactly one Aegis claim with both composition
+memberships, recursive freeze/detachment, stable 82,575-byte serialization and
+zero hostile callbacks. Dependency injection rejected missing, duplicate,
+conflicting, stale and future HTP rows. It nevertheless accepted an extra future
+source-catalog row and still returned the current 8/240 manifest.
+
+BIGGEST GAP: `sourceRows()` finds each requested ID but never verifies the
+complete source catalog ID set. An extra future catalog row is silently ignored
+instead of failing closed.
