@@ -1,5 +1,31 @@
 # Gauntlet Rounds
 
+## Round 290 — 2026-08-24
+
+PIECE: VIS-003A — Original art direction and asset provenance, round 1
+
+VERDICT: PASS
+
+EVIDENCE: Commit `a478efe` ships a frozen original "Rivermark" visual bible
+(palette, materials, silhouettes, tile-relative scale, typography, two
+factions) plus a fail-closed original-asset manifest module, three
+hand-authored CC0 SVG icons under `public/assets/icons/`, and the registered
+`visual-asset-manifest` selector. Both `npm test -- visual-asset-manifest`
+and the package script pass 6/6. The critic independently recomputed the
+bible digest (`cfbfbd4b…b7bec`, matching the pin; a mutated bible copy
+changes it), walked `public/assets` (exactly 3 files, byte-for-byte manifest
+parity, zero phantoms), hashed all 8 reference-corpus files (non-vacuous,
+zero digest intersection), ran 22 hostile admission probes (duplicate ids,
+traversal, Proxy/accessor graphs, sparse arrays, cap violations — all
+rejected atomically), validated all SVGs with xmllint, confirmed all colors
+come from the bible palette, and found zero protected-game tokens in shipped
+sources. Guards passed 13/13 and 10/10; full-suite failures
+(game-browser-journey, buildings-defensive cascade) reproduce at HEAD~1.
+
+BIGGEST GAP: None on the judged dimension; admission is shape-only by design,
+with hash correctness enforced byte-for-byte against disk in the suite rather
+than inside admission.
+
 ## Round 289 — 2026-08-24
 
 PIECE: GAME-001HTM — Shared troop movement and form mechanics, round 4
