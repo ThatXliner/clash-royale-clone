@@ -6,6 +6,7 @@
       "active": true,
       "audio": {
         "activeVoiceCount": 0,
+        "audibleStartCount": 0,
         "contextCreated": true,
         "disposed": false,
         "faulted": false,
@@ -26,7 +27,7 @@
     },
     "elixir": {
       "north": {
-        "accumulator": 85,
+        "accumulator": 90,
         "amount": 6
       },
       "south": {
@@ -40,12 +41,13 @@
     "state": {
       "active": true,
       "backlogTicks": 0,
-      "domTick": 85,
+      "domTick": 90,
+      "enduranceActive": false,
       "paused": false,
       "running": false,
       "scheduled": false,
       "selectedCardId": null,
-      "sessionTick": 85,
+      "sessionTick": 90,
       "terminal": false,
       "restartCount": 0
     },
@@ -87,7 +89,7 @@
         "side": "north",
         "visible": true,
         "x": "3500",
-        "y": "16625"
+        "y": "16750"
       }
     ]
   },
@@ -161,6 +163,7 @@
       "active": true,
       "backlogTicks": 0,
       "domTick": 1590,
+      "enduranceActive": false,
       "paused": false,
       "running": false,
       "scheduled": false,
@@ -174,11 +177,11 @@
       "north": 3,
       "south": 1
     },
-    "elapsedMilliseconds": 3609,
+    "elapsedMilliseconds": 1006,
     "entityCount": 2,
-    "eventCount": 22,
+    "eventCount": 32,
     "fromTick": 1106,
-    "replayCount": 43,
+    "replayCount": 64,
     "result": {
       "crowns": {
         "north": 3,
@@ -343,6 +346,7 @@
           "active": true,
           "backlogTicks": 0,
           "domTick": 1590,
+          "enduranceActive": false,
           "paused": false,
           "running": false,
           "scheduled": false,
@@ -356,11 +360,11 @@
           "north": 3,
           "south": 1
         },
-        "elapsedMilliseconds": 3609,
+        "elapsedMilliseconds": 1006,
         "entityCount": 2,
-        "eventCount": 22,
+        "eventCount": 32,
         "fromTick": 1106,
-        "replayCount": 43,
+        "replayCount": 64,
         "result": {
           "crowns": {
             "north": 3,

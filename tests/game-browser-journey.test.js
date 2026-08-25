@@ -5,7 +5,18 @@ import { spawn } from "node:child_process";
 import test from "node:test";
 
 import { GameSession } from "../src/sim/game-session.js";
+import { MATCH_REGULATION_TICKS, MATCH_TICKS_PER_SECOND } from "../src/sim/match.js";
 import { createShippedGameSessionSetup } from "../src/ui/game-browser-entry.js";
+
+// Manual-step target safely past the opening clock band where every tick
+// below MATCH_TICKS_PER_SECOND renders "3:00".
+const CLOCK_PROBE_TICK = 90;
+
+function expectedClockText(tick) {
+  const seconds = Math.ceil(
+    (MATCH_REGULATION_TICKS - tick) / MATCH_TICKS_PER_SECOND);
+  return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`;
+}
 
 const PLAYWRIGHT = process.env.GAME_BROWSER_PLAYWRIGHT ??
   "/Users/me/.codex/worktrees/d092a29e-844b-459d-b145-c548db10d485/billion/node_modules/.pnpm/playwright@1.58.2/node_modules/playwright/index.mjs";
@@ -193,8 +204,21 @@ test("game browser journey: real Chrome plays, fights, terminates, restarts, and
     await clickPoint(page, '[data-ui="audio-toggle"]');
     await page.waitForFunction(() => globalThis.__gameBrowserJourneyObservedCombat === true,
       null, { timeout: 30_000, polling: 50 });
+    // The observer freezes the session at an arbitrary early tick, so never
+    // assert on how many auto ticks elapsed pre-freeze.  Drive controlled
+    // manual steps to a known tick and check the exact projected clock text.
+    const clockProbe = await page.evaluate((targetTick) => {
+      const controller = globalThis.__gameBrowserJourneyController;
+      const startTick = controller.state.sessionTick;
+      controller.fastForwardSegment(Math.max(0, targetTick - startTick));
+      return { advancedTo: controller.state.sessionTick, startTick };
+    }, CLOCK_PROBE_TICK);
+    assert.equal(clockProbe.advancedTo,
+      Math.max(clockProbe.startTick, CLOCK_PROBE_TICK));
+    await page.waitForTimeout(50);
     const initial = await inspect(page);
     assert.ok(initial.timer?.width > 0 && initial.timer?.height > 0);
+    assert.equal(initial.timer.text, expectedClockText(clockProbe.advancedTo));
     assert.notEqual(initial.timer.text, "3:00");
     await page.screenshot({ path: `${ARTIFACTS}initial.png` });
     const ticksToCommand = await page.evaluate(() =>
