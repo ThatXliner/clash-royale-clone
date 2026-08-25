@@ -1194,8 +1194,8 @@
         <td>Short authentic browser match journey</td>
         <td class="state-pass">PASS</td>
         <td>1/1</td>
-        <td>1</td>
-        <td>Round 1 passed independent real Chrome: trusted input/audio, both sides and visible combat/state changes, authentic 3–1 terminal, exact restart/prefix, zero errors/orphans</td>
+        <td>2</td>
+        <td>Round 2 re-passed after a de-race fix: the clock observation now fast-forwards to a known tick and asserts the exact recomputed HUD clock string; four consecutive Chrome journeys pass</td>
       </tr>
       <tr>
         <td><code>GAME-001G</code></td>
@@ -1680,7 +1680,8 @@
       <li><strong>R286 FAIL</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>Scope the sourced flight policy strictly to Copperskiff and Skymaul so enabling v4 cannot alter or reject ordinary ground movement.</li>
       <li><strong>R287 FAIL</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>Fix ordinary multi-entity BattleMovement command-history canonicalization so the Cinderlings redeploy scenario serializes and completes the required continuation differential.</li>
       <li><strong>R288 FAIL</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>Preserve the command tick required for LiveBattle replay so intermediate serialization is pure and cannot create a noncausal later snapshot.</li>
-            <li><strong>R290 PASS</strong> · VIS-003A — Original art direction and asset provenance<br>None on the judged dimension; admission is shape-only with hash correctness enforced by the disk-parity test.</li>
+                  <li><strong>R291 PASS</strong> · GAME-001GS — Short authentic browser match journey<br>None on the judged dimension; endurance and movement-history wall-clock bounds remain flaky on this machine and are queued separately.</li>
+<li><strong>R290 PASS</strong> · VIS-003A — Original art direction and asset provenance<br>None on the judged dimension; admission is shape-only with hash correctness enforced by the disk-parity test.</li>
 <li><strong>R289 PASS</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>None on the judged dimension; uncached serialize now clones per call with no cost bound, only relevant if every-tick serialization becomes a shipped pattern.</li>
   </ol>
 </body>

@@ -1,5 +1,31 @@
 # Gauntlet Rounds
 
+## Round 291 — 2026-08-24
+
+PIECE: GAME-001GS — Short authentic browser match journey, round 2
+
+VERDICT: PASS
+
+EVIDENCE: Coordinator reconciliation found `npm test -- game-browser-journey`
+failing consistently since at least the August 12 merge: the shipped
+`live-seed-2-terminal` profile deploys north Coilblade at tick ≈0–4, the
+requestAnimationFrame observer froze the session immediately, and any tick
+≤ 60 renders "3:00" (Math.ceil over 60 ticks/s against 10,800 regulation
+ticks), making the old line-198 assertion a load race. Commit `67fa806`
+de-races the harness: after observation it fast-forwards to exactly
+`max(startTick, 90)` and asserts the HUD timer equals a recomputed clock
+string from the shipped match constants. Four consecutive journey runs
+passed in real Chrome at 720×1280; mutation probes confirmed the clock
+assertion, console-error collection and seed-0 restart-prefix comparison all
+bite; viewport and artifact PNGs verified exactly 720×1280; commit touches
+only the journey test and its artifacts; guards passed 10/10 and 13/13.
+Remaining full-suite failures are pre-existing machine flakes or an unrelated
+buildings-defensive hash mismatch, both queued for their own rounds.
+
+BIGGEST GAP: None on the judged dimension; endurance and movement-history
+wall-clock bounds remain flaky on this machine and must not be attributed to
+this piece.
+
 ## Round 290 — 2026-08-24
 
 PIECE: VIS-003A — Original art direction and asset provenance, round 1
