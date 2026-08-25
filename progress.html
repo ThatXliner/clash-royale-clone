@@ -27,11 +27,11 @@
   <p class="sub">Updated 2026-08-22 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
     <div class="card"><div class="num">170</div><div class="label">tracked pieces</div></div>
-    <div class="card"><div class="num">122</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">288</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">123</div><div class="label">passed</div></div>
+    <div class="card"><div class="num">289</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">24</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Active target: <strong>GAME-001HTM round 4 serialization purity at arrival boundaries</strong>.</p>
+  <p class="note">Active target: <strong>largest unblocked dependency after GAME-001HTM PASS — GAME-001HT / GAME-001H umbrellas and production presentation pieces</strong>.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -1264,10 +1264,10 @@
       <tr>
         <td><code>GAME-001HTM</code></td>
         <td>Shared troop movement and form mechanics</td>
-        <td class="state-building">BUILDING</td>
-        <td>15/15</td>
-        <td>3</td>
-        <td>Round 3 fixes bulk replay and tick 121, but a tick-177 serialization rewrites witness 2's target-command tick from 166 to 176 and makes the otherwise identical tick-200 snapshot noncausal</td>
+        <td class="state-pass">PASS</td>
+        <td>16/16</td>
+        <td>4</td>
+        <td>Round 4 passed: serialization is observationally pure — canonicalization runs on a detached clone; tick-200 bytes identical across schedules, cuts and every-tick schedules converge through tick 320, hostile snapshots still reject atomically</td>
       </tr>
       <tr>
         <td><code>GAME-001HTJP</code></td>
@@ -1680,6 +1680,7 @@
       <li><strong>R286 FAIL</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>Scope the sourced flight policy strictly to Copperskiff and Skymaul so enabling v4 cannot alter or reject ordinary ground movement.</li>
       <li><strong>R287 FAIL</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>Fix ordinary multi-entity BattleMovement command-history canonicalization so the Cinderlings redeploy scenario serializes and completes the required continuation differential.</li>
       <li><strong>R288 FAIL</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>Preserve the command tick required for LiveBattle replay so intermediate serialization is pure and cannot create a noncausal later snapshot.</li>
+      <li><strong>R289 PASS</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>None on the judged dimension; uncached serialize now clones per call with no cost bound, only relevant if every-tick serialization becomes a shipped pattern.</li>
   </ol>
 </body>
 </html>

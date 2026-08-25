@@ -1,5 +1,38 @@
 # Gauntlet Rounds
 
+## Round 289 — 2026-08-24
+
+PIECE: GAME-001HTM — Shared troop movement and form mechanics, round 4
+
+VERDICT: PASS
+
+EVIDENCE: Commit `6a2f26d` moves movement-history canonicalization into a
+detached clone inside `BattleMovement.serialize()`, so observation never
+rewrites live causal command history. All ten focused suites passed
+(battle-movement-kernel 5/5, game-roster-troops-movement 16/16,
+game-troop-runtime 7/7, ordinary 14/14, profiles 25/25, jump 15/15,
+leap-knockback 18/18, nondeterminism 10/10, isolation 13/13;
+battle-movement-history 21/22 with one pre-existing machine-speed timing
+flake that fails identically at HEAD~1), plus `validate.py`, syntax and
+clean-tree checks. An independent fresh-process probe rebuilt the Round 288
+counterexample: control tick-200 sha256
+`07525d6e712c40fe9c9bb473f173ae7604f224a04f67eef12c0a0d3fc319d02d` is now
+byte-identical under a serialize-at-177 schedule and restores causally; cuts
+at 177/199/200/201 converge by tick 320; every-tick serialization 96–199,
+double serialize, chunked versus one-tick stepping and paused-step schedules
+are all pure; truncated, non-canonical, tampered-witness and dropped-command
+hostile snapshots still reject atomically. The relaxed battle-movement-history
+assertions were judged a re-target, not a weakening: the old assertion encoded
+the mutation side effect as contract, while the new tests add strictly
+stronger live-history-immutability and never-serialized-twin byte-equality
+guarantees. Full-suite failures (browser endurance/journey, integration-audit
+cascade, buildings-defensive hash) all reproduce at HEAD~1 and are out of
+scope.
+
+BIGGEST GAP: None on the judged purity dimension; the new uncached serialize
+path clones per call with no cost bound, which only matters if an every-tick
+serialization schedule becomes a shipped pattern.
+
 ## Round 288 — 2026-08-22
 
 PIECE: GAME-001HTM — Shared troop movement and form mechanics, round 3
