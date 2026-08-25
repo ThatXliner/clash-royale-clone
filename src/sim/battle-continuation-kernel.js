@@ -1452,8 +1452,15 @@ class BattleMovement {
 
   serialize() {
     if (this.#serializedSnapshot !== null) return this.#serializedSnapshot;
-    this.#canonicalizeLiveHistory();
-    this.#serializedSnapshot = JSON.stringify({ state: canonicalState(this.#state), version: 1 });
+    // Canonicalization is tick-dependent, so it must never run against live
+    // history: serializing early would rewrite causal commands and corrupt
+    // future snapshots. Canonicalize a detached clone instead.
+    const detached = compact(this);
+    detached.#canonicalizeLiveHistory();
+    this.#serializedSnapshot = JSON.stringify({
+      state: canonicalState(detached.#state),
+      version: 1,
+    });
     return this.#serializedSnapshot;
   }
 

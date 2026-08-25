@@ -36,7 +36,8 @@ function assertRestores(mover, label) {
   const snapshot = mover.serialize();
   const restored = BattleMovement.restore(snapshot);
   assert.equal(restored.serialize(), snapshot, label);
-  assert.deepEqual(restored.state, mover.state, label);
+  assert.deepEqual(restored.state, JSON.parse(snapshot).state, label);
+  assert.equal(authority(restored.state), authority(mover.state), label);
   return restored;
 }
 
@@ -217,7 +218,9 @@ test("battle movement history: ground arrival frontier replays the exact Cinderl
   assert.equal(oneStep.mover.serialize(), canonical, "live canonicalization is idempotent");
   const restored = BattleMovement.restore(canonical);
   assert.equal(restored.serialize(), canonical, "restore accepts the exact fixed point");
-  assert.deepEqual(restored.state, oneStep.mover.state);
+  assert.deepEqual(restored.state, JSON.parse(canonical).state);
+  assert.equal(authority(restored.state), authority(oneStep.mover.state));
+  assert.deepEqual(oneStep.mover.state.commands, commands, "serialize leaves live raw history untouched");
 
   for (const index of [0, 1]) {
     const omitted = copy(canonicalSnapshot);
@@ -349,7 +352,13 @@ test("battle movement history: critic cross-tick case is rejected and live seria
   assert.deepEqual(JSON.parse(canonical).state.commands.map(({ tick }) => tick), [0, 5, 20]);
   const restored = BattleMovement.restore(canonical);
   assert.equal(restored.serialize(), canonical);
-  assert.deepEqual(restored.state, mover.state);
+  assert.deepEqual(restored.state, JSON.parse(canonical).state);
+  assert.equal(authority(restored.state), authority(mover.state));
+  assert.deepEqual(
+    mover.state.commands.map(({ tick }) => tick),
+    [0, 5, 10, 20],
+    "serialize leaves live raw history untouched",
+  );
 });
 
 test("battle movement history: round-three 27-command trace crosses the exact frontier", () => {
@@ -459,7 +468,9 @@ test("battle movement history: round-three 27-command trace crosses the exact fr
   assert.notDeepEqual(bytesBeforeCanonicalization.state.commands, canonical.state.commands);
   const restored = BattleMovement.restore(liveBytes);
   assert.equal(restored.serialize(), liveBytes);
-  assert.deepEqual(restored.state, mover.state);
+  assert.deepEqual(restored.state, JSON.parse(liveBytes).state);
+  assert.equal(authority(restored.state), authority(mover.state));
+  assert.equal(mover.state.commands.length, 27, "serialize leaves live raw history untouched");
 
   assert.notDeepEqual(bytesBeforeCanonicalization.state.commands, replayedLive.state.commands);
   assert.equal(authority(replayedLive.state), authority(mover.state));
@@ -1209,5 +1220,75 @@ test("battle movement history: canonical JSON, fresh frozen state, and determini
 
   for (const ticks of [-1, 0.5, MAX_BATTLE_MOVEMENT_STEP_TICKS + 1]) {
     assert.throws(() => restored.stepMany(ticks));
+  }
+});
+
+test("battle movement history: serialize never mutates live commands and matches a never-serialized twin", () => {
+  const configuration = {
+    bodyRadius: 250,
+    mode: BATTLE_MOVEMENT_MODES.ground,
+    position: { x: 13_500, y: 17_500 },
+    speed: 1_500,
+  };
+  const build = () => {
+    const mover = new BattleMovement(configuration);
+    mover.setTarget(destination({ x: 14_500, y: 5_500 }, 0, 500));
+    return mover;
+  };
+  const retarget = () => destination({ x: 15_500, y: 14_500 }, 250, 500);
+
+  function runPair(serializeTicks) {
+    const live = build();
+    const twin = build();
+    const intermediate = [];
+    while (live.state.tick < 200) {
+      if (live.state.tick === 96) {
+        live.setTarget(retarget());
+        twin.setTarget(retarget());
+      }
+      if (serializeTicks.includes(live.state.tick)) {
+        const commandsBefore = JSON.stringify(live.state.commands);
+        const stateBefore = JSON.stringify(live.state);
+        const bytes = live.serialize();
+        assert.equal(JSON.stringify(live.state), stateBefore, `tick ${live.state.tick} live state untouched by serialize`);
+        assert.equal(
+          JSON.stringify(live.state.commands),
+          commandsBefore,
+          `tick ${live.state.tick} live commands untouched by serialize`,
+        );
+        const twinBytes = twin.serialize();
+        assert.equal(bytes, twinBytes, `tick ${live.state.tick} snapshot equals the never-serialized twin`);
+        BattleMovement.restore(bytes);
+        intermediate.push(bytes);
+        assert.equal(live.serialize(), bytes, `tick ${live.state.tick} memo returns identical bytes`);
+      }
+      assert.deepEqual(live.step(), twin.step(), `step ${live.state.tick} events`);
+    }
+    return { live, twin, intermediate };
+  }
+
+  for (const serializeTicks of [
+    [40],
+    [97],
+    [120, 150],
+    [40, 97, 121, 150, 177, 199],
+  ]) {
+    const { live, twin } = runPair(serializeTicks);
+    assert.deepEqual(live.state, twin.state, `schedule ${serializeTicks} final live state`);
+    const liveBytes = live.serialize();
+    const twinBytes = twin.serialize();
+    assert.equal(liveBytes, twinBytes, `schedule ${serializeTicks} final bytes`);
+    const restored = BattleMovement.restore(liveBytes);
+    assert.equal(restored.serialize(), liveBytes);
+    assert.deepEqual(restored.state, JSON.parse(liveBytes).state);
+    assert.equal(authority(restored.state), authority(live.state));
+    const continuedLive = [];
+    const continuedTwin = [];
+    for (const count of [1, 7, 19]) {
+      continuedLive.push(...live.stepMany(count));
+      continuedTwin.push(...twin.stepMany(count));
+    }
+    assert.deepEqual(continuedLive, continuedTwin, `schedule ${serializeTicks} continuation`);
+    assert.equal(live.serialize(), twin.serialize(), `schedule ${serializeTicks} post-continuation bytes`);
   }
 });

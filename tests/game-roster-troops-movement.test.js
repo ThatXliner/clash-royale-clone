@@ -905,3 +905,131 @@ test("troop movement runtime: sourced flight shares ordinary combat/death and ta
   assert.notDeepEqual(survivor.movement.target?.position, { x: 3_500, y: 17_500 });
   assert.equal(profiled.state.units.map(({ id }) => id).join(","), "1,2");
 });
+
+test("troop movement runtime: intermediate serialization is observationally pure across schedules and cuts", () => {
+  const TICK_200_CONTROL_SHA =
+    "07525d6e712c40fe9c9bb473f173ae7604f224a04f67eef12c0a0d3fc319d02d";
+  const KINDS = ["ordinary", "profiled"];
+
+  function cinderlingsRun(kind, battle, { secondScheduled = false } = {}) {
+    const run = {
+      battle,
+      secondScheduled,
+      redeploy() {
+        if (run.secondScheduled || battle.state.tick !== 96) return;
+        run.secondScheduled = true;
+        deploy(battle, {
+          cardId: "cinderlings",
+          point: { x: 15_500, y: 14_500 },
+          sequence: 6,
+          side: "south",
+          tick: 96,
+        });
+      },
+      advanceTo(targetTick, { chunked = false, serializeAt = [] } = {}) {
+        const chunks = [1, 7, 19, 43, 101];
+        const stops = [...serializeAt, 96, targetTick].sort((left, right) => left - right);
+        const nextStop = () => stops.find((stop) => stop > battle.state.tick) ?? targetTick;
+        while (battle.state.tick < targetTick) {
+          run.redeploy();
+          if (serializeAt.includes(battle.state.tick)) battle.serialize();
+          const remaining = Math.min(nextStop(), targetTick) - battle.state.tick;
+          const count = chunked ? Math.min(chunks[battle.state.tick % chunks.length], remaining) : 1;
+          if (count <= 1) battle.step();
+          else battle.stepMany(count);
+        }
+        run.redeploy();
+        if (serializeAt.includes(battle.state.tick)) battle.serialize();
+      },
+    };
+    return run;
+  }
+
+  function freshRun(kind) {
+    const battle = kind === "ordinary"
+      ? ordinaryLiveBattle("mossguard")
+      : liveBattle("mossguard");
+    deploy(battle, {
+      cardId: "cinderlings",
+      point: { x: 12_500, y: 17_500 },
+      sequence: 5,
+      side: "north",
+      tick: 0,
+    });
+    return cinderlingsRun(kind, battle);
+  }
+
+  const sha256 = (bytes) => createHash("sha256").update(bytes).digest("hex");
+
+  const clean = Object.fromEntries(KINDS.map((kind) => [kind, freshRun(kind)]));
+  for (const kind of KINDS) clean[kind].advanceTo(200);
+  const tick200Bytes = Object.fromEntries(
+    KINDS.map((kind) => [kind, clean[kind].battle.serialize()]),
+  );
+  assert.equal(sha256(tick200Bytes.ordinary), TICK_200_CONTROL_SHA,
+    "uninterrupted ordinary tick-200 control matches the documented digest");
+  assert.equal(sharedOrdinarySnapshotBytes(clean.profiled.battle), tick200Bytes.ordinary,
+    "uninterrupted profiled snapshot normalizes to the control bytes");
+
+  for (const kind of KINDS) {
+    const counterexample = freshRun(kind);
+    counterexample.advanceTo(200, { serializeAt: [177] });
+    assert.equal(counterexample.battle.serialize(), tick200Bytes[kind],
+      `${kind} tick-200 bytes survive an intermediate tick-177 serialize`);
+    const restoredCounterexample = LiveBattle.restore(counterexample.battle.serialize());
+    assert.equal(restoredCounterexample.serialize(), tick200Bytes[kind],
+      `${kind} tick-200 snapshot restores causally`);
+  }
+
+  for (const kind of KINDS) clean[kind].advanceTo(320);
+  const finalBytes = Object.fromEntries(
+    KINDS.map((kind) => [kind, clean[kind].battle.serialize()]),
+  );
+
+  const convergeFromCut = (kind, cut) => {
+    const run = freshRun(kind);
+    run.advanceTo(cut);
+    const bytes = run.battle.serialize();
+    const restored = LiveBattle.restore(bytes);
+    assert.equal(restored.serialize(), bytes, `${kind} cut ${cut} restore bytes`);
+    const restoredRun = cinderlingsRun(kind, restored, { secondScheduled: cut >= 96 });
+    run.advanceTo(320, { chunked: true });
+    restoredRun.advanceTo(320, { chunked: true });
+    assert.equal(run.battle.serialize(), finalBytes[kind],
+      `${kind} cut ${cut} chunked continuation converges`);
+    assert.equal(restoredRun.battle.serialize(), finalBytes[kind],
+      `${kind} cut ${cut} restored continuation converges`);
+  };
+
+  for (const cut of [177, 199, 200, 201]) {
+    for (const kind of KINDS) convergeFromCut(kind, cut);
+  }
+
+  const schedules = [
+    ["sparse", [120]],
+    ["repeated", [100, 110, 130, 150, 170, 190]],
+    ["every-tick", Array.from({ length: 104 }, (_, index) => 96 + index)],
+  ];
+  for (const [label, serializeAt] of schedules) {
+    for (const kind of KINDS) {
+      const run = freshRun(kind);
+      run.advanceTo(200, { serializeAt });
+      assert.equal(run.battle.serialize(), tick200Bytes[kind],
+        `${label} ${kind} schedule preserves tick-200 bytes`);
+      run.advanceTo(320, { serializeAt });
+      assert.equal(run.battle.serialize(), finalBytes[kind],
+        `${label} ${kind} schedule preserves tick-320 continuation`);
+    }
+  }
+
+  for (const kind of KINDS) {
+    const chunked = freshRun(kind);
+    chunked.advanceTo(320, { chunked: true });
+    assert.equal(chunked.battle.serialize(), finalBytes[kind],
+      `${kind} chunked advancement reaches the uninterrupted final bytes`);
+  }
+
+  for (const cut of [95, 97, 119, 122]) {
+    for (const kind of KINDS) convergeFromCut(kind, cut);
+  }
+});
