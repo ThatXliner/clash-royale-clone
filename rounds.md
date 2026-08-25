@@ -1,5 +1,29 @@
 # Gauntlet Rounds
 
+## Round 292 — 2026-08-24
+
+PIECE: BUILDING-001 — Defensive buildings, round 4
+
+VERDICT: PASS
+
+EVIDENCE: Coordinator reconciliation traced the persistent
+`buildings-defensive` failure to commit `2a5bd7a`, which modified
+`src/sim/attack-cycle.js` for shared status runtime without refreshing the
+source-integrity pin in `tests/buildings-defensive.test.js`. Commit `651a0ab`
+updates that single pin to the actual `add7bc5d…fcbb3` digest after
+behavioral verification. The critic independently matched both pinned files
+against `shasum`, confirmed 23/23 pass with all five archetypes and the Prism
+ramp-contact differential genuinely executing (`[1/0, 2/1, 3/1, 4/2, 5/2]`
+stage sequence plus reset), reviewed the `2a5bd7a` attack-cycle diff line by
+line as purely additive status plumbing (new pause state keys, `stepPaused`,
+snapshot passthrough; deadline math guarded but unchanged), found zero stale
+digests repo-wide, resolved the integration-audit cascade (6/6, 294s) and
+kept both guards green. Commit touches exactly one allowed file.
+
+BIGGEST GAP: The newly pinned code paths (`stepPaused`/`statusWork`) have no
+behavioral test coverage anywhere; add a paused-stepping differential so a
+future attack-cycle change cannot slip through a refreshed pin unexercised.
+
 ## Round 291 — 2026-08-24
 
 PIECE: GAME-001GS — Short authentic browser match journey, round 2

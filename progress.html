@@ -562,8 +562,8 @@
         <td>Defensive buildings</td>
         <td class="state-pass">PASS</td>
         <td>23/23</td>
-        <td>3</td>
-        <td>Round 3 passed: canonical primitive histories/events, tuples, hashes, 261 restore cuts, and bounds passed</td>
+        <td>4</td>
+        <td>Round 4 re-passed after refreshing the attack-cycle integrity pin broken by the status-runtime integration; behavioral differential verified unchanged and integration-audit cascade resolved</td>
       </tr>
       <tr>
         <td><code>BUILDING-002</code></td>
@@ -1680,7 +1680,8 @@
       <li><strong>R286 FAIL</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>Scope the sourced flight policy strictly to Copperskiff and Skymaul so enabling v4 cannot alter or reject ordinary ground movement.</li>
       <li><strong>R287 FAIL</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>Fix ordinary multi-entity BattleMovement command-history canonicalization so the Cinderlings redeploy scenario serializes and completes the required continuation differential.</li>
       <li><strong>R288 FAIL</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>Preserve the command tick required for LiveBattle replay so intermediate serialization is pure and cannot create a noncausal later snapshot.</li>
-                  <li><strong>R291 PASS</strong> · GAME-001GS — Short authentic browser match journey<br>None on the judged dimension; endurance and movement-history wall-clock bounds remain flaky on this machine and are queued separately.</li>
+                        <li><strong>R292 PASS</strong> · BUILDING-001 — Defensive buildings<br>Newly pinned stepPaused/statusWork paths lack behavioral coverage; add a paused-stepping differential later.</li>
+<li><strong>R291 PASS</strong> · GAME-001GS — Short authentic browser match journey<br>None on the judged dimension; endurance and movement-history wall-clock bounds remain flaky on this machine and are queued separately.</li>
 <li><strong>R290 PASS</strong> · VIS-003A — Original art direction and asset provenance<br>None on the judged dimension; admission is shape-only with hash correctness enforced by the disk-parity test.</li>
 <li><strong>R289 PASS</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>None on the judged dimension; uncached serialize now clones per call with no cost bound, only relevant if every-tick serialization becomes a shipped pattern.</li>
   </ol>
