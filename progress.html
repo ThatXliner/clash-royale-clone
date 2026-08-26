@@ -24,14 +24,14 @@
 </head>
 <body>
   <h1>Gauntlet progress</h1>
-  <p class="sub">Updated 2026-08-22 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
+  <p class="sub">Updated 2026-08-26 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
-    <div class="card"><div class="num">170</div><div class="label">tracked pieces</div></div>
+    <div class="card"><div class="num">172</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">125</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">295</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">296</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">24</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Active target: <strong>wall-clock perf-bound flakes (battle-movement-history restore bound, game-browser-endurance slice budget), then VIS-003D interface art</strong>.</p>
+  <p class="note">Active targets: <strong>VIS-003D round 2 live selection projection; AUDIO-002 round 1 production soundscape; UI-002CP round 1 closed combat-effect feed</strong>.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -775,11 +775,27 @@
       </tr>
       <tr>
         <td><code>UI-002C</code></td>
-        <td>Projectile and area-effect feedback</td>
+        <td>Projectile and area-effect feedback (superseded)</td>
         <td class="state-question">QUESTION</td>
         <td>15/15</td>
         <td>3</td>
-        <td>Wrong-shaped after three causal replay-schema rounds: real return-primitive death companions remain open while standalone companions lack provable ancestry</td>
+        <td>Wrong-shaped after three causal replay-schema rounds; split into UI-002CP and UI-002CV</td>
+      </tr>
+      <tr>
+        <td><code>UI-002CP</code></td>
+        <td>Closed combat-effect feed export</td>
+        <td class="state-building">BUILDING</td>
+        <td>0/0</td>
+        <td>0</td>
+        <td>Round 1 builder active: freeze a source-owned causal visual feed while retaining exact raw mechanics replay</td>
+      </tr>
+      <tr>
+        <td><code>UI-002CV</code></td>
+        <td>Causal combat-effect view projection</td>
+        <td class="state-blocked">BLOCKED</td>
+        <td>0/0</td>
+        <td>0</td>
+        <td>Renderer migration waits for the source-side feed protocol</td>
       </tr>
       <tr>
         <td><code>UI-002D</code></td>
@@ -832,18 +848,18 @@
       <tr>
         <td><code>VIS-003C</code></td>
         <td>Combatant, projectile, and effect assets</td>
-        <td class="state-pending">PENDING</td>
+        <td class="state-blocked">BLOCKED</td>
         <td>0/0</td>
         <td>0</td>
-        <td>Replace generic circles/links with authored combat art while retaining deterministic projection</td>
+        <td>Combat art waits for UI-002CV's closed causal effect mapping</td>
       </tr>
       <tr>
         <td><code>VIS-003D</code></td>
         <td>Card, hand, HUD, and match-feedback art</td>
-        <td class="state-pending">PENDING</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Current cards and HUD are functional but not presentation-ready</td>
+        <td class="state-building">BUILDING</td>
+        <td>7/7</td>
+        <td>1</td>
+        <td>Round 1 failed: live controller selection never reaches the visible HUD before placement</td>
       </tr>
       <tr>
         <td><code>VIS-003E</code></td>
@@ -856,10 +872,10 @@
       <tr>
         <td><code>AUDIO-002</code></td>
         <td>Authored original soundscape and mix polish</td>
-        <td class="state-pending">PENDING</td>
+        <td class="state-building">BUILDING</td>
         <td>0/0</td>
         <td>0</td>
-        <td>Upgrade the technically complete audio path into a cohesive authored game mix</td>
+        <td>Round 1 builder active: authored deterministic cue inventory, mix budgets, provenance and audible browser evidence</td>
       </tr>
       <tr>
         <td><code>VIS-003G</code></td>
@@ -1680,6 +1696,7 @@
       <li><strong>R286 FAIL</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>Scope the sourced flight policy strictly to Copperskiff and Skymaul so enabling v4 cannot alter or reject ordinary ground movement.</li>
       <li><strong>R287 FAIL</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>Fix ordinary multi-entity BattleMovement command-history canonicalization so the Cinderlings redeploy scenario serializes and completes the required continuation differential.</li>
       <li><strong>R288 FAIL</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>Preserve the command tick required for LiveBattle replay so intermediate serialization is pure and cannot create a noncausal later snapshot.</li>
+      <li><strong>R296 FAIL</strong> · VIS-003D — Card, hand, HUD, and match-feedback art<br>Forward selectedCardId into the live HUD projection on every input update so an actually clicked card visibly enters the selected state before placement.</li>
                                     <li><strong>R295 PASS</strong> · GAME-001GP — Sustained browser-match throughput<br>A fully frozen RAF yield seam would hang until the ~21-minute test timeout; wrap driveBrowserSegment in an explicit Promise.race deadline.</li>
       <li><strong>R294 PASS</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>K=32 tolerates same-complexity constant-factor slowdowns up to ~2x; tighten or add a midpoint ratio check if constant factors ever matter.</li>
 <li><strong>R293 PASS</strong> · VIS-003B — Arena, river, bridges, and tower art<br>Committed render evidence is not byte-reproducible; pin manual-step entry before auto ticks or assert landmark-only stability.</li>

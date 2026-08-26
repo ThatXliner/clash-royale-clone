@@ -1,5 +1,30 @@
 # Gauntlet Rounds
 
+## Round 296 — 2026-08-26
+
+PIECE: VIS-003D — Card, hand, HUD, and match-feedback art, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: A clean detached clone at commit `0c927ca` passed
+`npm run test:visual-interface-art` 7/7 on three runs, visual asset manifest
+6/6, browser journey 1/1, UI input 18/18, nondeterminism guard 10/10, and
+shipping isolation 13/13. The `ui-hud` and `placement-feedback` selectors do
+not exist. In real Chrome, clicking Skymaul set the controller selection to
+`skymaul`, but every card retained `data-selected="false"`; the selected-card
+set was empty and the target and peer had identical borders and shadows. The
+committed selected screenshot shows selection only because the test manually
+rebinds the HUD. Actual measured controls did not overlap the arena and the
+terminal overlay/restart were reachable, but the elixir badge ended at y=1282
+in a 1280px viewport. Cycling reached all eight IDs, although Briar Band read
+as a thin dash at gameplay scale. Five isolated tick-60 captures had the same
+session-state hash but three screenshot hashes, with a live marker pixel near
+(173,559) varying. Console and page errors were empty.
+
+BIGGEST GAP: Forward `selectedCardId` into the live HUD projection on every
+input update so an actually clicked card visibly enters the selected state
+before placement.
+
 ## Round 295 — 2026-08-25
 
 PIECE: GAME-001GP — Sustained browser-match throughput, round 3
