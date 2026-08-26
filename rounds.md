@@ -1,5 +1,26 @@
 # Gauntlet Rounds
 
+## Round 297 — 2026-08-26
+
+PIECE: VIS-003D — Card, hand, HUD, and match-feedback art, round 2
+
+VERDICT: FAIL
+
+EVIDENCE: At commit `122bd4b`, focused visual, browser-loop, input,
+projection, restart, journey, nondeterminism, shipping, and asset-manifest
+suites all passed. Real Chrome at 720x1280 proved the repaired live path:
+controller and DOM selection agreed immediately after a card click; cancel,
+illegal and legal placement, pause/resume, terminal suspension, and restart
+remained coherent. A forced HUD projection fault rolled controller selection
+back, left no selected DOM card, and failed the graph closed. The elixir badge
+measured y=1224..1276 and was fully visible. However, a fourth fresh exact-tick
+render changed three screenshot hashes despite identical state metadata;
+pixel comparison found 584,932 one-channel differences. Gameplay-scale review
+also found Briar Band effectively blank, with no legible silhouette.
+
+BIGGEST GAP: Give Briar Band a readable gameplay-scale silhouette and make the
+fixed-state evidence byte-reproducible across repeated fresh browser renders.
+
 ## Round 296 — 2026-08-26
 
 PIECE: VIS-003D — Card, hand, HUD, and match-feedback art, round 1
