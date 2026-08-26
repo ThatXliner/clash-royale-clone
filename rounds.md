@@ -1,5 +1,34 @@
 # Gauntlet Rounds
 
+## Round 293 — 2026-08-25
+
+PIECE: VIS-003B — Arena, river, bridges, and tower art, round 1
+
+VERDICT: PASS
+
+EVIDENCE: Commit `5aa2677` replaces the prototype arena with code-authored
+CSS production art following the frozen Rivermark bible: mottled ground with
+lane shading and rim-light depth cues, teal gradient river with wake lines
+and dark banks, plank-textured bolted bridges with cast shadows, and six
+faction-distinct tower bodies (north Emberfall charred timber with gold-red
+banners, south Tidewarden teal domes with portholes). `visual-arena-art`
+passes 6/6 including a live Chrome render probe; ui-arena-shell 7/7,
+ui-input 18/18, placement-feedback 14/14, journey 1/1, manifest 6/6, both
+guards green. The critic's own playwright probe hand-computed expected rects
+from arena constants: all nine landmarks within ≤1px, combat-marker
+transform drift exactly zero, z-order marker(20) > tower pad(5) > bridge(4)
+> river(2); fresh screenshots show no placeholder pads or debug artifacts;
+every base hex is a bible palette color and derived shades match the
+documented 0.18 ratio except two ad-hoc tints; no wall-clock animation; full
+suite shows only the two known machine-load perf flakes which pass in
+isolation at HEAD and HEAD~1. Delegation of this critic round was delayed by
+a sustained provider outage; the verdict was produced once service returned.
+
+BIGGEST GAP: The committed render evidence is not byte-reproducible —
+`render-probe.json` marker y drifts across reruns because the harness races
+auto-ticks before manual-step entry; pin manual-step entry before any auto
+ticks or assert landmark-only stability.
+
 ## Round 292 — 2026-08-24
 
 PIECE: BUILDING-001 — Defensive buildings, round 4

@@ -27,11 +27,11 @@
   <p class="sub">Updated 2026-08-22 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
     <div class="card"><div class="num">170</div><div class="label">tracked pieces</div></div>
-    <div class="card"><div class="num">124</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">290</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">125</div><div class="label">passed</div></div>
+    <div class="card"><div class="num">293</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">24</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Active target: <strong>VIS-003B round 1 is built (5aa2677) and awaiting its independent critic — subagent delegation is blocked by a sustained provider outage; next verdict remains Round 293</strong>.</p>
+  <p class="note">Active target: <strong>wall-clock perf-bound flakes (battle-movement-history restore bound, game-browser-endurance slice budget), then VIS-003D interface art</strong>.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -824,10 +824,10 @@
       <tr>
         <td><code>VIS-003B</code></td>
         <td>Arena, river, bridges, and tower art</td>
-        <td class="state-building">BUILDING</td>
+        <td class="state-pass">PASS</td>
         <td>6/6</td>
-        <td>0</td>
-        <td>Round 1 built (5aa2677) but unjudged: critic delegation blocked by a sustained provider outage; verdict owed as Round 293</td>
+        <td>1</td>
+        <td>Round 1 passed: bible-conformant production art, all nine landmarks within 1px of independently computed geometry, faction-distinct towers, readable combat layering; render-probe byte reproducibility remains open</td>
       </tr>
       <tr>
         <td><code>VIS-003C</code></td>
@@ -1680,7 +1680,8 @@
       <li><strong>R286 FAIL</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>Scope the sourced flight policy strictly to Copperskiff and Skymaul so enabling v4 cannot alter or reject ordinary ground movement.</li>
       <li><strong>R287 FAIL</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>Fix ordinary multi-entity BattleMovement command-history canonicalization so the Cinderlings redeploy scenario serializes and completes the required continuation differential.</li>
       <li><strong>R288 FAIL</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>Preserve the command tick required for LiveBattle replay so intermediate serialization is pure and cannot create a noncausal later snapshot.</li>
-                        <li><strong>R292 PASS</strong> · BUILDING-001 — Defensive buildings<br>Newly pinned stepPaused/statusWork paths lack behavioral coverage; add a paused-stepping differential later.</li>
+                              <li><strong>R293 PASS</strong> · VIS-003B — Arena, river, bridges, and tower art<br>Committed render evidence is not byte-reproducible; pin manual-step entry before auto ticks or assert landmark-only stability.</li>
+<li><strong>R292 PASS</strong> · BUILDING-001 — Defensive buildings<br>Newly pinned stepPaused/statusWork paths lack behavioral coverage; add a paused-stepping differential later.</li>
 <li><strong>R291 PASS</strong> · GAME-001GS — Short authentic browser match journey<br>None on the judged dimension; endurance and movement-history wall-clock bounds remain flaky on this machine and are queued separately.</li>
 <li><strong>R290 PASS</strong> · VIS-003A — Original art direction and asset provenance<br>None on the judged dimension; admission is shape-only with hash correctness enforced by the disk-parity test.</li>
 <li><strong>R289 PASS</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>None on the judged dimension; uncached serialize now clones per call with no cost bound, only relevant if every-tick serialization becomes a shipped pattern.</li>
