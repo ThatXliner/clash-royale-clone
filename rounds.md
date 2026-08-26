@@ -1,5 +1,29 @@
 # Gauntlet Rounds
 
+## Round 298 — 2026-08-26
+
+PIECE: AUDIO-002 — Authored original soundscape and mix polish, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Focused production, event, renderer, runtime, browser-audio,
+browser-loop, journey, nondeterminism, shipping, and schema suites all passed.
+The 17-recipe inventory has 17 distinct PCM hashes and covers every required
+taxonomy family. The offline WAV reproduced byte-for-byte at SHA-256
+`a46dfcc2b4942b7ce073ed65dc52366f53d5f15ff3096be1ad8a379d9d378e9c`:
+mono 12kHz, 5.25s, peak -6.185 dBFS, RMS -16.052 dBFS, and zero clipped
+samples. A 64-cue collision stayed below the mix ceiling and the 65th rejected
+atomically. Real Chrome proved trusted unlock, scheduled PCM, gain/mute,
+pause/resume, terminal disposal, restart, and re-unlock. However, a standard
+shipped session produced 359 replay records and 15 deployments but zero
+movement records or cues. The public replay strips underlying move events,
+while the audio projection recognizes only synthetic `locomotion-start`, so
+the authored movement sound is unreachable in real gameplay.
+
+BIGGEST GAP: Export or derive one deterministic public movement-start signal
+that makes the authored movement cue reachable through the shipped browser
+path without inventing a second simulation.
+
 ## Round 297 — 2026-08-26
 
 PIECE: VIS-003D — Card, hand, HUD, and match-feedback art, round 2
