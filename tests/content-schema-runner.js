@@ -107,6 +107,7 @@ for (const selector of selectors) {
       "audio-renderer",
       "visual-asset-manifest",
       "visual-arena-art",
+      "visual-interface-art",
       "release-build",
       "fixed-step-kernel",
       "rng",
@@ -655,6 +656,12 @@ if (selectors.length === 0 || selectors.includes("visual-arena-art")) {
   run([
     new URL("./visual-arena-art-runner.js", import.meta.url).pathname,
     "visual-arena-art",
+  ]);
+}
+if (selectors.length === 0 || selectors.includes("visual-interface-art")) {
+  run([
+    new URL("./visual-interface-art-runner.js", import.meta.url).pathname,
+    "visual-interface-art",
   ]);
 }
 if (selectors.length === 0 || selectors.includes("release-build")) {

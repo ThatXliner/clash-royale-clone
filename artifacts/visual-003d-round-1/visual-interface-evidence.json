@@ -1,0 +1,61 @@
+{
+  "consoleErrors": [],
+  "drainRounds": 3,
+  "selectionTarget": "briar-band",
+  "initial": {
+    "costTexts": [
+      "4",
+      "4",
+      "3",
+      "4"
+    ],
+    "crowns": {
+      "north": "0",
+      "south": "0"
+    },
+    "handIds": [
+      "copperskiff",
+      "coilblade",
+      "skymaul",
+      "brassbolt"
+    ],
+    "nextId": "cinderlings",
+    "timerText": "2:59",
+    "towerHealthBars": {
+      "count": 6,
+      "visible": true
+    }
+  },
+  "insufficient": {
+    "amount": "0",
+    "disabledCount": 4,
+    "insufficientCount": 4
+  },
+  "selectionStyles": {
+    "other": {
+      "borderColor": "rgb(92, 83, 70)",
+      "shadow": "rgb(244, 235, 214) 0px 0px 0px 2px inset, rgba(25, 29, 34, 0.35) 3px 4px 0px 0px"
+    },
+    "selected": {
+      "borderColor": "rgb(233, 168, 58)",
+      "shadow": "rgb(233, 168, 58) 0px 0px 0px 3px inset, rgb(25, 29, 34) 0px 0px 0px 2px, rgba(233, 168, 58, 0.8) 0px 0px 18px 0px, rgba(25, 29, 34, 0.35) 3px 4px 0px 0px"
+    },
+    "flag": "true"
+  },
+  "screenshots": [
+    "initial.png",
+    "card-selected.png",
+    "insufficient-elixir.png",
+    "winner-overlay.png",
+    "restart.png"
+  ],
+  "unhandled": [],
+  "winner": {
+    "height": 486,
+    "kind": "win",
+    "text": "north wins3 – 1",
+    "width": 590,
+    "winner": "north",
+    "restartHidden": false
+  }
+}
