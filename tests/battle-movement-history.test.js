@@ -1080,35 +1080,79 @@ test("battle movement history: every representative live cut restores bytes and 
   }
 });
 
-test("battle movement history: MAX_COMMANDS, MAX_TICK, byte bounds, and timing remain fixed", () => {
-  const mover = new BattleMovement({
-    mode: "air",
-    position: { x: 8_000, y: 12_000 },
-    speed: 100,
-  });
-  const targets = [
-    destination({ x: 15_000, y: 25_000 }),
-    destination({ x: 2_000, y: 2_000 }),
-  ];
-  for (let index = 0; index < MAX_COMMANDS; index += 1) {
-    mover.setTarget(targets[index % targets.length]);
-    if (index + 1 < MAX_COMMANDS) mover.stepMany(17);
+test("battle movement history: MAX_COMMANDS, MAX_TICK, byte bounds, and complexity scaling remain fixed", () => {
+  // Timing guard design: canonical replay/restore cost scales quadratically
+  // with command count (measured idle ratio T(1024)/T(256) ~= 16 = 4^2, both
+  // idle and under 2x background CPU load). We compare the 1,024-command
+  // workload against a 256-command baseline measured in the same process, so
+  // machine load and CPU speed cancel out. K = 32 leaves 2x headroom over the
+  // observed ~16x baseline while a cubic blowup (~64x) fails decisively.
+  // Absolute ceilings exist only as hang guards.
+  const BASELINE_COMMANDS = 256;
+  const SCALE_FACTOR = 32;
+  const SCALE_OVERHEAD_MS = 250;
+  const HANG_GUARD_MS = 30_000;
+
+  function commandBoundMover(commandCount) {
+    const bounded = new BattleMovement({
+      mode: "air",
+      position: { x: 8_000, y: 12_000 },
+      speed: 100,
+    });
+    const targets = [
+      destination({ x: 15_000, y: 25_000 }),
+      destination({ x: 2_000, y: 2_000 }),
+    ];
+    for (let index = 0; index < commandCount; index += 1) {
+      bounded.setTarget(targets[index % targets.length]);
+      if (index + 1 < commandCount) bounded.stepMany(17);
+    }
+    return bounded;
   }
+
+  function medianSerializeRestoreMs(commandCount) {
+    const serializeSamples = [];
+    const restoreSamples = [];
+    for (let attempt = 0; attempt < 3; attempt += 1) {
+      const candidate = commandBoundMover(commandCount);
+      const serializeStart = performance.now();
+      const snapshot = candidate.serialize();
+      serializeSamples.push(performance.now() - serializeStart);
+      const restoreStart = performance.now();
+      BattleMovement.restore(snapshot);
+      restoreSamples.push(performance.now() - restoreStart);
+    }
+    serializeSamples.sort((a, b) => a - b);
+    restoreSamples.sort((a, b) => a - b);
+    return [serializeSamples[1], restoreSamples[1]];
+  }
+
+  // JIT warm-up so the smallest workload is not penalized by interpreter time.
+  medianSerializeRestoreMs(64);
+
+  const mover = commandBoundMover(MAX_COMMANDS);
   assert.equal(mover.state.commands.length, MAX_COMMANDS);
-  const serializeStart = performance.now();
   const atCommandBound = mover.serialize();
-  const serializeMs = performance.now() - serializeStart;
   assert.ok(new TextEncoder().encode(atCommandBound).byteLength <= MAX_SNAPSHOT_BYTES);
   const beforeRejectedCommand = mover.serialize();
-  assert.throws(() => mover.setTarget(targets[0]), /command bound/u);
+  assert.throws(() => mover.setTarget(destination({ x: 15_000, y: 25_000 })), /command bound/u);
   assert.equal(mover.serialize(), beforeRejectedCommand);
-  const restoreStart = performance.now();
   const restoredAtCommandBound = BattleMovement.restore(atCommandBound);
-  const restoreMs = performance.now() - restoreStart;
-  assert.ok(serializeMs <= 6_530, `1,024-command serialize took ${serializeMs.toFixed(1)}ms`);
-  assert.ok(restoreMs <= 3_130, `1,024-command restore took ${restoreMs.toFixed(1)}ms`);
   assert.equal(restoredAtCommandBound.serialize(), atCommandBound);
   assert.deepEqual(restoredAtCommandBound.state, mover.state);
+
+  const [baselineSerializeMs, baselineRestoreMs] = medianSerializeRestoreMs(BASELINE_COMMANDS);
+  const [boundSerializeMs, boundRestoreMs] = medianSerializeRestoreMs(MAX_COMMANDS);
+  const serializeCeiling = SCALE_FACTOR * Math.max(baselineSerializeMs, 1) + SCALE_OVERHEAD_MS;
+  const restoreCeiling = SCALE_FACTOR * Math.max(baselineRestoreMs, 1) + SCALE_OVERHEAD_MS;
+  assert.ok(
+    boundSerializeMs <= Math.min(serializeCeiling, HANG_GUARD_MS),
+    `1,024-command serialize ${boundSerializeMs.toFixed(1)}ms exceeded ${SCALE_FACTOR}x baseline (${baselineSerializeMs.toFixed(1)}ms)`,
+  );
+  assert.ok(
+    boundRestoreMs <= Math.min(restoreCeiling, HANG_GUARD_MS),
+    `1,024-command restore ${boundRestoreMs.toFixed(1)}ms exceeded ${SCALE_FACTOR}x baseline (${baselineRestoreMs.toFixed(1)}ms)`,
+  );
 
   const maxTick = new BattleMovement({
     mode: "air",
