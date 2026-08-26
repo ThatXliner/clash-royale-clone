@@ -4,7 +4,11 @@ import {
   isAuthenticGameSession,
 } from "../sim/game-session.js";
 import { GameInputBridge } from "./game-input-bridge.js";
-import { createGameUiFrame, mountGameUiProjection } from "./game-ui-projection.js";
+import {
+  createGameUiFrame,
+  createGameUiOptions,
+  mountGameUiProjection,
+} from "./game-ui-projection.js";
 import {
   consumeGameBrowserRestoreCapability,
   createGameBrowserRestoreCapability,
@@ -127,6 +131,8 @@ export function mountGameBrowserLoop(options) {
   let endurance = null;
   let inOperation = false;
   let selectedCardId = null;
+  let selectionProjectionFault = false;
+  let selectionCleanupQueued = false;
   // This never leaves the loop closure. A prepared restore capability minted
   // for one loop cannot be consumed by any other mounted loop.
   const preparedRestoreOwner = Object.freeze({});
@@ -136,8 +142,20 @@ export function mountGameBrowserLoop(options) {
     if (inOperation) throw new Error("game browser loop reentrant operation rejected");
     if (endurance !== null) throw new Error("game browser endurance transaction is active");
   };
-  const render = () => {
-    const frame = createGameUiFrame(session);
+  const render = (selectionOverride = undefined) => {
+    const liveInput = graph?.input;
+    const candidate = selectionOverride === undefined
+      ? liveInput === null || liveInput === undefined
+        ? selectedCardId : liveInput.selectedCardId
+      : selectionOverride;
+    // A hand can change while input is suspended or between a simulation
+    // commit and its remount. Never mint an invalid HUD option; the remount
+    // path below will clear the controller's stale selection as needed.
+    const selection = typeof candidate === "string" &&
+      session.state.decks.south.hand.includes(candidate) ? candidate : null;
+    selectedCardId = selection;
+    const frame = createGameUiFrame(session,
+      createGameUiOptions("south", selection));
     graph.projection.project(frame);
     domTick = frame.tick;
     if (domTick !== session.state.tick) throw new Error("game browser DOM tick diverged");
@@ -145,9 +163,75 @@ export function mountGameBrowserLoop(options) {
   };
   const nextCommandId = (bridgeBytes) => bridgeBytes === null ? 1 :
     JSON.parse(bridgeBytes).deliveries.length + 1;
+  const failClosedAfterSelectionProjection = (source) => {
+    selectionProjectionFault = true;
+    active = false;
+    running = false;
+    cancel();
+    selectedCardId = null;
+    if (selectionCleanupQueued) return;
+    selectionCleanupQueued = true;
+    // The input controller is still inside its authenticated mutation while
+    // this callback runs. Defer teardown until that operation has unwound so
+    // cleanup cannot reenter the controller or attempt another projection.
+    queueMicrotask(() => {
+      if (graph === null || graph.input !== source) return;
+      const candidate = graph;
+      graph = null;
+      try { cleanupGraph(candidate); } finally { ACTIVE_ROOTS.delete(checked.root); }
+    });
+  };
+  const onInputSelection = (candidate, source, projected = null) => {
+    // The source is minted by the current input factory and must still be
+    // the mounted controller. This prevents an old input or an arbitrary
+    // callback caller from writing loop presentation state.
+    if (!active || selectionProjectionFault || graph === null ||
+        graph.input === null || graph.input !== source) return false;
+    if (candidate !== null && typeof candidate !== "string") {
+      throw new TypeError("game browser selected card ID is invalid");
+    }
+    const clearsBeforeController = candidate === null &&
+      typeof source.selectedCardId === "string" &&
+      !projected?.deck?.state?.hand?.includes(source.selectedCardId);
+    if (source.selectedCardId !== candidate && !clearsBeforeController) {
+      throw new Error("game browser input selection provenance is inconsistent");
+    }
+    const controller = source.input;
+    if (controller === null || (typeof controller !== "object" &&
+        typeof controller !== "function")) {
+      throw new TypeError("game browser input selection authority is invalid");
+    }
+    const sourceDeck = controller.deck;
+    if (sourceDeck === null || (typeof sourceDeck !== "object" &&
+        typeof sourceDeck !== "function")) {
+      throw new TypeError("game browser input selection authority is invalid");
+    }
+    const sourceState = sourceDeck.state;
+    if (sourceState === null || typeof sourceState !== "object") {
+      throw new TypeError("game browser input selection authority is invalid");
+    }
+    const sourceHand = sourceState.hand;
+    if (!Array.isArray(sourceHand)) {
+      throw new TypeError("game browser input selection authority is invalid");
+    }
+    if (candidate !== null &&
+        (!sourceHand.includes(candidate) ||
+         !session.state.decks.south.hand.includes(candidate))) {
+      throw new Error("game browser input selection is not in the current hand");
+    }
+    const previous = selectedCardId;
+    selectedCardId = candidate;
+    try { render(candidate); }
+    catch (error) {
+      selectedCardId = previous;
+      failClosedAfterSelectionProjection(source);
+      throw error;
+    }
+    return true;
+  };
   const buildGraph = (candidateSession, bridgeBytes = null) => {
     const input = checked.createInput(candidateSession, nextCommandId(bridgeBytes),
-      selectedCardId);
+      selectedCardId, onInputSelection);
     let bridge = null, projection = null;
     try {
       bridge = bridgeBytes === null
@@ -156,6 +240,8 @@ export function mountGameBrowserLoop(options) {
       projection = mountGameUiProjection(layers);
       const candidate = { bridge, input, projection };
       graph = candidate;
+      selectedCardId = typeof input.selectedCardId === "string"
+        ? input.selectedCardId : null;
       return candidate;
     } catch (error) {
       try { bridge?.unsubscribe(); } catch {}
@@ -172,9 +258,12 @@ export function mountGameBrowserLoop(options) {
     graph = { ...graph, input: null };
     let input = null, bridge = null;
     try {
-      input = checked.createInput(session, nextCommandId(bridgeBytes), selectedCardId);
+      input = checked.createInput(session, nextCommandId(bridgeBytes), selectedCardId,
+        onInputSelection);
       bridge = GameInputBridge.restore(bridgeBytes, input, session);
       graph = { ...graph, bridge, input };
+      selectedCardId = typeof input.selectedCardId === "string"
+        ? input.selectedCardId : null;
     } catch (error) {
       try { bridge?.unsubscribe(); } catch {}
       try { input?.cleanup(); } catch {}
@@ -192,11 +281,15 @@ export function mountGameBrowserLoop(options) {
   const resumeInput = () => {
     if (graph.input !== null) return false;
     const bridgeBytes = graph.bridge.serialize();
-    const input = checked.createInput(session, nextCommandId(bridgeBytes), selectedCardId);
+    const input = checked.createInput(session, nextCommandId(bridgeBytes), selectedCardId,
+      onInputSelection);
     let bridge;
     try { bridge = GameInputBridge.restore(bridgeBytes, input, session); }
     catch (error) { try { input.cleanup(); } catch {} throw error; }
-    graph = { ...graph, bridge, input }; return true;
+    graph = { ...graph, bridge, input };
+    selectedCardId = typeof input.selectedCardId === "string"
+      ? input.selectedCardId : null;
+    return true;
   };
   const cancel = () => {
     if (handle === null) return false;
@@ -376,7 +469,7 @@ export function mountGameBrowserLoop(options) {
     get state() { const state = session.state; return Object.freeze({ active, backlogTicks, domTick,
       enduranceActive: endurance !== null,
       paused: state.paused, running, scheduled: handle !== null,
-      selectedCardId: typeof graph?.input?.selectedCardId === "string"
+      selectedCardId: active && typeof graph?.input?.selectedCardId === "string"
         ? graph.input.selectedCardId : selectedCardId,
       sessionTick: state.tick, terminal: state.terminal }); },
     pause() {

@@ -190,16 +190,20 @@ function createProjectionLayers(shell) {
 function createInputFactory(shell, cards) {
   const cardsText = serializeArenaInputCards(cards);
   const inputSystemCache = new WeakMap();
-  return (session, nextCommandId, selectedCardId = null) => {
+  return (session, nextCommandId, selectedCardId = null, onSelection = null) => {
     const systems = inputSystems(session, cards, inputSystemCache);
+    let mounted = null;
     const updateHooks = (_selected = null, projected = systems) => {
       const slots = Array.from(shell.querySelectorAll('[data-ui="card-slot"]'));
       for (let index = 0; index < slots.length; index += 1) {
         slots[index].dataset.cardId = projected.deck.state.hand[index];
       }
+      if (mounted !== null && typeof onSelection === "function") {
+        onSelection(_selected, mounted, projected);
+      }
     };
     updateHooks();
-    const mounted = mountArenaInputController(shell,
+    mounted = mountArenaInputController(shell,
       createArenaInputSessionContinuationCapability(
       cardsText,
       systems.deck.serializeJson(),
@@ -208,9 +212,12 @@ function createInputFactory(shell, cards) {
       () => {},
       updateHooks,
     ));
-    if (selectedCardId !== null) {
+    if (selectedCardId !== null && systems.deck.state.hand.includes(selectedCardId)) {
       const selection = mounted.input.select(selectedCardId);
-      if (selection.accepted !== true) {
+      // A remount may follow a hand change or a wallet change. In either
+      // case an unavailable selection is cleared safely by the fresh input
+      // controller instead of minting an invalid HUD option.
+      if (selection.accepted !== true && mounted.input.selectedCardId !== null) {
         try { mounted.cleanup(); } catch {}
         throw new Error("shipped browser could not preserve selected card");
       }

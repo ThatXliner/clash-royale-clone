@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { once } from "node:events";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { spawn } from "node:child_process";
@@ -17,7 +18,7 @@ import {
 
 const ROOT = new URL("..", import.meta.url).pathname;
 const HTML_PATH = `${ROOT}public/ui-arena-shell.html`;
-const ARTIFACTS = new URL("../artifacts/visual-003d-round-1/", import.meta.url)
+const ARTIFACTS = new URL("../artifacts/visual-003d-round-2/", import.meta.url)
   .pathname;
 
 const PLAYWRIGHT = process.env.GAME_BROWSER_PLAYWRIGHT ??
@@ -26,6 +27,10 @@ const CHROME = process.env.GAME_BROWSER_CHROME ??
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
 const html = readFileSync(HTML_PATH, "utf8");
+
+function sha256(path) {
+  return createHash("sha256").update(readFileSync(path)).digest("hex");
+}
 
 function styleBlock(source, id) {
   const start = source.indexOf(`<style id="${id}">`);
@@ -256,7 +261,7 @@ test("visual interface art: interactive controls never overlap the arena click z
     bottomRail: { x: 42, y: 1082, w: 636, h: 62 },
     handTray: { x: 112, y: 1154, w: 496, h: 88 },
     elixirRail: { x: 112, y: 1248, w: 496, h: 22 },
-    elixirBadge: { x: 556, y: 1230, w: 68, h: 40 },
+    elixirBadge: { x: 556, y: 1224, w: 56, h: 52 },
     crownsChip: { x: 492, y: 34, w: 150, h: 44 },
   };
   for (const [label, rect] of Object.entries(controls)) {
@@ -303,22 +308,76 @@ test("visual interface art: fixed 720x1280 Chrome evidence captures every hierar
     await page.waitForSelector('[data-ui="arena"]');
     await page.waitForSelector('[data-ui="hud-hand"] .hud-card');
     await page.click('[data-ui="audio-toggle"]');
+    // The terminal-profile opponent has an authored combat marker whose
+    // interpolated position can differ between Chrome processes while the
+    // authoritative session bytes and tick remain identical. Hide only those
+    // moving entities for this HUD-focused evidence; towers, health bars,
+    // arena geometry, and every interface control remain visible.
+    await page.addStyleTag({ content: `
+      .game-browser-layer--combat .combat-marker--entity-ground,
+      .game-browser-layer--combat .combat-marker--entity-air,
+      .game-browser-layer--combat .combat-target-link,
+      .game-browser-layer--effects .combat-effect-projectile,
+      .game-browser-layer--effects .combat-effect-impact,
+      .game-browser-layer--effects .combat-effect-area,
+      .game-browser-layer--effects .combat-effect-path,
+      .bridge::before,
+      .bridge::after { display: none !important; }
+    ` });
     const startTick = await page.evaluate(async () => {
-      const controller =
-        (await import("/src/ui/arena-shell-entry.js")).arenaHudController;
+      const [{ arenaHudController: controller },
+        { createShippedGameSessionSetup },
+        { GameSession }] = await Promise.all([
+        import("/src/ui/arena-shell-entry.js"),
+        import("/src/ui/game-browser-entry.js"),
+        import("/src/sim/game-session.js"),
+      ]);
       globalThis.__visController = controller;
       controller.enterManualStepMode();
-      const tick = controller.state.sessionTick;
-      if (tick < 60) controller.stepMany(60 - tick);
+      // Rebase through a fresh, canonical terminal-profile session so the
+      // first evidence frame is always the same authoritative tick even if
+      // Chrome advanced a few RAFs while the module graph loaded.
+      const fresh = new GameSession(
+        createShippedGameSessionSetup(2, "live-seed-2-terminal"),
+      );
+      const snapshot = JSON.stringify({
+        bridge: JSON.stringify({ deliveries: [], version: 1 }),
+        running: false,
+        session: fresh.serialize(),
+        version: 1,
+      });
+      controller.restore(snapshot);
+      controller.stepMany(60);
       return controller.state.sessionTick;
     });
     await page.waitForTimeout(100);
 
     const initial = await collectState(page);
+    const geometry = await page.evaluate(() => {
+      const box = (selector) => {
+        const node = document.querySelector(selector);
+        const rect = node?.getBoundingClientRect();
+        return rect === undefined ? null : {
+          bottom: Math.round(rect.bottom),
+          height: Math.round(rect.height),
+          left: Math.round(rect.left),
+          top: Math.round(rect.top),
+          width: Math.round(rect.width),
+        };
+      };
+      return {
+        arena: box('[data-ui="arena"]'),
+        audioToggle: box('[data-ui="audio-toggle"]'),
+        bottomRail: box('.match-rail--bottom'),
+        crownsChip: box('[data-ui="hud-crowns"]'),
+        elixirBadge: box('[data-ui="hud-elixir"]'),
+        elixirRail: box('[data-ui="elixir-rail"]'),
+        handTray: box('[data-ui="hand-tray"]'),
+        topRail: box('.match-rail--top'),
+      };
+    });
     assert.match(initial.timerText, /^\d:\d\d$/);
-    assert.ok(startTick < 84,
-      "manual mode must engage inside the opening elixir band");
-    if (startTick >= 30) assert.notEqual(initial.timerText, "3:00");
+    assert.equal(startTick, 60, "startup evidence must be pinned to tick 60");
     assert.equal(new Set(initial.handIds).size, initial.handIds.length);
     for (const id of initial.handIds.concat([initial.nextId])) {
       assert.ok(rosterById.has(id), `projected card ${id} must be shipped roster`);
@@ -328,6 +387,8 @@ test("visual interface art: fixed 720x1280 Chrome evidence captures every hierar
     assert.ok(initial.towerHealthBars.count >= 6);
     assert.ok(initial.crowns.north !== undefined);
     assert.ok(initial.crowns.south !== undefined);
+    assert.ok(geometry.elixirBadge.bottom <= 1_280,
+      "elixir badge must stay inside the fixed viewport");
     await page.screenshot({ path: `${ARTIFACTS}initial.png` });
 
     const arenaBox = await page.locator('[data-ui="arena"]').boundingBox();
@@ -373,9 +434,8 @@ test("visual interface art: fixed 720x1280 Chrome evidence captures every hierar
       });
     }
 
-    // Select through the shipped input controller, then render the canonical
-    // selection state through the production hud-state binding pipeline
-    // (the session projection path does not yet forward selectedCardId).
+    // Select through the shipped input controller and inspect the live HUD
+    // projection. No test-only HUD rebinding is allowed on this path.
     const selectionTarget = await page.evaluate((costs) => {
       const controller = globalThis.__visController;
       const amount = controller.session.state.elixir.sides.south.amount;
@@ -385,12 +445,7 @@ test("visual interface art: fixed 720x1280 Chrome evidence captures every hierar
     }, Object.fromEntries(costsById));
     assert.ok(selectionTarget, "an affordable card must remain to select");
     await page.click(`[data-ui="card-slot"][data-card-id="${selectionTarget}"]`);
-    const selectionStyles = await page.evaluate(async (id) => {
-      const [{ createHudViewModel, bindHudViewModel },
-        { createPlayableRoster }] = await Promise.all([
-        import("/src/ui/hud-state.js"),
-        import("/src/content/playable-roster.js"),
-      ]);
+    const selectionStyles = await page.evaluate((id) => {
       const controller = globalThis.__visController;
       const selectedCardId = controller.state.selectedCardId;
       if (selectedCardId !== id) {
@@ -399,19 +454,8 @@ test("visual interface art: fixed 720x1280 Chrome evidence captures every hierar
           `${JSON.stringify([...document.querySelectorAll('[data-ui="card-slot"]')]
             .map((node) => node.dataset.cardId))}`);
       }
-      const state = controller.session.state;
-      const shell = document.querySelector("[data-arena-shell-root]")
-        .firstElementChild;
-      bindHudViewModel(shell, createHudViewModel({
-        cards: createPlayableRoster().map(({ cost, displayName, id: cardId }) =>
-          ({ cost, displayName, id: cardId })),
-        deck: state.decks.south,
-        elixir: state.elixir,
-        localSide: "south",
-        match: state.clock,
-        selectedCardId,
-      }));
-      const cards = [...shell.querySelectorAll('[data-ui="card-slot"] .hud-card')];
+      const cards = [...document.querySelectorAll(
+        '[data-ui="hud-hand"] .hud-card')];
       const pick = (node) => {
         const style = getComputedStyle(node);
         return { borderColor: style.borderColor, shadow: style.boxShadow };
@@ -419,18 +463,14 @@ test("visual interface art: fixed 720x1280 Chrome evidence captures every hierar
       const selectedNode = cards.find((node) => node.dataset.cardId === id);
       const otherNode = cards.find((node) => node.dataset.cardId !== id);
       return { other: pick(otherNode), selected: pick(selectedNode),
-        flag: selectedNode.dataset.selected };
+        flag: selectedNode.dataset.selected,
+        domTick: controller.state.domTick,
+        sessionTick: controller.state.sessionTick };
     }, selectionTarget);
     assert.equal(selectionStyles.flag, "true");
     assert.notDeepEqual(selectionStyles.selected, selectionStyles.other,
       "the selected card must render a distinct highlight");
     await page.screenshot({ path: `${ARTIFACTS}card-selected.png` });
-    await page.evaluate(() => {
-      for (const slot of document.querySelectorAll('[data-ui="card-slot"]')) {
-        slot.innerHTML = "";
-      }
-    });
-
     await page.mouse.click(arenaBox.x + 439, arenaBox.y + 529);
     await page.evaluate(() => {
       globalThis.__visController.stepMany(2);
@@ -445,11 +485,49 @@ test("visual interface art: fixed 720x1280 Chrome evidence captures every hierar
         '[data-ui="hud-hand"] .hud-card[data-disabled="true"]').length,
       insufficientCount: document.querySelectorAll(
         '[data-ui="hud-hand"] .hud-card[data-insufficient="true"]').length,
+      domTick: globalThis.__visController.state.domTick,
+      sessionTick: globalThis.__visController.state.sessionTick,
     }));
     assert.ok(insufficient.insufficientCount >= 1,
       "spending on an expensive card must disable cards above the wallet");
     assert.ok(insufficient.disabledCount >= insufficient.insufficientCount);
     await page.screenshot({ path: `${ARTIFACTS}insufficient-elixir.png` });
+
+    // Leave one affordable card selected before terminal suspension. Restart
+    // must mount a fresh session with no stale browser presentation state.
+    const restartSelection = await page.evaluate((costs) => {
+      const controller = globalThis.__visController;
+      let amount = controller.session.state.elixir.sides.south.amount;
+      let target;
+      for (let index = 0; index < 20 && target === undefined; index += 1) {
+        target = [...document.querySelectorAll('[data-ui="card-slot"]')]
+          .map((node) => node.dataset.cardId)
+          .find((id) => costs[id] <= amount);
+        if (target === undefined) {
+          controller.stepMany(60);
+          amount = controller.session.state.elixir.sides.south.amount;
+        }
+      }
+      return { amount, target };
+    }, Object.fromEntries(costsById));
+    assert.ok(restartSelection.target,
+      "restart regression requires an affordable card to remain selectable");
+    await page.click(
+      `[data-ui="card-slot"][data-card-id="${restartSelection.target}"]`,
+    );
+    const selectedBeforeTerminal = await page.evaluate((id) => {
+      const controller = globalThis.__visController;
+      const selected = document.querySelector(
+        `[data-ui="hud-hand"] .hud-card[data-card-id="${id}"]`,
+      );
+      return {
+        flag: selected?.dataset.selected,
+        selectedCardId: controller.state.selectedCardId,
+        sessionTick: controller.state.sessionTick,
+      };
+    }, restartSelection.target);
+    assert.equal(selectedBeforeTerminal.selectedCardId, restartSelection.target);
+    assert.equal(selectedBeforeTerminal.flag, "true");
 
     const terminalReached = await page.evaluate(() => {
       const controller = globalThis.__visController;
@@ -463,11 +541,15 @@ test("visual interface art: fixed 720x1280 Chrome evidence captures every hierar
       document.querySelector(".match-feedback__overlay") !== null,
     null, { polling: 50, timeout: 10_000 });
     const winner = await page.evaluate(() => {
+      const controller = globalThis.__visController;
       const overlay = document.querySelector(".match-feedback__overlay");
       const box = overlay.getBoundingClientRect();
       return {
         height: Math.round(box.height),
         kind: overlay.dataset.kind,
+        domTick: controller.state.domTick,
+        selectedCardId: controller.state.selectedCardId,
+        sessionTick: controller.state.sessionTick,
         text: overlay.textContent,
         width: Math.round(box.width),
         winner: overlay.dataset.winner,
@@ -487,25 +569,41 @@ test("visual interface art: fixed 720x1280 Chrome evidence captures every hierar
     null, { polling: 50, timeout: 10_000 });
     await page.screenshot({ path: `${ARTIFACTS}restart.png` });
 
+    const restart = await page.evaluate(() => ({
+      domTick: globalThis.__visController.state.domTick,
+      selectedCardId: globalThis.__visController.state.selectedCardId,
+      sessionTick: globalThis.__visController.state.sessionTick,
+      terminal: globalThis.__visController.state.terminal,
+    }));
+
     const finalText = await page.evaluate(() => document.body.innerText);
     assert.doesNotMatch(finalText, /debug|placeholder/i);
     assert.deepEqual(consoleErrors, []);
     assert.deepEqual(unhandled, []);
+    const screenshots = [
+      "initial.png",
+      "card-selected.png",
+      "insufficient-elixir.png",
+      "winner-overlay.png",
+      "restart.png",
+    ];
+    const screenshotHashes = Object.fromEntries(screenshots.map((name) =>
+      [name, sha256(`${ARTIFACTS}${name}`)]));
     writeFileSync(`${ARTIFACTS}visual-interface-evidence.json`,
       `${JSON.stringify({
         consoleErrors,
         drainRounds,
+        geometry,
+        arenaMask: "moving entity/effect markers and bridge corner accents hidden for deterministic HUD evidence",
+        screenshotHashes,
         selectionTarget,
         initial,
         insufficient,
         selectionStyles,
-        screenshots: [
-          "initial.png",
-          "card-selected.png",
-          "insufficient-elixir.png",
-          "winner-overlay.png",
-          "restart.png",
-        ],
+        screenshots,
+        restart,
+        restartSelection,
+        selectedBeforeTerminal,
         unhandled,
         winner,
       }, null, 2)}\n`);
@@ -538,6 +636,9 @@ async function collectState(page) {
       },
       handIds: controller.session.state.decks.south.hand.slice(),
       nextId: controller.session.state.decks.south.queue[0],
+      domTick: controller.state.domTick,
+      selectedCardId: controller.state.selectedCardId,
+      sessionTick: controller.state.sessionTick,
       timerText: document.querySelector('[data-ui="hud-timer"]').textContent,
       towerHealthBars: {
         count: healthBars.length,

@@ -1,0 +1,152 @@
+{
+  "consoleErrors": [],
+  "drainRounds": 3,
+  "geometry": {
+    "arena": {
+      "bottom": 1072,
+      "height": 968,
+      "left": 86,
+      "top": 104,
+      "width": 548
+    },
+    "audioToggle": {
+      "bottom": 166,
+      "height": 48,
+      "left": 638,
+      "top": 118,
+      "width": 72
+    },
+    "bottomRail": {
+      "bottom": 1144,
+      "height": 62,
+      "left": 42,
+      "top": 1082,
+      "width": 636
+    },
+    "crownsChip": {
+      "bottom": 69,
+      "height": 35,
+      "left": 492,
+      "top": 34,
+      "width": 111
+    },
+    "elixirBadge": {
+      "bottom": 1276,
+      "height": 52,
+      "left": 556,
+      "top": 1224,
+      "width": 56
+    },
+    "elixirRail": {
+      "bottom": 1270,
+      "height": 22,
+      "left": 112,
+      "top": 1248,
+      "width": 496
+    },
+    "handTray": {
+      "bottom": 1242,
+      "height": 88,
+      "left": 112,
+      "top": 1154,
+      "width": 496
+    },
+    "topRail": {
+      "bottom": 86,
+      "height": 62,
+      "left": 42,
+      "top": 24,
+      "width": 636
+    }
+  },
+  "arenaMask": "moving entity/effect markers and bridge corner accents hidden for deterministic HUD evidence",
+  "screenshotHashes": {
+    "initial.png": "848d83b83f0580f953cac6c92ff07164fac92c717208ca86d2f0252ced7c0a0d",
+    "card-selected.png": "c59e10d26ae7883b3cd95b28b58f924972c64fe4b113d597972e176538e11fda",
+    "insufficient-elixir.png": "adab2e7a93939ebe17cd35f0aa9b994166247e740ff3a89933444ecb03d6fc84",
+    "winner-overlay.png": "58c1959f8be31d45b2b6d574c4de08805d9a1b382b44fc4fdb86e0986e0e0c2f",
+    "restart.png": "dad7ce0295a34e845b1ca4bba34a9fdabaf9630fcf2b4431d8efc381f817bb10"
+  },
+  "selectionTarget": "briar-band",
+  "initial": {
+    "costTexts": [
+      "4",
+      "4",
+      "3",
+      "4"
+    ],
+    "crowns": {
+      "north": "0",
+      "south": "0"
+    },
+    "handIds": [
+      "copperskiff",
+      "coilblade",
+      "skymaul",
+      "brassbolt"
+    ],
+    "nextId": "cinderlings",
+    "domTick": 60,
+    "selectedCardId": null,
+    "sessionTick": 60,
+    "timerText": "2:59",
+    "towerHealthBars": {
+      "count": 6,
+      "visible": true
+    }
+  },
+  "insufficient": {
+    "amount": "0",
+    "disabledCount": 4,
+    "insufficientCount": 4,
+    "domTick": 65,
+    "sessionTick": 65
+  },
+  "selectionStyles": {
+    "other": {
+      "borderColor": "rgb(92, 83, 70)",
+      "shadow": "rgb(244, 235, 214) 0px 0px 0px 2px inset, rgba(25, 29, 34, 0.35) 3px 4px 0px 0px"
+    },
+    "selected": {
+      "borderColor": "rgb(233, 168, 58)",
+      "shadow": "rgb(233, 168, 58) 0px 0px 0px 3px inset, rgb(25, 29, 34) 0px 0px 0px 2px, rgba(233, 168, 58, 0.8) 0px 0px 18px 0px, rgba(25, 29, 34, 0.35) 3px 4px 0px 0px"
+    },
+    "flag": "true",
+    "domTick": 63,
+    "sessionTick": 63
+  },
+  "screenshots": [
+    "initial.png",
+    "card-selected.png",
+    "insufficient-elixir.png",
+    "winner-overlay.png",
+    "restart.png"
+  ],
+  "restart": {
+    "domTick": 0,
+    "selectedCardId": null,
+    "sessionTick": 0,
+    "terminal": false
+  },
+  "restartSelection": {
+    "amount": 3,
+    "target": "reedsting"
+  },
+  "selectedBeforeTerminal": {
+    "flag": "true",
+    "selectedCardId": "reedsting",
+    "sessionTick": 605
+  },
+  "unhandled": [],
+  "winner": {
+    "height": 486,
+    "kind": "win",
+    "domTick": 1590,
+    "selectedCardId": "reedsting",
+    "sessionTick": 1590,
+    "text": "north wins3 – 1",
+    "width": 590,
+    "winner": "north",
+    "restartHidden": false
+  }
+}

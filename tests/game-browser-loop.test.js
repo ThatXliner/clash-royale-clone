@@ -48,7 +48,7 @@ class Node {
     this.attributes = new Map(); this.children = []; this.className = "";
     this.dataset = {}; this.innerHTML = ""; this.listeners = new Map();
     this.lookups = new Map(); this.name = name; this.ownerDocument = ownerDocument;
-    this.parentNode = null; this.style = { values: new Map(),
+    this.parentNode = null; this.throwAfterReplace = false; this.style = { values: new Map(),
       setProperty: (key, value) => this.style.values.set(key, value) };
     this.textContent = "";
   }
@@ -67,7 +67,12 @@ class Node {
     return result === undefined ? [] : Array.isArray(result) ? result : [result]; }
   removeEventListener(type, listener) { this.listeners.get(type)?.delete(listener); }
   replaceChildren(...children) { for (const child of children) child.parentNode = this;
-    this.children = children; }
+    this.children = children;
+    if (this.throwAfterReplace) {
+      this.throwAfterReplace = false;
+      throw new Error("projection mutation failure");
+    }
+  }
   setAttribute(key, value) { this.attributes.set(key, value); }
 }
 
@@ -95,7 +100,9 @@ function fixture(session = new GameSession(setup())) {
   shell.lookups.set('[data-ui="card-slot"]', hand);
   const layers = Object.fromEntries(["combat", "effects", "feedback", "hud"]
     .map((name) => [name, new Node(document, name)]));
-  const createInput = (candidateSession, nextCommandId) => {
+  let currentInput = null;
+  const createInput = (candidateSession, nextCommandId, selectedCardId = null,
+    onSelection = null) => {
     const serialized = JSON.parse(candidateSession.serialize());
     const parsed = serialized.setup;
     const deck = new DeckCycle({ deck: DECK, seed: `${parsed.seed}:south` });
@@ -115,22 +122,31 @@ function fixture(session = new GameSession(setup())) {
       }
       elixir.step();
     }
-    for (let index = 0; index < hand.length; index += 1) {
-      hand[index].dataset.cardId = deck.state.hand[index];
-    }
-    return mountArenaInputController(shell, createArenaInputSessionContinuationCapability(
+    let mounted = null;
+    const updateHooks = (_selected, projected = { deck }) => {
+      for (let index = 0; index < hand.length; index += 1) {
+        hand[index].dataset.cardId = projected.deck.state.hand[index];
+      }
+      if (mounted !== null && typeof onSelection === "function") {
+        onSelection(_selected, mounted, projected);
+      }
+    };
+    updateHooks();
+    mounted = mountArenaInputController(shell, createArenaInputSessionContinuationCapability(
       serializeArenaInputCards(ROSTER), deck.serializeJson(), elixir.serialize(), nextCommandId,
-      () => {}, (_selected, projected = { deck }) => {
-        for (let index = 0; index < hand.length; index += 1) {
-          hand[index].dataset.cardId = projected.deck.state.hand[index];
-        }
-      }));
+      () => {}, updateHooks));
+    currentInput = mounted;
+    if (selectedCardId !== null && deck.state.hand.includes(selectedCardId)) {
+      mounted.input.select(selectedCardId);
+    }
+    return mounted;
   };
   const scheduler = new FakeRaf();
   const loop = mountGameBrowserLoop({ createInput, layers, root,
     scheduler: { cancelAnimationFrame: scheduler.cancelAnimationFrame,
       requestAnimationFrame: scheduler.requestAnimationFrame }, session });
-  return { arena, hand, layers, loop, root, scheduler, shell };
+  return { arena, hand, layers, loop, root, scheduler, shell,
+    get input() { return currentInput; } };
 }
 
 function assertTicks(value, tick) {
@@ -139,6 +155,65 @@ function assertTicks(value, tick) {
     assert.equal(layer.children[0].dataset.tick, String(tick));
   }
 }
+
+test("game browser loop: input selection immediately projects, illegal play retains, and remount preserves", () => {
+  const value = fixture();
+  const hudMarkup = () => value.layers.hud.children[0].innerHTML;
+  const cardId = value.hand[0].dataset.cardId;
+  assert.doesNotMatch(hudMarkup(), /data-selected="true"/u);
+
+  assert.equal(value.hand[0].emit("click", { currentTarget: value.hand[0] }).accepted, true);
+  assert.equal(value.loop.state.selectedCardId, cardId);
+  assert.match(hudMarkup(), new RegExp(
+    `data-card-id="${cardId}"[^>]*data-kind="hand"[^>]*data-disabled="false"[^>]*` +
+    `data-insufficient="false"[^>]*data-selected="true"`, "u"));
+
+  assert.equal(value.hand[0].emit("click", { currentTarget: value.hand[0] }).type, "cancel");
+  assert.equal(value.loop.state.selectedCardId, null);
+  assert.doesNotMatch(hudMarkup(), /data-selected="true"/u);
+
+  value.hand[0].emit("click", { currentTarget: value.hand[0] });
+  const illegal = value.arena.emit("pointerup", { clientX: 270, clientY: 107 });
+  assert.equal(illegal.accepted, false);
+  assert.equal(value.loop.state.selectedCardId, cardId);
+  assert.match(hudMarkup(), /data-selected="true"/u);
+
+  const legal = value.arena.emit("pointerup", { clientX: 270, clientY: 708 });
+  assert.equal(legal.accepted, true);
+  assert.equal(value.loop.state.selectedCardId, null);
+  assert.doesNotMatch(hudMarkup(), /data-selected="true"/u);
+
+  value.loop.stepMany(1);
+  const remountCardId = value.hand[0].dataset.cardId;
+  value.hand[0].emit("click", { currentTarget: value.hand[0] });
+  assert.equal(value.loop.state.selectedCardId, remountCardId);
+  value.loop.pause();
+  assert.equal(value.loop.state.selectedCardId, remountCardId);
+  value.loop.resume();
+  assert.equal(value.loop.state.selectedCardId, remountCardId);
+  assert.match(hudMarkup(), /data-selected="true"/u);
+  value.loop.dispose();
+});
+
+test("game browser loop: selection projection failure fails closed without a split controller", async () => {
+  const value = fixture();
+  const beforeMarkup = value.layers.hud.children[0].innerHTML;
+  value.layers.hud.throwAfterReplace = true;
+
+  assert.throws(
+    () => value.hand[0].emit("click", { currentTarget: value.hand[0] }),
+    /projection mutation failure/u,
+  );
+  assert.equal(value.loop.state.active, false);
+  assert.equal(value.loop.state.selectedCardId, null);
+  assert.equal(value.input.input.selectedCardId, null);
+  assert.equal(value.layers.hud.children[0].innerHTML, beforeMarkup);
+
+  await Promise.resolve();
+  assert.equal(value.arena.listenerCount(), 0);
+  assert.equal(value.hand.reduce((sum, node) => sum + node.listenerCount(), 0), 0);
+  assert.throws(() => value.loop.stepMany(1), /disposed/u);
+});
 
 test("game browser loop: one session mounts all projections and manual pause/resume stays aligned", () => {
   const value = fixture();
