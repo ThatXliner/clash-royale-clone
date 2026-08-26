@@ -19,10 +19,14 @@ function exactToggle(shell) {
   return toggles[0];
 }
 
-export function mountGameAudioControls(shell, browserAudio, runtime) {
+export function mountGameAudioControls(shell, browserAudio, runtime, uiBridge = null) {
   if (!isAuthenticBrowserPcmAudioSink(browserAudio) ||
       !isAuthenticGameAudioRuntime(runtime)) {
     throw new TypeError("game audio controls require authentic audio authorities");
+  }
+  if (uiBridge !== null &&
+      (typeof uiBridge !== "object" || typeof uiBridge.toggle !== "function")) {
+    throw new TypeError("game audio controls UI bridge is invalid");
   }
   if (activeShells.has(shell)) throw new RangeError("game audio controls are already mounted");
   const toggle = exactToggle(shell);
@@ -45,6 +49,7 @@ export function mountGameAudioControls(shell, browserAudio, runtime) {
   const onToggle = (event) => {
     if (!active || event?.isTrusted !== true) return false;
     void browserAudio.unlock(event).catch(() => {});
+    if (uiBridge !== null) uiBridge.toggle();
     runtime.setMuted(!runtime.state.muted);
     render();
     return true;

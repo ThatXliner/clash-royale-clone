@@ -17,6 +17,21 @@ export const AUDIO_CUE_TAXONOMY = deepFreeze({
   tower: "tower-fall",
 });
 
+// The original simulation taxonomy remains a stable public contract.  The
+// production taxonomy is a superset used by the polished renderer and by the
+// authenticated UI seam.  Keeping the legacy object unchanged means existing
+// replay consumers continue to see the same enumerable event families while
+// new audio identities can be admitted with their own provenance.
+export const AUDIO_PRODUCTION_CUE_TAXONOMY = deepFreeze({
+  ...AUDIO_CUE_TAXONOMY,
+  movement: "soft-locomotion",
+  cardSelect: "card-select",
+  cardPlay: "card-play",
+  uiConfirm: "ui-confirm",
+  uiReject: "ui-reject",
+  uiToggle: "ui-toggle",
+});
+
 export const AUDIO_UNKNOWN_EVENT_POLICY = "explicit-no-cue";
 
 const DEPLOY_TYPES = new Set([
@@ -55,6 +70,11 @@ const DEATH_TYPES = new Set([
   "travel-source-died", "travel-target-died",
 ]);
 const TOWER_TYPES = new Set(["tower-destroyed"]);
+const MOVEMENT_TYPES = new Set([
+  "locomotion-start", "movement-begin", "movement-start", "unit-move-start",
+  "unit-moved-start", "walk-start",
+]);
+const MOVEMENT_MIN_INTERVAL_TICKS = 12;
 const MATCH_TOWER_IDS = Object.freeze([
   "north:central", "north:lane:left", "north:lane:right",
   "south:central", "south:lane:left", "south:lane:right",
@@ -248,10 +268,27 @@ function checkedTowerEvidenceEvent(event, label) {
 }
 
 function cue(family, reason = "mapped") {
-  return { cueId: AUDIO_CUE_TAXONOMY[family], family, reason };
+  return { cueId: AUDIO_PRODUCTION_CUE_TAXONOMY[family], family, reason };
 }
 
-function classify(event, creditedTowerIds) {
+function movementSourceKey(event) {
+  for (const key of ["entityId", "sourceId", "unitId", "id"]) {
+    const value = event[key];
+    if (typeof value === "string" && /^[a-zA-Z0-9:_-]{1,128}$/.test(value)) {
+      return `${key}:${value}`;
+    }
+    if (Number.isSafeInteger(value) && value >= 0) return `${key}:${value}`;
+  }
+  return null;
+}
+
+function isMovementStart(event) {
+  if (MOVEMENT_TYPES.has(event.type)) return true;
+  return (event.type === "move" || event.type === "moved") &&
+    (event.phase === "start" || event.state === "start");
+}
+
+function classify(event, creditedTowerIds, movementLastTicks, sequence) {
   const type = event.type;
   if (DEPLOY_TYPES.has(type) && event.accepted === false) {
     return { cueId: null, family: null, reason: "rejected" };
@@ -281,6 +318,15 @@ function classify(event, creditedTowerIds) {
   if (IMPACT_TYPES.has(type)) return cue("impact");
   if (DAMAGE_TYPES.has(type)) return cue("damage");
   if (DEATH_TYPES.has(type)) return cue("death");
+  if (isMovementStart(event)) {
+    const sourceKey = movementSourceKey(event) ?? `sequence:${sequence}`;
+    const previousTick = movementLastTicks.get(sourceKey);
+    if (previousTick !== undefined && event.tick - previousTick < MOVEMENT_MIN_INTERVAL_TICKS) {
+      return { cueId: null, family: null, reason: "rate-limited" };
+    }
+    movementLastTicks.set(sourceKey, event.tick);
+    return cue("movement");
+  }
   return {
     cueId: null,
     family: null,
@@ -288,9 +334,9 @@ function classify(event, creditedTowerIds) {
   };
 }
 
-function recordFor(entry, creditedTowerIds) {
+function recordFor(entry, creditedTowerIds, movementLastTicks) {
   return deepFreeze({
-    ...classify(entry.event, creditedTowerIds),
+    ...classify(entry.event, creditedTowerIds, movementLastTicks, entry.sequence),
     sequence: entry.sequence,
     tick: entry.tick,
     type: entry.event.type,
@@ -314,6 +360,7 @@ export class AudioEventProjection {
   #creditedTowerIds = new Set();
   #entryBytes = 0;
   #entries = [];
+  #movementLastTicks = new Map();
   #records = [];
   #lastTick = null;
 
@@ -368,10 +415,13 @@ export class AudioEventProjection {
       throw new RangeError("audio event history exceeds the snapshot byte bound");
     }
     const creditedTowerIds = new Set(this.#creditedTowerIds);
-    const records = checked.map((entry) => recordFor(entry, creditedTowerIds));
+    const movementLastTicks = new Map(this.#movementLastTicks);
+    const records = checked.map((entry) =>
+      recordFor(entry, creditedTowerIds, movementLastTicks));
     this.#entries.push(...checked);
     this.#records.push(...records);
     this.#creditedTowerIds = creditedTowerIds;
+    this.#movementLastTicks = movementLastTicks;
     this.#entryBytes = entryBytes;
     if (checked.length > 0) this.#lastTick = checked.at(-1).tick;
     return isolated(records);

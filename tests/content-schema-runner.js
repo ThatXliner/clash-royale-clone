@@ -105,6 +105,7 @@ for (const selector of selectors) {
       "ui-match-feedback",
       "audio-events",
       "audio-renderer",
+      "audio-production-assets",
       "visual-asset-manifest",
       "visual-arena-art",
       "visual-interface-art",
@@ -644,6 +645,12 @@ if (selectors.length === 0 || selectors.includes("audio-renderer")) {
   run([
     new URL("./audio-renderer-runner.js", import.meta.url).pathname,
     "audio-renderer",
+  ]);
+}
+if (selectors.length === 0 || selectors.includes("audio-production-assets")) {
+  run([
+    new URL("./audio-production-assets-runner.js", import.meta.url).pathname,
+    "audio-production-assets",
   ]);
 }
 if (selectors.length === 0 || selectors.includes("visual-asset-manifest")) {

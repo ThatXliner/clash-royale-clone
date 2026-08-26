@@ -24,6 +24,7 @@ import {
   mountArenaInputController,
   serializeArenaInputCards,
 } from "./input-controller.js";
+import { createGameAudioUiBridge } from "./game-audio-bridge.js";
 import { mountGameAudioControls } from "./game-audio-controls.js";
 import { getMatchFeedbackStyleText } from "./match-feedback.js";
 
@@ -187,7 +188,7 @@ function createProjectionLayers(shell) {
   return layers;
 }
 
-function createInputFactory(shell, cards) {
+function createInputFactory(shell, cards, audioUiBridge = null) {
   const cardsText = serializeArenaInputCards(cards);
   const inputSystemCache = new WeakMap();
   return (session, nextCommandId, selectedCardId = null, onSelection = null) => {
@@ -221,6 +222,10 @@ function createInputFactory(shell, cards) {
         try { mounted.cleanup(); } catch {}
         throw new Error("shipped browser could not preserve selected card");
       }
+    }
+    if (audioUiBridge !== null) {
+      try { audioUiBridge.attach(mounted); }
+      catch (error) { try { mounted.cleanup(); } catch {} throw error; }
     }
     return mounted;
   };
@@ -268,6 +273,7 @@ export function mountShippedGameBrowser(
       candidate.restart.removeEventListener("click", candidate.onRestart);
     } catch (error) { errors.push(error); }
     try { candidate.loop?.dispose(); } catch (error) { errors.push(error); }
+    try { candidate.audioUiBridge?.dispose(); } catch (error) { errors.push(error); }
     try { candidate.controls?.dispose(); } catch (error) { errors.push(error); }
     if (candidate.controls === null) {
       try { candidate.audioRuntime.dispose(); } catch (error) { errors.push(error); }
@@ -380,6 +386,7 @@ export function mountShippedGameBrowser(
       authenticSession,
       browserAudio.createRuntimeSinkCapability(),
     );
+    const audioUiBridge = createGameAudioUiBridge(audioRuntime);
     let controls = null;
     let loop = null;
     let restart = null;
@@ -399,9 +406,9 @@ export function mountShippedGameBrowser(
         throw new TypeError("shipped browser requires one restart control");
       }
       restart = restarts[0];
-      controls = mountGameAudioControls(shell, browserAudio, audioRuntime);
+      controls = mountGameAudioControls(shell, browserAudio, audioRuntime, audioUiBridge);
       loop = mountGameBrowserLoop({
-        createInput: createInputFactory(shell, cards),
+        createInput: createInputFactory(shell, cards, audioUiBridge),
         layers: createProjectionLayers(shell),
         root,
         scheduler: {
@@ -423,14 +430,16 @@ export function mountShippedGameBrowser(
         }
         return api.restart();
       };
-      candidate = { audioRuntime, browserAudio, controls, loop, onRestart, restart };
+      candidate = {
+        audioRuntime, audioUiBridge, browserAudio, controls, loop, onRestart, restart,
+      };
       restart.addEventListener("click", onRestart);
       audioRuntime.renderFrame();
       renderRestart(candidate);
       return candidate;
     } catch (error) {
       const failed = candidate ?? {
-        audioRuntime, browserAudio, controls, loop,
+        audioRuntime, audioUiBridge, browserAudio, controls, loop,
         onRestart() {}, restart: restart ?? { removeEventListener() {} },
       };
       cleanup(failed);
@@ -448,6 +457,13 @@ export function mountShippedGameBrowser(
   const api = Object.freeze({
     get audio() { assertActive(); return graph.controls.state; },
     get audioDiagnostics() { assertActive(); return graph.audioRuntime.state; },
+    get audioMixAudit() { assertActive(); return graph.audioRuntime.mixAudit; },
+    get audioPcmObservations() {
+      assertActive(); return graph.browserAudio.scheduledPcmObservations;
+    },
+    get audioScheduledPcm() {
+      assertActive(); return graph.browserAudio.scheduledPcmObservations;
+    },
     // Read-only continuation witness: intentionally excludes the browser sink's
     // already-heard transaction history and reset generation, neither of which
     // can affect future deterministic audio projection after a restore.

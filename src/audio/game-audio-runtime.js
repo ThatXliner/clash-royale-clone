@@ -1,8 +1,9 @@
 import { isAuthenticGameSession } from "../sim/game-session.js";
-import { AudioEventProjection } from "./audio-events.js";
+import { AudioEventProjection, AUDIO_EVENT_MAX_TICK } from "./audio-events.js";
 import {
   AUDIO_RENDERER_MAX_BATCH,
   AudioRenderer,
+  createProductionAudioProvenanceManifest,
   InMemoryPcmAudioBackend,
 } from "./audio-renderer.js";
 
@@ -14,12 +15,18 @@ const MAX_SNAPSHOT_BYTES = 8 * 1_024 * 1_024;
  * observed cues become audible in one transactional accelerated frame.
  */
 export const GAME_AUDIO_RUNTIME_MAX_ACCELERATED_CUES = 32;
+export const GAME_AUDIO_RUNTIME_MAX_UI_COMMANDS = 8_192;
+export const GAME_AUDIO_UI_COMMAND_KINDS = Object.freeze([
+  "card-select", "card-play", "ui-confirm", "ui-reject", "ui-toggle",
+]);
 const ACCELERATED_PRIORITY_FAMILIES = new Set([
   "matchEnd", "crown", "tower", "overtime", "tiebreak",
 ]);
 const authenticGameAudioRuntimes = new WeakSet();
 const runtimeSinkCapabilities = new WeakMap();
 const consumedRuntimeSinkCapabilities = new WeakSet();
+const runtimeUiCapabilities = new WeakMap();
+const consumedRuntimeUiCapabilities = new WeakSet();
 const SNAPSHOT_GRAPH_LIMITS = Object.freeze({
   arrayLength: 20_000,
   containers: 100_000,
@@ -170,6 +177,66 @@ function acceleratedCues(candidates) {
   return candidates.filter((cue) => chosen.has(cue));
 }
 
+function exactUiCommand(value) {
+  if (value === null || typeof value !== "object" || Array.isArray(value) ||
+      Object.getPrototypeOf(value) !== Object.prototype ||
+      Object.getOwnPropertySymbols(value).length !== 0) {
+    throw new TypeError("game audio UI command must be a plain object");
+  }
+  const descriptors = Object.getOwnPropertyDescriptors(value);
+  const keys = Reflect.ownKeys(descriptors);
+  const allowed = new Set(["cardId", "kind", "sequence", "tick"]);
+  if (keys.some((key) => typeof key !== "string" || !allowed.has(key))) {
+    throw new TypeError("game audio UI command has an invalid shape");
+  }
+  for (const key of keys) {
+    const descriptor = descriptors[key];
+    if (!descriptor.enumerable || !Object.hasOwn(descriptor, "value")) {
+      throw new TypeError(`game audio UI command.${key} must be an enumerable data property`);
+    }
+  }
+  if (!Object.hasOwn(value, "kind") || !Object.hasOwn(value, "sequence") ||
+      !Object.hasOwn(value, "tick")) {
+    throw new TypeError("game audio UI command is missing required fields");
+  }
+  const command = {
+    kind: value.kind,
+    sequence: value.sequence,
+    tick: value.tick,
+  };
+  if (!GAME_AUDIO_UI_COMMAND_KINDS.includes(command.kind)) {
+    throw new TypeError("game audio UI command kind is unsupported");
+  }
+  if (!Number.isSafeInteger(command.sequence) || command.sequence < 0 ||
+      command.sequence >= GAME_AUDIO_RUNTIME_MAX_UI_COMMANDS) {
+    throw new TypeError("game audio UI command sequence is out of bounds");
+  }
+  if (!Number.isSafeInteger(command.tick) || command.tick < 0 ||
+      command.tick > AUDIO_EVENT_MAX_TICK) {
+    throw new TypeError("game audio UI command tick is out of bounds");
+  }
+  if (Object.hasOwn(value, "cardId")) {
+    if (typeof value.cardId !== "string" ||
+        !/^[a-z0-9_-]{1,128}$/u.test(value.cardId)) {
+      throw new TypeError("game audio UI command cardId is invalid");
+    }
+    command.cardId = value.cardId;
+  }
+  if ((command.kind === "card-select" || command.kind === "card-play") &&
+      !Object.hasOwn(command, "cardId")) {
+    throw new TypeError("card audio UI commands require cardId");
+  }
+  return command;
+}
+
+const UI_KIND_TO_AUDIO = Object.freeze({
+  "card-play": Object.freeze({ cueId: "card-play", family: "cardPlay" }),
+  "card-select": Object.freeze({ cueId: "card-select", family: "cardSelect" }),
+  "ui-confirm": Object.freeze({ cueId: "ui-confirm", family: "uiConfirm" }),
+  "ui-reject": Object.freeze({ cueId: "ui-reject", family: "uiReject" }),
+  "ui-toggle": Object.freeze({ cueId: "ui-toggle", family: "uiToggle" }),
+});
+
 export function isAuthenticGameAudioRuntime(value) {
   return authenticGameAudioRuntimes.has(value);
 }
@@ -181,6 +248,16 @@ export function createGameAudioRuntimeSinkCapability(sink) {
   }
   const capability = Object.freeze(Object.create(null));
   runtimeSinkCapabilities.set(capability, sink);
+  return capability;
+}
+
+/** Mint one fieldless capability for the authenticated browser/UI seam. */
+export function createGameAudioRuntimeUiCapability(runtime) {
+  if (!isAuthenticGameAudioRuntime(runtime)) {
+    throw new TypeError("game audio UI capability requires an authentic runtime");
+  }
+  const capability = Object.freeze(Object.create(null));
+  runtimeUiCapabilities.set(capability, runtime);
   return capability;
 }
 
@@ -197,6 +274,8 @@ export class GameAudioRuntime {
   #session;
   #sink = null;
   #suppressedAcceleratedCueCount = 0;
+  #uiCommandBytes = [];
+  #uiLastTick = null;
 
   constructor(session, sinkCapability) {
     if ((arguments.length !== 1 && arguments.length !== 2) ||
@@ -230,6 +309,7 @@ export class GameAudioRuntime {
     this.#renderer = new AudioRenderer({
       backend: this.#backend,
       gainBasisPoints,
+      manifest: createProductionAudioProvenanceManifest(),
       muted,
     });
     this.#projection = new AudioEventProjection();
@@ -245,6 +325,13 @@ export class GameAudioRuntime {
       this.#projectionOffset + this.#eventBytes.length && this.#eventBytes.every(
       (bytes, index) => canonical(replay[this.#projectionOffset + index]) === bytes,
     );
+  }
+
+  #assertLive() {
+    if (this.#disposed) throw new Error("game audio runtime is disposed");
+    if (this.#renderer.state.faulted) {
+      throw new Error("game audio runtime is permanently faulted");
+    }
   }
 
   #assertRebaseable(session) {
@@ -333,6 +420,62 @@ export class GameAudioRuntime {
     return this.#renderFrame(true);
   }
 
+  /**
+   * Submit one authenticated UI-only cue. UI commands are deliberately kept
+   * outside the simulation replay; they have their own bounded sequence
+   * domain, so a card gesture can never mutate or impersonate GameSession
+   * authority. Exact duplicate delivery is idempotent, while divergent stale
+   * or skipped sequences fail before any renderer transaction.
+   */
+  submitUiCommand(capability, commandValue) {
+    this.#assertLive();
+    if (runtimeUiCapabilities.get(capability) !== this) {
+      if (consumedRuntimeUiCapabilities.has(capability)) {
+        throw new TypeError("game audio UI capability is consumed or belongs to another runtime");
+      }
+      throw new TypeError("game audio UI capability is invalid");
+    }
+    const command = exactUiCommand(commandValue);
+    const bytes = canonical(command);
+    const expectedSequence = this.#uiCommandBytes.length;
+    if (command.sequence < expectedSequence) {
+      if (this.#uiCommandBytes[command.sequence] !== bytes) {
+        throw new RangeError("game audio UI command is a divergent duplicate");
+      }
+      return isolated({
+        accepted: false,
+        command,
+        cue: null,
+        duplicate: true,
+      });
+    }
+    if (command.sequence !== expectedSequence) {
+      throw new RangeError(`game audio UI command sequence must be ${expectedSequence}`);
+    }
+    if (this.#uiLastTick !== null && command.tick < this.#uiLastTick) {
+      throw new RangeError("game audio UI command tick must not move backwards");
+    }
+    const audio = UI_KIND_TO_AUDIO[command.kind];
+    const cue = {
+      cueId: audio.cueId,
+      family: audio.family,
+      reason: "mapped",
+      sequence: command.sequence,
+      tick: command.tick,
+      type: command.kind,
+    };
+    const starts = this.#renderer.renderUiBatch([cue]);
+    this.#uiCommandBytes.push(bytes);
+    this.#uiLastTick = command.tick;
+    return isolated({
+      accepted: true,
+      command,
+      cue,
+      duplicate: false,
+      starts,
+    });
+  }
+
   restart(session) {
     if (!isAuthenticGameSession(session)) {
       throw new TypeError("game audio runtime restart requires an authentic GameSession");
@@ -341,6 +484,8 @@ export class GameAudioRuntime {
     if (!this.#disposed) this.#renderer.dispose();
     this.#session = session;
     this.#generation += 1;
+    this.#uiCommandBytes = [];
+    this.#uiLastTick = null;
     this.#resetAudioGraph(controls.gainBasisPoints, controls.muted);
     this.#observedTick = session.state.tick;
     return this.state;
@@ -430,6 +575,8 @@ export class GameAudioRuntime {
 
   get cues() { return isolated(absoluteRecords(this.#projection.cues, this.#projectionOffset)); }
 
+  get mixAudit() { return this.#renderer.mixAudit; }
+
   get state() {
     return isolated({
       cursor: this.#cursor,
@@ -446,6 +593,9 @@ export class GameAudioRuntime {
       suppressedAcceleratedCueCount: this.#suppressedAcceleratedCueCount,
       terminal: this.#session.state.terminal,
       transactionCount: this.#backend.state.transactionCount,
+      uiCommandCount: this.#uiCommandBytes.length,
+      uiSequence: this.#uiCommandBytes.length,
+      uiLastTick: this.#uiLastTick,
     });
   }
 

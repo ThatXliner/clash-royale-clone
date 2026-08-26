@@ -37,6 +37,25 @@ function primitiveSamples(bytes) {
   return samples;
 }
 
+function primitivePcmMetrics(bytes) {
+  const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+  let peak = 0;
+  let energy = 0;
+  for (let index = 0; index < bytes.byteLength / 2; index += 1) {
+    const sample = view.getInt16(index * 2, true);
+    const magnitude = Math.abs(sample);
+    if (magnitude > peak) peak = magnitude;
+    energy += sample * sample;
+  }
+  const sampleCount = bytes.byteLength / 2;
+  const rms = sampleCount === 0 ? 0 : Math.sqrt(energy / sampleCount);
+  return {
+    energy,
+    peak,
+    rmsBasisPoints: Math.floor(rms * 10_000 / 32_767),
+  };
+}
+
 function observePromise(result) {
   if (result !== null && (typeof result === "object" || typeof result === "function") &&
       typeof result.then === "function") {
@@ -81,6 +100,7 @@ export class BrowserPcmAudioSink {
   #muted = false;
   #resumeCount = 0;
   #runtimeBound = false;
+  #scheduledPcm = [];
   #startCount = 0;
   #transactionCount = 0;
   #unlockCount = 0;
@@ -172,7 +192,7 @@ export class BrowserPcmAudioSink {
         } else if (command.kind === "stop") {
           this.#stop(command.voiceId);
         } else if (command.kind === "start" && this.#gainNode !== null) {
-          this.#start(command, byVoiceId.get(command.voiceId));
+          this.#start(command, byVoiceId.get(command.voiceId), gainBasisPoints, muted);
         }
       }
       this.#gainBasisPoints = gainBasisPoints;
@@ -184,7 +204,8 @@ export class BrowserPcmAudioSink {
     }
   }
 
-  #start(command, voice) {
+  #start(command, voice, outputGainBasisPoints = this.#gainBasisPoints,
+    outputMuted = this.#muted) {
     if (voice === undefined || this.#active.has(command.voiceId)) {
       throw new TypeError("browser audio start voice is invalid or duplicate");
     }
@@ -213,6 +234,23 @@ export class BrowserPcmAudioSink {
       };
       this.#active.set(command.voiceId, source);
       source.start(context.currentTime);
+      const metrics = primitivePcmMetrics(voice.bytes);
+      this.#scheduledPcm.push(Object.freeze({
+        ...metrics,
+        cueId: voice.cueId,
+        effectiveGainBasisPoints: voice.effectiveGainBasisPoints,
+        family: voice.family,
+        mixGainBasisPoints: voice.mixGainBasisPoints ?? 10_000,
+        outputGainBasisPoints,
+        outputMuted,
+        sampleCount: voice.sampleCount,
+        sampleRateHz: voice.sampleRateHz,
+        sequence: voice.sequence,
+        sourceType: voice.sourceType,
+        startTick: voice.startTick,
+        voiceId: command.voiceId,
+        waveformSha256: voice.waveformSha256,
+      }));
       this.#startCount += 1;
     } catch (error) {
       this.#active.delete(command.voiceId);
@@ -263,10 +301,20 @@ export class BrowserPcmAudioSink {
       gainBasisPoints: this.#gainBasisPoints,
       muted: this.#muted,
       resumeCount: this.#resumeCount,
+      scheduledBufferCount: this.#scheduledPcm.length,
       transactionCount: this.#transactionCount,
       unlockCount: this.#unlockCount,
       unlocked: this.#unlockPromise !== null && this.#fault === null,
     });
+  }
+
+  /** Deterministic receipts for PCM buffers actually handed to Web Audio. */
+  get scheduledPcmObservations() {
+    return frozen(this.#scheduledPcm.map((observation) => ({ ...observation })));
+  }
+
+  get scheduledBuffers() {
+    return this.scheduledPcmObservations;
   }
 
   #assertUsable() {

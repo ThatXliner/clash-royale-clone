@@ -1,6 +1,11 @@
 import provenanceJson from "./audio-provenance.json" with { type: "json" };
 
-import { AUDIO_CUE_TAXONOMY, AUDIO_EVENT_MAX_TICK } from "./audio-events.js";
+import {
+  AUDIO_CUE_TAXONOMY,
+  AUDIO_EVENT_MAX_TICK,
+  AUDIO_PRODUCTION_CUE_TAXONOMY,
+} from "./audio-events.js";
+import productionProvenanceJson from "./audio-production-provenance.json" with { type: "json" };
 
 export const AUDIO_RENDERER_MAX_BATCH = 256;
 export const AUDIO_RENDERER_MAX_ACTIVE_VOICES = 4_096;
@@ -10,6 +15,12 @@ export const AUDIO_PCM_SAMPLE_RATE_HZ = 12_000;
 export const AUDIO_PCM_SAMPLES_PER_TICK = 200;
 export const AUDIO_PCM_FORMAT = "pcm-s16le";
 export const AUDIO_PCM_CHANNELS = 1;
+export const AUDIO_PRODUCTION_MIX_POLICY = Object.freeze({
+  ceiling: 29_491,
+  headroomBasisPoints: 900,
+  maxPolyphony: 64,
+  voiceGainBasisPoints: 275,
+});
 
 const AUTHOR_ID = "repository-contributors";
 const AUTHOR_STATEMENT =
@@ -18,8 +29,13 @@ const LICENSE_ID = "CC0-1.0";
 const LICENSE_STATEMENT =
   "The authors dedicate these procedural recipes and their generated waveforms to the public domain under CC0-1.0.";
 const FAMILY_ENTRIES = Object.freeze(Object.entries(AUDIO_CUE_TAXONOMY));
-const MAX_PROCEDURAL_PCM_CACHE_ENTRIES = FAMILY_ENTRIES.length;
-const CUE_TO_FAMILY = new Map(FAMILY_ENTRIES.map(([family, cueId]) => [cueId, family]));
+const PRODUCTION_FAMILY_ENTRIES = Object.freeze(
+  Object.entries(AUDIO_PRODUCTION_CUE_TAXONOMY),
+);
+const MAX_PROCEDURAL_PCM_CACHE_ENTRIES = PRODUCTION_FAMILY_ENTRIES.length;
+const CUE_TO_FAMILY = new Map(
+  PRODUCTION_FAMILY_ENTRIES.map(([family, cueId]) => [cueId, family]),
+);
 const OSCILLATORS = new Set(["sawtooth", "sine", "square", "triangle"]);
 const AUDIO_ASSET_PATTERN = /^src\/audio\/assets\/[a-z0-9][a-z0-9/_-]*\.(?:ogg|wav)$/u;
 const SHA256_PATTERN = /^[0-9a-f]{64}$/u;
@@ -222,9 +238,13 @@ function integer(value, minimum, maximum, label) {
 }
 
 function checkedRecipe(value, label) {
+  if (!plainObject(value)) throw new TypeError(`${label} must be a plain object`);
+  const descriptors = Object.getOwnPropertyDescriptors(value);
+  const hasLayers = Object.hasOwn(descriptors, "layers");
   const recipe = exactRecord(value, [
     "attackTicks", "decayTicks", "durationTicks", "endFrequencyHz",
     "gainBasisPoints", "oscillator", "releaseTicks", "startFrequencyHz",
+    ...(hasLayers ? ["layers"] : []),
   ], label);
   integer(recipe.attackTicks, 0, 120, `${label}.attackTicks`);
   integer(recipe.decayTicks, 0, 120, `${label}.decayTicks`);
@@ -236,6 +256,26 @@ function checkedRecipe(value, label) {
   if (!OSCILLATORS.has(recipe.oscillator)) throw new TypeError(`${label}.oscillator is unsupported`);
   if (recipe.attackTicks + recipe.decayTicks + recipe.releaseTicks > recipe.durationTicks) {
     throw new RangeError(`${label} envelope phases exceed durationTicks`);
+  }
+  if (hasLayers) {
+    const layers = denseArray(recipe.layers, 4, `${label}.layers`).map((value, index) => {
+      const layer = exactRecord(value, [
+        "frequencyRatioBasisPoints", "gainBasisPoints", "oscillator", "phaseOffset",
+      ], `${label}.layers[${index}]`);
+      integer(layer.frequencyRatioBasisPoints, 1_000, 40_000,
+        `${label}.layers[${index}].frequencyRatioBasisPoints`);
+      integer(layer.gainBasisPoints, 1, 10_000,
+        `${label}.layers[${index}].gainBasisPoints`);
+      integer(layer.phaseOffset, 0, 65_535,
+        `${label}.layers[${index}].phaseOffset`);
+      if (!OSCILLATORS.has(layer.oscillator)) {
+        throw new TypeError(`${label}.layers[${index}].oscillator is unsupported`);
+      }
+      return { ...layer };
+    });
+    const layerGain = layers.reduce((total, layer) => total + layer.gainBasisPoints, 0);
+    if (layerGain > 10_000) throw new RangeError(`${label}.layers gain exceeds 10000`);
+    recipe.layers = layers;
   }
   return { ...recipe };
 }
@@ -288,6 +328,9 @@ function synthesizeCheckedProceduralPcm(recipe) {
   const sampleCount = recipe.durationTicks * AUDIO_PCM_SAMPLES_PER_TICK;
   const bytes = new Uint8Array(sampleCount * 2);
   let phase = 0;
+  const layers = recipe.layers ?? [];
+  const layerPhases = layers.map(({ phaseOffset }) => phaseOffset);
+  const layerWeight = layers.reduce((total, layer) => total + layer.gainBasisPoints, 0);
   for (let index = 0; index < sampleCount; index += 1) {
     const frequency = sampleCount === 1
       ? recipe.startFrequencyHz
@@ -296,7 +339,21 @@ function synthesizeCheckedProceduralPcm(recipe) {
         BigInt(sampleCount - 1),
       );
     phase = (phase + Number(BigInt(frequency) * 65_536n / BigInt(AUDIO_PCM_SAMPLE_RATE_HZ))) & 0xffff;
-    const amplitude = oscillatorSample(recipe.oscillator, phase);
+    let amplitude = oscillatorSample(recipe.oscillator, phase);
+    if (layers.length > 0) {
+      let layered = amplitude * 10_000;
+      for (let layerIndex = 0; layerIndex < layers.length; layerIndex += 1) {
+        const layer = layers[layerIndex];
+        const layerFrequency = Math.max(20, Math.min(8_000,
+          Number(BigInt(frequency) * BigInt(layer.frequencyRatioBasisPoints) / 10_000n)));
+        layerPhases[layerIndex] = (layerPhases[layerIndex] + Number(
+          BigInt(layerFrequency) * 65_536n / BigInt(AUDIO_PCM_SAMPLE_RATE_HZ),
+        )) & 0xffff;
+        layered += oscillatorSample(layer.oscillator, layerPhases[layerIndex]) *
+          layer.gainBasisPoints;
+      }
+      amplitude = Number(BigInt(layered) / BigInt(10_000 + layerWeight));
+    }
     const gain = envelopeGain(recipe, index, sampleCount);
     const sample = Number(BigInt(amplitude) * BigInt(gain) / 10_000n);
     const encoded = sample < 0 ? sample + 65_536 : sample;
@@ -309,6 +366,144 @@ function synthesizeCheckedProceduralPcm(recipe) {
     format: AUDIO_PCM_FORMAT,
     sampleCount,
     sampleRateHz: AUDIO_PCM_SAMPLE_RATE_HZ,
+  });
+}
+
+// Production mix audits run at each accelerated presentation boundary. Keep
+// verified source bytes around so the audit spends its time reconstructing
+// overlap rather than re-synthesizing an unchanged recipe. The cache is
+// deliberately bounded because auditProductionMix also admits direct callers
+// with otherwise-valid custom recipes.
+const PRODUCTION_PCM_CACHE_LIMIT = 64;
+const productionPcmCache = new Map();
+const productionScaledPcmCache = new Map();
+
+function cachedProductionPcm(recipe, waveform) {
+  const key = `${canonicalJson(recipe)}:${waveform.sha256}`;
+  const cached = productionPcmCache.get(key);
+  if (cached !== undefined) return { key, pcm: cached };
+  const pcm = synthesizeCheckedProceduralPcm(recipe);
+  if (sha256Bytes(pcm.bytes) !== waveform.sha256) {
+    throw new TypeError("production mix source waveform has an invalid generated waveform hash");
+  }
+  if (productionPcmCache.size < PRODUCTION_PCM_CACHE_LIMIT) {
+    productionPcmCache.set(key, pcm);
+  }
+  return { key, pcm };
+}
+
+function scaledPcmBytes(bytes, gainBasisPoints) {
+  if (gainBasisPoints === 10_000) return new Uint8Array(bytes);
+  const scaled = new Uint8Array(bytes.length);
+  const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+  for (let index = 0; index < bytes.length / 2; index += 1) {
+    const sample = Number(
+      BigInt(view.getInt16(index * 2, true)) * BigInt(gainBasisPoints) / 10_000n,
+    );
+    const encoded = sample < 0 ? sample + 65_536 : sample;
+    scaled[index * 2] = encoded & 0xff;
+    scaled[index * 2 + 1] = encoded >>> 8 & 0xff;
+  }
+  return scaled;
+}
+
+/**
+ * Reconstruct the deterministic integer mix that the browser sink receives.
+ * This is intentionally an offline schedule audit: it proves source bytes,
+ * voice gain, overlap, and the signed PCM ceiling, without claiming to model
+ * browser acoustics or device output.
+ */
+export function auditProductionMix(voicesValue, policyValue = AUDIO_PRODUCTION_MIX_POLICY) {
+  const voices = denseArray(voicesValue, AUDIO_RENDERER_MAX_ACTIVE_VOICES,
+    "production mix voices");
+  const policy = exactRecord(policyValue, [
+    "ceiling", "headroomBasisPoints", "maxPolyphony", "voiceGainBasisPoints",
+  ], "production mix policy");
+  integer(policy.ceiling, 1, 32_767, "production mix policy.ceiling");
+  integer(policy.headroomBasisPoints, 1, 5_000,
+    "production mix policy.headroomBasisPoints");
+  integer(policy.maxPolyphony, 1, AUDIO_RENDERER_MAX_ACTIVE_VOICES,
+    "production mix policy.maxPolyphony");
+  integer(policy.voiceGainBasisPoints, 1, 10_000,
+    "production mix policy.voiceGainBasisPoints");
+  if (voices.length > policy.maxPolyphony) {
+    throw new RangeError("production mix polyphony bound exceeded");
+  }
+  if (voices.length === 0) {
+    return isolated({
+      ceiling: policy.ceiling,
+      energy: 0,
+      headroomBasisPoints: policy.headroomBasisPoints,
+      peak: 0,
+      rmsBasisPoints: 0,
+      voiceCount: 0,
+    });
+  }
+  const checked = voices.map((voice, index) => {
+    if (!plainObject(voice)) throw new TypeError(`production mix voice ${index} is invalid`);
+    const source = exactRecord(voice.source, [
+      "durationTicks", "kind", "recipe", "sha256", "waveform",
+    ], `production mix voice ${index}.source`);
+    if (source.kind !== "procedural") {
+      throw new TypeError(`production mix voice ${index} source is not procedural`);
+    }
+    const recipe = checkedRecipe(source.recipe, `production mix voice ${index}.recipe`);
+    const waveform = checkedWaveformMetadata(source.waveform, recipe,
+      `production mix voice ${index}.waveform`);
+    if (source.durationTicks !== recipe.durationTicks ||
+        !SHA256_PATTERN.test(source.sha256)) {
+      throw new TypeError(`production mix voice ${index} source metadata diverges`);
+    }
+    integer(voice.startTick, 0, AUDIO_EVENT_MAX_TICK, `production mix voice ${index}.startTick`);
+    const mixGainBasisPoints = integer(voice.mixGainBasisPoints ?? policy.voiceGainBasisPoints, 1,
+      policy.voiceGainBasisPoints,
+      `production mix voice ${index}.mixGainBasisPoints`);
+    const { key, pcm } = cachedProductionPcm(recipe, waveform);
+    if (pcm.sampleCount !== waveform.sampleCount) {
+      throw new TypeError(`production mix voice ${index} sample count diverges`);
+    }
+    const scaledKey = `${key}:${mixGainBasisPoints}`;
+    let bytes = productionScaledPcmCache.get(scaledKey);
+    if (bytes === undefined) {
+      bytes = scaledPcmBytes(pcm.bytes, mixGainBasisPoints);
+      if (productionScaledPcmCache.size < PRODUCTION_PCM_CACHE_LIMIT) {
+        productionScaledPcmCache.set(scaledKey, bytes);
+      }
+    }
+    return {
+      bytes,
+      startTick: voice.startTick,
+    };
+  });
+  const startTick = Math.min(...checked.map(({ startTick: tick }) => tick));
+  const endTick = Math.max(...checked.map(({ bytes, startTick: tick }) =>
+    tick + bytes.length / 2 / AUDIO_PCM_SAMPLES_PER_TICK));
+  const mixed = new Int32Array((endTick - startTick) * AUDIO_PCM_SAMPLES_PER_TICK);
+  for (const voice of checked) {
+    const offset = (voice.startTick - startTick) * AUDIO_PCM_SAMPLES_PER_TICK;
+    const view = new DataView(voice.bytes.buffer, voice.bytes.byteOffset, voice.bytes.byteLength);
+    for (let index = 0; index < voice.bytes.length / 2; index += 1) {
+      mixed[offset + index] += view.getInt16(index * 2, true);
+    }
+  }
+  let peak = 0;
+  let energy = 0;
+  for (const sample of mixed) {
+    const magnitude = Math.abs(sample);
+    if (magnitude > peak) peak = magnitude;
+    energy += sample * sample;
+  }
+  if (peak > policy.ceiling) {
+    throw new RangeError(`production mix clipping budget exceeded (${peak} > ${policy.ceiling})`);
+  }
+  const rms = mixed.length === 0 ? 0 : Math.sqrt(energy / mixed.length);
+  return isolated({
+    ceiling: policy.ceiling,
+    energy,
+    headroomBasisPoints: policy.headroomBasisPoints,
+    peak,
+    rmsBasisPoints: Math.floor(rms * 10_000 / 32_767),
+    voiceCount: voices.length,
   });
 }
 
@@ -341,7 +536,7 @@ function checkedWaveform(value, recipe, label) {
 }
 
 export function audioRecipeSha256(family, cueId, recipe) {
-  if (AUDIO_CUE_TAXONOMY[family] !== cueId) {
+  if (AUDIO_PRODUCTION_CUE_TAXONOMY[family] !== cueId) {
     throw new TypeError("recipe family and cueId do not match the audio taxonomy");
   }
   const checked = checkedRecipe(recipe, "recipe");
@@ -372,6 +567,13 @@ function linkage(record, label) {
 }
 
 export function auditAudioProvenance(manifestValue, shippedAudioFilesValue = []) {
+  if (plainObject(manifestValue)) {
+    const descriptors = Object.getOwnPropertyDescriptors(manifestValue);
+    const version = descriptors.version;
+    if (version?.enumerable && Object.hasOwn(version, "value") && version.value === 2) {
+      return auditProductionAudioProvenance(manifestValue, shippedAudioFilesValue);
+    }
+  }
   const manifest = exactRecord(manifestValue, [
     "assets", "author", "license", "recipes", "schema", "version",
   ], "audio provenance manifest");
@@ -454,7 +656,7 @@ export function auditAudioProvenance(manifestValue, shippedAudioFilesValue = [])
       return { ...record, path };
     });
 
-  for (const cueId of CUE_TO_FAMILY.keys()) {
+  for (const [, cueId] of FAMILY_ENTRIES) {
     if (!seenCueIds.has(cueId)) throw new TypeError(`missing audio source for cue ${cueId}`);
   }
   const listedPaths = [...seenPaths].sort();
@@ -479,10 +681,183 @@ export function auditAudioProvenance(manifestValue, shippedAudioFilesValue = [])
   });
 }
 
+/**
+ * Validate the version-two production manifest.  The legacy version-one
+ * manifest intentionally remains unchanged for replay consumers; production
+ * adds the authored UI/movement cues and a pinned integer mix policy.
+ */
+export function auditProductionAudioProvenance(
+  manifestValue,
+  shippedAudioFilesValue = [],
+) {
+  const manifest = exactRecord(manifestValue, [
+    "assets", "author", "license", "mix", "recipes", "schema", "version",
+  ], "production audio provenance manifest");
+  if (manifest.schema !== "original-audio-provenance" || manifest.version !== 2) {
+    throw new TypeError("production audio provenance schema or version is unsupported");
+  }
+  const author = exactRecord(manifest.author, ["id", "statement"],
+    "production audio provenance author");
+  const license = exactRecord(manifest.license, ["id", "statement"],
+    "production audio provenance license");
+  if (author.id !== AUTHOR_ID || author.statement !== AUTHOR_STATEMENT ||
+      license.id !== LICENSE_ID || license.statement !== LICENSE_STATEMENT) {
+    throw new TypeError("production audio provenance authorship or license assertion is invalid");
+  }
+  const mix = exactRecord(manifest.mix, [
+    "ceiling", "headroomBasisPoints", "maxPolyphony", "voiceGainBasisPoints",
+  ], "production audio mix policy");
+  integer(mix.ceiling, 1, 32_767, "production audio mix policy.ceiling");
+  integer(mix.headroomBasisPoints, 1, 5_000,
+    "production audio mix policy.headroomBasisPoints");
+  integer(mix.maxPolyphony, 1, AUDIO_RENDERER_MAX_ACTIVE_VOICES,
+    "production audio mix policy.maxPolyphony");
+  integer(mix.voiceGainBasisPoints, 1, 10_000,
+    "production audio mix policy.voiceGainBasisPoints");
+  for (const key of Object.keys(AUDIO_PRODUCTION_MIX_POLICY)) {
+    if (mix[key] !== AUDIO_PRODUCTION_MIX_POLICY[key]) {
+      throw new TypeError("production audio mix policy does not match the pinned policy");
+    }
+  }
+  const shippedAudioFiles = denseArray(
+    shippedAudioFilesValue,
+    64,
+    "shipped audio files",
+  ).map((value, index) => {
+    const record = exactRecord(value, ["path", "sha256"], `shipped audio files[${index}]`);
+    const path = safeAssetPath(record.path, `shipped audio files[${index}].path`);
+    if (!SHA256_PATTERN.test(record.sha256)) {
+      throw new TypeError(`shipped audio files[${index}].sha256 is invalid`);
+    }
+    return { path, sha256: record.sha256 };
+  });
+  if (shippedAudioFiles.some(({ path }, index) =>
+    index > 0 && path <= shippedAudioFiles[index - 1].path)) {
+    throw new TypeError("shipped audio files must be unique and canonically ordered");
+  }
+
+  const seenCueIds = new Set();
+  let previousRecipeFamily = -1;
+  const recipes = denseArray(
+    manifest.recipes,
+    PRODUCTION_FAMILY_ENTRIES.length,
+    "production audio provenance recipes",
+  ).map((value, index) => {
+    const record = exactRecord(value, [
+      "authorId", "cueId", "family", "licenseId", "recipe", "sha256", "waveform",
+    ], `production audio provenance recipes[${index}]`);
+    if (record.authorId !== AUTHOR_ID || record.licenseId !== LICENSE_ID) {
+      throw new TypeError(`production audio provenance recipes[${index}] has invalid authorship or license linkage`);
+    }
+    if (seenCueIds.has(record.cueId)) {
+      throw new TypeError(`duplicate audio cue ${record.cueId}`);
+    }
+    const familyIndex = PRODUCTION_FAMILY_ENTRIES.findIndex(([family]) => family === record.family);
+    if (familyIndex <= previousRecipeFamily) {
+      throw new TypeError("production audio provenance recipes must be canonically ordered");
+    }
+    if (AUDIO_PRODUCTION_CUE_TAXONOMY[record.family] !== record.cueId) {
+      throw new TypeError(`production audio provenance recipes[${index}] does not match the audio cue taxonomy`);
+    }
+    previousRecipeFamily = familyIndex;
+    seenCueIds.add(record.cueId);
+    const recipe = checkedRecipe(record.recipe,
+      `production audio provenance recipes[${index}].recipe`);
+    const expectedHash = audioRecipeSha256(record.family, record.cueId, recipe);
+    if (record.sha256 !== expectedHash) {
+      throw new TypeError(`production audio provenance recipes[${index}] has an invalid canonical hash`);
+    }
+    const waveform = checkedWaveform(
+      record.waveform,
+      recipe,
+      `production audio provenance recipes[${index}].waveform`,
+    );
+    return { ...record, recipe, waveform };
+  });
+
+  const seenPaths = new Set();
+  let previousAssetFamily = -1;
+  const assets = denseArray(
+    manifest.assets,
+    PRODUCTION_FAMILY_ENTRIES.length,
+    "production audio provenance assets",
+  ).map((value, index) => {
+    const record = exactRecord(value, [
+      "authorId", "cueId", "durationTicks", "family", "licenseId", "path", "sha256",
+    ], `production audio provenance assets[${index}]`);
+    if (record.authorId !== AUTHOR_ID || record.licenseId !== LICENSE_ID) {
+      throw new TypeError(`production audio provenance assets[${index}] has invalid authorship or license linkage`);
+    }
+    if (seenCueIds.has(record.cueId)) {
+      throw new TypeError(`duplicate audio cue ${record.cueId}`);
+    }
+    const familyIndex = PRODUCTION_FAMILY_ENTRIES.findIndex(([family]) => family === record.family);
+    if (familyIndex <= previousAssetFamily) {
+      throw new TypeError("production audio provenance assets must be canonically ordered");
+    }
+    if (AUDIO_PRODUCTION_CUE_TAXONOMY[record.family] !== record.cueId) {
+      throw new TypeError(`production audio provenance assets[${index}] does not match the audio cue taxonomy`);
+    }
+    previousAssetFamily = familyIndex;
+    seenCueIds.add(record.cueId);
+    const path = safeAssetPath(record.path, `production audio provenance assets[${index}].path`);
+    integer(record.durationTicks, 1, 120,
+      `production audio provenance assets[${index}].durationTicks`);
+    if (seenPaths.has(path)) throw new TypeError(`duplicate audio asset path ${path}`);
+    seenPaths.add(path);
+    if (!SHA256_PATTERN.test(record.sha256)) {
+      throw new TypeError(`production audio provenance assets[${index}].sha256 is invalid`);
+    }
+    return { ...record, path };
+  });
+
+  for (const cueId of CUE_TO_FAMILY.keys()) {
+    if (!seenCueIds.has(cueId)) throw new TypeError(`missing audio source for cue ${cueId}`);
+  }
+  const listedPaths = [...seenPaths].sort();
+  for (const path of listedPaths) {
+    const shipped = shippedAudioFiles.find((file) => file.path === path);
+    if (shipped === undefined) throw new TypeError(`missing shipped audio asset ${path}`);
+    const listed = assets.find((asset) => asset.path === path);
+    if (shipped.sha256 !== listed.sha256) {
+      throw new TypeError(`shipped audio asset hash mismatch ${path}`);
+    }
+  }
+  for (const { path } of shippedAudioFiles) {
+    if (!seenPaths.has(path)) throw new TypeError(`unlisted shipped audio asset ${path}`);
+  }
+  return isolated({
+    assets,
+    author,
+    license,
+    mix,
+    recipes,
+    schema: manifest.schema,
+    version: manifest.version,
+  });
+}
+
 const DEFAULT_PROVENANCE = auditAudioProvenance(provenanceJson, []);
+const PRODUCTION_MANIFEST_INPUT = {
+  assets: [...provenanceJson.assets, ...productionProvenanceJson.assets],
+  author: productionProvenanceJson.author,
+  license: productionProvenanceJson.license,
+  mix: productionProvenanceJson.mix,
+  recipes: [...provenanceJson.recipes, ...productionProvenanceJson.recipes],
+  schema: productionProvenanceJson.schema,
+  version: productionProvenanceJson.version,
+};
+const DEFAULT_PRODUCTION_PROVENANCE = auditProductionAudioProvenance(
+  PRODUCTION_MANIFEST_INPUT,
+  [],
+);
 
 export function createAudioProvenanceManifest() {
   return isolated(DEFAULT_PROVENANCE);
+}
+
+export function createProductionAudioProvenanceManifest() {
+  return isolated(DEFAULT_PRODUCTION_PROVENANCE);
 }
 
 function checkedBackend(value) {
@@ -614,6 +989,12 @@ export class InMemoryPcmAudioBackend {
         voices.delete(command.voiceId);
       } else if (command.kind === "start") {
         integer(command.voiceId, 1, Number.MAX_SAFE_INTEGER, "start voiceId");
+        const mixGainBasisPoints = integer(
+          command.mixGainBasisPoints ?? 10_000,
+          0,
+          10_000,
+          "start mixGainBasisPoints",
+        );
         if (voices.has(command.voiceId)) throw new Error("duplicate active audio voice");
         if (command.source?.kind !== "procedural") {
           throw new TypeError("PCM backend supports procedural sources only");
@@ -623,12 +1004,17 @@ export class InMemoryPcmAudioBackend {
           command.source.waveform,
         );
         voices.set(command.voiceId, {
-          bytes: new Uint8Array(pcm.bytes),
+          bytes: scaledPcmBytes(pcm.bytes, mixGainBasisPoints),
           cueId: command.cueId,
           effectiveGainBasisPoints: command.effectiveGainBasisPoints,
           endTick: command.endTick,
+          family: command.family,
+          mixGainBasisPoints,
           sampleCount: pcm.sampleCount,
+          sampleRateHz: pcm.sampleRateHz,
+          sequence: command.sequence,
           startTick: command.startTick,
+          sourceType: command.sourceType,
           voiceId: command.voiceId,
           waveformSha256: waveform.sha256,
         });
@@ -666,7 +1052,7 @@ function checkedCue(value, label) {
     ["cueId", "family", "reason", "sequence", "tick", "type"],
     label,
   );
-  if (AUDIO_CUE_TAXONOMY[cue.family] !== cue.cueId || cue.reason !== "mapped") {
+  if (AUDIO_PRODUCTION_CUE_TAXONOMY[cue.family] !== cue.cueId || cue.reason !== "mapped") {
     throw new TypeError(`${label} is not a mapped audio cue`);
   }
   integer(cue.sequence, 0, Number.MAX_SAFE_INTEGER, `${label}.sequence`);
@@ -682,6 +1068,13 @@ function effectiveGain(recipeGain, masterGain, muted) {
   return Number(BigInt(recipeGain) * BigInt(masterGain) / 10_000n);
 }
 
+function effectiveMixedGain(recipeGain, masterGain, mixGain, muted) {
+  if (muted) return 0;
+  return Number(
+    BigInt(recipeGain) * BigInt(masterGain) * BigInt(mixGain) / 100_000_000n,
+  );
+}
+
 export class AudioRenderer {
   #active = [];
   #backend;
@@ -691,9 +1084,12 @@ export class AudioRenderer {
   #gainBasisPoints;
   #lastSequence = null;
   #lastTick = null;
+  #lastUiSequence = null;
+  #lastUiTick = null;
   #muted;
   #nextVoiceId = 1;
   #nextTransactionId = 1;
+  #mixPolicy = null;
   #scheduledCount = 0;
   #sources = new Map();
 
@@ -714,6 +1110,7 @@ export class AudioRenderer {
       options.manifest ?? DEFAULT_PROVENANCE,
       options.shippedAudioFiles ?? [],
     );
+    if (provenance.version === 2) this.#mixPolicy = provenance.mix;
     for (const entry of provenance.recipes) {
       this.#sources.set(entry.cueId, {
         durationTicks: entry.recipe.durationTicks,
@@ -759,7 +1156,22 @@ export class AudioRenderer {
     return isolated(this.#active);
   }
 
+  get mixAudit() {
+    return this.#mixPolicy === null
+      ? null
+      : auditProductionMix(this.#active, this.#mixPolicy);
+  }
+
   renderBatch(cuesValue) {
+    return this.#renderBatch(cuesValue, "simulation");
+  }
+
+  /** Render authenticated UI cues on a sequence domain independent of replay. */
+  renderUiBatch(cuesValue) {
+    return this.#renderBatch(cuesValue, "ui");
+  }
+
+  #renderBatch(cuesValue, domain) {
     this.#assertLive();
     const values = denseArray(cuesValue, AUDIO_RENDERER_MAX_BATCH, "audio cue batch");
     if (values.length > AUDIO_RENDERER_MAX_ACTIVE_VOICES - this.#active.length) {
@@ -768,9 +1180,13 @@ export class AudioRenderer {
     if (values.length > AUDIO_RENDERER_MAX_SCHEDULED_VOICES - this.#scheduledCount) {
       throw new RangeError("audio renderer scheduled voice bound exceeded");
     }
+    if (this.#mixPolicy !== null &&
+        this.#active.length + values.length > this.#mixPolicy.maxPolyphony) {
+      throw new RangeError("production mix polyphony bound exceeded");
+    }
     const cues = [];
-    let lastSequence = this.#lastSequence;
-    let lastTick = this.#lastTick;
+    let lastSequence = domain === "ui" ? this.#lastUiSequence : this.#lastSequence;
+    let lastTick = domain === "ui" ? this.#lastUiTick : this.#lastTick;
     for (let index = 0; index < values.length; index += 1) {
       const cue = checkedCue(values[index], `audio cue batch[${index}]`);
       if (lastSequence !== null && cue.sequence <= lastSequence) {
@@ -786,14 +1202,17 @@ export class AudioRenderer {
       lastSequence = cue.sequence;
       lastTick = cue.tick;
     }
-    const voices = cues.map((cue, index) => {
+    let voices = cues.map((cue, index) => {
       const source = this.#sources.get(cue.cueId);
       const durationTicks = source.durationTicks;
       const voiceId = this.#nextVoiceId + index;
       return {
         cueId: cue.cueId,
         effectiveGainBasisPoints: source.kind === "procedural"
-          ? effectiveGain(source.recipe.gainBasisPoints, this.#gainBasisPoints, this.#muted)
+          ? (this.#mixPolicy === null
+            ? effectiveGain(source.recipe.gainBasisPoints, this.#gainBasisPoints, this.#muted)
+            : effectiveMixedGain(source.recipe.gainBasisPoints, this.#gainBasisPoints,
+              this.#mixPolicy.voiceGainBasisPoints, this.#muted))
           : this.#muted ? 0 : this.#gainBasisPoints,
         endTick: cue.tick + durationTicks,
         family: cue.family,
@@ -805,17 +1224,35 @@ export class AudioRenderer {
         voiceGainBasisPoints: source.kind === "procedural"
           ? source.recipe.gainBasisPoints
           : 10_000,
+        mixGainBasisPoints: this.#mixPolicy?.voiceGainBasisPoints ?? 10_000,
         voiceId,
       };
     });
+    if (this.#mixPolicy !== null && voices.length > 0) {
+      const mixGainBasisPoints = this.#mixPolicy.voiceGainBasisPoints;
+      voices = voices.map((voice) => ({
+        ...voice,
+        effectiveGainBasisPoints: voice.source.kind === "procedural"
+          ? effectiveMixedGain(voice.source.recipe.gainBasisPoints,
+            this.#gainBasisPoints, mixGainBasisPoints, this.#muted)
+          : voice.effectiveGainBasisPoints,
+        mixGainBasisPoints,
+      }));
+      auditProductionMix([...this.#active, ...voices], this.#mixPolicy);
+    }
     const commands = isolated(voices);
     if (commands.length > 0) this.#apply(commands);
     this.#active.push(...voices.map((voice) => isolated(voice)));
     this.#nextVoiceId += voices.length;
     this.#scheduledCount += voices.length;
     if (cues.length > 0) {
-      this.#lastSequence = cues.at(-1).sequence;
-      this.#lastTick = cues.at(-1).tick;
+      if (domain === "ui") {
+        this.#lastUiSequence = cues.at(-1).sequence;
+        this.#lastUiTick = cues.at(-1).tick;
+      } else {
+        this.#lastSequence = cues.at(-1).sequence;
+        this.#lastTick = cues.at(-1).tick;
+      }
     }
     return commands;
   }
