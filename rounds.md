@@ -1,5 +1,48 @@
 # Gauntlet Rounds
 
+## Round 295 — 2026-08-25
+
+PIECE: GAME-001GP — Sustained browser-match throughput, round 3
+
+VERDICT: PASS
+
+EVIDENCE: Commit `fc06b84` gates the 40ms slice cap behind a quiescent
+deterministic audit: an over-budget segment is re-measured in Node from its
+pre-segment snapshot via restore + stepMany(1), retried once; unreproduced
+overruns are recorded in telemetry.environmentAudits and pass, reproduced
+overruns fail decisively. Three full endurance runs passed (~481s each,
+worst slices 32.5–34.3ms, zero audits triggered); the critic's scratch
+probes showed a fake one-off 114.8ms spike absorbed and recorded while a
+forced reproduced overrun failed hard ("reproduced 56ms ... beyond the 40ms
+target"). All deterministic restore/restart byte and transaction assertions
+verified untouched; independent hard caps remain (30s segment wall clock,
+50ms long-task observer); no src/ changes; guards 10/10 and 13/13.
+
+BIGGEST GAP: A fully frozen RAF yield seam would hang page.evaluate until
+the ~21-minute test timeout instead of a fast explicit failure — wrap
+driveBrowserSegment in a Promise.race deadline.
+
+## Round 294 — 2026-08-25
+
+PIECE: GAME-001HTM — Shared troop movement and form mechanics, round 5
+
+VERDICT: PASS
+
+EVIDENCE: Commit `abd094a` replaces the flaky absolute ~3130ms restore bound
+with a scaled guard: T_large(1024) <= min(32 x max(T_small(256), 1ms) +
+250ms, 30s) on JIT-warmed median-of-3 measurements for both serialize and
+restore. The critic independently measured the quadratic baseline (serialize
+ratio 16.12x, restore 15.88x), confirmed a simulated cubic blowup fails by
+more than 2x margin while the real workload passes with headroom, ran the
+suite three times idle plus once under deliberate 2-core load (22/22 every
+time), verified every non-timing assertion survived verbatim and only the
+two absolute timing asserts were removed. Guards 10/10 and 13/13; commit
+touches one file.
+
+BIGGEST GAP: K=32 tolerates same-complexity constant-factor slowdowns up to
+about 2x; tighten or add a midpoint ratio check if constant-factor
+regressions ever matter.
+
 ## Round 293 — 2026-08-25
 
 PIECE: VIS-003B — Arena, river, bridges, and tower art, round 1

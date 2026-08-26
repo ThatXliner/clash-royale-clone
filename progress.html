@@ -28,7 +28,7 @@
   <div class="cards">
     <div class="card"><div class="num">170</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">125</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">293</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">295</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">24</div><div class="label">open questions</div></div>
   </div>
   <p class="note">Active target: <strong>wall-clock perf-bound flakes (battle-movement-history restore bound, game-browser-endurance slice budget), then VIS-003D interface art</strong>.</p>
@@ -1186,8 +1186,8 @@
         <td>Sustained browser-match throughput</td>
         <td class="state-pass">PASS</td>
         <td>1/1</td>
-        <td>2</td>
-        <td>Round 2 passed integrated real Chrome at 720×1280 through tick 18,000: 33.3 ms worst slice, zero driven long tasks/errors, exact restore/audio/DOM continuation, terminal and tick-0 restart</td>
+        <td>3</td>
+        <td>Round 3 re-passed after gating the slice cap behind a quiescent deterministic re-measure: environment spikes absorbed and recorded, reproduced overruns and frozen yields still fail; byte/transaction assertions untouched</td>
       </tr>
       <tr>
         <td><code>GAME-001GS</code></td>
@@ -1265,9 +1265,9 @@
         <td><code>GAME-001HTM</code></td>
         <td>Shared troop movement and form mechanics</td>
         <td class="state-pass">PASS</td>
-        <td>16/16</td>
-        <td>4</td>
-        <td>Round 4 passed: serialization is observationally pure — canonicalization runs on a detached clone; tick-200 bytes identical across schedules, cuts and every-tick schedules converge through tick 320, hostile snapshots still reject atomically</td>
+        <td>22/22</td>
+        <td>5</td>
+        <td>Round 5 re-passed after replacing the flaky absolute restore bound with a scaled 256-vs-1024 ratio guard (quadratic passes with headroom, cubic fails decisively); round 4 serialization purity unchanged</td>
       </tr>
       <tr>
         <td><code>GAME-001HTJP</code></td>
@@ -1680,7 +1680,9 @@
       <li><strong>R286 FAIL</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>Scope the sourced flight policy strictly to Copperskiff and Skymaul so enabling v4 cannot alter or reject ordinary ground movement.</li>
       <li><strong>R287 FAIL</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>Fix ordinary multi-entity BattleMovement command-history canonicalization so the Cinderlings redeploy scenario serializes and completes the required continuation differential.</li>
       <li><strong>R288 FAIL</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>Preserve the command tick required for LiveBattle replay so intermediate serialization is pure and cannot create a noncausal later snapshot.</li>
-                              <li><strong>R293 PASS</strong> · VIS-003B — Arena, river, bridges, and tower art<br>Committed render evidence is not byte-reproducible; pin manual-step entry before auto ticks or assert landmark-only stability.</li>
+                                    <li><strong>R295 PASS</strong> · GAME-001GP — Sustained browser-match throughput<br>A fully frozen RAF yield seam would hang until the ~21-minute test timeout; wrap driveBrowserSegment in an explicit Promise.race deadline.</li>
+      <li><strong>R294 PASS</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>K=32 tolerates same-complexity constant-factor slowdowns up to ~2x; tighten or add a midpoint ratio check if constant factors ever matter.</li>
+<li><strong>R293 PASS</strong> · VIS-003B — Arena, river, bridges, and tower art<br>Committed render evidence is not byte-reproducible; pin manual-step entry before auto ticks or assert landmark-only stability.</li>
 <li><strong>R292 PASS</strong> · BUILDING-001 — Defensive buildings<br>Newly pinned stepPaused/statusWork paths lack behavioral coverage; add a paused-stepping differential later.</li>
 <li><strong>R291 PASS</strong> · GAME-001GS — Short authentic browser match journey<br>None on the judged dimension; endurance and movement-history wall-clock bounds remain flaky on this machine and are queued separately.</li>
 <li><strong>R290 PASS</strong> · VIS-003A — Original art direction and asset provenance<br>None on the judged dimension; admission is shape-only with hash correctness enforced by the disk-parity test.</li>
