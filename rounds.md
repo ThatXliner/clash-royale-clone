@@ -1,5 +1,26 @@
 # Gauntlet Rounds
 
+## Round 305 — 2026-08-30
+
+PIECE: UI-002CP — Closed combat-effect feed export, round 4
+
+VERDICT: FAIL
+
+EVIDENCE: Protocol 9/9 plus focused area, projectile, travel,
+nondeterminism and shipping selectors passed. An independent actual
+ProjectileCombat witness launched two tick-zero projectiles plus 2,519 future
+roots, including ten long 16-digit source IDs. Before `step(0)` the feed held
+2,521 records. The first due contact appended, then the second contact's
+per-contact capacity guard threw `RangeError: combat effect projectile
+operation exceeds its feed byte bound`. The rejected step left mechanics
+serialize/state/replay unchanged but changed public feed bytes and record count
+from 2,521 to 2,522. Round-3 dotted identity and reversed-area-history attacks
+were closed successfully.
+
+BIGGEST GAP: ProjectileCombat validates feed capacity per contact instead of
+staging the entire due boundary, so a later capacity failure exposes an earlier
+partial visual record.
+
 ## Round 304 — 2026-08-30
 
 PIECE: UI-002CP — Closed combat-effect feed export, round 3
