@@ -1,5 +1,29 @@
 # Gauntlet Rounds
 
+## Round 304 — 2026-08-30
+
+PIECE: UI-002CP — Closed combat-effect feed export, round 3
+
+VERDICT: FAIL
+
+EVIDENCE: The protocol selector passed 9/9; area 11/11, projectile 8/8 and
+traveling-line 15/15 also passed. Independent hostile identity construction
+proved two distinct admitted tuples collide: `sourceId="a.sfoo", effectId="bar"`
+and `sourceId="a", effectId="foo.sbar"` both derive
+`projectile.travel.sa.sfoo.sbar.none.none`. The first root appends, while the
+second is rejected as a duplicate, violating injectivity for concurrently
+valid effects. Literal dots survive `encodeURIComponent` and are
+indistinguishable from the root's field delimiters. Separately, reversing a
+valid Area v3 history's candidate order from `[1,2]` to `[2,1]` restored and
+self-serialized with identical feed and mechanics. Restore replayed the
+candidates canonically, then replaced that derived history with the forged
+input order. Other round-2 travel, lineage, legacy and maximum-Unicode probes
+rejected or continued as intended.
+
+BIGGEST GAP: Root identity encoding is not injective for dot-containing
+admitted strings, and Area restore does not retain its replay-derived canonical
+history.
+
 ## Round 303 — 2026-08-30
 
 PIECE: UI-002CP — Closed combat-effect feed export, round 2
