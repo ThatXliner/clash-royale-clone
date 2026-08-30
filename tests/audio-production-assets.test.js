@@ -382,8 +382,50 @@ test("audio production assets: real Chrome unlocks and schedules captured PCM th
     assert.equal(restartAfterUnlock.state.restartCount, 1);
     assert.equal(consoleErrors.length, 0, consoleErrors.join("\n"));
     assert.equal(pageErrors.length, 0, pageErrors.join("\n"));
+    const movementPage = await context.newPage();
+    await movementPage.addInitScript(() => {
+      let nextAnimationFrame = 1;
+      const animationFrames = new Map();
+      globalThis.requestAnimationFrame = (callback) => {
+        const handle = nextAnimationFrame;
+        nextAnimationFrame += 1;
+        animationFrames.set(handle, callback);
+        return handle;
+      };
+      globalThis.cancelAnimationFrame = (handle) => animationFrames.delete(handle);
+    });
+    const standardResponse = await movementPage.goto(
+      `http://${ready.host}:${ready.port}/public/ui-arena-shell.html`,
+      { waitUntil: "domcontentloaded" },
+    );
+    assert.equal(standardResponse.status(), 200);
+    await movementPage.waitForSelector('[data-ui="arena"]');
+    const standardStart = await movementPage.evaluate(async () => {
+      const controller = (await import("/src/ui/arena-shell-entry.js")).arenaHudController;
+      globalThis.__audioProductionController = controller;
+      controller.enterManualStepMode();
+      return controller.state.sessionTick;
+    });
+    assert.equal(standardStart, 0);
+    await movementPage.locator('[data-ui="audio-toggle"]').click();
+    await movementPage.evaluate(() => {
+      const controller = globalThis.__audioProductionController;
+      controller.fastForwardSegment(600);
+    });
+    const movementCapture = await movementPage.evaluate(() => {
+      const controller = globalThis.__audioProductionController;
+      return { audio: controller.audio, pcm: controller.audioPcmObservations,
+        state: controller.state };
+    });
+    assert.equal(movementCapture.pcm.some(({ family }) => family === "movement"), true,
+      JSON.stringify(movementCapture.pcm));
+    assert.equal(consoleErrors.length, 0, consoleErrors.join("\n"));
+    assert.equal(pageErrors.length, 0, pageErrors.join("\n"));
+    await movementPage.close();
     const tickOrigin = Math.min(...capture.pcm.map(({ startTick }) => startTick));
     const restartTickOrigin = Math.min(...restartAfterUnlock.pcm.map(
+      ({ startTick }) => startTick));
+    const movementTickOrigin = Math.min(...movementCapture.pcm.map(
       ({ startTick }) => startTick));
     const manifest = createProductionAudioProvenanceManifest();
     const tower = manifest.recipes.find(({ family }) => family === "tower");
@@ -407,6 +449,12 @@ test("audio production assets: real Chrome unlocks and schedules captured PCM th
         scheduledPcm: relativePcmObservations(capture.pcm, tickOrigin),
         terminal: capture.terminal,
         unlockCount: capture.audio.audio.unlockCount,
+      },
+      movementBrowser: {
+        pcm: relativePcmObservations(movementCapture.pcm, movementTickOrigin),
+        sessionTick: movementCapture.state.sessionTick,
+        tickOrigin: movementTickOrigin,
+        unlockCount: movementCapture.audio.audio.unlockCount,
       },
       muteGain: {
         firstToggle: { ...firstToggle,

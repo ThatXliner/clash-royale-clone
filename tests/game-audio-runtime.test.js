@@ -9,7 +9,10 @@ import {
   createPlayableRoster,
   createPlayableRosterQuestionRecords,
 } from "../src/content/playable-roster.js";
-import { GameSession } from "../src/sim/game-session.js";
+import {
+  GameSession,
+  getGameSessionAudioReplay,
+} from "../src/sim/game-session.js";
 
 function canonical(value) {
   if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
@@ -45,8 +48,18 @@ function acceleratedRoster() {
   }));
 }
 
-function sessionSetup({ accelerated = false } = {}) {
-  const roster = accelerated ? acceleratedRoster() : createPlayableRoster();
+function sessionSetup({ accelerated = false, stationary = false } = {}) {
+  let roster = accelerated ? acceleratedRoster() : createPlayableRoster();
+  if (stationary) {
+    roster = roster.map((card) => ({
+      ...card,
+      movementMillitilesPerSecond: 0,
+      entities: card.entities.map((entity) => ({
+        ...entity,
+        movementMillitilesPerSecond: 0,
+      })),
+    }));
+  }
   const questions = createPlayableRosterQuestionRecords();
   const battleSetup = canonical({
     initialWindupTicks: { central: 0, lane: 0 },
@@ -136,7 +149,46 @@ test("game audio runtime: ordered session events render once across repeated fra
   assert.deepEqual(repeated.cues, []);
   assert.deepEqual(repeated.starts, []);
   assert.equal(runtime.state.transactionCount, transactionCount);
-  assert.equal(runtime.state.cursor, session.replay.length);
+  assert.equal(runtime.state.cursor, getGameSessionAudioReplay(session).length);
+});
+
+test("game audio runtime: locomotion starts require real displacement and restore exactly", () => {
+  const stationary = new GameSession(sessionSetup({ stationary: true }));
+  const stationaryRuntime = new GameAudioRuntime(stationary);
+  submitPlayable(stationary);
+  stationary.stepMany(120);
+  assert.ok(stationary.replay.some(({ type }) => type === "session-deployed"));
+  assert.equal(getGameSessionAudioReplay(stationary).some(
+    ({ type }) => type === "locomotion-start"), false);
+  assert.equal(stationaryRuntime.renderFrame().cues.some(
+    ({ family }) => family === "movement"), false);
+
+  const direct = new GameSession(sessionSetup());
+  const chunked = new GameSession(sessionSetup());
+  submitPlayable(direct);
+  submitPlayable(chunked);
+  direct.stepMany(180);
+  chunked.stepMany(37);
+  const restored = GameSession.restore(chunked.serialize());
+  restored.stepMany(143);
+  const directAudioReplay = getGameSessionAudioReplay(direct);
+  const restoredAudioReplay = getGameSessionAudioReplay(restored);
+  assert.equal(canonical(restoredAudioReplay), canonical(directAudioReplay));
+  assert.equal(canonical(restored.replay), canonical(direct.replay));
+  assert.deepEqual(
+    directAudioReplay.filter(({ type }) => type !== "locomotion-start"),
+    direct.replay,
+  );
+  const movementStarts = directAudioReplay.filter(
+    ({ type }) => type === "locomotion-start",
+  );
+  assert.ok(movementStarts.length > 0);
+  assert.equal(new Set(movementStarts.map(({ entityId }) => entityId)).size,
+    movementStarts.length);
+  const directCues = new GameAudioRuntime(direct).renderFrame().cues;
+  const restoredCues = new GameAudioRuntime(restored).renderFrame().cues;
+  assert.deepEqual(restoredCues, directCues);
+  assert.ok(directCues.some(({ family }) => family === "movement"));
 });
 
 test("game audio runtime: restore retains prefix without replay and continues once", () => {
@@ -154,7 +206,7 @@ test("game audio runtime: restore retains prefix without replay and continues on
   assert.equal(restored.state.transactionCount, transactions);
   restoredSession.step();
   restored.renderFrame();
-  assert.equal(restored.state.cursor, restoredSession.replay.length);
+  assert.equal(restored.state.cursor, getGameSessionAudioReplay(restoredSession).length);
   assert.equal(restored.state.cueCount >= cueCount, true);
 });
 
@@ -176,9 +228,10 @@ test("game audio runtime: accelerated batches are bounded and rebase is silent",
   const restoredSession = GameSession.restore(session.serialize());
   const beforeRebase = runtime.state;
   const rebased = runtime.rebase(restoredSession);
-  assert.equal(rebased.cursor, restoredSession.replay.length);
-  assert.equal(rebased.eventCount, restoredSession.replay.length);
-  assert.equal(rebased.projectionOffset, restoredSession.replay.length);
+  const restoredAudioReplay = getGameSessionAudioReplay(restoredSession);
+  assert.equal(rebased.cursor, restoredAudioReplay.length);
+  assert.equal(rebased.eventCount, restoredAudioReplay.length);
+  assert.equal(rebased.projectionOffset, restoredAudioReplay.length);
   assert.equal(rebased.suppressedAcceleratedCueCount,
     beforeRebase.suppressedAcceleratedCueCount);
   const silent = runtime.renderAcceleratedFrame();
@@ -198,7 +251,7 @@ test("game audio runtime: version one snapshots restore as version two", () => {
   legacy.version = 1;
   const restored = GameAudioRuntime.restore(canonical(legacy),
     GameSession.restore(session.serialize()));
-  assert.equal(restored.state.cursor, session.replay.length);
+  assert.equal(restored.state.cursor, getGameSessionAudioReplay(session).length);
   assert.equal(restored.state.suppressedAcceleratedCueCount, 0);
   assert.equal(JSON.parse(restored.serialize()).version, 2);
 });
@@ -211,24 +264,25 @@ test("game audio runtime: rebase rejects unseen authority atomically", () => {
   runtime.renderFrame();
   const before = runtime.serialize();
   const later = GameSession.restore(session.serialize());
-  const beforeReplay = later.replay.length;
+  const beforeReplay = getGameSessionAudioReplay(later).length;
   submitPlayable(later, 2);
   later.step();
-  assert.equal(later.replay.length > beforeReplay, true);
+  assert.equal(getGameSessionAudioReplay(later).length > beforeReplay, true);
   assert.throws(() => runtime.rebase(later), /unseen authority records/u);
   assert.equal(runtime.serialize(), before);
   assert.equal(runtime.assertRebaseable(GameSession.restore(session.serialize())), true);
 
   const silentlyConsumed = runtime.rebaseSilently(later);
-  assert.equal(silentlyConsumed.cursor, later.replay.length);
-  assert.equal(silentlyConsumed.eventCount, later.replay.length,
+  const laterAudioReplay = getGameSessionAudioReplay(later);
+  assert.equal(silentlyConsumed.cursor, laterAudioReplay.length);
+  assert.equal(silentlyConsumed.eventCount, laterAudioReplay.length,
     "unseen restore records are actually projected rather than assigned as an offset");
   assert.equal(silentlyConsumed.projectionOffset, 0);
   assert.deepEqual(runtime.renderFrame().cues, [],
     "the silent restore itself produces no retrospective audible cue burst");
   later.step();
   const continued = runtime.renderFrame();
-  assert.equal(runtime.state.cursor, later.replay.length);
+  assert.equal(runtime.state.cursor, getGameSessionAudioReplay(later).length);
   assert.equal(new Set(continued.cues.map(({ sequence }) => sequence)).size,
     continued.cues.length, "new authority after silent restore remains deduplicated");
 });
@@ -323,6 +377,18 @@ test("game audio runtime: hostile admission and divergent restore are atomic", (
   assert.equal(objectProxy.calls(), 0);
   assert.equal(callableProxy.calls(), 0);
   assert.equal(revokedCalls, 0);
+
+  const shadowedSession = new GameSession(sessionSetup());
+  let shadowCalls = 0;
+  Object.defineProperty(shadowedSession, "audioReplay", {
+    configurable: true,
+    get() { shadowCalls += 1; throw new Error("shadow getter executed"); },
+  });
+  const shadowedRuntime = new GameAudioRuntime(shadowedSession);
+  submitPlayable(shadowedSession);
+  shadowedSession.step();
+  shadowedRuntime.renderFrame();
+  assert.equal(shadowCalls, 0);
 
   const session = new GameSession(sessionSetup());
   const runtime = new GameAudioRuntime(session);

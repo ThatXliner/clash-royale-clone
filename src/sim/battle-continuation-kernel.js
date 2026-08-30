@@ -11717,6 +11717,8 @@ function defineGameSession(ElixirMatch, LiveBattle, MATCH_MAX_TICKS, MatchClock,
   resolveMatchClock, resolveOpponentController, createLegacyLiveBattleForRestore,
   liveBattleCombatEffectFeed) {
 
+let getAudioReplay;
+
 const GAME_SESSION_MAX_BATCH_TICKS = 18_000;
 const GAME_SESSION_MAX_SETUP_BYTES = 2 * 1_024 * 1_024;
 const GAME_SESSION_MAX_SNAPSHOT_BYTES = 32 * 1_024 * 1_024;
@@ -12023,6 +12025,7 @@ function commandText(value) {
 }
 
 class GameSession {
+  #audioEvents = []; #audioMovementStarted = new Set();
   #battle; #cardRuntime; #clock; #controller; #costs; #decks; #elixir; #events = [];
   #history = []; #historyBytes = []; #historyByteLength = 0; #legal;
   #nextDeploymentSequence = 0; #paused = false; #pending = [];
@@ -12031,6 +12034,15 @@ class GameSession {
   #legacyStructureReceipts = false;
   #batchBattleAdvance = true;
   #projectileRuntimePlan;
+
+  static {
+    getAudioReplay = (value) => {
+      if (!authenticGameSessions.has(value)) {
+        throw new TypeError("game session audio replay receiver is invalid");
+      }
+      return freeze(clone(value.#audioEvents));
+    };
+  }
 
   constructor(canonicalSetup, restoreCapability = null, projectileRuntimePlan = undefined) {
     const prevalidated = new.target === GameSession
@@ -12528,6 +12540,20 @@ class GameSession {
     ].includes(type) || /^(building|structure|death-effect|travel|underground|ramp)-/u.test(type));
     sessionEvents.push(...meaningfulBattle, ...(resourceEvents ?? []), ...clockEvents);
     sessionEvents.sort((a, b) => (a.tick ?? 0) - (b.tick ?? 0));
+    const movementStarts = [];
+    for (const wrapper of battleEvents) {
+      if (wrapper.type !== "movement" || wrapper.event?.kind !== "moved" ||
+          this.#audioMovementStarted.has(wrapper.unitId)) continue;
+      this.#audioMovementStarted.add(wrapper.unitId);
+      movementStarts.push({
+        entityId: wrapper.unitId,
+        tick: wrapper.tick,
+        type: "locomotion-start",
+      });
+    }
+    const audioEvents = [...sessionEvents, ...movementStarts];
+    audioEvents.sort((a, b) => (a.tick ?? 0) - (b.tick ?? 0));
+    this.#audioEvents.push(...clone(audioEvents));
     this.#events.push(...clone(sessionEvents));
     return sessionEvents;
   }
@@ -12544,6 +12570,8 @@ class GameSession {
       south: DeckCycle.restore(this.#decks.south.serializeJson()) };
     value.#elixir = compactElixirMatch(elixir);
     value.#isContinuation = true;
+    value.#audioEvents = [...this.#audioEvents];
+    value.#audioMovementStarted = new Set(this.#audioMovementStarted);
     value.#events = [...this.#events]; value.#history = [...this.#history];
     value.#historyBytes = [...this.#historyBytes]; value.#historyByteLength = this.#historyByteLength;
     value.#nextDeploymentSequence = this.#nextDeploymentSequence;
@@ -12567,7 +12595,10 @@ class GameSession {
   #adopt(other) { this.#battle = other.#battle; this.#cardRuntime = other.#cardRuntime;
     this.#clock = other.#clock;
     this.#controller = other.#controller; this.#costs = other.#costs; this.#decks = other.#decks;
-    this.#elixir = other.#elixir; this.#events = other.#events; this.#history = other.#history;
+    this.#elixir = other.#elixir;
+    this.#audioEvents = other.#audioEvents;
+    this.#audioMovementStarted = other.#audioMovementStarted;
+    this.#events = other.#events; this.#history = other.#history;
     this.#historyBytes = other.#historyBytes; this.#historyByteLength = other.#historyByteLength;
     this.#legal = other.#legal; this.#nextDeploymentSequence = other.#nextDeploymentSequence;
     this.#projectionSequence = other.#projectionSequence;
@@ -12590,6 +12621,7 @@ class GameSession {
     GAME_SESSION_SETUP_GRAPH_LIMITS,
     GAME_SESSION_SNAPSHOT_GRAPH_LIMITS,
     GameSession,
+    getAudioReplay,
     isAuthenticGameSession,
     isAuthenticGameSessionProjectionSnapshot,
   };
@@ -12658,5 +12690,6 @@ export const GAME_SESSION_MAX_TRANSCRIPT = gameSession.GAME_SESSION_MAX_TRANSCRI
 export const GAME_SESSION_SETUP_GRAPH_LIMITS = gameSession.GAME_SESSION_SETUP_GRAPH_LIMITS;
 export const GAME_SESSION_SNAPSHOT_GRAPH_LIMITS = gameSession.GAME_SESSION_SNAPSHOT_GRAPH_LIMITS;
 export const GameSession = gameSession.GameSession;
+export const getGameSessionAudioReplay = gameSession.getAudioReplay;
 export const isAuthenticGameSession = gameSession.isAuthenticGameSession;
 export const isAuthenticGameSessionProjectionSnapshot = gameSession.isAuthenticGameSessionProjectionSnapshot;

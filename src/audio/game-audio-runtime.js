@@ -1,4 +1,7 @@
-import { isAuthenticGameSession } from "../sim/game-session.js";
+import {
+  getGameSessionAudioReplay,
+  isAuthenticGameSession,
+} from "../sim/game-session.js";
 import { AudioEventProjection, AUDIO_EVENT_MAX_TICK } from "./audio-events.js";
 import {
   AUDIO_RENDERER_MAX_BATCH,
@@ -338,8 +341,8 @@ export class GameAudioRuntime {
     if (!isAuthenticGameSession(session)) {
       throw new TypeError("game audio runtime rebase requires an authentic GameSession");
     }
-    const restoredReplay = session.replay;
-    const knownReplay = this.#session.replay;
+    const restoredReplay = getGameSessionAudioReplay(session);
+    const knownReplay = getGameSessionAudioReplay(this.#session);
     if (restoredReplay.length > this.#cursor || restoredReplay.length > knownReplay.length) {
       throw new RangeError("game audio runtime restore contains unseen authority records");
     }
@@ -355,7 +358,7 @@ export class GameAudioRuntime {
     if (this.#renderer.state.faulted) {
       throw new Error("game audio runtime is permanently faulted");
     }
-    const replay = this.#session.replay;
+    const replay = getGameSessionAudioReplay(this.#session);
     const sessionTick = this.#session.state.tick;
     if (sessionTick < this.#observedTick || !this.#isPrefix(replay)) {
       const controls = this.#renderer.state;
@@ -505,7 +508,7 @@ export class GameAudioRuntime {
     this.#assertRebaseable(session);
     const controls = this.#renderer.state;
     if (!this.#disposed) this.#renderer.dispose();
-    const replayLength = session.replay.length;
+    const replayLength = getGameSessionAudioReplay(session).length;
     this.#session = session;
     this.#generation += 1;
     this.#resetAudioGraph(controls.gainBasisPoints, controls.muted,
@@ -536,7 +539,7 @@ export class GameAudioRuntime {
     this.#generation += 1;
     this.#resetAudioGraph(controls.gainBasisPoints, controls.muted,
       this.#suppressedAcceleratedCueCount);
-    const replay = session.replay;
+    const replay = getGameSessionAudioReplay(session);
     const batchSize = 256;
     for (let from = 0; from < replay.length; from += batchSize) {
       const values = replay.slice(from, from + batchSize);
@@ -632,7 +635,7 @@ export class GameAudioRuntime {
     if (projection.state.nextSequence !== snapshot.cursor - snapshot.projectionOffset) {
       throw new TypeError("game audio runtime projection cursor diverges");
     }
-    const replay = session.replay;
+    const replay = getGameSessionAudioReplay(session);
     if (replay.length !== snapshot.cursor || snapshot.eventBytes.some(
       (event, index) => event !== canonical(replay[snapshot.projectionOffset + index]),
     )) {

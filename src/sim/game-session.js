@@ -6,6 +6,7 @@ import {
   GAME_SESSION_SETUP_GRAPH_LIMITS,
   GAME_SESSION_SNAPSHOT_GRAPH_LIMITS,
   GameSession as KernelGameSession,
+  getGameSessionAudioReplay,
   isAuthenticGameSession,
   isAuthenticGameSessionProjectionSnapshot,
 } from "./battle-continuation-kernel.js";
@@ -35,6 +36,7 @@ export {
   GAME_SESSION_MAX_TRANSCRIPT,
   GAME_SESSION_SETUP_GRAPH_LIMITS,
   GAME_SESSION_SNAPSHOT_GRAPH_LIMITS,
+  getGameSessionAudioReplay,
   isAuthenticGameSession,
   isAuthenticGameSessionProjectionSnapshot,
 };
