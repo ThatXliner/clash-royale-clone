@@ -1,5 +1,26 @@
 # Gauntlet Rounds
 
+## Round 307 — 2026-08-30
+
+PIECE: UI-002CV — Causal combat-effect view projection, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: UI combat effects passed 9/9, game UI passed 18/18, browser loop
+passed 12/12, protocol passed 9/9, GameSession passed 9/9, nondeterminism
+passed 10/10 and shipping isolation passed 13/13. Independent hostile feed
+probes rejected schema, ordering, lineage, lifecycle, payload, canonical-byte,
+bound and future-record forgeries. Authentic projectile prefixes, direct
+restore, fork and terminal projections reproduced exact bytes. A throwing
+getter nevertheless recorded one read of `snapshot.replay` in the shipped
+`createGameUiFrame` path. A separate mounted-DOM probe supplied a
+`replaceChildren` implementation that replaced the live children and then
+threw; the renderer left tick 4 candidate nodes visible over the prior tick 5
+nodes, with different DOM bytes and child identities.
+
+BIGGEST GAP: Remove the raw replay read from the shipped frame path and restore
+the exact prior combat DOM when the host mutates during commit and then throws.
+
 ## Round 306 — 2026-08-30
 
 PIECE: UI-002CP — Closed combat-effect feed export, round 5
