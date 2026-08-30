@@ -436,6 +436,7 @@ export class AreaDamageSystem {
       }
       const system = new AreaDamageSystem();
       system.#damage = DamageSystem.restore(canonicalJson(legacy.damage));
+      system.#initialDamage = DamageSystem.restore(canonicalJson(legacy.damage));
       system.#nextEffectId = legacy.nextEffectId;
       return system;
     }
@@ -459,15 +460,17 @@ export class AreaDamageSystem {
     const system = new AreaDamageSystem();
     system.#initialDamage = DamageSystem.restore(canonicalJson(snapshot.initialDamage));
     system.#damage = DamageSystem.restore(canonicalJson(snapshot.initialDamage));
+    if (snapshot.nextEffectId !== snapshot.history.length + 1) {
+      throw new TypeError("area-damage snapshot effect lineage is not contiguous");
+    }
     if (snapshot.history.length === 0) {
-      system.#nextEffectId = snapshot.nextEffectId;
+      system.#nextEffectId = 1;
     } else {
       const firstEffectId = snapshot.history[0]?.effectId;
-      if (!Number.isSafeInteger(firstEffectId) || firstEffectId < 1 ||
-          firstEffectId > snapshot.nextEffectId - snapshot.history.length) {
+      if (firstEffectId !== 1) {
         throw new TypeError("area-damage snapshot history effect identities are not causal");
       }
-      system.#nextEffectId = firstEffectId;
+      system.#nextEffectId = 1;
     }
     for (let index = 0; index < snapshot.history.length; index += 1) {
       const entry = assertExactDataObject(

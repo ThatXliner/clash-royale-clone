@@ -39,6 +39,7 @@ import {
 } from "../src/content/playable-roster.js";
 import { ProjectileCombat } from "../src/sim/projectile.js";
 import {
+  COMBAT_EFFECT_FEED_MAX_ROOT_ID_LENGTH,
   appendCombatEffectEvent,
   appendCombatEffectRoot,
   combatEffectFeedSnapshot,
@@ -274,7 +275,12 @@ test("combat-effect feed rejects hostile lifecycle records atomically", () => {
   ], /only open at the root|roots may only/u);
   attempt([
     valid.records[0],
-    { ...valid.records[2], eventId: 2, parentId: 1 },
+    {
+      ...valid.records[2],
+      eventId: 2,
+      parentId: 1,
+      payload: { reason: "explicit-cancel" },
+    },
     { ...valid.records[1], eventId: 3, parentId: 2 },
   ], /closed|after close/u);
   const alteredIdentity = valid.records.map((record) => ({ ...record }));
@@ -456,6 +462,55 @@ test("combat-effect protocol rejects premature, branched, reordered, forged, and
   };
   const changed = { ...identity, sourceId: `${identity.sourceId.slice(0, -1)}y` };
   assert.notEqual(combatEffectRootId(identity), combatEffectRootId(changed));
+
+  const maximal = "漢".repeat(256);
+  const maximalRootId = combatEffectRootId({
+    direction: "travel",
+    effectId: maximal,
+    projectileId: maximal,
+    sequence: maximal,
+    sourceId: maximal,
+    type: "projectile",
+  });
+  assert.ok(maximalRootId.length <= COMBAT_EFFECT_FEED_MAX_ROOT_ID_LENGTH);
+  const maximalFeed = createCombatEffectFeed();
+  const maximalRoot = appendCombatEffectRoot(maximalFeed, {
+    direction: "travel",
+    effectId: maximal,
+    from: { x: 1000, y: 1000 },
+    impactTick: 1,
+    projectileId: maximal,
+    radius: 0,
+    segments: [],
+    sequence: maximal,
+    sourceId: maximal,
+    tick: 0,
+    to: { x: 2000, y: 1000 },
+    type: "projectile",
+  });
+  assert.equal(maximalRoot.rootId, maximalRootId);
+});
+
+test("authentic pre-contact travel cancellation closes its visible carrier", () => {
+  const encounter = new TravelingLineSpellEncounter(createTravelingLineSpellFixture({
+    commands: [
+      { center: { x: 6000, y: 1000 }, effectId: null, id: 1, sourceId: 1,
+        targetId: null, tick: 0, type: "cast" },
+      { center: null, effectId: 1, id: 2, sourceId: null,
+        targetId: null, tick: 1, type: "cancel-effect" },
+    ],
+    sources: [{ id: 1, ownerId: 1, position: { x: 1000, y: 1000 } }],
+    victims: [],
+  }));
+  encounter.stepMany(6);
+  assert.deepEqual(encounter.combatEffectFeed.records.map(({ phase }) => phase), [
+    "open", "close",
+  ]);
+  assert.equal(encounter.combatEffectFeed.records.at(-1).payload.reason, "explicit-cancel");
+  assert.equal(
+    TravelingLineSpellEncounter.restore(encounter.serialize()).combatEffectFeedBytes(),
+    encounter.combatEffectFeedBytes(),
+  );
 });
 
 test("actual projectile feed-bound failure leaves mechanics and visual bytes unchanged", () => {
@@ -570,6 +625,26 @@ test("actual projectile, area, return, pierce, pellet, spell, and travel sources
   assert.throws(
     () => AreaDamageSystem.restore(canonical(missingAreaFeed)),
     /invalid shape|combatEffectFeed/u,
+  );
+
+  const emptyArea = new AreaDamageSystem();
+  emptyArea.add(31, 1000);
+  const emptySnapshot = JSON.parse(emptyArea.serialize());
+  const skippedArea = { ...emptySnapshot, nextEffectId: 2 };
+  assert.throws(
+    () => AreaDamageSystem.restore(canonical(skippedArea)),
+    /lineage|contiguous/u,
+  );
+  const legacyAreaBytes = canonical({
+    damage: emptySnapshot.damage,
+    nextEffectId: 1,
+    version: 1,
+  });
+  const upgradedArea = AreaDamageSystem.restore(legacyAreaBytes);
+  assert.deepEqual(upgradedArea.list(), emptyArea.list());
+  assert.equal(
+    AreaDamageSystem.restore(upgradedArea.serialize()).serialize(),
+    upgradedArea.serialize(),
   );
 
   const returnEncounter = new ReturnEncounter(createReturnSpecialFixture(

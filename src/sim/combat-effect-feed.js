@@ -202,16 +202,18 @@ function identityPart(value) {
   // encodeURIComponent is a total, injective representation here.  Keeping
   // the historical `s` prefix preserves all short root bytes while allowing
   // long identities to remain exact instead of collapsing them through FNV.
-  const encoded = encodeURIComponent(value);
-  if (encoded.length + 1 <= COMBAT_EFFECT_FEED_MAX_ROOT_ID_LENGTH &&
-      /^[A-Za-z0-9%_~!\-]+$/u.test(encoded)) {
-    return `s${encoded}`;
-  }
   const bytes = UTF8.encode(value);
   let binary = "";
   for (const byte of bytes) binary += String.fromCharCode(byte);
   const base64 = btoa(binary).replace(/\+/gu, "-").replace(/\//gu, "_").replace(/=+$/u, "");
-  return `b${base64}`;
+  const encoded = encodeURIComponent(value);
+  const uriPart = `s${encoded}`;
+  const base64Part = `b${base64}`;
+  // Percent encoding is compact for ordinary source IDs but expands every
+  // non-ASCII byte to three characters. Choose the shorter of two injective,
+  // explicitly tagged encodings so four independently maximal identities
+  // still fit the bound on the complete root ID, not merely each component.
+  return uriPart.length <= base64Part.length ? uriPart : base64Part;
 }
 
 function combatEffectRootId(value) {
@@ -480,7 +482,7 @@ function appendChecked(state, record) {
         death: new Set(["damage", "death"]),
         impact: new Set(["contact", "open", "turn"]),
         turn: new Set(["contact", "damage", "death", "open"]),
-        close: new Set(["contact", "damage", "death", "impact", "turn"]),
+        close: new Set(["contact", "damage", "death", "impact", "open", "turn"]),
       };
     if (!allowedParents[checked.phase]?.has(parent.phase)) {
       throw new TypeError(`combat effect ${checked.phase} has an invalid parent phase or closed lineage (parent ${parent.phase})`);
@@ -534,7 +536,13 @@ function appendChecked(state, record) {
       }
       if (checked.type === "projectile" &&
           !root.contactTargets.size && !root.impactSeen && !root.turnSeen) {
-        throw new TypeError("combat effect projectile close requires a preceding contact, impact, or turn");
+        const cancellation = new Set([
+          "cancelled", "explicit-cancel", "launch-cancelled", "source-dead",
+          "target-missing",
+        ]);
+        if (root.phase !== "open" || !cancellation.has(checked.payload.reason)) {
+          throw new TypeError("combat effect projectile close requires a preceding contact, impact, turn, or authentic cancellation");
+        }
       }
       root.closed = true;
     }

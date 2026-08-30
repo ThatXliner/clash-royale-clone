@@ -190,31 +190,16 @@ test("area-damage: restore continues byte-identically", () => {
   assert.equal(restored.serialize(), uninterrupted.serialize());
 });
 
-test("area-damage: exhausted effect-ID sentinel restores byte-identically", () => {
+test("area-damage: unreachable effect-ID jumps reject instead of forging exhaustion", () => {
   const initial = new AreaDamageSystem();
   initial.add(1, 10);
   const nearExhaustion = JSON.parse(initial.serialize());
   nearExhaustion.nextEffectId = Number.MAX_SAFE_INTEGER - 1;
-
-  const area = AreaDamageSystem.restore(JSON.stringify(nearExhaustion));
-  const last = area.resolve(effect({ mode: "none" }), [candidate(1)]);
-  assert.equal(last.effectId, Number.MAX_SAFE_INTEGER - 1);
-  assert.equal(area.nextEffectId, Number.MAX_SAFE_INTEGER);
-
-  const exhaustedSnapshot = area.serialize();
-  const restored = AreaDamageSystem.restore(exhaustedSnapshot);
-  assert.equal(restored.serialize(), exhaustedSnapshot);
-
-  const lastReplay = JSON.stringify(last);
-  for (const system of [area, restored]) {
-    const before = system.serialize();
-    assert.throws(
-      () => system.resolve(effect(), [candidate(1)]),
-      /effect id space is exhausted/,
-    );
-    assert.equal(system.serialize(), before);
-    assert.equal(JSON.stringify(last), lastReplay);
-  }
+  assert.throws(
+    () => AreaDamageSystem.restore(JSON.stringify(nearExhaustion)),
+    /lineage|contiguous/u,
+  );
+  assert.equal(initial.nextEffectId, 1);
 });
 
 test("area-damage: malformed snapshots are rejected", () => {
