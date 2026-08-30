@@ -1,5 +1,25 @@
 # Gauntlet Rounds
 
+## Round 306 — 2026-08-30
+
+PIECE: UI-002CP — Closed combat-effect feed export, round 5
+
+VERDICT: PASS
+
+EVIDENCE: The registered protocol selector passed 9/9. Independent hostile
+execution reproduced the prior two-due boundary with 2,602 roots and 1,048,488
+feed bytes, then forced a second-contact failure at 1,048,268 bytes. Both
+rejected operations preserved feed, state, replay, serialization and fork bytes
+exactly. Separate feed-bound witnesses failed during lethal death and ordinary
+close with 647 bytes remaining. Synthetic impact and close failures preserved
+the same invariants, while one fewer future root or a one-byte-shorter source
+identity completed the corresponding operation. Focused projectile, area,
+shipping-isolation and nondeterminism suites also passed 8/8, 11/11, 13/13 and
+10/10.
+
+BIGGEST GAP: No correctness gap remains in the transactional projectile
+boundary; UI-002CV can now consume the frozen feed.
+
 ## Round 305 — 2026-08-30
 
 PIECE: UI-002CP — Closed combat-effect feed export, round 4
