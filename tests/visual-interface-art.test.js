@@ -1,7 +1,15 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { once } from "node:events";
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { inflateSync } from "node:zlib";
+import {
+  existsSync,
+  mkdtempSync,
+  mkdirSync,
+  readFileSync,
+  writeFileSync,
+} from "node:fs";
+import { tmpdir } from "node:os";
 import { spawn } from "node:child_process";
 import test from "node:test";
 
@@ -18,7 +26,7 @@ import {
 
 const ROOT = new URL("..", import.meta.url).pathname;
 const HTML_PATH = `${ROOT}public/ui-arena-shell.html`;
-const ARTIFACTS = new URL("../artifacts/visual-003d-round-2/", import.meta.url)
+const ARTIFACTS = new URL("../artifacts/visual-003d-round-3/", import.meta.url)
   .pathname;
 
 const PLAYWRIGHT = process.env.GAME_BROWSER_PLAYWRIGHT ??
@@ -26,10 +34,237 @@ const PLAYWRIGHT = process.env.GAME_BROWSER_PLAYWRIGHT ??
 const CHROME = process.env.GAME_BROWSER_CHROME ??
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
+// Keep the capture surface on one explicit raster path. These flags are
+// bounded to color management, device scale, GPU backend, and text hinting;
+// they do not change the page, hide interface pixels, or relax comparisons.
+const CAPTURE_FLAGS = Object.freeze([
+  "--force-color-profile=srgb",
+  "--force-device-scale-factor=1",
+  "--disable-gpu",
+  "--use-angle=swiftshader",
+  "--font-render-hinting=none",
+  "--disable-lcd-text",
+]);
+
+const SCREENSHOTS = Object.freeze([
+  "initial.png",
+  "card-selected.png",
+  "insufficient-elixir.png",
+  "winner-overlay.png",
+  "restart.png",
+]);
+
+const CONTACT_SHEET_CSS = `
+  .card-contact-sheet {
+    position: absolute;
+    z-index: 1000;
+    left: 10px;
+    top: 10px;
+    width: 392px;
+    height: 194px;
+    display: grid;
+    grid-template-columns: repeat(4, 88px);
+    grid-template-rows: 72px 72px;
+    gap: 8px;
+    padding: 30px 12px 12px;
+    border: 2px solid #191d22;
+    border-radius: 10px;
+    background: #f4ebd6;
+    box-shadow: 0 5px 0 #191d2266;
+  }
+  .card-contact-sheet__title {
+    position: absolute;
+    left: 12px;
+    top: 7px;
+    color: #191d22;
+    font: 700 12px/1 Georgia, "Times New Roman", serif;
+    letter-spacing: .2px;
+  }
+  .card-contact-sheet .hud-card {
+    width: 88px;
+    height: 72px;
+  }
+`;
+
+const MOVING_WORLD_MASK_CSS = `
+  .game-browser-layer--combat .combat-marker--entity-ground,
+  .game-browser-layer--combat .combat-marker--entity-air,
+  .game-browser-layer--combat .combat-target-link,
+  .game-browser-layer--effects .combat-effect-projectile,
+  .game-browser-layer--effects .combat-effect-impact,
+  .game-browser-layer--effects .combat-effect-area,
+  .game-browser-layer--effects .combat-effect-path,
+  .bridge::before,
+  .bridge::after { display: none !important; }
+`;
+
 const html = readFileSync(HTML_PATH, "utf8");
 
 function sha256(path) {
   return createHash("sha256").update(readFileSync(path)).digest("hex");
+}
+
+function canonical(value) {
+  if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
+  if (value !== null && typeof value === "object") {
+    return `{${Object.keys(value).sort().map((key) =>
+      `${JSON.stringify(key)}:${canonical(value[key])}`).join(",")}}`;
+  }
+  return JSON.stringify(value);
+}
+
+function digestValue(value) {
+  return createHash("sha256").update(canonical(value)).digest("hex");
+}
+
+function decodePng(bytes) {
+  const signature = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
+  assert.deepEqual(bytes.subarray(0, 8), signature, "PNG signature must be valid");
+  let offset = 8;
+  let width = 0;
+  let height = 0;
+  let bitDepth = 0;
+  let colorType = 0;
+  const chunks = [];
+  while (offset < bytes.length) {
+    const length = bytes.readUInt32BE(offset);
+    const type = bytes.toString("ascii", offset + 4, offset + 8);
+    const dataStart = offset + 8;
+    const dataEnd = dataStart + length;
+    const data = bytes.subarray(dataStart, dataEnd);
+    if (type === "IHDR") {
+      width = data.readUInt32BE(0);
+      height = data.readUInt32BE(4);
+      bitDepth = data[8];
+      colorType = data[9];
+    } else if (type === "IDAT") {
+      chunks.push(data);
+    }
+    offset = dataEnd + 4;
+    if (type === "IEND") break;
+  }
+  assert.equal(bitDepth, 8, "contact sheet PNG must use 8-bit channels");
+  assert.equal(colorType, 2, "contact sheet PNG must use truecolor RGB");
+  const bytesPerPixel = 3;
+  const rowLength = width * bytesPerPixel;
+  const encoded = inflateSync(Buffer.concat(chunks));
+  const pixels = Buffer.alloc(height * rowLength);
+  let sourceOffset = 0;
+  for (let y = 0; y < height; y += 1) {
+    const filter = encoded[sourceOffset++];
+    const rowStart = y * rowLength;
+    for (let x = 0; x < rowLength; x += 1) {
+      const raw = encoded[sourceOffset++];
+      const left = x >= bytesPerPixel ? pixels[rowStart + x - bytesPerPixel] : 0;
+      const above = y > 0 ? pixels[rowStart - rowLength + x] : 0;
+      const upperLeft = y > 0 && x >= bytesPerPixel
+        ? pixels[rowStart - rowLength + x - bytesPerPixel] : 0;
+      let value;
+      if (filter === 0) value = raw;
+      else if (filter === 1) value = (raw + left) & 255;
+      else if (filter === 2) value = (raw + above) & 255;
+      else if (filter === 3) value = (raw + Math.floor((left + above) / 2)) & 255;
+      else if (filter === 4) {
+        const estimate = left + above - upperLeft;
+        const pa = Math.abs(estimate - left);
+        const pb = Math.abs(estimate - above);
+        const pc = Math.abs(estimate - upperLeft);
+        const predictor = pa <= pb && pa <= pc ? left : pb <= pc ? above : upperLeft;
+        value = (raw + predictor) & 255;
+      } else {
+        throw new TypeError(`unsupported PNG filter ${filter}`);
+      }
+      pixels[rowStart + x] = value;
+    }
+  }
+  return { height, pixels, width };
+}
+
+function pixelAt(image, x, y) {
+  const offset = (y * image.width + x) * 3;
+  return [image.pixels[offset], image.pixels[offset + 1], image.pixels[offset + 2]];
+}
+
+function imageMetrics(bytes, rect) {
+  const image = decodePng(bytes);
+  const x0 = Math.max(0, Math.round(rect.x));
+  const y0 = Math.max(0, Math.round(rect.y));
+  const x1 = Math.min(image.width, x0 + Math.round(rect.w));
+  const y1 = Math.min(image.height, y0 + Math.round(rect.h));
+  let occupiedPixels = 0;
+  let edgePixels = 0;
+  let minLuminance = 255;
+  let maxLuminance = 0;
+  const cropPixels = [];
+  const art = (r, g, b, luminance) => {
+    const maximum = Math.max(r, g, b);
+    const minimum = Math.min(r, g, b);
+    // The Rivermark card fills are all below 90 in their brightest channel;
+    // this threshold admits the authored subject colors and antialiasing but
+    // excludes the dark card gradient, border, and drop shadow.
+    return maximum >= 90 && (maximum - minimum >= 16 || luminance >= 95);
+  };
+  const occupied = [];
+  for (let y = y0; y < y1; y += 1) {
+    const row = [];
+    for (let x = x0; x < x1; x += 1) {
+      const [r, g, b] = pixelAt(image, x, y);
+      cropPixels.push(r, g, b);
+      const luminance = Math.round((2126 * r + 7152 * g + 722 * b) / 10_000);
+      const signal = art(r, g, b, luminance);
+      row.push(signal);
+      if (signal) occupiedPixels += 1;
+      minLuminance = Math.min(minLuminance, luminance);
+      maxLuminance = Math.max(maxLuminance, luminance);
+    }
+    occupied.push(row);
+  }
+  for (let y = 0; y < occupied.length; y += 1) {
+    for (let x = 0; x < occupied[y].length; x += 1) {
+      if (!occupied[y][x]) continue;
+      if (x === 0 || y === 0 || x === occupied[y].length - 1 ||
+          y === occupied.length - 1 || !occupied[y][x - 1] ||
+          !occupied[y][x + 1] || !occupied[y - 1][x] ||
+          !occupied[y + 1][x]) edgePixels += 1;
+    }
+  }
+  const area = Math.max(1, (x1 - x0) * (y1 - y0));
+  return {
+    edgePixels,
+    edgeRatio: edgePixels / area,
+    luminanceRange: maxLuminance - minLuminance,
+    occupiedPixels,
+    occupiedRatio: occupiedPixels / area,
+    signature: createHash("sha256").update(Buffer.from(cropPixels)).digest("hex"),
+  };
+}
+
+function readableCard(metrics) {
+  return metrics.occupiedRatio >= 0.14 &&
+    metrics.edgeRatio >= 0.012 && metrics.luminanceRange >= 45;
+}
+
+function comparePngs(leftBytes, rightBytes) {
+  const left = decodePng(leftBytes);
+  const right = decodePng(rightBytes);
+  assert.equal(left.width, right.width, "PNG comparison widths must match");
+  assert.equal(left.height, right.height, "PNG comparison heights must match");
+  let changedPixels = 0;
+  let changedChannels = 0;
+  let maxChannelDelta = 0;
+  for (let index = 0; index < left.pixels.length; index += 1) {
+    const delta = Math.abs(left.pixels[index] - right.pixels[index]);
+    if (delta !== 0) changedChannels += 1;
+    maxChannelDelta = Math.max(maxChannelDelta, delta);
+  }
+  for (let index = 0; index < left.pixels.length; index += 3) {
+    if (left.pixels[index] !== right.pixels[index] ||
+        left.pixels[index + 1] !== right.pixels[index + 1] ||
+        left.pixels[index + 2] !== right.pixels[index + 2]) {
+      changedPixels += 1;
+    }
+  }
+  return { changedChannels, changedPixels, maxChannelDelta };
 }
 
 function styleBlock(source, id) {
@@ -145,6 +380,262 @@ function fakeShell() {
   shell.lookups.set('[data-ui="next-card"]', next);
   shell.lookups.set('[data-ui="elixir-rail"]', rail);
   return { fill, hand, next, output, rail, shell };
+}
+
+async function mountCardContactSheet(page) {
+  await page.addStyleTag({ content: CONTACT_SHEET_CSS });
+  const records = roster.map(({ cost, displayName, id }) =>
+    ({ cost, displayName, id }));
+  return page.evaluate((cards) => {
+    const sheet = document.createElement("section");
+    sheet.className = "card-contact-sheet";
+    sheet.setAttribute("aria-label", "Gameplay-scale card art contact sheet");
+    const title = document.createElement("strong");
+    title.className = "card-contact-sheet__title";
+    title.textContent = "Gameplay-scale card art";
+    sheet.append(title);
+    for (const card of cards) {
+      const node = document.createElement("span");
+      node.className = "hud-card";
+      node.dataset.cardId = card.id;
+      node.dataset.kind = "hand";
+      node.title = card.displayName;
+      const cost = document.createElement("b");
+      cost.className = "hud-card__cost";
+      cost.textContent = String(card.cost);
+      const name = document.createElement("span");
+      name.className = "hud-card__name";
+      name.textContent = card.displayName;
+      node.append(cost, name);
+      sheet.append(node);
+    }
+    document.body.append(sheet);
+    const sheetBox = sheet.getBoundingClientRect();
+    const cardsById = Object.fromEntries([...sheet.querySelectorAll(".hud-card")]
+      .map((node) => {
+        const box = node.getBoundingClientRect();
+        const art = {
+          h: 47,
+          w: 68,
+          x: Math.round(box.left - sheetBox.left) + 10,
+          y: Math.round(box.top - sheetBox.top) + 3,
+        };
+        return [node.dataset.cardId, art];
+      }));
+    return {
+      height: Math.round(sheetBox.height),
+      rects: cardsById,
+      width: Math.round(sheetBox.width),
+    };
+  }, records);
+}
+
+async function removeCardContactSheet(page) {
+  await page.evaluate(() => {
+    document.querySelector(".card-contact-sheet")?.remove();
+    document.querySelectorAll("style").forEach((node) => {
+      if (node.textContent.includes(".card-contact-sheet")) node.remove();
+    });
+  });
+}
+
+async function captureFreshRun(directory) {
+  mkdirSync(directory, { recursive: true });
+  const server = spawn(process.execPath, [
+    new URL("./game-browser-journey-server.js", import.meta.url).pathname,
+  ], { stdio: ["ignore", "pipe", "pipe"] });
+  let browser;
+  try {
+    let readyText = "";
+    server.stdout.setEncoding("utf8");
+    for await (const chunk of server.stdout) {
+      readyText += chunk;
+      const end = readyText.indexOf("\n");
+      if (end >= 0) break;
+    }
+    const ready = JSON.parse(readyText);
+    const { chromium } = await import(PLAYWRIGHT);
+    browser = await chromium.launch({
+      args: [...CAPTURE_FLAGS],
+      executablePath: CHROME,
+      headless: true,
+    });
+    const context = await browser.newContext({
+      deviceScaleFactor: 1,
+      viewport: { height: 1_280, width: 720 },
+    });
+    const page = await context.newPage();
+    const response = await page.goto(
+      "http://" + ready.host + ":" + ready.port +
+      "/public/ui-arena-shell.html?session-profile=live-seed-2-terminal",
+      { waitUntil: "domcontentloaded" },
+    );
+    assert.equal(response.status(), 200);
+    await page.waitForSelector('[data-ui="arena"]');
+    await page.waitForSelector('[data-ui="hud-hand"] .hud-card');
+    await page.click('[data-ui="audio-toggle"]');
+    await page.addStyleTag({ content: MOVING_WORLD_MASK_CSS });
+    const startTick = await page.evaluate(async () => {
+      const [{ arenaHudController: controller },
+        { createShippedGameSessionSetup },
+        { GameSession }] = await Promise.all([
+        import("/src/ui/arena-shell-entry.js"),
+        import("/src/ui/game-browser-entry.js"),
+        import("/src/sim/game-session.js"),
+      ]);
+      globalThis.__visController = controller;
+      controller.enterManualStepMode();
+      const fresh = new GameSession(
+        createShippedGameSessionSetup(2, "live-seed-2-terminal"),
+      );
+      controller.restore(JSON.stringify({
+        bridge: JSON.stringify({ deliveries: [], version: 1 }),
+        running: false,
+        session: fresh.serialize(),
+        version: 1,
+      }));
+      controller.stepMany(60);
+      return controller.state.sessionTick;
+    });
+    await page.evaluate(async () => {
+      await document.fonts.ready;
+      await new Promise((resolve) => requestAnimationFrame(resolve));
+    });
+    const initial = await collectState(page);
+    await page.screenshot({ path: directory + "/initial.png" });
+    const arenaBox = await page.locator('[data-ui="arena"]').boundingBox();
+    const costs = Object.fromEntries(costsById);
+    let drainRounds = 0;
+    for (;;) {
+      const wallet = await page.evaluate(() => ({
+        amount: globalThis.__visController.session.state.elixir.sides.south.amount,
+        hand: [...globalThis.__visController.session.state.decks.south.hand],
+      }));
+      if (wallet.hand.some((id) => costsById.get(id) > wallet.amount)) break;
+      assert.ok(drainRounds < 4, "fresh capture wallet must reach insufficient state");
+      drainRounds += 1;
+      const target = wallet.hand.reduce((best, id) =>
+        costsById.get(id) <= wallet.amount &&
+        costsById.get(id) < costsById.get(best) ? id : best,
+      wallet.hand.find((id) => costsById.get(id) <= wallet.amount));
+      await page.click('[data-ui="card-slot"][data-card-id="' + target + '"]');
+      await page.mouse.click(arenaBox.x + 439, arenaBox.y + 529);
+      await page.evaluate(() => globalThis.__visController.stepMany(1));
+    }
+    const selectionTarget = await page.evaluate((costMap) => {
+      const controller = globalThis.__visController;
+      const amount = controller.session.state.elixir.sides.south.amount;
+      return [...document.querySelectorAll('[data-ui="card-slot"]')]
+        .map((node) => node.dataset.cardId)
+        .find((id) => costMap[id] <= amount);
+    }, costs);
+    assert.ok(selectionTarget);
+    await page.click(
+      '[data-ui="card-slot"][data-card-id="' + selectionTarget + '"]',
+    );
+    const selected = await collectState(page);
+    await page.screenshot({ path: directory + "/card-selected.png" });
+    await page.mouse.click(arenaBox.x + 439, arenaBox.y + 529);
+    await page.evaluate(() => globalThis.__visController.stepMany(2));
+    await page.waitForFunction(() =>
+      document.querySelectorAll(
+        '[data-ui="hud-hand"] .hud-card[data-insufficient="true"]',
+      ).length > 0,
+    null, { polling: 50, timeout: 10_000 });
+    const insufficient = await collectState(page);
+    await page.screenshot({ path: directory + "/insufficient-elixir.png" });
+
+    const restartSelection = await page.evaluate((costMap) => {
+      const controller = globalThis.__visController;
+      let amount = controller.session.state.elixir.sides.south.amount;
+      let target;
+      for (let index = 0; index < 20 && target === undefined; index += 1) {
+        target = [...document.querySelectorAll('[data-ui="card-slot"]')]
+          .map((node) => node.dataset.cardId)
+          .find((id) => costMap[id] <= amount);
+        if (target === undefined) {
+          controller.stepMany(60);
+          amount = controller.session.state.elixir.sides.south.amount;
+        }
+      }
+      return { amount, target };
+    }, costs);
+    assert.ok(restartSelection.target);
+    await page.click(
+      '[data-ui="card-slot"][data-card-id="' + restartSelection.target + '"]',
+    );
+    let terminal = false;
+    for (let index = 0; index < 40 && !terminal; index += 1) {
+      terminal = await page.evaluate(() => {
+        const controller = globalThis.__visController;
+        controller.fastForwardSegment(600);
+        return controller.state.terminal;
+      });
+    }
+    assert.equal(terminal, true);
+    await page.waitForFunction(() =>
+      document.querySelector(".match-feedback__overlay") !== null,
+    null, { polling: 50, timeout: 10_000 });
+    const winner = await page.evaluate(() => {
+      const controller = globalThis.__visController;
+      const overlay = document.querySelector(".match-feedback__overlay");
+      return {
+        kind: overlay.dataset.kind,
+        selectedCardId: controller.state.selectedCardId,
+        sessionTick: controller.state.sessionTick,
+        winner: overlay.dataset.winner,
+      };
+    });
+    await page.screenshot({ path: directory + "/winner-overlay.png" });
+    await page.click('[data-ui="restart"]');
+    await page.waitForFunction(() =>
+      globalThis.__visController.state.sessionTick === 0 &&
+      document.querySelector('[data-ui="restart"]').hidden === true &&
+      document.querySelector(".match-feedback__overlay") === null,
+    null, { polling: 50, timeout: 10_000 });
+    const restart = await collectState(page);
+    await page.screenshot({ path: directory + "/restart.png" });
+    const screenshotHashes = Object.fromEntries(SCREENSHOTS.map((name) =>
+      [name, sha256(directory + "/" + name)]));
+    const screenshotDimensions = Object.fromEntries(SCREENSHOTS.map((name) => {
+      const image = decodePng(readFileSync(directory + "/" + name));
+      return [name, { height: image.height, width: image.width }];
+    }));
+    const states = { initial, insufficient, restart, selected, winner };
+    return {
+      drainRounds,
+      screenshotDimensions,
+      screenshotHashes,
+      selectionTarget,
+      startTick,
+      stateHashes: Object.fromEntries(Object.entries(states).map(([name, state]) =>
+        [name, digestValue(state)])),
+      states,
+    };
+  } finally {
+    try { await browser?.close(); } catch {}
+    if (server.exitCode === null) {
+      server.kill("SIGTERM");
+      await Promise.race([once(server, "exit"),
+        new Promise((resolve) => setTimeout(resolve, 2_000))]);
+    }
+  }
+}
+
+async function screenshotCardContactSheet(page, path, layout) {
+  await page.locator(".card-contact-sheet").screenshot({ path });
+  const bytes = readFileSync(path);
+  const image = decodePng(bytes);
+  assert.equal(image.width, layout.width, "contact sheet width must be canonical");
+  assert.equal(image.height, layout.height, "contact sheet height must be canonical");
+  const metrics = Object.fromEntries(Object.entries(layout.rects).map(([id, rect]) =>
+    [id, imageMetrics(bytes, rect)]));
+  return {
+    dimensions: { height: image.height, width: image.width },
+    hash: sha256(path),
+    metrics,
+    rects: layout.rects,
+  };
 }
 
 test("visual interface art: every shipped card has distinct authored art in the shell", () => {
@@ -292,7 +783,11 @@ test("visual interface art: fixed 720x1280 Chrome evidence captures every hierar
     }
     const ready = JSON.parse(readyText);
     const { chromium } = await import(PLAYWRIGHT);
-    browser = await chromium.launch({ executablePath: CHROME, headless: true });
+    browser = await chromium.launch({
+      args: [...CAPTURE_FLAGS],
+      executablePath: CHROME,
+      headless: true,
+    });
     const context = await browser.newContext({ deviceScaleFactor: 1,
       viewport: { height: 1_280, width: 720 } });
     const page = await context.newPage();
@@ -313,17 +808,7 @@ test("visual interface art: fixed 720x1280 Chrome evidence captures every hierar
     // authoritative session bytes and tick remain identical. Hide only those
     // moving entities for this HUD-focused evidence; towers, health bars,
     // arena geometry, and every interface control remain visible.
-    await page.addStyleTag({ content: `
-      .game-browser-layer--combat .combat-marker--entity-ground,
-      .game-browser-layer--combat .combat-marker--entity-air,
-      .game-browser-layer--combat .combat-target-link,
-      .game-browser-layer--effects .combat-effect-projectile,
-      .game-browser-layer--effects .combat-effect-impact,
-      .game-browser-layer--effects .combat-effect-area,
-      .game-browser-layer--effects .combat-effect-path,
-      .bridge::before,
-      .bridge::after { display: none !important; }
-    ` });
+    await page.addStyleTag({ content: MOVING_WORLD_MASK_CSS });
     const startTick = await page.evaluate(async () => {
       const [{ arenaHudController: controller },
         { createShippedGameSessionSetup },
@@ -350,7 +835,10 @@ test("visual interface art: fixed 720x1280 Chrome evidence captures every hierar
       controller.stepMany(60);
       return controller.state.sessionTick;
     });
-    await page.waitForTimeout(100);
+    await page.evaluate(async () => {
+      await document.fonts.ready;
+      await new Promise((resolve) => requestAnimationFrame(resolve));
+    });
 
     const initial = await collectState(page);
     const geometry = await page.evaluate(() => {
@@ -390,6 +878,62 @@ test("visual interface art: fixed 720x1280 Chrome evidence captures every hierar
     assert.ok(geometry.elixirBadge.bottom <= 1_280,
       "elixir badge must stay inside the fixed viewport");
     await page.screenshot({ path: `${ARTIFACTS}initial.png` });
+
+    const contactLayout = await mountCardContactSheet(page);
+    const contactSheet = await screenshotCardContactSheet(
+      page, ARTIFACTS + "card-contact-sheet.png", contactLayout,
+    );
+    assert.equal(Object.keys(contactSheet.metrics).length, 8);
+    for (const [id, metrics] of Object.entries(contactSheet.metrics)) {
+      assert.ok(readableCard(metrics),
+        id + " must have occupied, edged, high-contrast gameplay-scale art");
+    }
+    assert.equal(
+      new Set(Object.values(contactSheet.metrics).map((metrics) =>
+        metrics.signature)).size,
+      8,
+      "all eight gameplay-scale card silhouettes must remain distinct",
+    );
+
+    await page.addStyleTag({ content: [
+      "      .card-contact-sheet .hud-card[data-card-id=\"briar-band\"]::before {",
+      "        top: 7px !important;",
+      "        width: 48px !important;",
+      "        height: 40px !important;",
+      "        filter: none !important;",
+      "        background: conic-gradient(",
+      "          from 210deg at 50% 85%,",
+      "          #5c8a46 0 7deg, transparent 7deg 24deg,",
+      "          #47703a 24deg 31deg, transparent 31deg 48deg,",
+      "          #5c8a46 48deg 55deg, transparent 55deg) !important;",
+      "        clip-path: polygon(0 0, 100% 0, 100% 78%, 50% 100%, 0 78%) !important;",
+      "      }",
+      "      .card-contact-sheet .hud-card[data-card-id=\"briar-band\"]::after {",
+      "        display: none !important;",
+      "      }",
+    ].join("\n") });
+    const thinMutation = await screenshotCardContactSheet(
+      page, ARTIFACTS + "mutation-briar-thin.png", contactLayout,
+    );
+    assert.equal(readableCard(thinMutation.metrics["briar-band"]), false,
+      "the prior thin Briar mark must fail the gameplay-scale readability bar: " +
+      JSON.stringify(thinMutation.metrics["briar-band"]));
+
+    await page.addStyleTag({ content: [
+      "      .card-contact-sheet .hud-card[data-card-id=\"coilblade\"] {",
+      "        border-color: #c6452e !important;",
+      "      }",
+    ].join("\n") });
+    const hudMutation = await screenshotCardContactSheet(
+      page, ARTIFACTS + "mutation-hud-style.png", contactLayout,
+    );
+    const hudDiff = comparePngs(
+      readFileSync(ARTIFACTS + "card-contact-sheet.png"),
+      readFileSync(ARTIFACTS + "mutation-hud-style.png"),
+    );
+    assert.ok(hudDiff.changedPixels > 0,
+      "a visible card style mutation must be caught by exact pixel comparison");
+    await removeCardContactSheet(page);
 
     const arenaBox = await page.locator('[data-ui="arena"]').boundingBox();
     for (const point of [{ x: 439, y: 529 }, { x: 270, y: 760 }]) {
@@ -580,27 +1124,52 @@ test("visual interface art: fixed 720x1280 Chrome evidence captures every hierar
     assert.doesNotMatch(finalText, /debug|placeholder/i);
     assert.deepEqual(consoleErrors, []);
     assert.deepEqual(unhandled, []);
-    const screenshots = [
-      "initial.png",
-      "card-selected.png",
-      "insufficient-elixir.png",
-      "winner-overlay.png",
-      "restart.png",
-    ];
+    const screenshots = [...SCREENSHOTS];
     const screenshotHashes = Object.fromEntries(screenshots.map((name) =>
       [name, sha256(`${ARTIFACTS}${name}`)]));
+    const screenshotDimensions = Object.fromEntries(screenshots.map((name) => {
+      const image = decodePng(readFileSync(`${ARTIFACTS}${name}`));
+      return [name, { height: image.height, width: image.width }];
+    }));
+    const stateHashes = {
+      initial: digestValue(initial),
+      insufficient: digestValue(insufficient),
+      selected: digestValue(selectionStyles),
+      restart: digestValue(restart),
+      winner: digestValue(winner),
+    };
     writeFileSync(`${ARTIFACTS}visual-interface-evidence.json`,
       `${JSON.stringify({
         consoleErrors,
         drainRounds,
         geometry,
         arenaMask: "moving entity/effect markers and bridge corner accents hidden for deterministic HUD evidence",
+        captureNormalization: {
+          flags: [...CAPTURE_FLAGS],
+          timing: "manual mode, fresh terminal session restored to tick 0, stepMany(60), document.fonts.ready, one requestAnimationFrame",
+          comparison: "exact SHA-256 over 8-bit RGB screenshot pixels; no tolerance or HUD/card masks",
+        },
+        contactSheet,
+        mutationProof: {
+          briarThinMark: {
+            image: "mutation-briar-thin.png",
+            metrics: thinMutation.metrics["briar-band"],
+            readable: readableCard(thinMutation.metrics["briar-band"]),
+          },
+          hudStyle: {
+            image: "mutation-hud-style.png",
+            comparison: hudDiff,
+            mutation: "coilblade border-color changed to #c6452e",
+          },
+        },
         screenshotHashes,
+        screenshotDimensions,
         selectionTarget,
         initial,
         insufficient,
         selectionStyles,
         screenshots,
+        stateHashes,
         restart,
         restartSelection,
         selectedBeforeTerminal,
@@ -615,6 +1184,66 @@ test("visual interface art: fixed 720x1280 Chrome evidence captures every hierar
         new Promise((resolve) => setTimeout(resolve, 2_000))]);
     }
   }
+});
+
+test("visual interface art: four fresh Chrome captures are exact canonical evidence", {
+  timeout: 420_000,
+}, async () => {
+  assert.ok(existsSync(PLAYWRIGHT), "installed Playwright equivalent is required");
+  assert.ok(existsSync(CHROME), "installed Chrome is required");
+  const runsRoot = mkdtempSync(tmpdir() + "/visual-003d-round-3-");
+  const runs = [];
+  for (let index = 0; index < 4; index += 1) {
+    runs.push(await captureFreshRun(runsRoot + "/run-" + (index + 1)));
+  }
+  const canonicalHashes = Object.fromEntries(SCREENSHOTS.map((name) => {
+    const hashes = runs.map((run) => run.screenshotHashes[name]);
+    assert.equal(new Set(hashes).size, 1,
+      name + " must be byte-identical across four fresh Chrome captures");
+    return [name, hashes[0]];
+  }));
+  const stateHashRuns = Object.fromEntries(
+    ["initial", "selected", "insufficient", "winner", "restart"].map((name) => {
+      const hashes = runs.map((run) => run.stateHashes[name]);
+      assert.equal(new Set(hashes).size, 1,
+        name + " state metadata must be canonical across fresh captures");
+      return [name, hashes];
+    }),
+  );
+  for (const run of runs) {
+    assert.equal(run.startTick, 60);
+    for (const dimensions of Object.values(run.screenshotDimensions)) {
+      assert.deepEqual(dimensions, { height: 1_280, width: 720 });
+    }
+  }
+  // Promote capture 1 to the canonical five-state evidence set. This keeps
+  // the committed images exactly equal to the hashes proved across all four
+  // independent browser processes below.
+  for (const name of SCREENSHOTS) {
+    writeFileSync(
+      ARTIFACTS + name,
+      readFileSync(runsRoot + "/run-1/" + name),
+    );
+  }
+  const evidencePath = ARTIFACTS + "visual-interface-evidence.json";
+  const evidence = JSON.parse(readFileSync(evidencePath, "utf8"));
+  evidence.screenshotHashes = canonicalHashes;
+  evidence.screenshotDimensions = runs[0].screenshotDimensions;
+  evidence.independentRuns = runs.map((run, index) => ({
+    capture: index + 1,
+    drainRounds: run.drainRounds,
+    screenshotDimensions: run.screenshotDimensions,
+    screenshotHashes: run.screenshotHashes,
+    selectionTarget: run.selectionTarget,
+    startTick: run.startTick,
+    stateHashes: run.stateHashes,
+    states: run.states,
+  }));
+  evidence.canonicalHashes = canonicalHashes;
+  evidence.stateHashRuns = stateHashRuns;
+  evidence.independentCaptureCount = runs.length;
+  evidence.captureRunStorage = "fresh browser processes captured in a temporary directory; only canonical top-level images are shipped";
+  writeFileSync(evidencePath, JSON.stringify(evidence, null, 2) + "\n");
 });
 
 async function collectState(page) {

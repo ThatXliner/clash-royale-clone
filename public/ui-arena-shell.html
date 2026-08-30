@@ -690,12 +690,50 @@
       }
 
       .hud-card[data-card-id="briar-band"]::before {
-        background: conic-gradient(
-          from 210deg at 50% 85%,
-          #5c8a46 0 7deg, transparent 7deg 24deg,
-          #47703a 24deg 31deg, transparent 31deg 48deg,
-          #5c8a46 48deg 55deg, transparent 55deg);
-        clip-path: polygon(0 0, 100% 0, 100% 78%, 50% 100%, 0 78%);
+        top: 6px;
+        width: 60px;
+        height: 43px;
+        background:
+          linear-gradient(148deg, transparent 0 38%, #5c8a46 39% 48%, transparent 49%),
+          linear-gradient(28deg, transparent 0 41%, #47703a 42% 51%, transparent 52%),
+          radial-gradient(ellipse at 27% 67%, #5c8a46 0 30%, transparent 31%),
+          radial-gradient(ellipse at 71% 58%, #47703a 0 32%, transparent 33%),
+          linear-gradient(90deg, #47703a 0 38%, #5c8a46 38% 64%, #47703a 64%);
+        clip-path: polygon(
+          2% 76%, 10% 60%, 18% 66%, 24% 43%, 32% 54%, 40% 25%,
+          49% 49%, 58% 18%, 66% 45%, 76% 23%, 83% 53%, 98% 39%,
+          91% 69%, 98% 86%, 73% 81%, 54% 100%, 35% 82%, 13% 94%);
+        filter: drop-shadow(0 0 1px #dcede9cc);
+      }
+
+      .hud-card[data-card-id="briar-band"]::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 13px;
+        translate: -50%;
+        width: 45px;
+        height: 31px;
+        background:
+          linear-gradient(148deg, transparent 0 46%, #dcede9 47% 53%, transparent 54%),
+          linear-gradient(28deg, transparent 0 47%, #e9a83a 48% 54%, transparent 55%);
+        clip-path: polygon(
+          0 74%, 16% 60%, 25% 68%, 34% 43%, 44% 56%, 52% 30%,
+          61% 54%, 70% 23%, 80% 50%, 100% 36%, 88% 78%, 63% 70%,
+          51% 100%, 36% 75%, 14% 88%);
+        filter: drop-shadow(1px 2px 0 #191d22aa);
+      }
+
+      .hud-card[data-kind="next"][data-card-id="briar-band"]::before {
+        top: 4px;
+        width: 38px;
+        height: 28px;
+      }
+
+      .hud-card[data-kind="next"][data-card-id="briar-band"]::after {
+        top: 8px;
+        width: 30px;
+        height: 22px;
       }
 
       .hud-card[data-card-id="cinderlings"] {
