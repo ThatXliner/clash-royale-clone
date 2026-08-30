@@ -580,6 +580,55 @@ test("actual projectile feed-bound failure leaves mechanics and visual bytes unc
   assert.equal(combat.serialize(), before.serialize);
   assert.deepEqual(combat.replay, before.replay);
   assert.deepEqual(combat.state, before.state);
+
+  const futureCount = 3000;
+  const targetId = 9_000_000;
+  const sources = Array.from(
+    { length: futureCount },
+    (_, index) => index < 10 ? 1_000_000_000_000_000 + index : 10_000 + index,
+  );
+  const crowded = new ProjectileCombat({
+    entities: [
+      projectileEntity(1, { x: 0, y: 0 }),
+      projectileEntity(2, { x: 0, y: 0 }),
+      projectileEntity(3, { x: 0, y: 0 }),
+      ...sources.map((id) => projectileEntity(
+        id,
+        { x: 0, y: 0 },
+        { attackRange: 32_000 },
+      )),
+      projectileEntity(targetId, { x: 18_000, y: 0 }),
+    ],
+  });
+  for (const attackerId of [1, 2]) {
+    crowded.launch({
+      attackerId, damage: 0, radius: 0, speed: 1000, targetId: 3, tick: 0,
+    });
+  }
+  let launchBoundReached = false;
+  for (const attackerId of sources) {
+    try {
+      crowded.launch({
+        attackerId, damage: 0, radius: 0, speed: 1, targetId, tick: 0,
+      });
+    } catch (error) {
+      assert.match(error.message, /feed.*bound|record bound/u);
+      launchBoundReached = true;
+      break;
+    }
+  }
+  assert.equal(launchBoundReached, true);
+  const crowdedBefore = {
+    feed: crowded.combatEffectFeedBytes(),
+    replay: crowded.replay,
+    serialize: crowded.serialize(),
+    state: crowded.state,
+  };
+  assert.throws(() => crowded.step(0), /feed.*bound|record bound/u);
+  assert.equal(crowded.combatEffectFeedBytes(), crowdedBefore.feed);
+  assert.equal(crowded.serialize(), crowdedBefore.serialize);
+  assert.deepEqual(crowded.replay, crowdedBefore.replay);
+  assert.deepEqual(crowded.state, crowdedBefore.state);
 });
 
 test("actual projectile, area, return, pierce, pellet, spell, and travel sources export closed feeds", () => {

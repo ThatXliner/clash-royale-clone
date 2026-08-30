@@ -390,12 +390,27 @@ export class ProjectileCombat {
     const due = this.#projectiles
       .filter((projectile) => projectile.impactTick === tick)
       .sort((left, right) => left.id - right.id);
+    if (due.length === 0) {
+      this.#tick += 1;
+      this.#history.push({ tick, type: "step" });
+      return [];
+    }
+    // A due boundary is one simulation operation. Stage every health and
+    // visual mutation on detached authoritative forks, and adopt them only
+    // after all contacts, damage, deaths, closes, and feed bounds succeed.
+    // This makes a late record/byte failure indistinguishable from rejection
+    // before the first due contact.
+    const candidateDamage = DamageSystem.restore(this.#damage.serialize());
+    const candidateFeed = this.#feed.fork();
+    const candidateFeedRoots = new Map([...this.#feedRoots].map(
+      ([projectileId, root]) => [projectileId, { ...root }],
+    ));
     const live = [];
     const events = [];
     const feedTargets = new Map();
     const dueRoots = [];
     for (const projectile of due) {
-      const health = this.#damage.get(projectile.targetId);
+      const health = candidateDamage.get(projectile.targetId);
       const status = health === null
         ? "target_missing"
         : health.dead
@@ -408,9 +423,9 @@ export class ProjectileCombat {
         tick,
         type: "impact",
       });
-      const root = this.#feedRoots.get(projectile.id);
+      const root = candidateFeedRoots.get(projectile.id);
       if (root === undefined) throw new Error("projectile visual root is missing");
-      const contact = appendCombatEffectEvent(this.#feed, {
+      const contact = appendCombatEffectEvent(candidateFeed, {
         parentId: root.lastEventId,
         payload: {
           point: projectile.targetPosition,
@@ -429,7 +444,7 @@ export class ProjectileCombat {
       if (status === "contact") live.push(projectile);
     }
 
-    const batch = this.#damage.damageSimultaneously(
+    const batch = candidateDamage.damageSimultaneously(
       live.map((projectile) => ({
         amount: projectile.damage,
         targetId: projectile.targetId,
@@ -439,8 +454,8 @@ export class ProjectileCombat {
     for (const event of batch.events) {
       if (event.type === "damage") {
         const projectile = live[damageIndex];
-        const root = this.#feedRoots.get(projectile.id);
-        const damage = appendCombatEffectEvent(this.#feed, {
+        const root = candidateFeedRoots.get(projectile.id);
+        const damage = appendCombatEffectEvent(candidateFeed, {
           parentId: root.lastEventId,
           payload: {
             amount: event.amount,
@@ -465,7 +480,7 @@ export class ProjectileCombat {
         events.push({ ...event, tick });
         const root = feedTargets.get(event.targetId);
         if (root !== undefined) {
-          const death = appendCombatEffectEvent(this.#feed, {
+          const death = appendCombatEffectEvent(candidateFeed, {
             parentId: root.lastEventId,
             payload: { targetId: event.targetId },
             phase: "death",
@@ -478,7 +493,7 @@ export class ProjectileCombat {
       }
     }
     for (const root of dueRoots) {
-      const close = appendCombatEffectEvent(this.#feed, {
+      const close = appendCombatEffectEvent(candidateFeed, {
         parentId: root.lastEventId,
         payload: { reason: "complete" },
         phase: "close",
@@ -488,12 +503,13 @@ export class ProjectileCombat {
       });
       root.lastEventId = close.eventId;
     }
-    if (due.length > 0) {
-      const dueIds = new Set(due.map(({ id }) => id));
-      this.#projectiles = this.#projectiles.filter(
-        (projectile) => !dueIds.has(projectile.id),
-      );
-    }
+    this.#damage = candidateDamage;
+    this.#feed = candidateFeed;
+    this.#feedRoots = candidateFeedRoots;
+    const dueIds = new Set(due.map(({ id }) => id));
+    this.#projectiles = this.#projectiles.filter(
+      (projectile) => !dueIds.has(projectile.id),
+    );
     this.#tick += 1;
     this.#replay.push(...events);
     this.#history.push({ tick, type: "step" });

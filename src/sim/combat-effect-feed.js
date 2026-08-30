@@ -12,11 +12,6 @@ const COMBAT_EFFECT_FEED_MAX_RECORDS = 16_384;
 const COMBAT_EFFECT_FEED_MAX_BYTES = 1_048_576;
 const COMBAT_EFFECT_FEED_MAX_DEPTH = 16;
 const COMBAT_EFFECT_FEED_MAX_STRING_LENGTH = 256;
-// A ProjectileCombat.step boundary can append contact, damage, death, and
-// close records after the contact call. Reserve enough bounded transcript
-// space before admitting that first child so a later feed-bound failure cannot
-// leave the source's damage ledger half committed.
-const COMBAT_EFFECT_FEED_PROJECTILE_OPERATION_RESERVE = 16_384;
 // Root IDs carry a bounded, injective encoding of every admitted identity.
 // They are intentionally allowed to be longer than ordinary payload text:
 // a 256-code-unit identity can need up to four UTF-8 bytes per code unit and
@@ -464,19 +459,6 @@ function appendChecked(state, record) {
     }
     if (checked.parentId !== root.lastEventId) {
       throw new TypeError("combat effect child must extend the active lineage");
-    }
-    if (checked.phase === "contact" && checked.type === "projectile") {
-      const currentBytes = UTF8.encode(FEED_SNAPSHOT_PREFIX).byteLength +
-        state.recordBytes + UTF8.encode(FEED_SNAPSHOT_SUFFIX).byteLength;
-      const dueRoots = [...state.roots.values()].filter((candidateRoot) =>
-        !candidateRoot.closed &&
-        candidateRoot.payload.impactTick === checked.tick
-      ).length;
-      const operationRoots = Math.max(1, dueRoots);
-      if (COMBAT_EFFECT_FEED_MAX_BYTES - currentBytes <
-          operationRoots * COMBAT_EFFECT_FEED_PROJECTILE_OPERATION_RESERVE) {
-        throw new RangeError("combat effect projectile operation exceeds its feed byte bound");
-      }
     }
     if (checked.type !== root.type) throw new TypeError("combat effect child type diverges from its root");
     const allowedParents = checked.type === "area"
