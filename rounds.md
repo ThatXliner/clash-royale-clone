@@ -1,5 +1,27 @@
 # Gauntlet Rounds
 
+## Round 300 — 2026-08-30
+
+PIECE: VIS-003D — Card, hand, HUD, and match-feedback art, round 4
+
+VERDICT: PASS
+
+EVIDENCE: An isolated archive of `3a871f2` passed 161/161 relevant visual,
+browser, UI, audio-integration, guard, and provenance checks. Four fresh Chrome
+processes at 720x1280 reproduced exact full-PNG and state hashes for all five
+states, byte-for-byte with the committed artifacts. The mask contains exactly
+seven combat/effect selectors and no coordinate regions; only one moving 28x28
+ground marker existed in the pinned frame. All arena, bridge, card, HUD, timer,
+crown, health, elixir, audio-control, winner, and restart pixels remained
+visible. Each bridge corner retained its 64 dark and 36 light pixels across all
+four runs; mutating one ornament changed exactly 100 pixels. Briar Band retained
+40.27% occupied area and 13.52% edge ratio while the prior thin mutation failed.
+A real click selected `copperskiff` in both controller and DOM at tick 60, with
+the elixir badge ending at y=1276. Exact comparison uses no tolerance, crop,
+blur, or quantization.
+
+BIGGEST GAP: None on the judged dimension.
+
 ## Round 299 — 2026-08-30
 
 PIECE: VIS-003D — Card, hand, HUD, and match-feedback art, round 3
