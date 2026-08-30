@@ -1,0 +1,1433 @@
+{
+  "consoleErrors": [],
+  "drainRounds": 3,
+  "geometry": {
+    "arena": {
+      "bottom": 1072,
+      "height": 968,
+      "left": 86,
+      "top": 104,
+      "width": 548
+    },
+    "audioToggle": {
+      "bottom": 166,
+      "height": 48,
+      "left": 638,
+      "top": 118,
+      "width": 72
+    },
+    "bottomRail": {
+      "bottom": 1144,
+      "height": 62,
+      "left": 42,
+      "top": 1082,
+      "width": 636
+    },
+    "crownsChip": {
+      "bottom": 69,
+      "height": 35,
+      "left": 492,
+      "top": 34,
+      "width": 111
+    },
+    "elixirBadge": {
+      "bottom": 1276,
+      "height": 52,
+      "left": 556,
+      "top": 1224,
+      "width": 56
+    },
+    "elixirRail": {
+      "bottom": 1270,
+      "height": 22,
+      "left": 112,
+      "top": 1248,
+      "width": 496
+    },
+    "handTray": {
+      "bottom": 1242,
+      "height": 88,
+      "left": 112,
+      "top": 1154,
+      "width": 496
+    },
+    "topRail": {
+      "bottom": 86,
+      "height": 62,
+      "left": 42,
+      "top": 24,
+      "width": 636
+    }
+  },
+  "arenaMask": {
+    "policy": "Only moving combat/effect markers outside the card and HUD dimension are hidden",
+    "css": ".game-browser-layer--combat .combat-marker--entity-ground { display: none !important; }\n.game-browser-layer--combat .combat-marker--entity-air { display: none !important; }\n.game-browser-layer--combat .combat-target-link { display: none !important; }\n.game-browser-layer--effects .combat-effect-projectile { display: none !important; }\n.game-browser-layer--effects .combat-effect-impact { display: none !important; }\n.game-browser-layer--effects .combat-effect-area { display: none !important; }\n.game-browser-layer--effects .combat-effect-path { display: none !important; }",
+    "selectors": [
+      {
+        "selector": ".game-browser-layer--combat .combat-marker--entity-ground",
+        "region": "ground combat marker",
+        "reason": "moving entity position is outside the card and HUD dimension"
+      },
+      {
+        "selector": ".game-browser-layer--combat .combat-marker--entity-air",
+        "region": "air combat marker",
+        "reason": "moving entity position is outside the card and HUD dimension"
+      },
+      {
+        "selector": ".game-browser-layer--combat .combat-target-link",
+        "region": "combat target link",
+        "reason": "moving target-link geometry is outside the card and HUD dimension"
+      },
+      {
+        "selector": ".game-browser-layer--effects .combat-effect-projectile",
+        "region": "projectile effect marker",
+        "reason": "moving projectile state is outside the card and HUD dimension"
+      },
+      {
+        "selector": ".game-browser-layer--effects .combat-effect-impact",
+        "region": "impact effect marker",
+        "reason": "moving impact state is outside the card and HUD dimension"
+      },
+      {
+        "selector": ".game-browser-layer--effects .combat-effect-area",
+        "region": "area effect marker",
+        "reason": "moving area-effect state is outside the card and HUD dimension"
+      },
+      {
+        "selector": ".game-browser-layer--effects .combat-effect-path",
+        "region": "effect path marker",
+        "reason": "moving effect-path state is outside the card and HUD dimension"
+      }
+    ],
+    "regions": []
+  },
+  "bridgeVisibility": {
+    "computedStyles": [
+      {
+        "after": {
+          "backgroundColor": "rgb(151, 143, 129)",
+          "borderColor": "rgb(25, 29, 34)",
+          "display": "block",
+          "height": "10px",
+          "width": "10px"
+        },
+        "before": {
+          "backgroundColor": "rgb(151, 143, 129)",
+          "borderColor": "rgb(25, 29, 34)",
+          "display": "block",
+          "height": "10px",
+          "width": "10px"
+        },
+        "lane": "west"
+      },
+      {
+        "after": {
+          "backgroundColor": "rgb(151, 143, 129)",
+          "borderColor": "rgb(25, 29, 34)",
+          "display": "block",
+          "height": "10px",
+          "width": "10px"
+        },
+        "before": {
+          "backgroundColor": "rgb(151, 143, 129)",
+          "borderColor": "rgb(25, 29, 34)",
+          "display": "block",
+          "height": "10px",
+          "width": "10px"
+        },
+        "lane": "east"
+      }
+    ],
+    "ornamentRegions": [
+      {
+        "label": "west-before",
+        "x": 164,
+        "y": 557,
+        "w": 10,
+        "h": 10
+      },
+      {
+        "label": "west-after",
+        "x": 216,
+        "y": 609,
+        "w": 10,
+        "h": 10
+      },
+      {
+        "label": "east-before",
+        "x": 494,
+        "y": 557,
+        "w": 10,
+        "h": 10
+      },
+      {
+        "label": "east-after",
+        "x": 546,
+        "y": 609,
+        "w": 10,
+        "h": 10
+      }
+    ],
+    "pixelEvidence": [
+      {
+        "darkPixels": 64,
+        "distinctColors": 2,
+        "label": "west-before",
+        "lightPixels": 36,
+        "rect": {
+          "h": 10,
+          "w": 10,
+          "x": 164,
+          "y": 557
+        },
+        "signature": "5c2241d61367fe8ac84ebaaaaa364c5619e0b349a30358ddf0bee20f0b0b956f"
+      },
+      {
+        "darkPixels": 64,
+        "distinctColors": 2,
+        "label": "west-after",
+        "lightPixels": 36,
+        "rect": {
+          "h": 10,
+          "w": 10,
+          "x": 216,
+          "y": 609
+        },
+        "signature": "2c45b91369e3320d85f1a8db189dce503479284ff488e5b03e24de29eabe9bcc"
+      },
+      {
+        "darkPixels": 64,
+        "distinctColors": 2,
+        "label": "east-before",
+        "lightPixels": 36,
+        "rect": {
+          "h": 10,
+          "w": 10,
+          "x": 494,
+          "y": 557
+        },
+        "signature": "2c45b91369e3320d85f1a8db189dce503479284ff488e5b03e24de29eabe9bcc"
+      },
+      {
+        "darkPixels": 64,
+        "distinctColors": 2,
+        "label": "east-after",
+        "lightPixels": 36,
+        "rect": {
+          "h": 10,
+          "w": 10,
+          "x": 546,
+          "y": 609
+        },
+        "signature": "5c2241d61367fe8ac84ebaaaaa364c5619e0b349a30358ddf0bee20f0b0b956f"
+      }
+    ]
+  },
+  "captureNormalization": {
+    "flags": [
+      "--force-color-profile=srgb",
+      "--force-device-scale-factor=1",
+      "--disable-gpu",
+      "--use-angle=swiftshader",
+      "--font-render-hinting=none",
+      "--disable-lcd-text"
+    ],
+    "timing": "manual mode, fresh terminal session restored to tick 0, stepMany(60), document.fonts.ready, one requestAnimationFrame",
+    "comparison": "exact SHA-256 over 8-bit RGB screenshot pixels; no tolerance or HUD/card masks"
+  },
+  "contactSheet": {
+    "dimensions": {
+      "height": 194,
+      "width": 392
+    },
+    "hash": "491984d662f59be0c7255fb64bf3e92fca15d83b11c38eae625f5aee588eb7a4",
+    "metrics": {
+      "coilblade": {
+        "edgePixels": 387,
+        "edgeRatio": 0.12108886107634544,
+        "luminanceRange": 226,
+        "occupiedPixels": 929,
+        "occupiedRatio": 0.2906758448060075,
+        "signature": "bfcfea3c9dc6c1e1387476987f1c209e5cc80a7be6c553fe6b4b99f493017b41"
+      },
+      "mossguard": {
+        "edgePixels": 341,
+        "edgeRatio": 0.10669586983729662,
+        "luminanceRange": 226,
+        "occupiedPixels": 1831,
+        "occupiedRatio": 0.5729036295369212,
+        "signature": "6795c6d4743b21e4c9d2997406097e46a241d02528f0b08b8c63a595d4e3414f"
+      },
+      "copperskiff": {
+        "edgePixels": 297,
+        "edgeRatio": 0.09292866082603254,
+        "luminanceRange": 227,
+        "occupiedPixels": 933,
+        "occupiedRatio": 0.29192740926157695,
+        "signature": "914bb5689a25fdee1638933d8ef14fd569bb955fef1e4e00b77fa871f7644c17"
+      },
+      "skymaul": {
+        "edgePixels": 385,
+        "edgeRatio": 0.1204630788485607,
+        "luminanceRange": 227,
+        "occupiedPixels": 1730,
+        "occupiedRatio": 0.5413016270337923,
+        "signature": "03fc0ebe7c350d866359b7d3bfcceba22a93113330ac3ed8335b7f9fb60d6730"
+      },
+      "brassbolt": {
+        "edgePixels": 309,
+        "edgeRatio": 0.09668335419274092,
+        "luminanceRange": 226,
+        "occupiedPixels": 727,
+        "occupiedRatio": 0.2274718397997497,
+        "signature": "a06d8f205c29c99dc277cf1c955c1731cd98e38944c549d644be75e3dc685b8f"
+      },
+      "reedsting": {
+        "edgePixels": 299,
+        "edgeRatio": 0.09355444305381727,
+        "luminanceRange": 226,
+        "occupiedPixels": 739,
+        "occupiedRatio": 0.23122653316645808,
+        "signature": "32028ffda43f97d64e97f13ee6edbcc6fd41ab6a9ba43ea9f3bdc4a4569aab0e"
+      },
+      "briar-band": {
+        "edgePixels": 432,
+        "edgeRatio": 0.13516896120150187,
+        "luminanceRange": 226,
+        "occupiedPixels": 1287,
+        "occupiedRatio": 0.40269086357947437,
+        "signature": "8a0edef3aa55dba86dee94fd0e387f657b27fb99645be74317986794df15036a"
+      },
+      "cinderlings": {
+        "edgePixels": 324,
+        "edgeRatio": 0.10137672090112641,
+        "luminanceRange": 212,
+        "occupiedPixels": 1511,
+        "occupiedRatio": 0.4727784730913642,
+        "signature": "277e5b4d0d26cbb805c6bcf6780508c86e98d2695e635cb2b664a9e6a33a9a4a"
+      }
+    },
+    "rects": {
+      "coilblade": {
+        "h": 47,
+        "w": 68,
+        "x": 24,
+        "y": 35
+      },
+      "mossguard": {
+        "h": 47,
+        "w": 68,
+        "x": 120,
+        "y": 35
+      },
+      "copperskiff": {
+        "h": 47,
+        "w": 68,
+        "x": 216,
+        "y": 35
+      },
+      "skymaul": {
+        "h": 47,
+        "w": 68,
+        "x": 312,
+        "y": 35
+      },
+      "brassbolt": {
+        "h": 47,
+        "w": 68,
+        "x": 24,
+        "y": 115
+      },
+      "reedsting": {
+        "h": 47,
+        "w": 68,
+        "x": 120,
+        "y": 115
+      },
+      "briar-band": {
+        "h": 47,
+        "w": 68,
+        "x": 216,
+        "y": 115
+      },
+      "cinderlings": {
+        "h": 47,
+        "w": 68,
+        "x": 312,
+        "y": 115
+      }
+    }
+  },
+  "mutationProof": {
+    "briarThinMark": {
+      "image": "mutation-briar-thin.png",
+      "metrics": {
+        "edgePixels": 216,
+        "edgeRatio": 0.06758448060075094,
+        "luminanceRange": 226,
+        "occupiedPixels": 324,
+        "occupiedRatio": 0.10137672090112641,
+        "signature": "b2e5b662d38bd500f7b9073ea2068a0b043e6db5e0b268018fa7cd6aef605445"
+      },
+      "readable": false
+    },
+    "hudStyle": {
+      "image": "mutation-hud-style.png",
+      "comparison": {
+        "changedChannels": 6367,
+        "changedPixels": 2143,
+        "maxChannelDelta": 206
+      },
+      "mutation": "coilblade border-color changed to #c6452e"
+    },
+    "bridgeOrnament": {
+      "changedPixelsInWestBefore": 100,
+      "comparison": {
+        "changedChannels": 300,
+        "changedPixels": 100,
+        "maxChannelDelta": 208
+      },
+      "image": "mutation-bridge-ornament.png",
+      "mutation": "west bridge ::before background changed to #c6452e and border to #e9a83a"
+    }
+  },
+  "maskInventory": [
+    {
+      "kind": "selector",
+      "value": ".game-browser-layer--combat .combat-marker--entity-ground"
+    },
+    {
+      "kind": "selector",
+      "value": ".game-browser-layer--combat .combat-marker--entity-air"
+    },
+    {
+      "kind": "selector",
+      "value": ".game-browser-layer--combat .combat-target-link"
+    },
+    {
+      "kind": "selector",
+      "value": ".game-browser-layer--effects .combat-effect-projectile"
+    },
+    {
+      "kind": "selector",
+      "value": ".game-browser-layer--effects .combat-effect-impact"
+    },
+    {
+      "kind": "selector",
+      "value": ".game-browser-layer--effects .combat-effect-area"
+    },
+    {
+      "kind": "selector",
+      "value": ".game-browser-layer--effects .combat-effect-path"
+    }
+  ],
+  "screenshotHashes": {
+    "initial.png": "310a15ad4868417e4c245380930d5f1866d024130387976bfeac98a08dc07375",
+    "card-selected.png": "6f423094715c8d1b23aac1545746f17e4c4fd8da568e3f0326416c5edd0528c7",
+    "insufficient-elixir.png": "2e13cb3202530043aa68842d87e7b45e0a6348739ea3cf0444866a1cc5b1d327",
+    "winner-overlay.png": "9fd3b32c8affbc97bfddec9d7a4f1309ce9e7ced5b22065e4a8676f852fff3f7",
+    "restart.png": "9fa0dc5552ad5b2e5c4fc0c6b12c1f9ed4943c9cd44d86d2df3c066a3a34022b"
+  },
+  "screenshotDimensions": {
+    "initial.png": {
+      "height": 1280,
+      "width": 720
+    },
+    "card-selected.png": {
+      "height": 1280,
+      "width": 720
+    },
+    "insufficient-elixir.png": {
+      "height": 1280,
+      "width": 720
+    },
+    "winner-overlay.png": {
+      "height": 1280,
+      "width": 720
+    },
+    "restart.png": {
+      "height": 1280,
+      "width": 720
+    }
+  },
+  "selectionTarget": "briar-band",
+  "initial": {
+    "costTexts": [
+      "4",
+      "4",
+      "3",
+      "4"
+    ],
+    "crowns": {
+      "north": "0",
+      "south": "0"
+    },
+    "handIds": [
+      "copperskiff",
+      "coilblade",
+      "skymaul",
+      "brassbolt"
+    ],
+    "nextId": "cinderlings",
+    "domTick": 60,
+    "selectedCardId": null,
+    "sessionTick": 60,
+    "timerText": "2:59",
+    "towerHealthBars": {
+      "count": 6,
+      "visible": true
+    }
+  },
+  "insufficient": {
+    "amount": "0",
+    "disabledCount": 4,
+    "insufficientCount": 4,
+    "domTick": 65,
+    "sessionTick": 65
+  },
+  "selectionStyles": {
+    "other": {
+      "borderColor": "rgb(92, 83, 70)",
+      "shadow": "rgb(244, 235, 214) 0px 0px 0px 2px inset, rgba(25, 29, 34, 0.35) 3px 4px 0px 0px"
+    },
+    "selected": {
+      "borderColor": "rgb(233, 168, 58)",
+      "shadow": "rgb(233, 168, 58) 0px 0px 0px 3px inset, rgb(25, 29, 34) 0px 0px 0px 2px, rgba(233, 168, 58, 0.8) 0px 0px 18px 0px, rgba(25, 29, 34, 0.35) 3px 4px 0px 0px"
+    },
+    "flag": "true",
+    "domTick": 63,
+    "sessionTick": 63
+  },
+  "screenshots": [
+    "initial.png",
+    "card-selected.png",
+    "insufficient-elixir.png",
+    "winner-overlay.png",
+    "restart.png"
+  ],
+  "stateHashes": {
+    "initial": "b45f35ef12f66f9dc8beb75d4b4a4b9ebbd4685ca27638b8f922779244cdee10",
+    "insufficient": "caa378862b1cb7007155f618f2e7c07c91433d9bb511da31d7d174d36f25d72a",
+    "selected": "1a89540e17bf8241abafeee4aa9f0276974217791321595d8ee24098de585b3c",
+    "restart": "0b3957d80879cba8f0e56c818a3f6b7616775c8dc4f00423622318a3a690cb0a",
+    "winner": "a885b6ebbce15c4f01776b11abcc36d4665701c1afcba4d57b70d83e3f188d98"
+  },
+  "restart": {
+    "domTick": 0,
+    "selectedCardId": null,
+    "sessionTick": 0,
+    "terminal": false
+  },
+  "restartSelection": {
+    "amount": 3,
+    "target": "reedsting"
+  },
+  "selectedBeforeTerminal": {
+    "flag": "true",
+    "selectedCardId": "reedsting",
+    "sessionTick": 605
+  },
+  "unhandled": [],
+  "winner": {
+    "height": 486,
+    "kind": "win",
+    "domTick": 1590,
+    "selectedCardId": "reedsting",
+    "sessionTick": 1590,
+    "text": "north wins3 – 1",
+    "width": 590,
+    "winner": "north",
+    "restartHidden": false
+  },
+  "independentRuns": [
+    {
+      "bridgePixels": [
+        {
+          "darkPixels": 64,
+          "distinctColors": 2,
+          "label": "west-before",
+          "lightPixels": 36,
+          "rect": {
+            "h": 10,
+            "w": 10,
+            "x": 164,
+            "y": 557
+          },
+          "signature": "5c2241d61367fe8ac84ebaaaaa364c5619e0b349a30358ddf0bee20f0b0b956f"
+        },
+        {
+          "darkPixels": 64,
+          "distinctColors": 2,
+          "label": "west-after",
+          "lightPixels": 36,
+          "rect": {
+            "h": 10,
+            "w": 10,
+            "x": 216,
+            "y": 609
+          },
+          "signature": "2c45b91369e3320d85f1a8db189dce503479284ff488e5b03e24de29eabe9bcc"
+        },
+        {
+          "darkPixels": 64,
+          "distinctColors": 2,
+          "label": "east-before",
+          "lightPixels": 36,
+          "rect": {
+            "h": 10,
+            "w": 10,
+            "x": 494,
+            "y": 557
+          },
+          "signature": "2c45b91369e3320d85f1a8db189dce503479284ff488e5b03e24de29eabe9bcc"
+        },
+        {
+          "darkPixels": 64,
+          "distinctColors": 2,
+          "label": "east-after",
+          "lightPixels": 36,
+          "rect": {
+            "h": 10,
+            "w": 10,
+            "x": 546,
+            "y": 609
+          },
+          "signature": "5c2241d61367fe8ac84ebaaaaa364c5619e0b349a30358ddf0bee20f0b0b956f"
+        }
+      ],
+      "capture": 1,
+      "drainRounds": 3,
+      "screenshotDimensions": {
+        "initial.png": {
+          "height": 1280,
+          "width": 720
+        },
+        "card-selected.png": {
+          "height": 1280,
+          "width": 720
+        },
+        "insufficient-elixir.png": {
+          "height": 1280,
+          "width": 720
+        },
+        "winner-overlay.png": {
+          "height": 1280,
+          "width": 720
+        },
+        "restart.png": {
+          "height": 1280,
+          "width": 720
+        }
+      },
+      "screenshotHashes": {
+        "initial.png": "310a15ad4868417e4c245380930d5f1866d024130387976bfeac98a08dc07375",
+        "card-selected.png": "6f423094715c8d1b23aac1545746f17e4c4fd8da568e3f0326416c5edd0528c7",
+        "insufficient-elixir.png": "2e13cb3202530043aa68842d87e7b45e0a6348739ea3cf0444866a1cc5b1d327",
+        "winner-overlay.png": "9fd3b32c8affbc97bfddec9d7a4f1309ce9e7ced5b22065e4a8676f852fff3f7",
+        "restart.png": "9fa0dc5552ad5b2e5c4fc0c6b12c1f9ed4943c9cd44d86d2df3c066a3a34022b"
+      },
+      "selectionTarget": "briar-band",
+      "startTick": 60,
+      "stateHashes": {
+        "initial": "b45f35ef12f66f9dc8beb75d4b4a4b9ebbd4685ca27638b8f922779244cdee10",
+        "insufficient": "247f3560f9265550d0c7ccdccc5790213dbd022f97c043bf5a15eb8fb03ca91e",
+        "restart": "49dfd096a37f8bc8f75e85c59c8b69dc0963eaa06b55ea32b409629f6130c28e",
+        "selected": "70c328a3a7a2941cd474ed614cc12dbe1a395f03cf7d310aa020733ad25bbc9f",
+        "winner": "0daf1f9349052f3c063da5377b4f0d5a956362cfb622817322107e443cb0ff1a"
+      },
+      "states": {
+        "initial": {
+          "costTexts": [
+            "4",
+            "4",
+            "3",
+            "4"
+          ],
+          "crowns": {
+            "north": "0",
+            "south": "0"
+          },
+          "handIds": [
+            "copperskiff",
+            "coilblade",
+            "skymaul",
+            "brassbolt"
+          ],
+          "nextId": "cinderlings",
+          "domTick": 60,
+          "selectedCardId": null,
+          "sessionTick": 60,
+          "timerText": "2:59",
+          "towerHealthBars": {
+            "count": 6,
+            "visible": true
+          }
+        },
+        "insufficient": {
+          "costTexts": [
+            "4",
+            "4",
+            "3",
+            "4"
+          ],
+          "crowns": {
+            "north": "0",
+            "south": "0"
+          },
+          "handIds": [
+            "copperskiff",
+            "coilblade",
+            "reedsting",
+            "brassbolt"
+          ],
+          "nextId": "skymaul",
+          "domTick": 65,
+          "selectedCardId": null,
+          "sessionTick": 65,
+          "timerText": "2:59",
+          "towerHealthBars": {
+            "count": 6,
+            "visible": true
+          }
+        },
+        "restart": {
+          "costTexts": [
+            "3",
+            "3",
+            "4",
+            "1"
+          ],
+          "crowns": {
+            "north": "0",
+            "south": "0"
+          },
+          "handIds": [
+            "mossguard",
+            "skymaul",
+            "copperskiff",
+            "cinderlings"
+          ],
+          "nextId": "brassbolt",
+          "domTick": 0,
+          "selectedCardId": null,
+          "sessionTick": 0,
+          "timerText": "3:00",
+          "towerHealthBars": {
+            "count": 6,
+            "visible": true
+          }
+        },
+        "selected": {
+          "costTexts": [
+            "4",
+            "4",
+            "3",
+            "4"
+          ],
+          "crowns": {
+            "north": "0",
+            "south": "0"
+          },
+          "handIds": [
+            "copperskiff",
+            "coilblade",
+            "briar-band",
+            "brassbolt"
+          ],
+          "nextId": "reedsting",
+          "domTick": 63,
+          "selectedCardId": "briar-band",
+          "sessionTick": 63,
+          "timerText": "2:59",
+          "towerHealthBars": {
+            "count": 6,
+            "visible": true
+          }
+        },
+        "winner": {
+          "kind": "win",
+          "selectedCardId": "reedsting",
+          "sessionTick": 1590,
+          "winner": "north"
+        }
+      }
+    },
+    {
+      "bridgePixels": [
+        {
+          "darkPixels": 64,
+          "distinctColors": 2,
+          "label": "west-before",
+          "lightPixels": 36,
+          "rect": {
+            "h": 10,
+            "w": 10,
+            "x": 164,
+            "y": 557
+          },
+          "signature": "5c2241d61367fe8ac84ebaaaaa364c5619e0b349a30358ddf0bee20f0b0b956f"
+        },
+        {
+          "darkPixels": 64,
+          "distinctColors": 2,
+          "label": "west-after",
+          "lightPixels": 36,
+          "rect": {
+            "h": 10,
+            "w": 10,
+            "x": 216,
+            "y": 609
+          },
+          "signature": "2c45b91369e3320d85f1a8db189dce503479284ff488e5b03e24de29eabe9bcc"
+        },
+        {
+          "darkPixels": 64,
+          "distinctColors": 2,
+          "label": "east-before",
+          "lightPixels": 36,
+          "rect": {
+            "h": 10,
+            "w": 10,
+            "x": 494,
+            "y": 557
+          },
+          "signature": "2c45b91369e3320d85f1a8db189dce503479284ff488e5b03e24de29eabe9bcc"
+        },
+        {
+          "darkPixels": 64,
+          "distinctColors": 2,
+          "label": "east-after",
+          "lightPixels": 36,
+          "rect": {
+            "h": 10,
+            "w": 10,
+            "x": 546,
+            "y": 609
+          },
+          "signature": "5c2241d61367fe8ac84ebaaaaa364c5619e0b349a30358ddf0bee20f0b0b956f"
+        }
+      ],
+      "capture": 2,
+      "drainRounds": 3,
+      "screenshotDimensions": {
+        "initial.png": {
+          "height": 1280,
+          "width": 720
+        },
+        "card-selected.png": {
+          "height": 1280,
+          "width": 720
+        },
+        "insufficient-elixir.png": {
+          "height": 1280,
+          "width": 720
+        },
+        "winner-overlay.png": {
+          "height": 1280,
+          "width": 720
+        },
+        "restart.png": {
+          "height": 1280,
+          "width": 720
+        }
+      },
+      "screenshotHashes": {
+        "initial.png": "310a15ad4868417e4c245380930d5f1866d024130387976bfeac98a08dc07375",
+        "card-selected.png": "6f423094715c8d1b23aac1545746f17e4c4fd8da568e3f0326416c5edd0528c7",
+        "insufficient-elixir.png": "2e13cb3202530043aa68842d87e7b45e0a6348739ea3cf0444866a1cc5b1d327",
+        "winner-overlay.png": "9fd3b32c8affbc97bfddec9d7a4f1309ce9e7ced5b22065e4a8676f852fff3f7",
+        "restart.png": "9fa0dc5552ad5b2e5c4fc0c6b12c1f9ed4943c9cd44d86d2df3c066a3a34022b"
+      },
+      "selectionTarget": "briar-band",
+      "startTick": 60,
+      "stateHashes": {
+        "initial": "b45f35ef12f66f9dc8beb75d4b4a4b9ebbd4685ca27638b8f922779244cdee10",
+        "insufficient": "247f3560f9265550d0c7ccdccc5790213dbd022f97c043bf5a15eb8fb03ca91e",
+        "restart": "49dfd096a37f8bc8f75e85c59c8b69dc0963eaa06b55ea32b409629f6130c28e",
+        "selected": "70c328a3a7a2941cd474ed614cc12dbe1a395f03cf7d310aa020733ad25bbc9f",
+        "winner": "0daf1f9349052f3c063da5377b4f0d5a956362cfb622817322107e443cb0ff1a"
+      },
+      "states": {
+        "initial": {
+          "costTexts": [
+            "4",
+            "4",
+            "3",
+            "4"
+          ],
+          "crowns": {
+            "north": "0",
+            "south": "0"
+          },
+          "handIds": [
+            "copperskiff",
+            "coilblade",
+            "skymaul",
+            "brassbolt"
+          ],
+          "nextId": "cinderlings",
+          "domTick": 60,
+          "selectedCardId": null,
+          "sessionTick": 60,
+          "timerText": "2:59",
+          "towerHealthBars": {
+            "count": 6,
+            "visible": true
+          }
+        },
+        "insufficient": {
+          "costTexts": [
+            "4",
+            "4",
+            "3",
+            "4"
+          ],
+          "crowns": {
+            "north": "0",
+            "south": "0"
+          },
+          "handIds": [
+            "copperskiff",
+            "coilblade",
+            "reedsting",
+            "brassbolt"
+          ],
+          "nextId": "skymaul",
+          "domTick": 65,
+          "selectedCardId": null,
+          "sessionTick": 65,
+          "timerText": "2:59",
+          "towerHealthBars": {
+            "count": 6,
+            "visible": true
+          }
+        },
+        "restart": {
+          "costTexts": [
+            "3",
+            "3",
+            "4",
+            "1"
+          ],
+          "crowns": {
+            "north": "0",
+            "south": "0"
+          },
+          "handIds": [
+            "mossguard",
+            "skymaul",
+            "copperskiff",
+            "cinderlings"
+          ],
+          "nextId": "brassbolt",
+          "domTick": 0,
+          "selectedCardId": null,
+          "sessionTick": 0,
+          "timerText": "3:00",
+          "towerHealthBars": {
+            "count": 6,
+            "visible": true
+          }
+        },
+        "selected": {
+          "costTexts": [
+            "4",
+            "4",
+            "3",
+            "4"
+          ],
+          "crowns": {
+            "north": "0",
+            "south": "0"
+          },
+          "handIds": [
+            "copperskiff",
+            "coilblade",
+            "briar-band",
+            "brassbolt"
+          ],
+          "nextId": "reedsting",
+          "domTick": 63,
+          "selectedCardId": "briar-band",
+          "sessionTick": 63,
+          "timerText": "2:59",
+          "towerHealthBars": {
+            "count": 6,
+            "visible": true
+          }
+        },
+        "winner": {
+          "kind": "win",
+          "selectedCardId": "reedsting",
+          "sessionTick": 1590,
+          "winner": "north"
+        }
+      }
+    },
+    {
+      "bridgePixels": [
+        {
+          "darkPixels": 64,
+          "distinctColors": 2,
+          "label": "west-before",
+          "lightPixels": 36,
+          "rect": {
+            "h": 10,
+            "w": 10,
+            "x": 164,
+            "y": 557
+          },
+          "signature": "5c2241d61367fe8ac84ebaaaaa364c5619e0b349a30358ddf0bee20f0b0b956f"
+        },
+        {
+          "darkPixels": 64,
+          "distinctColors": 2,
+          "label": "west-after",
+          "lightPixels": 36,
+          "rect": {
+            "h": 10,
+            "w": 10,
+            "x": 216,
+            "y": 609
+          },
+          "signature": "2c45b91369e3320d85f1a8db189dce503479284ff488e5b03e24de29eabe9bcc"
+        },
+        {
+          "darkPixels": 64,
+          "distinctColors": 2,
+          "label": "east-before",
+          "lightPixels": 36,
+          "rect": {
+            "h": 10,
+            "w": 10,
+            "x": 494,
+            "y": 557
+          },
+          "signature": "2c45b91369e3320d85f1a8db189dce503479284ff488e5b03e24de29eabe9bcc"
+        },
+        {
+          "darkPixels": 64,
+          "distinctColors": 2,
+          "label": "east-after",
+          "lightPixels": 36,
+          "rect": {
+            "h": 10,
+            "w": 10,
+            "x": 546,
+            "y": 609
+          },
+          "signature": "5c2241d61367fe8ac84ebaaaaa364c5619e0b349a30358ddf0bee20f0b0b956f"
+        }
+      ],
+      "capture": 3,
+      "drainRounds": 3,
+      "screenshotDimensions": {
+        "initial.png": {
+          "height": 1280,
+          "width": 720
+        },
+        "card-selected.png": {
+          "height": 1280,
+          "width": 720
+        },
+        "insufficient-elixir.png": {
+          "height": 1280,
+          "width": 720
+        },
+        "winner-overlay.png": {
+          "height": 1280,
+          "width": 720
+        },
+        "restart.png": {
+          "height": 1280,
+          "width": 720
+        }
+      },
+      "screenshotHashes": {
+        "initial.png": "310a15ad4868417e4c245380930d5f1866d024130387976bfeac98a08dc07375",
+        "card-selected.png": "6f423094715c8d1b23aac1545746f17e4c4fd8da568e3f0326416c5edd0528c7",
+        "insufficient-elixir.png": "2e13cb3202530043aa68842d87e7b45e0a6348739ea3cf0444866a1cc5b1d327",
+        "winner-overlay.png": "9fd3b32c8affbc97bfddec9d7a4f1309ce9e7ced5b22065e4a8676f852fff3f7",
+        "restart.png": "9fa0dc5552ad5b2e5c4fc0c6b12c1f9ed4943c9cd44d86d2df3c066a3a34022b"
+      },
+      "selectionTarget": "briar-band",
+      "startTick": 60,
+      "stateHashes": {
+        "initial": "b45f35ef12f66f9dc8beb75d4b4a4b9ebbd4685ca27638b8f922779244cdee10",
+        "insufficient": "247f3560f9265550d0c7ccdccc5790213dbd022f97c043bf5a15eb8fb03ca91e",
+        "restart": "49dfd096a37f8bc8f75e85c59c8b69dc0963eaa06b55ea32b409629f6130c28e",
+        "selected": "70c328a3a7a2941cd474ed614cc12dbe1a395f03cf7d310aa020733ad25bbc9f",
+        "winner": "0daf1f9349052f3c063da5377b4f0d5a956362cfb622817322107e443cb0ff1a"
+      },
+      "states": {
+        "initial": {
+          "costTexts": [
+            "4",
+            "4",
+            "3",
+            "4"
+          ],
+          "crowns": {
+            "north": "0",
+            "south": "0"
+          },
+          "handIds": [
+            "copperskiff",
+            "coilblade",
+            "skymaul",
+            "brassbolt"
+          ],
+          "nextId": "cinderlings",
+          "domTick": 60,
+          "selectedCardId": null,
+          "sessionTick": 60,
+          "timerText": "2:59",
+          "towerHealthBars": {
+            "count": 6,
+            "visible": true
+          }
+        },
+        "insufficient": {
+          "costTexts": [
+            "4",
+            "4",
+            "3",
+            "4"
+          ],
+          "crowns": {
+            "north": "0",
+            "south": "0"
+          },
+          "handIds": [
+            "copperskiff",
+            "coilblade",
+            "reedsting",
+            "brassbolt"
+          ],
+          "nextId": "skymaul",
+          "domTick": 65,
+          "selectedCardId": null,
+          "sessionTick": 65,
+          "timerText": "2:59",
+          "towerHealthBars": {
+            "count": 6,
+            "visible": true
+          }
+        },
+        "restart": {
+          "costTexts": [
+            "3",
+            "3",
+            "4",
+            "1"
+          ],
+          "crowns": {
+            "north": "0",
+            "south": "0"
+          },
+          "handIds": [
+            "mossguard",
+            "skymaul",
+            "copperskiff",
+            "cinderlings"
+          ],
+          "nextId": "brassbolt",
+          "domTick": 0,
+          "selectedCardId": null,
+          "sessionTick": 0,
+          "timerText": "3:00",
+          "towerHealthBars": {
+            "count": 6,
+            "visible": true
+          }
+        },
+        "selected": {
+          "costTexts": [
+            "4",
+            "4",
+            "3",
+            "4"
+          ],
+          "crowns": {
+            "north": "0",
+            "south": "0"
+          },
+          "handIds": [
+            "copperskiff",
+            "coilblade",
+            "briar-band",
+            "brassbolt"
+          ],
+          "nextId": "reedsting",
+          "domTick": 63,
+          "selectedCardId": "briar-band",
+          "sessionTick": 63,
+          "timerText": "2:59",
+          "towerHealthBars": {
+            "count": 6,
+            "visible": true
+          }
+        },
+        "winner": {
+          "kind": "win",
+          "selectedCardId": "reedsting",
+          "sessionTick": 1590,
+          "winner": "north"
+        }
+      }
+    },
+    {
+      "bridgePixels": [
+        {
+          "darkPixels": 64,
+          "distinctColors": 2,
+          "label": "west-before",
+          "lightPixels": 36,
+          "rect": {
+            "h": 10,
+            "w": 10,
+            "x": 164,
+            "y": 557
+          },
+          "signature": "5c2241d61367fe8ac84ebaaaaa364c5619e0b349a30358ddf0bee20f0b0b956f"
+        },
+        {
+          "darkPixels": 64,
+          "distinctColors": 2,
+          "label": "west-after",
+          "lightPixels": 36,
+          "rect": {
+            "h": 10,
+            "w": 10,
+            "x": 216,
+            "y": 609
+          },
+          "signature": "2c45b91369e3320d85f1a8db189dce503479284ff488e5b03e24de29eabe9bcc"
+        },
+        {
+          "darkPixels": 64,
+          "distinctColors": 2,
+          "label": "east-before",
+          "lightPixels": 36,
+          "rect": {
+            "h": 10,
+            "w": 10,
+            "x": 494,
+            "y": 557
+          },
+          "signature": "2c45b91369e3320d85f1a8db189dce503479284ff488e5b03e24de29eabe9bcc"
+        },
+        {
+          "darkPixels": 64,
+          "distinctColors": 2,
+          "label": "east-after",
+          "lightPixels": 36,
+          "rect": {
+            "h": 10,
+            "w": 10,
+            "x": 546,
+            "y": 609
+          },
+          "signature": "5c2241d61367fe8ac84ebaaaaa364c5619e0b349a30358ddf0bee20f0b0b956f"
+        }
+      ],
+      "capture": 4,
+      "drainRounds": 3,
+      "screenshotDimensions": {
+        "initial.png": {
+          "height": 1280,
+          "width": 720
+        },
+        "card-selected.png": {
+          "height": 1280,
+          "width": 720
+        },
+        "insufficient-elixir.png": {
+          "height": 1280,
+          "width": 720
+        },
+        "winner-overlay.png": {
+          "height": 1280,
+          "width": 720
+        },
+        "restart.png": {
+          "height": 1280,
+          "width": 720
+        }
+      },
+      "screenshotHashes": {
+        "initial.png": "310a15ad4868417e4c245380930d5f1866d024130387976bfeac98a08dc07375",
+        "card-selected.png": "6f423094715c8d1b23aac1545746f17e4c4fd8da568e3f0326416c5edd0528c7",
+        "insufficient-elixir.png": "2e13cb3202530043aa68842d87e7b45e0a6348739ea3cf0444866a1cc5b1d327",
+        "winner-overlay.png": "9fd3b32c8affbc97bfddec9d7a4f1309ce9e7ced5b22065e4a8676f852fff3f7",
+        "restart.png": "9fa0dc5552ad5b2e5c4fc0c6b12c1f9ed4943c9cd44d86d2df3c066a3a34022b"
+      },
+      "selectionTarget": "briar-band",
+      "startTick": 60,
+      "stateHashes": {
+        "initial": "b45f35ef12f66f9dc8beb75d4b4a4b9ebbd4685ca27638b8f922779244cdee10",
+        "insufficient": "247f3560f9265550d0c7ccdccc5790213dbd022f97c043bf5a15eb8fb03ca91e",
+        "restart": "49dfd096a37f8bc8f75e85c59c8b69dc0963eaa06b55ea32b409629f6130c28e",
+        "selected": "70c328a3a7a2941cd474ed614cc12dbe1a395f03cf7d310aa020733ad25bbc9f",
+        "winner": "0daf1f9349052f3c063da5377b4f0d5a956362cfb622817322107e443cb0ff1a"
+      },
+      "states": {
+        "initial": {
+          "costTexts": [
+            "4",
+            "4",
+            "3",
+            "4"
+          ],
+          "crowns": {
+            "north": "0",
+            "south": "0"
+          },
+          "handIds": [
+            "copperskiff",
+            "coilblade",
+            "skymaul",
+            "brassbolt"
+          ],
+          "nextId": "cinderlings",
+          "domTick": 60,
+          "selectedCardId": null,
+          "sessionTick": 60,
+          "timerText": "2:59",
+          "towerHealthBars": {
+            "count": 6,
+            "visible": true
+          }
+        },
+        "insufficient": {
+          "costTexts": [
+            "4",
+            "4",
+            "3",
+            "4"
+          ],
+          "crowns": {
+            "north": "0",
+            "south": "0"
+          },
+          "handIds": [
+            "copperskiff",
+            "coilblade",
+            "reedsting",
+            "brassbolt"
+          ],
+          "nextId": "skymaul",
+          "domTick": 65,
+          "selectedCardId": null,
+          "sessionTick": 65,
+          "timerText": "2:59",
+          "towerHealthBars": {
+            "count": 6,
+            "visible": true
+          }
+        },
+        "restart": {
+          "costTexts": [
+            "3",
+            "3",
+            "4",
+            "1"
+          ],
+          "crowns": {
+            "north": "0",
+            "south": "0"
+          },
+          "handIds": [
+            "mossguard",
+            "skymaul",
+            "copperskiff",
+            "cinderlings"
+          ],
+          "nextId": "brassbolt",
+          "domTick": 0,
+          "selectedCardId": null,
+          "sessionTick": 0,
+          "timerText": "3:00",
+          "towerHealthBars": {
+            "count": 6,
+            "visible": true
+          }
+        },
+        "selected": {
+          "costTexts": [
+            "4",
+            "4",
+            "3",
+            "4"
+          ],
+          "crowns": {
+            "north": "0",
+            "south": "0"
+          },
+          "handIds": [
+            "copperskiff",
+            "coilblade",
+            "briar-band",
+            "brassbolt"
+          ],
+          "nextId": "reedsting",
+          "domTick": 63,
+          "selectedCardId": "briar-band",
+          "sessionTick": 63,
+          "timerText": "2:59",
+          "towerHealthBars": {
+            "count": 6,
+            "visible": true
+          }
+        },
+        "winner": {
+          "kind": "win",
+          "selectedCardId": "reedsting",
+          "sessionTick": 1590,
+          "winner": "north"
+        }
+      }
+    }
+  ],
+  "canonicalHashes": {
+    "initial.png": "310a15ad4868417e4c245380930d5f1866d024130387976bfeac98a08dc07375",
+    "card-selected.png": "6f423094715c8d1b23aac1545746f17e4c4fd8da568e3f0326416c5edd0528c7",
+    "insufficient-elixir.png": "2e13cb3202530043aa68842d87e7b45e0a6348739ea3cf0444866a1cc5b1d327",
+    "winner-overlay.png": "9fd3b32c8affbc97bfddec9d7a4f1309ce9e7ced5b22065e4a8676f852fff3f7",
+    "restart.png": "9fa0dc5552ad5b2e5c4fc0c6b12c1f9ed4943c9cd44d86d2df3c066a3a34022b"
+  },
+  "stateHashRuns": {
+    "initial": [
+      "b45f35ef12f66f9dc8beb75d4b4a4b9ebbd4685ca27638b8f922779244cdee10",
+      "b45f35ef12f66f9dc8beb75d4b4a4b9ebbd4685ca27638b8f922779244cdee10",
+      "b45f35ef12f66f9dc8beb75d4b4a4b9ebbd4685ca27638b8f922779244cdee10",
+      "b45f35ef12f66f9dc8beb75d4b4a4b9ebbd4685ca27638b8f922779244cdee10"
+    ],
+    "selected": [
+      "70c328a3a7a2941cd474ed614cc12dbe1a395f03cf7d310aa020733ad25bbc9f",
+      "70c328a3a7a2941cd474ed614cc12dbe1a395f03cf7d310aa020733ad25bbc9f",
+      "70c328a3a7a2941cd474ed614cc12dbe1a395f03cf7d310aa020733ad25bbc9f",
+      "70c328a3a7a2941cd474ed614cc12dbe1a395f03cf7d310aa020733ad25bbc9f"
+    ],
+    "insufficient": [
+      "247f3560f9265550d0c7ccdccc5790213dbd022f97c043bf5a15eb8fb03ca91e",
+      "247f3560f9265550d0c7ccdccc5790213dbd022f97c043bf5a15eb8fb03ca91e",
+      "247f3560f9265550d0c7ccdccc5790213dbd022f97c043bf5a15eb8fb03ca91e",
+      "247f3560f9265550d0c7ccdccc5790213dbd022f97c043bf5a15eb8fb03ca91e"
+    ],
+    "winner": [
+      "0daf1f9349052f3c063da5377b4f0d5a956362cfb622817322107e443cb0ff1a",
+      "0daf1f9349052f3c063da5377b4f0d5a956362cfb622817322107e443cb0ff1a",
+      "0daf1f9349052f3c063da5377b4f0d5a956362cfb622817322107e443cb0ff1a",
+      "0daf1f9349052f3c063da5377b4f0d5a956362cfb622817322107e443cb0ff1a"
+    ],
+    "restart": [
+      "49dfd096a37f8bc8f75e85c59c8b69dc0963eaa06b55ea32b409629f6130c28e",
+      "49dfd096a37f8bc8f75e85c59c8b69dc0963eaa06b55ea32b409629f6130c28e",
+      "49dfd096a37f8bc8f75e85c59c8b69dc0963eaa06b55ea32b409629f6130c28e",
+      "49dfd096a37f8bc8f75e85c59c8b69dc0963eaa06b55ea32b409629f6130c28e"
+    ]
+  },
+  "independentCaptureCount": 4,
+  "captureRunStorage": "fresh browser processes captured in a temporary directory; only canonical top-level images are shipped"
+}

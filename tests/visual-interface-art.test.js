@@ -26,7 +26,7 @@ import {
 
 const ROOT = new URL("..", import.meta.url).pathname;
 const HTML_PATH = `${ROOT}public/ui-arena-shell.html`;
-const ARTIFACTS = new URL("../artifacts/visual-003d-round-3/", import.meta.url)
+const ARTIFACTS = new URL("../artifacts/visual-003d-round-4/", import.meta.url)
   .pathname;
 
 const PLAYWRIGHT = process.env.GAME_BROWSER_PLAYWRIGHT ??
@@ -86,17 +86,114 @@ const CONTACT_SHEET_CSS = `
   }
 `;
 
-const MOVING_WORLD_MASK_CSS = `
-  .game-browser-layer--combat .combat-marker--entity-ground,
-  .game-browser-layer--combat .combat-marker--entity-air,
-  .game-browser-layer--combat .combat-target-link,
-  .game-browser-layer--effects .combat-effect-projectile,
-  .game-browser-layer--effects .combat-effect-impact,
-  .game-browser-layer--effects .combat-effect-area,
-  .game-browser-layer--effects .combat-effect-path,
-  .bridge::before,
-  .bridge::after { display: none !important; }
-`;
+const MOVING_WORLD_MASK_INVENTORY = Object.freeze([
+  Object.freeze({
+    selector: ".game-browser-layer--combat .combat-marker--entity-ground",
+    region: "ground combat marker",
+    reason: "moving entity position is outside the card and HUD dimension",
+  }),
+  Object.freeze({
+    selector: ".game-browser-layer--combat .combat-marker--entity-air",
+    region: "air combat marker",
+    reason: "moving entity position is outside the card and HUD dimension",
+  }),
+  Object.freeze({
+    selector: ".game-browser-layer--combat .combat-target-link",
+    region: "combat target link",
+    reason: "moving target-link geometry is outside the card and HUD dimension",
+  }),
+  Object.freeze({
+    selector: ".game-browser-layer--effects .combat-effect-projectile",
+    region: "projectile effect marker",
+    reason: "moving projectile state is outside the card and HUD dimension",
+  }),
+  Object.freeze({
+    selector: ".game-browser-layer--effects .combat-effect-impact",
+    region: "impact effect marker",
+    reason: "moving impact state is outside the card and HUD dimension",
+  }),
+  Object.freeze({
+    selector: ".game-browser-layer--effects .combat-effect-area",
+    region: "area effect marker",
+    reason: "moving area-effect state is outside the card and HUD dimension",
+  }),
+  Object.freeze({
+    selector: ".game-browser-layer--effects .combat-effect-path",
+    region: "effect path marker",
+    reason: "moving effect-path state is outside the card and HUD dimension",
+  }),
+]);
+
+// No coordinate or broad-region masks are allowed. Keeping this list explicit
+// makes an accidental arena, bridge, card, or HUD crop fail before capture.
+const MOVING_WORLD_MASK_REGIONS = Object.freeze([]);
+
+const PROTECTED_MASK_TARGETS = Object.freeze([
+  Object.freeze({ label: ".bridge", pattern: /\.bridge|data-ui=["']bridge/i }),
+  Object.freeze({ label: ".bridge::before", pattern: /\.bridge::before/i }),
+  Object.freeze({ label: ".bridge::after", pattern: /\.bridge::after/i }),
+  Object.freeze({ label: "bridge corners", pattern: /bridge[ _-]*(?:corner|ornament)/i }),
+  Object.freeze({ label: "arena art", pattern: /(?:^|[\s,.])\.(?:arena|river|lane|tower-pad)(?:$|[\s:#.[,])|data-ui=["'](?:arena|river|lane|bridge|tower-pad)/i }),
+  Object.freeze({ label: "HUD", pattern: /(?:^|[\s,.])\.(?:match-rail|hand-tray|hud|hud-card|crown-track)(?:$|[\s:#.[,])|data-ui=["'](?:hud|hand-tray|next-card|elixir-rail)/i }),
+  Object.freeze({ label: "cards", pattern: /(?:^|[\s,.])(?:\.hud-card|\.card-slot|\.next-card|\[data-ui=["'](?:card-slot|next-card))/i }),
+  Object.freeze({ label: "controls", pattern: /(?:^|[\s,.])\.(?:audio-toggle|restart-control)(?:$|[\s:#.[,])|data-ui=["'](?:audio-toggle|restart)/i }),
+  Object.freeze({ label: "timer", pattern: /(?:^|[\s,.])\.(?:timer|hud-timer)(?:$|[\s:#.[,])|data-ui=["']hud-timer/i }),
+  Object.freeze({ label: "crowns", pattern: /(?:^|[\s,.])\.crown(?:s|\b)|data-ui=["']hud-crowns/i }),
+  Object.freeze({ label: "health", pattern: /(?:^|[\s,.])\.(?:combat-health|health-bar)(?:$|[\s:#.[,])|data-ui=["'](?:health|tower-health)/i }),
+  Object.freeze({ label: "elixir", pattern: /(?:^|[\s,.])\.(?:elixir|elixir-rail|elixir-fill)(?:$|[\s:#.[,])|data-ui=["']hud-elixir/i }),
+  Object.freeze({ label: "winner", pattern: /(?:^|[\s,.])\.match-feedback(?:$|[\s:#.[,])/i }),
+  Object.freeze({ label: "restart", pattern: /(?:^|[\s,.])\.restart-control(?:$|[\s:#.[,])/i }),
+]);
+
+function assertMaskInventory(inventory, regions) {
+  assert.ok(Array.isArray(inventory), "mask selector inventory must be an array");
+  assert.ok(Array.isArray(regions), "mask region inventory must be an array");
+  const selectors = inventory.map((entry, index) => {
+    assert.equal(typeof entry?.selector, "string",
+      `mask selector ${index} must be a string`);
+    assert.ok(entry.selector.length > 0, `mask selector ${index} must not be empty`);
+    assert.equal(typeof entry.region, "string",
+      `mask selector ${index} must name its rendered region`);
+    assert.equal(typeof entry.reason, "string",
+      `mask selector ${index} must explain why it moves`);
+    assert.match(entry.selector,
+      /^\.game-browser-layer--(?:combat|effects) \.combat-(?:marker--entity-(?:ground|air)|target-link|effect-(?:projectile|impact|area|path))$/,
+      `mask selector ${index} must target one moving combat/effect marker`);
+    return entry.selector;
+  });
+  assert.equal(new Set(selectors).size, selectors.length,
+    "mask selector inventory must not contain duplicates");
+  assert.equal(regions.length, 0,
+    "fixed coordinate/region masks are forbidden for VIS-003D evidence");
+  const targets = [
+    ...selectors.map((selector) => ({ kind: "selector", value: selector })),
+    ...regions.map((region) => ({ kind: "region", value: region.name })),
+  ];
+  for (const target of targets) {
+    assert.equal(typeof target.value, "string",
+      `${target.kind} mask target must have a string value`);
+    for (const protectedTarget of PROTECTED_MASK_TARGETS) {
+      assert.doesNotMatch(target.value, protectedTarget.pattern,
+        `${target.kind} mask must not hide ${protectedTarget.label}: ${target.value}`);
+    }
+  }
+  return targets;
+}
+
+const MASKED_WORLD_TARGETS = assertMaskInventory(
+  MOVING_WORLD_MASK_INVENTORY,
+  MOVING_WORLD_MASK_REGIONS,
+);
+
+const MOVING_WORLD_MASK_CSS = MOVING_WORLD_MASK_INVENTORY.map(({ selector }) =>
+  `${selector} { display: none !important; }`).join("\n");
+
+const BRIDGE_ORNAMENT_REGIONS = Object.freeze([
+  Object.freeze({ label: "west-before", x: 164, y: 557, w: 10, h: 10 }),
+  Object.freeze({ label: "west-after", x: 216, y: 609, w: 10, h: 10 }),
+  Object.freeze({ label: "east-before", x: 494, y: 557, w: 10, h: 10 }),
+  Object.freeze({ label: "east-after", x: 546, y: 609, w: 10, h: 10 }),
+]);
 
 const html = readFileSync(HTML_PATH, "utf8");
 
@@ -265,6 +362,64 @@ function comparePngs(leftBytes, rightBytes) {
     }
   }
   return { changedChannels, changedPixels, maxChannelDelta };
+}
+
+function regionPixelEvidence(bytes, rect) {
+  const image = decodePng(bytes);
+  const x0 = Math.max(0, Math.round(rect.x));
+  const y0 = Math.max(0, Math.round(rect.y));
+  const x1 = Math.min(image.width, x0 + Math.round(rect.w));
+  const y1 = Math.min(image.height, y0 + Math.round(rect.h));
+  const pixels = [];
+  let darkPixels = 0;
+  let lightPixels = 0;
+  for (let y = y0; y < y1; y += 1) {
+    for (let x = x0; x < x1; x += 1) {
+      const pixel = pixelAt(image, x, y);
+      pixels.push(...pixel);
+      if (Math.max(...pixel) <= 70) darkPixels += 1;
+      if (Math.min(...pixel) >= 105) lightPixels += 1;
+    }
+  }
+  return {
+    darkPixels,
+    distinctColors: new Set(Array.from({ length: pixels.length / 3 }, (_, index) =>
+      pixels.slice(index * 3, index * 3 + 3).join(","))).size,
+    label: rect.label,
+    lightPixels,
+    rect: { h: rect.h, w: rect.w, x: rect.x, y: rect.y },
+    signature: createHash("sha256").update(Buffer.from(pixels)).digest("hex"),
+  };
+}
+
+function bridgePixelEvidence(bytes) {
+  const evidence = BRIDGE_ORNAMENT_REGIONS.map((region) =>
+    regionPixelEvidence(bytes, region));
+  for (const probe of evidence) {
+    assert.ok(probe.darkPixels > 0 && probe.lightPixels > 0,
+      `${probe.label} bridge ornament must leave dark border and light fill pixels visible: ` +
+      JSON.stringify(probe));
+  }
+  return evidence;
+}
+
+function changedPixelsInRegion(leftBytes, rightBytes, rect) {
+  const left = decodePng(leftBytes);
+  const right = decodePng(rightBytes);
+  assert.equal(left.width, right.width, "region comparison widths must match");
+  assert.equal(left.height, right.height, "region comparison heights must match");
+  const x0 = Math.max(0, Math.round(rect.x));
+  const y0 = Math.max(0, Math.round(rect.y));
+  const x1 = Math.min(left.width, x0 + Math.round(rect.w));
+  const y1 = Math.min(left.height, y0 + Math.round(rect.h));
+  let changedPixels = 0;
+  for (let y = y0; y < y1; y += 1) {
+    for (let x = x0; x < x1; x += 1) {
+      if (pixelAt(left, x, y).some((value, index) =>
+        value !== pixelAt(right, x, y)[index])) changedPixels += 1;
+    }
+  }
+  return changedPixels;
 }
 
 function styleBlock(source, id) {
@@ -503,6 +658,9 @@ async function captureFreshRun(directory) {
     });
     const initial = await collectState(page);
     await page.screenshot({ path: directory + "/initial.png" });
+    const bridgePixels = bridgePixelEvidence(
+      readFileSync(directory + "/initial.png"),
+    );
     const arenaBox = await page.locator('[data-ui="arena"]').boundingBox();
     const costs = Object.fromEntries(costsById);
     let drainRounds = 0;
@@ -603,6 +761,7 @@ async function captureFreshRun(directory) {
     }));
     const states = { initial, insufficient, restart, selected, winner };
     return {
+      bridgePixels,
       drainRounds,
       screenshotDimensions,
       screenshotHashes,
@@ -761,6 +920,24 @@ test("visual interface art: interactive controls never overlap the arena click z
   }
 });
 
+test("visual interface art: evidence mask inventories moving markers only", () => {
+  const targets = assertMaskInventory(
+    MOVING_WORLD_MASK_INVENTORY,
+    MOVING_WORLD_MASK_REGIONS,
+  );
+  assert.equal(targets.length, 7,
+    "the evidence mask must enumerate all seven moving marker selectors");
+  assert.deepEqual(targets, MOVING_WORLD_MASK_INVENTORY.map(({ selector }) =>
+    ({ kind: "selector", value: selector })));
+  assert.equal(MOVING_WORLD_MASK_REGIONS.length, 0);
+  for (const { selector } of MOVING_WORLD_MASK_INVENTORY) {
+    assert.match(MOVING_WORLD_MASK_CSS,
+      new RegExp(selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  }
+  assert.doesNotMatch(MOVING_WORLD_MASK_CSS, /bridge|arena|hud|card|timer|crown|health|elixir|winner|restart/i,
+    "the exact evidence mask must not name static bridge, arena, or interface art");
+});
+
 test("visual interface art: fixed 720x1280 Chrome evidence captures every hierarchy state", {
   timeout: 420_000,
 }, async () => {
@@ -803,11 +980,11 @@ test("visual interface art: fixed 720x1280 Chrome evidence captures every hierar
     await page.waitForSelector('[data-ui="arena"]');
     await page.waitForSelector('[data-ui="hud-hand"] .hud-card');
     await page.click('[data-ui="audio-toggle"]');
-    // The terminal-profile opponent has an authored combat marker whose
-    // interpolated position can differ between Chrome processes while the
-    // authoritative session bytes and tick remain identical. Hide only those
-    // moving entities for this HUD-focused evidence; towers, health bars,
-    // arena geometry, and every interface control remain visible.
+    // The terminal-profile combat/effect markers have interpolated positions
+    // that can differ between Chrome processes while authoritative session
+    // bytes and ticks remain identical. Hide only those moving markers for
+    // this HUD-focused evidence. Static arena art, bridge corners, towers,
+    // health bars, and every interface control remain visible.
     await page.addStyleTag({ content: MOVING_WORLD_MASK_CSS });
     const startTick = await page.evaluate(async () => {
       const [{ arenaHudController: controller },
@@ -878,6 +1055,61 @@ test("visual interface art: fixed 720x1280 Chrome evidence captures every hierar
     assert.ok(geometry.elixirBadge.bottom <= 1_280,
       "elixir badge must stay inside the fixed viewport");
     await page.screenshot({ path: `${ARTIFACTS}initial.png` });
+    const initialBytes = readFileSync(`${ARTIFACTS}initial.png`);
+    const bridgePixels = bridgePixelEvidence(initialBytes);
+    const bridgeStyles = await page.evaluate(() =>
+      [...document.querySelectorAll('[data-ui="bridge"]')].map((node) => {
+        const pseudo = (kind) => {
+          const style = getComputedStyle(node, kind);
+          return {
+            backgroundColor: style.backgroundColor,
+            borderColor: style.borderColor,
+            display: style.display,
+            height: style.height,
+            width: style.width,
+          };
+        };
+        return {
+          after: pseudo("::after"),
+          before: pseudo("::before"),
+          lane: node.dataset.lane,
+        };
+      }));
+    assert.equal(bridgeStyles.length, 2);
+    for (const bridge of bridgeStyles) {
+      for (const [kind, style] of Object.entries({
+        before: bridge.before,
+        after: bridge.after,
+      })) {
+        assert.notEqual(style.display, "none",
+          `${bridge.lane} ${kind} bridge ornament must remain painted`);
+        assert.equal(style.width, "10px");
+        assert.equal(style.height, "10px");
+      }
+    }
+
+    const bridgeMutationStyle = await page.addStyleTag({ content: `
+      .bridge--west::before {
+        background: #c6452e !important;
+        border-color: #e9a83a !important;
+      }
+    ` });
+    await page.screenshot({
+      path: `${ARTIFACTS}mutation-bridge-ornament.png`,
+    });
+    const bridgeMutationBytes =
+      readFileSync(`${ARTIFACTS}mutation-bridge-ornament.png`);
+    const bridgeDiff = comparePngs(initialBytes, bridgeMutationBytes);
+    const bridgeMutationPixels = changedPixelsInRegion(
+      initialBytes,
+      bridgeMutationBytes,
+      BRIDGE_ORNAMENT_REGIONS[0],
+    );
+    assert.ok(bridgeDiff.changedPixels > 0,
+      "a static bridge ornament mutation must change the exact screenshot");
+    assert.ok(bridgeMutationPixels > 0,
+      "the bridge ornament mutation must change pixels inside its corner region");
+    await bridgeMutationStyle.evaluate((node) => node.remove());
 
     const contactLayout = await mountCardContactSheet(page);
     const contactSheet = await screenshotCardContactSheet(
@@ -1143,7 +1375,17 @@ test("visual interface art: fixed 720x1280 Chrome evidence captures every hierar
         consoleErrors,
         drainRounds,
         geometry,
-        arenaMask: "moving entity/effect markers and bridge corner accents hidden for deterministic HUD evidence",
+        arenaMask: {
+          policy: "Only moving combat/effect markers outside the card and HUD dimension are hidden",
+          css: MOVING_WORLD_MASK_CSS,
+          selectors: MOVING_WORLD_MASK_INVENTORY,
+          regions: MOVING_WORLD_MASK_REGIONS,
+        },
+        bridgeVisibility: {
+          computedStyles: bridgeStyles,
+          ornamentRegions: BRIDGE_ORNAMENT_REGIONS,
+          pixelEvidence: bridgePixels,
+        },
         captureNormalization: {
           flags: [...CAPTURE_FLAGS],
           timing: "manual mode, fresh terminal session restored to tick 0, stepMany(60), document.fonts.ready, one requestAnimationFrame",
@@ -1161,7 +1403,14 @@ test("visual interface art: fixed 720x1280 Chrome evidence captures every hierar
             comparison: hudDiff,
             mutation: "coilblade border-color changed to #c6452e",
           },
+          bridgeOrnament: {
+            changedPixelsInWestBefore: bridgeMutationPixels,
+            comparison: bridgeDiff,
+            image: "mutation-bridge-ornament.png",
+            mutation: "west bridge ::before background changed to #c6452e and border to #e9a83a",
+          },
         },
+        maskInventory: MASKED_WORLD_TARGETS,
         screenshotHashes,
         screenshotDimensions,
         selectionTarget,
@@ -1191,7 +1440,7 @@ test("visual interface art: four fresh Chrome captures are exact canonical evide
 }, async () => {
   assert.ok(existsSync(PLAYWRIGHT), "installed Playwright equivalent is required");
   assert.ok(existsSync(CHROME), "installed Chrome is required");
-  const runsRoot = mkdtempSync(tmpdir() + "/visual-003d-round-3-");
+  const runsRoot = mkdtempSync(tmpdir() + "/visual-003d-round-4-");
   const runs = [];
   for (let index = 0; index < 4; index += 1) {
     runs.push(await captureFreshRun(runsRoot + "/run-" + (index + 1)));
@@ -1230,6 +1479,7 @@ test("visual interface art: four fresh Chrome captures are exact canonical evide
   evidence.screenshotHashes = canonicalHashes;
   evidence.screenshotDimensions = runs[0].screenshotDimensions;
   evidence.independentRuns = runs.map((run, index) => ({
+    bridgePixels: run.bridgePixels,
     capture: index + 1,
     drainRounds: run.drainRounds,
     screenshotDimensions: run.screenshotDimensions,
