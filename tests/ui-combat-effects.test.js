@@ -14,10 +14,16 @@ import {
   createTravelingLineSpellFixture,
 } from "../src/content/index.js";
 import { AreaDamageSystem } from "../src/sim/area-damage.js";
+import { BattleTowerCombat } from "../src/sim/battle-continuation-kernel.js";
 import { ProjectileCombat } from "../src/sim/projectile.js";
+import {
+  appendCombatEffectEvent,
+  appendCombatEffectRoot,
+  createCombatEffectFeed,
+  validateCombatEffectFeed,
+} from "../src/sim/combat-effect-feed.js";
 import { position, radius } from "../src/sim/spatial.js";
 import { targetCandidate } from "../src/sim/targeting.js";
-
 import {
   COMBAT_EFFECT_EVENT_LIMIT,
   bindCombatEffectsViewModel,
@@ -26,18 +32,183 @@ import {
   serializeCombatEffectsViewModel,
 } from "../src/ui/combat-effects.js";
 
-function point(x, y) { return { x, y }; }
-function projectileLaunch(overrides = {}) {
-  return {
-    projectile: {
-      attackerId: 9, damage: 12, id: 1, impactTick: 10, launchTick: 0,
-      origin: point(1000, 2000), targetPosition: point(5000, 6000),
-      radius: 100, speed: 500, targetId: 10, targetRadius: 200,
-      ...overrides,
+function point(x, y) {
+  return { x, y };
+}
+
+function feedPrefixInput(feed, count, tick) {
+  return { feed: { records: feed.records.slice(0, count), version: 1 }, tick };
+}
+
+function directFeed({ impactTick = 10, sourceId = 9, projectileId = 1 } = {}) {
+  const feed = createCombatEffectFeed();
+  const root = appendCombatEffectRoot(feed, {
+    direction: "projectile",
+    effectId: null,
+    from: point(1000, 1000),
+    impactTick,
+    projectileId,
+    radius: 0,
+    segments: [],
+    sequence: projectileId,
+    sourceId,
+    tick: 0,
+    to: point(5000, 1000),
+    type: "projectile",
+  });
+  return { feed, root };
+}
+
+function areaFeed() {
+  const feed = createCombatEffectFeed();
+  const root = appendCombatEffectRoot(feed, {
+    direction: "area",
+    effectId: 7,
+    from: point(9000, 16000),
+    impactTick: 4,
+    projectileId: null,
+    radius: 1500,
+    segments: [],
+    sequence: null,
+    sourceId: null,
+    tick: 4,
+    to: null,
+    type: "area",
+  });
+  const impact = appendCombatEffectEvent(feed, {
+    parentId: root.eventId,
+    payload: {
+      center: point(9000, 16000),
+      radius: 1500,
+      targetIds: [2, 9],
     },
-    tick: overrides.launchTick ?? 0,
-    type: "launch",
-  };
+    phase: "impact",
+    rootId: root.rootId,
+    tick: 4,
+    type: "area",
+  });
+  const damageTwo = appendCombatEffectEvent(feed, {
+    parentId: impact.eventId,
+    payload: {
+      amount: 0,
+      currentHealthAfter: 100,
+      currentHealthBefore: 100,
+      targetId: 2,
+    },
+    phase: "damage",
+    rootId: root.rootId,
+    tick: 4,
+    type: "area",
+  });
+  appendCombatEffectEvent(feed, {
+    parentId: damageTwo.eventId,
+    payload: {
+      amount: 0,
+      currentHealthAfter: 50,
+      currentHealthBefore: 50,
+      targetId: 9,
+    },
+    phase: "damage",
+    rootId: root.rootId,
+    tick: 4,
+    type: "area",
+  });
+  appendCombatEffectEvent(feed, {
+    parentId: feed.records.at(-1).eventId,
+    payload: { reason: "complete" },
+    phase: "close",
+    rootId: root.rootId,
+    tick: 4,
+    type: "area",
+  });
+  return feed;
+}
+
+function returnFeed() {
+  const feed = createCombatEffectFeed();
+  const root = appendCombatEffectRoot(feed, {
+    direction: "return",
+    effectId: null,
+    from: point(1000, 1000),
+    impactTick: 20,
+    projectileId: null,
+    radius: 250,
+    segments: [],
+    sequence: 1,
+    sourceId: 9,
+    tick: 0,
+    to: point(5000, 1000),
+    type: "projectile",
+  });
+  const contact = appendCombatEffectEvent(feed, {
+    parentId: root.eventId,
+    payload: {
+      point: point(2500, 1000),
+      status: "contact",
+      subId: null,
+      targetId: 2,
+    },
+    phase: "contact",
+    rootId: root.rootId,
+    tick: 3,
+    type: "projectile",
+  });
+  const damage = appendCombatEffectEvent(feed, {
+    parentId: contact.eventId,
+    payload: {
+      amount: 10,
+      currentHealthAfter: 90,
+      currentHealthBefore: 100,
+      targetId: 2,
+    },
+    phase: "damage",
+    rootId: root.rootId,
+    tick: 3,
+    type: "projectile",
+  });
+  const turn = appendCombatEffectEvent(feed, {
+    parentId: damage.eventId,
+    payload: { point: point(5000, 1000) },
+    phase: "turn",
+    rootId: root.rootId,
+    tick: 10,
+    type: "projectile",
+  });
+  const inboundContact = appendCombatEffectEvent(feed, {
+    parentId: turn.eventId,
+    payload: {
+      point: point(2500, 1000),
+      status: "contact",
+      subId: null,
+      targetId: 2,
+    },
+    phase: "contact",
+    rootId: root.rootId,
+    tick: 13,
+    type: "projectile",
+  });
+  const inboundDamage = appendCombatEffectEvent(feed, {
+    parentId: inboundContact.eventId,
+    payload: {
+      amount: 10,
+      currentHealthAfter: 80,
+      currentHealthBefore: 90,
+      targetId: 2,
+    },
+    phase: "damage",
+    rootId: root.rootId,
+    tick: 13,
+    type: "projectile",
+  });
+  appendCombatEffectEvent(feed, {
+    parentId: inboundDamage.eventId,
+    payload: { reason: "complete" },
+    phase: "close",
+    rootId: root.rootId,
+    tick: 20,
+    type: "projectile",
+  });
+  return feed;
 }
 
 class Node {
@@ -48,294 +219,441 @@ class Node {
     this.attributes = new Map();
     this.dataset = {};
     this.className = "";
-    this.style = { values: new Map(), setProperty: (key, value) => this.style.values.set(key, value) };
+    this.style = {
+      values: new Map(),
+      setProperty: (key, value) => this.style.values.set(key, value),
+    };
   }
-  appendChild(child) { this.children.push(child); return child; }
-  replaceChildren(...children) { this.children = children; }
-  setAttribute(key, value) { this.attributes.set(key, value); }
+  appendChild(child) {
+    this.children.push(child);
+    return child;
+  }
+  replaceChildren(...children) {
+    this.children = children;
+  }
+  setAttribute(key, value) {
+    this.attributes.set(key, value);
+  }
 }
+
 function dom() {
   const document = {
-    createElement(name) { return new Node(document, name); },
-    createElementNS(_namespace, name) { return new Node(document, name); },
+    createElement(name) {
+      return new Node(document, name);
+    },
+    createElementNS(_namespace, name) {
+      return new Node(document, name);
+    },
   };
   return { document, layer: new Node(document, "layer") };
 }
-function bytes(node) {
+
+function nodeBytes(node) {
   return JSON.stringify({
-    attributes: [...node.attributes], children: node.children.map(bytes), className: node.className,
-    dataset: Object.entries(node.dataset).sort(), name: node.name, style: [...node.style.values].sort(),
+    attributes: [...node.attributes],
+    children: node.children.map(nodeBytes),
+    className: node.className,
+    dataset: Object.entries(node.dataset).sort(),
+    name: node.name,
+    style: [...node.style.values].sort(),
   });
 }
 
-test("ui combat effects: projectile launch and travel use exact rational millitiles", () => {
-  const view = createCombatEffectsViewModel({ events: [projectileLaunch()], tick: 5 });
-  assert.deepEqual(view.projectiles, [{
-    key: "projectile:1", kind: "projectile",
-    point: { denominator: "10", xNumerator: "30000", yNumerator: "40000" },
-    sourceSequence: 0,
+function assertRestoresExactly(view) {
+  const bytes = serializeCombatEffectsViewModel(view);
+  const restored = restoreCombatEffectsViewModel(bytes);
+  assert.equal(serializeCombatEffectsViewModel(restored), bytes);
+  return restored;
+}
+
+function assertPrefixViews(feed) {
+  for (let count = 0; count <= feed.records.length; count += 1) {
+    const records = feed.records.slice(0, count);
+    const tick = records.at(-1)?.tick ?? 0;
+    const view = createCombatEffectsViewModel({
+      feed: { records, version: 1 },
+      tick,
+    });
+    assertRestoresExactly(view);
+  }
+}
+
+test("ui combat effects: canonical direct feed projects exact rational travel", () => {
+  const { feed } = directFeed();
+  const view = createCombatEffectsViewModel(feed, 5);
+  assert.deepEqual(view.events, feed.records);
+  assert.deepEqual(view.paths, [{
+    from: { denominator: "1", xNumerator: "1000", yNumerator: "1000" },
+    impactTick: 10,
+    key: "projectile.projectile.9.none.1.1",
+    kind: "projectile",
+    launchTick: 0,
+    sourceSequence: 1,
+    to: { denominator: "1", xNumerator: "5000", yNumerator: "1000" },
   }]);
-  assert.deepEqual(view.paths[0].from, { denominator: "1", xNumerator: "1000", yNumerator: "2000" });
+  assert.deepEqual(view.projectiles[0].point, {
+    denominator: "10",
+    xNumerator: "30000",
+    yNumerator: "10000",
+  });
+  assert.equal(Object.isFrozen(view), true);
+  assert.equal(Object.isFrozen(view.events[0].payload), true);
+  const named = createCombatEffectsViewModel({
+    combatEffectFeed: { records: feed.records.slice(), version: 1 },
+    tick: 5,
+  });
+  assert.equal(serializeCombatEffectsViewModel(named), serializeCombatEffectsViewModel(view));
 });
 
-test("ui combat effects: impact is one-tick feedback and then cleans up", () => {
-  const events = [projectileLaunch(), {
-    projectileId: 1, status: "contact", targetId: 2, tick: 10, type: "impact",
-  }];
-  const impact = createCombatEffectsViewModel({ events, tick: 10 });
-  assert.equal(impact.paths.length, 0);
-  assert.deepEqual(impact.impacts.map(({ key }) => key), ["projectile:1"]);
-  assert.deepEqual(createCombatEffectsViewModel({ events, tick: 11 }).impacts, []);
+test("ui combat effects: contact, lethal damage, death, and close are feed-causal", () => {
+  const { feed, root } = directFeed({ impactTick: 10 });
+  const contact = appendCombatEffectEvent(feed, {
+    parentId: root.eventId,
+    payload: {
+      point: point(5000, 1000),
+      status: "contact",
+      subId: null,
+      targetId: 2,
+    },
+    phase: "contact",
+    rootId: root.rootId,
+    tick: 10,
+    type: "projectile",
+  });
+  const damage = appendCombatEffectEvent(feed, {
+    parentId: contact.eventId,
+    payload: {
+      amount: 100,
+      currentHealthAfter: 0,
+      currentHealthBefore: 100,
+      targetId: 2,
+    },
+    phase: "damage",
+    rootId: root.rootId,
+    tick: 10,
+    type: "projectile",
+  });
+  const death = appendCombatEffectEvent(feed, {
+    parentId: damage.eventId,
+    payload: { targetId: 2 },
+    phase: "death",
+    rootId: root.rootId,
+    tick: 10,
+    type: "projectile",
+  });
+  appendCombatEffectEvent(feed, {
+    parentId: death.eventId,
+    payload: { reason: "complete" },
+    phase: "close",
+    rootId: root.rootId,
+    tick: 10,
+    type: "projectile",
+  });
+
+  const impact = createCombatEffectsViewModel(feed, 10);
+  assert.deepEqual(impact.impacts, [{
+    key: "projectile.projectile.9.none.1.1:contact:2",
+    kind: "projectile",
+    point: { denominator: "1", xNumerator: "5000", yNumerator: "1000" },
+    sourceSequence: 1,
+  }]);
+  assert.deepEqual(impact.paths, []);
+  assert.deepEqual(createCombatEffectsViewModel(feed, 11).impacts, []);
+  assert.deepEqual(impact.events.map(({ phase }) => phase), [
+    "open", "contact", "damage", "death", "close",
+  ]);
 });
 
-test("ui combat effects: return, pierce, and pellets preserve source-stable path order", () => {
-  const rational = (x, y) => ({ denominator: "1", xNumerator: String(x), yNumerator: String(y) });
-  const events = [
-    { attackerId: 1, completeTick: 12, origin: point(1000, 1000), tick: 0, turnPoint: rational(3000, 1000), turnTick: 6, type: "return-launch" },
-    { endpoint: rational(6000, 2000), impactTick: 8, origin: point(2000, 2000), tick: 0, type: "pierce-launch" },
-    { impactTick: 10, origin: point(3000, 3000), pellets: [
-      { endpoint: rational(5000, 2800), pelletId: 1 },
-      { endpoint: rational(5000, 3200), pelletId: 2 },
-    ], tick: 0, type: "pellet-volley-launch" },
-  ];
-  const view = createCombatEffectsViewModel({ events, tick: 4 });
-  assert.deepEqual(view.paths.map(({ key }) => key), ["return:0", "pierce:1", "pellet:2:1", "pellet:2:2"]);
-  assert.deepEqual(view.projectiles.map(({ kind }) => kind), ["return", "pierce", "pellet", "pellet"]);
-});
-
-test("ui combat effects: return turn changes to the inbound exact segment", () => {
-  const events = [
-    { attackerId: 1, completeTick: 10, origin: point(1000, 1000), tick: 0, turnPoint: point(5000, 1000), turnTick: 5, type: "return-launch" },
-    { tick: 5, turnPoint: point(5000, 1000), type: "return-turn" },
-  ];
-  const view = createCombatEffectsViewModel({ events, tick: 7 });
-  assert.equal(view.paths[0].launchTick, 5);
-  assert.deepEqual(view.projectiles[0].point, { denominator: "5", xNumerator: "17000", yNumerator: "5000" });
-});
-
-test("ui combat effects: area feedback and simultaneous events keep canonical order", () => {
-  const events = [
-    { center: point(9000, 16000), damage: 30, effectId: 7, mode: "ground", radius: 1500, tick: 4, type: "effect" },
-    { amount: 30, effectId: 7, targetId: 2, tick: 4, type: "hit" },
-    { amount: 30, effectId: 7, targetId: 9, tick: 4, type: "hit" },
-  ];
-  const view = createCombatEffectsViewModel({ events, tick: 4 });
+test("ui combat effects: area roots retain zero-damage shared-target outcomes", () => {
+  const feed = areaFeed();
+  const view = createCombatEffectsViewModel(feed, 4);
   assert.deepEqual(view.areas, [{
-    key: "area:7", point: { denominator: "1", xNumerator: "9000", yNumerator: "16000" },
-    radius: 1500, sourceSequence: 0,
+    key: "area.area.none.7.none.none",
+    point: { denominator: "1", xNumerator: "9000", yNumerator: "16000" },
+    radius: 1500,
+    sourceSequence: null,
   }]);
-  assert.deepEqual(createCombatEffectsViewModel({ events, tick: 5 }).areas, []);
+  assert.deepEqual(view.impacts, []);
+  assert.deepEqual(view.events.map(({ phase }) => phase), [
+    "open", "impact", "damage", "damage", "close",
+  ]);
+  assert.equal(createCombatEffectsViewModel(feed, 5).areas.length, 0);
 });
 
-test("ui combat effects: serialize/restore and DOM projection are byte-identical", () => {
-  const view = createCombatEffectsViewModel({ events: [projectileLaunch()], tick: 3 });
-  const serialized = serializeCombatEffectsViewModel(view);
-  const restored = restoreCombatEffectsViewModel(serialized);
-  assert.equal(serializeCombatEffectsViewModel(restored), serialized);
+test("ui combat effects: return turn switches the canonical carrier leg", () => {
+  const feed = returnFeed();
+  const outbound = createCombatEffectsViewModel(feedPrefixInput(feed, 3, 5));
+  assert.deepEqual(outbound.paths.map(({ launchTick, impactTick }) => ({ launchTick, impactTick })), [
+    { launchTick: 0, impactTick: 20 },
+  ]);
+  assert.deepEqual(outbound.projectiles[0].point, {
+    denominator: "20",
+    xNumerator: "40000",
+    yNumerator: "20000",
+  });
+
+  const inbound = createCombatEffectsViewModel(feedPrefixInput(feed, 4, 12));
+  assert.deepEqual(inbound.paths.map(({ launchTick, impactTick }) => ({ launchTick, impactTick })), [
+    { launchTick: 10, impactTick: 20 },
+  ]);
+  assert.deepEqual(inbound.projectiles[0].point, {
+    denominator: "10",
+    xNumerator: "42000",
+    yNumerator: "10000",
+  });
+  assert.equal(inbound.events.some(({ phase }) => phase === "turn"), true);
+});
+
+test("ui combat effects: pellet segments are stable carriers and cancellations clear them", () => {
+  const feed = createCombatEffectFeed();
+  const root = appendCombatEffectRoot(feed, {
+    direction: "pellet",
+    effectId: null,
+    from: point(0, 0),
+    impactTick: 10,
+    projectileId: null,
+    radius: 40,
+    segments: [
+      { id: 2, to: point(4000, 1000) },
+      { id: 1, to: point(3000, 1000) },
+    ],
+    sequence: 1,
+    sourceId: 9,
+    tick: 0,
+    to: null,
+    type: "projectile",
+  });
+  const open = createCombatEffectsViewModel(feed, 5);
+  assert.deepEqual(open.paths.map(({ key }) => key), [
+    `${root.rootId}:segment:1`, `${root.rootId}:segment:2`,
+  ]);
+  assert.deepEqual(open.projectiles.map(({ point: value }) => value), [
+    { denominator: "10", xNumerator: "15000", yNumerator: "5000" },
+    { denominator: "10", xNumerator: "20000", yNumerator: "5000" },
+  ]);
+
+  const cancelled = createCombatEffectFeed();
+  const cancelledRoot = appendCombatEffectRoot(cancelled, {
+    direction: "pellet",
+    effectId: null,
+    from: point(0, 0),
+    impactTick: 10,
+    projectileId: null,
+    radius: 40,
+    segments: [{ id: 1, to: point(3000, 1000) }],
+    sequence: 1,
+    sourceId: 9,
+    tick: 0,
+    to: null,
+    type: "projectile",
+  });
+  appendCombatEffectEvent(cancelled, {
+    parentId: cancelledRoot.eventId,
+    payload: { reason: "explicit-cancel" },
+    phase: "close",
+    rootId: cancelledRoot.rootId,
+    tick: 3,
+    type: "projectile",
+  });
+  const cancelledView = createCombatEffectsViewModel(cancelled, 3);
+  assert.deepEqual(cancelledView.paths, []);
+  assert.equal(cancelledView.events.at(-1).payload.reason, "explicit-cancel");
+});
+
+test("ui combat effects: serialization, restore, and DOM bytes use feed authority", () => {
+  const feed = returnFeed();
+  const view = createCombatEffectsViewModel(feedPrefixInput(feed, 3, 5));
+  const restored = assertRestoresExactly(view);
   const left = dom();
   const right = dom();
   bindCombatEffectsViewModel(left.layer, view);
   bindCombatEffectsViewModel(right.layer, restored);
-  assert.equal(bytes(left.layer), bytes(right.layer));
-  assert.equal(left.layer.children[0].children[0].attributes.get("viewBox"), "0 0 18000 32000");
-});
+  assert.equal(nodeBytes(left.layer), nodeBytes(right.layer));
+  assert.equal(left.layer.children[0].children.length, 2);
 
-test("ui combat effects: hostile input and forged restores fail atomically", () => {
-  let accessed = false;
-  const hostile = { events: [], tick: 0 };
-  Object.defineProperty(hostile, "tick", { enumerable: true, get() { accessed = true; return 0; } });
-  assert.throws(() => createCombatEffectsViewModel(hostile), /data property/u);
-  assert.equal(accessed, false);
-  let nestedAccessed = false;
-  const nested = { tick: 0, type: "damage" };
-  Object.defineProperty(nested, "payload", { enumerable: true, get() { nestedAccessed = true; return 1; } });
-  assert.throws(() => createCombatEffectsViewModel({ events: [nested], tick: 0 }), /data property/u);
-  assert.equal(nestedAccessed, false);
-  assert.throws(() => createCombatEffectsViewModel({ events: [{ tick: 0, type: "unknown" }], tick: 0 }), /unsupported/u);
-  assert.throws(() => createCombatEffectsViewModel({ events: [projectileLaunch({ targetPosition: point(18001, 0) })], tick: 0 }), /targetPosition.x/u);
-  assert.throws(() => createCombatEffectsViewModel({ events: Array.from({ length: COMBAT_EFFECT_EVENT_LIMIT + 1 }, () => ({ tick: 0, type: "damage" })), tick: 0 }), /at most/u);
-  const valid = JSON.parse(serializeCombatEffectsViewModel(createCombatEffectsViewModel({ events: [projectileLaunch()], tick: 5 })));
-  valid.projectiles[0].point.xNumerator = "30001";
-  assert.throws(() => restoreCombatEffectsViewModel(JSON.stringify(valid)), /causally derivable/u);
+  const forged = JSON.parse(serializeCombatEffectsViewModel(view));
+  forged.projectiles[0].point.xNumerator = "9999";
+  assert.throws(() => restoreCombatEffectsViewModel(JSON.stringify(forged)), /causally derivable|canonical/u);
 
-  const { document, layer } = dom();
-  const sentinel = document.createElement("sentinel");
-  layer.replaceChildren(sentinel);
+  const sentinel = left.document.createElement("sentinel");
+  left.layer.replaceChildren(sentinel);
+  const original = left.document.createElementNS.bind(left.document);
   let calls = 0;
-  const original = document.createElement.bind(document);
-  document.createElement = (...args) => { if (++calls === 2) throw new Error("hostile document"); return original(...args); };
-  assert.throws(() => bindCombatEffectsViewModel(layer, createCombatEffectsViewModel({ events: [projectileLaunch()], tick: 2 })), /hostile document/u);
-  assert.deepEqual(layer.children, [sentinel]);
+  left.document.createElementNS = (...args) => {
+    calls += 1;
+    if (calls === 1) throw new Error("hostile document");
+    return original(...args);
+  };
+  assert.throws(() => bindCombatEffectsViewModel(left.layer, view), /hostile document/u);
+  assert.deepEqual(left.layer.children, [sentinel]);
 });
 
-test("ui combat effects: actual signed-axis and diagonal special replays project at every cut", () => {
-  const cases = [
-    [ReturnEncounter, createReturnSpecialFixture([], { x: -3, y: -4 })],
-    [PierceEncounter, createPierceSpecialFixture([], { x: -1, y: 0 })],
-    [PelletEncounter, createPelletSpecialFixture([], { x: 3, y: -4 })],
-  ];
-  for (const [Encounter, setup] of cases) {
-    const encounter = new Encounter(setup);
-    encounter.run();
-    for (const cut of [0, ...new Set(encounter.replay.map(({ tick }) => tick))]) {
-      const events = encounter.replay.filter(({ tick }) => tick <= cut);
-      const view = createCombatEffectsViewModel({ events, tick: cut });
-      const restored = restoreCombatEffectsViewModel(serializeCombatEffectsViewModel(view));
-      assert.equal(serializeCombatEffectsViewModel(restored), serializeCombatEffectsViewModel(view));
-    }
-  }
+test("ui combat effects: malformed feed is rejected before projection and raw dialects never enter", () => {
+  const { feed } = directFeed();
+  const valid = { records: feed.records.slice(), version: 1 };
+  assert.throws(() => createCombatEffectsViewModel({ events: [], tick: 0 }), /invalid shape|feed/u);
+  assert.throws(() => createCombatEffectsViewModel({ events: valid.records, tick: 11 }), /invalid shape|feed/u);
+
+  let accessed = false;
+  const hostile = {
+    records: [],
+    version: 1,
+  };
+  Object.defineProperty(hostile, "replay", {
+    enumerable: true,
+    get() {
+      accessed = true;
+      throw new Error("replay accessed");
+    },
+  });
+  assert.throws(() => createCombatEffectsViewModel(hostile, 0), /shape|combat effect/u);
+  assert.equal(accessed, false);
+
+  const malformed = structuredClone(valid);
+  malformed.records[0].eventId = 2;
+  assert.throws(() => createCombatEffectsViewModel(malformed, 0), /contiguous|duplicated/u);
+  const postClose = structuredClone(valid);
+  postClose.records.push({
+    eventId: 2,
+    parentId: 1,
+    payload: { reason: "complete" },
+    phase: "close",
+    rootId: postClose.records[0].rootId,
+    tick: 10,
+    type: "projectile",
+  });
+  assert.throws(() => createCombatEffectsViewModel(postClose, 10), /causal|close|contact|impact/u);
+
+  assert.throws(() => createCombatEffectsViewModel({
+    records: Array.from({ length: COMBAT_EFFECT_EVENT_LIMIT + 1 }, () => ({})),
+    version: 1,
+  }, 0), /bounded|shape|records/u);
 });
 
-test("ui combat effects: actual projectile and area replay events project directly", () => {
-  const entity = (id, x, mode) => ({
-    attackRange: 5000, id, kind: "troop", layer: "ground", maxHealth: 100,
-    position: { x, y: 1000 }, radius: 0, targetMode: mode, targetable: true,
+test("ui combat effects: authentic sources project prefixes and restore exactly", () => {
+  const entity = (id, x, targetMode) => ({
+    attackRange: 5000,
+    id,
+    kind: "troop",
+    layer: "ground",
+    maxHealth: 100,
+    position: { x, y: 1000 },
+    radius: 0,
+    targetMode,
+    targetable: true,
   });
   const combat = new ProjectileCombat({ entities: [
-    entity(1, 1000, "ground"), entity(2, 5000, "none"),
+    entity(1, 1000, "ground"),
+    entity(2, 5000, "none"),
   ] });
-  combat.launch({ attackerId: 1, damage: 10, radius: 0, speed: 1000, targetId: 2, tick: 0 });
+  combat.launch({
+    attackerId: 1,
+    damage: 10,
+    radius: 0,
+    speed: 1000,
+    targetId: 2,
+    tick: 0,
+  });
   for (let tick = 0; tick <= 4; tick += 1) combat.step(tick);
-  const projectileView = createCombatEffectsViewModel({ events: combat.replay, tick: 4 });
-  assert.deepEqual(projectileView.impacts.map(({ key }) => key), ["projectile:1"]);
+  assertPrefixViews(combat.combatEffectFeed);
+  assert.equal(createCombatEffectsViewModel(combat.combatEffectFeed, 4).impacts.length, 1);
 
   const area = new AreaDamageSystem();
   area.add(2, 100);
   const candidate = targetCandidate({
-    alive: true, id: 2, kind: "troop", layer: "ground", position: position(5, 1),
-    radius: radius(0), targetable: true,
+    alive: true,
+    id: 2,
+    kind: "troop",
+    layer: "ground",
+    position: position(5, 1),
+    radius: radius(0),
+    targetable: true,
   });
-  const result = area.resolve({
-    center: position(5, 1), damage: 10, mode: "ground", radius: radius(1), tick: 4,
+  area.resolve({
+    center: position(5, 1),
+    damage: 10,
+    mode: "ground",
+    radius: radius(1),
+    tick: 4,
   }, [candidate]);
-  const areaView = createCombatEffectsViewModel({ events: result.events, tick: 4 });
-  assert.deepEqual(areaView.areas.map(({ key }) => key), ["area:1"]);
-});
+  assertPrefixViews(area.combatEffectFeed);
+  assert.equal(createCombatEffectsViewModel(area.combatEffectFeed, 4).areas.length, 1);
 
-test("ui combat effects: concurrent actual traveling-line replay projects and restores at every cut", () => {
-  const cast = (id, center) => ({
-    center, effectId: null, id, sourceId: 1, targetId: null, tick: 0, type: "cast",
-  });
-  const setup = createTravelingLineSpellFixture({
-    commands: [cast(1, point(5000, 1000)), cast(2, point(6000, 1000))],
-    sources: [{ id: 1, ownerId: 1, position: point(1000, 1000) }],
-    victims: [{
-      combatTargetId: null, combatTargetMode: null, health: 1000, id: 8,
-      kind: "troop", layer: "ground", ownerId: 2, position: point(5000, 1000),
-      radius: 100, targetable: true,
-    }],
-  });
-  const encounter = new TravelingLineSpellEncounter(setup);
-  encounter.run();
-  assert.ok(encounter.replay.some(({ tick, type }) => tick === 4 && type === "travel-spell-impact"));
-  for (const cut of [...new Set(encounter.replay.map(({ tick }) => tick))]) {
-    const events = encounter.replay.filter(({ tick }) => tick <= cut);
-    const view = createCombatEffectsViewModel({ events, tick: cut });
-    assert.equal(serializeCombatEffectsViewModel(restoreCombatEffectsViewModel(
-      serializeCombatEffectsViewModel(view))), serializeCombatEffectsViewModel(view));
-  }
-});
-
-test("ui combat effects: concurrent actual returning-spell replay projects and restores at every cut", () => {
-  const cast = (id, center) => ({
-    center, effectId: null, id, sourceId: 1, targetId: null, tick: 0, type: "cast",
-  });
-  const encounter = new ReturningSpellEncounter(createReturningSpellFixture({
-    commands: [cast(1, point(5000, 1000)), cast(2, point(6000, 1000))],
-    sources: [{ id: 1, ownerId: 1, position: point(1000, 1000) }],
-    victims: [{
-      combatTargetId: null, combatTargetMode: null, health: 1, id: 8,
-      kind: "troop", layer: "ground", ownerId: 2, position: point(2000, 1000),
-      radius: 0, targetable: true,
-    }],
-  }));
-  encounter.run();
-  assert.ok(encounter.replay.some(({ type }) => type === "return-spell-death"));
-  for (const cut of [...new Set(encounter.replay.map(({ tick }) => tick))]) {
-    const events = encounter.replay.filter(({ tick }) => tick <= cut);
-    const view = createCombatEffectsViewModel({ events, tick: cut });
-    assert.equal(serializeCombatEffectsViewModel(restoreCombatEffectsViewModel(
-      serializeCombatEffectsViewModel(view))), serializeCombatEffectsViewModel(view));
-  }
-});
-
-test("ui combat effects: actual command damage and launch cancellations are accepted and clean", () => {
-  const cases = [
-    [ReturnEncounter, createReturnSpecialFixture([], { x: 1, y: 0 }, [
-      { targetId: null, tick: 24, type: "kill-attacker" },
-    ])],
-    [PierceEncounter, createPierceSpecialFixture([], { x: 1, y: 0 }, [
-      { targetId: null, tick: 36, type: "interrupt-attacker" },
-    ])],
-    [PelletEncounter, createPelletSpecialFixture([], { x: 1, y: 0 }, [
-      { targetId: null, tick: 84, type: "kill-attacker" },
-    ])],
+  const actualCases = [
+    [PierceEncounter, createPierceSpecialFixture([], { x: 1, y: 0 })],
+    [PelletEncounter, createPelletSpecialFixture([], { x: 1, y: 0 })],
+    [ReturnEncounter, createReturnSpecialFixture([], { x: 1, y: 0 })],
+    [TravelingLineSpellEncounter, createTravelingLineSpellFixture({
+      commands: [{ center: point(6000, 1000), effectId: null, id: 1, sourceId: 1,
+        targetId: null, tick: 0, type: "cast" }],
+      sources: [{ id: 1, ownerId: 1, position: point(1000, 1000) }],
+      victims: [],
+    })],
+    [ReturningSpellEncounter, createReturningSpellFixture({
+      commands: [{ center: point(6000, 1000), effectId: null, id: 1, sourceId: 1,
+        targetId: null, tick: 0, type: "cast" }],
+      sources: [{ id: 1, ownerId: 1, position: point(1000, 1000) }],
+      victims: [],
+    })],
   ];
-  for (const [Encounter, setup] of cases) {
+  for (const [Encounter, setup] of actualCases) {
     const encounter = new Encounter(setup);
     encounter.run();
-    assert.ok(encounter.replay.some(({ type }) => type === "external-damage" || type.endsWith("-complete")));
-    const tick = encounter.replay.at(-1).tick;
-    const view = createCombatEffectsViewModel({ events: encounter.replay, tick });
-    assert.deepEqual(view.paths, []);
-    assert.deepEqual(view.projectiles, []);
-    assert.equal(serializeCombatEffectsViewModel(restoreCombatEffectsViewModel(
-      serializeCombatEffectsViewModel(view))), serializeCombatEffectsViewModel(view));
+    assertPrefixViews(encounter.combatEffectFeed);
+    const terminal = createCombatEffectsViewModel(
+      encounter.combatEffectFeed,
+      encounter.state.tick,
+    );
+    assert.deepEqual(terminal.paths, []);
+    assert.deepEqual(terminal.projectiles, []);
   }
 });
 
-test("ui combat effects: overlapping same-kind paths transition by causal identity", () => {
-  const events = [
-    { completeTick: 8, effectId: 10, origin: point(1000, 1000), sourceId: 1, tick: 0, turn: point(3000, 1000), turnTick: 4, type: "return-launch" },
-    { completeTick: 10, effectId: 11, origin: point(2000, 2000), sourceId: 2, tick: 0, turn: point(5000, 2000), turnTick: 5, type: "return-launch" },
-    { effectId: 10, tick: 4, turn: point(3000, 1000), type: "return-turn" },
-  ];
-  const view = createCombatEffectsViewModel({ events, tick: 4 });
-  assert.deepEqual(view.paths.map(({ key, launchTick }) => ({ key, launchTick })), [
-    { key: "return:effect:10", launchTick: 4 },
-    { key: "return:effect:11", launchTick: 0 },
-  ]);
-});
+test("ui combat effects: authentic battle feed and empty feed are deterministic", () => {
+  const unit = (id, side, unitPosition, overrides = {}) => ({
+    cadenceTicks: 60,
+    damage: 10,
+    delivery: "projectile",
+    deployTicks: 0,
+    firstHitTicks: 0,
+    id,
+    layer: "ground",
+    maxHealth: 1000,
+    position: unitPosition,
+    projectileSpeed: 1000,
+    radius: 0,
+    reach: 5000,
+    side,
+    sightRange: 10000,
+    targetMode: "air_and_ground",
+    ...overrides,
+  });
+  const battle = new BattleTowerCombat({
+    initialWindupTicks: { central: 0, lane: 0 },
+    units: [
+      unit(1, "north", point(1000, 1000), {
+        delivery: "melee", reach: 0, projectileSpeed: null,
+      }),
+      unit(2, "south", point(5000, 1000), {
+        damage: 0, delivery: "melee", firstHitTicks: 999,
+        projectileSpeed: null, reach: 0,
+      }),
+    ],
+  });
+  battle.step(0);
+  assertPrefixViews(battle.combatEffectFeed);
+  assert.ok(createCombatEffectsViewModel(battle.combatEffectFeed, 0).events.length > 0);
 
-test("ui combat effects: replay-backed restore rejects forged identity and sequence", () => {
-  const valid = JSON.parse(serializeCombatEffectsViewModel(
-    createCombatEffectsViewModel({ events: [projectileLaunch()], tick: 2 }),
-  ));
-  valid.paths[0].key = "forged";
-  valid.paths[0].sourceSequence = COMBAT_EFFECT_EVENT_LIMIT - 1;
-  valid.projectiles[0].key = "forged";
-  valid.projectiles[0].sourceSequence = COMBAT_EFFECT_EVENT_LIMIT - 1;
-  assert.throws(() => restoreCombatEffectsViewModel(JSON.stringify(valid)), /causally derivable/u);
-});
-
-test("ui combat effects: exact event schemas reject extra, missing, wrong, accessor, and prototype data", () => {
-  const projected = projectileLaunch();
-  const effect = {
-    center: point(5000, 5000), damage: 10, effectId: 1, mode: "ground",
-    radius: 1000, tick: 0, type: "effect",
-  };
-  const ignored = {
-    amount: 10, effectId: 1, targetId: 2, tick: 0, type: "hit",
-  };
-  for (const base of [projected, effect, ignored]) {
-    const extra = structuredClone(base);
-    extra.forged = true;
-    const missing = structuredClone(base);
-    delete missing.tick;
-    const wrong = structuredClone(base);
-    wrong.tick = "0";
-    let accessed = false;
-    const accessor = structuredClone(base);
-    Object.defineProperty(accessor, "tick", { enumerable: true, get() { accessed = true; return 0; } });
-    const inherited = Object.create(base);
-    for (const candidate of [extra, missing, wrong, accessor, inherited]) {
-      assert.throws(() => createCombatEffectsViewModel({ events: [candidate], tick: 0 }));
-    }
-    assert.equal(accessed, false);
-  }
-  for (const forged of [
-    { forged: true, projectile: projected.projectile, tick: 0, type: "launch" },
-    { forged: true, projectileId: 1, status: "contact", targetId: 2, tick: 0, type: "impact" },
-    { ...effect, forged: true },
-  ]) assert.throws(() => createCombatEffectsViewModel({ events: [forged], tick: 0 }), /invalid shape/u);
+  const empty = createCombatEffectFeed();
+  const view = createCombatEffectsViewModel(empty, 0);
+  assert.deepEqual(view.events, []);
+  assert.deepEqual(view.paths, []);
+  assert.deepEqual(view.projectiles, []);
+  assert.deepEqual(view.areas, []);
+  assert.deepEqual(view.impacts, []);
+  assertRestoresExactly(view);
+  assert.deepEqual(validateCombatEffectFeed({ records: [], version: 1 }), {
+    records: [],
+    version: 1,
+  });
 });

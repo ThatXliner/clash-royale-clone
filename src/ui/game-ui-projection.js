@@ -119,41 +119,6 @@ function combatState(state, replay) {
   return { entities, events, tick: state.tick, towers };
 }
 
-function effectEvent(event) {
-  if (event.type === "projectile-launch") {
-    const projectile = event.projectile;
-    return {
-      projectile: Object.fromEntries([
-        "attackerId", "damage", "id", "impactTick", "launchTick", "origin",
-        "speed", "targetId", "targetPosition",
-      ].map((key) => [key, projectile[key]])),
-      tick: event.tick,
-      type: "launch",
-    };
-  }
-  if (event.type === "projectile-impact") {
-    return { projectileId: event.projectileId, status: event.status,
-      targetId: event.targetId, tick: event.tick, type: "impact" };
-  }
-  if (event.type === "damage") {
-    const causalId = event.projectileId ?? event.externalProjectileId;
-    const common = { amount: event.amount, currentHealthAfter: event.currentHealthAfter,
-      currentHealthBefore: event.currentHealthBefore, targetId: event.targetId,
-      tick: event.tick };
-    return Number.isSafeInteger(causalId)
-      ? { ...common, projectileId: causalId, type: "damage" }
-      : { ...common, type: "external-damage" };
-  }
-  return { targetId: event.targetId, tick: event.tick, type: "death" };
-}
-
-function effectState(state, replay) {
-  const events = replay.filter(({ type }) => [
-    "damage", "death", "projectile-impact", "projectile-launch",
-  ].includes(type)).slice(-4_096).map(effectEvent);
-  return { events, tick: state.tick };
-}
-
 function mintFrameParts(snapshot, combat, effects, feedback, hud) {
   if (!isAuthenticGameSessionProjectionSnapshot(snapshot)) {
     throw new TypeError("game UI frame parts require an authentic projection snapshot");
@@ -238,7 +203,7 @@ export function createGameUiFrame(session, options = DEFAULT_GAME_UI_OPTIONS) {
   return composeGameUiFrame(mintFrameParts(
     snapshot,
     createCombatViewModel(combatState(state, replay)),
-    createCombatEffectsViewModel(effectState(state, replay)),
+    createCombatEffectsViewModel(snapshot.combatEffectFeed, state.tick),
     createSessionMatchFeedbackViewModel(snapshot),
     hud,
   ));

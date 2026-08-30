@@ -331,7 +331,7 @@ test("game UI projection: tick-120 live replay normalizes identically across chu
   const directFrame = createGameUiFrame(direct);
   assert.equal(directFrame.tick, 120);
   assert.ok(directFrame.effects.events.some((event) =>
-    event.type === "damage" && event.tick === 79 && event.projectileId === 1));
+    event.phase === "damage" && event.tick === 79 && event.payload.targetId > 0));
 
   const chunked = new GameSession(configured);
   for (const count of [1, 17, 3, 41, 58]) chunked.stepMany(count);
@@ -358,21 +358,15 @@ test("game UI projection: authentic projectile lifecycle keeps exact IDs, ticks,
   }));
   session.stepMany(320);
   const frame = createGameUiFrame(session);
-  const replay = session.replay.filter(({ type }) => [
-    "damage", "death", "projectile-impact", "projectile-launch",
-  ].includes(type));
-  assert.deepEqual(frame.effects.events.map(({ tick, type }) => ({ tick, type })),
-    replay.map(({ tick, type }) => ({
-      tick,
-      type: type === "projectile-launch" ? "launch"
-        : type === "projectile-impact" ? "impact" : type,
-    })));
-  assert.deepEqual(new Set(frame.effects.events.map(({ type }) => type)),
-    new Set(["damage", "death", "impact", "launch"]));
-  const launches = frame.effects.events.filter(({ type }) => type === "launch");
-  assert.deepEqual(launches.map(({ projectile }) => projectile.id),
-    replay.filter(({ type }) => type === "projectile-launch")
-      .map(({ projectile }) => projectile.id));
+  const feed = session.projectionSnapshot().combatEffectFeed;
+  assert.deepEqual(frame.effects.events, feed.records);
+  const phases = new Set(frame.effects.events.map(({ phase }) => phase));
+  for (const phase of ["open", "contact", "damage", "close"]) {
+    assert.equal(phases.has(phase), true, phase);
+  }
+  const launches = frame.effects.events.filter(({ phase }) => phase === "open");
+  assert.ok(launches.length > 0);
+  assert.ok(launches.every(({ payload }) => payload.projectileId !== null));
   assert.ok(frame.combat.events.some(({ type }) => type === "target"));
 });
 
