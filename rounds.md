@@ -1,5 +1,30 @@
 # Gauntlet Rounds
 
+## Round 302 — 2026-08-30
+
+PIECE: AUDIO-002 — Authored original soundscape and mix polish, round 2
+
+VERDICT: PASS
+
+EVIDENCE: Production audio passed 5/5, GameAudioRuntime 11/11, browser audio
+11/11, nondeterminism 10/10, combat-effect protocol 6/6 and shipping isolation
+13/13. An independent standard session at tick 600 contained 24 unchanged
+public records (SHA-256 `474fd2be8cc6161f`) and 28 audio-authority records
+(`863d5b1e01a8406b`): four locomotion starts for four unique entities. Removing
+those four records reproduced the public replay exactly. Each cue followed an
+actual spawn displacement (`17500→17475`, `17500→17484`, `17500→17484`,
+`17500→17467`); a stationary roster produced two deployments and zero
+locomotion records. Direct, chunked and restored session bytes, public replay,
+audio replay and cue bytes matched; pause added nothing. Hostile own
+`audioReplay` and `replay` getters executed zero times. Real Chrome at 720x1280
+scheduled four non-muted `soft-locomotion` voices, each with effective gain 71,
+energy 15,199,876 and 2,400 samples. Two evidence runs reproduced JSON SHA-256
+`8d66ef167d5141d53c4a3da8f49ffb58ac2857d10ba32e6ec9109789ec36425a`;
+the unchanged WAV reproduced as
+`a46dfcc2b4942b7ce073ed65dc52366f53d5f15ff3096be1ad8a379d9d378e9c`.
+
+BIGGEST GAP: None on the judged dimension.
+
 ## Round 301 — 2026-08-30
 
 PIECE: UI-002CP — Closed combat-effect feed export, round 1
