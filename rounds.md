@@ -1,5 +1,31 @@
 # Gauntlet Rounds
 
+## Round 303 — 2026-08-30
+
+PIECE: UI-002CP — Closed combat-effect feed export, round 2
+
+VERDICT: FAIL
+
+EVIDENCE: The registered protocol selector passed 8/8. Focused real producers
+passed area 11/11, projectile 8/8, return 27/27, pierce 28/28, pellets 30/30,
+returning spell 15/15 and traveling-line spell 15/15. Game battle 11/11,
+projection 18/18, browser loop 12/12, nondeterminism 10/10 and shipping
+isolation 13/13 were also green. Independent execution nevertheless found an
+authentic `TravelingLineSpellEncounter` cast at tick 0 and explicit cancel at
+tick 1 that throws at `stepMany(6)`: the protocol rejects its valid open-to-close
+pre-contact cancellation. A separate canonical v3 area snapshot with empty
+history/feed accepted `nextEffectId:2`, then emitted effect/root ID 2, proving
+the lineage can skip an unrecorded effect. A permitted unplayed v1 snapshot
+containing a combatant upgraded with empty `initialDamage`, then failed to
+restore its own v3 bytes. Finally, four admitted 256-code-unit Unicode
+identities derived a 9,245-character root and failed the protocol's 8,192 root
+bound. Standard restored-write, forged-area and compatibility regressions did
+reject as intended.
+
+BIGGEST GAP: The tightened close state machine rejects an authentic traveling
+spell cancellation before first contact; area lineage and derived identity
+bounds are also not self-consistent.
+
 ## Round 302 — 2026-08-30
 
 PIECE: AUDIO-002 — Authored original soundscape and mix polish, round 2
