@@ -12,6 +12,17 @@ const COMBAT_EFFECT_FEED_MAX_RECORDS = 16_384;
 const COMBAT_EFFECT_FEED_MAX_BYTES = 1_048_576;
 const COMBAT_EFFECT_FEED_MAX_DEPTH = 16;
 const COMBAT_EFFECT_FEED_MAX_STRING_LENGTH = 256;
+// A ProjectileCombat.step boundary can append contact, damage, death, and
+// close records after the contact call. Reserve enough bounded transcript
+// space before admitting that first child so a later feed-bound failure cannot
+// leave the source's damage ledger half committed.
+const COMBAT_EFFECT_FEED_PROJECTILE_OPERATION_RESERVE = 16_384;
+// Root IDs carry a bounded, injective encoding of every admitted identity.
+// They are intentionally allowed to be longer than ordinary payload text:
+// a 256-code-unit identity can need up to four UTF-8 bytes per code unit and
+// four base64url characters per three bytes. Keeping this bound explicit makes
+// the identity representation finite without falling back to a lossy hash.
+const COMBAT_EFFECT_FEED_MAX_ROOT_ID_LENGTH = 8192;
 const COMBAT_EFFECT_FEED_MAX_COORDINATE = 65_536;
 const COMBAT_EFFECT_FEED_MAX_DENOMINATOR = 1_000_000;
 const FEED_SNAPSHOT_PREFIX = "{\"records\":[";
@@ -187,22 +198,20 @@ function checkedIdentity(value, label, nullable = true) {
 function identityPart(value) {
   if (value === null) return "none";
   if (typeof value === "number") return String(value);
-  let encoded = null;
-  try {
-    encoded = encodeURIComponent(value);
-  } catch {
-    // Lone UTF-16 surrogates are rejected by encodeURIComponent. The stable
-    // fallback below still gives the source an identity-bearing root token.
-  }
-  if (encoded !== null && encoded.length <= 48 && /^[A-Za-z0-9%_~!\-]+$/u.test(encoded)) {
+  // checkedIdentity admits normalized text and rejects lone surrogates, so
+  // encodeURIComponent is a total, injective representation here.  Keeping
+  // the historical `s` prefix preserves all short root bytes while allowing
+  // long identities to remain exact instead of collapsing them through FNV.
+  const encoded = encodeURIComponent(value);
+  if (encoded.length + 1 <= COMBAT_EFFECT_FEED_MAX_ROOT_ID_LENGTH &&
+      /^[A-Za-z0-9%_~!\-]+$/u.test(encoded)) {
     return `s${encoded}`;
   }
-  let hash = 1469598103934665603n;
-  for (let index = 0; index < value.length; index += 1) {
-    hash ^= BigInt(value.charCodeAt(index));
-    hash = (hash * 1099511628211n) & 0xffffffffffffffffn;
-  }
-  return `h${hash.toString(16).padStart(16, "0")}`;
+  const bytes = UTF8.encode(value);
+  let binary = "";
+  for (const byte of bytes) binary += String.fromCharCode(byte);
+  const base64 = btoa(binary).replace(/\+/gu, "-").replace(/\//gu, "_").replace(/=+$/u, "");
+  return `b${base64}`;
 }
 
 function combatEffectRootId(value) {
@@ -373,7 +382,7 @@ function checkedRecord(value, label) {
   const parentId = raw.parentId === null
     ? null
     : integer(raw.parentId, 1, Number.MAX_SAFE_INTEGER, `${label}.parentId`);
-  const rootId = boundedText(raw.rootId, `${label}.rootId`, 256);
+  const rootId = boundedText(raw.rootId, `${label}.rootId`, COMBAT_EFFECT_FEED_MAX_ROOT_ID_LENGTH);
   if (!ROOT_ID_TOKEN.test(rootId)) throw new TypeError(`${label}.rootId is not canonical`);
   const tick = integer(raw.tick, 0, Number.MAX_SAFE_INTEGER, `${label}.tick`);
   if (!TYPES.has(raw.type)) throw new TypeError(`${label}.type is unsupported`);
@@ -387,6 +396,12 @@ function appendChecked(state, record) {
   const checked = checkedRecord(record, "combat effect record");
   if (checked.eventId !== state.nextEventId) {
     throw new TypeError("combat effect event IDs must be contiguous and monotonic");
+  }
+  // Area resolutions are the authoritative global timeline. Projectile
+  // sources may interleave roots whose terminal close is emitted after a
+  // batch of later impacts, so their causal order is checked per root below.
+  if (checked.type === "area" && checked.tick < state.lastAreaTick) {
+    throw new TypeError("combat effect event ticks must be monotonic");
   }
   if (state.records.length >= COMBAT_EFFECT_FEED_MAX_RECORDS) {
     throw new RangeError("combat effect feed record bound exceeded");
@@ -416,6 +431,7 @@ function appendChecked(state, record) {
       impactSeen: false,
       lastEventId: checked.eventId,
       lastTick: checked.tick,
+      phase: "open",
       turnSeen: false,
       type: checked.type,
       payload: checked.payload,
@@ -426,11 +442,29 @@ function appendChecked(state, record) {
     if (checked.phase === "open") {
       throw new TypeError("combat effect roots may only open at the root boundary");
     }
-    if (checked.tick < root.lastTick) throw new TypeError("combat effect child tick cannot precede its root");
+    if (checked.tick < root.lastTick) {
+      throw new TypeError("combat effect child tick cannot precede its root");
+    }
     if (checked.parentId >= checked.eventId) throw new TypeError("combat effect parent must be earlier");
     const parent = state.records[checked.parentId - 1];
     if (parent === undefined || parent.rootId !== checked.rootId) {
       throw new TypeError("combat effect parent must belong to the same root");
+    }
+    if (checked.parentId !== root.lastEventId) {
+      throw new TypeError("combat effect child must extend the active lineage");
+    }
+    if (checked.phase === "contact" && checked.type === "projectile") {
+      const currentBytes = UTF8.encode(FEED_SNAPSHOT_PREFIX).byteLength +
+        state.recordBytes + UTF8.encode(FEED_SNAPSHOT_SUFFIX).byteLength;
+      const dueRoots = [...state.roots.values()].filter((candidateRoot) =>
+        !candidateRoot.closed &&
+        candidateRoot.payload.impactTick === checked.tick
+      ).length;
+      const operationRoots = Math.max(1, dueRoots);
+      if (COMBAT_EFFECT_FEED_MAX_BYTES - currentBytes <
+          operationRoots * COMBAT_EFFECT_FEED_PROJECTILE_OPERATION_RESERVE) {
+        throw new RangeError("combat effect projectile operation exceeds its feed byte bound");
+      }
     }
     if (checked.type !== root.type) throw new TypeError("combat effect child type diverges from its root");
     const allowedParents = checked.type === "area"
@@ -438,18 +472,22 @@ function appendChecked(state, record) {
         damage: new Set(["damage", "impact"]),
         death: new Set(["damage", "death"]),
         impact: new Set(["open"]),
-        close: new Set(["damage", "death", "impact", "open"]),
+        close: new Set(["damage", "death", "impact"]),
       }
       : {
         contact: new Set(["contact", "damage", "death", "impact", "open", "turn"]),
         damage: new Set(["contact", "damage", "impact"]),
         death: new Set(["damage", "death"]),
         impact: new Set(["contact", "open", "turn"]),
-        turn: new Set(["contact", "damage", "death", "open", "turn"]),
-        close: new Set(["contact", "damage", "death", "impact", "open", "turn"]),
+        turn: new Set(["contact", "damage", "death", "open"]),
+        close: new Set(["contact", "damage", "death", "impact", "turn"]),
       };
     if (!allowedParents[checked.phase]?.has(parent.phase)) {
-      throw new TypeError(`combat effect ${checked.phase} has an invalid parent phase`);
+      throw new TypeError(`combat effect ${checked.phase} has an invalid parent phase or closed lineage (parent ${parent.phase})`);
+    }
+    if (checked.phase === "turn" &&
+        !new Set(["return", "travel"]).has(root.payload.direction)) {
+      throw new TypeError("combat effect turn is unsupported for this source direction");
     }
     if (checked.phase === "damage") {
       const targetId = checked.payload.targetId;
@@ -490,14 +528,24 @@ function appendChecked(state, record) {
       if (root.impactSeen) throw new TypeError("combat effect turn follows terminal impact");
       root.turnSeen = true;
     }
+    if (checked.phase === "close") {
+      if (checked.type === "area" && !root.impactSeen) {
+        throw new TypeError("combat effect area close requires a preceding impact");
+      }
+      if (checked.type === "projectile" &&
+          !root.contactTargets.size && !root.impactSeen && !root.turnSeen) {
+        throw new TypeError("combat effect projectile close requires a preceding contact, impact, or turn");
+      }
+      root.closed = true;
+    }
+    root.phase = checked.phase;
     root.lastEventId = checked.eventId;
     root.lastTick = checked.tick;
-    if (checked.phase === "close") root.closed = true;
   }
   state.records.push(checked);
   state.recordBytes = nextRecordBytes;
   state.nextEventId += 1;
-  state.lastTick = checked.tick;
+  if (checked.type === "area") state.lastAreaTick = checked.tick;
   return checked;
 }
 
@@ -508,7 +556,7 @@ function snapshotState(value) {
   }
   const records = dense(snapshot.records, COMBAT_EFFECT_FEED_MAX_RECORDS, "combat effect feed records");
   const state = {
-    lastTick: -1,
+    lastAreaTick: -1,
     nextEventId: 1,
     recordBytes: 0,
     records: [],
@@ -559,7 +607,7 @@ function forkState(state) {
   // structural copy avoids revalidating the complete transcript on every
   // transactional source fork while preserving independent append state.
   return {
-    lastTick: state.lastTick,
+    lastAreaTick: state.lastAreaTick,
     nextEventId: state.nextEventId,
     recordBytes: state.recordBytes,
     records: [...state.records],
@@ -583,7 +631,7 @@ function serializeState(state) {
 
 function createCombatEffectFeed() {
   return apiForState({
-    lastTick: -1,
+    lastAreaTick: -1,
     nextEventId: 1,
     recordBytes: 0,
     records: [],
@@ -596,6 +644,53 @@ function appendCombatEffectEvent(feed, value) {
   if (state === undefined) throw new TypeError("combat effect feed authority is invalid");
   const raw = exact(value, ["parentId", "payload", "phase", "rootId", "tick", "type"],
     "combat effect append");
+  const root = state.roots.get(raw.rootId);
+  // The original pierce and pellet adapters have a valid no-contact terminal
+  // path: a launched carrier reaches its endpoint and closes without a target
+  // contact. Materialize that terminal observation at the protocol boundary
+  // so the public transcript still has an explicit impact predecessor while
+  // the private primitive remains untouched.
+  if (raw.phase === "close" && raw.type === "projectile" &&
+      raw.parentId !== null && root !== undefined && !root.closed &&
+      root.phase === "open" && raw.parentId === root.lastEventId &&
+      raw.payload !== null && typeof raw.payload === "object" &&
+      !Array.isArray(raw.payload) && raw.payload.reason === "complete" &&
+      (root.payload.direction === "pierce" || root.payload.direction === "pellet")) {
+    const center = root.payload.to ?? root.payload.segments.at(-1)?.to;
+    if (center === undefined || center === null) {
+      throw new TypeError("combat effect no-contact close has no terminal point");
+    }
+    const impact = {
+      eventId: state.nextEventId,
+      parentId: raw.parentId,
+      payload: {
+        center,
+        radius: root.payload.radius,
+        targetIds: [],
+      },
+      phase: "impact",
+      rootId: raw.rootId,
+      tick: raw.tick,
+      type: raw.type,
+    };
+    const close = {
+      eventId: state.nextEventId + 1,
+      parentId: impact.eventId,
+      payload: raw.payload,
+      phase: raw.phase,
+      rootId: raw.rootId,
+      tick: raw.tick,
+      type: raw.type,
+    };
+    // Validate both records on a detached state before adopting either one;
+    // this keeps the synthetic terminal pair atomic at the feed boundary.
+    const preview = forkState(state);
+    appendChecked(preview, impact);
+    appendChecked(preview, close);
+    appendChecked(state, impact);
+    const checkedClose = appendChecked(state, close);
+    return freeze(clone(checkedClose));
+  }
   const candidate = { eventId: state.nextEventId, ...raw };
   const checked = appendChecked(state, candidate);
   return freeze(clone(checked));
@@ -648,6 +743,11 @@ function serializeCombatEffectFeed(value) {
 }
 
 function restoreCombatEffectFeed(serialized) {
+  const state = parseSerializedFeed(serialized);
+  return snapshotFromState(state);
+}
+
+function parseSerializedFeed(serialized) {
   if (typeof serialized !== "string") throw new TypeError("combat effect feed bytes must be a string");
   if (new TextEncoder().encode(serialized).byteLength > COMBAT_EFFECT_FEED_MAX_BYTES) {
     throw new RangeError("combat effect feed bytes exceed their bound");
@@ -657,7 +757,7 @@ function restoreCombatEffectFeed(serialized) {
   catch { throw new TypeError("combat effect feed bytes must be valid JSON"); }
   const state = snapshotState(raw);
   if (serializeState(state) !== serialized) throw new TypeError("combat effect feed bytes must be canonical JSON");
-  return apiForState(state);
+  return state;
 }
 
 function combatEffectFeedSnapshot(value) {
@@ -674,6 +774,7 @@ export {
   COMBAT_EFFECT_FEED_MAX_STRING_LENGTH,
   COMBAT_EFFECT_FEED_MAX_COORDINATE,
   COMBAT_EFFECT_FEED_MAX_DENOMINATOR,
+  COMBAT_EFFECT_FEED_MAX_ROOT_ID_LENGTH,
   appendCombatEffectEvent,
   appendCombatEffectRoot,
   combatEffectFeedSnapshot,

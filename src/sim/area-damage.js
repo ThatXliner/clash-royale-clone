@@ -9,7 +9,6 @@ import {
   appendCombatEffectRoot,
   combatEffectFeedSnapshot,
   createCombatEffectFeed,
-  restoreCombatEffectFeed,
   serializeCombatEffectFeed,
 } from "./combat-effect-feed.js";
 
@@ -179,10 +178,13 @@ function modeEligible(candidate, mode) {
 export class AreaDamageSystem {
   #damage;
   #feed = createCombatEffectFeed();
+  #history = [];
+  #initialDamage;
   #nextEffectId;
 
   constructor() {
     this.#damage = new DamageSystem();
+    this.#initialDamage = new DamageSystem();
     this.#nextEffectId = 1;
   }
 
@@ -211,7 +213,9 @@ export class AreaDamageSystem {
   }
 
   add(id, maxHealth, currentHealth = maxHealth) {
-    return this.#damage.add(id, maxHealth, currentHealth);
+    const result = this.#damage.add(id, maxHealth, currentHealth);
+    this.#initialDamage.add(id, maxHealth, currentHealth);
+    return result;
   }
 
   get(id) {
@@ -297,7 +301,6 @@ export class AreaDamageSystem {
       type: "area",
     });
     parentId = impact.eventId;
-    const targetParents = new Map();
     for (const event of batch.events) {
       if (event.type === "damage") {
         const damage = appendCombatEffectEvent(candidateFeed, {
@@ -313,18 +316,16 @@ export class AreaDamageSystem {
           tick: checked.tick,
           type: "area",
         });
-        targetParents.set(event.targetId, damage.eventId);
         parentId = damage.eventId;
       } else {
         const death = appendCombatEffectEvent(candidateFeed, {
-          parentId: targetParents.get(event.targetId) ?? parentId,
+          parentId,
           payload: { targetId: event.targetId },
           phase: "death",
           rootId: root.rootId,
           tick: checked.tick,
           type: "area",
         });
-        targetParents.set(event.targetId, death.eventId);
         parentId = death.eventId;
       }
     }
@@ -339,6 +340,14 @@ export class AreaDamageSystem {
 
     this.#damage = candidateDamage;
     this.#feed = candidateFeed;
+    this.#history = [
+      ...this.#history,
+      {
+        candidates: clone([...checkedCandidatesValue].sort((left, right) => left.id - right.id)),
+        effect: clone(checked),
+        effectId,
+      },
+    ];
     this.#nextEffectId += 1;
     const effectEvent = {
       center: { ...checked.center },
@@ -381,16 +390,20 @@ export class AreaDamageSystem {
 
   serialize() {
     return canonicalJson({
+      combatEffectFeed: combatEffectFeedSnapshot(this.#feed),
       damage: JSON.parse(this.#damage.serialize()),
+      history: this.#history,
+      initialDamage: JSON.parse(this.#initialDamage.serialize()),
       nextEffectId: this.#nextEffectId,
-      version: 1,
+      version: 3,
     });
   }
 
   /**
-   * Restores raw mechanics bytes and, optionally, the additive visual feed.
-   * The second argument is deliberately separate so serialize() remains the
-   * exact pre-feed mechanics snapshot contract.
+   * Restores mechanics and visual history as one canonical snapshot. Version
+   * 1 is retained only for an unplayed empty system: a played legacy snapshot
+   * cannot prove which visual records belonged to it and is rejected rather
+   * than accepting an independently forgeable feed argument.
    */
   static restore(serialized, feedSerialized = undefined) {
     if (typeof serialized !== "string") {
@@ -402,41 +415,80 @@ export class AreaDamageSystem {
     } catch {
       throw new TypeError("serialized area-damage snapshot must be valid JSON");
     }
-    const snapshot = assertExactDataObject(
-      raw,
-      ["damage", "nextEffectId", "version"],
-      "area-damage snapshot",
-    );
-    if (snapshot.version !== 1) {
+    if (raw === null || typeof raw !== "object" || Array.isArray(raw)) {
+      throw new TypeError("area-damage snapshot must be a plain object");
+    }
+    if (canonicalJson(raw) !== serialized) {
+      throw new TypeError(
+        "serialized area-damage snapshot must be canonical duplicate-free JSON",
+      );
+    }
+    const version = raw.version;
+    if (version === 1) {
+      const legacy = assertExactDataObject(
+        raw,
+        ["damage", "nextEffectId", "version"],
+        "area-damage legacy snapshot",
+      );
+      assertPositiveId(legacy.nextEffectId, "snapshot nextEffectId");
+      if (legacy.nextEffectId !== 1 || feedSerialized !== undefined) {
+        throw new TypeError("played area-damage legacy snapshots require a bound visual transcript");
+      }
+      const system = new AreaDamageSystem();
+      system.#damage = DamageSystem.restore(canonicalJson(legacy.damage));
+      system.#nextEffectId = legacy.nextEffectId;
+      return system;
+    }
+    if (version !== 3) {
       throw new TypeError("area-damage snapshot has an invalid version");
     }
+    const snapshot = assertExactDataObject(
+      raw,
+        ["combatEffectFeed", "damage", "history", "initialDamage", "nextEffectId", "version"],
+      "area-damage snapshot",
+    );
     assertPositiveId(snapshot.nextEffectId, "snapshot nextEffectId");
+    if (!Array.isArray(snapshot.history)) {
+      throw new TypeError("area-damage snapshot.history must be an array");
+    }
+    const expectedFeedBytes = serializeCombatEffectFeed(snapshot.combatEffectFeed);
+    if (feedSerialized !== undefined &&
+        (typeof feedSerialized !== "string" || feedSerialized !== expectedFeedBytes)) {
+      throw new TypeError("area-damage supplied feed does not match its canonical snapshot");
+    }
     const system = new AreaDamageSystem();
-    system.#damage = DamageSystem.restore(canonicalJson(snapshot.damage));
-    system.#nextEffectId = snapshot.nextEffectId;
-    if (feedSerialized !== undefined) {
-      if (typeof feedSerialized !== "string") {
-        throw new TypeError("area-damage feed bytes must be a string");
+    system.#initialDamage = DamageSystem.restore(canonicalJson(snapshot.initialDamage));
+    system.#damage = DamageSystem.restore(canonicalJson(snapshot.initialDamage));
+    if (snapshot.history.length === 0) {
+      system.#nextEffectId = snapshot.nextEffectId;
+    } else {
+      const firstEffectId = snapshot.history[0]?.effectId;
+      if (!Number.isSafeInteger(firstEffectId) || firstEffectId < 1 ||
+          firstEffectId > snapshot.nextEffectId - snapshot.history.length) {
+        throw new TypeError("area-damage snapshot history effect identities are not causal");
       }
-      system.#feed = restoreCombatEffectFeed(feedSerialized);
-      const feed = system.#feed.records;
-      let areaRootCount = 0;
-      for (const record of feed) {
-        if (record.type !== "area") {
-          throw new TypeError("area-damage feed contains a non-area root");
-        }
-        if (record.phase !== "open") continue;
-        areaRootCount += 1;
-        if (!Number.isSafeInteger(record.payload.effectId) ||
-            record.payload.effectId < 1 ||
-            record.payload.effectId >= system.#nextEffectId) {
-          throw new TypeError("area-damage feed effect identity is not causal");
-        }
+      system.#nextEffectId = firstEffectId;
+    }
+    for (let index = 0; index < snapshot.history.length; index += 1) {
+      const entry = assertExactDataObject(
+        snapshot.history[index],
+        ["candidates", "effect", "effectId"],
+        `area-damage snapshot.history[${index}]`,
+      );
+      if (!Array.isArray(entry.candidates)) {
+        throw new TypeError(`area-damage snapshot.history[${index}].candidates must be an array`);
       }
-      if (areaRootCount > system.#nextEffectId - 1) {
-        throw new TypeError("area-damage feed has too many effect roots");
+      const result = system.resolve(entry.effect, entry.candidates);
+      if (result.effectId !== entry.effectId) {
+        throw new TypeError(`area-damage snapshot.history[${index}] effect identity diverges`);
       }
     }
+    if (snapshot.history.length > 0 && system.#nextEffectId !== snapshot.nextEffectId ||
+        canonicalJson(JSON.parse(system.#damage.serialize())) !== canonicalJson(snapshot.damage) ||
+        system.combatEffectFeedBytes() !== expectedFeedBytes) {
+      throw new TypeError("area-damage snapshot mechanics and visual history diverge");
+    }
+    system.#history = clone(snapshot.history);
     return system;
   }
 }

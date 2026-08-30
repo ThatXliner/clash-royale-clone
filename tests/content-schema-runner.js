@@ -131,6 +131,7 @@ for (const selector of selectors) {
       "deck",
       "match-timing",
       "content-schema",
+      "combat-effect-protocol",
     ].includes(selector)
   ) {
     throw new TypeError(`unknown test selector: ${selector}`);
@@ -675,5 +676,11 @@ if (selectors.length === 0 || selectors.includes("release-build")) {
   run([
     new URL("./release-build-runner.js", import.meta.url).pathname,
     "release-build",
+  ]);
+}
+if (selectors.length === 0 || selectors.includes("combat-effect-protocol")) {
+  run([
+    new URL("./combat-effect-protocol-runner.js", import.meta.url).pathname,
+    "combat-effect-protocol",
   ]);
 }

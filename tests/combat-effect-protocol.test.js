@@ -10,6 +10,7 @@ import {
   BattleCombat,
   BattleTowerCombat,
   GameSession,
+  getGameSessionAudioReplay,
   isAuthenticGameSessionProjectionSnapshot,
 } from "../src/sim/battle-continuation-kernel.js";
 import {
@@ -41,6 +42,7 @@ import {
   appendCombatEffectEvent,
   appendCombatEffectRoot,
   combatEffectFeedSnapshot,
+  combatEffectRootId,
   createCombatEffectFeed,
   restoreCombatEffectFeed,
   serializeCombatEffectFeed,
@@ -356,6 +358,143 @@ test("combat-effect feed rejects hostile lifecycle records atomically", () => {
   assert.equal(traps, 0);
 });
 
+test("combat-effect protocol rejects premature, branched, reordered, forged, and restored writes", () => {
+  const valid = JSON.parse(simpleRootFeed().serialize());
+  const attempt = (records, pattern = /combat effect/u) => {
+    assert.throws(
+      () => restoreCombatEffectFeed(canonical({ records, version: 1 })),
+      pattern,
+    );
+  };
+
+  attempt([
+    valid.records[0],
+    {
+      ...valid.records[2],
+      eventId: 2,
+      parentId: 1,
+      tick: 1,
+    },
+  ], /preceding impact|contact|parent phase/u);
+  attempt([
+    valid.records[0],
+    valid.records[1],
+    {
+      ...valid.records[2],
+      eventId: 3,
+      parentId: 1,
+    },
+  ], /active lineage|parent phase|closed/u);
+
+  const area = createCombatEffectFeed();
+  const rootAtTen = appendCombatEffectRoot(area, {
+    direction: "area",
+    effectId: 1,
+    from: { x: 1000, y: 1000 },
+    impactTick: 10,
+    projectileId: null,
+    radius: 100,
+    segments: [],
+    sequence: null,
+    sourceId: null,
+    tick: 10,
+    to: null,
+    type: "area",
+  });
+  const impactAtTen = appendCombatEffectEvent(area, {
+    parentId: rootAtTen.eventId,
+    payload: {
+      center: { x: 1000, y: 1000 },
+      radius: 100,
+      targetIds: [],
+    },
+    phase: "impact",
+    rootId: rootAtTen.rootId,
+    tick: 10,
+    type: "area",
+  });
+  appendCombatEffectEvent(area, {
+    parentId: impactAtTen.eventId,
+    payload: { reason: "complete" },
+    phase: "close",
+    rootId: rootAtTen.rootId,
+    tick: 10,
+    type: "area",
+  });
+  assert.throws(() => appendCombatEffectRoot(area, {
+    direction: "area",
+    effectId: 2,
+    from: { x: 1000, y: 1000 },
+    impactTick: 0,
+    projectileId: null,
+    radius: 100,
+    segments: [],
+    sequence: null,
+    sourceId: null,
+    tick: 0,
+    to: null,
+    type: "area",
+  }), /monotonic/u);
+
+  const restored = restoreCombatEffectFeed(simpleRootFeed().serialize());
+  assert.throws(() => appendCombatEffectEvent(restored, {
+    parentId: 2,
+    payload: { reason: "complete" },
+    phase: "close",
+    rootId: valid.records[0].rootId,
+    tick: 3,
+    type: "projectile",
+  }), /authority/u);
+
+  const identity = {
+    direction: "travel",
+    effectId: "effect-" + "x".repeat(249),
+    projectileId: "projectile-" + "x".repeat(245),
+    sequence: "sequence-" + "x".repeat(247),
+    sourceId: "source-" + "x".repeat(249),
+    type: "projectile",
+  };
+  const changed = { ...identity, sourceId: `${identity.sourceId.slice(0, -1)}y` };
+  assert.notEqual(combatEffectRootId(identity), combatEffectRootId(changed));
+});
+
+test("actual projectile feed-bound failure leaves mechanics and visual bytes unchanged", () => {
+  const count = 3000;
+  const entities = [];
+  for (let id = 1; id <= count; id += 1) {
+    entities.push(projectileEntity(id, { x: 1000 + id % 5, y: 1000 }));
+  }
+  entities.push(projectileEntity(count + 1, { x: 5000, y: 1000 }, { targetMode: "none" }));
+  const combat = new ProjectileCombat({ entities });
+  for (let id = 1; id <= count; id += 1) {
+    try {
+      combat.launch({
+        attackerId: id,
+        damage: 1,
+        radius: 0,
+        speed: 1000,
+        targetId: count + 1,
+        tick: 0,
+      });
+    } catch (error) {
+      assert.match(error.message, /byte bound/u);
+      break;
+    }
+  }
+  for (let tick = 0; tick < 4; tick += 1) combat.step(tick);
+  const before = {
+    feed: combat.combatEffectFeedBytes(),
+    replay: combat.replay,
+    serialize: combat.serialize(),
+    state: combat.state,
+  };
+  assert.throws(() => combat.step(4), /byte bound/u);
+  assert.equal(combat.combatEffectFeedBytes(), before.feed);
+  assert.equal(combat.serialize(), before.serialize);
+  assert.deepEqual(combat.replay, before.replay);
+  assert.deepEqual(combat.state, before.state);
+});
+
 test("actual projectile, area, return, pierce, pellet, spell, and travel sources export closed feeds", () => {
   const projectile = new ProjectileCombat({
     entities: [
@@ -413,6 +552,25 @@ test("actual projectile, area, return, pierce, pellet, spell, and travel sources
   const areaRestored = AreaDamageSystem.restore(areaBytesBefore, areaFeedBytes);
   assert.equal(areaRestored.serialize(), areaBytesBefore);
   assert.equal(areaRestored.combatEffectFeedBytes(), areaFeedBytes);
+  const forgedArea = JSON.parse(areaBytesBefore);
+  const forgedImpact = forgedArea.combatEffectFeed.records.find(({ phase }) => phase === "impact");
+  const forgedClose = forgedArea.combatEffectFeed.records.find(({ phase }) => phase === "close");
+  forgedImpact.payload = {
+    ...forgedImpact.payload,
+    center: { x: 9999, y: 8888 },
+  };
+  forgedImpact.tick = 777;
+  forgedClose.tick = 777;
+  assert.throws(
+    () => AreaDamageSystem.restore(canonical(forgedArea)),
+    /diverge|causal|monotonic/u,
+  );
+  const missingAreaFeed = JSON.parse(areaBytesBefore);
+  delete missingAreaFeed.combatEffectFeed;
+  assert.throws(
+    () => AreaDamageSystem.restore(canonical(missingAreaFeed)),
+    /invalid shape|combatEffectFeed/u,
+  );
 
   const returnEncounter = new ReturnEncounter(createReturnSpecialFixture(
     [candidate(10, 3000)], { x: 1, y: 0 }, [],
@@ -583,6 +741,10 @@ test("authentic battle and GameSession projections carry stable source identitie
   assert.equal(
     canonical(restoredSession.projectionSnapshot().combatEffectFeed),
     canonical(liveProjection.combatEffectFeed),
+  );
+  assert.deepEqual(
+    getGameSessionAudioReplay(restoredSession),
+    getGameSessionAudioReplay(liveSession),
   );
 });
 
