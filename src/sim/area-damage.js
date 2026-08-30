@@ -4,6 +4,14 @@ import {
   ATTACK_TARGET_MODES,
   targetCandidate,
 } from "./targeting.js";
+import {
+  appendCombatEffectEvent,
+  appendCombatEffectRoot,
+  combatEffectFeedSnapshot,
+  createCombatEffectFeed,
+  restoreCombatEffectFeed,
+  serializeCombatEffectFeed,
+} from "./combat-effect-feed.js";
 
 const TARGET_MODES = new Set(ATTACK_TARGET_MODES);
 // The largest safe integer is a terminal next-ID sentinel. It is valid state
@@ -170,6 +178,7 @@ function modeEligible(candidate, mode) {
  */
 export class AreaDamageSystem {
   #damage;
+  #feed = createCombatEffectFeed();
   #nextEffectId;
 
   constructor() {
@@ -179,6 +188,26 @@ export class AreaDamageSystem {
 
   get nextEffectId() {
     return this.#nextEffectId;
+  }
+
+  get combatEffectFeed() {
+    return combatEffectFeedSnapshot(this.#feed);
+  }
+
+  get effectFeed() {
+    return this.combatEffectFeed;
+  }
+
+  get visualFeed() {
+    return this.combatEffectFeed;
+  }
+
+  combatEffectFeedBytes() {
+    return serializeCombatEffectFeed(this.#feed);
+  }
+
+  fork() {
+    return AreaDamageSystem.restore(this.serialize(), this.combatEffectFeedBytes());
   }
 
   add(id, maxHealth, currentHealth = maxHealth) {
@@ -208,13 +237,18 @@ export class AreaDamageSystem {
     }
 
     const effectId = this.#nextEffectId;
+    // Resolve and append the derived transcript on private candidates. A
+    // feed bound failure must not leave authoritative health or IDs half
+    // committed, just like any other rejected source boundary.
+    const candidateDamage = DamageSystem.restore(this.#damage.serialize());
+    const candidateFeed = this.#feed.fork();
     const effectCircle = {
       position: checked.center,
       radius: checked.radius,
     };
     const hitTargetIds = checkedCandidatesValue
       .filter((candidate) => {
-        const health = this.#damage.get(candidate.id);
+        const health = candidateDamage.get(candidate.id);
         return (
           modeEligible(candidate, checked.mode) &&
           health !== null &&
@@ -228,13 +262,83 @@ export class AreaDamageSystem {
       .map((candidate) => candidate.id)
       .sort((left, right) => left - right);
 
-    const batch = this.#damage.damageSimultaneously(
+    const batch = candidateDamage.damageSimultaneously(
       hitTargetIds.map((targetId) => ({
         amount: checked.damage,
         targetId,
       })),
     );
 
+    const root = appendCombatEffectRoot(candidateFeed, {
+      direction: "area",
+      effectId,
+      from: checked.center,
+      impactTick: checked.tick,
+      projectileId: null,
+      radius: checked.radius,
+      segments: [],
+      sequence: null,
+      sourceId: null,
+      tick: checked.tick,
+      to: null,
+      type: "area",
+    });
+    let parentId = root.eventId;
+    const impact = appendCombatEffectEvent(candidateFeed, {
+      parentId,
+      payload: {
+        center: checked.center,
+        radius: checked.radius,
+        targetIds: hitTargetIds,
+      },
+      phase: "impact",
+      rootId: root.rootId,
+      tick: checked.tick,
+      type: "area",
+    });
+    parentId = impact.eventId;
+    const targetParents = new Map();
+    for (const event of batch.events) {
+      if (event.type === "damage") {
+        const damage = appendCombatEffectEvent(candidateFeed, {
+          parentId,
+          payload: {
+            amount: event.amount,
+            currentHealthAfter: event.currentHealthAfter,
+            currentHealthBefore: event.currentHealthBefore,
+            targetId: event.targetId,
+          },
+          phase: "damage",
+          rootId: root.rootId,
+          tick: checked.tick,
+          type: "area",
+        });
+        targetParents.set(event.targetId, damage.eventId);
+        parentId = damage.eventId;
+      } else {
+        const death = appendCombatEffectEvent(candidateFeed, {
+          parentId: targetParents.get(event.targetId) ?? parentId,
+          payload: { targetId: event.targetId },
+          phase: "death",
+          rootId: root.rootId,
+          tick: checked.tick,
+          type: "area",
+        });
+        targetParents.set(event.targetId, death.eventId);
+        parentId = death.eventId;
+      }
+    }
+    appendCombatEffectEvent(candidateFeed, {
+      parentId,
+      payload: { reason: "complete" },
+      phase: "close",
+      rootId: root.rootId,
+      tick: checked.tick,
+      type: "area",
+    });
+
+    this.#damage = candidateDamage;
+    this.#feed = candidateFeed;
     this.#nextEffectId += 1;
     const effectEvent = {
       center: { ...checked.center },
@@ -283,7 +387,12 @@ export class AreaDamageSystem {
     });
   }
 
-  static restore(serialized) {
+  /**
+   * Restores raw mechanics bytes and, optionally, the additive visual feed.
+   * The second argument is deliberately separate so serialize() remains the
+   * exact pre-feed mechanics snapshot contract.
+   */
+  static restore(serialized, feedSerialized = undefined) {
     if (typeof serialized !== "string") {
       throw new TypeError("serialized area-damage snapshot must be a string");
     }
@@ -302,11 +411,32 @@ export class AreaDamageSystem {
       throw new TypeError("area-damage snapshot has an invalid version");
     }
     assertPositiveId(snapshot.nextEffectId, "snapshot nextEffectId");
-
-    const restoredDamage = DamageSystem.restore(canonicalJson(snapshot.damage));
     const system = new AreaDamageSystem();
-    system.#damage = restoredDamage;
+    system.#damage = DamageSystem.restore(canonicalJson(snapshot.damage));
     system.#nextEffectId = snapshot.nextEffectId;
+    if (feedSerialized !== undefined) {
+      if (typeof feedSerialized !== "string") {
+        throw new TypeError("area-damage feed bytes must be a string");
+      }
+      system.#feed = restoreCombatEffectFeed(feedSerialized);
+      const feed = system.#feed.records;
+      let areaRootCount = 0;
+      for (const record of feed) {
+        if (record.type !== "area") {
+          throw new TypeError("area-damage feed contains a non-area root");
+        }
+        if (record.phase !== "open") continue;
+        areaRootCount += 1;
+        if (!Number.isSafeInteger(record.payload.effectId) ||
+            record.payload.effectId < 1 ||
+            record.payload.effectId >= system.#nextEffectId) {
+          throw new TypeError("area-damage feed effect identity is not causal");
+        }
+      }
+      if (areaRootCount > system.#nextEffectId - 1) {
+        throw new TypeError("area-damage feed has too many effect roots");
+      }
+    }
     return system;
   }
 }

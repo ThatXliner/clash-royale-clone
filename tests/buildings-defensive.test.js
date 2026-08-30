@@ -355,7 +355,7 @@ test("buildings defensive differential: Prism stages and reset are canonical ram
 test("buildings defensive differential: Ember impact delegates inclusive stable area damage", () => {
   pinnedHash(
     "../src/sim/area-damage.js",
-    "7836fb4e98109d63488ae6b7b3bc32247c8724c40c2f2d242704deb6c521af32",
+    "c6e90aea5039b866c299121316fe05d3496b3568f9f9e1441e8c4b65b039d3e6",
   );
   const targets = [
     target(7, 4000, { health: 222 }),
@@ -504,7 +504,7 @@ test("buildings defensive: simultaneous buildings have stable IDs and ordered re
 test("buildings defensive differential: Bulwark and Horizon projectile lifecycle is canonical", () => {
   pinnedHash(
     "../src/sim/projectile.js",
-    "7065af4288d2cb6617cecd5b18e37f75194ccb4e69013ea425ebb1749d1147aa",
+    "9fb0ec40a21f013fc5b56645c9deec9362cebeb65b63ade1a28ac44321ff1efc",
   );
   const bulwark = encounter("bulwark-needle", [target(7, 5000)]);
   bulwark.stepMany(61);

@@ -1,6 +1,13 @@
 import { DamageSystem } from "../../sim/damage.js";
 import { MAX_SPATIAL_MILLITILES } from "../../sim/spatial.js";
 import { targetCandidate } from "../../sim/targeting.js";
+import {
+  appendCombatEffectEvent,
+  appendCombatEffectRoot,
+  combatEffectFeedSnapshot,
+  createCombatEffectFeed,
+  serializeCombatEffectFeed,
+} from "../../sim/combat-effect-feed.js";
 import { createCardCatalog } from "../schema.js";
 
 const DEFINITIONS = [{
@@ -441,6 +448,8 @@ export class ReturnEncounter {
   #commands;
   #commandIndex = 0;
   #damage = new DamageSystem();
+  #feed = createCombatEffectFeed();
+  #feedRoot = null;
   #history = [];
   #interrupted = false;
   #launched = false;
@@ -465,6 +474,26 @@ export class ReturnEncounter {
 
   get replay() {
     return clone(this.#history);
+  }
+
+  get combatEffectFeed() {
+    return combatEffectFeedSnapshot(this.#feed);
+  }
+
+  get effectFeed() {
+    return this.combatEffectFeed;
+  }
+
+  get visualFeed() {
+    return this.combatEffectFeed;
+  }
+
+  combatEffectFeedBytes() {
+    return serializeCombatEffectFeed(this.#feed);
+  }
+
+  fork() {
+    return ReturnEncounter.restore(this.serialize());
   }
 
   get state() {
@@ -528,6 +557,7 @@ export class ReturnEncounter {
     }
 
     this.#tick += 1;
+    this.#observeVisualEvents(events);
     if (this.#history.length + events.length > MAX_REPLAY_EVENTS) {
       throw new RangeError("return replay exceeds its event bound");
     }
@@ -614,6 +644,93 @@ export class ReturnEncounter {
       tick,
       type: "return-complete",
     });
+  }
+
+  #observeVisualEvents(events) {
+    for (const event of events) {
+      if (event.type === "return-launch") {
+        const root = appendCombatEffectRoot(this.#feed, {
+          direction: "return",
+          effectId: null,
+          from: event.origin,
+          impactTick: event.completeTick,
+          projectileId: null,
+          radius: QUESTION_FIXTURES.collisionWidthMillitiles.value,
+          segments: [],
+          sequence: 1,
+          sourceId: ATTACKER_ID,
+          tick: event.tick,
+          to: event.turnPoint,
+          type: "projectile",
+        });
+        this.#feedRoot = { lastEventId: root.eventId, rootId: root.rootId };
+        continue;
+      }
+      if (this.#feedRoot === null) continue;
+      if (event.type === "return-turn") {
+        const child = appendCombatEffectEvent(this.#feed, {
+          parentId: this.#feedRoot.lastEventId,
+          payload: { point: event.turnPoint },
+          phase: "turn",
+          rootId: this.#feedRoot.rootId,
+          tick: event.tick,
+          type: "projectile",
+        });
+        this.#feedRoot.lastEventId = child.eventId;
+      } else if (event.type === "return-hit") {
+        const candidate = this.#candidates.find(({ id }) => id === event.targetId);
+        const child = appendCombatEffectEvent(this.#feed, {
+          parentId: this.#feedRoot.lastEventId,
+          payload: {
+            point: candidate?.position ?? ORIGIN,
+            status: "contact",
+            subId: null,
+            targetId: event.targetId,
+          },
+          phase: "contact",
+          rootId: this.#feedRoot.rootId,
+          tick: event.tick,
+          type: "projectile",
+        });
+        this.#feedRoot.lastEventId = child.eventId;
+      } else if (event.type === "return-damage") {
+        const child = appendCombatEffectEvent(this.#feed, {
+          parentId: this.#feedRoot.lastEventId,
+          payload: {
+            amount: event.amount,
+            currentHealthAfter: event.currentHealthAfter,
+            currentHealthBefore: event.currentHealthBefore,
+            targetId: event.targetId,
+          },
+          phase: "damage",
+          rootId: this.#feedRoot.rootId,
+          tick: event.tick,
+          type: "projectile",
+        });
+        this.#feedRoot.lastEventId = child.eventId;
+      } else if (event.type === "return-death") {
+        const child = appendCombatEffectEvent(this.#feed, {
+          parentId: this.#feedRoot.lastEventId,
+          payload: { targetId: event.targetId },
+          phase: "death",
+          rootId: this.#feedRoot.rootId,
+          tick: event.tick,
+          type: "projectile",
+        });
+        this.#feedRoot.lastEventId = child.eventId;
+      } else if (event.type === "return-complete") {
+        const reason = event.reason === "returned-to-origin" ? "complete" : event.reason;
+        const child = appendCombatEffectEvent(this.#feed, {
+          parentId: this.#feedRoot.lastEventId,
+          payload: { reason },
+          phase: "close",
+          rootId: this.#feedRoot.rootId,
+          tick: event.tick,
+          type: "projectile",
+        });
+        this.#feedRoot.lastEventId = child.eventId;
+      }
+    }
   }
 
   #phase() {

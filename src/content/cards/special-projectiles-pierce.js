@@ -1,6 +1,13 @@
 import { DamageSystem } from "../../sim/damage.js";
 import { MAX_SPATIAL_MILLITILES } from "../../sim/spatial.js";
 import { targetCandidate } from "../../sim/targeting.js";
+import {
+  appendCombatEffectEvent,
+  appendCombatEffectRoot,
+  combatEffectFeedSnapshot,
+  createCombatEffectFeed,
+  serializeCombatEffectFeed,
+} from "../../sim/combat-effect-feed.js";
 import { createCardCatalog } from "../schema.js";
 
 const DEFINITIONS = [{
@@ -456,6 +463,8 @@ export class PierceEncounter {
   #commands;
   #commandIndex = 0;
   #damage = new DamageSystem();
+  #feed = createCombatEffectFeed();
+  #feedRoot = null;
   #history = [];
   #interrupted = false;
   #launched = false;
@@ -478,6 +487,26 @@ export class PierceEncounter {
 
   get replay() {
     return clone(this.#history);
+  }
+
+  get combatEffectFeed() {
+    return combatEffectFeedSnapshot(this.#feed);
+  }
+
+  get effectFeed() {
+    return this.combatEffectFeed;
+  }
+
+  get visualFeed() {
+    return this.combatEffectFeed;
+  }
+
+  combatEffectFeedBytes() {
+    return serializeCombatEffectFeed(this.#feed);
+  }
+
+  fork() {
+    return PierceEncounter.restore(this.serialize());
   }
 
   get state() {
@@ -532,6 +561,7 @@ export class PierceEncounter {
     }
 
     this.#tick += 1;
+    this.#observeVisualEvents(events);
     if (this.#history.length + events.length > MAX_REPLAY_EVENTS) {
       throw new RangeError("pierce replay exceeds its event bound");
     }
@@ -623,6 +653,83 @@ export class PierceEncounter {
       tick,
       type: "pierce-complete",
     });
+  }
+
+  #observeVisualEvents(events) {
+    for (const event of events) {
+      if (event.type === "pierce-launch") {
+        const root = appendCombatEffectRoot(this.#feed, {
+          direction: "pierce",
+          effectId: null,
+          from: event.origin,
+          impactTick: event.impactTick,
+          projectileId: null,
+          radius: QUESTION_FIXTURES.corridorHalfWidthMillitiles.value,
+          segments: [],
+          sequence: 1,
+          sourceId: ATTACKER_ID,
+          tick: event.tick,
+          to: event.endpoint,
+          type: "projectile",
+        });
+        this.#feedRoot = { lastEventId: root.eventId, rootId: root.rootId };
+        continue;
+      }
+      if (this.#feedRoot === null) continue;
+      if (event.type === "pierce-hit") {
+        const candidate = this.#candidates.find(({ id }) => id === event.targetId);
+        const child = appendCombatEffectEvent(this.#feed, {
+          parentId: this.#feedRoot.lastEventId,
+          payload: {
+            point: candidate?.position ?? ORIGIN,
+            status: "contact",
+            subId: null,
+            targetId: event.targetId,
+          },
+          phase: "contact",
+          rootId: this.#feedRoot.rootId,
+          tick: event.tick,
+          type: "projectile",
+        });
+        this.#feedRoot.lastEventId = child.eventId;
+      } else if (event.type === "pierce-damage") {
+        const child = appendCombatEffectEvent(this.#feed, {
+          parentId: this.#feedRoot.lastEventId,
+          payload: {
+            amount: event.amount,
+            currentHealthAfter: event.currentHealthAfter,
+            currentHealthBefore: event.currentHealthBefore,
+            targetId: event.targetId,
+          },
+          phase: "damage",
+          rootId: this.#feedRoot.rootId,
+          tick: event.tick,
+          type: "projectile",
+        });
+        this.#feedRoot.lastEventId = child.eventId;
+      } else if (event.type === "pierce-death") {
+        const child = appendCombatEffectEvent(this.#feed, {
+          parentId: this.#feedRoot.lastEventId,
+          payload: { targetId: event.targetId },
+          phase: "death",
+          rootId: this.#feedRoot.rootId,
+          tick: event.tick,
+          type: "projectile",
+        });
+        this.#feedRoot.lastEventId = child.eventId;
+      } else if (event.type === "pierce-complete") {
+        const reason = event.reason === "impact-resolved" ? "complete" : event.reason;
+        const child = appendCombatEffectEvent(this.#feed, {
+          parentId: this.#feedRoot.lastEventId,
+          payload: { reason },
+          phase: "close",
+          rootId: this.#feedRoot.rootId,
+          tick: event.tick,
+          type: "projectile",
+        });
+        this.#feedRoot.lastEventId = child.eventId;
+      }
+    }
   }
 
   #impact(tick, events) {

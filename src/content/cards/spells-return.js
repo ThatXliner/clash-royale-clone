@@ -12,6 +12,13 @@ import {
   createReturnQuestionFixture,
   createReturnSpecialFixture,
 } from "./special-projectiles-return.js";
+import {
+  appendCombatEffectEvent,
+  appendCombatEffectRoot,
+  combatEffectFeedSnapshot,
+  createCombatEffectFeed,
+  serializeCombatEffectFeed,
+} from "../../sim/combat-effect-feed.js";
 
 const SOURCE = "unsourced-returning-traveling-spell-composition";
 const MAX_EVENTS = 16_384;
@@ -532,6 +539,8 @@ export function createReturningSpellFixture(value) {
 export class ReturningSpellEncounter {
   #setup;
   #state;
+  #feed = createCombatEffectFeed();
+  #feedRoots = new Map();
 
   constructor(setup) {
     this.#setup = checkedSetup(setup);
@@ -540,6 +549,26 @@ export class ReturningSpellEncounter {
 
   get replay() {
     return clone(this.#state.history);
+  }
+
+  get combatEffectFeed() {
+    return combatEffectFeedSnapshot(this.#feed);
+  }
+
+  get effectFeed() {
+    return this.combatEffectFeed;
+  }
+
+  get visualFeed() {
+    return this.combatEffectFeed;
+  }
+
+  combatEffectFeedBytes() {
+    return serializeCombatEffectFeed(this.#feed);
+  }
+
+  fork() {
+    return ReturningSpellEncounter.restore(this.serialize());
   }
 
   get state() {
@@ -556,11 +585,18 @@ export class ReturningSpellEncounter {
       throw new RangeError("return spell step count exceeds encounter bound");
     }
     const candidate = clone(this.#state);
+    const candidateFeed = this.#feed.fork();
+    const candidateRoots = new Map([...this.#feedRoots].map(([effectId, root]) => [
+      effectId, { ...root },
+    ]));
     const events = [];
     for (let index = 0; index < count; index += 1) {
       events.push(...advance(candidate, this.#setup));
     }
+    this.#observeVisualEvents(candidateFeed, candidateRoots, events);
     this.#state = candidate;
+    this.#feed = candidateFeed;
+    this.#feedRoots = candidateRoots;
     return clone(events);
   }
 
@@ -651,5 +687,93 @@ export class ReturningSpellEncounter {
       );
     }
     return encounter;
+  }
+
+  #observeVisualEvents(feed, roots, events) {
+    for (const event of events) {
+      if (event.type === "return-launch") {
+        const root = appendCombatEffectRoot(feed, {
+          direction: "return",
+          effectId: event.effectId,
+          from: event.origin,
+          impactTick: event.completeTick,
+          projectileId: null,
+          radius: createReturnQuestionFixture().collisionWidthMillitiles.value,
+          segments: [],
+          sequence: event.effectId,
+          sourceId: event.sourceId,
+          tick: event.tick,
+          to: event.turn,
+          type: "projectile",
+        });
+        roots.set(event.effectId, { lastEventId: root.eventId, rootId: root.rootId });
+        continue;
+      }
+      const root = event.effectId === undefined ? null : roots.get(event.effectId);
+      if (root === null || root === undefined) continue;
+      if (event.type === "return-turn") {
+        const child = appendCombatEffectEvent(feed, {
+          parentId: root.lastEventId,
+          payload: { point: event.turn },
+          phase: "turn",
+          rootId: root.rootId,
+          tick: event.tick,
+          type: "projectile",
+        });
+        root.lastEventId = child.eventId;
+      } else if (event.type === "return-contact") {
+        const victim = this.#state.victims.find(({ id }) => id === event.targetId);
+        const child = appendCombatEffectEvent(feed, {
+          parentId: root.lastEventId,
+          payload: {
+            point: victim?.position ?? { x: 0, y: 0 },
+            status: "contact",
+            subId: null,
+            targetId: event.targetId,
+          },
+          phase: "contact",
+          rootId: root.rootId,
+          tick: event.tick,
+          type: "projectile",
+        });
+        root.lastEventId = child.eventId;
+      } else if (event.type === "return-spell-damage") {
+        const child = appendCombatEffectEvent(feed, {
+          parentId: root.lastEventId,
+          payload: {
+            amount: event.amount,
+            currentHealthAfter: event.healthAfter,
+            currentHealthBefore: event.healthBefore,
+            targetId: event.targetId,
+          },
+          phase: "damage",
+          rootId: root.rootId,
+          tick: event.tick,
+          type: "projectile",
+        });
+        root.lastEventId = child.eventId;
+      } else if (event.type === "return-spell-death") {
+        const child = appendCombatEffectEvent(feed, {
+          parentId: root.lastEventId,
+          payload: { targetId: event.targetId },
+          phase: "death",
+          rootId: root.rootId,
+          tick: event.tick,
+          type: "projectile",
+        });
+        root.lastEventId = child.eventId;
+      } else if (event.type === "return-complete") {
+        const reason = event.reason === "returned-to-origin" ? "complete" : event.reason;
+        const child = appendCombatEffectEvent(feed, {
+          parentId: root.lastEventId,
+          payload: { reason },
+          phase: "close",
+          rootId: root.rootId,
+          tick: event.tick,
+          type: "projectile",
+        });
+        root.lastEventId = child.eventId;
+      }
+    }
   }
 }

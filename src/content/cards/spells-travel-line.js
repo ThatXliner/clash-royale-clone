@@ -8,10 +8,18 @@ import {
   createInstantSpellCatalog,
   createInstantSpellFixture,
 } from "./spells-instant.js";
+import {
+  appendCombatEffectEvent,
+  appendCombatEffectRoot,
+  combatEffectFeedSnapshot,
+  createCombatEffectFeed,
+  serializeCombatEffectFeed,
+} from "../../sim/combat-effect-feed.js";
 
 const SOURCE = "unsourced-traveling-line-spell-composition";
 const SPEED = 1000;
 const PROJECTILE_RADIUS = 0;
+const TERMINAL_RADIUS = createInstantSpellCatalog()[0].areaDamageRadiusMillitiles;
 const MAX_COMMANDS = 96;
 const MAX_EVENTS = 8192;
 const MAX_HEALTH = 1_000_000;
@@ -820,6 +828,8 @@ export function createTravelingLineSpellFixture(value) {
 export class TravelingLineSpellEncounter {
   #setup;
   #state;
+  #feed = createCombatEffectFeed();
+  #feedRoots = new Map();
 
   constructor(setup) {
     this.#setup = checkedSetup(setup);
@@ -828,6 +838,26 @@ export class TravelingLineSpellEncounter {
 
   get replay() {
     return clone(this.#state.history);
+  }
+
+  get combatEffectFeed() {
+    return combatEffectFeedSnapshot(this.#feed);
+  }
+
+  get effectFeed() {
+    return this.combatEffectFeed;
+  }
+
+  get visualFeed() {
+    return this.combatEffectFeed;
+  }
+
+  combatEffectFeedBytes() {
+    return serializeCombatEffectFeed(this.#feed);
+  }
+
+  fork() {
+    return TravelingLineSpellEncounter.restore(this.serialize());
   }
 
   get state() {
@@ -844,11 +874,19 @@ export class TravelingLineSpellEncounter {
       throw new RangeError("travel spell step count exceeds encounter bound");
     }
     const candidate = clone(this.#state);
+    const candidateFeed = this.#feed.fork();
+    const candidateRoots = new Map([...this.#feedRoots].map(([effectId, root]) => [
+      effectId,
+      { ...root },
+    ]));
     const events = [];
     for (let index = 0; index < count; index += 1) {
       events.push(...advance(candidate, this.#setup.commands));
     }
+    this.#observeVisualEvents(candidate, candidateFeed, candidateRoots, events);
     this.#state = candidate;
+    this.#feed = candidateFeed;
+    this.#feedRoots = candidateRoots;
     return clone(events);
   }
 
@@ -907,5 +945,125 @@ export class TravelingLineSpellEncounter {
     );
     encounter.stepMany(snapshot.tick);
     return encounter;
+  }
+
+  #observeVisualEvents(state, feed, roots, events) {
+    const impactTargets = new Map();
+    const completed = [];
+    for (const event of events) {
+      if (event.type !== "travel-spell-damage") continue;
+      const targets = impactTargets.get(event.effectId) ?? [];
+      targets.push(event.targetId);
+      impactTargets.set(event.effectId, targets);
+    }
+    for (const targets of impactTargets.values()) targets.sort((left, right) => left - right);
+
+    for (const event of events) {
+      if (event.type === "travel-launch") {
+        const root = appendCombatEffectRoot(feed, {
+          direction: "travel",
+          effectId: event.effectId,
+          from: event.origin,
+          impactTick: event.impactTick,
+          projectileId: event.primitiveProjectileId,
+          radius: PROJECTILE_RADIUS,
+          segments: [],
+          sequence: event.effectId,
+          sourceId: event.sourceId,
+          tick: event.tick,
+          to: event.center,
+          type: "projectile",
+        });
+        roots.set(event.effectId, {
+          lastEventId: root.eventId,
+          rootId: root.rootId,
+        });
+        continue;
+      }
+      const root = event.effectId === undefined ? null : roots.get(event.effectId);
+      if (root === null || root === undefined) continue;
+      if (event.type === "travel-contact") {
+        const victim = state.victims.find(({ id }) => id === event.targetId);
+        const child = appendCombatEffectEvent(feed, {
+          parentId: root.lastEventId,
+          payload: {
+            point: victim?.position ?? event.point ?? state.sources[0].position,
+            status: "contact",
+            subId: null,
+            targetId: event.targetId,
+          },
+          phase: "contact",
+          rootId: root.rootId,
+          tick: event.tick,
+          type: "projectile",
+        });
+        root.lastEventId = child.eventId;
+      } else if (event.type === "travel-impact") {
+        completed.push(event.effectId);
+        const child = appendCombatEffectEvent(feed, {
+          parentId: root.lastEventId,
+          payload: {
+            center: event.center,
+            radius: TERMINAL_RADIUS,
+            targetIds: impactTargets.get(event.effectId) ?? [],
+          },
+          phase: "impact",
+          rootId: root.rootId,
+          tick: event.tick,
+          type: "projectile",
+        });
+        root.lastEventId = child.eventId;
+      } else if (event.type === "travel-spell-damage") {
+        const child = appendCombatEffectEvent(feed, {
+          parentId: root.lastEventId,
+          payload: {
+            amount: event.amount,
+            currentHealthAfter: event.healthAfter,
+            currentHealthBefore: event.healthBefore,
+            targetId: event.targetId,
+          },
+          phase: "damage",
+          rootId: root.rootId,
+          tick: event.tick,
+          type: "projectile",
+        });
+        root.lastEventId = child.eventId;
+      } else if (event.type === "travel-spell-death") {
+        const child = appendCombatEffectEvent(feed, {
+          parentId: root.lastEventId,
+          payload: { targetId: event.targetId },
+          phase: "death",
+          rootId: root.rootId,
+          tick: event.tick,
+          type: "projectile",
+        });
+        root.lastEventId = child.eventId;
+      } else if (event.type === "travel-cancelled") {
+        const child = appendCombatEffectEvent(feed, {
+          parentId: root.lastEventId,
+          payload: {
+            reason: event.reason === "source-dead" ? "source-dead" : "explicit-cancel",
+          },
+          phase: "close",
+          rootId: root.rootId,
+          tick: event.tick,
+          type: "projectile",
+        });
+        root.lastEventId = child.eventId;
+      }
+    }
+    for (const effectId of [...new Set(completed)]) {
+      const root = roots.get(effectId);
+      if (root === undefined) continue;
+      const child = appendCombatEffectEvent(feed, {
+        parentId: root.lastEventId,
+        payload: { reason: "impact-resolved" },
+        phase: "close",
+        rootId: root.rootId,
+        tick: events.find(({ effectId: id, type }) => id === effectId && type === "travel-impact").tick,
+        type: "projectile",
+      });
+      root.lastEventId = child.eventId;
+    }
   }
 }

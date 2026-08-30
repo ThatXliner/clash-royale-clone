@@ -9,6 +9,13 @@ import {
   acquireTarget,
   targetCandidate,
 } from "./targeting.js";
+import {
+  appendCombatEffectEvent,
+  appendCombatEffectRoot,
+  combatEffectFeedSnapshot,
+  createCombatEffectFeed,
+  serializeCombatEffectFeed,
+} from "./combat-effect-feed.js";
 
 const ENTITY_KEYS = [
   "attackRange",
@@ -211,6 +218,8 @@ function travelTicks(origin, target, contactRadius, speed) {
 export class ProjectileCombat {
   #damage = new DamageSystem();
   #entities = [];
+  #feed = createCombatEffectFeed();
+  #feedRoots = new Map();
   #history = [];
   #initial;
   #nextProjectileId = 1;
@@ -228,6 +237,26 @@ export class ProjectileCombat {
 
   get replay() {
     return clone(this.#replay);
+  }
+
+  get combatEffectFeed() {
+    return combatEffectFeedSnapshot(this.#feed);
+  }
+
+  get effectFeed() {
+    return this.combatEffectFeed;
+  }
+
+  get visualFeed() {
+    return this.combatEffectFeed;
+  }
+
+  combatEffectFeedBytes() {
+    return serializeCombatEffectFeed(this.#feed);
+  }
+
+  fork() {
+    return ProjectileCombat.restore(this.serialize());
   }
 
   get state() {
@@ -315,8 +344,26 @@ export class ProjectileCombat {
       targetPosition: { ...target.position },
       targetRadius: target.radius,
     };
+    const root = appendCombatEffectRoot(this.#feed, {
+      direction: "projectile",
+      effectId: null,
+      from: projectile.origin,
+      impactTick: projectile.impactTick,
+      projectileId: projectile.id,
+      radius: projectile.radius,
+      segments: [],
+      sequence: projectile.id,
+      sourceId: projectile.attackerId,
+      tick: checked.tick,
+      to: projectile.targetPosition,
+      type: "projectile",
+    });
     this.#nextProjectileId += 1;
     this.#projectiles.push(projectile);
+    this.#feedRoots.set(projectile.id, {
+      lastEventId: root.eventId,
+      rootId: root.rootId,
+    });
     const event = {
       projectile: clone(projectile),
       tick: checked.tick,
@@ -345,6 +392,8 @@ export class ProjectileCombat {
       .sort((left, right) => left.id - right.id);
     const live = [];
     const events = [];
+    const feedTargets = new Map();
+    const dueRoots = [];
     for (const projectile of due) {
       const health = this.#damage.get(projectile.targetId);
       const status = health === null
@@ -359,6 +408,24 @@ export class ProjectileCombat {
         tick,
         type: "impact",
       });
+      const root = this.#feedRoots.get(projectile.id);
+      if (root === undefined) throw new Error("projectile visual root is missing");
+      const contact = appendCombatEffectEvent(this.#feed, {
+        parentId: root.lastEventId,
+        payload: {
+          point: projectile.targetPosition,
+          status: status === "contact" ? "contact" :
+            status === "target_dead" ? "target-dead" : "target-missing",
+          subId: null,
+          targetId: projectile.targetId,
+        },
+        phase: "contact",
+        rootId: root.rootId,
+        tick,
+        type: "projectile",
+      });
+      root.lastEventId = contact.eventId;
+      dueRoots.push(root);
       if (status === "contact") live.push(projectile);
     }
 
@@ -371,15 +438,55 @@ export class ProjectileCombat {
     let damageIndex = 0;
     for (const event of batch.events) {
       if (event.type === "damage") {
+        const projectile = live[damageIndex];
+        const root = this.#feedRoots.get(projectile.id);
+        const damage = appendCombatEffectEvent(this.#feed, {
+          parentId: root.lastEventId,
+          payload: {
+            amount: event.amount,
+            currentHealthAfter: event.currentHealthAfter,
+            currentHealthBefore: event.currentHealthBefore,
+            targetId: event.targetId,
+          },
+          phase: "damage",
+          rootId: root.rootId,
+          tick,
+          type: "projectile",
+        });
+        root.lastEventId = damage.eventId;
+        feedTargets.set(event.targetId, root);
         events.push({
           ...event,
-          projectileId: live[damageIndex].id,
+          projectileId: projectile.id,
           tick,
         });
         damageIndex += 1;
       } else {
         events.push({ ...event, tick });
+        const root = feedTargets.get(event.targetId);
+        if (root !== undefined) {
+          const death = appendCombatEffectEvent(this.#feed, {
+            parentId: root.lastEventId,
+            payload: { targetId: event.targetId },
+            phase: "death",
+            rootId: root.rootId,
+            tick,
+            type: "projectile",
+          });
+          root.lastEventId = death.eventId;
+        }
       }
+    }
+    for (const root of dueRoots) {
+      const close = appendCombatEffectEvent(this.#feed, {
+        parentId: root.lastEventId,
+        payload: { reason: "complete" },
+        phase: "close",
+        rootId: root.rootId,
+        tick,
+        type: "projectile",
+      });
+      root.lastEventId = close.eventId;
     }
     if (due.length > 0) {
       const dueIds = new Set(due.map(({ id }) => id));

@@ -49,6 +49,14 @@ import { MAX_SPATIAL_MILLITILES, validateCircle, validatePosition } from "./spat
 import { retainOrAcquireTarget, targetCandidate } from "./targeting.js";
 import { createStageSideDeployment } from "./game-side-deploy-core.js";
 import {
+  appendCombatEffectEvent,
+  appendCombatEffectRoot,
+  combatEffectRootId,
+  combatEffectFeedSnapshot,
+  createCombatEffectFeed,
+  serializeCombatEffectFeed,
+} from "./combat-effect-feed.js";
+import {
   mapBattleTowerIdToMatchTowerId,
   mapLiveBattleTowerStateToMatchEvidence,
 } from "./tower-evidence-map.js";
@@ -2333,6 +2341,8 @@ function publicUnit(unit, health) {
 class BattleCombat {
   #damage = new DamageSystem();
   #events = [];
+  #feed = createCombatEffectFeed();
+  #feedRoots = new Map();
   #history = [];
   #knownExternalStructures = [];
   #nextProjectileId = 1;
@@ -2364,6 +2374,23 @@ class BattleCombat {
     return deepFreeze(clone(this.#events));
   }
 
+  /** Closed source-owned visual transcript; raw replay remains unchanged. */
+  get combatEffectFeed() {
+    return combatEffectFeedSnapshot(this.#feed);
+  }
+
+  get effectFeed() {
+    return this.combatEffectFeed;
+  }
+
+  get visualFeed() {
+    return this.combatEffectFeed;
+  }
+
+  combatEffectFeedBytes() {
+    return serializeCombatEffectFeed(this.#feed);
+  }
+
   get state() {
     return deepFreeze({
       nextProjectileId: this.#nextProjectileId,
@@ -2385,6 +2412,7 @@ class BattleCombat {
   #continuationFields() {
     return {
       damage: this.#damage.serialize(),
+      combatEffectFeed: this.#feed.serialize(),
       events: this.#events,
       history: this.#history,
       knownExternalStructures: this.#knownExternalStructures,
@@ -3013,6 +3041,7 @@ class BattleCombat {
         }
         this.#nextProjectileId += 1;
         this.#projectiles.push(projectile);
+        this.#openVisualProjectile(projectile, tick);
       }
 
       const attackEvent = {
@@ -3066,6 +3095,8 @@ class BattleCombat {
       }
     }
     dueProjectiles.sort((left, right) => left.id - right.id);
+    const visualRootsToClose = new Map();
+    const visualRootsByTarget = new Map();
     for (const projectile of dueProjectiles) {
       const targetStructure = Object.hasOwn(projectile, "structureId")
         ? externalById.get(projectile.targetId) ?? null
@@ -3081,6 +3112,14 @@ class BattleCombat {
           ? "target_missing"
           : !targetStructure.alive || !targetStructure.targetable ? "target_dead" : "contact"
         : health === null ? "target_missing" : health.dead ? "target_dead" : "contact";
+      const visualRoot = this.#visualRoot(projectile.projectileIdentity);
+      if (visualRoot !== undefined) {
+        this.#appendVisualContact(visualRoot, projectile.targetPosition, projectile.targetId, status, tick);
+        visualRootsToClose.set(visualRoot.rootId, {
+          reason: status === "contact" ? "complete" : "target-missing",
+          root: visualRoot,
+        });
+      }
       boundary.push(withProjectileIdentity({
         projectileId: projectile.id,
         status,
@@ -3129,6 +3168,26 @@ class BattleCombat {
     }
     for (const projectile of external.externalProjectiles) {
       const projectileIdentity = projectile.projectileIdentity;
+      const targetUnit = this.#unit(projectile.targetUnitId);
+      const sourceStructure = external.structures.find(({ structureId }) =>
+        structureId === projectileIdentity.sourceId);
+      const visualRoot = this.#openExternalVisualProjectile(
+        projectile,
+        sourceStructure?.position ?? targetUnit?.position ?? { x: 0, y: 0 },
+        targetUnit?.position ?? { x: 0, y: 0 },
+        tick,
+      );
+      this.#appendVisualContact(
+        visualRoot,
+        targetUnit?.position ?? { x: 0, y: 0 },
+        projectile.targetUnitId,
+        "contact",
+        tick,
+      );
+      visualRootsToClose.set(visualRoot.rootId, {
+        reason: "complete",
+        root: visualRoot,
+      });
       boundary.push(withProjectileIdentity({
         attackSequence: projectile.attackSequence,
         contactTick: tick,
@@ -3161,10 +3220,26 @@ class BattleCombat {
         boundary.push(source.projectileIdentity === undefined
           ? damage
           : withProjectileIdentity(damage, source.projectileIdentity));
+        if (source.projectileIdentity !== undefined) {
+          const visualRoot = this.#visualRoot(source.projectileIdentity);
+          if (visualRoot !== undefined) {
+            this.#appendVisualDamage(visualRoot, damage);
+            visualRootsByTarget.set(event.targetId, visualRoot);
+            visualRootsToClose.set(visualRoot.rootId, {
+              reason: "complete",
+              root: visualRoot,
+            });
+          }
+        }
         sourceIndex += 1;
       } else {
         boundary.push({ ...event, tick });
+        const visualRoot = visualRootsByTarget.get(event.targetId);
+        if (visualRoot !== undefined) this.#appendVisualDeath(visualRoot, event.targetId, tick);
       }
+    }
+    for (const { reason, root } of visualRootsToClose.values()) {
+      this.#appendVisualClose(root, reason, tick);
     }
     for (const heal of external.unitHeals ?? []) {
       const source = this.#damage.get(heal.sourceId);
@@ -3205,6 +3280,131 @@ class BattleCombat {
     this.#events.push(...boundary);
     this.#stateToken = {};
     return boundary;
+  }
+
+  #openVisualProjectile(projectile, tick) {
+    const identity = projectile.projectileIdentity;
+    const root = appendCombatEffectRoot(this.#feed, {
+      direction: identity.direction,
+      effectId: null,
+      from: projectile.origin,
+      impactTick: projectile.impactTick,
+      projectileId: identity.projectileId,
+      // BattleCombat's projectile primitive has no independent radius field;
+      // its authoritative contact geometry is the target's radius. The
+      // visual envelope therefore records the same zero-radius carrier used
+      // by the projectile timing contract.
+      radius: 0,
+      segments: [],
+      sequence: identity.attackSequence,
+      sourceId: identity.sourceId,
+      tick,
+      to: projectile.targetPosition,
+      type: "projectile",
+    });
+    const visualRoot = { lastEventId: root.eventId, rootId: root.rootId };
+    this.#feedRoots.set(root.rootId, visualRoot);
+    return visualRoot;
+  }
+
+  #openExternalVisualProjectile(projectile, origin, target, tick) {
+    const identity = projectile.projectileIdentity;
+    const root = appendCombatEffectRoot(this.#feed, {
+      direction: identity.direction,
+      effectId: null,
+      from: origin,
+      impactTick: tick,
+      projectileId: identity.projectileId,
+      radius: projectile.radius ?? 0,
+      segments: [],
+      sequence: identity.attackSequence,
+      sourceId: identity.sourceId,
+      tick,
+      to: target,
+      type: "projectile",
+    });
+    const visualRoot = { lastEventId: root.eventId, rootId: root.rootId };
+    this.#feedRoots.set(root.rootId, visualRoot);
+    return visualRoot;
+  }
+
+  #visualRoot(identity) {
+    const rootId = combatEffectRootId({
+      type: "projectile",
+      direction: identity.direction,
+      sourceId: identity.sourceId,
+      effectId: null,
+      projectileId: identity.projectileId,
+      sequence: identity.attackSequence,
+    });
+    return this.#feedRoots.get(rootId);
+  }
+
+  #appendVisualContact(root, point, targetId, status, tick) {
+    const statusMap = {
+      contact: "contact",
+      target_dead: "target-dead",
+      target_missing: "target-missing",
+    };
+    const child = appendCombatEffectEvent(this.#feed, {
+      parentId: root.lastEventId,
+      payload: {
+        point,
+        status: statusMap[status] ?? "observed",
+        subId: null,
+        targetId,
+      },
+      phase: "contact",
+      rootId: root.rootId,
+      tick,
+      type: "projectile",
+    });
+    root.lastEventId = child.eventId;
+    return child;
+  }
+
+  #appendVisualDamage(root, event) {
+    const child = appendCombatEffectEvent(this.#feed, {
+      parentId: root.lastEventId,
+      payload: {
+        amount: event.amount,
+        currentHealthAfter: event.currentHealthAfter,
+        currentHealthBefore: event.currentHealthBefore,
+        targetId: event.targetId,
+      },
+      phase: "damage",
+      rootId: root.rootId,
+      tick: event.tick,
+      type: "projectile",
+    });
+    root.lastEventId = child.eventId;
+    return child;
+  }
+
+  #appendVisualDeath(root, targetId, tick) {
+    const child = appendCombatEffectEvent(this.#feed, {
+      parentId: root.lastEventId,
+      payload: { targetId },
+      phase: "death",
+      rootId: root.rootId,
+      tick,
+      type: "projectile",
+    });
+    root.lastEventId = child.eventId;
+    return child;
+  }
+
+  #appendVisualClose(root, reason, tick) {
+    const child = appendCombatEffectEvent(this.#feed, {
+      parentId: root.lastEventId,
+      payload: { reason },
+      phase: "close",
+      rootId: root.rootId,
+      tick,
+      type: "projectile",
+    });
+    root.lastEventId = child.eventId;
+    return child;
   }
 
   #activate(spec, tick, sink = this.#events) {
@@ -3254,6 +3454,11 @@ class BattleCombat {
   #runtimeClone(includeTranscript = true) {
     const candidate = new BattleCombat();
     candidate.#damage = DamageSystem.restore(this.#damage.serialize());
+    candidate.#feed = this.#feed.fork();
+    candidate.#feedRoots = new Map([...this.#feedRoots].map(([rootId, root]) => [
+      rootId,
+      { ...root },
+    ]));
     candidate.#events = includeTranscript ? clone(this.#events) : [];
     candidate.#history = includeTranscript ? clone(this.#history) : [];
     candidate.#knownExternalStructures = clone(this.#knownExternalStructures);
@@ -3279,6 +3484,8 @@ class BattleCombat {
 
   #adopt(candidate) {
     this.#damage = candidate.#damage;
+    this.#feed = candidate.#feed;
+    this.#feedRoots = candidate.#feedRoots;
     this.#events = candidate.#events;
     this.#history = candidate.#history;
     this.#knownExternalStructures = candidate.#knownExternalStructures;
@@ -3295,6 +3502,8 @@ class BattleCombat {
 
   #adoptBoundary(candidate) {
     this.#damage = candidate.#damage;
+    this.#feed = candidate.#feed;
+    this.#feedRoots = candidate.#feedRoots;
     this.#events = [...this.#events, ...candidate.#events];
     this.#history = [...this.#history, ...candidate.#history];
     this.#knownExternalStructures = candidate.#knownExternalStructures;
@@ -4864,6 +5073,23 @@ class BattleTowerCombat {
     return freeze(clone(this.#events));
   }
 
+  /** The unit combat authority owns the closed visual transcript. */
+  get combatEffectFeed() {
+    return this.#combatRuntime().combatEffectFeed;
+  }
+
+  get effectFeed() {
+    return this.combatEffectFeed;
+  }
+
+  get visualFeed() {
+    return this.combatEffectFeed;
+  }
+
+  combatEffectFeedBytes() {
+    return this.#combatRuntime().combatEffectFeedBytes();
+  }
+
   /** Returns an independent transactional continuation without history replay. */
   fork() {
     this.#assertPublicTranscript();
@@ -5324,7 +5550,7 @@ const IntegratedBattleTowers = BattleTowerCombat;
 function defineLiveBattle(BattleMovement, BattleTowerCombat, battleMovementCompactClone,
   resolveBattleMovement, battleTowerCompactClone, resolveBattleTower, battleTowerSnapshot,
   registerCompact) {
-  let compact, towerSnapshot, advanceFromSession;
+  let compact, towerSnapshot, advanceFromSession, combatEffectFeed;
   const runtimeInstances = new WeakSet();
 
 const MAX_LIVE_BATTLE_STEP_TICKS = 18_000;
@@ -6671,6 +6897,23 @@ class LiveBattle {
     return this.events;
   }
 
+  /** Closed combat-effect feed delegated from the authentic battle authority. */
+  get combatEffectFeed() {
+    return this.#battleRuntime().combatEffectFeed;
+  }
+
+  get effectFeed() {
+    return this.combatEffectFeed;
+  }
+
+  get visualFeed() {
+    return this.combatEffectFeed;
+  }
+
+  combatEffectFeedBytes() {
+    return this.#battleRuntime().combatEffectFeedBytes();
+  }
+
   get allowsLegacyTroopActions() {
     return this.#allowsLegacyTroopActions();
   }
@@ -6790,6 +7033,12 @@ class LiveBattle {
         throw new TypeError("internal defineLiveBattle session advance receiver is invalid");
       }
       return value.#advanceFromSession(ticks);
+    };
+    combatEffectFeed = (value) => {
+      if (!runtimeInstances.has(value)) {
+        throw new TypeError("internal defineLiveBattle combat-effect feed receiver is invalid");
+      }
+      return value.#battleRuntime().combatEffectFeed;
     };
   }
   scheduleDeploy(serialized) {
@@ -9092,7 +9341,8 @@ function getLiveBattlePlayableCardIds(setup) {
     }
     return compact(value);
   }, registerCompact);
-  return { advanceFromSession, createLegacyLiveBattleForRestore, getLiveBattlePlayableCardIds, LiveBattle,
+  return { advanceFromSession, combatEffectFeed, createLegacyLiveBattleForRestore,
+    getLiveBattlePlayableCardIds, LiveBattle,
     MAX_LIVE_BATTLE_DEPLOYMENTS, MAX_LIVE_BATTLE_STEP_TICKS, MAX_LIVE_BATTLE_STRUCTURES,
     MAX_LIVE_BATTLE_UNITS, parseLiveBattleSetup, towerSnapshot };
 }
@@ -9100,7 +9350,7 @@ function getLiveBattlePlayableCardIds(setup) {
 let compactMovement, resolveMovement, compactCombat, resolveCombat, compactCrownTower,
   resolveCrownTower, battleCombatCurrentTick, crownTowerCurrentTick, compactBattleTowers,
   resolveBattleTowers, compactLiveBattle, resolveLiveBattle, liveBattleAdvanceFromSession,
-  liveBattleTowerSnapshot;
+  liveBattleTowerSnapshot, liveBattleCombatEffectFeed;
 const movement = defineBattleMovement((clone, resolve) => {
   compactMovement = clone; resolveMovement = resolve;
 });
@@ -9123,6 +9373,7 @@ const liveBattle = defineLiveBattle(movement.BattleMovement, battleTowers.Battle
   (clone, resolve) => { compactLiveBattle = clone; resolveLiveBattle = resolve; });
 liveBattleAdvanceFromSession = liveBattle.advanceFromSession;
 liveBattleTowerSnapshot = liveBattle.towerSnapshot;
+liveBattleCombatEffectFeed = liveBattle.combatEffectFeed;
 
 export const BATTLE_MOVEMENT_MODES = movement.BATTLE_MOVEMENT_MODES;
 export const MAX_BATTLE_MOVEMENT_STEP_TICKS = movement.MAX_BATTLE_MOVEMENT_STEP_TICKS;
@@ -11463,7 +11714,8 @@ class OpponentController {
 function defineGameSession(ElixirMatch, LiveBattle, MATCH_MAX_TICKS, MatchClock,
   OpponentController, TOWER_COMBAT_CONFIG, compactElixirMatch, compactLiveBattle,
   compactMatchClock, compactOpponentController, resolveElixirMatch, resolveLiveBattle,
-  resolveMatchClock, resolveOpponentController, createLegacyLiveBattleForRestore) {
+  resolveMatchClock, resolveOpponentController, createLegacyLiveBattleForRestore,
+  liveBattleCombatEffectFeed) {
 
 const GAME_SESSION_MAX_BATCH_TICKS = 18_000;
 const GAME_SESSION_MAX_SETUP_BYTES = 2 * 1_024 * 1_024;
@@ -11879,6 +12131,7 @@ class GameSession {
     }
     const battleRuntime = this.#battleRuntime(), clock = this.#clockRuntime();
     const elixir = this.#elixirRuntime(), controller = this.#controllerRuntime();
+    const combatEffectFeed = liveBattleCombatEffectFeed(battleRuntime);
     const battle = clone(battleRuntime.state);
     battle.towers = battle.towers.map((tower) => ({
       ...tower,
@@ -11890,6 +12143,7 @@ class GameSession {
       paused: this.#paused, pendingPlayerCommands: clone(this.#pending),
       terminal: clock.state.result !== null, tick: clock.tick };
     const snapshot = freeze({
+      combatEffectFeed: clone(combatEffectFeed),
       replay: clone(this.#events),
       sequence: this.#projectionSequence,
       setup: clone(this.#setup),
@@ -12364,7 +12618,8 @@ const gameSession = defineGameSession(elixir.ElixirMatch, liveBattle.LiveBattle,
   match.MATCH_MAX_TICKS, match.MatchClock, opponent.OpponentController,
   towers.TOWER_COMBAT_CONFIG, compactElixirMatch, compactLiveBattle,
   compactMatchClock, compactOpponentController, resolveElixirMatch, resolveLiveBattle,
-  resolveMatchClock, resolveOpponentController, liveBattle.createLegacyLiveBattleForRestore);
+  resolveMatchClock, resolveOpponentController, liveBattle.createLegacyLiveBattleForRestore,
+  liveBattleCombatEffectFeed);
 
 export const ELIXIR_TICKS_PER_SECOND = elixir.ELIXIR_TICKS_PER_SECOND;
 export const ELIXIR_ACCUMULATOR_DENOMINATOR = elixir.ELIXIR_ACCUMULATOR_DENOMINATOR;

@@ -575,7 +575,7 @@ test("travel line spell: passed projectile and instant-spell primitives are pinn
     "../src/content/cards/spells-instant.js":
       "d62c418b375be6ed28c7f79a115fa3e9c2e425db210018a0d9919bdb7993325a",
     "../src/sim/projectile.js":
-      "7065af4288d2cb6617cecd5b18e37f75194ccb4e69013ea425ebb1749d1147aa",
+      "9fb0ec40a21f013fc5b56645c9deec9362cebeb65b63ade1a28ac44321ff1efc",
   };
   for (const [path, expected] of Object.entries(hashes)) {
     const contents = readFileSync(new URL(path, import.meta.url));

@@ -409,7 +409,7 @@ test("three-wave spell: passed primitives are pinned and scope excludes return a
     "../src/content/cards/spells-instant.js":
       "d62c418b375be6ed28c7f79a115fa3e9c2e425db210018a0d9919bdb7993325a",
     "../src/content/cards/spells-travel-line.js":
-      "43c5d1a0e64545bec21d57bd8a9e2620fb9d4aceea42f2cec8820e6e0717b469",
+      "7694602949b8725db96ab0049f3bdbdd37a432fd6c850d0f1b9913ba5c5983d5",
   };
   for (const [path, expected] of Object.entries(hashes)) {
     const contents = readFileSync(new URL(path, import.meta.url));

@@ -420,7 +420,7 @@ test("actual ReturnEncounter construction/restore and primitive hash are pinned"
   const primitiveBytes = readFileSync(new URL(primitivePath, import.meta.url));
   assert.equal(
     createHash("sha256").update(primitiveBytes).digest("hex"),
-    "e34fe64880369975d09e14edfe004b572dbba6ea17bf0bf8e1a80e3d45ddf602",
+    "8e66814513b366a50462016535ec8bac08d8599ecdb4b320a48c57dad9c7cd83",
   );
   const sourceText = readFileSync(
     new URL("../src/content/cards/spells-return.js", import.meta.url),

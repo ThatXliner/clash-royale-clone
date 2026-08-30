@@ -1,6 +1,13 @@
 import { DamageSystem } from "../../sim/damage.js";
 import { MAX_SPATIAL_MILLITILES } from "../../sim/spatial.js";
 import { targetCandidate } from "../../sim/targeting.js";
+import {
+  appendCombatEffectEvent,
+  appendCombatEffectRoot,
+  combatEffectFeedSnapshot,
+  createCombatEffectFeed,
+  serializeCombatEffectFeed,
+} from "../../sim/combat-effect-feed.js";
 import { createCardCatalog } from "../schema.js";
 
 const DEFINITIONS = [{
@@ -477,6 +484,8 @@ export class PelletEncounter {
   #commands;
   #commandIndex = 0;
   #damage = new DamageSystem();
+  #feed = createCombatEffectFeed();
+  #feedRoot = null;
   #history = [];
   #interrupted = false;
   #launched = false;
@@ -500,6 +509,26 @@ export class PelletEncounter {
 
   get replay() {
     return clone(this.#history);
+  }
+
+  get combatEffectFeed() {
+    return combatEffectFeedSnapshot(this.#feed);
+  }
+
+  get effectFeed() {
+    return this.combatEffectFeed;
+  }
+
+  get visualFeed() {
+    return this.combatEffectFeed;
+  }
+
+  combatEffectFeedBytes() {
+    return serializeCombatEffectFeed(this.#feed);
+  }
+
+  fork() {
+    return PelletEncounter.restore(this.serialize());
   }
 
   get state() {
@@ -554,6 +583,7 @@ export class PelletEncounter {
     }
 
     this.#tick += 1;
+    this.#observeVisualEvents(events);
     if (this.#history.length + events.length > MAX_REPLAY_EVENTS) {
       throw new RangeError("pellet replay exceeds its event bound");
     }
@@ -645,6 +675,89 @@ export class PelletEncounter {
       tick,
       type: "pellet-volley-complete",
     });
+  }
+
+  #observeVisualEvents(events) {
+    for (const event of events) {
+      if (event.type === "pellet-volley-launch") {
+        const root = appendCombatEffectRoot(this.#feed, {
+          direction: "pellet",
+          effectId: null,
+          from: event.origin,
+          impactTick: event.impactTick,
+          projectileId: null,
+          radius: QUESTION_FIXTURES.collisionWidthMillitiles.value,
+          segments: event.pellets.map(({ endpoint, pelletId }) => ({ id: pelletId, to: endpoint })),
+          sequence: 1,
+          sourceId: ATTACKER_ID,
+          tick: event.tick,
+          to: null,
+          type: "projectile",
+        });
+        this.#feedRoot = { lastEventId: root.eventId, rootId: root.rootId };
+        continue;
+      }
+      if (this.#feedRoot === null) continue;
+      if (event.type === "pellet-contact") {
+        const ray = this.#rays.find(({ pelletId }) => pelletId === event.pelletId);
+        const child = appendCombatEffectEvent(this.#feed, {
+          parentId: this.#feedRoot.lastEventId,
+          payload: {
+            point: ray?.endpoint ?? ORIGIN,
+            status: "contact",
+            subId: event.pelletId,
+            targetId: event.targetId,
+          },
+          phase: "contact",
+          rootId: this.#feedRoot.rootId,
+          tick: event.tick,
+          type: "projectile",
+        });
+        this.#feedRoot.lastEventId = child.eventId;
+      } else if (event.type === "pellet-damage" || event.type === "pellet-aggregate-damage") {
+        if (event.type === "pellet-aggregate-damage") {
+          // Aggregate records are outcomes of the contact batch; the visual
+          // transcript keeps one linked damage record per authoritative damage
+          // event and does not expose a private aggregate primitive.
+          continue;
+        }
+        const child = appendCombatEffectEvent(this.#feed, {
+          parentId: this.#feedRoot.lastEventId,
+          payload: {
+            amount: event.amount,
+            currentHealthAfter: event.currentHealthAfter,
+            currentHealthBefore: event.currentHealthBefore,
+            targetId: event.targetId,
+          },
+          phase: "damage",
+          rootId: this.#feedRoot.rootId,
+          tick: event.tick,
+          type: "projectile",
+        });
+        this.#feedRoot.lastEventId = child.eventId;
+      } else if (event.type === "pellet-death") {
+        const child = appendCombatEffectEvent(this.#feed, {
+          parentId: this.#feedRoot.lastEventId,
+          payload: { targetId: event.targetId },
+          phase: "death",
+          rootId: this.#feedRoot.rootId,
+          tick: event.tick,
+          type: "projectile",
+        });
+        this.#feedRoot.lastEventId = child.eventId;
+      } else if (event.type === "pellet-volley-complete") {
+        const reason = event.reason === "impact-resolved" ? "complete" : event.reason;
+        const child = appendCombatEffectEvent(this.#feed, {
+          parentId: this.#feedRoot.lastEventId,
+          payload: { reason },
+          phase: "close",
+          rootId: this.#feedRoot.rootId,
+          tick: event.tick,
+          type: "projectile",
+        });
+        this.#feedRoot.lastEventId = child.eventId;
+      }
+    }
   }
 
   #impact(tick, events) {
