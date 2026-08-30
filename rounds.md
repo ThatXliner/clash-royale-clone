@@ -1,5 +1,27 @@
 # Gauntlet Rounds
 
+## Round 299 — 2026-08-30
+
+PIECE: VIS-003D — Card, hand, HUD, and match-feedback art, round 3
+
+VERDICT: FAIL
+
+EVIDENCE: A clean archive at `de7b891` passed visual interface 8/8 and
+147/147 relevant browser, UI, guard, and provenance checks. Four fresh Chrome
+processes at 720x1280 reproduced exact five-state screenshot and state hashes.
+Real selection kept controller and DOM on `copperskiff`; the elixir badge
+measured y=1224..1276. Briar Band now reads as a thorn crest at gameplay scale:
+its 48x40 core measured 46.82% occupied area, 12.50% edge ratio, and 181.4
+luminance range, while the prior thin mark and an independent dark mutation
+both failed below 2% occupancy. All eight silhouettes remained distinct and a
+visible HUD mutation changed 8,510 pixels. However, the evidence mask still
+removes 284 pixels of static bridge-corner decoration. Those bridge pixels do
+not animate, and a world-only mask already reproduced exactly in four fresh
+processes.
+
+BIGGEST GAP: Remove the static bridge ornamentation from the evidence mask and
+regenerate the exact render proof with every reproducible bridge pixel visible.
+
 ## Round 298 — 2026-08-26
 
 PIECE: AUDIO-002 — Authored original soundscape and mix polish, round 1
