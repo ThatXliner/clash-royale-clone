@@ -1,5 +1,32 @@
 # Gauntlet Rounds
 
+## Round 301 — 2026-08-30
+
+PIECE: UI-002CP — Closed combat-effect feed export, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: The orphaned direct protocol runner passed 6/6 and 168/168 focused
+real-source checks passed, but the required `npm test -- combat-effect-protocol`
+selector exited 1 as unknown. Independent hostile execution found deeper
+failures. Filling a real ProjectileCombat feed to 2,708 roots / 1,047,902 bytes
+then resolving one contact threw the byte-bound error after leaking two feed
+records (2,708→2,710; 1,047,902→1,048,382 bytes), while raw mechanics bytes
+remained unchanged. The exported append function successfully mutated a
+restored feed. Area restore accepted a forged canonical effect at
+`{x:9999,y:8888}` / tick 777 without changing raw bytes, and omitting the feed
+dropped visual history. Open→close without impact, branched parents, and
+reordered real Area ticks `[10,10,10,10,0,0,0,0]` all validated. Concurrent
+real ProjectileCombat instances minted the same
+`projectile.projectile.1.none.1.1` root; concurrent TravelingLine encounters
+also collided. Standard orphan, cross-root, duplicate, event-order,
+post-close, private-primitive, noncanonical and bound probes did reject, and
+normal source chunk/restore/fork bytes remained deterministic.
+
+BIGGEST GAP: The feed is not closed or atomic: restore exposes append
+authority, source failures leak partial records, and lifecycle/root validation
+admits forged, premature, branched, reordered and colliding histories.
+
 ## Round 300 — 2026-08-30
 
 PIECE: VIS-003D — Card, hand, HUD, and match-feedback art, round 4
