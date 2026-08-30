@@ -3,6 +3,7 @@ import {
   isAuthenticGameSession,
   isAuthenticGameSessionProjectionSnapshot,
 } from "../sim/game-session.js";
+import { MatchClock } from "../sim/match.js";
 import {
   bindCombatEffectsViewModel,
   createCombatEffectsViewModel,
@@ -20,7 +21,7 @@ import {
 } from "./hud-state.js";
 import {
   bindMatchFeedback,
-  createSessionMatchFeedbackViewModel,
+  MatchFeedbackProjector,
   serializeMatchFeedbackViewModel,
 } from "./match-feedback.js";
 
@@ -36,6 +37,14 @@ const STRUCTURE_IDS = new Map([
   [Number.MAX_SAFE_INTEGER - 2, "north:central"],
   [Number.MAX_SAFE_INTEGER - 1, "north:lane:west"],
   [Number.MAX_SAFE_INTEGER, "north:lane:east"],
+]);
+const MATCH_FEEDBACK_TOWER_IDS = Object.freeze([
+  "north:central",
+  "north:lane:left",
+  "north:lane:right",
+  "south:central",
+  "south:lane:left",
+  "south:lane:right",
 ]);
 
 function ownRecord(value, keys, label) {
@@ -79,7 +88,7 @@ function targetId(value) {
   return STRUCTURE_IDS.get(value) ?? value;
 }
 
-function combatState(state, replay) {
+function combatState(state, effectEvents) {
   const aliveIds = new Set([
     ...state.battle.units.filter((unit) => unit.hitpoints > 0).map((unit) => unit.id),
     ...state.battle.towers.filter((tower) => tower.hitpoints > 0).map((tower) => tower.id),
@@ -107,16 +116,128 @@ function combatState(state, replay) {
     side: tower.side,
     targetId: liveTargetId(tower.attack.targetId),
   }));
-  const relevant = replay.filter((event) =>
-    ["attack", "damage", "death"].includes(event.type));
+  const roots = new Map(effectEvents
+    .filter(({ parentId, phase }) => parentId === null && phase === "open")
+    .map((event) => [event.rootId, event]));
+  const relevant = effectEvents.filter(({ phase }) =>
+    ["contact", "damage", "death"].includes(phase));
   const tail = relevant.slice(-2_048);
   const events = tail.map((event, sequence) => ({
-    entityId: event.type === "attack" ? event.attackerId : event.targetId,
+    entityId: event.phase === "contact"
+      ? roots.get(event.rootId)?.payload.sourceId ?? event.payload.targetId
+      : event.payload.targetId,
     sequence,
     tick: event.tick,
-    type: event.type === "attack" ? "target" : event.type,
+    type: event.phase === "contact" ? "target" : event.phase,
   }));
   return { entities, events, tick: state.tick, towers };
+}
+
+function feedbackTowerId(value) {
+  if (value.endsWith(":west")) return `${value.slice(0, -4)}left`;
+  if (value.endsWith(":east")) return `${value.slice(0, -4)}right`;
+  return value;
+}
+
+function feedbackTowerOrder(left, right) {
+  return MATCH_FEEDBACK_TOWER_IDS.indexOf(left.id) -
+    MATCH_FEEDBACK_TOWER_IDS.indexOf(right.id);
+}
+
+function initialFeedbackTowers(snapshot) {
+  return snapshot.state.battle.towers.map(({ id, maxHitpoints }) => ({
+    hitpoints: maxHitpoints,
+    id: feedbackTowerId(id),
+  })).sort(feedbackTowerOrder);
+}
+
+function feedbackEvents(session, snapshot, initialTowers) {
+  const clock = snapshot.state.clock;
+  const initial = new Map(initialTowers.map(({ hitpoints, id }) => [id, hitpoints]));
+  const hasTowerDelta = clock.towers.some(({ hitpoints, id }) => hitpoints !== initial.get(id));
+  const hasDestruction = clock.destroyedTowerIds.length > 0;
+  const hasResult = clock.result !== null;
+  if (!hasDestruction && !hasResult) {
+    if (!hasTowerDelta) {
+      return clock.phase === "overtime"
+        ? [{ tick: 10_800, type: "overtime_started" }]
+        : [];
+    }
+    // Tower health without a destruction has no visible feedback effect. A
+    // single canonical evidence record keeps the causal match projector in
+    // sync while avoiding the session's private event stream entirely.
+    const evidence = {
+      accepted: true,
+      destroyedTowerIds: [],
+      sequence: 0,
+      tick: clock.tick - 1,
+      type: "tower_evidence",
+    };
+    const overtime = { tick: 10_800, type: "overtime_started" };
+    return clock.phase === "overtime"
+      ? evidence.tick < overtime.tick ? [evidence, overtime] : [overtime, evidence]
+      : [evidence];
+  }
+  // Match feedback is the separate non-combat consumer that still needs its
+  // event stream for destruction timing and terminal results. Combat/effects
+  // presentation receives only the closed feed view.
+  return session.replay.filter(({ type }) => [
+    "tower_evidence", "overtime_started", "match_end", "tiebreak",
+  ].includes(type));
+}
+
+function feedbackEvidenceTowers(initialTowers, currentTowers, previousTowers, event,
+  tiebreak, isLastAcceptedBeforeTiebreak) {
+  const destroyed = new Set(event.accepted === false ? [] : event.destroyedTowerIds);
+  const current = new Map(currentTowers.map(({ hitpoints, id }) => [id, hitpoints]));
+  return initialTowers.map(({ hitpoints: initialHitpoints, id }) => {
+    if (destroyed.has(id)) return { hitpoints: 0, id };
+    let desired = current.get(id);
+    if (!Number.isSafeInteger(desired) || desired <= 0) desired = initialHitpoints;
+    if (isLastAcceptedBeforeTiebreak && tiebreak?.drainedTowerIds.includes(id)) {
+      const side = id.startsWith("north:") ? "north" : "south";
+      desired = tiebreak.minima[side];
+    }
+    const prior = previousTowers.find((tower) => tower.id === id);
+    return { hitpoints: Math.min(prior?.hitpoints ?? initialHitpoints, desired), id };
+  });
+}
+
+function createSessionMatchFeedbackViewModelWithoutSnapshotReplay(session, snapshot) {
+  const state = snapshot.state.clock;
+  const initialTowers = initialFeedbackTowers(snapshot);
+  const events = feedbackEvents(session, snapshot, initialTowers);
+  const evidenceEvents = events.filter(({ type }) => type === "tower_evidence");
+  const tiebreak = events.findLast(({ type }) => type === "tiebreak") ?? null;
+  const acceptedEvidence = evidenceEvents
+    .map((event, index) => ({ event, index }))
+    .filter(({ event }) => event.accepted !== false);
+  const lastAcceptedBeforeTiebreak = tiebreak === null
+    ? -1
+    : (acceptedEvidence.findLast(({ event }) => event.tick < 18_000)?.index ?? -1);
+  const currentTowers = state.towers;
+  const match = new MatchClock({ initialTowers });
+  let previousTowers = initialTowers;
+  for (const [index, event] of evidenceEvents.entries()) {
+    const accepted = event.accepted !== false;
+    const towers = accepted
+      ? feedbackEvidenceTowers(initialTowers, currentTowers, previousTowers, event,
+        tiebreak, index === lastAcceptedBeforeTiebreak)
+      : previousTowers;
+    const destroyedTowerIds = towers.filter(({ hitpoints }) => hitpoints === 0)
+      .map(({ id }) => id);
+    match.scheduleTowerEvidence(event.tick, {
+      destroyedTowerIds,
+      towers,
+    });
+    previousTowers = towers;
+  }
+  match.runToTick(state.tick);
+  const projector = new MatchFeedbackProjector();
+  return projector.project(state, events, {
+    replayBytes: match.replayBytes(),
+    snapshot: match.serialize(),
+  });
 }
 
 function mintFrameParts(snapshot, combat, effects, feedback, hud) {
@@ -184,7 +305,6 @@ export function createGameUiFrame(session, options = DEFAULT_GAME_UI_OPTIONS) {
   }
   const snapshot = GameSession.prototype.projectionSnapshot.call(session);
   const state = snapshot.state;
-  const replay = snapshot.replay;
   if (state.tick !== state.battle.tick || state.tick !== state.clock.tick ||
       state.tick !== state.elixir.tick) {
     throw new TypeError("game session projection ticks diverge");
@@ -200,11 +320,16 @@ export function createGameUiFrame(session, options = DEFAULT_GAME_UI_OPTIONS) {
     match: state.clock,
     selectedCardId: options.selectedCardId,
   });
+  // Validate and normalize the closed producer feed before deriving any
+  // combat presentation. The combat state and effects view share this one
+  // admitted source; neither consumes the session replay dialect.
+  const effects = createCombatEffectsViewModel(snapshot.combatEffectFeed, state.tick);
+  const feedback = createSessionMatchFeedbackViewModelWithoutSnapshotReplay(session, snapshot);
   return composeGameUiFrame(mintFrameParts(
     snapshot,
-    createCombatViewModel(combatState(state, replay)),
-    createCombatEffectsViewModel(snapshot.combatEffectFeed, state.tick),
-    createSessionMatchFeedbackViewModel(snapshot),
+    createCombatViewModel(combatState(state, effects.events)),
+    effects,
+    feedback,
     hud,
   ));
 }
@@ -221,6 +346,10 @@ function children(layer) {
   return Array.from(layer.childNodes ?? layer.children ?? []);
 }
 
+function sameChildren(left, right) {
+  return left.length === right.length && left.every((child, index) => child === right[index]);
+}
+
 function stage(layer) {
   return layer.ownerDocument.createElement("div");
 }
@@ -232,12 +361,17 @@ export function mountGameUiProjection(value) {
     layers[name] = checkedLayer(layers[name], `game UI ${name} layer`);
   }
   let active = true;
+  let poisoned = false;
   let lastTick = -1;
   let lastSequence = -1;
   let source = null;
   return Object.freeze({
     cleanup() {
       if (!active) return false;
+      if (poisoned) {
+        active = false;
+        return true;
+      }
       for (const name of ["hud", "feedback", "effects", "combat"]) {
         layers[name].replaceChildren();
       }
@@ -246,6 +380,7 @@ export function mountGameUiProjection(value) {
     },
     project(frame) {
       if (!active) throw new RangeError("game UI projection is cleaned up");
+      if (poisoned) throw new Error("game UI projection is poisoned");
       if (!frame || typeof frame !== "object" || !FRAMES.has(frame)) {
         throw new TypeError("game UI projection requires a canonical session frame");
       }
@@ -256,6 +391,9 @@ export function mountGameUiProjection(value) {
       if (frame.sequence <= lastSequence) {
         throw new RangeError("game UI frame sequence must advance strictly");
       }
+
+      const prior = Object.fromEntries(Object.entries(layers)
+        .map(([name, layer]) => [name, children(layer)]));
 
       // Complete every projection against detached layers before the first
       // write to live DOM. A hostile document therefore cannot partially
@@ -275,26 +413,35 @@ export function mountGameUiProjection(value) {
       hudFrame.innerHTML = getHudMarkup(frame.hud);
       staged.hud.replaceChildren(hudFrame);
 
-      const prior = Object.fromEntries(Object.entries(layers)
-        .map(([name, layer]) => [name, children(layer)]));
       const committed = [];
       try {
         for (const name of ["combat", "effects", "feedback", "hud"]) {
           // Register the layer before invoking hostile DOM. A conforming or
           // adversarial replaceChildren may mutate and then throw.
           committed.push(name);
-          layers[name].replaceChildren(...children(staged[name]));
+          const candidate = children(staged[name]);
+          layers[name].replaceChildren(...candidate);
+          if (!sameChildren(children(layers[name]), candidate)) {
+            throw new Error(`game UI ${name} layer did not commit its candidate`);
+          }
         }
       } catch (error) {
-        let rollbackError = null;
+        const rollbackErrors = [];
         for (let index = committed.length - 1; index >= 0; index -= 1) {
           const name = committed[index];
-          try { layers[name].replaceChildren(...prior[name]); }
-          catch (caught) { rollbackError ??= caught; }
+          try {
+            layers[name].replaceChildren(...prior[name]);
+            if (!sameChildren(children(layers[name]), prior[name])) {
+              throw new Error(`game UI ${name} layer did not restore its prior children`);
+            }
+          } catch (caught) {
+            rollbackErrors.push(caught);
+          }
         }
-        if (rollbackError) {
-          throw new AggregateError([error, rollbackError],
-            "game UI projection failed and could not fully roll back");
+        if (rollbackErrors.length > 0) {
+          poisoned = true;
+          throw new AggregateError([error, ...rollbackErrors],
+            "game UI projection is poisoned after rollback failure");
         }
         throw error;
       }

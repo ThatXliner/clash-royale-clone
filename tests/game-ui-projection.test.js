@@ -123,6 +123,83 @@ function allBytes(layers) {
     .map(([name, layer]) => [name, nodeBytes(layer)])));
 }
 
+function layerChildren(layers) {
+  return Object.fromEntries(Object.entries(layers)
+    .map(([name, layer]) => [name, [...layer.children]]));
+}
+
+function assertSameLayerChildren(layers, prior) {
+  for (const name of Object.keys(prior)) {
+    assert.equal(layers[name].children.length, prior[name].length, name);
+    for (const [index, child] of prior[name].entries()) {
+      assert.strictEqual(layers[name].children[index], child, `${name}[${index}]`);
+    }
+  }
+}
+
+function installHostileCommit(layer, behavior) {
+  const normal = layer.replaceChildren.bind(layer);
+  let first = true;
+  layer.replaceChildren = (...candidate) => {
+    if (!first) return normal(...candidate);
+    first = false;
+    if (behavior === "before") throw new Error("hostile throw before mutation");
+    if (behavior === "one") {
+      if (candidate.length > 0) {
+        candidate[0].parentNode = layer;
+        if (layer.children.length === 0) layer.children.push(candidate[0]);
+        else layer.children[0] = candidate[0];
+      }
+      throw new Error("hostile mutate one child then throw");
+    }
+    if (behavior === "all") {
+      for (const child of candidate) child.parentNode = layer;
+      layer.children = candidate;
+      throw new Error("hostile replace all then throw");
+    }
+    if (behavior === "empty") {
+      layer.children = [];
+      throw new Error("hostile candidate empty then throw");
+    }
+    throw new TypeError(`unknown hostile commit behavior: ${behavior}`);
+  };
+}
+
+function installRestorationFailure(layer) {
+  const normal = layer.replaceChildren.bind(layer);
+  let calls = 0;
+  layer.replaceChildren = (...candidate) => {
+    calls += 1;
+    if (calls === 1) {
+      for (const child of candidate) child.parentNode = layer;
+      layer.children = candidate;
+      throw new Error("hostile commit before restoration failure");
+    }
+    if (calls === 2) throw new Error("hostile restoration");
+    return normal(...candidate);
+  };
+  return () => calls;
+}
+
+function mutableProjectionSnapshot(session, originalSnapshot) {
+  const originalFreeze = Object.freeze;
+  Object.freeze = (value) => {
+    if (value && typeof value === "object") {
+      const keys = Object.keys(value).sort();
+      if (keys.length === 7 &&
+          keys.join(",") === "combatEffectFeed,replay,sequence,setup,source,state,version") {
+        return value;
+      }
+    }
+    return originalFreeze(value);
+  };
+  try {
+    return originalSnapshot.call(session);
+  } finally {
+    Object.freeze = originalFreeze;
+  }
+}
+
 test("game UI projection: one authentic session frame commits all four matching ticks", () => {
   const session = new GameSession(setup());
   const initial = createGameUiFrame(session);
@@ -223,6 +300,80 @@ for (const failingLayer of ["combat", "effects", "feedback", "hud"]) {
   });
 }
 
+for (const behavior of ["before", "one", "all", "empty"]) {
+  test(`game UI projection: ${behavior} host failure restores exact child identities and recovers`, () => {
+    const session = new GameSession(setup());
+    const zero = createGameUiFrame(session);
+    session.step();
+    const one = createGameUiFrame(session);
+    session.step();
+    const two = createGameUiFrame(session);
+    const { document, layers } = fixture();
+    const mounted = mountGameUiProjection(layers);
+    mounted.project(zero);
+    if (behavior === "one") {
+      const unrelated = new Node(document, "unrelated");
+      unrelated.textContent = "preserve me";
+      layers.combat.appendChild(unrelated);
+    }
+    const prior = layerChildren(layers);
+    const before = allBytes(layers);
+    installHostileCommit(layers.effects, behavior);
+
+    assert.throws(() => mounted.project(one), /hostile/u);
+    assert.equal(allBytes(layers), before);
+    assertSameLayerChildren(layers, prior);
+    for (const name of Object.keys(layers)) {
+      assert.equal(layers[name].children[0].dataset.tick, "0", name);
+    }
+
+    mounted.project(two);
+    for (const name of Object.keys(layers)) {
+      assert.equal(layers[name].children[0].dataset.tick, "2", name);
+    }
+  });
+}
+
+test("game UI projection: an empty prior DOM rolls back and accepts a later update", () => {
+  const session = new GameSession(setup());
+  const zero = createGameUiFrame(session);
+  session.step();
+  const one = createGameUiFrame(session);
+  const { layers } = fixture();
+  const mounted = mountGameUiProjection(layers);
+  installHostileCommit(layers.effects, "empty");
+  const before = allBytes(layers);
+  assert.throws(() => mounted.project(zero), /hostile/u);
+  assert.equal(allBytes(layers), before);
+  for (const layer of Object.values(layers)) assert.equal(layer.children.length, 0);
+  mounted.project(one);
+  for (const name of Object.keys(layers)) {
+    assert.equal(layers[name].children[0].dataset.tick, "1", name);
+  }
+});
+
+test("game UI projection: restoration failure poisons the mount without later writes", () => {
+  const session = new GameSession(setup());
+  const zero = createGameUiFrame(session);
+  session.step();
+  const one = createGameUiFrame(session);
+  session.step();
+  const two = createGameUiFrame(session);
+  const { layers } = fixture();
+  const mounted = mountGameUiProjection(layers);
+  mounted.project(zero);
+  const calls = installRestorationFailure(layers.effects);
+  assert.throws(() => mounted.project(one), /poisoned/u);
+  const afterFailure = allBytes(layers);
+  assert.equal(calls(), 2);
+  assert.throws(() => mounted.project(two), /poisoned/u);
+  assert.equal(calls(), 2);
+  assert.equal(allBytes(layers), afterFailure);
+  assert.equal(mounted.cleanup(), true);
+  assert.equal(allBytes(layers), afterFailure);
+  assert.equal(mounted.cleanup(), false);
+});
+
 test("game UI projection: composition rejects every hostile proxy class without callbacks", () => {
   let callbacks = 0;
   const handler = new Proxy({}, {
@@ -296,6 +447,61 @@ test("game UI projection: frame creation mints once and performs zero session re
   }
   assert.equal(snapshots, 1);
   assert.equal(restores, 0);
+});
+
+test("game UI projection: combat frame and mount never read raw replay authorities", () => {
+  const session = new GameSession(setup());
+  const originalSnapshot = GameSession.prototype.projectionSnapshot;
+  const originalReplay = Object.getOwnPropertyDescriptor(GameSession.prototype, "replay");
+  const originalReplayBytes = GameSession.prototype.replayBytes;
+  const snapshots = [mutableProjectionSnapshot(session, originalSnapshot)];
+  session.step();
+  snapshots.push(mutableProjectionSnapshot(session, originalSnapshot));
+  let snapshotGetterHits = 0;
+  let producerGetterHits = 0;
+  for (const snapshot of snapshots) {
+    Object.defineProperty(snapshot, "replay", {
+      configurable: true,
+      enumerable: true,
+      get() {
+        snapshotGetterHits += 1;
+        throw new Error("CRITIC: snapshot.replay was read");
+      },
+    });
+  }
+  Object.defineProperty(GameSession.prototype, "replay", {
+    configurable: true,
+    enumerable: false,
+    get() {
+      producerGetterHits += 1;
+      throw new Error("CRITIC: producer replay was read");
+    },
+  });
+  GameSession.prototype.replayBytes = function replayBytesProbe() {
+    producerGetterHits += 1;
+    throw new Error("CRITIC: producer replay bytes were read");
+  };
+  let index = 0;
+  GameSession.prototype.projectionSnapshot = function hostileSnapshot() {
+    return snapshots[index++];
+  };
+  try {
+    const zero = createGameUiFrame(session);
+    const one = createGameUiFrame(session);
+    assert.equal(projectionBytes(zero), projectionBytes(zero));
+    assert.equal(projectionBytes(one), projectionBytes(one));
+    const { layers } = fixture();
+    const mounted = mountGameUiProjection(layers);
+    mounted.project(zero);
+    mounted.project(one);
+  } finally {
+    GameSession.prototype.projectionSnapshot = originalSnapshot;
+    if (originalReplay) Object.defineProperty(GameSession.prototype, "replay", originalReplay);
+    else delete GameSession.prototype.replay;
+    GameSession.prototype.replayBytes = originalReplayBytes;
+  }
+  assert.equal(snapshotGetterHits, 0);
+  assert.equal(producerGetterHits, 0);
 });
 
 test("game UI projection: tower health denominators come from the authoritative snapshot", () => {
