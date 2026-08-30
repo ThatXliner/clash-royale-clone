@@ -206,7 +206,17 @@ function identityPart(value) {
   let binary = "";
   for (const byte of bytes) binary += String.fromCharCode(byte);
   const base64 = btoa(binary).replace(/\+/gu, "-").replace(/\//gu, "_").replace(/=+$/u, "");
-  const encoded = encodeURIComponent(value);
+  // encodeURIComponent intentionally leaves RFC punctuation such as `.` and
+  // `*` untouched. A dot cannot remain inside a component because dots delimit
+  // the six root fields; apostrophe/parentheses/asterisk are outside the root
+  // token alphabet. Percent-escape all five explicitly so component encoding
+  // remains both token-safe and injective across field boundaries.
+  const encoded = encodeURIComponent(value)
+    .replaceAll(".", "%2E")
+    .replaceAll("'", "%27")
+    .replaceAll("(", "%28")
+    .replaceAll(")", "%29")
+    .replaceAll("*", "%2A");
   const uriPart = `s${encoded}`;
   const base64Part = `b${base64}`;
   // Percent encoding is compact for ordinary source IDs but expands every

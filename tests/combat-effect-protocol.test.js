@@ -463,6 +463,38 @@ test("combat-effect protocol rejects premature, branched, reordered, forged, and
   const changed = { ...identity, sourceId: `${identity.sourceId.slice(0, -1)}y` };
   assert.notEqual(combatEffectRootId(identity), combatEffectRootId(changed));
 
+  const dottedLeft = {
+    direction: "travel", effectId: "bar", projectileId: null, sequence: null,
+    sourceId: "a.sfoo", type: "projectile",
+  };
+  const dottedRight = {
+    direction: "travel", effectId: "foo.sbar", projectileId: null, sequence: null,
+    sourceId: "a", type: "projectile",
+  };
+  assert.notEqual(combatEffectRootId(dottedLeft), combatEffectRootId(dottedRight));
+  const dottedFeed = createCombatEffectFeed();
+  for (const [index, rootIdentity] of [dottedLeft, dottedRight].entries()) {
+    appendCombatEffectRoot(dottedFeed, {
+      ...rootIdentity,
+      from: { x: 1000, y: 1000 },
+      impactTick: 2,
+      radius: 0,
+      segments: [],
+      tick: index,
+      to: { x: 2000, y: 1000 },
+    });
+  }
+  assert.equal(dottedFeed.records.length, 2);
+  const punctuationId = combatEffectRootId({
+    direction: "travel",
+    effectId: "dot.quote'paren()star*!",
+    projectileId: null,
+    sequence: null,
+    sourceId: "source.with.punctuation'()*",
+    type: "projectile",
+  });
+  assert.match(punctuationId, /^[a-z][A-Za-z0-9.%_~!\-]*(?:\.[A-Za-z0-9.%_~!\-]+){5}$/u);
+
   const maximal = "漢".repeat(256);
   const maximalRootId = combatEffectRootId({
     direction: "travel",
@@ -625,6 +657,20 @@ test("actual projectile, area, return, pierce, pellet, spell, and travel sources
   assert.throws(
     () => AreaDamageSystem.restore(canonical(missingAreaFeed)),
     /invalid shape|combatEffectFeed/u,
+  );
+
+  const orderedArea = new AreaDamageSystem();
+  orderedArea.add(41, 1000);
+  orderedArea.add(42, 1000);
+  orderedArea.resolve({
+    center: { x: 1000, y: 1000 }, damage: 1, mode: "ground", radius: 100,
+    tick: 0,
+  }, [areaCandidate(41, 1000), areaCandidate(42, 1000)]);
+  const reversedCandidates = JSON.parse(orderedArea.serialize());
+  reversedCandidates.history[0].candidates.reverse();
+  assert.throws(
+    () => AreaDamageSystem.restore(canonical(reversedCandidates)),
+    /history|diverge/u,
   );
 
   const emptyArea = new AreaDamageSystem();

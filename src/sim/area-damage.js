@@ -487,11 +487,11 @@ export class AreaDamageSystem {
       }
     }
     if (snapshot.history.length > 0 && system.#nextEffectId !== snapshot.nextEffectId ||
+        canonicalJson(system.#history) !== canonicalJson(snapshot.history) ||
         canonicalJson(JSON.parse(system.#damage.serialize())) !== canonicalJson(snapshot.damage) ||
         system.combatEffectFeedBytes() !== expectedFeedBytes) {
       throw new TypeError("area-damage snapshot mechanics and visual history diverge");
     }
-    system.#history = clone(snapshot.history);
     return system;
   }
 }
