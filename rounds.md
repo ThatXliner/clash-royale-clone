@@ -1,5 +1,26 @@
 # Gauntlet Rounds
 
+## Round 308 — 2026-09-01
+
+PIECE: UI-002CV — Causal combat-effect view projection, round 2
+
+VERDICT: FAIL
+
+EVIDENCE: UI combat effects passed 9/9, game UI passed 25/25, browser loop
+passed 12/12, protocol passed 9/9, GameSession passed 9/9, shipping isolation
+passed 13/13 and nondeterminism passed 10/10. Independent hostile DOM execution
+proved exact bytes, ticks, child order and child identities after four
+recoverable commit failures, exact prior-empty recovery, a successful next
+frame, and deterministic rejection of later writes after restoration itself
+failed. A separate real terminal GameSession prefix at tick 1,590 installed
+counting or throwing getters on every raw authority. Snapshot replay, events and
+replayBytes stayed at zero, as did producer replayBytes, events and state, but
+the frame read producer `session.replay` once and threw `FORBIDDEN producer
+replay` through the terminal tower/match-feedback path.
+
+BIGGEST GAP: Derive terminal tower and match feedback from admitted projection
+data without reading `session.replay` or another producer-private authority.
+
 ## Round 307 — 2026-08-30
 
 PIECE: UI-002CV — Causal combat-effect view projection, round 1

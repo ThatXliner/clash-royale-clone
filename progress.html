@@ -28,10 +28,10 @@
   <div class="cards">
     <div class="card"><div class="num">172</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">128</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">307</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">308</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">24</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Active target: <strong>UI-002CV round 2 raw-replay removal and mounted-DOM rollback</strong>. UI-002CP passed round 5; AUDIO-002 passed round 2; VIS-003D passed round 4.</p>
+  <p class="note">Active target: <strong>UI-002CV round 3 terminal feedback replay removal</strong>. UI-002CP passed round 5; AUDIO-002 passed round 2; VIS-003D passed round 4.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -794,8 +794,8 @@
         <td>Causal combat-effect view projection</td>
         <td class="state-fail">FAIL</td>
         <td>9/9</td>
-        <td>1</td>
-        <td>Round 1 failed: the shipped frame still reads snapshot.replay, and a mutating-then-throwing replaceChildren exposes candidate DOM instead of restoring prior nodes</td>
+        <td>2</td>
+        <td>Round 2 failed: mounted-DOM rollback is exact, but a real terminal frame still reads session.replay once through tower/match feedback</td>
       </tr>
       <tr>
         <td><code>UI-002D</code></td>
