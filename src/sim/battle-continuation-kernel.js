@@ -12156,6 +12156,11 @@ class GameSession {
       terminal: clock.state.result !== null, tick: clock.tick };
     const snapshot = freeze({
       combatEffectFeed: clone(combatEffectFeed),
+      matchFeedback: {
+        events: clone(clock.eventLog),
+        replayBytes: clock.replayBytes(),
+        snapshot: clock.serialize(),
+      },
       replay: clone(this.#events),
       sequence: this.#projectionSequence,
       setup: clone(this.#setup),

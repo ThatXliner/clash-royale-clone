@@ -186,8 +186,8 @@ function mutableProjectionSnapshot(session, originalSnapshot) {
   Object.freeze = (value) => {
     if (value && typeof value === "object") {
       const keys = Object.keys(value).sort();
-      if (keys.length === 7 &&
-          keys.join(",") === "combatEffectFeed,replay,sequence,setup,source,state,version") {
+      if (keys.length === 8 &&
+          keys.join(",") === "combatEffectFeed,matchFeedback,replay,sequence,setup,source,state,version") {
         return value;
       }
     }
@@ -502,6 +502,55 @@ test("game UI projection: combat frame and mount never read raw replay authoriti
   }
   assert.equal(snapshotGetterHits, 0);
   assert.equal(producerGetterHits, 0);
+});
+
+test("game UI projection: terminal feedback never reads raw producer authorities", () => {
+  const configured = setup({
+    candidates: [{ cardId: "coilblade", point: { x: 3_500, y: 17_500 } }],
+    initialWindupTicks: { central: 10_000, lane: 10_000 },
+    seed: 2,
+  });
+  const session = new GameSession(configured);
+  session.submitPlayerCommand(canonical({
+    cardId: "coilblade",
+    commandId: 0,
+    point: { x: 14_500, y: 14_500 },
+    slot: session.state.decks.south.hand.indexOf("coilblade"),
+    tick: 105,
+    type: "deploy",
+  }));
+  session.stepMany(3_000);
+  assert.equal(session.state.tick, 1_590);
+
+  const names = ["events", "replay", "replayBytes", "state"];
+  const descriptors = new Map(names.map((name) => [
+    name,
+    Object.getOwnPropertyDescriptor(GameSession.prototype, name),
+  ]));
+  const hits = Object.fromEntries(names.map((name) => [name, 0]));
+  for (const name of names) {
+    Object.defineProperty(GameSession.prototype, name, {
+      configurable: true,
+      get() {
+        hits[name] += 1;
+        throw new Error(`FORBIDDEN producer ${name}`);
+      },
+    });
+  }
+  try {
+    const frame = createGameUiFrame(session);
+    assert.equal(frame.feedback.overlay.reason, "central_destroyed");
+    const { layers } = fixture();
+    mountGameUiProjection(layers).project(frame);
+    assert.equal(layers.feedback.children[0].dataset.tick, "1590");
+  } finally {
+    for (const name of names) {
+      const descriptor = descriptors.get(name);
+      if (descriptor) Object.defineProperty(GameSession.prototype, name, descriptor);
+      else delete GameSession.prototype[name];
+    }
+  }
+  assert.deepEqual(hits, { events: 0, replay: 0, replayBytes: 0, state: 0 });
 });
 
 test("game UI projection: tower health denominators come from the authoritative snapshot", () => {

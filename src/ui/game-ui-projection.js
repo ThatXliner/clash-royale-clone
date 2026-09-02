@@ -3,7 +3,6 @@ import {
   isAuthenticGameSession,
   isAuthenticGameSessionProjectionSnapshot,
 } from "../sim/game-session.js";
-import { MatchClock } from "../sim/match.js";
 import {
   bindCombatEffectsViewModel,
   createCombatEffectsViewModel,
@@ -21,7 +20,7 @@ import {
 } from "./hud-state.js";
 import {
   bindMatchFeedback,
-  MatchFeedbackProjector,
+  createSessionMatchFeedbackViewModel,
   serializeMatchFeedbackViewModel,
 } from "./match-feedback.js";
 
@@ -37,14 +36,6 @@ const STRUCTURE_IDS = new Map([
   [Number.MAX_SAFE_INTEGER - 2, "north:central"],
   [Number.MAX_SAFE_INTEGER - 1, "north:lane:west"],
   [Number.MAX_SAFE_INTEGER, "north:lane:east"],
-]);
-const MATCH_FEEDBACK_TOWER_IDS = Object.freeze([
-  "north:central",
-  "north:lane:left",
-  "north:lane:right",
-  "south:central",
-  "south:lane:left",
-  "south:lane:right",
 ]);
 
 function ownRecord(value, keys, label) {
@@ -133,113 +124,6 @@ function combatState(state, effectEvents) {
   return { entities, events, tick: state.tick, towers };
 }
 
-function feedbackTowerId(value) {
-  if (value.endsWith(":west")) return `${value.slice(0, -4)}left`;
-  if (value.endsWith(":east")) return `${value.slice(0, -4)}right`;
-  return value;
-}
-
-function feedbackTowerOrder(left, right) {
-  return MATCH_FEEDBACK_TOWER_IDS.indexOf(left.id) -
-    MATCH_FEEDBACK_TOWER_IDS.indexOf(right.id);
-}
-
-function initialFeedbackTowers(snapshot) {
-  return snapshot.state.battle.towers.map(({ id, maxHitpoints }) => ({
-    hitpoints: maxHitpoints,
-    id: feedbackTowerId(id),
-  })).sort(feedbackTowerOrder);
-}
-
-function feedbackEvents(session, snapshot, initialTowers) {
-  const clock = snapshot.state.clock;
-  const initial = new Map(initialTowers.map(({ hitpoints, id }) => [id, hitpoints]));
-  const hasTowerDelta = clock.towers.some(({ hitpoints, id }) => hitpoints !== initial.get(id));
-  const hasDestruction = clock.destroyedTowerIds.length > 0;
-  const hasResult = clock.result !== null;
-  if (!hasDestruction && !hasResult) {
-    if (!hasTowerDelta) {
-      return clock.phase === "overtime"
-        ? [{ tick: 10_800, type: "overtime_started" }]
-        : [];
-    }
-    // Tower health without a destruction has no visible feedback effect. A
-    // single canonical evidence record keeps the causal match projector in
-    // sync while avoiding the session's private event stream entirely.
-    const evidence = {
-      accepted: true,
-      destroyedTowerIds: [],
-      sequence: 0,
-      tick: clock.tick - 1,
-      type: "tower_evidence",
-    };
-    const overtime = { tick: 10_800, type: "overtime_started" };
-    return clock.phase === "overtime"
-      ? evidence.tick < overtime.tick ? [evidence, overtime] : [overtime, evidence]
-      : [evidence];
-  }
-  // Match feedback is the separate non-combat consumer that still needs its
-  // event stream for destruction timing and terminal results. Combat/effects
-  // presentation receives only the closed feed view.
-  return session.replay.filter(({ type }) => [
-    "tower_evidence", "overtime_started", "match_end", "tiebreak",
-  ].includes(type));
-}
-
-function feedbackEvidenceTowers(initialTowers, currentTowers, previousTowers, event,
-  tiebreak, isLastAcceptedBeforeTiebreak) {
-  const destroyed = new Set(event.accepted === false ? [] : event.destroyedTowerIds);
-  const current = new Map(currentTowers.map(({ hitpoints, id }) => [id, hitpoints]));
-  return initialTowers.map(({ hitpoints: initialHitpoints, id }) => {
-    if (destroyed.has(id)) return { hitpoints: 0, id };
-    let desired = current.get(id);
-    if (!Number.isSafeInteger(desired) || desired <= 0) desired = initialHitpoints;
-    if (isLastAcceptedBeforeTiebreak && tiebreak?.drainedTowerIds.includes(id)) {
-      const side = id.startsWith("north:") ? "north" : "south";
-      desired = tiebreak.minima[side];
-    }
-    const prior = previousTowers.find((tower) => tower.id === id);
-    return { hitpoints: Math.min(prior?.hitpoints ?? initialHitpoints, desired), id };
-  });
-}
-
-function createSessionMatchFeedbackViewModelWithoutSnapshotReplay(session, snapshot) {
-  const state = snapshot.state.clock;
-  const initialTowers = initialFeedbackTowers(snapshot);
-  const events = feedbackEvents(session, snapshot, initialTowers);
-  const evidenceEvents = events.filter(({ type }) => type === "tower_evidence");
-  const tiebreak = events.findLast(({ type }) => type === "tiebreak") ?? null;
-  const acceptedEvidence = evidenceEvents
-    .map((event, index) => ({ event, index }))
-    .filter(({ event }) => event.accepted !== false);
-  const lastAcceptedBeforeTiebreak = tiebreak === null
-    ? -1
-    : (acceptedEvidence.findLast(({ event }) => event.tick < 18_000)?.index ?? -1);
-  const currentTowers = state.towers;
-  const match = new MatchClock({ initialTowers });
-  let previousTowers = initialTowers;
-  for (const [index, event] of evidenceEvents.entries()) {
-    const accepted = event.accepted !== false;
-    const towers = accepted
-      ? feedbackEvidenceTowers(initialTowers, currentTowers, previousTowers, event,
-        tiebreak, index === lastAcceptedBeforeTiebreak)
-      : previousTowers;
-    const destroyedTowerIds = towers.filter(({ hitpoints }) => hitpoints === 0)
-      .map(({ id }) => id);
-    match.scheduleTowerEvidence(event.tick, {
-      destroyedTowerIds,
-      towers,
-    });
-    previousTowers = towers;
-  }
-  match.runToTick(state.tick);
-  const projector = new MatchFeedbackProjector();
-  return projector.project(state, events, {
-    replayBytes: match.replayBytes(),
-    snapshot: match.serialize(),
-  });
-}
-
 function mintFrameParts(snapshot, combat, effects, feedback, hud) {
   if (!isAuthenticGameSessionProjectionSnapshot(snapshot)) {
     throw new TypeError("game UI frame parts require an authentic projection snapshot");
@@ -324,7 +208,7 @@ export function createGameUiFrame(session, options = DEFAULT_GAME_UI_OPTIONS) {
   // combat presentation. The combat state and effects view share this one
   // admitted source; neither consumes the session replay dialect.
   const effects = createCombatEffectsViewModel(snapshot.combatEffectFeed, state.tick);
-  const feedback = createSessionMatchFeedbackViewModelWithoutSnapshotReplay(session, snapshot);
+  const feedback = createSessionMatchFeedbackViewModel(snapshot);
   return composeGameUiFrame(mintFrameParts(
     snapshot,
     createCombatViewModel(combatState(state, effects.events)),

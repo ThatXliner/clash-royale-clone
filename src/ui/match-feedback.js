@@ -483,19 +483,13 @@ export function createSessionMatchFeedbackViewModel(snapshot) {
   if (!isAuthenticGameSessionProjectionSnapshot(snapshot)) {
     throw new TypeError("match feedback requires an authentic GameSession projection snapshot");
   }
-  const sessionState = snapshot.state;
-  const state = checkedState(sessionState.clock);
-  const events = checkedEvents(snapshot.replay.filter(({ type }) =>
-    type === "tower_evidence" || type === "overtime_started" ||
-    type === "match_end" || type === "tiebreak"), state);
-  const matchId = (id) => id.endsWith(":west")
-    ? `${id.slice(0, -4)}left`
-    : id.endsWith(":east") ? `${id.slice(0, -4)}right` : id;
-  const preTiebreakTowers = sessionState.battle.towers.map(({ hitpoints, id }) => ({
-    hitpoints,
-    id: matchId(id),
-  })).sort((left, right) => TOWER_IDS.indexOf(left.id) - TOWER_IDS.indexOf(right.id));
-  return buildView(state, events, { preTiebreakTowers });
+  const source = record(snapshot.matchFeedback,
+    ["events", "replayBytes", "snapshot"], "session match feedback source");
+  const projector = new MatchFeedbackProjector();
+  return projector.project(snapshot.state.clock, source.events, {
+    replayBytes: source.replayBytes,
+    snapshot: source.snapshot,
+  });
 }
 
 export class MatchFeedbackProjector {
