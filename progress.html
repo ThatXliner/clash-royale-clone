@@ -24,14 +24,14 @@
 </head>
 <body>
   <h1>Gauntlet progress</h1>
-  <p class="sub">Updated 2026-08-30 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
+  <p class="sub">Updated 2026-09-07 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
     <div class="card"><div class="num">172</div><div class="label">tracked pieces</div></div>
-    <div class="card"><div class="num">128</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">308</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">129</div><div class="label">passed</div></div>
+    <div class="card"><div class="num">311</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">24</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Active target: <strong>UI-002CV round 3 terminal feedback replay removal</strong>. UI-002CP passed round 5; AUDIO-002 passed round 2; VIS-003D passed round 4.</p>
+  <p class="note">Latest review: <strong>VIS-003C — Combatant, projectile, and effect assets, round 3 — PASS</strong>. Full game completion remains unproven.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -563,7 +563,7 @@
         <td class="state-pass">PASS</td>
         <td>23/23</td>
         <td>4</td>
-        <td>Round 4 re-passed after refreshing the attack-cycle integrity pin broken by the status-runtime integration; behavioral differential verified unchanged and integration-audit cascade resolved</td>
+        <td>Round 4 re-passed after refreshing the attack-cycle.js integrity pin broken by the 2a5bd7a status-runtime integration; behavioral differential verified unchanged, cascade into integration-audit resolved; paused-stepping coverage for the newly pinned paths remains open</td>
       </tr>
       <tr>
         <td><code>BUILDING-002</code></td>
@@ -787,15 +787,15 @@
         <td class="state-pass">PASS</td>
         <td>9/9</td>
         <td>5</td>
-        <td>Round 5 passed: independent feed-bound failures at second contact, lethal death, ordinary close, synthetic impact, and synthetic close preserved every public and restorable byte exactly</td>
+        <td>Round 5 passed: independent feed-bound failures at second contact, lethal death, ordinary close, synthetic impact and synthetic close preserved feed, state, replay, serialization and fork bytes exactly</td>
       </tr>
       <tr>
         <td><code>UI-002CV</code></td>
         <td>Causal combat-effect view projection</td>
-        <td class="state-fail">FAIL</td>
+        <td class="state-pass">PASS</td>
         <td>9/9</td>
-        <td>2</td>
-        <td>Round 2 failed: mounted-DOM rollback is exact, but a real terminal frame still reads session.replay once through tower/match feedback</td>
+        <td>3</td>
+        <td>Round 3 passed at 460c6e5: zero terminal raw-authority reads, canonical feedback validation, exact mounted rollback/retry, and real Chrome play/combat/terminal/restart/repeat</td>
       </tr>
       <tr>
         <td><code>UI-002D</code></td>
@@ -835,23 +835,23 @@
         <td class="state-pass">PASS</td>
         <td>6/6</td>
         <td>1</td>
-        <td>Round 1 passed: frozen Rivermark bible pinned by digest, fail-closed asset manifest with byte-for-byte disk parity over three authored CC0 SVG icons, reference-hash disjointness and 22 hostile admission rejections</td>
+        <td>Round 1 passed: frozen Rivermark bible pinned by digest, fail-closed asset manifest with byte-for-byte disk parity over three authored CC0 SVG icons, non-vacuous reference-hash disjointness and 22 hostile admission rejections</td>
       </tr>
       <tr>
         <td><code>VIS-003B</code></td>
         <td>Arena, river, bridges, and tower art</td>
         <td class="state-pass">PASS</td>
         <td>6/6</td>
-        <td>1</td>
-        <td>Round 1 passed: bible-conformant production art, all nine landmarks within 1px of independently computed geometry, faction-distinct towers, readable combat layering; render-probe byte reproducibility remains open</td>
+        <td>4</td>
+        <td>Round4 passed: six authored tower bodies/roofs with shaded volume, exact centers/bridges and readable combat; captured-game parity remains unverified</td>
       </tr>
       <tr>
         <td><code>VIS-003C</code></td>
         <td>Combatant, projectile, and effect assets</td>
-        <td class="state-blocked">BLOCKED</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Combat art waits for UI-002CV's closed causal effect mapping</td>
+        <td class="state-pass">PASS</td>
+        <td>3/3</td>
+        <td>3</td>
+        <td>Round3 passed: nine default shipped silhouettes/team variants, canonical deploy/move/attack/death/impact cues and exact restored DOM; witness roster and full motion polish are not claimed</td>
       </tr>
       <tr>
         <td><code>VIS-003D</code></td>
@@ -859,7 +859,7 @@
         <td class="state-pass">PASS</td>
         <td>9/9</td>
         <td>4</td>
-        <td>Round 4 passed: readable eight-card art, live selection, exact viewport hierarchy, reproducible captures and fully visible static bridge art</td>
+        <td>Round 4 passed: readable eight-card art, live atomic selection, exact 720×1280 hierarchy, four-process reproducible captures, honest combat-only mask and mutation-visible static bridge art</td>
       </tr>
       <tr>
         <td><code>VIS-003E</code></td>
@@ -875,7 +875,7 @@
         <td class="state-pass">PASS</td>
         <td>5/5</td>
         <td>2</td>
-        <td>Round 2 passed: four actual-displacement locomotion cues reached standard Chrome, stationary deploys emitted none, public replay stayed exact, direct/chunk/restore matched, and evidence hashes reproduced</td>
+        <td>Round 2 passed: four real-displacement movement cues reached standard Chrome, stationary deploys emitted none, public replay stayed exact, and direct/chunk/restore plus evidence hashes reproduced</td>
       </tr>
       <tr>
         <td><code>VIS-003G</code></td>
@@ -923,7 +923,7 @@
         <td class="state-blocked">BLOCKED</td>
         <td>0/0</td>
         <td>0</td>
-        <td>Audio passed; blocked on UI-002C causal replay question</td>
+        <td>Audio passed; blocked until the closed effect feed and causal renderer pass</td>
       </tr>
       <tr>
         <td><code>RELEASE-001M</code></td>
@@ -1200,10 +1200,10 @@
       <tr>
         <td><code>GAME-001GP</code></td>
         <td>Sustained browser-match throughput</td>
-        <td class="state-pass">PASS</td>
-        <td>1/1</td>
+        <td class="state-fail">FAIL</td>
+        <td>0/1</td>
         <td>3</td>
-        <td>Round 3 re-passed after gating the slice cap behind a quiescent deterministic re-measure: environment spikes absorbed and recorded, reproduced overruns and frozen yields still fail; byte/transaction assertions untouched</td>
+        <td>Full18000-tick continuation run active on stable combat/tower art; prior268ms failure did not repeat in focused2400 run; caps unchanged</td>
       </tr>
       <tr>
         <td><code>GAME-001GS</code></td>
@@ -1211,7 +1211,7 @@
         <td class="state-pass">PASS</td>
         <td>1/1</td>
         <td>2</td>
-        <td>Round 2 re-passed after a de-race fix: the clock observation now fast-forwards to a known tick and asserts the exact recomputed HUD clock string; four consecutive Chrome journeys pass</td>
+        <td>Round 2 re-passed after de-racing the clock observation (freeze tick no longer decides the assertion; exact recomputed clock string at a forced tick); four consecutive journeys pass with mutation-bitten error/restart checks</td>
       </tr>
       <tr>
         <td><code>GAME-001G</code></td>
@@ -1275,7 +1275,7 @@
         <td class="state-pass">PASS</td>
         <td>25/25</td>
         <td>12</td>
-        <td>Round 12 passed 80 real nested aliases, 210 synthetic delimiter cases, exact 6/30 domain admission, zero hostile effects and the pinned 67,284-byte manifest/hash</td>
+        <td>Round 12 passed 80 real nested-alias rejections, 210 synthetic delimiter rejections, exact 6/30 domain admission, zero hostile effects and the pinned 67,284-byte manifest/hash</td>
       </tr>
       <tr>
         <td><code>GAME-001HTM</code></td>
@@ -1283,7 +1283,7 @@
         <td class="state-pass">PASS</td>
         <td>22/22</td>
         <td>5</td>
-        <td>Round 5 re-passed after replacing the flaky absolute restore bound with a scaled 256-vs-1024 ratio guard (quadratic passes with headroom, cubic fails decisively); round 4 serialization purity unchanged</td>
+        <td>Round 5 re-passed after replacing the flaky absolute restore-time bound with a scaled 256-vs-1024 ratio guard (quadratic baseline ~16x passes with headroom, cubic fails decisively, load-invariant); serialization purity from round 4 unchanged</td>
       </tr>
       <tr>
         <td><code>GAME-001HTJP</code></td>
@@ -1315,7 +1315,7 @@
         <td class="state-pass">PASS</td>
         <td>33/33</td>
         <td>4</td>
-        <td>Round 4 passed receipt-bound projections, 317 independent mutation cases, stale setup/proxy/two-read attacks, six witnesses, 36 restore cuts and every named dependency and guard</td>
+        <td>Round 4 passed exact receipt-bound projections, 317 independent mutation cases, stale setup/proxy/two-read attacks, six witnesses, 36 restore cuts and every named dependency/guard</td>
       </tr>
       <tr>
         <td><code>GAME-001HTC</code></td>
@@ -1323,7 +1323,7 @@
         <td class="state-blocked">BLOCKED</td>
         <td>0/0</td>
         <td>0</td>
-        <td>Split into independent Emberlance and Aegis Sage compositions; both child pieces remain source-blocked</td>
+        <td>Split into independently evidenceable charge and champion/reflection compositions; both child pieces remain source-blocked</td>
       </tr>
       <tr>
         <td><code>GAME-001HTEC</code></td>
@@ -1331,7 +1331,7 @@
         <td class="state-blocked">BLOCKED</td>
         <td>0/0</td>
         <td>0</td>
-        <td>Cutoff evidence fixes 3.0-tile charge range, 2× speed and 392 bonus damage, but not reset classes, exact arming boundary, contact order or serialized phase state; the current 3.5-tile QUESTION fixture conflicts with the cutoff</td>
+        <td>Cutoff sources establish 3.0-tile charge range, 2× speed and 392 bonus damage, but not reset classes, inclusive tick boundary, same-boundary hit/death order or serialized state; current 3.5-tile QUESTION fixture conflicts with the cutoff</td>
       </tr>
       <tr>
         <td><code>GAME-001HTAC</code></td>
@@ -1339,7 +1339,7 @@
         <td class="state-blocked">BLOCKED</td>
         <td>0/0</td>
         <td>0</td>
-        <td>Cutoff evidence fixes cost 1, cooldown 17 s, active duration 4 s, radius 1.5 tiles and 80% reduction, but not activation delay, projectile semantics, identity rewrite or same-boundary expiry/death order; the current 0.5-tile QUESTION fixture conflicts with the cutoff</td>
+        <td>Cutoff sources establish cost 1, cooldown 17 s, active duration 4 s, radius 1.5 tiles and 80% reduction, but not activation delay, projectile enum semantics, identity/target rewrite, simultaneous order or expiry/death boundaries; current 0.5-tile QUESTION fixture conflicts with the cutoff</td>
       </tr>
       <tr>
         <td><code>GAME-001HBA</code></td>
@@ -1418,10 +1418,57 @@
   </div>
   <h2>Round trajectory</h2>
   <ol>
+      <li><strong>R315 PASS</strong> · VIS-003C — Combatant, projectile, and effect assets, round 3<br>Authorized pre-Evolutions gameplay captures are needed before claiming captured-game visual parity; full motion polish remains VIS-003E.</li>
+      <li><strong>R314 PASS</strong> · VIS-003B — Arena, river, bridges, and tower art, round 4<br>Missing captured gameplay reference footage prevents verification of visual parity with the comparison target; original-production-art bar passes.</li>
+      <li><strong>R313 FAIL</strong> · VIS-003C — Combatant, projectile, and effect assets, round 2<br>A shipped Brassbolt dying at tick414 vanishes without any death visual, so the required canonical death cue remains missing.</li>
+      <li><strong>R312 FAIL</strong> · VIS-003B — Arena, river, bridges, and tower art, round 3<br>Give north tower bodies readable architectural volume so they appear as buildings rather than emblems mounted on flat pads.</li>
+      <li><strong>R311 FAIL</strong> · VIS-003B — Arena, river, bridges, and tower art, continuation review<br>All six authored tower bodies and roofs are invisible because their pseudo-elements lack generated content, leaving flat placeholder pads.</li>
+      <li><strong>R310 FAIL</strong> · VIS-003C — Combatant, projectile, and effect assets, round 1<br>Canonical melee attacks deal 720 damage while the attacker remains visually idle and no impact appears; map attack/contact state to a visible attack pose and impact cue in the shipped renderer.</li>
+      <li><strong>R309 PASS</strong> · UI-002CV — Causal combat-effect view projection, round 3<br>No blocking gap found within the stated piece. This verdict does not establish completion of production combat art, motion, full endurance, or the final integrated presentation journey.</li>
+      <li><strong>R308 FAIL</strong> · UI-002CV — Causal combat-effect view projection, round 2<br>Derive terminal tower and match feedback from admitted projection data without reading `session.replay` or another producer-private authority.</li>
+      <li><strong>R307 FAIL</strong> · UI-002CV — Causal combat-effect view projection, round 1<br>Remove the raw replay read from the shipped frame path and restore the exact prior combat DOM when the host mutates during commit and then throws.</li>
+      <li><strong>R306 PASS</strong> · UI-002CP — Closed combat-effect feed export, round 5<br>No correctness gap remains in the transactional projectile boundary; UI-002CV can now consume the frozen feed.</li>
+      <li><strong>R305 FAIL</strong> · UI-002CP — Closed combat-effect feed export, round 4<br>ProjectileCombat validates feed capacity per contact instead of staging the entire due boundary, so a later capacity failure exposes an earlier partial visual record.</li>
+      <li><strong>R304 FAIL</strong> · UI-002CP — Closed combat-effect feed export, round 3<br>Root identity encoding is not injective for dot-containing admitted strings, and Area restore does not retain its replay-derived canonical history.</li>
+      <li><strong>R303 FAIL</strong> · UI-002CP — Closed combat-effect feed export, round 2<br>The tightened close state machine rejects an authentic traveling spell cancellation before first contact; area lineage and derived identity bounds are also not self-consistent.</li>
+      <li><strong>R302 PASS</strong> · AUDIO-002 — Authored original soundscape and mix polish, round 2<br>None on the judged dimension.</li>
+      <li><strong>R301 FAIL</strong> · UI-002CP — Closed combat-effect feed export, round 1<br>The feed is not closed or atomic: restore exposes append authority, source failures leak partial records, and lifecycle/root validation admits forged, premature, branched, reordered and colliding histories.</li>
+      <li><strong>R300 PASS</strong> · VIS-003D — Card, hand, HUD, and match-feedback art, round 4<br>None on the judged dimension.</li>
+      <li><strong>R299 FAIL</strong> · VIS-003D — Card, hand, HUD, and match-feedback art, round 3<br>Remove the static bridge ornamentation from the evidence mask and regenerate the exact render proof with every reproducible bridge pixel visible.</li>
+      <li><strong>R298 FAIL</strong> · AUDIO-002 — Authored original soundscape and mix polish, round 1<br>Export or derive one deterministic public movement-start signal that makes the authored movement cue reachable through the shipped browser path without inventing a second simulation.</li>
+      <li><strong>R297 FAIL</strong> · VIS-003D — Card, hand, HUD, and match-feedback art, round 2<br>Give Briar Band a readable gameplay-scale silhouette and make the fixed-state evidence byte-reproducible across repeated fresh browser renders.</li>
+      <li><strong>R296 FAIL</strong> · VIS-003D — Card, hand, HUD, and match-feedback art, round 1<br>Forward `selectedCardId` into the live HUD projection on every input update so an actually clicked card visibly enters the selected state before placement.</li>
+      <li><strong>R295 PASS</strong> · GAME-001GP — Sustained browser-match throughput, round 3<br>A fully frozen RAF yield seam would hang page.evaluate until the ~21-minute test timeout instead of a fast explicit failure — wrap driveBrowserSegment in a Promise.race deadline.</li>
+      <li><strong>R294 PASS</strong> · GAME-001HTM — Shared troop movement and form mechanics, round 5<br>K=32 tolerates same-complexity constant-factor slowdowns up to about 2x; tighten or add a midpoint ratio check if constant-factor regressions ever matter.</li>
+      <li><strong>R293 PASS</strong> · VIS-003B — Arena, river, bridges, and tower art, round 1<br>The committed render evidence is not byte-reproducible — `render-probe.json` marker y drifts across reruns because the harness races auto-ticks before manual-step entry; pin manual-step entry before any auto ticks or assert landmark-only stability.</li>
+      <li><strong>R292 PASS</strong> · BUILDING-001 — Defensive buildings, round 4<br>The newly pinned code paths (`stepPaused`/`statusWork`) have no behavioral test coverage anywhere; add a paused-stepping differential so a future attack-cycle change cannot slip through a refreshed pin unexercised.</li>
+      <li><strong>R291 PASS</strong> · GAME-001GS — Short authentic browser match journey, round 2<br>None on the judged dimension; endurance and movement-history wall-clock bounds remain flaky on this machine and must not be attributed to this piece.</li>
+      <li><strong>R290 PASS</strong> · VIS-003A — Original art direction and asset provenance, round 1<br>None on the judged dimension; admission is shape-only by design, with hash correctness enforced byte-for-byte against disk in the suite rather than inside admission.</li>
+      <li><strong>R289 PASS</strong> · GAME-001HTM — Shared troop movement and form mechanics, round 4<br>None on the judged purity dimension; the new uncached serialize path clones per call with no cost bound, which only matters if an every-tick serialization schedule becomes a shipped pattern.</li>
+      <li><strong>R288 FAIL</strong> · GAME-001HTM — Shared troop movement and form mechanics, round 3<br>Make intermediate movement-history canonicalization preserve the command tick required for LiveBattle replay, so serialization is pure and a tick-177 serialize cannot create a noncausal tick-200 witness.</li>
+      <li><strong>R287 FAIL</strong> · GAME-001HTM — Shared troop movement and form mechanics, round 2<br>Fix ordinary multi-entity BattleMovement command-history canonicalization so the Cinderlings redeploy scenario serializes and completes the required continuation differential.</li>
+      <li><strong>R286 FAIL</strong> · GAME-001HTM — Shared troop movement and form mechanics, round 1<br>Scope the sourced axis-aligned flight policy and movement intent materialization strictly to Copperskiff and Skymaul so enabling the v4 receipt cannot alter or reject ordinary ground movement.</li>
+      <li><strong>R285 PASS</strong> · GAME-001HTMP — Movement/form source-profile contract, round 12<br>None on the judged dimension.</li>
+      <li><strong>R284 FAIL</strong> · GAME-001HTMP — Movement/form source-profile contract, round 11<br>Recognize arbitrarily nested percent encoding of query/hash delimiter spellings in the primitive module-URL scan so `%253F`-style aliases cannot instantiate a coherent duplicate authority.</li>
+      <li><strong>R283 FAIL</strong> · GAME-001HTMP — Movement/form source-profile contract, round 10<br>Parse `import.meta.url` without any mutable global or prototype capability so query/fragment duplicate authority instances reject before exports or trusted graph state become usable.</li>
+      <li><strong>R282 FAIL</strong> · GAME-001HTMP — Movement/form source-profile contract, round 9<br>Bind every admitted graph node to its exact mechanic domain and make the authority module reject query/fragment duplicate instantiation so a coherent resolver alias cannot replace the canonical authority graph.</li>
+      <li><strong>R281 PASS</strong> · GAME-001HTJ — Shared troop projectile mechanics, round 2<br>None on the judged dimension.</li>
+      <li><strong>R280 FAIL</strong> · GAME-001HTMP — Movement/form source-profile contract, round 8<br>The source module still supplies both sides of its own factory identity check through an accessor-capable exported authority object; move the trusted factory and graph authority behind an independent direct-binding module and never read caller-controlled authority properties.</li>
+      <li><strong>R279 FAIL</strong> · GAME-001HTJ — Shared troop projectile mechanics, round 1<br>Remove the public registrar and every generic plan-mint path so only exact module-owned content authority can produce an accepted internal projectile plan and no earlier importer can deny registration.</li>
+      <li><strong>R277 FAIL</strong> · GAME-001HTMP — Movement/form source-profile contract, round 7<br>Authenticate each QUESTION factory against its exact unwrapped module-owned identity before invoking it, so bound, proxied and callable wrappers cannot execute callbacks or enter admission.</li>
+      <li><strong>R275 FAIL</strong> · GAME-001HTMP — Movement/form source-profile contract, round 6<br>Make QUESTION construction private and trap-zero so no exported constructor can mint identity for altered data or inspect hostile source graphs.</li>
+      <li><strong>R274 PASS</strong> · GAME-001HTJP — Projectile source-profile contract, round 6<br>None on the judged dimension.</li>
+      <li><strong>R272 FAIL</strong> · GAME-001HTJP — Projectile source-profile contract, round 5<br>Separate public catalog cloning from private authoritative source admission so session-card-catalog, HTP and HTO reject rebranded source-value drift before projection.</li>
+      <li><strong>R270 FAIL</strong> · GAME-001HTMP — Movement/form source-profile contract, round 5<br>Make every trusted canonical-admission path reject untrusted Proxy graphs before reflection, including alias-created Proxies that bypass the transformed-source text guard.</li>
       <li><strong>R1 FAIL</strong> · SIM-001 — Fixed-step world and replay log<br>The nondeterminism source gate misses wall-clock APIs such as `process.hrtime.bigint()` and aliased `node:perf_hooks` imports, so it does not satisfy the requirement to reject wall-clock timing in simulation code.</li>
       <li><strong>R2 FAIL</strong> · SIM-001 — Fixed-step world and replay log<br>Strengthen the source gate to detect aliased, destructured, and computed access to ambient random APIs.</li>
       <li><strong>R3 FAIL</strong> · SIM-001 — Fixed-step world and replay log<br>Replace or strengthen the regex source gate so optional-chained and indirect ambient-random access such as `Math?.random()` and `Reflect.get(Math, &quot;random&quot;)()` is rejected.</li>
       <li><strong>R4 PASS</strong> · SIM-001K — Fixed-step world and replay kernel<br>None on the judged dimension.</li>
+      <li><strong>R265 FAIL</strong> · GAME-001HTMP — Movement/form source-profile contract, round 2<br>QUESTION factory contents are not pinned, so future value or record-count changes are exposed instead of failing closed.</li>
+      <li><strong>R266 FAIL</strong> · GAME-001HTMP — Movement/form source-profile contract, round 3<br>Require damage to be `null` or a safe integer and reject non-finite numbers before canonicalization so they cannot collide with a pinned null.</li>
+      <li><strong>R267 FAIL</strong> · GAME-001HTJP — Projectile source-profile contract, round 3<br>Reject non-plain source-record and component prototypes before canonicalization so hostile custom-prototype shapes cannot escape.</li>
+      <li><strong>R268 FAIL</strong> · GAME-001HTMP — Movement/form source-profile contract, round 4<br>Reject Proxy input before `Object.getOwnPropertyDescriptors` so canonicalization never invokes a hostile `ownKeys` trap.</li>
+      <li><strong>R269 FAIL</strong> · GAME-001HTJP — Projectile source-profile contract, round 4<br>Validate source rows at the shared catalog-admission seam before session-card-catalog, HTP or HTO can read any field.</li>
       <li><strong>R57 PASS</strong> · CONTENT-008R — Attack-triggered recoil displacement<br>None on the judged dimension.</li>
       <li><strong>R58 PASS</strong> · CONTENT-009C — Chained target attacks<br>None on the judged dimension.</li>
       <li><strong>R59 FAIL</strong> · CONTENT-009P — Linear piercing projectiles<br>The finite capsule omits its start cap—targets exactly 250 millitiles behind the launch origin are rejected—while the declared geometry only names the corridor and end cap.</li>
@@ -1677,33 +1724,11 @@
       <li><strong>R257 PASS</strong> · GAME-001R — Playable eight-card runtime roster regression<br>None on the judged playable-roster regression dimension.</li>
       <li><strong>R258 FAIL</strong> · GAME-001HTO — Ordinary troop projection into eight-card witness sessions<br>LiveBattle treats a policy-less entity as valid legacy data even when the rest of the same setup uses HTO ordinary policies. Setup admission must be uniformly legacy or uniformly QUESTION-backed and reject mixed mode before exposure or mutation.</li>
       <li><strong>R259 PASS</strong> · GAME-001HTO — Ordinary troop projection into eight-card witness sessions<br>None on the judged ordinary troop projection dimension.</li>
-      <li><strong>R270 FAIL</strong> · GAME-001HTMP — Movement/form source-profile contract<br>Make every trusted canonical-admission path reject untrusted Proxy graphs before reflection, including alias-created Proxies that bypass the transformed-source text guard.</li>
-      <li><strong>R271 FAIL</strong> · GAME-001HTS — Shared troop status, heal, and visibility mechanics<br>Reject a missing status target atomically during GameSession or LiveBattle admission before it can enter history or crash the shared tick.</li>
-      <li><strong>R272 FAIL</strong> · GAME-001HTJP — Projectile source-profile contract<br>Separate public catalog cloning from private authoritative source admission so session-card-catalog, HTP and HTO reject rebranded source-value drift before projection.</li>
-      <li><strong>R273 FAIL</strong> · GAME-001HTS — Shared troop status, heal, and visibility mechanics<br>Bind each live status source card's authoritative roster facts to its pinned status-profile source record before allowing status admission.</li>
-      <li><strong>R274 PASS</strong> · GAME-001HTJP — Projectile source-profile contract<br>None on the judged dimension.</li>
-      <li><strong>R275 FAIL</strong> · GAME-001HTMP — Movement/form source-profile contract<br>Make QUESTION construction private and trap-zero so no exported constructor can mint identity for altered data or inspect hostile source graphs.</li>
-      <li><strong>R276 FAIL</strong> · GAME-001HTS — Shared troop status, heal, and visibility mechanics<br>Bind every profiled status QUESTION resolution and derived live policy field to its pinned receipt value so matching-key coupled drift cannot authorize altered live status sources.</li>
-      <li><strong>R277 FAIL</strong> · GAME-001HTMP — Movement/form source-profile contract<br>Authenticate each QUESTION factory against its exact unwrapped module-owned identity before invoking it, so bound, proxied and callable wrappers cannot execute callbacks or enter admission.</li>
-      <li><strong>R278 PASS</strong> · GAME-001HTS — Shared troop status, heal, and visibility mechanics<br>None on the judged dimension.</li>
-      <li><strong>R279 FAIL</strong> · GAME-001HTJ — Shared troop projectile mechanics<br>Remove the public registrar and every generic plan-mint path so only exact module-owned content authority can produce an accepted internal projectile plan and no earlier importer can deny registration.</li>
-      <li><strong>R280 FAIL</strong> · GAME-001HTMP — Movement/form source-profile contract<br>Move the trusted factory and graph authority behind an independent direct-binding module so a source cannot supply both sides of its own identity check or execute accessor-backed authority properties.</li>
-      <li><strong>R281 PASS</strong> · GAME-001HTJ — Shared troop projectile mechanics<br>None on the judged dimension.</li>
-      <li><strong>R282 FAIL</strong> · GAME-001HTMP — Movement/form source-profile contract<br>Bind every admitted graph node to its exact mechanic domain and make the authority module reject query or fragment duplicate instantiation.</li>
-      <li><strong>R283 FAIL</strong> · GAME-001HTMP — Movement/form source-profile contract<br>Parse <code>import.meta.url</code> without mutable global or prototype capabilities so duplicate authority instances reject before exports or trusted graph state become usable.</li>
-      <li><strong>R284 FAIL</strong> · GAME-001HTMP — Movement/form source-profile contract<br>Recognize arbitrarily nested percent encoding of query/hash delimiters so <code>%253F</code>-style preserve-symlink aliases cannot instantiate a coherent duplicate authority.</li>
-      <li><strong>R285 PASS</strong> · GAME-001HTMP — Movement/form source-profile contract<br>None on the judged dimension.</li>
-      <li><strong>R286 FAIL</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>Scope the sourced flight policy strictly to Copperskiff and Skymaul so enabling v4 cannot alter or reject ordinary ground movement.</li>
-      <li><strong>R287 FAIL</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>Fix ordinary multi-entity BattleMovement command-history canonicalization so the Cinderlings redeploy scenario serializes and completes the required continuation differential.</li>
-      <li><strong>R288 FAIL</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>Preserve the command tick required for LiveBattle replay so intermediate serialization is pure and cannot create a noncausal later snapshot.</li>
-      <li><strong>R296 FAIL</strong> · VIS-003D — Card, hand, HUD, and match-feedback art<br>Forward selectedCardId into the live HUD projection on every input update so an actually clicked card visibly enters the selected state before placement.</li>
-                                    <li><strong>R295 PASS</strong> · GAME-001GP — Sustained browser-match throughput<br>A fully frozen RAF yield seam would hang until the ~21-minute test timeout; wrap driveBrowserSegment in an explicit Promise.race deadline.</li>
-      <li><strong>R294 PASS</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>K=32 tolerates same-complexity constant-factor slowdowns up to ~2x; tighten or add a midpoint ratio check if constant factors ever matter.</li>
-<li><strong>R293 PASS</strong> · VIS-003B — Arena, river, bridges, and tower art<br>Committed render evidence is not byte-reproducible; pin manual-step entry before auto ticks or assert landmark-only stability.</li>
-<li><strong>R292 PASS</strong> · BUILDING-001 — Defensive buildings<br>Newly pinned stepPaused/statusWork paths lack behavioral coverage; add a paused-stepping differential later.</li>
-<li><strong>R291 PASS</strong> · GAME-001GS — Short authentic browser match journey<br>None on the judged dimension; endurance and movement-history wall-clock bounds remain flaky on this machine and are queued separately.</li>
-<li><strong>R290 PASS</strong> · VIS-003A — Original art direction and asset provenance<br>None on the judged dimension; admission is shape-only with hash correctness enforced by the disk-parity test.</li>
-<li><strong>R289 PASS</strong> · GAME-001HTM — Shared troop movement and form mechanics<br>None on the judged dimension; uncached serialize now clones per call with no cost bound, only relevant if every-tick serialization becomes a shipped pattern.</li>
+      <li><strong>R260 FAIL</strong> · GAME-001HTSP — Status/heal/visibility source-profile contract, round 1<br>`sourceRows()` finds each requested ID but never verifies the complete source catalog ID set. An extra future catalog row is silently ignored instead of failing closed.</li>
+      <li><strong>R261 FAIL</strong> · GAME-001HTJP — Projectile source-profile contract, round 1<br>Copperskiff lacks card-specific source proof of projectile delivery. A generic flying duel cannot justify admitting Copperskiff while excluding Skymaul; add a specific source receipt or keep Copperskiff as an explicit delivery QUESTION.</li>
+      <li><strong>R262 FAIL</strong> · GAME-001HTMP — Movement/form source-profile contract, round 1<br>The profile accepts changed same-ID source values rather than failing closed on future source-record drift.</li>
+      <li><strong>R263 FAIL</strong> · GAME-001HTJP — Projectile source-profile contract, round 2<br>Brassbolt and Reedsting are admitted from a generic synthetic launch constructor with no card-specific delivery discriminator. Ordinary delivery must remain QUESTION unless a card-specific source receipt exists, and every bound source record must reject same-ID value drift.</li>
+      <li><strong>R264 PASS</strong> · GAME-001HTSP — Status/heal/visibility source-profile contract, round 2<br>None on the judged dimension.</li>
   </ol>
 </body>
 </html>

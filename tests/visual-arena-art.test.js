@@ -230,6 +230,35 @@ test("visual arena art: fixed 720×1280 Chrome render keeps gameplay geometry ab
     for (const [label, , bounds] of landmarkSelectors) {
       assertRectMatches(rects[label], expectedClientRect(bounds), label);
     }
+    const towerArt = await page.locator('[data-ui="tower-pad"]').evaluateAll((towers) =>
+      towers.map((tower) => ({
+        classes: tower.className,
+        side: tower.dataset.side,
+        layers: ["::before", "::after"].map((pseudo) => {
+          const style = getComputedStyle(tower, pseudo);
+          return { pseudo, content: style.content, display: style.display,
+            visibility: style.visibility, opacity: style.opacity,
+            left: Number.parseFloat(style.left), top: Number.parseFloat(style.top),
+            width: Number.parseFloat(style.width), height: Number.parseFloat(style.height) };
+        }),
+      })));
+    assert.equal(towerArt.length, 6, "all six authored towers must render");
+    for (const tower of towerArt) {
+      for (const layer of tower.layers) {
+        assert.ok(!["none", "normal"].includes(layer.content) &&
+          layer.display !== "none" && layer.visibility === "visible" &&
+          Number(layer.opacity) > 0 && layer.width > 0 && layer.height > 0,
+        `${tower.classes}${layer.pseudo} must generate visible tower art: ${JSON.stringify(layer)}`);
+      }
+      if (tower.side === "north") {
+        const [body, roof] = tower.layers;
+        assert.ok(roof.width > body.width && roof.height >= body.height / 2 &&
+          roof.left < body.left && roof.left + roof.width > body.left + body.width &&
+          roof.top < body.top && roof.top + roof.height > body.top &&
+          roof.top + roof.height < body.top + body.height / 2,
+        `${tower.classes} roof must span and overlap the upper body while leaving the wall visible`);
+      }
+    }
 
     await page.click('[data-ui="audio-toggle"]');
     await page.evaluate(async () => {
@@ -277,8 +306,8 @@ test("visual arena art: fixed 720×1280 Chrome render keeps gameplay geometry ab
       y: ARENA_SHELL_PLAYFIELD.top + combatProbe.y *
         (ARENA_SHELL_PLAYFIELD.height / ARENA_LENGTH_MILLITILES),
     };
-    assert.ok(Math.abs(combatProbe.markerBox.x + 14 - expectedMarker.x) <= 2 &&
-      Math.abs(combatProbe.markerBox.y + 14 - expectedMarker.y) <= 2,
+    assert.ok(Math.abs(combatProbe.markerBox.x + combatProbe.markerBox.width / 2 - expectedMarker.x) <= 2 &&
+      Math.abs(combatProbe.markerBox.y + combatProbe.markerBox.height / 2 - expectedMarker.y) <= 2,
       `marker pixel mapping drifted: ${JSON.stringify({
         box: combatProbe.markerBox, expectedMarker })}`);
 
@@ -286,6 +315,7 @@ test("visual arena art: fixed 720×1280 Chrome render keeps gameplay geometry ab
     writeFileSync(`${ARTIFACTS}render-probe.json`, `${JSON.stringify({
       combatProbe,
       landmarks: rects,
+      towerArt,
     }, null, 2)}\n`);
 
     assert.deepEqual(consoleErrors, []);

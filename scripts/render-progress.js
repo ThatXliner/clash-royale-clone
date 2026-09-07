@@ -75,7 +75,7 @@ const html = `<!doctype html>
 </head>
 <body>
   <h1>Gauntlet progress</h1>
-  <p class="sub">Updated 2026-08-21 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
+  <p class="sub">Updated ${escapeHtml(trajectories[0]?.date ?? "No completed rounds")} · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
     <div class="card"><div class="num">${pieces.length}</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">${passed}</div><div class="label">passed</div></div>
@@ -84,7 +84,7 @@ const html = `<!doctype html>
   </div>
   <p class="note">${active
     ? `Active target: <strong>${escapeHtml(active.id)} — ${escapeHtml(active.piece)}</strong>.`
-    : `Latest pass: <strong>ARENA-002 — Ground pathfinding through bridges</strong>. Next dependency-ready target: ARENA-003 — Flying movement over terrain.`}</p>
+    : `Latest review: <strong>${escapeHtml(trajectories[0]?.piece ?? "None")} — ${escapeHtml(trajectories[0]?.verdict ?? "PENDING")}</strong>. Full game completion remains unproven.`}</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>

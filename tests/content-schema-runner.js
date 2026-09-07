@@ -108,6 +108,7 @@ for (const selector of selectors) {
       "audio-production-assets",
       "visual-asset-manifest",
       "visual-arena-art",
+      "visual-combat-assets",
       "visual-interface-art",
       "release-build",
       "fixed-step-kernel",
@@ -683,4 +684,8 @@ if (selectors.length === 0 || selectors.includes("combat-effect-protocol")) {
     new URL("./combat-effect-protocol-runner.js", import.meta.url).pathname,
     "combat-effect-protocol",
   ]);
+}
+
+if (selectors.length === 0 || selectors.includes("visual-combat-assets")) {
+  run([new URL("./visual-combat-assets-runner.js", import.meta.url).pathname, "visual-combat-assets"]);
 }

@@ -1,3 +1,4 @@
+import { createCombatMotionView, bindCombatMotion } from "./combat-motion.js";
 import {
   GameSession,
   isAuthenticGameSession,
@@ -28,6 +29,7 @@ export const GAME_UI_FRAME_VERSION = 1;
 
 const FRAMES = new WeakSet();
 const FRAME_PARTS = new WeakSet();
+const FRAME_MOTION = new WeakMap();
 const OPTIONS = new WeakSet();
 const STRUCTURE_IDS = new Map([
   [Number.MAX_SAFE_INTEGER - 5, "south:central"],
@@ -131,6 +133,7 @@ function mintFrameParts(snapshot, combat, effects, feedback, hud) {
   const parts = Object.freeze({ combat, effects, feedback, hud,
     sequence: snapshot.sequence, source: snapshot.source, tick: snapshot.state.tick,
     version: GAME_UI_FRAME_VERSION });
+  FRAME_MOTION.set(parts, createCombatMotionView(snapshot, effects));
   FRAME_PARTS.add(parts);
   return parts;
 }
@@ -162,6 +165,7 @@ export function composeGameUiFrame(value) {
     throw new TypeError("game UI frame identity is invalid");
   }
   const admitted = freeze({ ...frame, tick });
+  FRAME_MOTION.set(admitted, FRAME_MOTION.get(frame));
   FRAMES.add(admitted);
   return admitted;
 }
@@ -290,6 +294,7 @@ export function mountGameUiProjection(value) {
       };
       bindCombatViewModel(staged.combat, frame.combat);
       bindCombatEffectsViewModel(staged.effects, frame.effects);
+      bindCombatMotion(staged.combat, staged.effects, FRAME_MOTION.get(frame));
       bindMatchFeedback(staged.feedback, frame.feedback);
       const hudFrame = layers.hud.ownerDocument.createElement("div");
       hudFrame.className = "game-ui-hud-frame";

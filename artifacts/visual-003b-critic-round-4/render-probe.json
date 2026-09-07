@@ -1,0 +1,235 @@
+{
+  "combatProbe": {
+    "markerZ": 20,
+    "towerPadZ": 5,
+    "riverZ": 2,
+    "markerBox": {
+      "height": 33.46875,
+      "width": 33.46875,
+      "x": 118.265625,
+      "y": 670.265625
+    },
+    "x": 1500,
+    "y": 19300
+  },
+  "landmarks": {
+    "bridge-west": {
+      "x": 165,
+      "y": 558,
+      "width": 60,
+      "height": 60
+    },
+    "bridge-east": {
+      "x": 495,
+      "y": 558,
+      "width": 60,
+      "height": 60
+    },
+    "tower-south-central": {
+      "x": 300,
+      "y": 918,
+      "width": 120,
+      "height": 120
+    },
+    "tower-south-lane-west": {
+      "x": 150,
+      "y": 798,
+      "width": 90,
+      "height": 90
+    },
+    "tower-south-lane-east": {
+      "x": 480,
+      "y": 798,
+      "width": 90,
+      "height": 90
+    },
+    "tower-north-central": {
+      "x": 300,
+      "y": 138,
+      "width": 120,
+      "height": 120
+    },
+    "tower-north-lane-west": {
+      "x": 150,
+      "y": 288,
+      "width": 90,
+      "height": 90
+    },
+    "tower-north-lane-east": {
+      "x": 480,
+      "y": 288,
+      "width": 90,
+      "height": 90
+    }
+  },
+  "towerArt": [
+    {
+      "classes": "tower-pad tower-pad--north-central",
+      "side": "north",
+      "layers": [
+        {
+          "pseudo": "::before",
+          "content": "\"\"",
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1",
+          "left": 14,
+          "top": 34,
+          "width": 86,
+          "height": 68
+        },
+        {
+          "pseudo": "::after",
+          "content": "\"\"",
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1",
+          "left": 6,
+          "top": 3,
+          "width": 102,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "classes": "tower-pad tower-pad--north-west",
+      "side": "north",
+      "layers": [
+        {
+          "pseudo": "::before",
+          "content": "\"\"",
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1",
+          "left": 12,
+          "top": 25,
+          "width": 60,
+          "height": 50
+        },
+        {
+          "pseudo": "::after",
+          "content": "\"\"",
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1",
+          "left": 5,
+          "top": 4,
+          "width": 74,
+          "height": 33
+        }
+      ]
+    },
+    {
+      "classes": "tower-pad tower-pad--north-east",
+      "side": "north",
+      "layers": [
+        {
+          "pseudo": "::before",
+          "content": "\"\"",
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1",
+          "left": 12,
+          "top": 25,
+          "width": 60,
+          "height": 50
+        },
+        {
+          "pseudo": "::after",
+          "content": "\"\"",
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1",
+          "left": 5,
+          "top": 4,
+          "width": 74,
+          "height": 33
+        }
+      ]
+    },
+    {
+      "classes": "tower-pad tower-pad--south-central",
+      "side": "south",
+      "layers": [
+        {
+          "pseudo": "::before",
+          "content": "\"\"",
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1",
+          "left": 22,
+          "top": 40,
+          "width": 76,
+          "height": 50
+        },
+        {
+          "pseudo": "::after",
+          "content": "\"\"",
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1",
+          "left": 18,
+          "top": 6,
+          "width": 84,
+          "height": 38
+        }
+      ]
+    },
+    {
+      "classes": "tower-pad tower-pad--south-west",
+      "side": "south",
+      "layers": [
+        {
+          "pseudo": "::before",
+          "content": "\"\"",
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1",
+          "left": 16,
+          "top": 30,
+          "width": 58,
+          "height": 38
+        },
+        {
+          "pseudo": "::after",
+          "content": "\"\"",
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1",
+          "left": 12,
+          "top": 4,
+          "width": 66,
+          "height": 30
+        }
+      ]
+    },
+    {
+      "classes": "tower-pad tower-pad--south-east",
+      "side": "south",
+      "layers": [
+        {
+          "pseudo": "::before",
+          "content": "\"\"",
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1",
+          "left": 16,
+          "top": 30,
+          "width": 58,
+          "height": 38
+        },
+        {
+          "pseudo": "::after",
+          "content": "\"\"",
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1",
+          "left": 12,
+          "top": 4,
+          "width": 66,
+          "height": 30
+        }
+      ]
+    }
+  ]
+}

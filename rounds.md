@@ -1,5 +1,131 @@
 # Gauntlet Rounds
 
+## Round 315 — 2026-09-07
+
+PIECE: VIS-003C — Combatant, projectile, and effect assets, round 3
+
+VERDICT: PASS
+
+EVIDENCE: Fresh independent Chrome720×1280 visual-combat-assets passed3/3
+in17.128s. Nine original default-roster archetypes appear in both factions,
+25.90625–40.5px wide, with diagnostic links hidden. Frame435 attacks with
+contact tick434 targeting south:lane:west; frame443 has no contact. Brassbolt
+is live413, fallen414/419, cleared432, with no corpse health/live identity/
+pointer region. Canonical residual impact and exact restored combat/effects
+DOM pass. Evidence: artifacts/visual-003c-round-3/.
+
+BIGGEST GAP: Authorized pre-Evolutions gameplay captures are needed before
+claiming captured-game visual parity; full motion polish remains VIS-003E.
+
+## Round 314 — 2026-09-07
+
+PIECE: VIS-003B — Arena, river, bridges, and tower art, round 4
+
+VERDICT: PASS
+
+EVIDENCE: Fresh independent critic ran visual-arena-art 6/6, inspected
+720×1280 initial/combat renders, and found all six visible tower bodies,
+overlapping roofs, shaded planes and grounded bases. Tower centers north
+(360,198),(195,333),(525,333), south(360,978),(195,843),(525,843) match
+simulation mapping; bridges center(195,588),(525,588), each60×60px.
+Combat/tower/river z-order20/5/2 remains readable; no browser errors.
+Evidence: artifacts/visual-003b-critic-round-4/.
+
+BIGGEST GAP: Missing captured gameplay reference footage prevents verification
+of visual parity with the comparison target; original-production-art bar passes.
+
+## Round 313 — 2026-09-07
+
+PIECE: VIS-003C — Combatant, projectile, and effect assets, round 2
+
+VERDICT: FAIL
+
+EVIDENCE: Independent critic ran visual-combat-assets 2/2 and real Chrome
+720×1280. Tick430 anticipates; tick435 attacks with one contact; tick442
+has none. Direct/chunk/restore/delayed-spawn DOM matches. Standard seed2
+Brassbolt id1 drops from66HP frame413 to0HP frame414 and vanishes with an
+empty effects frame. Evidence: artifacts/visual-003c-critic-round-2/.
+Coordinator then confirmed canonical closed-feed death event58 at tick413
+already exists; presentation can consume it without new simulation authority.
+
+BIGGEST GAP: A shipped Brassbolt dying at tick414 vanishes without any death
+visual, so the required canonical death cue remains missing.
+
+## Round 312 — 2026-09-07
+
+PIECE: VIS-003B — Arena, river, bridges, and tower art, round 3
+
+VERDICT: FAIL
+
+EVIDENCE: Fresh independent critic ran visual-arena-art 6/6 and inspected
+720×1280 initial/combat renders. All 12 tower pseudo-elements now have
+generated content, opacity 1 and positive dimensions. All six tower centers
+and both bridge centers pass within 1px; combat marker center is exact.
+North tower bodies still read as flat brown rectangles with red oval emblems
+inside dominant square pads, without readable roof/side planes.
+Evidence: artifacts/visual-003b-critic-round-3/.
+
+BIGGEST GAP: Give north tower bodies readable architectural volume so they
+appear as buildings rather than emblems mounted on flat pads.
+
+## Round 311 — 2026-09-07
+
+PIECE: VIS-003B — Arena, river, bridges, and tower art, continuation review
+
+VERDICT: FAIL
+
+EVIDENCE: Independent Chrome render at 720×1280 showed six flat tower pads.
+All six towers had computed ::before content:none and ::after content:none,
+so authored body/roof styles produced no visible geometry. visual-arena-art
+passed 5/6; its marker assertion used fixed 14px half-width, while the new
+33.46875px marker's actual center exactly matched expected (135,684).
+Landmark checks passed. Evidence: artifacts/visual-003b-continuation-critic/.
+
+BIGGEST GAP: All six authored tower bodies and roofs are invisible because
+their pseudo-elements lack generated content, leaving flat placeholder pads.
+
+## Round 310 — 2026-09-07
+
+PIECE: VIS-003C — Combatant, projectile, and effect assets, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Independent critic executed visual-combat-assets 1/1,
+ui-combat-state 11/11 and ui-combat-effects 9/9, and rendered Chrome at
+720×1280. Nine recognizable original silhouettes and readable team colors
+were present. Actual shipped melee attack at tick 434 dealt 720 damage;
+at tick 435 the marker reaction remained idle and impacts were zero.
+Nine consecutive attacks through tick 1302 had the same missing cue.
+Runtime evidence: artifacts/visual-003c-critic-round-1/runtime.json and runtime.png.
+No captured reference footage was available.
+
+BIGGEST GAP: Canonical melee attacks deal 720 damage while the attacker
+remains visually idle and no impact appears; map attack/contact state to a
+visible attack pose and impact cue in the shipped renderer.
+
+## Round 309 — 2026-09-06
+
+PIECE: UI-002CV — Causal combat-effect view projection, round 3
+
+VERDICT: PASS
+
+EVIDENCE: Independent critic reviewed HEAD `460c6e5` and executed
+ui-combat-effects 9/9, game-ui-projection 26/26, game-browser-loop 12/12,
+ui-match-feedback 15/15, and game-browser-journey 1/1. At the actual seed-2
+terminal transition from tick 1589 to 1590, throwing getters for session
+replay, replayBytes, state, events, and snapshot.replay received zero reads;
+the overlay reported `central_destroyed`. Canonical matchFeedback produced
+identical feedback bytes; altered replay bytes, noncanonical snapshot encoding,
+and an omitted event rejected. A mounted feedback commit that mutated then
+threw restored exact prior child identities across every layer, and retrying
+the terminal frame succeeded. Real Chrome completed play, combat, terminal,
+restart, and repeat. Recovery injection used the DOM test double; the real
+browser journey separately passed. No critic source edits were made.
+
+BIGGEST GAP: No blocking gap found within the stated piece. This verdict does
+not establish completion of production combat art, motion, full endurance,
+or the final integrated presentation journey.
+
 ## Round 308 — 2026-09-01
 
 PIECE: UI-002CV — Causal combat-effect view projection, round 2

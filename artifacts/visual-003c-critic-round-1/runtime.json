@@ -1,0 +1,36 @@
+[
+  {
+    "tick": 435,
+    "events": [
+      {
+        "attackerId": 1,
+        "sequence": 1,
+        "targetId": 9007199254740987,
+        "tick": 434,
+        "type": "attack"
+      },
+      {
+        "contactTick": 434,
+        "attackSequence": 1,
+        "damage": 720,
+        "delivery": "melee",
+        "sourceUnitId": 1,
+        "structureId": "south:lane:west",
+        "tick": 434,
+        "type": "external-structure-contact"
+      },
+      {
+        "accepted": true,
+        "destroyedTowerIds": [],
+        "sequence": 0,
+        "tick": 434,
+        "type": "tower_evidence"
+      }
+    ],
+    "markers": 1,
+    "reactions": [
+      "idle"
+    ],
+    "impacts": 0
+  }
+]

@@ -9,7 +9,10 @@ import {
   createPlayableRoster,
   createPlayableRosterQuestionRecords,
 } from "../src/content/playable-roster.js";
-import { GameSession } from "../src/sim/game-session.js";
+import {
+  GameSession,
+  getGameSessionAudioReplay,
+} from "../src/sim/game-session.js";
 import {
   GAME_BROWSER_ENDURANCE_MAX_CHUNK_TICKS,
   GAME_BROWSER_ENDURANCE_MAX_SEGMENT_TICKS,
@@ -201,7 +204,7 @@ async function browserView(page, options = {}) {
       pendingResources: performance.getEntriesByType("resource")
         .filter(({ duration, responseEnd }) => duration === 0 && responseEnd === 0)
         .map(({ name }) => name),
-      replayLength: diagnostics.cursor,
+      audioReplayLength: diagnostics.cursor,
       restartHidden: document.querySelector('[data-ui="restart"]').hidden,
       sessionBytes: requested.bytes ? controller.session.serialize() : null,
       state: requested.loop ? controller.state : null,
@@ -696,9 +699,9 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       const browserState = await browserView(page);
       assert.equal(driven.result.state.sessionTick, direct.state.tick);
       assert.equal(driven.result.state.domTick, direct.state.tick);
-      assert.equal(browserState.replayLength, direct.replay.length);
-      assert.equal(browserState.audioDiagnostics.cursor, browserState.replayLength);
-      assert.equal(browserState.audioDiagnostics.eventCount, browserState.replayLength);
+      assert.equal(browserState.audioReplayLength, getGameSessionAudioReplay(direct).length);
+      assert.equal(browserState.audioDiagnostics.cursor, browserState.audioReplayLength);
+      assert.equal(browserState.audioDiagnostics.eventCount, browserState.audioReplayLength);
       assert.equal(browserState.pendingResources.length, 0);
       assert.equal(Object.values(browserState.layers).every((tick) => tick === String(direct.state.tick)),
         true, "every projection layer commits the current session tick");
@@ -772,7 +775,7 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
           bridge: branchView.bridge,
           directBytes: direct.serialize(),
           layers: branchView.layers,
-          replayLength: branchView.replayLength,
+          audioReplayLength: branchView.audioReplayLength,
           tick: direct.state.tick,
         };
         const restoredView = await restoreBrowserSnapshot(page, restoreCut.browserSnapshot);
@@ -805,9 +808,9 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
           "yielded browser restore bytes equal a direct public GameSession restore");
         assert.equal(restoredView.after.bridge, restoreCut.bridge,
           "restore rewinds to its canonical E2 delivery history");
-        assert.equal(restoredView.after.diagnostics.cursor, direct.replay.length);
-        assert.equal(restoredView.after.diagnostics.eventCount, direct.replay.length);
-        assert.equal(restoredView.after.diagnostics.projectionOffset, direct.replay.length);
+        assert.equal(restoredView.after.diagnostics.cursor, getGameSessionAudioReplay(direct).length);
+        assert.equal(restoredView.after.diagnostics.eventCount, getGameSessionAudioReplay(direct).length);
+        assert.equal(restoredView.after.diagnostics.projectionOffset, getGameSessionAudioReplay(direct).length);
         assert.equal(restoredView.after.diagnostics.cueCount, 0,
           "restore rebases rather than rendering the restored cue history");
         assert.equal(restoredView.after.audio.audio.audibleStartCount,
@@ -845,7 +848,7 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
           "600→300→600 browser replay reproduces its exact E2 bridge bytes");
         assert.equal(replayed.audioContinuationBytes, restoreBranch.audioContinuationBytes,
           "600→300→600 browser replay reproduces exact future-audio continuation bytes");
-        assert.equal(replayed.replayLength, restoreBranch.replayLength,
+        assert.equal(replayed.audioReplayLength, restoreBranch.audioReplayLength,
           "replayed audio authority cursor returns to the same branch boundary");
         assert.deepEqual({ cursor: replayed.audioDiagnostics.cursor,
           eventCount: replayed.audioDiagnostics.eventCount,

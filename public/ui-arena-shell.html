@@ -109,13 +109,18 @@
         border-bottom: 3px solid #191d22;
       }
       .tower-pad {
-        border: 3px solid #191d22;
+        border: 3px solid transparent;
         border-radius: 4px;
         background: linear-gradient(
           transparent 0 calc(100% - 22px),
           #8b8578 calc(100% - 22px) calc(100% - 12px),
           #726d62 calc(100% - 12px));
-        box-shadow: 8px 10px 0 #191d2236;
+        background-clip: padding-box;
+        box-shadow: inset 0 -4px #4a332a;
+      }
+      .tower-pad::before,
+      .tower-pad::after {
+        content: "";
       }
       .tower-pad::before,
       .tower-pad::after,
@@ -124,59 +129,73 @@
         box-sizing: border-box;
       }
       .tower-pad--north-west::before,
-      .tower-pad--north-east::before {
-        left: 16px;
-        top: 20px;
-        width: 58px;
-        height: 48px;
+      .tower-pad--north-east::before,
+      .tower-pad--north-central::before {
+        left: 12px;
+        top: 25px;
+        width: 60px;
+        height: 50px;
         border: 2px solid #191d22;
-        background: linear-gradient(90deg, #4a332a 0 60%, #3d2a22 60%);
+        border-radius: 2px 2px 5px 5px;
+        background:
+          repeating-linear-gradient(0deg, transparent 0 13px, #4a332a 13px 15px),
+          linear-gradient(90deg, #e9a83a 0 72%, #4a332a 72%);
+        box-shadow: inset 0 6px #4a332a, 4px 4px 0 #191d2236;
       }
       .tower-pad--north-west::after,
-      .tower-pad--north-east::after {
-        left: 38px;
-        top: 5px;
-        width: 14px;
-        height: 15px;
-        background: #e9a83a;
-        clip-path: polygon(50% 0, 100% 100%, 0 100%);
+      .tower-pad--north-east::after,
+      .tower-pad--north-central::after {
+        left: 5px;
+        top: 4px;
+        width: 74px;
+        height: 33px;
+        background: linear-gradient(115deg, #c6452e 0 66%, #4a332a 66%);
+        border-bottom: 5px solid #191d22;
+        clip-path: polygon(0 82%, 14% 30%, 35% 30%, 35% 0,
+          48% 0, 48% 30%, 76% 30%, 100% 82%, 100% 100%, 0 100%);
       }
       .tower-pad--north-west i,
-      .tower-pad--north-east i {
-        left: 50%;
-        top: 27px;
+      .tower-pad--north-east i,
+      .tower-pad--north-central i {
+        left: 33px;
+        top: 51px;
         width: 18px;
-        height: 33px;
-        translate: -50% 0;
-        border: 2px solid #191d22;
-        background: linear-gradient(#e9a83a 0 6px, #c6452e 6px);
-        clip-path: polygon(0 0, 100% 0, 100% 74%, 50% 100%, 0 74%);
+        height: 24px;
+        translate: 0 0;
+        border: 3px solid #4a332a;
+        border-radius: 3px 3px 0 0;
+        background: #191d22;
+        box-shadow: inset 4px 0 #c6452e;
       }
+      .tower-pad[data-side="north"] i::before,
+      .tower-pad[data-side="north"] i::after {
+        content: "";
+        position: absolute;
+        top: -11px;
+        width: 5px;
+        height: 9px;
+        background: #191d22;
+        border-top: 2px solid #4a332a;
+      }
+      .tower-pad[data-side="north"] i::before { left: -13px; }
+      .tower-pad[data-side="north"] i::after { right: -13px; }
       .tower-pad--north-central::before {
-        left: 22px;
-        top: 26px;
-        width: 76px;
-        height: 64px;
-        border: 2px solid #191d22;
-        background: linear-gradient(90deg, #4a332a 0 60%, #3d2a22 60%);
+        left: 14px;
+        top: 34px;
+        width: 86px;
+        height: 68px;
       }
       .tower-pad--north-central::after {
-        left: 51px;
-        top: 5px;
-        width: 18px;
-        height: 19px;
-        background: #e9a83a;
-        clip-path: polygon(50% 0, 100% 100%, 0 100%);
+        left: 6px;
+        top: 3px;
+        width: 102px;
+        height: 44px;
       }
       .tower-pad--north-central i {
-        left: 50%;
-        top: 33px;
+        left: 42px;
+        top: 69px;
         width: 26px;
-        height: 46px;
-        translate: -50% 0;
-        border: 2px solid #191d22;
-        background: linear-gradient(#e9a83a 0 7px, #c6452e 7px);
-        clip-path: polygon(0 0, 100% 0, 100% 76%, 50% 100%, 0 76%);
+        height: 33px;
       }
       .tower-pad--south-west::before,
       .tower-pad--south-east::before {

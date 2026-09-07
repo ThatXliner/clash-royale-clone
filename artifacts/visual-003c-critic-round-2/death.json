@@ -1,0 +1,54 @@
+{
+  "death": {
+    "tick": 414,
+    "id": 1,
+    "kind": "brassbolt",
+    "hpBefore": 66,
+    "after": {
+      "alive": false,
+      "attack": {
+        "attackSequence": 6,
+        "config": {
+          "deployTicks": 60,
+          "firstHitTicks": 12,
+          "hitSpeedTicks": 60
+        },
+        "nextAttackTick": 460,
+        "nextTick": 414,
+        "phase": "cycling",
+        "targetId": 9007199254740987
+      },
+      "cadenceTicks": 60,
+      "damage": 218,
+      "delivery": "projectile",
+      "deployTicks": 60,
+      "firstHitTicks": 12,
+      "hitpoints": 0,
+      "id": 1,
+      "layer": "ground",
+      "maxHealth": 720,
+      "position": {
+        "x": 1500,
+        "y": 12600
+      },
+      "projectileSpeed": 500,
+      "radius": 400,
+      "reach": 6000,
+      "side": "north",
+      "sightRange": 6000,
+      "spawnedAt": 0,
+      "targetId": 9007199254740987,
+      "targetMode": "air_and_ground",
+      "archetypeId": "brassbolt",
+      "cardId": "brassbolt",
+      "count": 1,
+      "memberIndex": 0,
+      "movement": null,
+      "role": "primary"
+    }
+  },
+  "deathDom": {
+    "marker": false,
+    "effects": "<div class=\"combat-effects__frame\" data-tick=\"414\"></div>"
+  }
+}

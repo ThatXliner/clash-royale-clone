@@ -1,3 +1,5 @@
+import { COMBAT_MOTION_STYLE, COMBAT_DEATH_STYLE } from "./combat-motion.js";
+import { createCombatArt, COMBAT_ART_STYLE } from "./combat-art.js";
 import {
   ARENA_LENGTH_MILLITILES,
   ARENA_WIDTH_MILLITILES,
@@ -15,7 +17,7 @@ const LAYERS = new Set(["air", "ground"]);
 const ROLES = new Set(["central", "lane"]);
 const TOKEN = /^[a-z][a-z0-9]*(?:[-:][a-z0-9]+)*$/u;
 
-const COMBAT_STYLE_TEXT = `.combat-layer{position:absolute;z-index:7;inset:0;overflow:hidden;pointer-events:none}.combat-frame{position:absolute;inset:0}.combat-marker{position:absolute;left:calc(var(--combat-x)*100%/18000);top:calc(var(--combat-y)*100%/32000);width:28px;height:28px;translate:-50% -50%;border:3px solid #e4ead7;border-radius:50%;background:#42515a;box-shadow:0 3px 0 #0a1014aa}.combat-marker--tower{z-index:25;width:42px;height:42px;border-radius:9px}.combat-marker--entity-ground{z-index:20}.combat-marker--entity-air{z-index:30;border-style:double;box-shadow:0 8px 6px #0a101466}.combat-marker--north{background:#b95c4c}.combat-marker--south{background:#398ba4}.combat-marker[data-destroyed="true"]{opacity:.42;filter:grayscale(1)}.combat-health{position:absolute;left:50%;bottom:calc(100% + 6px);width:36px;height:5px;translate:-50% 0;transform:scaleX(calc(var(--combat-health)/var(--combat-health-max)));transform-origin:left center;border-radius:3px;background:#b7eb6c;box-shadow:0 0 0 2px #152018}.combat-target-link{position:absolute;z-index:10;inset:0;width:100%;height:100%;overflow:visible}.combat-target-link line{stroke:#f3f5d088;stroke-width:90;stroke-dasharray:180 150}`;
+const COMBAT_STYLE_TEXT = `.combat-layer{position:absolute;z-index:7;inset:0;overflow:hidden;pointer-events:none}.combat-frame{position:absolute;inset:0}.combat-marker{position:absolute;left:calc(var(--combat-x)*100%/18000);top:calc(var(--combat-y)*100%/32000);width:28px;height:28px;translate:-50% -50%;border:3px solid #e4ead7;border-radius:50%;background:#42515a;box-shadow:0 3px 0 #0a1014aa}.combat-marker--tower{z-index:25;width:42px;height:42px;border-radius:9px}.combat-marker--entity-ground{z-index:20}.combat-marker--entity-air{z-index:30;border-style:double;box-shadow:0 8px 6px #0a101466}.combat-marker--north{background:#b95c4c}.combat-marker--south{background:#398ba4}.combat-marker[data-destroyed="true"]{opacity:.42;filter:grayscale(1)}.combat-health{position:absolute;left:50%;bottom:calc(100% + 6px);width:36px;height:5px;translate:-50% 0;transform:scaleX(calc(var(--combat-health)/var(--combat-health-max)));transform-origin:left center;border-radius:3px;background:#b7eb6c;box-shadow:0 0 0 2px #152018}.combat-target-link{position:absolute;z-index:10;inset:0;width:100%;height:100%;overflow:visible}.combat-target-link line{stroke:#f3f5d088;stroke-width:90;stroke-dasharray:180 150}` + COMBAT_ART_STYLE + COMBAT_MOTION_STYLE + COMBAT_DEATH_STYLE;
 
 export function getCombatStyleText() {
   return COMBAT_STYLE_TEXT;
@@ -499,11 +501,17 @@ export function bindCombatViewModel(layer, view) {
     node.dataset.role = tower.role;
     nodes.push(node);
   }
+  const reactions = new Map();
+  for (const event of canonical.events) {
+    if (canonical.tick - event.tick < 5) reactions.set(event.entityKey, event.type);
+  }
   for (const entity of canonical.entities) {
     const node = layer.ownerDocument.createElement("span");
     setCommonNode(node, entity, `entity-${entity.layer}`);
     node.dataset.kind = entity.kind;
     node.dataset.layer = entity.layer;
+    node.dataset.reaction = reactions.get(entity.key) ?? "idle";
+    node.appendChild(createCombatArt(layer.ownerDocument, entity.kind, entity.side, entity.layer));
     nodes.push(node);
   }
   for (const node of nodes) frame.appendChild(node);

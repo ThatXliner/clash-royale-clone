@@ -23,7 +23,7 @@ const PROJECTILE_DIRECTIONS = new Set([
 const FEED_VERSION = 1;
 const UTF8 = new TextEncoder();
 
-const STYLE_TEXT = `.combat-effects{position:absolute;z-index:35;inset:0;overflow:hidden;pointer-events:none}.combat-effects__frame{position:absolute;inset:0}.combat-effect-path{position:absolute;inset:0;width:100%;height:100%;overflow:visible}.combat-effect-path line{stroke:#d9f4d5aa;stroke-width:100;stroke-linecap:round;stroke-dasharray:210 130}.combat-effect-projectile,.combat-effect-impact,.combat-effect-area{position:absolute;left:calc(var(--effect-x-num)*100%/(18000*var(--effect-den)));top:calc(var(--effect-y-num)*100%/(32000*var(--effect-den)));translate:-50% -50%;border-radius:50%}.combat-effect-projectile{width:12px;height:12px;background:#fff0a5;border:2px solid #603d28;box-shadow:0 0 8px #ffcd65}.combat-effect-projectile[data-kind="return"]{border-radius:35% 65%;background:#8ce7dd}.combat-effect-projectile[data-kind="pellet"]{width:7px;height:7px}.combat-effect-impact{width:24px;height:24px;border:4px double #ffe6a0;background:#e8703655}.combat-effect-area{width:calc(var(--effect-radius)*200%/18000);aspect-ratio:1;border:3px solid #f2c66e;background:#d96f3933}`;
+const STYLE_TEXT = `.combat-effects{position:absolute;z-index:35;inset:0;overflow:hidden;pointer-events:none}.combat-effects__frame{position:absolute;inset:0}.combat-effect-path{position:absolute;inset:0;width:100%;height:100%;overflow:visible}.combat-effect-path line{stroke:#d9f4d5aa;stroke-width:100;stroke-linecap:round;stroke-dasharray:210 130}.combat-effect-projectile,.combat-effect-impact,.combat-effect-area{position:absolute;left:calc(var(--effect-x-num)*100%/(18000*var(--effect-den)));top:calc(var(--effect-y-num)*100%/(32000*var(--effect-den)));translate:-50% -50%;border-radius:50%}.combat-effect-projectile{width:12px;height:12px;background:#fff0a5;border:2px solid #603d28;box-shadow:0 0 8px #ffcd65}.combat-effect-projectile[data-kind="return"]{border-radius:35% 65%;background:#8ce7dd}.combat-effect-projectile[data-kind="pellet"]{width:7px;height:7px}.combat-effect-impact{width:24px;height:24px;border:4px double #ffe6a0;background:#e8703655}.combat-effect-area{width:calc(var(--effect-radius)*200%/18000);aspect-ratio:1;border:3px solid #f2c66e;background:#d96f3933}.combat-effect-path{display:none}.combat-effect-projectile{width:15px;height:7px;border:1px solid #191D22;border-radius:0;background:#F4EBD6;clip-path:polygon(0 0,70% 18%,100% 50%,70% 82%,0 100%,20% 50%);box-shadow:none}.combat-effect-projectile[data-kind="return"]{background:#DCEDE9;clip-path:polygon(0 0,100% 35%,40% 100%,55% 40%)}.combat-effect-projectile[data-kind="pellet"]{width:8px;height:8px;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}.combat-effect-impact{width:30px;height:30px;border:0;border-radius:0;background:#E9A83A;clip-path:polygon(50% 0,60% 30%,87% 12%,72% 42%,100% 50%,70% 60%,89% 88%,59% 72%,50% 100%,40% 72%,12% 88%,28% 59%,0 50%,29% 40%,13% 12%,41% 28%)}.combat-effect-impact[data-kind="contact"]{width:22px;height:22px;background:#F4EBD6}.combat-effect-area{border:2px solid #E9A83A;background:repeating-conic-gradient(from 0deg,#5B4B8A33 0deg 20deg,transparent 20deg 40deg);box-shadow:inset 0 0 0 5px #191D2233}.combat-effect-area::after{content:"";position:absolute;inset:12%;border:1px dashed #F4EBD6;border-radius:50%}`;
 
 export function getCombatEffectsStyleText() {
   return STYLE_TEXT;
@@ -373,6 +373,10 @@ function buildView(input, suppliedTick) {
  */
 export function createCombatEffectsViewModel(feedOrInput, suppliedTick) {
   return buildView(feedOrInput, suppliedTick);
+}
+
+export function isCanonicalCombatEffectsViewModel(view) {
+  return VIEWS.has(view);
 }
 
 export function serializeCombatEffectsViewModel(view) {
