@@ -1,0 +1,7 @@
+# VIS-003G builder evidence
+
+Chrome viewport: 720 × 1280, device scale 1. Screenshots use the shipped HTML and original procedural/CSS/SVG assets. Standard seed-0 opening, trusted card selection and paid deployment precede standard combat projectile/impact captures. A separate public `live-seed-2-terminal` profile supplies the bounded destruction/terminal journey: seed 2, tower initial windups of 10,000 ticks, north restricted to Coilblade. It is not a standard-balance match. Simulation advances only through the shipped manual-step interface; no DOM fixtures or state replacement are used.
+
+The opening screenshot exposed the Copperskiff card's decorative `::after` stripe painting over its name. DOM measurements showed 10px font, 10.5px line height, 76 × 15.5px label, with no scroll overflow. The authorized one-line `.hud-card__name { z-index: 1 }` correction places the name above that decoration. Fresh opening inspection shows Copperskiff and all cost badges unobscured. Brassbolt's narrower next-card label wraps onto two complete lines.
+
+`evidence.json` records actual simulation ticks, coherent HUD/combat ticks, crowns, tower health, effect counts, pointer hit bounds, label metrics, rendered SVG path counts, hidden debug-line checks, and browser console/resource errors. Screenshots need independent visual critique; these automated checks do not constitute a visual quality verdict. The sustained performance gate is separate and is not exercised here.

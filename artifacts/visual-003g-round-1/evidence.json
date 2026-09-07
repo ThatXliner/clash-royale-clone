@@ -1,0 +1,1995 @@
+{
+  "profile": "standard opening; live-seed-2-terminal bounded combat (10,000 tick tower windup, north coilblade only)",
+  "errors": [],
+  "frames": [
+    {
+      "name": "00-standard-opening",
+      "tick": 25,
+      "terminal": false,
+      "crowns": {
+        "north": 0,
+        "south": 0
+      },
+      "towers": [
+        {
+          "id": "south:central",
+          "hitpoints": 4824
+        },
+        {
+          "id": "south:lane:west",
+          "hitpoints": 3052
+        },
+        {
+          "id": "south:lane:east",
+          "hitpoints": 3052
+        },
+        {
+          "id": "north:central",
+          "hitpoints": 4824
+        },
+        {
+          "id": "north:lane:west",
+          "hitpoints": 3052
+        },
+        {
+          "id": "north:lane:east",
+          "hitpoints": 3052
+        }
+      ],
+      "hudTick": 25,
+      "combatTick": 25,
+      "renderedCrowns": {
+        "north": 0,
+        "south": 0
+      },
+      "destroyedMarkers": [],
+      "selected": [],
+      "timer": "3:00",
+      "arena": {
+        "x": 86,
+        "y": 104,
+        "width": 548,
+        "height": 968
+      },
+      "cards": [
+        {
+          "id": "mossguard",
+          "text": "",
+          "label": "Card slot 1",
+          "box": {
+            "x": 191,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "skymaul",
+          "text": "",
+          "label": "Card slot 2",
+          "box": {
+            "x": 289,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "copperskiff",
+          "text": "",
+          "label": "Card slot 3",
+          "box": {
+            "x": 387,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "cinderlings",
+          "text": "",
+          "label": "Card slot 4",
+          "box": {
+            "x": 485,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        }
+      ],
+      "labels": [
+        {
+          "text": "Brassbolt",
+          "box": {
+            "x": 128,
+            "y": 1201,
+            "width": 44,
+            "height": 26
+          },
+          "fontSize": "10px",
+          "scrollHeight": 26,
+          "clientHeight": 26
+        },
+        {
+          "text": "Mossguard",
+          "box": {
+            "x": 194,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Skymaul",
+          "box": {
+            "x": 292,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Copperskiff",
+          "box": {
+            "x": 390,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Cinderlings",
+          "box": {
+            "x": 488,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        }
+      ],
+      "svgPaths": 8,
+      "entities": 1,
+      "projectile": 0,
+      "impact": 0,
+      "debugLines": 0,
+      "text": "Sound on\n3:00\n4\nBrassbolt\n3\nMossguard\n3\nSkymaul\n4\nCopperskiff\n1\nCinderlings"
+    },
+    {
+      "name": "01-selection",
+      "tick": 25,
+      "terminal": false,
+      "crowns": {
+        "north": 0,
+        "south": 0
+      },
+      "towers": [
+        {
+          "id": "south:central",
+          "hitpoints": 4824
+        },
+        {
+          "id": "south:lane:west",
+          "hitpoints": 3052
+        },
+        {
+          "id": "south:lane:east",
+          "hitpoints": 3052
+        },
+        {
+          "id": "north:central",
+          "hitpoints": 4824
+        },
+        {
+          "id": "north:lane:west",
+          "hitpoints": 3052
+        },
+        {
+          "id": "north:lane:east",
+          "hitpoints": 3052
+        }
+      ],
+      "hudTick": 25,
+      "combatTick": 25,
+      "renderedCrowns": {
+        "north": 0,
+        "south": 0
+      },
+      "destroyedMarkers": [],
+      "selected": [
+        "mossguard"
+      ],
+      "timer": "3:00",
+      "arena": {
+        "x": 86,
+        "y": 104,
+        "width": 548,
+        "height": 968
+      },
+      "cards": [
+        {
+          "id": "mossguard",
+          "text": "",
+          "label": "Card slot 1",
+          "box": {
+            "x": 191,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "skymaul",
+          "text": "",
+          "label": "Card slot 2",
+          "box": {
+            "x": 289,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "copperskiff",
+          "text": "",
+          "label": "Card slot 3",
+          "box": {
+            "x": 387,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "cinderlings",
+          "text": "",
+          "label": "Card slot 4",
+          "box": {
+            "x": 485,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        }
+      ],
+      "labels": [
+        {
+          "text": "Brassbolt",
+          "box": {
+            "x": 128,
+            "y": 1201,
+            "width": 44,
+            "height": 26
+          },
+          "fontSize": "10px",
+          "scrollHeight": 26,
+          "clientHeight": 26
+        },
+        {
+          "text": "Mossguard",
+          "box": {
+            "x": 194,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Skymaul",
+          "box": {
+            "x": 292,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Copperskiff",
+          "box": {
+            "x": 390,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Cinderlings",
+          "box": {
+            "x": 488,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        }
+      ],
+      "svgPaths": 8,
+      "entities": 1,
+      "projectile": 0,
+      "impact": 0,
+      "debugLines": 0,
+      "text": "Sound on\n3:00\n4\nBrassbolt\n3\nMossguard\n3\nSkymaul\n4\nCopperskiff\n1\nCinderlings"
+    },
+    {
+      "name": "02-legal-deployment",
+      "tick": 26,
+      "terminal": false,
+      "crowns": {
+        "north": 0,
+        "south": 0
+      },
+      "towers": [
+        {
+          "id": "south:central",
+          "hitpoints": 4824
+        },
+        {
+          "id": "south:lane:west",
+          "hitpoints": 3052
+        },
+        {
+          "id": "south:lane:east",
+          "hitpoints": 3052
+        },
+        {
+          "id": "north:central",
+          "hitpoints": 4824
+        },
+        {
+          "id": "north:lane:west",
+          "hitpoints": 3052
+        },
+        {
+          "id": "north:lane:east",
+          "hitpoints": 3052
+        }
+      ],
+      "hudTick": 26,
+      "combatTick": 26,
+      "renderedCrowns": {
+        "north": 0,
+        "south": 0
+      },
+      "destroyedMarkers": [],
+      "selected": [],
+      "timer": "3:00",
+      "arena": {
+        "x": 86,
+        "y": 104,
+        "width": 548,
+        "height": 968
+      },
+      "cards": [
+        {
+          "id": "brassbolt",
+          "text": "",
+          "label": "Card slot 1",
+          "box": {
+            "x": 191,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "skymaul",
+          "text": "",
+          "label": "Card slot 2",
+          "box": {
+            "x": 289,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "copperskiff",
+          "text": "",
+          "label": "Card slot 3",
+          "box": {
+            "x": 387,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "cinderlings",
+          "text": "",
+          "label": "Card slot 4",
+          "box": {
+            "x": 485,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        }
+      ],
+      "labels": [
+        {
+          "text": "Briar Band",
+          "box": {
+            "x": 128,
+            "y": 1201,
+            "width": 44,
+            "height": 26
+          },
+          "fontSize": "10px",
+          "scrollHeight": 26,
+          "clientHeight": 26
+        },
+        {
+          "text": "Brassbolt",
+          "box": {
+            "x": 191.50294494628906,
+            "y": 1227.4678955078125,
+            "width": 77.37821960449219,
+            "height": 25.3585205078125
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Skymaul",
+          "box": {
+            "x": 292,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Copperskiff",
+          "box": {
+            "x": 390,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Cinderlings",
+          "box": {
+            "x": 488,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        }
+      ],
+      "svgPaths": 16,
+      "entities": 2,
+      "projectile": 0,
+      "impact": 0,
+      "debugLines": 0,
+      "text": "Sound on\n3:00\n3\nBriar Band\n4\nBrassbolt\n3\nSkymaul\n4\nCopperskiff\n1\nCinderlings"
+    },
+    {
+      "name": "05-impact",
+      "tick": 80,
+      "terminal": false,
+      "crowns": {
+        "north": 0,
+        "south": 0
+      },
+      "towers": [
+        {
+          "id": "south:central",
+          "hitpoints": 4824
+        },
+        {
+          "id": "south:lane:west",
+          "hitpoints": 3052
+        },
+        {
+          "id": "south:lane:east",
+          "hitpoints": 3052
+        },
+        {
+          "id": "north:central",
+          "hitpoints": 4824
+        },
+        {
+          "id": "north:lane:west",
+          "hitpoints": 3052
+        },
+        {
+          "id": "north:lane:east",
+          "hitpoints": 3052
+        }
+      ],
+      "hudTick": 80,
+      "combatTick": 80,
+      "renderedCrowns": {
+        "north": 0,
+        "south": 0
+      },
+      "destroyedMarkers": [],
+      "selected": [],
+      "timer": "2:59",
+      "arena": {
+        "x": 86,
+        "y": 104,
+        "width": 548,
+        "height": 968
+      },
+      "cards": [
+        {
+          "id": "brassbolt",
+          "text": "",
+          "label": "Card slot 1",
+          "box": {
+            "x": 191,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "skymaul",
+          "text": "",
+          "label": "Card slot 2",
+          "box": {
+            "x": 289,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "copperskiff",
+          "text": "",
+          "label": "Card slot 3",
+          "box": {
+            "x": 387,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "cinderlings",
+          "text": "",
+          "label": "Card slot 4",
+          "box": {
+            "x": 485,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        }
+      ],
+      "labels": [
+        {
+          "text": "Briar Band",
+          "box": {
+            "x": 128,
+            "y": 1201,
+            "width": 44,
+            "height": 26
+          },
+          "fontSize": "10px",
+          "scrollHeight": 26,
+          "clientHeight": 26
+        },
+        {
+          "text": "Brassbolt",
+          "box": {
+            "x": 194,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Skymaul",
+          "box": {
+            "x": 292,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Copperskiff",
+          "box": {
+            "x": 390,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Cinderlings",
+          "box": {
+            "x": 488,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        }
+      ],
+      "svgPaths": 24,
+      "entities": 3,
+      "projectile": 0,
+      "impact": 1,
+      "debugLines": 0,
+      "text": "Sound on\n2:59\n3\nBriar Band\n4\nBrassbolt\n3\nSkymaul\n4\nCopperskiff\n1\nCinderlings"
+    },
+    {
+      "name": "04-projectile",
+      "tick": 622,
+      "terminal": false,
+      "crowns": {
+        "north": 0,
+        "south": 0
+      },
+      "towers": [
+        {
+          "id": "south:central",
+          "hitpoints": 4824
+        },
+        {
+          "id": "south:lane:west",
+          "hitpoints": 3052
+        },
+        {
+          "id": "south:lane:east",
+          "hitpoints": 3052
+        },
+        {
+          "id": "north:central",
+          "hitpoints": 4824
+        },
+        {
+          "id": "north:lane:west",
+          "hitpoints": 3052
+        },
+        {
+          "id": "north:lane:east",
+          "hitpoints": 3052
+        }
+      ],
+      "hudTick": 622,
+      "combatTick": 622,
+      "renderedCrowns": {
+        "north": 0,
+        "south": 0
+      },
+      "destroyedMarkers": [],
+      "selected": [],
+      "timer": "2:50",
+      "arena": {
+        "x": 86,
+        "y": 104,
+        "width": 548,
+        "height": 968
+      },
+      "cards": [
+        {
+          "id": "brassbolt",
+          "text": "",
+          "label": "Card slot 1",
+          "box": {
+            "x": 191,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "skymaul",
+          "text": "",
+          "label": "Card slot 2",
+          "box": {
+            "x": 289,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "copperskiff",
+          "text": "",
+          "label": "Card slot 3",
+          "box": {
+            "x": 387,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "cinderlings",
+          "text": "",
+          "label": "Card slot 4",
+          "box": {
+            "x": 485,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        }
+      ],
+      "labels": [
+        {
+          "text": "Briar Band",
+          "box": {
+            "x": 128,
+            "y": 1201,
+            "width": 44,
+            "height": 26
+          },
+          "fontSize": "10px",
+          "scrollHeight": 26,
+          "clientHeight": 26
+        },
+        {
+          "text": "Brassbolt",
+          "box": {
+            "x": 194,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Skymaul",
+          "box": {
+            "x": 292,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Copperskiff",
+          "box": {
+            "x": 390,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Cinderlings",
+          "box": {
+            "x": 488,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        }
+      ],
+      "svgPaths": 30,
+      "entities": 4,
+      "projectile": 1,
+      "impact": 0,
+      "debugLines": 0,
+      "text": "Sound on\n2:50\n3\nBriar Band\n4\nBrassbolt\n3\nSkymaul\n4\nCopperskiff\n1\nCinderlings"
+    },
+    {
+      "name": "03-bridge-combat",
+      "tick": 107,
+      "terminal": false,
+      "crowns": {
+        "north": 0,
+        "south": 0
+      },
+      "towers": [
+        {
+          "id": "south:central",
+          "hitpoints": 4824
+        },
+        {
+          "id": "south:lane:west",
+          "hitpoints": 3052
+        },
+        {
+          "id": "south:lane:east",
+          "hitpoints": 3052
+        },
+        {
+          "id": "north:central",
+          "hitpoints": 4824
+        },
+        {
+          "id": "north:lane:west",
+          "hitpoints": 3052
+        },
+        {
+          "id": "north:lane:east",
+          "hitpoints": 3052
+        }
+      ],
+      "hudTick": 107,
+      "combatTick": 107,
+      "renderedCrowns": {
+        "north": 0,
+        "south": 0
+      },
+      "destroyedMarkers": [],
+      "selected": [],
+      "timer": "2:59",
+      "arena": {
+        "x": 86,
+        "y": 104,
+        "width": 548,
+        "height": 968
+      },
+      "cards": [
+        {
+          "id": "copperskiff",
+          "text": "",
+          "label": "Card slot 1",
+          "box": {
+            "x": 191,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "cinderlings",
+          "text": "",
+          "label": "Card slot 2",
+          "box": {
+            "x": 289,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "skymaul",
+          "text": "",
+          "label": "Card slot 3",
+          "box": {
+            "x": 387,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "brassbolt",
+          "text": "",
+          "label": "Card slot 4",
+          "box": {
+            "x": 485,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        }
+      ],
+      "labels": [
+        {
+          "text": "Mossguard",
+          "box": {
+            "x": 128,
+            "y": 1201,
+            "width": 44,
+            "height": 26
+          },
+          "fontSize": "10px",
+          "scrollHeight": 26,
+          "clientHeight": 26
+        },
+        {
+          "text": "Copperskiff",
+          "box": {
+            "x": 194,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Cinderlings",
+          "box": {
+            "x": 289.6307373046875,
+            "y": 1226.5167236328125,
+            "width": 77.33419799804688,
+            "height": 24.7891845703125
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Skymaul",
+          "box": {
+            "x": 390,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Brassbolt",
+          "box": {
+            "x": 488,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        }
+      ],
+      "svgPaths": 16,
+      "entities": 2,
+      "projectile": 0,
+      "impact": 0,
+      "debugLines": 0,
+      "text": "Sound on\n2:59\n3\nMossguard\n4\nCopperskiff\n1\nCinderlings\n3\nSkymaul\n4\nBrassbolt"
+    },
+    {
+      "name": "06-tower-destruction",
+      "tick": 819,
+      "terminal": false,
+      "crowns": {
+        "north": 1,
+        "south": 1
+      },
+      "towers": [
+        {
+          "id": "south:central",
+          "hitpoints": 4824
+        },
+        {
+          "id": "south:lane:west",
+          "hitpoints": 0
+        },
+        {
+          "id": "south:lane:east",
+          "hitpoints": 3052
+        },
+        {
+          "id": "north:central",
+          "hitpoints": 4824
+        },
+        {
+          "id": "north:lane:west",
+          "hitpoints": 3052
+        },
+        {
+          "id": "north:lane:east",
+          "hitpoints": 0
+        }
+      ],
+      "hudTick": 819,
+      "combatTick": 819,
+      "renderedCrowns": {
+        "north": 1,
+        "south": 1
+      },
+      "destroyedMarkers": [
+        "north:lane:east",
+        "south:lane:west"
+      ],
+      "selected": [],
+      "timer": "2:47",
+      "arena": {
+        "x": 86,
+        "y": 104,
+        "width": 548,
+        "height": 968
+      },
+      "cards": [
+        {
+          "id": "copperskiff",
+          "text": "",
+          "label": "Card slot 1",
+          "box": {
+            "x": 191,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "cinderlings",
+          "text": "",
+          "label": "Card slot 2",
+          "box": {
+            "x": 289,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "skymaul",
+          "text": "",
+          "label": "Card slot 3",
+          "box": {
+            "x": 387,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "brassbolt",
+          "text": "",
+          "label": "Card slot 4",
+          "box": {
+            "x": 485,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        }
+      ],
+      "labels": [
+        {
+          "text": "Mossguard",
+          "box": {
+            "x": 128,
+            "y": 1201,
+            "width": 44,
+            "height": 26
+          },
+          "fontSize": "10px",
+          "scrollHeight": 26,
+          "clientHeight": 26
+        },
+        {
+          "text": "Copperskiff",
+          "box": {
+            "x": 194,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Cinderlings",
+          "box": {
+            "x": 292,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Skymaul",
+          "box": {
+            "x": 390,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Brassbolt",
+          "box": {
+            "x": 488,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        }
+      ],
+      "svgPaths": 16,
+      "entities": 2,
+      "projectile": 0,
+      "impact": 0,
+      "debugLines": 0,
+      "text": "Sound on\n♛ +1\n♛ +1\n2:47\n3\nMossguard\n4\nCopperskiff\n1\nCinderlings\n3\nSkymaul\n4\nBrassbolt"
+    },
+    {
+      "name": "07-terminal-age-0",
+      "tick": 1590,
+      "terminal": true,
+      "crowns": {
+        "north": 3,
+        "south": 1
+      },
+      "towers": [
+        {
+          "id": "south:central",
+          "hitpoints": 0
+        },
+        {
+          "id": "south:lane:west",
+          "hitpoints": 0
+        },
+        {
+          "id": "south:lane:east",
+          "hitpoints": 3052
+        },
+        {
+          "id": "north:central",
+          "hitpoints": 4824
+        },
+        {
+          "id": "north:lane:west",
+          "hitpoints": 172
+        },
+        {
+          "id": "north:lane:east",
+          "hitpoints": 0
+        }
+      ],
+      "hudTick": 1590,
+      "combatTick": 1590,
+      "renderedCrowns": {
+        "north": 3,
+        "south": 1
+      },
+      "destroyedMarkers": [
+        "north:lane:east",
+        "south:central",
+        "south:lane:west"
+      ],
+      "selected": [],
+      "timer": "0:00",
+      "arena": {
+        "x": 86,
+        "y": 104,
+        "width": 548,
+        "height": 968
+      },
+      "cards": [
+        {
+          "id": "copperskiff",
+          "text": "",
+          "label": "Card slot 1",
+          "box": {
+            "x": 191,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "cinderlings",
+          "text": "",
+          "label": "Card slot 2",
+          "box": {
+            "x": 289,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "skymaul",
+          "text": "",
+          "label": "Card slot 3",
+          "box": {
+            "x": 387,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "brassbolt",
+          "text": "",
+          "label": "Card slot 4",
+          "box": {
+            "x": 485,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        }
+      ],
+      "labels": [
+        {
+          "text": "Mossguard",
+          "box": {
+            "x": 128,
+            "y": 1201,
+            "width": 44,
+            "height": 26
+          },
+          "fontSize": "10px",
+          "scrollHeight": 26,
+          "clientHeight": 26
+        },
+        {
+          "text": "Copperskiff",
+          "box": {
+            "x": 194,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Cinderlings",
+          "box": {
+            "x": 292,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Skymaul",
+          "box": {
+            "x": 390,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Brassbolt",
+          "box": {
+            "x": 488,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        }
+      ],
+      "svgPaths": 16,
+      "entities": 2,
+      "projectile": 0,
+      "impact": 0,
+      "debugLines": 0,
+      "text": "Sound on\nPlay again\n♛ 3\nnorth wins\n3 – 1\n0:00\n3\nMossguard\n4\nCopperskiff\n1\nCinderlings\n3\nSkymaul\n4\nBrassbolt"
+    },
+    {
+      "name": "07-terminal-age-6",
+      "tick": 1590,
+      "terminal": true,
+      "crowns": {
+        "north": 3,
+        "south": 1
+      },
+      "towers": [
+        {
+          "id": "south:central",
+          "hitpoints": 0
+        },
+        {
+          "id": "south:lane:west",
+          "hitpoints": 0
+        },
+        {
+          "id": "south:lane:east",
+          "hitpoints": 3052
+        },
+        {
+          "id": "north:central",
+          "hitpoints": 4824
+        },
+        {
+          "id": "north:lane:west",
+          "hitpoints": 172
+        },
+        {
+          "id": "north:lane:east",
+          "hitpoints": 0
+        }
+      ],
+      "hudTick": 1590,
+      "combatTick": 1590,
+      "renderedCrowns": {
+        "north": 3,
+        "south": 1
+      },
+      "destroyedMarkers": [
+        "north:lane:east",
+        "south:central",
+        "south:lane:west"
+      ],
+      "selected": [],
+      "timer": "0:00",
+      "arena": {
+        "x": 86,
+        "y": 104,
+        "width": 548,
+        "height": 968
+      },
+      "cards": [
+        {
+          "id": "copperskiff",
+          "text": "",
+          "label": "Card slot 1",
+          "box": {
+            "x": 191,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "cinderlings",
+          "text": "",
+          "label": "Card slot 2",
+          "box": {
+            "x": 289,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "skymaul",
+          "text": "",
+          "label": "Card slot 3",
+          "box": {
+            "x": 387,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "brassbolt",
+          "text": "",
+          "label": "Card slot 4",
+          "box": {
+            "x": 485,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        }
+      ],
+      "labels": [
+        {
+          "text": "Mossguard",
+          "box": {
+            "x": 128,
+            "y": 1201,
+            "width": 44,
+            "height": 26
+          },
+          "fontSize": "10px",
+          "scrollHeight": 26,
+          "clientHeight": 26
+        },
+        {
+          "text": "Copperskiff",
+          "box": {
+            "x": 194,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Cinderlings",
+          "box": {
+            "x": 292,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Skymaul",
+          "box": {
+            "x": 390,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Brassbolt",
+          "box": {
+            "x": 488,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        }
+      ],
+      "svgPaths": 16,
+      "entities": 2,
+      "projectile": 0,
+      "impact": 0,
+      "debugLines": 0,
+      "text": "Sound on\nPlay again\n♛ 3\nnorth wins\n3 – 1\n0:00\n3\nMossguard\n4\nCopperskiff\n1\nCinderlings\n3\nSkymaul\n4\nBrassbolt"
+    },
+    {
+      "name": "07-terminal-age-12",
+      "tick": 1590,
+      "terminal": true,
+      "crowns": {
+        "north": 3,
+        "south": 1
+      },
+      "towers": [
+        {
+          "id": "south:central",
+          "hitpoints": 0
+        },
+        {
+          "id": "south:lane:west",
+          "hitpoints": 0
+        },
+        {
+          "id": "south:lane:east",
+          "hitpoints": 3052
+        },
+        {
+          "id": "north:central",
+          "hitpoints": 4824
+        },
+        {
+          "id": "north:lane:west",
+          "hitpoints": 172
+        },
+        {
+          "id": "north:lane:east",
+          "hitpoints": 0
+        }
+      ],
+      "hudTick": 1590,
+      "combatTick": 1590,
+      "renderedCrowns": {
+        "north": 3,
+        "south": 1
+      },
+      "destroyedMarkers": [
+        "north:lane:east",
+        "south:central",
+        "south:lane:west"
+      ],
+      "selected": [],
+      "timer": "0:00",
+      "arena": {
+        "x": 86,
+        "y": 104,
+        "width": 548,
+        "height": 968
+      },
+      "cards": [
+        {
+          "id": "copperskiff",
+          "text": "",
+          "label": "Card slot 1",
+          "box": {
+            "x": 191,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "cinderlings",
+          "text": "",
+          "label": "Card slot 2",
+          "box": {
+            "x": 289,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "skymaul",
+          "text": "",
+          "label": "Card slot 3",
+          "box": {
+            "x": 387,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "brassbolt",
+          "text": "",
+          "label": "Card slot 4",
+          "box": {
+            "x": 485,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        }
+      ],
+      "labels": [
+        {
+          "text": "Mossguard",
+          "box": {
+            "x": 128,
+            "y": 1201,
+            "width": 44,
+            "height": 26
+          },
+          "fontSize": "10px",
+          "scrollHeight": 26,
+          "clientHeight": 26
+        },
+        {
+          "text": "Copperskiff",
+          "box": {
+            "x": 194,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Cinderlings",
+          "box": {
+            "x": 292,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Skymaul",
+          "box": {
+            "x": 390,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Brassbolt",
+          "box": {
+            "x": 488,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        }
+      ],
+      "svgPaths": 16,
+      "entities": 2,
+      "projectile": 0,
+      "impact": 0,
+      "debugLines": 0,
+      "text": "Sound on\nPlay again\n♛ 3\nnorth wins\n3 – 1\n0:00\n3\nMossguard\n4\nCopperskiff\n1\nCinderlings\n3\nSkymaul\n4\nBrassbolt"
+    },
+    {
+      "name": "07-terminal-age-24",
+      "tick": 1590,
+      "terminal": true,
+      "crowns": {
+        "north": 3,
+        "south": 1
+      },
+      "towers": [
+        {
+          "id": "south:central",
+          "hitpoints": 0
+        },
+        {
+          "id": "south:lane:west",
+          "hitpoints": 0
+        },
+        {
+          "id": "south:lane:east",
+          "hitpoints": 3052
+        },
+        {
+          "id": "north:central",
+          "hitpoints": 4824
+        },
+        {
+          "id": "north:lane:west",
+          "hitpoints": 172
+        },
+        {
+          "id": "north:lane:east",
+          "hitpoints": 0
+        }
+      ],
+      "hudTick": 1590,
+      "combatTick": 1590,
+      "renderedCrowns": {
+        "north": 3,
+        "south": 1
+      },
+      "destroyedMarkers": [
+        "north:lane:east",
+        "south:central",
+        "south:lane:west"
+      ],
+      "selected": [],
+      "timer": "0:00",
+      "arena": {
+        "x": 86,
+        "y": 104,
+        "width": 548,
+        "height": 968
+      },
+      "cards": [
+        {
+          "id": "copperskiff",
+          "text": "",
+          "label": "Card slot 1",
+          "box": {
+            "x": 191,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "cinderlings",
+          "text": "",
+          "label": "Card slot 2",
+          "box": {
+            "x": 289,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "skymaul",
+          "text": "",
+          "label": "Card slot 3",
+          "box": {
+            "x": 387,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "brassbolt",
+          "text": "",
+          "label": "Card slot 4",
+          "box": {
+            "x": 485,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        }
+      ],
+      "labels": [
+        {
+          "text": "Mossguard",
+          "box": {
+            "x": 128,
+            "y": 1201,
+            "width": 44,
+            "height": 26
+          },
+          "fontSize": "10px",
+          "scrollHeight": 26,
+          "clientHeight": 26
+        },
+        {
+          "text": "Copperskiff",
+          "box": {
+            "x": 194,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Cinderlings",
+          "box": {
+            "x": 292,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Skymaul",
+          "box": {
+            "x": 390,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Brassbolt",
+          "box": {
+            "x": 488,
+            "y": 1211.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        }
+      ],
+      "svgPaths": 16,
+      "entities": 2,
+      "projectile": 0,
+      "impact": 0,
+      "debugLines": 0,
+      "text": "Sound on\nPlay again\n♛ 3\nnorth wins\n3 – 1\n0:00\n3\nMossguard\n4\nCopperskiff\n1\nCinderlings\n3\nSkymaul\n4\nBrassbolt"
+    },
+    {
+      "name": "08-restart",
+      "tick": 0,
+      "terminal": false,
+      "crowns": {
+        "north": 0,
+        "south": 0
+      },
+      "towers": [
+        {
+          "id": "south:central",
+          "hitpoints": 4824
+        },
+        {
+          "id": "south:lane:west",
+          "hitpoints": 3052
+        },
+        {
+          "id": "south:lane:east",
+          "hitpoints": 3052
+        },
+        {
+          "id": "north:central",
+          "hitpoints": 4824
+        },
+        {
+          "id": "north:lane:west",
+          "hitpoints": 3052
+        },
+        {
+          "id": "north:lane:east",
+          "hitpoints": 3052
+        }
+      ],
+      "hudTick": 0,
+      "combatTick": 0,
+      "renderedCrowns": {
+        "north": 0,
+        "south": 0
+      },
+      "destroyedMarkers": [],
+      "selected": [],
+      "timer": "3:00",
+      "arena": {
+        "x": 86,
+        "y": 104,
+        "width": 548,
+        "height": 968
+      },
+      "cards": [
+        {
+          "id": "mossguard",
+          "text": "",
+          "label": "Card slot 1",
+          "box": {
+            "x": 191,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "skymaul",
+          "text": "",
+          "label": "Card slot 2",
+          "box": {
+            "x": 289,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "copperskiff",
+          "text": "",
+          "label": "Card slot 3",
+          "box": {
+            "x": 387,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        },
+        {
+          "id": "cinderlings",
+          "text": "",
+          "label": "Card slot 4",
+          "box": {
+            "x": 485,
+            "y": 1164,
+            "width": 88,
+            "height": 72
+          }
+        }
+      ],
+      "labels": [
+        {
+          "text": "Brassbolt",
+          "box": {
+            "x": 128,
+            "y": 1201,
+            "width": 44,
+            "height": 26
+          },
+          "fontSize": "10px",
+          "scrollHeight": 26,
+          "clientHeight": 26
+        },
+        {
+          "text": "Mossguard",
+          "box": {
+            "x": 194,
+            "y": 1225.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Skymaul",
+          "box": {
+            "x": 292,
+            "y": 1225.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Copperskiff",
+          "box": {
+            "x": 390,
+            "y": 1225.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        },
+        {
+          "text": "Cinderlings",
+          "box": {
+            "x": 488,
+            "y": 1225.5,
+            "width": 76,
+            "height": 15.5
+          },
+          "fontSize": "10px",
+          "scrollHeight": 16,
+          "clientHeight": 16
+        }
+      ],
+      "svgPaths": 0,
+      "entities": 0,
+      "projectile": 0,
+      "impact": 0,
+      "debugLines": 0,
+      "text": "Sound on\n3:00\n4\nBrassbolt\n3\nMossguard\n3\nSkymaul\n4\nCopperskiff\n1\nCinderlings"
+    }
+  ]
+}
