@@ -1,0 +1,208 @@
+{
+  "evidence": [
+    {
+      "tick": 0,
+      "restored": true,
+      "poses": []
+    },
+    {
+      "tick": 12,
+      "restored": true,
+      "poses": [
+        "deploy"
+      ]
+    },
+    {
+      "tick": 24,
+      "restored": true,
+      "poses": [
+        "deploy"
+      ]
+    },
+    {
+      "tick": 435,
+      "restored": true,
+      "poses": [
+        "attack"
+      ]
+    },
+    {
+      "tick": 438,
+      "restored": true,
+      "poses": [
+        "recoil"
+      ]
+    },
+    {
+      "localCardArrival": {
+        "slot": "0",
+        "offset": "20.77777777777778px"
+      }
+    },
+    {
+      "actualDestruction": {
+        "target": 818,
+        "state": {
+          "active": true,
+          "backlogTicks": 0,
+          "domTick": 818,
+          "enduranceActive": false,
+          "paused": false,
+          "running": false,
+          "scheduled": false,
+          "selectedCardId": null,
+          "sessionTick": 818,
+          "terminal": false,
+          "restartCount": 0
+        }
+      }
+    },
+    {
+      "tick": 819,
+      "id": "south:lane:left",
+      "age": "1",
+      "stage": "collapse",
+      "restored": true,
+      "hidden": [
+        [
+          "tower-pad tower-pad--north-central",
+          "visible"
+        ],
+        [
+          "tower-pad tower-pad--north-west",
+          "visible"
+        ],
+        [
+          "tower-pad tower-pad--north-east",
+          "visible"
+        ],
+        [
+          "tower-pad tower-pad--south-central",
+          "visible"
+        ],
+        [
+          "tower-pad tower-pad--south-west",
+          "hidden"
+        ],
+        [
+          "tower-pad tower-pad--south-east",
+          "visible"
+        ]
+      ]
+    },
+    {
+      "tick": 830,
+      "id": "south:lane:left",
+      "age": "12",
+      "stage": "collapse",
+      "restored": true,
+      "hidden": [
+        [
+          "tower-pad tower-pad--north-central",
+          "visible"
+        ],
+        [
+          "tower-pad tower-pad--north-west",
+          "visible"
+        ],
+        [
+          "tower-pad tower-pad--north-east",
+          "visible"
+        ],
+        [
+          "tower-pad tower-pad--south-central",
+          "visible"
+        ],
+        [
+          "tower-pad tower-pad--south-west",
+          "hidden"
+        ],
+        [
+          "tower-pad tower-pad--south-east",
+          "visible"
+        ]
+      ]
+    },
+    {
+      "tick": 842,
+      "id": "south:lane:left",
+      "age": "24",
+      "stage": "rubble",
+      "restored": true,
+      "hidden": [
+        [
+          "tower-pad tower-pad--north-central",
+          "visible"
+        ],
+        [
+          "tower-pad tower-pad--north-west",
+          "visible"
+        ],
+        [
+          "tower-pad tower-pad--north-east",
+          "visible"
+        ],
+        [
+          "tower-pad tower-pad--south-central",
+          "visible"
+        ],
+        [
+          "tower-pad tower-pad--south-west",
+          "hidden"
+        ],
+        [
+          "tower-pad tower-pad--south-east",
+          "visible"
+        ]
+      ]
+    },
+    {
+      "tick": 878,
+      "id": "south:lane:left",
+      "age": "60",
+      "stage": "rubble",
+      "restored": true,
+      "hidden": [
+        [
+          "tower-pad tower-pad--north-central",
+          "visible"
+        ],
+        [
+          "tower-pad tower-pad--north-west",
+          "visible"
+        ],
+        [
+          "tower-pad tower-pad--north-east",
+          "visible"
+        ],
+        [
+          "tower-pad tower-pad--south-central",
+          "visible"
+        ],
+        [
+          "tower-pad tower-pad--south-west",
+          "hidden"
+        ],
+        [
+          "tower-pad tower-pad--south-east",
+          "visible"
+        ]
+      ]
+    },
+    {
+      "terminalMotion": {
+        "before": {
+          "tick": 4399,
+          "html": "<section class=\"match-feedback__overlay\" data-kind=\"win\" data-reason=\"central_destroyed\" data-winner=\"south\"><strong>south wins</strong><span class=\"match-feedback__result\">1 – 3</span></section>",
+          "transform": "none",
+          "animation": "none",
+          "transition": "0s"
+        },
+        "afterTick": 4399,
+        "unchanged": true
+      }
+    }
+  ],
+  "reduced": "none",
+  "errors": []
+}

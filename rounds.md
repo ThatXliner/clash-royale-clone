@@ -1,5 +1,76 @@
 # Gauntlet Rounds
 
+## Round 319 — 2026-09-07
+
+PIECE: VIS-003G — Integrated production-polish browser journey, round 1
+
+VERDICT: PASS on captured visual dimension; full piece BLOCKED on GAME-001GP
+
+EVIDENCE: Independent `npm test -- game-presentation-journey`: 1 test,
+1 pass, 0 fail, 45.9s. Fresh critic inspected all twelve real Chrome captures,
+including standard controls/effects and public bounded-profile terminal/restart.
+No blocking visual defect, debug artifact, unreadable state or console error.
+Bridge contact is visible in the impact frame. Evidence:
+artifacts/visual-003g-critic-round-1/verdict.md.
+
+BIGGEST GAP: Dedicated bridge frame captures traversal; contact is evidenced
+by the impact frame. Sustained throughput remains a separate pending gate.
+
+## Round 318 — 2026-09-07
+
+PIECE: VIS-003E — Deterministic animation and interaction polish, round 2
+
+VERDICT: PASS
+
+EVIDENCE: Fresh independent `npm test -- visual-motion-polish`: 6 tests,
+6 pass, 0 fail. Normal RAF completes at presentation age24, session tick1590,
+zero terminal simulation step calls, no scheduled frame left. Ages0/6/12/24
+restore exactly with unchanged session bytes; scale .88/.91/.94/1,
+translation28/21/14/0, opacity .45/.5875/.725/1. Reduced motion at age0 has
+transform:none and opacity:1. Restart removes overlay and resets age0.
+No browser errors. Evidence: artifacts/visual-003e-critic-round-2/.
+
+BIGGEST GAP: Historical transition timing cannot be calibrated without the
+missing reference footage; deterministic motion contract passes.
+
+## Round 317 — 2026-09-07
+
+PIECE: VIS-003E — Deterministic animation and interaction polish, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Independent visual-motion-polish passed5/5, with fresh actual
+Chrome deploy1,movement61,anticipation425,attack435,recoil438. Real tower
+collapse819/830,rubble842/878 restored exactly; card arrival,reduced-motion
+and actual Play again passed. At terminal4399, panel transform:none,
+animation:none,transition:0s; stepMany24 leaves the same frozen tick/HTML.
+Evidence: artifacts/visual-003e-critic-round-1/.
+
+BIGGEST GAP: Terminal panel appears instantly; implement a deterministic
+terminal presentation timeline with verified intermediate/restored frames.
+
+DISPOSITION: Clarified the bar to use bounded serialized presentation ticks
+for post-terminal motion, because authoritative match ticks must stay frozen.
+Simulation determinism and exact browser restoration remain required.
+
+## Round 316 — 2026-09-07
+
+PIECE: GAME-001GP — Sustained browser-match throughput, round 4
+
+VERDICT: FAIL
+
+EVIDENCE: Fresh default18000-tick Chrome endurance on stable0bcedce failed
+after417.6s at tick9600; last passing boundary9300. Segment9300→9600 had
+two51ms browser tasks over unchanged50ms cap. Overall simulation slices
+max21.6ms, initialization174ms, segments max10.371s. Restore600→300→600
+passed exact session/input/presentation/audio continuation with no restore
+long task, and15 subsequent commands accepted. No console/resource/unhandled
+errors. Terminal18000 and restart not reached. Telemetry preserved at
+artifacts/game-001gp-browser-endurance/continuation-9600-failure.json.
+
+BIGGEST GAP: Sustained browser presentation exceeds the long-task cap before
+terminal; profiling the100-tick presentation transaction is underway.
+
 ## Round 315 — 2026-09-07
 
 PIECE: VIS-003C — Combatant, projectile, and effect assets, round 3
