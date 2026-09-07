@@ -186,8 +186,8 @@ function mutableProjectionSnapshot(session, originalSnapshot) {
   Object.freeze = (value) => {
     if (value && typeof value === "object") {
       const keys = Object.keys(value).sort();
-      if (keys.length === 8 &&
-          keys.join(",") === "combatEffectFeed,matchFeedback,replay,sequence,setup,source,state,version") {
+      if (keys.length === 9 &&
+          keys.join(",") === "combatEffectFeed,hudFeedback,matchFeedback,replay,sequence,setup,source,state,version") {
         return value;
       }
     }

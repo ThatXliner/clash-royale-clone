@@ -1,3 +1,4 @@
+import { HUD_MOTION_STYLE } from "./hud-motion.js";
 import { MatchClock } from "../sim/match.js";
 import { isAuthenticGameSessionProjectionSnapshot } from "../sim/game-session.js";
 
@@ -26,7 +27,7 @@ const REASONS = new Set([
 const STYLE_TEXT = `.match-feedback{position:absolute;z-index:45;inset:0;overflow:hidden;pointer-events:none;color:#f7f2dc;font:800 18px/1 system-ui,sans-serif;text-shadow:0 2px 0 #172028}.match-feedback__score{position:absolute;top:12px;left:50%;display:flex;gap:12px;translate:-50% 0;padding:8px 12px;border:2px solid #e8dba9;border-radius:14px;background:#263843dd}.match-feedback__crown{min-width:2ch;text-align:center}.match-feedback__phase{position:absolute;top:58px;left:50%;translate:-50% 0;padding:5px 10px;border-radius:9px;background:#263843dd;text-transform:uppercase}.match-feedback__destruction{position:absolute;width:26px;height:26px;translate:-50% -50%;border:4px double #ffe68a;border-radius:50%;background:#e36b43aa;box-shadow:0 0 18px #fff3a8}.match-feedback__overlay{position:absolute;inset:31% 9%;display:grid;place-content:center;gap:12px;text-align:center;border:4px solid #e8dba9;border-radius:20px;background:#172832ed;font-size:34px}.match-feedback__result{font-size:18px;text-transform:uppercase}`;
 
 export function getMatchFeedbackStyleText() {
-  return STYLE_TEXT;
+  return STYLE_TEXT + LIFECYCLE_STYLE + HUD_MOTION_STYLE;
 }
 
 function record(value, keys, label) {
@@ -572,16 +573,40 @@ export function bindMatchFeedback(layer, view) {
   phase.className = "match-feedback__phase";
   phase.textContent = view.phase;
   frame.appendChild(phase);
+  const field = document.createElement("div");
+  field.className = "match-feedback__field";
+  frame.appendChild(field);
   for (const effect of view.effects) {
     const node = document.createElement("i");
     node.className = "match-feedback__destruction";
     node.dataset.ordinal = String(effect.ordinal);
     node.dataset.tick = String(effect.tick);
     node.dataset.towerId = effect.towerId;
+    const age = view.tick - effect.tick;
+    node.dataset.age = String(age);
+    node.dataset.stage = age < 24 ? "collapse" : "rubble";
+    node.style.setProperty("--collapse", String(Math.min(24, age) / 24));
+    node.style.setProperty("--dust-opacity", String(Math.max(0, 1 - age / 36)));
+    node.setAttribute("aria-hidden", "true");
+    for (let index = 0; index < 5; index += 1) {
+      const stone = document.createElement("b");
+      stone.style.setProperty("--stone-index", String(index));
+      node.appendChild(stone);
+    }
+    if (age < 60) {
+      const crown = document.createElement("span");
+      crown.className = "match-feedback__crown-flight";
+      crown.dataset.scorer = effect.towerId.startsWith("north:") ? "south" : "north";
+      crown.dataset.tick = String(effect.tick);
+      crown.textContent = effect.towerId.endsWith(":central") ? "♛ 3" : "♛ +1";
+      crown.style.setProperty("--crown-rise", `${Math.min(age, 48) * 1.5}px`);
+      crown.style.setProperty("--crown-opacity", String(Math.min(1, (60 - age) / 12)));
+      node.appendChild(crown);
+    }
     const [x, y] = TOWER_POSITIONS[effect.towerId];
     node.style.setProperty("left", `${x * 100 / 18_000}%`);
     node.style.setProperty("top", `${(32_000 - y) * 100 / 32_000}%`);
-    frame.appendChild(node);
+    field.appendChild(node);
   }
   if (view.overlay) {
     const overlay = document.createElement("section");
@@ -610,7 +635,7 @@ export function mountMatchFeedback(shell) {
   }
   const style = arena.ownerDocument.createElement("style");
   style.dataset.ui = "match-feedback-style";
-  style.textContent = STYLE_TEXT;
+  style.textContent = getMatchFeedbackStyleText();
   const layer = arena.ownerDocument.createElement("div");
   layer.className = "match-feedback";
   layer.dataset.ui = "match-feedback";
@@ -635,3 +660,22 @@ export function mountMatchFeedback(shell) {
     style,
   };
 }
+
+// The staged destruction nodes are the only authority for hiding shell art.
+// Removing a frame (including restart/rollback) restores the original body.
+const DESTROYED_TOWER_STYLE = TOWER_IDS.map(id => {
+  const suffix = id.replaceAll(":", "-").replace("lane-left", "west").replace("lane-right", "east");
+  const combatId = id.replace(":left", ":west").replace(":right", ":east");
+  return `.battle-shell:has(.match-feedback__destruction[data-tower-id="${id}"]) :is(.tower-pad--${suffix},.combat-marker[data-combat-id="${combatId}"]){visibility:hidden}`;
+}).join("");
+const LIFECYCLE_STYLE = DESTROYED_TOWER_STYLE + `
+.match-feedback__field{position:absolute;inset:0}
+.game-browser-layer--feedback .match-feedback__field{inset:auto;left:var(--arena-left);top:var(--arena-top);width:var(--arena-width);height:var(--arena-height)}
+.combat-marker--tower[data-destroyed="true"]{visibility:hidden}
+
+.match-feedback__destruction{width:12%;height:7%;border:0;border-radius:50%;background:#4A332A55;box-shadow:none;isolation:isolate}
+.match-feedback__destruction b{position:absolute;left:calc(8% + var(--stone-index)*17%);top:calc(15% + var(--collapse)*35%);width:25%;height:35%;border:2px solid #191D22;background:#8B8578;box-shadow:inset 0 4px #E3CD9E;transform:translateY(calc((1 - var(--collapse))*-18px)) rotate(calc(var(--stone-index)*31deg));clip-path:polygon(12% 0,80% 0,100% 25%,90% 100%,0 85%,0 20%)}
+.match-feedback__destruction::after{content:"";position:absolute;inset:-15%;border:5px solid #E3CD9E;border-radius:50%;opacity:var(--dust-opacity);transform:scale(calc(.6 + var(--collapse)*.7));z-index:-1}
+.match-feedback__crown-flight{position:absolute;bottom:85%;left:50%;white-space:nowrap;translate:-50% 0;transform:translateY(calc(-1 * var(--crown-rise)));opacity:var(--crown-opacity);color:#E9A83A;font:bold 25px Georgia,serif;text-shadow:0 2px #191D22,2px 0 #191D22,-2px 0 #191D22}
+@media(prefers-reduced-motion:reduce){.match-feedback__destruction b{top:50%;transform:none}.match-feedback__destruction::after{transform:none}.match-feedback__crown-flight{transform:none;opacity:1}}
+`;

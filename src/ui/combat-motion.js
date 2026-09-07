@@ -19,6 +19,12 @@ export function createCombatMotionView(snapshot, effects) {
   if (!isCanonicalCombatEffectsViewModel(effects)) throw new TypeError('combat motion effects are not canonical');
   if (effects.tick !== tick) throw new TypeError('combat motion effect tick mismatch');
   const targets = new Map([...battle.towers, ...battle.units].map(record => [record.id, record]));
+  const recentHits = new Map();
+  for (const event of effects.events) {
+    if (event.phase === 'damage' && tick >= event.tick && tick - event.tick < 6) {
+      recentHits.set(event.payload.targetId, event.tick);
+    }
+  }
   const poses = [];
   const contacts = [];
   for (const unit of battle.units) {
@@ -53,7 +59,13 @@ export function createCombatMotionView(snapshot, effects) {
       const stride = Math.floor(unit.movement.segmentProgress / 125) % 4;
       tilt = [0, -5, 0, 5][stride]; lift = [0, -2, 0, -2][stride];
     }
-    poses.push(Object.freeze({ id: unit.id, pose, tilt, lift, scale }));
+    if (pose === 'attack' && strikeAge >= 4) {
+      pose = 'recoil'; tilt = -direction * (8 - strikeAge) * 2;
+    }
+    const hitAge = tick - recentHits.get(unit.id);
+    const hit = Number.isFinite(hitAge);
+    if (hit && pose !== 'deploy') { lift -= (6 - hitAge) / 2; }
+    poses.push(Object.freeze({ id: unit.id, pose, tilt, lift, scale, hit }));
   }
   const residualsByPoint = new Map();
   const sourceEvents = new Map(snapshot.combatEffectFeed.records.map(event => [event.eventId, event]));
@@ -96,6 +108,7 @@ export function bindCombatMotion(combat, effects, view) {
     const pose = byId.get(node.dataset?.combatId);
     if (!pose) continue;
     node.dataset.pose = pose.pose;
+    node.dataset.hit = String(pose.hit);
     node.style.setProperty('--pose-tilt', `${pose.tilt}deg`);
     node.style.setProperty('--pose-lift', `${pose.lift}px`);
     node.style.setProperty('--pose-scale', String(pose.scale / 100));
@@ -142,7 +155,7 @@ export function bindCombatMotion(combat, effects, view) {
   }
 }
 
-export const COMBAT_MOTION_STYLE = `.combat-marker[data-pose] .combat-art{transform:translateY(var(--pose-lift)) rotate(var(--pose-tilt)) scale(var(--pose-scale));transform-origin:50% 80%}.combat-marker[data-pose="deploy"]::after{content:"";position:absolute;inset:45% -10% -5%;border:2px solid #F4EBD6;border-radius:50%;opacity:.65}.combat-melee-contact{position:absolute;left:calc(var(--combat-x)*100%/18000);top:calc(var(--combat-y)*100%/32000);width:38px;height:38px;translate:-50% -50%;transform:scale(var(--contact-scale));background:#F4EBD6;filter:drop-shadow(0 0 3px #E9A83A);clip-path:polygon(50% 0,60% 32%,90% 10%,72% 43%,100% 50%,70% 60%,90% 90%,59% 72%,50% 100%,39% 70%,10% 90%,28% 58%,0 50%,29% 40%,10% 10%,40% 28%)}@media(prefers-reduced-motion:reduce){.combat-marker[data-pose] .combat-art{transform:none}.combat-melee-contact{transform:none}.combat-marker[data-pose="deploy"]::after{opacity:1}}`;
+export const COMBAT_MOTION_STYLE = `.combat-marker[data-hit="true"] .combat-art{filter:brightness(1.65)}.combat-marker[data-pose] .combat-art{transform:translateY(var(--pose-lift)) rotate(var(--pose-tilt)) scale(var(--pose-scale));transform-origin:50% 80%}.combat-marker[data-pose="deploy"]::after{content:"";position:absolute;inset:45% -10% -5%;border:2px solid #F4EBD6;border-radius:50%;opacity:.65}.combat-melee-contact{position:absolute;left:calc(var(--combat-x)*100%/18000);top:calc(var(--combat-y)*100%/32000);width:38px;height:38px;translate:-50% -50%;transform:scale(var(--contact-scale));background:#F4EBD6;filter:drop-shadow(0 0 3px #E9A83A);clip-path:polygon(50% 0,60% 32%,90% 10%,72% 43%,100% 50%,70% 60%,90% 90%,59% 72%,50% 100%,39% 70%,10% 90%,28% 58%,0 50%,29% 40%,10% 10%,40% 28%)}@media(prefers-reduced-motion:reduce){.combat-marker[data-pose] .combat-art{transform:none}.combat-melee-contact{transform:none}.combat-marker[data-pose="deploy"]::after{opacity:1}}`;
 
 // Corpse art is presentation only: no combatId, targetId, health or hit region.
 const DEATH_STYLE = `.combat-death-remnant{position:absolute;pointer-events:none;left:calc(var(--combat-x)*100%/18000);top:calc(var(--combat-y)*100%/32000);width:6.2%;aspect-ratio:1;translate:-50% -50%;opacity:var(--death-opacity)}.combat-death-remnant .combat-art{transform:rotate(var(--death-tilt)) scale(.8);filter:saturate(.65)}.combat-death-remnant::after{content:"";position:absolute;inset:-4px;transform:translateY(calc(-1 * var(--death-drift)));background:#E9A83A;clip-path:polygon(12% 25%,18% 15%,24% 25%,18% 35%,12% 25%,70% 5%,75% 0,80% 5%,75% 10%,70% 5%,85% 65%,92% 58%,98% 65%,92% 72%,85% 65%)}.combat-death-remnant[data-side="south"]::after{background:#DCEDE9}@media(prefers-reduced-motion:reduce){.combat-death-remnant .combat-art{transform:rotate(75deg) scale(.8)}.combat-death-remnant::after{transform:none}.combat-death-remnant{opacity:.8}}`;

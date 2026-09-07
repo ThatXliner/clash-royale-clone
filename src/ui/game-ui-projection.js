@@ -1,3 +1,4 @@
+import { bindHudMotion } from "./hud-motion.js";
 import { createCombatMotionView, bindCombatMotion } from "./combat-motion.js";
 import {
   GameSession,
@@ -30,6 +31,7 @@ export const GAME_UI_FRAME_VERSION = 1;
 const FRAMES = new WeakSet();
 const FRAME_PARTS = new WeakSet();
 const FRAME_MOTION = new WeakMap();
+const FRAME_HUD_RECEIPT = new WeakMap();
 const OPTIONS = new WeakSet();
 const STRUCTURE_IDS = new Map([
   [Number.MAX_SAFE_INTEGER - 5, "south:central"],
@@ -134,6 +136,7 @@ function mintFrameParts(snapshot, combat, effects, feedback, hud) {
     sequence: snapshot.sequence, source: snapshot.source, tick: snapshot.state.tick,
     version: GAME_UI_FRAME_VERSION });
   FRAME_MOTION.set(parts, createCombatMotionView(snapshot, effects));
+  FRAME_HUD_RECEIPT.set(parts, snapshot.hudFeedback.lastCardPlay[hud.elixir.side]);
   FRAME_PARTS.add(parts);
   return parts;
 }
@@ -166,6 +169,7 @@ export function composeGameUiFrame(value) {
   }
   const admitted = freeze({ ...frame, tick });
   FRAME_MOTION.set(admitted, FRAME_MOTION.get(frame));
+  FRAME_HUD_RECEIPT.set(admitted, FRAME_HUD_RECEIPT.get(frame));
   FRAMES.add(admitted);
   return admitted;
 }
@@ -300,6 +304,7 @@ export function mountGameUiProjection(value) {
       hudFrame.className = "game-ui-hud-frame";
       hudFrame.dataset.tick = String(frame.tick);
       hudFrame.innerHTML = getHudMarkup(frame.hud);
+      bindHudMotion(hudFrame, frame.hud, FRAME_HUD_RECEIPT.get(frame));
       staged.hud.replaceChildren(hudFrame);
 
       const committed = [];

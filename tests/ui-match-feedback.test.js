@@ -451,7 +451,7 @@ test("ui match feedback: DOM/view bytes are stable and overlay uses original bou
   bindMatchFeedback(right.layer, restored.view);
   const bytes = nodeBytes(left.layer);
   assert.equal(bytes, nodeBytes(right.layer));
-  assert.equal(createHash("sha256").update(bytes).digest("hex"), "7d474dab4a8a13dfd0b5df73ef579a4f721cdb5b440bdaa425b396e15d383d0c");
+  assert.equal(createHash("sha256").update(bytes).digest("hex"), "6cf9ca79fdc480577e4bead30a3ab85de7dc00e046a43a128107c4b93884b908");
   const overlay = left.layer.children[0].children.at(-1);
   assert.equal(overlay.dataset.winner, "north");
   assert.equal(overlay.children[0].textContent, "north wins");

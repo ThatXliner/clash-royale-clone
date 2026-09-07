@@ -1,0 +1,44 @@
+
+> original-card-battler@0.0.0 test
+> node tests/content-schema-runner.js visual-motion-polish
+
+TAP version 13
+# Subtest: motion polish browser: real combat and canonical tower lifecycle, reduced motion and restart
+ok 1 - motion polish browser: real combat and canonical tower lifecycle, reduced motion and restart
+  ---
+  duration_ms: 8861.078209
+  type: 'test'
+  ...
+# Subtest: motion polish: collapse, crown credit and persistent rubble follow canonical destruction age
+ok 2 - motion polish: collapse, crown credit and persistent rubble follow canonical destruction age
+  ---
+  duration_ms: 3.342
+  type: 'test'
+  ...
+# Subtest: motion polish: opening, combat and HUD frames are identical across chunks, restore and fresh restart
+ok 3 - motion polish: opening, combat and HUD frames are identical across chunks, restore and fresh restart
+  ---
+  duration_ms: 5414.631667
+  type: 'test'
+  ...
+# Subtest: motion polish: reduced motion preserves feedback without moving silhouettes or crowns
+ok 4 - motion polish: reduced motion preserves feedback without moving silhouettes or crowns
+  ---
+  duration_ms: 0.253417
+  type: 'test'
+  ...
+# Subtest: motion polish: accepted local card visibly arrives in its vacated slot and settles after 18 ticks
+ok 5 - motion polish: accepted local card visibly arrives in its vacated slot and settles after 18 ticks
+  ---
+  duration_ms: 49.859625
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 8913.857084

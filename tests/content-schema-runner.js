@@ -109,6 +109,7 @@ for (const selector of selectors) {
       "visual-asset-manifest",
       "visual-arena-art",
       "visual-combat-assets",
+      "visual-motion-polish",
       "visual-interface-art",
       "release-build",
       "fixed-step-kernel",
@@ -688,4 +689,8 @@ if (selectors.length === 0 || selectors.includes("combat-effect-protocol")) {
 
 if (selectors.length === 0 || selectors.includes("visual-combat-assets")) {
   run([new URL("./visual-combat-assets-runner.js", import.meta.url).pathname, "visual-combat-assets"]);
+}
+
+if (selectors.length === 0 || selectors.includes("visual-motion-polish")) {
+  run([new URL("./visual-motion-polish-runner.js", import.meta.url).pathname, "visual-motion-polish"]);
 }
