@@ -237,6 +237,37 @@ test("combat-effect feed is closed, immutable, canonical, and source-authenticat
   }), /authority/u);
 });
 
+test("combat-effect snapshots keep their brand across validation", () => {
+  const minted = combatEffectFeedSnapshot(simpleRootFeed());
+  assert.equal(validateCombatEffectFeed(minted), minted);
+  assert.equal(Object.isFrozen(minted), true);
+  assert.equal(Object.isFrozen(minted.records), true);
+  for (const record of minted.records) {
+    assert.equal(Object.isFrozen(record), true);
+    assert.equal(Object.isFrozen(record.payload), true);
+  }
+
+  const externalClone = JSON.parse(JSON.stringify(minted));
+  const normalized = validateCombatEffectFeed(externalClone);
+  assert.notEqual(normalized, externalClone);
+  assert.deepEqual(normalized, minted);
+  assert.equal(Object.isFrozen(normalized), true);
+  assert.equal(Object.isFrozen(normalized.records), true);
+  assert.equal(Object.isFrozen(normalized.records[0]), true);
+  assert.equal(Object.isFrozen(normalized.records[0].payload), true);
+
+  externalClone.records[0].payload.projectileId = 999;
+  assert.equal(minted.records[0].payload.projectileId, 7);
+  assert.equal(normalized.records[0].payload.projectileId, 7);
+  assert.throws(() => {
+    normalized.records[0].payload.projectileId = 999;
+  }, TypeError);
+
+  const malformedClone = JSON.parse(JSON.stringify(minted));
+  delete malformedClone.records[0].payload.projectileId;
+  assert.throws(() => validateCombatEffectFeed(malformedClone), /shape/u);
+});
+
 test("combat-effect feed rejects hostile lifecycle records atomically", () => {
   const valid = JSON.parse(simpleRootFeed().serialize());
   const sourceBefore = simpleRootFeed().serialize();

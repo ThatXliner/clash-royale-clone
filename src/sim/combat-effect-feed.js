@@ -60,6 +60,7 @@ const CLOSE_REASONS = new Set([
 const ROOT_ID_TOKEN = /^[a-z][A-Za-z0-9.%_~!\-]*(?:\.[A-Za-z0-9.%_~!\-]+){5}$/u;
 
 const FEED_STATES = new WeakMap();
+const NORMALIZED_SNAPSHOT_ROOTS = new WeakSet();
 
 function clone(value) {
   return JSON.parse(canonicalJson(value));
@@ -570,7 +571,9 @@ function snapshotState(value) {
 }
 
 function snapshotFromState(state) {
-  return freeze({ version: COMBAT_EFFECT_FEED_VERSION, records: clone(state.records) });
+  const snapshot = freeze({ version: COMBAT_EFFECT_FEED_VERSION, records: clone(state.records) });
+  NORMALIZED_SNAPSHOT_ROOTS.add(snapshot);
+  return snapshot;
 }
 
 function canonicalJson(value) {
@@ -731,6 +734,7 @@ function appendCombatEffectRoot(feed, value) {
 }
 
 function validateCombatEffectFeed(value) {
+  if (NORMALIZED_SNAPSHOT_ROOTS.has(value)) return value;
   const trusted = FEED_STATES.get(value);
   if (trusted !== undefined) return snapshotFromState(snapshotState(snapshotFromState(trusted)));
   return snapshotFromState(snapshotState(value));

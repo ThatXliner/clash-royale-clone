@@ -12156,7 +12156,7 @@ class GameSession {
       paused: this.#paused, pendingPlayerCommands: clone(this.#pending),
       terminal: clock.state.result !== null, tick: clock.tick };
     const snapshot = freeze({
-      combatEffectFeed: clone(combatEffectFeed),
+      combatEffectFeed,
       hudFeedback: { lastCardPlay: clone(this.#lastCardPlay) },
       matchFeedback: {
         events: clone(clock.eventLog),
