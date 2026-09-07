@@ -12028,6 +12028,7 @@ class GameSession {
   #audioEvents = []; #audioMovementStarted = new Set();
   #battle; #cardRuntime; #clock; #controller; #costs; #decks; #elixir; #events = [];
   #history = []; #historyBytes = []; #historyByteLength = 0; #legal;
+  #lastCardPlay = { north: null, south: null };
   #nextDeploymentSequence = 0; #paused = false; #pending = [];
   #processed = new Map(); #projectionSequence = 0; #projectionSource = Object.freeze({}); #setup;
   #setupToken; #snapshotPrefix; #snapshotPrefixBytes; #towerEvidence; #isContinuation = false;
@@ -12156,6 +12157,7 @@ class GameSession {
       terminal: clock.state.result !== null, tick: clock.tick };
     const snapshot = freeze({
       combatEffectFeed: clone(combatEffectFeed),
+      hudFeedback: { lastCardPlay: clone(this.#lastCardPlay) },
       matchFeedback: {
         events: clone(clock.eventLog),
         replayBytes: clock.replayBytes(),
@@ -12504,6 +12506,14 @@ class GameSession {
           spend: clone(stage.resolvedSpend), tick: stage.tick, type: "session-structure-deployed" };
         sessionEvents.push(committed);
       }
+      if (stage.type === "side-deployment-staged") {
+        this.#lastCardPlay[stage.side] = {
+          cardId: stage.cardId,
+          cost: stage.cost,
+          slot: stage.cycle.slot,
+          tick: stage.tick,
+        };
+      }
       if (stage.side === "south") { this.#processed.set(stage.commandId, clone(committed));
         this.#pending = this.#pending.filter(({ commandId }) => commandId !== stage.commandId); }
     }
@@ -12579,6 +12589,7 @@ class GameSession {
     value.#audioMovementStarted = new Set(this.#audioMovementStarted);
     value.#events = [...this.#events]; value.#history = [...this.#history];
     value.#historyBytes = [...this.#historyBytes]; value.#historyByteLength = this.#historyByteLength;
+    value.#lastCardPlay = clone(this.#lastCardPlay);
     value.#nextDeploymentSequence = this.#nextDeploymentSequence;
     value.#projectionSequence = this.#projectionSequence;
     value.#projectionSource = this.#projectionSource;
@@ -12605,6 +12616,7 @@ class GameSession {
     this.#audioMovementStarted = other.#audioMovementStarted;
     this.#events = other.#events; this.#history = other.#history;
     this.#historyBytes = other.#historyBytes; this.#historyByteLength = other.#historyByteLength;
+    this.#lastCardPlay = other.#lastCardPlay;
     this.#legal = other.#legal; this.#nextDeploymentSequence = other.#nextDeploymentSequence;
     this.#projectionSequence = other.#projectionSequence;
     this.#projectionSource = other.#projectionSource;
