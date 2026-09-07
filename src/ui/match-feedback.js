@@ -669,6 +669,9 @@ const DESTROYED_TOWER_STYLE = TOWER_IDS.map(id => {
   return `.battle-shell:has(.match-feedback__destruction[data-tower-id="${id}"]) :is(.tower-pad--${suffix},.combat-marker[data-combat-id="${combatId}"]){visibility:hidden}`;
 }).join("");
 const LIFECYCLE_STYLE = DESTROYED_TOWER_STYLE + `
+.match-feedback__overlay[data-presentation-tick]{transform:translateY(var(--terminal-lift)) scale(var(--terminal-scale));opacity:var(--terminal-opacity);transform-origin:50% 65%}
+@media(prefers-reduced-motion:reduce){.match-feedback__overlay[data-presentation-tick]{transform:none;opacity:1}}
+
 .match-feedback__field{position:absolute;inset:0}
 .game-browser-layer--feedback .match-feedback__field{inset:auto;left:var(--arena-left);top:var(--arena-top);width:var(--arena-width);height:var(--arena-height)}
 .combat-marker--tower[data-destroyed="true"]{visibility:hidden}

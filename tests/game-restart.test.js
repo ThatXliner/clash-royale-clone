@@ -193,10 +193,13 @@ test("game restart: terminal click atomically replaces the whole graph with exac
   assert.equal(first.restart.hidden, false);
   const terminalBrowserBytes = value.browser.serialize();
   const terminalSession = value.browser.session;
-  assert.equal(value.scheduler.callbacks.size, 0);
+  assert.equal(value.scheduler.callbacks.size, 1, "the terminal presentation tail is scheduled");
+  const terminalTailFrame = [...value.scheduler.callbacks.values()][0];
 
   const restarted = first.restart.emit("click", { isTrusted: true });
   assert.equal(restarted.restartCount, 1);
+  assert.equal([...value.scheduler.callbacks.values()].includes(terminalTailFrame), false);
+  assert.equal(value.browser.state.terminalPresentationTick, 0);
   assert.equal(value.shells.length, 2);
   assert.notEqual(value.browser.session, terminalSession);
   const expected = new GameSession(createShippedGameSessionSetup(0));

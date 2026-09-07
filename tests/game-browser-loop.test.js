@@ -451,7 +451,7 @@ test("game browser loop: duplicate mount rejects and cleanup is idempotent", () 
   assert.throws(() => value.loop.stepMany(1), /disposed/u);
 });
 
-test("game browser loop: live terminal inside a batch stops scheduler and every DOM tick exactly", () => {
+test("game browser loop: live terminal inside a batch stops simulation and settles the presentation tail", () => {
   const configured = setup({ candidates: [{ cardId: "coilblade",
     point: { x: 3_500, y: 17_500 } }], seed: 2,
     windup: { central: 10_000, lane: 10_000 } });
@@ -462,7 +462,14 @@ test("game browser loop: live terminal inside a batch stops scheduler and every 
   const value = fixture(session);
   value.loop.stepMany(3_000); assertTicks(value, 1_590);
   assert.equal(value.loop.state.terminal, true); assert.equal(value.loop.state.running, false);
-  assert.equal(value.loop.state.scheduled, false); assert.equal(value.scheduler.size, 0);
+  assert.equal(value.loop.state.scheduled, true); assert.equal(value.scheduler.size, 1);
+  const simulationBytes = session.serialize();
+  value.scheduler.fire(0); value.scheduler.fire(100); // six presentation ticks
+  assert.equal(value.loop.state.terminalPresentationTick, 6);
+  assert.equal(session.serialize(), simulationBytes);
+  value.scheduler.fire(400);
+  assert.equal(value.loop.state.terminalPresentationTick, 24);
+  assert.equal(value.scheduler.size, 0);
   const bytes = value.loop.serialize(); assert.deepEqual(value.loop.stepMany(3_000), []);
   assert.equal(value.loop.serialize(), bytes); assertTicks(value, 1_590);
   value.loop.dispose();
@@ -493,4 +500,47 @@ test("game browser loop: runtime and shipped entry contain no wall clock, RNG, o
     serializeArenaInputCards(ROSTER), deck.serializeJson(), elixir.serialize(), hostileId,
     () => {}, () => {}), /next command ID/u);
   assert.equal(traps, 0);
+});
+
+function terminalPresentationFixtureSession() {
+  const session = new GameSession(setup({ candidates: [{ cardId: "coilblade", point: {x:3500,y:17500} }], seed:2, windup:{central:10000,lane:10000} }));
+  session.submitPlayerCommand(canonical({cardId:"coilblade",commandId:0,point:{x:14500,y:14500},slot:session.state.decks.south.hand.indexOf("coilblade"),tick:105,type:"deploy"}));
+  session.stepMany(3000);
+  return session;
+}
+
+test("game browser loop: terminal presentation manual ticks restore exactly and reject incoherent envelopes", () => {
+  const session = terminalPresentationFixtureSession();
+  const value = fixture(session);
+  const panel = () => value.layers.feedback.children[0].children.find(n => n.className === 'match-feedback__overlay');
+  const sessionBytes = session.serialize();
+  for (const age of [0,6,12,24]) {
+    value.loop.advanceTerminalPresentation(age - value.loop.state.terminalPresentationTick);
+    assert.equal(panel().dataset.presentationTick, String(age));
+    const styles = [...panel().style.values];
+    const serialized = value.loop.serialize();
+    value.loop.restore(serialized);
+    assert.deepEqual([...panel().style.values], styles);
+    assert.equal(value.loop.serialize(), serialized);
+    assert.equal(value.loop.session.serialize(), sessionBytes);
+  }
+  const bad = JSON.parse(value.loop.serialize()); bad.terminalPresentation.tick = 25;
+  assert.throws(() => value.loop.restore(canonical(bad)), /terminal presentation/);
+  const prior = JSON.parse(value.loop.serialize()); delete prior.terminalPresentation; prior.version = 1;
+  value.loop.restore(canonical(prior));
+  assert.equal(value.loop.state.terminalPresentationTick,24,'legacy terminal envelopes preserve their settled panel');
+  value.loop.dispose();
+  const live = fixture();
+  const incoherent = JSON.parse(live.loop.serialize()); incoherent.terminalPresentation.tick = 6;
+  assert.throws(() => live.loop.restore(canonical(incoherent)), /terminal presentation requires/);
+  live.loop.dispose();
+});
+test("game browser loop: disposal cancels an unfinished terminal presentation", () => {
+  const session = terminalPresentationFixtureSession();
+  const value = fixture(session); value.loop.start();
+  value.scheduler.fire(0);value.scheduler.fire(100);
+  assert.equal(value.loop.state.terminalPresentationTick,6);
+  const callback = value.scheduler.take();
+  value.loop.dispose();callback(200);
+  assert.equal(value.scheduler.size,0);
 });

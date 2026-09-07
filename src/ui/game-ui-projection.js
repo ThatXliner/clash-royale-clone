@@ -27,11 +27,13 @@ import {
 } from "./match-feedback.js";
 
 export const GAME_UI_FRAME_VERSION = 1;
+export const GAME_UI_TERMINAL_PRESENTATION_TICKS = 24;
 
 const FRAMES = new WeakSet();
 const FRAME_PARTS = new WeakSet();
 const FRAME_MOTION = new WeakMap();
 const FRAME_HUD_RECEIPT = new WeakMap();
+const FRAME_TERMINAL_TICK = new WeakMap();
 const OPTIONS = new WeakSet();
 const STRUCTURE_IDS = new Map([
   [Number.MAX_SAFE_INTEGER - 5, "south:central"],
@@ -174,12 +176,15 @@ export function composeGameUiFrame(value) {
   return admitted;
 }
 
-export function createGameUiOptions(localSide = "south", selectedCardId = null) {
+export function createGameUiOptions(localSide = "south", selectedCardId = null, terminalPresentationTick = GAME_UI_TERMINAL_PRESENTATION_TICKS) {
   if ((localSide !== "north" && localSide !== "south") ||
       (selectedCardId !== null && typeof selectedCardId !== "string")) {
     throw new TypeError("game UI options are invalid");
   }
-  const options = Object.freeze({ localSide, selectedCardId });
+  if (!Number.isSafeInteger(terminalPresentationTick) || terminalPresentationTick < 0 || terminalPresentationTick > GAME_UI_TERMINAL_PRESENTATION_TICKS) {
+    throw new TypeError("terminal presentation tick must be an integer from 0 to 24");
+  }
+  const options = Object.freeze({ localSide, selectedCardId, terminalPresentationTick });
   OPTIONS.add(options);
   return options;
 }
@@ -217,13 +222,15 @@ export function createGameUiFrame(session, options = DEFAULT_GAME_UI_OPTIONS) {
   // admitted source; neither consumes the session replay dialect.
   const effects = createCombatEffectsViewModel(snapshot.combatEffectFeed, state.tick);
   const feedback = createSessionMatchFeedbackViewModel(snapshot);
-  return composeGameUiFrame(mintFrameParts(
+  const frame = composeGameUiFrame(mintFrameParts(
     snapshot,
     createCombatViewModel(combatState(state, effects.events)),
     effects,
     feedback,
     hud,
   ));
+  FRAME_TERMINAL_TICK.set(frame, options.terminalPresentationTick);
+  return frame;
 }
 
 function checkedLayer(value, label) {
@@ -300,6 +307,15 @@ export function mountGameUiProjection(value) {
       bindCombatEffectsViewModel(staged.effects, frame.effects);
       bindCombatMotion(staged.combat, staged.effects, FRAME_MOTION.get(frame));
       bindMatchFeedback(staged.feedback, frame.feedback);
+      if (frame.feedback.overlay) {
+        const panel = children(children(staged.feedback)[0]).find(node => node.className === "match-feedback__overlay");
+        const age = FRAME_TERMINAL_TICK.get(frame) ?? GAME_UI_TERMINAL_PRESENTATION_TICKS;
+        const remaining = (GAME_UI_TERMINAL_PRESENTATION_TICKS - age) / GAME_UI_TERMINAL_PRESENTATION_TICKS;
+        panel.dataset.presentationTick = String(age);
+        panel.style.setProperty("--terminal-scale", String(1 - remaining * .12));
+        panel.style.setProperty("--terminal-lift", `${remaining * 28}px`);
+        panel.style.setProperty("--terminal-opacity", String(1 - remaining * .55));
+      }
       const hudFrame = layers.hud.ownerDocument.createElement("div");
       hudFrame.className = "game-ui-hud-frame";
       hudFrame.dataset.tick = String(frame.tick);

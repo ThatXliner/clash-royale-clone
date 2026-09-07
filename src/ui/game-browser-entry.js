@@ -17,7 +17,7 @@ import { mountArenaShell } from "./arena-shell.js";
 import { getCombatEffectsStyleText } from "./combat-effects.js";
 import { getCombatStyleText } from "./combat-state.js";
 import { assertGameBrowserRootAvailable,
-  GAME_BROWSER_SNAPSHOT_VERSION, mountGameBrowserLoop } from "./game-browser-loop.js";
+  checkedGameBrowserSnapshot, mountGameBrowserLoop } from "./game-browser-loop.js";
 import { createGameSessionRestoreContinuation } from "./game-session-restore-continuation.js";
 import {
   createArenaInputSessionContinuationCapability,
@@ -62,22 +62,7 @@ function canonical(value) {
 // malformed browser envelope while keeping session reconstruction inside the
 // bounded continuation below.
 function enduranceRestoreSessionBytes(bytes) {
-  if (typeof bytes !== "string" || bytes.length > 64 * 1_024 * 1_024) {
-    throw new TypeError("game browser snapshot must be bounded canonical JSON");
-  }
-  let snapshot;
-  try { snapshot = JSON.parse(bytes); } catch {
-    throw new TypeError("game browser snapshot must be valid JSON");
-  }
-  if (!snapshot || typeof snapshot !== "object" || Array.isArray(snapshot) ||
-      Object.getPrototypeOf(snapshot) !== Object.prototype ||
-      Object.keys(snapshot).sort().join(",") !== "bridge,running,session,version" ||
-      typeof snapshot.bridge !== "string" || typeof snapshot.running !== "boolean" ||
-      typeof snapshot.session !== "string" || snapshot.version !== GAME_BROWSER_SNAPSHOT_VERSION ||
-      canonical(snapshot) !== bytes) {
-    throw new TypeError("game browser snapshot is invalid");
-  }
-  return snapshot.session;
+  return checkedGameBrowserSnapshot(bytes).session;
 }
 
 export function createShippedGameSessionSetup(seed = 0, profile = "standard") {
@@ -763,6 +748,10 @@ export function mountShippedGameBrowser(
     get state() {
       if (graph === null) return Object.freeze({ active: false, restartCount });
       return Object.freeze({ ...graph.loop.state, restartCount });
+    },
+    advanceTerminalPresentation(count = 1) {
+      assertActive();
+      return graph.loop.advanceTerminalPresentation(count);
     },
     stepMany(count = 1) {
       assertActive();

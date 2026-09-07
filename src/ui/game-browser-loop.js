@@ -5,6 +5,7 @@ import {
 } from "../sim/game-session.js";
 import { GameInputBridge } from "./game-input-bridge.js";
 import {
+  GAME_UI_TERMINAL_PRESENTATION_TICKS,
   createGameUiFrame,
   createGameUiOptions,
   mountGameUiProjection,
@@ -17,7 +18,7 @@ import {
 export const GAME_BROWSER_TICKS_PER_SECOND = 60;
 export const GAME_BROWSER_MAX_TICKS_PER_FRAME = 120;
 export const GAME_BROWSER_MAX_BACKLOG_TICKS = 240;
-export const GAME_BROWSER_SNAPSHOT_VERSION = 1;
+export const GAME_BROWSER_SNAPSHOT_VERSION = 2;
 
 const ACTIVE_ROOTS = new WeakMap();
 const LAYER_NAMES = Object.freeze(["combat", "effects", "feedback", "hud"]);
@@ -52,7 +53,7 @@ function exact(value, keys, label) {
   return value;
 }
 
-function checkedSnapshot(bytes) {
+export function checkedGameBrowserSnapshot(bytes) {
   if (typeof bytes !== "string" || bytes.length > 64 * 1_024 * 1_024) {
     throw new TypeError("game browser snapshot must be bounded canonical JSON");
   }
@@ -60,8 +61,17 @@ function checkedSnapshot(bytes) {
   try { value = JSON.parse(bytes); } catch {
     throw new TypeError("game browser snapshot must be valid JSON");
   }
-  exact(value, ["bridge", "running", "session", "version"], "game browser snapshot");
-  if (value.version !== GAME_BROWSER_SNAPSHOT_VERSION ||
+  exact(value, value.version === 1 ? ["bridge", "running", "session", "version"] :
+    ["bridge", "running", "session", "terminalPresentation", "version"], "game browser snapshot");
+  if (value.version !== 1) {
+    exact(value.terminalPresentation, ["tick", "running"], "terminal presentation");
+    if (!Number.isSafeInteger(value.terminalPresentation.tick) || value.terminalPresentation.tick < 0 ||
+        value.terminalPresentation.tick > GAME_UI_TERMINAL_PRESENTATION_TICKS || typeof value.terminalPresentation.running !== "boolean" ||
+        (value.terminalPresentation.running && value.terminalPresentation.tick === GAME_UI_TERMINAL_PRESENTATION_TICKS)) {
+      throw new TypeError("terminal presentation is invalid");
+    }
+  }
+  if (![1, GAME_BROWSER_SNAPSHOT_VERSION].includes(value.version) ||
       typeof value.bridge !== "string" || typeof value.session !== "string" ||
       typeof value.running !== "boolean" || canonical(value) !== bytes) {
     throw new TypeError("game browser snapshot is invalid");
@@ -119,6 +129,8 @@ export function mountGameBrowserLoop(options) {
   let graph = null;
   let active = true;
   let running = !session.state.paused && !session.state.terminal;
+  let terminalPresentationTick = 0;
+  let terminalPresentationRunning = false;
   let handle = null;
   let lastTimestamp = null;
   let fractionalTicks = 0;
@@ -155,7 +167,7 @@ export function mountGameBrowserLoop(options) {
       session.state.decks.south.hand.includes(candidate) ? candidate : null;
     selectedCardId = selection;
     const frame = createGameUiFrame(session,
-      createGameUiOptions("south", selection));
+      createGameUiOptions("south", selection, terminalPresentationTick));
     graph.projection.project(frame);
     domTick = frame.tick;
     if (domTick !== session.state.tick) throw new Error("game browser DOM tick diverged");
@@ -297,8 +309,11 @@ export function mountGameBrowserLoop(options) {
   };
   const stopAtTerminal = () => {
     if (!session.state.terminal) return false;
+    const wasRunning = running;
     running = false; cancel(); lastTimestamp = null; fractionalTicks = 0; backlogTicks = 0;
+    if (wasRunning && terminalPresentationTick < GAME_UI_TERMINAL_PRESENTATION_TICKS) terminalPresentationRunning = true;
     suspendInput();
+    if (terminalPresentationRunning) schedule();
     return true;
   };
   const checkedRestoreCandidate = (snapshot, candidate) => {
@@ -307,6 +322,10 @@ export function mountGameBrowserLoop(options) {
     }
     if (snapshot.running && (candidate.state.paused || candidate.state.terminal)) {
       throw new TypeError("game browser running snapshot is incoherent");
+    }
+    if (snapshot.terminalPresentation && !candidate.state.terminal &&
+        (snapshot.terminalPresentation.tick !== 0 || snapshot.terminalPresentation.running)) {
+      throw new TypeError("terminal presentation requires a terminal session");
     }
     return candidate;
   };
@@ -320,11 +339,13 @@ export function mountGameBrowserLoop(options) {
         throw new AggregateError(cleanupErrors, "game browser restore cleanup failed");
       }
       session = candidate; selectedCardId = null;
+      terminalPresentationTick = snapshot.terminalPresentation?.tick ?? (session.state.terminal ? GAME_UI_TERMINAL_PRESENTATION_TICKS : 0);
+      terminalPresentationRunning = snapshot.terminalPresentation?.running ?? false;
       buildGraph(session, snapshot.bridge);
       running = snapshot.running; lastTimestamp = null; fractionalTicks = 0; backlogTicks = 0;
       render();
       if (session.state.paused || session.state.terminal) suspendInput();
-      if (running) schedule();
+      if (running || terminalPresentationRunning) schedule();
       return api.state;
     } catch (error) {
       cancel(); running = false;
@@ -356,15 +377,15 @@ export function mountGameBrowserLoop(options) {
     } finally { inOperation = false; }
   };
   const schedule = () => {
-    if (!active || !running || handle !== null || session.state.terminal) return false;
+    if (!active || (!running && !terminalPresentationRunning) || handle !== null) return false;
     handle = scheduler.requestAnimationFrame(onFrame);
     return true;
   };
   const onFrame = (timestamp) => {
-    if (!active || !running) return;
+    if (!active || (!running && !terminalPresentationRunning)) return;
     handle = null;
     if (typeof timestamp !== "number" || !Number.isFinite(timestamp)) {
-      running = false; throw new TypeError("game browser frame timestamp is invalid");
+      running = false; terminalPresentationRunning = false; throw new TypeError("game browser frame timestamp is invalid");
     }
     if (lastTimestamp === null) lastTimestamp = timestamp;
     else {
@@ -377,6 +398,20 @@ export function mountGameBrowserLoop(options) {
         backlogTicks + presentedTicks);
     }
     const count = Math.min(GAME_BROWSER_MAX_TICKS_PER_FRAME, backlogTicks);
+    if (session.state.terminal) {
+      if (count > 0) {
+        const prior = terminalPresentationTick;
+        terminalPresentationTick = Math.min(GAME_UI_TERMINAL_PRESENTATION_TICKS, prior + count);
+        try { render(); } catch (error) {
+          terminalPresentationTick = prior; terminalPresentationRunning = false; cancel(); throw error;
+        }
+        backlogTicks = 0;
+      }
+      if (terminalPresentationTick === GAME_UI_TERMINAL_PRESENTATION_TICKS) {
+        terminalPresentationRunning = false; lastTimestamp = null; fractionalTicks = 0;
+      } else schedule();
+      return;
+    }
     if (count > 0) {
       const before = session.state.tick;
       session.stepMany(count);
@@ -395,7 +430,7 @@ export function mountGameBrowserLoop(options) {
     dispose() {
       if (!active) return false;
       assertActive(); inOperation = true;
-      cancel(); running = false;
+      cancel(); running = false; terminalPresentationRunning = false;
       const errors = cleanupGraph(graph); graph = null; active = false;
       ACTIVE_ROOTS.delete(checked.root); inOperation = false;
       if (errors.length) throw new AggregateError(errors, "game browser cleanup failed");
@@ -403,7 +438,8 @@ export function mountGameBrowserLoop(options) {
     },
     enterManualStepMode() {
       assertActive();
-      if (!running || session.state.terminal) return false;
+      if (!running && !terminalPresentationRunning) return false;
+      terminalPresentationRunning = false;
       running = false; cancel(); lastTimestamp = null; fractionalTicks = 0; backlogTicks = 0;
       return true;
     },
@@ -468,6 +504,7 @@ export function mountGameBrowserLoop(options) {
     get session() { return session; },
     get state() { const state = session.state; return Object.freeze({ active, backlogTicks, domTick,
       enduranceActive: endurance !== null,
+      terminalPresentationTick, terminalPresentationRunning,
       paused: state.paused, running, scheduled: handle !== null,
       selectedCardId: active && typeof graph?.input?.selectedCardId === "string"
         ? graph.input.selectedCardId : selectedCardId,
@@ -490,9 +527,25 @@ export function mountGameBrowserLoop(options) {
     serialize() {
       assertActive();
       return canonical({ bridge: graph.bridge.serialize(), running,
-        session: session.serialize(), version: GAME_BROWSER_SNAPSHOT_VERSION });
+        session: session.serialize(), terminalPresentation: { tick: terminalPresentationTick, running: terminalPresentationRunning },
+        version: GAME_BROWSER_SNAPSHOT_VERSION });
     },
-    start() { assertActive(); if (session.state.paused || session.state.terminal) return false;
+    advanceTerminalPresentation(count = 1) {
+      assertActive();
+      if (!session.state.terminal || terminalPresentationRunning || !Number.isSafeInteger(count) || count < 0 || count > GAME_UI_TERMINAL_PRESENTATION_TICKS) {
+        throw new TypeError("terminal presentation requires a stopped terminal session and 0..24 ticks");
+      }
+      const prior = terminalPresentationTick;
+      terminalPresentationTick = Math.min(GAME_UI_TERMINAL_PRESENTATION_TICKS, prior + count);
+      try { render(); } catch (error) { terminalPresentationTick = prior; throw error; }
+      return api.state;
+    },
+    start() { assertActive();
+      if (session.state.terminal) {
+        if (terminalPresentationTick === GAME_UI_TERMINAL_PRESENTATION_TICKS || terminalPresentationRunning) return false;
+        terminalPresentationRunning = true; lastTimestamp = null; schedule(); return true;
+      }
+      if (session.state.paused) return false;
       if (running && handle !== null) return false;
       running = true; lastTimestamp = null; schedule(); return true; },
     stepMany(count = 1) {
@@ -510,7 +563,7 @@ export function mountGameBrowserLoop(options) {
     },
     restore(bytes) {
       assertActive();
-      const snapshot = checkedSnapshot(bytes);
+      const snapshot = checkedGameBrowserSnapshot(bytes);
       const candidate = checkedRestoreCandidate(snapshot, GameSession.restore(snapshot.session));
       return restoreCandidate(snapshot, candidate);
     },
@@ -519,7 +572,7 @@ export function mountGameBrowserLoop(options) {
       if (!active) throw new RangeError("game browser loop is disposed");
       if (inOperation) throw new Error("game browser loop reentrant operation rejected");
       assertEndurance();
-      const snapshot = checkedSnapshot(bytes);
+      const snapshot = checkedGameBrowserSnapshot(bytes);
       return createGameBrowserRestoreCapability(continuation, bytes, snapshot.session,
         preparedRestoreOwner);
     },
@@ -532,7 +585,7 @@ export function mountGameBrowserLoop(options) {
       if (!active) throw new RangeError("game browser loop is disposed");
       if (inOperation) throw new Error("game browser loop reentrant operation rejected");
       assertEndurance();
-      const snapshot = checkedSnapshot(bytes);
+      const snapshot = checkedGameBrowserSnapshot(bytes);
       const candidate = consumeGameBrowserRestoreCapability(capability, bytes,
         preparedRestoreOwner);
       checkedRestoreCandidate(snapshot, candidate);
