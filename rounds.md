@@ -1,5 +1,24 @@
 # Gauntlet Rounds
 
+## Round 320 — 2026-09-07
+
+PIECE: GAME-001GP — Sustained browser-match throughput, round 5
+
+VERDICT: FAIL
+
+EVIDENCE: One default run on presentation build5296f1a failed0/1 after
+802.667s at tick16200. Browser tasks55ms and51ms exceed the unchanged50ms
+cap. Initialization179/300ms, maximum simulation slice34.8/40ms,
+maximum segment10.398/30s. Restore600→300→600, continuation/session/view/input/
+audio and presentation transactions passed. Zero console/resource/unhandled
+errors. Terminal18000 and restart not reached. Evidence:
+artifacts/game-001gp-browser-endurance/continuation-final-result.json and
+continuation-final-terminal.log.
+
+BIGGEST GAP: Late-match browser responsiveness still exceeds50ms; both
+reported tasks precede the final segment, so input/presentation profiling is
+needed to distinguish their cause from simulation and audio work.
+
 ## Round 319 — 2026-09-07
 
 PIECE: VIS-003G — Integrated production-polish browser journey, round 1

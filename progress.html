@@ -28,10 +28,10 @@
   <div class="cards">
     <div class="card"><div class="num">172</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">129</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">314</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">315</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">24</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Latest review: <strong>VIS-003E — Deterministic animation and interaction polish, round 2 — PASS</strong>. Full game completion remains unproven.</p>
+  <p class="note">Latest review: <strong>GAME-001GP — Sustained browser-match throughput, round 5 — FAIL</strong>. Full game completion remains unproven.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -1202,8 +1202,8 @@
         <td>Sustained browser-match throughput</td>
         <td class="state-fail">FAIL</td>
         <td>0/1</td>
-        <td>4</td>
-        <td>Round4 failed at9600: two51ms presentation-cadence tasks exceed50ms cap; restore/audio exact; isolated late-frame profiling underway</td>
+        <td>5</td>
+        <td>Round5 reaches16200 but pre-segment55/51ms tasks exceed50ms; restore/audio exact, terminal/restart not reached; late input profiling underway</td>
       </tr>
       <tr>
         <td><code>GAME-001GS</code></td>
@@ -1418,6 +1418,7 @@
   </div>
   <h2>Round trajectory</h2>
   <ol>
+      <li><strong>R320 FAIL</strong> · GAME-001GP — Sustained browser-match throughput, round 5<br>Late-match browser responsiveness still exceeds50ms; both reported tasks precede the final segment, so input/presentation profiling is needed to distinguish their cause from simulation and audio work.</li>
       <li><strong>R318 PASS</strong> · VIS-003E — Deterministic animation and interaction polish, round 2<br>Historical transition timing cannot be calibrated without the missing reference footage; deterministic motion contract passes.</li>
       <li><strong>R317 FAIL</strong> · VIS-003E — Deterministic animation and interaction polish, round 1<br>Terminal panel appears instantly; implement a deterministic terminal presentation timeline with verified intermediate/restored frames.</li>
       <li><strong>R316 FAIL</strong> · GAME-001GP — Sustained browser-match throughput, round 4<br>Sustained browser presentation exceeds the long-task cap before terminal; profiling the100-tick presentation transaction is underway.</li>
