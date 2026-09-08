@@ -1,5 +1,24 @@
 # Gauntlet Rounds
 
+## Round 323 — 2026-09-07
+
+PIECE: GAME-001HSP — Periodic source-evidence supplement (no runtime verdict)
+
+VERDICT: PASS for reference evidence; GAME-001HSP remains BLOCKED
+
+EVIDENCE: Independent critic re-ran the extractor and independently fetched
+the pinned upstream source. All78 raw fields across three area/buff records
+and upstream SHA-256 match; regeneration is byte-identical. Publisher dates
+and movement behavior claims match the cited2020/2021 notes. Comparison with
+the existing generic slow and modifier QUESTION fixtures is accurate. No
+production source or admission behavior changed. Evidence:
+reference/research/periodic-spells-cutoff.md and
+artifacts/game-001hsp-evidence-review-1/verdict.md.
+
+BIGGEST GAP: The shared spell composition still lacks proven activation,
+refresh/expiry, modifier rounding and pull integration rules. Known raw fields
+must not be confused with a complete executable profile.
+
 ## Round 322 — 2026-09-07
 
 PIECE: RELEASE-001W — Shipped runtime projection wiring, round 1

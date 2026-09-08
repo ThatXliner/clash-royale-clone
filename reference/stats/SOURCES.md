@@ -43,3 +43,13 @@ This prevents a structured datamine from being mistaken for two-source verificat
 - Card abilities (Champion abilities, charge/dash stages, shields, death damage, ramping damage, lifetimes, buffs, and crown-tower damage multipliers) are outside the requested common schema.
 - The exact deployment cell mask and collision-authoritative tower/bridge footprints need frame-calibrated gameplay capture or a more complete arena datamine.
 - Current wiki pages may include later balance history. They were used only where a dated history/table supported the pre-March-2023 value.
+
+## Periodic spell supplement (accessed 2026-09-07)
+
+[Periodic cutoff evidence](../research/periodic-spells-cutoff.md) extracts78
+raw area/buff fields from the same pinned February2023 commit, with a
+reproducible extractor and upstream SHA-256. Publisher notes independently
+corroborate15% movement slow for Poison and50% movement slow without attack
+slow for Earthquake. Raw cadence, lifetime and modifier fields narrow the
+periodic-spell questions but do not establish complete timing/refresh/pull
+composition. Existing common-schema confidence flags remain unchanged.

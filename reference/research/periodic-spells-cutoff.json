@@ -1,0 +1,113 @@
+{
+  "version": 1,
+  "source_url": "https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats_spell.json",
+  "source_commit": "54fdef52c5086393b085f57faeeab8ef86b28160",
+  "source_sha256": "2bc968eeb9e36e9ddb281bf291f7265d0e7bfefa99bc0589eeba5195c229a690",
+  "source_date": "2023-02-18",
+  "accessed": "2026-09-07",
+  "interpretation": "raw fields only; not an executable composition receipt",
+  "records": [
+    {
+      "reference_name": "Poison",
+      "original_id": "blight-ring",
+      "area_fields": {
+        "life_duration": 8000,
+        "radius": 3500,
+        "hit_speed": 250,
+        "hit_speed_offset": 0,
+        "first_hit_to_target": false,
+        "buff_time": 1000,
+        "cap_buff_time_to_area_effect_time": false,
+        "buff_number": 1,
+        "only_enemies": true,
+        "only_own_troops": false,
+        "ignore_buildings": false,
+        "hits_ground": true,
+        "hits_air": true,
+        "stay_after_parent_dies": false
+      },
+      "buff_fields": {
+        "building_damage_percent": 0,
+        "crown_tower_damage_percent": -70,
+        "damage_per_second": 57,
+        "hit_frequency": 1000,
+        "hit_speed_multiplier": 0,
+        "speed_multiplier": -15,
+        "enable_stacking": true,
+        "attract_percentage": 0,
+        "push_mass_factor": 0,
+        "push_speed_factor": 0,
+        "controlled_by_parent": false,
+        "ignore_buildings": false
+      }
+    },
+    {
+      "reference_name": "Earthquake",
+      "original_id": "fault-pulse",
+      "area_fields": {
+        "life_duration": 3000,
+        "radius": 3500,
+        "hit_speed": 100,
+        "hit_speed_offset": 0,
+        "first_hit_to_target": false,
+        "buff_time": 1000,
+        "cap_buff_time_to_area_effect_time": true,
+        "buff_number": 1,
+        "only_enemies": true,
+        "only_own_troops": false,
+        "ignore_buildings": false,
+        "hits_ground": true,
+        "hits_air": false,
+        "stay_after_parent_dies": false
+      },
+      "buff_fields": {
+        "building_damage_percent": 350,
+        "crown_tower_damage_percent": -35,
+        "damage_per_second": 39,
+        "hit_frequency": 1000,
+        "hit_speed_multiplier": 0,
+        "speed_multiplier": -50,
+        "enable_stacking": true,
+        "attract_percentage": 0,
+        "push_mass_factor": 0,
+        "push_speed_factor": 0,
+        "controlled_by_parent": false,
+        "ignore_buildings": false
+      }
+    },
+    {
+      "reference_name": "Tornado",
+      "original_id": "gravity-well",
+      "area_fields": {
+        "life_duration": 1050,
+        "radius": 5500,
+        "hit_speed": 50,
+        "hit_speed_offset": 0,
+        "first_hit_to_target": false,
+        "buff_time": 500,
+        "cap_buff_time_to_area_effect_time": false,
+        "buff_number": 0,
+        "only_enemies": true,
+        "only_own_troops": false,
+        "ignore_buildings": false,
+        "hits_ground": true,
+        "hits_air": true,
+        "stay_after_parent_dies": false
+      },
+      "buff_fields": {
+        "building_damage_percent": 0,
+        "crown_tower_damage_percent": -83,
+        "damage_per_second": 106,
+        "hit_frequency": 500,
+        "hit_speed_multiplier": 0,
+        "speed_multiplier": 0,
+        "enable_stacking": true,
+        "attract_percentage": 360,
+        "push_mass_factor": 0,
+        "push_speed_factor": 100,
+        "controlled_by_parent": true,
+        "ignore_buildings": false
+      }
+    }
+  ]
+}
