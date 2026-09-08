@@ -1,5 +1,23 @@
 # Gauntlet Rounds
 
+## Round 325 — 2026-09-07
+
+PIECE: GAME-001HSS — Status spell source supplement (no runtime verdict)
+
+VERDICT: PASS for reference evidence; GAME-001HSS remains BLOCKED
+
+EVIDENCE: Fresh critic independently fetched the pinned February 18, 2023
+source and matched all 61 selected raw fields and full upstream SHA-256.
+Extractor regeneration is byte-identical. Publisher announcement date and
+coming-soon caveat match. Fixture comparison confirms the unsourced 7/4 rage
+multiplier conflicts with raw 135 values. Shipping isolation passed 13/13.
+Evidence: artifacts/game-001hss-evidence-review-1/verdict.md and
+reference/research/status-spells-cutoff.md.
+
+BIGGEST GAP: Complete shared spell profiles still need activation, refresh,
+reset classes, same-boundary ordering and damage-rounding evidence. The
+friendly buff and enemy damage area relationship is now explicitly sourced.
+
 ## Round 324 — 2026-09-07
 
 PIECE: GAME-001HSQO — Spell occurrence and fixture-context accounting, round 1

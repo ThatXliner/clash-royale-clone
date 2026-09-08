@@ -53,3 +53,12 @@ corroborate15% movement slow for Poison and50% movement slow without attack
 slow for Earthquake. Raw cadence, lifetime and modifier fields narrow the
 periodic-spell questions but do not establish complete timing/refresh/pull
 composition. Existing common-schema confidence flags remain unchanged.
+
+## Status spell supplement — 2026-09-07
+
+`../research/status-spells-cutoff.json` records the pinned February 18, 2023
+Zap, Rage and RageDamage raw rows; regenerate with
+`python3 reference/research/extract-status-cutoff.py`.
+See `../research/status-spells-cutoff.md` for field interpretation limits and
+conflicts with the generic QUESTION fixtures. These facts do not certify
+activation, refresh, ordering, reset classes or damage rounding.
