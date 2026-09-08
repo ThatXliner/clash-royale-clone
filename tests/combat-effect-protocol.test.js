@@ -268,6 +268,63 @@ test("combat-effect snapshots keep their brand across validation", () => {
   assert.throws(() => validateCombatEffectFeed(malformedClone), /shape/u);
 });
 
+test("combat-effect snapshots retain frozen history across branch appends", () => {
+  const fixtureRoot = simpleRootFeed().records[0];
+  const feed = createCombatEffectFeed();
+  const root = appendCombatEffectRoot(feed, {
+    ...fixtureRoot.payload,
+    tick: fixtureRoot.tick,
+    type: fixtureRoot.type,
+  });
+  const retained = combatEffectFeedSnapshot(feed);
+  const retainedBytes = serializeCombatEffectFeed(retained);
+  const fork = feed.fork();
+
+  const appendContactAndClose = (branch, targetId) => {
+    const contact = appendCombatEffectEvent(branch, {
+      parentId: root.eventId,
+      payload: {
+        point: { x: 3000, y: 1000 },
+        status: "contact",
+        subId: null,
+        targetId,
+      },
+      phase: "contact",
+      rootId: root.rootId,
+      tick: 3,
+      type: "projectile",
+    });
+    appendCombatEffectEvent(branch, {
+      parentId: contact.eventId,
+      payload: { reason: "complete" },
+      phase: "close",
+      rootId: root.rootId,
+      tick: 3,
+      type: "projectile",
+    });
+  };
+  appendContactAndClose(feed, 12);
+  appendContactAndClose(fork, 13);
+
+  const parentSnapshot = combatEffectFeedSnapshot(feed);
+  const forkSnapshot = combatEffectFeedSnapshot(fork);
+  assert.equal(retained.records.length, 1);
+  assert.deepEqual(retained, JSON.parse(retainedBytes));
+  assert.notEqual(parentSnapshot.records, forkSnapshot.records);
+  assert.equal(parentSnapshot.records[1].payload.targetId, 12);
+  assert.equal(forkSnapshot.records[1].payload.targetId, 13);
+  assert.strictEqual(parentSnapshot.records[0], forkSnapshot.records[0]);
+  assert.notStrictEqual(parentSnapshot.records[1], forkSnapshot.records[1]);
+  assert.throws(() => {
+    retained.records[0].payload.from.xNumerator = "9999";
+  }, TypeError);
+  assert.equal(serializeCombatEffectFeed(retained), retainedBytes);
+  assert.equal(
+    serializeCombatEffectFeed(restoreCombatEffectFeed(retainedBytes)),
+    retainedBytes,
+  );
+});
+
 test("combat-effect feed rejects hostile lifecycle records atomically", () => {
   const valid = JSON.parse(simpleRootFeed().serialize());
   const sourceBefore = simpleRootFeed().serialize();

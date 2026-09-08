@@ -16,6 +16,9 @@ export const COMBAT_EFFECT_VIEW_VERSION = 2;
 export const COMBAT_EFFECT_VIEW_MAX_BYTES = 4_000_000;
 
 const VIEWS = new WeakSet();
+// Canonical event records are validated and deeply frozen before entering a
+// view, so their bytes remain valid for every canonical view that shares them.
+const CANONICAL_EVENT_BYTES = new WeakMap();
 const PROJECTILE_DIRECTIONS = new Set([
   "pierce", "pellet", "projectile", "return", "tower-to-unit", "travel",
   "unit-to-tower", "unit-to-unit",
@@ -379,9 +382,26 @@ export function isCanonicalCombatEffectsViewModel(view) {
   return VIEWS.has(view);
 }
 
+function canonicalViewJson(view) {
+  const entries = Object.keys(view).sort().map((key) => {
+    if (key !== "events") {
+      return `${JSON.stringify(key)}:${canonicalJson(view[key])}`;
+    }
+    const records = view.events.map((record) => {
+      const cached = CANONICAL_EVENT_BYTES.get(record);
+      if (cached !== undefined) return cached;
+      const bytes = canonicalJson(record);
+      CANONICAL_EVENT_BYTES.set(record, bytes);
+      return bytes;
+    });
+    return `${JSON.stringify(key)}:[${records.join(",")}]`;
+  });
+  return `{${entries.join(",")}}`;
+}
+
 export function serializeCombatEffectsViewModel(view) {
   if (!VIEWS.has(view)) throw new TypeError("combat effects view is not canonical");
-  const bytes = canonicalJson(view);
+  const bytes = canonicalViewJson(view);
   if (UTF8.encode(bytes).byteLength > COMBAT_EFFECT_VIEW_MAX_BYTES) {
     throw new RangeError("combat effects view exceeds its byte bound");
   }

@@ -543,7 +543,7 @@ function appendChecked(state, record) {
     root.lastEventId = checked.eventId;
     root.lastTick = checked.tick;
   }
-  state.records.push(checked);
+  state.records.push(freeze(checked));
   state.recordBytes = nextRecordBytes;
   state.nextEventId += 1;
   if (checked.type === "area") state.lastAreaTick = checked.tick;
@@ -571,7 +571,12 @@ function snapshotState(value) {
 }
 
 function snapshotFromState(state) {
-  const snapshot = freeze({ version: COMBAT_EFFECT_FEED_VERSION, records: clone(state.records) });
+  // Normalized records are frozen at admission, so snapshots can share them
+  // safely while retaining an independent array for future appends.
+  const snapshot = Object.freeze({
+    version: COMBAT_EFFECT_FEED_VERSION,
+    records: Object.freeze([...state.records]),
+  });
   NORMALIZED_SNAPSHOT_ROOTS.add(snapshot);
   return snapshot;
 }

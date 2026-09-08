@@ -36,6 +36,16 @@ function point(x, y) {
   return { x, y };
 }
 
+function independentCanonical(value) {
+  if (Array.isArray(value)) return `[${value.map(independentCanonical).join(",")}]`;
+  if (value !== null && typeof value === "object") {
+    return `{${Object.keys(value).sort().map((key) =>
+      `${JSON.stringify(key)}:${independentCanonical(value[key])}`
+    ).join(",")}}`;
+  }
+  return JSON.stringify(value);
+}
+
 function feedPrefixInput(feed, count, tick) {
   return { feed: { records: feed.records.slice(0, count), version: 1 }, tick };
 }
@@ -486,6 +496,35 @@ test("ui combat effects: serialization, restore, and DOM bytes use feed authorit
   };
   assert.throws(() => bindCombatEffectsViewModel(left.layer, view), /hostile document/u);
   assert.deepEqual(left.layer.children, [sentinel]);
+});
+
+test("ui combat effects: immutable event byte caching preserves canonical views", () => {
+  const { feed, root } = directFeed();
+  const firstView = createCombatEffectsViewModel(feed, 5);
+  const firstBytes = serializeCombatEffectsViewModel(firstView);
+  assert.equal(firstBytes, independentCanonical(firstView));
+  assert.equal(serializeCombatEffectsViewModel(firstView), firstBytes);
+
+  appendCombatEffectEvent(feed, {
+    parentId: root.eventId,
+    payload: {
+      point: point(5000, 1000),
+      status: "contact",
+      subId: null,
+      targetId: 2,
+    },
+    phase: "contact",
+    rootId: root.rootId,
+    tick: 10,
+    type: "projectile",
+  });
+  const appendedView = createCombatEffectsViewModel(feed, 10);
+  assert.equal(appendedView.events.length, firstView.events.length + 1);
+  const appendedBytes = serializeCombatEffectsViewModel(appendedView);
+  assert.equal(appendedBytes, independentCanonical(appendedView));
+
+  const restored = restoreCombatEffectsViewModel(appendedBytes);
+  assert.equal(serializeCombatEffectsViewModel(restored), appendedBytes);
 });
 
 test("ui combat effects: malformed feed is rejected before projection and raw dialects never enter", () => {
