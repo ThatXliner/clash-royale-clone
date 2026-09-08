@@ -27,11 +27,11 @@
   <p class="sub">Updated 2026-09-07 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
     <div class="card"><div class="num">172</div><div class="label">tracked pieces</div></div>
-    <div class="card"><div class="num">133</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">316</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">134</div><div class="label">passed</div></div>
+    <div class="card"><div class="num">317</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">24</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Active target: <strong>RELEASE-001W — Shipped runtime projection wiring</strong>.</p>
+  <p class="note">Latest review: <strong>RELEASE-001W — Shipped runtime projection wiring, round 1 — PASS</strong>. Full game completion remains unproven.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -920,10 +920,10 @@
       <tr>
         <td><code>RELEASE-001W</code></td>
         <td>Shipped runtime projection wiring</td>
-        <td class="state-building">BUILDING</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Effect feed and causal renderer now pass; adding a real browser journey served only from the built distribution, including original audio and cleanup</td>
+        <td class="state-pass">PASS</td>
+        <td>1/1</td>
+        <td>1</td>
+        <td>Fresh built-only Chrome journey passes twelve states,69 manifest-listed app paths, actual audio, exact restart and idempotent cleanup</td>
       </tr>
       <tr>
         <td><code>RELEASE-001M</code></td>
@@ -931,7 +931,7 @@
         <td class="state-blocked">BLOCKED</td>
         <td>0/0</td>
         <td>0</td>
-        <td>Blocked on RELEASE-001A browser-graph and RELEASE-001W runtime-wiring questions</td>
+        <td>Runtime wiring now passes; browser-graph enforcement and entry-accurate provenance audit remain unresolved</td>
       </tr>
       <tr>
         <td><code>RELEASE-001</code></td>
@@ -1418,6 +1418,7 @@
   </div>
   <h2>Round trajectory</h2>
   <ol>
+      <li><strong>R322 PASS</strong> · RELEASE-001W — Shipped runtime projection wiring, round 1<br>Terminal uses the documented bounded profile; this proves runtime wiring, not standard balance, captured-game parity or full release.</li>
       <li><strong>R321 PASS</strong> · GAME-001GP — Sustained browser-match throughput, round 6<br>No failing gap on this bar; audio presentation peaked at39.2ms, which is remaining headroom to watch rather than a failed threshold.</li>
       <li><strong>R320 FAIL</strong> · GAME-001GP — Sustained browser-match throughput, round 5<br>Late-match browser responsiveness still exceeds50ms; both reported tasks precede the final segment, so input/presentation profiling is needed to distinguish their cause from simulation and audio work.</li>
       <li><strong>R318 PASS</strong> · VIS-003E — Deterministic animation and interaction polish, round 2<br>Historical transition timing cannot be calibrated without the missing reference footage; deterministic motion contract passes.</li>

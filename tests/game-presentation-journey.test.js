@@ -1,13 +1,20 @@
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
 import { mkdirSync, writeFileSync } from 'node:fs';
+import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import test from 'node:test';
+import { buildRelease } from '../scripts/build-release.js';
 import { GameSession } from '../src/sim/game-session.js';
 import { createShippedGameSessionSetup } from '../src/ui/game-browser-entry.js';
 
 const PLAYWRIGHT = process.env.GAME_BROWSER_PLAYWRIGHT ?? '/Users/me/.codex/worktrees/d092a29e-844b-459d-b145-c548db10d485/billion/node_modules/.pnpm/playwright@1.58.2/node_modules/playwright/index.mjs';
 const CHROME = process.env.GAME_BROWSER_CHROME ?? '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
-const ARTIFACTS = new URL('../artifacts/visual-003g-round-1/', import.meta.url).pathname;
+const NORMAL_ARTIFACTS = new URL('../artifacts/visual-003g-round-1/', import.meta.url).pathname;
+const RELEASE_ARTIFACTS = new URL('../artifacts/release-001w-round-1/', import.meta.url).pathname;
+const RELEASE_MODE = process.env.GAME_PRESENTATION_RELEASE === '1';
+const ARTIFACTS = RELEASE_MODE ? RELEASE_ARTIFACTS : NORMAL_ARTIFACTS;
 async function ready(stream) {
   let buffer = '';
   for await (const chunk of stream) { buffer += chunk; if (buffer.includes('\n')) return JSON.parse(buffer.split('\n')[0]); }
@@ -21,18 +28,38 @@ async function click(page, selector, offset) {
 
 test('production presentation: original art and trusted controls through an authentic match', { timeout: 600_000 }, async () => {
   mkdirSync(ARTIFACTS, { recursive: true });
-  const server = spawn(process.execPath, [new URL('./game-browser-journey-server.js', import.meta.url).pathname], { stdio: ['ignore', 'pipe', 'pipe'] });
+  let releaseDirectory;
+  let releaseOutput;
+  let releaseManifest;
+  let server;
   let browser, page;
+  let cleanupResult = null;
   const errors = [], frames = [];
+  const responsePaths = new Set();
   try {
+    if (RELEASE_MODE) {
+      releaseDirectory = await mkdtemp(join(tmpdir(), 'game-presentation-release-'));
+      releaseOutput = join(releaseDirectory, 'artifact');
+      await buildRelease({ output: releaseOutput });
+      releaseManifest = JSON.parse(await readFile(join(releaseOutput, 'release-manifest.json'), 'utf8'));
+    }
+    const serverArguments = [new URL('./game-browser-journey-server.js', import.meta.url).pathname];
+    if (releaseOutput !== undefined) serverArguments.push(`--root=${releaseOutput}`);
+    server = spawn(process.execPath, serverArguments, { stdio: ['ignore', 'pipe', 'pipe'] });
     const address = await ready(server.stdout);
+    const origin = `http://${address.host}:${address.port}`;
     const { chromium } = await import(PLAYWRIGHT);
     browser = await chromium.launch({ executablePath: CHROME, headless: true });
     page = await browser.newPage({ viewport: { width: 720, height: 1280 }, deviceScaleFactor: 1 });
     page.on('pageerror', error => errors.push(String(error)));
     page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
     page.on('requestfailed', request => errors.push(`${request.url()}: ${request.failure()?.errorText}`));
-    page.on('response', response => { if (response.status() >= 400) errors.push(`${response.status()} ${response.url()}`); });
+    page.on('response', response => {
+      if (response.status() >= 400) errors.push(`${response.status()} ${response.url()}`);
+      const url = new URL(response.url());
+      if (url.origin === origin && response.status() >= 200 && response.status() < 400 &&
+          url.pathname !== '/favicon.ico') responsePaths.add(url.pathname.slice(1));
+    });
     const open = async (profile = '') => {
       await page.goto(`http://${address.host}:${address.port}/public/ui-arena-shell.html${profile}`, { waitUntil: 'networkidle' });
       await page.evaluate(async () => {
@@ -49,6 +76,8 @@ test('production presentation: original art and trusted controls through an auth
           towers: journey.session.state.battle.towers.map(({ id, hitpoints }) => ({ id, hitpoints })),
           hudTick: Number(document.querySelector('[data-ui="hud-projection"]').dataset.tick),
           combatTick: Number(document.querySelector('.combat-frame').dataset.tick),
+          audioDiagnostics: journey.audioDiagnostics,
+          audioPcmObservations: journey.audioPcmObservations.length,
           renderedCrowns: { north: Number(document.querySelector('[data-ui="hud-crowns"]').dataset.north), south: Number(document.querySelector('[data-ui="hud-crowns"]').dataset.south) },
           destroyedMarkers: [...document.querySelectorAll('.combat-marker--tower[data-destroyed="true"]')].map(n => n.dataset.combatId),
           selected: [...document.querySelectorAll('.hud-card[data-selected="true"]')].map(n => n.dataset.cardId),
@@ -68,6 +97,9 @@ test('production presentation: original art and trusted controls through an auth
       assert.equal(evidence.debugLines, 0);
       assert.equal(evidence.hudTick, evidence.tick);
       assert.equal(evidence.combatTick, evidence.tick);
+      assert.equal(evidence.audioDiagnostics.sessionTick, evidence.tick);
+      assert.equal(evidence.audioDiagnostics.cursor, evidence.audioDiagnostics.eventCount);
+      assert.equal(evidence.audioDiagnostics.faulted, false);
       assert.deepEqual(evidence.renderedCrowns, evidence.crowns);
       assert.deepEqual(evidence.destroyedMarkers.sort(), evidence.towers.filter(t => t.hitpoints === 0).map(t => t.id).sort());
       assert.equal(evidence.cards.length, 4);
@@ -131,12 +163,41 @@ test('production presentation: original art and trusted controls through an auth
     await click(page, '[data-ui="restart"]');
     assert.equal(await page.evaluate(() => journey.session.serialize()), new GameSession(createShippedGameSessionSetup(0)).serialize());
     await capture('08-restart');
+    assert.ok(frames.some(({ entities, audioPcmObservations }) =>
+      entities > 0 && audioPcmObservations > 0),
+    'at least one captured combat frame must contain scheduled PCM observations');
+    if (releaseManifest !== undefined) {
+      const manifestPaths = new Set(releaseManifest.files.map(({ path }) => path));
+      for (const path of responsePaths) {
+        assert.ok(manifestPaths.has(path), `successful same-origin response is absent from release manifest: ${path}`);
+      }
+    }
     assert.deepEqual(errors, []);
+    cleanupResult = await page.evaluate(() => ({
+      first: journey.dispose(),
+      second: journey.dispose(),
+      active: journey.state.active,
+    }));
+    assert.deepEqual(cleanupResult, { first: true, second: false, active: false });
   } finally {
-    writeFileSync(`${ARTIFACTS}evidence.json`, JSON.stringify({ profile: 'standard opening; live-seed-2-terminal bounded combat (10,000 tick tower windup, north coilblade only)', errors, frames }, null, 2));
+    writeFileSync(`${ARTIFACTS}evidence.json`, JSON.stringify({
+      profile: 'standard opening; live-seed-2-terminal bounded combat (10,000 tick tower windup, north coilblade only)',
+      releaseMode: RELEASE_MODE,
+      releaseManifest: releaseManifest === undefined ? null : {
+        entrypoints: releaseManifest.entrypoints,
+        fileCount: releaseManifest.fileCount,
+      },
+      responsePaths: [...responsePaths].sort(),
+      cleanup: cleanupResult,
+      errors,
+      frames,
+    }, null, 2));
     await page?.evaluate(() => globalThis.journey?.dispose()).catch(() => {});
     await page?.close();
-    server.kill('SIGTERM');
+    server?.kill('SIGTERM');
     await browser?.close();
+    if (releaseDirectory !== undefined) {
+      await rm(releaseDirectory, { recursive: true, force: true });
+    }
   }
 });

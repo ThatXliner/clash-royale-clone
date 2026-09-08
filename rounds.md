@@ -1,5 +1,23 @@
 # Gauntlet Rounds
 
+## Round 322 — 2026-09-07
+
+PIECE: RELEASE-001W — Shipped runtime projection wiring, round 1
+
+VERDICT: PASS
+
+EVIDENCE: Fresh critic `npm test -- release-runtime`: 1 test, 1 pass,
+0 fail,46.1s. Twelve real720×1280 captures from a freshly built distribution
+show synchronized session/HUD/combat/audio ticks, projectile/impact, actual
+tower destruction, terminal freeze, exact seed0 restart and idempotent cleanup.
+All69 successful app request paths are manifest-listed; zero reference/tests
+requests and zero browser errors. Terminal records31 actual WebAudio source
+scheduling observations. Evidence: artifacts/release-001w-round-1/ and
+artifacts/release-001w-critic-round-1/.
+
+BIGGEST GAP: Terminal uses the documented bounded profile; this proves
+runtime wiring, not standard balance, captured-game parity or full release.
+
 ## Round 321 — 2026-09-07
 
 PIECE: GAME-001GP — Sustained browser-match throughput, round 6

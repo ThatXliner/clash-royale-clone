@@ -1,8 +1,14 @@
 import { createReadStream, realpathSync, statSync } from "node:fs";
 import { createServer } from "node:http";
-import { extname, join, relative, sep } from "node:path";
+import { extname, isAbsolute, join, relative, sep } from "node:path";
 
-const root = realpathSync(new URL("..", import.meta.url).pathname);
+const rootArgument = process.argv.find((value) => value.startsWith("--root="));
+const rootInput = rootArgument?.slice("--root=".length) ??
+  new URL("..", import.meta.url).pathname;
+if (!isAbsolute(rootInput)) {
+  throw new TypeError("game browser journey server root must be an absolute directory");
+}
+const root = realpathSync(rootInput);
 const requestedPort = Number(process.argv.find((value) => value.startsWith("--port="))
   ?.slice("--port=".length) ?? 0);
 if (!Number.isSafeInteger(requestedPort) || requestedPort < 0 || requestedPort > 65_535) {
