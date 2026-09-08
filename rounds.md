@@ -1,5 +1,30 @@
 # Gauntlet Rounds
 
+## Round 321 — 2026-09-07
+
+PIECE: GAME-001GP — Sustained browser-match throughput, round 6
+
+VERDICT: PASS
+
+EVIDENCE: Fresh critic ran protocol11/11 and effects10/10, then one unchanged
+default Chrome endurance attempt: 1 test, 1 pass, 0 fail. Reached terminal and
+DOM tick18000, restarted to tick0/count1, and passed exact mirror, rewind/replay,
+physical input and audio assertions. Measured workload829.8s, longest segment
+10.409s, initialization169/300ms, maximum simulation slice35.2/40ms.
+No driven long-task entries, no environment-audit exemptions, and no console,
+resource or unhandled errors. Terminal audio consumed3513/3513 records,
+disposed cleanly, and left zero voices. Evidence:
+artifacts/game-001gp-browser-endurance/round-6-result.json and
+round-6-terminal.log. Production code0269fed; later changes during the run
+were limited to independent release-test setup and tracking.
+
+BIGGEST GAP: No failing gap on this bar; audio presentation peaked at39.2ms,
+which is remaining headroom to watch rather than a failed threshold.
+
+DISPOSITION: GAME-001GP and GAME-001G pass. This also clears the remaining
+performance dependency of VIS-003G and the original-presentation VIS-003
+umbrella; captured-game visual parity remains blocked on absent footage.
+
 ## Round 320 — 2026-09-07
 
 PIECE: GAME-001GP — Sustained browser-match throughput, round 5

@@ -27,11 +27,11 @@
   <p class="sub">Updated 2026-09-07 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
     <div class="card"><div class="num">172</div><div class="label">tracked pieces</div></div>
-    <div class="card"><div class="num">129</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">315</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">133</div><div class="label">passed</div></div>
+    <div class="card"><div class="num">316</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">24</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Latest review: <strong>GAME-001GP — Sustained browser-match throughput, round 5 — FAIL</strong>. Full game completion remains unproven.</p>
+  <p class="note">Active target: <strong>RELEASE-001W — Shipped runtime projection wiring</strong>.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -824,10 +824,10 @@
       <tr>
         <td><code>VIS-003</code></td>
         <td>Production presentation polish umbrella</td>
-        <td class="state-blocked">BLOCKED</td>
+        <td class="state-pass">PASS</td>
         <td>0/0</td>
         <td>0</td>
-        <td>Newly split into independently buildable production-polish pieces</td>
+        <td>All original-presentation subpieces and integrated endurance pass for the shipped default roster; captured-game parity remains VIS-001/VIS-002</td>
       </tr>
       <tr>
         <td><code>VIS-003A</code></td>
@@ -880,10 +880,10 @@
       <tr>
         <td><code>VIS-003G</code></td>
         <td>Integrated production-polish browser journey</td>
-        <td class="state-blocked">BLOCKED</td>
+        <td class="state-pass">PASS</td>
         <td>1/1</td>
         <td>1</td>
-        <td>Fresh visual critic passes twelve captured states with no blocking defect; full gate awaits sustained GAME-001GP performance</td>
+        <td>Fresh visual critic passes twelve states without blocking defects; full18000-tick endurance round6 now also passes</td>
       </tr>
       <tr>
         <td><code>AUDIO-001</code></td>
@@ -920,10 +920,10 @@
       <tr>
         <td><code>RELEASE-001W</code></td>
         <td>Shipped runtime projection wiring</td>
-        <td class="state-blocked">BLOCKED</td>
+        <td class="state-building">BUILDING</td>
         <td>0/0</td>
         <td>0</td>
-        <td>Audio passed; blocked until the closed effect feed and causal renderer pass</td>
+        <td>Effect feed and causal renderer now pass; adding a real browser journey served only from the built distribution, including original audio and cleanup</td>
       </tr>
       <tr>
         <td><code>RELEASE-001M</code></td>
@@ -1200,10 +1200,10 @@
       <tr>
         <td><code>GAME-001GP</code></td>
         <td>Sustained browser-match throughput</td>
-        <td class="state-fail">FAIL</td>
-        <td>0/1</td>
-        <td>5</td>
-        <td>Round5 reaches16200 but pre-segment55/51ms tasks exceed50ms; restore/audio exact, terminal/restart not reached; late input profiling underway</td>
+        <td class="state-pass">PASS</td>
+        <td>1/1</td>
+        <td>6</td>
+        <td>Round6 reaches18000 and exact restart/restore/audio/input; no driven longtasks,35.2ms max simulation slice,829.8s workload; unchanged caps</td>
       </tr>
       <tr>
         <td><code>GAME-001GS</code></td>
@@ -1216,10 +1216,10 @@
       <tr>
         <td><code>GAME-001G</code></td>
         <td>Playable browser match journey umbrella</td>
-        <td class="state-blocked">BLOCKED</td>
+        <td class="state-pass">PASS</td>
         <td>0/0</td>
         <td>0</td>
-        <td>Short trusted-control journey passes; sustained throughput must pass again after the presentation changes</td>
+        <td>Trusted controls and full18000-tick endurance pass, including exact restore, audio continuation and restart</td>
       </tr>
       <tr>
         <td><code>GAME-001H</code></td>
@@ -1418,6 +1418,7 @@
   </div>
   <h2>Round trajectory</h2>
   <ol>
+      <li><strong>R321 PASS</strong> · GAME-001GP — Sustained browser-match throughput, round 6<br>No failing gap on this bar; audio presentation peaked at39.2ms, which is remaining headroom to watch rather than a failed threshold.</li>
       <li><strong>R320 FAIL</strong> · GAME-001GP — Sustained browser-match throughput, round 5<br>Late-match browser responsiveness still exceeds50ms; both reported tasks precede the final segment, so input/presentation profiling is needed to distinguish their cause from simulation and audio work.</li>
       <li><strong>R318 PASS</strong> · VIS-003E — Deterministic animation and interaction polish, round 2<br>Historical transition timing cannot be calibrated without the missing reference footage; deterministic motion contract passes.</li>
       <li><strong>R317 FAIL</strong> · VIS-003E — Deterministic animation and interaction polish, round 1<br>Terminal panel appears instantly; implement a deterministic terminal presentation timeline with verified intermediate/restored frames.</li>

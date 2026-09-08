@@ -1,0 +1,170 @@
+
+> original-card-battler@0.0.0 test
+> node tests/content-schema-runner.js combat-effect-protocol ui-combat-effects
+
+TAP version 13
+# Subtest: ui combat effects: canonical direct feed projects exact rational travel
+ok 1 - ui combat effects: canonical direct feed projects exact rational travel
+  ---
+  duration_ms: 2.735667
+  type: 'test'
+  ...
+# Subtest: ui combat effects: contact, lethal damage, death, and close are feed-causal
+ok 2 - ui combat effects: contact, lethal damage, death, and close are feed-causal
+  ---
+  duration_ms: 1.838917
+  type: 'test'
+  ...
+# Subtest: ui combat effects: area roots retain zero-damage shared-target outcomes
+ok 3 - ui combat effects: area roots retain zero-damage shared-target outcomes
+  ---
+  duration_ms: 0.836209
+  type: 'test'
+  ...
+# Subtest: ui combat effects: return turn switches the canonical carrier leg
+ok 4 - ui combat effects: return turn switches the canonical carrier leg
+  ---
+  duration_ms: 0.63175
+  type: 'test'
+  ...
+# Subtest: ui combat effects: pellet segments are stable carriers and cancellations clear them
+ok 5 - ui combat effects: pellet segments are stable carriers and cancellations clear them
+  ---
+  duration_ms: 0.569708
+  type: 'test'
+  ...
+# Subtest: ui combat effects: serialization, restore, and DOM bytes use feed authority
+ok 6 - ui combat effects: serialization, restore, and DOM bytes use feed authority
+  ---
+  duration_ms: 1.755334
+  type: 'test'
+  ...
+# Subtest: ui combat effects: immutable event byte caching preserves canonical views
+ok 7 - ui combat effects: immutable event byte caching preserves canonical views
+  ---
+  duration_ms: 0.709292
+  type: 'test'
+  ...
+# Subtest: ui combat effects: malformed feed is rejected before projection and raw dialects never enter
+ok 8 - ui combat effects: malformed feed is rejected before projection and raw dialects never enter
+  ---
+  duration_ms: 1.769958
+  type: 'test'
+  ...
+# Subtest: ui combat effects: authentic sources project prefixes and restore exactly
+ok 9 - ui combat effects: authentic sources project prefixes and restore exactly
+  ---
+  duration_ms: 33.632084
+  type: 'test'
+  ...
+# Subtest: ui combat effects: authentic battle feed and empty feed are deterministic
+ok 10 - ui combat effects: authentic battle feed and empty feed are deterministic
+  ---
+  duration_ms: 11.257417
+  type: 'test'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 159.711959
+TAP version 13
+# Subtest: combat-effect feed is closed, immutable, canonical, and source-authenticated
+ok 1 - combat-effect feed is closed, immutable, canonical, and source-authenticated
+  ---
+  duration_ms: 3.915458
+  type: 'test'
+  ...
+# Subtest: combat-effect snapshots keep their brand across validation
+ok 2 - combat-effect snapshots keep their brand across validation
+  ---
+  duration_ms: 0.705042
+  type: 'test'
+  ...
+# Subtest: combat-effect snapshots retain frozen history across branch appends
+ok 3 - combat-effect snapshots retain frozen history across branch appends
+  ---
+  duration_ms: 1.332291
+  type: 'test'
+  ...
+# Subtest: combat-effect feed rejects hostile lifecycle records atomically
+ok 4 - combat-effect feed rejects hostile lifecycle records atomically
+  ---
+  duration_ms: 2.862584
+  type: 'test'
+  ...
+# Subtest: combat-effect protocol rejects premature, branched, reordered, forged, and restored writes
+ok 5 - combat-effect protocol rejects premature, branched, reordered, forged, and restored writes
+  ---
+  duration_ms: 2.867375
+  type: 'test'
+  ...
+# Subtest: authentic pre-contact travel cancellation closes its visible carrier
+ok 6 - authentic pre-contact travel cancellation closes its visible carrier
+  ---
+  duration_ms: 3.746
+  type: 'test'
+  ...
+# Subtest: actual projectile feed-bound failure leaves mechanics and visual bytes unchanged
+ok 7 - actual projectile feed-bound failure leaves mechanics and visual bytes unchanged
+  ---
+  duration_ms: 717.151209
+  type: 'test'
+  ...
+# Subtest: actual projectile, area, return, pierce, pellet, spell, and travel sources export closed feeds
+ok 8 - actual projectile, area, return, pierce, pellet, spell, and travel sources export closed feeds
+  ---
+  duration_ms: 41.442084
+  type: 'test'
+  ...
+# Subtest: source feed bytes survive chunks, restore, fork, signed geometry, and post-launch source death
+ok 9 - source feed bytes survive chunks, restore, fork, signed geometry, and post-launch source death
+  ---
+  duration_ms: 78.813958
+  type: 'test'
+  ...
+# Subtest: authentic battle and GameSession projections carry stable source identities
+ok 10 - authentic battle and GameSession projections carry stable source identities
+  ---
+  duration_ms: 1079.970125
+  type: 'test'
+  ...
+# Subtest: fresh processes reproduce exact feed bytes
+ok 11 - fresh processes reproduce exact feed bytes
+  ---
+  duration_ms: 76.254042
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2101.844
+
+> original-card-battler@0.0.0 test
+> node tests/content-schema-runner.js game-browser-endurance
+
+TAP version 13
+# Subtest: game browser endurance: exact GH seed-zero workload yields through Chrome to terminal
+ok 1 - game browser endurance: exact GH seed-zero workload yields through Chrome to terminal
+  ---
+  duration_ms: 829865.408459
+  type: 'test'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 832008.524708
