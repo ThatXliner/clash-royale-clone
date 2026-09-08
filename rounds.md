@@ -1,5 +1,23 @@
 # Gauntlet Rounds
 
+## Round 324 — 2026-09-07
+
+PIECE: GAME-001HSQO — Spell occurrence and fixture-context accounting, round 1
+
+VERDICT: PASS
+
+EVIDENCE: Fresh critic ran `npm test -- game-roster-spell-occurrences`:
+4 tests, 4 pass, 0 fail. Independent imports confirmed 13 occurrences across
+10 identities, 11 admitted occurrences across eight identities, and two
+identity-only QUESTIONs. Four Squall catalogs return identical data; the
+single existing receipt claims isolated direct damage facts only. The audit
+records zero complete card profiles and changes no production code.
+Evidence: artifacts/game-001hsqo-round-1/critic-verdict.md.
+
+BIGGEST GAP: Parent GAME-001HSQ still needs sourced activation, travel,
+impact order, knockback eligibility and damage-modifier rounding. This
+verdict closes occurrence accounting only.
+
 ## Round 323 — 2026-09-07
 
 PIECE: GAME-001HSP — Periodic source-evidence supplement (no runtime verdict)

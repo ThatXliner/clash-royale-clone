@@ -25,6 +25,7 @@ for (const selector of selectors) {
       "game-history-cap",
       "game-opponent",
       "game-roster-admission",
+      "game-roster-spell-occurrences",
       "game-roster-troop-profiles",
       "game-roster-troops-movement-profiles",
       "game-roster-troops-movement",
@@ -168,6 +169,7 @@ const foundationRunners = [
   ["game-history-cap", "game-history-cap-runner.js"],
   ["game-opponent", "game-opponent-runner.js"],
   ["game-roster-admission", "game-roster-admission-runner.js"],
+  ["game-roster-spell-occurrences", "game-roster-spell-occurrences-runner.js"],
   ["game-roster-troop-profiles", "game-roster-troop-profiles-runner.js"],
   [
     "game-roster-troops-movement-profiles",

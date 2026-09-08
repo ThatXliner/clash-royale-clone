@@ -38,3 +38,11 @@ travel, impact, displacement eligibility/order and damage policy. The generic
 return fixture can remain tested without being counted as a sourced card
 mechanic. Common-session admission remains unchanged until that receipt is
 complete.
+
+A follow-up query of the full pinned
+[cards_stats.json](https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats.json)
+on2026-09-07, across all groups for name Fireball/FireballSpell or key fireball,
+returned only the projectile row. It supplied no card activation delay or
+travel-time formula. This bounded query does not prove that no other source
+exists; those fields remain unresolved rather than inferred from a zero or
+from raw projectile speed.
