@@ -1,5 +1,21 @@
 # Gauntlet Rounds
 
+## Round 326 — 2026-09-23
+
+PIECE: GAME-001PHR — Battle movement history runtime cost, round 1
+
+VERDICT: PASS
+
+EVIDENCE: Fresh critic ran `npm test -- battle-movement-history` (23/23)
+and `npm test -- battle-movement-kernel` (5/5). The 1,024-command snapshot
+remained byte-identical at 97,035 bytes. Its serialize/restore times fell
+from 2.26/2.28 s to 0.55/0.57 s on the measured workload. The existing
+complexity gate was unchanged. Evidence:
+artifacts/history-runtime-investigation/critic-verdict.md.
+
+BIGGEST GAP: This improves a costly replay path but does not solve the
+parent GAME-001PH global minimality QUESTION.
+
 ## Round 325 — 2026-09-07
 
 PIECE: GAME-001HSS — Status spell source supplement (no runtime verdict)

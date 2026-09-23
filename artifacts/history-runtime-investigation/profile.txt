@@ -1,0 +1,329 @@
+Statistical profiling result from isolate-0xa18000000-13185-v8.log, (2086 ticks, 1008 unaccounted, 0 excluded).
+
+ [Shared libraries]:
+   ticks  total  nonlib   name
+
+ [JavaScript]:
+   ticks  total  nonlib   name
+    260   12.5%   12.5%  JS: *firstProgressInBar file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:392:28
+    173    8.3%    8.3%  Builtin: KeyedLoadIC_Megamorphic
+    161    7.7%    7.7%  Builtin: CEntry_Return1_ArgvOnStack_NoBuiltinExit
+    126    6.0%    6.0%  Builtin: KeyedStoreIC_Megamorphic
+    123    5.9%    5.9%  JS: *applyTargetState file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:726:26
+     63    3.0%    3.0%  Builtin: ToBigIntConvertNumber
+     40    1.9%    1.9%  JS: *advanceStateOnly file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1200:26
+     34    1.6%    1.6%  Builtin: BigIntShiftRightNoThrow
+     23    1.1%    1.1%  JS: *cloneCommand file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:308:22
+     18    0.9%    0.9%  Builtin: BigIntUnaryMinus
+     16    0.8%    0.8%  Builtin: ToNumberConvertBigInt
+      7    0.3%    0.3%  Builtin: ArrayMap
+      4    0.2%    0.2%  JS: *replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+      3    0.1%    0.1%  Builtin: CallFunction_ReceiverIsAny
+      3    0.1%    0.1%  Builtin: CEntry_Return1_ArgvOnStack_BuiltinExit
+      2    0.1%    0.1%  JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+      2    0.1%    0.1%  JS: *integerSquareRoot file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:359:27
+      2    0.1%    0.1%  Builtin: ArrayTimSort
+      1    0.0%    0.0%  JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+      1    0.0%    0.0%  JS: ~hasSymmetricStaticClearance file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/pathfinding.js:51:37
+      1    0.0%    0.0%  JS: ^wrappedFn node:internal/errors:535:21
+      1    0.0%    0.0%  JS: ^decode node:internal/encoding:442:11
+      1    0.0%    0.0%  JS: ^authoritativeState file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:792:28
+      1    0.0%    0.0%  JS: ^advanceStateOnly file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1200:26
+      1    0.0%    0.0%  JS: *isInBar file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:354:17
+      1    0.0%    0.0%  JS: *clonePoint file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:263:20
+      1    0.0%    0.0%  Builtin: ToString
+      1    0.0%    0.0%  Builtin: LoadIC
+      1    0.0%    0.0%  Builtin: LessThan_Baseline
+      1    0.0%    0.0%  Builtin: KeyedStoreICTrampoline_Megamorphic
+      1    0.0%    0.0%  Builtin: GrowFastSmiOrObjectElements
+      1    0.0%    0.0%  Builtin: DefineNamedOwnIC
+      1    0.0%    0.0%  Builtin: CreateDataProperty
+      1    0.0%    0.0%  Builtin: CompileLazy
+      1    0.0%    0.0%  Builtin: Call_ReceiverIsNotNullOrUndefined_Baseline_Compact
+      1    0.0%    0.0%  Builtin: Call_ReceiverIsNotNullOrUndefined
+
+ [C++]:
+   ticks  total  nonlib   name
+
+ [Summary]:
+   ticks  total  nonlib   name
+   1078   51.7%   51.7%  JavaScript
+      0    0.0%    0.0%  C++
+     84    4.0%    4.0%  GC
+      0    0.0%          Shared libraries
+   1008   48.3%          Unaccounted
+
+ [C++ entry points]:
+   ticks    cpp   total   name
+
+ [Bottom up (heavy) profile]:
+  Note: percentage shows a share of a particular caller in the total
+  amount of its parent calls.
+  Callers occupying less than 1.0% are not shown.
+
+   ticks parent  name
+   1008   48.3%  UNKNOWN
+    673   66.8%    JS: *firstProgressInBar file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:392:28
+    634   94.2%      JS: *advanceStateOnly file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1200:26
+    633   99.8%        JS: *replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+    633  100.0%          JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+    633  100.0%            JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+     18    2.7%      JS: *stepMany file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1419:11
+     18  100.0%        JS: ^<anonymous> file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/history-runtime-investigation/profile.mjs:1:1
+     18  100.0%          Builtin: GeneratorPrototypeNext
+     18  100.0%            Builtin: CallApiCallbackGeneric
+     16    2.4%      JS: ^advanceStateOnly file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1200:26
+     10   62.5%        JS: ~replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+     10  100.0%          JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+     10  100.0%            JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+      6   37.5%        JS: *replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+      6  100.0%          JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+      6  100.0%            JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+    102   10.1%    JS: *applyTargetState file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:726:26
+    101   99.0%      JS: *replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+    101  100.0%        JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+    101  100.0%          JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+    101  100.0%            JS: ~fixedPointCanonicalCommandHistory file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1043:43
+     25    2.5%    JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+     25  100.0%      JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      4   16.0%        JS: ~<anonymous> node:internal/streams/duplex:1:1
+      4  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      4  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      3   12.0%        Builtin: CEntry_Return1_ArgvOnStack_NoBuiltinExit
+      3  100.0%          JS: ^<anonymous> file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/history-runtime-investigation/profile.mjs:1:1
+      3  100.0%            Builtin: GeneratorPrototypeNext
+      2    8.0%        JS: ~<anonymous> node:perf_hooks:1:1
+      2  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      2  100.0%            JS: ~builtinStrategy node:internal/modules/esm/translators:451:52
+      2    8.0%        JS: ~<anonymous> node:net:1:1
+      2  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      2  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      2    8.0%        JS: ~<anonymous> node:internal/streams/operators:1:1
+      2  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      2  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      2    8.0%        JS: ~<anonymous> node:internal/main/run_main_module:1:1
+      2    8.0%        JS: ~#cachedDefaultResolve node:internal/modules/esm/loader:739:24
+      2  100.0%          JS: ~resolve node:internal/modules/esm/loader:715:10
+      2  100.0%            JS: ~getModuleJobForImport node:internal/modules/esm/loader:319:30
+      1    4.0%        JS: ~lazyLoadTranslators node:internal/modules/esm/loader:94:29
+      1  100.0%          JS: ~getTranslators node:internal/modules/esm/loader:103:24
+      1  100.0%            JS: ~ModuleLoader node:internal/modules/esm/loader:157:20
+      1    4.0%        JS: ~<anonymous> node:stream:1:1
+      1  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      1  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      1    4.0%        JS: ~<anonymous> node:internal/streams/readable:1:1
+      1  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      1  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      1    4.0%        JS: ~<anonymous> node:internal/streams/pipeline:1:1
+      1  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      1  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      1    4.0%        JS: ~<anonymous> node:internal/streams/compose:1:1
+      1  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      1  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      1    4.0%        JS: ~<anonymous> node:internal/perf/timerify:1:1
+      1  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      1  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      1    4.0%        JS: ~<anonymous> node:internal/perf/resource_timing:1:1
+      1  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      1  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      1    4.0%        JS: ~#createModuleJob node:internal/modules/esm/loader:632:19
+      1  100.0%          JS: ~#getJobFromResolveResult node:internal/modules/esm/loader:347:27
+      1  100.0%            JS: ~getModuleJobForImport node:internal/modules/esm/loader:319:30
+     22    2.2%    JS: ~moduleStrategy node:internal/modules/esm/translators:102:50
+     22  100.0%      JS: ~#translate node:internal/modules/esm/loader:550:13
+     22  100.0%        JS: ~afterLoad node:internal/modules/esm/loader:610:23
+     22  100.0%          JS: ~loadAndTranslate node:internal/modules/esm/loader:608:19
+     22  100.0%            JS: ~#createModuleJob node:internal/modules/esm/loader:632:19
+     17    1.7%    JS: *advanceStateOnly file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1200:26
+     17  100.0%      JS: *replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+     17  100.0%        JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+     17  100.0%          JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+     17  100.0%            JS: ~fixedPointCanonicalCommandHistory file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1043:43
+     12    1.2%    JS: ^compileSourceTextModule node:internal/modules/esm/utils:344:33
+     12  100.0%      JS: ^moduleStrategy node:internal/modules/esm/translators:102:50
+     12  100.0%        JS: ^#translate node:internal/modules/esm/loader:550:13
+     12  100.0%          JS: ^afterLoad node:internal/modules/esm/loader:610:23
+     12  100.0%            JS: ^loadAndTranslate node:internal/modules/esm/loader:608:19
+
+    260   12.5%  JS: *firstProgressInBar file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:392:28
+    249   95.8%    JS: *advanceStateOnly file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1200:26
+    249  100.0%      JS: *replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+    249  100.0%        JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+    249  100.0%          JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+    249  100.0%            JS: ~fixedPointCanonicalCommandHistory file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1043:43
+      5    1.9%    JS: ^advanceStateOnly file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1200:26
+      4   80.0%      JS: *replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+      4  100.0%        JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+      4  100.0%          JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+      4  100.0%            JS: ~fixedPointCanonicalCommandHistory file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1043:43
+      1   20.0%      JS: ~replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+      1  100.0%        JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+      1  100.0%          JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+      1  100.0%            JS: ~fixedPointCanonicalCommandHistory file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1043:43
+      3    1.2%    JS: *stepMany file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1419:11
+      3  100.0%      JS: ^<anonymous> file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/history-runtime-investigation/profile.mjs:1:1
+      3  100.0%        Builtin: GeneratorPrototypeNext
+      3  100.0%          Builtin: CallApiCallbackGeneric
+      3  100.0%            JS: ~run node:internal/modules/esm/module_job:332:12
+
+    173    8.3%  Builtin: KeyedLoadIC_Megamorphic
+    146   84.4%    JS: *advanceStateOnly file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1200:26
+    146  100.0%      JS: *replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+    146  100.0%        JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+    146  100.0%          JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+    146  100.0%            JS: ~fixedPointCanonicalCommandHistory file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1043:43
+     18   10.4%    JS: *replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+     18  100.0%      JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+     18  100.0%        JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+     18  100.0%          JS: ~fixedPointCanonicalCommandHistory file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1043:43
+     18  100.0%            JS: ~canonicalCommandHistory file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1117:33
+      5    2.9%    JS: ^advanceStateOnly file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1200:26
+      2   40.0%      JS: ~replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+      2  100.0%        JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+      2  100.0%          JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+      2  100.0%            JS: ~fixedPointCanonicalCommandHistory file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1043:43
+      2   40.0%      JS: *replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+      2  100.0%        JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+      2  100.0%          JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+      2  100.0%            JS: ~fixedPointCanonicalCommandHistory file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1043:43
+      1   20.0%      JS: ^prefixStates file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:923:22
+      1  100.0%        JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+      1  100.0%          JS: ~fixedPointCanonicalCommandHistory file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1043:43
+      1  100.0%            JS: ~canonicalCommandHistory file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1117:33
+      3    1.7%    JS: *stepMany file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1419:11
+      3  100.0%      JS: ^<anonymous> file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/history-runtime-investigation/profile.mjs:1:1
+      3  100.0%        Builtin: GeneratorPrototypeNext
+      3  100.0%          Builtin: CallApiCallbackGeneric
+      3  100.0%            JS: ~run node:internal/modules/esm/module_job:332:12
+
+    161    7.7%  Builtin: CEntry_Return1_ArgvOnStack_NoBuiltinExit
+    147   91.3%    JS: *firstProgressInBar file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:392:28
+    141   95.9%      JS: *advanceStateOnly file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1200:26
+    141  100.0%        JS: *replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+    141  100.0%          JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+    141  100.0%            JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+      4    2.7%      JS: *stepMany file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1419:11
+      4  100.0%        JS: ^<anonymous> file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/history-runtime-investigation/profile.mjs:1:1
+      4  100.0%          Builtin: GeneratorPrototypeNext
+      4  100.0%            Builtin: CallApiCallbackGeneric
+      2    1.4%      JS: ^advanceStateOnly file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1200:26
+      1   50.0%        JS: ~replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+      1  100.0%          JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+      1  100.0%            JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+      1   50.0%        JS: *replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+      1  100.0%          JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+      1  100.0%            JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+      7    4.3%    JS: *applyTargetState file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:726:26
+      7  100.0%      JS: *replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+      7  100.0%        JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+      7  100.0%          JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+      7  100.0%            JS: ~fixedPointCanonicalCommandHistory file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1043:43
+      5    3.1%    JS: *advanceStateOnly file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1200:26
+      5  100.0%      JS: *replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+      5  100.0%        JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+      5  100.0%          JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+      5  100.0%            JS: ~fixedPointCanonicalCommandHistory file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1043:43
+
+    126    6.0%  Builtin: KeyedStoreIC_Megamorphic
+    111   88.1%    JS: *firstProgressInBar file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:392:28
+    106   95.5%      JS: *advanceStateOnly file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1200:26
+    106  100.0%        JS: *replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+    106  100.0%          JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+    106  100.0%            JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+      4    3.6%      JS: ^advanceStateOnly file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1200:26
+      3   75.0%        JS: ~replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+      3  100.0%          JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+      3  100.0%            JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+      1   25.0%        JS: *replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+      1  100.0%          JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+      1  100.0%            JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+     13   10.3%    JS: *advanceStateOnly file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1200:26
+     13  100.0%      JS: *replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+     13  100.0%        JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+     13  100.0%          JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+     13  100.0%            JS: ~fixedPointCanonicalCommandHistory file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1043:43
+
+    123    5.9%  JS: *applyTargetState file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:726:26
+    122   99.2%    JS: *replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+    122  100.0%      JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+    122  100.0%        JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+    122  100.0%          JS: ~fixedPointCanonicalCommandHistory file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1043:43
+    122  100.0%            JS: ~canonicalCommandHistory file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1117:33
+
+     63    3.0%  Builtin: ToBigIntConvertNumber
+     41   65.1%    JS: *firstProgressInBar file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:392:28
+     38   92.7%      JS: *advanceStateOnly file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1200:26
+     38  100.0%        JS: *replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+     38  100.0%          JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+     38  100.0%            JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+      2    4.9%      JS: ^advanceStateOnly file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1200:26
+      2  100.0%        JS: *replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+      2  100.0%          JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+      2  100.0%            JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+      1    2.4%      JS: *stepMany file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1419:11
+      1  100.0%        JS: ^<anonymous> file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/history-runtime-investigation/profile.mjs:1:1
+      1  100.0%          Builtin: GeneratorPrototypeNext
+      1  100.0%            Builtin: CallApiCallbackGeneric
+     17   27.0%    JS: *advanceStateOnly file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1200:26
+     17  100.0%      JS: *replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+     17  100.0%        JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+     17  100.0%          JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+     17  100.0%            JS: ~fixedPointCanonicalCommandHistory file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1043:43
+      3    4.8%    JS: *replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+      3  100.0%      JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+      3  100.0%        JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+      3  100.0%          JS: ~fixedPointCanonicalCommandHistory file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1043:43
+      3  100.0%            JS: ~canonicalCommandHistory file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1117:33
+      1    1.6%    JS: ^advanceStateOnly file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1200:26
+      1  100.0%      JS: ~replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+      1  100.0%        JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+      1  100.0%          JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+      1  100.0%            JS: ~fixedPointCanonicalCommandHistory file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1043:43
+      1    1.6%    JS: *applyTargetState file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:726:26
+      1  100.0%      JS: *replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+      1  100.0%        JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+      1  100.0%          JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+      1  100.0%            JS: ~fixedPointCanonicalCommandHistory file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1043:43
+
+     40    1.9%  JS: *advanceStateOnly file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1200:26
+     38   95.0%    JS: *replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+     38  100.0%      JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+     38  100.0%        JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+     38  100.0%          JS: ~fixedPointCanonicalCommandHistory file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1043:43
+     38  100.0%            JS: ~canonicalCommandHistory file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1117:33
+      2    5.0%    JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+      2  100.0%      JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+      2  100.0%        JS: ~fixedPointCanonicalCommandHistory file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1043:43
+      2  100.0%          JS: ~canonicalCommandHistory file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1117:33
+      2  100.0%            JS: ~#canonicalizeLiveHistory file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1507:27
+
+     34    1.6%  Builtin: BigIntShiftRightNoThrow
+     28   82.4%    JS: *applyTargetState file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:726:26
+     28  100.0%      JS: *replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+     28  100.0%        JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+     28  100.0%          JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+     28  100.0%            JS: ~fixedPointCanonicalCommandHistory file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1043:43
+      6   17.6%    JS: *replayFromPrefixSkipping file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:949:34
+      6  100.0%      JS: ~omissionMatchesExpected file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:968:33
+      6  100.0%        JS: ~globalOmissionPass file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1009:28
+      6  100.0%          JS: ~fixedPointCanonicalCommandHistory file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1043:43
+      6  100.0%            JS: ~canonicalCommandHistory file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1117:33
+
+     23    1.1%  JS: *cloneCommand file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:308:22
+     21   91.3%    Builtin: ArrayMap
+     21  100.0%      JS: ^canonicalState file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:454:24
+     13   61.9%        JS: ^authoritativeState file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:792:28
+     13  100.0%          JS: ^sameAuthoritativeState file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:798:32
+     13  100.0%            JS: ~canonicalSameTickGroup file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1282:32
+      4   19.0%        JS: ^setTarget file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1332:12
+      4  100.0%          JS: ^<anonymous> file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/history-runtime-investigation/profile.mjs:1:1
+      4  100.0%            Builtin: GeneratorPrototypeNext
+      4   19.0%        JS: ^#beginCommandGroup file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1500:21
+      4  100.0%          JS: ^setTarget file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1332:12
+      4  100.0%            JS: ^<anonymous> file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/history-runtime-investigation/profile.mjs:1:1
+      2    8.7%    JS: ^canonicalState file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:454:24
+      2  100.0%      JS: ^authoritativeState file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:792:28
+      2  100.0%        JS: ^sameAuthoritativeState file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:798:32
+      2  100.0%          JS: ~canonicalSameTickGroup file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1282:32
+      2  100.0%            JS: ^setTarget file:///Users/me/.codex/worktrees/9456/clash-royale-clone/src/sim/battle-continuation-kernel.js:1332:12
+

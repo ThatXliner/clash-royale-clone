@@ -1210,18 +1210,26 @@ function advanceStateOnly(state, ticks) {
     // one active direct segment. Seek that common non-arrival case without
     // rebuilding the route-distance accumulator on every command boundary.
     if (state.mode === BATTLE_MOVEMENT_MODES.air && state.route.length === 1) {
-      const limit = firstProgressInBar(
-        state.segmentStart,
-        state.route[0],
-        state.segmentLength,
-        state.bodyRadius,
-        state.target,
-      );
       const accumulated = state.remainder + state.speed * remainingTicks;
       const travel = Math.floor(accumulated / MOVEMENT_TICKS_PER_SECOND);
-      if (travel < limit - state.segmentProgress) {
+      const progress = state.segmentProgress + travel;
+      // Interpolated coordinates move monotonically toward this direct air
+      // target. If the last position is still outside its bar, no earlier
+      // position in this chunk entered it, so avoid the binary search in
+      // firstProgressInBar. Reaching or passing the segment end stays on the
+      // general path, which handles arrival and any leftover ticks exactly.
+      if (progress < state.segmentLength && !isInBar(
+        interpolate(
+          state.segmentStart,
+          state.route[0],
+          progress,
+          state.segmentLength,
+        ),
+        state.bodyRadius,
+        state.target,
+      )) {
         state.remainder = accumulated % MOVEMENT_TICKS_PER_SECOND;
-        state.segmentProgress += travel;
+        state.segmentProgress = progress;
         state.position = interpolate(
           state.segmentStart,
           state.route[0],

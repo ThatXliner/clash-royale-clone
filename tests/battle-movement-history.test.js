@@ -1080,6 +1080,24 @@ test("battle movement history: every representative live cut restores bytes and 
   }
 });
 
+test("battle movement history: direct air replay keeps pre-arrival and arrival bytes exact", () => {
+  for (const [ticks, expectedRouteLength] of [[5, 1], [6, 0]]) {
+    const mover = new BattleMovement({
+      mode: "air",
+      position: { x: 5_000, y: 12_000 },
+      speed: 1_000,
+    });
+    mover.setTarget(destination({ x: 5_100, y: 12_000 }));
+    mover.stepMany(ticks);
+    assert.equal(mover.state.route.length, expectedRouteLength, `${ticks} ticks route`);
+
+    const snapshot = mover.serialize();
+    const restored = BattleMovement.restore(snapshot);
+    assert.equal(restored.serialize(), snapshot, `${ticks} ticks bytes`);
+    assert.deepEqual(restored.state, mover.state, `${ticks} ticks state`);
+  }
+});
+
 test("battle movement history: MAX_COMMANDS, MAX_TICK, byte bounds, and complexity scaling remain fixed", () => {
   // Timing guard design: canonical replay/restore cost scales quadratically
   // with command count (measured idle ratio T(1024)/T(256) ~= 16 = 4^2, both

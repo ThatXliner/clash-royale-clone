@@ -1,0 +1,29 @@
+{
+  "workload": "air BattleMovement with 1,024 alternating target commands, each separated by 17 ticks",
+  "snapshotBytes": 97035,
+  "commandCount": 1024,
+  "standaloneBefore": {
+    "serializeMs": 2255.032166,
+    "restoreMs": 2275.271375,
+    "restoredBytesIdentical": true
+  },
+  "standaloneAfter": {
+    "serializeMs": 552.809208,
+    "restoreMs": 566.052166,
+    "restoredBytesIdentical": true
+  },
+  "priorFocusedSuite": {
+    "source": "artifacts/default-suite-2026-09-07/test-output.log",
+    "tests": 22,
+    "durationMs": 147704.491292,
+    "complexityGuardMs": 37346.106333
+  },
+  "currentFocusedSuite": {
+    "command": "npm test -- battle-movement-history",
+    "tests": 23,
+    "passed": 23,
+    "failed": 0,
+    "durationMs": 74772.11825,
+    "complexityGuardMs": 10164.9095
+  }
+}
