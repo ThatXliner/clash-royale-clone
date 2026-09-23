@@ -1,0 +1,215 @@
+{
+  "date": "2026-09-23",
+  "rationale": "The validator self-hash matches each current adapter artifact. The 8 replaced pins were stale against current canonical state/event/replay bytes; each source catalog record and direct defining event was independently checked before refreshing the pins. The aggregate manifest pin also changes because it includes the refreshed binding and state/event/replay hashes. No mechanics or adapter logic changed: separate export/id occurrences, unique binding and payload bytes, exact raw binding checks, run-to-run equality, mutation rejection, and explicit QUESTION records remain enforced.",
+  "affectedBindings": [
+    {
+      "key": "createPeriodicSpellCatalog\u0000blight-ring",
+      "before": "113937f064936727e0a25db4c86618f42a95844ec626b010c99ae8bb6427ebc5",
+      "after": "5af924d1a56cba26daf11065d897e66d51cfa2ef43b8074c9ff90f85f19b6905"
+    },
+    {
+      "key": "createDefensiveBuildingCatalog\u0000bulwark-needle",
+      "before": "2b7cb47aca9c732b13e7fa17095025cc6bd54a03827adde942101503ccf08b11",
+      "after": "f15bb266139ce3cf8c077aca648edff34a56a841cc641f1b4e3146121dbf5c51"
+    },
+    {
+      "key": "createDefensiveBuildingCatalog\u0000buried-coil",
+      "before": "b81c7de56b5b60d6898849b457ed6057ca1abb3dff57f07d9f4043932e7c523c",
+      "after": "823c9546c63a115d0c168425087f73b582ad55551ebd0aa44edca5abd98a7469"
+    },
+    {
+      "key": "createDefensiveBuildingCatalog\u0000ember-basin",
+      "before": "2a189224f60f6350c86c50d18f372b067d078b98a0b370c858faca0fefd60a23",
+      "after": "edd924d6db14b69d0765739538b56881435d76dc96b647ed2120199c761e7ead"
+    },
+    {
+      "key": "createPeriodicSpellCatalog\u0000fault-pulse",
+      "before": "a1fd101cc591fd68ef5597195d81498818415128d1cc1d5e4b01e88b65f2c086",
+      "after": "f16e4ec72c1db1d4be1cc05e25f828d0248695dcc5c963a84c08f9df3a284b1e"
+    },
+    {
+      "key": "createPeriodicSpellCatalog\u0000gravity-well",
+      "before": "cf538d836056dec7862260f7df3096ea40b236d8660ddc125ab00d153658bf7c",
+      "after": "a077d499fe05b9886d1056d8fa9aed9f157e0ace04d5539bead0d96c14dc8c88"
+    },
+    {
+      "key": "createDefensiveBuildingCatalog\u0000horizon-caster",
+      "before": "c06b57f3b20fb8392f4f5afd6a6311f23893253bef7d43e83e719d8f21512e4a",
+      "after": "8c87cd181be91495941897df7edab9e922a3faaa4851f658be0ab29769f302f1"
+    },
+    {
+      "key": "createDefensiveBuildingCatalog\u0000prism-furnace",
+      "before": "024b27bb28b7605c62150b3bf639830f0219afe0ffcdf793edf9819b247b03a0",
+      "after": "ee81b9b817a535df89c203f0d938a52ac255dd2cb783d10a5215fce6a0f61e97"
+    }
+  ],
+  "unchangedBindingCount": 50,
+  "sourceEventChecks": [
+    {
+      "key": "createPeriodicSpellCatalog\u0000blight-ring",
+      "catalog": {
+        "damage": 91,
+        "radius": 3500,
+        "targetMode": "ground-and-air"
+      },
+      "definingDamageTicksAndAmounts": [
+        {
+          "tick": 2,
+          "amount": 91
+        },
+        {
+          "tick": 62,
+          "amount": 91
+        },
+        {
+          "tick": 122,
+          "amount": 91
+        },
+        {
+          "tick": 182,
+          "amount": 91
+        },
+        {
+          "tick": 242,
+          "amount": 91
+        },
+        {
+          "tick": 302,
+          "amount": 91
+        },
+        {
+          "tick": 362,
+          "amount": 91
+        },
+        {
+          "tick": 422,
+          "amount": 91
+        }
+      ]
+    },
+    {
+      "key": "createDefensiveBuildingCatalog\u0000bulwark-needle",
+      "catalog": {
+        "damage": 212,
+        "deployTicks": 60,
+        "firstHitTicks": null
+      },
+      "configuredFirstHitTicks": 0,
+      "definingAttack": {
+        "tick": 60,
+        "amount": 212,
+        "targetId": 2
+      }
+    },
+    {
+      "key": "createDefensiveBuildingCatalog\u0000buried-coil",
+      "catalog": {
+        "damage": 230,
+        "deployTicks": 60,
+        "firstHitTicks": 42
+      },
+      "configuredFirstHitTicks": 42,
+      "definingAttack": {
+        "tick": 102,
+        "amount": 230,
+        "targetId": 2
+      }
+    },
+    {
+      "key": "createDefensiveBuildingCatalog\u0000ember-basin",
+      "catalog": {
+        "damage": 222,
+        "deployTicks": 60,
+        "firstHitTicks": 66
+      },
+      "configuredFirstHitTicks": 66,
+      "definingAttack": {
+        "tick": 126,
+        "amount": 222,
+        "targetId": 2
+      }
+    },
+    {
+      "key": "createPeriodicSpellCatalog\u0000fault-pulse",
+      "catalog": {
+        "damage": 81,
+        "radius": 3500,
+        "targetMode": "ground"
+      },
+      "definingDamageTicksAndAmounts": [
+        {
+          "tick": 2,
+          "amount": 81
+        },
+        {
+          "tick": 62,
+          "amount": 81
+        },
+        {
+          "tick": 122,
+          "amount": 81
+        }
+      ]
+    },
+    {
+      "key": "createPeriodicSpellCatalog\u0000gravity-well",
+      "catalog": {
+        "damage": 84,
+        "radius": 5500,
+        "targetMode": "ground-and-air"
+      },
+      "definingDamageTicksAndAmounts": [
+        {
+          "tick": 2,
+          "amount": 84
+        },
+        {
+          "tick": 32,
+          "amount": 84
+        }
+      ]
+    },
+    {
+      "key": "createDefensiveBuildingCatalog\u0000horizon-caster",
+      "catalog": {
+        "damage": 266,
+        "deployTicks": 210,
+        "firstHitTicks": 240
+      },
+      "configuredFirstHitTicks": 240,
+      "definingAttack": {
+        "tick": 450,
+        "amount": 266,
+        "targetId": 2
+      }
+    },
+    {
+      "key": "createDefensiveBuildingCatalog\u0000prism-furnace",
+      "catalog": {
+        "damage": 42,
+        "deployTicks": 60,
+        "firstHitTicks": 72
+      },
+      "configuredFirstHitTicks": 72,
+      "definingAttack": {
+        "tick": 132,
+        "amount": 42,
+        "targetId": 2
+      }
+    }
+  ],
+  "sourceReferences": [
+    "src/content/cards/spells-periodic.js:27-150 (periodic archetypes and catalog records)",
+    "src/content/cards/spells-periodic.js:430-570 (periodic damage event generation)",
+    "src/content/cards/buildings-defensive.js:30-106 (defensive archetypes and catalog records)",
+    "src/content/cards/buildings-defensive.js:570-620 (attack resolution)",
+    "tests/spells-periodic.test.js:184-190 (literal periodic tick schedule)",
+    "tests/buildings-defensive.test.js:92-102 (literal defensive stats)"
+  ],
+  "aggregateManifest": {
+    "before": "000725ddd594cfdecda968ebaee41bf18abd2e3ef03f1a9eb12d8de562c8d5db",
+    "after": "022ee978fedade9bdab3a1a0efb9c05bbd7acea64da57ce4e9b64da3428d8f5d",
+    "source": "tests/integration-audit.test.js EXPECTED_MANIFEST_SHA256",
+    "runHashesEqual": true
+  }
+}

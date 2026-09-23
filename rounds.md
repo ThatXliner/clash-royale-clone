@@ -1,5 +1,39 @@
 # Gauntlet Rounds
 
+## Round 328 — 2026-09-23
+
+PIECE: INTEGRATION-001R — Static occurrence binding refresh, round 2
+
+VERDICT: PASS
+
+EVIDENCE: The full default test run found eight stale artifact pins across
+three periodic spells and five defensive buildings. Builder checked current
+catalog records and defining events before refreshing those pins and the
+aggregate manifest hash. Fresh critic ran `npm test -- game-roster-admission`
+(7/7) and `npm test -- integration-audit` (6/6), recalculated a Blight Ring
+source mutation and confirmed its static pin rejects it. Two audit runs
+reproduced the same manifest hash. Evidence:
+artifacts/integration-audit-binding-refresh-2026-09-23/critic-verdict.md.
+
+BIGGEST GAP: These bindings prove current facade causality, while periodic
+mechanic values remain QUESTION for historical gameplay parity.
+
+## Round 327 — 2026-09-23
+
+PIECE: GAME-001GPV — Browser endurance long-task attribution, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Fresh critic ran the bounded 900-tick browser test: 1/1 pass,
+57.9 s test duration. The revised harness correctly kept a startup long
+task out of a driven segment, but delayed observer delivery can place an
+earlier driven task into an unchecked later bucket. Restore lacks interval
+matching and there is no final drain. Evidence:
+artifacts/endurance-default-suite-investigation/critic-verdict.md.
+
+BIGGEST GAP: Driven tasks over 50 ms can escape the assertion when their
+observer records arrive after the segment's first read.
+
 ## Round 326 — 2026-09-23
 
 PIECE: GAME-001PHR — Battle movement history runtime cost, round 1
