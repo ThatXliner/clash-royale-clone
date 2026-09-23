@@ -1,0 +1,133 @@
+{
+  "checkoutCommit": "590d888e32034ffa3f4e1dd19d80da045abdd663",
+  "defaultSuite": {
+    "command": "npm test",
+    "exitCode": 1,
+    "durationSeconds": 2674.453
+  },
+  "failingBrowserRun": {
+    "testDurationMilliseconds": 14520.883208,
+    "assertion": "no browser long task exceeds 50ms",
+    "reportedLongTask": {
+      "duration": 152,
+      "name": "self",
+      "startTime": 285.09999990463257,
+      "endTime": 437.1
+    },
+    "initializationTasks": [
+      {
+        "duration": 92,
+        "name": "self",
+        "startTime": 170.89999997615814
+      }
+    ],
+    "firstDrive": {
+      "tick": 300,
+      "startedAt": 454.6999999284744,
+      "finishedAt": 11850.899999976158,
+      "elapsedMilliseconds": 11396
+    },
+    "firstDriveExplicitTimingMaxima": {
+      "sessionStepSliceMilliseconds": 7.600000023841858,
+      "audioPresentationMilliseconds": 24.800000071525574,
+      "domCommitMilliseconds": 0.10000002384185791
+    },
+    "attribution": "The 152ms entry ended before driveEnduranceSegment started; asynchronous observer delivery put it in the drive bucket."
+  },
+  "priorFullWorkloadEvidence": {
+    "command": "node tests/game-browser-endurance-runner.js game-browser-endurance",
+    "ticks": 18000,
+    "durationMilliseconds": 829776,
+    "maxDrivenLongTaskMilliseconds": 0,
+    "maxInitializationLongTaskMilliseconds": 169,
+    "passed": true
+  },
+  "targetedValidationAfterFix": {
+    "command": "GAME_BROWSER_ENDURANCE_TICKS=900 node tests/game-browser-endurance-runner.js game-browser-endurance",
+    "ticks": 900,
+    "durationMilliseconds": 59826,
+    "maxDrivenLongTaskMilliseconds": 0,
+    "maxInitializationLongTaskMilliseconds": 221,
+    "segments": [
+      {
+        "tick": 300,
+        "startedAt": 499,
+        "finishedAt": 11935.5,
+        "longTasks": []
+      },
+      {
+        "tick": 600,
+        "startedAt": 13071.100000023842,
+        "finishedAt": 23336.900000035763,
+        "longTasks": []
+      },
+      {
+        "tick": 600,
+        "startedAt": 35382.90000003576,
+        "finishedAt": 45651.40000003576,
+        "longTasks": []
+      },
+      {
+        "tick": 900,
+        "startedAt": 46616.90000003576,
+        "finishedAt": 56884.60000002384,
+        "longTasks": []
+      }
+    ],
+    "passed": true
+  },
+  "policy": {
+    "defaultTickCountRemains": 18000,
+    "drivenLongTaskCapMillisecondsRemains": 50,
+    "initializationLongTaskCapMillisecondsRemains": 300,
+    "productionFilesChanged": false
+  },
+  "delayedDeliveryCoverage": {
+    "checkoutCommit": "778bb4e",
+    "browserRun": {
+      "command": "GAME_BROWSER_ENDURANCE_TICKS=900 node tests/game-browser-endurance-runner.js game-browser-endurance",
+      "exitCode": 0,
+      "durationMilliseconds": 57461,
+      "requestedTicks": 900,
+      "initializationMaxMilliseconds": 168,
+      "drivenMaxMilliseconds": 0,
+      "drivenLongTaskCount": 0,
+      "restoreMaxMilliseconds": 0,
+      "restoreLongTaskCount": 0,
+      "finalObserverDrain": {
+        "capturedAt": 56394.40000003576,
+        "drainedPendingCount": 0,
+        "newlyObservedTaskCount": 0,
+        "observedTaskCount": 2
+      },
+      "segmentCountIncludingReplay": 4,
+      "restoreInterval": {
+        "startedAt": 22775.30000001192,
+        "finishedAt": 32948.80000001192
+      },
+      "segmentTicks": [
+        300,
+        600,
+        600,
+        900
+      ]
+    },
+    "syntheticProbe": {
+      "command": "node --test --test-name-pattern='delayed long-task entries' tests/game-browser-endurance.test.js",
+      "exitCode": 0,
+      "testsPassed": 1,
+      "delayedDriveTaskMilliseconds": 51,
+      "delayedRestoreTaskMilliseconds": 52,
+      "result": "Both late entries map to their original interval and each 50ms cap rejects the overrun."
+    },
+    "implementation": {
+      "appendOnlyObservedEntries": true,
+      "rematchAllRecordedIntervalsOnEachRead": true,
+      "observerTakeRecordsDrainedOnReads": true,
+      "finalObserverDrain": true,
+      "defaultTickCountRemains": 18000,
+      "drivenCapMillisecondsRemains": 50,
+      "initializationCapMillisecondsRemains": 300
+    }
+  }
+}

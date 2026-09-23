@@ -154,6 +154,68 @@ function stateDigest(state) {
   };
 }
 
+function classifyLongTaskEntries(entries, intervals, firstDriveStartedAt) {
+  const byInterval = new Map(intervals.map((interval) => [interval.id,
+    entries.filter(({ duration, startTime }) =>
+      startTime < interval.finishedAt && startTime + duration > interval.startedAt)]));
+  const measured = new Set([...byInterval.values()].flat());
+  const initializationEnd = firstDriveStartedAt ?? Infinity;
+  const initialization = entries.filter((entry) => !measured.has(entry) &&
+    entry.startTime + entry.duration <= initializationEnd);
+  const outOfSegment = entries.filter((entry) => !measured.has(entry) &&
+    !initialization.includes(entry));
+  const tasksFor = (kind) => [...new Set(intervals.filter((interval) =>
+    interval.kind === kind).flatMap(({ id }) => byInterval.get(id)))];
+  return {
+    byInterval,
+    driven: tasksFor("drive"),
+    initialization,
+    outOfSegment,
+    restore: tasksFor("restore"),
+  };
+}
+
+function assertLongTaskCaps(classification, intervals) {
+  assert.equal(classification.initialization.every(({ duration }) =>
+    duration <= MAX_INITIALIZATION_LONG_TASK_MS), true,
+  `initial browser setup stays inside the ${MAX_INITIALIZATION_LONG_TASK_MS}ms cap`);
+  for (const interval of intervals) {
+    const entries = classification.byInterval.get(interval.id) ?? [];
+    assert.equal(entries.every(({ duration }) => duration <= MAX_BROWSER_LONG_TASK_MS), true,
+      interval.kind === "drive"
+        ? `no browser long task exceeds ${MAX_BROWSER_LONG_TASK_MS}ms`
+        : `restore stays inside the ${MAX_BROWSER_LONG_TASK_MS}ms long-task cap`);
+  }
+}
+
+test("game browser endurance: delayed long-task entries retain their measured interval", () => {
+  const intervals = [
+    { finishedAt: 170, id: "drive-0", kind: "drive", startedAt: 100 },
+    { finishedAt: 245, id: "restore-0", kind: "restore", startedAt: 180 },
+    { finishedAt: 300, id: "drive-1", kind: "drive", startedAt: 250 },
+  ];
+  const initialization = { duration: 60, name: "self", startTime: 10 };
+  const lateDriveEntry = { duration: 51, name: "self", startTime: 110 };
+  const laterDriveEntry = { duration: 10, name: "self", startTime: 260 };
+  const lateRestoreEntry = { duration: 52, name: "self", startTime: 190 };
+  const betweenIntervals = { duration: 5, name: "self", startTime: 172 };
+  const deliveredBatches = [[initialization], [laterDriveEntry],
+    [betweenIntervals, lateDriveEntry, lateRestoreEntry]];
+  let observed = [];
+  for (const batch of deliveredBatches) observed = [...observed, ...batch];
+  const classification = classifyLongTaskEntries(observed, intervals, 100);
+
+  assert.deepEqual(classification.initialization, [initialization]);
+  assert.deepEqual(classification.byInterval.get("drive-0"), [lateDriveEntry]);
+  assert.deepEqual(classification.byInterval.get("restore-0"), [lateRestoreEntry]);
+  assert.deepEqual(classification.byInterval.get("drive-1"), [laterDriveEntry]);
+  assert.deepEqual(classification.outOfSegment, [betweenIntervals]);
+  assert.throws(() => assertLongTaskCaps(classification, [intervals[0]]),
+    /no browser long task exceeds 50ms/u);
+  assert.throws(() => assertLongTaskCaps(classification, [intervals[1]]),
+    /restore stays inside the 50ms long-task cap/u);
+});
+
 async function firstLine(stream) {
   let text = "";
   stream.setEncoding("utf8");
@@ -297,8 +359,15 @@ async function restoreBrowserSnapshot(page, snapshot) {
 async function readNewLongTasks(page, cursor) {
   return page.evaluate((index) => {
     const telemetry = globalThis.__gameBrowserEndurancePerformance;
+    const pending = telemetry.observer?.takeRecords() ?? [];
+    for (const entry of pending) {
+      telemetry.longTasks.push({ duration: entry.duration, name: entry.name,
+        startTime: entry.startTime });
+    }
     return {
+      capturedAt: performance.now(),
       cursor: telemetry.longTasks.length,
+      drainedPendingCount: pending.length,
       supported: telemetry.supported,
       tasks: telemetry.longTasks.slice(index),
     };
@@ -387,6 +456,9 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
     environmentAudits: [],
     explicitTimings: [],
     longTasks: [],
+    outOfSegmentLongTasks: [],
+    restoreLongTasks: [],
+    finalObserverDrain: null,
     pendingResources: [],
     resourceErrors: [],
     segments: [],
@@ -395,9 +467,11 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
     unhandled: [],
   };
   let browser;
+  let page;
   let server;
   let serverStderr = "";
   let testFailure = null;
+  let drainFinalObserver = null;
   const started = performance.now();
   try {
     server = spawn(process.execPath, [
@@ -410,7 +484,7 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
     browser = await chromium.launch({ executablePath: CHROME, headless: true });
     const context = await browser.newContext({ deviceScaleFactor: 1,
       viewport: { height: 1_280, width: 720 } });
-    const page = await context.newPage();
+    page = await context.newPage();
     page.on("console", (message) => {
       if (message.type() === "error") telemetry.consoleErrors.push(message.text());
     });
@@ -427,18 +501,22 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       const longTasks = [];
       const supported = typeof PerformanceObserver === "function" &&
         PerformanceObserver.supportedEntryTypes?.includes("longtask") === true;
+      const appendEntries = (entries) => {
+        for (const entry of entries) {
+          longTasks.push({ duration: entry.duration, name: entry.name,
+            startTime: entry.startTime });
+        }
+      };
       globalThis.__gameBrowserEndurancePerformance = {
         longTasks,
+        observer: null,
         supported,
         timing: Object.create(null),
       };
       if (supported) {
-        new PerformanceObserver((list) => {
-          for (const entry of list.getEntries()) {
-            longTasks.push({ duration: entry.duration, name: entry.name,
-              startTime: entry.startTime });
-          }
-        }).observe({ buffered: true, type: "longtask" });
+        const observer = new PerformanceObserver((list) => appendEntries(list.getEntries()));
+        observer.observe({ buffered: true, type: "longtask" });
+        globalThis.__gameBrowserEndurancePerformance.observer = observer;
       }
     });
     const response = await page.goto(
@@ -595,14 +673,16 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       duration <= MAX_INITIALIZATION_LONG_TASK_MS), true,
     `initial browser mount stays inside the ${MAX_INITIALIZATION_LONG_TASK_MS}ms cap`);
     await page.evaluate(async () => {
-      globalThis.__gameBrowserEndurancePerformance.longTasks.length = 0;
       globalThis.__gameBrowserEndurancePerformance.timing = Object.create(null);
     });
     assert.equal(initializationTasks.supported, true,
       "Chrome PerformanceObserver longtask evidence is available");
 
     let direct = new GameSession(setup);
-    let longTaskCursor = 0;
+    let longTaskCursor = initializationTasks.cursor;
+    let firstDriveStartedAt = null;
+    const observedLongTaskEntries = [...initializationTasks.tasks];
+    const longTaskIntervals = [];
     let restored = false;
     let restoreCut = null;
     let restoreBranch = null;
@@ -613,6 +693,43 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
     const seenStartSequences = new Set();
     const pauseTick = 300;
     const restoreTick = 300;
+    const refreshLongTaskAttribution = () => {
+      const classification = classifyLongTaskEntries(observedLongTaskEntries,
+        longTaskIntervals, firstDriveStartedAt);
+      telemetry.initializationLongTasks = classification.initialization;
+      telemetry.longTasks = classification.driven;
+      telemetry.restoreLongTasks = classification.restore;
+      telemetry.outOfSegmentLongTasks = classification.outOfSegment;
+      telemetry.maxInitializationLongTaskMilliseconds = Math.max(0,
+        ...classification.initialization.map(({ duration }) => duration));
+      telemetry.maxRestoreLongTaskMilliseconds = Math.max(0,
+        ...classification.restore.map(({ duration }) => duration));
+      for (const interval of longTaskIntervals) {
+        const entries = classification.byInterval.get(interval.id) ?? [];
+        if (interval.kind === "drive") {
+          const segment = telemetry.segments[interval.segmentIndex];
+          if (segment !== undefined) segment.longTasks = entries;
+        } else if (telemetry.restore !== undefined) {
+          telemetry.restore.longTasks = entries;
+        }
+      }
+      return classification;
+    };
+    const captureLongTaskBatch = (batch) => {
+      observedLongTaskEntries.push(...batch.tasks);
+      return refreshLongTaskAttribution();
+    };
+    drainFinalObserver = async () => {
+      await page.waitForTimeout(0);
+      const finalTaskUpdate = await readNewLongTasks(page, longTaskCursor);
+      longTaskCursor = finalTaskUpdate.cursor;
+      const finalClassification = captureLongTaskBatch(finalTaskUpdate);
+      telemetry.finalObserverDrain = { capturedAt: finalTaskUpdate.capturedAt,
+        drainedPendingCount: finalTaskUpdate.drainedPendingCount,
+        newlyObservedTaskCount: finalTaskUpdate.tasks.length,
+        observedTaskCount: observedLongTaskEntries.length };
+      assertLongTaskCaps(finalClassification, longTaskIntervals);
+    };
     while (direct.state.tick < TEST_END_TICK) {
       const fromTick = direct.state.tick;
       const attemptId = fromTick / SEGMENT_TICKS;
@@ -710,13 +827,19 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       }
       const taskUpdate = await readNewLongTasks(page, longTaskCursor);
       longTaskCursor = taskUpdate.cursor;
-      telemetry.longTasks.push(...taskUpdate.tasks);
+      firstDriveStartedAt ??= driven.startedAt;
+      const longTaskWindow = { finishedAt: driven.finishedAt,
+        id: `drive-${longTaskIntervals.length}`, kind: "drive",
+        segmentIndex: telemetry.segments.length, startedAt: driven.startedAt };
+      longTaskIntervals.push(longTaskWindow);
+      const classification = captureLongTaskBatch(taskUpdate);
+      const inDrivenSegment = classification.byInterval.get(longTaskWindow.id) ?? [];
       telemetry.segments.push({
         audioEpoch: restored ? 1 : 0,
         chunks: driven.result.chunks,
         elapsedMilliseconds: driven.elapsedMilliseconds,
         finishedAt: driven.finishedAt,
-        longTasks: taskUpdate.tasks,
+        longTasks: inDrivenSegment,
         startedAt: driven.startedAt,
         tick: direct.state.tick,
         timing: explicitTiming,
@@ -725,8 +848,7 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       telemetry.yieldPolicy = driven.result.yieldPolicy;
       assert.ok(["raf-raf", "raf-scheduler-yield-raf"].includes(driven.result.yieldPolicy),
         "the shipped endurance driver reports its real browser yield policy");
-      assert.equal(taskUpdate.tasks.every(({ duration }) => duration <= MAX_BROWSER_LONG_TASK_MS), true,
-        `no browser long task exceeds ${MAX_BROWSER_LONG_TASK_MS}ms`);
+      assertLongTaskCaps(classification, longTaskIntervals);
       assert.ok(performance.now() - started <= MAX_ENDURANCE_WALL_CLOCK_MS,
         "browser endurance run stayed inside the documented overall cap");
 
@@ -779,6 +901,10 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
           tick: direct.state.tick,
         };
         const restoredView = await restoreBrowserSnapshot(page, restoreCut.browserSnapshot);
+        const restoreWindow = { finishedAt: restoredView.finishedAt,
+          id: `restore-${longTaskIntervals.length}`, kind: "restore",
+          startedAt: restoredView.startedAt };
+        longTaskIntervals.push(restoreWindow);
         const restoreTiming = await readAndResetTiming(page);
         telemetry.explicitTimings.push({ kind: "restore", fromTick: restoreBranch.tick,
           tick: restoreCut.tick, timing: restoreTiming });
@@ -819,12 +945,11 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
         await page.waitForTimeout(0);
         const restoreTasks = await readNewLongTasks(page, longTaskCursor);
         longTaskCursor = restoreTasks.cursor;
-        telemetry.longTasks.push(...restoreTasks.tasks);
-        telemetry.restore = { ...restoredView, longTasks: restoreTasks.tasks, timing: restoreTiming,
+        const classification = captureLongTaskBatch(restoreTasks);
+        telemetry.restore = { ...restoredView,
+          longTasks: classification.byInterval.get(restoreWindow.id) ?? [], timing: restoreTiming,
           rewindFromTick: restoreBranch.tick, rewindToTick: restoreCut.tick };
-        assert.equal(restoreTasks.tasks.every(({ duration }) =>
-          duration <= MAX_BROWSER_LONG_TASK_MS), true,
-        `restore stays inside the ${MAX_BROWSER_LONG_TASK_MS}ms long-task cap`);
+        assertLongTaskCaps(classification, longTaskIntervals);
         lastSuccessfulTick = direct.state.cardRuntime.history
           .filter(({ side }) => side === "south").at(-1)?.tick ?? 0;
         seenCueSequences.clear(); seenStartSequences.clear();
@@ -909,16 +1034,27 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
     telemetry.failure = { message: String(error?.message ?? error), stack: error?.stack ?? null };
     testFailure = error;
   } finally {
+    try { await drainFinalObserver?.(); }
+    catch (error) {
+      if (testFailure === null) {
+        telemetry.failure = { message: String(error?.message ?? error), stack: error?.stack ?? null };
+        testFailure = error;
+      }
+    }
     telemetry.durationMilliseconds = Math.round(performance.now() - started);
     telemetry.serverStderr = serverStderr;
     try { await browser?.close(); } catch (error) { telemetry.browserCloseError = String(error); }
     telemetry.serverExited = await stopServer(server);
     telemetry.maxDrivenLongTaskMilliseconds = Math.max(0,
       ...telemetry.longTasks.map(({ duration }) => duration));
-    telemetry.maxInitializationLongTaskMilliseconds ??= Math.max(0,
+    telemetry.maxInitializationLongTaskMilliseconds = Math.max(0,
       ...(telemetry.initializationLongTasks ?? []).map(({ duration }) => duration));
+    telemetry.maxRestoreLongTaskMilliseconds = Math.max(0,
+      ...telemetry.restoreLongTasks.map(({ duration }) => duration));
     telemetry.maxLongTaskMilliseconds = Math.max(telemetry.maxDrivenLongTaskMilliseconds,
-      telemetry.maxInitializationLongTaskMilliseconds);
+      telemetry.maxInitializationLongTaskMilliseconds,
+      telemetry.maxRestoreLongTaskMilliseconds,
+      ...telemetry.outOfSegmentLongTasks.map(({ duration }) => duration));
     writeFileSync(`${ARTIFACTS}endurance-result.json`,
       `${JSON.stringify(telemetry, null, 2)}\n`);
   }

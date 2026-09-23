@@ -1,5 +1,28 @@
 # Gauntlet Rounds
 
+## Round 329 — 2026-09-23
+
+PIECE: GAME-001GPV — Browser endurance long-task attribution, round 2
+
+VERDICT: PASS
+
+EVIDENCE: Fresh critic ran the synthetic delayed-entry test and a real
+900-tick Chrome run, both pass. Entries from an earlier drive (51 ms) and
+restore interval (52 ms) remain bound to their measured intervals despite
+later delivery and both fail the unchanged 50 ms cap. Browser run exercised
+four drive/replay intervals, initialization max 211/300 ms, no driven or
+restore long tasks, and final observer drain. Evidence:
+artifacts/endurance-default-suite-investigation/critic-verdict-round-2.md.
+
+FOLLOW-UP: The unchanged full `npm test -- game-browser-endurance` passed
+2/2 in 804.2 s. It completed 61 segments through tick 18,000, with zero
+driven long tasks, initialization maximum 176/300 ms, no console/resource/
+unhandled errors, and exact terminal/restart. Full output and telemetry:
+artifacts/endurance-default-suite-investigation/full-18000/.
+
+BIGGEST GAP: None on timing attribution or the full endurance bar;
+captured-game balance and other roster coverage remain separate pieces.
+
 ## Round 328 — 2026-09-23
 
 PIECE: INTEGRATION-001R — Static occurrence binding refresh, round 2
