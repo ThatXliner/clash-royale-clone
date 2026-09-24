@@ -1,0 +1,92 @@
+{
+  "piece": "INTEGRATION-001RP",
+  "baseline": {
+    "commit": "778bb4e6d6f6cc3e042a50e916ddf52641d70d9a",
+    "expectedManifestSha256": "022ee978fedade9bdab3a1a0efb9c05bbd7acea64da57ce4e9b64da3428d8f5d",
+    "reconstructedManifestSha256": "022ee978fedade9bdab3a1a0efb9c05bbd7acea64da57ce4e9b64da3428d8f5d",
+    "reconstruction": "A reconstructed canonical manifest, created by cloning current-manifest.json and decrementing only the buildings-defensive TAP tests/pass counters; its hash equals the historical pin.",
+    "pinIntroducedBy": "778bb4e Refresh causal occurrence binding pins",
+    "manifestFile": "reconstructed-baseline-manifest.json"
+  },
+  "current": {
+    "commit": "85768ee6d6f6cc3e042a50e916ddf52641d70d9a",
+    "manifestSha256": "7eeeab122b45e8815e5c456bcf74f4a61de2d0b746cab794b9dfe57c8e00cd31",
+    "runHashes": [
+      "7eeeab122b45e8815e5c456bcf74f4a61de2d0b746cab794b9dfe57c8e00cd31",
+      "7eeeab122b45e8815e5c456bcf74f4a61de2d0b746cab794b9dfe57c8e00cd31"
+    ],
+    "coveredOccurrences": 58,
+    "uniqueSupportedIds": 53,
+    "questionOnlyCount": 5,
+    "runnerCount": 46,
+    "supportedArtifactCount": 58
+  },
+  "manifestDiff": [
+    {
+      "path": "runners[selector=buildings-defensive].tap.pass",
+      "baseline": 23,
+      "current": 24
+    },
+    {
+      "path": "runners[selector=buildings-defensive].tap.tests",
+      "baseline": 23,
+      "current": 24
+    }
+  ],
+  "cause": {
+    "commit": "eb57e2e",
+    "subject": "fix: preserve building question provenance in sessions",
+    "file": "tests/buildings-defensive.test.js",
+    "addedTest": "buildings defensive: runtime policy keeps exact corpus provenance beside estimates",
+    "baselineTopLevelTests": 23,
+    "currentTopLevelTests": 24,
+    "laterHbpCommit": {
+      "commit": "efaabf8",
+      "subject": "Preserve building policy provenance in sessions",
+      "note": "The HBP follow-up commit adds game-building-policy to the general content-schema runner, but integration-audit builds selectors from its own claims and questionOnly lists; game-building-policy is not one of its 46 streams.",
+      "commitHash": "efaabf8a27ba650deb7eae5ce5e437962d6f80a2"
+    },
+    "commitHash": "eb57e2efd4c061cd07272db6524d2fac3d0196a5",
+    "testAddedAt": "tests/buildings-defensive.test.js:134"
+  },
+  "admission": {
+    "testCommand": "npm test -- game-roster-admission",
+    "pass": 7,
+    "fail": 0,
+    "counts": {
+      "admittedIds": 47,
+      "admittedOccurrences": 52,
+      "claimedIds": 53,
+      "claimedOccurrences": 58,
+      "excludedClaimedIds": 6,
+      "excludedClaimedOccurrences": 6,
+      "questionOnlyExports": 5
+    }
+  },
+  "validation": {
+    "directOccurrencePins": "58 matched the existing occurrence bindings during both sweeps",
+    "unchangedRunnerCount": 46,
+    "expectedAggregatePinShouldUpdate": true,
+    "integrationAuditCommand": "npm test -- integration-audit",
+    "integrationAuditResult": {
+      "pass": 6,
+      "fail": 0,
+      "durationMs": 391062.9375,
+      "manifestSha256": "7eeeab122b45e8815e5c456bcf74f4a61de2d0b746cab794b9dfe57c8e00cd31",
+      "twoSweepHashesEqual": true
+    },
+    "admissionCheck": {
+      "command": "npm test -- game-roster-admission",
+      "pass": 7,
+      "fail": 0,
+      "durationMs": 2964.4255
+    },
+    "shipIsolationSha256": "5758549e24a85fc60d002d7da2bf68937387768f55e853cc7a8fb15470b10535",
+    "gameBuildingPolicyCheck": {
+      "command": "npm test -- game-building-policy",
+      "pass": 3,
+      "fail": 0,
+      "durationMs": 921.199333
+    }
+  }
+}
