@@ -1,5 +1,91 @@
 # Gauntlet Rounds
 
+## Round 333 — 2026-09-23
+
+PIECE: VIS-003C — Combatant, projectile, and effect assets, round 5
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- visual-combat-assets` passed in real Chrome:
+
+```text
+# Subtest: visual combat assets: every original silhouette mounts at game scale, restores exactly, and hides diagnostic links
+ok 1
+# Subtest: visual combat motion: authenticated tick435 pose restores and chunks identically
+ok 2
+# Subtest: visual combat motion: death lifetime uses canonical death tick across restore and chunks
+ok 3
+# tests 3
+# pass 3
+# fail 0
+```
+
+The generated render evidence contains 20 nodes: all 10 registered kinds in
+north order followed by the same 10 kinds in south order. It reports
+`restored: true` and `linksHidden: true`; for every kind, the body path geometry
+matches across teams and exactly one body fill changes from north `#C6452E` to
+south `#2E7F86`. Each side has 10 distinct silhouette path sets. Measured sprite
+widths are 25.9–44.3 CSS pixels, heights are at least 25.9 pixels, and all
+health bars are 4 pixels high. The gameplay-scale output is visible in
+`artifacts/visual-003c-round-3/contact-sheet.png`; exact serialized evidence is
+in `artifacts/visual-003c-round-3/render-evidence.json`.
+
+BIGGEST GAP: None on the judged both-team identity, silhouette, faction-color,
+and deterministic restore dimensions; historical captured-game parity remains
+outside this round.
+
+## Round 332 — 2026-09-23
+
+PIECE: VIS-003D — Card, hand, HUD, and match-feedback art, round 5
+
+VERDICT: PASS
+
+EVIDENCE: The prior full-suite failure was `initial.png must be byte-identical
+across four fresh Chrome captures`, with `2 !== 1` distinct hashes. The previous
+single-frame settle is now three animation frames after `document.fonts.ready`;
+the timing source of the original pixel difference was not isolated. The fresh
+selector passed 9/9, including the four-fresh-Chrome capture test. It required
+equal full-PNG SHA-256 hashes for
+all five captures across four processes; `initial.png` was
+`b26c10926e5c9370ec5eb41a4f8887e015cfea1cb9792e45f6928a77d66871fe`,
+`card-selected.png` was
+`bf3f22fab232864763206a7028d1ea0eb9544dd56696bf3c4612f8a040f89f79`,
+`insufficient-elixir.png` was
+`bbdce8cd1095fbc6603d6ac1a57a0844dfea51a41ce1150c6a5f19c64abd48c8`,
+`winner-overlay.png` was
+`904a821cf1e5b585257a1e629dfb330e763c56b12c2b08b9752147c4b2d4bc22`, and
+`restart.png` was
+`d3b3b0ce9d85374c60167c1909ac79760008c077ceecc29d1142044ac1cd9476`.
+The mask inventory contains seven exact moving-combat/effect selectors and
+zero fixed regions; the bridge ornament mutation changed 100 screenshot
+pixels, confirming that bridge art remains visible. The comparison metadata
+calls these RGB-pixel hashes, while the implementation hashes whole PNG files.
+Evidence: `artifacts/visual-003d-round-4/visual-interface-evidence.json`.
+
+BIGGEST GAP: None on the judged capture-stability and mask-scope dimension.
+
+## Round 331 — 2026-09-23
+
+PIECE: VIS-003C — Combatant, projectile, and effect assets, round 4
+
+VERDICT: FAIL
+
+EVIDENCE: The prior full-suite failure was the stale assertion `20 !== 18`;
+`COMBAT_ART_ARCHETYPES` now drives both the expected count and uniqueness bound.
+`npm test -- visual-combat-assets` passed 3/3. The generated evidence
+contains 20 art nodes for the 10 current `COMBAT_ART_ARCHETYPES`; the contact
+sheet visibly renders all 10 on both red and teal teams, and the serialized
+art IDs repeat the same 10-kind list for the second team. The new test checks
+`art.length === archetypes.length * 2` and ten unique path sets only in
+`art.slice(0, archetypes.length)`. It neither associates result entries with
+their teams nor checks the second team's art IDs/fills, so a second-team
+reassignment or duplicate can still pass. Evidence:
+`artifacts/visual-003c-round-3/render-evidence.json` and
+`artifacts/visual-003c-round-3/contact-sheet.png`.
+
+BIGGEST GAP: The test does not assert that the second team's rendered markers
+preserve all ten archetype identities and team-specific colors.
+
 ## Round 330 — 2026-09-23
 
 PIECE: GAME-001HUIK — Nondefault troop witness in shipped browser, round 1

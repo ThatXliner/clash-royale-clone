@@ -15,7 +15,7 @@
     table { width: 100%; border-collapse: collapse; background: #11182c; font-size: 14px; }
     th,td { text-align: left; vertical-align: top; border-bottom: 1px solid #273453; padding: 9px 8px; }
     th { position: sticky; top: 0; background: #19223c; }
-    .state-pass { color: #63e6a4; } .state-building { color: #ffd166; }
+    .state-pass { color: #63e6a4; } .state-fail { color: #fb7185; } .state-building { color: #ffd166; }
     .state-question { color: #ff9f6e; } .state-blocked { color: #92a0c7; }
     .state-pending { color: #c6d2f5; } code { color: #b9d6ff; }
     .note { padding: 14px; border-left: 4px solid #63e6a4; background: #14251f; }
@@ -28,10 +28,10 @@
   <div class="cards">
     <div class="card"><div class="num">176</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">138</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">323</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">326</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">24</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Latest review: <strong>GAME-001HUIK — Nondefault troop witness in shipped browser, round 1 — PASS</strong>. Full game completion remains unproven.</p>
+  <p class="note">Latest review: <strong>VIS-003C — Combatant, projectile, and effect assets, round 5 — PASS</strong>. Both-team identity, silhouette, team-color, and restore assertions now pass. Full game completion remains unproven.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -850,16 +850,16 @@
         <td>Combatant, projectile, and effect assets</td>
         <td class="state-pass">PASS</td>
         <td>3/3</td>
-        <td>3</td>
-        <td>Round3 passed: nine default shipped silhouettes/team variants, canonical deploy/move/attack/death/impact cues and exact restored DOM; witness roster and full motion polish are not claimed</td>
+        <td>5</td>
+        <td>Round 5 passed: both teams assert all 10 identities, unique silhouettes, paired geometry, and red/teal body mapping; serialized view restore reproduces DOM exactly and the gameplay-scale contact sheet confirms the art renders</td>
       </tr>
       <tr>
         <td><code>VIS-003D</code></td>
         <td>Card, hand, HUD, and match-feedback art</td>
         <td class="state-pass">PASS</td>
         <td>9/9</td>
-        <td>4</td>
-        <td>Round 4 passed: readable eight-card art, live atomic selection, exact 720×1280 hierarchy, four-process reproducible captures, honest combat-only mask and mutation-visible static bridge art</td>
+        <td>5</td>
+        <td>Round 5 passed: five exact whole-PNG SHA-256 hashes matched across four fresh Chrome processes; seven moving combat/effect selectors and zero region masks preserve static HUD, bridge, towers, and interface art</td>
       </tr>
       <tr>
         <td><code>VIS-003E</code></td>
@@ -1450,6 +1450,9 @@
   </div>
   <h2>Round trajectory</h2>
   <ol>
+      <li><strong>R333 PASS</strong> · VIS-003C — Combatant, projectile, and effect assets, round 5<br>All 10 kinds map to each team, each team's silhouettes are unique, paired body geometry matches, red and teal team fills differ as expected, and serialize/restore reproduces the rendered DOM exactly.</li>
+      <li><strong>R332 PASS</strong> · VIS-003D — Card, hand, HUD, and match-feedback art, round 5<br>Five complete PNG files hashed identically across four fresh Chrome processes; only seven moving combat/effect selectors are hidden, and bridge ornament mutation remains visible.</li>
+      <li><strong>R331 FAIL</strong> · VIS-003C — Combatant, projectile, and effect assets, round 4<br>The assertion checks unique archetypes only in the first team group and does not bind the second team's rendered art IDs or team-specific fills.</li>
       <li><strong>R330 PASS</strong> · GAME-001HUIK — Nondefault troop witness in shipped browser, round 1<br>Stonehauler's body-radius, delivery and layer policies remain QUESTION, so this browser path does not establish exact historical combat.</li>
       <li><strong>R329 PASS</strong> · GAME-001GPV — Browser endurance long-task attribution, round 2<br>None on timing attribution or the full endurance bar; captured-game balance and other roster coverage remain separate pieces.</li>
       <li><strong>R328 PASS</strong> · INTEGRATION-001R — Static occurrence binding refresh, round 2<br>These bindings prove current facade causality, while periodic mechanic values remain QUESTION for historical gameplay parity.</li>
