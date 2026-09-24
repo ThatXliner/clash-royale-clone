@@ -1,5 +1,47 @@
 # Gauntlet Rounds
 
+## Round 338 — 2026-09-23
+
+PIECE: GAME-001HUIB — In-app defensive-building witness, round 3
+
+VERDICT: FAIL
+
+EVIDENCE: At HEAD `d630cd6`, `npm run test:game-browser-building-choice`
+ran unchanged in an isolated archive so its output stayed out of the shared
+evidence directories.
+It reached the final full-viewport assertion after the browser/session/DOM/
+HUD/input restore, combat continuation, terminal, and same-deck restart checks,
+then failed 0/1:
+
+```text
+not ok 1 - game browser building choice: Bulwark Needle deploys and defends through the shared session
+error: restored full viewport must be pixel-identical:
+{"checkpoint":"1d222695e97dfc5d0764a8d9d9c39e6baf3961eeff9edaf567da0761844379a6",
+ "restored":"0e1479d1e783596eca4d89e282146ae8bf8956e5619308529f1357f2073023ba",
+ "viewportRaster":{"changedPixels":42049,"height":1280,"maxChannelDelta":8,
+ "meanChannelDelta":0.07966507523148147,"pixelsOver8":0,"width":720}}
+# tests 1
+# pass 0
+# fail 1
+```
+
+The evidence-only arena-layer promotion probe temporarily applied
+`.arena { transform: translateZ(0) }` and then reverted it. With the strict test
+unchanged, the probe reduced the mismatch to 9,265 of 921,600 pixels and a
+maximum channel delta of 2, but `strictViewportExact` remained false. The probe
+also reports exact checkpoint repeat, browser/session bytes, DOM, HUD, input,
+and computed paint state. The production tree has no retained change.
+
+BIGGEST GAP: After arena layer promotion, 9,265 full-viewport pixels still
+change on restore, so the exact raster bar remains unmet.
+
+DISPOSITION: The same exact-viewport restore gap failed all three rounds. This
+piece is wrong-shaped at the capture/restore boundary: DOM and simulation
+restoration are exact, while the assertion also depends on Chrome compositor
+raster history. Keep pixel equality strict and mark the piece QUESTION until a
+canonical paint-surface approach can prove it; do not lower the threshold or
+start another round on the same unit.
+
 ## Round 337 — 2026-09-23
 
 PIECE: GAME-001HUIB — In-app defensive-building witness, round 2
