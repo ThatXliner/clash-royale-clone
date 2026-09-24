@@ -1,5 +1,48 @@
 # Gauntlet Rounds
 
+## Round 336 — 2026-09-23
+
+PIECE: GAME-001HUIB — In-app defensive-building witness, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- game-browser-building-choice` passed 1/1 in real Chrome
+at 720×1280. The chooser opens before the match, preserves the seed-zero
+session until selection, and starts the legal eight-card Bulwark Needle deck.
+`reference/stats/cards.json` identifies its matching pre-cutoff Cannon record
+at 3 elixir; `reference/stats/SOURCES.md` rates the pinned roster and identity
+fields high. The trusted card gesture spends 3 (`10 → 7` elixir), creates one
+shared south-side structure at `(3366, 9933)`, and creates no placeholder unit.
+The rendered Bulwark art has 10 authored paths. Its live target is `unit:4`,
+the structure target link is visible, the real shared session records six
+structure attacks (first at tick 113), and structure HP falls from 824 to 311.
+The browser/session snapshot bytes, combat DOM, effects/feedback DOM, HUD,
+input slots, focus, marker state, target link, and 66×66 Bulwark art crop all
+restore exactly; the 140-tick continuation and same-deck restart are byte exact.
+The full viewport is not: the checkpoint and restored PNG SHA-256 values are
+`1d222695e97dfc5d0764a8d9d9c39e6baf3961eeff9edaf567da0761844379a6` and
+`0e1479d1e783596eca4d89e282146ae8bf8956e5619308529f1357f2073023ba`.
+Independent pixel comparison found 42,049 of 921,600 pixels changed, maximum
+channel delta 8 and mean delta 0.079665; every difference is in the arena
+background, with no changed HUD pixels. The test accepts this under
+`maxChannelDelta <= 8`, so it proves a close raster match rather than the
+PLAN's exact full-visual restore.
+
+![Bulwark defensive structure and its visible target link](artifacts/game-001huib-round-1/bulwark-defensive-combat.png)
+
+![Bulwark restore checkpoint](artifacts/game-001huib-round-1/bulwark-restore-checkpoint.png)
+
+![Bulwark restored viewport](artifacts/game-001huib-round-1/bulwark-restore-rebuilt.png)
+
+Adjacent selectors passed: deck choice 1/1 (Standard and Stonehauler, with
+exact selected-deck restart), Stonehauler browser witness 1/1, default browser
+journey 1/1 (terminal/restart/repeat), arena shell 7/7, combat state 11/11,
+and visual interface art 9/9.
+
+BIGGEST GAP: Full-viewport restore is not pixel-exact: 42,049 pixels change
+under Chrome even though the test permits channel differences up to 8, leaving
+the PLAN's exact visual restore requirement unproved.
+
 ## Round 335 — 2026-09-23
 
 PIECE: GAME-001HUIR — In-app supported-deck choice, round 2
