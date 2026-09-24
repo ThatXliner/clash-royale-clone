@@ -1,5 +1,64 @@
 # Gauntlet Rounds
 
+## Round 334 — 2026-09-23
+
+PIECE: GAME-001HUIR — In-app supported-deck choice, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- game-browser-deck-choice` passed 1/1 in real Chrome at
+720×1280. The rendered chooser and Stonehauler deployment are shown below.
+The session reports no console or page errors. Selecting Stonehauler produces
+the legal eight-card deck
+`stonehauler, coilblade, mossguard, copperskiff, skymaul, brassbolt,
+reedsting, briar-band`; Cinderlings is absent. The HUD hand equals the
+session-derived `id/name/cost` hand, and input slots equal those same session
+hand IDs. Stonehauler costs 5; the real south-side deployment spends 5
+(`10 → 5` elixir), creates one shared unit, and renders original art with
+11 SVG paths. Body-radius, delivery, and layer policies remain QUESTION.
+The browser checkpoint is 43,672 bytes; restore bytes and the replayed
+180-tick continuation are exact. The selected deck reaches a terminal at tick
+6,298, then same-deck restart returns byte-for-byte to the selected opening
+session. The standard setup is byte-identical to seed zero and its
+Mossguard deployment succeeds.
+
+![Deck chooser at 720×1280](artifacts/game-001huir-round-1/pre-match-choice.png)
+
+![Stonehauler deployment at 720×1280](artifacts/game-001huir-round-1/stonehauler-deployed.png)
+
+`reference/stats/cards.json` agrees on the 5-elixir value for the matching
+pre-cutoff Giant record; `elixir_cost` is not listed in
+`unverified_fields` under `reference/stats/SOURCES.md`. The focused browser
+test leaves unknown Stonehauler policies as QUESTION and the shipping
+isolation guard passes 13/13, including its reference and protected-identity
+adversarial checks.
+
+The adjacent checks `npm test -- game-restart` (3/3),
+`npm test -- ui-arena-shell` (7/7), and
+`npm test -- game-presentation-journey` (1/1) pass. The latter runs the
+unchanged default browser session to tick 23 before controlled input.
+However, `npm test -- game-browser-journey` fails at its strict control-list
+assertion before gameplay:
+
+```text
+not ok 1 - game browser journey: real Chrome plays, fights, terminates, restarts, and repeats
+error: Expected values to be strictly deep-equal
+expected: [{ hidden: false, ui: "audio-toggle" }, { hidden: true, ui: "restart" }]
+actual:   [{ hidden: false, ui: "audio-toggle" }, { hidden: true, ui: "deck-choice-open" },
+          { hidden: false, ui: null }, { hidden: false, ui: null },
+          { hidden: false, ui: "deck-start" }, { hidden: true, ui: "restart" }]
+location: tests/game-browser-journey.test.js:187:12
+```
+
+The option/start nodes are descendants of the hidden
+`[data-ui="deck-choice"]` dialog, and the opener is itself hidden. The selector
+checks each node's own `hidden` property without checking its hidden ancestor,
+so it counts controls that are not rendered in this profile.
+
+BIGGEST GAP: The standard browser journey selector fails before exercising its
+default path because its exact control inventory counts the hidden deck opener
+and controls inside the hidden, inactive choice dialog.
+
 ## Round 333 — 2026-09-23
 
 PIECE: VIS-003C — Combatant, projectile, and effect assets, round 5

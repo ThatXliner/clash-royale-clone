@@ -15,7 +15,7 @@
     table { width: 100%; border-collapse: collapse; background: #11182c; font-size: 14px; }
     th,td { text-align: left; vertical-align: top; border-bottom: 1px solid #273453; padding: 9px 8px; }
     th { position: sticky; top: 0; background: #19223c; }
-    .state-pass { color: #63e6a4; } .state-fail { color: #fb7185; } .state-building { color: #ffd166; }
+    .state-pass { color: #63e6a4; } .state-building { color: #ffd166; }
     .state-question { color: #ff9f6e; } .state-blocked { color: #92a0c7; }
     .state-pending { color: #c6d2f5; } code { color: #b9d6ff; }
     .note { padding: 14px; border-left: 4px solid #63e6a4; background: #14251f; }
@@ -26,12 +26,12 @@
   <h1>Gauntlet progress</h1>
   <p class="sub">Updated 2026-09-23 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
-    <div class="card"><div class="num">176</div><div class="label">tracked pieces</div></div>
+    <div class="card"><div class="num">177</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">138</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">326</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">327</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">24</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Latest review: <strong>VIS-003C — Combatant, projectile, and effect assets, round 5 — PASS</strong>. Both-team identity, silhouette, team-color, and restore assertions now pass. Full game completion remains unproven.</p>
+  <p class="note">Latest review: <strong>GAME-001HUIR — In-app supported-deck choice, round 1 — FAIL</strong>. Full game completion remains unproven.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -1398,6 +1398,14 @@
         <td>Fresh critic passed real Chrome witness 1/1, restart 3/3 and default journey 1/1; physical play spent 5 elixir, created one shared unit, exact restore and witness restart; body-radius/delivery/layer policies remain QUESTION</td>
       </tr>
       <tr>
+        <td><code>GAME-001HUIR</code></td>
+        <td>In-app supported-deck choice</td>
+        <td class="state-fail">FAIL</td>
+        <td>1/2</td>
+        <td>1</td>
+        <td>Standard browser journey's exact control inventory fails on the hidden deck opener and inactive dialog controls before gameplay checks; make that inventory account for hidden ancestors and rerun the standard journey</td>
+      </tr>
+      <tr>
         <td><code>GAME-001HS</code></td>
         <td>Unified-session spell roster mechanics umbrella</td>
         <td class="state-blocked">BLOCKED</td>
@@ -1450,9 +1458,10 @@
   </div>
   <h2>Round trajectory</h2>
   <ol>
-      <li><strong>R333 PASS</strong> · VIS-003C — Combatant, projectile, and effect assets, round 5<br>All 10 kinds map to each team, each team's silhouettes are unique, paired body geometry matches, red and teal team fills differ as expected, and serialize/restore reproduces the rendered DOM exactly.</li>
-      <li><strong>R332 PASS</strong> · VIS-003D — Card, hand, HUD, and match-feedback art, round 5<br>Five complete PNG files hashed identically across four fresh Chrome processes; only seven moving combat/effect selectors are hidden, and bridge ornament mutation remains visible.</li>
-      <li><strong>R331 FAIL</strong> · VIS-003C — Combatant, projectile, and effect assets, round 4<br>The assertion checks unique archetypes only in the first team group and does not bind the second team's rendered art IDs or team-specific fills.</li>
+      <li><strong>R334 FAIL</strong> · GAME-001HUIR — In-app supported-deck choice, round 1<br>The standard browser journey selector fails before exercising its default path because its exact control inventory counts the hidden deck opener and controls inside the hidden, inactive choice dialog.</li>
+      <li><strong>R333 PASS</strong> · VIS-003C — Combatant, projectile, and effect assets, round 5<br>None on the judged both-team identity, silhouette, faction-color, and deterministic restore dimensions; historical captured-game parity remains outside this round.</li>
+      <li><strong>R332 PASS</strong> · VIS-003D — Card, hand, HUD, and match-feedback art, round 5<br>None on the judged capture-stability and mask-scope dimension.</li>
+      <li><strong>R331 FAIL</strong> · VIS-003C — Combatant, projectile, and effect assets, round 4<br>The test does not assert that the second team's rendered markers preserve all ten archetype identities and team-specific colors.</li>
       <li><strong>R330 PASS</strong> · GAME-001HUIK — Nondefault troop witness in shipped browser, round 1<br>Stonehauler's body-radius, delivery and layer policies remain QUESTION, so this browser path does not establish exact historical combat.</li>
       <li><strong>R329 PASS</strong> · GAME-001GPV — Browser endurance long-task attribution, round 2<br>None on timing attribution or the full endurance bar; captured-game balance and other roster coverage remain separate pieces.</li>
       <li><strong>R328 PASS</strong> · INTEGRATION-001R — Static occurrence binding refresh, round 2<br>These bindings prove current facade causality, while periodic mechanic values remain QUESTION for historical gameplay parity.</li>
