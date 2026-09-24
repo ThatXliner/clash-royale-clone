@@ -78,14 +78,15 @@ const UNBRANDED_QUESTION_CATALOG_EXPORTS = new Set([
 const KINDS = new Set(["effect", "structure", "unit"]);
 function clone(value) { return structuredClone(value); }
 
-function questionValues(records) {
-  return Object.fromEntries(Object.entries(records).map(([key, record]) => [key, clone(record.value)]));
-}
-
 const DEFENSIVE_RUNTIME = createDefensiveBuildingRuntimeProfiles();
-const RESOURCE_RUNTIME = questionValues(createResourceBuildingQuestionRecords());
-const TRAVEL_RUNTIME = questionValues(createUndergroundTravelBuildingQuestionRecords());
-const DEATH_RUNTIME = questionValues(createDeathEffectsQuestions());
+const RESOURCE_QUESTIONS = createResourceBuildingQuestionRecords();
+const TRAVEL_QUESTIONS = createUndergroundTravelBuildingQuestionRecords();
+const DEATH_QUESTIONS = createDeathEffectsQuestions();
+
+function questionPolicy(records, fields) {
+  return Object.fromEntries(fields.map(([policyField, recordKey]) =>
+    [policyField, clone(records[recordKey])]));
+}
 
 function buildingRuntimeProfile(id, source) {
   let profile;
@@ -93,20 +94,36 @@ function buildingRuntimeProfile(id, source) {
     profile = { class: "defensive", ...clone(DEFENSIVE_RUNTIME[id]) };
   } else if (id === "aether-well") {
     profile = { class: "resource", deployTicks: source.deployTimeTicks,
-      generationAmount: RESOURCE_RUNTIME.generationAmount,
-      generationCadenceTicks: RESOURCE_RUNTIME.generationCadenceTicks,
-      hitpoints: source.hitpoints, lifetimeTicks: RESOURCE_RUNTIME.lifetimeTicks };
+      generationAmount: RESOURCE_QUESTIONS.generationAmount.value,
+      generationCadenceTicks: RESOURCE_QUESTIONS.generationCadenceTicks.value,
+      hitpoints: source.hitpoints, lifetimeTicks: RESOURCE_QUESTIONS.lifetimeTicks.value,
+      policy: questionPolicy(RESOURCE_QUESTIONS, [
+        ["generationAmount", "generationAmount"],
+        ["generationCadenceTicks", "generationCadenceTicks"],
+        ["lifetimeTicks", "lifetimeTicks"],
+      ]) };
   } else if (id === "burrow-rig") {
     profile = { class: "travel", deployTicks: source.deployTimeTicks,
-      emergenceSpawnDelayTicks: TRAVEL_RUNTIME.emergenceSpawnDelayTicks,
-      hitpoints: source.hitpoints, lifetimeTicks: TRAVEL_RUNTIME.lifetimeTicks,
-      travelSpeedMillitilesPerSecond: TRAVEL_RUNTIME.travelSpeedMillitilesPerSecond };
+      emergenceSpawnDelayTicks: TRAVEL_QUESTIONS.emergenceSpawnDelayTicks.value,
+      hitpoints: source.hitpoints, lifetimeTicks: TRAVEL_QUESTIONS.lifetimeTicks.value,
+      travelSpeedMillitilesPerSecond: TRAVEL_QUESTIONS.travelSpeedMillitilesPerSecond.value,
+      policy: questionPolicy(TRAVEL_QUESTIONS, [
+        ["emergenceSpawnDelayTicks", "emergenceSpawnDelayTicks"],
+        ["lifetimeTicks", "lifetimeTicks"],
+        ["travelSpeedMillitilesPerSecond", "travelSpeedMillitilesPerSecond"],
+      ]) };
   } else if (id === "cinder-reliquary") {
     profile = { class: "death-effect", damage: source.damage, deployTicks: source.deployTimeTicks,
       firstHitTicks: source.firstHitTicks, hitSpeedTicks: source.hitSpeedTicks,
-      hitpoints: source.hitpoints, radius: DEATH_RUNTIME.radius,
+      hitpoints: source.hitpoints, deathDamage: DEATH_QUESTIONS.damage.value,
+      radius: DEATH_QUESTIONS.radius.value,
       rangeMillitiles: source.rangeMillitiles, targetMode: "ground",
-      towerModifier: clone(DEATH_RUNTIME.towerModifier) };
+      towerModifier: clone(DEATH_QUESTIONS.towerModifier.value),
+      policy: questionPolicy(DEATH_QUESTIONS, [
+        ["deathDamage", "damage"],
+        ["radius", "radius"],
+        ["towerModifier", "towerModifier"],
+      ]) };
   }
   if (profile !== undefined) assertSessionBuildingProfileReceipt(id, canonical(profile),
     "session card catalog building runtime profile");

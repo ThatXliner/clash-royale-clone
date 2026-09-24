@@ -221,6 +221,39 @@ function profileInteger(value, key, label, minimum = 0, maximum = MAX_DAMAGE) {
   return integer(value[key], minimum, maximum, `${label}.${key}`);
 }
 
+function checkedQuestionPolicy(value, fields, label, expectedSource) {
+  const policy = exact(value, fields.map(([field]) => field), label);
+  const confidence = expectedSource === "pre-evolutions-building-corpus-and-absent-resource-policy"
+    ? "absent" : "unverified";
+  const checked = {};
+  for (const [field, sourceKey, expectedValue] of fields) {
+    const recordKeys = expectedSource === null
+      ? ["authoritative", "confidence", "disposition", "key", "provenance", "value"]
+      : ["authoritative", "confidence", "disposition", "key", "source", "value"];
+    const record = exact(policy[field], recordKeys, `${label}.${field}`);
+    if (record.authoritative !== false || record.confidence !== confidence ||
+        record.disposition !== "question" || record.key !== sourceKey ||
+        canonical(record.value) !== canonical(expectedValue)) {
+      throw new TypeError(`${label}.${field} must retain its exact QUESTION record`);
+    }
+    if (expectedSource !== null) {
+      if (record.source !== expectedSource) {
+        throw new TypeError(`${label}.${field} has invalid QUESTION provenance`);
+      }
+    } else {
+      const provenance = exact(record.provenance,
+        ["accessed", "document", "location", "statement"], `${label}.${field}.provenance`);
+      if (provenance.accessed !== "2026-07-30" || provenance.document !== "SOURCES.md" ||
+          provenance.location !== "Known limitations" ||
+          provenance.statement !== "Card abilities, including death damage and crown-tower damage multipliers, are outside the common schema.") {
+        throw new TypeError(`${label}.${field} has invalid QUESTION provenance`);
+      }
+    }
+    checked[field] = clone(record);
+  }
+  return checked;
+}
+
 const DEFENSIVE_CORPUS_FIELDS = Object.freeze([
   "cost", "damage", "deployTicks", "firstHitTicks", "hitSpeedTicks",
   "hitpoints", "maxRange", "mode", "sightRange",
@@ -308,37 +341,52 @@ function checkedProfile(value, cardId) {
   }
   if (expectedClass === "resource") {
     const profile = exact(value, ["class", "deployTicks", "generationAmount",
-      "generationCadenceTicks", "hitpoints", "lifetimeTicks"], label);
+      "generationCadenceTicks", "hitpoints", "lifetimeTicks", "policy"], label);
     if (profile.class !== expectedClass) throw new TypeError(`${label} is invalid`);
-    return { class: expectedClass,
+    const result = { class: expectedClass,
       deployTicks: profileInteger(profile, "deployTicks", label, 0, MAX_TICK),
       generationAmount: profileInteger(profile, "generationAmount", label, 1, 10),
       generationCadenceTicks: profileInteger(profile, "generationCadenceTicks", label, 1, MAX_TICK),
       hitpoints: profileInteger(profile, "hitpoints", label, 1),
       lifetimeTicks: profileInteger(profile, "lifetimeTicks", label, 1, MAX_TICK) };
+    result.policy = checkedQuestionPolicy(profile.policy, [
+      ["generationAmount", "generationAmount", result.generationAmount],
+      ["generationCadenceTicks", "generationCadenceTicks", result.generationCadenceTicks],
+      ["lifetimeTicks", "lifetimeTicks", result.lifetimeTicks],
+    ], `${label}.policy`, "pre-evolutions-building-corpus-and-absent-resource-policy");
+    return result;
   }
   if (expectedClass === "travel") {
     const profile = exact(value, ["class", "deployTicks", "emergenceSpawnDelayTicks", "hitpoints",
-      "lifetimeTicks", "travelSpeedMillitilesPerSecond"], label);
+      "lifetimeTicks", "travelSpeedMillitilesPerSecond", "policy"], label);
     if (profile.class !== expectedClass || profile.travelSpeedMillitilesPerSecond === MOVEMENT_SPEEDS.stationary ||
         !Object.values(MOVEMENT_SPEEDS).includes(profile.travelSpeedMillitilesPerSecond)) {
       throw new TypeError(`${label} is invalid`);
     }
-    return { class: expectedClass,
+    const result = { class: expectedClass,
       deployTicks: profileInteger(profile, "deployTicks", label, 0, MAX_TICK),
       emergenceSpawnDelayTicks: profileInteger(profile, "emergenceSpawnDelayTicks", label, 0, MAX_TICK),
       hitpoints: profileInteger(profile, "hitpoints", label, 1),
       lifetimeTicks: profileInteger(profile, "lifetimeTicks", label, 1, MAX_TICK),
       travelSpeedMillitilesPerSecond: profile.travelSpeedMillitilesPerSecond };
+    result.policy = checkedQuestionPolicy(profile.policy, [
+      ["emergenceSpawnDelayTicks", "emergenceSpawnDelayTicks", result.emergenceSpawnDelayTicks],
+      ["lifetimeTicks", "lifetimeTicks", result.lifetimeTicks],
+      ["travelSpeedMillitilesPerSecond", "travelSpeedMillitilesPerSecond",
+        result.travelSpeedMillitilesPerSecond],
+    ], `${label}.policy`, "pre-evolutions-building-corpus-and-unsourced-travel-policy");
+    return result;
   }
-  const profile = exact(value, ["class", "damage", "deployTicks", "firstHitTicks", "hitSpeedTicks",
-    "hitpoints", "radius", "rangeMillitiles", "targetMode", "towerModifier"], label);
+  const profile = exact(value, ["class", "damage", "deathDamage", "deployTicks", "firstHitTicks",
+    "hitSpeedTicks", "hitpoints", "policy", "radius", "rangeMillitiles", "targetMode",
+    "towerModifier"], label);
   const modifier = exact(profile.towerModifier, ["denominator", "numerator"], `${label}.towerModifier`);
   if (profile.class !== expectedClass || profile.targetMode !== "ground") {
     throw new TypeError(`${label} is invalid`);
   }
-  return { class: expectedClass,
+  const result = { class: expectedClass,
     damage: profileInteger(profile, "damage", label, 1),
+    deathDamage: profileInteger(profile, "deathDamage", label, 1),
     deployTicks: profileInteger(profile, "deployTicks", label, 0, MAX_TICK),
     firstHitTicks: profileInteger(profile, "firstHitTicks", label, 0, MAX_TICK),
     hitSpeedTicks: profileInteger(profile, "hitSpeedTicks", label, 1, MAX_TICK),
@@ -349,6 +397,12 @@ function checkedProfile(value, cardId) {
     towerModifier: { denominator: integer(modifier.denominator, 1, MAX_DAMAGE,
       `${label}.towerModifier.denominator`), numerator: integer(modifier.numerator, 0, MAX_DAMAGE,
       `${label}.towerModifier.numerator`) } };
+  result.policy = checkedQuestionPolicy(profile.policy, [
+    ["deathDamage", "damage", result.deathDamage],
+    ["radius", "radius", result.radius],
+    ["towerModifier", "towerModifier", result.towerModifier],
+  ], `${label}.policy`, null);
+  return result;
 }
 
 function checkedProfileReceipt(value) {
@@ -413,6 +467,7 @@ function materializeSessionBuildingStructure(receiptText, profiles) {
     hitpoints: profile.hitpoints,
     id: receipt.id,
     maxHitpoints: profile.hitpoints,
+    policy: clone(profile.policy),
     placedTick: receipt.tick,
     position: clone(receipt.point),
     side: receipt.side,
@@ -487,9 +542,9 @@ function checkedStructure(value, index, profiles) {
   if (profile === undefined) throw new TypeError("session building structure profile is not admitted by this host");
   if (profile.class !== value.class) throw new TypeError("session building structure profile diverges");
   const common = ["alive", "cardId", "class", "deathCause", "deathTriggered", "hitpoints", "id",
-    "maxHitpoints", "placedTick", "position", "side", "targetable"];
+    "maxHitpoints", "policy", "placedTick", "position", "side", "targetable"];
   const extra = profile.class === "defensive"
-    ? ["attackCycle", "consecutiveHits", "hidden", "policy", "targetKey"]
+    ? ["attackCycle", "consecutiveHits", "hidden", "targetKey"]
     : profile.class === "resource"
       ? ["deployed"]
       : profile.class === "travel"
@@ -513,15 +568,15 @@ function checkedStructure(value, index, profiles) {
       (profile.class !== "death-effect" && raw.deathTriggered)) {
     throw new TypeError("session building structure hitpoints or life state diverges");
   }
+  if (canonical(raw.policy) !== canonical(profile.policy)) {
+    throw new TypeError(`${label} building policy provenance diverges`);
+  }
   if (profile.class === "defensive") {
     if (typeof raw.attackCycle !== "string" || !Number.isSafeInteger(raw.consecutiveHits) ||
         raw.consecutiveHits < 0 || typeof raw.hidden !== "boolean" ||
         (raw.targetKey !== null && typeof raw.targetKey !== "string") ||
         raw.targetable !== (raw.alive && !raw.hidden)) {
       throw new TypeError(`${label} defensive state is invalid`);
-    }
-    if (canonical(raw.policy) !== canonical(profile.policy)) {
-      throw new TypeError(`${label} defensive policy provenance diverges`);
     }
     // This validates its nested graph and phase invariants before the reducer
     // can call step() on it.  Re-serialization rejects alternate JSON spellings.
@@ -791,9 +846,9 @@ function buildDeathEffectIntents(intents, boundary, structure, profile) {
         withinDistance(next.position, target.position, profile.radius));
       for (const target of targets) {
         const amount = target.kind === "tower"
-          ? Number(BigInt(profile.damage) * BigInt(profile.towerModifier.numerator) /
+          ? Number(BigInt(profile.deathDamage) * BigInt(profile.towerModifier.numerator) /
             BigInt(profile.towerModifier.denominator))
-          : profile.damage;
+          : profile.deathDamage;
         event(intents, { amount, origin: "death-effect", sourceId: next.id, targetId: target.id,
           tick: boundary.tick, type: "death-effect-hit" });
         queueHit(intents, boundary, next, target, amount, "death-effect");

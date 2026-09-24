@@ -12,10 +12,55 @@ const RECEIPTS = Object.freeze({
   "bulwark-needle": "{\"areaDamageRadiusMillitiles\":null,\"class\":\"defensive\",\"damage\":212,\"deployTicks\":60,\"firstHitTicks\":0,\"hitSpeedTicks\":54,\"hitpoints\":824,\"lifetimeTicks\":1800,\"maxRangeMillitiles\":5500,\"minRangeMillitiles\":0,\"rampStages\":[212],\"rampThresholds\":[0],\"targetMode\":\"ground\",\"variant\":\"plain\"}",
   "buried-coil": "{\"areaDamageRadiusMillitiles\":null,\"class\":\"defensive\",\"damage\":230,\"deployTicks\":60,\"firstHitTicks\":42,\"hitSpeedTicks\":72,\"hitpoints\":1152,\"lifetimeTicks\":1800,\"maxRangeMillitiles\":5500,\"minRangeMillitiles\":0,\"rampStages\":[230],\"rampThresholds\":[0],\"targetMode\":\"air_and_ground\",\"variant\":\"hidden\"}",
   "burrow-rig": "{\"class\":\"travel\",\"deployTicks\":60,\"emergenceSpawnDelayTicks\":12,\"hitpoints\":1440,\"lifetimeTicks\":1800,\"travelSpeedMillitilesPerSecond\":1500}",
-  "cinder-reliquary": "{\"class\":\"death-effect\",\"damage\":160,\"deployTicks\":60,\"firstHitTicks\":60,\"hitSpeedTicks\":120,\"hitpoints\":1200,\"radius\":2000,\"rangeMillitiles\":4500,\"targetMode\":\"ground\",\"towerModifier\":{\"denominator\":100,\"numerator\":35}}",
+  "cinder-reliquary": "{\"class\":\"death-effect\",\"damage\":160,\"deathDamage\":200,\"deployTicks\":60,\"firstHitTicks\":60,\"hitSpeedTicks\":120,\"hitpoints\":1200,\"radius\":2000,\"rangeMillitiles\":4500,\"targetMode\":\"ground\",\"towerModifier\":{\"denominator\":100,\"numerator\":35}}",
   "ember-basin": "{\"areaDamageRadiusMillitiles\":1000,\"class\":\"defensive\",\"damage\":222,\"deployTicks\":60,\"firstHitTicks\":66,\"hitSpeedTicks\":96,\"hitpoints\":1356,\"lifetimeTicks\":1800,\"maxRangeMillitiles\":6000,\"minRangeMillitiles\":0,\"rampStages\":[222],\"rampThresholds\":[0],\"targetMode\":\"ground\",\"variant\":\"splash\"}",
   "horizon-caster": "{\"areaDamageRadiusMillitiles\":null,\"class\":\"defensive\",\"damage\":266,\"deployTicks\":210,\"firstHitTicks\":240,\"hitSpeedTicks\":300,\"hitpoints\":1369,\"lifetimeTicks\":1800,\"maxRangeMillitiles\":11500,\"minRangeMillitiles\":3000,\"rampStages\":[266],\"rampThresholds\":[0],\"targetMode\":\"ground\",\"variant\":\"siege\"}",
   "prism-furnace": "{\"areaDamageRadiusMillitiles\":null,\"class\":\"defensive\",\"damage\":42,\"deployTicks\":60,\"firstHitTicks\":72,\"hitSpeedTicks\":24,\"hitpoints\":1749,\"lifetimeTicks\":1800,\"maxRangeMillitiles\":6000,\"minRangeMillitiles\":0,\"rampStages\":[42,84,168],\"rampThresholds\":[0,2,4],\"targetMode\":\"air_and_ground\",\"variant\":\"ramp\"}",
+});
+
+const NONDEFENSIVE_POLICIES = Object.freeze({
+  "aether-well": Object.freeze({
+    generationAmount: Object.freeze({ authoritative: false, confidence: "absent",
+      disposition: "question", key: "generationAmount",
+      source: "pre-evolutions-building-corpus-and-absent-resource-policy", value: 1 }),
+    generationCadenceTicks: Object.freeze({ authoritative: false, confidence: "absent",
+      disposition: "question", key: "generationCadenceTicks",
+      source: "pre-evolutions-building-corpus-and-absent-resource-policy", value: 510 }),
+    lifetimeTicks: Object.freeze({ authoritative: false, confidence: "absent",
+      disposition: "question", key: "lifetimeTicks",
+      source: "pre-evolutions-building-corpus-and-absent-resource-policy", value: 4200 }),
+  }),
+  "burrow-rig": Object.freeze({
+    emergenceSpawnDelayTicks: Object.freeze({ authoritative: false, confidence: "unverified",
+      disposition: "question", key: "emergenceSpawnDelayTicks",
+      source: "pre-evolutions-building-corpus-and-unsourced-travel-policy", value: 12 }),
+    lifetimeTicks: Object.freeze({ authoritative: false, confidence: "unverified",
+      disposition: "question", key: "lifetimeTicks",
+      source: "pre-evolutions-building-corpus-and-unsourced-travel-policy", value: 1800 }),
+    travelSpeedMillitilesPerSecond: Object.freeze({ authoritative: false, confidence: "unverified",
+      disposition: "question", key: "travelSpeedMillitilesPerSecond",
+      source: "pre-evolutions-building-corpus-and-unsourced-travel-policy", value: 1500 }),
+  }),
+  // The schema card's `damage` field (160) remains the ordinary structure
+  // attack value. This separate runtime `deathDamage` field carries the
+  // isolated QUESTION record whose catalog key is also named `damage` (200).
+  "cinder-reliquary": Object.freeze({
+    deathDamage: Object.freeze({ authoritative: false, confidence: "unverified",
+      disposition: "question", key: "damage", provenance: Object.freeze({
+        accessed: "2026-07-30", document: "SOURCES.md", location: "Known limitations",
+        statement: "Card abilities, including death damage and crown-tower damage multipliers, are outside the common schema.",
+      }), value: 200 }),
+    radius: Object.freeze({ authoritative: false, confidence: "unverified",
+      disposition: "question", key: "radius", provenance: Object.freeze({
+        accessed: "2026-07-30", document: "SOURCES.md", location: "Known limitations",
+        statement: "Card abilities, including death damage and crown-tower damage multipliers, are outside the common schema.",
+      }), value: 2000 }),
+    towerModifier: Object.freeze({ authoritative: false, confidence: "unverified",
+      disposition: "question", key: "towerModifier", provenance: Object.freeze({
+        accessed: "2026-07-30", document: "SOURCES.md", location: "Known limitations",
+        statement: "Card abilities, including death damage and crown-tower damage multipliers, are outside the common schema.",
+      }), value: Object.freeze({ denominator: 100, numerator: 35 }) }),
+  }),
 });
 
 const DEFENSIVE_CARD_IDS = new Set([
@@ -87,6 +132,23 @@ export function assertSessionBuildingProfileReceipt(cardId, receipt, label = "bu
     delete profile.policy;
     if (canonical(profile) !== RECEIPTS[cardId] ||
         canonical(policy) !== canonical(defensivePolicy(cardId))) {
+      throw new TypeError(`${label} diverges from its canonical session-card receipt`);
+    }
+    return;
+  }
+  if (Object.hasOwn(NONDEFENSIVE_POLICIES, cardId)) {
+    let profile;
+    try { profile = JSON.parse(receipt); } catch {
+      throw new TypeError(`${label} diverges from its canonical session-card receipt`);
+    }
+    if (profile === null || Array.isArray(profile) || typeof profile !== "object" ||
+        !Object.hasOwn(profile, "policy") || canonical(profile) !== receipt) {
+      throw new TypeError(`${label} diverges from its canonical session-card receipt`);
+    }
+    const policy = profile.policy;
+    delete profile.policy;
+    if (canonical(profile) !== RECEIPTS[cardId] ||
+        canonical(policy) !== canonical(NONDEFENSIVE_POLICIES[cardId])) {
       throw new TypeError(`${label} diverges from its canonical session-card receipt`);
     }
     return;

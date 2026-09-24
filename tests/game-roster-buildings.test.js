@@ -412,14 +412,17 @@ test("game roster buildings: Cinder Reliquary dies from authoritative unit conta
   assert.deepEqual(direct.replay.filter(({ type }) => type === "death-effect-triggered"), [
     { sourceId: 2, tick: 479, type: "death-effect-triggered" },
   ]);
+  assert.equal(direct.replay.find(({ buildingId, type }) =>
+    buildingId === 2 && type === "structure-attack")?.amount, 160,
+  "the source card's ordinary attack damage stays separate from its QUESTION death damage");
   assert.deepEqual(direct.replay.filter(({ origin, type }) => origin === "death-effect" &&
     type === "death-effect-hit"), [
-    { amount: 160, origin: "death-effect", sourceId: 2, targetId: 1, tick: 479,
+    { amount: 200, origin: "death-effect", sourceId: 2, targetId: 1, tick: 479,
       type: "death-effect-hit" },
   ]);
   assert.deepEqual(direct.replay.filter(({ externalSourceId, tick, type }) =>
     externalSourceId === "building:2" && tick === 480 && type === "damage"), [
-    { amount: 160, currentHealthAfter: 1126, currentHealthBefore: 1286, delivery: "melee",
+    { amount: 200, currentHealthAfter: 1086, currentHealthBefore: 1286, delivery: "melee",
       externalSourceId: "building:2", targetId: 1, tick: 480, type: "damage" },
   ]);
 });
