@@ -66,10 +66,25 @@ test('visual combat assets: every original silhouette mounts at game scale, rest
       bindCombatViewModel(layer, restoreCombatViewModel(serializeCombatViewModel(view)));
       const restored = before === layer.innerHTML;
       const rect = arena.getBoundingClientRect();
-      const art = [...layer.querySelectorAll('.combat-art')].map(svg => ({
-        kind: svg.dataset.artId, paths: [...svg.querySelectorAll('path')].map(p => p.getAttribute('d')).join('|'),
-        healthHeight: svg.parentNode.querySelector(".combat-health").getBoundingClientRect().height, width: svg.getBoundingClientRect().width, height: svg.getBoundingClientRect().height,
-      }));
+      const art = [...layer.querySelectorAll('.combat-art')].map(svg => {
+        const marker = svg.parentNode;
+        const paths = [...svg.querySelectorAll('path')];
+        const pathData = paths.map(path => ({
+          d: path.getAttribute('d'),
+          fill: path.getAttribute('fill'),
+          stroke: path.getAttribute('stroke'),
+        }));
+        return {
+          kind: svg.dataset.artId,
+          markerKind: marker.dataset.kind,
+          side: marker.dataset.side,
+          paths: pathData.map(path => path.d).join('|'),
+          pathData,
+          healthHeight: marker.querySelector(".combat-health").getBoundingClientRect().height,
+          width: svg.getBoundingClientRect().width,
+          height: svg.getBoundingClientRect().height,
+        };
+      });
       const linksHidden = [...layer.querySelectorAll('.combat-target-link')].every(n => getComputedStyle(n).display === 'none');
       for (const node of layer.querySelectorAll('.combat-marker')) {
         const label = document.createElement('b'); label.textContent = node.dataset.kind;
@@ -116,8 +131,39 @@ test('visual combat assets: every original silhouette mounts at game scale, rest
     assert.equal(result.restored, true);
     assert.equal(result.linksHidden, true);
     assert.equal(result.art.length, COMBAT_ART_ARCHETYPES.length * 2);
-    assert.equal(new Set(result.art.slice(0, COMBAT_ART_ARCHETYPES.length).map(a => a.paths)).size,
-      COMBAT_ART_ARCHETYPES.length);
+    const expectedMapping = ['north', 'south'].flatMap(side =>
+      COMBAT_ART_ARCHETYPES.map(kind => ({ kind, markerKind: kind, side })));
+    assert.deepEqual(result.art.map(({ kind, markerKind, side }) =>
+      ({ kind, markerKind, side })), expectedMapping,
+    'every rendered team variant must map to its registry kind and side');
+    for (const side of ['north', 'south']) {
+      const teamArt = result.art.filter(art => art.side === side);
+      assert.equal(teamArt.length, COMBAT_ART_ARCHETYPES.length,
+        `${side} must render every registered archetype exactly once`);
+      assert.equal(new Set(teamArt.map(art => art.paths)).size,
+        COMBAT_ART_ARCHETYPES.length,
+        `${side} must retain a distinct silhouette for every archetype`);
+    }
+    const artBySideAndKind = new Map(result.art.map(art =>
+      [`${art.side}\0${art.kind}`, art]));
+    for (const kind of COMBAT_ART_ARCHETYPES) {
+      const north = artBySideAndKind.get(`north\0${kind}`);
+      const south = artBySideAndKind.get(`south\0${kind}`);
+      const northBody = north.pathData.slice(0, -1);
+      const southBody = south.pathData.slice(0, -1);
+      assert.deepEqual(northBody.map(path => path.d),
+        southBody.map(path => path.d),
+        `${kind} must retain identical body geometry across teams`);
+      const teamPathIndices = northBody.flatMap((path, index) =>
+        path.fill === southBody[index].fill ? [] : [index]);
+      assert.equal(teamPathIndices.length, 1,
+        `${kind} must have exactly one side-colored body path`);
+      const teamPathIndex = teamPathIndices[0];
+      assert.equal(northBody[teamPathIndex].fill, '#C6452E',
+        `${kind} north team path must be ember red`);
+      assert.equal(southBody[teamPathIndex].fill, '#2E7F86',
+        `${kind} south team path must be river teal`);
+    }
     assert.ok(result.art.every(a => a.width >= 20 && a.width <= 55 && a.height >= 20));
     assert.ok(result.art.every(a => a.healthHeight === 4));
     assert.deepEqual(errors, []);
