@@ -437,6 +437,8 @@ export function mountShippedGameBrowser(
         audioRuntime.setMuted(policy.muted);
       }
       const shell = mountArenaShell(root);
+      const deckChoiceInertState = deckChoiceEnabled
+        ? Array.from(shell.children, (node) => [node, node.inert]) : [];
       const deckChoiceOpenButton = deckChoiceEnabled
         ? shell.querySelector('[data-ui="deck-choice-open"]') : null;
       const deckChoice = deckChoiceEnabled
@@ -461,6 +463,9 @@ export function mountShippedGameBrowser(
         deckChoiceOpenButton.hidden = !deckChoiceAvailable || deckChoiceOpen;
         deckChoiceOpenButton.setAttribute("aria-expanded", String(deckChoiceOpen));
         deckChoice.hidden = !deckChoiceOpen;
+        for (const [node, wasInert] of deckChoiceInertState) {
+          node.inert = wasInert || (deckChoiceOpen && node !== deckChoice);
+        }
         for (const button of deckChoiceButtons) {
           button.setAttribute("aria-pressed",
             String(button.dataset.deckChoice === selectedDeckProfile));
@@ -488,6 +493,31 @@ export function mountShippedGameBrowser(
         }
         return api.startDeckChoice();
       };
+      const onDeckChoiceKeydown = (event) => {
+        if (event?.isTrusted !== true || !active || graph !== candidate || replacing ||
+            !deckChoiceOpen) return false;
+        if (event.key === "Escape") {
+          event.preventDefault();
+          deckChoiceOpen = false;
+          syncDeckChoice();
+          deckChoiceOpenButton.focus({ preventScroll: true });
+          return true;
+        }
+        if (event.key !== "Tab") return false;
+
+        const focusable = [...deckChoiceButtons, deckChoiceStart].filter((node) =>
+          !node.disabled && !node.hidden && !node.inert);
+        if (focusable.length === 0) return false;
+        const currentIndex = focusable.indexOf(shell.ownerDocument.activeElement);
+        const wrapsForward = !event.shiftKey && currentIndex === focusable.length - 1;
+        const wrapsBackward = event.shiftKey && currentIndex === 0;
+        const focusIsOutside = currentIndex === -1;
+        if (!wrapsForward && !wrapsBackward && !focusIsOutside) return false;
+        event.preventDefault();
+        const next = focusable[event.shiftKey ? focusable.length - 1 : 0];
+        next.focus({ preventScroll: true });
+        return true;
+      };
       const restarts = Array.from(shell.querySelectorAll('[data-ui="restart"]'));
       if (restarts.length !== 1 ||
           typeof restarts[0].addEventListener !== "function" ||
@@ -502,6 +532,9 @@ export function mountShippedGameBrowser(
         listenDeckChoice(button, "click", onDeckChoiceSelect);
       }
       listenDeckChoice(deckChoiceStart, "click", onDeckChoiceStart);
+      if (deckChoiceEnabled) {
+        listenDeckChoice(shell.ownerDocument, "keydown", onDeckChoiceKeydown);
+      }
       controls = mountGameAudioControls(shell, browserAudio, audioRuntime, audioUiBridge);
       loop = mountGameBrowserLoop({
         createInput: createInputFactory(shell, audioUiBridge),
@@ -527,13 +560,15 @@ export function mountShippedGameBrowser(
         return api.restart();
       };
       candidate = {
-        audioRuntime, audioUiBridge, browserAudio, controls, deckChoice,
+        audioRuntime, audioToggle: shell.querySelector('[data-ui="audio-toggle"]'),
+        audioUiBridge, browserAudio, controls, deckChoice,
         deckChoiceButtons, deckChoiceListeners, deckChoiceOpenButton, deckChoiceStart,
-        loop, onRestart, restart,
+        loop, onRestart, restart, syncDeckChoice,
       };
       restart.addEventListener("click", onRestart);
       audioRuntime.renderFrame();
       renderRestart(candidate);
+      if (deckChoiceOpen) deckChoiceButtons[0]?.focus({ preventScroll: true });
       return candidate;
     } catch (error) {
       const failed = candidate ?? {
@@ -901,11 +936,18 @@ export function mountShippedGameBrowser(
       if (!deckChoiceEnabled || !deckChoiceOpen) return false;
       deckChoiceOpen = false;
       deckChoiceAvailable = false;
+      const focusMatchControl = () => {
+        const control = graph?.audioToggle;
+        if (control !== null && control !== undefined && !control.hidden && !control.inert) {
+          control.focus({ preventScroll: true });
+        }
+      };
       if (selectedDeckProfile === "standard") {
         manualStepMode = false;
-        graph.deckChoice.hidden = true;
-        graph.deckChoiceOpenButton.hidden = true;
-        return graph.loop.start();
+        graph.syncDeckChoice();
+        const started = graph.loop.start();
+        focusMatchControl();
+        return started;
       }
       const witnessProfile = selectedDeckProfile === "stonehauler"
         ? "stonehauler-witness" : "bulwark-needle-witness";
@@ -914,6 +956,7 @@ export function mountShippedGameBrowser(
         new GameSession(createShippedGameSessionSetup(1, witnessProfile)),
         `shipped browser ${selectedDeckProfile} deck mount failed`,
       );
+      focusMatchControl();
       return true;
     },
     serialize() { assertActive(); return graph.loop.serialize(); },
