@@ -1,5 +1,33 @@
 # Gauntlet Rounds
 
+## Round 344 — 2026-09-24
+
+PIECE: GAME-001HB — Unified-session building roster mechanics, round 3
+
+VERDICT: FAIL
+
+EVIDENCE: `npm test -- game-roster-buildings` passed 10/10 with no failures.
+The selector proves all eight admitted structure IDs use one kind-correct
+GameSession route/spend/materialization; defensive, resource, underground
+travel, and Cinder death-effect outcomes share the host state; Aether grants
+are once-only in `ElixirMatch`; and direct, chunked, and restored runs have
+identical session/replay bytes. The identity-only Bramble Cage and Ember Roost
+claims reject before session mutation. HBP round 1 passed 3/3 and established
+that admitted QUESTION policy metadata is retained; the 160 ordinary Cinder
+attack remains separate from 200 QUESTION death damage. However, the shared
+runtime admits only `defensive`, `resource`, `travel`, and `death-effect`
+classes. It has no spawner class. Bramble Cage and Ember Roost are only
+`{id, displayName}` identity exports and cannot be admitted; Burrow Rig's
+emergence emits `travel-emergence-spawn-question` and creates no unit. The
+`BUILDING-002` isolated spawner encounter therefore cannot verify the bar's
+periodic/death-spawn behavior in the authoritative GameSession graph.
+`SOURCES.md` also states that the corpus does not cover the full recursive
+death-spawn/summon graph. No provisional defensive/resource/travel/death
+effect policy is being treated as source-backed.
+
+BIGGEST GAP: No source-backed spawner identity is admitted to GameSession, so
+periodic/death-spawn mechanics have no shared-session execution witness.
+
 ## Round 343 — 2026-09-24
 
 PIECE: GAME-001HBP — Nondefensive building policy provenance, round 1
