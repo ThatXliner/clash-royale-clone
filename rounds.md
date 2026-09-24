@@ -1,5 +1,90 @@
 # Gauntlet Rounds
 
+## Round 339 — 2026-09-23
+
+PIECE: GAME-001HUIF — Keyboard-complete pre-match deck chooser, round 1
+
+VERDICT: PASS
+
+EVIDENCE: Reviewed commit `ef98e2a` against the GAME-001HUIF acceptance row.
+The isolated selector launched the installed Google Chrome executable at the
+required 720×1280 viewport and passed. All three adjacent regression selectors
+also passed: deck choice and pointer selection, the standard browser journey,
+and restart. The actual TAP outputs were:
+
+```text
+> node tests/content-schema-runner.js game-browser-deck-keyboard
+TAP version 13
+# Subtest: game browser deck keyboard: trusted focus, selection, cancellation, and start
+ok 1 - game browser deck keyboard: trusted focus, selection, cancellation, and start
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+
+> node tests/content-schema-runner.js game-browser-deck-choice
+TAP version 13
+# Subtest: game browser deck choice: trusted pre-match choice drives both supported decks
+ok 1 - game browser deck choice: trusted pre-match choice drives both supported decks
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+
+> node tests/content-schema-runner.js game-browser-journey
+TAP version 13
+# Subtest: game browser journey: real Chrome plays, fights, terminates, restarts, and repeats
+ok 1 - game browser journey: real Chrome plays, fights, terminates, restarts, and repeats
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+
+> node tests/content-schema-runner.js game-restart
+TAP version 13
+# Subtest: game restart: terminal click atomically replaces the whole graph with exact seed zero
+ok 1 - game restart: terminal click atomically replaces the whole graph with exact seed zero
+# Subtest: game restart: hostile cleanup aggregates and cannot create split authority
+ok 2 - game restart: hostile cleanup aggregates and cannot create split authority
+# Subtest: game restart: shipped selector, dependency seam, and deterministic guards are exact
+ok 3 - game restart: shipped selector, dependency seam, and deterministic guards are exact
+1..3
+# tests 3
+# suites 0
+# pass 3
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+```
+
+The keyboard evidence records the actual focus order as
+`standard → stonehauler → bulwark-needle → deck-start → standard → deck-start`
+for four Tabs and one Shift+Tab, exercising both wrap boundaries. Opening
+leaves the standard session at seed zero, tick 0 and stopped; selecting
+Stonehauler via Enter records a trusted browser click while the session stays
+byte-identical. Escape returns focus to Choose deck, leaves all four chooser
+buttons unfocusable, and preserves the stopped seed-zero session at tick 0.
+Starting with Enter records a trusted click, focuses the visible audio control,
+and installs the exact standard seed-zero session. Chrome reported no console
+or page errors. The adjacent deck-choice evidence reports
+`startMatchedSeedZero: true` and `restartExact: true` for Stonehauler; the
+journey and restart selectors both pass their full exact-session checks.
+
+BIGGEST GAP: None on the judged dimension.
+
 ## Round 338 — 2026-09-23
 
 PIECE: GAME-001HUIB — In-app defensive-building witness, round 3
