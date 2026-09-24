@@ -28,10 +28,10 @@
   <div class="cards">
     <div class="card"><div class="num">177</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">139</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">329</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">330</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">24</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Latest review: <strong>GAME-001HUIB — In-app defensive-building witness, round 1 — FAIL</strong>. Full game completion remains unproven.</p>
+  <p class="note">Latest review: <strong>GAME-001HUIB — In-app defensive-building witness, round 2 — FAIL</strong>. Full game completion remains unproven.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -1409,9 +1409,9 @@
         <td><code>GAME-001HUIB</code></td>
         <td>In-app defensive-building witness</td>
         <td class="state-fail">FAIL</td>
-        <td>1/1</td>
-        <td>1</td>
-        <td>Round 1: full-viewport restore PNGs differ at 42,049 pixels (max channel delta 8), so exact visual restore is not proved despite exact DOM/session/HUD/input and Bulwark-art crop</td>
+        <td>0/1</td>
+        <td>2</td>
+        <td>Round 2: fresh Chrome fails the strict viewport hash assertion; 42,049/921,600 pixels differ (max channel delta 8) despite exact browser/session/DOM/HUD/input restore and replay/restart. The committed Bulwark crop hashes match, but a fresh run’s crop hash was not exact</td>
       </tr>
       <tr>
         <td><code>GAME-001HS</code></td>
@@ -1466,6 +1466,7 @@
   </div>
   <h2>Round trajectory</h2>
   <ol>
+      <li><strong>R337 FAIL</strong> · GAME-001HUIB — In-app defensive-building witness, round 2<br>Fresh Chrome fails the strict viewport hash assertion: 42,049 of 921,600 pixels differ (maximum channel delta 8); browser/session/DOM/HUD/input restore and replay/restart pass.</li>
       <li><strong>R336 FAIL</strong> · GAME-001HUIB — In-app defensive-building witness, round 1<br>The full-viewport restore screenshot differs at 42,049 of 921,600 pixels (maximum channel delta 8), while the test accepts that raster tolerance despite the exact-visual-restore requirement.</li>
       <li><strong>R335 PASS</strong> · GAME-001HUIR — In-app supported-deck choice, round 2<br>Keyboard focus entry and containment after opening the deck chooser remain untested; this round verifies that closed chooser buttons cannot receive focus.</li>
       <li><strong>R334 FAIL</strong> · GAME-001HUIR — In-app supported-deck choice, round 1<br>The standard browser journey selector fails before exercising its default path because its exact control inventory counts the hidden deck opener and controls inside the hidden, inactive choice dialog.</li>

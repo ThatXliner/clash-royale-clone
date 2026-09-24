@@ -1,5 +1,41 @@
 # Gauntlet Rounds
 
+## Round 337 — 2026-09-23
+
+PIECE: GAME-001HUIB — In-app defensive-building witness, round 2
+
+VERDICT: FAIL
+
+EVIDENCE: Ran `npm test -- game-browser-building-choice` against commit
+`9105ce9` in a disposable archive. Real Chrome at 720×1280 reached the final
+restore assertion after the chooser, Bulwark deployment, defensive combat,
+restore-state, continuation, terminal, and same-deck restart checks. The test
+failed 0/1 at `restored full viewport must be pixel-identical`:
+
+```text
+# tests 1
+# pass 0
+# fail 1
+restored full viewport must be pixel-identical:
+{"checkpoint":"1d222695e97dfc5d0764a8d9d9c39e6baf3961eeff9edaf567da0761844379a6",
+ "restored":"0e1479d1e783596eca4d89e282146ae8bf8956e5619308529f1357f2073023ba",
+ "viewportRaster":{"changedPixels":42049,"height":1280,"maxChannelDelta":8,
+ "meanChannelDelta":0.07966507523148147,"pixelsOver8":0,"width":720}}
+```
+
+The screenshot at the checkpoint repeats byte-for-byte. Browser/session bytes,
+combat, effects and feedback DOM, HUD, input, focus, markers, and the 140-tick
+restored continuation match exactly; same-deck restart also passes. The live
+Bulwark spends 3 elixir (`10 → 7`), places at `(3366, 9933)`, targets unit 4
+at tick 113, launches six attacks, and ends that combat slice at 311 HP. The
+committed before/after Bulwark crop PNGs have matching SHA-256, while this fresh
+run reports `bulwarkArtPixelExact: false` (its tolerant crop assertion passes).
+There are no console or page errors. The full viewport still has 42,049 changed
+pixels, so the exact visual restore bar is unmet.
+
+BIGGEST GAP: The restored 720×1280 viewport is not pixel-exact: 42,049 pixels
+change under Chrome, so exact visual restore remains unproved.
+
 ## Round 336 — 2026-09-23
 
 PIECE: GAME-001HUIB — In-app defensive-building witness, round 1
