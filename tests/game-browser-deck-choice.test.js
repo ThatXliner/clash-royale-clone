@@ -12,7 +12,9 @@ const PLAYWRIGHT = process.env.GAME_BROWSER_PLAYWRIGHT ??
   "/Users/me/.codex/worktrees/d092a29e-844b-459d-b145-c548db10d485/billion/node_modules/.pnpm/playwright@1.58.2/node_modules/playwright/index.mjs";
 const CHROME = process.env.GAME_BROWSER_CHROME ??
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
-const ARTIFACTS = new URL("../artifacts/game-001huir-round-1/", import.meta.url).pathname;
+const ARTIFACTS = process.env.GAME_BROWSER_DECK_CHOICE_ARTIFACTS
+  ? `${process.env.GAME_BROWSER_DECK_CHOICE_ARTIFACTS.replace(/\/+$/, "")}/`
+  : new URL("../artifacts/game-001huir-round-1/", import.meta.url).pathname;
 
 async function line(stream) {
   let value = "";
@@ -79,8 +81,17 @@ test("game browser deck choice: trusted pre-match choice drives both supported d
       const setup = JSON.parse(controller.session.serialize()).setup;
       const choice = document.querySelector('[data-ui="deck-choice-open"]');
       const box = choice.getBoundingClientRect();
+      const dialog = document.querySelector('[data-ui="deck-choice"]');
+      const hiddenChoiceButtons = [...dialog.querySelectorAll("button")];
+      const hiddenChoicesCanFocus = hiddenChoiceButtons.map((node) => {
+        node.focus({ preventScroll: true });
+        return document.activeElement === node;
+      });
       return {
         choiceBox: { height: box.height, width: box.width, x: box.x, y: box.y },
+        choiceDialogDisplay: getComputedStyle(dialog).display,
+        choiceDialogHidden: dialog.hidden,
+        hiddenChoicesCanFocus,
         sessionBytes: controller.session.serialize(),
         sessionTick: controller.state.sessionTick,
         setup,
@@ -91,6 +102,10 @@ test("game browser deck choice: trusted pre-match choice drives both supported d
       "the visible selector leaves the default seed-zero session intact");
     assert.ok(standardOpening.choiceBox.width >= 72 && standardOpening.choiceBox.height >= 40,
       "the deck-choice control is visible at the shipped viewport");
+    assert.equal(standardOpening.choiceDialogHidden, true);
+    assert.equal(standardOpening.choiceDialogDisplay, "none");
+    assert.deepEqual(standardOpening.hiddenChoicesCanFocus, [false, false, false],
+      "closed deck choices are hidden and excluded from keyboard focus");
     assert.equal(standardOpening.sessionTick, 0);
     await page.screenshot({ path: `${ARTIFACTS}standard-opening.png` });
 

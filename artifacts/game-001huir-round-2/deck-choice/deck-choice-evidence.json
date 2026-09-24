@@ -1,0 +1,125 @@
+{
+  "consoleErrors": [],
+  "pageErrors": [],
+  "standard": {
+    "deck": [
+      "coilblade",
+      "mossguard",
+      "copperskiff",
+      "skymaul",
+      "brassbolt",
+      "reedsting",
+      "briar-band",
+      "cinderlings"
+    ],
+    "deployed": {
+      "deployment": {
+        "cardId": "mossguard",
+        "entityIds": [
+          1
+        ],
+        "point": {
+          "x": 8866,
+          "y": 6800
+        },
+        "sequence": 0,
+        "side": "south",
+        "tick": 0,
+        "type": "deployed"
+      },
+      "side": "south",
+      "spend": {
+        "accepted": true,
+        "amountAfter": 7,
+        "cost": 3,
+        "reason": "accepted",
+        "sequence": 0,
+        "side": "south",
+        "tick": 0,
+        "type": "spend"
+      },
+      "tick": 0,
+      "type": "session-deployed"
+    },
+    "startMatchedSeedZero": true
+  },
+  "preMatch": {
+    "modal": {
+      "display": "grid",
+      "height": 1280,
+      "width": 720
+    },
+    "resetToSeedZero": true,
+    "running": false,
+    "selected": "true",
+    "sessionTick": 0
+  },
+  "stonehauler": {
+    "artId": "stonehauler",
+    "artPathCount": 11,
+    "browserCheckpointBytes": 43672,
+    "browserReplayExact": true,
+    "deployed": {
+      "cardId": "stonehauler",
+      "cost": 5,
+      "elixirAfter": 5,
+      "point": {
+        "x": 8866,
+        "y": 6800
+      },
+      "side": "south"
+    },
+    "hand": [
+      {
+        "cost": 5,
+        "id": "stonehauler",
+        "name": "Stonehauler"
+      },
+      {
+        "cost": 3,
+        "id": "skymaul",
+        "name": "Skymaul"
+      },
+      {
+        "cost": 4,
+        "id": "brassbolt",
+        "name": "Brassbolt"
+      },
+      {
+        "cost": 3,
+        "id": "mossguard",
+        "name": "Mossguard"
+      }
+    ],
+    "inputSlots": [
+      "stonehauler",
+      "skymaul",
+      "brassbolt",
+      "mossguard"
+    ],
+    "questionPoliciesRemainQuestions": true,
+    "restartExact": true,
+    "restartCount": 1,
+    "sessionDeck": [
+      "stonehauler",
+      "coilblade",
+      "mossguard",
+      "copperskiff",
+      "skymaul",
+      "brassbolt",
+      "reedsting",
+      "briar-band"
+    ],
+    "terminalChunks": 6,
+    "terminalResult": {
+      "crowns": {
+        "north": 3,
+        "south": 0
+      },
+      "endedAtTick": 6298,
+      "kind": "win",
+      "reason": "central_destroyed",
+      "winner": "north"
+    }
+  }
+}

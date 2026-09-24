@@ -22,7 +22,9 @@ const PLAYWRIGHT = process.env.GAME_BROWSER_PLAYWRIGHT ??
   "/Users/me/.codex/worktrees/d092a29e-844b-459d-b145-c548db10d485/billion/node_modules/.pnpm/playwright@1.58.2/node_modules/playwright/index.mjs";
 const CHROME = process.env.GAME_BROWSER_CHROME ??
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
-const ARTIFACTS = new URL("../artifacts/game-001g-round-1/", import.meta.url).pathname;
+const ARTIFACTS = process.env.GAME_BROWSER_JOURNEY_ARTIFACTS
+  ? `${process.env.GAME_BROWSER_JOURNEY_ARTIFACTS.replace(/\/+$/, "")}/`
+  : new URL("../artifacts/game-001g-round-1/", import.meta.url).pathname;
 
 async function line(stream) {
   let text = "";
@@ -163,18 +165,45 @@ test("game browser journey: real Chrome plays, fights, terminates, restarts, and
     assert.equal(response.status(), 200);
     await page.waitForSelector('[data-ui="arena"]');
     await page.waitForTimeout(250);
-    const interactive = await page.evaluate(async () => ({
-      blank: document.body.innerText.trim().length === 0,
-      controller: Boolean((await import("/src/ui/arena-shell-entry.js")).arenaHudController),
-      controls: [...document.querySelectorAll("button,[role=button],[tabindex]")]
-        .map((node) => ({ hidden: node.hidden, text: node.textContent.trim(),
-          ui: node.dataset.ui ?? null })),
-      errorOverlay: Boolean(document.querySelector(
-        "[data-nextjs-dialog],.vite-error-overlay,#webpack-dev-server-client-overlay",
-      )),
-      pendingResources: performance.getEntriesByType("resource")
-        .filter(({ duration }) => duration === 0).map(({ name }) => name),
-    }));
+    const interactive = await page.evaluate(async () => {
+      const isExposed = (node) => {
+        for (let ancestor = node; ancestor; ancestor = ancestor.parentElement) {
+          const style = getComputedStyle(ancestor);
+          if (ancestor.hidden || ancestor.inert ||
+              ancestor.getAttribute("aria-hidden") === "true" ||
+              style.display === "none" || style.visibility === "hidden" ||
+              style.visibility === "collapse") return false;
+        }
+        return true;
+      };
+      const mountedControls = [...document.querySelectorAll("button,[role=button],[tabindex]")];
+      const choiceDialog = document.querySelector('[data-ui="deck-choice"]');
+      const choiceButtons = [...choiceDialog.querySelectorAll("button")];
+      const focusResults = choiceButtons.map((node) => {
+        node.focus({ preventScroll: true });
+        return document.activeElement === node;
+      });
+      return {
+        blank: document.body.innerText.trim().length === 0,
+        controller: Boolean((await import("/src/ui/arena-shell-entry.js")).arenaHudController),
+        controls: mountedControls.filter(isExposed).map((node) => ({
+          text: node.textContent.trim(), ui: node.dataset.ui ?? null,
+        })),
+        deckChoiceUnavailable: {
+          dialogDisplay: getComputedStyle(choiceDialog).display,
+          dialogHidden: choiceDialog.hidden,
+          openerExposed: isExposed(document.querySelector('[data-ui="deck-choice-open"]')),
+          optionFocusResults: focusResults,
+          optionIds: choiceButtons.map((node) => node.dataset.deckChoice ?? node.dataset.ui),
+        },
+        errorOverlay: Boolean(document.querySelector(
+          "[data-nextjs-dialog],.vite-error-overlay,#webpack-dev-server-client-overlay",
+        )),
+        mountedControlCount: mountedControls.length,
+        pendingResources: performance.getEntriesByType("resource")
+          .filter(({ duration }) => duration === 0).map(({ name }) => name),
+      };
+    });
     await page.evaluate(async () => {
       globalThis.__gameBrowserJourneyController =
         (await import("/src/ui/arena-shell-entry.js")).arenaHudController;
@@ -184,9 +213,17 @@ test("game browser journey: real Chrome plays, fights, terminates, restarts, and
     assert.deepEqual({ blank: interactive.blank, controller: interactive.controller,
       errorOverlay: interactive.errorOverlay, pendingResources: interactive.pendingResources },
     { blank: false, controller: true, errorOverlay: false, pendingResources: [] });
-    assert.deepEqual(interactive.controls.map(({ hidden, ui }) => ({ hidden, ui })), [
-      { hidden: false, ui: "audio-toggle" }, { hidden: true, ui: "restart" },
-    ]);
+    assert.deepEqual(interactive.controls.map(({ ui }) => ui), ["audio-toggle"],
+      "only controls exposed to users in this profile enter the visible control inventory");
+    assert.ok(interactive.mountedControlCount > interactive.controls.length,
+      "the raw DOM contains controls that are intentionally inactive in this profile");
+    assert.deepEqual(interactive.deckChoiceUnavailable, {
+      dialogDisplay: "none",
+      dialogHidden: true,
+      openerExposed: false,
+      optionFocusResults: [false, false, false],
+      optionIds: ["standard", "stonehauler", "deck-start"],
+    }, "closed chooser descendants are hidden from layout and cannot take keyboard focus");
     await page.evaluate(() => {
       globalThis.__gameBrowserJourneyObservedCombat = false;
       const observe = () => {
