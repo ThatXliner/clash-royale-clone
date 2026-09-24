@@ -28,10 +28,10 @@
   <div class="cards">
     <div class="card"><div class="num">180</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">141</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">333</div><div class="label">completed rounds</div></div>
-    <div class="card"><div class="num">25</div><div class="label">open questions</div></div>
+    <div class="card"><div class="num">334</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">24</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Latest review: <strong>VIS-003H — Exact browser frame restore boundary, round 1 — PASS</strong>. Full game completion remains unproven.</p>
+  <p class="note">Latest review: <strong>GAME-001HUIB — In-app defensive-building witness, round 4 — FAIL</strong>. Full game completion remains unproven.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -1408,10 +1408,10 @@
       <tr>
         <td><code>GAME-001HUIB</code></td>
         <td>In-app defensive-building witness</td>
-        <td class="state-question">QUESTION</td>
-        <td>0/1</td>
-        <td>3</td>
-        <td>Wrong-shaped after three exact-restore failures: unchanged Chrome test reproduces 42,049/921,600 changed pixels (max channel delta 8); temporary `.arena { transform: translateZ(0) }` reduces the raster delta to 9,265 pixels (max 2) but still fails exact equality. Session/browser/DOM/HUD/input and computed paint state match. Keep the exact-pixel bar; revisit the renderer/capture boundary before another round.</td>
+        <td class="state-fail">FAIL</td>
+        <td>1/1</td>
+        <td>4</td>
+        <td>Round 4 passes exact session/browser/DOM/HUD/input and full-viewport PNG restore, but still promotes an unsourced building combat profile: the canonical Bulwark witness stores `buildingRuntime.firstHitTicks=0` and executes estimates while the Cannon source has no first-hit value and flags damage/HP/deploy/range/target fields unverified; catalog projection drops the profile's QUESTION disposition. The 66×66 supplemental art crop changes 769 pixels (max delta 2) but does not violate the full-viewport exact bar.</td>
       </tr>
       <tr>
         <td><code>GAME-001HUIF</code></td>
@@ -1482,6 +1482,7 @@
   </div>
   <h2>Round trajectory</h2>
   <ol>
+      <li><strong>R341 FAIL</strong> · GAME-001HUIB — In-app defensive-building witness, round 4<br>Preserve the Bulwark building profile's QUESTION status through GameSession or withhold its first-hit and low-confidence combat estimates; the current session executes `firstHitTicks: 0` although the reference first-hit value is null.</li>
       <li><strong>R340 PASS</strong> · VIS-003H — Exact browser frame restore boundary, round 1<br>None on the exact restore dimension; historical screenshot parity remains unmeasured and belongs to VIS-001/VIS-002.</li>
       <li><strong>R339 PASS</strong> · GAME-001HUIF — Keyboard-complete pre-match deck chooser, round 1<br>None on the judged dimension.</li>
       <li><strong>R338 FAIL</strong> · GAME-001HUIB — In-app defensive-building witness, round 3<br>After arena layer promotion, 9,265 full-viewport pixels still change on restore, so the exact raster bar remains unmet.</li>

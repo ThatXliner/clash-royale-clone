@@ -1,5 +1,84 @@
 # Gauntlet Rounds
 
+## Round 341 — 2026-09-23
+
+PIECE: GAME-001HUIB — In-app defensive-building witness, round 4
+
+VERDICT: FAIL
+
+EVIDENCE: At HEAD `a2f32ff`, I ran both required browser selectors from a clean
+`git archive HEAD` copy so their generated files did not touch the existing
+dirty artifact tree. Both launched Google Chrome 153.0.8010.53 at 720×1280
+with device scale factor 1. The actual TAP results were:
+
+```text
+> original-card-battler@0.0.0 test
+> node tests/content-schema-runner.js game-browser-building-choice
+
+TAP version 13
+# Subtest: game browser building choice: Bulwark Needle deploys and defends through the shared session
+ok 1 - game browser building choice: Bulwark Needle deploys and defends through the shared session
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+```
+
+```text
+> original-card-battler@0.0.0 test
+> node tests/content-schema-runner.js game-browser-deck-choice
+
+TAP version 13
+# Subtest: game browser deck choice: trusted pre-match choice drives both supported decks
+ok 1 - game browser deck choice: trusted pre-match choice drives both supported decks
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+```
+
+The browser witness selects an eight-card Bulwark deck and the trusted
+placement creates one south-side shared structure at `(3366, 9933)`, spends
+3 elixir (10→7), and creates no placeholder troop. Its distinct
+`bulwark-needle` vector art renders 10 paths; in the shared battle it targets
+`unit:4`, records six structure attacks, and leaves 311 HP. Standard remains
+seed-zero exact with hidden chooser controls unfocusable. The adjacent deck
+selector deploys Standard for 3 elixir and Stonehauler for 5, then proves
+Bulwark and Stonehauler same-deck restart exact, plus Stonehauler restore
+exact.
+
+The exact visual restore itself passes: session and browser snapshot bytes,
+combat DOM, HUD, input, marker paint state, and the full 720×1280 PNG match;
+checkpoint, repeated checkpoint, and restored viewport all hash to
+`36ddb37c0f7a1f3e50140e36228ee79fcd522356688f939919341ccedb0687db` with
+zero changed pixels. The separate 66×66 art clip differs in 769 pixels, with
+maximum channel delta 2, mean delta 0.0824, and no pixel above delta 8. The
+test treats that crop as a supplemental visual-similarity check, while the
+PLAN requires exact full-viewport restore, so the crop does not fail that bar.
+
+The remaining bar failure is source confidence. The reference identifies
+Cannon as a building costing 3 elixir, and `SOURCES.md` gives identity fields
+high confidence; it independently spot-checks Cannon's 0.9-second hit speed.
+The Cannon record has `first_hit_seconds: null` and flags hitpoints, damage,
+deploy time, range, sight range, targets, and count as unverified. The
+canonical Bulwark witness nevertheless executes
+`buildingRuntime.firstHitTicks: 0`, damage 212, HP 824, and range 5500. Its
+serialized roster keeps `firstHitTicks: null` while its nested runtime profile
+sets the active value to 0. The profile marks the policy as
+`disposition: "question"`, but
+`session-card-catalog.js` strips that field before the profile enters
+GameSession; the 12 serialized QUESTION records cover troop geometry and
+projectile speed, not the building. Thus the cost and identity are admitted,
+while the live combat timing and several mechanics remain estimates and are
+not source-backed behavior.
+
+BIGGEST GAP: Preserve the Bulwark building profile's QUESTION status through
+GameSession or withhold its first-hit and low-confidence combat estimates;
+the current session executes `firstHitTicks: 0` although the reference
+first-hit value is null.
+
 ## Round 340 — 2026-09-23
 
 PIECE: VIS-003H — Exact browser frame restore boundary, round 1
