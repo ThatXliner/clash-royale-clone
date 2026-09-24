@@ -26,9 +26,9 @@
   <h1>Gauntlet progress</h1>
   <p class="sub">Updated 2026-09-24 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
-    <div class="card"><div class="num">181</div><div class="label">tracked pieces</div></div>
+    <div class="card"><div class="num">183</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">141</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">344</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">337</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">26</div><div class="label">open questions</div></div>
   </div>
   <p class="note">Latest review: <strong>GAME-001HB — Unified-session building roster mechanics, round 3 — FAIL</strong>. Full game completion remains unproven.</p>
@@ -686,6 +686,14 @@
         <td>Round 2 refreshed eight stale static occurrence pins and the aggregate manifest after independently checking catalog bindings and defining events; admission 7/7 and integration audit 6/6 pass, fresh critic confirms mutation rejection</td>
       </tr>
       <tr>
+        <td><code>INTEGRATION-001RP</code></td>
+        <td>Reconcile canonical integration manifest after later rounds</td>
+        <td class="state-pending">PENDING</td>
+        <td>0/0</td>
+        <td>0</td>
+        <td>Post-policy full suite at `efaabf8` passed both run hashes but failed the aggregate pin: actual `7eeeab12…`, expected `022ee978…`; HBP's session code is outside the direct occurrence path, so the drift needs a field-level audit before repinning.</td>
+      </tr>
+      <tr>
         <td><code>GUARD-003</code></td>
         <td>Exhaustive TAP execution-proof parser</td>
         <td class="state-question">QUESTION</td>
@@ -716,6 +724,14 @@
         <td>7/7</td>
         <td>2</td>
         <td>Round 2 passed: exact inner geometry, complete shell primitives, deterministic DOM/render bytes, provenance, hostile mount, and full suite passed</td>
+      </tr>
+      <tr>
+        <td><code>UI-001AP</code></td>
+        <td>Reconcile arena source-byte pins after policy UI and compositor changes</td>
+        <td class="state-pending">PENDING</td>
+        <td>0/0</td>
+        <td>0</td>
+        <td>Post-policy full suite exposed stale markup pins in both selectors; current markup SHA is `51dd05f9…` and CSS SHA is `913e4ac7…`. Policy notice and compositor commits changed source bytes; untested CSS pin assertions follow the first failing markup assertions.</td>
       </tr>
       <tr>
         <td><code>UI-001B</code></td>
@@ -1371,7 +1387,7 @@
         <td class="state-question">QUESTION</td>
         <td>10/10</td>
         <td>3</td>
-        <td>Round 3 confirms shared execution and the HBP provenance fix, but no source-backed periodic/death-spawn case reaches GameSession: Bramble Cage and Ember Roost remain identity-only QUESTION claims, and Burrow Rig publishes a spawn QUESTION without a unit. Isolated spawner tests do not satisfy the shared-session bar.</td>
+        <td>Round 3 confirms shared execution and the HBP provenance fix, but the required periodic/death-spawn GameSession path remains unverified: Bramble Cage and Ember Roost still have identity-only QUESTION records and reject admission, while Burrow Rig emits a spawn-question event without a unit. The isolated BUILDING-002 encounter does not establish a source-backed shared-session spawner.</td>
       </tr>
       <tr>
         <td><code>GAME-001HBP</code></td>
@@ -1379,7 +1395,7 @@
         <td class="state-pass">PASS</td>
         <td>3/3</td>
         <td>1</td>
-        <td>Round 1 passed: all nine QUESTION fields reach live structures unchanged; 45/45 per-field admission attacks reject. Cinder ordinary attack 160 stays separate from 200 QUESTION death damage (70 QUESTION tower damage at 35%); step/chunk/restore bytes and seed-zero deck are exact.</td>
+        <td>Round 1 passed all nine QUESTION fields through catalog, receipt, and live structure; 45/45 per-field admission attacks reject. Cinder ordinary attack is 160; death damage is 200 QUESTION and tower damage is 70 QUESTION at 35%. One-step/chunk/restore bytes and the seed-zero standard deck remain exact.</td>
       </tr>
       <tr>
         <td><code>GAME-001HSA</code></td>
@@ -1490,6 +1506,8 @@
   </div>
   <h2>Round trajectory</h2>
   <ol>
+      <li><strong>R344 FAIL</strong> · GAME-001HB — Unified-session building roster mechanics, round 3<br>No source-backed spawner identity is admitted to GameSession, so periodic/death-spawn mechanics have no shared-session execution witness.</li>
+      <li><strong>R343 PASS</strong> · GAME-001HBP — Nondefensive building policy provenance, round 1<br>None on the judged dimension; the resource, travel, and death effects remain explicitly QUESTION-provisional.</li>
       <li><strong>R342 FAIL</strong> · GAME-001HUIB — In-app defensive-building witness, round 5<br>Bulwark must not deploy into live combat with `firstHitTicks: 0` and unverified Cannon-derived damage, HP, deploy, range, and target values; a visible QUESTION label does not source those mechanics.</li>
       <li><strong>R341 FAIL</strong> · GAME-001HUIB — In-app defensive-building witness, round 4<br>Preserve the Bulwark building profile's QUESTION status through GameSession or withhold its first-hit and low-confidence combat estimates; the current session executes `firstHitTicks: 0` although the reference first-hit value is null.</li>
       <li><strong>R340 PASS</strong> · VIS-003H — Exact browser frame restore boundary, round 1<br>None on the exact restore dimension; historical screenshot parity remains unmeasured and belongs to VIS-001/VIS-002.</li>
