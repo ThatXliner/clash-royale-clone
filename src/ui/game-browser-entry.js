@@ -247,6 +247,7 @@ export function mountShippedGameBrowser(
   scheduler,
   session = null,
   audioContextFactory = createNativeAudioContext,
+  deckChoiceEnabled = false,
 ) {
   if (!scheduler || typeof scheduler.requestAnimationFrame !== "function" ||
       typeof scheduler.cancelAnimationFrame !== "function") {
@@ -255,12 +256,18 @@ export function mountShippedGameBrowser(
   if (typeof audioContextFactory !== "function") {
     throw new TypeError("shipped browser audio context factory is invalid");
   }
+  if (typeof deckChoiceEnabled !== "boolean") {
+    throw new TypeError("shipped browser deck choice option is invalid");
+  }
   assertGameBrowserRootAvailable(root);
   let active = true;
   let graph = null;
   let manualStepMode = false;
   let replacing = false;
   let restartCount = 0;
+  let deckChoiceOpen = false;
+  let deckChoiceAvailable = deckChoiceEnabled;
+  let selectedDeckProfile = "standard";
   let lastSession = session ?? new GameSession(createShippedGameSessionSetup());
   let enduranceDrive = null;
   let enduranceYield = null;
@@ -275,6 +282,10 @@ export function mountShippedGameBrowser(
     try {
       candidate.restart.removeEventListener("click", candidate.onRestart);
     } catch (error) { errors.push(error); }
+    for (const [node, event, listener] of candidate.deckChoiceListeners ?? []) {
+      try { node.removeEventListener(event, listener); }
+      catch (error) { errors.push(error); }
+    }
     try { candidate.loop?.dispose(); } catch (error) { errors.push(error); }
     try { candidate.audioUiBridge?.dispose(); } catch (error) { errors.push(error); }
     try { candidate.controls?.dispose(); } catch (error) { errors.push(error); }
@@ -400,6 +411,56 @@ export function mountShippedGameBrowser(
         audioRuntime.setMuted(policy.muted);
       }
       const shell = mountArenaShell(root);
+      const deckChoiceOpenButton = deckChoiceEnabled
+        ? shell.querySelector('[data-ui="deck-choice-open"]') : null;
+      const deckChoice = deckChoiceEnabled
+        ? shell.querySelector('[data-ui="deck-choice"]') : null;
+      const deckChoiceButtons = deckChoiceEnabled
+        ? Array.from(shell.querySelectorAll("[data-deck-choice]")) : [];
+      const deckChoiceStart = deckChoiceEnabled
+        ? shell.querySelector('[data-ui="deck-start"]') : null;
+      if (deckChoiceEnabled && (deckChoiceOpenButton === null ||
+          deckChoice === null || deckChoiceButtons.length !== 2 ||
+          deckChoiceStart === null)) {
+        throw new TypeError("shipped browser deck choice controls are incomplete");
+      }
+      const deckChoiceListeners = [];
+      const listenDeckChoice = (node, event, listener) => {
+        if (node === null) return;
+        node.addEventListener(event, listener);
+        deckChoiceListeners.push([node, event, listener]);
+      };
+      const syncDeckChoice = () => {
+        if (!deckChoiceEnabled) return;
+        deckChoiceOpenButton.hidden = !deckChoiceAvailable || deckChoiceOpen;
+        deckChoiceOpenButton.setAttribute("aria-expanded", String(deckChoiceOpen));
+        deckChoice.hidden = !deckChoiceOpen;
+        for (const button of deckChoiceButtons) {
+          button.setAttribute("aria-pressed",
+            String(button.dataset.deckChoice === selectedDeckProfile));
+        }
+      };
+      const onDeckChoiceOpen = (event) => {
+        if (event?.isTrusted !== true || !active || graph !== candidate || replacing) {
+          return false;
+        }
+        return api.openDeckChoice();
+      };
+      const onDeckChoiceSelect = (event) => {
+        if (event?.isTrusted !== true || !active || graph !== candidate || replacing ||
+            !deckChoiceOpen) return false;
+        const value = event.currentTarget?.dataset?.deckChoice;
+        if (value !== "standard" && value !== "stonehauler") return false;
+        selectedDeckProfile = value;
+        syncDeckChoice();
+        return true;
+      };
+      const onDeckChoiceStart = (event) => {
+        if (event?.isTrusted !== true || !active || graph !== candidate || replacing) {
+          return false;
+        }
+        return api.startDeckChoice();
+      };
       const restarts = Array.from(shell.querySelectorAll('[data-ui="restart"]'));
       if (restarts.length !== 1 ||
           typeof restarts[0].addEventListener !== "function" ||
@@ -408,6 +469,12 @@ export function mountShippedGameBrowser(
         throw new TypeError("shipped browser requires one restart control");
       }
       restart = restarts[0];
+      syncDeckChoice();
+      listenDeckChoice(deckChoiceOpenButton, "click", onDeckChoiceOpen);
+      for (const button of deckChoiceButtons) {
+        listenDeckChoice(button, "click", onDeckChoiceSelect);
+      }
+      listenDeckChoice(deckChoiceStart, "click", onDeckChoiceStart);
       controls = mountGameAudioControls(shell, browserAudio, audioRuntime, audioUiBridge);
       loop = mountGameBrowserLoop({
         createInput: createInputFactory(shell, audioUiBridge),
@@ -433,7 +500,9 @@ export function mountShippedGameBrowser(
         return api.restart();
       };
       candidate = {
-        audioRuntime, audioUiBridge, browserAudio, controls, loop, onRestart, restart,
+        audioRuntime, audioUiBridge, browserAudio, controls, deckChoice,
+        deckChoiceButtons, deckChoiceListeners, deckChoiceOpenButton, deckChoiceStart,
+        loop, onRestart, restart,
       };
       restart.addEventListener("click", onRestart);
       audioRuntime.renderFrame();
@@ -442,6 +511,7 @@ export function mountShippedGameBrowser(
     } catch (error) {
       const failed = candidate ?? {
         audioRuntime, audioUiBridge, browserAudio, controls, loop,
+        deckChoiceListeners,
         onRestart() {}, restart: restart ?? { removeEventListener() {} },
       };
       cleanup(failed);
@@ -455,6 +525,36 @@ export function mountShippedGameBrowser(
       : graph.audioRuntime.renderFrame();
     renderRestart(graph);
     return { audio, events };
+  };
+  const replaceMountedSession = (freshSession, failureMessage) => {
+    replacing = true;
+    cancelEnduranceYield();
+    graph.loop.abortEnduranceSegment();
+    enduranceDrive = null;
+    const previous = graph;
+    const policy = {
+      gainBasisPoints: previous.controls.state.gainBasisPoints,
+      muted: previous.controls.state.muted,
+    };
+    lastSession = previous.loop.session;
+    graph = null;
+    const cleanupErrors = cleanup(previous);
+    if (cleanupErrors.length > 0) {
+      active = false;
+      replacing = false;
+      throw new AggregateError(cleanupErrors, "shipped browser deck-choice cleanup failed");
+    }
+    try {
+      graph = buildGraph(freshSession, policy);
+      lastSession = freshSession;
+      return api.state;
+    } catch (error) {
+      active = false;
+      graph = null;
+      throw new AggregateError([error], failureMessage);
+    } finally {
+      replacing = false;
+    }
   };
   const api = Object.freeze({
     get audio() { assertActive(); return graph.controls.state; },
@@ -626,6 +726,16 @@ export function mountShippedGameBrowser(
       renderRestart(graph);
       return changed;
     },
+    openDeckChoice() {
+      assertActive();
+      if (!deckChoiceEnabled || !deckChoiceAvailable || deckChoiceOpen) return false;
+      deckChoiceOpen = true;
+      selectedDeckProfile = "standard";
+      manualStepMode = true;
+      replaceMountedSession(new GameSession(createShippedGameSessionSetup(0)),
+        "shipped browser deck-choice reset failed");
+      return true;
+    },
     restart() {
       assertActive();
       if (!graph.loop.state.terminal) return false;
@@ -758,6 +868,24 @@ export function mountShippedGameBrowser(
     setAudioGainBasisPoints(value) {
       assertActive();
       return graph.controls.setGainBasisPoints(value);
+    },
+    startDeckChoice() {
+      assertActive();
+      if (!deckChoiceEnabled || !deckChoiceOpen) return false;
+      deckChoiceOpen = false;
+      deckChoiceAvailable = false;
+      if (selectedDeckProfile === "standard") {
+        manualStepMode = false;
+        graph.deckChoice.hidden = true;
+        graph.deckChoiceOpenButton.hidden = true;
+        return graph.loop.start();
+      }
+      manualStepMode = false;
+      replaceMountedSession(
+        new GameSession(createShippedGameSessionSetup(1, "stonehauler-witness")),
+        "shipped browser Stonehauler deck mount failed",
+      );
+      return true;
     },
     serialize() { assertActive(); return graph.loop.serialize(); },
     get session() { return graph?.loop.session ?? lastSession; },

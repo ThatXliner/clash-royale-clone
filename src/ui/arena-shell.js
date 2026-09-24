@@ -22,6 +22,22 @@ export const ARENA_SHELL_PROVENANCE = Object.freeze({
 
 const SHELL_MARKUP = `<main class="battle-shell" data-ui="arena-shell" aria-label="Empty card battle arena">
   <button class="audio-toggle" type="button" data-ui="audio-toggle" aria-pressed="false" aria-label="Mute audio">Sound on</button>
+  <button class="deck-choice-open" type="button" data-ui="deck-choice-open" aria-haspopup="dialog" aria-controls="deck-choice" aria-expanded="false" hidden>Choose deck</button>
+  <section class="deck-choice" id="deck-choice" data-ui="deck-choice" role="dialog" aria-modal="true" aria-labelledby="deck-choice-title" hidden>
+    <div class="deck-choice__panel">
+      <p class="deck-choice__eyebrow">READY YOUR DECK</p>
+      <h1 id="deck-choice-title">Choose an eight-card deck</h1>
+      <div class="deck-choice__options" role="group" aria-label="Supported decks">
+        <button class="deck-choice__option" type="button" data-deck-choice="standard" aria-pressed="true">
+          <strong>Standard</strong><span>Eight supported cards</span>
+        </button>
+        <button class="deck-choice__option" type="button" data-deck-choice="stonehauler" aria-pressed="false">
+          <strong>Stonehauler</strong><span>Replaces Cinderlings</span>
+        </button>
+      </div>
+      <button class="deck-choice__start" type="button" data-ui="deck-start">Start match</button>
+    </div>
+  </section>
   <button class="restart-control" type="button" data-ui="restart" hidden>Play again</button>
   <header class="match-rail match-rail--top" data-ui="opponent-hud">
     <span class="player-mark player-mark--ember" aria-hidden="true"></span>

@@ -14,7 +14,8 @@ const CHROME = process.env.GAME_BROWSER_CHROME ?? '/Applications/Google Chrome.a
 const NORMAL_ARTIFACTS = new URL('../artifacts/visual-003g-round-1/', import.meta.url).pathname;
 const RELEASE_ARTIFACTS = new URL('../artifacts/release-001w-round-1/', import.meta.url).pathname;
 const RELEASE_MODE = process.env.GAME_PRESENTATION_RELEASE === '1';
-const ARTIFACTS = RELEASE_MODE ? RELEASE_ARTIFACTS : NORMAL_ARTIFACTS;
+const ARTIFACTS = process.env.GAME_PRESENTATION_ARTIFACTS ??
+  (RELEASE_MODE ? RELEASE_ARTIFACTS : NORMAL_ARTIFACTS);
 async function ready(stream) {
   let buffer = '';
   for await (const chunk of stream) { buffer += chunk; if (buffer.includes('\n')) return JSON.parse(buffer.split('\n')[0]); }

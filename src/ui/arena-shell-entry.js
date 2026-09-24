@@ -437,6 +437,7 @@ export const arenaHudController =
       );
       return mountShippedGameBrowser(
         document.querySelector("[data-arena-shell-root]"), window, session,
+        undefined, profile === null,
       );
     })()
     : null;

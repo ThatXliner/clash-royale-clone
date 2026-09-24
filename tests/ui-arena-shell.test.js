@@ -43,6 +43,11 @@ test("ui arena shell: fixed viewport and every required primitive are complete",
   assert.equal(occurrences(markup, 'data-ui="timer"'), 1);
   assert.equal(occurrences(markup, 'data-ui="elixir-rail"'), 1);
   assert.equal(occurrences(markup, 'data-ui="audio-toggle"'), 1);
+  assert.equal(occurrences(markup, 'data-ui="deck-choice-open"'), 1);
+  assert.equal(occurrences(markup, 'data-ui="deck-choice"'), 1);
+  assert.equal(occurrences(markup, 'data-deck-choice="standard"'), 1);
+  assert.equal(occurrences(markup, 'data-deck-choice="stonehauler"'), 1);
+  assert.equal(occurrences(markup, 'data-ui="deck-start"'), 1);
   assert.equal(occurrences(markup, 'data-ui="restart"'), 1);
   assert.equal(occurrences(markup, "<i></i>"), 30);
 });
@@ -107,11 +112,11 @@ test("ui arena shell: canonical markup and source bytes are stable", () => {
   assert.equal(first, second);
   assert.equal(
     createHash("sha256").update(first).digest("hex"),
-    "5d485980dea84b7710c3aa8a886b50a581a6b22af1e3920f6c043dc44d7a9b47",
+    "11a21cc603c560cf4a75da996f3f596bdea39af398a1944d0e35906c6fbe079d",
   );
   assert.equal(
     createHash("sha256").update(css).digest("hex"),
-    "19c2bac9efb0a48fe1d218bb533353b44e081bccd6fe51526d7657cda8125b71",
+    "0f00c45b3bb889eb3cca11f6e254c1c42684c0bd60b82d52d6796ff40ffa0985",
   );
 });
 
