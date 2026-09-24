@@ -13,7 +13,7 @@ const PLAYWRIGHT = process.env.GAME_BROWSER_PLAYWRIGHT ??
   "/Users/me/.codex/worktrees/d092a29e-844b-459d-b145-c548db10d485/billion/node_modules/.pnpm/playwright@1.58.2/node_modules/playwright/index.mjs";
 const CHROME = process.env.GAME_BROWSER_CHROME ??
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
-const ARTIFACTS = new URL("../artifacts/game-001huib-round-1/", import.meta.url).pathname;
+const ARTIFACTS = new URL("../artifacts/game-001huib-round-2/", import.meta.url).pathname;
 
 async function line(stream) {
   let value = "";
@@ -31,6 +31,12 @@ async function click(page, selector, offset = null) {
   assert.ok(box && box.width > 0 && box.height > 0, `${selector} must be visible`);
   await page.mouse.click(box.x + (offset?.x ?? box.width / 2),
     box.y + (offset?.y ?? box.height / 2));
+}
+
+async function settleBrowserPaint(page) {
+  await page.evaluate(() => new Promise((resolve) => {
+    window.__nativePaintFrame(() => window.__nativePaintFrame(resolve));
+  }));
 }
 
 async function renderedState(page) {
@@ -85,6 +91,43 @@ async function renderedState(page) {
       targetLinks,
     };
   });
+}
+
+async function renderedPaintState(page) {
+  return page.evaluate(() => {
+    const nodes = [...document.querySelectorAll("*")];
+    return nodes.map((node, index) => {
+      const style = getComputedStyle(node);
+      const rect = node.getBoundingClientRect();
+      return {
+        attrs: [...node.attributes].map(({ name, value }) => [name, value]),
+        background: style.background,
+        boxShadow: style.boxShadow,
+        color: style.color,
+        filter: style.filter,
+        font: style.font,
+        html: node.outerHTML,
+        index,
+        opacity: style.opacity,
+        rect: [rect.x, rect.y, rect.width, rect.height],
+        tag: node.tagName,
+        transform: style.transform,
+        translate: style.translate,
+      };
+    });
+  });
+}
+
+function paintStateDifferences(left, right) {
+  const differences = [];
+  const count = Math.max(left.length, right.length);
+  for (let index = 0; index < count; index += 1) {
+    if (JSON.stringify(left[index]) !== JSON.stringify(right[index])) {
+      differences.push({ index, left: left[index] ?? null, right: right[index] ?? null });
+      if (differences.length === 8) break;
+    }
+  }
+  return differences;
 }
 
 async function comparePngPixels(page, left, right) {
@@ -152,6 +195,7 @@ test("game browser building choice: Bulwark Needle deploys and defends through t
     const context = await browser.newContext({ deviceScaleFactor: 1,
       viewport: { height: 1_280, width: 720 } });
     await context.addInitScript(() => {
+      window.__nativePaintFrame = window.requestAnimationFrame.bind(window);
       let nextFrame = 1;
       const pending = new Map();
       window.requestAnimationFrame = (callback) => {
@@ -384,6 +428,7 @@ test("game browser building choice: Bulwark Needle deploys and defends through t
     await page.screenshot({ path: `${ARTIFACTS}bulwark-defensive-combat.png` });
 
     const checkpoint = await renderedState(page);
+    const checkpointPaintState = await renderedPaintState(page);
     const artBounds = await page.locator(
       '.combat-marker[data-kind="bulwark-needle"]',
     ).boundingBox();
@@ -395,8 +440,12 @@ test("game browser building choice: Bulwark Needle deploys and defends through t
       y: Math.max(0, Math.floor(artBounds.y - 10)),
     };
     const hash = (bytes) => createHash("sha256").update(bytes).digest("hex");
+    await settleBrowserPaint(page);
     const checkpointPng = await page.screenshot({
       path: `${ARTIFACTS}bulwark-restore-checkpoint.png`,
+    });
+    const checkpointRepeatPng = await page.screenshot({
+      path: `${ARTIFACTS}bulwark-restore-checkpoint-repeat.png`,
     });
     const checkpointArtPng = await page.screenshot({
       clip: artClip,
@@ -424,8 +473,9 @@ test("game browser building choice: Bulwark Needle deploys and defends through t
     const forwardPng = await page.screenshot();
     await page.evaluate((bytes) => globalThis.__bulwarkChoiceController.restore(bytes),
       checkpoint.browserBytes);
-    await page.waitForTimeout(32);
+    await settleBrowserPaint(page);
     const restored = await renderedState(page);
+    const restoredPaintState = await renderedPaintState(page);
     const restoredArtPng = await page.screenshot({
       clip: artClip,
       path: `${ARTIFACTS}bulwark-art-after-restore.png`,
@@ -457,9 +507,6 @@ test("game browser building choice: Bulwark Needle deploys and defends through t
     const bulwarkArtPixelExact = hash(restoredArtPng) === hash(checkpointArtPng);
     const viewportRaster = await comparePngPixels(page, checkpointPng, restoredPng);
     const bulwarkArtRaster = await comparePngPixels(page, checkpointArtPng, restoredArtPng);
-    assert.ok(viewportRaster.maxChannelDelta <= 8 &&
-      viewportRaster.meanChannelDelta < 0.2 && viewportRaster.pixelsOver8 === 0,
-    `restored viewport differs only within Chrome raster noise: ${JSON.stringify(viewportRaster)}`);
     assert.ok(bulwarkArtRaster.maxChannelDelta <= 4 &&
       bulwarkArtRaster.meanChannelDelta < 0.5 && bulwarkArtRaster.pixelsOver8 === 0,
     `Bulwark art crop is visually unchanged: ${JSON.stringify(bulwarkArtRaster)}`);
@@ -535,12 +582,15 @@ test("game browser building choice: Bulwark Needle deploys and defends through t
       questionCount: opening.battleSetup.questions.length,
       restore: {
         browserBytesExact: restored.browserBytes === checkpoint.browserBytes,
+        checkpointCapturePixelExact: hash(checkpointRepeatPng) === hash(checkpointPng),
+        paintStateDifferences: paintStateDifferences(checkpointPaintState, restoredPaintState),
         combatDomExact: restored.combatHtml === checkpoint.combatHtml,
         hudExact: JSON.stringify(restored.hand) === JSON.stringify(checkpoint.hand),
         inputExact: JSON.stringify(restored.inputSlots) === JSON.stringify(checkpoint.inputSlots),
         bulwarkArtPixelExact,
         bulwarkArtRaster,
         pixels: hash(checkpointPng),
+        pixelsRepeatAtCheckpoint: hash(checkpointRepeatPng),
         pixelsAfterRestore: hash(restoredPng),
         viewportRaster,
         viewportPixelExact,
@@ -558,6 +608,10 @@ test("game browser building choice: Bulwark Needle deploys and defends through t
       terminalResult: terminal.result,
       terminalTick: terminal.sessionTick,
     };
+    assert.equal(hash(restoredPng), hash(checkpointPng),
+      `restored full viewport must be pixel-identical: ${JSON.stringify({
+        checkpoint: hash(checkpointPng), restored: hash(restoredPng), viewportRaster,
+      })}`);
     assert.deepEqual(consoleErrors, []);
     assert.deepEqual(pageErrors, []);
   } finally {
