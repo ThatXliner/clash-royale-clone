@@ -1,5 +1,32 @@
 # Gauntlet Rounds
 
+## Round 345 — 2026-09-24
+
+PIECE: UI-001AP — Reconcile arena source-byte pins after policy UI and compositor changes, round 1
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- ui-arena-shell visual-arena-art` completed with actual
+TAP summaries of 7/7 and 6/6 (13/13 total, zero failures). Independently
+hashed `getArenaShellMarkup()` and `src/ui/arena-shell.css`: markup
+`51dd05f9eea755f24e9db13e676e681fce67e189a6327e209310aa14ff17a680`, CSS
+`913e4ac772c5d481cabb74e944e892b2fc12b738cb755caa92c4b08425d94802`; both
+hashes occur in each selector, covering all four updated pins. Diff from the
+prior art baseline through the audited source head contains only four shell
+source commits: deck chooser markup/styles, its third-column layout, the
+restore compositor `translateZ(0)`, and the hidden QUESTION status notice.
+The real 720×1280 Chrome probe rendered west/east bridges at
+(165,558,60×60)/(495,558,60×60), north tower pads at
+(300,138,120×120), (150,288,90×90), and (480,288,90×90), and south pads at
+(300,918,120×120), (150,798,90×90), and (480,798,90×90). All six towers
+generated twelve visible pseudo-art layers; the combat marker stacked at
+z=20 above tower pads z=5 and river z=2. Provenance checks kept the shell
+art locally authored with no external/reference assets, and the shipped
+asset manifest matched every file.
+
+BIGGEST GAP: None on the pin-reconciliation dimension; bridge and tower
+footprints remain low-medium coordinate estimates as marked in `SOURCES.md`.
+
 ## Round 344 — 2026-09-24
 
 PIECE: GAME-001HB — Unified-session building roster mechanics, round 3
