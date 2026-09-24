@@ -28,8 +28,8 @@
   <div class="cards">
     <div class="card"><div class="num">180</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">141</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">334</div><div class="label">completed rounds</div></div>
-    <div class="card"><div class="num">24</div><div class="label">open questions</div></div>
+    <div class="card"><div class="num">335</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">25</div><div class="label">open questions</div></div>
   </div>
   <p class="note">Latest review: <strong>GAME-001HUIB — In-app defensive-building witness, round 5 — FAIL</strong>. Full game completion remains unproven.</p>
   <h2>Every piece</h2>
@@ -1408,10 +1408,10 @@
       <tr>
         <td><code>GAME-001HUIB</code></td>
         <td>In-app defensive-building witness</td>
-        <td class="state-fail">FAIL</td>
+        <td class="state-question">QUESTION</td>
         <td>26/26</td>
         <td>5</td>
-        <td>Round 5 preserves and rejects stripped/forged profile receipts, carries QUESTION through GameSession, live structures, and browser restore, keeps Standard exact, and restores the full 720×1280 viewport with 0 changed pixels. The live session still runs `firstHitTicks=0` against a source `null` and performs six attacks using unverified Cannon damage 212, HP 824, deploy 60 ticks, range 5,500, and ground targeting; a QUESTION label does not source those mechanics.</td>
+        <td>Round 5 preserves and rejects stripped/forged profile receipts, carries the QUESTION policy through GameSession/live structures and browser restore, keeps Standard exact, and restores the full 720×1280 viewport with 0 changed pixels. However, the live session still executes `firstHitTicks=0` against a source `null` and performs six attacks using unverified Cannon damage 212, HP 824, deploy 60 ticks, range 5,500, and ground targeting; labeling those estimates QUESTION does not meet the no-unsourced-policy bar. Source audit: reference/research/cannon-combat-source-audit.md confirms the cutoff datamine but no established first-hit semantics or same-cutoff corroboration; retain provisional labeling and do not claim parity.</td>
       </tr>
       <tr>
         <td><code>GAME-001HUIF</code></td>
@@ -1482,7 +1482,7 @@
   </div>
   <h2>Round trajectory</h2>
   <ol>
-      <li><strong>R342 FAIL</strong> · GAME-001HUIB — In-app defensive-building witness, round 5<br>Bulwark still executes `firstHitTicks=0` against a source `null` and makes six live attacks with unverified Cannon damage, HP, deploy, range, and target policy; the visible QUESTION notice does not source those mechanics.</li>
+      <li><strong>R342 FAIL</strong> · GAME-001HUIB — In-app defensive-building witness, round 5<br>Bulwark must not deploy into live combat with `firstHitTicks: 0` and unverified Cannon-derived damage, HP, deploy, range, and target values; a visible QUESTION label does not source those mechanics.</li>
       <li><strong>R341 FAIL</strong> · GAME-001HUIB — In-app defensive-building witness, round 4<br>Preserve the Bulwark building profile's QUESTION status through GameSession or withhold its first-hit and low-confidence combat estimates; the current session executes `firstHitTicks: 0` although the reference first-hit value is null.</li>
       <li><strong>R340 PASS</strong> · VIS-003H — Exact browser frame restore boundary, round 1<br>None on the exact restore dimension; historical screenshot parity remains unmeasured and belongs to VIS-001/VIS-002.</li>
       <li><strong>R339 PASS</strong> · GAME-001HUIF — Keyboard-complete pre-match deck chooser, round 1<br>None on the judged dimension.</li>
