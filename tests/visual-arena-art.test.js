@@ -147,10 +147,10 @@ test("visual arena art: rendered landmarks keep the exact gameplay geometry mapp
 test("visual arena art: pinned shell primitives are untouched and art stays inside provenance rules", () => {
   assert.equal(
     sha256(Buffer.from(getArenaShellMarkup())),
-    "5d485980dea84b7710c3aa8a886b50a581a6b22af1e3920f6c043dc44d7a9b47",
+    "51dd05f9eea755f24e9db13e676e681fce67e189a6327e209310aa14ff17a680",
   );
   assert.equal(sha256(css),
-    "19c2bac9efb0a48fe1d218bb533353b44e081bccd6fe51526d7657cda8125b71");
+    "913e4ac772c5d481cabb74e944e892b2fc12b738cb755caa92c4b08425d94802");
   assert.doesNotMatch(html, /(?:https?:|blob:|url\s*\(|reference\/)/i);
   assert.doesNotMatch(html, /\.(?:png|jpe?g|gif|webp|avif|svg|mp[34]|wav|ogg)\b/i);
   assert.match(html, /src="\.\.\/src\/ui\/arena-shell-entry\.js"/);

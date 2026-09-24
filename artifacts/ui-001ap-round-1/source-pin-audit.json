@@ -1,0 +1,156 @@
+{
+  "piece": "UI-001AP",
+  "testedAtHead": "85768ee6d6f6cc3e042a50e916ddf52641d70d9a",
+  "scope": "Reconcile the arena shell markup and CSS source-byte pins after reviewed deck-choice, compositor, and policy-banner changes.",
+  "sourceAudit": {
+    "current": {
+      "markupSha256": "51dd05f9eea755f24e9db13e676e681fce67e189a6327e209310aa14ff17a680",
+      "cssSha256": "913e4ac772c5d481cabb74e944e892b2fc12b738cb755caa92c4b08425d94802"
+    },
+    "previousPinBaselines": [
+      {
+        "test": "tests/ui-arena-shell.test.js",
+        "commit": "c8371493b1837e265748fc4a960b82e96cbd7b04",
+        "markupSha256": "f71355ec2599ce58ec86b8daae391809f13ae40d33fa256a5af675baac215df8",
+        "cssSha256": "9414b241c2e6e15d6c90e896ed9dda24b4273d9e77b3454ec2523d3b2315cd8f"
+      },
+      {
+        "test": "tests/visual-arena-art.test.js",
+        "commit": "8c4fa61c392d1b5915bd66be4b60d45bee7b3b9a",
+        "markupSha256": "5d485980dea84b7710c3aa8a886b50a581a6b22af1e3920f6c043dc44d7a9b47",
+        "cssSha256": "19c2bac9efb0a48fe1d218bb533353b44e081bccd6fe51526d7657cda8125b71"
+      }
+    ],
+    "reviewedChanges": [
+      {
+        "commit": "55c433c4191ae8bab11c24f82136c5936c62497a",
+        "change": "Added the supported-deck chooser markup and styles for Standard and Stonehauler."
+      },
+      {
+        "commit": "c8371493b1837e265748fc4a960b82e96cbd7b04",
+        "change": "Added the Bulwark Needle deck option and expanded the deck grid to three columns."
+      },
+      {
+        "commit": "1e5f6bd546b4029504e692f5f28e10d5d21cbfee",
+        "change": "Added translateZ(0) to .game-browser-layer for exact browser restore-frame composition."
+      },
+      {
+        "commit": "eb57e2efd4c061cd07272db6524d2fac3d0196a5",
+        "change": "Added the combat QUESTION label and hidden policy-status aside in markup, plus .combat-policy-question presentation rules."
+      }
+    ],
+    "unreviewedArenaShellChanges": [],
+    "newPins": {
+      "tests/ui-arena-shell.test.js": {
+        "markupSha256": "51dd05f9eea755f24e9db13e676e681fce67e189a6327e209310aa14ff17a680",
+        "cssSha256": "913e4ac772c5d481cabb74e944e892b2fc12b738cb755caa92c4b08425d94802"
+      },
+      "tests/visual-arena-art.test.js": {
+        "markupSha256": "51dd05f9eea755f24e9db13e676e681fce67e189a6327e209310aa14ff17a680",
+        "cssSha256": "913e4ac772c5d481cabb74e944e892b2fc12b738cb755caa92c4b08425d94802"
+      }
+    }
+  },
+  "verification": {
+    "command": "npm test -- ui-arena-shell visual-arena-art",
+    "exitCode": 0,
+    "testGroups": {
+      "ui-arena-shell": {
+        "passed": 7,
+        "failed": 0
+      },
+      "visual-arena-art": {
+        "passed": 6,
+        "failed": 0
+      }
+    },
+    "browser": {
+      "engine": "Chrome via Playwright",
+      "viewport": {
+        "width": 720,
+        "height": 1280
+      },
+      "consoleErrors": 0,
+      "unhandledPageErrors": 0,
+      "landmarks": {
+        "bridge-west": {
+          "x": 165,
+          "y": 558,
+          "width": 60,
+          "height": 60
+        },
+        "bridge-east": {
+          "x": 495,
+          "y": 558,
+          "width": 60,
+          "height": 60
+        },
+        "tower-south-central": {
+          "x": 300,
+          "y": 918,
+          "width": 120,
+          "height": 120
+        },
+        "tower-south-lane-west": {
+          "x": 150,
+          "y": 798,
+          "width": 90,
+          "height": 90
+        },
+        "tower-south-lane-east": {
+          "x": 480,
+          "y": 798,
+          "width": 90,
+          "height": 90
+        },
+        "tower-north-central": {
+          "x": 300,
+          "y": 138,
+          "width": 120,
+          "height": 120
+        },
+        "tower-north-lane-west": {
+          "x": 150,
+          "y": 288,
+          "width": 90,
+          "height": 90
+        },
+        "tower-north-lane-east": {
+          "x": 480,
+          "y": 288,
+          "width": 90,
+          "height": 90
+        }
+      },
+      "combatProbe": {
+        "markerZ": 20,
+        "towerPadZ": 5,
+        "riverZ": 2,
+        "markerBox": {
+          "height": 33.46875,
+          "width": 33.46875,
+          "x": 118.265625,
+          "y": 664.265625
+        },
+        "x": 1500,
+        "y": 19100
+      },
+      "towerArtLayers": {
+        "towers": 6,
+        "visiblePseudoLayers": 12
+      },
+      "screenshots": {
+        "initial.png": {
+          "sha256": "be4fd45ba9c8cdd4e4e77906a50e6e99f85038c2baccc04509c9a1bdf3941e93",
+          "width": 720,
+          "height": 1280
+        },
+        "mid-combat.png": {
+          "sha256": "4f8fd15cf63ea4521291442eb4298132a128e158709251c4c909aa3ace233094",
+          "width": 720,
+          "height": 1280
+        }
+      }
+    }
+  }
+}

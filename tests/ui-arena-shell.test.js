@@ -113,11 +113,11 @@ test("ui arena shell: canonical markup and source bytes are stable", () => {
   assert.equal(first, second);
   assert.equal(
     createHash("sha256").update(first).digest("hex"),
-    "f71355ec2599ce58ec86b8daae391809f13ae40d33fa256a5af675baac215df8",
+    "51dd05f9eea755f24e9db13e676e681fce67e189a6327e209310aa14ff17a680",
   );
   assert.equal(
     createHash("sha256").update(css).digest("hex"),
-    "9414b241c2e6e15d6c90e896ed9dda24b4273d9e77b3454ec2523d3b2315cd8f",
+    "913e4ac772c5d481cabb74e944e892b2fc12b738cb755caa92c4b08425d94802",
   );
 });
 
