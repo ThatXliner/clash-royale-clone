@@ -240,6 +240,7 @@ body {
 
 .game-browser-layer {
   pointer-events: none;
+  transform: translateZ(0);
 }
 
 .game-browser-layer--combat,
