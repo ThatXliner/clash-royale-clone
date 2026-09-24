@@ -1,5 +1,33 @@
 # Gauntlet Rounds
 
+## Round 343 — 2026-09-24
+
+PIECE: GAME-001HBP — Nondefensive building policy provenance, round 1
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- game-building-policy` passed all 3/3 focused tests;
+`npm test -- game-roster-buildings` passed 10/10 shared-session tests. A direct
+projection/receipt/live-structure probe showed Aether Well's generation amount
+1, cadence 510, and lifetime 4,200; Burrow Rig's travel speed 1,500,
+emergence delay 12, and lifetime 1,800; and Cinder Reliquary's death damage
+200, radius 2,000, and tower modifier 35% all remain
+`authoritative:false` / `disposition:"question"` in live structures. The source
+catalog policy records are byte-equivalent to the projected profiles. An
+independent admission probe rejected 45/45 attacks across all nine fields:
+stripped field, forged authoritative flag, contradictory policy value,
+omitted policy, and contradictory executed value. The focused suite also
+proved direct one-step, chunked, and restored sessions have identical
+serialized bytes, replay bytes, and state, while the seed-zero standard deck
+stays exact. Cinder's source card attack remains 160; its separate death
+damage is 200 QUESTION, and the provisional 35% tower modifier yields 70
+QUESTION tower damage. `SOURCES.md` places death damage and crown-tower
+multipliers outside the common schema, and no field was promoted to
+source-backed status.
+
+BIGGEST GAP: None on the judged dimension; the resource, travel, and death
+effects remain explicitly QUESTION-provisional.
+
 ## Round 342 — 2026-09-23
 
 PIECE: GAME-001HUIB — In-app defensive-building witness, round 5
