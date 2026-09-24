@@ -17,6 +17,7 @@ import {
   createDefensiveBuildingCorpusRecords,
   createDefensiveBuildingFixture,
   createDefensiveBuildingQuestionRecords,
+  createDefensiveBuildingRuntimeProfiles,
 } from "../src/content/cards/buildings-defensive.js";
 
 const ORIGIN = Object.freeze({ x: 9000, y: 12000 });
@@ -108,14 +109,43 @@ test("buildings defensive: original catalog preserves the five corpus stat shape
 
 test("buildings defensive: corpus confidence is conservative and isolated", () => {
   const records = createDefensiveBuildingCorpusRecords();
+  assert.deepEqual(
+    [records["bulwark-needle"].cost.authoritative,
+      records["bulwark-needle"].cost.confidence,
+      records["bulwark-needle"].cost.source],
+    [true, "high", "pinned-pre-march-2023-card-roster-identity"],
+  );
   assert.equal(records["bulwark-needle"].hitSpeedTicks.authoritative, true);
   assert.equal(records["bulwark-needle"].hitSpeedTicks.confidence, "high");
+  assert.deepEqual(
+    [records["bulwark-needle"].firstHitTicks.authoritative,
+      records["bulwark-needle"].firstHitTicks.confidence,
+      records["bulwark-needle"].firstHitTicks.value],
+    [false, "unverified", null],
+  );
   assert.equal(records["ember-basin"].damage.authoritative, false);
   assert.equal(records["ember-basin"].damage.confidence, "unverified");
   assert.ok(Object.isFrozen(records["prism-furnace"]));
   const second = createDefensiveBuildingCorpusRecords();
   assert.notEqual(records, second);
   assert.notEqual(records["bulwark-needle"], second["bulwark-needle"]);
+});
+
+test("buildings defensive: runtime policy keeps exact corpus provenance beside estimates", () => {
+  const profiles = createDefensiveBuildingRuntimeProfiles();
+  const bulwark = profiles["bulwark-needle"];
+  assert.equal(bulwark.firstHitTicks, 0, "the fixture's active value remains explicit as an estimate");
+  assert.deepEqual(bulwark.policy, {
+    confidence: "unverified",
+    corpusFields: createDefensiveBuildingCorpusRecords()["bulwark-needle"],
+    disposition: "question",
+    source: "pre-evolutions-building-corpus-and-unsourced-policy-fixture",
+  });
+  assert.equal(bulwark.policy.corpusFields.firstHitTicks.value, null,
+    "the source's missing timing value is not overwritten by the active estimate");
+  assert.equal(bulwark.policy.corpusFields.damage.authoritative, false);
+  assert.equal(bulwark.policy.corpusFields.hitSpeedTicks.authoritative, true);
+  assert.ok(Object.isFrozen(bulwark.policy) && Object.isFrozen(bulwark.policy.corpusFields));
 });
 
 test("buildings defensive: every absent policy is a separate fresh frozen QUESTION", () => {

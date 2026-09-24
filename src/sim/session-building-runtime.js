@@ -202,6 +202,7 @@ export function createSessionBuildingCatalog(...args) {
   return freeze({
     admitted: SESSION_BUILDING_ADMITTED_IDS.map((id) => ({
       id, kind: "structure", mechanics: CLASS_BY_ID[id],
+      ...(CLASS_BY_ID[id] === "defensive" ? { policyDisposition: "question" } : {}),
     })),
     question: SESSION_BUILDING_QUESTION_IDS.map((id) => ({
       id,
@@ -220,13 +221,54 @@ function profileInteger(value, key, label, minimum = 0, maximum = MAX_DAMAGE) {
   return integer(value[key], minimum, maximum, `${label}.${key}`);
 }
 
+const DEFENSIVE_CORPUS_FIELDS = Object.freeze([
+  "cost", "damage", "deployTicks", "firstHitTicks", "hitSpeedTicks",
+  "hitpoints", "maxRange", "mode", "sightRange",
+]);
+
+function checkedDefensiveQuestionPolicy(value, cardId, label) {
+  const policy = exact(value, ["confidence", "corpusFields", "disposition", "source"], label);
+  if (policy.confidence !== "unverified" || policy.disposition !== "question" ||
+      policy.source !== "pre-evolutions-building-corpus-and-unsourced-policy-fixture") {
+    throw new TypeError(`${label} must retain its QUESTION disposition`);
+  }
+  const corpus = exact(policy.corpusFields, DEFENSIVE_CORPUS_FIELDS, `${label}.corpusFields`);
+  const corpusFields = {};
+  for (const key of DEFENSIVE_CORPUS_FIELDS) {
+    const record = exact(corpus[key], ["authoritative", "confidence", "source", "value"],
+      `${label}.corpusFields.${key}`);
+    const authoritative = key === "cost" || cardId === "bulwark-needle" && key === "hitSpeedTicks";
+    const source = key === "cost"
+      ? "pinned-pre-march-2023-card-roster-identity"
+      : "pinned-pre-march-2023-building-constants";
+    if (record.authoritative !== authoritative ||
+        record.confidence !== (authoritative ? "high" : "unverified") || record.source !== source ||
+        !(record.value === null || typeof record.value === "string" ||
+          Number.isSafeInteger(record.value))) {
+      throw new TypeError(`${label}.corpusFields.${key} has invalid provenance`);
+    }
+    corpusFields[key] = {
+      authoritative,
+      confidence: authoritative ? "high" : "unverified",
+      source,
+      value: record.value,
+    };
+  }
+  return {
+    confidence: "unverified",
+    corpusFields,
+    disposition: "question",
+    source: policy.source,
+  };
+}
+
 function checkedProfile(value, cardId) {
   const expectedClass = CLASS_BY_ID[cardId];
   const label = `session building profile ${cardId}`;
   if (expectedClass === "defensive") {
     const profile = exact(value, ["areaDamageRadiusMillitiles", "class", "damage", "deployTicks",
       "firstHitTicks", "hitSpeedTicks", "hitpoints", "lifetimeTicks", "maxRangeMillitiles",
-      "minRangeMillitiles", "rampStages", "rampThresholds", "targetMode", "variant"], label);
+      "minRangeMillitiles", "policy", "rampStages", "rampThresholds", "targetMode", "variant"], label);
     if (profile.class !== expectedClass || !["air_and_ground", "ground"].includes(profile.targetMode) ||
         !["hidden", "plain", "ramp", "siege", "splash"].includes(profile.variant) ||
         (profile.areaDamageRadiusMillitiles !== null &&
@@ -246,6 +288,7 @@ function checkedProfile(value, cardId) {
       lifetimeTicks: profileInteger(profile, "lifetimeTicks", label, 1, MAX_TICK),
       maxRangeMillitiles: profileInteger(profile, "maxRangeMillitiles", label, 0, MAX_POSITION),
       minRangeMillitiles: profileInteger(profile, "minRangeMillitiles", label, 0, MAX_POSITION),
+      policy: checkedDefensiveQuestionPolicy(profile.policy, cardId, `${label}.policy`),
       rampStages: dense(profile.rampStages, 8, `${label}.rampStages`).map((stage, index) =>
         integer(stage, 1, MAX_DAMAGE, `${label}.rampStages[${index}]`)),
       rampThresholds: dense(profile.rampThresholds, 8, `${label}.rampThresholds`).map((threshold, index) =>
@@ -380,6 +423,7 @@ function materializeSessionBuildingStructure(receiptText, profiles) {
       firstHitTicks: profile.firstHitTicks, hitSpeedTicks: profile.hitSpeedTicks }).serialize();
     structure.consecutiveHits = 0;
     structure.hidden = profile.variant === "hidden";
+    structure.policy = clone(profile.policy);
     structure.targetKey = null;
     structure.targetable = !structure.hidden;
   } else if (profile.class === "resource") {
@@ -445,7 +489,7 @@ function checkedStructure(value, index, profiles) {
   const common = ["alive", "cardId", "class", "deathCause", "deathTriggered", "hitpoints", "id",
     "maxHitpoints", "placedTick", "position", "side", "targetable"];
   const extra = profile.class === "defensive"
-    ? ["attackCycle", "consecutiveHits", "hidden", "targetKey"]
+    ? ["attackCycle", "consecutiveHits", "hidden", "policy", "targetKey"]
     : profile.class === "resource"
       ? ["deployed"]
       : profile.class === "travel"
@@ -475,6 +519,9 @@ function checkedStructure(value, index, profiles) {
         (raw.targetKey !== null && typeof raw.targetKey !== "string") ||
         raw.targetable !== (raw.alive && !raw.hidden)) {
       throw new TypeError(`${label} defensive state is invalid`);
+    }
+    if (canonical(raw.policy) !== canonical(profile.policy)) {
+      throw new TypeError(`${label} defensive policy provenance diverges`);
     }
     // This validates its nested graph and phase invariants before the reducer
     // can call step() on it.  Re-serialization rejects alternate JSON spellings.

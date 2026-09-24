@@ -159,6 +159,25 @@ function inputCardsForSession(session, cache) {
   return cards;
 }
 
+function buildingPolicyQuestion(session) {
+  const setup = JSON.parse(session.serialize()).setup;
+  const battleSetup = JSON.parse(setup.battleSetup);
+  const card = battleSetup.roster.find(({ buildingRuntime }) =>
+    buildingRuntime?.class === "defensive" &&
+    buildingRuntime.policy?.disposition === "question");
+  if (card === undefined) return null;
+  const fields = card.buildingRuntime.policy.corpusFields;
+  const unverifiedFields = Object.entries(fields)
+    .filter(([, record]) => record.authoritative !== true)
+    .map(([field]) => field);
+  return {
+    cardId: card.id,
+    text: `${card.displayName} combat: QUESTION. First-hit timing is ${fields.firstHitTicks.value === null
+      ? "absent" : "unverified"}; damage, HP, deploy, range and target fields are unverified.`,
+    unverifiedFields,
+  };
+}
+
 function inputSystems(session, cards, cache) {
   const state = session.state;
   const continued = cache.get(session);
@@ -437,6 +456,18 @@ export function mountShippedGameBrowser(
         audioRuntime.setMuted(policy.muted);
       }
       const shell = mountArenaShell(root);
+      const questionNotice = shell.querySelector('[data-ui="policy-question"]');
+      const policyQuestion = buildingPolicyQuestion(authenticSession);
+      if (policyQuestion !== null) {
+        if (questionNotice === null) {
+          throw new TypeError("shipped browser lacks the defensive QUESTION notice");
+        }
+        questionNotice.hidden = false;
+        questionNotice.dataset.cardId = policyQuestion.cardId;
+        questionNotice.dataset.disposition = "question";
+        questionNotice.dataset.unverifiedFields = policyQuestion.unverifiedFields.join(",");
+        questionNotice.textContent = policyQuestion.text;
+      }
       const deckChoiceInertState = deckChoiceEnabled
         ? Array.from(shell.children, (node) => [node, node.inert]) : [];
       const deckChoiceOpenButton = deckChoiceEnabled

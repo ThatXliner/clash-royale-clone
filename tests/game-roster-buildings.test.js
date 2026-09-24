@@ -229,6 +229,13 @@ test("game roster buildings: every admitted identity uses exactly one kind-corre
       `${cardId}: structure never becomes a placeholder troop`);
     assert.equal(after.battle.structures[0].class, BUILDING_CLASS_BY_ID[cardId],
       `${cardId}: exact receipt-pinned reducer class reaches the shared LiveBattle host`);
+    const buildingRuntime = projectSessionNonUnitBattleCard(cardId).buildingRuntime;
+    if (buildingRuntime?.class === "defensive") {
+      assert.equal(buildingRuntime.policy.disposition, "question",
+        `${cardId}: combat remains explicitly provisional`);
+      assert.deepEqual(after.battle.structures[0].policy, buildingRuntime.policy,
+        `${cardId}: exact corpus provenance reaches live shared structure state`);
+    }
     assert.equal(commits[0].materialization.structureId, 1, `${cardId}: shared allocator receipt`);
   }
 });
@@ -245,7 +252,7 @@ test("game roster buildings: identity-only spawner claims reject visibly and lea
   }
 });
 
-test("game roster buildings: defensive profiles reach their exact shared host attacks, concealment, ramp, and siege phases", () => {
+test("game roster buildings: defensive QUESTION estimates reach shared attacks, concealment, ramp, and siege phases", () => {
   const scenarios = [
     ["bulwark-needle", 60, 212, true],
     ["buried-coil", 102, 230, true],

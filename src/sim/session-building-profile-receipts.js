@@ -18,6 +18,50 @@ const RECEIPTS = Object.freeze({
   "prism-furnace": "{\"areaDamageRadiusMillitiles\":null,\"class\":\"defensive\",\"damage\":42,\"deployTicks\":60,\"firstHitTicks\":72,\"hitSpeedTicks\":24,\"hitpoints\":1749,\"lifetimeTicks\":1800,\"maxRangeMillitiles\":6000,\"minRangeMillitiles\":0,\"rampStages\":[42,84,168],\"rampThresholds\":[0,2,4],\"targetMode\":\"air_and_ground\",\"variant\":\"ramp\"}",
 });
 
+const DEFENSIVE_CARD_IDS = new Set([
+  "bulwark-needle", "buried-coil", "ember-basin", "horizon-caster", "prism-furnace",
+]);
+const CORPUS_FIELDS = Object.freeze([
+  "cost", "damage", "deployTicks", "firstHitTicks", "hitSpeedTicks",
+  "hitpoints", "maxRange", "mode", "sightRange",
+]);
+const CORPUS_VALUES = Object.freeze({
+  "bulwark-needle": Object.freeze([3, 212, 60, null, 54, 824, 5500, "ground", 5500]),
+  "buried-coil": Object.freeze([4, 230, 60, 42, 72, 1152, 5500, "air_and_ground", 5500]),
+  "ember-basin": Object.freeze([4, 222, 60, 66, 96, 1356, 6000, "ground", 6000]),
+  "horizon-caster": Object.freeze([4, 266, 210, 240, 300, 1369, 11500, "ground", 11500]),
+  "prism-furnace": Object.freeze([5, 42, 60, 72, 24, 1749, 6000, "air_and_ground", 6000]),
+});
+const BUILDING_POLICY_SOURCE = "pre-evolutions-building-corpus-and-unsourced-policy-fixture";
+const BUILDING_CORPUS_SOURCE = "pinned-pre-march-2023-building-constants";
+const CARD_IDENTITY_SOURCE = "pinned-pre-march-2023-card-roster-identity";
+
+function canonical(value) {
+  if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
+  if (value !== null && typeof value === "object") return `{${Object.keys(value).sort()
+    .map((key) => `${JSON.stringify(key)}:${canonical(value[key])}`).join(",")}}`;
+  return JSON.stringify(value);
+}
+
+function defensivePolicy(cardId) {
+  const values = CORPUS_VALUES[cardId];
+  const corpusFields = Object.fromEntries(CORPUS_FIELDS.map((field, index) => {
+    const authoritative = field === "cost" || cardId === "bulwark-needle" && field === "hitSpeedTicks";
+    return [field, {
+      authoritative,
+      confidence: authoritative ? "high" : "unverified",
+      source: field === "cost" ? CARD_IDENTITY_SOURCE : BUILDING_CORPUS_SOURCE,
+      value: values[index],
+    }];
+  }));
+  return {
+    confidence: "unverified",
+    corpusFields,
+    disposition: "question",
+    source: BUILDING_POLICY_SOURCE,
+  };
+}
+
 /**
  * Accepts only the exact canonical JSON receipt associated with `cardId`.
  * The receipt is always derived by a safe local serializer after the caller's
@@ -27,7 +71,27 @@ const RECEIPTS = Object.freeze({
  */
 export function assertSessionBuildingProfileReceipt(cardId, receipt, label = "building runtime profile") {
   if (typeof cardId !== "string" || typeof receipt !== "string" ||
-      !Object.hasOwn(RECEIPTS, cardId) || receipt !== RECEIPTS[cardId]) {
+      !Object.hasOwn(RECEIPTS, cardId)) {
+    throw new TypeError(`${label} diverges from its canonical session-card receipt`);
+  }
+  if (DEFENSIVE_CARD_IDS.has(cardId)) {
+    let profile;
+    try { profile = JSON.parse(receipt); } catch {
+      throw new TypeError(`${label} diverges from its canonical session-card receipt`);
+    }
+    const policy = profile?.policy;
+    if (profile === null || Array.isArray(profile) || typeof profile !== "object" ||
+        !Object.hasOwn(profile, "policy") || canonical(profile) !== receipt) {
+      throw new TypeError(`${label} diverges from its canonical session-card receipt`);
+    }
+    delete profile.policy;
+    if (canonical(profile) !== RECEIPTS[cardId] ||
+        canonical(policy) !== canonical(defensivePolicy(cardId))) {
+      throw new TypeError(`${label} diverges from its canonical session-card receipt`);
+    }
+    return;
+  }
+  if (receipt !== RECEIPTS[cardId]) {
     throw new TypeError(`${label} diverges from its canonical session-card receipt`);
   }
 }

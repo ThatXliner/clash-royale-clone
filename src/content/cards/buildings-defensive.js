@@ -792,6 +792,7 @@ export function createDefensiveBuildingRuntimeProfiles(...args) {
   if (args.length !== 0) {
     throw new TypeError("defensive building runtime profiles do not accept overrides");
   }
+  const corpusRecords = createDefensiveBuildingCorpusRecords();
   return deepFreeze(Object.fromEntries(Object.entries(ARCHETYPES).map(([id, value]) => [id, {
     areaDamageRadiusMillitiles: value.areaDamageRadiusMillitiles,
     damage: value.damage,
@@ -802,7 +803,12 @@ export function createDefensiveBuildingRuntimeProfiles(...args) {
     lifetimeTicks: value.lifetimeTicks,
     maxRangeMillitiles: value.maxRange,
     minRangeMillitiles: value.minRange,
-    policy: { disposition: "question", source: SOURCE },
+    policy: {
+      confidence: "unverified",
+      corpusFields: clone(corpusRecords[id]),
+      disposition: "question",
+      source: SOURCE,
+    },
     rampStages: clone(value.stages),
     rampThresholds: clone(value.thresholds),
     targetMode: value.mode,
@@ -816,11 +822,13 @@ export function createDefensiveBuildingCorpusRecords() {
     deepFreeze(Object.fromEntries(CORPUS_FIELDS.map((field) => [
       field,
       {
-        authoritative: id === "bulwark-needle" && field === "hitSpeedTicks",
-        confidence: id === "bulwark-needle" && field === "hitSpeedTicks"
+        authoritative: field === "cost" || id === "bulwark-needle" && field === "hitSpeedTicks",
+        confidence: field === "cost" || id === "bulwark-needle" && field === "hitSpeedTicks"
           ? "high"
           : "unverified",
-        source: "pinned-pre-march-2023-building-constants",
+        source: field === "cost"
+          ? "pinned-pre-march-2023-card-roster-identity"
+          : "pinned-pre-march-2023-building-constants",
         value: field === "firstHitTicks" && Object.hasOwn(value, "corpusFirstHitTicks")
           ? value.corpusFirstHitTicks
           : value[field],

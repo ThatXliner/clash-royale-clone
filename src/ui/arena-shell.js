@@ -35,12 +35,13 @@ const SHELL_MARKUP = `<main class="battle-shell" data-ui="arena-shell" aria-labe
           <strong>Stonehauler</strong><span>Replaces Cinderlings</span>
         </button>
         <button class="deck-choice__option" type="button" data-deck-choice="bulwark-needle" aria-pressed="false">
-          <strong>Bulwark Needle</strong><span>Replaces Cinderlings</span>
+          <strong>Bulwark Needle</strong><span>Replaces Cinderlings · combat QUESTION</span>
         </button>
       </div>
       <button class="deck-choice__start" type="button" data-ui="deck-start">Start match</button>
     </div>
   </section>
+  <aside class="combat-policy-question" data-ui="policy-question" role="status" aria-live="polite" hidden></aside>
   <button class="restart-control" type="button" data-ui="restart" hidden>Play again</button>
   <header class="match-rail match-rail--top" data-ui="opponent-hud">
     <span class="player-mark player-mark--ember" aria-hidden="true"></span>

@@ -112,6 +112,7 @@ function replaceAtPath(value, path, replacement) {
 
 function forgedLeafValue(value) {
   if (value === null) return 0;
+  if (typeof value === "boolean") return !value;
   if (typeof value === "number") return value + 1;
   if (typeof value === "string") return `${value}-forged`;
   throw new TypeError("profile leaves must be scalar data");
@@ -213,6 +214,9 @@ test("game building runtime: pure reducer has no independent session authority a
   assert.deepEqual(catalog.admitted.map(({ id }) => id), SESSION_BUILDING_ADMITTED_IDS);
   assert.deepEqual(catalog.question.map(({ id }) => id), SESSION_BUILDING_QUESTION_IDS);
   assert.ok(catalog.admitted.every(({ kind }) => kind === "structure"));
+  assert.ok(catalog.admitted.filter(({ mechanics }) => mechanics === "defensive")
+    .every(({ policyDisposition }) => policyDisposition === "question"),
+  "defensive identities stay admitted while their unverified combat policy remains explicit");
   assert.ok(catalog.question.every(({ reason, status }) => status === "question" &&
     reason === "identity-only admission missing kind/cost/deploy fields"));
   assert.deepEqual(emptyRuntime.reduceBoundary(canonical({ structures: [], tick: 0,
@@ -247,10 +251,65 @@ test("game building runtime: every fresh entry point accepts only exact catalog 
     const parsed = parseLiveBattleSetup(fixture.battleSetup);
     assert.deepEqual(profileFromFixture(fixture, cardId),
       projectSessionNonUnitBattleCard(cardId).buildingRuntime, `${cardId}: catalog receipt bytes`);
+    if (profileFromFixture(fixture, cardId).class === "defensive") {
+      const policy = profileFromFixture(fixture, cardId).policy;
+      assert.deepEqual(Object.keys(policy.corpusFields).sort(), [
+        "cost", "damage", "deployTicks", "firstHitTicks", "hitSpeedTicks",
+        "hitpoints", "maxRange", "mode", "sightRange",
+      ].sort(), `${cardId}: source field provenance is carried`);
+      assert.equal(policy.disposition, "question", `${cardId}: provisional combat stays QUESTION`);
+      assert.equal(policy.confidence, "unverified", `${cardId}: estimates are not promoted`);
+    }
     assert.doesNotThrow(() => new LiveBattle(fixture.battleSetup), `${cardId}: direct LiveBattle`);
     assert.doesNotThrow(() => new LiveBattle(parsed), `${cardId}: admitted LiveBattle`);
     assert.doesNotThrow(() => new GameSession(fixture.setup), `${cardId}: GameSession`);
   }
+});
+
+test("game building runtime: Bulwark provenance reaches the live structure and cannot be stripped", () => {
+  const fixture = freshProfileFixtures("bulwark-needle");
+  const projected = profileFromFixture(fixture, "bulwark-needle");
+  assert.equal(projected.firstHitTicks, 0, "runtime estimate remains explicit in the profile");
+  assert.deepEqual(projected.policy.corpusFields.firstHitTicks, {
+    authoritative: false,
+    confidence: "unverified",
+    source: "pinned-pre-march-2023-building-constants",
+    value: null,
+  }, "the source's missing first-hit value remains distinguishable from the estimate");
+  assert.deepEqual(projected.policy.corpusFields.hitSpeedTicks, {
+    authoritative: true,
+    confidence: "high",
+    source: "pinned-pre-march-2023-building-constants",
+    value: 54,
+  });
+  assert.deepEqual(projected.policy.corpusFields.cost, {
+    authoritative: true,
+    confidence: "high",
+    source: "pinned-pre-march-2023-card-roster-identity",
+    value: 3,
+  });
+
+  assertFreshProfileRejected(freshProfileFixtures("bulwark-needle", (profile) => {
+    delete profile.policy;
+  }), "bulwark QUESTION policy stripped");
+  assertFreshProfileRejected(freshProfileFixtures("bulwark-needle", (profile) => {
+    profile.policy.corpusFields.firstHitTicks.value = 0;
+  }), "bulwark source null forged as first-hit zero");
+  assertFreshProfileRejected(freshProfileFixtures("bulwark-needle", (profile) => {
+    profile.policy.corpusFields.damage.authoritative = true;
+  }), "bulwark estimate promoted to authoritative");
+
+  const session = new GameSession(fixture.setup);
+  const setupProfile = JSON.parse(JSON.parse(session.serialize()).setup.battleSetup)
+    .roster.find(({ id }) => id === "bulwark-needle").buildingRuntime;
+  assert.deepEqual(setupProfile.policy, projected.policy,
+    "GameSession setup preserves the exact catalog provenance receipt");
+  deploy(session, "bulwark-needle");
+  session.step();
+  const structure = session.state.battle.structures.find(({ cardId }) =>
+    cardId === "bulwark-needle");
+  assert.deepEqual(structure.policy, projected.policy,
+    "the live structure keeps QUESTION provenance beside its provisional combat state");
 });
 
 test("game building runtime: fresh admission pins every profile leaf, shape, and card identity", () => {

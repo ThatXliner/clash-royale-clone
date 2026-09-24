@@ -82,6 +82,16 @@ async function renderedState(page) {
       feedbackHtml: layer("feedback"),
       hand,
       inputSlots: slots,
+      questionNotice: (() => {
+        const node = document.querySelector('[data-ui="policy-question"]');
+        return node ? {
+          cardId: node.dataset.cardId ?? null,
+          disposition: node.dataset.disposition ?? null,
+          hidden: node.hidden,
+          text: node.textContent,
+          unverifiedFields: node.dataset.unverifiedFields ?? null,
+        } : null;
+      })(),
       focus: {
         cardId: document.activeElement?.dataset?.cardId ?? null,
         tag: document.activeElement?.tagName ?? null,
@@ -252,6 +262,9 @@ test("game browser building choice: Bulwark Needle deploys and defends through t
       const dialog = document.querySelector('[data-ui="deck-choice"]');
       const panel = dialog.querySelector(".deck-choice__panel").getBoundingClientRect();
       return {
+        bulwarkOptionDescription: document.querySelector(
+          '[data-deck-choice="bulwark-needle"] span',
+        ).textContent,
         modalDisplay: getComputedStyle(dialog).display,
         modalWidth: Math.round(dialog.getBoundingClientRect().width),
         panel: { height: Math.round(panel.height), width: Math.round(panel.width) },
@@ -264,6 +277,8 @@ test("game browser building choice: Bulwark Needle deploys and defends through t
     });
     assert.equal(dialogState.modalDisplay, "grid");
     assert.equal(dialogState.modalWidth, 720);
+    assert.match(dialogState.bulwarkOptionDescription, /combat QUESTION/u,
+      "the pre-match choice exposes the defensive policy status");
     assert.equal(dialogState.sessionBytes, seedZero.serialize());
     assert.equal(dialogState.sessionTick, 0);
     assert.equal(dialogState.running, false);
@@ -315,6 +330,16 @@ test("game browser building choice: Bulwark Needle deploys and defends through t
         sessionBytes: session.serialize(),
         sessionTick: session.state.tick,
         setup,
+        questionNotice: (() => {
+          const node = document.querySelector('[data-ui="policy-question"]');
+          return node ? {
+            cardId: node.dataset.cardId ?? null,
+            disposition: node.dataset.disposition ?? null,
+            hidden: node.hidden,
+            text: node.textContent,
+            unverifiedFields: node.dataset.unverifiedFields ?? null,
+          } : null;
+        })(),
       };
     });
     const expectedSetup = JSON.parse(expectedSession.serialize()).setup;
@@ -328,7 +353,7 @@ test("game browser building choice: Bulwark Needle deploys and defends through t
     assert.ok(!opening.setup.deck.includes("cinderlings"),
       "Bulwark Needle replaces Cinderlings in an eight-card deck");
     assert.deepEqual(bulwark, sourceCard,
-      "the chooser uses the admitted source-backed non-unit projection");
+      "the chooser preserves source identity and QUESTION-tagged combat provenance");
     assert.deepEqual(opening.battleSetup.roster, JSON.parse(expectedSetup.battleSetup).roster);
     assert.deepEqual(opening.hudHand, opening.hand,
       "HUD names and costs come from the selected GameSession roster");
@@ -336,6 +361,13 @@ test("game browser building choice: Bulwark Needle deploys and defends through t
       "physical input slots mirror the selected GameSession hand");
     assert.ok(opening.hand.some(({ id, cost, name }) =>
       id === "bulwark-needle" && cost === 3 && name === "Bulwark Needle"));
+    assert.deepEqual(opening.questionNotice, {
+      cardId: "bulwark-needle",
+      disposition: "question",
+      hidden: false,
+      text: "Bulwark Needle combat: QUESTION. First-hit timing is absent; damage, HP, deploy, range and target fields are unverified.",
+      unverifiedFields: "damage,deployTicks,firstHitTicks,hitpoints,maxRange,mode,sightRange",
+    }, "the running match visibly carries the source confidence boundary");
     await page.screenshot({ path: `${ARTIFACTS}bulwark-opening.png` });
 
     await click(page, '[data-ui="card-slot"][data-card-id="bulwark-needle"]');
@@ -364,6 +396,7 @@ test("game browser building choice: Bulwark Needle deploys and defends through t
           .map((node) => node.dataset.cardId),
         southElixir: state.elixir.sides.south.amount,
         structure,
+        structurePolicy: structure?.policy ?? null,
         structureMarkerCount: document.querySelectorAll(
           '.combat-marker[data-kind="bulwark-needle"]',
         ).length,
@@ -375,6 +408,8 @@ test("game browser building choice: Bulwark Needle deploys and defends through t
     assert.equal(deployed.southElixir, 7);
     assert.equal(deployed.structure.side, "south");
     assert.equal(deployed.structure.hitpoints, sourceCard.hitpoints);
+    assert.equal(deployed.structurePolicy.disposition, "question");
+    assert.equal(deployed.structurePolicy.corpusFields.firstHitTicks.value, null);
     assert.ok(deployed.event.materialization.point.y < 15_000,
       "the physical structure placement is on the south deployment side");
     assert.equal(deployed.unitCount, 0);
@@ -467,7 +502,7 @@ test("game browser building choice: Bulwark Needle deploys and defends through t
       };
     });
     assert.ok(forward.attackCount > 0,
-      "the sourced defensive reducer launches real Bulwark attacks");
+      "the QUESTION-tagged provisional reducer launches its Bulwark estimates");
     assert.ok(forward.hitpoints > 0 && forward.hitpoints < sourceCard.hitpoints,
       "the shared battle shows live damage to the structure");
     const forwardPng = await page.screenshot();
@@ -491,6 +526,8 @@ test("game browser building choice: Bulwark Needle deploys and defends through t
       "restore reproduces structure, target-link, and combat art DOM bytes");
     assert.equal(restored.effectsHtml, checkpoint.effectsHtml);
     assert.equal(restored.feedbackHtml, checkpoint.feedbackHtml);
+    assert.deepEqual(restored.questionNotice, checkpoint.questionNotice,
+      "restore keeps the visible building QUESTION notice and source fields");
     assert.deepEqual(restored.hand, checkpoint.hand,
       "restore returns the HUD cards to the exact source-backed state");
     assert.deepEqual(restored.inputSlots, checkpoint.inputSlots,
@@ -580,6 +617,7 @@ test("game browser building choice: Bulwark Needle deploys and defends through t
       inputSlots: opening.inputSlots,
       placement: deployed.event.materialization.point,
       questionCount: opening.battleSetup.questions.length,
+      questionNotice: opening.questionNotice,
       restore: {
         browserBytesExact: restored.browserBytes === checkpoint.browserBytes,
         checkpointCapturePixelExact: hash(checkpointRepeatPng) === hash(checkpointPng),

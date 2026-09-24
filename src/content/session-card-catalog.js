@@ -90,8 +90,7 @@ const DEATH_RUNTIME = questionValues(createDeathEffectsQuestions());
 function buildingRuntimeProfile(id, source) {
   let profile;
   if (Object.hasOwn(DEFENSIVE_RUNTIME, id)) {
-    const { policy: _policy, ...defensiveProfile } = DEFENSIVE_RUNTIME[id];
-    profile = { class: "defensive", ...clone(defensiveProfile) };
+    profile = { class: "defensive", ...clone(DEFENSIVE_RUNTIME[id]) };
   } else if (id === "aether-well") {
     profile = { class: "resource", deployTicks: source.deployTimeTicks,
       generationAmount: RESOURCE_RUNTIME.generationAmount,
