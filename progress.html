@@ -26,12 +26,12 @@
   <h1>Gauntlet progress</h1>
   <p class="sub">Updated 2026-09-24 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
-    <div class="card"><div class="num">183</div><div class="label">tracked pieces</div></div>
-    <div class="card"><div class="num">142</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">338</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">184</div><div class="label">tracked pieces</div></div>
+    <div class="card"><div class="num">143</div><div class="label">passed</div></div>
+    <div class="card"><div class="num">339</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">26</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Latest review: <strong>UI-001AP — Reconcile arena source-byte pins after policy UI and compositor changes, round 1 — PASS</strong>. Full game completion remains unproven.</p>
+  <p class="note">Latest review: <strong>INTEGRATION-001RP — Reconcile canonical integration manifest after later rounds, round 1 — PASS</strong>. Full game completion remains unproven.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -236,6 +236,14 @@
         <td>13/13</td>
         <td>3</td>
         <td>Wrong-shaped after three graph-closure rounds: custom exports conditions and reflective code loaders remain executable outside a dependency-free static evaluator; requires actual bundler/runtime sandbox enforcement</td>
+      </tr>
+      <tr>
+        <td><code>GUARD-002R</code></td>
+        <td>Actual release-artifact isolation boundary</td>
+        <td class="state-pending">PENDING</td>
+        <td>0/0</td>
+        <td>0</td>
+        <td>Read-only audit found direct dynamic imports rejected by `build-release.js`, but reflective `eval`/`Function` loaders are not constrained by the builder and the release build does not invoke the static isolation guard. Scope the proof to the actual build and served runtime, without claiming a static proof of arbitrary generated JavaScript.</td>
       </tr>
       <tr>
         <td><code>CONTENT-002</code></td>
@@ -731,7 +739,7 @@
         <td class="state-pass">PASS</td>
         <td>13/13</td>
         <td>1</td>
-        <td>Round 1: all four pins equal current source SHA-256; only four reviewed shell markup/CSS commits changed bytes. Local original-art provenance, exact geometry, and 720×1280 Chrome landmarks/stacking pass.</td>
+        <td>Round 1 passed: all four pins equal current source SHA-256; only the four reviewed shell markup/CSS commits changed bytes. Local original-art provenance, exact geometry, and 720×1280 Chrome landmarks/stacking pass.</td>
       </tr>
       <tr>
         <td><code>UI-001B</code></td>
@@ -1506,6 +1514,8 @@
   </div>
   <h2>Round trajectory</h2>
   <ol>
+      <li><strong>R346 PASS</strong> · INTEGRATION-001RP — Reconcile canonical integration manifest after later rounds, round 1<br>None on the manifest-reconciliation dimension.</li>
+      <li><strong>R345 PASS</strong> · UI-001AP — Reconcile arena source-byte pins after policy UI and compositor changes, round 1<br>None on the pin-reconciliation dimension; bridge and tower footprints remain low-medium coordinate estimates as marked in `SOURCES.md`.</li>
       <li><strong>R344 FAIL</strong> · GAME-001HB — Unified-session building roster mechanics, round 3<br>No source-backed spawner identity is admitted to GameSession, so periodic/death-spawn mechanics have no shared-session execution witness.</li>
       <li><strong>R343 PASS</strong> · GAME-001HBP — Nondefensive building policy provenance, round 1<br>None on the judged dimension; the resource, travel, and death effects remain explicitly QUESTION-provisional.</li>
       <li><strong>R342 FAIL</strong> · GAME-001HUIB — In-app defensive-building witness, round 5<br>Bulwark must not deploy into live combat with `firstHitTicks: 0` and unverified Cannon-derived damage, HP, deploy, range, and target values; a visible QUESTION label does not source those mechanics.</li>
