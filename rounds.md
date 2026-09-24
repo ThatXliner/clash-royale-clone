@@ -1,5 +1,51 @@
 # Gauntlet Rounds
 
+## Round 335 — 2026-09-23
+
+PIECE: GAME-001HUIR — In-app supported-deck choice, round 2
+
+VERDICT: PASS
+
+EVIDENCE: Both requested browser suites pass in real Chrome at 720×1280:
+
+```text
+> npm test -- game-browser-journey
+# Subtest: game browser journey: real Chrome plays, fights, terminates, restarts, and repeats
+ok 1 - game browser journey: real Chrome plays, fights, terminates, restarts, and repeats
+# tests 1
+# pass 1
+# fail 0
+
+> npm test -- game-browser-deck-choice
+# Subtest: game browser deck choice: trusted pre-match choice drives both supported decks
+ok 1 - game browser deck choice: trusted pre-match choice drives both supported decks
+# tests 1
+# pass 1
+# fail 0
+```
+
+The round-2 journey snapshot records `mountedControlCount: 6` and only one
+exposed control, `audio-toggle`; the hidden chooser has `display: none`,
+`hidden: true`, an unexposed opener, and `[false, false, false]` results when
+its three buttons are directly focused. The regular Standard opening is
+captured at 720×1280 in
+`artifacts/game-001huir-round-2/deck-choice/standard-opening.png`; its visible
+Choose deck opener is clicked successfully, and the open pre-match chooser is
+captured in `artifacts/game-001huir-round-2/deck-choice/pre-match-choice.png`.
+That presentation fills 720×1280, holds at tick 0, and retains the exact
+seed-zero session. Standard selection still matches the seed-zero setup, the
+default journey terminates and restarts byte-exactly to seed zero, and the
+Stonehauler session reaches a real terminal and restarts byte-exactly to its
+selected eight-card setup. The journey result reports empty `consoleErrors`
+and `unhandled` arrays; deck choice reports empty `consoleErrors` and
+`pageErrors` arrays.
+
+![Standard opening with visible deck chooser control](artifacts/game-001huir-round-2/deck-choice/standard-opening.png)
+
+![Open pre-match deck chooser at 720×1280](artifacts/game-001huir-round-2/deck-choice/pre-match-choice.png)
+
+BIGGEST GAP: Keyboard focus entry and containment after the deck chooser opens remain untested; this round verifies that closed chooser buttons cannot receive focus.
+
 ## Round 334 — 2026-09-23
 
 PIECE: GAME-001HUIR — In-app supported-deck choice, round 1
