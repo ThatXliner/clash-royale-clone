@@ -6,7 +6,7 @@ import { COMBAT_ART_ARCHETYPES } from '../src/ui/combat-art.js';
 const OUT = new URL('../artifacts/visual-003c-round-3/', import.meta.url).pathname;
 const PLAYWRIGHT = process.env.GAME_BROWSER_PLAYWRIGHT ?? '/Users/me/.codex/worktrees/d092a29e-844b-459d-b145-c548db10d485/billion/node_modules/.pnpm/playwright@1.58.2/node_modules/playwright/index.mjs';
 
-test('visual combat assets: nine original silhouettes mount at game scale, restore exactly, and hide diagnostic links', { timeout: 120000 }, async () => {
+test('visual combat assets: every original silhouette mounts at game scale, restores exactly, and hides diagnostic links', { timeout: 120000 }, async () => {
   mkdirSync(OUT, { recursive: true });
   const server = spawn(process.execPath, [new URL('./game-browser-journey-server.js', import.meta.url).pathname], { stdio: ['ignore', 'pipe', 'inherit'] });
   let browser;
@@ -59,7 +59,7 @@ test('visual combat assets: nine original silhouettes mount at game scale, resto
         position: { x: 3500 + (i % 3) * 5500, y: 28000 - si * 14000 - Math.floor(i / 3) * 4000 },
         hitpoints: 70, maxHitpoints: 100, targetId: null,
       })));
-      entities[0].targetId = entities[9].id;
+      entities[0].targetId = entities[kinds.length].id;
       const view = createCombatViewModel({ entities, towers: [], events: [], tick: 400 });
       bindCombatViewModel(layer, view);
       const before = layer.innerHTML;
@@ -115,8 +115,9 @@ test('visual combat assets: nine original silhouettes mount at game scale, resto
     writeFileSync(`${OUT}death-timeline.json`, JSON.stringify(deaths, null, 2));
     assert.equal(result.restored, true);
     assert.equal(result.linksHidden, true);
-    assert.equal(result.art.length, 18);
-    assert.equal(new Set(result.art.slice(0, 9).map(a => a.paths)).size, 9);
+    assert.equal(result.art.length, COMBAT_ART_ARCHETYPES.length * 2);
+    assert.equal(new Set(result.art.slice(0, COMBAT_ART_ARCHETYPES.length).map(a => a.paths)).size,
+      COMBAT_ART_ARCHETYPES.length);
     assert.ok(result.art.every(a => a.width >= 20 && a.width <= 55 && a.height >= 20));
     assert.ok(result.art.every(a => a.healthHeight === 4));
     assert.deepEqual(errors, []);

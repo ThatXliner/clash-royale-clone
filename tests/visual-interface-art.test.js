@@ -654,7 +654,8 @@ async function captureFreshRun(directory) {
     });
     await page.evaluate(async () => {
       await document.fonts.ready;
-      await new Promise((resolve) => requestAnimationFrame(resolve));
+      await new Promise((resolve) => requestAnimationFrame(() =>
+        requestAnimationFrame(() => requestAnimationFrame(resolve))));
     });
     const initial = await collectState(page);
     await page.screenshot({ path: directory + "/initial.png" });
@@ -1388,7 +1389,7 @@ test("visual interface art: fixed 720x1280 Chrome evidence captures every hierar
         },
         captureNormalization: {
           flags: [...CAPTURE_FLAGS],
-          timing: "manual mode, fresh terminal session restored to tick 0, stepMany(60), document.fonts.ready, one requestAnimationFrame",
+          timing: "manual mode, fresh terminal session restored to tick 0, stepMany(60), document.fonts.ready, three requestAnimationFrames",
           comparison: "exact SHA-256 over 8-bit RGB screenshot pixels; no tolerance or HUD/card masks",
         },
         contactSheet,
