@@ -1,5 +1,22 @@
 # Gauntlet Rounds
 
+## Round 330 — 2026-09-23
+
+PIECE: GAME-001HUIK — Nondefault troop witness in shipped browser, round 1
+
+VERDICT: PASS
+
+EVIDENCE: Fresh critic ran the real Chrome witness selector (1/1),
+`game-restart` (3/3), and default `game-browser-journey` (1/1). The page
+showed Stonehauler in the source-backed hand, physical deployment spent
+5 elixir and created one shared south unit, and an original 11-path SVG
+marker rendered. Snapshot restore and continuation bytes matched exactly;
+terminal click restarted the same witness deck. Evidence:
+artifacts/game-001huik-round-1/critic-verdict.md and browser captures.
+
+BIGGEST GAP: Stonehauler's body-radius, delivery and layer policies remain
+QUESTION, so this browser path does not establish exact historical combat.
+
 ## Round 329 — 2026-09-23
 
 PIECE: GAME-001GPV — Browser endurance long-task attribution, round 2

@@ -2,6 +2,7 @@ import {
   createPlayableRoster,
   createPlayableRosterQuestionRecords,
 } from "../content/playable-roster.js";
+import { createSessionTroopWitness } from "../content/session-troop-roster.js";
 import {
   BrowserPcmAudioSink,
   createBrowserAudioContextFactoryCapability,
@@ -66,18 +67,23 @@ function enduranceRestoreSessionBytes(bytes) {
 }
 
 export function createShippedGameSessionSetup(seed = 0, profile = "standard") {
-  if (profile !== "standard" && profile !== "live-seed-2-terminal") {
+  if (profile !== "standard" && profile !== "live-seed-2-terminal" &&
+      profile !== "stonehauler-witness") {
     throw new TypeError("shipped game session profile is invalid");
   }
   const terminalProfile = profile === "live-seed-2-terminal";
-  const roster = createPlayableRoster();
-  const questions = createPlayableRosterQuestionRecords();
+  const witnessProfile = profile === "stonehauler-witness";
+  const witness = witnessProfile ? createSessionTroopWitness("stonehauler") : null;
+  const roster = witness?.roster ?? createPlayableRoster();
+  const questions = witness?.questions ?? createPlayableRosterQuestionRecords();
   const battleSetup = canonical({ initialWindupTicks: terminalProfile
-    ? { central: 10_000, lane: 10_000 } : { central: 0, lane: 0 },
+    ? { central: 10_000, lane: 10_000 }
+    : witness?.initialWindupTicks ?? { central: 0, lane: 0 },
     questions, roster });
+  const deck = roster.map(({ id }) => id);
   return canonical({
     battleSetup,
-    deck: roster.map(({ id }) => id),
+    deck,
     legalNorthDeployments: (terminalProfile ? [{ id: "coilblade" }] : roster)
       .map(({ id: cardId }) => ({ cardId, point: { x: 3_500, y: 17_500 } }))
       .sort((left, right) => left.cardId.localeCompare(right.cardId)),
@@ -115,6 +121,16 @@ function matchesInputSystems(systems, state) {
     sameValues(deck.hand, expectedDeck.hand) && sameValues(deck.queue, expectedDeck.queue) &&
     elixir.tick === state.tick && elixir.sides.south.amount === expectedElixir.amount &&
     elixir.sides.south.accumulator === expectedElixir.accumulator;
+}
+
+function inputCardsForSession(session, cache) {
+  const cached = cache.get(session);
+  if (cached !== undefined) return cached;
+  const setup = JSON.parse(session.serialize()).setup;
+  const roster = JSON.parse(setup.battleSetup).roster;
+  const cards = roster.map(({ cost, displayName, id }) => ({ cost, displayName, id }));
+  cache.set(session, cards);
+  return cards;
 }
 
 function inputSystems(session, cards, cache) {
@@ -173,10 +189,12 @@ function createProjectionLayers(shell) {
   return layers;
 }
 
-function createInputFactory(shell, cards, audioUiBridge = null) {
-  const cardsText = serializeArenaInputCards(cards);
+function createInputFactory(shell, audioUiBridge = null) {
   const inputSystemCache = new WeakMap();
+  const cardsCache = new WeakMap();
   return (session, nextCommandId, selectedCardId = null, onSelection = null) => {
+    const cards = inputCardsForSession(session, cardsCache);
+    const cardsText = serializeArenaInputCards(cards);
     const systems = inputSystems(session, cards, inputSystemCache);
     let mounted = null;
     const updateHooks = (_selected = null, projected = systems) => {
@@ -382,7 +400,6 @@ export function mountShippedGameBrowser(
         audioRuntime.setMuted(policy.muted);
       }
       const shell = mountArenaShell(root);
-      const cards = createPlayableRoster();
       const restarts = Array.from(shell.querySelectorAll('[data-ui="restart"]'));
       if (restarts.length !== 1 ||
           typeof restarts[0].addEventListener !== "function" ||
@@ -393,7 +410,7 @@ export function mountShippedGameBrowser(
       restart = restarts[0];
       controls = mountGameAudioControls(shell, browserAudio, audioRuntime, audioUiBridge);
       loop = mountGameBrowserLoop({
-        createInput: createInputFactory(shell, cards, audioUiBridge),
+        createInput: createInputFactory(shell, audioUiBridge),
         layers: createProjectionLayers(shell),
         root,
         scheduler: {
@@ -619,6 +636,9 @@ export function mountShippedGameBrowser(
         gainBasisPoints: previous.controls.state.gainBasisPoints,
         muted: previous.controls.state.muted,
       };
+      const currentSetup = JSON.parse(previous.loop.session.serialize()).setup;
+      const defaultDeck = createPlayableRoster().map(({ id }) => id);
+      const restartDefaultDeck = sameValues(currentSetup.deck, defaultDeck);
       lastSession = previous.loop.session;
       graph = null;
       const cleanupErrors = cleanup(previous);
@@ -628,7 +648,9 @@ export function mountShippedGameBrowser(
         throw new AggregateError(cleanupErrors, "shipped browser restart cleanup failed");
       }
       try {
-        const freshSession = new GameSession(createShippedGameSessionSetup(0));
+        const freshSession = restartDefaultDeck
+          ? new GameSession(createShippedGameSessionSetup(0))
+          : new GameSession(canonical(currentSetup));
         graph = buildGraph(freshSession, policy);
         lastSession = freshSession;
         restartCount += 1;

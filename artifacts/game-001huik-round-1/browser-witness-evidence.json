@@ -1,0 +1,287 @@
+{
+  "artId": "stonehauler",
+  "artPathCount": 11,
+  "browserCheckpointBytes": 43772,
+  "browserReplayExact": true,
+  "consoleErrors": [],
+  "deployed": {
+    "artId": "stonehauler",
+    "artPathCount": 11,
+    "event": {
+      "deployment": {
+        "cardId": "stonehauler",
+        "entityIds": [
+          2
+        ],
+        "point": {
+          "x": 8866,
+          "y": 6800
+        },
+        "sequence": 1,
+        "side": "south",
+        "tick": 5,
+        "type": "deployed"
+      },
+      "side": "south",
+      "spend": {
+        "accepted": true,
+        "amountAfter": 5,
+        "cost": 5,
+        "reason": "accepted",
+        "sequence": 1,
+        "side": "south",
+        "tick": 5,
+        "type": "spend"
+      },
+      "tick": 5,
+      "type": "session-deployed"
+    },
+    "units": [
+      {
+        "alive": true,
+        "attack": {
+          "attackSequence": 0,
+          "config": {
+            "deployTicks": 60,
+            "firstHitTicks": 60,
+            "hitSpeedTicks": 90
+          },
+          "nextAttackTick": null,
+          "nextTick": 1,
+          "phase": "deploying",
+          "targetId": null
+        },
+        "cadenceTicks": 90,
+        "damage": 254,
+        "delivery": "melee",
+        "deployTicks": 60,
+        "firstHitTicks": 60,
+        "hitpoints": 4091,
+        "id": 2,
+        "layer": "ground",
+        "maxHealth": 4091,
+        "position": {
+          "x": 8488,
+          "y": 6500
+        },
+        "projectileSpeed": null,
+        "radius": 500,
+        "reach": 1200,
+        "side": "south",
+        "sightRange": 7500,
+        "spawnedAt": 5,
+        "targetId": null,
+        "targetMode": "buildings",
+        "archetypeId": "stonehauler",
+        "cardId": "stonehauler",
+        "count": 1,
+        "memberIndex": 0,
+        "movement": {
+          "anchor": {
+            "x": 7500,
+            "y": 6500
+          },
+          "bodyRadius": 500,
+          "commands": [
+            {
+              "kind": "target",
+              "target": {
+                "position": {
+                  "x": 3500,
+                  "y": 22500
+                },
+                "radius": 0,
+                "range": 1200
+              },
+              "tick": 5
+            }
+          ],
+          "edgeStart": {
+            "x": 8500,
+            "y": 6500
+          },
+          "initialPosition": {
+            "x": 8500,
+            "y": 6500
+          },
+          "mode": "ground",
+          "position": {
+            "x": 8488,
+            "y": 6500
+          },
+          "remainder": 30,
+          "route": [
+            {
+              "x": 7500,
+              "y": 6500
+            },
+            {
+              "x": 6500,
+              "y": 6500
+            },
+            {
+              "x": 5500,
+              "y": 6500
+            },
+            {
+              "x": 5500,
+              "y": 7500
+            },
+            {
+              "x": 5500,
+              "y": 8500
+            },
+            {
+              "x": 5500,
+              "y": 9500
+            },
+            {
+              "x": 4500,
+              "y": 9500
+            },
+            {
+              "x": 3500,
+              "y": 9500
+            },
+            {
+              "x": 3500,
+              "y": 10500
+            },
+            {
+              "x": 3500,
+              "y": 11500
+            },
+            {
+              "x": 3500,
+              "y": 12500
+            },
+            {
+              "x": 3500,
+              "y": 13500
+            },
+            {
+              "x": 3500,
+              "y": 14500
+            },
+            {
+              "x": 3500,
+              "y": 15500
+            },
+            {
+              "x": 3500,
+              "y": 16500
+            },
+            {
+              "x": 3500,
+              "y": 17500
+            },
+            {
+              "x": 3500,
+              "y": 18500
+            },
+            {
+              "x": 3500,
+              "y": 19500
+            },
+            {
+              "x": 3500,
+              "y": 20500
+            },
+            {
+              "x": 3500,
+              "y": 21500
+            },
+            {
+              "x": 3500,
+              "y": 22500
+            }
+          ],
+          "routeIndex": 1,
+          "routeOrigin": {
+            "x": 8500,
+            "y": 6500
+          },
+          "segmentLength": 1000,
+          "segmentProgress": 12,
+          "segmentStart": {
+            "x": 8500,
+            "y": 6500
+          },
+          "speed": 750,
+          "target": {
+            "position": {
+              "x": 3500,
+              "y": 22500
+            },
+            "radius": 0,
+            "range": 1200
+          },
+          "tick": 6
+        },
+        "role": "primary"
+      }
+    ],
+    "tick": 6
+  },
+  "hand": [
+    {
+      "cost": 5,
+      "id": "stonehauler",
+      "name": "Stonehauler"
+    },
+    {
+      "cost": 3,
+      "id": "skymaul",
+      "name": "Skymaul"
+    },
+    {
+      "cost": 4,
+      "id": "brassbolt",
+      "name": "Brassbolt"
+    },
+    {
+      "cost": 3,
+      "id": "mossguard",
+      "name": "Mossguard"
+    }
+  ],
+  "inputSlots": [
+    "stonehauler",
+    "skymaul",
+    "brassbolt",
+    "mossguard"
+  ],
+  "sessionHand": [
+    "stonehauler",
+    "skymaul",
+    "brassbolt",
+    "mossguard"
+  ],
+  "pageErrors": [],
+  "questionPoliciesRemainQuestions": true,
+  "restartedDeck": [
+    "stonehauler",
+    "coilblade",
+    "mossguard",
+    "copperskiff",
+    "skymaul",
+    "brassbolt",
+    "reedsting",
+    "briar-band"
+  ],
+  "sessionReplayExact": true,
+  "terminal": {
+    "chunks": 6,
+    "tick": 6299
+  },
+  "witnessRoster": [
+    "stonehauler",
+    "coilblade",
+    "mossguard",
+    "copperskiff",
+    "skymaul",
+    "brassbolt",
+    "reedsting",
+    "briar-band"
+  ]
+}

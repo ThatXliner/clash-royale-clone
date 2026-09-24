@@ -426,11 +426,14 @@ export const arenaHudController =
   typeof window === "object" && window !== null
     ? (() => {
       const profile = new URLSearchParams(window.location.search).get("session-profile");
-      if (profile !== null && profile !== "live-seed-2-terminal") {
+      if (profile !== null && profile !== "live-seed-2-terminal" &&
+          profile !== "stonehauler-witness") {
         throw new TypeError("public game session profile is invalid");
       }
       const session = profile === null ? null : new GameSession(
-        createShippedGameSessionSetup(2, profile),
+        createShippedGameSessionSetup(
+          profile === "live-seed-2-terminal" ? 2 : 1, profile,
+        ),
       );
       return mountShippedGameBrowser(
         document.querySelector("[data-arena-shell-root]"), window, session,

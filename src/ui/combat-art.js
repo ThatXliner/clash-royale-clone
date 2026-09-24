@@ -5,6 +5,8 @@ const BONE = '#F4EBD6';
 const COPPER = '#E9A83A';
 const WOOD = '#4A332A';
 const LEAF = '#5C8A46';
+const STONE = '#9BA5A2';
+const SHALE = '#65716F';
 const shapes = {
   coilblade: [
     ['M20 43 18 57 27 57 31 43M36 43 38 57 47 57 44 42', WOOD],
@@ -78,6 +80,18 @@ const shapes = {
     ['M19 51 46 51 49 61 17 61Z', COPPER],
     ['M27 26 36 26', INK],
   ],
+  stonehauler: [
+    ['M18 43 14 56 26 57 32 48 39 57 51 55 46 41', SHALE],
+    ['M12 24 20 15 28 18 34 9 44 14 53 22 55 36 48 47 18 47 9 38Z', STONE],
+    ['M12 25 5 32 8 45 18 46 24 35 21 24Z', SHALE],
+    ['M44 23 52 18 60 23 59 38 51 44 45 37Z', SHALE],
+    ['M23 14 32 9 41 14 42 25 35 31 24 26Z', '#B9C0B6'],
+    ['M18 27 26 30 23 37 18 42 12 40 14 32Z', 'team'],
+    ['M39 27 46 23 51 28 49 36 43 39 39 34Z', COPPER],
+    ['M27 22 30 22M36 21 39 21', INK],
+    ['M28 36 39 36 42 42 24 42Z', WOOD],
+    ['M28 56 39 56', BONE],
+  ],
 };
 for (const paths of Object.values(shapes)) {
   for (const path of paths) Object.freeze(path);
@@ -116,4 +130,4 @@ export function createCombatArt(document, kind, side, layer) {
   return svg;
 }
 
-export const COMBAT_ART_STYLE = `.combat-target-link{display:none}.combat-marker[class]{border:0;background:none;border-radius:0;box-shadow:none;width:6.2%;height:auto;aspect-ratio:1}.combat-marker--entity-ground{filter:drop-shadow(0 2px 0 #191d2244)}.combat-marker--entity-air::before{content:"";position:absolute;left:18%;right:18%;height:13%;bottom:-15%;border-radius:50%;background:#191d2244}.combat-art{display:block;width:100%;height:100%;overflow:visible}.combat-marker[data-kind="mossguard"],.combat-marker[data-kind="skymaul"]{width:7.5%}.combat-marker[data-kind="briar-runner"],.combat-marker[data-kind="briar-darter"],.combat-marker[data-kind="cinderling"]{width:4.8%}.combat-marker--tower[class]{width:7%;height:0;aspect-ratio:auto}.combat-marker[class] .combat-health{width:80%;height:4px;bottom:105%;border-radius:1px;background:#DCEDE9;box-shadow:0 0 0 1px #191D22}.combat-marker--north[class] .combat-health{background:#E9A83A}.combat-marker--tower[class] .combat-health{bottom:28px;height:4px;box-shadow:0 0 0 1px #191D22}.combat-marker[data-reaction="damage"] .combat-art{filter:brightness(1.7)}.combat-marker[data-reaction="target"] .combat-art{transform:rotate(-7deg)}.combat-marker--north[data-reaction="target"] .combat-art{transform:rotate(7deg)}`;
+export const COMBAT_ART_STYLE = `.combat-target-link{display:none}.combat-marker[class]{border:0;background:none;border-radius:0;box-shadow:none;width:6.2%;height:auto;aspect-ratio:1}.combat-marker--entity-ground{filter:drop-shadow(0 2px 0 #191d2244)}.combat-marker--entity-air::before{content:"";position:absolute;left:18%;right:18%;height:13%;bottom:-15%;border-radius:50%;background:#191d2244}.combat-art{display:block;width:100%;height:100%;overflow:visible}.combat-marker[data-kind="mossguard"],.combat-marker[data-kind="skymaul"]{width:7.5%}.combat-marker[data-kind="stonehauler"]{width:8.2%}.combat-marker[data-kind="briar-runner"],.combat-marker[data-kind="briar-darter"],.combat-marker[data-kind="cinderling"]{width:4.8%}.combat-marker--tower[class]{width:7%;height:0;aspect-ratio:auto}.combat-marker[class] .combat-health{width:80%;height:4px;bottom:105%;border-radius:1px;background:#DCEDE9;box-shadow:0 0 0 1px #191D22}.combat-marker--north[class] .combat-health{background:#E9A83A}.combat-marker--tower[class] .combat-health{bottom:28px;height:4px;box-shadow:0 0 0 1px #191D22}.combat-marker[data-reaction="damage"] .combat-art{filter:brightness(1.7)}.combat-marker[data-reaction="target"] .combat-art{transform:rotate(-7deg)}.combat-marker--north[data-reaction="target"] .combat-art{transform:rotate(7deg)}`;
