@@ -1,5 +1,60 @@
 # Gauntlet Rounds
 
+## Round 342 — 2026-09-23
+
+PIECE: GAME-001HUIB — In-app defensive-building witness, round 5
+
+VERDICT: FAIL
+
+EVIDENCE: At HEAD `eb57e2e`, the requested focused command ran from an isolated
+`git archive` copy, leaving the shared source, test, and artifact files
+untouched. The actual TAP summaries were:
+
+```text
+1..15
+# tests 15
+# pass 15
+# fail 0
+# duration_ms 14375.854
+
+1..10
+# tests 10
+# pass 10
+# fail 0
+# duration_ms 20614.133125
+
+1..1
+# tests 1
+# pass 1
+# fail 0
+# duration_ms 46285.550708
+```
+
+The runtime suite specifically passed `Bulwark provenance reaches the live
+structure and cannot be stripped`, `fresh admission pins every profile leaf,
+shape, and card identity`, `hostile fresh inputs are non-observing at all three
+boundaries`, and `hostile structure routes fail atomically before host
+authority commit`. The roster suite confirms the QUESTION estimates still
+reach shared attacks. The real Chrome browser selector confirms Standard keeps
+seed-zero exact and hidden chooser controls cannot focus. The Bulwark notice is
+visible with `disposition: "question"`, lists the absent/unverified fields,
+and is byte-exact through browser restore. At 720×1280, checkpoint, repeat,
+and restored full-viewport captures hash to
+`e6ea0d11bd710482892595509d07267464dcf1ab9fbe0353dc2955cd1fbffc86`; the
+restored viewport has 0 changed pixels.
+
+However, the same live browser run reports six real structure attacks. Its
+first attack is 212 damage at tick 113, and the target has 311 HP after combat.
+The canonical Bulwark profile still executes `firstHitTicks: 0` even though
+the Cannon source record has no first-hit value (`null`); its damage 212, HP
+824, deploy 60 ticks, range 5,500, and ground target policy are unverified in
+`reference/stats/cards.json`. Receipt integrity and the visible warning now
+work, but the session still promotes the estimates into actual combat.
+
+BIGGEST GAP: Bulwark must not deploy into live combat with `firstHitTicks: 0`
+and unverified Cannon-derived damage, HP, deploy, range, and target values; a
+visible QUESTION label does not source those mechanics.
+
 ## Round 341 — 2026-09-23
 
 PIECE: GAME-001HUIB — In-app defensive-building witness, round 4
