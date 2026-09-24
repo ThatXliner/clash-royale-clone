@@ -1,0 +1,119 @@
+{
+  "consoleErrors": [],
+  "pageErrors": [],
+  "standard": {
+    "hiddenControlsCannotFocus": true,
+    "seedZeroExact": true
+  },
+  "chooser": {
+    "bulwarkSelected": true,
+    "modalWidth": 720,
+    "preMatchSeedZeroExact": true,
+    "runningDuringChoice": false
+  },
+  "bulwark": {
+    "artId": "bulwark-needle",
+    "artPathCount": 10,
+    "attackCount": 6,
+    "firstAttack": {
+      "amount": 212,
+      "buildingId": 2,
+      "targetId": 4,
+      "tick": 113,
+      "type": "structure-attack"
+    },
+    "hitpointsAfterCombat": 311,
+    "hand": [
+      {
+        "cost": 3,
+        "id": "bulwark-needle",
+        "name": "Bulwark Needle"
+      },
+      {
+        "cost": 3,
+        "id": "skymaul",
+        "name": "Skymaul"
+      },
+      {
+        "cost": 4,
+        "id": "brassbolt",
+        "name": "Brassbolt"
+      },
+      {
+        "cost": 3,
+        "id": "mossguard",
+        "name": "Mossguard"
+      }
+    ],
+    "inputSlots": [
+      "bulwark-needle",
+      "skymaul",
+      "brassbolt",
+      "mossguard"
+    ],
+    "placement": {
+      "x": 3366,
+      "y": 9933
+    },
+    "questionCount": 12,
+    "restore": {
+      "browserBytesExact": true,
+      "checkpointCapturePixelExact": true,
+      "paintStateDifferences": [],
+      "combatDomExact": true,
+      "hudExact": true,
+      "inputExact": true,
+      "bulwarkArtPixelExact": false,
+      "bulwarkArtRaster": {
+        "changedPixels": 769,
+        "height": 66,
+        "maxChannelDelta": 2,
+        "meanChannelDelta": 0.08241505968778697,
+        "pixelsOver8": 0,
+        "width": 66
+      },
+      "pixels": "36ddb37c0f7a1f3e50140e36228ee79fcd522356688f939919341ccedb0687db",
+      "pixelsRepeatAtCheckpoint": "36ddb37c0f7a1f3e50140e36228ee79fcd522356688f939919341ccedb0687db",
+      "pixelsAfterRestore": "36ddb37c0f7a1f3e50140e36228ee79fcd522356688f939919341ccedb0687db",
+      "viewportRaster": {
+        "changedPixels": 0,
+        "height": 1280,
+        "maxChannelDelta": 0,
+        "meanChannelDelta": 0,
+        "pixelsOver8": 0,
+        "width": 720
+      },
+      "viewportPixelExact": true,
+      "sessionBytesExact": true
+    },
+    "restartExact": true,
+    "restartCount": 1,
+    "sessionDeck": [
+      "bulwark-needle",
+      "coilblade",
+      "mossguard",
+      "copperskiff",
+      "skymaul",
+      "brassbolt",
+      "reedsting",
+      "briar-band"
+    ],
+    "southElixirAfterDeploy": 7,
+    "targetKey": "unit:4",
+    "targetLinksVisible": true,
+    "targetAcquiredAfterTicks": 113,
+    "attackCountAfterCombat": 6,
+    "terminalChunks": 7,
+    "terminalResult": {
+      "crowns": {
+        "north": 3,
+        "south": 0
+      },
+      "endedAtTick": 7862,
+      "kind": "win",
+      "reason": "central_destroyed",
+      "winner": "north"
+    },
+    "terminalTick": 7863
+  }
+}

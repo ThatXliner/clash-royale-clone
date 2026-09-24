@@ -1,0 +1,82 @@
+{
+  "piece": "GAME-001HUIB",
+  "round": 4,
+  "revision": "39eeb1c",
+  "date": "2026-09-23",
+  "browser": "Google Chrome 153.0.8010.53",
+  "viewport": {
+    "width": 720,
+    "height": 1280,
+    "deviceScaleFactor": 1
+  },
+  "commands": [
+    {
+      "command": "npm test -- game-browser-building-choice",
+      "tests": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    {
+      "command": "npm test -- game-browser-deck-choice",
+      "tests": 1,
+      "passed": 1,
+      "failed": 0
+    }
+  ],
+  "buildingChoice": {
+    "evidence": "building-choice-evidence.json",
+    "visibleChooser": true,
+    "standardSeedZeroExact": true,
+    "bulwarkDeckEightCards": true,
+    "bulwarkCost": 3,
+    "elixirAfterDeploy": 7,
+    "placement": {
+      "x": 3366,
+      "y": 9933,
+      "side": "south"
+    },
+    "art": {
+      "id": "bulwark-needle",
+      "pathCount": 10
+    },
+    "defensiveCombat": {
+      "target": "unit:4",
+      "firstAttackTick": 113,
+      "attackCount": 6,
+      "hitpointsAfterCombat": 311,
+      "visibleTargetLink": true
+    },
+    "restore": {
+      "browserSessionDomHudInputExact": true,
+      "checkpointRepeatSha256": "36ddb37c0f7a1f3e50140e36228ee79fcd522356688f939919341ccedb0687db",
+      "postRestoreSha256": "36ddb37c0f7a1f3e50140e36228ee79fcd522356688f939919341ccedb0687db",
+      "fullViewportPixelExact": true,
+      "changedPixels": 0,
+      "maxChannelDelta": 0,
+      "sameDeckRestartExact": true,
+      "supplementalArtClip": {
+        "pngHashExact": false,
+        "changedPixels": 769,
+        "maxChannelDelta": 2,
+        "meanChannelDelta": 0.08241505968778697,
+        "note": "The separate 66x66 clipped screenshot differs slightly although the complete viewport captures are byte-identical."
+      }
+    },
+    "consoleErrors": [],
+    "pageErrors": []
+  },
+  "adjacentDeckChoice": {
+    "evidence": "adjacent-deck-choice/deck-choice-evidence.json",
+    "standardStartMatchesSeedZero": true,
+    "stonehaulerDeckChoice": true,
+    "stonehaulerCost": 5,
+    "stonehaulerElixirAfterDeploy": 5,
+    "stonehaulerDeployedThroughSharedSession": true,
+    "stonehaulerRestoreExact": true,
+    "stonehaulerSameDeckRestartExact": true,
+    "stonehaulerTerminalReached": true,
+    "consoleErrors": [],
+    "pageErrors": []
+  },
+  "largestGap": "The strict full-viewport restore passes exactly; the separate clipped Bulwark art capture has a small raster/hash difference."
+}
