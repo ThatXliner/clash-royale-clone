@@ -1,5 +1,25 @@
 # Gauntlet Rounds
 
+## Round 346 — 2026-09-24
+
+PIECE: INTEGRATION-001RP — Reconcile canonical integration manifest after later rounds, round 1
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- integration-audit` passed 6/6 with zero failures. The
+runtime audit covered 58/58 occurrences (53 unique supported IDs), five
+QUESTION exports, and 46 runners; its two fresh sweep hashes matched each
+other and the manifest SHA-256 `7eeeab122b45e8815e5c456bcf74f4a61de2d0b746cab794b9dfe57c8e00cd31`.
+The last passing pin at `778bb4e` is
+`022ee978fedade9bdab3a1a0efb9c05bbd7acea64da57ce4e9b64da3428d8f5d`, which
+was reconstructed from the current canonical bytes by changing only
+`runners[selector=buildings-defensive].tap.pass/tests` from 24 to 23; the
+flattened field diff contains only those two counter changes. Commit `eb57e2e`
+added the 24th defensive-building test, “runtime policy keeps exact corpus
+provenance beside estimates,” at `tests/buildings-defensive.test.js:134`.
+
+BIGGEST GAP: None on the manifest-reconciliation dimension.
+
 ## Round 345 — 2026-09-24
 
 PIECE: UI-001AP — Reconcile arena source-byte pins after policy UI and compositor changes, round 1

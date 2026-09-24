@@ -688,10 +688,10 @@
       <tr>
         <td><code>INTEGRATION-001RP</code></td>
         <td>Reconcile canonical integration manifest after later rounds</td>
-        <td class="state-pending">PENDING</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Post-policy full suite at `efaabf8` passed both run hashes but failed the aggregate pin: actual `7eeeab12…`, expected `022ee978…`; HBP's session code is outside the direct occurrence path, so the drift needs a field-level audit before repinning.</td>
+        <td class="state-pass">PASS</td>
+        <td>6/6</td>
+        <td>1</td>
+        <td>Round 1 passed: only defensive-building TAP `pass/tests` changed 23→24 due to the provenance test in `eb57e2e`; reconstructed baseline SHA `022ee978…`, current SHA `7eeeab12…`, 58 bindings/46 runners/5 QUESTION exports, and fresh identical sweeps confirmed.</td>
       </tr>
       <tr>
         <td><code>GUARD-003</code></td>
