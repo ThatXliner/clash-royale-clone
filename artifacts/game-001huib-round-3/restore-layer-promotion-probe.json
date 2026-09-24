@@ -1,0 +1,35 @@
+{
+  "piece": "GAME-001HUIB",
+  "command": "npm run test:game-browser-building-choice",
+  "experiment": "Temporarily promoted .arena with transform: translateZ(0); the strict test and all assertions were unchanged.",
+  "baseline": {
+    "checkpointSha256": "1d222695e97dfc5d0764a8d9d9c39e6baf3961eeff9edaf567da0761844379a6",
+    "restoredSha256": "0e1479d1e783596eca4d89e282146ae8bf8956e5619308529f1357f2073023ba",
+    "changedPixels": 42049,
+    "maxChannelDelta": 8,
+    "meanChannelDelta": 0.07966507523148147
+  },
+  "layerPromotion": {
+    "checkpointSha256": "ec48b959a289734ba4794453bcb7d1e3cff594bb2abedfca5052c6953cad1abe",
+    "restoredSha256": "da5927bb4c9ca9104504a520ddb18be1b2f28e2781c6c1370d705efc58519c35",
+    "checkpointCapturePixelExact": true,
+    "sessionBytesExact": true,
+    "browserBytesExact": true,
+    "paintStateDifferences": [],
+    "hudExact": true,
+    "inputExact": true,
+    "combatDomExact": true,
+    "changedPixels": 9265,
+    "maxChannelDelta": 2,
+    "meanChannelDelta": 0.005219545717592593,
+    "pixelsOver8": 0,
+    "strictViewportExact": false,
+    "testResult": "FAIL: restored full viewport must be pixel-identical"
+  },
+  "observed": "Arena layer promotion reduces the repaint-sensitive raster mismatch, while exact browser/session/DOM/style state remains unchanged. It still leaves 9,265 changed pixels, so it does not satisfy the full-viewport restore bar.",
+  "productionChangeRetained": false,
+  "screenshots": [
+    "arena-layer-promotion-checkpoint.png",
+    "arena-layer-promotion-restored.png"
+  ]
+}
