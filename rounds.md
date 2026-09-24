@@ -1,5 +1,50 @@
 # Gauntlet Rounds
 
+## Round 340 — 2026-09-23
+
+PIECE: VIS-003H — Exact browser frame restore boundary, round 1
+
+VERDICT: PASS
+
+EVIDENCE: Reviewed commit `1e5f6bd` against the VIS-003H acceptance row, then
+ran the browser selectors in installed Google Chrome 153.0.8010.53 at
+720×1280 (device scale factor 1). The actual TAP output for the required
+restore selector was:
+
+```text
+> node tests/content-schema-runner.js browser-frame-restore
+TAP version 13
+# Subtest: browser frame restore: full viewport PNG and visible bytes restore exactly
+ok 1 - browser frame restore: full viewport PNG and visible bytes restore exactly
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+```
+
+The unchanged strict building-choice regression passed 1/1, and the nearby
+real-browser journey passed 1/1. The standard arena stayed frozen at tick 0;
+its checkpoint, consecutive, and restored PNGs each have SHA-256
+`6e328c2e207c407576f90d991334645c2c8536dd92c69e9f246a51f882ebdd4d`.
+The deployed Bulwark Needle was targeting `unit:4` at tick 114; its three
+PNGs each have SHA-256
+`36ddb37c0f7a1f3e50140e36228ee79fcd522356688f939919341ccedb0687db`.
+Both scenarios report 0 changed pixels, max channel delta 0, and true for
+strict consecutive/restore PNG equality plus exact browser/session state,
+frozen tick, arena DOM, projected layer DOM, HUD, and input bytes. Console
+and page errors are empty. The test compares screenshot buffers byte-for-byte
+and also checks exact pixel deltas; the harness never changes layer visibility
+or applies a tolerance. The only CSS change promotes existing browser layers with
+`transform: translateZ(0)`. No reference paths or assets are imported, and no
+gameplay timing code changed.
+
+BIGGEST GAP: None on the exact restore dimension; historical screenshot parity
+remains unmeasured and belongs to VIS-001/VIS-002.
+
 ## Round 339 — 2026-09-23
 
 PIECE: GAME-001HUIF — Keyboard-complete pre-match deck chooser, round 1
