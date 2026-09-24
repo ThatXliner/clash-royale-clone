@@ -1,5 +1,9 @@
 import { COMBAT_MOTION_STYLE, COMBAT_DEATH_STYLE } from "./combat-motion.js";
-import { createCombatArt, COMBAT_ART_STYLE } from "./combat-art.js";
+import {
+  createCombatArt,
+  COMBAT_ART_STYLE,
+  COMBAT_STRUCTURE_ART_IDS,
+} from "./combat-art.js";
 import {
   ARENA_LENGTH_MILLITILES,
   ARENA_WIDTH_MILLITILES,
@@ -475,6 +479,12 @@ export function bindCombatViewModel(layer, view) {
   frame.className = "combat-frame";
   frame.dataset.tick = String(canonical.tick);
   const nodes = [];
+  const structureKeys = new Set(canonical.entities
+    .filter(({ kind }) => COMBAT_STRUCTURE_ART_IDS.includes(kind))
+    .map(({ key }) => key));
+  const targetingStructureKeys = new Set(canonical.links
+    .filter(({ fromKey }) => structureKeys.has(fromKey))
+    .map(({ fromKey }) => fromKey));
   for (const link of canonical.links) {
     const createSvg = typeof layer.ownerDocument.createElementNS === "function"
       ? (name) => layer.ownerDocument.createElementNS("http://www.w3.org/2000/svg", name)
@@ -482,6 +492,7 @@ export function bindCombatViewModel(layer, view) {
     const node = createSvg("svg");
     node.setAttribute("class", "combat-target-link");
     node.dataset.from = link.fromKey;
+    node.dataset.fromStructure = String(structureKeys.has(link.fromKey));
     node.dataset.to = link.toKey;
     node.setAttribute("aria-hidden", "true");
     node.setAttribute("preserveAspectRatio", "none");
@@ -511,6 +522,11 @@ export function bindCombatViewModel(layer, view) {
     node.dataset.kind = entity.kind;
     node.dataset.layer = entity.layer;
     node.dataset.reaction = reactions.get(entity.key) ?? "idle";
+    if (structureKeys.has(entity.key)) {
+      node.className += " combat-marker--structure";
+      node.dataset.structure = "true";
+      node.dataset.targeting = String(targetingStructureKeys.has(entity.key));
+    }
     node.appendChild(createCombatArt(layer.ownerDocument, entity.kind, entity.side, entity.layer));
     nodes.push(node);
   }

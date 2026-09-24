@@ -20,6 +20,7 @@ import {
   getHudMarkup,
   serializeHudViewModel,
 } from "./hud-state.js";
+import { COMBAT_STRUCTURE_ART_IDS } from "./combat-art.js";
 import {
   bindMatchFeedback,
   createSessionMatchFeedbackViewModel,
@@ -86,13 +87,29 @@ function targetId(value) {
 }
 
 function combatState(state, effectEvents) {
+  const structures = state.battle.structures.filter(({ cardId }) =>
+    COMBAT_STRUCTURE_ART_IDS.includes(cardId));
   const aliveIds = new Set([
     ...state.battle.units.filter((unit) => unit.hitpoints > 0).map((unit) => unit.id),
     ...state.battle.towers.filter((tower) => tower.hitpoints > 0).map((tower) => tower.id),
+    ...structures.filter((structure) => structure.alive && structure.hitpoints > 0)
+      .map((structure) => structure.id),
   ]);
   const liveTargetId = (value) => {
     const mapped = targetId(value);
     return aliveIds.has(mapped) ? mapped : null;
+  };
+  const structureTargetId = (structure) => {
+    if (typeof structure.targetKey !== "string") return null;
+    const match = /^(?:unit|structure):([1-9][0-9]*)$/u.exec(structure.targetKey);
+    if (match !== null) {
+      const id = Number(match[1]);
+      return Number.isSafeInteger(id) ? liveTargetId(id) : null;
+    }
+    if (structure.targetKey.startsWith("tower:")) {
+      return liveTargetId(structure.targetKey.slice("tower:".length));
+    }
+    return null;
   };
   const entities = state.battle.units.map((unit) => ({
     hitpoints: unit.hitpoints,
@@ -103,7 +120,16 @@ function combatState(state, effectEvents) {
     position: unit.position,
     side: unit.side,
     targetId: liveTargetId(unit.targetId),
-  }));
+  })).concat(structures.map((structure) => ({
+    hitpoints: structure.hitpoints,
+    id: structure.id,
+    kind: structure.cardId,
+    layer: "ground",
+    maxHitpoints: structure.maxHitpoints,
+    position: structure.position,
+    side: structure.side,
+    targetId: structure.alive ? structureTargetId(structure) : null,
+  })));
   const towers = state.battle.towers.map((tower) => ({
     hitpoints: tower.hitpoints,
     id: tower.id,

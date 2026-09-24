@@ -34,6 +34,9 @@ const SHELL_MARKUP = `<main class="battle-shell" data-ui="arena-shell" aria-labe
         <button class="deck-choice__option" type="button" data-deck-choice="stonehauler" aria-pressed="false">
           <strong>Stonehauler</strong><span>Replaces Cinderlings</span>
         </button>
+        <button class="deck-choice__option" type="button" data-deck-choice="bulwark-needle" aria-pressed="false">
+          <strong>Bulwark Needle</strong><span>Replaces Cinderlings</span>
+        </button>
       </div>
       <button class="deck-choice__start" type="button" data-ui="deck-start">Start match</button>
     </div>

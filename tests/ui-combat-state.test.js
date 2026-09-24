@@ -266,7 +266,7 @@ test("ui combat state: DOM projection is byte-stable with exact inverted arena c
   assert.equal(bytes, nodeBytes(second.layer));
   assert.equal(
     digest(bytes),
-    "44c99d6d4ccae99e4b987869084b5aaa6934f17226ce8e1e9d9329da6ce5aec9",
+    "c0aedecf124f2abdb75cadc59bdf9b7b6b0a82bbbfc8165a7c115217114b89e5",
   );
   const frame = first.layer.children[0];
   assert.equal(frame.dataset.tick, "42");

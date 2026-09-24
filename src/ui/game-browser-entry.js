@@ -3,6 +3,7 @@ import {
   createPlayableRosterQuestionRecords,
 } from "../content/playable-roster.js";
 import { createSessionTroopWitness } from "../content/session-troop-roster.js";
+import { projectSessionNonUnitBattleCard } from "../content/session-card-catalog.js";
 import {
   BrowserPcmAudioSink,
   createBrowserAudioContextFactoryCapability,
@@ -66,19 +67,44 @@ function enduranceRestoreSessionBytes(bytes) {
   return checkedGameBrowserSnapshot(bytes).session;
 }
 
+function createBulwarkNeedleSessionWitness() {
+  const defaultRoster = createPlayableRoster();
+  const roster = [projectSessionNonUnitBattleCard("bulwark-needle"),
+    ...defaultRoster.filter(({ id }) => id !== "cinderlings")];
+  if (roster.length !== 8 || new Set(roster.map(({ id }) => id)).size !== 8) {
+    throw new Error("Bulwark Needle witness must contain eight unique admitted cards");
+  }
+  const questionKeys = [...new Set(roster.flatMap(({ entities }) => entities.flatMap((entity) =>
+    [entity.bodyRadiusPolicy, entity.projectileSpeedPolicy, entity.deliveryPolicy,
+      entity.layerPolicy, entity.damagePolicy]
+      .filter((policy) => policy?.kind === "question")
+      .map(({ questionKey }) => questionKey))))].sort();
+  const questionsByKey = new Map(createPlayableRosterQuestionRecords()
+    .map((question) => [question.key, question]));
+  const questions = questionKeys.map((key) => {
+    const question = questionsByKey.get(key);
+    if (question === undefined) throw new Error(`Bulwark Needle witness question ${key} is missing`);
+    return question;
+  });
+  return { initialWindupTicks: { central: 0, lane: 0 }, questions, roster };
+}
+
 export function createShippedGameSessionSetup(seed = 0, profile = "standard") {
   if (profile !== "standard" && profile !== "live-seed-2-terminal" &&
-      profile !== "stonehauler-witness") {
+      profile !== "stonehauler-witness" && profile !== "bulwark-needle-witness") {
     throw new TypeError("shipped game session profile is invalid");
   }
   const terminalProfile = profile === "live-seed-2-terminal";
   const witnessProfile = profile === "stonehauler-witness";
+  const buildingWitnessProfile = profile === "bulwark-needle-witness";
   const witness = witnessProfile ? createSessionTroopWitness("stonehauler") : null;
-  const roster = witness?.roster ?? createPlayableRoster();
-  const questions = witness?.questions ?? createPlayableRosterQuestionRecords();
+  const buildingWitness = buildingWitnessProfile ? createBulwarkNeedleSessionWitness() : null;
+  const selectedWitness = witness ?? buildingWitness;
+  const roster = selectedWitness?.roster ?? createPlayableRoster();
+  const questions = selectedWitness?.questions ?? createPlayableRosterQuestionRecords();
   const battleSetup = canonical({ initialWindupTicks: terminalProfile
     ? { central: 10_000, lane: 10_000 }
-    : witness?.initialWindupTicks ?? { central: 0, lane: 0 },
+    : selectedWitness?.initialWindupTicks ?? { central: 0, lane: 0 },
     questions, roster });
   const deck = roster.map(({ id }) => id);
   return canonical({
@@ -420,7 +446,7 @@ export function mountShippedGameBrowser(
       const deckChoiceStart = deckChoiceEnabled
         ? shell.querySelector('[data-ui="deck-start"]') : null;
       if (deckChoiceEnabled && (deckChoiceOpenButton === null ||
-          deckChoice === null || deckChoiceButtons.length !== 2 ||
+          deckChoice === null || deckChoiceButtons.length !== 3 ||
           deckChoiceStart === null)) {
         throw new TypeError("shipped browser deck choice controls are incomplete");
       }
@@ -450,7 +476,8 @@ export function mountShippedGameBrowser(
         if (event?.isTrusted !== true || !active || graph !== candidate || replacing ||
             !deckChoiceOpen) return false;
         const value = event.currentTarget?.dataset?.deckChoice;
-        if (value !== "standard" && value !== "stonehauler") return false;
+        if (value !== "standard" && value !== "stonehauler" &&
+            value !== "bulwark-needle") return false;
         selectedDeckProfile = value;
         syncDeckChoice();
         return true;
@@ -880,10 +907,12 @@ export function mountShippedGameBrowser(
         graph.deckChoiceOpenButton.hidden = true;
         return graph.loop.start();
       }
+      const witnessProfile = selectedDeckProfile === "stonehauler"
+        ? "stonehauler-witness" : "bulwark-needle-witness";
       manualStepMode = false;
       replaceMountedSession(
-        new GameSession(createShippedGameSessionSetup(1, "stonehauler-witness")),
-        "shipped browser Stonehauler deck mount failed",
+        new GameSession(createShippedGameSessionSetup(1, witnessProfile)),
+        `shipped browser ${selectedDeckProfile} deck mount failed`,
       );
       return true;
     },

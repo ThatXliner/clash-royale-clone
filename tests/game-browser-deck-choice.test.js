@@ -104,7 +104,7 @@ test("game browser deck choice: trusted pre-match choice drives both supported d
       "the deck-choice control is visible at the shipped viewport");
     assert.equal(standardOpening.choiceDialogHidden, true);
     assert.equal(standardOpening.choiceDialogDisplay, "none");
-    assert.deepEqual(standardOpening.hiddenChoicesCanFocus, [false, false, false],
+    assert.deepEqual(standardOpening.hiddenChoicesCanFocus, [false, false, false, false],
       "closed deck choices are hidden and excluded from keyboard focus");
     assert.equal(standardOpening.sessionTick, 0);
     await page.screenshot({ path: `${ARTIFACTS}standard-opening.png` });

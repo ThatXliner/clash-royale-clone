@@ -221,8 +221,8 @@ test("game browser journey: real Chrome plays, fights, terminates, restarts, and
       dialogDisplay: "none",
       dialogHidden: true,
       openerExposed: false,
-      optionFocusResults: [false, false, false],
-      optionIds: ["standard", "stonehauler", "deck-start"],
+      optionFocusResults: [false, false, false, false],
+      optionIds: ["standard", "stonehauler", "bulwark-needle", "deck-start"],
     }, "closed chooser descendants are hidden from layout and cannot take keyboard focus");
     await page.evaluate(() => {
       globalThis.__gameBrowserJourneyObservedCombat = false;

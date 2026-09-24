@@ -47,6 +47,7 @@ test("ui arena shell: fixed viewport and every required primitive are complete",
   assert.equal(occurrences(markup, 'data-ui="deck-choice"'), 1);
   assert.equal(occurrences(markup, 'data-deck-choice="standard"'), 1);
   assert.equal(occurrences(markup, 'data-deck-choice="stonehauler"'), 1);
+  assert.equal(occurrences(markup, 'data-deck-choice="bulwark-needle"'), 1);
   assert.equal(occurrences(markup, 'data-ui="deck-start"'), 1);
   assert.equal(occurrences(markup, 'data-ui="restart"'), 1);
   assert.equal(occurrences(markup, "<i></i>"), 30);
@@ -112,11 +113,11 @@ test("ui arena shell: canonical markup and source bytes are stable", () => {
   assert.equal(first, second);
   assert.equal(
     createHash("sha256").update(first).digest("hex"),
-    "11a21cc603c560cf4a75da996f3f596bdea39af398a1944d0e35906c6fbe079d",
+    "f71355ec2599ce58ec86b8daae391809f13ae40d33fa256a5af675baac215df8",
   );
   assert.equal(
     createHash("sha256").update(css).digest("hex"),
-    "0f00c45b3bb889eb3cca11f6e254c1c42684c0bd60b82d52d6796ff40ffa0985",
+    "9414b241c2e6e15d6c90e896ed9dda24b4273d9e77b3454ec2523d3b2315cd8f",
   );
 });
 
