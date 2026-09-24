@@ -1,0 +1,32 @@
+{
+  "browser": {
+    "consoleErrors": 0,
+    "maxDrivenLongTaskMs": 0,
+    "maxInitializationLongTaskMs": 169,
+    "maxRestoreLongTaskMs": 0,
+    "outOfSegmentLongTasks": [
+      {
+        "duration": 74,
+        "name": "self",
+        "startTime": 804656.7999999523
+      }
+    ],
+    "resourceErrors": 0,
+    "segments": 61,
+    "tick": 18000,
+    "unhandled": 0
+  },
+  "browserTelemetrySha256": "74c7f055c00863f28b4e93f42056627ddd599f7fddfffb936bdc93627f2f6d45",
+  "command": "npm test",
+  "durationSeconds": 3565.3,
+  "exitCode": 1,
+  "failedAssertions": 3,
+  "failures": [
+    "integration-audit.test.js:313 expected manifest SHA",
+    "ui-arena-shell.test.js:110 expected source SHA",
+    "visual-arena-art.test.js:147 expected source SHA"
+  ],
+  "logSha256": "8bddb875ddc1ed0685be8405b7dff9a3ea6e10b3cdd1e26e9bf08e03c800011c",
+  "tapGroups": 138,
+  "testedCodeCommit": "efaabf8a27ba650deb7eae5ce5e437962d6f80a2"
+}
