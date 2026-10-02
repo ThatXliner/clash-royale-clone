@@ -1,0 +1,109 @@
+{
+  "archive": {
+    "pathAtProfiling": "artifacts/game-001gp-browser-endurance/endurance-result.json",
+    "sha256": "451e9c7befb573c2abf3415f8645593d58e93179bd003ef6cbec4eeebee27abc",
+    "bytes": 2035964,
+    "completeRunDurationMilliseconds": 798341,
+    "note": "This was the current full-run artifact, distinct from the 700feed3 timed-out archive. The run used its primary tick-0 transcript entry and its replayed semantic transcript from tick 300 onward."
+  },
+  "profile": {
+    "script": "artifacts/game-001gpvt-round-2/debug/late-host-replay-profile.mjs",
+    "trace": "artifacts/game-001gpvt-round-2/debug/late-host-replay-profile.jsonl",
+    "targetTick": 14100,
+    "reachedTick": 14100,
+    "terminal": false,
+    "segmentCount": 47,
+    "exactGhPolicyRecomputedAgainstTranscript": true,
+    "tick600CheckpointExactBytes": true,
+    "tick600CheckpointBytes": 35882,
+    "transcriptLifecycle": "Direct GameSession pause/resume is recorded at tick 300 before its semantic deployment, matching the archived pre-rewind bytes at tick 600.",
+    "browserOrPlaywrightUsed": false,
+    "limitations": [
+      "This is a fresh Node GameSession mirror, not the endurance browser/Playwright loop.",
+      "It does not measure page.evaluate, physical input delivery, browser render/audio work, screenshots, observer drains, or browser-to-host gaps.",
+      "The current full-run artifact is a distinct run from the 700feed3 timeout; this bounded probe does not explain that timeout or establish a full-run pass."
+    ]
+  },
+  "measuredPhaseStats": {
+    "earlyTicks0To3000": {
+      "stepTotal": {
+        "count": 10,
+        "minMilliseconds": 704.6089999999999,
+        "medianMilliseconds": 1109.3596240000006,
+        "maxMilliseconds": 1284.837791,
+        "meanMilliseconds": 1020.6588166000004
+      },
+      "policy": {
+        "count": 10,
+        "minMilliseconds": 0.3596660000000611,
+        "medianMilliseconds": 0.5209580000000642,
+        "maxMilliseconds": 0.6613330000000133,
+        "meanMilliseconds": 0.5180084999999821
+      },
+      "submit": {
+        "count": 10,
+        "minMilliseconds": 0,
+        "medianMilliseconds": 0.12979100000029575,
+        "maxMilliseconds": 0.5334169999999858,
+        "meanMilliseconds": 0.1335082999999372
+      },
+      "serialize": {
+        "count": 10,
+        "minMilliseconds": 0.004834000000073502,
+        "medianMilliseconds": 0.022292000000106782,
+        "maxMilliseconds": 0.05012499999975262,
+        "meanMilliseconds": 0.02279589999987337
+      },
+      "stateRead": {
+        "count": 10,
+        "minMilliseconds": 0.2277080000000069,
+        "medianMilliseconds": 0.4812090000000353,
+        "maxMilliseconds": 0.7840000000014697,
+        "meanMilliseconds": 0.5034750000001281
+      }
+    },
+    "lateTicks9000To14100": {
+      "stepTotal": {
+        "count": 17,
+        "minMilliseconds": 2200.071833999995,
+        "medianMilliseconds": 3560.6350410000014,
+        "maxMilliseconds": 4572.44475000001,
+        "meanMilliseconds": 3378.767549352937
+      },
+      "policy": {
+        "count": 17,
+        "minMilliseconds": 1.5157079999989946,
+        "medianMilliseconds": 2.474291999998968,
+        "maxMilliseconds": 3.9252080000005662,
+        "meanMilliseconds": 2.445644470586986
+      },
+      "submit": {
+        "count": 17,
+        "minMilliseconds": 0,
+        "medianMilliseconds": 0.48512500000651926,
+        "maxMilliseconds": 2.1469170000054874,
+        "meanMilliseconds": 0.6663528823521441
+      },
+      "serialize": {
+        "count": 17,
+        "minMilliseconds": 0.13225000000238651,
+        "medianMilliseconds": 0.1879579999949783,
+        "maxMilliseconds": 0.5409999999974389,
+        "meanMilliseconds": 0.2162868235301336
+      },
+      "stateRead": {
+        "count": 17,
+        "minMilliseconds": 1.4994579999984126,
+        "medianMilliseconds": 2.6277499999996508,
+        "maxMilliseconds": 3.95166700000118,
+        "meanMilliseconds": 2.5696862352937493
+      }
+    },
+    "maximumLiveUnits": 185,
+    "maximumProcessRssBytes": 245448704,
+    "maxMeasuredDirectStepTotalMilliseconds": 4572.44475000001,
+    "maxMeasuredPerSegmentPolicySubmitSerializeStateMilliseconds": 7.935750000004191,
+    "sumMeasuredPhasesMilliseconds": 101192.9859569999
+  },
+  "interpretation": "Node-side policy, serialization, state reads, and direct stepping grow with the workload, but no measured segment exceeded 4.573 seconds of step work; this probe cannot account for browser/host intersegment delay without the actual endurance-loop phase timings."
+}
