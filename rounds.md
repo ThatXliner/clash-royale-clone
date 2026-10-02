@@ -23,14 +23,44 @@ The admission check did not pass: `npm test -- game-roster-admission` produced
 6/7 passing tests and failed the manifest/binding test at
 `scripts/integration-audit.js:634` with
 `createPeriodicSpellCatalog/blight-ring mechanic binding mismatch`. A bounded
-direct call to `getSessionCardAdmissionRecord` then returned ADMITTED
-`global_effect` records for both `blight-ring` and `fault-pulse`, with costs 4
-and 3 respectively. This contradicts the requirement that periodic QUESTION
-fixtures remain rejected from session admission; the mismatch also leaves the
-existing integration audit red.
+direct call to `getSessionCardAdmissionRecord` returned `global_effect`
+catalog metadata for both `blight-ring` and `fault-pulse`, with costs 4 and 3.
+That metadata alone does not establish an executable spell profile; the dated
+follow-up below corrects the original inference. The integration audit remains
+red.
 
-BIGGEST GAP: Blight Ring and Fault Pulse are exposed as admitted session cards,
-and the integration audit's pinned Blight Ring binding no longer matches.
+BIGGEST GAP: The integration audit's pinned
+`createPeriodicSpellCatalog/blight-ring` mechanic binding no longer matches.
+
+FOLLOW-UP ADDENDUM — 2026-10-02: The Round 366 verdict remains FAIL, but the
+initial interpretation of `getSessionCardAdmissionRecord` as executable
+admission was incorrect. Its `kind`, cost, and `global_effect` placement fields
+are catalog/routing metadata; actual execution still requires an exact sourced
+spell profile. A bounded probe in the immutable `d32b6df` archive attempted
+`GameSession.submitPlayerCommand(type="spell")` and `LiveBattle.scheduleSpell`
+for Blight Ring, Fault Pulse, and Gravity Well, each with a live north Mossguard
+target. All six attempts rejected with the explicit
+`admitted-effect-without-exact-executable-profile` QUESTION guard. The probe
+script and captured output are committed at
+`artifacts/game-001hspf-round-1/critic/periodic-execution-rejection-probe.mjs`
+and `artifacts/game-001hspf-round-1/critic/periodic-execution-rejection-output.txt`.
+
+For each GameSession rejection, serialized bytes were unchanged; prior route
+history stayed 1→1 (the existing north deployment), south deck sequence stayed
+0→0, and south elixir stayed 10→10. For each LiveBattle rejection, serialized
+bytes, events, and history were unchanged and pending spell intents stayed at
+zero. The exact before/after serialized SHA-256 values are:
+
+| Periodic effect | GameSession before = after | LiveBattle before = after |
+| --- | --- | --- |
+| `blight-ring` | `4f6a460ab713e85542f56548aa01ac8983ee417755acabd81b7002a699e0768c` | `84b57f40151455e40ee9ffbdd4b9b0868d4e179a44e5210be1501ca8a40af42e` |
+| `fault-pulse` | `8f9d43a200cb6c8e9a56c3087f02effdf2c4f0cc6c5b8a9929213db7be994642` | `31d94e7bf85246dd2df1b7a57fe40a910f73dbfe7f2a997ad704cd84f1d27776` |
+| `gravity-well` | `711b09ba310e7cbe51f02653acaaf6fa9008518c4b2aaf57048d6f0bdb37c2c7` | `1ad0a9bd0fd54d81a5492cc98765ec803c2cdcea0a3ecb3b9499392cd645affc` |
+
+This clears the executable-admission concern from the original gap statement;
+the pinned occurrence-binding failure remains the only gap recorded for this
+round, and the verdict stays FAIL pending an independent check of a later
+candidate.
 
 ## Round 365 — 2026-10-02
 
