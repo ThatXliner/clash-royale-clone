@@ -31,10 +31,10 @@
   <div class="cards">
     <div class="card"><div class="num">190</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">149</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">352</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">353</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">26</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Latest review: <strong>APP-003 — Deck and card-info interaction polish, round 1 — PASS</strong>. Full game completion remains unproven.</p>
+  <p class="note">Latest review: <strong>APP-003 — Deck and card-info interaction polish, round 2 — PASS</strong>. Full game completion remains unproven.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -229,13 +229,14 @@
       <tr><td><code>APP-002D</code></td><td>Deterministic editable-deck setup</td><td class="state-pass">PASS</td><td>4/4</td><td>1</td><td>Round 1 passed all nine ordered subsets, default bytes, QUESTION closure, rejection, deterministic chunk/restore replay and live Stonehauler deployment; generic setup admission still honors caller-authored estimates only as explicitly unverified QUESTION values</td><td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R349 PASS</strong> — None on the judged editable-deck generator contract; generic GameSession admission still honors caller-rewritten estimates as explicitly unverified QUESTION values.</li></ol></details></td></tr>
       <tr><td><code>APP-002</code></td><td>Editable eight-card deck and match launch</td><td class="state-pass">PASS</td><td>34/34</td><td>1</td><td>Production edit→info→Battle journey passed, including an independent slot-8 order, exact custom setup, rejected messages, restore/restart and trusted deploy. At 390×844, slot 8 requires a 76px scroll to sit fully above fixed navigation.</td><td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R351 PASS</strong> — Initial 390×844 position overlaps 6.5625px of slot 8’s Replace button; after scrolling, keyboard and pointer reach the unobscured control.</li></ol></details></td></tr>
 
-      <tr><td><code>APP-003</code></td><td>Deck and card-info interaction polish</td><td class="state-pass">PASS</td><td>6/6</td><td>1</td><td>Round 1 passed production Chrome at 320×568, 390×844, 720×1280 and 1440×900; no horizontal overflow; settled keyboard targets clear the navigation; phone targets are at least 44px; replacement, empty-search, card-info/back-focus, reduced-motion and custom-deck continuation checks pass. None on the judged dimension</td><td class="round-gaps"><details><summary>1 recorded round gap</summary><ol><li><strong>R352 PASS</strong> — None on the judged dimension.</li></ol></details></td></tr>
+      <tr><td><code>APP-003</code></td><td>Deck and card-info interaction polish</td><td class="state-pass">PASS</td><td>8/8</td><td>2</td><td>Round 2 passed both requested test suites and an independent trusted Tab/Shift+Tab audit at 320×568 and 390×844; all settled targets are at least 44px and clear the fixed navigation. Round 1 also covered 720×1280 and 1440×900, all views, feedback, reduced motion, and custom-deck continuation. No remaining gap on the judged dimension</td><td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R353 PASS</strong> — None on the judged dimension; trusted phone-size Tab/Shift+Tab targets settled at least 44px high and fully above the navigation.</li><li><strong>R352 PASS</strong> — None on the judged dimension.</li></ol></details></td></tr>
       <tr><td><code>APP-004</code></td><td>Readable hand and next-card HUD in packaged Battle</td><td class="state-pending">PENDING</td><td>0/0</td><td>0</td><td>Audit found packaged scaling yields roughly 4–5px card names and 6–8px costs; compact hand layout needs a dedicated app-mode polish pass</td><td class="round-gaps">No recorded rounds</td></tr>
       </tbody>
     </table>
   </div>
   <h2>Round trajectory</h2>
   <ol>
+      <li><strong>R353 PASS</strong> · APP-003 — Deck and card-info interaction polish, round 2<br>None on the judged dimension; all trusted phone-size Tab/Shift+Tab targets settle above the navigation.</li>
       <li><strong>R352 PASS</strong> · APP-003 — Deck and card-info interaction polish, round 1<br>None on the judged dimension.</li>
       <li><strong>R1 FAIL</strong> · SIM-001 — Fixed-step world and replay log<br>The nondeterminism source gate misses wall-clock APIs such as `process.hrtime.bigint()` and aliased `node:perf_hooks` imports, so it does not satisfy the requirement to reject wall-clock timing in simulation code.</li>
       <li><strong>R2 FAIL</strong> · SIM-001 — Fixed-step world and replay log<br>Strengthen the source gate to detect aliased, destructured, and computed access to ambient random APIs.</li>

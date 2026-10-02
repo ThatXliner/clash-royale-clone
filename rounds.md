@@ -1,5 +1,58 @@
 # Gauntlet Rounds
 
+## Round 353 — 2026-10-02
+
+PIECE: APP-003 — Deck and card-info interaction polish, round 2
+
+VERDICT: PASS
+
+EVIDENCE: The critic used a clean git archive of immutable commit e9adae2 at
+/tmp/app003-r2-critic-e9adae2, isolated from concurrent APP-004 checkout
+changes. The requested checks ran sequentially.
+
+APP_POLISH_ARTIFACTS=/tmp/app003-r2-evidence node
+tests/app-polish-runner.js app-polish:
+
+    # Subtest: mobile app controls scroll clear of navigation and retain deck and card feedback
+    ok 1 - mobile app controls scroll clear of navigation and retain deck and card feedback
+    1..1
+    # tests 1
+    # suites 0
+    # pass 1
+    # fail 0
+
+npm run test:app-shell:
+
+    # Subtest: player shell renders roster-derived cards and launches a paused shared battle frame
+    ok 1 - player shell renders roster-derived cards and launches a paused shared battle frame
+    1..1
+    # tests 1
+    # suites 0
+    # pass 1
+    # fail 0
+
+An independent production Chrome audit at 320×568 and 390×844 used trusted
+Tab and Shift+Tab input across all 16 visible Inspect and Replace controls.
+Both directions matched document order and reverse order. Every focused target
+was at least 44px high, stayed fully above the fixed navigation, and received
+the center-point hit. At 320×568 the lowest focused target ended at y=492.5625
+with navigation starting at y=501. At 390×844 the lowest target ended at
+y=768.5625 with navigation starting at y=777. The audit output reported
+result PASS and 31 trusted Tab keydowns. A first immediate geometry read landed
+before Chrome completed its normal focus scroll; after the runner's two-frame
+settle, all focus rectangles cleared the navigation.
+
+The browser regression also passed no-overflow checks at 320×568, 390×844,
+720×1280 and 1440×900; 44px phone targets; visible replacement confirmation;
+empty-search recovery; legible card detail view and return focus; reduced-motion
+settings; and custom-deck launch, restore and restart. The release contained
+120 files and public/index.html as its sole entrypoint. The recorded
+replacement status was “Stonehauler replaced Cinderlings. Average elixir 3.63.”
+and the updated marker read “Updated”. Captures are in
+/tmp/app003-r2-evidence. No historical footage parity claim was made.
+
+BIGGEST GAP: None on the judged dimension.
+
 ## Round 352 — 2026-10-02
 
 PIECE: APP-003 — Deck and card-info interaction polish, round 1
