@@ -244,3 +244,72 @@ test("natural engine completion reports one sparse reward and seals the episode"
   assert.throws(() => env.step(0), /finished RL environment/);
   assert.equal(env.serialize(), checkpoint);
 });
+
+test("wait-only seed 2 reaches its pinned natural engine terminal after checkpoint restore", () => {
+  const config = { seed: 2, strideTicks: 600, horizonTicks: 18_000 };
+  const expected = {
+    crowns: { north: 3, south: 0 },
+    endedAtTick: 4_898,
+    kind: "win",
+    reason: "central_destroyed",
+    reward: -1,
+    tick: 4_899,
+    winner: "north",
+  };
+  const env = createRLEnvironment(config);
+  let observation = env.observe();
+  let transitions = 0;
+  let totalReward = 0;
+  while (observation.tick < 2_400) {
+    const result = env.step(0);
+    observation = result.observation;
+    totalReward += result.reward;
+    transitions += 1;
+  }
+
+  const checkpoint = env.serialize();
+  const restored = RLEnvironment.restore(checkpoint);
+  assert.deepEqual(restored.observe(), observation);
+
+  let result;
+  while (observation.status === "running") {
+    result = env.step(0);
+    const restoredResult = restored.step(0);
+    assert.deepEqual(restoredResult, result,
+      "the restored wait-only episode follows the original transition exactly");
+    observation = result.observation;
+    totalReward += result.reward;
+    transitions += 1;
+  }
+
+  assert.equal(transitions, 9);
+  assert.equal(observation.tick, expected.tick);
+  assert.equal(result.info.ticksAdvanced, 99,
+    "the final engine step stops at its natural terminal inside the 600-tick stride");
+  assert.equal(result.terminated, true);
+  assert.equal(result.truncated, false,
+    "the distant external horizon cannot relabel natural engine completion");
+  assert.equal(result.reward, expected.reward);
+  assert.equal(totalReward, expected.reward, "only natural termination pays the sparse reward");
+  assert.equal(observation.status, "terminated");
+  assert.deepEqual(observation.crowns, expected.crowns);
+  assert.ok(observation.tick < config.horizonTicks);
+  assert.deepEqual(restored.observe(), observation);
+  assert.equal(restored.serialize(), env.serialize(),
+    "checkpoint-restored continuation reproduces the exact terminal wrapper snapshot");
+
+  const terminalSnapshot = JSON.parse(env.serialize());
+  const engine = GameSession.restore(terminalSnapshot.session);
+  assert.equal(engine.state.terminal, true);
+  assert.equal(engine.state.tick, expected.tick);
+  assert.deepEqual(engine.state.clock.result, {
+    crowns: expected.crowns,
+    endedAtTick: expected.endedAtTick,
+    kind: expected.kind,
+    reason: expected.reason,
+    winner: expected.winner,
+  }, "the restored real GameSession supplies the pinned natural match result");
+  assert.equal(totalReward, expected.reward);
+  assert.throws(() => env.step(0), /finished RL environment/);
+  assert.throws(() => restored.step(0), /finished RL environment/);
+});
