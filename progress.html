@@ -24,14 +24,14 @@
 </head>
 <body>
   <h1>Gauntlet progress</h1>
-  <p class="sub">Updated 2026-09-24 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
+  <p class="sub">Updated 2026-10-02 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
     <div class="card"><div class="num">184</div><div class="label">tracked pieces</div></div>
-    <div class="card"><div class="num">143</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">339</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">144</div><div class="label">passed</div></div>
+    <div class="card"><div class="num">354</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">26</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Latest review: <strong>INTEGRATION-001RP — Reconcile canonical integration manifest after later rounds, round 1 — PASS</strong>. Full game completion remains unproven.</p>
+  <p class="note">Latest review: <strong>GUARD-002R — Actual release-artifact isolation boundary, round 1 — PASS</strong>. Full game completion remains unproven.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -240,10 +240,10 @@
       <tr>
         <td><code>GUARD-002R</code></td>
         <td>Actual release-artifact isolation boundary</td>
-        <td class="state-pending">PENDING</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Read-only audit found direct dynamic imports rejected by `build-release.js`, but reflective `eval`/`Function` loaders are not constrained by the builder and the release build does not invoke the static isolation guard. Scope the proof to the actual build and served runtime, without claiming a static proof of arbitrary generated JavaScript.</td>
+        <td class="state-pass">PASS</td>
+        <td>3/3</td>
+        <td>1</td>
+        <td>Round 1 passed: byte-identical production artifacts, emitted-byte isolation, custom-condition bare import rejection, CSP-blocked reflective loaders, and manifest-only Chrome serving passed; same-origin off-manifest requests are denied and logged by the manifest-only server.</td>
       </tr>
       <tr>
         <td><code>CONTENT-002</code></td>

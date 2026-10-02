@@ -1,5 +1,48 @@
 # Gauntlet Rounds
 
+## Round 347 — 2026-10-02
+
+PIECE: GUARD-002R — Actual release-artifact isolation boundary, round 1
+
+VERDICT: PASS
+
+EVIDENCE: At builder commit `6c99614`, the focused command ran from a clean
+`git archive` copy, preserving the shared checkout's existing generated-file
+changes. `npm test -- shipping-isolation-release` passed all three tests:
+
+```text
+1..3
+# tests 3
+# suites 0
+# pass 3
+# fail 0
+```
+
+Two fresh production builds were byte-identical: 116 artifact files,
+2,604,431 bytes, and manifest SHA-256
+`a22fa4aac4b8806d792b502a6f3b3a8fc618ba522ede2b61b81000ae98de0f2b`.
+The post-emission audit compared 18 reference files and rejected protected
+paths, copied reference bytes, protected card identities, extra files, and
+manifest mismatches. The custom-exports package fixture was rejected as a
+bare import. In Chrome, the emitted policy blocked `eval`, `Function`, and an
+aliased `Function` constructor with three `EvalError` results and three
+`script-src` violations. It recorded a cross-origin fetch attempt before CSP
+evaluation and its `connect-src` violation even though neither Playwright nor
+the artifact server received that blocked request. All 116 normal production
+requests stayed on manifest paths; a deliberately aborted in-manifest CSS
+request was recorded as failed. The test-only CSS/SVG/WAV fixtures were built
+in a separate temporary fixture and did not enter the production manifest.
+
+An independent Chrome probe also tried
+`fetch("/__same_origin_off_manifest__")` under the emitted CSP. Chrome issued
+the request with no policy violation, and the manifest-only server logged it
+and returned 404. This confirms that exact-path enforcement comes from the
+server's manifest allowlist; the emitted CSP is origin-scoped. No static
+universal-safety claim is needed for the observed production artifact.
+
+BIGGEST GAP: None on the judged dimension; same-origin off-manifest requests
+must continue to pass through a manifest-only server for exact-path denial.
+
 ## Round 346 — 2026-09-24
 
 PIECE: INTEGRATION-001RP — Reconcile canonical integration manifest after later rounds, round 1
