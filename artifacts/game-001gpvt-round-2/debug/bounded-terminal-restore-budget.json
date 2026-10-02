@@ -1,0 +1,20 @@
+{
+  "status": "diagnostic-timeout-not-pass",
+  "command": "node artifacts/game-001gpvt-round-2/debug/bounded-terminal-restore.mjs /tmp/game-001gpvt-critic-aab3c53-kBqBJz/artifacts/game-001gp-browser-endurance/endurance-result.json 8000",
+  "sourceArtifact": "/tmp/game-001gpvt-critic-aab3c53-kBqBJz/artifacts/game-001gp-browser-endurance/endurance-result.json",
+  "sourceArtifactSha256": "f5e76082ce5b4d0e322f1ef5c13882f85bd789a730fc18dc2d187f81c5d4b5e2",
+  "checkpoint": {
+    "origin": "real previous full-run terminal GameSession snapshot; no synthesized state",
+    "tick": 18000,
+    "terminal": true,
+    "bytes": 319566
+  },
+  "result": {
+    "status": "diagnostic-timeout-not-pass",
+    "wallMilliseconds": 8006.594,
+    "timeBudgetMilliseconds": 8000,
+    "workerTerminated": true,
+    "rawCheckpointBytesEmitted": false
+  },
+  "limitation": "Node terminal restore did not finish inside the bounded 8-second probe. This confirms replay/restore cost but does not explain late inter-segment gaps; the full browser acceptance run remains required."
+}

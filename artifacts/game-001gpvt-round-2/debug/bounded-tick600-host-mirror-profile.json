@@ -1,0 +1,60 @@
+{
+  "status": "diagnostic-only-not-pass",
+  "command": "node --input-type=module (inline host-mirror profile)",
+  "sourceArtifact": "/tmp/game-001gpvt-r2-critic-700feed3-nXwex3/artifacts/game-001gp-browser-endurance/continuation-final-result.json",
+  "sourceArtifactSha256": "dc87a8016852534d7d70b0e647da102416cf42eaaf08fc0dcec51dcb5e727fde",
+  "checkpoint": {
+    "origin": "real archived GameSession snapshot; no synthesized state",
+    "tick": 600,
+    "bytes": 35882,
+    "restoreMilliseconds": 6383.968
+  },
+  "measurements": [
+    {
+      "startTick": 600,
+      "endTick": 900,
+      "step300Milliseconds": 4568.559,
+      "stateReadMilliseconds": 0.612,
+      "serializeBeforeMilliseconds": 0.023,
+      "serializeAfterMilliseconds": 0.016,
+      "beforeBytes": 35882,
+      "afterBytes": 40682,
+      "audioReplayCount": 87
+    },
+    {
+      "startTick": 900,
+      "endTick": 1200,
+      "step300Milliseconds": 5249.122,
+      "stateReadMilliseconds": 25.921,
+      "serializeBeforeMilliseconds": 0.015,
+      "serializeAfterMilliseconds": 0.036,
+      "beforeBytes": 40682,
+      "afterBytes": 45482,
+      "audioReplayCount": 139
+    },
+    {
+      "startTick": 1200,
+      "endTick": 1500,
+      "step300Milliseconds": 6224.890,
+      "stateReadMilliseconds": 0.486,
+      "serializeBeforeMilliseconds": 0.102,
+      "serializeAfterMilliseconds": 0.025,
+      "beforeBytes": 45482,
+      "afterBytes": 50282,
+      "audioReplayCount": 192
+    },
+    {
+      "startTick": 1500,
+      "endTick": 1800,
+      "step300Milliseconds": 4857.758,
+      "stateReadMilliseconds": 0.536,
+      "serializeBeforeMilliseconds": 0.025,
+      "serializeAfterMilliseconds": 0.030,
+      "beforeBytes": 50282,
+      "afterBytes": 55082,
+      "audioReplayCount": 196
+    }
+  ],
+  "environmentAuditCount": 0,
+  "limitation": "Node host mirror only; no Playwright, RAF, input DOM, or browser audio backend. These low-tick timings do not explain the late inter-drive gaps."
+}
