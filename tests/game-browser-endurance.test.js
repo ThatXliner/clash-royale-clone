@@ -169,9 +169,13 @@ function classifyLongTaskEntries(entries, intervals, firstDriveStartedAt) {
   return {
     byInterval,
     driven: tasksFor("drive"),
+    finalObserverDrain: tasksFor("final-observer-drain"),
     initialization,
     outOfSegment,
+    restart: tasksFor("restart"),
     restore: tasksFor("restore"),
+    screenshots: tasksFor("screenshot"),
+    terminalObservation: tasksFor("terminal-observation"),
   };
 }
 
@@ -179,12 +183,15 @@ function assertLongTaskCaps(classification, intervals) {
   assert.equal(classification.initialization.every(({ duration }) =>
     duration <= MAX_INITIALIZATION_LONG_TASK_MS), true,
   `initial browser setup stays inside the ${MAX_INITIALIZATION_LONG_TASK_MS}ms cap`);
+  assert.equal(classification.outOfSegment.every(({ duration }) =>
+    duration <= MAX_BROWSER_LONG_TASK_MS), true,
+  `no out-of-interval browser long task exceeds ${MAX_BROWSER_LONG_TASK_MS}ms`);
   for (const interval of intervals) {
     const entries = classification.byInterval.get(interval.id) ?? [];
     assert.equal(entries.every(({ duration }) => duration <= MAX_BROWSER_LONG_TASK_MS), true,
       interval.kind === "drive"
         ? `no browser long task exceeds ${MAX_BROWSER_LONG_TASK_MS}ms`
-        : `restore stays inside the ${MAX_BROWSER_LONG_TASK_MS}ms long-task cap`);
+        : `${interval.kind} stays inside the ${MAX_BROWSER_LONG_TASK_MS}ms long-task cap`);
   }
 }
 
@@ -193,14 +200,25 @@ test("game browser endurance: delayed long-task entries retain their measured in
     { finishedAt: 170, id: "drive-0", kind: "drive", startedAt: 100 },
     { finishedAt: 245, id: "restore-0", kind: "restore", startedAt: 180 },
     { finishedAt: 300, id: "drive-1", kind: "drive", startedAt: 250 },
+    { finishedAt: 350, id: "terminal-observation", kind: "terminal-observation",
+      startedAt: 310 },
+    { finishedAt: 400, id: "restart", kind: "restart", startedAt: 350 },
+    { finishedAt: 450, id: "final-observer-drain", kind: "final-observer-drain",
+      startedAt: 400 },
+    { finishedAt: 500, id: "screenshot-0", kind: "screenshot", startedAt: 450 },
   ];
   const initialization = { duration: 60, name: "self", startTime: 10 };
   const lateDriveEntry = { duration: 51, name: "self", startTime: 110 };
   const laterDriveEntry = { duration: 10, name: "self", startTime: 260 };
   const lateRestoreEntry = { duration: 52, name: "self", startTime: 190 };
   const betweenIntervals = { duration: 5, name: "self", startTime: 172 };
+  const terminalObservationEntry = { duration: 29, name: "self", startTime: 320 };
+  const restartEntry = { duration: 29, name: "self", startTime: 360 };
+  const drainEntry = { duration: 29, name: "self", startTime: 410 };
+  const screenshotEntry = { duration: 29, name: "self", startTime: 460 };
   const deliveredBatches = [[initialization], [laterDriveEntry],
-    [betweenIntervals, lateDriveEntry, lateRestoreEntry]];
+    [betweenIntervals, lateDriveEntry, lateRestoreEntry],
+    [terminalObservationEntry, restartEntry, drainEntry, screenshotEntry]];
   let observed = [];
   for (const batch of deliveredBatches) observed = [...observed, ...batch];
   const classification = classifyLongTaskEntries(observed, intervals, 100);
@@ -209,11 +227,36 @@ test("game browser endurance: delayed long-task entries retain their measured in
   assert.deepEqual(classification.byInterval.get("drive-0"), [lateDriveEntry]);
   assert.deepEqual(classification.byInterval.get("restore-0"), [lateRestoreEntry]);
   assert.deepEqual(classification.byInterval.get("drive-1"), [laterDriveEntry]);
+  assert.deepEqual(classification.terminalObservation, [terminalObservationEntry]);
+  assert.deepEqual(classification.restart, [restartEntry]);
+  assert.deepEqual(classification.finalObserverDrain, [drainEntry]);
+  assert.deepEqual(classification.screenshots, [screenshotEntry]);
   assert.deepEqual(classification.outOfSegment, [betweenIntervals]);
   assert.throws(() => assertLongTaskCaps(classification, [intervals[0]]),
     /no browser long task exceeds 50ms/u);
   assert.throws(() => assertLongTaskCaps(classification, [intervals[1]]),
     /restore stays inside the 50ms long-task cap/u);
+
+  const lifecycleIntervals = intervals.filter(({ kind }) =>
+    ["terminal-observation", "restart", "final-observer-drain", "screenshot"].includes(kind));
+  const lifecycleClassification = classifyLongTaskEntries([
+    terminalObservationEntry, restartEntry, drainEntry, screenshotEntry,
+  ], lifecycleIntervals, 100);
+  assertLongTaskCaps(lifecycleClassification, lifecycleIntervals);
+  for (const interval of lifecycleIntervals) {
+    const overCapEntry = { duration: 51, name: "self", startTime: interval.startedAt + 1 };
+    const overCapClassification = classifyLongTaskEntries([overCapEntry], [interval], 100);
+    assert.throws(() => assertLongTaskCaps(overCapClassification, [interval]),
+      new RegExp(`${interval.kind} stays inside the 50ms long-task cap`));
+  }
+
+  const outOfSegmentTail = { duration: 76, name: "self", startTime: 510 };
+  const withUnmeasuredTail = classifyLongTaskEntries(
+    [...observed, outOfSegmentTail], intervals, 100);
+  assert.deepEqual(withUnmeasuredTail.outOfSegment, [betweenIntervals, outOfSegmentTail]);
+  assert.throws(() => assertLongTaskCaps(withUnmeasuredTail, intervals),
+    /no out-of-interval browser long task exceeds 50ms/u,
+    "a late tail cannot leave the phase summaries clean while escaping the cap");
 });
 
 async function firstLine(stream) {
@@ -374,6 +417,15 @@ async function readNewLongTasks(page, cursor) {
   }, cursor);
 }
 
+async function captureScreenshotWithInterval(page, path, id, intervals) {
+  const interval = { finishedAt: Infinity, id, kind: "screenshot",
+    startedAt: await page.evaluate(() => performance.now()) };
+  intervals.push(interval);
+  await page.screenshot({ path });
+  interval.finishedAt = await page.evaluate(() => performance.now());
+  return interval;
+}
+
 async function readAndResetTiming(page) {
   return page.evaluate(() => {
     const performance = globalThis.__gameBrowserEndurancePerformance;
@@ -442,6 +494,7 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       browserApi: "mountShippedGameBrowser().enterManualStepMode().driveEnduranceSegment(300)",
       chunkTicks: GAME_BROWSER_ENDURANCE_MAX_CHUNK_TICKS,
       initializationLongTaskCapMilliseconds: MAX_INITIALIZATION_LONG_TASK_MS,
+      lifecycleLongTaskPolicy: "Drive, restore, terminal observation, restart, screenshots, final observer drain, and out-of-interval tasks are separately attributed and capped at 50ms; entries are classified by start time even when delivery is delayed.",
       longTaskCapMilliseconds: MAX_BROWSER_LONG_TASK_MS,
       sliceGuardPolicy: "An explicit slice overrun is re-measured deterministically in a quiescent Node audit (bounded retries); only a reproduced overrun fails, while an unreproduced one is recorded as environment noise.",
       presentationPolicy: "Input is suspended for each 300-tick segment. Every fixed one-tick simulation slice yields through real RAF; every 100 ticks (or terminal) one complete DOM/audio transaction commits, then exactly one E2 input controller remounts at segment finish.",
@@ -458,6 +511,11 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
     longTasks: [],
     outOfSegmentLongTasks: [],
     restoreLongTasks: [],
+    terminalObservationLongTasks: [],
+    restartLongTasks: [],
+    finalObserverDrainLongTasks: [],
+    screenshotLongTasks: [],
+    longTaskIntervals: [],
     finalObserverDrain: null,
     pendingResources: [],
     resourceErrors: [],
@@ -683,6 +741,8 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
     let firstDriveStartedAt = null;
     const observedLongTaskEntries = [...initializationTasks.tasks];
     const longTaskIntervals = [];
+    let terminalObservationInterval = null;
+    let restartInterval = null;
     let restored = false;
     let restoreCut = null;
     let restoreBranch = null;
@@ -699,17 +759,31 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       telemetry.initializationLongTasks = classification.initialization;
       telemetry.longTasks = classification.driven;
       telemetry.restoreLongTasks = classification.restore;
+      telemetry.terminalObservationLongTasks = classification.terminalObservation;
+      telemetry.restartLongTasks = classification.restart;
+      telemetry.finalObserverDrainLongTasks = classification.finalObserverDrain;
+      telemetry.screenshotLongTasks = classification.screenshots;
       telemetry.outOfSegmentLongTasks = classification.outOfSegment;
+      telemetry.longTaskIntervals = longTaskIntervals.map(({ finishedAt, id, kind, startedAt }) =>
+        ({ finishedAt, id, kind, startedAt }));
       telemetry.maxInitializationLongTaskMilliseconds = Math.max(0,
         ...classification.initialization.map(({ duration }) => duration));
       telemetry.maxRestoreLongTaskMilliseconds = Math.max(0,
         ...classification.restore.map(({ duration }) => duration));
+      telemetry.maxTerminalObservationLongTaskMilliseconds = Math.max(0,
+        ...classification.terminalObservation.map(({ duration }) => duration));
+      telemetry.maxRestartLongTaskMilliseconds = Math.max(0,
+        ...classification.restart.map(({ duration }) => duration));
+      telemetry.maxFinalObserverDrainLongTaskMilliseconds = Math.max(0,
+        ...classification.finalObserverDrain.map(({ duration }) => duration));
+      telemetry.maxScreenshotLongTaskMilliseconds = Math.max(0,
+        ...classification.screenshots.map(({ duration }) => duration));
       for (const interval of longTaskIntervals) {
         const entries = classification.byInterval.get(interval.id) ?? [];
         if (interval.kind === "drive") {
           const segment = telemetry.segments[interval.segmentIndex];
           if (segment !== undefined) segment.longTasks = entries;
-        } else if (telemetry.restore !== undefined) {
+        } else if (interval.kind === "restore" && telemetry.restore !== undefined) {
           telemetry.restore.longTasks = entries;
         }
       }
@@ -720,14 +794,33 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       return refreshLongTaskAttribution();
     };
     drainFinalObserver = async () => {
+      const lifecycleCutoff = await page.evaluate(() => performance.now());
+      for (const interval of longTaskIntervals) {
+        if (interval.finishedAt === Infinity) {
+          interval.finishedAt = lifecycleCutoff;
+        }
+      }
+      const drainInterval = { finishedAt: Infinity, id: "final-observer-drain",
+        kind: "final-observer-drain", startedAt: lifecycleCutoff };
+      longTaskIntervals.push(drainInterval);
+      await page.waitForTimeout(0);
+      const firstTaskUpdate = await readNewLongTasks(page, longTaskCursor);
+      longTaskCursor = firstTaskUpdate.cursor;
+      // The first observer read can itself create a long-task entry. Give it
+      // one more delivery turn before closing the accountable span.
       await page.waitForTimeout(0);
       const finalTaskUpdate = await readNewLongTasks(page, longTaskCursor);
       longTaskCursor = finalTaskUpdate.cursor;
-      const finalClassification = captureLongTaskBatch(finalTaskUpdate);
+      drainInterval.finishedAt = finalTaskUpdate.capturedAt;
+      const finalClassification = captureLongTaskBatch({ tasks: [
+        ...firstTaskUpdate.tasks, ...finalTaskUpdate.tasks,
+      ] });
       telemetry.finalObserverDrain = { capturedAt: finalTaskUpdate.capturedAt,
-        drainedPendingCount: finalTaskUpdate.drainedPendingCount,
-        newlyObservedTaskCount: finalTaskUpdate.tasks.length,
+        drainedPendingCount: firstTaskUpdate.drainedPendingCount +
+          finalTaskUpdate.drainedPendingCount,
+        newlyObservedTaskCount: firstTaskUpdate.tasks.length + finalTaskUpdate.tasks.length,
         observedTaskCount: observedLongTaskEntries.length };
+      telemetry.finalObserverDrain.longTasks = finalClassification.finalObserverDrain;
       assertLongTaskCaps(finalClassification, longTaskIntervals);
     };
     while (direct.state.tick < TEST_END_TICK) {
@@ -813,6 +906,12 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       assert.equal(direct.state.tick - lastSuccessfulTick <= 900, true,
         "exact GH policy makes one paid south deployment in every 900-tick window");
 
+      if (direct.state.tick === TEST_END_TICK) {
+        terminalObservationInterval = { finishedAt: Infinity,
+          id: "terminal-observation", kind: "terminal-observation",
+          startedAt: driven.finishedAt };
+        longTaskIntervals.push(terminalObservationInterval);
+      }
       const browserState = await browserView(page);
       assert.equal(driven.result.state.sessionTick, direct.state.tick);
       assert.equal(driven.result.state.domTick, direct.state.tick);
@@ -821,9 +920,10 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       assert.equal(browserState.audioDiagnostics.eventCount, browserState.audioReplayLength);
       assert.equal(browserState.pendingResources.length, 0);
       assert.equal(Object.values(browserState.layers).every((tick) => tick === String(direct.state.tick)),
-        true, "every projection layer commits the current session tick");
+      true, "every projection layer commits the current session tick");
       if (direct.state.tick === SEGMENT_TICKS) {
-        await page.screenshot({ path: `${ARTIFACTS}active.png` });
+        await captureScreenshotWithInterval(page, `${ARTIFACTS}active.png`,
+          "active-screenshot", longTaskIntervals);
       }
       const taskUpdate = await readNewLongTasks(page, longTaskCursor);
       longTaskCursor = taskUpdate.cursor;
@@ -1012,7 +1112,13 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       assert.equal(finalView.restartHidden, false);
       assert.ok(finalView.terminalOverlay?.width > 0 && finalView.terminalOverlay?.height > 0,
         "terminal feedback remains visible in the real 720x1280 shell");
-      await page.screenshot({ path: `${ARTIFACTS}terminal.png` });
+      await captureScreenshotWithInterval(page, `${ARTIFACTS}terminal.png`,
+        "terminal-screenshot", longTaskIntervals);
+      const restartStartedAt = await page.evaluate(() => performance.now());
+      terminalObservationInterval.finishedAt = restartStartedAt;
+      restartInterval = { finishedAt: Infinity, id: "restart", kind: "restart",
+        startedAt: restartStartedAt };
+      longTaskIntervals.push(restartInterval);
       await page.locator('[data-ui="restart"]').click();
       const restarted = await browserView(page, { bytes: true, loop: true });
       assert.equal(restarted.sessionBytes,
@@ -1021,10 +1127,13 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       assert.equal(restarted.state.sessionTick, 0);
       assert.equal(restarted.restartHidden, true);
       assert.equal(restarted.terminalOverlay, null);
-      await page.screenshot({ path: `${ARTIFACTS}restart.png` });
+      await captureScreenshotWithInterval(page, `${ARTIFACTS}restart.png`,
+        "restart-screenshot", longTaskIntervals);
+      restartInterval.finishedAt = await page.evaluate(() => performance.now());
       telemetry.terminal = { finalView, restarted };
     } else {
       telemetry.terminal = { smoke: true, finalView };
+      terminalObservationInterval.finishedAt = await page.evaluate(() => performance.now());
     }
     telemetry.pendingResources = finalView.pendingResources;
     assert.deepEqual(telemetry.consoleErrors, []);
@@ -1051,9 +1160,21 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       ...(telemetry.initializationLongTasks ?? []).map(({ duration }) => duration));
     telemetry.maxRestoreLongTaskMilliseconds = Math.max(0,
       ...telemetry.restoreLongTasks.map(({ duration }) => duration));
+    telemetry.maxTerminalObservationLongTaskMilliseconds = Math.max(0,
+      ...telemetry.terminalObservationLongTasks.map(({ duration }) => duration));
+    telemetry.maxRestartLongTaskMilliseconds = Math.max(0,
+      ...telemetry.restartLongTasks.map(({ duration }) => duration));
+    telemetry.maxFinalObserverDrainLongTaskMilliseconds = Math.max(0,
+      ...telemetry.finalObserverDrainLongTasks.map(({ duration }) => duration));
+    telemetry.maxScreenshotLongTaskMilliseconds = Math.max(0,
+      ...telemetry.screenshotLongTasks.map(({ duration }) => duration));
     telemetry.maxLongTaskMilliseconds = Math.max(telemetry.maxDrivenLongTaskMilliseconds,
       telemetry.maxInitializationLongTaskMilliseconds,
       telemetry.maxRestoreLongTaskMilliseconds,
+      telemetry.maxTerminalObservationLongTaskMilliseconds,
+      telemetry.maxRestartLongTaskMilliseconds,
+      telemetry.maxFinalObserverDrainLongTaskMilliseconds,
+      telemetry.maxScreenshotLongTaskMilliseconds,
       ...telemetry.outOfSegmentLongTasks.map(({ duration }) => duration));
     writeFileSync(`${ARTIFACTS}endurance-result.json`,
       `${JSON.stringify(telemetry, null, 2)}\n`);
