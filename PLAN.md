@@ -232,6 +232,8 @@ retain integer-tick determinism and canonical serialize/restore behavior.
 
 | APP-004 | Readable hand and next-card HUD in packaged Battle | Production Chrome at 390×844, 720×1280 and 1280×720 verifies rendered hand/next names at least 10px and costs at least 12px, unclipped labels with recognizable original portraits, four trusted selection targets at least 44×44px, correct next/selection/cycle state, and unchanged playfield coordinates and direct arena presentation | APP-002, VIS-003D | PASS | 9/9 | 2 | Round 2 passed both requested suites and independent 720×1280 geometry: elixir right=715.609px with its 2px outline inside the frame; fourth card target is 112×128px, 3px clear of the badge box. Names/costs and trusted cycle/deploy behavior pass at all three viewports. At 1280×720 the smallest typography margins are 0.277px for names and 0.847px for costs. |
 
+| RL-001 | Deterministic JavaScript training environment | Browser-compatible ESM artifact exposes seeded reset, allowlisted player observation, finite action catalogue and exact legal mask, fixed-tick step, sparse terminal reward, distinct termination/truncation, and exact wrapper snapshot/restore; real episodes, invalid-action atomicity, same-seed replay, restored continuation, independent instances and emitted-module import pass | APP-002D, MATCH-003 | PENDING | 0/0 | 0 | First training target: south agent versus existing seeded north controller, shared eight-card composition; no self-play or parity claim |
+
 ## Reference uncertainties
 
 - Arena tower/bridge coordinates and deployment masks are low-medium
