@@ -1,5 +1,89 @@
 # Gauntlet Rounds
 
+## Round 355 — 2026-10-02
+
+PIECE: APP-004 — Readable hand and next-card HUD in packaged Battle, round 2
+
+VERDICT: PASS
+
+EVIDENCE: I rendered and exercised the immutable archive at commit `30f4d9c`
+in `/tmp/app004-r2-critic-HaEeky`. The two requested test commands ran
+sequentially:
+
+`npm test -- battle-hand-polish`:
+
+```
+> original-card-battler@0.0.0 test
+> node tests/content-schema-runner.js battle-hand-polish
+
+TAP version 13
+# Subtest: packaged battle hand stays readable, selectable, and cycle-accurate
+ok 1 - packaged battle hand stays readable, selectable, and cycle-accurate
+  ---
+  duration_ms: 14684.596458
+  type: 'test'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 14746.662125
+```
+
+`npm test -- app-shell`:
+
+```
+> original-card-battler@0.0.0 test
+> node tests/content-schema-runner.js app-shell
+
+TAP version 13
+# Subtest: player shell renders roster-derived cards and launches a paused shared battle frame
+ok 1 - player shell renders roster-derived cards and launches a paused shared battle frame
+  ---
+  duration_ms: 55907.657125
+  type: 'test'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 56049.841833
+```
+
+An independent production Chrome read at 720×1280 measured the packaged
+iframe at `{x:52.03125,y:117,width:615.9375,height:1095}` with its own
+720×1280 coordinate space. Elixir measured
+`{left:660,top:1224,right:715.609375,bottom:1276}`; its 2px outline ends at
+x=717.609375 and its 4px vertical shadow reaches y=1280, inside the frame.
+The fourth card measured `{left:545,top:1121,right:657,bottom:1249}` (112×128),
+leaving 3px between its box and the badge. The outer viewport boxes were
+96×109.5px for card four and 47.57×44.48px for the badge, with a 2.57px gap.
+The screenshot is
+`/tmp/app004-r2-critic-HaEeky/evidence/independent-app-shell-720x1280.png`;
+the isolated packaged battle render is
+`/tmp/app004-r2-critic-HaEeky/evidence/independent-battle-720x1280.png`.
+
+Focused production renders at 390×844, 720×1280 and 1280×720 measured name
+fonts at 12.3563px, 20.5313px and 10.2773px; costs measured 15.4453px,
+25.6641px and 12.8467px. Each card and next name fits its face without text
+overflow, the original Stonehauler portrait remains present, and every
+selection target is at least 44×44px. At 1280×720 the fourth target is
+47.9609×54.8125px. Trusted selection and legal deployment of slots one and
+four passed, with the expected Mossguard→Brassbolt→Briar Band→Reedsting cycle.
+The direct arena retained its 720×1280 shell, `{left:86,top:104,width:548,
+height:968}` arena, unchanged 540×960 playfield, and four 88×72 input slots.
+
+BIGGEST GAP: No bar failure remains; at 1280×720, names clear the 10px floor
+by 0.277px and costs clear the 12px floor by 0.847px.
+
 ## Round 354 — 2026-10-02
 
 PIECE: APP-004 — Readable hand and next-card HUD in packaged Battle, round 1
