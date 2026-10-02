@@ -853,10 +853,8 @@ export function mountShippedGameBrowser(
       replacing = true;
       cancelEnduranceYield(); graph.loop.abortEnduranceSegment(); enduranceDrive = null;
       const previous = graph;
-      const policy = {
-        gainBasisPoints: previous.controls.state.gainBasisPoints,
-        muted: previous.controls.state.muted,
-      };
+      const audioState = previous.controls.state;
+      const policy = { gainBasisPoints: audioState.gainBasisPoints, muted: audioState.muted };
       const currentSetup = JSON.parse(previous.loop.session.serialize()).setup;
       const defaultDeck = createPlayableRoster().map(({ id }) => id);
       const restartDefaultDeck = sameValues(currentSetup.deck, defaultDeck);

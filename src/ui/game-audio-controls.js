@@ -101,11 +101,13 @@ export function mountGameAudioControls(shell, browserAudio, runtime, uiBridge = 
       return state;
     },
     get state() {
+      const audio = browserAudio.state;
+      const runtimeState = runtime.state;
       return Object.freeze({
         active,
-        audio: browserAudio.state,
-        gainBasisPoints: runtime.state.gainBasisPoints,
-        muted: runtime.state.muted,
+        audio,
+        gainBasisPoints: runtimeState.gainBasisPoints,
+        muted: runtimeState.muted,
       });
     },
     unlock,
