@@ -230,6 +230,8 @@ retain integer-tick determinism and canonical serialize/restore behavior.
 
 | APP-003 | Deck and card-info interaction polish | Production Chrome at 390×844, 720×1280 and desktop verifies no horizontal overflow, all focused/clicked controls fully clear fixed navigation, primary phone tap targets at least44px high, clear selected/replaced card feedback, legible empty search and card details, reduced-motion-safe transitions, and unchanged custom deck launch/restore/restart | APP-001, APP-002 | PENDING | 0/0 | 0 | User-directed polish; known slot8 footer overlap and small Replace/Back controls are the first gaps |
 
+| APP-004 | Readable hand and next-card HUD in packaged Battle | Production Chrome at390×844,720×1280 and1280×720 verifies rendered hand/next names at least10px and costs at least12px, unclipped labels with recognizable original portraits, four trusted selection targets at least44×44px, correct next/selection/cycle state, and unchanged playfield coordinates and direct arena presentation | APP-002, VIS-003D | PENDING | 0/0 | 0 | Audit found packaged scaling yields roughly4–5px card names and6–8px costs; compact hand layout needs a dedicated app-mode polish pass |
+
 ## Reference uncertainties
 
 - Arena tower/bridge coordinates and deployment masks are low-medium
