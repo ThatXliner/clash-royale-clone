@@ -43,7 +43,7 @@
               <span class="hero-tower hero-tower-left"></span><span class="hero-tower hero-tower-right"></span>
               <span class="hero-spark hero-spark-one"></span><span class="hero-spark hero-spark-two"></span>
             </div>
-            <div class="hero-caption"><span>STANDARD DECK</span><span>8 CARDS</span></div>
+          <div class="hero-caption"><span data-deck-kind>STANDARD DECK</span><span><span data-deck-card-count>8</span> CARD ROTATION</span></div>
           </div>
 
           <div class="home-columns">
@@ -70,25 +70,31 @@
           <div class="page-intro">
             <p class="eyebrow">YOUR CURRENT LINEUP</p>
             <h1 id="deck-title" tabindex="-1">Battle deck</h1>
-            <p>Eight cards travel together. Choose any card to see its battle details.</p>
+            <p>Eight unique cards travel together. Inspect a card or replace one from the available lineup.</p>
           </div>
           <div class="deck-summary-card">
             <span class="summary-icon" aria-hidden="true">✳</span>
             <div><strong><span data-deck-size>8</span> cards</strong><small>Full rotation</small></div>
             <i></i>
             <div><strong><span data-average-cost>3.13</span></strong><small>Average elixir</small></div>
-            <span class="deck-fixed-note">Deck editing is not available yet.</span>
+            <span class="deck-fixed-note">Choose a slot, then replace it with a card outside your deck.</span>
           </div>
+          <section class="replacement-panel" id="deck-replacement-panel" data-replacement-panel aria-labelledby="replacement-heading" hidden>
+            <div><p class="eyebrow">AVAILABLE CHOICES</p><h2 id="replacement-heading" data-replacement-title>Replace a card</h2><p>Choose a card not already in your deck.</p></div>
+            <div class="replacement-choices" data-replacement-choices></div>
+            <button type="button" class="button-quiet replacement-cancel" data-action="cancel-replacement">Cancel</button>
+          </section>
+          <p class="deck-status" data-deck-status role="status" aria-live="polite"></p>
           <div class="deck-card-grid" data-deck-cards aria-label="Eight cards in your current deck"></div>
-          <p class="availability-note">This lineup is the standard deck used when you enter a battle.</p>
+          <p class="availability-note">Nine cards are available for live decks. Each deck keeps eight unique cards in order.</p>
         </section>
 
         <section class="app-view cards-view" id="view-cards" data-app-view="cards" aria-labelledby="cards-title" hidden>
           <div class="page-intro collection-intro">
-            <div><p class="eyebrow">THE PLAYABLE COLLECTION</p><h1 id="cards-title" tabindex="-1">Cards</h1><p>Explore the cards currently supported in a standard battle.</p></div>
+            <div><p class="eyebrow">THE PLAYABLE COLLECTION</p><h1 id="cards-title" tabindex="-1">Cards</h1><p>Explore the cards available to build a live battle deck.</p></div>
             <label class="search-box"><span aria-hidden="true">⌕</span><span class="visually-hidden">Search playable cards</span><input type="search" data-card-search placeholder="Find a card" autocomplete="off" aria-describedby="card-availability-note"></label>
           </div>
-          <p class="availability-note" id="card-availability-note">Cards outside this eight-card collection are not available in live matches yet.</p>
+          <p class="availability-note" id="card-availability-note">Cards outside this nine-card collection are not available in live matches yet.</p>
           <div class="collection-layout">
             <div class="card-grid" data-card-grid aria-label="Playable cards"></div>
             <div class="empty-collection" data-card-empty role="status" hidden></div>
@@ -97,7 +103,7 @@
         </section>
 
         <section class="app-view battle-view" id="view-battle" data-app-view="battle" aria-labelledby="battle-title" hidden>
-          <div class="battle-heading"><div><p class="eyebrow">STANDARD DECK · LIVE MATCH</p><h1 id="battle-title" tabindex="-1">The arena</h1></div><button type="button" class="button-quiet leave-battle" data-action="leave-battle">Leave battle <span aria-hidden="true">↗</span></button></div>
+          <div class="battle-heading"><div><p class="eyebrow" data-battle-label>STANDARD DECK · LIVE MATCH</p><h1 id="battle-title" tabindex="-1">The arena</h1></div><button type="button" class="button-quiet leave-battle" data-action="leave-battle">Leave battle <span aria-hidden="true">↗</span></button></div>
           <div class="battle-frame-slot" data-battle-frame-slot></div>
         </section>
       </main>

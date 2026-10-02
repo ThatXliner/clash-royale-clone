@@ -1,6 +1,9 @@
 import { createPlayableRoster, PLAYABLE_CARD_IDS } from "../content/playable-roster.js";
+import { projectSessionTroopBattleCard } from "../content/session-troop-roster.js";
+import { EDITABLE_DECK_CARD_IDS } from "../content/editable-deck.js";
+import { createCombatArt } from "./combat-art.js";
 
-const cards = createPlayableRoster();
+const cards = [...createPlayableRoster(), projectSessionTroopBattleCard("stonehauler")];
 const cardById = new Map(cards.map((card) => [card.id, card]));
 const root = document.querySelector(".app-shell");
 const views = new Map([...document.querySelectorAll("[data-app-view]")]
@@ -13,7 +16,13 @@ const cardDetails = document.querySelector("[data-card-detail]");
 const emptyCollection = document.querySelector("[data-card-empty]");
 const search = document.querySelector("[data-card-search]");
 const battleFrameSlot = document.querySelector("[data-battle-frame-slot]");
+const replacementPanel = document.querySelector("[data-replacement-panel]");
+const replacementChoices = document.querySelector("[data-replacement-choices]");
+const deckStatus = document.querySelector("[data-deck-status]");
+const battleLabel = document.querySelector("[data-battle-label]");
 let selectedCardId = PLAYABLE_CARD_IDS[0];
+let currentDeckIds = [...PLAYABLE_CARD_IDS];
+let selectedSlotIndex = null;
 let currentView = "home";
 let battleFrame = null;
 let battleFrameReady = false;
@@ -61,6 +70,9 @@ function targetLabel(mode) {
 }
 
 function descriptionFor(card) {
+  if (card.id === "stonehauler") {
+    return "A unit that targets structures.";
+  }
   if (card.entities.length === 1) {
     const [entity] = card.entities;
     const layer = entity.layer === "air" ? "Flying" : "Ground";
@@ -82,6 +94,14 @@ function artMarkup(cardId) {
   return `<span class="card-art" data-card-art="${html(cardId)}" aria-hidden="true"></span>`;
 }
 
+function addShippedCardArt(container) {
+  for (const art of container.querySelectorAll('.card-art[data-card-art="stonehauler"]')) {
+    const illustration = createCombatArt(document, "stonehauler", "south", "ground");
+    illustration.classList.add("card-art-illustration");
+    art.replaceChildren(illustration);
+  }
+}
+
 function compactCardMarkup(card) {
   const count = card.formation.totalCount;
   return `<button class="mini-card" type="button" data-card-id="${html(card.id)}" aria-label="Inspect ${html(card.displayName)}, ${countLabel(count)}, ${card.cost} elixir">
@@ -89,11 +109,15 @@ function compactCardMarkup(card) {
   </button>`;
 }
 
-function deckCardMarkup(card) {
+function deckCardMarkup(card, index) {
   const count = card.formation.totalCount;
-  return `<button class="deck-card-button" type="button" data-card-id="${html(card.id)}" aria-label="Inspect ${html(card.displayName)}, ${countLabel(count)}, ${card.cost} elixir">
-    ${artMarkup(card.id)}<span class="deck-card-copy"><strong>${html(card.displayName)}</strong><small>${countLabel(count)} · ${card.cost} elixir</small></span>
-  </button>`;
+  const selected = index === selectedSlotIndex;
+  return `<article class="deck-slot${selected ? " is-selected" : ""}" data-slot-index="${index}">
+    <button class="deck-card-button" type="button" data-card-id="${html(card.id)}" aria-label="Inspect ${html(card.displayName)}, ${countLabel(count)}, ${card.cost} elixir in slot ${index + 1}">
+      ${artMarkup(card.id)}<span class="deck-card-copy"><small>Slot ${index + 1}</small><strong>${html(card.displayName)}</strong><small>${countLabel(count)} · ${card.cost} elixir</small></span>
+    </button>
+    <button class="deck-replace-button" type="button" data-replace-slot="${index}" aria-expanded="${selected}" aria-controls="deck-replacement-panel">Replace</button>
+  </article>`;
 }
 
 function collectionCardMarkup(card) {
@@ -112,6 +136,8 @@ function unitProfileMarkup(entity) {
     ? html(entity.displayName) : `${formatter.format(entity.count)} × ${html(entity.displayName)}`;
   const delivery = entity.delivery === "projectile" ? "Ranged" : "Melee";
   const layer = entity.layer === "air" ? "Flying" : "Ground";
+  const unsureDelivery = entity.deliveryPolicy?.kind === "question";
+  const unsureLayer = entity.layerPolicy?.kind === "question";
   const values = [
     ["Count", formatter.format(entity.count)],
     ["Health", entity.hitpoints === null ? "Not available" : formatter.format(entity.hitpoints)],
@@ -121,8 +147,11 @@ function unitProfileMarkup(entity) {
     ["Targets", targetLabel(entity.targetMode)],
     ["Moves", speedValue(entity.movementMillitilesPerSecond)],
   ];
+  const classification = unsureDelivery || unsureLayer
+    ? `Targets ${html(targetLabel(entity.targetMode))}. Attack type and whether it flies are not listed.`
+    : `${layer} · ${delivery} · Targets ${html(targetLabel(entity.targetMode))}`;
   return `<section class="unit-profile" aria-label="${heading} statistics">
-    <h3>${heading}</h3><p>${layer} · ${delivery} · Targets ${html(targetLabel(entity.targetMode))}</p>
+    <h3>${heading}</h3><p>${classification}</p>
     <div class="stat-grid">${values.map(([label, value]) => statCell(label, value)).join("")}</div>
   </section>`;
 }
@@ -148,27 +177,43 @@ function renderCollection() {
     card.displayName.toLocaleLowerCase("en").includes(query) ||
     card.entities.some((entity) => entity.displayName.toLocaleLowerCase("en").includes(query)));
   cardGrid.innerHTML = matches.map(collectionCardMarkup).join("");
+  addShippedCardArt(cardGrid);
   const isEmpty = matches.length === 0;
   cardGrid.hidden = isEmpty;
   emptyCollection.hidden = !isEmpty;
   cardDetails.hidden = isEmpty;
   if (isEmpty) {
     views.get("cards").dataset.detailOpen = "false";
-    emptyCollection.textContent = `“${search.value.trim()}” is not playable in a standard match yet. Only cards supported by this live deck are shown.`;
+    emptyCollection.textContent = `“${search.value.trim()}” is not in the playable collection yet. Only cards supported by live decks are shown.`;
   }
   renderCardDetails(cardById.get(selectedCardId));
 }
 
 function averageCost() {
-  return cards.reduce((total, card) => total + card.cost, 0) / cards.length;
+  return currentDeckIds.reduce((total, id) => total + cardById.get(id).cost, 0) /
+    currentDeckIds.length;
 }
 
 function renderDeckSummary() {
   const average = averageCost().toFixed(2);
-  for (const node of document.querySelectorAll("[data-deck-size]")) node.textContent = String(cards.length);
+  for (const node of document.querySelectorAll("[data-deck-size]")) node.textContent = String(currentDeckIds.length);
   for (const node of document.querySelectorAll("[data-average-cost]")) node.textContent = average;
-  homeDeck.innerHTML = cards.map(compactCardMarkup).join("");
-  deckCards.innerHTML = cards.map(deckCardMarkup).join("");
+  homeDeck.innerHTML = currentDeckIds.map((id) => compactCardMarkup(cardById.get(id))).join("");
+  deckCards.innerHTML = currentDeckIds.map((id, index) =>
+    deckCardMarkup(cardById.get(id), index)).join("");
+  addShippedCardArt(homeDeck);
+  addShippedCardArt(deckCards);
+  const isStandard = currentDeckIds.every((id, index) => id === PLAYABLE_CARD_IDS[index]);
+  for (const node of document.querySelectorAll("[data-deck-card-count]")) {
+    node.textContent = String(currentDeckIds.length);
+  }
+  for (const node of document.querySelectorAll("[data-deck-kind]")) {
+    node.textContent = isStandard ? "STANDARD DECK" : "CUSTOM DECK";
+  }
+  if (battleLabel !== null) {
+    battleLabel.textContent = `${isStandard ? "STANDARD" : "CUSTOM"} DECK · LIVE MATCH`;
+  }
+  renderReplacementChoices();
 }
 
 function postBattleState(active) {
@@ -176,7 +221,55 @@ function postBattleState(active) {
   battleFrame.contentWindow.postMessage({
     active,
     channel: "moss-and-ember-battle",
+    deckIds: [...currentDeckIds],
   }, window.location.origin);
+}
+
+function renderReplacementChoices() {
+  const isOpen = selectedSlotIndex !== null;
+  replacementPanel.hidden = !isOpen;
+  for (const button of deckCards.querySelectorAll("[data-replace-slot]")) {
+    button.setAttribute("aria-expanded", String(Number(button.dataset.replaceSlot) === selectedSlotIndex));
+  }
+  if (!isOpen) return;
+  const currentCard = cardById.get(currentDeckIds[selectedSlotIndex]);
+  const available = EDITABLE_DECK_CARD_IDS
+    .filter((id) => !currentDeckIds.includes(id))
+    .map((id) => cardById.get(id));
+  document.querySelector("[data-replacement-title]").textContent =
+    `Replace slot ${selectedSlotIndex + 1} · ${currentCard.displayName}`;
+  replacementChoices.innerHTML = available.map((card) => `<button class="replacement-choice" type="button" data-replacement-card-id="${html(card.id)}" aria-label="Replace with ${html(card.displayName)}, costs ${card.cost} elixir">
+    ${artMarkup(card.id)}<span><strong>${html(card.displayName)}</strong><small>${card.cost} elixir</small></span>
+  </button>`).join("");
+  addShippedCardArt(replacementChoices);
+  if (available.length === 0) {
+    replacementChoices.innerHTML = '<p class="replacement-empty">Every available card is already in your deck.</p>';
+  }
+}
+
+function closeReplacement({ focusSlot = true } = {}) {
+  const previousSlot = selectedSlotIndex;
+  selectedSlotIndex = null;
+  replacementPanel.hidden = true;
+  renderReplacementChoices();
+  if (focusSlot && previousSlot !== null) {
+    deckCards.querySelector(`[data-replace-slot="${previousSlot}"]`)?.focus();
+  }
+}
+
+function chooseReplacement(cardId) {
+  if (selectedSlotIndex === null || !EDITABLE_DECK_CARD_IDS.includes(cardId) ||
+      currentDeckIds.includes(cardId)) return;
+  const index = selectedSlotIndex;
+  const previous = cardById.get(currentDeckIds[index]);
+  const replacement = cardById.get(cardId);
+  currentDeckIds[index] = cardId;
+  selectedSlotIndex = null;
+  renderDeckSummary();
+  if (deckStatus !== null) {
+    deckStatus.textContent = `${replacement.displayName} replaced ${previous.displayName}. Average elixir ${averageCost().toFixed(2)}.`;
+  }
+  deckCards.querySelector(`[data-replace-slot="${index}"]`)?.focus();
 }
 
 function ensureBattleFrame() {
@@ -225,6 +318,7 @@ function setView(name, { focus = true } = {}) {
     views.get("cards").dataset.detailOpen = "false";
     renderCollection();
   }
+  if (name === "deck") renderDeckSummary();
   if (focus) views.get(name).querySelector("h1")?.focus({ preventScroll: true });
   return true;
 }
@@ -259,6 +353,22 @@ search.addEventListener("input", renderCollection);
 window.addEventListener("resize", layoutBattleFrame, { passive: true });
 
 document.addEventListener("click", (event) => {
+  const replacementButton = event.target.closest("[data-replacement-card-id]");
+  if (replacementButton) {
+    chooseReplacement(replacementButton.dataset.replacementCardId);
+    return;
+  }
+  const replaceSlot = event.target.closest("[data-replace-slot]");
+  if (replaceSlot) {
+    selectedSlotIndex = Number(replaceSlot.dataset.replaceSlot);
+    renderReplacementChoices();
+    replacementChoices.querySelector("[data-replacement-card-id]")?.focus();
+    return;
+  }
+  if (event.target.closest('[data-action="cancel-replacement"]')) {
+    closeReplacement();
+    return;
+  }
   const cardButton = event.target.closest("[data-card-id]");
   if (cardButton && cardById.has(cardButton.dataset.cardId)) {
     const isDeck = cardButton.closest("[data-deck-cards], [data-home-deck]") !== null;
@@ -274,6 +384,11 @@ document.addEventListener("keydown", (event) => {
       cardsView.dataset.detailOpen === "true") {
     event.preventDefault();
     closeDetailAndFocusList();
+    return;
+  }
+  if (event.key === "Escape" && currentView === "deck" && selectedSlotIndex !== null) {
+    event.preventDefault();
+    closeReplacement();
   }
 });
 

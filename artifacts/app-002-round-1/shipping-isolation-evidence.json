@@ -1,0 +1,2645 @@
+{
+  "schemaVersion": 1,
+  "production": {
+    "artifactFiles": 120,
+    "identicalBuilds": true,
+    "manifestSha256": "36df9a47f0cf7bd4d8ccb19000c4e5c03011a4b13120f2746c8142c0c7e49aa7",
+    "referenceFilesCompared": 18,
+    "totalBytes": 2671541,
+    "csp": "default-src 'none'; base-uri 'self'; connect-src 'self'; font-src 'self' data:; form-action 'none'; frame-src 'self'; img-src 'self' data:; media-src 'self'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; worker-src 'none'",
+    "normalRequestCount": 207
+  },
+  "browser": {
+    "attemptedRequests": [
+      {
+        "failure": null,
+        "path": "/public/index.html",
+        "resourceType": "document",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/ui/app-shell.css",
+        "resourceType": "stylesheet",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/ui/app-shell.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/playable-roster.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/session-troop-roster.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/editable-deck.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/ui/combat-art.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/basic-melee.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/session-troop-projectile-source-admission.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/basic-flying.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/basic-ranged.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/swarms.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/structure-seeker.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/shields-forms.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-movement-charge.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-movement-dash.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-movement-jump.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-movement-recoil.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-movement-retarget.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-movement-charge-knockback.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-projectiles-chain.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-projectiles-pierce.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-projectiles-return.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-projectiles-pellets.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-projectiles-reflection.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-combat-ramp.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/combat-status-stun.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-combat-slow.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-combat-snare.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/combat-status-heal.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/combat-status-invisibility.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/champion-abilities.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/session-troop-profile-catalog.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/schema.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/projectile.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/flying.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/targeting.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/formations.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/attack-cycle.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/damage.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/movement.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/pathfinding.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/spatial.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/session-troop-movement-question-authority.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/area-damage.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/arena-geometry.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-movement-knockback.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/combat-effect-feed.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-movement-leap-knockback.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-combat-reset.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/index.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/session-card-catalog.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/spawn-placement.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/death-spawns.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/death-conversion.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-movement-dash-knockback.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-combat-rage.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/death-effects.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/buildings-defensive.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/buildings-spawner.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/buildings-resource.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/buildings-travel.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/spells-instant.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/session-spell-profile-receipts.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/spells-copy-card.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/spells-clone-unit.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/spells-spawn.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/spells-periodic.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/spells-travel-line.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/spells-return.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/spells-three-wave.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/spells-roll.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/session-building-profile-receipts.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/entities.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/death-conversion-delegated.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/deployment.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/elixir.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/deck.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/rng.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/periodic-spawns.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/battle-continuation-kernel.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/session-card-runtime.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/session-building-runtime.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/session-troop-runtime.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/session-troop-status-runtime.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/session-troop-projectile-runtime.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/spell-intent-runtime.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/game-side-deploy-core.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/tower-evidence-map.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/shared/session-troop-projectile-authority.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/public/ui-arena-shell.html",
+        "resourceType": "document",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/ui/arena-shell.css",
+        "resourceType": "stylesheet",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/ui/arena-shell-entry.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/ui/arena-shell.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/ui/game-browser-entry.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/game-session.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/editable-deck.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/playable-roster.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/deck.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/elixir.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/game-player-deploy.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/live-battle.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/match.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/towers.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/ui/hud-state.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/ui/input-controller.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/ui/placement-feedback.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/ui/combat-state.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/battle-continuation-kernel.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/session-troop-projectile-runtime.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/session-troop-roster.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/session-card-catalog.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/audio/browser-audio.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/audio/game-audio-runtime.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/ui/combat-effects.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/ui/game-browser-loop.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/ui/game-session-restore-continuation.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/ui/game-audio-bridge.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/ui/game-audio-controls.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/ui/match-feedback.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/rng.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/basic-melee.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/session-troop-projectile-source-admission.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/deployment.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/arena-geometry.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/ui/combat-motion.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/ui/combat-art.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/basic-flying.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/basic-ranged.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/swarms.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/structure-seeker.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/shields-forms.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-movement-charge.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-movement-dash.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-movement-jump.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-movement-recoil.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-movement-retarget.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-movement-charge-knockback.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-projectiles-chain.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-projectiles-pierce.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-projectiles-return.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-projectiles-pellets.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-projectiles-reflection.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-combat-ramp.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/combat-status-stun.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-combat-slow.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-combat-snare.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/combat-status-heal.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/combat-status-invisibility.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/champion-abilities.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/session-troop-profile-catalog.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/schema.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/shared/session-troop-projectile-authority.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/index.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/death-effects.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/buildings-defensive.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/buildings-resource.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/buildings-travel.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/session-building-profile-receipts.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/audio/audio-events.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/audio/audio-renderer.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/ui/game-input-bridge.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/ui/game-ui-projection.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/combat-effect-feed.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/attack-cycle.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/damage.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/formations.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/movement.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/pathfinding.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/session-card-runtime.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/session-building-runtime.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/session-troop-runtime.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/session-troop-status-runtime.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/spell-intent-runtime.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/spatial.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/targeting.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/game-side-deploy-core.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/tower-evidence-map.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/ui/hud-motion.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/flying.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/projectile.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/session-troop-movement-question-authority.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/area-damage.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-movement-knockback.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-movement-leap-knockback.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-combat-reset.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/spawn-placement.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/death-spawns.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/death-conversion.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-movement-dash-knockback.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/special-combat-rage.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/buildings-spawner.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/spells-instant.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/session-spell-profile-receipts.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/spells-copy-card.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/spells-clone-unit.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/spells-spawn.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/spells-periodic.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/spells-travel-line.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/spells-return.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/spells-three-wave.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/spells-roll.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/audio/audio-provenance.json",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/audio/audio-production-provenance.json",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/sim/entities.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/death-conversion-delegated.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/content/cards/periodic-spawns.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": "net::ERR_FAILED",
+        "path": "/src/ui/arena-shell.css",
+        "resourceType": "document",
+        "status": null
+      },
+      {
+        "failure": null,
+        "path": "/public/index.html",
+        "resourceType": "document",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/public/probe.css",
+        "resourceType": "stylesheet",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/public/pixel.svg",
+        "resourceType": "image",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/public/loader.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/public/quiet.wav",
+        "resourceType": "media",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/public/surface.svg",
+        "resourceType": "image",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/public/quiet.wav",
+        "resourceType": "media",
+        "status": 200
+      },
+      {
+        "failure": "blocked by CSP before network dispatch",
+        "path": "https://release-off-manifest.invalid/__release_unmanifested_fetch__",
+        "resourceType": "fetch",
+        "status": null
+      }
+    ],
+    "failedManifestRequest": {
+      "method": "GET",
+      "path": "/src/ui/arena-shell.css",
+      "resourceType": "document",
+      "status": null,
+      "failure": "net::ERR_FAILED"
+    },
+    "fetchCallsBeforeCsp": [
+      "/__release_unmanifested_fetch__"
+    ],
+    "hostileLoaderAttempts": [
+      {
+        "label": "eval",
+        "result": "EvalError"
+      },
+      {
+        "label": "Function",
+        "result": "EvalError"
+      },
+      {
+        "label": "aliased Function",
+        "result": "EvalError"
+      }
+    ],
+    "hostilePolicyViolations": [
+      {
+        "blockedURI": "eval",
+        "effectiveDirective": "script-src"
+      },
+      {
+        "blockedURI": "eval",
+        "effectiveDirective": "script-src"
+      },
+      {
+        "blockedURI": "eval",
+        "effectiveDirective": "script-src"
+      },
+      {
+        "blockedURI": "https://release-off-manifest.invalid/__release_unmanifested_fetch__",
+        "effectiveDirective": "connect-src"
+      },
+      {
+        "blockedURI": "https://release-off-manifest.invalid",
+        "effectiveDirective": "frame-src"
+      }
+    ],
+    "requestsSeenByServers": [
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "public/index.html",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/ui/app-shell.css",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/ui/app-shell.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/playable-roster.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/session-troop-roster.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/editable-deck.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/ui/combat-art.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/basic-melee.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/session-troop-projectile-source-admission.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/basic-flying.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/basic-ranged.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/swarms.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/structure-seeker.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/shields-forms.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-movement-charge.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-movement-dash.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-movement-jump.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-movement-recoil.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-movement-retarget.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-movement-charge-knockback.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-projectiles-chain.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-projectiles-pierce.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-projectiles-return.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-projectiles-pellets.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-projectiles-reflection.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-combat-ramp.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/combat-status-stun.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-combat-slow.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-combat-snare.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/combat-status-heal.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/combat-status-invisibility.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/champion-abilities.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/session-troop-profile-catalog.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/schema.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/projectile.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/flying.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/targeting.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/formations.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/attack-cycle.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/damage.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/movement.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/pathfinding.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/spatial.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/session-troop-movement-question-authority.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/area-damage.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/arena-geometry.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-movement-knockback.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/combat-effect-feed.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-movement-leap-knockback.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-combat-reset.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/index.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/session-card-catalog.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/spawn-placement.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/death-spawns.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/death-conversion.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-movement-dash-knockback.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-combat-rage.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/death-effects.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/buildings-defensive.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/buildings-spawner.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/buildings-resource.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/buildings-travel.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/spells-instant.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/session-spell-profile-receipts.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/spells-copy-card.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/spells-clone-unit.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/spells-spawn.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/spells-periodic.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/spells-travel-line.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/spells-return.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/spells-three-wave.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/spells-roll.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/session-building-profile-receipts.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/entities.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/death-conversion-delegated.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/deployment.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/elixir.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/deck.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/rng.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/periodic-spawns.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/battle-continuation-kernel.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/session-card-runtime.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/session-building-runtime.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/session-troop-runtime.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/session-troop-status-runtime.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/session-troop-projectile-runtime.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/spell-intent-runtime.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/game-side-deploy-core.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/tower-evidence-map.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/shared/session-troop-projectile-authority.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "public/ui-arena-shell.html",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/ui/arena-shell.css",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/ui/arena-shell-entry.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/ui/arena-shell.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/ui/game-browser-entry.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/game-session.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/editable-deck.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/playable-roster.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/deck.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/elixir.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/game-player-deploy.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/live-battle.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/match.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/towers.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/ui/hud-state.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/ui/input-controller.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/ui/placement-feedback.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/ui/combat-state.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/battle-continuation-kernel.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/session-troop-projectile-runtime.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/session-troop-roster.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/session-card-catalog.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/audio/browser-audio.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/audio/game-audio-runtime.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/ui/combat-effects.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/ui/game-browser-loop.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/ui/game-session-restore-continuation.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/ui/game-audio-bridge.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/ui/game-audio-controls.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/ui/match-feedback.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/rng.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/basic-melee.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/session-troop-projectile-source-admission.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/deployment.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/arena-geometry.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/ui/combat-motion.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/ui/combat-art.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/basic-flying.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/basic-ranged.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/swarms.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/structure-seeker.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/shields-forms.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-movement-charge.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-movement-dash.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-movement-jump.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-movement-recoil.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-movement-retarget.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-movement-charge-knockback.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-projectiles-chain.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-projectiles-pierce.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-projectiles-return.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-projectiles-pellets.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-projectiles-reflection.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-combat-ramp.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/combat-status-stun.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-combat-slow.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-combat-snare.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/combat-status-heal.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/combat-status-invisibility.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/champion-abilities.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/session-troop-profile-catalog.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/schema.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/shared/session-troop-projectile-authority.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/index.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/death-effects.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/buildings-defensive.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/buildings-resource.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/buildings-travel.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/session-building-profile-receipts.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/audio/audio-events.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/audio/audio-renderer.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/ui/game-input-bridge.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/ui/game-ui-projection.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/combat-effect-feed.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/attack-cycle.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/damage.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/formations.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/movement.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/pathfinding.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/session-card-runtime.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/session-building-runtime.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/session-troop-runtime.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/session-troop-status-runtime.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/spell-intent-runtime.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/spatial.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/targeting.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/game-side-deploy-core.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/tower-evidence-map.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/ui/hud-motion.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/flying.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/projectile.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/session-troop-movement-question-authority.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/area-damage.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-movement-knockback.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-movement-leap-knockback.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-combat-reset.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/spawn-placement.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/death-spawns.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/death-conversion.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-movement-dash-knockback.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/special-combat-rage.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/buildings-spawner.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/spells-instant.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/session-spell-profile-receipts.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/spells-copy-card.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/spells-clone-unit.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/spells-spawn.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/spells-periodic.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/spells-travel-line.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/spells-return.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/spells-three-wave.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/spells-roll.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/audio/audio-provenance.json",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/audio/audio-production-provenance.json",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/sim/entities.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/death-conversion-delegated.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/content/cards/periodic-spawns.js",
+        "status": 200
+      },
+      {
+        "artifact": "hostile",
+        "method": "GET",
+        "path": "public/index.html",
+        "status": 200
+      },
+      {
+        "artifact": "hostile",
+        "method": "GET",
+        "path": "public/probe.css",
+        "status": 200
+      },
+      {
+        "artifact": "hostile",
+        "method": "GET",
+        "path": "public/loader.js",
+        "status": 200
+      },
+      {
+        "artifact": "hostile",
+        "method": "GET",
+        "path": "public/pixel.svg",
+        "status": 200
+      },
+      {
+        "artifact": "hostile",
+        "method": "GET",
+        "path": "public/quiet.wav",
+        "status": 200
+      },
+      {
+        "artifact": "hostile",
+        "method": "GET",
+        "path": "public/surface.svg",
+        "status": 200
+      },
+      {
+        "artifact": "hostile",
+        "method": "GET",
+        "path": "public/quiet.wav",
+        "status": 200
+      }
+    ],
+    "offManifestFetchReachedServer": false
+  }
+}

@@ -8,6 +8,9 @@ import { spawn } from "node:child_process";
 import test from "node:test";
 
 import { createPlayableRoster } from "../src/content/playable-roster.js";
+import { projectSessionTroopBattleCard } from "../src/content/session-troop-roster.js";
+import { createEditableGameSessionSetup } from "../src/content/editable-deck.js";
+import { GameSession } from "../src/sim/game-session.js";
 import { buildRelease } from "../scripts/build-release.js";
 
 const PLAYWRIGHT = process.env.GAME_BROWSER_PLAYWRIGHT ??
@@ -177,10 +180,10 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     const cardsTab = page.locator('[data-nav-to="cards"]');
     await cardsTab.focus();
     await page.keyboard.press("Enter");
-    assert.equal(await page.locator("[data-card-grid] [data-card-id]").count(), 8);
+    assert.equal(await page.locator("[data-card-grid] [data-card-id]").count(), 9);
     assert.equal(await page.locator("[data-card-detail] h2").innerText(), "Coilblade");
 
-    for (const card of createPlayableRoster()) {
+    for (const card of [...createPlayableRoster(), projectSessionTroopBattleCard("stonehauler")]) {
       const cardButton = page.locator(`[data-card-grid] [data-card-id="${card.id}"]`);
       await cardButton.click();
       assert.equal(await page.locator("[data-card-detail] h2").innerText(), card.displayName);
@@ -194,6 +197,10 @@ test("player shell renders roster-derived cards and launches a paused shared bat
         assert.match(await page.locator("[data-card-detail] .detail-description").innerText(),
           /Briar Darters fire ranged attacks/u);
       }
+      if (card.id === "stonehauler") {
+        assert.equal(await page.locator("[data-card-detail] .unit-profile > p").innerText(),
+          "Targets structures. Attack type and whether it flies are not listed.");
+      }
       await page.keyboard.press("Escape");
       await page.waitForFunction((id) => document.activeElement?.dataset?.cardId === id, card.id);
       assert.equal(await page.evaluate(() => document.activeElement.dataset.cardId), card.id,
@@ -201,7 +208,10 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     }
 
     await page.locator('[data-card-search]').fill("Stonehauler");
-    assert.match(await page.locator("[data-card-empty]").innerText(), /not playable in a standard match yet/u);
+    assert.equal(await page.locator("[data-card-grid] [data-card-id]").count(), 1);
+    assert.equal(await page.locator("[data-card-grid] [data-card-id]").getAttribute("data-card-id"), "stonehauler");
+    await page.locator('[data-card-search]').fill("Bulwark");
+    assert.match(await page.locator("[data-card-empty]").innerText(), /not in the playable collection yet/u);
     assert.equal(await page.locator("[data-card-grid] [data-card-id]").count(), 0);
     await page.locator('[data-card-search]').fill("");
     await page.locator('.app-nav [data-nav-to="deck"]').click();
@@ -321,6 +331,171 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     await page.waitForTimeout(220);
     assert.ok(await cardFrameTick(child) > pausedTick, "Deck returns to the same resumed Battle session");
 
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.locator('.app-nav [data-nav-to="deck"]').click();
+    const replaceSlot = page.locator('[data-replace-slot="1"]');
+    await replaceSlot.focus();
+    await page.keyboard.press("Enter");
+    assert.equal(await page.locator("[data-replacement-panel]").isVisible(), true,
+      "the selected slot opens a clear replacement flow");
+    assert.equal(await page.locator("[data-replacement-title]").innerText(),
+      "Replace slot 2 · Mossguard");
+    assert.deepEqual(await page.locator("[data-replacement-card-id]").evaluateAll((nodes) =>
+      nodes.map((node) => node.dataset.replacementCardId)), ["stonehauler"],
+    "only the missing ninth card can replace a selected slot");
+    assert.equal(await page.evaluate(() => document.activeElement?.dataset?.replacementCardId),
+      "stonehauler", "the replacement choice is reachable by keyboard");
+    await page.keyboard.press("Enter");
+    let deckIds = await page.locator("[data-deck-cards] [data-card-id]").evaluateAll((nodes) =>
+      nodes.map((node) => node.dataset.cardId));
+    assert.equal(deckIds.length, 8);
+    assert.equal(new Set(deckIds).size, 8, "the deck editor keeps eight unique slots");
+    assert.equal(deckIds[1], "stonehauler", "Stonehauler replaces the selected Mossguard slot");
+    assert.equal(await page.locator("[data-deck-cards] [data-card-id=\"mossguard\"]").count(), 0);
+    const costs = new Map([...createPlayableRoster(), projectSessionTroopBattleCard("stonehauler")]
+      .map(({ id, cost }) => [id, cost]));
+    const expectedAverage = deckIds.reduce((sum, id) => sum + costs.get(id), 0) / 8;
+    assert.equal(await page.locator("[data-average-cost]").first().innerText(), expectedAverage.toFixed(2));
+    assert.match(await page.locator("[data-deck-status]").innerText(), /Stonehauler replaced Mossguard/u);
+    await page.screenshot({ path: join(ARTIFACTS, "custom-deck-390x844.png"), fullPage: true });
+
+    await page.locator('[data-nav-to="cards"]').click();
+    assert.equal(await page.locator("[data-card-grid] [data-card-id]").count(), 9,
+      "the collection includes all nine safe editable choices");
+    await page.locator('[data-card-grid] [data-card-id="stonehauler"]').click();
+    assert.deepEqual(await renderedProfiles(page),
+      [expectedStats(projectSessionTroopBattleCard("stonehauler").entities[0])],
+    "Stonehauler details show the live setup projection");
+    assert.equal(await page.locator("[data-card-detail] .detail-cost").innerText(), "5");
+    await page.screenshot({ path: join(ARTIFACTS, "custom-card-stonehauler-390x844.png"), fullPage: true });
+    await page.locator('.app-nav [data-nav-to="deck"]').click();
+    assert.deepEqual(await page.locator("[data-deck-cards] [data-card-id]").evaluateAll((nodes) =>
+      nodes.map((node) => node.dataset.cardId)), deckIds,
+    "the selected order survives navigating to collection and back");
+
+    await page.locator('[data-nav-to="battle"]').click();
+    await child.locator('[data-ui="arena"]').waitFor({ state: "visible", timeout: 8_000 });
+    const waitForFrameDeck = async () => child.waitForFunction(async (expectedIds) => {
+      const { arenaHudController } = await import("/src/ui/arena-shell-entry.js");
+      return JSON.stringify(JSON.parse(arenaHudController.session.serialize()).setup.deck) ===
+        JSON.stringify(expectedIds);
+    }, deckIds, { timeout: 8_000 });
+    await waitForFrameDeck();
+    assert.match(await page.locator("[data-battle-label]").innerText(), /CUSTOM DECK/u);
+    const frameSetup = await child.evaluate(async () => {
+      const { arenaHudController } = await import("/src/ui/arena-shell-entry.js");
+      return JSON.parse(arenaHudController.session.serialize()).setup;
+    });
+    assert.deepEqual(frameSetup.deck, deckIds,
+      "Battle launches the actual selected eight-card setup");
+    assert.deepEqual(frameSetup, JSON.parse(createEditableGameSessionSetup(deckIds)),
+      "Battle uses the canonical editable setup helper");
+    await page.screenshot({ path: join(ARTIFACTS, "custom-battle-stonehauler-390x844.png") });
+
+    await page.evaluate((ids) => {
+      document.querySelector("[data-battle-frame-slot] iframe").contentWindow.postMessage({
+        active: false,
+        channel: "moss-and-ember-battle",
+        deckIds: [...ids.slice(0, 7), ids[0]],
+      }, window.location.origin);
+    }, deckIds);
+    await child.evaluate((ids) => window.postMessage({
+      active: false,
+      channel: "moss-and-ember-battle",
+      deckIds: ids,
+    }, window.location.origin), deckIds);
+    await page.waitForTimeout(100);
+    assert.deepEqual(await child.evaluate(async () => {
+      const { arenaHudController } = await import("/src/ui/arena-shell-entry.js");
+      return JSON.parse(arenaHudController.session.serialize()).setup.deck;
+    }), deckIds, "duplicate IDs and messages from the frame itself cannot replace the deck");
+
+    await page.locator('.app-nav [data-nav-to="deck"]').click();
+    const customPausedTick = await cardFrameTick(child);
+    await page.waitForTimeout(100);
+    assert.equal(await cardFrameTick(child), customPausedTick,
+      "leaving Battle pauses the custom setup without discarding it");
+    await page.locator('[data-nav-to="battle"]').click();
+    await waitForFrameDeck();
+    const resumedCustomTick = await waitForCardFrameTick(child, customPausedTick + 1);
+    assert.ok(resumedCustomTick > customPausedTick,
+      "returning to Battle resumes the same custom setup");
+
+    const stonehaulerSlot = child.locator('[data-ui="card-slot"][data-card-id="stonehauler"]');
+    await stonehaulerSlot.waitFor({ state: "visible" });
+    await stonehaulerSlot.click();
+    assert.equal(await child.locator('[data-ui="hud-hand"] [data-card-id="stonehauler"]')
+      .getAttribute("data-selected"), "true", "Stonehauler can be selected in the live custom deck");
+    const customArena = await child.locator('[data-ui="arena"]').boundingBox();
+    assert.ok(customArena);
+    await page.mouse.click(customArena.x + customArena.width / 2,
+      customArena.y + customArena.height * 0.79);
+    let stonehaulerDeployment = null;
+    for (let attempt = 0; attempt < 120 && stonehaulerDeployment === null; attempt += 1) {
+      stonehaulerDeployment = await cardFrameDeployment(child, "stonehauler");
+      if (stonehaulerDeployment === null) await new Promise((resolve) => setTimeout(resolve, 50));
+    }
+    assert.ok(stonehaulerDeployment, "the custom card deploys through the real session input");
+    assert.equal(stonehaulerDeployment.deployment.cardId, "stonehauler");
+    assert.ok(stonehaulerDeployment.deployment.point.y < 15_000,
+      "Stonehauler placement is on the player's side");
+    await page.screenshot({ path: join(ARTIFACTS, "custom-battle-stonehauler-deployed-390x844.png") });
+
+    const continuation = await child.evaluate(async () => {
+      const { arenaHudController } = await import("/src/ui/arena-shell-entry.js");
+      arenaHudController.enterManualStepMode();
+      const checkpoint = arenaHudController.serialize();
+      arenaHudController.stepMany(180);
+      const forward = arenaHudController.serialize();
+      arenaHudController.restore(checkpoint);
+      const restored = arenaHudController.serialize();
+      arenaHudController.stepMany(180);
+      return {
+        checkpoint,
+        exactAtRestore: restored === checkpoint,
+        forward,
+        replayed: arenaHudController.serialize(),
+        restoredDeck: JSON.parse(arenaHudController.session.serialize()).setup.deck,
+      };
+    });
+    assert.equal(continuation.exactAtRestore, true, "custom browser snapshot restores byte for byte");
+    assert.equal(continuation.replayed, continuation.forward,
+      "custom battle continuation remains deterministic after restore");
+    assert.deepEqual(continuation.restoredDeck, deckIds,
+      "restoring a battle snapshot retains all eight selected card IDs");
+
+    const terminal = await child.evaluate(async () => {
+      const { arenaHudController } = await import("/src/ui/arena-shell-entry.js");
+      let chunks = 0;
+      while (!arenaHudController.state.terminal && chunks < 12) {
+        arenaHudController.fastForwardSegment(1_200);
+        chunks += 1;
+      }
+      return { chunks, state: arenaHudController.state };
+    });
+    assert.equal(terminal.state.terminal, true, "the custom match reaches a real terminal state");
+    await page.screenshot({ path: join(ARTIFACTS, "custom-battle-terminal-390x844.png") });
+    await child.locator('[data-ui="restart"]').click();
+    const restarted = await child.evaluate(async () => {
+      const { arenaHudController } = await import("/src/ui/arena-shell-entry.js");
+      return {
+        restartCount: arenaHudController.state.restartCount,
+        sessionBytes: arenaHudController.session.serialize(),
+        sessionTick: arenaHudController.state.sessionTick,
+        setup: JSON.parse(arenaHudController.session.serialize()).setup,
+      };
+    });
+    assert.equal(restarted.restartCount, 1);
+    assert.equal(restarted.sessionTick, 0);
+    assert.deepEqual(restarted.setup.deck, deckIds,
+      "Restart keeps the selected custom deck order");
+    assert.deepEqual(restarted.setup, JSON.parse(createEditableGameSessionSetup(deckIds)),
+      "Restart reconstructs the same canonical setup");
+    assert.equal(restarted.sessionBytes,
+      new GameSession(createEditableGameSessionSetup(deckIds)).serialize(),
+      "Restart restores the same serialized eight-card session opening");
+    await page.screenshot({ path: join(ARTIFACTS, "custom-battle-restart-390x844.png") });
+
     assert.deepEqual(failures, []);
     for (const path of requests) {
       assert.ok(manifest.files.some((file) => file.path === path),
@@ -328,6 +503,7 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     }
     writeFileSync(join(ARTIFACTS, "browser-evidence.json"), `${JSON.stringify({
       cardIds: createPlayableRoster().map(({ id }) => id),
+      editablePoolIds: [...createPlayableRoster().map(({ id }) => id), "stonehauler"],
       release: { entrypoints: manifest.entrypoints, fileCount: manifest.fileCount },
       deployment: {
         cardId: deployed.deployment.cardId,
@@ -336,6 +512,28 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       },
       requestPaths: [...requests].sort(),
       battleFrame: { box: frameBox, smallBox: smallFrameBox, viewport: battleViewport },
+      editableDeck: {
+        averageCost: expectedAverage,
+        ids: deckIds,
+        replacement: { added: "stonehauler", removed: "mossguard", slot: 1 },
+        launchedSetup: frameSetup,
+        invalidMessagesIgnored: true,
+        pauseResume: { pausedTick: customPausedTick, resumedTick: resumedCustomTick },
+        deployment: {
+          cardId: stonehaulerDeployment.deployment.cardId,
+          point: stonehaulerDeployment.deployment.point,
+          trustedInput: true,
+        },
+        snapshot: {
+          exactAtRestore: continuation.exactAtRestore,
+          replayExact: continuation.replayed === continuation.forward,
+          restoredDeck: continuation.restoredDeck,
+        },
+        terminal: { reached: terminal.state.terminal, sessionTick: terminal.state.sessionTick,
+          chunks: terminal.chunks },
+        restart: { deck: restarted.setup.deck, restartCount: restarted.restartCount,
+          sessionTick: restarted.sessionTick },
+      },
       viewports: [{ width: 720, height: 1280 }, { width: 390, height: 844 }, { width: 1440, height: 900 }],
       result: "passed",
     }, null, 2)}\n`);

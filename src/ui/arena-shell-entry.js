@@ -4,6 +4,7 @@ import {
   mountShippedGameBrowser,
 } from "./game-browser-entry.js";
 import { GameSession } from "../sim/game-session.js";
+import { EDITABLE_DECK_CARD_IDS } from "../content/editable-deck.js";
 import {
   createPlayableRoster,
   createPlayableRosterQuestionRecords,
@@ -42,6 +43,45 @@ const TOWER_IDS = Object.freeze([
 ]);
 const sessionInjectionCapabilities = new WeakMap();
 const consumedSessionInjectionCapabilities = new WeakSet();
+
+function checkedAppBattleMessage(value) {
+  if (value === null || typeof value !== "object" || Array.isArray(value) ||
+      Object.getPrototypeOf(value) !== Object.prototype) return null;
+  const descriptors = Object.getOwnPropertyDescriptors(value);
+  const keys = Reflect.ownKeys(descriptors);
+  if (keys.length !== 3 ||
+      keys.some((key) => typeof key !== "string" ||
+        !["active", "channel", "deckIds"].includes(key)) ||
+      Object.values(descriptors).some((descriptor) =>
+        !descriptor.enumerable || !Object.hasOwn(descriptor, "value"))) return null;
+  if (descriptors.channel.value !== "moss-and-ember-battle" ||
+      typeof descriptors.active.value !== "boolean") return null;
+  const deckIds = descriptors.deckIds.value;
+  if (!Array.isArray(deckIds) || Object.getPrototypeOf(deckIds) !== Array.prototype) {
+    return null;
+  }
+  const deckDescriptors = Object.getOwnPropertyDescriptors(deckIds);
+  const deckKeys = Reflect.ownKeys(deckDescriptors);
+  if (deckKeys.length !== 9 || !Object.hasOwn(deckDescriptors.length, "value") ||
+      deckDescriptors.length.value !== 8 || deckDescriptors.length.enumerable ||
+      deckKeys.some((key) => typeof key !== "string" ||
+        (key !== "length" && !/^[0-7]$/u.test(key)))) return null;
+  const checked = [];
+  for (let index = 0; index < 8; index += 1) {
+    const descriptor = deckDescriptors[String(index)];
+    if (!descriptor?.enumerable || !Object.hasOwn(descriptor, "value") ||
+        typeof descriptor.value !== "string" ||
+        !EDITABLE_DECK_CARD_IDS.includes(descriptor.value)) return null;
+    checked.push(descriptor.value);
+  }
+  if (new Set(checked).size !== 8) return null;
+  return { active: descriptors.active.value, deckIds: checked };
+}
+
+function sameDeckIds(left, right) {
+  return Array.isArray(left) && left.length === right.length &&
+    left.every((id, index) => id === right[index]);
+}
 
 function canonicalJson(value) {
   if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`;
@@ -448,12 +488,11 @@ export const arenaHudController =
       if (appFrame) {
         controller.pause();
         window.addEventListener("message", (event) => {
-          const message = event.data;
-          if (event.source !== window.parent || event.origin !== window.location.origin ||
-              message === null || typeof message !== "object" || Array.isArray(message) ||
-              message.channel !== "moss-and-ember-battle" || typeof message.active !== "boolean") {
-            return;
-          }
+          if (event.source !== window.parent || event.origin !== window.location.origin) return;
+          const message = checkedAppBattleMessage(event.data);
+          if (message === null) return;
+          const currentDeck = JSON.parse(controller.session.serialize()).setup.deck;
+          if (!sameDeckIds(currentDeck, message.deckIds)) controller.replaceDeck(message.deckIds);
           if (message.active) controller.resume();
           else controller.pause();
         });

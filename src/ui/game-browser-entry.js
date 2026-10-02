@@ -3,6 +3,7 @@ import {
   createPlayableRosterQuestionRecords,
 } from "../content/playable-roster.js";
 import { createSessionTroopWitness } from "../content/session-troop-roster.js";
+import { createEditableGameSessionSetup } from "../content/editable-deck.js";
 import { projectSessionNonUnitBattleCard } from "../content/session-card-catalog.js";
 import {
   BrowserPcmAudioSink,
@@ -828,6 +829,23 @@ export function mountShippedGameBrowser(
       replaceMountedSession(new GameSession(createShippedGameSessionSetup(0)),
         "shipped browser deck-choice reset failed");
       return true;
+    },
+    replaceDeck(deckIds) {
+      assertActive();
+      if (!graph.loop.state.paused) {
+        throw new Error("shipped browser deck replacement requires a paused match");
+      }
+      const setup = createEditableGameSessionSetup(deckIds, 0);
+      const currentIds = JSON.parse(graph.loop.session.serialize()).setup.deck;
+      if (sameValues(currentIds, setup.deck)) return api.state;
+      const state = replaceMountedSession(new GameSession(setup),
+        "shipped browser custom deck mount failed");
+      if (!graph.loop.state.paused) {
+        graph.loop.pause();
+        graph.audioRuntime.renderFrame();
+        renderRestart(graph);
+      }
+      return state;
     },
     restart() {
       assertActive();
