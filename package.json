@@ -1,15 +1,17 @@
 {
-  "name": "original-card-battler",
+    "name": "original-card-battler",
   "version": "0.0.0",
   "private": true,
   "type": "module",
   "scripts": {
     "build": "node scripts/build-release.js",
+    "preview:release": "npm run build && node scripts/serve-release.js",
     "test": "node tests/content-schema-runner.js",
     "test:content-schema": "node tests/content-schema-runner.js content-schema",
     "test:nondeterminism-guard": "node tests/nondeterminism-guard-runner.js nondeterminism-guard",
     "test:shipping-isolation-guard": "node tests/shipping-isolation-guard-runner.js shipping-isolation-guard",
     "test:shipping-isolation-release": "node tests/shipping-isolation-release-runner.js shipping-isolation-release",
+    "test:shipping-isolation-host": "node tests/shipping-isolation-host-runner.js shipping-isolation-host",
     "test:integration-audit": "node tests/integration-audit-runner.js integration-audit",
     "test:fixed-step-kernel": "node tests/fixed-step-runner.js fixed-step-kernel",
     "test:rng": "node tests/rng-runner.js rng",
