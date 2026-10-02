@@ -24,6 +24,8 @@ version is used.
   `npm run test:portable -- node tests/<runner>.js <selector>`; the wrapper can
   also run non-browser tests. After `npm ci`, install Chromium with
   `npx playwright install chromium` when a selected browser test needs it.
+  The long browser endurance run uses the same wrapper:
+  `npm run test:portable -- npm run test:game-browser-endurance`.
 - Keep simulation outcomes deterministic: use fixed ticks and seeded random
   inputs, and do not put wall-clock time or unseeded randomness in game logic.
 - Add a meaningful interaction test for a newly supported card or mechanic.

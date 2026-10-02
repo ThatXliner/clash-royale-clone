@@ -5,17 +5,17 @@ manually run the repository's Pages workflow before it can be published.
 
 ## Build and preview locally
 
-Install the locked Node.js dependencies with `npm ci`, then build and preview
-the Pages output:
+Install the locked Node.js dependencies with `npm ci`. To build the Pages site
+and preview it locally, run:
 
 ```sh
-npm run build:pages
 npm run preview:pages
 ```
 
-`build:pages` writes the static site to `site-dist/` by default and includes
-the game release under `site-dist/game/`. The preview serves the landing page
-at `/` and the game at `/game/`.
+The preview builds the static site to `site-dist/` by default, includes the
+game release under `site-dist/game/`, and serves the landing page at `/` and
+the game at `/game/`. To create the static output without starting a preview,
+run `npm run build:pages`.
 
 ## Enable and run GitHub Pages
 

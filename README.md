@@ -43,9 +43,9 @@ npm run preview:release
 
 Open [http://127.0.0.1:4173/public/index.html](http://127.0.0.1:4173/public/index.html).
 `preview:release` builds the release before serving it. To preview the landing
-page and game together, run `npm run build:pages` followed by
-`npm run preview:pages`. See [publishing](docs/publishing.md) for the manual
-GitHub Pages setup.
+page and game together, run `npm run preview:pages`; it builds the Pages output
+before serving it. See [publishing](docs/publishing.md) for the manual GitHub
+Pages setup.
 
 ## Reinforcement-learning example
 
@@ -84,16 +84,17 @@ Playwright; after `npm ci`, install its Chromium browser with
 `npx playwright install chromium` if needed.
 
 The browser endurance run is long-running. Run
-`npm run test:game-browser-endurance` when you need its 18,000-tick browser
-evidence, not as a quick smoke test.
+`npm run test:portable -- npm run test:game-browser-endurance` when you need its
+18,000-tick browser evidence, not as a quick smoke test.
 
 ## Current verification status
 
-This is an active prototype, not a parity release. The full 18,000-tick browser
-run is under review; a previous run recorded a 76 ms restart task against the
-50 ms target. A building-art restore comparison also remains two pixels off.
-Some card and arena mechanics are estimates or explicit `QUESTION`s in their
-source and provenance records.
+This is an active prototype, not a parity release. The latest 18,000-tick
+browser attempt timed out after its last committed tick at 14,100, so it has no
+terminal or restart proof. A previous run recorded a 76 ms restart task against
+the 50 ms target. A building-art restore comparison also remains two pixels
+off. Some card and arena mechanics are estimates or explicit `QUESTION`s in
+their source and provenance records.
 
 ## Contributing and rights
 
