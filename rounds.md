@@ -1,5 +1,72 @@
 # Gauntlet Rounds
 
+## Round 356 — 2026-10-02
+
+PIECE: RL-001 — Deterministic JavaScript training environment, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Evaluated immutable commit `86df3ef` from `/tmp/rl001-critic-WlMnPv`.
+`npm test -- rl-environment` passed 7/7 in 35,528.500583 ms; the test named
+“natural engine completion reports one sparse reward and seals the episode”
+ran a real seeded GameSession to natural termination. `npm run test:release-build`
+passed 18/18 in 21,842.670667 ms. `npm run test:shipping-isolation-release`
+passed 3/3 in 63,171.721167 ms, including Chrome manifest-only delivery.
+The terminal summaries were:
+
+```
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 35528.500583
+
+1..12
+# tests 18
+# suites 0
+# pass 18
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 21842.670667
+
+1..3
+# tests 3
+# suites 0
+# pass 3
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 63171.721167
+```
+
+`npm run build` emitted 121 files / 2,689,888 bytes to the temporary archive.
+The emitted Node ESM import reported
+`{"actionCount":2305,"initialTick":0,"firstTick":2,"resumedSuffixMatches":true,"seedLeaked":false,"status":"running","tick":4}`.
+The provided browser smoke page imported the emitted module and rendered
+`{"actionCount":2305,"initialTick":0,"firstTick":2,"resumedSuffixMatches":true,"status":"running","tick":4}`.
+`node examples/rl-rollout.mjs` reported
+`{"benchmark":{"elapsedSeconds":0.343425791,"stepsPerSecond":11.647348873690154,"ticksPerSecond":349.4204662107046},"reward":0,"status":"truncated","trace":[{"actionId":1,"status":"running","tick":30},{"actionId":0,"status":"running","tick":60},{"actionId":0,"status":"running","tick":90},{"actionId":0,"status":"truncated","tick":120}]}`.
+
+An independent canonical-checkpoint probe used the real `GameSession` API to
+submit a valid deploy and pause the session before wrapping its snapshot. The
+wrapper accepted the transcript `submit` then `pause` with one pending command;
+its observation reported `running` with wait legal, while `step(0)` reported
+`ticksAdvanced: 0`, tick `0 → 0`, and status `running`. The wrapper cannot emit
+this state because it submits and advances synchronously. Per
+`reference/stats/SOURCES.md`, exact arena coordinates and deployment boundaries
+remain low-medium confidence; this verdict concerns checkpoint consistency.
+
+BIGGEST GAP: `RLEnvironment.restore()` accepts paused or pending-command
+GameSession states that the wrapper cannot emit, allowing an episode to report
+`running` while every step makes no progress.
+
 ## Round 355 — 2026-10-02
 
 PIECE: APP-004 — Readable hand and next-card HUD in packaged Battle, round 2

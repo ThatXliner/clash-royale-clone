@@ -29,12 +29,12 @@
   <h1>Gauntlet progress</h1>
   <p class="sub">Updated 2026-10-02 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
-    <div class="card"><div class="num">190</div><div class="label">tracked pieces</div></div>
+    <div class="card"><div class="num">191</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">149</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">353</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">356</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">26</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Latest review: <strong>APP-003 — Deck and card-info interaction polish, round 2 — PASS</strong>. Full game completion remains unproven.</p>
+  <p class="note">Latest review: <strong>RL-001 — Deterministic JavaScript training environment, round 1 — FAIL</strong>. Full game completion remains unproven.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -231,11 +231,13 @@
 
       <tr><td><code>APP-003</code></td><td>Deck and card-info interaction polish</td><td class="state-pass">PASS</td><td>8/8</td><td>2</td><td>Round 2 passed both requested test suites and an independent trusted Tab/Shift+Tab audit at 320×568 and 390×844; all settled targets are at least 44px and clear the fixed navigation. Round 1 also covered 720×1280 and 1440×900, all views, feedback, reduced motion, and custom-deck continuation. No remaining gap on the judged dimension</td><td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R353 PASS</strong> — None on the judged dimension; trusted phone-size Tab/Shift+Tab targets settled at least 44px high and fully above the navigation.</li><li><strong>R352 PASS</strong> — None on the judged dimension.</li></ol></details></td></tr>
       <tr><td><code>APP-004</code></td><td>Readable hand and next-card HUD in packaged Battle</td><td class="state-pass">PASS</td><td>9/9</td><td>2</td><td>Round 2 passed both requested suites and an independent production Chrome measurement at 720×1280: elixir right=715.609px, its 2px outline remains inside the 720px frame, and the fourth 112×128px target clears the badge box by 3px. Name/cost floors, original portraits, trusted selection/deploy/cycle, and unchanged arena presentation pass at all three viewports. The tightest typography margins are 0.277px for names and 0.847px for costs at 1280×720.</td><td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R355 PASS</strong> — No remaining bar failure; at 1280×720 names clear the 10px floor by 0.277px and costs clear the 12px floor by 0.847px.</li><li><strong>R354 FAIL</strong> — Keep the elixir badge within the 720px packaged battle viewport; its current right edge is 723.609px.</li></ol></details></td></tr>
+      <tr><td><code>RL-001</code></td><td>Deterministic JavaScript training environment</td><td class="state-fail">FAIL</td><td>28/28</td><td>1</td><td>Focused, release-build, and release-isolation tests pass; emitted Node and browser imports pass. A canonical checkpoint with a paused GameSession and one pending deploy restores as running, yet wait advances zero ticks.</td><td class="round-gaps"><details><summary>1 recorded round gap</summary><ol><li><strong>R356 FAIL</strong> — Restore accepts paused or pending-command engine state, so <code>step(0)</code> can report running while advancing zero ticks.</li></ol></details></td></tr>
       </tbody>
     </table>
   </div>
   <h2>Round trajectory</h2>
   <ol>
+      <li><strong>R356 FAIL</strong> · RL-001 — Deterministic JavaScript training environment, round 1<br>Restore accepts a paused GameSession with a pending deploy and then reports running while <code>step(0)</code> advances zero ticks.</li>
       <li><strong>R353 PASS</strong> · APP-003 — Deck and card-info interaction polish, round 2<br>None on the judged dimension; all trusted phone-size Tab/Shift+Tab targets settle above the navigation.</li>
       <li><strong>R352 PASS</strong> · APP-003 — Deck and card-info interaction polish, round 1<br>None on the judged dimension.</li>
       <li><strong>R1 FAIL</strong> · SIM-001 — Fixed-step world and replay log<br>The nondeterminism source gate misses wall-clock APIs such as `process.hrtime.bigint()` and aliased `node:perf_hooks` imports, so it does not satisfy the requirement to reject wall-clock timing in simulation code.</li>
