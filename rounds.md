@@ -1,5 +1,42 @@
 # Gauntlet Rounds
 
+## Round 364 — 2026-10-02
+
+PIECE: GAME-001GPVT — Terminal and restart long-task attribution, round 3
+
+VERDICT: PASS
+
+EVIDENCE: Evaluated immutable commit `3bf8ae61d03b03810d0696f45b98f1cf5cecd2a0`
+from the clean source archive at `/tmp/game001gpvt-r3-critic-3bf8ae6`. The
+single required command, `npm test -- game-browser-endurance`, completed with
+TAP 2/2 passing: the delayed-entry classifier and the actual full Chrome
+journey. The journey reached tick 18,000 across 61 browser segments in
+812,729 ms (outer test duration 815,049.590541 ms), below the 20-minute cap.
+
+Initialization's largest long task was 197 ms under the 300 ms cap. The
+drive, restore, terminal-observation, restart, screenshots, final observer
+drain, and out-of-segment collections each contained zero long tasks; the
+classifier's delayed-entry and 76 ms unclassified-tail regression passed.
+Terminal browser bytes matched the direct GameSession serialization at tick
+18,000 (319,566 bytes), with 3,513 audio events and a disposed, fault-free
+terminal audio renderer. The 600→300 restore matched canonical session and
+input-bridge state, and replay to tick 600 reproduced exact loop/input
+snapshot, session bytes, layers, bridge, and audio continuation. The terminal
+restart returned the exact seed-zero session at tick 0 with its overlay
+cleared. Final observer drain saw two tasks, drained zero pending entries,
+added none, and had no long tasks. There were no console, resource, or
+unhandled errors; Chrome and the journey server exited cleanly.
+
+Host phase telemetry's largest segment body was 22,245.718 ms from tick 300;
+the largest intersegment gap was 9.513 ms at tick 17,400. These are host
+timings, distinct from the browser long-task caps. Screenshots and full
+telemetry are preserved in
+`/tmp/game001gpvt-r3-critic-3bf8ae6/artifacts/game-001gp-browser-endurance/`.
+
+BIGGEST GAP: None on the judged terminal/restart attribution, lifecycle,
+restore, audio, input, and 18,000-tick endurance dimensions. The separate
+VIS-003HR full-viewport pixel mismatch remains a tracked failure.
+
 ## Round 363 — 2026-10-02
 
 PIECE: PUB-002 — GitHub Pages landing and demo artifact, round 1
