@@ -41,6 +41,14 @@ const QUESTION_ESTIMATES = Object.freeze({
   projectileSpeed: 500,
 });
 
+// This is the narrow unit pool for editable decks. Other cards may be admitted
+// by the session catalog, but their full runtime policies are not part of this
+// custom-deck setup seam.
+export const EDITABLE_DECK_CARD_IDS = Object.freeze([
+  ...PLAYABLE_CARD_IDS,
+  "stonehauler",
+]);
+
 // These are source-occurrence classifications for an ordinary runtime estimate.
 // They do not claim the special mechanic represented by the catalog export.
 const PROJECTILE_OCCURRENCES = new Set([
@@ -148,6 +156,43 @@ function checkedId(id, args, label) {
   assertNoArguments(args, label);
   if (typeof id !== "string") throw new TypeError(`${label} ID must be a primitive string`);
   return id;
+}
+
+function checkedEditableDeckIds(value) {
+  if (!Array.isArray(value) || Object.getPrototypeOf(value) !== Array.prototype) {
+    throw new TypeError("editable deck IDs must be a plain array");
+  }
+  const descriptors = Object.getOwnPropertyDescriptors(value);
+  const length = descriptors.length;
+  if (!length || !Object.hasOwn(length, "value") || length.enumerable ||
+      length.value !== 8) {
+    throw new TypeError("editable deck must contain exactly eight cards");
+  }
+  const expectedKeys = new Set(["length", ...Array.from({ length: 8 }, (_, index) =>
+    String(index))]);
+  const actualKeys = Reflect.ownKeys(descriptors);
+  if (actualKeys.length !== expectedKeys.size ||
+      actualKeys.some((key) => typeof key !== "string" || !expectedKeys.has(key))) {
+    throw new TypeError("editable deck IDs must be one exact dense array");
+  }
+  const ids = [];
+  for (let index = 0; index < 8; index += 1) {
+    const descriptor = descriptors[String(index)];
+    if (!descriptor?.enumerable || !Object.hasOwn(descriptor, "value")) {
+      throw new TypeError(`editable deck ID ${index} must be an enumerable data property`);
+    }
+    if (typeof descriptor.value !== "string") {
+      throw new TypeError(`editable deck ID ${index} must be a primitive string`);
+    }
+    if (!EDITABLE_DECK_CARD_IDS.includes(descriptor.value)) {
+      throw new RangeError(`editable deck card ${descriptor.value} is not supported`);
+    }
+    ids.push(descriptor.value);
+  }
+  if (new Set(ids).size !== 8) {
+    throw new TypeError("editable deck cards must be unique");
+  }
+  return ids;
 }
 
 function exactFields(value, fields, label) {
@@ -393,6 +438,33 @@ function questionRecordFor(key, card) {
   }
   if (key.endsWith(".damage")) return estimateQuestion(key, QUESTION_ESTIMATES.damage);
   throw new Error(`session troop question ${key} has no bounded runtime estimate`);
+}
+
+/**
+ * Composes one exact editable eight-card unit roster in the same HTO policy
+ * mode as the admitted troop witnesses. Every referenced runtime estimate
+ * remains an explicit QUESTION in the closed question inventory.
+ */
+export function createEditableDeckWitness(deckIds, ...args) {
+  if (args.length !== 0) {
+    throw new TypeError("editable deck witness takes exactly one argument");
+  }
+  const ids = checkedEditableDeckIds(deckIds);
+  const roster = ids.map((id) => {
+    const card = PROJECTED_BY_ID.get(id);
+    if (card === undefined) {
+      throw new RangeError(`editable deck card ${id} lacks an admitted troop projection`);
+    }
+    return clone(card);
+  });
+  const questionKeys = [...new Set(roster.flatMap(policyQuestionKeys))].sort();
+  const questions = questionKeys.map((key) => questionRecordFor(key, roster.find((card) =>
+    policyQuestionKeys(card).includes(key))));
+  return clonePublic({
+    initialWindupTicks: { central: 0, lane: 0 },
+    questions,
+    roster,
+  });
 }
 
 function compileWitness(id) {
