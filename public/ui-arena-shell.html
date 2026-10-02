@@ -770,6 +770,166 @@
           radial-gradient(circle at 71% 66%, #c6452e 0 11px, transparent 12px);
       }
     </style>
+    <style id="app-frame-hand-polish">
+      body[data-app-frame="true"] .match-rail--bottom {
+        top: 1070px;
+        height: 38px;
+      }
+
+      body[data-app-frame="true"] .hand-tray {
+        top: 1114px;
+        left: 50%;
+        translate: -50% 0;
+        width: 612px;
+        height: 140px;
+        grid-template-columns: repeat(5, 112px);
+        gap: 8px;
+        align-items: stretch;
+        padding: 4px 8px;
+      }
+
+      body[data-app-frame="true"] .next-card,
+      body[data-app-frame="true"] .card-slot {
+        position: relative;
+        width: 112px;
+        height: 128px;
+        overflow: visible;
+      }
+
+      body[data-app-frame="true"] .card-slot {
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+        cursor: pointer;
+      }
+
+      body[data-app-frame="true"] [data-ui="hud-next"],
+      body[data-app-frame="true"] [data-ui="hud-hand"] {
+        top: 1121px;
+        height: 128px;
+        align-items: stretch;
+      }
+
+      body[data-app-frame="true"] [data-ui="hud-next"] {
+        left: 65px;
+        width: 112px;
+      }
+
+      body[data-app-frame="true"] [data-ui="hud-hand"] {
+        left: 185px;
+        width: 472px;
+        grid-template-columns: repeat(4, 112px);
+        gap: 8px;
+      }
+
+      body[data-app-frame="true"] .game-ui-hud-frame [data-ui="hud-hand"],
+      body[data-app-frame="true"] .game-ui-hud-frame .hud-card[data-slot] {
+        transform: none !important;
+      }
+
+      body[data-app-frame="true"] [data-ui="hud-next"] .hud-card,
+      body[data-app-frame="true"] [data-ui="hud-hand"] .hud-card {
+        position: relative;
+        inset: auto;
+        width: 112px;
+        height: 128px;
+        padding: 0;
+        font-size: 25px;
+      }
+
+      body[data-app-frame="true"] [data-ui="hud-next"] .hud-card::before,
+      body[data-app-frame="true"] [data-ui="hud-hand"] .hud-card::before {
+        width: 72px;
+        height: 56px;
+        top: 8px;
+      }
+
+      body[data-app-frame="true"] .hud-card__name {
+        display: block;
+        left: 1px;
+        right: 1px;
+        bottom: 3px;
+        padding: 3px 1px 4px;
+        font-size: 24px;
+        line-height: 1;
+        letter-spacing: 0;
+        overflow-wrap: anywhere;
+        text-wrap: balance;
+      }
+
+      body[data-app-frame="true"] .hud-card__cost {
+        top: 5px;
+        left: 5px;
+        width: 42px;
+        height: 42px;
+        border-width: 3px;
+        font-size: 30px;
+        line-height: 1;
+      }
+
+      body[data-app-frame="true"] .hud-card[data-card-id="stonehauler"] {
+        background: linear-gradient(145deg, #899085, #43534a 72%);
+      }
+
+      body[data-app-frame="true"] .hud-card[data-card-id="stonehauler"]::before {
+        top: 6px;
+        width: 76px;
+        height: 54px;
+        background:
+          radial-gradient(circle at 57% 44%, #dcede9 0 3px, transparent 4px),
+          radial-gradient(circle at 43% 44%, #dcede9 0 3px, transparent 4px),
+          linear-gradient(145deg, #d4b983 0 22%, #a9a386 22% 43%, #68736b 44% 72%, #46564d 73%);
+        clip-path: polygon(49% 0, 75% 10%, 99% 34%, 89% 55%, 96% 78%, 67% 94%,
+          47% 100%, 27% 91%, 3% 73%, 13% 51%, 0 34%, 25% 12%);
+        filter: drop-shadow(2px 3px 0 #191d2155);
+      }
+
+      body[data-app-frame="true"] .hud-card[data-card-id="stonehauler"]::after {
+        content: "";
+        position: absolute;
+        z-index: 1;
+        left: 50%;
+        top: 43px;
+        width: 38px;
+        height: 8px;
+        translate: -50%;
+        border: 2px solid #3b443d;
+        border-radius: 8px 8px 4px 4px;
+        background: linear-gradient(90deg, #69756c, #b6aa89 50%, #69756c);
+        box-shadow: 0 2px 0 #191d2188;
+      }
+
+      body[data-app-frame="true"] [data-ui="hud-next"]::after {
+        content: "NEXT";
+        position: absolute;
+        z-index: 2;
+        top: 7px;
+        right: 6px;
+        min-width: 54px;
+        padding: 4px 3px;
+        border: 2px solid #191d22;
+        border-radius: 7px;
+        background: #f4ebd6;
+        box-shadow: 0 2px 0 #191d2266;
+        color: #191d22;
+        font-size: 24px;
+        font-weight: 900;
+        line-height: 1;
+        text-align: center;
+      }
+
+      body[data-app-frame="true"] .elixir-rail {
+        top: 1258px;
+        left: 64px;
+        width: 592px;
+        height: 22px;
+      }
+
+      body[data-app-frame="true"] [data-ui="hud-elixir"] {
+        top: 1236px;
+        left: 668px;
+      }
+    </style>
   </head>
   <body>
     <div data-arena-shell-root></div>

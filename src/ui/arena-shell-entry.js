@@ -472,6 +472,7 @@ export const arenaHudController =
         throw new TypeError("public app frame option is invalid");
       }
       const appFrame = appFrameValue === "1";
+      if (appFrame) document.body.dataset.appFrame = "true";
       if (profile !== null && profile !== "live-seed-2-terminal" &&
           profile !== "stonehauler-witness") {
         throw new TypeError("public game session profile is invalid");
