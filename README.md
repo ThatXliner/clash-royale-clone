@@ -89,12 +89,18 @@ The browser endurance run is long-running. Run
 
 ## Current verification status
 
-This is an active prototype, not a parity release. The latest 18,000-tick
-browser attempt timed out after its last committed tick at 14,100, so it has no
-terminal or restart proof. A previous run recorded a 76 ms restart task against
-the 50 ms target. A building-art restore comparison also remains two pixels
-off. Some card and arena mechanics are estimates or explicit `QUESTION`s in
-their source and provenance records.
+This remains an active prototype, not a parity release. An independent R3 run
+on candidate `3bf8ae6` passed the specified 18,000-tick browser journey through
+terminal and restart in 812,729 ms. It reached tick 18,000 with a 319,566-byte
+session, restored from tick 600 to the tick-300 checkpoint, then replayed to
+tick 600 with exact session/snapshot/input/audio state (3,513 audio records and
+matching cursor/events). It delivered 42 physical commands through tick 17,700
+and restarted at tick 0. The run recorded a
+197 ms maximum initialization task, no non-initialization long tasks, and no
+errors. This verifies only this seeded endurance/restore/restart path; it does
+not establish general game parity. A separate building-art restore comparison
+remains two pixels off. Some card and arena mechanics are estimates or explicit
+`QUESTION`s in their source and provenance records.
 
 ## Contributing and rights
 
