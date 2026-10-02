@@ -7,6 +7,7 @@ for (const selector of selectors) {
       "cards-basic-melee",
       "nondeterminism-guard",
       "shipping-isolation-guard",
+      "shipping-isolation-release",
       "integration-audit",
       "cards-basic-flying",
       "cards-basic-ranged",
@@ -264,6 +265,12 @@ if (selectors.length === 0 || selectors.includes("shipping-isolation-guard")) {
   run([
     new URL("./shipping-isolation-guard-runner.js", import.meta.url).pathname,
     "shipping-isolation-guard",
+  ]);
+}
+if (selectors.length === 0 || selectors.includes("shipping-isolation-release")) {
+  run([
+    new URL("./shipping-isolation-release-runner.js", import.meta.url).pathname,
+    "shipping-isolation-release",
   ]);
 }
 if (selectors.length === 0 || selectors.includes("integration-audit")) {

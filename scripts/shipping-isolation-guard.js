@@ -629,6 +629,18 @@ function embeddedIdentifierHits(value, identities) {
   });
 }
 
+export function protectedIdentityHitsInSource(source, identities) {
+  const analysis = analyzeSource(source, DEFAULT_BOUNDS.maxTokensPerFile);
+  const hits = new Set();
+  for (const value of analysis.values) {
+    for (const hit of identityHits(value, identities)) hits.add(hit);
+  }
+  for (const identifier of analysis.identifiers) {
+    for (const hit of embeddedIdentifierHits(identifier, identities)) hits.add(hit);
+  }
+  return [...hits].sort((a, b) => a.localeCompare(b));
+}
+
 function readPackageEntries(root, packageJson, bounds) {
   const entries = new Set();
   const add = (value) => {

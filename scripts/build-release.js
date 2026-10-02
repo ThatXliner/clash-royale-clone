@@ -14,6 +14,7 @@ import {
 import { dirname, extname, isAbsolute, join, posix, relative, resolve, sep } from "node:path";
 import { homedir, tmpdir } from "node:os";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { assertReleaseFilesIsolated } from "./release-isolation-guard.js";
 
 const SCRIPT_PATH = fileURLToPath(import.meta.url);
 const WORKSPACE_ROOT = resolve(dirname(SCRIPT_PATH), "..");
@@ -229,6 +230,30 @@ function decodeHtmlEntities(value, sourcePath) {
     invariant(Object.hasOwn(named, entity.toLowerCase()), `unsupported HTML entity in ${sourcePath}: &${entity};`);
     return named[entity.toLowerCase()];
   });
+}
+
+const RELEASE_CSP = "default-src 'none'; base-uri 'self'; connect-src 'self'; " +
+  "font-src 'self' data:; form-action 'none'; img-src 'self' data:; " +
+  "media-src 'self'; object-src 'none'; script-src 'self'; " +
+  "style-src 'self' 'unsafe-inline'; worker-src 'none'";
+
+function enforceReleasePolicy(source, sourcePath) {
+  const hasIcon = /<link\b[^>]*\brel\s*=\s*(?:"[^"]*\bicon\b[^"]*"|'[^']*\bicon\b[^']*'|[^\s>]*\bicon\b)/i.test(source);
+  const meta = `<meta http-equiv="Content-Security-Policy" content="${RELEASE_CSP}">` +
+    (hasIcon ? "" : '<link rel="icon" href="data:,">');
+  const head = /<head\b[^>]*>/i.exec(source);
+  const html = /<html\b[^>]*>/i.exec(source);
+  const doctype = /<!doctype\b[^>]*>/i.exec(source);
+  const insertion = head
+    ? head.index + head[0].length
+    : html
+      ? html.index + html[0].length
+      : doctype
+        ? doctype.index + doctype[0].length
+        : 0;
+  invariant(!/<meta\b[^>]*\bhttp-equiv\s*=\s*["']?content-security-policy\b/i.test(source),
+  `release HTML may not supply its own content security policy: ${sourcePath}`);
+  return `${source.slice(0, insertion)}\n    ${meta}${source.slice(insertion)}`;
 }
 
 function parseHtmlTags(source, sourcePath) {
@@ -710,7 +735,10 @@ async function collectGraph(root, config) {
     invariant(fileStat.size <= config.limits.maxFileBytes, `release file exceeds byte limit: ${rel}`);
     const actual = await realpath(absolute);
     invariant(isWithin(rootReal, actual), `release dependency escapes workspace: ${rel}`);
-    const bytes = await readFile(absolute);
+    let bytes = await readFile(absolute);
+    if (config.entries.includes(rel) && extension === ".html") {
+      bytes = Buffer.from(enforceReleasePolicy(bytes.toString("utf8"), rel));
+    }
     totalBytes += bytes.length;
     invariant(totalBytes <= config.limits.maxTotalBytes, "release graph exceeds total byte limit");
     invariant(files.size + 1 <= config.limits.maxFiles, "release graph exceeds file-count limit");
@@ -786,7 +814,12 @@ export async function buildRelease({
   const safeOutput = await validateOutput(rootReal, output);
   const config = await loadConfig(resolve(configPath));
   const { files, totalBytes } = await collectGraph(rootReal, config);
+  await assertReleaseFilesIsolated({ files, referenceRoot: rootReal });
   const manifest = canonicalManifest(config, files, totalBytes);
+  await assertReleaseFilesIsolated({
+    files: new Map([[MANIFEST_NAME, Buffer.from(manifest)]]),
+    referenceRoot: rootReal,
+  });
   await publishAtomically(safeOutput, files, manifest);
   return Object.freeze({ output: safeOutput, fileCount: files.size, totalBytes });
 }
