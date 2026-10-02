@@ -137,10 +137,25 @@ async function measureHud(page, viewport) {
     const nextCost = nextCard.querySelector(".hud-card__cost");
     const shell = body.querySelector(".battle-shell");
     const arena = body.querySelector('[data-ui="arena"]');
+    const hudElements = [...body.querySelectorAll([
+      '[data-ui^="hud-"]',
+      ".hand-tray",
+      ".elixir-rail",
+      ".next-card",
+      ".card-slot",
+      ".hud-card",
+      ".hud-card__name",
+      ".hud-card__cost",
+    ].join(","))].map((node) => ({
+      label: node.dataset.ui ?? node.className,
+      ...rect(node),
+    }));
     return {
       appFrame: body.dataset.appFrame ?? null,
       arena: rect(arena),
       cards,
+      frame: { width: body.clientWidth, height: body.clientHeight },
+      hudElements,
       next: {
         artBackground: getComputedStyle(nextCard, "::before").backgroundImage,
         cost: rect(nextCost),
@@ -178,6 +193,22 @@ async function measureHud(page, viewport) {
     "app HUD sizing leaves the rendered arena box unchanged");
   assert.equal(intersects(view.cards[3].card, view.elixir), false,
     "the elixir amount stays clear of the last card portrait and name");
+  assert.ok(view.hudElements.length > 0);
+  for (const element of view.hudElements) {
+    assert.ok(element.left >= 0 && element.top >= 0 &&
+      element.right <= view.frame.width && element.bottom <= view.frame.height,
+    `${element.label} stays inside the packaged game frame at ${viewport.width}x${viewport.height}: ${JSON.stringify({
+      bounds: element,
+      frame: view.frame,
+    })}`);
+  }
+  assert.ok(view.elixir.left >= 2 && view.elixir.top >= 2 &&
+    view.elixir.right + 2 <= view.frame.width &&
+    view.elixir.bottom + 4 <= view.frame.height,
+  `the elixir border and shadows stay inside the game frame: ${JSON.stringify({
+    elixir: view.elixir,
+    frame: view.frame,
+  })}`);
   assert.equal(view.next.label, '"NEXT"', "the fifth card is visibly labeled as the next draw");
   assert.notEqual(view.next.id, null);
   assert.equal(new Set([...view.cards.map(({ id }) => id), view.next.id]).size, 5,
