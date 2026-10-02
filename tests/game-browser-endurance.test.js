@@ -541,6 +541,17 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
   let testFailure = null;
   let drainFinalObserver = null;
   const started = performance.now();
+  let previousHostSegmentFinishedAt = null;
+  let activeHostSegment = null;
+  const finishHostSegmentTiming = () => {
+    if (activeHostSegment === null) return;
+    const finishedAt = performance.now();
+    telemetry.hostPhaseTimings.push({ durationMs: finishedAt - activeHostSegment.startedAt,
+      finishedAt, fromTick: activeHostSegment.fromTick, phase: "host-segment-body",
+      startedAt: activeHostSegment.startedAt });
+    previousHostSegmentFinishedAt = finishedAt;
+    activeHostSegment = null;
+  };
   try {
     server = spawn(process.execPath, [
       new URL("./game-browser-endurance-server.js", import.meta.url).pathname,
@@ -753,17 +764,6 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
     const longTaskIntervals = [];
     let terminalObservationInterval = null;
     let restartInterval = null;
-    let previousHostSegmentFinishedAt = null;
-    let activeHostSegment = null;
-    const finishHostSegmentTiming = () => {
-      if (activeHostSegment === null) return;
-      const finishedAt = performance.now();
-      telemetry.hostPhaseTimings.push({ durationMs: finishedAt - activeHostSegment.startedAt,
-        finishedAt, fromTick: activeHostSegment.fromTick, phase: "host-segment-body",
-        startedAt: activeHostSegment.startedAt });
-      previousHostSegmentFinishedAt = finishedAt;
-      activeHostSegment = null;
-    };
     let restored = false;
     let restoreCut = null;
     let restoreBranch = null;
