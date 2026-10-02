@@ -258,6 +258,53 @@ test("combat status slow: every assumption is a fresh recursively frozen questio
   );
 });
 
+test("combat status slow: source-derived movement-only rates preserve attack work and restore", () => {
+  const cases = [
+    { movementTwentieths: 17, expectedPosition: 1850 },
+    { movementTwentieths: 10, expectedPosition: 1500 },
+  ];
+  for (const { movementTwentieths, expectedPosition } of cases) {
+    const commands = [slow(0), acquire(0)];
+    const setup = createSlowFixture(commands, 1, {
+      attackWorkTwentieths: 20,
+      movementTwentieths,
+    });
+    const whole = new TimedMovementAttackSlowEncounter(setup);
+    whole.stepMany(120);
+
+    const prefix = new TimedMovementAttackSlowEncounter(setup);
+    prefix.stepMany(60);
+    assert.equal(prefix.state.slowUntilTick, 60);
+    const checkpoint = prefix.serialize();
+    const restored = TimedMovementAttackSlowEncounter.restore(checkpoint);
+    restored.stepMany(60);
+
+    assert.equal(whole.state.position, expectedPosition);
+    assert.equal(whole.state.attackWork, 1080);
+    assert.deepEqual(attacks(whole).map(({ tick }) => tick), [72]);
+    assert.equal(whole.state.slowUntilTick, null);
+    assert.equal(restored.serialize(), whole.serialize());
+    assert.deepEqual(restored.replay, whole.replay);
+  }
+});
+
+test("combat status slow: optional progress profiles are bounded and defaults stay legacy-shaped", () => {
+  assert.deepEqual(createSlowFixture(), { commands: [], direction: 1 });
+  assert.throws(() => createSlowFixture([], 1, {
+    attackWorkTwentieths: 20,
+    movementTwentieths: 0,
+  }), /bounded safe integer/u);
+  assert.throws(() => createSlowFixture([], 1, {
+    attackWorkTwentieths: 21,
+    movementTwentieths: 17,
+  }), /bounded safe integer/u);
+  assert.throws(() => createSlowFixture([], 1, {
+    attackWorkTwentieths: 20,
+    movementTwentieths: 17,
+    ignored: true,
+  }), /invalid shape/u);
+});
+
 test("combat status slow: normal timeline has literal movement and attacks", () => {
   const encounter = run([acquire(0)], 200);
   assert.deepEqual(attacks(encounter).map(({ tick }) => tick), [72, 174]);

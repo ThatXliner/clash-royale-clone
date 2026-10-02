@@ -22,6 +22,7 @@ const CARD_DEFINITIONS = [{
 
 const SOURCE = "unsourced-timed-movement-and-attack-slow-fixture";
 const FIXTURE_ID = "timed-movement-and-attack-slow-question-v1";
+const PROFILE_FIXTURE_ID = "timed-movement-and-attack-slow-profile-question-v1";
 const MAX_COMMANDS = 64;
 const MAX_EVENTS = 8192;
 const MAX_POSITION = 1_000_000;
@@ -30,7 +31,11 @@ const MAX_STEP_CHUNK = 4096;
 const MAX_TICK = 4096;
 const MOVEMENT_DENOMINATOR = 1200n;
 const NORMAL_PROGRESS = 20n;
-const SLOW_PROGRESS = 13n;
+const PROGRESS_TWENTIETHS = 20;
+const DEFAULT_SLOW_PROGRESS = Object.freeze({
+  attackWorkTwentieths: 13,
+  movementTwentieths: 13,
+});
 const WINDUP_WORK = 1440;
 const CADENCE_WORK = 2040;
 const DURATION_TICKS = 60;
@@ -44,8 +49,11 @@ const COMMAND_TYPES = new Set([
   "target-died",
 ]);
 const SETUP_KEYS = ["commands", "direction"];
+const PROFILE_SETUP_KEYS = [...SETUP_KEYS, "slowProgress"];
+const SLOW_PROGRESS_KEYS = ["attackWorkTwentieths", "movementTwentieths"];
 const SNAPSHOT_KEYS = ["identity", "state", "version"];
 const IDENTITY_KEYS = ["commands", "direction", "fixture"];
+const PROFILE_IDENTITY_KEYS = [...IDENTITY_KEYS, "slowProgress"];
 const STATE_KEYS = [
   "alive",
   "attackPhase",
@@ -246,12 +254,38 @@ function checkedCommands(value) {
   return commands;
 }
 
+function checkedSlowProgress(value) {
+  const progress = exactRecord(value, SLOW_PROGRESS_KEYS, "slow progress");
+  for (const key of SLOW_PROGRESS_KEYS) {
+    safeInteger(
+      progress[key],
+      `slow progress.${key}`,
+      1,
+      PROGRESS_TWENTIETHS,
+    );
+  }
+  return {
+    attackWorkTwentieths: progress.attackWorkTwentieths,
+    movementTwentieths: progress.movementTwentieths,
+  };
+}
+
 function checkedSetup(value) {
-  const setup = exactRecord(value, SETUP_KEYS, "slow setup");
+  const descriptors = Object.getOwnPropertyDescriptors(value);
+  const profiled = Object.hasOwn(descriptors, "slowProgress");
+  const keys = profiled ? PROFILE_SETUP_KEYS : SETUP_KEYS;
+  const setup = exactRecord(value, keys, "slow setup");
   if (setup.direction !== -1 && setup.direction !== 1) {
     throw new TypeError("slow setup.direction must be -1 or 1");
   }
-  return { commands: checkedCommands(setup.commands), direction: setup.direction };
+  return {
+    commands: checkedCommands(setup.commands),
+    direction: setup.direction,
+    profiled,
+    slowProgress: profiled
+      ? checkedSlowProgress(setup.slowProgress)
+      : { ...DEFAULT_SLOW_PROGRESS },
+  };
 }
 
 function initialState() {
@@ -330,7 +364,7 @@ function applyCommand(state, command, events) {
   }
 }
 
-function uncheckedAdvance(state, commands, direction) {
+function uncheckedAdvance(state, commands, direction, slowProgress) {
   if (state.tick >= MAX_TICK) {
     throw new RangeError("slow encounter has reached its tick bound");
   }
@@ -364,12 +398,16 @@ function uncheckedAdvance(state, commands, direction) {
   }
 
   if (state.alive) {
-    const progress = state.slowUntilTick === null
+    const movementProgress = state.slowUntilTick === null
       ? NORMAL_PROGRESS
-      : SLOW_PROGRESS;
+      : BigInt(slowProgress.movementTwentieths);
+    const attackProgress = state.slowUntilTick === null
+      ? NORMAL_PROGRESS
+      : BigInt(slowProgress.attackWorkTwentieths);
     const accumulated =
       BigInt(state.movementRemainder) +
-      BigInt(CARD_DEFINITIONS[0].movementMillitilesPerSecond) * progress;
+      BigInt(CARD_DEFINITIONS[0].movementMillitilesPerSecond) *
+      movementProgress;
     const magnitude = accumulated / MOVEMENT_DENOMINATOR;
     const remainder = accumulated % MOVEMENT_DENOMINATOR;
     const deltaBig = BigInt(direction) * magnitude;
@@ -391,8 +429,8 @@ function uncheckedAdvance(state, commands, direction) {
     });
     if (state.targetId !== null && state.attackWork > 0) {
       state.attackWork = Number(
-        BigInt(state.attackWork) > progress
-          ? BigInt(state.attackWork) - progress
+        BigInt(state.attackWork) > attackProgress
+          ? BigInt(state.attackWork) - attackProgress
           : 0n,
       );
     }
@@ -524,17 +562,23 @@ function checkedStateShape(value, commands, label) {
   };
 }
 
-function replayState(commands, direction, ticks) {
+function replayState(commands, direction, ticks, slowProgress) {
   const state = initialState();
   for (let index = 0; index < ticks; index += 1) {
-    uncheckedAdvance(state, commands, direction);
+    uncheckedAdvance(state, commands, direction, slowProgress);
   }
   return state;
 }
 
-function checkedCausalState(value, commands, direction, label = "slow state") {
+function checkedCausalState(
+  value,
+  commands,
+  direction,
+  slowProgress,
+  label = "slow state",
+) {
   const checked = checkedStateShape(value, commands, label);
-  const expected = replayState(commands, direction, checked.tick);
+  const expected = replayState(commands, direction, checked.tick, slowProgress);
   if (canonicalJson(checked) !== canonicalJson(expected)) {
     throw new TypeError(`${label} is forged or noncausal`);
   }
@@ -566,19 +610,33 @@ export function createSlowQuestionRecords(...args) {
   ));
 }
 
-export function createSlowFixture(commands = [], direction = 1) {
-  return clone(checkedSetup({ commands, direction }));
+export function createSlowFixture(commands = [], direction = 1, slowProgress) {
+  const setup = slowProgress === undefined
+    ? { commands, direction }
+    : { commands, direction, slowProgress };
+  const checked = checkedSetup(setup);
+  return clone(checked.profiled
+    ? {
+      commands: checked.commands,
+      direction: checked.direction,
+      slowProgress: checked.slowProgress,
+    }
+    : { commands: checked.commands, direction: checked.direction });
 }
 
 export class TimedMovementAttackSlowEncounter {
   #commands;
   #direction;
+  #profiled;
+  #slowProgress;
   #state;
 
   constructor(setup = createSlowFixture()) {
     const checked = checkedSetup(setup);
     this.#commands = checked.commands;
     this.#direction = checked.direction;
+    this.#profiled = checked.profiled;
+    this.#slowProgress = checked.slowProgress;
     this.#state = initialState();
   }
 
@@ -595,8 +653,14 @@ export class TimedMovementAttackSlowEncounter {
       this.#state,
       this.#commands,
       this.#direction,
+      this.#slowProgress,
     );
-    const events = uncheckedAdvance(candidate, this.#commands, this.#direction);
+    const events = uncheckedAdvance(
+      candidate,
+      this.#commands,
+      this.#direction,
+      this.#slowProgress,
+    );
     this.#state = candidate;
     return clone(events);
   }
@@ -610,10 +674,16 @@ export class TimedMovementAttackSlowEncounter {
       this.#state,
       this.#commands,
       this.#direction,
+      this.#slowProgress,
     );
     const events = [];
     for (let index = 0; index < count; index += 1) {
-      events.push(...uncheckedAdvance(candidate, this.#commands, this.#direction));
+      events.push(...uncheckedAdvance(
+        candidate,
+        this.#commands,
+        this.#direction,
+        this.#slowProgress,
+      ));
     }
     this.#state = candidate;
     return clone(events);
@@ -624,16 +694,19 @@ export class TimedMovementAttackSlowEncounter {
   }
 
   serialize() {
+    const identity = {
+      commands: this.#commands,
+      direction: this.#direction,
+      fixture: this.#profiled ? PROFILE_FIXTURE_ID : FIXTURE_ID,
+    };
+    if (this.#profiled) identity.slowProgress = this.#slowProgress;
     const serialized = canonicalJson({
-      identity: {
-        commands: this.#commands,
-        direction: this.#direction,
-        fixture: FIXTURE_ID,
-      },
+      identity,
       state: checkedCausalState(
         this.#state,
         this.#commands,
         this.#direction,
+        this.#slowProgress,
       ),
       version: 1,
     });
@@ -663,25 +736,35 @@ export class TimedMovementAttackSlowEncounter {
     if (snapshot.version !== 1) {
       throw new TypeError("slow snapshot version is unsupported");
     }
-    const identity = exactRecord(
+    const fixtureDescriptor = Object.getOwnPropertyDescriptor(
       snapshot.identity,
-      IDENTITY_KEYS,
-      "slow snapshot.identity",
+      "fixture",
     );
-    if (identity.fixture !== FIXTURE_ID) {
+    const fixture = fixtureDescriptor?.value;
+    if (fixture !== FIXTURE_ID && fixture !== PROFILE_FIXTURE_ID) {
       throw new TypeError("slow snapshot fixture identity is invalid");
     }
-    const setup = checkedSetup({
+    const identity = exactRecord(
+      snapshot.identity,
+      fixture === FIXTURE_ID ? IDENTITY_KEYS : PROFILE_IDENTITY_KEYS,
+      "slow snapshot.identity",
+    );
+    const setupInput = {
       commands: identity.commands,
       direction: identity.direction,
-    });
+    };
+    if (fixture === PROFILE_FIXTURE_ID) {
+      setupInput.slowProgress = identity.slowProgress;
+    }
+    const setup = checkedSetup(setupInput);
     const state = checkedCausalState(
       snapshot.state,
       setup.commands,
       setup.direction,
+      setup.slowProgress,
       "slow snapshot.state",
     );
-    const encounter = new TimedMovementAttackSlowEncounter(setup);
+    const encounter = new TimedMovementAttackSlowEncounter(setupInput);
     encounter.#state = state;
     return encounter;
   }

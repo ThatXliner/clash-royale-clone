@@ -16,6 +16,10 @@ const benchmark = JSON.parse(readFileSync(
   new URL("../reference/stats/cards.json", import.meta.url),
   "utf8",
 ));
+const periodicCutoff = JSON.parse(readFileSync(
+  new URL("../reference/research/periodic-spells-cutoff.json", import.meta.url),
+  "utf8",
+));
 const CENTER = Object.freeze({ x: 9000, y: 16000 });
 
 function source(id = 1, ownerId = 1) {
@@ -260,7 +264,7 @@ test("periodic spells: inclusive radius, layers, ownership, targetability and li
   );
 });
 
-test("periodic spells: slow delegates the passed primitive and refreshes survivors", () => {
+test("periodic spells: source-backed movement-only slow profiles refresh survivors", () => {
   const value = encounter([cast(1, 0, "fault-pulse")], [target(10)]);
   value.stepMany(63);
   const slows = eventsOf(value, "periodic-slow");
@@ -275,8 +279,48 @@ test("periodic spells: slow delegates the passed primitive and refreshes survivo
       type: "slow-applied",
       untilTick: 60,
     });
+    assert.deepEqual(event.slowProgress, {
+      attackWorkTwentieths: 20,
+      movementTwentieths: 10,
+    });
   }
   assert.equal(value.state.targets[0].slowUntilTick, 122);
+});
+
+test("periodic spells: corroborated slow rates survive chunking and restore while policy stays QUESTION", () => {
+  const cases = [
+    { movementTwentieths: 17, rawMovementModifier: -15, variant: "blight-ring" },
+    { movementTwentieths: 10, rawMovementModifier: -50, variant: "fault-pulse" },
+  ];
+  const questions = createPeriodicSpellQuestionRecords();
+  assert.equal(questions.slowComposition.disposition, "question");
+  assert.equal(questions.slowRefresh.disposition, "question");
+
+  for (const { movementTwentieths, rawMovementModifier, variant } of cases) {
+    const sourceRecord = periodicCutoff.records.find(({ original_id }) =>
+      original_id === variant);
+    assert.ok(sourceRecord);
+    assert.equal(sourceRecord.buff_fields.speed_multiplier, rawMovementModifier);
+    assert.equal(sourceRecord.buff_fields.hit_speed_multiplier, 0);
+    const setup = fixture([cast(1, 0, variant)], [target(10)]);
+    const whole = new PeriodicAreaSpellEncounter(setup);
+    whole.stepMany(63);
+
+    const prefix = new PeriodicAreaSpellEncounter(setup);
+    prefix.stepMany(3);
+    const restored = PeriodicAreaSpellEncounter.restore(prefix.serialize());
+    restored.stepMany(29);
+    restored.stepMany(31);
+
+    const slows = eventsOf(whole, "periodic-slow");
+    assert.deepEqual(slows.map(({ slowProgress }) => slowProgress),
+      Array.from({ length: 2 }, () => ({
+        attackWorkTwentieths: 20,
+        movementTwentieths,
+      })));
+    assert.equal(restored.serialize(), whole.serialize());
+    assert.deepEqual(restored.replay, whole.replay);
+  }
 });
 
 test("periodic spells: lethal damage suppresses slow and pull status", () => {

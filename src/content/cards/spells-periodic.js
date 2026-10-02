@@ -23,6 +23,16 @@ const MAX_STEP_CHUNK = 512;
 const MAX_TARGETS = 64;
 const MAX_TICK = 512;
 const IMPACT_DELAY_TICKS = 2;
+const SLOW_PROGRESS_TWENTIETHS = Object.freeze({
+  "blight-ring": Object.freeze({
+    attackWorkTwentieths: 20,
+    movementTwentieths: 17,
+  }),
+  "fault-pulse": Object.freeze({
+    attackWorkTwentieths: 20,
+    movementTwentieths: 10,
+  }),
+});
 
 const ARCHETYPES = Object.freeze({
   "blight-ring": Object.freeze({
@@ -165,7 +175,7 @@ const QUESTION_VALUES = Object.freeze({
     "toward-center-exact-integer-euclidean-components-truncated-toward-zero",
   pullZeroVector: "coincident-target-does-not-move",
   slowComposition:
-    "application-delegates-to-passed-timed-movement-and-attack-slow",
+    "movement-rate-is-source-backed; activation-and-refresh-remain-question",
   slowEligibility: "surviving-hostile-troops-only",
   slowRefresh: "each-damaging-tick-refreshes-one-nonstacking-status-slot",
   sourceDeathPolicy: "cancel-all-remaining-ticks-before-same-boundary-effects",
@@ -467,12 +477,13 @@ function applyDamageBatch(area, state, effect, targets, amount, events) {
 }
 
 function applySlow(state, effect, source, target, events) {
+  const slowProgress = SLOW_PROGRESS_TWENTIETHS[effect.variant];
   const primitive = new TimedMovementAttackSlowEncounter(createSlowFixture([{
     sourceId: source.id,
     targetId: null,
     tick: 0,
     type: "slow",
-  }]));
+  }], 1, slowProgress));
   const primitiveEvent = primitive.step().find(({ type }) =>
     type === "slow-applied");
   target.slowSourceId = source.id;
@@ -481,6 +492,7 @@ function applySlow(state, effect, source, target, events) {
     effectId: effect.id,
     primitiveEvent,
     sourceId: source.id,
+    slowProgress: clone(slowProgress),
     targetId: target.id,
     tick: state.tick,
     type: "periodic-slow",
