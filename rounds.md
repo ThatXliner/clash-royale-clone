@@ -1,5 +1,31 @@
 # Gauntlet Rounds
 
+## Round 357 — 2026-10-02
+
+PIECE: RL-001 — Deterministic JavaScript training environment, round 2
+
+VERDICT: PASS
+
+EVIDENCE: Evaluated immutable commit `fbedfc2` from the fresh archive at
+`/tmp/rl-001-round2.9Ca2GD`. `npm test -- rl-environment` passed 8/8 in
+67,463.293792 ms. Running checkpoint continuation matched exactly; horizon-
+truncated and naturally terminated checkpoints restored their exact terminal
+observations and remained sealed. The natural episode produced one sparse
+terminal reward before the 18,000-tick horizon. The suite does not pin the
+exact natural terminal tick.
+
+Independent engine-generated canonical checkpoints containing a pause only,
+a pending deploy only, and both together were all rejected with the intended
+`TypeError`. The temporary release build emitted 121 files / 2,690,077 bytes.
+Its Node ESM trajectory reported
+`{"actionCount":2305,"initialTick":0,"firstTick":2,"resumedSuffixMatches":true,"status":"running","tick":4}`.
+The provided browser smoke page imported the emitted ESM module in the Codex
+In-app Browser and reported the same trajectory with
+`resumedSuffixMatches: true`.
+
+BIGGEST GAP: None on the judged deterministic wrapper, episode lifecycle, and
+checkpoint-admission dimensions.
+
 ## Round 356 — 2026-10-02
 
 PIECE: RL-001 — Deterministic JavaScript training environment, round 1
