@@ -7,6 +7,7 @@
     "build": "node scripts/build-release.js",
     "preview:release": "npm run build && node scripts/serve-release.js",
     "test": "node tests/content-schema-runner.js",
+    "test:rl-environment": "node tests/rl-environment-runner.js rl-environment",
     "test:content-schema": "node tests/content-schema-runner.js content-schema",
     "test:nondeterminism-guard": "node tests/nondeterminism-guard-runner.js nondeterminism-guard",
     "test:shipping-isolation-guard": "node tests/shipping-isolation-guard-runner.js shipping-isolation-guard",

@@ -1,0 +1,195 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+import {
+  createRLEnvironment,
+  RL_ACTION_COUNT,
+  RLEnvironment,
+} from "../src/rl/environment.js";
+import { PLAYABLE_CARD_IDS } from "../src/content/playable-roster.js";
+
+function firstLegalDeployment(observation, slot = 0) {
+  const start = 1 + slot * 576;
+  const end = start + 576;
+  for (let actionId = start; actionId < end; actionId += 1) {
+    if (observation.actionMask[actionId]) return actionId;
+  }
+  throw new Error(`no legal deployment for hand slot ${slot}`);
+}
+
+test("RL environment exposes a finite action catalogue and masks legal deploys", () => {
+  const env = createRLEnvironment({ seed: 17, strideTicks: 6, horizonTicks: 30 });
+  const observation = env.reset();
+  const space = env.actionSpace();
+
+  assert.equal(RL_ACTION_COUNT, 2_305);
+  assert.equal(space.actionCount, RL_ACTION_COUNT);
+  assert.equal(space.actions.length, RL_ACTION_COUNT);
+  assert.deepEqual(space.actions[0], { id: 0, type: "wait" });
+  assert.deepEqual(space.actions[1 + 2 * 576 + 5 * 18 + 4], {
+    id: 1 + 2 * 576 + 5 * 18 + 4,
+    point: { x: 4_500, y: 5_500 },
+    slot: 2,
+    type: "deploy",
+  });
+  assert.equal(observation.actionMask.length, RL_ACTION_COUNT);
+  assert.equal(observation.actionMask[0], true);
+
+  const cardId = observation.hand[0];
+  const actionId = firstLegalDeployment(observation);
+  const transition = env.step(actionId);
+  assert.equal(transition.info.actionId, actionId);
+  assert.equal(transition.info.ticksAdvanced, 6);
+  assert.equal(transition.observation.tick, 6);
+  assert.equal(transition.observation.status, "running");
+  assert.ok(transition.observation.units.some((unit) =>
+    unit.side === "south" && unit.cardId === cardId));
+  assert.notEqual(transition.observation.hand[0], cardId,
+    "playing the selected slot cycles the shared deck state");
+});
+
+test("seeded trajectories and restored checkpoints continue identically", () => {
+  const config = { seed: "same-seed", strideTicks: 5, horizonTicks: 25 };
+  const left = createRLEnvironment(config);
+  const right = createRLEnvironment(config);
+  assert.deepEqual(left.observe(), right.observe());
+  const initial = left.serialize();
+  left.reset();
+  assert.equal(left.serialize(), initial, "reset without options reuses its selected config");
+  left.reset({ seed: "replacement-seed" });
+  const resetConfig = JSON.parse(left.serialize()).config;
+  assert.equal(resetConfig.seed, "replacement-seed");
+  assert.deepEqual(resetConfig.deck, PLAYABLE_CARD_IDS);
+  assert.equal(resetConfig.strideTicks, config.strideTicks);
+  assert.equal(resetConfig.horizonTicks, config.horizonTicks);
+  left.reset({ seed: config.seed });
+  assert.equal(left.serialize(), initial, "a partial reset can restore the original seed");
+
+  for (const action of [firstLegalDeployment(left.observe()), 0]) {
+    assert.deepEqual(left.step(action), right.step(action));
+  }
+
+  const restored = RLEnvironment.restore(left.serialize());
+  assert.deepEqual(restored.observe(), left.observe());
+  assert.deepEqual(restored.step(0), left.step(0));
+  assert.deepEqual(restored.observe(), left.observe());
+});
+
+test("separate instances and a custom shared deck remain independent", () => {
+  const customDeck = ["stonehauler", ...PLAYABLE_CARD_IDS.slice(0, 7)];
+  const custom = createRLEnvironment({
+    deck: customDeck,
+    seed: 9,
+    strideTicks: 2,
+    horizonTicks: 8,
+  });
+  const other = createRLEnvironment({ seed: 9, strideTicks: 2, horizonTicks: 8 });
+  const privileged = JSON.parse(custom.serialize());
+  const engine = JSON.parse(privileged.session);
+
+  assert.deepEqual(engine.setup.deck, customDeck);
+  assert.ok(custom.observe().hand.every((cardId) => customDeck.includes(cardId)));
+  const otherBefore = other.serialize();
+  custom.step(0);
+  assert.equal(other.serialize(), otherBefore);
+});
+
+test("horizon clipping truncates exactly and rejects later steps", () => {
+  const env = createRLEnvironment({ seed: 4, strideTicks: 7, horizonTicks: 10 });
+  const first = env.step(0);
+  assert.equal(first.observation.tick, 7);
+  assert.equal(first.terminated, false);
+  assert.equal(first.truncated, false);
+
+  const second = env.step(0);
+  assert.equal(second.observation.tick, 10);
+  assert.equal(second.terminated, false);
+  assert.equal(second.truncated, true);
+  assert.equal(second.observation.status, "truncated");
+  assert.ok(second.observation.actionMask.every((legal) => legal === false));
+  const checkpoint = env.serialize();
+  assert.throws(() => env.step(0), /finished RL environment/);
+  assert.equal(env.serialize(), checkpoint);
+});
+
+test("masked and out-of-range actions are atomic", () => {
+  const env = createRLEnvironment({ seed: 5, strideTicks: 4, horizonTicks: 20 });
+  const observation = env.observe();
+  const masked = observation.actionMask.findIndex((legal, id) => id > 0 && !legal);
+  const checkpoint = env.serialize();
+
+  assert.notEqual(masked, -1);
+  assert.throws(() => env.step(masked), /masked/);
+  assert.throws(() => env.step(RL_ACTION_COUNT), /actionId/);
+  assert.throws(() => env.step(1.5), /actionId/);
+  assert.equal(env.serialize(), checkpoint);
+  assert.equal(env.observe().tick, observation.tick);
+});
+
+test("observations are allowlisted, JSON-safe, and detached", () => {
+  const env = createRLEnvironment({ seed: "private-policy-seed", strideTicks: 2, horizonTicks: 10 });
+  const observation = env.observe();
+  const allowed = [
+    "actionMask", "crowns", "elixir", "hand", "next", "phase", "status",
+    "tick", "towers", "units", "version",
+  ];
+  assert.deepEqual(Object.keys(observation).sort(), [...allowed].sort());
+  assert.deepEqual(JSON.parse(JSON.stringify(observation)), observation);
+  const serialized = JSON.stringify(observation);
+  for (const forbidden of ["private-policy-seed", "opponent", "rng", "transcript", "pending", "queue"]) {
+    assert.equal(serialized.includes(forbidden), false, `policy output leaked ${forbidden}`);
+  }
+
+  const original = structuredClone(observation);
+  observation.actionMask[0] = false;
+  observation.hand[0] = "changed";
+  observation.towers[0].hitpoints = -1;
+  observation.towers[0].position.x = -1;
+  assert.deepEqual(env.observe(), original);
+
+  const space = env.actionSpace();
+  space.actions[0].id = 99;
+  space.actions[1].point.x = -1;
+  assert.deepEqual(env.actionSpace().actions[0], { id: 0, type: "wait" });
+  assert.equal(env.actionSpace().actions[1].point.x, 500);
+});
+
+test("natural engine completion reports one sparse reward and seals the episode", () => {
+  const env = createRLEnvironment({
+    seed: 2,
+    strideTicks: 600,
+    horizonTicks: 18_000,
+  });
+  let observation = env.observe();
+  let result;
+  let steps = 0;
+  let deployments = 0;
+  let totalReward = 0;
+  while (observation.status === "running") {
+    let actionId = 0;
+    for (let slot = 0; slot < 4; slot += 1) {
+      const nearBridge = 1 + slot * 576 + 14 * 18 + 3;
+      if (observation.actionMask[nearBridge]) {
+        actionId = nearBridge;
+        break;
+      }
+    }
+    result = env.step(actionId);
+    if (actionId !== 0) deployments += 1;
+    totalReward += result.reward;
+    steps += 1;
+    observation = result.observation;
+  }
+
+  assert.equal(result.terminated, true);
+  assert.equal(result.truncated, false);
+  assert.ok(deployments > 0);
+  assert.ok(steps <= 30, "each match step is bounded to 600 ticks");
+  assert.ok(observation.tick < 18_000, "natural battle result precedes the external horizon");
+  assert.ok([-1, 0, 1].includes(result.reward));
+  assert.equal(totalReward, result.reward, "only the terminal transition receives a reward");
+  assert.equal(result.observation.status, "terminated");
+  assert.ok(result.observation.actionMask.every((legal) => legal === false));
+  const checkpoint = env.serialize();
+  assert.throws(() => env.step(0), /finished RL environment/);
+  assert.equal(env.serialize(), checkpoint);
+});
