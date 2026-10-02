@@ -1,0 +1,251 @@
+{
+  "checkpoint": {
+    "bytes": 319566,
+    "stateDigest": {
+      "crowns": {
+        "north": 2,
+        "south": 3
+      },
+      "deck": {
+        "hand": [
+          "briar-band",
+          "mossguard",
+          "reedsting",
+          "skymaul"
+        ],
+        "next": "copperskiff",
+        "queue": [
+          "copperskiff",
+          "coilblade",
+          "brassbolt",
+          "cinderlings"
+        ],
+        "sequence": 41
+      },
+      "elixir": {
+        "north": {
+          "accumulator": 144,
+          "amount": 0
+        },
+        "south": {
+          "accumulator": 0,
+          "amount": 10
+        }
+      },
+      "terminal": true,
+      "tick": 18000,
+      "towers": [
+        {
+          "hitpoints": 188,
+          "id": "south:central"
+        },
+        {
+          "hitpoints": 0,
+          "id": "south:lane:west"
+        },
+        {
+          "hitpoints": 0,
+          "id": "south:lane:east"
+        },
+        {
+          "hitpoints": 174,
+          "id": "north:central"
+        },
+        {
+          "hitpoints": 0,
+          "id": "north:lane:west"
+        },
+        {
+          "hitpoints": 0,
+          "id": "north:lane:east"
+        }
+      ]
+    }
+  },
+  "recordedLifecycle": {
+    "audio": {
+      "active": true,
+      "audio": {
+        "activeVoiceCount": 0,
+        "audibleStartCount": 3128,
+        "contextCreated": true,
+        "disposed": false,
+        "faulted": false,
+        "gainBasisPoints": 10000,
+        "muted": false,
+        "resumeCount": 1,
+        "scheduledBufferCount": 3128,
+        "transactionCount": 2529,
+        "unlockCount": 1,
+        "unlocked": true
+      },
+      "gainBasisPoints": 10000,
+      "muted": false
+    },
+    "diagnostics": {
+      "cueCount": 3190,
+      "cursor": 3513,
+      "disposed": true,
+      "eventCount": 3513,
+      "faulted": false,
+      "gainBasisPoints": 10000,
+      "generation": 1,
+      "muted": false,
+      "projectionOffset": 28,
+      "renderer": {
+        "activeVoiceCount": 0,
+        "cleanupTick": 18000,
+        "disposed": true,
+        "faultTransactionId": null,
+        "faulted": false,
+        "gainBasisPoints": 10000,
+        "lastSequence": 3512,
+        "lastTick": 18000,
+        "muted": false,
+        "nextTransactionId": 2458,
+        "nextVoiceId": 3074,
+        "scheduledCount": 3073
+      },
+      "sessionTick": 18000,
+      "suppressedAcceleratedCueCount": 199,
+      "terminal": true,
+      "transactionCount": 2457,
+      "uiCommandCount": 84,
+      "uiLastTick": 17700,
+      "uiSequence": 84
+    }
+  },
+  "mountedLifecycle": {
+    "audio": {
+      "active": true,
+      "audio": {
+        "activeVoiceCount": 0,
+        "audibleStartCount": 0,
+        "contextCreated": false,
+        "disposed": false,
+        "faulted": false,
+        "gainBasisPoints": 10000,
+        "muted": false,
+        "resumeCount": 0,
+        "scheduledBufferCount": 0,
+        "transactionCount": 2474,
+        "unlockCount": 0,
+        "unlocked": false
+      },
+      "gainBasisPoints": 10000,
+      "muted": false
+    },
+    "diagnostics": {
+      "cueCount": 3214,
+      "cursor": 3513,
+      "disposed": true,
+      "eventCount": 3513,
+      "faulted": false,
+      "gainBasisPoints": 10000,
+      "generation": 0,
+      "muted": false,
+      "projectionOffset": 0,
+      "renderer": {
+        "activeVoiceCount": 0,
+        "cleanupTick": 18000,
+        "disposed": true,
+        "faultTransactionId": null,
+        "faulted": false,
+        "gainBasisPoints": 10000,
+        "lastSequence": 3512,
+        "lastTick": 18000,
+        "muted": false,
+        "nextTransactionId": 2475,
+        "nextVoiceId": 3215,
+        "scheduledCount": 3214
+      },
+      "sessionTick": 18000,
+      "suppressedAcceleratedCueCount": 0,
+      "terminal": true,
+      "transactionCount": 2474,
+      "uiCommandCount": 0,
+      "uiLastTick": null,
+      "uiSequence": 0
+    }
+  },
+  "restart": {
+    "interval": {
+      "startedAt": 105681.10000002384,
+      "finishedAt": 105955.10000002384
+    },
+    "longTasks": [
+      {
+        "duration": 208,
+        "name": "self",
+        "startTime": 105694.70000004768
+      }
+    ],
+    "overlappingTasks": [
+      {
+        "duration": 208,
+        "name": "self",
+        "startTime": 105694.70000004768
+      }
+    ],
+    "maxLongTaskMilliseconds": 208,
+    "restartedLifecycle": {
+      "audio": {
+        "active": true,
+        "audio": {
+          "activeVoiceCount": 0,
+          "audibleStartCount": 0,
+          "contextCreated": false,
+          "disposed": false,
+          "faulted": false,
+          "gainBasisPoints": 10000,
+          "muted": false,
+          "resumeCount": 0,
+          "scheduledBufferCount": 0,
+          "transactionCount": 2,
+          "unlockCount": 0,
+          "unlocked": false
+        },
+        "gainBasisPoints": 10000,
+        "muted": false
+      },
+      "diagnostics": {
+        "cueCount": 2,
+        "cursor": 2,
+        "disposed": false,
+        "eventCount": 2,
+        "faulted": false,
+        "gainBasisPoints": 10000,
+        "generation": 0,
+        "muted": false,
+        "projectionOffset": 0,
+        "renderer": {
+          "activeVoiceCount": 2,
+          "cleanupTick": 1,
+          "disposed": false,
+          "faultTransactionId": null,
+          "faulted": false,
+          "gainBasisPoints": 10000,
+          "lastSequence": 1,
+          "lastTick": 0,
+          "muted": false,
+          "nextTransactionId": 3,
+          "nextVoiceId": 3,
+          "scheduledCount": 2
+        },
+        "sessionTick": 1,
+        "suppressedAcceleratedCueCount": 0,
+        "terminal": false,
+        "transactionCount": 2,
+        "uiCommandCount": 0,
+        "uiLastTick": null,
+        "uiSequence": 0
+      }
+    },
+    "state": {
+      "exactFreshBytes": false,
+      "hidden": true,
+      "sessionTick": 1,
+      "terminal": false
+    }
+  }
+}

@@ -1,0 +1,1333 @@
+{
+  "checkpoint": {
+    "bytes": 319566,
+    "stateDigest": {
+      "crowns": {
+        "north": 2,
+        "south": 3
+      },
+      "deck": {
+        "hand": [
+          "briar-band",
+          "mossguard",
+          "reedsting",
+          "skymaul"
+        ],
+        "next": "copperskiff",
+        "queue": [
+          "copperskiff",
+          "coilblade",
+          "brassbolt",
+          "cinderlings"
+        ],
+        "sequence": 41
+      },
+      "elixir": {
+        "north": {
+          "accumulator": 144,
+          "amount": 0
+        },
+        "south": {
+          "accumulator": 0,
+          "amount": 10
+        }
+      },
+      "terminal": true,
+      "tick": 18000,
+      "towers": [
+        {
+          "hitpoints": 188,
+          "id": "south:central"
+        },
+        {
+          "hitpoints": 0,
+          "id": "south:lane:west"
+        },
+        {
+          "hitpoints": 0,
+          "id": "south:lane:east"
+        },
+        {
+          "hitpoints": 174,
+          "id": "north:central"
+        },
+        {
+          "hitpoints": 0,
+          "id": "north:lane:west"
+        },
+        {
+          "hitpoints": 0,
+          "id": "north:lane:east"
+        }
+      ]
+    }
+  },
+  "telemetry": {
+    "baseline": {
+      "interval": {
+        "finishedAt": 107704.69999992847,
+        "id": "restart",
+        "kind": "restart",
+        "startedAt": 107425.10000002384
+      },
+      "entries": [
+        {
+          "duration": 239,
+          "name": "self",
+          "startTime": 107435.69999992847
+        }
+      ],
+      "restartLongTasks": [
+        {
+          "duration": 239,
+          "name": "self",
+          "startTime": 107435.69999992847
+        }
+      ],
+      "restarted": {
+        "finishedAt": 107704.69999992847,
+        "hidden": true,
+        "sessionTick": 0,
+        "terminal": false
+      }
+    },
+    "baselineMount": {
+      "hidden": false,
+      "sessionTick": 18000,
+      "terminal": true,
+      "audio": {
+        "active": true,
+        "audio": {
+          "activeVoiceCount": 0,
+          "audibleStartCount": 0,
+          "contextCreated": false,
+          "disposed": false,
+          "faulted": false,
+          "gainBasisPoints": 10000,
+          "muted": false,
+          "resumeCount": 0,
+          "scheduledBufferCount": 0,
+          "transactionCount": 2474,
+          "unlockCount": 0,
+          "unlocked": false
+        },
+        "gainBasisPoints": 10000,
+        "muted": false
+      },
+      "audioDiagnostics": {
+        "cueCount": 3214,
+        "cursor": 3513,
+        "disposed": true,
+        "eventCount": 3513,
+        "faulted": false,
+        "gainBasisPoints": 10000,
+        "generation": 0,
+        "muted": false,
+        "projectionOffset": 0,
+        "renderer": {
+          "activeVoiceCount": 0,
+          "cleanupTick": 18000,
+          "disposed": true,
+          "faultTransactionId": null,
+          "faulted": false,
+          "gainBasisPoints": 10000,
+          "lastSequence": 3512,
+          "lastTick": 18000,
+          "muted": false,
+          "nextTransactionId": 2475,
+          "nextVoiceId": 3215,
+          "scheduledCount": 3214
+        },
+        "sessionTick": 18000,
+        "suppressedAcceleratedCueCount": 0,
+        "terminal": true,
+        "transactionCount": 2474,
+        "uiCommandCount": 0,
+        "uiLastTick": null,
+        "uiSequence": 0
+      }
+    },
+    "checkpointAudio": {
+      "audio": {
+        "active": true,
+        "audio": {
+          "activeVoiceCount": 0,
+          "audibleStartCount": 3128,
+          "contextCreated": true,
+          "disposed": false,
+          "faulted": false,
+          "gainBasisPoints": 10000,
+          "muted": false,
+          "resumeCount": 1,
+          "scheduledBufferCount": 3128,
+          "transactionCount": 2529,
+          "unlockCount": 1,
+          "unlocked": true
+        },
+        "gainBasisPoints": 10000,
+        "muted": false
+      },
+      "diagnostics": {
+        "cueCount": 3190,
+        "cursor": 3513,
+        "disposed": true,
+        "eventCount": 3513,
+        "faulted": false,
+        "gainBasisPoints": 10000,
+        "generation": 1,
+        "muted": false,
+        "projectionOffset": 28,
+        "renderer": {
+          "activeVoiceCount": 0,
+          "cleanupTick": 18000,
+          "disposed": true,
+          "faultTransactionId": null,
+          "faulted": false,
+          "gainBasisPoints": 10000,
+          "lastSequence": 3512,
+          "lastTick": 18000,
+          "muted": false,
+          "nextTransactionId": 2458,
+          "nextVoiceId": 3074,
+          "scheduledCount": 3073
+        },
+        "sessionTick": 18000,
+        "suppressedAcceleratedCueCount": 199,
+        "terminal": true,
+        "transactionCount": 2457,
+        "uiCommandCount": 84,
+        "uiLastTick": 17700,
+        "uiSequence": 84
+      }
+    },
+    "instrumentation": {
+      "installed": [
+        "session-serialize",
+        "large-json-parse",
+        "audio-runtime-dispose",
+        "audio-runtime-render",
+        "browser-audio-dispose",
+        "dom-replace-children",
+        "remove-event-listener"
+      ]
+    },
+    "cpuProfile": [
+      {
+        "functionName": "(program)",
+        "lineNumber": 0,
+        "milliseconds": 98.199,
+        "url": ""
+      },
+      {
+        "functionName": "(idle)",
+        "lineNumber": 0,
+        "milliseconds": 24.202,
+        "url": ""
+      },
+      {
+        "functionName": "synthesizeCheckedProceduralPcm",
+        "lineNumber": 327,
+        "milliseconds": 12.701,
+        "url": "http://127.0.0.1:60491/src/audio/audio-renderer.js"
+      },
+      {
+        "functionName": "restartProfileParse",
+        "lineNumber": 30,
+        "milliseconds": 3.851,
+        "url": ""
+      },
+      {
+        "functionName": "deepFreeze",
+        "lineNumber": 97,
+        "milliseconds": 3.842,
+        "url": "http://127.0.0.1:60491/src/audio/audio-events.js"
+      },
+      {
+        "functionName": "restartProfileParse",
+        "lineNumber": 30,
+        "milliseconds": 3.84,
+        "url": ""
+      },
+      {
+        "functionName": "sha256Bytes",
+        "lineNumber": 164,
+        "milliseconds": 3.781,
+        "url": "http://127.0.0.1:60491/src/audio/audio-renderer.js"
+      },
+      {
+        "functionName": "canonicalize",
+        "lineNumber": 154,
+        "milliseconds": 2.684,
+        "url": "http://127.0.0.1:60491/src/audio/audio-events.js"
+      },
+      {
+        "functionName": "restartProfileParse",
+        "lineNumber": 30,
+        "milliseconds": 2.571,
+        "url": ""
+      },
+      {
+        "functionName": "clone",
+        "lineNumber": 4549,
+        "milliseconds": 2.518,
+        "url": "http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js"
+      },
+      {
+        "functionName": "restartProfileParse",
+        "lineNumber": 30,
+        "milliseconds": 2.512,
+        "url": ""
+      },
+      {
+        "functionName": "clone",
+        "lineNumber": 11788,
+        "milliseconds": 2.511,
+        "url": "http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js"
+      },
+      {
+        "functionName": "clone",
+        "lineNumber": 5726,
+        "milliseconds": 2.508,
+        "url": "http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js"
+      },
+      {
+        "functionName": "sha256Bytes",
+        "lineNumber": 164,
+        "milliseconds": 2.405,
+        "url": "http://127.0.0.1:60491/src/audio/audio-renderer.js"
+      },
+      {
+        "functionName": "restartProfileParse",
+        "lineNumber": 30,
+        "milliseconds": 1.652,
+        "url": ""
+      },
+      {
+        "functionName": "canonical",
+        "lineNumber": 11782,
+        "milliseconds": 1.314,
+        "url": "http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js"
+      },
+      {
+        "functionName": "restartProfileParse",
+        "lineNumber": 30,
+        "milliseconds": 1.302,
+        "url": ""
+      },
+      {
+        "functionName": "freeze",
+        "lineNumber": 11789,
+        "milliseconds": 1.293,
+        "url": "http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js"
+      },
+      {
+        "functionName": "freeze",
+        "lineNumber": 5730,
+        "milliseconds": 1.291,
+        "url": "http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js"
+      },
+      {
+        "functionName": "canonicalJson",
+        "lineNumber": 164,
+        "milliseconds": 1.29,
+        "url": "http://127.0.0.1:60491/src/audio/audio-events.js"
+      },
+      {
+        "functionName": "assertExactDataObject",
+        "lineNumber": 16,
+        "milliseconds": 1.286,
+        "url": "http://127.0.0.1:60491/src/sim/attack-cycle.js"
+      },
+      {
+        "functionName": "get state",
+        "lineNumber": 352,
+        "milliseconds": 1.285,
+        "url": "http://127.0.0.1:60491/src/sim/attack-cycle.js"
+      },
+      {
+        "functionName": "restartProfileParse",
+        "lineNumber": 30,
+        "milliseconds": 1.282,
+        "url": ""
+      },
+      {
+        "functionName": "restart",
+        "lineNumber": 850,
+        "milliseconds": 1.279,
+        "url": "http://127.0.0.1:60491/src/ui/game-browser-entry.js"
+      },
+      {
+        "functionName": "canonical",
+        "lineNumber": 54,
+        "milliseconds": 1.278,
+        "url": "http://127.0.0.1:60491/src/ui/game-browser-entry.js"
+      },
+      {
+        "functionName": "canonical",
+        "lineNumber": 42,
+        "milliseconds": 1.276,
+        "url": "http://127.0.0.1:60491/src/audio/game-audio-runtime.js"
+      },
+      {
+        "functionName": "get state",
+        "lineNumber": 2402,
+        "milliseconds": 1.272,
+        "url": "http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js"
+      },
+      {
+        "functionName": "(anonymous)",
+        "lineNumber": 1,
+        "milliseconds": 1.27,
+        "url": ""
+      },
+      {
+        "functionName": "canonicalize",
+        "lineNumber": 154,
+        "milliseconds": 1.269,
+        "url": "http://127.0.0.1:60491/src/audio/audio-events.js"
+      },
+      {
+        "functionName": "validateSourceRecord",
+        "lineNumber": 446,
+        "milliseconds": 1.269,
+        "url": "http://127.0.0.1:60491/src/content/session-troop-projectile-source-admission.js"
+      },
+      {
+        "functionName": "freeze",
+        "lineNumber": 4553,
+        "milliseconds": 1.268,
+        "url": "http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js"
+      },
+      {
+        "functionName": "distanceSquaredBigInt",
+        "lineNumber": 159,
+        "milliseconds": 1.267,
+        "url": "http://127.0.0.1:60491/src/sim/spatial.js"
+      },
+      {
+        "functionName": "restartProfileParse",
+        "lineNumber": 30,
+        "milliseconds": 1.263,
+        "url": ""
+      },
+      {
+        "functionName": "#assertSynchronized",
+        "lineNumber": 5487,
+        "milliseconds": 1.262,
+        "url": "http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js"
+      },
+      {
+        "functionName": "replaceChildren",
+        "lineNumber": 0,
+        "milliseconds": 1.259,
+        "url": ""
+      },
+      {
+        "functionName": "freeze",
+        "lineNumber": 11789,
+        "milliseconds": 1.257,
+        "url": "http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js"
+      },
+      {
+        "functionName": "canonicalize",
+        "lineNumber": 154,
+        "milliseconds": 1.256,
+        "url": "http://127.0.0.1:60491/src/audio/audio-events.js"
+      },
+      {
+        "functionName": "canonicalize",
+        "lineNumber": 154,
+        "milliseconds": 1.256,
+        "url": "http://127.0.0.1:60491/src/audio/audio-events.js"
+      },
+      {
+        "functionName": "LiveBattle",
+        "lineNumber": 6759,
+        "milliseconds": 1.256,
+        "url": "http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js"
+      },
+      {
+        "functionName": "#appendHistory",
+        "lineNumber": 12119,
+        "milliseconds": 1.255,
+        "url": "http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js"
+      }
+    ],
+    "instrumented": {
+      "interval": {
+        "finishedAt": 108765.89999997616,
+        "id": "restart",
+        "kind": "restart",
+        "startedAt": 108660.89999997616
+      },
+      "entries": [
+        {
+          "duration": 77,
+          "name": "self",
+          "startTime": 108684
+        }
+      ],
+      "restartLongTasks": [
+        {
+          "duration": 77,
+          "name": "self",
+          "startTime": 108684
+        }
+      ],
+      "restarted": {
+        "finishedAt": 108765.89999997616,
+        "hidden": true,
+        "sessionTick": 0,
+        "terminal": false
+      }
+    },
+    "instrumentedMount": {
+      "hidden": false,
+      "sessionTick": 18000,
+      "terminal": true,
+      "audio": {
+        "active": true,
+        "audio": {
+          "activeVoiceCount": 0,
+          "audibleStartCount": 0,
+          "contextCreated": false,
+          "disposed": false,
+          "faulted": false,
+          "gainBasisPoints": 10000,
+          "muted": false,
+          "resumeCount": 0,
+          "scheduledBufferCount": 0,
+          "transactionCount": 2474,
+          "unlockCount": 0,
+          "unlocked": false
+        },
+        "gainBasisPoints": 10000,
+        "muted": false
+      },
+      "audioDiagnostics": {
+        "cueCount": 3214,
+        "cursor": 3513,
+        "disposed": true,
+        "eventCount": 3513,
+        "faulted": false,
+        "gainBasisPoints": 10000,
+        "generation": 0,
+        "muted": false,
+        "projectionOffset": 0,
+        "renderer": {
+          "activeVoiceCount": 0,
+          "cleanupTick": 18000,
+          "disposed": true,
+          "faultTransactionId": null,
+          "faulted": false,
+          "gainBasisPoints": 10000,
+          "lastSequence": 3512,
+          "lastTick": 18000,
+          "muted": false,
+          "nextTransactionId": 2475,
+          "nextVoiceId": 3215,
+          "scheduledCount": 3214
+        },
+        "sessionTick": 18000,
+        "suppressedAcceleratedCueCount": 0,
+        "terminal": true,
+        "transactionCount": 2474,
+        "uiCommandCount": 0,
+        "uiLastTick": null,
+        "uiSequence": 0
+      }
+    },
+    "sourceArtifact": "/tmp/game-001gpvt-critic-aab3c53-kBqBJz/artifacts/game-001gp-browser-endurance/endurance-result.json",
+    "inclusiveProfile": [
+      {
+        "frame": "(root) @ :0",
+        "milliseconds": 214.769
+      },
+      {
+        "frame": "(program) @ :0",
+        "milliseconds": 98.199
+      },
+      {
+        "frame": "restart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:850",
+        "milliseconds": 76.735
+      },
+      {
+        "frame": "onRestart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:588",
+        "milliseconds": 76.735
+      },
+      {
+        "frame": "get @ :25",
+        "milliseconds": 73.902
+      },
+      {
+        "frame": "measureRestartStage @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:856",
+        "milliseconds": 71.673
+      },
+      {
+        "frame": "get @ :49",
+        "milliseconds": 45.907
+      },
+      {
+        "frame": "get state @ http://127.0.0.1:60491/src/audio/game-audio-runtime.js:583",
+        "milliseconds": 42.124
+      },
+      {
+        "frame": "get state @ http://127.0.0.1:60491/src/ui/game-audio-controls.js:103",
+        "milliseconds": 42.124
+      },
+      {
+        "frame": "(anonymous) @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:866",
+        "milliseconds": 42.124
+      },
+      {
+        "frame": "get state @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:12134",
+        "milliseconds": 31.778
+      },
+      {
+        "frame": "(idle) @ :0",
+        "milliseconds": 24.202
+      },
+      {
+        "frame": "get state @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:6855",
+        "milliseconds": 21.629
+      },
+      {
+        "frame": "buildGraph @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:441",
+        "milliseconds": 20.239
+      },
+      {
+        "frame": "(anonymous) @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:890",
+        "milliseconds": 20.239
+      },
+      {
+        "frame": "restartProfileParse @ :30",
+        "milliseconds": 18.563
+      },
+      {
+        "frame": "GameAudioRuntime @ http://127.0.0.1:60491/src/audio/game-audio-runtime.js:283",
+        "milliseconds": 17.744
+      },
+      {
+        "frame": "checkedWaveform @ http://127.0.0.1:60491/src/audio/audio-renderer.js:529",
+        "milliseconds": 16.482
+      },
+      {
+        "frame": "(anonymous) @ http://127.0.0.1:60491/src/audio/audio-renderer.js:745",
+        "milliseconds": 16.482
+      },
+      {
+        "frame": "auditProductionAudioProvenance @ http://127.0.0.1:60491/src/audio/audio-renderer.js:689",
+        "milliseconds": 16.482
+      },
+      {
+        "frame": "auditAudioProvenance @ http://127.0.0.1:60491/src/audio/audio-renderer.js:569",
+        "milliseconds": 16.482
+      },
+      {
+        "frame": "AudioRenderer @ http://127.0.0.1:60491/src/audio/audio-renderer.js:1096",
+        "milliseconds": 16.482
+      },
+      {
+        "frame": "#resetAudioGraph @ http://127.0.0.1:60491/src/audio/game-audio-runtime.js:307",
+        "milliseconds": 16.482
+      },
+      {
+        "frame": "isolated @ http://127.0.0.1:60491/src/audio/audio-events.js:346",
+        "milliseconds": 15.448
+      },
+      {
+        "frame": "get state @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:5057",
+        "milliseconds": 15.4
+      },
+      {
+        "frame": "freeze @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:11789",
+        "milliseconds": 14.007
+      },
+      {
+        "frame": "(anonymous) @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:578",
+        "milliseconds": 13.12
+      },
+      {
+        "frame": "canonicalize @ http://127.0.0.1:60491/src/audio/audio-events.js:154",
+        "milliseconds": 12.943
+      },
+      {
+        "frame": "synthesizeCheckedProceduralPcm @ http://127.0.0.1:60491/src/audio/audio-renderer.js:327",
+        "milliseconds": 12.701
+      },
+      {
+        "frame": "onFrame @ http://127.0.0.1:60491/src/ui/game-browser-loop.js:384",
+        "milliseconds": 9.472
+      },
+      {
+        "frame": "get records @ http://127.0.0.1:60491/src/audio/audio-events.js:377",
+        "milliseconds": 9.051
+      },
+      {
+        "frame": "canonical @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:54",
+        "milliseconds": 8.946
+      },
+      {
+        "frame": "clone @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:4549",
+        "milliseconds": 7.801
+      },
+      {
+        "frame": "canonicalJson @ http://127.0.0.1:60491/src/audio/audio-events.js:164",
+        "milliseconds": 7.755
+      },
+      {
+        "frame": "deepFreeze @ http://127.0.0.1:60491/src/audio/audio-events.js:97",
+        "milliseconds": 7.684
+      },
+      {
+        "frame": "clone @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:11788",
+        "milliseconds": 7.599
+      },
+      {
+        "frame": "get cues @ http://127.0.0.1:60491/src/audio/audio-events.js:381",
+        "milliseconds": 6.397
+      },
+      {
+        "frame": "stepMany @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:12287",
+        "milliseconds": 6.361
+      },
+      {
+        "frame": "freeze @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:4553",
+        "milliseconds": 6.34
+      },
+      {
+        "frame": "freeze @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:5730",
+        "milliseconds": 6.314
+      }
+    ],
+    "hotStacks": [
+      {
+        "frames": [
+          "(root) @ :0",
+          "(program) @ :0"
+        ],
+        "milliseconds": 98.199
+      },
+      {
+        "frames": [
+          "(root) @ :0",
+          "(idle) @ :0"
+        ],
+        "milliseconds": 24.202
+      },
+      {
+        "frames": [
+          "(root) @ :0",
+          "onRestart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:588",
+          "restart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:850",
+          "measureRestartStage @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:856",
+          "(anonymous) @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:890",
+          "buildGraph @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:441",
+          "GameAudioRuntime @ http://127.0.0.1:60491/src/audio/game-audio-runtime.js:283",
+          "#resetAudioGraph @ http://127.0.0.1:60491/src/audio/game-audio-runtime.js:307",
+          "AudioRenderer @ http://127.0.0.1:60491/src/audio/audio-renderer.js:1096",
+          "auditAudioProvenance @ http://127.0.0.1:60491/src/audio/audio-renderer.js:569",
+          "auditProductionAudioProvenance @ http://127.0.0.1:60491/src/audio/audio-renderer.js:689",
+          "(anonymous) @ http://127.0.0.1:60491/src/audio/audio-renderer.js:745",
+          "checkedWaveform @ http://127.0.0.1:60491/src/audio/audio-renderer.js:529",
+          "synthesizeCheckedProceduralPcm @ http://127.0.0.1:60491/src/audio/audio-renderer.js:327"
+        ],
+        "milliseconds": 12.701
+      },
+      {
+        "frames": [
+          "(root) @ :0",
+          "onRestart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:588",
+          "restart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:850",
+          "measureRestartStage @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:856",
+          "(anonymous) @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:866",
+          "get @ :49",
+          "get state @ http://127.0.0.1:60491/src/ui/game-audio-controls.js:103",
+          "get @ :25",
+          "get state @ http://127.0.0.1:60491/src/audio/game-audio-runtime.js:583",
+          "get cues @ http://127.0.0.1:60491/src/audio/audio-events.js:381",
+          "isolated @ http://127.0.0.1:60491/src/audio/audio-events.js:346",
+          "restartProfileParse @ :30"
+        ],
+        "milliseconds": 3.851
+      },
+      {
+        "frames": [
+          "(root) @ :0",
+          "onRestart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:588",
+          "restart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:850",
+          "measureRestartStage @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:856",
+          "(anonymous) @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:866",
+          "get @ :49",
+          "get state @ http://127.0.0.1:60491/src/ui/game-audio-controls.js:103",
+          "get @ :25",
+          "get state @ http://127.0.0.1:60491/src/audio/game-audio-runtime.js:583",
+          "get records @ http://127.0.0.1:60491/src/audio/audio-events.js:377",
+          "isolated @ http://127.0.0.1:60491/src/audio/audio-events.js:346",
+          "deepFreeze @ http://127.0.0.1:60491/src/audio/audio-events.js:97",
+          "deepFreeze @ http://127.0.0.1:60491/src/audio/audio-events.js:97"
+        ],
+        "milliseconds": 3.842
+      },
+      {
+        "frames": [
+          "(root) @ :0",
+          "onRestart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:588",
+          "restart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:850",
+          "measureRestartStage @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:856",
+          "(anonymous) @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:866",
+          "get @ :49",
+          "get state @ http://127.0.0.1:60491/src/ui/game-audio-controls.js:103",
+          "get @ :25",
+          "get state @ http://127.0.0.1:60491/src/audio/game-audio-runtime.js:583",
+          "get @ :25",
+          "get state @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:12134",
+          "clone @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:11788",
+          "restartProfileParse @ :30"
+        ],
+        "milliseconds": 3.84
+      },
+      {
+        "frames": [
+          "(root) @ :0",
+          "onRestart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:588",
+          "restart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:850",
+          "measureRestartStage @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:856",
+          "(anonymous) @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:890",
+          "buildGraph @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:441",
+          "GameAudioRuntime @ http://127.0.0.1:60491/src/audio/game-audio-runtime.js:283",
+          "#resetAudioGraph @ http://127.0.0.1:60491/src/audio/game-audio-runtime.js:307",
+          "AudioRenderer @ http://127.0.0.1:60491/src/audio/audio-renderer.js:1096",
+          "auditAudioProvenance @ http://127.0.0.1:60491/src/audio/audio-renderer.js:569",
+          "auditProductionAudioProvenance @ http://127.0.0.1:60491/src/audio/audio-renderer.js:689",
+          "(anonymous) @ http://127.0.0.1:60491/src/audio/audio-renderer.js:745",
+          "checkedWaveform @ http://127.0.0.1:60491/src/audio/audio-renderer.js:529",
+          "sha256Bytes @ http://127.0.0.1:60491/src/audio/audio-renderer.js:164"
+        ],
+        "milliseconds": 3.781
+      },
+      {
+        "frames": [
+          "(root) @ :0",
+          "onRestart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:588",
+          "restart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:850",
+          "measureRestartStage @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:856",
+          "(anonymous) @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:866",
+          "get @ :49",
+          "get state @ http://127.0.0.1:60491/src/ui/game-audio-controls.js:103",
+          "get @ :25",
+          "get state @ http://127.0.0.1:60491/src/audio/game-audio-runtime.js:583",
+          "get records @ http://127.0.0.1:60491/src/audio/audio-events.js:377",
+          "isolated @ http://127.0.0.1:60491/src/audio/audio-events.js:346",
+          "canonicalJson @ http://127.0.0.1:60491/src/audio/audio-events.js:164",
+          "canonicalize @ http://127.0.0.1:60491/src/audio/audio-events.js:154",
+          "canonicalize @ http://127.0.0.1:60491/src/audio/audio-events.js:154"
+        ],
+        "milliseconds": 2.684
+      },
+      {
+        "frames": [
+          "onRestart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:588",
+          "restart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:850",
+          "measureRestartStage @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:856",
+          "(anonymous) @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:866",
+          "get @ :49",
+          "get state @ http://127.0.0.1:60491/src/ui/game-audio-controls.js:103",
+          "get @ :25",
+          "get state @ http://127.0.0.1:60491/src/audio/game-audio-runtime.js:583",
+          "get @ :25",
+          "get state @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:12134",
+          "get state @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:6855",
+          "get state @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:5057",
+          "clone @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:4549",
+          "restartProfileParse @ :30"
+        ],
+        "milliseconds": 2.571
+      },
+      {
+        "frames": [
+          "(root) @ :0",
+          "onRestart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:588",
+          "restart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:850",
+          "measureRestartStage @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:856",
+          "(anonymous) @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:866",
+          "get @ :49",
+          "get state @ http://127.0.0.1:60491/src/ui/game-audio-controls.js:103",
+          "get @ :25",
+          "get state @ http://127.0.0.1:60491/src/audio/game-audio-runtime.js:583",
+          "get @ :25",
+          "get state @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:12134",
+          "get state @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:6855",
+          "get state @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:5057",
+          "clone @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:4549"
+        ],
+        "milliseconds": 2.518
+      },
+      {
+        "frames": [
+          "measureRestartStage @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:856",
+          "(anonymous) @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:866",
+          "get @ :49",
+          "get state @ http://127.0.0.1:60491/src/ui/game-audio-controls.js:103",
+          "get @ :25",
+          "get state @ http://127.0.0.1:60491/src/audio/game-audio-runtime.js:583",
+          "get @ :25",
+          "get state @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:12134",
+          "get state @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:6855",
+          "get state @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:5057",
+          "get state @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:2402",
+          "publicUnit @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:2316",
+          "get state @ http://127.0.0.1:60491/src/sim/attack-cycle.js:352",
+          "restartProfileParse @ :30"
+        ],
+        "milliseconds": 2.512
+      },
+      {
+        "frames": [
+          "(root) @ :0",
+          "onRestart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:588",
+          "restart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:850",
+          "measureRestartStage @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:856",
+          "(anonymous) @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:866",
+          "get @ :49",
+          "get state @ http://127.0.0.1:60491/src/ui/game-audio-controls.js:103",
+          "get @ :25",
+          "get state @ http://127.0.0.1:60491/src/audio/game-audio-runtime.js:583",
+          "get @ :25",
+          "get state @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:12134",
+          "clone @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:11788"
+        ],
+        "milliseconds": 2.511
+      },
+      {
+        "frames": [
+          "(root) @ :0",
+          "onRestart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:588",
+          "restart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:850",
+          "measureRestartStage @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:856",
+          "(anonymous) @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:866",
+          "get @ :49",
+          "get state @ http://127.0.0.1:60491/src/ui/game-audio-controls.js:103",
+          "get @ :25",
+          "get state @ http://127.0.0.1:60491/src/audio/game-audio-runtime.js:583",
+          "get @ :25",
+          "get state @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:12134",
+          "get state @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:6855",
+          "(anonymous) @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:6866",
+          "clone @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:5726"
+        ],
+        "milliseconds": 2.508
+      },
+      {
+        "frames": [
+          "(root) @ :0",
+          "(anonymous) @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:578",
+          "restartProfileWrapper @ :14",
+          "renderFrame @ http://127.0.0.1:60491/src/audio/game-audio-runtime.js:414",
+          "#renderFrame @ http://127.0.0.1:60491/src/audio/game-audio-runtime.js:357",
+          "renderBatch @ http://127.0.0.1:60491/src/audio/audio-renderer.js:1165",
+          "#renderBatch @ http://127.0.0.1:60491/src/audio/audio-renderer.js:1174",
+          "#apply @ http://127.0.0.1:60491/src/audio/audio-renderer.js:1311",
+          "#applyTransaction @ http://127.0.0.1:60491/src/audio/audio-renderer.js:961",
+          "#checkedProceduralPcm @ http://127.0.0.1:60491/src/audio/audio-renderer.js:937",
+          "sha256Bytes @ http://127.0.0.1:60491/src/audio/audio-renderer.js:164"
+        ],
+        "milliseconds": 2.405
+      },
+      {
+        "frames": [
+          "(root) @ :0",
+          "onRestart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:588",
+          "restart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:850",
+          "measureRestartStage @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:856",
+          "(anonymous) @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:886",
+          "GameSession @ http://127.0.0.1:60491/src/sim/game-session.js:19",
+          "GameSession @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:12056",
+          "LiveBattle @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:6759",
+          "admittedSetup @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:6171",
+          "parsedSetupBytes @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:5800",
+          "restartProfileParse @ :30"
+        ],
+        "milliseconds": 1.652
+      },
+      {
+        "frames": [
+          "(root) @ :0",
+          "onRestart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:588",
+          "restart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:850",
+          "measureRestartStage @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:856",
+          "(anonymous) @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:886",
+          "GameSession @ http://127.0.0.1:60491/src/sim/game-session.js:19",
+          "GameSession @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:12056",
+          "issuePrevalidatedGameSessionSetup @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:11952",
+          "canonical @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:11782",
+          "(anonymous) @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:11785",
+          "canonical @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:11782"
+        ],
+        "milliseconds": 1.314
+      },
+      {
+        "frames": [
+          "onRestart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:588",
+          "restart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:850",
+          "measureRestartStage @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:856",
+          "(anonymous) @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:866",
+          "get @ :49",
+          "get state @ http://127.0.0.1:60491/src/ui/game-audio-controls.js:103",
+          "get @ :25",
+          "get state @ http://127.0.0.1:60491/src/audio/game-audio-runtime.js:583",
+          "get @ :25",
+          "get state @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:12134",
+          "get state @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:6855",
+          "(anonymous) @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:6866",
+          "clone @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:5726",
+          "restartProfileParse @ :30"
+        ],
+        "milliseconds": 1.302
+      },
+      {
+        "frames": [
+          "restart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:850",
+          "measureRestartStage @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:856",
+          "(anonymous) @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:866",
+          "get @ :49",
+          "get state @ http://127.0.0.1:60491/src/ui/game-audio-controls.js:103",
+          "get @ :25",
+          "get state @ http://127.0.0.1:60491/src/audio/game-audio-runtime.js:583",
+          "get @ :25",
+          "get state @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:12134",
+          "freeze @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:11789",
+          "freeze @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:11789",
+          "freeze @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:11789",
+          "freeze @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:11789",
+          "freeze @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:11789"
+        ],
+        "milliseconds": 1.293
+      },
+      {
+        "frames": [
+          "(root) @ :0",
+          "onRestart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:588",
+          "restart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:850",
+          "measureRestartStage @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:856",
+          "(anonymous) @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:866",
+          "get @ :49",
+          "get state @ http://127.0.0.1:60491/src/ui/game-audio-controls.js:103",
+          "get @ :25",
+          "get state @ http://127.0.0.1:60491/src/audio/game-audio-runtime.js:583",
+          "get @ :25",
+          "get state @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:12134",
+          "get state @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:6855",
+          "freeze @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:5730",
+          "freeze @ http://127.0.0.1:60491/src/sim/battle-continuation-kernel.js:5730"
+        ],
+        "milliseconds": 1.291
+      },
+      {
+        "frames": [
+          "(root) @ :0",
+          "onRestart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:588",
+          "restart @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:850",
+          "measureRestartStage @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:856",
+          "(anonymous) @ http://127.0.0.1:60491/src/ui/game-browser-entry.js:866",
+          "get @ :49",
+          "get state @ http://127.0.0.1:60491/src/ui/game-audio-controls.js:103",
+          "get @ :25",
+          "get state @ http://127.0.0.1:60491/src/audio/game-audio-runtime.js:583",
+          "get cues @ http://127.0.0.1:60491/src/audio/audio-events.js:381",
+          "isolated @ http://127.0.0.1:60491/src/audio/audio-events.js:346",
+          "canonicalJson @ http://127.0.0.1:60491/src/audio/audio-events.js:164"
+        ],
+        "milliseconds": 1.29
+      }
+    ],
+    "instrumentedTimings": {
+      "gettersAndMethods": [
+        {
+          "detail": {
+            "byteLength": 355328
+          },
+          "duration": 0.6000000238418579,
+          "name": "large-json-parse"
+        },
+        {
+          "detail": {
+            "byteLength": 388455
+          },
+          "duration": 0.6000000238418579,
+          "name": "large-json-parse"
+        },
+        {
+          "detail": {
+            "byteLength": 355328
+          },
+          "duration": 0.40000009536743164,
+          "name": "large-json-parse"
+        },
+        {
+          "detail": {
+            "byteLength": 388455
+          },
+          "duration": 0.6000000238418579,
+          "name": "large-json-parse"
+        },
+        {
+          "detail": {
+            "byteLength": 355328
+          },
+          "duration": 0.5,
+          "name": "large-json-parse"
+        },
+        {
+          "detail": {
+            "byteLength": 388455
+          },
+          "duration": 0.6000000238418579,
+          "name": "large-json-parse"
+        },
+        {
+          "detail": {
+            "byteLength": 355328
+          },
+          "duration": 0.6000000238418579,
+          "name": "large-json-parse"
+        },
+        {
+          "detail": {
+            "byteLength": 388455
+          },
+          "duration": 0.5,
+          "name": "large-json-parse"
+        },
+        {
+          "detail": {
+            "byteLength": 319566
+          },
+          "duration": 0.20000004768371582,
+          "name": "session-serialize"
+        },
+        {
+          "detail": {
+            "byteLength": 319566
+          },
+          "duration": 1.100000023841858,
+          "name": "large-json-parse"
+        },
+        {
+          "detail": {
+            "event": "click"
+          },
+          "duration": 0,
+          "name": "remove-event-listener"
+        },
+        {
+          "detail": {
+            "childCount": 0,
+            "target": "hud"
+          },
+          "duration": 0.20000004768371582,
+          "name": "dom-replace-children"
+        },
+        {
+          "detail": {
+            "childCount": 0,
+            "target": "feedback"
+          },
+          "duration": 0,
+          "name": "dom-replace-children"
+        },
+        {
+          "detail": {
+            "childCount": 0,
+            "target": "effects"
+          },
+          "duration": 0,
+          "name": "dom-replace-children"
+        },
+        {
+          "detail": {
+            "childCount": 0,
+            "target": "combat"
+          },
+          "duration": 0,
+          "name": "dom-replace-children"
+        },
+        {
+          "detail": {
+            "event": "keydown"
+          },
+          "duration": 0,
+          "name": "remove-event-listener"
+        },
+        {
+          "detail": {
+            "event": "mousedown"
+          },
+          "duration": 0,
+          "name": "remove-event-listener"
+        },
+        {
+          "detail": {
+            "event": "pointerdown"
+          },
+          "duration": 0,
+          "name": "remove-event-listener"
+        },
+        {
+          "detail": {
+            "event": "touchend"
+          },
+          "duration": 0,
+          "name": "remove-event-listener"
+        },
+        {
+          "detail": {
+            "event": "click"
+          },
+          "duration": 0,
+          "name": "remove-event-listener"
+        },
+        {
+          "detail": null,
+          "duration": 0,
+          "name": "audio-runtime-dispose"
+        },
+        {
+          "detail": null,
+          "duration": 0.19999992847442627,
+          "name": "browser-audio-dispose"
+        },
+        {
+          "detail": {
+            "childCount": 1,
+            "target": ""
+          },
+          "duration": 0.2999999523162842,
+          "name": "dom-replace-children"
+        },
+        {
+          "detail": {
+            "byteLength": 25691
+          },
+          "duration": 0,
+          "name": "session-serialize"
+        },
+        {
+          "detail": {
+            "byteLength": 25691
+          },
+          "duration": 0,
+          "name": "session-serialize"
+        },
+        {
+          "detail": {
+            "byteLength": 25691
+          },
+          "duration": 0,
+          "name": "session-serialize"
+        },
+        {
+          "detail": {
+            "childCount": 1,
+            "target": "DIV"
+          },
+          "duration": 0,
+          "name": "dom-replace-children"
+        },
+        {
+          "detail": {
+            "childCount": 1,
+            "target": "DIV"
+          },
+          "duration": 0,
+          "name": "dom-replace-children"
+        },
+        {
+          "detail": {
+            "childCount": 1,
+            "target": "DIV"
+          },
+          "duration": 0,
+          "name": "dom-replace-children"
+        },
+        {
+          "detail": {
+            "childCount": 1,
+            "target": "DIV"
+          },
+          "duration": 0,
+          "name": "dom-replace-children"
+        },
+        {
+          "detail": {
+            "childCount": 1,
+            "target": "combat"
+          },
+          "duration": 0,
+          "name": "dom-replace-children"
+        },
+        {
+          "detail": {
+            "childCount": 1,
+            "target": "effects"
+          },
+          "duration": 0,
+          "name": "dom-replace-children"
+        },
+        {
+          "detail": {
+            "childCount": 1,
+            "target": "feedback"
+          },
+          "duration": 0,
+          "name": "dom-replace-children"
+        },
+        {
+          "detail": {
+            "childCount": 1,
+            "target": "hud"
+          },
+          "duration": 0,
+          "name": "dom-replace-children"
+        },
+        {
+          "detail": null,
+          "duration": 0.2999999523162842,
+          "name": "audio-runtime-render"
+        },
+        {
+          "detail": null,
+          "duration": 0.20000004768371582,
+          "name": "audio-runtime-render"
+        },
+        {
+          "detail": null,
+          "duration": 0.30000007152557373,
+          "name": "audio-runtime-render"
+        }
+      ],
+      "restartStages": [
+        {
+          "duration": 43.10000002384186,
+          "name": "restart-audio-policy"
+        },
+        {
+          "duration": 2.5,
+          "name": "restart-terminal-setup"
+        },
+        {
+          "duration": 0.6000000238418579,
+          "name": "restart-prior-graph-cleanup"
+        },
+        {
+          "duration": 5.399999976158142,
+          "name": "restart-fresh-session"
+        },
+        {
+          "duration": 20.700000047683716,
+          "name": "restart-fresh-graph"
+        }
+      ]
+    }
+  }
+}
