@@ -23,6 +23,7 @@ const battleLabel = document.querySelector("[data-battle-label]");
 let selectedCardId = PLAYABLE_CARD_IDS[0];
 let currentDeckIds = [...PLAYABLE_CARD_IDS];
 let selectedSlotIndex = null;
+let lastReplacedSlotIndex = null;
 let currentView = "home";
 let battleFrame = null;
 let battleFrameReady = false;
@@ -112,9 +113,10 @@ function compactCardMarkup(card) {
 function deckCardMarkup(card, index) {
   const count = card.formation.totalCount;
   const selected = index === selectedSlotIndex;
-  return `<article class="deck-slot${selected ? " is-selected" : ""}" data-slot-index="${index}">
+  const recentlyReplaced = index === lastReplacedSlotIndex;
+  return `<article class="deck-slot${selected ? " is-selected" : ""}${recentlyReplaced ? " is-recently-replaced" : ""}" data-slot-index="${index}">
     <button class="deck-card-button" type="button" data-card-id="${html(card.id)}" aria-label="Inspect ${html(card.displayName)}, ${countLabel(count)}, ${card.cost} elixir in slot ${index + 1}">
-      ${artMarkup(card.id)}<span class="deck-card-copy"><small>Slot ${index + 1}</small><strong>${html(card.displayName)}</strong><small>${countLabel(count)} · ${card.cost} elixir</small></span>
+      ${artMarkup(card.id)}<span class="deck-card-copy"><small>Slot ${index + 1}${recentlyReplaced ? '<span class="deck-slot-confirmation">Updated</span>' : ""}</small><strong>${html(card.displayName)}</strong><small>${countLabel(count)} · ${card.cost} elixir</small></span>
     </button>
     <button class="deck-replace-button" type="button" data-replace-slot="${index}" aria-expanded="${selected}" aria-controls="deck-replacement-panel">Replace</button>
   </article>`;
@@ -184,7 +186,7 @@ function renderCollection() {
   cardDetails.hidden = isEmpty;
   if (isEmpty) {
     views.get("cards").dataset.detailOpen = "false";
-    emptyCollection.textContent = `“${search.value.trim()}” is not in the playable collection yet. Only cards supported by live decks are shown.`;
+    emptyCollection.innerHTML = `<p>“${html(search.value.trim())}” is not in the playable collection yet. Only cards supported by live decks are shown.</p><button class="search-clear" type="button" data-action="clear-search">Clear search</button>`;
   }
   renderCardDetails(cardById.get(selectedCardId));
 }
@@ -265,6 +267,7 @@ function chooseReplacement(cardId) {
   const replacement = cardById.get(cardId);
   currentDeckIds[index] = cardId;
   selectedSlotIndex = null;
+  lastReplacedSlotIndex = index;
   renderDeckSummary();
   if (deckStatus !== null) {
     deckStatus.textContent = `${replacement.displayName} replaced ${previous.displayName}. Average elixir ${averageCost().toFixed(2)}.`;
@@ -319,7 +322,7 @@ function setView(name, { focus = true } = {}) {
     renderCollection();
   }
   if (name === "deck") renderDeckSummary();
-  if (focus) views.get(name).querySelector("h1")?.focus({ preventScroll: true });
+  if (focus) views.get(name).querySelector("h1")?.focus();
   return true;
 }
 
@@ -331,13 +334,13 @@ function chooseCard(cardId, fromDeck = false) {
     setView("cards", { focus: false });
     if (window.matchMedia("(max-width: 760px)").matches) {
       views.get("cards").dataset.detailOpen = "true";
-      document.querySelector("#selected-card-title")?.focus({ preventScroll: true });
+      document.querySelector("#selected-card-title")?.focus();
     } else {
-      document.querySelector("#selected-card-title")?.focus({ preventScroll: true });
+      document.querySelector("#selected-card-title")?.focus();
     }
   } else if (window.matchMedia("(max-width: 760px)").matches) {
     views.get("cards").dataset.detailOpen = "true";
-    document.querySelector("#selected-card-title")?.focus({ preventScroll: true });
+    document.querySelector("#selected-card-title")?.focus();
   }
 }
 
@@ -367,6 +370,12 @@ document.addEventListener("click", (event) => {
   }
   if (event.target.closest('[data-action="cancel-replacement"]')) {
     closeReplacement();
+    return;
+  }
+  if (event.target.closest('[data-action="clear-search"]')) {
+    search.value = "";
+    renderCollection();
+    search.focus();
     return;
   }
   const cardButton = event.target.closest("[data-card-id]");

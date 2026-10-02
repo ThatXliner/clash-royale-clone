@@ -19,6 +19,7 @@
 
 * { box-sizing: border-box; }
 html, body { min-height: 100%; margin: 0; }
+html { scroll-behavior: smooth; }
 body { min-width: 320px; background: var(--paper); }
 button, input { font: inherit; }
 button { color: inherit; }
@@ -51,7 +52,7 @@ button:focus-visible, input:focus-visible {
 .brand-copy small { color: #b1bcb1; font-size: 9px; font-weight: 700; letter-spacing: .19em; }
 .app-nav { display: flex; align-items: center; gap: 7px; }
 .app-nav button {
-  min-height: 42px; padding: 0 17px; border: 1px solid transparent; border-radius: 999px;
+  min-height: 44px; padding: 0 17px; border: 1px solid transparent; border-radius: 999px;
   color: #bdc8be; background: transparent; font-size: 13px; font-weight: 700; cursor: pointer;
   transition: color .16s ease, background .16s ease, border-color .16s ease;
 }
@@ -112,7 +113,7 @@ h1, h2 { font-family: Manrope, Georgia, serif; letter-spacing: -.055em; }
 .panel-heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
 .panel-heading .eyebrow { margin-bottom: 5px; }
 .panel-heading h2 { margin: 0; font-size: 25px; }
-.text-link { border: 0; padding: 8px 0 8px 8px; color: var(--forest); background: transparent; font-size: 11px; font-weight: 800; cursor: pointer; }
+.text-link { min-height: 44px; border: 0; padding: 8px 0 8px 8px; display: inline-flex; align-items: center; color: var(--forest); background: transparent; font-size: 11px; font-weight: 800; cursor: pointer; }
 .text-link:hover { color: var(--clay); }
 .text-link span { padding-left: 4px; font-size: 16px; }
 .home-deck-summary { display: flex; align-items: baseline; gap: 7px; margin: 20px 0 14px; color: var(--muted); font-size: 11px; }
@@ -129,7 +130,7 @@ h1, h2 { font-family: Manrope, Georgia, serif; letter-spacing: -.055em; }
 .how-to-list li > span { padding-top: 2px; color: #a47a4c; font-size: 10px; font-weight: 800; letter-spacing: .08em; }
 .how-to-list p { margin: 0; color: #66736a; font-size: 11px; line-height: 1.5; }
 .how-to-list strong { color: var(--ink); font-size: 11px; }
-.button-primary-small { min-height: 37px; padding-inline: 15px; font-size: 10px; }
+.button-primary-small { min-height: 44px; padding-inline: 15px; font-size: 10px; }
 
 .page-intro { margin: 8px 0 26px; }
 .page-intro h1, .battle-heading h1 { margin: 0 0 7px; font-size: clamp(32px, 4vw, 46px); line-height: 1.12; }
@@ -143,6 +144,9 @@ h1, h2 { font-family: Manrope, Georgia, serif; letter-spacing: -.055em; }
 .deck-card-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
 .deck-slot { min-width: 0; display: grid; grid-template-rows: 1fr auto; border: 1px solid #d7d3c7; border-radius: 5px; overflow: hidden; background: #faf9f4; }
 .deck-slot.is-selected { border-color: #648266; box-shadow: 0 0 0 2px #64826655; }
+.deck-slot:focus-within { outline: 3px solid #b47b3e; outline-offset: 3px; }
+.deck-slot.is-recently-replaced { border-color: #648266; box-shadow: inset 0 0 0 2px #64826655; }
+.deck-slot-confirmation { margin-left: 5px; padding: 2px 4px; border-radius: 2px; color: #fff; background: #648266; font-size: 7px; letter-spacing: .04em; }
 .deck-card-button, .collection-card {
   min-width: 0; text-align: left; border: 1px solid #d7d3c7; border-radius: 5px; overflow: hidden;
   background: #faf9f4; cursor: pointer; transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
@@ -154,14 +158,14 @@ h1, h2 { font-family: Manrope, Georgia, serif; letter-spacing: -.055em; }
 .deck-card-copy small:first-child { color: #a47a4c; font-size: 8px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
 .deck-card-copy strong { overflow: hidden; font-family: Manrope, Georgia, serif; font-size: 13px; text-overflow: ellipsis; white-space: nowrap; }
 .deck-card-copy small { color: var(--muted); font-size: 10px; }
-.deck-replace-button { min-height: 29px; border: 0; border-top: 1px solid #e3dfd3; color: var(--forest); background: #f4f1e8; font-size: 9px; font-weight: 800; cursor: pointer; }
+.deck-replace-button { min-height: 44px; border: 0; border-top: 1px solid #e3dfd3; color: var(--forest); background: #f4f1e8; font-size: 10px; font-weight: 800; cursor: pointer; }
 .deck-replace-button:hover, .deck-replace-button[aria-expanded="true"] { color: #fff; background: var(--forest); }
 .replacement-panel { position: relative; margin: -3px 0 14px; padding: 16px 16px 13px; display: grid; grid-template-columns: minmax(150px, .65fr) minmax(0, 1.35fr) auto; align-items: center; gap: 16px; border: 1px solid #c4b99f; border-radius: 5px; background: #e9e5d8; }
 .replacement-panel .eyebrow { margin-bottom: 4px; }
 .replacement-panel h2 { margin: 0 0 4px; font-size: 18px; }
 .replacement-panel p:last-child { margin: 0; color: var(--muted); font-size: 10px; line-height: 1.4; }
 .replacement-choices { min-width: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-.replacement-choice { min-width: 178px; padding: 5px 10px 5px 5px; display: flex; align-items: center; gap: 10px; border: 1px solid #d1cabb; border-radius: 4px; background: #faf9f4; text-align: left; cursor: pointer; }
+.replacement-choice { min-width: 178px; min-height: 44px; padding: 5px 10px 5px 5px; display: flex; align-items: center; gap: 10px; border: 1px solid #d1cabb; border-radius: 4px; background: #faf9f4; text-align: left; cursor: pointer; }
 .replacement-choice:hover { border-color: #648266; box-shadow: 0 2px 8px #303d3118; }
 .replacement-choice .card-art { width: 42px; height: 42px; min-height: 42px; flex: 0 0 auto; }
 .replacement-choice .card-art::before { transform: translate(-50%,-50%) scale(.58); }
@@ -170,14 +174,17 @@ h1, h2 { font-family: Manrope, Georgia, serif; letter-spacing: -.055em; }
 .replacement-choice strong { overflow: hidden; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
 .replacement-choice small { color: var(--muted); font-size: 9px; }
 .replacement-empty { margin: 0; color: var(--muted); font-size: 10px; }
-.replacement-cancel { min-height: 32px; padding-inline: 11px; color: var(--forest); border-color: #b9b39f; font-size: 9px; }
+.empty-collection p { margin: 0 0 12px; }
+.replacement-cancel { min-height: 44px; padding-inline: 11px; color: var(--forest); border-color: #b9b39f; font-size: 10px; }
 .deck-status { min-height: 0; margin: -7px 0 8px; color: var(--forest); font-size: 10px; }
 .deck-status:empty { display: none; }
 .availability-note { margin: 14px 0 0; color: #7b8078; font-size: 11px; line-height: 1.5; }
 
 .collection-intro { display: flex; align-items: end; justify-content: space-between; gap: 28px; }
 .collection-intro > div > p:last-child { margin: 0; }
-.search-box { width: min(100%, 280px); min-height: 42px; padding: 0 12px; display: flex; align-items: center; gap: 9px; border: 1px solid #d1ccbe; border-radius: 4px; color: #827c6e; background: #faf9f4; }
+.search-box { width: min(100%, 280px); min-height: 44px; padding: 0 12px; display: flex; align-items: center; gap: 9px; border: 1px solid #d1ccbe; border-radius: 4px; color: #827c6e; background: #faf9f4; }
+.search-clear { min-width: 44px; min-height: 44px; padding: 0 10px; border: 1px solid #b9b39f; border-radius: 4px; color: var(--forest); background: #f4f1e8; font-size: 10px; font-weight: 800; cursor: pointer; }
+.search-clear:hover { color: #fff; background: var(--forest); }
 .search-box > span:first-child { font-size: 23px; line-height: 1; }
 .search-box input { width: 100%; border: 0; outline: 0; color: var(--ink); background: transparent; font-size: 12px; }
 .search-box input:focus-visible { outline: 0; }
@@ -194,7 +201,7 @@ h1, h2 { font-family: Manrope, Georgia, serif; letter-spacing: -.055em; }
 .empty-collection { grid-column: 1; padding: 24px; border: 1px dashed #b5b1a4; border-radius: 5px; color: var(--muted); background: #faf9f4; font-size: 12px; line-height: 1.6; }
 .card-detail { position: sticky; top: 18px; min-width: 0; padding: 21px; border: 1px solid var(--line); border-radius: 5px; background: #faf9f4; }
 .detail-heading { display: flex; align-items: start; justify-content: space-between; gap: 12px; }
-.detail-back { display: none; min-height: 29px; padding: 0 8px 0 0; border: 0; color: var(--forest); background: transparent; font-size: 10px; font-weight: 800; white-space: nowrap; cursor: pointer; }
+.detail-back { display: none; min-height: 44px; padding: 0 8px 0 0; border: 0; color: var(--forest); background: transparent; font-size: 11px; font-weight: 800; white-space: nowrap; cursor: pointer; }
 .detail-back span { padding-right: 4px; font-size: 15px; }
 .detail-heading h2 { margin: 0 0 5px; font-size: 23px; }
 .detail-heading p { margin: 0; color: var(--muted); font-size: 10px; }
@@ -245,7 +252,7 @@ h1, h2 { font-family: Manrope, Georgia, serif; letter-spacing: -.055em; }
 .battle-heading { flex: 0 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 14px; margin: 0 0 12px; }
 .battle-heading .eyebrow { margin-bottom: 5px; }
 .battle-heading h1 { margin-bottom: 0; font-size: 24px; }
-.leave-battle { min-height: 35px; padding-inline: 12px; color: var(--forest); border-color: #c8c4b7; font-size: 10px; }
+.leave-battle { min-height: 44px; padding-inline: 12px; color: var(--forest); border-color: #c8c4b7; font-size: 10px; }
 .battle-frame-slot { position: relative; flex: 1 1 auto; min-height: 360px; overflow: hidden; border: 1px solid #b8b5a9; border-radius: 6px; background: #111820; }
 .battle-frame { position: absolute; top: 0; left: 0; display: block; width: 720px; height: 1280px; border: 0; background: #111820; transform-origin: top left; }
 .app-shell[data-view-active="battle"] { height: 100dvh; }
@@ -253,6 +260,27 @@ h1, h2 { font-family: Manrope, Georgia, serif; letter-spacing: -.055em; }
 .app-shell[data-view-active="battle"] .battle-view { flex: 1; }
 
 .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+.text-link,
+.mini-card,
+.deck-replace-button,
+.replacement-choice,
+.replacement-cancel,
+.search-clear,
+.detail-back { transition: transform .12s ease, color .12s ease, background .12s ease, border-color .12s ease; }
+
+.app-nav button:active,
+.button-primary:active,
+.button-quiet:active,
+.text-link:active,
+.mini-card:active,
+.deck-card-button:active,
+.deck-replace-button:active,
+.replacement-choice:active,
+.replacement-cancel:active,
+.search-clear:active,
+.collection-card:active,
+.detail-back:active { transform: translateY(1px) scale(.985); }
 
 @media (min-width: 1100px) {
   .app-main { padding-top: 42px; }
@@ -268,6 +296,7 @@ h1, h2 { font-family: Manrope, Georgia, serif; letter-spacing: -.055em; }
 }
 
 @media (max-width: 760px) {
+  html { scroll-padding-block-end: calc(67px + env(safe-area-inset-bottom) + 16px); }
   .app-header { min-height: 66px; padding: 0 20px; }
   .brand-lockup { gap: 10px; }
   .brand-mark { width: 31px; height: 31px; }
@@ -277,7 +306,7 @@ h1, h2 { font-family: Manrope, Georgia, serif; letter-spacing: -.055em; }
   .app-nav button { min-height: 48px; padding: 0 4px; border-radius: 4px; font-size: 11px; }
   .app-nav .nav-battle { margin: 0; padding-inline: 5px; }
   .app-nav .nav-battle span { display: none; }
-  .app-main { padding: 17px 16px calc(94px + env(safe-area-inset-bottom)); }
+  .app-main { padding: 17px 16px calc(110px + env(safe-area-inset-bottom)); }
   .home-hero { min-height: 380px; display: block; padding: 34px 25px 48px; }
   .home-hero::before { background: linear-gradient(105deg, #1b3028 10%, #20392d 60%, #314538); }
   .home-hero h1 { max-width: 430px; font-size: clamp(38px, 8vw, 56px); }
@@ -311,12 +340,12 @@ h1, h2 { font-family: Manrope, Georgia, serif; letter-spacing: -.055em; }
   .deck-card-copy strong { font-size: 11px; }
   .deck-card-copy small { font-size: 9px; }
   .deck-card-copy small:first-child { font-size: 7px; }
-  .deck-replace-button { min-height: 27px; font-size: 8px; }
+  .deck-replace-button { min-height: 44px; font-size: 10px; }
   .replacement-panel { grid-template-columns: 1fr auto; gap: 9px; padding: 12px; }
   .replacement-panel > div:first-child { grid-column: 1 / -1; }
   .replacement-choices { grid-column: 1; }
   .replacement-choice { min-width: min(100%, 180px); }
-  .replacement-cancel { grid-column: 2; grid-row: 2; }
+  .replacement-cancel { min-height: 44px; grid-column: 2; grid-row: 2; }
   .deck-status { font-size: 9px; }
   .availability-note { margin-top: 11px; font-size: 10px; }
   .collection-intro { display: block; }
@@ -348,7 +377,7 @@ h1, h2 { font-family: Manrope, Georgia, serif; letter-spacing: -.055em; }
   .battle-heading { height: 51px; margin: 0; padding: 0 14px; color: #f3f0e7; background: var(--forest-dark); }
   .battle-heading .eyebrow { margin: 0 0 1px; color: #d4ae74; font-size: 8px; }
   .battle-heading h1 { font-size: 15px; }
-  .leave-battle { min-height: 30px; color: #f3f0e7; border-color: #ffffff3c; font-size: 9px; }
+  .leave-battle { min-height: 44px; color: #f3f0e7; border-color: #ffffff3c; font-size: 9px; }
   .battle-frame-slot { min-height: 0; flex: 1; border: 0; border-radius: 0; }
   .battle-frame { min-height: 0; }
 }
