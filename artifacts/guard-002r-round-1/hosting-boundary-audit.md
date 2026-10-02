@@ -1,0 +1,9 @@
+# GUARD-002R hosting-boundary audit
+
+The production builder writes a manifest-bound artifact; it does not serve it. `package.json:7` maps `npm run build` to `scripts/build-release.js`. That script creates the manifest (`scripts/build-release.js:755-767`), writes artifact files and the manifest (`:770-805`), and its CLI only accepts `--out` and prints the result (`:827-845`). The emitted CSP includes `connect-src 'self'` (`scripts/build-release.js:235-243`), so it permits same-origin requests beyond the manifest.
+
+Exact-path rejection belongs to the test fixture: `tests/shipping-isolation-release.test.js:73-86` builds an allowed-path set and returns 404 for other paths. The review records that a same-origin off-manifest fetch passed CSP and the fixture server logged it and returned 404 (`rounds.md:36-44`). No hosting guide or production server was found. Thus the PASS demonstrates the artifact plus that test server; it does not establish a production host's file-serving policy.
+
+The checked-in `dist/` snapshot is stale relative to the reviewed build: its manifest says 76 files (`dist/release-manifest.json:2-7`), and its entry HTML has no injected CSP (`dist/public/ui-arena-shell.html:1-14`), while the fresh build in the round record had 116 files (`rounds.md:21-23`). It is not the artifact used for that review.
+
+**Follow-up candidate — GUARD-002H, supported-host boundary:** define the supported deployment root or host adapter, then exercise that host with a manifest-listed request, an unmanifested same-origin request, and `/reference/...`. Require the listed path to succeed and the latter paths to return 404. Without host or deployment-config control, document root mapping, effective response headers, rewrites, and actual `/reference/` reachability remain unproven; no all-hosts safety claim follows from this audit.
