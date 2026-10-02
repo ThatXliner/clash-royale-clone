@@ -1,5 +1,49 @@
 # Gauntlet Rounds
 
+## Round 354 — 2026-10-02
+
+PIECE: APP-004 — Readable hand and next-card HUD in packaged Battle, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: I rendered and exercised the immutable UI artifact from commit
+`d9cf4698a047a9e7bc61e31aea848d2a449ee165` in a clean archive at
+`/tmp/app004-critic-d9cf469-SJxhnB`. The three requested commands ran in order:
+
+`npm run test:battle-hand-polish` passed 1/1 in 14.97 seconds, and
+`npm run test:ui-arena-shell` passed 7/7. `npm run test:app-shell` failed 0/1
+at `tests/app-shell.test.js:270`. Its Chrome geometry reported an elixir badge
+at `left=668`, `width=55.609375` (right `723.609375`) in a 720px battle
+viewport. The frame was at `{x:52.03125,y:117,width:615.9375,height:1095}`;
+the last card ended at x=657 and the other reported controls fit.
+
+The focused production Chrome render saved screenshots and fresh measurements
+under `artifacts/app-004-round-1/` in the archive. At 390×844, rendered hand
+and next names were 12.3563px, costs 15.4453px, and each target measured
+57.6625×65.9px. At 720×1280 they were 20.5313px, 25.6641px, and
+95.8125×109.5px. At 1280×720 they were 10.2773px, 12.8467px, and
+47.9609×54.8125px. All five labels fit within their card faces without text
+overflow or overlap. The original Stonehauler portrait remained present.
+
+The app-frame playfield retained `{left:90,top:108,width:540,height:960}` and
+arena bounds `{left:86,top:104,width:548,height:968}`. Direct arena rendering
+kept the 720×1280 shell, the same arena bounds, a tray at
+`{left:112,top:1154,width:496,height:88}`, four 88×72 input slots, 10px names
+and 15px costs. Trusted browser selection and replay receipts passed for the
+first Mossguard and fourth Stonehauler slots; each `south/session-deployed`
+receipt named the selected card and had a legal point with `y<15000`. The
+recorded cycle was Mossguard/Skymaul/Copperskiff/Stonehauler with Brassbolt
+next; after those plays, Briar Band and then Reedsting rotated into the
+expected slots/next preview.
+
+Follow-up commit `c7dab97fd4fd4a1b1e1cfc6d937ed1550bc1696b` only registers the
+focused selector in the main test dispatcher; the builder reported
+`npm test -- battle-hand-polish` passing 1/1 there. It does not change the UI
+artifact judged above.
+
+BIGGEST GAP: At 720×1280, the packaged battle viewport clips the elixir badge
+3.609375px past its right edge.
+
 ## Round 353 — 2026-10-02
 
 PIECE: APP-003 — Deck and card-info interaction polish, round 2
