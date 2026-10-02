@@ -95,6 +95,86 @@ async function safeTarget(page, selector, label) {
   return details;
 }
 
+async function visibleBodyControlOrder(page) {
+  return page.evaluate(() => [...document.querySelectorAll(".app-main button, .app-main input")]
+    .filter((node) => {
+      for (let parent = node; parent; parent = parent.parentElement) {
+        if (parent.hidden) return false;
+      }
+      const style = getComputedStyle(node);
+      const bounds = node.getBoundingClientRect();
+      return style.display !== "none" && style.visibility !== "hidden" &&
+        bounds.width > 0 && bounds.height > 0;
+    })
+    .map((node) => node.classList.contains("deck-card-button")
+      ? `inspect:${node.dataset.cardId}`
+      : node.hasAttribute("data-replace-slot")
+        ? `replace:${node.dataset.replaceSlot}`
+        : node.getAttribute("aria-label") || node.className));
+}
+
+async function assertNativeFocusClear(page, label) {
+  await page.evaluate(() => new Promise((resolve) =>
+    requestAnimationFrame(() => requestAnimationFrame(resolve))));
+  const focus = await page.evaluate(() => {
+    const target = document.activeElement;
+    const nav = document.querySelector(".app-nav");
+    if (!target || !nav || !target.closest(".app-main")) return null;
+    const bounds = target.getBoundingClientRect();
+    const navBounds = nav.getBoundingClientRect();
+    const hit = document.elementFromPoint(
+      bounds.left + bounds.width / 2, bounds.top + bounds.height / 2);
+    return {
+      identity: target.classList.contains("deck-card-button")
+        ? `inspect:${target.dataset.cardId}`
+        : target.hasAttribute("data-replace-slot")
+          ? `replace:${target.dataset.replaceSlot}`
+          : target.getAttribute("aria-label") || target.className,
+      height: bounds.height,
+      top: bounds.top,
+      bottom: bounds.bottom,
+      navTop: navBounds.top,
+      clearsFixedNav: bounds.top >= 0 && bounds.bottom <= navBounds.top,
+      receivesCenterHit: target === hit || target.contains(hit),
+    };
+  });
+  assert.ok(focus, `${label} keeps keyboard focus in an app body control`);
+  assert.ok(focus.height >= 44 && focus.clearsFixedNav,
+    `${label} focused target clears the footer: ${JSON.stringify(focus)}`);
+  assert.equal(focus.receivesCenterHit, true,
+    `${label} focused target remains the center-point hit: ${JSON.stringify(focus)}`);
+  return focus;
+}
+
+async function traverseDeckWithKeyboard(page, viewport) {
+  await page.setViewportSize(viewport);
+  await page.locator(".app-nav [data-nav-to=deck]").click();
+  const expected = await visibleBodyControlOrder(page);
+  assert.equal(expected.length, 16, `${viewport.width}x${viewport.height} deck exposes all eight Inspect and Replace controls`);
+
+  const forward = [];
+  for (let index = 0; index < expected.length; index += 1) {
+    await page.keyboard.press("Tab");
+    const focus = await assertNativeFocusClear(page, `Tab ${index + 1} at ${viewport.width}x${viewport.height}`);
+    forward.push(focus.identity);
+  }
+  assert.deepEqual(forward, expected,
+    `${viewport.width}x${viewport.height} native Tab follows every visible deck control in document order`);
+
+  await page.locator('[data-replace-slot="7"]').focus();
+  await assertNativeFocusClear(page, `reverse traversal start at ${viewport.width}x${viewport.height}`);
+  const backward = [];
+  for (let index = expected.length - 2; index >= 0; index -= 1) {
+    await page.keyboard.press("Shift+Tab");
+    const focus = await assertNativeFocusClear(page,
+      `Shift+Tab ${expected.length - 1 - index} at ${viewport.width}x${viewport.height}`);
+    backward.push(focus.identity);
+  }
+  assert.deepEqual(backward, expected.slice(0, -1).reverse(),
+    `${viewport.width}x${viewport.height} native Shift+Tab follows every deck control in reverse order`);
+  return { width: viewport.width, height: viewport.height, controlsPerDirection: expected.length };
+}
+
 test("mobile app controls scroll clear of navigation and retain deck and card feedback", {
   timeout: 120_000,
 }, async (t) => {
@@ -119,6 +199,7 @@ test("mobile app controls scroll clear of navigation and retain deck and card fe
     if (message.type() === "error") failures.push(message.text());
   });
   const layouts = [];
+  const keyboardTraversal = [];
 
   try {
     await page.goto(`http://${address.host}:${address.port}/public/index.html`, { waitUntil: "networkidle" });
@@ -134,6 +215,17 @@ test("mobile app controls scroll clear of navigation and retain deck and card fe
     await page.screenshot({ path: join(ARTIFACTS, "after-deck-390x844.png"), fullPage: true });
     layouts.push({ width: 390, height: 844, view: "deck", ...await assertNoHorizontalOverflow(page, "390x844 deck") });
     await assertVisibleAppTargets(page, "390x844 deck");
+
+    for (const viewport of [
+      { width: 320, height: 568 },
+      { width: 390, height: 844 },
+    ]) {
+      keyboardTraversal.push(await traverseDeckWithKeyboard(page, viewport));
+    }
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.locator(".app-nav [data-nav-to=deck]").click();
+    await page.evaluate(() => { document.documentElement.style.scrollBehavior = "auto"; scrollTo(0, 0); });
+    await page.evaluate(() => document.documentElement.style.removeProperty("scroll-behavior"));
 
     const firstReplace = page.locator('[data-replace-slot="0"]');
     await firstReplace.focus();
@@ -245,6 +337,11 @@ test("mobile app controls scroll clear of navigation and retain deck and card fe
     assert.ok([reducedMotion.navTransition, reducedMotion.collectionTransition]
       .every((value) => parseFloat(value) <= 0.0001),
     `reduced motion removes interface transitions: ${JSON.stringify(reducedMotion)}`);
+    await page.setViewportSize({ width: 320, height: 568 });
+    await page.locator(".app-nav [data-nav-to=deck]").click();
+    await page.locator('[data-replace-slot="7"]').focus();
+    const reducedMotionFocus = await assertNativeFocusClear(page,
+      "reduced-motion focus on the last Replace control at 320x568");
     assert.deepEqual(failures, [], "the production shell runs without browser errors");
     writeFileSync(join(ARTIFACTS, "browser-evidence.json"), `${JSON.stringify({
       release: { entrypoints: manifest.entrypoints, fileCount: manifest.fileCount },
@@ -252,11 +349,12 @@ test("mobile app controls scroll clear of navigation and retain deck and card fe
       postScrollRect,
       firstKeyboard: "opened, focused, escaped, and restored to a clear first-slot target",
       lastKeyboard: "opened, focused, escaped, and restored to a clear last-slot target",
+      keyboardTraversal,
       trustedPointer: { wasTrusted: true, target: "last slot after wheel scroll" },
       replacement: { added: "stonehauler", slot: 7, visibleConfirmation: "Updated" },
       emptySearch: { clearAction: true, restoredCards: 9, focusReturned: true },
       viewports: layouts,
-      reducedMotion,
+      reducedMotion: { ...reducedMotion, focusedTarget: reducedMotionFocus },
       result: "passed",
     }, null, 2)}\n`);
   } finally {

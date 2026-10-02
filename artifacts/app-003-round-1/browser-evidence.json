@@ -12,8 +12,8 @@
     "overlapped": true
   },
   "postScrollRect": {
-    "top": 673.5625,
-    "bottom": 717.5625,
+    "top": 724.5625,
+    "bottom": 768.5625,
     "height": 44,
     "navTop": 777,
     "hitTarget": true,
@@ -21,6 +21,18 @@
   },
   "firstKeyboard": "opened, focused, escaped, and restored to a clear first-slot target",
   "lastKeyboard": "opened, focused, escaped, and restored to a clear last-slot target",
+  "keyboardTraversal": [
+    {
+      "width": 320,
+      "height": 568,
+      "controlsPerDirection": 16
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "controlsPerDirection": 16
+    }
+  ],
   "trustedPointer": {
     "wasTrusted": true,
     "target": "last slot after wheel scroll"
@@ -192,7 +204,16 @@
   "reducedMotion": {
     "scrollBehavior": "auto",
     "navTransition": "1e-05s",
-    "collectionTransition": "1e-05s"
+    "collectionTransition": "1e-05s",
+    "focusedTarget": {
+      "identity": "replace:7",
+      "height": 44,
+      "top": 371.5625,
+      "bottom": 415.5625,
+      "navTop": 501,
+      "clearsFixedNav": true,
+      "receivesCenterHit": true
+    }
   },
   "result": "passed"
 }

@@ -303,6 +303,28 @@ function closeDetailAndFocusList() {
   requestAnimationFrame(() => cardGrid.querySelector(`[data-card-id="${CSS.escape(selectedCardId)}"]`)?.focus());
 }
 
+function keepFocusedControlClearOfNavigation(target) {
+  const nav = document.querySelector(".app-nav");
+  if (!root.contains(target) || getComputedStyle(nav).position !== "fixed") return;
+  requestAnimationFrame(() => {
+    if (document.activeElement !== target) return;
+    const bounds = target.getBoundingClientRect();
+    const navBounds = nav.getBoundingClientRect();
+    const safeTop = 8;
+    const safeBottom = navBounds.top - 8;
+    const scrollBy = bounds.bottom > safeBottom
+      ? bounds.bottom - safeBottom
+      : bounds.top < safeTop ? bounds.top - safeTop : 0;
+    if (scrollBy !== 0) window.scrollBy({ top: scrollBy, behavior: "instant" });
+  });
+}
+
+document.addEventListener("focusin", (event) => {
+  if (event.target instanceof HTMLElement && event.target.closest(".app-main")) {
+    keepFocusedControlClearOfNavigation(event.target);
+  }
+});
+
 function setView(name, { focus = true } = {}) {
   if (!views.has(name)) return false;
   if (currentView === "battle" && name !== "battle") postBattleState(false);
