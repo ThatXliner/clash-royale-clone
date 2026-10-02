@@ -6,6 +6,38 @@ import {
   RLEnvironment,
 } from "../src/rl/environment.js";
 import { PLAYABLE_CARD_IDS } from "../src/content/playable-roster.js";
+import { GameSession } from "../src/sim/game-session.js";
+
+function canonical(value) {
+  if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
+  if (value !== null && typeof value === "object") {
+    return `{${Object.keys(value).sort().map((key) =>
+      `${JSON.stringify(key)}:${canonical(value[key])}`).join(",")}}`;
+  }
+  return JSON.stringify(value);
+}
+
+function checkpointWithEngineOperation(env, { pause, pending }) {
+  const wrapper = JSON.parse(env.serialize());
+  const session = GameSession.restore(wrapper.session);
+  if (pending) {
+    const observation = env.observe();
+    const actionId = firstLegalDeployment(observation);
+    const action = env.actionSpace().actions[actionId];
+    session.submitPlayerCommand(JSON.stringify({
+      cardId: observation.hand[action.slot],
+      commandId: 0,
+      point: action.point,
+      slot: action.slot,
+      tick: observation.tick,
+      type: "deploy",
+    }));
+    wrapper.nextCommandId = 1;
+  }
+  if (pause) session.pause();
+  wrapper.session = session.serialize();
+  return canonical(wrapper);
+}
 
 function firstLegalDeployment(observation, slot = 0) {
   const start = 1 + slot * 576;
@@ -107,8 +139,24 @@ test("horizon clipping truncates exactly and rejects later steps", () => {
   assert.equal(second.observation.status, "truncated");
   assert.ok(second.observation.actionMask.every((legal) => legal === false));
   const checkpoint = env.serialize();
+  const restored = RLEnvironment.restore(checkpoint);
+  assert.deepEqual(restored.observe(), second.observation);
   assert.throws(() => env.step(0), /finished RL environment/);
+  assert.throws(() => restored.step(0), /finished RL environment/);
   assert.equal(env.serialize(), checkpoint);
+});
+
+test("restore rejects paused or pending GameSession checkpoints", () => {
+  const env = createRLEnvironment({ seed: 22, strideTicks: 4, horizonTicks: 20 });
+  for (const state of [
+    { pause: true, pending: false },
+    { pause: false, pending: true },
+    { pause: true, pending: true },
+  ]) {
+    const checkpoint = checkpointWithEngineOperation(env, state);
+    assert.throws(() => RLEnvironment.restore(checkpoint),
+      /cannot contain a paused session or pending player commands/);
+  }
 });
 
 test("masked and out-of-range actions are atomic", () => {
@@ -190,6 +238,9 @@ test("natural engine completion reports one sparse reward and seals the episode"
   assert.equal(result.observation.status, "terminated");
   assert.ok(result.observation.actionMask.every((legal) => legal === false));
   const checkpoint = env.serialize();
+  const restored = RLEnvironment.restore(checkpoint);
+  assert.deepEqual(restored.observe(), result.observation);
+  assert.throws(() => restored.step(0), /finished RL environment/);
   assert.throws(() => env.step(0), /finished RL environment/);
   assert.equal(env.serialize(), checkpoint);
 });

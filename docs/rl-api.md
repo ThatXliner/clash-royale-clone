@@ -77,6 +77,8 @@ transcript data needed for causal restoration. Treat it as trusted storage,
 not policy input or an observation. Restore validates the checkpoint against
 the real `GameSession` setup and deployment counter, so a restored environment
 continues with the same observation, reward, done status, and future actions.
+Paused engine sessions and sessions with an unprocessed player command are
+rejected because this wrapper cannot produce or resume those states.
 
 The wrapper inherits the simulation's current supported-card admission and
 approximation limits. Its tile centers use the current estimated placement

@@ -283,6 +283,9 @@ export class RLEnvironment {
     if (state.tick > config.horizonTicks) {
       throw new TypeError("serialized environment exceeds its configured horizon");
     }
+    if (state.paused || state.pendingPlayerCommands.length !== 0) {
+      throw new TypeError("RL environment checkpoint cannot contain a paused session or pending player commands");
+    }
     let commandCount = 0;
     for (const operation of sessionSnapshot.transcript) {
       if (operation.type !== "submit") continue;
