@@ -19,6 +19,9 @@
     .state-question { color: #ff9f6e; } .state-blocked { color: #92a0c7; }
     .state-pending { color: #c6d2f5; } code { color: #b9d6ff; }
     .note { padding: 14px; border-left: 4px solid #63e6a4; background: #14251f; }
+    .round-gaps { min-width: 330px; max-width: 560px; font-size: 12px; }
+    .round-gaps summary { cursor: pointer; color: #b9d6ff; }
+    .round-gaps ol { padding-left: 20px; }
     li { margin: 10px 0; color: #cbd5f3; }
   </style>
 </head>
@@ -26,16 +29,16 @@
   <h1>Gauntlet progress</h1>
   <p class="sub">Updated 2026-10-02 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
-    <div class="card"><div class="num">184</div><div class="label">tracked pieces</div></div>
-    <div class="card"><div class="num">144</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">354</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">185</div><div class="label">tracked pieces</div></div>
+    <div class="card"><div class="num">145</div><div class="label">passed</div></div>
+    <div class="card"><div class="num">355</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">26</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Latest review: <strong>GUARD-002R — Actual release-artifact isolation boundary, round 1 — PASS</strong>. Full game completion remains unproven.</p>
+  <p class="note">Latest review: <strong>GUARD-002H — Manifest-only local release host, round 1 — PASS</strong>. Full game completion remains unproven.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
-      <thead><tr><th>ID</th><th>Piece</th><th>State</th><th>Tests</th><th>Rounds</th><th>Current gap / result</th></tr></thead>
+      <thead><tr><th>ID</th><th>Piece</th><th>State</th><th>Tests</th><th>Rounds</th><th>Current gap / result</th><th>Gap by round</th></tr></thead>
       <tbody>
       <tr>
         <td><code>SIM-001</code></td>
@@ -44,6 +47,7 @@
         <td>5/5</td>
         <td>3</td>
         <td>Wrong-shaped after three source-gate bypass rounds; split into SIM-001K and GUARD-001</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R1 FAIL</strong> — The nondeterminism source gate misses wall-clock APIs such as `process.hrtime.bigint()` and aliased `node:perf_hooks` imports, so it does not satisfy the requirement to reject wall-clock timing in simulation code.</li><li><strong>R2 FAIL</strong> — Strengthen the source gate to detect aliased, destructured, and computed access to ambient random APIs.</li><li><strong>R3 FAIL</strong> — Replace or strengthen the regex source gate so optional-chained and indirect ambient-random access such as `Math?.random()` and `Reflect.get(Math, &quot;random&quot;)()` is rejected.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>SIM-001K</code></td>
@@ -52,6 +56,7 @@
         <td>4/4</td>
         <td>1</td>
         <td>None on judged dimension</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R4 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GUARD-001</code></td>
@@ -60,6 +65,7 @@
         <td>9/9</td>
         <td>3</td>
         <td>Round 3 passed: bypasses, valid lexical shadows, recursive/cyclic graphs, runtime boundary, canonical output, all bounds, and 20 simulation modules passed</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R126 FAIL</strong> — Dormant exported functions are never capability-tested, while incomplete static scope/reflection/import/process analysis lets them retain ambient capabilities—including `process.binding(&#x27;natives&#x27;)`—for later normal-runtime invocation.</li><li><strong>R129 FAIL</strong> — The analyzer/runtime probe still rejects valid deterministic arrow-parameter, catch-scope, and cyclic-module programs, violating the required no-false-positive capability boundary.</li><li><strong>R131 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>SIM-002</code></td>
@@ -68,6 +74,7 @@
         <td>6/6</td>
         <td>1</td>
         <td>None on judged dimension</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R5 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>SIM-003</code></td>
@@ -76,6 +83,7 @@
         <td>6/6</td>
         <td>1</td>
         <td>None on judged dimension</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R6 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>SIM-004</code></td>
@@ -84,6 +92,7 @@
         <td>9/9</td>
         <td>1</td>
         <td>None on judged dimension</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R7 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>SIM-005</code></td>
@@ -92,6 +101,7 @@
         <td>9/9</td>
         <td>1</td>
         <td>None on judged dimension</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R8 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>SIM-006</code></td>
@@ -100,6 +110,7 @@
         <td>8/8</td>
         <td>1</td>
         <td>None on judged dimension</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R9 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>SIM-007</code></td>
@@ -108,6 +119,7 @@
         <td>8/8</td>
         <td>1</td>
         <td>None on judged dimension</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R10 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>SIM-008</code></td>
@@ -116,6 +128,7 @@
         <td>8/8</td>
         <td>1</td>
         <td>None on judged dimension; load/deploy fixtures remain non-authoritative estimates</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R11 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>SIM-009</code></td>
@@ -124,6 +137,7 @@
         <td>6/6</td>
         <td>1</td>
         <td>None on judged dimension; reference-derived mechanics remain confidence-labeled estimates</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R12 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>SIM-010</code></td>
@@ -132,6 +146,7 @@
         <td>8/8</td>
         <td>1</td>
         <td>None on judged dimension; straight-flight static target model only</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R13 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>SIM-011</code></td>
@@ -140,6 +155,7 @@
         <td>11/11</td>
         <td>2</td>
         <td>None on judged dimension; exhausted ID sentinel restores byte-identically</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R14 FAIL</strong> — Make every snapshot emitted by `serialize()`, including the exhausted effect-ID state, valid for byte-identical restoration.</li><li><strong>R15 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>SIM-012</code></td>
@@ -148,6 +164,7 @@
         <td>8/8</td>
         <td>1</td>
         <td>None on judged dimension</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R16 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>ARENA-001</code></td>
@@ -156,6 +173,7 @@
         <td>9/9</td>
         <td>1</td>
         <td>None on judged dimension; bridge/tower geometry remains confidence-labeled estimate</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R17 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>ARENA-002</code></td>
@@ -164,6 +182,7 @@
         <td>10/10</td>
         <td>2</td>
         <td>None on judged dimension; coarse point-agent and estimate caveats retained</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R18 FAIL</strong> — Shift the navigation lattice to actual tile centers and update endpoint, bridge, boundary, symmetry, and shortest-path tests accordingly.</li><li><strong>R19 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>ARENA-003</code></td>
@@ -172,6 +191,7 @@
         <td>8/8</td>
         <td>1</td>
         <td>None on judged dimension; axis-aligned target movement only</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R20 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>ARENA-004</code></td>
@@ -180,6 +200,7 @@
         <td>12/12</td>
         <td>2</td>
         <td>None on judged dimension; estimated masks use rotationally symmetric closed-edge policy</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R21 FAIL</strong> — Make all estimated rectangle boundary semantics 180°-symmetric, including pocket splits, river edges, and rotated tower footprints, and add exact-boundary rotation tests.</li><li><strong>R22 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>MATCH-001</code></td>
@@ -188,6 +209,7 @@
         <td>11/11</td>
         <td>3</td>
         <td>None on judged dimension; snapshot state is derived from canonical causal steps</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R23 FAIL</strong> — Reject and test snapshots that mark a full-health central tower active while both friendly lane towers remain alive, or persist sufficient activation history to validate that state.</li><li><strong>R24 FAIL</strong> — Serialize replayable activation-causing damage and lane-death evidence and derive restored activation state from it, because the current self-asserted `{cause,tick}` metadata lets pristine snapshots be forged into accepted active states.</li><li><strong>R25 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>MATCH-002</code></td>
@@ -196,6 +218,7 @@
         <td>17/17</td>
         <td>3</td>
         <td>None on judged dimension; canonical limits match worst-case derived replay cost</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R26 FAIL</strong> — Make restore reject snapshots whose replay/history and event stream are not semantically consistent with the commands, prior state, tick order, and deterministic regeneration.</li><li><strong>R27 FAIL</strong> — Make the advertised 100,000-entry resolved-history boundary replay successfully, or explicitly validate and expose the lower event-constrained limit instead of accepting its shape and failing during deterministic replay.</li><li><strong>R28 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>MATCH-003</code></td>
@@ -204,6 +227,7 @@
         <td>7/7</td>
         <td>1</td>
         <td>None on judged dimension; shuffle/cycle is original configurable rule pending footage</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R29 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>MATCH-004</code></td>
@@ -212,6 +236,7 @@
         <td>20/20</td>
         <td>2</td>
         <td>None on judged dimension</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R30 FAIL</strong> — Resolve the tick-18000 tiebreak and maximum-tick evidence rejection inside the canonical step transition so `step()`, `advanceTicks()`, and restore produce byte-identical state and history.</li><li><strong>R31 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-001</code></td>
@@ -220,6 +245,7 @@
         <td>16/16</td>
         <td>4</td>
         <td>Wrong-shaped after three static reference-path bypass rounds; split into CONTENT-001S and GUARD-002</td>
+        <td class="round-gaps"><details><summary>4 recorded round gaps</summary><ol><li><strong>R32 FAIL</strong> — Decode JavaScript/JSON string escapes in the protected-identity scanner and add all-218-token escaped injection tests so exact protected runtime identities cannot bypass the shipping gate.</li><li><strong>R33 FAIL</strong> — The reference-import gate only matches a raw contiguous `reference/` path, so escaped or statically concatenated benchmark imports can bypass validation and be bundled.</li><li><strong>R34 FAIL</strong> — Treat query (`?`) and fragment (`#`) boundaries as valid terminators of a protected `reference` path segment in covered static specifier contexts.</li><li><strong>R35 FAIL</strong> — The static isolation gate does not URL-decode protected path segments before matching, so another valid static specifier encoding bypasses it.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-001S</code></td>
@@ -228,6 +254,7 @@
         <td>20/20</td>
         <td>3</td>
         <td>None on judged dimension</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R36 FAIL</strong> — Replace rounded multiplication with an integer-candidate round-trip contract so seconds conversion accepts exactly tick-derived values and rejects nearby nonrepresentable decimals.</li><li><strong>R37 FAIL</strong> — Derive the integer tick candidate without rounded multiplication; use monotonic safe-integer search over `tick / 60`, then enforce unique round-trip equality.</li><li><strong>R38 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GUARD-002</code></td>
@@ -236,6 +263,7 @@
         <td>13/13</td>
         <td>3</td>
         <td>Wrong-shaped after three graph-closure rounds: custom exports conditions and reflective code loaders remain executable outside a dependency-free static evaluator; requires actual bundler/runtime sandbox enforcement</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R125 FAIL</strong> — The resolver graph is not closed over actual runtime code—bare package dependencies and aliased loaders can ship protected bytes while the guard reports success.</li><li><strong>R128 FAIL</strong> — Close package resolution over actual import/require/browser/main/ module condition branches instead of selecting one synthetic browser-first target, because ordinary Node can execute protected package bytes while the guard reports success.</li><li><strong>R132 FAIL</strong> — Executable target discovery remains fail-open for non-hardcoded exports conditions and computed/reflective code-loader aliases, allowing Node to execute protected package bytes absent from the audit graph.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GUARD-002R</code></td>
@@ -243,7 +271,17 @@
         <td class="state-pass">PASS</td>
         <td>3/3</td>
         <td>1</td>
-        <td>Round 1 passed: byte-identical production artifacts, emitted-byte isolation, custom-condition bare import rejection, CSP-blocked reflective loaders, and manifest-only Chrome serving passed; same-origin off-manifest requests are denied and logged by the manifest-only server.</td>
+        <td>None on the judged dimension; CSP is origin-scoped, so same-origin off-manifest requests rely on the manifest-only server to reject and record them.</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R347 PASS</strong> — None on the judged dimension; same-origin off-manifest requests must continue to pass through a manifest-only server for exact-path denial.</li></ol></details></td>
+      </tr>
+      <tr>
+        <td><code>GUARD-002H</code></td>
+        <td>Manifest-only local release host</td>
+        <td class="state-pass">PASS</td>
+        <td>1/1</td>
+        <td>1</td>
+        <td>None on manifest-bound delivery; an in-root parent symlink is followed only for its explicitly listed, hash-matching alias, and the artifact audit rejects symlink trees</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R348 PASS</strong> — None on manifest-bound delivery in the audited release pipeline; the host alone follows an in-root parent symlink for a manifest-listed, hash-matching alias, which the artifact audit rejects before release.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-002</code></td>
@@ -252,6 +290,7 @@
         <td>12/12</td>
         <td>3</td>
         <td>None on judged dimension</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R39 FAIL</strong> — Separate authoritative parity failures from low-confidence question reporting so an unverified mismatch is surfaced without failing the acceptance test.</li><li><strong>R40 FAIL</strong> — Snapshot and validate corpus provenance behind an immutable evaluator boundary so comparison callers cannot supply, mutate, or forge the confidence classification.</li><li><strong>R41 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-003</code></td>
@@ -260,6 +299,7 @@
         <td>14/14</td>
         <td>3</td>
         <td>None on judged dimension; projectile travel remains explicitly unsourced/non-claimed</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R42 FAIL</strong> — Restore must validate or reconstruct every projectile setup and launch command field from canonical runtime card definitions, not merely check cadence counts.</li><li><strong>R43 FAIL</strong> — Derive a strict maximum possible launch/history length from the two canonical runtime combatants and reject oversized arrays before any deep canonical traversal.</li><li><strong>R44 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-004</code></td>
@@ -268,6 +308,7 @@
         <td>13/13</td>
         <td>1</td>
         <td>None on judged dimension; collision/projectile travel/moving-target behavior remains explicitly non-claimed</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R45 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-005</code></td>
@@ -276,6 +317,7 @@
         <td>13/13</td>
         <td>1</td>
         <td>None on judged dimension; formation/radius/projectile/full-match parity remains explicitly non-claimed</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R46 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-006</code></td>
@@ -284,6 +326,7 @@
         <td>14/14</td>
         <td>2</td>
         <td>None on judged dimension; coarse path/zero-radius/first-hit confidence caveats remain explicit</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R47 FAIL</strong> — Expose the required selector and a strictly validated bounded encounter fixture so nearest eligible structure behavior is independently testable beyond the single canonical demonstration.</li><li><strong>R48 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-007</code></td>
@@ -292,6 +335,7 @@
         <td>15/15</td>
         <td>1</td>
         <td>None on judged dimension; shield/form behavior remains an explicit question fixture outside the common schema</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R49 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-008</code></td>
@@ -300,6 +344,7 @@
         <td>0/0</td>
         <td>0</td>
         <td>Wrong-shaped during evidence audit; split into CONTENT-008C/D/J/R</td>
+        <td class="round-gaps">No recorded round gaps.</td>
       </tr>
       <tr>
         <td><code>CONTENT-008C</code></td>
@@ -308,6 +353,7 @@
         <td>12/12</td>
         <td>2</td>
         <td>None on judged dimension; special values remain executable question fixtures</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R50 FAIL</strong> — Expose the non-authoritative special values through a strict, isolated question-fixture API and a pure boundary evaluator so threshold behavior is executable without claiming benchmark authority.</li><li><strong>R51 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-008D</code></td>
@@ -316,6 +362,7 @@
         <td>17/17</td>
         <td>2</td>
         <td>None on judged dimension; special values remain executable question fixtures</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R52 FAIL</strong> — Permit and explicitly order prelaunch and first-transit-boundary death/interruption commands so cancellation, event order, and no-post-death damage are executable at the full boundary surface.</li><li><strong>R53 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-008J</code></td>
@@ -324,6 +371,7 @@
         <td>15/15</td>
         <td>2</td>
         <td>None on judged dimension; special values remain executable question fixtures</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R54 FAIL</strong> — Add an explicit structure candidate at the landing boundary and verify shared area-engine kind eligibility and event ordering without generalizing arbitrary caller-defined candidates.</li><li><strong>R55 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-008R</code></td>
@@ -332,6 +380,7 @@
         <td>15/15</td>
         <td>2</td>
         <td>R2 PASS: checked BigInt projection/addition rejects unsafe intermediates; 17 oracle boundaries and 1,273 restore splits passed</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R56 FAIL</strong> — Reject any recoil whose displacement or origin-plus-displacement intermediate is not a safe exact integer before applying arena clamping.</li><li><strong>R57 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-009</code></td>
@@ -340,6 +389,7 @@
         <td>0/0</td>
         <td>0</td>
         <td>Wrong-shaped during evidence audit; split into CONTENT-009C/P/R/M; special-mechanic values are absent from the corpus</td>
+        <td class="round-gaps">No recorded round gaps.</td>
       </tr>
       <tr>
         <td><code>CONTENT-009C</code></td>
@@ -348,6 +398,7 @@
         <td>23/23</td>
         <td>1</td>
         <td>None on judged dimension; 144 independent probes and all 88 restore splits passed; chain-only values remain QUESTION fixtures</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R58 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-009P</code></td>
@@ -356,6 +407,7 @@
         <td>28/28</td>
         <td>3</td>
         <td>None on judged dimension; policy and runtime agree across 104 capsule oracle cases and 49 restore splits</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R59 FAIL</strong> — The finite capsule omits its start cap—targets exactly 250 millitiles behind the launch origin are rejected—while the declared geometry only names the corridor and end cap.</li><li><strong>R60 FAIL</strong> — Update the frozen collision-geometry QUESTION declaration and its assertion to explicitly include the inclusive start cap, so the declared policy matches the finite-capsule behavior.</li><li><strong>R61 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-009R</code></td>
@@ -364,6 +416,7 @@
         <td>27/27</td>
         <td>2</td>
         <td>None on judged dimension; 48 signed boundary cases, 96 leg checks, caller-mutation isolation, and restore passed</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R62 FAIL</strong> — Add focused signed-axis and all-signed-3-4-5 start/corridor/end boundary regressions plus an executable launch-snapshot mutation test, so future geometry or snapshot regressions cannot pass the declared bar.</li><li><strong>R63 PASS</strong> — None on the judged dimension; return-specific geometry and timing remain explicitly non-authoritative QUESTION fixtures.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-009M</code></td>
@@ -372,6 +425,7 @@
         <td>30/30</td>
         <td>1</td>
         <td>None on judged dimension; 72 independent signed boundary cases, all 96 restore splits, caller-mutation isolation, hostile bounds, and runtime identity isolation passed</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R64 PASS</strong> — None on the judged numeric/mechanical dimension; pellet-specific values and policies remain explicitly non-authoritative QUESTION fixtures.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-010</code></td>
@@ -380,6 +434,7 @@
         <td>0/0</td>
         <td>0</td>
         <td>Wrong-shaped during evidence audit; split into CONTENT-010R/U/L/N/X</td>
+        <td class="round-gaps">No recorded round gaps.</td>
       </tr>
       <tr>
         <td><code>CONTENT-010R</code></td>
@@ -388,6 +443,7 @@
         <td>13/13</td>
         <td>1</td>
         <td>None on judged dimension; stage saturation, all five reset paths, 432 independent restore cuts, hostile/noncausal rejection, and identity isolation passed</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R65 PASS</strong> — None on the judged dimension; ramp values and policies remain explicit non-authoritative QUESTION fixtures.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-010U</code></td>
@@ -396,6 +452,7 @@
         <td>23/23</td>
         <td>2</td>
         <td>None on judged dimension; targetless loss is a serializable no-op, 541 independent restore cuts and Round 1 lifecycle oracle passed</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R66 FAIL</strong> — A valid target-loss command can emit an internally invalid null-target event, permanently breaking causal serialization and continuation when no target exists.</li><li><strong>R67 PASS</strong> — None within the judged dimension; targetless loss is now a deterministic serializable no-op without observable regression.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-010L</code></td>
@@ -404,6 +461,7 @@
         <td>21/21</td>
         <td>1</td>
         <td>None on judged dimension; 3,132 scalar-oracle boundaries and restore cuts plus 4,096-tick drift probe passed</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R68 PASS</strong> — None on the judged dimension; authoritative slow percentages, duration, stacking, refresh, targeting, and composition remain explicit non-authoritative QUESTION records.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-010N</code></td>
@@ -412,6 +470,7 @@
         <td>21/21</td>
         <td>1</td>
         <td>None on judged dimension; 460 movement-oracle cases, 231 restore cuts, unaffected attack schedule, and adversarial isolation passed</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R69 PASS</strong> — None on the judged dimension; source-projectile delivery and cross-status composition remain explicitly deferred QUESTION policies.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-010X</code></td>
@@ -420,6 +479,7 @@
         <td>22/22</td>
         <td>1</td>
         <td>None on judged dimension; 40 independent phase/stage/counter states and 129 causal restore cuts passed without changing ramp semantics</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R70 PASS</strong> — None on the judged dimension; reset delivery and cross-status composition remain deferred non-authoritative QUESTION policies.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-011</code></td>
@@ -428,6 +488,7 @@
         <td>0/0</td>
         <td>0</td>
         <td>Wrong-shaped during evidence audit; split into CONTENT-011A/P/D; cadence, lifetime, placement, ownership, and recursive death-spawn policy are absent from the corpus</td>
+        <td class="round-gaps">No recorded round gaps.</td>
       </tr>
       <tr>
         <td><code>CONTENT-011A</code></td>
@@ -436,6 +497,7 @@
         <td>18/18</td>
         <td>3</td>
         <td>None on judged dimension; 67 independent causal, hostile, ledger-forgery, bound, overflow, and restore probes passed</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R71 FAIL</strong> — Restore does not enforce canonical encoding, the materializer&#x27;s entity schema, or snapshot-size bounds, so forged foreign lifecycle state can enter CONTENT-011A.</li><li><strong>R72 FAIL</strong> — Restore validates bytes and entity schema but not whether the snapshot is reachable through this spawn-only materializer.</li><li><strong>R73 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-011P</code></td>
@@ -444,6 +506,7 @@
         <td>20/20</td>
         <td>1</td>
         <td>None on judged dimension; 22 lethal timings, 585 chunk schedules, 375 restore cuts, and causal ledger probes passed</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R84 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-011D</code></td>
@@ -452,6 +515,7 @@
         <td>16/16</td>
         <td>1</td>
         <td>None on judged dimension; separate critic passed 46 additional adversarial probes through 64 recursive triggers and explicit bounds</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R88 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-012</code></td>
@@ -460,6 +524,7 @@
         <td>0/0</td>
         <td>0</td>
         <td>Wrong-shaped during evidence audit; split into CONTENT-012T/K/C/L/D</td>
+        <td class="round-gaps">No recorded round gaps.</td>
       </tr>
       <tr>
         <td><code>CONTENT-012T</code></td>
@@ -468,6 +533,7 @@
         <td>18/18</td>
         <td>1</td>
         <td>None on judged dimension; independent reducer, mode/kind/layer matrix, 24 QUESTION records, hostile inputs, and every restore cut passed</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R76 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-012K</code></td>
@@ -476,6 +542,7 @@
         <td>17/17</td>
         <td>1</td>
         <td>None on judged dimension; 86 independent projection, corner, overflow, hostile, restore, and provenance probes passed</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R77 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-012C</code></td>
@@ -484,6 +551,7 @@
         <td>24/24</td>
         <td>2</td>
         <td>None on judged dimension; 1,631 independent assertions covered setup preflight, duplicates, signed overflow paths, atomic failures, trace and 501 restore cuts</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R87 FAIL</strong> — Validate all knockback commands and duplicates before execution, or make multi-step execution transactional, so late geometry failures cannot partially advance hidden state.</li><li><strong>R92 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-012L</code></td>
@@ -492,6 +560,7 @@
         <td>18/18</td>
         <td>2</td>
         <td>None on judged dimension; 4,016 independent assertions confirmed interruption retarget 81/readiness 123 and unchanged landing retarget 97/readiness 139</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R86 FAIL</strong> — Schedule retargeting on the first boundary after either landing or interruption, with tick-81 reacquisition and tick-123 readiness regressions.</li><li><strong>R89 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-012D</code></td>
@@ -500,6 +569,7 @@
         <td>19/19</td>
         <td>2</td>
         <td>None on judged dimension; exact primitive event parity passed at interruption tick 60 and death ticks 59/60/70/89 across 1,410 restore cuts</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R85 FAIL</strong> — Preserve the passed dash primitive&#x27;s exact interruption and target-death event schema, with direct dependency-trace regressions.</li><li><strong>R90 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-012E</code></td>
@@ -508,6 +578,7 @@
         <td>21/21</td>
         <td>2</td>
         <td>None on judged dimension; 1,513 attribution, chain, geometry, overflow, restore, snapshot, and scope probes passed</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R78 FAIL</strong> — Same-tick death-cause attribution uses the first command even when it applies zero damage, so an expiry-only death can fire a combat-death effect.</li><li><strong>R82 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-013</code></td>
@@ -516,6 +587,7 @@
         <td>0/0</td>
         <td>0</td>
         <td>Wrong-shaped during evidence audit; split into CONTENT-013H/R/I/F/C; all special values and policies are corpus-absent QUESTIONS</td>
+        <td class="round-gaps">No recorded round gaps.</td>
       </tr>
       <tr>
         <td><code>CONTENT-013H</code></td>
@@ -524,6 +596,7 @@
         <td>12/12</td>
         <td>1</td>
         <td>None on judged dimension; separate critic matched exact damage/death/heal ordering, exclusions, 47 QUESTION records, hostile inputs, chunking, and every restore cut</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R74 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-013R</code></td>
@@ -532,6 +605,7 @@
         <td>17/17</td>
         <td>1</td>
         <td>None on judged dimension; exact BigInt oracle, every phase, 281 restore cuts, drift, hostile snapshots, and all 48 QUESTION records passed</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R81 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-013I</code></td>
@@ -540,6 +614,7 @@
         <td>26/26</td>
         <td>2</td>
         <td>None on judged dimension; exact 23-field provenance bijection, all gameplay traces, 31 restore cuts, hostile inputs, and 4,096-tick run passed</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R75 FAIL</strong> — The provenance test does not freeze one distinct QUESTION record per actual mapped unverified field, so omissions can pass silently.</li><li><strong>R79 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-013F</code></td>
@@ -548,6 +623,7 @@
         <td>28/28</td>
         <td>2</td>
         <td>None on judged dimension; construction rejected all 16 independently probed nonintegral original/reflected signed diagonals and execution failures were byte-atomic</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R80 FAIL</strong> — The accepted setup domain admits diagonals that cannot advance on integer coordinates, causing mid-step failure and non-atomic state mutation.</li><li><strong>R83 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-013C</code></td>
@@ -556,6 +632,7 @@
         <td>20/20</td>
         <td>4</td>
         <td>Round 4 passed: bornTick and batches are setup-order invariant; mixed periodic conversion preserves one shared ledger and ownership overlay</td>
+        <td class="round-gaps"><details><summary>4 recorded round gaps</summary><ol><li><strong>R91 FAIL</strong> — Delegate damage/death/ordinary death-spawn resolution to the shared `DeathSpawnEncounter` instead of maintaining a parallel implementation.</li><li><strong>R96 FAIL</strong> — Derive public batches/children directly from shared output, overlaying only conversion ownership/attribution, and carry periodic lifecycle data through the shared encounter.</li><li><strong>R98 FAIL</strong> — Fix shared `DeathSpawnEncounter.initialState` so `setup.entities.map(runtimeEntity)` does not pass the array index as `bornTick`; every initial entity must start at tick zero.</li><li><strong>R106 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>CONTENT-014</code></td>
@@ -564,6 +641,7 @@
         <td>19/19</td>
         <td>2</td>
         <td>Round 2 passed: real activation matched nine primitive contracts, 105 restore cuts, lifecycle boundaries, hashes, and 116 QUESTION records</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R95 FAIL</strong> — Invoke each shared primitive from the actual activation path and serialize its resulting state/events, rather than recording an adapter name.</li><li><strong>R99 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>BUILDING-001</code></td>
@@ -572,6 +650,7 @@
         <td>23/23</td>
         <td>4</td>
         <td>Round 4 re-passed after refreshing the attack-cycle.js integrity pin broken by the 2a5bd7a status-runtime integration; behavioral differential verified unchanged, cascade into integration-audit resolved; paused-stepping coverage for the newly pinned paths remains open</td>
+        <td class="round-gaps"><details><summary>4 recorded round gaps</summary><ol><li><strong>R93 FAIL</strong> — Replace local ramp, splash, concealment, and contact behavior with composition over passed ramp, area-damage, invisibility, and projectile primitives, and pin all primitive hashes.</li><li><strong>R100 FAIL</strong> — Persist and restore the actual evolving ramp, area-damage, visibility, and resolved projectile primitive states/events—including canonical reset, contact, and fizzle events—instead of nulling, recreating, translating, or discarding them.</li><li><strong>R111 PASS</strong> — None on the judged dimension.</li><li><strong>R292 PASS</strong> — The newly pinned code paths (`stepPaused`/`statusWork`) have no behavioral test coverage anywhere; add a paused-stepping differential so a future attack-cycle change cannot slip through a refreshed pin unexercised.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>BUILDING-002</code></td>
@@ -580,6 +659,7 @@
         <td>18/18</td>
         <td>1</td>
         <td>Round 1 passed: shared primitive bytes/events, exact death batches, lifetimes, chunks, restore, and 13 QUESTION records passed</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R116 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>BUILDING-003A</code></td>
@@ -588,6 +668,7 @@
         <td>13/13</td>
         <td>3</td>
         <td>Round 3 passed: unified sequence, legacy restore, 4,201-tick differential, 1,701 cuts, bounds, resource hash, and 12 QUESTION records passed</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R117 FAIL</strong> — Replace the local resource ledger with composition over canonical elixir state while preserving accumulator, ordinary generation, spending, cap, replay, and restore behavior.</li><li><strong>R121 FAIL</strong> — Preserve the unified spend/grant command sequence across ElixirMatch version-3 serialization and restoration so interleaved post-grant scheduling reproduces byte-identical events and replay.</li><li><strong>R124 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>BUILDING-003B</code></td>
@@ -596,6 +677,7 @@
         <td>13/13</td>
         <td>1</td>
         <td>Round 1 passed: exact travel/emergence/spawn, primitive differentials, 301 cuts, bounds, and 14 QUESTION records passed</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R118 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>SPELL-001</code></td>
@@ -604,6 +686,7 @@
         <td>19/19</td>
         <td>2</td>
         <td>Round 2 passed: 60 eligibility combinations, all liveness routes, primitive hashes, and 129 restore cuts matched</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R94 FAIL</strong> — Preserve retained-target liveness and eligibility when invoking the reset primitive, so dead or ineligible targets cannot reset successfully.</li><li><strong>R97 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>SPELL-002A</code></td>
@@ -612,6 +695,7 @@
         <td>15/15</td>
         <td>2</td>
         <td>Round 2 passed: exact swept contacts, ordering, death/cancel latches, 129 restore cuts, and primitive differentials passed</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R104 FAIL</strong> — Emit and latch each line contact at its exact first swept-capsule boundary, including preserving a tick-3 contact when that target dies before the tick-5 terminal impact.</li><li><strong>R108 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>SPELL-002B</code></td>
@@ -620,6 +704,7 @@
         <td>13/13</td>
         <td>1</td>
         <td>Round 1 passed: three boundaries, geometry/damage, ordering, cancellations, restore, primitives, and 11 QUESTION records passed</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R114 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>SPELL-002C</code></td>
@@ -628,6 +713,7 @@
         <td>15/15</td>
         <td>3</td>
         <td>Round 3 passed: direct terminal primitive bytes persist through cuts 39/128, all 129 restore cuts, lifecycle, bounds, hash, and 14 QUESTION records passed</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R113 FAIL</strong> — Replace the manually copied outbound/turn/inbound state machine with actual return-projectile primitive delegation, preserve its causal contract, and pin its hash.</li><li><strong>R120 FAIL</strong> — Preserve and verify the actual terminal ReturnEncounter state/snapshot bytes instead of deleting the nested primitive immediately on completion.</li><li><strong>R122 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>SPELL-002D</code></td>
@@ -636,6 +722,7 @@
         <td>15/15</td>
         <td>2</td>
         <td>Round 2 passed: exact radius-aware entry oracle, obstacle suppression, geometry, restore, bounds, and 17 QUESTION records passed</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R115 FAIL</strong> — Compute and sort by exact swept-capsule entry distance including collider radius, so the earliest blocking obstacle suppresses equal-or-later contacts.</li><li><strong>R119 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>SPELL-003</code></td>
@@ -644,6 +731,7 @@
         <td>21/21</td>
         <td>2</td>
         <td>Round 2 passed: 52-vector exact pull oracle, mappings, shared area/slow, restore, bounds, and 28 QUESTION records passed</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R105 FAIL</strong> — Normalize pull vectors against the exact Euclidean length rather than its floored integer square root, and cover non-perfect-square signed vectors.</li><li><strong>R109 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>SPELL-004</code></td>
@@ -652,6 +740,7 @@
         <td>14/14</td>
         <td>2</td>
         <td>Round 2 passed: single causal placement batch per boundary, nested ledger bytes, cancellation, 129 cuts, and 14 QUESTION records passed</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R103 FAIL</strong> — Materialize every boundary&#x27;s children through one shared `SpawnBatchMaterializer` causal batch and expose or differentially verify that single primitive ledger entry.</li><li><strong>R110 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>SPELL-005A</code></td>
@@ -660,6 +749,7 @@
         <td>14/14</td>
         <td>3</td>
         <td>Round 3 passed: strict byte-canonical restore, UTF-8 byte limits, multibyte/surrogate cases, cycle differential, and bounds passed</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R101 FAIL</strong> — Make `PreviousCardCopyMatch.restore()` reject noncanonical snapshot bytes rather than silently accepting whitespace or reordered keys.</li><li><strong>R107 FAIL</strong> — Enforce the snapshot limit using UTF-8 byte length so oversized canonical non-ASCII snapshots cannot restore.</li><li><strong>R112 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>SPELL-005B</code></td>
@@ -668,6 +758,7 @@
         <td>16/16</td>
         <td>1</td>
         <td>Round 1 passed: geometry, exclusions, ownership, shared-cycle/form differentials, restore, bounds, and 25 QUESTION records passed</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R102 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>INTEGRATION-001</code></td>
@@ -676,6 +767,7 @@
         <td>58/58</td>
         <td>3</td>
         <td>Wrong-shaped after three occurrence-binding rounds; split into INTEGRATION-001K and INTEGRATION-001C</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R133 FAIL</strong> — The “replay artifact” is only a self-consistent hash of unvalidated TAP text, so the audit can pass without proving that any claimed interaction replay executed or that its bytes were deterministic.</li><li><strong>R140 FAIL</strong> — Replace selector-global first-use evidence and metadata wrappers with direct per-occurrence mechanic adapters for all 58 claims, including real swarm interactions, and validate exact TAP test numbering.</li><li><strong>R145 FAIL</strong> — Advance each facade through a defining claimed-mechanic event and prove the selected export record configures that execution instead of merely being co-packaged.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>INTEGRATION-001K</code></td>
@@ -684,6 +776,7 @@
         <td>58/58</td>
         <td>3</td>
         <td>Wrong-shaped after three TAP-parser rounds; split into INTEGRATION-001R and GUARD-003</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R146 FAIL</strong> — Reject TAP bailouts and unrecognized top-level output so a semantically failed or corrupted runner cannot satisfy strict execution proof with forged clean summaries.</li><li><strong>R147 FAIL</strong> — Parse nested TAP by indentation and context so nested failures, bailouts, and arbitrary prose reject without treating reserved words inside valid diagnostics or test names as control records.</li><li><strong>R148 FAIL</strong> — Reject TAP SKIP/TODO directives as result metadata even when the matched subtest announcement repeats the directive text.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>INTEGRATION-001R</code></td>
@@ -692,6 +785,7 @@
         <td>58/58</td>
         <td>2</td>
         <td>Round 2 refreshed eight stale static occurrence pins and the aggregate manifest after independently checking catalog bindings and defining events; admission 7/7 and integration audit 6/6 pass, fresh critic confirms mutation rejection</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R149 PASS</strong> — None on the judged dimension; hostile TAP-language soundness is GUARD-003 and exhaustive per-card causality is INTEGRATION-001C.</li><li><strong>R328 PASS</strong> — These bindings prove current facade causality, while periodic mechanic values remain QUESTION for historical gameplay parity.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>INTEGRATION-001RP</code></td>
@@ -700,6 +794,7 @@
         <td>6/6</td>
         <td>1</td>
         <td>Round 1 passed: only defensive-building TAP `pass/tests` changed 23→24 due to the provenance test in `eb57e2e`; reconstructed baseline SHA `022ee978…`, current SHA `7eeeab12…`, 58 bindings/46 runners/5 QUESTION exports, and fresh identical sweeps confirmed.</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R346 PASS</strong> — None on the manifest-reconciliation dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GUARD-003</code></td>
@@ -708,6 +803,7 @@
         <td>6/6</td>
         <td>3</td>
         <td>Wrong-shaped parser proof: matched result names containing # SKIP/# TODO directives remain accepted under forged zero counters</td>
+        <td class="round-gaps">No recorded round gaps.</td>
       </tr>
       <tr>
         <td><code>INTEGRATION-001C</code></td>
@@ -716,6 +812,7 @@
         <td>58/58</td>
         <td>3</td>
         <td>40/58 mechanic payloads omit the ID; charge/dash/jump/charge-knockback stop at generic target-acquired rather than defining events</td>
+        <td class="round-gaps">No recorded round gaps.</td>
       </tr>
       <tr>
         <td><code>UI-001</code></td>
@@ -724,6 +821,7 @@
         <td>0/0</td>
         <td>0</td>
         <td>Wrong-shaped during readiness audit; split into UI-001A/B/C</td>
+        <td class="round-gaps">No recorded round gaps.</td>
       </tr>
       <tr>
         <td><code>UI-001A</code></td>
@@ -732,6 +830,7 @@
         <td>7/7</td>
         <td>2</td>
         <td>Round 2 passed: exact inner geometry, complete shell primitives, deterministic DOM/render bytes, provenance, hostile mount, and full suite passed</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R123 FAIL</strong> — The arena border participates in the centralized playfield dimensions, producing unequal horizontal and vertical tile scales and visibly non-square geometry instead of one consistent 18×32 projection.</li><li><strong>R127 PASS</strong> — None on the judged shell dimension; benchmark likeness remains unevaluated because the reference capture is absent.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>UI-001AP</code></td>
@@ -740,6 +839,7 @@
         <td>13/13</td>
         <td>1</td>
         <td>Round 1 passed: all four pins equal current source SHA-256; only the four reviewed shell markup/CSS commits changed bytes. Local original-art provenance, exact geometry, and 720×1280 Chrome landmarks/stacking pass.</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R345 PASS</strong> — None on the pin-reconciliation dimension; bridge and tower footprints remain low-medium coordinate estimates as marked in `SOURCES.md`.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>UI-001B</code></td>
@@ -748,6 +848,7 @@
         <td>9/9</td>
         <td>2</td>
         <td>Round 2 passed: shipped initial/update controller, canonical HUD state, deterministic bytes, strict cardinality/access, transactional rollback, escaping, and guards passed</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R130 FAIL</strong> — The shipped UI never creates or binds a HUD view model, leaving every hand/next/elixir hook empty despite the standalone projection library passing its tests.</li><li><strong>R134 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>UI-001C</code></td>
@@ -756,6 +857,7 @@
         <td>12/12</td>
         <td>3</td>
         <td>Wrong-shaped after three external-transaction rounds; split into UI-001CK and UI-001CT</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R135 FAIL</strong> — Make HUD projection and system commit one rollback-safe transaction so a commit-hook failure cannot leave visible state describing a play the controller rejected.</li><li><strong>R136 FAIL</strong> — If compensating system rollback cannot restore the original references, poison or otherwise fail-close the controller so it cannot continue while external and canonical state disagree.</li><li><strong>R137 FAIL</strong> — The poison policy does not define whether last-known canonical diagnostic getters remain observable after an arbitrary external callback made rollback impossible.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>UI-001CK</code></td>
@@ -764,6 +866,7 @@
         <td>13/13</td>
         <td>2</td>
         <td>Round 2 passed: measured inner-client edges, border rejection, exact mouse/touch commands, normal commit, bounds, and byte-identical restore passed</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R138 FAIL</strong> — Derive the actual inner client playfield rectangle in the shipped browser binding so exact inner edges map to arena edges and decorative border clicks reject.</li><li><strong>R139 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>UI-001CT</code></td>
@@ -772,6 +875,7 @@
         <td>12/12</td>
         <td>3</td>
         <td>Arbitrary callbacks can mutate external state and then make compensation fail; current poison blocks mutations/serialization but diagnostic getter policy remains unresolved</td>
+        <td class="round-gaps">No recorded round gaps.</td>
       </tr>
       <tr>
         <td><code>UI-002</code></td>
@@ -780,6 +884,7 @@
         <td>0/0</td>
         <td>0</td>
         <td>Wrong-shaped during readiness audit; split into UI-002A/B/C/D</td>
+        <td class="round-gaps">No recorded round gaps.</td>
       </tr>
       <tr>
         <td><code>UI-002A</code></td>
@@ -788,6 +893,7 @@
         <td>13/13</td>
         <td>4</td>
         <td>Round 4 passed: pointer/legacy branches, compatibility suppression, opaque receipts, exact geometry/visuals, commands, bounds, and cleanup passed</td>
+        <td class="round-gaps"><details><summary>4 recorded round gaps</summary><ol><li><strong>R141 FAIL</strong> — Exact-shape and causality-validate accepted/rejected placement results and deploy commands before any view/DOM mutation so malformed or forged results cannot display success or corrupt canonical bytes.</li><li><strong>R142 FAIL</strong> — Retain and compare the complete accepted command prefix, bind the first/new command to the controller&#x27;s selected card and immutable catalog cost, and validate spend provenance from the canonical input source rather than trusting a caller-provided lookalike history.</li><li><strong>R143 FAIL</strong> — Choose one event family per browser capability or otherwise deduplicate compatibility pointer/touch releases without wall-clock state so one physical touch produces one placement result and one feedback record.</li><li><strong>R144 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>UI-002B</code></td>
@@ -796,6 +902,7 @@
         <td>11/11</td>
         <td>1</td>
         <td>Round 1 passed: exact reference HP, stable bounded canonical projection/DOM, hostile rejection, and shipped mount</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R150 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>UI-002C</code></td>
@@ -804,6 +911,7 @@
         <td>15/15</td>
         <td>3</td>
         <td>Wrong-shaped after three causal replay-schema rounds; split into UI-002CP and UI-002CV</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R154 FAIL</strong> — Consume actual signed and cancellation replay events from every encounter, preserve overlapping path identities, and reject restore states that cannot originate from canonical event projection.</li><li><strong>R155 FAIL</strong> — Define exact per-event replay schemas that accept canonical travel companion events while rejecting impossible, incomplete, or extra-field raw events before snapshot restoration.</li><li><strong>R159 FAIL</strong> — Complete causal replay validation requires a closed exported event protocol: primitive companion events need support and every companion needs provable launch/effect/command ancestry.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>UI-002CP</code></td>
@@ -812,6 +920,7 @@
         <td>9/9</td>
         <td>5</td>
         <td>Round 5 passed: independent feed-bound failures at second contact, lethal death, ordinary close, synthetic impact and synthetic close preserved feed, state, replay, serialization and fork bytes exactly</td>
+        <td class="round-gaps"><details><summary>5 recorded round gaps</summary><ol><li><strong>R301 FAIL</strong> — The feed is not closed or atomic: restore exposes append authority, source failures leak partial records, and lifecycle/root validation admits forged, premature, branched, reordered and colliding histories.</li><li><strong>R303 FAIL</strong> — The tightened close state machine rejects an authentic traveling spell cancellation before first contact; area lineage and derived identity bounds are also not self-consistent.</li><li><strong>R304 FAIL</strong> — Root identity encoding is not injective for dot-containing admitted strings, and Area restore does not retain its replay-derived canonical history.</li><li><strong>R305 FAIL</strong> — ProjectileCombat validates feed capacity per contact instead of staging the entire due boundary, so a later capacity failure exposes an earlier partial visual record.</li><li><strong>R306 PASS</strong> — No correctness gap remains in the transactional projectile boundary; UI-002CV can now consume the frozen feed.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>UI-002CV</code></td>
@@ -820,6 +929,7 @@
         <td>9/9</td>
         <td>3</td>
         <td>Round 3 passed at 460c6e5: zero terminal raw-authority reads, canonical feedback validation, exact mounted rollback/retry, and real Chrome play/combat/terminal/restart/repeat</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R307 FAIL</strong> — Remove the raw replay read from the shipped frame path and restore the exact prior combat DOM when the host mutates during commit and then throws.</li><li><strong>R308 FAIL</strong> — Derive terminal tower and match feedback from admitted projection data without reading `session.replay` or another producer-private authority.</li><li><strong>R309 PASS</strong> — No blocking gap found within the stated piece. This verdict does not establish completion of production combat art, motion, full endurance, or the final integrated presentation journey.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>UI-002D</code></td>
@@ -828,6 +938,7 @@
         <td>15/15</td>
         <td>3</td>
         <td>Round 3 passed: restored MatchClock snapshot/replay causally proves terminal/tiebreak projection</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R152 FAIL</strong> — Terminal validation must causally bind winner, draw status, reason, and end tick to crowns, tower evidence, overtime, and tiebreak events instead of merely requiring state/event agreement.</li><li><strong>R156 FAIL</strong> — Exact tiebreak minima and drained identities are reconstructed from mutually forgeable terminal event/state because retained history omits the pre-drain tower HP evidence needed to distinguish the actual tiebreak.</li><li><strong>R158 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>VIS-001</code></td>
@@ -836,6 +947,7 @@
         <td>0/0</td>
         <td>0</td>
         <td>Required footage absent</td>
+        <td class="round-gaps">No recorded round gaps.</td>
       </tr>
       <tr>
         <td><code>VIS-002</code></td>
@@ -844,6 +956,7 @@
         <td>0/0</td>
         <td>0</td>
         <td>Required footage absent</td>
+        <td class="round-gaps">No recorded round gaps.</td>
       </tr>
       <tr>
         <td><code>VIS-003</code></td>
@@ -852,6 +965,7 @@
         <td>0/0</td>
         <td>0</td>
         <td>All original-presentation subpieces and integrated endurance pass for the shipped default roster; captured-game parity remains VIS-001/VIS-002</td>
+        <td class="round-gaps">No recorded round gaps.</td>
       </tr>
       <tr>
         <td><code>VIS-003A</code></td>
@@ -860,6 +974,7 @@
         <td>6/6</td>
         <td>1</td>
         <td>Round 1 passed: frozen Rivermark bible pinned by digest, fail-closed asset manifest with byte-for-byte disk parity over three authored CC0 SVG icons, non-vacuous reference-hash disjointness and 22 hostile admission rejections</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R290 PASS</strong> — None on the judged dimension; admission is shape-only by design, with hash correctness enforced byte-for-byte against disk in the suite rather than inside admission.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>VIS-003B</code></td>
@@ -868,6 +983,7 @@
         <td>6/6</td>
         <td>4</td>
         <td>Round4 passed: six authored tower bodies/roofs with shaded volume, exact centers/bridges and readable combat; captured-game parity remains unverified</td>
+        <td class="round-gaps"><details><summary>4 recorded round gaps</summary><ol><li><strong>R293 PASS</strong> — The committed render evidence is not byte-reproducible — `render-probe.json` marker y drifts across reruns because the harness races auto-ticks before manual-step entry; pin manual-step entry before any auto ticks or assert landmark-only stability.</li><li><strong>R311 FAIL</strong> — All six authored tower bodies and roofs are invisible because their pseudo-elements lack generated content, leaving flat placeholder pads.</li><li><strong>R312 FAIL</strong> — Give north tower bodies readable architectural volume so they appear as buildings rather than emblems mounted on flat pads.</li><li><strong>R314 PASS</strong> — Missing captured gameplay reference footage prevents verification of visual parity with the comparison target; original-production-art bar passes.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>VIS-003C</code></td>
@@ -876,6 +992,7 @@
         <td>3/3</td>
         <td>5</td>
         <td>Round 5 passed: both teams assert all 10 identities, unique silhouettes, paired geometry, and red/teal body mapping; serialized view restore reproduces DOM exactly and the gameplay-scale contact sheet confirms the art renders</td>
+        <td class="round-gaps"><details><summary>5 recorded round gaps</summary><ol><li><strong>R310 FAIL</strong> — Canonical melee attacks deal 720 damage while the attacker remains visually idle and no impact appears; map attack/contact state to a visible attack pose and impact cue in the shipped renderer.</li><li><strong>R313 FAIL</strong> — A shipped Brassbolt dying at tick414 vanishes without any death visual, so the required canonical death cue remains missing.</li><li><strong>R315 PASS</strong> — Authorized pre-Evolutions gameplay captures are needed before claiming captured-game visual parity; full motion polish remains VIS-003E.</li><li><strong>R331 FAIL</strong> — The test does not assert that the second team&#x27;s rendered markers preserve all ten archetype identities and team-specific colors.</li><li><strong>R333 PASS</strong> — None on the judged both-team identity, silhouette, faction-color, and deterministic restore dimensions; historical captured-game parity remains outside this round.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>VIS-003D</code></td>
@@ -884,6 +1001,7 @@
         <td>9/9</td>
         <td>5</td>
         <td>Round 5 passed: five exact whole-PNG SHA-256 hashes matched across four fresh Chrome processes; seven moving combat/effect selectors and zero region masks preserve static HUD, bridge, towers, and interface art</td>
+        <td class="round-gaps"><details><summary>5 recorded round gaps</summary><ol><li><strong>R296 FAIL</strong> — Forward `selectedCardId` into the live HUD projection on every input update so an actually clicked card visibly enters the selected state before placement.</li><li><strong>R297 FAIL</strong> — Give Briar Band a readable gameplay-scale silhouette and make the fixed-state evidence byte-reproducible across repeated fresh browser renders.</li><li><strong>R299 FAIL</strong> — Remove the static bridge ornamentation from the evidence mask and regenerate the exact render proof with every reproducible bridge pixel visible.</li><li><strong>R300 PASS</strong> — None on the judged dimension.</li><li><strong>R332 PASS</strong> — None on the judged capture-stability and mask-scope dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>VIS-003E</code></td>
@@ -892,6 +1010,7 @@
         <td>6/6</td>
         <td>2</td>
         <td>Fresh Chrome verifies normal RAF terminal tail, exact restored ages0/6/12/24, frozen simulation, reduced motion and restart; historical footage remains unavailable</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R317 FAIL</strong> — Terminal panel appears instantly; implement a deterministic terminal presentation timeline with verified intermediate/restored frames.</li><li><strong>R318 PASS</strong> — Historical transition timing cannot be calibrated without the missing reference footage; deterministic motion contract passes.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>AUDIO-002</code></td>
@@ -900,6 +1019,7 @@
         <td>5/5</td>
         <td>2</td>
         <td>Round 2 passed: four real-displacement movement cues reached standard Chrome, stationary deploys emitted none, public replay stayed exact, and direct/chunk/restore plus evidence hashes reproduced</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R298 FAIL</strong> — Export or derive one deterministic public movement-start signal that makes the authored movement cue reachable through the shipped browser path without inventing a second simulation.</li><li><strong>R302 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>VIS-003G</code></td>
@@ -908,6 +1028,7 @@
         <td>1/1</td>
         <td>1</td>
         <td>Fresh visual critic passes twelve states without blocking defects; full18000-tick endurance round6 now also passes</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R319 PASS</strong> — Dedicated bridge frame captures traversal; contact is evidenced by the impact frame. Sustained throughput remains a separate pending gate.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>AUDIO-001</code></td>
@@ -916,6 +1037,7 @@
         <td>0/0</td>
         <td>0</td>
         <td>Wrong-shaped during readiness audit; split into AUDIO-001A/B</td>
+        <td class="round-gaps">No recorded round gaps.</td>
       </tr>
       <tr>
         <td><code>AUDIO-001A</code></td>
@@ -924,6 +1046,7 @@
         <td>12/12</td>
         <td>2</td>
         <td>Round 2 passed: causal tower credit, real death mapping, exact capacity, ordering, atomicity, and restore</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R151 FAIL</strong> — Track previously credited destroyed tower IDs in causal projection state so repeated accepted evidence produces explicit no-cue instead of a duplicate crown award.</li><li><strong>R153 PASS</strong> — None on the judged deterministic cue-projection dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>AUDIO-001B</code></td>
@@ -932,6 +1055,7 @@
         <td>11/11</td>
         <td>2</td>
         <td>Round 2 passed: deterministic PCM, reproducible waveform provenance, concrete backend, lifecycle, bounds, and terminal faults</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R157 FAIL</strong> — Implement and exercise bounded deterministic synthesis for every recipe, link provenance to generated waveform bytes, and make uncertain backend commits terminal/idempotent so retries cannot duplicate voices or diverge renderer/backend state.</li><li><strong>R160 PASS</strong> — None within the renderer/provenance boundary; hardware playback is the host sink boundary.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>RELEASE-001A</code></td>
@@ -940,6 +1064,7 @@
         <td>18/18</td>
         <td>3</td>
         <td>Wrong-shaped after three browser-graph closure rounds: custom HTML/SVG parser still accepts untraversed browser-fetching syntax</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R161 FAIL</strong> — Replace regex dependency discovery with syntax-complete, fail-closed HTML/CSS/ES-module parsing including no-whitespace syntax, JSON attributes, CSS escapes, and HTML base/resource semantics.</li><li><strong>R162 FAIL</strong> — Match browser URL resolution recursively across base query/ fragment paths, CSS image functions, inline styles/responsive HTML resources, and nested SVG while rejecting malformed syntax.</li><li><strong>R163 FAIL</strong> — The custom HTML/SVG graph parser still accepts browser-fetching syntax it does not traverse, so artifact graph closure is not fail-closed.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>RELEASE-001W</code></td>
@@ -948,6 +1073,7 @@
         <td>1/1</td>
         <td>1</td>
         <td>Fresh built-only Chrome journey passes twelve states,69 manifest-listed app paths, actual audio, exact restart and idempotent cleanup</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R322 PASS</strong> — Terminal uses the documented bounded profile; this proves runtime wiring, not standard balance, captured-game parity or full release.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>RELEASE-001M</code></td>
@@ -956,6 +1082,7 @@
         <td>0/0</td>
         <td>0</td>
         <td>Runtime wiring now passes; browser-graph enforcement and entry-accurate provenance audit remain unresolved</td>
+        <td class="round-gaps">No recorded round gaps.</td>
       </tr>
       <tr>
         <td><code>RELEASE-001</code></td>
@@ -964,6 +1091,7 @@
         <td>0/0</td>
         <td>0</td>
         <td>Waiting on release subpieces, visual captures, causal integration questions, and enforcement questions</td>
+        <td class="round-gaps">No recorded round gaps.</td>
       </tr>
       <tr>
         <td><code>GAME-001R</code></td>
@@ -972,6 +1100,7 @@
         <td>9/9</td>
         <td>5</td>
         <td>Regression Round 5 passed full-value/order/freeze and 60-node graph detachment across eight cards/nine entities; all alias probes fail and canonical 11,154-byte roster output remains unchanged</td>
+        <td class="round-gaps"><details><summary>5 recorded round gaps</summary><ol><li><strong>R164 FAIL</strong> — `resolvePlayableRosterQuestion` is fail-open to accessor-bearing and hidden-property inputs, executing attacker-controlled getters instead of rejecting them atomically.</li><li><strong>R166 FAIL</strong> — The resolver canonicalizes unchecked nested QUESTION field values before proving they are primitive canonical data, so attacker-controlled getters still execute during rejection.</li><li><strong>R169 PASS</strong> — None on the judged dimension.</li><li><strong>R256 FAIL</strong> — Add explicit identity assertions for every entity record and each nested policy object so the test proves full graph detachment, not only detached containers.</li><li><strong>R257 PASS</strong> — None on the judged playable-roster regression dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001P</code></td>
@@ -980,6 +1109,7 @@
         <td>8/8</td>
         <td>3</td>
         <td>Wrong-shaped after three restore-provenance rounds; split into GAME-001PK and GAME-001PH</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R168 FAIL</strong> — Restore does not prove the active ground segment is the canonical `findGroundPath` route, and route nodes are not made body-radius safe.</li><li><strong>R172 FAIL</strong> — Route shape is checked, but elapsed tick/progress/index provenance is not causally replayed, so impossible canonical suffix states still restore.</li><li><strong>R175 FAIL</strong> — After three restore-provenance rounds, the combined bar remains wrong-shaped: live movement is green, but exhaustive minimal hostile command- history canonicalization remains open. Split into GAME-001PK and GAME-001PH.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001PK</code></td>
@@ -988,6 +1118,7 @@
         <td>5/5</td>
         <td>1</td>
         <td>Round 1 passed: 8 live journeys, 220 restore cuts, both bridges/radii/signed speeds/chunks/atomic rejections passed</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R183 PASS</strong> — None on the judged live-produced movement dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001PH</code></td>
@@ -996,6 +1127,7 @@
         <td>0/3</td>
         <td>3</td>
         <td>Wrong-shaped after three canonicality rounds: the bounded &gt;64 pair and &gt;128 exact-window cutoffs accept distinct 129-command and 29-command byte-fixed histories with identical reachable authority; exact global minimality is incompatible with the current bounded online-history bar</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R248 FAIL</strong> — Validate semantic minimality for every history, not only histories selected by a heuristic redundancy predicate, while retaining bounded restore cost and live snapshot compatibility.</li><li><strong>R249 FAIL</strong> — Replace the size-frontier split with one idempotent canonical normal form; every live serialization must already equal the representation that restore independently derives, including histories that shrink across the exact-search frontier.</li><li><strong>R250 FAIL</strong> — The bounded canonicalizer cannot prove the bar&#x27;s unique global minimal history above its cutoffs, so two distinct byte-fixed histories remain accepted for one reachable authority.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001PHR</code></td>
@@ -1004,6 +1136,7 @@
         <td>23/23</td>
         <td>1</td>
         <td>Fresh critic passed 23 history tests and 5 kernel tests; 97,035 bytes stable, serialize/restore 2.26/2.28 s to 0.55/0.57 s. Parent global-minimality QUESTION remains</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R326 PASS</strong> — This improves a costly replay path but does not solve the parent GAME-001PH global minimality QUESTION.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001K</code></td>
@@ -1012,6 +1145,7 @@
         <td>9/9</td>
         <td>2</td>
         <td>Round 2 passed: due-spawn and multi-boundary failures are byte-atomic; causal restore forgeries reject</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R170 FAIL</strong> — Deferred-spawn capacity failure mutates live and pending entity state before throwing instead of rejecting the whole tick atomically.</li><li><strong>R173 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001KX</code></td>
@@ -1020,6 +1154,7 @@
         <td>9/9</td>
         <td>3</td>
         <td>Round 3 passed: permanent disjoint identity reservations and projectile attack-sequence provenance passed live/restore bounds</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R176 FAIL</strong> — Structure identity does not immutably bind ownership, so in-flight projectiles can hit a now-friendly structure; duplicate contact provenance is also not rejected.</li><li><strong>R177 FAIL</strong> — External numeric IDs are not permanently reserved against later unit spawn/schedule, so structure identity can still be reassigned through a different authoritative entity kind.</li><li><strong>R178 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001TX</code></td>
@@ -1028,6 +1163,7 @@
         <td>9/9</td>
         <td>1</td>
         <td>Round 1 passed: all six towers attacked only hostile sides; identity/restore/bounds and legacy v3 compatibility passed</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R179 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001T</code></td>
@@ -1036,6 +1172,7 @@
         <td>11/11</td>
         <td>3</td>
         <td>Wrong-shaped after three projectile-provenance rounds; split into GAME-001TK and GAME-001TH</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R180 FAIL</strong> — Unit and tower projectile namespaces collide in provenance joins, so simultaneous equal IDs can rewrite the source identity of unit→tower hits.</li><li><strong>R181 FAIL</strong> — The projectile identity chain still begins after the structure- attack event, so not every causal projectile event can be joined explicitly.</li><li><strong>R182 FAIL</strong> — After three provenance rounds, the combined bar is wrong-shaped: live unit↔tower state composition is green, while exhaustive identity on raw unit-to-unit upstream events remains open. Split into GAME-001TK/GAME-001TH.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001TK</code></td>
@@ -1044,6 +1181,7 @@
         <td>7/7</td>
         <td>1</td>
         <td>Round 1 passed: authoritative bidirectional damage/activation/deaths, preview isolation, chunks and all live cuts passed</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R184 PASS</strong> — None on the judged live-produced kernel dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001TH</code></td>
@@ -1052,6 +1190,7 @@
         <td>17/17</td>
         <td>3</td>
         <td>Round 3 passed: all three directions carry source-minted identity; no origin lookup remains; 16 hostile preview forms reject trap-zero and the single-use state-bound receipt lifecycle is exact</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R251 FAIL</strong> — Remove `#unitProjectileOrigins` and every launch-derived ancestry lookup, then forward and validate the source-minted identity directly on every projectile-bearing record.</li><li><strong>R252 FAIL</strong> — `stepBoundaryAfterPreview` must reject Proxy/accessor-wrapped current projectile events and nested identity records before observing traps or mutating state.</li><li><strong>R253 PASS</strong> — None on the judged projectile identity and preview-capability dimension. Future BattleCombat mutation methods must replace the private state token so stale receipts cannot survive.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001A</code></td>
@@ -1060,6 +1199,7 @@
         <td>9/9</td>
         <td>5</td>
         <td>Original live-battle bar independently green through rounds 3-5: both directions, tower destruction, deaths/trades, chunks/restores and atomic capacity; hostile admission proof split to GAME-001AH after three validation-only gaps</td>
+        <td class="round-gaps"><details><summary>5 recorded round gaps</summary><ol><li><strong>R185 FAIL</strong> — LiveBattle crosses the simulation graph boundary for roster data, and replay-based per-boundary cloning is too slow for a real-time match.</li><li><strong>R186 FAIL</strong> — Mirrored ground path/contact geometry leaves south-side attackers permanently 200 millitiles outside the north-east tower, and failed capacity steps are not byte-atomic.</li><li><strong>R187 FAIL</strong> — Injected setup validation does not require globally unique archetype identities or an exact referenced QUESTION inventory, so canonical snapshots admit ambiguous live identities and arbitrary unused policy records.</li><li><strong>R188 FAIL</strong> — Setup validation reflectively interrogates and accepts Proxy-backed records, executing attacker code instead of enforcing a zero-execution input boundary.</li><li><strong>R189 FAIL</strong> — After three consecutive setup/snapshot-validation rounds, the combined piece is wrong-shaped: the original live-battle bar is repeatedly green, while hostile admission bounds remain open. The live dimension is accepted as GAME-001A; full hostile admission is split to GAME-001AH.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001AH</code></td>
@@ -1068,6 +1208,7 @@
         <td>10/10</td>
         <td>1</td>
         <td>Round 1 passed: exact/one-over outer limits, controlled deep/wide rejection, Unicode scalar policy, legitimate tick-600 restore and guard all independently passed</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R190 PASS</strong> — None on the judged hostile setup/snapshot admission dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001B</code></td>
@@ -1076,6 +1217,7 @@
         <td>11/11</td>
         <td>3</td>
         <td>Core receipt→spend→cycle→LiveBattle bar repeatedly green; capability-safe controller lifecycle split to GAME-001BH after three authority-boundary rounds</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R191 FAIL</strong> — The actual browser input seam cannot feed the bridge through one pre-commit authority, so the current implementation double-owns spend/cycle state and does not safely bound hostile command/snapshot admission.</li><li><strong>R192 FAIL</strong> — Prepared transactions lack epoch/single-flight freshness, and projection/reentrancy failures can make controller, bridge and external views observably divergent.</li><li><strong>R193 FAIL</strong> — After three authority-boundary rounds, the combined piece is wrong-shaped: the core atomic player command bridge is repeatedly green, while capability-safe controller ownership/projection remains open. The core is accepted as GAME-001B; lifecycle hardening is split to GAME-001BH.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001BH</code></td>
@@ -1084,6 +1226,7 @@
         <td>18/18</td>
         <td>3</td>
         <td>Wrong-shaped after three lifecycle rounds; split into GAME-001BHA and GAME-001BHR</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R194 FAIL</strong> — Mount/authority handoff is not transactional and remount does not continue the bridge command cursor; rejected nested input can mutate seam state before the common reentrancy guard.</li><li><strong>R196 FAIL</strong> — Mount admits the HUD through reflective property reads instead of a private data-only capability, violating zero-execution admission.</li><li><strong>R199 FAIL</strong> — After three lifecycle rounds the combined piece is wrong-shaped: trap-zero capability admission and fresh authoritative remount continuation must be judged separately. Split into GAME-001BHA and GAME-001BHR.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001BHA</code></td>
@@ -1092,6 +1235,7 @@
         <td>18/18</td>
         <td>3</td>
         <td>Round 3 passed: primitive trap-zero admission, exact bridge brand, permanent tokens, sink/bridge authority claims and sequential fresh-token release</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R202 FAIL</strong> — Move bridge authenticity to an unforgeable private instance brand and consume the HUD token before any shell validation or argument inspection.</li><li><strong>R204 FAIL</strong> — Bind fresh capabilities sharing one sink/bridge authority to a single active mount claim, while allowing sequential fresh-token continuation.</li><li><strong>R205 PASS</strong> — None on the judged single-use admission/authority-claim boundary.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001BHR</code></td>
@@ -1100,6 +1244,7 @@
         <td>6/6</td>
         <td>3</td>
         <td>Production authoritative remount/advance/restore sealed behind frozen diagnostics; raw option admission split to GAME-001BHRA after three rounds</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R208 FAIL</strong> — Wire the shipped arena entry to the real authoritative bridge and compare its full canonical card witness so production—not only tests—can remount.</li><li><strong>R210 FAIL</strong> — Hide live authority and route advance/restore through session-owned lifecycle operations that keep bridge, input, feedback and HUD synchronized.</li><li><strong>R211 FAIL</strong> — After three remount rounds the production lifecycle is green while trap-zero entry option admission remains open. Accept GAME-001BHR and split the option boundary to GAME-001BHRA.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001BHRA</code></td>
@@ -1108,6 +1253,7 @@
         <td>7/7</td>
         <td>1</td>
         <td>Round 1 passed: object/callable/revoked/cross-realm/accessor/primitive probes trap-zero; captured single-use tokens and production lifecycle passed</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R212 PASS</strong> — None on the judged production option admission boundary.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001O</code></td>
@@ -1116,6 +1262,7 @@
         <td>10/10</td>
         <td>2</td>
         <td>Round 2 passed: full observation provenance rejects 13 causal forgeries; size edges and restore bytes passed</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R165 FAIL</strong> — Snapshots retain only eligible-candidate count and RNG index, not the canonical eligible candidate identities, so restore cannot prove that a recorded proposal was the seeded legal affordable choice.</li><li><strong>R167 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001HC</code></td>
@@ -1124,6 +1271,7 @@
         <td>5/5</td>
         <td>3</td>
         <td>Current v2 full-match history independently passed through tick 18,000; nested legacy continuation identity split to GAME-001HCL after three compatibility rounds</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R200 FAIL</strong> — Give compact BattleCombat an explicit v2 schema and iteratively bound the full decoder graph before canonicalization or run expansion.</li><li><strong>R203 FAIL</strong> — Validate nested legacy combat by exact restored semantics/replay, then canonically upgrade it, so genuine historical Live→Tower→Combat v1 chains remain restorable without weakening forgery checks.</li><li><strong>R206 FAIL</strong> — After three HC rounds the current full-match v2 bar is repeatedly green while continuation-complete nested legacy compatibility remains open. Accept GAME-001HC and split the legacy identity proof to GAME-001HCL.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001HCL</code></td>
@@ -1132,6 +1280,7 @@
         <td>5/5</td>
         <td>2</td>
         <td>Round 2 passed: all 12 private dimensions compare iteratively; exact 256-unit/36,352-event legacy amplification upgrades and continues</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R207 FAIL</strong> — Compare continuation-complete decoded state without an underbounded materialized proof string, or derive the proof ceiling from admitted legacy amplification with exact worst-case bounds.</li><li><strong>R209 PASS</strong> — None on the judged continuation-complete legacy upgrade boundary.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001C</code></td>
@@ -1140,6 +1289,7 @@
         <td>13/13</td>
         <td>4</td>
         <td>Full tick-18,000 autonomous opponent loop, roster/cost authority, admission bounds, chunks/restores and guard passed independently</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R195 FAIL</strong> — Bind deck/cost authority exactly to the injected LiveBattle roster, and resolve the shared tick-874 unbounded transcript cap before opponent play can support a full match. The shared cap is split to GAME-001HC.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001V</code></td>
@@ -1148,6 +1298,7 @@
         <td>10/10</td>
         <td>2</td>
         <td>Round 2 passed: authoritative tower bytes replay exact transitions; hostile streams have no accepted API</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R171 FAIL</strong> — The bridge trusts event arrays without proving they are the canonical CrownTowerBattle transition for the supplied prior/current states.</li><li><strong>R174 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001D</code></td>
@@ -1156,6 +1307,7 @@
         <td>8/8</td>
         <td>3</td>
         <td>Round 3 passed exact chronological terminal prefix: live simultaneous lane deaths, central terminal, batch/chunk/final-step/restore byte parity and all-authority freeze</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R213 FAIL</strong> — Restore from setup plus causal session transitions, deriving every collection and clock/tower result from the sole LiveBattle authority under iterative bounded admission.</li><li><strong>R214 FAIL</strong> — Resolve live tower evidence chronologically and adopt only the exact prefix through the first terminal tick, with one-step/batch equality under real simultaneous tower destruction.</li><li><strong>R218 PASS</strong> — None on the judged terminal-prefix and chronological live-destruction dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001E</code></td>
@@ -1164,6 +1316,7 @@
         <td>0/0</td>
         <td>0</td>
         <td>E1 atomic projection, E2 exact input delivery, E3 scheduler/lifecycle and E4 fresh restart all passed separate executable bars</td>
+        <td class="round-gaps">No recorded round gaps.</td>
       </tr>
       <tr>
         <td><code>GAME-001E1</code></td>
@@ -1172,6 +1325,7 @@
         <td>18/18</td>
         <td>5</td>
         <td>Round 5 passed one-snapshot atomic projection through authentic tick-120 and live terminal combat, exact lifecycle normalization, authoritative maxima, trap-zero admission and rollback</td>
+        <td class="round-gaps"><details><summary>5 recorded round gaps</summary><ol><li><strong>R217 FAIL</strong> — Include the failing layer in rollback after a partial commit and replace reflective frame admission with module-owned trap-zero authentication.</li><li><strong>R219 FAIL</strong> — Replace the two per-frame restore replays with one module-owned immutable projection snapshot from the authoritative session.</li><li><strong>R221 FAIL</strong> — Carry authoritative maximum hitpoints in the GameSession projection snapshot and remove the UI-local tower-health authority.</li><li><strong>R223 FAIL</strong> — Normalize authoritative live session combat state/replay into the combat/effects view schemas, including clearing dead target references.</li><li><strong>R225 PASS</strong> — None on the judged atomic session-to-view projection dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001E2</code></td>
@@ -1180,6 +1334,7 @@
         <td>6/6</td>
         <td>2</td>
         <td>Round 2 passed trap-zero module-owned session authentication, exact-once pointer/touch delivery, atomic rejection and restore without redelivery</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R215 FAIL</strong> — Replace reflective session validation with module-owned trap-zero GameSession authentication in construction and restore.</li><li><strong>R216 PASS</strong> — None on the judged delivery/authentication dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001E3</code></td>
@@ -1188,6 +1343,7 @@
         <td>6/6</td>
         <td>2</td>
         <td>Round 2 passed authoritative tick/hand/deck/elixir and command-ID continuation across RAF/restore, bounded batched scheduling, terminal/listener cleanup and shipped entry mounting</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R224 FAIL</strong> — Synchronize the mounted input controller with every authoritative session frame and preserve tick/command continuation across restore/remount.</li><li><strong>R226 PASS</strong> — None on the judged browser lifecycle/scheduler dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001E4</code></td>
@@ -1196,6 +1352,7 @@
         <td>3/3</td>
         <td>1</td>
         <td>Round 1 passed authentic terminal replacement, byte-exact seed-0 reset, repeated restart, stale graph/listener/audio cleanup, policy preservation and hostile cleanup aggregation</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R231 PASS</strong> — None on the judged fresh-session lifecycle dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001F</code></td>
@@ -1204,6 +1361,7 @@
         <td>0/0</td>
         <td>0</td>
         <td>F1 authoritative cue feed and F2 trusted-gesture audible browser backend both passed their separate executable bars</td>
+        <td class="round-gaps">No recorded round gaps.</td>
       </tr>
       <tr>
         <td><code>GAME-001F1</code></td>
@@ -1212,6 +1370,7 @@
         <td>7/7</td>
         <td>2</td>
         <td>Round 2 passed exact registration, authoritative ordered cue feed/dedupe, persistent gain/mute across restart, terminal cleanup and bounded trap-zero restore</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R220 FAIL</strong> — Register the mandatory runner, preserve user gain/mute through a session-generation reset, and bound hostile snapshot admission iteratively.</li><li><strong>R222 PASS</strong> — None on the judged session-to-audio feed dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001F2</code></td>
@@ -1220,6 +1379,7 @@
         <td>11/11</td>
         <td>3</td>
         <td>Round 3 passed trusted unlock, audible control transactions, all-source rollback, atomic policy state, permanent faulting and observed idempotent cleanup</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R227 FAIL</strong> — Roll back every earlier source in a failed multi-voice transaction, fault the sink consistently, and observe asynchronous context-close rejection.</li><li><strong>R228 FAIL</strong> — Stage gain/mute policy locally and commit it only after the Web Audio gain-node update succeeds.</li><li><strong>R229 PASS</strong> — None on the judged audible browser backend/control dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001GH</code></td>
@@ -1228,6 +1388,7 @@
         <td>1/1</td>
         <td>2</td>
         <td>Round 2 passed exact tick 18,000 with 319,534-byte terminal snapshot, exact restore cuts and private null-prototype compact handles; independent export/proxy/import probes found no authority leak</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R235 FAIL</strong> — Make compact checkpoints genuinely private/module-capability-only rather than public `continuationFork()` prototype methods, while retaining the documented public serialize/restore/replay/fork contracts.</li><li><strong>R242 PASS</strong> — None on the judged sustained-history/private-capability dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001GP</code></td>
@@ -1236,6 +1397,7 @@
         <td>1/1</td>
         <td>6</td>
         <td>Round6 reaches18000 and exact restart/restore/audio/input; no driven longtasks,35.2ms max simulation slice,829.8s workload; unchanged caps</td>
+        <td class="round-gaps"><details><summary>6 recorded round gaps</summary><ol><li><strong>R237 FAIL</strong> — The shipped default-GH browser drive breaches the hard 50 ms LongTask cap by tick 900 and therefore never reaches the required tick-18,000 terminal/restart journey.</li><li><strong>R247 PASS</strong> — None on the judged sustained browser-throughput dimension.</li><li><strong>R295 PASS</strong> — A fully frozen RAF yield seam would hang page.evaluate until the ~21-minute test timeout instead of a fast explicit failure — wrap driveBrowserSegment in a Promise.race deadline.</li><li><strong>R316 FAIL</strong> — Sustained browser presentation exceeds the long-task cap before terminal; profiling the100-tick presentation transaction is underway.</li><li><strong>R320 FAIL</strong> — Late-match browser responsiveness still exceeds50ms; both reported tasks precede the final segment, so input/presentation profiling is needed to distinguish their cause from simulation and audio work.</li><li><strong>R321 PASS</strong> — No failing gap on this bar; audio presentation peaked at39.2ms, which is remaining headroom to watch rather than a failed threshold.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001GPV</code></td>
@@ -1244,6 +1406,7 @@
         <td>2/2</td>
         <td>2</td>
         <td>Round 2 fresh critic passed delayed-task probe and 900-tick run; follow-up full 18,000-tick Chrome run passed 2/2 in 804.2 s, 61 segments, zero driven long tasks, initialization max 176 ms and exact terminal/restart</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R327 FAIL</strong> — Driven tasks over 50 ms can escape the assertion when their observer records arrive after the segment&#x27;s first read.</li><li><strong>R329 PASS</strong> — None on timing attribution or the full endurance bar; captured-game balance and other roster coverage remain separate pieces.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001GS</code></td>
@@ -1252,6 +1415,7 @@
         <td>1/1</td>
         <td>2</td>
         <td>Round 2 re-passed after de-racing the clock observation (freeze tick no longer decides the assertion; exact recomputed clock string at a forced tick); four consecutive journeys pass with mutation-bitten error/restart checks</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R232 PASS</strong> — None on the judged short authentic browser journey; sustained default-match endurance remains separately open in GAME-001GH/GP.</li><li><strong>R291 PASS</strong> — None on the judged dimension; endurance and movement-history wall-clock bounds remain flaky on this machine and must not be attributed to this piece.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001G</code></td>
@@ -1260,6 +1424,7 @@
         <td>0/0</td>
         <td>0</td>
         <td>Trusted controls and full18000-tick endurance pass, including exact restore, audio continuation and restart</td>
+        <td class="round-gaps">No recorded round gaps.</td>
       </tr>
       <tr>
         <td><code>GAME-001H</code></td>
@@ -1268,6 +1433,7 @@
         <td>0/0</td>
         <td>0</td>
         <td>Split into independently judged shared admission, authority integration, troop, building and spell session bindings</td>
+        <td class="round-gaps">No recorded round gaps.</td>
       </tr>
       <tr>
         <td><code>GAME-001HA</code></td>
@@ -1276,6 +1442,7 @@
         <td>7/7</td>
         <td>1</td>
         <td>Round 1 passed exact 58/53 accounting, 47 admitted legal deck witnesses, six sourced QUESTION exclusions, typed once-only routing, zero non-unit placeholders and bounded canonical history</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R230 PASS</strong> — None on the judged heterogeneous admission/history dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001HTA</code></td>
@@ -1284,6 +1451,7 @@
         <td>7/7</td>
         <td>3</td>
         <td>Round 3 passed: the seam observes the canonical tick-102 Mossguard attack→202 damage→causal receipt with no external ingress or gameplay delta; early/forged contacts and hostile inputs reject exactly</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R238 FAIL</strong> — Replace the costless receipt-only marker façade with one sourced representative reducer intent that LiveBattle legally applies to authoritative shared combat/status state.</li><li><strong>R240 FAIL</strong> — Replace the premature fixture with a sourced live reducer intent that cannot apply before the source&#x27;s authoritative deployment/attack phase.</li><li><strong>R245 PASS</strong> — None on the judged shared troop mechanic authority seam.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001HT</code></td>
@@ -1292,6 +1460,7 @@
         <td>0/0</td>
         <td>1</td>
         <td>Round 1 failed; split by independently executable projection/mechanic families after audit found 31 admitted IDs, two QUESTION identities and no honest one-patch shared-runtime path</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R233 FAIL</strong> — Make LiveBattle own a serialized/forkable SessionTroopRuntime intent reducer across deploy/pre-move/pre-combat/post-combat and expose its canonical ability actions through GameSession.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001HTP</code></td>
@@ -1300,6 +1469,7 @@
         <td>11/11</td>
         <td>1</td>
         <td>Round 1 passed exact 35/33 accounting, all 33 admitted source joins, two stale QUESTION fail-closed pins, one profile/composition per duplicated ID, canonical frozen clones and trap-zero hostile lookup</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R254 PASS</strong> — None on the judged immutable occurrence/profile contract. Runtime projection and mechanics remain separate later pieces.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001HTO</code></td>
@@ -1308,6 +1478,7 @@
         <td>14/14</td>
         <td>3</td>
         <td>Round 3 passed all 31 real sessions, 32 entities and 64 policies; 128 paired omissions, 31 whole-card omissions and every mixed legacy/HTO policy mode reject before admission</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R255 FAIL</strong> — `compileProjection()` reuses the eight legacy playable cards verbatim inside HTO witnesses. HTO must attach explicit delivery/layer QUESTION policies to those witness projections without changing the shipped legacy browser roster or its canonical bytes.</li><li><strong>R258 FAIL</strong> — LiveBattle treats a policy-less entity as valid legacy data even when the rest of the same setup uses HTO ordinary policies. Setup admission must be uniformly legacy or uniformly QUESTION-backed and reject mixed mode before exposure or mutation.</li><li><strong>R259 PASS</strong> — None on the judged ordinary troop projection dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001HTMP</code></td>
@@ -1316,6 +1487,7 @@
         <td>25/25</td>
         <td>12</td>
         <td>Round 12 passed 80 real nested-alias rejections, 210 synthetic delimiter rejections, exact 6/30 domain admission, zero hostile effects and the pinned 67,284-byte manifest/hash</td>
+        <td class="round-gaps"><details><summary>12 recorded round gaps</summary><ol><li><strong>R262 FAIL</strong> — The profile accepts changed same-ID source values rather than failing closed on future source-record drift.</li><li><strong>R265 FAIL</strong> — QUESTION factory contents are not pinned, so future value or record-count changes are exposed instead of failing closed.</li><li><strong>R266 FAIL</strong> — Require damage to be `null` or a safe integer and reject non-finite numbers before canonicalization so they cannot collide with a pinned null.</li><li><strong>R268 FAIL</strong> — Reject Proxy input before `Object.getOwnPropertyDescriptors` so canonicalization never invokes a hostile `ownKeys` trap.</li><li><strong>R270 FAIL</strong> — Make every trusted canonical-admission path reject untrusted Proxy graphs before reflection, including alias-created Proxies that bypass the transformed-source text guard.</li><li><strong>R275 FAIL</strong> — Make QUESTION construction private and trap-zero so no exported constructor can mint identity for altered data or inspect hostile source graphs.</li><li><strong>R277 FAIL</strong> — Authenticate each QUESTION factory against its exact unwrapped module-owned identity before invoking it, so bound, proxied and callable wrappers cannot execute callbacks or enter admission.</li><li><strong>R280 FAIL</strong> — The source module still supplies both sides of its own factory identity check through an accessor-capable exported authority object; move the trusted factory and graph authority behind an independent direct-binding module and never read caller-controlled authority properties.</li><li><strong>R282 FAIL</strong> — Bind every admitted graph node to its exact mechanic domain and make the authority module reject query/fragment duplicate instantiation so a coherent resolver alias cannot replace the canonical authority graph.</li><li><strong>R283 FAIL</strong> — Parse `import.meta.url` without any mutable global or prototype capability so query/fragment duplicate authority instances reject before exports or trusted graph state become usable.</li><li><strong>R284 FAIL</strong> — Recognize arbitrarily nested percent encoding of query/hash delimiter spellings in the primitive module-URL scan so `%253F`-style aliases cannot instantiate a coherent duplicate authority.</li><li><strong>R285 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001HTM</code></td>
@@ -1324,6 +1496,7 @@
         <td>22/22</td>
         <td>5</td>
         <td>Round 5 re-passed after replacing the flaky absolute restore-time bound with a scaled 256-vs-1024 ratio guard (quadratic baseline ~16x passes with headroom, cubic fails decisively, load-invariant); serialization purity from round 4 unchanged</td>
+        <td class="round-gaps"><details><summary>5 recorded round gaps</summary><ol><li><strong>R286 FAIL</strong> — Scope the sourced axis-aligned flight policy and movement intent materialization strictly to Copperskiff and Skymaul so enabling the v4 receipt cannot alter or reject ordinary ground movement.</li><li><strong>R287 FAIL</strong> — Fix ordinary multi-entity BattleMovement command-history canonicalization so the Cinderlings redeploy scenario serializes and completes the required continuation differential.</li><li><strong>R288 FAIL</strong> — Make intermediate movement-history canonicalization preserve the command tick required for LiveBattle replay, so serialization is pure and a tick-177 serialize cannot create a noncausal tick-200 witness.</li><li><strong>R289 PASS</strong> — None on the judged purity dimension; the new uncached serialize path clones per call with no cost bound, which only matters if an every-tick serialization schedule becomes a shipped pattern.</li><li><strong>R294 PASS</strong> — K=32 tolerates same-complexity constant-factor slowdowns up to about 2x; tighten or add a midpoint ratio check if constant-factor regressions ever matter.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001HTJP</code></td>
@@ -1332,6 +1505,7 @@
         <td>26/26</td>
         <td>6</td>
         <td>Round 6 passed 1,105 source mutations, 452 hostile cases with zero callbacks/traps, 32 TOCTOU probes, eight authority forgeries, exact 66,903-byte manifest/hash and all dependent suites</td>
+        <td class="round-gaps"><details><summary>6 recorded round gaps</summary><ol><li><strong>R261 FAIL</strong> — Copperskiff lacks card-specific source proof of projectile delivery. A generic flying duel cannot justify admitting Copperskiff while excluding Skymaul; add a specific source receipt or keep Copperskiff as an explicit delivery QUESTION.</li><li><strong>R263 FAIL</strong> — Brassbolt and Reedsting are admitted from a generic synthetic launch constructor with no card-specific delivery discriminator. Ordinary delivery must remain QUESTION unless a card-specific source receipt exists, and every bound source record must reject same-ID value drift.</li><li><strong>R267 FAIL</strong> — Reject non-plain source-record and component prototypes before canonicalization so hostile custom-prototype shapes cannot escape.</li><li><strong>R269 FAIL</strong> — Validate source rows at the shared catalog-admission seam before session-card-catalog, HTP or HTO can read any field.</li><li><strong>R272 FAIL</strong> — Separate public catalog cloning from private authoritative source admission so session-card-catalog, HTP and HTO reject rebranded source-value drift before projection.</li><li><strong>R274 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001HTJ</code></td>
@@ -1340,6 +1514,7 @@
         <td>6/6</td>
         <td>2</td>
         <td>Round 2 passed private exact-receipt plan issuance, 40 fresh-process authority attacks, 113 altered receipts, 11 facade mismatches, realpath-exact guard closure and all 165 required selector tests</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R279 FAIL</strong> — Remove the public registrar and every generic plan-mint path so only exact module-owned content authority can produce an accepted internal projectile plan and no earlier importer can deny registration.</li><li><strong>R281 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001HTSP</code></td>
@@ -1348,6 +1523,7 @@
         <td>15/15</td>
         <td>2</td>
         <td>Round 2 passed exact 8/8 profiles, 240 QUESTION records, seven two-read catalog closures, 153 independent adversaries, Railward unresolved-only, Aegis pending composition and stable 82,575-byte serialization</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R260 FAIL</strong> — `sourceRows()` finds each requested ID but never verifies the complete source catalog ID set. An extra future catalog row is silently ignored instead of failing closed.</li><li><strong>R264 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001HTS</code></td>
@@ -1356,6 +1532,7 @@
         <td>33/33</td>
         <td>4</td>
         <td>Round 4 passed exact receipt-bound projections, 317 independent mutation cases, stale setup/proxy/two-read attacks, six witnesses, 36 restore cuts and every named dependency/guard</td>
+        <td class="round-gaps"><details><summary>4 recorded round gaps</summary><ol><li><strong>R271 FAIL</strong> — Reject a missing status target atomically during GameSession or LiveBattle admission before it can enter history or crash the shared tick.</li><li><strong>R273 FAIL</strong> — Bind each live status source card&#x27;s authoritative roster facts to its pinned status-profile source record before allowing status admission.</li><li><strong>R276 FAIL</strong> — Bind every profiled status QUESTION resolution and derived live policy field to its pinned receipt value so matching-key coupled drift cannot authorize altered live status sources.</li><li><strong>R278 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001HTC</code></td>
@@ -1364,6 +1541,7 @@
         <td>0/0</td>
         <td>0</td>
         <td>Split into independently evidenceable charge and champion/reflection compositions; both child pieces remain source-blocked</td>
+        <td class="round-gaps">No recorded round gaps.</td>
       </tr>
       <tr>
         <td><code>GAME-001HTEC</code></td>
@@ -1372,6 +1550,7 @@
         <td>0/0</td>
         <td>0</td>
         <td>Cutoff sources establish 3.0-tile charge range, 2× speed and 392 bonus damage, but not reset classes, inclusive tick boundary, same-boundary hit/death order or serialized state; current 3.5-tile QUESTION fixture conflicts with the cutoff</td>
+        <td class="round-gaps">No recorded round gaps.</td>
       </tr>
       <tr>
         <td><code>GAME-001HTAC</code></td>
@@ -1380,6 +1559,7 @@
         <td>0/0</td>
         <td>0</td>
         <td>Cutoff sources establish cost 1, cooldown 17 s, active duration 4 s, radius 1.5 tiles and 80% reduction, but not activation delay, projectile enum semantics, identity/target rewrite, simultaneous order or expiry/death boundaries; current 0.5-tile QUESTION fixture conflicts with the cutoff</td>
+        <td class="round-gaps">No recorded round gaps.</td>
       </tr>
       <tr>
         <td><code>GAME-001HBA</code></td>
@@ -1388,6 +1568,7 @@
         <td>14/14</td>
         <td>2</td>
         <td>Round 2 passed: exact frozen catalog receipts are pinned across parser, LiveBattle, GameSession and reducer; forged leaves/shapes/swaps reject trap-zero while private legacy restore remains exact</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R236 FAIL</strong> — Pin every admitted building profile to its exact canonical catalog receipt; current fresh setups accept structurally valid forged mechanics.</li><li><strong>R239 PASS</strong> — None on the judged shared building-authority seam.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001HB</code></td>
@@ -1396,6 +1577,7 @@
         <td>10/10</td>
         <td>3</td>
         <td>Round 3 confirms shared execution and the HBP provenance fix, but the required periodic/death-spawn GameSession path remains unverified: Bramble Cage and Ember Roost still have identity-only QUESTION records and reject admission, while Burrow Rig emits a spawn-question event without a unit. The isolated BUILDING-002 encounter does not establish a source-backed shared-session spawner.</td>
+        <td class="round-gaps"><details><summary>3 recorded round gaps</summary><ol><li><strong>R234 FAIL</strong> — Integrate all eight admitted building mechanics into GameSession/game-side-deploy so one authoritative battle, deck, elixir, tower/unit, history and restore graph owns and steps them, then register the selector and nondeterminism inventory.</li><li><strong>R241 PASS</strong> — None on the judged unified-session building roster dimension.</li><li><strong>R344 FAIL</strong> — No source-backed spawner identity is admitted to GameSession, so periodic/death-spawn mechanics have no shared-session execution witness.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001HBP</code></td>
@@ -1404,6 +1586,7 @@
         <td>3/3</td>
         <td>1</td>
         <td>Round 1 passed all nine QUESTION fields through catalog, receipt, and live structure; 45/45 per-field admission attacks reject. Cinder ordinary attack is 160; death damage is 200 QUESTION and tower damage is 70 QUESTION at 35%. One-step/chunk/restore bytes and the seed-zero standard deck remain exact.</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R343 PASS</strong> — None on the judged dimension; the resource, travel, and death effects remain explicitly QUESTION-provisional.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001HSA</code></td>
@@ -1412,6 +1595,7 @@
         <td>10/10</td>
         <td>2</td>
         <td>Round 2 passed: all admitted effects without an exact profile reject visibly and byte-atomically before spend/cycle/route under both aliases; profiled Squall retains exact shared 689 damage and zero placeholders</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R243 FAIL</strong> — Reject admitted-but-unprofiled effects atomically and visibly as QUESTION before GameSession spends, cycles or records a route.</li><li><strong>R244 PASS</strong> — None on the judged shared spell-effect authority seam.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001HI</code></td>
@@ -1420,6 +1604,7 @@
         <td>1/1</td>
         <td>1</td>
         <td>Round 1 passed one real mixed GameSession graph with exact once-only cross-kind routes/spends, shared combat/effects, byte-identical continuation paths, hostile receipt rejection and no placeholders</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R246 PASS</strong> — The mixed fixture does not co-stage Aether resource generation with Cinder death, although a separate real GameSession probe verified both resource grants exactly once; no gap remains on the judged shared-integration dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001HUIK</code></td>
@@ -1428,6 +1613,7 @@
         <td>1/1</td>
         <td>1</td>
         <td>Fresh critic passed real Chrome witness 1/1, restart 3/3 and default journey 1/1; physical play spent 5 elixir, created one shared unit, exact restore and witness restart; body-radius/delivery/layer policies remain QUESTION</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R330 PASS</strong> — Stonehauler&#x27;s body-radius, delivery and layer policies remain QUESTION, so this browser path does not establish exact historical combat.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001HUIR</code></td>
@@ -1436,6 +1622,7 @@
         <td>2/2</td>
         <td>2</td>
         <td>Round 2 passed both browser suites: hidden chooser controls are excluded from the journey inventory and cannot take focus; the standard chooser is visible and clickable; seed-zero opening, pre-match presentation, default journey, and same-deck restart checks pass. Keyboard focus entry/containment after opening remains untested</td>
+        <td class="round-gaps"><details><summary>2 recorded round gaps</summary><ol><li><strong>R334 FAIL</strong> — The standard browser journey selector fails before exercising its default path because its exact control inventory counts the hidden deck opener and controls inside the hidden, inactive choice dialog.</li><li><strong>R335 PASS</strong> — Keyboard focus entry and containment after the deck chooser opens remain untested; this round verifies that closed chooser buttons cannot receive focus.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001HUIB</code></td>
@@ -1444,6 +1631,7 @@
         <td>26/26</td>
         <td>5</td>
         <td>Round 5 preserves and rejects stripped/forged profile receipts, carries the QUESTION policy through GameSession/live structures and browser restore, keeps Standard exact, and restores the full 720×1280 viewport with 0 changed pixels. However, the live session still executes `firstHitTicks=0` against a source `null` and performs six attacks using unverified Cannon damage 212, HP 824, deploy 60 ticks, range 5,500, and ground targeting; labeling those estimates QUESTION does not meet the no-unsourced-policy bar. Source audit: reference/research/cannon-combat-source-audit.md confirms the cutoff datamine but no established first-hit semantics or same-cutoff corroboration; retain provisional labeling and do not claim parity.</td>
+        <td class="round-gaps"><details><summary>5 recorded round gaps</summary><ol><li><strong>R336 FAIL</strong> — Full-viewport restore is not pixel-exact: 42,049 pixels change under Chrome even though the test permits channel differences up to 8, leaving the PLAN&#x27;s exact visual restore requirement unproved.</li><li><strong>R337 FAIL</strong> — The restored 720×1280 viewport is not pixel-exact: 42,049 pixels change under Chrome, so exact visual restore remains unproved.</li><li><strong>R338 FAIL</strong> — After arena layer promotion, 9,265 full-viewport pixels still change on restore, so the exact raster bar remains unmet.</li><li><strong>R341 FAIL</strong> — Preserve the Bulwark building profile&#x27;s QUESTION status through GameSession or withhold its first-hit and low-confidence combat estimates; the current session executes `firstHitTicks: 0` although the reference first-hit value is null.</li><li><strong>R342 FAIL</strong> — Bulwark must not deploy into live combat with `firstHitTicks: 0` and unverified Cannon-derived damage, HP, deploy, range, and target values; a visible QUESTION label does not source those mechanics.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001HUIF</code></td>
@@ -1452,6 +1640,7 @@
         <td>1/1</td>
         <td>1</td>
         <td>None on judged dimension; real Chrome keyboard flow and pointer/default/restart regressions pass</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R339 PASS</strong> — None on the judged dimension.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>VIS-003H</code></td>
@@ -1460,6 +1649,7 @@
         <td>1/1</td>
         <td>1</td>
         <td>Round 1 passes in Chrome 153.0.8010.53: standard tick 0 and Bulwark targeting tick 114/unit:4 have identical checkpoint/repeat/restore PNG hashes and zero pixel deltas; browser/session/DOM/HUD/input bytes stay exact. Historical footage parity remains VIS-001/VIS-002</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R340 PASS</strong> — None on the exact restore dimension; historical screenshot parity remains unmeasured and belongs to VIS-001/VIS-002.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001HS</code></td>
@@ -1467,7 +1657,8 @@
         <td class="state-blocked">BLOCKED</td>
         <td>0/0</td>
         <td>0</td>
-        <td>Split by profile/effect family; Squall's four private facades cannot count until one source-backed common-session composition exists</td>
+        <td>Split by profile/effect family; Squall&#x27;s four private facades cannot count until one source-backed common-session composition exists</td>
+        <td class="round-gaps">No recorded round gaps.</td>
       </tr>
       <tr>
         <td><code>GAME-001HSQ</code></td>
@@ -1476,6 +1667,7 @@
         <td>0/0</td>
         <td>0</td>
         <td>Four Squall exports demonstrably reuse one base catalog; return is an unsourced fixture context, not proven card phase. Resolve context classification and independently source real activation/travel/impact policy</td>
+        <td class="round-gaps">No recorded round gaps.</td>
       </tr>
       <tr>
         <td><code>GAME-001HSQO</code></td>
@@ -1484,6 +1676,7 @@
         <td>4/4</td>
         <td>1</td>
         <td>Fresh critic verified all 13 occurrences, 10 identities and four shared Squall fixture contexts; zero complete card profiles. Parent HSQ composition remains blocked</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R324 PASS</strong> — Parent GAME-001HSQ still needs sourced activation, travel, impact order, knockback eligibility and damage-modifier rounding. This verdict closes occurrence accounting only.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001HSP</code></td>
@@ -1492,6 +1685,7 @@
         <td>0/0</td>
         <td>0</td>
         <td>Pinned cutoff supplement now exposes78 area/buff fields and corroborates15%/50% movement-only slows; generic fixture slow and universal crown ratio conflict, while activation/refresh/rounding/pull order remain unresolved</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R323 PASS</strong> — The shared spell composition still lacks proven activation, refresh/expiry, modifier rounding and pull integration rules. Known raw fields must not be confused with a complete executable profile.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001HSS</code></td>
@@ -1500,6 +1694,7 @@
         <td>0/0</td>
         <td>0</td>
         <td>Pinned cutoff supplement verifies 61 fields: separate Tempo friendly buff/enemy damage areas, raw 135 speed multipliers and Static 500-ms stun. Generic 7/4 rage conflicts; activation, refresh, reset classes and ordering remain unresolved</td>
+        <td class="round-gaps"><details><summary>1 recorded round gaps</summary><ol><li><strong>R325 PASS</strong> — Complete shared spell profiles still need activation, refresh, reset classes, same-boundary ordering and damage-rounding evidence. The friendly buff and enemy damage area relationship is now explicitly sourced.</li></ol></details></td>
       </tr>
       <tr>
         <td><code>GAME-001HST</code></td>
@@ -1508,12 +1703,15 @@
         <td>0/0</td>
         <td>0</td>
         <td>Isolated line/wave/return/roll facades are deterministic but lack common-session composition receipts</td>
+        <td class="round-gaps">No recorded round gaps.</td>
       </tr>
       </tbody>
     </table>
   </div>
   <h2>Round trajectory</h2>
   <ol>
+      <li><strong>R348 PASS</strong> · GUARD-002H — Manifest-only local release host, round 1<br>None on manifest-bound delivery in the audited release pipeline; the host alone follows an in-root parent symlink for a manifest-listed, hash-matching alias, which the artifact audit rejects before release.</li>
+      <li><strong>R347 PASS</strong> · GUARD-002R — Actual release-artifact isolation boundary, round 1<br>None on the judged dimension; same-origin off-manifest requests must continue to pass through a manifest-only server for exact-path denial.</li>
       <li><strong>R346 PASS</strong> · INTEGRATION-001RP — Reconcile canonical integration manifest after later rounds, round 1<br>None on the manifest-reconciliation dimension.</li>
       <li><strong>R345 PASS</strong> · UI-001AP — Reconcile arena source-byte pins after policy UI and compositor changes, round 1<br>None on the pin-reconciliation dimension; bridge and tower footprints remain low-medium coordinate estimates as marked in `SOURCES.md`.</li>
       <li><strong>R344 FAIL</strong> · GAME-001HB — Unified-session building roster mechanics, round 3<br>No source-backed spawner identity is admitted to GameSession, so periodic/death-spawn mechanics have no shared-session execution witness.</li>

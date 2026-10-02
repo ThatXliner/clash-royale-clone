@@ -1,5 +1,45 @@
 # Gauntlet Rounds
 
+## Round 348 — 2026-10-02
+
+PIECE: GUARD-002H — Manifest-only local release host, round 1
+
+VERDICT: PASS
+
+EVIDENCE: `npm test -- shipping-isolation-host` passed 1/1. The actual
+`serve-release.js` CLI bound to `127.0.0.1`; a fresh production artifact loaded
+in Chrome with status 200 and all 116 normal browser requests on manifest paths.
+Five same-origin fetches for an unlisted path, the manifest itself,
+`reference/stats/cards.json`, and encoded traversal returned empty 404 responses
+and were logged by the host. `npm test -- shipping-isolation-release` passed
+3/3; its two fresh builds were byte-identical at 116 files and 2,604,431 bytes,
+with manifest SHA-256
+`a22fa4aac4b8806d792b502a6f3b3a8fc618ba522ede2b61b81000ae98de0f2b`.
+`auditReleaseArtifact` checked all 116 files against their manifest, compared
+18 reference files, and found no protected/reference bytes or paths.
+
+The focused TAP output was:
+
+```text
+ok 1 - local release host serves manifest bytes and rejects same-origin paths outside it
+1..1
+# tests 1
+# pass 1
+# fail 0
+```
+
+Independent startup probes rejected malformed JSON, unsupported schema,
+`reference/` and `../` manifest paths, a missing entrypoint, duplicate paths,
+and incorrect total bytes. Live requests denied direct and encoded traversal,
+reference paths, off-manifest files, a final-file symlink, and a parent symlink
+escaping the artifact root. POST returned 405 with `Allow: GET, HEAD`; malformed
+percent encoding and a changed manifest-listed file returned 404. An in-root
+parent symlink did serve its explicit manifest-listed alias, but only with the
+listed size and hash; `auditReleaseArtifact` rejected that artifact tree with
+`symbolic link in release artifact: alias`.
+
+BIGGEST GAP: None on manifest-bound delivery in the audited release pipeline; the host alone follows an in-root parent symlink for a manifest-listed, hash-matching alias, which the artifact audit rejects before release.
+
 ## Round 347 — 2026-10-02
 
 PIECE: GUARD-002R — Actual release-artifact isolation boundary, round 1
