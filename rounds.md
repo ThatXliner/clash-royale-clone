@@ -1,5 +1,39 @@
 # Gauntlet Rounds
 
+## Round 359 — 2026-10-02
+
+PIECE: GAME-001GPVT — Terminal and restart long-task attribution
+
+VERDICT: FAIL
+
+EVIDENCE: Evaluated immutable commit
+`aab3c53f66941c0396272d328c7a83aa6e117ab0` in the clean archive at
+`/tmp/game-001gpvt-critic-aab3c53-kBqBJz`. The synthetic delayed-entry
+classifier check passed 1/1. The required full command,
+`npm test -- game-browser-endurance`, ran once and finished exit 1 after
+810,755.591 ms (browser subtest 808,531.291 ms; telemetry duration
+808,405 ms). Overall TAP was 1/2 passed, 1 failed.
+
+Chrome reached tick 18,000 across 61 segments. Restore/replay, terminal
+observation, screenshots, audio cleanup, and restart completed: terminal
+audio had zero active voices, and restart returned to the exact seed-zero
+tick-0 setup with the terminal overlay hidden. The failure came at final
+observer drain. The restart interval was `[807083.8999999762,
+807298.7999999523]`; the delayed observer delivered one task
+`{name:"self", startTime:807116, duration:76}`, wholly within that interval.
+It was correctly attributed to restart, but violated the unchanged 50 ms
+non-initialization cap. Final drain interval was
+`[807299.6999999285,807304.6000000238]`, with one newly observed task;
+`restartLongTasks` held the 76 ms entry and `outOfSegmentLongTasks` was empty.
+Initialization max was 166 ms under its 300 ms cap; driven, restore,
+terminal-observation, screenshot, and final-drain maxima were 0 ms. Console,
+unhandled, and resource errors were empty. Telemetry is preserved at
+`/tmp/game-001gpvt-critic-aab3c53-kBqBJz/artifacts/game-001gp-browser-endurance/endurance-result.json`.
+
+BIGGEST GAP: Restart contains a measured 76 ms main-thread task, exceeding
+the required 50 ms cap. The task is now correctly captured and classified;
+it is not an observer-attribution escape.
+
 ## Round 358 — 2026-10-02
 
 PIECE: RL-001 — Deterministic JavaScript training environment, round 3
