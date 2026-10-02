@@ -50,7 +50,7 @@ test("two clean production builds are byte-identical and manifest the explicit g
   assert.deepEqual(await snapshot(first), await snapshot(second));
 
   const manifest = JSON.parse(await readFile(join(first, "release-manifest.json"), "utf8"));
-  assert.deepEqual(manifest.entrypoints, ["public/ui-arena-shell.html"]);
+  assert.deepEqual(manifest.entrypoints, ["public/index.html"]);
   assert.equal(manifest.fileCount, manifest.files.length);
   assert.ok(manifest.fileCount > 3);
   assert.deepEqual(manifest.files.map(({ path }) => path),

@@ -108,6 +108,7 @@ for (const selector of selectors) {
       "buildings-resource",
       "buildings-travel",
       "ui-arena-shell",
+      "app-shell",
       "ui-hud-state",
       "ui-input",
       "ui-placement-feedback",
@@ -632,6 +633,12 @@ if (selectors.length === 0 || selectors.includes("ui-arena-shell")) {
   run([
     new URL("./ui-arena-shell-runner.js", import.meta.url).pathname,
     "ui-arena-shell",
+  ]);
+}
+if (selectors.length === 0 || selectors.includes("app-shell")) {
+  run([
+    new URL("./app-shell-runner.js", import.meta.url).pathname,
+    "app-shell",
   ]);
 }
 if (selectors.length === 0 || selectors.includes("ui-hud-state")) {

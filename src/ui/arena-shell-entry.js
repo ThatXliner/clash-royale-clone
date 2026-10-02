@@ -425,7 +425,13 @@ export const arenaHudController =
   typeof document === "object" && document !== null &&
   typeof window === "object" && window !== null
     ? (() => {
-      const profile = new URLSearchParams(window.location.search).get("session-profile");
+      const parameters = new URLSearchParams(window.location.search);
+      const profile = parameters.get("session-profile");
+      const appFrameValue = parameters.get("app-frame");
+      if (appFrameValue !== null && appFrameValue !== "1") {
+        throw new TypeError("public app frame option is invalid");
+      }
+      const appFrame = appFrameValue === "1";
       if (profile !== null && profile !== "live-seed-2-terminal" &&
           profile !== "stonehauler-witness") {
         throw new TypeError("public game session profile is invalid");
@@ -435,9 +441,23 @@ export const arenaHudController =
           profile === "live-seed-2-terminal" ? 2 : 1, profile,
         ),
       );
-      return mountShippedGameBrowser(
+      const controller = mountShippedGameBrowser(
         document.querySelector("[data-arena-shell-root]"), window, session,
-        undefined, profile === null,
+        undefined, profile === null && !appFrame,
       );
+      if (appFrame) {
+        controller.pause();
+        window.addEventListener("message", (event) => {
+          const message = event.data;
+          if (event.source !== window.parent || event.origin !== window.location.origin ||
+              message === null || typeof message !== "object" || Array.isArray(message) ||
+              message.channel !== "moss-and-ember-battle" || typeof message.active !== "boolean") {
+            return;
+          }
+          if (message.active) controller.resume();
+          else controller.pause();
+        });
+      }
+      return controller;
     })()
     : null;

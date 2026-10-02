@@ -233,7 +233,7 @@ function decodeHtmlEntities(value, sourcePath) {
 }
 
 const RELEASE_CSP = "default-src 'none'; base-uri 'self'; connect-src 'self'; " +
-  "font-src 'self' data:; form-action 'none'; img-src 'self' data:; " +
+  "font-src 'self' data:; form-action 'none'; frame-src 'self'; img-src 'self' data:; " +
   "media-src 'self'; object-src 'none'; script-src 'self'; " +
   "style-src 'self' 'unsafe-inline'; worker-src 'none'";
 

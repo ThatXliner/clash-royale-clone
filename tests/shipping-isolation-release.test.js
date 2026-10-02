@@ -21,7 +21,8 @@ const PLAYWRIGHT = process.env.GAME_BROWSER_PLAYWRIGHT ??
   "/Users/me/.codex/worktrees/d092a29e-844b-459d-b145-c548db10d485/billion/node_modules/.pnpm/playwright@1.58.2/node_modules/playwright/index.mjs";
 const CHROME = process.env.GAME_BROWSER_CHROME ??
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
-const EVIDENCE_PATH = join(WORKSPACE, "artifacts/guard-002r-round-1/release-isolation-evidence.json");
+const EVIDENCE_PATH = process.env.SHIPPING_ISOLATION_RELEASE_EVIDENCE ??
+  join(WORKSPACE, "artifacts/guard-002r-round-1/release-isolation-evidence.json");
 let productionEvidence;
 
 async function snapshot(directory) {
@@ -273,6 +274,9 @@ test("Chrome serves only manifest paths and records CSP-blocked and failed reque
       `run("Function", () => new globalThis["Func" + "tion"]("fetch('/__from_function__')")());`,
       `run("aliased Function", () => { const factory = (() => {}).constructor; factory("fetch('/__from_alias__')")(); });`,
       'fetch("https://release-off-manifest.invalid/__release_unmanifested_fetch__").catch(() => {});',
+      'const offOriginFrame = document.createElement("iframe");',
+      'offOriginFrame.src = "https://release-off-manifest.invalid/__release_unmanifested_frame__";',
+      'document.body.appendChild(offOriginFrame);',
       'document.querySelector("#asset-audio").load();',
       'globalThis.__releaseLoaderAttempts = attempts;',
     ].join("\n"),
@@ -304,12 +308,16 @@ test("Chrome serves only manifest paths and records CSP-blocked and failed reque
       waitUntil: "domcontentloaded",
     });
     assert.equal(response.status(), 200);
+    assert.equal(await page.title(), "Moss & Ember — Card battler");
+    await page.locator('[data-nav-to="battle"]').click();
+    const productionFrame = page.frameLocator("[data-battle-frame-slot] iframe");
     try {
-      await page.waitForSelector('[data-ui="arena"]', { timeout: 8_000 });
+      await productionFrame.locator('[data-ui="arena"]').waitFor({ timeout: 8_000 });
     } catch (error) {
       const debug = await page.evaluate(() => ({
         body: document.body.innerHTML.slice(0, 800),
         violations: globalThis.__releasePolicyViolations,
+        frames: [...document.querySelectorAll("iframe")].map((frame) => frame.src),
       }));
       throw new Error(`${error.message}\n${JSON.stringify({
         debug,
@@ -320,12 +328,13 @@ test("Chrome serves only manifest paths and records CSP-blocked and failed reque
       }, null, 2)}`);
     }
     const productionState = await page.evaluate(() => ({
-      arenaMounted: Boolean(document.querySelector('[data-ui="arena"]')),
+      appMounted: Boolean(document.querySelector("[data-nav-to=\"home\"]")),
       policy: document.querySelector('meta[http-equiv="Content-Security-Policy"]')?.content,
     }));
-    assert.equal(productionState.arenaMounted, true);
+    assert.equal(productionState.appMounted, true);
     assert.match(productionState.policy, /script-src 'self'/);
     assert.match(productionState.policy, /connect-src 'self'/);
+    assert.match(productionState.policy, /frame-src 'self'/);
     assert.doesNotMatch(productionState.policy, /unsafe-eval/);
 
     const failedPage = await browser.newPage();
@@ -371,8 +380,15 @@ test("Chrome serves only manifest paths and records CSP-blocked and failed reque
       effectiveDirective === "connect-src" && blockedURI.includes("release-off-manifest.invalid"));
     assert.ok(offManifestViolation,
       "Chrome's production policy event records the off-manifest origin blocked before network dispatch");
+    const offOriginFrameViolation = hostileViolations.find(({ blockedURI, effectiveDirective }) =>
+      effectiveDirective === "frame-src" && blockedURI.includes("release-off-manifest.invalid"));
+    assert.ok(offOriginFrameViolation,
+      "same-origin frame-src permits the shipped battle and still blocks off-origin frames");
     assert.equal(hostileServer.requests.some(({ path }) =>
       path === "__release_unmanifested_fetch__"), false);
+    assert.equal(hostileServer.requests.some(({ path }) =>
+      path === "__release_unmanifested_frame__"), false,
+    "off-origin frames are blocked before network dispatch");
     assert.equal(hostileRequests.some(({ path }) => /__from_(?:eval|function|alias)__/.test(path)), false,
       "reflective loaders never run far enough to issue their embedded requests");
     assert.equal(hostileServer.requests.some(({ path }) => /__from_(?:eval|function|alias)__/.test(path)), false);
