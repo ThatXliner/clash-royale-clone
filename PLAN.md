@@ -236,6 +236,8 @@ retain integer-tick determinism and canonical serialize/restore behavior.
 
 | VIS-003HR | Exact frame restore after a long rendered branch | Current Chrome 720×1280 real building-choice 140-tick forward branch restores byte-identical full-viewport PNG, session/DOM/HUD/input/audio state with unchanged strict assertions and geometry; consecutive restored captures stable; short frame-restore, source pins, presentation and full 18,000-tick browser endurance retain their bars | VIS-003H, GAME-001HUIB, GAME-001GPV | PENDING | 0/0 | 0 | Full-suite evidence at 6c99614 showed 79,379 changed pixels after long branch despite exact session/DOM; reproduce current code before changing compositor behavior |
 
+| GAME-001GPVT | Terminal and restart long-task attribution | Endurance records explicit terminal-observation and restart spans and enforces the unchanged 50 ms non-initialization cap there, including delayed observer delivery and final drain; synthetic classifier test and actual full 18,000-tick journey prove exact terminal/restore/audio/input/restart without unclassified lifecycle work | GAME-001GPV, GAME-001GP | PENDING | 0/0 | 0 | Audit found a 76 ms task after the final drive stored as outOfSegment and excluded from assertions; current lifecycle work needs explicit attribution before declaring endurance coverage complete |
+
 ## Reference uncertainties
 
 - Arena tower/bridge coordinates and deployment masks are low-medium
