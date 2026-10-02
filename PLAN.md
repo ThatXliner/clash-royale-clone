@@ -28,8 +28,14 @@ mechanics library plus a static shell, not a finished clone.
 
 ## Pieces
 
+Publication packaging adds a branded repository entry point and a separate
+GitHub Pages artifact. Neither establishes historical mechanics parity, and
+the comparison corpus and generated evidence are not website content.
+
 | ID | Piece | Independent acceptance bar | Depends on | State | Pass rate | Rounds | Current gap |
 | --- | --- | --- | --- | --- | --- | ---: | --- |
+| PUB-001 | Branded GitHub repository documentation | Cohesive original Moss & Ember logo/banner, useful README with verified fresh-clone quickstart and RL example, accurate feature/status limits, AGPLv3 license/notice, contribution and publication guidance, repository hygiene and issue/PR templates; local links and commands work without private machine paths | RL-001, APP-002 | BUILDING | 0/0 | 0 | Publication packaging requested; no top-level README, license, or ignore file exists yet |
+| PUB-002 | GitHub Pages landing and demo artifact | Responsive original landing page with accessible navigation, real playable-demo CTA and RL documentation; build produces only approved landing assets and isolated release under a project subpath; Pages workflow uses explicit manual dispatch, no publication is performed; real desktop/mobile rendering and playable flow verified | PUB-001, RELEASE-001 | BUILDING | 0/0 | 0 | Landing, portable developer setup, and Pages build need implementation and independent browser review |
 | SIM-001 | Fixed-step world and replay log (superseded) | Original combined bar: tick/replay behavior plus exhaustive nondeterminism source gate | — | QUESTION | 5/5 | 3 | Wrong-shaped after three source-gate bypass rounds; split into SIM-001K and GUARD-001 |
 | SIM-001K | Fixed-step world and replay kernel | `npm test -- fixed-step-kernel`: scheduled commands resolve at exact integer ticks; two fresh runs and a serialize/restore run are byte-identical; JSON snapshots are isolated | — | PASS | 4/4 | 1 | None on judged dimension |
 | GUARD-001 | Simulation nondeterminism enforcement | `npm test -- nondeterminism-guard`: syntax-aware module analysis plus a capability-boundary runtime probe rejects wall-clock, timers, and ambient randomness including aliasing, destructuring, computed access, optional chaining, and indirect reflection without false positives on seeded/local APIs | — | PASS | 9/9 | 3 | Round 3 passed: bypasses, valid lexical shadows, recursive/cyclic graphs, runtime boundary, canonical output, all bounds, and 20 simulation modules passed |
