@@ -1,5 +1,41 @@
 # Gauntlet Rounds
 
+## Round 360 — 2026-10-02
+
+PIECE: VIS-003HR — Exact frame restore after a long rendered branch
+
+VERDICT: FAIL
+
+EVIDENCE: Evaluated immutable commit
+`e984d0345dd4393bf2c270962dc76434bf2cbbe7` in the clean archive at
+`/tmp/vis-003hr-r1-critic-e984-m0NrNK`. The required commands ran
+sequentially. `npm test -- browser-frame-restore` passed 1/1 in 7,006.230 ms.
+At 720×1280 in Chrome 153.0.8010.53, both the standard arena and deployed,
+targeting Bulwark Needle scenario passed exact checkpoint/repeat/restore PNG
+hashes and exact browser/session/arena DOM/layer DOM/HUD/input checks; restored
+captures were stable. The Bulwark case advanced 114 ticks before restore.
+
+Then `npm test -- game-browser-building-choice` failed 1/1 in 6,843.187 ms on
+the real 140-tick Bulwark forward branch. Browser snapshot and session bytes,
+combat/effects/feedback DOM, policy notice, hand, input slots, focus, target
+links, and markers matched at the restored checkpoint. The cropped Bulwark art
+was pixel-identical and two consecutive restored full-viewport captures were
+byte-identical to one another. However, the restored full viewport did not
+match its checkpoint: checkpoint SHA-256
+`f623b7ac6fabdddf08d4ba3366263d2d6cfdc1aaba8ed2128bd68814571d316a`, restored
+SHA-256 `31d39f784166db05224f6a7890660ea420755e029559e75665c0393959ba8a29`.
+The raster comparison measured 2 changed pixels at 720×1280, maximum channel
+delta 1, mean channel delta `0.0000018084490740740741`, and zero pixels over
+channel delta 8. Strict full-viewport equality is required, so the two-pixel
+difference fails the bar despite stable restored captures and exact visible
+game state. Evidence is preserved at
+`artifacts/visual-003h-round-1/restore-evidence.json` and
+`artifacts/game-001huib-round-2/building-choice-evidence.json` in the archive.
+
+BIGGEST GAP: The 140-tick building-choice branch changes two full-viewport
+pixels after restore. The short restore suite is exact, but long-branch PNG
+equality is not.
+
 ## Round 359 — 2026-10-02
 
 PIECE: GAME-001GPVT — Terminal and restart long-task attribution
