@@ -1,5 +1,33 @@
 # Gauntlet Rounds
 
+## Round 358 — 2026-10-02
+
+PIECE: RL-001 — Deterministic JavaScript training environment, round 3
+
+VERDICT: PASS
+
+EVIDENCE: Evaluated immutable commit
+`da76d10cc8f845b74e7dacfe0846ab9382bfa473` in the clean archive at
+`/tmp/rl-001-r3-critic-da76d10-fJuDOd`. The only command run was the focused
+Node selection:
+
+`node --test --test-name-pattern='(wait-only seed 2 reaches|horizon clipping truncates)' tests/rl-environment.test.js`
+
+The TAP result was 2/2 passed, 0 failed, in 48,901.997334 ms. Horizon clipping
+passed in 152.742959 ms. The wait-only seed-2 episode passed in 48,580.892916
+ms: its preterminal snapshot at tick 2,400 restored to the same observation,
+and every later transition matched the uninterrupted episode. The run pinned
+the real GameSession result at tick 4,899 (endedAtTick 4,898): north won 3–0
+by `central_destroyed`, with one sparse reward of −1. Its final stride advanced
+99 ticks; the episode was `terminated=true`, `truncated=false`, before the
+18,000-tick horizon. The distinct seed-4 horizon test advanced to tick 7, then
+clipped at tick 10 as `truncated=true`, restored that observation exactly,
+and rejected later steps. Commit `da76d10` changes only
+`tests/rl-environment.test.js`; no API or runtime files changed.
+
+BIGGEST GAP: None on the judged natural-completion, restored-continuation, and
+horizon-distinction dimensions.
+
 ## Round 357 — 2026-10-02
 
 PIECE: RL-001 — Deterministic JavaScript training environment, round 2
