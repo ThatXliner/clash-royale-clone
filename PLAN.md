@@ -234,6 +234,8 @@ retain integer-tick determinism and canonical serialize/restore behavior.
 
 | RL-001 | Deterministic JavaScript training environment | Browser-compatible ESM artifact exposes seeded reset, allowlisted player observation, finite action catalogue and exact legal mask, fixed-tick step, sparse terminal reward, distinct termination/truncation, and exact wrapper snapshot/restore; real episodes, invalid-action atomicity, same-seed replay, restored continuation, independent instances and emitted-module import pass | APP-002D, MATCH-003 | PASS | 8/8 | 2 | Round 2 passed the focused suite and emitted release imports: running continuation matches; truncated/terminated snapshots restore and stay sealed; paused-only, pending-only and combined engine snapshots reject. The resumed terminal path reaches natural completion before the horizon. No remaining gap on the judged contract. |
 
+| VIS-003HR | Exact frame restore after a long rendered branch | Current Chrome 720×1280 real building-choice 140-tick forward branch restores byte-identical full-viewport PNG, session/DOM/HUD/input/audio state with unchanged strict assertions and geometry; consecutive restored captures stable; short frame-restore, source pins, presentation and full 18,000-tick browser endurance retain their bars | VIS-003H, GAME-001HUIB, GAME-001GPV | PENDING | 0/0 | 0 | Full-suite evidence at 6c99614 showed 79,379 changed pixels after long branch despite exact session/DOM; reproduce current code before changing compositor behavior |
+
 ## Reference uncertainties
 
 - Arena tower/bridge coordinates and deployment masks are low-medium
