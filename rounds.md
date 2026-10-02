@@ -1,5 +1,45 @@
 # Gauntlet Rounds
 
+## Round 367 — 2026-10-02
+
+PIECE: GAME-001HSPF — Corroborated periodic movement-slow facts, round 2
+
+VERDICT: PASS
+
+EVIDENCE: Independently evaluated immutable candidate
+`af1b1ee3eb01c9cad96f8acffda0b01aa3da7cc9` from the clean archive at
+`/tmp/hspf-r2-critic-af1b1ee3`. The five required commands passed sequentially:
+`npm test -- combat-status-slow` 23/23, `spells-periodic` 22/22,
+`combat-status-rage` 17/17, `game-roster-admission` 7/7, and
+`integration-audit` 6/6 (the integration two-sweep case took 382,405.709 ms;
+suite 386,151.464 ms). The durable TAP footer summary is
+`artifacts/game-001hspf-round-2/critic/focused-tap-results.txt`.
+
+The integration receipt pins manifest SHA-256
+`3f48a3de26bf31d1c04438ac0486dcd6ed30f28ed4e76ffce2557eab82a734bf` and verifies
+all 58 occurrences, 53 unique supported IDs, 46 runner streams, five QUESTION
+exports, hostile mutation cases, and two fresh identical sweeps. The only
+binding changes are the intended Blight Ring and Fault Pulse catalog artifact
+hashes; Gravity Well is unchanged, the manifest validator is unchanged, and
+the aggregate expected hash matches.
+
+The cutoff-backed fixtures preserve Blight Ring's −15% movement modifier and
+Fault Pulse's −50% modifier with unchanged attack work, exact numeric movement,
+and chunk/restore continuation. Generic legacy slow behavior is covered by the
+semantic rage regression. The independent probe was rerun against this
+candidate: GameSession and LiveBattle each rejected Blight Ring, Fault Pulse,
+and Gravity Well with the explicit QUESTION guard. All six serialized hashes
+were unchanged; GameSession route/deck/elixir state and LiveBattle event,
+history, and pending-spell state also remained unchanged. The probe script and
+output are preserved at
+`artifacts/game-001hspf-round-2/critic/periodic-execution-rejection-probe.mjs`
+and `artifacts/game-001hspf-round-2/critic/periodic-execution-rejection-output.txt`.
+
+BIGGEST GAP: None on this isolated movement-slow fixture and occurrence-pin
+contract. Shared periodic composition remains blocked; activation, refresh,
+pull, rounding, and ordering policies remain QUESTION. This result does not
+claim complete executable profiles for any periodic spell.
+
 ## Round 366 — 2026-10-02
 
 PIECE: GAME-001HSPF — Corroborated periodic movement-slow facts, round 1

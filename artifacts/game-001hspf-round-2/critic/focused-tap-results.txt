@@ -1,0 +1,47 @@
+GAME-001HSPF Round 2 — independent critic evidence
+Date: 2026-10-02
+Immutable candidate: af1b1ee3eb01c9cad96f8acffda0b01aa3da7cc9
+Archive: /tmp/hspf-r2-critic-af1b1ee3
+
+Required commands ran sequentially in that archive. The following are the actual
+TAP completion counts and duration footers from those runs:
+
+npm test -- combat-status-slow
+# tests 23
+# pass 23
+# fail 0
+# duration_ms 3383.116
+
+npm test -- spells-periodic
+# tests 22
+# pass 22
+# fail 0
+# duration_ms 26156.420
+
+npm test -- combat-status-rage
+# tests 17
+# pass 17
+# fail 0
+# duration_ms 4331.756
+
+npm test -- game-roster-admission
+# tests 7
+# pass 7
+# fail 0
+# duration_ms 3072.866
+
+npm test -- integration-audit
+# tests 6
+# pass 6
+# fail 0
+# full two-sweep test duration_ms 382405.709
+# suite duration_ms 386151.464
+
+Integration audit receipt: manifest SHA-256
+3f48a3de26bf31d1c04438ac0486dcd6ed30f28ed4e76ffce2557eab82a734bf;
+58 supported occurrences, 53 unique supported IDs, 46 runner streams, five
+QUESTION exports, and two fresh sweeps with identical run hashes. All 58
+occurrence bindings were covered; exact pins, hostile mutation checks, and
+missing/swapped binding checks passed.
+
+Combined required total: 75/75. The integration audit made no validator changes.
