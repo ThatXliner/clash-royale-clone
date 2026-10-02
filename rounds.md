@@ -1,5 +1,51 @@
 # Gauntlet Rounds
 
+## Round 350 — 2026-10-02
+
+PIECE: APP-001 — Player-facing home, collection and card mechanics info, round 1
+
+VERDICT: PASS
+
+EVIDENCE: The critic evaluated an isolated `git archive` of immutable commit
+`1c1c4cdea802dbed472167145c9b1e54dfd86da4`. All required commands passed:
+`npm test -- app-shell` (1/1), `npm test -- release-build` (18/18),
+`npm test -- release-runtime` (1/1), and
+`npm test -- shipping-isolation-release` (3/3). The production build reported
+`release artifact: /private/tmp/app001-critic-rN3Ppd/dist (119 files,
+2657048 bytes)`. Its entrypoint is `public/index.html`; the emitted manifest
+contains no reference/tests paths, and the protected identity scan found no
+benchmark names. The release isolation suite also passed its emitted-byte,
+custom-exports, and real-Chrome manifest-host checks.
+
+The real-Chrome app-shell run rendered Home, Deck, Cards and Battle at
+720×1280; a deployed Battle at 390×844; and card details at a 1440×900 desktop
+viewport. I inspected the Home, Deck, Briar Band details, and both Battle
+screenshots. All 8 card profiles matched their admitted runtime fields:
+
+| Card | Cost | Runtime facts shown per component: count × name; HP; damage; hit speed; range; targets; movement |
+| --- | ---: | --- |
+| Coilblade | 4 | 1 × Coilblade; 1361; 720; 1.6 s; 0.8 tiles; ground; 1.5 tiles/s |
+| Mossguard | 3 | 1 × Mossguard; 1766; 202; 1.2 s; 1.2 tiles; ground; 1 tile/s |
+| Copperskiff | 4 | 1 × Copperskiff; 614; 171; 1.1 s; 6 tiles; ground and air; 1.5 tiles/s |
+| Skymaul | 3 | 1 × Skymaul; 837; 311; 1.6 s; 1.6 tiles; ground and air; 1 tile/s |
+| Brassbolt | 4 | 1 × Brassbolt; 720; 218; 1 s; 6 tiles; ground and air; 1 tile/s |
+| Reedsting | 3 | 1 × Reedsting; 260; 131; 0.7 s; 6.5 tiles; ground and air; 2 tiles/s |
+| Briar Band | 3 | 3 × Briar Runner; 202; 120; 1.1 s; 0.5 tiles; ground; 2 tiles/s. 3 × Briar Darter; 133; 81; 1.7 s; 5 tiles; ground and air; 2 tiles/s |
+| Cinderlings | 1 | 3 × Cinderling; 81; 81; 1 s; 0.5 tiles; ground; 1.5 tiles/s |
+
+The independent browser probe confirmed 4 navigation buttons, keyboard
+activation of the collection and card, polite live card details, and Enter on
+the detail Back button returning focus to Coilblade. A real Chrome pointerup
+reported `isTrusted: true`; Mossguard deployed on the south side at
+`(9000, 6642)`. The same battle tick held at 20 while away, then resumed to
+31 on return. At 390×844 the scaled Battle frame measured 370.7×659 pixels;
+the production suite confirmed all four cards, next card, elixir, timer, and
+field stayed visible at both phone sizes. The `reference/stats/SOURCES.md`
+provenance was considered; no historical footage parity was claimed.
+
+BIGGEST GAP: None on the judged APP-001 product, card-information, accessibility,
+and release-packaging dimensions.
+
 ## Round 349 — 2026-10-02
 
 PIECE: APP-002D — Deterministic editable-deck setup, round 1
