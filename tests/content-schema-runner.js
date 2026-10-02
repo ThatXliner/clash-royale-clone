@@ -110,6 +110,7 @@ for (const selector of selectors) {
       "buildings-travel",
       "ui-arena-shell",
       "app-shell",
+      "battle-hand-polish",
       "ui-hud-state",
       "ui-input",
       "ui-placement-feedback",
@@ -641,6 +642,12 @@ if (selectors.length === 0 || selectors.includes("app-shell")) {
   run([
     new URL("./app-shell-runner.js", import.meta.url).pathname,
     "app-shell",
+  ]);
+}
+if (selectors.length === 0 || selectors.includes("battle-hand-polish")) {
+  run([
+    new URL("./battle-hand-polish-runner.js", import.meta.url).pathname,
+    "battle-hand-polish",
   ]);
 }
 if (selectors.length === 0 || selectors.includes("ui-hud-state")) {
