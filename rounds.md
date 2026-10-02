@@ -1,5 +1,51 @@
 # Gauntlet Rounds
 
+## Round 351 — 2026-10-02
+
+PIECE: APP-002 — Editable eight-card deck and match launch, round 1
+
+VERDICT: PASS
+
+EVIDENCE: The critic used a clean `git archive` of immutable commit
+`25f7482323241ea1540003520662e5e4ba69bde3` at `/tmp/app002-critic.g8fbf5`.
+`npm test -- app-shell editable-deck ui-arena-shell game-browser-deck-choice
+release-build shipping-isolation-release` exited 0. TAP totals were editable
+setup 4/4, browser deck choice 1/1, arena shell 7/7, app shell 1/1, release
+build 18/18, and shipping isolation 3/3 (34/34 combined). `npm run build`
+reported `release artifact: /private/tmp/app002-critic.g8fbf5/dist (120 files,
+2671541 bytes)`. The release entrypoint is `public/index.html`; the source
+provenance in `reference/stats/SOURCES.md` was read, and no historical visual
+parity claim was made.
+
+The real Chrome production probe at 390×844 measured slot 8's Replace button
+at y=756.5625–783.5625 against fixed navigation starting at y=777. After a real
+76px scroll, keyboard Tab reached the same button at y=680.5625–707.5625,
+fully above navigation with a passing center hit-test; Enter opened
+`Replace slot 8 · Cinderlings`. A real pointer click also opened slot 8 and
+exposed exactly `stonehauler`; replacing the card yielded order
+`coilblade, mossguard, copperskiff, skymaul, brassbolt, reedsting, briar-band,
+stonehauler` and average elixir `3.63`. The exact order entered the production
+GameSession setup. Same-origin duplicate and unsupported deck messages, plus a
+same-origin self-source message with a different valid order, preserved the
+serialized live session bytes and its paused state.
+
+The app-shell browser evidence records a custom deck that survives view
+navigation, pause/resume, exact snapshot restore and terminal restart:
+`exactAtRestore: true`, `replayExact: true`, `restartCount: 1`, `sessionTick: 0`,
+with the full selected order preserved. Its trusted Stonehauler deployment was
+`(9000, 6642)`. At 1440×900, the production Battle frame occupied
+409.5703×728.125px; arena, cards, hand, next card, elixir, and timer all mapped
+inside the viewport. An actual Chrome `pointerup` reported `isTrusted: true`
+and produced a south-side session deployment. The existing app-shell run also
+asserted all battle controls inside the 720×1280 frame and the 390×844 scaled
+frame. Viewport captures inspected: `/tmp/app002-critic.g8fbf5/slot8-before-scroll-390x844.png`,
+`/tmp/app002-critic.g8fbf5/slot8-pointer-390x844.png`, and
+`/tmp/app002-critic.g8fbf5/battle-desktop-1440x900.png`.
+
+BIGGEST GAP: At 390×844 the initial fixed navigation covers 6.5625px of slot
+8's Replace button; a 76px scroll fully clears it, and keyboard and pointer
+activation both work.
+
 ## Round 350 — 2026-10-02
 
 PIECE: APP-001 — Player-facing home, collection and card mechanics info, round 1
