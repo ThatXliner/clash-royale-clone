@@ -435,6 +435,13 @@ async function readAndResetTiming(page) {
   });
 }
 
+function recordHostPhase(telemetry, phase, fromTick, startedAt, details = {}) {
+  const finishedAt = performance.now();
+  const durationMs = finishedAt - startedAt;
+  telemetry.hostPhaseTimings.push({ durationMs, finishedAt, fromTick, phase, startedAt, ...details });
+  return durationMs;
+}
+
 function assertSegmentTransactions(driven, fromTick, seenCueSequences, seenStartSequences) {
   const chunks = driven.result.chunks;
   assert.ok(chunks.length > 0, "endurance segment contains yielding transactions");
@@ -503,6 +510,8 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       segmentTicks: GAME_BROWSER_ENDURANCE_MAX_SEGMENT_TICKS,
       transportNormalization: "GH attempts use their 300-tick attempt index; browser E2 uses contiguous accepted command IDs. Byte parity is browser-vs-direct-E2, while attempt records compare normalized semantic commands.",
       yieldPolicy: "Each fixed simulation slice awaits RAF, then Chrome scheduler.yield() when available, then a second cancellable RAF; unsupported schedulers use the two-RAF policy.",
+      hostPhaseTiming: "Diagnostic-only Node performance.now() spans are recorded separately from Chrome page.performance.now() drive timestamps; these measurements do not change the workload or any cap.",
+      hostPhaseTimingClock: "startedAt and durationMs use the Node perf_hooks performance.now clock; browserStartedAt and browserFinishedAt use the Chrome page performance.now clock and are never compared as absolute timestamps.",
     },
     consoleErrors: [],
     durationMilliseconds: null,
@@ -517,6 +526,7 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
     screenshotLongTasks: [],
     longTaskIntervals: [],
     finalObserverDrain: null,
+    hostPhaseTimings: [],
     pendingResources: [],
     resourceErrors: [],
     segments: [],
@@ -743,6 +753,17 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
     const longTaskIntervals = [];
     let terminalObservationInterval = null;
     let restartInterval = null;
+    let previousHostSegmentFinishedAt = null;
+    let activeHostSegment = null;
+    const finishHostSegmentTiming = () => {
+      if (activeHostSegment === null) return;
+      const finishedAt = performance.now();
+      telemetry.hostPhaseTimings.push({ durationMs: finishedAt - activeHostSegment.startedAt,
+        finishedAt, fromTick: activeHostSegment.fromTick, phase: "host-segment-body",
+        startedAt: activeHostSegment.startedAt });
+      previousHostSegmentFinishedAt = finishedAt;
+      activeHostSegment = null;
+    };
     let restored = false;
     let restoreCut = null;
     let restoreBranch = null;
@@ -794,6 +815,8 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       return refreshLongTaskAttribution();
     };
     drainFinalObserver = async () => {
+      const hostDrainStartedAt = performance.now();
+      const drainFromTick = direct.state.tick;
       const lifecycleCutoff = await page.evaluate(() => performance.now());
       for (const interval of longTaskIntervals) {
         if (interval.finishedAt === Infinity) {
@@ -803,13 +826,27 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       const drainInterval = { finishedAt: Infinity, id: "final-observer-drain",
         kind: "final-observer-drain", startedAt: lifecycleCutoff };
       longTaskIntervals.push(drainInterval);
+      const firstDeliveryTurnStartedAt = performance.now();
       await page.waitForTimeout(0);
+      recordHostPhase(telemetry, "final-drain-first-delivery-turn", drainFromTick,
+        firstDeliveryTurnStartedAt);
+      const firstDrainReadStartedAt = performance.now();
       const firstTaskUpdate = await readNewLongTasks(page, longTaskCursor);
+      recordHostPhase(telemetry, "final-drain-first-observer-read", drainFromTick,
+        firstDrainReadStartedAt, { newlyObserved: firstTaskUpdate.tasks.length,
+          drainedPendingCount: firstTaskUpdate.drainedPendingCount });
       longTaskCursor = firstTaskUpdate.cursor;
       // The first observer read can itself create a long-task entry. Give it
       // one more delivery turn before closing the accountable span.
+      const secondDeliveryTurnStartedAt = performance.now();
       await page.waitForTimeout(0);
+      recordHostPhase(telemetry, "final-drain-second-delivery-turn", drainFromTick,
+        secondDeliveryTurnStartedAt);
+      const finalDrainReadStartedAt = performance.now();
       const finalTaskUpdate = await readNewLongTasks(page, longTaskCursor);
+      recordHostPhase(telemetry, "final-drain-final-observer-read", drainFromTick,
+        finalDrainReadStartedAt, { newlyObserved: finalTaskUpdate.tasks.length,
+          drainedPendingCount: finalTaskUpdate.drainedPendingCount });
       longTaskCursor = finalTaskUpdate.cursor;
       drainInterval.finishedAt = finalTaskUpdate.capturedAt;
       const finalClassification = captureLongTaskBatch({ tasks: [
@@ -822,17 +859,33 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
         observedTaskCount: observedLongTaskEntries.length };
       telemetry.finalObserverDrain.longTasks = finalClassification.finalObserverDrain;
       assertLongTaskCaps(finalClassification, longTaskIntervals);
+      recordHostPhase(telemetry, "final-observer-drain-host-wall", drainFromTick,
+        hostDrainStartedAt, { observedTaskCount: observedLongTaskEntries.length });
     };
     while (direct.state.tick < TEST_END_TICK) {
       const fromTick = direct.state.tick;
+      const hostSegmentStartedAt = performance.now();
+      if (previousHostSegmentFinishedAt !== null) {
+        recordHostPhase(telemetry, "host-intersegment-gap", fromTick,
+          previousHostSegmentFinishedAt, { previousSegmentFinishedAt: previousHostSegmentFinishedAt });
+      }
+      activeHostSegment = { fromTick, startedAt: hostSegmentStartedAt };
       const attemptId = fromTick / SEGMENT_TICKS;
+      const planStartedAt = performance.now();
       const plan = plannedSouthAttempt(direct);
+      recordHostPhase(telemetry, "gh-policy-planning", fromTick, planStartedAt);
       let delivery = null;
       if (plan !== null) {
+        const physicalDeliveryStartedAt = performance.now();
         delivery = await deliverPhysicalPlan(page, plan);
+        recordHostPhase(telemetry, "physical-delivery-roundtrip", fromTick,
+          physicalDeliveryStartedAt, { commandId: delivery.command.commandId });
+        const commandSubmissionStartedAt = performance.now();
         assert.deepEqual(normalizedCommand(delivery.command), plan,
           "physical E2 gesture preserves the GH semantic card, slot, point, and tick");
         direct.submitPlayerCommand(canonical(delivery.command));
+        recordHostPhase(telemetry, "direct-command-submit-and-normalization", fromTick,
+          commandSubmissionStartedAt, { commandId: delivery.command.commandId });
         lastSuccessfulTick = fromTick;
         if (restored) postRestoreDelivery = true;
       }
@@ -845,15 +898,31 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
         timeline: restored ? "replayed" : "primary",
       });
 
+      const segmentSerializeStartedAt = performance.now();
       const segmentStartBytes = direct.serialize();
+      recordHostPhase(telemetry, "direct-segment-start-serialize", fromTick,
+        segmentSerializeStartedAt, { bytes: segmentStartBytes.length });
+      const browserDriveHostStartedAt = performance.now();
       const driven = await driveBrowserSegment(page, Math.min(SEGMENT_TICKS,
         TEST_END_TICK - fromTick));
+      const browserDriveRoundtripMs = recordHostPhase(telemetry, "browser-drive-roundtrip",
+        fromTick, browserDriveHostStartedAt, {
+          browserDurationMs: driven.elapsedMilliseconds,
+          browserStartedAt: driven.startedAt,
+          browserFinishedAt: driven.finishedAt,
+          reportedOverheadMs: performance.now() - browserDriveHostStartedAt -
+            driven.elapsedMilliseconds,
+        });
+      const timingReadStartedAt = performance.now();
       const explicitTiming = await readAndResetTiming(page);
+      recordHostPhase(telemetry, "read-and-reset-browser-timing-roundtrip", fromTick,
+        timingReadStartedAt);
       telemetry.explicitTimings.push({
         fromTick,
         tick: driven.result.state.sessionTick,
         timing: explicitTiming,
       });
+      const browserTimingGuardStartedAt = performance.now();
       const sliceTiming = explicitTiming.sessionStepSlice;
       assert.ok(sliceTiming && sliceTiming.count > 0,
         "each endurance transaction records public GameSession slice timings");
@@ -897,14 +966,27 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       }
       assert.ok(driven.elapsedMilliseconds <= MAX_SEGMENT_WALL_CLOCK_MS,
         `browser segment at ${fromTick} stayed within its wall-clock cap`);
+      recordHostPhase(telemetry, "browser-slice-timing-guards-and-audit", fromTick,
+        browserTimingGuardStartedAt, { browserDriveRoundtripMs });
+      const transactionAssertionsStartedAt = performance.now();
       const browserTick = assertSegmentTransactions(driven, fromTick,
         seenCueSequences, seenStartSequences);
+      recordHostPhase(telemetry, "browser-transaction-assertions", fromTick,
+        transactionAssertionsStartedAt, { chunkCount: driven.result.chunks.length });
+      const directStepChunkDurations = [];
       for (const chunk of driven.result.chunks) {
+        const directStepStartedAt = performance.now();
         direct.stepMany(chunk.sessionTick - chunk.fromTick);
+        directStepChunkDurations.push(recordHostPhase(telemetry, "direct-step-chunk",
+          fromTick, directStepStartedAt, { chunkFromTick: chunk.fromTick,
+            chunkToTick: chunk.sessionTick, tickCount: chunk.sessionTick - chunk.fromTick }));
       }
+      const directMirrorAssertionsStartedAt = performance.now();
       assert.equal(direct.state.tick, browserTick);
       assert.equal(direct.state.tick - lastSuccessfulTick <= 900, true,
         "exact GH policy makes one paid south deployment in every 900-tick window");
+      recordHostPhase(telemetry, "direct-mirror-state-assertions", fromTick,
+        directMirrorAssertionsStartedAt, { directStepChunkDurations });
 
       if (direct.state.tick === TEST_END_TICK) {
         terminalObservationInterval = { finishedAt: Infinity,
@@ -912,7 +994,11 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
           startedAt: driven.finishedAt };
         longTaskIntervals.push(terminalObservationInterval);
       }
+      const browserViewStartedAt = performance.now();
       const browserState = await browserView(page);
+      recordHostPhase(telemetry, "browser-view-roundtrip", fromTick, browserViewStartedAt,
+        { sessionTick: driven.result.state.sessionTick });
+      const browserStateAssertionsStartedAt = performance.now();
       assert.equal(driven.result.state.sessionTick, direct.state.tick);
       assert.equal(driven.result.state.domTick, direct.state.tick);
       assert.equal(browserState.audioReplayLength, getGameSessionAudioReplay(direct).length);
@@ -921,17 +1007,27 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       assert.equal(browserState.pendingResources.length, 0);
       assert.equal(Object.values(browserState.layers).every((tick) => tick === String(direct.state.tick)),
       true, "every projection layer commits the current session tick");
+      recordHostPhase(telemetry, "browser-view-and-audio-assertions", fromTick,
+        browserStateAssertionsStartedAt);
       if (direct.state.tick === SEGMENT_TICKS) {
+        const activeScreenshotStartedAt = performance.now();
         await captureScreenshotWithInterval(page, `${ARTIFACTS}active.png`,
           "active-screenshot", longTaskIntervals);
+        recordHostPhase(telemetry, "active-screenshot-roundtrip", fromTick,
+          activeScreenshotStartedAt);
       }
+      const observerReadStartedAt = performance.now();
       const taskUpdate = await readNewLongTasks(page, longTaskCursor);
+      recordHostPhase(telemetry, "read-long-task-observer-roundtrip", fromTick,
+        observerReadStartedAt, { newlyObserved: taskUpdate.tasks.length,
+          drainedPendingCount: taskUpdate.drainedPendingCount });
       longTaskCursor = taskUpdate.cursor;
       firstDriveStartedAt ??= driven.startedAt;
       const longTaskWindow = { finishedAt: driven.finishedAt,
         id: `drive-${longTaskIntervals.length}`, kind: "drive",
         segmentIndex: telemetry.segments.length, startedAt: driven.startedAt };
       longTaskIntervals.push(longTaskWindow);
+      const observerAttributionStartedAt = performance.now();
       const classification = captureLongTaskBatch(taskUpdate);
       const inDrivenSegment = classification.byInterval.get(longTaskWindow.id) ?? [];
       telemetry.segments.push({
@@ -951,8 +1047,13 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       assertLongTaskCaps(classification, longTaskIntervals);
       assert.ok(performance.now() - started <= MAX_ENDURANCE_WALL_CLOCK_MS,
         "browser endurance run stayed inside the documented overall cap");
+      recordHostPhase(telemetry, "observer-attribution-and-cap-assertions", fromTick,
+        observerAttributionStartedAt, { newlyObserved: taskUpdate.tasks.length,
+          cumulativeLongTasks: observedLongTaskEntries.length,
+          intervalCount: longTaskIntervals.length });
 
       if (direct.state.tick === pauseTick) {
+        const lifecyclePauseStartedAt = performance.now();
         const beforePause = await browserView(page, { bytes: true });
         assert.equal(beforePause.sessionBytes, direct.serialize());
         const lifecycle = await page.evaluate(() => {
@@ -968,9 +1069,12 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
           resumed: lifecycle.resumed }, { manual: true, paused: true, resumed: true });
         assert.equal(lifecycle.sessionBytes, direct.serialize(),
           "pause/resume cannot change canonical simulation bytes");
+        recordHostPhase(telemetry, "pause-resume-manual-mode-lifecycle", fromTick,
+          lifecyclePauseStartedAt);
       }
 
       if (direct.state.tick === restoreTick && restoreCut === null) {
+        const restoreCutStartedAt = performance.now();
         const cutView = await browserView(page, { bytes: true, bridge: true });
         const browserSnapshot = await page.evaluate(() =>
           globalThis.__gameBrowserEnduranceController.serialize());
@@ -982,10 +1086,13 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
           tick: restoreTick,
         };
         telemetry.restoreCut = { snapshotBytes: browserSnapshot.length, tick: restoreTick };
+        recordHostPhase(telemetry, "restore-cut-snapshot-and-serialize", fromTick,
+          restoreCutStartedAt, { snapshotBytes: browserSnapshot.length });
       }
 
       if (restoreCut !== null && !restored &&
           direct.state.tick === restoreTick + SEGMENT_TICKS) {
+        const restoreBranchStartedAt = performance.now();
         const branchView = await browserView(page, { audioContinuation: true, bridge: true,
           bytes: true });
         const branchSnapshot = await page.evaluate(() =>
@@ -1054,11 +1161,15 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
           .filter(({ side }) => side === "south").at(-1)?.tick ?? 0;
         seenCueSequences.clear(); seenStartSequences.clear();
         restored = true;
+        recordHostPhase(telemetry, "restore-branch-roundtrip-and-assertions", fromTick,
+          restoreBranchStartedAt, { restoreElapsedMilliseconds: restoredView.elapsedMilliseconds });
+        finishHostSegmentTiming();
         continue;
       }
 
       if (restored && restoreBranch !== null && !replayParityProven &&
           direct.state.tick === restoreBranch.tick) {
+        const replayParityStartedAt = performance.now();
         const replayedSnapshot = await page.evaluate(() =>
           globalThis.__gameBrowserEnduranceController.serialize());
         const replayed = await browserView(page, { audioContinuation: true, bridge: true,
@@ -1086,10 +1197,17 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
             restoreBranch.audioDiagnostics.suppressedAcceleratedCueCount },
         "replayed audio authority/continuation diagnostics return to the branch boundary");
         replayParityProven = true;
+        recordHostPhase(telemetry, "replayed-branch-parity-roundtrip-and-assertions", fromTick,
+          replayParityStartedAt);
       }
+      finishHostSegmentTiming();
     }
 
+    const finalViewStartedAt = performance.now();
     const finalView = await browserView(page, { bytes: true, digest: true, loop: true });
+    recordHostPhase(telemetry, "terminal-final-browser-view-roundtrip", direct.state.tick,
+      finalViewStartedAt);
+    const finalAssertionsStartedAt = performance.now();
     assert.equal(finalView.sessionBytes, direct.serialize(),
       "terminal browser bytes equal direct GameSession E2 mirror bytes");
     assert.deepEqual(finalView.stateDigest, stateDigest(direct.state),
@@ -1104,6 +1222,8 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       "a post-restore physical E2 delivery proves no stale input callback remains");
     assert.equal(replayParityProven, true,
       "a divergent restore cut replays through the same browser bytes and input history");
+    recordHostPhase(telemetry, "terminal-final-state-assertions", direct.state.tick,
+      finalAssertionsStartedAt);
     if (FULL_RUN) {
       assert.equal(finalView.audioDiagnostics.disposed, true,
         "terminal audio renderer cleans up its graph");
@@ -1112,28 +1232,53 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       assert.equal(finalView.restartHidden, false);
       assert.ok(finalView.terminalOverlay?.width > 0 && finalView.terminalOverlay?.height > 0,
         "terminal feedback remains visible in the real 720x1280 shell");
+      const terminalScreenshotStartedAt = performance.now();
       await captureScreenshotWithInterval(page, `${ARTIFACTS}terminal.png`,
         "terminal-screenshot", longTaskIntervals);
+      recordHostPhase(telemetry, "terminal-screenshot-roundtrip", direct.state.tick,
+        terminalScreenshotStartedAt);
+      const terminalRestartBoundaryStartedAt = performance.now();
       const restartStartedAt = await page.evaluate(() => performance.now());
+      recordHostPhase(telemetry, "terminal-to-restart-page-clock-mark-roundtrip", direct.state.tick,
+        terminalRestartBoundaryStartedAt, { browserBoundaryAt: restartStartedAt });
       terminalObservationInterval.finishedAt = restartStartedAt;
       restartInterval = { finishedAt: Infinity, id: "restart", kind: "restart",
         startedAt: restartStartedAt };
       longTaskIntervals.push(restartInterval);
+      const restartClickStartedAt = performance.now();
       await page.locator('[data-ui="restart"]').click();
+      recordHostPhase(telemetry, "restart-click-roundtrip", direct.state.tick,
+        restartClickStartedAt);
+      const restartedViewStartedAt = performance.now();
       const restarted = await browserView(page, { bytes: true, loop: true });
+      recordHostPhase(telemetry, "restart-browser-view-roundtrip", direct.state.tick,
+        restartedViewStartedAt);
+      const restartAssertionsStartedAt = performance.now();
       assert.equal(restarted.sessionBytes,
         new GameSession(createShippedGameSessionSetup(0)).serialize(),
         "terminal restart creates the exact shipped seed-zero session");
       assert.equal(restarted.state.sessionTick, 0);
       assert.equal(restarted.restartHidden, true);
       assert.equal(restarted.terminalOverlay, null);
+      recordHostPhase(telemetry, "restart-state-assertions", direct.state.tick,
+        restartAssertionsStartedAt);
+      const restartScreenshotStartedAt = performance.now();
       await captureScreenshotWithInterval(page, `${ARTIFACTS}restart.png`,
         "restart-screenshot", longTaskIntervals);
+      recordHostPhase(telemetry, "restart-screenshot-roundtrip", direct.state.tick,
+        restartScreenshotStartedAt);
+      const restartFinishMarkStartedAt = performance.now();
       restartInterval.finishedAt = await page.evaluate(() => performance.now());
+      recordHostPhase(telemetry, "restart-finish-page-clock-roundtrip", 0,
+        restartFinishMarkStartedAt, { browserFinishedAt: restartInterval.finishedAt });
       telemetry.terminal = { finalView, restarted };
     } else {
       telemetry.terminal = { smoke: true, finalView };
+      const terminalFinishMarkStartedAt = performance.now();
       terminalObservationInterval.finishedAt = await page.evaluate(() => performance.now());
+      recordHostPhase(telemetry, "terminal-observation-finish-page-clock-roundtrip",
+        direct.state.tick, terminalFinishMarkStartedAt,
+        { browserFinishedAt: terminalObservationInterval.finishedAt });
     }
     telemetry.pendingResources = finalView.pendingResources;
     assert.deepEqual(telemetry.consoleErrors, []);
@@ -1143,6 +1288,8 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
     telemetry.failure = { message: String(error?.message ?? error), stack: error?.stack ?? null };
     testFailure = error;
   } finally {
+    finishHostSegmentTiming();
+    const finalDrainHostStartedAt = performance.now();
     try { await drainFinalObserver?.(); }
     catch (error) {
       if (testFailure === null) {
@@ -1150,10 +1297,16 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
         testFailure = error;
       }
     }
+    recordHostPhase(telemetry, "final-observer-drain-finally-roundtrip",
+      null, finalDrainHostStartedAt);
     telemetry.durationMilliseconds = Math.round(performance.now() - started);
     telemetry.serverStderr = serverStderr;
+    const browserCloseStartedAt = performance.now();
     try { await browser?.close(); } catch (error) { telemetry.browserCloseError = String(error); }
+    recordHostPhase(telemetry, "browser-close-roundtrip", null, browserCloseStartedAt);
+    const serverStopStartedAt = performance.now();
     telemetry.serverExited = await stopServer(server);
+    recordHostPhase(telemetry, "server-stop-roundtrip", null, serverStopStartedAt);
     telemetry.maxDrivenLongTaskMilliseconds = Math.max(0,
       ...telemetry.longTasks.map(({ duration }) => duration));
     telemetry.maxInitializationLongTaskMilliseconds = Math.max(0,
