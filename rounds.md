@@ -1,5 +1,47 @@
 # Gauntlet Rounds
 
+## Round 368 — 2026-10-02
+
+PIECE: RELEASE-001B — Standards-based production dependency graph, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Evaluated the frozen built-only artifact at
+`/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/r001b-build-Jakzxu/artifact`
+under source HEAD `f6203fd4b36b5b77b212029ce5777d24d275bf50`. Its manifest lists
+26 files totaling 1,435,406 bytes; a critic-side check verified every file's
+size and SHA-256 against the manifest. The manifest SHA-256 is
+`d06d40e7cab58b0255af451406040d37814a31109ad13820e72cb0a3a09dc39f`; the
+sorted path/size/hash inventory SHA-256 is
+`5ef5228156783b0965d1bf8a6d80ca4d8f1c0a919ee773cb7cfcb586fcd4d980`. Build
+identity is Vite 8.3.2, zero runtime dependencies, entrypoint
+`public/index.html`, and declared standalone module `src/rl/environment.js`.
+
+Real Chrome 154.0.8037.97 loaded
+`http://127.0.0.1:51181/moss-and-ember/public/index.html` via a temporary
+prefix-stripping proxy to the unchanged `scripts/serve-release.js`
+`createReleaseServer` manifest host. All 17 browser requests returned HTTP 200;
+no failed or off-manifest request was observed. One uncaught startup error then
+occurred before the app-shell module finished initializing:
+
+```text
+TypeError: Cannot read properties of undefined (reading 'length')
+    at cr (http://127.0.0.1:51181/moss-and-ember/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment-C5PN67-o.js:1:63507)
+    at kr (http://127.0.0.1:51181/moss-and-ember/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment-C5PN67-o.js:1:77837)
+    at H (http://127.0.0.1:51181/moss-and-ember/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment-Z_IItUnP.js:1:115794)
+    at http://127.0.0.1:51181/moss-and-ember/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment-Z_IItUnP.js:1:189795
+```
+
+The static Home document rendered, but its deck did not initialize. The test
+stopped at that decisive error; game interaction and standalone RL import/reset/
+step were not verified and are not claimed. Durable evidence, including the
+actual request/response log, screenshot, exact manifest, and checked artifact
+identity, is in `artifacts/release-001b-round-1/critic/`.
+
+BIGGEST GAP: A built runtime chunk throws during startup before app
+initialization, so neither the playable game nor the standalone RL behavior is
+verified.
+
 ## Round 367 — 2026-10-02
 
 PIECE: GAME-001HSPF — Corroborated periodic movement-slow facts, round 2
