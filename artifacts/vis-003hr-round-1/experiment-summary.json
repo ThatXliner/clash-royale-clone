@@ -1,0 +1,151 @@
+{
+  "task": "VIS-003HR exact long-branch frame restore",
+  "testedHeadAtPackaging": "c620af9339fe9a083e92a42a95954455a330a7bf",
+  "initialSourceHead": "f92c4010c8e228aed010a99ec34ffb7bef21540b",
+  "browser": {
+    "viewport": {
+      "width": 720,
+      "height": 1280
+    },
+    "chromeVersion": "154.0.8037.97"
+  },
+  "finalChange": {
+    "kind": "test-only screenshot-observer correction",
+    "description": "Derive art crops from saved full-viewport PNGs on a separate blank browser page, after the checkpoint and restored full captures. The captured full-frame PNG buffers are untouched; strict full-frame byte equality remains.",
+    "productionCssChanged": false,
+    "simulationChanged": false,
+    "timingOrToleranceChanged": false
+  },
+  "minimalWitness": {
+    "checkpointTick": 114,
+    "forwardTicks": 140,
+    "forwardTick": 254,
+    "clipObserverControl": {
+      "command": "BROWSER_FRAME_RESTORE_ARTIFACTS=/tmp/vis-003hr-clip-ab-clipped-control/ npm test -- browser-frame-restore",
+      "exitStatus": 1,
+      "checkpointSha256": "f623b7ac6fabdddf08d4ba3366263d2d6cfdc1aaba8ed2128bd68814571d316a",
+      "restoredSha256": "e6ea0d11bd710482892595509d07267464dcf1ab9fbe0353dc2955cd1fbffc86",
+      "restoredRepeatSha256": "e6ea0d11bd710482892595509d07267464dcf1ab9fbe0353dc2955cd1fbffc86",
+      "changedPixels": 79379,
+      "maxChannelDelta": 19,
+      "artCropChangedPixels": 838,
+      "artCropMaxChannelDelta": 2,
+      "browserSessionDomAndPaintStateExact": true
+    },
+    "portableOffPageCrop": {
+      "command": "BROWSER_FRAME_RESTORE_ARTIFACTS=/tmp/vis-003hr-portable-check/ npm test -- browser-frame-restore",
+      "exitStatus": 0,
+      "checkpointSha256": "f623b7ac6fabdddf08d4ba3366263d2d6cfdc1aaba8ed2128bd68814571d316a",
+      "restoredSha256": "f623b7ac6fabdddf08d4ba3366263d2d6cfdc1aaba8ed2128bd68814571d316a",
+      "restoredRepeatSha256": "f623b7ac6fabdddf08d4ba3366263d2d6cfdc1aaba8ed2128bd68814571d316a",
+      "changedPixels": 0,
+      "restoredPairChangedPixels": 0,
+      "artCropChangedPixels": 0
+    }
+  },
+  "originalBuildingChoicePath": {
+    "strictOutcome": "FAIL",
+    "repeatedRuns": [
+      {
+        "run": 1,
+        "command": "GAME_BROWSER_BUILDING_CHOICE_ARTIFACTS=/tmp/vis-003hr-portable-building/ npm test -- game-browser-building-choice",
+        "exitStatus": 1,
+        "checkpointSha256": "f623b7ac6fabdddf08d4ba3366263d2d6cfdc1aaba8ed2128bd68814571d316a",
+        "restoredSha256": "31d39f784166db05224f6a7890660ea420755e029559e75665c0393959ba8a29",
+        "restoredRepeatSha256": "31d39f784166db05224f6a7890660ea420755e029559e75665c0393959ba8a29",
+        "changedPixels": 2,
+        "maxChannelDelta": 1,
+        "restoredPairChangedPixels": 0
+      },
+      {
+        "run": 2,
+        "command": "GAME_BROWSER_BUILDING_CHOICE_ARTIFACTS=/tmp/vis-003hr-portable-building-2/ npm test -- game-browser-building-choice",
+        "exitStatus": 1,
+        "checkpointSha256": "f623b7ac6fabdddf08d4ba3366263d2d6cfdc1aaba8ed2128bd68814571d316a",
+        "restoredSha256": "31d39f784166db05224f6a7890660ea420755e029559e75665c0393959ba8a29",
+        "restoredRepeatSha256": "31d39f784166db05224f6a7890660ea420755e029559e75665c0393959ba8a29",
+        "changedPixels": 2,
+        "maxChannelDelta": 1,
+        "restoredPairChangedPixels": 0
+      },
+      {
+        "run": 3,
+        "command": "GAME_BROWSER_BUILDING_CHOICE_ARTIFACTS=/tmp/vis-003hr-portable-building-3/ npm test -- game-browser-building-choice",
+        "exitStatus": 1,
+        "checkpointSha256": "f623b7ac6fabdddf08d4ba3366263d2d6cfdc1aaba8ed2128bd68814571d316a",
+        "restoredSha256": "31d39f784166db05224f6a7890660ea420755e029559e75665c0393959ba8a29",
+        "restoredRepeatSha256": "31d39f784166db05224f6a7890660ea420755e029559e75665c0393959ba8a29",
+        "changedPixels": 2,
+        "maxChannelDelta": 1,
+        "restoredPairChangedPixels": 0
+      }
+    ],
+    "changedCoordinates": [
+      {
+        "x": 118,
+        "y": 1251,
+        "rgbCheckpoint": [
+          81,
+          73,
+          95
+        ],
+        "rgbRestored": [
+          80,
+          73,
+          94
+        ]
+      },
+      {
+        "x": 115,
+        "y": 1254,
+        "rgbCheckpoint": [
+          80,
+          73,
+          93
+        ],
+        "rgbRestored": [
+          79,
+          72,
+          92
+        ]
+      }
+    ],
+    "target": {
+      "elementAtPoint": "I child in .elixir-ticks",
+      "ancestor": ".elixir-rail",
+      "railRect": [
+        112,
+        1248,
+        496,
+        22
+      ],
+      "railBorder": "3px solid rgb(25, 29, 34)",
+      "railBorderRadius": "11px"
+    },
+    "elixirFillCheckpointAndRestore": {
+      "computedWidth": "343px",
+      "borderRadius": "7px",
+      "rect": [
+        115,
+        1251,
+        343,
+        16
+      ],
+      "computedStyleMatched": true
+    },
+    "checkpointAndRestoreDomSessionHudAssertions": "passed before the strict PNG failure",
+    "artCropChangedPixels": 0,
+    "noChangeWhenSuppressingAllSixPreCheckpointPresentationScreenshots": true,
+    "targetedStyleInvalidation": {
+      "strictOutcome": "FAIL",
+      "changedPixels": 6,
+      "maxChannelDelta": 1,
+      "note": "A temporary border-radius dirty/restore probe did not recover the checkpoint; diagnostic code is excluded from the committed tests."
+    }
+  },
+  "deferred": {
+    "enduranceRun18000Ticks": "not run; reserved for the separate critic",
+    "browserSlotReleased": true,
+    "sourcePinSuites": "not run; production CSS was unchanged"
+  }
+}

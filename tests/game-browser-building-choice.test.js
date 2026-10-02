@@ -5,6 +5,8 @@ import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { spawn } from "node:child_process";
 import test from "node:test";
 
+import { cropPngOnBlankPage } from "./helpers/png-crop.js";
+
 import { projectSessionNonUnitBattleCard } from "../src/content/session-card-catalog.js";
 import { GameSession } from "../src/sim/game-session.js";
 import { createShippedGameSessionSetup } from "../src/ui/game-browser-entry.js";
@@ -13,7 +15,8 @@ const PLAYWRIGHT = process.env.GAME_BROWSER_PLAYWRIGHT ??
   "/Users/me/.codex/worktrees/d092a29e-844b-459d-b145-c548db10d485/billion/node_modules/.pnpm/playwright@1.58.2/node_modules/playwright/index.mjs";
 const CHROME = process.env.GAME_BROWSER_CHROME ??
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
-const ARTIFACTS = new URL("../artifacts/game-001huib-round-2/", import.meta.url).pathname;
+const ARTIFACTS = process.env.GAME_BROWSER_BUILDING_CHOICE_ARTIFACTS ??
+  new URL("../artifacts/game-001huib-round-2/", import.meta.url).pathname;
 
 async function line(stream) {
   let value = "";
@@ -296,7 +299,6 @@ test("game browser building choice: Bulwark Needle deploys and defends through t
     assert.equal(pendingChoice.standardPressed, "false");
     assert.equal(pendingChoice.sessionBytes, seedZero.serialize(),
       "a pending chooser selection does not replace session authority");
-    await page.screenshot({ path: `${ARTIFACTS}bulwark-selected.png` });
     await click(page, '[data-ui="deck-start"]');
     await page.evaluate(() => globalThis.__bulwarkChoiceController.enterManualStepMode());
 
@@ -375,6 +377,7 @@ test("game browser building choice: Bulwark Needle deploys and defends through t
       document.querySelector('[data-ui="hud-hand"] [data-card-id="bulwark-needle"]')
         ?.dataset.selected ?? null);
     assert.equal(selected, "true", "the structure card accepts a trusted hand gesture");
+    await page.screenshot({ path: `${ARTIFACTS}bulwark-selected.png` });
     await click(page, '[data-ui="arena"]', { x: 105, y: 666 });
     await page.evaluate(() => globalThis.__bulwarkChoiceController.stepMany(1));
     const deployed = await page.evaluate(() => {
@@ -461,7 +464,6 @@ test("game browser building choice: Bulwark Needle deploys and defends through t
     assert.ok(defensiveCombat.targetLinkDisplay.includes("block"),
       "the structure target path is visible in the arena");
     await page.screenshot({ path: `${ARTIFACTS}bulwark-defensive-combat.png` });
-
     const checkpoint = await renderedState(page);
     const checkpointPaintState = await renderedPaintState(page);
     const artBounds = await page.locator(
@@ -481,10 +483,6 @@ test("game browser building choice: Bulwark Needle deploys and defends through t
     });
     const checkpointRepeatPng = await page.screenshot({
       path: `${ARTIFACTS}bulwark-restore-checkpoint-repeat.png`,
-    });
-    const checkpointArtPng = await page.screenshot({
-      clip: artClip,
-      path: `${ARTIFACTS}bulwark-art-before-restore.png`,
     });
     const forward = await page.evaluate(() => {
       const controller = globalThis.__bulwarkChoiceController;
@@ -511,12 +509,11 @@ test("game browser building choice: Bulwark Needle deploys and defends through t
     await settleBrowserPaint(page);
     const restored = await renderedState(page);
     const restoredPaintState = await renderedPaintState(page);
-    const restoredArtPng = await page.screenshot({
-      clip: artClip,
-      path: `${ARTIFACTS}bulwark-art-after-restore.png`,
-    });
     const restoredPng = await page.screenshot({
       path: `${ARTIFACTS}bulwark-restore-rebuilt.png`,
+    });
+    const restoredRepeatPng = await page.screenshot({
+      path: `${ARTIFACTS}bulwark-restore-rebuilt-repeat.png`,
     });
     assert.equal(restored.browserBytes, checkpoint.browserBytes,
       "restore reproduces exact browser snapshot bytes");
@@ -541,14 +538,50 @@ test("game browser building choice: Bulwark Needle deploys and defends through t
         checkpoint: checkpoint.markers, restored: restored.markers,
       })}`);
     const viewportPixelExact = hash(restoredPng) === hash(checkpointPng);
+    let checkpointArtPng;
+    let restoredArtPng;
+    let viewportRaster;
+    let bulwarkArtRaster;
+    let restoredPairRaster;
+    const bitmapPage = await page.context().newPage();
+    try {
+      checkpointArtPng = await cropPngOnBlankPage(bitmapPage, checkpointPng,
+        artClip, `${ARTIFACTS}bulwark-art-before-restore.png`);
+      restoredArtPng = await cropPngOnBlankPage(bitmapPage, restoredPng,
+        artClip, `${ARTIFACTS}bulwark-art-after-restore.png`);
+      viewportRaster = await comparePngPixels(bitmapPage, checkpointPng, restoredPng);
+      restoredPairRaster = await comparePngPixels(bitmapPage, restoredPng,
+        restoredRepeatPng);
+      bulwarkArtRaster = await comparePngPixels(bitmapPage,
+        checkpointArtPng, restoredArtPng);
+    } finally {
+      await bitmapPage.close();
+    }
     const bulwarkArtPixelExact = hash(restoredArtPng) === hash(checkpointArtPng);
-    const viewportRaster = await comparePngPixels(page, checkpointPng, restoredPng);
-    const bulwarkArtRaster = await comparePngPixels(page, checkpointArtPng, restoredArtPng);
     assert.ok(bulwarkArtRaster.maxChannelDelta <= 4 &&
       bulwarkArtRaster.meanChannelDelta < 0.5 && bulwarkArtRaster.pixelsOver8 === 0,
     `Bulwark art crop is visually unchanged: ${JSON.stringify(bulwarkArtRaster)}`);
     assert.notEqual(hash(forwardPng), hash(checkpointPng),
       "the simulated continuation changes the visible combat state");
+    evidence.restoreRaster = {
+      artClip,
+      artRaster: bulwarkArtRaster,
+      artSource: "off-page bitmap crops from full viewport PNG captures",
+      checkpointHash: hash(checkpointPng),
+      restoredHash: hash(restoredPng),
+      restoredRepeatHash: hash(restoredRepeatPng),
+      restoredPairRaster,
+      viewportRaster,
+    };
+    assert.equal(hash(restoredPng), hash(checkpointPng),
+      `restored full viewport must be pixel-identical with the post-restore crop derived off-page: ${JSON.stringify({
+        checkpoint: hash(checkpointPng), restored: hash(restoredPng), viewportRaster,
+      })}`);
+    assert.equal(hash(restoredRepeatPng), hash(checkpointPng),
+      `second restored full viewport must be byte-identical to checkpoint: ${JSON.stringify({
+        checkpoint: hash(checkpointPng), restoredRepeat: hash(restoredRepeatPng),
+        restoredPairRaster,
+      })}`);
     await page.screenshot({ path: `${ARTIFACTS}bulwark-restored.png` });
     const replayed = await page.evaluate(() => {
       const controller = globalThis.__bulwarkChoiceController;
