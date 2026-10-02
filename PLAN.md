@@ -238,3 +238,6 @@ retain integer-tick determinism and canonical serialize/restore behavior.
   fixtures and later footage; silence in the common schema is not proof.
 - Visual pieces remain blocked until the legally obtained capture manifest is
   populated.
+
+| APP-001 | Player-facing home, collection and card mechanics info | Shipped mobile/desktop navigation exposes Battle, Deck and Cards; card info derives cost, stats, targeting and mechanics from admitted runtime data; original names/art; accessible pointer/keyboard flow; actual Chrome renders and release build pass | GAME-001G, GAME-001HUIF | PENDING | 0/0 | 0 | New user-directed packaging round; builder active |
+| APP-002 | Editable eight-card deck and match launch | Eight unique admitted cards can be inspected/replaced, average elixir follows selection, invalid decks cannot launch, selected deck enters real GameSession and survives restart; browser proof covers edit→info→battle→restart | APP-001, MATCH-003 | PENDING | 0/0 | 0 | Depends on packaged card/deck surface and safe custom roster admission |
