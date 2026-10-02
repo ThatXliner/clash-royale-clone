@@ -1,5 +1,37 @@
 # Gauntlet Rounds
 
+## Round 366 — 2026-10-02
+
+PIECE: GAME-001HSPF — Corroborated periodic movement-slow facts, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Evaluated immutable commit
+`d32b6dfd85b03f7670736ce3789184587c1513d9` from the clean archive at
+`/tmp/hspf-critic-d32b6df`. `npm test -- combat-status-slow` passed 23/23
+(3,456.629 ms); its source-derived movement-only profile test holds attack work
+at 20/20 and verifies exact restored continuation, while the generic defaults
+remain legacy-shaped. `npm test -- spells-periodic` passed 22/22 (33,370.996
+ms). It maps the pinned cutoff JSON values to Blight Ring movement 17/20 from
+raw modifier −15 and Fault Pulse movement 10/20 from raw modifier −50; both
+retain attack work 20/20, and exact chunk/restore continuation passes. The
+fixture tests keep slow composition and refresh as QUESTION, consistent with
+the cutoff source's unresolved activation, refresh, ordering, and rounding
+limits.
+
+The admission check did not pass: `npm test -- game-roster-admission` produced
+6/7 passing tests and failed the manifest/binding test at
+`scripts/integration-audit.js:634` with
+`createPeriodicSpellCatalog/blight-ring mechanic binding mismatch`. A bounded
+direct call to `getSessionCardAdmissionRecord` then returned ADMITTED
+`global_effect` records for both `blight-ring` and `fault-pulse`, with costs 4
+and 3 respectively. This contradicts the requirement that periodic QUESTION
+fixtures remain rejected from session admission; the mismatch also leaves the
+existing integration audit red.
+
+BIGGEST GAP: Blight Ring and Fault Pulse are exposed as admitted session cards,
+and the integration audit's pinned Blight Ring binding no longer matches.
+
 ## Round 365 — 2026-10-02
 
 PIECE: VIS-003HR — Exact frame restore after a long rendered branch, round 2
