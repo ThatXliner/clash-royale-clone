@@ -1,12 +1,17 @@
 {
-    "name": "original-card-battler",
+  "name": "moss-and-ember",
   "version": "0.0.0",
+  "description": "An open-source real-time card-battler project and reinforcement-learning environment.",
   "private": true,
   "type": "module",
   "scripts": {
     "build": "node scripts/build-release.js",
+    "build:pages": "node scripts/build-pages.js",
     "preview:release": "npm run build && node scripts/serve-release.js",
-    "test": "node tests/content-schema-runner.js",
+    "preview:pages": "npm run build:pages && node scripts/preview-pages.js",
+    "test": "node scripts/test-portable.js -- node tests/content-schema-runner.js",
+    "test:portable": "node scripts/test-portable.js --",
+    "test:publication-pages": "node --test tests/publication-pages.test.js",
     "test:rl-environment": "node tests/rl-environment-runner.js rl-environment",
     "test:content-schema": "node tests/content-schema-runner.js content-schema",
     "test:nondeterminism-guard": "node tests/nondeterminism-guard-runner.js nondeterminism-guard",
@@ -150,5 +155,13 @@
   },
   "engines": {
     "node": ">=22"
+  },
+  "license": "AGPL-3.0-only",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ThatXliner/clash-royale-clone.git"
+  },
+  "devDependencies": {
+    "playwright": "1.58.2"
   }
 }
