@@ -1,0 +1,115 @@
+{
+  "chromeVersion": "154.0.8037.97",
+  "viewport": {
+    "width": 720,
+    "height": 1280
+  },
+  "consoleErrors": [],
+  "pageErrors": [],
+  "scenarios": [
+    {
+      "checkpointSha256": "a38b83db5f7ae6d0b0b86a8c353dd890e847f41422bfd918eae9489bc86ac040",
+      "consecutiveSha256": "a38b83db5f7ae6d0b0b86a8c353dd890e847f41422bfd918eae9489bc86ac040",
+      "consecutivePixelDelta": {
+        "changedPixels": 0,
+        "height": 1280,
+        "maxChannelDelta": 0,
+        "width": 720
+      },
+      "branchTicks": 2,
+      "checkpointTick": 0,
+      "exactBrowserState": true,
+      "exactSessionState": true,
+      "exactPaintState": true,
+      "exactArenaDom": true,
+      "exactLayerDom": true,
+      "exactHud": true,
+      "exactInput": true,
+      "label": "standard-arena",
+      "artClip": null,
+      "artPixelDelta": null,
+      "restoredArtSource": null,
+      "restoreSha256": "a38b83db5f7ae6d0b0b86a8c353dd890e847f41422bfd918eae9489bc86ac040",
+      "restoreRepeatSha256": "a38b83db5f7ae6d0b0b86a8c353dd890e847f41422bfd918eae9489bc86ac040",
+      "restorePairPixelDelta": {
+        "changedPixels": 0,
+        "height": 1280,
+        "maxChannelDelta": 0,
+        "width": 720
+      },
+      "restorePixelDelta": {
+        "changedPixels": 0,
+        "height": 1280,
+        "maxChannelDelta": 0,
+        "width": 720
+      },
+      "forwardSha256": "04db01f2b2ecbf344cf86f9db85f60176d09207d9212203e35daafcc2cce0c19",
+      "forwardBrowserChanged": true,
+      "forwardSessionChanged": true,
+      "forwardTick": 2,
+      "strictConsecutivePng": true,
+      "strictRestorePng": true,
+      "strictRestoreRepeatPng": true,
+      "exactRestoredArtPixels": false,
+      "startingTick": 0
+    },
+    {
+      "checkpointSha256": "a978920b64a4ca666a30d0bb7bb6d6ebf4840d2bc740f2055dd2b7d3d0dc7f56",
+      "consecutiveSha256": "a978920b64a4ca666a30d0bb7bb6d6ebf4840d2bc740f2055dd2b7d3d0dc7f56",
+      "consecutivePixelDelta": {
+        "changedPixels": 0,
+        "height": 1280,
+        "maxChannelDelta": 0,
+        "width": 720
+      },
+      "branchTicks": 140,
+      "checkpointTick": 114,
+      "exactBrowserState": true,
+      "exactSessionState": true,
+      "exactPaintState": true,
+      "exactArenaDom": true,
+      "exactLayerDom": true,
+      "exactHud": true,
+      "exactInput": true,
+      "label": "deployed targeting Bulwark Needle",
+      "artClip": {
+        "height": 66,
+        "width": 66,
+        "x": 158,
+        "y": 737
+      },
+      "artPixelDelta": {
+        "changedPixels": 0,
+        "height": 66,
+        "maxChannelDelta": 0,
+        "width": 66
+      },
+      "restoredArtSource": "off-page bitmap crop from restored full viewport PNG",
+      "restoreSha256": "a978920b64a4ca666a30d0bb7bb6d6ebf4840d2bc740f2055dd2b7d3d0dc7f56",
+      "restoreRepeatSha256": "a978920b64a4ca666a30d0bb7bb6d6ebf4840d2bc740f2055dd2b7d3d0dc7f56",
+      "restorePairPixelDelta": {
+        "changedPixels": 0,
+        "height": 1280,
+        "maxChannelDelta": 0,
+        "width": 720
+      },
+      "restorePixelDelta": {
+        "changedPixels": 0,
+        "height": 1280,
+        "maxChannelDelta": 0,
+        "width": 720
+      },
+      "forwardSha256": "cf2dac00d0f612411c0151cfec67e4a1bb80065660ab035d9344ed97a1de749d",
+      "forwardBrowserChanged": true,
+      "forwardSessionChanged": true,
+      "forwardTick": 254,
+      "strictConsecutivePng": true,
+      "strictRestorePng": true,
+      "strictRestoreRepeatPng": true,
+      "exactRestoredArtPixels": true,
+      "advancedTicks": 114,
+      "targetKey": "unit:4",
+      "startingTick": 114
+    }
+  ]
+}

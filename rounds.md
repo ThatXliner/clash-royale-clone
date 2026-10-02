@@ -1,5 +1,61 @@
 # Gauntlet Rounds
 
+## Round 365 — 2026-10-02
+
+PIECE: VIS-003HR — Exact frame restore after a long rendered branch, round 2
+
+VERDICT: PASS
+
+EVIDENCE: Evaluated immutable commit
+`948eb63d3cbc4c5e18ae6ac0c1c535c10cca79c4` in the clean archive at
+`/tmp/vis003hr-r1-critic-948eb63`. Sequential source/contract checks passed:
+`npm test -- ui-arena-shell` 7/7 in 61.248 ms; `npm test -- visual-arena-art`
+6/6 in 4,286.109 ms, including the real 720×1280 Chrome render; and
+`npm test -- browser-frame-restore` 1/1 in 6,722.578 ms. The frame-restore
+report has exact full-viewport checkpoint/repeat/restore/repeat PNGs for the
+standard opening and deployed Bulwark targeting a live unit at tick 114,
+forward 140 ticks to 254. Session/browser/paint/arena/layer/HUD/input state is
+exact, and the Bulwark art crop has zero changed pixels.
+
+`npm test -- game-browser-building-choice` passed 1/1 in 47,423.021 ms. Its
+real 720×1280 Bulwark checkpoint, restored viewport, and repeated restored
+capture share one SHA-256 and have zero changed pixels; browser/session/DOM/
+HUD/input/paint state, restored art, and same-deck restart are exact.
+
+The required `npm test -- game-browser-endurance` ran once with the tick
+override unset and passed 2/2, including the synthetic delayed-entry
+classifier and actual full Chrome journey. The journey reached tick 18,000
+across 61 segments in 816,491.631 ms (outer test duration 818,683.726625 ms),
+under the 20-minute cap. Initialization's maximum long task was 172 ms under
+300 ms; drive, restore, terminal observation, restart, screenshots, final
+observer drain, and out-of-segment collections contained zero long tasks under
+the unchanged 50 ms cap. Final observer drain observed two entries, drained
+zero pending entries, added none, and recorded no long tasks.
+
+At terminal, the browser matched direct session serialization at tick 18,000
+(319,566 bytes); all display layers reached that tick, audio cursor/events
+were 3,513, terminal audio was disposed without fault, and no resources were
+pending. The restore cut rewound tick 600 to 300, then replay to tick 600
+reproduced exact session, loop/input snapshot, bridge, layers, and audio
+continuation. Terminal restart returned the exact seed-zero session at tick
+0. There were no console, resource, or unhandled errors, and the server exited.
+Host metadata reports a largest segment body of 22,404.509 ms from tick 300
+and an intersegment gap of 14.5885 ms at tick 15,300; these host-phase timings
+are separate from the browser long-task caps.
+
+Durable review evidence is committed under
+`artifacts/vis-003hr-round-2/critic/frame-restore/` (restore report and
+checkpoint/forward/restored/repeated PNGs),
+`artifacts/vis-003hr-round-2/critic/building-choice/` (browser evidence and
+checkpoint/restored PNGs), and
+`artifacts/vis-003hr-round-2/critic/endurance/` (full result JSON and
+terminal/restart PNGs). The source run archive remains at
+`/tmp/vis003hr-r1-critic-948eb63`.
+
+BIGGEST GAP: None on the judged strict restore, geometry/source-pin,
+presentation, or endurance dimensions. The earlier two-pixel mismatch remains
+documented as Round 360's historical failure.
+
 ## Round 364 — 2026-10-02
 
 PIECE: GAME-001GPVT — Terminal and restart long-task attribution, round 3
