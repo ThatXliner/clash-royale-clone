@@ -1,5 +1,48 @@
 # Gauntlet Rounds
 
+## Round 361 — 2026-10-02
+
+PIECE: GAME-001GPVT — Terminal and restart long-task attribution
+
+VERDICT: FAIL
+
+EVIDENCE: Evaluated immutable commit
+`700feed3ffd12f1f317c6da1922ae721a8f2220c` in the clean archive at
+`/tmp/game-001gpvt-r2-critic-700feed3-nXwex3`. The scoped contract checks ran
+once outside the performance run: `npm test -- game-browser-audio` passed
+11/11 in 801.762 ms, and `npm test -- game-audio-runtime` passed 11/11 in
+4,969.742 ms.
+
+The required full command, `npm test -- game-browser-endurance`, ran once.
+The delayed timestamp-classifier subtest passed 1/1. The actual Chrome journey
+was cancelled by the Node test timeout: `test timed out after 1260000ms`, with
+subtest duration 1,298,998.586541 ms. TAP ended with 2 tests, 1 pass, 0 fail,
+1 cancelled, and total duration 1,318,073.528 ms. No shortened journey or
+retry was substituted.
+
+The preserved telemetry at
+`/tmp/game-001gpvt-r2-critic-700feed3-nXwex3/artifacts/game-001gp-browser-endurance/endurance-result.json`
+records `durationMilliseconds: 1299124`, 48 segment records, and a last
+completed browser tick of 14,100. The last segment advanced ticks 13,800–
+14,100; its drive interval ended at 1,195,854 ms. The run also failed its
+20-minute overall-cap assertion at `tests/game-browser-endurance.test.js:952`.
+The telemetry has a 37,778-byte restore cut at tick 300, then cancellation
+disposed the browser drive. `terminal` is null: no terminal observation,
+terminal audio cleanup, restart, or final 18,000-tick result was reached.
+
+Long-task attribution did not record a non-initialization breach in the
+partial journey: initialization tasks measured 111 ms at 145.6 ms and 184 ms
+at 281.6 ms, both below the 300 ms cap. Maximum measured long task was 184 ms;
+driven, restore, screenshot, terminal-observation, restart, final-drain, and
+out-of-segment long-task collections were empty. The post-cancellation final
+observer drain at 1,297,974.9–1,297,996.6 ms observed two entries, added zero,
+and had no long tasks. Console errors, unhandled errors, pending resources,
+and resource errors were empty; the test server exited.
+
+BIGGEST GAP: The full Chrome journey exceeded the overall time cap and was
+cancelled at tick 14,100, before terminal observation or restart. The 18,000-
+tick lifecycle and terminal/restart caps remain unverified in this run.
+
 ## Round 360 — 2026-10-02
 
 PIECE: VIS-003HR — Exact frame restore after a long rendered branch
