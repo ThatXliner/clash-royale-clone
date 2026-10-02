@@ -3,7 +3,9 @@ import { readFileSync } from "node:fs";
 import test from "node:test";
 
 import {
+  TimedMovementAttackSlowEncounter,
   TimedMovementAttackRageEncounter,
+  createSlowFixture,
   createRageFixture,
   createRageQuestionRecords,
   createRageSpecialCatalog,
@@ -589,15 +591,35 @@ test("combat status rage: snapshots are canonical, bounded, causal, and every fi
   ), /byte bound/u);
 });
 
-test("combat status rage: unrelated healing, invisibility, reflection, and slow runtime semantics are untouched", () => {
+test("combat status rage: unrelated systems stay absent and default slow behavior stays compatible", () => {
   const source = readFileSync(new URL(
     "../src/content/cards/special-combat-rage.js", import.meta.url,
   ), "utf8");
   assert.doesNotMatch(source,
     /DamageSystem|heal-applied|invisibility|Projectile|reflection/u);
-  const slowSource = readFileSync(new URL(
-    "../src/content/cards/special-combat-slow.js", import.meta.url,
-  ), "utf8");
-  assert.match(slowSource,
-    /const SLOW_PROGRESS = 13n;[\s\S]*const DURATION_TICKS = 60;/u);
+
+  const slowEncounter = new TimedMovementAttackSlowEncounter(createSlowFixture([
+    command(0, "slow", 88),
+    acquire(0, 7),
+  ]));
+  slowEncounter.stepMany(60);
+  assert.deepEqual([
+    slowEncounter.state.position,
+    slowEncounter.state.movementRemainder,
+    slowEncounter.state.attackWork,
+    slowEncounter.state.slowUntilTick,
+  ], [650, 0, 660, 60]);
+  assert.deepEqual(slowEncounter.replay.filter(({ type }) => type === "attack"), []);
+
+  slowEncounter.stepMany(34);
+  assert.deepEqual(slowEncounter.replay.filter(({ type }) => type === "attack"), [
+    { sequence: 1, targetId: 7, tick: 93, type: "attack" },
+  ]);
+  assert.equal(slowEncounter.state.slowUntilTick, null);
+  slowEncounter.stepMany(26);
+  assert.deepEqual([
+    slowEncounter.state.position,
+    slowEncounter.state.movementRemainder,
+    slowEncounter.state.attackWork,
+  ], [1650, 0, 1500]);
 });

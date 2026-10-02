@@ -1,0 +1,215 @@
+{
+  "piece": "GAME-001HSPF round 2 occurrence pin and aggregate audit repair",
+  "baseline": {
+    "commit": "85768ee6d6f6cc3e042a50e916ddf52641d70d9a",
+    "manifestSha256": "7eeeab122b45e8815e5c456bcf74f4a61de2d0b746cab794b9dfe57c8e00cd31",
+    "manifestFile": "artifacts/integration-audit-manifest-reconciliation-2026-09-24/current-manifest.json"
+  },
+  "sourceChange": "d32b6df fix: model periodic movement-only slow rates",
+  "occurrenceSurface": {
+    "before": 58,
+    "after": 58,
+    "uniqueSupportedIdsBefore": 53,
+    "uniqueSupportedIdsAfter": 53,
+    "runnersBefore": 46,
+    "runnersAfter": 46
+  },
+  "changedOccurrenceArtifacts": [
+    {
+      "exportName": "createPeriodicSpellCatalog",
+      "id": "blight-ring",
+      "changedFields": [
+        "bindingSha256",
+        "eventBytes",
+        "eventSha256",
+        "replayBytes",
+        "replaySha256",
+        "stateBytes",
+        "stateSha256"
+      ],
+      "bindingSha256": {
+        "before": "5af924d1a56cba26daf11065d897e66d51cfa2ef43b8074c9ff90f85f19b6905",
+        "after": "e33cf1c1256ed7ed31b774dc5b5e6fc4f0c786d9934d717b39f3da68d369c799"
+      },
+      "payloadDeltas": [
+        {
+          "field": "stateBytes",
+          "pathTemplate": "mechanic.state.history[i].slowProgress",
+          "paths": [
+            "mechanic.state.history[5].slowProgress",
+            "mechanic.state.history[10].slowProgress",
+            "mechanic.state.history[15].slowProgress",
+            "mechanic.state.history[20].slowProgress",
+            "mechanic.state.history[25].slowProgress",
+            "mechanic.state.history[30].slowProgress",
+            "mechanic.state.history[35].slowProgress",
+            "mechanic.state.history[40].slowProgress"
+          ],
+          "value": {
+            "attackWorkTwentieths": 20,
+            "movementTwentieths": 17
+          }
+        },
+        {
+          "field": "eventBytes",
+          "pathTemplate": "mechanic.emitted[i].slowProgress",
+          "paths": [
+            "mechanic.emitted[5].slowProgress",
+            "mechanic.emitted[10].slowProgress",
+            "mechanic.emitted[15].slowProgress",
+            "mechanic.emitted[20].slowProgress",
+            "mechanic.emitted[25].slowProgress",
+            "mechanic.emitted[30].slowProgress",
+            "mechanic.emitted[35].slowProgress",
+            "mechanic.emitted[40].slowProgress"
+          ],
+          "value": {
+            "attackWorkTwentieths": 20,
+            "movementTwentieths": 17
+          }
+        },
+        {
+          "field": "replayBytes",
+          "pathTemplate": "mechanic.replay[i].slowProgress",
+          "paths": [
+            "mechanic.replay[5].slowProgress",
+            "mechanic.replay[10].slowProgress",
+            "mechanic.replay[15].slowProgress",
+            "mechanic.replay[20].slowProgress",
+            "mechanic.replay[25].slowProgress",
+            "mechanic.replay[30].slowProgress",
+            "mechanic.replay[35].slowProgress",
+            "mechanic.replay[40].slowProgress"
+          ],
+          "value": {
+            "attackWorkTwentieths": 20,
+            "movementTwentieths": 17
+          }
+        }
+      ]
+    },
+    {
+      "exportName": "createPeriodicSpellCatalog",
+      "id": "fault-pulse",
+      "changedFields": [
+        "bindingSha256",
+        "eventBytes",
+        "eventSha256",
+        "replayBytes",
+        "replaySha256",
+        "stateBytes",
+        "stateSha256"
+      ],
+      "bindingSha256": {
+        "before": "f16e4ec72c1db1d4be1cc05e25f828d0248695dcc5c963a84c08f9df3a284b1e",
+        "after": "744d37efbbac4f74554d9f106dfffda0e636ba8018a3b9247aca740c77be9ae7"
+      },
+      "payloadDeltas": [
+        {
+          "field": "stateBytes",
+          "pathTemplate": "mechanic.state.history[i].slowProgress",
+          "paths": [
+            "mechanic.state.history[5].slowProgress",
+            "mechanic.state.history[10].slowProgress",
+            "mechanic.state.history[15].slowProgress"
+          ],
+          "value": {
+            "attackWorkTwentieths": 20,
+            "movementTwentieths": 10
+          }
+        },
+        {
+          "field": "eventBytes",
+          "pathTemplate": "mechanic.emitted[i].slowProgress",
+          "paths": [
+            "mechanic.emitted[5].slowProgress",
+            "mechanic.emitted[10].slowProgress",
+            "mechanic.emitted[15].slowProgress"
+          ],
+          "value": {
+            "attackWorkTwentieths": 20,
+            "movementTwentieths": 10
+          }
+        },
+        {
+          "field": "replayBytes",
+          "pathTemplate": "mechanic.replay[i].slowProgress",
+          "paths": [
+            "mechanic.replay[5].slowProgress",
+            "mechanic.replay[10].slowProgress",
+            "mechanic.replay[15].slowProgress"
+          ],
+          "value": {
+            "attackWorkTwentieths": 20,
+            "movementTwentieths": 10
+          }
+        }
+      ]
+    }
+  ],
+  "unchangedGravityWell": {
+    "exportName": "createPeriodicSpellCatalog",
+    "id": "gravity-well",
+    "bindingSha256": "a077d499fe05b9886d1056d8fa9aed9f157e0ace04d5539bead0d96c14dc8c88"
+  },
+  "runnerTapChanges": [
+    {
+      "selector": "combat-status-slow",
+      "before": {
+        "pass": 21,
+        "tests": 21
+      },
+      "after": {
+        "pass": 23,
+        "tests": 23
+      }
+    },
+    {
+      "selector": "spells-periodic",
+      "before": {
+        "pass": 21,
+        "tests": 21
+      },
+      "after": {
+        "pass": 22,
+        "tests": 22
+      }
+    }
+  ],
+  "aggregate": {
+    "baselineSha256": "7eeeab122b45e8815e5c456bcf74f4a61de2d0b746cab794b9dfe57c8e00cd31",
+    "reconstructedCandidateSha256": "3f48a3de26bf31d1c04438ac0486dcd6ed30f28ed4e76ffce2557eab82a734bf",
+    "observedCandidateSha256": "3f48a3de26bf31d1c04438ac0486dcd6ed30f28ed4e76ffce2557eab82a734bf",
+    "candidateMatchesObserved": true,
+    "changedManifestPaths": [
+      "runners[selector=combat-status-slow].tap.pass",
+      "runners[selector=combat-status-slow].tap.tests",
+      "runners[selector=spells-periodic].tap.pass",
+      "runners[selector=spells-periodic].tap.tests",
+      "supportedArtifacts[createPeriodicSpellCatalog/blight-ring].bindingSha256",
+      "supportedArtifacts[createPeriodicSpellCatalog/blight-ring].eventBytes",
+      "supportedArtifacts[createPeriodicSpellCatalog/blight-ring].eventSha256",
+      "supportedArtifacts[createPeriodicSpellCatalog/blight-ring].replayBytes",
+      "supportedArtifacts[createPeriodicSpellCatalog/blight-ring].replaySha256",
+      "supportedArtifacts[createPeriodicSpellCatalog/blight-ring].stateBytes",
+      "supportedArtifacts[createPeriodicSpellCatalog/blight-ring].stateSha256",
+      "supportedArtifacts[createPeriodicSpellCatalog/fault-pulse].bindingSha256",
+      "supportedArtifacts[createPeriodicSpellCatalog/fault-pulse].eventBytes",
+      "supportedArtifacts[createPeriodicSpellCatalog/fault-pulse].eventSha256",
+      "supportedArtifacts[createPeriodicSpellCatalog/fault-pulse].replayBytes",
+      "supportedArtifacts[createPeriodicSpellCatalog/fault-pulse].replaySha256",
+      "supportedArtifacts[createPeriodicSpellCatalog/fault-pulse].stateBytes",
+      "supportedArtifacts[createPeriodicSpellCatalog/fault-pulse].stateSha256"
+    ]
+  },
+  "validation": {
+    "npm test -- game-roster-admission": "pass 7/7",
+    "npm test -- combat-status-rage": "pass 17/17",
+    "npm test -- combat-status-slow spells-periodic": "pass 23/23 and 22/22",
+    "npm test -- integration-audit": "complete two-sweep execution; all deterministic-run and occurrence checks reached the aggregate SHA assertion; prior pin mismatch only, updated pin to reconstructed/observed candidate hash for independent final run"
+  },
+  "admissionBoundary": {
+    "status": "unchanged",
+    "note": "Independent parent probe reports Blight Ring, Fault Pulse, and Gravity Well reject at GameSession spell and LiveBattle scheduleSpell boundaries with exact serialized hashes and no route/deck/elixir/pending mutation; this builder did not change roster metadata."
+  }
+}
