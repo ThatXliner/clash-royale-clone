@@ -1,0 +1,24 @@
+{
+  "testedCodeCommit": "6c99614",
+  "command": "npm test",
+  "exitCode": 1,
+  "elapsedSeconds": 3590.1,
+  "tapGroups": 139,
+  "failingTests": 1,
+  "failure": "game browser building choice: restored full viewport pixel mismatch after 140-tick branch",
+  "endurance": {
+    "terminalTick": 18000,
+    "segments": 61,
+    "maxDrivenLongTaskMilliseconds": 0,
+    "maxRestoreLongTaskMilliseconds": 0,
+    "maxInitializationLongTaskMilliseconds": 185,
+    "outOfSegmentLongTasks": [
+      {
+        "duration": 76,
+        "name": "self",
+        "startTime": 802073.3000000715
+      }
+    ]
+  },
+  "scope": "Pre-packaging code revision; no claim that newer app shell is covered. Drive/restore cap excludes terminal/restart tail."
+}
