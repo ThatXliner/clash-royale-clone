@@ -1,5 +1,70 @@
 # Gauntlet Rounds
 
+## Round 363 — 2026-10-02
+
+PIECE: PUB-002 — GitHub Pages landing and demo artifact, round 1
+
+VERDICT: PASS
+
+EVIDENCE: Evaluated immutable commit
+`46527870c882a50b810053ffef622aefd4778e03` from the fresh archive at
+`/tmp/pub-review-4652787-W7rTv4`. `npm ci` completed with zero reported
+vulnerabilities. `npm run test:publication-pages` passed 5/5 in 22,036.617 ms;
+`npm run build:pages` produced 121 files totaling 2,690,138 bytes. The built
+Pages preview ran at
+`http://127.0.0.1:4181/clash-royale-clone/`; no remote publication was run.
+
+Actual Chrome renders at 1440×1000 and 390×844 had no horizontal overflow and
+loaded the original logo, gameplay capture, banner, CSS and game entry under
+the repository prefix. The skip link was the first keyboard stop, followed by
+the project navigation link; RL documentation links pointed to the expected
+repository docs/source, and all seven local assets/entry/license paths returned
+200. From the landing CTA, the real app opened Home → Deck (eight cards) →
+Cards (nine available) → Coilblade details with health 1,361 and damage 720 per
+attack → Battle. A trusted click selected Mossguard and placed it on the south
+arena: the combat layer showed the new south-side unit, the hand cycled to
+Brassbolt, and elixir changed from 10 to 7. The browser imported
+`/clash-royale-clone/game/src/rl/environment.js`; reset/step returned tick 0 →
+30, reward 0, and both terminal flags false, with no page or console errors.
+Captures are `artifacts/critic-pub-001-002/landing-1440.png`,
+`landing-390.png`, `game-card-info-1440.png`, and `game-battle-attempt.png` in
+the archive.
+
+BIGGEST GAP: None on the judged Pages packaging, accessible navigation,
+responsive rendering, RL link, and playable-flow dimensions.
+
+## Round 362 — 2026-10-02
+
+PIECE: PUB-001 — Branded GitHub repository documentation, round 1
+
+VERDICT: PASS
+
+EVIDENCE: Evaluated immutable commit
+`46527870c882a50b810053ffef622aefd4778e03` in the clean extracted archive at
+`/tmp/pub-review-4652787-W7rTv4`. `npm ci` installed the locked dependencies
+with zero reported vulnerabilities. `npm run test:content-schema` passed
+20/20; `npm run build` produced 121 release files totaling 2,690,138 bytes.
+The explicit release host `node scripts/serve-release.js --port 4175` served
+`http://127.0.0.1:4175/public/index.html`; Chrome loaded the game Home view
+with no errors. The README's documented RL example printed initial tick 0,
+tick 30, reward 0, and `terminated=false`, `truncated=false`. Every README
+relative link and documented package script resolved; no private machine paths
+were found. `LICENSE` is labeled AGPL-3.0-only and its SHA-256
+`0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0` matches
+the provenance in `NOTICE`. `.gitignore`, contribution/publishing guidance,
+and issue/PR templates are present; the templates reinforce original-content
+and `reference/` isolation rules. The original logo/banner rendered in
+`artifacts/critic-pub-001-002/landing-1440.png` and `landing-390.png`; the
+release capture is `artifacts/critic-pub-001-002/quickstart-release-4175.png`.
+
+The focused `npm run test:rl-environment` runner was started but intentionally
+interrupted after more than 60 seconds with only a TAP header; its natural
+engine-completion loop is outside this documentation bar and is not claimed as
+passing evidence. The documented one-step example above completed successfully.
+
+BIGGEST GAP: None on the judged documentation, installation/quickstart,
+licensing/provenance, repository-hygiene, and original-brand dimensions.
+
 ## Round 361 — 2026-10-02
 
 PIECE: GAME-001GPVT — Terminal and restart long-task attribution
