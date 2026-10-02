@@ -1,5 +1,52 @@
 # Gauntlet Rounds
 
+## Round 352 — 2026-10-02
+
+PIECE: APP-003 — Deck and card-info interaction polish, round 1
+
+VERDICT: PASS
+
+EVIDENCE: The critic ran a clean archive of immutable commit
+`15cda7963254e5d91962a394ae15e33fbf5910fb` at
+`/tmp/app003-critic-15cda79.BGoXUQ`. All requested regressions passed:
+`npm run test:app-polish` (1/1), `npm run test:app-shell` (1/1),
+`npm run test:release-runtime` (1/1), and
+`npm run test:shipping-isolation-release` (3/3), for 6/6 checks. The first
+app-shell invocation timed out under concurrent release builds; its isolated
+rerun passed in 58.2 seconds.
+
+An independent production Chrome audit at 320×568, 390×844, 720×1280 and
+1440×900 found document and body widths equal to the viewport at every view.
+After native smooth scrolling settled, actual Tab traversal had zero focused
+controls intersecting the fixed navigation at any size. Last-slot Replace
+rectangles were 423.5625–467.5625 with nav top 501 at 320×568,
+716.5625–760.5625 with nav top 777 at 390×844, and
+788.375–832.375 with nav top 1213 at 720×1280; each trusted center hit passed.
+The 1440×900 layout uses a side-by-side detail panel; its navigation does not
+intersect focused controls. All visible phone controls were at least 44px high.
+
+At all viewports, trusted pointer clicks opened the last-slot replacement,
+selected Stonehauler, and exposed the `Updated` slot marker and
+`Stonehauler replaced Cinderlings. Average elixir 3.63.` status. Trusted Clear
+search restored all 9 cards and focus to the search field. At phone sizes the
+card detail title received focus, the 44px Back button had a valid center hit,
+and returning focus was verified by the app-polish regression. The suite also
+confirmed reduced-motion transitions resolve to `1e-05s` and scroll behavior
+to `auto`. The app-shell regression passed custom-deck launch, byte-exact
+snapshot restore/replay, terminal completion, and same-deck restart with the
+selected order preserved.
+
+Inspected production captures include
+`/tmp/app003-critic-15cda79.BGoXUQ/independent-browser-evidence/deck-last-320x568.png`
+and `/tmp/app003-critic-15cda79.BGoXUQ/artifacts/app-003-round-1/after-details-390x844.png`.
+The initial slot-8 row requires ordinary scrolling to enter the viewport; once
+focused or clicked after that scroll settles, its controls clear the navigation.
+This round makes no historical footage parity claim. `progress.html` was
+updated manually to preserve the existing per-piece histories because the
+checked-in progress renderer omits APP pieces.
+
+BIGGEST GAP: None on the judged dimension.
+
 ## Round 351 — 2026-10-02
 
 PIECE: APP-002 — Editable eight-card deck and match launch, round 1
