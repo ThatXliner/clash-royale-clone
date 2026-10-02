@@ -1,0 +1,13 @@
+# Generated release and GitHub Pages builds. Existing tracked files stay tracked.
+/dist/
+/site-dist/
+
+# Local dependency and test output.
+/node_modules/
+/coverage/
+/.nyc_output/
+
+# Editor and operating-system files.
+.DS_Store
+Thumbs.db
+*.log

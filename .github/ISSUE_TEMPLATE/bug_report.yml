@@ -1,0 +1,45 @@
+name: Bug report
+description: Report a reproducible problem in Moss & Ember.
+title: "[bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Share the smallest reproducible case. Do not attach files from `reference/` or third-party game assets.
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Include the seed, actions, and exact test or browser command when relevant.
+      placeholder: |
+        1. Start with seed …
+        2. Play …
+        3. Observe …
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Node.js version, browser and operating system, or test command.
+    validations:
+      required: false
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Logs or original-project capture
+      description: Attach a concise log or screenshot created from this repository, if useful.
+    validations:
+      required: false

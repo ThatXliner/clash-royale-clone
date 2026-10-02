@@ -1,0 +1,28 @@
+name: Feature request
+description: Suggest an original feature or a focused improvement.
+title: "[feature]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Requests should fit Moss & Ember's original identity. Do not submit copied card names, art, audio, or text from another game.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+      placeholder: Describe the user need or simulation gap.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: Be specific about the user-visible result or simulation rule.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives or constraints
+    validations:
+      required: false
