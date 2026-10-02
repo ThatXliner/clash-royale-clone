@@ -1,5 +1,75 @@
 # Gauntlet Rounds
 
+## Round 349 — 2026-10-02
+
+PIECE: APP-002D — Deterministic editable-deck setup, round 1
+
+VERDICT: PASS
+
+EVIDENCE: Critic checkout was a clean `git archive` of immutable commit
+`32df2f93cda157e6bec7b8f8b7ed7f7ba2f0fd48`. The focused command
+`node --test tests/editable-deck.test.js` produced:
+
+```text
+# Subtest: editable deck setup admits every eight-card subset and closes QUESTION records
+ok 1
+# Subtest: editable deck setup preserves the shipped standard setup and selected order
+ok 2
+# Subtest: editable Stonehauler deployment survives deterministic restore continuation
+ok 3
+# Subtest: editable deck rejects malformed, duplicate, unsupported, and noncanonical setups
+ok 4
+1..4
+# tests 4
+# pass 4
+# fail 0
+```
+
+Roster and live-admission regressions also passed: playable roster 9/9,
+GameSession roster admission 7/7, real-browser Stonehauler witness/deploy/
+restore/restart 1/1, GameSession 9/9, and restart 3/3. The browser witness
+reported `ok 1 - game browser roster witness: real page deploys, restores,
+and restarts Stonehauler`.
+
+Independent probes reported nine of nine ordered subsets; 272 exact QUESTION
+records across those subsets; byte-identical default setups at seeds 0, 23,
+42, and 20,261,002; identical 90-tick and 13+29+48-tick serialized sessions
+for every subset; and identical restore continuations after 42+48 ticks.
+Seed 1 deployed Stonehauler at tick 61. The returned witness graph was deeply
+frozen, changing the caller's input array did not alter setup bytes, a hostile
+deck getter ran zero times, and duplicate, unsupported, and sparse decks
+rejected. The exact independent output was:
+
+```json
+{
+  "subsetCount": 9,
+  "questionRecordsAcrossSubsets": 272,
+  "exactDefaultSeeds": [0, 23, 42, 20261002],
+  "determinism": "90 ticks equals 13+29+48 for all subsets",
+  "restore": "42+48 continuation exact for all subsets",
+  "stonehaulerSeed": 1,
+  "stonehaulerDeployedAtTick": 61,
+  "frozenWitness": "deep frozen",
+  "inputMutation": "does not alter setup bytes",
+  "getterReads": 0,
+  "invalidDecks": "duplicate/unsupported/sparse rejected",
+  "tamperedQuestionValueAccepted": true
+}
+```
+
+The last probe rewrote canonical GameSession setup JSON and its matching
+roster-witness string; generic setup admission honored the changed answer while
+retaining its unverified QUESTION status. That is caller-authored estimate
+behavior outside this generator and frozen-witness contract.
+
+```json
+{"questionKey":"stonehauler.body-radius-millitiles","originalValue":500,"changedValue":1000,"accepted":true,"serializedSetupUsesChangedValue":true}
+```
+
+BIGGEST GAP: None on the judged editable-deck generator contract; generic
+GameSession admission still honors caller-rewritten estimates as explicitly
+unverified QUESTION values.
+
 ## Round 348 — 2026-10-02
 
 PIECE: GUARD-002H — Manifest-only local release host, round 1
