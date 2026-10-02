@@ -1,0 +1,10 @@
+Fill-only isolation probe (red):
+  .elixir-fill { isolation: isolate; }
+
+Rail-only isolation probe (red):
+  .elixir-rail { isolation: isolate; }
+
+Fill promotion probe (green):
+  .elixir-fill { transform: translateZ(0); }
+
+For all three, the temporary CSS copy retained every other source byte from the current repository baseline. Production final source adds only the green probe declaration (and an explanatory comment) to .elixir-fill.
