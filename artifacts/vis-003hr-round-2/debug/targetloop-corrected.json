@@ -1,0 +1,683 @@
+{
+  "chromeVersion": "154.0.8037.97",
+  "viewport": {
+    "width": 720,
+    "height": 1280
+  },
+  "consoleErrors": [],
+  "pageErrors": [],
+  "scenarios": [
+    {
+      "checkpointSha256": "f623b7ac6fabdddf08d4ba3366263d2d6cfdc1aaba8ed2128bd68814571d316a",
+      "consecutiveSha256": "f623b7ac6fabdddf08d4ba3366263d2d6cfdc1aaba8ed2128bd68814571d316a",
+      "consecutivePixelDelta": {
+        "changedPixels": 0,
+        "height": 1280,
+        "maxChannelDelta": 0,
+        "width": 720
+      },
+      "checkpointElixirRaster": {
+        "elixir": {
+          "accumulator": 114,
+          "amount": 7,
+          "tick": 114
+        },
+        "firstTick": {
+          "className": "",
+          "rect": {
+            "bottom": 1267,
+            "height": 16,
+            "left": 115,
+            "right": 164,
+            "top": 1251,
+            "width": 49,
+            "x": 115,
+            "y": 1251
+          },
+          "style": {
+            "background-color": "rgba(0, 0, 0, 0)",
+            "background-image": "none",
+            "border-radius": "0px",
+            "box-shadow": "none",
+            "clip-path": "none",
+            "contain": "none",
+            "display": "block",
+            "height": "16px",
+            "isolation": "auto",
+            "left": "auto",
+            "opacity": "1",
+            "overflow": "visible",
+            "pointer-events": "auto",
+            "position": "static",
+            "transform": "none",
+            "translate": "none",
+            "width": "49px",
+            "will-change": "auto",
+            "z-index": "auto"
+          },
+          "styleAttribute": null
+        },
+        "frame": {
+          "dataTick": "114",
+          "rect": {
+            "bottom": 1280,
+            "height": 1280,
+            "left": 0,
+            "right": 720,
+            "top": 0,
+            "width": 720,
+            "x": 0,
+            "y": 0
+          },
+          "style": {
+            "background-color": "rgba(0, 0, 0, 0)",
+            "background-image": "none",
+            "border-radius": "0px",
+            "box-shadow": "none",
+            "clip-path": "none",
+            "contain": "none",
+            "display": "block",
+            "height": "1280px",
+            "isolation": "auto",
+            "left": "0px",
+            "opacity": "1",
+            "overflow": "visible",
+            "pointer-events": "none",
+            "position": "absolute",
+            "transform": "none",
+            "translate": "none",
+            "width": "720px",
+            "will-change": "auto",
+            "z-index": "auto"
+          }
+        },
+        "hudLayer": {
+          "childCount": 1,
+          "rect": {
+            "bottom": 1280,
+            "height": 1280,
+            "left": 0,
+            "right": 720,
+            "top": 0,
+            "width": 720,
+            "x": 0,
+            "y": 0
+          },
+          "style": {
+            "background-color": "rgba(0, 0, 0, 0)",
+            "background-image": "none",
+            "border-radius": "0px",
+            "box-shadow": "none",
+            "clip-path": "none",
+            "contain": "none",
+            "display": "block",
+            "height": "1280px",
+            "isolation": "auto",
+            "left": "0px",
+            "opacity": "1",
+            "overflow": "visible",
+            "pointer-events": "none",
+            "position": "absolute",
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "translate": "none",
+            "width": "720px",
+            "will-change": "auto",
+            "z-index": "18"
+          }
+        },
+        "progress": {
+          "cssText": "--resource-percent: 76.78571428571429%;",
+          "rect": {
+            "bottom": 1273,
+            "height": 22,
+            "left": 115,
+            "right": 611,
+            "top": 1251,
+            "width": 496,
+            "x": 115,
+            "y": 1251
+          },
+          "resourcePercent": "76.78571428571429%",
+          "style": {
+            "background-color": "rgb(91, 75, 138)",
+            "background-image": "none",
+            "border-radius": "7px",
+            "box-shadow": "rgb(220, 237, 233) 0px 3px 0px 0px inset",
+            "clip-path": "inset(0px 23.2143% 0px 0px round 7px)",
+            "contain": "none",
+            "display": "block",
+            "height": "22px",
+            "isolation": "auto",
+            "left": "115px",
+            "opacity": "1",
+            "overflow": "visible",
+            "pointer-events": "none",
+            "position": "absolute",
+            "transform": "none",
+            "translate": "none",
+            "width": "496px",
+            "will-change": "auto",
+            "z-index": "17"
+          },
+          "styleAttribute": "--resource-percent: 76.78571428571429%;"
+        },
+        "rail": {
+          "className": "elixir-rail",
+          "rect": {
+            "bottom": 1270,
+            "height": 22,
+            "left": 112,
+            "right": 608,
+            "top": 1248,
+            "width": 496,
+            "x": 112,
+            "y": 1248
+          },
+          "style": {
+            "background-color": "rgb(36, 26, 48)",
+            "background-image": "none",
+            "border-radius": "11px",
+            "box-shadow": "rgba(0, 0, 0, 0.667) 0px 3px 6px 0px inset, rgba(25, 29, 34, 0.533) 0px 3px 0px 0px",
+            "clip-path": "none",
+            "contain": "none",
+            "display": "block",
+            "height": "22px",
+            "isolation": "auto",
+            "left": "112px",
+            "opacity": "1",
+            "overflow": "visible",
+            "pointer-events": "auto",
+            "position": "absolute",
+            "transform": "none",
+            "translate": "none",
+            "width": "496px",
+            "will-change": "auto",
+            "z-index": "16"
+          },
+          "styleAttribute": null
+        },
+        "sessionTick": 114,
+        "fill": {
+          "className": "elixir-fill",
+          "rect": {
+            "bottom": 1267,
+            "height": 16,
+            "left": 115,
+            "right": 458,
+            "top": 1251,
+            "width": 343,
+            "x": 115,
+            "y": 1251
+          },
+          "style": {
+            "background-color": "rgba(0, 0, 0, 0)",
+            "background-image": "linear-gradient(rgb(210, 116, 215), rgb(138, 62, 159))",
+            "border-radius": "7px",
+            "box-shadow": "rgba(242, 169, 237, 0.4) 0px 3px 0px 0px inset, rgb(91, 43, 105) 0px -3px 0px 0px inset",
+            "clip-path": "none",
+            "contain": "none",
+            "display": "block",
+            "height": "16px",
+            "isolation": "auto",
+            "left": "auto",
+            "opacity": "1",
+            "overflow": "visible",
+            "pointer-events": "auto",
+            "position": "static",
+            "transform": "none",
+            "translate": "none",
+            "width": "343px",
+            "will-change": "auto",
+            "z-index": "auto"
+          },
+          "styleAttribute": null
+        },
+        "hitTestAtChangedPixels": [
+          {
+            "elements": [
+              {
+                "className": "",
+                "tagName": "I"
+              },
+              {
+                "className": "elixir-ticks",
+                "tagName": "DIV"
+              },
+              {
+                "className": "elixir-fill",
+                "tagName": "DIV"
+              },
+              {
+                "className": "elixir-rail",
+                "tagName": "SECTION"
+              },
+              {
+                "className": "battle-shell",
+                "tagName": "MAIN"
+              },
+              {
+                "className": "",
+                "tagName": "DIV"
+              },
+              {
+                "className": "",
+                "tagName": "BODY"
+              },
+              {
+                "className": "",
+                "tagName": "HTML"
+              }
+            ],
+            "x": 118,
+            "y": 1251
+          },
+          {
+            "elements": [
+              {
+                "className": "",
+                "tagName": "I"
+              },
+              {
+                "className": "elixir-ticks",
+                "tagName": "DIV"
+              },
+              {
+                "className": "elixir-fill",
+                "tagName": "DIV"
+              },
+              {
+                "className": "elixir-rail",
+                "tagName": "SECTION"
+              },
+              {
+                "className": "battle-shell",
+                "tagName": "MAIN"
+              },
+              {
+                "className": "",
+                "tagName": "DIV"
+              },
+              {
+                "className": "",
+                "tagName": "BODY"
+              },
+              {
+                "className": "",
+                "tagName": "HTML"
+              }
+            ],
+            "x": 115,
+            "y": 1254
+          }
+        ]
+      },
+      "checkpointBrowserSha256": "c2d5c5598f8c8e915cd3b53c965736a253df74b81651cf95db5a64c21e942b30",
+      "checkpointSessionSha256": "97afcb7b764a97dd98324f592aee870e18a452ef6f4057439fc4fc9f463d7ba1",
+      "branchTicks": 140,
+      "checkpointTick": 114,
+      "exactBrowserState": true,
+      "exactSessionState": true,
+      "exactPaintState": true,
+      "exactArenaDom": true,
+      "exactLayerDom": true,
+      "exactHud": true,
+      "exactInput": true,
+      "label": "deployed targeting Bulwark Needle",
+      "artClip": {
+        "height": 66,
+        "width": 66,
+        "x": 158,
+        "y": 737
+      },
+      "artPixelDelta": {
+        "changedPixels": 0,
+        "height": 66,
+        "maxChannelDelta": 0,
+        "width": 66
+      },
+      "restoredArtSource": "off-page bitmap crop from restored full viewport PNG",
+      "restoreSha256": "f623b7ac6fabdddf08d4ba3366263d2d6cfdc1aaba8ed2128bd68814571d316a",
+      "restoreRepeatSha256": "f623b7ac6fabdddf08d4ba3366263d2d6cfdc1aaba8ed2128bd68814571d316a",
+      "restoredBrowserSha256": "c2d5c5598f8c8e915cd3b53c965736a253df74b81651cf95db5a64c21e942b30",
+      "restoredSessionSha256": "97afcb7b764a97dd98324f592aee870e18a452ef6f4057439fc4fc9f463d7ba1",
+      "restorePairPixelDelta": {
+        "changedPixels": 0,
+        "height": 1280,
+        "maxChannelDelta": 0,
+        "width": 720
+      },
+      "restorePixelDelta": {
+        "changedPixels": 0,
+        "height": 1280,
+        "maxChannelDelta": 0,
+        "width": 720
+      },
+      "restoredElixirRaster": {
+        "elixir": {
+          "accumulator": 114,
+          "amount": 7,
+          "tick": 114
+        },
+        "firstTick": {
+          "className": "",
+          "rect": {
+            "bottom": 1267,
+            "height": 16,
+            "left": 115,
+            "right": 164,
+            "top": 1251,
+            "width": 49,
+            "x": 115,
+            "y": 1251
+          },
+          "style": {
+            "background-color": "rgba(0, 0, 0, 0)",
+            "background-image": "none",
+            "border-radius": "0px",
+            "box-shadow": "none",
+            "clip-path": "none",
+            "contain": "none",
+            "display": "block",
+            "height": "16px",
+            "isolation": "auto",
+            "left": "auto",
+            "opacity": "1",
+            "overflow": "visible",
+            "pointer-events": "auto",
+            "position": "static",
+            "transform": "none",
+            "translate": "none",
+            "width": "49px",
+            "will-change": "auto",
+            "z-index": "auto"
+          },
+          "styleAttribute": null
+        },
+        "frame": {
+          "dataTick": "114",
+          "rect": {
+            "bottom": 1280,
+            "height": 1280,
+            "left": 0,
+            "right": 720,
+            "top": 0,
+            "width": 720,
+            "x": 0,
+            "y": 0
+          },
+          "style": {
+            "background-color": "rgba(0, 0, 0, 0)",
+            "background-image": "none",
+            "border-radius": "0px",
+            "box-shadow": "none",
+            "clip-path": "none",
+            "contain": "none",
+            "display": "block",
+            "height": "1280px",
+            "isolation": "auto",
+            "left": "0px",
+            "opacity": "1",
+            "overflow": "visible",
+            "pointer-events": "none",
+            "position": "absolute",
+            "transform": "none",
+            "translate": "none",
+            "width": "720px",
+            "will-change": "auto",
+            "z-index": "auto"
+          }
+        },
+        "hudLayer": {
+          "childCount": 1,
+          "rect": {
+            "bottom": 1280,
+            "height": 1280,
+            "left": 0,
+            "right": 720,
+            "top": 0,
+            "width": 720,
+            "x": 0,
+            "y": 0
+          },
+          "style": {
+            "background-color": "rgba(0, 0, 0, 0)",
+            "background-image": "none",
+            "border-radius": "0px",
+            "box-shadow": "none",
+            "clip-path": "none",
+            "contain": "none",
+            "display": "block",
+            "height": "1280px",
+            "isolation": "auto",
+            "left": "0px",
+            "opacity": "1",
+            "overflow": "visible",
+            "pointer-events": "none",
+            "position": "absolute",
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "translate": "none",
+            "width": "720px",
+            "will-change": "auto",
+            "z-index": "18"
+          }
+        },
+        "progress": {
+          "cssText": "--resource-percent: 76.78571428571429%;",
+          "rect": {
+            "bottom": 1273,
+            "height": 22,
+            "left": 115,
+            "right": 611,
+            "top": 1251,
+            "width": 496,
+            "x": 115,
+            "y": 1251
+          },
+          "resourcePercent": "76.78571428571429%",
+          "style": {
+            "background-color": "rgb(91, 75, 138)",
+            "background-image": "none",
+            "border-radius": "7px",
+            "box-shadow": "rgb(220, 237, 233) 0px 3px 0px 0px inset",
+            "clip-path": "inset(0px 23.2143% 0px 0px round 7px)",
+            "contain": "none",
+            "display": "block",
+            "height": "22px",
+            "isolation": "auto",
+            "left": "115px",
+            "opacity": "1",
+            "overflow": "visible",
+            "pointer-events": "none",
+            "position": "absolute",
+            "transform": "none",
+            "translate": "none",
+            "width": "496px",
+            "will-change": "auto",
+            "z-index": "17"
+          },
+          "styleAttribute": "--resource-percent: 76.78571428571429%;"
+        },
+        "rail": {
+          "className": "elixir-rail",
+          "rect": {
+            "bottom": 1270,
+            "height": 22,
+            "left": 112,
+            "right": 608,
+            "top": 1248,
+            "width": 496,
+            "x": 112,
+            "y": 1248
+          },
+          "style": {
+            "background-color": "rgb(36, 26, 48)",
+            "background-image": "none",
+            "border-radius": "11px",
+            "box-shadow": "rgba(0, 0, 0, 0.667) 0px 3px 6px 0px inset, rgba(25, 29, 34, 0.533) 0px 3px 0px 0px",
+            "clip-path": "none",
+            "contain": "none",
+            "display": "block",
+            "height": "22px",
+            "isolation": "auto",
+            "left": "112px",
+            "opacity": "1",
+            "overflow": "visible",
+            "pointer-events": "auto",
+            "position": "absolute",
+            "transform": "none",
+            "translate": "none",
+            "width": "496px",
+            "will-change": "auto",
+            "z-index": "16"
+          },
+          "styleAttribute": null
+        },
+        "sessionTick": 114,
+        "fill": {
+          "className": "elixir-fill",
+          "rect": {
+            "bottom": 1267,
+            "height": 16,
+            "left": 115,
+            "right": 458,
+            "top": 1251,
+            "width": 343,
+            "x": 115,
+            "y": 1251
+          },
+          "style": {
+            "background-color": "rgba(0, 0, 0, 0)",
+            "background-image": "linear-gradient(rgb(210, 116, 215), rgb(138, 62, 159))",
+            "border-radius": "7px",
+            "box-shadow": "rgba(242, 169, 237, 0.4) 0px 3px 0px 0px inset, rgb(91, 43, 105) 0px -3px 0px 0px inset",
+            "clip-path": "none",
+            "contain": "none",
+            "display": "block",
+            "height": "16px",
+            "isolation": "auto",
+            "left": "auto",
+            "opacity": "1",
+            "overflow": "visible",
+            "pointer-events": "auto",
+            "position": "static",
+            "transform": "none",
+            "translate": "none",
+            "width": "343px",
+            "will-change": "auto",
+            "z-index": "auto"
+          },
+          "styleAttribute": null
+        },
+        "hitTestAtChangedPixels": [
+          {
+            "elements": [
+              {
+                "className": "",
+                "tagName": "I"
+              },
+              {
+                "className": "elixir-ticks",
+                "tagName": "DIV"
+              },
+              {
+                "className": "elixir-fill",
+                "tagName": "DIV"
+              },
+              {
+                "className": "elixir-rail",
+                "tagName": "SECTION"
+              },
+              {
+                "className": "battle-shell",
+                "tagName": "MAIN"
+              },
+              {
+                "className": "",
+                "tagName": "DIV"
+              },
+              {
+                "className": "",
+                "tagName": "BODY"
+              },
+              {
+                "className": "",
+                "tagName": "HTML"
+              }
+            ],
+            "x": 118,
+            "y": 1251
+          },
+          {
+            "elements": [
+              {
+                "className": "",
+                "tagName": "I"
+              },
+              {
+                "className": "elixir-ticks",
+                "tagName": "DIV"
+              },
+              {
+                "className": "elixir-fill",
+                "tagName": "DIV"
+              },
+              {
+                "className": "elixir-rail",
+                "tagName": "SECTION"
+              },
+              {
+                "className": "battle-shell",
+                "tagName": "MAIN"
+              },
+              {
+                "className": "",
+                "tagName": "DIV"
+              },
+              {
+                "className": "",
+                "tagName": "BODY"
+              },
+              {
+                "className": "",
+                "tagName": "HTML"
+              }
+            ],
+            "x": 115,
+            "y": 1254
+          }
+        ]
+      },
+      "elixirRasterInputsExact": true,
+      "forwardSha256": "f9e23dd942a9532cc649e69ced83c470d2bcd80e400a0cc66b8a2201cb17d0f1",
+      "forwardBrowserChanged": true,
+      "forwardSessionChanged": true,
+      "forwardTick": 254,
+      "strictConsecutivePng": true,
+      "strictRestorePng": true,
+      "strictRestoreRepeatPng": true,
+      "exactRestoredArtPixels": true,
+      "advancedTicks": 114,
+      "targetKey": "unit:4",
+      "startingTick": 114,
+      "targetLoop": {
+        "attackCount": 1,
+        "firstAttack": {
+          "amount": 212,
+          "buildingId": 2,
+          "targetId": 4,
+          "tick": 113,
+          "type": "structure-attack"
+        },
+        "hitpoints": 653,
+        "markerTargeting": "true",
+        "targetKey": "unit:4",
+        "targetLinkCount": 1,
+        "targetLinkDisplay": [
+          "block"
+        ],
+        "tick": 114,
+        "advancedTicks": 114
+      }
+    }
+  ]
+}
