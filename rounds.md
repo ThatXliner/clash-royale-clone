@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 379 — 2026-10-02
+
+PIECE: ART-005S — Painted troop animation in playable battle, round 3
+
+VERDICT: PASS
+
+EVIDENCE: Independent frozen `217b210` focused suite passes 51/51. Actual source-hosted battle at 720×1280 and 390×844 has no browser errors or missing paths. Normal and reduced-motion restore PNGs match byte-for-byte at both sizes. Reviewer inspected final-scale 13.3377px phone sprites: opposing red/teal baseplates are distinguishable; one overlapped north marker retains only two color pixels. The unchanged 987,565-byte original atlas matches its manifest hash; no simulation/state changes. Evidence: `artifacts/sprite-art-round-4/critic/`.
+
+BIGGEST GAP: No blocking gap on scoped sprite integration. Individual identity under overlap remains weaker. Packaged-release, endurance and historical-parity certification are outside this source-hosted verdict. Towers and other troop artwork remain unfinished in the wider art pass.
+
 ## Round 378 — 2026-10-02
 
 PIECE: ART-005C — Painted portraits across playable screens, round 3
