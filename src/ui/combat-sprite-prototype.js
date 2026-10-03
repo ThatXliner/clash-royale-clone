@@ -155,8 +155,26 @@ export function createBriarRunnerPaintedSprite(document, {
   sprite.style.backgroundRepeat = "no-repeat";
   sprite.style.backgroundSize = transform.backgroundSize;
   sprite.style.backgroundPosition = transform.backgroundPosition;
+  sprite.style.position = "relative";
   sprite.style.setProperty("--team-color", palette.color);
   sprite.style.setProperty("--team-accent", palette.accent);
+  const teamFootring = document.createElement("span");
+  teamFootring.setAttribute("aria-hidden", "true");
+  teamFootring.dataset.teamColor = side;
+  Object.assign(teamFootring.style, {
+    position: "absolute",
+    left: "5%",
+    right: "5%",
+    bottom: "0%",
+    height: "20%",
+    boxSizing: "border-box",
+    border: "1px solid #F4EBD6",
+    borderRadius: "999px",
+    backgroundColor: palette.color,
+    boxShadow: "0 1px 1px #191D22",
+    pointerEvents: "none",
+  });
+  sprite.appendChild(teamFootring);
   return sprite;
 }
 

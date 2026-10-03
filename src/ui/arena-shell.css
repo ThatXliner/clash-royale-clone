@@ -699,6 +699,11 @@ body {
   opacity: 0.9;
 }
 
+.card-slot {
+  /* Keep the scaled card edge on one compositor layer across exact HUD restore. */
+  transform: translateZ(0);
+}
+
 .elixir-rail {
   position: absolute;
   z-index: 16;

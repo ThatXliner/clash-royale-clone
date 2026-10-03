@@ -117,20 +117,24 @@ test("painted Briar artwork carries a persistent bordered team-color footring", 
       side,
       tick: 47,
     });
-    const [shadow, footring, atlas] = art.childNodes;
+    const [shadow, atlas, footring] = art.childNodes;
     assert.equal(art.dataset.spriteFrame, "briar-attack-west-0",
       "reduced motion keeps the footring with the first artwork frame");
     assert.equal(art.dataset.reducedMotion, "true");
     assert.equal(shadow.name, "ellipse");
-    assert.equal(footring.name, "ellipse");
+    assert.equal(footring.name, "rect");
     assert.equal(footring.dataset.teamColor, side);
     assert.equal(footring.getAttribute("fill"), color);
     assert.equal(footring.getAttribute("stroke"), "#F4EBD6");
-    assert.equal(footring.getAttribute("stroke-width"), "6");
-    assert.equal(footring.getAttribute("rx"), "83");
-    assert.equal(footring.getAttribute("ry"), "23");
-    assert.equal(atlas.name, "image", "the unchanged painted atlas overlays the footring");
+    assert.equal(footring.getAttribute("stroke-width"), "5");
+    assert.equal(footring.getAttribute("x"), "683.75");
+    assert.equal(footring.getAttribute("y"), "1130.5");
+    assert.equal(footring.getAttribute("width"), "200");
+    assert.equal(footring.getAttribute("height"), "44");
+    assert.equal(atlas.name, "image");
     assert.equal(atlas.getAttribute("href"), "./assets/briar-runner-painted-sheet.png");
+    assert.equal(art.childNodes.at(-1), footring,
+      "the bordered team color remains in front of the unchanged painted atlas");
   }
 });
 
@@ -231,8 +235,16 @@ test("painted renderer carries team identity and the same deterministic atlas fr
     'url("/public/assets/briar-runner-painted-sheet.png")');
   assert.equal(painted.style.backgroundPosition, transform.backgroundPosition);
   assert.equal(painted.style.backgroundSize, transform.backgroundSize);
+  assert.equal(painted.style.position, "relative");
   assert.equal(painted.style.values.get("--team-color"), "#2e7f86");
   assert.equal(painted.style.values.get("--team-accent"), "#9bbb76");
+  const [teamFootring] = painted.childNodes;
+  assert.equal(teamFootring.dataset.teamColor, "south");
+  assert.equal(teamFootring.getAttribute("aria-hidden"), "true");
+  assert.equal(teamFootring.style.backgroundColor, "#2e7f86");
+  assert.equal(teamFootring.style.left, "5%");
+  assert.equal(teamFootring.style.right, "5%");
+  assert.equal(teamFootring.style.height, "20%");
 });
 
 function joinPath(path) {

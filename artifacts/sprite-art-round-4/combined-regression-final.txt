@@ -1,0 +1,262 @@
+TAP version 13
+# Subtest: painted sprite atlas renders at real playfield scale in both teams, viewports, and restore
+ok 1 - painted sprite atlas renders at real playfield scale in both teams, viewports, and restore
+  ---
+  duration_ms: 14756.046583
+  type: 'test'
+  ...
+# Subtest: walk and attack frames are selected only from the simulation tick and facing
+ok 2 - walk and attack frames are selected only from the simulation tick and facing
+  ---
+  duration_ms: 1.659208
+  type: 'test'
+  ...
+# Subtest: the vector comparison baseline has two authored frames per facing and action
+ok 3 - the vector comparison baseline has two authored frames per facing and action
+  ---
+  duration_ms: 3.831667
+  type: 'test'
+  ...
+# Subtest: the painted atlas maps every action, facing, and tick frame to a contained source window
+ok 4 - the painted atlas maps every action, facing, and tick frame to a contained source window
+  ---
+  duration_ms: 1.250417
+  type: 'test'
+  ...
+# Subtest: reduced motion holds the first painted atlas column for every facing
+ok 5 - reduced motion holds the first painted atlas column for every facing
+  ---
+  duration_ms: 0.157667
+  type: 'test'
+  ...
+# Subtest: painted Briar artwork carries a persistent bordered team-color footring
+ok 6 - painted Briar artwork carries a persistent bordered team-color footring
+  ---
+  duration_ms: 0.330375
+  type: 'test'
+  ...
+# Subtest: reduced motion fixes the frame while retaining the selected direction and action
+ok 7 - reduced motion fixes the frame while retaining the selected direction and action
+  ---
+  duration_ms: 0.1795
+  type: 'test'
+  ...
+# Subtest: checkpoint restore reproduces the exact sprite frame and reduced-motion state
+ok 8 - checkpoint restore reproduces the exact sprite frame and reduced-motion state
+  ---
+  duration_ms: 0.37
+  type: 'test'
+  ...
+# Subtest: restore rejects malformed or noncanonical sprite checkpoints
+ok 9 - restore rejects malformed or noncanonical sprite checkpoints
+  ---
+  duration_ms: 0.298291
+  type: 'test'
+  ...
+# Subtest: rendered SVG carries clear team identity, frame identity, and an outlined external atlas use
+ok 10 - rendered SVG carries clear team identity, frame identity, and an outlined external atlas use
+  ---
+  duration_ms: 0.426916
+  type: 'test'
+  ...
+# Subtest: painted renderer carries team identity and the same deterministic atlas frame
+ok 11 - painted renderer carries team identity and the same deterministic atlas frame
+  ---
+  duration_ms: 0.773583
+  type: 'test'
+  ...
+# Subtest: ui arena shell: fixed viewport and every required primitive are complete
+ok 12 - ui arena shell: fixed viewport and every required primitive are complete
+  ---
+  duration_ms: 1.082875
+  type: 'test'
+  ...
+# Subtest: ui arena shell: nominal playfield is an exact square-tile inner coordinate box
+ok 13 - ui arena shell: nominal playfield is an exact square-tile inner coordinate box
+  ---
+  duration_ms: 0.098209
+  type: 'test'
+  ...
+# Subtest: ui arena shell: authored percentages project centralized arena geometry
+ok 14 - ui arena shell: authored percentages project centralized arena geometry
+  ---
+  duration_ms: 0.793333
+  type: 'test'
+  ...
+# Subtest: ui arena shell: canonical markup and source bytes are stable
+ok 15 - ui arena shell: canonical markup and source bytes are stable
+  ---
+  duration_ms: 0.340292
+  type: 'test'
+  ...
+# Subtest: ui arena shell: provenance is local primitives with no external assets
+ok 16 - ui arena shell: provenance is local primitives with no external assets
+  ---
+  duration_ms: 2.11575
+  type: 'test'
+  ...
+# Subtest: ui arena shell: entry is static and contains no nondeterministic APIs
+ok 17 - ui arena shell: entry is static and contains no nondeterministic APIs
+  ---
+  duration_ms: 0.241333
+  type: 'test'
+  ...
+# Subtest: ui arena shell: hostile mount targets reject before mutation
+ok 18 - ui arena shell: hostile mount targets reject before mutation
+  ---
+  duration_ms: 0.3375
+  type: 'test'
+  ...
+# Subtest: ui combat state: stable ID order projects exact millitile geometry and layers
+ok 19 - ui combat state: stable ID order projects exact millitile geometry and layers
+  ---
+  duration_ms: 1.595917
+  type: 'test'
+  ...
+# Subtest: ui combat state: high-confidence tower HP bounds health exactly
+ok 20 - ui combat state: high-confidence tower HP bounds health exactly
+  ---
+  duration_ms: 0.504292
+  type: 'test'
+  ...
+# Subtest: ui combat state: damage changes only numerator; death removes entities and terminals towers
+ok 21 - ui combat state: damage changes only numerator; death removes entities and terminals towers
+  ---
+  duration_ms: 0.342167
+  type: 'test'
+  ...
+# Subtest: ui combat state: canonical serialization restores byte-identically
+ok 22 - ui combat state: canonical serialization restores byte-identically
+  ---
+  duration_ms: 0.823208
+  type: 'test'
+  ...
+# Subtest: ui combat state: one-shot and chunked state projection end in identical bytes
+ok 23 - ui combat state: one-shot and chunked state projection end in identical bytes
+  ---
+  duration_ms: 0.243292
+  type: 'test'
+  ...
+# Subtest: ui combat state: bounded causal events survive canonical restore without driving current state
+ok 24 - ui combat state: bounded causal events survive canonical restore without driving current state
+  ---
+  duration_ms: 0.608209
+  type: 'test'
+  ...
+# Subtest: ui combat state: DOM projection is byte-stable with exact inverted arena coordinates
+ok 25 - ui combat state: DOM projection is byte-stable with exact inverted arena coordinates
+  ---
+  duration_ms: 2.146666
+  type: 'test'
+  ...
+# Subtest: ui combat state: painted Briar Runner pose follows tick, target bearing, contact, and restore
+ok 26 - ui combat state: painted Briar Runner pose follows tick, target bearing, contact, and restore
+  ---
+  duration_ms: 1.595917
+  type: 'test'
+  ...
+# Subtest: ui combat state: terminal restore produces byte-identical DOM and zero health
+ok 27 - ui combat state: terminal restore produces byte-identical DOM and zero health
+  ---
+  duration_ms: 0.469959
+  type: 'test'
+  ...
+# Subtest: ui combat state: DOM binding validates/builds before its single commit
+ok 28 - ui combat state: DOM binding validates/builds before its single commit
+  ---
+  duration_ms: 0.453083
+  type: 'test'
+  ...
+# Subtest: ui combat state: exact shapes, accessors, prototypes, IDs, targets, HP, and bounds fail closed
+ok 29 - ui combat state: exact shapes, accessors, prototypes, IDs, targets, HP, and bounds fail closed
+  ---
+  duration_ms: 0.478042
+  type: 'test'
+  ...
+# Subtest: ui combat state: combat layer mounts inside the shipped arena primitive
+ok 30 - ui combat state: combat layer mounts inside the shipped arena primitive
+  ---
+  duration_ms: 0.283041
+  type: 'test'
+  ...
+# Subtest: visual arena art: required production art layers ship in the shell page
+ok 31 - visual arena art: required production art layers ship in the shell page
+  ---
+  duration_ms: 0.589333
+  type: 'test'
+  ...
+# Subtest: visual arena art: tower bodies exist for all six towers with distinct faction styling
+ok 32 - visual arena art: tower bodies exist for all six towers with distinct faction styling
+  ---
+  duration_ms: 0.305792
+  type: 'test'
+  ...
+# Subtest: visual arena art: rendered landmarks keep the exact gameplay geometry mapping
+ok 33 - visual arena art: rendered landmarks keep the exact gameplay geometry mapping
+  ---
+  duration_ms: 0.624542
+  type: 'test'
+  ...
+# Subtest: visual arena art: pinned shell primitives are untouched and art stays inside provenance rules
+ok 34 - visual arena art: pinned shell primitives are untouched and art stays inside provenance rules
+  ---
+  duration_ms: 0.591208
+  type: 'test'
+  ...
+# Subtest: visual arena art: shipped asset directory stays manifest-registered
+ok 35 - visual arena art: shipped asset directory stays manifest-registered
+  ---
+  duration_ms: 2.958041
+  type: 'test'
+  ...
+# Subtest: visual arena art: fixed 720×1280 Chrome render keeps gameplay geometry above production art
+ok 36 - visual arena art: fixed 720×1280 Chrome render keeps gameplay geometry above production art
+  ---
+  duration_ms: 2594.759792
+  type: 'test'
+  ...
+# Subtest: visual asset manifest: frozen visual bible pins all six dimensions
+ok 37 - visual asset manifest: frozen visual bible pins all six dimensions
+  ---
+  duration_ms: 0.9795
+  type: 'test'
+  ...
+# Subtest: visual asset manifest: visual bible is content-addressed by pinned digest
+ok 38 - visual asset manifest: visual bible is content-addressed by pinned digest
+  ---
+  duration_ms: 0.287834
+  type: 'test'
+  ...
+# Subtest: visual asset manifest: registry matches shipped assets on disk byte-for-byte
+ok 39 - visual asset manifest: registry matches shipped assets on disk byte-for-byte
+  ---
+  duration_ms: 4.613875
+  type: 'test'
+  ...
+# Subtest: visual asset manifest: zero byte overlap with the reference corpus
+ok 40 - visual asset manifest: zero byte overlap with the reference corpus
+  ---
+  duration_ms: 1.585833
+  type: 'test'
+  ...
+# Subtest: visual asset manifest: provenance never references protected-game sources
+ok 41 - visual asset manifest: provenance never references protected-game sources
+  ---
+  duration_ms: 0.1635
+  type: 'test'
+  ...
+# Subtest: visual asset manifest: admission accepts only the closed canonical surface
+ok 42 - visual asset manifest: admission accepts only the closed canonical surface
+  ---
+  duration_ms: 2.366875
+  type: 'test'
+  ...
+1..42
+# tests 42
+# suites 0
+# pass 42
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 15002.34275

@@ -163,8 +163,11 @@ test("ui arena shell: canonical markup and source bytes are stable", () => {
   );
   assert.equal(
     createHash("sha256").update(css).digest("hex"),
-    "22c9b78515801b1c6319e25e10dddde22f3b1a5de337f114b1629f0fb347bb84",
+    "f3daa8659e1ac6ccbaeadd9017a3f8f30e5b8e065a7d5bcdabec81291860978e",
   );
+  assert.match(css,
+    /\.card-slot\s*\{[^}]*transform:\s*translateZ\(0\);/su,
+    "card-slot has a stable compositor layer for exact scaled HUD restore");
 });
 
 test("ui arena shell: provenance is local primitives with no external assets", () => {

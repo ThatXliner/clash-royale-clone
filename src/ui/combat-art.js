@@ -190,17 +190,17 @@ export function createBriarRunnerPaintedArt(document, {
   footShadow.setAttribute('aria-hidden', 'true');
   svg.appendChild(footShadow);
 
-  const teamFootring = create('ellipse');
+  const teamFootring = create('rect');
   teamFootring.dataset.teamColor = side;
-  teamFootring.setAttribute('cx', String(sourceX + 110));
-  teamFootring.setAttribute('cy', String(sourceY + 190));
-  teamFootring.setAttribute('rx', '83');
-  teamFootring.setAttribute('ry', '23');
+  teamFootring.setAttribute('x', String(sourceX + 10));
+  teamFootring.setAttribute('y', String(sourceY + 176));
+  teamFootring.setAttribute('width', '200');
+  teamFootring.setAttribute('height', '44');
+  teamFootring.setAttribute('rx', '22');
   teamFootring.setAttribute('fill', side === 'north' ? '#C6452E' : '#2E7F86');
   teamFootring.setAttribute('stroke', BONE);
-  teamFootring.setAttribute('stroke-width', '6');
+  teamFootring.setAttribute('stroke-width', '5');
   teamFootring.setAttribute('aria-hidden', 'true');
-  svg.appendChild(teamFootring);
 
   const image = create('image');
   image.setAttribute('href', BRIAR_PAINTED_ATLAS.image);
@@ -210,6 +210,9 @@ export function createBriarRunnerPaintedArt(document, {
   image.setAttribute('height', String(BRIAR_PAINTED_ATLAS.height));
   image.setAttribute('preserveAspectRatio', 'none');
   svg.appendChild(image);
+  // Keep the opaque team identifier in front of the painted atlas so its color
+  // remains visible after the real playfield scales a unit down to phone size.
+  svg.appendChild(teamFootring);
   return svg;
 }
 

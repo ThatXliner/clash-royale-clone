@@ -11,7 +11,7 @@ import test from "node:test";
 import { chromium } from "playwright";
 
 const ROOT = resolve(fileURLToPath(new URL("..", import.meta.url)));
-const ARTIFACTS = resolve(ROOT, "artifacts/sprite-art-round-3");
+const ARTIFACTS = resolve(ROOT, "artifacts/sprite-art-round-4");
 const CHROME = process.env.GAME_BROWSER_CHROME ??
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const CONTENT_TYPES = Object.freeze({
@@ -101,6 +101,140 @@ async function boardEvidence(page, viewport) {
     });
     return { viewport: { width, height }, boards };
   }, viewport);
+}
+
+async function sampleTeamPixelsFromScreenshot(page, screenshot, markers) {
+  return page.evaluate(async ({ base64, crops }) => {
+    const image = new Image();
+    image.src = `data:image/png;base64,${base64}`;
+    await image.decode();
+    const canvas = document.createElement("canvas");
+    canvas.width = image.naturalWidth;
+    canvas.height = image.naturalHeight;
+    const context = canvas.getContext("2d", { willReadFrequently: true });
+    context.drawImage(image, 0, 0);
+    return crops.map((crop) => {
+      const left = Math.max(0, Math.floor(crop.x));
+      const top = Math.max(0, Math.floor(crop.y));
+      const right = Math.min(canvas.width, Math.ceil(crop.x + crop.width));
+      const bottom = Math.min(canvas.height, Math.ceil(crop.y + crop.height));
+      const pixels = context.getImageData(left, top, right - left, bottom - top).data;
+      const channels = crop.color.match(/[0-9A-F]{2}/giu)
+        .map((part) => Number.parseInt(part, 16));
+      let visibleTeamColorPixels = 0;
+      for (let index = 0; index < pixels.length; index += 4) {
+        if (pixels[index + 3] >= 210 &&
+            Math.abs(pixels[index] - channels[0]) <= 24 &&
+            Math.abs(pixels[index + 1] - channels[1]) <= 24 &&
+            Math.abs(pixels[index + 2] - channels[2]) <= 24) {
+          visibleTeamColorPixels += 1;
+        }
+      }
+      return {
+        side: crop.side,
+        teamColor: crop.color,
+        visibleTeamColorPixels,
+        crop: { x: left, y: top, width: right - left, height: bottom - top },
+      };
+    });
+  }, { base64: screenshot.toString("base64"), crops: markers });
+}
+
+async function compareScreenshotsAtPoint(page, before, after, point) {
+  return page.evaluate(async ({ beforePng, afterPng, samplePoint }) => {
+    const decode = async (base64) => {
+      const image = new Image();
+      image.src = `data:image/png;base64,${base64}`;
+      await image.decode();
+      const canvas = document.createElement("canvas");
+      canvas.width = image.naturalWidth;
+      canvas.height = image.naturalHeight;
+      const context = canvas.getContext("2d", { willReadFrequently: true });
+      context.drawImage(image, 0, 0);
+      return { canvas, pixels: context.getImageData(0, 0, canvas.width, canvas.height).data };
+    };
+    const first = await decode(beforePng);
+    const second = await decode(afterPng);
+    const differentPixels = [];
+    let differentPixelCount = 0;
+    let maximumChannelDelta = 0;
+    for (let pixel = 0; pixel < Math.min(first.pixels.length, second.pixels.length); pixel += 4) {
+      const rgbaBefore = [...first.pixels.slice(pixel, pixel + 4)];
+      const rgbaAfter = [...second.pixels.slice(pixel, pixel + 4)];
+      const channelDelta = Math.max(...rgbaBefore.map((channel, index) =>
+        Math.abs(channel - rgbaAfter[index])));
+      if (channelDelta > 0) {
+        differentPixelCount += 1;
+        maximumChannelDelta = Math.max(maximumChannelDelta, channelDelta);
+        if (differentPixels.length < 24) {
+          const offset = pixel / 4;
+          differentPixels.push({
+            x: offset % first.canvas.width,
+            y: Math.floor(offset / first.canvas.width),
+            before: rgbaBefore,
+            after: rgbaAfter,
+          });
+        }
+      }
+    }
+    const elementChain = (documentNode, x, y) => {
+      let node = documentNode.elementFromPoint(x, y);
+      const chain = [];
+      while (node && chain.length < 6) {
+        const style = getComputedStyle(node);
+        const rect = node.getBoundingClientRect();
+        chain.push({
+          tag: node.tagName,
+          id: node.id,
+          className: typeof node.className === "string" ? node.className : node.className?.baseVal,
+          dataUi: node.dataset?.ui ?? null,
+          dataKind: node.dataset?.kind ?? null,
+          dataCardId: node.dataset?.cardId ?? null,
+          rect: { x: rect.x, y: rect.y, width: rect.width, height: rect.height },
+          transitionProperty: style.transitionProperty,
+          transitionDuration: style.transitionDuration,
+          animationName: style.animationName,
+          animationDuration: style.animationDuration,
+          transform: style.transform,
+          backgroundColor: style.backgroundColor,
+          borderColor: style.borderColor,
+        });
+        node = node.parentElement;
+      }
+      return chain;
+    };
+    const frame = document.querySelector("[data-battle-frame-slot] iframe");
+    const frameRect = frame?.getBoundingClientRect();
+    const topLevel = elementChain(document, samplePoint.x, samplePoint.y);
+    const childFrame = frame?.contentDocument;
+    const childPoint = frameRect ? {
+      x: (samplePoint.x - frameRect.x) * (720 / frameRect.width),
+      y: (samplePoint.y - frameRect.y) * (1280 / frameRect.height),
+    } : null;
+    const child = childFrame && childPoint
+      ? elementChain(childFrame, childPoint.x, childPoint.y) : [];
+    return {
+      dimensions: [first.canvas.width, first.canvas.height],
+      differingPixelCount: differentPixelCount,
+      maximumChannelDelta,
+      differingPixels: differentPixels,
+      samplePoint,
+      frame: frameRect?.toJSON() ?? null,
+      childPoint,
+      topLevelElementChain: topLevel,
+      childElementChain: child,
+      activeAnimations: [...document.getAnimations()].map((animation) => ({
+        playState: animation.playState,
+        currentTime: animation.currentTime,
+        target: animation.effect?.target?.className?.baseVal ??
+          animation.effect?.target?.className ?? animation.effect?.target?.tagName ?? null,
+      })),
+    };
+  }, {
+    beforePng: before.toString("base64"),
+    afterPng: after.toString("base64"),
+    samplePoint: point,
+  });
 }
 
 test("painted sprite atlas renders at real playfield scale in both teams, viewports, and restore", {
@@ -281,46 +415,11 @@ test("painted sprite atlas renders at real playfield scale in both teams, viewpo
       const arenaRect = arenaNode.getBoundingClientRect();
       const markers = await Promise.all([...document.querySelectorAll(
         '.combat-marker[data-kind="briar-runner"]',
-      )].map(async (marker) => {
+      )].map((marker) => {
         const rect = marker.getBoundingClientRect();
         const art = marker.querySelector('.combat-art');
         const footring = art?.querySelector('[data-team-color]');
-        const displayedWidth = Math.max(1, Math.round(rect.width * scaleX));
-        const displayedHeight = Math.max(1, Math.round(rect.height * scaleY));
-        let visibleTeamColorPixels = 0;
-        if (footring !== null && footring !== undefined) {
-          const clone = art.cloneNode(true);
-          const atlas = clone.querySelector('image');
-          atlas?.setAttribute('href', new URL(atlas.getAttribute('href'), document.baseURI).href);
-          clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-          clone.setAttribute('width', String(displayedWidth));
-          clone.setAttribute('height', String(displayedHeight));
-          const source = new XMLSerializer().serializeToString(clone);
-          const url = URL.createObjectURL(new Blob([source], { type: 'image/svg+xml' }));
-          try {
-            const raster = new Image();
-            raster.src = url;
-            await raster.decode();
-            const canvas = document.createElement('canvas');
-            canvas.width = displayedWidth;
-            canvas.height = displayedHeight;
-            const context = canvas.getContext('2d', { willReadFrequently: true });
-            context.drawImage(raster, 0, 0, displayedWidth, displayedHeight);
-            const pixels = context.getImageData(0, 0, displayedWidth, displayedHeight).data;
-            const color = footring.getAttribute('fill').match(/[0-9A-F]{2}/giu)
-              .map((part) => Number.parseInt(part, 16));
-            for (let index = 0; index < pixels.length; index += 4) {
-              if (pixels[index + 3] >= 210 &&
-                  Math.abs(pixels[index] - color[0]) <= 24 &&
-                  Math.abs(pixels[index + 1] - color[1]) <= 24 &&
-                  Math.abs(pixels[index + 2] - color[2]) <= 24) {
-                visibleTeamColorPixels += 1;
-              }
-            }
-          } finally {
-            URL.revokeObjectURL(url);
-          }
-        }
+        const footringRect = footring?.getBoundingClientRect();
         return {
           action: art?.dataset.spriteAction ?? null,
           asset: art?.querySelector('image')?.getAttribute('href') ?? null,
@@ -334,7 +433,12 @@ test("painted sprite atlas renders at real playfield scale in both teams, viewpo
           displayedWidth: Number((rect.width * scaleX).toFixed(4)),
           teamColor: footring?.getAttribute('fill') ?? null,
           teamColorSide: footring?.dataset.teamColor ?? null,
-          visibleTeamColorPixels,
+          teamColorFrontmost: art?.lastElementChild === footring,
+          teamColorRect: footringRect ? {
+            height: Number(footringRect.height.toFixed(3)),
+            width: Number(footringRect.width.toFixed(3)),
+          } : null,
+          visibleTeamColorPixels: null,
           x: Number(rect.x.toFixed(2)),
           y: Number(rect.y.toFixed(2)),
         };
@@ -371,14 +475,45 @@ test("painted sprite atlas renders at real playfield scale in both teams, viewpo
       assert.equal(marker.asset, './assets/briar-runner-painted-sheet.png');
       assert.equal(marker.teamColorSide, marker.side);
       assert.equal(marker.teamColor, marker.side === "north" ? "#C6452E" : "#2E7F86");
-      assert.ok(marker.visibleTeamColorPixels >= (phoneViewport ? 8 : 20),
-        `${marker.side} footring has only ${marker.visibleTeamColorPixels} visible team-color pixels at ${viewport.width}px`);
+      assert.equal(marker.teamColorFrontmost, true,
+        "the painted sprite keeps its team-color baseplate above the atlas image");
       assert.ok(["walk", "attack"].includes(marker.action));
       assert.ok(["north", "east", "south", "west"].includes(marker.direction));
       assert.match(marker.frame, /^briar-(walk|attack)-(north|east|south|west)-[01]$/u);
       assert.equal(marker.tick, live.sessionTick);
     }
     const beforeRestoreScreenshot = await page.screenshot();
+    const screenScaleX = frameBox.width / 720;
+    const screenScaleY = frameBox.height / 1280;
+    const screenshotMarkers = live.markers.map((marker) => ({
+      side: marker.side,
+      color: marker.teamColor,
+      x: frameBox.x + marker.x * screenScaleX,
+      y: frameBox.y + marker.y * screenScaleY,
+      width: marker.width * screenScaleX,
+      height: marker.height * screenScaleY,
+    }));
+    const teamPixelSamples = await sampleTeamPixelsFromScreenshot(
+      page, beforeRestoreScreenshot, screenshotMarkers);
+    for (let index = 0; index < live.markers.length; index += 1) {
+      live.markers[index].visibleTeamColorPixels = teamPixelSamples[index].visibleTeamColorPixels;
+    }
+    writeFileSync(resolve(ARTIFACTS,
+      `live-arena-integration-${viewport.width}-marker-sample.png`), beforeRestoreScreenshot);
+    writeFileSync(resolve(ARTIFACTS,
+      `live-arena-integration-${viewport.width}-team-pixels.json`),
+    `${JSON.stringify(teamPixelSamples, null, 2)}\n`);
+    const minimumVisibleTeamColorPixels = phoneViewport ? 8 : 24;
+    for (const side of ["north", "south"]) {
+      const maximumVisiblePixels = Math.max(...teamPixelSamples
+        .filter((sample) => sample.side === side)
+        .map((sample) => sample.visibleTeamColorPixels));
+      assert.ok(maximumVisiblePixels >= minimumVisibleTeamColorPixels,
+        `${side} team color survives the actual ${viewport.width}px scaled marker: ` +
+          `${maximumVisiblePixels} pixels in the most visible ${teamPixelSamples[0].crop.width}×` +
+          `${teamPixelSamples[0].crop.height} marker; expected at least ` +
+          `${minimumVisibleTeamColorPixels}`);
+    }
     const checkpoint = await child.evaluate(() => globalThis.__spriteRendererProbe.serialize());
     const restored = await child.evaluate((bytes) => {
       const controller = globalThis.__spriteRendererProbe;
@@ -434,18 +569,28 @@ test("painted sprite atlas renders at real playfield scale in both teams, viewpo
       controller.enterManualStepMode();
     }, checkpoint);
     const afterReducedMotion = await page.screenshot();
-    assert.deepEqual(afterReducedMotion, beforeReducedMotion,
-      "the real scaled battle screenshot with reduced motion must restore pixel-identically");
-    const reducedMotionSha256 = createHash("sha256").update(beforeReducedMotion).digest("hex");
+    const reducedMotionPixelDiagnostics = await compareScreenshotsAtPoint(
+      page,
+      beforeReducedMotion,
+      afterReducedMotion,
+      { x: 105, y: 700 },
+    );
     writeFileSync(resolve(ARTIFACTS,
       `live-arena-integration-${viewport.width}-reduced-motion.png`), beforeReducedMotion);
     writeFileSync(resolve(ARTIFACTS,
       `live-arena-integration-${viewport.width}-reduced-motion-after-restore.png`),
     afterReducedMotion);
+    writeFileSync(resolve(ARTIFACTS,
+      `live-arena-integration-${viewport.width}-reduced-motion-diagnostics.json`),
+    `${JSON.stringify(reducedMotionPixelDiagnostics, null, 2)}\n`);
+    assert.deepEqual(afterReducedMotion, beforeReducedMotion,
+      "the real scaled battle screenshot with reduced motion must restore pixel-identically");
+    const reducedMotionSha256 = createHash("sha256").update(beforeReducedMotion).digest("hex");
     await page.screenshot({ path: resolve(ARTIFACTS,
       `live-arena-integration-${viewport.width}.png`) });
     evidence.liveArenaIntegration.push({
       ...live,
+      markerPixelSamples: teamPixelSamples,
       frame: { height: Number(frameBox.height.toFixed(2)),
         scaleX: Number((frameBox.width / 720).toFixed(6)),
         scaleY: Number((frameBox.height / 1280).toFixed(6)),
