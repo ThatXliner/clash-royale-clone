@@ -14,11 +14,10 @@ visual assets.
 | [`docs/brand/gameplay.png`](brand/gameplay.png) | Existing 390×844 browser capture for showing the current interface. |
 
 `gameplay.png` is copied byte-for-byte from
-`artifacts/app-004-round-1/after-390x844.png`, an existing APP-004 browser
-evidence capture. This documentation change did not run a browser test or
-create a new capture. The screenshot shows the current custom-deck live-match
-screen; it is not a claim that the full game has passed visual or mechanical
-parity review.
+`artifacts/card-art-round-3/critic/app-shell/phone-small-battle-390x844.png`,
+an actual phone browser capture with the painted arena. It is interface
+artwork for the README and landing page, not evidence of full visual or
+mechanical parity.
 
 ## Palette
 
