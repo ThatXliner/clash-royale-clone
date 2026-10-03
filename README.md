@@ -10,10 +10,10 @@
   <img src="docs/brand/banner.svg" alt="Moss &amp; Ember — an original card battler" width="100%">
 </p>
 
-Build an eight-card deck from the nine-card collection. Choose from your hand
-and spend elixir, which refills during the match, to deploy units in the arena.
-They move and fight on their own. Take tower crowns before time runs out to
-win.
+Play against a computer opponent. Build an eight-card deck from the nine-card
+collection, then choose from your hand and spend elixir, which refills during
+the match, to deploy units in the arena. They move and fight on their own. Take
+tower crowns before time runs out to win.
 
 <p align="center">
   <img src="docs/brand/gameplay.png" alt="A Moss &amp; Ember match in progress" width="320">
@@ -24,8 +24,8 @@ before March 2023. It is not affiliated with Supercell. The game uses original
 names, art, and sound. This is an active prototype, not a complete recreation;
 some cards and arena rules are still being worked out.
 
-The same starting seed and player choices replay the same match. A small code
-interface can control the same game, making it possible to experiment with
+The same starting conditions and player choices replay the same match. A small
+code interface can control the same game, so developers can experiment with
 strategies and bots; see the [RL environment guide](docs/rl-api.md).
 
 ## Play locally
