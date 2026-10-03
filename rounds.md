@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 369 — 2026-10-02
+
+PIECE: PUB-003 — Reader-first README and separate engineering guides, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Independent critic inspected immutable `10df234fa17451abe4301ac472178098bd6ec61f`: 18/18 relative Markdown links and all three README image targets resolve. The relocated RL example exited 0 with initialTick 0, tick 30, reward 0, terminated false and truncated false. Detailed API/test/verification material was retained in the linked guides. `rg` found no mention of the computer opponent in the README. Evidence: `artifacts/pub-003-round-1/critic/`.
+
+BIGGEST GAP: A lay reader cannot tell that matches are played against a computer opponent.
+
 ## Round 368 — 2026-10-02
 
 PIECE: RELEASE-001B — Standards-based production dependency graph, round 1

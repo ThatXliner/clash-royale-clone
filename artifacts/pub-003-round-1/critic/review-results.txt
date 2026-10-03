@@ -1,0 +1,35 @@
+PUB-003 independent documentation review
+Candidate: 10df234fa17451abe4301ac472178098bd6ec61f
+Source snapshot: `git archive` extracted to /tmp/pub-003-critic-10df234
+
+Link audit against that archive:
+- README.md, CONTRIBUTING.md, docs/development.md, docs/verification.md:
+  18 relative Markdown links checked, 0 missing.
+- README HTML image sources docs/brand/logo.svg, docs/brand/banner.svg, and
+  docs/brand/gameplay.png: 3/3 exist.
+- docs/verification.md's ../artifacts/vis-003hr-round-2/debug/paint-probes.md
+  evidence link resolves in the candidate snapshot.
+
+The documented one-step RL example ran from the archive and exited 0. Actual
+output is in rl-example-output.txt:
+
+  initialTick: 0
+  tick: 30
+  reward: 0
+  terminated: false
+  truncated: false
+
+The previous README at fd98e97 says the live match is played against a seeded
+opponent. The candidate README explains the eight-card deck, nine-card
+collection, refilling elixir, autonomous unit combat, local setup, original
+inspiration and assets, prototype limits, license/provenance, and linked
+engineering guides. Its description does not say that a match is against a
+computer/seeded opponent; the phrase “They move and fight on their own” describes
+units. `rg -ni '\b(opponent|computer|cpu|against|seeded)\b' README.md` produced
+no matches. The technical setup/test guidance and one-step sample are present
+in docs/development.md; detailed seeded-opponent/API limits are in docs/rl-api.md;
+timed verification evidence and its limits are in docs/verification.md.
+
+VERDICT: FAIL
+BIGGEST GAP: The lay-reader README never identifies the match opponent as a
+computer or seeded opponent, leaving a required basic game fact unclear.
