@@ -1,0 +1,134 @@
+{
+  "browser": "Playwright Chromium headless",
+  "viewport": {
+    "width": 1440,
+    "height": 760,
+    "deviceScaleFactor": 1
+  },
+  "sourceUrl": "http://127.0.0.1:43155/demo/sprite-prototype.html",
+  "servedBy": "python3 -m http.server 43155 rooted at the workspace",
+  "realArenaSizeBasis": "existing Briar Runner marker rule is 4.8% of the 720px arena width; prototype nominal CSS size is 34.56px square; Chromium reports subpixel-quantized bounding size 34.546875px, within 0.02px",
+  "dimensions": {
+    "boardWidth": 720,
+    "sampleWidth": 34.546875,
+    "sampleHeight": 34.546875,
+    "sprites": [
+      {
+        "side": "north",
+        "direction": "north",
+        "frame": "briar-walk-north-0",
+        "color": "rgb(216, 91, 79)",
+        "accent": "#f2a25e",
+        "width": 34.546875,
+        "height": 34.546875
+      },
+      {
+        "side": "north",
+        "direction": "east",
+        "frame": "briar-walk-east-0",
+        "color": "rgb(216, 91, 79)",
+        "accent": "#f2a25e",
+        "width": 34.546875,
+        "height": 34.546875
+      },
+      {
+        "side": "north",
+        "direction": "south",
+        "frame": "briar-walk-south-0",
+        "color": "rgb(216, 91, 79)",
+        "accent": "#f2a25e",
+        "width": 34.546875,
+        "height": 34.546875
+      },
+      {
+        "side": "north",
+        "direction": "west",
+        "frame": "briar-walk-west-0",
+        "color": "rgb(216, 91, 79)",
+        "accent": "#f2a25e",
+        "width": 34.546875,
+        "height": 34.546875
+      },
+      {
+        "side": "south",
+        "direction": "north",
+        "frame": "briar-walk-north-0",
+        "color": "rgb(46, 127, 134)",
+        "accent": "#9bbb76",
+        "width": 34.546875,
+        "height": 34.546875
+      },
+      {
+        "side": "south",
+        "direction": "east",
+        "frame": "briar-walk-east-0",
+        "color": "rgb(46, 127, 134)",
+        "accent": "#9bbb76",
+        "width": 34.546875,
+        "height": 34.546875
+      },
+      {
+        "side": "south",
+        "direction": "south",
+        "frame": "briar-walk-south-0",
+        "color": "rgb(46, 127, 134)",
+        "accent": "#9bbb76",
+        "width": 34.546875,
+        "height": 34.546875
+      },
+      {
+        "side": "south",
+        "direction": "west",
+        "frame": "briar-walk-west-0",
+        "color": "rgb(46, 127, 134)",
+        "accent": "#9bbb76",
+        "width": 34.546875,
+        "height": 34.546875
+      }
+    ]
+  },
+  "walk": {
+    "selectedFrame": "briar-walk-south-1",
+    "reducedMotion": "false"
+  },
+  "attack": {
+    "selectedFrame": "briar-attack-east-1"
+  },
+  "reducedMotion": {
+    "selectedFrame": "briar-walk-west-0",
+    "selectedTick": 17
+  },
+  "restore": {
+    "savedFrame": "briar-walk-east-0",
+    "advancedTick": "16",
+    "advancedFrame": "briar-walk-east-1",
+    "restoredTick": 4,
+    "restoredFrame": "briar-walk-east-0",
+    "scaleBoardSha256Before": "89804df8b60e790a12550aeaf88ff5c0134ae7d6d8e16265761300b3b5d4eaee",
+    "scaleBoardSha256After": "89804df8b60e790a12550aeaf88ff5c0134ae7d6d8e16265761300b3b5d4eaee",
+    "inspectorSha256Before": "a0037d5c5bd8e123ff7c55e796bd739893d2769366d8eff7e615629f9837cc68",
+    "inspectorSha256After": "a0037d5c5bd8e123ff7c55e796bd739893d2769366d8eff7e615629f9837cc68",
+    "exactScreenshotMatch": true
+  },
+  "pageErrors": [],
+  "badRequests": [],
+  "scope": "isolated development-only prototype; no arena integration or gameplay changes",
+  "scaleBasis": {
+    "sourceFile": "src/ui/combat-art.js",
+    "sourceRule": ".combat-marker[data-kind=\"briar-runner\"] { width: 4.8% }",
+    "arenaWidthCssPx": 720,
+    "nominalSpriteWidthCssPx": 34.56,
+    "browserRenderedWidthCssPx": 34.546875,
+    "note": "Chromium quantizes this fractional CSS length to 1/64 CSS-pixel layout units."
+  },
+  "screenshots": {
+    "briar-runner-720.png": "325aa9ae73b2b14632ff800f3c1a6f869a731a3dc991896c4ba345daa6ecbd56",
+    "briar-runner-attack.png": "d7152572d79727060805bcf1be3e143aec6d3619f9cd1258d11db04a0b774cfb",
+    "briar-runner-reduced-motion.png": "4108b59d1f0b45e83630806a41187aff2dbe95de74db173213a63f070e262310",
+    "briar-runner-720-checkpoint.png": "89804df8b60e790a12550aeaf88ff5c0134ae7d6d8e16265761300b3b5d4eaee",
+    "briar-runner-720-restored.png": "89804df8b60e790a12550aeaf88ff5c0134ae7d6d8e16265761300b3b5d4eaee",
+    "briar-runner-inspector-checkpoint.png": "a0037d5c5bd8e123ff7c55e796bd739893d2769366d8eff7e615629f9837cc68",
+    "briar-runner-inspector-restored.png": "a0037d5c5bd8e123ff7c55e796bd739893d2769366d8eff7e615629f9837cc68"
+  },
+  "spriteSheetSha256": "5f25d05932e3c56f9a8dfce7ea9b9d02e9ad2fb34ef0ce983733f9b97b6b7a2e"
+}

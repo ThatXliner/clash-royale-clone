@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Briar Runner Sprite Study</title>
+    <link rel="stylesheet" href="./sprite-prototype.css">
+    <script type="module" src="../src/ui/combat-sprite-prototype.js"></script>
+  </head>
+  <body>
+    <main class="page" data-sprite-prototype>
+      <header class="page-heading">
+        <p class="eyebrow">ART-004 · ORIGINAL UNIT STUDY</p>
+        <h1>Briar Runner, in motion</h1>
+        <p class="intro">A hand-drawn vector sprite sheet for a playable Briar Runner. Pose selection reads simulation ticks; no wall clock or game-state mutation drives the preview.</p>
+      </header>
+
+      <div class="workbench">
+        <section class="panel scale-panel" aria-labelledby="scale-title">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">FIELD SCALE</p>
+              <h2 id="scale-title">720 px arena width</h2>
+            </div>
+            <p class="scale-note"><strong>34.56 px</strong><br>4.8% unit width</p>
+          </div>
+          <div class="board-window">
+            <div class="scale-board" aria-label="North and South Briar Runner poses at a 720 pixel playfield width">
+              <div class="center-mark" aria-hidden="true"></div>
+              <div class="team-row team-row--north">
+                <div class="team-name"><span class="team-dot"></span><span>North</span></div>
+                <div class="sample-grid">
+                  <div class="scale-sample" data-sample-side="north" data-direction="north"></div>
+                  <div class="scale-sample" data-sample-side="north" data-direction="east"></div>
+                  <div class="scale-sample" data-sample-side="north" data-direction="south"></div>
+                  <div class="scale-sample" data-sample-side="north" data-direction="west"></div>
+                </div>
+              </div>
+              <div class="team-row team-row--south">
+                <div class="team-name"><span class="team-dot"></span><span>South</span></div>
+                <div class="sample-grid">
+                  <div class="scale-sample" data-sample-side="south" data-direction="north"></div>
+                  <div class="scale-sample" data-sample-side="south" data-direction="east"></div>
+                  <div class="scale-sample" data-sample-side="south" data-direction="south"></div>
+                  <div class="scale-sample" data-sample-side="south" data-direction="west"></div>
+                </div>
+              </div>
+              <div class="board-caption">Four facings · selected action · frame follows the simulation tick</div>
+            </div>
+          </div>
+          <p class="scale-footnote">The board is a scale reference, not an arena integration. Each marker stays 4.8% of the 720 px playfield width.</p>
+        </section>
+
+        <section class="panel inspector" aria-labelledby="inspector-title">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">FRAME INSPECTOR</p>
+              <h2 id="inspector-title">Same pose, both teams</h2>
+            </div>
+            <code data-current-frame>briar-walk-south-0</code>
+          </div>
+          <div class="large-pair">
+            <div class="large-team large-team--north">
+              <div class="large-sprite" data-selected-side="north"></div>
+              <span>North · ember</span>
+            </div>
+            <div class="large-team large-team--south">
+              <div class="large-sprite" data-selected-side="south"></div>
+              <span>South · jade</span>
+            </div>
+          </div>
+
+          <div class="controls" aria-label="Sprite preview controls">
+            <label>Action
+              <select data-control="action">
+                <option value="walk">Walk</option>
+                <option value="attack">Attack</option>
+              </select>
+            </label>
+            <label>Facing
+              <select data-control="direction">
+                <option value="north">North</option>
+                <option value="east">East</option>
+                <option value="south" selected>South</option>
+                <option value="west">West</option>
+              </select>
+            </label>
+            <label class="tick-control">Simulation tick <output><span data-tick-value>0</span></output>
+              <input data-control="tick" type="range" min="0" max="119" step="1" value="0">
+            </label>
+            <label class="motion-control">
+              <input data-control="reduced-motion" type="checkbox">
+              <span>Reduced motion · hold first frame</span>
+            </label>
+            <div class="checkpoint-controls">
+              <button type="button" data-action="checkpoint">Save frame</button>
+              <button type="button" data-action="advance">Advance 12 ticks</button>
+              <button type="button" data-action="restore">Restore</button>
+            </div>
+            <p class="status" data-prototype-status aria-live="polite">Initial frame ready.</p>
+          </div>
+        </section>
+      </div>
+      <footer class="page-footer">Original Moss &amp; Ember artwork · 64 × 64 vector frames · development-only preview</footer>
+    </main>
+  </body>
+</html>
