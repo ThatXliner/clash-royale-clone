@@ -1,9 +1,10 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { once } from "node:events";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { mkdtemp, readFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { join, relative } from "node:path";
 import { spawn } from "node:child_process";
 import test from "node:test";
 
@@ -19,6 +20,36 @@ const CHROME = process.env.GAME_BROWSER_CHROME ??
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const ARTIFACTS = process.env.APP_SHELL_ARTIFACTS ??
   new URL("../artifacts/app-001-round-1/", import.meta.url).pathname;
+const WORKSPACE_ROOT = new URL("..", import.meta.url).pathname;
+const ARENA_CONTROLLER_MODULE = "src/ui/arena-shell-entry.js";
+const EXPECTED_CARD_PORTRAIT_CELLS = Object.freeze([
+  Object.freeze(["coilblade", "0"]),
+  Object.freeze(["mossguard", "1"]),
+  Object.freeze(["copperskiff", "2"]),
+  Object.freeze(["skymaul", "3"]),
+  Object.freeze(["brassbolt", "4"]),
+  Object.freeze(["reedsting", "5"]),
+  Object.freeze(["briar-band", "6"]),
+  Object.freeze(["cinderlings", "7"]),
+  Object.freeze(["stonehauler", null]),
+]);
+const CARD_PORTRAIT_SCREENSHOTS = Object.freeze([
+  "desktop-card-portraits-1440x933.png",
+  "desktop-card-details-1440x933.png",
+  "phone-card-portraits-390x844.png",
+  "phone-card-portraits-full-390x844.png",
+]);
+
+async function screenshotEvidence(name) {
+  const artifactPath = join(ARTIFACTS, name);
+  const bytes = await readFile(artifactPath);
+  return {
+    path: relative(WORKSPACE_ROOT, artifactPath),
+    width: bytes.readUInt32BE(16),
+    height: bytes.readUInt32BE(20),
+    sha256: createHash("sha256").update(bytes).digest("hex"),
+  };
+}
 
 async function serverAddress(stream) {
   let output = "";
@@ -60,26 +91,26 @@ async function renderedProfiles(page) {
   );
 }
 
-async function cardFrameTick(frame) {
-  return frame.evaluate(async () => {
-    const { arenaHudController } = await import("/src/ui/arena-shell-entry.js");
+async function cardFrameTick(frame, moduleUrl) {
+  return frame.evaluate(async (entryUrl) => {
+    const { arenaHudController } = await import(entryUrl);
     return arenaHudController.state.sessionTick;
-  });
+  }, moduleUrl);
 }
 
-async function cardFrameDeployment(frame, cardId) {
-  return frame.evaluate(async (expectedId) => {
-    const { arenaHudController } = await import("/src/ui/arena-shell-entry.js");
+async function cardFrameDeployment(frame, cardId, moduleUrl) {
+  return frame.evaluate(async ({ expectedId, entryUrl }) => {
+    const { arenaHudController } = await import(entryUrl);
     const event = arenaHudController.session.replay.find(({ side, type, deployment }) =>
       side === "south" && type === "session-deployed" &&
       deployment.cardId === expectedId);
     return event ?? null;
-  }, cardId);
+  }, { expectedId: cardId, entryUrl: moduleUrl });
 }
 
-async function cardFrameDiagnostics(frame) {
-  return frame.evaluate(async () => {
-    const { arenaHudController } = await import("/src/ui/arena-shell-entry.js");
+async function cardFrameDiagnostics(frame, moduleUrl) {
+  return frame.evaluate(async (entryUrl) => {
+    const { arenaHudController } = await import(entryUrl);
     const arena = document.querySelector('[data-ui="arena"]');
     return {
       arena: arena?.getBoundingClientRect().toJSON(),
@@ -88,7 +119,7 @@ async function cardFrameDiagnostics(frame) {
       state: arenaHudController.state,
       feedback: arenaHudController.placementFeedback,
     };
-  });
+  }, moduleUrl);
 }
 
 async function cardFrameLayout(frame) {
@@ -117,10 +148,10 @@ async function cardFrameLayout(frame) {
   });
 }
 
-async function waitForCardFrameTick(frame, minimum = 1) {
+async function waitForCardFrameTick(frame, moduleUrl, minimum = 1) {
   let tick = 0;
   for (let attempt = 0; attempt < 120; attempt += 1) {
-    tick = await cardFrameTick(frame);
+    tick = await cardFrameTick(frame, moduleUrl);
     if (tick >= minimum) return tick;
     await new Promise((resolve) => setTimeout(resolve, 50));
   }
@@ -135,8 +166,14 @@ test("player shell renders roster-derived cards and launches a paused shared bat
   t.after(() => rm(temporary, { recursive: true, force: true }));
   const releaseRoot = join(temporary, "artifact");
   await buildRelease({ output: releaseRoot });
-  const manifest = JSON.parse(await readFile(join(releaseRoot, "release-manifest.json"), "utf8"));
+  const manifestBytes = await readFile(join(releaseRoot, "release-manifest.json"));
+  const manifest = JSON.parse(manifestBytes.toString("utf8"));
+  const manifestSha256 = createHash("sha256").update(manifestBytes).digest("hex");
   assert.deepEqual(manifest.entrypoints, ["public/index.html"]);
+  assert.ok(manifest.standaloneModules.includes("src/rl/environment.js"),
+    "the configured RL module remains a standalone release entry");
+  assert.ok(manifest.standaloneModules.includes(ARENA_CONTROLLER_MODULE),
+    "the live arena controller is preserved as a standalone release module");
   assert.ok(manifest.files.some(({ path }) => path === "public/ui-arena-shell.html"),
     "the directly mounted arena remains part of the shipped release");
 
@@ -146,9 +183,11 @@ test("player shell renders roster-derived cards and launches a paused shared bat
   ], { stdio: ["ignore", "pipe", "pipe"] });
   const address = await serverAddress(server.stdout);
   const origin = `http://${address.host}:${address.port}`;
+  const arenaControllerUrl = new URL(`/${ARENA_CONTROLLER_MODULE}`, origin).href;
   const { chromium } = await import(PLAYWRIGHT);
   const browser = await chromium.launch({ executablePath: CHROME, headless: true });
   const page = await browser.newPage({ viewport: { width: 720, height: 1280 }, deviceScaleFactor: 1 });
+  let cardPortraitEvidence = null;
   const failures = [];
   const requests = new Set();
   page.on("pageerror", (error) => failures.push(String(error)));
@@ -219,11 +258,92 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     assert.match(await page.locator("[data-view-active]").getAttribute("data-view-active"), /deck/u);
     await page.screenshot({ path: join(ARTIFACTS, "phone-deck-720x1280.png"), fullPage: true });
 
-    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.setViewportSize({ width: 1440, height: 933 });
     await page.locator('[data-nav-to="cards"]').click();
+    const desktopPortraits = await page.locator("[data-card-grid] .card-art-image").evaluateAll(
+      async (images) => {
+        await Promise.all(images.map((image) => image.decode()));
+        return images.map((image) => {
+          const card = image.closest("[data-card-id]");
+          const bounds = image.closest(".card-art-window").getBoundingClientRect();
+          return {
+            cardId: card?.dataset.cardId,
+            cell: image.dataset.portraitCell ?? null,
+            src: new URL(image.currentSrc || image.src, document.baseURI).pathname,
+            decoded: image.complete && image.naturalWidth > 0 && image.naturalHeight > 0,
+            naturalSize: [image.naturalWidth, image.naturalHeight],
+            windowSize: [bounds.width, bounds.height],
+          };
+        });
+      },
+    );
+    assert.deepEqual(desktopPortraits.map(({ cardId, cell }) => [cardId, cell]),
+      EXPECTED_CARD_PORTRAIT_CELLS, "all nine collection cards map to their intended painted portraits");
+    assert.ok(desktopPortraits.every(({ decoded, naturalSize, windowSize }) => decoded &&
+      naturalSize[0] > 0 && naturalSize[1] > 0 && windowSize[0] > 0 && windowSize[1] > 0),
+    `every collection portrait decodes and has a visible art window: ${JSON.stringify(desktopPortraits)}`);
+    const manifestFileForUrl = (src) => manifest.files.find(({ path }) => path === src.slice(1));
+    const manifestAtlasSource = manifest.files.find(({ path }) =>
+      path === "public/assets/card-portraits-painted.webp");
+    const manifestStonehaulerSource = manifest.files.find(({ path }) =>
+      path === "public/assets/stonehauler-painted.webp");
+    assert.ok(manifestAtlasSource && manifestStonehaulerSource,
+      "both production portrait source files are registered in the release manifest");
+    const atlasOutputs = desktopPortraits.slice(0, 8).map(({ src }) => manifestFileForUrl(src));
+    assert.ok(atlasOutputs.every((file) => file !== undefined),
+      `each atlas URL resolves to its exact manifest-listed production output: ${JSON.stringify(desktopPortraits.map(({ src }) => src))}`);
+    assert.ok(atlasOutputs.every((file) => file.size === manifestAtlasSource.size &&
+      file.sha256 === manifestAtlasSource.sha256),
+    "every emitted atlas URL retains the exact registered portrait bytes");
+    const stonehaulerOutput = manifestFileForUrl(desktopPortraits[8].src);
+    assert.ok(stonehaulerOutput && stonehaulerOutput.size === manifestStonehaulerSource.size &&
+      stonehaulerOutput.sha256 === manifestStonehaulerSource.sha256,
+    "Stonehauler's emitted URL retains its exact registered portrait bytes");
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth), 1440,
+      "the desktop collection does not overflow horizontally");
+    await page.screenshot({ path: join(ARTIFACTS, CARD_PORTRAIT_SCREENSHOTS[0]), fullPage: true });
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+    const phonePortraits = await page.locator("[data-card-grid] .card-art-image").evaluateAll(
+      async (images) => {
+        await Promise.all(images.map((image) => image.decode()));
+        return images.map((image) => ({
+          cardId: image.closest("[data-card-id]")?.dataset.cardId,
+          decoded: image.complete && image.naturalWidth > 0 && image.naturalHeight > 0,
+          window: image.closest(".card-art-window").getBoundingClientRect().toJSON(),
+        }));
+      },
+    );
+    assert.deepEqual(phonePortraits.map(({ cardId }) => cardId),
+      EXPECTED_CARD_PORTRAIT_CELLS.map(([cardId]) => cardId),
+    "all nine portrait wells remain present on a 390px phone");
+    assert.ok(phonePortraits.every(({ decoded, window }) => decoded &&
+      window.width > 0 && window.height > 0 && window.right <= 390),
+    `all nine portraits remain decoded and inside the phone viewport: ${JSON.stringify(phonePortraits)}`);
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth), 390,
+      "the phone collection does not overflow horizontally");
+    await page.screenshot({ path: join(ARTIFACTS, CARD_PORTRAIT_SCREENSHOTS[2]) });
+    await page.screenshot({ path: join(ARTIFACTS, CARD_PORTRAIT_SCREENSHOTS[3]), fullPage: true });
+
+    cardPortraitEvidence = {
+      mapping: desktopPortraits.map(({ cardId, cell, src, decoded, naturalSize }) => ({
+        cardId, cell, src, decoded, naturalSize,
+      })),
+      desktop: { viewport: { width: 1440, height: 933 }, horizontalOverflow: false },
+      phone: { viewport: { width: 390, height: 844 }, horizontalOverflow: false },
+      assetManifest: {
+        sources: { atlas: manifestAtlasSource, stonehauler: manifestStonehaulerSource },
+        outputs: { atlas: atlasOutputs[0], stonehauler: stonehaulerOutput },
+      },
+    };
+
+    await page.setViewportSize({ width: 1440, height: 933 });
     await page.locator('[data-card-grid] [data-card-id="briar-band"]').click();
     assert.equal(await page.locator("[data-card-detail] .unit-profile").count(), 2);
-    await page.screenshot({ path: join(ARTIFACTS, "desktop-card-details-1440x900.png"), fullPage: true });
+    await page.screenshot({ path: join(ARTIFACTS, CARD_PORTRAIT_SCREENSHOTS[1]), fullPage: true });
+    cardPortraitEvidence.screenshots = await Promise.all(
+      CARD_PORTRAIT_SCREENSHOTS.map(screenshotEvidence));
 
     await page.setViewportSize({ width: 720, height: 1280 });
     await page.locator('[data-nav-to="home"]').click();
@@ -252,6 +372,16 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     await page.waitForFunction(() => document.querySelector("[data-battle-frame-slot] iframe") !== null);
     const child = page.frames().find((candidate) => candidate.url().includes("app-frame=1"));
     assert.ok(child, "Battle mounts the real arena entry inside the shell");
+    assert.equal(new URL(child.url()).pathname, "/public/ui-arena-shell.html",
+      "Battle runs the packaged HTML entry, not a source-only development route");
+    const loadedModuleUrls = await child.evaluate(() =>
+      [...document.querySelectorAll('script[type="module"][src]')].map((script) =>
+        new URL(script.getAttribute("src"), document.baseURI).href));
+    assert.ok(loadedModuleUrls.length > 0 && loadedModuleUrls.every((url) =>
+      new URL(url).origin === origin),
+    `the shipped iframe bootstraps only from its same-origin release modules: ${JSON.stringify(loadedModuleUrls)}`);
+    assert.ok(manifest.files.some(({ path }) => path === ARENA_CONTROLLER_MODULE),
+      "the exact controller module imported by the test is present in the release manifest");
     const battleViewport = await child.evaluate(() => ({
       width: window.innerWidth,
       height: window.innerHeight,
@@ -273,7 +403,7 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     `all four cards, next, elixir, timer, and field fit in the scaled 720x1280 frame: ${JSON.stringify({ controlLayout, frameBox })}`);
     assert.equal(await child.locator("[data-ui='deck-choice-open']").getAttribute("hidden") !== null, true,
       "the product battle uses the standard eight-card lineup");
-    const runningTick = await waitForCardFrameTick(child);
+    const runningTick = await waitForCardFrameTick(child, arenaControllerUrl);
     assert.ok(runningTick > 0, "Home enters and resumes the real Battle session");
     await page.screenshot({ path: join(ARTIFACTS, "phone-battle-720x1280.png") });
     const cardId = await child.locator('[data-ui="card-slot"]').first().getAttribute("data-card-id");
@@ -297,10 +427,10 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       arenaBox.y + arenaBox.height * 0.79);
     let deployed = null;
     for (let attempt = 0; attempt < 120 && deployed === null; attempt += 1) {
-      deployed = await cardFrameDeployment(child, cardId);
+      deployed = await cardFrameDeployment(child, cardId, arenaControllerUrl);
       if (deployed === null) await new Promise((resolve) => setTimeout(resolve, 50));
     }
-    assert.ok(deployed, `a trusted arena click deploys from the scaled hand into the south field: ${JSON.stringify(await cardFrameDiagnostics(child))}`);
+    assert.ok(deployed, `a trusted arena click deploys from the scaled hand into the south field: ${JSON.stringify(await cardFrameDiagnostics(child, arenaControllerUrl))}`);
     assert.equal(deployed.deployment.cardId, cardId);
     assert.ok(deployed.deployment.point.y < 15_000,
       "scaled pointer coordinates preserve the legal south-side placement");
@@ -323,13 +453,13 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     await page.setViewportSize({ width: 720, height: 1280 });
     await page.locator('.app-nav [data-nav-to="deck"]').click();
     await page.waitForTimeout(100);
-    const pausedTick = await cardFrameTick(child);
+    const pausedTick = await cardFrameTick(child, arenaControllerUrl);
     assert.ok(pausedTick >= runningTick, "leaving Battle keeps the same session state");
     await page.waitForTimeout(100);
-    assert.equal(await cardFrameTick(child), pausedTick, "leaving Battle pauses the shared session");
+    assert.equal(await cardFrameTick(child, arenaControllerUrl), pausedTick, "leaving Battle pauses the shared session");
     await page.locator('[data-nav-to="battle"]').click();
     await page.waitForTimeout(220);
-    assert.ok(await cardFrameTick(child) > pausedTick, "Deck returns to the same resumed Battle session");
+    assert.ok(await cardFrameTick(child, arenaControllerUrl) > pausedTick, "Deck returns to the same resumed Battle session");
 
     await page.setViewportSize({ width: 390, height: 844 });
     await page.locator('.app-nav [data-nav-to="deck"]').click();
@@ -375,17 +505,17 @@ test("player shell renders roster-derived cards and launches a paused shared bat
 
     await page.locator('[data-nav-to="battle"]').click();
     await child.locator('[data-ui="arena"]').waitFor({ state: "visible", timeout: 8_000 });
-    const waitForFrameDeck = async () => child.waitForFunction(async (expectedIds) => {
-      const { arenaHudController } = await import("/src/ui/arena-shell-entry.js");
+    const waitForFrameDeck = async () => child.waitForFunction(async ({ expectedIds, entryUrl }) => {
+      const { arenaHudController } = await import(entryUrl);
       return JSON.stringify(JSON.parse(arenaHudController.session.serialize()).setup.deck) ===
         JSON.stringify(expectedIds);
-    }, deckIds, { timeout: 8_000 });
+    }, { expectedIds: deckIds, entryUrl: arenaControllerUrl }, { timeout: 8_000 });
     await waitForFrameDeck();
     assert.match(await page.locator("[data-battle-label]").innerText(), /CUSTOM DECK/u);
-    const frameSetup = await child.evaluate(async () => {
-      const { arenaHudController } = await import("/src/ui/arena-shell-entry.js");
+    const frameSetup = await child.evaluate(async (entryUrl) => {
+      const { arenaHudController } = await import(entryUrl);
       return JSON.parse(arenaHudController.session.serialize()).setup;
-    });
+    }, arenaControllerUrl);
     assert.deepEqual(frameSetup.deck, deckIds,
       "Battle launches the actual selected eight-card setup");
     assert.deepEqual(frameSetup, JSON.parse(createEditableGameSessionSetup(deckIds)),
@@ -405,19 +535,19 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       deckIds: ids,
     }, window.location.origin), deckIds);
     await page.waitForTimeout(100);
-    assert.deepEqual(await child.evaluate(async () => {
-      const { arenaHudController } = await import("/src/ui/arena-shell-entry.js");
+    assert.deepEqual(await child.evaluate(async (entryUrl) => {
+      const { arenaHudController } = await import(entryUrl);
       return JSON.parse(arenaHudController.session.serialize()).setup.deck;
-    }), deckIds, "duplicate IDs and messages from the frame itself cannot replace the deck");
+    }, arenaControllerUrl), deckIds, "duplicate IDs and messages from the frame itself cannot replace the deck");
 
     await page.locator('.app-nav [data-nav-to="deck"]').click();
-    const customPausedTick = await cardFrameTick(child);
+    const customPausedTick = await cardFrameTick(child, arenaControllerUrl);
     await page.waitForTimeout(100);
-    assert.equal(await cardFrameTick(child), customPausedTick,
+    assert.equal(await cardFrameTick(child, arenaControllerUrl), customPausedTick,
       "leaving Battle pauses the custom setup without discarding it");
     await page.locator('[data-nav-to="battle"]').click();
     await waitForFrameDeck();
-    const resumedCustomTick = await waitForCardFrameTick(child, customPausedTick + 1);
+    const resumedCustomTick = await waitForCardFrameTick(child, arenaControllerUrl, customPausedTick + 1);
     assert.ok(resumedCustomTick > customPausedTick,
       "returning to Battle resumes the same custom setup");
 
@@ -432,7 +562,7 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       customArena.y + customArena.height * 0.79);
     let stonehaulerDeployment = null;
     for (let attempt = 0; attempt < 120 && stonehaulerDeployment === null; attempt += 1) {
-      stonehaulerDeployment = await cardFrameDeployment(child, "stonehauler");
+      stonehaulerDeployment = await cardFrameDeployment(child, "stonehauler", arenaControllerUrl);
       if (stonehaulerDeployment === null) await new Promise((resolve) => setTimeout(resolve, 50));
     }
     assert.ok(stonehaulerDeployment, "the custom card deploys through the real session input");
@@ -441,8 +571,8 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       "Stonehauler placement is on the player's side");
     await page.screenshot({ path: join(ARTIFACTS, "custom-battle-stonehauler-deployed-390x844.png") });
 
-    const continuation = await child.evaluate(async () => {
-      const { arenaHudController } = await import("/src/ui/arena-shell-entry.js");
+    const continuation = await child.evaluate(async (entryUrl) => {
+      const { arenaHudController } = await import(entryUrl);
       arenaHudController.enterManualStepMode();
       const checkpoint = arenaHudController.serialize();
       arenaHudController.stepMany(180);
@@ -457,34 +587,34 @@ test("player shell renders roster-derived cards and launches a paused shared bat
         replayed: arenaHudController.serialize(),
         restoredDeck: JSON.parse(arenaHudController.session.serialize()).setup.deck,
       };
-    });
+    }, arenaControllerUrl);
     assert.equal(continuation.exactAtRestore, true, "custom browser snapshot restores byte for byte");
     assert.equal(continuation.replayed, continuation.forward,
       "custom battle continuation remains deterministic after restore");
     assert.deepEqual(continuation.restoredDeck, deckIds,
       "restoring a battle snapshot retains all eight selected card IDs");
 
-    const terminal = await child.evaluate(async () => {
-      const { arenaHudController } = await import("/src/ui/arena-shell-entry.js");
+    const terminal = await child.evaluate(async (entryUrl) => {
+      const { arenaHudController } = await import(entryUrl);
       let chunks = 0;
       while (!arenaHudController.state.terminal && chunks < 12) {
         arenaHudController.fastForwardSegment(1_200);
         chunks += 1;
       }
       return { chunks, state: arenaHudController.state };
-    });
+    }, arenaControllerUrl);
     assert.equal(terminal.state.terminal, true, "the custom match reaches a real terminal state");
     await page.screenshot({ path: join(ARTIFACTS, "custom-battle-terminal-390x844.png") });
     await child.locator('[data-ui="restart"]').click();
-    const restarted = await child.evaluate(async () => {
-      const { arenaHudController } = await import("/src/ui/arena-shell-entry.js");
+    const restarted = await child.evaluate(async (entryUrl) => {
+      const { arenaHudController } = await import(entryUrl);
       return {
         restartCount: arenaHudController.state.restartCount,
         sessionBytes: arenaHudController.session.serialize(),
         sessionTick: arenaHudController.state.sessionTick,
         setup: JSON.parse(arenaHudController.session.serialize()).setup,
       };
-    });
+    }, arenaControllerUrl);
     assert.equal(restarted.restartCount, 1);
     assert.equal(restarted.sessionTick, 0);
     assert.deepEqual(restarted.setup.deck, deckIds,
@@ -504,7 +634,13 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     writeFileSync(join(ARTIFACTS, "browser-evidence.json"), `${JSON.stringify({
       cardIds: createPlayableRoster().map(({ id }) => id),
       editablePoolIds: [...createPlayableRoster().map(({ id }) => id), "stonehauler"],
-      release: { entrypoints: manifest.entrypoints, fileCount: manifest.fileCount },
+      cardPortraits: cardPortraitEvidence,
+      release: {
+        entrypoints: manifest.entrypoints,
+        standaloneModules: manifest.standaloneModules,
+        fileCount: manifest.fileCount,
+        manifestSha256,
+      },
       deployment: {
         cardId: deployed.deployment.cardId,
         point: deployed.deployment.point,
@@ -534,7 +670,11 @@ test("player shell renders roster-derived cards and launches a paused shared bat
         restart: { deck: restarted.setup.deck, restartCount: restarted.restartCount,
           sessionTick: restarted.sessionTick },
       },
-      viewports: [{ width: 720, height: 1280 }, { width: 390, height: 844 }, { width: 1440, height: 900 }],
+      viewports: [
+        { width: 720, height: 1280 },
+        { width: 390, height: 844 },
+        { width: 1440, height: 933 },
+      ],
       result: "passed",
     }, null, 2)}\n`);
   } finally {
