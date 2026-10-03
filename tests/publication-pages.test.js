@@ -68,7 +68,8 @@ test("Pages build contains the branded landing, approved source assets, and isol
   const release = JSON.parse(await readFile(join(releaseRoot, "release-manifest.json"), "utf8"));
   assert.ok(release.files.some(({ path }) => path === "public/index.html"));
   const gameLanding = await readFile(join(releaseRoot, "public/index.html"), "utf8");
-  assert.match(gameLanding, /<script type="module" src="\.\.\/src\/ui\/app-shell\.js"><\/script>/u);
+  assert.match(gameLanding,
+    /<script type="module"[^>]*src="\.\.\/src\/ui\/app-shell\.js"[^>]*><\/script>/u);
   assert.match(gameLanding, /data-deck-size/u);
   assert.match(gameLanding, /data-average-cost/u);
   assert.match(gameLanding, /src="\.\/ui-arena-shell\.html\?app-frame=1"/u);
@@ -134,7 +135,11 @@ test("local preview serves the landing and playable routes without escaping its 
   const gameModule = await fetch(`${base}/game/src/ui/app-shell.js`);
   assert.equal(gameModule.status, 200);
   assert.match(gameModule.headers.get("content-type"), /javascript/u);
-  assert.match(await gameModule.text(), /data-deck-size|deck-size/u);
+  const appBootstrap = await gameModule.text();
+  const runtimeImport = appBootstrap.match(/from ["']\.\.\/\.\.\/(assets\/[^"']+\.js)["']/u);
+  assert.ok(runtimeImport, "the app bootstrap points to a generated runtime chunk");
+  assert.equal(await stat(join(output, "game", runtimeImport[1])).then((info) => info.isFile()), true,
+    "the Pages preview serves the referenced runtime chunk");
 
   const gameplay = await fetch(`${base}/brand/gameplay.png`);
   assert.equal(gameplay.status, 200);
@@ -164,7 +169,9 @@ test("local preview serves the landing and playable routes without escaping its 
   const mountedGame = await fetch(`${mountedBase}/game/public/index.html`);
   assert.equal(mountedGame.status, 200);
   assert.match(await mountedGame.text(), /data-deck-size/u);
-  assert.equal((await fetch(`${mountedBase}/game/src/ui/app-shell.js`)).status, 200);
+  const mountedBootstrapResponse = await fetch(`${mountedBase}/game/src/ui/app-shell.js`);
+  assert.equal(mountedBootstrapResponse.status, 200);
+  assert.match(await mountedBootstrapResponse.text(), /game-runtime/u);
   assert.equal((await fetch(`http://127.0.0.1:${mounted.server.address().port}/game/`)).status, 404);
   assert.equal((await fetch(`${mountedBase}/missing.js`)).status, 404);
   await assert.rejects(createPagesPreviewServer({ root: output, basePath: "/../" }),

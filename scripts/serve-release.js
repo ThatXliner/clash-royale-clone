@@ -82,7 +82,7 @@ function send(response, status, body = "", headers = {}) {
   response.end(body);
 }
 
-export async function createReleaseServer({ root = DEFAULT_ROOT } = {}) {
+export async function createReleaseServer({ root = DEFAULT_ROOT, logRequests = true } = {}) {
   const artifact = await artifactManifest(root);
   const server = createServer((request, response) => {
     void (async () => {
@@ -91,7 +91,7 @@ export async function createReleaseServer({ root = DEFAULT_ROOT } = {}) {
         pathname = decodeURIComponent(new URL(request.url, "http://127.0.0.1").pathname);
       } catch {
         send(response, 404);
-        process.stdout.write(`${JSON.stringify({
+        if (logRequests) process.stdout.write(`${JSON.stringify({
           method: request.method,
           path: "<invalid-url>",
           status: 404,
@@ -133,7 +133,7 @@ export async function createReleaseServer({ root = DEFAULT_ROOT } = {}) {
         send(response, 404);
       }
 
-      process.stdout.write(`${JSON.stringify({ method: request.method, path, status })}\n`);
+      if (logRequests) process.stdout.write(`${JSON.stringify({ method: request.method, path, status })}\n`);
     })().catch(() => send(response, 500));
   });
   return { manifest: artifact.manifest, server };

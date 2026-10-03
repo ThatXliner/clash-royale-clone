@@ -48,7 +48,11 @@ function send(response, status, body = "", headers = {}) {
   response.end(body);
 }
 
-export async function createPagesPreviewServer({ root = DEFAULT_ROOT, basePath = "" } = {}) {
+export async function createPagesPreviewServer({
+  root = DEFAULT_ROOT,
+  basePath = "",
+  logRequests = true,
+} = {}) {
   invariant(basePath === "" || (typeof basePath === "string" &&
     /^\/(?:[A-Za-z0-9._~-]+\/)*$/u.test(basePath) &&
     basePath.split("/").every((part) => part !== "." && part !== "..")),
@@ -122,7 +126,7 @@ export async function createPagesPreviewServer({ root = DEFAULT_ROOT, basePath =
           ? "text/plain; charset=utf-8"
           : MIME_TYPES.get(extname(absolute).toLowerCase()) ?? "application/octet-stream",
       });
-      process.stdout.write(`${JSON.stringify({ method: request.method, path: pathname, status: 200 })}\n`);
+      if (logRequests) process.stdout.write(`${JSON.stringify({ method: request.method, path: pathname, status: 200 })}\n`);
     })().catch(() => send(response, 500));
   });
   return { root: rootReal, server };

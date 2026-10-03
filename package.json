@@ -154,7 +154,7 @@
     "test:pathfinding": "node tests/pathfinding-runner.js pathfinding"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=22.12.0"
   },
   "license": "AGPL-3.0-only",
   "repository": {
@@ -162,6 +162,7 @@
     "url": "https://github.com/ThatXliner/clash-royale-clone.git"
   },
   "devDependencies": {
-    "playwright": "1.58.2"
+    "playwright": "1.58.2",
+    "vite": "8.3.2"
   }
 }

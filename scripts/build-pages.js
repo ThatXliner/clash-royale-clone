@@ -6,6 +6,7 @@ import { basename, dirname, extname, isAbsolute, join, relative, resolve, sep } 
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { randomUUID } from "node:crypto";
 import { buildRelease } from "./build-release.js";
+import { qualifyBrowserArtifact } from "./release-browser-qualification.js";
 
 const SCRIPT_PATH = fileURLToPath(import.meta.url);
 const WORKSPACE_ROOT = resolve(dirname(SCRIPT_PATH), "..");
@@ -193,6 +194,18 @@ export async function buildPages({
       "",
     ].join("\n"));
     const manifest = JSON.parse(await readFile(join(stage, "game", "release-manifest.json"), "utf8"));
+    const projectPath = repository.split("/")[1];
+    const browserQualification = await qualifyBrowserArtifact({
+      root: stage,
+      manifestPath: "game/release-manifest.json",
+      serverMode: "pages",
+      prefix: `/${projectPath}/`,
+      mountedPath: "game",
+      browserEntrypoints: [],
+      moduleEntrypoints: manifest.standaloneModules,
+      flow: "game",
+      landingPage: true,
+    });
     await publishDirectory(stage, absolute);
     return Object.freeze({
       fileCount: manifest.fileCount,
@@ -200,6 +213,7 @@ export async function buildPages({
       releaseBytes: manifest.totalBytes,
       repository: repository.trim(),
       ref,
+      browserQualification,
     });
   } catch (error) {
     await rm(stage, { recursive: true, force: true });

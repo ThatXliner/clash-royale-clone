@@ -311,8 +311,41 @@ async function importAndExerciseModules({
     invariant(rlPath, "game qualification requires the standalone RL environment module");
   }
   for (const path of moduleEntrypoints) {
-    const page = gamePage ?? await context.newPage();
     const artifactPath = mountedPath ? `${mountedPath}/${path}` : path;
+    if (flow === "game" && path === "src/ui/arena-shell-entry.js") {
+      const arenaFrame = gamePage?.frames().find((frame) => {
+        try {
+          return new URL(frame.url()).pathname.endsWith("/public/ui-arena-shell.html");
+        } catch {
+          return false;
+        }
+      });
+      invariant(arenaFrame,
+        "game qualification could not find the loaded public arena iframe for its standalone controller entry");
+      const result = await arenaFrame.evaluate(async (moduleUrl) => {
+        const module = await import(moduleUrl);
+        const controller = module.arenaHudController;
+        const arena = document.querySelector('[data-ui="arena"]');
+        return {
+          attachedArena: arena?.isConnected === true,
+          controllerPresent: controller !== null && controller !== undefined,
+          exports: Object.keys(module).sort(),
+          hasControllerApi: ["enterManualStepMode", "serialize", "stepMany"]
+            .every((name) => typeof controller?.[name] === "function"),
+          imported: true,
+          sessionActive: controller?.state?.active === true,
+          sessionTick: controller?.state?.sessionTick ?? null,
+        };
+      }, pageUrl(baseUrl, artifactPath));
+      invariant(result.imported && result.controllerPresent && result.attachedArena &&
+        result.hasControllerApi && result.sessionActive &&
+        Number.isSafeInteger(result.sessionTick),
+      "standalone arena controller entry did not expose the active shipped iframe controller");
+      checks.push({ path, ...result });
+      await waitForSettledPages(context);
+      continue;
+    }
+    const page = gamePage ?? await context.newPage();
     const result = await page.evaluate(async ({ moduleUrl, exerciseRLEnvironment }) => {
       const module = await import(moduleUrl);
       const exports = Object.keys(module).sort();
