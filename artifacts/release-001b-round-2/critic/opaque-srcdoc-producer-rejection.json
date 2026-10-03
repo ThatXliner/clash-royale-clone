@@ -1,0 +1,51 @@
+{
+  "status": "PRODUCER_REJECTED_BEFORE_PUBLISH",
+  "source": "runtime-constructed iframe.srcdoc",
+  "requestedPath": "public/opaque-runtime-image.svg",
+  "responseStatus": 404,
+  "manifestMembership": false,
+  "previousArtifactPreserved": true,
+  "previousArtifactFileCount": 4,
+  "previousManifestSha256": "bbe7b4b23b5b2a56ca817e08d48f47c977dbe0bf2e6eb8cb1cfb1806d409166d",
+  "previousBrowserQualification": {
+    "schemaVersion": 1,
+    "serverMode": "release",
+    "flow": "generic",
+    "prefix": "",
+    "mountedPath": "",
+    "browserEntrypoints": [
+      "public/index.html"
+    ],
+    "moduleEntrypoints": [],
+    "flows": [
+      {
+        "kind": "browser-entrypoint",
+        "path": "public/index.html"
+      }
+    ],
+    "modules": [],
+    "requestCount": 2,
+    "requests": [
+      {
+        "method": "GET",
+        "path": "assets/public/index-BXuttWH4.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "public/index.html",
+        "resourceType": "document",
+        "scope": "release",
+        "status": 200
+      }
+    ],
+    "workers": [],
+    "serviceWorkers": "blocked",
+    "runtimeErrors": [],
+    "releaseManifestPath": "release-manifest.json",
+    "releaseManifestFileCount": 3,
+    "pagesFileCount": 0
+  }
+}

@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 377 — 2026-10-02
+
+PIECE: RELEASE-001B — Standards-based production dependency graph, round 2
+
+VERDICT: PASS
+
+EVIDENCE: Independent frozen `3d18d45` release suite 20/20 and Pages suite 5/5 pass. Two clean builds produce byte-identical manifests: 38 files, 5,541,603 bytes, SHA-256 `be5959cfcb8798cfffcaf27190a842a3c26eff167a2ebec7601d0067aabbab51`. Actual Chromium under `/moss-and-ember` navigates Home to Battle with 46 manifest-bound HTTP 200 requests and no browser errors; attached active controller and RL reset/step/serialize/restore pass. Exact Pages stage under `/clash-royale-clone/` qualifies before publication; 52 requests succeed. Graph fixtures and prior-artifact byte preservation pass. Evidence: `artifacts/release-001b-round-2/critic/`.
+
+BIGGEST GAP: None on the scoped successor bar. Power-loss transaction fault injection, predecessor dependency-free tooling, remote deployment, endurance and historical parity are outside this verdict.
+
 ## Round 376 — 2026-10-02
 
 PIECE: ART-005S — Painted troop animation in playable battle, round 2
