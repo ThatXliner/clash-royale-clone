@@ -6,26 +6,25 @@ claims only as strong as their evidence.
 
 ## Set up
 
-Use Node.js 22 or later, then install the locked dependencies:
+Use Node.js 22.12 or later. Install the locked dependencies and the pinned
+Playwright Chromium browser:
 
 ```sh
 npm ci
+npx playwright install chromium
 ```
 
-Start the local game with `npm run preview:release`; it builds the release and
-serves it at `http://127.0.0.1:4173/public/index.html`. For browser checks,
-install dependencies with `npm ci` so the repository's pinned Playwright
-version is used.
+On Linux, install Chromium's system libraries with
+`npx playwright install --with-deps chromium`. Start the local game with
+`npm run preview:release`; it builds the release and serves it at
+`http://127.0.0.1:4173/public/index.html`. See [Development](docs/development.md)
+for focused test commands and the Pages preview.
 
 ## Before opening a pull request
 
-- Run the focused test runner for the code you changed. Run `npm test` for the
-  default suite. To run a focused runner with the portable browser setup, use
-  `npm run test:portable -- node tests/<runner>.js <selector>`; the wrapper can
-  also run non-browser tests. After `npm ci`, install Chromium with
-  `npx playwright install chromium` when a selected browser test needs it.
-  The long browser endurance run uses the same wrapper:
-  `npm run test:portable -- npm run test:game-browser-endurance`.
+- Run the focused tests for the code you changed. See
+  [Development](docs/development.md) for runner commands and the default test
+  entry.
 - Keep simulation outcomes deterministic: use fixed ticks and seeded random
   inputs, and do not put wall-clock time or unseeded randomness in game logic.
 - Add a meaningful interaction test for a newly supported card or mechanic.
