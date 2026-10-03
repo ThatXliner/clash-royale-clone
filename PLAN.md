@@ -257,6 +257,8 @@ retain integer-tick determinism and canonical serialize/restore behavior.
 
 | LORE-001 | Original world and card lore | Concise original setting and nine card stories appear in card info, linked reader-friendly lore guide; accessible desktop/phone details retain mechanics and statistics without overflow; no simulation changes; independent actual-browser review | APP-004, PUB-003 | PASS | 1/1 | 1 | Independent frozen e235a0f app-polish passes; all nine visible stories match at desktop and phone sizes, separate from mechanics; zero horizontal overflow and final-stat/navigation overlap. World guide linked in README. |
 
+| CARDS-011 | Classic melee squad collection expansion | Thornscouts and Forgeguard join editable collection with original portraits/lore, reference-derived ordinary melee stats and meaningful interactions; both selectable in eight-card deck, deploy and restore in actual battle; default deck preserved, deterministic and source confidence honest; separate critic tests and renders | APP-004, LORE-001, ART-005C | BUILDING | 0/0 | 0 | User requested more classic mechanically inspired cards; add four-unit cheap squad and five-unit durable squad, original identities. |
+
 ## Reference uncertainties
 
 - Arena tower/bridge coordinates and deployment masks are low-medium
