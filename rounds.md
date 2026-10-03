@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 376 — 2026-10-02
+
+PIECE: ART-005S — Painted troop animation in playable battle, round 2
+
+VERDICT: FAIL
+
+EVIDENCE: Independent frozen `ddf50e2` source-hosted app at 720×1280 and 390×844 passes 28/29 focused checks with no browser errors or missing paths. Final phone marker crops retain only 2 red and 1 teal team-color pixels, despite local/offscreen counter reporting 8. Fresh decoded RGBA comparison finds 5 real changed pixels at x=105, y=700–704, maximum channel delta 3, for reduced-motion phone restore. Normal restore at both viewports and reduced-motion desktop restore are exact. Evidence: `artifacts/sprite-art-round-3/critic/`.
+
+BIGGEST GAP: Team color remains hard to distinguish at actual phone scale; enlarge or reposition its persistent area so it survives final iframe scaling. The separate strict reduced-motion restore mismatch also remains open.
+
 ## Round 375 — 2026-10-02
 
 PIECE: ART-005A — Painted terrain in playable arena, round 2

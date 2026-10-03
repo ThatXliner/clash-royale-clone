@@ -1,0 +1,454 @@
+{
+  "candidateCommit": "ddf50e26e8b6970289dc44d3ebbe41331794bc3e",
+  "checkout": "/tmp/painted-sprite-critic-ddf50e2",
+  "testSummary": {
+    "tests": 29,
+    "passed": 28,
+    "failed": 1,
+    "browserFailure": "Reduced-motion 390x844 screenshot restore"
+  },
+  "liveBrowser": {
+    "errors": [],
+    "consoleErrors": [],
+    "missing": [],
+    "results": [
+      {
+        "viewport": {
+          "width": 720,
+          "height": 1280
+        },
+        "iframe": {
+          "x": 52.03125,
+          "y": 117,
+          "width": 615.9375,
+          "height": 1095,
+          "scaleX": 0.85546875,
+          "scaleY": 0.85546875
+        },
+        "markers": [
+          {
+            "x": 242.046875,
+            "y": 830.046875,
+            "width": 25.90625,
+            "height": 25.90625,
+            "side": "south",
+            "tick": "120",
+            "frame": "briar-walk-north-0",
+            "color": "#2E7F86",
+            "displayedWidth": 22.1619873046875,
+            "displayedHeight": 22.1619873046875
+          },
+          {
+            "x": 362.046875,
+            "y": 740.046875,
+            "width": 25.90625,
+            "height": 25.90625,
+            "side": "south",
+            "tick": "120",
+            "frame": "briar-walk-north-0",
+            "color": "#2E7F86",
+            "displayedWidth": 22.1619873046875,
+            "displayedHeight": 22.1619873046875
+          },
+          {
+            "x": 362.046875,
+            "y": 770.046875,
+            "width": 25.90625,
+            "height": 25.90625,
+            "side": "south",
+            "tick": "120",
+            "frame": "briar-walk-north-0",
+            "color": "#2E7F86",
+            "displayedWidth": 22.1619873046875,
+            "displayedHeight": 22.1619873046875
+          },
+          {
+            "x": 182.046875,
+            "y": 560.046875,
+            "width": 25.90625,
+            "height": 25.90625,
+            "side": "north",
+            "tick": "120",
+            "frame": "briar-walk-south-0",
+            "color": "#C6452E",
+            "displayedWidth": 22.1619873046875,
+            "displayedHeight": 22.1619873046875
+          },
+          {
+            "x": 182.046875,
+            "y": 590.046875,
+            "width": 25.90625,
+            "height": 25.90625,
+            "side": "north",
+            "tick": "120",
+            "frame": "briar-walk-south-0",
+            "color": "#C6452E",
+            "displayedWidth": 22.1619873046875,
+            "displayedHeight": 22.1619873046875
+          },
+          {
+            "x": 182.046875,
+            "y": 560.046875,
+            "width": 25.90625,
+            "height": 25.90625,
+            "side": "north",
+            "tick": "120",
+            "frame": "briar-walk-south-0",
+            "color": "#C6452E",
+            "displayedWidth": 22.1619873046875,
+            "displayedHeight": 22.1619873046875
+          }
+        ],
+        "reduced": {
+          "matches": true,
+          "tick": 120,
+          "sprites": [
+            {
+              "frame": "briar-walk-north-0",
+              "reduced": "true",
+              "side": "south",
+              "color": "#2E7F86"
+            },
+            {
+              "frame": "briar-walk-north-0",
+              "reduced": "true",
+              "side": "south",
+              "color": "#2E7F86"
+            },
+            {
+              "frame": "briar-walk-north-0",
+              "reduced": "true",
+              "side": "south",
+              "color": "#2E7F86"
+            },
+            {
+              "frame": "briar-walk-south-0",
+              "reduced": "true",
+              "side": "north",
+              "color": "#C6452E"
+            },
+            {
+              "frame": "briar-walk-south-0",
+              "reduced": "true",
+              "side": "north",
+              "color": "#C6452E"
+            },
+            {
+              "frame": "briar-walk-south-0",
+              "reduced": "true",
+              "side": "north",
+              "color": "#C6452E"
+            }
+          ]
+        },
+        "normal": {
+          "byteEqual": true,
+          "shaBefore": "32a5278c72579e9bb90130c1fec50c0453e8172dc706bfe03c3f872508e59461",
+          "shaAfter": "32a5278c72579e9bb90130c1fec50c0453e8172dc706bfe03c3f872508e59461"
+        },
+        "reducedMotion": {
+          "byteEqual": true,
+          "shaBefore": "9c4a9abbace08c5b21ee5a5ee7d3570fae9dd20fc13bbac274a1731327ee825d",
+          "shaAfter": "9c4a9abbace08c5b21ee5a5ee7d3570fae9dd20fc13bbac274a1731327ee825d"
+        },
+        "captures": [
+          {
+            "side": "north",
+            "clip": {
+              "x": 204,
+              "y": 593,
+              "width": 32,
+              "height": 32
+            }
+          },
+          {
+            "side": "south",
+            "clip": {
+              "x": 256,
+              "y": 824,
+              "width": 32,
+              "height": 32
+            }
+          }
+        ]
+      },
+      {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "iframe": {
+          "x": 9.65625,
+          "y": 117,
+          "width": 370.6875,
+          "height": 659,
+          "scaleX": 0.51484375,
+          "scaleY": 0.51484375
+        },
+        "markers": [
+          {
+            "x": 242.046875,
+            "y": 830.046875,
+            "width": 25.90625,
+            "height": 25.90625,
+            "side": "south",
+            "tick": "120",
+            "frame": "briar-walk-north-0",
+            "color": "#2E7F86",
+            "displayedWidth": 13.337670898437501,
+            "displayedHeight": 13.337670898437501
+          },
+          {
+            "x": 362.046875,
+            "y": 740.046875,
+            "width": 25.90625,
+            "height": 25.90625,
+            "side": "south",
+            "tick": "120",
+            "frame": "briar-walk-north-0",
+            "color": "#2E7F86",
+            "displayedWidth": 13.337670898437501,
+            "displayedHeight": 13.337670898437501
+          },
+          {
+            "x": 362.046875,
+            "y": 770.046875,
+            "width": 25.90625,
+            "height": 25.90625,
+            "side": "south",
+            "tick": "120",
+            "frame": "briar-walk-north-0",
+            "color": "#2E7F86",
+            "displayedWidth": 13.337670898437501,
+            "displayedHeight": 13.337670898437501
+          },
+          {
+            "x": 182.046875,
+            "y": 560.046875,
+            "width": 25.90625,
+            "height": 25.90625,
+            "side": "north",
+            "tick": "120",
+            "frame": "briar-walk-south-0",
+            "color": "#C6452E",
+            "displayedWidth": 13.337670898437501,
+            "displayedHeight": 13.337670898437501
+          },
+          {
+            "x": 182.046875,
+            "y": 590.046875,
+            "width": 25.90625,
+            "height": 25.90625,
+            "side": "north",
+            "tick": "120",
+            "frame": "briar-walk-south-0",
+            "color": "#C6452E",
+            "displayedWidth": 13.337670898437501,
+            "displayedHeight": 13.337670898437501
+          },
+          {
+            "x": 182.046875,
+            "y": 560.046875,
+            "width": 25.90625,
+            "height": 25.90625,
+            "side": "north",
+            "tick": "120",
+            "frame": "briar-walk-south-0",
+            "color": "#C6452E",
+            "displayedWidth": 13.337670898437501,
+            "displayedHeight": 13.337670898437501
+          }
+        ],
+        "reduced": {
+          "matches": true,
+          "tick": 120,
+          "sprites": [
+            {
+              "frame": "briar-walk-north-0",
+              "reduced": "true",
+              "side": "south",
+              "color": "#2E7F86"
+            },
+            {
+              "frame": "briar-walk-north-0",
+              "reduced": "true",
+              "side": "south",
+              "color": "#2E7F86"
+            },
+            {
+              "frame": "briar-walk-north-0",
+              "reduced": "true",
+              "side": "south",
+              "color": "#2E7F86"
+            },
+            {
+              "frame": "briar-walk-south-0",
+              "reduced": "true",
+              "side": "north",
+              "color": "#C6452E"
+            },
+            {
+              "frame": "briar-walk-south-0",
+              "reduced": "true",
+              "side": "north",
+              "color": "#C6452E"
+            },
+            {
+              "frame": "briar-walk-south-0",
+              "reduced": "true",
+              "side": "north",
+              "color": "#C6452E"
+            }
+          ]
+        },
+        "normal": {
+          "byteEqual": true,
+          "shaBefore": "1b53cebbeac43910b92aea0c3111cb77899b4ac140c2fd07d08f76742c86472f",
+          "shaAfter": "1b53cebbeac43910b92aea0c3111cb77899b4ac140c2fd07d08f76742c86472f"
+        },
+        "reducedMotion": {
+          "byteEqual": false,
+          "shaBefore": "54a7cd0ab2f393977152e7b959dcb5abb8c26d10f470d41c015792abcdeb0c08",
+          "shaAfter": "6ba29bab655cab06825348c5404c247fa015f32e68f8e620a84a803ea3655a22"
+        },
+        "captures": [
+          {
+            "side": "north",
+            "clip": {
+              "x": 100,
+              "y": 402,
+              "width": 32,
+              "height": 32
+            }
+          },
+          {
+            "side": "south",
+            "clip": {
+              "x": 131,
+              "y": 541,
+              "width": 32,
+              "height": 32
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "actualPhoneMarkerColorSample": {
+    "cropSize": "14x14 final displayed pixels from real iframe screenshot",
+    "northRedPixelsWithin24": 2,
+    "southTealPixelsWithin24": 1,
+    "method": "RGBA samples from actual browser screenshot crop"
+  },
+  "pixelComparison": {
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "capture": "reduced-motion, after restore",
+    "beforeSha256": "54a7cd0ab2f393977152e7b959dcb5abb8c26d10f470d41c015792abcdeb0c08",
+    "afterSha256": "6ba29bab655cab06825348c5404c247fa015f32e68f8e620a84a803ea3655a22",
+    "decodedRgbaEqual": false,
+    "differingPixels": [
+      {
+        "x": 105,
+        "y": 700,
+        "before": [
+          33,
+          40,
+          47,
+          255
+        ],
+        "after": [
+          31,
+          38,
+          44,
+          255
+        ]
+      },
+      {
+        "x": 105,
+        "y": 701,
+        "before": [
+          33,
+          40,
+          47,
+          255
+        ],
+        "after": [
+          31,
+          38,
+          45,
+          255
+        ]
+      },
+      {
+        "x": 105,
+        "y": 702,
+        "before": [
+          33,
+          39,
+          47,
+          255
+        ],
+        "after": [
+          31,
+          37,
+          44,
+          255
+        ]
+      },
+      {
+        "x": 105,
+        "y": 703,
+        "before": [
+          33,
+          39,
+          47,
+          255
+        ],
+        "after": [
+          31,
+          37,
+          44,
+          255
+        ]
+      },
+      {
+        "x": 105,
+        "y": 704,
+        "before": [
+          33,
+          39,
+          47,
+          255
+        ],
+        "after": [
+          31,
+          37,
+          44,
+          255
+        ]
+      }
+    ],
+    "normalRestore": {
+      "720x1280": "exact",
+      "390x844": "exact"
+    },
+    "reducedMotionRestore": {
+      "720x1280": "exact",
+      "390x844": "not exact"
+    }
+  },
+  "asset": {
+    "path": "public/assets/briar-runner-painted-sheet.png",
+    "bytes": 987565,
+    "belowOneMiB": true,
+    "sha256": "a1aa43df00dacc212beedb4905dddd7a57db412981ea29662bc1d868a97794f4",
+    "manifestByteLength": 987565,
+    "manifestSha256": "a1aa43df00dacc212beedb4905dddd7a57db412981ea29662bc1d868a97794f4",
+    "matchesManifest": true
+  },
+  "verdict": "FAIL",
+  "biggestGap": "Team color remains unreliable at actual 390x844 scale; only 1–2 final screenshot pixels retain the team hue."
+}

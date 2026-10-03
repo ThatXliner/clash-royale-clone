@@ -1,0 +1,22 @@
+Candidate: ddf50e26e8b6970289dc44d3ebbe41331794bc3e (detached checkout)
+
+Command:
+node --test tests/combat-sprite-prototype.test.js tests/ui-combat-state.test.js tests/combat-sprite-prototype-browser.test.js tests/visual-asset-manifest.test.js
+
+TAP summary:
+# tests 29
+# pass 28
+# fail 1
+# duration_ms 90500.15025
+
+Actual failing test:
+not ok 1 - painted sprite atlas renders at real playfield scale in both teams, viewports, and restore
+error: the real scaled battle screenshot with reduced motion must restore pixel-identically
+Expected Buffer(330992) but received Buffer(331000) at 390x844.
+
+Independent fresh Playwright capture against public/index.html:
+- no page errors, console errors, or missing paths;
+- normal restore was byte-identical at 720x1280 and 390x844;
+- reduced-motion restore was byte-identical at 720x1280;
+- at 390x844, decoded RGBA differed at 5 pixels (x=105, y=700..704), with maximum channel delta 3. This is a rendered-pixel mismatch, not only PNG encoding variation.
+- direct final-size marker crops from the phone screenshot show 2 red and 1 teal pixels within ±24/channel of the team colors in the 14x14 marker crop. The candidate test's standalone downscale counter reports 8 for each team; the actual battle iframe receives another 0.514844 CSS scale.
