@@ -2,6 +2,7 @@ import { createPlayableRoster, PLAYABLE_CARD_IDS } from "../content/playable-ros
 import { projectSessionTroopBattleCard } from "../content/session-troop-roster.js";
 import { EDITABLE_DECK_CARD_IDS } from "../content/editable-deck.js";
 import { getCardPortrait } from "./card-portrait-art.js";
+import { getCardLore } from "./card-lore.js";
 
 const cards = [...createPlayableRoster(), projectSessionTroopBattleCard("stonehauler")];
 const cardById = new Map(cards.map((card) => [card.id, card]));
@@ -156,12 +157,17 @@ function unitProfileMarkup(entity) {
 
 function renderCardDetails(card) {
   const totalCount = card.formation.totalCount;
+  const lore = getCardLore(card.id);
   cardDetails.innerHTML = `<div class="detail-heading">
       <button type="button" class="detail-back" data-action="back-to-cards"><span aria-hidden="true">←</span> Cards</button>
       <div><h2 id="selected-card-title" tabindex="-1">${html(card.displayName)}</h2><p>${countLabel(totalCount)} · ${card.cost} elixir</p></div>
       <span class="detail-cost" aria-label="${card.cost} elixir">${card.cost}</span>
     </div>
     <p class="detail-description">${html(descriptionFor(card))}</p>
+    ${lore === null ? "" : `<section class="card-lore" aria-labelledby="selected-card-lore-title">
+      <span class="card-lore-label">Story</span><h3 id="selected-card-lore-title">A field note</h3>
+      <p>${html(lore)}</p>
+    </section>`}
     ${card.entities.map(unitProfileMarkup).join("")}
     ${card.entities.length > 1 ? '<p class="detail-footnote">Health and damage are shown per unit. Count is the number deployed by the card.</p>' : ""}`;
   for (const button of cardGrid.querySelectorAll("[data-card-id]")) {

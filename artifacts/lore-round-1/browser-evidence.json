@@ -1,0 +1,91 @@
+{
+  "result": "passed",
+  "tests": [
+    {
+      "command": "APP_POLISH_ARTIFACTS=artifacts/lore-round-1 npm run test:app-polish",
+      "result": "passed",
+      "evidence": "app-polish-evidence.json"
+    }
+  ],
+  "focusedRender": {
+    "release": "temporary production build from current sources, served through the release browser test server",
+    "cardStoriesVerified": [
+      "coilblade",
+      "mossguard",
+      "copperskiff",
+      "skymaul",
+      "brassbolt",
+      "reedsting",
+      "briar-band",
+      "cinderlings",
+      "stonehauler"
+    ],
+    "desktop": "1440x900, Skymaul Card info and collection visible",
+    "phone": "390x844, Stonehauler and long Briar Band Card info",
+    "longPhoneScroll": {
+      "result": "passed",
+      "card": "Briar Band",
+      "top": {
+        "scrollHeight": 982,
+        "viewport": 844,
+        "overflow": false,
+        "lore": "STORY\nA field note\n\nThe runners and darters met in a thorn maze and chose the same leaf mark for their masks. They leave chalk arrows on the stumps so the next scout can find the way out."
+      },
+      "bottom": {
+        "scrollY": 138,
+        "detailBottom": 734.1875,
+        "tailBottom": 716.1875,
+        "navTop": 777,
+        "navBottom": 844,
+        "scrollHeight": 982,
+        "viewport": 844
+      },
+      "browserErrors": []
+    },
+    "browserErrors": []
+  },
+  "screenshots": [
+    {
+      "path": "artifacts/lore-round-1/cards-story-desktop-1440x900.png",
+      "bytes": 713301,
+      "width": 1440,
+      "height": 900,
+      "sha256": "b4a627ed9f77476fe4b18c1aa392924eb746931ae4c9a22225fc7ec25d0df3c1"
+    },
+    {
+      "path": "artifacts/lore-round-1/cards-story-phone-top-390x844.png",
+      "bytes": 39803,
+      "width": 390,
+      "height": 844,
+      "sha256": "07ae4acb4fc6551d0bd26044e04df7d9b5e0185aa60901a306fd5e66cf7e883d"
+    },
+    {
+      "path": "artifacts/lore-round-1/cards-story-phone-bottom-390x844.png",
+      "bytes": 39654,
+      "width": 390,
+      "height": 844,
+      "sha256": "f47fa5c5939c89d0c7a7dc9c38c818f3f6547d913dd9b2dc7d8e2d34d7653344"
+    },
+    {
+      "path": "artifacts/lore-round-1/cards-story-phone-long-top-390x844.png",
+      "bytes": 52658,
+      "width": 390,
+      "height": 844,
+      "sha256": "a9fb8894e85fa3561a47849187ea6f47109791b694ca9be4c1274ebfa18be97e"
+    },
+    {
+      "path": "artifacts/lore-round-1/cards-story-phone-long-bottom-390x844.png",
+      "bytes": 48278,
+      "width": 390,
+      "height": 844,
+      "sha256": "97b075357d97dfc261eb32d465f629451035cac7692a8d957d6c12b064c965c2"
+    },
+    {
+      "path": "artifacts/lore-round-1/after-details-390x844.png",
+      "bytes": 39774,
+      "width": 390,
+      "height": 844,
+      "sha256": "3a10155956b63a290be94dde619a47da54e8baf2e833f0afa01075c630238e61"
+    }
+  ]
+}

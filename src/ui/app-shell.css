@@ -205,6 +205,10 @@ h1, h2 { font-family: Manrope, Georgia, serif; letter-spacing: -.055em; }
 .detail-heading p { margin: 0; color: var(--muted); font-size: 10px; }
 .detail-cost { width: 32px; height: 32px; flex: 0 0 auto; display: grid; place-items: center; border: 1px solid #765b7d; border-radius: 50%; color: #fff; background: #98789c; font-family: Manrope, Georgia, serif; font-size: 13px; font-weight: 800; }
 .detail-description { margin: 14px 0 16px; color: #526158; font-size: 11px; line-height: 1.55; }
+.card-lore { margin: 0 0 16px; padding: 11px 12px; border-left: 3px solid #b77d42; background: #f1eee4; }
+.card-lore-label { display: block; margin-bottom: 4px; color: #916132; font-size: 8px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.card-lore h3 { margin: 0 0 5px; color: #314439; font-family: Manrope, Georgia, serif; font-size: 12px; }
+.card-lore p { margin: 0; color: #596157; font-size: 10px; line-height: 1.55; overflow-wrap: anywhere; }
 .unit-profile { margin-top: 11px; padding-top: 12px; border-top: 1px solid var(--line); }
 .unit-profile h3 { margin: 0 0 4px; font-size: 11px; font-weight: 800; }
 .unit-profile > p { margin: 0 0 10px; color: var(--muted); font-size: 9px; line-height: 1.45; }
@@ -368,6 +372,8 @@ h1, h2 { font-family: Manrope, Georgia, serif; letter-spacing: -.055em; }
   .detail-heading h2 { font-size: 21px; }
   .detail-heading h2 { font-size: 21px; }
   .detail-description { font-size: 10px; }
+  .card-lore { padding: 10px 11px; }
+  .card-lore p { font-size: 10px; }
   .stat-cell { padding: 7px; }
   .stat-cell strong { font-size: 10px; }
   .app-shell[data-view-active="battle"] .app-main { padding: 0 0 calc(68px + env(safe-area-inset-bottom)); }

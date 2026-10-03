@@ -46,6 +46,7 @@ For Linux setup and development commands, see [Development](docs/development.md)
 ## Learn more
 
 - [Development and test commands](docs/development.md)
+- [World and card lore](docs/lore.md)
 - [RL environment guide](docs/rl-api.md)
 - [Verification evidence and limits](docs/verification.md)
 - [GitHub Pages publishing](docs/publishing.md) — the site is not live yet
