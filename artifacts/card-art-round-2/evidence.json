@@ -1,0 +1,394 @@
+{
+  "captureUrl": "isolated ephemeral static server serving /public/index.html",
+  "browser": "Google Chrome via isolated Playwright context",
+  "viewport": {
+    "desktop": "1440x933",
+    "phone": "390x844"
+  },
+  "screenshots": [
+    {
+      "path": "artifacts/card-art-round-2/desktop-cards-1440x933.png",
+      "width": 1440,
+      "height": 933,
+      "sha256": "04959001639fc268b3dfa519e96b911ab5cee047c4bab61799543f18f4b4ce77"
+    },
+    {
+      "path": "artifacts/card-art-round-2/phone-cards-top-390x844.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "8011780b290afdf6dd6e1ddef460d7e9c699588544b134fabfedc3eee77704fb"
+    },
+    {
+      "path": "artifacts/card-art-round-2/phone-cards-bottom-390x844.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "f9fc7fe84381f1edf3ecf00aee338185c5edecaf0f7f743a387f874929476998"
+    },
+    {
+      "path": "artifacts/card-art-round-2/phone-home-390x844.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "58c71377440847fd6e4ad060fc92be9b2591e181e4101d8e265fb73d472e9c47"
+    },
+    {
+      "path": "artifacts/card-art-round-2/phone-home-deck-peek-390x844.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "840787fd12beb1f63a0cab2da5b52d49a8b40e330e4271b1bab34494e87fb966"
+    },
+    {
+      "path": "artifacts/card-art-round-2/phone-deck-390x844.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "3f53af541ba720809e12472384a3bfc0ed2064b3a508557f60f2b4d58fa1329b"
+    }
+  ],
+  "routes": {
+    "cardsDesktop": {
+      "cards": 9,
+      "images": [
+        {
+          "card": "coilblade",
+          "cell": "0",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, 0, 51.6281)"
+        },
+        {
+          "card": "mossguard",
+          "cell": "1",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, -258.156, 41.305)"
+        },
+        {
+          "card": "copperskiff",
+          "cell": "2",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, -516.281, 0)"
+        },
+        {
+          "card": "skymaul",
+          "cell": "3",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, -774.422, 0)"
+        },
+        {
+          "card": "brassbolt",
+          "cell": "4",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, 0, -206.525)"
+        },
+        {
+          "card": "reedsting",
+          "cell": "5",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, -258.141, -211.675)"
+        },
+        {
+          "card": "briar-band",
+          "cell": "6",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, -516.281, -258.141)"
+        },
+        {
+          "card": "cinderlings",
+          "cell": "7",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, -774.469, -258.156)"
+        },
+        {
+          "card": "stonehauler",
+          "cell": null,
+          "complete": true,
+          "naturalWidth": 1254,
+          "naturalHeight": 1254,
+          "transform": "none"
+        }
+      ],
+      "documentWidth": 1440
+    },
+    "cardsPhone": {
+      "cards": 9,
+      "images": [
+        {
+          "card": "coilblade",
+          "cell": "0",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, 0, 35.4)"
+        },
+        {
+          "card": "mossguard",
+          "cell": "1",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, -177, 28.32)"
+        },
+        {
+          "card": "copperskiff",
+          "cell": "2",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, -354, 0)"
+        },
+        {
+          "card": "skymaul",
+          "cell": "3",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, -531, 0)"
+        },
+        {
+          "card": "brassbolt",
+          "cell": "4",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, 0, -141.6)"
+        },
+        {
+          "card": "reedsting",
+          "cell": "5",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, -177, -145.14)"
+        },
+        {
+          "card": "briar-band",
+          "cell": "6",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, -354, -177)"
+        },
+        {
+          "card": "cinderlings",
+          "cell": "7",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, -531, -177)"
+        },
+        {
+          "card": "stonehauler",
+          "cell": null,
+          "complete": true,
+          "naturalWidth": 1254,
+          "naturalHeight": 1254,
+          "transform": "none"
+        }
+      ],
+      "documentWidth": 390,
+      "scrollHeight": 1489,
+      "scrollY": 645
+    },
+    "homePhone": {
+      "images": [
+        {
+          "card": "coilblade",
+          "cell": "0",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, 0, 0)"
+        },
+        {
+          "card": "mossguard",
+          "cell": "1",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, -78, 0)"
+        },
+        {
+          "card": "copperskiff",
+          "cell": "2",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, -156, 0)"
+        },
+        {
+          "card": "skymaul",
+          "cell": "3",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, -234, 0)"
+        },
+        {
+          "card": "brassbolt",
+          "cell": "4",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, 0, -78)"
+        },
+        {
+          "card": "reedsting",
+          "cell": "5",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, -78, -78)"
+        },
+        {
+          "card": "briar-band",
+          "cell": "6",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, -156, -78)"
+        },
+        {
+          "card": "cinderlings",
+          "cell": "7",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, -234, -78)"
+        }
+      ],
+      "documentWidth": 390,
+      "deckPeekScrollY": 411
+    },
+    "deckPhone": {
+      "images": [
+        {
+          "card": "coilblade",
+          "cell": "0",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, 0, 0)"
+        },
+        {
+          "card": "mossguard",
+          "cell": "1",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, -65, 0)"
+        },
+        {
+          "card": "copperskiff",
+          "cell": "2",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, -130, 0)"
+        },
+        {
+          "card": "skymaul",
+          "cell": "3",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, -195, 0)"
+        },
+        {
+          "card": "brassbolt",
+          "cell": "4",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, 0, -65)"
+        },
+        {
+          "card": "reedsting",
+          "cell": "5",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, -65, -65)"
+        },
+        {
+          "card": "briar-band",
+          "cell": "6",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, -130, -65)"
+        },
+        {
+          "card": "cinderlings",
+          "cell": "7",
+          "complete": true,
+          "naturalWidth": 1774,
+          "naturalHeight": 887,
+          "transform": "matrix(1, 0, 0, 1, -195, -65)"
+        }
+      ],
+      "documentWidth": 390,
+      "scrollY": 85
+    }
+  },
+  "checks": {
+    "mappingsMatch": true,
+    "nineCardsDecoded": true,
+    "desktopNoHorizontalOverflow": true,
+    "phoneNoHorizontalOverflow": true,
+    "pageErrors": [],
+    "consoleErrors": [
+      {
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "location": {
+          "url": "http://127.0.0.1:51727/favicon.ico",
+          "lineNumber": 0,
+          "columnNumber": 0
+        }
+      }
+    ],
+    "nonFaviconAssetFailures": [],
+    "missingFavicon": [
+      {
+        "url": "/favicon.ico",
+        "status": 404
+      }
+    ],
+    "noCardErrors": true
+  },
+  "portraitFocalAdjustments": {
+    "applied": "CSS crop offsets only; original portrait source and production WebP bytes are unchanged",
+    "atlasHeightPercent": {
+      "coilblade": 10,
+      "mossguard": 8,
+      "brassbolt": 10,
+      "reedsting": 9
+    },
+    "otherCards": "unchanged",
+    "contexts": "collection-card wells only; compact Home/Deck keep the full-cell framing"
+  },
+  "visualReview": "Compared with round 1, Coilblade, Mossguard, Brassbolt, and Reedsting faces are visible in the desktop Cards wells. The 390px Cards, Home mini-deck, and Deck slot renders remain legible.",
+  "verification": {
+    "npm run test:visual-asset-manifest": "passed: 6 tests",
+    "npm run test:deck": "passed: 7 tests",
+    "npm run test:editable-deck": "passed: 4 tests",
+    "npm run test:app-shell": {
+      "status": "failed after Cards/Home/Deck checks and screenshot capture, at the final battle-resume wait",
+      "failure": "TypeError: Cannot read properties of undefined (reading state) in cardFrameTick at tests/app-shell.test.js:64; reached from waitForCardFrameTick at line 123 and final assertion at line 276",
+      "interpretation": "Recorded as unresolved for this candidate; no baseline attribution is assumed.",
+      "fullOutput": "artifacts/card-art-round-2/app-shell-test-output.txt"
+    }
+  }
+}

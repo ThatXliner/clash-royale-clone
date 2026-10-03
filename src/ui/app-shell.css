@@ -224,13 +224,21 @@ h1, h2 { font-family: Manrope, Georgia, serif; letter-spacing: -.055em; }
 }
 .card-art-image { display: block; width: 100%; height: 100%; object-fit: cover; }
 .card-art-image.card-art-atlas { width: 400%; height: auto; max-width: none; object-fit: initial; }
-.card-art-image[data-portrait-cell="1"] { transform: translateX(-25%); }
-.card-art-image[data-portrait-cell="2"] { transform: translateX(-50%); }
-.card-art-image[data-portrait-cell="3"] { transform: translateX(-75%); }
-.card-art-image[data-portrait-cell="4"] { transform: translateY(-50%); }
-.card-art-image[data-portrait-cell="5"] { transform: translate(-25%, -50%); }
-.card-art-image[data-portrait-cell="6"] { transform: translate(-50%, -50%); }
-.card-art-image[data-portrait-cell="7"] { transform: translate(-75%, -50%); }
+.card-art-image.card-art-atlas { transform: translate(var(--portrait-cell-x), calc(var(--portrait-cell-y) + var(--portrait-focus-y, 0%))); }
+.card-art-image[data-portrait-cell="0"] { --portrait-cell-x: 0%; --portrait-cell-y: 0%; }
+.card-art-image[data-portrait-cell="1"] { --portrait-cell-x: -25%; --portrait-cell-y: 0%; }
+.card-art-image[data-portrait-cell="2"] { --portrait-cell-x: -50%; --portrait-cell-y: 0%; }
+.card-art-image[data-portrait-cell="3"] { --portrait-cell-x: -75%; --portrait-cell-y: 0%; }
+.card-art-image[data-portrait-cell="4"] { --portrait-cell-x: 0%; --portrait-cell-y: -50%; }
+.card-art-image[data-portrait-cell="5"] { --portrait-cell-x: -25%; --portrait-cell-y: -50%; }
+.card-art-image[data-portrait-cell="6"] { --portrait-cell-x: -50%; --portrait-cell-y: -50%; }
+.card-art-image[data-portrait-cell="7"] { --portrait-cell-x: -75%; --portrait-cell-y: -50%; }
+/* Wide collection wells clip to the middle band of each square atlas cell. These
+   downshifts reveal high-set faces while keeping the source artwork untouched. */
+.collection-card .card-art-image[data-portrait-cell="0"],
+.collection-card .card-art-image[data-portrait-cell="4"] { --portrait-focus-y: 10%; }
+.collection-card .card-art-image[data-portrait-cell="1"] { --portrait-focus-y: 8%; }
+.collection-card .card-art-image[data-portrait-cell="5"] { --portrait-focus-y: 9%; }
 .card-art::after {
   position: absolute; inset: 0; border-radius: inherit; content: ""; pointer-events: none;
   background: linear-gradient(180deg, #ffffff12, transparent 45%, #1d302a18);
