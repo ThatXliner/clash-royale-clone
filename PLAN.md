@@ -246,6 +246,8 @@ retain integer-tick determinism and canonical serialize/restore behavior.
 
 | GAME-001GPVT | Terminal and restart long-task attribution | Endurance records explicit terminal-observation and restart spans and enforces the unchanged 50 ms non-initialization cap there, including delayed observer delivery and final drain; synthetic classifier test and actual full 18,000-tick journey prove exact terminal/restore/audio/input/restart without unclassified lifecycle work | GAME-001GPV, GAME-001GP | PASS | 2/2 | 3 | Round 3 passed the synthetic delayed-entry classifier and one actual full Chrome run: 18,000 ticks in 812,729 ms, 61 segments, init max 197 ms (<300), and zero non-init/out-of-segment tasks. Exact terminal session/audio, 600→300→600 restore/replay input/audio continuation, and seed-zero restart passed. Earlier Round 1/2 failures remain in the round history. |
 
+| ART-004 | Original deterministic 2D sprite prototype | Original directional walk and attack frames for a playable unit render legibly at actual arena scale; simulation tick selects frames; team identity, reduced motion and exact restored-frame rendering remain clear; no reference assets or gameplay changes | VIS-003C, VIS-003HR | BUILDING | 0/0 | 0 | User requested improved art and suggested sprite sheets; isolated prototype must be rendered and judged separately before arena integration. |
+
 ## Reference uncertainties
 
 - Arena tower/bridge coordinates and deployment masks are low-medium
