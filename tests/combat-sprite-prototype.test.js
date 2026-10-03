@@ -12,6 +12,7 @@ import {
   selectBriarRunnerFrame,
   serializeBriarRunnerState,
 } from "../src/ui/combat-sprite-prototype.js";
+import { createBriarRunnerPaintedArt } from "../src/ui/combat-art.js";
 
 const WORKSPACE = resolve(fileURLToPath(new URL("..", import.meta.url)));
 const DIRECTIONS = ["north", "east", "south", "west"];
@@ -100,6 +101,36 @@ test("reduced motion holds the first painted atlas column for every facing", () 
       assert.equal(transform.column, action === "walk" ? 0 : 2);
       assert.equal(transform.row, DIRECTIONS.indexOf(direction));
     }
+  }
+});
+
+test("painted Briar artwork carries a persistent bordered team-color footring", () => {
+  const expectedColors = new Map([
+    ["north", "#C6452E"],
+    ["south", "#2E7F86"],
+  ]);
+  for (const [side, color] of expectedColors) {
+    const art = createBriarRunnerPaintedArt(fakeDocument(), {
+      action: "attack",
+      direction: "west",
+      reducedMotion: true,
+      side,
+      tick: 47,
+    });
+    const [shadow, footring, atlas] = art.childNodes;
+    assert.equal(art.dataset.spriteFrame, "briar-attack-west-0",
+      "reduced motion keeps the footring with the first artwork frame");
+    assert.equal(art.dataset.reducedMotion, "true");
+    assert.equal(shadow.name, "ellipse");
+    assert.equal(footring.name, "ellipse");
+    assert.equal(footring.dataset.teamColor, side);
+    assert.equal(footring.getAttribute("fill"), color);
+    assert.equal(footring.getAttribute("stroke"), "#F4EBD6");
+    assert.equal(footring.getAttribute("stroke-width"), "6");
+    assert.equal(footring.getAttribute("rx"), "83");
+    assert.equal(footring.getAttribute("ry"), "23");
+    assert.equal(atlas.name, "image", "the unchanged painted atlas overlays the footring");
+    assert.equal(atlas.getAttribute("href"), "./assets/briar-runner-painted-sheet.png");
   }
 });
 

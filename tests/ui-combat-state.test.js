@@ -309,8 +309,13 @@ test("ui combat state: painted Briar Runner pose follows tick, target bearing, c
   assert.equal(walking.art.dataset.spriteDirection, "north");
   assert.equal(walking.art.dataset.spriteFrame, "briar-walk-north-0");
   assert.equal(walking.art.dataset.simulationTick, "40");
-  assert.equal(walking.art.children[0].attributes.get("href"),
+  assert.equal(walking.art.children.find(({ attributes }) =>
+    attributes.get("href") === "./assets/briar-runner-painted-sheet.png")
+    .attributes.get("href"),
     "./assets/briar-runner-painted-sheet.png");
+  const southFootring = walking.art.children.find(({ dataset }) =>
+    dataset.teamColor === "south");
+  assert.equal(southFootring.attributes.get("fill"), "#2E7F86");
 
   const walkingNext = boundArt(runnerState(45));
   assert.equal(walkingNext.art.dataset.spriteFrame, "briar-walk-north-1");

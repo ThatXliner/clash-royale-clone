@@ -11,7 +11,7 @@ import test from "node:test";
 import { chromium } from "playwright";
 
 const ROOT = resolve(fileURLToPath(new URL("..", import.meta.url)));
-const ARTIFACTS = resolve(ROOT, "artifacts/sprite-art-round-2");
+const ARTIFACTS = resolve(ROOT, "artifacts/sprite-art-round-3");
 const CHROME = process.env.GAME_BROWSER_CHROME ??
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const CONTENT_TYPES = Object.freeze({
@@ -276,14 +276,51 @@ test("painted sprite atlas renders at real playfield scale in both teams, viewpo
     const frameBox = await frameElement.boundingBox();
     assert.ok(frameBox && frameBox.width > 0 && frameBox.height > 0,
       `the real app-shell iframe is laid out: ${JSON.stringify(frameBox)}`);
-    const live = await child.evaluate(({ scaleX, scaleY }) => {
+    const live = await child.evaluate(async ({ scaleX, scaleY }) => {
       const arenaNode = document.querySelector('[data-ui="arena"]');
       const arenaRect = arenaNode.getBoundingClientRect();
-      const markers = [...document.querySelectorAll(
+      const markers = await Promise.all([...document.querySelectorAll(
         '.combat-marker[data-kind="briar-runner"]',
-      )].map((marker) => {
+      )].map(async (marker) => {
         const rect = marker.getBoundingClientRect();
         const art = marker.querySelector('.combat-art');
+        const footring = art?.querySelector('[data-team-color]');
+        const displayedWidth = Math.max(1, Math.round(rect.width * scaleX));
+        const displayedHeight = Math.max(1, Math.round(rect.height * scaleY));
+        let visibleTeamColorPixels = 0;
+        if (footring !== null && footring !== undefined) {
+          const clone = art.cloneNode(true);
+          const atlas = clone.querySelector('image');
+          atlas?.setAttribute('href', new URL(atlas.getAttribute('href'), document.baseURI).href);
+          clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+          clone.setAttribute('width', String(displayedWidth));
+          clone.setAttribute('height', String(displayedHeight));
+          const source = new XMLSerializer().serializeToString(clone);
+          const url = URL.createObjectURL(new Blob([source], { type: 'image/svg+xml' }));
+          try {
+            const raster = new Image();
+            raster.src = url;
+            await raster.decode();
+            const canvas = document.createElement('canvas');
+            canvas.width = displayedWidth;
+            canvas.height = displayedHeight;
+            const context = canvas.getContext('2d', { willReadFrequently: true });
+            context.drawImage(raster, 0, 0, displayedWidth, displayedHeight);
+            const pixels = context.getImageData(0, 0, displayedWidth, displayedHeight).data;
+            const color = footring.getAttribute('fill').match(/[0-9A-F]{2}/giu)
+              .map((part) => Number.parseInt(part, 16));
+            for (let index = 0; index < pixels.length; index += 4) {
+              if (pixels[index + 3] >= 210 &&
+                  Math.abs(pixels[index] - color[0]) <= 24 &&
+                  Math.abs(pixels[index + 1] - color[1]) <= 24 &&
+                  Math.abs(pixels[index + 2] - color[2]) <= 24) {
+                visibleTeamColorPixels += 1;
+              }
+            }
+          } finally {
+            URL.revokeObjectURL(url);
+          }
+        }
         return {
           action: art?.dataset.spriteAction ?? null,
           asset: art?.querySelector('image')?.getAttribute('href') ?? null,
@@ -295,10 +332,13 @@ test("painted sprite atlas renders at real playfield scale in both teams, viewpo
           tick: Number(art?.dataset.simulationTick),
           width: Number(rect.width.toFixed(4)),
           displayedWidth: Number((rect.width * scaleX).toFixed(4)),
+          teamColor: footring?.getAttribute('fill') ?? null,
+          teamColorSide: footring?.dataset.teamColor ?? null,
+          visibleTeamColorPixels,
           x: Number(rect.x.toFixed(2)),
           y: Number(rect.y.toFixed(2)),
         };
-      });
+      }));
       return {
         arena: {
           height: Number((arenaRect.height * scaleY).toFixed(2)),
@@ -319,6 +359,9 @@ test("painted sprite atlas renders at real playfield scale in both teams, viewpo
       `app-shell scales the canonical battle frame uniformly: ${JSON.stringify(frameBox)}`);
     assert.ok(live.arena.width > 0 && live.arena.height > 0);
     assert.ok(live.markers.length > 0, "real GameSession deployment must render Briar Runner");
+    assert.deepEqual([...new Set(live.markers.map(({ side }) => side))].sort(), ["north", "south"],
+      "the real two-sided match must show painted Briar units for both teams");
+    const phoneViewport = viewport.width === 390;
     for (const marker of live.markers) {
       assert.ok(Math.abs(marker.width - live.arena.sourceWidth * 0.048) < 0.02,
         `live marker ${marker.width}px must be 4.8% of arena content width ${live.arena.sourceWidth}px`);
@@ -326,22 +369,26 @@ test("painted sprite atlas renders at real playfield scale in both teams, viewpo
       assert.ok(Math.abs(marker.displayedWidth - live.arena.displayedContentWidth * 0.048) < 0.02);
       assert.ok(Math.abs(marker.displayedHeight - live.arena.displayedContentWidth * 0.048) < 0.02);
       assert.equal(marker.asset, './assets/briar-runner-painted-sheet.png');
+      assert.equal(marker.teamColorSide, marker.side);
+      assert.equal(marker.teamColor, marker.side === "north" ? "#C6452E" : "#2E7F86");
+      assert.ok(marker.visibleTeamColorPixels >= (phoneViewport ? 8 : 20),
+        `${marker.side} footring has only ${marker.visibleTeamColorPixels} visible team-color pixels at ${viewport.width}px`);
       assert.ok(["walk", "attack"].includes(marker.action));
       assert.ok(["north", "east", "south", "west"].includes(marker.direction));
       assert.match(marker.frame, /^briar-(walk|attack)-(north|east|south|west)-[01]$/u);
       assert.equal(marker.tick, live.sessionTick);
     }
     const beforeRestoreScreenshot = await page.screenshot();
-    const restored = await child.evaluate(() => {
+    const checkpoint = await child.evaluate(() => globalThis.__spriteRendererProbe.serialize());
+    const restored = await child.evaluate((bytes) => {
       const controller = globalThis.__spriteRendererProbe;
-      const checkpoint = controller.serialize();
       const before = document.querySelector('[data-game-browser-layer="combat"]').innerHTML;
       controller.stepMany(1);
-      controller.restore(checkpoint);
+      controller.restore(bytes);
       controller.enterManualStepMode();
       const after = document.querySelector('[data-game-browser-layer="combat"]').innerHTML;
       return { identical: before === after, tick: controller.state.sessionTick };
-    });
+    }, checkpoint);
     assert.deepEqual(restored, { identical: true, tick: live.sessionTick });
     const afterRestoreScreenshot = await page.screenshot();
     assert.deepEqual(afterRestoreScreenshot, beforeRestoreScreenshot,
@@ -351,6 +398,50 @@ test("painted sprite atlas renders at real playfield scale in both teams, viewpo
       `live-arena-integration-${viewport.width}-before-restore.png`), beforeRestoreScreenshot);
     writeFileSync(resolve(ARTIFACTS,
       `live-arena-integration-${viewport.width}-after-restore.png`), afterRestoreScreenshot);
+
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    const reducedMotionState = await child.evaluate((bytes) => {
+      const controller = globalThis.__spriteRendererProbe;
+      controller.restore(bytes);
+      controller.enterManualStepMode();
+      const art = [...document.querySelectorAll(
+        '.combat-marker[data-kind="briar-runner"] .combat-art',
+      )];
+      return {
+        mediaReducedMotion: matchMedia('(prefers-reduced-motion: reduce)').matches,
+        sprites: art.map((node) => ({
+          frame: node.dataset.spriteFrame,
+          reducedMotion: node.dataset.reducedMotion,
+          side: node.dataset.spriteSide,
+          teamColor: node.querySelector('[data-team-color]')?.getAttribute('fill') ?? null,
+        })),
+        tick: controller.state.sessionTick,
+      };
+    }, checkpoint);
+    assert.equal(reducedMotionState.mediaReducedMotion, true);
+    assert.equal(reducedMotionState.tick, live.sessionTick);
+    assert.ok(reducedMotionState.sprites.length > 0);
+    for (const sprite of reducedMotionState.sprites) {
+      assert.equal(sprite.reducedMotion, "true");
+      assert.ok(sprite.frame.endsWith("-0"), `reduced motion frame ${sprite.frame}`);
+      assert.equal(sprite.teamColor, sprite.side === "north" ? "#C6452E" : "#2E7F86");
+    }
+    const beforeReducedMotion = await page.screenshot();
+    await child.evaluate((bytes) => {
+      const controller = globalThis.__spriteRendererProbe;
+      controller.stepMany(1);
+      controller.restore(bytes);
+      controller.enterManualStepMode();
+    }, checkpoint);
+    const afterReducedMotion = await page.screenshot();
+    assert.deepEqual(afterReducedMotion, beforeReducedMotion,
+      "the real scaled battle screenshot with reduced motion must restore pixel-identically");
+    const reducedMotionSha256 = createHash("sha256").update(beforeReducedMotion).digest("hex");
+    writeFileSync(resolve(ARTIFACTS,
+      `live-arena-integration-${viewport.width}-reduced-motion.png`), beforeReducedMotion);
+    writeFileSync(resolve(ARTIFACTS,
+      `live-arena-integration-${viewport.width}-reduced-motion-after-restore.png`),
+    afterReducedMotion);
     await page.screenshot({ path: resolve(ARTIFACTS,
       `live-arena-integration-${viewport.width}.png`) });
     evidence.liveArenaIntegration.push({
@@ -360,6 +451,11 @@ test("painted sprite atlas renders at real playfield scale in both teams, viewpo
         scaleY: Number((frameBox.height / 1280).toFixed(6)),
         width: Number(frameBox.width.toFixed(2)) },
       restore: { ...restored, pixelIdentical: true, screenshotSha256 },
+      reducedMotion: {
+        ...reducedMotionState,
+        pixelIdenticalAfterRestore: true,
+        screenshotSha256: reducedMotionSha256,
+      },
       viewport,
     });
     await page.close();

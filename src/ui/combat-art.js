@@ -179,6 +179,28 @@ export function createBriarRunnerPaintedArt(document, {
   svg.dataset.spriteFrame = transform.id;
   svg.dataset.spriteSide = side;
   svg.dataset.simulationTick = String(tick);
+  svg.dataset.reducedMotion = String(reducedMotion);
+
+  const footShadow = create('ellipse');
+  footShadow.setAttribute('cx', String(sourceX + 110));
+  footShadow.setAttribute('cy', String(sourceY + 190));
+  footShadow.setAttribute('rx', '87');
+  footShadow.setAttribute('ry', '28');
+  footShadow.setAttribute('fill', INK);
+  footShadow.setAttribute('aria-hidden', 'true');
+  svg.appendChild(footShadow);
+
+  const teamFootring = create('ellipse');
+  teamFootring.dataset.teamColor = side;
+  teamFootring.setAttribute('cx', String(sourceX + 110));
+  teamFootring.setAttribute('cy', String(sourceY + 190));
+  teamFootring.setAttribute('rx', '83');
+  teamFootring.setAttribute('ry', '23');
+  teamFootring.setAttribute('fill', side === 'north' ? '#C6452E' : '#2E7F86');
+  teamFootring.setAttribute('stroke', BONE);
+  teamFootring.setAttribute('stroke-width', '6');
+  teamFootring.setAttribute('aria-hidden', 'true');
+  svg.appendChild(teamFootring);
 
   const image = create('image');
   image.setAttribute('href', BRIAR_PAINTED_ATLAS.image);
@@ -188,16 +210,6 @@ export function createBriarRunnerPaintedArt(document, {
   image.setAttribute('height', String(BRIAR_PAINTED_ATLAS.height));
   image.setAttribute('preserveAspectRatio', 'none');
   svg.appendChild(image);
-
-  const teamMark = create('circle');
-  teamMark.setAttribute('cx', String(sourceX + 180));
-  teamMark.setAttribute('cy', String(sourceY + 168));
-  teamMark.setAttribute('r', '13');
-  teamMark.setAttribute('fill', side === 'north' ? '#C6452E' : '#2E7F86');
-  teamMark.setAttribute('stroke', INK);
-  teamMark.setAttribute('stroke-width', '4');
-  teamMark.setAttribute('aria-hidden', 'true');
-  svg.appendChild(teamMark);
   return svg;
 }
 
