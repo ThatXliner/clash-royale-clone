@@ -242,7 +242,7 @@ async function runGameFlow({ baseUrl, browserEntrypoints, context, landingPage, 
     const landing = await gamePage.goto(`${baseUrl}/`, { waitUntil: "load" });
     assertNavigationResponse(landing, "Pages landing page");
     flows.push({ kind: "landing", path: "index.html" });
-    const launchLink = gamePage.locator('a[href="./game/public/index.html"]');
+    const launchLink = gamePage.locator(".primary-nav__play");
     await launchLink.waitFor({ state: "visible", timeout: QUALIFICATION_TIMEOUT_MS });
     const gameResponse = await Promise.all([
       gamePage.waitForNavigation({ waitUntil: "load", timeout: QUALIFICATION_TIMEOUT_MS }),
