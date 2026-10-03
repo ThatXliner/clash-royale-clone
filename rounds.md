@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 372 — 2026-10-02
+
+PIECE: ART-005A — Painted terrain in playable arena, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Independent frozen `5c81b556bb5cd949c59b92399f01ec624d95ca17` desktop Chrome geometry render passes. Actual 390×844 app shows complete shell, no overflow, six towers and live HUD; trusted south Mossguard deployment spends 3 elixir. Original registered WebP is 390,962 bytes; manifest 6/6 passes. Shell 5/7 and visual-arena 5/6 fail stale stylesheet SHA pin and blanket local-image provenance prohibition. Actual captures and TAP: `artifacts/arena-art-round-1/critic/`.
+
+BIGGEST GAP: Reconcile frozen CSS pins and provenance assertion with the manifest-registered original terrain, then rerun both shell suites.
+
 ## Round 371 — 2026-10-02
 
 PIECE: ART-005C — Painted portraits across playable screens, round 1

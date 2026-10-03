@@ -1,0 +1,118 @@
+{
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "scrollWidth": 390,
+    "scrollHeight": 844,
+    "scrollX": 0,
+    "scrollY": 0
+  },
+  "iframe": {
+    "x": 9.65625,
+    "y": 117,
+    "width": 370.6875,
+    "height": 659,
+    "right": 380.34375,
+    "bottom": 776
+  },
+  "playfield": {
+    "rect": {
+      "x": 86,
+      "y": 104,
+      "width": 548,
+      "height": 968
+    },
+    "client": {
+      "left": 4,
+      "top": 4,
+      "width": 540,
+      "height": 960
+    }
+  },
+  "river": {
+    "x": 90,
+    "y": 558,
+    "width": 540,
+    "height": 60
+  },
+  "bridges": [
+    {
+      "x": 165,
+      "y": 558,
+      "width": 60,
+      "height": 60
+    },
+    {
+      "x": 495,
+      "y": 558,
+      "width": 60,
+      "height": 60
+    }
+  ],
+  "towers": 6,
+  "trustedArenaPointerEvent": true,
+  "replaySouthDeploys": [
+    {
+      "deployment": {
+        "cardId": "mossguard",
+        "entityIds": [
+          1
+        ],
+        "point": {
+          "x": 9000,
+          "y": 6320
+        },
+        "sequence": 0,
+        "side": "south",
+        "tick": 0,
+        "type": "deployed"
+      },
+      "side": "south",
+      "spend": {
+        "accepted": true,
+        "amountAfter": 7,
+        "cost": 3,
+        "reason": "accepted",
+        "sequence": 0,
+        "side": "south",
+        "tick": 0,
+        "type": "spend"
+      },
+      "tick": 0,
+      "type": "session-deployed"
+    }
+  ],
+  "unitCount": 4,
+  "unitSizes": [
+    {
+      "width": 40.5,
+      "height": 40.5,
+      "paths": 8,
+      "visible": true
+    },
+    {
+      "width": 33.46875,
+      "height": 33.46875,
+      "paths": 8,
+      "visible": true
+    },
+    {
+      "width": 40.5,
+      "height": 40.5,
+      "paths": 8,
+      "visible": true
+    },
+    {
+      "width": 40.5,
+      "height": 40.5,
+      "paths": 7,
+      "visible": true
+    }
+  ],
+  "imageRequest": {
+    "path": "/public/assets/moss-ember-arena-painted.webp",
+    "status": 200,
+    "contentType": "application/octet-stream"
+  },
+  "errors": []
+}
