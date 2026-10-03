@@ -1,0 +1,33 @@
+PUB-003 independent documentation review — round 2
+Candidate: af2fea7372ef656409a4a9305c1da37b0ac33cda
+Candidate commit delta: README.md only.
+Snapshot: /tmp/pub-003-critic-af2fea7 (git archive of the immutable candidate).
+
+Reader-first content: the README now explicitly says “Play against a computer
+opponent,” then explains the eight-card deck from the nine-card collection,
+refilling elixir, choosing from the hand, automatic unit combat, and the crown
+win condition. It states the project is inspired by the pre-March-2023 rules,
+is unaffiliated with Supercell, uses original names/art/sound, and remains an
+active prototype with incomplete cards/arena rules. Local Node/Playwright setup
+and release-preview commands are present. It says the Pages site is not live
+yet and makes no full-parity claim.
+
+All relative Markdown links in README.md, CONTRIBUTING.md, docs/development.md,
+and docs/verification.md resolved in the archive: 18 checked, 0 missing. The
+README's three relative HTML image targets (brand logo, banner, gameplay image)
+exist. The verification evidence link resolves to
+artifacts/vis-003hr-round-2/debug/paint-probes.md. LICENSE is the GNU AGPL v3
+text; NOTICE identifies project code/art as AGPL-3.0-only, authored audio and
+the three original icons as CC0-1.0, and the comparison corpus as excluded.
+
+README's internal test/API details are in the linked engineering guides. The
+one-step sample and runtime are unchanged from round 1: the extracted code block
+in docs/development.md has SHA-256
+79952c79dd850154334209e48aaa7839382299edca1284ab4e38921cd266ba29 in both
+candidate commits; src/rl/environment.js has SHA-256
+fb32a0b9f92a742b2f7d55e58acb32134b0ab36a9be019e0e1b42006320ee1bb in both.
+The previously executed sample exited 0 and printed the output in
+rl-example-output.txt; its result is reused because both inputs are byte-identical.
+
+VERDICT: PASS
+BIGGEST GAP: None on the judged reader-first README and moved-document contract.

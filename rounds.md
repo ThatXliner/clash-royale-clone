@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 370 — 2026-10-02
+
+PIECE: PUB-003 — Reader-first README and separate engineering guides, round 2
+
+VERDICT: PASS
+
+EVIDENCE: Independent critic inspected immutable `af2fea7372ef656409a4a9305c1da37b0ac33cda`. README explicitly names the computer opponent; 18/18 relative Markdown links and 3/3 image targets resolve. Relocated engineering and verification guides are unchanged from round 1. Extracted RL example and runtime hashes are identical to the executed round-1 sample, which advanced tick 0 to 30 with reward 0 and both done flags false. Evidence: `artifacts/pub-003-round-2/critic/`.
+
+BIGGEST GAP: None on the judged documentation bar.
+
 ## Round 369 — 2026-10-02
 
 PIECE: PUB-003 — Reader-first README and separate engineering guides, round 1
