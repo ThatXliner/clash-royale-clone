@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 375 — 2026-10-02
+
+PIECE: ART-005A — Painted terrain in playable arena, round 2
+
+VERDICT: PASS
+
+EVIDENCE: Independent frozen `42da2ef` shell7/7, visual-arena6/6 including actual720×1280Chrome render, manifest6/6:19/19. ArenaCSS and390,962byteWebP hashes exactly match independently rendered R1; prior390×844 actual app trusted south deployment/unclipped frame remains valid unchanged-artifact evidence. Provenance accepts only manifest-bound canonical local terrain with verifiedbytes/hash. Output `artifacts/arena-art-round-2/critic/`.
+
+BIGGEST GAP: None on scoped terrain integration bar; historical visual parity remains unverified without licensed footage.
+
 ## Round 374 — 2026-10-02
 
 PIECE: ART-005S — Painted troop animation in playable battle, round 1

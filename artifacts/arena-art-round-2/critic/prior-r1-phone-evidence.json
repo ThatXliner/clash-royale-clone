@@ -1,0 +1,1449 @@
+{
+  "sourceCommit": "5c81b556bb5cd949c59b92399f01ec624d95ca17",
+  "route": "/public/index.html",
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "isMobile": true
+  },
+  "actualShell": "public/ui-arena-shell.html?app-frame=1",
+  "trustedArenaPointerEvent": true,
+  "placementRatioWithinArenaOuterBox": {
+    "x": 141.0625,
+    "y": 398.6875
+  },
+  "gameplay": {
+    "tick": 240,
+    "replaySouthDeploys": [
+      {
+        "deployment": {
+          "cardId": "mossguard",
+          "entityIds": [
+            1
+          ],
+          "point": {
+            "x": 9000,
+            "y": 6320
+          },
+          "sequence": 0,
+          "side": "south",
+          "tick": 0,
+          "type": "deployed"
+        },
+        "side": "south",
+        "spend": {
+          "accepted": true,
+          "amountAfter": 7,
+          "cost": 3,
+          "reason": "accepted",
+          "sequence": 0,
+          "side": "south",
+          "tick": 0,
+          "type": "spend"
+        },
+        "tick": 0,
+        "type": "session-deployed"
+      }
+    ],
+    "sessionUnits": [
+      {
+        "id": 1,
+        "side": "south",
+        "hitpoints": 1766
+      },
+      {
+        "id": 2,
+        "side": "north",
+        "hitpoints": 925
+      },
+      {
+        "id": 3,
+        "side": "north",
+        "hitpoints": 1766
+      },
+      {
+        "id": 4,
+        "side": "north",
+        "hitpoints": 837
+      }
+    ],
+    "arena": {
+      "rect": {
+        "x": 86,
+        "y": 104,
+        "width": 548,
+        "height": 968
+      },
+      "client": {
+        "left": 4,
+        "top": 4,
+        "width": 540,
+        "height": 960
+      }
+    },
+    "river": {
+      "x": 90,
+      "y": 558,
+      "width": 540,
+      "height": 60
+    },
+    "bridges": [
+      {
+        "x": 165,
+        "y": 558,
+        "width": 60,
+        "height": 60
+      },
+      {
+        "x": 495,
+        "y": 558,
+        "width": 60,
+        "height": 60
+      }
+    ],
+    "towerCount": 6,
+    "core": [
+      {
+        "selector": "[data-ui=\"opponent-hud\"]",
+        "visible": true,
+        "rect": {
+          "x": 42,
+          "y": 24,
+          "width": 636,
+          "height": 62
+        }
+      },
+      {
+        "selector": "[data-ui=\"player-hud\"]",
+        "visible": true,
+        "rect": {
+          "x": 42,
+          "y": 1070,
+          "width": 636,
+          "height": 38
+        }
+      },
+      {
+        "selector": "[data-ui=\"hand-tray\"]",
+        "visible": true,
+        "rect": {
+          "x": 54,
+          "y": 1114,
+          "width": 612,
+          "height": 140
+        }
+      },
+      {
+        "selector": "[data-ui=\"next-card\"]",
+        "visible": true,
+        "rect": {
+          "x": 65,
+          "y": 1121,
+          "width": 112,
+          "height": 128
+        }
+      },
+      {
+        "selector": "[data-ui=\"hud-timer\"]",
+        "visible": true,
+        "rect": {
+          "x": 305,
+          "y": 30,
+          "width": 110,
+          "height": 50
+        }
+      },
+      {
+        "selector": "[data-ui=\"elixir-rail\"]",
+        "visible": true,
+        "rect": {
+          "x": 64,
+          "y": 1258,
+          "width": 592,
+          "height": 22
+        }
+      },
+      {
+        "selector": "[data-ui=\"arena\"]",
+        "visible": true,
+        "rect": {
+          "x": 86,
+          "y": 104,
+          "width": 548,
+          "height": 968
+        }
+      },
+      {
+        "selector": "[data-ui=\"river\"]",
+        "visible": true,
+        "rect": {
+          "x": 90,
+          "y": 558,
+          "width": 540,
+          "height": 60
+        }
+      },
+      {
+        "selector": "[data-ui=\"bridge\"][data-lane=\"west\"]",
+        "visible": true,
+        "rect": {
+          "x": 165,
+          "y": 558,
+          "width": 60,
+          "height": 60
+        }
+      },
+      {
+        "selector": "[data-ui=\"bridge\"][data-lane=\"east\"]",
+        "visible": true,
+        "rect": {
+          "x": 495,
+          "y": 558,
+          "width": 60,
+          "height": 60
+        }
+      },
+      {
+        "selector": "[data-ui=\"tower-pad\"][data-side=\"north\"][data-role=\"central\"]",
+        "visible": true,
+        "rect": {
+          "x": 300,
+          "y": 138,
+          "width": 120,
+          "height": 120
+        }
+      },
+      {
+        "selector": "[data-ui=\"tower-pad\"][data-side=\"north\"][data-role=\"lane\"][data-lane=\"west\"]",
+        "visible": true,
+        "rect": {
+          "x": 150,
+          "y": 288,
+          "width": 90,
+          "height": 90
+        }
+      },
+      {
+        "selector": "[data-ui=\"tower-pad\"][data-side=\"north\"][data-role=\"lane\"][data-lane=\"east\"]",
+        "visible": true,
+        "rect": {
+          "x": 480,
+          "y": 288,
+          "width": 90,
+          "height": 90
+        }
+      },
+      {
+        "selector": "[data-ui=\"tower-pad\"][data-side=\"south\"][data-role=\"central\"]",
+        "visible": true,
+        "rect": {
+          "x": 300,
+          "y": 918,
+          "width": 120,
+          "height": 120
+        }
+      },
+      {
+        "selector": "[data-ui=\"tower-pad\"][data-side=\"south\"][data-role=\"lane\"][data-lane=\"west\"]",
+        "visible": true,
+        "rect": {
+          "x": 150,
+          "y": 798,
+          "width": 90,
+          "height": 90
+        }
+      },
+      {
+        "selector": "[data-ui=\"tower-pad\"][data-side=\"south\"][data-role=\"lane\"][data-lane=\"east\"]",
+        "visible": true,
+        "rect": {
+          "x": 480,
+          "y": 798,
+          "width": 90,
+          "height": 90
+        }
+      }
+    ],
+    "units": [
+      {
+        "side": "south",
+        "className": "combat-marker combat-marker--entity-ground combat-marker--south",
+        "rect": {
+          "x": 234.75,
+          "y": 822.75,
+          "width": 40.5,
+          "height": 40.5
+        },
+        "ariaLabel": null,
+        "paths": 8,
+        "visible": true,
+        "tickX": "5500",
+        "tickY": "24500"
+      },
+      {
+        "side": "north",
+        "className": "combat-marker combat-marker--entity-ground combat-marker--north",
+        "rect": {
+          "x": 118.265625,
+          "y": 646.265625,
+          "width": 33.46875,
+          "height": 33.46875
+        },
+        "ariaLabel": null,
+        "paths": 8,
+        "visible": true,
+        "tickX": "1500",
+        "tickY": "18500"
+      },
+      {
+        "side": "north",
+        "className": "combat-marker combat-marker--entity-ground combat-marker--north",
+        "rect": {
+          "x": 174.75,
+          "y": 612.75,
+          "width": 40.5,
+          "height": 40.5
+        },
+        "ariaLabel": null,
+        "paths": 8,
+        "visible": true,
+        "tickX": "3500",
+        "tickY": "17500"
+      },
+      {
+        "side": "north",
+        "className": "combat-marker combat-marker--entity-air combat-marker--north",
+        "rect": {
+          "x": 174.75,
+          "y": 582.75,
+          "width": 40.5,
+          "height": 40.5
+        },
+        "ariaLabel": null,
+        "paths": 7,
+        "visible": true,
+        "tickX": "3500",
+        "tickY": "16500"
+      }
+    ],
+    "backgroundImage": "url(\"http://127.0.0.1:51772/public/assets/moss-ember-arena-painted.webp\")",
+    "innerViewport": {
+      "width": 720,
+      "height": 1280,
+      "scrollWidth": 720,
+      "scrollHeight": 1280
+    },
+    "playerHudText": "",
+    "handText": "",
+    "timerText": "2:56",
+    "elixirText": ""
+  },
+  "outer": {
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 390,
+      "scrollHeight": 844,
+      "scrollX": 0,
+      "scrollY": 0
+    },
+    "appFrameSlot": {
+      "x": 0,
+      "y": 117,
+      "width": 390,
+      "height": 659,
+      "right": 390,
+      "bottom": 776
+    },
+    "iframe": {
+      "x": 9.65625,
+      "y": 117,
+      "width": 370.6875,
+      "height": 659,
+      "right": 380.34375,
+      "bottom": 776
+    },
+    "nav": {
+      "x": 0,
+      "y": 777,
+      "width": 390,
+      "height": 67,
+      "right": 390,
+      "bottom": 844
+    },
+    "appHeader": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 66,
+      "right": 390,
+      "bottom": 66
+    },
+    "battleHeading": {
+      "x": 0,
+      "y": 66,
+      "width": 390,
+      "height": 51,
+      "right": 390,
+      "bottom": 117
+    }
+  },
+  "imageRequest": {
+    "path": "/public/assets/moss-ember-arena-painted.webp",
+    "status": 200,
+    "contentType": "application/octet-stream"
+  },
+  "errors": [],
+  "requests": [
+    {
+      "path": "/public/index.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8"
+    },
+    {
+      "path": "/src/ui/app-shell.css",
+      "status": 200,
+      "contentType": "text/css; charset=utf-8"
+    },
+    {
+      "path": "/src/ui/app-shell.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/playable-roster.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/editable-deck.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/ui/card-portrait-art.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/session-troop-roster.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/basic-melee.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/session-troop-projectile-source-admission.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/basic-flying.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/basic-ranged.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/swarms.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/structure-seeker.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-movement-charge.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/shields-forms.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-movement-dash.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-movement-jump.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-movement-retarget.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-movement-recoil.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-projectiles-chain.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-projectiles-pierce.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-movement-charge-knockback.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-projectiles-pellets.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-projectiles-reflection.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-projectiles-return.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-combat-ramp.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-combat-slow.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/combat-status-stun.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-combat-snare.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/combat-status-heal.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/combat-status-invisibility.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/champion-abilities.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/session-troop-profile-catalog.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/schema.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/flying.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/targeting.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/attack-cycle.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/movement.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/damage.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/pathfinding.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/projectile.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/spatial.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/arena-geometry.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/area-damage.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/index.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-movement-knockback.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/combat-effect-feed.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/formations.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/session-card-catalog.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-combat-reset.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/session-troop-movement-question-authority.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-movement-leap-knockback.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/spawn-placement.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/death-conversion.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-combat-rage.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-movement-dash-knockback.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/death-spawns.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/death-effects.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/buildings-resource.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/buildings-spawner.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/buildings-defensive.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/buildings-travel.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/spells-instant.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/session-spell-profile-receipts.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/spells-copy-card.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/spells-clone-unit.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/spells-spawn.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/spells-return.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/spells-three-wave.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/spells-periodic.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/spells-roll.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/spells-travel-line.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/session-building-profile-receipts.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/entities.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/elixir.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/deployment.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/deck.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/death-conversion-delegated.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/rng.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/periodic-spawns.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/battle-continuation-kernel.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/session-card-runtime.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/session-building-runtime.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/session-troop-status-runtime.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/session-troop-projectile-runtime.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/session-troop-runtime.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/spell-intent-runtime.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/game-side-deploy-core.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/tower-evidence-map.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/shared/session-troop-projectile-authority.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/public/assets/card-portraits-painted.webp",
+      "status": 200,
+      "contentType": "application/octet-stream"
+    },
+    {
+      "path": "/public/assets/stonehauler-painted.webp",
+      "status": 200,
+      "contentType": "application/octet-stream"
+    },
+    {
+      "path": "/public/ui-arena-shell.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8"
+    },
+    {
+      "path": "/src/ui/arena-shell.css",
+      "status": 200,
+      "contentType": "text/css; charset=utf-8"
+    },
+    {
+      "path": "/src/ui/arena-shell-entry.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/game-session.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/editable-deck.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/ui/arena-shell.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/playable-roster.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/ui/game-browser-entry.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/deck.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/elixir.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/game-player-deploy.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/live-battle.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/match.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/towers.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/ui/hud-state.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/ui/placement-feedback.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/ui/combat-state.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/ui/input-controller.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/session-troop-projectile-runtime.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/session-troop-roster.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/basic-melee.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/session-troop-projectile-source-admission.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/session-card-catalog.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/audio/browser-audio.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/battle-continuation-kernel.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/audio/game-audio-runtime.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/ui/combat-effects.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/ui/game-browser-loop.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/ui/game-session-restore-continuation.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/ui/game-audio-bridge.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/ui/match-feedback.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/ui/game-audio-controls.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/rng.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/deployment.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/arena-geometry.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/ui/combat-art.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/ui/combat-motion.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/shared/session-troop-projectile-authority.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/basic-flying.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/basic-ranged.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/swarms.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/structure-seeker.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/shields-forms.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-movement-charge.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-movement-dash.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-movement-jump.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-movement-recoil.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-movement-retarget.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-movement-charge-knockback.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-projectiles-chain.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-projectiles-pierce.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-projectiles-return.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-projectiles-pellets.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-combat-ramp.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-projectiles-reflection.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/combat-status-stun.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-combat-slow.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-combat-snare.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/combat-status-heal.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/combat-status-invisibility.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/champion-abilities.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/session-troop-profile-catalog.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/schema.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/index.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/death-effects.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/buildings-resource.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/buildings-defensive.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/buildings-travel.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/session-building-profile-receipts.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/damage.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/attack-cycle.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/formations.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/movement.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/pathfinding.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/session-card-runtime.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/session-building-runtime.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/session-troop-status-runtime.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/session-troop-runtime.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/spell-intent-runtime.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/spatial.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/targeting.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/combat-effect-feed.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/game-side-deploy-core.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/tower-evidence-map.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/audio/audio-events.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/ui/game-input-bridge.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/audio/audio-renderer.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/ui/game-ui-projection.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/flying.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/ui/hud-motion.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/projectile.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/session-troop-movement-question-authority.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-combat-reset.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/area-damage.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-movement-knockback.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-movement-leap-knockback.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/spawn-placement.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/death-spawns.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/death-conversion.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-movement-dash-knockback.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/special-combat-rage.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/buildings-spawner.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/session-spell-profile-receipts.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/spells-instant.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/spells-copy-card.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/spells-clone-unit.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/spells-spawn.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/spells-periodic.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/spells-return.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/audio/audio-provenance.json",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/spells-travel-line.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/audio/audio-production-provenance.json",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/spells-three-wave.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/spells-roll.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/sim/entities.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/death-conversion-delegated.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/src/content/cards/periodic-spawns.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/public/assets/moss-ember-arena-painted.webp",
+      "status": 200,
+      "contentType": "application/octet-stream"
+    }
+  ]
+}
