@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "piece": "ART-005A",
+  "round": 2,
+  "scope": "Reconcile the arena CSS source pins and provenance check with the manifest-registered original terrain image.",
+  "sourcePins": {
+    "htmlSha256": "51dd05f9eea755f24e9db13e676e681fce67e189a6327e209310aa14ff17a680",
+    "cssSha256": "22c9b78515801b1c6319e25e10dddde22f3b1a5de337f114b1629f0fb347bb84"
+  },
+  "cssAssetPolicy": {
+    "onlyAcceptedCssUrl": "../../public/assets/moss-ember-arena-painted.webp",
+    "manifestPath": "assets/moss-ember-arena-painted.webp",
+    "manifestId": "moss-ember-arena-painted",
+    "format": "webp",
+    "license": "AGPL-3.0-only",
+    "byteLength": 390962,
+    "sha256": "22713e1725c21a8f853df5e2af3278689e7e844783606d93c7a12a365d8e930e",
+    "checks": [
+      "Exactly one CSS url() value is allowed, and it must be the canonical relative URL above.",
+      "The CSS URL must resolve to the exact file represented by the canonical visual asset manifest entry.",
+      "The referenced local file must match the manifest byte length and SHA-256.",
+      "HTTP, data, blob, reference-corpus, HTML/module image paths, and other CSS static-file paths remain rejected."
+    ]
+  },
+  "focusedSuites": [
+    {
+      "command": "npm run test:ui-arena-shell",
+      "passed": 7,
+      "failed": 0,
+      "durationMs": 65.04875
+    },
+    {
+      "command": "npm run test:visual-arena-art",
+      "passed": 6,
+      "failed": 0,
+      "durationMs": 4471.090667,
+      "browserRender": "The existing 720x1280 Chrome geometry render subtest passed."
+    },
+    {
+      "command": "npm run test:visual-asset-manifest",
+      "passed": 6,
+      "failed": 0,
+      "durationMs": 64.333583
+    }
+  ],
+  "total": {
+    "passed": 19,
+    "failed": 0
+  },
+  "independentRound1Render": "../arena-art-round-1/critic/critic-report.md",
+  "notes": [
+    "The focused test changes do not alter the shell markup hash, arena geometry assertions, or runtime CSS.",
+    "The independent R1 critic already recorded actual 720x1280 desktop and 390x844 phone renders plus a trusted south deployment; R2's visual suite reran its existing desktop browser render.",
+    "No historical visual-parity claim is made because no licensed reference footage is available."
+  ]
+}

@@ -150,7 +150,7 @@ test("visual arena art: pinned shell primitives are untouched and art stays insi
     "51dd05f9eea755f24e9db13e676e681fce67e189a6327e209310aa14ff17a680",
   );
   assert.equal(sha256(css),
-    "4cbc0f14cc874845e02c64bb779cc2b85b3549a1851c0371af436de23249ea44");
+    "22c9b78515801b1c6319e25e10dddde22f3b1a5de337f114b1629f0fb347bb84");
   assert.doesNotMatch(html, /(?:https?:|blob:|url\s*\(|reference\/)/i);
   assert.doesNotMatch(html, /\.(?:png|jpe?g|gif|webp|avif|svg|mp[34]|wav|ogg)\b/i);
   assert.match(html, /src="\.\.\/src\/ui\/arena-shell-entry\.js"/);

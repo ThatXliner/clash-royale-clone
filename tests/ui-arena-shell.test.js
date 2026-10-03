@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
 
 import {
   ARENA_SHELL_PLAYFIELD,
@@ -11,6 +12,10 @@ import {
   mountArenaShell,
 } from "../src/ui/arena-shell.js";
 import { getArenaGeometry } from "../src/sim/arena-geometry.js";
+import {
+  admitVisualAssetManifestFromGraph,
+  createVisualAssetManifest,
+} from "../src/content/visual-asset-manifest.js";
 
 const cssUrl = new URL("../src/ui/arena-shell.css", import.meta.url);
 const entryUrl = new URL("../public/ui-arena-shell.html", import.meta.url);
@@ -18,6 +23,47 @@ const moduleUrl = new URL("../src/ui/arena-shell.js", import.meta.url);
 const css = readFileSync(cssUrl, "utf8");
 const html = readFileSync(entryUrl, "utf8");
 const moduleSource = readFileSync(moduleUrl, "utf8");
+
+const ARENA_TERRAIN_CSS_URL = "../../public/assets/moss-ember-arena-painted.webp";
+const ARENA_TERRAIN_MANIFEST_PATH = "assets/moss-ember-arena-painted.webp";
+
+function cssUrlValues(source) {
+  return [...source.matchAll(/\burl\(([^)]*)\)/giu)].map(([, rawValue]) => {
+    const value = rawValue.trim();
+    const quote = value[0];
+    if ((quote === "\"" || quote === "'") && value.at(-1) === quote) {
+      return value.slice(1, -1);
+    }
+    return value;
+  });
+}
+
+function assertCssUrlsPointToRegisteredLocalArt() {
+  const urlValues = cssUrlValues(css);
+  assert.deepEqual(urlValues, [ARENA_TERRAIN_CSS_URL],
+    "the stylesheet may reference only the registered arena terrain asset");
+
+  const manifest = admitVisualAssetManifestFromGraph(createVisualAssetManifest());
+  const asset = manifest.assets.find(({ id }) => id === "moss-ember-arena-painted");
+  assert.ok(asset, "the arena terrain must be registered in the canonical visual manifest");
+  assert.equal(asset.path, ARENA_TERRAIN_MANIFEST_PATH);
+  assert.equal(asset.kind, "image");
+  assert.equal(asset.format, "webp");
+  assert.equal(asset.authorship, "in-repo-authored");
+  assert.equal(asset.license, "AGPL-3.0-only");
+
+  const resolvedCssUrl = new URL(urlValues[0], cssUrl);
+  const manifestAssetUrl = new URL(`../public/${asset.path}`, import.meta.url);
+  assert.equal(resolvedCssUrl.protocol, "file:", "CSS art must stay local");
+  assert.equal(resolvedCssUrl.search, "", "CSS art URLs may not add query parameters");
+  assert.equal(resolvedCssUrl.hash, "", "CSS art URLs may not add fragments");
+  assert.equal(resolvedCssUrl.href, manifestAssetUrl.href,
+    "the CSS path must resolve to the exact manifest asset");
+
+  const bytes = readFileSync(fileURLToPath(resolvedCssUrl));
+  assert.equal(bytes.byteLength, asset.byteLength, asset.path);
+  assert.equal(createHash("sha256").update(bytes).digest("hex"), asset.sha256, asset.path);
+}
 
 function occurrences(value, needle) {
   return value.split(needle).length - 1;
@@ -117,7 +163,7 @@ test("ui arena shell: canonical markup and source bytes are stable", () => {
   );
   assert.equal(
     createHash("sha256").update(css).digest("hex"),
-    "4cbc0f14cc874845e02c64bb779cc2b85b3549a1851c0371af436de23249ea44",
+    "22c9b78515801b1c6319e25e10dddde22f3b1a5de337f114b1629f0fb347bb84",
   );
 });
 
@@ -128,8 +174,13 @@ test("ui arena shell: provenance is local primitives with no external assets", (
     calibration: "uncalibrated-no-licensed-reference-still",
   });
   const shippedSources = `${html}\n${css}\n${moduleSource}`;
-  assert.doesNotMatch(shippedSources, /(?:https?:|data:|blob:|url\s*\(|reference\/)/i);
-  assert.doesNotMatch(shippedSources, /\.(?:png|jpe?g|gif|webp|avif|svg|mp[34]|wav|ogg)\b/i);
+  assert.doesNotMatch(shippedSources, /(?:https?:|data:|blob:|reference\/)/i);
+  assert.doesNotMatch(`${html}\n${moduleSource}`,
+    /\.(?:png|jpe?g|gif|webp|avif|svg|mp[34]|wav|ogg)\b/i);
+  assert.doesNotMatch(css.replace(/\burl\(([^)]*)\)/giu, ""),
+    /\.(?:png|jpe?g|gif|webp|avif|svg|mp[34]|wav|ogg)\b/i,
+    "the CSS may not reference other static assets outside url() declarations");
+  assertCssUrlsPointToRegisteredLocalArt();
   assert.match(html, /src="\.\.\/src\/ui\/arena-shell-entry\.js"/);
   assert.match(html, /href="\.\.\/src\/ui\/arena-shell\.css"/);
 });
