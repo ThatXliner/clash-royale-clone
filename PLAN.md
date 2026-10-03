@@ -248,6 +248,8 @@ retain integer-tick determinism and canonical serialize/restore behavior.
 
 | ART-004 | Original deterministic 2D sprite prototype | Original directional walk and attack frames for a playable unit render legibly at actual arena scale; simulation tick selects frames; team identity, reduced motion and exact restored-frame rendering remain clear; no reference assets or gameplay changes | VIS-003C, VIS-003HR | BUILDING | 0/0 | 0 | User requested improved art and suggested sprite sheets; isolated prototype must be rendered and judged separately before arena integration. |
 
+| PUB-003 | Reader-first README and separate engineering guides | README explains the playable game, resource/deck loop, computer opponent, local setup and prototype limits without internal verification jargon; API examples, test commands and exact evidence live in linked docs; all moved details and local links remain valid | PUB-001 | BUILDING | 0/0 | 0 | User requested a Hacker News ready introduction for lay readers and relocation of technical documentation. |
+
 ## Reference uncertainties
 
 - Arena tower/bridge coordinates and deployment masks are low-medium
