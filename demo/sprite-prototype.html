@@ -3,105 +3,148 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Briar Runner Sprite Study</title>
+    <title>Briar Runner Sprite Study · Moss &amp; Ember</title>
+    <link rel="icon" href="data:,">
     <link rel="stylesheet" href="./sprite-prototype.css">
     <script type="module" src="../src/ui/combat-sprite-prototype.js"></script>
   </head>
   <body>
     <main class="page" data-sprite-prototype>
       <header class="page-heading">
-        <p class="eyebrow">ART-004 · ORIGINAL UNIT STUDY</p>
-        <h1>Briar Runner, in motion</h1>
-        <p class="intro">A hand-drawn vector sprite sheet for a playable Briar Runner. Pose selection reads simulation ticks; no wall clock or game-state mutation drives the preview.</p>
+        <p class="eyebrow">ART-005 · ORIGINAL UNIT STUDY</p>
+        <h1>Briar Runner, painted for the field</h1>
+        <p class="intro">A hand-painted original 4×4 sprite atlas beside the earlier vector baseline. Both renderers share tick-driven walk and attack poses, four facings, two team identities, and exact checkpoint restore.</p>
       </header>
 
-      <div class="workbench">
-        <section class="panel scale-panel" aria-labelledby="scale-title">
-          <div class="panel-heading">
-            <div>
-              <p class="eyebrow">FIELD SCALE</p>
-              <h2 id="scale-title">720 px arena width</h2>
-            </div>
-            <p class="scale-note"><strong>34.56 px</strong><br>4.8% unit width</p>
+      <section class="controls-panel" aria-label="Sprite preview controls">
+        <div class="controls">
+          <label>Action
+            <select data-control="action">
+              <option value="walk">Walk</option>
+              <option value="attack">Attack</option>
+            </select>
+          </label>
+          <label>Facing for inspector
+            <select data-control="direction">
+              <option value="north">North</option>
+              <option value="east">East</option>
+              <option value="south" selected>South</option>
+              <option value="west">West</option>
+            </select>
+          </label>
+          <label class="tick-control">Simulation tick <output><span data-tick-value>0</span></output>
+            <input data-control="tick" type="range" min="0" max="999" step="1" value="0">
+          </label>
+          <label class="motion-control">
+            <input data-control="reduced-motion" type="checkbox">
+            <span>Reduced motion · hold first frame</span>
+          </label>
+          <div class="checkpoint-controls">
+            <button type="button" data-action="checkpoint">Save frame</button>
+            <button type="button" data-action="advance">Advance 12 ticks</button>
+            <button type="button" data-action="restore">Restore</button>
           </div>
-          <div class="board-window">
-            <div class="scale-board" aria-label="North and South Briar Runner poses at a 720 pixel playfield width">
-              <div class="center-mark" aria-hidden="true"></div>
-              <div class="team-row team-row--north">
-                <div class="team-name"><span class="team-dot"></span><span>North</span></div>
-                <div class="sample-grid">
-                  <div class="scale-sample" data-sample-side="north" data-direction="north"></div>
-                  <div class="scale-sample" data-sample-side="north" data-direction="east"></div>
-                  <div class="scale-sample" data-sample-side="north" data-direction="south"></div>
-                  <div class="scale-sample" data-sample-side="north" data-direction="west"></div>
-                </div>
-              </div>
-              <div class="team-row team-row--south">
-                <div class="team-name"><span class="team-dot"></span><span>South</span></div>
-                <div class="sample-grid">
-                  <div class="scale-sample" data-sample-side="south" data-direction="north"></div>
-                  <div class="scale-sample" data-sample-side="south" data-direction="east"></div>
-                  <div class="scale-sample" data-sample-side="south" data-direction="south"></div>
-                  <div class="scale-sample" data-sample-side="south" data-direction="west"></div>
-                </div>
-              </div>
-              <div class="board-caption">Four facings · selected action · frame follows the simulation tick</div>
-            </div>
-          </div>
-          <p class="scale-footnote">The board is a scale reference, not an arena integration. Each marker stays 4.8% of the 720 px playfield width.</p>
-        </section>
+          <p class="status" data-prototype-status aria-live="polite">Initial frame ready.</p>
+        </div>
+        <p class="frame-readout">Current frame <code data-current-frame>briar-walk-south-0</code></p>
+      </section>
 
-        <section class="panel inspector" aria-labelledby="inspector-title">
-          <div class="panel-heading">
-            <div>
-              <p class="eyebrow">FRAME INSPECTOR</p>
-              <h2 id="inspector-title">Same pose, both teams</h2>
-            </div>
-            <code data-current-frame>briar-walk-south-0</code>
+      <section class="scale-section" aria-labelledby="scale-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">ACTUAL PLAYFIELD SCALE</p>
+            <h2 id="scale-title">Same pose, same 4.8% unit width</h2>
           </div>
-          <div class="large-pair">
-            <div class="large-team large-team--north">
-              <div class="large-sprite" data-selected-side="north"></div>
-              <span>North · ember</span>
-            </div>
-            <div class="large-team large-team--south">
-              <div class="large-sprite" data-selected-side="south"></div>
-              <span>South · jade</span>
-            </div>
-          </div>
+          <p class="scale-note"><strong>25.92 px</strong> at 540 px field width<br><strong>14.04 px</strong> at 292.5 px mobile field width</p>
+        </div>
+        <p class="scale-explanation">Each board keeps the 540×960 playfield ratio. At a 720 px viewport it is 540 px wide, matching the live arena; at 390 px it scales to 292.5 px. Every marker remains exactly 4.8% of its board width.</p>
 
-          <div class="controls" aria-label="Sprite preview controls">
-            <label>Action
-              <select data-control="action">
-                <option value="walk">Walk</option>
-                <option value="attack">Attack</option>
-              </select>
-            </label>
-            <label>Facing
-              <select data-control="direction">
-                <option value="north">North</option>
-                <option value="east">East</option>
-                <option value="south" selected>South</option>
-                <option value="west">West</option>
-              </select>
-            </label>
-            <label class="tick-control">Simulation tick <output><span data-tick-value>0</span></output>
-              <input data-control="tick" type="range" min="0" max="119" step="1" value="0">
-            </label>
-            <label class="motion-control">
-              <input data-control="reduced-motion" type="checkbox">
-              <span>Reduced motion · hold first frame</span>
-            </label>
-            <div class="checkpoint-controls">
-              <button type="button" data-action="checkpoint">Save frame</button>
-              <button type="button" data-action="advance">Advance 12 ticks</button>
-              <button type="button" data-action="restore">Restore</button>
+        <div class="comparison" aria-label="Vector and painted Briar Runner comparison at live arena scale">
+          <article class="render-card" data-renderer-card="vector">
+            <div class="render-heading">
+              <span class="render-swatch render-swatch--vector" aria-hidden="true"></span>
+              <div><p class="eyebrow">BASELINE</p><h3>Original vector</h3></div>
             </div>
-            <p class="status" data-prototype-status aria-live="polite">Initial frame ready.</p>
-          </div>
-        </section>
-      </div>
-      <footer class="page-footer">Original Moss &amp; Ember artwork · 64 × 64 vector frames · development-only preview</footer>
+            <div class="board-window">
+              <div class="scale-board" data-scale-board data-renderer="vector" aria-label="Vector sprites shown at playfield scale">
+                <section class="team-camp team-camp--north" aria-label="North team">
+                  <h4><span class="team-dot"></span>North · Ember</h4>
+                  <div class="sample-grid">
+                    <div class="scale-sample" data-sample-side="north" data-direction="north"></div>
+                    <div class="scale-sample" data-sample-side="north" data-direction="east"></div>
+                    <div class="scale-sample" data-sample-side="north" data-direction="south"></div>
+                    <div class="scale-sample" data-sample-side="north" data-direction="west"></div>
+                  </div>
+                </section>
+                <div class="river" aria-hidden="true"><span></span></div>
+                <section class="team-camp team-camp--south" aria-label="South team">
+                  <h4><span class="team-dot"></span>South · Jade</h4>
+                  <div class="sample-grid">
+                    <div class="scale-sample" data-sample-side="south" data-direction="north"></div>
+                    <div class="scale-sample" data-sample-side="south" data-direction="east"></div>
+                    <div class="scale-sample" data-sample-side="south" data-direction="south"></div>
+                    <div class="scale-sample" data-sample-side="south" data-direction="west"></div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </article>
+
+          <article class="render-card" data-renderer-card="painted">
+            <div class="render-heading">
+              <span class="render-swatch render-swatch--painted" aria-hidden="true"></span>
+              <div><p class="eyebrow">NEW ATLAS</p><h3>Painted Briar Runner</h3></div>
+            </div>
+            <div class="board-window">
+              <div class="scale-board" data-scale-board data-renderer="painted" aria-label="Painted sprites shown at playfield scale">
+                <section class="team-camp team-camp--north" aria-label="North team">
+                  <h4><span class="team-dot"></span>North · Ember</h4>
+                  <div class="sample-grid">
+                    <div class="scale-sample" data-sample-side="north" data-direction="north"></div>
+                    <div class="scale-sample" data-sample-side="north" data-direction="east"></div>
+                    <div class="scale-sample" data-sample-side="north" data-direction="south"></div>
+                    <div class="scale-sample" data-sample-side="north" data-direction="west"></div>
+                  </div>
+                </section>
+                <div class="river" aria-hidden="true"><span></span></div>
+                <section class="team-camp team-camp--south" aria-label="South team">
+                  <h4><span class="team-dot"></span>South · Jade</h4>
+                  <div class="sample-grid">
+                    <div class="scale-sample" data-sample-side="south" data-direction="north"></div>
+                    <div class="scale-sample" data-sample-side="south" data-direction="east"></div>
+                    <div class="scale-sample" data-sample-side="south" data-direction="south"></div>
+                    <div class="scale-sample" data-sample-side="south" data-direction="west"></div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="inspector-section" aria-labelledby="inspector-title">
+        <div class="section-heading">
+          <div><p class="eyebrow">ENLARGED INSPECTION</p><h2 id="inspector-title">Team accents and painted material</h2></div>
+          <p class="scale-note">Secondary view · magnified for pose inspection</p>
+        </div>
+        <div class="inspector-grid">
+          <article class="inspection-card inspection-card--vector">
+            <h3>Vector baseline</h3>
+            <div class="inspection-pair">
+              <div class="inspection-slot"><div data-selected-side="north" data-renderer="vector"></div><span>North · Ember</span></div>
+              <div class="inspection-slot"><div data-selected-side="south" data-renderer="vector"></div><span>South · Jade</span></div>
+            </div>
+          </article>
+          <article class="inspection-card inspection-card--painted">
+            <h3>Painted atlas</h3>
+            <div class="inspection-pair">
+              <div class="inspection-slot"><div data-selected-side="north" data-renderer="painted"></div><span>North · Ember</span></div>
+              <div class="inspection-slot"><div data-selected-side="south" data-renderer="painted"></div><span>South · Jade</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+      <footer class="page-footer">Original Moss &amp; Ember character art · tick-driven preview · development-only, not wired into the arena</footer>
     </main>
   </body>
 </html>

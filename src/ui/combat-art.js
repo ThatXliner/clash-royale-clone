@@ -7,6 +7,16 @@ const WOOD = '#4A332A';
 const LEAF = '#5C8A46';
 const STONE = '#9BA5A2';
 const SHALE = '#65716F';
+const BRIAR_PAINTED_ATLAS = Object.freeze({
+  cellSize: 313.5,
+  height: 1254,
+  image: './assets/briar-runner-painted-sheet.png',
+  windowSize: 220,
+  windowX: 46.75,
+  windowYByDirection: Object.freeze({ north: 72, east: 62, south: 47, west: 14 }),
+  width: 1254,
+});
+const SPRITE_DIRECTIONS = Object.freeze(['north', 'east', 'south', 'west']);
 const shapes = {
   coilblade: [
     ['M20 43 18 57 27 57 31 43M36 43 38 57 47 57 44 42', WOOD],
@@ -111,6 +121,85 @@ for (const paths of Object.values(shapes)) {
 export const COMBAT_ART_ARCHETYPES = Object.freeze(Object.keys(shapes));
 export const COMBAT_STRUCTURE_ART_IDS = Object.freeze(['bulwark-needle']);
 Object.freeze(shapes);
+
+export function getBriarRunnerPaintedFrameTransform({
+  action, direction, reducedMotion = false, tick,
+} = {}) {
+  if (!['walk', 'attack'].includes(action)) throw new RangeError('Briar Runner action must be walk or attack');
+  if (!SPRITE_DIRECTIONS.includes(direction)) throw new RangeError('Briar Runner direction must be cardinal');
+  if (!Number.isSafeInteger(tick) || tick < 0) throw new RangeError('Briar Runner tick must be a non-negative safe integer');
+  if (typeof reducedMotion !== 'boolean') throw new TypeError('Briar Runner reducedMotion must be a boolean');
+
+  const frame = reducedMotion ? 0 : Math.floor(tick / (action === 'walk' ? 5 : 3)) % 2;
+  const row = SPRITE_DIRECTIONS.indexOf(direction);
+  const column = (action === 'walk' ? 0 : 2) + frame;
+  const sourceX = column * BRIAR_PAINTED_ATLAS.cellSize + BRIAR_PAINTED_ATLAS.windowX;
+  const sourceY = row * BRIAR_PAINTED_ATLAS.cellSize + BRIAR_PAINTED_ATLAS.windowYByDirection[direction];
+  const positionDenominator = BRIAR_PAINTED_ATLAS.width - BRIAR_PAINTED_ATLAS.windowSize;
+  const percent = (value) => `${(value / positionDenominator) * 100}%`;
+  const backgroundSizePercent = (BRIAR_PAINTED_ATLAS.width / BRIAR_PAINTED_ATLAS.windowSize) * 100;
+  return Object.freeze({
+    action,
+    backgroundPosition: `${percent(sourceX)} ${percent(sourceY)}`,
+    backgroundSize: `${backgroundSizePercent}% ${backgroundSizePercent}%`,
+    column,
+    direction,
+    frame,
+    id: `briar-${action}-${direction}-${frame}`,
+    row,
+    source: Object.freeze({
+      height: BRIAR_PAINTED_ATLAS.windowSize,
+      width: BRIAR_PAINTED_ATLAS.windowSize,
+      x: sourceX,
+      y: sourceY,
+    }),
+  });
+}
+
+export function createBriarRunnerPaintedArt(document, {
+  action = 'walk', direction, reducedMotion = false, side, tick,
+} = {}) {
+  if (!['walk', 'attack'].includes(action)) throw new RangeError('Briar Runner action must be walk or attack');
+  if (!SPRITE_DIRECTIONS.includes(direction)) throw new RangeError('Briar Runner direction must be cardinal');
+  if (side !== 'north' && side !== 'south') throw new RangeError('Briar Runner side must be north or south');
+  const transform = getBriarRunnerPaintedFrameTransform({
+    action, direction, reducedMotion, tick,
+  });
+  const { x: sourceX, y: sourceY } = transform.source;
+  const create = typeof document?.createElementNS === 'function'
+    ? (tag) => document.createElementNS('http://www.w3.org/2000/svg', tag)
+    : (tag) => document.createElement(tag);
+  const svg = create('svg');
+  svg.setAttribute('viewBox', `${sourceX} ${sourceY} ${BRIAR_PAINTED_ATLAS.windowSize} ${BRIAR_PAINTED_ATLAS.windowSize}`);
+  svg.setAttribute('class', 'combat-art');
+  svg.setAttribute('aria-hidden', 'true');
+  svg.dataset.artId = 'briar-runner';
+  svg.dataset.spriteAction = action;
+  svg.dataset.spriteDirection = direction;
+  svg.dataset.spriteFrame = transform.id;
+  svg.dataset.spriteSide = side;
+  svg.dataset.simulationTick = String(tick);
+
+  const image = create('image');
+  image.setAttribute('href', BRIAR_PAINTED_ATLAS.image);
+  image.setAttribute('x', '0');
+  image.setAttribute('y', '0');
+  image.setAttribute('width', String(BRIAR_PAINTED_ATLAS.width));
+  image.setAttribute('height', String(BRIAR_PAINTED_ATLAS.height));
+  image.setAttribute('preserveAspectRatio', 'none');
+  svg.appendChild(image);
+
+  const teamMark = create('circle');
+  teamMark.setAttribute('cx', String(sourceX + 180));
+  teamMark.setAttribute('cy', String(sourceY + 168));
+  teamMark.setAttribute('r', '13');
+  teamMark.setAttribute('fill', side === 'north' ? '#C6452E' : '#2E7F86');
+  teamMark.setAttribute('stroke', INK);
+  teamMark.setAttribute('stroke-width', '4');
+  teamMark.setAttribute('aria-hidden', 'true');
+  svg.appendChild(teamMark);
+  return svg;
+}
 
 export function createCombatArt(document, kind, side, layer) {
   const create = typeof document.createElementNS === 'function'

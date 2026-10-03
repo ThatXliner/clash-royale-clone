@@ -1,3 +1,7 @@
+import { getBriarRunnerPaintedFrameTransform } from "./combat-art.js";
+
+export { getBriarRunnerPaintedFrameTransform } from "./combat-art.js";
+
 const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
 const DIRECTIONS = Object.freeze(["north", "east", "south", "west"]);
 const ACTIONS = Object.freeze(["walk", "attack"]);
@@ -118,10 +122,49 @@ export function createBriarRunnerSprite(document, {
   return svg;
 }
 
+export function createBriarRunnerPaintedSprite(document, {
+  action,
+  assetUrl,
+  direction,
+  reducedMotion = false,
+  side,
+  tick,
+} = {}) {
+  if (typeof document?.createElement !== "function")
+    throw new TypeError("painted sprite rendering requires a document");
+  if (typeof assetUrl !== "string" || assetUrl.length === 0)
+    throw new TypeError("painted sprite atlas URL is required");
+  const palette = teamPalette(side);
+  const frame = selectBriarRunnerFrame({ action, direction, tick, reducedMotion });
+  const transform = getBriarRunnerPaintedFrameTransform({
+    action,
+    direction,
+    reducedMotion,
+    tick,
+  });
+  const sprite = document.createElement("span");
+  sprite.setAttribute("class", "briar-runner-painted-sprite");
+  sprite.setAttribute("role", "img");
+  sprite.setAttribute("aria-label",
+    `${palette.label} painted Briar Runner ${frame.action}, facing ${frame.direction}`);
+  sprite.dataset.spriteSide = side;
+  sprite.dataset.spriteFrame = frame.id;
+  sprite.dataset.simulationTick = String(frame.tick);
+  sprite.dataset.reducedMotion = String(frame.reducedMotion);
+  sprite.style.backgroundImage = `url("${assetUrl}")`;
+  sprite.style.backgroundRepeat = "no-repeat";
+  sprite.style.backgroundSize = transform.backgroundSize;
+  sprite.style.backgroundPosition = transform.backgroundPosition;
+  sprite.style.setProperty("--team-color", palette.color);
+  sprite.style.setProperty("--team-accent", palette.accent);
+  return sprite;
+}
+
 export function mountBriarRunnerPrototype(document) {
   const root = document.querySelector("[data-sprite-prototype]");
   if (!root) return null;
-  const assetUrl = new URL("../public/assets/briar-runner-sprite-sheet.svg", document.baseURI).href;
+  const vectorAssetUrl = new URL("../public/assets/briar-runner-sprite-sheet.svg", document.baseURI).href;
+  const paintedAssetUrl = new URL("../public/assets/briar-runner-painted-sheet.png", document.baseURI).href;
   const actionControl = root.querySelector("[data-control=action]");
   const directionControl = root.querySelector("[data-control=direction]");
   const tickControl = root.querySelector("[data-control=tick]");
@@ -131,20 +174,26 @@ export function mountBriarRunnerPrototype(document) {
   const checkpointButton = root.querySelector("[data-action=checkpoint]");
   const advanceButton = root.querySelector("[data-action=advance]");
   const restoreButton = root.querySelector("[data-action=restore]");
-  const selectedPreviews = [...root.querySelectorAll("[data-selected-side]")];
-  const scalePreviews = [...root.querySelectorAll("[data-sample-side][data-direction]")];
+  const selectedPreviews = [...root.querySelectorAll("[data-selected-side][data-renderer]")];
+  const scaleBoards = [...root.querySelectorAll("[data-scale-board]")];
   const readState = () => checkedState({
     action: actionControl.value,
     direction: directionControl.value,
     reducedMotion: reducedControl.checked,
     tick: Number(tickControl.value),
   });
-  const renderInto = (container, state, side, size) => {
-    const sprite = createBriarRunnerSprite(document, {
-      ...state,
-      assetUrl,
-      side,
-    });
+  const renderInto = (container, state, side, size, renderer) => {
+    const sprite = renderer === "painted"
+      ? createBriarRunnerPaintedSprite(document, {
+        ...state,
+        assetUrl: paintedAssetUrl,
+        side,
+      })
+      : createBriarRunnerSprite(document, {
+        ...state,
+        assetUrl: vectorAssetUrl,
+        side,
+      });
     sprite.style.width = `${size}px`;
     sprite.style.height = `${size}px`;
     container.replaceChildren(sprite);
@@ -156,13 +205,23 @@ export function mountBriarRunnerPrototype(document) {
     root.dataset.currentAction = state.action;
     root.dataset.currentDirection = state.direction;
     root.dataset.currentReducedMotion = String(state.reducedMotion);
-    for (const container of scalePreviews) {
-      const side = container.dataset.sampleSide;
-      const direction = container.dataset.direction;
-      renderInto(container, { ...state, direction }, side, 34.56);
+    for (const board of scaleBoards) {
+      const boardWidth = board.getBoundingClientRect().width;
+      const unitSize = boardWidth * 0.048;
+      board.dataset.measuredWidth = boardWidth.toFixed(2);
+      board.dataset.unitSize = unitSize.toFixed(2);
+      const renderer = board.dataset.renderer;
+      for (const container of board.querySelectorAll("[data-sample-side][data-direction]")) {
+        const side = container.dataset.sampleSide;
+        const direction = container.dataset.direction;
+        renderInto(container, { ...state, direction }, side, unitSize, renderer);
+      }
     }
-    for (const container of selectedPreviews)
-      renderInto(container, state, container.dataset.selectedSide, 144);
+    for (const container of selectedPreviews) {
+      const renderer = container.dataset.renderer;
+      const previewSize = Math.min(144, container.getBoundingClientRect().width * 0.9);
+      renderInto(container, state, container.dataset.selectedSide, previewSize, renderer);
+    }
     const frame = selectBriarRunnerFrame(state);
     root.querySelector("[data-current-frame]").textContent = frame.id;
   };
@@ -170,6 +229,7 @@ export function mountBriarRunnerPrototype(document) {
   let checkpoint = serializeBriarRunnerState(readState());
   for (const control of [actionControl, directionControl, tickControl, reducedControl])
     control.addEventListener("input", render);
+  document.defaultView?.addEventListener?.("resize", render);
   checkpointButton.addEventListener("click", () => {
     checkpoint = serializeBriarRunnerState(readState());
     status.textContent = `Saved ${JSON.parse(checkpoint).tick} · ${JSON.parse(checkpoint).action} · ${JSON.parse(checkpoint).direction}`;

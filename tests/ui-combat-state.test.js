@@ -280,6 +280,66 @@ test("ui combat state: DOM projection is byte-stable with exact inverted arena c
   assert.equal(link.attributes.get("y2"), "7500");
 });
 
+test("ui combat state: painted Briar Runner pose follows tick, target bearing, contact, and restore", () => {
+  const runnerState = (tick, eventTick = null) => state({
+    entities: [entity({
+      id: 17,
+      kind: "briar-runner",
+      position: { x: 6_000, y: 12_000 },
+      side: "south",
+      targetId: "north:lane:left",
+    })],
+    events: eventTick === null ? [] : [
+      { entityId: 17, sequence: 0, tick: eventTick, type: "target" },
+    ],
+    tick,
+    towers: [tower({ targetId: null })],
+  });
+  const boundArt = (input) => {
+    const { layer } = dom();
+    const view = createCombatViewModel(input);
+    bindCombatViewModel(layer, view);
+    const runner = layer.children[0].children.find(({ dataset }) =>
+      dataset.kind === "briar-runner");
+    return { art: runner.children[1], bytes: nodeBytes(layer), runner, view };
+  };
+
+  const walking = boundArt(runnerState(40));
+  assert.equal(walking.art.dataset.spriteAction, "walk");
+  assert.equal(walking.art.dataset.spriteDirection, "north");
+  assert.equal(walking.art.dataset.spriteFrame, "briar-walk-north-0");
+  assert.equal(walking.art.dataset.simulationTick, "40");
+  assert.equal(walking.art.children[0].attributes.get("href"),
+    "./assets/briar-runner-painted-sheet.png");
+
+  const walkingNext = boundArt(runnerState(45));
+  assert.equal(walkingNext.art.dataset.spriteFrame, "briar-walk-north-1");
+
+  const attacking = boundArt(runnerState(42, 42));
+  assert.equal(attacking.art.dataset.spriteAction, "attack");
+  assert.equal(attacking.art.dataset.spriteFrame, "briar-attack-north-0");
+  const restoredLayer = dom().layer;
+  const restoredView = restoreCombatViewModel(serializeCombatViewModel(attacking.view));
+  bindCombatViewModel(restoredLayer, restoredView);
+  const restoredBytes = nodeBytes(restoredLayer);
+  const restoredRunner = restoredLayer.children[0].children.find(({ dataset }) =>
+    dataset.kind === "briar-runner");
+  assert.equal(restoredBytes, attacking.bytes);
+  assert.equal(restoredRunner.dataset.reaction, "target");
+
+  const reducedDocument = dom();
+  reducedDocument.document.defaultView = {
+    matchMedia(query) {
+      assert.equal(query, "(prefers-reduced-motion: reduce)");
+      return { matches: true };
+    },
+  };
+  bindCombatViewModel(reducedDocument.layer, createCombatViewModel(runnerState(45)));
+  const reducedRunner = reducedDocument.layer.children[0].children.find(({ dataset }) =>
+    dataset.kind === "briar-runner");
+  assert.equal(reducedRunner.children[1].dataset.spriteFrame, "briar-walk-north-0");
+});
+
 test("ui combat state: terminal restore produces byte-identical DOM and zero health", () => {
   const terminalState = state({
     entities: [entity({ hitpoints: 0, targetId: null })],

@@ -68,6 +68,7 @@ test('visual combat assets: every original silhouette mounts at game scale, rest
       const rect = arena.getBoundingClientRect();
       const art = [...layer.querySelectorAll('.combat-art')].map(svg => {
         const marker = svg.parentNode;
+        const paintedAtlas = svg.querySelector('image');
         const paths = [...svg.querySelectorAll('path')];
         const pathData = paths.map(path => ({
           d: path.getAttribute('d'),
@@ -77,7 +78,12 @@ test('visual combat assets: every original silhouette mounts at game scale, rest
         return {
           kind: svg.dataset.artId,
           markerKind: marker.dataset.kind,
+          imageHref: paintedAtlas?.getAttribute('href') ?? null,
+          painted: paintedAtlas !== null,
           side: marker.dataset.side,
+          spriteAction: svg.dataset.spriteAction ?? null,
+          spriteDirection: svg.dataset.spriteDirection ?? null,
+          spriteFrame: svg.dataset.spriteFrame ?? null,
           paths: pathData.map(path => path.d).join('|'),
           pathData,
           healthHeight: marker.querySelector(".combat-health").getBoundingClientRect().height,
@@ -149,6 +155,19 @@ test('visual combat assets: every original silhouette mounts at game scale, rest
     for (const kind of COMBAT_ART_ARCHETYPES) {
       const north = artBySideAndKind.get(`north\0${kind}`);
       const south = artBySideAndKind.get(`south\0${kind}`);
+      if (kind === 'briar-runner') {
+        for (const [side, direction, sprite] of [
+          ['north', 'south', north],
+          ['south', 'north', south],
+        ]) {
+          assert.equal(sprite.painted, true, `${side} Briar Runner must use the painted atlas`);
+          assert.equal(sprite.imageHref, './assets/briar-runner-painted-sheet.png');
+          assert.equal(sprite.spriteAction, 'walk');
+          assert.equal(sprite.spriteDirection, direction);
+          assert.equal(sprite.spriteFrame, `briar-walk-${direction}-0`);
+        }
+        continue;
+      }
       const northBody = north.pathData.slice(0, -1);
       const southBody = south.pathData.slice(0, -1);
       assert.deepEqual(northBody.map(path => path.d),

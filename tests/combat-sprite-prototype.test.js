@@ -6,6 +6,8 @@ import test from "node:test";
 
 import {
   createBriarRunnerSprite,
+  createBriarRunnerPaintedSprite,
+  getBriarRunnerPaintedFrameTransform,
   restoreBriarRunnerState,
   selectBriarRunnerFrame,
   serializeBriarRunnerState,
@@ -39,7 +41,7 @@ test("walk and attack frames are selected only from the simulation tick and faci
   ]);
 });
 
-test("every cardinal facing and action has two authored atlas frames", async () => {
+test("the vector comparison baseline has two authored frames per facing and action", async () => {
   const source = await readFile(joinPath("public/assets/briar-runner-sprite-sheet.svg"), "utf8");
   for (const action of ["walk", "attack"]) {
     for (const direction of DIRECTIONS) {
@@ -48,6 +50,55 @@ test("every cardinal facing and action has two authored atlas frames", async () 
         assert.match(source, new RegExp(`<symbol id="${id}"(?:\\s|>)`, "u"),
           `sprite sheet is missing ${id}`);
       }
+    }
+  }
+});
+
+test("the painted atlas maps every action, facing, and tick frame to a contained source window", async () => {
+  const image = await readFile(joinPath("public/assets/briar-runner-painted-sheet.png"));
+  assert.deepEqual(image.subarray(0, 8), Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]));
+  assert.equal(image.readUInt32BE(16), 1254);
+  assert.equal(image.readUInt32BE(20), 1254);
+  assert.equal(image[25], 6, "painted sprite atlas must preserve an alpha channel");
+
+  for (const [row, direction] of DIRECTIONS.entries()) {
+    for (const action of ["walk", "attack"]) {
+      for (const frame of [0, 1]) {
+        const tick = frame === 0 ? 0 : action === "walk" ? 5 : 3;
+        const transform = getBriarRunnerPaintedFrameTransform({
+          action,
+          direction,
+          reducedMotion: false,
+          tick,
+        });
+        const column = (action === "walk" ? 0 : 2) + frame;
+        const cellSize = 313.5;
+        assert.equal(transform.id, `briar-${action}-${direction}-${frame}`);
+        assert.equal(transform.row, row);
+        assert.equal(transform.column, column);
+        assert.equal(transform.source.width, 220);
+        assert.equal(transform.source.height, 220);
+        assert.ok(transform.source.x >= column * cellSize);
+        assert.ok(transform.source.x + transform.source.width <= (column + 1) * cellSize);
+        assert.ok(transform.source.y >= row * cellSize);
+        assert.ok(transform.source.y + transform.source.height <= (row + 1) * cellSize);
+      }
+    }
+  }
+});
+
+test("reduced motion holds the first painted atlas column for every facing", () => {
+  for (const direction of DIRECTIONS) {
+    for (const action of ["walk", "attack"]) {
+      const transform = getBriarRunnerPaintedFrameTransform({
+        action,
+        direction,
+        reducedMotion: true,
+        tick: 119,
+      });
+      assert.equal(transform.frame, 0);
+      assert.equal(transform.column, action === "walk" ? 0 : 2);
+      assert.equal(transform.row, DIRECTIONS.indexOf(direction));
     }
   }
 });
@@ -125,12 +176,43 @@ test("rendered SVG carries clear team identity, frame identity, and an outlined 
   assert.equal(north.getAttribute("viewBox"), "0 0 64 64");
 });
 
+test("painted renderer carries team identity and the same deterministic atlas frame", () => {
+  const document = fakeDocument();
+  const painted = createBriarRunnerPaintedSprite(document, {
+    action: "attack",
+    assetUrl: "/public/assets/briar-runner-painted-sheet.png",
+    direction: "west",
+    side: "south",
+    tick: 3,
+  });
+  const transform = getBriarRunnerPaintedFrameTransform({
+    action: "attack",
+    direction: "west",
+    reducedMotion: false,
+    tick: 3,
+  });
+  assert.equal(painted.name, "span");
+  assert.equal(painted.dataset.spriteSide, "south");
+  assert.equal(painted.dataset.spriteFrame, "briar-attack-west-1");
+  assert.equal(painted.dataset.simulationTick, "3");
+  assert.match(painted.getAttribute("aria-label"), /South painted Briar Runner attack, facing west/u);
+  assert.equal(painted.style.backgroundImage,
+    'url("/public/assets/briar-runner-painted-sheet.png")');
+  assert.equal(painted.style.backgroundPosition, transform.backgroundPosition);
+  assert.equal(painted.style.backgroundSize, transform.backgroundSize);
+  assert.equal(painted.style.values.get("--team-color"), "#2e7f86");
+  assert.equal(painted.style.values.get("--team-accent"), "#9bbb76");
+});
+
 function joinPath(path) {
   return resolve(WORKSPACE, ...path.split("/"));
 }
 
 function fakeDocument() {
   return {
+    createElement(name) {
+      return new FakeSvgNode(name);
+    },
     createElementNS(namespace, name) {
       assert.equal(namespace, "http://www.w3.org/2000/svg");
       return new FakeSvgNode(name);

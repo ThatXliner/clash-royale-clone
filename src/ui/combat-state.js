@@ -1,5 +1,6 @@
 import { COMBAT_MOTION_STYLE, COMBAT_DEATH_STYLE } from "./combat-motion.js";
 import {
+  createBriarRunnerPaintedArt,
   createCombatArt,
   COMBAT_ART_STYLE,
   COMBAT_STRUCTURE_ART_IDS,
@@ -463,6 +464,19 @@ function setCommonNode(node, record, type) {
   node.appendChild(healthNode);
 }
 
+function briarFacingDirection(entity, link) {
+  if (!link) return entity.side === "north" ? "south" : "north";
+  const dx = link.x2 - link.x1;
+  const dy = link.y2 - link.y1;
+  if (Math.abs(dy) >= Math.abs(dx)) {
+    if (dy > 0) return "north";
+    if (dy < 0) return "south";
+  }
+  if (dx > 0) return "east";
+  if (dx < 0) return "west";
+  return entity.side === "north" ? "south" : "north";
+}
+
 export function bindCombatViewModel(layer, view) {
   if (
     layer === null || typeof layer !== "object" ||
@@ -485,6 +499,10 @@ export function bindCombatViewModel(layer, view) {
   const targetingStructureKeys = new Set(canonical.links
     .filter(({ fromKey }) => structureKeys.has(fromKey))
     .map(({ fromKey }) => fromKey));
+  const linksBySource = new Map(canonical.links.map((link) => [link.fromKey, link]));
+  const reducedMotion = layer.ownerDocument.defaultView?.matchMedia?.(
+    "(prefers-reduced-motion: reduce)",
+  )?.matches === true;
   for (const link of canonical.links) {
     const createSvg = typeof layer.ownerDocument.createElementNS === "function"
       ? (name) => layer.ownerDocument.createElementNS("http://www.w3.org/2000/svg", name)
@@ -521,13 +539,23 @@ export function bindCombatViewModel(layer, view) {
     setCommonNode(node, entity, `entity-${entity.layer}`);
     node.dataset.kind = entity.kind;
     node.dataset.layer = entity.layer;
-    node.dataset.reaction = reactions.get(entity.key) ?? "idle";
+    const reaction = reactions.get(entity.key) ?? "idle";
+    node.dataset.reaction = reaction;
     if (structureKeys.has(entity.key)) {
       node.className += " combat-marker--structure";
       node.dataset.structure = "true";
       node.dataset.targeting = String(targetingStructureKeys.has(entity.key));
     }
-    node.appendChild(createCombatArt(layer.ownerDocument, entity.kind, entity.side, entity.layer));
+    const art = entity.kind === "briar-runner"
+      ? createBriarRunnerPaintedArt(layer.ownerDocument, {
+        action: reaction === "target" ? "attack" : "walk",
+        direction: briarFacingDirection(entity, linksBySource.get(entity.key)),
+        reducedMotion,
+        side: entity.side,
+        tick: canonical.tick,
+      })
+      : createCombatArt(layer.ownerDocument, entity.kind, entity.side, entity.layer);
+    node.appendChild(art);
     nodes.push(node);
   }
   for (const node of nodes) frame.appendChild(node);
