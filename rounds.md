@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 381 — 2026-10-02
+
+PIECE: CARDS-011 — Classic melee squad collection expansion, round 1
+
+VERDICT: PASS
+
+EVIDENCE: Independent frozen `42bcf09` focused tests pass 73/73 in 76.819 seconds; app-shell passes 1/1 in 59.176 seconds; visual asset manifest passes 6/6. Actual desktop and 390×844 phone screenshots show original Thornscouts and Forgeguard portraits and stories, with no browser errors. Both squads deploy through custom eight-card decks with correct four/five counts and exact restore/replay. Default eight-card setup remains unchanged; collection has eleven choices. Encoded portrait assets match manifest hashes at 213,794 and 268,352 bytes. Root assembled Pages qualification also passes: 42 release files, 6,521,600 bytes; preview updated at port4194. Evidence: `artifacts/cards-expansion-round-1/critic/`.
+
+BIGGEST GAP: Historical combat stats have incomplete independent corroboration in the pinned reference corpus; collision/delivery/layer estimates retain their explicit QUESTION policies. No historical-parity claim.
+
 ## Round 380 — 2026-10-02
 
 PIECE: LORE-001 — Original world and card lore, round 1

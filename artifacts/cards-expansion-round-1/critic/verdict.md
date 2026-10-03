@@ -1,0 +1,4 @@
+PIECE: CARDS-011 — editable collection expansion (frozen `42bcf094ba89128e75fe525772dc18d756237dc9`)
+VERDICT: PASS
+EVIDENCE: Required focused suite 73/73, actual `public/index.html` app-shell 1/1, and visual asset manifest 6/6 all passed. Desktop and phone captures show distinct original Thornscouts and Forgeguard portraits; independent 390×844 captures show both cards’ names and lore at readable detail size. The browser report records the unchanged eight-card default setup, all 11 editable choices, successful direct asset loads, trusted Battle deployment, and exact restore/replay. Unit/session tests specifically pass custom eight-card deployment and restore for both new squads. Direct portrait outputs match manifest hashes byte-for-byte and are 213,794 B and 268,352 B.
+BIGGEST GAP: The copied Goblin/Barbarian numeric mechanics remain low-confidence estimates, explicitly treated as question-backed values; this pass does not claim historical parity.
