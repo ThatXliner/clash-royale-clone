@@ -1,0 +1,4 @@
+PIECE: ART-005C
+VERDICT: FAIL
+EVIDENCE: On immutable commit 1bb43e1, `npm run test:visual-asset-manifest` reports `# tests 6`, `# pass 5`, `# fail 1`; the failing assertion is `6 !== 8` in “registry matches shipped assets on disk byte-for-byte.” The checkout contains six files under public/assets while the manifest declares eight, with `assets/briar-runner-painted-sheet.png` and `assets/moss-ember-arena-painted.webp` absent. Both card portrait files are present and their hashes match their manifest declarations. Release build passed (122 files, 2,689,181 bytes); deck passed 7/7; editable-deck passed 4/4. Browser rendering was not run after the frozen candidate failed the asset registry check, per root’s instruction.
+BIGGEST GAP: The frozen candidate declares two shipped assets that are absent from public/assets, so its asset manifest is incomplete and the required manifest check fails.

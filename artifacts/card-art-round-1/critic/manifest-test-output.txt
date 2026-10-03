@@ -1,0 +1,81 @@
+Command: npm run test:visual-asset-manifest
+Checkout: detached HEAD 1bb43e1c0afa939cbcba41aac77f836b31565fb6
+
+> moss-and-ember@0.0.0 test:visual-asset-manifest
+> node tests/visual-asset-manifest-runner.js visual-asset-manifest
+
+TAP version 13
+# Subtest: visual asset manifest: frozen visual bible pins all six dimensions
+ok 1 - visual asset manifest: frozen visual bible pins all six dimensions
+  ---
+  duration_ms: 0.986125
+  type: 'test'
+  ...
+# Subtest: visual asset manifest: visual bible is content-addressed by pinned digest
+ok 2 - visual asset manifest: visual bible is content-addressed by pinned digest
+  ---
+  duration_ms: 0.296833
+  type: 'test'
+  ...
+# Subtest: visual asset manifest: registry matches shipped assets on disk byte-for-byte
+not ok 3 - visual asset manifest: registry matches shipped assets on disk byte-for-byte
+  ---
+  duration_ms: 2.734375
+  type: 'testCodeFailure'
+  location: '/private/tmp/card-art-round-1-critic/tests/visual-asset-manifest.test.js:154:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    6 !== 8
+    
+    code: 'ERR_ASSERTION'
+    name: 'AssertionError'
+    expected: 8
+    actual: 6
+    operator: 'strictEqual'
+    stack: |-
+  ...
+# Subtest: visual asset manifest: zero byte overlap with the reference corpus
+ok 4 - visual asset manifest: zero byte overlap with the reference corpus
+  ---
+  duration_ms: 2.245792
+  type: 'test'
+  ...
+# Subtest: visual asset manifest: provenance never references protected-game sources
+ok 5 - visual asset manifest: provenance never references protected-game sources
+  ---
+  duration_ms: 0.1925
+  type: 'test'
+  ...
+# Subtest: visual asset manifest: admission accepts only the closed canonical surface
+ok 6 - visual asset manifest: admission accepts only the closed canonical surface
+  ---
+  duration_ms: 3.448
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 5
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 97.318125
+
+public/assets files actually present:
+public/assets/briar-runner-sprite-sheet.svg
+public/assets/card-portraits-painted.webp
+public/assets/icons/emberfall-mark.svg
+public/assets/icons/rivermark-pip.svg
+public/assets/icons/tidewarden-mark.svg
+public/assets/stonehauler-painted.webp
+
+Manifest entries with no file:
+assets/briar-runner-painted-sheet.png
+assets/moss-ember-arena-painted.webp
+
+Portrait asset SHA-256 output:
+16307a59bde57889e11bcd7b86b54d69ba9985eae6ef436d9703e528fba58e4f  public/assets/card-portraits-painted.webp
+47c19650d41d21a6efb3f883b6fff73892abd214783279dcb5708cc198b87357  public/assets/stonehauler-painted.webp

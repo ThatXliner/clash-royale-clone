@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 371 — 2026-10-02
+
+PIECE: ART-005C — Painted portraits across playable screens, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Independent critic ran the frozen `1bb43e1` candidate. Asset manifest passed 5/6 checks: public/assets contains 6 files but declares 8; `assets/briar-runner-painted-sheet.png` and `assets/moss-ember-arena-painted.webp` are absent. Both portrait binaries are committed and match declared hashes. Isolated release build passed, deck 7/7 and editable-deck 4/4 passed. Browser review was deferred until the frozen asset snapshot is complete. Exact output: `artifacts/card-art-round-1/critic/`.
+
+BIGGEST GAP: The frozen candidate declares two shipped assets that are absent, so the required manifest check fails.
+
 ## Round 370 — 2026-10-02
 
 PIECE: PUB-003 — Reader-first README and separate engineering guides, round 2

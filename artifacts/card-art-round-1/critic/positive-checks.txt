@@ -1,0 +1,21 @@
+Frozen checkout: /tmp/card-art-round-1-critic, detached HEAD 1bb43e1c0afa939cbcba41aac77f836b31565fb6
+
+Command: node scripts/build-release.js --out /tmp/card-art-round-1-critic/release-dist
+Output: release artifact: /tmp/card-art-round-1-critic/release-dist (122 files, 2689181 bytes)
+Exit code: 0
+
+Command: npm run test:deck
+Output summary:
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+Exit code: 0
+
+Command: npm run test:editable-deck
+Output summary:
+# tests 4
+# suites 0
+# pass 4
+# fail 0
+Exit code: 0
