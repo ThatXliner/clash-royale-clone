@@ -8,6 +8,8 @@ const CARD_PORTRAITS = Object.freeze({
   "briar-band": Object.freeze({ asset: "card-portraits-painted", cell: 6 }),
   cinderlings: Object.freeze({ asset: "card-portraits-painted", cell: 7 }),
   stonehauler: Object.freeze({ asset: "stonehauler-painted", cell: null }),
+  thornscouts: Object.freeze({ asset: "thornscouts-painted", cell: null }),
+  forgeguard: Object.freeze({ asset: "forgeguard-painted", cell: null }),
 });
 
 const PORTRAIT_ASSET_PATHS = Object.freeze({
@@ -17,6 +19,14 @@ const PORTRAIT_ASSET_PATHS = Object.freeze({
   ).href,
   "stonehauler-painted": new URL(
     "../../public/assets/stonehauler-painted.webp",
+    import.meta.url,
+  ).href,
+  "thornscouts-painted": new URL(
+    "../../public/assets/thornscouts-painted.webp",
+    import.meta.url,
+  ).href,
+  "forgeguard-painted": new URL(
+    "../../public/assets/forgeguard-painted.webp",
     import.meta.url,
   ).href,
 });

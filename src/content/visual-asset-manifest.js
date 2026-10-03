@@ -312,6 +312,28 @@ const REGISTERED_ASSETS = [
     path: "assets/stonehauler-painted.webp",
     sha256: "47c19650d41d21a6efb3f883b6fff73892abd214783279dcb5708cc198b87357",
   },
+  {
+    authorship: "in-repo-authored",
+    byteLength: 213794,
+    dimensions: { height: 1254, width: 1254 },
+    format: "webp",
+    id: "thornscouts-painted",
+    kind: "image",
+    license: "AGPL-3.0-only",
+    path: "assets/thornscouts-painted.webp",
+    sha256: "04893c3101194546b572056ad9466d88b26fc2ede3549ec821e1304b1fe9c11a",
+  },
+  {
+    authorship: "in-repo-authored",
+    byteLength: 268352,
+    dimensions: { height: 1254, width: 1254 },
+    format: "webp",
+    id: "forgeguard-painted",
+    kind: "image",
+    license: "AGPL-3.0-only",
+    path: "assets/forgeguard-painted.webp",
+    sha256: "cdd98ec4812e602b118645de53238013c75b798cd632363c3ffd1235212cc5ed",
+  },
 ];
 
 const MANIFEST = freeze({

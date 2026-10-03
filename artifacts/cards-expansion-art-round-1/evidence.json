@@ -1,0 +1,36 @@
+{
+  "round": "cards-expansion-art-round-1",
+  "preview": "artifacts/cards-expansion-art-round-1/portraits-contact-sheet.webp",
+  "provenance": "docs/art/card-expansion-provenance.json",
+  "verification": {
+    "command": "npm run test:visual-asset-manifest",
+    "result": "pass",
+    "passed": 6,
+    "failed": 0,
+    "checks": [
+      "shipped visual asset registry matches public files by bytes, SHA-256, and dimensions",
+      "shipped assets have no byte overlap with the reference corpus",
+      "asset provenance uses the closed in-repo authorship and license records"
+    ]
+  },
+  "assets": [
+    {
+      "card_id": "thornscouts",
+      "asset": "public/assets/thornscouts-painted.webp",
+      "source": "demo/assets/thornscouts-painted.png",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 213794,
+      "sha256": "04893c3101194546b572056ad9466d88b26fc2ede3549ec821e1304b1fe9c11a"
+    },
+    {
+      "card_id": "forgeguard",
+      "asset": "public/assets/forgeguard-painted.webp",
+      "source": "demo/assets/forgeguard-painted.png",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 268352,
+      "sha256": "cdd98ec4812e602b118645de53238013c75b798cd632363c3ffd1235212cc5ed"
+    }
+  ]
+}

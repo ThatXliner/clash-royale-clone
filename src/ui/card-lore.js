@@ -10,6 +10,8 @@ const CARD_LORE = Object.freeze({
   "briar-band": "The runners and darters met in a thorn maze and chose the same leaf mark for their masks. They leave chalk arrows on the stumps so the next scout can find the way out.",
   cinderlings: "Three ember sprouts woke beneath a fallen lantern in a bed of ash. They gather sparks in nutshell caps and leave tiny lights along the stones.",
   stonehauler: "This broad pack carrier is built around a core of quarry stone, wrapped in weathered rootwood. Copper bells on its straps ring out when it reaches the river workshops.",
+  thornscouts: "The four Thornscouts mark safe crossings with tiny cuts in their light blades. Pale leaf masks turn their faces into a blur among the fern paths.",
+  forgeguard: "Five Forgeguard keep the river workshops supplied with hammers and axes. Their copper aprons darken at the seams, but each hammer tap keeps the old bridge pins true.",
 });
 
 export function getCardLore(cardId) {
