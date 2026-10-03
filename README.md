@@ -32,12 +32,13 @@ or mechanically indistinguishable parity.
 
 ## Quick start
 
-Requirements: Node.js 22 or later.
+Requirements: Node.js 22.12.0 or later.
 
 ```sh
 git clone https://github.com/ThatXliner/clash-royale-clone.git
 cd clash-royale-clone
 npm ci
+npx playwright install chromium
 npm run preview:release
 ```
 
@@ -79,9 +80,9 @@ actions, observations, masks, and checkpoint restore.
 
 `npm test` runs the default test suite. For a focused runner, use
 `npm run test:portable -- node tests/<runner>.js <selector>`. `test:portable`
-is a runner wrapper, not a browser-only test suite. Browser runners use
-Playwright; after `npm ci`, install its Chromium browser with
-`npx playwright install chromium` if needed.
+is a runner wrapper, not a browser-only test suite. Browser runners and
+production release builds use Playwright with Chromium. On Linux, install
+Chromium and its system dependencies with `npx playwright install --with-deps chromium`.
 
 The browser endurance run is long-running. Run
 `npm run test:portable -- npm run test:game-browser-endurance` when you need its
