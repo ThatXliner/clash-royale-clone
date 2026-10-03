@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 380 — 2026-10-02
+
+PIECE: LORE-001 — Original world and card lore, round 1
+
+VERDICT: PASS
+
+EVIDENCE: Independent frozen `e235a0f` app-polish test passes 1/1 in 18.8 seconds. Actual browser inspection at 1440×933 and 390×844 verifies all nine visible Story blocks against their original text, separate from mechanics and statistics. Zero horizontal overflow and zero final-stat/fixed-navigation overlap across all nine phone details. No failed app requests or page errors; packaged app-polish has no console errors. Source Vite emits one automatic `/favicon.ico` 404 unrelated to lore. World guide and README link resolve. Evidence: `artifacts/lore-round-1/critic/`. Root assembled Pages build also passes after the lore integration (38 release files, 5,544,281 bytes).
+
+BIGGEST GAP: None on the scoped original lore integration bar.
+
 ## Round 379 — 2026-10-02
 
 PIECE: ART-005S — Painted troop animation in playable battle, round 3

@@ -1,0 +1,4 @@
+PIECE: LORE-001 — original setting and card stories
+VERDICT: PASS
+EVIDENCE: Frozen candidate `e235a0f7b53dabfb2cf88bbe30366f37ece1aefb`. `npm run test:app-polish` passed (1/1; 18.8s). Independent production-card-detail browser inspection at 1440×933 and 390×844 matched all nine rendered Story paragraphs to the candidate lore data, confirmed Story is a separate block before mechanics, and found 0px horizontal overflow and 0px phone final-stat/fixed-nav overlap; all nine phone final-stat cells remained visible above navigation. It saved 9 desktop and 18 phone screenshots plus `browser-evidence.json` and `inspection-output.json`. No sim/schema files are in the candidate diff; README links `docs/lore.md`.
+BIGGEST GAP: No in-scope product gap observed; the source-only Vite host emitted one automatic `/favicon.ico` console 404, while app request failures were 0 and the packaged app-polish browser run reported no page or console errors.
