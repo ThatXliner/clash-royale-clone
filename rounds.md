@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 374 — 2026-10-02
+
+PIECE: ART-005S — Painted troop animation in playable battle, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Independent frozen `e4e47df` source-hosted app actual desktop720×1280 and phone390×844 render. Sprite/UI/browser22/22, visual-combat3/3 and manifest6/6 pass; no browser errors/missing paths. Desktop/phone restored screenshots match byte-for-byte. Phone displayed marker13.3377px, persistent team-color dot approximately1.57px while both teams share body colors. Atlas987,565bytes/hashmatches. Evidence `artifacts/sprite-art-round-2/critic/`. Scope source-hosted game only, not packaged release or endurance/historical parity.
+
+BIGGEST GAP: Team identity collapses to a roughly1.57px dot at phone marker size; enlarge persistent team-color area.
+
 ## Round 373 — 2026-10-02
 
 PIECE: ART-005C — Painted portraits across playable screens, round 2

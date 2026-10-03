@@ -1,0 +1,7 @@
+PIECE: ART-005S — painted Briar Runner atlas integration
+VERDICT: FAIL
+EVIDENCE: In an independent Playwright Chromium run against the frozen e4e47df checkout, `public/index.html` opened the real battle iframe and rendered at 720×1280 and 390×844. The browser suite passed with no page or console errors and no missing paths. The live Briar Runner markers measured 22.162×22.162 px at 720 and 13.3377×13.3377 px at 390. Restore screenshots were byte-identical at both sizes; SHA-256 values are recorded in `browser-render-evidence.json`. Focused test results: sprite/UI/browser 22/22, visual combat assets 3/3, visual asset manifest 6/6. The atlas is 987,565 bytes and its manifest digest matches the PNG: `a1aa43df00dacc212beedb4905dddd7a57db412981ea29662bc1d868a97794f4`.
+
+The gameplay screenshots are `live-battle-720.png` and `live-battle-390.png`; before/after restoration captures are also included. The prototype renders at both sizes in the four-facing walk/attack captures. This verifies the source-hosted app path only; it does not certify the packaged release build. No local reference gameplay capture exists (`reference/footage/NEEDED.md`), so this is not a historical parity claim.
+
+BIGGEST GAP: At 390×844 the real marker is only 13.3377 px wide, while the side-color circle is 26 px in a 220 px source window (about 1.57 displayed pixels); the body palette is otherwise shared across teams, so team identity is not reliably readable at phone gameplay size. Give team color a larger, persistent region that survives the 14 px marker scale.

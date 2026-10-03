@@ -1,0 +1,147 @@
+{
+  "candidateCommit": "e4e47dfb1f3ab5af79187ab291e63e84ec96b353",
+  "executionCheckout": "/tmp/painted-sprite-critic-e4e47df",
+  "scope": "Actual source-hosted public/index.html battle iframe; packaged release build not certified.",
+  "testResults": [
+    {
+      "command": "node --test tests/combat-sprite-prototype.test.js tests/ui-combat-state.test.js tests/combat-sprite-prototype-browser.test.js",
+      "tests": 22,
+      "passed": 22,
+      "failed": 0
+    },
+    {
+      "command": "node --test tests/visual-combat-assets.test.js",
+      "tests": 3,
+      "passed": 3,
+      "failed": 0
+    },
+    {
+      "command": "node tests/visual-asset-manifest-runner.js visual-asset-manifest",
+      "tests": 6,
+      "passed": 6,
+      "failed": 0
+    }
+  ],
+  "browser": {
+    "createdAt": "2026-10-03T01:21:31.387Z",
+    "pageErrors": [],
+    "consoleErrors": [],
+    "viewports": [
+      {
+        "viewport": {
+          "width": 720,
+          "height": 1280
+        },
+        "frame": {
+          "height": 1095,
+          "scaleX": 0.855469,
+          "scaleY": 0.855469,
+          "width": 615.94
+        },
+        "arena": {
+          "height": 828.09,
+          "width": 468.8,
+          "sourceHeight": 960,
+          "sourceWidth": 540,
+          "displayedContentHeight": 821.25,
+          "displayedContentWidth": 461.95,
+          "x": 86,
+          "y": 104
+        },
+        "unitCount": 15,
+        "briarMarkers": 6,
+        "markerDisplayedSizes": [
+          "22.162x22.162"
+        ],
+        "sides": [
+          "south",
+          "north"
+        ],
+        "actions": [
+          "walk"
+        ],
+        "facings": [
+          "north",
+          "south"
+        ],
+        "restore": {
+          "identical": true,
+          "tick": 120,
+          "pixelIdentical": true,
+          "screenshotSha256": "765b2b211c41ef2dd8f57f1058fc60dae5dfe254cd0356eda069e8602fc450f1"
+        }
+      },
+      {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "frame": {
+          "height": 659,
+          "scaleX": 0.514844,
+          "scaleY": 0.514844,
+          "width": 370.69
+        },
+        "arena": {
+          "height": 498.37,
+          "width": 282.13,
+          "sourceHeight": 960,
+          "sourceWidth": 540,
+          "displayedContentHeight": 494.25,
+          "displayedContentWidth": 278.02,
+          "x": 86,
+          "y": 104
+        },
+        "unitCount": 15,
+        "briarMarkers": 6,
+        "markerDisplayedSizes": [
+          "13.3377x13.3377"
+        ],
+        "sides": [
+          "south",
+          "north"
+        ],
+        "actions": [
+          "walk"
+        ],
+        "facings": [
+          "north",
+          "south"
+        ],
+        "restore": {
+          "identical": true,
+          "tick": 120,
+          "pixelIdentical": true,
+          "screenshotSha256": "ab8e893179f9c1183bbff4314083804bd5f9ea68fe65220c9accef2288653119"
+        }
+      }
+    ]
+  },
+  "asset": {
+    "path": "public/assets/briar-runner-painted-sheet.png",
+    "actualBytes": 987565,
+    "belowOneMiB": true,
+    "actualSha256": "a1aa43df00dacc212beedb4905dddd7a57db412981ea29662bc1d868a97794f4",
+    "manifestByteLength": 987565,
+    "manifestSha256": "a1aa43df00dacc212beedb4905dddd7a57db412981ea29662bc1d868a97794f4",
+    "matchesManifest": true
+  },
+  "verdict": "FAIL",
+  "biggestGap": "At 390x844, 13.3377 px markers reduce the 26/220 source-window team dot to about 1.57 px; most body color is shared, making team identity unreliable at gameplay size.",
+  "limitations": [
+    "No local reference gameplay capture is present.",
+    "No performance or endurance certification was performed."
+  ],
+  "screenshots": [
+    "live-battle-720.png",
+    "live-battle-390.png",
+    "live-battle-720-before-restore.png",
+    "live-battle-720-after-restore.png",
+    "live-battle-390-before-restore.png",
+    "live-battle-390-after-restore.png",
+    "720-walk.png",
+    "720-attack.png",
+    "390-walk.png",
+    "390-attack.png"
+  ]
+}
