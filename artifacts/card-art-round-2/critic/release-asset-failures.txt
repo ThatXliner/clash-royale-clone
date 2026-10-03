@@ -1,0 +1,26 @@
+PIECE: ART-005C R2
+Frozen source: b62cf22
+Release command: node scripts/build-release.js --out /tmp/card-art-round-2-critic/release-dist
+Actual build output: release artifact: /tmp/card-art-round-2-critic/release-dist (123 files, 3086428 bytes)
+
+Packaged release manifest search:
+11:      "path": "public/assets/moss-ember-arena-painted.webp"
+/tmp/card-art-round-2-critic/release-dist/public/assets/moss-ember-arena-painted.webp
+
+Browser request output from the isolated release server:
+{"method":"GET","path":"public/assets/card-portraits-painted.webp","status":404}
+{"method":"GET","path":"public/assets/stonehauler-painted.webp","status":404}
+
+Actual Playwright release render:
+- release-browser-evidence.json: 10 portrait image responses returned 404; 0 page errors; 10 console errors; all sampled image elements have naturalWidth 0 at both 1440x933 and 390x844.
+- desktop-cards-1440x933.png: all nine Cards portrait wells are blank.
+- phone-cards-top-390x844.png and phone-cards-bottom-390x844.png: portrait wells are blank.
+- desktop-home-1440x933.png, desktop-deck-1440x933.png, phone-home-390x844.png, and phone-deck-390x844.png are captured from the same release build.
+- No production release file exceeded 1 MiB in the isolated build.
+
+Focused checks:
+- visual-asset-manifest.txt: 6/6 passed.
+- deck.txt: 7/7 passed.
+- editable-deck.txt: 4/4 passed.
+
+app-shell.txt fails before its reported later battle-resume assertion: it expects manifest.entrypoints to equal ["public/index.html"], while the frozen config declares both public/index.html and src/rl/environment.js. The isolated Battle iframe probe (battle-controller-probe.json) separately shows a defined arenaHudController, a present state object, sessionTick advancing from 0 to 16, and no page errors. Thus the recorded undefined-controller failure was not reproduced on this snapshot's live release route.

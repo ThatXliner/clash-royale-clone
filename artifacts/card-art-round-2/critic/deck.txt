@@ -1,0 +1,56 @@
+
+> moss-and-ember@0.0.0 test:deck
+> node tests/deck-runner.js deck
+
+TAP version 13
+# Subtest: deck: original configurable shuffle rule and seed vectors are pinned
+ok 1 - deck: original configurable shuffle rule and seed vectors are pinned
+  ---
+  duration_ms: 2.417833
+  type: 'test'
+  ...
+# Subtest: deck: slot replacement, next card, and full eight-card cycle are exact
+ok 2 - deck: slot replacement, next card, and full eight-card cycle are exact
+  ---
+  duration_ms: 0.350584
+  type: 'test'
+  ...
+# Subtest: deck: invalid and not-in-hand commands are explicit, stable, and atomic
+ok 3 - deck: invalid and not-in-hand commands are explicit, stable, and atomic
+  ---
+  duration_ms: 0.234209
+  type: 'test'
+  ...
+# Subtest: deck: canonical command replay restores a mid-cycle state byte-for-byte
+ok 4 - deck: canonical command replay restores a mid-cycle state byte-for-byte
+  ---
+  duration_ms: 0.512708
+  type: 'test'
+  ...
+# Subtest: deck: 10,000 commands replay identically with a hard history bound
+ok 5 - deck: 10,000 commands replay identically with a hard history bound
+  ---
+  duration_ms: 33.677459
+  type: 'test'
+  ...
+# Subtest: deck: deck and snapshot validation reject malformed or accessor input
+ok 6 - deck: deck and snapshot validation reject malformed or accessor input
+  ---
+  duration_ms: 7.166334
+  type: 'test'
+  ...
+# Subtest: deck: runtime remains isolated from reference and ambient nondeterminism
+ok 7 - deck: runtime remains isolated from reference and ambient nondeterminism
+  ---
+  duration_ms: 1.195042
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 111.378791

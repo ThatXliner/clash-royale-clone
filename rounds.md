@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 373 — 2026-10-02
+
+PIECE: ART-005C — Painted portraits across playable screens, round 2
+
+VERDICT: FAIL
+
+EVIDENCE: Independent frozen `b62cf22` release build completes with 123 files but omits both portrait WebPs. Actual desktop Cards1440×933 and phone Cards/Home/Deck390×844 render blank wells: requests for `/public/assets/card-portraits-painted.webp` and `/public/assets/stonehauler-painted.webp` return404; sampled images naturalWidth0. Source manifest6/6, deck7/7 and editable-deck4/4 pass. App-shell test stops at stale entrypoint assertion; separate live Battle probe finds controller defined and tick advancing. Evidence `artifacts/card-art-round-2/critic/`.
+
+BIGGEST GAP: The release dependency graph omits both portrait files, leaving empty portrait wells across the shipped Cards, Home, and Deck views.
+
 ## Round 372 — 2026-10-02
 
 PIECE: ART-005A — Painted terrain in playable arena, round 1

@@ -1,0 +1,4 @@
+PIECE: ART-005C R2
+VERDICT: FAIL
+EVIDENCE: The isolated production release build contains no public/assets/card-portraits-painted.webp or public/assets/stonehauler-painted.webp. Playwright served the built artifact at 1440x933 and 390x844 and logged 404 responses for both portrait URLs; every sampled portrait had naturalWidth 0. The desktop Cards capture shows all nine portrait wells blank; the phone Cards, Home and Deck captures are also saved in the critic evidence directory. The manifest, deck and editable-deck checks pass (6/6, 7/7, 4/4). npm run test:app-shell fails earlier at its stale entrypoint expectation; a separate live Battle iframe probe found the controller defined with state advancing 0 to 16.
+BIGGEST GAP: The release dependency graph omits both portrait WebP assets, so the shipped Cards, Home and Deck views render empty portrait wells and request missing files.

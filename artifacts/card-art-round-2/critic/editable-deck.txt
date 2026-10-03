@@ -1,0 +1,38 @@
+
+> moss-and-ember@0.0.0 test:editable-deck
+> node tests/editable-deck-runner.js editable-deck
+
+TAP version 13
+# Subtest: editable deck setup admits every eight-card subset and closes QUESTION records
+ok 1 - editable deck setup admits every eight-card subset and closes QUESTION records
+  ---
+  duration_ms: 3877.933917
+  type: 'test'
+  ...
+# Subtest: editable deck setup preserves the shipped standard setup and selected order
+ok 2 - editable deck setup preserves the shipped standard setup and selected order
+  ---
+  duration_ms: 9.099334
+  type: 'test'
+  ...
+# Subtest: editable Stonehauler deployment survives deterministic restore continuation
+ok 3 - editable Stonehauler deployment survives deterministic restore continuation
+  ---
+  duration_ms: 715.844959
+  type: 'test'
+  ...
+# Subtest: editable deck rejects malformed, duplicate, unsupported, and noncanonical setups
+ok 4 - editable deck rejects malformed, duplicate, unsupported, and noncanonical setups
+  ---
+  duration_ms: 4.7155
+  type: 'test'
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 4
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4831.356791
