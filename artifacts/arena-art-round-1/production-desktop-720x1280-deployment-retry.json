@@ -1,0 +1,1303 @@
+{
+  "cardId": "cinderlings",
+  "pointerAndPlacement": {
+    "pointer": {
+      "client": {
+        "x": 356,
+        "y": 864
+      },
+      "isTrusted": true,
+      "localBorderBox": {
+        "x": 270,
+        "y": 760
+      },
+      "localContentBox": {
+        "x": 266,
+        "y": 756
+      },
+      "arenaClientRect": {
+        "left": 90,
+        "top": 108,
+        "width": 540,
+        "height": 960
+      },
+      "arenaGeometry": {
+        "borderRect": {
+          "x": 86,
+          "y": 104,
+          "width": 548,
+          "height": 968
+        },
+        "client": {
+          "width": 540,
+          "height": 960,
+          "left": 4,
+          "top": 4
+        },
+        "computed": {
+          "width": "540px",
+          "height": "960px",
+          "borderLeftWidth": "4px",
+          "borderTopWidth": "4px"
+        },
+        "scale": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      "world": {
+        "x": 8866,
+        "y": 6800
+      }
+    },
+    "beforeStep": {
+      "placementFeedback": null,
+      "selectedCardId": null,
+      "replay": [
+        {
+          "deployment": {
+            "cardId": "coilblade",
+            "entityIds": [
+              1
+            ],
+            "point": {
+              "x": 3500,
+              "y": 17500
+            },
+            "sequence": 0,
+            "side": "north",
+            "tick": 0,
+            "type": "deployed"
+          },
+          "side": "north",
+          "spend": {
+            "accepted": true,
+            "amountAfter": 6,
+            "cost": 4,
+            "reason": "accepted",
+            "sequence": 0,
+            "side": "north",
+            "tick": 0,
+            "type": "spend"
+          },
+          "tick": 0,
+          "type": "session-deployed"
+        }
+      ],
+      "sessionElixir": {
+        "tick": 3,
+        "sides": {
+          "north": {
+            "accumulator": 3,
+            "amount": 6
+          },
+          "south": {
+            "accumulator": 0,
+            "amount": 10
+          }
+        }
+      },
+      "sessionTick": 3
+    },
+    "afterStep": {
+      "placementFeedback": null,
+      "replay": [
+        {
+          "deployment": {
+            "cardId": "coilblade",
+            "entityIds": [
+              1
+            ],
+            "point": {
+              "x": 3500,
+              "y": 17500
+            },
+            "sequence": 0,
+            "side": "north",
+            "tick": 0,
+            "type": "deployed"
+          },
+          "side": "north",
+          "spend": {
+            "accepted": true,
+            "amountAfter": 6,
+            "cost": 4,
+            "reason": "accepted",
+            "sequence": 0,
+            "side": "north",
+            "tick": 0,
+            "type": "spend"
+          },
+          "tick": 0,
+          "type": "session-deployed"
+        },
+        {
+          "deployment": {
+            "cardId": "cinderlings",
+            "entityIds": [
+              2,
+              3,
+              4
+            ],
+            "point": {
+              "x": 8866,
+              "y": 6800
+            },
+            "sequence": 1,
+            "side": "south",
+            "tick": 3,
+            "type": "deployed"
+          },
+          "side": "south",
+          "spend": {
+            "accepted": true,
+            "amountAfter": 9,
+            "cost": 1,
+            "reason": "accepted",
+            "sequence": 1,
+            "side": "south",
+            "tick": 3,
+            "type": "spend"
+          },
+          "tick": 3,
+          "type": "session-deployed"
+        }
+      ],
+      "sessionElixir": {
+        "tick": 4,
+        "sides": {
+          "north": {
+            "accumulator": 4,
+            "amount": 6
+          },
+          "south": {
+            "accumulator": 1,
+            "amount": 9
+          }
+        }
+      },
+      "sessionTick": 4,
+      "southUnits": [
+        {
+          "alive": true,
+          "attack": {
+            "attackSequence": 0,
+            "config": {
+              "deployTicks": 60,
+              "firstHitTicks": 30,
+              "hitSpeedTicks": 60
+            },
+            "nextAttackTick": null,
+            "nextTick": 1,
+            "phase": "deploying",
+            "targetId": null
+          },
+          "cadenceTicks": 60,
+          "damage": 81,
+          "delivery": "melee",
+          "deployTicks": 60,
+          "firstHitTicks": 30,
+          "hitpoints": 81,
+          "id": 2,
+          "layer": "ground",
+          "maxHealth": 81,
+          "position": {
+            "x": 8475,
+            "y": 6500
+          },
+          "projectileSpeed": null,
+          "radius": 250,
+          "reach": 500,
+          "side": "south",
+          "sightRange": 5500,
+          "spawnedAt": 3,
+          "targetId": null,
+          "targetMode": "ground",
+          "archetypeId": "cinderling",
+          "cardId": "cinderlings",
+          "count": 3,
+          "memberIndex": 0,
+          "movement": {
+            "anchor": {
+              "x": 7500,
+              "y": 6500
+            },
+            "bodyRadius": 250,
+            "commands": [
+              {
+                "kind": "target",
+                "target": {
+                  "position": {
+                    "x": 3500,
+                    "y": 22500
+                  },
+                  "radius": 0,
+                  "range": 500
+                },
+                "tick": 3
+              }
+            ],
+            "edgeStart": {
+              "x": 8500,
+              "y": 6500
+            },
+            "initialPosition": {
+              "x": 8500,
+              "y": 6500
+            },
+            "mode": "ground",
+            "position": {
+              "x": 8475,
+              "y": 6500
+            },
+            "remainder": 0,
+            "route": [
+              {
+                "x": 7500,
+                "y": 6500
+              },
+              {
+                "x": 6500,
+                "y": 6500
+              },
+              {
+                "x": 5500,
+                "y": 6500
+              },
+              {
+                "x": 5500,
+                "y": 7500
+              },
+              {
+                "x": 5500,
+                "y": 8500
+              },
+              {
+                "x": 5500,
+                "y": 9500
+              },
+              {
+                "x": 4500,
+                "y": 9500
+              },
+              {
+                "x": 3500,
+                "y": 9500
+              },
+              {
+                "x": 3500,
+                "y": 10500
+              },
+              {
+                "x": 3500,
+                "y": 11500
+              },
+              {
+                "x": 3500,
+                "y": 12500
+              },
+              {
+                "x": 3500,
+                "y": 13500
+              },
+              {
+                "x": 3500,
+                "y": 14500
+              },
+              {
+                "x": 3500,
+                "y": 15500
+              },
+              {
+                "x": 3500,
+                "y": 16500
+              },
+              {
+                "x": 3500,
+                "y": 17500
+              },
+              {
+                "x": 3500,
+                "y": 18500
+              },
+              {
+                "x": 3500,
+                "y": 19500
+              },
+              {
+                "x": 3500,
+                "y": 20500
+              },
+              {
+                "x": 3500,
+                "y": 21500
+              },
+              {
+                "x": 3500,
+                "y": 22500
+              }
+            ],
+            "routeIndex": 1,
+            "routeOrigin": {
+              "x": 8500,
+              "y": 6500
+            },
+            "segmentLength": 1000,
+            "segmentProgress": 25,
+            "segmentStart": {
+              "x": 8500,
+              "y": 6500
+            },
+            "speed": 1500,
+            "target": {
+              "position": {
+                "x": 3500,
+                "y": 22500
+              },
+              "radius": 0,
+              "range": 500
+            },
+            "tick": 4
+          },
+          "role": "primary"
+        },
+        {
+          "alive": true,
+          "attack": {
+            "attackSequence": 0,
+            "config": {
+              "deployTicks": 60,
+              "firstHitTicks": 30,
+              "hitSpeedTicks": 60
+            },
+            "nextAttackTick": null,
+            "nextTick": 1,
+            "phase": "deploying",
+            "targetId": null
+          },
+          "cadenceTicks": 60,
+          "damage": 81,
+          "delivery": "melee",
+          "deployTicks": 60,
+          "firstHitTicks": 30,
+          "hitpoints": 81,
+          "id": 3,
+          "layer": "ground",
+          "maxHealth": 81,
+          "position": {
+            "x": 8475,
+            "y": 7500
+          },
+          "projectileSpeed": null,
+          "radius": 250,
+          "reach": 500,
+          "side": "south",
+          "sightRange": 5500,
+          "spawnedAt": 3,
+          "targetId": null,
+          "targetMode": "ground",
+          "archetypeId": "cinderling",
+          "cardId": "cinderlings",
+          "count": 3,
+          "memberIndex": 1,
+          "movement": {
+            "anchor": {
+              "x": 7500,
+              "y": 7500
+            },
+            "bodyRadius": 250,
+            "commands": [
+              {
+                "kind": "target",
+                "target": {
+                  "position": {
+                    "x": 3500,
+                    "y": 22500
+                  },
+                  "radius": 0,
+                  "range": 500
+                },
+                "tick": 3
+              }
+            ],
+            "edgeStart": {
+              "x": 8500,
+              "y": 7500
+            },
+            "initialPosition": {
+              "x": 8500,
+              "y": 7500
+            },
+            "mode": "ground",
+            "position": {
+              "x": 8475,
+              "y": 7500
+            },
+            "remainder": 0,
+            "route": [
+              {
+                "x": 7500,
+                "y": 7500
+              },
+              {
+                "x": 6500,
+                "y": 7500
+              },
+              {
+                "x": 5500,
+                "y": 7500
+              },
+              {
+                "x": 5500,
+                "y": 8500
+              },
+              {
+                "x": 5500,
+                "y": 9500
+              },
+              {
+                "x": 4500,
+                "y": 9500
+              },
+              {
+                "x": 3500,
+                "y": 9500
+              },
+              {
+                "x": 3500,
+                "y": 10500
+              },
+              {
+                "x": 3500,
+                "y": 11500
+              },
+              {
+                "x": 3500,
+                "y": 12500
+              },
+              {
+                "x": 3500,
+                "y": 13500
+              },
+              {
+                "x": 3500,
+                "y": 14500
+              },
+              {
+                "x": 3500,
+                "y": 15500
+              },
+              {
+                "x": 3500,
+                "y": 16500
+              },
+              {
+                "x": 3500,
+                "y": 17500
+              },
+              {
+                "x": 3500,
+                "y": 18500
+              },
+              {
+                "x": 3500,
+                "y": 19500
+              },
+              {
+                "x": 3500,
+                "y": 20500
+              },
+              {
+                "x": 3500,
+                "y": 21500
+              },
+              {
+                "x": 3500,
+                "y": 22500
+              }
+            ],
+            "routeIndex": 1,
+            "routeOrigin": {
+              "x": 8500,
+              "y": 7500
+            },
+            "segmentLength": 1000,
+            "segmentProgress": 25,
+            "segmentStart": {
+              "x": 8500,
+              "y": 7500
+            },
+            "speed": 1500,
+            "target": {
+              "position": {
+                "x": 3500,
+                "y": 22500
+              },
+              "radius": 0,
+              "range": 500
+            },
+            "tick": 4
+          },
+          "role": "primary"
+        },
+        {
+          "alive": true,
+          "attack": {
+            "attackSequence": 0,
+            "config": {
+              "deployTicks": 60,
+              "firstHitTicks": 30,
+              "hitSpeedTicks": 60
+            },
+            "nextAttackTick": null,
+            "nextTick": 1,
+            "phase": "deploying",
+            "targetId": null
+          },
+          "cadenceTicks": 60,
+          "damage": 81,
+          "delivery": "melee",
+          "deployTicks": 60,
+          "firstHitTicks": 30,
+          "hitpoints": 81,
+          "id": 4,
+          "layer": "ground",
+          "maxHealth": 81,
+          "position": {
+            "x": 9500,
+            "y": 7525
+          },
+          "projectileSpeed": null,
+          "radius": 250,
+          "reach": 500,
+          "side": "south",
+          "sightRange": 5500,
+          "spawnedAt": 3,
+          "targetId": null,
+          "targetMode": "ground",
+          "archetypeId": "cinderling",
+          "cardId": "cinderlings",
+          "count": 3,
+          "memberIndex": 2,
+          "movement": {
+            "anchor": {
+              "x": 9500,
+              "y": 8500
+            },
+            "bodyRadius": 250,
+            "commands": [
+              {
+                "kind": "target",
+                "target": {
+                  "position": {
+                    "x": 14500,
+                    "y": 22500
+                  },
+                  "radius": 0,
+                  "range": 500
+                },
+                "tick": 3
+              }
+            ],
+            "edgeStart": {
+              "x": 9500,
+              "y": 7500
+            },
+            "initialPosition": {
+              "x": 9500,
+              "y": 7500
+            },
+            "mode": "ground",
+            "position": {
+              "x": 9500,
+              "y": 7525
+            },
+            "remainder": 0,
+            "route": [
+              {
+                "x": 9500,
+                "y": 8500
+              },
+              {
+                "x": 9500,
+                "y": 9500
+              },
+              {
+                "x": 9500,
+                "y": 10500
+              },
+              {
+                "x": 9500,
+                "y": 11500
+              },
+              {
+                "x": 9500,
+                "y": 12500
+              },
+              {
+                "x": 9500,
+                "y": 13500
+              },
+              {
+                "x": 9500,
+                "y": 14500
+              },
+              {
+                "x": 10500,
+                "y": 14500
+              },
+              {
+                "x": 11500,
+                "y": 14500
+              },
+              {
+                "x": 12500,
+                "y": 14500
+              },
+              {
+                "x": 13500,
+                "y": 14500
+              },
+              {
+                "x": 14500,
+                "y": 14500
+              },
+              {
+                "x": 14500,
+                "y": 15500
+              },
+              {
+                "x": 14500,
+                "y": 16500
+              },
+              {
+                "x": 14500,
+                "y": 17500
+              },
+              {
+                "x": 14500,
+                "y": 18500
+              },
+              {
+                "x": 14500,
+                "y": 19500
+              },
+              {
+                "x": 14500,
+                "y": 20500
+              },
+              {
+                "x": 14500,
+                "y": 21500
+              },
+              {
+                "x": 14500,
+                "y": 22500
+              }
+            ],
+            "routeIndex": 1,
+            "routeOrigin": {
+              "x": 9500,
+              "y": 7500
+            },
+            "segmentLength": 1000,
+            "segmentProgress": 25,
+            "segmentStart": {
+              "x": 9500,
+              "y": 7500
+            },
+            "speed": 1500,
+            "target": {
+              "position": {
+                "x": 14500,
+                "y": 22500
+              },
+              "radius": 0,
+              "range": 500
+            },
+            "tick": 4
+          },
+          "role": "primary"
+        }
+      ]
+    }
+  },
+  "immediateDeployment": {
+    "events": [
+      {
+        "deployment": {
+          "cardId": "cinderlings",
+          "entityIds": [
+            2,
+            3,
+            4
+          ],
+          "point": {
+            "x": 8866,
+            "y": 6800
+          },
+          "sequence": 1,
+          "side": "south",
+          "tick": 3,
+          "type": "deployed"
+        },
+        "side": "south",
+        "spend": {
+          "accepted": true,
+          "amountAfter": 9,
+          "cost": 1,
+          "reason": "accepted",
+          "sequence": 1,
+          "side": "south",
+          "tick": 3,
+          "type": "spend"
+        },
+        "tick": 3,
+        "type": "session-deployed"
+      }
+    ],
+    "playerUnits": [
+      {
+        "alive": true,
+        "attack": {
+          "attackSequence": 0,
+          "config": {
+            "deployTicks": 60,
+            "firstHitTicks": 30,
+            "hitSpeedTicks": 60
+          },
+          "nextAttackTick": null,
+          "nextTick": 1,
+          "phase": "deploying",
+          "targetId": null
+        },
+        "cadenceTicks": 60,
+        "damage": 81,
+        "delivery": "melee",
+        "deployTicks": 60,
+        "firstHitTicks": 30,
+        "hitpoints": 81,
+        "id": 2,
+        "layer": "ground",
+        "maxHealth": 81,
+        "position": {
+          "x": 8475,
+          "y": 6500
+        },
+        "projectileSpeed": null,
+        "radius": 250,
+        "reach": 500,
+        "side": "south",
+        "sightRange": 5500,
+        "spawnedAt": 3,
+        "targetId": null,
+        "targetMode": "ground",
+        "archetypeId": "cinderling",
+        "cardId": "cinderlings",
+        "count": 3,
+        "memberIndex": 0,
+        "movement": {
+          "anchor": {
+            "x": 7500,
+            "y": 6500
+          },
+          "bodyRadius": 250,
+          "commands": [
+            {
+              "kind": "target",
+              "target": {
+                "position": {
+                  "x": 3500,
+                  "y": 22500
+                },
+                "radius": 0,
+                "range": 500
+              },
+              "tick": 3
+            }
+          ],
+          "edgeStart": {
+            "x": 8500,
+            "y": 6500
+          },
+          "initialPosition": {
+            "x": 8500,
+            "y": 6500
+          },
+          "mode": "ground",
+          "position": {
+            "x": 8475,
+            "y": 6500
+          },
+          "remainder": 0,
+          "route": [
+            {
+              "x": 7500,
+              "y": 6500
+            },
+            {
+              "x": 6500,
+              "y": 6500
+            },
+            {
+              "x": 5500,
+              "y": 6500
+            },
+            {
+              "x": 5500,
+              "y": 7500
+            },
+            {
+              "x": 5500,
+              "y": 8500
+            },
+            {
+              "x": 5500,
+              "y": 9500
+            },
+            {
+              "x": 4500,
+              "y": 9500
+            },
+            {
+              "x": 3500,
+              "y": 9500
+            },
+            {
+              "x": 3500,
+              "y": 10500
+            },
+            {
+              "x": 3500,
+              "y": 11500
+            },
+            {
+              "x": 3500,
+              "y": 12500
+            },
+            {
+              "x": 3500,
+              "y": 13500
+            },
+            {
+              "x": 3500,
+              "y": 14500
+            },
+            {
+              "x": 3500,
+              "y": 15500
+            },
+            {
+              "x": 3500,
+              "y": 16500
+            },
+            {
+              "x": 3500,
+              "y": 17500
+            },
+            {
+              "x": 3500,
+              "y": 18500
+            },
+            {
+              "x": 3500,
+              "y": 19500
+            },
+            {
+              "x": 3500,
+              "y": 20500
+            },
+            {
+              "x": 3500,
+              "y": 21500
+            },
+            {
+              "x": 3500,
+              "y": 22500
+            }
+          ],
+          "routeIndex": 1,
+          "routeOrigin": {
+            "x": 8500,
+            "y": 6500
+          },
+          "segmentLength": 1000,
+          "segmentProgress": 25,
+          "segmentStart": {
+            "x": 8500,
+            "y": 6500
+          },
+          "speed": 1500,
+          "target": {
+            "position": {
+              "x": 3500,
+              "y": 22500
+            },
+            "radius": 0,
+            "range": 500
+          },
+          "tick": 4
+        },
+        "role": "primary"
+      },
+      {
+        "alive": true,
+        "attack": {
+          "attackSequence": 0,
+          "config": {
+            "deployTicks": 60,
+            "firstHitTicks": 30,
+            "hitSpeedTicks": 60
+          },
+          "nextAttackTick": null,
+          "nextTick": 1,
+          "phase": "deploying",
+          "targetId": null
+        },
+        "cadenceTicks": 60,
+        "damage": 81,
+        "delivery": "melee",
+        "deployTicks": 60,
+        "firstHitTicks": 30,
+        "hitpoints": 81,
+        "id": 3,
+        "layer": "ground",
+        "maxHealth": 81,
+        "position": {
+          "x": 8475,
+          "y": 7500
+        },
+        "projectileSpeed": null,
+        "radius": 250,
+        "reach": 500,
+        "side": "south",
+        "sightRange": 5500,
+        "spawnedAt": 3,
+        "targetId": null,
+        "targetMode": "ground",
+        "archetypeId": "cinderling",
+        "cardId": "cinderlings",
+        "count": 3,
+        "memberIndex": 1,
+        "movement": {
+          "anchor": {
+            "x": 7500,
+            "y": 7500
+          },
+          "bodyRadius": 250,
+          "commands": [
+            {
+              "kind": "target",
+              "target": {
+                "position": {
+                  "x": 3500,
+                  "y": 22500
+                },
+                "radius": 0,
+                "range": 500
+              },
+              "tick": 3
+            }
+          ],
+          "edgeStart": {
+            "x": 8500,
+            "y": 7500
+          },
+          "initialPosition": {
+            "x": 8500,
+            "y": 7500
+          },
+          "mode": "ground",
+          "position": {
+            "x": 8475,
+            "y": 7500
+          },
+          "remainder": 0,
+          "route": [
+            {
+              "x": 7500,
+              "y": 7500
+            },
+            {
+              "x": 6500,
+              "y": 7500
+            },
+            {
+              "x": 5500,
+              "y": 7500
+            },
+            {
+              "x": 5500,
+              "y": 8500
+            },
+            {
+              "x": 5500,
+              "y": 9500
+            },
+            {
+              "x": 4500,
+              "y": 9500
+            },
+            {
+              "x": 3500,
+              "y": 9500
+            },
+            {
+              "x": 3500,
+              "y": 10500
+            },
+            {
+              "x": 3500,
+              "y": 11500
+            },
+            {
+              "x": 3500,
+              "y": 12500
+            },
+            {
+              "x": 3500,
+              "y": 13500
+            },
+            {
+              "x": 3500,
+              "y": 14500
+            },
+            {
+              "x": 3500,
+              "y": 15500
+            },
+            {
+              "x": 3500,
+              "y": 16500
+            },
+            {
+              "x": 3500,
+              "y": 17500
+            },
+            {
+              "x": 3500,
+              "y": 18500
+            },
+            {
+              "x": 3500,
+              "y": 19500
+            },
+            {
+              "x": 3500,
+              "y": 20500
+            },
+            {
+              "x": 3500,
+              "y": 21500
+            },
+            {
+              "x": 3500,
+              "y": 22500
+            }
+          ],
+          "routeIndex": 1,
+          "routeOrigin": {
+            "x": 8500,
+            "y": 7500
+          },
+          "segmentLength": 1000,
+          "segmentProgress": 25,
+          "segmentStart": {
+            "x": 8500,
+            "y": 7500
+          },
+          "speed": 1500,
+          "target": {
+            "position": {
+              "x": 3500,
+              "y": 22500
+            },
+            "radius": 0,
+            "range": 500
+          },
+          "tick": 4
+        },
+        "role": "primary"
+      },
+      {
+        "alive": true,
+        "attack": {
+          "attackSequence": 0,
+          "config": {
+            "deployTicks": 60,
+            "firstHitTicks": 30,
+            "hitSpeedTicks": 60
+          },
+          "nextAttackTick": null,
+          "nextTick": 1,
+          "phase": "deploying",
+          "targetId": null
+        },
+        "cadenceTicks": 60,
+        "damage": 81,
+        "delivery": "melee",
+        "deployTicks": 60,
+        "firstHitTicks": 30,
+        "hitpoints": 81,
+        "id": 4,
+        "layer": "ground",
+        "maxHealth": 81,
+        "position": {
+          "x": 9500,
+          "y": 7525
+        },
+        "projectileSpeed": null,
+        "radius": 250,
+        "reach": 500,
+        "side": "south",
+        "sightRange": 5500,
+        "spawnedAt": 3,
+        "targetId": null,
+        "targetMode": "ground",
+        "archetypeId": "cinderling",
+        "cardId": "cinderlings",
+        "count": 3,
+        "memberIndex": 2,
+        "movement": {
+          "anchor": {
+            "x": 9500,
+            "y": 8500
+          },
+          "bodyRadius": 250,
+          "commands": [
+            {
+              "kind": "target",
+              "target": {
+                "position": {
+                  "x": 14500,
+                  "y": 22500
+                },
+                "radius": 0,
+                "range": 500
+              },
+              "tick": 3
+            }
+          ],
+          "edgeStart": {
+            "x": 9500,
+            "y": 7500
+          },
+          "initialPosition": {
+            "x": 9500,
+            "y": 7500
+          },
+          "mode": "ground",
+          "position": {
+            "x": 9500,
+            "y": 7525
+          },
+          "remainder": 0,
+          "route": [
+            {
+              "x": 9500,
+              "y": 8500
+            },
+            {
+              "x": 9500,
+              "y": 9500
+            },
+            {
+              "x": 9500,
+              "y": 10500
+            },
+            {
+              "x": 9500,
+              "y": 11500
+            },
+            {
+              "x": 9500,
+              "y": 12500
+            },
+            {
+              "x": 9500,
+              "y": 13500
+            },
+            {
+              "x": 9500,
+              "y": 14500
+            },
+            {
+              "x": 10500,
+              "y": 14500
+            },
+            {
+              "x": 11500,
+              "y": 14500
+            },
+            {
+              "x": 12500,
+              "y": 14500
+            },
+            {
+              "x": 13500,
+              "y": 14500
+            },
+            {
+              "x": 14500,
+              "y": 14500
+            },
+            {
+              "x": 14500,
+              "y": 15500
+            },
+            {
+              "x": 14500,
+              "y": 16500
+            },
+            {
+              "x": 14500,
+              "y": 17500
+            },
+            {
+              "x": 14500,
+              "y": 18500
+            },
+            {
+              "x": 14500,
+              "y": 19500
+            },
+            {
+              "x": 14500,
+              "y": 20500
+            },
+            {
+              "x": 14500,
+              "y": 21500
+            },
+            {
+              "x": 14500,
+              "y": 22500
+            }
+          ],
+          "routeIndex": 1,
+          "routeOrigin": {
+            "x": 9500,
+            "y": 7500
+          },
+          "segmentLength": 1000,
+          "segmentProgress": 25,
+          "segmentStart": {
+            "x": 9500,
+            "y": 7500
+          },
+          "speed": 1500,
+          "target": {
+            "position": {
+              "x": 14500,
+              "y": 22500
+            },
+            "radius": 0,
+            "range": 500
+          },
+          "tick": 4
+        },
+        "role": "primary"
+      }
+    ]
+  }
+}

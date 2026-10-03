@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "piece": "ART-005",
+  "license": "AGPL-3.0-only",
+  "tool": "Codex built-in image_gen",
+  "promptVerbatim": false,
+  "promptSummary": "Create an original portrait 9:16 top-down fantasy woodland arena for Moss & Ember: lush mossy grass, framed by layered foliage, weathered stones and restrained copper-orange accents, with a clear open playfield. Keep the scene painterly and readable at a small portrait game-board scale; include no text, logos, towers, units, river, or bridges.",
+  "editSummary": "Remove all painted water and bridges and continue the original terrain through the center, so the existing arena river and bridge DOM overlays retain their exact positions and geometry.",
+  "source": {
+    "path": "demo/assets/moss-ember-arena-painted.png",
+    "generatedImageId": "exec-d21bcd1f-47e0-42ba-8e27-0485b13531bf",
+    "format": "png",
+    "width": 941,
+    "height": 1672,
+    "byteLength": 2806354,
+    "sha256": "6b041ff5f08a9f5dc79181918c0b470abf33ca9ec2ae32ce91e41cb2d945b8b5"
+  },
+  "production": {
+    "path": "public/assets/moss-ember-arena-painted.webp",
+    "format": "webp",
+    "width": 941,
+    "height": 1672,
+    "byteLength": 390962,
+    "sha256": "22713e1725c21a8f853df5e2af3278689e7e844783606d93c7a12a365d8e930e",
+    "encoding": {
+      "tool": "cwebp 1.6.0",
+      "arguments": ["-q", "88", "-m", "6", "-exact"],
+      "sourcePixelsResized": false
+    }
+  },
+  "renderEvidence": "evidence.json"
+}

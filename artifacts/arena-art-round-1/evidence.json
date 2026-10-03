@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 1,
+  "piece": "ART-005",
+  "candidate": "painted woodland terrain layer in isolated demo",
+  "asset": {
+    "path": "demo/assets/moss-ember-arena-painted.png",
+    "source": "built-in image_gen generation and targeted edit",
+    "canvas": "941x1672 PNG (9:16 portrait source; displayed over exact 540x960 arena content box)",
+    "exactCrossing": "The existing arena DOM river and bridges remain visible and unchanged: river x=0,y=450,w=540,h=60; bridge boxes x=75 and 405,y=450,w=60,h=60."
+  },
+  "runs": [
+    {
+      "name": "desktop-720x1280",
+      "viewport": {
+        "width": 720,
+        "height": 1280
+      },
+      "screenshot": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/arena-art-round-1/desktop-720x1280.png",
+      "frameErrors": [],
+      "beforeDeploy": {
+        "arena": {
+          "cssHeight": "960px",
+          "cssWidth": "540px",
+          "rect": {
+            "height": 968,
+            "width": 548,
+            "x": 86,
+            "y": 104
+          }
+        },
+        "backgroundImage": "url(\"http://127.0.0.1:60161/demo/assets/moss-ember-arena-painted.png\")",
+        "bridges": [
+          {
+            "className": "bridge bridge--west",
+            "height": 60,
+            "width": 60,
+            "x": 75,
+            "y": 450
+          },
+          {
+            "className": "bridge bridge--east",
+            "height": 60,
+            "width": 60,
+            "x": 405,
+            "y": 450
+          }
+        ],
+        "river": {
+          "height": 60,
+          "width": 540,
+          "x": 0,
+          "y": 450
+        },
+        "cardIds": [
+          "mossguard",
+          "skymaul",
+          "copperskiff",
+          "cinderlings"
+        ],
+        "towerCount": 6,
+        "handCount": 4,
+        "elixirVisible": true
+      },
+      "imageDecode": {
+        "height": 1672,
+        "width": 941
+      },
+      "paintedAssetResponses": [
+        {
+          "contentType": "application/octet-stream",
+          "status": 200,
+          "url": "http://127.0.0.1:60161/demo/assets/moss-ember-arena-painted.png"
+        }
+      ],
+      "afterDeploy": {
+        "sessionTick": 120,
+        "tick": "2:58",
+        "units": [
+          {
+            "cardId": null,
+            "id": "1",
+            "side": "north"
+          },
+          {
+            "cardId": null,
+            "id": "2",
+            "side": "north"
+          }
+        ],
+        "selectedCard": null
+      }
+    },
+    {
+      "name": "phone-390x844",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "screenshot": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/arena-art-round-1/phone-390x844.png",
+      "frameErrors": [],
+      "beforeDeploy": {
+        "arena": {
+          "cssHeight": "960px",
+          "cssWidth": "540px",
+          "rect": {
+            "height": 968,
+            "width": 548,
+            "x": 86,
+            "y": 104
+          }
+        },
+        "backgroundImage": "url(\"http://127.0.0.1:60161/demo/assets/moss-ember-arena-painted.png\")",
+        "bridges": [
+          {
+            "className": "bridge bridge--west",
+            "height": 60,
+            "width": 60,
+            "x": 75,
+            "y": 450
+          },
+          {
+            "className": "bridge bridge--east",
+            "height": 60,
+            "width": 60,
+            "x": 405,
+            "y": 450
+          }
+        ],
+        "river": {
+          "height": 60,
+          "width": 540,
+          "x": 0,
+          "y": 450
+        },
+        "cardIds": [
+          "mossguard",
+          "skymaul",
+          "copperskiff",
+          "cinderlings"
+        ],
+        "towerCount": 6,
+        "handCount": 4,
+        "elixirVisible": true
+      },
+      "imageDecode": {
+        "height": 1672,
+        "width": 941
+      },
+      "paintedAssetResponses": [
+        {
+          "contentType": "application/octet-stream",
+          "status": 200,
+          "url": "http://127.0.0.1:60161/demo/assets/moss-ember-arena-painted.png"
+        }
+      ],
+      "afterDeploy": {
+        "sessionTick": 120,
+        "tick": "2:58",
+        "units": [
+          {
+            "cardId": null,
+            "id": "1",
+            "side": "north"
+          },
+          {
+            "cardId": null,
+            "id": "2",
+            "side": "north"
+          }
+        ],
+        "selectedCard": null
+      }
+    }
+  ]
+}
