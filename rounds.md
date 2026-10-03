@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 378 — 2026-10-02
+
+PIECE: ART-005C — Painted portraits across playable screens, round 3
+
+VERDICT: PASS
+
+EVIDENCE: Independent frozen `686b6ee` full app-shell test passes 1/1 in 58.4 seconds, including deployment, deck replacement, restore/replay, terminal and restart. Independently built Pages package under `/clash-royale-clone/` renders all nine Cards portraits and Home/Deck rotation at 1440×933 and 390×844. Stonehauler replacement renders in Home/Deck at both sizes. Portrait hashes match source assets; no HTTP/browser errors, no horizontal overflow, and zero phone navigation overlap. Actual captures and output: `artifacts/card-art-round-3/critic/`.
+
+BIGGEST GAP: No remaining portrait, framing or packaging gap observed against the scoped bar.
+
 ## Round 377 — 2026-10-02
 
 PIECE: RELEASE-001B — Standards-based production dependency graph, round 2
