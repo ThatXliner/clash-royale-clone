@@ -1,0 +1,26 @@
+# Subtest: player shell renders roster-derived cards and launches a paused shared battle frame
+not ok 1 - player shell renders roster-derived cards and launches a paused shared battle frame
+  ---
+  duration_ms: 16960.710666
+  type: 'test'
+  location: '/Users/me/.codex/worktrees/9456/clash-royale-clone/tests/app-shell.test.js:130:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    frame.evaluate: TypeError: Cannot read properties of undefined (reading 'state')
+        at eval (eval at evaluate (:290:30), <anonymous>:3:31)
+        at async <anonymous>:316:30
+    cardFrameTick (/Users/me/.codex/worktrees/9456/clash-royale-clone/tests/app-shell.test.js:64:16)
+    waitForCardFrameTick (/Users/me/.codex/worktrees/9456/clash-royale-clone/tests/app-shell.test.js:123:18)
+    TestContext.<anonymous> (/Users/me/.codex/worktrees/9456/clash-royale-clone/tests/app-shell.test.js:276:31)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 17176.355666

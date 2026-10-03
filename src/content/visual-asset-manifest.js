@@ -7,7 +7,7 @@ const ASSET_KINDS = new Set(["font", "icon", "image", "model"]);
 const FORMATS_BY_KIND = Object.freeze({
   font: new Set(["otf", "ttf", "woff2"]),
   icon: new Set(["svg"]),
-  image: new Set(["png", "webp"]),
+  image: new Set(["png", "svg", "webp"]),
   model: new Set(["glb"]),
 });
 const BYTE_CAPS_BY_KIND = Object.freeze({
@@ -24,7 +24,7 @@ const DIMENSION_CAPS_BY_KIND = Object.freeze({
   image: 4096,
   model: null,
 });
-const LICENSES = new Set(["CC0-1.0", "MIT", "OFL-1.1"]);
+const LICENSES = new Set(["AGPL-3.0-only", "CC0-1.0", "MIT", "OFL-1.1"]);
 const AUTHORSHIP_VALUES = new Set(["in-repo-authored"]);
 
 const MANIFEST_FIELDS = ["assets", "root", "version"];
@@ -226,6 +226,50 @@ function validateManifestGraph(manifest) {
 const REGISTERED_ASSETS = [
   {
     authorship: "in-repo-authored",
+    byteLength: 987565,
+    dimensions: { height: 1254, width: 1254 },
+    format: "png",
+    id: "briar-runner-painted-sheet",
+    kind: "image",
+    license: "AGPL-3.0-only",
+    path: "assets/briar-runner-painted-sheet.png",
+    sha256: "a1aa43df00dacc212beedb4905dddd7a57db412981ea29662bc1d868a97794f4",
+  },
+  {
+    authorship: "in-repo-authored",
+    byteLength: 7692,
+    dimensions: { height: 408, width: 600 },
+    format: "svg",
+    id: "briar-runner-sprite-sheet",
+    kind: "image",
+    license: "AGPL-3.0-only",
+    path: "assets/briar-runner-sprite-sheet.svg",
+    sha256: "5f25d05932e3c56f9a8dfce7ea9b9d02e9ad2fb34ef0ce983733f9b97b6b7a2e",
+  },
+  {
+    authorship: "in-repo-authored",
+    byteLength: 320516,
+    dimensions: { height: 887, width: 1774 },
+    format: "webp",
+    id: "card-portraits-painted",
+    kind: "image",
+    license: "AGPL-3.0-only",
+    path: "assets/card-portraits-painted.webp",
+    sha256: "16307a59bde57889e11bcd7b86b54d69ba9985eae6ef436d9703e528fba58e4f",
+  },
+  {
+    authorship: "in-repo-authored",
+    byteLength: 390962,
+    dimensions: { height: 1672, width: 941 },
+    format: "webp",
+    id: "moss-ember-arena-painted",
+    kind: "image",
+    license: "AGPL-3.0-only",
+    path: "assets/moss-ember-arena-painted.webp",
+    sha256: "22713e1725c21a8f853df5e2af3278689e7e844783606d93c7a12a365d8e930e",
+  },
+  {
+    authorship: "in-repo-authored",
     byteLength: 368,
     dimensions: { height: 64, width: 64 },
     format: "svg",
@@ -256,6 +300,17 @@ const REGISTERED_ASSETS = [
     license: "CC0-1.0",
     path: "assets/icons/tidewarden-mark.svg",
     sha256: "051dbf39eda3e58d45eea74c581cb62264f871113ea824a877030ffc04175963",
+  },
+  {
+    authorship: "in-repo-authored",
+    byteLength: 308508,
+    dimensions: { height: 1254, width: 1254 },
+    format: "webp",
+    id: "stonehauler-painted",
+    kind: "image",
+    license: "AGPL-3.0-only",
+    path: "assets/stonehauler-painted.webp",
+    sha256: "47c19650d41d21a6efb3f883b6fff73892abd214783279dcb5708cc198b87357",
   },
 ];
 

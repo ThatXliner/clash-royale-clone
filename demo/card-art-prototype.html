@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#203a30">
+    <title>Card Portrait Prototype</title>
+    <link rel="stylesheet" href="./card-art-prototype.css">
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="intro">
+        <div class="intro-copy">
+          <p class="eyebrow">Moss &amp; Ember · Card art study</p>
+          <h1>Portraits with a little more life.</h1>
+          <p class="lede">Nine original collection portraits, compared with the current battle SVG silhouettes at the same 164 × 130 art size.</p>
+        </div>
+        <div class="art-note" aria-label="Portraits appear in the order used by the collection">
+          <span class="art-note__spark" aria-hidden="true">✦</span>
+          <span>Original painted art<br><strong>Collection order</strong></span>
+        </div>
+      </header>
+
+      <section class="portrait-grid" id="portrait-grid" aria-label="Current SVG and painted portrait comparisons"></section>
+      <section class="scale-section" aria-labelledby="scale-heading">
+        <div class="scale-heading">
+          <p class="eyebrow">Small-size read</p>
+          <h2 id="scale-heading">The silhouette holds at a glance.</h2>
+        </div>
+        <div class="scale-grid" id="scale-grid" aria-label="Portraits at 48, 72 and 96 pixel display sizes"></div>
+      </section>
+      <footer class="page-footer">
+        <span>Portrait source: original generated artwork</span>
+        <span>Art windows: 164 × 130 desktop and phone</span>
+      </footer>
+    </main>
+
+    <script type="module">
+      import { createCombatArt } from "../src/ui/combat-art.js";
+
+      const cards = [
+        { id: "coilblade", name: "Coilblade", role: "Copper duelist", column: 0, row: 0, legacy: "coilblade" },
+        { id: "mossguard", name: "Mossguard", role: "Leafshield guardian", column: 1, row: 0, legacy: "mossguard" },
+        { id: "copperskiff", name: "Copperskiff", role: "Copper airship", column: 2, row: 0, legacy: "copperskiff" },
+        { id: "skymaul", name: "Skymaul", role: "Floating stone brawler", column: 3, row: 0, legacy: "skymaul" },
+        { id: "brassbolt", name: "Brassbolt", role: "Brass crossbow ranger", column: 0, row: 1, legacy: "brassbolt" },
+        { id: "reedsting", name: "Reedsting", role: "Reedwood archer", column: 1, row: 1, legacy: "reedsting" },
+        { id: "briar-band", name: "Briar Band", role: "Paired masked scouts", column: 2, row: 1, legacy: "briar-band" },
+        { id: "cinderlings", name: "Cinderlings", role: "Three ember sprouts", column: 3, row: 1, legacy: "cinderlings" },
+        { id: "stonehauler", name: "Stonehauler", role: "Wood-and-stone carrier", standalone: true, legacy: "stonehauler" },
+      ];
+
+      const grid = document.querySelector("#portrait-grid");
+      const scaleGrid = document.querySelector("#scale-grid");
+
+      function addSvg(parent, archetype, className) {
+        const svg = createCombatArt(document, archetype, "south", "ground");
+        svg.classList.add("legacy-mark");
+        if (className) svg.classList.add(className);
+        parent.append(svg);
+      }
+
+      function mountLegacyArt(stage, card) {
+        if (card.id === "briar-band") {
+          stage.classList.add("legacy-stage--pair");
+          addSvg(stage, "briar-runner", "legacy-mark--rear");
+          addSvg(stage, "briar-darter", "legacy-mark--front");
+          return;
+        }
+        if (card.id === "cinderlings") {
+          stage.classList.add("legacy-stage--trio");
+          addSvg(stage, "cinderling", "legacy-mark--left");
+          addSvg(stage, "cinderling", "legacy-mark--center");
+          addSvg(stage, "cinderling", "legacy-mark--right");
+          return;
+        }
+        addSvg(stage, card.legacy, "");
+      }
+
+      function portraitSource(card, column, row, width, height) {
+        const frame = document.createElement("div");
+        frame.className = "portrait-crop";
+        frame.style.width = `${width}px`;
+        frame.style.height = `${height}px`;
+        frame.style.setProperty("--crop-inset", `${(width - height) / 2}px`);
+
+        const image = document.createElement("img");
+        image.alt = "";
+        image.draggable = false;
+        if (card.standalone) {
+          frame.classList.add("portrait-crop--single");
+          image.src = "./assets/stonehauler-painted.png";
+          image.className = "portrait-source portrait-source--single";
+        } else {
+          image.src = "./assets/card-portraits-painted.png";
+          image.className = "portrait-source";
+          image.style.setProperty("--x", `${-column * 25}%`);
+          image.style.setProperty("--y", row === 0 ? "0%" : "-50%");
+        }
+        frame.append(image);
+        return frame;
+      }
+
+      function addSizeChecks(card) {
+        const strip = document.createElement("div");
+        strip.className = "size-checks";
+        strip.setAttribute("aria-label", `${card.name} at 48, 72 and 96 pixel display sizes`);
+        for (const size of [48, 72, 96]) {
+          const sample = document.createElement("div");
+          sample.className = "size-check";
+          sample.append(portraitSource(card, card.column, card.row, size, Math.round(size * 130 / 164)));
+          const label = document.createElement("span");
+          label.textContent = `${size}px`;
+          sample.append(label);
+          strip.append(sample);
+        }
+        return strip;
+      }
+
+      for (const card of cards) {
+        const article = document.createElement("article");
+        article.className = "portrait-card";
+        article.dataset.card = card.id;
+
+        const title = document.createElement("div");
+        title.className = "portrait-card__title";
+        title.innerHTML = `<div><h2>${card.name}</h2><p>${card.role}</p></div><span class="card-index">${String(cards.indexOf(card) + 1).padStart(2, "0")}</span>`;
+        article.append(title);
+
+        const compare = document.createElement("div");
+        compare.className = "comparison-pair";
+        const legacyFigure = document.createElement("figure");
+        legacyFigure.className = "art-figure";
+        const legacyCaption = document.createElement("figcaption");
+        legacyCaption.textContent = "Current SVG";
+        const legacyStage = document.createElement("div");
+        legacyStage.className = "art-frame legacy-stage";
+        legacyStage.setAttribute("aria-label", `${card.name} existing vector silhouette`);
+        mountLegacyArt(legacyStage, card);
+        legacyFigure.append(legacyCaption, legacyStage);
+
+        const portraitFigure = document.createElement("figure");
+        portraitFigure.className = "art-figure";
+        const portraitCaption = document.createElement("figcaption");
+        portraitCaption.textContent = "Painted portrait";
+        const portraitStage = document.createElement("div");
+        portraitStage.className = "art-frame portrait-stage";
+        portraitStage.setAttribute("aria-label", `${card.name} original painted portrait`);
+        portraitStage.append(portraitSource(card, card.column, card.row, 164, 130));
+        portraitFigure.append(portraitCaption, portraitStage);
+        compare.append(legacyFigure, portraitFigure);
+        article.append(compare);
+        grid.append(article);
+      }
+
+      for (const card of cards) {
+        const scaleCard = document.createElement("article");
+        scaleCard.className = "scale-card";
+        const title = document.createElement("h3");
+        title.textContent = card.name;
+        scaleCard.append(title, addSizeChecks(card));
+        scaleGrid.append(scaleCard);
+      }
+    </script>
+  </body>
+</html>

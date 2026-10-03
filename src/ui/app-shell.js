@@ -1,7 +1,7 @@
 import { createPlayableRoster, PLAYABLE_CARD_IDS } from "../content/playable-roster.js";
 import { projectSessionTroopBattleCard } from "../content/session-troop-roster.js";
 import { EDITABLE_DECK_CARD_IDS } from "../content/editable-deck.js";
-import { createCombatArt } from "./combat-art.js";
+import { getCardPortrait } from "./card-portrait-art.js";
 
 const cards = [...createPlayableRoster(), projectSessionTroopBattleCard("stonehauler")];
 const cardById = new Map(cards.map((card) => [card.id, card]));
@@ -92,15 +92,11 @@ function descriptionFor(card) {
 }
 
 function artMarkup(cardId) {
-  return `<span class="card-art" data-card-art="${html(cardId)}" aria-hidden="true"></span>`;
-}
-
-function addShippedCardArt(container) {
-  for (const art of container.querySelectorAll('.card-art[data-card-art="stonehauler"]')) {
-    const illustration = createCombatArt(document, "stonehauler", "south", "ground");
-    illustration.classList.add("card-art-illustration");
-    art.replaceChildren(illustration);
-  }
+  const portrait = getCardPortrait(cardId);
+  const imageMarkup = portrait === null ? "" : `<span class="card-art-window">
+      <img class="card-art-image${portrait.cell === null ? "" : " card-art-atlas"}"${portrait.cell === null ? "" : ` data-portrait-cell="${portrait.cell}"`} src="${html(portrait.src)}" alt="" decoding="async">
+    </span>`;
+  return `<span class="card-art" data-card-art="${html(cardId)}" aria-hidden="true">${imageMarkup}</span>`;
 }
 
 function compactCardMarkup(card) {
@@ -179,7 +175,6 @@ function renderCollection() {
     card.displayName.toLocaleLowerCase("en").includes(query) ||
     card.entities.some((entity) => entity.displayName.toLocaleLowerCase("en").includes(query)));
   cardGrid.innerHTML = matches.map(collectionCardMarkup).join("");
-  addShippedCardArt(cardGrid);
   const isEmpty = matches.length === 0;
   cardGrid.hidden = isEmpty;
   emptyCollection.hidden = !isEmpty;
@@ -203,8 +198,6 @@ function renderDeckSummary() {
   homeDeck.innerHTML = currentDeckIds.map((id) => compactCardMarkup(cardById.get(id))).join("");
   deckCards.innerHTML = currentDeckIds.map((id, index) =>
     deckCardMarkup(cardById.get(id), index)).join("");
-  addShippedCardArt(homeDeck);
-  addShippedCardArt(deckCards);
   const isStandard = currentDeckIds.every((id, index) => id === PLAYABLE_CARD_IDS[index]);
   for (const node of document.querySelectorAll("[data-deck-card-count]")) {
     node.textContent = String(currentDeckIds.length);
@@ -243,7 +236,6 @@ function renderReplacementChoices() {
   replacementChoices.innerHTML = available.map((card) => `<button class="replacement-choice" type="button" data-replacement-card-id="${html(card.id)}" aria-label="Replace with ${html(card.displayName)}, costs ${card.cost} elixir">
     ${artMarkup(card.id)}<span><strong>${html(card.displayName)}</strong><small>${card.cost} elixir</small></span>
   </button>`).join("");
-  addShippedCardArt(replacementChoices);
   if (available.length === 0) {
     replacementChoices.innerHTML = '<p class="replacement-empty">Every available card is already in your deck.</p>';
   }

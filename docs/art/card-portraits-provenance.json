@@ -1,0 +1,31 @@
+{
+  "license": "AGPL-3.0-only",
+  "generation_tool": "built-in imagegen",
+  "encoding_tool": "cwebp 1.6.0",
+  "assets": [
+    {
+      "asset": "public/assets/card-portraits-painted.webp",
+      "source_png": "demo/assets/card-portraits-painted.png",
+      "source_sha256": "da0157b21f5fa7ded48d8cda8b3820eae2880800b9bb585dd3452b33751bb147",
+      "source_bytes": 2770061,
+      "source_dimensions": { "width": 1774, "height": 887 },
+      "sha256": "16307a59bde57889e11bcd7b86b54d69ba9985eae6ef436d9703e528fba58e4f",
+      "bytes": 320516,
+      "dimensions": { "width": 1774, "height": 887 },
+      "encoding": ["-q", "85", "-m", "6", "-mt"],
+      "prompt": "Create one original 2.5D sculptural painted-game-art atlas for a warm woodland-and-copper fantasy world called Moss & Ember. Use exactly four columns by two rows of equal square portrait cells, edge to edge with no gutters, borders, labels, letters, numbers, logos, or text. Keep one centered readable subject in each cell with a generous quiet safety margin so it survives a square crop and small card-thumbnail display. Use soft warm key light, tactile carved wood, aged copper, moss, leaves, stone, and ember glow, controlled uncluttered backgrounds, distinct silhouettes, polished hand-painted material detail, and consistent camera scale. Fixed row-major order: (1) a nimble copper clockwork swordsman with a compact segmented blade and dark green scarf; (2) a stout wooden guardian with a broad leaf shield; (3) a small airborne copper-and-wood skiff with visible balloon and gondola silhouette; (4) a hovering stone brawler with a copper-banded maul; (5) a woodland ranger holding a clearly readable brass crossbow; (6) a reed-hooded archer with a slender bow; (7) a small pair of distinct wood-and-leaf masked scouts; (8) a trio of tiny ember sprouts with bright warm cores. Make every design original and independently recognizable, with no resemblance to protected game characters or existing commercial card art."
+    },
+    {
+      "asset": "public/assets/stonehauler-painted.webp",
+      "source_png": "demo/assets/stonehauler-painted.png",
+      "source_sha256": "191912952eec83874e06ac1c3055e458ac4637b08c8148f1b039120f16a66245",
+      "source_bytes": 2687957,
+      "source_dimensions": { "width": 1254, "height": 1254 },
+      "sha256": "47c19650d41d21a6efb3f883b6fff73892abd214783279dcb5708cc198b87357",
+      "bytes": 308508,
+      "dimensions": { "width": 1254, "height": 1254 },
+      "encoding": ["-q", "85", "-m", "6", "-mt"],
+      "prompt": "Create a single square, original painted 2.5D game-card portrait in the same Moss & Ember woodland-and-copper world and visual finish as the provided style reference. The subject is a massive low quadruped cargo carrier made of carved timber and slate stone, reinforced with copper braces, with a stacked stone cargo frame, moss accents, and a small warm lantern. Its weight should read through broad grounded legs, low center of mass, and a wide load-bearing silhouette. It targets structures, so emphasize the carrier's siege-cargo role without adding weapons or a humanoid body. Use a centered distinct silhouette, generous safe inset, warm directional light, detailed but controlled materials, a simple forest-stone backdrop, and no letters, numbers, labels, logos, or text. Make the design original and avoid resemblance to any protected game character or commercial card art."
+    }
+  ]
+}

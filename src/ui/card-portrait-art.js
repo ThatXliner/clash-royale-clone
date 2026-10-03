@@ -1,0 +1,37 @@
+const CARD_PORTRAITS = Object.freeze({
+  coilblade: Object.freeze({ asset: "card-portraits-painted", cell: 0 }),
+  mossguard: Object.freeze({ asset: "card-portraits-painted", cell: 1 }),
+  copperskiff: Object.freeze({ asset: "card-portraits-painted", cell: 2 }),
+  skymaul: Object.freeze({ asset: "card-portraits-painted", cell: 3 }),
+  brassbolt: Object.freeze({ asset: "card-portraits-painted", cell: 4 }),
+  reedsting: Object.freeze({ asset: "card-portraits-painted", cell: 5 }),
+  "briar-band": Object.freeze({ asset: "card-portraits-painted", cell: 6 }),
+  cinderlings: Object.freeze({ asset: "card-portraits-painted", cell: 7 }),
+  stonehauler: Object.freeze({ asset: "stonehauler-painted", cell: null }),
+});
+
+const PORTRAIT_ASSET_PATHS = Object.freeze({
+  "card-portraits-painted": new URL(
+    "../../public/assets/card-portraits-painted.webp",
+    import.meta.url,
+  ).href,
+  "stonehauler-painted": new URL(
+    "../../public/assets/stonehauler-painted.webp",
+    import.meta.url,
+  ).href,
+});
+
+export function getCardPortrait(cardId) {
+  if (typeof cardId !== "string" || !Object.hasOwn(CARD_PORTRAITS, cardId)) {
+    return null;
+  }
+  const portrait = CARD_PORTRAITS[cardId];
+  return Object.freeze({
+    ...portrait,
+    src: PORTRAIT_ASSET_PATHS[portrait.asset],
+  });
+}
+
+export function getCardPortraitIds() {
+  return Object.keys(CARD_PORTRAITS);
+}

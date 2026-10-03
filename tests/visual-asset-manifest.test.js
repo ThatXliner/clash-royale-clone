@@ -61,6 +61,47 @@ function svgViewBoxSize(bytes) {
   return { height: Number(match[2]), width: Number(match[1]) };
 }
 
+function pngSize(bytes) {
+  if (bytes.length < 24 || bytes.subarray(0, 8).toString("hex") !== "89504e470d0a1a0a") {
+    return null;
+  }
+  return { width: bytes.readUInt32BE(16), height: bytes.readUInt32BE(20) };
+}
+
+function webpSize(bytes) {
+  if (bytes.length < 30 || bytes.toString("ascii", 0, 4) !== "RIFF" ||
+      bytes.toString("ascii", 8, 12) !== "WEBP") return null;
+  const chunk = bytes.toString("ascii", 12, 16);
+  if (chunk === "VP8 ") {
+    if (bytes.toString("hex", 23, 26) !== "9d012a") return null;
+    return {
+      width: bytes.readUInt16LE(26) & 0x3fff,
+      height: bytes.readUInt16LE(28) & 0x3fff,
+    };
+  }
+  if (chunk === "VP8X" && bytes.length >= 30) {
+    return {
+      width: 1 + bytes.readUIntLE(24, 3),
+      height: 1 + bytes.readUIntLE(27, 3),
+    };
+  }
+  if (chunk === "VP8L" && bytes.length >= 25 && bytes[20] === 0x2f) {
+    return {
+      width: 1 + bytes[21] + ((bytes[22] & 0x3f) << 8),
+      height: 1 + ((bytes[22] & 0xc0) >> 6) + (bytes[23] << 2) +
+        ((bytes[24] & 0x0f) << 10),
+    };
+  }
+  return null;
+}
+
+function assetSize(bytes, format) {
+  if (format === "svg") return svgViewBoxSize(bytes);
+  if (format === "png") return pngSize(bytes);
+  if (format === "webp") return webpSize(bytes);
+  return null;
+}
+
 function canonical(value) {
   if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
   if (value !== null && typeof value === "object") {
@@ -132,8 +173,9 @@ test("visual asset manifest: registry matches shipped assets on disk byte-for-by
     const bytes = readFileSync(file.absolute);
     assert.equal(bytes.byteLength, entry.byteLength, `${path}: byte length drift`);
     assert.equal(sha256(bytes), entry.sha256, `${path}: sha-256 drift`);
-    const observedSize = svgViewBoxSize(bytes);
-    if (observedSize && entry.dimensions) {
+    const observedSize = assetSize(bytes, entry.format);
+    if (entry.dimensions !== null) {
+      assert.ok(observedSize, `${path}: could not read declared image dimensions`);
       assert.deepEqual(observedSize, entry.dimensions, `${path}: dimension drift`);
     }
   }
@@ -174,7 +216,7 @@ test("visual asset manifest: provenance never references protected-game sources"
     assert.equal(PROTECTED_SOURCE_PATTERN.test(asset.authorship), false);
     assert.equal(PROTECTED_SOURCE_PATTERN.test(asset.license), false);
     assert.equal(asset.authorship, "in-repo-authored");
-    assert.ok(["CC0-1.0", "MIT", "OFL-1.1"].includes(asset.license));
+    assert.ok(["AGPL-3.0-only", "CC0-1.0", "MIT", "OFL-1.1"].includes(asset.license));
   }
 });
 

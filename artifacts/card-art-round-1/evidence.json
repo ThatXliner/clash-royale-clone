@@ -1,0 +1,81 @@
+{
+  "capturedPage": "http://127.0.0.1:4174/public/index.html",
+  "captureMode": "Google Chrome via Playwright; live UI cross-check in Codex In-app Browser",
+  "screenshots": [
+    {
+      "path": "artifacts/card-art-round-1/desktop-collection-1440x933.png",
+      "width": 1440,
+      "height": 933,
+      "sha256": "bcbebf0b916d2665855fc0297f71f7a74822bd6b1b80e3cf77b0804eb8b8cfae"
+    },
+    {
+      "path": "artifacts/card-art-round-1/phone-collection-390x844.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "0d537341fb92874f2ab3f7690fdfbd4f55435be7e94deb685c861e624d2bd119"
+    },
+    {
+      "path": "artifacts/card-art-round-1/phone-collection-lower-390x844.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "0d537341fb92874f2ab3f7690fdfbd4f55435be7e94deb685c861e624d2bd119",
+      "note": "The Reedsting card was already inside the viewport, so this second phone capture is byte-identical to the first."
+    },
+    {
+      "path": "artifacts/card-art-round-1/home-720x1280.png",
+      "width": 720,
+      "height": 1280,
+      "sha256": "661f16fbce88f3538941eebf0ca9d77cf04ad3528e7e4bacb7b713b6cc271be7",
+      "note": "Captured by the app-shell browser test after the portrait integration."
+    },
+    {
+      "path": "artifacts/card-art-round-1/deck-720x1280.png",
+      "width": 720,
+      "height": 1280,
+      "sha256": "74d135837719f3df583431fe2a5f536d61aa303ab706047d254b7671f3c49b6a",
+      "note": "Captured by the app-shell browser test after the portrait integration."
+    }
+  ],
+  "mapping": [
+    { "card": "coilblade", "source": "assets/card-portraits-painted.webp", "cell": 0, "dimensions": "1774x887" },
+    { "card": "mossguard", "source": "assets/card-portraits-painted.webp", "cell": 1, "dimensions": "1774x887" },
+    { "card": "copperskiff", "source": "assets/card-portraits-painted.webp", "cell": 2, "dimensions": "1774x887" },
+    { "card": "skymaul", "source": "assets/card-portraits-painted.webp", "cell": 3, "dimensions": "1774x887" },
+    { "card": "brassbolt", "source": "assets/card-portraits-painted.webp", "cell": 4, "dimensions": "1774x887" },
+    { "card": "reedsting", "source": "assets/card-portraits-painted.webp", "cell": 5, "dimensions": "1774x887" },
+    { "card": "briar-band", "source": "assets/card-portraits-painted.webp", "cell": 6, "dimensions": "1774x887" },
+    { "card": "cinderlings", "source": "assets/card-portraits-painted.webp", "cell": 7, "dimensions": "1774x887" },
+    { "card": "stonehauler", "source": "assets/stonehauler-painted.webp", "cell": null, "dimensions": "1254x1254" }
+  ],
+  "checks": {
+    "cardCount": 9,
+    "allPortraitImagesDecoded": true,
+    "mobileDocumentWidth": 390,
+    "mobileHorizontalOverflow": false,
+    "cardArtHiddenFromAssistiveTechnology": true,
+    "browserPageErrors": [],
+    "resource404": {
+      "url": "/favicon.ico",
+      "status": 404,
+      "note": "The source preview server has no favicon; all card art requests returned images with their expected natural dimensions."
+    },
+    "rawVsWebpAt164x130": {
+      "decodedAndRendered": true,
+      "numericDeltaPersisted": false,
+      "note": "The capture runner rendered raw PNG and production WebP crops at 164x130 and calculated per-card RGB differences, but did not persist the numeric summary before its final favicon-only resource assertion."
+    }
+  },
+  "productionAssets": [
+    { "path": "public/assets/card-portraits-painted.webp", "bytes": 320516, "sha256": "16307a59bde57889e11bcd7b86b54d69ba9985eae6ef436d9703e528fba58e4f", "encoding": "cwebp 1.6.0 -q 85 -m 6 -mt" },
+    { "path": "public/assets/stonehauler-painted.webp", "bytes": 308508, "sha256": "47c19650d41d21a6efb3f883b6fff73892abd214783279dcb5708cc198b87357", "encoding": "cwebp 1.6.0 -q 85 -m 6 -mt" }
+  ],
+  "verification": {
+    "npm run test:visual-asset-manifest": "passed: 6 tests",
+    "npm run test:deck": "passed: 7 tests",
+    "npm run test:editable-deck": "passed: 4 tests",
+    "npm run test:app-shell": {
+      "status": "failed after Cards, details, Home, and Deck assertions/screenshots",
+      "failure": "frame.evaluate: TypeError: Cannot read properties of undefined (reading 'state') at cardFrameTick in tests/app-shell.test.js:64, reached from waitForCardFrameTick in tests/app-shell.test.js:123 and the final battle-resume assertion in tests/app-shell.test.js:276."
+    }
+  }
+}
