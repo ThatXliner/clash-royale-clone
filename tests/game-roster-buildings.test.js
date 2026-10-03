@@ -171,8 +171,8 @@ test("game roster buildings: the exact HA/INTEGRATION building occurrence subset
     staticOccurrences, "the HA manifest is the complete frozen INTEGRATION occurrence union");
   assert.deepEqual(occurrences.map(({ exportName, id, status }) => [exportName, id, status]), expected);
   assert.deepEqual(occurrences.map(({ exportName, id }) => ({ exportName, id })), integrationOccurrences);
-  assert.deepEqual(manifest.counts, { admittedIds: 47, admittedOccurrences: 52,
-    claimedIds: 53, claimedOccurrences: 58, excludedClaimedIds: 6,
+  assert.deepEqual(manifest.counts, { admittedIds: 49, admittedOccurrences: 54,
+    claimedIds: 55, claimedOccurrences: 60, excludedClaimedIds: 6,
     excludedClaimedOccurrences: 6, questionOnlyExports: 5 });
   assert.deepEqual(SESSION_BUILDING_ADMITTED_IDS, [
     "aether-well", "bulwark-needle", "buried-coil", "burrow-rig", "cinder-reliquary",

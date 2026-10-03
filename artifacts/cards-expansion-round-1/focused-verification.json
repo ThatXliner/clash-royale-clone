@@ -1,0 +1,26 @@
+{
+  "task": "editable collection expansion",
+  "cards": [
+    { "id": "thornscouts", "name": "Thornscouts", "cost": 2, "count": 4 },
+    { "id": "forgeguard", "name": "Forgeguard", "cost": 5, "count": 5 }
+  ],
+  "sourceConfidence": "Copied mechanics are marked unverified in reference/stats/SOURCES.md; tests pin them as questions/estimates, not authoritative values.",
+  "checks": [
+    {
+      "command": "node --test --test-reporter=dot tests/cards-swarms.test.js tests/editable-deck.test.js tests/game-roster-troop-profiles.test.js tests/game-roster-troops-projectile-profiles.test.js",
+      "result": "passed",
+      "exitCode": 0,
+      "notes": "Covers low-confidence stat witnesses, strict source admission/profile accounting, preservation of the default eight-card deck, eleven-card editable choices, and deterministic GameSession deploy/restore for both new squads."
+    },
+    {
+      "command": "node --test --test-reporter=dot tests/game-roster-admission.test.js tests/game-roster-buildings.test.js",
+      "result": "passed",
+      "exitCode": 0
+    }
+  ],
+  "canonicalProjectileProfile": {
+    "bytes": 67318,
+    "sha256": "19a66e8ccc4ce1fa8a191e55f21134834771495bff2ffce5c912d9a521001df2"
+  },
+  "browser": "Full app-shell and responsive collection verification delegated to the independent reviewer; no builder browser capture was run for this round."
+}

@@ -38,7 +38,7 @@ const claims = [
   claim("createBasicFlyingCatalog", "cards/basic-flying.js", "cards-basic-flying", ["copperskiff", "skymaul"]),
   claim("createBasicMeleeCatalog", "cards/basic-melee.js", "cards-basic-melee", ["coilblade", "mossguard"]),
   claim("createBasicRangedCatalog", "cards/basic-ranged.js", "cards-basic-ranged", ["brassbolt", "reedsting"]),
-  claim("createSwarmCatalog", "cards/swarms.js", "cards-swarms", ["briar-band", "cinderlings"]),
+  claim("createSwarmCatalog", "cards/swarms.js", "cards-swarms", ["briar-band", "cinderlings", "forgeguard", "thornscouts"]),
   claim("DEATH_SPAWN_IDENTITY", "cards/death-spawns.js", "death-spawns", ["ashen-nest"], "createDeathSpawnFixture"),
   claim("DEATH_CONVERSION_IDENTITY", "cards/death-conversion.js", "death-conversion", ["gloam-shepherd"], "createDeathConversionFixture"),
   claim("createStructureSeekerCatalog", "cards/structure-seeker.js", "cards-structure-seeker", ["stonehauler"]),

@@ -47,6 +47,8 @@ const QUESTION_ESTIMATES = Object.freeze({
 export const EDITABLE_DECK_CARD_IDS = Object.freeze([
   ...PLAYABLE_CARD_IDS,
   "stonehauler",
+  "thornscouts",
+  "forgeguard",
 ]);
 
 // These are source-occurrence classifications for an ordinary runtime estimate.

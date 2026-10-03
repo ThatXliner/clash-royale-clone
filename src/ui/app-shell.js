@@ -4,7 +4,11 @@ import { EDITABLE_DECK_CARD_IDS } from "../content/editable-deck.js";
 import { getCardPortrait } from "./card-portrait-art.js";
 import { getCardLore } from "./card-lore.js";
 
-const cards = [...createPlayableRoster(), projectSessionTroopBattleCard("stonehauler")];
+const cards = [
+  ...createPlayableRoster(),
+  ...EDITABLE_DECK_CARD_IDS.filter((id) => !PLAYABLE_CARD_IDS.includes(id))
+    .map((id) => projectSessionTroopBattleCard(id)),
+];
 const cardById = new Map(cards.map((card) => [card.id, card]));
 const root = document.querySelector(".app-shell");
 const views = new Map([...document.querySelectorAll("[data-app-view]")]

@@ -240,6 +240,12 @@ const EXCLUDED_OCCURRENCE_SPECS = Object.freeze([
     status: "admitted",
   },
   {
+    exportName: "createSwarmCatalog",
+    id: "forgeguard",
+    reason: "the ordinary melee squad is outside the projectile claim surface",
+    status: "admitted",
+  },
+  {
     exportName: "createChampionAbilityCatalog",
     id: "gilded-lancer",
     reason: "the champion occurrence exports no projectile delivery claim",
@@ -303,6 +309,12 @@ const EXCLUDED_OCCURRENCE_SPECS = Object.freeze([
     exportName: "createSnareSpecialCatalog",
     id: "tether-rider",
     reason: "the status occurrence exports no projectile delivery claim",
+    status: "admitted",
+  },
+  {
+    exportName: "createSwarmCatalog",
+    id: "thornscouts",
+    reason: "the ordinary melee squad is outside the projectile claim surface",
     status: "admitted",
   },
   {

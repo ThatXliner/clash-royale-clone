@@ -297,8 +297,8 @@ test("mobile app controls scroll clear of navigation and retain deck and card fe
     await assertVisibleAppTargets(page, "empty search recovery");
     await page.locator('[data-action="clear-search"]').click();
     assert.equal(await page.locator("[data-card-search]").inputValue(), "");
-    assert.equal(await page.locator("[data-card-grid] [data-card-id]").count(), 9,
-      "Clear search restores the playable collection");
+    assert.equal(await page.locator("[data-card-grid] [data-card-id]").count(), 11,
+      "Clear search restores the full editable collection");
     assert.equal(await page.evaluate(() => document.activeElement?.dataset?.cardSearch !== undefined ||
       document.activeElement?.getAttribute("data-card-search") !== null), true,
     "clearing search returns focus to the search field");

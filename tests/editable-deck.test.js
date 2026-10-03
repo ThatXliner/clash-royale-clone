@@ -24,8 +24,9 @@ function canonical(value) {
 }
 
 function combinationsOfEight() {
-  return EDITABLE_DECK_CARD_IDS.map((excluded) =>
-    EDITABLE_DECK_CARD_IDS.filter((id) => id !== excluded));
+  return EDITABLE_DECK_CARD_IDS.map((_, start) =>
+    Array.from({ length: 8 }, (_unused, offset) =>
+      EDITABLE_DECK_CARD_IDS[(start + offset) % EDITABLE_DECK_CARD_IDS.length]));
 }
 
 function questionReferences(roster) {
@@ -47,11 +48,11 @@ function command(session, cardId, commandId = 0) {
   });
 }
 
-test("editable deck setup admits every eight-card subset and closes QUESTION records", () => {
-  assert.equal(EDITABLE_DECK_CARD_IDS.length, 9);
+test("editable deck setup admits every card in canonical eight-card witnesses and closes QUESTION records", () => {
+  assert.equal(EDITABLE_DECK_CARD_IDS.length, 11);
   assert.deepEqual(EDITABLE_DECK_CARD_IDS.slice(0, 8), PLAYABLE_CARD_IDS);
   const decks = combinationsOfEight();
-  assert.equal(decks.length, 9);
+  assert.equal(decks.length, 11);
   const originalQuestions = new Map();
   for (const id of EDITABLE_DECK_CARD_IDS) {
     for (const question of createSessionTroopWitnessQuestions(id)) {
@@ -136,6 +137,39 @@ test("editable Stonehauler deployment survives deterministic restore continuatio
   restored.stepMany(75);
   assert.equal(restored.serialize(), session.serialize());
   assert.deepEqual(JSON.parse(restored.serialize()).setup.deck, deck);
+});
+
+test("new squads deploy through custom eight-card battles and restore exactly", () => {
+  for (const [cardId, memberCount, hitpoints] of [
+    ["thornscouts", 4, 202],
+    ["forgeguard", 5, 670],
+  ]) {
+    const deck = [cardId, ...PLAYABLE_CARD_IDS.slice(0, 7)];
+    let seed = 0;
+    while (!new DeckCycle({ deck, seed: `${seed}:south` }).state.hand.includes(cardId)) {
+      seed += 1;
+      assert.ok(seed < 1_000, `${cardId} has a deterministic starting-hand witness`);
+    }
+    const session = new GameSession(createEditableGameSessionSetup(deck, seed));
+    session.submitPlayerCommand(command(session, cardId));
+    session.stepMany(61);
+    const deployed = session.state.battle.units.filter(({ cardId: id, side }) =>
+      id === cardId && side === "south");
+    assert.equal(deployed.length, memberCount, `${cardId} materializes its complete squad`);
+    assert.ok(deployed.every(({ hitpoints: hp }) => hp === hitpoints),
+      `${cardId} members carry the pinned comparison health`);
+    assert.equal(session.state.cardRuntime.history.find(({ cardId: id }) => id === cardId)?.cardId,
+      cardId, `${cardId} is admitted through the real card runtime`);
+
+    const checkpoint = session.serialize();
+    session.stepMany(120);
+    const forward = session.serialize();
+    const restored = GameSession.restore(checkpoint);
+    restored.stepMany(120);
+    assert.equal(restored.serialize(), forward, `${cardId} replay after restore is deterministic`);
+    assert.deepEqual(JSON.parse(restored.serialize()).setup.deck, deck,
+      `${cardId} restore retains the custom deck`);
+  }
 });
 
 test("editable deck rejects malformed, duplicate, unsupported, and noncanonical setups", () => {

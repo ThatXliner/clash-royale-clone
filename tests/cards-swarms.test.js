@@ -144,6 +144,58 @@ const COMPONENT_SNAPSHOT = [
     count: 3,
     area_damage_radius_tiles: null,
   },
+  {
+    key: "comparison-thornscout",
+    unverified_fields: [
+      "hitpoints",
+      "damage",
+      "hit_speed_seconds",
+      "first_hit_seconds",
+      "deploy_time_seconds",
+      "range_tiles",
+      "sight_range_tiles",
+      "movement_speed_tiles_per_second",
+      "targets",
+      "count",
+    ],
+    hitpoints: 202,
+    damage: 120,
+    hit_speed_seconds: 1.1,
+    first_hit_seconds: 0.7,
+    deploy_time_seconds: 1,
+    range_tiles: 0.5,
+    sight_range_tiles: 5.5,
+    movement_speed_tiles_per_second: 2,
+    targets: "ground",
+    count: 4,
+    area_damage_radius_tiles: null,
+  },
+  {
+    key: "comparison-forgeguard",
+    unverified_fields: [
+      "hitpoints",
+      "damage",
+      "hit_speed_seconds",
+      "first_hit_seconds",
+      "deploy_time_seconds",
+      "range_tiles",
+      "sight_range_tiles",
+      "movement_speed_tiles_per_second",
+      "targets",
+      "count",
+    ],
+    hitpoints: 670,
+    damage: 192,
+    hit_speed_seconds: 1.3,
+    first_hit_seconds: 0.9,
+    deploy_time_seconds: 1,
+    range_tiles: 0.7,
+    sight_range_tiles: 5.5,
+    movement_speed_tiles_per_second: 1,
+    targets: "ground",
+    count: 5,
+    area_damage_radius_tiles: null,
+  },
 ];
 
 const evaluateCardParity = createReferenceParityEvaluator(
@@ -167,18 +219,17 @@ function component(id) {
     .find((entry) => entry.id === id);
 }
 
-function comparisonComponent(benchmarkKey, index) {
+function comparisonComponent(benchmarkKey, index, snapshotKey = null) {
   const source = benchmarkByKey.get(benchmarkKey);
   const nested = source.components[index];
+  const key = snapshotKey ?? (benchmarkKey === "skeletons"
+    ? "comparison-cinderling"
+    : index === 0
+      ? "comparison-briar-runner"
+      : "comparison-briar-darter");
   return Object.fromEntries(
     COMPONENT_SNAPSHOT
-      .filter(({ key }) => key === (
-        benchmarkKey === "skeletons"
-          ? "comparison-cinderling"
-          : index === 0
-            ? "comparison-briar-runner"
-            : "comparison-briar-darter"
-      ))
+      .filter((snapshot) => snapshot.key === key)
       .flatMap((snapshot) => Object.keys(snapshot))
       .filter((key) => !["key", "unverified_fields"].includes(key))
       .map((key) => [key, nested[key]]),
@@ -192,6 +243,8 @@ test("squad content: catalog is canonical with exact component counts and roles"
     [
       { count: 6, displayName: "Briar Band", id: "briar-band" },
       { count: 3, displayName: "Cinderlings", id: "cinderlings" },
+      { count: 5, displayName: "Forgeguard", id: "forgeguard" },
+      { count: 4, displayName: "Thornscouts", id: "thornscouts" },
     ],
   );
   assert.deepEqual(
@@ -230,7 +283,7 @@ test("squad content: catalog is canonical with exact component counts and roles"
 });
 
 test("squad content: top-level parity reports authority and questions", (context) => {
-  const reports = createSwarmCatalog().map((runtimeCard) => ({
+  const reports = createSwarmCatalog().filter(({ id }) => Object.hasOwn(CARD_KEYS, id)).map((runtimeCard) => ({
     runtimeId: runtimeCard.id,
     ...evaluateCardParity(runtimeCard, CARD_KEYS[runtimeCard.id]),
   }));
@@ -245,11 +298,42 @@ test("squad content: top-level parity reports authority and questions", (context
   context.diagnostic(`top-level parity ${JSON.stringify(reports)}`);
 });
 
+test("new squads retain the pinned Goblins and Barbarians mechanics as unverified questions", () => {
+  const sourceRows = [
+    ["thornscouts", "goblins", 2, 4, 202, 120, 66, 42, 60, 500, 5500, 2000],
+    ["forgeguard", "barbarians", 5, 5, 670, 192, 78, 54, 60, 700, 5500, 1000],
+  ];
+  const mechanicsFields = [
+    "hitpoints", "damage", "hit_speed_seconds", "first_hit_seconds",
+    "deploy_time_seconds", "range_tiles", "sight_range_tiles",
+    "movement_speed_tiles_per_second", "targets", "count",
+  ];
+  for (const [id, key, cost, count, hp, damage, hitTicks, firstTicks,
+    deployTicks, range, sight, speed] of sourceRows) {
+    const pinned = benchmarkByKey.get(key);
+    const runtime = card(id);
+    assert.ok(pinned.unverified_fields.includes("count"));
+    assert.ok(mechanicsFields.every((field) => pinned.unverified_fields.includes(field)),
+      `${key} mechanics remain explicitly unverified`);
+    assert.deepEqual(
+      [runtime.cost, runtime.count, runtime.hitpoints, runtime.damage,
+        runtime.hitSpeedTicks, runtime.firstHitTicks, runtime.deployTimeTicks,
+        runtime.rangeMillitiles, runtime.sightRangeMillitiles,
+        runtime.movementMillitilesPerSecond, runtime.targetMode],
+      [cost, count, hp, damage, hitTicks, firstTicks, deployTicks, range, sight,
+        speed, "ground"],
+      `${id} keeps its selected comparison-derived runtime values`,
+    );
+  }
+});
+
 test("squad content: nested trusted snapshot matches the reference rows", () => {
   const sourceRows = [
     comparisonComponent("skeletons", 0),
     comparisonComponent("goblin-gang", 0),
     comparisonComponent("goblin-gang", 1),
+    comparisonComponent("goblins", 0, "comparison-thornscout"),
+    comparisonComponent("barbarians", 0, "comparison-forgeguard"),
   ];
   const expectedRows = COMPONENT_SNAPSHOT.map((snapshot) =>
     Object.fromEntries(
@@ -264,6 +348,8 @@ test("squad content: nested trusted snapshot matches the reference rows", () => 
     benchmarkByKey.get("skeletons"),
     benchmarkByKey.get("goblin-gang"),
     benchmarkByKey.get("goblin-gang"),
+    benchmarkByKey.get("goblins"),
+    benchmarkByKey.get("barbarians"),
   ];
   const comparedBenchmarkFields = new Set(
     COMPONENT_FIELDS.map(([, benchmarkField]) => benchmarkField),
@@ -290,11 +376,19 @@ test("squad content: nested component parity is provenance-aware", (context) => 
       component("briar-darter"),
       "comparison-briar-darter",
     ),
+    evaluateComponentParity(
+      component("thornscout"),
+      "comparison-thornscout",
+    ),
+    evaluateComponentParity(
+      component("forgeguard"),
+      "comparison-forgeguard",
+    ),
   ];
   assert.deepEqual(reports.flatMap(({ authoritativeFailures }) =>
     authoritativeFailures
   ), []);
-  assert.equal(reports.flatMap(({ fields }) => fields).length, 33);
+  assert.equal(reports.flatMap(({ fields }) => fields).length, 55);
   assert.ok(reports.flatMap(({ questions }) => questions).length > 0);
   context.diagnostic(`nested parity ${JSON.stringify(reports)}`);
 });
@@ -346,6 +440,16 @@ test("squad content: expansion preserves component order, roles, and ascending I
       targetMode: "ground-and-air",
     }),
   );
+  for (const [cardId, componentId, count, hp, damage] of [
+    ["thornscouts", "thornscout", 4, 202, 120],
+    ["forgeguard", "forgeguard", 5, 670, 192],
+  ]) {
+    const members = createSquadMembers(cardId, 300);
+    assert.equal(members.length, count, `${cardId} expands its pinned count`);
+    assert.deepEqual(members.map(({ componentId: id, damage: hit, hitpoints }) => ({
+      componentId: id, damage: hit, hitpoints,
+    })), Array(count).fill({ componentId, damage, hitpoints: hp }));
+  }
 });
 
 test("squad content: catalog, expansion, and layout outputs are isolated", () => {

@@ -77,6 +77,7 @@ const EXPECTED_EXCLUDED = [
   ["dusk-ranger", "createChampionAbilityCatalog"],
   ["emberlance", "createChargeKnockbackCatalog"],
   ["emberlance", "createChargeSpecialCatalog"],
+  ["forgeguard", "createSwarmCatalog"],
   ["gilded-lancer", "createChampionAbilityCatalog"],
   ["gloam-shepherd", "DEATH_CONVERSION_IDENTITY"],
   ["iron-borer", "createChampionAbilityCatalog"],
@@ -88,6 +89,7 @@ const EXPECTED_EXCLUDED = [
   ["stonehauler", "createStructureSeekerCatalog"],
   ["stonevault", "createJumpSpecialCatalog"],
   ["tether-rider", "createSnareSpecialCatalog"],
+  ["thornscouts", "createSwarmCatalog"],
   ["veil-prowler", "createInvisibilitySpecialCatalog"],
   ["veilrunner", "createDashSpecialCatalog"],
   ["wayfinder", "createRetargetSpecialCatalog"],
@@ -212,6 +214,8 @@ const EXPECTED_SOURCE_PAIRS = [
   ["createBasicFlyingCatalog", "skymaul"],
   ["createSwarmCatalog", "briar-band"],
   ["createSwarmCatalog", "cinderlings"],
+  ["createSwarmCatalog", "forgeguard"],
+  ["createSwarmCatalog", "thornscouts"],
   ["createChainSpecialCatalog", "stormkite"],
   ["createPierceSpecialCatalog", "prism-warden"],
   ["createReturnSpecialCatalog", "rune-reaver"],
@@ -459,8 +463,8 @@ test("projectile profiles: exact admitted occurrence/card/archetype domain and p
       `${source.catalogExport}\u0000${source.record.id}`),
     ...manifest.excludedOccurrences.map(({ exportName, id }) => `${exportName}\u0000${id}`),
   ];
-  assert.equal(classifiedKeys.length, 35);
-  assert.equal(new Set(classifiedKeys).size, 35);
+  assert.equal(classifiedKeys.length, 37);
+  assert.equal(new Set(classifiedKeys).size, 37);
   assert.deepEqual(new Set(classifiedKeys), htpKeys);
 });
 
@@ -471,7 +475,7 @@ test("projectile profiles: the complete witness map covers exactly the eight sou
   )].map(([, exportName, id]) => [exportName, id]);
   const sortPairs = (pairs) => [...pairs].sort(([leftExport, leftId], [rightExport, rightId]) =>
     leftId.localeCompare(rightId) || leftExport.localeCompare(rightExport));
-  assert.equal(pinnedPairs.length, 11);
+  assert.equal(pinnedPairs.length, 13);
   assert.deepEqual(sortPairs(pinnedPairs), sortPairs(EXPECTED_SOURCE_PAIRS));
   assert.match(source, /const AUTHORITATIVE_PROJECTILE_SOURCE_IDS_BY_EXPORT = Object\.freeze\(\{/u);
   assert.match(source, /const EXPECTED_SOURCE_WITNESS_MAP = Object\.freeze\(\{/u);
@@ -486,7 +490,7 @@ test("projectile profiles: the complete witness map covers exactly the eight sou
     "createReturnSpecialCatalog",
   ]);
   assert.deepEqual(createSwarmCatalog().map(({ id }) => id).sort(), [
-    "briar-band", "cinderlings",
+    "briar-band", "cinderlings", "forgeguard", "thornscouts",
   ]);
 });
 
@@ -501,7 +505,7 @@ test("projectile profiles: every bound row rejects same-ID scalar drift", () => 
     assert.equal(result.accepted, false, `${exportName}/${id} scalar drift was accepted`);
     rejects += 1;
   }
-  assert.equal(rejects, 11);
+  assert.equal(rejects, 13);
 });
 
 test("projectile source admission: rebranded cost drift rejects before every shared consumer", () => {
@@ -1293,9 +1297,9 @@ test("projectile profiles: outputs are fresh, deeply frozen, detached, and canon
   const serialized = serializeSessionTroopProjectileProfileManifest();
   assert.equal(serialized, canonical(first));
   assert.equal(serialized, serializeSessionTroopProjectileProfileManifest());
-  assert.equal(serialized.length, 66903);
+  assert.equal(serialized.length, 67318);
   assert.equal(createHash("sha256").update(serialized).digest("hex"),
-    "d01b60123c2ac10a7cf8f3846a8c8fcd87eda22a65cb9166cb99d69f47fdb31d");
+    "19a66e8ccc4ce1fa8a191e55f21134834771495bff2ffce5c912d9a521001df2");
   assert.throws(() => { first.profiles[0].id = "forged"; }, TypeError);
   assert.throws(() => { first.questionFixtures.pellets.rayPattern.value[0].x = 0; }, TypeError);
   assert.throws(() => { first.profiles.push(null); }, TypeError);

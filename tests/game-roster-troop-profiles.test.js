@@ -32,6 +32,7 @@ const EXPECTED_OCCURRENCES = [
   ["createChampionAbilityCatalog", "dusk-ranger", "admitted"],
   ["createChargeKnockbackCatalog", "emberlance", "admitted"],
   ["createChargeSpecialCatalog", "emberlance", "admitted"],
+  ["createSwarmCatalog", "forgeguard", "admitted"],
   ["createChampionAbilityCatalog", "gilded-lancer", "admitted"],
   ["DEATH_CONVERSION_IDENTITY", "gloam-shepherd", "question"],
   ["createChampionAbilityCatalog", "iron-borer", "admitted"],
@@ -48,6 +49,7 @@ const EXPECTED_OCCURRENCES = [
   ["createJumpSpecialCatalog", "stonevault", "admitted"],
   ["createChainSpecialCatalog", "stormkite", "admitted"],
   ["createSnareSpecialCatalog", "tether-rider", "admitted"],
+  ["createSwarmCatalog", "thornscouts", "admitted"],
   ["createInvisibilitySpecialCatalog", "veil-prowler", "admitted"],
   ["createDashSpecialCatalog", "veilrunner", "admitted"],
   ["createRetargetSpecialCatalog", "wayfinder", "admitted"],
@@ -55,10 +57,10 @@ const EXPECTED_OCCURRENCES = [
 const EXPECTED_IDS = [
   "aegis-sage", "ashen-nest", "bloom-wisp", "bone-regent", "brassbolt",
   "briar-band", "cinder-ray", "cinderback", "cinderlings", "coilblade",
-  "copperskiff", "dawnmender", "dusk-ranger", "emberlance", "gilded-lancer",
+  "copperskiff", "dawnmender", "dusk-ranger", "emberlance", "forgeguard", "gilded-lancer",
   "gloam-shepherd", "iron-borer", "mossguard", "prism-warden", "pulse-sentry",
   "railward", "reedsting", "rime-adept", "rune-reaver", "scatterguard", "skymaul",
-  "stonehauler", "stonevault", "stormkite", "tether-rider", "veil-prowler",
+  "stonehauler", "stonevault", "stormkite", "tether-rider", "thornscouts", "veil-prowler",
   "veilrunner", "wayfinder",
 ];
 const EXPECTED_COMPOSITIONS = {
@@ -103,13 +105,13 @@ function occurrenceTriples(manifest) {
   );
 }
 
-test("game roster troop profiles: exact 35 occurrence pairs and 33 identity IDs", () => {
+test("game roster troop profiles: exact 37 occurrence pairs and 35 identity IDs", () => {
   const manifest = createSessionTroopProfileManifest();
   assert.deepEqual(occurrenceTriples(manifest), EXPECTED_OCCURRENCES);
-  assert.equal(manifest.occurrences.length, 35);
+  assert.equal(manifest.occurrences.length, 37);
   assert.equal(new Set(manifest.occurrences.map(({ exportName, id }) =>
     `${exportName}\u0000${id}`
-  )).size, 35);
+  )).size, 37);
   assert.deepEqual(
     [...new Set(manifest.occurrences.map(({ id }) => id))].sort(),
     [...EXPECTED_IDS].sort(),
@@ -119,10 +121,10 @@ test("game roster troop profiles: exact 35 occurrence pairs and 33 identity IDs"
 test("game roster troop profiles: exact admitted/question counts and derived session slice", () => {
   const manifest = createSessionTroopProfileManifest();
   assert.deepEqual(manifest.counts, {
-    admittedIds: 31,
-    admittedOccurrences: 33,
-    claimedIds: 33,
-    claimedOccurrences: 35,
+    admittedIds: 33,
+    admittedOccurrences: 35,
+    claimedIds: 35,
+    claimedOccurrences: 37,
     duplicateCompositionIds: 2,
     questionIds: 2,
     questionOccurrences: 2,
@@ -152,8 +154,8 @@ test("game roster troop profiles: admitted profiles are complete, source-backed,
   assert.ok(deepFrozen(first));
   assert.ok(deepFrozen(second));
   assert.deepEqual(first, second);
-  assert.equal(first.profiles.length, 31);
-  assert.equal(new Set(first.profiles.map(({ id }) => id)).size, 31);
+  assert.equal(first.profiles.length, 33);
+  assert.equal(new Set(first.profiles.map(({ id }) => id)).size, 33);
 
   for (const profile of first.profiles) {
     assert.deepEqual(Object.keys(profile).sort(), [

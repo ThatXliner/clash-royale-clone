@@ -226,7 +226,7 @@ test("canonical integration audit removes temporary output after rename failure"
 
 test("canonical integration audit samples all direct occurrence mechanics", () => {
   const artifacts = probeDirectOccurrenceAdapters();
-  assert.equal(artifacts.length, 58);
+  assert.equal(artifacts.length, 60);
   for (const artifact of artifacts) {
     const facades = new Set();
     for (const [field, payloadKey] of [
@@ -245,7 +245,8 @@ test("canonical integration audit samples all direct occurrence mechanics", () =
     assert.equal(facades.size, 1);
   }
 
-  for (const [id, deaths] of [["briar-band", 6], ["cinderlings", 3]]) {
+  for (const [id, deaths] of [["briar-band", 6], ["cinderlings", 3],
+    ["thornscouts", 4], ["forgeguard", 5]]) {
     const artifact = artifacts.find((entry) =>
       entry.exportName === "createSwarmCatalog" && entry.id === id
     );
@@ -303,9 +304,9 @@ test("canonical integration audit executes every supported card and reproduces a
 }, () => {
   const result = auditCanonicalIntegration({ runs: 2 });
 
-  assert.equal(result.supported, 58);
-  assert.equal(result.covered, 58);
-  assert.equal(result.uniqueSupportedIds, 53);
+  assert.equal(result.supported, 60);
+  assert.equal(result.covered, 60);
+  assert.equal(result.uniqueSupportedIds, 55);
   assert.equal(result.question, 5);
   assert.equal(result.runHashes.length, 2);
   assert.equal(result.runHashes[0], result.runHashes[1]);

@@ -32,6 +32,8 @@ const EXPECTED_CARD_PORTRAIT_CELLS = Object.freeze([
   Object.freeze(["briar-band", "6"]),
   Object.freeze(["cinderlings", "7"]),
   Object.freeze(["stonehauler", null]),
+  Object.freeze(["thornscouts", null]),
+  Object.freeze(["forgeguard", null]),
 ]);
 const CARD_PORTRAIT_SCREENSHOTS = Object.freeze([
   "desktop-card-portraits-1440x933.png",
@@ -219,10 +221,13 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     const cardsTab = page.locator('[data-nav-to="cards"]');
     await cardsTab.focus();
     await page.keyboard.press("Enter");
-    assert.equal(await page.locator("[data-card-grid] [data-card-id]").count(), 9);
+    assert.equal(await page.locator("[data-card-grid] [data-card-id]").count(), 11);
     assert.equal(await page.locator("[data-card-detail] h2").innerText(), "Coilblade");
 
-    for (const card of [...createPlayableRoster(), projectSessionTroopBattleCard("stonehauler")]) {
+    for (const card of [...createPlayableRoster(),
+      projectSessionTroopBattleCard("stonehauler"),
+      projectSessionTroopBattleCard("thornscouts"),
+      projectSessionTroopBattleCard("forgeguard")]) {
       const cardButton = page.locator(`[data-card-grid] [data-card-id="${card.id}"]`);
       await cardButton.click();
       assert.equal(await page.locator("[data-card-detail] h2").innerText(), card.displayName);
@@ -278,27 +283,33 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       },
     );
     assert.deepEqual(desktopPortraits.map(({ cardId, cell }) => [cardId, cell]),
-      EXPECTED_CARD_PORTRAIT_CELLS, "all nine collection cards map to their intended painted portraits");
+      EXPECTED_CARD_PORTRAIT_CELLS, "all eleven collection cards map to their intended painted portraits");
     assert.ok(desktopPortraits.every(({ decoded, naturalSize, windowSize }) => decoded &&
       naturalSize[0] > 0 && naturalSize[1] > 0 && windowSize[0] > 0 && windowSize[1] > 0),
     `every collection portrait decodes and has a visible art window: ${JSON.stringify(desktopPortraits)}`);
     const manifestFileForUrl = (src) => manifest.files.find(({ path }) => path === src.slice(1));
     const manifestAtlasSource = manifest.files.find(({ path }) =>
       path === "public/assets/card-portraits-painted.webp");
-    const manifestStonehaulerSource = manifest.files.find(({ path }) =>
-      path === "public/assets/stonehauler-painted.webp");
-    assert.ok(manifestAtlasSource && manifestStonehaulerSource,
-      "both production portrait source files are registered in the release manifest");
+    const directPortraits = new Map([
+      ["stonehauler", "public/assets/stonehauler-painted.webp"],
+      ["thornscouts", "public/assets/thornscouts-painted.webp"],
+      ["forgeguard", "public/assets/forgeguard-painted.webp"],
+    ].map(([id, path]) => [id, manifest.files.find((file) => file.path === path)]));
+    assert.ok(manifestAtlasSource && [...directPortraits.values()].every(Boolean),
+      "the atlas and three independent squad portraits are registered in the release manifest");
     const atlasOutputs = desktopPortraits.slice(0, 8).map(({ src }) => manifestFileForUrl(src));
     assert.ok(atlasOutputs.every((file) => file !== undefined),
       `each atlas URL resolves to its exact manifest-listed production output: ${JSON.stringify(desktopPortraits.map(({ src }) => src))}`);
     assert.ok(atlasOutputs.every((file) => file.size === manifestAtlasSource.size &&
       file.sha256 === manifestAtlasSource.sha256),
     "every emitted atlas URL retains the exact registered portrait bytes");
-    const stonehaulerOutput = manifestFileForUrl(desktopPortraits[8].src);
-    assert.ok(stonehaulerOutput && stonehaulerOutput.size === manifestStonehaulerSource.size &&
-      stonehaulerOutput.sha256 === manifestStonehaulerSource.sha256,
-    "Stonehauler's emitted URL retains its exact registered portrait bytes");
+    const directOutputs = new Map(desktopPortraits.filter(({ cell }) => cell === null).map(({ cardId, src }) => {
+      const output = manifestFileForUrl(src);
+      const source = directPortraits.get(cardId);
+      assert.ok(output && source && output.size === source.size && output.sha256 === source.sha256,
+        `${cardId}'s emitted URL retains its exact registered portrait bytes`);
+      return [cardId, output];
+    }));
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth), 1440,
       "the desktop collection does not overflow horizontally");
     await page.screenshot({ path: join(ARTIFACTS, CARD_PORTRAIT_SCREENSHOTS[0]), fullPage: true });
@@ -317,7 +328,7 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     );
     assert.deepEqual(phonePortraits.map(({ cardId }) => cardId),
       EXPECTED_CARD_PORTRAIT_CELLS.map(([cardId]) => cardId),
-    "all nine portrait wells remain present on a 390px phone");
+    "all eleven portrait wells remain present on a 390px phone");
     assert.ok(phonePortraits.every(({ decoded, window }) => decoded &&
       window.width > 0 && window.height > 0 && window.right <= 390),
     `all nine portraits remain decoded and inside the phone viewport: ${JSON.stringify(phonePortraits)}`);
@@ -333,8 +344,8 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       desktop: { viewport: { width: 1440, height: 933 }, horizontalOverflow: false },
       phone: { viewport: { width: 390, height: 844 }, horizontalOverflow: false },
       assetManifest: {
-        sources: { atlas: manifestAtlasSource, stonehauler: manifestStonehaulerSource },
-        outputs: { atlas: atlasOutputs[0], stonehauler: stonehaulerOutput },
+        sources: { atlas: manifestAtlasSource, direct: Object.fromEntries(directPortraits) },
+        outputs: { atlas: atlasOutputs[0], direct: Object.fromEntries(directOutputs) },
       },
     };
 
@@ -471,8 +482,9 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     assert.equal(await page.locator("[data-replacement-title]").innerText(),
       "Replace slot 2 · Mossguard");
     assert.deepEqual(await page.locator("[data-replacement-card-id]").evaluateAll((nodes) =>
-      nodes.map((node) => node.dataset.replacementCardId)), ["stonehauler"],
-    "only the missing ninth card can replace a selected slot");
+      nodes.map((node) => node.dataset.replacementCardId)),
+    ["stonehauler", "thornscouts", "forgeguard"],
+    "every missing collection card can replace the selected slot");
     assert.equal(await page.evaluate(() => document.activeElement?.dataset?.replacementCardId),
       "stonehauler", "the replacement choice is reachable by keyboard");
     await page.keyboard.press("Enter");
@@ -490,8 +502,8 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     await page.screenshot({ path: join(ARTIFACTS, "custom-deck-390x844.png"), fullPage: true });
 
     await page.locator('[data-nav-to="cards"]').click();
-    assert.equal(await page.locator("[data-card-grid] [data-card-id]").count(), 9,
-      "the collection includes all nine safe editable choices");
+    assert.equal(await page.locator("[data-card-grid] [data-card-id]").count(), 11,
+      "the collection includes all eleven safe editable choices");
     await page.locator('[data-card-grid] [data-card-id="stonehauler"]').click();
     assert.deepEqual(await renderedProfiles(page),
       [expectedStats(projectSessionTroopBattleCard("stonehauler").entities[0])],
@@ -633,7 +645,8 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     }
     writeFileSync(join(ARTIFACTS, "browser-evidence.json"), `${JSON.stringify({
       cardIds: createPlayableRoster().map(({ id }) => id),
-      editablePoolIds: [...createPlayableRoster().map(({ id }) => id), "stonehauler"],
+      editablePoolIds: [...createPlayableRoster().map(({ id }) => id),
+        "stonehauler", "thornscouts", "forgeguard"],
       cardPortraits: cardPortraitEvidence,
       release: {
         entrypoints: manifest.entrypoints,
