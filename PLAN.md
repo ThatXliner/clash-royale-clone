@@ -273,6 +273,8 @@ retain integer-tick determinism and canonical serialize/restore behavior.
 
 | SKILL-CHAR-001 | Reusable original character creation | Discoverable validated skill and matching installed copy handle concept-only briefs without extra mutations and playable art integrations with correct repo seams, provenance, real-scale visual checks and separate review; independent forward-test both routes | LORE-001, ART-005C | PASS | 3/3 | 1 | Independent validator/copy check and concept-only/planning-only forward tests pass on 45b1947. Installed user skill matches repo; planning-only instructions could be clearer but both explicit boundaries were honored. |
 
+| CARDS-013 | Full swarm and heavy melee choices | Cinder Host and Ironroot have original identities, reference-derived ordinary stats, full15/1 member deployment through editable decks, correct movement/trades and exact restore; default8 preserved; original portraits/lore and actualdesktop/phone review before selectable-release acceptance | CARDS-011, SKILL-CHAR-001 | BUILDING | 0/0 | 0 | Full roster expansion: ordinary fifteen-unit swarm and slow heavy melee, disjoint from spell foundation. |
+
 ## Reference uncertainties
 
 - Arena tower/bridge coordinates and deployment masks are low-medium
