@@ -49,6 +49,8 @@ export const EDITABLE_DECK_CARD_IDS = Object.freeze([
   "stonehauler",
   "thornscouts",
   "forgeguard",
+  "cinder-host",
+  "ironroot",
 ]);
 
 // These are source-occurrence classifications for an ordinary runtime estimate.

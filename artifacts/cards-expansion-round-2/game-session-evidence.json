@@ -1,0 +1,52 @@
+{
+  "test": "node --test tests/cards-expansion-round-2.test.js",
+  "result": "PASS",
+  "scope": "One direct eight-card GameSession test for two newly admitted ordinary troops; not a claim of complete roster parity.",
+  "editableDeck": {
+    "cardIds": [
+      "coilblade",
+      "mossguard",
+      "copperskiff",
+      "skymaul",
+      "brassbolt",
+      "reedsting",
+      "cinder-host",
+      "ironroot"
+    ],
+    "defaultStarterCardCount": 8,
+    "newEditablePoolCardCount": 2
+  },
+  "match": {
+    "seed": 21,
+    "southPlayerPlay": {
+      "cardId": "cinder-host",
+      "tick": 0,
+      "elixirCost": 3,
+      "bodyCount": 15,
+      "bodyHitpoints": 81,
+      "bodyDamage": 81
+    },
+    "northAiPlay": {
+      "cardId": "ironroot",
+      "tick": 0,
+      "elixirCost": 7,
+      "bodyCount": 1,
+      "hitpoints": 3760,
+      "damage": 816
+    },
+    "swarmMeleeHitsIntoIronroot": 47,
+    "swarmDamageIntoIronroot": 3807,
+    "ironrootMeleeHitsIntoSwarm": 4,
+    "ironrootDamageIntoSwarm": 3264,
+    "restoreCutTick": 150,
+    "byteExactContinuationTick": 408,
+    "allRoundTwoBodiesDeadAtContinuationTick": true,
+    "restoredSerializeReplayAndStateEqualDirectRun": true
+  },
+  "runtimeQuestions": [
+    "Cinderling radius is 250 millitiles and Ironroot radius is 500 millitiles; both are non-authoritative QUESTION estimates from runtime-playability-estimate-not-comparison-corpus.",
+    "Both troops' delivery enum 1 and layer enum 1 are non-authoritative QUESTION estimates from runtime-playability-estimate-not-comparison-corpus; they currently execute as melee and ground.",
+    "This interaction verifies current deterministic deployment, movement and damage execution; it does not establish travel, collision, or knockback parity with the comparison game."
+  ],
+  "normalizationEvidence": "reference-normalization.json"
+}

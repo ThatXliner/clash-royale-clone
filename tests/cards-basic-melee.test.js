@@ -27,6 +27,10 @@ const EXPECTED = {
     benchmarkKey: "knight",
     rarity: "standard",
   },
+  ironroot: {
+    benchmarkKey: "pekka",
+    rarity: "special",
+  },
 };
 
 const MECHANIC_FIELDS = [
@@ -38,6 +42,7 @@ const MECHANIC_FIELDS = [
     (value) => ({
       common: "standard",
       rare: "uncommon",
+      epic: "special",
     })[value],
   ],
   ["hitpoints", "hitpoints", (value) => value],
@@ -64,7 +69,7 @@ const MECHANIC_FIELDS = [
 const evaluateReferenceParity = createReferenceParityEvaluator(
   benchmark.cards,
   MECHANIC_FIELDS,
-  ["knight", "mini-pekka"],
+  ["knight", "mini-pekka", "pekka"],
 );
 
 function attacks(replay, attackerId) {
@@ -111,10 +116,11 @@ test("basic melee content: catalog is exact, canonical, and isolated", () => {
     first.map(({ id, displayName }) => ({ id, displayName })),
     [
       { id: "coilblade", displayName: "Coilblade" },
+      { id: "ironroot", displayName: "Ironroot" },
       { id: "mossguard", displayName: "Mossguard" },
     ],
   );
-  assert.equal(first.length, 2);
+  assert.equal(first.length, 3);
   for (const card of first) {
     assert.equal(card.kind, "unit");
     assert.equal(card.targetMode, "ground");
@@ -153,7 +159,7 @@ test("basic melee content: field parity is reported with confidence", (context) 
     });
   }
 
-  assert.equal(reports.length, 2);
+  assert.equal(reports.length, 3);
   assert.equal(
     reports.flatMap(({ fields }) => fields).filter(
       ({ disposition }) => (
@@ -161,7 +167,7 @@ test("basic melee content: field parity is reported with confidence", (context) 
         disposition === "question-backed-match"
       ),
     ).length,
-    28,
+    42,
   );
   context.diagnostic(`parity report ${JSON.stringify(reports)}`);
 });
@@ -284,7 +290,7 @@ test("basic melee content: parity boundary rejects hostile provenance", () => {
       () => createReferenceParityEvaluator(
         cards,
         MECHANIC_FIELDS,
-        ["knight", "mini-pekka"],
+        ["knight", "mini-pekka", "pekka"],
       ),
     );
   }
@@ -298,7 +304,7 @@ test("basic melee content: parity boundary rejects hostile provenance", () => {
   assert.doesNotThrow(() => createReferenceParityEvaluator(
     unrelated,
     MECHANIC_FIELDS,
-    ["knight", "mini-pekka"],
+    ["knight", "mini-pekka", "pekka"],
   ));
 });
 
@@ -327,7 +333,7 @@ test("basic melee content: parity boundary rejects malformed mappings and calls"
   assert.throws(() => createReferenceParityEvaluator(
     benchmark.cards,
     sparse,
-    ["knight", "mini-pekka"],
+    ["knight", "mini-pekka", "pekka"],
   ));
   for (const cardKeys of [
     ["knight", "knight"],

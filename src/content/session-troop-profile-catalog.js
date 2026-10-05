@@ -11,10 +11,10 @@ const UNIT_QUESTION_CLASSIFICATIONS = Object.freeze([
   Object.freeze({ exportName: "DEATH_CONVERSION_IDENTITY", id: "gloam-shepherd" }),
 ]);
 const EXPECTED_COUNTS = Object.freeze({
-  admittedIds: 33,
-  admittedOccurrences: 35,
-  claimedIds: 35,
-  claimedOccurrences: 37,
+  admittedIds: 35,
+  admittedOccurrences: 37,
+  claimedIds: 37,
+  claimedOccurrences: 39,
   duplicateCompositionIds: 2,
   questionIds: 2,
   questionOccurrences: 2,

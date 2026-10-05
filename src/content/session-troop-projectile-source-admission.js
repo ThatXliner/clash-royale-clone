@@ -1,4 +1,5 @@
 import { createBasicFlyingCatalog } from "./cards/basic-flying.js";
+import { createBasicMeleeCatalog } from "./cards/basic-melee.js";
 import { createBasicRangedCatalog } from "./cards/basic-ranged.js";
 import { createSwarmCatalog } from "./cards/swarms.js";
 import { createChainSpecialCatalog } from "./cards/special-projectiles-chain.js";
@@ -60,10 +61,11 @@ const COMPONENT_FIELDS = Object.freeze([
 ]);
 
 export const AUTHORITATIVE_PROJECTILE_SOURCE_IDS_BY_EXPORT = Object.freeze({
+  createBasicMeleeCatalog: Object.freeze(["coilblade", "ironroot", "mossguard"]),
   createBasicRangedCatalog: Object.freeze(["brassbolt", "reedsting"]),
   createBasicFlyingCatalog: Object.freeze(["copperskiff", "skymaul"]),
   createSwarmCatalog: Object.freeze([
-    "briar-band", "cinderlings", "forgeguard", "thornscouts",
+    "briar-band", "cinder-host", "cinderlings", "forgeguard", "thornscouts",
   ]),
   createChainSpecialCatalog: Object.freeze(["stormkite"]),
   createPierceSpecialCatalog: Object.freeze(["prism-warden"]),
@@ -73,6 +75,7 @@ export const AUTHORITATIVE_PROJECTILE_SOURCE_IDS_BY_EXPORT = Object.freeze({
 });
 
 const SOURCE_BINDINGS = Object.freeze({
+  createBasicMeleeCatalog,
   createBasicRangedCatalog,
   createBasicFlyingCatalog,
   createSwarmCatalog,
@@ -118,9 +121,66 @@ function sourceRecordKey(exportName, id) {
   return `${exportName}\u0000${id}`;
 }
 
-// This is the one closed authoritative witness for all eight source catalogs.
+// This is the one closed authoritative witness for all nine source catalogs.
 // It is a complete canonical serialization, not a collision-prone digest.
 const EXPECTED_SOURCE_WITNESS_MAP = Object.freeze({
+  [sourceRecordKey("createBasicMeleeCatalog", "coilblade")]: canonical({
+    areaDamageRadiusMillitiles: null,
+    components: [],
+    cost: 4,
+    count: 1,
+    damage: 720,
+    deployTimeTicks: 60,
+    displayName: "Coilblade",
+    firstHitTicks: 66,
+    hitSpeedTicks: 96,
+    hitpoints: 1361,
+    id: "coilblade",
+    kind: "unit",
+    movementMillitilesPerSecond: 1500,
+    rangeMillitiles: 800,
+    rarity: "uncommon",
+    sightRangeMillitiles: 5500,
+    targetMode: "ground",
+  }),
+  [sourceRecordKey("createBasicMeleeCatalog", "ironroot")]: canonical({
+    areaDamageRadiusMillitiles: null,
+    components: [],
+    cost: 7,
+    count: 1,
+    damage: 816,
+    deployTimeTicks: 60,
+    displayName: "Ironroot",
+    firstHitTicks: 78,
+    hitSpeedTicks: 108,
+    hitpoints: 3760,
+    id: "ironroot",
+    kind: "unit",
+    movementMillitilesPerSecond: 750,
+    rangeMillitiles: 1200,
+    rarity: "special",
+    sightRangeMillitiles: 5000,
+    targetMode: "ground",
+  }),
+  [sourceRecordKey("createBasicMeleeCatalog", "mossguard")]: canonical({
+    areaDamageRadiusMillitiles: null,
+    components: [],
+    cost: 3,
+    count: 1,
+    damage: 202,
+    deployTimeTicks: 60,
+    displayName: "Mossguard",
+    firstHitTicks: 42,
+    hitSpeedTicks: 72,
+    hitpoints: 1766,
+    id: "mossguard",
+    kind: "unit",
+    movementMillitilesPerSecond: 1000,
+    rangeMillitiles: 1200,
+    rarity: "standard",
+    sightRangeMillitiles: 5500,
+    targetMode: "ground",
+  }),
   [sourceRecordKey("createBasicRangedCatalog", "brassbolt")]: canonical({
     areaDamageRadiusMillitiles: null,
     components: [],
@@ -283,6 +343,41 @@ const EXPECTED_SOURCE_WITNESS_MAP = Object.freeze({
     movementMillitilesPerSecond: 1500,
     rangeMillitiles: 500,
     rarity: "standard",
+    sightRangeMillitiles: 5500,
+    targetMode: "ground",
+  }),
+  [sourceRecordKey("createSwarmCatalog", "cinder-host")]: canonical({
+    areaDamageRadiusMillitiles: null,
+    components: [{
+      areaDamageRadiusMillitiles: null,
+      count: 15,
+      damage: 81,
+      deployTimeTicks: 60,
+      displayName: "Cinderling",
+      firstHitTicks: 30,
+      hitSpeedTicks: 60,
+      hitpoints: 81,
+      id: "cinderling",
+      kind: "unit",
+      movementMillitilesPerSecond: 1500,
+      rangeMillitiles: 500,
+      role: "primary",
+      sightRangeMillitiles: 5500,
+      targetMode: "ground",
+    }],
+    cost: 3,
+    count: 15,
+    damage: 81,
+    deployTimeTicks: 60,
+    displayName: "Cinder Host",
+    firstHitTicks: 30,
+    hitSpeedTicks: 60,
+    hitpoints: 81,
+    id: "cinder-host",
+    kind: "unit",
+    movementMillitilesPerSecond: 1500,
+    rangeMillitiles: 500,
+    rarity: "special",
     sightRangeMillitiles: 5500,
     targetMode: "ground",
   }),

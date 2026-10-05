@@ -11,6 +11,7 @@ import {
   createBasicFlyingCatalog,
   createBasicFlyingCombatant,
 } from "../src/content/cards/basic-flying.js";
+import { createBasicMeleeCatalog } from "../src/content/cards/basic-melee.js";
 import {
   BasicRangedDuel,
   createBasicRangedCatalog,
@@ -69,6 +70,7 @@ const EXPECTED_EXCLUDED = [
   ["ashen-nest", "DEATH_SPAWN_IDENTITY"],
   ["bloom-wisp", "createHealCatalog"],
   ["bone-regent", "createChampionAbilityCatalog"],
+  ["cinder-host", "createSwarmCatalog"],
   ["cinder-ray", "createRampSpecialCatalog"],
   ["cinderback", "createRecoilSpecialCatalog"],
   ["cinderlings", "createSwarmCatalog"],
@@ -81,6 +83,7 @@ const EXPECTED_EXCLUDED = [
   ["gilded-lancer", "createChampionAbilityCatalog"],
   ["gloam-shepherd", "DEATH_CONVERSION_IDENTITY"],
   ["iron-borer", "createChampionAbilityCatalog"],
+  ["ironroot", "createBasicMeleeCatalog"],
   ["mossguard", "createBasicMeleeCatalog"],
   ["pulse-sentry", "createStunSpecialCatalog"],
   ["railward", "createShieldFormCatalog"],
@@ -115,6 +118,7 @@ const SPECIAL_FIXTURES = {
 
 const SOURCE_MODULE_PATHS = Object.freeze(Object.fromEntries(
   Object.entries({
+    createBasicMeleeCatalog: "cards/basic-melee.js",
     createBasicRangedCatalog: "cards/basic-ranged.js",
     createBasicFlyingCatalog: "cards/basic-flying.js",
     createSwarmCatalog: "cards/swarms.js",
@@ -163,9 +167,11 @@ const SHARED_ADMISSION_ENTRY_POINTS = Object.freeze([
   }),
 ]);
 const REBRANDED_SOURCE_BINDINGS = Object.freeze([
+  Object.freeze(["createBasicMeleeCatalog", "ironroot"]),
   Object.freeze(["createBasicRangedCatalog", "brassbolt"]),
   Object.freeze(["createBasicFlyingCatalog", "copperskiff"]),
   Object.freeze(["createSwarmCatalog", "briar-band"]),
+  Object.freeze(["createSwarmCatalog", "cinder-host"]),
   Object.freeze(["createChainSpecialCatalog", "stormkite"]),
   Object.freeze(["createPierceSpecialCatalog", "prism-warden"]),
   Object.freeze(["createReturnSpecialCatalog", "rune-reaver"]),
@@ -208,11 +214,15 @@ const REBRANDED_BRIAR_COMPONENT_FIELD_MUTATIONS = Object.freeze([
   Object.freeze(["targetMode", "record.components[0].targetMode = \"ground-and-air\";"]),
 ]);
 const EXPECTED_SOURCE_PAIRS = [
+  ["createBasicMeleeCatalog", "coilblade"],
+  ["createBasicMeleeCatalog", "ironroot"],
+  ["createBasicMeleeCatalog", "mossguard"],
   ["createBasicRangedCatalog", "brassbolt"],
   ["createBasicRangedCatalog", "reedsting"],
   ["createBasicFlyingCatalog", "copperskiff"],
   ["createBasicFlyingCatalog", "skymaul"],
   ["createSwarmCatalog", "briar-band"],
+  ["createSwarmCatalog", "cinder-host"],
   ["createSwarmCatalog", "cinderlings"],
   ["createSwarmCatalog", "forgeguard"],
   ["createSwarmCatalog", "thornscouts"],
@@ -463,19 +473,19 @@ test("projectile profiles: exact admitted occurrence/card/archetype domain and p
       `${source.catalogExport}\u0000${source.record.id}`),
     ...manifest.excludedOccurrences.map(({ exportName, id }) => `${exportName}\u0000${id}`),
   ];
-  assert.equal(classifiedKeys.length, 37);
-  assert.equal(new Set(classifiedKeys).size, 37);
+  assert.equal(classifiedKeys.length, 39);
+  assert.equal(new Set(classifiedKeys).size, 39);
   assert.deepEqual(new Set(classifiedKeys), htpKeys);
 });
 
-test("projectile profiles: the complete witness map covers exactly the eight source export sets", () => {
+test("projectile profiles: the complete witness map covers exactly the nine source export sets", () => {
   const source = readFileSync(PROJECTILE_SOURCE_ADMISSION_MODULE_PATH, "utf8");
   const pinnedPairs = [...source.matchAll(
     /\[sourceRecordKey\("([^"]+)", "([^"]+)"\)\]: canonical\(\{/gu,
   )].map(([, exportName, id]) => [exportName, id]);
   const sortPairs = (pairs) => [...pairs].sort(([leftExport, leftId], [rightExport, rightId]) =>
     leftId.localeCompare(rightId) || leftExport.localeCompare(rightExport));
-  assert.equal(pinnedPairs.length, 13);
+  assert.equal(pinnedPairs.length, 17);
   assert.deepEqual(sortPairs(pinnedPairs), sortPairs(EXPECTED_SOURCE_PAIRS));
   assert.match(source, /const AUTHORITATIVE_PROJECTILE_SOURCE_IDS_BY_EXPORT = Object\.freeze\(\{/u);
   assert.match(source, /const EXPECTED_SOURCE_WITNESS_MAP = Object\.freeze\(\{/u);
@@ -490,7 +500,7 @@ test("projectile profiles: the complete witness map covers exactly the eight sou
     "createReturnSpecialCatalog",
   ]);
   assert.deepEqual(createSwarmCatalog().map(({ id }) => id).sort(), [
-    "briar-band", "cinderlings", "forgeguard", "thornscouts",
+    "briar-band", "cinder-host", "cinderlings", "forgeguard", "thornscouts",
   ]);
 });
 
@@ -505,7 +515,7 @@ test("projectile profiles: every bound row rejects same-ID scalar drift", () => 
     assert.equal(result.accepted, false, `${exportName}/${id} scalar drift was accepted`);
     rejects += 1;
   }
-  assert.equal(rejects, 13);
+  assert.equal(rejects, 17);
 });
 
 test("projectile source admission: rebranded cost drift rejects before every shared consumer", () => {
@@ -526,7 +536,7 @@ test("projectile source admission: rebranded cost drift rejects before every sha
       probes += 1;
     }
   }
-  assert.equal(probes, 32);
+  assert.equal(probes, 40);
 });
 
 test("projectile source admission: rebranded canonical key order stays usable in every shared consumer", () => {
@@ -549,7 +559,7 @@ test("projectile source admission: rebranded canonical key order stays usable in
       probes += 1;
     }
   }
-  assert.equal(probes, 32);
+  assert.equal(probes, 40);
 });
 
 test("projectile source admission: every scalar source field rejects rebranding through every shared consumer", () => {
@@ -592,7 +602,7 @@ test("projectile source admission: every scalar source field rejects rebranding 
       probes += 1;
     }
   }
-  assert.equal(probes, 572);
+  assert.equal(probes, 700);
 });
 
 test("projectile source admission: rebranded first-versus-second reads reject before every shared consumer", () => {
@@ -616,7 +626,7 @@ test("projectile source admission: rebranded first-versus-second reads reject be
       probes += 1;
     }
   }
-  assert.equal(probes, 32);
+  assert.equal(probes, 40);
 });
 
 test("projectile source admission: rebranded source shape and nested drift fail before output", () => {
@@ -1297,9 +1307,9 @@ test("projectile profiles: outputs are fresh, deeply frozen, detached, and canon
   const serialized = serializeSessionTroopProjectileProfileManifest();
   assert.equal(serialized, canonical(first));
   assert.equal(serialized, serializeSessionTroopProjectileProfileManifest());
-  assert.equal(serialized.length, 67318);
+  assert.equal(serialized.length, 67734);
   assert.equal(createHash("sha256").update(serialized).digest("hex"),
-    "19a66e8ccc4ce1fa8a191e55f21134834771495bff2ffce5c912d9a521001df2");
+    "43dad2aaba61b8633d5d04452bd35c306ca016c021001e89e58ec7c142db4311");
   assert.throws(() => { first.profiles[0].id = "forged"; }, TypeError);
   assert.throws(() => { first.questionFixtures.pellets.rayPattern.value[0].x = 0; }, TypeError);
   assert.throws(() => { first.profiles.push(null); }, TypeError);

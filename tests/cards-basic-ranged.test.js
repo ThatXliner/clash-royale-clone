@@ -148,7 +148,7 @@ test("basic ranged content: catalog is exact, canonical, and isolated", () => {
 
   assert.deepEqual(
     createBasicMeleeCatalog().map(({ id }) => id),
-    ["coilblade", "mossguard"],
+    ["coilblade", "ironroot", "mossguard"],
   );
 });
 

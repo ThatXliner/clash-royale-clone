@@ -25,11 +25,11 @@ import { LiveBattle, parseLiveBattleSetup } from "../src/sim/live-battle.js";
 
 const ADMITTED_IDS = Object.freeze([
   "aegis-sage", "bloom-wisp", "bone-regent", "brassbolt", "briar-band",
-  "cinder-ray", "cinderback", "cinderlings", "coilblade", "copperskiff",
-  "dawnmender", "dusk-ranger", "emberlance", "gilded-lancer", "iron-borer",
-  "mossguard", "prism-warden", "pulse-sentry", "railward", "reedsting",
+  "cinder-host", "cinder-ray", "cinderback", "cinderlings", "coilblade", "copperskiff",
+  "dawnmender", "dusk-ranger", "emberlance", "forgeguard", "gilded-lancer", "iron-borer",
+  "ironroot", "mossguard", "prism-warden", "pulse-sentry", "railward", "reedsting",
   "rime-adept", "rune-reaver", "scatterguard", "skymaul", "stonehauler",
-  "stonevault", "stormkite", "tether-rider", "veil-prowler", "veilrunner",
+  "stonevault", "stormkite", "tether-rider", "thornscouts", "veil-prowler", "veilrunner",
   "wayfinder",
 ]);
 const QUESTION_IDS = Object.freeze(["ashen-nest", "gloam-shepherd"]);
@@ -174,7 +174,7 @@ function expectedEntityRuntime(entity, questions) {
 test("ordinary troop projection domain is exactly the admitted profile surface", () => {
   const manifest = createSessionTroopProfileManifest();
   assert.deepEqual(manifest.profiles.map(({ id }) => id), ADMITTED_IDS);
-  assert.equal(manifest.profiles.length, 31);
+  assert.equal(manifest.profiles.length, 35);
   assert.deepEqual(ADMITTED_IDS, [...new Set(ADMITTED_IDS)]);
   for (const id of [...QUESTION_IDS, "not-a-troop", "coilblade\u200b"]) {
     assert.throws(() => projectSessionTroopBattleCard(id), /unknown|QUESTION|admitted/u);
@@ -297,10 +297,10 @@ test("all official witnesses use uniform HTO policies with exact projection coun
   const projectedEntities = projectedCards.flatMap(({ entities }) => entities);
   const projectedPolicies = projectedEntities.flatMap((entity) =>
     ORDINARY_POLICY_KEYS.map((field) => entity[field]));
-  assert.equal(ADMITTED_IDS.length, 31);
-  assert.equal(projectedEntities.length, 32);
-  assert.equal(new Set(projectedEntities.map(({ archetypeId }) => archetypeId)).size, 32);
-  assert.equal(projectedPolicies.length, 64);
+  assert.equal(ADMITTED_IDS.length, 35);
+  assert.equal(projectedEntities.length, 36);
+  assert.equal(new Set(projectedEntities.map(({ archetypeId }) => archetypeId)).size, 35);
+  assert.equal(projectedPolicies.length, 72);
   assert.ok(projectedPolicies.every((policy) => policy.kind === "question"));
 
   for (const id of ADMITTED_IDS) {
@@ -390,7 +390,7 @@ test("legacy delivery/layer policy and QUESTION tampering rejects atomically", (
   }
 });
 
-test("paired ordinary-policy omission rejects every one of the 32 entity projections", () => {
+test("paired ordinary-policy omission rejects every one of the 36 entity projections", () => {
   const variants = ["retain", "remove", "reorder", "forge"];
   for (const id of ADMITTED_IDS) {
     const projected = projectSessionTroopBattleCard(id);
@@ -515,7 +515,8 @@ test("all admitted troop witnesses use one shared LiveBattle deployment and enti
         assert.equal(unit.role, entity.role);
         assert.equal(unit.memberIndex, memberIndex);
         assert.equal(unit.count, entity.count);
-        assert.equal(unit.hitpoints, entity.hitpoints);
+        assert.ok(unit.hitpoints >= 0 && unit.hitpoints <= entity.hitpoints,
+          `${id}.${entity.archetypeId} current health is within its spawned maximum`);
         assert.equal(unit.maxHealth, entity.hitpoints);
         assert.equal(unit.damage, expected.damage);
         assert.equal(unit.cadenceTicks, entity.hitSpeedTicks);
@@ -527,8 +528,12 @@ test("all admitted troop witnesses use one shared LiveBattle deployment and enti
         assert.equal(unit.layer, expected.layer);
         assert.equal(unit.projectileSpeed, expected.projectileSpeed);
         assert.equal(unit.targetMode, runtimeTargetMode(entity.targetMode));
-        assert.equal(unit.movement.speed, entity.movementMillitilesPerSecond);
-        assert.equal(unit.movement.bodyRadius, expected.radius);
+        if (unit.alive) {
+          assert.equal(unit.movement.speed, entity.movementMillitilesPerSecond);
+          assert.equal(unit.movement.bodyRadius, expected.radius);
+        } else {
+          assert.equal(unit.movement, null, `${id}.${entity.archetypeId} death clears movement`);
+        }
         entityIndex += 1;
       }
     }

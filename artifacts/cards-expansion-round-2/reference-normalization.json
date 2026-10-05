@@ -1,0 +1,148 @@
+{
+  "purpose": "Test-only source normalization supplement for the 15-body swarm matchup. This file belongs to comparison evidence and must not be imported into shipped runtime code.",
+  "upstream": {
+    "repository": "RoyaleAPI/cr-api-data",
+    "commit": "54fdef52c5086393b085f57faeeab8ef86b28160",
+    "troopStats": {
+      "path": "docs/json/cards_stats_troop.json",
+      "sha256": "a6e044cb510ec280dacfd54e546558276e5f40d50fbd16f47f3ff16126add33a",
+      "selector": {
+        "key": "skeleton-army"
+      },
+      "rarity": "Epic",
+      "summon_character": "Skeleton",
+      "summon_number": 15,
+      "summon_character_level_index": 5,
+      "custom_deploy_time": 0,
+      "summon_deploy_delay": 0
+    },
+    "characterStats": {
+      "path": "docs/json/cards_stats_characters.json",
+      "sha256": "37734d1508584e43851395c01b2d10046667eb6dc27daef37e5df56e74f933ac",
+      "selector": {
+        "name": "Skeleton",
+        "rarity": "Common"
+      },
+      "hitpoints_per_level": [
+        32,
+        35,
+        38,
+        42,
+        46,
+        51,
+        56,
+        61,
+        67,
+        74,
+        81,
+        89,
+        98,
+        108,
+        119,
+        130,
+        144,
+        158,
+        174
+      ],
+      "damage_per_level": [
+        32,
+        35,
+        38,
+        42,
+        46,
+        51,
+        56,
+        61,
+        67,
+        74,
+        81,
+        89,
+        98,
+        108,
+        119,
+        130,
+        144,
+        158,
+        174
+      ],
+      "hit_speed": 1000,
+      "load_time": 500,
+      "deploy_time": 1000,
+      "speed": 90,
+      "range": 500,
+      "sight_range": 5500,
+      "attacks_ground": true,
+      "attacks_air": false,
+      "area_damage_radius": 0,
+      "collision_radius": 500
+    }
+  },
+  "normalization": {
+    "tournamentLevel": 11,
+    "summonerRarityArrayIndex": 5,
+    "summon_character_level_index": 5,
+    "characterArrayIndex": 10,
+    "rule": "The summoned common character uses the summoner's tournament array index plus the troop row's explicit summon_character_level_index: 5 + 5 = 10.",
+    "selectedHitpoints": 81,
+    "selectedDamage": 81,
+    "legacyNormalizedRow": {
+      "path": "reference/stats/cards.json",
+      "key": "skeleton-army",
+      "hitpoints": 51,
+      "damage": 51,
+      "unverified_fields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "status": "QUESTION: preserve the existing normalized corpus; its 51 values omit the explicit summon level offset and are not authoritative for this member stat."
+    }
+  },
+  "runtimeProjection": {
+    "id": "cinder-host",
+    "bodyArchetype": "cinderling",
+    "count": 15,
+    "hitpointsPerBody": 81,
+    "damagePerBody": 81,
+    "movementMillitilesPerSecond": 1500,
+    "targetMode": "ground",
+    "radiusDeliveryLayerRemainQuestions": true,
+    "questionPolicies": {
+      "source": "runtime-playability-estimate-not-comparison-corpus",
+      "authoritative": false,
+      "bodyRadiusMillitiles": 250,
+      "deliveryEnum": 1,
+      "layerEnum": 1
+    }
+  },
+  "tradeFixture": {
+    "opponentRuntimeId": "ironroot",
+    "sourceComparisonKey": "pekka",
+    "count": 1,
+    "hitpoints": 3760,
+    "damage": 816,
+    "hitSpeedTicks": 108,
+    "firstHitTicks": 78,
+    "deployTimeTicks": 60,
+    "rangeMillitiles": 1200,
+    "sightRangeMillitiles": 5000,
+    "movementMillitilesPerSecond": 750,
+    "targetMode": "ground",
+    "referenceConfidence": "mechanics are marked unverified in the normalized comparison card; values are an explicit test fixture from the pinned snapshot, not a high-confidence mismatch gate."
+  },
+  "ironrootRuntimeQuestionPolicies": {
+    "source": "runtime-playability-estimate-not-comparison-corpus",
+    "authoritative": false,
+    "bodyRadiusMillitiles": 500,
+    "deliveryEnum": 1,
+    "layerEnum": 1
+  }
+}

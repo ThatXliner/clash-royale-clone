@@ -39,6 +39,25 @@ const DEFINITIONS = [
     areaDamageRadiusMillitiles: null,
     components: [],
   },
+  {
+    id: "ironroot",
+    displayName: "Ironroot",
+    cost: 7,
+    kind: "unit",
+    rarity: "special",
+    hitpoints: 3760,
+    damage: 816,
+    hitSpeedTicks: 108,
+    firstHitTicks: 78,
+    deployTimeTicks: 60,
+    rangeMillitiles: 1200,
+    sightRangeMillitiles: 5000,
+    movementMillitilesPerSecond: 750,
+    targetMode: "ground",
+    count: 1,
+    areaDamageRadiusMillitiles: null,
+    components: [],
+  },
 ];
 
 const PLACEMENT_KEYS = ["entityId", "position", "radius"];
@@ -83,7 +102,7 @@ function checkedPlacement(value) {
 }
 
 /**
- * Returns a newly validated and isolated catalog of this slice's two original
+ * Returns a newly validated and isolated catalog of this slice's original
  * single-unit ground-melee definitions.
  */
 export function createBasicMeleeCatalog() {

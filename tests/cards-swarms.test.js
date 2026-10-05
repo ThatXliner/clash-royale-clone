@@ -214,9 +214,12 @@ function card(id) {
 }
 
 function component(id) {
-  return createSwarmCatalog()
-    .flatMap(({ components }) => components)
-    .find((entry) => entry.id === id);
+  const cards = createSwarmCatalog();
+  const parentId = id === "cinderling" ? "cinderlings" : null;
+  const parent = cards.find(({ components, id: cardId }) =>
+    (parentId === null || cardId === parentId) &&
+    components.some(({ id: componentId }) => componentId === id));
+  return parent?.components.find(({ id: componentId }) => componentId === id);
 }
 
 function comparisonComponent(benchmarkKey, index, snapshotKey = null) {
@@ -242,6 +245,7 @@ test("squad content: catalog is canonical with exact component counts and roles"
     catalog.map(({ id, displayName, count }) => ({ count, displayName, id })),
     [
       { count: 6, displayName: "Briar Band", id: "briar-band" },
+      { count: 15, displayName: "Cinder Host", id: "cinder-host" },
       { count: 3, displayName: "Cinderlings", id: "cinderlings" },
       { count: 5, displayName: "Forgeguard", id: "forgeguard" },
       { count: 4, displayName: "Thornscouts", id: "thornscouts" },
@@ -252,6 +256,12 @@ test("squad content: catalog is canonical with exact component counts and roles"
       ({ count, id, role }) => ({ count, id, role }),
     ),
     [{ count: 3, id: "cinderling", role: "primary" }],
+  );
+  assert.deepEqual(
+    card("cinder-host").components.map(
+      ({ count, id, role }) => ({ count, id, role }),
+    ),
+    [{ count: 15, id: "cinderling", role: "primary" }],
   );
   assert.deepEqual(
     card("briar-band").components.map(
@@ -394,6 +404,15 @@ test("squad content: nested component parity is provenance-aware", (context) => 
 });
 
 test("squad content: expansion preserves component order, roles, and ascending IDs", () => {
+  const cinderHost = createSquadMembers("cinder-host", 70);
+  assert.deepEqual(cinderHost.map(({ componentId, id, role }) => ({
+    componentId, id, role,
+  })), Array.from({ length: 15 }, (_, index) => ({
+    componentId: "cinderling", id: 70 + index, role: "primary",
+  })));
+  assert.ok(cinderHost.every(({ damage, hitpoints, speed, targetMode }) =>
+    damage === 81 && hitpoints === 81 && speed === 1500 && targetMode === "ground"));
+
   const cinderlings = createSquadMembers("cinderlings", 40);
   assert.deepEqual(
     cinderlings.map(({ componentId, id, role }) => ({

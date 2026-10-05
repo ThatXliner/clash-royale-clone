@@ -205,6 +205,12 @@ const EXCLUDED_OCCURRENCE_SPECS = Object.freeze([
   },
   {
     exportName: "createSwarmCatalog",
+    id: "cinder-host",
+    reason: "the melee swarm occurrence is outside the projectile claim surface",
+    status: "admitted",
+  },
+  {
+    exportName: "createSwarmCatalog",
     id: "cinderlings",
     reason: "the swarm occurrence exports component statistics without projectile delivery evidence",
     status: "admitted",
@@ -261,6 +267,12 @@ const EXCLUDED_OCCURRENCE_SPECS = Object.freeze([
     exportName: "createChampionAbilityCatalog",
     id: "iron-borer",
     reason: "the champion occurrence exports no projectile delivery claim",
+    status: "admitted",
+  },
+  {
+    exportName: "createBasicMeleeCatalog",
+    id: "ironroot",
+    reason: "the melee occurrence is outside the projectile claim surface",
     status: "admitted",
   },
   {
@@ -376,6 +388,14 @@ const COMPONENT_FIELDS = Object.freeze([
 ]);
 
 const SOURCE_BINDINGS = new Map([
+  ["createBasicMeleeCatalog", {
+    evidence: {
+      delivery: "not-sourced",
+      verification: "cards-basic-melee",
+      sourceExports: ["createBasicMeleeCatalog"],
+      sourceModule: "cards/basic-melee",
+    },
+  }],
   ["createBasicRangedCatalog", {
     evidence: {
       delivery: "not-sourced",
