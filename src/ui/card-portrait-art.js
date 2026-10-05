@@ -10,6 +10,7 @@ const CARD_PORTRAITS = Object.freeze({
   stonehauler: Object.freeze({ asset: "stonehauler-painted", cell: null }),
   thornscouts: Object.freeze({ asset: "thornscouts-painted", cell: null }),
   forgeguard: Object.freeze({ asset: "forgeguard-painted", cell: null }),
+  "squall-orb": Object.freeze({ asset: "squall-orb-painted", cell: null }),
 });
 
 const PORTRAIT_ASSET_PATHS = Object.freeze({
@@ -27,6 +28,10 @@ const PORTRAIT_ASSET_PATHS = Object.freeze({
   ).href,
   "forgeguard-painted": new URL(
     "../../public/assets/forgeguard-painted.webp",
+    import.meta.url,
+  ).href,
+  "squall-orb-painted": new URL(
+    "../../public/assets/squall-orb-painted.webp",
     import.meta.url,
   ).href,
 });

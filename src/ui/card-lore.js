@@ -12,6 +12,7 @@ const CARD_LORE = Object.freeze({
   stonehauler: "This broad pack carrier is built around a core of quarry stone, wrapped in weathered rootwood. Copper bells on its straps ring out when it reaches the river workshops.",
   thornscouts: "The four Thornscouts mark safe crossings with tiny cuts in their light blades. Pale leaf masks turn their faces into a blur among the fern paths.",
   forgeguard: "Five Forgeguard keep the river workshops supplied with hammers and axes. Their copper aprons darken at the seams, but each hammer tap keeps the old bridge pins true.",
+  "squall-orb": "Rivermark glassblowers formed the Squall Orb from stormglass swept downstream after a spring squall. Its copper collar rests on the foundry shelf, where apprentices mark the days they carried its bright shards through the rain.",
 });
 
 export function getCardLore(cardId) {

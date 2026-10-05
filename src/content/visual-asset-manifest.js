@@ -314,6 +314,17 @@ const REGISTERED_ASSETS = [
   },
   {
     authorship: "in-repo-authored",
+    byteLength: 52722,
+    dimensions: { height: 512, width: 512 },
+    format: "webp",
+    id: "squall-orb-painted",
+    kind: "image",
+    license: "AGPL-3.0-only",
+    path: "assets/squall-orb-painted.webp",
+    sha256: "963c4a9b8a8a35a3c8405663c93fe24ccb13a18c7a22d317236152e3b253a5e3",
+  },
+  {
+    authorship: "in-repo-authored",
     byteLength: 213794,
     dimensions: { height: 1254, width: 1254 },
     format: "webp",

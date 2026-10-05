@@ -1,0 +1,52 @@
+{
+  "cardId": "squall-orb",
+  "displayName": "Squall Orb",
+  "workType": "portrait-and-lore-builder",
+  "artGeneration": {
+    "tool": "built-in imagegen",
+    "promptRecord": "docs/art/squall-orb-provenance.json",
+    "source": {
+      "path": "demo/assets/squall-orb-painted.png",
+      "bytes": 2333649,
+      "dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "sha256": "f6891cc6f749928e5e80eac30aa67b7c7818b696a968d8e3b8941bec5d86f0f9"
+    },
+    "shipped": {
+      "path": "public/assets/squall-orb-painted.webp",
+      "bytes": 52722,
+      "maxBytes": 1048576,
+      "underLimit": true,
+      "dimensions": {
+        "width": 512,
+        "height": 512
+      },
+      "sha256": "963c4a9b8a8a35a3c8405663c93fe24ccb13a18c7a22d317236152e3b253a5e3",
+      "license": "AGPL-3.0-only"
+    }
+  },
+  "checks": {
+    "visualAssetManifest": {
+      "result": "PASS",
+      "passed": 6,
+      "failed": 0,
+      "output": "artifacts/spell-art-round-1/manifest-test-output.txt"
+    },
+    "portraitLookupAndStandaloneUrl": {
+      "result": "PASS",
+      "output": "artifacts/spell-art-round-1/portrait-url-check.json"
+    },
+    "manifestHashDimensionsAndBytes": "PASS",
+    "loreSentenceCount": {
+      "result": "PASS",
+      "count": 2
+    },
+    "phoneDesktopCardRendering": "Deferred to independent acceptance after mechanics/UI integration.",
+    "provenanceFilesMatchRecordedHashesDimensionsAndBytes": {
+      "result": "PASS",
+      "output": "artifacts/spell-art-round-1/provenance-check.json"
+    }
+  }
+}

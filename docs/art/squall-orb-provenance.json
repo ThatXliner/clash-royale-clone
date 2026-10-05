@@ -1,0 +1,35 @@
+{
+  "license": "AGPL-3.0-only",
+  "generation_tool": "built-in imagegen",
+  "encoding_tool": "cwebp 1.6.0",
+  "assets": [
+    {
+      "asset": "public/assets/squall-orb-painted.webp",
+      "source_png": "demo/assets/squall-orb-painted.png",
+      "source_sha256": "f6891cc6f749928e5e80eac30aa67b7c7818b696a968d8e3b8941bec5d86f0f9",
+      "source_bytes": 2333649,
+      "source_dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "sha256": "963c4a9b8a8a35a3c8405663c93fe24ccb13a18c7a22d317236152e3b253a5e3",
+      "bytes": 52722,
+      "dimensions": {
+        "width": 512,
+        "height": 512
+      },
+      "encoding": [
+        "-q",
+        "85",
+        "-m",
+        "6",
+        "-mt",
+        "-resize",
+        "512",
+        "512"
+      ],
+      "input_images": [],
+      "prompt": "Use case: stylized-concept\nAsset type: square original card portrait for the Moss & Ember fantasy strategy game\nPrimary request: An original portrait for Squall Orb, a spell artifact made of stormglass and copper. Show one unmistakable floating sphere with a contained corkscrew of wind and a few bright cool rain sparks.\nScene/backdrop: Quiet, shallow-focus river workshop with hints of damp slate, dark timber, moss, and soft forge light; keep the background subdued so the orb reads at thumbnail size.\nSubject: A single round translucent stormglass orb held by a simple aged-copper collar with a few moss-green patina marks. Inside, a compact pale teal and silver wind spiral curls around tiny blue-white raindrop glints, all visibly contained within the glass. Keep the silhouette centered, bold, and clear with generous safe inset.\nStyle/medium: Original hand-painted 2.5D game-card illustration, softly sculpted forms, controlled painterly brushwork, matte materials, tactile glass and hammered copper, consistent warm woodland-workshop finish.\nComposition/framing: Close square portrait, one central artifact, no crop on the orb or collar, readable shape when reduced to a small card thumbnail.\nLighting/mood: Warm amber forge reflections against restrained cool storm glow; mysterious but calm.\nColor palette: Aged copper, moss green, wet slate, deep timber, pale teal, silver, and small amber highlights.\nMaterials/textures: Smooth stormglass with visible depth, hammered copper collar, delicate moisture beads, soft painted workshop background.\nText (verbatim): None.\nConstraints: Keep wind and rain effects contained inside the sphere. No labels, letters, numbers, logos, UI, frame, border, watermark, people, faces, weapons, extra objects, or additional orbs.\nAvoid: Fireball or flame-ball appearance, orange fire core, flames, explosion, fiery trail, outward blast, copied commercial game art or characters, recognizable character silhouettes, photorealism, glossy plastic, flat vector art, text."
+    }
+  ]
+}
