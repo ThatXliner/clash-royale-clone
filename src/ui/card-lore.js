@@ -13,6 +13,8 @@ const CARD_LORE = Object.freeze({
   thornscouts: "The four Thornscouts mark safe crossings with tiny cuts in their light blades. Pale leaf masks turn their faces into a blur among the fern paths.",
   forgeguard: "Five Forgeguard keep the river workshops supplied with hammers and axes. Their copper aprons darken at the seams, but each hammer tap keeps the old bridge pins true.",
   "squall-orb": "Rivermark glassblowers formed the Squall Orb from stormglass swept downstream after a spring squall. Its copper collar rests on the foundry shelf, where apprentices mark the days they carried its bright shards through the rain.",
+  "cinder-host": "Fifteen ember sprouts gathered in the ash beds when the Rivermark kiln first cooled for winter. At dawn, their scorched nutshell caps made a bright trail from the woodpile to the workshop door.",
+  ironroot: "The oak beside Emberfall’s old foundry split when an ironstone seam surfaced through its roots. Rivermark smiths bound its crooked trunk with hammered copper and cut a broad blade from the dark seam.",
 });
 
 export function getCardLore(cardId) {

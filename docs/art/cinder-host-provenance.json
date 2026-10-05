@@ -1,0 +1,35 @@
+{
+  "license": "AGPL-3.0-only",
+  "generation_tool": "built-in imagegen",
+  "encoding_tool": "cwebp 1.6.0",
+  "assets": [
+    {
+      "asset": "public/assets/cinder-host-painted.webp",
+      "source_png": "demo/assets/cinder-host-painted.png",
+      "source_sha256": "18e2591707ba3b161ee362157cc7782fda1c89857b386b96ca4d7fd24c64441b",
+      "source_bytes": 2199654,
+      "source_dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "sha256": "8782c64550d8f75e7293a18fefb1006503a9a4bdc92848458c0841148b230b80",
+      "bytes": 56722,
+      "dimensions": {
+        "width": 512,
+        "height": 512
+      },
+      "encoding": [
+        "-q",
+        "85",
+        "-m",
+        "6",
+        "-mt",
+        "-resize",
+        "512",
+        "512"
+      ],
+      "input_images": [],
+      "prompt": "Use case: stylized-concept\nAsset type: square original card portrait for Moss & Ember\nPrimary request: An original portrait for Cinder Host, a larger classic swarm of fifteen little ember sprouts from the valley. Make it read instantly as a lively group of tiny separate creatures, not as one large flame.\nScene/backdrop: A softly blurred ash bed outside a small riverside foundry, with dark timber, a few copper kiln details, moss, and warm workshop light.\nSubject: Exactly fifteen small ember-sprout creatures gathered together in three loose depth layers. Use the same broad family traits as Moss & Ember's tiny ember sprouts: seed-shaped charcoal-brown bodies, stubby root feet, modest nutshell caps, and bright warm cores. Give the front group several clear silhouettes and let the others form a dense, cheerful swarm behind them; individual faces do not need to be countable at thumbnail size.\nStyle/medium: Original hand-painted 2.5D game-card illustration with softly sculpted forms, broad controlled brushwork, matte materials, and simplified details that stay distinct when small.\nComposition/framing: Close square group portrait, the swarm fills the center with a generous edge margin; keep the clustered mass clearly made of many little sprouts, without a single oversized leader.\nLighting/mood: Gentle amber kiln light with soft moss-green and ash-gray shadows; lively and warm.\nColor palette: Ember amber, muted rust, charcoal ash, moss green, weathered copper, and dark wood.\nMaterials/textures: Soot-softened seed husks, small nutshell caps, tiny root stems, subtle copper workshop details, painted ash and moss.\nText (verbatim): None.\nConstraints: Keep each creature small and visibly separate in the group silhouette. No labels, letters, numbers, logos, UI, frame, border, watermark, weapons, or humanoid armor.\nAvoid: One giant flame, fireball, explosion, fiery trail, outward blast, copied commercial game art or characters, photorealism, glossy plastic, flat vector art, text."
+    }
+  ]
+}

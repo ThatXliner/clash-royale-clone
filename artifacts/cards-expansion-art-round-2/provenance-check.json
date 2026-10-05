@@ -1,0 +1,48 @@
+[
+  {
+    "cardId": "cinder-host",
+    "license": "AGPL-3.0-only",
+    "generationTool": "built-in imagegen",
+    "source": {
+      "bytes": 2199654,
+      "sha256": "18e2591707ba3b161ee362157cc7782fda1c89857b386b96ca4d7fd24c64441b",
+      "dimensions": {
+        "width": 1254,
+        "height": 1254
+      }
+    },
+    "output": {
+      "bytes": 56722,
+      "sha256": "8782c64550d8f75e7293a18fefb1006503a9a4bdc92848458c0841148b230b80",
+      "dimensions": {
+        "width": 512,
+        "height": 512
+      }
+    },
+    "under100KB": true,
+    "result": "PASS"
+  },
+  {
+    "cardId": "ironroot",
+    "license": "AGPL-3.0-only",
+    "generationTool": "built-in imagegen",
+    "source": {
+      "bytes": 2919266,
+      "sha256": "82d41c60a5896ed581334b421e65889c9a8e947db0ac43b6e7119f0da48a0e11",
+      "dimensions": {
+        "width": 1254,
+        "height": 1254
+      }
+    },
+    "output": {
+      "bytes": 77128,
+      "sha256": "abccd83c46fda2c01bf9ef6264e5f9dedf42f74d4afc6fa0a05649058fd17dd8",
+      "dimensions": {
+        "width": 512,
+        "height": 512
+      }
+    },
+    "under100KB": true,
+    "result": "PASS"
+  }
+]

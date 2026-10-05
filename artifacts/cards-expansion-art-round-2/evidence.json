@@ -1,0 +1,78 @@
+{
+  "workType": "portrait-and-lore-builder",
+  "cards": {
+    "cinder-host": {
+      "displayName": "Cinder Host",
+      "portrait": {
+        "source": {
+          "path": "demo/assets/cinder-host-painted.png",
+          "bytes": 2199654,
+          "dimensions": {
+            "width": 1254,
+            "height": 1254
+          },
+          "sha256": "18e2591707ba3b161ee362157cc7782fda1c89857b386b96ca4d7fd24c64441b"
+        },
+        "shipped": {
+          "path": "public/assets/cinder-host-painted.webp",
+          "bytes": 56722,
+          "maxBytes": 1048576,
+          "targetBytes": 100000,
+          "underBothLimits": true,
+          "dimensions": {
+            "width": 512,
+            "height": 512
+          },
+          "sha256": "8782c64550d8f75e7293a18fefb1006503a9a4bdc92848458c0841148b230b80"
+        },
+        "provenance": "docs/art/cinder-host-provenance.json"
+      },
+      "lore": "Two concrete sentences; mentions fifteen sprouts and their foundry-path details without adding combat behavior."
+    },
+    "ironroot": {
+      "displayName": "Ironroot",
+      "portrait": {
+        "source": {
+          "path": "demo/assets/ironroot-painted.png",
+          "bytes": 2919266,
+          "dimensions": {
+            "width": 1254,
+            "height": 1254
+          },
+          "sha256": "82d41c60a5896ed581334b421e65889c9a8e947db0ac43b6e7119f0da48a0e11"
+        },
+        "shipped": {
+          "path": "public/assets/ironroot-painted.webp",
+          "bytes": 77128,
+          "maxBytes": 1048576,
+          "targetBytes": 100000,
+          "underBothLimits": true,
+          "dimensions": {
+            "width": 512,
+            "height": 512
+          },
+          "sha256": "abccd83c46fda2c01bf9ef6264e5f9dedf42f74d4afc6fa0a05649058fd17dd8"
+        },
+        "provenance": "docs/art/ironroot-provenance.json"
+      },
+      "lore": "Two concrete sentences about its foundry oak, ironstone seam, copper bindings, and blade without adding combat behavior."
+    }
+  },
+  "checks": {
+    "visualAssetManifest": {
+      "result": "PASS",
+      "passed": 6,
+      "failed": 0,
+      "output": "artifacts/cards-expansion-art-round-2/manifest-test-output.txt"
+    },
+    "portraitLookupsStandaloneUrlsAndLore": {
+      "result": "PASS",
+      "output": "artifacts/cards-expansion-art-round-2/portrait-lookup-check.json"
+    },
+    "provenanceHashDimensionsAndBytes": {
+      "result": "PASS",
+      "output": "artifacts/cards-expansion-art-round-2/provenance-check.json"
+    },
+    "phoneDesktopCardRendering": "Deferred to independent acceptance after core card integration."
+  }
+}
