@@ -26,6 +26,16 @@ game. Product completion additionally requires every `GAME-*` executable
 journey to pass in the shipped browser entry. Until then the repository is a
 mechanics library plus a static shell, not a finished clone.
 
+## First public release scope
+
+The October 4 request targets the full 109-card pre-Evolutions battle roster
+against AI, with an original shipped identity for each role, editable decks,
+card information, and a deterministic JS/RL API. Publish the verified browser
+game on GitHub Pages. Accounts, ranked progression, clans and online play are
+outside this first release. Isolated catalogue or encounter tests do not count
+as playable roster coverage. Completion inventory: `docs/completion-inventory.md`
+(being assembled). All release claims must preserve reference confidence limits.
+
 ## Pieces
 
 Publication packaging adds a branded repository entry point and a separate
@@ -258,6 +268,8 @@ retain integer-tick determinism and canonical serialize/restore behavior.
 | LORE-001 | Original world and card lore | Concise original setting and nine card stories appear in card info, linked reader-friendly lore guide; accessible desktop/phone details retain mechanics and statistics without overflow; no simulation changes; independent actual-browser review | APP-004, PUB-003 | PASS | 1/1 | 1 | Independent frozen e235a0f app-polish passes; all nine visible stories match at desktop and phone sizes, separate from mechanics; zero horizontal overflow and final-stat/navigation overlap. World guide linked in README. |
 
 | CARDS-011 | Classic melee squad collection expansion | Thornscouts and Forgeguard join editable collection with original portraits/lore, reference-derived ordinary melee stats and meaningful interactions; both selectable in eight-card deck, deploy and restore in actual battle; default deck preserved, deterministic and source confidence honest; separate critic tests and renders | APP-004, LORE-001, ART-005C | PASS | 80/80 | 1 | Independent frozen 42bcf09 passes focused73, app-shell1 and asset6 checks. Actual desktop/phone portraits and stories render; both custom-deck squads deploy and restore exactly; default eight-card setup preserved. Historical stat corroboration remains incomplete. |
+
+| GAME-SPELL-001 | Full radius spell through player and agent decks | Source-bounded versioned radius-damage spell supports center placement, appropriate victims, spend/cycle, pending effects and exact restore; usable in browser and JS/RL decks against AI; truthful confidence/policies, legacy direct-damage profile unchanged; separate actual-browser and interaction critique | CARDS-011, RL-001 | BUILDING | 0/0 | 0 | Full classic roster requires real spells; current direct-target receipt does not establish AoE behavior. |
 
 ## Reference uncertainties
 
