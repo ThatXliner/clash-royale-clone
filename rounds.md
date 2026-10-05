@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 382 — 2026-10-04
+
+PIECE: SKILL-CHAR-001 — Reusable original character creation, round 1
+
+VERDICT: PASS
+
+EVIDENCE: Independent frozen `45b1947` validates with quick_validate.py; frozen, worktree and installed skill hashes match. Executed concept-only dry run returns only an original name, role and two lore sentences without assets or runtime edits. Executed planning-only flying-character dry run uses actual repo files, air identity, standalone portrait mapping, sprite paths, provenance/manifest limits, tick-driven reduced-motion/exact-restore checks and separate review, without image generation or source changes. Evidence: `artifacts/character-skill-round-1/critic/`.
+
+BIGGEST GAP: Planning-only versus asset-creation wording could be clearer; both explicit planning and concept boundaries were honored in the actual forward tests.
+
 ## Round 381 — 2026-10-02
 
 PIECE: CARDS-011 — Classic melee squad collection expansion, round 1

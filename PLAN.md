@@ -271,7 +271,7 @@ retain integer-tick determinism and canonical serialize/restore behavior.
 
 | GAME-SPELL-001 | Full radius spell through player and agent decks | Source-bounded versioned radius-damage spell supports center placement, appropriate victims, spend/cycle, pending effects and exact restore; usable in browser and JS/RL decks against AI; truthful confidence/policies, legacy direct-damage profile unchanged; separate actual-browser and interaction critique | CARDS-011, RL-001 | BUILDING | 0/0 | 0 | Full classic roster requires real spells; current direct-target receipt does not establish AoE behavior. |
 
-| SKILL-CHAR-001 | Reusable original character creation | Discoverable validated skill and matching installed copy handle concept-only briefs without extra mutations and playable art integrations with correct repo seams, provenance, real-scale visual checks and separate review; independent forward-test both routes | LORE-001, ART-005C | BUILDING | 0/0 | 0 | User requested character-creation skill; candidate 45b1947 awaiting independent behavioral review. |
+| SKILL-CHAR-001 | Reusable original character creation | Discoverable validated skill and matching installed copy handle concept-only briefs without extra mutations and playable art integrations with correct repo seams, provenance, real-scale visual checks and separate review; independent forward-test both routes | LORE-001, ART-005C | PASS | 3/3 | 1 | Independent validator/copy check and concept-only/planning-only forward tests pass on 45b1947. Installed user skill matches repo; planning-only instructions could be clearer but both explicit boundaries were honored. |
 
 ## Reference uncertainties
 
