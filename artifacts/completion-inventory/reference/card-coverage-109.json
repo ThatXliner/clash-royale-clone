@@ -1,0 +1,2554 @@
+{
+  "purpose": "test-only historical comparison inventory; never import, bundle, or publish as a game asset",
+  "generatedFrom": {
+    "cardCorpus": "reference/stats/cards.json",
+    "cardCorpusSha256": "2903e9b3cb759fd6229b0463df4de8b29a5500995a768691fcfc9b5c05ff6b5f",
+    "sourceLedger": "reference/stats/SOURCES.md",
+    "sourceLedgerSha256": "9d2e56266451a02486f6893d35f37989660d6f9d838be2d953b8e242beff78ee",
+    "sessionCatalog": "src/content/session-card-catalog.js",
+    "troopProfileManifest": "src/content/session-troop-profile-catalog.js",
+    "mappingEvidence": "existing test declarations named per editable mapping"
+  },
+  "snapshot": {
+    "as_of": "2023-02-18",
+    "cutoff": "before the March 2023 Evolution update",
+    "tournament_standard_levels": {
+      "common": 11,
+      "rare": 11,
+      "epic": 11,
+      "legendary": 11,
+      "champion": 11
+    },
+    "excluded_non_collectible_event_cards": [
+      "santa-hog-rider",
+      "super-ice-golem",
+      "super-magic-archer"
+    ]
+  },
+  "exactRosterCount": 109,
+  "countsByReferenceType": {
+    "troop": 78,
+    "building": 13,
+    "spell": 18
+  },
+  "editablePool": {
+    "count": 11,
+    "defaultDeckCount": 8,
+    "runtimeIds": [
+      "coilblade",
+      "mossguard",
+      "copperskiff",
+      "skymaul",
+      "brassbolt",
+      "reedsting",
+      "briar-band",
+      "cinderlings",
+      "stonehauler",
+      "thornscouts",
+      "forgeguard"
+    ],
+    "referenceMappedCount": 11,
+    "unmappedReferenceCount": 98
+  },
+  "admittedCatalog": {
+    "counts": {
+      "admittedIds": 49,
+      "admittedOccurrences": 54,
+      "claimedIds": 55,
+      "claimedOccurrences": 60,
+      "excludedClaimedIds": 6,
+      "excludedClaimedOccurrences": 6,
+      "questionOnlyExports": 5
+    },
+    "byRuntimeKind": {
+      "unit": 33,
+      "structure": 8,
+      "effect": 8
+    },
+    "cardIds": [
+      {
+        "id": "aegis-sage",
+        "kind": "unit",
+        "displayName": "Aegis Sage"
+      },
+      {
+        "id": "aether-well",
+        "kind": "structure",
+        "displayName": "Aether Well"
+      },
+      {
+        "id": "blight-ring",
+        "kind": "effect",
+        "displayName": "Blight Ring"
+      },
+      {
+        "id": "bloom-wisp",
+        "kind": "unit",
+        "displayName": "Bloom Wisp"
+      },
+      {
+        "id": "bone-regent",
+        "kind": "unit",
+        "displayName": "Bone Regent"
+      },
+      {
+        "id": "brassbolt",
+        "kind": "unit",
+        "displayName": "Brassbolt"
+      },
+      {
+        "id": "briar-band",
+        "kind": "unit",
+        "displayName": "Briar Band"
+      },
+      {
+        "id": "bulwark-needle",
+        "kind": "structure",
+        "displayName": "Bulwark Needle"
+      },
+      {
+        "id": "buried-coil",
+        "kind": "structure",
+        "displayName": "Buried Coil"
+      },
+      {
+        "id": "burrow-rig",
+        "kind": "structure",
+        "displayName": "Burrow Rig"
+      },
+      {
+        "id": "cinder-ray",
+        "kind": "unit",
+        "displayName": "Cinder Ray"
+      },
+      {
+        "id": "cinder-reliquary",
+        "kind": "structure",
+        "displayName": "Cinder Reliquary"
+      },
+      {
+        "id": "cinderback",
+        "kind": "unit",
+        "displayName": "Cinderback"
+      },
+      {
+        "id": "cinderlings",
+        "kind": "unit",
+        "displayName": "Cinderlings"
+      },
+      {
+        "id": "coilblade",
+        "kind": "unit",
+        "displayName": "Coilblade"
+      },
+      {
+        "id": "copperskiff",
+        "kind": "unit",
+        "displayName": "Copperskiff"
+      },
+      {
+        "id": "dawnmender",
+        "kind": "unit",
+        "displayName": "Dawnmender"
+      },
+      {
+        "id": "dusk-ranger",
+        "kind": "unit",
+        "displayName": "Dusk Ranger"
+      },
+      {
+        "id": "ember-basin",
+        "kind": "structure",
+        "displayName": "Ember Basin"
+      },
+      {
+        "id": "emberlance",
+        "kind": "unit",
+        "displayName": "Emberlance"
+      },
+      {
+        "id": "fault-pulse",
+        "kind": "effect",
+        "displayName": "Fault Pulse"
+      },
+      {
+        "id": "forgeguard",
+        "kind": "unit",
+        "displayName": "Forgeguard"
+      },
+      {
+        "id": "gilded-lancer",
+        "kind": "unit",
+        "displayName": "Gilded Lancer"
+      },
+      {
+        "id": "gravity-well",
+        "kind": "effect",
+        "displayName": "Gravity Well"
+      },
+      {
+        "id": "horizon-caster",
+        "kind": "structure",
+        "displayName": "Horizon Caster"
+      },
+      {
+        "id": "iron-borer",
+        "kind": "unit",
+        "displayName": "Iron Borer"
+      },
+      {
+        "id": "ironbark-roller",
+        "kind": "effect",
+        "displayName": "Ironbark Roller"
+      },
+      {
+        "id": "mossguard",
+        "kind": "unit",
+        "displayName": "Mossguard"
+      },
+      {
+        "id": "prism-furnace",
+        "kind": "structure",
+        "displayName": "Prism Furnace"
+      },
+      {
+        "id": "prism-warden",
+        "kind": "unit",
+        "displayName": "Prism Warden"
+      },
+      {
+        "id": "pulse-sentry",
+        "kind": "unit",
+        "displayName": "Pulse Sentry"
+      },
+      {
+        "id": "railward",
+        "kind": "unit",
+        "displayName": "Railward"
+      },
+      {
+        "id": "reedsting",
+        "kind": "unit",
+        "displayName": "Reedsting"
+      },
+      {
+        "id": "rime-adept",
+        "kind": "unit",
+        "displayName": "Rime Adept"
+      },
+      {
+        "id": "rune-reaver",
+        "kind": "unit",
+        "displayName": "Rune Reaver"
+      },
+      {
+        "id": "scatterguard",
+        "kind": "unit",
+        "displayName": "Scatterguard"
+      },
+      {
+        "id": "skymaul",
+        "kind": "unit",
+        "displayName": "Skymaul"
+      },
+      {
+        "id": "skyshard-volley",
+        "kind": "effect",
+        "displayName": "Skyshard Volley"
+      },
+      {
+        "id": "squall-orb",
+        "kind": "effect",
+        "displayName": "Squall Orb"
+      },
+      {
+        "id": "static-burst",
+        "kind": "effect",
+        "displayName": "Static Burst"
+      },
+      {
+        "id": "stonehauler",
+        "kind": "unit",
+        "displayName": "Stonehauler"
+      },
+      {
+        "id": "stonevault",
+        "kind": "unit",
+        "displayName": "Stonevault"
+      },
+      {
+        "id": "stormkite",
+        "kind": "unit",
+        "displayName": "Stormkite"
+      },
+      {
+        "id": "tempo-field",
+        "kind": "effect",
+        "displayName": "Tempo Field"
+      },
+      {
+        "id": "tether-rider",
+        "kind": "unit",
+        "displayName": "Tether Rider"
+      },
+      {
+        "id": "thornscouts",
+        "kind": "unit",
+        "displayName": "Thornscouts"
+      },
+      {
+        "id": "veil-prowler",
+        "kind": "unit",
+        "displayName": "Veil Prowler"
+      },
+      {
+        "id": "veilrunner",
+        "kind": "unit",
+        "displayName": "Veilrunner"
+      },
+      {
+        "id": "wayfinder",
+        "kind": "unit",
+        "displayName": "Wayfinder"
+      }
+    ],
+    "excludedIdentityClaims": [
+      {
+        "exportName": "DEATH_SPAWN_IDENTITY",
+        "id": "ashen-nest",
+        "reason": "identity-only claim lacks sourced kind/cost/deploy admission fields",
+        "status": "question"
+      },
+      {
+        "exportName": "SPAWNER_BUILDING_IDENTITIES",
+        "id": "bramble-cage",
+        "reason": "identity-only claim lacks sourced kind/cost/deploy admission fields",
+        "status": "question"
+      },
+      {
+        "exportName": "SPAWN_SPELL_IDENTITIES",
+        "id": "cloudseed-flask",
+        "reason": "identity-only claim lacks sourced kind/cost/deploy admission fields",
+        "status": "question"
+      },
+      {
+        "exportName": "SPAWNER_BUILDING_IDENTITIES",
+        "id": "ember-roost",
+        "reason": "identity-only claim lacks sourced kind/cost/deploy admission fields",
+        "status": "question"
+      },
+      {
+        "exportName": "DEATH_CONVERSION_IDENTITY",
+        "id": "gloam-shepherd",
+        "reason": "identity-only claim lacks sourced kind/cost/deploy admission fields",
+        "status": "question"
+      },
+      {
+        "exportName": "SPAWN_SPELL_IDENTITIES",
+        "id": "hollowgarden",
+        "reason": "identity-only claim lacks sourced kind/cost/deploy admission fields",
+        "status": "question"
+      }
+    ],
+    "questionOnlyExports": [
+      {
+        "exportName": "DashKnockbackRetargetEncounter",
+        "reason": "composition policies are corpus-absent QUESTION records",
+        "status": "question-only"
+      },
+      {
+        "exportName": "DeployedUnitCloneEncounter",
+        "reason": "clone card identity and mechanics are intentionally unclaimed",
+        "status": "question-only"
+      },
+      {
+        "exportName": "LeapKnockbackRetargetEncounter",
+        "reason": "composition policies are corpus-absent QUESTION records",
+        "status": "question-only"
+      },
+      {
+        "exportName": "PreviousCardCopyMatch",
+        "reason": "copy card identity and mechanics are intentionally unclaimed",
+        "status": "question-only"
+      },
+      {
+        "exportName": "SpawnBatchMaterializer",
+        "reason": "shared placement primitive has no exported runtime card identity",
+        "status": "question-only"
+      }
+    ]
+  },
+  "troopProfiles": {
+    "admittedIds": 33,
+    "admittedOccurrences": 35,
+    "claimedIds": 35,
+    "claimedOccurrences": 37,
+    "duplicateCompositionIds": 2,
+    "questionIds": 2,
+    "questionOccurrences": 2
+  },
+  "interpretation": [
+    "Editable mapping answers only which historical comparison rows are named by the current 11-card deck tests.",
+    "The 49 admitted session identities are an admission surface, not proof of complete card mechanics or full-match execution.",
+    "Per-card source unverifiedFields remain non-authoritative under reference/stats/SOURCES.md.",
+    "A missing currentEditableMatch means no exact one-to-one editable mapping is declared by the checked tests; it does not imply there is no isolated mechanic fixture elsewhere."
+  ],
+  "cards": [
+    {
+      "key": "knight",
+      "name": "Knight",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": {
+        "runtimeId": "mossguard",
+        "tier": "default-deck",
+        "evidence": "tests/cards-basic-melee.test.js",
+        "mechanicsConfidence": "field-by-field; see unverifiedFields"
+      }
+    },
+    {
+      "key": "archers",
+      "name": "Archers",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "goblins",
+      "name": "Goblins",
+      "type": "troop",
+      "elixirCost": 2,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": {
+        "runtimeId": "thornscouts",
+        "tier": "editable-addition",
+        "evidence": "tests/cards-swarms.test.js",
+        "mechanicsConfidence": "field-by-field; see unverifiedFields"
+      }
+    },
+    {
+      "key": "giant",
+      "name": "Giant",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": {
+        "runtimeId": "stonehauler",
+        "tier": "editable-addition",
+        "evidence": "tests/cards-structure-seeker.test.js",
+        "mechanicsConfidence": "field-by-field; see unverifiedFields"
+      }
+    },
+    {
+      "key": "pekka",
+      "name": "P.E.K.K.A",
+      "type": "troop",
+      "elixirCost": 7,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "minions",
+      "name": "Minions",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "balloon",
+      "name": "Balloon",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "witch",
+      "name": "Witch",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "barbarians",
+      "name": "Barbarians",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": {
+        "runtimeId": "forgeguard",
+        "tier": "editable-addition",
+        "evidence": "tests/cards-swarms.test.js",
+        "mechanicsConfidence": "field-by-field; see unverifiedFields"
+      }
+    },
+    {
+      "key": "golem",
+      "name": "Golem",
+      "type": "troop",
+      "elixirCost": 8,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "skeletons",
+      "name": "Skeletons",
+      "type": "troop",
+      "elixirCost": 1,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets"
+      ],
+      "currentEditableMatch": {
+        "runtimeId": "cinderlings",
+        "tier": "default-deck",
+        "evidence": "tests/cards-swarms.test.js",
+        "mechanicsConfidence": "field-by-field; see unverifiedFields"
+      }
+    },
+    {
+      "key": "valkyrie",
+      "name": "Valkyrie",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count",
+        "area_damage_radius_tiles"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "skeleton-army",
+      "name": "Skeleton Army",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "bomber",
+      "name": "Bomber",
+      "type": "troop",
+      "elixirCost": 2,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "musketeer",
+      "name": "Musketeer",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": {
+        "runtimeId": "brassbolt",
+        "tier": "default-deck",
+        "evidence": "tests/cards-basic-ranged.test.js",
+        "mechanicsConfidence": "field-by-field; see unverifiedFields"
+      }
+    },
+    {
+      "key": "baby-dragon",
+      "name": "Baby Dragon",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "prince",
+      "name": "Prince",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "wizard",
+      "name": "Wizard",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "mini-pekka",
+      "name": "Mini P.E.K.K.A",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": {
+        "runtimeId": "coilblade",
+        "tier": "default-deck",
+        "evidence": "tests/cards-basic-melee.test.js",
+        "mechanicsConfidence": "field-by-field; see unverifiedFields"
+      }
+    },
+    {
+      "key": "spear-goblins",
+      "name": "Spear Goblins",
+      "type": "troop",
+      "elixirCost": 2,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "giant-skeleton",
+      "name": "Giant Skeleton",
+      "type": "troop",
+      "elixirCost": 6,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "hog-rider",
+      "name": "Hog Rider",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "minion-horde",
+      "name": "Minion Horde",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "ice-wizard",
+      "name": "Ice Wizard",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "royal-giant",
+      "name": "Royal Giant",
+      "type": "troop",
+      "elixirCost": 6,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "guards",
+      "name": "Guards",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "princess",
+      "name": "Princess",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count",
+        "area_damage_radius_tiles"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "dark-prince",
+      "name": "Dark Prince",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count",
+        "area_damage_radius_tiles"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "three-musketeers",
+      "name": "Three Musketeers",
+      "type": "troop",
+      "elixirCost": 9,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "lava-hound",
+      "name": "Lava Hound",
+      "type": "troop",
+      "elixirCost": 7,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "ice-spirit",
+      "name": "Ice Spirit",
+      "type": "troop",
+      "elixirCost": 1,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "fire-spirit",
+      "name": "Fire Spirit",
+      "type": "troop",
+      "elixirCost": 1,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "miner",
+      "name": "Miner",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "sparky",
+      "name": "Sparky",
+      "type": "troop",
+      "elixirCost": 6,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "bowler",
+      "name": "Bowler",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "lumberjack",
+      "name": "Lumberjack",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "battle-ram",
+      "name": "Battle Ram",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "inferno-dragon",
+      "name": "Inferno Dragon",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "ice-golem",
+      "name": "Ice Golem",
+      "type": "troop",
+      "elixirCost": 2,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "mega-minion",
+      "name": "Mega Minion",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": {
+        "runtimeId": "skymaul",
+        "tier": "default-deck",
+        "evidence": "tests/cards-basic-flying.test.js",
+        "mechanicsConfidence": "field-by-field; see unverifiedFields"
+      }
+    },
+    {
+      "key": "dart-goblin",
+      "name": "Dart Goblin",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": {
+        "runtimeId": "reedsting",
+        "tier": "default-deck",
+        "evidence": "tests/cards-basic-ranged.test.js",
+        "mechanicsConfidence": "field-by-field; see unverifiedFields"
+      }
+    },
+    {
+      "key": "goblin-gang",
+      "name": "Goblin Gang",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": {
+        "runtimeId": "briar-band",
+        "tier": "default-deck",
+        "evidence": "tests/cards-swarms.test.js",
+        "mechanicsConfidence": "field-by-field; see unverifiedFields"
+      }
+    },
+    {
+      "key": "electro-wizard",
+      "name": "Electro Wizard",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "elite-barbarians",
+      "name": "Elite Barbarians",
+      "type": "troop",
+      "elixirCost": 6,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "hunter",
+      "name": "Hunter",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count",
+        "area_damage_radius_tiles"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "executioner",
+      "name": "Executioner",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "bandit",
+      "name": "Bandit",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "royal-recruits",
+      "name": "Royal Recruits",
+      "type": "troop",
+      "elixirCost": 7,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "night-witch",
+      "name": "Night Witch",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "bats",
+      "name": "Bats",
+      "type": "troop",
+      "elixirCost": 2,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "royal-ghost",
+      "name": "Royal Ghost",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count",
+        "area_damage_radius_tiles"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "ram-rider",
+      "name": "Ram Rider",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "zappies",
+      "name": "Zappies",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "rascals",
+      "name": "Rascals",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "cannon-cart",
+      "name": "Cannon Cart",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "mega-knight",
+      "name": "Mega Knight",
+      "type": "troop",
+      "elixirCost": 7,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count",
+        "area_damage_radius_tiles"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "skeleton-barrel",
+      "name": "Skeleton Barrel",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "flying-machine",
+      "name": "Flying Machine",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": {
+        "runtimeId": "copperskiff",
+        "tier": "default-deck",
+        "evidence": "tests/cards-basic-flying.test.js",
+        "mechanicsConfidence": "field-by-field; see unverifiedFields"
+      }
+    },
+    {
+      "key": "wall-breakers",
+      "name": "Wall Breakers",
+      "type": "troop",
+      "elixirCost": 2,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count",
+        "area_damage_radius_tiles"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "royal-hogs",
+      "name": "Royal Hogs",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "goblin-giant",
+      "name": "Goblin Giant",
+      "type": "troop",
+      "elixirCost": 6,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "fisherman",
+      "name": "Fisherman",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "magic-archer",
+      "name": "Magic Archer",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "electro-dragon",
+      "name": "Electro Dragon",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "firecracker",
+      "name": "Firecracker",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "mighty-miner",
+      "name": "Mighty Miner",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "champion",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "elixir-golem",
+      "name": "Elixir Golem",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "battle-healer",
+      "name": "Battle Healer",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "skeleton-king",
+      "name": "Skeleton King",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "champion",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count",
+        "area_damage_radius_tiles"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "archer-queen",
+      "name": "Archer Queen",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "champion",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "golden-knight",
+      "name": "Golden Knight",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "champion",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "monk",
+      "name": "Monk",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "champion",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "skeleton-dragons",
+      "name": "Skeleton Dragons",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "mother-witch",
+      "name": "Mother Witch",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "electro-spirit",
+      "name": "Electro Spirit",
+      "type": "troop",
+      "elixirCost": 1,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "electro-giant",
+      "name": "Electro Giant",
+      "type": "troop",
+      "elixirCost": 7,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "phoenix",
+      "name": "Phoenix",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "cannon",
+      "name": "Cannon",
+      "type": "building",
+      "elixirCost": 3,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "goblin-hut",
+      "name": "Goblin Hut",
+      "type": "building",
+      "elixirCost": 5,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "hit_speed_seconds",
+        "deploy_time_seconds",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "mortar",
+      "name": "Mortar",
+      "type": "building",
+      "elixirCost": 4,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "inferno-tower",
+      "name": "Inferno Tower",
+      "type": "building",
+      "elixirCost": 5,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "bomb-tower",
+      "name": "Bomb Tower",
+      "type": "building",
+      "elixirCost": 4,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "barbarian-hut",
+      "name": "Barbarian Hut",
+      "type": "building",
+      "elixirCost": 6,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "hit_speed_seconds",
+        "deploy_time_seconds",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "tesla",
+      "name": "Tesla",
+      "type": "building",
+      "elixirCost": 4,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "elixir-collector",
+      "name": "Elixir Collector",
+      "type": "building",
+      "elixirCost": 6,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "deploy_time_seconds",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "x-bow",
+      "name": "X-Bow",
+      "type": "building",
+      "elixirCost": 6,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "tombstone",
+      "name": "Tombstone",
+      "type": "building",
+      "elixirCost": 3,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "hit_speed_seconds",
+        "deploy_time_seconds",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "furnace",
+      "name": "Furnace",
+      "type": "building",
+      "elixirCost": 4,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "hit_speed_seconds",
+        "deploy_time_seconds",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "goblin-cage",
+      "name": "Goblin Cage",
+      "type": "building",
+      "elixirCost": 4,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "hit_speed_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "goblin-drill",
+      "name": "Goblin Drill",
+      "type": "building",
+      "elixirCost": 4,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "fireball",
+      "name": "Fireball",
+      "type": "spell",
+      "elixirCost": 4,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "arrows",
+      "name": "Arrows",
+      "type": "spell",
+      "elixirCost": 3,
+      "rarity": "common",
+      "unverifiedFields": [
+        "damage",
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "rage",
+      "name": "Rage",
+      "type": "spell",
+      "elixirCost": 2,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "damage",
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "rocket",
+      "name": "Rocket",
+      "type": "spell",
+      "elixirCost": 6,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "damage",
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "goblin-barrel",
+      "name": "Goblin Barrel",
+      "type": "spell",
+      "elixirCost": 3,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "freeze",
+      "name": "Freeze",
+      "type": "spell",
+      "elixirCost": 4,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "damage",
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "mirror",
+      "name": "Mirror",
+      "type": "spell",
+      "elixirCost": 1,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "targets"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "lightning",
+      "name": "Lightning",
+      "type": "spell",
+      "elixirCost": 6,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "damage",
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "zap",
+      "name": "Zap",
+      "type": "spell",
+      "elixirCost": 2,
+      "rarity": "common",
+      "unverifiedFields": [
+        "damage",
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "poison",
+      "name": "Poison",
+      "type": "spell",
+      "elixirCost": 4,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "damage",
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "graveyard",
+      "name": "Graveyard",
+      "type": "spell",
+      "elixirCost": 5,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "the-log",
+      "name": "The Log",
+      "type": "spell",
+      "elixirCost": 2,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "damage",
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "tornado",
+      "name": "Tornado",
+      "type": "spell",
+      "elixirCost": 3,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "damage",
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "clone",
+      "name": "Clone",
+      "type": "spell",
+      "elixirCost": 3,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "earthquake",
+      "name": "Earthquake",
+      "type": "spell",
+      "elixirCost": 3,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "damage",
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "barbarian-barrel",
+      "name": "Barbarian Barrel",
+      "type": "spell",
+      "elixirCost": 2,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "damage",
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "heal-spirit",
+      "name": "Heal Spirit",
+      "type": "troop",
+      "elixirCost": 1,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "giant-snowball",
+      "name": "Giant Snowball",
+      "type": "spell",
+      "elixirCost": 2,
+      "rarity": "common",
+      "unverifiedFields": [
+        "damage",
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "currentEditableMatch": null
+    },
+    {
+      "key": "royal-delivery",
+      "name": "Royal Delivery",
+      "type": "spell",
+      "elixirCost": 3,
+      "rarity": "common",
+      "unverifiedFields": [
+        "damage",
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "currentEditableMatch": null
+    }
+  ]
+}
