@@ -154,8 +154,30 @@ function inputCardsForSession(session, cache) {
   const cached = cache.get(session);
   if (cached !== undefined) return cached;
   const setup = JSON.parse(session.serialize()).setup;
-  const roster = JSON.parse(setup.battleSetup).roster;
-  const cards = roster.map(({ cost, displayName, id }) => ({ cost, displayName, id }));
+  const battleSetup = JSON.parse(setup.battleSetup);
+  const profile = battleSetup.spellProfileReceipts?.profiles.find(({ profileId }) =>
+    profileId === "squall-orb-radius-v2");
+  const cards = battleSetup.roster.map((card) => ({
+    areaDamageRadiusMillitiles: card.id === profile?.fact.cardId
+      ? profile.fact.areaDamageRadiusMillitiles : card.areaDamageRadiusMillitiles,
+    cost: card.cost,
+    count: card.count,
+    damage: card.damage,
+    deployTimeTicks: card.deployTimeTicks,
+    displayName: card.displayName,
+    entities: card.entities,
+    firstHitTicks: card.firstHitTicks,
+    formation: card.formation,
+    hitSpeedTicks: card.hitSpeedTicks,
+    hitpoints: card.hitpoints,
+    id: card.id,
+    kind: card.kind,
+    movementMillitilesPerSecond: card.movementMillitilesPerSecond,
+    rangeMillitiles: card.rangeMillitiles,
+    rarity: card.rarity,
+    sightRangeMillitiles: card.sightRangeMillitiles,
+    targetMode: card.targetMode,
+  }));
   cache.set(session, cards);
   return cards;
 }

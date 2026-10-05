@@ -1,15 +1,19 @@
 import { createPlayableRoster, PLAYABLE_CARD_IDS } from "../content/playable-roster.js";
 import { projectSessionTroopBattleCard } from "../content/session-troop-roster.js";
-import { EDITABLE_DECK_CARD_IDS } from "../content/editable-deck.js";
+import { EDITABLE_MIXED_DECK_CARD_IDS } from "../content/editable-deck.js";
+import { projectSessionNonUnitBattleCard } from "../content/session-card-catalog.js";
+import { createSessionRadiusSpellProfileReceipts } from "../content/session-spell-profile-receipts.js";
 import { getCardPortrait } from "./card-portrait-art.js";
 import { getCardLore } from "./card-lore.js";
 
 const cards = [
   ...createPlayableRoster(),
-  ...EDITABLE_DECK_CARD_IDS.filter((id) => !PLAYABLE_CARD_IDS.includes(id))
-    .map((id) => projectSessionTroopBattleCard(id)),
+  ...EDITABLE_MIXED_DECK_CARD_IDS.filter((id) => !PLAYABLE_CARD_IDS.includes(id))
+    .map((id) => id === "squall-orb"
+      ? projectSessionNonUnitBattleCard(id) : projectSessionTroopBattleCard(id)),
 ];
 const cardById = new Map(cards.map((card) => [card.id, card]));
+const radiusSpellProfile = createSessionRadiusSpellProfileReceipts().profiles[0];
 const root = document.querySelector(".app-shell");
 const views = new Map([...document.querySelectorAll("[data-app-view]")]
   .map((view) => [view.dataset.appView, view]));
@@ -46,6 +50,10 @@ function countLabel(count) {
   return `${formatter.format(count)} ${count === 1 ? "unit" : "units"}`;
 }
 
+function cardCountLabel(card) {
+  return card.kind === "effect" ? "one spell" : countLabel(card.formation.totalCount);
+}
+
 function pluralName(name, count) {
   if (count === 1) return name;
   if (/[^aeiou]y$/iu.test(name)) return `${name.slice(0, -1)}ies`;
@@ -76,6 +84,10 @@ function targetLabel(mode) {
 }
 
 function descriptionFor(card) {
+  if (card.id === radiusSpellProfile.fact.cardId) {
+    const fact = radiusSpellProfile.fact;
+    return `Center-cast area spell · ${formatter.format(fact.damage)} damage to enemy ground troops, flying troops, buildings and crown towers within an estimated ${formatter.format(fact.areaDamageRadiusMillitiles / 1_000)}-tile radius. Crown-tower damage is an estimated ${100 + fact.crownTowerDamagePercent}% of troop damage. Impact takes about ${formatter.format(fact.impactDelayTicks / 60)} seconds. Projectile flight and knockback are not simulated.`;
+  }
   if (card.id === "stonehauler") {
     return "A unit that targets structures.";
   }
@@ -105,33 +117,50 @@ function artMarkup(cardId) {
 }
 
 function compactCardMarkup(card) {
-  const count = card.formation.totalCount;
-  return `<button class="mini-card" type="button" data-card-id="${html(card.id)}" aria-label="Inspect ${html(card.displayName)}, ${countLabel(count)}, ${card.cost} elixir">
+  return `<button class="mini-card" type="button" data-card-id="${html(card.id)}" aria-label="Inspect ${html(card.displayName)}, ${cardCountLabel(card)}, ${card.cost} elixir">
     <span class="mini-cost" aria-hidden="true">${card.cost}</span>${artMarkup(card.id)}<span class="mini-card-name">${html(card.displayName)}</span>
   </button>`;
 }
 
 function deckCardMarkup(card, index) {
-  const count = card.formation.totalCount;
   const selected = index === selectedSlotIndex;
   const recentlyReplaced = index === lastReplacedSlotIndex;
   return `<article class="deck-slot${selected ? " is-selected" : ""}${recentlyReplaced ? " is-recently-replaced" : ""}" data-slot-index="${index}">
-    <button class="deck-card-button" type="button" data-card-id="${html(card.id)}" aria-label="Inspect ${html(card.displayName)}, ${countLabel(count)}, ${card.cost} elixir in slot ${index + 1}">
-      ${artMarkup(card.id)}<span class="deck-card-copy"><small>Slot ${index + 1}${recentlyReplaced ? '<span class="deck-slot-confirmation">Updated</span>' : ""}</small><strong>${html(card.displayName)}</strong><small>${countLabel(count)} · ${card.cost} elixir</small></span>
+    <button class="deck-card-button" type="button" data-card-id="${html(card.id)}" aria-label="Inspect ${html(card.displayName)}, ${cardCountLabel(card)}, ${card.cost} elixir in slot ${index + 1}">
+      ${artMarkup(card.id)}<span class="deck-card-copy"><small>Slot ${index + 1}${recentlyReplaced ? '<span class="deck-slot-confirmation">Updated</span>' : ""}</small><strong>${html(card.displayName)}</strong><small>${cardCountLabel(card)} · ${card.cost} elixir</small></span>
     </button>
     <button class="deck-replace-button" type="button" data-replace-slot="${index}" aria-expanded="${selected}" aria-controls="deck-replacement-panel">Replace</button>
   </article>`;
 }
 
 function collectionCardMarkup(card) {
-  const count = card.formation.totalCount;
-  return `<button class="collection-card" type="button" data-card-id="${html(card.id)}" aria-pressed="${card.id === selectedCardId}" aria-label="${html(card.displayName)}, ${countLabel(count)}, costs ${card.cost} elixir">
+  return `<button class="collection-card" type="button" data-card-id="${html(card.id)}" aria-pressed="${card.id === selectedCardId}" aria-label="${html(card.displayName)}, ${cardCountLabel(card)}, costs ${card.cost} elixir">
     ${artMarkup(card.id)}<span class="collection-card-info"><strong>${html(card.displayName)}</strong><span class="elixir-token" aria-label="${card.cost} elixir">${card.cost}</span></span>
   </button>`;
 }
 
 function statCell(label, value) {
   return `<div class="stat-cell"><span>${label}</span><strong>${html(value)}</strong></div>`;
+}
+
+function radiusSpellProfileMarkup() {
+  const { fact } = radiusSpellProfile;
+  const radius = tileValue(fact.areaDamageRadiusMillitiles);
+  const target = targetLabel(fact.targetMode);
+  const impactDelay = formatter.format(fact.impactDelayTicks / 60);
+  const crown = `${formatter.format(100 + fact.crownTowerDamagePercent)}% (${formatter.format(
+    Math.floor((fact.damage * (100 + fact.crownTowerDamagePercent) + 50) / 100))} damage per cast)`;
+  return `<section class="unit-profile spell-profile" aria-label="Squall Orb spell profile">
+    <h3>Center cast · estimated values</h3>
+    <div class="stat-grid">${[
+      ["Area damage", `${formatter.format(fact.damage)} per target`],
+      ["Radius", `${radius} (estimate)`],
+      ["Targets", `${target} (estimate)`],
+      ["Crown towers", `${crown} (estimate)`],
+      ["Impact delay", `about ${impactDelay} seconds (estimate)`],
+    ].map(([label, value]) => statCell(label, value)).join("")}</div>
+    <p>Radius, target coverage, tower damage, rounding and impact timing are estimates. Projectile flight and knockback are not simulated.</p>
+  </section>`;
 }
 
 function unitProfileMarkup(entity) {
@@ -160,11 +189,10 @@ function unitProfileMarkup(entity) {
 }
 
 function renderCardDetails(card) {
-  const totalCount = card.formation.totalCount;
   const lore = getCardLore(card.id);
   cardDetails.innerHTML = `<div class="detail-heading">
       <button type="button" class="detail-back" data-action="back-to-cards"><span aria-hidden="true">←</span> Cards</button>
-      <div><h2 id="selected-card-title" tabindex="-1">${html(card.displayName)}</h2><p>${countLabel(totalCount)} · ${card.cost} elixir</p></div>
+      <div><h2 id="selected-card-title" tabindex="-1">${html(card.displayName)}</h2><p>${cardCountLabel(card)} · ${card.cost} elixir</p></div>
       <span class="detail-cost" aria-label="${card.cost} elixir">${card.cost}</span>
     </div>
     <p class="detail-description">${html(descriptionFor(card))}</p>
@@ -172,7 +200,7 @@ function renderCardDetails(card) {
       <span class="card-lore-label">Story</span><h3 id="selected-card-lore-title">A field note</h3>
       <p>${html(lore)}</p>
     </section>`}
-    ${card.entities.map(unitProfileMarkup).join("")}
+    ${card.kind === "effect" ? radiusSpellProfileMarkup() : card.entities.map(unitProfileMarkup).join("")}
     ${card.entities.length > 1 ? '<p class="detail-footnote">Health and damage are shown per unit. Count is the number deployed by the card.</p>' : ""}`;
   for (const button of cardGrid.querySelectorAll("[data-card-id]")) {
     button.setAttribute("aria-pressed", String(button.dataset.cardId === card.id));
@@ -238,7 +266,7 @@ function renderReplacementChoices() {
   }
   if (!isOpen) return;
   const currentCard = cardById.get(currentDeckIds[selectedSlotIndex]);
-  const available = EDITABLE_DECK_CARD_IDS
+  const available = EDITABLE_MIXED_DECK_CARD_IDS
     .filter((id) => !currentDeckIds.includes(id))
     .map((id) => cardById.get(id));
   document.querySelector("[data-replacement-title]").textContent =
@@ -262,7 +290,7 @@ function closeReplacement({ focusSlot = true } = {}) {
 }
 
 function chooseReplacement(cardId) {
-  if (selectedSlotIndex === null || !EDITABLE_DECK_CARD_IDS.includes(cardId) ||
+  if (selectedSlotIndex === null || !EDITABLE_MIXED_DECK_CARD_IDS.includes(cardId) ||
       currentDeckIds.includes(cardId)) return;
   const index = selectedSlotIndex;
   const previous = cardById.get(currentDeckIds[index]);

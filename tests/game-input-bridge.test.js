@@ -13,6 +13,7 @@ import {
   mountArenaInputController,
   serializeArenaInputCards,
 } from "../src/ui/input-controller.js";
+import { createEditableGameSessionSetup } from "../src/content/editable-deck.js";
 
 const RECT = Object.freeze({ height: 960, left: 90, top: 108, width: 540 });
 const LEGAL = Object.freeze({ clientX: 270, clientY: 708 });
@@ -101,6 +102,60 @@ function fixture({ pointer = true, sessionElixir = 10, uiElixir = 10 } = {}) {
   return { arena, bridge, hand, mounted, projected: () => projected, session };
 }
 
+function spellFixture() {
+  const deckIds = ["coilblade", "mossguard", "squall-orb", "skymaul",
+    "brassbolt", "reedsting", "briar-band", "cinderlings"];
+  const session = new GameSession(createEditableGameSessionSetup(deckIds, 0));
+  const sessionSetup = JSON.parse(session.serialize()).setup;
+  const battleSetup = JSON.parse(sessionSetup.battleSetup);
+  const spellProfile = battleSetup.spellProfileReceipts.profiles.find(({ profileId }) =>
+    profileId === "squall-orb-radius-v2");
+  const cards = battleSetup.roster.map((card) => ({
+    areaDamageRadiusMillitiles: card.id === spellProfile.fact.cardId
+      ? spellProfile.fact.areaDamageRadiusMillitiles : card.areaDamageRadiusMillitiles,
+    cost: card.cost,
+    count: card.count,
+    damage: card.damage,
+    deployTimeTicks: card.deployTimeTicks,
+    displayName: card.displayName,
+    entities: card.entities,
+    firstHitTicks: card.firstHitTicks,
+    formation: card.formation,
+    hitSpeedTicks: card.hitSpeedTicks,
+    hitpoints: card.hitpoints,
+    id: card.id,
+    kind: card.kind,
+    movementMillitilesPerSecond: card.movementMillitilesPerSecond,
+    rangeMillitiles: card.rangeMillitiles,
+    rarity: card.rarity,
+    sightRangeMillitiles: card.sightRangeMillitiles,
+    targetMode: card.targetMode,
+  }));
+  const document = { defaultView: { PointerEvent: class PointerEvent {} } };
+  const shell = new Node(document);
+  const arena = new Node(document);
+  arena.clientHeight = RECT.height;
+  arena.clientLeft = 0;
+  arena.clientTop = 0;
+  arena.clientWidth = RECT.width;
+  arena.getBoundingClientRect = () => RECT;
+  const deck = new DeckCycle({ deck: deckIds, seed: "0:south" });
+  assert.ok(deck.state.hand.includes("squall-orb"), "the fixture opens with Squall Orb in hand");
+  const elixir = new ElixirMatch({ startingElixir: 10 });
+  const hand = deck.state.hand.map((cardId) => {
+    const node = new Node(document);
+    node.dataset.cardId = cardId;
+    return node;
+  });
+  shell.lookups.set('[data-ui="arena"]', arena);
+  shell.lookups.set('[data-ui="card-slot"]', hand);
+  const mounted = mountArenaInputController(shell, createArenaInputHudCapability(
+    serializeArenaInputCards(cards), deck.serializeJson(), elixir.serialize(), () => {}, () => {},
+  ));
+  const bridge = new GameInputBridge(mounted, session);
+  return { arena, bridge, hand, mounted, session };
+}
+
 function selectCheapest(value) {
   const costs = new Map(ROSTER.map(({ cost, id }) => [id, cost]));
   const handIds = value.mounted.input.deck.state.hand;
@@ -162,6 +217,40 @@ test("game input bridge: pointer commit reaches session and feedback exactly onc
   value.session.step();
   assert.equal(value.session.replay.filter(({ side, type }) =>
     side === "south" && type === "session-deployed").length, 1);
+});
+
+test("game input bridge: typed Squall Orb command carries its required side and restores exactly", () => {
+  const value = spellFixture();
+  const slot = value.hand.findIndex(({ dataset }) => dataset.cardId === "squall-orb");
+  assert.notEqual(slot, -1);
+  value.hand[slot].emit("click", { currentTarget: value.hand[slot] });
+  const placed = value.arena.emit("pointerup", LEGAL);
+  assert.equal(placed.accepted, true);
+  assert.deepEqual(value.bridge.state.deliveries[0].command, {
+    cardId: "squall-orb",
+    commandId: 1,
+    point: { x: 6_000, y: 12_000 },
+    side: "south",
+    slot,
+    tick: 0,
+    type: "spell",
+  });
+  assert.deepEqual(value.session.state.pendingPlayerCommands,
+    [value.bridge.state.deliveries[0].command]);
+  value.session.step();
+  assert.deepEqual(value.session.state.battle.pendingSpellIntents.map(({ cardId, profileId }) =>
+    ({ cardId, profileId })), [{ cardId: "squall-orb", profileId: "squall-orb-radius-v2" }]);
+
+  const bridgeBytes = value.bridge.serialize();
+  const sessionBytes = value.session.serialize();
+  assert.equal(value.bridge.unsubscribe(), true);
+  const restoredSession = GameSession.restore(sessionBytes);
+  const restored = GameInputBridge.restore(bridgeBytes, value.mounted, restoredSession);
+  assert.equal(restored.serialize(), bridgeBytes);
+  assert.equal(restoredSession.serialize(), sessionBytes);
+  restoredSession.stepMany(2);
+  assert.ok(restoredSession.replay.some(({ profileId, type }) =>
+    type === "spell-intent-resolved" && profileId === "squall-orb-radius-v2"));
 });
 
 test("game input bridge: illegal, duplicate and compatibility mouse mutate no session", () => {

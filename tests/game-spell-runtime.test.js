@@ -4,6 +4,7 @@ import test from "node:test";
 import { createPlayableRoster,
   createPlayableRosterQuestionRecords } from "../src/content/playable-roster.js";
 import { createSessionSpellProfileReceipts,
+  createSessionRadiusSpellProfileReceipts,
   createUnprofiledAdmittedEffectProfileQuestion,
   serializeSessionSpellProfileReceipts } from "../src/content/session-spell-profile-receipts.js";
 import { createSessionCardManifest,
@@ -11,6 +12,7 @@ import { createSessionCardManifest,
 import { DeckCycle } from "../src/sim/deck.js";
 import { GameSession } from "../src/sim/game-session.js";
 import { LiveBattle } from "../src/sim/live-battle.js";
+import { createCombatEffectsViewModel } from "../src/ui/combat-effects.js";
 
 const NORTH_CARD = "mossguard";
 const NORTH_POINT = Object.freeze({ x: 3_500, y: 17_500 });
@@ -43,7 +45,7 @@ function canonical(value) {
   return JSON.stringify(value);
 }
 
-function profiledBattle({ profile = true, unprofiledEffectId = null } = {}) {
+function profiledBattle({ profile = true, radius = false, unprofiledEffectId = null } = {}) {
   const roster = structuredClone(createPlayableRoster());
   roster[0] = structuredClone(projectSessionNonUnitBattleCard("squall-orb"));
   if (unprofiledEffectId !== null) {
@@ -56,7 +58,8 @@ function profiledBattle({ profile = true, unprofiledEffectId = null } = {}) {
   const questions = createPlayableRosterQuestionRecords()
     .filter(({ key }) => referenced.has(key));
   const battle = { initialWindupTicks: { central: 0, lane: 0 }, questions, roster };
-  if (profile) battle.spellProfileReceipts = createSessionSpellProfileReceipts();
+  if (profile) battle.spellProfileReceipts = radius
+    ? createSessionRadiusSpellProfileReceipts() : createSessionSpellProfileReceipts();
   return battle;
 }
 
@@ -72,8 +75,9 @@ function seedWithWitness(deck, { unprofiledEffectId = null } = {}) {
   throw new Error("missing deterministic spell/unit hand witness");
 }
 
-function setup({ profile = true, north = false, seed = undefined, unprofiledEffectId = null } = {}) {
-  const battle = profiledBattle({ profile, unprofiledEffectId });
+function setup({ profile = true, radius = false, north = false, seed = undefined,
+  unprofiledEffectId = null } = {}) {
+  const battle = profiledBattle({ profile, radius, unprofiledEffectId });
   const deck = battle.roster.map(({ id }) => id);
   const selectedSeed = seed ?? seedWithWitness(deck, { unprofiledEffectId });
   return canonical({ battleSetup: canonical(battle), deck, legalNorthDeployments: north
@@ -121,8 +125,21 @@ function unitHitpoints(session, target) {
   return unit.hitpoints;
 }
 
-function liveProfileBattle({ unprofiledEffectId = null } = {}) {
-  return new LiveBattle(canonical(profiledBattle({ unprofiledEffectId })));
+function liveProfileBattle({ radius = false, unprofiledEffectId = null } = {}) {
+  return new LiveBattle(canonical(profiledBattle({ radius, unprofiledEffectId })));
+}
+
+function radiusBuildingSetup() {
+  const roster = structuredClone(createPlayableRoster());
+  roster[0] = structuredClone(projectSessionNonUnitBattleCard("squall-orb"));
+  roster[1] = structuredClone(projectSessionNonUnitBattleCard("bulwark-needle"));
+  const referenced = new Set(roster.flatMap(({ entities }) => entities.flatMap((entity) =>
+    [entity.bodyRadiusPolicy, entity.projectileSpeedPolicy]
+      .filter((policy) => policy.kind === "question").map(({ questionKey }) => questionKey))));
+  const questions = createPlayableRosterQuestionRecords()
+    .filter(({ key }) => referenced.has(key));
+  return { initialWindupTicks: { central: 0, lane: 0 }, questions, roster,
+    spellProfileReceipts: createSessionRadiusSpellProfileReceipts() };
 }
 
 function stageLiveNorthUnit(battle) {
@@ -193,6 +210,166 @@ test("game spell runtime: isolated sourced receipt changes one shared GameSessio
   });
   assert.equal(spell.replay.filter(({ deployment, type }) => type === "session-deployed" &&
     deployment.cardId === "squall-orb").length, 0);
+});
+
+test("game spell runtime: v2 center cast damages enemy ground and air units after its explicit estimated delay", () => {
+  const setup = structuredClone(profiledBattle({ radius: true }));
+  const battle = new LiveBattle(canonical(setup));
+  battle.scheduleDeploy(canonical({ cardId: "mossguard", point: { x: 5_000, y: 18_000 },
+    sequence: 0, side: "north", tick: 0 }));
+  battle.scheduleDeploy(canonical({ cardId: "copperskiff", point: { x: 7_000, y: 18_000 },
+    sequence: 1, side: "north", tick: 0 }));
+  battle.scheduleDeploy(canonical({ cardId: "mossguard", point: { x: 10_000, y: 18_000 },
+    sequence: 2, side: "north", tick: 0 }));
+  battle.step();
+  const before = battle.state;
+  const ground = before.units.find(({ cardId, side, id }) => cardId === "mossguard" &&
+    side === "north" && id === 1);
+  const air = before.units.find(({ cardId, side }) => cardId === "copperskiff" && side === "north");
+  const outside = before.units.find(({ cardId, side, id }) => cardId === "mossguard" &&
+    side === "north" && id === 3);
+  assert.ok(ground && air && outside);
+  assert.equal(air.layer, "air");
+  battle.scheduleSpell({ cardId: "squall-orb", point: { x: 5_750, y: 17_750 },
+    sequence: 3, side: "south", tick: battle.state.tick });
+  battle.scheduleSpell({ cardId: "squall-orb", point: { x: 5_750, y: 17_750 },
+    sequence: 4, side: "north", tick: battle.state.tick });
+
+  assert.deepEqual(battle.state.pendingSpellIntents, [{
+    cardId: "squall-orb", effectId: 1, impactTick: 3, point: { x: 5_750, y: 17_750 },
+    profileId: "squall-orb-radius-v2", sequence: 3, side: "south", tick: 1,
+  }, {
+    cardId: "squall-orb", effectId: 2, impactTick: 3, point: { x: 5_750, y: 17_750 },
+    profileId: "squall-orb-radius-v2", sequence: 4, side: "north", tick: 1,
+  }]);
+  assert.equal(battle.state.units.find(({ id }) => id === ground.id).hitpoints, ground.hitpoints,
+    "impact remains pending through the estimated two-tick delay");
+  battle.stepMany(3);
+
+  const after = battle.state.units;
+  assert.equal(after.find(({ id }) => id === ground.id).hitpoints, ground.hitpoints - 689);
+  assert.equal(after.find(({ id }) => id === air.id).hitpoints, Math.max(0, air.hitpoints - 689));
+  assert.equal(after.find(({ id }) => id === outside.id).hitpoints, outside.hitpoints,
+    "a unit outside the profile radius receives no spell damage");
+  const resolved = battle.events.find(({ type }) => type === "spell-intent-resolved");
+  assert.equal(resolved.kind, "bounded-radius-center-damage");
+  assert.equal(resolved.areaDamageRadiusMillitiles, 2_500);
+  assert.equal(resolved.profileId, "squall-orb-radius-v2");
+  assert.equal(battle.events.filter(({ type }) => type === "spell-intent-resolved").length, 2);
+  const areaView = createCombatEffectsViewModel(battle.combatEffectFeed, battle.state.tick);
+  assert.deepEqual(areaView.areas.map(({ point, radius }) => ({ point, radius })), [{
+    point: { denominator: "1", xNumerator: "5750", yNumerator: "17750" },
+    radius: 2_500,
+  }, {
+    point: { denominator: "1", xNumerator: "5750", yNumerator: "17750" },
+    radius: 2_500,
+  }], "resolved radius spells publish one visible deterministic impact ring each");
+  const resolvedBytes = battle.serialize();
+  const restored = LiveBattle.restore(resolvedBytes);
+  assert.equal(restored.serialize(), resolvedBytes,
+    "area visuals are included in the exact pending-effect restore transcript");
+  assert.equal(restored.combatEffectFeedBytes(), battle.combatEffectFeedBytes());
+});
+
+test("game spell runtime: editable GameSession center cast spends, cycles, and restores its pending impact", () => {
+  const configured = setup({ radius: true, north: true });
+  const session = new GameSession(configured);
+  session.step();
+  const target = deployedNorthTarget(session);
+  const unit = session.state.battle.units.find(({ id }) => id === target.id);
+  const slot = session.state.decks.south.hand.indexOf("squall-orb");
+  assert.notEqual(slot, -1);
+  const before = session.state;
+  assert.deepEqual(session.submitPlayerCommand(canonical({
+    cardId: "squall-orb", commandId: 90, point: { ...unit.position }, side: "south",
+    slot, tick: session.state.tick, type: "spell",
+  })), { accepted: true, commandId: 90, tick: 1, type: "player-command-admitted" });
+  session.step();
+
+  const pending = session.state;
+  assert.deepEqual(pending.battle.pendingSpellIntents.map(({ cardId, impactTick, profileId }) =>
+    ({ cardId, impactTick, profileId })), [{ cardId: "squall-orb", impactTick: 3,
+      profileId: "squall-orb-radius-v2" }]);
+  assert.equal(pending.decks.south.sequence, before.decks.south.sequence + 1);
+  assert.equal(pending.elixir.sides.south.amount, before.elixir.sides.south.amount - 4);
+  assert.deepEqual(pending.battle.pendingSpellIntents[0].target, undefined,
+    "center casts do not accept or persist a caller-selected target");
+  assert.ok(session.replay.some(({ type, resolution }) =>
+    type === "session-spell-played" && resolution === null));
+  const checkpoint = session.serialize();
+  const restored = GameSession.restore(checkpoint);
+  assert.equal(restored.serialize(), checkpoint);
+
+  session.stepMany(2);
+  restored.stepMany(2);
+  assert.equal(restored.serialize(), session.serialize());
+  assert.equal(restored.state.battle.units.find(({ id }) => id === target.id).hitpoints,
+    Math.max(0, unit.hitpoints - 689));
+  assert.ok(restored.replay.some(({ type, profileId }) =>
+    type === "spell-intent-resolved" && profileId === "squall-orb-radius-v2"));
+  assert.equal(restored.replayBytes(), session.replayBytes());
+});
+
+test("game spell runtime: crown tower radius hit uses the versioned estimated 30 percent modifier", () => {
+  const battle = liveProfileBattle({ radius: true });
+  const before = battle.state.towers;
+  const enemyCrown = before.find(({ side, role }) => side === "south" && role === "central");
+  const friendlyCrown = before.find(({ side, role }) => side === "north" && role === "central");
+  assert.ok(enemyCrown && friendlyCrown);
+  battle.scheduleSpell({ cardId: "squall-orb", point: { ...enemyCrown.position },
+    sequence: 0, side: "north", tick: 0 });
+  battle.stepMany(3);
+
+  const after = battle.state.towers;
+  assert.equal(after.find(({ id }) => id === enemyCrown.id).hitpoints, enemyCrown.hitpoints - 207,
+    "689 damage × estimated 30% crown modifier rounds half-up to 207");
+  assert.equal(after.find(({ id }) => id === friendlyCrown.id).hitpoints, friendlyCrown.hitpoints,
+    "the center cast does not damage a friendly tower");
+  const hit = battle.events.find(({ type, targetId }) =>
+    type === "spell-area-hit" && targetId === enemyCrown.id);
+  assert.equal(hit.damage, 207);
+  assert.equal(hit.targetKind, "crown-tower");
+});
+
+test("game spell runtime: circle tangency is included and one millitile beyond is excluded", () => {
+  const exact = liveProfileBattle({ radius: true });
+  const justOutside = liveProfileBattle({ radius: true });
+  const crown = exact.state.towers.find(({ side, role }) => side === "south" && role === "central");
+  assert.ok(crown);
+  // The bounded profile radius is 2,500 millitiles and the south central
+  // tower's collision footprint is 2,829 millitiles in the shared kernel.
+  const exactBoundary = { x: crown.position.x, y: crown.position.y + 5_329 };
+  exact.scheduleSpell({ cardId: "squall-orb", point: exactBoundary,
+    sequence: 0, side: "north", tick: 0 });
+  justOutside.scheduleSpell({ cardId: "squall-orb", point: { ...exactBoundary, y: exactBoundary.y + 1 },
+    sequence: 0, side: "north", tick: 0 });
+  exact.stepMany(3);
+  justOutside.stepMany(3);
+
+  const exactCrown = exact.state.towers.find(({ id }) => id === crown.id);
+  const outsideCrown = justOutside.state.towers.find(({ id }) => id === crown.id);
+  assert.equal(exactCrown.hitpoints, crown.hitpoints - 207,
+    "a center exactly tangent to the tower footprint receives the crown-modified hit");
+  assert.equal(outsideCrown.hitpoints, crown.hitpoints,
+    "moving the center one millitile farther leaves the tower untouched");
+});
+
+test("game spell runtime: radius center cast damages an enemy building through shared structure health", () => {
+  const battle = new LiveBattle(canonical(radiusBuildingSetup()));
+  battle.scheduleStructure({ cardId: "bulwark-needle", destination: null,
+    point: { x: 3_500, y: 17_500 }, sequence: 0, side: "north", tick: 0 });
+  battle.step();
+  const building = battle.state.structures.find(({ cardId, side }) =>
+    cardId === "bulwark-needle" && side === "north");
+  assert.ok(building);
+  battle.scheduleSpell({ cardId: "squall-orb", point: { ...building.position },
+    sequence: 1, side: "south", tick: battle.state.tick });
+  battle.stepMany(3);
+
+  assert.equal(battle.state.structures.find(({ id }) => id === building.id).hitpoints,
+    building.hitpoints - 689);
+  assert.ok(battle.events.some(({ targetId, targetKind, type }) =>
+    type === "spell-area-hit" && targetId === building.id && targetKind === "building"));
 });
 
 test("game spell runtime: receipt is non-roster/non-fidelity and visibly excludes QUESTION mechanics", () => {

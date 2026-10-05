@@ -5,6 +5,7 @@ import {
   RL_ACTION_COUNT,
   RLEnvironment,
 } from "../src/rl/environment.js";
+import { EDITABLE_DECK_CARD_IDS } from "../src/content/session-troop-roster.js";
 import { PLAYABLE_CARD_IDS } from "../src/content/playable-roster.js";
 import { GameSession } from "../src/sim/game-session.js";
 
@@ -123,6 +124,37 @@ test("separate instances and a custom shared deck remain independent", () => {
   const otherBefore = other.serialize();
   custom.step(0);
   assert.equal(other.serialize(), otherBefore);
+});
+
+test("RL mask casts an editable Squall Orb center point and restores its pending effect", () => {
+  const deck = ["squall-orb", ...EDITABLE_DECK_CARD_IDS.slice(0, 7)];
+  const env = createRLEnvironment({ deck, seed: 1, strideTicks: 1, horizonTicks: 5 });
+  const observation = env.observe();
+  const slot = observation.hand.indexOf("squall-orb");
+  assert.notEqual(slot, -1, "the deterministic policy starts with Squall Orb in hand");
+  const centerAction = env.actionSpace().actions.find(({ point, slot: actionSlot }) =>
+    actionSlot === slot && point.x === 8_500 && point.y === 15_500);
+  assert.ok(centerAction);
+  assert.equal(observation.actionMask[centerAction.id], true,
+    "the effect center placement is included in the policy's legal-action mask");
+
+  const cast = env.step(centerAction.id);
+  assert.equal(cast.observation.tick, 1);
+  assert.equal(cast.observation.elixir, observation.elixir - 4);
+  assert.notEqual(cast.observation.hand[slot], "squall-orb",
+    "the shared deck cycles after the cast");
+  const pendingBytes = env.serialize();
+  const engine = JSON.parse(JSON.parse(pendingBytes).session);
+  assert.ok(engine.transcript.some(({ command, type }) =>
+    type === "submit" && command.type === "spell" && command.cardId === "squall-orb"),
+  "the RL adapter submits a typed GameSession spell command");
+
+  const restored = RLEnvironment.restore(pendingBytes);
+  assert.equal(restored.serialize(), pendingBytes,
+    "restore retains the pending radius effect and action counter exactly");
+  assert.deepEqual(restored.step(0), env.step(0));
+  assert.equal(restored.serialize(), env.serialize(),
+    "pending effect replay remains byte-exact after restore");
 });
 
 test("horizon clipping truncates exactly and rejects later steps", () => {

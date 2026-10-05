@@ -45,7 +45,7 @@ import {
   getUnprofiledAdmittedEffectProfileQuestion,
   parseSpellIntentProfileReceipts,
 } from "./spell-intent-runtime.js";
-import { MAX_SPATIAL_MILLITILES, validateCircle, validatePosition } from "./spatial.js";
+import { MAX_SPATIAL_MILLITILES, circlesOverlap, validateCircle, validatePosition } from "./spatial.js";
 import { retainOrAcquireTarget, targetCandidate } from "./targeting.js";
 import { createStageSideDeployment } from "./game-side-deploy-core.js";
 import {
@@ -60,6 +60,8 @@ import {
   mapBattleTowerIdToMatchTowerId,
   mapLiveBattleTowerStateToMatchEvidence,
 } from "./tower-evidence-map.js";
+
+const SPELL_TOWER_FOOTPRINT_RADII = Object.freeze({ central: 2_829, lane: 2_122 });
 
 function assertOpaqueContinuationHandle(handle) {
   if (Object.getPrototypeOf(handle) !== null || !Object.isFrozen(handle) ||
@@ -142,6 +144,84 @@ function preflightMovementSnapshotGraph(root, limits, label) {
       }
     }
   }
+}
+
+function checkedAreaImpact(value, currentTick, maxTick) {
+  if (value === null || typeof value !== "object" || Array.isArray(value) ||
+      (Object.getPrototypeOf(value) !== Object.prototype && Object.getPrototypeOf(value) !== null) ||
+      Object.getOwnPropertySymbols(value).length !== 0) {
+    throw new TypeError("spell area impact must be a plain string-keyed data object");
+  }
+  const descriptors = Object.getOwnPropertyDescriptors(value);
+  const expected = ["center", "effectId", "radius", "targetIds", "tick"].sort();
+  const actual = Reflect.ownKeys(descriptors).sort();
+  if (actual.length !== expected.length || actual.some((key, index) => key !== expected[index])) {
+    throw new TypeError("spell area impact has an invalid shape");
+  }
+  for (const key of expected) {
+    if (!descriptors[key].enumerable || !Object.hasOwn(descriptors[key], "value")) {
+      throw new TypeError(`spell area impact.${key} must be an enumerable data property`);
+    }
+  }
+  const raw = Object.fromEntries(expected.map((key) => [key, descriptors[key].value]));
+  const tick = raw.tick;
+  if (!Number.isSafeInteger(tick) || tick < 0 || tick > maxTick) {
+    throw new TypeError("spell area impact.tick is outside the safe tick range");
+  }
+  if (tick !== currentTick) throw new RangeError("spell area impact tick must equal the current combat tick");
+  const centerPoint = validateArenaPoint(raw.center, "spell area impact.center");
+  if (!isPointInArena(centerPoint)) throw new RangeError("spell area impact.center must be inside the arena");
+  if (!Number.isSafeInteger(raw.effectId) || raw.effectId < 1) {
+    throw new TypeError("spell area impact.effectId must be a positive safe integer");
+  }
+  if (!Number.isSafeInteger(raw.radius) || raw.radius < 1 || raw.radius > MAX_SPATIAL_MILLITILES) {
+    throw new TypeError("spell area impact.radius is outside spatial bounds");
+  }
+  if (!Array.isArray(raw.targetIds) || raw.targetIds.length > 1_024) {
+    throw new TypeError("spell area impact.targetIds must be a bounded array");
+  }
+  const idDescriptors = Object.getOwnPropertyDescriptors(raw.targetIds);
+  for (const key of Reflect.ownKeys(idDescriptors)) {
+    if (key === "length") continue;
+    if (typeof key !== "string" || !/^(0|[1-9]\d*)$/u.test(key) ||
+        Number(key) >= raw.targetIds.length) {
+      throw new TypeError("spell area impact.targetIds must contain only indexed data");
+    }
+  }
+  const targetIds = Array.from({ length: raw.targetIds.length }, (_, index) => {
+    const descriptor = idDescriptors[index];
+    if (descriptor === undefined || !descriptor.enumerable || !Object.hasOwn(descriptor, "value")) {
+      throw new TypeError(`spell area impact.targetIds[${index}] must be an enumerable data property`);
+    }
+    const id = descriptor.value;
+    if (!Number.isSafeInteger(id) || id < 1) {
+      throw new TypeError(`spell area impact.targetIds[${index}] must be a positive safe integer`);
+    }
+    return id;
+  });
+  if (new Set(targetIds).size !== targetIds.length) {
+    throw new TypeError("spell area impact target IDs must be unique");
+  }
+  targetIds.sort((left, right) => left - right);
+  return { center: { x: centerPoint.x, y: centerPoint.y },
+    effectId: raw.effectId, radius: raw.radius, targetIds, tick };
+}
+
+function appendSpellAreaImpact(feed, impact) {
+  const root = appendCombatEffectRoot(feed, {
+    direction: "area", effectId: impact.effectId, from: impact.center,
+    impactTick: impact.tick, projectileId: null, radius: impact.radius, segments: [],
+    sequence: null, sourceId: null, tick: impact.tick, to: null, type: "area",
+  });
+  const applied = appendCombatEffectEvent(feed, {
+    parentId: root.eventId,
+    payload: { center: impact.center, radius: impact.radius, targetIds: impact.targetIds },
+    phase: "impact", rootId: root.rootId, tick: impact.tick, type: "area",
+  });
+  appendCombatEffectEvent(feed, {
+    parentId: applied.eventId, payload: { reason: "complete" },
+    phase: "close", rootId: root.rootId, tick: impact.tick, type: "area",
+  });
 }
 
 function defineBattleMovement(registerCompact) {
@@ -2593,6 +2673,18 @@ class BattleCombat {
     return deepFreeze(clone(events));
   }
 
+  /** Records a resolved, deterministic spell area for the browser effect feed. */
+  recordAreaImpact(command) {
+    const checked = checkedAreaImpact(command, this.#tick, MAX_TICK);
+    this.#reserveHistory();
+    const candidate = this.#runtimeClone();
+    appendSpellAreaImpact(candidate.#feed, checked);
+    candidate.#record({ command: checked, type: "area-impact" });
+    candidate.#stateToken = {};
+    this.#adopt(candidate);
+    return deepFreeze(clone(checked));
+  }
+
   step(tick = this.#tick) {
     integer(tick, 0, MAX_TICK, "battle combat step tick");
     if (tick !== this.#tick) {
@@ -2887,6 +2979,8 @@ class BattleCombat {
         restored.updatePosition(exact(operation, ["command", "type"], `history[${index}]`).command);
       } else if (operation.type === "positions") {
         restored.updatePositions(exact(operation, ["command", "type"], `history[${index}]`).command);
+      } else if (operation.type === "area-impact") {
+        restored.recordAreaImpact(exact(operation, ["command", "type"], `history[${index}]`).command);
       } else if (operation.type === "step") {
         const entry = exact(operation, ["tick", "type"], `history[${index}]`);
         if (entry.tick !== restored.#tick) throw new TypeError("noncausal battle combat step history");
@@ -4810,10 +4904,11 @@ function checkedEffects(value) {
           `battle tower effects.unitHits[${index}].targetUnitId`),
       };
     });
-  if (new Set(unitHits.map(({ effectId }) => effectId)).size !== unitHits.length) {
-    throw new TypeError("battle tower effects must have unique effect IDs");
+  if (new Set(unitHits.map(({ effectId, targetUnitId }) => `${effectId}:${targetUnitId}`)).size !== unitHits.length) {
+    throw new TypeError("battle tower effects must have unique effect/target pairs");
   }
-  return { unitHits: unitHits.sort((left, right) => left.effectId - right.effectId) };
+  return { unitHits: unitHits.sort((left, right) => left.effectId - right.effectId ||
+    left.targetUnitId - right.targetUnitId) };
 }
 
 const PROJECTILE_IDENTITY_KEYS = [
@@ -5150,6 +5245,15 @@ class BattleTowerCombat {
     return freeze(clone(events));
   }
 
+  /** Adds the resolved spell ring to the unit combat visual transcript. */
+  recordSpellAreaImpact(command) {
+    const checked = checkedAreaImpact(command, this.state.tick, MAX_TICK);
+    this.#reserveHistory();
+    this.#combatRuntime().recordAreaImpact(checked);
+    this.#appendHistory({ command: clone(checked), type: "spell-area-impact" });
+    return freeze(clone(checked));
+  }
+
   step(tick = this.state.tick) {
     integer(tick, 0, MAX_TICK, "battle tower step tick");
     if (tick !== this.state.tick) {
@@ -5295,6 +5399,8 @@ class BattleTowerCombat {
           ["command", "type"], `${label}[${index}]`).command);
         else if (operation.type === "positions") restored.updatePositions(exact(operation,
           ["command", "type"], `${label}[${index}]`).command);
+        else if (operation.type === "spell-area-impact") restored.recordSpellAreaImpact(exact(operation,
+          ["command", "type"], `${label}[${index}]`).command);
         else if (operation.type === "boundary") restored.stepBoundary(exact(operation,
           ["command", "type"], `${label}[${index}]`).command);
         else if (operation.type === "effect-step") {
@@ -5378,6 +5484,9 @@ class BattleTowerCombat {
       } else if (operation.type === "positions") {
         const entry = exact(operation, ["command", "type"], `history[${index}]`);
         restored.updatePositions(entry.command);
+      } else if (operation.type === "spell-area-impact") {
+        const entry = exact(operation, ["command", "type"], `history[${index}]`);
+        restored.recordSpellAreaImpact(entry.command);
       } else if (operation.type === "boundary") {
         const entry = exact(operation, ["command", "type"], `history[${index}]`);
         restored.stepBoundary(entry.command);
@@ -6123,9 +6232,17 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
       "live battle ordinary runtime policies must use one uniform mode across unit entities",
     );
   }
-  const archetypes = roster.flatMap(({ entities }) => entities.map(({ archetypeId }) => archetypeId));
-  if (new Set(archetypes).size !== archetypes.length) {
-    throw new TypeError("live battle setup archetype identities must be globally unique");
+  const archetypeFacts = new Map();
+  for (const entity of roster.flatMap(({ entities }) => entities)) {
+    // Count is this card's formation size; all remaining entity fields describe
+    // the shared body and must agree when two cards reuse its archetype ID.
+    const { archetypeId, count, ...facts } = entity;
+    const factBytes = canonical(facts);
+    const previous = archetypeFacts.get(archetypeId);
+    if (previous !== undefined && previous !== factBytes) {
+      throw new TypeError("live battle duplicate archetype facts must be canonically identical");
+    }
+    archetypeFacts.set(archetypeId, factBytes);
   }
   const cardOwners = new Set(roster.map(({ id }) => id));
   for (const card of roster) {
@@ -7005,6 +7122,11 @@ class LiveBattle {
     return this.#spells !== null && this.#spells.hasCard(cardId);
   }
 
+  hasRadiusSpellProfile(cardId) {
+    if (typeof cardId !== "string") throw new TypeError("live battle spell card ID must be primitive");
+    return this.#spells !== null && this.#spells.profileVersion === 2 && this.#spells.hasCard(cardId);
+  }
+
   getSpellProfileQuestion(cardId) {
     if (typeof cardId !== "string") throw new TypeError("live battle spell card ID must be primitive");
     const card = this.#rosterById.get(cardId);
@@ -7094,7 +7216,7 @@ class LiveBattle {
       point: clone(scheduled.point),
       sequence: scheduled.sequence,
       side: scheduled.side,
-      target: clone(scheduled.target),
+      ...(Object.hasOwn(scheduled, "target") ? { target: clone(scheduled.target) } : {}),
       tick: scheduled.tick,
     }, type: "spell" });
     this.#events.push(clone(scheduled));
@@ -7834,7 +7956,7 @@ class LiveBattle {
     if (hasSpellRuntimeWitness) {
       const witness = exact(checked.spellRuntime, ["nextEffectId", "pending", "version"],
         "live battle spell runtime witness");
-      if (witness.version !== 1 || !Number.isSafeInteger(witness.nextEffectId) ||
+      if (![1, 2].includes(witness.version) || !Number.isSafeInteger(witness.nextEffectId) ||
           witness.nextEffectId < 1 || !Array.isArray(witness.pending) ||
           witness.pending.length > MAX_LIVE_BATTLE_DEPLOYMENTS) {
         throw new TypeError("live battle spell runtime witness is noncanonical");
@@ -7938,6 +8060,7 @@ class LiveBattle {
       canonical(restored.#pendingTroopStatusActions) === canonical(pendingTroopStatusActions)
     );
     const spellWitnessMatches = !hasSpellRuntimeWitness || (restored.#spells !== null &&
+      restored.#spells.profileVersion === spellRuntimeState.version &&
       canonical(restored.#spells.state) === canonical(spellRuntimeState));
     const projectileWitnessMatches = !hasProjectileRuntimeWitness || (
       restored.#projectileRuntime !== null &&
@@ -8114,11 +8237,47 @@ class LiveBattle {
     }
     const spellActions = this.#spells === null ? [] : this.#spells.resolve(tick);
     const spellEffects = { unitHits: [] };
+    const spellAreaVisuals = [];
     for (const action of spellActions) {
       const sourceId = `spell-intent:${String(action.effectId).padStart(16, "0")}`;
       boundary.push({ ...clone(action), sourceId, type: "spell-intent-resolved" });
-      spellEffects.unitHits.push({ damage: action.damage, effectId: action.effectId, sourceId,
-        targetUnitId: action.target.id });
+      if (action.kind === "isolated-direct-target-damage") {
+        spellEffects.unitHits.push({ damage: action.damage, effectId: action.effectId, sourceId,
+          targetUnitId: action.target.id });
+        continue;
+      }
+      const spellCircle = { position: action.point, radius: action.areaDamageRadiusMillitiles };
+      const areaTargetIds = [];
+      for (const unit of battle.state.units.filter(({ alive, side }) => alive && side !== action.side)) {
+        if (action.targetMode !== "ground-and-air" ||
+            !circlesOverlap(spellCircle, { position: unit.position, radius: unit.radius })) continue;
+        spellEffects.unitHits.push({ damage: action.damage, effectId: action.effectId, sourceId,
+          targetUnitId: unit.id });
+        areaTargetIds.push(unit.id);
+        boundary.push({ damage: action.damage, effectId: action.effectId, profileId: action.profileId, sourceId,
+          targetId: unit.id, targetKind: "unit", tick, type: "spell-area-hit" });
+      }
+      for (const structure of this.#structures.filter(({ alive, side }) => alive && side !== action.side)) {
+        if (!circlesOverlap(spellCircle, { position: structure.position, radius: 0 })) continue;
+        boundary.push(...this.#damageStructure(structure, action.damage, sourceId,
+          "spell-area-damage", tick));
+        areaTargetIds.push(structure.id);
+        boundary.push({ damage: action.damage, effectId: action.effectId, profileId: action.profileId, sourceId,
+          targetId: structure.id, targetKind: "building", tick, type: "spell-area-hit" });
+      }
+      for (const tower of battle.state.towers.filter(({ hitpoints, side }) =>
+        hitpoints > 0 && side !== action.side)) {
+        const radius = SPELL_TOWER_FOOTPRINT_RADII[tower.role];
+        if (!circlesOverlap(spellCircle, { position: tower.position, radius })) continue;
+        // Half-up is the explicit v2 QUESTION policy; integer arithmetic keeps
+        // every replay on the same deterministic path.
+        const damage = Math.floor((action.damage * (100 + action.crownTowerDamagePercent) + 50) / 100);
+        externalTowerHits.push({ amount: damage, sourceId, towerId: tower.id });
+        boundary.push({ damage, effectId: action.effectId, profileId: action.profileId, sourceId,
+          targetId: tower.id, targetKind: "crown-tower", tick, type: "spell-area-hit" });
+      }
+      spellAreaVisuals.push({ center: action.point, effectId: action.effectId,
+        radius: action.areaDamageRadiusMillitiles, targetIds: areaTargetIds });
     }
     const beforeCombat = usesCurrentContactRuntime || this.#hasStatusRuntime() ? battle.state : null;
     const actionPlans = [];
@@ -8230,6 +8389,11 @@ class LiveBattle {
           side: unit.side, targetable: unit.alive,
         })) }));
       boundary.push(...this.#applyBuildingIntents(building, tick));
+    }
+    for (const impact of spellAreaVisuals) {
+      // The resolver hits at `tick`; publish at the resulting state tick so the
+      // browser can render the impact ring with the just-resolved board.
+      battle.recordSpellAreaImpact({ ...impact, tick: battle.state.tick });
     }
     this.#appendHistory({ tick, type: "step" });
     this.#events.push(...clone(boundary));
@@ -8969,7 +9133,7 @@ class LiveBattle {
         this.#spells.hasPendingSequence(checked.tick, checked.sequence)) {
       throw new RangeError("live battle spell tick/sequence must be unique");
     }
-    if (!this.#hasLiveSpellTarget(checked.target)) {
+    if (this.#spells.profileVersion === 1 && !this.#hasLiveSpellTarget(checked.target)) {
       throw new RangeError("live spell command target is not a live shared entity");
     }
     return checked;
@@ -11990,7 +12154,10 @@ function commandText(value) {
     return clone(command);
   }
   if (decoded.type === "spell") {
-    const command = exact(decoded, ["cardId", "commandId", "point", "side", "slot", "target", "tick", "type"],
+    const hasTarget = Object.hasOwn(decoded, "target");
+    const command = exact(decoded, hasTarget
+      ? ["cardId", "commandId", "point", "side", "slot", "target", "tick", "type"]
+      : ["cardId", "commandId", "point", "side", "slot", "tick", "type"],
       "player session spell command");
     if (typeof command.cardId !== "string" || !Number.isSafeInteger(command.commandId) ||
         command.commandId < 0 || command.side !== "south" || !Number.isSafeInteger(command.slot) ||
@@ -12002,9 +12169,11 @@ function commandText(value) {
     if (!Number.isSafeInteger(command.point.x) || !Number.isSafeInteger(command.point.y)) {
       throw new TypeError("player session spell command point is invalid");
     }
-    const target = exact(command.target, ["id", "kind"], "player session spell command.target");
-    if (target.kind !== "unit" || !Number.isSafeInteger(target.id) || target.id < 1) {
-      throw new TypeError("player session spell command target is invalid");
+    if (hasTarget) {
+      const target = exact(command.target, ["id", "kind"], "player session spell command.target");
+      if (target.kind !== "unit" || !Number.isSafeInteger(target.id) || target.id < 1) {
+        throw new TypeError("player session spell command target is invalid");
+      }
     }
     return clone(command);
   }
@@ -12217,6 +12386,7 @@ class GameSession {
       const battle = this.#battleRuntime();
       const admitted = this.#cardRuntime.card(command.cardId);
       const hasSourcedSpellProfile = battle.hasSpellProfile(command.cardId);
+      const hasRadiusSpellProfile = hasSourcedSpellProfile && battle.hasRadiusSpellProfile(command.cardId);
       const effectQuestion = admitted.kind === "effect"
         ? battle.getSpellProfileQuestion(command.cardId)
         : null;
@@ -12226,6 +12396,13 @@ class GameSession {
       if ((command.type === "spell") !== hasSourcedSpellProfile ||
           (hasSourcedSpellProfile && admitted.kind !== "effect")) {
         throw new RangeError("player session command does not match a sourced spell profile");
+      }
+      if (hasSourcedSpellProfile && (hasRadiusSpellProfile
+        ? Object.hasOwn(command, "target")
+        : !Object.hasOwn(command, "target"))) {
+        throw new TypeError(hasRadiusSpellProfile
+          ? "radius spell command must use its trusted center without a target"
+          : "direct-target spell command requires one shared unit target");
       }
       if (hasSourcedSpellProfile && command.tick !== clock.tick) {
         throw new RangeError("player spell command must target the current shared tick");
@@ -12263,7 +12440,8 @@ class GameSession {
       }
       if (hasSourcedSpellProfile) {
         battle.validateSpell({ cardId: command.cardId, point: command.point,
-          sequence: this.#nextDeploymentSequence, side: command.side, target: command.target,
+          sequence: this.#nextDeploymentSequence, side: command.side,
+          ...(Object.hasOwn(command, "target") ? { target: command.target } : {}),
           tick: command.tick });
       }
     }
@@ -12394,9 +12572,11 @@ class GameSession {
     // Card kind and sourced spell admission are setup invariants. Derive the
     // controller's materializable candidate set once instead of revalidating
     // every legal card through SessionCardRuntime on every fixed tick.
-    const northLegalDeployments = this.#legal.filter(({ cardId }) =>
-      this.#cardRuntime.card(cardId).kind !== "effect" && cardId !== "burrow-rig" &&
-      !battle.hasSpellProfile(cardId));
+    const northLegalDeployments = this.#legal.filter(({ cardId }) => {
+      const kind = this.#cardRuntime.card(cardId).kind;
+      return cardId !== "burrow-rig" &&
+        (kind !== "effect" || battle.hasRadiusSpellProfile(cardId));
+    });
     for (let tick = firstTick; tick < endTick; tick += 1) {
       const player = this.#pending.find((entry) => entry.tick === tick) ?? null;
       if (player) {
@@ -12502,8 +12682,11 @@ class GameSession {
       } else if (stage.spellIntent !== undefined) {
         const resolution = battleEvents.find((event) => event.type === "spell-intent-resolved" &&
           event.effectId === stage.spellIntent.effectId);
-        if (!resolution) throw new Error("session spell intent did not resolve exactly once");
-        committed = { intent: clone(stage.spellIntent), resolution: clone(resolution), side: stage.side,
+        if (!resolution && !battle.hasRadiusSpellProfile(stage.cardId)) {
+          throw new Error("session direct-target spell intent did not resolve exactly once");
+        }
+        committed = { intent: clone(stage.spellIntent),
+          resolution: resolution === undefined ? null : clone(resolution), side: stage.side,
           spend: clone(stage.resolvedSpend), tick: stage.tick, type: "session-spell-played" };
         sessionEvents.push(committed);
       } else if (stage.kind === "structure" && stage.structureMaterializes) {
@@ -12561,7 +12744,11 @@ class GameSession {
       "troop-status-expired",
       "troop-status-cancelled",
     ].includes(type) || /^(building|structure|death-effect|travel|underground|ramp)-/u.test(type));
-    sessionEvents.push(...meaningfulBattle, ...(resourceEvents ?? []), ...clockEvents);
+    sessionEvents.push(...meaningfulBattle,
+      ...battleEvents.filter(({ profileId, type }) =>
+        (profileId === "squall-orb-radius-v2" &&
+          ["spell-area-hit", "spell-intent-resolved"].includes(type))),
+      ...(resourceEvents ?? []), ...clockEvents);
     sessionEvents.sort((a, b) => (a.tick ?? 0) - (b.tick ?? 0));
     const movementStarts = [];
     for (const wrapper of battleEvents) {

@@ -216,13 +216,16 @@ export class RLEnvironment {
     try {
       if (actionId !== 0) {
         const action = ACTIONS[actionId];
-        this.#session.submitPlayerCommand(JSON.stringify({
-          cardId: before.hand[action.slot],
+        const card = before.hand[action.slot];
+        const kind = this.#session.state.cardRuntime.cards.find((entry) => entry.id === card)?.kind;
+        this.#session.submitPlayerCommand(canonical({
+          cardId: card,
           commandId: this.#nextCommandId,
           point: action.point,
           slot: action.slot,
           tick: before.tick,
-          type: "deploy",
+          ...(kind === "effect" ? { side: "south" } : {}),
+          type: kind === "effect" ? "spell" : "deploy",
         }));
       }
       const ticksToHorizon = this.#config.horizonTicks - this.#session.state.tick;
@@ -289,7 +292,7 @@ export class RLEnvironment {
     let commandCount = 0;
     for (const operation of sessionSnapshot.transcript) {
       if (operation.type !== "submit") continue;
-      if (operation.command.type !== "deploy" ||
+      if (!['deploy', 'spell'].includes(operation.command.type) ||
           operation.command.commandId !== commandCount) {
         throw new TypeError("serialized environment command counter is inconsistent");
       }

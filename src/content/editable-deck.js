@@ -3,9 +3,21 @@ import {
   createPlayableRosterQuestionRecords,
   PLAYABLE_CARD_IDS,
 } from "./playable-roster.js";
-import { createEditableDeckWitness } from "./session-troop-roster.js";
+import {
+  EDITABLE_DECK_CARD_IDS,
+  createEditableDeckWitness,
+  createSessionTroopWitnessQuestions,
+  projectSessionTroopBattleCard,
+} from "./session-troop-roster.js";
+import { projectSessionNonUnitBattleCard } from "./session-card-catalog.js";
+import { createSessionRadiusSpellProfileReceipts } from "./session-spell-profile-receipts.js";
 
-export { EDITABLE_DECK_CARD_IDS } from "./session-troop-roster.js";
+export { EDITABLE_DECK_CARD_IDS };
+
+export const EDITABLE_MIXED_DECK_CARD_IDS = Object.freeze([
+  ...EDITABLE_DECK_CARD_IDS,
+  "squall-orb",
+]);
 
 function canonical(value) {
   if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
@@ -28,6 +40,67 @@ function checkedSeed(seed) {
   return seed;
 }
 
+function checkedEditableIds(deckIds) {
+  if (!Array.isArray(deckIds) || Object.getPrototypeOf(deckIds) !== Array.prototype ||
+      deckIds.length !== 8) {
+    throw new TypeError("editable deck IDs must be one plain eight-card array");
+  }
+  const descriptors = Object.getOwnPropertyDescriptors(deckIds);
+  const keys = Reflect.ownKeys(descriptors).filter((key) => key !== "length");
+  if (keys.length !== 8 || keys.some((key, index) => key !== String(index))) {
+    throw new TypeError("editable deck IDs must be a dense indexed array");
+  }
+  const ids = descriptors && Array.from({ length: 8 }, (_, index) => {
+    const descriptor = descriptors[index];
+    if (!descriptor.enumerable || !Object.hasOwn(descriptor, "value") ||
+        typeof descriptor.value !== "string") {
+      throw new TypeError(`editable deck ID ${index} must be a primitive string`);
+    }
+    return descriptor.value;
+  });
+  if (new Set(ids).size !== ids.length) throw new TypeError("editable deck cards must be unique");
+  return ids;
+}
+
+/**
+ * Composes the narrow mixed witness: exactly one v2 Squall Orb profile and
+ * seven already-admitted ordinary troop projections. The troop witness API
+ * remains closed to eight-card troop decks; no spell is smuggled through it.
+ */
+export function createEditableMixedDeckWitness(deckIds, ...args) {
+  if (args.length !== 0) throw new TypeError("editable mixed deck witness takes exactly one argument");
+  const ids = checkedEditableIds(deckIds);
+  if (ids.filter((id) => id === "squall-orb").length !== 1 ||
+      ids.some((id) => id !== "squall-orb" && !EDITABLE_DECK_CARD_IDS.includes(id))) {
+    throw new RangeError("mixed editable deck requires Squall Orb and seven admitted troops");
+  }
+  const roster = ids.map((id) => id === "squall-orb"
+    ? projectSessionNonUnitBattleCard(id)
+    : projectSessionTroopBattleCard(id));
+  const referencedQuestionKeys = new Set(roster.flatMap(({ entities }) => entities.flatMap((entity) =>
+    [entity.bodyRadiusPolicy, entity.projectileSpeedPolicy, entity.deliveryPolicy,
+      entity.layerPolicy, entity.damagePolicy]
+      .filter((policy) => policy?.kind === "question")
+      .map(({ questionKey }) => questionKey))));
+  const questionRecords = ids.filter((id) => id !== "squall-orb")
+    .flatMap((id) => createSessionTroopWitnessQuestions(id));
+  const byKey = new Map(questionRecords.map((record) => [record.key, record]));
+  const questions = [...referencedQuestionKeys].sort().map((key) => {
+    const record = byKey.get(key);
+    if (record === undefined) throw new Error(`mixed editable deck lacks troop question ${key}`);
+    return record;
+  });
+  return deepFreeze({ initialWindupTicks: { central: 0, lane: 0 }, questions, roster });
+}
+
+function deepFreeze(value) {
+  if (value !== null && typeof value === "object" && !Object.isFrozen(value)) {
+    for (const child of Object.values(value)) deepFreeze(child);
+    Object.freeze(value);
+  }
+  return value;
+}
+
 /**
  * Builds the canonical GameSession setup for a selected editable deck.
  * The exact standard order keeps the legacy shipped roster and question bytes.
@@ -36,7 +109,11 @@ export function createEditableGameSessionSetup(deckIds, seed = 0, ...args) {
   if (args.length !== 0) {
     throw new TypeError("editable game session setup takes at most two arguments");
   }
-  const witness = createEditableDeckWitness(deckIds);
+  const checkedIds = checkedEditableIds(deckIds);
+  const mixed = checkedIds.includes("squall-orb");
+  const witness = mixed
+    ? createEditableMixedDeckWitness(checkedIds)
+    : createEditableDeckWitness(checkedIds);
   const checked = checkedSeed(seed);
   const selectedIds = witness.roster.map(({ id }) => id);
   const standard = sameIds(selectedIds, PLAYABLE_CARD_IDS);
@@ -47,7 +124,10 @@ export function createEditableGameSessionSetup(deckIds, seed = 0, ...args) {
   const initialWindupTicks = standard
     ? { central: 0, lane: 0 }
     : witness.initialWindupTicks;
-  const battleSetup = canonical({ initialWindupTicks, questions, roster });
+  const battleSetup = canonical(mixed
+    ? { initialWindupTicks, questions, roster,
+      spellProfileReceipts: createSessionRadiusSpellProfileReceipts() }
+    : { initialWindupTicks, questions, roster });
   return canonical({
     battleSetup,
     deck: selectedIds,

@@ -65,14 +65,18 @@ export function createStageSideDeployment({
       ? sessionCards.card(cardId)
       : { kind: "unit", placementClass: "ground_entity" };
     const hasSourcedSpellProfile = admittedCard.kind === "effect" && battle.hasSpellProfile(cardId);
+    const hasRadiusSpellProfile = hasSourcedSpellProfile && battle.hasRadiusSpellProfile(cardId);
     const effectQuestion = admittedCard.kind === "effect"
       ? battle.getSpellProfileQuestion(cardId)
       : null;
     if (effectQuestion !== null) {
       throw new RangeError(`side deployment effect ${effectQuestion.cardId} remains an explicit QUESTION (${effectQuestion.id}): ${effectQuestion.reason}`);
     }
-    if (!hasSourcedSpellProfile && target !== undefined) {
-      throw new TypeError("side deployment target is only admitted for a sourced spell profile");
+    if ((!hasSourcedSpellProfile && target !== undefined) ||
+        (hasSourcedSpellProfile && (hasRadiusSpellProfile ? target !== undefined : target === undefined))) {
+      throw new TypeError(hasRadiusSpellProfile
+        ? "radius spell placement accepts a trusted center without a target"
+        : "direct-target spell placement requires one sourced shared unit target");
     }
     const placement = evaluateDeployment({
       destroyedOpposingLaneTowers: [],
@@ -89,7 +93,7 @@ export function createStageSideDeployment({
       throw new Error("prevalidated side deployment failed to cycle its deck");
     }
     const route = hasSessionCards
-      ? sessionCards.route(JSON.stringify(hasSourcedSpellProfile
+      ? sessionCards.route(JSON.stringify(hasSourcedSpellProfile && !hasRadiusSpellProfile
         ? { cardId, commandId, point, sequence: deploymentSequence, side, target, tick }
         : { cardId, commandId, point, sequence: deploymentSequence, side, tick }))
       : null;
@@ -114,7 +118,7 @@ export function createStageSideDeployment({
       }));
     } else if (hasSourcedSpellProfile) {
       const spellIntent = battle.scheduleSpell({ cardId, point: { x: point.x, y: point.y },
-        sequence: deploymentSequence, side, target: { ...target }, tick });
+        sequence: deploymentSequence, side, ...(target === undefined ? {} : { target: { ...target } }), tick });
       const staged = {
         cardId,
         commandId,

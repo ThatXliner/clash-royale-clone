@@ -8,9 +8,16 @@ import { join, relative } from "node:path";
 import { spawn } from "node:child_process";
 import test from "node:test";
 
-import { createPlayableRoster } from "../src/content/playable-roster.js";
-import { projectSessionTroopBattleCard } from "../src/content/session-troop-roster.js";
-import { createEditableGameSessionSetup } from "../src/content/editable-deck.js";
+import { createPlayableRoster, PLAYABLE_CARD_IDS } from "../src/content/playable-roster.js";
+import {
+  EDITABLE_DECK_CARD_IDS,
+  projectSessionTroopBattleCard,
+} from "../src/content/session-troop-roster.js";
+import {
+  EDITABLE_MIXED_DECK_CARD_IDS,
+  createEditableGameSessionSetup,
+} from "../src/content/editable-deck.js";
+import { projectSessionNonUnitBattleCard } from "../src/content/session-card-catalog.js";
 import { GameSession } from "../src/sim/game-session.js";
 import { buildRelease } from "../scripts/build-release.js";
 
@@ -22,7 +29,7 @@ const ARTIFACTS = process.env.APP_SHELL_ARTIFACTS ??
   new URL("../artifacts/app-001-round-1/", import.meta.url).pathname;
 const WORKSPACE_ROOT = new URL("..", import.meta.url).pathname;
 const ARENA_CONTROLLER_MODULE = "src/ui/arena-shell-entry.js";
-const EXPECTED_CARD_PORTRAIT_CELLS = Object.freeze([
+const EXPECTED_ATLAS_CARD_CELLS = Object.freeze([
   Object.freeze(["coilblade", "0"]),
   Object.freeze(["mossguard", "1"]),
   Object.freeze(["copperskiff", "2"]),
@@ -31,10 +38,24 @@ const EXPECTED_CARD_PORTRAIT_CELLS = Object.freeze([
   Object.freeze(["reedsting", "5"]),
   Object.freeze(["briar-band", "6"]),
   Object.freeze(["cinderlings", "7"]),
-  Object.freeze(["stonehauler", null]),
-  Object.freeze(["thornscouts", null]),
-  Object.freeze(["forgeguard", null]),
 ]);
+const EXPECTED_INDIVIDUAL_PORTRAIT_IDS = Object.freeze([
+  "stonehauler",
+  "thornscouts",
+  "forgeguard",
+  "cinder-host",
+  "ironroot",
+  "squall-orb",
+]);
+const EXPECTED_CARD_PORTRAIT_CELLS = Object.freeze([
+  ...EXPECTED_ATLAS_CARD_CELLS,
+  ...EXPECTED_INDIVIDUAL_PORTRAIT_IDS.map((id) => Object.freeze([id, null])),
+]);
+const EXPECTED_COLLECTION_IDS = Object.freeze([
+  ...PLAYABLE_CARD_IDS,
+  ...EXPECTED_INDIVIDUAL_PORTRAIT_IDS,
+]);
+const EXPECTED_COLLECTION_COUNT = EXPECTED_COLLECTION_IDS.length;
 const CARD_PORTRAIT_SCREENSHOTS = Object.freeze([
   "desktop-card-portraits-1440x933.png",
   "desktop-card-details-1440x933.png",
@@ -107,6 +128,15 @@ async function cardFrameDeployment(frame, cardId, moduleUrl) {
       side === "south" && type === "session-deployed" &&
       deployment.cardId === expectedId);
     return event ?? null;
+  }, { expectedId: cardId, entryUrl: moduleUrl });
+}
+
+async function cardFrameSpell(frame, cardId, moduleUrl) {
+  return frame.evaluate(async ({ expectedId, entryUrl }) => {
+    const { arenaHudController } = await import(entryUrl);
+    return arenaHudController.session.replay.find(({ side, type, intent }) =>
+      side === "south" && type === "session-spell-played" &&
+      intent?.cardId === expectedId) ?? null;
   }, { expectedId: cardId, entryUrl: moduleUrl });
 }
 
@@ -205,6 +235,11 @@ test("player shell renders roster-derived cards and launches a paused shared bat
   });
 
   try {
+    assert.deepEqual(EDITABLE_DECK_CARD_IDS,
+      [...PLAYABLE_CARD_IDS, ...EXPECTED_INDIVIDUAL_PORTRAIT_IDS.slice(0, -1)],
+    "the independently expected troop collection contains the completed source roster");
+    assert.deepEqual(EDITABLE_MIXED_DECK_CARD_IDS, EXPECTED_COLLECTION_IDS,
+      "the editable mixed collection adds the original Squall Orb portrait");
     await page.goto(`${origin}/public/index.html`, { waitUntil: "networkidle" });
     assert.equal(await page.title(), "Moss & Ember — Card battler");
     assert.equal(await page.locator(".app-nav [data-nav-to]").count(), 4);
@@ -221,20 +256,39 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     const cardsTab = page.locator('[data-nav-to="cards"]');
     await cardsTab.focus();
     await page.keyboard.press("Enter");
-    assert.equal(await page.locator("[data-card-grid] [data-card-id]").count(), 11);
+    assert.equal(await page.locator("[data-card-grid] [data-card-id]").count(),
+      EXPECTED_COLLECTION_COUNT);
     assert.equal(await page.locator("[data-card-detail] h2").innerText(), "Coilblade");
 
     for (const card of [...createPlayableRoster(),
-      projectSessionTroopBattleCard("stonehauler"),
-      projectSessionTroopBattleCard("thornscouts"),
-      projectSessionTroopBattleCard("forgeguard")]) {
+      ...EDITABLE_MIXED_DECK_CARD_IDS
+        .filter((id) => !PLAYABLE_CARD_IDS.includes(id) && id !== "squall-orb")
+        .map((id) => projectSessionTroopBattleCard(id)),
+      projectSessionNonUnitBattleCard("squall-orb")]) {
       const cardButton = page.locator(`[data-card-grid] [data-card-id="${card.id}"]`);
       await cardButton.click();
       assert.equal(await page.locator("[data-card-detail] h2").innerText(), card.displayName);
       assert.equal(await page.locator("[data-card-detail] .detail-cost").innerText(), String(card.cost));
-      const profiles = await renderedProfiles(page);
-      assert.deepEqual(profiles, card.entities.map(expectedStats), `${card.displayName} runtime facts`);
-      assert.equal(await page.locator("[data-card-detail] .unit-profile").count(), card.entities.length);
+      if (card.kind === "effect") {
+        assert.match(await page.locator("[data-card-detail] .detail-description").innerText(),
+          /center-cast area spell/iu);
+        assert.match(await page.locator("[data-card-detail] .detail-description").innerText(),
+          /estimated 2\.5-tile radius/u);
+        const spellProfile = await page.locator("[data-card-detail] .spell-profile").innerText();
+        assert.match(spellProfile, /RADIUS\s+2\.5 tiles \(estimate\)/u);
+        assert.match(spellProfile, /TARGETS\s+ground and air \(estimate\)/u);
+        assert.match(spellProfile, /CROWN TOWERS\s+30% \(207 damage per cast\) \(estimate\)/u);
+        assert.match(await page.locator("[data-card-detail] .spell-profile").innerText(),
+          /Projectile flight and knockback are not simulated/u);
+        assert.doesNotMatch(await page.locator("[data-card-detail] .spell-profile").innerText(),
+          /QUESTION|confidence/u);
+        await page.screenshot({ path: join(ARTIFACTS, "phone-squall-orb-details-720x1280.png"),
+          fullPage: true });
+      } else {
+        const profiles = await renderedProfiles(page);
+        assert.deepEqual(profiles, card.entities.map(expectedStats), `${card.displayName} runtime facts`);
+        assert.equal(await page.locator("[data-card-detail] .unit-profile").count(), card.entities.length);
+      }
       if (card.id === "briar-band") {
         const components = await page.locator("[data-card-detail] .unit-profile h3").allInnerTexts();
         assert.deepEqual(components, ["3 × Briar Runner", "3 × Briar Darter"]);
@@ -283,7 +337,8 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       },
     );
     assert.deepEqual(desktopPortraits.map(({ cardId, cell }) => [cardId, cell]),
-      EXPECTED_CARD_PORTRAIT_CELLS, "all eleven collection cards map to their intended painted portraits");
+      EXPECTED_CARD_PORTRAIT_CELLS,
+      "the complete mixed collection maps to its atlas and individual painted portraits");
     assert.ok(desktopPortraits.every(({ decoded, naturalSize, windowSize }) => decoded &&
       naturalSize[0] > 0 && naturalSize[1] > 0 && windowSize[0] > 0 && windowSize[1] > 0),
     `every collection portrait decodes and has a visible art window: ${JSON.stringify(desktopPortraits)}`);
@@ -294,9 +349,12 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       ["stonehauler", "public/assets/stonehauler-painted.webp"],
       ["thornscouts", "public/assets/thornscouts-painted.webp"],
       ["forgeguard", "public/assets/forgeguard-painted.webp"],
+      ["cinder-host", "public/assets/cinder-host-painted.webp"],
+      ["ironroot", "public/assets/ironroot-painted.webp"],
+      ["squall-orb", "public/assets/squall-orb-painted.webp"],
     ].map(([id, path]) => [id, manifest.files.find((file) => file.path === path)]));
     assert.ok(manifestAtlasSource && [...directPortraits.values()].every(Boolean),
-      "the atlas and three independent squad portraits are registered in the release manifest");
+      "the atlas and every individual original portrait are registered in the release manifest");
     const atlasOutputs = desktopPortraits.slice(0, 8).map(({ src }) => manifestFileForUrl(src));
     assert.ok(atlasOutputs.every((file) => file !== undefined),
       `each atlas URL resolves to its exact manifest-listed production output: ${JSON.stringify(desktopPortraits.map(({ src }) => src))}`);
@@ -328,10 +386,10 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     );
     assert.deepEqual(phonePortraits.map(({ cardId }) => cardId),
       EXPECTED_CARD_PORTRAIT_CELLS.map(([cardId]) => cardId),
-    "all eleven portrait wells remain present on a 390px phone");
+      "every collection portrait remains present on a 390px phone");
     assert.ok(phonePortraits.every(({ decoded, window }) => decoded &&
       window.width > 0 && window.height > 0 && window.right <= 390),
-    `all nine portraits remain decoded and inside the phone viewport: ${JSON.stringify(phonePortraits)}`);
+    `all ${EXPECTED_COLLECTION_COUNT} portraits remain decoded and inside the phone viewport: ${JSON.stringify(phonePortraits)}`);
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth), 390,
       "the phone collection does not overflow horizontally");
     await page.screenshot({ path: join(ARTIFACTS, CARD_PORTRAIT_SCREENSHOTS[2]) });
@@ -483,7 +541,7 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       "Replace slot 2 · Mossguard");
     assert.deepEqual(await page.locator("[data-replacement-card-id]").evaluateAll((nodes) =>
       nodes.map((node) => node.dataset.replacementCardId)),
-    ["stonehauler", "thornscouts", "forgeguard"],
+    EXPECTED_INDIVIDUAL_PORTRAIT_IDS,
     "every missing collection card can replace the selected slot");
     assert.equal(await page.evaluate(() => document.activeElement?.dataset?.replacementCardId),
       "stonehauler", "the replacement choice is reachable by keyboard");
@@ -502,8 +560,9 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     await page.screenshot({ path: join(ARTIFACTS, "custom-deck-390x844.png"), fullPage: true });
 
     await page.locator('[data-nav-to="cards"]').click();
-    assert.equal(await page.locator("[data-card-grid] [data-card-id]").count(), 11,
-      "the collection includes all eleven safe editable choices");
+    assert.equal(await page.locator("[data-card-grid] [data-card-id]").count(),
+      EXPECTED_COLLECTION_COUNT,
+      "the collection includes every supported editable choice");
     await page.locator('[data-card-grid] [data-card-id="stonehauler"]').click();
     assert.deepEqual(await renderedProfiles(page),
       [expectedStats(projectSessionTroopBattleCard("stonehauler").entities[0])],
@@ -638,6 +697,162 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       "Restart restores the same serialized eight-card session opening");
     await page.screenshot({ path: join(ARTIFACTS, "custom-battle-restart-390x844.png") });
 
+    await page.locator('.app-nav [data-nav-to="deck"]').click();
+    await page.locator('[data-replace-slot="2"]').click();
+    await page.locator('[data-replacement-card-id="squall-orb"]').click();
+    const spellDeckIds = await page.locator("[data-deck-cards] [data-card-id]").evaluateAll((nodes) =>
+      nodes.map((node) => node.dataset.cardId));
+    assert.equal(spellDeckIds[2], "squall-orb",
+      "the editable deck can replace a troop with Squall Orb");
+    assert.equal(spellDeckIds.length, 8);
+    assert.equal(new Set(spellDeckIds).size, 8);
+
+    await page.locator('[data-nav-to="battle"]').click();
+    await child.locator('[data-ui="arena"]').waitFor({ state: "visible", timeout: 8_000 });
+    await child.waitForFunction(async ({ expectedIds, entryUrl }) => {
+      const { arenaHudController } = await import(entryUrl);
+      return JSON.stringify(JSON.parse(arenaHudController.session.serialize()).setup.deck) ===
+        JSON.stringify(expectedIds);
+    }, { expectedIds: spellDeckIds, entryUrl: arenaControllerUrl }, { timeout: 8_000 });
+    const spellSetup = await child.evaluate(async (entryUrl) => {
+      const { arenaHudController } = await import(entryUrl);
+      return JSON.parse(arenaHudController.session.serialize()).setup;
+    }, arenaControllerUrl);
+    assert.deepEqual(spellSetup.deck, spellDeckIds);
+    assert.equal(JSON.parse(spellSetup.battleSetup).spellProfileReceipts.profiles[0].profileId,
+      "squall-orb-radius-v2",
+    "the selected browser deck launches its explicit bounded radius profile");
+    assert.ok((await child.evaluate(async (entryUrl) => {
+      const { arenaHudController } = await import(entryUrl);
+      return arenaHudController.session.state.decks.south.hand;
+    }, arenaControllerUrl)).includes("squall-orb"),
+    "Squall Orb is playable from the actual selected deck opening");
+
+    const squallTarget = await child.evaluate(async (entryUrl) => {
+      const { arenaHudController } = await import(entryUrl);
+      arenaHudController.enterManualStepMode();
+      arenaHudController.stepMany(1);
+      const target = arenaHudController.session.state.battle.units
+        .filter(({ alive, side }) => alive && side === "north")
+        .sort((left, right) => left.id - right.id)[0];
+      if (!target) throw new Error("the AI did not deploy a spell target");
+      globalThis.__appBattlePointerEvidence = [];
+      document.querySelector('[data-ui="arena"]').addEventListener("pointerup", (event) => {
+        globalThis.__appBattlePointerEvidence.push({ isTrusted: event.isTrusted,
+          clientX: event.clientX, clientY: event.clientY });
+      }, true);
+      return { hitpoints: target.hitpoints, id: target.id, point: target.position };
+    }, arenaControllerUrl);
+    const spellSlot = child.locator('[data-ui="card-slot"][data-card-id="squall-orb"]');
+    await spellSlot.waitFor({ state: "visible" });
+    await spellSlot.click();
+    assert.equal(await child.locator('[data-ui="hud-hand"] [data-card-id="squall-orb"]')
+      .getAttribute("data-selected"), "true");
+    const spellArenaBox = await child.locator('[data-ui="arena"]').boundingBox();
+    assert.ok(spellArenaBox);
+    const spellArenaMetrics = await child.locator('[data-ui="arena"]').evaluate((arena) => ({
+      borderLeft: arena.clientLeft,
+      borderTop: arena.clientTop,
+      clientHeight: arena.clientHeight,
+      clientWidth: arena.clientWidth,
+      rectHeight: arena.getBoundingClientRect().height,
+      rectWidth: arena.getBoundingClientRect().width,
+    }));
+    const arenaScaleX = spellArenaBox.width / spellArenaMetrics.rectWidth;
+    const arenaScaleY = spellArenaBox.height / spellArenaMetrics.rectHeight;
+    const spellClientPoint = {
+      x: spellArenaBox.x + (spellArenaMetrics.borderLeft +
+        spellArenaMetrics.clientWidth * (squallTarget.point.x / 18_000)) * arenaScaleX,
+      y: spellArenaBox.y + (spellArenaMetrics.borderTop + spellArenaMetrics.clientHeight *
+        ((32_000 - squallTarget.point.y) / 32_000)) * arenaScaleY,
+    };
+    await page.mouse.move(spellClientPoint.x, spellClientPoint.y);
+    const telegraph = child.locator(".squall-orb-radius-preview");
+    await telegraph.waitFor({ state: "visible" });
+    assert.equal(await telegraph.getAttribute("data-radius-millitiles"), "2500",
+      "the browser shows the estimated radius around the trusted pointer location");
+    await page.screenshot({ path: join(ARTIFACTS, "custom-battle-squall-radius-preview-390x844.png") });
+    await page.mouse.click(spellClientPoint.x, spellClientPoint.y);
+
+    const spellCastEvidence = await child.evaluate(async ({ entryUrl, targetId }) => {
+      const { arenaHudController } = await import(entryUrl);
+      const controller = arenaHudController;
+      const selectedState = controller.session.state;
+      const tickBeforeImpact = selectedState.tick;
+      const targetBeforeImpact = selectedState.battle.units.find(({ id }) => id === targetId);
+      const firstEvents = controller.stepMany(1);
+      const pendingState = controller.session.state;
+      const checkpoint = controller.serialize();
+      controller.restore(checkpoint);
+      const exactAtRestore = controller.serialize() === checkpoint;
+      const restoredPending = controller.session.state.battle.pendingSpellIntents.filter((intent) =>
+        intent.side === "south" && intent.cardId === "squall-orb");
+      const trustedPointer = [...(globalThis.__appBattlePointerEvidence ?? [])]
+        .reverse().find(({ isTrusted }) => isTrusted) ?? null;
+      const arena = document.querySelector('[data-ui="arena"]');
+      const borderRect = arena.getBoundingClientRect();
+      const arenaRect = {
+        bottom: borderRect.top + arena.clientTop + arena.clientHeight,
+        left: borderRect.left + arena.clientLeft,
+        top: borderRect.top + arena.clientTop,
+        width: arena.clientWidth,
+        height: arena.clientHeight,
+      };
+      const pointerPoint = trustedPointer === null ? null : {
+        x: Math.floor((trustedPointer.clientX - arenaRect.left) * 18_000 / arenaRect.width),
+        y: Math.floor((arenaRect.bottom - trustedPointer.clientY) * 32_000 / arenaRect.height),
+      };
+      const continuationEvents = controller.stepMany(2);
+      const replay = controller.session.replay;
+      const targetAfterImpact = controller.session.state.battle.units.find(({ id }) => id === targetId);
+      return {
+        cast: replay.find(({ side, type, intent }) => side === "south" &&
+          type === "session-spell-played" && intent?.cardId === "squall-orb") ?? null,
+        continuationResolved: continuationEvents.some(({ profileId, type }) =>
+          type === "spell-intent-resolved" && profileId === "squall-orb-radius-v2"),
+        areaHit: continuationEvents.find(({ effectId, targetId: hitTargetId, type }) =>
+          type === "spell-area-hit" && effectId === 1 && hitTargetId === targetId) ?? null,
+        deckSequence: pendingState.decks.south.sequence,
+        elixirAmount: pendingState.elixir.sides.south.amount,
+        exactAtRestore,
+        firstEventTypes: firstEvents.map(({ type }) => type),
+        pending: restoredPending,
+        pointerPoint,
+        targetAfterHitpoints: targetAfterImpact.hitpoints,
+        targetBeforeHitpoints: targetBeforeImpact.hitpoints,
+        tickBeforeImpact,
+      };
+    }, { entryUrl: arenaControllerUrl, targetId: squallTarget.id });
+    assert.ok(spellCastEvidence.cast);
+    assert.equal(spellCastEvidence.cast.intent.profileId, "squall-orb-radius-v2");
+    assert.deepEqual(spellCastEvidence.cast.intent.point, spellCastEvidence.pointerPoint,
+      "the typed spell intent uses the exact trusted browser pointer coordinate");
+    assert.ok(Math.abs(spellCastEvidence.cast.intent.point.x - squallTarget.point.x) <= 75 &&
+      Math.abs(spellCastEvidence.cast.intent.point.y - squallTarget.point.y) <= 75,
+    `the trusted point lands within one phone-screen pixel of the AI troop at ${JSON.stringify(squallTarget.point)}: ${JSON.stringify(spellCastEvidence.cast.intent.point)}`);
+    assert.equal(spellCastEvidence.cast.resolution, null,
+      "the first manual tick leaves the estimated impact pending");
+    assert.equal(spellCastEvidence.deckSequence, 1, "the cast cycles the selected deck");
+    assert.equal(spellCastEvidence.elixirAmount, 6, "the cast spends its four elixir");
+    assert.equal(spellCastEvidence.pending[0].impactTick, spellCastEvidence.tickBeforeImpact + 2);
+    assert.equal(spellCastEvidence.exactAtRestore, true,
+      "browser restore reproduces the pending center impact exactly");
+    assert.equal(spellCastEvidence.continuationResolved, true,
+      "the restored browser session resolves the pending spell deterministically");
+    assert.equal(spellCastEvidence.areaHit?.damage, 689,
+      "the resolved center cast damages the AI troop inside its radius");
+    assert.equal(spellCastEvidence.targetBeforeHitpoints - spellCastEvidence.targetAfterHitpoints, 689,
+      "the AI troop loses exactly the resolved spell damage");
+    const impactRing = child.locator(".combat-effect-area");
+    await impactRing.waitFor({ state: "attached" });
+    assert.equal(await impactRing.count(), 1,
+      "the actual browser renders the restored radius impact ring");
+    await page.screenshot({ path: join(ARTIFACTS, "custom-battle-squall-impact-390x844.png") });
+    const trustedSpellPointer = await child.evaluate(() =>
+      globalThis.__appBattlePointerEvidence.some(({ isTrusted }) => isTrusted));
+    assert.equal(trustedSpellPointer, true,
+      "the spell center came from a trusted Chrome pointer gesture");
+
     assert.deepEqual(failures, []);
     for (const path of requests) {
       assert.ok(manifest.files.some((file) => file.path === path),
@@ -645,8 +860,7 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     }
     writeFileSync(join(ARTIFACTS, "browser-evidence.json"), `${JSON.stringify({
       cardIds: createPlayableRoster().map(({ id }) => id),
-      editablePoolIds: [...createPlayableRoster().map(({ id }) => id),
-        "stonehauler", "thornscouts", "forgeguard"],
+      editablePoolIds: [...EXPECTED_COLLECTION_IDS],
       cardPortraits: cardPortraitEvidence,
       release: {
         entrypoints: manifest.entrypoints,
@@ -682,6 +896,20 @@ test("player shell renders roster-derived cards and launches a paused shared bat
           chunks: terminal.chunks },
         restart: { deck: restarted.setup.deck, restartCount: restarted.restartCount,
           sessionTick: restarted.sessionTick },
+      },
+      editableSquallSpell: {
+        deck: spellDeckIds,
+        profileId: "squall-orb-radius-v2",
+        centerPoint: spellCastEvidence.cast.intent.point,
+        centerTelegraphRadiusMillitiles: 2_500,
+        impactHit: { damage: spellCastEvidence.areaHit.damage,
+          targetId: squallTarget.id, hitpointsBefore: spellCastEvidence.targetBeforeHitpoints,
+          hitpointsAfter: spellCastEvidence.targetAfterHitpoints },
+        impactRingVisible: true,
+        trustedPointer: trustedSpellPointer,
+        elixirAfterCast: spellCastEvidence.elixirAmount,
+        pendingImpactRestoreExact: spellCastEvidence.exactAtRestore,
+        resolvedAfterRestore: spellCastEvidence.continuationResolved,
       },
       viewports: [
         { width: 720, height: 1280 },

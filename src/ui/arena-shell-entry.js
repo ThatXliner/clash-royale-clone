@@ -4,7 +4,7 @@ import {
   mountShippedGameBrowser,
 } from "./game-browser-entry.js";
 import { GameSession } from "../sim/game-session.js";
-import { EDITABLE_DECK_CARD_IDS } from "../content/editable-deck.js";
+import { EDITABLE_MIXED_DECK_CARD_IDS } from "../content/editable-deck.js";
 import {
   createPlayableRoster,
   createPlayableRosterQuestionRecords,
@@ -71,7 +71,7 @@ function checkedAppBattleMessage(value) {
     const descriptor = deckDescriptors[String(index)];
     if (!descriptor?.enumerable || !Object.hasOwn(descriptor, "value") ||
         typeof descriptor.value !== "string" ||
-        !EDITABLE_DECK_CARD_IDS.includes(descriptor.value)) return null;
+        !EDITABLE_MIXED_DECK_CARD_IDS.includes(descriptor.value)) return null;
     checked.push(descriptor.value);
   }
   if (new Set(checked).size !== 8) return null;

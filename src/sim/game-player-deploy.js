@@ -160,8 +160,8 @@ function checkedCards(value) {
 
 function checkedReceipt(value) {
   const receipt = exact(value, RECEIPT_KEYS, "player deploy receipt");
-  if (receipt.accepted !== true || receipt.type !== "deploy") {
-    throw new TypeError("player deploy receipt must be accepted deploy intent");
+  if (receipt.accepted !== true || !["deploy", "spell"].includes(receipt.type)) {
+    throw new TypeError("player deploy receipt must be accepted deploy or spell intent");
   }
   const point = validateArenaPoint(receipt.point, "player deploy receipt.point");
   if (receipt.side !== "south") {
@@ -179,7 +179,7 @@ function checkedReceipt(value) {
     spendSequence: integer(receipt.spendSequence, 0, Number.MAX_SAFE_INTEGER,
       "player deploy receipt.spendSequence"),
     tick: integer(receipt.tick, 0, 18_000, "player deploy receipt.tick"),
-    type: "deploy",
+    type: receipt.type,
   };
 }
 
@@ -429,8 +429,13 @@ export class PlayerDeployBridge {
     if (this.#deck.state.hand[receipt.slot] !== receipt.cardId) {
       throw new RangeError("player deploy receipt card does not match its explicit hand slot");
     }
+    const hasRadiusProfile = this.#battle.hasRadiusSpellProfile(receipt.cardId);
+    const spell = receipt.type === "spell";
+    if (spell !== hasRadiusProfile) {
+      throw new RangeError("player spell receipt does not match an admitted radius profile");
+    }
     const decision = evaluateDeployment({
-      destroyedOpposingLaneTowers: [], placementClass: "ground_entity",
+      destroyedOpposingLaneTowers: [], placementClass: spell ? "global_effect" : "ground_entity",
       point: receipt.point, side: receipt.side,
     });
     if (!decision.legal) throw new RangeError(`player deploy placement is illegal: ${decision.reason}`);
@@ -443,12 +448,13 @@ export class PlayerDeployBridge {
     if (!deckEvent.accepted || deckEvent.slot !== receipt.slot) {
       throw new Error("player deploy deck rejected a prevalidated receipt");
     }
-    this.#battle.scheduleDeploy(canonical({
-      cardId: receipt.cardId,
-      point: receipt.point,
-      sequence: receipt.commandId,
-      side: receipt.side,
-      tick: receipt.tick,
+    const intent = spell
+      ? this.#battle.scheduleSpell({ cardId: receipt.cardId, point: receipt.point,
+        sequence: receipt.commandId, side: receipt.side, tick: receipt.tick })
+      : null;
+    if (!spell) this.#battle.scheduleDeploy(canonical({
+      cardId: receipt.cardId, point: receipt.point, sequence: receipt.commandId,
+      side: receipt.side, tick: receipt.tick,
     }));
     const elixirEvents = this.#elixir.step();
     const spend = elixirEvents.find((event) => event.type === "spend" &&
@@ -457,30 +463,28 @@ export class PlayerDeployBridge {
       throw new RangeError("player deploy has insufficient elixir");
     }
     const battleEvents = this.#battle.step(receipt.tick);
-    const deployment = battleEvents.find((event) => event.type === "deployed" &&
+    const deployment = spell ? null : battleEvents.find((event) => event.type === "deployed" &&
       event.sequence === receipt.commandId);
-    if (deployment === undefined || deployment.cardId !== receipt.cardId) {
+    if (!spell && (deployment === undefined || deployment.cardId !== receipt.cardId)) {
       throw new Error("player deploy battle did not materialize the receipt exactly once");
     }
-    const event = {
-      cardId: receipt.cardId,
-      commandId: receipt.commandId,
-      deck: clone(deckEvent),
-      deployment: clone(deployment),
-      point: { ...receipt.point },
-      receipt: clone(receipt),
-      spend: clone(spend),
-      tick: receipt.tick,
-      type: "player-deployed",
+    const event = spell ? {
+      cardId: receipt.cardId, commandId: receipt.commandId, deck: clone(deckEvent),
+      intent: clone(intent), point: { ...receipt.point }, receipt: clone(receipt),
+      spend: clone(spend), tick: receipt.tick, type: "player-spell-cast",
+    } : {
+      cardId: receipt.cardId, commandId: receipt.commandId, deck: clone(deckEvent),
+      deployment: clone(deployment), point: { ...receipt.point }, receipt: clone(receipt),
+      spend: clone(spend), tick: receipt.tick, type: "player-deployed",
     };
-    const result = {
-      accepted: true,
-      cardId: receipt.cardId,
-      commandId: receipt.commandId,
-      entityIds: clone(deployment.entityIds),
-      point: { ...receipt.point },
-      tick: receipt.tick,
-      type: "player-deploy-result",
+    const result = spell ? {
+      accepted: true, cardId: receipt.cardId, commandId: receipt.commandId,
+      effectId: intent.effectId, point: { ...receipt.point }, tick: receipt.tick,
+      type: "player-spell-result",
+    } : {
+      accepted: true, cardId: receipt.cardId, commandId: receipt.commandId,
+      entityIds: clone(deployment.entityIds), point: { ...receipt.point },
+      tick: receipt.tick, type: "player-deploy-result",
     };
     this.#events.push(event);
     this.#history.push({ receipt: clone(receipt), type: "play" });

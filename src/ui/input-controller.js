@@ -183,7 +183,7 @@ function deliverArenaInputCommit(state, result, selectedCardIdBefore, slotBefore
     point: clone(result.command.point),
     slot: slotBefore,
     tick: result.command.tick,
-    type: "deploy",
+    type: result.command.type,
   });
   state.sink(receipt);
 }
@@ -672,7 +672,7 @@ export class ArenaInputController {
       throw new RangeError("arena input cards do not match the authoritative bridge");
     }
     const deployments = this.#deployBridge.replay.filter(
-      ({ type }) => type === "player-deployed",
+      ({ type }) => type === "player-deployed" || type === "player-spell-cast",
     );
     for (const [index, deployment] of deployments.entries()) {
       const receipt = deployment.receipt;
@@ -695,7 +695,7 @@ export class ArenaInputController {
         side: receipt.side,
         spendSequence: receipt.spendSequence,
         tick: receipt.tick,
-        type: "deploy",
+        type: receipt.type,
       });
       this.#actions.push({
         commandId: receipt.commandId,
@@ -824,7 +824,7 @@ export class ArenaInputController {
     }
     const decision = evaluateDeployment({
       destroyedOpposingLaneTowers: [],
-      placementClass: "ground_entity",
+      placementClass: card.kind === "effect" ? "global_effect" : "ground_entity",
       point,
       side: LOCAL_SIDE,
     });
@@ -848,6 +848,7 @@ export class ArenaInputController {
       const spendSequence = parsedElixir.commands.length +
         (Array.isArray(parsedElixir.grants) ? parsedElixir.grants.length : 0);
       const commandId = this.#commandIdOffset + this.#commands.length + 1;
+      const type = card.kind === "effect" ? "spell" : "deploy";
       const intent = createPlayerDeployIntent({
         accepted: true,
         cardId: selected,
@@ -858,7 +859,7 @@ export class ArenaInputController {
         slot,
         spendSequence,
         tick,
-        type: "deploy",
+        type,
       });
       const prepared = this.#deployBridge.prepare(intent);
       const projection = this.#deployBridge.preparedResult(prepared);
@@ -871,7 +872,7 @@ export class ArenaInputController {
         side: LOCAL_SIDE,
         spendSequence,
         tick,
-        type: "deploy",
+        type,
       };
       const action = {
         commandId,
@@ -966,7 +967,7 @@ export class ArenaInputController {
       side: LOCAL_SIDE,
       spendSequence,
       tick,
-      type: "deploy",
+      type: card.kind === "effect" ? "spell" : "deploy",
     };
     const action = {
       commandId: command.id,
@@ -1354,6 +1355,53 @@ export function mountArenaInputController(shell, hudCapability) {
   }
   let pendingTouchRelease = null;
   let feedback = null;
+  let lastPreviewPoint = null;
+  let spellPreview = null;
+  if (arena.ownerDocument !== null && typeof arena.ownerDocument === "object" &&
+      typeof arena.ownerDocument.createElement === "function" &&
+      typeof arena.appendChild === "function") {
+    spellPreview = arena.ownerDocument.createElement("div");
+    spellPreview.className = "squall-orb-radius-preview";
+    spellPreview.setAttribute("aria-hidden", "true");
+    Object.assign(spellPreview.style, {
+      background: "rgba(243, 117, 47, 0.19)",
+      border: "2px solid rgba(255, 198, 117, 0.92)",
+      borderRadius: "50%",
+      display: "none",
+      pointerEvents: "none",
+      position: "absolute",
+      transform: "translateZ(0)",
+      zIndex: "18",
+    });
+    arena.appendChild(spellPreview);
+  }
+  const updateSpellPreview = (clientPoint = lastPreviewPoint) => {
+    if (spellPreview === null) return;
+    const selectedCardId = trustedReader().selectedCardId;
+    const card = cardMap(admitted.cards).get(selectedCardId);
+    const radius = card?.kind === "effect" ? card.areaDamageRadiusMillitiles : null;
+    if (!Number.isSafeInteger(radius) || radius <= 0) {
+      spellPreview.style.display = "none";
+      return;
+    }
+    const rect = arenaClientRect(arena);
+    const point = clientPoint ?? {
+      clientX: rect.left + rect.width / 2,
+      clientY: rect.top + rect.height / 2,
+    };
+    if (point.clientX < rect.left || point.clientX > rect.left + rect.width ||
+        point.clientY < rect.top || point.clientY > rect.top + rect.height) {
+      spellPreview.style.display = "none";
+      return;
+    }
+    const radiusPixels = radius * rect.width / ARENA_WIDTH_MILLITILES;
+    spellPreview.style.width = `${radiusPixels * 2}px`;
+    spellPreview.style.height = `${radiusPixels * 2}px`;
+    spellPreview.style.left = `${point.clientX - rect.left - radiusPixels}px`;
+    spellPreview.style.top = `${point.clientY - rect.top - radiusPixels}px`;
+    spellPreview.dataset.radiusMillitiles = String(radius);
+    spellPreview.style.display = "block";
+  };
   let teardownMounted;
   const assertSeamMutation = () => {
     if (deliveryControllers.has(input) || mutationControllers.has(input)) {
@@ -1390,6 +1438,7 @@ export function mountArenaInputController(shell, hudCapability) {
           feedback.onSelect(result, trustedReader().selectedCardId);
         }
       }
+      if (method === "onPlace" || method === "onSelect") updateSpellPreview();
       return result;
     } finally {
       deliveryControllers.delete(input);
@@ -1416,6 +1465,10 @@ export function mountArenaInputController(shell, hudCapability) {
       before.deck.hand.indexOf(selectedCardIdBefore),
     );
   };
+  const onPointerMove = (event) => {
+    lastPreviewPoint = eventClientPoint(event, false);
+    updateSpellPreview(lastPreviewPoint);
+  };
   const onTouch = (event) => {
     assertSeamMutation();
     const before = trustedReader();
@@ -1431,6 +1484,10 @@ export function mountArenaInputController(shell, hudCapability) {
       selectedCardIdBefore,
       before.deck.hand.indexOf(selectedCardIdBefore),
     );
+  };
+  const onTouchMove = (event) => {
+    lastPreviewPoint = eventClientPoint(event, true);
+    updateSpellPreview(lastPreviewPoint);
   };
   const onMouse = (event) => {
     assertSeamMutation();
@@ -1456,6 +1513,10 @@ export function mountArenaInputController(shell, hudCapability) {
       selectedCardIdBefore,
       before.deck.hand.indexOf(selectedCardIdBefore),
     );
+  };
+  const onMouseMove = (event) => {
+    lastPreviewPoint = eventClientPoint(event, false);
+    updateSpellPreview(lastPreviewPoint);
   };
   const setFeedback = (next) => {
     if (!mounted) throw new Error("arena input mount is disposed");
@@ -1503,13 +1564,17 @@ export function mountArenaInputController(shell, hudCapability) {
       }
     }
     registrations.length = 0;
+    try { spellPreview?.remove?.(); } catch { errors.push("spell preview removal failed"); }
     return errors;
   };
   try {
     for (const node of hand) register(node, "click", onCard);
     if (eventFamily === "pointer") {
+      register(arena, "pointermove", onPointerMove);
       register(arena, "pointerup", onPointer);
     } else {
+      register(arena, "touchmove", onTouchMove);
+      register(arena, "mousemove", onMouseMove);
       register(arena, "touchend", onTouch);
       register(arena, "mouseup", onMouse);
     }

@@ -42,15 +42,25 @@ function checkedSnapshot(bytes) {
     throw new TypeError("game input bridge snapshot is invalid");
   }
   for (const [index, delivery] of value.deliveries.entries()) {
+    const spell = delivery?.command?.type === "spell";
+    const commandKeys = delivery?.command && typeof delivery.command === "object"
+      ? Object.keys(delivery.command).sort().join(",") : "";
     if (delivery === null || Array.isArray(delivery) ||
         Object.keys(delivery).sort().join(",") !== "admission,command" ||
         delivery.command === null || Array.isArray(delivery.command) ||
-        Object.keys(delivery.command).sort().join(",") !==
-          "cardId,commandId,point,slot,tick,type" ||
+        commandKeys !== (spell
+          ? "cardId,commandId,point,side,slot,tick,type"
+          : "cardId,commandId,point,slot,tick,type") ||
         delivery.admission === null || Array.isArray(delivery.admission) ||
         delivery.admission.commandId !== delivery.command.commandId ||
         delivery.command.commandId !== index + 1) {
       throw new TypeError("game input bridge delivery history is invalid");
+    }
+    if (!['deploy', 'spell'].includes(delivery.command.type)) {
+      throw new TypeError("game input bridge delivery type is invalid");
+    }
+    if (spell && delivery.command.side !== "south") {
+      throw new TypeError("game input bridge spell side is invalid");
     }
   }
   return clone(value);
@@ -85,8 +95,9 @@ export class GameInputBridge {
       commandId: payload.commandId,
       point: clone(payload.point),
       slot: payload.slot,
+      ...(payload.type === "spell" ? { side: "south" } : {}),
       tick: payload.tick,
-      type: "deploy",
+      type: payload.type,
     };
     const before = this.#session.serialize();
     let admission;
