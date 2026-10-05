@@ -32,9 +32,10 @@ The October 4 request targets the full 109-card pre-Evolutions battle roster
 against AI, with an original shipped identity for each role, editable decks,
 card information, and a deterministic JS/RL API. Publish the verified browser
 game on GitHub Pages. Accounts, ranked progression, clans and online play are
-outside this first release. Isolated catalogue or encounter tests do not count
-as playable roster coverage. Completion inventory: `docs/completion-inventory.md`
-(being assembled). All release claims must preserve reference confidence limits.
+outside this first release, as confirmed by the user. Isolated catalogue or
+encounter tests do not count as playable roster coverage. Completion inventory:
+`docs/completion-inventory.md`. All release claims must preserve reference
+confidence limits.
 
 ## Pieces
 
