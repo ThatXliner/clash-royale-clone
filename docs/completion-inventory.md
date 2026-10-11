@@ -1,111 +1,102 @@
 # Completion inventory
 
-First-release scope: a complete pre-Evolutions 1v1 battle roster against the
-existing deterministic computer opponent, a public GitHub Pages browser game,
-and a JavaScript/RL interface. Accounts, matchmaking, ranked modes, clans, and
-other online services are future work.
+The first-release target is a deterministic pre-Evolutions 1v1 card battler
+with a browser game and a JavaScript/RL interface. This inventory records
+current, scoped evidence and open release gates; it does not certify full
+historical parity or a public release.
 
-The exact historical comparison rows and the 11 explicit runtime mappings are
-in the test-only artifact [card-coverage-109.json](../artifacts/completion-inventory/reference/card-coverage-109.json).
-That artifact contains benchmark names and keys. It must stay out of runtime
-imports, release builds, and the Pages site. `reference/stats/SOURCES.md` is the
-confidence ledger; its per-field `unverified_fields` remain questions, not
-authoritative mismatches.
+Future online work is tracked separately: issue #1 covers accounts, #2 ranked
+modes, and #3 clans. Matchmaking and other server-backed services are also
+outside the current source.
 
 ## Current coverage
 
 | Measure | Current state | What it proves |
 | --- | --- | --- |
-| Historical roster | 109 identities: 78 troops, 13 buildings, 18 spells | Comparison target size, not implemented coverage |
-| Editable/playable collection | 11 identities: 8-card standard deck plus 3 replacements | Cards reachable from the product collection and deck editor; exact test mappings cover these 11 |
-| Session catalog | 49 admitted identities: 33 units, 8 structures, 8 effects; 54 admitted source occurrences | Identity admission and typed routing only. It does not prove a complete card profile or gameplay for each identity |
-| Troop projection manifest | 33 admitted unit identities; 31 ordinary-unit session witnesses are exercised by `GAME-001HTO` | Ordinary projections and QUESTION closure, not special abilities or full historical behavior |
-| Remaining comparison rows | 98 are outside the editable collection | Some have isolated mechanics or session claims; none counts as a complete selectable card from that fact alone |
+| Historical roster | 109 identities: 78 troops, 13 buildings, 18 spells | Size of the pre-Evolutions comparison target, not implemented coverage |
+| Editable collection | 14 identities: 13 troops and Squall Orb; the default deck remains 8 cards | Deck admission and selection. It does not mean every card has complete historical behavior |
+| Session card catalog | 51 admitted identities and 56 admitted source occurrences: 35 troop identities across 37 troop occurrences, 8 structures, and 8 effects | Typed identity admission and source routing, not complete gameplay for every identity |
+| Historical comparison mapping | The test-only [card-coverage-109.json](../artifacts/completion-inventory/reference/card-coverage-109.json) remains the 11-mapping `42bcf09` baseline | Historical mapping evidence only; it has not been refreshed for the current 14-card collection |
 
-The current code and `tests/game-roster-admission.test.js` report 49 session
-identities and 49 deck witnesses. The `GAME-001HA` row in `PLAN.md` still says
-47 witnesses; reconcile that stale count before using it as a release metric.
-Some catalog identities have several source occurrences, so the occurrence
-count is not a card count. The catalog also has six excluded QUESTION identity
-claims and five question-only mechanics exports.
+The comparison artifact contains historical card names and keys. Keep it out of
+runtime imports, release builds, and the Pages site. The confidence ledger in
+[`reference/stats/SOURCES.md`](../reference/stats/SOURCES.md) identifies
+unverified fields; those values are questions, not authoritative mismatch
+gates.
 
-## Executable product and isolated mechanics
+## What current evidence covers
 
-The shipped interface has Home, Deck, Cards, and Battle views. A player can
-edit an eight-card deck from the 11-card pool, start a deterministic match
-against the computer, deploy a troop, spend and refill elixir, cycle the hand,
-and complete or restart a match. The existing match, AI, replay, and browser
-journey evidence applies to those supported journeys and profiles.
+The browser interface has Home, Deck, Cards, and Battle views. It supports
+editing an eight-card deck from the current collection and playing a
+deterministic match against the computer. Actual browser evidence covers
+supported selection, deployment, spending, hand cycling, restore, terminal,
+and restart journeys. These journeys do not establish full roster parity.
 
-The session core has typed unit, structure, and effect routes. A test-only
-mixed `GameSession` witness composes a structure, ordinary troops, and a narrow
-instant-effect profile. The existing effect receipt allows 689 damage to a
-caller-selected shared unit only; area targeting, crown damage, and the other
-spell phases remain excluded. The Bulwark Needle browser witness exercises a
-real structure route, but its current profile executes first-hit and Cannon-like
-estimates that `GAME-001HUIB` marks QUESTION. Neither witness establishes a
-parity-ready spell or building for general deck play.
+The current editable collection includes 13 troops and one narrow Squall Orb
+radius profile. `GAME-SPELL-001` passed its scoped 48/48 review: the shared
+session and browser path support a center-targeted radius cast, damage, spend
+and cycle, pending impact, and exact restore. The profile uses a 2.5-tile
+radius, and its radius and policy facts remain QUESTION values. Flight,
+knockback, and a complete historical spell composition remain outside that
+result. See the [independent release-guard evidence](../artifacts/release-guard-round-1/critic/round-1-evidence.md)
+and its [browser captures and receipts](../artifacts/release-guard-round-1/critic/app-shell/browser-evidence.json).
 
-Mechanics suites cover many special movement, projectile, shield, status, death,
-building, and spell rules in isolated encounters. The full champion ability,
-duplicated charge/reflection compositions, periodic/status spell composition,
-travelling/wave/return spell composition, and spawner-building route remain
-blocked or QUESTION in `PLAN.md`. A passing isolated suite proves that fixture's
-mechanic; it does not put that card into the browser deck or prove its full
-match interaction.
+Cinder Host and Ironroot have a separate core review with 85/85 checks passing
+for their ordinary swarm and heavy-melee encounter. Their unverified source
+fields remain explicit QUESTIONs. The browser critic then found that the
+visible card summary stated ground/melee facts while the same card detail
+marked those fields unknown. The copy correction is in round 2 review, so
+these cards are selectable and executable but not yet accepted at the
+selectable-release bar. Evidence: [core review](../artifacts/cards-expansion-round-2/critic/verdict.md)
+and [browser review](../artifacts/cards-expansion-round-2/critic-browser/verdict.md).
 
-The RL wrapper uses the real match session, seeded opponent, and an allowlisted
-observation. Its action space currently covers wait plus tile-center deployment
-for four hand slots; it does not expose a general spell target action. The
-documented environment uses the same eight-card roster constraints as the
-current setup. Deck editing and action support must grow with the card runtime.
+Sunthread Pair and Duskwing Trio have original painted portraits and provenance
+records, but neither is admitted to the current card or deck runtime. Their
+art does not count as playable coverage.
 
-There is no account, matchmaking, ranking, clan, collection progression,
-upgrade economy, chest/reward, shop, or server-backed persistence flow in the
-current source. Those are excluded from this first release; they should not be
-implied by the README or Pages landing page.
+The RL wrapper uses the real match session and accepts an editable deck. Its
+action set is wait plus tile-center choices for four hand slots; effect cards
+are routed as spell commands through the shared session. This supports the
+current narrow radius profile without establishing support for every card or
+spell phase. Isolated mechanics suites cover additional movement, projectile,
+shield, status, death, building, and spell rules, but an isolated fixture does
+not establish that card's complete interaction in a match.
 
-## Next implementation batch
+The [session-card admission test](../tests/game-roster-admission.test.js) and
+[troop profile manifest](../src/content/session-troop-profile-catalog.js)
+distinguish admitted identities from full card execution. QUESTION-only
+claims remain excluded from admission. The broader unified roster mechanics
+work is still split into independently scoped pieces; admission counts are not
+a substitute for their completion.
 
-The highest-value ordinary-runtime batch is to connect the existing 31
-`GAME-001HTO` troop projections to the editable deck and collection surfaces,
-then exercise selection, AI play, restore, and RL setup through that same
-source-owned deck compiler. Keep ordinary projections and their explicit
-QUESTION estimates visible as incomplete mechanics; do not claim a card's
-special ability until its shared-session composition is source-backed and
-executed. The two additional editable squads are already included in the
-current 11-card pool.
+## Open release gates
 
-For non-units, extend the source contract before widening the editor. The
-current instant-effect receipt is a one-unit damage seam, and the current
-defensive-building witness has unverified combat policy. The repository needs
-an exact profile receipt, complete GameSession action, typed browser input,
-deck admission, and end-to-end match evidence before either family is counted
-as playable. The radius-cast v2 foundation currently underway preserves the
-v1 estimates; by itself it makes no travel or knockback parity claim.
-
-## First-release gates
-
-| Gate | Required evidence |
+| Gate | Current state |
 | --- | --- |
-| Roster and source | A test-only 109-row mapping; every shipped identity has original product names/art/audio; authoritative fields and open QUESTIONS are explicit; no comparison names or `reference/` bytes enter runtime, release, or website |
-| Card execution | For every selectable card: exact source-backed cost, deployment/target policy, all claimed abilities, opponent execution, hand cycle, spend, terminal effects, and deterministic restore in shared `GameSession`; no silent placeholder troop or caller-authored policy |
-| Deck and UI | Eight unique choices from the full supported collection; all kinds render and have accessible select/target/deploy interactions; real Chrome proof covers desktop and phone, complete match, restart, and mixed-card deck changes |
-| AI and RL | Opponent can select and execute all supported card kinds; RL deck options, legal-action mask, spell/building targets, observations, and snapshots represent those same rules |
+| Full roster and source mapping | Open. The historical target has 109 rows, while the checked-in comparison mapping is still the 11-card `42bcf09` baseline. Every selectable card still needs source-backed behavior and explicit open questions. |
+| Complete card execution | Open. Current evidence covers specific profiles and encounters; it does not cover all card abilities and interactions through shared `GameSession` against the opponent. |
+| Deck and browser journey | Open. Current browser evidence proves supported routes, but release qualification requires the full supported collection and complete deterministic match, restore, and restart journeys on the exact staged artifact. |
+| AI and RL | Open. The wrapper shares the current deck and spell route, but complete action and observation support for every released card is not established. |
+| Strict full-match endurance | Failed at frozen source `46c08c9`. The current run stopped after 600 ticks because restore from tick 600 to 300 took 51 ms against the unchanged 50 ms cap; terminal and restart were not reached. A historical 18,000-tick pass remains evidence for its earlier source revision only. See the [strict run record](../artifacts/release-guard-round-1/critic/endurance/current/endurance-result.json). |
+| Public hosting | Not verified as published. The repository's Pages workflow is manual; a maintainer must enable Pages and run it, then verify the live URLs as described in [publishing.md](publishing.md). |
+
+## Next implementation work
+
+First resolve the current endurance restore overrun, then rerun the unchanged
+18,000-tick browser journey through terminal and restart. Complete the Cinder
+Host and Ironroot copy correction with the independent browser review while
+preserving the visible QUESTION status. Keep the existing 11-mapping artifact
+as a historical baseline; any current mapping should be recorded as a new,
+versioned artifact with explicit evidence instead of treating that baseline as
+the current 14-card coverage.
+
+## Release evidence bar
+
+| Area | Required evidence |
+| --- | --- |
+| Roster and source | A test-only mapping for the 109-row comparison target; original product names, art, and audio; authoritative fields and open QUESTIONS called out; no comparison names or `reference/` bytes in runtime, release, or website |
+| Card execution | For every selectable card: source-backed cost and targeting, all claimed abilities, opponent execution, hand cycle, spend, terminal effects, and deterministic restore in shared `GameSession` |
+| Deck and UI | Eight unique choices from the fully supported collection; every supported kind has accessible selection and target/deploy controls; desktop and phone browser proof covers complete match, restart, and mixed-card deck changes |
+| AI and RL | Opponent execution, deck options, legal-action mask, targets, observations, and snapshots represent the same supported rules |
 | Release | `npm test`, `npm run build:pages`, `npm run test:publication-pages`, release-isolation checks, and actual Chrome at the project subpath pass on the exact staged artifact |
-| Public hosting | Enable Pages with GitHub Actions, run the manual Pages workflow, and verify the live landing page and game URL after deployment |
-
-Useful independent acceptance commands for the current seams include
-`npm test -- game-roster-admission`, `npm test -- game-shared-runtime-integration`,
-`npm test -- editable-deck`, `npm test -- game-browser-journey`,
-`npm run test:rl-environment`, and `npm run test:publication-pages`. They are
-scoped checks; they do not replace the complete first-release gates above.
-
-## Repository and Pages readiness
-
-Read-only GitHub inspection found the repository is **public**, `main` is its
-default branch, and it has no homepage URL. The Pages API returned 404 and no
-Pages workflow runs are listed. `.github/workflows/pages.yml` is manual-only
-(`workflow_dispatch`); `docs/publishing.md` correctly says a maintainer must
-enable Pages and run it. Local build or preview evidence is not a live
-publication. No publication was performed during this audit.
+| Public hosting | Enable Pages, run the manual Pages workflow, and verify the live landing page and game URL after deployment |
