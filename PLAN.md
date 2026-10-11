@@ -284,6 +284,8 @@ retain integer-tick determinism and canonical serialize/restore behavior.
 
 | ART-015 | Original ranged-pair and flying-trio portraits | Original bounded Sunthread Pair and Duskwing Trio portraits and two-sentence lore have full source/output provenance and registered production mappings; separate real desktop/phone card-info review when both runtime cards are selectable | SKILL-CHAR-001, ART-005C | BUILDING | 0/0 | 0 | Prepare original assets while the frozen gameplay candidate undergoes independent release checks; selectable-card review remains required. |
 
+| GAME-001GPR | Restore transaction throughput | Real current Chrome rewinds the full browser session from tick 600 to 300 with exact session, HUD, input, layer and audio continuation under the unchanged 50 ms non-initialization cap; a measured cause is fixed and full 18000-tick journey, terminal and restart pass independently without attribution or cap changes | GAME-001GPV, RELEASE-GUARD-001 | BUILDING | 0/0 | 0 | Independent frozen 46c08c9 fails at a 51 ms restore task after 600 forward ticks; full terminal/restart verification was not reached. |
+
 ## Reference uncertainties
 
 - Arena tower/bridge coordinates and deployment masks are low-medium
