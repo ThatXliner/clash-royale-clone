@@ -26,9 +26,9 @@
   <h1>Gauntlet progress</h1>
   <p class="sub">Updated 2026-10-11 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
-    <div class="card"><div class="num">219</div><div class="label">tracked pieces</div></div>
+    <div class="card"><div class="num">218</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">171</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">390</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">391</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">27</div><div class="label">open questions</div></div>
   </div>
   <p class="note">Active target: <strong>ART-004 — Original deterministic 2D sprite prototype</strong>.</p>
@@ -1750,14 +1750,6 @@
         <td>Independent immutable1464219 passes55 preflight plus2 strict endurance tests. Full18000 ticks/61 segments, exact600-to300-to600 session/input/layers/audio, terminal/restart, zero resource/console errors. Unchanged50/300ms caps: initialization154ms; no qualifying non-initialization longtasks. Evidence463013b, artifacts/game-001gpr-round-3/critic. Scope default8/candidate16 only.</td>
       </tr>
       <tr>
-        <td><code>RELEASE-TEST-001</code></td>
-        <td>Current production isolation test qualification</td>
-        <td class="state-building">BUILDING</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Clean frozen6dc reproduction confirms3 release failures and host1/1 pass: CSP entity assertion, unguarded package imports, expected CSP-probe qualification failures plus leaked test server. Builder fixes source boundary and faithful fixtures; separate review pending.</td>
-      </tr>
-      <tr>
         <td><code>CARDS-016K</code></td>
         <td>Two additional classic air-swarm runtime roles</td>
         <td class="state-building">BUILDING</td>
@@ -1794,6 +1786,7 @@
   </div>
   <h2>Round trajectory</h2>
   <ol>
+      <li><strong>R398 FAIL</strong> · RELEASE-TEST-001 — Current production isolation test qualification, round 1<br>Check every resolved authored source edge before tree-shaking, including export-from edges, so protected reference/package inputs and authored Vite internals cannot enter the source graph.</li>
       <li><strong>R397 PASS</strong> · COVERAGE-002 — Versioned current historical roster mapping, round 2<br>Zero of109 historical cards has full historical execution coverage; this PASS establishes frozen mapping and packaging only, not card parity or release completion.</li>
       <li><strong>R396 FAIL</strong> · COVERAGE-002 — Versioned current historical roster mapping, round 1<br>Validator accepts promoting a QUESTION-only fixture to a comparison declaration instead of binding relationship status and evidence lines to actual frozen source declarations.</li>
       <li><strong>R395 PASS</strong> · GAME-001GS — Short authentic browser match journey, round 3<br>None for the current short journey; full109-card execution and fresh full-candidate testing remain outside this verdict.</li>

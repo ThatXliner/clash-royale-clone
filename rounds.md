@@ -1,5 +1,17 @@
 # Gauntlet Rounds
 
+## Round 398 — 2026-10-11
+
+PIECE: RELEASE-TEST-001 — Current production isolation test qualification, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Independent clean c3601c3 standard suites pass32/32 (release3, host1, Pages5, guards23). Actual production qualification42 files/5361828bytes preserves15 canonical assets, no duplicate hashes, working prefixed browser/RL arena. Independent nine policy probes meet only2/9 expected outcomes: bare package rejects and benign comments/strings pass; used/unused reference imports, used/unused relative/absolute package imports and inline Vite export-from are wrongly accepted. Used reference/package markers appear in emitted chunks. Actual inputs/manifests/outputs and verdict are preserved in `artifacts/release-test-round-1/critic/`. Pages bytes differ by7068 from prior6dc package; receipts remain separate. No fresh full endurance is claimed.
+
+BIGGEST GAP: Check every resolved authored source edge before tree-shaking, including export-from edges, so protected reference/package inputs and authored Vite internals cannot enter the source graph.
+
+DISPOSITION: FAIL overrides green standard suites. Separate release_test002_builder owns source boundary and faithful regression tests in round2; isolation rules and size/performance caps remain unchanged.
+
 ## Round 397 — 2026-10-11
 
 PIECE: COVERAGE-002 — Versioned current historical roster mapping, round 2
