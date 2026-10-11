@@ -40,6 +40,10 @@ export {
 } from "./cards/swarms.js";
 
 export {
+  createOrdinaryProjectileSquadCatalog,
+} from "./cards/ordinary-projectile-squads.js";
+
+export {
   SpawnBatchMaterializer,
   createSpawnPlacementQuestionRecords,
 } from "./cards/spawn-placement.js";

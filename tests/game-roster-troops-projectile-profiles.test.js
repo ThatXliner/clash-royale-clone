@@ -48,6 +48,9 @@ import {
   createSessionTroopWitness,
   createSessionTroopWitnessQuestions,
 } from "../src/content/session-troop-roster.js";
+import {
+  ORDINARY_PROJECTILE_SOURCE_CLAIMS,
+} from "../src/shared/ordinary-projectile-delivery-authority.js";
 import { LiveBattle } from "../src/sim/live-battle.js";
 
 const EXPECTED_OCCURRENCES = [
@@ -469,12 +472,14 @@ test("projectile profiles: exact admitted occurrence/card/archetype domain and p
     `${exportName}\u0000${id}`));
   const classifiedKeys = [
     ...manifest.occurrences.map(({ exportName, id }) => `${exportName}\u0000${id}`),
+    ...ORDINARY_PROJECTILE_SOURCE_CLAIMS.map(({ sourceExport, cardId }) =>
+      `${sourceExport}\u0000${cardId}`),
     ...manifest.unresolvedDeliveryDependencies.map(({ source }) =>
       `${source.catalogExport}\u0000${source.record.id}`),
     ...manifest.excludedOccurrences.map(({ exportName, id }) => `${exportName}\u0000${id}`),
   ];
-  assert.equal(classifiedKeys.length, 39);
-  assert.equal(new Set(classifiedKeys).size, 39);
+  assert.equal(classifiedKeys.length, 41);
+  assert.equal(new Set(classifiedKeys).size, 41);
   assert.deepEqual(new Set(classifiedKeys), htpKeys);
 });
 

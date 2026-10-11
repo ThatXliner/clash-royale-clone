@@ -7,6 +7,7 @@ import {
 } from "../src/rl/environment.js";
 import { EDITABLE_DECK_CARD_IDS } from "../src/content/session-troop-roster.js";
 import { PLAYABLE_CARD_IDS } from "../src/content/playable-roster.js";
+import { DeckCycle } from "../src/sim/deck.js";
 import { GameSession } from "../src/sim/game-session.js";
 
 function canonical(value) {
@@ -47,6 +48,15 @@ function firstLegalDeployment(observation, slot = 0) {
     if (observation.actionMask[actionId]) return actionId;
   }
   throw new Error(`no legal deployment for hand slot ${slot}`);
+}
+
+function seedWithCardInHand(deck, cardId) {
+  for (let seed = 0; seed < 1_000; seed += 1) {
+    if (new DeckCycle({ deck, seed: `${seed}:south` }).state.hand.includes(cardId)) {
+      return seed;
+    }
+  }
+  throw new Error(`${cardId} has no bounded deterministic south hand witness`);
 }
 
 test("RL environment exposes a finite action catalogue and masks legal deploys", () => {
@@ -155,6 +165,59 @@ test("RL mask casts an editable Squall Orb center point and restores its pending
   assert.deepEqual(restored.step(0), env.step(0));
   assert.equal(restored.serialize(), env.serialize(),
     "pending effect replay remains byte-exact after restore");
+});
+
+test("RL reset and legal mask deploy both sourced projectile squads with exact deck restore", () => {
+  for (const [cardId, memberCount, hitpoints, damage, layer] of [
+    ["sunthread-pair", 2, 304, 107, "ground"],
+    ["duskwing-trio", 3, 230, 117, "air"],
+  ]) {
+    const deck = [cardId, ...PLAYABLE_CARD_IDS.slice(0, 7)];
+    const seed = seedWithCardInHand(deck, cardId);
+    const env = createRLEnvironment({ seed: 0, strideTicks: 1, horizonTicks: 10 });
+    const observation = env.reset({ deck, seed, strideTicks: 1, horizonTicks: 10 });
+    const slot = observation.hand.indexOf(cardId);
+    assert.notEqual(slot, -1, `${cardId} is in the reset hand`);
+    const action = env.actionSpace().actions.find(({ point, slot: actionSlot }) =>
+      actionSlot === slot && point.x === 8_500 && point.y === 14_500);
+    assert.ok(action, `${cardId} has a center own-side action`);
+    assert.equal(observation.actionMask[action.id], true,
+      `${cardId} center action is marked legal`);
+
+    const transition = env.step(action.id);
+    assert.equal(transition.info.actionId, action.id);
+    assert.equal(transition.observation.tick, 1);
+    const publicUnits = transition.observation.units.filter(({ cardId: id, side }) =>
+      id === cardId && side === "south");
+    assert.equal(publicUnits.length, memberCount);
+    assert.ok(publicUnits.every((unit) => unit.maxHitpoints === hitpoints &&
+      unit.count === memberCount && unit.layer === layer));
+
+    const bytes = env.serialize();
+    const snapshot = JSON.parse(bytes);
+    const session = GameSession.restore(snapshot.session);
+    assert.deepEqual(snapshot.config.deck, deck);
+    assert.deepEqual(JSON.parse(snapshot.session).setup.deck, deck);
+    const typedReceipt = session.state.cardRuntime.history.find(({ cardId: id }) => id === cardId);
+    assert.deepEqual({ cardId: typedReceipt?.cardId, kind: typedReceipt?.kind,
+      placementClass: typedReceipt?.placementClass }, {
+      cardId, kind: "unit", placementClass: "ground_entity",
+    });
+    const committed = session.replay.find(({ side, type }) =>
+      side === "south" && type === "session-deployed");
+    assert.equal(committed?.deployment.cardId, cardId);
+    assert.equal(committed?.deployment.entityIds.length, memberCount);
+    const runtimeUnits = session.state.battle.units.filter(({ cardId: id, side }) =>
+      id === cardId && side === "south");
+    assert.ok(runtimeUnits.every((unit) => unit.damage === damage &&
+      unit.delivery === "projectile" && unit.layer === layer));
+
+    const restored = RLEnvironment.restore(bytes);
+    assert.equal(restored.serialize(), bytes);
+    assert.deepEqual(restored.observe(), transition.observation);
+    assert.deepEqual(restored.step(0), env.step(0));
+    assert.equal(restored.serialize(), env.serialize());
+  }
 });
 
 test("horizon clipping truncates exactly and rejects later steps", () => {

@@ -52,6 +52,10 @@ const SIMULATION_NEUTRAL_MODULE = resolve(
   REPOSITORY_SOURCE_ROOT,
   "shared/session-troop-projectile-authority.js",
 );
+const SIMULATION_PROJECTILE_DELIVERY_MODULE = resolve(
+  REPOSITORY_SOURCE_ROOT,
+  "shared/ordinary-projectile-delivery-authority.js",
+);
 let parser;
 
 function loadPlatformParser() {
@@ -829,10 +833,11 @@ function graphModuleSpecifiers(tree) {
 
 function graphAllowedPaths(root) {
   if (root === SIMULATION_GRAPH_ROOT) {
-    // The simulation may consume this one dependency-direction-neutral,
-    // deterministic authority. Do not admit the rest of src/shared: an
+    // The simulation may consume these dependency-direction-neutral,
+    // deterministic authorities. Do not admit the rest of src/shared: an
     // import escape must remain outside the simulation closure.
-    return { directories: [root], files: [SIMULATION_NEUTRAL_MODULE] };
+    return { directories: [root], files: [SIMULATION_NEUTRAL_MODULE,
+      SIMULATION_PROJECTILE_DELIVERY_MODULE] };
   }
   return { directories: [root], files: [] };
 }

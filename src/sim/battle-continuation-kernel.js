@@ -41,6 +41,9 @@ import {
   SessionTroopProjectileRuntime,
 } from "./session-troop-projectile-runtime.js";
 import {
+  assertOrdinaryProjectileDeliveryPolicy,
+} from "../shared/ordinary-projectile-delivery-authority.js";
+import {
   createSpellIntentRuntime,
   getUnprofiledAdmittedEffectProfileQuestion,
   parseSpellIntentProfileReceipts,
@@ -5956,6 +5959,8 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
       if (cardKind === "structure" && !hasBuildingRuntime && !legacyStructureReceipts) {
         throw new TypeError(`roster[${cardIndex}] structure lacks a canonical buildingRuntime receipt`);
       }
+      const cardId = identity(card.id, card.displayName,
+        `roster[${cardIndex}].id`);
       const entities = denseArray(card.entities, `roster[${cardIndex}].entities`, 16)
         .map((raw, entityIndex) => {
           const label = `roster[${cardIndex}].entities[${entityIndex}]`;
@@ -5967,12 +5972,17 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
           const entity = exact(raw, hasOrdinaryPolicies
             ? (hasDamagePolicy ? ENTITY_ORDINARY_DAMAGE_KEYS : ENTITY_ORDINARY_KEYS)
             : ENTITY_KEYS, label);
+          const archetypeId = identity(entity.archetypeId, entity.displayName,
+            `${label}.archetypeId`);
           const bodyRadiusPolicy = checkedPolicy(entity.bodyRadiusPolicy, `${label}.bodyRadiusPolicy`);
           const projectileSpeedPolicy = checkedPolicy(
             entity.projectileSpeedPolicy, `${label}.projectileSpeedPolicy`, { projectile: true },
           );
           const deliveryPolicy = hasOrdinaryPolicies
-            ? checkedPolicy(entity.deliveryPolicy, `${label}.deliveryPolicy`)
+            ? entity.deliveryPolicy?.kind === "source-backed"
+              ? assertOrdinaryProjectileDeliveryPolicy(entity.deliveryPolicy, cardId,
+                archetypeId, entity.delivery)
+              : checkedPolicy(entity.deliveryPolicy, `${label}.deliveryPolicy`)
             : null;
           const layerPolicy = hasOrdinaryPolicies
             ? checkedPolicy(entity.layerPolicy, `${label}.layerPolicy`)
@@ -5995,8 +6005,6 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
               !["buildings", "ground", "ground-and-air", "structures"].includes(entity.targetMode)) {
             throw new TypeError(`${label} has inconsistent combat metadata`);
           }
-          const archetypeId = identity(entity.archetypeId, entity.displayName,
-            `${label}.archetypeId`);
           const expectedBodyKey = `${archetypeId}.body-radius-millitiles`;
           const expectedProjectileKey = `${archetypeId}.projectile-speed-millitiles-per-tick`;
           if (bodyRadiusPolicy.questionKey !== expectedBodyKey ||
@@ -6005,26 +6013,35 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
             throw new TypeError(`${label} policy identities are inconsistent with its archetype`);
           }
           if (hasOrdinaryPolicies) {
-            const expectedDeliveryKey = `${archetypeId}.delivery`;
             const expectedLayerKey = `${archetypeId}.layer`;
-            if (deliveryPolicy.kind !== "question" || layerPolicy.kind !== "question" ||
-                deliveryPolicy.questionKey !== expectedDeliveryKey ||
+            if (layerPolicy.kind !== "question" ||
                 layerPolicy.questionKey !== expectedLayerKey ||
-                !questionKeys.has(deliveryPolicy.questionKey) ||
                 !questionKeys.has(layerPolicy.questionKey)) {
               throw new TypeError(`${label} ordinary runtime policies are unresolved`);
             }
-            referencedQuestionKeys.add(deliveryPolicy.questionKey);
             referencedQuestionKeys.add(layerPolicy.questionKey);
-            const deliveryAnswer = questionValues.get(deliveryPolicy.questionKey);
             const layerAnswer = questionValues.get(layerPolicy.questionKey);
-            const expectedDelivery = deliveryAnswer === 1 ? "melee" :
-              deliveryAnswer === 2 ? "projectile" : null;
             const expectedLayer = layerAnswer === 1 ? "ground" :
               layerAnswer === 2 ? "air" : null;
-            if (expectedDelivery === null || expectedLayer === null ||
-                entity.delivery !== expectedDelivery || entity.layer !== expectedLayer) {
+            if (expectedLayer === null || entity.layer !== expectedLayer) {
               throw new TypeError(`${label} ordinary runtime policies disagree with estimates`);
+            }
+            if (deliveryPolicy.kind === "question") {
+              const expectedDeliveryKey = `${archetypeId}.delivery`;
+              if (deliveryPolicy.questionKey !== expectedDeliveryKey ||
+                  !questionKeys.has(deliveryPolicy.questionKey)) {
+                throw new TypeError(`${label} ordinary runtime policies are unresolved`);
+              }
+              referencedQuestionKeys.add(deliveryPolicy.questionKey);
+              const deliveryAnswer = questionValues.get(deliveryPolicy.questionKey);
+              const expectedDelivery = deliveryAnswer === 1 ? "melee" :
+                deliveryAnswer === 2 ? "projectile" : null;
+              if (expectedDelivery === null || entity.delivery !== expectedDelivery) {
+                throw new TypeError(`${label} ordinary runtime policies disagree with estimates`);
+              }
+            } else if (deliveryPolicy.kind !== "source-backed" ||
+                entity.delivery !== "projectile") {
+              throw new TypeError(`${label} ordinary delivery source policy is invalid`);
             }
           }
           if (hasDamagePolicy) {
@@ -6115,7 +6132,7 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
         hitpoints: cardKind === "unit" ? integer(card.hitpoints, 1,
           Number.MAX_SAFE_INTEGER, `${label}.hitpoints`) : card.hitpoints === null ? null :
           integer(card.hitpoints, 1, Number.MAX_SAFE_INTEGER, `${label}.hitpoints`),
-        id: identity(card.id, card.displayName, `${label}.id`),
+        id: cardId,
         kind: cardKind,
         movementMillitilesPerSecond: cardKind === "unit" ?
           nonnegative(card.movementMillitilesPerSecond,

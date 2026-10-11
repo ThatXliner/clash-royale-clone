@@ -70,7 +70,9 @@ test("editable deck setup admits every card in canonical eight-card witnesses an
     assert.deepEqual(witness.roster.map(({ id }) => id), deck);
     assert.equal(new Set(witness.roster.map(({ id }) => id)).size, 8);
     assert.ok(witness.roster.flatMap(({ entities }) => entities).every((entity) =>
-      entity.deliveryPolicy?.kind === "question" && entity.layerPolicy?.kind === "question"));
+      (entity.deliveryPolicy?.kind === "question" ||
+       entity.deliveryPolicy?.kind === "source-backed") &&
+      entity.layerPolicy?.kind === "question"));
 
     const references = questionReferences(witness.roster);
     const expectedKeys = [...new Set(references)].sort();
@@ -295,6 +297,54 @@ test("new squads deploy through custom eight-card battles and restore exactly", 
     assert.equal(restored.serialize(), forward, `${cardId} replay after restore is deterministic`);
     assert.deepEqual(JSON.parse(restored.serialize()).setup.deck, deck,
       `${cardId} restore retains the custom deck`);
+  }
+});
+
+test("seeded opponent naturally chooses both new projectile squads through typed receipts", () => {
+  for (const [cardId, memberCount, hitpoints, damage, layer] of [
+    ["sunthread-pair", 2, 304, 107, "ground"],
+    ["duskwing-trio", 3, 230, 117, "air"],
+  ]) {
+    const deck = [cardId, ...PLAYABLE_CARD_IDS.slice(0, 7)];
+    let fixture = null;
+    for (let seed = 0; seed < 1_000 && fixture === null; seed += 1) {
+      if (!new DeckCycle({ deck, seed: `${seed}:north` }).state.hand.includes(cardId)) continue;
+      const setup = JSON.parse(createEditableGameSessionSetup(deck, seed));
+      setup.thinkIntervalTicks = 1;
+      assert.equal(setup.legalNorthDeployments.length, 8,
+        "the opponent keeps every naturally legal card candidate");
+      const session = new GameSession(canonical(setup));
+      assert.ok(session.state.decks.north.hand.includes(cardId),
+        `${cardId} is held by the seeded opponent at decision time`);
+      session.stepMany(1);
+      const committed = session.replay.find(({ side, type }) =>
+        side === "north" && type === "session-deployed");
+      if (committed?.deployment.cardId === cardId) fixture = { seed, session, committed };
+    }
+    assert.ok(fixture, `${cardId} is chosen from an unmodified seeded legal set`);
+    const { session, committed } = fixture;
+    assert.equal(committed.deployment.entityIds.length, memberCount);
+    assert.equal(committed.spend.cost, 3);
+
+    const typedReceipt = session.state.cardRuntime.history.find(({ cardId: id }) => id === cardId);
+    assert.deepEqual({ cardId: typedReceipt?.cardId, kind: typedReceipt?.kind,
+      placementClass: typedReceipt?.placementClass }, {
+      cardId, kind: "unit", placementClass: "ground_entity",
+    });
+    const units = session.state.battle.units.filter(({ cardId: id, side }) =>
+      id === cardId && side === "north");
+    assert.equal(units.length, memberCount);
+    assert.ok(units.every((unit) => unit.maxHealth === hitpoints &&
+      unit.damage === damage && unit.delivery === "projectile" && unit.layer === layer),
+    `${cardId} opponent units keep their admitted squad and projectile facts`);
+
+    const checkpoint = session.serialize();
+    const restored = GameSession.restore(checkpoint);
+    assert.equal(restored.serialize(), checkpoint);
+    session.stepMany(120);
+    restored.stepMany(120);
+    assert.equal(restored.serialize(), session.serialize(),
+      `${cardId} opponent continuation restores exactly`);
   }
 });
 

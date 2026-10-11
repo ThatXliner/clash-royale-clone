@@ -22,6 +22,11 @@ import { createSessionTroopWitnessQuestions } from "./session-troop-roster.js";
 import {
   getSessionTroopProjectileAuthorityReceipt,
 } from "../shared/session-troop-projectile-authority.js";
+import {
+  ORDINARY_PROJECTILE_SOURCE_CLAIMS,
+  getOrdinaryProjectileDeliveryPolicy,
+} from "../shared/ordinary-projectile-delivery-authority.js";
+import { createOrdinaryProjectileSquadCatalog } from "./cards/ordinary-projectile-squads.js";
 
 const VERSION = 1;
 const MAX_SOURCE_CATALOG_ROWS = 64;
@@ -913,7 +918,13 @@ function assertHtpSurface(htpManifest) {
   const unresolvedKeys = assertUnresolvedSpecSurface();
   const claimedKeys = CLAIM_SPECS.map(occurrenceKey);
   const excludedKeys = EXCLUDED_OCCURRENCE_SPECS.map(occurrenceKey);
-  const classified = [...claimedKeys, ...unresolvedKeys, ...excludedKeys];
+  const ordinarySourceKeys = assertOrdinarySourceClaims(htpManifest, htpMap);
+  const classified = [
+    ...claimedKeys,
+    ...unresolvedKeys,
+    ...ordinarySourceKeys,
+    ...excludedKeys,
+  ];
   if (new Set(classified).size !== classified.length) {
     throw new Error("projectile HTP classification contains a duplicate pair");
   }
@@ -946,6 +957,60 @@ function assertHtpSurface(htpManifest) {
     }
   }
   return { htpMap };
+}
+
+function assertOrdinarySourceClaims(htpManifest, htpMap) {
+  if (ORDINARY_PROJECTILE_SOURCE_CLAIMS.length !== 2) {
+    throw new Error("ordinary projectile source admission must contain exactly two claims");
+  }
+  const rows = createOrdinaryProjectileSquadCatalog();
+  if (!Array.isArray(rows) || rows.length !== 2) {
+    throw new Error("ordinary projectile source catalog must contain exactly two cards");
+  }
+  const rowById = new Map(rows.map((row) => [row.id, row]));
+  const pairs = [];
+  for (const claim of ORDINARY_PROJECTILE_SOURCE_CLAIMS) {
+    exactKeys(claim, ["archetypeId", "cardId", "catalogId", "sourceExport"],
+      "ordinary projectile source claim", { exactPrototype: true });
+    if (claim.catalogId !== "ordinary-projectile-squads-v1" ||
+        claim.sourceExport !== "createOrdinaryProjectileSquadCatalog") {
+      throw new Error("ordinary projectile source claim is not bound to its canonical catalog");
+    }
+    const spec = { exportName: claim.sourceExport, id: claim.cardId };
+    const key = occurrenceKey(spec);
+    if (pairs.includes(key)) throw new Error("ordinary projectile source claims duplicate a card occurrence");
+    const occurrence = htpMap.get(key);
+    if (occurrence?.status !== "admitted") {
+      throw new Error(`${claim.sourceExport}/${claim.cardId} is missing an admitted HTP occurrence`);
+    }
+    const profile = htpProfileFor(htpManifest, spec,
+      `${claim.sourceExport}/${claim.cardId}`);
+    const sourceCard = rowById.get(claim.cardId);
+    if (sourceCard === undefined || sourceCard.components.length !== 1 ||
+        sourceCard.count !== sourceCard.components[0].count ||
+        sourceCard.components[0].id !== claim.archetypeId ||
+        sourceCard.components[0].role !== "primary") {
+      throw new Error(`${claim.cardId} source component does not match its admitted archetype`);
+    }
+    assertAdmissionIdentity(profile, sourceCard, `${claim.sourceExport}/${claim.cardId}`);
+    const deliveryPolicy = getOrdinaryProjectileDeliveryPolicy(
+      claim.cardId, claim.archetypeId,
+    );
+    if (deliveryPolicy === null || deliveryPolicy.catalogId !== claim.catalogId ||
+        deliveryPolicy.delivery !== "projectile") {
+      throw new Error(`${claim.cardId} has no canonical ordinary projectile delivery claim`);
+    }
+    pairs.push(key);
+  }
+  const expectedPairs = ORDINARY_PROJECTILE_SOURCE_CLAIMS
+    .map(({ cardId, sourceExport }) => sourceRecordKey(sourceExport, cardId))
+    .sort(compareText);
+  if (canonical(pairs.slice().sort(compareText)) !== canonical(expectedPairs) ||
+      canonical([...rowById.keys()].sort(compareText)) !==
+        canonical(ORDINARY_PROJECTILE_SOURCE_CLAIMS.map(({ cardId }) => cardId).sort(compareText))) {
+    throw new Error("ordinary projectile source claim pairs do not exactly match their catalog rows");
+  }
+  return pairs;
 }
 
 function assertAdmissionIdentity(profile, record, label) {

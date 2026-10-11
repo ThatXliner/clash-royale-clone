@@ -22,18 +22,20 @@ import {
 import { DeckCycle } from "../src/sim/deck.js";
 import { GameSession } from "../src/sim/game-session.js";
 import { LiveBattle, parseLiveBattleSetup } from "../src/sim/live-battle.js";
+import { ORDINARY_PROJECTILE_SOURCE_CLAIMS } from "../src/shared/ordinary-projectile-delivery-authority.js";
 
 const ADMITTED_IDS = Object.freeze([
   "aegis-sage", "bloom-wisp", "bone-regent", "brassbolt", "briar-band",
   "cinder-host", "cinder-ray", "cinderback", "cinderlings", "coilblade", "copperskiff",
-  "dawnmender", "dusk-ranger", "emberlance", "forgeguard", "gilded-lancer", "iron-borer",
+  "dawnmender", "dusk-ranger", "duskwing-trio", "emberlance", "forgeguard", "gilded-lancer", "iron-borer",
   "ironroot", "mossguard", "prism-warden", "pulse-sentry", "railward", "reedsting",
   "rime-adept", "rune-reaver", "scatterguard", "skymaul", "stonehauler",
-  "stonevault", "stormkite", "tether-rider", "thornscouts", "veil-prowler", "veilrunner",
+  "stonevault", "stormkite", "sunthread-pair", "tether-rider", "thornscouts", "veil-prowler", "veilrunner",
   "wayfinder",
 ]);
 const QUESTION_IDS = Object.freeze(["ashen-nest", "gloam-shepherd"]);
 const SOUTH = Object.freeze({ x: 3_500, y: 14_500 });
+const NORTH = Object.freeze({ x: 3_500, y: 17_500 });
 const QUESTION_SOURCE = "runtime-playability-estimate-not-comparison-corpus";
 const CARD_KEYS = Object.freeze([
   "areaDamageRadiusMillitiles", "cost", "count", "damage", "deployTimeTicks",
@@ -102,7 +104,8 @@ function questionMap(questions) {
 }
 
 function ordinaryQuestionKeys(entity) {
-  return ORDINARY_POLICY_KEYS.map((field) => entity[field].questionKey);
+  return ORDINARY_POLICY_KEYS.filter((field) => entity[field].kind === "question")
+    .map((field) => entity[field].questionKey);
 }
 
 function witnessSetup(id) {
@@ -123,6 +126,39 @@ function witnessSetup(id) {
     thinkIntervalTicks: 3_600,
     thinkOffsetTicks: 0,
   };
+}
+
+function pairedProjectileDuelSetup() {
+  const witnesses = [
+    createSessionTroopWitness("sunthread-pair"),
+    createSessionTroopWitness("duskwing-trio"),
+  ];
+  const cardsById = new Map();
+  const questionsByKey = new Map();
+  for (const witness of witnesses) {
+    for (const card of witness.roster) cardsById.set(card.id, card);
+    for (const question of witness.questions) {
+      const previous = questionsByKey.get(question.key);
+      if (previous !== undefined) assert.deepEqual(question, previous, question.key);
+      else questionsByKey.set(question.key, question);
+    }
+  }
+  const cardIds = ["sunthread-pair", "duskwing-trio", ...PLAYABLE_CARD_IDS.slice(0, 6)];
+  const roster = cardIds.map((id) => {
+    const card = cardsById.get(id);
+    assert.ok(card, `paired witness includes ${id}`);
+    return clone(card);
+  });
+  const keys = [...new Set(questionReferences(roster))].sort();
+  return canonical({
+    initialWindupTicks: { central: 0, lane: 0 },
+    questions: keys.map((key) => {
+      const question = questionsByKey.get(key);
+      assert.ok(question, `paired witness closes ${key}`);
+      return question;
+    }),
+    roster,
+  });
 }
 
 function playerCommand(session, id) {
@@ -156,8 +192,10 @@ function expectedEntityRuntime(entity, questions) {
     ? expectedQuestionValue(questions, entity.projectileSpeedPolicy.questionKey) : null;
   const damage = entity.damagePolicy?.kind === "question"
     ? expectedQuestionValue(questions, entity.damagePolicy.questionKey) : entity.damage;
-  const delivery = expectedQuestionValue(questions, entity.deliveryPolicy.questionKey) === 2
-    ? "projectile" : "melee";
+  const delivery = entity.deliveryPolicy.kind === "source-backed"
+    ? entity.deliveryPolicy.delivery
+    : expectedQuestionValue(questions, entity.deliveryPolicy.questionKey) === 2
+      ? "projectile" : "melee";
   const layer = expectedQuestionValue(questions, entity.layerPolicy.questionKey) === 2
     ? "air" : "ground";
   return {
@@ -174,7 +212,7 @@ function expectedEntityRuntime(entity, questions) {
 test("ordinary troop projection domain is exactly the admitted profile surface", () => {
   const manifest = createSessionTroopProfileManifest();
   assert.deepEqual(manifest.profiles.map(({ id }) => id), ADMITTED_IDS);
-  assert.equal(manifest.profiles.length, 35);
+  assert.equal(manifest.profiles.length, 37);
   assert.deepEqual(ADMITTED_IDS, [...new Set(ADMITTED_IDS)]);
   for (const id of [...QUESTION_IDS, "not-a-troop", "coilblade\u200b"]) {
     assert.throws(() => projectSessionTroopBattleCard(id), /unknown|QUESTION|admitted/u);
@@ -223,10 +261,22 @@ test("every projection is complete, source-agreeing, ordinary-only, and componen
           assert.deepEqual(entity[field], sourceEntity[field], `${profile.id}.${field}`);
         }
       }
-      assert.deepEqual(entity.deliveryPolicy, {
-        kind: "question",
-        questionKey: `${entity.archetypeId}.delivery`,
-      }, `${profile.id} delivery policy`);
+      const sourceClaim = ORDINARY_PROJECTILE_SOURCE_CLAIMS.find(({ cardId, archetypeId }) =>
+        cardId === profile.id && archetypeId === entity.archetypeId);
+      if (sourceClaim === undefined) {
+        assert.deepEqual(entity.deliveryPolicy, {
+          kind: "question",
+          questionKey: `${entity.archetypeId}.delivery`,
+        }, `${profile.id} delivery policy`);
+      } else {
+        assert.deepEqual(entity.deliveryPolicy, {
+          archetypeId: sourceClaim.archetypeId,
+          cardId: sourceClaim.cardId,
+          catalogId: sourceClaim.catalogId,
+          delivery: "projectile",
+          kind: "source-backed",
+        }, `${profile.id} canonical sourced delivery policy`);
+      }
       assert.deepEqual(entity.layerPolicy, {
         kind: "question",
         questionKey: `${entity.archetypeId}.layer`,
@@ -272,6 +322,144 @@ test("every witness closes its exact questions, cards, and archetypes through Li
   }
 });
 
+test("ordinary projectile delivery admits only its exact two source tuples and rejects forged restore claims", () => {
+  assert.deepEqual(ORDINARY_PROJECTILE_SOURCE_CLAIMS.map(({ cardId, archetypeId }) =>
+    [cardId, archetypeId]), [
+    ["sunthread-pair", "sunthread-warden"],
+    ["duskwing-trio", "duskwing"],
+  ]);
+  const policyFor = (claim) => ({
+    archetypeId: claim.archetypeId,
+    cardId: claim.cardId,
+    catalogId: claim.catalogId,
+    delivery: "projectile",
+    kind: "source-backed",
+  });
+
+  for (const claim of ORDINARY_PROJECTILE_SOURCE_CLAIMS) {
+    const witness = clone(createSessionTroopWitness(claim.cardId));
+    const card = witness.roster.find(({ id }) => id === claim.cardId);
+    const entity = card.entities.find(({ archetypeId }) => archetypeId === claim.archetypeId);
+    assert.ok(entity, `${claim.cardId} owns its source archetype`);
+    assert.deepEqual(entity.deliveryPolicy, policyFor(claim));
+    assert.equal(entity.delivery, "projectile");
+    assert.equal(entity.projectileSpeedPolicy.kind, "question");
+    assert.equal(entity.layerPolicy.kind, "question");
+    const baseline = canonical(witness);
+    assert.equal(canonical(parseLiveBattleSetup(baseline)), baseline);
+
+    const attacks = [
+      (policy) => { policy.cardId = claim.cardId === "sunthread-pair" ? "duskwing-trio" : "sunthread-pair"; },
+      (policy) => { policy.archetypeId = claim.archetypeId === "duskwing" ? "sunthread-warden" : "duskwing"; },
+      (policy) => { policy.catalogId = "forged-ordinary-projectiles"; },
+      (policy) => { policy.kind = "question"; },
+      (policy) => { policy.extra = true; },
+    ];
+    for (const attack of attacks) {
+      const malformed = clone(witness);
+      const target = malformed.roster.find(({ id }) => id === claim.cardId)
+        .entities.find(({ archetypeId }) => archetypeId === claim.archetypeId);
+      attack(target.deliveryPolicy);
+      assert.throws(() => parseLiveBattleSetup(canonical(malformed)),
+        `${claim.cardId} forged source tuple`);
+    }
+    const changedDelivery = clone(witness);
+    changedDelivery.roster.find(({ id }) => id === claim.cardId)
+      .entities.find(({ archetypeId }) => archetypeId === claim.archetypeId)
+      .delivery = "melee";
+    assert.throws(() => parseLiveBattleSetup(canonical(changedDelivery)),
+      `${claim.cardId} source delivery must agree with the entity`);
+  }
+
+  const forgedAttachment = clone(createSessionTroopWitness("brassbolt"));
+  forgedAttachment.roster.find(({ id }) => id === "brassbolt").entities[0].deliveryPolicy =
+    policyFor(ORDINARY_PROJECTILE_SOURCE_CLAIMS[0]);
+  assert.throws(() => parseLiveBattleSetup(canonical(forgedAttachment)),
+    "a legitimate source policy cannot be attached to another card");
+
+  const setup = canonical(witnessSetup("sunthread-pair"));
+  const validSession = new GameSession(setup);
+  const validSnapshot = validSession.serialize();
+  assert.equal(GameSession.restore(validSnapshot).serialize(), validSnapshot);
+  const forgedSnapshot = JSON.parse(validSnapshot);
+  const forgedBattleSetup = JSON.parse(forgedSnapshot.setup.battleSetup);
+  forgedBattleSetup.roster.find(({ id }) => id === "sunthread-pair")
+    .entities[0].deliveryPolicy.catalogId = "forged-ordinary-projectiles";
+  forgedSnapshot.setup.battleSetup = canonical(forgedBattleSetup);
+  forgedSnapshot.setup.rosterWitness = canonical({
+    questions: forgedBattleSetup.questions,
+    roster: forgedBattleSetup.roster,
+  });
+  assert.throws(() => GameSession.restore(canonical(forgedSnapshot)),
+    "restore must re-run canonical ordinary source admission");
+});
+
+test("Sunthread Pair and Duskwing Trio trade sourced air/ground projectiles through in-flight restore", () => {
+  const battle = new LiveBattle(pairedProjectileDuelSetup());
+  assert.equal(battle.scheduleDeploy(canonical({
+    cardId: "duskwing-trio", point: NORTH, sequence: 0, side: "north", tick: 0,
+  })).type, "deploy-scheduled");
+  assert.equal(battle.scheduleDeploy(canonical({
+    cardId: "sunthread-pair", point: SOUTH, sequence: 1, side: "south", tick: 0,
+  })).type, "deploy-scheduled");
+  battle.step();
+
+  const byCard = new Map([
+    ["sunthread-pair", battle.state.units.filter(({ cardId }) => cardId === "sunthread-pair")],
+    ["duskwing-trio", battle.state.units.filter(({ cardId }) => cardId === "duskwing-trio")],
+  ]);
+  assert.equal(byCard.get("sunthread-pair").length, 2);
+  assert.equal(byCard.get("duskwing-trio").length, 3);
+  assert.ok(byCard.get("sunthread-pair").every(({ layer, maxHealth, damage, delivery }) =>
+    layer === "ground" && maxHealth === 304 && damage === 107 && delivery === "projectile"));
+  assert.ok(byCard.get("duskwing-trio").every(({ layer, maxHealth, damage, delivery }) =>
+    layer === "air" && maxHealth === 230 && damage === 117 && delivery === "projectile"));
+
+  let checkpoint = null;
+  for (let tick = 0; tick < 240 && checkpoint === null; tick += 1) {
+    const events = battle.step();
+    if (events.some(({ type }) => type === "projectile-launch")) {
+      assert.ok(battle.state.projectiles.length > 0, "launched projectile remains in flight");
+      assert.ok(battle.state.projectiles.every(({ impactTick, launchTick }) =>
+        impactTick > launchTick), "the checkpoint is strictly between launch and impact");
+      checkpoint = battle.serialize();
+    }
+  }
+  assert.ok(checkpoint, "the ordinary host launches the first projectile");
+  const resumed = LiveBattle.restore(checkpoint);
+  assert.equal(resumed.serialize(), checkpoint, "restore preserves the in-flight projectile bytes");
+  for (let tick = 0; tick < 240; tick += 1) {
+    assert.deepEqual(resumed.step(), battle.step(), `restored continuation tick ${tick}`);
+  }
+  assert.equal(resumed.serialize(), battle.serialize());
+  assert.deepEqual(resumed.replay, battle.replay);
+
+  const unitsById = new Map(battle.state.units.map((unit) => [unit.id, unit]));
+  const cardUnitIds = new Map([...byCard].map(([id, units]) =>
+    [id, new Set(units.map(({ id: unitId }) => unitId))]));
+  const sourceSpecs = [
+    ["sunthread-pair", "duskwing-trio", 107],
+    ["duskwing-trio", "sunthread-pair", 117],
+  ];
+  for (const [attackerCard, targetCard, damage] of sourceSpecs) {
+    const launch = battle.replay.find((event) => event.type === "projectile-launch" &&
+      cardUnitIds.get(attackerCard).has(event.projectile.sourceId) &&
+      cardUnitIds.get(targetCard).has(event.projectile.targetId));
+    assert.ok(launch, `${attackerCard} can select the opposing ${targetCard} layer`);
+    assert.equal(launch.projectile.direction, "unit-to-unit");
+    assert.equal(launch.projectile.damage, damage);
+    assert.equal(launch.projectile.speed, 500, "projectile speed remains the explicit HTO estimate");
+    assert.equal(launch.projectile.impactTick > launch.projectile.launchTick, true);
+    const impact = battle.replay.find((event) => event.type === "projectile-impact" &&
+      event.projectileId === launch.projectile.id);
+    assert.equal(impact?.status, "contact", `${attackerCard} projectile reaches its target`);
+    const damageEvent = battle.replay.find((event) => event.type === "damage" &&
+      event.projectileId === launch.projectile.id);
+    assert.equal(damageEvent?.amount, damage, `${attackerCard} applies its source-table damage`);
+    assert.ok(unitsById.has(impact.targetId), `${attackerCard} contact resolves through shared units`);
+  }
+});
+
 function stripOrdinaryPolicies(card) {
   return {
     ...card,
@@ -297,18 +485,22 @@ test("all official witnesses use uniform HTO policies with exact projection coun
   const projectedEntities = projectedCards.flatMap(({ entities }) => entities);
   const projectedPolicies = projectedEntities.flatMap((entity) =>
     ORDINARY_POLICY_KEYS.map((field) => entity[field]));
-  assert.equal(ADMITTED_IDS.length, 35);
-  assert.equal(projectedEntities.length, 36);
-  assert.equal(new Set(projectedEntities.map(({ archetypeId }) => archetypeId)).size, 35);
-  assert.equal(projectedPolicies.length, 72);
-  assert.ok(projectedPolicies.every((policy) => policy.kind === "question"));
+  assert.equal(ADMITTED_IDS.length, 37);
+  assert.equal(projectedEntities.length, 38);
+  assert.equal(new Set(projectedEntities.map(({ archetypeId }) => archetypeId)).size, 37);
+  assert.equal(projectedPolicies.length, 76);
+  assert.ok(projectedEntities.every(({ deliveryPolicy, layerPolicy }) =>
+    (deliveryPolicy.kind === "question" || deliveryPolicy.kind === "source-backed") &&
+    layerPolicy.kind === "question"));
 
   for (const id of ADMITTED_IDS) {
     const witness = createSessionTroopWitness(id);
     const witnessEntities = witness.roster.flatMap(({ entities }) => entities);
     assert.equal(witnessEntities.length, 9, id);
     assert.ok(witnessEntities.every((entity) =>
-      ORDINARY_POLICY_KEYS.every((field) => entity[field]?.kind === "question")), id);
+      (entity.deliveryPolicy?.kind === "question" ||
+       entity.deliveryPolicy?.kind === "source-backed") &&
+      entity.layerPolicy?.kind === "question"), id);
   }
 
   const legacyEntities = createPlayableRoster().flatMap(({ entities }) => entities);
@@ -390,7 +582,7 @@ test("legacy delivery/layer policy and QUESTION tampering rejects atomically", (
   }
 });
 
-test("paired ordinary-policy omission rejects every one of the 36 entity projections", () => {
+test("paired ordinary-policy omission rejects every one of the 38 entity projections", () => {
   const variants = ["retain", "remove", "reorder", "forge"];
   for (const id of ADMITTED_IDS) {
     const projected = projectSessionTroopBattleCard(id);

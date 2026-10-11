@@ -242,8 +242,8 @@ test("nondeterminism-guard: scans every simulation module and probes its runtime
   );
   const result = await guardSimulationDirectory(directory);
   assert.deepEqual(result, {
-    files: EXPECTED_SIMULATION_MODULES.length + 1,
-    runtimeProbed: EXPECTED_SIMULATION_MODULES.length + 1,
+    files: EXPECTED_SIMULATION_MODULES.length + 2,
+    runtimeProbed: EXPECTED_SIMULATION_MODULES.length + 2,
     violations: [],
   });
 });
@@ -253,6 +253,10 @@ test("nondeterminism-guard: simulation closure admits only the exact neutral aut
   const authority = join(
     simulationRoot,
     "../shared/session-troop-projectile-authority.js",
+  );
+  const deliveryAuthority = join(
+    simulationRoot,
+    "../shared/ordinary-projectile-delivery-authority.js",
   );
   const hostileSibling = join(
     simulationRoot,
@@ -266,6 +270,10 @@ test("nondeterminism-guard: simulation closure admits only the exact neutral aut
   );
   try {
     assert.deepEqual(probeModuleGraph([authority], { root: simulationRoot }), {
+      modules: 1,
+      status: "ok",
+    });
+    assert.deepEqual(probeModuleGraph([deliveryAuthority], { root: simulationRoot }), {
       modules: 1,
       status: "ok",
     });

@@ -1,0 +1,163 @@
+{
+  "purpose": "test-only provenance for original ordinary projectile squad content",
+  "runtimeImport": false,
+  "historicalSource": {
+    "repository": "RoyaleAPI/cr-api-data",
+    "commit": "54fdef52c5086393b085f57faeeab8ef86b28160",
+    "snapshotDate": "2023-02-18",
+    "sourceLedger": "reference/stats/SOURCES.md",
+    "files": {
+      "cards_stats_characters.json": {
+        "bytes": 1156641,
+        "sha256": "37734d1508584e43851395c01b2d10046667eb6dc27daef37e5df56e74f933ac"
+      },
+      "cards_stats_projectile.json": {
+        "bytes": 137874,
+        "sha256": "c883516f54f6c17ee77c15cf484b01da9ded22602214c3b0d42b1ab823bd3197"
+      },
+      "cards_stats_troop.json": {
+        "bytes": 261572,
+        "sha256": "a6e044cb510ec280dacfd54e546558276e5f40d50fbd16f47f3ff16126add33a"
+      }
+    }
+  },
+  "cards": [
+    {
+      "runtimeId": "sunthread-pair",
+      "runtimeName": "Sunthread Pair",
+      "runtimeArchetypeId": "sunthread-warden",
+      "referenceSelector": { "file": "reference/stats/cards.json", "key": "archers" },
+      "referenceValues": {
+        "elixir_cost": 3,
+        "rarity": "common",
+        "hitpoints": 304,
+        "damage": 107,
+        "hit_speed_seconds": 0.9,
+        "first_hit_seconds": 0.8,
+        "deploy_time_seconds": 1,
+        "range_tiles": 5,
+        "sight_range_tiles": 5.5,
+        "movement_speed_tiles_per_second": 1,
+        "targets": "air_and_ground",
+        "count": 2,
+        "unverified_fields": [
+          "hitpoints", "damage", "hit_speed_seconds", "first_hit_seconds",
+          "deploy_time_seconds", "range_tiles", "sight_range_tiles",
+          "movement_speed_tiles_per_second", "movement_speed", "targets", "count"
+        ]
+      },
+      "pinnedSelectors": {
+        "cards_stats_troop.json": {
+          "index": 1,
+          "key": "archers",
+          "name": "Archer",
+          "summon_character": "Archer",
+          "summon_number": 2,
+          "mana_cost": 3
+        },
+        "cards_stats_characters.json": {
+          "index": 1,
+          "name": "Archer",
+          "projectile": "ArcherArrow",
+          "attacks_ground": true,
+          "attacks_air": true,
+          "range": 5000,
+          "sight_range": 5500,
+          "speed": 60,
+          "hit_speed": 900,
+          "load_time": 800,
+          "deploy_time": 1000,
+          "hitpoints_per_level_index_10": 304
+        },
+        "cards_stats_projectile.json": {
+          "index": 2,
+          "name": "ArcherArrow",
+          "speed": 600,
+          "damage_per_level_index_10": 107
+        }
+      },
+      "runtimeConversion": {
+        "hitSpeedTicks": "0.9 seconds × TICKS_PER_SECOND(60) = 54",
+        "firstHitTicks": "0.8 seconds × TICKS_PER_SECOND(60) = 48",
+        "deployTimeTicks": "1 second × TICKS_PER_SECOND(60) = 60",
+        "rangeMillitiles": "5 tiles × MILLITILES_PER_TILE(1000) = 5000",
+        "sightRangeMillitiles": "5.5 tiles × MILLITILES_PER_TILE(1000) = 5500",
+        "movementMillitilesPerSecond": "source speed 60 maps to 1 tile/second in SOURCES.md = 1000",
+        "delivery": "character row directly names one projectile row; source delivery claim only",
+        "projectileSpeed": "remains QUESTION; source speed is not converted into runtime units"
+      }
+    },
+    {
+      "runtimeId": "duskwing-trio",
+      "runtimeName": "Duskwing Trio",
+      "runtimeArchetypeId": "duskwing",
+      "referenceSelector": { "file": "reference/stats/cards.json", "key": "minions" },
+      "referenceValues": {
+        "elixir_cost": 3,
+        "rarity": "common",
+        "hitpoints": 230,
+        "damage": 117,
+        "hit_speed_seconds": 1,
+        "first_hit_seconds": 0.5,
+        "deploy_time_seconds": 1,
+        "range_tiles": 1.6,
+        "sight_range_tiles": 5.5,
+        "movement_speed_tiles_per_second": 1.5,
+        "targets": "air_and_ground",
+        "count": 3,
+        "unverified_fields": [
+          "hitpoints", "damage", "hit_speed_seconds", "first_hit_seconds",
+          "deploy_time_seconds", "range_tiles", "sight_range_tiles",
+          "movement_speed_tiles_per_second", "movement_speed", "targets", "count"
+        ]
+      },
+      "pinnedSelectors": {
+        "cards_stats_troop.json": {
+          "index": 5,
+          "key": "minions",
+          "name": "Minions",
+          "summon_character": "Minion",
+          "summon_number": 3,
+          "mana_cost": 3
+        },
+        "cards_stats_characters.json": {
+          "index": 5,
+          "name": "Minion",
+          "projectile": "MinionSpit",
+          "attacks_ground": true,
+          "attacks_air": true,
+          "range": 1600,
+          "sight_range": 5500,
+          "speed": 90,
+          "hit_speed": 1000,
+          "load_time": 500,
+          "deploy_time": 1000,
+          "flying_height": 1500,
+          "hitpoints_per_level_index_10": 230
+        },
+        "cards_stats_projectile.json": {
+          "index": 7,
+          "name": "MinionSpit",
+          "speed": 1000,
+          "damage_per_level_index_10": 117
+        }
+      },
+      "runtimeConversion": {
+        "hitSpeedTicks": "1 second × TICKS_PER_SECOND(60) = 60",
+        "firstHitTicks": "0.5 seconds × TICKS_PER_SECOND(60) = 30",
+        "deployTimeTicks": "1 second × TICKS_PER_SECOND(60) = 60",
+        "rangeMillitiles": "1.6 tiles × MILLITILES_PER_TILE(1000) = 1600",
+        "sightRangeMillitiles": "5.5 tiles × MILLITILES_PER_TILE(1000) = 5500",
+        "movementMillitilesPerSecond": "source speed 90 maps to 1.5 tiles/second in SOURCES.md = 1500",
+        "delivery": "character row directly names one projectile row; source delivery claim only",
+        "layer": "flying_height 1500 supports estimated air layer; runtime layer remains QUESTION",
+        "projectileSpeed": "remains QUESTION; source speed is not converted into runtime units"
+      }
+    }
+  ],
+  "policy": {
+    "confidence": "delivery has direct pinned character-to-projectile linkage; numeric card rows remain question-backed where unverified_fields says so",
+    "testOnlyComparisonReference": true,
+    "noReferenceFilesAreImportedByRuntime": true
+  }
+}

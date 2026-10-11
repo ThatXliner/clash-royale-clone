@@ -1,6 +1,7 @@
 import { createBasicFlyingCatalog } from "./cards/basic-flying.js";
 import { createBasicMeleeCatalog } from "./cards/basic-melee.js";
 import { createBasicRangedCatalog } from "./cards/basic-ranged.js";
+import { createOrdinaryProjectileSquadCatalog } from "./cards/ordinary-projectile-squads.js";
 import { createSwarmCatalog } from "./cards/swarms.js";
 import { createStructureSeekerCatalog } from "./cards/structure-seeker.js";
 import { createShieldFormCatalog } from "./cards/shields-forms.js";
@@ -30,6 +31,7 @@ import {
 import { createSessionTroopProfileManifest } from "./session-troop-profile-catalog.js";
 import { assertSafeCardCatalogGraph } from "./schema.js";
 import { assertAuthoritativeProjectileSourceCatalogs } from "./session-troop-projectile-source-admission.js";
+import { getOrdinaryProjectileDeliveryPolicy } from "../shared/ordinary-projectile-delivery-authority.js";
 
 const QUESTION_SOURCE = "runtime-playability-estimate-not-comparison-corpus";
 const DELIVERY_VALUES = Object.freeze({ melee: 1, projectile: 2 });
@@ -51,11 +53,14 @@ export const EDITABLE_DECK_CARD_IDS = Object.freeze([
   "forgeguard",
   "cinder-host",
   "ironroot",
+  "sunthread-pair",
+  "duskwing-trio",
 ]);
 
 // These are source-occurrence classifications for an ordinary runtime estimate.
 // They do not claim the special mechanic represented by the catalog export.
 const PROJECTILE_OCCURRENCES = new Set([
+  "createOrdinaryProjectileSquadCatalog",
   "createChainSpecialCatalog",
   "createPelletSpecialCatalog",
   "createPierceSpecialCatalog",
@@ -67,6 +72,7 @@ const SOURCE_FACTORIES = Object.freeze({
   createBasicFlyingCatalog,
   createBasicMeleeCatalog,
   createBasicRangedCatalog,
+  createOrdinaryProjectileSquadCatalog,
   createSwarmCatalog,
   createStructureSeekerCatalog,
   createShieldFormCatalog,
@@ -303,8 +309,8 @@ function estimateDelivery(id) {
     PROJECTILE_OCCURRENCES.has(exportName)) ? "projectile" : "melee";
 }
 
-function estimateLayer() {
-  return "ground";
+function estimateLayer(id) {
+  return id === "duskwing-trio" ? "air" : "ground";
 }
 
 function estimateQuestion(key, value) {
@@ -347,7 +353,8 @@ function projectOrdinaryEntity(card, component) {
     role: component === null ? "primary" : component.role,
     sightRangeMillitiles: source.sightRangeMillitiles,
     targetMode: source.targetMode,
-    deliveryPolicy: questionPolicy(`${archetypeId}.delivery`),
+    deliveryPolicy: getOrdinaryProjectileDeliveryPolicy(card.id, archetypeId) ??
+      questionPolicy(`${archetypeId}.delivery`),
     layerPolicy: questionPolicy(`${archetypeId}.layer`),
   };
   if (source.damage === null) {
@@ -391,7 +398,9 @@ function withOrdinaryPolicies(card) {
   const detached = clone(card);
   detached.entities = detached.entities.map((entity) => ({
     ...entity,
-    deliveryPolicy: questionPolicy(`${entity.archetypeId}.delivery`),
+    deliveryPolicy: entity.deliveryPolicy?.kind === "source-backed"
+      ? entity.deliveryPolicy
+      : questionPolicy(`${entity.archetypeId}.delivery`),
     layerPolicy: questionPolicy(`${entity.archetypeId}.layer`),
   }));
   return detached;
