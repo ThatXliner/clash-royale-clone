@@ -242,8 +242,8 @@ test("nondeterminism-guard: scans every simulation module and probes its runtime
   );
   const result = await guardSimulationDirectory(directory);
   assert.deepEqual(result, {
-    files: EXPECTED_SIMULATION_MODULES.length + 2,
-    runtimeProbed: EXPECTED_SIMULATION_MODULES.length + 2,
+    files: EXPECTED_SIMULATION_MODULES.length + 3,
+    runtimeProbed: EXPECTED_SIMULATION_MODULES.length + 3,
     violations: [],
   });
 });
@@ -258,15 +258,56 @@ test("nondeterminism-guard: simulation closure admits only the exact neutral aut
     simulationRoot,
     "../shared/ordinary-projectile-delivery-authority.js",
   );
+  const sourceConfidenceAuthority = join(
+    simulationRoot,
+    "../shared/session-troop-source-confidence-authority.js",
+  );
   const hostileSibling = join(
     simulationRoot,
     "../shared/.nondeterminism-hostile-sibling.js",
   );
+  const forgedAuthority = join(
+    simulationRoot,
+    "../shared/.nondeterminism-forged-confidence-authority.js",
+  );
   const hostileImporter = join(simulationRoot, ".nondeterminism-hostile-import.js");
+  const transitiveHostileImporter = join(
+    simulationRoot,
+    ".nondeterminism-transitive-hostile-import.js",
+  );
+  const nondeterministicImporter = join(
+    simulationRoot,
+    ".nondeterminism-confidence-random-import.js",
+  );
+  const forgedAuthorityImporter = join(
+    simulationRoot,
+    ".nondeterminism-forged-confidence-import.js",
+  );
   writeFileSync(hostileSibling, "export const value = 1;\n");
+  writeFileSync(forgedAuthority,
+    "export function getSessionTroopSourceConfidencePolicy() { return { fields: [] }; }\n");
   writeFileSync(
     hostileImporter,
     "export { value } from '../shared/.nondeterminism-hostile-sibling.js';\n",
+  );
+  writeFileSync(
+    transitiveHostileImporter,
+    "import { getSessionTroopSourceConfidencePolicy } from " +
+      "'../shared/session-troop-source-confidence-authority.js';\n" +
+      "export { value } from '../shared/.nondeterminism-hostile-sibling.js';\n",
+  );
+  writeFileSync(
+    nondeterministicImporter,
+    "import { getSessionTroopSourceConfidencePolicy } from " +
+      "'../shared/session-troop-source-confidence-authority.js';\n" +
+      "export const policy = getSessionTroopSourceConfidencePolicy(" +
+      "'gloamwing-cluster', 'gloamwing');\n" +
+      "export const roll = Math.random();\n",
+  );
+  writeFileSync(
+    forgedAuthorityImporter,
+    "export { getSessionTroopSourceConfidencePolicy } from " +
+      "'../shared/.nondeterminism-forged-confidence-authority.js';\n",
   );
   try {
     assert.deepEqual(probeModuleGraph([authority], { root: simulationRoot }), {
@@ -277,12 +318,36 @@ test("nondeterminism-guard: simulation closure admits only the exact neutral aut
       modules: 1,
       status: "ok",
     });
+    assert.deepEqual(probeModuleGraph([sourceConfidenceAuthority], { root: simulationRoot }), {
+      modules: 1,
+      status: "ok",
+    });
     assert.throws(
       () => probeModuleGraph([hostileImporter], { root: simulationRoot }),
       (error) => error instanceof NondeterminismGuardError &&
         error.code === "RUNTIME_CAPABILITY_VIOLATION" &&
         /outside module graph root/.test(error.message),
       "a simulation import must not widen to a shared sibling",
+    );
+    assert.throws(
+      () => probeModuleGraph([transitiveHostileImporter], { root: simulationRoot }),
+      (error) => error instanceof NondeterminismGuardError &&
+        error.code === "RUNTIME_CAPABILITY_VIOLATION" &&
+        /outside module graph root/.test(error.message),
+      "the admitted confidence authority cannot widen through a transitive shared import",
+    );
+    assert.throws(
+      () => probeModuleGraph([nondeterministicImporter], { root: simulationRoot }),
+      (error) => error instanceof NondeterminismGuardError &&
+        error.code === "RUNTIME_CAPABILITY_VIOLATION" && /Math\.random/.test(error.message),
+      "confidence authority importers remain subject to randomness analysis",
+    );
+    assert.throws(
+      () => probeModuleGraph([forgedAuthorityImporter], { root: simulationRoot }),
+      (error) => error instanceof NondeterminismGuardError &&
+        error.code === "RUNTIME_CAPABILITY_VIOLATION" &&
+        /outside module graph root/.test(error.message),
+      "a forged confidence authority in a shared sibling is not admitted",
     );
     assert.throws(
       () => probeModuleGraph(
@@ -295,7 +360,11 @@ test("nondeterminism-guard: simulation closure admits only the exact neutral aut
       "content remains outside the simulation graph closure",
     );
   } finally {
+    rmSync(forgedAuthorityImporter, { force: true });
+    rmSync(nondeterministicImporter, { force: true });
+    rmSync(transitiveHostileImporter, { force: true });
     rmSync(hostileImporter, { force: true });
+    rmSync(forgedAuthority, { force: true });
     rmSync(hostileSibling, { force: true });
   }
 });

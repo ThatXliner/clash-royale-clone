@@ -56,6 +56,10 @@ const SIMULATION_PROJECTILE_DELIVERY_MODULE = resolve(
   REPOSITORY_SOURCE_ROOT,
   "shared/ordinary-projectile-delivery-authority.js",
 );
+const SIMULATION_SOURCE_CONFIDENCE_MODULE = resolve(
+  REPOSITORY_SOURCE_ROOT,
+  "shared/session-troop-source-confidence-authority.js",
+);
 let parser;
 
 function loadPlatformParser() {
@@ -837,7 +841,7 @@ function graphAllowedPaths(root) {
     // deterministic authorities. Do not admit the rest of src/shared: an
     // import escape must remain outside the simulation closure.
     return { directories: [root], files: [SIMULATION_NEUTRAL_MODULE,
-      SIMULATION_PROJECTILE_DELIVERY_MODULE] };
+      SIMULATION_PROJECTILE_DELIVERY_MODULE, SIMULATION_SOURCE_CONFIDENCE_MODULE] };
   }
   return { directories: [root], files: [] };
 }

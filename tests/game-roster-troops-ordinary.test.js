@@ -96,7 +96,9 @@ function questionReferences(roster) {
     entity.deliveryPolicy,
     entity.layerPolicy,
     entity.damagePolicy,
-  ].filter((policy) => policy?.kind === "question").map(({ questionKey }) => questionKey)));
+  ].filter((policy) => policy?.kind === "question").map(({ questionKey }) => questionKey)
+    .concat((entity.sourceConfidencePolicy?.fields ?? [])
+      .map(({ questionKey }) => questionKey))));
 }
 
 function questionMap(questions) {
@@ -244,8 +246,13 @@ test("every projection is complete, source-agreeing, ordinary-only, and componen
     for (let index = 0; index < projected.entities.length; index += 1) {
       const entity = projected.entities[index];
       const sourceEntity = entitySource(source, index);
+      const hasSourceConfidencePolicy = ["coppershade-flock", "gloamwing-cluster"]
+        .includes(profile.id);
+      assert.equal(Object.hasOwn(entity, "sourceConfidencePolicy"), hasSourceConfidencePolicy,
+        `${profile.id} source confidence metadata boundary`);
       const allowedKeys = [...ENTITY_KEYS, ...ORDINARY_POLICY_KEYS,
-        ...(sourceEntity.damage === null ? ["damagePolicy"] : [])];
+        ...(sourceEntity.damage === null ? ["damagePolicy"] : []),
+        ...(hasSourceConfidencePolicy ? ["sourceConfidencePolicy"] : [])];
       assert.deepEqual(Object.keys(entity).sort(), [...allowedKeys].sort(),
         `${profile.id} ordinary entity shape`);
       for (const field of ENTITY_KEYS) {

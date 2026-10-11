@@ -44,6 +44,9 @@ import {
   assertOrdinaryProjectileDeliveryPolicy,
 } from "../shared/ordinary-projectile-delivery-authority.js";
 import {
+  assertSessionTroopSourceConfidenceQuestions,
+} from "../shared/session-troop-source-confidence-authority.js";
+import {
   createSpellIntentRuntime,
   getUnprofiledAdmittedEffectProfileQuestion,
   parseSpellIntentProfileReceipts,
@@ -5686,10 +5689,7 @@ const ENTITY_KEYS = [
 ];
 const ENTITY_ORDINARY_POLICY_KEYS = ["deliveryPolicy", "layerPolicy"];
 const ENTITY_DAMAGE_POLICY_KEYS = ["damagePolicy"];
-const ENTITY_ORDINARY_KEYS = [...ENTITY_KEYS, ...ENTITY_ORDINARY_POLICY_KEYS];
-const ENTITY_ORDINARY_DAMAGE_KEYS = [
-  ...ENTITY_ORDINARY_KEYS, ...ENTITY_DAMAGE_POLICY_KEYS,
-];
+const ENTITY_SOURCE_CONFIDENCE_KEYS = ["sourceConfidencePolicy"];
 const QUESTION_KEYS = [
   "authoritative", "confidence", "disposition", "key", "source", "value",
 ];
@@ -5969,11 +5969,28 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
             (Object.hasOwn(raw, "deliveryPolicy") || Object.hasOwn(raw, "layerPolicy"));
           const hasDamagePolicy = raw !== null && typeof raw === "object" &&
             !Array.isArray(raw) && Object.hasOwn(raw, "damagePolicy");
-          const entity = exact(raw, hasOrdinaryPolicies
-            ? (hasDamagePolicy ? ENTITY_ORDINARY_DAMAGE_KEYS : ENTITY_ORDINARY_KEYS)
-            : ENTITY_KEYS, label);
+          const hasSourceConfidencePolicy = raw !== null && typeof raw === "object" &&
+            !Array.isArray(raw) && Object.hasOwn(raw, "sourceConfidencePolicy");
+          const entityKeys = [
+            ...ENTITY_KEYS,
+            ...(hasOrdinaryPolicies ? ENTITY_ORDINARY_POLICY_KEYS : []),
+            ...(hasDamagePolicy ? ENTITY_DAMAGE_POLICY_KEYS : []),
+            ...(hasSourceConfidencePolicy ? ENTITY_SOURCE_CONFIDENCE_KEYS : []),
+          ];
+          const entity = exact(raw, entityKeys, label);
           const archetypeId = identity(entity.archetypeId, entity.displayName,
             `${label}.archetypeId`);
+          const sourceConfidencePolicy = assertSessionTroopSourceConfidenceQuestions({
+            present: hasSourceConfidencePolicy,
+            value: entity.sourceConfidencePolicy,
+            cardId,
+            archetypeId,
+            entity,
+            questionKeys,
+            questionValues,
+            referencedQuestionKeys,
+            label,
+          });
           const bodyRadiusPolicy = checkedPolicy(entity.bodyRadiusPolicy, `${label}.bodyRadiusPolicy`);
           const projectileSpeedPolicy = checkedPolicy(
             entity.projectileSpeedPolicy, `${label}.projectileSpeedPolicy`, { projectile: true },
@@ -6087,6 +6104,9 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
             normalizedEntity.layerPolicy = layerPolicy;
           }
           if (hasDamagePolicy) normalizedEntity.damagePolicy = damagePolicy;
+          if (sourceConfidencePolicy !== null) {
+            normalizedEntity.sourceConfidencePolicy = sourceConfidencePolicy;
+          }
           return normalizedEntity;
         });
       if ((cardKind === "unit") !== (entities.length > 0)) {

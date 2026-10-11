@@ -10,6 +10,7 @@ import {
 import { PLAYABLE_CARD_IDS } from "../src/content/playable-roster.js";
 import { DeckCycle } from "../src/sim/deck.js";
 import { GameSession } from "../src/sim/game-session.js";
+import { parseLiveBattleSetup } from "../src/sim/battle-continuation-kernel.js";
 import { RLEnvironment } from "../src/rl/environment.js";
 
 const SOUTH = Object.freeze({ x: 3_500, y: 14_500 });
@@ -93,10 +94,15 @@ function witnessSetup(deck, legalCards, seed, {
     assert.ok(card, `canonical witness includes ${id}`);
     return clone(card);
   });
-  const questionKeys = [...new Set(roster.flatMap(({ entities }) => entities.flatMap((entity) =>
-    ["bodyRadiusPolicy", "deliveryPolicy", "layerPolicy", "projectileSpeedPolicy", "damagePolicy"]
+  const questionKeys = [...new Set(roster.flatMap(({ entities }) => entities.flatMap((entity) => {
+    const policyKeys = ["bodyRadiusPolicy", "deliveryPolicy", "layerPolicy",
+      "projectileSpeedPolicy", "damagePolicy"]
       .filter((field) => entity[field]?.kind === "question")
-      .map((field) => entity[field].questionKey))))].sort();
+      .map((field) => entity[field].questionKey);
+    const confidenceKeys = (entity.sourceConfidencePolicy?.fields ?? [])
+      .map(({ questionKey }) => questionKey);
+    return [...policyKeys, ...confidenceKeys];
+  })))].sort();
   const selectedQuestions = questionKeys.map((key) => {
     const question = questions.get(key);
     assert.ok(question, `witness closure includes ${key}`);
@@ -120,6 +126,15 @@ function witnessSetup(deck, legalCards, seed, {
     thinkIntervalTicks,
     thinkOffsetTicks: 0,
   });
+}
+
+function mutateWitnessSetup(cardId, mutate) {
+  const deck = deckFor([cardId]);
+  const seed = seedFor(deck, { southCard: cardId, northHandCards: [cardId] });
+  const wrapper = JSON.parse(witnessSetup(deck, [cardId], seed));
+  const battleSetup = JSON.parse(wrapper.battleSetup);
+  mutate(battleSetup);
+  return canonical(battleSetup);
 }
 
 function seedFor(deck, { southCard, northHandCards = [] }) {
@@ -172,6 +187,119 @@ test("original air swarm records preserve pinned tournament stats and explicit e
       `${expected.cardId} runtime delivery classification`);
     assert.equal(card.entities[0].layer, "air",
       `${expected.cardId} air layer remains a runtime estimate`);
+  }
+});
+
+test("air swarm witnesses close source QUESTIONS over every unverified runtime field", () => {
+  const expectedFields = [
+    ["count", "count", "positive-integer"],
+    ["damage", "damage", "positive-integer"],
+    ["deployTimeTicks", "deploy-time-ticks", "positive-integer"],
+    ["firstHitTicks", "first-hit-ticks", "positive-integer"],
+    ["hitSpeedTicks", "hit-speed-ticks", "positive-integer"],
+    ["hitpoints", "hitpoints", "positive-integer"],
+    ["movementMillitilesPerSecond", "movement-millitiles-per-second", "positive-integer"],
+    ["rangeMillitiles", "range-millitiles", "positive-integer"],
+    ["sightRangeMillitiles", "sight-range-millitiles", "positive-integer"],
+    ["targetMode", "target-mode", "target-mode-code"],
+  ];
+  for (const expected of SOURCE_FACTS) {
+    const witness = createSessionTroopWitness(expected.cardId);
+    const card = witness.roster.find(({ id }) => id === expected.cardId);
+    const entity = card.entities[0];
+    const policy = entity.sourceConfidencePolicy;
+    assert.ok(policy, `${expected.cardId} has a source-confidence policy`);
+    assert.deepEqual(policy.fields.map(({ field, questionKey, valueEncoding }) =>
+      [field, questionKey.slice(expected.archetypeId.length + 1), valueEncoding]),
+    expectedFields.map(([field, suffix, encoding]) => [field, suffix, encoding]));
+
+    const questions = new Map(witness.questions.map((question) => [question.key, question]));
+    for (const field of policy.fields) {
+      const question = questions.get(field.questionKey);
+      assert.ok(question, `${expected.cardId} witness closes ${field.questionKey}`);
+      assert.equal(question.authoritative, false);
+      assert.equal(question.confidence, "unverified");
+      assert.equal(question.disposition, "question");
+      const encoded = field.valueEncoding === "target-mode-code"
+        ? { buildings: 1, ground: 2, "ground-and-air": 3, structures: 4 }[entity[field.field]]
+        : entity[field.field];
+      assert.equal(question.value, encoded, `${field.questionKey} records the runtime estimate`);
+    }
+    assert.equal(policy.fields.some(({ field }) =>
+      ["cost", "kind", "rarity"].includes(field)), false,
+    "identity, cost, kind, and rarity stay on their source-backed admission path");
+    if (expected.cardId === COPPERSHADE) {
+      assert.equal(entity.deliveryPolicy.kind, "source-backed",
+        "projectile delivery stays bound to its sourced distinction");
+    }
+
+    const deck = deckFor([expected.cardId]);
+    const seed = seedFor(deck, { southCard: expected.cardId,
+      northHandCards: [expected.cardId] });
+    const session = new GameSession(witnessSetup(deck, [expected.cardId], seed));
+    const snapshot = session.serialize();
+    const snapshotSetup = JSON.parse(JSON.parse(snapshot).setup.battleSetup);
+    const snapshotEntity = snapshotSetup.roster.find(({ id }) => id === expected.cardId)
+      .entities[0];
+    assert.deepEqual(snapshotEntity.sourceConfidencePolicy, policy,
+      `${expected.cardId} confidence metadata survives into the typed snapshot`);
+    const snapshotQuestionKeys = snapshotSetup.questions.map(({ key }) => key);
+    assert.ok(policy.fields.every(({ questionKey }) => snapshotQuestionKeys.includes(questionKey)),
+      `${expected.cardId} snapshot preserves the complete confidence QUESTION closure`);
+    assert.equal(GameSession.restore(snapshot).serialize(), snapshot,
+      `${expected.cardId} confidence metadata restores byte-for-byte`);
+  }
+});
+
+test("typed swarm confidence policy rejects missing, forged, dangling, and wrong-value QUESTIONS", () => {
+  for (const expected of SOURCE_FACTS) {
+    const missingPolicy = mutateWitnessSetup(expected.cardId, ({ roster }) => {
+      delete roster.find(({ id }) => id === expected.cardId).entities[0].sourceConfidencePolicy;
+    });
+    assert.throws(() => parseLiveBattleSetup(missingPolicy), /source confidence policy is missing/u,
+      `${expected.cardId} cannot omit its confidence policy`);
+
+    const forgedConfidence = mutateWitnessSetup(expected.cardId, ({ questions }) => {
+      const question = questions.find(({ key }) => key === `${expected.archetypeId}.hitpoints`);
+      question.confidence = "high";
+    });
+    assert.throws(() => parseLiveBattleSetup(forgedConfidence), /unverified provenance/u,
+      `${expected.cardId} cannot upgrade an unverified QUESTION`);
+
+    const forgedField = mutateWitnessSetup(expected.cardId, ({ roster }) => {
+      const fields = roster.find(({ id }) => id === expected.cardId)
+        .entities[0].sourceConfidencePolicy.fields;
+      fields[0].field = "displayName";
+    });
+    assert.throws(() => parseLiveBattleSetup(forgedField), /field inventory diverges/u,
+      `${expected.cardId} cannot substitute a different field`);
+
+    const missingQuestion = mutateWitnessSetup(expected.cardId, ({ questions }) => {
+      const index = questions.findIndex(({ key }) => key === `${expected.archetypeId}.hitpoints`);
+      questions.splice(index, 1);
+    });
+    assert.throws(() => parseLiveBattleSetup(missingQuestion), /lacks a QUESTION record/u,
+      `${expected.cardId} cannot omit a field QUESTION`);
+
+    const danglingQuestion = mutateWitnessSetup(expected.cardId, ({ questions }) => {
+      questions.push({
+        authoritative: false,
+        confidence: "unverified",
+        disposition: "question",
+        key: `${expected.archetypeId}.unsupported-confidence-field`,
+        source: "runtime-playability-estimate-not-comparison-corpus",
+        value: 1,
+      });
+    });
+    assert.throws(() => parseLiveBattleSetup(danglingQuestion), /canonical exact referenced inventory/u,
+      `${expected.cardId} rejects dangling confidence QUESTIONS`);
+
+    const wrongValue = mutateWitnessSetup(expected.cardId, ({ questions }) => {
+      const question = questions.find(({ key }) => key === `${expected.archetypeId}.hitpoints`);
+      question.value += 1;
+    });
+    assert.throws(() => parseLiveBattleSetup(wrongValue), /QUESTION diverges from its estimate/u,
+      `${expected.cardId} confidence QUESTIONS must equal the runtime estimate`);
   }
 });
 

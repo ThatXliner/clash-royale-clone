@@ -1,0 +1,52 @@
+{
+  "default8": {
+    "baselineCommit": "6dcf64b81751f69f9fe7520878ac136bda9143ed",
+    "baselineArtifact": "default8-baseline-6dc.json",
+    "candidateArtifact": "default8-candidate-working-tree.json",
+    "runner": "default8-snapshot-runner.mjs",
+    "seeds": [0, 23],
+    "ticks": [0, 120, 900],
+    "snapshotCount": 6,
+    "byteLengthsAndSha256ExactlyMatch": true,
+    "baselineAndCandidateJsonSha256": "cb08277710370c0ba436de3112c41b16888af1c40ee515b60ceba38d792ca4fb"
+  },
+  "tests": [
+    {
+      "command": "node --test tests/game-roster-troops-air-swarms.test.js tests/game-roster-troops-ordinary.test.js",
+      "passed": 24,
+      "failed": 0
+    },
+    {
+      "command": "node --test tests/game-roster-troops-air-swarms.test.js tests/game-roster-troop-profiles.test.js tests/game-roster-admission.test.js tests/game-session.test.js tests/game-roster-troops-ordinary.test.js tests/game-roster-troops-projectile.test.js",
+      "passed": 57,
+      "failed": 0
+    },
+    {
+      "command": "node --test tests/cards-swarms.test.js tests/game-roster-troops-projectile-profiles.test.js",
+      "passed": 40,
+      "failed": 0
+    },
+    {
+      "command": "node --test tests/nondeterminism-guard.test.js",
+      "passed": 10,
+      "failed": 0
+    },
+    {
+      "command": "npm test -- nondeterminism-guard shipping-isolation-guard",
+      "passed": 23,
+      "failed": 0,
+      "shippingPackageTargets": "4/4",
+      "shippingReferenceAdversaries": "12/12",
+      "shippingIdentityAdversaries": "11/11"
+    }
+  ],
+  "sourceBounds": {
+    "kernelBytes": 523922,
+    "maximumBytes": 524288
+  },
+  "workingTreeDiffCheck": "passed",
+  "initialFailures": [
+    "initial-broad-failures.json",
+    "initial-guard-failures.json"
+  ]
+}

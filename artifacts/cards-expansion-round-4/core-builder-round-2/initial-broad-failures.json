@@ -1,0 +1,20 @@
+{
+  "command": "node --test tests/game-roster-troops-air-swarms.test.js tests/game-roster-troop-profiles.test.js tests/game-roster-admission.test.js tests/game-session.test.js tests/game-roster-troops-ordinary.test.js tests/game-roster-troops-projectile.test.js",
+  "outcome": "failed before ordinary-roster confidence closure assertions were updated",
+  "failures": [
+    {
+      "test": "every projection is complete, source-agreeing, ordinary-only, and component-stable",
+      "cardId": "coppershade-flock",
+      "assertion": "ordinary entity shape",
+      "actualExtraKey": "sourceConfidencePolicy"
+    },
+    {
+      "test": "every witness closes its exact questions, cards, and archetypes through LiveBattle admission",
+      "cardId": "coppershade-flock",
+      "assertion": "no unused question records",
+      "actualQuestionCount": 41,
+      "expectedByOldFixture": 31
+    }
+  ],
+  "resolution": "The exact shape fixture now permits sourceConfidencePolicy only for the two confidence-admitted swarm profiles, and questionReferences closes over each policy field QUESTION."
+}

@@ -32,6 +32,10 @@ import { createSessionTroopProfileManifest } from "./session-troop-profile-catal
 import { assertSafeCardCatalogGraph } from "./schema.js";
 import { assertAuthoritativeProjectileSourceCatalogs } from "./session-troop-projectile-source-admission.js";
 import { getOrdinaryProjectileDeliveryPolicy } from "../shared/ordinary-projectile-delivery-authority.js";
+import {
+  encodeSessionTroopSourceConfidenceValue,
+  getSessionTroopSourceConfidencePolicy,
+} from "../shared/session-troop-source-confidence-authority.js";
 
 const QUESTION_SOURCE = "runtime-playability-estimate-not-comparison-corpus";
 const DELIVERY_VALUES = Object.freeze({ melee: 1, projectile: 2 });
@@ -358,6 +362,8 @@ function projectOrdinaryEntity(card, component) {
       questionPolicy(`${archetypeId}.delivery`),
     layerPolicy: questionPolicy(`${archetypeId}.layer`),
   };
+  const sourceConfidencePolicy = getSessionTroopSourceConfidencePolicy(card.id, archetypeId);
+  if (sourceConfidencePolicy !== null) entity.sourceConfidencePolicy = sourceConfidencePolicy;
   if (source.damage === null) {
     entity.damagePolicy = questionPolicy(`${archetypeId}.damage`);
   }
@@ -423,7 +429,9 @@ function policyQuestionKeys(card) {
     entity.deliveryPolicy,
     entity.layerPolicy,
     entity.damagePolicy,
-  ].filter((policy) => policy?.kind === "question").map(({ questionKey }) => questionKey));
+  ].filter((policy) => policy?.kind === "question").map(({ questionKey }) => questionKey)
+    .concat((entity.sourceConfidencePolicy?.fields ?? [])
+      .map(({ questionKey }) => questionKey)));
 }
 
 function questionRecordFor(key, card) {
@@ -435,8 +443,16 @@ function questionRecordFor(key, card) {
     candidate.deliveryPolicy,
     candidate.layerPolicy,
     candidate.damagePolicy,
-  ].some((policy) => policy?.questionKey === key));
+  ].some((policy) => policy?.questionKey === key) ||
+    candidate.sourceConfidencePolicy?.fields.some(({ questionKey }) => questionKey === key));
   if (entity === undefined) throw new Error(`session troop question ${key} is not referenced`);
+  const confidenceField = entity.sourceConfidencePolicy?.fields.find((field) =>
+    field.questionKey === key);
+  if (confidenceField !== undefined) {
+    return estimateQuestion(key, encodeSessionTroopSourceConfidenceValue(
+      confidenceField.valueEncoding, entity[confidenceField.field],
+    ));
+  }
   if (key.endsWith(".body-radius-millitiles")) {
     return estimateQuestion(key, estimateBodyRadius(entity));
   }

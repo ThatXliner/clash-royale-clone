@@ -1,0 +1,20 @@
+{
+  "command": "npm test -- nondeterminism-guard shipping-isolation-guard",
+  "initialFailures": [
+    {
+      "guard": "nondeterminism-guard",
+      "code": "SOURCE_SIZE_LIMIT",
+      "source": "src/sim/battle-continuation-kernel.js",
+      "actualBytes": 524888,
+      "maximumBytes": 524288,
+      "resolution": "Moved confidence field QUESTION binding into the dependency-neutral confidence authority; kernel is now 523922 bytes."
+    },
+    {
+      "guard": "nondeterminism-guard",
+      "code": "GRAPH_ROOT_ESCAPE",
+      "source": "src/shared/session-troop-source-confidence-authority.js",
+      "resolution": "Added only this exact authority path to the simulation graph allowlist and added direct-closure, transitive-import, randomness, and forged-sibling rejection fixtures."
+    }
+  ],
+  "note": "These are the actual pre-resolution guard failures. The final focused guard suite passed 10/10; the combined guard rerun is recorded separately."
+}
