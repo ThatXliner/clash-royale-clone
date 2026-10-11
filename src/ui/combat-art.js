@@ -10,7 +10,7 @@ const SHALE = '#65716F';
 const BRIAR_PAINTED_ATLAS = Object.freeze({
   cellSize: 313.5,
   height: 1254,
-  image: './assets/briar-runner-painted-sheet.png',
+  image: new URL("../../public/assets/briar-runner-painted-sheet.png", import.meta.url).href,
   windowSize: 220,
   windowX: 46.75,
   windowYByDirection: Object.freeze({ north: 72, east: 62, south: 47, west: 14 }),

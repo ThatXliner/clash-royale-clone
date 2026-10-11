@@ -132,7 +132,8 @@ test("painted Briar artwork carries a persistent bordered team-color footring", 
     assert.equal(footring.getAttribute("width"), "200");
     assert.equal(footring.getAttribute("height"), "44");
     assert.equal(atlas.name, "image");
-    assert.equal(atlas.getAttribute("href"), "./assets/briar-runner-painted-sheet.png");
+    assert.equal(atlas.getAttribute("href"),
+      new URL("../public/assets/briar-runner-painted-sheet.png", import.meta.url).href);
     assert.equal(art.childNodes.at(-1), footring,
       "the bordered team color remains in front of the unchanged painted atlas");
   }

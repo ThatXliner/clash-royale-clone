@@ -472,7 +472,8 @@ test("painted sprite atlas renders at real playfield scale in both teams, viewpo
       assert.ok(Math.abs(marker.height - live.arena.sourceWidth * 0.048) < 0.02);
       assert.ok(Math.abs(marker.displayedWidth - live.arena.displayedContentWidth * 0.048) < 0.02);
       assert.ok(Math.abs(marker.displayedHeight - live.arena.displayedContentWidth * 0.048) < 0.02);
-      assert.equal(marker.asset, './assets/briar-runner-painted-sheet.png');
+      assert.equal(new URL(marker.asset, child.url()).pathname.endsWith(
+        "/public/assets/briar-runner-painted-sheet.png"), true);
       assert.equal(marker.teamColorSide, marker.side);
       assert.equal(marker.teamColor, marker.side === "north" ? "#C6452E" : "#2E7F86");
       assert.equal(marker.teamColorFrontmost, true,
