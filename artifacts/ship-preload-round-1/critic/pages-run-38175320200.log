@@ -1,0 +1,236 @@
+build	Verify the release artifact builder	﻿2026-10-11T21:12:33.6519696Z ##[group]Run npm run test:release-build
+build	Verify the release artifact builder	2026-10-11T21:12:33.6520573Z ^[[36;1mnpm run test:release-build^[[0m
+build	Verify the release artifact builder	2026-10-11T21:12:33.6596202Z shell: /usr/bin/bash -e {0}
+build	Verify the release artifact builder	2026-10-11T21:12:33.6596485Z ##[endgroup]
+build	Verify the release artifact builder	2026-10-11T21:12:33.7648864Z 
+build	Verify the release artifact builder	2026-10-11T21:12:33.7649389Z > moss-and-ember@0.0.0 test:release-build
+build	Verify the release artifact builder	2026-10-11T21:12:33.7650404Z > node tests/release-build-runner.js release-build
+build	Verify the release artifact builder	2026-10-11T21:12:33.7650822Z 
+build	Verify the release artifact builder	2026-10-11T21:12:33.8376252Z TAP version 13
+build	Verify the release artifact builder	2026-10-11T21:13:23.3595629Z # {"method":"GET","path":"public/index.html","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.3773670Z # {"method":"GET","path":"src/ui/app-shell.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.3846625Z # {"method":"GET","path":"assets/rolldown-runtime-Cl99QfTQ.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.3848349Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell-D-709RTF.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.3856290Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CNVraBnB.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.3868898Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-iYK_h2t5.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.3872602Z # {"method":"GET","path":"assets/game-runtime~public/index-D-AK-JuF.css","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.3874813Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DsV2EdxU.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.3899619Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-Dg7OQaec.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.3916100Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BdnZSF_b.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.3968295Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-B5ZBDHRW.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.3970181Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-bvb6I3I3.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.3971745Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BRVjNZH4.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.3973677Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-C79RlObc.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.3995426Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-qWhy9Aq-.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.4007337Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-APzdr7Qb.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.4027523Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-eqmJOawo.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.4048068Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-C_K8qhj4.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.4069063Z # {"method":"GET","path":"assets/game-runtime~public/index-C_yxAe_L.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.5761936Z # {"method":"GET","path":"public/assets/card-portraits-painted.webp","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.5788246Z # {"method":"GET","path":"public/assets/stonehauler-painted.webp","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.5790733Z # {"method":"GET","path":"public/assets/thornscouts-painted.webp","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.5795357Z # {"method":"GET","path":"public/assets/forgeguard-painted.webp","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.5797131Z # {"method":"GET","path":"public/assets/ironroot-painted.webp","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.5798249Z # {"method":"GET","path":"public/assets/cinder-host-painted.webp","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.5902662Z # {"method":"GET","path":"public/assets/sunthread-pair-painted.webp","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.5938498Z # {"method":"GET","path":"public/assets/duskwing-trio-painted.webp","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.5962402Z # {"method":"GET","path":"public/assets/squall-orb-painted.webp","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.6794928Z # {"method":"GET","path":"public/ui-arena-shell.html","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.7070289Z # {"method":"GET","path":"src/ui/arena-shell-bootstrap.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.7073729Z # {"method":"GET","path":"assets/rolldown-runtime-Cl99QfTQ.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.7102449Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell-D-709RTF.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.7105585Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CNVraBnB.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.7144010Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-iYK_h2t5.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.7169041Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DsV2EdxU.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.7271778Z # {"method":"GET","path":"assets/ui-arena-shell-er5XVwGC.css","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.7310583Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-Dg7OQaec.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.7312904Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BdnZSF_b.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.7315101Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-B5ZBDHRW.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.7352716Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BRVjNZH4.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.7377103Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-bvb6I3I3.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.7388260Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-C79RlObc.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.7412997Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-APzdr7Qb.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.7453142Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-qWhy9Aq-.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.7475377Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-eqmJOawo.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.7556186Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-C_K8qhj4.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.7558957Z # {"method":"GET","path":"assets/game-runtime~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-B_97dTST.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.7561355Z # {"method":"GET","path":"assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-8QEzJsye.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.7563322Z # {"method":"GET","path":"assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-emQudoW3.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:23.9381498Z # {"method":"GET","path":"public/assets/moss-ember-arena-painted.webp","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:24.1138194Z # {"method":"GET","path":"src/ui/arena-shell-entry.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:24.1507207Z # {"method":"GET","path":"src/rl/environment.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:24.1660592Z # {"method":"GET","path":"assets/game-runtime~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-B_97dTST.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:24.3465059Z # Subtest: RELEASE-001B emits a deterministic bounded graph and serves the exact game and RL module
+build	Verify the release artifact builder	2026-10-11T21:13:24.3472942Z ok 1 - RELEASE-001B emits a deterministic bounded graph and serves the exact game and RL module
+build	Verify the release artifact builder	2026-10-11T21:13:24.3473908Z   ---
+build	Verify the release artifact builder	2026-10-11T21:13:24.3474284Z   duration_ms: 50332.179915
+build	Verify the release artifact builder	2026-10-11T21:13:24.3474622Z   type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:13:24.3474918Z   ...
+build	Verify the release artifact builder	2026-10-11T21:13:25.3259757Z # Subtest: Chromium manifest audit covers legacy HTML, CSS, SVG and opaque-frame dependency forms
+build	Verify the release artifact builder	2026-10-11T21:13:25.3261659Z not ok 2 - Chromium manifest audit covers legacy HTML, CSS, SVG and opaque-frame dependency forms
+build	Verify the release artifact builder	2026-10-11T21:13:25.3262516Z   ---
+build	Verify the release artifact builder	2026-10-11T21:13:25.3262926Z   duration_ms: 978.706806
+build	Verify the release artifact builder	2026-10-11T21:13:25.3263215Z   type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:13:25.3263729Z   location: '/home/runner/work/clash-royale-clone/clash-royale-clone/tests/release-001b.test.js:268:1'
+build	Verify the release artifact builder	2026-10-11T21:13:25.3264286Z   failureType: 'testCodeFailure'
+build	Verify the release artifact builder	2026-10-11T21:13:25.3264885Z   error: 'browser requested an unmanifested release path assets/public/assets/css-url.svg (manifest: false, HTTP 404)'
+build	Verify the release artifact builder	2026-10-11T21:13:25.3265434Z   code: 'ERR_TEST_FAILURE'
+build	Verify the release artifact builder	2026-10-11T21:13:25.3265689Z   stack: |-
+build	Verify the release artifact builder	2026-10-11T21:13:25.3266299Z     requestSummary (file:///home/runner/work/clash-royale-clone/clash-royale-clone/scripts/release-browser-qualification.js:448:15)
+build	Verify the release artifact builder	2026-10-11T21:13:25.3267355Z     qualifyBrowserArtifact (file:///home/runner/work/clash-royale-clone/clash-royale-clone/scripts/release-browser-qualification.js:589:22)
+build	Verify the release artifact builder	2026-10-11T21:13:25.3268342Z     async buildRelease (file:///home/runner/work/clash-royale-clone/clash-royale-clone/scripts/build-release.js:785:30)
+build	Verify the release artifact builder	2026-10-11T21:13:25.3269303Z     async TestContext.<anonymous> (file:///home/runner/work/clash-royale-clone/clash-royale-clone/tests/release-001b.test.js:370:17)
+build	Verify the release artifact builder	2026-10-11T21:13:25.3270306Z     async Test.run (node:internal/test_runner/test:1054:7)
+build	Verify the release artifact builder	2026-10-11T21:13:25.3270829Z     async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+build	Verify the release artifact builder	2026-10-11T21:13:25.3271237Z   ...
+build	Verify the release artifact builder	2026-10-11T21:13:25.3428011Z # ^[[31m✗^[[39m Build failed in 11ms
+build	Verify the release artifact builder	2026-10-11T21:13:25.3629207Z # ^[[31m✗^[[39m Build failed in 8ms
+build	Verify the release artifact builder	2026-10-11T21:13:25.3768325Z # ^[[31m✗^[[39m Build failed in 8ms
+build	Verify the release artifact builder	2026-10-11T21:13:25.3906594Z # ^[[31m✗^[[39m Build failed in 8ms
+build	Verify the release artifact builder	2026-10-11T21:13:25.4041670Z # ^[[31m✗^[[39m Build failed in 7ms
+build	Verify the release artifact builder	2026-10-11T21:13:25.4162161Z # ^[[31m✗^[[39m Build failed in 6ms
+build	Verify the release artifact builder	2026-10-11T21:13:25.4301248Z # ^[[31m✗^[[39m Build failed in 9ms
+build	Verify the release artifact builder	2026-10-11T21:13:25.4410461Z # ^[[31m✗^[[39m Build failed in 6ms
+build	Verify the release artifact builder	2026-10-11T21:13:25.4533169Z # ^[[31m✗^[[39m Build failed in 7ms
+build	Verify the release artifact builder	2026-10-11T21:13:25.4635666Z # ^[[31m✗^[[39m Build failed in 6ms
+build	Verify the release artifact builder	2026-10-11T21:13:25.4730478Z # Subtest: authored modules cannot impersonate Vite's virtual preload helper
+build	Verify the release artifact builder	2026-10-11T21:13:25.4732369Z ok 3 - authored modules cannot impersonate Vite's virtual preload helper
+build	Verify the release artifact builder	2026-10-11T21:13:25.4733372Z   ---
+build	Verify the release artifact builder	2026-10-11T21:13:25.4733822Z   duration_ms: 148.541983
+build	Verify the release artifact builder	2026-10-11T21:13:25.4734436Z   type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:13:25.4734973Z   ...
+build	Verify the release artifact builder	2026-10-11T21:13:26.6092751Z # {"method":"GET","path":"public/index.html","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:26.6260875Z # {"method":"GET","path":"assets/public/index-uGZqxUW0.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:26.6274288Z # {"method":"GET","path":"assets/rolldown-runtime-D66RWv4z.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:26.6275348Z # {"method":"GET","path":"assets/game-runtime~public/index-BX-2bymG.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:26.6365016Z # {"method":"GET","path":"assets/literal-module-Dk6NURIG.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:26.6366729Z # {"method":"GET","path":"assets/game-runtime~literal-module-h4Nn8GXC.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:26.6417758Z # {"method":"GET","path":"assets/template-module-CWGPxhkV.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:26.6419770Z # {"method":"GET","path":"assets/game-runtime~template-module-CdfxhhT9.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:13:27.2254838Z # Subtest: Vite preload helpers remain available for authored inline dynamic imports
+build	Verify the release artifact builder	2026-10-11T21:13:27.2257342Z ok 4 - Vite preload helpers remain available for authored inline dynamic imports
+build	Verify the release artifact builder	2026-10-11T21:13:27.2258182Z   ---
+build	Verify the release artifact builder	2026-10-11T21:13:27.2258527Z   duration_ms: 1752.190697
+build	Verify the release artifact builder	2026-10-11T21:13:27.2258793Z   type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:13:27.2259178Z   ...
+build	Verify the release artifact builder	2026-10-11T21:13:28.9341083Z # Subtest: CSS-escaped URL dependencies are rejected before publishing
+build	Verify the release artifact builder	2026-10-11T21:13:28.9342150Z ok 5 - CSS-escaped URL dependencies are rejected before publishing
+build	Verify the release artifact builder	2026-10-11T21:13:28.9342830Z   ---
+build	Verify the release artifact builder	2026-10-11T21:13:28.9343214Z   duration_ms: 1708.779645
+build	Verify the release artifact builder	2026-10-11T21:13:30.6543091Z   type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:13:30.6543568Z   ...
+build	Verify the release artifact builder	2026-10-11T21:13:30.6544117Z # Subtest: opaque runtime srcdoc requests outside the built manifest are rejected
+build	Verify the release artifact builder	2026-10-11T21:13:30.6544809Z ok 6 - opaque runtime srcdoc requests outside the built manifest are rejected
+build	Verify the release artifact builder	2026-10-11T21:13:30.6545201Z   ---
+build	Verify the release artifact builder	2026-10-11T21:13:30.6545417Z   duration_ms: 1719.923311
+build	Verify the release artifact builder	2026-10-11T21:13:30.6545657Z   type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:13:30.6545862Z   ...
+build	Verify the release artifact builder	2026-10-11T21:13:32.3495213Z # Subtest: external base dependencies are rejected before publishing
+build	Verify the release artifact builder	2026-10-11T21:13:32.3496698Z ok 7 - external base dependencies are rejected before publishing
+build	Verify the release artifact builder	2026-10-11T21:13:32.3497403Z   ---
+build	Verify the release artifact builder	2026-10-11T21:13:32.3497918Z   duration_ms: 1695.228551
+build	Verify the release artifact builder	2026-10-11T21:13:32.3498337Z   type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:13:32.3498656Z   ...
+build	Verify the release artifact builder	2026-10-11T21:13:32.3560431Z # Subtest: escaped workspace entry paths fail before publication and preserve the prior output
+build	Verify the release artifact builder	2026-10-11T21:13:32.3561888Z ok 8 - escaped workspace entry paths fail before publication and preserve the prior output
+build	Verify the release artifact builder	2026-10-11T21:13:32.3562389Z   ---
+build	Verify the release artifact builder	2026-10-11T21:13:32.3562598Z   duration_ms: 6.535354
+build	Verify the release artifact builder	2026-10-11T21:13:32.3562861Z   type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:13:32.3563053Z   ...
+build	Verify the release artifact builder	2026-10-11T21:13:32.3848951Z # Subtest: internal and external symlink inputs are refused atomically
+build	Verify the release artifact builder	2026-10-11T21:13:32.3850365Z     # Subtest: internal target
+build	Verify the release artifact builder	2026-10-11T21:13:32.3851338Z     ok 1 - internal target
+build	Verify the release artifact builder	2026-10-11T21:13:32.3852387Z       ---
+build	Verify the release artifact builder	2026-10-11T21:13:32.3852780Z       duration_ms: 28.351977
+build	Verify the release artifact builder	2026-10-11T21:13:32.3853237Z       type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:13:32.3853622Z       ...
+build	Verify the release artifact builder	2026-10-11T21:13:32.4062055Z     # Subtest: external target
+build	Verify the release artifact builder	2026-10-11T21:13:32.4063103Z     ok 2 - external target
+build	Verify the release artifact builder	2026-10-11T21:13:32.4063820Z       ---
+build	Verify the release artifact builder	2026-10-11T21:13:32.4064198Z       duration_ms: 21.021235
+build	Verify the release artifact builder	2026-10-11T21:13:32.4064559Z       type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:13:32.4064927Z       ...
+build	Verify the release artifact builder	2026-10-11T21:13:32.4065308Z     1..2
+build	Verify the release artifact builder	2026-10-11T21:13:32.4068177Z ok 9 - internal and external symlink inputs are refused atomically
+build	Verify the release artifact builder	2026-10-11T21:13:32.4069066Z   ---
+build	Verify the release artifact builder	2026-10-11T21:13:32.4069447Z   duration_ms: 50.17199
+build	Verify the release artifact builder	2026-10-11T21:13:32.4069848Z   type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:13:32.4070442Z   ...
+build	Verify the release artifact builder	2026-10-11T21:13:32.4289448Z # Subtest: source maps are refused even when found in a configured static input tree
+build	Verify the release artifact builder	2026-10-11T21:13:32.4290880Z ok 10 - source maps are refused even when found in a configured static input tree
+build	Verify the release artifact builder	2026-10-11T21:13:32.4291613Z   ---
+build	Verify the release artifact builder	2026-10-11T21:13:32.4291933Z   duration_ms: 21.919155
+build	Verify the release artifact builder	2026-10-11T21:13:32.4292309Z   type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:13:32.4292629Z   ...
+build	Verify the release artifact builder	2026-10-11T21:13:32.4488488Z # Subtest: file count, per-file size, and aggregate size limits fail atomically
+build	Verify the release artifact builder	2026-10-11T21:13:32.4489178Z     # Subtest: file count
+build	Verify the release artifact builder	2026-10-11T21:13:32.4489624Z     ok 1 - file count
+build	Verify the release artifact builder	2026-10-11T21:13:32.4490723Z       ---
+build	Verify the release artifact builder	2026-10-11T21:13:32.4491115Z       duration_ms: 20.269717
+build	Verify the release artifact builder	2026-10-11T21:13:32.4491582Z       type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:13:32.4491965Z       ...
+build	Verify the release artifact builder	2026-10-11T21:13:32.4694490Z     # Subtest: per-file byte cap
+build	Verify the release artifact builder	2026-10-11T21:13:32.4695334Z     ok 2 - per-file byte cap
+build	Verify the release artifact builder	2026-10-11T21:13:32.4695853Z       ---
+build	Verify the release artifact builder	2026-10-11T21:13:32.4696515Z       duration_ms: 20.524974
+build	Verify the release artifact builder	2026-10-11T21:13:32.4697346Z       type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:13:32.4697714Z       ...
+build	Verify the release artifact builder	2026-10-11T21:13:32.4907695Z     # Subtest: aggregate byte cap
+build	Verify the release artifact builder	2026-10-11T21:13:32.4908773Z     ok 3 - aggregate byte cap
+build	Verify the release artifact builder	2026-10-11T21:13:32.4910194Z       ---
+build	Verify the release artifact builder	2026-10-11T21:13:32.4910814Z       duration_ms: 21.029015
+build	Verify the release artifact builder	2026-10-11T21:13:32.4911272Z       type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:13:32.4911498Z       ...
+build	Verify the release artifact builder	2026-10-11T21:13:32.4911696Z     1..3
+build	Verify the release artifact builder	2026-10-11T21:13:32.4913409Z ok 11 - file count, per-file size, and aggregate size limits fail atomically
+build	Verify the release artifact builder	2026-10-11T21:13:32.4914307Z   ---
+build	Verify the release artifact builder	2026-10-11T21:13:32.4914676Z   duration_ms: 62.4021
+build	Verify the release artifact builder	2026-10-11T21:13:32.4915071Z   type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:13:32.4915402Z   ...
+build	Verify the release artifact builder	2026-10-11T21:13:32.4923618Z # Subtest: dangerous and protected output targets are refused before any build work
+build	Verify the release artifact builder	2026-10-11T21:13:32.4925062Z     # Subtest: /home/runner/work/clash-royale-clone/clash-royale-clone
+build	Verify the release artifact builder	2026-10-11T21:13:32.4926691Z     ok 1 - /home/runner/work/clash-royale-clone/clash-royale-clone
+build	Verify the release artifact builder	2026-10-11T21:13:32.4927397Z       ---
+build	Verify the release artifact builder	2026-10-11T21:13:32.4927635Z       duration_ms: 1.6679
+build	Verify the release artifact builder	2026-10-11T21:13:32.4927933Z       type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:13:32.4928355Z       ...
+build	Verify the release artifact builder	2026-10-11T21:13:32.4936761Z     # Subtest: /home/runner/work/clash-royale-clone/clash-royale-clone/reference/guard-output
+build	Verify the release artifact builder	2026-10-11T21:13:32.4938642Z     ok 2 - /home/runner/work/clash-royale-clone/clash-royale-clone/reference/guard-output
+build	Verify the release artifact builder	2026-10-11T21:13:32.4945872Z       ---
+build	Verify the release artifact builder	2026-10-11T21:13:32.4947713Z       duration_ms: 1.232553
+build	Verify the release artifact builder	2026-10-11T21:13:32.4948219Z       type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:13:32.4948650Z       ...
+build	Verify the release artifact builder	2026-10-11T21:13:32.4949114Z     # Subtest: /home/runner/work/clash-royale-clone/clash-royale-clone/dist/guard-output
+build	Verify the release artifact builder	2026-10-11T21:13:32.4950236Z     ok 3 - /home/runner/work/clash-royale-clone/clash-royale-clone/dist/guard-output
+build	Verify the release artifact builder	2026-10-11T21:13:32.4950716Z       ---
+build	Verify the release artifact builder	2026-10-11T21:13:32.4951102Z       duration_ms: 0.906311
+build	Verify the release artifact builder	2026-10-11T21:13:32.4951566Z       type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:13:32.4951968Z       ...
+build	Verify the release artifact builder	2026-10-11T21:13:32.4954538Z     # Subtest: /home/runner/work/clash-royale-clone
+build	Verify the release artifact builder	2026-10-11T21:13:32.4955591Z     ok 4 - /home/runner/work/clash-royale-clone
+build	Verify the release artifact builder	2026-10-11T21:13:32.4958092Z       ---
+build	Verify the release artifact builder	2026-10-11T21:13:32.4958471Z       duration_ms: 0.619733
+build	Verify the release artifact builder	2026-10-11T21:13:32.4958739Z       type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:13:32.4958944Z       ...
+build	Verify the release artifact builder	2026-10-11T21:13:32.4964097Z     # Subtest: /tmp
+build	Verify the release artifact builder	2026-10-11T21:13:32.4965285Z     ok 5 - /tmp
+build	Verify the release artifact builder	2026-10-11T21:13:32.4965712Z       ---
+build	Verify the release artifact builder	2026-10-11T21:13:32.4966164Z       duration_ms: 0.860234
+build	Verify the release artifact builder	2026-10-11T21:13:32.4966624Z       type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:13:32.4967004Z       ...
+build	Verify the release artifact builder	2026-10-11T21:13:32.4968997Z     1..5
+build	Verify the release artifact builder	2026-10-11T21:13:32.4970081Z ok 12 - dangerous and protected output targets are refused before any build work
+build	Verify the release artifact builder	2026-10-11T21:13:32.4970889Z   ---
+build	Verify the release artifact builder	2026-10-11T21:13:32.4971272Z   duration_ms: 6.099165
+build	Verify the release artifact builder	2026-10-11T21:13:32.4971716Z   type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:13:32.4972089Z   ...
+build	Verify the release artifact builder	2026-10-11T21:13:32.5430751Z 1..12
+build	Verify the release artifact builder	2026-10-11T21:13:32.5431279Z # tests 22
+build	Verify the release artifact builder	2026-10-11T21:13:32.5431703Z # suites 0
+build	Verify the release artifact builder	2026-10-11T21:13:32.5432060Z # pass 21
+build	Verify the release artifact builder	2026-10-11T21:13:32.5432433Z # fail 1
+build	Verify the release artifact builder	2026-10-11T21:13:32.5432788Z # cancelled 0
+build	Verify the release artifact builder	2026-10-11T21:13:32.5433179Z # skipped 0
+build	Verify the release artifact builder	2026-10-11T21:13:32.5433563Z # todo 0
+build	Verify the release artifact builder	2026-10-11T21:13:32.5440933Z # duration_ms 58719.111788
+build	Verify the release artifact builder	2026-10-11T21:13:32.5598522Z ##[error]Process completed with exit code 1.

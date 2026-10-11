@@ -1,0 +1,1065 @@
+build	Set up job	﻿2026-10-11T21:25:07.5735175Z Current runner version: '2.337.0'
+build	Set up job	2026-10-11T21:25:07.5757209Z ##[group]Runner Image Provisioner
+build	Set up job	2026-10-11T21:25:07.5757924Z Hosted Compute Agent
+build	Set up job	2026-10-11T21:25:07.5758334Z Version: 20261002.596
+build	Set up job	2026-10-11T21:25:07.5758800Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+build	Set up job	2026-10-11T21:25:07.5759250Z Build Date: 2026-10-02T22:28:27Z
+build	Set up job	2026-10-11T21:25:07.5759669Z Worker ID: {f8e41bef-4f3c-44f9-b3eb-f022bb06aafb}
+build	Set up job	2026-10-11T21:25:07.5760163Z Region: centralus
+build	Set up job	2026-10-11T21:25:07.5760550Z Cloud: Azure
+build	Set up job	2026-10-11T21:25:07.5760921Z ##[endgroup]
+build	Set up job	2026-10-11T21:25:07.5761858Z ##[group]Operating System
+build	Set up job	2026-10-11T21:25:07.5762492Z Ubuntu
+build	Set up job	2026-10-11T21:25:07.5762911Z 24.04.5
+build	Set up job	2026-10-11T21:25:07.5763279Z LTS
+build	Set up job	2026-10-11T21:25:07.5763664Z ##[endgroup]
+build	Set up job	2026-10-11T21:25:07.5764028Z ##[group]Runner Image
+build	Set up job	2026-10-11T21:25:07.5764416Z Image: ubuntu-24.04
+build	Set up job	2026-10-11T21:25:07.5764851Z Version: 20261004.327.1
+build	Set up job	2026-10-11T21:25:07.5765505Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md
+build	Set up job	2026-10-11T21:25:07.5766632Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327
+build	Set up job	2026-10-11T21:25:07.5767222Z ##[endgroup]
+build	Set up job	2026-10-11T21:25:07.5767986Z ##[group]GITHUB_TOKEN Permissions
+build	Set up job	2026-10-11T21:25:07.5769582Z Contents: read
+build	Set up job	2026-10-11T21:25:07.5770012Z Metadata: read
+build	Set up job	2026-10-11T21:25:07.5770370Z ##[endgroup]
+build	Set up job	2026-10-11T21:25:07.5772367Z Secret source: Actions
+build	Set up job	2026-10-11T21:25:07.5773066Z Cache mode: write
+build	Set up job	2026-10-11T21:25:07.5773620Z Prepare workflow directory
+build	Set up job	2026-10-11T21:25:07.6011509Z Prepare all required actions
+build	Set up job	2026-10-11T21:25:07.6045748Z Getting action download info
+build	Set up job	2026-10-11T21:25:07.8499683Z Download action repository 'actions/checkout@v6' (SHA:d23441a48e516b6c34aea4fa41551a30e30af803)
+build	Set up job	2026-10-11T21:25:08.1856219Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+build	Set up job	2026-10-11T21:25:08.4740636Z Download action repository 'actions/configure-pages@v5' (SHA:983d7736d9b0ae728b81ab479565c72886d7745b)
+build	Set up job	2026-10-11T21:25:08.9404609Z Download action repository 'actions/upload-pages-artifact@v4' (SHA:7b1f4a764d45c48632c6b24a0339c27f5614fb0b)
+build	Set up job	2026-10-11T21:25:09.3295231Z Getting action download info
+build	Set up job	2026-10-11T21:25:09.4236977Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+build	Set up job	2026-10-11T21:25:09.9548857Z Complete job name: build
+build	Check out source	﻿2026-10-11T21:25:10.0237375Z ##[group]Run actions/checkout@v6
+build	Check out source	2026-10-11T21:25:10.0238080Z with:
+build	Check out source	2026-10-11T21:25:10.0238575Z   repository: ThatXliner/clash-royale-clone
+build	Check out source	2026-10-11T21:25:10.0240825Z   token: ***
+build	Check out source	2026-10-11T21:25:10.0241282Z   ssh-strict: true
+build	Check out source	2026-10-11T21:25:10.0241760Z   ssh-user: git
+build	Check out source	2026-10-11T21:25:10.0242455Z   persist-credentials: true
+build	Check out source	2026-10-11T21:25:10.0242940Z   clean: true
+build	Check out source	2026-10-11T21:25:10.0243396Z   sparse-checkout-cone-mode: true
+build	Check out source	2026-10-11T21:25:10.0243914Z   fetch-depth: 1
+build	Check out source	2026-10-11T21:25:10.0244361Z   fetch-tags: false
+build	Check out source	2026-10-11T21:25:10.0244831Z   show-progress: true
+build	Check out source	2026-10-11T21:25:10.0245285Z   lfs: false
+build	Check out source	2026-10-11T21:25:10.0245723Z   submodules: false
+build	Check out source	2026-10-11T21:25:10.0246183Z   set-safe-directory: true
+build	Check out source	2026-10-11T21:25:10.0246678Z   allow-unsafe-pr-checkout: false
+build	Check out source	2026-10-11T21:25:10.0247270Z ##[endgroup]
+build	Check out source	2026-10-11T21:25:10.1028384Z Syncing repository: ThatXliner/clash-royale-clone
+build	Check out source	2026-10-11T21:25:10.1030043Z ##[group]Getting Git version info
+build	Check out source	2026-10-11T21:25:10.1030670Z Working directory is '/home/runner/work/clash-royale-clone/clash-royale-clone'
+build	Check out source	2026-10-11T21:25:10.1031731Z [command]/usr/bin/git version
+build	Check out source	2026-10-11T21:25:10.1125725Z git version 2.55.0
+build	Check out source	2026-10-11T21:25:10.1150199Z ##[endgroup]
+build	Check out source	2026-10-11T21:25:10.1161294Z Temporarily overriding HOME='/home/runner/work/_temp/ab06225b-bcd0-476b-9944-3d8fd07245b1' before making global git config changes
+build	Check out source	2026-10-11T21:25:10.1172920Z Adding repository directory to the temporary git global config as a safe directory
+build	Check out source	2026-10-11T21:25:10.1174065Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/clash-royale-clone/clash-royale-clone
+build	Check out source	2026-10-11T21:25:10.1479825Z Deleting the contents of '/home/runner/work/clash-royale-clone/clash-royale-clone'
+build	Check out source	2026-10-11T21:25:10.1483799Z ##[group]Determining repository object format
+build	Check out source	2026-10-11T21:25:10.1485947Z ##[endgroup]
+build	Check out source	2026-10-11T21:25:10.1487120Z ##[group]Initializing the repository
+build	Check out source	2026-10-11T21:25:10.1491212Z [command]/usr/bin/git init /home/runner/work/clash-royale-clone/clash-royale-clone
+build	Check out source	2026-10-11T21:25:10.1876166Z hint: Using 'master' as the name for the initial branch. This default branch name
+build	Check out source	2026-10-11T21:25:10.1877525Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+build	Check out source	2026-10-11T21:25:10.1878634Z hint: to use in all of your new repositories, which will suppress this warning,
+build	Check out source	2026-10-11T21:25:10.1879641Z hint: call:
+build	Check out source	2026-10-11T21:25:10.1880519Z hint:
+build	Check out source	2026-10-11T21:25:10.1881409Z hint: 	git config --global init.defaultBranch <name>
+build	Check out source	2026-10-11T21:25:10.1882342Z hint:
+build	Check out source	2026-10-11T21:25:10.1883186Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+build	Check out source	2026-10-11T21:25:10.1884214Z hint: 'development'. The just-created branch can be renamed via this command:
+build	Check out source	2026-10-11T21:25:10.1885075Z hint:
+build	Check out source	2026-10-11T21:25:10.1885720Z hint: 	git branch -m <name>
+build	Check out source	2026-10-11T21:25:10.1886403Z hint:
+build	Check out source	2026-10-11T21:25:10.1887214Z hint: Disable this message with "git config set advice.defaultBranchName false"
+build	Check out source	2026-10-11T21:25:10.1888408Z Initialized empty Git repository in /home/runner/work/clash-royale-clone/clash-royale-clone/.git/
+build	Check out source	2026-10-11T21:25:10.1890629Z [command]/usr/bin/git remote add origin https://github.com/ThatXliner/clash-royale-clone
+build	Check out source	2026-10-11T21:25:10.2855124Z ##[endgroup]
+build	Check out source	2026-10-11T21:25:10.2856065Z ##[group]Disabling automatic garbage collection
+build	Check out source	2026-10-11T21:25:10.2859409Z [command]/usr/bin/git config --local gc.auto 0
+build	Check out source	2026-10-11T21:25:10.3255275Z ##[endgroup]
+build	Check out source	2026-10-11T21:25:10.3256121Z ##[group]Setting up auth
+build	Check out source	2026-10-11T21:25:10.3256905Z Removing SSH command configuration
+build	Check out source	2026-10-11T21:25:10.3260655Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+build	Check out source	2026-10-11T21:25:10.3294988Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+build	Check out source	2026-10-11T21:25:10.3815661Z Removing HTTP extra header
+build	Check out source	2026-10-11T21:25:10.3820968Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+build	Check out source	2026-10-11T21:25:10.3853295Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+build	Check out source	2026-10-11T21:25:10.4032244Z Removing includeIf entries pointing to credentials config files
+build	Check out source	2026-10-11T21:25:10.4036936Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+build	Check out source	2026-10-11T21:25:10.4067783Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+build	Check out source	2026-10-11T21:25:10.4287605Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-11504937-d294-4137-986a-494f2178c9d1.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+build	Check out source	2026-10-11T21:25:10.4859413Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/clash-royale-clone/clash-royale-clone/.git.path /home/runner/work/_temp/git-credentials-11504937-d294-4137-986a-494f2178c9d1.config
+build	Check out source	2026-10-11T21:25:10.5959485Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/clash-royale-clone/clash-royale-clone/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-11504937-d294-4137-986a-494f2178c9d1.config
+build	Check out source	2026-10-11T21:25:10.7153673Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-11504937-d294-4137-986a-494f2178c9d1.config
+build	Check out source	2026-10-11T21:25:10.7239748Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-11504937-d294-4137-986a-494f2178c9d1.config
+build	Check out source	2026-10-11T21:25:10.7340393Z ##[endgroup]
+build	Check out source	2026-10-11T21:25:10.7340952Z ##[group]Fetching the repository
+build	Check out source	2026-10-11T21:25:10.7347693Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +8e24c1e44fc26827ffb7e7e5a50b4a4b933f045c:refs/remotes/origin/main
+build	Check out source	2026-10-11T21:25:14.2348540Z From https://github.com/ThatXliner/clash-royale-clone
+build	Check out source	2026-10-11T21:25:14.2349193Z  * [new ref]         8e24c1e44fc26827ffb7e7e5a50b4a4b933f045c -> origin/main
+build	Check out source	2026-10-11T21:25:14.2357997Z [command]/usr/bin/git branch --list --remote origin/main
+build	Check out source	2026-10-11T21:25:14.2386492Z   origin/main
+build	Check out source	2026-10-11T21:25:14.2394610Z [command]/usr/bin/git rev-parse refs/remotes/origin/main
+build	Check out source	2026-10-11T21:25:14.2420218Z 8e24c1e44fc26827ffb7e7e5a50b4a4b933f045c
+build	Check out source	2026-10-11T21:25:14.2424134Z ##[endgroup]
+build	Check out source	2026-10-11T21:25:14.2424544Z ##[group]Determining the checkout info
+build	Check out source	2026-10-11T21:25:14.2425053Z ##[endgroup]
+build	Check out source	2026-10-11T21:25:14.2429380Z [command]/usr/bin/git sparse-checkout disable
+build	Check out source	2026-10-11T21:25:14.2480950Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+build	Check out source	2026-10-11T21:25:14.2515456Z ##[group]Checking out the ref
+build	Check out source	2026-10-11T21:25:14.2515770Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+build	Check out source	2026-10-11T21:25:14.9014046Z Switched to a new branch 'main'
+build	Check out source	2026-10-11T21:25:14.9043020Z branch 'main' set up to track 'origin/main'.
+build	Check out source	2026-10-11T21:25:14.9076267Z ##[endgroup]
+build	Check out source	2026-10-11T21:25:14.9153618Z [command]/usr/bin/git log -1 --format=%H
+build	Check out source	2026-10-11T21:25:14.9159562Z 8e24c1e44fc26827ffb7e7e5a50b4a4b933f045c
+build	Set up Node.js	﻿2026-10-11T21:25:14.9386905Z ##[group]Run actions/setup-node@v4
+build	Set up Node.js	2026-10-11T21:25:14.9387117Z with:
+build	Set up Node.js	2026-10-11T21:25:14.9387237Z   node-version: 22
+build	Set up Node.js	2026-10-11T21:25:14.9387361Z   cache: npm
+build	Set up Node.js	2026-10-11T21:25:14.9387482Z   always-auth: false
+build	Set up Node.js	2026-10-11T21:25:14.9387611Z   check-latest: false
+build	Set up Node.js	2026-10-11T21:25:14.9389133Z   token: ***
+build	Set up Node.js	2026-10-11T21:25:14.9389263Z ##[endgroup]
+build	Set up Node.js	2026-10-11T21:25:15.0464668Z Found in cache @ /opt/hostedtoolcache/node/22.23.3/x64
+build	Set up Node.js	2026-10-11T21:25:15.0468268Z (node:2094) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+build	Set up Node.js	2026-10-11T21:25:15.0468719Z (Use `node --trace-deprecation ...` to show where the warning was created)
+build	Set up Node.js	2026-10-11T21:25:15.0470879Z ##[group]Environment details
+build	Set up Node.js	2026-10-11T21:25:15.3589559Z node: v22.23.3
+build	Set up Node.js	2026-10-11T21:25:15.3589924Z npm: 10.9.9
+build	Set up Node.js	2026-10-11T21:25:15.3590264Z yarn: 1.22.22
+build	Set up Node.js	2026-10-11T21:25:15.3590886Z ##[endgroup]
+build	Set up Node.js	2026-10-11T21:25:15.3605042Z [command]/opt/hostedtoolcache/node/22.23.3/x64/bin/npm config get cache
+build	Set up Node.js	2026-10-11T21:25:15.4436844Z /home/runner/.npm
+build	Set up Node.js	2026-10-11T21:25:15.5846618Z npm cache is not found
+build	Install dependencies	﻿2026-10-11T21:25:15.5964226Z ##[group]Run npm ci
+build	Install dependencies	2026-10-11T21:25:15.5964425Z ^[[36;1mnpm ci^[[0m
+build	Install dependencies	2026-10-11T21:25:15.6195529Z shell: /usr/bin/bash -e {0}
+build	Install dependencies	2026-10-11T21:25:15.6195737Z ##[endgroup]
+build	Install dependencies	2026-10-11T21:25:16.7784827Z 
+build	Install dependencies	2026-10-11T21:25:16.7791348Z added 19 packages, and audited 20 packages in 1s
+build	Install dependencies	2026-10-11T21:25:16.7791583Z 
+build	Install dependencies	2026-10-11T21:25:16.7791737Z 9 packages are looking for funding
+build	Install dependencies	2026-10-11T21:25:16.7791957Z   run `npm fund` for details
+build	Install dependencies	2026-10-11T21:25:16.7792076Z 
+build	Install dependencies	2026-10-11T21:25:16.7792310Z found 0 vulnerabilities
+build	Install the pinned Playwright Chromium runtime	﻿2026-10-11T21:25:16.8181975Z ##[group]Run npx playwright install --with-deps chromium
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:16.8182442Z ^[[36;1mnpx playwright install --with-deps chromium^[[0m
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:16.8237322Z shell: /usr/bin/bash -e {0}
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:16.8237478Z ##[endgroup]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:17.4130744Z Installing dependencies...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:17.4223095Z Switching to root user to install dependencies...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:17.5023702Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:17.5343801Z Get:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:17.5484731Z Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:17.5498252Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:17.5530777Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:17.5550104Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:17.6160062Z Get:7 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [492 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:17.6343624Z Get:8 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [548 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:17.6935787Z Get:9 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1375 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:17.7133902Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [306 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:17.7333350Z Get:17 https://packages.microsoft.com/ubuntu/24.04/prod noble/main all Packages [640 B]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:17.7910609Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1702 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:17.7978132Z Get:26 https://packages.microsoft.com/ubuntu/24.04/prod noble/main armhf Packages [12.3 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:17.8666746Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [342 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:17.9644972Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [1761 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:17.9710624Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [401 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:17.9729924Z Get:15 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [55.0 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:17.9739232Z Get:16 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse Translation-en [14.3 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:17.9747717Z Get:18 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1121 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:17.9791885Z Get:19 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [228 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:18.0234138Z Get:20 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1220 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:18.0278341Z Get:21 http://azure.archive.ubuntu.com/ubuntu noble-security/universe Translation-en [245 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:18.0310467Z Get:22 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [1669 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:18.0383925Z Get:23 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted Translation-en [383 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:18.0403811Z Get:24 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [49.8 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:18.0412679Z Get:25 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse Translation-en [12.4 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:22.9041094Z Fetched 12.3 MB in 1s (11.5 MB/s)
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.4824210Z Reading package lists...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.5022274Z Reading package lists...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.6867514Z Building dependency tree...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.6873247Z Reading state information...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8251842Z libasound2t64 is already the newest version (1.2.11-1ubuntu0.3).
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8252561Z libasound2t64 set to manually installed.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8253075Z libatk-bridge2.0-0t64 is already the newest version (2.52.0-1build1).
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8253590Z libatk-bridge2.0-0t64 set to manually installed.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8254061Z libatk1.0-0t64 is already the newest version (2.52.0-1build1).
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8255204Z libatk1.0-0t64 set to manually installed.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8255688Z libatspi2.0-0t64 is already the newest version (2.52.0-1build1).
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8256143Z libatspi2.0-0t64 set to manually installed.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8256599Z libcairo2 is already the newest version (1.18.0-3build1).
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8256918Z libcairo2 set to manually installed.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8257261Z libcups2t64 is already the newest version (2.4.7-1.2ubuntu7.14).
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8257587Z libcups2t64 set to manually installed.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8258061Z libdbus-1-3 is already the newest version (1.14.10-4ubuntu4.1).
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8258283Z libdbus-1-3 set to manually installed.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8258516Z libdrm2 is already the newest version (2.4.125-1ubuntu0.1~24.04.2).
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8258736Z libdrm2 set to manually installed.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8258955Z libgbm1 is already the newest version (25.2.8-0ubuntu0.24.04.4).
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8259172Z libgbm1 set to manually installed.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8259396Z libglib2.0-0t64 is already the newest version (2.80.0-6ubuntu3.9).
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8259672Z libglib2.0-0t64 set to manually installed.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8260034Z libnspr4 is already the newest version (2:4.35-1.1build1).
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8260250Z libnspr4 set to manually installed.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8260463Z libnss3 is already the newest version (2:3.98-1ubuntu0.2).
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8260668Z libnss3 set to manually installed.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8260892Z libpango-1.0-0 is already the newest version (1.52.1+ds-1build1).
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8261123Z libpango-1.0-0 set to manually installed.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8261428Z libx11-6 is already the newest version (2:1.8.7-1build1).
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8261634Z libx11-6 set to manually installed.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8261834Z libxcb1 is already the newest version (1.15-1ubuntu2).
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8262030Z libxcb1 set to manually installed.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8262491Z libxcomposite1 is already the newest version (1:0.4.5-1build3).
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8262718Z libxcomposite1 set to manually installed.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8262945Z libxdamage1 is already the newest version (1:1.1.6-1build1).
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8263245Z libxdamage1 set to manually installed.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8263487Z libxext6 is already the newest version (2:1.3.4-1build2).
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8263691Z libxext6 set to manually installed.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8263901Z libxfixes3 is already the newest version (1:6.0.0-2build1).
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8264114Z libxfixes3 set to manually installed.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8264338Z libxkbcommon0 is already the newest version (1.6.0-1build1).
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8264554Z libxkbcommon0 set to manually installed.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8264845Z libxrandr2 is already the newest version (2:1.5.2-2build1).
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8265163Z libxrandr2 set to manually installed.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8265487Z xvfb is already the newest version (2:21.1.12-1ubuntu1.8).
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8265942Z fonts-noto-color-emoji is already the newest version (2.047-0ubuntu0.24.04.1).
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8266416Z libfontconfig1 is already the newest version (2.15.0-1.1ubuntu2).
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8266787Z libfontconfig1 set to manually installed.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8267136Z fonts-liberation is already the newest version (1:2.1.5-3).
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8267499Z fonts-liberation set to manually installed.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8267823Z The following additional packages will be installed:
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8268029Z   xfonts-encodings xfonts-utils
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8268187Z Recommended packages:
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8268357Z   fonts-ipafont-mincho fonts-tlwg-loma
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8413251Z The following NEW packages will be installed:
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8413918Z   fonts-freefont-ttf fonts-ipafont-gothic fonts-tlwg-loma-otf fonts-unifont
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8417231Z   fonts-wqy-zenhei xfonts-cyrillic xfonts-encodings xfonts-scalable
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8417654Z   xfonts-utils
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8420154Z The following packages will be upgraded:
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8423191Z   libfreetype6
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8561832Z 1 upgraded, 9 newly installed, 0 to remove and 22 not upgraded.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8562405Z Need to get 21.5 MB of archives.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8562787Z After this operation, 79.5 MB of additional disk space will be used.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.8563220Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.9317695Z Get:2 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-ipafont-gothic all 00303-21ubuntu1 [3513 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:23.9941696Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 fonts-freefont-ttf all 20211204+svn4273-2 [5641 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:24.0667488Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-tlwg-loma-otf all 1:0.7.3-1 [107 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:24.0982499Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-unifont all 1:15.1.01-1build1 [2993 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:24.1434921Z Get:6 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-wqy-zenhei all 0.9.45-8 [7472 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:24.2514581Z Get:7 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libfreetype6 amd64 2.13.2+dfsg-1ubuntu0.2 [403 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:24.2839221Z Get:8 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-encodings all 1:1.0.5-0ubuntu2 [578 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:24.3172015Z Get:9 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-utils amd64 1:7.7+6build3 [94.4 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:24.3483606Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 xfonts-cyrillic all 1:1.0.5+nmu1 [384 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:24.3806562Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-scalable all 1:1.0.3-1.3 [304 kB]
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:24.6422051Z Fetched 21.5 MB in 1s (40.1 MB/s)
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:24.6613272Z Selecting previously unselected package fonts-ipafont-gothic.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:24.6851989Z (Reading database ... 
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:24.6852456Z (Reading database ... 5%
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:24.6852687Z (Reading database ... 10%
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:24.6852909Z (Reading database ... 15%
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:24.6853132Z (Reading database ... 20%
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:24.6853346Z (Reading database ... 25%
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:24.6853576Z (Reading database ... 30%
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:24.6853743Z (Reading database ... 35%
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:24.6853884Z (Reading database ... 40%
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:24.6854110Z (Reading database ... 45%
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:24.6854329Z (Reading database ... 50%
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:24.6898330Z (Reading database ... 55%
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:24.7944256Z (Reading database ... 60%
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:25.0006244Z (Reading database ... 65%
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:25.1510019Z (Reading database ... 70%
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:25.3536582Z (Reading database ... 75%
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:25.5132821Z (Reading database ... 80%
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:25.7031460Z (Reading database ... 85%
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:25.9022422Z (Reading database ... 90%
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:26.0695234Z (Reading database ... 95%
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:26.0695567Z (Reading database ... 100%
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:26.0695829Z (Reading database ... 203191 files and directories currently installed.)
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:26.0733507Z Preparing to unpack .../0-fonts-ipafont-gothic_00303-21ubuntu1_all.deb ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:26.0878635Z Unpacking fonts-ipafont-gothic (00303-21ubuntu1) ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:26.3185738Z Selecting previously unselected package fonts-freefont-ttf.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:26.3292265Z Preparing to unpack .../1-fonts-freefont-ttf_20211204+svn4273-2_all.deb ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:26.3301326Z Unpacking fonts-freefont-ttf (20211204+svn4273-2) ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:26.4379555Z Selecting previously unselected package fonts-tlwg-loma-otf.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:26.4481740Z Preparing to unpack .../2-fonts-tlwg-loma-otf_1%3a0.7.3-1_all.deb ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:26.4489253Z Unpacking fonts-tlwg-loma-otf (1:0.7.3-1) ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:26.4680357Z Selecting previously unselected package fonts-unifont.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:26.4780864Z Preparing to unpack .../3-fonts-unifont_1%3a15.1.01-1build1_all.deb ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:26.4787577Z Unpacking fonts-unifont (1:15.1.01-1build1) ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:26.6984037Z Selecting previously unselected package fonts-wqy-zenhei.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:26.7268273Z Preparing to unpack .../4-fonts-wqy-zenhei_0.9.45-8_all.deb ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:26.7461305Z Unpacking fonts-wqy-zenhei (0.9.45-8) ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:27.4196490Z Preparing to unpack .../5-libfreetype6_2.13.2+dfsg-1ubuntu0.2_amd64.deb ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:27.4689335Z Unpacking libfreetype6:amd64 (2.13.2+dfsg-1ubuntu0.2) over (2.13.2+dfsg-1ubuntu0.1) ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:27.5788955Z Selecting previously unselected package xfonts-encodings.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:27.5899279Z Preparing to unpack .../6-xfonts-encodings_1%3a1.0.5-0ubuntu2_all.deb ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:27.5980023Z Unpacking xfonts-encodings (1:1.0.5-0ubuntu2) ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:27.7538211Z Selecting previously unselected package xfonts-utils.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:27.7652971Z Preparing to unpack .../7-xfonts-utils_1%3a7.7+6build3_amd64.deb ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:27.7743351Z Unpacking xfonts-utils (1:7.7+6build3) ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:28.4107656Z Selecting previously unselected package xfonts-cyrillic.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:28.4213031Z Preparing to unpack .../8-xfonts-cyrillic_1%3a1.0.5+nmu1_all.deb ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:28.5099913Z Unpacking xfonts-cyrillic (1:1.0.5+nmu1) ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:29.8432106Z Selecting previously unselected package xfonts-scalable.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:29.8535377Z Preparing to unpack .../9-xfonts-scalable_1%3a1.0.3-1.3_all.deb ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:30.0764760Z Unpacking xfonts-scalable (1:1.0.3-1.3) ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:30.3073412Z Setting up fonts-wqy-zenhei (0.9.45-8) ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:30.3175770Z Setting up fonts-freefont-ttf (20211204+svn4273-2) ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:30.3193900Z Setting up fonts-tlwg-loma-otf (1:0.7.3-1) ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:30.3212474Z Setting up libfreetype6:amd64 (2.13.2+dfsg-1ubuntu0.2) ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:30.3231417Z Setting up xfonts-encodings (1:1.0.5-0ubuntu2) ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:30.3248594Z Setting up fonts-ipafont-gothic (00303-21ubuntu1) ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:30.3302401Z update-alternatives: using /usr/share/fonts/opentype/ipafont-gothic/ipag.ttf to provide /usr/share/fonts/truetype/fonts-japanese-gothic.ttf (fonts-japanese-gothic.ttf) in auto mode
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:30.3315561Z Setting up fonts-unifont (1:15.1.01-1build1) ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:30.3331477Z Setting up xfonts-utils (1:7.7+6build3) ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:30.3365922Z Setting up xfonts-cyrillic (1:1.0.5+nmu1) ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:30.3600376Z Setting up xfonts-scalable (1:1.0.3-1.3) ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:30.3814894Z Processing triggers for libc-bin (2.39-0ubuntu8.9) ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:30.5759773Z Processing triggers for man-db (2.12.0-4build2) ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:30.5780331Z Not building database; man-db/auto-update is not 'true'.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:30.5792588Z Processing triggers for fontconfig (2.15.0-1.1ubuntu2) ...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:31.1458508Z 
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:31.1459242Z Running kernel seems to be up-to-date.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:31.1459537Z 
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:31.1459643Z Restarting services...
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:31.1535410Z  systemctl restart php8.3-fpm.service
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:31.2635297Z 
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:31.2636598Z No containers need to be restarted.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:31.2636835Z 
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:31.2642803Z No user sessions are running outdated binaries.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:31.2643026Z 
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:31.2643214Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:32.2458329Z Downloading Chrome for Testing 145.0.7632.6 (playwright chromium v1208) from https://cdn.playwright.dev/builds/cft/145.0.7632.6/linux64/chrome-linux64.zip
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:32.4551832Z |                                                                                |   0% of 167.3 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:32.8304399Z |■■■■■■■■                                                                        |  10% of 167.3 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:32.9597216Z |■■■■■■■■■■■■■■■■                                                                |  20% of 167.3 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:33.0486379Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 167.3 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:33.1385879Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 167.3 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:33.2236059Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 167.3 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:33.4537486Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 167.3 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:33.5410569Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 167.3 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:33.6282374Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 167.3 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:33.7245945Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 167.3 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:33.8112476Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 167.3 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:35.6244957Z Chrome for Testing 145.0.7632.6 (playwright chromium v1208) downloaded to /home/runner/.cache/ms-playwright/chromium-1208
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:35.6258954Z Downloading FFmpeg (playwright ffmpeg v1011) from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:35.7950794Z |                                                                                |   0% of 2.3 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:35.8340661Z |■■■■■■■■                                                                        |  10% of 2.3 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:35.8500889Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.3 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:35.8620952Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.3 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:35.8683582Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.3 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:35.8776990Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.3 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:35.8887047Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.3 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:35.8904795Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.3 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:35.8922765Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.3 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:35.9022811Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.3 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:35.9042009Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.3 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:35.9534034Z FFmpeg (playwright ffmpeg v1011) downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1011
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:35.9538223Z Downloading Chrome Headless Shell 145.0.7632.6 (playwright chromium-headless-shell v1208) from https://cdn.playwright.dev/builds/cft/145.0.7632.6/linux64/chrome-headless-shell-linux64.zip
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:36.1431973Z |                                                                                |   0% of 110.9 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:36.4721502Z |■■■■■■■■                                                                        |  10% of 110.9 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:36.5203184Z |■■■■■■■■■■■■■■■■                                                                |  20% of 110.9 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:36.5569230Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 110.9 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:36.5978805Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 110.9 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:36.6214291Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 110.9 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:36.6486589Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 110.9 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:36.6669043Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 110.9 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:36.6874637Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 110.9 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:36.7187211Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 110.9 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:36.7462376Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 110.9 MiB
+build	Install the pinned Playwright Chromium runtime	2026-10-11T21:25:38.1256580Z Chrome Headless Shell 145.0.7632.6 (playwright chromium-headless-shell v1208) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1208
+build	Verify shipping isolation rules	﻿2026-10-11T21:25:38.1694143Z ##[group]Run npm run test:shipping-isolation-guard
+build	Verify shipping isolation rules	2026-10-11T21:25:38.1694410Z ^[[36;1mnpm run test:shipping-isolation-guard^[[0m
+build	Verify shipping isolation rules	2026-10-11T21:25:38.1747102Z shell: /usr/bin/bash -e {0}
+build	Verify shipping isolation rules	2026-10-11T21:25:38.1747260Z ##[endgroup]
+build	Verify shipping isolation rules	2026-10-11T21:25:38.2748026Z 
+build	Verify shipping isolation rules	2026-10-11T21:25:38.2748695Z > moss-and-ember@0.0.0 test:shipping-isolation-guard
+build	Verify shipping isolation rules	2026-10-11T21:25:38.2749278Z > node tests/shipping-isolation-guard-runner.js shipping-isolation-guard
+build	Verify shipping isolation rules	2026-10-11T21:25:38.2749465Z 
+build	Verify shipping isolation rules	2026-10-11T21:25:38.3268961Z TAP version 13
+build	Verify shipping isolation rules	2026-10-11T21:25:38.4640586Z # shipping guard Node package targets: 4/4 covered
+build	Verify shipping isolation rules	2026-10-11T21:25:38.4694249Z # shipping guard reference adversaries: 12/12 detected
+build	Verify shipping isolation rules	2026-10-11T21:25:38.4737899Z # shipping guard identity adversaries: 11/11 detected
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6308704Z # Subtest: shipping isolation guard: clean graph is canonical and excludes test fixtures
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6323200Z ok 1 - shipping isolation guard: clean graph is canonical and excludes test fixtures
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6338159Z   ---
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6338595Z   duration_ms: 110.339031
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6338847Z   type: 'test'
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6339062Z   ...
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6339481Z # Subtest: shipping isolation guard: rejects every encoded reference specifier form
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6340165Z ok 2 - shipping isolation guard: rejects every encoded reference specifier form
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6340584Z   ---
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6340781Z   duration_ms: 4.968514
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6341037Z   type: 'test'
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6341227Z   ...
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6341632Z # Subtest: shipping isolation guard: rejects protected identities after static evaluation
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6344198Z ok 3 - shipping isolation guard: rejects protected identities after static evaluation
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6344625Z   ---
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6344815Z   duration_ms: 4.282408
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6345021Z   type: 'test'
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6345194Z   ...
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6345489Z # Subtest: shipping isolation guard: scans unreachable distributable outputs bytewise
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6346419Z ok 4 - shipping isolation guard: scans unreachable distributable outputs bytewise
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6346643Z   ---
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6346758Z   duration_ms: 1.098752
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6346889Z   type: 'test'
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6346999Z   ...
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6347218Z # Subtest: shipping isolation guard: detects embedded reference-file bytes
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6347531Z ok 5 - shipping isolation guard: detects embedded reference-file bytes
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6347727Z   ---
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6347838Z   duration_ms: 0.888187
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6347965Z   type: 'test'
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6348076Z   ...
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6348315Z # Subtest: shipping isolation guard: rejects unresolved dynamic specifiers fail-closed
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6348673Z ok 6 - shipping isolation guard: rejects unresolved dynamic specifiers fail-closed
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6348893Z   ---
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6349003Z   duration_ms: 1.524077
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6349133Z   type: 'test'
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6349245Z   ...
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6349491Z # Subtest: shipping isolation guard: benign words, similar paths, URLs, and comments pass
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6349854Z ok 7 - shipping isolation guard: benign words, similar paths, URLs, and comments pass
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6350073Z   ---
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6350181Z   duration_ms: 1.368935
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6350337Z   type: 'test'
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6350446Z   ...
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6350693Z # Subtest: shipping isolation guard: path traversal and symlink escapes are rejected
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6351058Z ok 8 - shipping isolation guard: path traversal and symlink escapes are rejected
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6351290Z   ---
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6351395Z   duration_ms: 1.004962
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6351537Z   type: 'test'
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6351646Z   ...
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6351911Z # Subtest: shipping isolation guard: in-root symlink aliases cannot conceal reference files
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6352555Z ok 9 - shipping isolation guard: in-root symlink aliases cannot conceal reference files
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6353037Z   ---
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6353159Z   duration_ms: 0.843601
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6353288Z   type: 'test'
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6353396Z   ...
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6353642Z # Subtest: shipping isolation guard: depth, count, byte, and token bounds fail closed
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6354008Z ok 10 - shipping isolation guard: depth, count, byte, and token bounds fail closed
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6354244Z   ---
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6354372Z   duration_ms: 1.685448
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6354497Z   type: 'test'
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6354619Z   ...
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6354867Z # Subtest: shipping isolation guard: failures are collected atomically without mutation
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6355242Z ok 11 - shipping isolation guard: failures are collected atomically without mutation
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6355477Z   ---
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6355588Z   duration_ms: 0.577072
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6355712Z   type: 'test'
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6355872Z   ...
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6356140Z # Subtest: shipping isolation guard: executable CLI reports canonical success and failure
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6356517Z ok 12 - shipping isolation guard: executable CLI reports canonical success and failure
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6356753Z   ---
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6356869Z   duration_ms: 71.900361
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6356999Z   type: 'test'
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6357131Z   ...
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6357377Z # Subtest: shipping isolation guard: this repository's shipped entry graph passes
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6357733Z ok 13 - shipping isolation guard: this repository's shipped entry graph passes
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6357947Z   ---
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6358077Z   duration_ms: 22073.421941
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6358213Z   type: 'test'
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6358342Z   ...
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6504823Z 1..13
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6505104Z # tests 13
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6505289Z # suites 0
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6505471Z # pass 13
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6505647Z # fail 0
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6506297Z # cancelled 0
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6506511Z # skipped 0
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6506684Z # todo 0
+build	Verify shipping isolation rules	2026-10-11T21:26:00.6506891Z # duration_ms 22332.084655
+build	Verify the release artifact builder	﻿2026-10-11T21:26:00.6668711Z ##[group]Run npm run test:release-build
+build	Verify the release artifact builder	2026-10-11T21:26:00.6668979Z ^[[36;1mnpm run test:release-build^[[0m
+build	Verify the release artifact builder	2026-10-11T21:26:00.6732056Z shell: /usr/bin/bash -e {0}
+build	Verify the release artifact builder	2026-10-11T21:26:00.6732369Z ##[endgroup]
+build	Verify the release artifact builder	2026-10-11T21:26:00.7600505Z 
+build	Verify the release artifact builder	2026-10-11T21:26:00.7601439Z > moss-and-ember@0.0.0 test:release-build
+build	Verify the release artifact builder	2026-10-11T21:26:00.7602514Z > node tests/release-build-runner.js release-build
+build	Verify the release artifact builder	2026-10-11T21:26:00.7602915Z 
+build	Verify the release artifact builder	2026-10-11T21:26:00.8167144Z TAP version 13
+build	Verify the release artifact builder	2026-10-11T21:26:27.9835774Z # {"method":"GET","path":"public/index.html","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:27.9999444Z # {"method":"GET","path":"assets/rolldown-runtime-Cl99QfTQ.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.0093103Z # {"method":"GET","path":"src/ui/app-shell.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.0151051Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell-D-709RTF.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.0152812Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DsV2EdxU.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.0174280Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CNVraBnB.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.0176026Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-iYK_h2t5.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.0177042Z # {"method":"GET","path":"assets/asset-D-AK-JuF.css","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.0178035Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-Dg7OQaec.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.0178800Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BdnZSF_b.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.0179550Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-B5ZBDHRW.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.0180281Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BRVjNZH4.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.0181011Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-bvb6I3I3.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.0253013Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-APzdr7Qb.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.0257834Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-C79RlObc.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.0278389Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-qWhy9Aq-.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.0355443Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-eqmJOawo.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.0371709Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-C_K8qhj4.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.0373130Z # {"method":"GET","path":"assets/game-runtime~public/index-ve2Sbm-Q.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.1497344Z # {"method":"GET","path":"public/assets/stonehauler-painted.webp","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.1503315Z # {"method":"GET","path":"public/assets/forgeguard-painted.webp","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.1509057Z # {"method":"GET","path":"public/assets/card-portraits-painted.webp","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.1511383Z # {"method":"GET","path":"public/assets/thornscouts-painted.webp","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.1512562Z # {"method":"GET","path":"public/assets/cinder-host-painted.webp","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.1513097Z # {"method":"GET","path":"public/assets/ironroot-painted.webp","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.1606400Z # {"method":"GET","path":"public/assets/sunthread-pair-painted.webp","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.1617526Z # {"method":"GET","path":"public/assets/duskwing-trio-painted.webp","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.1625677Z # {"method":"GET","path":"public/assets/squall-orb-painted.webp","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.2153647Z # {"method":"GET","path":"public/ui-arena-shell.html","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.2277140Z # {"method":"GET","path":"src/ui/arena-shell-bootstrap.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.2289095Z # {"method":"GET","path":"assets/rolldown-runtime-Cl99QfTQ.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.2290328Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell-D-709RTF.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.2291532Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CNVraBnB.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.2339132Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-iYK_h2t5.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.2360530Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DsV2EdxU.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.2376161Z # {"method":"GET","path":"assets/ui-arena-shell-er5XVwGC.css","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.2393220Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-Dg7OQaec.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.2421896Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BdnZSF_b.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.2450643Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-B5ZBDHRW.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.2452535Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BRVjNZH4.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.2488357Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-bvb6I3I3.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.2492110Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-C79RlObc.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.2514860Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-APzdr7Qb.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.2533134Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-qWhy9Aq-.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.2534413Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-eqmJOawo.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.2535551Z # {"method":"GET","path":"assets/game-runtime~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-B_97dTST.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.2543223Z # {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-C_K8qhj4.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.2568764Z # {"method":"GET","path":"assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-8QEzJsye.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.2588549Z # {"method":"GET","path":"assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-emQudoW3.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.3777021Z # {"method":"GET","path":"public/assets/moss-ember-arena-painted.webp","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.5253703Z # {"method":"GET","path":"src/ui/arena-shell-entry.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.5415348Z # {"method":"GET","path":"src/rl/environment.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.5524063Z # {"method":"GET","path":"assets/game-runtime~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-B_97dTST.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:28.7468138Z # Subtest: RELEASE-001B emits a deterministic bounded graph and serves the exact game and RL module
+build	Verify the release artifact builder	2026-10-11T21:26:28.7471350Z ok 1 - RELEASE-001B emits a deterministic bounded graph and serves the exact game and RL module
+build	Verify the release artifact builder	2026-10-11T21:26:28.7471783Z   ---
+build	Verify the release artifact builder	2026-10-11T21:26:28.7472015Z   duration_ms: 27793.954095
+build	Verify the release artifact builder	2026-10-11T21:26:28.7472385Z   type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:26:28.7472713Z   ...
+build	Verify the release artifact builder	2026-10-11T21:26:29.8802503Z # {"method":"GET","path":"public/index.html","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:29.9002678Z # {"method":"GET","path":"public/assets/preload.json","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:29.9003644Z # {"method":"GET","path":"assets/asset-e9e-E_h5.css","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:29.9004296Z # {"method":"GET","path":"assets/public/index-BZZKPqwi.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:29.9004951Z # {"method":"GET","path":"assets/rolldown-runtime-Cl99QfTQ.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:29.9005579Z # {"method":"GET","path":"assets/game-runtime~public/index-D_ZMtyh0.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:29.9009657Z # {"method":"GET","path":"public/assets/prefetch.json","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:29.9104486Z # {"method":"GET","path":"public/assets/srcdoc-image.svg","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:29.9123588Z # {"method":"GET","path":"public/assets/preload-small.svg","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:29.9124607Z # {"method":"GET","path":"public/assets/image.svg","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:29.9125347Z # {"method":"GET","path":"public/assets/input-image.svg","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:29.9127414Z # {"method":"GET","path":"public/assets/srcset-one.svg","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:29.9166408Z # {"method":"GET","path":"public/assets/style-tag.svg","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:29.9167411Z # {"method":"GET","path":"public/assets/inline-style.svg","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:29.9168990Z # {"method":"GET","path":"public/assets/css-url.svg","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:29.9169678Z # {"method":"GET","path":"public/assets/image-set-one.svg","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:29.9354359Z # {"method":"GET","path":"assets/game-runtime~dynamic-module-H13vuvi5.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:29.9355472Z # {"method":"GET","path":"public/assets/audit-worker.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:29.9471713Z # {"method":"GET","path":"public/assets/worker-data.json","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:30.4861054Z # {"method":"GET","path":"public/assets/input-image.svg","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:30.5403471Z # {"method":"GET","path":"public/assets/popup.html","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:30.5441816Z # {"method":"GET","path":"public/assets/popup.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:30.5473214Z # {"method":"GET","path":"public/assets/popup-data.json","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:31.0615946Z # {"method":"GET","path":"public/assets/external-style.svg","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:31.0668465Z # {"method":"GET","path":"public/assets/external-style.css","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:31.0821433Z # {"method":"GET","path":"public/assets/xhtml-foreign-object.svg","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:31.0869629Z # {"method":"GET","path":"public/assets/foreign-object-image.svg","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:31.1024849Z # {"method":"GET","path":"public/assets/nested-svg.svg","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:31.1077481Z # {"method":"GET","path":"public/assets/nested-leaf.svg","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:31.1246257Z # {"method":"GET","path":"public/assets/presentation-url.svg","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:31.1302776Z # {"method":"GET","path":"public/assets/presentation-gradient.svg","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:31.2005888Z # Subtest: Chromium manifest audit covers legacy HTML, CSS, SVG and opaque-frame dependency forms
+build	Verify the release artifact builder	2026-10-11T21:26:31.2006796Z ok 2 - Chromium manifest audit covers legacy HTML, CSS, SVG and opaque-frame dependency forms
+build	Verify the release artifact builder	2026-10-11T21:26:31.2007480Z   ---
+build	Verify the release artifact builder	2026-10-11T21:26:31.2007673Z   duration_ms: 2454.093747
+build	Verify the release artifact builder	2026-10-11T21:26:31.2007883Z   type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:26:31.2008056Z   ...
+build	Verify the release artifact builder	2026-10-11T21:26:31.2131073Z # ^[[31m✗^[[39m Build failed in 8ms
+build	Verify the release artifact builder	2026-10-11T21:26:31.2218403Z # ^[[31m✗^[[39m Build failed in 5ms
+build	Verify the release artifact builder	2026-10-11T21:26:31.2300876Z # ^[[31m✗^[[39m Build failed in 5ms
+build	Verify the release artifact builder	2026-10-11T21:26:31.2386613Z # ^[[31m✗^[[39m Build failed in 5ms
+build	Verify the release artifact builder	2026-10-11T21:26:31.2534799Z # ^[[31m✗^[[39m Build failed in 6ms
+build	Verify the release artifact builder	2026-10-11T21:26:31.2613786Z # ^[[31m✗^[[39m Build failed in 4ms
+build	Verify the release artifact builder	2026-10-11T21:26:31.2702014Z # ^[[31m✗^[[39m Build failed in 5ms
+build	Verify the release artifact builder	2026-10-11T21:26:31.2766823Z # ^[[31m✗^[[39m Build failed in 4ms
+build	Verify the release artifact builder	2026-10-11T21:26:31.2833580Z # ^[[31m✗^[[39m Build failed in 3ms
+build	Verify the release artifact builder	2026-10-11T21:26:31.2899438Z # ^[[31m✗^[[39m Build failed in 3ms
+build	Verify the release artifact builder	2026-10-11T21:26:31.2952282Z # Subtest: authored modules cannot impersonate Vite's virtual preload helper
+build	Verify the release artifact builder	2026-10-11T21:26:31.2953128Z ok 3 - authored modules cannot impersonate Vite's virtual preload helper
+build	Verify the release artifact builder	2026-10-11T21:26:31.2953521Z   ---
+build	Verify the release artifact builder	2026-10-11T21:26:31.2953662Z   duration_ms: 94.933402
+build	Verify the release artifact builder	2026-10-11T21:26:31.2953808Z   type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:26:31.2954008Z   ...
+build	Verify the release artifact builder	2026-10-11T21:26:32.3247303Z # {"method":"GET","path":"public/index.html","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:32.3387338Z # {"method":"GET","path":"assets/rolldown-runtime-D66RWv4z.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:32.3388072Z # {"method":"GET","path":"assets/public/index-BZTHEd8R.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:32.3388641Z # {"method":"GET","path":"assets/game-runtime~public/index-1d0aHvg0.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:32.3466170Z # {"method":"GET","path":"assets/literal-module-CwgV8xjf.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:32.3482985Z # {"method":"GET","path":"assets/game-runtime~literal-module-BEbshvOG.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:32.3514597Z # {"method":"GET","path":"assets/template-module-DoCAgU5p.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:32.3515510Z # {"method":"GET","path":"assets/game-runtime~template-module-BxSkJld-.js","status":200}
+build	Verify the release artifact builder	2026-10-11T21:26:32.9173873Z # Subtest: Vite preload helpers remain available for authored inline dynamic imports
+build	Verify the release artifact builder	2026-10-11T21:26:32.9174532Z ok 4 - Vite preload helpers remain available for authored inline dynamic imports
+build	Verify the release artifact builder	2026-10-11T21:26:32.9174875Z   ---
+build	Verify the release artifact builder	2026-10-11T21:26:32.9175065Z   duration_ms: 1621.653351
+build	Verify the release artifact builder	2026-10-11T21:26:32.9175212Z   type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:26:32.9175327Z   ...
+build	Verify the release artifact builder	2026-10-11T21:26:34.5384169Z # Subtest: CSS-escaped URL dependencies are rejected before publishing
+build	Verify the release artifact builder	2026-10-11T21:26:34.5384806Z ok 5 - CSS-escaped URL dependencies are rejected before publishing
+build	Verify the release artifact builder	2026-10-11T21:26:34.5385095Z   ---
+build	Verify the release artifact builder	2026-10-11T21:26:34.5385260Z   duration_ms: 1621.0664
+build	Verify the release artifact builder	2026-10-11T21:26:34.5385488Z   type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:26:34.5385663Z   ...
+build	Verify the release artifact builder	2026-10-11T21:26:36.1107275Z # Subtest: opaque runtime srcdoc requests outside the built manifest are rejected
+build	Verify the release artifact builder	2026-10-11T21:26:36.1107981Z ok 6 - opaque runtime srcdoc requests outside the built manifest are rejected
+build	Verify the release artifact builder	2026-10-11T21:26:36.1108618Z   ---
+build	Verify the release artifact builder	2026-10-11T21:26:36.1108844Z   duration_ms: 1572.215982
+build	Verify the release artifact builder	2026-10-11T21:26:36.1109062Z   type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:26:36.1109180Z   ...
+build	Verify the release artifact builder	2026-10-11T21:26:37.6829952Z # Subtest: external base dependencies are rejected before publishing
+build	Verify the release artifact builder	2026-10-11T21:26:37.6830623Z ok 7 - external base dependencies are rejected before publishing
+build	Verify the release artifact builder	2026-10-11T21:26:37.6830932Z   ---
+build	Verify the release artifact builder	2026-10-11T21:26:37.6831130Z   duration_ms: 1572.203408
+build	Verify the release artifact builder	2026-10-11T21:26:37.6831343Z   type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:26:37.6831513Z   ...
+build	Verify the release artifact builder	2026-10-11T21:26:37.6869524Z # Subtest: escaped workspace entry paths fail before publication and preserve the prior output
+build	Verify the release artifact builder	2026-10-11T21:26:37.6870222Z ok 8 - escaped workspace entry paths fail before publication and preserve the prior output
+build	Verify the release artifact builder	2026-10-11T21:26:37.6870614Z   ---
+build	Verify the release artifact builder	2026-10-11T21:26:37.6870802Z   duration_ms: 4.14772
+build	Verify the release artifact builder	2026-10-11T21:26:37.6871008Z   type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:26:37.6871182Z   ...
+build	Verify the release artifact builder	2026-10-11T21:26:37.7017041Z # Subtest: internal and external symlink inputs are refused atomically
+build	Verify the release artifact builder	2026-10-11T21:26:37.7017509Z     # Subtest: internal target
+build	Verify the release artifact builder	2026-10-11T21:26:37.7018248Z     ok 1 - internal target
+build	Verify the release artifact builder	2026-10-11T21:26:37.7018534Z       ---
+build	Verify the release artifact builder	2026-10-11T21:26:37.7018730Z       duration_ms: 14.485359
+build	Verify the release artifact builder	2026-10-11T21:26:37.7018958Z       type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:26:37.7019363Z       ...
+build	Verify the release artifact builder	2026-10-11T21:26:37.7144723Z     # Subtest: external target
+build	Verify the release artifact builder	2026-10-11T21:26:37.7145021Z     ok 2 - external target
+build	Verify the release artifact builder	2026-10-11T21:26:37.7145240Z       ---
+build	Verify the release artifact builder	2026-10-11T21:26:37.7145424Z       duration_ms: 12.660036
+build	Verify the release artifact builder	2026-10-11T21:26:37.7145645Z       type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:26:37.7145822Z       ...
+build	Verify the release artifact builder	2026-10-11T21:26:37.7145989Z     1..2
+build	Verify the release artifact builder	2026-10-11T21:26:37.7146312Z ok 9 - internal and external symlink inputs are refused atomically
+build	Verify the release artifact builder	2026-10-11T21:26:37.7146625Z   ---
+build	Verify the release artifact builder	2026-10-11T21:26:37.7146807Z   duration_ms: 27.664332
+build	Verify the release artifact builder	2026-10-11T21:26:37.7147007Z   type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:26:37.7147176Z   ...
+build	Verify the release artifact builder	2026-10-11T21:26:37.7332506Z # Subtest: source maps are refused even when found in a configured static input tree
+build	Verify the release artifact builder	2026-10-11T21:26:37.7333207Z ok 10 - source maps are refused even when found in a configured static input tree
+build	Verify the release artifact builder	2026-10-11T21:26:37.7333590Z   ---
+build	Verify the release artifact builder	2026-10-11T21:26:37.7333777Z   duration_ms: 18.37753
+build	Verify the release artifact builder	2026-10-11T21:26:37.7333984Z   type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:26:37.7334170Z   ...
+build	Verify the release artifact builder	2026-10-11T21:26:37.7465711Z # Subtest: file count, per-file size, and aggregate size limits fail atomically
+build	Verify the release artifact builder	2026-10-11T21:26:37.7466322Z     # Subtest: file count
+build	Verify the release artifact builder	2026-10-11T21:26:37.7466877Z     ok 1 - file count
+build	Verify the release artifact builder	2026-10-11T21:26:37.7467076Z       ---
+build	Verify the release artifact builder	2026-10-11T21:26:37.7467254Z       duration_ms: 13.25465
+build	Verify the release artifact builder	2026-10-11T21:26:37.7467436Z       type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:26:37.7467553Z       ...
+build	Verify the release artifact builder	2026-10-11T21:26:37.7579771Z     # Subtest: per-file byte cap
+build	Verify the release artifact builder	2026-10-11T21:26:37.7580027Z     ok 2 - per-file byte cap
+build	Verify the release artifact builder	2026-10-11T21:26:37.7580196Z       ---
+build	Verify the release artifact builder	2026-10-11T21:26:37.7580325Z       duration_ms: 11.518789
+build	Verify the release artifact builder	2026-10-11T21:26:37.7580469Z       type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:26:37.7580734Z       ...
+build	Verify the release artifact builder	2026-10-11T21:26:37.7700505Z     # Subtest: aggregate byte cap
+build	Verify the release artifact builder	2026-10-11T21:26:37.7701083Z     ok 3 - aggregate byte cap
+build	Verify the release artifact builder	2026-10-11T21:26:37.7701401Z       ---
+build	Verify the release artifact builder	2026-10-11T21:26:37.7701603Z       duration_ms: 11.819276
+build	Verify the release artifact builder	2026-10-11T21:26:37.7701827Z       type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:26:37.7702014Z       ...
+build	Verify the release artifact builder	2026-10-11T21:26:37.7702380Z     1..3
+build	Verify the release artifact builder	2026-10-11T21:26:37.7703512Z ok 11 - file count, per-file size, and aggregate size limits fail atomically
+build	Verify the release artifact builder	2026-10-11T21:26:37.7704030Z   ---
+build	Verify the release artifact builder	2026-10-11T21:26:37.7704401Z   duration_ms: 37.013984
+build	Verify the release artifact builder	2026-10-11T21:26:37.7704751Z   type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:26:37.7705070Z   ...
+build	Verify the release artifact builder	2026-10-11T21:26:37.7709199Z # Subtest: dangerous and protected output targets are refused before any build work
+build	Verify the release artifact builder	2026-10-11T21:26:37.7709841Z     # Subtest: /home/runner/work/clash-royale-clone/clash-royale-clone
+build	Verify the release artifact builder	2026-10-11T21:26:37.7710449Z     ok 1 - /home/runner/work/clash-royale-clone/clash-royale-clone
+build	Verify the release artifact builder	2026-10-11T21:26:37.7710940Z       ---
+build	Verify the release artifact builder	2026-10-11T21:26:37.7711128Z       duration_ms: 0.967727
+build	Verify the release artifact builder	2026-10-11T21:26:37.7711353Z       type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:26:37.7715228Z       ...
+build	Verify the release artifact builder	2026-10-11T21:26:37.7725733Z     # Subtest: /home/runner/work/clash-royale-clone/clash-royale-clone/reference/guard-output
+build	Verify the release artifact builder	2026-10-11T21:26:37.7726545Z     ok 2 - /home/runner/work/clash-royale-clone/clash-royale-clone/reference/guard-output
+build	Verify the release artifact builder	2026-10-11T21:26:37.7727205Z       ---
+build	Verify the release artifact builder	2026-10-11T21:26:37.7727589Z       duration_ms: 0.599048
+build	Verify the release artifact builder	2026-10-11T21:26:37.7727956Z       type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:26:37.7728479Z       ...
+build	Verify the release artifact builder	2026-10-11T21:26:37.7729132Z     # Subtest: /home/runner/work/clash-royale-clone/clash-royale-clone/dist/guard-output
+build	Verify the release artifact builder	2026-10-11T21:26:37.7729837Z     ok 3 - /home/runner/work/clash-royale-clone/clash-royale-clone/dist/guard-output
+build	Verify the release artifact builder	2026-10-11T21:26:37.7730353Z       ---
+build	Verify the release artifact builder	2026-10-11T21:26:37.7730683Z       duration_ms: 1.12952
+build	Verify the release artifact builder	2026-10-11T21:26:37.7731051Z       type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:26:37.7731374Z       ...
+build	Verify the release artifact builder	2026-10-11T21:26:37.7733966Z     # Subtest: /home/runner/work/clash-royale-clone
+build	Verify the release artifact builder	2026-10-11T21:26:37.7734452Z     ok 4 - /home/runner/work/clash-royale-clone
+build	Verify the release artifact builder	2026-10-11T21:26:37.7734710Z       ---
+build	Verify the release artifact builder	2026-10-11T21:26:37.7735254Z       duration_ms: 0.489352
+build	Verify the release artifact builder	2026-10-11T21:26:37.7735466Z       type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:26:37.7735672Z       ...
+build	Verify the release artifact builder	2026-10-11T21:26:37.7743797Z     # Subtest: /tmp
+build	Verify the release artifact builder	2026-10-11T21:26:37.7744311Z     ok 5 - /tmp
+build	Verify the release artifact builder	2026-10-11T21:26:37.7744501Z       ---
+build	Verify the release artifact builder	2026-10-11T21:26:37.7744691Z       duration_ms: 0.834375
+build	Verify the release artifact builder	2026-10-11T21:26:37.7744914Z       type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:26:37.7745093Z       ...
+build	Verify the release artifact builder	2026-10-11T21:26:37.7745262Z     1..5
+build	Verify the release artifact builder	2026-10-11T21:26:37.7745647Z ok 12 - dangerous and protected output targets are refused before any build work
+build	Verify the release artifact builder	2026-10-11T21:26:37.7746047Z   ---
+build	Verify the release artifact builder	2026-10-11T21:26:37.7746223Z   duration_ms: 4.537148
+build	Verify the release artifact builder	2026-10-11T21:26:37.7746428Z   type: 'test'
+build	Verify the release artifact builder	2026-10-11T21:26:37.7746604Z   ...
+build	Verify the release artifact builder	2026-10-11T21:26:37.8138626Z 1..12
+build	Verify the release artifact builder	2026-10-11T21:26:37.8138894Z # tests 22
+build	Verify the release artifact builder	2026-10-11T21:26:37.8139038Z # suites 0
+build	Verify the release artifact builder	2026-10-11T21:26:37.8139190Z # pass 22
+build	Verify the release artifact builder	2026-10-11T21:26:37.8139347Z # fail 0
+build	Verify the release artifact builder	2026-10-11T21:26:37.8139472Z # cancelled 0
+build	Verify the release artifact builder	2026-10-11T21:26:37.8139655Z # skipped 0
+build	Verify the release artifact builder	2026-10-11T21:26:37.8139789Z # todo 0
+build	Verify the release artifact builder	2026-10-11T21:26:37.8139922Z # duration_ms 37006.921863
+build	Verify the Pages artifact	﻿2026-10-11T21:26:37.8286806Z ##[group]Run npm run test:publication-pages
+build	Verify the Pages artifact	2026-10-11T21:26:37.8287039Z ^[[36;1mnpm run test:publication-pages^[[0m
+build	Verify the Pages artifact	2026-10-11T21:26:37.8341283Z shell: /usr/bin/bash -e {0}
+build	Verify the Pages artifact	2026-10-11T21:26:37.8341435Z ##[endgroup]
+build	Verify the Pages artifact	2026-10-11T21:26:37.9023788Z 
+build	Verify the Pages artifact	2026-10-11T21:26:37.9024540Z > moss-and-ember@0.0.0 test:publication-pages
+build	Verify the Pages artifact	2026-10-11T21:26:37.9024919Z > node --test tests/publication-pages.test.js
+build	Verify the Pages artifact	2026-10-11T21:26:37.9025044Z 
+build	Verify the Pages artifact	2026-10-11T21:26:37.9335200Z TAP version 13
+build	Verify the Pages artifact	2026-10-11T21:26:48.8539900Z # Subtest: Pages build contains the branded landing, approved source assets, and isolated game release
+build	Verify the Pages artifact	2026-10-11T21:26:48.8540854Z ok 1 - Pages build contains the branded landing, approved source assets, and isolated game release
+build	Verify the Pages artifact	2026-10-11T21:26:48.8541459Z   ---
+build	Verify the Pages artifact	2026-10-11T21:26:48.8541748Z   duration_ms: 10806.414214
+build	Verify the Pages artifact	2026-10-11T21:26:48.8541974Z   type: 'test'
+build	Verify the Pages artifact	2026-10-11T21:26:48.8542297Z   ...
+build	Verify the Pages artifact	2026-10-11T21:26:48.8554721Z # Subtest: Pages output refuses protected workspace destinations before writing
+build	Verify the Pages artifact	2026-10-11T21:26:48.8555779Z ok 2 - Pages output refuses protected workspace destinations before writing
+build	Verify the Pages artifact	2026-10-11T21:26:48.8556665Z   ---
+build	Verify the Pages artifact	2026-10-11T21:26:48.8556929Z   duration_ms: 1.932514
+build	Verify the Pages artifact	2026-10-11T21:26:48.8557149Z   type: 'test'
+build	Verify the Pages artifact	2026-10-11T21:26:48.8557331Z   ...
+build	Verify the Pages artifact	2026-10-11T21:26:59.4651370Z # {"method":"GET","path":"/index.html","status":200}
+build	Verify the Pages artifact	2026-10-11T21:26:59.4697461Z # {"method":"GET","path":"/game/index.html","status":200}
+build	Verify the Pages artifact	2026-10-11T21:26:59.4714643Z # {"method":"GET","path":"/game/public/index.html","status":200}
+build	Verify the Pages artifact	2026-10-11T21:26:59.4731312Z # {"method":"GET","path":"/game/src/ui/app-shell.js","status":200}
+build	Verify the Pages artifact	2026-10-11T21:26:59.4745650Z # {"method":"GET","path":"/brand/gameplay.png","status":200}
+build	Verify the Pages artifact	2026-10-11T21:26:59.4763366Z # {"method":"GET","path":"/LICENSE","status":200}
+build	Verify the Pages artifact	2026-10-11T21:26:59.4811452Z # {"method":"GET","path":"/index.html","status":200}
+build	Verify the Pages artifact	2026-10-11T21:26:59.4829525Z # {"method":"GET","path":"/game/public/index.html","status":200}
+build	Verify the Pages artifact	2026-10-11T21:26:59.4925679Z # {"method":"GET","path":"/game/src/ui/app-shell.js","status":200}
+build	Verify the Pages artifact	2026-10-11T21:26:59.6936333Z # {"method":"GET","path":"/game/public/ui-arena-shell.html","status":200}
+build	Verify the Pages artifact	2026-10-11T21:26:59.7096852Z # {"method":"GET","path":"/game/src/ui/arena-shell-bootstrap.js","status":200}
+build	Verify the Pages artifact	2026-10-11T21:26:59.7155027Z # {"method":"GET","path":"/game/assets/rolldown-runtime-Cl99QfTQ.js","status":200}
+build	Verify the Pages artifact	2026-10-11T21:26:59.7156068Z # {"method":"GET","path":"/game/assets/game-runtime~public/index~public/ui-arena-shell-D-709RTF.js","status":200}
+build	Verify the Pages artifact	2026-10-11T21:26:59.7158864Z # {"method":"GET","path":"/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CNVraBnB.js","status":200}
+build	Verify the Pages artifact	2026-10-11T21:26:59.7172290Z # {"method":"GET","path":"/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-iYK_h2t5.js","status":200}
+build	Verify the Pages artifact	2026-10-11T21:26:59.7173632Z # {"method":"GET","path":"/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DsV2EdxU.js","status":200}
+build	Verify the Pages artifact	2026-10-11T21:26:59.7175326Z # {"method":"GET","path":"/game/assets/ui-arena-shell-er5XVwGC.css","status":200}
+build	Verify the Pages artifact	2026-10-11T21:26:59.7263678Z # {"method":"GET","path":"/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-Dg7OQaec.js","status":200}
+build	Verify the Pages artifact	2026-10-11T21:26:59.7309312Z # {"method":"GET","path":"/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BdnZSF_b.js","status":200}
+build	Verify the Pages artifact	2026-10-11T21:26:59.7325407Z # {"method":"GET","path":"/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-B5ZBDHRW.js","status":200}
+build	Verify the Pages artifact	2026-10-11T21:26:59.7326797Z # {"method":"GET","path":"/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BRVjNZH4.js","status":200}
+build	Verify the Pages artifact	2026-10-11T21:26:59.7328107Z # {"method":"GET","path":"/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-bvb6I3I3.js","status":200}
+build	Verify the Pages artifact	2026-10-11T21:26:59.7329902Z # {"method":"GET","path":"/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-C79RlObc.js","status":200}
+build	Verify the Pages artifact	2026-10-11T21:26:59.7377298Z # {"method":"GET","path":"/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-APzdr7Qb.js","status":200}
+build	Verify the Pages artifact	2026-10-11T21:26:59.7466642Z # {"method":"GET","path":"/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-qWhy9Aq-.js","status":200}
+build	Verify the Pages artifact	2026-10-11T21:26:59.7502108Z # {"method":"GET","path":"/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-C_K8qhj4.js","status":200}
+build	Verify the Pages artifact	2026-10-11T21:26:59.7515460Z # {"method":"GET","path":"/game/assets/game-runtime~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-B_97dTST.js","status":200}
+build	Verify the Pages artifact	2026-10-11T21:26:59.7516639Z # {"method":"GET","path":"/game/assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-8QEzJsye.js","status":200}
+build	Verify the Pages artifact	2026-10-11T21:26:59.7517739Z # {"method":"GET","path":"/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-eqmJOawo.js","status":200}
+build	Verify the Pages artifact	2026-10-11T21:26:59.7518846Z # {"method":"GET","path":"/game/assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-emQudoW3.js","status":200}
+build	Verify the Pages artifact	2026-10-11T21:26:59.8928457Z # {"method":"GET","path":"/game/public/assets/moss-ember-arena-painted.webp","status":200}
+build	Verify the Pages artifact	2026-10-11T21:27:00.4520406Z # {"method":"GET","path":"/game/src/ui/arena-shell-entry.js","status":200}
+build	Verify the Pages artifact	2026-10-11T21:27:01.0818614Z # {"method":"GET","path":"/game/public/assets/briar-runner-painted-sheet.png","status":200}
+build	Verify the Pages artifact	2026-10-11T21:27:01.0977484Z # {"method":"GET","path":"/game/public/assets/briar-runner-painted-sheet.png","status":200}
+build	Verify the Pages artifact	2026-10-11T21:27:01.3132995Z # Subtest: local preview serves the landing and playable routes without escaping its artifact
+build	Verify the Pages artifact	2026-10-11T21:27:01.3135799Z ok 3 - local preview serves the landing and playable routes without escaping its artifact
+build	Verify the Pages artifact	2026-10-11T21:27:01.3136193Z   ---
+build	Verify the Pages artifact	2026-10-11T21:27:01.3136380Z   duration_ms: 12457.720291
+build	Verify the Pages artifact	2026-10-11T21:27:01.3136527Z   type: 'test'
+build	Verify the Pages artifact	2026-10-11T21:27:01.3136643Z   ...
+build	Verify the Pages artifact	2026-10-11T21:27:02.1553621Z # Subtest: Pages workflow is manually dispatched and uses the required official deploy actions
+build	Verify the Pages artifact	2026-10-11T21:27:02.1554540Z ok 4 - Pages workflow is manually dispatched and uses the required official deploy actions
+build	Verify the Pages artifact	2026-10-11T21:27:02.1555007Z   ---
+build	Verify the Pages artifact	2026-10-11T21:27:02.1558401Z   duration_ms: 3.147107
+build	Verify the Pages artifact	2026-10-11T21:27:02.1558698Z   type: 'test'
+build	Verify the Pages artifact	2026-10-11T21:27:02.1558919Z   ...
+build	Verify the Pages artifact	2026-10-11T21:27:02.1559410Z # Subtest: portable test wrapper resolves local browser paths and preserves explicit overrides
+build	Verify the Pages artifact	2026-10-11T21:27:02.1560053Z ok 5 - portable test wrapper resolves local browser paths and preserves explicit overrides
+build	Verify the Pages artifact	2026-10-11T21:27:02.1560990Z   ---
+build	Verify the Pages artifact	2026-10-11T21:27:02.1561174Z   duration_ms: 838.36979
+build	Verify the Pages artifact	2026-10-11T21:27:02.1561367Z   type: 'test'
+build	Verify the Pages artifact	2026-10-11T21:27:02.1561530Z   ...
+build	Verify the Pages artifact	2026-10-11T21:27:02.1976098Z 1..5
+build	Verify the Pages artifact	2026-10-11T21:27:02.1976399Z # tests 5
+build	Verify the Pages artifact	2026-10-11T21:27:02.1976580Z # suites 0
+build	Verify the Pages artifact	2026-10-11T21:27:02.1976756Z # pass 5
+build	Verify the Pages artifact	2026-10-11T21:27:02.1976932Z # fail 0
+build	Verify the Pages artifact	2026-10-11T21:27:02.1977101Z # cancelled 0
+build	Verify the Pages artifact	2026-10-11T21:27:02.1977288Z # skipped 0
+build	Verify the Pages artifact	2026-10-11T21:27:02.1977453Z # todo 0
+build	Verify the Pages artifact	2026-10-11T21:27:02.1983503Z # duration_ms 24271.517258
+build	Configure Pages	﻿2026-10-11T21:27:02.2114969Z ##[group]Run actions/configure-pages@v5
+build	Configure Pages	2026-10-11T21:27:02.2115154Z with:
+build	Configure Pages	2026-10-11T21:27:02.2116569Z   token: ***
+build	Configure Pages	2026-10-11T21:27:02.2116684Z   enablement: false
+build	Configure Pages	2026-10-11T21:27:02.2116806Z ##[endgroup]
+build	Build the project-subpath artifact	﻿2026-10-11T21:27:02.4991842Z ##[group]Run npm run build:pages -- --repository "$GITHUB_REPOSITORY" --ref "$GITHUB_SHA"
+build	Build the project-subpath artifact	2026-10-11T21:27:02.4992544Z ^[[36;1mnpm run build:pages -- --repository "$GITHUB_REPOSITORY" --ref "$GITHUB_SHA"^[[0m
+build	Build the project-subpath artifact	2026-10-11T21:27:02.5044850Z shell: /usr/bin/bash -e {0}
+build	Build the project-subpath artifact	2026-10-11T21:27:02.5044995Z env:
+build	Build the project-subpath artifact	2026-10-11T21:27:02.5045102Z   GITHUB_PAGES: true
+build	Build the project-subpath artifact	2026-10-11T21:27:02.5045221Z ##[endgroup]
+build	Build the project-subpath artifact	2026-10-11T21:27:02.5707558Z 
+build	Build the project-subpath artifact	2026-10-11T21:27:02.5708228Z > moss-and-ember@0.0.0 build:pages
+build	Build the project-subpath artifact	2026-10-11T21:27:02.5708899Z > node scripts/build-pages.js --repository ThatXliner/clash-royale-clone --ref 8e24c1e44fc26827ffb7e7e5a50b4a4b933f045c
+build	Build the project-subpath artifact	2026-10-11T21:27:02.5709159Z 
+build	Build the project-subpath artifact	2026-10-11T21:27:13.3841615Z Pages artifact: /home/runner/work/clash-royale-clone/clash-royale-clone/site-dist (44 release files; 5443302 bytes)
+build	Upload Pages artifact	﻿2026-10-11T21:27:13.4149701Z ##[group]Run actions/upload-pages-artifact@v4
+build	Upload Pages artifact	2026-10-11T21:27:13.4149898Z with:
+build	Upload Pages artifact	2026-10-11T21:27:13.4150010Z   path: site-dist
+build	Upload Pages artifact	2026-10-11T21:27:13.4150126Z   name: github-pages
+build	Upload Pages artifact	2026-10-11T21:27:13.4150249Z   retention-days: 1
+build	Upload Pages artifact	2026-10-11T21:27:13.4150362Z env:
+build	Upload Pages artifact	2026-10-11T21:27:13.4150471Z   GITHUB_PAGES: true
+build	Upload Pages artifact	2026-10-11T21:27:13.4150587Z ##[endgroup]
+build	Upload Pages artifact	2026-10-11T21:27:13.4198221Z ##[start-action display=Archive artifact;id=__actions_upload-pages-artifact.__run]
+build	Upload Pages artifact	2026-10-11T21:27:13.4217092Z ##[group]Run echo ::group::Archive artifact
+build	Upload Pages artifact	2026-10-11T21:27:13.4217298Z ^[[36;1mecho ::group::Archive artifact^[[0m
+build	Upload Pages artifact	2026-10-11T21:27:13.4217444Z ^[[36;1mtar \^[[0m
+build	Upload Pages artifact	2026-10-11T21:27:13.4217580Z ^[[36;1m  --dereference --hard-dereference \^[[0m
+build	Upload Pages artifact	2026-10-11T21:27:13.4217752Z ^[[36;1m  --directory "$INPUT_PATH" \^[[0m
+build	Upload Pages artifact	2026-10-11T21:27:13.4217919Z ^[[36;1m  -cvf "$RUNNER_TEMP/artifact.tar" \^[[0m
+build	Upload Pages artifact	2026-10-11T21:27:13.4218080Z ^[[36;1m  --exclude=.git \^[[0m
+build	Upload Pages artifact	2026-10-11T21:27:13.4218218Z ^[[36;1m  --exclude=.github \^[[0m
+build	Upload Pages artifact	2026-10-11T21:27:13.4218381Z ^[[36;1m  --exclude=".[^/]*" \^[[0m
+build	Upload Pages artifact	2026-10-11T21:27:13.4218509Z ^[[36;1m  .^[[0m
+build	Upload Pages artifact	2026-10-11T21:27:13.4218622Z ^[[36;1mecho ::endgroup::^[[0m
+build	Upload Pages artifact	2026-10-11T21:27:13.4240665Z shell: /usr/bin/sh -e {0}
+build	Upload Pages artifact	2026-10-11T21:27:13.4240803Z env:
+build	Upload Pages artifact	2026-10-11T21:27:13.4240912Z   GITHUB_PAGES: true
+build	Upload Pages artifact	2026-10-11T21:27:13.4241037Z   INPUT_PATH: site-dist
+build	Upload Pages artifact	2026-10-11T21:27:13.4241160Z ##[endgroup]
+build	Upload Pages artifact	2026-10-11T21:27:13.4272970Z ##[group]Archive artifact
+build	Upload Pages artifact	2026-10-11T21:27:13.4283913Z ./
+build	Upload Pages artifact	2026-10-11T21:27:13.4284103Z ./brand/
+build	Upload Pages artifact	2026-10-11T21:27:13.4284296Z ./brand/logo.svg
+build	Upload Pages artifact	2026-10-11T21:27:13.4284521Z ./brand/gameplay.png
+build	Upload Pages artifact	2026-10-11T21:27:13.4286344Z ./brand/banner.svg
+build	Upload Pages artifact	2026-10-11T21:27:13.4286523Z ./NOTICE
+build	Upload Pages artifact	2026-10-11T21:27:13.4286677Z ./LICENSE
+build	Upload Pages artifact	2026-10-11T21:27:13.4286949Z ./assets/
+build	Upload Pages artifact	2026-10-11T21:27:13.4287123Z ./assets/site.css
+build	Upload Pages artifact	2026-10-11T21:27:13.4287295Z ./index.html
+build	Upload Pages artifact	2026-10-11T21:27:13.4287533Z ./game/
+build	Upload Pages artifact	2026-10-11T21:27:13.4287731Z ./game/assets/
+build	Upload Pages artifact	2026-10-11T21:27:13.4287978Z ./game/assets/game-runtime~public/
+build	Upload Pages artifact	2026-10-11T21:27:13.4288291Z ./game/assets/game-runtime~public/index~public/
+build	Upload Pages artifact	2026-10-11T21:27:13.4288743Z ./game/assets/game-runtime~public/index~public/ui-arena-shell-D-709RTF.js
+build	Upload Pages artifact	2026-10-11T21:27:13.4289227Z ./game/assets/game-runtime~public/index~public/ui-arena-shell~src/
+build	Upload Pages artifact	2026-10-11T21:27:13.4289675Z ./game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/
+build	Upload Pages artifact	2026-10-11T21:27:13.4290408Z ./game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/
+build	Upload Pages artifact	2026-10-11T21:27:13.4290888Z ./game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/
+build	Upload Pages artifact	2026-10-11T21:27:13.4291322Z ./game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-APzdr7Qb.js
+build	Upload Pages artifact	2026-10-11T21:27:13.4291804Z ./game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-C79RlObc.js
+build	Upload Pages artifact	2026-10-11T21:27:13.4292697Z ./game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CNVraBnB.js
+build	Upload Pages artifact	2026-10-11T21:27:13.4293478Z ./game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-C_K8qhj4.js
+build	Upload Pages artifact	2026-10-11T21:27:13.4294903Z ./game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-B5ZBDHRW.js
+build	Upload Pages artifact	2026-10-11T21:27:13.4296720Z ./game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-qWhy9Aq-.js
+build	Upload Pages artifact	2026-10-11T21:27:13.4297435Z ./game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BRVjNZH4.js
+build	Upload Pages artifact	2026-10-11T21:27:13.4298180Z ./game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-Dg7OQaec.js
+build	Upload Pages artifact	2026-10-11T21:27:13.4299996Z ./game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DsV2EdxU.js
+build	Upload Pages artifact	2026-10-11T21:27:13.4303286Z ./game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BdnZSF_b.js
+build	Upload Pages artifact	2026-10-11T21:27:13.4304261Z ./game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-bvb6I3I3.js
+build	Upload Pages artifact	2026-10-11T21:27:13.4304824Z ./game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-iYK_h2t5.js
+build	Upload Pages artifact	2026-10-11T21:27:13.4305329Z ./game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-eqmJOawo.js
+build	Upload Pages artifact	2026-10-11T21:27:13.4305880Z ./game/assets/game-runtime~public/index-ve2Sbm-Q.js
+build	Upload Pages artifact	2026-10-11T21:27:13.4306240Z ./game/assets/game-runtime~public/ui-arena-shell~src/
+build	Upload Pages artifact	2026-10-11T21:27:13.4306605Z ./game/assets/game-runtime~public/ui-arena-shell~src/ui/
+build	Upload Pages artifact	2026-10-11T21:27:13.4306952Z ./game/assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-emQudoW3.js
+build	Upload Pages artifact	2026-10-11T21:27:13.4308342Z ./game/assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-8QEzJsye.js
+build	Upload Pages artifact	2026-10-11T21:27:13.4309243Z ./game/assets/game-runtime~public/ui-arena-shell~src/rl/
+build	Upload Pages artifact	2026-10-11T21:27:13.4309681Z ./game/assets/game-runtime~public/ui-arena-shell~src/rl/environment~src/
+build	Upload Pages artifact	2026-10-11T21:27:13.4310182Z ./game/assets/game-runtime~public/ui-arena-shell~src/rl/environment~src/ui/
+build	Upload Pages artifact	2026-10-11T21:27:13.4310785Z ./game/assets/game-runtime~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-B_97dTST.js
+build	Upload Pages artifact	2026-10-11T21:27:13.4311094Z ./game/assets/ui-arena-shell-er5XVwGC.css
+build	Upload Pages artifact	2026-10-11T21:27:13.4311291Z ./game/assets/rolldown-runtime-Cl99QfTQ.js
+build	Upload Pages artifact	2026-10-11T21:27:13.4312551Z ./game/assets/asset-D-AK-JuF.css
+build	Upload Pages artifact	2026-10-11T21:27:13.4332609Z ./game/index.html
+build	Upload Pages artifact	2026-10-11T21:27:13.4334844Z ./game/public/
+build	Upload Pages artifact	2026-10-11T21:27:13.4335034Z ./game/public/assets/
+build	Upload Pages artifact	2026-10-11T21:27:13.4335263Z ./game/public/assets/icons/
+build	Upload Pages artifact	2026-10-11T21:27:13.4335545Z ./game/public/assets/icons/rivermark-pip.svg
+build	Upload Pages artifact	2026-10-11T21:27:13.4335877Z ./game/public/assets/icons/tidewarden-mark.svg
+build	Upload Pages artifact	2026-10-11T21:27:13.4336294Z ./game/public/assets/icons/emberfall-mark.svg
+build	Upload Pages artifact	2026-10-11T21:27:13.4336616Z ./game/public/assets/forgeguard-painted.webp
+build	Upload Pages artifact	2026-10-11T21:27:13.4336942Z ./game/public/assets/thornscouts-painted.webp
+build	Upload Pages artifact	2026-10-11T21:27:13.4337256Z ./game/public/assets/gloamwing-cluster-painted.webp
+build	Upload Pages artifact	2026-10-11T21:27:13.4337475Z ./game/public/assets/card-portraits-painted.webp
+build	Upload Pages artifact	2026-10-11T21:27:13.4337674Z ./game/public/assets/ironroot-painted.webp
+build	Upload Pages artifact	2026-10-11T21:27:13.4337877Z ./game/public/assets/briar-runner-sprite-sheet.svg
+build	Upload Pages artifact	2026-10-11T21:27:13.4338237Z ./game/public/assets/sunthread-pair-painted.webp
+build	Upload Pages artifact	2026-10-11T21:27:13.4338453Z ./game/public/assets/coppershade-flock-painted.webp
+build	Upload Pages artifact	2026-10-11T21:27:13.4338658Z ./game/public/assets/squall-orb-painted.webp
+build	Upload Pages artifact	2026-10-11T21:27:13.4338852Z ./game/public/assets/stonehauler-painted.webp
+build	Upload Pages artifact	2026-10-11T21:27:13.4339047Z ./game/public/assets/cinder-host-painted.webp
+build	Upload Pages artifact	2026-10-11T21:27:13.4339253Z ./game/public/assets/moss-ember-arena-painted.webp
+build	Upload Pages artifact	2026-10-11T21:27:13.4339466Z ./game/public/assets/duskwing-trio-painted.webp
+build	Upload Pages artifact	2026-10-11T21:27:13.4339680Z ./game/public/assets/briar-runner-painted-sheet.png
+build	Upload Pages artifact	2026-10-11T21:27:13.4339861Z ./game/public/index.html
+build	Upload Pages artifact	2026-10-11T21:27:13.4340018Z ./game/public/ui-arena-shell.html
+build	Upload Pages artifact	2026-10-11T21:27:13.4340157Z ./game/src/
+build	Upload Pages artifact	2026-10-11T21:27:13.4340264Z ./game/src/ui/
+build	Upload Pages artifact	2026-10-11T21:27:13.4340389Z ./game/src/ui/app-shell.js
+build	Upload Pages artifact	2026-10-11T21:27:13.4340551Z ./game/src/ui/arena-shell-entry.js
+build	Upload Pages artifact	2026-10-11T21:27:13.4340725Z ./game/src/ui/arena-shell-bootstrap.js
+build	Upload Pages artifact	2026-10-11T21:27:13.4340876Z ./game/src/rl/
+build	Upload Pages artifact	2026-10-11T21:27:13.4341001Z ./game/src/rl/environment.js
+build	Upload Pages artifact	2026-10-11T21:27:13.4341149Z ./game/release-manifest.json
+build	Upload Pages artifact	2026-10-11T21:27:13.4341403Z ##[endgroup]
+build	Upload Pages artifact	2026-10-11T21:27:13.4348219Z ##[end-action id=__actions_upload-pages-artifact.__run;outcome=success;conclusion=success;duration_ms=14]
+build	Upload Pages artifact	2026-10-11T21:27:13.4350096Z ##[start-action display=Archive artifact;id=__actions_upload-pages-artifact.__run_2]
+build	Upload Pages artifact	2026-10-11T21:27:13.4352989Z ##[end-action id=__actions_upload-pages-artifact.__run_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+build	Upload Pages artifact	2026-10-11T21:27:13.4354339Z ##[start-action display=Archive artifact;id=__actions_upload-pages-artifact.__run_3]
+build	Upload Pages artifact	2026-10-11T21:27:13.4356409Z ##[end-action id=__actions_upload-pages-artifact.__run_3;outcome=skipped;conclusion=skipped;duration_ms=0]
+build	Upload Pages artifact	2026-10-11T21:27:13.4357395Z ##[start-action display=Upload artifact;id=__actions_upload-pages-artifact.upload-artifact]
+build	Upload Pages artifact	2026-10-11T21:27:13.4389937Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+build	Upload Pages artifact	2026-10-11T21:27:13.4390163Z with:
+build	Upload Pages artifact	2026-10-11T21:27:13.4390275Z   name: github-pages
+build	Upload Pages artifact	2026-10-11T21:27:13.4390413Z   path: /home/runner/work/_temp/artifact.tar
+build	Upload Pages artifact	2026-10-11T21:27:13.4390666Z   retention-days: 1
+build	Upload Pages artifact	2026-10-11T21:27:13.4390864Z   if-no-files-found: error
+build	Upload Pages artifact	2026-10-11T21:27:13.4403545Z   compression-level: 6
+build	Upload Pages artifact	2026-10-11T21:27:13.4403709Z   overwrite: false
+build	Upload Pages artifact	2026-10-11T21:27:13.4403836Z   include-hidden-files: false
+build	Upload Pages artifact	2026-10-11T21:27:13.4403967Z env:
+build	Upload Pages artifact	2026-10-11T21:27:13.4404073Z   GITHUB_PAGES: true
+build	Upload Pages artifact	2026-10-11T21:27:13.4404190Z ##[endgroup]
+build	Upload Pages artifact	2026-10-11T21:27:13.5451713Z (node:5019) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+build	Upload Pages artifact	2026-10-11T21:27:13.5452514Z (Use `node --trace-deprecation ...` to show where the warning was created)
+build	Upload Pages artifact	2026-10-11T21:27:13.5480808Z With the provided path, there will be 1 file uploaded
+build	Upload Pages artifact	2026-10-11T21:27:13.5484055Z Artifact name is valid!
+build	Upload Pages artifact	2026-10-11T21:27:13.5484666Z Root directory input is valid!
+build	Upload Pages artifact	2026-10-11T21:27:13.8346766Z Beginning upload of artifact content to blob storage
+build	Upload Pages artifact	2026-10-11T21:27:13.9543123Z (node:5019) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+build	Upload Pages artifact	2026-10-11T21:27:14.3701378Z Uploaded bytes 3697422
+build	Upload Pages artifact	2026-10-11T21:27:14.4081045Z Finished uploading artifact content to blob storage!
+build	Upload Pages artifact	2026-10-11T21:27:14.4081755Z SHA256 digest of uploaded artifact zip is acf27cdda451d883fb923672ca729486961dc2d80325acf0f4ffafb05c99eef1
+build	Upload Pages artifact	2026-10-11T21:27:14.4083200Z Finalizing artifact upload
+build	Upload Pages artifact	2026-10-11T21:27:14.6354567Z Artifact github-pages.zip successfully finalized. Artifact ID 11715942976
+build	Upload Pages artifact	2026-10-11T21:27:14.6355435Z Artifact github-pages has been successfully uploaded! Final size is 3697422 bytes. Artifact ID is 11715942976
+build	Upload Pages artifact	2026-10-11T21:27:14.6360760Z Artifact download URL: https://github.com/ThatXliner/clash-royale-clone/actions/runs/38176273703/artifacts/11715942976
+build	Upload Pages artifact	2026-10-11T21:27:14.6471303Z ##[end-action id=__actions_upload-pages-artifact.upload-artifact;outcome=success;conclusion=success;duration_ms=1211]
+build	Post Set up Node.js	﻿2026-10-11T21:27:14.6543199Z Post job cleanup.
+build	Post Set up Node.js	2026-10-11T21:27:14.7325098Z (node:5031) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+build	Post Set up Node.js	2026-10-11T21:27:14.7325615Z (Use `node --trace-deprecation ...` to show where the warning was created)
+build	Post Set up Node.js	2026-10-11T21:27:14.7454184Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/clash-royale-clone/clash-royale-clone --files-from manifest.txt --use-compress-program zstdmt
+build	Post Set up Node.js	2026-10-11T21:27:14.9214725Z (node:5031) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+build	Post Set up Node.js	2026-10-11T21:27:15.6405391Z Sent 27936538 of 27936538 (100.0%), 36.7 MBs/sec
+build	Post Set up Node.js	2026-10-11T21:27:15.8430545Z Cache saved with the key: node-cache-Linux-x64-npm-bc9988ea00f7070808d12833052be0fa09b453ec3b9366b8f7cc9d0c6842e84c
+build	Post Check out source	﻿2026-10-11T21:27:15.8557565Z Post job cleanup.
+build	Post Check out source	2026-10-11T21:27:15.9113624Z [command]/usr/bin/git version
+build	Post Check out source	2026-10-11T21:27:15.9146225Z git version 2.55.0
+build	Post Check out source	2026-10-11T21:27:15.9173360Z Temporarily overriding HOME='/home/runner/work/_temp/5fcada7f-d15b-4e1c-afc4-2b86861a530e' before making global git config changes
+build	Post Check out source	2026-10-11T21:27:15.9173960Z Adding repository directory to the temporary git global config as a safe directory
+build	Post Check out source	2026-10-11T21:27:15.9177016Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/clash-royale-clone/clash-royale-clone
+build	Post Check out source	2026-10-11T21:27:15.9204189Z Removing SSH command configuration
+build	Post Check out source	2026-10-11T21:27:15.9208478Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+build	Post Check out source	2026-10-11T21:27:15.9235535Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+build	Post Check out source	2026-10-11T21:27:15.9429511Z Removing HTTP extra header
+build	Post Check out source	2026-10-11T21:27:15.9433923Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+build	Post Check out source	2026-10-11T21:27:15.9462416Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+build	Post Check out source	2026-10-11T21:27:15.9661567Z Removing includeIf entries pointing to credentials config files
+build	Post Check out source	2026-10-11T21:27:15.9667703Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+build	Post Check out source	2026-10-11T21:27:15.9699287Z includeif.gitdir:/home/runner/work/clash-royale-clone/clash-royale-clone/.git.path
+build	Post Check out source	2026-10-11T21:27:15.9700756Z includeif.gitdir:/home/runner/work/clash-royale-clone/clash-royale-clone/.git/worktrees/*.path
+build	Post Check out source	2026-10-11T21:27:15.9701567Z includeif.gitdir:/github/workspace/.git.path
+build	Post Check out source	2026-10-11T21:27:15.9702338Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+build	Post Check out source	2026-10-11T21:27:15.9708537Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/clash-royale-clone/clash-royale-clone/.git.path
+build	Post Check out source	2026-10-11T21:27:15.9732583Z /home/runner/work/_temp/git-credentials-11504937-d294-4137-986a-494f2178c9d1.config
+build	Post Check out source	2026-10-11T21:27:15.9741970Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/clash-royale-clone/clash-royale-clone/.git.path /home/runner/work/_temp/git-credentials-11504937-d294-4137-986a-494f2178c9d1.config
+build	Post Check out source	2026-10-11T21:27:15.9775358Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/clash-royale-clone/clash-royale-clone/.git/worktrees/*.path
+build	Post Check out source	2026-10-11T21:27:15.9796455Z /home/runner/work/_temp/git-credentials-11504937-d294-4137-986a-494f2178c9d1.config
+build	Post Check out source	2026-10-11T21:27:15.9803681Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/clash-royale-clone/clash-royale-clone/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-11504937-d294-4137-986a-494f2178c9d1.config
+build	Post Check out source	2026-10-11T21:27:15.9833859Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+build	Post Check out source	2026-10-11T21:27:15.9854980Z /github/runner_temp/git-credentials-11504937-d294-4137-986a-494f2178c9d1.config
+build	Post Check out source	2026-10-11T21:27:15.9860549Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-11504937-d294-4137-986a-494f2178c9d1.config
+build	Post Check out source	2026-10-11T21:27:15.9889335Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+build	Post Check out source	2026-10-11T21:27:15.9910453Z /github/runner_temp/git-credentials-11504937-d294-4137-986a-494f2178c9d1.config
+build	Post Check out source	2026-10-11T21:27:15.9915329Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-11504937-d294-4137-986a-494f2178c9d1.config
+build	Post Check out source	2026-10-11T21:27:15.9945828Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+build	Post Check out source	2026-10-11T21:27:16.0118585Z Removing credentials config '/home/runner/work/_temp/git-credentials-11504937-d294-4137-986a-494f2178c9d1.config'
+build	Complete job	﻿2026-10-11T21:27:16.0247131Z Cleaning up orphan processes
+build	Complete job	2026-10-11T21:27:16.0484345Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/configure-pages@v5, actions/setup-node@v4, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+deploy	Set up job	﻿2026-10-11T21:27:22.3781050Z Current runner version: '2.337.0'
+deploy	Set up job	2026-10-11T21:27:22.3809612Z ##[group]Runner Image Provisioner
+deploy	Set up job	2026-10-11T21:27:22.3810474Z Hosted Compute Agent
+deploy	Set up job	2026-10-11T21:27:22.3811062Z Version: 20261002.596
+deploy	Set up job	2026-10-11T21:27:22.3811774Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+deploy	Set up job	2026-10-11T21:27:22.3812533Z Build Date: 2026-10-02T22:28:27Z
+deploy	Set up job	2026-10-11T21:27:22.3813252Z Worker ID: {b1001828-b549-4535-825c-997bf8d6b0b5}
+deploy	Set up job	2026-10-11T21:27:22.3813988Z Region: eastus
+deploy	Set up job	2026-10-11T21:27:22.3814533Z Cloud: Azure
+deploy	Set up job	2026-10-11T21:27:22.3815116Z ##[endgroup]
+deploy	Set up job	2026-10-11T21:27:22.3816625Z ##[group]Operating System
+deploy	Set up job	2026-10-11T21:27:22.3817350Z Ubuntu
+deploy	Set up job	2026-10-11T21:27:22.3818131Z 24.04.5
+deploy	Set up job	2026-10-11T21:27:22.3818700Z LTS
+deploy	Set up job	2026-10-11T21:27:22.3819282Z ##[endgroup]
+deploy	Set up job	2026-10-11T21:27:22.3819895Z ##[group]Runner Image
+deploy	Set up job	2026-10-11T21:27:22.3820482Z Image: ubuntu-24.04
+deploy	Set up job	2026-10-11T21:27:22.3821115Z Version: 20261004.327.1
+deploy	Set up job	2026-10-11T21:27:22.3822205Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md
+deploy	Set up job	2026-10-11T21:27:22.3824086Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327
+deploy	Set up job	2026-10-11T21:27:22.3825077Z ##[endgroup]
+deploy	Set up job	2026-10-11T21:27:22.3826250Z ##[group]GITHUB_TOKEN Permissions
+deploy	Set up job	2026-10-11T21:27:22.3828525Z Metadata: read
+deploy	Set up job	2026-10-11T21:27:22.3829286Z Pages: write
+deploy	Set up job	2026-10-11T21:27:22.3829920Z ##[endgroup]
+deploy	Set up job	2026-10-11T21:27:22.3832491Z Secret source: Actions
+deploy	Set up job	2026-10-11T21:27:22.3833461Z Cache mode: write
+deploy	Set up job	2026-10-11T21:27:22.3834664Z Prepare workflow directory
+deploy	Set up job	2026-10-11T21:27:22.4174032Z Prepare all required actions
+deploy	Set up job	2026-10-11T21:27:22.4222999Z Getting action download info
+deploy	Set up job	2026-10-11T21:27:22.6262911Z Download action repository 'actions/deploy-pages@v4' (SHA:d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e)
+deploy	Set up job	2026-10-11T21:27:22.9571396Z Complete job name: deploy
+deploy	Publish the manually requested Pages artifact	﻿2026-10-11T21:27:23.0411904Z ##[group]Run actions/deploy-pages@v4
+deploy	Publish the manually requested Pages artifact	2026-10-11T21:27:23.0412889Z with:
+deploy	Publish the manually requested Pages artifact	2026-10-11T21:27:23.0416928Z   token: ***
+deploy	Publish the manually requested Pages artifact	2026-10-11T21:27:23.0417368Z   timeout: 600000
+deploy	Publish the manually requested Pages artifact	2026-10-11T21:27:23.0418264Z   error_count: 10
+deploy	Publish the manually requested Pages artifact	2026-10-11T21:27:23.0418805Z   reporting_interval: 5000
+deploy	Publish the manually requested Pages artifact	2026-10-11T21:27:23.0419331Z   artifact_name: github-pages
+deploy	Publish the manually requested Pages artifact	2026-10-11T21:27:23.0419857Z   preview: false
+deploy	Publish the manually requested Pages artifact	2026-10-11T21:27:23.0420631Z ##[endgroup]
+deploy	Publish the manually requested Pages artifact	2026-10-11T21:27:23.2342677Z (node:2193) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+deploy	Publish the manually requested Pages artifact	2026-10-11T21:27:23.2344122Z (Use `node --trace-deprecation ...` to show where the warning was created)
+deploy	Publish the manually requested Pages artifact	2026-10-11T21:27:23.3011476Z Fetching artifact metadata for "github-pages" in this workflow run
+deploy	Publish the manually requested Pages artifact	2026-10-11T21:27:23.3836857Z Found 1 artifact(s)
+deploy	Publish the manually requested Pages artifact	2026-10-11T21:27:23.3850911Z Creating Pages deployment with payload:
+deploy	Publish the manually requested Pages artifact	2026-10-11T21:27:23.3852101Z {
+deploy	Publish the manually requested Pages artifact	2026-10-11T21:27:23.3853090Z 	"artifact_id": 11715942976,
+deploy	Publish the manually requested Pages artifact	2026-10-11T21:27:23.3854367Z 	"pages_build_version": "8e24c1e44fc26827ffb7e7e5a50b4a4b933f045c",
+deploy	Publish the manually requested Pages artifact	2026-10-11T21:27:23.3956951Z 	"oidc_token": "***"
+deploy	Publish the manually requested Pages artifact	2026-10-11T21:27:23.3958173Z }
+deploy	Publish the manually requested Pages artifact	2026-10-11T21:27:23.9665671Z Created deployment for 8e24c1e44fc26827ffb7e7e5a50b4a4b933f045c, ID: 8e24c1e44fc26827ffb7e7e5a50b4a4b933f045c
+deploy	Publish the manually requested Pages artifact	2026-10-11T21:27:28.9684240Z Getting Pages deployment status...
+deploy	Publish the manually requested Pages artifact	2026-10-11T21:27:29.1226519Z Reported success!
+deploy	Complete job	﻿2026-10-11T21:27:29.1522732Z Evaluate and set environment url
+deploy	Complete job	2026-10-11T21:27:29.1527008Z Evaluated environment url: http://bryanhu.com/clash-royale-clone/
+deploy	Complete job	2026-10-11T21:27:29.1528384Z Cleaning up orphan processes
+deploy	Complete job	2026-10-11T21:27:29.1840772Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/deploy-pages@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
