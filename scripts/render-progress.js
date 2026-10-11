@@ -3,11 +3,20 @@ import { readFileSync, writeFileSync } from "node:fs";
 const plan = readFileSync(new URL("../PLAN.md", import.meta.url), "utf8");
 const rounds = readFileSync(new URL("../rounds.md", import.meta.url), "utf8");
 
+const pieceIdPattern = /^[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)*-\d+[A-Z0-9]*$/;
+const pieceStates = new Set(["PENDING", "BUILDING", "FAIL", "PASS", "QUESTION", "BLOCKED"]);
 const pieces = plan
   .split("\n")
-  .filter((line) => /^\| (?:SIM|GUARD|ARENA|MATCH|CONTENT|BUILDING|SPELL|INTEGRATION|UI|VIS|AUDIO|RELEASE|GAME)-/.test(line))
   .map((line) => {
     const cells = line.split("|").slice(1, -1).map((cell) => cell.trim());
+    if (
+      cells.length !== 8
+      || !pieceIdPattern.test(cells[0])
+      || !cells[1]
+      || !pieceStates.has(cells[4])
+      || !/^\d+\/\d+$/.test(cells[5])
+      || !/^\d+$/.test(cells[6])
+    ) return null;
     return {
       id: cells[0],
       piece: cells[1],
@@ -16,7 +25,8 @@ const pieces = plan
       rounds: cells[6],
       gap: cells[7],
     };
-  });
+  })
+  .filter(Boolean);
 
 const trajectories = [...rounds.matchAll(
   /## Round (\d+) — ([^\n]+)\n\nPIECE: ([^\n]+)\n\nVERDICT: (PASS|FAIL)\n\nEVIDENCE: ([\s\S]*?)\n\nBIGGEST GAP: ([\s\S]*?)(?=\n\n(?:DISPOSITION:|## Round )|$)/g,
