@@ -1,5 +1,29 @@
 # Gauntlet Rounds
 
+## Round 404 — 2026-10-11
+
+PIECE: ART-016P — Original air-swarm portrait assets and lore, round 2
+
+VERDICT: PASS
+
+EVIDENCE: Independent clean7cb criticd95d19e executes art2/2 and manifest6/6 and inspects actual native64px Coppershade thumbnail: six separate copper birds in3x2 arrangement. Original source/output provenance and unchanged atlas remain valid. Receipt and native PNG in `artifacts/ship-current-round-1/critic/`.
+
+BIGGEST GAP: None for asset-only acceptance; public phone/desktop editable integration remains separately ART016.
+
+DISPOSITION: Accept revised original portrait preparation; no public18-card claim.
+
+## Round 403 — 2026-10-11
+
+PIECE: CARDS-016K — Two additional classic air-swarm runtime roles, round 2
+
+VERDICT: PASS
+
+EVIDENCE: Independent clean7cb criticd95d19e air-swarm8/8 and ordinary16/16 pass. Direct GameSession hostile admission probes8/8 reject missing/forged/dangling/wrong-value confidence metadata. All six default8 serialized baseline comparisons match6dc exactly. Fresh strict18000-tick Chrome journey passes2/2 with unchanged50ms lifecycle/300ms init caps, terminal18000/restart0 and exact restore/audio continuation; evidence under `artifacts/ship-current-round-1/critic/`.
+
+BIGGEST GAP: Historical numeric, formation and timing QUESTIONS remain unresolved; these two new roles are not editable/RL choices yet.
+
+DISPOSITION: Accept core confidence closure. Public prototype remains16-card; future integration and full109 objective remain open.
+
 ## Round 402 — 2026-10-11
 
 PIECE: RELEASE-PRELOAD-001 — Generated preload helper source provenance, round 1
