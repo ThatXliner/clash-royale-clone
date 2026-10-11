@@ -1,5 +1,17 @@
 # Gauntlet Rounds
 
+## Round 396 — 2026-10-11
+
+PIECE: COVERAGE-002 — Versioned current historical roster mapping, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Independent clean6dc source with20f2 artifact passes generator check/self-test and write/check reproducibility (SHA256674aa632…6118b). Actual inventory109 historical rows,16 editable IDs/default8,53 admitted IDs/58 occurrences,12 declared comparator candidates,2 QUESTION fixtures and4 unjoined IDs; all unverified fields match source. Legacy11 baseline remains61378bytes, hash unchanged. Focused comparison tests67/67 pass. Independent semantic probes reject missing/duplicate rows, duplicateeditable ID and unknown comparator (4/6), but accept Cinder Host→Skeleton Army fixture promotion and declaration/mapping evidence lines999999. Saved JSON tamper and frozen-source drift are rejected. Publication exclusion is static only, not an executed build. Actual logs/probes/verdict committed a575d586 and23f54b9b under `artifacts/completion-inventory-current-16-critic/`.
+
+BIGGEST GAP: Validator accepts promoting a QUESTION-only fixture to a comparison declaration instead of binding relationship status and evidence lines to actual frozen source declarations.
+
+DISPOSITION: Generated data is retained as an unaccepted versioned candidate. Separate original builder must correct the semantic checks and truthful selftest documentation, then another independent round executes the full bar.
+
 ## Round 395 — 2026-10-11
 
 PIECE: GAME-001GS — Short authentic browser match journey, round 3
