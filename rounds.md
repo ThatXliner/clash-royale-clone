@@ -1,5 +1,17 @@
 # Gauntlet Rounds
 
+## Round 407 — 2026-10-11
+
+PIECE: PUB-003 — Publish current playable prototype, round 1
+
+VERDICT: PASS
+
+EVIDENCE: Main pushed; unchanged GitHub Pages workflow38176273703 build/deploy succeeds on8e24c1e. Independent liveChrome at https://bryanhu.com/clash-royale-clone/ verifies exact embedded source ref and44-file5443302B manifest, collection16/lore, unique8-slot deck replacement, trusted hand selection/field placement and natural AI deployment. Public JS/RL reset-step-restore is exact. All59 first-party requests stay in project prefix; zero first-party asset response errors, page errors or reference-tree requests. Host-injected Cloudflare RUM is blocked by existing self-only CSP; no policy relaxation. Current7cb full18000 endurance2/2 and separate8e packaging44/44 PASS receipts are retained under `artifacts/ship-current-round-1/critic/` and `artifacts/ship-preload-round-1/critic/`.
+
+BIGGEST GAP: None for user-requested current prototype publication. Complete109-card roster, source-confidence questions and historical visual parity remain open pieces.
+
+DISPOSITION: Ship the current16-card browser game and JS/RL interface under AGPL. README and repository homepage link the verified HTTPS site; later evidence/docs-only main commits do not change the deployed runtime.
+
 ## Round 406 — 2026-10-11
 
 PIECE: RELEASE-PRELOAD-001 — Generated preload helper source provenance, round 3
