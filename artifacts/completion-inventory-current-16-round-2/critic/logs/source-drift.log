@@ -1,0 +1,12 @@
+Input mutation: appended a comment to frozen tests/cards-basic-melee.test.js in a scratch copy
+file:///private/tmp/coverage002-round2-drift.ak12wy/artifacts/completion-inventory-current-16/generate.mjs:130
+  if (actual !== expected) throw new Error(`${label} source drift: expected ${expected}, got ${actual}`);
+                                 ^
+
+Error: frozen input tests/cards-basic-melee.test.js source drift: expected 3aa3123b8649cc0a7b5df662ed35e222526f051922ff7822b408cdecb2d90d1a, got 0bb1036f6336abdecfaf79bb8cc26661c2151b88129673d24e60ac55b3b5684e
+    at assertDigest (file:///private/tmp/coverage002-round2-drift.ak12wy/artifacts/completion-inventory-current-16/generate.mjs:130:34)
+    at ensurePinned (file:///private/tmp/coverage002-round2-drift.ak12wy/artifacts/completion-inventory-current-16/generate.mjs:135:3)
+    at makeInventory (file:///private/tmp/coverage002-round2-drift.ak12wy/artifacts/completion-inventory-current-16/generate.mjs:345:65)
+    at main (file:///private/tmp/coverage002-round2-drift.ak12wy/artifacts/completion-inventory-current-16/generate.mjs:545:24)
+    at file:///private/tmp/coverage002-round2-drift.ak12wy/artifacts/completion-inventory-current-16/generate.mjs:560:7
+Exit status: 1 (expected nonzero due frozen input digest mismatch)

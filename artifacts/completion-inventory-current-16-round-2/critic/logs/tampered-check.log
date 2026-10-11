@@ -1,0 +1,9 @@
+Output mutation: promoted Cinder Host QUESTION fixture in saved JSON
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: generated inventory differs; inspect pinned input drift before updating
++ actual - expected
+... Skipped lines
+Exit status: 1 (expected nonzero due output byte mismatch)
