@@ -1,0 +1,185 @@
+{
+  "schemaVersion": 1,
+  "piece": "RELEASE-ASSET-001",
+  "candidate": "6dcf64b81751f69f9fe7520878ac136bda9143ed",
+  "immutableArchiveRoot": "/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/release-asset001-r1-critic.2wcswz_q",
+  "archiveMethod": "git archive of immutable candidate; only node_modules was symlinked to shared checkout dependencies",
+  "commands": [
+    {
+      "command": "npm test -- nondeterminism-guard shipping-isolation-guard",
+      "result": "PASS",
+      "tests": 23,
+      "passed": 23,
+      "failed": 0,
+      "logs": [
+        "source-guards.log"
+      ],
+      "toolSession": "9792"
+    },
+    {
+      "command": "npm run test:publication-pages",
+      "result": "PASS",
+      "tests": 5,
+      "passed": 5,
+      "failed": 0,
+      "logs": [
+        "publication-pages.log"
+      ],
+      "browserEvidence": [
+        "publication-pages-painted-briar.json",
+        "publication-pages-painted-briar.png"
+      ],
+      "toolSession": "53353"
+    },
+    {
+      "command": "node scripts/build-pages.js --out <isolated-production-output> --repository ThatXliner/clash-royale-clone --ref main",
+      "result": "PASS",
+      "releaseFiles": 42,
+      "releaseBytes": 5354760,
+      "outputManifest": "production-release-manifest.json",
+      "buildLog": "pages-production-build.log",
+      "toolSession": "73304"
+    },
+    {
+      "command": "Independent release-manifest path, size, SHA256, deduplication, protected-path and 8 MiB audit",
+      "result": "PASS",
+      "manifestEntries": 42,
+      "manifestEntriesMatched": 42,
+      "canonicalPublicAssets": 15,
+      "emittedCanonicalPublicAssets": 15,
+      "redundantHashedCopies": 0,
+      "duplicateCanonicalAssetHashes": 0,
+      "protectedPaths": 0,
+      "totalBytes": 5354760,
+      "capBytes": 8388608,
+      "evidence": "pages-production-manifest-audit.json"
+    },
+    {
+      "command": "qualifyBrowserArtifact against the assembled Pages output at /clash-royale-clone/",
+      "result": "PASS",
+      "flow": "game",
+      "mountedPath": "game",
+      "requests": 59,
+      "runtimeErrors": 0,
+      "rlModuleImported": true,
+      "rlStepTick": 1,
+      "rlRestoredStateMatches": true,
+      "arenaShellModuleImported": true,
+      "activeSessionTick": 31,
+      "evidence": [
+        "pages-production-browser-qualification.json",
+        "pages-production-browser-qualification.log"
+      ],
+      "toolSession": "78083"
+    },
+    {
+      "command": "Actual assembled production Pages game route under /clash-royale-clone/; deploy Briar entities; HTTP fetch, decode and inspect painted image pixels",
+      "result": "PASS",
+      "pageUrl": "http://127.0.0.1:56784/clash-royale-clone/game/public/ui-arena-shell.html?session-profile=stonehauler-witness",
+      "requests": 27,
+      "renderedMarkers": 6,
+      "browserErrors": 0,
+      "consoleErrors": 0,
+      "serverClosed": true,
+      "decodedAssets": [
+        {
+          "name": "briar-painted-sprite-atlas",
+          "status": 200,
+          "contentType": "image/png",
+          "width": 1254,
+          "height": 1254,
+          "bytes": 987565,
+          "opaquePixels": 365131,
+          "coloredPixels": 280349
+        },
+        {
+          "name": "painted-arena-background",
+          "status": 200,
+          "contentType": "image/webp",
+          "width": 941,
+          "height": 1672,
+          "bytes": 390962,
+          "opaquePixels": 1573352,
+          "coloredPixels": 1537581
+        },
+        {
+          "name": "painted-card-portrait-atlas",
+          "status": 200,
+          "contentType": "image/webp",
+          "width": 1774,
+          "height": 887,
+          "bytes": 320516,
+          "opaquePixels": 1573538,
+          "coloredPixels": 1302491
+        }
+      ],
+      "evidence": [
+        "pages-production-painted-probe.json",
+        "pages-production-painted-probe.log",
+        "pages-production-painted-briar.png"
+      ],
+      "toolSession": "66869"
+    },
+    {
+      "command": "npm run test:game-browser-journey",
+      "result": "PASS",
+      "tests": 1,
+      "passed": 1,
+      "failed": 0,
+      "totalDurationMs": 8890.981875,
+      "terminalTick": 1590,
+      "matchEndedAtTick": 1589,
+      "winner": "north",
+      "crowns": {
+        "north": 3,
+        "south": 1
+      },
+      "combatEvents": 32,
+      "repeatedDeterministicCheckpointTick": 600,
+      "consoleErrors": 0,
+      "unhandledErrors": 0,
+      "logs": [
+        "game-browser-journey.log",
+        "game-browser-journey/journey-result.json"
+      ],
+      "screenshots": [
+        "game-browser-journey/initial.png",
+        "game-browser-journey/deploy.png",
+        "game-browser-journey/combat.png",
+        "game-browser-journey/terminal.png",
+        "game-browser-journey/restart.png"
+      ],
+      "toolSession": "44772"
+    }
+  ],
+  "retainedEnduranceEvidence": {
+    "baseline": "146421973672c512ae82e27e32bbf140c7948ffc",
+    "comparison": "source-hash-retention.json",
+    "relevantHashGroupsMatch": true,
+    "groups": [
+      "simulation",
+      "combat/input/visual/projection UI",
+      "audio",
+      "motion/sprite rendering",
+      "full-endurance harness",
+      "short-journey harness"
+    ],
+    "historicalEvidence": {
+      "sourceRound": "GAME-001GPR round 3",
+      "passed": 57,
+      "failed": 0,
+      "preflightPassed": 55,
+      "endurancePassed": 2,
+      "terminalTick": 18000,
+      "durationMs": 800278.113542,
+      "receipt": "artifacts/game-001gpr-round-3/critic/run-receipt.json",
+      "rerunForThisCandidate": false
+    }
+  },
+  "overall": {
+    "scopedTestsPassed": 29,
+    "scopedTestsFailed": 0,
+    "verdict": "PASS"
+  },
+  "biggestGap": "The full 18,000-tick endurance was not re-executed on this candidate; its evidence is retained from the baseline because all relevant runtime and harness source-hash inventories match."
+}

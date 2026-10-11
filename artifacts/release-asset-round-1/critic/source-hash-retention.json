@@ -1,0 +1,67 @@
+{
+  "baseline": "146421973672c512ae82e27e32bbf140c7948ffc",
+  "candidate": "6dcf64b81751f69f9fe7520878ac136bda9143ed",
+  "sourcePathChanges": [
+    "scripts/build-release.js",
+    "src/ui/app-shell.css",
+    "src/ui/app-shell.js"
+  ],
+  "groups": {
+    "simulation": {
+      "fileCount": 42,
+      "baselineInventorySha256": "5b6320cd6dc389135d5ad447c83a51759ddb841796a83ed6e655c85d4d01f546",
+      "candidateInventorySha256": "5b6320cd6dc389135d5ad447c83a51759ddb841796a83ed6e655c85d4d01f546",
+      "same": true
+    },
+    "combat_input_visual_and_projection_ui": {
+      "fileCount": 22,
+      "baselineInventorySha256": "b7e34eda10e727e9ff02b71f357836c2fcf93c3393f3d0b6e7a2d1657f0bf6b2",
+      "candidateInventorySha256": "b7e34eda10e727e9ff02b71f357836c2fcf93c3393f3d0b6e7a2d1657f0bf6b2",
+      "same": true
+    },
+    "audio": {
+      "fileCount": 8,
+      "baselineInventorySha256": "861adf63c9b5c23cc8e7723cee13400a52b60382e4f09beb295b647d4eb5825d",
+      "candidateInventorySha256": "861adf63c9b5c23cc8e7723cee13400a52b60382e4f09beb295b647d4eb5825d",
+      "same": true
+    },
+    "motion_and_sprite_rendering": {
+      "fileCount": 8,
+      "baselineInventorySha256": "abcc5a5e79846ac36264d58c0d86dae451fc64e73cee5a5e9f081b0c87da9b4e",
+      "candidateInventorySha256": "abcc5a5e79846ac36264d58c0d86dae451fc64e73cee5a5e9f081b0c87da9b4e",
+      "same": true
+    },
+    "full_endurance_harness": {
+      "fileCount": 4,
+      "baselineInventorySha256": "ad2c0400dcdecffa3d42b15e61e410a7a2df72555a55a3dec442910ec6853269",
+      "candidateInventorySha256": "ad2c0400dcdecffa3d42b15e61e410a7a2df72555a55a3dec442910ec6853269",
+      "same": true
+    },
+    "short_journey_harness": {
+      "fileCount": 3,
+      "baselineInventorySha256": "c93f4d0493606859d3e77bc24b8a942de98811bcd2975441db33e14d5bbf53f3",
+      "candidateInventorySha256": "c93f4d0493606859d3e77bc24b8a942de98811bcd2975441db33e14d5bbf53f3",
+      "same": true
+    }
+  },
+  "retainedRound3Evidence": {
+    "evidencePath": "artifacts/game-001gpr-round-3/critic/run-receipt.json",
+    "receiptSha256": "6740cddc4624863f87a66ae7a946cae1b3802b003d07d462dab3f9e45385e0ea",
+    "verdictSha256": "4e7d6d6c8253c3fd714348f3d6ce22a1e5c888bde7666559d519b1a84f942790",
+    "preflightPassed": 55,
+    "preflightFailed": 0,
+    "endurancePassed": 2,
+    "enduranceFailed": 0,
+    "enduranceTestDurationMilliseconds": 800278.113542,
+    "terminalTick": 18000,
+    "reexecutedForReleaseAssetRound": false,
+    "retentionBasis": "simulation, combat/input/render UI, audio, motion, and full/short browser harness hash inventories match immutable round-3 baseline"
+  },
+  "changesOutsideRetainedCore": [
+    "scripts/build-release.js",
+    "src/ui/app-shell.css",
+    "src/ui/app-shell.js",
+    "tests/app-shell.test.js",
+    "tests/publication-pages.test.js"
+  ]
+}
