@@ -276,6 +276,10 @@ retain integer-tick determinism and canonical serialize/restore behavior.
 
 | CARDS-013 | Full swarm and heavy melee choices | Cinder Host and Ironroot have original identities, reference-derived ordinary stats, full15/1 member deployment through editable decks, correct movement/trades and exact restore; default8 preserved; original portraits/lore and actualdesktop/phone review before selectable-release acceptance | CARDS-011, SKILL-CHAR-001 | BUILDING | 0/0 | 0 | Full roster expansion: ordinary fifteen-unit swarm and slow heavy melee, disjoint from spell foundation. |
 
+| PROGRESS-001 | Complete live piece inventory | Progress generator includes every valid PLAN piece row, including cards, art, app, publication and skills, with its current state, pass rate, round count and recorded gap; generated live view preserves round trajectories; separate execution-based review | SKILL-CHAR-001, CARDS-013 | BUILDING | 0/0 | 0 | Current generator filters by a partial list of prefixes and silently omits newer pieces. |
+
+| RELEASE-GUARD-001 | Preserve source and asset guard admission | Current simulation graph passes the unchanged bounded nondeterminism analyzer and shipping-isolation guard; radius spell extraction preserves all effects and legacy bytes, sprite URLs resolve to original registered assets in source and packaged renders; independent tests and assembled Pages qualification | GAME-SPELL-001, ART-005S | BUILDING | 0/0 | 0 | Kernel exceeds 524288 source-byte cap at 526174; prototype sprite URLs fail source-graph resolution. Neither cap nor guard may be weakened. |
+
 ## Reference uncertainties
 
 - Arena tower/bridge coordinates and deployment masks are low-medium
