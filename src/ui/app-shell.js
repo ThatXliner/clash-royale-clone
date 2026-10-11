@@ -83,19 +83,48 @@ function targetLabel(mode) {
   return "not available";
 }
 
+function classificationHasQuestion(entity) {
+  return entity.deliveryPolicy?.kind === "question" || entity.layerPolicy?.kind === "question";
+}
+
+function questionClassificationCopy(entity) {
+  const delivery = entity.delivery === "projectile" ? "ranged" : "melee";
+  const layer = entity.layer === "air" ? "Flying" : "Ground";
+  const provisionalFields = [];
+  if (entity.layerPolicy?.kind === "question") {
+    provisionalFields.push(`${layer.toLocaleLowerCase("en")} layer`);
+  }
+  if (entity.deliveryPolicy?.kind === "question") {
+    provisionalFields.push(`${delivery} delivery`);
+  }
+  const confidenceNote = provisionalFields.length === 1
+    ? `The ${provisionalFields[0]} remains provisional for historical comparison.`
+    : `The ${provisionalFields.join(" and ")} remain provisional for historical comparison.`;
+  return `Current game: ${layer} unit · ${delivery} attacks · targets ${targetLabel(entity.targetMode)}. ${confidenceNote}`;
+}
+
 function descriptionFor(card) {
   if (card.id === radiusSpellProfile.fact.cardId) {
     const fact = radiusSpellProfile.fact;
     return `Center-cast area spell · ${formatter.format(fact.damage)} damage to enemy ground troops, flying troops, buildings and crown towers within an estimated ${formatter.format(fact.areaDamageRadiusMillitiles / 1_000)}-tile radius. Crown-tower damage is an estimated ${100 + fact.crownTowerDamagePercent}% of troop damage. Impact takes about ${formatter.format(fact.impactDelayTicks / 60)} seconds. Projectile flight and knockback are not simulated.`;
   }
-  if (card.id === "stonehauler") {
-    return "A unit that targets structures.";
-  }
   if (card.entities.length === 1) {
     const [entity] = card.entities;
+    if (classificationHasQuestion(entity)) return questionClassificationCopy(entity);
     const layer = entity.layer === "air" ? "Flying" : "Ground";
     const attack = entity.delivery === "projectile" ? "ranged attacks" : "melee attacks";
     return `${layer} unit · ${attack} · targets ${targetLabel(entity.targetMode)}.`;
+  }
+  if (card.entities.some(classificationHasQuestion)) {
+    const deployed = card.entities.map((entity) =>
+      `${formatter.format(entity.count)} ${pluralName(entity.displayName, entity.count)}`);
+    const profiles = card.entities.map((entity) => {
+      const profile = classificationHasQuestion(entity)
+        ? questionClassificationCopy(entity)
+        : `${entity.layer === "air" ? "Flying" : "Ground"} unit · ${entity.delivery === "projectile" ? "ranged" : "melee"} attacks · targets ${targetLabel(entity.targetMode)}.`;
+      return `${entity.displayName}: ${profile}`;
+    });
+    return `Deploys ${deployed.join(" and ")} together. ${profiles.join(" ")}`;
   }
   const deployed = card.entities.map((entity) =>
     `${formatter.format(entity.count)} ${pluralName(entity.displayName, entity.count)}`);
@@ -168,8 +197,6 @@ function unitProfileMarkup(entity) {
     ? html(entity.displayName) : `${formatter.format(entity.count)} × ${html(entity.displayName)}`;
   const delivery = entity.delivery === "projectile" ? "Ranged" : "Melee";
   const layer = entity.layer === "air" ? "Flying" : "Ground";
-  const unsureDelivery = entity.deliveryPolicy?.kind === "question";
-  const unsureLayer = entity.layerPolicy?.kind === "question";
   const values = [
     ["Count", formatter.format(entity.count)],
     ["Health", entity.hitpoints === null ? "Not available" : formatter.format(entity.hitpoints)],
@@ -179,8 +206,8 @@ function unitProfileMarkup(entity) {
     ["Targets", targetLabel(entity.targetMode)],
     ["Moves", speedValue(entity.movementMillitilesPerSecond)],
   ];
-  const classification = unsureDelivery || unsureLayer
-    ? `Targets ${html(targetLabel(entity.targetMode))}. Attack type and whether it flies are not listed.`
+  const classification = classificationHasQuestion(entity)
+    ? html(questionClassificationCopy(entity))
     : `${layer} · ${delivery} · Targets ${html(targetLabel(entity.targetMode))}`;
   return `<section class="unit-profile" aria-label="${heading} statistics">
     <h3>${heading}</h3><p>${classification}</p>

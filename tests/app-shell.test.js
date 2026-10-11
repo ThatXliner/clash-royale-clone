@@ -103,6 +103,24 @@ function expectedStats(entity) {
   };
 }
 
+function expectedQuestionClassification(entity) {
+  const layer = entity.layer === "air" ? "Flying" : "Ground";
+  const delivery = entity.delivery === "projectile" ? "ranged" : "melee";
+  const target = entity.targetMode === "ground-and-air"
+    ? "ground and air" : entity.targetMode;
+  const provisionalFields = [];
+  if (entity.layerPolicy?.kind === "question") {
+    provisionalFields.push(`${layer.toLocaleLowerCase("en")} layer`);
+  }
+  if (entity.deliveryPolicy?.kind === "question") {
+    provisionalFields.push(`${delivery} delivery`);
+  }
+  const confidenceNote = provisionalFields.length === 1
+    ? `The ${provisionalFields[0]} remains provisional for historical comparison.`
+    : `The ${provisionalFields.join(" and ")} remain provisional for historical comparison.`;
+  return `Current game: ${layer} unit · ${delivery} attacks · targets ${target}. ${confidenceNote}`;
+}
+
 async function renderedProfiles(page) {
   return page.locator("[data-card-detail] .unit-profile").evaluateAll((profiles) =>
     profiles.map((profile) => Object.fromEntries(
@@ -288,6 +306,16 @@ test("player shell renders roster-derived cards and launches a paused shared bat
         const profiles = await renderedProfiles(page);
         assert.deepEqual(profiles, card.entities.map(expectedStats), `${card.displayName} runtime facts`);
         assert.equal(await page.locator("[data-card-detail] .unit-profile").count(), card.entities.length);
+        const detailDescription = await page.locator("[data-card-detail] .detail-description").innerText();
+        const classificationProfiles = await page.locator("[data-card-detail] .unit-profile > p").allInnerTexts();
+        for (const [index, entity] of card.entities.entries()) {
+          if (entity.layerPolicy?.kind !== "question" && entity.deliveryPolicy?.kind !== "question") continue;
+          const expectedClassification = expectedQuestionClassification(entity);
+          assert.equal(classificationProfiles[index], expectedClassification,
+            `${entity.displayName} profile states its current-game classification and provisional comparison status`);
+          assert.ok(detailDescription.includes(expectedClassification),
+            `${card.displayName} summary agrees with ${entity.displayName}'s runtime classification`);
+        }
       }
       if (card.id === "briar-band") {
         const components = await page.locator("[data-card-detail] .unit-profile h3").allInnerTexts();
@@ -297,7 +325,7 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       }
       if (card.id === "stonehauler") {
         assert.equal(await page.locator("[data-card-detail] .unit-profile > p").innerText(),
-          "Targets structures. Attack type and whether it flies are not listed.");
+          expectedQuestionClassification(card.entities[0]));
       }
       await page.keyboard.press("Escape");
       await page.waitForFunction((id) => document.activeElement?.dataset?.cardId === id, card.id);

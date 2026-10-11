@@ -1,0 +1,21 @@
+{
+  "command": "APP_SHELL_ARTIFACTS=artifacts/cards-expansion-round-2/copy-builder npm run test:app-shell -- app-shell",
+  "runner": "tests/app-shell.test.js in Google Chrome headless via Playwright",
+  "exitCode": 0,
+  "result": "passed",
+  "tests": {
+    "passed": 1,
+    "failed": 0,
+    "durationMs": 60511.622958
+  },
+  "viewports": [
+    { "width": 720, "height": 1280 },
+    { "width": 1440, "height": 933 },
+    { "width": 390, "height": 844 }
+  ],
+  "classificationAssertions": "For QUESTION entities, the visible detail summary includes the runtime-derived current-game classification and provisional historical-comparison note; the unit-profile copy matches it exactly.",
+  "screenshots": [
+    "desktop-card-details-1440x933.png",
+    "phone-card-details-720x1280.png"
+  ]
+}
