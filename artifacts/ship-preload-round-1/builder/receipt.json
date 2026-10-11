@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "piece": "RELEASE-PRELOAD001",
+  "baseCommit": "e64156d",
+  "change": {
+    "files": [
+      "scripts/build-release.js"
+    ],
+    "rootCause": "Vite's CSS post-plugin asks assetFileNames for a guessed stylesheet output directory before Rollup expands [name]. Grouped CSS names contain slashes, so the literal assets/[name]-[hash][extname] pattern made Vite compute relative public-asset URLs from assets/ while Rollup emitted CSS under assets/<group>/.",
+    "fix": "Generated assets now flatten the basename of grouped names while retaining content hashes and extensions. Configured static-root assets still use their canonical source paths.",
+    "fixtureCoverage": "The existing legacy Chromium fixture retains an HTML-linked stylesheet, CSS url(), and image-set() references to public/assets; no coverage was removed or skipped."
+  },
+  "verification": {
+    "reproduction": {
+      "command": "RELEASE_DEBUG_CSS=1 node --test --test-name-pattern='Chromium manifest audit covers legacy' tests/release-001b.test.js",
+      "result": "1 targeted test failed with browser requested unmanifested assets/public/assets/css-url.svg (HTTP 404). Staged CSS was assets/game-runtime~public/index-e9e-E_h5.css and retained url(../public/assets/css-url.svg)."
+    },
+    "afterFix": {
+      "command": "node --test --test-name-pattern='Chromium manifest audit covers legacy' tests/release-001b.test.js",
+      "result": "pass 1, fail 0; the real Chromium manifest audit completed.",
+      "observedRequests": [
+        "assets/e9e-E_h5.css — 200",
+        "public/assets/css-url.svg — 200",
+        "public/assets/image-set-one.svg — 200",
+        "public/assets/image-set-two.svg — 200"
+      ]
+    },
+    "staticChecks": [
+      "node --check scripts/build-release.js",
+      "git diff --check"
+    ],
+    "fullReleaseBatch": "Not run by builder; independent critic validation is pending."
+  }
+}

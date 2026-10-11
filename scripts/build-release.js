@@ -452,9 +452,9 @@ function releaseAssetFileNames(root, staticAssetRoots) {
     return resolve(absoluteRoot, ...staticRoot.split("/"));
   });
   const assignedCaseFoldedPaths = new Map();
-  const hashedAssetPattern = "assets/[name]-[hash][extname]";
+  const hashedAssetPattern = "assets/[hash][extname]";
 
-  return ({ originalFileNames }) => {
+  return ({ name, originalFileNames }) => {
     invariant(Array.isArray(originalFileNames), "Vite asset provenance must be an array");
     if (originalFileNames.length === 0) return hashedAssetPattern;
 
@@ -483,7 +483,17 @@ function releaseAssetFileNames(root, staticAssetRoots) {
     });
 
     const staticSources = sources.filter(({ isStatic }) => isStatic);
-    if (staticSources.length === 0) return hashedAssetPattern;
+    if (staticSources.length === 0) {
+      // Grouped chunk names can contain slashes. Keep generated assets flat so Vite's
+      // pre-emission CSS path calculation matches the emitted asset directory.
+      const candidate = typeof name === "string" && name.length > 0
+        ? name
+        : sources[0].path;
+      const assetName = candidate.split(/[\\/]/u).at(-1);
+      const extension = extname(assetName);
+      const stem = extension ? assetName.slice(0, -extension.length) : assetName;
+      return `assets/${stem || "asset"}-[hash]${extension || "[extname]"}`;
+    }
     invariant(staticSources.length === sources.length,
       `ambiguous release asset provenance mixes static and non-static sources: ${originalFileNames.join(", ")}`);
     const canonicalPath = staticSources[0].path;
