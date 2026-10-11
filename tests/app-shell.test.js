@@ -137,6 +137,63 @@ async function renderedProfiles(page) {
   );
 }
 
+async function renderedDetailPortrait(page) {
+  return page.locator("[data-card-detail]").evaluate(async (detail) => {
+    const image = detail.querySelector(".detail-portrait .card-art-image");
+    if (image === null) return null;
+    await image.decode();
+    const bounds = (node) => {
+      if (node === null) return null;
+      const rect = node.getBoundingClientRect();
+      return { x: rect.x, y: rect.y, width: rect.width, height: rect.height,
+        right: rect.right, bottom: rect.bottom };
+    };
+    const collectionImage = document.querySelector(
+      '[data-card-grid] [data-card-id][aria-pressed="true"] .card-art-image',
+    );
+    const detailBack = detail.querySelector(".detail-back");
+    const backStyle = detailBack === null ? null : getComputedStyle(detailBack);
+    const nav = document.querySelector(".app-nav");
+    const navStyle = getComputedStyle(nav);
+    const ids = [...document.querySelectorAll("[id]")].map((node) => node.id);
+    return {
+      cardId: image.closest("[data-card-art]")?.dataset.cardArt ?? null,
+      image: {
+        src: image.getAttribute("src"),
+        decoded: image.complete && image.naturalWidth > 0 && image.naturalHeight > 0,
+        naturalSize: [image.naturalWidth, image.naturalHeight],
+        visible: bounds(image).width > 0 && bounds(image).height > 0 &&
+          getComputedStyle(image).visibility !== "hidden",
+        bounds: bounds(image),
+      },
+      collectionImage: collectionImage === null ? null : {
+        src: collectionImage.getAttribute("src"),
+        bounds: bounds(collectionImage),
+        visible: bounds(collectionImage).width > 0 && bounds(collectionImage).height > 0,
+      },
+      detail: {
+        bounds: bounds(detail),
+        scrollWidth: detail.scrollWidth,
+        clientWidth: detail.clientWidth,
+      },
+      detailBack: detailBack === null ? null : {
+        visible: backStyle.display !== "none" && backStyle.visibility !== "hidden" &&
+          bounds(detailBack).width > 0 && bounds(detailBack).height > 0,
+        bounds: bounds(detailBack),
+      },
+      nav: {
+        visible: navStyle.display !== "none" && navStyle.visibility !== "hidden" &&
+          bounds(nav).width > 0 && bounds(nav).height > 0,
+        bounds: bounds(nav),
+      },
+      viewport: { width: innerWidth, height: innerHeight },
+      documentWidth: document.documentElement.scrollWidth,
+      focusedElementId: document.activeElement?.id ?? null,
+      idsUnique: ids.length === new Set(ids).size,
+    };
+  });
+}
+
 async function cardFrameTick(frame, moduleUrl) {
   return frame.evaluate(async (entryUrl) => {
     const { arenaHudController } = await import(entryUrl);
@@ -296,6 +353,15 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       await cardButton.click();
       assert.equal(await page.locator("[data-card-detail] h2").innerText(), card.displayName);
       assert.equal(await page.locator("[data-card-detail] .detail-cost").innerText(), String(card.cost));
+      const detailPortrait = await renderedDetailPortrait(page);
+      assert.equal(detailPortrait?.cardId, card.id,
+        `${card.displayName} details reuse the registered collection portrait`);
+      assert.ok(detailPortrait.image.decoded && detailPortrait.image.visible &&
+        detailPortrait.image.bounds.width > 0 && detailPortrait.image.bounds.height > 0,
+      `${card.displayName} detail portrait decodes and renders: ${JSON.stringify(detailPortrait.image)}`);
+      assert.equal(detailPortrait.image.src,
+        await cardButton.locator(".card-art-image").getAttribute("src"),
+      `${card.displayName} details keep the collection's registered portrait mapping`);
       if (card.kind === "effect") {
         assert.match(await page.locator("[data-card-detail] .detail-description").innerText(),
           /center-cast area spell/iu);
@@ -446,12 +512,90 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       },
     };
 
+    const phoneDetailReviews = [];
+    for (const cardId of ["sunthread-pair", "duskwing-trio"]) {
+      await page.locator(`[data-card-grid] [data-card-id="${cardId}"]`).click();
+      await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+      const layout = await renderedDetailPortrait(page);
+      assert.equal(layout?.cardId, cardId);
+      assert.ok(layout.image.decoded && layout.image.visible && layout.image.bounds.width > 0 &&
+        layout.image.bounds.height > 0,
+      `${cardId} has a decoded portrait in its phone detail panel: ${JSON.stringify(layout.image)}`);
+      assert.equal(layout.image.src, layout.collectionImage?.src,
+        `${cardId} detail and collection use the same portrait asset`);
+      assert.equal(layout.viewport.width, 390);
+      assert.equal(layout.documentWidth, 390,
+        `${cardId} phone detail has no horizontal page overflow: ${JSON.stringify(layout)}`);
+      assert.ok(layout.detail.bounds.x >= 0 && layout.detail.bounds.right <= 390 &&
+        layout.detail.scrollWidth <= layout.detail.clientWidth + 1,
+      `${cardId} phone detail panel and contents fit horizontally: ${JSON.stringify(layout.detail)}`);
+      assert.ok(layout.detailBack?.visible && layout.detailBack.bounds.width >= 44 &&
+        layout.detailBack.bounds.height >= 44,
+      `${cardId} keeps a visible, usable Cards control on phone`);
+      assert.ok(layout.nav.visible && layout.nav.bounds.y >= 0 && layout.nav.bounds.bottom <= 844,
+        `${cardId} keeps phone navigation inside the viewport`);
+      assert.equal(layout.focusedElementId, "selected-card-title",
+        `${cardId} selection moves keyboard focus to its detail heading`);
+      assert.equal(layout.idsUnique, true,
+        `${cardId} portrait markup does not duplicate document IDs`);
+      assert.equal(await page.locator("[data-card-detail] .card-lore p").count(), 1,
+        `${cardId} phone detail retains its lore`);
+      assert.equal(await page.locator("[data-card-detail] .unit-profile .stat-cell").count(), 7,
+        `${cardId} phone detail retains all seven stat cells`);
+      const phoneScreenshot = `${cardId}-phone-390x844.png`;
+      const fullPhoneScreenshot = `${cardId}-phone-390x844-full.png`;
+      await page.screenshot({ path: join(ARTIFACTS, phoneScreenshot) });
+      await page.screenshot({ path: join(ARTIFACTS, fullPhoneScreenshot), fullPage: true });
+      phoneDetailReviews.push({ cardId, ...layout,
+        screenshots: [phoneScreenshot, fullPhoneScreenshot] });
+      await page.locator("[data-card-detail] .detail-back").click();
+    }
+
+    await page.setViewportSize({ width: 1440, height: 933 });
+    await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+    const desktopDetailReviews = [];
+    for (const cardId of ["sunthread-pair", "duskwing-trio"]) {
+      await page.locator(`[data-card-grid] [data-card-id="${cardId}"]`).click();
+      const layout = await renderedDetailPortrait(page);
+      assert.equal(layout?.cardId, cardId);
+      assert.ok(layout.image.decoded && layout.image.visible && layout.image.bounds.width > 0 &&
+        layout.image.bounds.height > 0,
+      `${cardId} has a decoded portrait in its desktop detail panel`);
+      assert.ok(layout.collectionImage?.visible,
+        `${cardId} remains visible in the desktop collection beside its detail portrait`);
+      assert.equal(layout.image.src, layout.collectionImage.src,
+        `${cardId} desktop detail and collection use the same portrait asset`);
+      assert.equal(layout.viewport.width, 1440);
+      assert.equal(layout.documentWidth, 1440,
+        `${cardId} desktop detail has no horizontal page overflow`);
+      assert.ok(layout.detail.bounds.x >= 0 && layout.detail.bounds.right <= 1440 &&
+        layout.detail.scrollWidth <= layout.detail.clientWidth + 1,
+      `${cardId} desktop detail panel and contents fit horizontally`);
+      assert.equal(layout.idsUnique, true,
+        `${cardId} keeps document IDs unique while collection and detail portraits are visible`);
+      const screenshot = `${cardId}-desktop-1440x933.png`;
+      await page.screenshot({ path: join(ARTIFACTS, screenshot) });
+      desktopDetailReviews.push({ cardId, ...layout, screenshot });
+    }
+    cardPortraitEvidence.detailReviews = {
+      phone: phoneDetailReviews,
+      desktop: desktopDetailReviews,
+    };
+
     await page.setViewportSize({ width: 1440, height: 933 });
     await page.locator('[data-card-grid] [data-card-id="briar-band"]').click();
     assert.equal(await page.locator("[data-card-detail] .unit-profile").count(), 2);
     await page.screenshot({ path: join(ARTIFACTS, CARD_PORTRAIT_SCREENSHOTS[1]), fullPage: true });
+    const detailScreenshotNames = [
+      "sunthread-pair-phone-390x844.png",
+      "sunthread-pair-phone-390x844-full.png",
+      "duskwing-trio-phone-390x844.png",
+      "duskwing-trio-phone-390x844-full.png",
+      "sunthread-pair-desktop-1440x933.png",
+      "duskwing-trio-desktop-1440x933.png",
+    ];
     cardPortraitEvidence.screenshots = await Promise.all(
-      CARD_PORTRAIT_SCREENSHOTS.map(screenshotEvidence));
+      [...CARD_PORTRAIT_SCREENSHOTS, ...detailScreenshotNames].map(screenshotEvidence));
 
     await page.setViewportSize({ width: 720, height: 1280 });
     await page.locator('[data-nav-to="home"]').click();

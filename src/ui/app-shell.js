@@ -218,8 +218,11 @@ function unitProfileMarkup(entity) {
 function renderCardDetails(card) {
   const lore = getCardLore(card.id);
   cardDetails.innerHTML = `<div class="detail-heading">
-      <button type="button" class="detail-back" data-action="back-to-cards"><span aria-hidden="true">←</span> Cards</button>
-      <div><h2 id="selected-card-title" tabindex="-1">${html(card.displayName)}</h2><p>${cardCountLabel(card)} · ${card.cost} elixir</p></div>
+      <div class="detail-portrait">${artMarkup(card.id)}</div>
+      <div class="detail-heading-copy">
+        <button type="button" class="detail-back" data-action="back-to-cards"><span aria-hidden="true">←</span> Cards</button>
+        <div><h2 id="selected-card-title" tabindex="-1">${html(card.displayName)}</h2><p>${cardCountLabel(card)} · ${card.cost} elixir</p></div>
+      </div>
       <span class="detail-cost" aria-label="${card.cost} elixir">${card.cost}</span>
     </div>
     <p class="detail-description">${html(descriptionFor(card))}</p>
