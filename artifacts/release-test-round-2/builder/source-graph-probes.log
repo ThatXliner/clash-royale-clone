@@ -1,0 +1,79 @@
+✗ Build failed in 19ms
+✗ Build failed in 5ms
+✗ Build failed in 5ms
+✗ Build failed in 4ms
+✗ Build failed in 6ms
+✗ Build failed in 4ms
+✗ Build failed in 4ms
+✗ Build failed in 3ms
+{
+  "probes": [
+    {
+      "name": "reference-json-unused",
+      "outcome": "rejected",
+      "error": "Build failed with 1 error:\n\n[plugin moss-and-ember-release-dependency-policy]\nError: protected resolved source import: reference/stats/cards.json\n    at invariant (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/scripts/build-release.js:35:25)\n    at assertPortablePath (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/scripts/build-release.js:58:3)\n    at PluginContextImpl.resolveId (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/scripts/build-release.js:331:7)\n    at async plugin (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/rolldown/dist/shared/bindingify-input-options-DCTviPFW.mjs:1646:16)\n    at async plugin.<computed> (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/rolldown/dist/shared/bindingify-input-options-DCTviPFW.mjs:2316:12)"
+    },
+    {
+      "name": "reference-json-used",
+      "outcome": "rejected",
+      "error": "Build failed with 1 error:\n\n[plugin moss-and-ember-release-dependency-policy]\nError: protected resolved source import: reference/stats/cards.json\n    at invariant (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/scripts/build-release.js:35:25)\n    at assertPortablePath (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/scripts/build-release.js:58:3)\n    at PluginContextImpl.resolveId (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/scripts/build-release.js:331:7)\n    at async plugin (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/rolldown/dist/shared/bindingify-input-options-DCTviPFW.mjs:1646:16)\n    at async plugin.<computed> (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/rolldown/dist/shared/bindingify-input-options-DCTviPFW.mjs:2316:12)"
+    },
+    {
+      "name": "package-relative-unused-export",
+      "outcome": "rejected",
+      "error": "Build failed with 1 error:\n\n[plugin moss-and-ember-release-dependency-policy]\nError: node_modules source is not allowed in release graph: node_modules/reviewer-probe/file.js\n    at invariant (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/scripts/build-release.js:35:25)\n    at assertPortablePath (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/scripts/build-release.js:61:15)\n    at PluginContextImpl.resolveId (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/scripts/build-release.js:331:7)\n    at async plugin (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/rolldown/dist/shared/bindingify-input-options-DCTviPFW.mjs:1646:16)\n    at async plugin.<computed> (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/rolldown/dist/shared/bindingify-input-options-DCTviPFW.mjs:2316:12)"
+    },
+    {
+      "name": "package-relative-used-export",
+      "outcome": "rejected",
+      "error": "Build failed with 1 error:\n\n[plugin moss-and-ember-release-dependency-policy]\nError: node_modules source is not allowed in release graph: node_modules/reviewer-probe/file.js\n    at invariant (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/scripts/build-release.js:35:25)\n    at assertPortablePath (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/scripts/build-release.js:61:15)\n    at PluginContextImpl.resolveId (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/scripts/build-release.js:331:7)\n    at async plugin (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/rolldown/dist/shared/bindingify-input-options-DCTviPFW.mjs:1646:16)\n    at async plugin.<computed> (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/rolldown/dist/shared/bindingify-input-options-DCTviPFW.mjs:2316:12)"
+    },
+    {
+      "name": "package-absolute-unused-export",
+      "outcome": "rejected",
+      "error": "Build failed with 1 error:\n\n[plugin moss-and-ember-release-dependency-policy]\nError: node_modules source is not allowed in release graph: node_modules/reviewer-probe/file.js\n    at invariant (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/scripts/build-release.js:35:25)\n    at assertPortablePath (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/scripts/build-release.js:61:15)\n    at PluginContextImpl.resolveId (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/scripts/build-release.js:331:7)\n    at async plugin (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/rolldown/dist/shared/bindingify-input-options-DCTviPFW.mjs:1646:16)\n    at async plugin.<computed> (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/rolldown/dist/shared/bindingify-input-options-DCTviPFW.mjs:2316:12)"
+    },
+    {
+      "name": "package-absolute-used-export",
+      "outcome": "rejected",
+      "error": "Build failed with 1 error:\n\n[plugin moss-and-ember-release-dependency-policy]\nError: node_modules source is not allowed in release graph: node_modules/reviewer-probe/file.js\n    at invariant (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/scripts/build-release.js:35:25)\n    at assertPortablePath (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/scripts/build-release.js:61:15)\n    at PluginContextImpl.resolveId (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/scripts/build-release.js:331:7)\n    at async plugin (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/rolldown/dist/shared/bindingify-input-options-DCTviPFW.mjs:1646:16)\n    at async plugin.<computed> (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/rolldown/dist/shared/bindingify-input-options-DCTviPFW.mjs:2316:12)"
+    },
+    {
+      "name": "bare-package-unused-import",
+      "outcome": "rejected",
+      "error": "Build failed with 1 error:\n\n[plugin moss-and-ember-release-dependency-policy]\nError: bare dependency is not allowed: reviewer-probe\n    at invariant (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/scripts/build-release.js:35:25)\n    at PluginContextImpl.resolveId (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/scripts/build-release.js:320:7)\n    at PluginContextImpl.handler (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/vite/dist/node/chunks/node.js:34714:13)\n    at plugin (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/rolldown/dist/shared/bindingify-input-options-DCTviPFW.mjs:1646:30)\n    at file:///Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/rolldown/dist/shared/bindingify-input-options-DCTviPFW.mjs:2118:21\n    at plugin.<computed> (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/rolldown/dist/shared/bindingify-input-options-DCTviPFW.mjs:2316:18)"
+    },
+    {
+      "name": "inline-vite-export-from",
+      "outcome": "rejected",
+      "error": "Build failed with 1 error:\n\n[plugin moss-and-ember-release-dependency-policy] /private/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/release-source-graph-probes-WtyKST/inline-vite-export-from/public/index.html\nError: release HTML may not import Vite's internal modulepreload polyfill\n    at invariant (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/scripts/build-release.js:35:25)\n    at TransformPluginContextImpl.transform (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/scripts/build-release.js:299:9)\n    at TransformPluginContextImpl.handler (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/vite/dist/node/chunks/node.js:34732:13)\n    at plugin (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/rolldown/dist/shared/bindingify-input-options-DCTviPFW.mjs:1726:30)\n    at file:///Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/rolldown/dist/shared/bindingify-input-options-DCTviPFW.mjs:2118:21\n    at plugin.<computed> (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/rolldown/dist/shared/bindingify-input-options-DCTviPFW.mjs:2316:18)"
+    },
+    {
+      "name": "benign-comment-and-string-import-text",
+      "outcome": "accepted",
+      "artifactFiles": 2,
+      "totalBytes": 2485,
+      "manifestSha256": "c9f064788d476006c5635374dff2f3d770ea0f8fdccf123011dd4e2e98e7f0fa",
+      "manifestPath": "benign-comment-and-string-import-text/output/release-manifest.json",
+      "graphKeys": [
+        "public/index.html"
+      ],
+      "emittedPaths": [
+        "assets/public/index-2_uerOTq.js",
+        "public/index.html"
+      ],
+      "emittedJs": [
+        {
+          "path": "assets/public/index-2_uerOTq.js",
+          "bytes": 1885,
+          "sha256": "bf2a355a6236b377ab8c5aacc05d1a7b34ade3a6c82a801e6392674d39c4dc41",
+          "containsReferenceMarker": false,
+          "containsPackageMarker": false,
+          "containsModulepreloadText": true,
+          "initializesVitePolyfill": true,
+          "markerLines": []
+        }
+      ]
+    }
+  ]
+}

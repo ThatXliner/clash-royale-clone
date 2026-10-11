@@ -1,0 +1,74 @@
+
+> moss-and-ember@0.0.0 test:nondeterminism-guard
+> node tests/nondeterminism-guard-runner.js nondeterminism-guard
+
+TAP version 13
+# Subtest: nondeterminism-guard: rejects direct and adversarial syntax-aware fixtures
+ok 1 - nondeterminism-guard: rejects direct and adversarial syntax-aware fixtures
+  ---
+  duration_ms: 19.261542
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: permits deterministic locals and ignores comments and strings
+ok 2 - nondeterminism-guard: permits deterministic locals and ignores comments and strings
+  ---
+  duration_ms: 2.029625
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: binds function, catch, class, and nested lexical shadows exactly
+ok 3 - nondeterminism-guard: binds function, catch, class, and nested lexical shadows exactly
+  ---
+  duration_ms: 2.792791
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: scans every simulation module and probes its runtime boundary
+ok 4 - nondeterminism-guard: scans every simulation module and probes its runtime boundary
+  ---
+  duration_ms: 721.622041
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: simulation closure admits only the exact neutral authority
+ok 5 - nondeterminism-guard: simulation closure admits only the exact neutral authority
+  ---
+  duration_ms: 103.878583
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: runtime probe denies computed capabilities the analyzer cannot resolve
+ok 6 - nondeterminism-guard: runtime probe denies computed capabilities the analyzer cannot resolve
+  ---
+  duration_ms: 45.845958
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: closes all five dormant-function critic bypasses without invoking exports
+ok 7 - nondeterminism-guard: closes all five dormant-function critic bypasses without invoking exports
+  ---
+  duration_ms: 100.032125
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: runtime linker accepts a bounded cyclic local module graph
+ok 8 - nondeterminism-guard: runtime linker accepts a bounded cyclic local module graph
+  ---
+  duration_ms: 60.533958
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: reports canonical output and fails a source set atomically
+ok 9 - nondeterminism-guard: reports canonical output and fails a source set atomically
+  ---
+  duration_ms: 0.427709
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: enforces hostile size, depth, and file-count bounds
+ok 10 - nondeterminism-guard: enforces hostile size, depth, and file-count bounds
+  ---
+  duration_ms: 0.478333
+  type: 'test'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1111.340042
