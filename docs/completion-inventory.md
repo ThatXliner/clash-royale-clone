@@ -14,7 +14,7 @@ outside the current source.
 | Measure | Current state | What it proves |
 | --- | --- | --- |
 | Historical roster | 109 identities: 78 troops, 13 buildings, 18 spells | Size of the pre-Evolutions comparison target, not implemented coverage |
-| Editable collection | 16 admitted identities: 15 troops and Squall Orb; the default deck remains 8 cards; independent review of the latest two troops is pending | Deck admission and selection. It does not mean every card has complete historical behavior |
+| Editable collection | 16 admitted identities: 15 troops and Squall Orb; the default deck remains 8 cards; latest two troops pass scoped runtime review; phone detail portrait revision remains open | Deck admission and selection. It does not mean every card has complete historical behavior |
 | Session card catalog | 53 admitted identities and 58 admitted source occurrences: 37 troop identities across 39 troop occurrences, 8 structures, and 8 effects | Typed identity admission and source routing, not complete gameplay for every identity |
 | Historical comparison mapping | The test-only [card-coverage-109.json](../artifacts/completion-inventory/reference/card-coverage-109.json) remains the 11-mapping `42bcf09` baseline | Historical mapping evidence only; it has not been refreshed for the current 16-card admitted collection |
 
@@ -53,8 +53,9 @@ and [browser review](../artifacts/cards-expansion-round-2/critic-browser/verdict
 Sunthread Pair and Duskwing Trio are admitted to the editable runtime in
 `9b5afa1`, with original painted portraits and provenance. Builder checks
 cover squad deployment, projectile contact, natural AI selection, RL actions
-and exact custom-deck restore. Independent core and actual desktop/phone
-review remain pending. Projectile-speed conversion and the inferred air layer
+and exact custom-deck restore. Independent core/API review passes64/64, and the production package qualifies.
+Actual desktop/phone lore, controls and current-game statistics render correctly;
+phone details currently omit the selected portrait, so ART-015 remains open. Projectile-speed conversion and the inferred air layer
 remain QUESTION policies; admission and prepared art do not establish full
 historical behavior.
 

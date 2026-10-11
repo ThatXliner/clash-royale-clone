@@ -1,5 +1,29 @@
 # Gauntlet Rounds
 
+## Round 391 — 2026-10-11
+
+PIECE: ART-015 — Original ranged-pair and flying-trio portraits, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Independent frozen9b5 production53-file package qualifies; actual Sunthread Pair and Duskwing Trio information views are captured at1440×933 and390×844 with zero console/page/request errors. Original portraits decode512×512 in the collection; desktop selection keeps each portrait beside its details. Both phone panels show correct lore/statistics and fit (Sunthread x12/y83/w366/bottom633; Duskwing bottom602), but each selected detail view hides the collection grid and has no portrait inside the panel. Thus2/4 portrait-bearing information views meet the scoped visual bar. Receipt and screenshots: `artifacts/cards-expansion-round-3/critic/review-notes.md` and `browser-review.json`, frozen in f6f6e6f.
+
+BIGGEST GAP: The390×844 information panel must show its selected original portrait after the collection grid is hidden.
+
+DISPOSITION: A separate portrait builder owns app-shell rendering/CSS/test updates; prepared edits may proceed, but browser checks wait for the exclusive full endurance run to finish. Asset bytes and simulation remain unchanged.
+
+## Round 390 — 2026-10-11
+
+PIECE: CARDS-015 — Ranged pair and flying trio choices, round 1
+
+VERDICT: PASS
+
+EVIDENCE: Independent immutable9b5 archive passes63/63 core/API tests plus1/1 focused RL integration. Actual packaged UI admits16 mixed identities (15 troops plus Squall Orb) and preserves the default8. Both new squads have typed player/opponent deployments, seeded natural AI selection, legal RL masks and exact deck receipts; sourced projectiles trade across ground/estimated-air layers and replay in-flight checkpoints exactly. Production53files/8134132bytes qualify with53 local requestsHTTP200 and no runtime errors. Actual desktop/phone controls, lore and current-game stat wording pass; reference unverified fields and speed/layer QUESTIONs remain non-authoritative. Evidence: `artifacts/cards-expansion-round-3/critic/`, committed f6f6e6f.
+
+BIGGEST GAP: None on scoped playable runtime/agent/deck behavior; the separate ART-015 phone portrait gap remains open.
+
+DISPOSITION: This accepts the two implemented estimates, not full historical parity, full109-roster coverage, endurance or release completion. The old frozen app-shell expectation was stale; separate1464219 updates it and fresh endurance preflight now passes that actual16-card fixture independently.
+
 ## Round 389 — 2026-10-11
 
 PIECE: GAME-001GPR — Combat art asset delivery, round 2
