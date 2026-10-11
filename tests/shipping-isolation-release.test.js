@@ -7,6 +7,7 @@ import {
   readFile,
   readdir,
   rm,
+  symlink,
   writeFile,
 } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -321,6 +322,89 @@ test("release builder rejects package imports and emitted protected/reference by
   }, { name: "reference-bytes", config: { staticAssetRoots: ["public/static"] } });
   await assert.rejects(buildRelease(referenceRoot),
     /reference bytes from reference\/stats\/cards\.json are present in public\/static\/reference\.js/);
+});
+
+test("release builder rejects protected resolved source edges before tree shaking", async (t) => {
+  const html = '<script type="module" src="./entry.js"></script>';
+  const referenceJson = JSON.stringify({ marker: "REF-SOURCE-GRAPH-PROBE-7e1f6cc2" });
+  const packageSource = 'export const marker = "PACKAGE-SOURCE-GRAPH-PROBE-0f1a8b6d";\n';
+
+  async function rejects(name, entry, files, reason) {
+    const target = await fixture(t, {
+      "public/index.html": html,
+      "public/entry.js": entry,
+      ...files,
+    }, { name });
+    await assert.rejects(buildRelease(target), reason, name);
+  }
+
+  for (const [name, used] of [["reference-unused", false], ["reference-used", true]]) {
+    await rejects(name, [
+      'import cards from "../reference/stats/cards.json";',
+      used ? "globalThis.cardCount = cards.marker;" : "export const clean = true;",
+    ].join("\n"), {
+      "reference/stats/cards.json": referenceJson,
+    }, /protected resolved source import: reference\/stats\/cards\.json/);
+  }
+
+  for (const [name, used] of [["package-relative-unused", false], ["package-relative-used", true]]) {
+    await rejects(name, [
+      'import { marker } from "../node_modules/reviewer-probe/file.js";',
+      used ? "globalThis.packageMarker = marker;" : "export const clean = true;",
+    ].join("\n"), {
+      "node_modules/reviewer-probe/file.js": packageSource,
+    }, /node_modules source is not allowed in release graph/);
+  }
+
+  for (const [name, used] of [["package-absolute-unused", false], ["package-absolute-used", true]]) {
+    const target = await fixture(t, {
+      "public/index.html": html,
+      "public/entry.js": "export const clean = true;\n",
+      "node_modules/reviewer-probe/file.js": packageSource,
+    }, { name });
+    const absolutePackageFile = join(target.root, "node_modules/reviewer-probe/file.js");
+    await writeFile(join(target.root, "public/entry.js"), [
+      "import { marker } from " + JSON.stringify(absolutePackageFile) + ";",
+      used ? "globalThis.packageMarker = marker;" : "export const clean = true;",
+    ].join("\n"));
+    await assert.rejects(buildRelease(target),
+      /node_modules source is not allowed in release graph/, name);
+  }
+
+  await rejects("reference-reexport", 'export { marker } from "../reference/private.js";', {
+    "reference/private.js": "export const marker = true;\n",
+  }, /protected resolved source import: reference\/private\.js/);
+
+  const inlineExport = await fixture(t, {
+    "public/index.html": [
+      "<!doctype html>",
+      '<script type="module">export * from "vite/modulepreload-polyfill";</script>',
+    ].join("\n"),
+  }, { name: "inline-vite-export-from" });
+  await assert.rejects(buildRelease(inlineExport),
+    /release HTML may not import Vite's internal modulepreload polyfill/);
+
+  const symlinkedReference = await fixture(t, {
+    "public/index.html": html,
+    "public/entry.js": 'import cards from "./card-alias.json?raw";\nexport const clean = true;\n',
+    "reference/stats/cards.json": referenceJson,
+  }, { name: "reference-symlink-query" });
+  await symlink("../reference/stats/cards.json",
+    join(symlinkedReference.root, "public/card-alias.json"));
+  await assert.rejects(buildRelease(symlinkedReference),
+    /protected resolved source import: reference\/stats\/cards\.json/);
+
+  const outside = await mkdtemp(join(tmpdir(), "shipping-release-outside-"));
+  t.after(() => rm(outside, { recursive: true, force: true }));
+  const outsideModule = join(outside, "outside.js");
+  await writeFile(outsideModule, "export const marker = true;\n");
+  const outsideImport = await fixture(t, {
+    "public/index.html": html,
+    "public/entry.js": "export const clean = true;\n",
+  }, { name: "outside-root-import" });
+  await writeFile(join(outsideImport.root, "public/entry.js"),
+    "import " + JSON.stringify(outsideModule) + ";\n");
+  await assert.rejects(buildRelease(outsideImport), /release source import escapes workspace/);
 });
 
 test("Chrome serves only manifest paths and records CSP-blocked and failed requests", {
