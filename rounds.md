@@ -1,5 +1,17 @@
 # Gauntlet Rounds
 
+## Round 399 — 2026-10-11
+
+PIECE: CARDS-016K — Two additional classic air-swarm runtime roles, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Independent frozen e3413fd focused80/80 (84990ms) and guards23/23 pass. Shared GameSession probes verify five/six bodies, both sides, exact spend/cycle, seeded natural AI, four air/ground trades, malformed delivery-policy rejection and in-flight/post-death exact continuation. Default8 snapshots are byte-identical to6dc for seeds0/23 at ticks0/120/900. Editable roster remains15 troops plus Squall=16; new roles are rejected by public/RL deck boundaries. Catalog55 admitted IDs60occ is admission only. All mapped source values match, but unverified combat fields lack typed runtime QUESTION closure despite prose disclosures. Evidence a723dce/ac76a85 in `artifacts/cards-expansion-round-4/core-critic/`; no fresh full18000 run.
+
+BIGGEST GAP: Runtime witness must preserve explicit low-confidence HP/damage/cadence/first-hit/deploy/range/sight/speed/targets/count QUESTIONS for both swarms.
+
+DISPOSITION: Separate cards016_confidence_builder starts round2 with unchanged values and source admission. Formation/stagger remains QUESTION, and art/public integration awaits accepted core.
+
 ## Round 398 — 2026-10-11
 
 PIECE: RELEASE-TEST-001 — Current production isolation test qualification, round 1

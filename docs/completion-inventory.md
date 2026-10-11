@@ -19,7 +19,9 @@ outside the current source.
 | Historical comparison mapping | The independently reviewed [current 16-card inventory](../artifacts/completion-inventory-current-16/card-coverage-109-current-16.json) is pinned to `6dcf64b`: 109 rows, 12 declaration-supported comparator candidates, 2 QUESTION fixture mentions and 4 unjoined identities. The older [11-mapping baseline](../artifacts/completion-inventory/reference/card-coverage-109.json) remains byte-identical | Mapping and admission evidence only; zero full historical-card executions or parity claims. The frozen inventory does not cover the newer `e3413fd` core |
 
 Gloamwing Cluster and Coppershade Flock have a new core candidate at
-`e3413fd`, under independent review. Its catalog admits55 identities across60
+`e3413fd`, which passes103 focused/guard checks but fails independent confidence
+review: its typed witness omits QUESTIONS for several low-confidence combat
+fields. A separate builder is correcting that metadata. Its catalog admits55 identities across60
 occurrences, but neither card joins the editable collection or RL deck API yet.
 Historical swarm formation and stagger remain explicit QUESTIONS; the prior
 full endurance result does not verify this changed runtime graph.
