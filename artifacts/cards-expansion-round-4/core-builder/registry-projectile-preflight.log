@@ -1,0 +1,208 @@
+TAP version 13
+# Subtest: game roster admission: manifest is the exact integration occurrence surface with explicit exclusions
+ok 1 - game roster admission: manifest is the exact integration occurrence surface with explicit exclusions
+  ---
+  duration_ms: 1783.541875
+  type: 'test'
+  ...
+# Subtest: game roster admission: every admitted ID has one exact legal eight-card witness
+ok 2 - game roster admission: every admitted ID has one exact legal eight-card witness
+  ---
+  duration_ms: 6.15675
+  type: 'test'
+  ...
+# Subtest: game roster admission: runtime routes each admitted kind once and restores canonical history
+ok 3 - game roster admission: runtime routes each admitted kind once and restores canonical history
+  ---
+  duration_ms: 2.380875
+  type: 'test'
+  ...
+# Subtest: game roster admission: non-unit battle cards admit but can never materialize placeholders
+ok 4 - game roster admission: non-unit battle cards admit but can never materialize placeholders
+  ---
+  duration_ms: 33.03125
+  type: 'test'
+  ...
+# Subtest: game roster admission: GameSession spends, cycles, and records one typed route per play
+ok 5 - game roster admission: GameSession spends, cycles, and records one typed route per play
+  ---
+  duration_ms: 83.644375
+  type: 'test'
+  ...
+# Subtest: game roster admission: non-unit session history is chunk- and restore-exact
+ok 6 - game roster admission: non-unit session history is chunk- and restore-exact
+  ---
+  duration_ms: 992.468792
+  type: 'test'
+  ...
+# Subtest: game roster admission: hostile runtime admission is bounded, trap-zero, and atomic
+ok 7 - game roster admission: hostile runtime admission is bounded, trap-zero, and atomic
+  ---
+  duration_ms: 20.011042
+  type: 'test'
+  ...
+# Subtest: projectile profiles: exact admitted occurrence/card/archetype domain and pinned remainder
+ok 8 - projectile profiles: exact admitted occurrence/card/archetype domain and pinned remainder
+  ---
+  duration_ms: 2.04125
+  type: 'test'
+  ...
+# Subtest: projectile profiles: the complete witness map covers exactly the nine source export sets
+ok 9 - projectile profiles: the complete witness map covers exactly the nine source export sets
+  ---
+  duration_ms: 0.651417
+  type: 'test'
+  ...
+# Subtest: projectile profiles: every bound row rejects same-ID scalar drift
+ok 10 - projectile profiles: every bound row rejects same-ID scalar drift
+  ---
+  duration_ms: 1523.273333
+  type: 'test'
+  ...
+# Subtest: projectile source admission: rebranded cost drift rejects before every shared consumer
+ok 11 - projectile source admission: rebranded cost drift rejects before every shared consumer
+  ---
+  duration_ms: 3297.85225
+  type: 'test'
+  ...
+# Subtest: projectile source admission: rebranded canonical key order stays usable in every shared consumer
+ok 12 - projectile source admission: rebranded canonical key order stays usable in every shared consumer
+  ---
+  duration_ms: 4737.904375
+  type: 'test'
+  ...
+# Subtest: projectile source admission: every scalar source field rejects rebranding through every shared consumer
+ok 13 - projectile source admission: every scalar source field rejects rebranding through every shared consumer
+  ---
+  duration_ms: 58740.86125
+  type: 'test'
+  ...
+# Subtest: projectile source admission: rebranded first-versus-second reads reject before every shared consumer
+ok 14 - projectile source admission: rebranded first-versus-second reads reject before every shared consumer
+  ---
+  duration_ms: 3406.433208
+  type: 'test'
+  ...
+# Subtest: projectile source admission: rebranded source shape and nested drift fail before output
+ok 15 - projectile source admission: rebranded source shape and nested drift fail before output
+  ---
+  duration_ms: 2432.13725
+  type: 'test'
+  ...
+# Subtest: projectile profiles: representative source fields, shapes, and nested Briar changes fail closed
+ok 16 - projectile profiles: representative source fields, shapes, and nested Briar changes fail closed
+  ---
+  duration_ms: 2279.525416
+  type: 'test'
+  ...
+# Subtest: projectile profiles: source reads, HTP, and HTO drift reject before exposure
+ok 17 - projectile profiles: source reads, HTP, and HTO drift reject before exposure
+  ---
+  duration_ms: 526.895083
+  type: 'test'
+  ...
+# Subtest: projectile profiles: source rows and every nested component reject hostile shapes trap-zero
+ok 18 - projectile profiles: source rows and every nested component reject hostile shapes trap-zero
+  ---
+  duration_ms: 2467.372458
+  type: 'test'
+  ...
+# Subtest: projectile profiles: every source binding is admitted before first-read hostile access
+ok 19 - projectile profiles: every source binding is admitted before first-read hostile access
+  ---
+  duration_ms: 8271.135
+  type: 'test'
+  ...
+# Subtest: projectile profiles: a normal admitted catalog remains usable by the shared runtime
+ok 20 - projectile profiles: a normal admitted catalog remains usable by the shared runtime
+  ---
+  duration_ms: 20.2815
+  type: 'test'
+  ...
+# Subtest: projectile profiles: every claimed source join is exact and profiles are one-per-ID
+ok 21 - projectile profiles: every claimed source join is exact and profiles are one-per-ID
+  ---
+  duration_ms: 0.831042
+  type: 'test'
+  ...
+# Subtest: projectile profiles: components stay owned by their card and duplicated compositions do not double count
+ok 22 - projectile profiles: components stay owned by their card and duplicated compositions do not double count
+  ---
+  duration_ms: 0.721917
+  type: 'test'
+  ...
+# Subtest: projectile profiles: unresolved delivery dependencies join exact HTO QUESTION records
+ok 23 - projectile profiles: unresolved delivery dependencies join exact HTO QUESTION records
+  ---
+  duration_ms: 1.182
+  type: 'test'
+  ...
+# Subtest: projectile profiles: all five question fixtures are exact, fresh, and provenance-preserving
+ok 24 - projectile profiles: all five question fixtures are exact, fresh, and provenance-preserving
+  ---
+  duration_ms: 1.844916
+  type: 'test'
+  ...
+# Subtest: projectile profiles: ordinary delivery remains QUESTION and special geometry stays fixture-owned
+ok 25 - projectile profiles: ordinary delivery remains QUESTION and special geometry stays fixture-owned
+  ---
+  duration_ms: 0.550041
+  type: 'test'
+  ...
+# Subtest: projectile profiles: generic basic-ranged launch evidence is test-only and cannot admit either card
+ok 26 - projectile profiles: generic basic-ranged launch evidence is test-only and cannot admit either card
+  ---
+  duration_ms: 6.600167
+  type: 'test'
+  ...
+# Subtest: projectile profiles: generic flying launch evidence cannot admit Copperskiff
+ok 27 - projectile profiles: generic flying launch evidence cannot admit Copperskiff
+  ---
+  duration_ms: 6.905333
+  type: 'test'
+  ...
+# Subtest: projectile profiles: Aegis composition remains pending for GAME-001HTC
+ok 28 - projectile profiles: Aegis composition remains pending for GAME-001HTC
+  ---
+  duration_ms: 0.537625
+  type: 'test'
+  ...
+# Subtest: projectile profiles: GAME-001TH identity adapter is required but has no second identity authority
+ok 29 - projectile profiles: GAME-001TH identity adapter is required but has no second identity authority
+  ---
+  duration_ms: 0.520542
+  type: 'test'
+  ...
+# Subtest: projectile profiles: no encounter/private simulator execution or coverage is claimed
+ok 30 - projectile profiles: no encounter/private simulator execution or coverage is claimed
+  ---
+  duration_ms: 0.933792
+  type: 'test'
+  ...
+# Subtest: projectile profiles: outputs are fresh, deeply frozen, detached, and canonical
+ok 31 - projectile profiles: outputs are fresh, deeply frozen, detached, and canonical
+  ---
+  duration_ms: 2.8165
+  type: 'test'
+  ...
+# Subtest: projectile profiles: primitive hostile lookup matrix is trap-zero and fail-closed
+ok 32 - projectile profiles: primitive hostile lookup matrix is trap-zero and fail-closed
+  ---
+  duration_ms: 0.741917
+  type: 'test'
+  ...
+# Subtest: projectile profiles: static isolation and source-change bounds are explicit
+ok 33 - projectile profiles: static isolation and source-change bounds are explicit
+  ---
+  duration_ms: 1.406375
+  type: 'test'
+  ...
+1..33
+# tests 33
+# suites 0
+# pass 33
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 87879.502083

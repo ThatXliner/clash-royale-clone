@@ -12,6 +12,12 @@ export const ORDINARY_PROJECTILE_SOURCE_CLAIMS = Object.freeze([
     catalogId: CATALOG_ID,
     sourceExport: "createOrdinaryProjectileSquadCatalog",
   }),
+  Object.freeze({
+    cardId: "coppershade-flock",
+    archetypeId: "coppershade",
+    catalogId: CATALOG_ID,
+    sourceExport: "createOrdinaryProjectileSquadCatalog",
+  }),
 ]);
 const POLICY_KEYS = Object.freeze([
   "archetypeId", "cardId", "catalogId", "delivery", "kind",

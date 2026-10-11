@@ -248,6 +248,7 @@ test("squad content: catalog is canonical with exact component counts and roles"
       { count: 15, displayName: "Cinder Host", id: "cinder-host" },
       { count: 3, displayName: "Cinderlings", id: "cinderlings" },
       { count: 5, displayName: "Forgeguard", id: "forgeguard" },
+      { count: 5, displayName: "Gloamwing Cluster", id: "gloamwing-cluster" },
       { count: 4, displayName: "Thornscouts", id: "thornscouts" },
     ],
   );

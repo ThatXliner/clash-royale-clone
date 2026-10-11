@@ -269,6 +269,12 @@ const EXCLUDED_OCCURRENCE_SPECS = Object.freeze([
     status: "question",
   },
   {
+    exportName: "createSwarmCatalog",
+    id: "gloamwing-cluster",
+    reason: "the melee flight swarm has no pinned projectile delivery source claim",
+    status: "admitted",
+  },
+  {
     exportName: "createChampionAbilityCatalog",
     id: "iron-borer",
     reason: "the champion occurrence exports no projectile delivery claim",
@@ -960,12 +966,12 @@ function assertHtpSurface(htpManifest) {
 }
 
 function assertOrdinarySourceClaims(htpManifest, htpMap) {
-  if (ORDINARY_PROJECTILE_SOURCE_CLAIMS.length !== 2) {
-    throw new Error("ordinary projectile source admission must contain exactly two claims");
+  if (ORDINARY_PROJECTILE_SOURCE_CLAIMS.length !== 3) {
+    throw new Error("ordinary projectile source admission must contain exactly three claims");
   }
   const rows = createOrdinaryProjectileSquadCatalog();
-  if (!Array.isArray(rows) || rows.length !== 2) {
-    throw new Error("ordinary projectile source catalog must contain exactly two cards");
+  if (!Array.isArray(rows) || rows.length !== 3) {
+    throw new Error("ordinary projectile source catalog must contain exactly three cards");
   }
   const rowById = new Map(rows.map((row) => [row.id, row]));
   const pairs = [];

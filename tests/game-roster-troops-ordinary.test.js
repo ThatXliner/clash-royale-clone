@@ -26,8 +26,8 @@ import { ORDINARY_PROJECTILE_SOURCE_CLAIMS } from "../src/shared/ordinary-projec
 
 const ADMITTED_IDS = Object.freeze([
   "aegis-sage", "bloom-wisp", "bone-regent", "brassbolt", "briar-band",
-  "cinder-host", "cinder-ray", "cinderback", "cinderlings", "coilblade", "copperskiff",
-  "dawnmender", "dusk-ranger", "duskwing-trio", "emberlance", "forgeguard", "gilded-lancer", "iron-borer",
+  "cinder-host", "cinder-ray", "cinderback", "cinderlings", "coilblade", "coppershade-flock", "copperskiff",
+  "dawnmender", "dusk-ranger", "duskwing-trio", "emberlance", "forgeguard", "gilded-lancer", "gloamwing-cluster", "iron-borer",
   "ironroot", "mossguard", "prism-warden", "pulse-sentry", "railward", "reedsting",
   "rime-adept", "rune-reaver", "scatterguard", "skymaul", "stonehauler",
   "stonevault", "stormkite", "sunthread-pair", "tether-rider", "thornscouts", "veil-prowler", "veilrunner",
@@ -212,7 +212,7 @@ function expectedEntityRuntime(entity, questions) {
 test("ordinary troop projection domain is exactly the admitted profile surface", () => {
   const manifest = createSessionTroopProfileManifest();
   assert.deepEqual(manifest.profiles.map(({ id }) => id), ADMITTED_IDS);
-  assert.equal(manifest.profiles.length, 37);
+  assert.equal(manifest.profiles.length, 39);
   assert.deepEqual(ADMITTED_IDS, [...new Set(ADMITTED_IDS)]);
   for (const id of [...QUESTION_IDS, "not-a-troop", "coilblade\u200b"]) {
     assert.throws(() => projectSessionTroopBattleCard(id), /unknown|QUESTION|admitted/u);
@@ -322,11 +322,12 @@ test("every witness closes its exact questions, cards, and archetypes through Li
   }
 });
 
-test("ordinary projectile delivery admits only its exact two source tuples and rejects forged restore claims", () => {
+test("ordinary projectile delivery admits only its exact three source tuples and rejects forged restore claims", () => {
   assert.deepEqual(ORDINARY_PROJECTILE_SOURCE_CLAIMS.map(({ cardId, archetypeId }) =>
     [cardId, archetypeId]), [
     ["sunthread-pair", "sunthread-warden"],
     ["duskwing-trio", "duskwing"],
+    ["coppershade-flock", "coppershade"],
   ]);
   const policyFor = (claim) => ({
     archetypeId: claim.archetypeId,
@@ -485,10 +486,10 @@ test("all official witnesses use uniform HTO policies with exact projection coun
   const projectedEntities = projectedCards.flatMap(({ entities }) => entities);
   const projectedPolicies = projectedEntities.flatMap((entity) =>
     ORDINARY_POLICY_KEYS.map((field) => entity[field]));
-  assert.equal(ADMITTED_IDS.length, 37);
-  assert.equal(projectedEntities.length, 38);
-  assert.equal(new Set(projectedEntities.map(({ archetypeId }) => archetypeId)).size, 37);
-  assert.equal(projectedPolicies.length, 76);
+  assert.equal(ADMITTED_IDS.length, 39);
+  assert.equal(projectedEntities.length, 40);
+  assert.equal(new Set(projectedEntities.map(({ archetypeId }) => archetypeId)).size, 39);
+  assert.equal(projectedPolicies.length, 80);
   assert.ok(projectedEntities.every(({ deliveryPolicy, layerPolicy }) =>
     (deliveryPolicy.kind === "question" || deliveryPolicy.kind === "source-backed") &&
     layerPolicy.kind === "question"));

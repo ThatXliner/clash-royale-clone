@@ -1,7 +1,8 @@
 import { createCardCatalog } from "../schema.js";
 import { ORDINARY_PROJECTILE_SOURCE_CLAIMS } from "../../shared/ordinary-projectile-delivery-authority.js";
 
-const [SUNTHREAD_SOURCE, DUSKWING_SOURCE] = ORDINARY_PROJECTILE_SOURCE_CLAIMS;
+const [SUNTHREAD_SOURCE, DUSKWING_SOURCE, COPPERSHADE_SOURCE] =
+  ORDINARY_PROJECTILE_SOURCE_CLAIMS;
 
 const DEFINITIONS = [
   {
@@ -74,6 +75,43 @@ const DEFINITIONS = [
         movementMillitilesPerSecond: 1_500,
         targetMode: "ground-and-air",
         count: 3,
+        areaDamageRadiusMillitiles: null,
+      },
+    ],
+  },
+  {
+    id: COPPERSHADE_SOURCE.cardId,
+    displayName: "Coppershade Flock",
+    cost: 5,
+    kind: "unit",
+    rarity: "standard",
+    hitpoints: 230,
+    damage: 117,
+    hitSpeedTicks: 60,
+    firstHitTicks: 30,
+    deployTimeTicks: 60,
+    rangeMillitiles: 1_600,
+    sightRangeMillitiles: 5_500,
+    movementMillitilesPerSecond: 1_500,
+    targetMode: "ground-and-air",
+    count: 6,
+    areaDamageRadiusMillitiles: null,
+    components: [
+      {
+        id: COPPERSHADE_SOURCE.archetypeId,
+        displayName: "Coppershade",
+        kind: "unit",
+        role: "primary",
+        hitpoints: 230,
+        damage: 117,
+        hitSpeedTicks: 60,
+        firstHitTicks: 30,
+        deployTimeTicks: 60,
+        rangeMillitiles: 1_600,
+        sightRangeMillitiles: 5_500,
+        movementMillitilesPerSecond: 1_500,
+        targetMode: "ground-and-air",
+        count: 6,
         areaDamageRadiusMillitiles: null,
       },
     ],

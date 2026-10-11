@@ -310,7 +310,8 @@ function estimateDelivery(id) {
 }
 
 function estimateLayer(id) {
-  return id === "duskwing-trio" ? "air" : "ground";
+  return id === "duskwing-trio" || id === "gloamwing-cluster" ||
+    id === "coppershade-flock" ? "air" : "ground";
 }
 
 function estimateQuestion(key, value) {

@@ -1,0 +1,45 @@
+{
+  "objective": "CARDS-016K core GameSession support for Gloamwing Cluster and Coppershade Flock",
+  "sessionSourceManifest": {
+    "admittedIds": 55,
+    "admittedOccurrences": 60,
+    "editableDeckCardIds": 16
+  },
+  "canonicalProjectileProfileManifest": {
+    "length": 67953,
+    "sha256": "086c2826bceff46d8ec96089a1a66132d5cc14d90f19f0ecc36eae7d2f60cfb2"
+  },
+  "diagnosticRun": {
+    "command": "node --test tests/cards-swarms.test.js tests/game-roster-admission.test.js tests/game-roster-troop-profiles.test.js tests/game-roster-troops-ordinary.test.js tests/game-roster-troops-projectile-profiles.test.js tests/game-roster-troops-air-swarms.test.js",
+    "passed": 77,
+    "failed": 3,
+    "durationMs": 84310.1075,
+    "finding": "The first run exposed stale exact occurrence-registry, bound-row-count, and canonical serialization expectations; all were updated without weakening runtime assertions.",
+    "log": "scoped-session-preflight.log",
+    "qualification": false
+  },
+  "checks": [
+    {
+      "command": "node --test tests/game-roster-admission.test.js tests/game-roster-troops-projectile-profiles.test.js",
+      "exitCode": 0,
+      "passed": 33,
+      "failed": 0,
+      "durationMs": 87879.502083,
+      "log": "registry-projectile-preflight.log"
+    },
+    {
+      "command": "node --test tests/cards-swarms.test.js tests/game-roster-admission.test.js tests/game-roster-troop-profiles.test.js tests/game-roster-troops-ordinary.test.js tests/game-roster-troops-projectile-profiles.test.js tests/game-roster-troops-air-swarms.test.js",
+      "exitCode": 0,
+      "passed": 80,
+      "failed": 0,
+      "durationMs": 88641.278542,
+      "log": "scoped-session-preflight-final.log"
+    }
+  ],
+  "deferred": [
+    "Full 18000-tick endurance is not rerun for this core change.",
+    "Selection and editable/RL deck integration is deferred to ART-016 and CARDS-016I.",
+    "Historical interpretation of summon_radius and 100 ms summon_deploy_delay remains unresolved.",
+    "Formation layout, 300-millitile body radius, air layer, Gloamwing melee delivery, and Coppershade projectile speed retain explicit estimate/question policies."
+  ]
+}

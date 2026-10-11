@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 
 import * as content from "../../src/content/index.js";
+import { createSessionTroopWitness } from "../../src/content/session-troop-roster.js";
 import {
   BasicFlyingDuel,
   BasicRangedDuel,
@@ -24,6 +25,7 @@ import {
   createSpawnSpellFixture,
 } from "../../src/content/index.js";
 import { DamageSystem } from "../../src/sim/damage.js";
+import { LiveBattle } from "../../src/sim/live-battle.js";
 import { MeleeDuel } from "../../src/sim/melee.js";
 
 function canonical(value) {
@@ -180,6 +182,35 @@ function swarm(specification) {
     damage.list(),
     result.events,
     result.events,
+  );
+}
+
+function ordinaryProjectileSquad(specification) {
+  const record = recordsFor(specification);
+  const witness = createSessionTroopWitness(specification.id);
+  const battle = new LiveBattle(canonical(witness));
+  const scheduled = battle.scheduleDeploy(canonical({
+    cardId: specification.id,
+    point: { x: 3_500, y: 14_500 },
+    sequence: 0,
+    side: "south",
+    tick: 0,
+  }));
+  if (scheduled.type !== "deploy-scheduled") {
+    throw new Error(`${specification.id} shared deployment was not admitted`);
+  }
+  const emitted = battle.step();
+  if (battle.state.units.filter(({ cardId }) => cardId === specification.id).length !==
+      record.count) {
+    throw new Error(`${specification.id} shared squad expansion diverged from its source count`);
+  }
+  return directBytes(
+    specification,
+    "LiveBattle+canonical session troop witness",
+    record,
+    battle.state,
+    emitted,
+    battle.replay,
   );
 }
 
@@ -583,6 +614,7 @@ const ADAPTER_ENTRIES = [
   ["createBasicFlyingCatalog", basicFlying],
   ["createBasicMeleeCatalog", basicMelee],
   ["createBasicRangedCatalog", basicRanged],
+  ["createOrdinaryProjectileSquadCatalog", ordinaryProjectileSquad],
   ["createChampionAbilityCatalog", champion],
   ["createDefensiveBuildingCatalog", defensiveBuilding],
   ["createHealCatalog", heal],
