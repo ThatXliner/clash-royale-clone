@@ -28,7 +28,7 @@
   <div class="cards">
     <div class="card"><div class="num">213</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">163</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">379</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">380</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">26</div><div class="label">open questions</div></div>
   </div>
   <p class="note">Active target: <strong>GAME-001G — Playable browser match journey umbrella</strong>.</p>
@@ -1266,8 +1266,8 @@
         <td>Sustained browser-match throughput</td>
         <td class="state-fail">FAIL</td>
         <td>0/1</td>
-        <td>7</td>
-        <td>Current qualification at 46c08c9 fails after600 ticks: restore600→300 records51ms against50ms cap; terminal/restart not reached. Historical Round6 full18000 PASS remains recorded; GAME-001GPR addresses the regression.</td>
+        <td>8</td>
+        <td>Current9e667a1 full18000 journey satisfies timing/continuation but fails final console check on122 missing painted-sprite resources; qualification remains open. Historical passing evidence retained.</td>
       </tr>
       <tr>
         <td><code>GAME-001GPV</code></td>
@@ -1610,8 +1610,8 @@
         <td>Terminal and restart long-task attribution</td>
         <td class="state-fail">FAIL</td>
         <td>1/2</td>
-        <td>4</td>
-        <td>Current46c08c9 delayed-entry classifier passes but actual full journey aborts on51ms restore; terminal/restart not reached. Historical Round3 full18000 evidence remains recorded.</td>
+        <td>5</td>
+        <td>Frozen9e667a1 classifier and exact terminal/restart checks pass with no lifecycle longtasks; whole endurance fails final console assertion on122 sprite404s. Full clean rerun required.</td>
       </tr>
       <tr>
         <td><code>ART-004</code></td>
@@ -1736,16 +1736,17 @@
       <tr>
         <td><code>GAME-001GPR</code></td>
         <td>Restore transaction throughput</td>
-        <td class="state-building">BUILDING</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Measured repeated production audio audits removed in9e667a1; focused30/30 and900-tick restore pass, audioRebase1.1ms and no restore longtask. Separate full18000 critic active; qualification remains unproven.</td>
+        <td class="state-fail">FAIL</td>
+        <td>54/55</td>
+        <td>1</td>
+        <td>Frozen9e667a1 reaches18000, exact restore/audio/input/terminal/restart, no non-init longtasks; full test fails122 sprite404s from /tests/assets/briar-runner-painted-sheet.png. Asset URL correction and full rerun required.</td>
       </tr>
       </tbody>
     </table>
   </div>
   <h2>Round trajectory</h2>
   <ol>
+      <li><strong>R387 FAIL</strong> · GAME-001GPR — Restore transaction throughput, round 1<br>The live combat sprite uses a document-relative asset URL that resolves under the endurance fixture's `/tests/` path, leaving the intended painted sprite unloaded.</li>
       <li><strong>R386 FAIL</strong> · CARDS-013 — Full swarm and heavy melee choices, round 1<br>Describe the actual ground/melee behavior consistently across card summary and statistics, while preserving the explicitly provisional source classification.</li>
       <li><strong>R385 PASS</strong> · GAME-SPELL-001 — Full radius spell through player and agent decks, round 1<br>Projectile flight and knockback remain excluded; publisher evidence resolves one-tile displacement but not activation, travel, eligibility or interruption order.</li>
       <li><strong>R384 FAIL</strong> · RELEASE-GUARD-001 — Preserve source and asset guard admission, round 1<br>The real 600→300 restore exceeds the strict non-initialization cap by 1 ms and prevents the required full-match verification.</li>

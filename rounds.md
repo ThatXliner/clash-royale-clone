@@ -1,5 +1,17 @@
 # Gauntlet Rounds
 
+## Round 387 — 2026-10-11
+
+PIECE: GAME-001GPR — Restore transaction throughput, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Independent frozen `9e667a1`, archived at `/tmp/game001gpr-critic.fRaCFu`, passes audio checks 30/30 and source/shipping guards 23/23. The unoverridden full Chrome endurance passes its delayed-entry classifier, reaches tick 18000 in 61 segments (511737 ms), verifies exact 600→300→600 session/input/HUD/layer/audio continuation, terminal at 18000, and seed-zero restart at tick/DOM 0. Initialization max is 165 ms against 300; driven, restore, terminal, restart and out-of-segment long-task maxima are 0 against the unchanged 50 ms cap. The actual endurance test nonetheless FAILS its final console assertion at line 1284: 122 missing-resource errors, all for `/tests/assets/briar-runner-painted-sheet.png`. The server exits and the browser closes. Scope ratio: 30 audio + 23 guard + 1 classifier pass, one endurance failure. The earlier shared-checkout release checks are nonfrozen and are not qualification evidence.
+
+BIGGEST GAP: The live combat sprite uses a document-relative asset URL that resolves under the endurance fixture's `/tests/` path, leaving the intended painted sprite unloaded.
+
+DISPOSITION: Timing and continuation evidence is retained, but the whole qualification remains FAIL. Fix asset URL resolution without hiding console/resource errors, then repeat the full unchanged journey on an immutable candidate.
+
 ## Round 386 — 2026-10-11
 
 PIECE: CARDS-013 — Full swarm and heavy melee choices, round 1
