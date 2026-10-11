@@ -1,0 +1,41 @@
+{
+  "name": "reference-json-used",
+  "outcome": "accepted",
+  "artifactFiles": 3,
+  "totalBytes": 3329,
+  "manifestSha256": "2b2193ef4b812188ab421598805df5281f2011caf388b1b9130e9d21b5d14b31",
+  "manifestPath": "reference-json-used/output/release-manifest.json",
+  "graphKeys": [
+    "_index-B8CGb5GZ.js",
+    "public/index.html"
+  ],
+  "emittedPaths": [
+    "assets/game-runtime~public/index-B8CGb5GZ.js",
+    "assets/public/index-DqQZV-D8.js",
+    "public/index.html"
+  ],
+  "emittedJs": [
+    {
+      "path": "assets/game-runtime~public/index-B8CGb5GZ.js",
+      "bytes": 2602,
+      "sha256": "f154b2a68e6fa68ae57ffcc344b12ab46f7e0db4d3281cb96dbfd8e690e159c8",
+      "containsReferenceMarker": true,
+      "containsPackageMarker": false,
+      "containsModulepreloadText": true,
+      "initializesVitePolyfill": true,
+      "markerLines": [
+        "\t\tglobalThis.cardCount = cards_default.cards.length;"
+      ]
+    },
+    {
+      "path": "assets/public/index-DqQZV-D8.js",
+      "bytes": 92,
+      "sha256": "9c0929785140a584c9a72a2e2e5be09aeeabceb38ee9f69fab5467a4e00e278f",
+      "containsReferenceMarker": false,
+      "containsPackageMarker": false,
+      "containsModulepreloadText": false,
+      "initializesVitePolyfill": false,
+      "markerLines": []
+    }
+  ]
+}

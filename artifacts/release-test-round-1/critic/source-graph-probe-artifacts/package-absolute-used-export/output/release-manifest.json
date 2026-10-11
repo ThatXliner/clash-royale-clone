@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "entrypoints": [
+    "public/index.html"
+  ],
+  "standaloneModules": [],
+  "fileCount": 3,
+  "totalBytes": 3269,
+  "files": [
+    {
+      "path": "assets/game-runtime~public/index-BEBt4S23.js",
+      "size": 2542,
+      "sha256": "3e95d40975d8b04fc64f01b97691ac2c4495eba35e9e1b78dd9d67d3dd845f19"
+    },
+    {
+      "path": "assets/public/index-BZXwxYy3.js",
+      "size": 92,
+      "sha256": "c50f8bc32b32f49e461c0dd50415972e81148bff41ce7210ad9a92b39cbe8856"
+    },
+    {
+      "path": "public/index.html",
+      "size": 635,
+      "sha256": "b834d59d5f88aa709525dddaba9f3f51c568d97d754f72e3f11efa46e638a8c6"
+    }
+  ],
+  "build": {
+    "bundler": "vite",
+    "version": "8.3.2",
+    "qualificationProfile": "generic",
+    "runtimeDependencies": [],
+    "inputs": [
+      "public/index.html"
+    ],
+    "staticAssetRoots": [],
+    "graph": {
+      "_index-BEBt4S23.js": {
+        "file": "assets/game-runtime~public/index-BEBt4S23.js",
+        "name": "game-runtime~public/index"
+      },
+      "public/index.html": {
+        "file": "assets/public/index-BZXwxYy3.js",
+        "src": "public/index.html",
+        "name": "public/index",
+        "isEntry": true,
+        "imports": [
+          "_index-BEBt4S23.js"
+        ]
+      }
+    }
+  }
+}

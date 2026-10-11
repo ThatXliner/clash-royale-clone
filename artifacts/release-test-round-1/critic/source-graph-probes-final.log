@@ -1,0 +1,268 @@
+✗ Build failed in 8ms
+{
+  "probes": [
+    {
+      "name": "reference-json-unused",
+      "outcome": "accepted",
+      "artifactFiles": 2,
+      "totalBytes": 2410,
+      "manifestSha256": "b52ebd5298371c459f8b3d1436af3cfc44d21ab97eaa99a603a949fb721c67f3",
+      "manifestPath": "reference-json-unused/output/release-manifest.json",
+      "graphKeys": [
+        "public/index.html"
+      ],
+      "emittedPaths": [
+        "assets/public/index-nNXEef1Q.js",
+        "public/index.html"
+      ],
+      "emittedJs": [
+        {
+          "path": "assets/public/index-nNXEef1Q.js",
+          "bytes": 1869,
+          "sha256": "7a812e739a06df5b49c6b23f4ac4ec71cd406f9730e16b52d6e8c3bfa222e494",
+          "containsReferenceMarker": false,
+          "containsPackageMarker": false,
+          "containsModulepreloadText": true,
+          "initializesVitePolyfill": true,
+          "markerLines": []
+        }
+      ]
+    },
+    {
+      "name": "reference-json-used",
+      "outcome": "accepted",
+      "artifactFiles": 3,
+      "totalBytes": 3329,
+      "manifestSha256": "2b2193ef4b812188ab421598805df5281f2011caf388b1b9130e9d21b5d14b31",
+      "manifestPath": "reference-json-used/output/release-manifest.json",
+      "graphKeys": [
+        "_index-B8CGb5GZ.js",
+        "public/index.html"
+      ],
+      "emittedPaths": [
+        "assets/game-runtime~public/index-B8CGb5GZ.js",
+        "assets/public/index-DqQZV-D8.js",
+        "public/index.html"
+      ],
+      "emittedJs": [
+        {
+          "path": "assets/game-runtime~public/index-B8CGb5GZ.js",
+          "bytes": 2602,
+          "sha256": "f154b2a68e6fa68ae57ffcc344b12ab46f7e0db4d3281cb96dbfd8e690e159c8",
+          "containsReferenceMarker": true,
+          "containsPackageMarker": false,
+          "containsModulepreloadText": true,
+          "initializesVitePolyfill": true,
+          "markerLines": [
+            "\t\tglobalThis.cardCount = cards_default.cards.length;"
+          ]
+        },
+        {
+          "path": "assets/public/index-DqQZV-D8.js",
+          "bytes": 92,
+          "sha256": "9c0929785140a584c9a72a2e2e5be09aeeabceb38ee9f69fab5467a4e00e278f",
+          "containsReferenceMarker": false,
+          "containsPackageMarker": false,
+          "containsModulepreloadText": false,
+          "initializesVitePolyfill": false,
+          "markerLines": []
+        }
+      ]
+    },
+    {
+      "name": "package-relative-unused-export",
+      "outcome": "accepted",
+      "artifactFiles": 2,
+      "totalBytes": 2419,
+      "manifestSha256": "a30380428d8c2e7c4a74424a06f180d6a4c97aab6aa3fd89a17ca5a88a9abb61",
+      "manifestPath": "package-relative-unused-export/output/release-manifest.json",
+      "graphKeys": [
+        "public/index.html"
+      ],
+      "emittedPaths": [
+        "assets/public/index-CV4FXXdq.js",
+        "public/index.html"
+      ],
+      "emittedJs": [
+        {
+          "path": "assets/public/index-CV4FXXdq.js",
+          "bytes": 1878,
+          "sha256": "ad19060ac2b0fe1d0a75a1f3e9b9de91b8c9208c92087aecab2a7f7cab4b4e60",
+          "containsReferenceMarker": false,
+          "containsPackageMarker": false,
+          "containsModulepreloadText": true,
+          "initializesVitePolyfill": true,
+          "markerLines": []
+        }
+      ]
+    },
+    {
+      "name": "package-relative-used-export",
+      "outcome": "accepted",
+      "artifactFiles": 3,
+      "totalBytes": 3269,
+      "manifestSha256": "49f65017c3896b1ca7d1fa4d40f426bcf627dc8ced8b6afc2bf7449aff116b37",
+      "manifestPath": "package-relative-used-export/output/release-manifest.json",
+      "graphKeys": [
+        "_index-D7N8XVHG.js",
+        "public/index.html"
+      ],
+      "emittedPaths": [
+        "assets/game-runtime~public/index-D7N8XVHG.js",
+        "assets/public/index-CQgmmSWo.js",
+        "public/index.html"
+      ],
+      "emittedJs": [
+        {
+          "path": "assets/game-runtime~public/index-D7N8XVHG.js",
+          "bytes": 2542,
+          "sha256": "962e547378249556a57156a12993f8a1ff7a1f90980f205101a6bb7d60e6c9ef",
+          "containsReferenceMarker": false,
+          "containsPackageMarker": true,
+          "containsModulepreloadText": true,
+          "initializesVitePolyfill": true,
+          "markerLines": [
+            "\t\tglobalThis.packageMarker = marker;"
+          ]
+        },
+        {
+          "path": "assets/public/index-CQgmmSWo.js",
+          "bytes": 92,
+          "sha256": "53152186287a3e33b15b27f9177813f42e2fcbf960b49e0e1c4d73f9f30a5c99",
+          "containsReferenceMarker": false,
+          "containsPackageMarker": false,
+          "containsModulepreloadText": false,
+          "initializesVitePolyfill": false,
+          "markerLines": []
+        }
+      ]
+    },
+    {
+      "name": "package-absolute-unused-export",
+      "outcome": "accepted",
+      "artifactFiles": 2,
+      "totalBytes": 2419,
+      "manifestSha256": "f35dea136c19e7062dced81ad90887ad4713ece8edf4f604977b12e9a77d9697",
+      "manifestPath": "package-absolute-unused-export/output/release-manifest.json",
+      "graphKeys": [
+        "public/index.html"
+      ],
+      "emittedPaths": [
+        "assets/public/index-DdS0Blav.js",
+        "public/index.html"
+      ],
+      "emittedJs": [
+        {
+          "path": "assets/public/index-DdS0Blav.js",
+          "bytes": 1878,
+          "sha256": "e333c0d30f14fc39708414004c54aa05dd6ee465b26520b32ccf9dc1281e5913",
+          "containsReferenceMarker": false,
+          "containsPackageMarker": false,
+          "containsModulepreloadText": true,
+          "initializesVitePolyfill": true,
+          "markerLines": []
+        }
+      ]
+    },
+    {
+      "name": "package-absolute-used-export",
+      "outcome": "accepted",
+      "artifactFiles": 3,
+      "totalBytes": 3269,
+      "manifestSha256": "1ae95db4924cc84afa821ffff2789fc58da6d7ba1ee2edebe0cd73c8e6bcb364",
+      "manifestPath": "package-absolute-used-export/output/release-manifest.json",
+      "graphKeys": [
+        "_index-BEBt4S23.js",
+        "public/index.html"
+      ],
+      "emittedPaths": [
+        "assets/game-runtime~public/index-BEBt4S23.js",
+        "assets/public/index-BZXwxYy3.js",
+        "public/index.html"
+      ],
+      "emittedJs": [
+        {
+          "path": "assets/game-runtime~public/index-BEBt4S23.js",
+          "bytes": 2542,
+          "sha256": "3e95d40975d8b04fc64f01b97691ac2c4495eba35e9e1b78dd9d67d3dd845f19",
+          "containsReferenceMarker": false,
+          "containsPackageMarker": true,
+          "containsModulepreloadText": true,
+          "initializesVitePolyfill": true,
+          "markerLines": [
+            "\t\tglobalThis.packageMarker = marker;"
+          ]
+        },
+        {
+          "path": "assets/public/index-BZXwxYy3.js",
+          "bytes": 92,
+          "sha256": "c50f8bc32b32f49e461c0dd50415972e81148bff41ce7210ad9a92b39cbe8856",
+          "containsReferenceMarker": false,
+          "containsPackageMarker": false,
+          "containsModulepreloadText": false,
+          "initializesVitePolyfill": false,
+          "markerLines": []
+        }
+      ]
+    },
+    {
+      "name": "bare-package-unused-import",
+      "outcome": "rejected",
+      "error": "Build failed with 1 error:\n\n[plugin moss-and-ember-release-dependency-policy]\nError: bare dependency is not allowed: reviewer-probe\n    at invariant (file:///private/tmp/release-test-critic.HxWvxT/scripts/build-release.js:35:25)\n    at PluginContextImpl.resolveId (file:///private/tmp/release-test-critic.HxWvxT/scripts/build-release.js:317:7)\n    at PluginContextImpl.handler (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/vite/dist/node/chunks/node.js:34714:13)\n    at plugin (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/rolldown/dist/shared/bindingify-input-options-DCTviPFW.mjs:1646:30)\n    at file:///Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/rolldown/dist/shared/bindingify-input-options-DCTviPFW.mjs:2118:21\n    at plugin.<computed> (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/rolldown/dist/shared/bindingify-input-options-DCTviPFW.mjs:2316:18)"
+    },
+    {
+      "name": "inline-vite-export-from",
+      "outcome": "accepted",
+      "artifactFiles": 2,
+      "totalBytes": 2804,
+      "manifestSha256": "e14d88081c67f65c1f75a61206dcb24532b50d211e6d29ab75d55482ede97739",
+      "manifestPath": "inline-vite-export-from/output/release-manifest.json",
+      "graphKeys": [
+        "public/index.html"
+      ],
+      "emittedPaths": [
+        "assets/public/index-z6_DQVQL.js",
+        "public/index.html"
+      ],
+      "emittedJs": [
+        {
+          "path": "assets/public/index-z6_DQVQL.js",
+          "bytes": 2263,
+          "sha256": "cb64f64bda02acc19c8d5f22310ac84201a0b0f7f3a7adec77d10a4613fa414e",
+          "containsReferenceMarker": false,
+          "containsPackageMarker": false,
+          "containsModulepreloadText": true,
+          "initializesVitePolyfill": true,
+          "markerLines": []
+        }
+      ]
+    },
+    {
+      "name": "benign-comment-and-string-import-text",
+      "outcome": "accepted",
+      "artifactFiles": 2,
+      "totalBytes": 2485,
+      "manifestSha256": "15b8324456880a6a2336d56b61881033245733a5861083395c691b3efb91b31d",
+      "manifestPath": "benign-comment-and-string-import-text/output/release-manifest.json",
+      "graphKeys": [
+        "public/index.html"
+      ],
+      "emittedPaths": [
+        "assets/public/index-DOmx0kUZ.js",
+        "public/index.html"
+      ],
+      "emittedJs": [
+        {
+          "path": "assets/public/index-DOmx0kUZ.js",
+          "bytes": 1885,
+          "sha256": "3c376819ab59870de6ad317e1a05bdfb3cc51e0c5c9cc737fba4f62ede4c1fc2",
+          "containsReferenceMarker": false,
+          "containsPackageMarker": false,
+          "containsModulepreloadText": true,
+          "initializesVitePolyfill": true,
+          "markerLines": []
+        }
+      ]
+    }
+  ]
+}

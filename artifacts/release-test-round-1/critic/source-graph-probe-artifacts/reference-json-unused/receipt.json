@@ -1,0 +1,27 @@
+{
+  "name": "reference-json-unused",
+  "outcome": "accepted",
+  "artifactFiles": 2,
+  "totalBytes": 2410,
+  "manifestSha256": "b52ebd5298371c459f8b3d1436af3cfc44d21ab97eaa99a603a949fb721c67f3",
+  "manifestPath": "reference-json-unused/output/release-manifest.json",
+  "graphKeys": [
+    "public/index.html"
+  ],
+  "emittedPaths": [
+    "assets/public/index-nNXEef1Q.js",
+    "public/index.html"
+  ],
+  "emittedJs": [
+    {
+      "path": "assets/public/index-nNXEef1Q.js",
+      "bytes": 1869,
+      "sha256": "7a812e739a06df5b49c6b23f4ac4ec71cd406f9730e16b52d6e8c3bfa222e494",
+      "containsReferenceMarker": false,
+      "containsPackageMarker": false,
+      "containsModulepreloadText": true,
+      "initializesVitePolyfill": true,
+      "markerLines": []
+    }
+  ]
+}

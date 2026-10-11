@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "piece": "RELEASE-TEST-001",
+  "candidate": "c3601c3a3c61bc15922716f510b2386f7b49676f",
+  "workspace": "/Users/me/.codex/worktrees/9456/clash-royale-clone",
+  "archiveReceipt": "archive-receipt.json",
+  "commands": [
+    {
+      "command": "npm test -- shipping-isolation-release shipping-isolation-host",
+      "result": "PASS",
+      "tests": 4,
+      "passed": 4,
+      "failed": 0,
+      "evidence": "shipping-isolation.log",
+      "releaseBrowser": "3/3 passed; byte-identical two-build claim recorded by test; real Chrome CSP and manifest-serving adversaries exercised."
+    },
+    {
+      "command": "npm run test:publication-pages",
+      "result": "PASS",
+      "tests": 5,
+      "passed": 5,
+      "failed": 0,
+      "evidence": "publication-pages.log"
+    },
+    {
+      "command": "npm test -- nondeterminism-guard shipping-isolation-guard",
+      "result": "PASS",
+      "tests": 23,
+      "passed": 23,
+      "failed": 0,
+      "evidence": "guards.log"
+    },
+    {
+      "command": "Independent Pages manifest/source-assets/browser audit",
+      "result": "PASS",
+      "evidence": [
+        "pages-audit.json",
+        "pages-manifest.json",
+        "pages-audit-final.log"
+      ],
+      "manifestFiles": 42,
+      "manifestBytes": 5361828,
+      "manifestSha256": "87f185b92ae791c627df165c7db62161085eaa0ff5c4541e72851a0eb54f2936",
+      "pagesFiles": 52,
+      "pagesBytes": 5767471,
+      "canonicalAssets": 15,
+      "byteIdenticalCanonicalAssets": 15,
+      "duplicateHashedCopies": 0,
+      "runtimeDependencies": [],
+      "caps": {
+        "maxFiles": 128,
+        "maxBytes": 8388608
+      },
+      "browserRequests": 59,
+      "runtimeErrors": 0,
+      "rlModuleImported": true,
+      "rlTickAdvancedFrom": 0,
+      "rlTickAdvancedTo": 1,
+      "rlStateRestored": true,
+      "arenaShellImported": true
+    },
+    {
+      "command": "Independent authored-source graph probes",
+      "result": "FAIL",
+      "evidence": [
+        "source-graph-probes-final.log",
+        "source-graph-probes.mjs",
+        "source-graph-probe-artifacts/"
+      ],
+      "cases": 9,
+      "forbiddenAccepted": 7,
+      "benignAccepted": 1,
+      "barePackageRejected": 1
+    }
+  ],
+  "testTotals": {
+    "passed": 32,
+    "failed": 0,
+    "scope": "only the requested scoped release/publication/guard suites; not npm test full suite"
+  },
+  "releaseBrowserEvidence": {
+    "evidence": "release-isolation-evidence.json",
+    "reportedProductionFiles": 42,
+    "reportedProductionBytes": 5354760,
+    "reportedManifestSha256": "625b6a0adc4200311efcd387bca69fdddc307afdaf176ead472bb741fbf71027",
+    "normalRequests": 50,
+    "attemptedRequests": 58,
+    "evalFunctionAttempts": 3,
+    "cspViolations": 5,
+    "offManifestFetchReachedServer": false,
+    "failedManifestListedPath": "/src/ui/arena-shell.css",
+    "teardownOnFailure": "test and server cleanup paths ran; test completed with exit 0"
+  },
+  "manifestComparison": "pages-manifest-delta.json",
+  "historicalFullSuiteRetention": "retained-full-suite.json",
+  "fullEndurance": "not rerun; historical 57/57 is carried forward by relevant-source hash continuity only",
+  "verdict": "FAIL",
+  "biggestGap": "The boundary validates bare specifiers and emitted bytes, but misses every resolved authored source edge before tree shaking: direct relative reference JSON and relative/absolute node_modules imports are accepted (including one used reference JSON and used package export bundled into JS); its inline HTML AST also misses export-from sources, allowing authored vite/modulepreload-polyfill. Seven forbidden cases were accepted, while the bare package case was rejected and benign comment/string text passed."
+}

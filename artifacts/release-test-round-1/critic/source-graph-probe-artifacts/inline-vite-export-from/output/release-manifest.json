@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "entrypoints": [
+    "public/index.html"
+  ],
+  "standaloneModules": [],
+  "fileCount": 2,
+  "totalBytes": 2804,
+  "files": [
+    {
+      "path": "assets/public/index-z6_DQVQL.js",
+      "size": 2263,
+      "sha256": "cb64f64bda02acc19c8d5f22310ac84201a0b0f7f3a7adec77d10a4613fa414e"
+    },
+    {
+      "path": "public/index.html",
+      "size": 541,
+      "sha256": "df074d499809067edf7bb9e7e1648adf14b18660efa6c145482306d51ae50e7e"
+    }
+  ],
+  "build": {
+    "bundler": "vite",
+    "version": "8.3.2",
+    "qualificationProfile": "generic",
+    "runtimeDependencies": [],
+    "inputs": [
+      "public/index.html"
+    ],
+    "staticAssetRoots": [],
+    "graph": {
+      "public/index.html": {
+        "file": "assets/public/index-z6_DQVQL.js",
+        "src": "public/index.html",
+        "name": "public/index",
+        "isEntry": true
+      }
+    }
+  }
+}

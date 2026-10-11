@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "entrypoints": [
+    "public/index.html"
+  ],
+  "standaloneModules": [],
+  "fileCount": 2,
+  "totalBytes": 2485,
+  "files": [
+    {
+      "path": "assets/public/index-DOmx0kUZ.js",
+      "size": 1885,
+      "sha256": "3c376819ab59870de6ad317e1a05bdfb3cc51e0c5c9cc737fba4f62ede4c1fc2"
+    },
+    {
+      "path": "public/index.html",
+      "size": 600,
+      "sha256": "a26a640978b1cf39ab129464fbd7fcce191a7329f4f02c1724a67b894cefc4bb"
+    }
+  ],
+  "build": {
+    "bundler": "vite",
+    "version": "8.3.2",
+    "qualificationProfile": "generic",
+    "runtimeDependencies": [],
+    "inputs": [
+      "public/index.html"
+    ],
+    "staticAssetRoots": [],
+    "graph": {
+      "public/index.html": {
+        "file": "assets/public/index-DOmx0kUZ.js",
+        "src": "public/index.html",
+        "name": "public/index",
+        "isEntry": true
+      }
+    }
+  }
+}

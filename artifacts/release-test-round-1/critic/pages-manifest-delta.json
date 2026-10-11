@@ -1,0 +1,244 @@
+{
+  "schemaVersion": 1,
+  "comparison": "RELEASE-ASSET-001 production manifest vs RELEASE-TEST-001 assembled Pages manifest",
+  "priorCandidate": "6dcf64b81751f69f9fe7520878ac136bda9143ed",
+  "candidate": "c3601c3a3c61bc15922716f510b2386f7b49676f",
+  "prior": {
+    "fileCount": 42,
+    "totalBytes": 5354760,
+    "manifestBytes": 22311,
+    "manifestSha256": "625b6a0adc4200311efcd387bca69fdddc307afdaf176ead472bb741fbf71027"
+  },
+  "currentPages": {
+    "fileCount": 42,
+    "totalBytes": 5361828,
+    "manifestBytes": 22311,
+    "manifestSha256": "87f185b92ae791c627df165c7db62161085eaa0ff5c4541e72851a0eb54f2936"
+  },
+  "delta": {
+    "fileCount": 0,
+    "totalBytes": 7068,
+    "addedGeneratedChunks": 17,
+    "removedGeneratedChunks": 17,
+    "changedSharedPaths": 6
+  },
+  "added": [
+    {
+      "path": "assets/game-runtime~public/index-DUexwAOU.js",
+      "size": 30203,
+      "sha256": "01ad522d1ced87483319888c9b057feab78807a028ca0f5ef499ab73749d2236"
+    },
+    {
+      "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-B7WUtT8u.js",
+      "size": 16983,
+      "sha256": "6e0cf18d5e5f0c14bfcfd3fc7d03dfbc2d97ad6633a576914a037dd39513ce0d"
+    },
+    {
+      "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BJLPyJx2.js",
+      "size": 118057,
+      "sha256": "0e6f7433a4bad11b7353713d5039af22172ba51e1af7cf757c7ff3db906987bf"
+    },
+    {
+      "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BX094rym.js",
+      "size": 11615,
+      "sha256": "aa08bb555e1b0dc8d40313c1d4bc4521d294d1f542c48b887c4e297270523d44"
+    },
+    {
+      "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BsBZLpnU.js",
+      "size": 320882,
+      "sha256": "4cd4b24aecd1542efd870871d00a96ef57a24fec2b4e601de4863c2da619577a"
+    },
+    {
+      "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BzbhZFe4.js",
+      "size": 200144,
+      "sha256": "47e40e813d1e151781ba0ad10400d7faa6468c09eb6bb22807a28041de73803e"
+    },
+    {
+      "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-Cj1CPwnp.js",
+      "size": 265954,
+      "sha256": "29c1fbdc14350fa98288783c42b96fd76ed8da68eadabfa696fcf8ae1bab497a"
+    },
+    {
+      "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-D7NVpD3V.js",
+      "size": 14258,
+      "sha256": "f3e2d698326171eaf63273a8eeb9c606e1f2eeed1a60e5e8026f807b5e9ff0c9"
+    },
+    {
+      "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DUsG1NOh.js",
+      "size": 7575,
+      "sha256": "adc7ea63ae7d0fbbf1d4abf0d9a14a31ed2e69333d98754977be313848fa88b9"
+    },
+    {
+      "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DcXuKXeK.js",
+      "size": 231450,
+      "sha256": "0995cadfd5958b3956452ed9846d3c323b640e79b40f52c2c2362a7304af9b59"
+    },
+    {
+      "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-Dem_FVxh.js",
+      "size": 474330,
+      "sha256": "195f986a7e5187bb36de159fb0ee9ddabed8aed854872b6d884da403e7532d37"
+    },
+    {
+      "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-Dq9mKTiS.js",
+      "size": 37399,
+      "sha256": "17994e2ca33e08a5af610f8842dd5821eb01cbfcaef3574c3ab23d6c436ca800"
+    },
+    {
+      "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-qzCsOfNe.js",
+      "size": 293922,
+      "sha256": "2dfa0a1beac2bd28494e26ab0d468f2887e50211d81cb206f16cb3b06d8960e8"
+    },
+    {
+      "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-yzOBV21h.js",
+      "size": 22280,
+      "sha256": "e0019c8d208044d7f27e85dbf7025a5d98573d99cf47ce898bf1b2f8060cb444"
+    },
+    {
+      "path": "assets/game-runtime~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DGTRcO6x.js",
+      "size": 1352,
+      "sha256": "63b923820373615518f3061b96409dc3dc54c0e0605576a3e3cf640f941e25c0"
+    },
+    {
+      "path": "assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-CrNhzuYa.js",
+      "size": 141546,
+      "sha256": "7a53dc3a74ff1f94113c510a7004226ea4f0a4d17feb13f7980ed30239a402de"
+    },
+    {
+      "path": "assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-D-geENF9.js",
+      "size": 298190,
+      "sha256": "73cd0e2375ad87f2cf1b563d01a407bc8ffcaef4a20f86ceb4ca47bbdc1f5e2f"
+    }
+  ],
+  "removed": [
+    {
+      "path": "assets/game-runtime~public/index-DzZ44d-0.js",
+      "size": 29975,
+      "sha256": "7a14a5b3f092811f1b99e933d887a2c9e30292244c6bc47beeeeaa686520c4f9"
+    },
+    {
+      "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-3Ey1vCRv.js",
+      "size": 474273,
+      "sha256": "51ffcf3c5905109c1e6cbc1bc90252573d9e47012787ebe427a15fef1e6b1b5b"
+    },
+    {
+      "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BFfXMeCo.js",
+      "size": 199631,
+      "sha256": "f6d2d4d3106a76ffaf58a1d01ba54a3a4f764c44d9a6bbd54d03002c8498d375"
+    },
+    {
+      "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-Bm6l6Hlu.js",
+      "size": 319856,
+      "sha256": "c5e3d899ca398b74f2063ef6b430694e48e485b0e925a8a0671069b684f62314"
+    },
+    {
+      "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-Bzj7ZZCH.js",
+      "size": 7518,
+      "sha256": "d939081c03ec2b2646e0d1b9b13efa859f14597d22d14eb24f8fcb22addebe31"
+    },
+    {
+      "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CNVraBnB.js",
+      "size": 37285,
+      "sha256": "d9f82a7ba6ba4ba76df4e59da539e612cf941f1679a46651abfbb457f9c2f864"
+    },
+    {
+      "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-D2jk4SoV.js",
+      "size": 22166,
+      "sha256": "8a708896122c7da6df8ad07163a0aed4488eac1c41bb5a0d1c8deaa227faab87"
+    },
+    {
+      "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DDqRkLF0.js",
+      "size": 11558,
+      "sha256": "1ea8ef9ca38485e688ae5e763eaca9d1ada7c06371f11555004bbead1c001e10"
+    },
+    {
+      "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DW41JMuV.js",
+      "size": 230766,
+      "sha256": "026df70eb99ef13d31802c686dc24622c8fcb54d040672cd20e79662ce0ead2c"
+    },
+    {
+      "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-Wr_fXHh6.js",
+      "size": 16926,
+      "sha256": "d32396c74b20c0cad89e5eea4e3a6078a59f69a2215acf8e0c9645cccdc462b0"
+    },
+    {
+      "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-cryhHsdZ.js",
+      "size": 117772,
+      "sha256": "328acf01e52c829ea5716258d16dce156daa1fe6332a186b02ed8f8dc85e8c54"
+    },
+    {
+      "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-glFXfjYi.js",
+      "size": 292668,
+      "sha256": "855583532f856110d92201fb6f6a5cf3ce98eb785b05ccf7214957e01ea18b55"
+    },
+    {
+      "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-iYK_h2t5.js",
+      "size": 14201,
+      "sha256": "abe0c277fa8b7511f6868d9502cc8bd46c6aa9aae7b73149b7f497810da1bcb7"
+    },
+    {
+      "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-x10P4LOp.js",
+      "size": 265156,
+      "sha256": "1eb9cb963d46126932f51e0d7c5f79345f47a34fb7e44f5feb156b643a8266b3"
+    },
+    {
+      "path": "assets/game-runtime~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BJiNans8.js",
+      "size": 1295,
+      "sha256": "205b5bff5bf357123204a7e9847a0c59260b0f517367a4813071d67a400415a3"
+    },
+    {
+      "path": "assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-BOFockjg.js",
+      "size": 297164,
+      "sha256": "3add89ba2e8f169940ed6a967380e226d5768945e46634e521890dee163fbfbb"
+    },
+    {
+      "path": "assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-CurDQxGE.js",
+      "size": 140976,
+      "sha256": "2c26e7093e8c8d80f0a67d06cc1ca0ae142500fbd4311a7e5189baa66db25936"
+    }
+  ],
+  "changedSharedPaths": [
+    {
+      "path": "public/index.html",
+      "oldSize": 11304,
+      "newSize": 11304,
+      "oldSha256": "ac9afa6cf64e449133a8011f19043e26dfcd34dfc76828564a579e3a4ab16986",
+      "newSha256": "5a0798ada4de97a0639f7b57efba85366de8e88b7feb6245aa1ec7853d3812f6"
+    },
+    {
+      "path": "public/ui-arena-shell.html",
+      "oldSize": 23405,
+      "newSize": 23405,
+      "oldSha256": "3f878c7f7f00bcacef821e325ed369386df8fac80fe15067467c8decfbcd6eff",
+      "newSha256": "41002491e4673b2217220e4246e4df76874da2d4fdbb29e56bb3ce01a95fbbe1"
+    },
+    {
+      "path": "src/rl/environment.js",
+      "oldSize": 11914,
+      "newSize": 11971,
+      "oldSha256": "979dcb31a44503e81127f74f85a2086a5bec13f4d9932fcdaadb3fc6d5e9d306",
+      "newSha256": "3561aee23a18c7474b9fbd09df1302f8345b52ed33b06acbde19214cc0aa74db"
+    },
+    {
+      "path": "src/ui/app-shell.js",
+      "oldSize": 102,
+      "newSize": 102,
+      "oldSha256": "be8c5a95e171e5b116998d65d04d14a67c35f737013409fddf10fe7e2065a2af",
+      "newSha256": "a701a7c14f8c5804edf26dc759cba191d09d4627f1af7608f2acd31013268dfd"
+    },
+    {
+      "path": "src/ui/arena-shell-bootstrap.js",
+      "oldSize": 572,
+      "newSize": 629,
+      "oldSha256": "6243c8f7bd31a4c33b181958a16a4816bfd9caa68de43326674ad2d2a13f14d2",
+      "newSha256": "4b2247493de1ba70ab6d3977aeaa1a0c263e95cd7806d82cd113b1f7e917aba4"
+    },
+    {
+      "path": "src/ui/arena-shell-entry.js",
+      "oldSize": 472,
+      "newSize": 472,
+      "oldSha256": "da1134cb955f4ca0a8912954ef4240da557abc317b91b3d49bbb01de6a0ac937",
+      "newSha256": "67f04de40639ce2933f732501eb7070170311c4cfc8aafa92e0c0b537db5ee79"
+    }
+  ],
+  "interpretation": "The Pages manifest has the same 42-file count and 22,311-byte manifest length, but 17 generated chunk paths were replaced, and six shared paths changed hashes; two source JS paths grew by 57 bytes each. This is a manifest-level difference; no claim of identical emitted bundles is made."
+}

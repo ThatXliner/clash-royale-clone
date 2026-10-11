@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "candidate": "c3601c3a3c61bc15922716f510b2386f7b49676f",
+  "historicalFullSuite": {
+    "baseline": "146421973672c512ae82e27e32bbf140c7948ffc",
+    "passed": 57,
+    "failed": 0,
+    "preflightPassed": 55,
+    "endurancePassed": 2,
+    "terminalTick": 18000,
+    "durationMs": 800278.113542,
+    "evidence": "artifacts/game-001gpr-round-3/critic/run-receipt.json",
+    "freshForCandidate": false
+  },
+  "retentionBasis": {
+    "baselineToPriorRelease": {
+      "candidate": "6dcf64b81751f69f9fe7520878ac136bda9143ed",
+      "evidence": "artifacts/release-asset-round-1/critic/source-hash-retention.json",
+      "matchingGroups": [
+        "simulation",
+        "combat_input_visual_and_projection_ui",
+        "audio",
+        "motion_and_sprite_rendering",
+        "full_endurance_harness",
+        "short_journey_harness"
+      ]
+    },
+    "priorReleaseToCandidate": {
+      "sourceAndHarnessPathDiff": [
+        "tests/shipping-isolation-release.test.js"
+      ],
+      "runtimeSourceChanges": false,
+      "fullEnduranceHarnessChanges": false
+    }
+  },
+  "claim": "Retain only the prior source-hosted 57/57 result by hash continuity for runtime and endurance sources. No fresh 18,000-tick run was performed on c360."
+}

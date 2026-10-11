@@ -1,0 +1,27 @@
+{
+  "name": "package-relative-unused-export",
+  "outcome": "accepted",
+  "artifactFiles": 2,
+  "totalBytes": 2419,
+  "manifestSha256": "a30380428d8c2e7c4a74424a06f180d6a4c97aab6aa3fd89a17ca5a88a9abb61",
+  "manifestPath": "package-relative-unused-export/output/release-manifest.json",
+  "graphKeys": [
+    "public/index.html"
+  ],
+  "emittedPaths": [
+    "assets/public/index-CV4FXXdq.js",
+    "public/index.html"
+  ],
+  "emittedJs": [
+    {
+      "path": "assets/public/index-CV4FXXdq.js",
+      "bytes": 1878,
+      "sha256": "ad19060ac2b0fe1d0a75a1f3e9b9de91b8c9208c92087aecab2a7f7cab4b4e60",
+      "containsReferenceMarker": false,
+      "containsPackageMarker": false,
+      "containsModulepreloadText": true,
+      "initializesVitePolyfill": true,
+      "markerLines": []
+    }
+  ]
+}

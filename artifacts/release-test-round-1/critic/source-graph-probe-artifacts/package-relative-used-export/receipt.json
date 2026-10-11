@@ -1,0 +1,41 @@
+{
+  "name": "package-relative-used-export",
+  "outcome": "accepted",
+  "artifactFiles": 3,
+  "totalBytes": 3269,
+  "manifestSha256": "49f65017c3896b1ca7d1fa4d40f426bcf627dc8ced8b6afc2bf7449aff116b37",
+  "manifestPath": "package-relative-used-export/output/release-manifest.json",
+  "graphKeys": [
+    "_index-D7N8XVHG.js",
+    "public/index.html"
+  ],
+  "emittedPaths": [
+    "assets/game-runtime~public/index-D7N8XVHG.js",
+    "assets/public/index-CQgmmSWo.js",
+    "public/index.html"
+  ],
+  "emittedJs": [
+    {
+      "path": "assets/game-runtime~public/index-D7N8XVHG.js",
+      "bytes": 2542,
+      "sha256": "962e547378249556a57156a12993f8a1ff7a1f90980f205101a6bb7d60e6c9ef",
+      "containsReferenceMarker": false,
+      "containsPackageMarker": true,
+      "containsModulepreloadText": true,
+      "initializesVitePolyfill": true,
+      "markerLines": [
+        "\t\tglobalThis.packageMarker = marker;"
+      ]
+    },
+    {
+      "path": "assets/public/index-CQgmmSWo.js",
+      "bytes": 92,
+      "sha256": "53152186287a3e33b15b27f9177813f42e2fcbf960b49e0e1c4d73f9f30a5c99",
+      "containsReferenceMarker": false,
+      "containsPackageMarker": false,
+      "containsModulepreloadText": false,
+      "initializesVitePolyfill": false,
+      "markerLines": []
+    }
+  ]
+}

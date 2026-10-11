@@ -1,0 +1,170 @@
+scripts/build-release.js --- 1/3 --- JavaScript
+193 193   "media-src 'self'; object-src 'none'; script-src 'self'; " +
+194 194   "style-src 'self' 'unsafe-inline'; worker-src 'self'";
+... 195 
+... 196 const MODULEPRELOAD_POLYFILL_IMPORT = "vite/modulepreload-polyfill";
+... 197 
+... 198 function inlineModuleScripts(html) {
+... 199   const lowerHtml = html.toLowerCase();
+... 200   const scripts = [];
+... 201   let cursor = 0;
+... 202   while (cursor < html.length) {
+... 203     const scriptStart = lowerHtml.indexOf("<script", cursor);
+... 204     const commentStart = lowerHtml.indexOf("<!--", cursor);
+... 205     if (commentStart !== -1 && (scriptStart === -1 || commentStart < scriptStart)) {
+... 206       const commentEnd = lowerHtml.indexOf("-->", commentStart + 4);
+... 207       if (commentEnd === -1) break;
+... 208       cursor = commentEnd + 3;
+... 209       continue;
+... 210     }
+... 211     if (scriptStart === -1) break;
+... 212     const tagBoundary = lowerHtml[scriptStart + 7];
+... 213     if (tagBoundary && !/[\s/>]/u.test(tagBoundary)) {
+... 214       cursor = scriptStart + 7;
+... 215       continue;
+... 216     }
+... 217 
+... 218     let quote = "";
+... 219     let openingEnd = scriptStart + 7;
+... 220     for (; openingEnd < html.length; openingEnd += 1) {
+... 221       const character = html[openingEnd];
+... 222       if (quote) {
+... 223         if (character === quote) quote = "";
+... 224       } else if (character === "\"" || character === "'") quote = character;
+... 225       else if (character === ">") break;
+... 226     }
+... 227     if (openingEnd >= html.length) break;
+... 228     const attributes = html.slice(scriptStart + 7, openingEnd);
+... 229     const typeAttribute = attributes.match(/(?:^|\s)type\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/iu);
+... 230     const type = (typeAttribute?.[1] ?? typeAttribute?.[2] ?? typeAttribute?.[3] ?? "").toLowerCase();
+... 231     const closingStart = lowerHtml.indexOf("</script", openingEnd + 1);
+... 232     if (closingStart === -1) break;
+... 233     const closingEnd = lowerHtml.indexOf(">", closingStart + 8);
+... 234     if (closingEnd === -1) break;
+... 235     if (type === "module") scripts.push(html.slice(openingEnd + 1, closingStart));
+... 236     cursor = closingEnd + 1;
+... 237   }
+... 238   return scripts;
+... 239 }
+... 240 
+... 241 function hasModulepreloadPolyfillImport(ast) {
+... 242   const nodes = [ast];
+... 243   while (nodes.length > 0) {
+... 244     const node = nodes.pop();
+... 245     if (Array.isArray(node)) {
+... 246       nodes.push(...node);
+... 247       continue;
+... 248     }
+... 249     if (!node || typeof node !== "object") continue;
+... 250     const source = node.source;
+... 251     const sourceValue = source?.type === "TemplateLiteral" && source.expressions?.length === 0
+... 252       ? source.quasis?.[0]?.value?.cooked
+... 253       : source?.value;
+... 254     if ((node.type === "ImportDeclaration" || node.type === "ImportExpression") &&
+... 255         sourceValue === MODULEPRELOAD_POLYFILL_IMPORT) return true;
+... 256     for (const child of Object.values(node))
+... 257       if (child && typeof child === "object") nodes.push(child);
+... 258   }
+... 259   return false;
+... 260 }
+195 261 
+196 262 function releasePolicyPlugin() {
+197 263   return {
+
+scripts/build-release.js --- 2/3 --- JavaScript
+220       if (sourcePath.startsWith("\0  286       if (sourcePath.startsWith("\0
+... ") || !isAbsolute(sourcePath) ||     ... ") || !isAbsolute(sourcePath) ||
+221           extname(sourcePath).toLow  287           extname(sourcePath).toLow
+... erCase() !== ".html") return null;   ... erCase() !== ".html") return null;
+222       if (!isWithin(root, resolve(s  288       if (!isWithin(root, resolve(s
+... ourcePath))) return null;            ... ourcePath))) return null;
+...                                      289       for (const moduleCode of inli
+...                                      ... neModuleScripts(code)) {
+...                                      290         let ast;
+...                                      291         try {
+...                                      292           ast = this.parse(moduleCo
+...                                      ... de);
+...                                      293         } catch {
+...                                      294           continue;
+...                                      295         }
+223       invariant(!code.includes("vit  296         invariant(!hasModulepreload
+... e/modulepreload-polyfill"),          ... PolyfillImport(ast),
+224         "release HTML may not impor  297           "release HTML may not imp
+... t Vite's internal modulepreload pol  ... ort Vite's internal modulepreload p
+... yfill");                             ... olyfill");
+...                                      298       }
+225       return null;                   299       return null;
+226     },                               300     },
+227     resolveId(source, importer) {    301     resolveId(source, importer) {
+
+scripts/build-release.js --- 3/3 --- JavaScript
+233       const absoluteImporter = reso  307       const absoluteImporter = reso
+... lve(importerPath);                   ... lve(importerPath);
+234       if (!isWithin(root, absoluteI  308       if (!isWithin(root, absoluteI
+... mporter)) return null;               ... mporter)) return null;
+235       // Vite prepends this one int  309       // Vite prepends this one int
+... ernal import to async/defer HTML mo  ... ernal import to async/defer HTML mo
+... dule entries.                        ... dule entries.
+236       if (source === "vite/modulepr  310       if (source === MODULEPRELOAD_
+... eload-polyfill" &&                   ... POLYFILL_IMPORT &&
+237           extname(importerPath).toL  311           extname(importerPath).toL
+... owerCase() === ".html") return null  ... owerCase() === ".html") return null
+... ;                                    ... ;
+238                                      312 
+239       const localSpecifier = source  313       const localSpecifier = source
+...  === "." || source === ".." ||       ...  === "." || source === ".." ||
+
+tests/shipping-isolation-release.test.js --- JavaScript
+255     );                               255     );
+256   }                                  256   }
+257                                      257 
+258   const htmlInternalImport = await   258   const htmlImportCases = [
+... fixture(t, {                         ... 
+...                                      259     { name: "static", code: 'import
+...                                      ...  "vite/modulepreload-polyfill";' },
+259     "public/index.html": '<script t  260     { name: "dynamic", code: 'void 
+... ype="module">import "vite/modulepre  ... import("vite/modulepreload-polyfill
+... load-polyfill";</script>',           ... ");' },
+260   }, { name: "html-internal-import"  261     { name: "escaped", code: 'void 
+...  });                                 ... import("vite/\\u006dodulepreload-po
+...                                      ... lyfill");' },
+...                                      262   ];
+...                                      263   for (const { name, code } of html
+...                                      ... ImportCases) {
+...                                      264     const htmlInternalImport = awai
+...                                      ... t fixture(t, {
+...                                      265       "public/index.html": `<script
+...                                      ...  type="module">${code}</script>`,
+...                                      266     }, { name: `html-internal-impor
+...                                      ... t-${name}` });
+261   await assert.rejects(buildRelease  267     await assert.rejects(buildRelea
+... (htmlInternalImport),                ... se(htmlInternalImport),
+262     /release HTML may not import Vi  268       /release HTML may not import 
+... te's internal modulepreload polyfil  ... Vite's internal modulepreload polyf
+... l/);                                 ... ill/);
+...                                      269   }
+...                                      270 
+...                                      271   const benignHtmlText = await fixt
+...                                      ... ure(t, {
+...                                      272     "public/index.html": [
+...                                      273       '<!-- <script type="module">i
+...                                      ... mport "vite/modulepreload-polyfill"
+...                                      ... ;</script> -->',
+...                                      274       '<script type="module">',
+...                                      275       '/* import "vite/modulepreloa
+...                                      ... d-polyfill"; */',
+...                                      276       'const message = "vite/module
+...                                      ... preload-polyfill";',
+...                                      277       '</script>',
+...                                      278     ].join("\n"),
+...                                      279   }, { name: "html-internal-import-
+...                                      ... text" });
+...                                      280   await buildRelease(benignHtmlText
+...                                      ... );
+263                                      281 
+264   const preloadExceptionRoot = awai  282   const preloadExceptionRoot = awai
+... t fixture(t, {                       ... t fixture(t, {
+265     "public/index.html": '<script t  283     "public/index.html": '<script t
+... ype="module" async src="./entry.js"  ... ype="module" async src="./entry.js"
+... ></script>',                         ... ></script>',
+

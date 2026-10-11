@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "entrypoints": [
+    "public/index.html"
+  ],
+  "standaloneModules": [],
+  "fileCount": 2,
+  "totalBytes": 2410,
+  "files": [
+    {
+      "path": "assets/public/index-nNXEef1Q.js",
+      "size": 1869,
+      "sha256": "7a812e739a06df5b49c6b23f4ac4ec71cd406f9730e16b52d6e8c3bfa222e494"
+    },
+    {
+      "path": "public/index.html",
+      "size": 541,
+      "sha256": "f8cf94ab04da88caee29137932800c950a2b2c58e988d039105a215f4ba25d66"
+    }
+  ],
+  "build": {
+    "bundler": "vite",
+    "version": "8.3.2",
+    "qualificationProfile": "generic",
+    "runtimeDependencies": [],
+    "inputs": [
+      "public/index.html"
+    ],
+    "staticAssetRoots": [],
+    "graph": {
+      "public/index.html": {
+        "file": "assets/public/index-nNXEef1Q.js",
+        "src": "public/index.html",
+        "name": "public/index",
+        "isEntry": true
+      }
+    }
+  }
+}

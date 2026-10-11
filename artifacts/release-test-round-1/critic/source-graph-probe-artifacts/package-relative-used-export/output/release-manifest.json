@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "entrypoints": [
+    "public/index.html"
+  ],
+  "standaloneModules": [],
+  "fileCount": 3,
+  "totalBytes": 3269,
+  "files": [
+    {
+      "path": "assets/game-runtime~public/index-D7N8XVHG.js",
+      "size": 2542,
+      "sha256": "962e547378249556a57156a12993f8a1ff7a1f90980f205101a6bb7d60e6c9ef"
+    },
+    {
+      "path": "assets/public/index-CQgmmSWo.js",
+      "size": 92,
+      "sha256": "53152186287a3e33b15b27f9177813f42e2fcbf960b49e0e1c4d73f9f30a5c99"
+    },
+    {
+      "path": "public/index.html",
+      "size": 635,
+      "sha256": "1f0a4e97a835699c08dcf519dc3b01d14aed0f28708d69e34097a151422b5039"
+    }
+  ],
+  "build": {
+    "bundler": "vite",
+    "version": "8.3.2",
+    "qualificationProfile": "generic",
+    "runtimeDependencies": [],
+    "inputs": [
+      "public/index.html"
+    ],
+    "staticAssetRoots": [],
+    "graph": {
+      "_index-D7N8XVHG.js": {
+        "file": "assets/game-runtime~public/index-D7N8XVHG.js",
+        "name": "game-runtime~public/index"
+      },
+      "public/index.html": {
+        "file": "assets/public/index-CQgmmSWo.js",
+        "src": "public/index.html",
+        "name": "public/index",
+        "isEntry": true,
+        "imports": [
+          "_index-D7N8XVHG.js"
+        ]
+      }
+    }
+  }
+}

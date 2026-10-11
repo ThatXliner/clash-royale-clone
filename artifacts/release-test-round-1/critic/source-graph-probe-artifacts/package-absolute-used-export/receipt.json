@@ -1,0 +1,41 @@
+{
+  "name": "package-absolute-used-export",
+  "outcome": "accepted",
+  "artifactFiles": 3,
+  "totalBytes": 3269,
+  "manifestSha256": "1ae95db4924cc84afa821ffff2789fc58da6d7ba1ee2edebe0cd73c8e6bcb364",
+  "manifestPath": "package-absolute-used-export/output/release-manifest.json",
+  "graphKeys": [
+    "_index-BEBt4S23.js",
+    "public/index.html"
+  ],
+  "emittedPaths": [
+    "assets/game-runtime~public/index-BEBt4S23.js",
+    "assets/public/index-BZXwxYy3.js",
+    "public/index.html"
+  ],
+  "emittedJs": [
+    {
+      "path": "assets/game-runtime~public/index-BEBt4S23.js",
+      "bytes": 2542,
+      "sha256": "3e95d40975d8b04fc64f01b97691ac2c4495eba35e9e1b78dd9d67d3dd845f19",
+      "containsReferenceMarker": false,
+      "containsPackageMarker": true,
+      "containsModulepreloadText": true,
+      "initializesVitePolyfill": true,
+      "markerLines": [
+        "\t\tglobalThis.packageMarker = marker;"
+      ]
+    },
+    {
+      "path": "assets/public/index-BZXwxYy3.js",
+      "bytes": 92,
+      "sha256": "c50f8bc32b32f49e461c0dd50415972e81148bff41ce7210ad9a92b39cbe8856",
+      "containsReferenceMarker": false,
+      "containsPackageMarker": false,
+      "containsModulepreloadText": false,
+      "initializesVitePolyfill": false,
+      "markerLines": []
+    }
+  ]
+}
