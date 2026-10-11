@@ -97,7 +97,11 @@ Canonical asset deduplication and the current short browser journey pass at
 `6dcf64b`: the package contains42 files and5,354,760 bytes, with15 original
 canonical assets preserved without duplicate copies. See the [independent
 review](../artifacts/release-asset-round-1/critic/verdict.md). Resolve the
-production-isolation test failures reproduced on a clean frozen artifact. Preserve the verified full-match continuation, original art
+production source-isolation gap: candidate `c3601c3` passes32 standard checks,
+but independent builds accept seven forbidden reference/package/internal source
+edges, including imports whose unused code disappears during bundling. See the
+[FAIL receipt](../artifacts/release-test-round-1/critic/verdict.md). A separate
+builder round is correcting this boundary. Preserve the verified full-match continuation, original art
 and explicit source QUESTIONs while expanding shared card execution. Keep the
 11-mapping artifact as a historical baseline. The new16-card inventory passes
 independent declaration checks and an actual production exclusion audit; expand
