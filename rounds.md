@@ -1,5 +1,17 @@
 # Gauntlet Rounds
 
+## Round 406 — 2026-10-11
+
+PIECE: RELEASE-PRELOAD-001 — Generated preload helper source provenance, round 3
+
+VERDICT: PASS
+
+EVIDENCE: Independent exact8e24c1e criticbd34e02 executes release22/22, shipping guard13/13, shipping-release4/4 and publicationPages5/5 (44/44). Additional40 authored-helper AST-escape probes all reject. Actual prefixed production Pages has44 release files/5443302bytes, all17 canonical assets byte-identical,59 successful in-manifest requests and no runtime errors. Unchanged remote Actions38176273703 succeeds through build/deploy on exact8e SHA. Full logs, prior failures and receipt under `artifacts/ship-preload-round-1/critic/`.
+
+BIGGEST GAP: None in scoped release packaging; live public gameplay/API smoke remains PUB003.
+
+DISPOSITION: Accept narrow helper provenance and flat generated asset naming. Original canonical assets, source isolation, manifest audit and existing file/size/hash assertions remain intact.
+
 ## Round 405 — 2026-10-11
 
 PIECE: RELEASE-PRELOAD-001 — Generated preload helper source provenance, round 2
