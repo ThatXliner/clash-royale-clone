@@ -460,6 +460,45 @@ test("Chromium manifest audit covers legacy HTML, CSS, SVG and opaque-frame depe
   await writeEvidence(previous);
 });
 
+test("authored modules cannot impersonate Vite's virtual preload helper", async (t) => {
+  const moduleCases = [
+    { name: "import", code: 'import "\\0vite/preload-helper.js";' },
+    { name: "named-export", code: 'export { preload } from "\\0vite/preload-helper.js";' },
+    { name: "star-export", code: 'export * from "\\0vite/preload-helper.js";' },
+    { name: "dynamic-import", code: 'void import("\\0vite/preload-helper.js");' },
+    {
+      name: "dynamic-import-with-legitimate-local-import",
+      code: [
+        'import "./local-module.js";',
+        'void import("./dynamic-module.js");',
+        'void import("\\0vite/preload-helper.js");',
+      ].join("\n"),
+    },
+  ];
+
+  for (const { name, code } of moduleCases) {
+    const fixture = await createFixture(t, {
+      "public/index.html": '<script type="module" src="./entry.js"></script>',
+      "public/entry.js": code,
+      "public/local-module.js": "export const local = true;\n",
+      "public/dynamic-module.js": "export const dynamic = true;\n",
+    });
+    await assert.rejects(buildRelease(fixture),
+      /authored release modules may not import Vite's internal preload helper/u, name);
+  }
+
+  for (const { name, code } of moduleCases) {
+    const fixture = await createFixture(t, {
+      "public/index.html": `<script type="module">${code}</script>`,
+      "public/local-module.js": "export const local = true;\n",
+      "public/dynamic-module.js": "export const dynamic = true;\n",
+    });
+    await assert.rejects(buildRelease(fixture),
+      /authored release modules may not import Vite's internal preload helper/u,
+      `inline ${name}`);
+  }
+});
+
 test("CSS-escaped URL dependencies are rejected before publishing", { timeout: 60_000 }, async (t) => {
   const fixture = await createFixture(t, {
     "public/index.html": [
