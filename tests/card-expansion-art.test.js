@@ -9,6 +9,13 @@ import { getCardLore } from "../src/ui/card-lore.js";
 import { getCardPortrait, getCardPortraitIds } from "../src/ui/card-portrait-art.js";
 
 const ROOT = resolve(dirname(new URL(import.meta.url).pathname), "..");
+const COPPERSHADE_REFERENCE = Object.freeze({
+  path: "public/assets/coppershade-flock-painted.webp",
+  sha256: "8d56aad804ca150372aa7a08af118f43ad33a2577f2604bee2ddcaaea1bac624",
+  dimensions: Object.freeze({ width: 512, height: 512 }),
+  source_commit: "5acec5bf2dae658fc299dc05417df84722ad1d0d",
+  role: "design reference",
+});
 const ASSETS = Object.freeze([
   Object.freeze({
     id: "gloamwing-cluster",
@@ -17,14 +24,16 @@ const ASSETS = Object.freeze([
     outputSha256: "176687230a5e9b3b57364437692308f568e2933b7b0225e46694cfbbfb4b6cf8",
     sourceBytes: 2_341_041,
     outputBytes: 40_140,
+    inputImages: Object.freeze([]),
   }),
   Object.freeze({
     id: "coppershade-flock",
     file: "coppershade-flock-painted",
-    sourceSha256: "616965fb390c6749c347f02087dc37491b9faf0056d414971ae678a9af032d9e",
-    outputSha256: "8d56aad804ca150372aa7a08af118f43ad33a2577f2604bee2ddcaaea1bac624",
-    sourceBytes: 2_568_802,
-    outputBytes: 53_578,
+    sourceSha256: "ae5b7361274dee316fb2c3f0062b74718e3af1687f3766f857a3573b8250c203",
+    outputSha256: "521167c772916265e797c51c28183d91f090c2670ec7d527bf59e60a85684dec",
+    sourceBytes: 2_280_778,
+    outputBytes: 36_532,
+    inputImages: Object.freeze([COPPERSHADE_REFERENCE]),
   }),
 ]);
 
@@ -72,7 +81,8 @@ test("card expansion portraits resolve to original standalone square assets", ()
 
 test("card expansion art preserves full sources and licensed, hashed shipped portraits", () => {
   const manifest = createVisualAssetManifest();
-  for (const { id, file, sourceSha256, outputSha256, sourceBytes, outputBytes } of ASSETS) {
+  for (const { id, file, sourceSha256, outputSha256, sourceBytes, outputBytes,
+    inputImages } of ASSETS) {
     const sourcePath = join(ROOT, "demo", "assets", `${file}.png`);
     const outputPath = join(ROOT, "public", "assets", `${file}.webp`);
     const provenancePath = join(ROOT, "docs", "art", `${id}-provenance.json`);
@@ -95,13 +105,13 @@ test("card expansion art preserves full sources and licensed, hashed shipped por
     assert.equal(provenance.generation_tool, "built-in imagegen");
     assert.deepEqual(provenance.generation_settings, {
       transparent_background: false,
-      input_images: [],
+      input_images: inputImages.map(({ path }) => path),
     });
     assert.equal(provenance.encoding_tool, "cwebp 1.6.0");
-    assert.deepEqual(provenance.assets[0].input_images, []);
     assert.equal(typeof provenance.assets[0].prompt, "string");
     assert.ok(provenance.assets[0].prompt.includes("Use case: stylized-concept"));
     assert.ok(assetRecord, `${id} has a matching generation receipt`);
+    assert.deepEqual(assetRecord.input_images, inputImages);
     assert.equal(assetRecord.source_png, `demo/assets/${file}.png`);
     assert.equal(assetRecord.source_sha256, sourceSha256);
     assert.equal(assetRecord.source_bytes, sourceBytes);

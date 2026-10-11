@@ -402,14 +402,14 @@ const REGISTERED_ASSETS = [
   },
   {
     authorship: "in-repo-authored",
-    byteLength: 53578,
+    byteLength: 36532,
     dimensions: { height: 512, width: 512 },
     format: "webp",
     id: "coppershade-flock-painted",
     kind: "image",
     license: "AGPL-3.0-only",
     path: "assets/coppershade-flock-painted.webp",
-    sha256: "8d56aad804ca150372aa7a08af118f43ad33a2577f2604bee2ddcaaea1bac624",
+    sha256: "521167c772916265e797c51c28183d91f090c2670ec7d527bf59e60a85684dec",
   },
 ];
 

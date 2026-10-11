@@ -4,22 +4,30 @@
   "generation_tool": "built-in imagegen",
   "generation_settings": {
     "transparent_background": false,
-    "input_images": []
+    "input_images": ["public/assets/coppershade-flock-painted.webp"]
   },
   "encoding_tool": "cwebp 1.6.0",
   "assets": [
     {
       "asset": "public/assets/coppershade-flock-painted.webp",
       "source_png": "demo/assets/coppershade-flock-painted.png",
-      "source_sha256": "616965fb390c6749c347f02087dc37491b9faf0056d414971ae678a9af032d9e",
-      "source_bytes": 2568802,
+      "source_sha256": "ae5b7361274dee316fb2c3f0062b74718e3af1687f3766f857a3573b8250c203",
+      "source_bytes": 2280778,
       "source_dimensions": { "width": 1254, "height": 1254 },
-      "sha256": "8d56aad804ca150372aa7a08af118f43ad33a2577f2604bee2ddcaaea1bac624",
-      "bytes": 53578,
+      "sha256": "521167c772916265e797c51c28183d91f090c2670ec7d527bf59e60a85684dec",
+      "bytes": 36532,
       "dimensions": { "width": 512, "height": 512 },
       "encoding": ["-q", "82", "-m", "6", "-mt", "-resize", "512", "512"],
-      "input_images": [],
-      "prompt": "Use case: stylized-concept\nAsset type: square original card portrait for the Moss & Ember painted fantasy game\nPrimary request: An original portrait of the Coppershade Flock, exactly six small river-workshop gliders.\nScene/backdrop: A softly blurred canal-side workshop at late afternoon, with copper roof reflections, timber rafters, and a little drifting river mist.\nSubject: Exactly six distinct, small airborne river gliders in a close group. Design them as a new feathered river-swift species with streamlined warm-gray bodies, softly crested pale faces, small dark amber eyes, long tapered tails, and broad swept feather-sails that shimmer copper where the light passes through. Their feathered wings should feel natural and flexible, never built as machinery or shaped like a bat. They glide in a loose looping formation above the canal, trading a few tiny sparks near a pile of quiet workshop offcuts. Keep each face and wing silhouette visible, and make all six countable at thumbnail size.\nStyle/medium: Original hand-painted fantasy card illustration with softly sculpted forms, controlled brushwork, matte feather and copper surfaces, clean readable silhouettes, and the warm atmospheric finish of the existing original card art.\nComposition/framing: Tight square group portrait with exactly six gliders filling the central area; show complete heads, bodies, and distinct swept wing shapes, with enough space between forms for small card-thumbnail readability.\nLighting/mood: Warm forge light glancing off the river through cool workshop mist; lively, nimble, and curious.\nColor palette: Burnished copper wing highlights, warm gray and dark russet bodies, muted teal water, amber spark pinpoints, soft timber browns.\nMaterials/textures: Fine layered feathers, subtle copper-shimmer wing edges, worn timber, canal reflections, painted mist.\nText (verbatim): None.\nConstraints: Exactly six original gliders; original design, no copied commercial-game art or character; no symbols, captions, letters, UI, frame, border, watermark, or logo.\nAvoid: Bats, owls, moths, amphibians, armor, humanoid forms, visible machinery, gears, propellers, weapons, extra animals, photorealism, glossy 3D plastic, flat vector art, text."
+      "input_images": [
+        {
+          "path": "public/assets/coppershade-flock-painted.webp",
+          "sha256": "8d56aad804ca150372aa7a08af118f43ad33a2577f2604bee2ddcaaea1bac624",
+          "dimensions": { "width": 512, "height": 512 },
+          "source_commit": "5acec5bf2dae658fc299dc05417df84722ad1d0d",
+          "role": "design reference"
+        }
+      ],
+      "prompt": "Use case: stylized-concept\nAsset type: revised square original card portrait for the Moss & Ember painted fantasy game\nInput images: Image 1 is the existing Coppershade portrait; use it as a design reference for the six original feathered river-gliders, their warm-gray bodies, pale faces, copper-sheened feather sails, and painterly finish. Replace the crowded arrangement and detailed backdrop.\nPrimary request: Make the Coppershade Flock unmistakably readable as exactly six individual gliders in a 64-pixel card thumbnail.\nScene/backdrop: A simple, softly painted deep teal river-mist backdrop with only faint distant copper workshop lights; keep it quiet and low-detail so it cannot compete with the characters.\nSubject: Exactly six original Coppershade river-gliders. Retain their streamlined warm-gray birdlike bodies, pale crested faces, dark amber eyes, long tapered tails, and broad copper-sheened feather sails. Keep them as feathered river gliders, not machinery, bats, owls, or moths.\nStyle/medium: Match the reference portrait’s hand-painted fantasy-card finish, softly sculpted forms, matte feathers, controlled brushwork, warm forge highlights, and muted copper palette. Simplify small feather details into a few broad readable planes.\nComposition/framing: Arrange exactly six complete gliders in two loose rows of three. Give each glider its own open pocket of background: heads, bodies, tails, and wings must remain fully inside that pocket, with clear visible negative space between every neighboring silhouette. No body, wing, tail, or feather may overlap or touch another glider. Keep the wings half-open and swept upward in compact distinct shapes rather than spreading across adjacent figures. Make each pale face and dark eye visible. The six figures should occupy most of the square but retain clean gaps, with no bird cropped by the frame.\nLighting/mood: Warm copper rim light on the gliders against cool, dark teal mist; lively and nimble.\nColor palette: Copper-orange feather-sail edges, warm ash-gray bodies, pale cream faces, dark amber eyes, deep teal background.\nMaterials/textures: Matte layered feathers, simple copper-shimmer feather planes, soft painted mist.\nText (verbatim): None.\nConstraints: Exactly six individual gliders with six countable separate silhouettes; preserve the original species design and painterly world style from Image 1, but change composition and simplify the background for small-thumbnail readability. No symbols, captions, letters, UI, frame, border, watermark, or logo.\nAvoid: Overlapping or touching figures, additional birds, decorative debris, prominent barrels or beams, busy reflections, complex tiny details, weapons, armor, visible machines, photorealism, glossy 3D plastic, flat vector art, text."
     }
   ]
 }
