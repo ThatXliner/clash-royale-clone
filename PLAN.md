@@ -303,3 +303,5 @@ retain integer-tick determinism and canonical serialize/restore behavior.
   populated.
 
 | RELEASE-TEST-001 | Current production isolation test qualification | Clean frozen release and host isolation suites execute actual browser CSP and protected-source adversaries; failures are reproduced and fixed at their cause without weakening isolation or caps, then separately judged | RELEASE-001B, RELEASE-ASSET-001 | BUILDING | 0/0 | 0 | Prior nonfrozen release-suite failures require clean reproduction; delegated builder owns scoped tests and evidence. |
+
+| COVERAGE-002 | Versioned current historical roster mapping | New offline109-row mapping explicitly joins16 editable original identities to pinned comparison declarations and current admission counts, with evidence and per-field QUESTIONS; old11-card baseline byte-identical; no reference identity/data in runtime/release/website; separately run and reviewed | CARDS-015, CARDS-013, GAME-SPELL-001 | BUILDING | 0/0 | 0 | Current16 editable choices outgrew preserved11-card42bcf09 baseline; a new versioned test-only artifact and reproducible check are needed. |
