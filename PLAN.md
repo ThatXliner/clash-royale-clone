@@ -280,6 +280,10 @@ retain integer-tick determinism and canonical serialize/restore behavior.
 
 | RELEASE-GUARD-001 | Preserve source and asset guard admission | Current simulation graph passes the unchanged bounded nondeterminism analyzer and shipping-isolation guard; radius spell extraction preserves all effects and legacy bytes, sprite URLs resolve to original registered assets in source and packaged renders; independent tests and assembled Pages qualification | GAME-SPELL-001, ART-005S | BUILDING | 0/0 | 0 | Kernel exceeds 524288 source-byte cap at 526174; prototype sprite URLs fail source-graph resolution. Neither cap nor guard may be weakened. |
 
+| CARDS-015 | Ranged pair and flying trio choices | Original Sunthread Pair and Duskwing Trio expand editable battle decks with reference-derived two-body ranged and three-body air roles, sourced projectile policies, meaningful air/ground trades, deterministic deployment/restore and actual desktop/phone controls; default eight preserved | CARDS-013, GAME-SPELL-001, ART-015 | PENDING | 0/0 | 0 | Next ordinary roster batch; projectile source bindings and grouped air deployment must be verified, not inferred from isolated catalog membership. |
+
+| ART-015 | Original ranged-pair and flying-trio portraits | Original bounded Sunthread Pair and Duskwing Trio portraits and two-sentence lore have full source/output provenance and registered production mappings; separate real desktop/phone card-info review when both runtime cards are selectable | SKILL-CHAR-001, ART-005C | BUILDING | 0/0 | 0 | Prepare original assets while the frozen gameplay candidate undergoes independent release checks; selectable-card review remains required. |
+
 ## Reference uncertainties
 
 - Arena tower/bridge coordinates and deployment masks are low-medium
