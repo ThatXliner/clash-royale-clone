@@ -1,0 +1,9 @@
+file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/cards-expansion-round-2/critic-browser/browser-cards-check.mjs:151
+    throw new Error(`${id} trusted browser deployment did not reach GameSession: ${JSON.stringify(diagnostics)}`);
+          ^
+
+Error: cinder-host trusted browser deployment did not reach GameSession: {"pointers":[{"trusted":true,"x":287.95758056640625,"y":873.3924560546875}],"pointerPoint":{"x":168.766875,"y":654.1940625},"hand":["cinder-host","skymaul","ironroot","cinderlings"],"elixir":10,"tick":1,"lastEvents":[{"deployment":{"cardId":"coilblade","entityIds":[1],"point":{"x":3500,"y":17500},"sequence":0,"side":"north","tick":0,"type":"deployed"},"side":"north","spend":{"accepted":true,"amountAfter":6,"cost":4,"reason":"accepted","sequence":0,"side":"north","tick":0,"type":"spend"},"tick":0,"type":"session-deployed"}],"arena":{"x":86,"y":104,"width":548,"height":968,"top":104,"right":634,"bottom":1072,"left":86}}
+    at deploy (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/cards-expansion-round-2/critic-browser/browser-cards-check.mjs:151:11)
+    at async file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/cards-expansion-round-2/critic-browser/browser-cards-check.mjs:153:28
+
+Node.js v22.22.3

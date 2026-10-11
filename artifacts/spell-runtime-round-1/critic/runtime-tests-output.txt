@@ -1,0 +1,256 @@
+TAP version 13
+# Subtest: editable deck setup admits every card in canonical eight-card witnesses and closes QUESTION records
+ok 1 - editable deck setup admits every card in canonical eight-card witnesses and closes QUESTION records
+  ---
+  duration_ms: 7547.855875
+  type: 'test'
+  ...
+# Subtest: editable deck setup preserves the shipped standard setup and selected order
+ok 2 - editable deck setup preserves the shipped standard setup and selected order
+  ---
+  duration_ms: 10.305833
+  type: 'test'
+  ...
+# Subtest: editable mixed witness admits one QUESTION-profile Squall Orb with seven troops
+ok 3 - editable mixed witness admits one QUESTION-profile Squall Orb with seven troops
+  ---
+  duration_ms: 5.099834
+  type: 'test'
+  ...
+# Subtest: editable mixed GameSession casts from center, spends, cycles, and restores pending impact
+ok 4 - editable mixed GameSession casts from center, spends, cycles, and restores pending impact
+  ---
+  duration_ms: 32.395416
+  type: 'test'
+  ...
+# Subtest: editable mixed AI chooses a legal Squall Orb cast without a selected target
+ok 5 - editable mixed AI chooses a legal Squall Orb cast without a selected target
+  ---
+  duration_ms: 10.99475
+  type: 'test'
+  ...
+# Subtest: shared Cinderling archetype deploys from both cards and restores distinct member identities
+ok 6 - shared Cinderling archetype deploys from both cards and restores distinct member identities
+  ---
+  duration_ms: 4882.262
+  type: 'test'
+  ...
+# Subtest: editable Stonehauler deployment survives deterministic restore continuation
+ok 7 - editable Stonehauler deployment survives deterministic restore continuation
+  ---
+  duration_ms: 627.797125
+  type: 'test'
+  ...
+# Subtest: new squads deploy through custom eight-card battles and restore exactly
+ok 8 - new squads deploy through custom eight-card battles and restore exactly
+  ---
+  duration_ms: 2660.050916
+  type: 'test'
+  ...
+# Subtest: editable deck rejects malformed, duplicate, unsupported, and noncanonical setups
+ok 9 - editable deck rejects malformed, duplicate, unsupported, and noncanonical setups
+  ---
+  duration_ms: 4.304292
+  type: 'test'
+  ...
+# Subtest: game input bridge: pointer commit reaches session and feedback exactly once
+ok 10 - game input bridge: pointer commit reaches session and feedback exactly once
+  ---
+  duration_ms: 52.790167
+  type: 'test'
+  ...
+# Subtest: game input bridge: typed Squall Orb command carries its required side and restores exactly
+ok 11 - game input bridge: typed Squall Orb command carries its required side and restores exactly
+  ---
+  duration_ms: 69.16225
+  type: 'test'
+  ...
+# Subtest: game input bridge: illegal, duplicate and compatibility mouse mutate no session
+ok 12 - game input bridge: illegal, duplicate and compatibility mouse mutate no session
+  ---
+  duration_ms: 18.691208
+  type: 'test'
+  ...
+# Subtest: game input bridge: rejected session command is atomic and never recorded
+ok 13 - game input bridge: rejected session command is atomic and never recorded
+  ---
+  duration_ms: 7.268167
+  type: 'test'
+  ...
+# Subtest: game input bridge: unsubscribe and restore never redeliver
+ok 14 - game input bridge: unsubscribe and restore never redeliver
+  ---
+  duration_ms: 13.8865
+  type: 'test'
+  ...
+# Subtest: game input bridge: duplicate sink and hostile snapshots fail without session mutation
+ok 15 - game input bridge: duplicate sink and hostile snapshots fail without session mutation
+  ---
+  duration_ms: 6.817292
+  type: 'test'
+  ...
+# Subtest: game input bridge: GameSession authentication is trap-zero in construction and restore
+ok 16 - game input bridge: GameSession authentication is trap-zero in construction and restore
+  ---
+  duration_ms: 10.49525
+  type: 'test'
+  ...
+# Subtest: game spell runtime: isolated sourced receipt changes one shared GameSession unit, not a placeholder
+ok 17 - game spell runtime: isolated sourced receipt changes one shared GameSession unit, not a placeholder
+  ---
+  duration_ms: 78.153042
+  type: 'test'
+  ...
+# Subtest: game spell runtime: v2 center cast damages enemy ground and air units after its explicit estimated delay
+ok 18 - game spell runtime: v2 center cast damages enemy ground and air units after its explicit estimated delay
+  ---
+  duration_ms: 101.876875
+  type: 'test'
+  ...
+# Subtest: game spell runtime: editable GameSession center cast spends, cycles, and restores its pending impact
+ok 19 - game spell runtime: editable GameSession center cast spends, cycles, and restores its pending impact
+  ---
+  duration_ms: 74.061542
+  type: 'test'
+  ...
+# Subtest: game spell runtime: crown tower radius hit uses the versioned estimated 30 percent modifier
+ok 20 - game spell runtime: crown tower radius hit uses the versioned estimated 30 percent modifier
+  ---
+  duration_ms: 11.001666
+  type: 'test'
+  ...
+# Subtest: game spell runtime: circle tangency is included and one millitile beyond is excluded
+ok 21 - game spell runtime: circle tangency is included and one millitile beyond is excluded
+  ---
+  duration_ms: 20.560291
+  type: 'test'
+  ...
+# Subtest: game spell runtime: radius center cast damages an enemy building through shared structure health
+ok 22 - game spell runtime: radius center cast damages an enemy building through shared structure health
+  ---
+  duration_ms: 22.348209
+  type: 'test'
+  ...
+# Subtest: game spell runtime: receipt is non-roster/non-fidelity and visibly excludes QUESTION mechanics
+ok 23 - game spell runtime: receipt is non-roster/non-fidelity and visibly excludes QUESTION mechanics
+  ---
+  duration_ms: 0.790167
+  type: 'test'
+  ...
+# Subtest: game spell runtime: every admitted effect without the exact profile rejects before routing
+ok 24 - game spell runtime: every admitted effect without the exact profile rejects before routing
+  ---
+  duration_ms: 149.255166
+  type: 'test'
+  ...
+# Subtest: game spell runtime: LiveBattle rejects unprofiled and no-profile effects atomically
+ok 25 - game spell runtime: LiveBattle rejects unprofiled and no-profile effects atomically
+  ---
+  duration_ms: 18.27
+  type: 'test'
+  ...
+# Subtest: game spell runtime: LiveBattle profile snapshots, forks, restores, and legacy no-profile bytes are causal
+ok 26 - game spell runtime: LiveBattle profile snapshots, forks, restores, and legacy no-profile bytes are causal
+  ---
+  duration_ms: 35.711083
+  type: 'test'
+  ...
+# Subtest: game spell runtime: same-tick reducer order is sequence then effect ID, and dead shared targets reject atomically
+ok 27 - game spell runtime: same-tick reducer order is sequence then effect ID, and dead shared targets reject atomically
+  ---
+  duration_ms: 17.091417
+  type: 'test'
+  ...
+# Subtest: game spell runtime: spell and unit scheduling cannot share a same-tick sequence
+ok 28 - game spell runtime: spell and unit scheduling cannot share a same-tick sequence
+  ---
+  duration_ms: 19.719208
+  type: 'test'
+  ...
+# Subtest: game spell runtime: hostile profile/command shapes and the action/event ceiling are bounded and atomic
+ok 29 - game spell runtime: hostile profile/command shapes and the action/event ceiling are bounded and atomic
+  ---
+  duration_ms: 2093.733375
+  type: 'test'
+  ...
+# Subtest: game spell runtime: invalid target, unprofiled card, stale, duplicate, and illegal commands are atomic
+ok 30 - game spell runtime: invalid target, unprofiled card, stale, duplicate, and illegal commands are atomic
+  ---
+  duration_ms: 21.284083
+  type: 'test'
+  ...
+# Subtest: game spell runtime: chunks and restore reproduce profile actions; empty-profile legacy bytes stay v2
+ok 31 - game spell runtime: chunks and restore reproduce profile actions; empty-profile legacy bytes stay v2
+  ---
+  duration_ms: 84.525084
+  type: 'test'
+  ...
+# Subtest: RL environment exposes a finite action catalogue and masks legal deploys
+ok 32 - RL environment exposes a finite action catalogue and masks legal deploys
+  ---
+  duration_ms: 109.137708
+  type: 'test'
+  ...
+# Subtest: seeded trajectories and restored checkpoints continue identically
+ok 33 - seeded trajectories and restored checkpoints continue identically
+  ---
+  duration_ms: 272.778458
+  type: 'test'
+  ...
+# Subtest: separate instances and a custom shared deck remain independent
+ok 34 - separate instances and a custom shared deck remain independent
+  ---
+  duration_ms: 22.591917
+  type: 'test'
+  ...
+# Subtest: RL mask casts an editable Squall Orb center point and restores its pending effect
+ok 35 - RL mask casts an editable Squall Orb center point and restores its pending effect
+  ---
+  duration_ms: 47.469625
+  type: 'test'
+  ...
+# Subtest: horizon clipping truncates exactly and rejects later steps
+ok 36 - horizon clipping truncates exactly and rejects later steps
+  ---
+  duration_ms: 108.918042
+  type: 'test'
+  ...
+# Subtest: restore rejects paused or pending GameSession checkpoints
+ok 37 - restore rejects paused or pending GameSession checkpoints
+  ---
+  duration_ms: 43.2335
+  type: 'test'
+  ...
+# Subtest: masked and out-of-range actions are atomic
+ok 38 - masked and out-of-range actions are atomic
+  ---
+  duration_ms: 6.3305
+  type: 'test'
+  ...
+# Subtest: observations are allowlisted, JSON-safe, and detached
+ok 39 - observations are allowlisted, JSON-safe, and detached
+  ---
+  duration_ms: 11.956167
+  type: 'test'
+  ...
+# Subtest: natural engine completion reports one sparse reward and seals the episode
+ok 40 - natural engine completion reports one sparse reward and seals the episode
+  ---
+  duration_ms: 64674.596541
+  type: 'test'
+  ...
+# Subtest: wait-only seed 2 reaches its pinned natural engine terminal after checkpoint restore
+ok 41 - wait-only seed 2 reaches its pinned natural engine terminal after checkpoint restore
+  ---
+  duration_ms: 44799.729959
+  type: 'test'
+  ...
+1..41
+# tests 41
+# suites 0
+# pass 41
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 110273.692292

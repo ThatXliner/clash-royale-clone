@@ -1,0 +1,87 @@
+
+> moss-and-ember@0.0.0 test
+> node scripts/test-portable.js -- node tests/content-schema-runner.js nondeterminism-guard
+
+TAP version 13
+# Subtest: nondeterminism-guard: rejects direct and adversarial syntax-aware fixtures
+ok 1 - nondeterminism-guard: rejects direct and adversarial syntax-aware fixtures
+  ---
+  duration_ms: 19.751958
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: permits deterministic locals and ignores comments and strings
+ok 2 - nondeterminism-guard: permits deterministic locals and ignores comments and strings
+  ---
+  duration_ms: 2.0175
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: binds function, catch, class, and nested lexical shadows exactly
+ok 3 - nondeterminism-guard: binds function, catch, class, and nested lexical shadows exactly
+  ---
+  duration_ms: 3.011291
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: scans every simulation module and probes its runtime boundary
+not ok 4 - nondeterminism-guard: scans every simulation module and probes its runtime boundary
+  ---
+  duration_ms: 5.88175
+  type: 'test'
+  location: '/private/tmp/spell001-critic.JsIRFL/tests/nondeterminism-guard.test.js:203:1'
+  failureType: 'testCodeFailure'
+  error: '/private/tmp/spell001-critic.JsIRFL/src/sim/battle-continuation-kernel.js exceeds 524288 source bytes'
+  code: 'SOURCE_SIZE_LIMIT'
+  name: 'NondeterminismGuardError'
+  stack: |-
+    boundedTokens (file:///private/tmp/spell001-critic.JsIRFL/scripts/nondeterminism-guard.js:89:11)
+    parseModule (file:///private/tmp/spell001-critic.JsIRFL/scripts/nondeterminism-guard.js:124:3)
+    collectLocalModuleGraph (file:///private/tmp/spell001-critic.JsIRFL/scripts/nondeterminism-guard.js:887:18)
+    guardSimulationDirectory (file:///private/tmp/spell001-critic.JsIRFL/scripts/nondeterminism-guard.js:922:17)
+    async TestContext.<anonymous> (file:///private/tmp/spell001-critic.JsIRFL/tests/nondeterminism-guard.test.js:242:18)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: nondeterminism-guard: simulation closure admits only the exact neutral authority
+ok 5 - nondeterminism-guard: simulation closure admits only the exact neutral authority
+  ---
+  duration_ms: 66.8435
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: runtime probe denies computed capabilities the analyzer cannot resolve
+ok 6 - nondeterminism-guard: runtime probe denies computed capabilities the analyzer cannot resolve
+  ---
+  duration_ms: 45.257167
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: closes all five dormant-function critic bypasses without invoking exports
+ok 7 - nondeterminism-guard: closes all five dormant-function critic bypasses without invoking exports
+  ---
+  duration_ms: 90.922542
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: runtime linker accepts a bounded cyclic local module graph
+ok 8 - nondeterminism-guard: runtime linker accepts a bounded cyclic local module graph
+  ---
+  duration_ms: 45.550708
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: reports canonical output and fails a source set atomically
+ok 9 - nondeterminism-guard: reports canonical output and fails a source set atomically
+  ---
+  duration_ms: 0.402291
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: enforces hostile size, depth, and file-count bounds
+ok 10 - nondeterminism-guard: enforces hostile size, depth, and file-count bounds
+  ---
+  duration_ms: 0.449125
+  type: 'test'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 9
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 332.120834

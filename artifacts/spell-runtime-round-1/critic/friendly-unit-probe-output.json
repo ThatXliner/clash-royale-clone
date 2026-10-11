@@ -1,0 +1,75 @@
+{
+  "candidateRoot": "/tmp/spell001-critic.JsIRFL",
+  "profileId": "squall-orb-radius-v2",
+  "center": {
+    "x": 5000,
+    "y": 16000
+  },
+  "before": {
+    "south:1": {
+      "id": 1,
+      "side": "south",
+      "hitpoints": 1766,
+      "point": {
+        "x": 4484,
+        "y": 13500
+      }
+    },
+    "north:2": {
+      "id": 2,
+      "side": "north",
+      "hitpoints": 1766,
+      "point": {
+        "x": 4484,
+        "y": 17500
+      }
+    },
+    "north:3": {
+      "id": 3,
+      "side": "north",
+      "hitpoints": 1766,
+      "point": {
+        "x": 9484,
+        "y": 17500
+      }
+    }
+  },
+  "after": {
+    "south:1": {
+      "id": 1,
+      "side": "south",
+      "hitpoints": 1766,
+      "point": {
+        "x": 4434,
+        "y": 13500
+      }
+    },
+    "north:2": {
+      "id": 2,
+      "side": "north",
+      "hitpoints": 1077,
+      "point": {
+        "x": 4434,
+        "y": 17500
+      }
+    },
+    "north:3": {
+      "id": 3,
+      "side": "north",
+      "hitpoints": 1766,
+      "point": {
+        "x": 9434,
+        "y": 17500
+      }
+    }
+  },
+  "unitHits": [
+    {
+      "damage": 689,
+      "targetId": 2
+    }
+  ],
+  "friendlyUnchanged": true,
+  "enemyDamaged": true,
+  "offRadiusUnchanged": true
+}
