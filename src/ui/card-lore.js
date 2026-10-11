@@ -17,6 +17,8 @@ const CARD_LORE = Object.freeze({
   ironroot: "The oak beside Emberfall’s old foundry split when an ironstone seam surfaced through its roots. Rivermark smiths bound its crooked trunk with hammered copper and cut a broad blade from the dark seam.",
   "sunthread-pair": "When emberseed lights began appearing above the Rivermark root bridges, two woodland wardens braided copper thread through their yew bows so travelers could follow each safe trail. At dusk, the Sunthread Pair trade watch from the amber-lit fern paths and send warning arrows toward any lantern lost in the trees.",
   "duskwing-trio": "Three owl-moths hatched from a reed basket warmed beside an emberseed stove at the Emberfall river workshop. Each twilight they carry the seed’s tiny glow through the fern hollows, guiding Rivermark ferrymakers home above the water.",
+  "gloamwing-cluster": "Gloamwings rise from the violet reeds at dusk to follow emberseeds down the riverbank. Five of them wheel around each warm spark until ferry bells call them home.",
+  "coppershade-flock": "Coppershades roost in the offcuts piled outside the Rivermark river workshop. When the kiln wakes, all six glide over the canal and trade tiny sparks above their copper-lit nests.",
 });
 
 export function getCardLore(cardId) {

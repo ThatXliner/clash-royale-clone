@@ -389,6 +389,28 @@ const REGISTERED_ASSETS = [
     path: "assets/duskwing-trio-painted.webp",
     sha256: "14c435ea7e5f427c1191cbf3deba2cf90beddb74e65273bad9992d4e54c9cefb",
   },
+  {
+    authorship: "in-repo-authored",
+    byteLength: 40140,
+    dimensions: { height: 512, width: 512 },
+    format: "webp",
+    id: "gloamwing-cluster-painted",
+    kind: "image",
+    license: "AGPL-3.0-only",
+    path: "assets/gloamwing-cluster-painted.webp",
+    sha256: "176687230a5e9b3b57364437692308f568e2933b7b0225e46694cfbbfb4b6cf8",
+  },
+  {
+    authorship: "in-repo-authored",
+    byteLength: 53578,
+    dimensions: { height: 512, width: 512 },
+    format: "webp",
+    id: "coppershade-flock-painted",
+    kind: "image",
+    license: "AGPL-3.0-only",
+    path: "assets/coppershade-flock-painted.webp",
+    sha256: "8d56aad804ca150372aa7a08af118f43ad33a2577f2604bee2ddcaaea1bac624",
+  },
 ];
 
 const MANIFEST = freeze({
