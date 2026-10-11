@@ -181,8 +181,8 @@ export function createBriarRunnerPaintedSprite(document, {
 export function mountBriarRunnerPrototype(document) {
   const root = document.querySelector("[data-sprite-prototype]");
   if (!root) return null;
-  const vectorAssetUrl = new URL("../public/assets/briar-runner-sprite-sheet.svg", document.baseURI).href;
-  const paintedAssetUrl = new URL("../public/assets/briar-runner-painted-sheet.png", document.baseURI).href;
+  const vectorAssetUrl = new URL("../../public/assets/briar-runner-sprite-sheet.svg", import.meta.url).href;
+  const paintedAssetUrl = new URL("../../public/assets/briar-runner-painted-sheet.png", import.meta.url).href;
   const actionControl = root.querySelector("[data-control=action]");
   const directionControl = root.querySelector("[data-control=direction]");
   const tickControl = root.querySelector("[data-control=tick]");

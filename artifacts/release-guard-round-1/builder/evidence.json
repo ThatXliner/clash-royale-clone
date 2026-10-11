@@ -1,0 +1,119 @@
+{
+  "round": "RELEASE-GUARD-001 builder",
+  "unchangedKernelByteLimit": 524288,
+  "sources": {
+    "src/sim/battle-continuation-kernel.js": {
+      "bytes": 522226,
+      "sha256": "542c8b26dc5d2b5ea30ead6436859fc1c9ba38a503a5d280ca1bd27b8258d419"
+    },
+    "src/sim/spell-area-impact.js": {
+      "bytes": 4305,
+      "sha256": "f1b70073951908f8f62f6af93fe5565288becb1d8f52bc45741697f90f7a9d68"
+    },
+    "src/ui/combat-sprite-prototype.js": {
+      "bytes": 11273,
+      "sha256": "626388c9d3a686636b85f2256595e7d3859ac24e042a3f21600ad3fe90c17272"
+    }
+  },
+  "tests": [
+    {
+      "command": "npm test -- nondeterminism-guard",
+      "tests": 10,
+      "passed": 10,
+      "failed": 0
+    },
+    {
+      "command": "npm test -- shipping-isolation-guard",
+      "tests": 13,
+      "passed": 13,
+      "failed": 0
+    },
+    {
+      "command": "node --test tests/game-spell-runtime.test.js",
+      "tests": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    {
+      "command": "node --test tests/compact-capability-hostile.test.js",
+      "tests": 4,
+      "passed": 4,
+      "failed": 0
+    },
+    {
+      "command": "node --test tests/combat-sprite-prototype-browser.test.js",
+      "tests": 1,
+      "passed": 1,
+      "failed": 0
+    }
+  ],
+  "spriteRender": {
+    "viewports": [
+      {
+        "viewport": {
+          "width": 720,
+          "height": 1280
+        },
+        "boards": [
+          {
+            "renderer": "vector",
+            "markerCount": 8
+          },
+          {
+            "renderer": "painted",
+            "markerCount": 8
+          }
+        ],
+        "restorePixelHashesMatch": true
+      },
+      {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "boards": [
+          {
+            "renderer": "vector",
+            "markerCount": 8
+          },
+          {
+            "renderer": "painted",
+            "markerCount": 8
+          }
+        ],
+        "restorePixelHashesMatch": true
+      }
+    ],
+    "liveArena": [
+      {
+        "viewport": {
+          "width": 720,
+          "height": 1280
+        },
+        "markerCount": 6,
+        "teams": [
+          "north",
+          "south"
+        ],
+        "restorePixelIdentical": true,
+        "reducedMotionPixelIdentical": true
+      },
+      {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "markerCount": 6,
+        "teams": [
+          "north",
+          "south"
+        ],
+        "restorePixelIdentical": true,
+        "reducedMotionPixelIdentical": true
+      }
+    ],
+    "missingAssetRequests": [],
+    "pageErrors": [],
+    "consoleErrors": []
+  }
+}
