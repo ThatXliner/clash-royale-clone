@@ -1,5 +1,17 @@
 # Gauntlet Rounds
 
+## Round 405 — 2026-10-11
+
+PIECE: RELEASE-PRELOAD-001 — Generated preload helper source provenance, round 2
+
+VERDICT: FAIL
+
+EVIDENCE: Independent clean eeb0fab shipping guard13/13 passes; release-build21/22 fails solely on actual Chromium request assets/public/assets/css-url.svg (unmanifested404). Authored helper negative matrix, production release and inline literal/template dynamic-import positives pass. Remote Actions38175320200 reproduces the same failure and skips deployment. Critic logs under `artifacts/ship-preload-round-1/critic/` retain actual failure. Moving the CSS fixture source did not fix the emitted URL bug.
+
+BIGGEST GAP: Generated grouped CSS names contain nested directories, but Vite computes relative asset URLs from the flat naming pattern. Make generated asset naming and URL calculation agree.
+
+DISPOSITION: Builder reproduces staged output and repairs generated naming; canonical copied asset paths, strict manifest audit and size limits remain unchanged. New candidate49ba9d1 has targeted legacy Chromium1/1; separate full critique and actual deployment pending.
+
 ## Round 404 — 2026-10-11
 
 PIECE: ART-016P — Original air-swarm portrait assets and lore, round 2

@@ -28,7 +28,7 @@
   <div class="cards">
     <div class="card"><div class="num">223</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">175</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">397</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">398</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">27</div><div class="label">open questions</div></div>
   </div>
   <p class="note">Active target: <strong>ART-004 — Original deterministic 2D sprite prototype</strong>.</p>
@@ -1817,15 +1817,16 @@
         <td><code>RELEASE-PRELOAD-001</code></td>
         <td>Generated preload helper source provenance</td>
         <td class="state-building">BUILDING</td>
-        <td>19/20</td>
-        <td>1</td>
-        <td>Actual Pages38174293624 build failed on generated helper; deployment skipped. Builder fixes provenance and adds authored-helper regressions; independent critique pending.</td>
+        <td>21/22</td>
+        <td>2</td>
+        <td>Independent eeb guard13/13 and release21/22: generated helper positives/authored negatives pass, but actual nested CSS URL404 persists. Builder49ba9d1 aligns generated asset names with Vite relative-URL calculation; targeted legacyChrome1/1. Separate full critique and remote38175915263 pending.</td>
       </tr>
       </tbody>
     </table>
   </div>
   <h2>Round trajectory</h2>
   <ol>
+      <li><strong>R405 FAIL</strong> · RELEASE-PRELOAD-001 — Generated preload helper source provenance, round 2<br>Generated grouped CSS names contain nested directories, but Vite computes relative asset URLs from the flat naming pattern. Make generated asset naming and URL calculation agree.</li>
       <li><strong>R404 PASS</strong> · ART-016P — Original air-swarm portrait assets and lore, round 2<br>None for asset-only acceptance; public phone/desktop editable integration remains separately ART016.</li>
       <li><strong>R403 PASS</strong> · CARDS-016K — Two additional classic air-swarm runtime roles, round 2<br>Historical numeric, formation and timing QUESTIONS remain unresolved; these two new roles are not editable/RL choices yet.</li>
       <li><strong>R402 FAIL</strong> · RELEASE-PRELOAD-001 — Generated preload helper source provenance, round 1<br>Distinguish generated helper provenance from authored internal-module impersonation without weakening source boundaries.</li>
