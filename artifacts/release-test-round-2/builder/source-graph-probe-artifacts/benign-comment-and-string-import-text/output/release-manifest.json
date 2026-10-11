@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "entrypoints": [
+    "public/index.html"
+  ],
+  "standaloneModules": [],
+  "fileCount": 2,
+  "totalBytes": 2485,
+  "files": [
+    {
+      "path": "assets/public/index-2_uerOTq.js",
+      "size": 1885,
+      "sha256": "bf2a355a6236b377ab8c5aacc05d1a7b34ade3a6c82a801e6392674d39c4dc41"
+    },
+    {
+      "path": "public/index.html",
+      "size": 600,
+      "sha256": "323db10c0769fdf49d3f248d2768dffbe1ca3c2581ebbd32604d96975b73d3f2"
+    }
+  ],
+  "build": {
+    "bundler": "vite",
+    "version": "8.3.2",
+    "qualificationProfile": "generic",
+    "runtimeDependencies": [],
+    "inputs": [
+      "public/index.html"
+    ],
+    "staticAssetRoots": [],
+    "graph": {
+      "public/index.html": {
+        "file": "assets/public/index-2_uerOTq.js",
+        "src": "public/index.html",
+        "name": "public/index",
+        "isEntry": true
+      }
+    }
+  }
+}

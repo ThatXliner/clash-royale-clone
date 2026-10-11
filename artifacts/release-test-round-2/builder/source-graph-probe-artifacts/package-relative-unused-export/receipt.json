@@ -1,0 +1,5 @@
+{
+  "name": "package-relative-unused-export",
+  "outcome": "rejected",
+  "error": "Build failed with 1 error:\n\n[plugin moss-and-ember-release-dependency-policy]\nError: node_modules source is not allowed in release graph: node_modules/reviewer-probe/file.js\n    at invariant (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/scripts/build-release.js:35:25)\n    at assertPortablePath (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/scripts/build-release.js:61:15)\n    at PluginContextImpl.resolveId (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/scripts/build-release.js:331:7)\n    at async plugin (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/rolldown/dist/shared/bindingify-input-options-DCTviPFW.mjs:1646:16)\n    at async plugin.<computed> (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/rolldown/dist/shared/bindingify-input-options-DCTviPFW.mjs:2316:12)"
+}
