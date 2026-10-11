@@ -27,8 +27,8 @@
   <p class="sub">Updated 2026-10-11 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
     <div class="card"><div class="num">213</div><div class="label">tracked pieces</div></div>
-    <div class="card"><div class="num">165</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">376</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">166</div><div class="label">passed</div></div>
+    <div class="card"><div class="num">379</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">26</div><div class="label">open questions</div></div>
   </div>
   <p class="note">Active target: <strong>ART-004 — Original deterministic 2D sprite prototype</strong>.</p>
@@ -1680,10 +1680,10 @@
       <tr>
         <td><code>GAME-SPELL-001</code></td>
         <td>Full radius spell through player and agent decks</td>
-        <td class="state-building">BUILDING</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Full classic roster requires real spells; current direct-target receipt does not establish AoE behavior.</td>
+        <td class="state-pass">PASS</td>
+        <td>48/48</td>
+        <td>1</td>
+        <td>Independent frozen bccd0a9 passes runtime41, app-shell1 and assets6; actual mixed deck, trusted cast, spend/cycle, pending restore and area damage work. Flight/knockback remain excluded; source guard failure repaired separately, current endurance still fails.</td>
       </tr>
       <tr>
         <td><code>SKILL-CHAR-001</code></td>
@@ -1696,10 +1696,10 @@
       <tr>
         <td><code>CARDS-013</code></td>
         <td>Full swarm and heavy melee choices</td>
-        <td class="state-building">BUILDING</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Full roster expansion: ordinary fifteen-unit swarm and slow heavy melee, disjoint from spell foundation.</td>
+        <td class="state-fail">FAIL</td>
+        <td>85/86</td>
+        <td>1</td>
+        <td>Core85/85 and actual trusted15/1 deployments/restore pass, but browser review finds contradictory card copy: summary names ground melee while the same profile says attack type and flight are not listed.</td>
       </tr>
       <tr>
         <td><code>PROGRESS-001</code></td>
@@ -1712,10 +1712,10 @@
       <tr>
         <td><code>RELEASE-GUARD-001</code></td>
         <td>Preserve source and asset guard admission</td>
-        <td class="state-building">BUILDING</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Kernel exceeds 524288 source-byte cap at 526174; prototype sprite URLs fail source-graph resolution. Neither cap nor guard may be weakened.</td>
+        <td class="state-fail">FAIL</td>
+        <td>61/62</td>
+        <td>1</td>
+        <td>Independent46c08c9 passes guards, spell/authority, sprite/app renders and all48 package hashes; kernel522226 fits524288 cap. Strict full endurance aborts at600 ticks on51 ms restore600-to300; terminal/restart not reached.</td>
       </tr>
       <tr>
         <td><code>CARDS-015</code></td>
@@ -1746,6 +1746,9 @@
   </div>
   <h2>Round trajectory</h2>
   <ol>
+      <li><strong>R386 FAIL</strong> · CARDS-013 — Full swarm and heavy melee choices, round 1<br>Describe the actual ground/melee behavior consistently across card summary and statistics, while preserving the explicitly provisional source classification.</li>
+      <li><strong>R385 PASS</strong> · GAME-SPELL-001 — Full radius spell through player and agent decks, round 1<br>Projectile flight and knockback remain excluded; publisher evidence resolves one-tile displacement but not activation, travel, eligibility or interruption order.</li>
+      <li><strong>R384 FAIL</strong> · RELEASE-GUARD-001 — Preserve source and asset guard admission, round 1<br>The real 600→300 restore exceeds the strict non-initialization cap by 1 ms and prevents the required full-match verification.</li>
       <li><strong>R383 PASS</strong> · PROGRESS-001 — Complete live piece inventory, round 1<br>None on the scoped inventory and trajectory bar.</li>
       <li><strong>R382 PASS</strong> · SKILL-CHAR-001 — Reusable original character creation, round 1<br>Planning-only versus asset-creation wording could be clearer; both explicit planning and concept boundaries were honored in the actual forward tests.</li>
       <li><strong>R381 PASS</strong> · CARDS-011 — Classic melee squad collection expansion, round 1<br>Historical combat stats have incomplete independent corroboration in the pinned reference corpus; collision/delivery/layer estimates retain their explicit QUESTION policies. No historical-parity claim.</li>

@@ -1,5 +1,37 @@
 # Gauntlet Rounds
 
+## Round 386 — 2026-10-11
+
+PIECE: CARDS-013 — Full swarm and heavy melee choices, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Independent frozen `bccd0a9` core suites pass 85/85. The separate coexistence probe deploys Cinderlings and Cinder Host as 3 and 15 bodies with distinct IDs and a shared archetype. A separate real production Chrome probe renders both new 512×512 portraits, lore and statistics at 1440×933 and 390×844; an edited deck deploys Cinder Host as IDs 2–16 for 3 elixir and Ironroot as ID 17 for 7 elixir, with exact snapshot restore and no console errors. The first probe omitted advancing the paused simulation after a trusted gesture; the corrected probe advances the required tick and passes. However, both visible summaries say “Ground unit · melee attacks · targets ground.” while their statistics panels say “Targets ground. Attack type and whether it flies are not listed.” Core evidence: `2308c6b`, `artifacts/cards-expansion-round-2/critic/`. Browser evidence: `50f024b`, `artifacts/cards-expansion-round-2/critic-browser/`. The plan ratio combines 85 passing core tests and one failed browser review.
+
+BIGGEST GAP: Describe the actual ground/melee behavior consistently across card summary and statistics, while preserving the explicitly provisional source classification.
+
+## Round 385 — 2026-10-11
+
+PIECE: GAME-SPELL-001 — Full radius spell through player and agent decks, round 1
+
+VERDICT: PASS
+
+EVIDENCE: Independent frozen `bccd0a9` passes requested runtime suites 41/41, app-shell Chrome 1/1 and visual asset manifest 6/6. A real editable Squall deck uses trusted arena point input, spends 4 elixir and cycles, restores a pending impact exactly, then applies 689 damage with visible radius preview/impact. A separate live probe confirms friendly units and off-radius units are excluded. Legacy receipt and snapshot assertions remain exact. Evidence is committed as `50f024b` under `artifacts/spell-runtime-round-1/critic/`. The frozen source-size guard separately fails 9/10 at 526174 bytes; the later `46c08c9` repair independently passes guards and the same actual browser cast path. This spell verdict covers the explicit radius-damage policy, not flight, knockback, historical parity or release completion.
+
+BIGGEST GAP: Projectile flight and knockback remain excluded; publisher evidence resolves one-tile displacement but not activation, travel, eligibility or interruption order.
+
+## Round 384 — 2026-10-11
+
+PIECE: RELEASE-GUARD-001 — Preserve source and asset guard admission, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Independent frozen `46c08c9` passes nondeterminism guard 10/10, shipping isolation 13/13, spell runtime/compact authority 19/19, sprite unit tests 10/10, visual asset manifest 6/6, sprite browser render 1/1 and app-shell browser 1/1. The kernel is 522226 bytes against the unchanged 524288-byte limit. Root builds and qualifies the assembled Pages artifact from a clean frozen archive: 48 files, 6929315 bytes. The critic verifies every package manifest size/hash and both registered Briar asset hashes. The required full `npm test -- game-browser-endurance`, with tick override unset, passes its classifier but fails the real journey after two 300-tick segments. Initialization max is 155 ms under 300; exact rewind 600→300 has one restore long task `{duration:51,name:"self",startTime:17802}` over the unchanged 50 ms cap. Terminal is null; tick 18000 and restart were not reached. Evidence-only commit `95fef0c`, `artifacts/release-guard-round-1/critic/`.
+
+BIGGEST GAP: The real 600→300 restore exceeds the strict non-initialization cap by 1 ms and prevents the required full-match verification.
+
+DISPOSITION: Source and asset guard causes are fixed without weakened caps. Restore throughput is split into GAME-001GPR for measured diagnosis and a separate full-journey critic; the goal remains active.
+
 ## Round 383 — 2026-10-11
 
 PIECE: PROGRESS-001 — Complete live piece inventory, round 1
