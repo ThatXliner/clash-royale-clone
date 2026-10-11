@@ -1,0 +1,388 @@
+TAP version 13
+# Subtest: editable deck setup admits every card in canonical eight-card witnesses and closes QUESTION records
+ok 1 - editable deck setup admits every card in canonical eight-card witnesses and closes QUESTION records
+  ---
+  duration_ms: 8150.79925
+  type: 'test'
+  ...
+# Subtest: editable deck setup preserves the shipped standard setup and selected order
+ok 2 - editable deck setup preserves the shipped standard setup and selected order
+  ---
+  duration_ms: 10.301
+  type: 'test'
+  ...
+# Subtest: editable mixed witness admits one QUESTION-profile Squall Orb with seven troops
+ok 3 - editable mixed witness admits one QUESTION-profile Squall Orb with seven troops
+  ---
+  duration_ms: 5.100959
+  type: 'test'
+  ...
+# Subtest: editable mixed GameSession casts from center, spends, cycles, and restores pending impact
+ok 4 - editable mixed GameSession casts from center, spends, cycles, and restores pending impact
+  ---
+  duration_ms: 29.229667
+  type: 'test'
+  ...
+# Subtest: editable mixed AI chooses a legal Squall Orb cast without a selected target
+ok 5 - editable mixed AI chooses a legal Squall Orb cast without a selected target
+  ---
+  duration_ms: 10.768125
+  type: 'test'
+  ...
+# Subtest: shared Cinderling archetype deploys from both cards and restores distinct member identities
+ok 6 - shared Cinderling archetype deploys from both cards and restores distinct member identities
+  ---
+  duration_ms: 4420.613459
+  type: 'test'
+  ...
+# Subtest: editable Stonehauler deployment survives deterministic restore continuation
+ok 7 - editable Stonehauler deployment survives deterministic restore continuation
+  ---
+  duration_ms: 585.501041
+  type: 'test'
+  ...
+# Subtest: new squads deploy through custom eight-card battles and restore exactly
+ok 8 - new squads deploy through custom eight-card battles and restore exactly
+  ---
+  duration_ms: 2604.78225
+  type: 'test'
+  ...
+# Subtest: seeded opponent naturally chooses both new projectile squads through typed receipts
+ok 9 - seeded opponent naturally chooses both new projectile squads through typed receipts
+  ---
+  duration_ms: 1326.261
+  type: 'test'
+  ...
+# Subtest: editable deck rejects malformed, duplicate, unsupported, and noncanonical setups
+ok 10 - editable deck rejects malformed, duplicate, unsupported, and noncanonical setups
+  ---
+  duration_ms: 4.130542
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: exact 41 occurrence pairs and 39 identity IDs
+ok 11 - game roster troop profiles: exact 41 occurrence pairs and 39 identity IDs
+  ---
+  duration_ms: 1.215833
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: exact admitted/question counts and derived session slice
+ok 12 - game roster troop profiles: exact admitted/question counts and derived session slice
+  ---
+  duration_ms: 0.929958
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: admitted profiles are complete, source-backed, sorted, frozen, and detached
+ok 13 - game roster troop profiles: admitted profiles are complete, source-backed, sorted, frozen, and detached
+  ---
+  duration_ms: 2.310125
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: QUESTION identities reject without an invented profile
+ok 14 - game roster troop profiles: QUESTION identities reject without an invented profile
+  ---
+  duration_ms: 0.44725
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: duplicated IDs have one honest shared composition each
+ok 15 - game roster troop profiles: duplicated IDs have one honest shared composition each
+  ---
+  duration_ms: 0.343666
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: composition execution facts remain explicit QUESTIONs
+ok 16 - game roster troop profiles: composition execution facts remain explicit QUESTIONs
+  ---
+  duration_ms: 0.210042
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: every occurrence maps once to a profile/question and duplicate membership is bijective
+ok 17 - game roster troop profiles: every occurrence maps once to a profile/question and duplicate membership is bijective
+  ---
+  duration_ms: 0.395834
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: canonical serialization is repeatable and immutable-only
+ok 18 - game roster troop profiles: canonical serialization is repeatable and immutable-only
+  ---
+  duration_ms: 0.748792
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: primitive-only lookup rejects hostile values without callbacks
+ok 19 - game roster troop profiles: primitive-only lookup rejects hostile values without callbacks
+  ---
+  duration_ms: 1.273375
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: hostile clone mutation cannot affect future calls
+ok 20 - game roster troop profiles: hostile clone mutation cannot affect future calls
+  ---
+  duration_ms: 0.959084
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: shipped module is deterministic and isolated
+ok 21 - game roster troop profiles: shipped module is deterministic and isolated
+  ---
+  duration_ms: 0.4495
+  type: 'test'
+  ...
+# Subtest: ordinary troop projection domain is exactly the admitted profile surface
+ok 22 - ordinary troop projection domain is exactly the admitted profile surface
+  ---
+  duration_ms: 1.36775
+  type: 'test'
+  ...
+# Subtest: every projection is complete, source-agreeing, ordinary-only, and component-stable
+ok 23 - every projection is complete, source-agreeing, ordinary-only, and component-stable
+  ---
+  duration_ms: 4.234584
+  type: 'test'
+  ...
+# Subtest: every witness closes its exact questions, cards, and archetypes through LiveBattle admission
+ok 24 - every witness closes its exact questions, cards, and archetypes through LiveBattle admission
+  ---
+  duration_ms: 54.024084
+  type: 'test'
+  ...
+# Subtest: ordinary projectile delivery admits only its exact two source tuples and rejects forged restore claims
+ok 25 - ordinary projectile delivery admits only its exact two source tuples and rejects forged restore claims
+  ---
+  duration_ms: 29.219875
+  type: 'test'
+  ...
+# Subtest: Sunthread Pair and Duskwing Trio trade sourced air/ground projectiles through in-flight restore
+ok 26 - Sunthread Pair and Duskwing Trio trade sourced air/ground projectiles through in-flight restore
+  ---
+  duration_ms: 2038.925
+  type: 'test'
+  ...
+# Subtest: legacy HTO projections are detached exact playable cards plus ordinary policies
+ok 27 - legacy HTO projections are detached exact playable cards plus ordinary policies
+  ---
+  duration_ms: 2.498
+  type: 'test'
+  ...
+# Subtest: all official witnesses use uniform HTO policies with exact projection counts
+ok 28 - all official witnesses use uniform HTO policies with exact projection counts
+  ---
+  duration_ms: 5.661625
+  type: 'test'
+  ...
+# Subtest: legacy playable roster bytes and QUESTION records remain unchanged
+ok 29 - legacy playable roster bytes and QUESTION records remain unchanged
+  ---
+  duration_ms: 5.442417
+  type: 'test'
+  ...
+# Subtest: legacy delivery/layer policy and QUESTION tampering rejects atomically
+ok 30 - legacy delivery/layer policy and QUESTION tampering rejects atomically
+  ---
+  duration_ms: 61.607875
+  type: 'test'
+  ...
+# Subtest: paired ordinary-policy omission rejects every one of the 38 entity projections
+ok 31 - paired ordinary-policy omission rejects every one of the 38 entity projections
+  ---
+  duration_ms: 159.127042
+  type: 'test'
+  ...
+# Subtest: removing all ordinary policies from one card rejects a partially downgraded roster
+ok 32 - removing all ordinary policies from one card rejects a partially downgraded roster
+  ---
+  duration_ms: 29.779416
+  type: 'test'
+  ...
+# Subtest: a genuine legacy card cannot be mixed with seven HTO policy-backed cards
+ok 33 - a genuine legacy card cannot be mixed with seven HTO policy-backed cards
+  ---
+  duration_ms: 4.303625
+  type: 'test'
+  ...
+# Subtest: all admitted troop witnesses use one shared LiveBattle deployment and entity expansion
+ok 34 - all admitted troop witnesses use one shared LiveBattle deployment and entity expansion
+  ---
+  duration_ms: 559.311208
+  type: 'test'
+  ...
+# Subtest: fully HTO LiveBattle setup deploys, restores, and forks exactly
+ok 35 - fully HTO LiveBattle setup deploys, restores, and forks exactly
+  ---
+  duration_ms: 17.124292
+  type: 'test'
+  ...
+# Subtest: representative ordinary projection is chunk, fork, and restore exact
+ok 36 - representative ordinary projection is chunk, fork, and restore exact
+  ---
+  duration_ms: 3408.809833
+  type: 'test'
+  ...
+# Subtest: projection APIs reject hostile identities before callbacks and return detached frozen values
+ok 37 - projection APIs reject hostile identities before callbacks and return detached frozen values
+  ---
+  duration_ms: 0.973167
+  type: 'test'
+  ...
+# Subtest: projectile profiles: exact admitted occurrence/card/archetype domain and pinned remainder
+ok 38 - projectile profiles: exact admitted occurrence/card/archetype domain and pinned remainder
+  ---
+  duration_ms: 2.194042
+  type: 'test'
+  ...
+# Subtest: projectile profiles: the complete witness map covers exactly the nine source export sets
+ok 39 - projectile profiles: the complete witness map covers exactly the nine source export sets
+  ---
+  duration_ms: 0.716
+  type: 'test'
+  ...
+# Subtest: projectile profiles: every bound row rejects same-ID scalar drift
+ok 40 - projectile profiles: every bound row rejects same-ID scalar drift
+  ---
+  duration_ms: 1471.940375
+  type: 'test'
+  ...
+# Subtest: projectile source admission: rebranded cost drift rejects before every shared consumer
+ok 41 - projectile source admission: rebranded cost drift rejects before every shared consumer
+  ---
+  duration_ms: 3469.076791
+  type: 'test'
+  ...
+# Subtest: projectile source admission: rebranded canonical key order stays usable in every shared consumer
+ok 42 - projectile source admission: rebranded canonical key order stays usable in every shared consumer
+  ---
+  duration_ms: 4882.450792
+  type: 'test'
+  ...
+# Subtest: projectile source admission: every scalar source field rejects rebranding through every shared consumer
+ok 43 - projectile source admission: every scalar source field rejects rebranding through every shared consumer
+  ---
+  duration_ms: 55835.209792
+  type: 'test'
+  ...
+# Subtest: projectile source admission: rebranded first-versus-second reads reject before every shared consumer
+ok 44 - projectile source admission: rebranded first-versus-second reads reject before every shared consumer
+  ---
+  duration_ms: 3251.239625
+  type: 'test'
+  ...
+# Subtest: projectile source admission: rebranded source shape and nested drift fail before output
+ok 45 - projectile source admission: rebranded source shape and nested drift fail before output
+  ---
+  duration_ms: 2235.758833
+  type: 'test'
+  ...
+# Subtest: projectile profiles: representative source fields, shapes, and nested Briar changes fail closed
+ok 46 - projectile profiles: representative source fields, shapes, and nested Briar changes fail closed
+  ---
+  duration_ms: 2127.004166
+  type: 'test'
+  ...
+# Subtest: projectile profiles: source reads, HTP, and HTO drift reject before exposure
+ok 47 - projectile profiles: source reads, HTP, and HTO drift reject before exposure
+  ---
+  duration_ms: 477.918084
+  type: 'test'
+  ...
+# Subtest: projectile profiles: source rows and every nested component reject hostile shapes trap-zero
+ok 48 - projectile profiles: source rows and every nested component reject hostile shapes trap-zero
+  ---
+  duration_ms: 2209.351375
+  type: 'test'
+  ...
+# Subtest: projectile profiles: every source binding is admitted before first-read hostile access
+ok 49 - projectile profiles: every source binding is admitted before first-read hostile access
+  ---
+  duration_ms: 7660.518459
+  type: 'test'
+  ...
+# Subtest: projectile profiles: a normal admitted catalog remains usable by the shared runtime
+ok 50 - projectile profiles: a normal admitted catalog remains usable by the shared runtime
+  ---
+  duration_ms: 17.55675
+  type: 'test'
+  ...
+# Subtest: projectile profiles: every claimed source join is exact and profiles are one-per-ID
+ok 51 - projectile profiles: every claimed source join is exact and profiles are one-per-ID
+  ---
+  duration_ms: 0.751083
+  type: 'test'
+  ...
+# Subtest: projectile profiles: components stay owned by their card and duplicated compositions do not double count
+ok 52 - projectile profiles: components stay owned by their card and duplicated compositions do not double count
+  ---
+  duration_ms: 0.536875
+  type: 'test'
+  ...
+# Subtest: projectile profiles: unresolved delivery dependencies join exact HTO QUESTION records
+ok 53 - projectile profiles: unresolved delivery dependencies join exact HTO QUESTION records
+  ---
+  duration_ms: 0.87175
+  type: 'test'
+  ...
+# Subtest: projectile profiles: all five question fixtures are exact, fresh, and provenance-preserving
+ok 54 - projectile profiles: all five question fixtures are exact, fresh, and provenance-preserving
+  ---
+  duration_ms: 1.910833
+  type: 'test'
+  ...
+# Subtest: projectile profiles: ordinary delivery remains QUESTION and special geometry stays fixture-owned
+ok 55 - projectile profiles: ordinary delivery remains QUESTION and special geometry stays fixture-owned
+  ---
+  duration_ms: 0.522542
+  type: 'test'
+  ...
+# Subtest: projectile profiles: generic basic-ranged launch evidence is test-only and cannot admit either card
+ok 56 - projectile profiles: generic basic-ranged launch evidence is test-only and cannot admit either card
+  ---
+  duration_ms: 6.07
+  type: 'test'
+  ...
+# Subtest: projectile profiles: generic flying launch evidence cannot admit Copperskiff
+ok 57 - projectile profiles: generic flying launch evidence cannot admit Copperskiff
+  ---
+  duration_ms: 6.037959
+  type: 'test'
+  ...
+# Subtest: projectile profiles: Aegis composition remains pending for GAME-001HTC
+ok 58 - projectile profiles: Aegis composition remains pending for GAME-001HTC
+  ---
+  duration_ms: 0.50625
+  type: 'test'
+  ...
+# Subtest: projectile profiles: GAME-001TH identity adapter is required but has no second identity authority
+ok 59 - projectile profiles: GAME-001TH identity adapter is required but has no second identity authority
+  ---
+  duration_ms: 0.488417
+  type: 'test'
+  ...
+# Subtest: projectile profiles: no encounter/private simulator execution or coverage is claimed
+ok 60 - projectile profiles: no encounter/private simulator execution or coverage is claimed
+  ---
+  duration_ms: 0.850792
+  type: 'test'
+  ...
+# Subtest: projectile profiles: outputs are fresh, deeply frozen, detached, and canonical
+ok 61 - projectile profiles: outputs are fresh, deeply frozen, detached, and canonical
+  ---
+  duration_ms: 2.596417
+  type: 'test'
+  ...
+# Subtest: projectile profiles: primitive hostile lookup matrix is trap-zero and fail-closed
+ok 62 - projectile profiles: primitive hostile lookup matrix is trap-zero and fail-closed
+  ---
+  duration_ms: 0.722
+  type: 'test'
+  ...
+# Subtest: projectile profiles: static isolation and source-change bounds are explicit
+ok 63 - projectile profiles: static isolation and source-change bounds are explicit
+  ---
+  duration_ms: 1.335459
+  type: 'test'
+  ...
+1..63
+# tests 63
+# suites 0
+# pass 63
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 83814.540333
