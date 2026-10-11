@@ -851,6 +851,7 @@ const DEFAULT_PRODUCTION_PROVENANCE = auditProductionAudioProvenance(
   PRODUCTION_MANIFEST_INPUT,
   [],
 );
+const productionRendererOptions = new WeakSet();
 
 export function createAudioProvenanceManifest() {
   return isolated(DEFAULT_PROVENANCE);
@@ -1094,6 +1095,7 @@ export class AudioRenderer {
   #sources = new Map();
 
   constructor(optionsValue) {
+    const hasTrustedProductionProvenance = productionRendererOptions.has(optionsValue);
     const options = optionRecord(optionsValue);
     this.#backend = checkedBackend(options.backend);
     this.#gainBasisPoints = integer(
@@ -1106,10 +1108,12 @@ export class AudioRenderer {
       throw new TypeError("audio renderer muted must be a boolean");
     }
     this.#muted = options.muted ?? false;
-    const provenance = auditAudioProvenance(
-      options.manifest ?? DEFAULT_PROVENANCE,
-      options.shippedAudioFiles ?? [],
-    );
+    const provenance = hasTrustedProductionProvenance
+      ? DEFAULT_PRODUCTION_PROVENANCE
+      : auditAudioProvenance(
+        options.manifest ?? DEFAULT_PROVENANCE,
+        options.shippedAudioFiles ?? [],
+      );
     if (provenance.version === 2) this.#mixPolicy = provenance.mix;
     for (const entry of provenance.recipes) {
       this.#sources.set(entry.cueId, {
@@ -1331,4 +1335,14 @@ export class AudioRenderer {
   #assertNotFaulted() {
     if (this.#fault !== null) throw new Error("audio renderer is permanently faulted");
   }
+}
+
+export function createProductionAudioRenderer(optionsValue) {
+  const options = optionRecord(optionsValue);
+  if (Object.hasOwn(options, "manifest") || Object.hasOwn(options, "shippedAudioFiles")) {
+    throw new TypeError("production audio renderer does not accept custom provenance");
+  }
+  const trustedOptions = Object.freeze(options);
+  productionRendererOptions.add(trustedOptions);
+  return new AudioRenderer(trustedOptions);
 }

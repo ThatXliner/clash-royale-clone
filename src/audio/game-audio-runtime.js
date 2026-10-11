@@ -5,8 +5,7 @@ import {
 import { AudioEventProjection, AUDIO_EVENT_MAX_TICK } from "./audio-events.js";
 import {
   AUDIO_RENDERER_MAX_BATCH,
-  AudioRenderer,
-  createProductionAudioProvenanceManifest,
+  createProductionAudioRenderer,
   InMemoryPcmAudioBackend,
 } from "./audio-renderer.js";
 
@@ -309,10 +308,9 @@ export class GameAudioRuntime {
     this.#backend = new InMemoryPcmAudioBackend(
       this.#sink === null ? {} : { sink: this.#sink },
     );
-    this.#renderer = new AudioRenderer({
+    this.#renderer = createProductionAudioRenderer({
       backend: this.#backend,
       gainBasisPoints,
-      manifest: createProductionAudioProvenanceManifest(),
       muted,
     });
     this.#projection = new AudioEventProjection();

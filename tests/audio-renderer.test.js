@@ -20,6 +20,7 @@ import {
   audioRecipeSha256,
   auditAudioProvenance,
   createAudioProvenanceManifest,
+  createProductionAudioRenderer,
   synthesizeProceduralPcm,
 } from "../src/audio/audio-renderer.js";
 
@@ -200,6 +201,29 @@ test("audio renderer: provenance rejects omissions, tampering, duplication, and 
   const wrongLink = structuredClone(original);
   wrongLink.recipes[0].authorId = "someone-else";
   assert.throws(() => auditAudioProvenance(wrongLink), /authorship or license linkage/);
+});
+
+test("audio renderer: production fast path rejects caller provenance while public construction audits it", () => {
+  const backend = fakeBackend().adapter;
+  const tampered = structuredClone(createAudioProvenanceManifest());
+  tampered.recipes[0].recipe.durationTicks += 1;
+
+  assert.throws(
+    () => createProductionAudioRenderer({ backend, manifest: tampered }),
+    /does not accept custom provenance/,
+  );
+  assert.throws(
+    () => createProductionAudioRenderer({ backend, shippedAudioFiles: [] }),
+    /does not accept custom provenance/,
+  );
+  assert.throws(
+    () => renderer(backend, { manifest: tampered }),
+    /invalid canonical hash/,
+  );
+
+  const value = createProductionAudioRenderer({ backend });
+  assert.equal(value.state.faulted, false);
+  value.dispose();
 });
 
 test("audio renderer: provenance rejects external, escaping, missing, duplicate, and unlisted assets", () => {

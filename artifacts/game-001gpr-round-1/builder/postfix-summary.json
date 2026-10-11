@@ -1,0 +1,51 @@
+{
+  "failure": {
+    "sourceCommit": "95fef0c",
+    "workload": "independent full game-browser-endurance test",
+    "rewindFromTick": 600,
+    "rewindToTick": 300,
+    "restoreElapsedMilliseconds": 5122,
+    "longTaskMilliseconds": 51,
+    "longTaskCapMilliseconds": 50,
+    "audioRebaseMilliseconds": 32.6,
+    "restoreStepSliceCount": 300,
+    "restoreStepSliceMaxMilliseconds": 6.7,
+    "evidence": "critic-failed-restore-600-to-300.json"
+  },
+  "preFix900TickBaselines": [
+    {
+      "profile": "plain",
+      "restoreElapsedMilliseconds": 10181,
+      "audioRebaseMilliseconds": 28.1,
+      "restoreLongTaskCount": 0,
+      "evidence": "baseline-900-1.log"
+    },
+    {
+      "profile": "cpu",
+      "restoreElapsedMilliseconds": 10164,
+      "audioRebaseMilliseconds": 17.2,
+      "restoreLongTaskCount": 0,
+      "evidence": "restore-cpu-profile.json"
+    },
+    {
+      "profile": "trace",
+      "restoreElapsedMilliseconds": 10186,
+      "audioRebaseMilliseconds": 28.8,
+      "restoreLongTaskCount": 0,
+      "evidence": "restore-trace.json"
+    }
+  ],
+  "postFix900TickRestore": {
+    "rewindFromTick": 600,
+    "rewindToTick": 300,
+    "restoreElapsedMilliseconds": 10148,
+    "restoreLongTaskCount": 0,
+    "maxRestoreLongTaskMilliseconds": 0,
+    "restoreStepSliceCount": 300,
+    "restoreStepSliceMaxMilliseconds": 4.300000011920929,
+    "audioRebaseMilliseconds": 1.0999999642372131,
+    "audioRestorePreflightMilliseconds": 0.40000003576278687,
+    "evidence": "postfix-900-1.json",
+    "limit": "This short probe covers the real 600-to-300 restore path and does not certify the full 18,000-tick terminal/restart workload."
+  }
+}

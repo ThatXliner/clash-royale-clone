@@ -1,0 +1,33 @@
+{
+  "head": "50f024bec6721a253070ab932c33fc5b0895708a",
+  "run": "900-tick browser endurance, CPU profiler started/stopped around 600-to-300 restore",
+  "durationMilliseconds": 64916,
+  "restoreElapsedMilliseconds": 10164,
+  "restoreLongTasks": [],
+  "timingMilliseconds": {
+    "restorePreflightDispatch": 5.8,
+    "restoreStepSliceMax": 4.3,
+    "audioRestorePreflight": 0.5,
+    "restoreDomCommit": 0.1,
+    "audioRebase": 17.2
+  },
+  "cpuProfileSamples": 6752,
+  "cpuProfileTopSelfSamples": [
+    {"function": "(idle)", "samples": 6202},
+    {"function": "(program)", "samples": 45},
+    {"function": "(garbage collector)", "samples": 9}
+  ],
+  "cpuProfileInclusiveSamples": [
+    {"function": "restoreEndurance", "samples": 660},
+    {"function": "advance", "url": "game-session-restore-continuation.js", "samples": 622},
+    {"function": "#resetAudioGraph", "url": "game-audio-runtime.js", "samples": 21},
+    {"function": "rebase", "url": "game-audio-runtime.js", "samples": 21},
+    {"function": "AudioRenderer", "url": "audio-renderer.js", "samples": 21},
+    {"function": "auditAudioProvenance", "url": "audio-renderer.js", "samples": 20},
+    {"function": "auditProductionAudioProvenance", "url": "audio-renderer.js", "samples": 20}
+  ],
+  "notes": [
+    "This pass stayed below the long-task cap; it is a baseline profile, not a success certification.",
+    "The trace included a 74.7 ms CpuProfiler::StartProfiling RunTask before restoreBrowserSnapshot recorded its interval. That was profiler startup overhead and was excluded from the restore finding."
+  ]
+}
