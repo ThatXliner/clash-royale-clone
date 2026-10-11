@@ -3,7 +3,8 @@ import test from 'node:test';
 import { spawn } from 'node:child_process';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { COMBAT_ART_ARCHETYPES } from '../src/ui/combat-art.js';
-const OUT = new URL('../artifacts/visual-003c-round-3/', import.meta.url).pathname;
+const OUT = process.env.VISUAL_COMBAT_ASSETS_OUT ??
+  new URL('../artifacts/visual-003c-round-3/', import.meta.url).pathname;
 const PLAYWRIGHT = process.env.GAME_BROWSER_PLAYWRIGHT ?? '/Users/me/.codex/worktrees/d092a29e-844b-459d-b145-c548db10d485/billion/node_modules/.pnpm/playwright@1.58.2/node_modules/playwright/index.mjs';
 
 test('visual combat assets: every original silhouette mounts at game scale, restores exactly, and hides diagnostic links', { timeout: 120000 }, async () => {
@@ -54,9 +55,12 @@ test('visual combat assets: every original silhouette mounts at game scale, rest
       arenaHudController.enterManualStepMode();
       const arena = document.querySelector('[data-ui="arena"]');
       const layer = document.querySelector('[data-game-browser-layer="combat"]');
-      const entities = ['north', 'south'].flatMap((side, si) => kinds.map((kind, i) => ({
-        id: si * 20 + i + 1, kind, side, layer: ['skymaul','copperskiff'].includes(kind) ? 'air' : 'ground',
-        position: { x: 3500 + (i % 3) * 5500, y: 28000 - si * 14000 - Math.floor(i / 3) * 4000 },
+      const entities = ['north', 'south'].flatMap((side, sideIndex) => kinds.map((kind, i) => ({
+        id: sideIndex * 20 + i + 1, kind, side, layer: ['skymaul','copperskiff'].includes(kind) ? 'air' : 'ground',
+        position: {
+          x: 5000 + Math.floor(i / 7) * 8000,
+          y: (sideIndex === 0 ? 30000 : 12800) - (i % 7) * 1800,
+        },
         hitpoints: 70, maxHitpoints: 100, targetId: null,
       })));
       entities[0].targetId = entities[kinds.length].id;
@@ -161,7 +165,8 @@ test('visual combat assets: every original silhouette mounts at game scale, rest
           ['south', 'north', south],
         ]) {
           assert.equal(sprite.painted, true, `${side} Briar Runner must use the painted atlas`);
-          assert.equal(sprite.imageHref, './assets/briar-runner-painted-sheet.png');
+          assert.equal(sprite.imageHref,
+            `http://${ready.host}:${ready.port}/public/assets/briar-runner-painted-sheet.png`);
           assert.equal(sprite.spriteAction, 'walk');
           assert.equal(sprite.spriteDirection, direction);
           assert.equal(sprite.spriteFrame, `briar-walk-${direction}-0`);
