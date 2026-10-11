@@ -174,6 +174,61 @@ function declarationEvidence(file, test, id) {
   };
 }
 
+function expectedEvidence(id) {
+  const mapping = CURRENT_MAP.find(([currentId]) => currentId === id);
+  const noExactComparator = !mapping;
+  const declarations = noExactComparator
+    ? DECLARATIONS[id]
+    : [{ file: mapping[2], test: mapping[3] }];
+  if (!declarations) throw new Error(`no pinned declaration for current ID ${id}`);
+
+  const evidence = declarations.map(({ file, test, note }) => ({
+    ...declarationEvidence(file, test, id),
+    ...(note ? { scope: note } : {}),
+  }));
+  for (const { file, test, note } of AUXILIARY_DECLARATIONS[id] ?? []) {
+    evidence.push({ ...declarationEvidence(file, test, id), scope: note });
+  }
+  return evidence;
+}
+
+function expectedComparison(id) {
+  const mapping = CURRENT_MAP.find(([currentId]) => currentId === id);
+  if (mapping) {
+    const [, referenceKey, file, , mappingNeedle] = mapping;
+    return {
+      status: "declared-test-comparator",
+      referenceKey,
+      evidenceMappingLine: lineOf(text(file), mappingNeedle,
+        `${id} declared comparator mapping`),
+      fullParityClaimed: false,
+      fieldDisposition: "source-unverified fields remain QUESTION",
+      ...(id === "ironroot" ? {
+        fixtureReferences: [{
+          referenceKey: "pekka",
+          artifact: "artifacts/cards-expansion-round-2/reference-normalization.json",
+          status: "QUESTION field fixture only; not historical identity proof",
+          identityJoin: false,
+        }],
+      } : {}),
+    };
+  }
+
+  if (id === "cinder-host") {
+    return {
+      status: "question-fixture-only",
+      fixtureReferences: [{
+        referenceKey: "skeleton-army",
+        artifact: "artifacts/cards-expansion-round-2/reference-normalization.json",
+        status: "QUESTION fixture only; not an identity join",
+        identityJoin: false,
+      }],
+    };
+  }
+
+  return { status: "no-exact-historical-identity-asserted" };
+}
+
 function validateHistoricalRows(rows) {
   assert.equal(rows.length, 109, "expected exactly 109 historical rows");
   assert.equal(new Set(rows.map((row) => row.key)).size, 109,
@@ -189,26 +244,20 @@ function validateCurrentRows(rows, actualIds, referenceKeys) {
   assert.deepEqual(actualIds, EDITABLE_IDS, "current editable pool drift");
   assert.equal(rows.length, 16, "missing current editable mapping");
   assert.equal(new Set(rows.map((row) => row.id)).size, rows.length, "duplicate current editable id");
-  assert.deepEqual([...rows.map((row) => row.id)].sort(), [...EDITABLE_IDS].sort(),
-    "missing current editable mapping");
+  assert.deepEqual(rows.map((row) => row.id), EDITABLE_IDS,
+    "current editable mapping order drift");
   const joinedKeys = [];
   for (const row of rows) {
-    assert.ok(row.evidence.length > 0, `${row.id} has no test declaration evidence`);
-    assert.ok(row.evidence.every(({ line }) => Number.isSafeInteger(line) && line > 0),
-      `${row.id} has invalid evidence line`);
     if (row.comparison.status === "declared-test-comparator") {
       assert.ok(referenceKeys.has(row.comparison.referenceKey),
         `${row.id} has unsupported reference join ${row.comparison.referenceKey}`);
-      assert.equal(row.comparison.fullParityClaimed, false);
-      joinedKeys.push(row.comparison.referenceKey);
-    } else {
-      assert.equal(Object.hasOwn(row.comparison, "referenceKey"), false,
-        `${row.id} has an unsupported identity join`);
     }
-    for (const fixture of row.comparison.fixtureReferences ?? []) {
-      assert.ok(referenceKeys.has(fixture.referenceKey));
-      assert.match(fixture.status, /QUESTION/u);
-      assert.equal(fixture.identityJoin, false);
+    assert.deepEqual(row.evidence, expectedEvidence(row.id),
+      `${row.id} evidence disagrees with pinned test declarations`);
+    assert.deepEqual(row.comparison, expectedComparison(row.id),
+      `${row.id} comparison disagrees with pinned declaration and QUESTION ledger`);
+    if (row.comparison.status === "declared-test-comparator") {
+      joinedKeys.push(row.comparison.referenceKey);
     }
     assert.equal(row.fullHistoricalCardExecutionClaimed, false);
   }
@@ -460,11 +509,32 @@ function runSelfTests(result) {
   assert.throws(() => validateCurrentRows(guessedJoin, EDITABLE_IDS, byKey),
     /unsupported reference join/u);
 
+  const promotedFixture = structuredClone(result.currentEditableCards);
+  promotedFixture.find((row) => row.id === "cinder-host").comparison = {
+    status: "declared-test-comparator",
+    referenceKey: "skeleton-army",
+    evidenceMappingLine: 12,
+    fullParityClaimed: false,
+    fieldDisposition: "source-unverified fields remain QUESTION",
+  };
+  assert.throws(() => validateCurrentRows(promotedFixture, EDITABLE_IDS, byKey),
+    /comparison disagrees with pinned declaration and QUESTION ledger/u);
+
+  const badEvidenceLine = structuredClone(result.currentEditableCards);
+  badEvidenceLine.find((row) => row.id === "coilblade").evidence[0].line = 999999;
+  assert.throws(() => validateCurrentRows(badEvidenceLine, EDITABLE_IDS, byKey),
+    /evidence disagrees with pinned test declarations/u);
+
+  const badMappingLine = structuredClone(result.currentEditableCards);
+  badMappingLine.find((row) => row.id === "coilblade").comparison.evidenceMappingLine = 999999;
+  assert.throws(() => validateCurrentRows(badMappingLine, EDITABLE_IDS, byKey),
+    /comparison disagrees with pinned declaration and QUESTION ledger/u);
+
   assert.throws(() => assertDigest("expected", "changed", "pinned input"),
     /pinned input source drift/u);
   assert.notEqual(runtimeFingerprint(runtimeFileList()), "0".repeat(64),
     "runtime source digest must be reproducibly computed");
-  return "self-check passed: duplicate/missing 109 rows, duplicate/missing/drifted 16 IDs, unsupported join, and pinned-source drift guard";
+  return "self-check passed: duplicate/missing 109 rows, duplicate/missing/drifted 16 IDs, unsupported join, QUESTION fixture promotion, out-of-range declaration/mapping evidence lines, and digest mismatch guard";
 }
 
 function outputText(result) {

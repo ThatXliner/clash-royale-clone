@@ -11,4 +11,4 @@ node artifacts/completion-inventory-current-16/generate.mjs --write
 node artifacts/completion-inventory-current-16/generate.mjs --check --self-test
 ```
 
-`--check` regenerates in memory and compares bytes. `--self-test` exercises duplicate/missing rows and IDs, current-pool drift, unsupported comparator joins, fixture promotion, evidence-line validity, and digest drift.
+`--check` verifies all pinned input digests, regenerates in memory, and compares bytes. `--self-test` mutates the inventory in memory to exercise duplicate/missing rows and IDs, current-pool drift, unsupported joins, promotion of Cinder Host's `skeleton-army` QUESTION fixture, and invalid declaration or mapping lines. It also checks that a mismatched digest is rejected. The validator binds every comparison and evidence record to the exact frozen test declaration and mapping text; a known historical key alone is not sufficient to create a comparator.
