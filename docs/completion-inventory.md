@@ -14,7 +14,7 @@ outside the current source.
 | Measure | Current state | What it proves |
 | --- | --- | --- |
 | Historical roster | 109 identities: 78 troops, 13 buildings, 18 spells | Size of the pre-Evolutions comparison target, not implemented coverage |
-| Editable collection | 16 admitted identities: 15 troops and Squall Orb; the default deck remains 8 cards; latest two troops pass scoped runtime review; phone detail portrait revision remains open | Deck admission and selection. It does not mean every card has complete historical behavior |
+| Editable collection | 16 admitted identities: 15 troops and Squall Orb; the default deck remains 8 cards; latest two troops and their desktop/phone portraits pass scoped review | Deck admission and selection. It does not mean every card has complete historical behavior |
 | Session card catalog | 53 admitted identities and 58 admitted source occurrences: 37 troop identities across 39 troop occurrences, 8 structures, and 8 effects | Typed identity admission and source routing, not complete gameplay for every identity |
 | Historical comparison mapping | The test-only [card-coverage-109.json](../artifacts/completion-inventory/reference/card-coverage-109.json) remains the 11-mapping `42bcf09` baseline | Historical mapping evidence only; it has not been refreshed for the current 16-card admitted collection |
 

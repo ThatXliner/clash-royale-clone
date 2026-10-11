@@ -23,8 +23,8 @@ comparison scripts only.
 
 Passing the isolated mechanics below does **not** establish a functioning
 game. Product completion additionally requires every `GAME-*` executable
-journey to pass in the shipped browser entry. Until then the repository is a
-mechanics library plus a static shell, not a finished clone.
+journey to pass in the shipped browser entry. The current scoped roster is playable against AI, but those journeys alone
+do not establish complete historical card execution or a finished release.
 
 ## First public release scope
 
