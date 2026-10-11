@@ -1,0 +1,166 @@
+{
+  "sourceCommit": "7cb314331c2ebd0a2cabad806fa951740597ef61",
+  "command": "env -u GAME_BROWSER_ENDURANCE_TICKS npm run test:game-browser-endurance",
+  "durationMilliseconds": 802681,
+  "yieldPolicy": "raf-scheduler-yield-raf",
+  "segmentCount": 61,
+  "segmentTicks": 300,
+  "chunkTicks": 1,
+  "caps": {
+    "lifecycleMs": 50,
+    "initializationMs": 300,
+    "maxInitializationMs": 158,
+    "maxLifecycleDrivenMs": 0,
+    "maxRestoreMs": 0,
+    "maxTerminalObservationMs": 0,
+    "maxRestartMs": 0,
+    "maxDrainMs": 0,
+    "maxScreenshotMs": 0,
+    "maxAnyMs": 158
+  },
+  "longTaskCounts": {
+    "initialization": 2,
+    "drive": 0,
+    "outOfSegment": 0,
+    "restore": 0,
+    "terminalObservation": 0,
+    "restart": 0,
+    "drain": 0,
+    "screenshot": 0
+  },
+  "resources": {
+    "pending": 0,
+    "errors": 0,
+    "consoleErrors": 0,
+    "unhandled": 0
+  },
+  "restoreCut": {
+    "tick": 300,
+    "snapshotBytes": 37778
+  },
+  "restore": {
+    "fromTick": 600,
+    "toTick": 300,
+    "elapsedMilliseconds": 10145
+  },
+  "terminal": {
+    "state": {
+      "active": true,
+      "backlogTicks": 0,
+      "domTick": 18000,
+      "enduranceActive": false,
+      "terminalPresentationTick": 0,
+      "terminalPresentationRunning": false,
+      "paused": false,
+      "running": false,
+      "scheduled": false,
+      "selectedCardId": null,
+      "sessionTick": 18000,
+      "terminal": true,
+      "restartCount": 0
+    },
+    "stateDigest": {
+      "crowns": {
+        "north": 2,
+        "south": 3
+      },
+      "deck": {
+        "hand": [
+          "briar-band",
+          "mossguard",
+          "reedsting",
+          "skymaul"
+        ],
+        "next": "copperskiff",
+        "queue": [
+          "copperskiff",
+          "coilblade",
+          "brassbolt",
+          "cinderlings"
+        ],
+        "sequence": 41
+      },
+      "elixir": {
+        "north": {
+          "accumulator": 144,
+          "amount": 0
+        },
+        "south": {
+          "accumulator": 0,
+          "amount": 10
+        }
+      },
+      "terminal": true,
+      "tick": 18000,
+      "towers": [
+        {
+          "hitpoints": 188,
+          "id": "south:central"
+        },
+        {
+          "hitpoints": 0,
+          "id": "south:lane:west"
+        },
+        {
+          "hitpoints": 0,
+          "id": "south:lane:east"
+        },
+        {
+          "hitpoints": 174,
+          "id": "north:central"
+        },
+        {
+          "hitpoints": 0,
+          "id": "north:lane:west"
+        },
+        {
+          "hitpoints": 0,
+          "id": "north:lane:east"
+        }
+      ]
+    },
+    "terminalOverlay": {
+      "height": 428,
+      "width": 520
+    },
+    "restartHidden": false,
+    "sessionLengthBytes": 319566,
+    "audioDiagnostics": {
+      "sessionTick": 18000,
+      "terminal": true,
+      "disposed": true,
+      "activeVoiceCount": 0
+    }
+  },
+  "restart": {
+    "state": {
+      "active": true,
+      "backlogTicks": 0,
+      "domTick": 0,
+      "enduranceActive": false,
+      "terminalPresentationTick": 0,
+      "terminalPresentationRunning": false,
+      "paused": false,
+      "running": false,
+      "scheduled": false,
+      "selectedCardId": null,
+      "sessionTick": 0,
+      "terminal": false,
+      "restartCount": 1
+    },
+    "stateDigest": null,
+    "terminalOverlay": null,
+    "restartHidden": true,
+    "sessionLengthBytes": 25691,
+    "audioDiagnostics": {
+      "sessionTick": 0,
+      "terminal": false,
+      "disposed": false,
+      "activeVoiceCount": 0
+    }
+  },
+  "server": {
+    "exited": true,
+    "stderr": ""
+  }
+}

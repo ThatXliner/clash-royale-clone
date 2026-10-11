@@ -1,0 +1,53 @@
+{
+  "boundary": "new GameSession / canonical kernel admission",
+  "cases": [
+    {
+      "cardId": "gloamwing-cluster",
+      "case": "missing-policy",
+      "rejected": true,
+      "error": "roster[0].entities[0] source confidence policy is missing or unexpected"
+    },
+    {
+      "cardId": "gloamwing-cluster",
+      "case": "forged-confidence",
+      "rejected": true,
+      "error": "status runtime question inventory[25] is not an unresolved QUESTION"
+    },
+    {
+      "cardId": "gloamwing-cluster",
+      "case": "dangling-question",
+      "rejected": true,
+      "error": "live battle questions must be the canonical exact referenced inventory"
+    },
+    {
+      "cardId": "gloamwing-cluster",
+      "case": "wrong-value",
+      "rejected": true,
+      "error": "roster[0].entities[0] source confidence QUESTION diverges from its estimate"
+    },
+    {
+      "cardId": "coppershade-flock",
+      "case": "missing-policy",
+      "rejected": true,
+      "error": "roster[0].entities[0] source confidence policy is missing or unexpected"
+    },
+    {
+      "cardId": "coppershade-flock",
+      "case": "forged-confidence",
+      "rejected": true,
+      "error": "status runtime question inventory[20] is not an unresolved QUESTION"
+    },
+    {
+      "cardId": "coppershade-flock",
+      "case": "dangling-question",
+      "rejected": true,
+      "error": "live battle questions must be the canonical exact referenced inventory"
+    },
+    {
+      "cardId": "coppershade-flock",
+      "case": "wrong-value",
+      "rejected": true,
+      "error": "roster[0].entities[0] source confidence QUESTION diverges from its estimate"
+    }
+  ]
+}
