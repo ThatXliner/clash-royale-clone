@@ -27,11 +27,11 @@
   <p class="sub">Updated 2026-10-11 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
     <div class="card"><div class="num">213</div><div class="label">tracked pieces</div></div>
-    <div class="card"><div class="num">166</div><div class="label">passed</div></div>
+    <div class="card"><div class="num">163</div><div class="label">passed</div></div>
     <div class="card"><div class="num">379</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">26</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Active target: <strong>ART-004 — Original deterministic 2D sprite prototype</strong>.</p>
+  <p class="note">Active target: <strong>GAME-001G — Playable browser match journey umbrella</strong>.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -1264,10 +1264,10 @@
       <tr>
         <td><code>GAME-001GP</code></td>
         <td>Sustained browser-match throughput</td>
-        <td class="state-pass">PASS</td>
-        <td>1/1</td>
-        <td>6</td>
-        <td>Round6 reaches18000 and exact restart/restore/audio/input; no driven longtasks,35.2ms max simulation slice,829.8s workload; unchanged caps</td>
+        <td class="state-fail">FAIL</td>
+        <td>0/1</td>
+        <td>7</td>
+        <td>Current qualification at 46c08c9 fails after600 ticks: restore600→300 records51ms against50ms cap; terminal/restart not reached. Historical Round6 full18000 PASS remains recorded; GAME-001GPR addresses the regression.</td>
       </tr>
       <tr>
         <td><code>GAME-001GPV</code></td>
@@ -1288,10 +1288,10 @@
       <tr>
         <td><code>GAME-001G</code></td>
         <td>Playable browser match journey umbrella</td>
-        <td class="state-pass">PASS</td>
+        <td class="state-building">BUILDING</td>
         <td>0/0</td>
         <td>0</td>
-        <td>Trusted controls and full18000-tick endurance pass, including exact restore, audio continuation and restart</td>
+        <td>Trusted short journey has historical passing evidence; current full endurance qualification fails during restore. Completion requires independent GAME-001GPR full18000/terminal/restart verification.</td>
       </tr>
       <tr>
         <td><code>GAME-001H</code></td>
@@ -1608,10 +1608,10 @@
       <tr>
         <td><code>GAME-001GPVT</code></td>
         <td>Terminal and restart long-task attribution</td>
-        <td class="state-pass">PASS</td>
-        <td>2/2</td>
-        <td>3</td>
-        <td>Round 3 passed the synthetic delayed-entry classifier and one actual full Chrome run: 18,000 ticks in 812,729 ms, 61 segments, init max 197 ms (&lt;300), and zero non-init/out-of-segment tasks. Exact terminal session/audio, 600→300→600 restore/replay input/audio continuation, and seed-zero restart passed. Earlier Round 1/2 failures remain in the round history.</td>
+        <td class="state-fail">FAIL</td>
+        <td>1/2</td>
+        <td>4</td>
+        <td>Current46c08c9 delayed-entry classifier passes but actual full journey aborts on51ms restore; terminal/restart not reached. Historical Round3 full18000 evidence remains recorded.</td>
       </tr>
       <tr>
         <td><code>ART-004</code></td>
@@ -1696,10 +1696,10 @@
       <tr>
         <td><code>CARDS-013</code></td>
         <td>Full swarm and heavy melee choices</td>
-        <td class="state-fail">FAIL</td>
+        <td class="state-building">BUILDING</td>
         <td>85/86</td>
         <td>1</td>
-        <td>Core85/85 and actual trusted15/1 deployments/restore pass, but browser review finds contradictory card copy: summary names ground melee while the same profile says attack type and flight are not listed.</td>
+        <td>Round1 core85/85 passes but desktop/phone card copy contradicts its ground/melee summary. Round2 copy correction is under execution-based review; prior failed verdict remains recorded.</td>
       </tr>
       <tr>
         <td><code>PROGRESS-001</code></td>
