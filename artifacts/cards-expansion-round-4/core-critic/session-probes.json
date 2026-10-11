@@ -1,0 +1,649 @@
+{
+  "reviewedCommit": "e3413fdc529a366a56e2d0b35afb7fa7b14dcd6f",
+  "sourceComparison": [
+    {
+      "id": "gloamwing-cluster",
+      "sourceIdentity": {
+        "key": "bats",
+        "name": "Bats",
+        "id": 26000049
+      },
+      "fields": [
+        {
+          "runtimeField": "cost",
+          "sourceField": "elixir_cost",
+          "sourceValue": 2,
+          "runtimeValue": 2,
+          "unverified": false,
+          "matches": true
+        },
+        {
+          "runtimeField": "kind",
+          "sourceField": "type",
+          "sourceValue": "troop",
+          "runtimeValue": "unit",
+          "unverified": false,
+          "matches": true
+        },
+        {
+          "runtimeField": "rarity",
+          "sourceField": "rarity",
+          "sourceValue": "common",
+          "runtimeValue": "standard",
+          "unverified": false,
+          "matches": true
+        },
+        {
+          "runtimeField": "hitpoints",
+          "sourceField": "hitpoints",
+          "sourceValue": 81,
+          "runtimeValue": 81,
+          "unverified": true,
+          "matches": true
+        },
+        {
+          "runtimeField": "damage",
+          "sourceField": "damage",
+          "sourceValue": 81,
+          "runtimeValue": 81,
+          "unverified": true,
+          "matches": true
+        },
+        {
+          "runtimeField": "hitSpeedTicks",
+          "sourceField": "hit_speed_seconds",
+          "sourceValue": 1.3,
+          "runtimeValue": 78,
+          "unverified": true,
+          "matches": true
+        },
+        {
+          "runtimeField": "firstHitTicks",
+          "sourceField": "first_hit_seconds",
+          "sourceValue": 0.7,
+          "runtimeValue": 42,
+          "unverified": true,
+          "matches": true
+        },
+        {
+          "runtimeField": "deployTimeTicks",
+          "sourceField": "deploy_time_seconds",
+          "sourceValue": 1,
+          "runtimeValue": 60,
+          "unverified": true,
+          "matches": true
+        },
+        {
+          "runtimeField": "rangeMillitiles",
+          "sourceField": "range_tiles",
+          "sourceValue": 1.2,
+          "runtimeValue": 1200,
+          "unverified": true,
+          "matches": true
+        },
+        {
+          "runtimeField": "sightRangeMillitiles",
+          "sourceField": "sight_range_tiles",
+          "sourceValue": 5.5,
+          "runtimeValue": 5500,
+          "unverified": true,
+          "matches": true
+        },
+        {
+          "runtimeField": "movementMillitilesPerSecond",
+          "sourceField": "movement_speed_tiles_per_second",
+          "sourceValue": 2,
+          "runtimeValue": 2000,
+          "unverified": true,
+          "matches": true
+        },
+        {
+          "runtimeField": "targetMode",
+          "sourceField": "targets",
+          "sourceValue": "air_and_ground",
+          "runtimeValue": "ground-and-air",
+          "unverified": true,
+          "matches": true
+        },
+        {
+          "runtimeField": "count",
+          "sourceField": "count",
+          "sourceValue": 5,
+          "runtimeValue": 5,
+          "unverified": true,
+          "matches": true
+        },
+        {
+          "runtimeField": "areaDamageRadiusMillitiles",
+          "sourceField": "area_damage_radius_tiles",
+          "sourceValue": null,
+          "runtimeValue": null,
+          "unverified": false,
+          "matches": true
+        }
+      ],
+      "allMappedFieldsMatch": true,
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "runtimeQuestionKeys": [
+        "gloamwing.body-radius-millitiles",
+        "gloamwing.delivery",
+        "gloamwing.layer"
+      ],
+      "runtimeEstimates": {
+        "bodyRadius": {
+          "kind": "question",
+          "questionKey": "gloamwing.body-radius-millitiles"
+        },
+        "delivery": {
+          "kind": "question",
+          "questionKey": "gloamwing.delivery"
+        },
+        "layer": {
+          "kind": "question",
+          "questionKey": "gloamwing.layer"
+        },
+        "projectileSpeed": {
+          "kind": "not-applicable",
+          "questionKey": null
+        }
+      }
+    },
+    {
+      "id": "coppershade-flock",
+      "sourceIdentity": {
+        "key": "minion-horde",
+        "name": "Minion Horde",
+        "id": 26000022
+      },
+      "fields": [
+        {
+          "runtimeField": "cost",
+          "sourceField": "elixir_cost",
+          "sourceValue": 5,
+          "runtimeValue": 5,
+          "unverified": false,
+          "matches": true
+        },
+        {
+          "runtimeField": "kind",
+          "sourceField": "type",
+          "sourceValue": "troop",
+          "runtimeValue": "unit",
+          "unverified": false,
+          "matches": true
+        },
+        {
+          "runtimeField": "rarity",
+          "sourceField": "rarity",
+          "sourceValue": "common",
+          "runtimeValue": "standard",
+          "unverified": false,
+          "matches": true
+        },
+        {
+          "runtimeField": "hitpoints",
+          "sourceField": "hitpoints",
+          "sourceValue": 230,
+          "runtimeValue": 230,
+          "unverified": true,
+          "matches": true
+        },
+        {
+          "runtimeField": "damage",
+          "sourceField": "damage",
+          "sourceValue": 117,
+          "runtimeValue": 117,
+          "unverified": true,
+          "matches": true
+        },
+        {
+          "runtimeField": "hitSpeedTicks",
+          "sourceField": "hit_speed_seconds",
+          "sourceValue": 1,
+          "runtimeValue": 60,
+          "unverified": true,
+          "matches": true
+        },
+        {
+          "runtimeField": "firstHitTicks",
+          "sourceField": "first_hit_seconds",
+          "sourceValue": 0.5,
+          "runtimeValue": 30,
+          "unverified": true,
+          "matches": true
+        },
+        {
+          "runtimeField": "deployTimeTicks",
+          "sourceField": "deploy_time_seconds",
+          "sourceValue": 1,
+          "runtimeValue": 60,
+          "unverified": true,
+          "matches": true
+        },
+        {
+          "runtimeField": "rangeMillitiles",
+          "sourceField": "range_tiles",
+          "sourceValue": 1.6,
+          "runtimeValue": 1600,
+          "unverified": true,
+          "matches": true
+        },
+        {
+          "runtimeField": "sightRangeMillitiles",
+          "sourceField": "sight_range_tiles",
+          "sourceValue": 5.5,
+          "runtimeValue": 5500,
+          "unverified": true,
+          "matches": true
+        },
+        {
+          "runtimeField": "movementMillitilesPerSecond",
+          "sourceField": "movement_speed_tiles_per_second",
+          "sourceValue": 1.5,
+          "runtimeValue": 1500,
+          "unverified": true,
+          "matches": true
+        },
+        {
+          "runtimeField": "targetMode",
+          "sourceField": "targets",
+          "sourceValue": "air_and_ground",
+          "runtimeValue": "ground-and-air",
+          "unverified": true,
+          "matches": true
+        },
+        {
+          "runtimeField": "count",
+          "sourceField": "count",
+          "sourceValue": 6,
+          "runtimeValue": 6,
+          "unverified": true,
+          "matches": true
+        },
+        {
+          "runtimeField": "areaDamageRadiusMillitiles",
+          "sourceField": "area_damage_radius_tiles",
+          "sourceValue": null,
+          "runtimeValue": null,
+          "unverified": false,
+          "matches": true
+        }
+      ],
+      "allMappedFieldsMatch": true,
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "runtimeQuestionKeys": [
+        "coppershade.body-radius-millitiles",
+        "coppershade.layer",
+        "coppershade.projectile-speed-millitiles-per-tick"
+      ],
+      "runtimeEstimates": {
+        "bodyRadius": {
+          "kind": "question",
+          "questionKey": "coppershade.body-radius-millitiles"
+        },
+        "delivery": {
+          "archetypeId": "coppershade",
+          "cardId": "coppershade-flock",
+          "catalogId": "ordinary-projectile-squads-v1",
+          "delivery": "projectile",
+          "kind": "source-backed"
+        },
+        "layer": {
+          "kind": "question",
+          "questionKey": "coppershade.layer"
+        },
+        "projectileSpeed": {
+          "kind": "question",
+          "questionKey": "coppershade.projectile-speed-millitiles-per-tick"
+        }
+      }
+    }
+  ],
+  "sourceQuestionFinding": {
+    "unverifiedRuntimeFieldsWithoutQuestionPolicy": [
+      {
+        "id": "gloamwing-cluster",
+        "fields": [
+          {
+            "runtimeField": "hitpoints",
+            "sourceField": "hitpoints"
+          },
+          {
+            "runtimeField": "damage",
+            "sourceField": "damage"
+          },
+          {
+            "runtimeField": "hitSpeedTicks",
+            "sourceField": "hit_speed_seconds"
+          },
+          {
+            "runtimeField": "firstHitTicks",
+            "sourceField": "first_hit_seconds"
+          },
+          {
+            "runtimeField": "deployTimeTicks",
+            "sourceField": "deploy_time_seconds"
+          },
+          {
+            "runtimeField": "rangeMillitiles",
+            "sourceField": "range_tiles"
+          },
+          {
+            "runtimeField": "sightRangeMillitiles",
+            "sourceField": "sight_range_tiles"
+          },
+          {
+            "runtimeField": "movementMillitilesPerSecond",
+            "sourceField": "movement_speed_tiles_per_second"
+          },
+          {
+            "runtimeField": "targetMode",
+            "sourceField": "targets"
+          },
+          {
+            "runtimeField": "count",
+            "sourceField": "count"
+          }
+        ]
+      },
+      {
+        "id": "coppershade-flock",
+        "fields": [
+          {
+            "runtimeField": "hitpoints",
+            "sourceField": "hitpoints"
+          },
+          {
+            "runtimeField": "damage",
+            "sourceField": "damage"
+          },
+          {
+            "runtimeField": "hitSpeedTicks",
+            "sourceField": "hit_speed_seconds"
+          },
+          {
+            "runtimeField": "firstHitTicks",
+            "sourceField": "first_hit_seconds"
+          },
+          {
+            "runtimeField": "deployTimeTicks",
+            "sourceField": "deploy_time_seconds"
+          },
+          {
+            "runtimeField": "rangeMillitiles",
+            "sourceField": "range_tiles"
+          },
+          {
+            "runtimeField": "sightRangeMillitiles",
+            "sourceField": "sight_range_tiles"
+          },
+          {
+            "runtimeField": "movementMillitilesPerSecond",
+            "sourceField": "movement_speed_tiles_per_second"
+          },
+          {
+            "runtimeField": "targetMode",
+            "sourceField": "targets"
+          },
+          {
+            "runtimeField": "count",
+            "sourceField": "count"
+          }
+        ]
+      }
+    ]
+  },
+  "sharedSession": {
+    "deployRuns": [
+      {
+        "id": "gloamwing-cluster",
+        "seed": 2,
+        "deployments": [
+          {
+            "side": "south",
+            "entityCount": 5
+          },
+          {
+            "side": "north",
+            "entityCount": 5
+          }
+        ],
+        "runtimeEntityCount": 10,
+        "elixir": {
+          "before": {
+            "north": {
+              "accumulator": 0,
+              "amount": 10
+            },
+            "south": {
+              "accumulator": 0,
+              "amount": 10
+            }
+          },
+          "after": {
+            "north": {
+              "accumulator": 1,
+              "amount": 8
+            },
+            "south": {
+              "accumulator": 1,
+              "amount": 8
+            }
+          }
+        },
+        "deckSequence": {
+          "south": 1,
+          "north": 1
+        },
+        "deploymentEventsThisStep": 2,
+        "snapshotBytes": 35357,
+        "snapshotSha256": "f31ea4ef5d8f3f9e263ed492fb0d23c6a93d251ebb9266b3a22c2d5d11561995",
+        "snapshotRestoreExact": true
+      },
+      {
+        "id": "coppershade-flock",
+        "seed": 2,
+        "deployments": [
+          {
+            "side": "south",
+            "entityCount": 6
+          },
+          {
+            "side": "north",
+            "entityCount": 6
+          }
+        ],
+        "runtimeEntityCount": 12,
+        "elixir": {
+          "before": {
+            "north": {
+              "accumulator": 0,
+              "amount": 10
+            },
+            "south": {
+              "accumulator": 0,
+              "amount": 10
+            }
+          },
+          "after": {
+            "north": {
+              "accumulator": 1,
+              "amount": 5
+            },
+            "south": {
+              "accumulator": 1,
+              "amount": 5
+            }
+          }
+        },
+        "deckSequence": {
+          "south": 1,
+          "north": 1
+        },
+        "deploymentEventsThisStep": 2,
+        "snapshotBytes": 35765,
+        "snapshotSha256": "716ea7a2805d061d693899765b744ebea6dd8ba5d7aadf35bf2afb9f10620d15",
+        "snapshotRestoreExact": true
+      }
+    ],
+    "seededNaturalAi": {
+      "seed": 2,
+      "playerCard": "gloamwing-cluster",
+      "opponentEligibleCards": [
+        "gloamwing-cluster",
+        "coppershade-flock"
+      ],
+      "opponentChosenCards": [
+        "coppershade-flock"
+      ],
+      "sameSeedSnapshotExact": true
+    },
+    "targetTrades": [
+      {
+        "attackerCard": "gloamwing-cluster",
+        "defenderCard": "coppershade-flock",
+        "tick": 102,
+        "attackerId": 1,
+        "targetId": 6,
+        "damage": 81,
+        "targetSide": "north",
+        "bothSidesMaterialized": true
+      },
+      {
+        "attackerCard": "gloamwing-cluster",
+        "defenderCard": "mossguard",
+        "tick": 102,
+        "attackerId": 1,
+        "targetId": 6,
+        "damage": 81,
+        "targetSide": "north",
+        "bothSidesMaterialized": true
+      },
+      {
+        "attackerCard": "coppershade-flock",
+        "defenderCard": "mossguard",
+        "tick": 91,
+        "attackerId": 5,
+        "targetId": 7,
+        "damage": 117,
+        "targetSide": "north",
+        "bothSidesMaterialized": true
+      },
+      {
+        "attackerCard": "coppershade-flock",
+        "defenderCard": "gloamwing-cluster",
+        "tick": 93,
+        "attackerId": 4,
+        "targetId": 7,
+        "damage": 117,
+        "targetSide": "north",
+        "bothSidesMaterialized": true
+      }
+    ],
+    "coppershadeProjectile": {
+      "sourceDeliveryPolicy": {
+        "archetypeId": "coppershade",
+        "cardId": "coppershade-flock",
+        "catalogId": "ordinary-projectile-squads-v1",
+        "delivery": "projectile",
+        "kind": "source-backed"
+      },
+      "forgedPolicyRejected": true,
+      "inFlightTick": 91,
+      "inFlightSnapshotBytes": 33882,
+      "inFlightSnapshotSha256": "1a2924cb6b72582f90db5c1a9ab4cb252faceb5a15fd048e7f7d2e802cf45072",
+      "inFlightRestoreExact": true,
+      "deathTick": 94,
+      "deathSnapshotBytes": 33930,
+      "deathSnapshotSha256": "e354da9b5a482e3669ea81d399591dd5c9343f2cd32a31902a8cbd8455d1041d",
+      "postDeath120TickContinuationExact": true,
+      "firstImpactSource": "coppershade"
+    }
+  },
+  "inventory": {
+    "sessionCards": {
+      "admittedIds": 55,
+      "admittedOccurrences": 60,
+      "claimedIds": 61,
+      "claimedOccurrences": 66,
+      "excludedClaimedIds": 6,
+      "excludedClaimedOccurrences": 6,
+      "questionOnlyExports": 5
+    },
+    "troopProfiles": {
+      "admittedIds": 39,
+      "admittedOccurrences": 41,
+      "claimedIds": 41,
+      "claimedOccurrences": 43,
+      "duplicateCompositionIds": 2,
+      "questionIds": 2,
+      "questionOccurrences": 2
+    },
+    "editableDeckCardIds": [
+      "coilblade",
+      "mossguard",
+      "copperskiff",
+      "skymaul",
+      "brassbolt",
+      "reedsting",
+      "briar-band",
+      "cinderlings",
+      "stonehauler",
+      "thornscouts",
+      "forgeguard",
+      "cinder-host",
+      "ironroot",
+      "sunthread-pair",
+      "duskwing-trio"
+    ],
+    "editableDeckCardCount": 15,
+    "editableMixedDeckCardIds": [
+      "coilblade",
+      "mossguard",
+      "copperskiff",
+      "skymaul",
+      "brassbolt",
+      "reedsting",
+      "briar-band",
+      "cinderlings",
+      "stonehauler",
+      "thornscouts",
+      "forgeguard",
+      "cinder-host",
+      "ironroot",
+      "sunthread-pair",
+      "duskwing-trio",
+      "squall-orb"
+    ],
+    "editableMixedDeckCardCount": 16,
+    "playableDefaultCardCount": 8,
+    "newIdsRejectedByEditableWitness": 2,
+    "newIdsRejectedByMixedEditableWitness": 2,
+    "newIdsRejectedByRlEnvironment": 2,
+    "warning": "Manifest admission/profile inventory is not a full-roster execution count."
+  }
+}
