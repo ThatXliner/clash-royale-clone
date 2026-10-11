@@ -193,6 +193,72 @@ const RELEASE_CSP = "default-src 'none'; base-uri 'self'; connect-src 'self'; " 
   "media-src 'self'; object-src 'none'; script-src 'self'; " +
   "style-src 'self' 'unsafe-inline'; worker-src 'self'";
 
+const MODULEPRELOAD_POLYFILL_IMPORT = "vite/modulepreload-polyfill";
+
+function inlineModuleScripts(html) {
+  const lowerHtml = html.toLowerCase();
+  const scripts = [];
+  let cursor = 0;
+  while (cursor < html.length) {
+    const scriptStart = lowerHtml.indexOf("<script", cursor);
+    const commentStart = lowerHtml.indexOf("<!--", cursor);
+    if (commentStart !== -1 && (scriptStart === -1 || commentStart < scriptStart)) {
+      const commentEnd = lowerHtml.indexOf("-->", commentStart + 4);
+      if (commentEnd === -1) break;
+      cursor = commentEnd + 3;
+      continue;
+    }
+    if (scriptStart === -1) break;
+    const tagBoundary = lowerHtml[scriptStart + 7];
+    if (tagBoundary && !/[\s/>]/u.test(tagBoundary)) {
+      cursor = scriptStart + 7;
+      continue;
+    }
+
+    let quote = "";
+    let openingEnd = scriptStart + 7;
+    for (; openingEnd < html.length; openingEnd += 1) {
+      const character = html[openingEnd];
+      if (quote) {
+        if (character === quote) quote = "";
+      } else if (character === "\"" || character === "'") quote = character;
+      else if (character === ">") break;
+    }
+    if (openingEnd >= html.length) break;
+    const attributes = html.slice(scriptStart + 7, openingEnd);
+    const typeAttribute = attributes.match(/(?:^|\s)type\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/iu);
+    const type = (typeAttribute?.[1] ?? typeAttribute?.[2] ?? typeAttribute?.[3] ?? "").toLowerCase();
+    const closingStart = lowerHtml.indexOf("</script", openingEnd + 1);
+    if (closingStart === -1) break;
+    const closingEnd = lowerHtml.indexOf(">", closingStart + 8);
+    if (closingEnd === -1) break;
+    if (type === "module") scripts.push(html.slice(openingEnd + 1, closingStart));
+    cursor = closingEnd + 1;
+  }
+  return scripts;
+}
+
+function hasModulepreloadPolyfillImport(ast) {
+  const nodes = [ast];
+  while (nodes.length > 0) {
+    const node = nodes.pop();
+    if (Array.isArray(node)) {
+      nodes.push(...node);
+      continue;
+    }
+    if (!node || typeof node !== "object") continue;
+    const source = node.source;
+    const sourceValue = source?.type === "TemplateLiteral" && source.expressions?.length === 0
+      ? source.quasis?.[0]?.value?.cooked
+      : source?.value;
+    if ((node.type === "ImportDeclaration" || node.type === "ImportExpression") &&
+        sourceValue === MODULEPRELOAD_POLYFILL_IMPORT) return true;
+    for (const child of Object.values(node))
+      if (child && typeof child === "object") nodes.push(child);
+  }
+  return false;
+}
+
 function releasePolicyPlugin() {
   return {
     name: "moss-and-ember-release-policy",
@@ -220,8 +286,16 @@ function releaseDependencyPolicyPlugin(root) {
       if (sourcePath.startsWith("\0") || !isAbsolute(sourcePath) ||
           extname(sourcePath).toLowerCase() !== ".html") return null;
       if (!isWithin(root, resolve(sourcePath))) return null;
-      invariant(!code.includes("vite/modulepreload-polyfill"),
-        "release HTML may not import Vite's internal modulepreload polyfill");
+      for (const moduleCode of inlineModuleScripts(code)) {
+        let ast;
+        try {
+          ast = this.parse(moduleCode);
+        } catch {
+          continue;
+        }
+        invariant(!hasModulepreloadPolyfillImport(ast),
+          "release HTML may not import Vite's internal modulepreload polyfill");
+      }
       return null;
     },
     resolveId(source, importer) {
@@ -233,7 +307,7 @@ function releaseDependencyPolicyPlugin(root) {
       const absoluteImporter = resolve(importerPath);
       if (!isWithin(root, absoluteImporter)) return null;
       // Vite prepends this one internal import to async/defer HTML module entries.
-      if (source === "vite/modulepreload-polyfill" &&
+      if (source === MODULEPRELOAD_POLYFILL_IMPORT &&
           extname(importerPath).toLowerCase() === ".html") return null;
 
       const localSpecifier = source === "." || source === ".." ||

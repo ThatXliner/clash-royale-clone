@@ -255,11 +255,29 @@ test("release builder rejects package imports and emitted protected/reference by
     );
   }
 
-  const htmlInternalImport = await fixture(t, {
-    "public/index.html": '<script type="module">import "vite/modulepreload-polyfill";</script>',
-  }, { name: "html-internal-import" });
-  await assert.rejects(buildRelease(htmlInternalImport),
-    /release HTML may not import Vite's internal modulepreload polyfill/);
+  const htmlImportCases = [
+    { name: "static", code: 'import "vite/modulepreload-polyfill";' },
+    { name: "dynamic", code: 'void import("vite/modulepreload-polyfill");' },
+    { name: "escaped", code: 'void import("vite/\\u006dodulepreload-polyfill");' },
+  ];
+  for (const { name, code } of htmlImportCases) {
+    const htmlInternalImport = await fixture(t, {
+      "public/index.html": `<script type="module">${code}</script>`,
+    }, { name: `html-internal-import-${name}` });
+    await assert.rejects(buildRelease(htmlInternalImport),
+      /release HTML may not import Vite's internal modulepreload polyfill/);
+  }
+
+  const benignHtmlText = await fixture(t, {
+    "public/index.html": [
+      '<!-- <script type="module">import "vite/modulepreload-polyfill";</script> -->',
+      '<script type="module">',
+      '/* import "vite/modulepreload-polyfill"; */',
+      'const message = "vite/modulepreload-polyfill";',
+      '</script>',
+    ].join("\n"),
+  }, { name: "html-internal-import-text" });
+  await buildRelease(benignHtmlText);
 
   const preloadExceptionRoot = await fixture(t, {
     "public/index.html": '<script type="module" async src="./entry.js"></script>',
