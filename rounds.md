@@ -1,5 +1,29 @@
 # Gauntlet Rounds
 
+## Round 395 — 2026-10-11
+
+PIECE: GAME-001GS — Short authentic browser match journey, round 3
+
+VERDICT: PASS
+
+EVIDENCE: Independent immutable6dcf64b short Chrome journey passes1/1: trusted controls, deterministic tick600 repeat, authentic terminal1590 north3–1 with32 events and exact restart, zero console/unhandled errors. Evidence4663c20 under `artifacts/release-asset-round-1/critic/game-browser-journey/`. The same critic compares source hash inventories to1464219: simulation42, combat/input/projection22, audio8, motion8, full harness4 and short harness3 all match. Thus previous full57/57 evidence is retained, not re-executed.
+
+BIGGEST GAP: None for the current short journey; full109-card execution and fresh full-candidate testing remain outside this verdict.
+
+DISPOSITION: GAME-001G scoped umbrella now passes current short journey plus explicitly retained full endurance. This does not establish complete roster or public release readiness.
+
+## Round 394 — 2026-10-11
+
+PIECE: RELEASE-ASSET-001 — Canonical imported asset deduplication, round 1
+
+VERDICT: PASS
+
+EVIDENCE: Clean frozen6dcf64b passes guards23/23, publication Pages5/5 and short journey1/1. Production42 files/5354760bytes; independent42/42 manifest size/hash verification,15 identical canonical source/output assets, zero redundant hashed aliases, duplicate canonical hashes or protected paths, unchanged8MiB cap. Actual prefixed JS/RL qualification59 requests passes exact reset/step/restore and arena attachment; actual painted probe27 requests shows6 Briar markers and decoded1254² sprite,941×1672 arena and1774×887 portrait atlas, all with nonzero painted pixels and no errors. Servers/browsers close. Evidence4663c20, `artifacts/release-asset-round-1/critic/`.
+
+BIGGEST GAP: No new full18000 run on this candidate; matching runtime/harness hashes retain the previous1464219 full57/57 result explicitly.
+
+DISPOSITION: Accept canonical asset delivery only. Reproduced production release/host isolation failures are separately scoped in RELEASE-TEST-001; full109-card release remains open.
+
 ## Round 393 — 2026-10-11
 
 PIECE: ART-015 — Original ranged-pair and flying-trio portraits, round 2
