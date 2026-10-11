@@ -1,0 +1,121 @@
+{
+  "sourceCommit": "bccd0a979aad430b44905a2aec002fc7a4369930",
+  "deck": [
+    "coilblade",
+    "mossguard",
+    "copperskiff",
+    "skymaul",
+    "brassbolt",
+    "reedsting",
+    "cinder-host",
+    "ironroot"
+  ],
+  "defaultStarterDeckCardCount": 8,
+  "referenceVersusRuntime": {
+    "cinderHost": {
+      "reference": {
+        "cost": 3,
+        "normalizedLegacyHitpoints": 51,
+        "normalizedLegacyDamage": 51,
+        "selectedSourceHitpoints": 81,
+        "selectedSourceDamage": 81,
+        "count": 15,
+        "sourceCharacterCollisionRadius": 500
+      },
+      "runtime": {
+        "cost": 3,
+        "count": 15,
+        "hitpointsPerBody": 81,
+        "damagePerBody": 81,
+        "movementMillitilesPerSecond": 1500,
+        "bodyRadiusMillitiles": 250,
+        "bodyRadiusDisposition": "QUESTION"
+      },
+      "legacyHitpointDamageFieldsRemainUnverified": true
+    },
+    "ironroot": {
+      "reference": {
+        "cost": 7,
+        "hitpoints": 3760,
+        "damage": 816,
+        "movementMillitilesPerSecond": 750,
+        "hitSpeedTicks": 108,
+        "firstHitTicks": 78,
+        "deployTimeTicks": 60,
+        "rangeMillitiles": 1200,
+        "sightRangeMillitiles": 5000,
+        "unverifiedMechanicFields": [
+          "hitpoints",
+          "damage",
+          "hit_speed_seconds",
+          "first_hit_seconds",
+          "deploy_time_seconds",
+          "range_tiles",
+          "sight_range_tiles",
+          "movement_speed_tiles_per_second",
+          "movement_speed",
+          "targets",
+          "count"
+        ]
+      },
+      "runtime": {
+        "cost": 7,
+        "count": 1,
+        "hitpoints": 3760,
+        "damage": 816,
+        "movementMillitilesPerSecond": 750,
+        "hitSpeedTicks": 108,
+        "firstHitTicks": 78,
+        "deployTimeTicks": 60,
+        "rangeMillitiles": 1200,
+        "sightRangeMillitiles": 5000,
+        "bodyRadiusMillitiles": 500,
+        "bodyRadiusDisposition": "QUESTION"
+      }
+    }
+  },
+  "actualRun": {
+    "seed": 21,
+    "southDeployment": {
+      "cardId": "cinder-host",
+      "cost": 3,
+      "memberCount": 15,
+      "bodyIds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ]
+    },
+    "northDeployment": {
+      "cardId": "ironroot",
+      "cost": 7,
+      "memberCount": 1,
+      "bodyIds": [
+        16
+      ]
+    },
+    "cinderHostMovedByTick": 100,
+    "ironrootMovementAtTick100MillitilesPerSecond": 750,
+    "finalTick": 408,
+    "cinderHostBodiesAliveAt408": 0,
+    "ironrootAliveAt408": false,
+    "swarmMeleeHitsIntoIronroot": 47,
+    "swarmDamageIntoIronroot": 3807,
+    "ironrootMeleeHitsIntoSwarm": 4,
+    "ironrootDamageIntoSwarm": 3264,
+    "restoreCutTick": 150,
+    "restoredContinuationByteExactAt408": true
+  }
+}

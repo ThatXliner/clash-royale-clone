@@ -1,0 +1,101 @@
+{
+  "sourceCommit": "bccd0a979aad430b44905a2aec002fc7a4369930",
+  "deck": [
+    "cinderlings",
+    "cinder-host",
+    "coilblade",
+    "mossguard",
+    "copperskiff",
+    "skymaul",
+    "brassbolt",
+    "reedsting"
+  ],
+  "seed": 15,
+  "openingHand": [
+    "cinderlings",
+    "mossguard",
+    "reedsting",
+    "cinder-host"
+  ],
+  "aiThinkIntervalTicks": 3600,
+  "admission": {
+    "accepted": true,
+    "cinderlingQuestionFacts": [
+      {
+        "key": "cinderling.body-radius-millitiles",
+        "value": 250,
+        "authoritative": false,
+        "confidence": "unverified",
+        "disposition": "question",
+        "source": "runtime-playability-estimate-not-comparison-corpus"
+      },
+      {
+        "key": "cinderling.delivery",
+        "value": 1,
+        "authoritative": false,
+        "confidence": "unverified",
+        "disposition": "question",
+        "source": "runtime-playability-estimate-not-comparison-corpus"
+      },
+      {
+        "key": "cinderling.layer",
+        "value": 1,
+        "authoritative": false,
+        "confidence": "unverified",
+        "disposition": "question",
+        "source": "runtime-playability-estimate-not-comparison-corpus"
+      }
+    ]
+  },
+  "deployments": [
+    {
+      "cardId": "cinderlings",
+      "side": "south",
+      "cost": 1,
+      "memberCount": 3,
+      "entityIds": [
+        1,
+        2,
+        3
+      ],
+      "archetypes": [
+        "cinderling"
+      ],
+      "hitpointsPerMember": [
+        81
+      ]
+    },
+    {
+      "cardId": "cinder-host",
+      "side": "south",
+      "cost": 3,
+      "memberCount": 15,
+      "entityIds": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "archetypes": [
+        "cinderling"
+      ],
+      "hitpointsPerMember": [
+        81
+      ]
+    }
+  ],
+  "distinctDeploymentEntityIds": true,
+  "sharedArchetype": "cinderling",
+  "liveMemberCount": 18
+}
