@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101a22">
+    <meta name="description" content="Moss & Ember is an open-source card battler with a playable browser build and a documented reinforcement-learning environment.">
+    <title>Moss & Ember — Card battles for curious minds</title>
+    <link rel="icon" type="image/svg+xml" href="./brand/logo.svg">
+    <link rel="stylesheet" href="./assets/site.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="brand" href="#top" aria-label="Moss & Ember home">
+          <img src="./brand/logo.svg" width="42" height="42" alt="">
+          <span class="brand__words">
+            <strong>Moss &amp; Ember</strong>
+            <span>Card battles</span>
+          </span>
+        </a>
+        <nav class="primary-nav" aria-label="Main navigation">
+          <a href="#field-notes">The project</a>
+          <a href="https://github.com/ThatXliner/clash-royale-clone/blob/8e24c1e44fc26827ffb7e7e5a50b4a4b933f045c/docs/rl-api.md">RL environment</a>
+          <a class="primary-nav__play" href="./game/public/index.html">
+            Play the demo <span aria-hidden="true">↗</span>
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="hero__copy">
+          <p class="eyebrow"><span aria-hidden="true"></span> Active prototype · open-source card battles</p>
+          <h1 id="hero-title">Make a move.<br><em>Shape the field.</em></h1>
+          <p class="hero__lede">
+            Build an eight-card deck, choose from a four-card hand, spend elixir to
+            deploy units, and take the opposing towers. Play the active prototype,
+            then explore its deterministic simulation and learning environment in code.
+          </p>
+          <div class="hero__actions">
+            <a class="button button--ember" href="./game/public/index.html">
+              Enter the arena <span aria-hidden="true">↗</span>
+            </a>
+            <a class="text-link" href="https://github.com/ThatXliner/clash-royale-clone/blob/8e24c1e44fc26827ffb7e7e5a50b4a4b933f045c/docs/rl-api.md">Read the RL environment notes</a>
+          </div>
+          <div class="hero__index">
+            <span><b>01</b> A browser-playable build</span>
+            <span><b>02</b> Source-first project</span>
+          </div>
+        </div>
+
+        <figure class="match-card">
+          <div class="match-card__topline">
+            <span>Field capture</span>
+            <span class="match-card__index">M&amp;E / 01</span>
+          </div>
+          <div class="match-card__screen">
+            <img
+              src="./brand/gameplay.png"
+              width="390"
+              height="844"
+              alt="A Moss &amp; Ember match with an arena, towers, a card hand, and battle controls."
+            >
+          </div>
+          <figcaption>
+            <span>From the browser build</span>
+            <span class="match-card__caption-mark" aria-hidden="true">✳</span>
+          </figcaption>
+        </figure>
+
+        <span class="hero__registration" aria-hidden="true">FIELD / 01</span>
+      </section>
+
+      <section class="field-notes" id="field-notes" aria-labelledby="notes-title">
+        <div class="field-notes__label">
+          <span class="section-number">01</span>
+          <span>Field notes</span>
+        </div>
+        <div class="field-notes__body">
+          <h2 id="notes-title">A game to play.<br><span>A system to explore.</span></h2>
+          <p>
+            Step into a match, then follow the same project into its source. The
+            reinforcement-learning interface documents observations, actions, and
+            the fixed-step environment used to advance a battle.
+          </p>
+          <div class="field-notes__links">
+            <a href="https://github.com/ThatXliner/clash-royale-clone/blob/8e24c1e44fc26827ffb7e7e5a50b4a4b933f045c/src/rl/environment.js">
+              <span class="link-kicker">The source</span>
+              <strong>Explore the environment module</strong>
+              <span class="link-arrow" aria-hidden="true">↗</span>
+            </a>
+            <a href="https://github.com/ThatXliner/clash-royale-clone/blob/8e24c1e44fc26827ffb7e7e5a50b4a4b933f045c/docs/rl-api.md">
+              <span class="link-kicker">The guide</span>
+              <strong>Read the RL API notes</strong>
+              <span class="link-arrow" aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+        <div class="field-notes__art" aria-hidden="true">
+          <img src="./brand/banner.svg" alt="">
+          <span class="field-notes__art-label">Moss &amp; Ember / an open build</span>
+        </div>
+      </section>
+
+      <section class="closing-callout" aria-labelledby="closing-title">
+        <div class="closing-callout__ornament" aria-hidden="true">M<span>&amp;</span>E</div>
+        <div>
+          <p class="eyebrow eyebrow--light"><span aria-hidden="true"></span> Your next turn is ready</p>
+          <h2 id="closing-title">Take the field.</h2>
+        </div>
+        <a class="button button--paper" href="./game/public/index.html">
+          Play Moss &amp; Ember <span aria-hidden="true">↗</span>
+        </a>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a class="footer-brand" href="#top">Moss &amp; Ember</a>
+      <p>Original art and an open source card-battler project.</p>
+      <nav aria-label="Project and legal links">
+        <a href="https://github.com/ThatXliner/clash-royale-clone">GitHub source</a>
+        <a href="https://github.com/ThatXliner/clash-royale-clone/blob/8e24c1e44fc26827ffb7e7e5a50b4a4b933f045c/docs/rl-api.md">RL API</a>
+        <a href="./LICENSE">AGPL-3.0-only</a>
+        <a href="./NOTICE">Notice</a>
+      </nav>
+      <span class="site-footer__stamp">Built for curious minds <span aria-hidden="true">✳</span></span>
+    </footer>
+  </body>
+</html>

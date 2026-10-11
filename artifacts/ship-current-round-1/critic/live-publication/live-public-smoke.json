@@ -1,0 +1,269 @@
+{
+  "base": "https://bryanhu.com/clash-royale-clone/",
+  "expectedDeploymentRef": "8e24c1e44fc26827ffb7e7e5a50b4a4b933f045c",
+  "checks": {
+    "landing": {
+      "status": 200,
+      "finalUrl": "https://bryanhu.com/clash-royale-clone/",
+      "title": "Moss & Ember — Card battles for curious minds",
+      "linkedSource": "https://github.com/ThatXliner/clash-royale-clone/blob/8e24c1e44fc26827ffb7e7e5a50b4a4b933f045c/src/rl/environment.js",
+      "deployedRef": "8e24c1e44fc26827ffb7e7e5a50b4a4b933f045c",
+      "refMatchesDeployment": true
+    },
+    "manifest": {
+      "url": "https://bryanhu.com/clash-royale-clone/game/release-manifest.json",
+      "status": 200,
+      "schemaVersion": 1,
+      "fileCount": 44,
+      "totalBytes": 5443302,
+      "listedBytes": 5443302,
+      "standaloneModules": [
+        "src/rl/environment.js",
+        "src/ui/arena-shell-entry.js"
+      ],
+      "hasReferenceOrPrivatePaths": false,
+      "rlModule": {
+        "url": "https://bryanhu.com/clash-royale-clone/game/src/rl/environment.js",
+        "status": 200,
+        "bytes": 11914,
+        "sha256": "7c047f0aab6781cc3a74165b37b351f7b27346308af266bf1186845e2d7488f8"
+      }
+    },
+    "gameRoute": {
+      "status": 200,
+      "finalUrl": "https://bryanhu.com/clash-royale-clone/game/public/index.html",
+      "title": "Moss & Ember — Card battler",
+      "prefixPreserved": true
+    },
+    "collectionAndLore": {
+      "count": 16,
+      "ids": [
+        "coilblade",
+        "mossguard",
+        "copperskiff",
+        "skymaul",
+        "brassbolt",
+        "reedsting",
+        "briar-band",
+        "cinderlings",
+        "stonehauler",
+        "thornscouts",
+        "forgeguard",
+        "cinder-host",
+        "ironroot",
+        "sunthread-pair",
+        "duskwing-trio",
+        "squall-orb"
+      ],
+      "selected": {
+        "text": "←\nCards\nStonehauler\n\n1 unit · 5 elixir\n\n5\n\nCurrent game: Ground unit · melee attacks · targets structures. The ground layer and melee delivery remain provisional for historical comparison.\n\nSTORY\nA field note\n\nThis broad pack carrier is built around a core of quarry stone, wrapped in weathered rootwood. Copper bells on its straps ring out when it reaches the river workshops.\n\nStonehauler\n\nCurrent game: Ground unit · melee attacks · targets structures. The ground layer and melee delivery remain provisional for historical comparison.\n\nCOUNT\n1\nHEALTH\n4,091\nDAMAGE\n254 per attack\nHIT SPEED\n1.5 s\nRANGE\n1.2 tiles\nTARGETS\nstructures\nMOVES\n0.75 tiles/s",
+        "lore": "This broad pack carrier is built around a core of quarry stone, wrapped in weathered rootwood. Copper bells on its straps ring out when it reaches the river workshops.",
+        "heading": "Stonehauler"
+      }
+    },
+    "deck": {
+      "defaultCount": 8,
+      "defaultDeck": [
+        "coilblade",
+        "mossguard",
+        "copperskiff",
+        "skymaul",
+        "brassbolt",
+        "reedsting",
+        "briar-band",
+        "cinderlings"
+      ],
+      "editedCount": 8,
+      "editedDeck": [
+        "coilblade",
+        "stonehauler",
+        "copperskiff",
+        "skymaul",
+        "brassbolt",
+        "reedsting",
+        "briar-band",
+        "cinderlings"
+      ]
+    },
+    "trustedBattle": {
+      "tick": 24,
+      "deployments": [
+        {
+          "side": "north",
+          "cardId": "coilblade",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          },
+          "tick": 0
+        },
+        {
+          "side": "south",
+          "cardId": "stonehauler",
+          "point": {
+            "x": 9000,
+            "y": 6642
+          },
+          "tick": 22
+        }
+      ],
+      "trustedPointerEvents": [
+        {
+          "isTrusted": true,
+          "ui": "card-slot"
+        },
+        {
+          "isTrusted": true,
+          "ui": "arena"
+        }
+      ],
+      "controllerUrl": "https://bryanhu.com/clash-royale-clone/game/src/ui/arena-shell-entry.js",
+      "controllerModuleStatus": 200
+    },
+    "publicRL": {
+      "moduleUrl": "https://bryanhu.com/clash-royale-clone/game/src/rl/environment.js",
+      "version": 1,
+      "actionCount": 2305,
+      "initial": {
+        "tick": 0,
+        "status": "running",
+        "hand": [
+          "coilblade",
+          "cinderlings",
+          "skymaul",
+          "copperskiff"
+        ]
+      },
+      "firstStep": {
+        "from": 0,
+        "to": 30,
+        "ticksAdvanced": 30,
+        "status": "running"
+      },
+      "restoredContinuation": {
+        "tick": 60,
+        "restoreExact": true,
+        "bytesMatch": true
+      },
+      "reset": {
+        "tick": 0,
+        "status": "running",
+        "exactSeedZeroOpening": true,
+        "openingBytes": 31303
+      }
+    },
+    "isolation": {
+      "browserRequestCount": 59,
+      "offOriginOrOutOfPrefixRequests": [],
+      "referenceRequests": [],
+      "manifestReferencePrivatePaths": [],
+      "blockedCloudflareTelemetry": {
+        "requestFailures": [
+          {
+            "url": "https://bryanhu.com/cdn-cgi/rum?",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://static.cloudflareinsights.com/beacon.min.js/v4bc70e2c01a94c73b74392e4234840661791215815920",
+            "error": "csp"
+          },
+          {
+            "url": "https://static.cloudflareinsights.com/beacon.min.js/v4bc70e2c01a94c73b74392e4234840661791215815920",
+            "error": "csp"
+          }
+        ],
+        "consoleErrors": [
+          "Loading the script 'https://static.cloudflareinsights.com/beacon.min.js/v4bc70e2c01a94c73b74392e4234840661791215815920' violates the following Content Security Policy directive: \"script-src 'self'\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked.",
+          "Loading the script 'https://static.cloudflareinsights.com/beacon.min.js/v4bc70e2c01a94c73b74392e4234840661791215815920' violates the following Content Security Policy directive: \"script-src 'self'\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked."
+        ]
+      }
+    }
+  },
+  "requestFailures": [
+    {
+      "url": "https://bryanhu.com/cdn-cgi/rum?",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://static.cloudflareinsights.com/beacon.min.js/v4bc70e2c01a94c73b74392e4234840661791215815920",
+      "error": "csp"
+    },
+    {
+      "url": "https://static.cloudflareinsights.com/beacon.min.js/v4bc70e2c01a94c73b74392e4234840661791215815920",
+      "error": "csp"
+    }
+  ],
+  "badResponses": [],
+  "consoleErrors": [
+    "Loading the script 'https://static.cloudflareinsights.com/beacon.min.js/v4bc70e2c01a94c73b74392e4234840661791215815920' violates the following Content Security Policy directive: \"script-src 'self'\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked.",
+    "Loading the script 'https://static.cloudflareinsights.com/beacon.min.js/v4bc70e2c01a94c73b74392e4234840661791215815920' violates the following Content Security Policy directive: \"script-src 'self'\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked."
+  ],
+  "pageErrors": [],
+  "browserRequests": [
+    "https://bryanhu.com/clash-royale-clone/",
+    "https://bryanhu.com/clash-royale-clone/assets/site.css",
+    "https://bryanhu.com/clash-royale-clone/brand/logo.svg",
+    "https://bryanhu.com/clash-royale-clone/brand/gameplay.png",
+    "https://bryanhu.com/clash-royale-clone/brand/banner.svg",
+    "https://static.cloudflareinsights.com/beacon.min.js/v4bc70e2c01a94c73b74392e4234840661791215815920",
+    "https://bryanhu.com/cdn-cgi/rum?",
+    "https://bryanhu.com/clash-royale-clone/brand/logo.svg",
+    "https://bryanhu.com/clash-royale-clone/game/public/index.html",
+    "https://bryanhu.com/cdn-cgi/rum?",
+    "https://bryanhu.com/clash-royale-clone/game/src/ui/app-shell.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/rolldown-runtime-Cl99QfTQ.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell-D-709RTF.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CNVraBnB.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-iYK_h2t5.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DsV2EdxU.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-Dg7OQaec.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BdnZSF_b.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-B5ZBDHRW.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BRVjNZH4.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-bvb6I3I3.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-C79RlObc.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-APzdr7Qb.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-qWhy9Aq-.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-eqmJOawo.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-C_K8qhj4.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index-ve2Sbm-Q.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/asset-D-AK-JuF.css",
+    "https://static.cloudflareinsights.com/beacon.min.js/v4bc70e2c01a94c73b74392e4234840661791215815920",
+    "https://bryanhu.com/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+    "https://bryanhu.com/clash-royale-clone/game/public/assets/stonehauler-painted.webp",
+    "https://bryanhu.com/clash-royale-clone/game/public/assets/thornscouts-painted.webp",
+    "https://bryanhu.com/clash-royale-clone/game/public/assets/forgeguard-painted.webp",
+    "https://bryanhu.com/clash-royale-clone/game/public/assets/cinder-host-painted.webp",
+    "https://bryanhu.com/clash-royale-clone/game/public/assets/ironroot-painted.webp",
+    "https://bryanhu.com/clash-royale-clone/game/public/assets/sunthread-pair-painted.webp",
+    "https://bryanhu.com/clash-royale-clone/game/public/assets/duskwing-trio-painted.webp",
+    "https://bryanhu.com/clash-royale-clone/game/public/assets/squall-orb-painted.webp",
+    "https://bryanhu.com/clash-royale-clone/game/public/ui-arena-shell.html?app-frame=1",
+    "https://bryanhu.com/clash-royale-clone/game/src/ui/arena-shell-bootstrap.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/rolldown-runtime-Cl99QfTQ.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell-D-709RTF.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CNVraBnB.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-iYK_h2t5.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DsV2EdxU.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-Dg7OQaec.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BdnZSF_b.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-B5ZBDHRW.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BRVjNZH4.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-bvb6I3I3.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-C79RlObc.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-APzdr7Qb.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-qWhy9Aq-.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-eqmJOawo.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-C_K8qhj4.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-B_97dTST.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-8QEzJsye.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-emQudoW3.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/ui-arena-shell-er5XVwGC.css",
+    "https://static.cloudflareinsights.com/beacon.min.js/v4bc70e2c01a94c73b74392e4234840661791215815920",
+    "https://bryanhu.com/clash-royale-clone/game/public/assets/moss-ember-arena-painted.webp",
+    "https://bryanhu.com/clash-royale-clone/game/src/ui/arena-shell-entry.js",
+    "https://bryanhu.com/clash-royale-clone/game/src/rl/environment.js",
+    "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-B_97dTST.js"
+  ],
+  "result": "PASS"
+}

@@ -2,9 +2,9 @@
 
 ## Verdict
 
-Scoped runtime, card-confidence, art, and current-runtime endurance checks pass for clean source candidate `7cb314331c2ebd0a2cabad806fa951740597ef61`. The 18,000-tick browser endurance completed under the unchanged 50 ms lifecycle and 300 ms initialization caps. Overall publication qualification remains pending the separate release-packaging critic's `test:release-build` result and the live Pages smoke after deployment. This receipt makes no 109-card parity claim.
+Scoped runtime, card-confidence, art, strict endurance, release-packaging, and public Pages checks pass. The 18,000-tick browser endurance completed under the unchanged 50 ms lifecycle and 300 ms initialization caps. The separate release critic passed the packaging, isolation, escape-probe, Pages, and production-prefix checks for deployed source `8e24c1e`; my live Chromium smoke independently verified that deployment. This receipt makes no 109-card parity claim.
 
-The checked-in packaging-only commits through local `HEAD eeb0fab3091aee7345af9e061908877710a2fdb8` change `scripts/build-release.js` and `tests/release-001b.test.js` in the source tree; the runtime/art/browser evidence below was executed against the clean `7cb3143` archive. My clean `build`, `build:pages`, and publication-pages test passed on that archive. I did not rerun `test:release-build`; it is assigned to the separate critic.
+The runtime/art/browser evidence below was executed against the clean `7cb3143` archive. My clean `build`, `build:pages`, and publication-pages test passed on that archive. Post-7cb release-packaging changes were independently tested by the separate critic against the published source.
 
 ## CARDS-016K — PASS
 
@@ -25,6 +25,10 @@ The following passed on the clean 7cb candidate: nondeterminism and shipping-iso
 
 Ran `env -u GAME_BROWSER_ENDURANCE_TICKS npm run test:game-browser-endurance` from a clean archive with the default strict 18,000-tick workload. TAP passed 2/2. Chrome reached terminal at tick 18,000, then restarted at tick 0; the restored checkpoint rewound from tick 600 to tick 300. The run used 61 segments of 300 ticks, one-tick slices, and the `raf-scheduler-yield-raf` policy. The configured limits remained 50 ms for lifecycle work and 300 ms for initialization. Initialization's maximum observed long task was 158 ms; drive, out-of-segment, restore, terminal-observation, restart, final-drain, and screenshot long-task counts were all zero. There were no pending resources, resource errors, console errors, unhandled errors, or server stderr. Terminal audio was disposed at tick 18,000 with zero active voices, and restart audio was live at tick 0. The full telemetry, compact summary, and current-run active/terminal/restart screenshots are preserved under `endurance/`.
 
-## Remaining release checks
+## Live public Pages smoke — PASS
 
-The separate critic owns independent `test:release-build` qualification for the packaging repair. A public Pages URL has not yet been supplied for my live-browser smoke. Treat overall publication as pending until those checks complete.
+Real Chromium opened the deployed [HTTPS landing page](https://bryanhu.com/clash-royale-clone/) (HTTP 200), followed its play link to `/clash-royale-clone/game/public/index.html` (HTTP 200), and exercised the actual prefixed app. The landing source link pins exact deployed ref `8e24c1e44fc26827ffb7e7e5a50b4a4b933f045c`. The deployed release manifest reports 44 files and 5,443,302 listed bytes, contains no reference/private paths, and lists both standalone browser modules. The public RL module returned HTTP 200 and its bytes matched the manifest SHA-256.
+
+The UI rendered all 16 collection entries, Stonehauler statistics and lore, and an eight-card default deck. Replacing a slot with Stonehauler preserved eight unique cards and reached the live battle. Real trusted Chrome pointer events selected the hand card and deployed it for the south player; the opponent AI also deployed for the north side. In the same public browser origin, the RL API reset to tick 0, advanced 30 ticks, restored a checkpoint and replayed the next step byte-identically through tick 60, then reset to the exact seed-zero opening. Isolation recorded 59 first-party browser requests, all at the prefixed host; there were no first-party request failures, bad responses, page errors, or reference-tree requests.
+
+The only console/network noise was Cloudflare-injected telemetry: its cross-origin `beacon.min.js` was blocked by the page's `script-src 'self'` CSP, and a `/cdn-cgi/rum` request was aborted. The game bundle, styles, and assets loaded successfully; no CSP change or third-party script exception was made. Raw manifest/module/landing responses, the smoke JSON, error classification, Chromium script, and screenshots are saved in `live-publication/`.

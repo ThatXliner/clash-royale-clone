@@ -1,0 +1,55 @@
+{
+  "base": "https://bryanhu.com/clash-royale-clone/",
+  "expectedRef": "8e24c1e44fc26827ffb7e7e5a50b4a4b933f045c",
+  "responses": {
+    "landing": {
+      "requestedUrl": "https://bryanhu.com/clash-royale-clone/",
+      "finalUrl": "https://bryanhu.com/clash-royale-clone/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "etag": null,
+      "bytes": 6205,
+      "sha256": "ffe8a9b2d48055491f9bcd11c6ac736b4a423dfe4106f8b8c736cc2cc9346f67",
+      "file": "deployed-landing.html"
+    },
+    "manifest": {
+      "requestedUrl": "https://bryanhu.com/clash-royale-clone/game/release-manifest.json",
+      "finalUrl": "https://bryanhu.com/clash-royale-clone/game/release-manifest.json",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "etag": "W/\"6acbff3d-5a43\"",
+      "bytes": 23107,
+      "sha256": "4756927e259ce78650dc3fda5e104e2b0132e9760fa0e4958f280a1be01495fe",
+      "file": "deployed-release-manifest.json"
+    },
+    "rlModule": {
+      "requestedUrl": "https://bryanhu.com/clash-royale-clone/game/src/rl/environment.js",
+      "finalUrl": "https://bryanhu.com/clash-royale-clone/game/src/rl/environment.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "etag": "W/\"6acbff3d-2e8a\"",
+      "bytes": 11914,
+      "sha256": "7c047f0aab6781cc3a74165b37b351f7b27346308af266bf1186845e2d7488f8",
+      "file": "deployed-rl-environment.js",
+      "manifestSha256": "7c047f0aab6781cc3a74165b37b351f7b27346308af266bf1186845e2d7488f8",
+      "matchesManifest": true
+    }
+  },
+  "deployedRef": "8e24c1e44fc26827ffb7e7e5a50b4a4b933f045c",
+  "manifest": {
+    "schemaVersion": 1,
+    "fileCount": 44,
+    "totalBytes": 5443302,
+    "listedBytes": 5443302,
+    "standaloneModules": [
+      "src/rl/environment.js",
+      "src/ui/arena-shell-entry.js"
+    ],
+    "referenceOrPrivatePathCount": 0,
+    "rlModuleManifestEntry": {
+      "path": "src/rl/environment.js",
+      "size": 11914,
+      "sha256": "7c047f0aab6781cc3a74165b37b351f7b27346308af266bf1186845e2d7488f8"
+    }
+  }
+}
