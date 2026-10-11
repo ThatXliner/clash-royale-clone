@@ -265,6 +265,61 @@ async function copyStaticAssets(root, config, outDir) {
   return result;
 }
 
+function releaseAssetFileNames(root, staticAssetRoots) {
+  // Keep imported static-root assets beside their copied originals; other assets stay hashed.
+  const absoluteRoot = resolve(root);
+  const absoluteStaticRoots = staticAssetRoots.map((staticRoot) => {
+    assertPortablePath(staticRoot, "release static asset root", { source: true });
+    return resolve(absoluteRoot, ...staticRoot.split("/"));
+  });
+  const assignedCaseFoldedPaths = new Map();
+  const hashedAssetPattern = "assets/[name]-[hash][extname]";
+
+  return ({ originalFileNames }) => {
+    invariant(Array.isArray(originalFileNames), "Vite asset provenance must be an array");
+    if (originalFileNames.length === 0) return hashedAssetPattern;
+
+    const sources = originalFileNames.map((sourceName) => {
+      invariant(typeof sourceName === "string" && sourceName.length > 0,
+        "Vite asset provenance contains an invalid source path");
+      const parts = sourceName.split(/[\\/]/u);
+      if (!isAbsolute(sourceName)) {
+        while (parts[0] === ".") parts.shift();
+      }
+      invariant(parts.length > 0 && !parts.some((part) => part === "." || part === ".."),
+        `non-canonical release asset source path: ${sourceName}`);
+
+      const absoluteSource = isAbsolute(sourceName)
+        ? resolve(sourceName)
+        : resolve(absoluteRoot, sourceName);
+      invariant(isWithin(absoluteRoot, absoluteSource) && absoluteSource !== absoluteRoot,
+        `release asset source is outside workspace: ${sourceName}`);
+      const path = portablePath(relative(absoluteRoot, absoluteSource));
+      assertPortablePath(path, "release asset source");
+      invariant(!path.split("/").some((part) => part.toLowerCase() === "dist"),
+        `protected release asset source: ${path}`);
+      const isStatic = absoluteStaticRoots.some((staticRoot) =>
+        absoluteSource !== staticRoot && isWithin(staticRoot, absoluteSource));
+      return { isStatic, path };
+    });
+
+    const staticSources = sources.filter(({ isStatic }) => isStatic);
+    if (staticSources.length === 0) return hashedAssetPattern;
+    invariant(staticSources.length === sources.length,
+      `ambiguous release asset provenance mixes static and non-static sources: ${originalFileNames.join(", ")}`);
+    const canonicalPath = staticSources[0].path;
+    invariant(staticSources.every(({ path }) => path === canonicalPath),
+      `ambiguous release asset provenance maps to multiple static paths: ${originalFileNames.join(", ")}`);
+
+    const caseFoldedPath = canonicalPath.toLowerCase();
+    const caseCollision = assignedCaseFoldedPaths.get(caseFoldedPath);
+    invariant(caseCollision === undefined || caseCollision === canonicalPath,
+      `case-colliding release static asset output: ${caseCollision} and ${canonicalPath}`);
+    assignedCaseFoldedPaths.set(caseFoldedPath, canonicalPath);
+    return canonicalPath;
+  };
+}
+
 function normalizedGraph(rawGraph, config) {
   invariant(rawGraph !== null && typeof rawGraph === "object" && !Array.isArray(rawGraph),
     "Vite did not produce a module manifest");
@@ -356,7 +411,7 @@ async function buildViteGraph(root, config, outDir) {
           entryFileNames: (chunk) => config.outputNames[chunk.name] ??
             `assets/${chunk.name}-[hash].js`,
           chunkFileNames: "assets/[name]-[hash].js",
-          assetFileNames: "assets/[name]-[hash][extname]",
+          assetFileNames: releaseAssetFileNames(root, config.staticAssetRoots),
           codeSplitting: {
             groups: [{
               name: "game-runtime",
