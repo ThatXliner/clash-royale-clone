@@ -16,7 +16,7 @@ outside the current source.
 | Historical roster | 109 identities: 78 troops, 13 buildings, 18 spells | Size of the pre-Evolutions comparison target, not implemented coverage |
 | Editable collection | 16 admitted identities: 15 troops and Squall Orb; the default deck remains 8 cards; latest two troops and their desktop/phone portraits pass scoped review | Deck admission and selection. It does not mean every card has complete historical behavior |
 | Last independently reviewed session catalog (`6dcf64b`) | 53 admitted identities and 58 admitted source occurrences: 37 troop identities across 39 troop occurrences, 8 structures, and 8 effects | Typed identity admission and source routing, not complete gameplay for every identity |
-| Historical comparison mapping | The test-only [card-coverage-109.json](../artifacts/completion-inventory/reference/card-coverage-109.json) remains the 11-mapping `42bcf09` baseline | Historical mapping evidence only; it has not been refreshed for the current 16-card admitted collection |
+| Historical comparison mapping | The independently reviewed [current 16-card inventory](../artifacts/completion-inventory-current-16/card-coverage-109-current-16.json) is pinned to `6dcf64b`: 109 rows, 12 declaration-supported comparator candidates, 2 QUESTION fixture mentions and 4 unjoined identities. The older [11-mapping baseline](../artifacts/completion-inventory/reference/card-coverage-109.json) remains byte-identical | Mapping and admission evidence only; zero full historical-card executions or parity claims. The frozen inventory does not cover the newer `e3413fd` core |
 
 Gloamwing Cluster and Coppershade Flock have a new core candidate at
 `e3413fd`, under independent review. Its catalog admits55 identities across60
@@ -99,8 +99,9 @@ canonical assets preserved without duplicate copies. See the [independent
 review](../artifacts/release-asset-round-1/critic/verdict.md). Resolve the
 production-isolation test failures reproduced on a clean frozen artifact. Preserve the verified full-match continuation, original art
 and explicit source QUESTIONs while expanding shared card execution. Keep the
-11-mapping artifact as a historical baseline; record current16-card coverage
-as a new versioned comparison artifact rather than rewriting that baseline.
+11-mapping artifact as a historical baseline. The new16-card inventory passes
+independent declaration checks and an actual production exclusion audit; expand
+execution coverage without treating this map as full historical verification.
 
 ## Release evidence bar
 

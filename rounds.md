@@ -1,5 +1,17 @@
 # Gauntlet Rounds
 
+## Round 397 — 2026-10-11
+
+PIECE: COVERAGE-002 — Versioned current historical roster mapping, round 2
+
+VERDICT: PASS
+
+EVIDENCE: Independent clean source6dcf64b with artifact2a98613 passes write/check/selftest with identical JSON SHA256674aa632…6118b. Actual109 rows (78/13/18),16 editable/default8,53 admitted IDs58occ,12 declaration-backed comparator candidates,2 QUESTION-only fixture mentions and4 unjoined identities; no QUESTION-field mismatches. All six mutation classes are rejected, including Cinder fixture promotion and evidence line999999. Focused tests67/67 pass; legacy61378-byte baseline hash remains unchanged. Actual production42 files/5354760bytes were scanned against all20 reference files: no inventory/reference markers or protected paths. Receipt and executable audits: `artifacts/completion-inventory-current-16-round-2/critic/verdict.md`.
+
+BIGGEST GAP: Zero of109 historical cards has full historical execution coverage; this PASS establishes frozen mapping and packaging only, not card parity or release completion.
+
+DISPOSITION: Accept versioned16-card inventory at frozen6dc. The newer55-ID core remains separately under review and is not covered by this inventory.
+
 ## Round 396 — 2026-10-11
 
 PIECE: COVERAGE-002 — Versioned current historical roster mapping, round 1
