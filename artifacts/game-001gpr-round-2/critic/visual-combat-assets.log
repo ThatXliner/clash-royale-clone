@@ -1,0 +1,55 @@
+
+> moss-and-ember@0.0.0 test
+> node scripts/test-portable.js -- node tests/content-schema-runner.js visual-combat-assets
+
+TAP version 13
+# Subtest: visual combat assets: every original silhouette mounts at game scale, restores exactly, and hides diagnostic links
+not ok 1 - visual combat assets: every original silhouette mounts at game scale, restores exactly, and hides diagnostic links
+  ---
+  duration_ms: 1924.73925
+  type: 'test'
+  location: '/private/tmp/game-001gpr-round2-critic.JA3kd2/tests/visual-combat-assets.test.js:9:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    page.evaluate: TypeError: combat entities[26].position.y must be an integer from 0 through 32000
+        at integer (http://127.0.0.1:52459/src/ui/combat-state.js:100:11)
+        at point (http://127.0.0.1:52459/src/ui/combat-state.js:128:8)
+        at http://127.0.0.1:52459/src/ui/combat-state.js:213:19
+        at Array.map (<anonymous>)
+        at checkedEntities (http://127.0.0.1:52459/src/ui/combat-state.js:189:6)
+        at createCombatViewModel (http://127.0.0.1:52459/src/ui/combat-state.js:288:20)
+        at eval (eval at evaluate (:290:30), <anonymous>:13:20)
+        at async <anonymous>:316:30
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    integer (http://127.0.0.1:52459/src/ui/combat-state.js:100:11)
+    point (http://127.0.0.1:52459/src/ui/combat-state.js:128:8)
+    http://127.0.0.1:52459/src/ui/combat-state.js:213:19
+    Array.map (<anonymous>)
+    checkedEntities (http://127.0.0.1:52459/src/ui/combat-state.js:189:6)
+    createCombatViewModel (http://127.0.0.1:52459/src/ui/combat-state.js:288:20)
+    eval (eval at evaluate (:290:30), <anonymous>:13:20)
+    async <anonymous>:316:30
+    TestContext.<anonymous> (/private/tmp/game-001gpr-round2-critic.JA3kd2/tests/visual-combat-assets.test.js:51:31)
+  ...
+# Subtest: visual combat motion: authenticated tick435 pose restores and chunks identically
+ok 2 - visual combat motion: authenticated tick435 pose restores and chunks identically
+  ---
+  duration_ms: 2723.68125
+  type: 'test'
+  ...
+# Subtest: visual combat motion: death lifetime uses canonical death tick across restore and chunks
+ok 3 - visual combat motion: death lifetime uses canonical death tick across restore and chunks
+  ---
+  duration_ms: 3185.713833
+  type: 'test'
+  ...
+1..3
+# tests 3
+# suites 0
+# pass 2
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 7886.937125

@@ -1,0 +1,99 @@
+
+> moss-and-ember@0.0.0 test
+> node scripts/test-portable.js -- node tests/content-schema-runner.js ui-combat-state
+
+TAP version 13
+# Subtest: ui combat state: stable ID order projects exact millitile geometry and layers
+ok 1 - ui combat state: stable ID order projects exact millitile geometry and layers
+  ---
+  duration_ms: 1.640834
+  type: 'test'
+  ...
+# Subtest: ui combat state: high-confidence tower HP bounds health exactly
+ok 2 - ui combat state: high-confidence tower HP bounds health exactly
+  ---
+  duration_ms: 0.498167
+  type: 'test'
+  ...
+# Subtest: ui combat state: damage changes only numerator; death removes entities and terminals towers
+ok 3 - ui combat state: damage changes only numerator; death removes entities and terminals towers
+  ---
+  duration_ms: 0.323292
+  type: 'test'
+  ...
+# Subtest: ui combat state: canonical serialization restores byte-identically
+ok 4 - ui combat state: canonical serialization restores byte-identically
+  ---
+  duration_ms: 0.841542
+  type: 'test'
+  ...
+# Subtest: ui combat state: one-shot and chunked state projection end in identical bytes
+ok 5 - ui combat state: one-shot and chunked state projection end in identical bytes
+  ---
+  duration_ms: 0.254167
+  type: 'test'
+  ...
+# Subtest: ui combat state: bounded causal events survive canonical restore without driving current state
+ok 6 - ui combat state: bounded causal events survive canonical restore without driving current state
+  ---
+  duration_ms: 0.535042
+  type: 'test'
+  ...
+# Subtest: ui combat state: DOM projection is byte-stable with exact inverted arena coordinates
+ok 7 - ui combat state: DOM projection is byte-stable with exact inverted arena coordinates
+  ---
+  duration_ms: 1.65125
+  type: 'test'
+  ...
+# Subtest: ui combat state: painted Briar Runner pose follows tick, target bearing, contact, and restore
+not ok 8 - ui combat state: painted Briar Runner pose follows tick, target bearing, contact, and restore
+  ---
+  duration_ms: 0.541875
+  type: 'test'
+  location: '/private/tmp/game-001gpr-round2-critic.JA3kd2/tests/ui-combat-state.test.js:283:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'attributes')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/game-001gpr-round2-critic.JA3kd2/tests/ui-combat-state.test.js:314:5)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: ui combat state: terminal restore produces byte-identical DOM and zero health
+ok 9 - ui combat state: terminal restore produces byte-identical DOM and zero health
+  ---
+  duration_ms: 0.617167
+  type: 'test'
+  ...
+# Subtest: ui combat state: DOM binding validates/builds before its single commit
+ok 10 - ui combat state: DOM binding validates/builds before its single commit
+  ---
+  duration_ms: 0.467041
+  type: 'test'
+  ...
+# Subtest: ui combat state: exact shapes, accessors, prototypes, IDs, targets, HP, and bounds fail closed
+ok 11 - ui combat state: exact shapes, accessors, prototypes, IDs, targets, HP, and bounds fail closed
+  ---
+  duration_ms: 0.473709
+  type: 'test'
+  ...
+# Subtest: ui combat state: combat layer mounts inside the shipped arena primitive
+ok 12 - ui combat state: combat layer mounts inside the shipped arena primitive
+  ---
+  duration_ms: 0.261542
+  type: 'test'
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 11
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 82.039334
