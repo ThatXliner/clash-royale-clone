@@ -1,7 +1,10 @@
 # Publishing
 
-The GitHub Pages site is not live yet. A maintainer must enable Pages and
-manually run the repository's Pages workflow before it can be published.
+The current prototype is live at [Moss & Ember](https://bryanhu.com/clash-royale-clone/).
+Play the game directly at [the browser game](https://bryanhu.com/clash-royale-clone/game/public/index.html).
+Pages uses GitHub Actions; updates are published by manually running the Pages workflow.
+The inherited custom domain serves this project under `/clash-royale-clone/`.
+Use the HTTPS links above.
 
 Use Node.js 22.12.0 or later. The build pins Vite 8.3.2 as a build-only
 development dependency; the generated game is a standalone runtime with no

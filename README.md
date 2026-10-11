@@ -6,6 +6,8 @@
 
 <p align="center">An original real-time card battler.</p>
 
+<p align="center"><a href="https://bryanhu.com/clash-royale-clone/">Play in your browser</a></p>
+
 <p align="center">
   <img src="docs/brand/banner.svg" alt="Moss &amp; Ember — an original card battler" width="100%">
 </p>
@@ -49,7 +51,7 @@ For Linux setup and development commands, see [Development](docs/development.md)
 - [World and card lore](docs/lore.md)
 - [RL environment guide](docs/rl-api.md)
 - [Verification evidence and limits](docs/verification.md)
-- [GitHub Pages publishing](docs/publishing.md) — the site is not live yet
+- [GitHub Pages publishing](docs/publishing.md)
 - [Contribution guide](CONTRIBUTING.md)
 
 Project-authored code and original brand assets are licensed under
