@@ -1,5 +1,17 @@
 # Gauntlet Rounds
 
+## Round 401 — 2026-10-11
+
+PIECE: RELEASE-TEST-001 — Current production isolation test qualification, round 2
+
+VERDICT: PASS
+
+EVIDENCE: Independent clean1872eb9 runs28 guard/release/host tests plus separately dispatched Pages5/5, total33/33. Original9 source-edge probes and8 additional probes all meet expected outcomes. ActualChrome CSP eval/Function/off-manifest traffic remains blocked; prefixedbrowserRL reset/step/restore passes. Canonical15 assets match, duplicatehashes/protectedpaths absent, unchanged8MiB cap. Separate release42files/5358095bytes and Pagesgame42files/5363799bytes receipts preserved. Servers/browsers/tempcleanup complete. Receipt9af101d includedoncurrentbranchf6c203b under `artifacts/release-test-round-2/critic/`.
+
+BIGGEST GAP: None on scoped source-boundary/isolation qualification; no fresh endurance or full109-card claim.
+
+DISPOSITION: Accept source-isolation fix. User-requested current prototype publication is separately PUB003 with clean currentruntime qualification and actualremote deployment evidence.
+
 ## Round 400 — 2026-10-11
 
 PIECE: ART-016P — Original air-swarm portrait assets and lore, round 1
