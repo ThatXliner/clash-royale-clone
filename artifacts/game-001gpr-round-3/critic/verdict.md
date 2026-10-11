@@ -1,0 +1,11 @@
+# GAME-001GPR round 3 critic verdict
+
+**PASS for the scoped GAME-001GPR acceptance bar** on immutable artifact `146421973672c512ae82e27e32bbf140c7948ffc`.
+
+The clean archive completed 55/55 preflight checks: UI combat state (12), combat sprite prototype (10), visual asset manifest (6), nondeterminism guard (10), shipping isolation guard (13), visual combat browser (3), and the app-shell browser fixture (1). The real app-shell run covered all 16 editable-pool cards, decoded portrait assets, captured desktop/mobile evidence, and exercised the actual shipped battle frame.
+
+The unoverridden endurance command then passed 2/2 tests, including the exact seed-zero 18,000-tick run. `GAME_BROWSER_ENDURANCE_TICKS` was unset. The browser captured 61 segments and rewound from tick 600 to 300, then proved the replay back to 600 against the saved browser/input continuation, canonical session, projected layers, E2 bridge, and future audio state. Restore took 10,156 ms wall time with a 37,778-byte snapshot and no long tasks. Audio cursor/event/projection offsets were all 28 after restore, cue count was zero, and the audible-start count stayed 55 across the restore.
+
+At terminal tick 18,000, the real shell had a visible 520×428 outcome overlay, six towers, crowns 2–3, a disposed audio renderer, zero active voices, and no pending resources. Restart returned to tick 0 with restart count 1, hid the overlay, cleared all four projection layers to tick 0, and left zero voices. The unchanged 50 ms non-initialization and 300 ms initialization budgets passed: observed maxima were 0 ms for driven, restore, terminal observation, restart, observer drain, and screenshots; initialization peaked at 154 ms; the overall maximum was 154 ms. Console, resource, unhandled, pending-resource, and server-stderr error collections were empty; the server exited cleanly.
+
+TAP totals are 57/57 across the preflight and endurance runs. The recorded process tree and Chrome process have exited. Evidence files, screenshots, logs, and exact measured values are in this directory. This verdict covers only this round's stated default-8/candidate-pool-16 scope; it does not claim full 109-card parity or release completion.

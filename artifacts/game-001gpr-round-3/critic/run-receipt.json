@@ -1,0 +1,184 @@
+{
+  "round": "GAME-001GPR round 3",
+  "immutableCommit": "146421973672c512ae82e27e32bbf140c7948ffc",
+  "archive": "/tmp/game-001gpr-round3-critic.1Birm7",
+  "preflight": {
+    "tests": [
+      {
+        "command": "node --test tests/ui-combat-state.test.js",
+        "passed": 12,
+        "failed": 0
+      },
+      {
+        "command": "node --test tests/combat-sprite-prototype.test.js",
+        "passed": 10,
+        "failed": 0
+      },
+      {
+        "command": "node --test tests/visual-asset-manifest.test.js",
+        "passed": 6,
+        "failed": 0
+      },
+      {
+        "command": "node --test tests/nondeterminism-guard.test.js",
+        "passed": 10,
+        "failed": 0
+      },
+      {
+        "command": "node --test tests/shipping-isolation-guard.test.js",
+        "passed": 13,
+        "failed": 0
+      },
+      {
+        "command": "node --test tests/visual-combat-assets.test.js",
+        "passed": 3,
+        "failed": 0
+      },
+      {
+        "command": "node --test tests/app-shell.test.js",
+        "passed": 1,
+        "failed": 0
+      }
+    ],
+    "totalPassed": 55,
+    "totalFailed": 0,
+    "appShell": {
+      "defaultDeckCards": 8,
+      "editablePoolCards": 16,
+      "decodedPortraitEntries": 16,
+      "successfulRequestCount": 37,
+      "releaseFileCount": 53,
+      "screenshots": [
+        {
+          "path": "artifacts/game-001gpr-round-3/critic/app-shell/desktop-card-portraits-1440x933.png",
+          "width": 1440,
+          "height": 1440,
+          "sha256": "a239571d87c07dc9cd1c1c6517214731cbdf638fe54e3f8707641da6a0205493"
+        },
+        {
+          "path": "artifacts/game-001gpr-round-3/critic/app-shell/desktop-card-details-1440x933.png",
+          "width": 1440,
+          "height": 1440,
+          "sha256": "4d686beea4ec6c7073efb93f431734385db15ffb810901c26ae9f6cb04a4c3f1"
+        },
+        {
+          "path": "artifacts/game-001gpr-round-3/critic/app-shell/phone-card-portraits-390x844.png",
+          "width": 390,
+          "height": 844,
+          "sha256": "67e4f20323798ead70ca0daedff0222a5ed620b697637d854481c8693e2b8032"
+        },
+        {
+          "path": "artifacts/game-001gpr-round-3/critic/app-shell/phone-card-portraits-full-390x844.png",
+          "width": 390,
+          "height": 2113,
+          "sha256": "82fc64d327d376fb4e581d6b08c353755520fd426cf8baa59694127d6db15bea"
+        }
+      ]
+    }
+  },
+  "fullEndurance": {
+    "command": "set -o pipefail; env -u GAME_BROWSER_ENDURANCE_TICKS GAME_BROWSER_PLAYWRIGHT=\"$PWD/node_modules/playwright/index.mjs\" GAME_BROWSER_CHROME=\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" npm test -- game-browser-endurance 2>&1 | tee artifacts/game-001gpr-round-3/critic/game-browser-endurance.log",
+    "testExit": 0,
+    "tapTests": 2,
+    "tapPassed": 2,
+    "tapFailed": 0,
+    "workloadTestDurationMilliseconds": 800278.113542,
+    "tapDurationMilliseconds": 802470.420417,
+    "resultDurationMilliseconds": 800150,
+    "ticks": {
+      "rewindFrom": 600,
+      "rewindTo": 300,
+      "final": 18000
+    },
+    "segments": 61,
+    "schedulerYieldSupported": true,
+    "yieldPolicy": "raf-scheduler-yield-raf",
+    "restore": {
+      "snapshotBytes": 37778,
+      "elapsedMilliseconds": 10156,
+      "afterTick": 300,
+      "beforeAudioStarts": 55,
+      "afterAudioStarts": 55,
+      "afterAudioCursor": 28,
+      "afterAudioEventCount": 28,
+      "afterAudioProjectionOffset": 28,
+      "afterAudioCueCount": 0,
+      "restoreLongTaskCount": 0,
+      "replayAssertionsPassed": true,
+      "replayAsserts": [
+        "browser/input-loop continuation bytes",
+        "canonical session bytes",
+        "all projected layers",
+        "E2 bridge bytes",
+        "future audio continuation/cursor/diagnostics"
+      ]
+    },
+    "caps": {
+      "nonInitializationMilliseconds": 50,
+      "initializationMilliseconds": 300,
+      "maxInitializationObservedMilliseconds": 154,
+      "maxDrivenObservedMilliseconds": 0,
+      "maxRestoreObservedMilliseconds": 0,
+      "maxTerminalObservedMilliseconds": 0,
+      "maxRestartObservedMilliseconds": 0,
+      "maxFinalObserverDrainObservedMilliseconds": 0,
+      "maxScreenshotObservedMilliseconds": 0,
+      "maxAllObservedMilliseconds": 154
+    },
+    "terminal": {
+      "tick": 18000,
+      "terminal": true,
+      "crowns": {
+        "north": 2,
+        "south": 3
+      },
+      "towerCount": 6,
+      "overlay": {
+        "height": 428,
+        "width": 520
+      },
+      "audioRendererDisposed": true,
+      "activeVoices": 0,
+      "pendingResources": []
+    },
+    "restart": {
+      "tick": 0,
+      "count": 1,
+      "overlayHidden": true,
+      "terminalOverlay": null,
+      "activeVoices": 0,
+      "layers": {
+        "combat": "0",
+        "effects": "0",
+        "feedback": "0",
+        "hud": "0"
+      }
+    },
+    "errors": {
+      "console": [],
+      "resource": [],
+      "unhandled": [],
+      "pendingResources": [],
+      "serverStderr": "",
+      "serverExited": true,
+      "finalObserverDrainPending": 0,
+      "finalObserverDrainNewTasks": 0
+    },
+    "liveProcess": {
+      "execSession": 52124,
+      "pids": [
+        82577,
+        82600,
+        82606,
+        82607,
+        82608,
+        82609,
+        82615,
+        82621
+      ],
+      "allExited": true,
+      "serverClosed": true
+    }
+  },
+  "verdict": "PASS for the scoped GAME-001GPR round-3 acceptance bar; does not assert 109-card parity or release completion."
+}
