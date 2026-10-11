@@ -1,0 +1,3021 @@
+{
+  "schemaVersion": 1,
+  "purpose": "offline test-only historical comparison inventory; never import, bundle, or publish as a game asset",
+  "pinnedInputs": {
+    "sourceCommit": "6dcf64b81751f69f9fe7520878ac136bda9143ed",
+    "cardsCorpusSha256": "2903e9b3cb759fd6229b0463df4de8b29a5500995a768691fcfc9b5c05ff6b5f",
+    "sourceLedgerSha256": "9d2e56266451a02486f6893d35f37989660d6f9d838be2d953b8e242beff78ee",
+    "runtimeAdmissionSourceGraphSha256": "915d576e45b0a38987ba3bf760b94ef9e8817d31359e9eb597e86be9343c648e",
+    "runtimeAdmissionSourceFileCount": 70,
+    "retained11CardBaseline": {
+      "sha256": "e68bf690793d531c863f14117deace21de595c906ecbc8bf39cc98856cd33c07",
+      "bytes": 61378,
+      "byteIdentical": true
+    },
+    "evidenceFileSha256": {
+      "artifacts/cards-expansion-round-2/reference-normalization.json": "7a9c140f5e0dfbccea101c8579230172b9d3026ea5b058a6645bfac020642228",
+      "tests/cards-basic-flying.test.js": "420718e09c171f1764b6f28cfb835c8cc38cdde2ad5fc59a88337277ff2535ee",
+      "tests/cards-basic-melee.test.js": "3aa3123b8649cc0a7b5df662ed35e222526f051922ff7822b408cdecb2d90d1a",
+      "tests/cards-basic-ranged.test.js": "d25a34a944dd8710d75a4b00d7af9f187c642ebadeeddede9aa93260f179318c",
+      "tests/cards-expansion-round-2.test.js": "66b0ad1d7292afe22f997b4306e46932baa1ec1a0a727e9820ba5024d35285ee",
+      "tests/cards-structure-seeker.test.js": "ca38c6a2b5ff164fa232402cdc7527f7c8135ca9f37c688d5ad6a19d2d463887",
+      "tests/cards-swarms.test.js": "3be33a0bbb5b874cde06525d452648e4ad03694d54f0523ae95a97dcbc3a88ec",
+      "tests/editable-deck.test.js": "2123211ee486348dc9fa7cf37ef1da413d2e9041ea497575105bffee4cbb669d",
+      "tests/game-roster-troops-ordinary.test.js": "a2fdebce627c4a0f53896ce0d0711e4ec499bb864bc5182acb9cde52184c9989"
+    }
+  },
+  "counts": {
+    "historicalRows": 109,
+    "historicalTypes": {
+      "troop": 78,
+      "building": 13,
+      "spell": 18
+    },
+    "editableCurrentIds": 16,
+    "editableCurrentKinds": {
+      "unit": 15,
+      "effect": 1
+    },
+    "currentAdmittedOccurrences": 19,
+    "currentProfileOrEstimateRecords": 16,
+    "unchangedDefaultDeckIds": 8,
+    "retainedBaselineComparators": 11,
+    "additionalTestDeclaredComparator": 1,
+    "totalTestDeclaredComparators": 12,
+    "questionFixtureMentions": 2,
+    "IDsWithoutExactHistoricalIdentityClaim": 4,
+    "sessionCatalog": {
+      "admittedIds": 53,
+      "admittedOccurrences": 58,
+      "units": 37,
+      "unitOccurrences": 39,
+      "structures": 8,
+      "effects": 8
+    },
+    "fullHistoricalCardExecutions": 0,
+    "historicalParityClaims": 0
+  },
+  "interpretation": [
+    "Each historical row is one pinned roster identity. Its unverifiedFields are preserved as QUESTION from the pinned source ledger.",
+    "The 12 comparator candidates are test declarations, not proof of full historical mechanics parity; no historical parity is claimed.",
+    "Cinder Host's Skeleton Army normalization and Ironroot's Pekka matchup source are QUESTION fixtures only; neither fixture proves historical identity or upgrades mechanics confidence.",
+    "Sunthread Pair, Duskwing Trio, and Squall Orb have no exact historical card key asserted by the cited tests.",
+    "Current runtime admission/profile estimates are counted separately from historical execution.",
+    "This offline artifact and generator are outside the runtime and publication source paths."
+  ],
+  "historicalRows": [
+    {
+      "id": 26000000,
+      "key": "knight",
+      "name": "Knight",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": [
+        "mossguard"
+      ]
+    },
+    {
+      "id": 26000001,
+      "key": "archers",
+      "name": "Archers",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000002,
+      "key": "goblins",
+      "name": "Goblins",
+      "type": "troop",
+      "elixirCost": 2,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": [
+        "thornscouts"
+      ]
+    },
+    {
+      "id": 26000003,
+      "key": "giant",
+      "name": "Giant",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": [
+        "stonehauler"
+      ]
+    },
+    {
+      "id": 26000004,
+      "key": "pekka",
+      "name": "P.E.K.K.A",
+      "type": "troop",
+      "elixirCost": 7,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": [
+        "ironroot"
+      ]
+    },
+    {
+      "id": 26000005,
+      "key": "minions",
+      "name": "Minions",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000006,
+      "key": "balloon",
+      "name": "Balloon",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000007,
+      "key": "witch",
+      "name": "Witch",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000008,
+      "key": "barbarians",
+      "name": "Barbarians",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": [
+        "forgeguard"
+      ]
+    },
+    {
+      "id": 26000009,
+      "key": "golem",
+      "name": "Golem",
+      "type": "troop",
+      "elixirCost": 8,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000010,
+      "key": "skeletons",
+      "name": "Skeletons",
+      "type": "troop",
+      "elixirCost": 1,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": [
+        "cinderlings"
+      ]
+    },
+    {
+      "id": 26000011,
+      "key": "valkyrie",
+      "name": "Valkyrie",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count",
+        "area_damage_radius_tiles"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000012,
+      "key": "skeleton-army",
+      "name": "Skeleton Army",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000013,
+      "key": "bomber",
+      "name": "Bomber",
+      "type": "troop",
+      "elixirCost": 2,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000014,
+      "key": "musketeer",
+      "name": "Musketeer",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": [
+        "brassbolt"
+      ]
+    },
+    {
+      "id": 26000015,
+      "key": "baby-dragon",
+      "name": "Baby Dragon",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000016,
+      "key": "prince",
+      "name": "Prince",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000017,
+      "key": "wizard",
+      "name": "Wizard",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000018,
+      "key": "mini-pekka",
+      "name": "Mini P.E.K.K.A",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": [
+        "coilblade"
+      ]
+    },
+    {
+      "id": 26000019,
+      "key": "spear-goblins",
+      "name": "Spear Goblins",
+      "type": "troop",
+      "elixirCost": 2,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000020,
+      "key": "giant-skeleton",
+      "name": "Giant Skeleton",
+      "type": "troop",
+      "elixirCost": 6,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000021,
+      "key": "hog-rider",
+      "name": "Hog Rider",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000022,
+      "key": "minion-horde",
+      "name": "Minion Horde",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000023,
+      "key": "ice-wizard",
+      "name": "Ice Wizard",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000024,
+      "key": "royal-giant",
+      "name": "Royal Giant",
+      "type": "troop",
+      "elixirCost": 6,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000025,
+      "key": "guards",
+      "name": "Guards",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000026,
+      "key": "princess",
+      "name": "Princess",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count",
+        "area_damage_radius_tiles"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000027,
+      "key": "dark-prince",
+      "name": "Dark Prince",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count",
+        "area_damage_radius_tiles"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000028,
+      "key": "three-musketeers",
+      "name": "Three Musketeers",
+      "type": "troop",
+      "elixirCost": 9,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000029,
+      "key": "lava-hound",
+      "name": "Lava Hound",
+      "type": "troop",
+      "elixirCost": 7,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000030,
+      "key": "ice-spirit",
+      "name": "Ice Spirit",
+      "type": "troop",
+      "elixirCost": 1,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000031,
+      "key": "fire-spirit",
+      "name": "Fire Spirit",
+      "type": "troop",
+      "elixirCost": 1,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000032,
+      "key": "miner",
+      "name": "Miner",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000033,
+      "key": "sparky",
+      "name": "Sparky",
+      "type": "troop",
+      "elixirCost": 6,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000034,
+      "key": "bowler",
+      "name": "Bowler",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000035,
+      "key": "lumberjack",
+      "name": "Lumberjack",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000036,
+      "key": "battle-ram",
+      "name": "Battle Ram",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000037,
+      "key": "inferno-dragon",
+      "name": "Inferno Dragon",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000038,
+      "key": "ice-golem",
+      "name": "Ice Golem",
+      "type": "troop",
+      "elixirCost": 2,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000039,
+      "key": "mega-minion",
+      "name": "Mega Minion",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": [
+        "skymaul"
+      ]
+    },
+    {
+      "id": 26000040,
+      "key": "dart-goblin",
+      "name": "Dart Goblin",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": [
+        "reedsting"
+      ]
+    },
+    {
+      "id": 26000041,
+      "key": "goblin-gang",
+      "name": "Goblin Gang",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": [
+        "briar-band"
+      ]
+    },
+    {
+      "id": 26000042,
+      "key": "electro-wizard",
+      "name": "Electro Wizard",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000043,
+      "key": "elite-barbarians",
+      "name": "Elite Barbarians",
+      "type": "troop",
+      "elixirCost": 6,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000044,
+      "key": "hunter",
+      "name": "Hunter",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count",
+        "area_damage_radius_tiles"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000045,
+      "key": "executioner",
+      "name": "Executioner",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000046,
+      "key": "bandit",
+      "name": "Bandit",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000047,
+      "key": "royal-recruits",
+      "name": "Royal Recruits",
+      "type": "troop",
+      "elixirCost": 7,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000048,
+      "key": "night-witch",
+      "name": "Night Witch",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000049,
+      "key": "bats",
+      "name": "Bats",
+      "type": "troop",
+      "elixirCost": 2,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000050,
+      "key": "royal-ghost",
+      "name": "Royal Ghost",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count",
+        "area_damage_radius_tiles"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000051,
+      "key": "ram-rider",
+      "name": "Ram Rider",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000052,
+      "key": "zappies",
+      "name": "Zappies",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000053,
+      "key": "rascals",
+      "name": "Rascals",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000054,
+      "key": "cannon-cart",
+      "name": "Cannon Cart",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000055,
+      "key": "mega-knight",
+      "name": "Mega Knight",
+      "type": "troop",
+      "elixirCost": 7,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count",
+        "area_damage_radius_tiles"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000056,
+      "key": "skeleton-barrel",
+      "name": "Skeleton Barrel",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000057,
+      "key": "flying-machine",
+      "name": "Flying Machine",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": [
+        "copperskiff"
+      ]
+    },
+    {
+      "id": 26000058,
+      "key": "wall-breakers",
+      "name": "Wall Breakers",
+      "type": "troop",
+      "elixirCost": 2,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count",
+        "area_damage_radius_tiles"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000059,
+      "key": "royal-hogs",
+      "name": "Royal Hogs",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000060,
+      "key": "goblin-giant",
+      "name": "Goblin Giant",
+      "type": "troop",
+      "elixirCost": 6,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000061,
+      "key": "fisherman",
+      "name": "Fisherman",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000062,
+      "key": "magic-archer",
+      "name": "Magic Archer",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000063,
+      "key": "electro-dragon",
+      "name": "Electro Dragon",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000064,
+      "key": "firecracker",
+      "name": "Firecracker",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000065,
+      "key": "mighty-miner",
+      "name": "Mighty Miner",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "champion",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000067,
+      "key": "elixir-golem",
+      "name": "Elixir Golem",
+      "type": "troop",
+      "elixirCost": 3,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000068,
+      "key": "battle-healer",
+      "name": "Battle Healer",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000069,
+      "key": "skeleton-king",
+      "name": "Skeleton King",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "champion",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count",
+        "area_damage_radius_tiles"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000072,
+      "key": "archer-queen",
+      "name": "Archer Queen",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "champion",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000074,
+      "key": "golden-knight",
+      "name": "Golden Knight",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "champion",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000077,
+      "key": "monk",
+      "name": "Monk",
+      "type": "troop",
+      "elixirCost": 5,
+      "rarity": "champion",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000080,
+      "key": "skeleton-dragons",
+      "name": "Skeleton Dragons",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000083,
+      "key": "mother-witch",
+      "name": "Mother Witch",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000084,
+      "key": "electro-spirit",
+      "name": "Electro Spirit",
+      "type": "troop",
+      "elixirCost": 1,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000085,
+      "key": "electro-giant",
+      "name": "Electro Giant",
+      "type": "troop",
+      "elixirCost": 7,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 26000087,
+      "key": "phoenix",
+      "name": "Phoenix",
+      "type": "troop",
+      "elixirCost": 4,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 27000000,
+      "key": "cannon",
+      "name": "Cannon",
+      "type": "building",
+      "elixirCost": 3,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 27000001,
+      "key": "goblin-hut",
+      "name": "Goblin Hut",
+      "type": "building",
+      "elixirCost": 5,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "hit_speed_seconds",
+        "deploy_time_seconds",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 27000002,
+      "key": "mortar",
+      "name": "Mortar",
+      "type": "building",
+      "elixirCost": 4,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 27000003,
+      "key": "inferno-tower",
+      "name": "Inferno Tower",
+      "type": "building",
+      "elixirCost": 5,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 27000004,
+      "key": "bomb-tower",
+      "name": "Bomb Tower",
+      "type": "building",
+      "elixirCost": 4,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 27000005,
+      "key": "barbarian-hut",
+      "name": "Barbarian Hut",
+      "type": "building",
+      "elixirCost": 6,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "hit_speed_seconds",
+        "deploy_time_seconds",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 27000006,
+      "key": "tesla",
+      "name": "Tesla",
+      "type": "building",
+      "elixirCost": 4,
+      "rarity": "common",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 27000007,
+      "key": "elixir-collector",
+      "name": "Elixir Collector",
+      "type": "building",
+      "elixirCost": 6,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "deploy_time_seconds",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 27000008,
+      "key": "x-bow",
+      "name": "X-Bow",
+      "type": "building",
+      "elixirCost": 6,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 27000009,
+      "key": "tombstone",
+      "name": "Tombstone",
+      "type": "building",
+      "elixirCost": 3,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "hit_speed_seconds",
+        "deploy_time_seconds",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 27000010,
+      "key": "furnace",
+      "name": "Furnace",
+      "type": "building",
+      "elixirCost": 4,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "hit_speed_seconds",
+        "deploy_time_seconds",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 27000012,
+      "key": "goblin-cage",
+      "name": "Goblin Cage",
+      "type": "building",
+      "elixirCost": 4,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "hit_speed_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 27000013,
+      "key": "goblin-drill",
+      "name": "Goblin Drill",
+      "type": "building",
+      "elixirCost": 4,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "hitpoints",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 28000000,
+      "key": "fireball",
+      "name": "Fireball",
+      "type": "spell",
+      "elixirCost": 4,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 28000001,
+      "key": "arrows",
+      "name": "Arrows",
+      "type": "spell",
+      "elixirCost": 3,
+      "rarity": "common",
+      "unverifiedFields": [
+        "damage",
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 28000002,
+      "key": "rage",
+      "name": "Rage",
+      "type": "spell",
+      "elixirCost": 2,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "damage",
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 28000003,
+      "key": "rocket",
+      "name": "Rocket",
+      "type": "spell",
+      "elixirCost": 6,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "damage",
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 28000004,
+      "key": "goblin-barrel",
+      "name": "Goblin Barrel",
+      "type": "spell",
+      "elixirCost": 3,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 28000005,
+      "key": "freeze",
+      "name": "Freeze",
+      "type": "spell",
+      "elixirCost": 4,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "damage",
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 28000006,
+      "key": "mirror",
+      "name": "Mirror",
+      "type": "spell",
+      "elixirCost": 1,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "targets"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 28000007,
+      "key": "lightning",
+      "name": "Lightning",
+      "type": "spell",
+      "elixirCost": 6,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "damage",
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 28000008,
+      "key": "zap",
+      "name": "Zap",
+      "type": "spell",
+      "elixirCost": 2,
+      "rarity": "common",
+      "unverifiedFields": [
+        "damage",
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 28000009,
+      "key": "poison",
+      "name": "Poison",
+      "type": "spell",
+      "elixirCost": 4,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "damage",
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 28000010,
+      "key": "graveyard",
+      "name": "Graveyard",
+      "type": "spell",
+      "elixirCost": 5,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 28000011,
+      "key": "the-log",
+      "name": "The Log",
+      "type": "spell",
+      "elixirCost": 2,
+      "rarity": "legendary",
+      "unverifiedFields": [
+        "damage",
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 28000012,
+      "key": "tornado",
+      "name": "Tornado",
+      "type": "spell",
+      "elixirCost": 3,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "damage",
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 28000013,
+      "key": "clone",
+      "name": "Clone",
+      "type": "spell",
+      "elixirCost": 3,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 28000014,
+      "key": "earthquake",
+      "name": "Earthquake",
+      "type": "spell",
+      "elixirCost": 3,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "damage",
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 28000015,
+      "key": "barbarian-barrel",
+      "name": "Barbarian Barrel",
+      "type": "spell",
+      "elixirCost": 2,
+      "rarity": "epic",
+      "unverifiedFields": [
+        "damage",
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 28000016,
+      "key": "heal-spirit",
+      "name": "Heal Spirit",
+      "type": "troop",
+      "elixirCost": 1,
+      "rarity": "rare",
+      "unverifiedFields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 28000017,
+      "key": "giant-snowball",
+      "name": "Giant Snowball",
+      "type": "spell",
+      "elixirCost": 2,
+      "rarity": "common",
+      "unverifiedFields": [
+        "damage",
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    },
+    {
+      "id": 28000018,
+      "key": "royal-delivery",
+      "name": "Royal Delivery",
+      "type": "spell",
+      "elixirCost": 3,
+      "rarity": "common",
+      "unverifiedFields": [
+        "damage",
+        "targets",
+        "area_damage_radius_tiles"
+      ],
+      "unverifiedFieldsDisposition": "QUESTION",
+      "fullHistoricalCardExecutionClaimed": false,
+      "declaredCurrentComparatorIds": []
+    }
+  ],
+  "currentEditableCards": [
+    {
+      "id": "coilblade",
+      "displayName": "Coilblade",
+      "kind": "unit",
+      "editableOrder": 0,
+      "defaultDeckOrder": 0,
+      "admission": {
+        "status": "admitted",
+        "occurrenceCount": 1,
+        "occurrenceExports": [
+          "createBasicMeleeCatalog"
+        ]
+      },
+      "currentProfileSupport": "current playable profile or estimate; not historical card execution",
+      "comparison": {
+        "status": "declared-test-comparator",
+        "referenceKey": "mini-pekka",
+        "evidenceMappingLine": 22,
+        "fullParityClaimed": false,
+        "fieldDisposition": "source-unverified fields remain QUESTION"
+      },
+      "evidence": [
+        {
+          "file": "tests/cards-basic-melee.test.js",
+          "line": 141,
+          "test": "basic melee content: field parity is reported with confidence"
+        }
+      ],
+      "fullHistoricalCardExecutionClaimed": false
+    },
+    {
+      "id": "mossguard",
+      "displayName": "Mossguard",
+      "kind": "unit",
+      "editableOrder": 1,
+      "defaultDeckOrder": 1,
+      "admission": {
+        "status": "admitted",
+        "occurrenceCount": 1,
+        "occurrenceExports": [
+          "createBasicMeleeCatalog"
+        ]
+      },
+      "currentProfileSupport": "current playable profile or estimate; not historical card execution",
+      "comparison": {
+        "status": "declared-test-comparator",
+        "referenceKey": "knight",
+        "evidenceMappingLine": 26,
+        "fullParityClaimed": false,
+        "fieldDisposition": "source-unverified fields remain QUESTION"
+      },
+      "evidence": [
+        {
+          "file": "tests/cards-basic-melee.test.js",
+          "line": 141,
+          "test": "basic melee content: field parity is reported with confidence"
+        }
+      ],
+      "fullHistoricalCardExecutionClaimed": false
+    },
+    {
+      "id": "copperskiff",
+      "displayName": "Copperskiff",
+      "kind": "unit",
+      "editableOrder": 2,
+      "defaultDeckOrder": 2,
+      "admission": {
+        "status": "admitted",
+        "occurrenceCount": 1,
+        "occurrenceExports": [
+          "createBasicFlyingCatalog"
+        ]
+      },
+      "currentProfileSupport": "current playable profile or estimate; not historical card execution",
+      "comparison": {
+        "status": "declared-test-comparator",
+        "referenceKey": "flying-machine",
+        "evidenceMappingLine": 26,
+        "fullParityClaimed": false,
+        "fieldDisposition": "source-unverified fields remain QUESTION"
+      },
+      "evidence": [
+        {
+          "file": "tests/cards-basic-flying.test.js",
+          "line": 159,
+          "test": "basic flying content: all mechanics use trusted confidence dispositions"
+        }
+      ],
+      "fullHistoricalCardExecutionClaimed": false
+    },
+    {
+      "id": "skymaul",
+      "displayName": "Skymaul",
+      "kind": "unit",
+      "editableOrder": 3,
+      "defaultDeckOrder": 3,
+      "admission": {
+        "status": "admitted",
+        "occurrenceCount": 1,
+        "occurrenceExports": [
+          "createBasicFlyingCatalog"
+        ]
+      },
+      "currentProfileSupport": "current playable profile or estimate; not historical card execution",
+      "comparison": {
+        "status": "declared-test-comparator",
+        "referenceKey": "mega-minion",
+        "evidenceMappingLine": 25,
+        "fullParityClaimed": false,
+        "fieldDisposition": "source-unverified fields remain QUESTION"
+      },
+      "evidence": [
+        {
+          "file": "tests/cards-basic-flying.test.js",
+          "line": 159,
+          "test": "basic flying content: all mechanics use trusted confidence dispositions"
+        }
+      ],
+      "fullHistoricalCardExecutionClaimed": false
+    },
+    {
+      "id": "brassbolt",
+      "displayName": "Brassbolt",
+      "kind": "unit",
+      "editableOrder": 4,
+      "defaultDeckOrder": 4,
+      "admission": {
+        "status": "admitted",
+        "occurrenceCount": 1,
+        "occurrenceExports": [
+          "createBasicRangedCatalog"
+        ]
+      },
+      "currentProfileSupport": "current playable profile or estimate; not historical card execution",
+      "comparison": {
+        "status": "declared-test-comparator",
+        "referenceKey": "musketeer",
+        "evidenceMappingLine": 23,
+        "fullParityClaimed": false,
+        "fieldDisposition": "source-unverified fields remain QUESTION"
+      },
+      "evidence": [
+        {
+          "file": "tests/cards-basic-ranged.test.js",
+          "line": 155,
+          "test": "basic ranged content: every mechanic is compared with trusted confidence"
+        }
+      ],
+      "fullHistoricalCardExecutionClaimed": false
+    },
+    {
+      "id": "reedsting",
+      "displayName": "Reedsting",
+      "kind": "unit",
+      "editableOrder": 5,
+      "defaultDeckOrder": 5,
+      "admission": {
+        "status": "admitted",
+        "occurrenceCount": 1,
+        "occurrenceExports": [
+          "createBasicRangedCatalog"
+        ]
+      },
+      "currentProfileSupport": "current playable profile or estimate; not historical card execution",
+      "comparison": {
+        "status": "declared-test-comparator",
+        "referenceKey": "dart-goblin",
+        "evidenceMappingLine": 24,
+        "fullParityClaimed": false,
+        "fieldDisposition": "source-unverified fields remain QUESTION"
+      },
+      "evidence": [
+        {
+          "file": "tests/cards-basic-ranged.test.js",
+          "line": 155,
+          "test": "basic ranged content: every mechanic is compared with trusted confidence"
+        }
+      ],
+      "fullHistoricalCardExecutionClaimed": false
+    },
+    {
+      "id": "briar-band",
+      "displayName": "Briar Band",
+      "kind": "unit",
+      "editableOrder": 6,
+      "defaultDeckOrder": 6,
+      "admission": {
+        "status": "admitted",
+        "occurrenceCount": 1,
+        "occurrenceExports": [
+          "createSwarmCatalog"
+        ]
+      },
+      "currentProfileSupport": "current playable profile or estimate; not historical card execution",
+      "comparison": {
+        "status": "declared-test-comparator",
+        "referenceKey": "goblin-gang",
+        "evidenceMappingLine": 23,
+        "fullParityClaimed": false,
+        "fieldDisposition": "source-unverified fields remain QUESTION"
+      },
+      "evidence": [
+        {
+          "file": "tests/cards-swarms.test.js",
+          "line": 295,
+          "test": "squad content: top-level parity reports authority and questions"
+        }
+      ],
+      "fullHistoricalCardExecutionClaimed": false
+    },
+    {
+      "id": "cinderlings",
+      "displayName": "Cinderlings",
+      "kind": "unit",
+      "editableOrder": 7,
+      "defaultDeckOrder": 7,
+      "admission": {
+        "status": "admitted",
+        "occurrenceCount": 1,
+        "occurrenceExports": [
+          "createSwarmCatalog"
+        ]
+      },
+      "currentProfileSupport": "current playable profile or estimate; not historical card execution",
+      "comparison": {
+        "status": "declared-test-comparator",
+        "referenceKey": "skeletons",
+        "evidenceMappingLine": 24,
+        "fullParityClaimed": false,
+        "fieldDisposition": "source-unverified fields remain QUESTION"
+      },
+      "evidence": [
+        {
+          "file": "tests/cards-swarms.test.js",
+          "line": 295,
+          "test": "squad content: top-level parity reports authority and questions"
+        }
+      ],
+      "fullHistoricalCardExecutionClaimed": false
+    },
+    {
+      "id": "stonehauler",
+      "displayName": "Stonehauler",
+      "kind": "unit",
+      "editableOrder": 8,
+      "defaultDeckOrder": null,
+      "admission": {
+        "status": "admitted",
+        "occurrenceCount": 1,
+        "occurrenceExports": [
+          "createStructureSeekerCatalog"
+        ]
+      },
+      "currentProfileSupport": "current playable profile or estimate; not historical card execution",
+      "comparison": {
+        "status": "declared-test-comparator",
+        "referenceKey": "giant",
+        "evidenceMappingLine": 88,
+        "fullParityClaimed": false,
+        "fieldDisposition": "source-unverified fields remain QUESTION"
+      },
+      "evidence": [
+        {
+          "file": "tests/cards-structure-seeker.test.js",
+          "line": 86,
+          "test": "structure seeker content: field parity distinguishes questions"
+        }
+      ],
+      "fullHistoricalCardExecutionClaimed": false
+    },
+    {
+      "id": "thornscouts",
+      "displayName": "Thornscouts",
+      "kind": "unit",
+      "editableOrder": 9,
+      "defaultDeckOrder": null,
+      "admission": {
+        "status": "admitted",
+        "occurrenceCount": 1,
+        "occurrenceExports": [
+          "createSwarmCatalog"
+        ]
+      },
+      "currentProfileSupport": "current playable profile or estimate; not historical card execution",
+      "comparison": {
+        "status": "declared-test-comparator",
+        "referenceKey": "goblins",
+        "evidenceMappingLine": 313,
+        "fullParityClaimed": false,
+        "fieldDisposition": "source-unverified fields remain QUESTION"
+      },
+      "evidence": [
+        {
+          "file": "tests/cards-swarms.test.js",
+          "line": 311,
+          "test": "new squads retain the pinned Goblins and Barbarians mechanics as unverified questions"
+        }
+      ],
+      "fullHistoricalCardExecutionClaimed": false
+    },
+    {
+      "id": "forgeguard",
+      "displayName": "Forgeguard",
+      "kind": "unit",
+      "editableOrder": 10,
+      "defaultDeckOrder": null,
+      "admission": {
+        "status": "admitted",
+        "occurrenceCount": 1,
+        "occurrenceExports": [
+          "createSwarmCatalog"
+        ]
+      },
+      "currentProfileSupport": "current playable profile or estimate; not historical card execution",
+      "comparison": {
+        "status": "declared-test-comparator",
+        "referenceKey": "barbarians",
+        "evidenceMappingLine": 314,
+        "fullParityClaimed": false,
+        "fieldDisposition": "source-unverified fields remain QUESTION"
+      },
+      "evidence": [
+        {
+          "file": "tests/cards-swarms.test.js",
+          "line": 311,
+          "test": "new squads retain the pinned Goblins and Barbarians mechanics as unverified questions"
+        }
+      ],
+      "fullHistoricalCardExecutionClaimed": false
+    },
+    {
+      "id": "cinder-host",
+      "displayName": "Cinder Host",
+      "kind": "unit",
+      "editableOrder": 11,
+      "defaultDeckOrder": null,
+      "admission": {
+        "status": "admitted",
+        "occurrenceCount": 1,
+        "occurrenceExports": [
+          "createSwarmCatalog"
+        ]
+      },
+      "currentProfileSupport": "current playable profile or estimate; not historical card execution",
+      "comparison": {
+        "status": "question-fixture-only",
+        "fixtureReferences": [
+          {
+            "referenceKey": "skeleton-army",
+            "artifact": "artifacts/cards-expansion-round-2/reference-normalization.json",
+            "status": "QUESTION fixture only; not an identity join",
+            "identityJoin": false
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "file": "tests/cards-expansion-round-2.test.js",
+          "line": 60,
+          "test": "round 2: Cinder Host and Ironroot enter an editable deck and trade through GameSession",
+          "scope": "Skeleton Army normalization is a QUESTION fixture, not a one-to-one identity mapping"
+        }
+      ],
+      "fullHistoricalCardExecutionClaimed": false
+    },
+    {
+      "id": "ironroot",
+      "displayName": "Ironroot",
+      "kind": "unit",
+      "editableOrder": 12,
+      "defaultDeckOrder": null,
+      "admission": {
+        "status": "admitted",
+        "occurrenceCount": 1,
+        "occurrenceExports": [
+          "createBasicMeleeCatalog"
+        ]
+      },
+      "currentProfileSupport": "current playable profile or estimate; not historical card execution",
+      "comparison": {
+        "status": "declared-test-comparator",
+        "referenceKey": "pekka",
+        "evidenceMappingLine": 30,
+        "fullParityClaimed": false,
+        "fieldDisposition": "source-unverified fields remain QUESTION",
+        "fixtureReferences": [
+          {
+            "referenceKey": "pekka",
+            "artifact": "artifacts/cards-expansion-round-2/reference-normalization.json",
+            "status": "QUESTION field fixture only; not historical identity proof",
+            "identityJoin": false
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "file": "tests/cards-basic-melee.test.js",
+          "line": 141,
+          "test": "basic melee content: field parity is reported with confidence"
+        },
+        {
+          "file": "tests/cards-expansion-round-2.test.js",
+          "line": 60,
+          "test": "round 2: Cinder Host and Ironroot enter an editable deck and trade through GameSession",
+          "scope": "Pekka is used as a field-questioned matchup fixture, not historical identity proof"
+        }
+      ],
+      "fullHistoricalCardExecutionClaimed": false
+    },
+    {
+      "id": "sunthread-pair",
+      "displayName": "Sunthread Pair",
+      "kind": "unit",
+      "editableOrder": 13,
+      "defaultDeckOrder": null,
+      "admission": {
+        "status": "admitted",
+        "occurrenceCount": 1,
+        "occurrenceExports": [
+          "createOrdinaryProjectileSquadCatalog"
+        ]
+      },
+      "currentProfileSupport": "current playable profile or estimate; not historical card execution",
+      "comparison": {
+        "status": "no-exact-historical-identity-asserted"
+      },
+      "evidence": [
+        {
+          "file": "tests/game-roster-troops-ordinary.test.js",
+          "line": 397,
+          "test": "Sunthread Pair and Duskwing Trio trade sourced air/ground projectiles through in-flight restore",
+          "scope": "current typed source claim and in-flight restore; no historical card key is declared"
+        }
+      ],
+      "fullHistoricalCardExecutionClaimed": false
+    },
+    {
+      "id": "duskwing-trio",
+      "displayName": "Duskwing Trio",
+      "kind": "unit",
+      "editableOrder": 14,
+      "defaultDeckOrder": null,
+      "admission": {
+        "status": "admitted",
+        "occurrenceCount": 1,
+        "occurrenceExports": [
+          "createOrdinaryProjectileSquadCatalog"
+        ]
+      },
+      "currentProfileSupport": "current playable profile or estimate; not historical card execution",
+      "comparison": {
+        "status": "no-exact-historical-identity-asserted"
+      },
+      "evidence": [
+        {
+          "file": "tests/game-roster-troops-ordinary.test.js",
+          "line": 397,
+          "test": "Sunthread Pair and Duskwing Trio trade sourced air/ground projectiles through in-flight restore",
+          "scope": "current typed source claim and in-flight restore; no historical card key is declared"
+        }
+      ],
+      "fullHistoricalCardExecutionClaimed": false
+    },
+    {
+      "id": "squall-orb",
+      "displayName": "Squall Orb",
+      "kind": "effect",
+      "editableOrder": 15,
+      "defaultDeckOrder": null,
+      "admission": {
+        "status": "admitted",
+        "occurrenceCount": 4,
+        "occurrenceExports": [
+          "createInstantSpellCatalog",
+          "createKnockbackSpecialCatalog",
+          "createReturningSpellCatalog",
+          "createTravelingLineSpellCatalog"
+        ]
+      },
+      "currentProfileSupport": "current playable profile or estimate; not historical card execution",
+      "comparison": {
+        "status": "no-exact-historical-identity-asserted"
+      },
+      "evidence": [
+        {
+          "file": "tests/editable-deck.test.js",
+          "line": 125,
+          "test": "editable mixed witness admits one QUESTION-profile Squall Orb with seven troops",
+          "scope": "current effect admission; profile fields remain QUESTION and no historical key is declared"
+        },
+        {
+          "file": "tests/editable-deck.test.js",
+          "line": 153,
+          "test": "editable mixed GameSession casts from center, spends, cycles, and restores pending impact",
+          "scope": "current spell estimate executes through restore; no historical card key is declared"
+        }
+      ],
+      "fullHistoricalCardExecutionClaimed": false
+    }
+  ]
+}
