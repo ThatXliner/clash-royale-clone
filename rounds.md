@@ -1,5 +1,17 @@
 # Gauntlet Rounds
 
+## Round 389 — 2026-10-11
+
+PIECE: GAME-001GPR — Combat art asset delivery, round 2
+
+VERDICT: FAIL
+
+EVIDENCE: Independent immutable `e97dfde5b52635e59b6cb326dee10df9d93388e0` passes sprite units10/10, UI11/12, visual combat2/3, visual manifest6/6 and prefixed source browser1/1: 30/32 scoped tests. UI fixture still searches the old literal atlas URL; the visual contact sheet places entity26 at negative y and correctly fails source bounds validation before art assertions. Actual source browser requests `/packaged/public/assets/briar-runner-painted-sheet.png`, receives200 and decodes1254×1254 with zero request/page/console errors. Independently assembled Pages qualification passes; all53 manifest files match size/hash, totaling8127210 bytes. Qualification does not deploy painted art, so the transformed production sprite path and actual pixels remain unverified. Full18000 is held until valid preflight and production delivery evidence. Independent logs are in the critic archive `/tmp/game-001gpr-round2-critic.JA3kd2/artifacts/game-001gpr-round-2/critic/` pending final production capture and evidence freeze.
+
+BIGGEST GAP: The assembled production game has no actual painted deployment evidence proving the transformed sprite URL stays under the Pages prefix and decodes.
+
+DISPOSITION: Builder-only fixture correction `d109d90` subsequently passes12/12 UI and3/3 visual checks, without source changes or weakened assertions. Production browser check continues independently; these fixture results do not certify the package or full endurance.
+
 ## Round 388 — 2026-10-11
 
 PIECE: CARDS-013 — Full swarm and heavy melee choices, round 2 copy review
