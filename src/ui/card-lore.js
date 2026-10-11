@@ -15,6 +15,8 @@ const CARD_LORE = Object.freeze({
   "squall-orb": "Rivermark glassblowers formed the Squall Orb from stormglass swept downstream after a spring squall. Its copper collar rests on the foundry shelf, where apprentices mark the days they carried its bright shards through the rain.",
   "cinder-host": "Fifteen ember sprouts gathered in the ash beds when the Rivermark kiln first cooled for winter. At dawn, their scorched nutshell caps made a bright trail from the woodpile to the workshop door.",
   ironroot: "The oak beside Emberfall’s old foundry split when an ironstone seam surfaced through its roots. Rivermark smiths bound its crooked trunk with hammered copper and cut a broad blade from the dark seam.",
+  "sunthread-pair": "When emberseed lights began appearing above the Rivermark root bridges, two woodland wardens braided copper thread through their yew bows so travelers could follow each safe trail. At dusk, the Sunthread Pair trade watch from the amber-lit fern paths and send warning arrows toward any lantern lost in the trees.",
+  "duskwing-trio": "Three owl-moths hatched from a reed basket warmed beside an emberseed stove at the Emberfall river workshop. Each twilight they carry the seed’s tiny glow through the fern hollows, guiding Rivermark ferrymakers home above the water.",
 });
 
 export function getCardLore(cardId) {

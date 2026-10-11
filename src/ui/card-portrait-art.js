@@ -13,6 +13,8 @@ const CARD_PORTRAITS = Object.freeze({
   "squall-orb": Object.freeze({ asset: "squall-orb-painted", cell: null }),
   "cinder-host": Object.freeze({ asset: "cinder-host-painted", cell: null }),
   ironroot: Object.freeze({ asset: "ironroot-painted", cell: null }),
+  "sunthread-pair": Object.freeze({ asset: "sunthread-pair-painted", cell: null }),
+  "duskwing-trio": Object.freeze({ asset: "duskwing-trio-painted", cell: null }),
 });
 
 const PORTRAIT_ASSET_PATHS = Object.freeze({
@@ -42,6 +44,14 @@ const PORTRAIT_ASSET_PATHS = Object.freeze({
   ).href,
   "ironroot-painted": new URL(
     "../../public/assets/ironroot-painted.webp",
+    import.meta.url,
+  ).href,
+  "sunthread-pair-painted": new URL(
+    "../../public/assets/sunthread-pair-painted.webp",
+    import.meta.url,
+  ).href,
+  "duskwing-trio-painted": new URL(
+    "../../public/assets/duskwing-trio-painted.webp",
     import.meta.url,
   ).href,
 });

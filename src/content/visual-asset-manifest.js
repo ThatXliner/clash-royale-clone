@@ -367,6 +367,28 @@ const REGISTERED_ASSETS = [
     path: "assets/forgeguard-painted.webp",
     sha256: "cdd98ec4812e602b118645de53238013c75b798cd632363c3ffd1235212cc5ed",
   },
+  {
+    authorship: "in-repo-authored",
+    byteLength: 55344,
+    dimensions: { height: 512, width: 512 },
+    format: "webp",
+    id: "sunthread-pair-painted",
+    kind: "image",
+    license: "AGPL-3.0-only",
+    path: "assets/sunthread-pair-painted.webp",
+    sha256: "96dc16ece8eae4fea3f84644b0efbe1bacec44f85f9e99e958a18303dd48beec",
+  },
+  {
+    authorship: "in-repo-authored",
+    byteLength: 48314,
+    dimensions: { height: 512, width: 512 },
+    format: "webp",
+    id: "duskwing-trio-painted",
+    kind: "image",
+    license: "AGPL-3.0-only",
+    path: "assets/duskwing-trio-painted.webp",
+    sha256: "14c435ea7e5f427c1191cbf3deba2cf90beddb74e65273bad9992d4e54c9cefb",
+  },
 ];
 
 const MANIFEST = freeze({

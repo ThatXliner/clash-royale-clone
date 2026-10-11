@@ -1,0 +1,26 @@
+{
+  "round": "cards-expansion-art-round-3",
+  "status": "portrait and lore assets prepared; real-app visual review pending",
+  "source_inspection": {
+    "tool": "view_image",
+    "source_images_inspected": [
+      "demo/assets/sunthread-pair-painted.png",
+      "demo/assets/duskwing-trio-painted.png"
+    ],
+    "shipped_images_inspected": [
+      "public/assets/sunthread-pair-painted.webp",
+      "public/assets/duskwing-trio-painted.webp"
+    ],
+    "source_dimensions": "1254x1254 each",
+    "shipped_dimensions": "512x512 each"
+  },
+  "shipping_budget": {
+    "combined_bytes": 103658,
+    "budget_bytes": 109000,
+    "within_budget": true
+  },
+  "runtime_review": {
+    "status": "pending",
+    "reason": "Runtime card-core integration is not part of this asset-preparation scope."
+  }
+}
