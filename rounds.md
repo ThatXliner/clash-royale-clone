@@ -1,5 +1,17 @@
 # Gauntlet Rounds
 
+## Round 402 — 2026-10-11
+
+PIECE: RELEASE-PRELOAD-001 — Generated preload helper source provenance, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Actual GitHub Pages Actions [38174293624](https://github.com/ThatXliner/clash-royale-clone/actions/runs/38174293624) on main764e108 passes shipping-isolation guard, then release-build19/20 fails the legacy Chromium manifest audit at tests/release-001b.test.js:268. The release resolver rejects Vite-generated `\0vite/preload-helper.js` as a bare authored dependency. Deployment skipped; no live-public success claimed.
+
+BIGGEST GAP: Distinguish generated helper provenance from authored internal-module impersonation without weakening source boundaries.
+
+DISPOSITION: Narrow builder repair and separate independent critique before deployment retry. Prior RELEASE-TEST001 scoped33/33 receipt remains valid for its tested cases; current publication is held.
+
 ## Round 401 — 2026-10-11
 
 PIECE: RELEASE-TEST-001 — Current production isolation test qualification, round 2
