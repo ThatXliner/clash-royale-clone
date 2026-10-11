@@ -1,0 +1,289 @@
+
+> moss-and-ember@0.0.0 test
+> node scripts/test-portable.js -- node tests/content-schema-runner.js game-browser-endurance
+
+TAP version 13
+# Subtest: game browser endurance: delayed long-task entries retain their measured interval
+ok 1 - game browser endurance: delayed long-task entries retain their measured interval
+  ---
+  duration_ms: 1.957875
+  type: 'test'
+  ...
+# Subtest: game browser endurance: exact GH seed-zero workload yields through Chrome to terminal
+not ok 2 - game browser endurance: exact GH seed-zero workload yields through Chrome to terminal
+  ---
+  duration_ms: 511806.163667
+  type: 'test'
+  location: '/private/tmp/game001gpr-critic.fRaCFu/tests/game-browser-endurance.test.js:491:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+    + [
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    +   'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    + ]
+    - []
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual:
+    0: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    1: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    2: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    3: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    4: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    5: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    6: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    7: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    8: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    9: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    10: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    11: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    12: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    13: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    14: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    15: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    16: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    17: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    18: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    19: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    20: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    21: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    22: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    23: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    24: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    25: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    26: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    27: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    28: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    29: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    30: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    31: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    32: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    33: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    34: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    35: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    36: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    37: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    38: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    39: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    40: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    41: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    42: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    43: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    44: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    45: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    46: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    47: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    48: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    49: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    50: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    51: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    52: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    53: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    54: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    55: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    56: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    57: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    58: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    59: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    60: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    61: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    62: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    63: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    64: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    65: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    66: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    67: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    68: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    69: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    70: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    71: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    72: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    73: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    74: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    75: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    76: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    77: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    78: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    79: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    80: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    81: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    82: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    83: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    84: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    85: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    86: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    87: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    88: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    89: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    90: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    91: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    92: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    93: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    94: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    95: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    96: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    97: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    98: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    99: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    100: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    101: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    102: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    103: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    104: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    105: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    106: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    107: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    108: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    109: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    110: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    111: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    112: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    113: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    114: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    115: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    116: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    117: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    118: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    119: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    120: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+    121: 'Failed to load resource: the server responded with a status of 404 (Not Found)'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/game001gpr-critic.fRaCFu/tests/game-browser-endurance.test.js:1284:12)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 1
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 514027.68825
