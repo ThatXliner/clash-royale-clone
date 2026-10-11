@@ -1,0 +1,27 @@
+{
+  "name": "benign-comment-and-string-import-text",
+  "outcome": "accepted",
+  "artifactFiles": 2,
+  "totalBytes": 2494,
+  "manifestSha256": "4a15e2709b373cef9018cd839ffd9c5f67194a061b86c1cc93124f8514ca3d01",
+  "manifestPath": "benign-comment-and-string-import-text/output/release-manifest.json",
+  "graphKeys": [
+    "public/index.html"
+  ],
+  "emittedPaths": [
+    "assets/public/index-C4zC2S0D.js",
+    "public/index.html"
+  ],
+  "emittedJs": [
+    {
+      "path": "assets/public/index-C4zC2S0D.js",
+      "bytes": 1894,
+      "sha256": "15d09a97eff865a4aea37dbf0487726b42f29fdd4914a643a9d794df90da7b83",
+      "containsReferenceMarker": false,
+      "containsPackageMarker": false,
+      "containsModulepreloadText": true,
+      "initializesVitePolyfill": true,
+      "markerLines": []
+    }
+  ]
+}

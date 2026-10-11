@@ -1,0 +1,78 @@
+
+> moss-and-ember@0.0.0 test:publication-pages
+> node --test tests/publication-pages.test.js
+
+TAP version 13
+# Subtest: Pages build contains the branded landing, approved source assets, and isolated game release
+ok 1 - Pages build contains the branded landing, approved source assets, and isolated game release
+  ---
+  duration_ms: 13724.999834
+  type: 'test'
+  ...
+# Subtest: Pages output refuses protected workspace destinations before writing
+ok 2 - Pages output refuses protected workspace destinations before writing
+  ---
+  duration_ms: 1.073625
+  type: 'test'
+  ...
+# {"method":"GET","path":"/index.html","status":200}
+# {"method":"GET","path":"/game/index.html","status":200}
+# {"method":"GET","path":"/game/public/index.html","status":200}
+# {"method":"GET","path":"/game/src/ui/app-shell.js","status":200}
+# {"method":"GET","path":"/brand/gameplay.png","status":200}
+# {"method":"GET","path":"/LICENSE","status":200}
+# {"method":"GET","path":"/index.html","status":200}
+# {"method":"GET","path":"/game/public/index.html","status":200}
+# {"method":"GET","path":"/game/src/ui/app-shell.js","status":200}
+# {"method":"GET","path":"/game/public/ui-arena-shell.html","status":200}
+# {"method":"GET","path":"/game/assets/game-runtime~public/index~public/ui-arena-shell-D-709RTF.js","status":200}
+# {"method":"GET","path":"/game/assets/rolldown-runtime-Cl99QfTQ.js","status":200}
+# {"method":"GET","path":"/game/src/ui/arena-shell-bootstrap.js","status":200}
+# {"method":"GET","path":"/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CNVraBnB.js","status":200}
+# {"method":"GET","path":"/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-iYK_h2t5.js","status":200}
+# {"method":"GET","path":"/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CIwGPcrD.js","status":200}
+# {"method":"GET","path":"/game/assets/ui-arena-shell-er5XVwGC.css","status":200}
+# {"method":"GET","path":"/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DK5W8P_H.js","status":200}
+# {"method":"GET","path":"/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-Byd1zowG.js","status":200}
+# {"method":"GET","path":"/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-D7wCkcn7.js","status":200}
+# {"method":"GET","path":"/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DZeB2eRE.js","status":200}
+# {"method":"GET","path":"/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CFkTedav.js","status":200}
+# {"method":"GET","path":"/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DrwIrYN0.js","status":200}
+# {"method":"GET","path":"/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-Bdzk4Smn.js","status":200}
+# {"method":"GET","path":"/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-EMl21Pov.js","status":200}
+# {"method":"GET","path":"/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-B4wxgANz.js","status":200}
+# {"method":"GET","path":"/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-7iLLL4Dc.js","status":200}
+# {"method":"GET","path":"/game/assets/game-runtime~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-cVy9QDYW.js","status":200}
+# {"method":"GET","path":"/game/assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-B2w2yQIr.js","status":200}
+# {"method":"GET","path":"/game/assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-DHnpuMmx.js","status":200}
+# {"method":"GET","path":"/game/public/assets/moss-ember-arena-painted.webp","status":200}
+# {"method":"GET","path":"/game/src/ui/arena-shell-entry.js","status":200}
+# {"method":"GET","path":"/game/public/assets/briar-runner-painted-sheet.png","status":200}
+# {"method":"GET","path":"/game/public/assets/briar-runner-painted-sheet.png","status":200}
+# Subtest: local preview serves the landing and playable routes without escaping its artifact
+ok 3 - local preview serves the landing and playable routes without escaping its artifact
+  ---
+  duration_ms: 15166.9025
+  type: 'test'
+  ...
+# Subtest: Pages workflow is manually dispatched and uses the required official deploy actions
+ok 4 - Pages workflow is manually dispatched and uses the required official deploy actions
+  ---
+  duration_ms: 2.424584
+  type: 'test'
+  ...
+# Subtest: portable test wrapper resolves local browser paths and preserves explicit overrides
+ok 5 - portable test wrapper resolves local browser paths and preserves explicit overrides
+  ---
+  duration_ms: 724.624958
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 29760.60125
