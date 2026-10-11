@@ -183,9 +183,10 @@ test("production release builds are byte-identical and pass emitted-byte isolati
   const html = await readFile(join(first, manifest.entrypoints[0]), "utf8");
   const policy = html.match(/http-equiv="Content-Security-Policy" content="([^"]+)"/)?.[1];
   assert.ok(policy, "the emitted entry includes its runtime policy");
-  assert.match(policy, /script-src 'self'/);
-  assert.doesNotMatch(policy, /unsafe-eval/);
-  assert.match(policy, /connect-src 'self'/);
+  const decodedPolicy = policy.replaceAll("&#39;", "'");
+  assert.match(decodedPolicy, /script-src 'self'/);
+  assert.doesNotMatch(decodedPolicy, /unsafe-eval/);
+  assert.match(decodedPolicy, /connect-src 'self'/);
 
   productionEvidence = {
     artifactFiles: audit.fileCount,
@@ -193,44 +194,115 @@ test("production release builds are byte-identical and pass emitted-byte isolati
     manifestSha256: audit.manifestSha256,
     referenceFilesCompared: audit.referenceFileCount,
     totalBytes: audit.totalBytes,
-    csp: policy,
+    csp: decodedPolicy,
   };
   await writeEvidence({ schemaVersion: 1, production: productionEvidence });
 });
 
-test("release builder rejects package exports and emitted protected/reference bytes", async (t) => {
-  const packageImport = await fixture(t, {
-    "public/index.html": '<script type="module" src="./entry.js"></script>',
-    "public/entry.js": 'import "conditional-package";\n',
-    "node_modules/conditional-package/package.json": JSON.stringify({
-      name: "conditional-package",
-      exports: {
-        ".": {
-          browser: "./browser.js",
-          import: "./import.js",
+test("release builder rejects package imports and emitted protected/reference bytes", async (t) => {
+  const packageCases = [
+    { name: "exports-unscoped-root", specifier: "conditional-package" },
+    { name: "exports-scoped-root", specifier: "@moss/conditional-package" },
+    {
+      name: "exports-scoped-subpath",
+      specifier: "@moss/conditional-package/components/widget",
+    },
+  ];
+  for (const { name, specifier } of packageCases) {
+    const packageName = specifier.startsWith("@")
+      ? "@moss/conditional-package"
+      : "conditional-package";
+    const packageRoot = `node_modules/${packageName}`;
+    const packageImport = await fixture(t, {
+      "public/index.html": '<script type="module" src="./entry.js"></script>',
+      "public/entry.js": `import ${JSON.stringify(specifier)};\n`,
+      [`${packageRoot}/package.json`]: JSON.stringify({
+        name: packageName,
+        exports: {
+          ".": {
+            browser: "./browser.js",
+            import: "./import.js",
+          },
+          "./components/widget": {
+            browser: "./widget.browser.js",
+            import: "./widget.import.js",
+          },
         },
-      },
-    }),
-    "node_modules/conditional-package/browser.js": "export const browser = true;\n",
-    "node_modules/conditional-package/import.js": "export const imported = true;\n",
-  }, { name: "exports" });
-  await assert.rejects(buildRelease(packageImport), /bare dependency is not allowed/);
+      }),
+      [`${packageRoot}/browser.js`]: 'globalThis.__conditionalPackage = "browser";\n',
+      [`${packageRoot}/import.js`]: 'globalThis.__conditionalPackage = "import";\n',
+      [`${packageRoot}/widget.browser.js`]: 'globalThis.__conditionalWidget = "browser";\n',
+      [`${packageRoot}/widget.import.js`]: 'globalThis.__conditionalWidget = "import";\n',
+    }, { name });
+    await assert.rejects(
+      buildRelease(packageImport),
+      (error) => error.message.includes(`bare dependency is not allowed: ${specifier}`),
+    );
+  }
+
+  for (const specifier of [
+    "vite/modulepreload-polyfill",
+    "vite:preload-helper",
+    "virtual:release-policy-bypass",
+  ]) {
+    const sourceImport = await fixture(t, {
+      "public/index.html": '<script type="module" src="./entry.js"></script>',
+      "public/entry.js": `import ${JSON.stringify(specifier)};\n`,
+    }, { name: `internal-import-${specifier.replace(/[^a-z0-9]+/giu, "-")}` });
+    await assert.rejects(
+      buildRelease(sourceImport),
+      (error) => error.message.includes(`bare dependency is not allowed: ${specifier}`),
+    );
+  }
+
+  const htmlInternalImport = await fixture(t, {
+    "public/index.html": '<script type="module">import "vite/modulepreload-polyfill";</script>',
+  }, { name: "html-internal-import" });
+  await assert.rejects(buildRelease(htmlInternalImport),
+    /release HTML may not import Vite's internal modulepreload polyfill/);
+
+  const preloadExceptionRoot = await fixture(t, {
+    "public/index.html": '<script type="module" async src="./entry.js"></script>',
+    "public/entry.js": 'globalThis.__releasePreloadException = true;\n',
+  }, { name: "generated-modulepreload-exception" });
+  await buildRelease(preloadExceptionRoot);
+  const preloadManifest = JSON.parse(await readFile(
+    join(preloadExceptionRoot.output, "release-manifest.json"), "utf8",
+  ));
+  assert.ok(preloadManifest.build.graph["public/index.html"],
+    "the release builder permits Vite's generated HTML modulepreload import");
 
   const identityRoot = await fixture(t, {
     "public/index.html": '<script type="module" src="./entry.js"></script>',
-    "public/entry.js": 'export const name = "Knight";\n',
+    "public/entry.js": 'document.title = "Knight";\n',
     "reference/stats/cards.json": JSON.stringify({ cards: [{ key: "knight", name: "Knight" }] }),
   }, { name: "identity" });
   await assert.rejects(buildRelease(identityRoot), /protected benchmark identity/);
 
   const referenceBytes = JSON.stringify({ cards: [{ key: "guard-token-8972", name: "Guard Token" }],
     corpus: "x".repeat(64) });
-  const referenceRoot = await fixture(t, {
+  const embeddedReferenceFiles = {
     "public/index.html": '<script type="module" src="./entry.js"></script>',
-    "public/entry.js": `/*${referenceBytes}*/\nexport const clean = true;\n`,
+    "public/entry.js": "export const clean = true;\n",
+    "public/static/reference.js": `/*${referenceBytes}*/\n`,
+  };
+  const emittedReferenceRoot = await fixture(t, embeddedReferenceFiles, {
+    name: "reference-bytes-emitted",
+    config: { staticAssetRoots: ["public/static"] },
+  });
+  await buildRelease(emittedReferenceRoot);
+  const emittedReferenceBytes = await readFile(
+    join(emittedReferenceRoot.output, "public/static/reference.js"),
+  );
+  assert.ok(emittedReferenceBytes.includes(Buffer.from(referenceBytes)),
+    "the static fixture bytes are emitted unchanged when the reference corpus is absent");
+
+  const referenceRoot = await fixture(t, {
+    ...embeddedReferenceFiles,
     "reference/stats/cards.json": referenceBytes,
-  }, { name: "reference-bytes" });
-  await assert.rejects(buildRelease(referenceRoot), /reference bytes from/);
+  }, { name: "reference-bytes", config: { staticAssetRoots: ["public/static"] } });
+  await assert.rejects(buildRelease(referenceRoot),
+    /reference bytes from reference\/stats\/cards\.json are present in public\/static\/reference\.js/);
 });
 
 test("Chrome serves only manifest paths and records CSP-blocked and failed requests", {
@@ -242,12 +314,28 @@ test("Chrome serves only manifest paths and records CSP-blocked and failed reque
     "installed Chrome is required");
 
   const directory = await mkdtemp(join(tmpdir(), "shipping-release-browser-"));
-  t.after(() => rm(directory, { recursive: true, force: true }));
   const first = join(directory, "production");
+  const servers = [];
+  let browser;
+  const failedRequestRecords = [];
+  const cleanup = async () => {
+    const activeBrowser = browser;
+    browser = undefined;
+    try {
+      if (activeBrowser) await activeBrowser.close();
+    } finally {
+      await Promise.all(servers.splice(0).map((server) => server.close()));
+    }
+  };
+  t.after(async () => {
+    await cleanup();
+    await rm(directory, { recursive: true, force: true });
+  });
   await buildRelease({ output: first });
   const manifest = JSON.parse(await readFile(join(first, "release-manifest.json"), "utf8"));
   const productionPaths = manifest.files.map(({ path }) => path);
   const productionServer = await serveArtifact(first, productionPaths);
+  servers.push(productionServer);
 
   const loaderFixture = await fixture(t, {
     "public/index.html": [
@@ -268,17 +356,19 @@ test("Chrome serves only manifest paths and records CSP-blocked and failed reque
       4, 0, 0, 0, 0, 0, 0, 0,
     ]),
     "public/loader.js": [
-      'const attempts = [];',
-      'function run(label, loader) { try { loader(); attempts.push({ label, result: "ran" }); } catch (error) { attempts.push({ label, result: error.name }); } }',
-      `run("eval", () => globalThis["ev" + "al"]("fetch('/__from_eval__')"));`,
-      `run("Function", () => new globalThis["Func" + "tion"]("fetch('/__from_function__')")());`,
-      `run("aliased Function", () => { const factory = (() => {}).constructor; factory("fetch('/__from_alias__')")(); });`,
-      'fetch("https://release-off-manifest.invalid/__release_unmanifested_fetch__").catch(() => {});',
-      'const offOriginFrame = document.createElement("iframe");',
-      'offOriginFrame.src = "https://release-off-manifest.invalid/__release_unmanifested_frame__";',
-      'document.body.appendChild(offOriginFrame);',
-      'document.querySelector("#asset-audio").load();',
-      'globalThis.__releaseLoaderAttempts = attempts;',
+      'globalThis.__releaseLoaderAttempts = [];',
+      'if (new URL(location.href).searchParams.get("probe") === "hostile") {',
+      '  const attempts = [];',
+      '  function run(label, loader) { try { loader(); attempts.push({ label, result: "ran" }); } catch (error) { attempts.push({ label, result: error.name }); } }',
+      `  run("eval", () => globalThis["ev" + "al"]("fetch('/__from_eval__')"));`,
+      `  run("Function", () => new globalThis["Func" + "tion"]("fetch('/__from_function__')")());`,
+      `  run("aliased Function", () => { const factory = (() => {}).constructor; factory("fetch('/__from_alias__')")(); });`,
+      '  fetch("https://release-off-manifest.invalid/__release_unmanifested_fetch__").catch(() => {});',
+      '  const offOriginFrame = document.createElement("iframe");',
+      '  offOriginFrame.src = "https://release-off-manifest.invalid/__release_unmanifested_frame__";',
+      '  document.body.appendChild(offOriginFrame);',
+      '  globalThis.__releaseLoaderAttempts = attempts;',
+      '}',
     ].join("\n"),
   }, { name: "reflective-loaders" });
   const hostileArtifact = join(directory, "hostile");
@@ -286,9 +376,10 @@ test("Chrome serves only manifest paths and records CSP-blocked and failed reque
   const hostileManifest = JSON.parse(await readFile(join(hostileArtifact, "release-manifest.json"), "utf8"));
   const hostilePaths = hostileManifest.files.map(({ path }) => path);
   const hostileServer = await serveArtifact(hostileArtifact, hostilePaths);
+  servers.push(hostileServer);
 
   const { chromium } = await import(PLAYWRIGHT);
-  const browser = await chromium.launch({ executablePath: CHROME, headless: true });
+  browser = await chromium.launch({ executablePath: CHROME, headless: true });
   const requestRecords = [];
   let hostileViolations = [];
   let hostileFetchCalls = [];
@@ -338,20 +429,20 @@ test("Chrome serves only manifest paths and records CSP-blocked and failed reque
     assert.doesNotMatch(productionState.policy, /unsafe-eval/);
 
     const failedPage = await browser.newPage();
-    await watchPage(failedPage, requestRecords);
+    await watchPage(failedPage, failedRequestRecords);
     await failedPage.route("**/src/ui/arena-shell.css", (route) => route.abort("failed"));
     await assert.rejects(
       failedPage.goto(`${productionServer.baseUrl}/src/ui/arena-shell.css`),
       /net::ERR_FAILED/,
     );
-    failedProbe = requestRecords.find(({ path, failure }) =>
+    failedProbe = failedRequestRecords.find(({ path, failure }) =>
       path === "/src/ui/arena-shell.css" && failure !== null);
     assert.ok(failedProbe, "Chrome request and requestfailed events include the failed in-manifest request");
 
     const hostilePage = await browser.newPage();
     const hostileRequests = [];
     await watchPage(hostilePage, hostileRequests);
-    const hostileResponse = await hostilePage.goto(`${hostileServer.baseUrl}/public/index.html`, {
+    const hostileResponse = await hostilePage.goto(`${hostileServer.baseUrl}/public/index.html?probe=hostile`, {
       waitUntil: "load",
     });
     assert.equal(hostileResponse.status(), 200);
@@ -410,9 +501,19 @@ test("Chrome serves only manifest paths and records CSP-blocked and failed reque
       "normal production asset requests all came from the manifest and succeeded");
     assert.equal(hostileServer.requests.some(({ status }) => status !== 200), false,
     "hostile fixture manifest asset requests all succeeded");
-    for (const path of ["public/probe.css", "public/pixel.svg", "public/surface.svg", "public/quiet.wav"])
-      assert.ok(hostileServer.requests.some((request) => request.path === path),
-        `Chrome loaded the manifest-listed ${path.split(".").at(-1)} asset`);
+    const hostileAssetPaths = hostilePaths.filter((path) =>
+      [".css", ".svg", ".wav"].includes(extname(path).toLowerCase()));
+    for (const extension of [".css", ".wav"]) {
+      const emittedAsset = hostileAssetPaths.find((path) => extname(path).toLowerCase() === extension);
+      assert.ok(emittedAsset, `the manifest contains an emitted ${extension} asset`);
+      assert.ok(hostileServer.requests.some((request) => request.path === emittedAsset),
+        `Chrome loaded the manifest-listed ${extension} asset at ${emittedAsset}`);
+    }
+    const emittedSvgPaths = hostileAssetPaths.filter((path) => extname(path).toLowerCase() === ".svg");
+    assert.equal(emittedSvgPaths.length, 2, "the manifest lists both fixture SVG assets");
+    for (const emittedAsset of emittedSvgPaths)
+      assert.ok(hostileServer.requests.some((request) => request.path === emittedAsset),
+        `Chrome loaded the manifest-listed SVG asset at ${emittedAsset}`);
 
     serverRecords = [
       ...productionServer.requests.map((entry) => ({ artifact: "production", ...entry })),
@@ -426,11 +527,12 @@ test("Chrome serves only manifest paths and records CSP-blocked and failed reque
       schemaVersion: 1,
       production: {
         ...productionEvidence,
-        normalRequestCount: requestRecords.length - 1,
+        normalRequestCount: requestRecords.length,
       },
       browser: {
         attemptedRequests: [
           ...requestRecords,
+          ...failedRequestRecords,
           ...hostileRequests,
           {
             failure: "blocked by CSP before network dispatch",
@@ -457,7 +559,6 @@ test("Chrome serves only manifest paths and records CSP-blocked and failed reque
       },
     });
   } finally {
-    await browser.close();
-    await Promise.all([productionServer.close(), hostileServer.close()]);
+    await cleanup();
   }
 });
