@@ -1,0 +1,9 @@
+Tampered output: cinder-host QUESTION fixture promoted to skeleton-army comparator
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: generated inventory differs; inspect pinned input drift before updating
++ actual - expected
+... Skipped lines
+Exit status: 1 (expected nonzero due output byte mismatch)

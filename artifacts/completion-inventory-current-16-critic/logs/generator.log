@@ -1,0 +1,18 @@
+Clean archive: /tmp/coverage002-critic.kcwIrn
+Source input: 6dcf64b81751f69f9fe7520878ac136bda9143ed
+Artifact files copied from: 20f2e8abed1cb5fffab767fac138fb4ab941644f (README.md, generate.mjs, card-coverage-109-current-16.json only)
+
+$ node artifacts/completion-inventory-current-16/generate.mjs --check --self-test
+self-check passed: duplicate/missing 109 rows, duplicate/missing/drifted 16 IDs, unsupported join, and pinned-source drift guard
+check passed: 109 rows, 16 editable IDs, frozen 6dcf64b81751f69f9fe7520878ac136bda9143ed
+
+$ sha256sum artifacts/completion-inventory-current-16/card-coverage-109-current-16.json
+674aa6320a79ae452f854e2bcc6e40fe4a504b3963cddb28815e876ef206118b  artifacts/completion-inventory-current-16/card-coverage-109-current-16.json
+$ node artifacts/completion-inventory-current-16/generate.mjs --write
+wrote artifacts/completion-inventory-current-16/card-coverage-109-current-16.json
+$ sha256sum artifacts/completion-inventory-current-16/card-coverage-109-current-16.json
+674aa6320a79ae452f854e2bcc6e40fe4a504b3963cddb28815e876ef206118b  artifacts/completion-inventory-current-16/card-coverage-109-current-16.json
+$ node artifacts/completion-inventory-current-16/generate.mjs --check
+check passed: 109 rows, 16 editable IDs, frozen 6dcf64b81751f69f9fe7520878ac136bda9143ed
+$ sha256sum artifacts/completion-inventory-current-16/card-coverage-109-current-16.json
+674aa6320a79ae452f854e2bcc6e40fe4a504b3963cddb28815e876ef206118b  artifacts/completion-inventory-current-16/card-coverage-109-current-16.json

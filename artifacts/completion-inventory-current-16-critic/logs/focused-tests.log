@@ -1,0 +1,14 @@
+Command: node --test tests/cards-basic-melee.test.js tests/cards-basic-flying.test.js tests/cards-basic-ranged.test.js tests/cards-swarms.test.js tests/cards-structure-seeker.test.js
+Source: clean archive at 6dcf64b81751f69f9fe7520878ac136bda9143ed
+
+1..67
+# tests 67
+# suites 0
+# pass 67
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3357.397292
+
+Representative emitted parity diagnostic from the run: Copperskiff cost was a `match` with provenance confidence `authoritative`; its hitpoints were a `question-backed-match` with provenance confidence `unverified`. The latter correctly follows the pinned `unverified_fields` list.
