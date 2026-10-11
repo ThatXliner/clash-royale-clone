@@ -14,9 +14,9 @@ outside the current source.
 | Measure | Current state | What it proves |
 | --- | --- | --- |
 | Historical roster | 109 identities: 78 troops, 13 buildings, 18 spells | Size of the pre-Evolutions comparison target, not implemented coverage |
-| Editable collection | 14 identities: 13 troops and Squall Orb; the default deck remains 8 cards | Deck admission and selection. It does not mean every card has complete historical behavior |
-| Session card catalog | 51 admitted identities and 56 admitted source occurrences: 35 troop identities across 37 troop occurrences, 8 structures, and 8 effects | Typed identity admission and source routing, not complete gameplay for every identity |
-| Historical comparison mapping | The test-only [card-coverage-109.json](../artifacts/completion-inventory/reference/card-coverage-109.json) remains the 11-mapping `42bcf09` baseline | Historical mapping evidence only; it has not been refreshed for the current 14-card collection |
+| Editable collection | 16 admitted identities: 15 troops and Squall Orb; the default deck remains 8 cards; independent review of the latest two troops is pending | Deck admission and selection. It does not mean every card has complete historical behavior |
+| Session card catalog | 53 admitted identities and 58 admitted source occurrences: 37 troop identities across 39 troop occurrences, 8 structures, and 8 effects | Typed identity admission and source routing, not complete gameplay for every identity |
+| Historical comparison mapping | The test-only [card-coverage-109.json](../artifacts/completion-inventory/reference/card-coverage-109.json) remains the 11-mapping `42bcf09` baseline | Historical mapping evidence only; it has not been refreshed for the current 16-card admitted collection |
 
 The comparison artifact contains historical card names and keys. Keep it out of
 runtime imports, release builds, and the Pages site. The confidence ledger in
@@ -32,7 +32,7 @@ deterministic match against the computer. Actual browser evidence covers
 supported selection, deployment, spending, hand cycling, restore, terminal,
 and restart journeys. These journeys do not establish full roster parity.
 
-The current editable collection includes 13 troops and one narrow Squall Orb
+The current editable collection admits 15 troops and one narrow Squall Orb
 radius profile. `GAME-SPELL-001` passed its scoped 48/48 review: the shared
 session and browser path support a center-targeted radius cast, damage, spend
 and cycle, pending impact, and exact restore. The profile uses a 2.5-tile
@@ -50,9 +50,13 @@ state the implemented classification consistently while retaining provisional
 source wording. This does not establish complete historical behavior. Evidence: [core review](../artifacts/cards-expansion-round-2/critic/verdict.md)
 and [browser review](../artifacts/cards-expansion-round-2/critic-browser/verdict.md).
 
-Sunthread Pair and Duskwing Trio have original painted portraits and provenance
-records, but neither is admitted to the current card or deck runtime. Their
-art does not count as playable coverage.
+Sunthread Pair and Duskwing Trio are admitted to the editable runtime in
+`9b5afa1`, with original painted portraits and provenance. Builder checks
+cover squad deployment, projectile contact, natural AI selection, RL actions
+and exact custom-deck restore. Independent core and actual desktop/phone
+review remain pending. Projectile-speed conversion and the inferred air layer
+remain QUESTION policies; admission and prepared art do not establish full
+historical behavior.
 
 The RL wrapper uses the real match session and accepts an editable deck. Its
 action set is wait plus tile-center choices for four hand slots; effect cards
@@ -88,7 +92,7 @@ and its visible QUESTION status. Fix the live sprite URL and rerun complete
 qualification with no missing resources. Keep the existing 11-mapping artifact
 as a historical baseline; any current mapping should be recorded as a new,
 versioned artifact with explicit evidence instead of treating that baseline as
-the current 14-card coverage.
+the current 16-card admission coverage.
 
 ## Release evidence bar
 
