@@ -10,7 +10,7 @@ EVIDENCE: Independent immutable `e97dfde5b52635e59b6cb326dee10df9d93388e0` passe
 
 BIGGEST GAP: The assembled production game has no actual painted deployment evidence proving the transformed sprite URL stays under the Pages prefix and decodes.
 
-DISPOSITION: Builder-only fixture correction `d109d90` subsequently passes12/12 UI and3/3 visual checks, without source changes or weakened assertions. Production browser check continues independently; these fixture results do not certify the package or full endurance.
+DISPOSITION: Builder-only fixture correction `d109d90` subsequently passes12/12 UI and3/3 visual checks, without source changes or weakened assertions. A subsequent independent actual production probe of the same immutable e97 Pages artifact deploys Briar Band through the real shell/controller: six painted entities at tick120, atlas HTTP200 at `/clash-royale-clone/game/assets/briar-runner-painted-sheet-GjQaSmoe.png`, decoded1254×1254, 987565 bytes, nonzero opaque/colored pixels in both team frame crops, and zero browser/page/console/request errors. The suspected transformed path escape is disproved by runtime evidence. Receipt: `artifacts/game-001gpr-round-2/critic/pages-painted-sprite-production.json`. Frozen preflight remains30/32 FAIL; a fresh combined candidate still needs independent valid preflight and full18000 endurance.
 
 ## Round 388 — 2026-10-11
 
