@@ -39,12 +39,17 @@ const EXPECTED_ATLAS_CARD_CELLS = Object.freeze([
   Object.freeze(["briar-band", "6"]),
   Object.freeze(["cinderlings", "7"]),
 ]);
+const EXPECTED_DEFAULT_ROSTER_IDS = Object.freeze(
+  EXPECTED_ATLAS_CARD_CELLS.map(([id]) => id),
+);
 const EXPECTED_INDIVIDUAL_PORTRAIT_IDS = Object.freeze([
   "stonehauler",
   "thornscouts",
   "forgeguard",
   "cinder-host",
   "ironroot",
+  "sunthread-pair",
+  "duskwing-trio",
   "squall-orb",
 ]);
 const EXPECTED_CARD_PORTRAIT_CELLS = Object.freeze([
@@ -52,7 +57,7 @@ const EXPECTED_CARD_PORTRAIT_CELLS = Object.freeze([
   ...EXPECTED_INDIVIDUAL_PORTRAIT_IDS.map((id) => Object.freeze([id, null])),
 ]);
 const EXPECTED_COLLECTION_IDS = Object.freeze([
-  ...PLAYABLE_CARD_IDS,
+  ...EXPECTED_DEFAULT_ROSTER_IDS,
   ...EXPECTED_INDIVIDUAL_PORTRAIT_IDS,
 ]);
 const EXPECTED_COLLECTION_COUNT = EXPECTED_COLLECTION_IDS.length;
@@ -253,8 +258,12 @@ test("player shell renders roster-derived cards and launches a paused shared bat
   });
 
   try {
+    assert.equal(EXPECTED_DEFAULT_ROSTER_IDS.length, 8,
+      "the independently expected default roster remains exactly eight cards");
+    assert.deepEqual(PLAYABLE_CARD_IDS, EXPECTED_DEFAULT_ROSTER_IDS,
+      "the source playable roster matches the independently expected default eight");
     assert.deepEqual(EDITABLE_DECK_CARD_IDS,
-      [...PLAYABLE_CARD_IDS, ...EXPECTED_INDIVIDUAL_PORTRAIT_IDS.slice(0, -1)],
+      [...EXPECTED_DEFAULT_ROSTER_IDS, ...EXPECTED_INDIVIDUAL_PORTRAIT_IDS.slice(0, -1)],
     "the independently expected troop collection contains the completed source roster");
     assert.deepEqual(EDITABLE_MIXED_DECK_CARD_IDS, EXPECTED_COLLECTION_IDS,
       "the editable mixed collection adds the original Squall Orb portrait");
@@ -280,7 +289,7 @@ test("player shell renders roster-derived cards and launches a paused shared bat
 
     for (const card of [...createPlayableRoster(),
       ...EDITABLE_MIXED_DECK_CARD_IDS
-        .filter((id) => !PLAYABLE_CARD_IDS.includes(id) && id !== "squall-orb")
+        .filter((id) => !EXPECTED_DEFAULT_ROSTER_IDS.includes(id) && id !== "squall-orb")
         .map((id) => projectSessionTroopBattleCard(id)),
       projectSessionNonUnitBattleCard("squall-orb")]) {
       const cardButton = page.locator(`[data-card-grid] [data-card-id="${card.id}"]`);
@@ -379,6 +388,8 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       ["forgeguard", "public/assets/forgeguard-painted.webp"],
       ["cinder-host", "public/assets/cinder-host-painted.webp"],
       ["ironroot", "public/assets/ironroot-painted.webp"],
+      ["sunthread-pair", "public/assets/sunthread-pair-painted.webp"],
+      ["duskwing-trio", "public/assets/duskwing-trio-painted.webp"],
       ["squall-orb", "public/assets/squall-orb-painted.webp"],
     ].map(([id, path]) => [id, manifest.files.find((file) => file.path === path)]));
     assert.ok(manifestAtlasSource && [...directPortraits.values()].every(Boolean),
