@@ -28,7 +28,7 @@
   <div class="cards">
     <div class="card"><div class="num">221</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">172</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">392</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">393</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">27</div><div class="label">open questions</div></div>
   </div>
   <p class="note">Active target: <strong>ART-004 — Original deterministic 2D sprite prototype</strong>.</p>
@@ -1777,9 +1777,9 @@
         <td><code>ART-016P</code></td>
         <td>Original air-swarm portrait assets and lore</td>
         <td class="state-building">BUILDING</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Original portraits/lore/provenance candidate5acec5b is committed; builder art2/2 and manifest6/6 pass. Separate art016_asset_critic inspects actual512/256/64 pixels and hashes. Final real editable phone/desktop screens remain separately ART016.</td>
+        <td>8/8</td>
+        <td>1</td>
+        <td>Independent5ace asset tests8/8/provenance/reencoding/atlas pass, but FAIL: six Coppershade birds are not reliably distinct at native64px despite clear512/256px. Original builder round2 revises Coppershade silhouette/spacing; Gloamwing and atlas preserved. Full app screen gate remains ART016.</td>
       </tr>
       <tr>
         <td><code>ART-016</code></td>
@@ -1810,6 +1810,7 @@
   </div>
   <h2>Round trajectory</h2>
   <ol>
+      <li><strong>R400 FAIL</strong> · ART-016P — Original air-swarm portrait assets and lore, round 1<br>Give Coppershade six distinct silhouettes at native64px thumbnail size.</li>
       <li><strong>R399 FAIL</strong> · CARDS-016K — Two additional classic air-swarm runtime roles, round 1<br>Runtime witness must preserve explicit low-confidence HP/damage/cadence/first-hit/deploy/range/sight/speed/targets/count QUESTIONS for both swarms.</li>
       <li><strong>R398 FAIL</strong> · RELEASE-TEST-001 — Current production isolation test qualification, round 1<br>Check every resolved authored source edge before tree-shaking, including export-from edges, so protected reference/package inputs and authored Vite internals cannot enter the source graph.</li>
       <li><strong>R397 PASS</strong> · COVERAGE-002 — Versioned current historical roster mapping, round 2<br>Zero of109 historical cards has full historical execution coverage; this PASS establishes frozen mapping and packaging only, not card parity or release completion.</li>

@@ -1,5 +1,17 @@
 # Gauntlet Rounds
 
+## Round 400 — 2026-10-11
+
+PIECE: ART-016P — Original air-swarm portrait assets and lore, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Independent clean5acec5b portrait/provenance2/2 and manifest6/6 pass. Actual512/256px portraits are readable/countable; native64px Coppershade flock does not reliably separate six birds. Five Gloamwing forms remain more distinguishable. Full source/output hashes and cwebp1.6.0 byte-identical reencoding pass, original1774x887 atlas unchanged. Actual native-scale contact sheet, tests and verdict in `artifacts/cards-expansion-round-4/art-asset-critic/`, commits8915aa4/8dae8f4. No public editable screen claim or live handles.
+
+BIGGEST GAP: Give Coppershade six distinct silhouettes at native64px thumbnail size.
+
+DISPOSITION: Original art builder revises only Coppershade composition in round2, preserving Gloamwing and default atlas. Separate public phone/desktop ART016 gate remains required after CARDS016I.
+
 ## Round 399 — 2026-10-11
 
 PIECE: CARDS-016K — Two additional classic air-swarm runtime roles, round 1
