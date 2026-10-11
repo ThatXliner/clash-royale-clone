@@ -499,6 +499,51 @@ test("authored modules cannot impersonate Vite's virtual preload helper", async 
   }
 });
 
+test("Vite preload helpers remain available for authored inline dynamic imports", {
+  timeout: 60_000,
+}, async (t) => {
+  const fixture = await createFixture(t, {
+    "public/index.html": [
+      "<!doctype html><html><head><meta charset=\"utf-8\"></head><body>",
+      "<script type=\"module\">",
+      'const literal = await import("./literal-module.js");',
+      'const template = await import(`./template-module.js`);',
+      'document.documentElement.dataset.inlineDynamicStatus = `${literal.status}:${template.status}`;',
+      "</script>",
+      "</body></html>",
+    ].join("\n"),
+    "public/literal-module.js": 'export const status = "literal-loaded";\n',
+    "public/template-module.js": 'export const status = "template-loaded";\n',
+  });
+  const built = await buildRelease(fixture);
+  const manifest = JSON.parse(await readFile(join(fixture.output, "release-manifest.json"), "utf8"));
+  assert.equal(manifest.fileCount, built.fileCount);
+
+  const browser = await launchReleaseChromium();
+  t.after(() => browser.close());
+  const context = await browser.newContext({ serviceWorkers: "block" });
+  t.after(() => context.close());
+  const host = await startManifestHost(fixture.output);
+  t.after(() => host.close());
+  const page = await context.newPage();
+  const requests = recordBrowserRequests(context);
+  const errors = [];
+  page.on("console", (message) => { if (message.type() === "error") errors.push(message.text()); });
+  page.on("pageerror", (error) => errors.push(String(error)));
+  const response = await page.goto(`${host.baseUrl}/public/index.html`, { waitUntil: "load" });
+  assert.equal(response.status(), 200);
+  await page.waitForLoadState("networkidle");
+  await page.waitForFunction(() =>
+    document.documentElement.dataset.inlineDynamicStatus === "literal-loaded:template-loaded",
+  null, { timeout: 5_000 });
+  assert.deepEqual(errors, []);
+
+  const audited = assertManifestRequests(requests, { baseUrl: host.baseUrl, manifest });
+  const actualPaths = new Set(audited.map(({ path }) => path));
+  assert.ok(sourceAssetWasRequested(actualPaths, "literal-module.js"));
+  assert.ok(sourceAssetWasRequested(actualPaths, "template-module.js"));
+});
+
 test("CSS-escaped URL dependencies are rejected before publishing", { timeout: 60_000 }, async (t) => {
   const fixture = await createFixture(t, {
     "public/index.html": [
