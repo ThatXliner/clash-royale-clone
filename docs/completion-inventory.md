@@ -45,9 +45,9 @@ Cinder Host and Ironroot have a separate core review with 85/85 checks passing
 for their ordinary swarm and heavy-melee encounter. Their unverified source
 fields remain explicit QUESTIONs. The browser critic then found that the
 visible card summary stated ground/melee facts while the same card detail
-marked those fields unknown. The copy correction is in round 2 review, so
-these cards are selectable and executable but not yet accepted at the
-selectable-release bar. Evidence: [core review](../artifacts/cards-expansion-round-2/critic/verdict.md)
+marked those fields unknown. The scoped round 2 copy review now passes: actual desktop and phone profiles
+state the implemented classification consistently while retaining provisional
+source wording. This does not establish complete historical behavior. Evidence: [core review](../artifacts/cards-expansion-round-2/critic/verdict.md)
 and [browser review](../artifacts/cards-expansion-round-2/critic-browser/verdict.md).
 
 Sunthread Pair and Duskwing Trio have original painted portraits and provenance
@@ -77,15 +77,15 @@ a substitute for their completion.
 | Complete card execution | Open. Current evidence covers specific profiles and encounters; it does not cover all card abilities and interactions through shared `GameSession` against the opponent. |
 | Deck and browser journey | Open. Current browser evidence proves supported routes, but release qualification requires the full supported collection and complete deterministic match, restore, and restart journeys on the exact staged artifact. |
 | AI and RL | Open. The wrapper shares the current deck and spell route, but complete action and observation support for every released card is not established. |
-| Strict full-match endurance | Failed at frozen source `46c08c9`. The current run stopped after 600 ticks because restore from tick 600 to 300 took 51 ms against the unchanged 50 ms cap; terminal and restart were not reached. A historical 18,000-tick pass remains evidence for its earlier source revision only. See the [strict run record](../artifacts/release-guard-round-1/critic/endurance/current/endurance-result.json). |
+| Strict full-match endurance | Failed at frozen source `9e667a1`. The full run reaches tick 18000 and verifies exact restore, terminal and restart under the unchanged caps, but fails its final console assertion on 122 painted-sprite 404 errors. Earlier timing failures and historical passing runs remain evidence for their respective revisions only. See the [strict run record](../artifacts/release-guard-round-1/critic/endurance/current/endurance-result.json). |
 | Public hosting | Not verified as published. The repository's Pages workflow is manual; a maintainer must enable Pages and run it, then verify the live URLs as described in [publishing.md](publishing.md). |
 
 ## Next implementation work
 
 First resolve the current endurance restore overrun, then rerun the unchanged
-18,000-tick browser journey through terminal and restart. Complete the Cinder
-Host and Ironroot copy correction with the independent browser review while
-preserving the visible QUESTION status. Keep the existing 11-mapping artifact
+18,000-tick browser journey through terminal and restart. Preserve the independently verified Cinder Host and Ironroot copy correction
+and its visible QUESTION status. Fix the live sprite URL and rerun complete
+qualification with no missing resources. Keep the existing 11-mapping artifact
 as a historical baseline; any current mapping should be recorded as a new,
 versioned artifact with explicit evidence instead of treating that baseline as
 the current 14-card coverage.

@@ -1,5 +1,17 @@
 # Gauntlet Rounds
 
+## Round 388 — 2026-10-11
+
+PIECE: CARDS-013 — Full swarm and heavy melee choices, round 2 copy review
+
+VERDICT: PASS
+
+EVIDENCE: Independent frozen `ce3beba` app-shell Chrome suite passes 1/1. Targeted renders inspect Cinder Host and Ironroot at desktop 1440×933 and phone 390×844. A corrected fresh Cinder Host viewport capture places the actual detail panel at x=12, y=83, width=366, height=534.6, entirely onscreen. Both summary and statistics state the same implemented ground/melee/ground-target classification with provisional historical wording; both original portraits decode at 512×512, lore is present, and the default deck remains eight cards. The earlier offscreen full-page phone capture is not used as proof of visible detail. Evidence-only commit `3f5b89c`, `artifacts/cards-expansion-round-2/copy-critic/`. Combined acceptance retains the earlier 85/85 core evidence and this one passing browser review.
+
+BIGGEST GAP: None on the scoped two-card classification bar. A separate global notice still says “eleven-card collection” beside fourteen visible cards; its correction is included in the next roster/UI batch.
+
+DISPOSITION: This closes the scoped card-info contradiction, not full historical parity, sprite/endurance qualification or release completion.
+
 ## Round 387 — 2026-10-11
 
 PIECE: GAME-001GPR — Restore transaction throughput, round 1
