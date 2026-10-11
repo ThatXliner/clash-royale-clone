@@ -1,5 +1,27 @@
 # Gauntlet Rounds
 
+## Round 393 — 2026-10-11
+
+PIECE: ART-015 — Original ranged-pair and flying-trio portraits, round 2
+
+VERDICT: PASS
+
+EVIDENCE: Independent frozen6dcf64b actual app-shell test passes1/1 in59.26s. All16 portrait mappings decode; both Sunthread Pair and Duskwing Trio show original portraits/lore/seven stats at1440×933 and390×844. Phone portrait64×64, panels right378/bottom653 and622, document390px, visible44px back control and navigation y777–844, title focus and unique IDs. Original source/output hashes match provenance. Chrome87176/server87173 exited. Evidence5bb0c6f, `artifacts/cards-expansion-round-3/portrait-critic/`.
+
+BIGGEST GAP: None on the scoped original portrait/details dimension; historical calibration remains QUESTION.
+
+## Round 392 — 2026-10-11
+
+PIECE: GAME-001GPR — Restore transaction throughput, round 3
+
+VERDICT: PASS
+
+EVIDENCE: Immutable146421973672c512ae82e27e32bbf140c7948ffc clean archive passes55/55 preflight and strict unoverridden endurance2/2, total57/57. Full18000 ticks completes in800278.113542ms with61 segments. Exact600→300→600 session/input/layers/E2/futureaudio continuation passes; restore snapshot37778bytes and walltime10156ms. Unchanged50ms non-init/300ms init caps pass: initialization154ms, no qualifying longtasks in driven/restore/terminal/restart/drain/screenshots. Terminal tick18000 crowns2–3, six towers, visible520×428 overlay, renderer disposed/zero voices; restart tick0, count1, overlayhidden and all layers tick0. Console/resource/unhandled/pending/serverstderr empty, serverExited true and recorded processes gone. Actual TAP/JSON/screenshots committed463013b under `artifacts/game-001gpr-round-3/critic/`.
+
+BIGGEST GAP: None on the default8/candidate16 restore/endurance bar; complete109-card execution remains open.
+
+DISPOSITION: GAME-001GP round9 and GAME-001GPVT round6 retain the relevant workload/classifier coverage from this SAME independent execution; no additional runs are claimed. Current combined6dc short authentic journey/source-retention review remains pending.
+
 ## Round 391 — 2026-10-11
 
 PIECE: ART-015 — Original ranged-pair and flying-trio portraits, round 1

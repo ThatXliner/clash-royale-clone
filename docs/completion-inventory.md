@@ -55,7 +55,7 @@ Sunthread Pair and Duskwing Trio are admitted to the editable runtime in
 cover squad deployment, projectile contact, natural AI selection, RL actions
 and exact custom-deck restore. Independent core/API review passes64/64, and the production package qualifies.
 Actual desktop/phone lore, controls and current-game statistics render correctly;
-phone details currently omit the selected portrait, so ART-015 remains open. Projectile-speed conversion and the inferred air layer
+the separate frozen6dc portrait review now passes on desktop and phone, including visible back/navigation controls and all16 decoded mappings. See [portrait review](../artifacts/cards-expansion-round-3/portrait-critic/review-notes.md). Projectile-speed conversion and the inferred air layer
 remain QUESTION policies; admission and prepared art do not establish full
 historical behavior.
 
@@ -82,18 +82,17 @@ a substitute for their completion.
 | Complete card execution | Open. Current evidence covers specific profiles and encounters; it does not cover all card abilities and interactions through shared `GameSession` against the opponent. |
 | Deck and browser journey | Open. Current browser evidence proves supported routes, but release qualification requires the full supported collection and complete deterministic match, restore, and restart journeys on the exact staged artifact. |
 | AI and RL | Open. The wrapper shares the current deck and spell route, but complete action and observation support for every released card is not established. |
-| Strict full-match endurance | Failed at frozen source `9e667a1`. The full run reaches tick 18000 and verifies exact restore, terminal and restart under the unchanged caps, but fails its final console assertion on 122 painted-sprite 404 errors. Earlier timing failures and historical passing runs remain evidence for their respective revisions only. See the [strict run record](../artifacts/game-001gpr-round-1/critic/endurance-result.json). |
+| Strict full-match endurance | Scoped PASS at immutable `1464219`: 57/57 preflight/endurance checks, full18000 ticks, exact restore/audio/input continuation and restart, zero resource errors. Unchanged50/300ms caps pass, initialization154ms and no qualifying non-initialization longtasks. Current combined artifact retention is under review; full109-card coverage remains open. See [independent verdict](../artifacts/game-001gpr-round-3/critic/verdict.md). |
 | Public hosting | Not verified as published. The repository's Pages workflow is manual; a maintainer must enable Pages and run it, then verify the live URLs as described in [publishing.md](publishing.md). |
 
 ## Next implementation work
 
-First resolve the current endurance restore overrun, then rerun the unchanged
-18,000-tick browser journey through terminal and restart. Preserve the independently verified Cinder Host and Ironroot copy correction
-and its visible QUESTION status. Fix the live sprite URL and rerun complete
-qualification with no missing resources. Keep the existing 11-mapping artifact
-as a historical baseline; any current mapping should be recorded as a new,
-versioned artifact with explicit evidence instead of treating that baseline as
-the current 16-card admission coverage.
+Qualify the current canonical asset deduplication and short browser journey,
+then reproduce the unresolved production-isolation test failures on a clean
+frozen artifact. Preserve the verified full-match continuation, original art
+and explicit source QUESTIONs while expanding shared card execution. Keep the
+11-mapping artifact as a historical baseline; record current16-card coverage
+as a new versioned comparison artifact rather than rewriting that baseline.
 
 ## Release evidence bar
 
