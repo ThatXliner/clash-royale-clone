@@ -452,7 +452,7 @@ function releaseAssetFileNames(root, staticAssetRoots) {
     return resolve(absoluteRoot, ...staticRoot.split("/"));
   });
   const assignedCaseFoldedPaths = new Map();
-  const hashedAssetPattern = "assets/[hash][extname]";
+  const hashedAssetPattern = "assets/asset-[hash][extname]";
 
   return ({ name, originalFileNames }) => {
     invariant(Array.isArray(originalFileNames), "Vite asset provenance must be an array");

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "piece": "RELEASE-PRELOAD001",
-  "baseCommit": "e64156d",
+  "baseCommit": "18299c2",
   "change": {
     "files": [
       "scripts/build-release.js"
@@ -30,5 +30,14 @@
       "git diff --check"
     ],
     "fullReleaseBatch": "Not run by builder; independent critic validation is pending."
+  },
+  "followup": {
+    "trigger": "GitHub run 38175915263 passed release-build 22/22 but failed publication-pages 4/5 because the generated non-public stylesheet filename did not match the existing eight-character content-hash convention.",
+    "rootCause": "The no-originalFileNames fallback used assets/[hash][extname], omitting the required dash/name prefix checked by the Pages artifact test.",
+    "fix": "The no-originalFileNames fallback now uses assets/asset-[hash][extname]. This keeps the output directory flat and restores the content-hashed filename convention; static-root canonical paths are unchanged.",
+    "verification": {
+      "command": "npm run test:publication-pages",
+      "result": "pass 5, fail 0; the actual Pages build and local preview checks completed."
+    }
   }
 }
