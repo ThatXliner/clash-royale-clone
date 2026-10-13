@@ -1,5 +1,9 @@
 import { createBasicMeleeCatalog } from "./cards/basic-melee.js";
 import { assertAuthoritativeProjectileSourceCatalogs } from "./session-troop-projectile-source-admission.js";
+import {
+  encodeSessionTroopSourceConfidenceValue,
+  getSessionTroopSourceConfidencePolicy,
+} from "../shared/session-troop-source-confidence-authority.js";
 
 export const PLAYABLE_CARD_IDS = Object.freeze([
   "coilblade",
@@ -205,6 +209,7 @@ function entityProjection(card, component) {
   };
   const archetypeId = source.id;
   const projectile = PROJECTILE_ARCHETYPES.has(archetypeId);
+  const sourceConfidencePolicy = getSessionTroopSourceConfidencePolicy(card.id, archetypeId);
   return {
     archetypeId,
     areaDamageRadiusMillitiles: source.areaDamageRadiusMillitiles,
@@ -235,6 +240,7 @@ function entityProjection(card, component) {
     rangeMillitiles: source.rangeMillitiles,
     role: source.role,
     sightRangeMillitiles: source.sightRangeMillitiles,
+    ...(sourceConfidencePolicy === null ? {} : { sourceConfidencePolicy }),
     targetMode: source.targetMode,
   };
 }
@@ -292,14 +298,24 @@ export function createPlayableRosterQuestionRecords(...args) {
   if (args.length !== 0) {
     throw new TypeError("playable roster question records take no arguments");
   }
-  return deepFreeze(Object.entries(QUESTION_VALUES).map(([key, value]) => ({
+  const estimateQuestions = Object.entries(QUESTION_VALUES).map(([key, value]) => ({
     authoritative: false,
     confidence: "unverified",
     disposition: "question",
     key,
     source: QUESTION_SOURCE,
     value,
-  })));
+  }));
+  const sourceQuestions = createPlayableRoster().flatMap(({ entities }) => entities.flatMap((entity) =>
+    (entity.sourceConfidencePolicy?.fields ?? []).map(({ field, questionKey, valueEncoding }) => ({
+      authoritative: false,
+      confidence: "unverified",
+      disposition: "question",
+      key: questionKey,
+      source: QUESTION_SOURCE,
+      value: encodeSessionTroopSourceConfidenceValue(valueEncoding, entity[field]),
+    }))));
+  return deepFreeze([...estimateQuestions, ...sourceQuestions]);
 }
 
 /** Canonical bytes for repeatability checks and future deterministic replay. */

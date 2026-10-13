@@ -12,8 +12,14 @@ const SOURCE_CONFIDENCE_FIELDS = Object.freeze([
 ]);
 
 const SOURCE_CONFIDENCE_CLAIMS = Object.freeze([
+  Object.freeze({ cardId: "briar-band", archetypeId: "briar-runner" }),
+  Object.freeze({ cardId: "briar-band", archetypeId: "briar-darter" }),
   Object.freeze({ cardId: "gloamwing-cluster", archetypeId: "gloamwing" }),
   Object.freeze({ cardId: "coppershade-flock", archetypeId: "coppershade" }),
+  Object.freeze({ cardId: "duskwing-trio", archetypeId: "duskwing" }),
+  Object.freeze({ cardId: "forgeguard", archetypeId: "forgeguard" }),
+  Object.freeze({ cardId: "sunthread-pair", archetypeId: "sunthread-warden" }),
+  Object.freeze({ cardId: "thornscouts", archetypeId: "thornscout" }),
 ]);
 const DEPLOYMENT_INTERVAL = Object.freeze({
   milliseconds: 100,
@@ -52,7 +58,7 @@ function expectedPolicy(archetypeId) {
       questionKey: `${archetypeId}.${questionKeySuffix}`,
       valueEncoding,
     })),
-    deploymentInterval: DEPLOYMENT_INTERVAL,
+    deploymentInterval: { ...DEPLOYMENT_INTERVAL },
   };
 }
 
@@ -60,9 +66,10 @@ export function getSessionTroopSourceConfidencePolicy(cardId, archetypeId) {
   if (typeof cardId !== "string" || typeof archetypeId !== "string") {
     throw new TypeError("session troop confidence identities must be strings");
   }
-  const claim = SOURCE_CONFIDENCE_CLAIMS.find((candidate) => candidate.cardId === cardId);
-  if (claim === undefined) return null;
-  if (claim.archetypeId !== archetypeId) {
+  const cardClaims = SOURCE_CONFIDENCE_CLAIMS.filter((candidate) => candidate.cardId === cardId);
+  if (cardClaims.length === 0) return null;
+  const claim = cardClaims.find((candidate) => candidate.archetypeId === archetypeId);
+  if (claim === undefined) {
     throw new TypeError("session troop source confidence archetype diverges from its card identity");
   }
   return expectedPolicy(archetypeId);

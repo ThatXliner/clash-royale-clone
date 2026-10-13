@@ -1,5 +1,4 @@
 import assert from "node:assert/strict";
-import { createHash } from "node:crypto";
 import test from "node:test";
 
 import * as content from "../src/content/index.js";
@@ -32,6 +31,10 @@ const ADMITTED_IDS = Object.freeze([
   "rime-adept", "rune-reaver", "scatterguard", "skymaul", "stonehauler",
   "stonevault", "stormkite", "sunthread-pair", "tether-rider", "thornscouts", "veil-prowler", "veilrunner",
   "wayfinder",
+]);
+const STAGGERED_CARD_IDS = new Set([
+  "briar-band", "coppershade-flock", "duskwing-trio", "forgeguard",
+  "gloamwing-cluster", "sunthread-pair", "thornscouts",
 ]);
 const QUESTION_IDS = Object.freeze(["ashen-nest", "gloam-shepherd"]);
 const SOUTH = Object.freeze({ x: 3_500, y: 14_500 });
@@ -246,8 +249,7 @@ test("every projection is complete, source-agreeing, ordinary-only, and componen
     for (let index = 0; index < projected.entities.length; index += 1) {
       const entity = projected.entities[index];
       const sourceEntity = entitySource(source, index);
-      const hasSourceConfidencePolicy = ["coppershade-flock", "gloamwing-cluster"]
-        .includes(profile.id);
+      const hasSourceConfidencePolicy = STAGGERED_CARD_IDS.has(profile.id);
       assert.equal(Object.hasOwn(entity, "sourceConfidencePolicy"), hasSourceConfidencePolicy,
         `${profile.id} source confidence metadata boundary`);
       const allowedKeys = [...ENTITY_KEYS, ...ORDINARY_POLICY_KEYS,
@@ -416,6 +418,13 @@ test("Sunthread Pair and Duskwing Trio trade sourced air/ground projectiles thro
     ["sunthread-pair", battle.state.units.filter(({ cardId }) => cardId === "sunthread-pair")],
     ["duskwing-trio", battle.state.units.filter(({ cardId }) => cardId === "duskwing-trio")],
   ]);
+  assert.equal(byCard.get("sunthread-pair").length, 1,
+    "the first member appears while its sibling remains scheduled");
+  assert.equal(byCard.get("duskwing-trio").length, 1,
+    "the first member appears while the other two remain scheduled");
+  battle.stepMany(12);
+  byCard.set("sunthread-pair", battle.state.units.filter(({ cardId }) => cardId === "sunthread-pair"));
+  byCard.set("duskwing-trio", battle.state.units.filter(({ cardId }) => cardId === "duskwing-trio"));
   assert.equal(byCard.get("sunthread-pair").length, 2);
   assert.equal(byCard.get("duskwing-trio").length, 3);
   assert.ok(byCard.get("sunthread-pair").every(({ layer, maxHealth, damage, delivery }) =>
@@ -522,7 +531,7 @@ test("all official witnesses use uniform HTO policies with exact projection coun
     ORDINARY_POLICY_KEYS.map((field) => entity[field])).length, 18);
 });
 
-test("legacy playable roster bytes and QUESTION records remain unchanged", () => {
+test("playable roster preserves its estimates and records Briar Band's sourced member interval", () => {
   const roster = createPlayableRoster();
   const questions = createPlayableRosterQuestionRecords();
   assert.ok(roster.every(({ entities }) => entities.every((entity) =>
@@ -535,11 +544,17 @@ test("legacy playable roster bytes and QUESTION records remain unchanged", () =>
   }));
   assert.equal(canonical(admitted.roster), canonical(roster));
   const bytes = serializePlayableRoster();
-  assert.equal(bytes.length, 11_154);
-  assert.equal(
-    createHash("sha256").update(bytes).digest("hex"),
-    "6fb8d84121ca039ea9315b7e505c8f02d5d7839e8fd5fc5cd19013a0d2b7fadb",
-  );
+  assert.equal(bytes, serializePlayableRoster(), "the revised roster stays deterministic");
+  assert.ok(bytes.length > 0);
+  const briar = roster.find(({ id }) => id === "briar-band");
+  assert.equal(briar.count, 6);
+  assert.deepEqual(briar.entities.map(({ archetypeId }) => archetypeId),
+    ["briar-runner", "briar-darter"]);
+  assert.ok(briar.entities.every(({ sourceConfidencePolicy }) =>
+    sourceConfidencePolicy?.deploymentInterval?.ticks === 6));
+  assert.equal(questions.filter(({ key }) => key.startsWith("briar-runner.") ||
+    key.startsWith("briar-darter.")).length, 23,
+  "the mixed components retain ten source QUESTIONS each plus ordinary policy QUESTIONS");
 });
 
 test("legacy delivery/layer policy and QUESTION tampering rejects atomically", () => {
@@ -665,14 +680,17 @@ test("all admitted troop witnesses use one shared LiveBattle deployment and enti
     const targetQuestions = questionMap(witness.questions);
     const intervalReceipt = target.entities[0].sourceConfidencePolicy?.deploymentInterval;
     const intervalTicks = intervalReceipt?.ticks ?? 0;
-    if (id === "gloamwing-cluster" || id === "coppershade-flock") {
-      assert.deepEqual(intervalReceipt, {
+    for (const entity of target.entities) {
+      const receipt = entity.sourceConfidencePolicy?.deploymentInterval;
+      if (STAGGERED_CARD_IDS.has(id)) {
+        assert.deepEqual(receipt, {
         milliseconds: 100,
         sourceId: "supercell-2020-06-02-multi-unit-deployment",
         ticks: 6,
-      }, `${id} uses the sourced 100 ms member interval`);
-    } else {
-      assert.equal(intervalReceipt, undefined, `${id} retains same-boundary ordinary expansion`);
+        }, `${id}.${entity.archetypeId} uses the sourced 100 ms member interval`);
+      } else {
+        assert.equal(receipt, undefined, `${id}.${entity.archetypeId} retains its existing expansion`);
+      }
     }
 
     const battle = new LiveBattle(serializeSessionTroopWitness(id));

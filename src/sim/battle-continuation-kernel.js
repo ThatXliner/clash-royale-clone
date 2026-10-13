@@ -9132,9 +9132,9 @@ class LiveBattle {
       this.#questionValues, this.#admittedFlightProfile(card.id));
     const events = [];
     const battle = this.#battleRuntime();
-    const interval = card.entities[0].sourceConfidencePolicy?.deploymentInterval?.ticks ?? 0;
+    const interval=card.entities[0].sourceConfidencePolicy?.deploymentInterval?.ticks??0;
     for (const entity of entities) {
-      const spawnTick = deployment.tick + entity.memberIndex * interval;
+      const spawnTick=deployment.tick+(entity.id-this.#nextEntityId)*interval;
       const spec = combatSpec(entity, deployment.side);
       if (spawnTick === deployment.tick) events.push(battle.spawn({ ...spec, tick: spawnTick }));
       else battle.scheduleSpawn({ ...spec, tick: spawnTick });

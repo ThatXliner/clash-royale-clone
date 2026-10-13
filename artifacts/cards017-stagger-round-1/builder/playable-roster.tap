@@ -1,0 +1,64 @@
+TAP version 13
+# Subtest: playable roster: exact browser-shell deck order is centralized and immutable
+ok 1 - playable roster: exact browser-shell deck order is centralized and immutable
+  ---
+  duration_ms: 7.11675
+  type: 'test'
+  ...
+# Subtest: playable roster: every catalog value projects exactly and swarms expand metadata
+ok 2 - playable roster: every catalog value projects exactly and swarms expand metadata
+  ---
+  duration_ms: 12.5305
+  type: 'test'
+  ...
+# Subtest: playable roster: every live entity has explicit layer, targets, delivery, and policies
+ok 3 - playable roster: every live entity has explicit layer, targets, delivery, and policies
+  ---
+  duration_ms: 16.401791
+  type: 'test'
+  ...
+# Subtest: playable roster: runtime estimates are unique fresh frozen QUESTION records
+ok 4 - playable roster: runtime estimates are unique fresh frozen QUESTION records
+  ---
+  duration_ms: 129.077125
+  type: 'test'
+  ...
+# Subtest: playable roster: repeated construction and canonical serialization are stable
+ok 5 - playable roster: repeated construction and canonical serialization are stable
+  ---
+  duration_ms: 16.7645
+  type: 'test'
+  ...
+# Subtest: playable roster: hostile inputs reject without changing later output
+ok 6 - playable roster: hostile inputs reject without changing later output
+  ---
+  duration_ms: 79.482083
+  type: 'test'
+  ...
+# Subtest: playable roster: policy resolution rejects hostile data without invoking getters
+ok 7 - playable roster: policy resolution rejects hostile data without invoking getters
+  ---
+  duration_ms: 73.112875
+  type: 'test'
+  ...
+# Subtest: playable roster: every QUESTION field rejects nested executable values opaquely
+ok 8 - playable roster: every QUESTION field rejects nested executable values opaquely
+  ---
+  duration_ms: 44.294125
+  type: 'test'
+  ...
+# Subtest: playable roster: shipped module has no comparison import or protected identity
+ok 9 - playable roster: shipped module has no comparison import or protected identity
+  ---
+  duration_ms: 3.449375
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 759.748041

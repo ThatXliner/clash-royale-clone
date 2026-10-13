@@ -99,7 +99,8 @@ test("game player deploy: all eight player cards spend, cycle, and materialize e
     assert.equal(bridge.state.deck.sequence, before.deck.sequence + 1, card.id);
     assert.equal(bridge.state.deck.hand[command.slot], before.deck.next, card.id);
     assert.equal(bridge.state.battle.units.filter(({ cardId }) => cardId === card.id).length,
-      expected.get(card.id), card.id);
+      card.id === "briar-band" ? 1 : expected.get(card.id),
+      `${card.id} exposes only its first member at the sourced stagger boundary`);
     assert.equal(bridge.replay.length, 1);
     assert.deepEqual(bridge.replay[0].deployment.entityIds, result.entityIds);
     assert.equal(bridge.replay[0].spend.cost, card.cost);

@@ -174,8 +174,9 @@ test("RL reset and legal mask deploy both sourced projectile squads with exact d
   ]) {
     const deck = [cardId, ...PLAYABLE_CARD_IDS.slice(0, 7)];
     const seed = seedWithCardInHand(deck, cardId);
-    const env = createRLEnvironment({ seed: 0, strideTicks: 1, horizonTicks: 10 });
-    const observation = env.reset({ deck, seed, strideTicks: 1, horizonTicks: 10 });
+    const horizonTicks = 20;
+    const env = createRLEnvironment({ seed: 0, strideTicks: 1, horizonTicks });
+    let observation = env.reset({ deck, seed, strideTicks: 1, horizonTicks });
     const slot = observation.hand.indexOf(cardId);
     assert.notEqual(slot, -1, `${cardId} is in the reset hand`);
     const action = env.actionSpace().actions.find(({ point, slot: actionSlot }) =>
@@ -189,9 +190,18 @@ test("RL reset and legal mask deploy both sourced projectile squads with exact d
     assert.equal(transition.observation.tick, 1);
     const publicUnits = transition.observation.units.filter(({ cardId: id, side }) =>
       id === cardId && side === "south");
-    assert.equal(publicUnits.length, memberCount);
+    assert.equal(publicUnits.length, 1,
+      `${cardId} exposes only its first member at the initial boundary`);
     assert.ok(publicUnits.every((unit) => unit.maxHitpoints === hitpoints &&
       unit.count === memberCount && unit.layer === layer));
+
+    for (let elapsedTicks = 1; elapsedTicks <= 6 * (memberCount - 1); elapsedTicks += 1) {
+      observation = env.step(0).observation;
+      const visible = observation.units.filter(({ cardId: id, side }) =>
+        id === cardId && side === "south");
+      assert.equal(visible.length, Math.min(memberCount, 1 + Math.floor(elapsedTicks / 6)),
+        `${cardId} reveals one member every six simulation ticks`);
+    }
 
     const bytes = env.serialize();
     const snapshot = JSON.parse(bytes);
@@ -214,7 +224,7 @@ test("RL reset and legal mask deploy both sourced projectile squads with exact d
 
     const restored = RLEnvironment.restore(bytes);
     assert.equal(restored.serialize(), bytes);
-    assert.deepEqual(restored.observe(), transition.observation);
+    assert.deepEqual(restored.observe(), observation);
     assert.deepEqual(restored.step(0), env.step(0));
     assert.equal(restored.serialize(), env.serialize());
   }
@@ -344,11 +354,11 @@ test("wait-only seed 2 reaches its pinned natural engine terminal after checkpoi
   const config = { seed: 2, strideTicks: 600, horizonTicks: 18_000 };
   const expected = {
     crowns: { north: 3, south: 0 },
-    endedAtTick: 4_898,
+    endedAtTick: 4_837,
     kind: "win",
     reason: "central_destroyed",
     reward: -1,
-    tick: 4_899,
+    tick: 4_838,
     winner: "north",
   };
   const env = createRLEnvironment(config);
@@ -379,7 +389,7 @@ test("wait-only seed 2 reaches its pinned natural engine terminal after checkpoi
 
   assert.equal(transitions, 9);
   assert.equal(observation.tick, expected.tick);
-  assert.equal(result.info.ticksAdvanced, 99,
+  assert.equal(result.info.ticksAdvanced, 38,
     "the final engine step stops at its natural terminal inside the 600-tick stride");
   assert.equal(result.terminated, true);
   assert.equal(result.truncated, false,
