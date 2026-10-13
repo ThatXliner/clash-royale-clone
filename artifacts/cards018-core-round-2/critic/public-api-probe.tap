@@ -1,0 +1,17 @@
+TAP version 13
+ok 1 - editable roster is 17 troops plus Squall Orb and Ember Basin (19 IDs)
+ok 2 - documented custom mixed deck has eight distinct admitted IDs
+ok 3 - reset after custom configuration retains the mixed deck and exposes Ember
+ok 4 - version-2 action space keeps the finite 2,305-action catalogue
+ok 5 - documented tile and slot produce a legal Ember deployment action
+ok 6 - one-tick deployment spends cost and advances the shared card cycle
+ok 7 - v2 structure observation matches documented public fields and values
+ok 8 - structure data is detached with the observation
+ok 9 - version-2 checkpoints restore the structure observation and continuation
+ok 10 - version-1 checkpoints are rejected without migration
+ok 11 - dead structure remains observable with its death cause
+ok 12 - structure list is sorted by numeric entity ID
+1..12
+# tests 12
+# pass 12
+# fail 0

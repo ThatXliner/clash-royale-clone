@@ -1,0 +1,19 @@
+TAP version 13
+ok 1 - observation and action space use schema version 2
+ok 2 - the existing finite action catalogue and mask size are unchanged
+ok 3 - the mixed deck exposes a legal Ember Basin deployment
+ok 4 - a nonterminal deployment receives zero sparse reward
+ok 5 - the public structure record reports its live owner and hitpoints
+ok 6 - the structure record reports its layer and lifetime counters
+ok 7 - the unverified lifetime and profile receipts remain explicit questions
+ok 8 - the public structure record includes current attack-cycle state
+ok 9 - the observation is detached JSON data
+ok 10 - mutating an observation does not mutate the live session
+ok 11 - serialized checkpoints carry version 2
+ok 12 - restore reproduces the exact checkpoint and structure observation
+ok 13 - restore continues with identical future observation, reward, and bytes
+ok 14 - version-1 checkpoints are rejected without migration
+1..14
+# tests 14
+# pass 14
+# fail 0

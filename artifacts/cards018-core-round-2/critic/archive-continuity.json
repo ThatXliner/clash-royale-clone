@@ -1,0 +1,91 @@
+{
+  "candidate": {
+    "commit": "5b26c1dee75cf931cef7d9c93aad834115e7507f",
+    "tree": "362af77fecd8a075cc3707e1a2ed17fda2cac215",
+    "headEqualsCandidate": true,
+    "gitArchiveTar": {
+      "path": "/tmp/cards018k-r2-critic-5b26c1d.tar",
+      "bytes": 469432320,
+      "sha256": "5a4c68fc054f666c570e36259d604f1f4f972fe1c9ccf6f342fc9017d16b0bcd"
+    },
+    "trackedBlobsChecked": 2908,
+    "trackedBlobMismatches": 0,
+    "archiveRoot": "/tmp/cards018k-r2-critic-5b26c1d"
+  },
+  "continuityFromApiCandidate": {
+    "commit": "d20938fad64bfcf93fce48c08de54c2d5ba854bf",
+    "tree": "7fe757e5c722e474ce7915c70bf7147534a06da8",
+    "srcChangedPaths": [],
+    "testsChangedPaths": [],
+    "srcUnchanged": true,
+    "testsUnchanged": true
+  },
+  "priorCritic": {
+    "commit": "0f2095bb3b55a7606769601d738207d0c9f7e98",
+    "receiptCommit": "d20938f",
+    "receiptTree": "7fe757e5c722e474ce7915c70bf7147534a06da8",
+    "allImportedTrackedBlobsMatch": true,
+    "trackedBlobsVerified": 2854,
+    "blobManifestSha256": "28efee6564bda0a093643ccd820d1c790d64396f13790dca424e31836ea17ca3",
+    "blobManifestMatchesReceipt": true,
+    "blobManifestLines": 2854,
+    "retainedEvidenceChecksumsVerified": true,
+    "focusedTaps": [
+      {
+        "name": "editable-deck",
+        "tests": 12,
+        "pass": 12,
+        "fail": 0,
+        "matchesRetainedReceipt": true
+      },
+      {
+        "name": "rl-environment",
+        "tests": 12,
+        "pass": 12,
+        "fail": 0,
+        "matchesRetainedReceipt": true
+      },
+      {
+        "name": "game-building-runtime",
+        "tests": 15,
+        "pass": 15,
+        "fail": 0,
+        "matchesRetainedReceipt": true
+      },
+      {
+        "name": "game-roster-buildings",
+        "tests": 10,
+        "pass": 10,
+        "fail": 0,
+        "matchesRetainedReceipt": true
+      },
+      {
+        "name": "game-building-policy",
+        "tests": 3,
+        "pass": 3,
+        "fail": 0,
+        "matchesRetainedReceipt": true
+      }
+    ],
+    "focusedPassCount": 52,
+    "guardTaps": [
+      {
+        "name": "nondeterminism-guard",
+        "tests": 10,
+        "pass": 10,
+        "fail": 0,
+        "matchesRetainedReceipt": true
+      },
+      {
+        "name": "shipping-isolation-guard",
+        "tests": 13,
+        "pass": 13,
+        "fail": 0,
+        "matchesRetainedReceipt": true
+      }
+    ],
+    "guardPassCount": 23,
+    "allTapCountsMatchReceipt": true,
+    "fullFocusedRuntimeSuiteReexecuted": false
+  }
+}

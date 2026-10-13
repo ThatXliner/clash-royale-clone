@@ -1,0 +1,38 @@
+{
+  hitpoints: 1356,
+  lifetime: {
+    elapsedTicks: 1,
+    remainingTicks: 1799,
+    totalTicks: 1800,
+    question: {
+      authoritative: false,
+      confidence: 'unverified',
+      disposition: 'question',
+      key: 'lifetimeTicks',
+      source: 'pre-evolutions-building-corpus-and-unsourced-policy-fixture',
+      value: 1800
+    }
+  },
+  attackState: {
+    nextAttackTick: null,
+    phase: 'deploying',
+    sequence: 0,
+    targetId: null
+  },
+  policy: {
+    confidence: 'unverified',
+    corpusFields: {
+      cost: [Object],
+      damage: [Object],
+      deployTicks: [Object],
+      firstHitTicks: [Object],
+      hitSpeedTicks: [Object],
+      hitpoints: [Object],
+      maxRange: [Object],
+      mode: [Object],
+      sightRange: [Object]
+    },
+    disposition: 'question',
+    source: 'pre-evolutions-building-corpus-and-unsourced-policy-fixture'
+  }
+}

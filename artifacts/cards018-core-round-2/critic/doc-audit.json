@@ -1,0 +1,46 @@
+{
+  "candidateCommit": "5b26c1dee75cf931cef7d9c93aad834115e7507f",
+  "guide": "docs/rl-api.md",
+  "documentedApi": {
+    "editableTroops": 17,
+    "additionalMixedDeckIds": ["squall-orb", "ember-basin"],
+    "totalMixedAllowedIds": 19,
+    "requiresEightDistinctAdmittedIds": true,
+    "observationVersion": 2,
+    "actionSpaceVersion": 2,
+    "checkpointVersion": 2,
+    "structureNumericIdOrdering": true,
+    "structureOwnerAndHitpoints": true,
+    "structureLifetimeAndQuestionReceipt": true,
+    "structureAttackState": true,
+    "retainedDeadRecordAndDeathCause": true,
+    "detachedJsonObservation": true,
+    "versionOneCheckpointRejectedWithoutMigration": true,
+    "finiteActionCount": 2305,
+    "maskRulesAndSparseRewards": true,
+    "historicalParityClaim": false,
+    "browserPresentationClaim": false
+  },
+  "documentedExample": {
+    "resetsCustomMixedDeck": true,
+    "deploysLegalEmberBasin": true,
+    "observesVersionTwoStructure": true,
+    "serializesAndRestoresFutureContinuation": true,
+    "rejectsVersionOneCheckpoint": true,
+    "displaysOrAssertsElixirCostAndCardCycle": false,
+    "actualApiBefore": {
+      "tick": 0,
+      "elixir": 10,
+      "hand": ["ember-basin", "copperskiff", "skymaul", "coilblade"],
+      "next": "squall-orb"
+    },
+    "actualApiAfterOneTick": {
+      "tick": 1,
+      "elixir": 6,
+      "hand": ["squall-orb", "copperskiff", "skymaul", "coilblade"],
+      "next": "mossguard",
+      "reward": 0
+    }
+  },
+  "gap": "The example deploys Ember Basin and observes its v2 structure, but does not display or assert the four-elixir cost or the hand/next-card cycle change at tick 1."
+}
