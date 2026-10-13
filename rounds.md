@@ -2,7 +2,7 @@
 
 ## Round 407 — 2026-10-11
 
-PIECE: PUB-003 — Publish current playable prototype, round 1
+PIECE: PUB-004 — Publish current playable prototype, round 1
 
 VERDICT: PASS
 
