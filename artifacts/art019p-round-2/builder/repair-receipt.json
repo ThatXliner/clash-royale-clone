@@ -1,0 +1,71 @@
+{
+  "base_commit": "428e3a5c3dc44bd9de9a886ad1f9e494da115ed4",
+  "asset_candidate": "87da6fd4848c697fc298c2581cb7671a0a053515",
+  "manifest_change": {
+    "baseline_asset_count": 20,
+    "candidate_asset_count": 21,
+    "old_records_unchanged": true,
+    "new_record": {
+      "id": "kilnkeeper-portrait-painted",
+      "path": "assets/kilnkeeper-portrait-painted.webp",
+      "dimensions": {
+        "width": 512,
+        "height": 512
+      },
+      "byteLength": 65626,
+      "license": "AGPL-3.0-only",
+      "authorship": "in-repo-authored",
+      "sha256": "38e9f64348fa823a64755fda2496b699c88c27c7dd0a14a440e704d9093d2240"
+    },
+    "baseline_file_sha256": "0599a400bf998cf704ffd2b2d946b2757ea9fe4373682a30d49e36a5b3586a12",
+    "candidate_file_sha256": "4faa4474deb3f293f6d07faac1de9b64123c2636577c66f192999b18422673c1"
+  },
+  "tests": {
+    "command": "npm run test:visual-asset-manifest",
+    "exit_code": 0,
+    "passed": 6,
+    "failed": 0,
+    "raw_output": "artifacts/art019p-round-2/builder/visual-asset-manifest.tap",
+    "bytes": 1514,
+    "sha256": "58583bd8ca45038e6639762f8f00269efc7abbfe1b6f7f1bfa9f793f5bab898c"
+  },
+  "pages_build": {
+    "command": "npm run build:pages -- --out /tmp/kilnkeeper-pages-art019p-round2-428e3a5",
+    "exit_code": 0,
+    "release_files": 48,
+    "release_bytes": 5733974,
+    "kilnkeeper_output_matches_shipped_webp": true,
+    "source_isolation": {
+      "includes_shipped_webp": true,
+      "excludes_png_source": true,
+      "excludes_provenance": true,
+      "excludes_lore": true,
+      "excludes_demo_docs_artifacts_trees": true
+    },
+    "raw_output": "artifacts/art019p-round-2/builder/build-pages.log",
+    "bytes": 213,
+    "sha256": "5094c24a5849a9c205a0db091cba2573f522a0cb2b2b448400526d9261005517"
+  },
+  "unchanged_portrait_and_lore_from_87da": {
+    "demo/assets/kilnkeeper-portrait.png": {
+      "bytes": 2659340,
+      "sha256": "f4062cfc51764726d97e3c901450ff3ae0dc8b0e25bcabd87eabc469dbf4bf4d",
+      "matches_87da": true
+    },
+    "public/assets/kilnkeeper-portrait-painted.webp": {
+      "bytes": 65626,
+      "sha256": "38e9f64348fa823a64755fda2496b699c88c27c7dd0a14a440e704d9093d2240",
+      "matches_87da": true
+    },
+    "docs/art/kilnkeeper-portrait-provenance.json": {
+      "bytes": 3299,
+      "sha256": "a02b97f5d60fc09cf0baac08782f3d781506fffe98a99354b27dc3113bef6913",
+      "matches_87da": true
+    },
+    "artifacts/art019p-round-1/builder/kilnkeeper-concept.md": {
+      "bytes": 465,
+      "sha256": "6d13c7f06b768d3e60019cb8f419e9122de37d53b638feed5dcc0e1d5874d05a",
+      "matches_87da": true
+    }
+  }
+}

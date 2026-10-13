@@ -444,6 +444,17 @@ const REGISTERED_ASSETS = [
     path: "assets/ember-basin-portrait-painted-v2.webp",
     sha256: "fbeb95f34410348c34bf68892deb25b7df387783c7d88819ee7a7b37038c87a3",
   },
+  {
+    authorship: "in-repo-authored",
+    byteLength: 65626,
+    dimensions: { height: 512, width: 512 },
+    format: "webp",
+    id: "kilnkeeper-portrait-painted",
+    kind: "image",
+    license: "AGPL-3.0-only",
+    path: "assets/kilnkeeper-portrait-painted.webp",
+    sha256: "38e9f64348fa823a64755fda2496b699c88c27c7dd0a14a440e704d9093d2240",
+  },
 ];
 
 const MANIFEST = freeze({
