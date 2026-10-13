@@ -77,6 +77,11 @@ function assertAirSwarmConfidenceQuestions(battleSetup) {
     const entity = card.entities[0];
     assert.equal(entity.sourceConfidencePolicy.fields.length, 10,
       `${cardId} carries all ten source-confidence fields`);
+    assert.deepEqual(entity.sourceConfidencePolicy.deploymentInterval, {
+      milliseconds: 100,
+      sourceId: "supercell-2020-06-02-multi-unit-deployment",
+      ticks: 6,
+    }, `${cardId} carries the sourced member-to-member interval`);
     assert.deepEqual(entity.sourceConfidencePolicy.fields.map(({ field, questionKey }) =>
       [field, questionKey.slice(entity.archetypeId.length + 1)]), CONFIDENCE_FIELDS);
     for (const [field, suffix] of CONFIDENCE_FIELDS) {
@@ -208,6 +213,8 @@ test("editable player air swarms target each other, Coppershade launches a proje
   assert.equal(session.state.decks.north.sequence, before.decks.north.sequence + 1);
   assert.equal(session.state.elixir.sides.north.amount, before.elixir.sides.north.amount - 5);
 
+  session.stepMany(30);
+
   const southIds = new Set(session.state.battle.units.filter(({ side, cardId }) =>
     side === "south" && cardId === GLOAMWING).map(({ id }) => id));
   const northIds = new Set(session.state.battle.units.filter(({ side, cardId }) =>
@@ -240,7 +247,7 @@ test("editable player air swarms target each other, Coppershade launches a proje
 test("mixed RL reset admits both swarms, masks legal air deployments, cycles, and restores", () => {
   const deck = mixedDeck();
   const seed = seedWithHand(deck, "south", AIR_SWARMS);
-  const env = new RLEnvironment({ deck, seed, strideTicks: 1, horizonTicks: 12 });
+  const env = new RLEnvironment({ deck, seed, strideTicks: 1, horizonTicks: 80 });
   assert.equal(RL_ACTION_COUNT, 2_305, "the finite tile action space is unchanged");
   let observation = env.observe();
   const rlSnapshot = JSON.parse(env.serialize());
@@ -259,10 +266,20 @@ test("mixed RL reset admits both swarms, masks legal air deployments, cycles, an
       `${cardId} cycles out of its played hand slot`);
     const members = transition.observation.units.filter(({ cardId: id, side }) =>
       id === cardId && side === "south");
-    assert.equal(members.length, cardId === GLOAMWING ? 5 : 6);
+    assert.equal(members.length, 1,
+      `${cardId} exposes only its first member when the deployment command resolves`);
     assert.ok(members.every(({ layer, count }) => layer === "air" &&
       count === (cardId === GLOAMWING ? 5 : 6)));
     observation = transition.observation;
+    const memberCount = cardId === GLOAMWING ? 5 : 6;
+    for (let waited = 1; waited <= 6 * (memberCount - 1); waited += 1) {
+      observation = env.step(0).observation;
+      const visible = observation.units.filter(({ cardId: id, side }) =>
+        id === cardId && side === "south");
+      assert.equal(visible.length, Math.min(memberCount, 1 + Math.floor(waited / 6)),
+        `${cardId} reveals one additional member after each six simulation ticks`);
+      assert.ok(visible.every(({ layer, count }) => layer === "air" && count === memberCount));
+    }
   }
 
   const checkpoint = env.serialize();

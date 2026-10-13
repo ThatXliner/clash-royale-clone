@@ -8074,8 +8074,9 @@ class LiveBattle {
       boundary.push(...materialized);
       if (!unitOnlyBoundary) {
         const deployed = materialized.find(({ type }) => type === "deployed");
+        const liveIds = new Set(battle.state.units.map(({ id }) => id));
         for (const sourceId of deployed.entityIds) {
-          deploySources.push(this.#troopSource(sourceId, { requireAlive: false }));
+          if (liveIds.has(sourceId)) deploySources.push(this.#troopSource(sourceId, { requireAlive: false }));
         }
       }
     }
@@ -9131,16 +9132,19 @@ class LiveBattle {
       this.#questionValues, this.#admittedFlightProfile(card.id));
     const events = [];
     const battle = this.#battleRuntime();
+    const interval = card.entities[0].sourceConfidencePolicy?.deploymentInterval?.ticks ?? 0;
     for (const entity of entities) {
+      const spawnTick = deployment.tick + entity.memberIndex * interval;
       const spec = combatSpec(entity, deployment.side);
-      events.push(battle.spawn({ ...spec, tick: deployment.tick }));
+      if (spawnTick === deployment.tick) events.push(battle.spawn({ ...spec, tick: spawnTick }));
+      else battle.scheduleSpawn({ ...spec, tick: spawnTick });
       const movement = new BattleMovement({
         bodyRadius: entity.radius,
         mode: entity.component.layer,
         position: entity.position,
         speed: entity.component.movementMillitilesPerSecond,
       });
-      movement.stepMany(deployment.tick);
+      movement.stepMany(spawnTick);
       this.#movements.set(entity.id, this.#movementsOpaque
         ? battleMovementCompactClone(movement)
         : movement);

@@ -33,6 +33,7 @@ const SOURCE_FACTS = Object.freeze([
     sightRange: 5_500,
     speed: 2_000,
     delivery: "melee",
+    intervalTicks: 6,
   }),
   Object.freeze({
     cardId: COPPERSHADE,
@@ -48,6 +49,7 @@ const SOURCE_FACTS = Object.freeze([
     sightRange: 5_500,
     speed: 1_500,
     delivery: "projectile",
+    intervalTicks: 6,
   }),
 ]);
 
@@ -187,6 +189,11 @@ test("original air swarm records preserve pinned tournament stats and explicit e
       `${expected.cardId} runtime delivery classification`);
     assert.equal(card.entities[0].layer, "air",
       `${expected.cardId} air layer remains a runtime estimate`);
+    assert.deepEqual(card.entities[0].sourceConfidencePolicy.deploymentInterval, {
+      milliseconds: 100,
+      sourceId: "supercell-2020-06-02-multi-unit-deployment",
+      ticks: expected.intervalTicks,
+    }, `${expected.cardId} carries the reviewed inter-member interval receipt`);
   }
 });
 
@@ -209,6 +216,11 @@ test("air swarm witnesses close source QUESTIONS over every unverified runtime f
     const entity = card.entities[0];
     const policy = entity.sourceConfidencePolicy;
     assert.ok(policy, `${expected.cardId} has a source-confidence policy`);
+    assert.deepEqual(policy.deploymentInterval, {
+      milliseconds: 100,
+      sourceId: "supercell-2020-06-02-multi-unit-deployment",
+      ticks: expected.intervalTicks,
+    }, `${expected.cardId} keeps the source-backed interval separate from QUESTIONS`);
     assert.deepEqual(policy.fields.map(({ field, questionKey, valueEncoding }) =>
       [field, questionKey.slice(expected.archetypeId.length + 1), valueEncoding]),
     expectedFields.map(([field, suffix, encoding]) => [field, suffix, encoding]));
@@ -300,6 +312,20 @@ test("typed swarm confidence policy rejects missing, forged, dangling, and wrong
     });
     assert.throws(() => parseLiveBattleSetup(wrongValue), /QUESTION diverges from its estimate/u,
       `${expected.cardId} confidence QUESTIONS must equal the runtime estimate`);
+
+    const missingInterval = mutateWitnessSetup(expected.cardId, ({ roster }) => {
+      delete roster.find(({ id }) => id === expected.cardId).entities[0]
+        .sourceConfidencePolicy.deploymentInterval;
+    });
+    assert.throws(() => parseLiveBattleSetup(missingInterval), /invalid shape/u,
+      `${expected.cardId} cannot omit its sourced interval receipt`);
+
+    const forgedInterval = mutateWitnessSetup(expected.cardId, ({ roster }) => {
+      roster.find(({ id }) => id === expected.cardId).entities[0]
+        .sourceConfidencePolicy.deploymentInterval.ticks = 5;
+    });
+    assert.throws(() => parseLiveBattleSetup(forgedInterval), /deployment interval receipt diverges/u,
+      `${expected.cardId} cannot change the sourced interval`);
   }
 });
 
@@ -312,6 +338,7 @@ test("Gloamwing and Coppershade deploy through typed shared sessions with exact 
     const before = session.state;
     assert.equal(session.submitPlayerCommand(playerDeploy(session, expected.cardId)).accepted, true);
     const events = session.step();
+    session.stepMany(6 * (expected.count - 1));
     const after = session.state;
     const deployments = session.replay.filter(({ type }) => type === "session-deployed");
     assert.equal(deployments.length, 2, `${expected.cardId} both sides commit`);
@@ -382,6 +409,10 @@ test("both swarm roles acquire ground and air opponents in shared GameSession co
     const session = new GameSession(witnessSetup(deck, [defenderCard], seed));
     session.submitPlayerCommand(playerDeploy(session, attackerCard));
     session.step();
+    session.stepMany(6 * (Math.max(
+      SOURCE_FACTS.find(({ cardId }) => cardId === attackerCard).count,
+      SOURCE_FACTS.find(({ cardId }) => cardId === defenderCard)?.count ?? 1,
+    ) - 1));
     const attackers = spawnIds(session, "south", attackerCard);
     const defenders = spawnIds(session, "north", defenderCard);
     assert.ok(attackers.size > 0, `${attackerCard} deployed`);
@@ -401,6 +432,7 @@ test("in-flight projectile and post-death GameSession snapshots continue exactly
   const session = new GameSession(witnessSetup(deck, [COPPERSHADE], seed));
   session.submitPlayerCommand(playerDeploy(session, GLOAMWING));
   session.step();
+  session.stepMany(30);
   const bats = spawnIds(session, "south", GLOAMWING);
   const minions = spawnIds(session, "north", COPPERSHADE);
   assert.equal(bats.size, 5);

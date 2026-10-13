@@ -15,6 +15,11 @@ const SOURCE_CONFIDENCE_CLAIMS = Object.freeze([
   Object.freeze({ cardId: "gloamwing-cluster", archetypeId: "gloamwing" }),
   Object.freeze({ cardId: "coppershade-flock", archetypeId: "coppershade" }),
 ]);
+const DEPLOYMENT_INTERVAL = Object.freeze({
+  milliseconds: 100,
+  sourceId: "supercell-2020-06-02-multi-unit-deployment",
+  ticks: 6,
+});
 
 const TARGET_MODE_CODES = Object.freeze({
   buildings: 1,
@@ -47,6 +52,7 @@ function expectedPolicy(archetypeId) {
       questionKey: `${archetypeId}.${questionKeySuffix}`,
       valueEncoding,
     })),
+    deploymentInterval: DEPLOYMENT_INTERVAL,
   };
 }
 
@@ -63,7 +69,7 @@ export function getSessionTroopSourceConfidencePolicy(cardId, archetypeId) {
 }
 
 export function assertSessionTroopSourceConfidencePolicy(value, cardId, archetypeId) {
-  const policy = exact(value, ["fields"], "session troop source confidence policy");
+  const policy = exact(value, ["deploymentInterval", "fields"], "session troop source confidence policy");
   const expected = getSessionTroopSourceConfidencePolicy(cardId, archetypeId);
   if (expected === null) {
     throw new RangeError("session troop source confidence identity is not admitted");
@@ -82,7 +88,14 @@ export function assertSessionTroopSourceConfidencePolicy(value, cardId, archetyp
     return { field: record.field, questionKey: record.questionKey,
       valueEncoding: record.valueEncoding };
   });
-  return { fields };
+  const interval = exact(policy.deploymentInterval, ["milliseconds", "sourceId", "ticks"],
+    "session troop deployment interval receipt");
+  if (interval.milliseconds !== DEPLOYMENT_INTERVAL.milliseconds ||
+      interval.sourceId !== DEPLOYMENT_INTERVAL.sourceId ||
+      interval.ticks !== DEPLOYMENT_INTERVAL.ticks) {
+    throw new TypeError("session troop deployment interval receipt diverges");
+  }
+  return { deploymentInterval: interval, fields };
 }
 
 export function encodeSessionTroopSourceConfidenceValue(valueEncoding, value) {
