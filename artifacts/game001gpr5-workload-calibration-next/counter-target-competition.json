@@ -1,0 +1,76 @@
+{
+  "basis": "Frozen tick-13200 units146/159 from the saved actual trace; exported deployment, formation, navigation and target-acquisition APIs; ground snapping ties match the battle continuation kernel.",
+  "threatSnapshot": {
+    "tick": 13200,
+    "mossguard": {
+      "id": 146,
+      "kind": "troop",
+      "alive": true,
+      "targetable": true,
+      "layer": "ground",
+      "position": {
+        "x": 14101,
+        "y": 14500
+      },
+      "radius": 500
+    },
+    "reedsting": {
+      "id": 159,
+      "kind": "troop",
+      "alive": true,
+      "targetable": true,
+      "layer": "ground",
+      "position": {
+        "x": 14500,
+        "y": 16700
+      },
+      "radius": 300
+    }
+  },
+  "reedstingCounter": {
+    "cardLayer": "ground",
+    "targetMode": "air_and_ground",
+    "sightRange": 7500,
+    "bodyRadiusQuestionValue": 300,
+    "legal250GridCommandPoints": 3341,
+    "targetAcquisitionCounts": {
+      "unit146": 1206,
+      "unit159": 0,
+      "none": 2135
+    },
+    "minimumCenterDistanceMarginReedstingMinusMossguard": 321.21504754765465,
+    "actual13200CommandMaterialization": {
+      "point": {
+        "x": 14500,
+        "y": 14750
+      },
+      "spawn": {
+        "x": 14500,
+        "y": 14500
+      },
+      "target": 146,
+      "d146": 399,
+      "d159": 2200
+    },
+    "allSouthHalfGroundNavigationNodes": 236,
+    "allSouthHalfNodeAcquisitions": {
+      "unit146": 83,
+      "unit159": 0,
+      "none": 153
+    }
+  },
+  "continuousCommandPointBound": {
+    "legalIntegerOwnHalfBounds": {
+      "x": [
+        500,
+        17500
+      ],
+      "y": [
+        500,
+        14999
+      ]
+    },
+    "minSquaredCenterDistanceDifferenceReedstingMinusMossguard": 91199,
+    "conclusion": "Positive minimum means Mossguard146 is closer at every legal integer command point; with radius500 versus300 and equal ground eligibility, any point seeing159 also sees146. This applies to unsnapped singleton air placements and is consistent with the ground-node sweep for Reedsting."
+  }
+}

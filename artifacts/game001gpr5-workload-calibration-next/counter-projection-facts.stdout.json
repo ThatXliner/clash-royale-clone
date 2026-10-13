@@ -1,0 +1,91 @@
+{
+  "sourceSetupSha256": "306bb30da40ce7c43d6cccce8728449da90fc0e9ca7d13c81f0116ba710aec8c",
+  "snapshot": {
+    "tick": 13200,
+    "southEastLaneHitpoints": 289,
+    "lethalDeadline": 13352,
+    "remainingTicks": 152,
+    "intendedLethalAttacker": {
+      "id": 159,
+      "cardId": "reedsting",
+      "hitpoints": 260,
+      "damage": 131
+    },
+    "actualNearestEligibleThreatAtCounterPoint": {
+      "id": 146,
+      "cardId": "mossguard",
+      "hitpoints": 1112,
+      "damage": 202,
+      "position": {
+        "x": 14101,
+        "y": 14500
+      },
+      "radius": 500
+    }
+  },
+  "availableAffordableCardsFromSavedCounterChecks": [
+    "reedsting",
+    "copperskiff",
+    "cinderlings",
+    "mossguard"
+  ],
+  "estimatesAgainstActualAcquiredMossguard": [
+    {
+      "cardId": "reedsting",
+      "cost": 3,
+      "memberCount": 1,
+      "damagePerMember": 131,
+      "hitSpeedTicks": 42,
+      "deployTicks": 60,
+      "firstHitTicks": 21,
+      "damagePerIdealCycle": 131,
+      "target146Hitpoints": 1112,
+      "optimisticKillTick": 13617,
+      "ticksAfterTowerLethalDeadline": 265,
+      "basis": "single-member attacks; no approach, projectile travel, retaliation, or deaths"
+    },
+    {
+      "cardId": "copperskiff",
+      "cost": 4,
+      "memberCount": 1,
+      "damagePerMember": 171,
+      "hitSpeedTicks": 66,
+      "deployTicks": 60,
+      "firstHitTicks": 36,
+      "damagePerIdealCycle": 171,
+      "target146Hitpoints": 1112,
+      "optimisticKillTick": 13692,
+      "ticksAfterTowerLethalDeadline": 340,
+      "basis": "single-member attacks; no approach, projectile travel, retaliation, or deaths"
+    },
+    {
+      "cardId": "cinderlings",
+      "cost": 1,
+      "memberCount": 3,
+      "damagePerMember": 81,
+      "hitSpeedTicks": 60,
+      "deployTicks": 60,
+      "firstHitTicks": 30,
+      "damagePerIdealCycle": 243,
+      "target146Hitpoints": 1112,
+      "optimisticKillTick": 13530,
+      "ticksAfterTowerLethalDeadline": 178,
+      "basis": "three-member ideal synchronized volleys; no approach, spacing, retaliation, or deaths"
+    },
+    {
+      "cardId": "mossguard",
+      "cost": 3,
+      "memberCount": 1,
+      "damagePerMember": 202,
+      "hitSpeedTicks": 72,
+      "deployTicks": 60,
+      "firstHitTicks": 42,
+      "damagePerIdealCycle": 202,
+      "target146Hitpoints": 1112,
+      "optimisticKillTick": 13662,
+      "ticksAfterTowerLethalDeadline": 310,
+      "basis": "single-member attacks; no approach, projectile travel, retaliation, or deaths"
+    }
+  ],
+  "decision": "No legal placement can direct a current ground-and-air counter to Reedsting159 while Mossguard146 is alive and both are eligible. These optimistic estimates also show no affordable card can clear146 before the 13352 tower deadline; a 13200 latest-save policy cannot solve this state. Clear or divert the competing body earlier, before the lane reaches this crowded state."
+}
