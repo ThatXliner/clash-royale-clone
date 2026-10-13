@@ -1,0 +1,101 @@
+URLs
+https://bryanhu.com/clash-royale-clone/
+https://bryanhu.com/clash-royale-clone/game/public/index.html
+https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CBLw_649.js
+
+Home links to release SHA:
+26:          <a href="https://github.com/ThatXliner/clash-royale-clone/blob/ae4a63e4bc544a8c195fc24abd5f6d17801cd1d4/docs/rl-api.md">RL environment</a>
+48:            <a class="text-link" href="https://github.com/ThatXliner/clash-royale-clone/blob/ae4a63e4bc544a8c195fc24abd5f6d17801cd1d4/docs/rl-api.md">Read the RL environment notes</a>
+91:            <a href="https://github.com/ThatXliner/clash-royale-clone/blob/ae4a63e4bc544a8c195fc24abd5f6d17801cd1d4/src/rl/environment.js">
+96:            <a href="https://github.com/ThatXliner/clash-royale-clone/blob/ae4a63e4bc544a8c195fc24abd5f6d17801cd1d4/docs/rl-api.md">
+126:        <a href="https://github.com/ThatXliner/clash-royale-clone/blob/ae4a63e4bc544a8c195fc24abd5f6d17801cd1d4/docs/rl-api.md">RL API</a>
+
+Build modules:
+11:    <script type="module" crossorigin src="../src/ui/app-shell.js"></script>
+12:    <link rel="modulepreload" crossorigin href="../assets/rolldown-runtime-Cl99QfTQ.js">
+13:    <link rel="modulepreload" crossorigin href="../assets/game-runtime~public/index~public/ui-arena-shell-D-709RTF.js">
+14:    <link rel="modulepreload" crossorigin href="../assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CNVraBnB.js">
+15:    <link rel="modulepreload" crossorigin href="../assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-iYK_h2t5.js">
+16:    <link rel="modulepreload" crossorigin href="../assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CoZYFfHy.js">
+17:    <link rel="modulepreload" crossorigin href="../assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CAfkQEKR.js">
+18:    <link rel="modulepreload" crossorigin href="../assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CKCTqIUT.js">
+19:    <link rel="modulepreload" crossorigin href="../assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CwA4TOwI.js">
+20:    <link rel="modulepreload" crossorigin href="../assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DNcayJwS.js">
+21:    <link rel="modulepreload" crossorigin href="../assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-LpQ7eOoq.js">
+22:    <link rel="modulepreload" crossorigin href="../assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-D1gsQIWS.js">
+23:    <link rel="modulepreload" crossorigin href="../assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BPB5Lk7o.js">
+24:    <link rel="modulepreload" crossorigin href="../assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BwdRoAdf.js">
+25:    <link rel="modulepreload" crossorigin href="../assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-4A05yigw.js">
+26:    <link rel="modulepreload" crossorigin href="../assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CBLw_649.js">
+27:    <link rel="modulepreload" crossorigin href="../assets/game-runtime~public/index-D_hi7CMQ.js">
+
+Live roster IDs and interval:
+[PLAYABLE_CARD_IDS = Object.freeze([] offset=52775
+PLAYABLE_CARD_IDS = Object.freeze([
+			"coilblade",
+			"mossguard",
+			"copperskiff",
+			"skymaul",
+			"brassbolt",
+			"reedsting",
+			"briar-band",
+			"cinderlings"
+		]);
+		QUESTION_SOURCE$1 = "runtime-playability-estimate-not-comparison-corpus";
+		QUESTION_VALUES = Object.freeze({
+			"briar-darter.body-radius-millitiles": 300,
+			"briar-darter.projectile-speed-millitiles-per-tick": 500,
+			"briar-runner.body-radius-millitiles": 300,
+			"brassbolt.body-radius-millitiles": 400,
+			"brassbolt.projectile-speed-millitiles-per-tick": 500,
+			"cinderling.body-radius-millitiles": 250,
+			"coilblade.body-radius-millitiles": 500,
+			"copperskiff.body
+[EDITABLE_DECK_CARD_IDS = Object.freeze([] offset=230734
+EDITABLE_DECK_CARD_IDS = Object.freeze([
+			...PLAYABLE_CARD_IDS,
+			"stonehauler",
+			"thornscouts",
+			"forgeguard",
+			"cinder-host",
+			"ironroot",
+			"sunthread-pair",
+			"duskwing-trio",
+			"gloamwing-cluster",
+			"coppershade-flock"
+		]);
+		PROJECTILE_OCCURRENCES = /* @__PURE__ */ new Set([
+			"createOrdinaryProjectileSquadCatalog",
+			"createChainSpecialCatalog",
+			"createPelletSpecialCatalog",
+			"createPierceSpecialCatalog",
+			"createReflectionSpecialCatalog",
+			"createReturnSpecialCatalog"
+		]);
+		SOURCE_FACTORIES = Object.freeze({
+			createBasicFlyingCatalog,
+			createBasicMeleeCatalog,
+			createBasicRangedCatalog,
+			createOrd
+[DEPLOYMENT_INTERVAL = Object.freeze({] offset=166366
+DEPLOYMENT_INTERVAL = Object.freeze({
+			milliseconds: 100,
+			sourceId: "supercell-2020-06-02-multi-unit-deployment",
+			ticks: 6
+		});
+		TARGET_MODE_CODES = Object.freeze({
+			buildings: 1,
+			ground: 2,
+			"ground-and-air": 3,
+			structures: 4
+		});
+	})))();
+}
+//#endregion
+//#region src/content/session-spell-profile-receipts.js
+function canonical$4(value) {
+	if (Array.isArray(value)) return `[${value.map(canonical$4).join(",")}]`;
+	if (value !== null && typeof value === "object") return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${canonical$4(value[key])}`).join(",")}}`;
+	return JSON.stringify(value);
+}
+function clo

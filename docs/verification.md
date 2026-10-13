@@ -1,34 +1,21 @@
 # Verification evidence
 
-The published browser build has sixteen cards. The repository has eighteen
-reviewed editable choices, including two additional air swarms. Neither
-result establishes historical Clash Royale parity or completes the planned roster.
+## Published state
 
-An independent critic tested clean runtime candidate `7cb3143`. The full
-18,000-tick Chrome match passed through terminal and restart in 802,798 ms,
-with exact restore, input and audio continuation. The unchanged limits were
-50 ms for lifecycle work and 300 ms for initialization; initialization reached
-158 ms, and no lifecycle long tasks were recorded. Resource and runtime error
-lists were empty. See the [current independent receipt](../artifacts/ship-current-round-1/critic/verdict.md)
-and its [endurance evidence](../artifacts/ship-current-round-1/critic/endurance/).
+Checked on 2026-10-13 UTC. The live [Pages site](https://bryanhu.com/clash-royale-clone/) serves release commit [`ae4a63e4bc544a8c195fc24abd5f6d17801cd1d4`](https://github.com/ThatXliner/clash-royale-clone/tree/ae4a63e4bc544a8c195fc24abd5f6d17801cd1d4), which matches `origin/main`. Its [Pages workflow](https://github.com/ThatXliner/clash-royale-clone/actions/runs/38431846142) completed successfully for that SHA.
 
-The same review passed the browser journey, deck screens, JS/RL environment,
-source-isolation guards, confidence metadata and original portrait checks.
-Default-deck snapshots matched the earlier baseline byte-for-byte for two
-seeds at three checkpoints. The published build does not include the latest two air-swarm choices.
+The published editable-deck picker has 18 choices: 17 troop choices plus Squall Orb. It includes both added air swarms, Gloamwing Cluster and Coppershade Flock. The [live-source receipt](../artifacts/ship-current-round-2/builder/evidence.md) records the Pages API result, served app bundle, roster IDs, and hashes.
 
-A separate critic accepted editable integration at `a8c39bc`: 58/58 tests,
-including real phone/desktop controls, trusted deployments for both swarms,
-Coppershade's airborne projectile, and exact restore/replay. See the
-[integration receipt](../artifacts/cards016-integration-round-2/critic/verdict.md).
-The source-backed deployment interval passed independent review at `796708e`.
-That runtime also passed a fresh 18,000-tick Chrome run in 811,580 ms: initialization
-peaked at 197 ms under 300 ms, with no non-initialization long tasks under the
-unchanged 50 ms cap. Restore, input, audio, terminal and restart checks passed.
-See the [current runtime endurance receipt](../artifacts/game001gpr4-round-1/critic/verdict.md).
-This checks one seed-zero/default-eight workload, not every deck or command combination.
+The editable integration for both air swarms passed independent review at `a8c39bcc`: 58/58 tests, including browser deployments, Coppershade's airborne projectile, and exact restore/replay. The later stagger review accepted the source-backed relative member interval at `796708ef622a0292cdd71fa4cf0a81c9af48b3b1`: 100 ms, or six simulation ticks, between successive members. This does not establish first-member onset, formation geometry, or historical member order; those remain questions. See the [stagger review](../artifacts/cards016-stagger-round-2/critic/verdict.md) and [air-swarm source audit](../reference/research/air-swarm-formation-source-audit.md).
 
-Some card statistics, formations and arena mechanics remain estimates or
-explicit `QUESTION`s. The [completion inventory](completion-inventory.md)
-tracks their scope. Earlier [restore paint-probe evidence](../artifacts/vis-003hr-round-2/debug/paint-probes.md)
-is retained as a separate result.
+## Retained endurance proof
+
+The strict 18,000-tick Chrome run was performed on the exact `796708ef` candidate. TAP passed 2/2; the seed-zero, default-eight workload reached tick 18,000, then restarted at tick 0. It took 811,580 ms for the main workload. Initialization peaked at 197 ms under the 300 ms cap; no non-initialization long tasks were recorded under the unchanged 50 ms cap. Restore, terminal audio, restart, and resource/error checks passed. The [endurance verdict](../artifacts/game001gpr4-round-1/critic/verdict.md) and [captured run output](../artifacts/game001gpr4-round-1/critic/full-endurance.tap) contain the detailed telemetry.
+
+GitHub's comparison from `796708ef` to published `ae4a63e4` reports ten later commits and no changed `src/`, `public/`, or `demo/` paths. The retained endurance proof therefore covers the published runtime. It covers one seed-zero default-eight workload, not every selectable deck or command combination.
+
+## Pending work
+
+Local candidate `c981ec2` (CARDS017T) adds source-backed relative intervals to five further squad cards, including default Briar Band. It is not in published `ae4a63e4` and is not covered by the `796708ef` endurance run. Its first-member onset, Briar Band's historical formation geometry and internal order, and other low-confidence troop values remain unresolved. See the [pending builder evidence](../artifacts/cards017-stagger-round-1/builder/evidence.md).
+
+Other card statistics, formations, and arena mechanics remain estimates or explicit `QUESTION`s. The [completion inventory](completion-inventory.md) tracks their scope. Earlier [restore paint-probe evidence](../artifacts/vis-003hr-round-2/debug/paint-probes.md) remains a separate result. This document makes no claim of full historical Clash Royale parity or complete roster coverage.
