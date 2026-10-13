@@ -1,0 +1,114 @@
+{
+  "auditDate": "2026-10-13",
+  "purpose": "Reference-only, minimal raw-field evidence for CARDS-016D; not runtime input.",
+  "sourceFile": "docs/json/cards_stats_troop.json",
+  "hashMethod": "SHA-256 of the exact UTF-8 bytes returned by each immutable raw.githubusercontent.com URL.",
+  "fields": [
+    "key",
+    "summon_character",
+    "summon_number",
+    "summon_radius",
+    "summon_width",
+    "summon_deploy_delay"
+  ],
+  "snapshots": [
+    {
+      "revision": "02057553d57038c47f79dc0e743d19ee938bfa3e",
+      "commitDate": "2022-10-04T09:58:10Z",
+      "sourceUrl": "https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/02057553d57038c47f79dc0e743d19ee938bfa3e/docs/json/cards_stats_troop.json",
+      "sha256": "bad8407586f2a9894276614dc3eec08e8e740bc3618fe40d1615b1c8a408dc6a",
+      "records": {
+        "bats": {
+          "key": "bats",
+          "summon_character": "Bat",
+          "summon_number": 5,
+          "summon_radius": 750,
+          "summon_width": 0,
+          "summon_deploy_delay": 100
+        },
+        "minion-horde": {
+          "key": "minion-horde",
+          "summon_character": "Minion",
+          "summon_number": 6,
+          "summon_radius": 0,
+          "summon_width": 0,
+          "summon_deploy_delay": 100
+        }
+      }
+    },
+    {
+      "revision": "a6dc5b3b0e4421c6b9f54b3b68722ae1a11c0da9",
+      "commitDate": "2022-12-07T09:14:39Z",
+      "sourceUrl": "https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/a6dc5b3b0e4421c6b9f54b3b68722ae1a11c0da9/docs/json/cards_stats_troop.json",
+      "sha256": "51866ac409a52b6b639a190d02307f6049740afef5639d2a4170291702c3203b",
+      "records": {
+        "bats": {
+          "key": "bats",
+          "summon_character": "Bat",
+          "summon_number": 5,
+          "summon_radius": 750,
+          "summon_width": 0,
+          "summon_deploy_delay": 100
+        },
+        "minion-horde": {
+          "key": "minion-horde",
+          "summon_character": "Minion",
+          "summon_number": 6,
+          "summon_radius": 600,
+          "summon_width": 0,
+          "summon_deploy_delay": 100
+        }
+      }
+    },
+    {
+      "revision": "54fdef52c5086393b085f57faeeab8ef86b28160",
+      "commitDate": "2023-02-18",
+      "sourceUrl": "https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats_troop.json",
+      "sha256": "a6e044cb510ec280dacfd54e546558276e5f40d50fbd16f47f3ff16126add33a",
+      "records": {
+        "bats": {
+          "key": "bats",
+          "summon_character": "Bat",
+          "summon_number": 5,
+          "summon_radius": 750,
+          "summon_width": 0,
+          "summon_deploy_delay": 100
+        },
+        "minion-horde": {
+          "key": "minion-horde",
+          "summon_character": "Minion",
+          "summon_number": 6,
+          "summon_radius": 600,
+          "summon_width": 0,
+          "summon_deploy_delay": 100
+        }
+      }
+    }
+  ],
+  "interpretationEvidence": {
+    "deploymentInterval": {
+      "source": "https://supercell.com/en/games/clashroyale/it/blog/release-notes/modifiche-di-bilanciamento-della-stagione-12/",
+      "published": "2020-06-02",
+      "supports": "Multi-unit cards deploy 0.1 seconds apart; Bats, Minions, and Minion Horde are listed, with skeleton cards excepted."
+    },
+    "radiusBehavior": {
+      "publisherSource": "https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-2/",
+      "published": "2022-12-07",
+      "supports": "Minion Horde deploy radius increases spacing between its members."
+    },
+    "radiusDisplayAndChange": {
+      "source": "https://royaleapi.com/blog/season-42-balance?lang=en#minion-horde-buff",
+      "supports": "December 2022 Before/After table labels the field Deploy Radius and displays 0 -> 0.6."
+    },
+    "repositoryUnitConvention": {
+      "source": "reference/stats/SOURCES.md#L25",
+      "supports": "Raw distances are normalized as thousandths of a tile and raw times as milliseconds."
+    }
+  },
+  "unresolved": [
+    "Exact unit-coordinate transform from summon_radius to member coordinates.",
+    "Formation shape, anchor, order, side orientation, and collision adjustment.",
+    "First-member onset relative to card deployment and animation.",
+    "Whether the placement algorithm uses any randomness."
+  ]
+}
