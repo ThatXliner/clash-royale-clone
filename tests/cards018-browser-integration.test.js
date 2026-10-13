@@ -682,8 +682,8 @@ test("Cards018 Ember Basin: editable collection enters real mixed battle and res
     }, moduleUrl);
     assert.equal(beforeExpiry.tick, 1_800);
     assert.equal(beforeExpiry.placedTick, lifeDeployment.structure.placedTick);
-    assert.equal(beforeExpiry.tick - beforeExpiry.placedTick, 1_799,
-      "the lifetime witness is at age 1,799 immediately before expiry");
+    assert.equal(beforeExpiry.tick - beforeExpiry.placedTick, 1_800,
+      "the live structure remains present at state age 1,800 before that tick's expiry boundary is processed");
     assert.equal(beforeExpiry.alive, true,
       "the defensive structure survives immediately before its exact 1,800-tick lifetime boundary");
     await frame.evaluate(async (entryUrl) => {
