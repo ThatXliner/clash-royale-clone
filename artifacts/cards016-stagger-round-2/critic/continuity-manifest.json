@@ -1,0 +1,1287 @@
+{
+  "candidateCommit": "796708ef622a0292cdd71fa4cf0a81c9af48b3b1",
+  "roundOneCandidateCommit": "09b0f9c741f4f2860785b18ab7b82002fd623426",
+  "frozenWorktrees": {
+    "baselineDir": "/tmp/cards016-stagger-critic",
+    "candidateDir": "/tmp/cards016-stagger-round-2-critic"
+  },
+  "runtimeAndAssetContinuity": {
+    "name": "runtime and shipped assets",
+    "baselineFileCount": 181,
+    "candidateFileCount": 181,
+    "samePathSet": true,
+    "allHashesEqual": true,
+    "baselineManifestSha256": "a1a1260846963dd4d0640232ab002f934df1707245d6f7e30e3edb71bf5e8fb9",
+    "candidateManifestSha256": "a1a1260846963dd4d0640232ab002f934df1707245d6f7e30e3edb71bf5e8fb9",
+    "mismatches": [],
+    "files": [
+      {
+        "path": "demo/arena-art-prototype.css",
+        "sha256": "4987ff3aca0f3e284b1f9b68fe1741ad8edcbfc23d50717b6b59f3cedfa9aa17",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "demo/arena-art-prototype.html",
+        "sha256": "7db1fa389d2f1de7e38b8ae6e027bde269189b3790a38904f0cd32f4f5990da3",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "demo/assets/card-portraits-painted.png",
+        "sha256": "da0157b21f5fa7ded48d8cda8b3820eae2880800b9bb585dd3452b33751bb147",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "demo/assets/cinder-host-painted.png",
+        "sha256": "18e2591707ba3b161ee362157cc7782fda1c89857b386b96ca4d7fd24c64441b",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "demo/assets/coppershade-flock-painted.png",
+        "sha256": "ae5b7361274dee316fb2c3f0062b74718e3af1687f3766f857a3573b8250c203",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "demo/assets/duskwing-trio-painted.png",
+        "sha256": "d8a82c8aec379720249d559e8e45cf1eef0621cb14da734a7d35d5b6f0642511",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "demo/assets/forgeguard-painted.png",
+        "sha256": "027b63d4aee989942951e7a2ce7e1acce7a3e4ae6ff4a5630db97e952626af40",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "demo/assets/gloamwing-cluster-painted.png",
+        "sha256": "2537f0de61793fc87866fb65894e0c83c98614f00c6c459ed3dc49604c92025a",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "demo/assets/ironroot-painted.png",
+        "sha256": "82d41c60a5896ed581334b421e65889c9a8e947db0ac43b6e7119f0da48a0e11",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "demo/assets/moss-ember-arena-painted.png",
+        "sha256": "6b041ff5f08a9f5dc79181918c0b470abf33ca9ec2ae32ce91e41cb2d945b8b5",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "demo/assets/squall-orb-painted.png",
+        "sha256": "f6891cc6f749928e5e80eac30aa67b7c7818b696a968d8e3b8941bec5d86f0f9",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "demo/assets/stonehauler-painted.png",
+        "sha256": "191912952eec83874e06ac1c3055e458ac4637b08c8148f1b039120f16a66245",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "demo/assets/sunthread-pair-painted.png",
+        "sha256": "40e360d2f664ed1e947f1520c4d1137d8efd8bf42c3a308b2ffcc274e71acc6b",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "demo/assets/thornscouts-painted.png",
+        "sha256": "0a053680051ff077b874c6a2a9452dc7c08a345039b5a48a6852380de6edd2ff",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "demo/card-art-prototype.css",
+        "sha256": "9fe84f3c61599db711273085f10dffd6d85dd1e6176f88ff4c3a92c6d234414d",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "demo/card-art-prototype.html",
+        "sha256": "1fa94a821965e8a1fa3fdf938e35f3368118dc1be1090dd1e157fb03af9810ff",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "demo/sprite-prototype.css",
+        "sha256": "1365e39428315fb723f555eb56f4c6e9ce897354f5dc80b967280e160c64953f",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "demo/sprite-prototype.html",
+        "sha256": "5ebbbb179b21ed8a552eed3d906c43ebede5954e5a63c3f5a6eb8823e6842a1b",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "public/assets/briar-runner-painted-sheet.png",
+        "sha256": "a1aa43df00dacc212beedb4905dddd7a57db412981ea29662bc1d868a97794f4",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "public/assets/briar-runner-sprite-sheet.svg",
+        "sha256": "5f25d05932e3c56f9a8dfce7ea9b9d02e9ad2fb34ef0ce983733f9b97b6b7a2e",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "public/assets/card-portraits-painted.webp",
+        "sha256": "16307a59bde57889e11bcd7b86b54d69ba9985eae6ef436d9703e528fba58e4f",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "public/assets/cinder-host-painted.webp",
+        "sha256": "8782c64550d8f75e7293a18fefb1006503a9a4bdc92848458c0841148b230b80",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "public/assets/coppershade-flock-painted.webp",
+        "sha256": "521167c772916265e797c51c28183d91f090c2670ec7d527bf59e60a85684dec",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "public/assets/duskwing-trio-painted.webp",
+        "sha256": "14c435ea7e5f427c1191cbf3deba2cf90beddb74e65273bad9992d4e54c9cefb",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "public/assets/forgeguard-painted.webp",
+        "sha256": "cdd98ec4812e602b118645de53238013c75b798cd632363c3ffd1235212cc5ed",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "public/assets/gloamwing-cluster-painted.webp",
+        "sha256": "176687230a5e9b3b57364437692308f568e2933b7b0225e46694cfbbfb4b6cf8",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "public/assets/icons/emberfall-mark.svg",
+        "sha256": "4f355159095ed8682d39b593d2736b542a975985b0395abfe98bdf9837a9749c",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "public/assets/icons/rivermark-pip.svg",
+        "sha256": "491e48bf2aa7d15754b7ea836bc0569728cece454205ed370e9745e36a470607",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "public/assets/icons/tidewarden-mark.svg",
+        "sha256": "051dbf39eda3e58d45eea74c581cb62264f871113ea824a877030ffc04175963",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "public/assets/ironroot-painted.webp",
+        "sha256": "abccd83c46fda2c01bf9ef6264e5f9dedf42f74d4afc6fa0a05649058fd17dd8",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "public/assets/moss-ember-arena-painted.webp",
+        "sha256": "22713e1725c21a8f853df5e2af3278689e7e844783606d93c7a12a365d8e930e",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "public/assets/squall-orb-painted.webp",
+        "sha256": "963c4a9b8a8a35a3c8405663c93fe24ccb13a18c7a22d317236152e3b253a5e3",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "public/assets/stonehauler-painted.webp",
+        "sha256": "47c19650d41d21a6efb3f883b6fff73892abd214783279dcb5708cc198b87357",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "public/assets/sunthread-pair-painted.webp",
+        "sha256": "96dc16ece8eae4fea3f84644b0efbe1bacec44f85f9e99e958a18303dd48beec",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "public/assets/thornscouts-painted.webp",
+        "sha256": "04893c3101194546b572056ad9466d88b26fc2ede3549ec821e1304b1fe9c11a",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "public/index.html",
+        "sha256": "8ddd64d4f1e8e176840db5e8e592e9b4fbc00679d95acda5bb2bb8e56f778b93",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "public/ui-arena-shell.html",
+        "sha256": "1c66bea7b8af8c193cda7986fd6ef21c6d0317e5aea3a68656e2dbd7a8e1e5b9",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/audio/audio-events.js",
+        "sha256": "6be744a0b1080857aaa83285fe1c1d20bbc95422dc630e1d215be6faedd587f3",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/audio/audio-production-provenance.json",
+        "sha256": "de5d85b9ec66e09d832ce52578546054c40f76105f66cf32a83b247b59209aae",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/audio/audio-provenance.json",
+        "sha256": "18f44a42c137cd9c131b86c52062a34a0b3181a29db3c89cd09de4aa4f9e84e6",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/audio/audio-renderer.js",
+        "sha256": "b8ebd1c05704b143612d60a5e08007fb7d7f0af3e4d4837c6bc7431da46e2dfb",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/audio/browser-audio.js",
+        "sha256": "c8666b60a128683fa659c7cdd8c5c145a4206ecd105d9e0814c968071fc75b19",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/audio/game-audio-runtime.js",
+        "sha256": "9e6b8bc0e0ee0a29f32670e5065276caa94e23779ba257efe7aa906afd2f11b5",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/basic-flying.js",
+        "sha256": "6037912f3ad759a7b042eebb6f268828a14eac0dcec5e070ef115a26ed62d083",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/basic-melee.js",
+        "sha256": "a36629504e2654dd32a15dd4fe50a3aa17d3b1eb683dd4cdf65ae8bd7984da23",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/basic-ranged.js",
+        "sha256": "2a59298577d779a771c7969845d8742afd2974857d6bcf01ef1337049fb02cab",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/buildings-defensive.js",
+        "sha256": "30ee46b0f00766a9687f332a1eb236e77132b1da0cc496a9a6ad156e75767224",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/buildings-resource.js",
+        "sha256": "34541c24fa1465f785c46dc676c046b58aed690e0f29216149e74cf18f49e117",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/buildings-spawner.js",
+        "sha256": "079afcda602701332c8f8aae8a8c7c1e9f37d7514f8816666211518f9e48840b",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/buildings-travel.js",
+        "sha256": "c848aeebc417cd2947b0eda303e722b0359ec03280bff7de5a785fd3813383a6",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/champion-abilities.js",
+        "sha256": "d12a52881021135cdff23b03bf7f47b7e19a81b6e5f7448dcf91e95371e4a811",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/combat-status-heal.js",
+        "sha256": "d1f2d19217e79f40bbccfaf2462654f6eccebfeaa962cc1eacc44c1203ee8fe0",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/combat-status-invisibility.js",
+        "sha256": "306d99f8e818ab93a597e53b3dd7f0b19fc53c4f7f463a997ecee1528f2c809b",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/combat-status-stun.js",
+        "sha256": "7c81178932fe7139f7abc068de8f4bc5da8657605941f1c9a3c4206bcd9be58d",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/death-conversion-delegated.js",
+        "sha256": "94919be305267ba73ee9e7cb05535d1bf2ae134fefd83f497b03cfd8cd91153d",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/death-conversion.js",
+        "sha256": "be95edf03592b7dddba626c81022a97d63491a08b0c4a152f97724134f13ba48",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/death-effects.js",
+        "sha256": "10969eb6d3ec687f43f7e9bb89537975d90c131c125829147fa44c8a99e78a81",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/death-spawns.js",
+        "sha256": "1d9b0003ade5acaf075acb8073a4336598696346071b805f171e89589d1a733d",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/ordinary-projectile-squads.js",
+        "sha256": "293d8df31018598f2e347ac7a1a45b6cd15bcbca521bfe818736b37a06c11bcf",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/periodic-spawns.js",
+        "sha256": "de2d554f27a54a72b5aef665501786d983436f6e8bd69abf3df37eb322891269",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/shields-forms.js",
+        "sha256": "e78d1484c9dd0b20633e81eb48c32223497ac08fa4c20f6b16c4e2461f7329c8",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/spawn-placement.js",
+        "sha256": "6aa7e846528c9263e09bc46f625337000d8a63a82948eaf073d329269a3feb5c",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/special-combat-rage.js",
+        "sha256": "6b91168d0fa7a4e3c21f811b40bf4f11d724b62a5dfa83066c8165c253285c61",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/special-combat-ramp.js",
+        "sha256": "c643f8063f31394b95d605a817b86f377a411cb087a3e53adc2647edeab25c67",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/special-combat-reset.js",
+        "sha256": "a7f44f7f97f78a5b713e1090e56e5fb9060322317895c9f39ec4ff652fb163c5",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/special-combat-slow.js",
+        "sha256": "7283ac30293607603181f442651277ac60c20ef3a121ceea4ca83c71862fea2d",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/special-combat-snare.js",
+        "sha256": "31ff46ce654560a2a1f9813fa06fbc0486fdbe6722b1617edfb656b9ce90720b",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/special-movement-charge-knockback.js",
+        "sha256": "f87ab0d28a87ae7c6bfaa17cd97ec38b39954a75c0af93dc03852b7f7cf3cc4c",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/special-movement-charge.js",
+        "sha256": "0341ad6c14f129d9052ac2a06402ff1aa6f3979b68d689a09d11e17e9e97a784",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/special-movement-dash-knockback.js",
+        "sha256": "ef16c4fb3aaf4b2bd6d2ab0adfc9933a2df774770a340ff1db632ac9eeace649",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/special-movement-dash.js",
+        "sha256": "b9bb3bd5d4d8935b65d7a0f20dbbd18e70bd8eda69245c601d24eb1486f1179e",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/special-movement-jump.js",
+        "sha256": "e0f1ea28bf0694d19ad276b3dbf660520cff944a3522895398086848520c66ca",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/special-movement-knockback.js",
+        "sha256": "d587f7bcc29628a597b17cb7b1787b442cf29f797b0b7b45e4d9884dc6c38d8f",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/special-movement-leap-knockback.js",
+        "sha256": "2ecb904c41881d76aba385c94c0128fc014ec8301c870ea18dad83f1ebecc8e8",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/special-movement-recoil.js",
+        "sha256": "950e449c03b1db3f7da071ec33da14562580fe5c76b348808890ddd0f42b1007",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/special-movement-retarget.js",
+        "sha256": "036fef7aac95b3959aaa5f3c6c69afdaee8c9c2fd8a4118c05aabef685ce7cec",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/special-projectiles-chain.js",
+        "sha256": "a837cad6adc731dc6a8916ed39a1021c092b283ebdb82a982be44817c4712c86",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/special-projectiles-pellets.js",
+        "sha256": "df257c20524a46dfc0eb2e877fa8bfae0cbe0a3f70c4a9da0c6981f0808edf50",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/special-projectiles-pierce.js",
+        "sha256": "0bda1c3c339ea53d4fdc0d62fddb445832f0300ebfbf18cdf6a8050128bc9f4f",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/special-projectiles-reflection.js",
+        "sha256": "06df161e5ff98bd266a82da2bea779c2fe3b8cb3d847f458b4262968261b0715",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/special-projectiles-return.js",
+        "sha256": "8e66814513b366a50462016535ec8bac08d8599ecdb4b320a48c57dad9c7cd83",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/spells-clone-unit.js",
+        "sha256": "88deb2b97a1e18a9a624fbd2c396f1dc9f794b780ff2f78dec3d6f798f4911de",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/spells-copy-card.js",
+        "sha256": "9fcc68af77a6dc6f3b4fabcf44d8037a8f54b24d2950b98c98b2fe723ea4ca89",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/spells-instant.js",
+        "sha256": "d62c418b375be6ed28c7f79a115fa3e9c2e425db210018a0d9919bdb7993325a",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/spells-periodic.js",
+        "sha256": "b9a697436a4251b3a9fa329ddcf3f0eef9303b5d71ba4d2e116832f3479585cb",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/spells-return.js",
+        "sha256": "f15c26e693fb5c0f98b99e5de7ea9a662d597cc23600f81dac42334451aefa92",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/spells-roll.js",
+        "sha256": "a962103bdcfe64129cd1ab142330ce211f241140e8d46b737c79bf96be78267a",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/spells-spawn.js",
+        "sha256": "101f271adea053ce12a01075b3eb3d85a1fb8f6057790bfc4b909ac0b70b1406",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/spells-three-wave.js",
+        "sha256": "2b53806558ae34e1ce3dbe511b1ea336c09d01bd1d913fb97dd83f99bf27cef8",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/spells-travel-line.js",
+        "sha256": "7694602949b8725db96ab0049f3bdbdd37a432fd6c850d0f1b9913ba5c5983d5",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/structure-seeker.js",
+        "sha256": "21f5ee94fd3f6be4a439dcc597678aeac8743edc55b67186a95c9ae8b9d12fd9",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/cards/swarms.js",
+        "sha256": "674c4ec2a8feea0cfda48dc51f1dbdc5711047a608c30378824d4a1ff4b4b733",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/editable-deck.js",
+        "sha256": "775beead1d8be5ff0c49e3e7a66883bde99581a4105080a5ac4448c8fb963745",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/index.js",
+        "sha256": "c36e9cefb11780a260f8a946eb70207d4ca6b9f29de4c604039ccf700d3cfbde",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/movement-question-graph.js",
+        "sha256": "8f81c0a8612da87156e8aab3911b5a626efa7277a5d9a38e3652c1fa0eefa0f2",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/playable-roster.js",
+        "sha256": "08d49673513f9a5ed858e4b6455e020ea84de2d02ac7793704dd35ea5512c1a4",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/schema.js",
+        "sha256": "d6f268a8a54a92413b5b0cf169eca3cb05fb25bb54a83e67c472c2f1e574ac7c",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/session-card-catalog.js",
+        "sha256": "ab660a46dfbe8ae3148612c048e5320e69f11edae36dfb54c0665499ca82a2f0",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/session-spell-profile-receipts.js",
+        "sha256": "0364439c12e2ba10c160c071d125d22ff5f1783da49b02b630c2231f0f9c0eca",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/session-troop-movement-profiles.js",
+        "sha256": "80997116951834cc1cf1eb6aa83d9d2b347bb75a94abf164dbb355b4890bbce5",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/session-troop-movement-question-authority.js",
+        "sha256": "deb8175d5ba71a21e0860244902ea2e5528fc641b23d4b8f335a3175d43e07e2",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/session-troop-movement-runtime-profiles.js",
+        "sha256": "49e6a15c98a5a7206a5f6a5095eb114a351d0ee74d7a0b80ed3120ed1497e3c4",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/session-troop-profile-catalog.js",
+        "sha256": "5da2e97a8e35fd07ba49335b1e8d7885b8a858dc1e083a8e724d12690a30f4db",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/session-troop-projectile-admission.js",
+        "sha256": "af1eef8a07921704899ccdea8bf849a8371d097fed39ad176b63358a57419827",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/session-troop-projectile-profiles.js",
+        "sha256": "cb48f7814e5d2f48cd1428daa7d826221e7b328dc75aca4e4345560798b69a10",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/session-troop-projectile-source-admission.js",
+        "sha256": "eab7d27341ba44b78bfdef567de01f13712096773adc0ca03c09508433b1e11b",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/session-troop-roster.js",
+        "sha256": "e7bd95727fa003f7ef5348e31473eeaaee4f0f3e3c9ea1c8b811fccafbc59bb3",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/session-troop-status-profiles.js",
+        "sha256": "ac75d4d546f76d03c64a8354b471a39f0dafd19379ce1b42b7b88f52bf74c616",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/session-troop-status-runtime-profiles.js",
+        "sha256": "94089f8317615e17e971ce7882c9dff57dca513ed46f1383b95777073970efdd",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/visual-art-direction.js",
+        "sha256": "da0473057d49a60860e6d18670f1aacec7aa65a592c78a4d7a47d6d00e3c7cf9",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/content/visual-asset-manifest.js",
+        "sha256": "e018021b10898deb3231a8b0f6a8f2247fbce752bf86ee19d585194d028bb833",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/rl/environment.js",
+        "sha256": "3f6f534bd0a3b84957ee9fdbbb5cb2edc4167df35f0044eb2a07464c8116dac7",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/shared/ordinary-projectile-delivery-authority.js",
+        "sha256": "a9f1137963744dc1d5204cfc2330201e163bdd80a1aa9a13f787a83a63c780b3",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/shared/session-troop-projectile-authority.js",
+        "sha256": "cd4a69d0323afd59bc194ba980fe3a171cdf3bf33562259d6ccd8ebf6bf37a6b",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/shared/session-troop-source-confidence-authority.js",
+        "sha256": "e784d9ae37852580f0903687407b6631d1d52b6662df3561803013a8eaec2eeb",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/area-damage.js",
+        "sha256": "c3df6728aceaebba8f9c0afbb94ed207c5cf842eb8a4f736bfae9bc1a823eab0",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/arena-geometry.js",
+        "sha256": "038d192fc3758f480594f9c97ebaa4e12e6f366955f0e2a3575a33165f654fee",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/attack-cycle.js",
+        "sha256": "add7bc5dbfe981f04a69519f647a4599c9208a59578697024a751de3a14fcbb3",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/battle-combat.js",
+        "sha256": "a9adf0d16359077bd0453cf2b8716e817d0a47c78073cde25a8b44a0c4ce3922",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/battle-continuation-kernel.js",
+        "sha256": "6739f55ade79d9f48959fbb5c6a47b4fe83b7c90fa9dc3beb5301cfe4a8c1b69",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/battle-movement.js",
+        "sha256": "3252387a7657df2c5a7a6508b31bd21d68a8d63fa2a612cb2979edd024ddcb0b",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/battle-towers.js",
+        "sha256": "e6a89d7d9d4cdd32fd03c0c3c336a64b8862e9fb0ef49f383609abf376c4cc64",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/combat-effect-feed.js",
+        "sha256": "56e00f0bfa449e9efa29d794c8f34793ffdef13d12a533c7d13723cfeb70f0ea",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/damage.js",
+        "sha256": "a0766301172c897354b2c3b8dd0afedbaf77ba2864a231b42ced1bef31fe61e7",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/deck.js",
+        "sha256": "8e6d179c248ffbb2f2c434d82efc00e127ccd01e5c9ee06e719dd2e2590fbb77",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/deployment.js",
+        "sha256": "f22067c2bfbd1ccdad6f913a50efa19899c7ee4254ffac35b473e3fb8978b563",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/elixir.js",
+        "sha256": "5be6387d9358dcaba762bd7a0a62b82beeb1760faae24d315ce9ff33c154d235",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/entities.js",
+        "sha256": "3bcf5072de4091f37bb9ef0fdc9080b44e3488bb69c43639a263ec27c591684a",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/fixed-step.js",
+        "sha256": "4533f7695caed8f119195a396039a297b1f45b91f5a2d6255f60e75c66e5df8a",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/flying.js",
+        "sha256": "0d1640fac3663e539643a1d851a8198b819bb1713cfb10dc08c1fa66eca1174b",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/formations.js",
+        "sha256": "0749bc802edb64c572a707e8e7b25e75796fa77007b4d5483be901bd35675fac",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/game-opponent.js",
+        "sha256": "475fb4b5d15551069fcf74d93d562c84837f47a327d1a99502758feacb738994",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/game-player-deploy.js",
+        "sha256": "89865ea25511294d0865a8e93a3d431879b3226e433d6a8e9c51487bfee1e1df",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/game-session.js",
+        "sha256": "a11f43213632bcd7be3d4945846cf5dcbfaeaf4b961a32c420c590f67519daa1",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/game-side-deploy-core.js",
+        "sha256": "ec84ca5b175fc0fe50d6d6b4ca2e18b5ce3bd4bf69d12cc16f1db48f3f92c0b3",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/game-side-deploy.js",
+        "sha256": "54c5404c1ba21c60034b4331244797fd12e37f6d2a7fd4adede97d03e803ce32",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/live-battle.js",
+        "sha256": "208186e8d90ba1501f563f55d42f2bb5ec5da1daaea46b96ef41c74b1a48da2a",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/match.js",
+        "sha256": "717bb8e2cd0dc47d621afce31c185c571d2cad44f0cf914bf09e4e6fb09dac0c",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/melee.js",
+        "sha256": "41f014bd5118ccf9880c40f454e8ebaa53b707f7a469152f96228eff107c2f2b",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/movement.js",
+        "sha256": "0988abf424abf5edb9d4d4da1dfbfc9f4a56732c065436ee1fc04ccbdd667586",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/opponent-controller.js",
+        "sha256": "3531d6b4f135802c57a465533fb22064f454557362ebf7a6efd4f56f70fa95df",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/pathfinding.js",
+        "sha256": "49729ea021c954e66b2fe0c6f027410974a2cb994f3d092e92a175d6af72d296",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/projectile.js",
+        "sha256": "e911a45efb7167a9138f85254d76f1e0c7b4b1c76019c56ec5fbd1903ad1b765",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/rng.js",
+        "sha256": "529e8755c760a816c20b0b837e1dee068b92fa3372736cdf8851256d636b2d17",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/session-building-profile-receipts.js",
+        "sha256": "8f6d3d7c7b8775517163f80a82c1db04dc3ec412bb84e0b9ef8c9fc902c96eb8",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/session-building-runtime.js",
+        "sha256": "75bdeb3584c6eef761a5f03311bb09149f02f95468fb8eebe85031c16395ce27",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/session-card-runtime.js",
+        "sha256": "420499c828178e50caddc64c46d5208e901509da744b2f044d6b5ae9ac876748",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/session-troop-projectile-runtime.js",
+        "sha256": "eb446c4be898a0028a593f64331cd0433754f9060214f6640b0e0ad3f905c97f",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/session-troop-runtime.js",
+        "sha256": "1daef3770127a97152c8a2782b87c2f8760b671ece57430076b06adfc5278b4d",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/session-troop-status-runtime.js",
+        "sha256": "7f385708dee6bdb14062f2cd96ba1f0dd9e5652e40d32934b031c9b98066489d",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/spatial.js",
+        "sha256": "6afee6321acfe9eada77d68d3d88361bdff3c08685debf916f1685cf6491607e",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/spell-area-impact.js",
+        "sha256": "f1b70073951908f8f62f6af93fe5565288becb1d8f52bc45741697f90f7a9d68",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/spell-intent-runtime.js",
+        "sha256": "f752f9be5d85039e115b94f15e95d9a975ea2afa057892ce8caa862a780bf177",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/targeting.js",
+        "sha256": "18bbad382730fe976e13934c98f50a7c999363429abeb7aa7501b78929f56470",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/tower-evidence-map.js",
+        "sha256": "1d3ad4b67304fa356eb85ed0bcc4a1229cbdbdd6bda0996c4e387fe96dee96c2",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/tower-evidence.js",
+        "sha256": "f3b21b27bf5b367316826f3ec85bc94ce5f11afe4fe89e679946f78ea90a04ae",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/sim/towers.js",
+        "sha256": "1e063e7adaae32278838f877d6f248d57621661a3745d3fcccc0bc2538c36a94",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/ui/app-shell.css",
+        "sha256": "f4720d7b9f07b0b6bc646e68bfb4192a140c91d2da84e18227891fa5b56f3a04",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/ui/app-shell.js",
+        "sha256": "4ed1b596d41a43cc4c10698f52277805cd7608b40229620c7331df1a6045c4bc",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/ui/arena-shell-entry.js",
+        "sha256": "73cdec8ef684dbc7027a05a08f6457a04eb65d5b5e653fab49a9be0e92f5a7d2",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/ui/arena-shell.css",
+        "sha256": "f3daa8659e1ac6ccbaeadd9017a3f8f30e5b8e065a7d5bcdabec81291860978e",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/ui/arena-shell.js",
+        "sha256": "4df15178ed296d2a20bb5216db98931e24c9ac3ce7fd60cf97cbe79119ce5249",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/ui/card-lore.js",
+        "sha256": "03d74c30ef66b1c068c37ef9f9527630f28e2b427e53900cf7345dba79964d07",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/ui/card-portrait-art.js",
+        "sha256": "db81a829e5f02316e769beee9d2a80723ae2d97b392bca32f8413958a42fa7f5",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/ui/combat-art.js",
+        "sha256": "4565ffaa89da9ce098f4c07e28726c59f029bc0f18513cf67aa363cbae25a29b",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/ui/combat-effects.js",
+        "sha256": "a848f6e2e1bbe38046dc496aac578cae2a1c282e04f594103375962f178f0af2",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/ui/combat-motion.js",
+        "sha256": "dab2da5df0ed2264bc33c6b18eff58cba6d3319f086a0ebc939063804b2c7e03",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/ui/combat-sprite-prototype.js",
+        "sha256": "626388c9d3a686636b85f2256595e7d3859ac24e042a3f21600ad3fe90c17272",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/ui/combat-state.js",
+        "sha256": "fce9a42e949de01710ef9425199f166a568a5055dadabe77a4ccccdbd83d325c",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/ui/game-audio-bridge.js",
+        "sha256": "443af1ade77a8946a27d908c55e6336e4ed573e6807d6c2863b7d7bc2f4e5b4b",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/ui/game-audio-controls.js",
+        "sha256": "f8ce83fa16da4fe6c59768bca57f6a8822822a0ab8cbed40193409abce4e639f",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/ui/game-browser-entry.js",
+        "sha256": "3ca73736f019a65dd3d2bde8157eda4479aad2121154d5968c715cb14af52436",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/ui/game-browser-loop.js",
+        "sha256": "47737f280606bbe508efb8687e575dadb7ed965be26d04f424846f67c273910a",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/ui/game-input-bridge.js",
+        "sha256": "69db673245cc2e6c4e7f0611423ee88eb40015feab533129d62f0698630d6814",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/ui/game-session-restore-continuation.js",
+        "sha256": "160dd1149dd8abccd332832ec8008a3b9710dcfd0fa23a2730c868f13d6f9c20",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/ui/game-ui-projection.js",
+        "sha256": "0fc416dcdcbf17d39fdd38b343899b4f3742bfa37e78887e704f9a9fdf0a8696",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/ui/hud-motion.js",
+        "sha256": "f7e3593a1a1a72021ef1ee2921613fef9345b5918ae2026098db3da4d332a22c",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/ui/hud-state.js",
+        "sha256": "37293c154f763df41c5896d9876d9d25648b4fc3e3892c732b09b88567edc152",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/ui/input-controller.js",
+        "sha256": "2d98212b2fde12ebd44acc878d8249769329d8b5d46b731eb2db189f503a00e8",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/ui/match-feedback.js",
+        "sha256": "61accd1add542a56714ba37d10e5d57867f95f327eb143d520c1718c5bba923b",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "src/ui/placement-feedback.js",
+        "sha256": "3c672625d7a89ced294fd349c82990a949cf348a0c3b36f8da77afa026a953a9",
+        "equalToRoundOne": true
+      }
+    ]
+  },
+  "scriptContinuity": {
+    "name": "scripts",
+    "baselineFileCount": 13,
+    "candidateFileCount": 13,
+    "samePathSet": true,
+    "allHashesEqual": true,
+    "baselineManifestSha256": "7def9ab2f00b99102abfb48f20d16ecb672d94ef83f2b226daa67a3e79e575f3",
+    "candidateManifestSha256": "7def9ab2f00b99102abfb48f20d16ecb672d94ef83f2b226daa67a3e79e575f3",
+    "mismatches": [],
+    "files": [
+      {
+        "path": "scripts/build-pages.js",
+        "sha256": "22fdfc0dd7faf81c025eab9d067548ff2a515030932925d3d316f674424dd49d",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "scripts/build-release.js",
+        "sha256": "7367a80508a1b9c1368e1886144bddfd6027b3cbefa8f63aed45bb6249792d60",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "scripts/integration-audit.js",
+        "sha256": "abb62ddb166ebe26496aacfef38eb2cba4d0964db9e211e0aa5f800f6048feaf",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "scripts/nondeterminism-guard.js",
+        "sha256": "5a07b447fdf2ceea4d9aba151e267567ba18d254664c1e993205939a10117e01",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "scripts/preview-pages.js",
+        "sha256": "ddebae31b76d7a67292d1cbf8fb77c5fcddf3b845ff3cef3058b2468a6d2cc61",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "scripts/release-browser-qualification.js",
+        "sha256": "ad22fa3e8d6c5148f1bdc236866f417e77f2b5c061481b0f7acdbdeab9d2f592",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "scripts/release-build.config.json",
+        "sha256": "d71a6058b8663e55d33c0b425acac6ea6c204c750806e0f1b8ae81ac78b85733",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "scripts/release-isolation-guard.js",
+        "sha256": "e208380c0fed607c5a06714c1437a61bff5340695e5630a0cfb5655b8a540d9c",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "scripts/render-progress.js",
+        "sha256": "903881fac5987131fbca8cdcc0d60b55ac02f7b31fb01b9f9094312ee246d19c",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "scripts/serve-release.js",
+        "sha256": "a76a3e031683bc9d5ff473434ce791e53322de5e7793a28e6478eea8981bae59",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "scripts/shipping-isolation-guard.js",
+        "sha256": "9eb9ce93e30f1d6f01a919b13c99e25baa325492edab2840fe66c346bb1bd143",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "scripts/spell-profile-audit.js",
+        "sha256": "b9d8bc33feaa98ae27427dda8650f50daa0b5aa9a5874f8a550bbde537020afa",
+        "equalToRoundOne": true
+      },
+      {
+        "path": "scripts/test-portable.js",
+        "sha256": "c026aa3191154f671eaa650153d63bce3b4cbb4c512f971b020c26a5290ad92c",
+        "equalToRoundOne": true
+      }
+    ]
+  },
+  "testInputContinuity": {
+    "baselineFileCount": 345,
+    "candidateFileCount": 345,
+    "unchangedFileCount": 344,
+    "onlyChangedTestFile": [
+      "tests/game-roster-troops-ordinary.test.js"
+    ],
+    "changedTestHashes": [
+      {
+        "path": "tests/game-roster-troops-ordinary.test.js",
+        "baselineSha256": "c465f043c5344141ea2aa45f8eb2384fbb77bd56e3fe5b58a25e4115676ee451",
+        "candidateSha256": "49da1d6db04c0cf33e6d0ea9c42969c41db84add0b296bd000f6f11a19eea602"
+      }
+    ],
+    "unchangedFilesManifestSha256": "0c25176ab5520b2814fb0139855473e2f60ac9feb4cbaf23f3084b14811ec80b",
+    "roundTwoPreflightHarnesses": [
+      {
+        "path": "package.json",
+        "baselineSha256": "e3374ae28ad30665ebe0641f56e848d75cb13e1d1ac143c3955f56622be311cf",
+        "candidateSha256": "e3374ae28ad30665ebe0641f56e848d75cb13e1d1ac143c3955f56622be311cf",
+        "unchanged": true
+      },
+      {
+        "path": "tests/app-shell.test.js",
+        "baselineSha256": "5dadaa3d7d429603d40b3fbb94aab9be5522f03e41ee409c676f55ae25ee6d8d",
+        "candidateSha256": "5dadaa3d7d429603d40b3fbb94aab9be5522f03e41ee409c676f55ae25ee6d8d",
+        "unchanged": true
+      },
+      {
+        "path": "tests/cards016-stagger.test.js",
+        "baselineSha256": "17d15793a664d35313d41ae656773e205432aabcff8f960e1959ceda99a99619",
+        "candidateSha256": "17d15793a664d35313d41ae656773e205432aabcff8f960e1959ceda99a99619",
+        "unchanged": true
+      },
+      {
+        "path": "tests/cards016-integration.test.js",
+        "baselineSha256": "0089c5ca00f745b27304db6da9ff22d87f88ea628cabcb8b8e33d1ebe5aeb6a7",
+        "candidateSha256": "0089c5ca00f745b27304db6da9ff22d87f88ea628cabcb8b8e33d1ebe5aeb6a7",
+        "unchanged": true
+      },
+      {
+        "path": "tests/game-roster-troops-air-swarms.test.js",
+        "baselineSha256": "b8b1adb279ee5cd3785cee161a394e34021b9604e1c437980e07b652355c8280",
+        "candidateSha256": "b8b1adb279ee5cd3785cee161a394e34021b9604e1c437980e07b652355c8280",
+        "unchanged": true
+      },
+      {
+        "path": "tests/editable-deck-runner.js",
+        "baselineSha256": "8b1df985aacadd251cc7fc96f3fcf64a2b7715c178fe9383b7c0ed7a4490a457",
+        "candidateSha256": "8b1df985aacadd251cc7fc96f3fcf64a2b7715c178fe9383b7c0ed7a4490a457",
+        "unchanged": true
+      },
+      {
+        "path": "tests/rl-environment-runner.js",
+        "baselineSha256": "7c57edcd0d8b96cc2000c6c115f1b0a4679d773155806b64eb22ee560ccf1a4a",
+        "candidateSha256": "7c57edcd0d8b96cc2000c6c115f1b0a4679d773155806b64eb22ee560ccf1a4a",
+        "unchanged": true
+      },
+      {
+        "path": "tests/nondeterminism-guard-runner.js",
+        "baselineSha256": "0ee16f4c21e0e8e688726142f26dc452e4e63854570f0398b7878b5d675ad4fd",
+        "candidateSha256": "0ee16f4c21e0e8e688726142f26dc452e4e63854570f0398b7878b5d675ad4fd",
+        "unchanged": true
+      },
+      {
+        "path": "tests/shipping-isolation-guard-runner.js",
+        "baselineSha256": "ff168df8ede560e69c2579eb1831a04c1911e5dffa7d371bf14655bf71c00e4b",
+        "candidateSha256": "ff168df8ede560e69c2579eb1831a04c1911e5dffa7d371bf14655bf71c00e4b",
+        "unchanged": true
+      },
+      {
+        "path": "scripts/nondeterminism-guard.js",
+        "baselineSha256": "5a07b447fdf2ceea4d9aba151e267567ba18d254664c1e993205939a10117e01",
+        "candidateSha256": "5a07b447fdf2ceea4d9aba151e267567ba18d254664c1e993205939a10117e01",
+        "unchanged": true
+      },
+      {
+        "path": "scripts/shipping-isolation-guard.js",
+        "baselineSha256": "9eb9ce93e30f1d6f01a919b13c99e25baa325492edab2840fe66c346bb1bd143",
+        "candidateSha256": "9eb9ce93e30f1d6f01a919b13c99e25baa325492edab2840fe66c346bb1bd143",
+        "unchanged": true
+      }
+    ]
+  },
+  "retainedRoundOnePreflight": {
+    "requestedPassingTests": 61,
+    "retainedByContinuity": true,
+    "rerunOrResummed": false,
+    "receipts": [
+      {
+        "path": "artifacts/cards016-stagger-round-1/critic/focused.tap",
+        "tests": 16,
+        "pass": 16,
+        "fail": 0,
+        "receiptSha256": "0e29e33a32e0d674af136c8482cab0015fa333afbbaff36558474b61b9d6b090"
+      },
+      {
+        "path": "artifacts/cards016-stagger-round-1/critic/editable-deck.tap",
+        "tests": 10,
+        "pass": 10,
+        "fail": 0,
+        "receiptSha256": "5adcaab070164f84261475c951580d9f387fd6527bc128e5c77cb9fb61d53d84"
+      },
+      {
+        "path": "artifacts/cards016-stagger-round-1/critic/rl-environment.tap",
+        "tests": 11,
+        "pass": 11,
+        "fail": 0,
+        "receiptSha256": "421aa836a8a625ca0c5876b103a0c3739de6c527d6d50c467a4ffa9ed4e4229e"
+      },
+      {
+        "path": "artifacts/cards016-stagger-round-1/critic/nondeterminism-guard.tap",
+        "tests": 10,
+        "pass": 10,
+        "fail": 0,
+        "receiptSha256": "3ffb4e5f7520c4fbfc7c1d0691ff376372afda5f24440f5d48042e7b7a839a07"
+      },
+      {
+        "path": "artifacts/cards016-stagger-round-1/critic/shipping-isolation-guard.tap",
+        "tests": 13,
+        "pass": 13,
+        "fail": 0,
+        "receiptSha256": "2abe000c46f06901b48e6bc38e32dcf27a545c58a575adb3f7fc25366d47e91f"
+      },
+      {
+        "path": "artifacts/cards016-stagger-round-1/critic/app-shell-redirected.tap",
+        "tests": 1,
+        "pass": 1,
+        "fail": 0,
+        "receiptSha256": "50f5b1736a7df3c2b3453b6649e76f5566aad0a412a80cff0c240bb09e4d7efb"
+      }
+    ]
+  },
+  "defaultEightSnapshotContinuity": {
+    "comparisons": [
+      {
+        "seed": 0,
+        "tick": 0,
+        "baselineBytes": 25691,
+        "candidateBytes": 25691,
+        "baselineSha256": "d5a93fedd542aae5f3018f2dc39b97a9d831c44067ffd2f069bfcfba62162294",
+        "candidateSha256": "d5a93fedd542aae5f3018f2dc39b97a9d831c44067ffd2f069bfcfba62162294",
+        "fullSerializedBytesEqual": true
+      },
+      {
+        "seed": 0,
+        "tick": 120,
+        "baselineBytes": 27610,
+        "candidateBytes": 27610,
+        "baselineSha256": "5491fbae24af678f2cc73e90bca5eb5907d99b949a5c25726c51049d0d5ced7d",
+        "candidateSha256": "5491fbae24af678f2cc73e90bca5eb5907d99b949a5c25726c51049d0d5ced7d",
+        "fullSerializedBytesEqual": true
+      },
+      {
+        "seed": 0,
+        "tick": 900,
+        "baselineBytes": 40090,
+        "candidateBytes": 40090,
+        "baselineSha256": "57924a384e044cb7249e728c028380a81a62138d60370e0b73fe7c9bae9972fe",
+        "candidateSha256": "57924a384e044cb7249e728c028380a81a62138d60370e0b73fe7c9bae9972fe",
+        "fullSerializedBytesEqual": true
+      },
+      {
+        "seed": 23,
+        "tick": 0,
+        "baselineBytes": 25692,
+        "candidateBytes": 25692,
+        "baselineSha256": "f76e56ea825b244b8f8372c31eadb761a0629bc5c70d8f0341f3fc31fe45c708",
+        "candidateSha256": "f76e56ea825b244b8f8372c31eadb761a0629bc5c70d8f0341f3fc31fe45c708",
+        "fullSerializedBytesEqual": true
+      },
+      {
+        "seed": 23,
+        "tick": 120,
+        "baselineBytes": 27611,
+        "candidateBytes": 27611,
+        "baselineSha256": "6e71336846c2e55a5ac2a39110e10a7476072240f93379b9808bdec737da77a7",
+        "candidateSha256": "6e71336846c2e55a5ac2a39110e10a7476072240f93379b9808bdec737da77a7",
+        "fullSerializedBytesEqual": true
+      },
+      {
+        "seed": 23,
+        "tick": 900,
+        "baselineBytes": 40091,
+        "candidateBytes": 40091,
+        "baselineSha256": "d287f3fd4ecabbfccc0e0f594416c6a5cafda89b57975fb1af86ea9b1baa77f4",
+        "candidateSha256": "d287f3fd4ecabbfccc0e0f594416c6a5cafda89b57975fb1af86ea9b1baa77f4",
+        "fullSerializedBytesEqual": true
+      }
+    ],
+    "comparisonReceiptSha256": "7491c68f4c3db7fa3b077a44664713cad58585b1c232c5d5e7cb3c4a0c133aa9",
+    "serializedSnapshotArtifacts": [
+      {
+        "path": "snapshots/baseline-seed-0-tick-0.json",
+        "bytes": 25691,
+        "sha256": "d5a93fedd542aae5f3018f2dc39b97a9d831c44067ffd2f069bfcfba62162294"
+      },
+      {
+        "path": "snapshots/candidate-seed-0-tick-0.json",
+        "bytes": 25691,
+        "sha256": "d5a93fedd542aae5f3018f2dc39b97a9d831c44067ffd2f069bfcfba62162294"
+      },
+      {
+        "path": "snapshots/baseline-seed-0-tick-120.json",
+        "bytes": 27610,
+        "sha256": "5491fbae24af678f2cc73e90bca5eb5907d99b949a5c25726c51049d0d5ced7d"
+      },
+      {
+        "path": "snapshots/candidate-seed-0-tick-120.json",
+        "bytes": 27610,
+        "sha256": "5491fbae24af678f2cc73e90bca5eb5907d99b949a5c25726c51049d0d5ced7d"
+      },
+      {
+        "path": "snapshots/baseline-seed-0-tick-900.json",
+        "bytes": 40090,
+        "sha256": "57924a384e044cb7249e728c028380a81a62138d60370e0b73fe7c9bae9972fe"
+      },
+      {
+        "path": "snapshots/candidate-seed-0-tick-900.json",
+        "bytes": 40090,
+        "sha256": "57924a384e044cb7249e728c028380a81a62138d60370e0b73fe7c9bae9972fe"
+      },
+      {
+        "path": "snapshots/baseline-seed-23-tick-0.json",
+        "bytes": 25692,
+        "sha256": "f76e56ea825b244b8f8372c31eadb761a0629bc5c70d8f0341f3fc31fe45c708"
+      },
+      {
+        "path": "snapshots/candidate-seed-23-tick-0.json",
+        "bytes": 25692,
+        "sha256": "f76e56ea825b244b8f8372c31eadb761a0629bc5c70d8f0341f3fc31fe45c708"
+      },
+      {
+        "path": "snapshots/baseline-seed-23-tick-120.json",
+        "bytes": 27611,
+        "sha256": "6e71336846c2e55a5ac2a39110e10a7476072240f93379b9808bdec737da77a7"
+      },
+      {
+        "path": "snapshots/candidate-seed-23-tick-120.json",
+        "bytes": 27611,
+        "sha256": "6e71336846c2e55a5ac2a39110e10a7476072240f93379b9808bdec737da77a7"
+      },
+      {
+        "path": "snapshots/baseline-seed-23-tick-900.json",
+        "bytes": 40091,
+        "sha256": "d287f3fd4ecabbfccc0e0f594416c6a5cafda89b57975fb1af86ea9b1baa77f4"
+      },
+      {
+        "path": "snapshots/candidate-seed-23-tick-900.json",
+        "bytes": 40091,
+        "sha256": "d287f3fd4ecabbfccc0e0f594416c6a5cafda89b57975fb1af86ea9b1baa77f4"
+      }
+    ],
+    "allSixSerializedComparisonsMatch": true
+  },
+  "unchangedKernelSourceCap": {
+    "path": "src/sim/battle-continuation-kernel.js",
+    "sourceBytes": 524275,
+    "configuredCapBytes": 524288,
+    "bytesBelowCap": 13,
+    "baselineSha256": "6739f55ade79d9f48959fbb5c6a47b4fe83b7c90fa9dc3beb5301cfe4a8c1b69",
+    "candidateSha256": "6739f55ade79d9f48959fbb5c6a47b4fe83b7c90fa9dc3beb5301cfe4a8c1b69"
+  },
+  "roundTwoActualRuns": [
+    {
+      "path": "artifacts/cards016-stagger-round-2/critic/ordinary-roster.tap",
+      "tests": 16,
+      "pass": 16,
+      "fail": 0,
+      "receiptSha256": "129d8a2b1a3f3f6db73813cf2be0b3d2ec76491f3cec94992247a7c3dfd95491"
+    },
+    {
+      "path": "artifacts/cards016-stagger-round-2/critic/focused-stagger-air-integration.tap",
+      "tests": 16,
+      "pass": 16,
+      "fail": 0,
+      "receiptSha256": "83b0d07d081b908fded4959f1f4e5b271f3ece46c8593f3583b38d2c3f16b097"
+    }
+  ],
+  "notRun": [
+    "fresh app-shell/browser run",
+    "fresh RL suite",
+    "18,000-tick full run"
+  ],
+  "result": "round-two code changes are confined to the ordinary troop test and evidence/docs; previous requested preflight receipts and six full default-eight serialization comparisons remain valid by content continuity"
+}

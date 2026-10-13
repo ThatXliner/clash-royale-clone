@@ -1,0 +1,106 @@
+TAP version 13
+# Subtest: editable collections admit exactly 17 troops and 18 mixed choices while preserving default eight
+ok 1 - editable collections admit exactly 17 troops and 18 mixed choices while preserving default eight
+  ---
+  duration_ms: 12.280958
+  type: 'test'
+  ...
+# Subtest: troop and mixed editable setups retain every air-swarm confidence QUESTION through restore
+ok 2 - troop and mixed editable setups retain every air-swarm confidence QUESTION through restore
+  ---
+  duration_ms: 53.915791
+  type: 'test'
+  ...
+# Subtest: editable GameSession opponent naturally selects both new roles from the full deck
+ok 3 - editable GameSession opponent naturally selects both new roles from the full deck
+  ---
+  duration_ms: 35.0895
+  type: 'test'
+  ...
+# Subtest: editable player air swarms target each other, Coppershade launches a projectile, and restore replays it exactly
+ok 4 - editable player air swarms target each other, Coppershade launches a projectile, and restore replays it exactly
+  ---
+  duration_ms: 2210.256125
+  type: 'test'
+  ...
+# Subtest: mixed RL reset admits both swarms, masks legal air deployments, cycles, and restores
+ok 5 - mixed RL reset admits both swarms, masks legal air deployments, cycles, and restores
+  ---
+  duration_ms: 573.874208
+  type: 'test'
+  ...
+# Subtest: gloamwing-cluster births one member per sourced six-tick interval on both sides and restores at every boundary
+ok 6 - gloamwing-cluster births one member per sourced six-tick interval on both sides and restores at every boundary
+  ---
+  duration_ms: 1949.38325
+  type: 'test'
+  ...
+# Subtest: coppershade-flock births one member per sourced six-tick interval on both sides and restores at every boundary
+ok 7 - coppershade-flock births one member per sourced six-tick interval on both sides and restores at every boundary
+  ---
+  duration_ms: 3029.283583
+  type: 'test'
+  ...
+# Subtest: scheduled combat births reject duplicate IDs and queue overflow atomically
+ok 8 - scheduled combat births reject duplicate IDs and queue overflow atomically
+  ---
+  duration_ms: 42.144958
+  type: 'test'
+  ...
+# Subtest: original air swarm records preserve pinned tournament stats and explicit estimates
+ok 9 - original air swarm records preserve pinned tournament stats and explicit estimates
+  ---
+  duration_ms: 0.983083
+  type: 'test'
+  ...
+# Subtest: air swarm witnesses close source QUESTIONS over every unverified runtime field
+ok 10 - air swarm witnesses close source QUESTIONS over every unverified runtime field
+  ---
+  duration_ms: 47.927208
+  type: 'test'
+  ...
+# Subtest: typed swarm confidence policy rejects missing, forged, dangling, and wrong-value QUESTIONS
+ok 11 - typed swarm confidence policy rejects missing, forged, dangling, and wrong-value QUESTIONS
+  ---
+  duration_ms: 42.11225
+  type: 'test'
+  ...
+# Subtest: Gloamwing and Coppershade deploy through typed shared sessions with exact spend and cycle
+ok 12 - Gloamwing and Coppershade deploy through typed shared sessions with exact spend and cycle
+  ---
+  duration_ms: 427.237459
+  type: 'test'
+  ...
+# Subtest: seeded GameSession opponent chooses naturally between both admitted swarm cards
+ok 13 - seeded GameSession opponent chooses naturally between both admitted swarm cards
+  ---
+  duration_ms: 25.1915
+  type: 'test'
+  ...
+# Subtest: both swarm roles acquire ground and air opponents in shared GameSession combat
+ok 14 - both swarm roles acquire ground and air opponents in shared GameSession combat
+  ---
+  duration_ms: 1234.708083
+  type: 'test'
+  ...
+# Subtest: in-flight projectile and post-death GameSession snapshots continue exactly
+ok 15 - in-flight projectile and post-death GameSession snapshots continue exactly
+  ---
+  duration_ms: 2259.73075
+  type: 'test'
+  ...
+# Subtest: reviewed air swarms join the editable troop and RL deck seam
+ok 16 - reviewed air swarms join the editable troop and RL deck seam
+  ---
+  duration_ms: 14.754
+  type: 'test'
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 5177.515833
