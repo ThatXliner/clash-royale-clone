@@ -1,0 +1,73 @@
+{
+  "candidateCommit": "09b0f9c741f4f2860785b18ab7b82002fd623426",
+  "baselineCommit": "a8c39bcc02329ba22b3fdd50be7d1089bc6010dc",
+  "comparisons": [
+    {
+      "seed": 0,
+      "tick": 0,
+      "baselineBytes": 25691,
+      "candidateBytes": 25691,
+      "baselineSha256": "d5a93fedd542aae5f3018f2dc39b97a9d831c44067ffd2f069bfcfba62162294",
+      "candidateSha256": "d5a93fedd542aae5f3018f2dc39b97a9d831c44067ffd2f069bfcfba62162294",
+      "fullSerializedBytesEqual": true
+    },
+    {
+      "seed": 0,
+      "tick": 120,
+      "baselineBytes": 27610,
+      "candidateBytes": 27610,
+      "baselineSha256": "5491fbae24af678f2cc73e90bca5eb5907d99b949a5c25726c51049d0d5ced7d",
+      "candidateSha256": "5491fbae24af678f2cc73e90bca5eb5907d99b949a5c25726c51049d0d5ced7d",
+      "fullSerializedBytesEqual": true
+    },
+    {
+      "seed": 0,
+      "tick": 900,
+      "baselineBytes": 40090,
+      "candidateBytes": 40090,
+      "baselineSha256": "57924a384e044cb7249e728c028380a81a62138d60370e0b73fe7c9bae9972fe",
+      "candidateSha256": "57924a384e044cb7249e728c028380a81a62138d60370e0b73fe7c9bae9972fe",
+      "fullSerializedBytesEqual": true
+    },
+    {
+      "seed": 23,
+      "tick": 0,
+      "baselineBytes": 25692,
+      "candidateBytes": 25692,
+      "baselineSha256": "f76e56ea825b244b8f8372c31eadb761a0629bc5c70d8f0341f3fc31fe45c708",
+      "candidateSha256": "f76e56ea825b244b8f8372c31eadb761a0629bc5c70d8f0341f3fc31fe45c708",
+      "fullSerializedBytesEqual": true
+    },
+    {
+      "seed": 23,
+      "tick": 120,
+      "baselineBytes": 27611,
+      "candidateBytes": 27611,
+      "baselineSha256": "6e71336846c2e55a5ac2a39110e10a7476072240f93379b9808bdec737da77a7",
+      "candidateSha256": "6e71336846c2e55a5ac2a39110e10a7476072240f93379b9808bdec737da77a7",
+      "fullSerializedBytesEqual": true
+    },
+    {
+      "seed": 23,
+      "tick": 900,
+      "baselineBytes": 40091,
+      "candidateBytes": 40091,
+      "baselineSha256": "d287f3fd4ecabbfccc0e0f594416c6a5cafda89b57975fb1af86ea9b1baa77f4",
+      "candidateSha256": "d287f3fd4ecabbfccc0e0f594416c6a5cafda89b57975fb1af86ea9b1baa77f4",
+      "fullSerializedBytesEqual": true
+    }
+  ],
+  "battleCombatGraphStringCap": [
+    {
+      "payloadStringLength": 524288,
+      "serializedUtf8Bytes": 524342,
+      "rejection": "battle combat snapshot has an invalid shape"
+    },
+    {
+      "payloadStringLength": 524289,
+      "serializedUtf8Bytes": 524343,
+      "rejection": "battle combat snapshot string length bound exceeded"
+    }
+  ],
+  "result": "full serialized bytes identical for all six default-eight captures; graph string cap boundary remains 524288"
+}

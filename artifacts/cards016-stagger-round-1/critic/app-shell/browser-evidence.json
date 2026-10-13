@@ -1,0 +1,1405 @@
+{
+  "cardIds": [
+    "coilblade",
+    "mossguard",
+    "copperskiff",
+    "skymaul",
+    "brassbolt",
+    "reedsting",
+    "briar-band",
+    "cinderlings"
+  ],
+  "editablePoolIds": [
+    "coilblade",
+    "mossguard",
+    "copperskiff",
+    "skymaul",
+    "brassbolt",
+    "reedsting",
+    "briar-band",
+    "cinderlings",
+    "stonehauler",
+    "thornscouts",
+    "forgeguard",
+    "cinder-host",
+    "ironroot",
+    "sunthread-pair",
+    "duskwing-trio",
+    "gloamwing-cluster",
+    "coppershade-flock",
+    "squall-orb"
+  ],
+  "cardPortraits": {
+    "mapping": [
+      {
+        "cardId": "coilblade",
+        "cell": "0",
+        "src": "/public/assets/card-portraits-painted.webp",
+        "decoded": true,
+        "naturalSize": [
+          1774,
+          887
+        ]
+      },
+      {
+        "cardId": "mossguard",
+        "cell": "1",
+        "src": "/public/assets/card-portraits-painted.webp",
+        "decoded": true,
+        "naturalSize": [
+          1774,
+          887
+        ]
+      },
+      {
+        "cardId": "copperskiff",
+        "cell": "2",
+        "src": "/public/assets/card-portraits-painted.webp",
+        "decoded": true,
+        "naturalSize": [
+          1774,
+          887
+        ]
+      },
+      {
+        "cardId": "skymaul",
+        "cell": "3",
+        "src": "/public/assets/card-portraits-painted.webp",
+        "decoded": true,
+        "naturalSize": [
+          1774,
+          887
+        ]
+      },
+      {
+        "cardId": "brassbolt",
+        "cell": "4",
+        "src": "/public/assets/card-portraits-painted.webp",
+        "decoded": true,
+        "naturalSize": [
+          1774,
+          887
+        ]
+      },
+      {
+        "cardId": "reedsting",
+        "cell": "5",
+        "src": "/public/assets/card-portraits-painted.webp",
+        "decoded": true,
+        "naturalSize": [
+          1774,
+          887
+        ]
+      },
+      {
+        "cardId": "briar-band",
+        "cell": "6",
+        "src": "/public/assets/card-portraits-painted.webp",
+        "decoded": true,
+        "naturalSize": [
+          1774,
+          887
+        ]
+      },
+      {
+        "cardId": "cinderlings",
+        "cell": "7",
+        "src": "/public/assets/card-portraits-painted.webp",
+        "decoded": true,
+        "naturalSize": [
+          1774,
+          887
+        ]
+      },
+      {
+        "cardId": "stonehauler",
+        "cell": null,
+        "src": "/public/assets/stonehauler-painted.webp",
+        "decoded": true,
+        "naturalSize": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "cardId": "thornscouts",
+        "cell": null,
+        "src": "/public/assets/thornscouts-painted.webp",
+        "decoded": true,
+        "naturalSize": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "cardId": "forgeguard",
+        "cell": null,
+        "src": "/public/assets/forgeguard-painted.webp",
+        "decoded": true,
+        "naturalSize": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "cardId": "cinder-host",
+        "cell": null,
+        "src": "/public/assets/cinder-host-painted.webp",
+        "decoded": true,
+        "naturalSize": [
+          512,
+          512
+        ]
+      },
+      {
+        "cardId": "ironroot",
+        "cell": null,
+        "src": "/public/assets/ironroot-painted.webp",
+        "decoded": true,
+        "naturalSize": [
+          512,
+          512
+        ]
+      },
+      {
+        "cardId": "sunthread-pair",
+        "cell": null,
+        "src": "/public/assets/sunthread-pair-painted.webp",
+        "decoded": true,
+        "naturalSize": [
+          512,
+          512
+        ]
+      },
+      {
+        "cardId": "duskwing-trio",
+        "cell": null,
+        "src": "/public/assets/duskwing-trio-painted.webp",
+        "decoded": true,
+        "naturalSize": [
+          512,
+          512
+        ]
+      },
+      {
+        "cardId": "gloamwing-cluster",
+        "cell": null,
+        "src": "/public/assets/gloamwing-cluster-painted.webp",
+        "decoded": true,
+        "naturalSize": [
+          512,
+          512
+        ]
+      },
+      {
+        "cardId": "coppershade-flock",
+        "cell": null,
+        "src": "/public/assets/coppershade-flock-painted.webp",
+        "decoded": true,
+        "naturalSize": [
+          512,
+          512
+        ]
+      },
+      {
+        "cardId": "squall-orb",
+        "cell": null,
+        "src": "/public/assets/squall-orb-painted.webp",
+        "decoded": true,
+        "naturalSize": [
+          512,
+          512
+        ]
+      }
+    ],
+    "desktop": {
+      "viewport": {
+        "width": 1440,
+        "height": 933
+      },
+      "horizontalOverflow": false
+    },
+    "phone": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "horizontalOverflow": false
+    },
+    "assetManifest": {
+      "sources": {
+        "atlas": {
+          "path": "public/assets/card-portraits-painted.webp",
+          "size": 320516,
+          "sha256": "16307a59bde57889e11bcd7b86b54d69ba9985eae6ef436d9703e528fba58e4f"
+        },
+        "direct": {
+          "stonehauler": {
+            "path": "public/assets/stonehauler-painted.webp",
+            "size": 308508,
+            "sha256": "47c19650d41d21a6efb3f883b6fff73892abd214783279dcb5708cc198b87357"
+          },
+          "thornscouts": {
+            "path": "public/assets/thornscouts-painted.webp",
+            "size": 213794,
+            "sha256": "04893c3101194546b572056ad9466d88b26fc2ede3549ec821e1304b1fe9c11a"
+          },
+          "forgeguard": {
+            "path": "public/assets/forgeguard-painted.webp",
+            "size": 268352,
+            "sha256": "cdd98ec4812e602b118645de53238013c75b798cd632363c3ffd1235212cc5ed"
+          },
+          "cinder-host": {
+            "path": "public/assets/cinder-host-painted.webp",
+            "size": 56722,
+            "sha256": "8782c64550d8f75e7293a18fefb1006503a9a4bdc92848458c0841148b230b80"
+          },
+          "ironroot": {
+            "path": "public/assets/ironroot-painted.webp",
+            "size": 77128,
+            "sha256": "abccd83c46fda2c01bf9ef6264e5f9dedf42f74d4afc6fa0a05649058fd17dd8"
+          },
+          "sunthread-pair": {
+            "path": "public/assets/sunthread-pair-painted.webp",
+            "size": 55344,
+            "sha256": "96dc16ece8eae4fea3f84644b0efbe1bacec44f85f9e99e958a18303dd48beec"
+          },
+          "duskwing-trio": {
+            "path": "public/assets/duskwing-trio-painted.webp",
+            "size": 48314,
+            "sha256": "14c435ea7e5f427c1191cbf3deba2cf90beddb74e65273bad9992d4e54c9cefb"
+          },
+          "gloamwing-cluster": {
+            "path": "public/assets/gloamwing-cluster-painted.webp",
+            "size": 40140,
+            "sha256": "176687230a5e9b3b57364437692308f568e2933b7b0225e46694cfbbfb4b6cf8"
+          },
+          "coppershade-flock": {
+            "path": "public/assets/coppershade-flock-painted.webp",
+            "size": 36532,
+            "sha256": "521167c772916265e797c51c28183d91f090c2670ec7d527bf59e60a85684dec"
+          },
+          "squall-orb": {
+            "path": "public/assets/squall-orb-painted.webp",
+            "size": 52722,
+            "sha256": "963c4a9b8a8a35a3c8405663c93fe24ccb13a18c7a22d317236152e3b253a5e3"
+          }
+        }
+      },
+      "outputs": {
+        "atlas": {
+          "path": "public/assets/card-portraits-painted.webp",
+          "size": 320516,
+          "sha256": "16307a59bde57889e11bcd7b86b54d69ba9985eae6ef436d9703e528fba58e4f"
+        },
+        "direct": {
+          "stonehauler": {
+            "path": "public/assets/stonehauler-painted.webp",
+            "size": 308508,
+            "sha256": "47c19650d41d21a6efb3f883b6fff73892abd214783279dcb5708cc198b87357"
+          },
+          "thornscouts": {
+            "path": "public/assets/thornscouts-painted.webp",
+            "size": 213794,
+            "sha256": "04893c3101194546b572056ad9466d88b26fc2ede3549ec821e1304b1fe9c11a"
+          },
+          "forgeguard": {
+            "path": "public/assets/forgeguard-painted.webp",
+            "size": 268352,
+            "sha256": "cdd98ec4812e602b118645de53238013c75b798cd632363c3ffd1235212cc5ed"
+          },
+          "cinder-host": {
+            "path": "public/assets/cinder-host-painted.webp",
+            "size": 56722,
+            "sha256": "8782c64550d8f75e7293a18fefb1006503a9a4bdc92848458c0841148b230b80"
+          },
+          "ironroot": {
+            "path": "public/assets/ironroot-painted.webp",
+            "size": 77128,
+            "sha256": "abccd83c46fda2c01bf9ef6264e5f9dedf42f74d4afc6fa0a05649058fd17dd8"
+          },
+          "sunthread-pair": {
+            "path": "public/assets/sunthread-pair-painted.webp",
+            "size": 55344,
+            "sha256": "96dc16ece8eae4fea3f84644b0efbe1bacec44f85f9e99e958a18303dd48beec"
+          },
+          "duskwing-trio": {
+            "path": "public/assets/duskwing-trio-painted.webp",
+            "size": 48314,
+            "sha256": "14c435ea7e5f427c1191cbf3deba2cf90beddb74e65273bad9992d4e54c9cefb"
+          },
+          "gloamwing-cluster": {
+            "path": "public/assets/gloamwing-cluster-painted.webp",
+            "size": 40140,
+            "sha256": "176687230a5e9b3b57364437692308f568e2933b7b0225e46694cfbbfb4b6cf8"
+          },
+          "coppershade-flock": {
+            "path": "public/assets/coppershade-flock-painted.webp",
+            "size": 36532,
+            "sha256": "521167c772916265e797c51c28183d91f090c2670ec7d527bf59e60a85684dec"
+          },
+          "squall-orb": {
+            "path": "public/assets/squall-orb-painted.webp",
+            "size": 52722,
+            "sha256": "963c4a9b8a8a35a3c8405663c93fe24ccb13a18c7a22d317236152e3b253a5e3"
+          }
+        }
+      }
+    },
+    "detailReviews": {
+      "phone": [
+        {
+          "cardId": "sunthread-pair",
+          "image": {
+            "src": "http://127.0.0.1:50486/public/assets/sunthread-pair-painted.webp",
+            "decoded": true,
+            "naturalSize": [
+              512,
+              512
+            ],
+            "visible": true,
+            "bounds": {
+              "x": 30,
+              "y": 101,
+              "width": 64,
+              "height": 64,
+              "right": 94,
+              "bottom": 165
+            }
+          },
+          "collectionImage": {
+            "src": "http://127.0.0.1:50486/public/assets/sunthread-pair-painted.webp",
+            "bounds": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "right": 0,
+              "bottom": 0
+            },
+            "visible": false
+          },
+          "detail": {
+            "bounds": {
+              "x": 12,
+              "y": 83,
+              "width": 366,
+              "height": 570.09375,
+              "right": 378,
+              "bottom": 653.09375
+            },
+            "scrollWidth": 364,
+            "clientWidth": 364
+          },
+          "detailBack": {
+            "visible": true,
+            "bounds": {
+              "x": 102,
+              "y": 111,
+              "width": 59.84375,
+              "height": 44,
+              "right": 161.84375,
+              "bottom": 155
+            }
+          },
+          "nav": {
+            "visible": true,
+            "bounds": {
+              "x": 0,
+              "y": 777,
+              "width": 390,
+              "height": 67,
+              "right": 390,
+              "bottom": 844
+            }
+          },
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "documentWidth": 390,
+          "focusedElementId": "selected-card-title",
+          "idsUnique": true,
+          "screenshots": [
+            "sunthread-pair-phone-390x844.png",
+            "sunthread-pair-phone-390x844-full.png"
+          ]
+        },
+        {
+          "cardId": "duskwing-trio",
+          "image": {
+            "src": "http://127.0.0.1:50486/public/assets/duskwing-trio-painted.webp",
+            "decoded": true,
+            "naturalSize": [
+              512,
+              512
+            ],
+            "visible": true,
+            "bounds": {
+              "x": 30,
+              "y": 101,
+              "width": 64,
+              "height": 64,
+              "right": 94,
+              "bottom": 165
+            }
+          },
+          "collectionImage": {
+            "src": "http://127.0.0.1:50486/public/assets/duskwing-trio-painted.webp",
+            "bounds": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "right": 0,
+              "bottom": 0
+            },
+            "visible": false
+          },
+          "detail": {
+            "bounds": {
+              "x": 12,
+              "y": 83,
+              "width": 366,
+              "height": 539.09375,
+              "right": 378,
+              "bottom": 622.09375
+            },
+            "scrollWidth": 364,
+            "clientWidth": 364
+          },
+          "detailBack": {
+            "visible": true,
+            "bounds": {
+              "x": 102,
+              "y": 111,
+              "width": 59.84375,
+              "height": 44,
+              "right": 161.84375,
+              "bottom": 155
+            }
+          },
+          "nav": {
+            "visible": true,
+            "bounds": {
+              "x": 0,
+              "y": 777,
+              "width": 390,
+              "height": 67,
+              "right": 390,
+              "bottom": 844
+            }
+          },
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "documentWidth": 390,
+          "focusedElementId": "selected-card-title",
+          "idsUnique": true,
+          "screenshots": [
+            "duskwing-trio-phone-390x844.png",
+            "duskwing-trio-phone-390x844-full.png"
+          ]
+        },
+        {
+          "cardId": "gloamwing-cluster",
+          "image": {
+            "src": "http://127.0.0.1:50486/public/assets/gloamwing-cluster-painted.webp",
+            "decoded": true,
+            "naturalSize": [
+              512,
+              512
+            ],
+            "visible": true,
+            "bounds": {
+              "x": 30,
+              "y": 101.5,
+              "width": 64,
+              "height": 64,
+              "right": 94,
+              "bottom": 165.5
+            }
+          },
+          "collectionImage": {
+            "src": "http://127.0.0.1:50486/public/assets/gloamwing-cluster-painted.webp",
+            "bounds": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "right": 0,
+              "bottom": 0
+            },
+            "visible": false
+          },
+          "detail": {
+            "bounds": {
+              "x": 12,
+              "y": 83,
+              "width": 366,
+              "height": 553.140625,
+              "right": 378,
+              "bottom": 636.140625
+            },
+            "scrollWidth": 364,
+            "clientWidth": 364
+          },
+          "detailBack": {
+            "visible": true,
+            "bounds": {
+              "x": 102,
+              "y": 111.5,
+              "width": 59.84375,
+              "height": 44,
+              "right": 161.84375,
+              "bottom": 155.5
+            }
+          },
+          "nav": {
+            "visible": true,
+            "bounds": {
+              "x": 0,
+              "y": 777,
+              "width": 390,
+              "height": 67,
+              "right": 390,
+              "bottom": 844
+            }
+          },
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "documentWidth": 390,
+          "focusedElementId": "selected-card-title",
+          "idsUnique": true,
+          "screenshots": [
+            "gloamwing-cluster-phone-390x844.png",
+            "gloamwing-cluster-phone-390x844-full.png"
+          ]
+        },
+        {
+          "cardId": "coppershade-flock",
+          "image": {
+            "src": "http://127.0.0.1:50486/public/assets/coppershade-flock-painted.webp",
+            "decoded": true,
+            "naturalSize": [
+              512,
+              512
+            ],
+            "visible": true,
+            "bounds": {
+              "x": 30,
+              "y": 101.5,
+              "width": 64,
+              "height": 64,
+              "right": 94,
+              "bottom": 165.5
+            }
+          },
+          "collectionImage": {
+            "src": "http://127.0.0.1:50486/public/assets/coppershade-flock-painted.webp",
+            "bounds": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "right": 0,
+              "bottom": 0
+            },
+            "visible": false
+          },
+          "detail": {
+            "bounds": {
+              "x": 12,
+              "y": 83,
+              "width": 366,
+              "height": 524.59375,
+              "right": 378,
+              "bottom": 607.59375
+            },
+            "scrollWidth": 364,
+            "clientWidth": 364
+          },
+          "detailBack": {
+            "visible": true,
+            "bounds": {
+              "x": 102,
+              "y": 111.5,
+              "width": 59.84375,
+              "height": 44,
+              "right": 161.84375,
+              "bottom": 155.5
+            }
+          },
+          "nav": {
+            "visible": true,
+            "bounds": {
+              "x": 0,
+              "y": 777,
+              "width": 390,
+              "height": 67,
+              "right": 390,
+              "bottom": 844
+            }
+          },
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "documentWidth": 390,
+          "focusedElementId": "selected-card-title",
+          "idsUnique": true,
+          "screenshots": [
+            "coppershade-flock-phone-390x844.png",
+            "coppershade-flock-phone-390x844-full.png"
+          ]
+        }
+      ],
+      "desktop": [
+        {
+          "cardId": "sunthread-pair",
+          "image": {
+            "src": "http://127.0.0.1:50486/public/assets/sunthread-pair-painted.webp",
+            "decoded": true,
+            "naturalSize": [
+              512,
+              512
+            ],
+            "visible": true,
+            "bounds": {
+              "x": 914.453125,
+              "y": 40,
+              "width": 78,
+              "height": 78,
+              "right": 992.453125,
+              "bottom": 118
+            }
+          },
+          "collectionImage": {
+            "src": "http://127.0.0.1:50486/public/assets/sunthread-pair-painted.webp",
+            "bounds": {
+              "x": 344.140625,
+              "y": 454.734375,
+              "width": 258.15625,
+              "height": 258.15625,
+              "right": 602.296875,
+              "bottom": 712.890625
+            },
+            "visible": true
+          },
+          "detail": {
+            "bounds": {
+              "x": 892.453125,
+              "y": 18,
+              "width": 475.53125,
+              "height": 578.1875,
+              "right": 1367.984375,
+              "bottom": 596.1875
+            },
+            "scrollWidth": 474,
+            "clientWidth": 474
+          },
+          "detailBack": {
+            "visible": false,
+            "bounds": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "right": 0,
+              "bottom": 0
+            }
+          },
+          "nav": {
+            "visible": true,
+            "bounds": {
+              "x": 1016.765625,
+              "y": -488.5,
+              "width": 351.234375,
+              "height": 44,
+              "right": 1368,
+              "bottom": -444.5
+            }
+          },
+          "viewport": {
+            "width": 1440,
+            "height": 933
+          },
+          "documentWidth": 1440,
+          "focusedElementId": "",
+          "idsUnique": true,
+          "screenshot": "sunthread-pair-desktop-1440x933.png"
+        },
+        {
+          "cardId": "duskwing-trio",
+          "image": {
+            "src": "http://127.0.0.1:50486/public/assets/duskwing-trio-painted.webp",
+            "decoded": true,
+            "naturalSize": [
+              512,
+              512
+            ],
+            "visible": true,
+            "bounds": {
+              "x": 914.453125,
+              "y": 40,
+              "width": 78,
+              "height": 78,
+              "right": 992.453125,
+              "bottom": 118
+            }
+          },
+          "collectionImage": {
+            "src": "http://127.0.0.1:50486/public/assets/duskwing-trio-painted.webp",
+            "bounds": {
+              "x": 615.2890625,
+              "y": 454.7421875,
+              "width": 258.140625,
+              "height": 258.140625,
+              "right": 873.4296875,
+              "bottom": 712.8828125
+            },
+            "visible": true
+          },
+          "detail": {
+            "bounds": {
+              "x": 892.453125,
+              "y": 18,
+              "width": 475.53125,
+              "height": 562.6875,
+              "right": 1367.984375,
+              "bottom": 580.6875
+            },
+            "scrollWidth": 474,
+            "clientWidth": 474
+          },
+          "detailBack": {
+            "visible": false,
+            "bounds": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "right": 0,
+              "bottom": 0
+            }
+          },
+          "nav": {
+            "visible": true,
+            "bounds": {
+              "x": 1016.765625,
+              "y": -488.5,
+              "width": 351.234375,
+              "height": 44,
+              "right": 1368,
+              "bottom": -444.5
+            }
+          },
+          "viewport": {
+            "width": 1440,
+            "height": 933
+          },
+          "documentWidth": 1440,
+          "focusedElementId": "",
+          "idsUnique": true,
+          "screenshot": "duskwing-trio-desktop-1440x933.png"
+        },
+        {
+          "cardId": "gloamwing-cluster",
+          "image": {
+            "src": "http://127.0.0.1:50486/public/assets/gloamwing-cluster-painted.webp",
+            "decoded": true,
+            "naturalSize": [
+              512,
+              512
+            ],
+            "visible": true,
+            "bounds": {
+              "x": 914.453125,
+              "y": 40,
+              "width": 78,
+              "height": 78,
+              "right": 992.453125,
+              "bottom": 118
+            }
+          },
+          "collectionImage": {
+            "src": "http://127.0.0.1:50486/public/assets/gloamwing-cluster-painted.webp",
+            "bounds": {
+              "x": 72.9921875,
+              "y": 639.7421875,
+              "width": 258.140625,
+              "height": 258.140625,
+              "right": 331.1328125,
+              "bottom": 897.8828125
+            },
+            "visible": true
+          },
+          "detail": {
+            "bounds": {
+              "x": 892.453125,
+              "y": 18,
+              "width": 475.53125,
+              "height": 562.6875,
+              "right": 1367.984375,
+              "bottom": 580.6875
+            },
+            "scrollWidth": 474,
+            "clientWidth": 474
+          },
+          "detailBack": {
+            "visible": false,
+            "bounds": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "right": 0,
+              "bottom": 0
+            }
+          },
+          "nav": {
+            "visible": true,
+            "bounds": {
+              "x": 1016.765625,
+              "y": -488.5,
+              "width": 351.234375,
+              "height": 44,
+              "right": 1368,
+              "bottom": -444.5
+            }
+          },
+          "viewport": {
+            "width": 1440,
+            "height": 933
+          },
+          "documentWidth": 1440,
+          "focusedElementId": "",
+          "idsUnique": true,
+          "screenshot": "gloamwing-cluster-desktop-1440x933.png"
+        },
+        {
+          "cardId": "coppershade-flock",
+          "image": {
+            "src": "http://127.0.0.1:50486/public/assets/coppershade-flock-painted.webp",
+            "decoded": true,
+            "naturalSize": [
+              512,
+              512
+            ],
+            "visible": true,
+            "bounds": {
+              "x": 914.453125,
+              "y": 40,
+              "width": 78,
+              "height": 78,
+              "right": 992.453125,
+              "bottom": 118
+            }
+          },
+          "collectionImage": {
+            "src": "http://127.0.0.1:50486/public/assets/coppershade-flock-painted.webp",
+            "bounds": {
+              "x": 344.140625,
+              "y": 639.734375,
+              "width": 258.15625,
+              "height": 258.15625,
+              "right": 602.296875,
+              "bottom": 897.890625
+            },
+            "visible": true
+          },
+          "detail": {
+            "bounds": {
+              "x": 892.453125,
+              "y": 18,
+              "width": 475.53125,
+              "height": 562.6875,
+              "right": 1367.984375,
+              "bottom": 580.6875
+            },
+            "scrollWidth": 474,
+            "clientWidth": 474
+          },
+          "detailBack": {
+            "visible": false,
+            "bounds": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "right": 0,
+              "bottom": 0
+            }
+          },
+          "nav": {
+            "visible": true,
+            "bounds": {
+              "x": 1016.765625,
+              "y": -488.5,
+              "width": 351.234375,
+              "height": 44,
+              "right": 1368,
+              "bottom": -444.5
+            }
+          },
+          "viewport": {
+            "width": 1440,
+            "height": 933
+          },
+          "documentWidth": 1440,
+          "focusedElementId": "",
+          "idsUnique": true,
+          "screenshot": "coppershade-flock-desktop-1440x933.png"
+        }
+      ]
+    },
+    "screenshots": [
+      {
+        "path": "../../../Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/cards016-stagger-round-1/critic/app-shell/desktop-card-portraits-1440x933.png",
+        "width": 1440,
+        "height": 1440,
+        "sha256": "1e26a7d71d448714ec05bcbc8d98ab4a9acfd18a80f6b7eb40f931579fc7c082"
+      },
+      {
+        "path": "../../../Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/cards016-stagger-round-1/critic/app-shell/desktop-card-details-1440x933.png",
+        "width": 1440,
+        "height": 1440,
+        "sha256": "80e4b282286ab47e9ae794a90f3e5d6b20fa09d579483faf17506923050f4056"
+      },
+      {
+        "path": "../../../Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/cards016-stagger-round-1/critic/app-shell/phone-card-portraits-390x844.png",
+        "width": 390,
+        "height": 844,
+        "sha256": "67e4f20323798ead70ca0daedff0222a5ed620b697637d854481c8693e2b8032"
+      },
+      {
+        "path": "../../../Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/cards016-stagger-round-1/critic/app-shell/phone-card-portraits-full-390x844.png",
+        "width": 390,
+        "height": 2280,
+        "sha256": "1f8cb7efac7096e7358792465b5309e9b5793e577b024b9e235e735befd4b701"
+      },
+      {
+        "path": "../../../Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/cards016-stagger-round-1/critic/app-shell/sunthread-pair-phone-390x844.png",
+        "width": 390,
+        "height": 844,
+        "sha256": "eed78797f448ba28f1937fed8cb33d02338ff1828ccba7601b815ca83094b457"
+      },
+      {
+        "path": "../../../Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/cards016-stagger-round-1/critic/app-shell/sunthread-pair-phone-390x844-full.png",
+        "width": 390,
+        "height": 844,
+        "sha256": "eed78797f448ba28f1937fed8cb33d02338ff1828ccba7601b815ca83094b457"
+      },
+      {
+        "path": "../../../Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/cards016-stagger-round-1/critic/app-shell/duskwing-trio-phone-390x844.png",
+        "width": 390,
+        "height": 844,
+        "sha256": "9d46c1336624370a5d72030c034e138b9e53c090ba5ef68eb3bb10c9d00b7c67"
+      },
+      {
+        "path": "../../../Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/cards016-stagger-round-1/critic/app-shell/duskwing-trio-phone-390x844-full.png",
+        "width": 390,
+        "height": 844,
+        "sha256": "9d46c1336624370a5d72030c034e138b9e53c090ba5ef68eb3bb10c9d00b7c67"
+      },
+      {
+        "path": "../../../Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/cards016-stagger-round-1/critic/app-shell/gloamwing-cluster-phone-390x844.png",
+        "width": 390,
+        "height": 844,
+        "sha256": "d192af97d333b3c45bde34781288a2a4af5a336c1c20c410607ce0b1ff8d5249"
+      },
+      {
+        "path": "../../../Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/cards016-stagger-round-1/critic/app-shell/gloamwing-cluster-phone-390x844-full.png",
+        "width": 390,
+        "height": 844,
+        "sha256": "d192af97d333b3c45bde34781288a2a4af5a336c1c20c410607ce0b1ff8d5249"
+      },
+      {
+        "path": "../../../Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/cards016-stagger-round-1/critic/app-shell/coppershade-flock-phone-390x844.png",
+        "width": 390,
+        "height": 844,
+        "sha256": "c4583dd16418153872efc21f9c375a0ce37d0d9da8d2349386764cae77a84d67"
+      },
+      {
+        "path": "../../../Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/cards016-stagger-round-1/critic/app-shell/coppershade-flock-phone-390x844-full.png",
+        "width": 390,
+        "height": 844,
+        "sha256": "c4583dd16418153872efc21f9c375a0ce37d0d9da8d2349386764cae77a84d67"
+      },
+      {
+        "path": "../../../Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/cards016-stagger-round-1/critic/app-shell/sunthread-pair-desktop-1440x933.png",
+        "width": 1440,
+        "height": 933,
+        "sha256": "96bc233abf67abf47c1c2efb662f52d012dc913f4bf7c52e9ab848fa0e7a918b"
+      },
+      {
+        "path": "../../../Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/cards016-stagger-round-1/critic/app-shell/duskwing-trio-desktop-1440x933.png",
+        "width": 1440,
+        "height": 933,
+        "sha256": "68a395e98b73e0f3b08d3d6242409d9397d910fa3125948852de38702e91119f"
+      },
+      {
+        "path": "../../../Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/cards016-stagger-round-1/critic/app-shell/gloamwing-cluster-desktop-1440x933.png",
+        "width": 1440,
+        "height": 933,
+        "sha256": "c66aa5f912cfb0d000cab461a3e1e261a1cdddbc85a7fcd8af0766a54d08373b"
+      },
+      {
+        "path": "../../../Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/cards016-stagger-round-1/critic/app-shell/coppershade-flock-desktop-1440x933.png",
+        "width": 1440,
+        "height": 933,
+        "sha256": "ed3909aef411db6c1797318110f4ba748bc1f3a650ca93f3b28d2c8e5e276a48"
+      }
+    ]
+  },
+  "release": {
+    "entrypoints": [
+      "public/index.html"
+    ],
+    "standaloneModules": [
+      "src/rl/environment.js",
+      "src/ui/arena-shell-entry.js"
+    ],
+    "fileCount": 44,
+    "manifestSha256": "378b0de2b8dd92d66d639ad92459a34e023accbcf8c4af87f6d316ec2cc9387d"
+  },
+  "deployment": {
+    "cardId": "mossguard",
+    "point": {
+      "x": 9000,
+      "y": 6642
+    },
+    "trustedInput": true
+  },
+  "requestPaths": [
+    "assets/asset-D-AK-JuF.css",
+    "assets/game-runtime~public/index-D_hi7CMQ.js",
+    "assets/game-runtime~public/index~public/ui-arena-shell-D-709RTF.js",
+    "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-4A05yigw.js",
+    "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BPB5Lk7o.js",
+    "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BwdRoAdf.js",
+    "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CAfkQEKR.js",
+    "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CBLw_649.js",
+    "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CKCTqIUT.js",
+    "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CNVraBnB.js",
+    "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CoZYFfHy.js",
+    "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CwA4TOwI.js",
+    "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-D1gsQIWS.js",
+    "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DNcayJwS.js",
+    "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-LpQ7eOoq.js",
+    "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-iYK_h2t5.js",
+    "assets/game-runtime~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BPTu96U0.js",
+    "assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-BM_IH8gv.js",
+    "assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-CQICIb73.js",
+    "assets/rolldown-runtime-Cl99QfTQ.js",
+    "assets/ui-arena-shell-er5XVwGC.css",
+    "public/assets/briar-runner-painted-sheet.png",
+    "public/assets/card-portraits-painted.webp",
+    "public/assets/cinder-host-painted.webp",
+    "public/assets/coppershade-flock-painted.webp",
+    "public/assets/duskwing-trio-painted.webp",
+    "public/assets/forgeguard-painted.webp",
+    "public/assets/gloamwing-cluster-painted.webp",
+    "public/assets/ironroot-painted.webp",
+    "public/assets/moss-ember-arena-painted.webp",
+    "public/assets/squall-orb-painted.webp",
+    "public/assets/stonehauler-painted.webp",
+    "public/assets/sunthread-pair-painted.webp",
+    "public/assets/thornscouts-painted.webp",
+    "public/index.html",
+    "public/ui-arena-shell.html",
+    "src/ui/app-shell.js",
+    "src/ui/arena-shell-bootstrap.js",
+    "src/ui/arena-shell-entry.js"
+  ],
+  "battleFrame": {
+    "box": {
+      "x": 52.03125,
+      "y": 117,
+      "width": 615.9375,
+      "height": 1095
+    },
+    "smallBox": {
+      "x": 9.65625,
+      "y": 117,
+      "width": 370.6875,
+      "height": 659
+    },
+    "viewport": {
+      "width": 720,
+      "height": 1280,
+      "shell": {
+        "x": 0,
+        "y": 0,
+        "width": 720,
+        "height": 1280,
+        "top": 0,
+        "right": 720,
+        "bottom": 1280,
+        "left": 0
+      }
+    }
+  },
+  "editableDeck": {
+    "averageCost": 3.375,
+    "ids": [
+      "coilblade",
+      "stonehauler",
+      "gloamwing-cluster",
+      "coppershade-flock",
+      "brassbolt",
+      "reedsting",
+      "briar-band",
+      "cinderlings"
+    ],
+    "replacements": [
+      {
+        "added": "stonehauler",
+        "removed": "mossguard",
+        "slot": 1
+      },
+      {
+        "added": "gloamwing-cluster",
+        "removed": "copperskiff",
+        "slot": 2
+      },
+      {
+        "added": "coppershade-flock",
+        "removed": "skymaul",
+        "slot": 3
+      }
+    ],
+    "launchedSetup": {
+      "battleSetup": "{\"initialWindupTicks\":{\"central\":0,\"lane\":0},\"questions\":[{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":400},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":300},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":300},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"cinderling.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":250},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"cinderling.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"cinderling.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coilblade.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coilblade.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coilblade.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coppershade.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":300},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coppershade.count\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":6},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coppershade.damage\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":117},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coppershade.deploy-time-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":60},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coppershade.first-hit-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":30},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coppershade.hit-speed-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":60},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coppershade.hitpoints\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":230},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coppershade.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coppershade.movement-millitiles-per-second\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coppershade.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coppershade.range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1600},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coppershade.sight-range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":5500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coppershade.target-mode\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":3},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"gloamwing.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":300},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"gloamwing.count\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":5},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"gloamwing.damage\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":81},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"gloamwing.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"gloamwing.deploy-time-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":60},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"gloamwing.first-hit-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":42},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"gloamwing.hit-speed-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":78},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"gloamwing.hitpoints\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":81},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"gloamwing.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"gloamwing.movement-millitiles-per-second\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2000},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"gloamwing.range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1200},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"gloamwing.sight-range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":5500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"gloamwing.target-mode\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":3},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":300},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"stonehauler.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"stonehauler.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"stonehauler.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1}],\"roster\":[{\"areaDamageRadiusMillitiles\":null,\"cost\":4,\"count\":1,\"damage\":720,\"deployTimeTicks\":60,\"displayName\":\"Coilblade\",\"entities\":[{\"archetypeId\":\"coilblade\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"coilblade.body-radius-millitiles\"},\"count\":1,\"damage\":720,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"coilblade.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Coilblade\",\"firstHitTicks\":66,\"hitSpeedTicks\":96,\"hitpoints\":1361,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"coilblade.layer\"},\"movementMillitilesPerSecond\":1500,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":800,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"}],\"firstHitTicks\":66,\"formation\":{\"componentOrder\":[\"coilblade\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":96,\"hitpoints\":1361,\"id\":\"coilblade\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1500,\"rangeMillitiles\":800,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":5,\"count\":1,\"damage\":254,\"deployTimeTicks\":60,\"displayName\":\"Stonehauler\",\"entities\":[{\"archetypeId\":\"stonehauler\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"stonehauler.body-radius-millitiles\"},\"count\":1,\"damage\":254,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"stonehauler.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Stonehauler\",\"firstHitTicks\":60,\"hitSpeedTicks\":90,\"hitpoints\":4091,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"stonehauler.layer\"},\"movementMillitilesPerSecond\":750,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":1200,\"role\":\"primary\",\"sightRangeMillitiles\":7500,\"targetMode\":\"structures\"}],\"firstHitTicks\":60,\"formation\":{\"componentOrder\":[\"stonehauler\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":90,\"hitpoints\":4091,\"id\":\"stonehauler\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":750,\"rangeMillitiles\":1200,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":7500,\"targetMode\":\"structures\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":2,\"count\":5,\"damage\":81,\"deployTimeTicks\":60,\"displayName\":\"Gloamwing Cluster\",\"entities\":[{\"archetypeId\":\"gloamwing\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"gloamwing.body-radius-millitiles\"},\"count\":5,\"damage\":81,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"gloamwing.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Gloamwing\",\"firstHitTicks\":42,\"hitSpeedTicks\":78,\"hitpoints\":81,\"kind\":\"unit\",\"layer\":\"air\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"gloamwing.layer\"},\"movementMillitilesPerSecond\":2000,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":1200,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"sourceConfidencePolicy\":{\"deploymentInterval\":{\"milliseconds\":100,\"sourceId\":\"supercell-2020-06-02-multi-unit-deployment\",\"ticks\":6},\"fields\":[{\"field\":\"count\",\"questionKey\":\"gloamwing.count\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"damage\",\"questionKey\":\"gloamwing.damage\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"deployTimeTicks\",\"questionKey\":\"gloamwing.deploy-time-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"firstHitTicks\",\"questionKey\":\"gloamwing.first-hit-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitSpeedTicks\",\"questionKey\":\"gloamwing.hit-speed-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitpoints\",\"questionKey\":\"gloamwing.hitpoints\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"movementMillitilesPerSecond\",\"questionKey\":\"gloamwing.movement-millitiles-per-second\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"rangeMillitiles\",\"questionKey\":\"gloamwing.range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"sightRangeMillitiles\",\"questionKey\":\"gloamwing.sight-range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"targetMode\",\"questionKey\":\"gloamwing.target-mode\",\"valueEncoding\":\"target-mode-code\"}]},\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":42,\"formation\":{\"componentOrder\":[\"gloamwing\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":5},\"hitSpeedTicks\":78,\"hitpoints\":81,\"id\":\"gloamwing-cluster\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":2000,\"rangeMillitiles\":1200,\"rarity\":\"standard\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground-and-air\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":5,\"count\":6,\"damage\":117,\"deployTimeTicks\":60,\"displayName\":\"Coppershade Flock\",\"entities\":[{\"archetypeId\":\"coppershade\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"coppershade.body-radius-millitiles\"},\"count\":6,\"damage\":117,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"archetypeId\":\"coppershade\",\"cardId\":\"coppershade-flock\",\"catalogId\":\"ordinary-projectile-squads-v1\",\"delivery\":\"projectile\",\"kind\":\"source-backed\"},\"deployTimeTicks\":60,\"displayName\":\"Coppershade\",\"firstHitTicks\":30,\"hitSpeedTicks\":60,\"hitpoints\":230,\"kind\":\"unit\",\"layer\":\"air\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"coppershade.layer\"},\"movementMillitilesPerSecond\":1500,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"coppershade.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":1600,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"sourceConfidencePolicy\":{\"deploymentInterval\":{\"milliseconds\":100,\"sourceId\":\"supercell-2020-06-02-multi-unit-deployment\",\"ticks\":6},\"fields\":[{\"field\":\"count\",\"questionKey\":\"coppershade.count\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"damage\",\"questionKey\":\"coppershade.damage\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"deployTimeTicks\",\"questionKey\":\"coppershade.deploy-time-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"firstHitTicks\",\"questionKey\":\"coppershade.first-hit-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitSpeedTicks\",\"questionKey\":\"coppershade.hit-speed-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitpoints\",\"questionKey\":\"coppershade.hitpoints\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"movementMillitilesPerSecond\",\"questionKey\":\"coppershade.movement-millitiles-per-second\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"rangeMillitiles\",\"questionKey\":\"coppershade.range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"sightRangeMillitiles\",\"questionKey\":\"coppershade.sight-range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"targetMode\",\"questionKey\":\"coppershade.target-mode\",\"valueEncoding\":\"target-mode-code\"}]},\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":30,\"formation\":{\"componentOrder\":[\"coppershade\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":6},\"hitSpeedTicks\":60,\"hitpoints\":230,\"id\":\"coppershade-flock\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1500,\"rangeMillitiles\":1600,\"rarity\":\"standard\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground-and-air\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":4,\"count\":1,\"damage\":218,\"deployTimeTicks\":60,\"displayName\":\"Brassbolt\",\"entities\":[{\"archetypeId\":\"brassbolt\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.body-radius-millitiles\"},\"count\":1,\"damage\":218,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Brassbolt\",\"firstHitTicks\":12,\"hitSpeedTicks\":60,\"hitpoints\":720,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.layer\"},\"movementMillitilesPerSecond\":1000,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":6000,\"role\":\"primary\",\"sightRangeMillitiles\":6000,\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":12,\"formation\":{\"componentOrder\":[\"brassbolt\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":60,\"hitpoints\":720,\"id\":\"brassbolt\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1000,\"rangeMillitiles\":6000,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":6000,\"targetMode\":\"ground-and-air\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":3,\"count\":1,\"damage\":131,\"deployTimeTicks\":60,\"displayName\":\"Reedsting\",\"entities\":[{\"archetypeId\":\"reedsting\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.body-radius-millitiles\"},\"count\":1,\"damage\":131,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Reedsting\",\"firstHitTicks\":21,\"hitSpeedTicks\":42,\"hitpoints\":260,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.layer\"},\"movementMillitilesPerSecond\":2000,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":6500,\"role\":\"primary\",\"sightRangeMillitiles\":7500,\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":21,\"formation\":{\"componentOrder\":[\"reedsting\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":42,\"hitpoints\":260,\"id\":\"reedsting\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":2000,\"rangeMillitiles\":6500,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":7500,\"targetMode\":\"ground-and-air\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":3,\"count\":6,\"damage\":120,\"deployTimeTicks\":60,\"displayName\":\"Briar Band\",\"entities\":[{\"archetypeId\":\"briar-runner\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-runner.body-radius-millitiles\"},\"count\":3,\"damage\":120,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-runner.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Briar Runner\",\"firstHitTicks\":42,\"hitSpeedTicks\":66,\"hitpoints\":202,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-runner.layer\"},\"movementMillitilesPerSecond\":2000,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":500,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"},{\"archetypeId\":\"briar-darter\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.body-radius-millitiles\"},\"count\":3,\"damage\":81,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Briar Darter\",\"firstHitTicks\":72,\"hitSpeedTicks\":102,\"hitpoints\":133,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.layer\"},\"movementMillitilesPerSecond\":2000,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":5000,\"role\":\"secondary\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":42,\"formation\":{\"componentOrder\":[\"briar-runner\",\"briar-darter\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":6},\"hitSpeedTicks\":66,\"hitpoints\":202,\"id\":\"briar-band\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":2000,\"rangeMillitiles\":500,\"rarity\":\"standard\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":1,\"count\":3,\"damage\":81,\"deployTimeTicks\":60,\"displayName\":\"Cinderlings\",\"entities\":[{\"archetypeId\":\"cinderling\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"cinderling.body-radius-millitiles\"},\"count\":3,\"damage\":81,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"cinderling.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Cinderling\",\"firstHitTicks\":30,\"hitSpeedTicks\":60,\"hitpoints\":81,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"cinderling.layer\"},\"movementMillitilesPerSecond\":1500,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":500,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"}],\"firstHitTicks\":30,\"formation\":{\"componentOrder\":[\"cinderling\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":3},\"hitSpeedTicks\":60,\"hitpoints\":81,\"id\":\"cinderlings\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1500,\"rangeMillitiles\":500,\"rarity\":\"standard\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"}]}",
+      "deck": [
+        "coilblade",
+        "stonehauler",
+        "gloamwing-cluster",
+        "coppershade-flock",
+        "brassbolt",
+        "reedsting",
+        "briar-band",
+        "cinderlings"
+      ],
+      "legalNorthDeployments": [
+        {
+          "cardId": "brassbolt",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "briar-band",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "cinderlings",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "coilblade",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "coppershade-flock",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "gloamwing-cluster",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "reedsting",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        },
+        {
+          "cardId": "stonehauler",
+          "point": {
+            "x": 3500,
+            "y": 17500
+          }
+        }
+      ],
+      "rosterWitness": "{\"questions\":[{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":400},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"brassbolt.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":300},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-darter.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":300},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"briar-runner.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"cinderling.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":250},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"cinderling.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"cinderling.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coilblade.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coilblade.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coilblade.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coppershade.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":300},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coppershade.count\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":6},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coppershade.damage\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":117},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coppershade.deploy-time-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":60},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coppershade.first-hit-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":30},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coppershade.hit-speed-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":60},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coppershade.hitpoints\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":230},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coppershade.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coppershade.movement-millitiles-per-second\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coppershade.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coppershade.range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1600},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coppershade.sight-range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":5500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"coppershade.target-mode\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":3},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"gloamwing.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":300},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"gloamwing.count\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":5},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"gloamwing.damage\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":81},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"gloamwing.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"gloamwing.deploy-time-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":60},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"gloamwing.first-hit-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":42},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"gloamwing.hit-speed-ticks\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":78},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"gloamwing.hitpoints\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":81},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"gloamwing.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"gloamwing.movement-millitiles-per-second\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2000},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"gloamwing.range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1200},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"gloamwing.sight-range-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":5500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"gloamwing.target-mode\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":3},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":300},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":2},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"reedsting.projectile-speed-millitiles-per-tick\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"stonehauler.body-radius-millitiles\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":500},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"stonehauler.delivery\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1},{\"authoritative\":false,\"confidence\":\"unverified\",\"disposition\":\"question\",\"key\":\"stonehauler.layer\",\"source\":\"runtime-playability-estimate-not-comparison-corpus\",\"value\":1}],\"roster\":[{\"areaDamageRadiusMillitiles\":null,\"cost\":4,\"count\":1,\"damage\":720,\"deployTimeTicks\":60,\"displayName\":\"Coilblade\",\"entities\":[{\"archetypeId\":\"coilblade\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"coilblade.body-radius-millitiles\"},\"count\":1,\"damage\":720,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"coilblade.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Coilblade\",\"firstHitTicks\":66,\"hitSpeedTicks\":96,\"hitpoints\":1361,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"coilblade.layer\"},\"movementMillitilesPerSecond\":1500,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":800,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"}],\"firstHitTicks\":66,\"formation\":{\"componentOrder\":[\"coilblade\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":96,\"hitpoints\":1361,\"id\":\"coilblade\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1500,\"rangeMillitiles\":800,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":5,\"count\":1,\"damage\":254,\"deployTimeTicks\":60,\"displayName\":\"Stonehauler\",\"entities\":[{\"archetypeId\":\"stonehauler\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"stonehauler.body-radius-millitiles\"},\"count\":1,\"damage\":254,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"stonehauler.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Stonehauler\",\"firstHitTicks\":60,\"hitSpeedTicks\":90,\"hitpoints\":4091,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"stonehauler.layer\"},\"movementMillitilesPerSecond\":750,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":1200,\"role\":\"primary\",\"sightRangeMillitiles\":7500,\"targetMode\":\"structures\"}],\"firstHitTicks\":60,\"formation\":{\"componentOrder\":[\"stonehauler\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":90,\"hitpoints\":4091,\"id\":\"stonehauler\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":750,\"rangeMillitiles\":1200,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":7500,\"targetMode\":\"structures\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":2,\"count\":5,\"damage\":81,\"deployTimeTicks\":60,\"displayName\":\"Gloamwing Cluster\",\"entities\":[{\"archetypeId\":\"gloamwing\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"gloamwing.body-radius-millitiles\"},\"count\":5,\"damage\":81,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"gloamwing.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Gloamwing\",\"firstHitTicks\":42,\"hitSpeedTicks\":78,\"hitpoints\":81,\"kind\":\"unit\",\"layer\":\"air\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"gloamwing.layer\"},\"movementMillitilesPerSecond\":2000,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":1200,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"sourceConfidencePolicy\":{\"deploymentInterval\":{\"milliseconds\":100,\"sourceId\":\"supercell-2020-06-02-multi-unit-deployment\",\"ticks\":6},\"fields\":[{\"field\":\"count\",\"questionKey\":\"gloamwing.count\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"damage\",\"questionKey\":\"gloamwing.damage\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"deployTimeTicks\",\"questionKey\":\"gloamwing.deploy-time-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"firstHitTicks\",\"questionKey\":\"gloamwing.first-hit-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitSpeedTicks\",\"questionKey\":\"gloamwing.hit-speed-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitpoints\",\"questionKey\":\"gloamwing.hitpoints\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"movementMillitilesPerSecond\",\"questionKey\":\"gloamwing.movement-millitiles-per-second\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"rangeMillitiles\",\"questionKey\":\"gloamwing.range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"sightRangeMillitiles\",\"questionKey\":\"gloamwing.sight-range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"targetMode\",\"questionKey\":\"gloamwing.target-mode\",\"valueEncoding\":\"target-mode-code\"}]},\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":42,\"formation\":{\"componentOrder\":[\"gloamwing\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":5},\"hitSpeedTicks\":78,\"hitpoints\":81,\"id\":\"gloamwing-cluster\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":2000,\"rangeMillitiles\":1200,\"rarity\":\"standard\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground-and-air\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":5,\"count\":6,\"damage\":117,\"deployTimeTicks\":60,\"displayName\":\"Coppershade Flock\",\"entities\":[{\"archetypeId\":\"coppershade\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"coppershade.body-radius-millitiles\"},\"count\":6,\"damage\":117,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"archetypeId\":\"coppershade\",\"cardId\":\"coppershade-flock\",\"catalogId\":\"ordinary-projectile-squads-v1\",\"delivery\":\"projectile\",\"kind\":\"source-backed\"},\"deployTimeTicks\":60,\"displayName\":\"Coppershade\",\"firstHitTicks\":30,\"hitSpeedTicks\":60,\"hitpoints\":230,\"kind\":\"unit\",\"layer\":\"air\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"coppershade.layer\"},\"movementMillitilesPerSecond\":1500,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"coppershade.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":1600,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"sourceConfidencePolicy\":{\"deploymentInterval\":{\"milliseconds\":100,\"sourceId\":\"supercell-2020-06-02-multi-unit-deployment\",\"ticks\":6},\"fields\":[{\"field\":\"count\",\"questionKey\":\"coppershade.count\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"damage\",\"questionKey\":\"coppershade.damage\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"deployTimeTicks\",\"questionKey\":\"coppershade.deploy-time-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"firstHitTicks\",\"questionKey\":\"coppershade.first-hit-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitSpeedTicks\",\"questionKey\":\"coppershade.hit-speed-ticks\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"hitpoints\",\"questionKey\":\"coppershade.hitpoints\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"movementMillitilesPerSecond\",\"questionKey\":\"coppershade.movement-millitiles-per-second\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"rangeMillitiles\",\"questionKey\":\"coppershade.range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"sightRangeMillitiles\",\"questionKey\":\"coppershade.sight-range-millitiles\",\"valueEncoding\":\"positive-integer\"},{\"field\":\"targetMode\",\"questionKey\":\"coppershade.target-mode\",\"valueEncoding\":\"target-mode-code\"}]},\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":30,\"formation\":{\"componentOrder\":[\"coppershade\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":6},\"hitSpeedTicks\":60,\"hitpoints\":230,\"id\":\"coppershade-flock\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1500,\"rangeMillitiles\":1600,\"rarity\":\"standard\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground-and-air\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":4,\"count\":1,\"damage\":218,\"deployTimeTicks\":60,\"displayName\":\"Brassbolt\",\"entities\":[{\"archetypeId\":\"brassbolt\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.body-radius-millitiles\"},\"count\":1,\"damage\":218,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Brassbolt\",\"firstHitTicks\":12,\"hitSpeedTicks\":60,\"hitpoints\":720,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.layer\"},\"movementMillitilesPerSecond\":1000,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"brassbolt.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":6000,\"role\":\"primary\",\"sightRangeMillitiles\":6000,\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":12,\"formation\":{\"componentOrder\":[\"brassbolt\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":60,\"hitpoints\":720,\"id\":\"brassbolt\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1000,\"rangeMillitiles\":6000,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":6000,\"targetMode\":\"ground-and-air\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":3,\"count\":1,\"damage\":131,\"deployTimeTicks\":60,\"displayName\":\"Reedsting\",\"entities\":[{\"archetypeId\":\"reedsting\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.body-radius-millitiles\"},\"count\":1,\"damage\":131,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Reedsting\",\"firstHitTicks\":21,\"hitSpeedTicks\":42,\"hitpoints\":260,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.layer\"},\"movementMillitilesPerSecond\":2000,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"reedsting.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":6500,\"role\":\"primary\",\"sightRangeMillitiles\":7500,\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":21,\"formation\":{\"componentOrder\":[\"reedsting\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":1},\"hitSpeedTicks\":42,\"hitpoints\":260,\"id\":\"reedsting\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":2000,\"rangeMillitiles\":6500,\"rarity\":\"uncommon\",\"sightRangeMillitiles\":7500,\"targetMode\":\"ground-and-air\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":3,\"count\":6,\"damage\":120,\"deployTimeTicks\":60,\"displayName\":\"Briar Band\",\"entities\":[{\"archetypeId\":\"briar-runner\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-runner.body-radius-millitiles\"},\"count\":3,\"damage\":120,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-runner.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Briar Runner\",\"firstHitTicks\":42,\"hitSpeedTicks\":66,\"hitpoints\":202,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-runner.layer\"},\"movementMillitilesPerSecond\":2000,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":500,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"},{\"archetypeId\":\"briar-darter\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.body-radius-millitiles\"},\"count\":3,\"damage\":81,\"delivery\":\"projectile\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Briar Darter\",\"firstHitTicks\":72,\"hitSpeedTicks\":102,\"hitpoints\":133,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.layer\"},\"movementMillitilesPerSecond\":2000,\"projectileSpeedPolicy\":{\"kind\":\"question\",\"questionKey\":\"briar-darter.projectile-speed-millitiles-per-tick\"},\"rangeMillitiles\":5000,\"role\":\"secondary\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground-and-air\"}],\"firstHitTicks\":42,\"formation\":{\"componentOrder\":[\"briar-runner\",\"briar-darter\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":6},\"hitSpeedTicks\":66,\"hitpoints\":202,\"id\":\"briar-band\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":2000,\"rangeMillitiles\":500,\"rarity\":\"standard\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"},{\"areaDamageRadiusMillitiles\":null,\"cost\":1,\"count\":3,\"damage\":81,\"deployTimeTicks\":60,\"displayName\":\"Cinderlings\",\"entities\":[{\"archetypeId\":\"cinderling\",\"areaDamageRadiusMillitiles\":null,\"bodyRadiusPolicy\":{\"kind\":\"question\",\"questionKey\":\"cinderling.body-radius-millitiles\"},\"count\":3,\"damage\":81,\"delivery\":\"melee\",\"deliveryPolicy\":{\"kind\":\"question\",\"questionKey\":\"cinderling.delivery\"},\"deployTimeTicks\":60,\"displayName\":\"Cinderling\",\"firstHitTicks\":30,\"hitSpeedTicks\":60,\"hitpoints\":81,\"kind\":\"unit\",\"layer\":\"ground\",\"layerPolicy\":{\"kind\":\"question\",\"questionKey\":\"cinderling.layer\"},\"movementMillitilesPerSecond\":1500,\"projectileSpeedPolicy\":{\"kind\":\"not-applicable\",\"questionKey\":null},\"rangeMillitiles\":500,\"role\":\"primary\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"}],\"firstHitTicks\":30,\"formation\":{\"componentOrder\":[\"cinderling\"],\"expansionOrder\":\"component-order-then-member-index\",\"totalCount\":3},\"hitSpeedTicks\":60,\"hitpoints\":81,\"id\":\"cinderlings\",\"kind\":\"unit\",\"movementMillitilesPerSecond\":1500,\"rangeMillitiles\":500,\"rarity\":\"standard\",\"sightRangeMillitiles\":5500,\"targetMode\":\"ground\"}]}",
+      "seed": 0,
+      "startingElixir": {
+        "north": 10,
+        "south": 10
+      },
+      "thinkIntervalTicks": 60,
+      "thinkOffsetTicks": 0
+    },
+    "invalidMessagesIgnored": true,
+    "pauseResume": {
+      "pausedTick": 13,
+      "resumedTick": 14
+    },
+    "openingHand": [
+      "stonehauler",
+      "coppershade-flock",
+      "gloamwing-cluster",
+      "cinderlings"
+    ],
+    "deployments": [
+      {
+        "cardId": "gloamwing-cluster",
+        "entityCount": 5,
+        "cost": 2,
+        "point": {
+          "x": 9000,
+          "y": 6642
+        },
+        "trustedInput": true
+      },
+      {
+        "cardId": "coppershade-flock",
+        "entityCount": 6,
+        "cost": 5,
+        "point": {
+          "x": 9000,
+          "y": 6642
+        },
+        "trustedInput": true
+      }
+    ],
+    "snapshot": {
+      "gloamwing": {
+        "exactAtRestore": true,
+        "replayExact": true,
+        "restoredDeck": [
+          "coilblade",
+          "stonehauler",
+          "gloamwing-cluster",
+          "coppershade-flock",
+          "brassbolt",
+          "reedsting",
+          "briar-band",
+          "cinderlings"
+        ]
+      },
+      "coppershade": {
+        "attackerCardId": "coppershade-flock",
+        "attackerSide": "south",
+        "projectile": {
+          "attackSequence": 1,
+          "attackerId": 13,
+          "damage": 117,
+          "direction": "unit-to-unit",
+          "id": 16,
+          "impactTick": 458,
+          "launchTick": 454,
+          "origin": {
+            "x": 6755,
+            "y": 10669
+          },
+          "projectileId": 16,
+          "projectileIdentity": {
+            "attackSequence": 1,
+            "direction": "unit-to-unit",
+            "projectileId": 16,
+            "sourceId": 13
+          },
+          "projectileScope": "unit-to-unit",
+          "sourceId": 13,
+          "speed": 500,
+          "targetId": 9,
+          "targetPosition": {
+            "x": 6026,
+            "y": 12744
+          }
+        },
+        "exactAtRestore": true,
+        "projectileRestoredExactly": true,
+        "replayExact": true,
+        "targetCardId": "coppershade-flock",
+        "targetLayer": "air",
+        "targetSide": "north"
+      }
+    },
+    "terminal": {
+      "reached": true,
+      "sessionTick": 7195,
+      "chunks": 6
+    },
+    "restart": {
+      "deck": [
+        "coilblade",
+        "stonehauler",
+        "gloamwing-cluster",
+        "coppershade-flock",
+        "brassbolt",
+        "reedsting",
+        "briar-band",
+        "cinderlings"
+      ],
+      "restartCount": 1,
+      "sessionTick": 0
+    }
+  },
+  "editableSquallSpell": {
+    "deck": [
+      "coilblade",
+      "stonehauler",
+      "squall-orb",
+      "coppershade-flock",
+      "brassbolt",
+      "reedsting",
+      "briar-band",
+      "cinderlings"
+    ],
+    "profileId": "squall-orb-radius-v2",
+    "centerPoint": {
+      "x": 3500,
+      "y": 17475
+    },
+    "centerTelegraphRadiusMillitiles": 2500,
+    "impactHit": {
+      "damage": 689,
+      "targetId": 1,
+      "hitpointsBefore": 1361,
+      "hitpointsAfter": 672
+    },
+    "impactRingVisible": true,
+    "trustedPointer": true,
+    "elixirAfterCast": 6,
+    "pendingImpactRestoreExact": true,
+    "resolvedAfterRestore": true
+  },
+  "viewports": [
+    {
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "width": 390,
+      "height": 844
+    },
+    {
+      "width": 1440,
+      "height": 933
+    }
+  ],
+  "result": "passed"
+}
