@@ -1,0 +1,69 @@
+self-check 1/6 PASS — missing historical row: expected exactly 109 historical rows
+
+108 !== 109
+
+self-check 2/6 PASS — duplicate historical row: duplicate historical row key
+
+108 !== 109
+
+self-check 3/6 PASS — duplicate editable ID: duplicate current editable id
+
+17 !== 18
+
+self-check 4/6 PASS — unsupported comparator join: sunthread-pair comparison disagrees with pinned declarations and QUESTION fixtures
++ actual - expected
+
+  {
++   evidenceMappingLine: 22,
++   fieldDisposition: 'source-unverified fields remain QUESTION',
++   fullParityClaimed: false,
++   referenceKey: 'mini-pekka',
++   status: 'declared-test-comparator'
+-   reason: 'The cited current tests do not declare a historical card key.',
+-   status: 'no-exact-historical-identity-asserted'
+  }
+
+self-check 5/6 PASS — private QUESTION fixture promotion: cinder-host comparison disagrees with pinned declarations and QUESTION fixtures
++ actual - expected
+
+  {
++   evidenceMappingLine: 12,
++   fieldDisposition: 'source-unverified fields remain QUESTION',
++   fullParityClaimed: false,
++   referenceKey: 'skeleton-army',
++   status: 'declared-test-comparator'
+-   fixtureReferences: [
+-     {
+-       artifact: 'artifacts/cards-expansion-round-2/reference-normalization.json',
+-       identityJoin: false,
+-       referenceKey: 'skeleton-army',
+-       status: 'QUESTION fixture only; not an identity join'
+-     }
+-   ],
+-   status: 'question-fixture-only'
+  }
+
+self-check 6/6 PASS — forged/wrong-line evidence: coilblade evidence disagrees with pinned test declarations
++ actual - expected
+
+  [
+    {
+      file: 'tests/cards-basic-melee.test.js',
++     line: 999999,
+-     line: 141,
+      test: 'basic melee content: field parity is reported with confidence'
+    }
+  ]
+; set Coilblade mapping line to 999999: coilblade comparison disagrees with pinned declarations and QUESTION fixtures
++ actual - expected
+
+  {
++   evidenceMappingLine: 999999,
+-   evidenceMappingLine: 22,
+    fieldDisposition: 'source-unverified fields remain QUESTION',
+    fullParityClaimed: false,
+    referenceKey: 'mini-pekka',
+    status: 'declared-test-comparator'
+  }
+
+check passed: 109 rows, 18 editable IDs, frozen a8c39bcc02329ba22b3fdd50be7d1089bc6010dc
