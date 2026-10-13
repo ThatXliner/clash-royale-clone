@@ -1,0 +1,975 @@
+{
+  "candidate": {
+    "ref": "codex/cards018i-ember-basin-candidate-final",
+    "commit": "7f8baee2922a7eff197f43d1804a526ffacacd22",
+    "tree": "d5245888b86d4ee82a061b9a300ecf3a5de72e19",
+    "parent": "e24a8b74d4c3ec6863ab2e5607d24f424e58d9df",
+    "archive": "/tmp/cards018-ember-exact-final.EPuavs",
+    "changedFiles": [
+      "demo/assets/ember-basin-battle-sprite.png",
+      "docs/art/ember-basin-battle-sprite-provenance.json",
+      "public/assets/ember-basin-battle-sprite.webp",
+      "src/content/visual-asset-manifest.js",
+      "src/ui/app-shell.js",
+      "src/ui/card-lore.js",
+      "src/ui/card-portrait-art.js",
+      "src/ui/combat-art.js",
+      "tests/app-shell.test.js",
+      "tests/cards018-browser-integration.test.js"
+    ],
+    "fileSha256AndBytes": {
+      "demo/assets/ember-basin-battle-sprite.png": {
+        "bytes": 1524637,
+        "sha256": "7ddf09d2d99a5ae8fb50ada1161efab4f13b935afa3f0771123867339b7f405d"
+      },
+      "docs/art/ember-basin-battle-sprite-provenance.json": {
+        "bytes": 3045,
+        "sha256": "f84e90c3ab6b086fca26d4bb013bca85cbdc0a62421b76d8ac93618413410765"
+      },
+      "public/assets/ember-basin-battle-sprite.webp": {
+        "bytes": 70090,
+        "sha256": "9c805943147cbbe48030edb3ed2d197936319af6753a170af70d8210f1b5a7c9"
+      },
+      "src/content/visual-asset-manifest.js": {
+        "bytes": 16836,
+        "sha256": "0599a400bf998cf704ffd2b2d946b2757ea9fe4373682a30d49e36a5b3586a12"
+      },
+      "src/ui/app-shell.js": {
+        "bytes": 25007,
+        "sha256": "060abc24e332b828f59a79e896a7413310786960f1d62bf8b24a713e413a66a1"
+      },
+      "src/ui/card-lore.js": {
+        "bytes": 4244,
+        "sha256": "d19b8492764262344d86e001bf93bea14717dea2b76b025a71df90dfc67e7637"
+      },
+      "src/ui/card-portrait-art.js": {
+        "bytes": 3396,
+        "sha256": "9cef78518cfd5d33865cded4a62f75412a07d3bcea496c9d08a3c2a5e630a0ce"
+      },
+      "src/ui/combat-art.js": {
+        "bytes": 14553,
+        "sha256": "f04f61b66d3133911f6a76f9d73601df0336781e4c256569687a04a7cbe5727e"
+      },
+      "tests/app-shell.test.js": {
+        "bytes": 76556,
+        "sha256": "728e50b638ab37c7871a67b9d8bcfde27d244055dae05fa6e54c583106188f3e"
+      },
+      "tests/cards018-browser-integration.test.js": {
+        "bytes": 44605,
+        "sha256": "a66f6d45e99d26b5fbddd2213be4836a4eb417002e432b4b3dfcd08d2e8e36ab"
+      }
+    },
+    "diffCheck": "passed",
+    "mainCheckoutHeadAfterFreeze": "e24a8b74d4c3ec6863ab2e5607d24f424e58d9df"
+  },
+  "generatedArt": {
+    "inputPortraitV2": {
+      "path": "demo/assets/ember-basin-portrait-v2.png",
+      "bytes": 2717595,
+      "sha256": "3429f3eb00374226c7779857816c8e0fec15711cc89f670fb12322aa5afe7490"
+    },
+    "transparentPngSource": {
+      "path": "demo/assets/ember-basin-battle-sprite.png",
+      "bytes": 1524637,
+      "dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "sha256": "7ddf09d2d99a5ae8fb50ada1161efab4f13b935afa3f0771123867339b7f405d"
+    },
+    "canonicalOutput": {
+      "path": "public/assets/ember-basin-battle-sprite.webp",
+      "bytes": 70090,
+      "dimensions": {
+        "width": 512,
+        "height": 512
+      },
+      "sha256": "9c805943147cbbe48030edb3ed2d197936319af6753a170af70d8210f1b5a7c9"
+    },
+    "provenancePath": "docs/art/ember-basin-battle-sprite-provenance.json",
+    "outputRegisteredInRelease": {
+      "path": "public/assets/ember-basin-battle-sprite.webp",
+      "size": 70090,
+      "sha256": "9c805943147cbbe48030edb3ed2d197936319af6753a170af70d8210f1b5a7c9"
+    }
+  },
+  "successfulBrowserJourney": {
+    "candidate": "48284e0968c125bddf993cf54f439e2c238ec2d4",
+    "tap": "candidate-48284e0/browser-integration.tap",
+    "json": "candidate-48284e0/browser-evidence.json",
+    "result": "passed 1/1",
+    "deck": [
+      "coilblade",
+      "mossguard",
+      "copperskiff",
+      "skymaul",
+      "brassbolt",
+      "reedsting",
+      "squall-orb",
+      "ember-basin"
+    ],
+    "firstSplash": {
+      "attackTick": 126,
+      "impactTick": 127,
+      "targets": [
+        {
+          "amount": 222,
+          "currentHealthAfter": 1030,
+          "currentHealthBefore": 1252,
+          "targetId": 1,
+          "type": "damage",
+          "delivery": "melee",
+          "externalSourceId": "building:2",
+          "tick": 127
+        },
+        {
+          "amount": 222,
+          "currentHealthAfter": 1544,
+          "currentHealthBefore": 1766,
+          "targetId": 3,
+          "type": "damage",
+          "delivery": "melee",
+          "externalSourceId": "building:2",
+          "tick": 127
+        }
+      ],
+      "reconciliation": [
+        {
+          "damageEvents": [
+            {
+              "amount": 222,
+              "sourceId": "building:2",
+              "currentHealthBefore": 1252,
+              "currentHealthAfter": 1030,
+              "delivery": "melee",
+              "tick": 127
+            },
+            {
+              "amount": 109,
+              "sourceId": "south:lane:west",
+              "currentHealthBefore": 1030,
+              "currentHealthAfter": 921,
+              "delivery": "projectile",
+              "tick": 127
+            }
+          ],
+          "hitpointsAfter": 921,
+          "hitpointsBefore": 1252,
+          "targetId": 1,
+          "totalDamage": 331
+        },
+        {
+          "damageEvents": [
+            {
+              "amount": 222,
+              "sourceId": "building:2",
+              "currentHealthBefore": 1766,
+              "currentHealthAfter": 1544,
+              "delivery": "melee",
+              "tick": 127
+            }
+          ],
+          "hitpointsAfter": 1544,
+          "hitpointsBefore": 1766,
+          "targetId": 3,
+          "totalDamage": 222
+        }
+      ]
+    },
+    "secondSplash": {
+      "attackTicks": [
+        126,
+        222
+      ],
+      "impact": {
+        "stateTick": 224,
+        "expectedPendingHits": [
+          {
+            "amount": 222,
+            "targetId": 1,
+            "tick": 223
+          },
+          {
+            "amount": 222,
+            "targetId": 3,
+            "tick": 223
+          }
+        ],
+        "damageEvents": [
+          {
+            "amount": 222,
+            "currentHealthAfter": 590,
+            "currentHealthBefore": 812,
+            "targetId": 1,
+            "type": "damage",
+            "delivery": "melee",
+            "externalSourceId": "building:2",
+            "tick": 223
+          },
+          {
+            "amount": 222,
+            "currentHealthAfter": 1322,
+            "currentHealthBefore": 1544,
+            "targetId": 3,
+            "type": "damage",
+            "delivery": "melee",
+            "externalSourceId": "building:2",
+            "tick": 223
+          },
+          {
+            "amount": 109,
+            "currentHealthAfter": 481,
+            "currentHealthBefore": 590,
+            "targetId": 1,
+            "type": "damage",
+            "attackSequence": 4,
+            "delivery": "projectile",
+            "direction": "tower-to-unit",
+            "externalProjectileId": 4,
+            "externalSourceId": "south:lane:west",
+            "projectileIdentity": {
+              "attackSequence": 4,
+              "direction": "tower-to-unit",
+              "projectileId": 4,
+              "sourceId": "south:lane:west"
+            },
+            "tick": 223,
+            "projectileId": 4,
+            "projectileScope": "tower-to-unit",
+            "sourceId": "south:lane:west"
+          }
+        ],
+        "reconciliation": [
+          {
+            "damageEvents": [
+              {
+                "amount": 222,
+                "sourceId": "building:2",
+                "currentHealthBefore": 812,
+                "currentHealthAfter": 590,
+                "delivery": "melee",
+                "tick": 223
+              },
+              {
+                "amount": 109,
+                "sourceId": "south:lane:west",
+                "currentHealthBefore": 590,
+                "currentHealthAfter": 481,
+                "delivery": "projectile",
+                "tick": 223
+              }
+            ],
+            "hitpointsAfter": 481,
+            "hitpointsBefore": 812,
+            "targetId": 1,
+            "totalDamage": 331
+          },
+          {
+            "damageEvents": [
+              {
+                "amount": 222,
+                "sourceId": "building:2",
+                "currentHealthBefore": 1544,
+                "currentHealthAfter": 1322,
+                "delivery": "melee",
+                "tick": 223
+              }
+            ],
+            "hitpointsAfter": 1322,
+            "hitpointsBefore": 1544,
+            "targetId": 3,
+            "totalDamage": 222
+          }
+        ]
+      }
+    },
+    "lifetime": {
+      "beforeExpiry": {
+        "alive": true,
+        "hitpoints": 1356,
+        "placedTick": 0,
+        "tick": 1800,
+        "attacks": 2
+      },
+      "expired": {
+        "alive": false,
+        "cause": "expiry",
+        "hitpoints": 0,
+        "tick": 1801,
+        "event": {
+          "buildingId": 2,
+          "cause": "expiry",
+          "reason": "lifetime",
+          "tick": 1800,
+          "type": "structure-destroyed"
+        }
+      }
+    },
+    "trustedInput": [
+      {
+        "action": "select-card",
+        "trusted": true
+      },
+      {
+        "action": "deploy-ember-basin",
+        "point": {
+          "x": 3500,
+          "y": 14500
+        },
+        "trusted": true
+      }
+    ],
+    "browserErrors": [],
+    "release": {
+      "fileCount": 47,
+      "manifestSha256": "6fd6673b9a3e49d8b7390e2f5a017d5480a861724d6342c4113b03846b95b1cc",
+      "entrypoints": [
+        "public/index.html"
+      ],
+      "standaloneModules": [
+        "src/rl/environment.js",
+        "src/ui/arena-shell-entry.js"
+      ]
+    },
+    "screenshots": [
+      {
+        "file": "custom-deck-phone-390x844.png",
+        "sha256": "db491bbaac3264c24dd8e9d27fc9d2a1a440ae33001d7c4de71fe8fc280f7108",
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "file": "ember-basin-details-phone-390x844.png",
+        "sha256": "065ccb511215cbc488c633b9416eb77939a5b79a0f28f98dbc202db52a6d8d7b",
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      {
+        "file": "ember-basin-combat-phone-390x844.png",
+        "sha256": "0496682cd9a986afcff156204859f643842d84f6cc947f925a39b734d254bd17",
+        "viewport": [
+          390,
+          844
+        ],
+        "reducedMotion": false
+      },
+      {
+        "file": "ember-basin-390x844-normal.png",
+        "sha256": "0496682cd9a986afcff156204859f643842d84f6cc947f925a39b734d254bd17",
+        "restoredSha256": "0496682cd9a986afcff156204859f643842d84f6cc947f925a39b734d254bd17",
+        "pixelParityAfterRestore": true,
+        "viewport": [
+          390,
+          844
+        ],
+        "reducedMotion": false,
+        "viewLayerSha256": "54100d3b783c2875e2c1750e2f8da244b37750b60065f72fab1ac8761a7507cb",
+        "motionRegion": null
+      },
+      {
+        "file": "ember-basin-390x844-reduced.png",
+        "sha256": "0496682cd9a986afcff156204859f643842d84f6cc947f925a39b734d254bd17",
+        "restoredSha256": "0496682cd9a986afcff156204859f643842d84f6cc947f925a39b734d254bd17",
+        "pixelParityAfterRestore": true,
+        "viewport": [
+          390,
+          844
+        ],
+        "reducedMotion": true,
+        "viewLayerSha256": "54100d3b783c2875e2c1750e2f8da244b37750b60065f72fab1ac8761a7507cb",
+        "motionRegion": null
+      },
+      {
+        "file": "ember-basin-1440x933-normal.png",
+        "sha256": "7cd2460903fb8409f61c34d1a234a51cdc009df73fbe5928360dd5a6ecf983ee",
+        "restoredSha256": "7cd2460903fb8409f61c34d1a234a51cdc009df73fbe5928360dd5a6ecf983ee",
+        "pixelParityAfterRestore": true,
+        "viewport": [
+          1440,
+          933
+        ],
+        "reducedMotion": false,
+        "viewLayerSha256": "54100d3b783c2875e2c1750e2f8da244b37750b60065f72fab1ac8761a7507cb",
+        "motionRegion": {
+          "handLabel": {
+            "tag": "span",
+            "id": null,
+            "className": "hud-card__name",
+            "dataUi": null,
+            "cardId": null,
+            "slot": null,
+            "text": "Brassbolt",
+            "rect": [
+              549,
+              1188,
+              104,
+              55
+            ],
+            "style": {
+              "animationName": "none",
+              "backgroundColor": "rgba(25, 29, 34, 0.8)",
+              "opacity": "1",
+              "transform": "none",
+              "transformOrigin": "52px 27.5px",
+              "transitionProperty": "all"
+            }
+          },
+          "motionOwners": {
+            "card": {
+              "tag": "span",
+              "id": null,
+              "className": "hud-card",
+              "dataUi": null,
+              "cardId": "brassbolt",
+              "slot": "3",
+              "text": "4Brassbolt",
+              "rect": [
+                545,
+                1121,
+                112,
+                128
+              ],
+              "style": {
+                "animationName": "none",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "opacity": "1",
+                "transform": "none",
+                "transformOrigin": "56px 128px",
+                "transitionProperty": "all"
+              }
+            },
+            "hand": {
+              "tag": "div",
+              "id": null,
+              "className": "",
+              "dataUi": "hud-hand",
+              "cardId": null,
+              "slot": null,
+              "text": "3Mossguard3Skymaul4Copperskiff4Brassbolt",
+              "rect": [
+                185,
+                1121,
+                472,
+                128
+              ],
+              "style": {
+                "animationName": "none",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "opacity": "1",
+                "transform": "none",
+                "transformOrigin": "236px 64px",
+                "transitionProperty": "all"
+              }
+            },
+            "hudFrame": {
+              "tag": "div",
+              "id": null,
+              "className": "game-ui-hud-frame",
+              "dataUi": null,
+              "cardId": null,
+              "slot": null,
+              "text": "2:574Squall Orb3Mossguard3Skymaul4Copperskiff4Brassbolt",
+              "rect": [
+                0,
+                0,
+                720,
+                1280
+              ],
+              "style": {
+                "animationName": "none",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "opacity": "1",
+                "transform": "none",
+                "transformOrigin": "360px 640px",
+                "transitionProperty": "all"
+              }
+            }
+          },
+          "pixelRegionPageBounds": {
+            "x": 891.3390625,
+            "y": 773.00625,
+            "width": 54.1125,
+            "height": 28.6171875
+          }
+        }
+      },
+      {
+        "file": "ember-basin-1440x933-reduced.png",
+        "sha256": "6a18240aab8fdb3745102a5a00c608a0f0042a5dda07d0c643419cacf6f47855",
+        "restoredSha256": "6a18240aab8fdb3745102a5a00c608a0f0042a5dda07d0c643419cacf6f47855",
+        "pixelParityAfterRestore": true,
+        "viewport": [
+          1440,
+          933
+        ],
+        "reducedMotion": true,
+        "viewLayerSha256": "54100d3b783c2875e2c1750e2f8da244b37750b60065f72fab1ac8761a7507cb",
+        "motionRegion": {
+          "handLabel": {
+            "tag": "span",
+            "id": null,
+            "className": "hud-card__name",
+            "dataUi": null,
+            "cardId": null,
+            "slot": null,
+            "text": "Brassbolt",
+            "rect": [
+              549,
+              1188,
+              104,
+              55
+            ],
+            "style": {
+              "animationName": "none",
+              "backgroundColor": "rgba(25, 29, 34, 0.8)",
+              "opacity": "1",
+              "transform": "none",
+              "transformOrigin": "52px 27.5px",
+              "transitionProperty": "all"
+            }
+          },
+          "motionOwners": {
+            "card": {
+              "tag": "span",
+              "id": null,
+              "className": "hud-card",
+              "dataUi": null,
+              "cardId": "brassbolt",
+              "slot": "3",
+              "text": "4Brassbolt",
+              "rect": [
+                545,
+                1121,
+                112,
+                128
+              ],
+              "style": {
+                "animationName": "none",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "opacity": "1",
+                "transform": "none",
+                "transformOrigin": "56px 128px",
+                "transitionProperty": "all"
+              }
+            },
+            "hand": {
+              "tag": "div",
+              "id": null,
+              "className": "",
+              "dataUi": "hud-hand",
+              "cardId": null,
+              "slot": null,
+              "text": "3Mossguard3Skymaul4Copperskiff4Brassbolt",
+              "rect": [
+                185,
+                1121,
+                472,
+                128
+              ],
+              "style": {
+                "animationName": "none",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "opacity": "1",
+                "transform": "none",
+                "transformOrigin": "236px 64px",
+                "transitionProperty": "all"
+              }
+            },
+            "hudFrame": {
+              "tag": "div",
+              "id": null,
+              "className": "game-ui-hud-frame",
+              "dataUi": null,
+              "cardId": null,
+              "slot": null,
+              "text": "2:574Squall Orb3Mossguard3Skymaul4Copperskiff4Brassbolt",
+              "rect": [
+                0,
+                0,
+                720,
+                1280
+              ],
+              "style": {
+                "animationName": "none",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "opacity": "1",
+                "transform": "none",
+                "transformOrigin": "360px 640px",
+                "transitionProperty": "all"
+              }
+            }
+          },
+          "pixelRegionPageBounds": {
+            "x": 891.3390625,
+            "y": 773.00625,
+            "width": 54.1125,
+            "height": 28.6171875
+          }
+        }
+      }
+    ],
+    "motion": {
+      "phoneNormalAndReducedMotionScreenshotsArePixelIdentical": true,
+      "desktopScreenshotPixelDifferenceRegion": {
+        "x": 885,
+        "y": 771,
+        "width": 65,
+        "height": 25
+      },
+      "desktopNormalVsReducedUiPointSamples": [
+        {
+          "media": "no-preference",
+          "pagePoint": {
+            "x": 885,
+            "y": 771
+          },
+          "iframeBox": {
+            "x": 605.6875,
+            "y": 154.875,
+            "width": 374.625,
+            "height": 666
+          },
+          "frameSize": {
+            "width": 720,
+            "height": 1280
+          },
+          "motionRegion": {
+            "handLabel": {
+              "tag": "span",
+              "id": null,
+              "className": "hud-card__name",
+              "dataUi": null,
+              "cardId": null,
+              "slot": null,
+              "text": "Brassbolt",
+              "rect": [
+                549,
+                1188,
+                104,
+                55
+              ],
+              "style": {
+                "animationName": "none",
+                "backgroundColor": "rgba(25, 29, 34, 0.8)",
+                "opacity": "1",
+                "transform": "none",
+                "transformOrigin": "52px 27.5px",
+                "transitionProperty": "all"
+              }
+            },
+            "motionOwners": {
+              "card": {
+                "tag": "span",
+                "id": null,
+                "className": "hud-card",
+                "dataUi": null,
+                "cardId": "brassbolt",
+                "slot": "3",
+                "text": "4Brassbolt",
+                "rect": [
+                  545,
+                  1121,
+                  112,
+                  128
+                ],
+                "style": {
+                  "animationName": "none",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "opacity": "1",
+                  "transform": "none",
+                  "transformOrigin": "56px 128px",
+                  "transitionProperty": "all"
+                }
+              },
+              "hand": {
+                "tag": "div",
+                "id": null,
+                "className": "",
+                "dataUi": "hud-hand",
+                "cardId": null,
+                "slot": null,
+                "text": "3Mossguard3Skymaul4Copperskiff4Brassbolt",
+                "rect": [
+                  185,
+                  1121,
+                  472,
+                  128
+                ],
+                "style": {
+                  "animationName": "none",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "opacity": "1",
+                  "transform": "none",
+                  "transformOrigin": "236px 64px",
+                  "transitionProperty": "all"
+                }
+              },
+              "hudFrame": {
+                "tag": "div",
+                "id": null,
+                "className": "game-ui-hud-frame",
+                "dataUi": null,
+                "cardId": null,
+                "slot": null,
+                "text": "2:574Squall Orb3Mossguard3Skymaul4Copperskiff4Brassbolt",
+                "rect": [
+                  0,
+                  0,
+                  720,
+                  1280
+                ],
+                "style": {
+                  "animationName": "none",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "opacity": "1",
+                  "transform": "none",
+                  "transformOrigin": "360px 640px",
+                  "transitionProperty": "all"
+                }
+              }
+            },
+            "pixelRegionPageBounds": {
+              "x": 891.3390625,
+              "y": 773.00625,
+              "width": 54.1125,
+              "height": 28.6171875
+            }
+          }
+        },
+        {
+          "media": "reduce",
+          "pagePoint": {
+            "x": 885,
+            "y": 771
+          },
+          "iframeBox": {
+            "x": 605.6875,
+            "y": 154.875,
+            "width": 374.625,
+            "height": 666
+          },
+          "frameSize": {
+            "width": 720,
+            "height": 1280
+          },
+          "motionRegion": {
+            "handLabel": {
+              "tag": "span",
+              "id": null,
+              "className": "hud-card__name",
+              "dataUi": null,
+              "cardId": null,
+              "slot": null,
+              "text": "Brassbolt",
+              "rect": [
+                549,
+                1188,
+                104,
+                55
+              ],
+              "style": {
+                "animationName": "none",
+                "backgroundColor": "rgba(25, 29, 34, 0.8)",
+                "opacity": "1",
+                "transform": "none",
+                "transformOrigin": "52px 27.5px",
+                "transitionProperty": "all"
+              }
+            },
+            "motionOwners": {
+              "card": {
+                "tag": "span",
+                "id": null,
+                "className": "hud-card",
+                "dataUi": null,
+                "cardId": "brassbolt",
+                "slot": "3",
+                "text": "4Brassbolt",
+                "rect": [
+                  545,
+                  1121,
+                  112,
+                  128
+                ],
+                "style": {
+                  "animationName": "none",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "opacity": "1",
+                  "transform": "none",
+                  "transformOrigin": "56px 128px",
+                  "transitionProperty": "all"
+                }
+              },
+              "hand": {
+                "tag": "div",
+                "id": null,
+                "className": "",
+                "dataUi": "hud-hand",
+                "cardId": null,
+                "slot": null,
+                "text": "3Mossguard3Skymaul4Copperskiff4Brassbolt",
+                "rect": [
+                  185,
+                  1121,
+                  472,
+                  128
+                ],
+                "style": {
+                  "animationName": "none",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "opacity": "1",
+                  "transform": "none",
+                  "transformOrigin": "236px 64px",
+                  "transitionProperty": "all"
+                }
+              },
+              "hudFrame": {
+                "tag": "div",
+                "id": null,
+                "className": "game-ui-hud-frame",
+                "dataUi": null,
+                "cardId": null,
+                "slot": null,
+                "text": "2:574Squall Orb3Mossguard3Skymaul4Copperskiff4Brassbolt",
+                "rect": [
+                  0,
+                  0,
+                  720,
+                  1280
+                ],
+                "style": {
+                  "animationName": "none",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "opacity": "1",
+                  "transform": "none",
+                  "transformOrigin": "360px 640px",
+                  "transitionProperty": "all"
+                }
+              }
+            },
+            "pixelRegionPageBounds": {
+              "x": 891.3390625,
+              "y": 773.00625,
+              "width": 54.1125,
+              "height": 28.6171875
+            }
+          }
+        }
+      ],
+      "desktopMotionDifferenceObservation": {
+        "cardId": "brassbolt",
+        "slot": "3",
+        "normalHandTransform": "none",
+        "reducedMotionHandTransform": "none",
+        "cardTransform": "none",
+        "labelText": "Brassbolt",
+        "explanation": "the measured pixel delta overlaps the same Brassbolt label in the same browser and view-state checkpoint. The sampled hand/card transforms are identical in both modes, so this run does not establish the pixel-level cause; text rasterization is only a hypothesis"
+      },
+      "restorePixelParityVerifiedIndependentlyInEachVariant": true
+    }
+  },
+  "finalCandidateAttempt": {
+    "candidate": "7f8baee2922a7eff197f43d1804a526ffacacd22",
+    "tap": "candidate-7f8baee/verification/browser-integration.tap",
+    "result": "failed at the second 96-tick cadence assertion: this run deployed at tick 7, observed the first attack at tick 133, but no second attack by expected tick 229; no source change followed this attempt",
+    "note": "The independent critic reported a 1/1 browser pass on the final candidate to the parent task. The v9 successful journey is identical in UI/runtime/art; v10 only adds the two existing portrait records to the visual manifest."
+  },
+  "checks": {
+    "exactFinalCandidate": {
+      "appShell": {
+        "command": "APP_SHELL_ARTIFACTS=<artifacts> node --test tests/app-shell.test.js",
+        "result": "passed 1/1",
+        "tap": "candidate-7f8baee/verification/app-shell.tap"
+      },
+      "visualAssetManifest": {
+        "command": "npm run test:visual-asset-manifest",
+        "result": "passed 6/6",
+        "tap": "candidate-7f8baee/verification/visual-asset-manifest.tap"
+      },
+      "pagesBuild": {
+        "command": "node scripts/build-pages.js --out <external-temp-dir> --repository ThatXliner/clash-royale-clone --ref codex/cards018i-ember-basin-candidate-final",
+        "result": "passed; 47 release files, 5,668,348 bytes",
+        "log": "candidate-7f8baee/verification/pages-build.log",
+        "releaseManifestSha256": "e77d65fdc327944306eb830a4dee921d17da68b06fe89d4475ef099e5ec84fc9",
+        "output": "/tmp/cards018-pages-final.9aWoN6/site",
+        "releaseAsset": {
+          "path": "public/assets/ember-basin-battle-sprite.webp",
+          "size": 70090,
+          "sha256": "9c805943147cbbe48030edb3ed2d197936319af6753a170af70d8210f1b5a7c9"
+        }
+      }
+    },
+    "v9ExactArchiveBeforeManifestOnlyAppend": {
+      "gameUiProjection": {
+        "result": "passed 26/26",
+        "tap": "candidate-48284e0/verification/game-ui-projection.tap"
+      },
+      "uiArenaShell": {
+        "result": "passed 7/7",
+        "tap": "candidate-48284e0/verification/ui-arena-shell.tap"
+      },
+      "uiCombatEffects": {
+        "result": "passed 10/10",
+        "tap": "candidate-48284e0/verification/ui-combat-effects.tap"
+      },
+      "editableDeck": {
+        "result": "passed 12/12; standard setup/order preserved",
+        "tap": "candidate-48284e0/verification/editable-deck.tap"
+      },
+      "shippingIsolationGuard": {
+        "result": "passed 13/13",
+        "tap": "candidate-48284e0/verification/shipping-isolation-guard.tap"
+      },
+      "visualInterfaceArt": {
+        "result": "passed 9/9",
+        "tap": "candidate-48284e0/verification/visual-interface-art.tap"
+      }
+    }
+  },
+  "retainedEarlyRuns": [
+    {
+      "candidate": "825e110bc03ae50d5bd4c8c841c05ca611ff992b",
+      "result": "browser 1/1 pass; early broad receipt",
+      "tap": "candidate-825e110/browser-integration.tap"
+    },
+    {
+      "candidate": "157898938cab1f56ed9442b4002f61e7d8bc3588",
+      "result": "failed receipt lookup due omitted structure ID",
+      "tap": "candidate-1578989/browser-integration.tap"
+    },
+    {
+      "candidate": "16194a6525599e447d4fea357ed7c26865e7f8ae",
+      "result": "startup autoplay advanced target outside second attack cadence",
+      "tap": "candidate-16194a6/browser-integration.tap"
+    },
+    {
+      "candidate": "e3fc2e556d33e636375e8e9ea771e5c121afaa72",
+      "result": "functional path passed; test expected age 1,799 rather than actual pre-expiry age 1,800",
+      "tap": "candidate-e3fc2e5/browser-integration.tap"
+    },
+    {
+      "candidate": "445c627e9013d304bb8a9e8b9a66324a9f0551c5",
+      "result": "browser 1/1 pass; subsequent diagnostic coordinate was found to miss the HUD",
+      "tap": "candidate-445c627/browser-integration.tap"
+    },
+    {
+      "candidate": "7f91893017c1504319266d794ba02528d4603c22",
+      "result": "functional path passed; initial scaled elementFromPoint diagnostic missed embedded viewport",
+      "tap": "candidate-7f91893/browser-integration.tap"
+    },
+    {
+      "candidate": "459446fddd201d2f9e8cbdd167ecf4001b194ef4",
+      "result": "functional path passed; speculative card-transform delta assertion failed (both computed none)",
+      "tap": "candidate-459446f/browser-integration.tap"
+    },
+    {
+      "candidate": "21bd3bd645cd2f453a04112ec94b39a388f86dec",
+      "result": "functional path passed; speculative HUD-hand transform delta assertion failed (both computed none)",
+      "tap": "candidate-21bd3bd/browser-integration.tap"
+    }
+  ]
+}

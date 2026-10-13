@@ -1,0 +1,39 @@
+TAP version 13
+# Subtest: Cards018 Ember Basin: editable collection enters real mixed battle and restores splash state
+not ok 1 - Cards018 Ember Basin: editable collection enters real mixed battle and restores splash state
+  ---
+  duration_ms: 22369.266959
+  type: 'test'
+  location: '/private/tmp/cards018-ember-exact-final.EPuavs/tests/cards018-browser-integration.test.js:108:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Ember repeats its area attack at the shared 96-tick cadence
+    + actual - expected
+    
+      [
+        133,
+    -   229
+      ]
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0: 133
+    1: 229
+  actual:
+    0: 133
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/cards018-ember-exact-final.EPuavs/tests/cards018-browser-integration.test.js:440:12)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 22601.482375

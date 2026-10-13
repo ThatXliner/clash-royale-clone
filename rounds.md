@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 426 — 2026-10-13
+
+PIECE: CARDS-018I — Ember Basin browser integration and release snapshot
+
+VERDICT: PASS
+
+EVIDENCE: Independent clean archive `7f8baee2922a7eff197f43d1804a526ffacacd22`: browser 1/1, asset manifest 6/6, shipping guard 13/13, Pages 5/5; build 47 files / 5,668,348 bytes. Trusted custom deck and actual phone/desktop normal/reduced screenshots; splash event ticks126/222, two222-point targets with concurrent tower damage reconciled; exact per-mode restore pixels, expiry event1800/state1801 and same-deck restart. Evidence `artifacts/cards018-browser-round-1/critic/`. Builder final repeat cadence fixture startup race retained separately; independent exact candidate passed.
+
+BIGGEST GAP: No remaining gap on this bounded integration dimension; full-length performance for this presentation and all custom decks, and historical profile parity, remain unverified.
+
 ## Round 425 — 2026-10-13
 
 PIECE: CARDS-018K — Editable defensive splash structure and RL visibility, round 3 documentation example repair

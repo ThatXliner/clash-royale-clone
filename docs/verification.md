@@ -2,8 +2,8 @@
 
 ## Published state
 
-Release update on 2026-10-13: this snapshot includes the reviewed five-squad timing correction and terminal-aware endurance harness. The live deployment is published through the manually dispatched [Pages workflow](https://github.com/ThatXliner/clash-royale-clone/actions/workflows/pages.yml); the landing page links its exact deployed source commit.
-The published editable-deck picker has 18 choices: 17 troop choices plus Squall Orb. It includes both added air swarms, Gloamwing Cluster and Coppershade Flock. The [live-source receipt](../artifacts/ship-current-round-2/builder/evidence.md) records the Pages API result, served app bundle, roster IDs, and hashes.
+Release update on 2026-10-13: this snapshot includes the reviewed five-squad timing correction, an adaptive endurance workload, and the Ember Basin defensive structure. The live deployment is published through the manually dispatched [Pages workflow](https://github.com/ThatXliner/clash-royale-clone/actions/workflows/pages.yml); the landing page links its exact deployed source commit.
+The published editable-deck picker has 19 choices: 17 troop choices, Squall Orb, and Ember Basin. It includes both added air swarms, Gloamwing Cluster and Coppershade Flock. The [live-source receipt](../artifacts/ship-current-round-2/builder/evidence.md) records the Pages API result, served app bundle, roster IDs, and hashes.
 
 The editable integration for both air swarms passed independent review at `a8c39bcc`: 58/58 tests, including browser deployments, Coppershade's airborne projectile, and exact restore/replay. The later stagger review accepted the source-backed relative member interval at `796708ef622a0292cdd71fa4cf0a81c9af48b3b1`: 100 ms, or six simulation ticks, between successive members. This does not establish first-member onset, formation geometry, or historical member order; those remain questions. See the [stagger review](../artifacts/cards016-stagger-round-2/critic/verdict.md) and [air-swarm source audit](../reference/research/air-swarm-formation-source-audit.md).
 
@@ -17,7 +17,9 @@ That retained run covers the earlier runtime. It does not cover the five-squad t
 
 The five-squad relative spawn interval correction passed independent review with 74/74 checks, including integration audit, determinism and shipping guards. See the [review evidence](../artifacts/cards017-stagger-round-2/critic/verdict.md).
 
-The current runtime's strict browser endurance workload failed at tick 13,352 because the match ended naturally before the required 18,000 active ticks. The terminal-aware harness now stops planning and reports this shortfall explicitly; its independent focused review passed. Full browser endurance, terminal and restart lifecycle verification for this runtime remains pending. See the [endurance failure](../artifacts/game001gpr5-round-1/critic/verdict.md) and [workload scope review](../artifacts/endurance-workload-scope-review/verdict.md).
+The adaptive default-eight workload passed a strict 18,000-tick Chrome run on `5ba4002`: TAP 2/2, initialization 197 ms, and no non-initialization long tasks above the unchanged 50 ms cap. Restore, terminal cleanup and restart passed. See the [independent verdict](../artifacts/game001gpr5-round-3/critic/verdict.md). This supersedes the earlier workload shortfall at tick 13,352. It covers that exact renderer and default deck; the later Ember Basin presentation and every custom deck have not received the same full-length performance run.
+
+The JS/RL environment is now version 2, with structure observations and an executable mixed-deck example. Version 1 checkpoints are rejected. The [API review](../artifacts/cards018-core-round-3/critic/verdict.md) records the tested behavior. Ember Basin's low-confidence profile values remain explicit questions; this release does not establish historical card parity.
 
 First-member onset, Briar Band's historical formation geometry and internal order, and other low-confidence troop values remain unresolved.
 
