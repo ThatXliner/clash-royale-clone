@@ -1,14 +1,11 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { spawn } from "node:child_process";
 import { once } from "node:events";
 import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { performance } from "node:perf_hooks";
 import test from "node:test";
 
-import {
-  createPlayableRoster,
-  createPlayableRosterQuestionRecords,
-} from "../src/content/playable-roster.js";
 import {
   GameSession,
   getGameSessionAudioReplay,
@@ -21,7 +18,10 @@ import {
 } from "../src/ui/game-browser-entry.js";
 import {
   assertEnduranceWorkloadCanContinue,
-  plannedSouthAttempt,
+  ENDURANCE_BASELINE_INTERVAL_TICKS,
+  ENDURANCE_REACTION_INTERVAL_TICKS,
+  createEnduranceWorkloadPolicy,
+  exactEnduranceSetupBytes,
 } from "./helpers/endurance-workload.js";
 
 const PLAYWRIGHT = process.env.GAME_BROWSER_PLAYWRIGHT ??
@@ -30,8 +30,9 @@ const CHROME = process.env.GAME_BROWSER_CHROME ??
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const ARTIFACTS = new URL("../artifacts/game-001gp-browser-endurance/", import.meta.url).pathname;
 
-const SEGMENT_TICKS = 300;
+const SEGMENT_TICKS = ENDURANCE_BASELINE_INTERVAL_TICKS;
 const TERMINAL_TICK = 18_000;
+const EXPECTED_SETUP_SHA256 = "306bb30da40ce7c43d6cccce8728449da90fc0e9ca7d13c81f0116ba710aec8c";
 const TEST_END_TICK = process.env.GAME_BROWSER_ENDURANCE_TICKS === undefined
   ? TERMINAL_TICK : Number(process.env.GAME_BROWSER_ENDURANCE_TICKS);
 const MAX_BROWSER_LONG_TASK_MS = 50;
@@ -64,26 +65,6 @@ function canonical(value) {
       `${JSON.stringify(key)}:${canonical(value[key])}`).join(",")}}`;
   }
   return JSON.stringify(value);
-}
-
-const ROSTER = createPlayableRoster();
-const DECK = ROSTER.map(({ id }) => id);
-
-/** Exact GAME-001GH seed-zero setup; this is not the shipped short profile. */
-function exactGhSetup() {
-  const questions = createPlayableRosterQuestionRecords();
-  const roster = createPlayableRoster();
-  const battleSetup = canonical({ initialWindupTicks: { central: 0, lane: 0 },
-    questions, roster });
-  const legalNorthDeployments = DECK.flatMap((cardId) => [
-    { cardId, point: { x: 3_500, y: 17_500 } },
-    { cardId, point: { x: 14_500, y: 17_500 } },
-  ]).sort((left, right) => left.cardId.localeCompare(right.cardId) ||
-    left.point.x - right.point.x);
-  return canonical({ battleSetup, deck: DECK, legalNorthDeployments,
-    rosterWitness: canonical({ questions, roster }), seed: 0,
-    startingElixir: { north: 10, south: 10 }, thinkIntervalTicks: 1,
-    thinkOffsetTicks: 0 });
 }
 
 function normalizedCommand(command) {
@@ -446,17 +427,17 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
   const telemetry = {
     architecture: {
       audioPolicy: "Each 100-tick-or-terminal presentation consumes all authority records; accelerated rendering selects newest critical then newest remaining cues up to a fixed cap.",
-      browserApi: "mountShippedGameBrowser().enterManualStepMode().driveEnduranceSegment(300)",
+      browserApi: "mountShippedGameBrowser().enterManualStepMode().driveEnduranceSegment(1..300)",
       chunkTicks: GAME_BROWSER_ENDURANCE_MAX_CHUNK_TICKS,
       initializationLongTaskCapMilliseconds: MAX_INITIALIZATION_LONG_TASK_MS,
       lifecycleLongTaskPolicy: "Drive, restore, terminal observation, restart, screenshots, final observer drain, and out-of-interval tasks are separately attributed and capped at 50ms; entries are classified by start time even when delivery is delayed.",
       longTaskCapMilliseconds: MAX_BROWSER_LONG_TASK_MS,
       sliceGuardPolicy: "An explicit slice overrun is re-measured deterministically in a quiescent Node audit (bounded retries); only a reproduced overrun fails, while an unreproduced one is recorded as environment noise.",
-      presentationPolicy: "Input is suspended for each 300-tick segment. Every fixed one-tick simulation slice yields through real RAF; every 100 ticks (or terminal) one complete DOM/audio transaction commits, then exactly one E2 input controller remounts at segment finish.",
+      presentationPolicy: "Input is suspended for each adaptive policy span, at most 300 ticks. Every fixed one-tick simulation slice yields through real RAF; every 100 ticks (or segment/terminal boundary) one complete DOM/audio transaction commits, then exactly one E2 input controller remounts at segment finish. A 15-tick look-ahead stops at each planned reaction without splitting spans that have no action.",
       presentationTicks: GAME_BROWSER_ENDURANCE_PRESENTATION_TICKS,
       restorePolicy: "Only a consumed replay prefix may rebase; restored history is not rendered into the audio sink.",
       segmentTicks: GAME_BROWSER_ENDURANCE_MAX_SEGMENT_TICKS,
-      transportNormalization: "GH attempts use their 300-tick attempt index; browser E2 uses contiguous accepted command IDs. Byte parity is browser-vs-direct-E2, while attempt records compare normalized semantic commands.",
+      transportNormalization: "Policy decisions occur on 15-tick boundaries, with the frozen baseline checked every 300 ticks; browser E2 uses contiguous accepted command IDs. Byte parity is browser-vs-direct-E2, while attempt records compare normalized semantic commands.",
       yieldPolicy: "Each fixed simulation slice awaits RAF, then Chrome scheduler.yield() when available, then a second cancellable RAF; unsupported schedulers use the two-RAF policy.",
       hostPhaseTiming: "Diagnostic-only Node performance.now() spans are recorded separately from Chrome page.performance.now() drive timestamps; these measurements do not change the workload or any cap.",
       hostPhaseTimingClock: "startedAt and durationMs use the Node perf_hooks performance.now clock; browserStartedAt and browserFinishedAt use the Chrome page performance.now clock and are never compared as absolute timestamps.",
@@ -553,7 +534,11 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
     assert.equal(response.status(), 200);
     await page.waitForSelector("[data-arena-shell-root]", { state: "attached" });
 
-    const setup = exactGhSetup();
+    const setup = exactEnduranceSetupBytes();
+    const setupSha256 = createHash("sha256").update(setup).digest("hex");
+    assert.equal(setupSha256, EXPECTED_SETUP_SHA256,
+      "the browser receives the reviewed exact seed-zero/default-eight setup");
+    telemetry.setupSha256 = setupSha256;
     const mounted = await page.evaluate(async (setupBytes) => {
       const [
         { GameSession },
@@ -706,6 +691,7 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       "Chrome PerformanceObserver longtask evidence is available");
 
     let direct = new GameSession(setup);
+    const workloadPolicy = createEnduranceWorkloadPolicy();
     let longTaskCursor = initializationTasks.cursor;
     let firstDriveStartedAt = null;
     const observedLongTaskEntries = [...initializationTasks.tasks];
@@ -722,6 +708,11 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
     const seenStartSequences = new Set();
     const pauseTick = 300;
     const restoreTick = 300;
+    const acceptedEmergencyTicksThrough = (tick) => telemetry.transportIdNormalization
+      .filter((entry) => entry.timeline === "primary" && entry.tick < tick &&
+        entry.decision === "overtime-last-lane-aggregate-air-intercept" &&
+        entry.acceptedBrowserCommandId !== null)
+      .map(({ tick: decisionTick }) => decisionTick);
     const refreshLongTaskAttribution = () => {
       const classification = classifyLongTaskEntries(observedLongTaskEntries,
         longTaskIntervals, firstDriveStartedAt);
@@ -819,10 +810,10 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
           previousHostSegmentFinishedAt, { previousSegmentFinishedAt: previousHostSegmentFinishedAt });
       }
       activeHostSegment = { fromTick, startedAt: hostSegmentStartedAt };
-      const attemptId = fromTick / SEGMENT_TICKS;
+      const reactionBoundaryIndex = fromTick / ENDURANCE_REACTION_INTERVAL_TICKS;
       const planStartedAt = performance.now();
-      const plan = plannedSouthAttempt(direct);
-      recordHostPhase(telemetry, "gh-policy-planning", fromTick, planStartedAt);
+      const plan = workloadPolicy.plan(direct);
+      recordHostPhase(telemetry, "endurance-policy-planning", fromTick, planStartedAt);
       let delivery = null;
       if (plan !== null) {
         const physicalDeliveryStartedAt = performance.now();
@@ -830,9 +821,12 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
         recordHostPhase(telemetry, "physical-delivery-roundtrip", fromTick,
           physicalDeliveryStartedAt, { commandId: delivery.command.commandId });
         const commandSubmissionStartedAt = performance.now();
-        assert.deepEqual(normalizedCommand(delivery.command), plan,
-          "physical E2 gesture preserves the GH semantic card, slot, point, and tick");
-        direct.submitPlayerCommand(canonical(delivery.command));
+        assert.deepEqual(normalizedCommand(delivery.command), normalizedCommand(plan),
+          "physical E2 gesture preserves the policy semantic card, slot, point, and tick");
+        const accepted = direct.submitPlayerCommand(canonical(delivery.command));
+        assert.equal(accepted.accepted, true,
+          "the physical browser delivery is accepted by the direct E2 mirror");
+        workloadPolicy.recordAcceptedPhysicalDelivery(delivery.command);
         recordHostPhase(telemetry, "direct-command-submit-and-normalization", fromTick,
           commandSubmissionStartedAt, { commandId: delivery.command.commandId });
         lastSuccessfulTick = fromTick;
@@ -840,7 +834,8 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       }
       telemetry.transportIdNormalization.push({
         acceptedBrowserCommandId: delivery?.command.commandId ?? null,
-        ghAttemptId: attemptId,
+        decision: plan?.decision ?? null,
+        reactionBoundaryIndex,
         normalized: delivery === null ? null : normalizedCommand(delivery.command),
         planned: plan,
         tick: fromTick,
@@ -851,9 +846,16 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       const segmentStartBytes = direct.serialize();
       recordHostPhase(telemetry, "direct-segment-start-serialize", fromTick,
         segmentSerializeStartedAt, { bytes: segmentStartBytes.length });
+      const ticksToNextBaseline = SEGMENT_TICKS - (fromTick % SEGMENT_TICKS);
+      const maxDriveTicks = Math.min(SEGMENT_TICKS, TEST_END_TICK - fromTick,
+        ticksToNextBaseline);
+      const lookAheadStartedAt = performance.now();
+      const nextPlannedAttempt = workloadPolicy.nextPlannedAttempt(direct, maxDriveTicks);
+      const driveTicks = nextPlannedAttempt?.ticksAhead ?? maxDriveTicks;
+      recordHostPhase(telemetry, "endurance-policy-lookahead", fromTick, lookAheadStartedAt,
+        { driveTicks, nextDecisionTick: nextPlannedAttempt?.plan.tick ?? null });
       const browserDriveHostStartedAt = performance.now();
-      const driven = await driveBrowserSegment(page, Math.min(SEGMENT_TICKS,
-        TEST_END_TICK - fromTick));
+      const driven = await driveBrowserSegment(page, driveTicks);
       const browserDriveRoundtripMs = recordHostPhase(telemetry, "browser-drive-roundtrip",
         fromTick, browserDriveHostStartedAt, {
           browserDurationMs: driven.elapsedMilliseconds,
@@ -933,7 +935,7 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       const directMirrorAssertionsStartedAt = performance.now();
       assert.equal(direct.state.tick, browserTick);
       assert.equal(direct.state.tick - lastSuccessfulTick <= 900, true,
-        "exact GH policy makes one paid south deployment in every 900-tick window");
+        "the endurance policy makes one paid south deployment in every 900-tick window");
       recordHostPhase(telemetry, "direct-mirror-state-assertions", fromTick,
         directMirrorAssertionsStartedAt, { directStepChunkDurations });
 
@@ -1028,10 +1030,15 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
         const browserSnapshot = await page.evaluate(() =>
           globalThis.__gameBrowserEnduranceController.serialize());
         assert.equal(cutView.sessionBytes, direct.serialize());
+        const policyState = workloadPolicy.snapshot();
+        const recordedEmergencyTicks = acceptedEmergencyTicksThrough(restoreTick);
+        assert.deepEqual(policyState.emergencyDecisionTicks, recordedEmergencyTicks,
+          "restore-cut cooldown history matches accepted primary-branch physical inputs");
         restoreCut = {
           bridge: JSON.parse(browserSnapshot).bridge,
           browserSnapshot,
           directBytes: direct.serialize(),
+          policyState: { emergencyDecisionTicks: recordedEmergencyTicks },
           tick: restoreTick,
         };
         telemetry.restoreCut = { snapshotBytes: browserSnapshot.length, tick: restoreTick };
@@ -1054,6 +1061,7 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
           directBytes: direct.serialize(),
           layers: branchView.layers,
           audioReplayLength: branchView.audioReplayLength,
+          policyState: workloadPolicy.snapshot(),
           tick: direct.state.tick,
         };
         const restoredView = await restoreBrowserSnapshot(page, restoreCut.browserSnapshot);
@@ -1086,6 +1094,10 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
         assert.equal(restoreTiming.sessionRestore?.count ?? 0, 0,
           "endurance restore never calls synchronous GameSession.restore");
         direct = GameSession.restore(restoreCut.directBytes);
+        const cooldownHistoryAtCut = acceptedEmergencyTicksThrough(restoreCut.tick);
+        assert.deepEqual(cooldownHistoryAtCut, restoreCut.policyState.emergencyDecisionTicks,
+          "restored cooldown comes from accepted canonical workload history through the cut");
+        workloadPolicy.restore({ emergencyDecisionTicks: cooldownHistoryAtCut });
         assert.equal(restoredView.after.sessionBytes, direct.serialize(),
           "yielded browser restore bytes equal a direct public GameSession restore");
         assert.equal(restoredView.after.bridge, restoreCut.bridge,
@@ -1127,6 +1139,8 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
           "600→300→600 browser replay reproduces its exact loop/input continuation bytes");
         assert.equal(replayed.sessionBytes, restoreBranch.directBytes,
           "600→300→600 browser replay reproduces direct canonical session bytes");
+        assert.deepEqual(workloadPolicy.snapshot(), restoreBranch.policyState,
+          "600→300→600 workload replay reproduces the same emergency cooldown history");
         assert.deepEqual(replayed.layers, restoreBranch.layers,
           "600→300→600 browser replay reproduces every projected view layer");
         assert.deepEqual(replayed.bridge, restoreBranch.bridge,
