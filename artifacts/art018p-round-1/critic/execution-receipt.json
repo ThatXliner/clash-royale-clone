@@ -1,0 +1,65 @@
+{
+  "piece": "ART-018P",
+  "candidate_commit": "82cd25a0aa4315d18b4fad1e04baaa904fe3e04a",
+  "clean_archive": "/tmp/art018p-critic-OLURlR",
+  "archive_command": "git archive 82cd25a0aa4315d18b4fad1e04baaa904fe3e04a | tar -x -C /tmp/art018p-critic-OLURlR",
+  "fixture_command": "GAME_BROWSER_PLAYWRIGHT=/Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules/playwright/index.mjs node artifacts/art018p-round-1/builder/render-portrait-fixture.mjs",
+  "fixture_working_directory": "/tmp/art018p-critic-OLURlR",
+  "fixture_exit_code": 0,
+  "runtime": {
+    "node": "v22.22.3",
+    "browser": "Google Chrome 155.0.8059.40"
+  },
+  "source": {
+    "path": "demo/assets/ember-basin-portrait.png",
+    "dimensions": "1254x1254",
+    "bytes": 2743443,
+    "sha256": "15656baececa9314f1f9ed8b7d2a9539c54acf90e9c53ec1bad8edad14d60926"
+  },
+  "shipped": {
+    "path": "public/assets/ember-basin-portrait-painted.webp",
+    "dimensions": "512x512",
+    "bytes": 71726,
+    "sha256": "1bdcc5aa3f6efdbb37cf0dab5023f326884d8e4409545749f50b4125acc1f232",
+    "limit_bytes": 1048576
+  },
+  "fixture_stdout": {
+    "path": "artifacts/art018p-round-1/critic/fixture-result.json",
+    "sha256": "d2ac237359afecedd3b4cc78634c04ea08b81810d09bfd0ec8d99fd14bf0a99a"
+  },
+  "review_tap": "artifacts/art018p-round-1/critic/portrait-review.tap",
+  "screenshots": [
+    {
+      "path": "portrait-64px.png",
+      "dimensions": "64x64",
+      "sha256": "0f0db01f685763ff140d26047a98c7bf5fa492325a622f54542f29486f83297b"
+    },
+    {
+      "path": "portrait-128px.png",
+      "dimensions": "128x128",
+      "sha256": "c1039954dbfda35668ea11e123a50447195b760109e7a2a29b08b71fa7ef59a7"
+    },
+    {
+      "path": "portrait-thumbnails-fixture.png",
+      "dimensions": "360x220",
+      "sha256": "5651e2c9f7a6d196ba00e3ca97d173cee4d8fcdf84009da01e5e4ed42dee9ec8"
+    }
+  ],
+  "visual_inspection": {
+    "tool": "view_image",
+    "actual_render_sizes_inspected": ["64x64", "128x128"],
+    "notes": "Both fresh browser renders were inspected at their actual pixel dimensions. The square crop is complete and the painted woodland/copper rendering matches the existing portrait set. At 64px, the open bowl and ember dominate; the rear projection does not clearly read as a launch channel."
+  },
+  "candidate_changed_paths": [
+    "artifacts/art018p-round-1/builder/ember-basin-concept.md",
+    "artifacts/art018p-round-1/builder/portrait-128px.png",
+    "artifacts/art018p-round-1/builder/portrait-64px.png",
+    "artifacts/art018p-round-1/builder/portrait-thumbnails-fixture.png",
+    "artifacts/art018p-round-1/builder/portrait-thumbnails.html",
+    "artifacts/art018p-round-1/builder/render-portrait-fixture.mjs",
+    "demo/assets/ember-basin-portrait.png",
+    "docs/art/ember-basin-portrait-provenance.json",
+    "public/assets/ember-basin-portrait-painted.webp"
+  ],
+  "scope_review": "The candidate adds only portrait assets, their provenance, the two-sentence concept, and builder fixture/evidence files. It does not modify UI/runtime files, the visual asset manifest, or live browser integration."
+}
