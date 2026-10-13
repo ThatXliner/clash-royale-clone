@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "frozenCommit": "6c7cee8e49cbfd004c9f4053984e689f497df10b",
+  "workingDirectory": "/private/tmp/cards017-gpr5-endurance-critic",
+  "command": "env -u GAME_BROWSER_ENDURANCE_TICKS npm run test:game-browser-endurance",
+  "tickOverride": "unset; full default 18000",
+  "sessionHandle": 14327,
+  "exitCode": 1,
+  "processes": {
+    "npm": 38957,
+    "runner": 38978,
+    "nodeTest": 38979,
+    "test": 38980,
+    "server": 38981,
+    "chrome": 38984
+  },
+  "server": "127.0.0.1:61649",
+  "serverExited": true,
+  "runStartedAtLocal": "2026-10-13T10:39:23.949088-07:00",
+  "resultWrittenAtLocal": "2026-10-13T10:48:54.744619-07:00",
+  "testDurationMilliseconds": 570251,
+  "tapTestDurationMilliseconds": 570403.033625,
+  "tapTotalDurationMilliseconds": 572618.25525,
+  "tapCounts": {
+    "passed": 1,
+    "failed": 1
+  },
+  "failure": {
+    "message": "one physical card/arena gesture produces exactly one E2 delivery\n\n24 !== 25\n",
+    "stack": "AssertionError [ERR_ASSERTION]: one physical card/arena gesture produces exactly one E2 delivery\n\n24 !== 25\n\n    at deliverPhysicalPlan (file:///private/tmp/cards017-gpr5-endurance-critic/tests/game-browser-endurance.test.js:345:10)\n    at async TestContext.<anonymous> (file:///private/tmp/cards017-gpr5-endurance-critic/tests/game-browser-endurance.test.js:880:20)\n    at async Test.run (node:internal/test_runner/test:1054:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:744:7)"
+  },
+  "segments": 46,
+  "lastCompletedSessionTick": 13352,
+  "restoreRewind": {
+    "fromTick": 600,
+    "toTick": 300,
+    "elapsedMilliseconds": 10162
+  },
+  "partialDiagnostics": {
+    "initializationLongTaskCapMs": 300,
+    "nonInitializationLongTaskCapMs": 50,
+    "maxInitializationLongTaskMs": 195,
+    "maxDrivenLongTaskMs": 0,
+    "maxRestoreLongTaskMs": 0,
+    "maxFinalObserverDrainLongTaskMs": 0,
+    "maxLongTaskMs": 195,
+    "consoleErrors": [],
+    "unhandled": [],
+    "resourceErrors": [],
+    "scope": "partial only: failure occurred before 18000 terminal observation/restart, so no complete lifecycle-cap claim"
+  },
+  "artifacts": [
+    {
+      "path": "artifacts/game001gpr5-round-1/critic/full-endurance.tap",
+      "bytes": 1464,
+      "mtimeLocal": "2026-10-13T10:48:56.755660-07:00",
+      "sha256": "045d3133bdd79e85e0ac335a76adb4575d89ed6f0975c4eada6544245de999b5"
+    },
+    {
+      "path": "artifacts/game001gpr5-round-1/critic/browser-artifacts/endurance-result.json",
+      "bytes": 1496861,
+      "mtimeLocal": "2026-10-13T10:48:54.744619-07:00",
+      "sha256": "bd06ef21ccd243f48667a1ffdcb5d522613fcf03f3f3b311852dc9c8e4e90594"
+    },
+    {
+      "path": "artifacts/game001gpr5-round-1/critic/browser-artifacts/active.png",
+      "bytes": 958377,
+      "mtimeLocal": "2026-10-13T10:39:38.163272-07:00",
+      "sha256": "f78fb716fd49d9e8756f7c626efe4e458f116981cd18373f96e7f78446bda9df"
+    }
+  ],
+  "notFreshThisRun": [
+    {
+      "path": "artifacts/game-001gp-browser-endurance/terminal.png",
+      "bytes": 287271,
+      "mtimeLocal": "2026-10-13T10:38:28.059088-07:00",
+      "sha256": "d2ba5d5e18abf2a6183a36c97cc5368fb5e44e9b4757668a1637e04585ccd547"
+    },
+    {
+      "path": "artifacts/game-001gp-browser-endurance/restart.png",
+      "bytes": 259618,
+      "mtimeLocal": "2026-10-13T10:38:28.056020-07:00",
+      "sha256": "a5d47ca60f97c11acb5b7ecdb309e13fc2e7462b3a7b42c46025477e1b0a33b7"
+    }
+  ]
+}

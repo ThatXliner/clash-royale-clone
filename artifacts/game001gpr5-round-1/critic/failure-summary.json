@@ -1,0 +1,53 @@
+{
+  "failure": {
+    "message": "one physical card/arena gesture produces exactly one E2 delivery\n\n24 !== 25\n",
+    "stack": "AssertionError [ERR_ASSERTION]: one physical card/arena gesture produces exactly one E2 delivery\n\n24 !== 25\n\n    at deliverPhysicalPlan (file:///private/tmp/cards017-gpr5-endurance-critic/tests/game-browser-endurance.test.js:345:10)\n    at async TestContext.<anonymous> (file:///private/tmp/cards017-gpr5-endurance-critic/tests/game-browser-endurance.test.js:880:20)\n    at async Test.run (node:internal/test_runner/test:1054:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:744:7)"
+  },
+  "tapFailureExcerpt": [
+    "not ok 2 - game browser endurance: exact GH seed-zero workload yields through Chrome to terminal",
+    "error: |-",
+    "  one physical card/arena gesture produces exactly one E2 delivery",
+    "  24 !== 25",
+    "code: ERR_ASSERTION",
+    "stack: deliverPhysicalPlan (tests/game-browser-endurance.test.js:345:10)",
+    "       TestContext.<anonymous> (tests/game-browser-endurance.test.js:880:20)"
+  ],
+  "lastCompletedSegment": 13352,
+  "lastSuccessfulDelivery": {
+    "acceptedBrowserCommandId": 24,
+    "ghAttemptId": 44,
+    "normalized": {
+      "cardId": "cinderlings",
+      "point": {
+        "x": 14500,
+        "y": 5500
+      },
+      "slot": 0,
+      "tick": 13200
+    },
+    "planned": {
+      "cardId": "cinderlings",
+      "point": {
+        "x": 14500,
+        "y": 5500
+      },
+      "slot": 0,
+      "tick": 13200
+    },
+    "tick": 13200,
+    "timeline": "replayed"
+  },
+  "terminalAndRestartFreshCapture": "not reached; only the 300-tick active screenshot is fresh",
+  "failedAttempt": {
+    "loopTick": 13352,
+    "basis": "The immediately preceding completed direct/browser segment ends at tick 13352; the test loop sets fromTick from direct.state.tick before calling deliverPhysicalPlan at test:880. This is inferred from source+fresh transcript, not separately serialized.",
+    "plannedCardSlotPoint": null,
+    "bridgeDeliveryCountBefore": 24,
+    "bridgeDeliveryCountAfter": 24,
+    "domSelectedCardId": null,
+    "selectionAndTerminalStatePersistedByHarness": false,
+    "terminalAndCrownsAtFailureTick": null,
+    "reasonUnavailable": "The assertion throws inside deliverPhysicalPlan before transportIdNormalization.push and the local before/after bridge snapshots are not written to the JSON telemetry."
+  },
+  "scopeCaveat": "No root cause beyond missing physical E2 delivery is proven. Do not attribute this to natural terminal without reconstruction/telemetry; do not claim the 18000 tick, terminal overlay, restart, or complete lifecycle gates passed."
+}

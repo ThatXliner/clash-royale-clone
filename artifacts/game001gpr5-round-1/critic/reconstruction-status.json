@@ -1,0 +1,14 @@
+{
+  "status": "stopped-incomplete",
+  "purpose": "Bounded deterministic reconstruction of final state and failed physical plan from the captured tick-300 restore checkpoint.",
+  "script": "artifacts/game001gpr5-round-1/critic/reconstruct-failure.mjs",
+  "browserRerun": false,
+  "scriptCompleted": false,
+  "outputProduced": false,
+  "process": {
+    "pid": 43539,
+    "execSessionHandle": 80437,
+    "state": "terminated by SIGTERM at parent request before completion"
+  },
+  "limitation": "No reconstructed terminal/crowns/card/slot/point is claimed. The fresh run's raw JSON does not serialize the failed plan or DOM selection; builder may continue diagnosis using the exact transcript and frozen source copies."
+}

@@ -1,0 +1,43 @@
+
+> moss-and-ember@0.0.0 test:game-browser-endurance
+> node tests/game-browser-endurance-runner.js game-browser-endurance
+
+TAP version 13
+# Subtest: game browser endurance: delayed long-task entries retain their measured interval
+ok 1 - game browser endurance: delayed long-task entries retain their measured interval
+  ---
+  duration_ms: 1.8025
+  type: 'test'
+  ...
+# Subtest: game browser endurance: exact GH seed-zero workload yields through Chrome to terminal
+not ok 2 - game browser endurance: exact GH seed-zero workload yields through Chrome to terminal
+  ---
+  duration_ms: 570403.033625
+  type: 'test'
+  location: '/private/tmp/cards017-gpr5-endurance-critic/tests/game-browser-endurance.test.js:491:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    one physical card/arena gesture produces exactly one E2 delivery
+    
+    24 !== 25
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 25
+  actual: 24
+  operator: 'strictEqual'
+  stack: |-
+    deliverPhysicalPlan (file:///private/tmp/cards017-gpr5-endurance-critic/tests/game-browser-endurance.test.js:345:10)
+    async TestContext.<anonymous> (file:///private/tmp/cards017-gpr5-endurance-critic/tests/game-browser-endurance.test.js:880:20)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 1
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 572618.25525

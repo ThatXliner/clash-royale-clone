@@ -1,0 +1,95 @@
+{
+  "schema": 1,
+  "capturedAtLocal": "2026-10-13T10:39:12-0700",
+  "workingDirectory": "/private/tmp/cards017-gpr5-endurance-critic",
+  "gitCommit": "6c7cee8e49cbfd004c9f4053984e689f497df10b",
+  "gitTree": "d91c688028ffefcf074bba161a1dfea3899511cd",
+  "command": "env -u GAME_BROWSER_ENDURANCE_TICKS npm run test:game-browser-endurance",
+  "tickOverride": "unset by env -u; test default is 18000",
+  "sourceFiles": [
+    {
+      "path": "tests/game-browser-endurance.test.js",
+      "sha256": "42e068087cd5b90fb6e42da818530f42081e9c6cbc32b873890146ebd4f44e86",
+      "gitBlob": "6464fddea45a67c46a03a9056eadca523010019c",
+      "bytes": 71704
+    },
+    {
+      "path": "tests/game-browser-endurance-runner.js",
+      "sha256": "c16db12c89e914e375806c1cad8f62c63c594c46d6246a251a8e53b74aaf40c2",
+      "gitBlob": "eb60203c049114b296f7b4cbcae1aabe0d638c6a",
+      "bytes": 424
+    },
+    {
+      "path": "tests/game-browser-endurance-server.js",
+      "sha256": "0ba074d028f4b2808f00d59e701a08288c0e050d715ad40cf2ec37da62f9d485",
+      "gitBlob": "075a87d9183d67c6fb3886606c071fb33d776ccd",
+      "bytes": 2031
+    },
+    {
+      "path": "tests/game-browser-endurance.html",
+      "sha256": "df0b27baa4a423ee4bc989419a266364c74043a9ad645fe129f44cda65f7d94a",
+      "gitBlob": "b6c7bd70eb467c33152a07daf6a91c6c31856dd2",
+      "bytes": 419
+    },
+    {
+      "path": "src/ui/game-browser-entry.js",
+      "sha256": "3ca73736f019a65dd3d2bde8157eda4479aad2121154d5968c715cb14af52436",
+      "gitBlob": "efea8fb105dad74768d1f9031f393b481f0092b2",
+      "bytes": 45380
+    },
+    {
+      "path": "src/content/playable-roster.js",
+      "sha256": "61107646cd9beae6871fc54360ad71a17824ea38d5588531effdef496b26b052",
+      "gitBlob": "9ce4c06226f2a4c2b54da3893849a85759fa00f5",
+      "bytes": 11989
+    },
+    {
+      "path": "src/sim/game-session.js",
+      "sha256": "a11f43213632bcd7be3d4945846cf5dcbfaeaf4b961a32c420c590f67519daa1",
+      "gitBlob": "c3e86cb21fa926fc985120044d0adfd45e9f69c2",
+      "bytes": 1357
+    },
+    {
+      "path": "src/sim/live-battle.js",
+      "sha256": "208186e8d90ba1501f563f55d42f2bb5ec5da1daaea46b96ef41c74b1a48da2a",
+      "gitBlob": "55286bda922f84ae496dbb7a89bcce5a58d140da",
+      "bytes": 1298
+    },
+    {
+      "path": "src/audio/game-audio-runtime.js",
+      "sha256": "9e6b8bc0e0ee0a29f32670e5065276caa94e23779ba257efe7aa906afd2f11b5",
+      "gitBlob": "feaef3dc9a0a07ed6a3448a0e57e0d2f29ef75f9",
+      "bytes": 25694
+    },
+    {
+      "path": "src/ui/game-browser-loop.js",
+      "sha256": "47737f280606bbe508efb8687e575dadb7ed965be26d04f424846f67c273910a",
+      "gitBlob": "0ae7141effc7693946deb0e10d266b47c8c1e67e",
+      "bytes": 26499
+    },
+    {
+      "path": "src/ui/input-controller.js",
+      "sha256": "2d98212b2fde12ebd44acc878d8249769329d8b5d46b731eb2db189f503a00e8",
+      "gitBlob": "9b04d40f473e59f2d341d21d2ee79869e3313bb9",
+      "bytes": 54290
+    },
+    {
+      "path": "src/ui/game-ui-projection.js",
+      "sha256": "0fc416dcdcbf17d39fdd38b343899b4f3742bfa37e78887e704f9a9fdf0a8696",
+      "gitBlob": "60cebe235a914e89ded6d190057de5f907ed73de",
+      "bytes": 15442
+    },
+    {
+      "path": "src/ui/arena-shell.js",
+      "sha256": "4df15178ed296d2a20bb5216db98931e24c9ac3ce7fd60cf97cbe79119ce5249",
+      "gitBlob": "6c3306106e2ed4896cc6b3d22e51c08b2dc26efb",
+      "bytes": 5846
+    },
+    {
+      "path": "src/ui/hud-state.js",
+      "sha256": "37293c154f763df41c5896d9876d9d25648b4fc3e3892c732b09b88567edc152",
+      "gitBlob": "7baf4d803f55448b83dae6db3816184576679f9b",
+      "bytes": 22303
+    }
+  ]
+}
