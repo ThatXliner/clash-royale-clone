@@ -21,9 +21,12 @@ A separate critic accepted editable integration at `a8c39bc`: 58/58 tests,
 including real phone/desktop controls, trusted deployments for both swarms,
 Coppershade's airborne projectile, and exact restore/replay. See the
 [integration receipt](../artifacts/cards016-integration-round-2/critic/verdict.md).
-A subsequent deployment-interval candidate is under review. The older
-18,000-tick receipt above must not be treated as a fresh endurance result for
-that changed runtime.
+The source-backed deployment interval passed independent review at `796708e`.
+That runtime also passed a fresh 18,000-tick Chrome run in 811,580 ms: initialization
+peaked at 197 ms under 300 ms, with no non-initialization long tasks under the
+unchanged 50 ms cap. Restore, input, audio, terminal and restart checks passed.
+See the [current runtime endurance receipt](../artifacts/game001gpr4-round-1/critic/verdict.md).
+This checks one seed-zero/default-eight workload, not every deck or command combination.
 
 Some card statistics, formations and arena mechanics remain estimates or
 explicit `QUESTION`s. The [completion inventory](completion-inventory.md)

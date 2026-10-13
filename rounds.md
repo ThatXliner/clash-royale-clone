@@ -1,5 +1,17 @@
 # Gauntlet Rounds
 
+## Round 413 — 2026-10-13
+
+PIECE: GAME-001GPR4 — Current eighteen-choice runtime strict endurance, round 1
+
+VERDICT: PASS
+
+EVIDENCE: Independent exact796 critic629b42e runs `env -u GAME_BROWSER_ENDURANCE_TICKS npm run test:game-browser-endurance` on originalsession17088, exit0/TAP2/2. Main811580.134ms/total813794.130ms, actualterminaltick18000. Unchanged300ms initcap/max197ms; unchanged50ms lifecyclecap/allnoninitlongtaskcategories0. Maxsimulation slice35.8ms/audio presentation38.4ms. Exact600→300 restore with37778B cut/zero restorelongtasks;42/42 plannedinputs normalize/accept withzeromismatch. Terminal/audio/layers18000, visibleoverlay anddisposedresources; restartsession/layers0/count1, zeroactive/scheduledaudio/pendingresources. Resource/unhandled/console/stderr/environmenterrors empty. FreshTAP/JSON/PNGs/mtime-hashes under `artifacts/game001gpr4-round-1/critic/`.
+
+BIGGEST GAP: This proves one seed-zero/default8 workload, not everydeck/commandcombination orfull109-card historicalparity.
+
+DISPOSITION: Accept current-runtime performance/continuation gate. Continue roster/mechanics/evidence work; no fullgoalcompletion claim.
+
 ## Round 412 — 2026-10-13
 
 PIECE: CARDS-016T — Source-backed relative air-swarm deployment interval, round 2
