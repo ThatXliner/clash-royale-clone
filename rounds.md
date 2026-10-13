@@ -1,5 +1,17 @@
 # Gauntlet Rounds
 
+## Round 415 — 2026-10-13
+
+PIECE: CARDS-017T — Remaining source-backed playable squad intervals, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Independent frozen c981 critic d990971 executed focused12/12, related60/61 and RL/guards/admission37/41:109/114, five failures. Editable natural AI expects2 immediate members but gets1; occurrence adapter expects all6 Coppershade at first tick; three mixed admission fixtures omit required Briar QUESTION records. Additional natural terminal1/1 passes. Actual trusted phone720x1280/desktop1440x900 show1..6 Briar members at ticks1,7,13,19,25,31; exact restore and no app errors. Offscreen desktop probe failure preserved and diagnosed as harness scrolling error. Actual TAP, browser receipts/screens and hashes in `artifacts/cards017-stagger-round-1/critic/`.
+
+BIGGEST GAP: Old integration fixtures must model sourced staggered births and carry the complete typed QUESTION closure before this candidate passes review.
+
+DISPOSITION: Separate builder repairs only affected tests/fixtures; runtime timing and strict receipt admission remain intact. Fresh18000 endurance remains required after functional review because default Briar timing changed.
+
 ## Round 414 — 2026-10-13
 
 PIECE: COVERAGE-003 — Versioned eighteen-card historical roster mapping, round 1
