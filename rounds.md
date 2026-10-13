@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 424 — 2026-10-13
+
+PIECE: CARDS-018K — Editable defensive splash structure and RL visibility, round 2 documentation repair
+
+VERDICT: FAIL
+
+EVIDENCE: Independent `7a510b5` exact `5b26c1d` cleanarchive2908/2908 blobs match. Both literalguide snippets and mixedexample exit0; fresh14/14 example and12/12 independentAPI probes pass. Guidecorrectlydocumentsversion2/structures/checkpointv1rejection. Actualdeployment tick0elixir10/Emberinhand/nextSquall →tick1elixir6/Squallinhand/nextMossguard,reward0. Prior52focused+23guards checksumverified,src/tests trees unchangedfromd209; noheavytrajectoryrerun. Evidence `artifacts/cards018-core-round-2/critic/`.
+
+BIGGEST GAP: Guideexample doesnotdisplay/assertthe4-elixir spend orhand/next changes afterdeployment. Showactualcost/cycle in executedexample; runtime/provenance/parity checks remain green. This differs from round1's wrongschema/version explanation.
+
 ## Round 423 — 2026-10-13
 
 PIECE: CARDS-018K — Editable defensive splash structure and RL visibility, round 1
