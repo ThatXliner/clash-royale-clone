@@ -23,3 +23,7 @@ Focused verification passed:
 - `node tests/game-roster-buildings-runner.js game-roster-buildings` — 10/10.
 - `node tests/game-building-policy-runner.js game-building-policy` — 3/3.
 - `git diff --check` — clean.
+
+The same five focused suites were rerun from a clean `git archive` of candidate `d20938fad64bfcf93fce48c08de54c2d5ba854bf`; the exact TAP output is retained under `clean-archive/`. A Git blob comparison checked all 499 tracked files under `src/`, `tests/`, `reference/stats/`, and `package.json` against that candidate tree. It found no mismatches; `node_modules` was the sole external symlink. The clean-archive default-session hashes for seeds 0 and 23 match the clean `12543e0` archive byte for byte; see `default-session-hash-comparison.json`.
+
+The core API does not add Ember Basin to the visible deck picker or provide its portrait presentation. CARDS-018I owns that presentation work, so this core candidate is not a complete user-facing rollout. The critic also found `docs/rl-api.md` still documents the version 1 units/towers observation and checkpoint behavior; the candidate code remains frozen at d209 while the separate RL API documentation follow-up is scoped. No migration behavior should be inferred beyond the implemented version check and restore rejection.

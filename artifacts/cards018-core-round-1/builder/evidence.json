@@ -1,0 +1,111 @@
+{
+  "round": "CARDS-018K",
+  "candidateCommit": "d20938fad64bfcf93fce48c08de54c2d5ba854bf",
+  "candidateParent": "a142ec83a2008905c471b5496b42f6dc24d11c5e",
+  "candidateTree": "7fe757e5c722e474ce7915c70bf7147534a06da8",
+  "verification": {
+    "cleanArchive": {
+      "sourceBlobReceipt": "clean-archive/source-blobs.json",
+      "sourceBlobsMatch": true,
+      "checkedFiles": 499,
+      "dependencySymlink": [
+        "node_modules"
+      ],
+      "suites": [
+        {
+          "command": "npm run test:editable-deck",
+          "tests": 12,
+          "pass": 12,
+          "fail": 0,
+          "passed": true
+        },
+        {
+          "command": "npm run test:rl-environment",
+          "tests": 12,
+          "pass": 12,
+          "fail": 0,
+          "passed": true
+        },
+        {
+          "command": "node tests/game-building-runtime-runner.js game-building-runtime",
+          "tests": 15,
+          "pass": 15,
+          "fail": 0,
+          "passed": true
+        },
+        {
+          "command": "node tests/game-roster-buildings-runner.js game-roster-buildings",
+          "tests": 10,
+          "pass": 10,
+          "fail": 0,
+          "passed": true
+        },
+        {
+          "command": "node tests/game-building-policy-runner.js game-building-policy",
+          "tests": 3,
+          "pass": 3,
+          "fail": 0,
+          "passed": true
+        }
+      ]
+    },
+    "defaultSessionBytes": {
+      "receipt": "default-session-hash-comparison.json",
+      "baselineCommit": "12543e0",
+      "seeds": [
+        0,
+        23
+      ],
+      "hashesEqual": true,
+      "coveredHashes": [
+        "setupHash",
+        "initialHash",
+        "continuedHash",
+        "replayHash"
+      ]
+    }
+  },
+  "baselineFailures": [
+    {
+      "commit": "12543e0",
+      "runner": "game-building-runtime",
+      "tests": 15,
+      "passed": 3,
+      "failed": 12,
+      "firstError": "roster[6].entities[0] source confidence field lacks a QUESTION record",
+      "receipt": "baseline/12543e0-game-building-runtime.tap"
+    },
+    {
+      "commit": "f5034dc661243383d0da54a95b1ffd9842eb1889",
+      "runner": "game-building-runtime",
+      "tests": 15,
+      "passed": 3,
+      "failed": 12,
+      "firstError": "roster[6].entities[0] source confidence field lacks a QUESTION record",
+      "receipt": "baseline/f5034dc-game-building-runtime.tap"
+    },
+    {
+      "commit": "12543e0",
+      "runner": "game-roster-buildings",
+      "tests": 10,
+      "passed": 0,
+      "failed": 10,
+      "issue": "stale aggregate expected 49/54 admitted and 55/60 claimed versus measured 55/60 and 61/66; QUESTION-reference closure also fails",
+      "receipt": "baseline/12543e0-game-roster-buildings.tap"
+    },
+    {
+      "commit": "f5034dc661243383d0da54a95b1ffd9842eb1889",
+      "runner": "game-roster-buildings",
+      "tests": 10,
+      "passed": 0,
+      "failed": 10,
+      "issue": "same stale aggregate and QUESTION-reference closure as 12543e0",
+      "receipt": "baseline/f5034dc-game-roster-buildings.tap"
+    }
+  ],
+  "scopeNotes": {
+    "sourceConfidence": "No source values or dispositions were changed; omitted source-confidence references were closed against existing QUESTION records.",
+    "ui": "Core setup/RL support does not add Ember Basin to the visible deck picker or portrait presentation. CARDS-018I is separate; this core candidate is not a complete user-facing rollout.",
+    "rlApiDocs": "Critic identified docs/rl-api.md as still describing v1 units/towers observations and v1 checkpoint behavior. Documentation compatibility guidance remains for the separate documentation follow-up; code remains pinned at d209."
+  }
+}
