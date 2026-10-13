@@ -1,0 +1,1479 @@
+{
+  "scope": "Offline deterministic policy branch from a transcript-derived checkpoint; not a browser endurance or published GH-equivalence claim.",
+  "policy": {
+    "triggerY": 17000,
+    "deployY": 5999,
+    "sourceTick": 0,
+    "endTick": 18000
+  },
+  "sourceSnapshot": {
+    "kind": "exact seed-zero setup",
+    "bytes": 39641,
+    "sha256": "306bb30da40ce7c43d6cccce8728449da90fc0e9ca7d13c81f0116ba710aec8c"
+  },
+  "outcome": {
+    "tick": 6117,
+    "terminal": true,
+    "clock": {
+      "crowns": {
+        "north": 0,
+        "south": 3
+      },
+      "destroyedTowerIds": [
+        "north:central",
+        "north:lane:left",
+        "north:lane:right"
+      ],
+      "phase": "ended",
+      "result": {
+        "crowns": {
+          "north": 0,
+          "south": 3
+        },
+        "endedAtTick": 6116,
+        "kind": "win",
+        "reason": "central_destroyed",
+        "winner": "south"
+      },
+      "tick": 6117,
+      "towers": [
+        {
+          "hitpoints": 0,
+          "id": "north:central"
+        },
+        {
+          "hitpoints": 0,
+          "id": "north:lane:left"
+        },
+        {
+          "hitpoints": 0,
+          "id": "north:lane:right"
+        },
+        {
+          "hitpoints": 4824,
+          "id": "south:central"
+        },
+        {
+          "hitpoints": 1126,
+          "id": "south:lane:left"
+        },
+        {
+          "hitpoints": 1658,
+          "id": "south:lane:right"
+        }
+      ]
+    },
+    "towers": [
+      {
+        "id": "south:central",
+        "hitpoints": 4824
+      },
+      {
+        "id": "south:lane:west",
+        "hitpoints": 1126
+      },
+      {
+        "id": "south:lane:east",
+        "hitpoints": 1658
+      },
+      {
+        "id": "north:central",
+        "hitpoints": 0
+      },
+      {
+        "id": "north:lane:west",
+        "hitpoints": 0
+      },
+      {
+        "id": "north:lane:east",
+        "hitpoints": 0
+      }
+    ],
+    "northDeployments": 17,
+    "southDeployments": 13,
+    "acceptedSouthCommands": 13
+  },
+  "attempts": [
+    {
+      "cardId": "cinderlings",
+      "point": {
+        "x": 3500,
+        "y": 5999
+      },
+      "slot": 3,
+      "tick": 300,
+      "commandId": 1
+    },
+    {
+      "cardId": "brassbolt",
+      "point": {
+        "x": 14500,
+        "y": 5999
+      },
+      "slot": 3,
+      "tick": 600,
+      "commandId": 2
+    },
+    {
+      "cardId": "skymaul",
+      "point": {
+        "x": 14500,
+        "y": 5999
+      },
+      "slot": 1,
+      "tick": 900,
+      "commandId": 3
+    },
+    {
+      "cardId": "briar-band",
+      "point": {
+        "x": 3500,
+        "y": 5999
+      },
+      "slot": 3,
+      "tick": 1200,
+      "commandId": 4
+    },
+    {
+      "cardId": "mossguard",
+      "point": {
+        "x": 3500,
+        "y": 5999
+      },
+      "slot": 0,
+      "tick": 2100,
+      "commandId": 5
+    },
+    {
+      "cardId": "coilblade",
+      "point": {
+        "x": 3500,
+        "y": 5999
+      },
+      "slot": 3,
+      "tick": 2400,
+      "commandId": 6
+    },
+    {
+      "cardId": "cinderlings",
+      "point": {
+        "x": 3500,
+        "y": 5999
+      },
+      "slot": 0,
+      "tick": 2700,
+      "commandId": 7
+    },
+    {
+      "cardId": "brassbolt",
+      "point": {
+        "x": 3500,
+        "y": 5999
+      },
+      "slot": 3,
+      "tick": 3000,
+      "commandId": 8
+    },
+    {
+      "cardId": "briar-band",
+      "point": {
+        "x": 14500,
+        "y": 5999
+      },
+      "slot": 3,
+      "tick": 3600,
+      "commandId": 9
+    },
+    {
+      "cardId": "skymaul",
+      "point": {
+        "x": 14500,
+        "y": 5999
+      },
+      "slot": 0,
+      "tick": 4500,
+      "commandId": 10
+    },
+    {
+      "cardId": "coilblade",
+      "point": {
+        "x": 14500,
+        "y": 5999
+      },
+      "slot": 0,
+      "tick": 4800,
+      "commandId": 11
+    },
+    {
+      "cardId": "reedsting",
+      "point": {
+        "x": 14500,
+        "y": 5999
+      },
+      "slot": 1,
+      "tick": 5100,
+      "commandId": 12
+    },
+    {
+      "cardId": "cinderlings",
+      "point": {
+        "x": 3500,
+        "y": 5999
+      },
+      "slot": 0,
+      "tick": 5700,
+      "commandId": 13
+    }
+  ],
+  "significantEvents": [
+    {
+      "contactTick": 92,
+      "attackSequence": 1,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 1,
+      "sourceUnitId": 1,
+      "structureId": "south:lane:east",
+      "tick": 92,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileId": 1,
+        "sourceId": 1
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 1
+    },
+    {
+      "contactTick": 133,
+      "attackSequence": 2,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 2,
+      "sourceUnitId": 1,
+      "structureId": "south:lane:east",
+      "tick": 133,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 2,
+        "direction": "unit-to-tower",
+        "projectileId": 2,
+        "sourceId": 1
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 1
+    },
+    {
+      "contactTick": 436,
+      "attackSequence": 1,
+      "damage": 720,
+      "delivery": "melee",
+      "sourceUnitId": 3,
+      "structureId": "south:lane:west",
+      "tick": 436,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 532,
+      "attackSequence": 2,
+      "damage": 720,
+      "delivery": "melee",
+      "sourceUnitId": 3,
+      "structureId": "south:lane:west",
+      "tick": 532,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 567,
+      "attackSequence": 1,
+      "damage": 202,
+      "delivery": "melee",
+      "sourceUnitId": 2,
+      "structureId": "south:lane:east",
+      "tick": 567,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 639,
+      "attackSequence": 2,
+      "damage": 202,
+      "delivery": "melee",
+      "sourceUnitId": 2,
+      "structureId": "south:lane:east",
+      "tick": 639,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 711,
+      "attackSequence": 3,
+      "damage": 202,
+      "delivery": "melee",
+      "sourceUnitId": 2,
+      "structureId": "south:lane:east",
+      "tick": 711,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 1390,
+      "attackSequence": 1,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 7,
+      "sourceUnitId": 17,
+      "structureId": "south:lane:west",
+      "tick": 1390,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileId": 7,
+        "sourceId": 17
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 17
+    },
+    {
+      "contactTick": 1427,
+      "attackSequence": 1,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 9,
+      "sourceUnitId": 18,
+      "structureId": "south:lane:west",
+      "tick": 1427,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileId": 9,
+        "sourceId": 18
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 18
+    },
+    {
+      "contactTick": 1791,
+      "attackSequence": 7,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 13,
+      "sourceUnitId": 8,
+      "structureId": "north:lane:east",
+      "tick": 1791,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 7,
+        "direction": "unit-to-tower",
+        "projectileId": 13,
+        "sourceId": 8
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 8
+    },
+    {
+      "contactTick": 1849,
+      "attackSequence": 8,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 14,
+      "sourceUnitId": 8,
+      "structureId": "north:lane:east",
+      "tick": 1849,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 8,
+        "direction": "unit-to-tower",
+        "projectileId": 14,
+        "sourceId": 8
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 8
+    },
+    {
+      "contactTick": 1859,
+      "attackSequence": 1,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 15,
+      "sourceUnitId": 23,
+      "structureId": "north:lane:west",
+      "tick": 1859,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileId": 15,
+        "sourceId": 23
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 23
+    },
+    {
+      "contactTick": 1862,
+      "attackSequence": 2,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 16,
+      "sourceUnitId": 24,
+      "structureId": "north:lane:west",
+      "tick": 1862,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 2,
+        "direction": "unit-to-tower",
+        "projectileId": 16,
+        "sourceId": 24
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 24
+    },
+    {
+      "contactTick": 1907,
+      "attackSequence": 9,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 17,
+      "sourceUnitId": 8,
+      "structureId": "north:lane:east",
+      "tick": 1907,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 9,
+        "direction": "unit-to-tower",
+        "projectileId": 17,
+        "sourceId": 8
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 8
+    },
+    {
+      "contactTick": 1965,
+      "attackSequence": 10,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 18,
+      "sourceUnitId": 8,
+      "structureId": "north:lane:east",
+      "tick": 1965,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 10,
+        "direction": "unit-to-tower",
+        "projectileId": 18,
+        "sourceId": 8
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 8
+    },
+    {
+      "contactTick": 2023,
+      "attackSequence": 11,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 19,
+      "sourceUnitId": 8,
+      "structureId": "north:lane:east",
+      "tick": 2023,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 11,
+        "direction": "unit-to-tower",
+        "projectileId": 19,
+        "sourceId": 8
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 8
+    },
+    {
+      "contactTick": 2081,
+      "attackSequence": 12,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 20,
+      "sourceUnitId": 8,
+      "structureId": "north:lane:east",
+      "tick": 2081,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 12,
+        "direction": "unit-to-tower",
+        "projectileId": 20,
+        "sourceId": 8
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 8
+    },
+    {
+      "contactTick": 2140,
+      "attackSequence": 13,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 21,
+      "sourceUnitId": 8,
+      "structureId": "north:lane:east",
+      "tick": 2140,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 13,
+        "direction": "unit-to-tower",
+        "projectileId": 21,
+        "sourceId": 8
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 8
+    },
+    {
+      "contactTick": 3461,
+      "attackSequence": 2,
+      "damage": 720,
+      "delivery": "melee",
+      "sourceUnitId": 28,
+      "structureId": "north:lane:west",
+      "tick": 3461,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 3495,
+      "attackSequence": 1,
+      "damage": 81,
+      "delivery": "melee",
+      "sourceUnitId": 31,
+      "structureId": "north:lane:west",
+      "tick": 3495,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 3495,
+      "attackSequence": 1,
+      "damage": 81,
+      "delivery": "melee",
+      "sourceUnitId": 32,
+      "structureId": "north:lane:west",
+      "tick": 3495,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 3535,
+      "attackSequence": 1,
+      "damage": 81,
+      "delivery": "melee",
+      "sourceUnitId": 30,
+      "structureId": "north:lane:west",
+      "tick": 3535,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 3555,
+      "attackSequence": 2,
+      "damage": 81,
+      "delivery": "melee",
+      "sourceUnitId": 31,
+      "structureId": "north:lane:west",
+      "tick": 3555,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 3555,
+      "attackSequence": 2,
+      "damage": 81,
+      "delivery": "melee",
+      "sourceUnitId": 32,
+      "structureId": "north:lane:west",
+      "tick": 3555,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 3557,
+      "attackSequence": 3,
+      "damage": 720,
+      "delivery": "melee",
+      "sourceUnitId": 28,
+      "structureId": "north:lane:west",
+      "tick": 3557,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 3575,
+      "attackSequence": 1,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 22,
+      "sourceUnitId": 41,
+      "structureId": "south:lane:east",
+      "tick": 3575,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileId": 22,
+        "sourceId": 41
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 41
+    },
+    {
+      "contactTick": 3595,
+      "attackSequence": 2,
+      "damage": 81,
+      "delivery": "melee",
+      "sourceUnitId": 30,
+      "structureId": "north:lane:west",
+      "tick": 3595,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 3601,
+      "attackSequence": 6,
+      "damage": 202,
+      "delivery": "melee",
+      "sourceUnitId": 26,
+      "structureId": "north:lane:west",
+      "tick": 3601,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 3611,
+      "attackSequence": 1,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 23,
+      "sourceUnitId": 42,
+      "structureId": "south:lane:east",
+      "tick": 3611,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileId": 23,
+        "sourceId": 42
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 42
+    },
+    {
+      "contactTick": 3615,
+      "attackSequence": 3,
+      "damage": 81,
+      "delivery": "melee",
+      "sourceUnitId": 31,
+      "structureId": "north:lane:west",
+      "tick": 3615,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 3615,
+      "attackSequence": 3,
+      "damage": 81,
+      "delivery": "melee",
+      "sourceUnitId": 32,
+      "structureId": "north:lane:west",
+      "tick": 3615,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 3653,
+      "attackSequence": 4,
+      "damage": 720,
+      "delivery": "melee",
+      "sourceUnitId": 28,
+      "structureId": "north:lane:west",
+      "tick": 3653,
+      "type": "external-structure-contact"
+    },
+    {
+      "tick": 3653,
+      "towerId": "north:lane:west",
+      "type": "tower-destroyed"
+    },
+    {
+      "contactTick": 3673,
+      "attackSequence": 2,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 24,
+      "sourceUnitId": 41,
+      "structureId": "south:lane:east",
+      "tick": 3673,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 2,
+        "direction": "unit-to-tower",
+        "projectileId": 24,
+        "sourceId": 41
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 41
+    },
+    {
+      "contactTick": 3709,
+      "attackSequence": 2,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 25,
+      "sourceUnitId": 42,
+      "structureId": "south:lane:east",
+      "tick": 3709,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 2,
+        "direction": "unit-to-tower",
+        "projectileId": 25,
+        "sourceId": 42
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 42
+    },
+    {
+      "contactTick": 4093,
+      "attackSequence": 7,
+      "damage": 202,
+      "delivery": "melee",
+      "sourceUnitId": 26,
+      "structureId": "north:central",
+      "tick": 4093,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 4124,
+      "attackSequence": 1,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 28,
+      "sourceUnitId": 48,
+      "structureId": "north:lane:east",
+      "tick": 4124,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileId": 28,
+        "sourceId": 48
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 48
+    },
+    {
+      "contactTick": 4165,
+      "attackSequence": 8,
+      "damage": 202,
+      "delivery": "melee",
+      "sourceUnitId": 26,
+      "structureId": "north:central",
+      "tick": 4165,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 4174,
+      "attackSequence": 1,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 29,
+      "sourceUnitId": 46,
+      "structureId": "north:lane:east",
+      "tick": 4174,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileId": 29,
+        "sourceId": 46
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 46
+    },
+    {
+      "contactTick": 4200,
+      "attackSequence": 1,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 30,
+      "sourceUnitId": 47,
+      "structureId": "north:lane:east",
+      "tick": 4200,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileId": 30,
+        "sourceId": 47
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 47
+    },
+    {
+      "contactTick": 4237,
+      "attackSequence": 9,
+      "damage": 202,
+      "delivery": "melee",
+      "sourceUnitId": 26,
+      "structureId": "north:central",
+      "tick": 4237,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 4272,
+      "attackSequence": 2,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 31,
+      "sourceUnitId": 46,
+      "structureId": "north:lane:east",
+      "tick": 4272,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 2,
+        "direction": "unit-to-tower",
+        "projectileId": 31,
+        "sourceId": 46
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 46
+    },
+    {
+      "contactTick": 4298,
+      "attackSequence": 2,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 33,
+      "sourceUnitId": 47,
+      "structureId": "north:lane:east",
+      "tick": 4298,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 2,
+        "direction": "unit-to-tower",
+        "projectileId": 33,
+        "sourceId": 47
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 47
+    },
+    {
+      "contactTick": 4306,
+      "attackSequence": 3,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 32,
+      "sourceUnitId": 36,
+      "structureId": "north:central",
+      "tick": 4306,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 3,
+        "direction": "unit-to-tower",
+        "projectileId": 32,
+        "sourceId": 36
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 36
+    },
+    {
+      "contactTick": 4364,
+      "attackSequence": 4,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 34,
+      "sourceUnitId": 36,
+      "structureId": "north:central",
+      "tick": 4364,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 4,
+        "direction": "unit-to-tower",
+        "projectileId": 34,
+        "sourceId": 36
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 36
+    },
+    {
+      "contactTick": 4423,
+      "attackSequence": 5,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 35,
+      "sourceUnitId": 36,
+      "structureId": "north:central",
+      "tick": 4423,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 5,
+        "direction": "unit-to-tower",
+        "projectileId": 35,
+        "sourceId": 36
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 36
+    },
+    {
+      "contactTick": 4482,
+      "attackSequence": 6,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 36,
+      "sourceUnitId": 36,
+      "structureId": "north:central",
+      "tick": 4482,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 6,
+        "direction": "unit-to-tower",
+        "projectileId": 36,
+        "sourceId": 36
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 36
+    },
+    {
+      "contactTick": 4540,
+      "attackSequence": 7,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 37,
+      "sourceUnitId": 36,
+      "structureId": "north:central",
+      "tick": 4540,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 7,
+        "direction": "unit-to-tower",
+        "projectileId": 37,
+        "sourceId": 36
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 36
+    },
+    {
+      "contactTick": 4599,
+      "attackSequence": 8,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 38,
+      "sourceUnitId": 36,
+      "structureId": "north:central",
+      "tick": 4599,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 8,
+        "direction": "unit-to-tower",
+        "projectileId": 38,
+        "sourceId": 36
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 36
+    },
+    {
+      "contactTick": 4657,
+      "attackSequence": 9,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 39,
+      "sourceUnitId": 36,
+      "structureId": "north:central",
+      "tick": 4657,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 9,
+        "direction": "unit-to-tower",
+        "projectileId": 39,
+        "sourceId": 36
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 36
+    },
+    {
+      "contactTick": 4716,
+      "attackSequence": 10,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 40,
+      "sourceUnitId": 36,
+      "structureId": "north:central",
+      "tick": 4716,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 10,
+        "direction": "unit-to-tower",
+        "projectileId": 40,
+        "sourceId": 36
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 36
+    },
+    {
+      "contactTick": 4775,
+      "attackSequence": 11,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 41,
+      "sourceUnitId": 36,
+      "structureId": "north:central",
+      "tick": 4775,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 11,
+        "direction": "unit-to-tower",
+        "projectileId": 41,
+        "sourceId": 36
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 36
+    },
+    {
+      "contactTick": 4934,
+      "attackSequence": 1,
+      "damage": 202,
+      "delivery": "melee",
+      "sourceUnitId": 50,
+      "structureId": "south:lane:east",
+      "tick": 4934,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 5556,
+      "attackSequence": 1,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 42,
+      "sourceUnitId": 57,
+      "structureId": "north:lane:east",
+      "tick": 5556,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileId": 42,
+        "sourceId": 57
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 57
+    },
+    {
+      "contactTick": 5595,
+      "attackSequence": 2,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 43,
+      "sourceUnitId": 57,
+      "structureId": "north:lane:east",
+      "tick": 5595,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 2,
+        "direction": "unit-to-tower",
+        "projectileId": 43,
+        "sourceId": 57
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 57
+    },
+    {
+      "contactTick": 5634,
+      "attackSequence": 3,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 44,
+      "sourceUnitId": 57,
+      "structureId": "north:lane:east",
+      "tick": 5634,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 3,
+        "direction": "unit-to-tower",
+        "projectileId": 44,
+        "sourceId": 57
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 57
+    },
+    {
+      "contactTick": 5659,
+      "attackSequence": 1,
+      "damage": 720,
+      "delivery": "melee",
+      "sourceUnitId": 52,
+      "structureId": "north:lane:east",
+      "tick": 5659,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 5673,
+      "attackSequence": 4,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 45,
+      "sourceUnitId": 57,
+      "structureId": "north:lane:east",
+      "tick": 5673,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 4,
+        "direction": "unit-to-tower",
+        "projectileId": 45,
+        "sourceId": 57
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 57
+    },
+    {
+      "tick": 5673,
+      "towerId": "north:lane:east",
+      "type": "tower-destroyed"
+    },
+    {
+      "contactTick": 5721,
+      "attackSequence": 5,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 46,
+      "sourceUnitId": 57,
+      "structureId": "north:central",
+      "tick": 5721,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 5,
+        "direction": "unit-to-tower",
+        "projectileId": 46,
+        "sourceId": 57
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 57
+    },
+    {
+      "contactTick": 5759,
+      "attackSequence": 1,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 47,
+      "sourceUnitId": 62,
+      "structureId": "south:lane:west",
+      "tick": 5759,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileId": 47,
+        "sourceId": 62
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 62
+    },
+    {
+      "contactTick": 5762,
+      "attackSequence": 6,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 48,
+      "sourceUnitId": 57,
+      "structureId": "north:central",
+      "tick": 5762,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 6,
+        "direction": "unit-to-tower",
+        "projectileId": 48,
+        "sourceId": 57
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 57
+    },
+    {
+      "contactTick": 5795,
+      "attackSequence": 1,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 49,
+      "sourceUnitId": 63,
+      "structureId": "south:lane:west",
+      "tick": 5795,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileId": 49,
+        "sourceId": 63
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 63
+    },
+    {
+      "contactTick": 5803,
+      "attackSequence": 7,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 50,
+      "sourceUnitId": 57,
+      "structureId": "north:central",
+      "tick": 5803,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 7,
+        "direction": "unit-to-tower",
+        "projectileId": 50,
+        "sourceId": 57
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 57
+    },
+    {
+      "contactTick": 5844,
+      "attackSequence": 8,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 51,
+      "sourceUnitId": 57,
+      "structureId": "north:central",
+      "tick": 5844,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 8,
+        "direction": "unit-to-tower",
+        "projectileId": 51,
+        "sourceId": 57
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 57
+    },
+    {
+      "contactTick": 5858,
+      "attackSequence": 2,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 52,
+      "sourceUnitId": 62,
+      "structureId": "south:lane:west",
+      "tick": 5858,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 2,
+        "direction": "unit-to-tower",
+        "projectileId": 52,
+        "sourceId": 62
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 62
+    },
+    {
+      "contactTick": 5886,
+      "attackSequence": 9,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 53,
+      "sourceUnitId": 57,
+      "structureId": "north:central",
+      "tick": 5886,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 9,
+        "direction": "unit-to-tower",
+        "projectileId": 53,
+        "sourceId": 57
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 57
+    },
+    {
+      "contactTick": 5894,
+      "attackSequence": 2,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 54,
+      "sourceUnitId": 63,
+      "structureId": "south:lane:west",
+      "tick": 5894,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 2,
+        "direction": "unit-to-tower",
+        "projectileId": 54,
+        "sourceId": 63
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 63
+    },
+    {
+      "contactTick": 5925,
+      "attackSequence": 10,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 55,
+      "sourceUnitId": 57,
+      "structureId": "north:central",
+      "tick": 5925,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 10,
+        "direction": "unit-to-tower",
+        "projectileId": 55,
+        "sourceId": 57
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 57
+    },
+    {
+      "contactTick": 5964,
+      "attackSequence": 11,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 56,
+      "sourceUnitId": 57,
+      "structureId": "north:central",
+      "tick": 5964,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 11,
+        "direction": "unit-to-tower",
+        "projectileId": 56,
+        "sourceId": 57
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 57
+    },
+    {
+      "contactTick": 6004,
+      "attackSequence": 12,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 57,
+      "sourceUnitId": 57,
+      "structureId": "north:central",
+      "tick": 6004,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 12,
+        "direction": "unit-to-tower",
+        "projectileId": 57,
+        "sourceId": 57
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 57
+    },
+    {
+      "contactTick": 6046,
+      "attackSequence": 13,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 58,
+      "sourceUnitId": 57,
+      "structureId": "north:central",
+      "tick": 6046,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 13,
+        "direction": "unit-to-tower",
+        "projectileId": 58,
+        "sourceId": 57
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 57
+    },
+    {
+      "contactTick": 6080,
+      "attackSequence": 4,
+      "damage": 311,
+      "delivery": "melee",
+      "sourceUnitId": 51,
+      "structureId": "north:central",
+      "tick": 6080,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 6088,
+      "attackSequence": 14,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 59,
+      "sourceUnitId": 57,
+      "structureId": "north:central",
+      "tick": 6088,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 14,
+        "direction": "unit-to-tower",
+        "projectileId": 59,
+        "sourceId": 57
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 57
+    },
+    {
+      "contactTick": 6116,
+      "attackSequence": 2,
+      "damage": 720,
+      "delivery": "melee",
+      "sourceUnitId": 52,
+      "structureId": "north:central",
+      "tick": 6116,
+      "type": "external-structure-contact"
+    },
+    {
+      "tick": 6116,
+      "towerId": "north:central",
+      "type": "tower-destroyed"
+    },
+    {
+      "result": {
+        "crowns": {
+          "north": 0,
+          "south": 3
+        },
+        "endedAtTick": 6116,
+        "kind": "win",
+        "reason": "central_destroyed",
+        "winner": "south"
+      },
+      "tick": 6116,
+      "type": "match_end"
+    }
+  ]
+}

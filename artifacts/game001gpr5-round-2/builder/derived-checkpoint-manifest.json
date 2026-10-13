@@ -1,0 +1,547 @@
+{
+  "replay": {
+    "source": "copied fresh Chrome failure transcript",
+    "restoreStartTick": 300,
+    "endingTick": 13352,
+    "transcriptRecords": 46,
+    "restoredRecordsReplayed": 44,
+    "acceptedCommandsAfterRestore": 24,
+    "simulatedTicks": 13052,
+    "restoreSnapshotSha256": "57813c849a0208478279ce036497d764537c93d796c16c9c8c98ac8b2d580ae0"
+  },
+  "terminal": {
+    "firstTerminalTick": 13352,
+    "isTerminal": true,
+    "phase": "ended",
+    "result": {
+      "crowns": {
+        "north": 2,
+        "south": 1
+      },
+      "endedAtTick": 13351,
+      "kind": "win",
+      "reason": "overtime_sudden_death",
+      "winner": "north"
+    },
+    "crowns": {
+      "north": 2,
+      "south": 1
+    },
+    "towers": [
+      {
+        "id": "south:lane:west",
+        "hitpoints": 0
+      },
+      {
+        "id": "south:lane:east",
+        "hitpoints": 0
+      }
+    ]
+  },
+  "postTerminalWorkload": {
+    "nextGhAttemptTick": 13352,
+    "latestSouthDeployment": {
+      "cardId": "cinderlings",
+      "commandId": 24,
+      "kind": "unit",
+      "placementClass": "ground_entity",
+      "point": {
+        "x": 14500,
+        "y": 5500
+      },
+      "sequence": 70,
+      "side": "south",
+      "tick": 13200,
+      "type": "session-card-routed"
+    },
+    "southHand": [
+      "briar-band",
+      "reedsting",
+      "copperskiff",
+      "mossguard"
+    ],
+    "southElixir": 10,
+    "incomingNorth": [
+      {
+        "id": 146,
+        "cardId": "mossguard",
+        "layer": "ground",
+        "position": {
+          "x": 12500,
+          "y": 13568
+        },
+        "hitpoints": 785
+      },
+      {
+        "id": 149,
+        "cardId": "cinderlings",
+        "layer": "ground",
+        "position": {
+          "x": 12600,
+          "y": 14500
+        },
+        "hitpoints": 81
+      },
+      {
+        "id": 150,
+        "cardId": "cinderlings",
+        "layer": "ground",
+        "position": {
+          "x": 12600,
+          "y": 14500
+        },
+        "hitpoints": 81
+      },
+      {
+        "id": 151,
+        "cardId": "cinderlings",
+        "layer": "ground",
+        "position": {
+          "x": 12600,
+          "y": 14500
+        },
+        "hitpoints": 81
+      },
+      {
+        "id": 153,
+        "cardId": "briar-band",
+        "layer": "ground",
+        "position": {
+          "x": 12500,
+          "y": 13234
+        },
+        "hitpoints": 202
+      },
+      {
+        "id": 154,
+        "cardId": "briar-band",
+        "layer": "ground",
+        "position": {
+          "x": 12500,
+          "y": 12468
+        },
+        "hitpoints": 202
+      },
+      {
+        "id": 155,
+        "cardId": "briar-band",
+        "layer": "ground",
+        "position": {
+          "x": 12500,
+          "y": 13667
+        },
+        "hitpoints": 202
+      },
+      {
+        "id": 159,
+        "cardId": "reedsting",
+        "layer": "ground",
+        "position": {
+          "x": 12500,
+          "y": 14034
+        },
+        "hitpoints": 260
+      }
+    ],
+    "plannedSouthAttempt": {
+      "cardId": "briar-band",
+      "point": {
+        "x": 14500,
+        "y": 5500
+      },
+      "slot": 0,
+      "tick": 13352
+    },
+    "submitAfterTerminal": {
+      "name": "RangeError",
+      "message": "player session command is stale, duplicate, terminal, or unknown"
+    }
+  },
+  "evidence": {
+    "transcriptSha256": "bd06ef21ccd243f48667a1ffdcb5d522613fcf03f3f3b311852dc9c8e4e90594",
+    "checkpoints": [
+      {
+        "file": "checkpoint-9000.session.json",
+        "tick": 9000,
+        "bytes": 185675,
+        "sha256": "1b7654cbe156ec3fcc40422a4f6190259d18d9998a416a1bcfb7297f6ab284c3",
+        "towers": [
+          {
+            "id": "south:central",
+            "hitpoints": 4824
+          },
+          {
+            "id": "south:lane:west",
+            "hitpoints": 247
+          },
+          {
+            "id": "south:lane:east",
+            "hitpoints": 944
+          },
+          {
+            "id": "north:central",
+            "hitpoints": 1182
+          },
+          {
+            "id": "north:lane:west",
+            "hitpoints": 0
+          },
+          {
+            "id": "north:lane:east",
+            "hitpoints": 778
+          }
+        ],
+        "southHand": [
+          "cinderlings",
+          "skymaul",
+          "copperskiff",
+          "coilblade"
+        ],
+        "southElixir": 10,
+        "incomingNorth": 1
+      },
+      {
+        "file": "checkpoint-10800.session.json",
+        "tick": 10800,
+        "bytes": 215003,
+        "sha256": "109caacd5076f4e5518fc43b95db73e687495046d1b7b91ce334978c45b8cf94",
+        "towers": [
+          {
+            "id": "south:central",
+            "hitpoints": 4824
+          },
+          {
+            "id": "south:lane:west",
+            "hitpoints": 0
+          },
+          {
+            "id": "south:lane:east",
+            "hitpoints": 289
+          },
+          {
+            "id": "north:central",
+            "hitpoints": 1182
+          },
+          {
+            "id": "north:lane:west",
+            "hitpoints": 0
+          },
+          {
+            "id": "north:lane:east",
+            "hitpoints": 647
+          }
+        ],
+        "southHand": [
+          "briar-band",
+          "reedsting",
+          "copperskiff",
+          "mossguard"
+        ],
+        "southElixir": 10,
+        "incomingNorth": 5
+      },
+      {
+        "file": "checkpoint-12000.session.json",
+        "tick": 12000,
+        "bytes": 234469,
+        "sha256": "56f8642516fce35b01940855b3c3ab4c2ec2e5680ceb32770834acc64594147f",
+        "towers": [
+          {
+            "id": "south:central",
+            "hitpoints": 4824
+          },
+          {
+            "id": "south:lane:west",
+            "hitpoints": 0
+          },
+          {
+            "id": "south:lane:east",
+            "hitpoints": 289
+          },
+          {
+            "id": "north:central",
+            "hitpoints": 1182
+          },
+          {
+            "id": "north:lane:west",
+            "hitpoints": 0
+          },
+          {
+            "id": "north:lane:east",
+            "hitpoints": 566
+          }
+        ],
+        "southHand": [
+          "skymaul",
+          "reedsting",
+          "copperskiff",
+          "mossguard"
+        ],
+        "southElixir": 9,
+        "incomingNorth": 0
+      },
+      {
+        "file": "checkpoint-12600.session.json",
+        "tick": 12600,
+        "bytes": 244069,
+        "sha256": "160b5fb685fc01a2e6f6d1cb7e603b16c93c56191bdcf930ae754b7027d396da",
+        "towers": [
+          {
+            "id": "south:central",
+            "hitpoints": 4824
+          },
+          {
+            "id": "south:lane:west",
+            "hitpoints": 0
+          },
+          {
+            "id": "south:lane:east",
+            "hitpoints": 289
+          },
+          {
+            "id": "north:central",
+            "hitpoints": 1182
+          },
+          {
+            "id": "north:lane:west",
+            "hitpoints": 0
+          },
+          {
+            "id": "north:lane:east",
+            "hitpoints": 348
+          }
+        ],
+        "southHand": [
+          "skymaul",
+          "reedsting",
+          "copperskiff",
+          "mossguard"
+        ],
+        "southElixir": 10,
+        "incomingNorth": 2
+      },
+      {
+        "file": "checkpoint-12900.session.json",
+        "tick": 12900,
+        "bytes": 248999,
+        "sha256": "9f420ab238a67caa61d98504fa60774297d1c8cadeba9446221b0cf33ce9600e",
+        "towers": [
+          {
+            "id": "south:central",
+            "hitpoints": 4824
+          },
+          {
+            "id": "south:lane:west",
+            "hitpoints": 0
+          },
+          {
+            "id": "south:lane:east",
+            "hitpoints": 289
+          },
+          {
+            "id": "north:central",
+            "hitpoints": 1182
+          },
+          {
+            "id": "north:lane:west",
+            "hitpoints": 0
+          },
+          {
+            "id": "north:lane:east",
+            "hitpoints": 348
+          }
+        ],
+        "southHand": [
+          "brassbolt",
+          "reedsting",
+          "copperskiff",
+          "mossguard"
+        ],
+        "southElixir": 10,
+        "incomingNorth": 2
+      },
+      {
+        "file": "checkpoint-13200.session.json",
+        "tick": 13200,
+        "bytes": 253931,
+        "sha256": "a22b0f21b759ace346928fa757e896cafea89b759302a6c35f57ccd28dd01897",
+        "towers": [
+          {
+            "id": "south:central",
+            "hitpoints": 4824
+          },
+          {
+            "id": "south:lane:west",
+            "hitpoints": 0
+          },
+          {
+            "id": "south:lane:east",
+            "hitpoints": 289
+          },
+          {
+            "id": "north:central",
+            "hitpoints": 1182
+          },
+          {
+            "id": "north:lane:west",
+            "hitpoints": 0
+          },
+          {
+            "id": "north:lane:east",
+            "hitpoints": 348
+          }
+        ],
+        "southHand": [
+          "cinderlings",
+          "reedsting",
+          "copperskiff",
+          "mossguard"
+        ],
+        "southElixir": 9,
+        "incomingNorth": 11
+      }
+    ],
+    "relevantEvents": [
+      {
+        "contactTick": 12398,
+        "attackSequence": 44,
+        "damage": 218,
+        "delivery": "projectile",
+        "projectileId": 222,
+        "sourceUnitId": 110,
+        "structureId": "north:lane:east",
+        "tick": 12398,
+        "type": "external-structure-contact",
+        "direction": "unit-to-tower",
+        "projectileIdentity": {
+          "attackSequence": 44,
+          "direction": "unit-to-tower",
+          "projectileId": 222,
+          "sourceId": 110
+        },
+        "projectileScope": "unit-to-tower",
+        "sourceId": 110
+      },
+      {
+        "accepted": true,
+        "destroyedTowerIds": [
+          "north:lane:left",
+          "south:lane:left"
+        ],
+        "sequence": 86,
+        "tick": 12398,
+        "type": "tower_evidence"
+      },
+      {
+        "contactTick": 13268,
+        "attackSequence": 1,
+        "damage": 131,
+        "delivery": "projectile",
+        "projectileId": 229,
+        "sourceUnitId": 159,
+        "structureId": "south:lane:east",
+        "tick": 13268,
+        "type": "external-structure-contact",
+        "direction": "unit-to-tower",
+        "projectileIdentity": {
+          "attackSequence": 1,
+          "direction": "unit-to-tower",
+          "projectileId": 229,
+          "sourceId": 159
+        },
+        "projectileScope": "unit-to-tower",
+        "sourceId": 159
+      },
+      {
+        "accepted": true,
+        "destroyedTowerIds": [
+          "north:lane:left",
+          "south:lane:left"
+        ],
+        "sequence": 87,
+        "tick": 13268,
+        "type": "tower_evidence"
+      },
+      {
+        "contactTick": 13309,
+        "attackSequence": 2,
+        "damage": 131,
+        "delivery": "projectile",
+        "projectileId": 231,
+        "sourceUnitId": 159,
+        "structureId": "south:lane:east",
+        "tick": 13309,
+        "type": "external-structure-contact",
+        "direction": "unit-to-tower",
+        "projectileIdentity": {
+          "attackSequence": 2,
+          "direction": "unit-to-tower",
+          "projectileId": 231,
+          "sourceId": 159
+        },
+        "projectileScope": "unit-to-tower",
+        "sourceId": 159
+      },
+      {
+        "accepted": true,
+        "destroyedTowerIds": [
+          "north:lane:left",
+          "south:lane:left"
+        ],
+        "sequence": 88,
+        "tick": 13309,
+        "type": "tower_evidence"
+      },
+      {
+        "contactTick": 13351,
+        "attackSequence": 3,
+        "damage": 131,
+        "delivery": "projectile",
+        "projectileId": 232,
+        "sourceUnitId": 159,
+        "structureId": "south:lane:east",
+        "tick": 13351,
+        "type": "external-structure-contact",
+        "direction": "unit-to-tower",
+        "projectileIdentity": {
+          "attackSequence": 3,
+          "direction": "unit-to-tower",
+          "projectileId": 232,
+          "sourceId": 159
+        },
+        "projectileScope": "unit-to-tower",
+        "sourceId": 159
+      },
+      {
+        "tick": 13351,
+        "towerId": "south:lane:east",
+        "type": "tower-destroyed"
+      },
+      {
+        "accepted": true,
+        "destroyedTowerIds": [
+          "north:lane:left",
+          "south:lane:left",
+          "south:lane:right"
+        ],
+        "sequence": 89,
+        "tick": 13351,
+        "type": "tower_evidence"
+      },
+      {
+        "result": {
+          "crowns": {
+            "north": 2,
+            "south": 1
+          },
+          "endedAtTick": 13351,
+          "kind": "win",
+          "reason": "overtime_sudden_death",
+          "winner": "north"
+        },
+        "tick": 13351,
+        "type": "match_end"
+      }
+    ]
+  }
+}

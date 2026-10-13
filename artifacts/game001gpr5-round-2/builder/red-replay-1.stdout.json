@@ -1,0 +1,151 @@
+{
+  "replay": {
+    "source": "copied fresh Chrome failure transcript",
+    "restoreStartTick": 300,
+    "endingTick": 13352,
+    "transcriptRecords": 46,
+    "restoredRecordsReplayed": 44,
+    "acceptedCommandsAfterRestore": 24,
+    "simulatedTicks": 13052,
+    "restoreSnapshotSha256": "57813c849a0208478279ce036497d764537c93d796c16c9c8c98ac8b2d580ae0"
+  },
+  "terminal": {
+    "firstTerminalTick": 13352,
+    "isTerminal": true,
+    "reason": "ended",
+    "result": null,
+    "crowns": {
+      "north": 2,
+      "south": 1
+    },
+    "towers": [
+      {
+        "id": "south:lane:west",
+        "hitpoints": 0
+      },
+      {
+        "id": "south:lane:east",
+        "hitpoints": 0
+      }
+    ]
+  },
+  "postTerminalWorkload": {
+    "nextGhAttemptTick": 13352,
+    "latestSouthDeployment": {
+      "cardId": "cinderlings",
+      "commandId": 24,
+      "kind": "unit",
+      "placementClass": "ground_entity",
+      "point": {
+        "x": 14500,
+        "y": 5500
+      },
+      "sequence": 70,
+      "side": "south",
+      "tick": 13200,
+      "type": "session-card-routed"
+    },
+    "southHand": [
+      "briar-band",
+      "reedsting",
+      "copperskiff",
+      "mossguard"
+    ],
+    "southElixir": 10,
+    "incomingNorth": [
+      {
+        "id": 146,
+        "cardId": "mossguard",
+        "layer": "ground",
+        "position": {
+          "x": 12500,
+          "y": 13568
+        },
+        "hitpoints": 785
+      },
+      {
+        "id": 149,
+        "cardId": "cinderlings",
+        "layer": "ground",
+        "position": {
+          "x": 12600,
+          "y": 14500
+        },
+        "hitpoints": 81
+      },
+      {
+        "id": 150,
+        "cardId": "cinderlings",
+        "layer": "ground",
+        "position": {
+          "x": 12600,
+          "y": 14500
+        },
+        "hitpoints": 81
+      },
+      {
+        "id": 151,
+        "cardId": "cinderlings",
+        "layer": "ground",
+        "position": {
+          "x": 12600,
+          "y": 14500
+        },
+        "hitpoints": 81
+      },
+      {
+        "id": 153,
+        "cardId": "briar-band",
+        "layer": "ground",
+        "position": {
+          "x": 12500,
+          "y": 13234
+        },
+        "hitpoints": 202
+      },
+      {
+        "id": 154,
+        "cardId": "briar-band",
+        "layer": "ground",
+        "position": {
+          "x": 12500,
+          "y": 12468
+        },
+        "hitpoints": 202
+      },
+      {
+        "id": 155,
+        "cardId": "briar-band",
+        "layer": "ground",
+        "position": {
+          "x": 12500,
+          "y": 13667
+        },
+        "hitpoints": 202
+      },
+      {
+        "id": 159,
+        "cardId": "reedsting",
+        "layer": "ground",
+        "position": {
+          "x": 12500,
+          "y": 14034
+        },
+        "hitpoints": 260
+      }
+    ],
+    "plannedSouthAttempt": {
+      "cardId": "briar-band",
+      "point": {
+        "x": 14500,
+        "y": 5500
+      },
+      "slot": 0,
+      "tick": 13352
+    },
+    "submitAfterTerminal": {
+      "name": "RangeError",
+      "message": "player session command is stale, duplicate, terminal, or unknown"
+    }
+  }
+}

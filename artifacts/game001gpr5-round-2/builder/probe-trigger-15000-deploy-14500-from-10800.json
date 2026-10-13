@@ -1,0 +1,198 @@
+{
+  "scope": "Offline deterministic policy branch from a transcript-derived checkpoint; not a browser endurance or published GH-equivalence claim.",
+  "policy": {
+    "triggerY": 15000,
+    "deployY": 14500,
+    "sourceTick": 10800,
+    "endTick": 18000
+  },
+  "sourceSnapshot": {
+    "bytes": 215003,
+    "sha256": "109caacd5076f4e5518fc43b95db73e687495046d1b7b91ce334978c45b8cf94"
+  },
+  "outcome": {
+    "tick": 12498,
+    "terminal": true,
+    "clock": {
+      "crowns": {
+        "north": 1,
+        "south": 2
+      },
+      "destroyedTowerIds": [
+        "north:lane:left",
+        "north:lane:right",
+        "south:lane:left"
+      ],
+      "phase": "ended",
+      "result": {
+        "crowns": {
+          "north": 1,
+          "south": 2
+        },
+        "endedAtTick": 12497,
+        "kind": "win",
+        "reason": "overtime_sudden_death",
+        "winner": "south"
+      },
+      "tick": 12498,
+      "towers": [
+        {
+          "hitpoints": 1182,
+          "id": "north:central"
+        },
+        {
+          "hitpoints": 0,
+          "id": "north:lane:left"
+        },
+        {
+          "hitpoints": 0,
+          "id": "north:lane:right"
+        },
+        {
+          "hitpoints": 4824,
+          "id": "south:central"
+        },
+        {
+          "hitpoints": 0,
+          "id": "south:lane:left"
+        },
+        {
+          "hitpoints": 289,
+          "id": "south:lane:right"
+        }
+      ]
+    },
+    "towers": [
+      {
+        "id": "south:central",
+        "hitpoints": 4824
+      },
+      {
+        "id": "south:lane:west",
+        "hitpoints": 0
+      },
+      {
+        "id": "south:lane:east",
+        "hitpoints": 289
+      },
+      {
+        "id": "north:central",
+        "hitpoints": 1182
+      },
+      {
+        "id": "north:lane:west",
+        "hitpoints": 0
+      },
+      {
+        "id": "north:lane:east",
+        "hitpoints": 0
+      }
+    ],
+    "northDeployments": 43,
+    "southDeployments": 21,
+    "acceptedSouthCommands": 2
+  },
+  "attempts": [
+    {
+      "cardId": "briar-band",
+      "point": {
+        "x": 14500,
+        "y": 14500
+      },
+      "slot": 0,
+      "tick": 10800,
+      "commandId": 20
+    },
+    {
+      "cardId": "coilblade",
+      "point": {
+        "x": 3500,
+        "y": 14500
+      },
+      "slot": 0,
+      "tick": 11700,
+      "commandId": 21
+    }
+  ],
+  "significantEvents": [
+    {
+      "contactTick": 12381,
+      "attackSequence": 39,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 216,
+      "sourceUnitId": 110,
+      "structureId": "north:lane:east",
+      "tick": 12381,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 39,
+        "direction": "unit-to-tower",
+        "projectileId": 216,
+        "sourceId": 110
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 110
+    },
+    {
+      "contactTick": 12439,
+      "attackSequence": 40,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 217,
+      "sourceUnitId": 110,
+      "structureId": "north:lane:east",
+      "tick": 12439,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 40,
+        "direction": "unit-to-tower",
+        "projectileId": 217,
+        "sourceId": 110
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 110
+    },
+    {
+      "contactTick": 12497,
+      "attackSequence": 41,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 218,
+      "sourceUnitId": 110,
+      "structureId": "north:lane:east",
+      "tick": 12497,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 41,
+        "direction": "unit-to-tower",
+        "projectileId": 218,
+        "sourceId": 110
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 110
+    },
+    {
+      "tick": 12497,
+      "towerId": "north:lane:east",
+      "type": "tower-destroyed"
+    },
+    {
+      "result": {
+        "crowns": {
+          "north": 1,
+          "south": 2
+        },
+        "endedAtTick": 12497,
+        "kind": "win",
+        "reason": "overtime_sudden_death",
+        "winner": "south"
+      },
+      "tick": 12497,
+      "type": "match_end"
+    }
+  ]
+}
