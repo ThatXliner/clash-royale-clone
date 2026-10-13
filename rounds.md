@@ -1,5 +1,17 @@
 # Gauntlet Rounds
 
+## Round 416 — 2026-10-13
+
+PIECE: PUB-004 — Published-state verification documentation, round 2
+
+VERDICT: PASS
+
+EVIDENCE: Independent b41e7c2 verifies origin/main and branch API ae4a63e, workflow38431846142 and actual github-pages deployment success; HTTPS landing/game/manifest/runtime/roster HTTP200, manifest byte/hash matches,18 unique choices including both airswarm roles. Exact Cloudflare injected script distinguished from release template. Published runtime/build inputs unchanged from796 endurance source; actual retained2/2,18000ticks811580ms/init197≤300/noninit50caps, scopedseed0/default8. Eight frozen local links resolve. Actual receipts/checker in `artifacts/ship-current-round-2/critic/`.
+
+BIGGEST GAP: Seed-zero default-eight endurance does not establish performance or historical parity for every deck or the109-card target.
+
+DISPOSITION: Accept accurate publication docs; local c981 five-squad/defaultBriar timing explicitly excluded from both live publication and prior endurance.
+
 ## Round 415 — 2026-10-13
 
 PIECE: CARDS-017T — Remaining source-backed playable squad intervals, round 1
