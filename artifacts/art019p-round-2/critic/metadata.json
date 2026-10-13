@@ -1,0 +1,149 @@
+{
+  "verdict": "PASS",
+  "candidateCommit": "c23ca7efb659aeb42e1af03dea7f84cd39752579",
+  "parentCommit": "428e3a5c3dc44bd9de9a886ad1f9e494da115ed4",
+  "assetCandidateCommit": "87da6fd4848c697fc298c2581cb7671a0a053515",
+  "cleanArchive": "/tmp/art019p-critic.WFKaqk",
+  "sharedNodeModulesSymlink": true,
+  "candidateDiffFiles": [
+    "artifacts/art019p-round-2/builder/build-pages.log",
+    "artifacts/art019p-round-2/builder/repair-receipt.json",
+    "artifacts/art019p-round-2/builder/visual-asset-manifest.tap",
+    "src/content/visual-asset-manifest.js"
+  ],
+  "manifest": {
+    "baselineCount": 20,
+    "candidateCount": 21,
+    "oldRecordsUnchanged": true,
+    "newRecord": {
+      "authorship": "in-repo-authored",
+      "byteLength": 65626,
+      "dimensions": {
+        "height": 512,
+        "width": 512
+      },
+      "format": "webp",
+      "id": "kilnkeeper-portrait-painted",
+      "kind": "image",
+      "license": "AGPL-3.0-only",
+      "path": "assets/kilnkeeper-portrait-painted.webp",
+      "sha256": "38e9f64348fa823a64755fda2496b699c88c27c7dd0a14a440e704d9093d2240"
+    }
+  },
+  "source": {
+    "bytes": 2659340,
+    "sha256": "f4062cfc51764726d97e3c901450ff3ae0dc8b0e25bcabd87eabc469dbf4bf4d",
+    "dimensions": {
+      "width": 1254,
+      "height": 1254
+    }
+  },
+  "shippedWebp": {
+    "bytes": 65626,
+    "sha256": "38e9f64348fa823a64755fda2496b699c88c27c7dd0a14a440e704d9093d2240",
+    "dimensions": {
+      "width": 512,
+      "height": 512
+    }
+  },
+  "provenance": {
+    "license": "AGPL-3.0-only",
+    "authorship": "in-repo-authored",
+    "sourceSha256": "f4062cfc51764726d97e3c901450ff3ae0dc8b0e25bcabd87eabc469dbf4bf4d",
+    "promptCharacters": 2058,
+    "inputImages": []
+  },
+  "lore": {
+    "count": 2,
+    "sha256": "57ab289c43d36ea7e3d90ec554c710b75095e07ba4fbd3e5d8f9206c225f07c8"
+  },
+  "sourceAndBuilderContinuity": {
+    "demo/assets/kilnkeeper-portrait.png": {
+      "bytes": 2659340,
+      "sha256": "f4062cfc51764726d97e3c901450ff3ae0dc8b0e25bcabd87eabc469dbf4bf4d",
+      "matches87da": true
+    },
+    "public/assets/kilnkeeper-portrait-painted.webp": {
+      "bytes": 65626,
+      "sha256": "38e9f64348fa823a64755fda2496b699c88c27c7dd0a14a440e704d9093d2240",
+      "matches87da": true
+    },
+    "docs/art/kilnkeeper-portrait-provenance.json": {
+      "bytes": 3299,
+      "sha256": "a02b97f5d60fc09cf0baac08782f3d781506fffe98a99354b27dc3113bef6913",
+      "matches87da": true
+    },
+    "artifacts/art019p-round-1/builder/kilnkeeper-concept.md": {
+      "bytes": 465,
+      "sha256": "6d13c7f06b768d3e60019cb8f419e9122de37d53b638feed5dcc0e1d5874d05a",
+      "matches87da": true
+    },
+    "artifacts/art019p-round-1/builder/portrait-64px.png": {
+      "bytes": 10134,
+      "sha256": "f4ac6bf52e02797122ed7d5157c5903e185c3cf3ec76093b287cff9da440d619",
+      "matches87da": true
+    },
+    "artifacts/art019p-round-1/builder/portrait-128px.png": {
+      "bytes": 38337,
+      "sha256": "032cbbbd0160d504d1bf7ce39ad116ab2f19cd17de727174a4539689a6d5636f",
+      "matches87da": true
+    }
+  },
+  "criticRenders": [
+    {
+      "path": "artifacts/art019p-round-1/critic/portrait-64px.png",
+      "bytes": 10134,
+      "sha256": "f4ac6bf52e02797122ed7d5157c5903e185c3cf3ec76093b287cff9da440d619",
+      "evidenceSha256": "f4ac6bf52e02797122ed7d5157c5903e185c3cf3ec76093b287cff9da440d619",
+      "matchesEvidence": true
+    },
+    {
+      "path": "artifacts/art019p-round-1/critic/portrait-128px.png",
+      "bytes": 38337,
+      "sha256": "032cbbbd0160d504d1bf7ce39ad116ab2f19cd17de727174a4539689a6d5636f",
+      "evidenceSha256": "032cbbbd0160d504d1bf7ce39ad116ab2f19cd17de727174a4539689a6d5636f",
+      "matchesEvidence": true
+    }
+  ],
+  "retainedPixelReview": "At native 64 px and 128 px, the badger face, teal apron, copper launcher, and bright circular firing mouth remain distinct.",
+  "release": {
+    "manifestFileCount": 48,
+    "manifestTotalBytes": 5733974,
+    "listedFilesVerified": 48,
+    "actualGameTreeFiles": 50,
+    "unlistedGameFiles": [
+      "index.html",
+      "release-manifest.json"
+    ],
+    "allPagesTreeFiles": 58,
+    "shippedWebpPath": "game/public/assets/kilnkeeper-portrait-painted.webp",
+    "shippedWebpSha256": "38e9f64348fa823a64755fda2496b699c88c27c7dd0a14a440e704d9093d2240"
+  },
+  "checks": {
+    "old20ManifestRecordsUnchanged": true,
+    "newManifestRecordCorrect": true,
+    "sourcePng1254Square": true,
+    "sourceWebpProvenanceAndBuilderRendersMatch87da": true,
+    "criticRendersMatchSavedFreshEvidence": true,
+    "provenancePromptAndSourceHashCorrect": true,
+    "provenanceLicenseAndAuthorshipCorrect": true,
+    "twoLoreSentences": true,
+    "releaseManifestFilesHashesAndSizesMatch": true,
+    "releaseManifestCountAndBytesMatch": true,
+    "releaseContainsExactWebp": true,
+    "releaseExcludesSourceProvenanceLoreAndReferenceTrees": true,
+    "manifestTest6Pass": true,
+    "pagesBuildSucceeded": true
+  },
+  "largestGap": "Assets-only scope does not verify a Kilnkeeper arena or UI display; the candidate makes no such claim.",
+  "rawLogs": {
+    "visualAssetManifest": {
+      "path": "artifacts/art019p-round-2/critic/visual-asset-manifest.log",
+      "sha256": "f21315959fa7dd74019bf3028133c3fc45b95941a49220b99bd9bd4311ee7b32"
+    },
+    "pagesBuild": {
+      "path": "artifacts/art019p-round-2/critic/build-pages.log",
+      "sha256": "be02ff6ad4ea33e90f6cf2e34d444db3f80521635c2b11f5bca2a3c7f4c53bf6"
+    }
+  }
+}

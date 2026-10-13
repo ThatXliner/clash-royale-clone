@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 429 — 2026-10-13
+
+PIECE: ART-019P — Kilnkeeper portrait asset-registration repair, round 2
+
+VERDICT: PASS
+
+EVIDENCE: Independent clean c23ca7e manifest6/6, Pages48files/5733974B; allreleasefiles hashes/sizes match, all20priorassetrecords unchanged. Correct512square65626BWebP/SHA/license/authorship/path registered. PNG/WebP/provenance/lore/builderscreens bytes equal87da, criticnative64/128captures verified/inspected; face, tealapron, launcher andfiringmouth remain distinct. Output excludesreference/sourcePNG/provenance/lore/artifacts/demo. Evidence `artifacts/art019p-round-2/critic/`.
+
+BIGGEST GAP: No remaining asset-stage gap; actual Kilnkeeper card UI and arena display require a separate integration piece and have not been verified.
+
 ## Round 428 — 2026-10-13
 
 PIECE: ART-019P — Original Kilnkeeper collection portrait, round 1
