@@ -1,0 +1,16 @@
+{
+  "status": "CANCELLED",
+  "reason": "This pre-optimization shared-worktree run cannot verify the frozen candidate and used a superseded two-pass harness.",
+  "frozenCandidateCommit": "5ba4002e9f71830da447be1e985505c608d9c06f",
+  "process": {
+    "testRunnerPid": 79367,
+    "testProcessPid": 79368,
+    "sessionId": 16086,
+    "terminationSignal": "SIGTERM",
+    "terminatedAtUtc": "2026-10-13 20:59:52 UTC",
+    "reportedDurationMs": 2132545.820208
+  },
+  "producedEvidence": [],
+  "tapOutput": "# Subtest: tests/endurance-workload.test.js\nnot ok 1 - tests/endurance-workload.test.js\n  ---\n  duration_ms: 2132545.820208\n  type: 'test'\n  location: '/Users/me/.codex/worktrees/9456/clash-royale-clone/tests/endurance-workload.test.js:1:1'\n  failureType: 'testCodeFailure'\n  exitCode: ~\n  signal: 'SIGTERM'\n  error: 'test failed'\n  code: 'ERR_TEST_FAILURE'\n  ...\n1..1\n# tests 1\n# suites 0\n# pass 0\n# fail 1\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 2132550.531375",
+  "interpretation": "The node:test harness reported SIGTERM as a failure; this receipt records the run as cancelled, with no pass/fail verdict for the frozen candidate."
+}

@@ -1,0 +1,83 @@
+{
+  "decisionCount": 40,
+  "decisionsSha256": "f9b549909751680e6e1a6f1e19990378bf444d94c8abb15ca20031fc881cc011",
+  "deterministicPolicyMatch": true,
+  "emergencyCount": 6,
+  "helperSha256": "e8b1615ab14c90c718c2e2b92cc3e1cf8f30600597520d088eb0e0571499aa31",
+  "outcome": {
+    "crowns": {
+      "north": 1,
+      "south": 2
+    },
+    "deck": {
+      "hand": [
+        "reedsting",
+        "cinderlings",
+        "coilblade",
+        "mossguard"
+      ],
+      "next": "copperskiff",
+      "queue": [
+        "copperskiff",
+        "briar-band",
+        "brassbolt",
+        "skymaul"
+      ],
+      "sequence": 40
+    },
+    "elixir": {
+      "north": {
+        "accumulator": 144,
+        "amount": 0
+      },
+      "south": {
+        "accumulator": 0,
+        "amount": 10
+      }
+    },
+    "result": {
+      "crowns": {
+        "north": 1,
+        "south": 2
+      },
+      "endedAtTick": 18000,
+      "kind": "win",
+      "reason": "tiebreak_lowest_hp",
+      "winner": "south"
+    },
+    "terminal": true,
+    "tick": 18000,
+    "towers": [
+      {
+        "hitpoints": 1182,
+        "id": "north:central"
+      },
+      {
+        "hitpoints": 177,
+        "id": "north:lane:east"
+      },
+      {
+        "hitpoints": 0,
+        "id": "north:lane:west"
+      },
+      {
+        "hitpoints": 4824,
+        "id": "south:central"
+      },
+      {
+        "hitpoints": 289,
+        "id": "south:lane:east"
+      },
+      {
+        "hitpoints": 0,
+        "id": "south:lane:west"
+      }
+    ],
+    "sessionSha256": "f425adb482132c05256fc3f2edda6035958b729e89908f676bbc5fe70d454b17"
+  },
+  "originalAggregateResultSha256": "19805b0fd7bb3043e8de47f144990642611bbb6b8a3cab31ccde50e64d21392e",
+  "originalAggregateSourceSha256": "2b761f69b09d6723835b309e762157a6829d196dad31cee23a7bd1dfe3519608",
+  "runnerSha256": "11c241b6c717f266420f9aff16a271936e1db699bd61582b89aba77d54bc1c95",
+  "setupBytes": 39641,
+  "setupSha256": "306bb30da40ce7c43d6cccce8728449da90fc0e9ca7d13c81f0116ba710aec8c"
+}
