@@ -1,0 +1,34 @@
+{
+  "candidateFullTrial": {
+    "attachedExecSession": 96029,
+    "pid": 66784,
+    "requiredTickReached": false,
+    "resultFile": "screen-defense-result.json",
+    "resultSha256": "cfd53f9d8ce3126eab24a30a22ca5859e5b72300f440f491beee003b0985688a",
+    "resultTick": 13583,
+    "script": "screen-defense.mjs",
+    "scriptSha256": "7da846f6c325fecc27cd8e0bea82b438fe3cc66693a70f65523192dc24f90713"
+  },
+  "diagnosis": "South Mossguard entity 160 did acquire North tower-target Mossguard 146, but Cinderlings 149-151 and Briar-band bodies 153-155 also targeted and killed 160 at tick 13456. North Reedsting 159 remained tower-targeting and landed lethal contacts at 13499, 13540, and 13582. At tick 13500 South Reedsting 162 acquired Cinderling 149, not unit 159; its hit arrived at 13582, the terminal tick.",
+  "engine_or_test_changes": false,
+  "fullPass": false,
+  "full_trials_authorized": 1,
+  "result_file": "screen-defense-result.json",
+  "samePolicyDiagnosticReplay": {
+    "attachedExecSession": 54343,
+    "compressedSha256": "10fb096e4850ca18de5ed22731099dba5fe69f4acc8ff41de3e0240aee39aa9d",
+    "filteredReceipt": "counter-trace-filtered.json",
+    "filteredReceiptSha256": "daae6ffd9c8f0581d1c636469ed4ff2a2e4299f8c304d9538091645a3e66fe9c",
+    "pid": 67452,
+    "requiredTickReached": false,
+    "resultFile": "screen-defense-trace-result.json.gz",
+    "resultTick": 13583,
+    "script": "screen-defense-trace.mjs",
+    "scriptSha256": "6835d79de6187580b31737e73b1114ba03ac618438499b6d1808159f54d3e204",
+    "uncompressedRawSha256": "59e5196116c41ffd18d07cd44dc785a9a0701558c0a4de9c4e8c64e34d43e904"
+  },
+  "setup": "seed-zero default-eight, north AI, frozen GH baseline fallback, 18,000 tick cap",
+  "source_setup_sha256": "306bb30da40ce7c43d6cccce8728449da90fc0e9ca7d13c81f0116ba710aec8c",
+  "task": "GAME001GPR5 state-adaptive screen-defense hypothesis",
+  "trial_script": "screen-defense.mjs"
+}
