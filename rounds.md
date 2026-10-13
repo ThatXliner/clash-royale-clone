@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 421 — 2026-10-13
+
+PIECE: ART-018P — Original Ember Basin portrait asset, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Clean exact `82cd25a` browser fixture exited0; reviewerTAP3/3 metadata/render/lore checks passed. Actual1254×1254PNG2743443B and512×512WebP71726B hashes/dimensions/bytes/toolprompt/license match; exactly2lore sentences. Fresh64×64 and128×128 DPR1 renders inspected, crop intact and nonhumanoid original paintedpalette. Independent evidence retained `4f6dcba` in `artifacts/art018p-round-1/critic/`.
+
+BIGGEST GAP: At64px the broad bowl and glowing ember read as a brazier or cauldron; the rear projection is too small to identify as a launch channel, obscuring defensive function. Revise silhouette, not metadata. Asset-only scope; no liveintegration claim.
+
 ## Round 420 — 2026-10-13
 
 PIECE: GAME-001GPR5 — Corrected default-squad runtime strict endurance, second recorded critique (artifact round 3)
