@@ -1,5 +1,17 @@
 # Gauntlet Rounds
 
+## Round 408 — 2026-10-13
+
+PIECE: CARDS-016I — Two air-swarm choices in player and RL decks, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Independent clean6ec critic executes integration/swarm13/13, editable10/10 and RL11/11. Actual Chrome app-shell exits1,0/1: `ReferenceError: stonehaulerDeployment is not defined`, tests/app-shell.test.js:1112, after60200ms. Phone390x844 and desktop1440x933 collection/detail portrait/lore/seven-stat checks pass; Gloamwing trusted selection/deployment and exact restore pass. Coppershade trusted browser deployment is absent. Captured critic logs/screens are retained for this candidate; builder's earlier616x1095 iframe failure did not reproduce in the independent run.
+
+BIGGEST GAP: Complete the evidence writer and execute the missing Coppershade trusted browser deck/deployment flow.
+
+DISPOSITION: Start a narrow second builder round on browser test/evidence coverage; preserve viewport assertions, source QUESTIONS, default8 and deterministic behavior. Integration remains under review and is not deployed.
+
 ## Round 407 — 2026-10-11
 
 PIECE: PUB-004 — Publish current playable prototype, round 1
