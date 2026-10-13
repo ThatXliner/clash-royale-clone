@@ -422,6 +422,28 @@ const REGISTERED_ASSETS = [
     path: "assets/ember-basin-battle-sprite.webp",
     sha256: "9c805943147cbbe48030edb3ed2d197936319af6753a170af70d8210f1b5a7c9",
   },
+  {
+    authorship: "in-repo-authored",
+    byteLength: 71726,
+    dimensions: { height: 512, width: 512 },
+    format: "webp",
+    id: "ember-basin-portrait-painted",
+    kind: "image",
+    license: "AGPL-3.0-only",
+    path: "assets/ember-basin-portrait-painted.webp",
+    sha256: "1bdcc5aa3f6efdbb37cf0dab5023f326884d8e4409545749f50b4125acc1f232",
+  },
+  {
+    authorship: "in-repo-authored",
+    byteLength: 74608,
+    dimensions: { height: 512, width: 512 },
+    format: "webp",
+    id: "ember-basin-portrait-painted-v2",
+    kind: "image",
+    license: "AGPL-3.0-only",
+    path: "assets/ember-basin-portrait-painted-v2.webp",
+    sha256: "fbeb95f34410348c34bf68892deb25b7df387783c7d88819ee7a7b37038c87a3",
+  },
 ];
 
 const MANIFEST = freeze({
