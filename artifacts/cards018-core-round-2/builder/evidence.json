@@ -1,0 +1,56 @@
+{
+  "round": "CARDS-018K documentation repair round 2",
+  "candidateApiCommit": "d20938fad64bfcf93fce48c08de54c2d5ba854bf",
+  "documentation": "docs/rl-api.md",
+  "execution": {
+    "environment": "clean git archive of candidateApiCommit",
+    "documentedSnippetSource": "artifacts/cards018-core-round-2/builder/documented-mixed-deck-example.mjs",
+    "documentedSnippetCommand": "node artifacts/cards018-core-round-2/builder/documented-mixed-deck-example.mjs",
+    "documentedSnippetExitedSuccessfully": true,
+    "focusedExampleSource": "artifacts/cards018-core-round-2/builder/ember-basin-rl-example.mjs",
+    "focusedExampleCommand": "node artifacts/cards018-core-round-2/builder/ember-basin-rl-example.mjs",
+    "focusedExampleTests": 14,
+    "focusedExamplePassed": 14,
+    "focusedExampleFailed": 0,
+    "receipts": [
+      "artifacts/cards018-core-round-2/builder/documented-mixed-deck-example.stdout.txt",
+      "artifacts/cards018-core-round-2/builder/ember-basin-rl-example.tap",
+      "artifacts/cards018-core-round-2/builder/example-result.json"
+    ]
+  },
+  "observed": {
+    "deck": [
+      "ember-basin",
+      "squall-orb",
+      "coilblade",
+      "mossguard",
+      "copperskiff",
+      "skymaul",
+      "brassbolt",
+      "reedsting"
+    ],
+    "observationVersion": 2,
+    "actionSpaceVersion": 2,
+    "actionCount": 2305,
+    "legalEmberActionId": 256,
+    "nonterminalReward": 0,
+    "checkpointVersion": 2,
+    "restoredContinuationReward": 0,
+    "versionOneCheckpointRejected": true,
+    "continuationByteExact": true,
+    "structureReceiptDisposition": "question",
+    "lifetimeReceiptDisposition": "question",
+    "lifetimeReceiptAuthoritative": false
+  },
+  "reusedRound1CoreVerification": {
+    "sourceTreeExactAtD209": true,
+    "defaultSessionHashReceipt": "artifacts/cards018-core-round-1/builder/default-session-hash-comparison.json",
+    "defaultSessionSeeds": [
+      0,
+      23
+    ],
+    "defaultSessionHashesEqual": true,
+    "focusedRuntimeSuitesReexecuted": false
+  },
+  "sourceHashManifest": "artifacts/cards018-core-round-2/builder/source-hash-manifest.json"
+}

@@ -1,0 +1,55 @@
+{
+  "candidateApiCommit": "d20938fad64bfcf93fce48c08de54c2d5ba854bf",
+  "candidateTree": "7fe757e5c722e474ce7915c70bf7147534a06da8",
+  "executionSource": "clean git archive of candidateApiCommit",
+  "workspaceSrcDiffAgainstCandidate": [],
+  "fullSourceBlobReceipt": {
+    "path": "artifacts/cards018-core-round-1/builder/clean-archive/source-blobs.json",
+    "checkedRoots": [
+      "src",
+      "tests",
+      "reference/stats",
+      "package.json"
+    ],
+    "checkedFiles": 499,
+    "mismatches": 0
+  },
+  "directRuntimeModuleBlobs": {
+    "src/rl/environment.js": "96d8d501013611f340699976f01b589f98e1ea15",
+    "src/content/editable-deck.js": "d99e1a8b46000fb02296821e05312d790c32d9d5",
+    "src/content/session-card-catalog.js": "132dcc899eaf74cde229411c52c5b34a025f6e68",
+    "src/content/cards/buildings-defensive.js": "253a2008584e95b1d42e852a3f5cafe2e20b8622",
+    "src/content/session-spell-profile-receipts.js": "6fcdc939d693f53c3373b40e69d9696cbbdced2c",
+    "src/content/playable-roster.js": "9ce4c06226f2a4c2b54da3893849a85759fa00f5",
+    "src/content/session-troop-roster.js": "632701f9502a7a062a062ec452f392290eaa59a4",
+    "src/sim/attack-cycle.js": "f915e770cb601f5744e7d4e811162b0d6912d1ed",
+    "src/sim/game-session.js": "c3e86cb21fa926fc985120044d0adfd45e9f69c2",
+    "src/sim/deck.js": "3c6dbd8a19d8d6558ce12ad8465202b3be56d069"
+  },
+  "files": {
+    "artifacts/cards018-core-round-2/builder/ember-basin-rl-example.mjs": {
+      "gitBlob": "52c26b8d6c436cb8fc09623ccd5e5e40a006ee9e",
+      "sha256": "487af1154c4b524632d4ef1f739c083d2ce091556a2a48e4d615016403aaa057"
+    },
+    "artifacts/cards018-core-round-2/builder/ember-basin-rl-example.tap": {
+      "gitBlob": "316015b46ff37787b422fafba6e74f9f3112f355",
+      "sha256": "e7c1378bd677e7ca91ff28c9f0d0c2e9f429902648ca1b4c4da7cbe42dfee961"
+    },
+    "artifacts/cards018-core-round-2/builder/example-result.json": {
+      "gitBlob": "db89ec6c91f93a046086d218669e035a305bc6e3",
+      "sha256": "5bd2f16706b8b504ba18f472bc766a99ba9aaeb099128906b90c780ae34f168f"
+    },
+    "artifacts/cards018-core-round-2/builder/documented-mixed-deck-example.mjs": {
+      "gitBlob": "2ecc707ca3af34d2c6f3befa0d4d9e5da00af6a5",
+      "sha256": "2f8c8a7b4874d68c0caa2d329d464d8a7efb081b2598f38903329230bc0d17cc"
+    },
+    "artifacts/cards018-core-round-2/builder/documented-mixed-deck-example.stdout.txt": {
+      "gitBlob": "9857e0eac2fe136a219b06b02d7453e85c32b1bd",
+      "sha256": "9692fab5103e2939bebcdfc0b6eb42ca4a6ee1bb53e849ccbfa928276bd1b41d"
+    },
+    "docs/rl-api.md": {
+      "gitBlob": "2c14426c26c1b1333274a2fb36c3457c1cb8c130",
+      "sha256": "83f9316231a28c7400fe3b06ad26789ced8063cda0bce4accab2d4154714d031"
+    }
+  }
+}

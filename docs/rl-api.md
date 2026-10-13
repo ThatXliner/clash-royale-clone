@@ -17,6 +17,69 @@ const observation = env.reset(); // Reset also returns the initial observation.
 const transition = env.step(0); // Action 0 waits.
 ```
 
+The current editable card set has 17 troops, Squall Orb, and Ember Basin.
+Supply exactly eight distinct admitted card IDs to select a deck; a mixed
+deck must include Squall Orb or Ember Basin. The same deck is used by both
+sides, with independent cycles. For example, this eight-card mix deploys
+Ember Basin while keeping Squall Orb available in the shared cycle:
+
+```js
+import { createRLEnvironment, RLEnvironment } from "../src/rl/environment.js";
+
+const deck = [
+  "ember-basin", "squall-orb", "coilblade", "mossguard",
+  "copperskiff", "skymaul", "brassbolt", "reedsting",
+];
+const env = createRLEnvironment({ deck, seed: 1, strideTicks: 1, horizonTicks: 120 });
+const initial = env.reset();
+const space = env.actionSpace();
+if (initial.version !== 2 || space.version !== 2 || space.actionCount !== 2_305 ||
+    initial.actionMask.length !== space.actionCount) {
+  throw new Error("unexpected RL schema or action space");
+}
+const slot = initial.hand.indexOf("ember-basin");
+const action = space.actions.find((candidate) =>
+  candidate.slot === slot && candidate.point.x === 3_500 && candidate.point.y === 14_500);
+if (slot < 0 || !action || !initial.actionMask[action.id]) {
+  throw new Error("Ember Basin is not currently deployable");
+}
+
+const transition = env.step(action.id);
+if (transition.reward !== 0 || transition.terminated || transition.truncated) {
+  throw new Error("unexpected nonterminal transition result");
+}
+const basin = transition.observation.structures.find((structure) =>
+  structure.cardId === "ember-basin");
+console.log({
+  hitpoints: basin.hitpoints,
+  lifetime: basin.lifetime,
+  attackState: basin.attackState,
+  policy: basin.policy,
+});
+
+const checkpoint = env.serialize();
+const restored = RLEnvironment.restore(checkpoint);
+const next = env.step(0);
+const replay = restored.step(0);
+if (JSON.stringify(next) !== JSON.stringify(replay)) {
+  throw new Error("restored continuation diverged");
+}
+
+const versionOne = JSON.stringify({ ...JSON.parse(checkpoint), version: 1 });
+try {
+  RLEnvironment.restore(versionOne);
+  throw new Error("version-1 checkpoint unexpectedly restored");
+} catch (error) {
+  if (error.message !== "serialized environment has an invalid shape or version") throw error;
+}
+```
+
+An observation and `actionSpace()` report schema version `2`. Version 2 adds a
+`structures` array without adding action IDs or changing the existing mask
+legality checks and sparse reward rules. The example's deployment action uses
+the same mask and action ID formula described below. Its reward is zero because
+the engine has not reported a result.
+
 The accepted reset options are `seed`, `deck`, `strideTicks`, and
 `horizonTicks`. Defaults are seed `0`, the standard shared eight-card deck,
 stride `30` ticks, and horizon `18,000` ticks. A tick is one fixed simulation
@@ -51,13 +114,24 @@ mask uses the engine's current south-side rule with
 `destroyedOpposingLaneTowers: []`; it does not probe or mutate a live session.
 Finished observations have an all-false mask.
 
-An observation is detached JSON data with `version`, `status`, `tick`, and
-`phase`, plus public `units`, `towers`, and `crowns`; the south `hand`, `next`
-card, and `elixir`; and `actionMask`. Unit and tower records contain only
-public fields. Opponent deck, north elixir, seed, random-generator state,
-pending commands, engine transcript, and raw engine state are not in the policy
-observation. `status` is `running`, `terminated`, or `truncated`; `phase` is
-the engine phase while running and `terminal` after a natural match result.
+An observation is detached, JSON-safe data with `version`, `status`, `tick`,
+and `phase`, plus public `units`, `towers`, `structures`, and `crowns`; the
+south `hand`, `next` card, and `elixir`; and `actionMask`. Structure records
+are sorted by numeric entity ID and are emitted from the engine's structure
+list without filtering on `alive`; when a dead record remains in that list it
+includes `alive: false` and its `deathCause`. Each record exposes `id`,
+`cardId`, `owner`, `position`, `layer`, `alive`, `deathCause`, `hitpoints`,
+`maxHitpoints`, `targetable`, `targetKey`, and `targetMode`. Its `lifetime`
+contains elapsed, remaining, and total ticks plus the exact source QUESTION
+receipt. Its nullable `attackState` contains the attack-cycle `phase`,
+`nextAttackTick`, `sequence`, and `targetId`; `policy` preserves the admitted
+building profile's source-confidence receipt. QUESTION and unverified values
+remain questions and are not historical authority. Unit and tower records
+also contain only public fields. Opponent deck, north elixir, seed,
+random-generator state, pending commands, engine transcript, and raw engine
+state are not in the policy observation. `status` is `running`, `terminated`,
+or `truncated`; `phase` is the engine phase while running and `terminal` after
+a natural match result.
 
 `step(actionId)` validates the current mask, submits a deploy action at the
 current engine tick when needed, then advances by
@@ -71,14 +145,17 @@ the session or deployment command counter changes. The deployment command
 counter advances only after its action and fixed stride complete successfully.
 
 `serialize()` and `RLEnvironment.restore(bytes)` save and restore a privileged
-version-1 checkpoint containing configuration and the engine's own snapshot.
+version-2 checkpoint containing configuration and the engine's own snapshot.
 It includes seed, shared deck configuration, opponent/controller state, and
 transcript data needed for causal restoration. Treat it as trusted storage,
 not policy input or an observation. Restore validates the checkpoint against
 the real `GameSession` setup and deployment counter, so a restored environment
-continues with the same observation, reward, done status, and future actions.
-Paused engine sessions and sessions with an unprocessed player command are
-rejected because this wrapper cannot produce or resume those states.
+continues with the same observation, reward, done status, structures, and
+future actions. Restore rejects version-1 checkpoints with a `TypeError`
+(`serialized environment has an invalid shape or version`); no migration is
+implemented. Paused engine sessions and sessions with an unprocessed player
+command are also rejected because this wrapper cannot produce or resume those
+states.
 
 The wrapper inherits the simulation's current supported-card admission and
 approximation limits. Its tile centers use the current estimated placement

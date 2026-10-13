@@ -1,0 +1,72 @@
+{
+  "candidateCommit": "d20938fad64bfcf93fce48c08de54c2d5ba854bf",
+  "deck": [
+    "ember-basin",
+    "squall-orb",
+    "coilblade",
+    "mossguard",
+    "copperskiff",
+    "skymaul",
+    "brassbolt",
+    "reedsting"
+  ],
+  "checks": [
+    "observation and action space use schema version 2",
+    "the existing finite action catalogue and mask size are unchanged",
+    "the mixed deck exposes a legal Ember Basin deployment",
+    "a nonterminal deployment receives zero sparse reward",
+    "the public structure record reports its live owner and hitpoints",
+    "the structure record reports its layer and lifetime counters",
+    "the unverified lifetime and profile receipts remain explicit questions",
+    "the public structure record includes current attack-cycle state",
+    "the observation is detached JSON data",
+    "mutating an observation does not mutate the live session",
+    "serialized checkpoints carry version 2",
+    "restore reproduces the exact checkpoint and structure observation",
+    "restore continues with identical future observation, reward, and bytes",
+    "version-1 checkpoints are rejected without migration"
+  ],
+  "actionId": 256,
+  "observationVersion": 2,
+  "actionSpaceVersion": 2,
+  "actionCount": 2305,
+  "openingHand": [
+    "ember-basin",
+    "copperskiff",
+    "skymaul",
+    "coilblade"
+  ],
+  "structure": {
+    "id": 2,
+    "cardId": "ember-basin",
+    "alive": true,
+    "hitpoints": 1356,
+    "maxHitpoints": 1356,
+    "owner": "south",
+    "layer": "ground",
+    "lifetime": {
+      "elapsedTicks": 1,
+      "remainingTicks": 1799,
+      "totalTicks": 1800,
+      "question": {
+        "authoritative": false,
+        "confidence": "unverified",
+        "disposition": "question",
+        "key": "lifetimeTicks",
+        "source": "pre-evolutions-building-corpus-and-unsourced-policy-fixture",
+        "value": 1800
+      }
+    },
+    "attackState": {
+      "nextAttackTick": null,
+      "phase": "deploying",
+      "sequence": 0,
+      "targetId": null
+    },
+    "policyDisposition": "question"
+  },
+  "checkpointVersion": 2,
+  "firstReward": 0,
+  "restoredContinuationReward": 0,
+  "versionOneCheckpointRejected": true
+}
