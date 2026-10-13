@@ -1,0 +1,109 @@
+{
+  "candidateCommit": "5ba4002e9f71830da447be1e985505c608d9c06f",
+  "command": "env -u GAME_BROWSER_ENDURANCE_TICKS npm run test:game-browser-endurance",
+  "archiveRoot": "/tmp/game001gpr5-critic.YPrXNh",
+  "processChain": [
+    90883,
+    90904,
+    90905,
+    90906,
+    90907,
+    90910
+  ],
+  "commandExitCode": 0,
+  "tapSummary": {
+    "tests": 2,
+    "pass": 2,
+    "fail": 0,
+    "cancelled": 0,
+    "durationMilliseconds": 990050.793292
+  },
+  "freshResultDurationMilliseconds": 987690,
+  "checks": {
+    "setupSha256MatchesFrozen": true,
+    "finalBrowserTickIs18000": true,
+    "finalDomTickIs18000": true,
+    "terminalReached": true,
+    "restartReturnedToTick0": true,
+    "restoreRewound600To300": true,
+    "schedulerUsesRealBrowserYields": true,
+    "noConsoleResourceOrUnhandledErrors": true,
+    "noPendingResources": true,
+    "restartAndTerminalLongTaskMaxesWithin50ms": true,
+    "initializationLongTaskMaxWithin300ms": true,
+    "initializationLongTaskSamples": 2,
+    "segments": 67,
+    "acceptedCommandRecords": 41,
+    "allTransportActionsActualBrowserIds": true,
+    "restoreCutTick": 300,
+    "fullDurationMilliseconds": 987690,
+    "allSourceRuntimeHashesUnchanged": true,
+    "allCandidateHarnessHashesUnchanged": true,
+    "replayedPhysicalCommandsMatchExactPreflightSemantics": true,
+    "replayedPhysicalCommandCountMatchesPreflight": true,
+    "browserFinalStateDigestMatchesPreflightState": true,
+    "stateOutcomeTiebreak": {
+      "crowns": {
+        "north": 1,
+        "south": 2
+      },
+      "endedAtTick": 18000,
+      "kind": "win",
+      "reason": "tiebreak_lowest_hp",
+      "winner": "south"
+    },
+    "preflightEmergencyCount": 6,
+    "replayedEmergencyDeliveries": 6,
+    "finalSerializedTranscriptPauseEvents": 1,
+    "finalSerializedTranscriptResumeEvents": 1,
+    "sessionHashAfterRemovingPauseResumeMarkersMatchesPreflight": true
+  },
+  "sourceRuntimeHashChecks": {
+    "count": 144,
+    "mismatches": 0
+  },
+  "candidateHarnessHashChecks": {
+    "count": 4,
+    "mismatches": 0
+  },
+  "freshArtifactManifest": [
+    {
+      "path": "artifacts/game001gpr5-round-3/critic/full-browser.raw.log",
+      "sha256": "963d45e0a7d3e952410b7e6399e632feaeafc4c08dfbaa004668eba43a90ed4f",
+      "bytes": 721
+    },
+    {
+      "path": "artifacts/game001gpr5-round-3/critic/browser-full/full-browser.tap",
+      "sha256": "3075e20902fe03096b80b70f6d6eebfce16cb8393a70c6166d3637d9a8117b06",
+      "bytes": 599
+    },
+    {
+      "path": "artifacts/game001gpr5-round-3/critic/browser-full/endurance-result.json",
+      "sha256": "aed16a5570fa97427978374d383ec6dfd8a486adad1b1adb0a16b40f939dd912",
+      "bytes": 2552929
+    },
+    {
+      "path": "artifacts/game001gpr5-round-3/critic/browser-full/active.png",
+      "sha256": "f78fb716fd49d9e8756f7c626efe4e458f116981cd18373f96e7f78446bda9df",
+      "bytes": 958377
+    },
+    {
+      "path": "artifacts/game001gpr5-round-3/critic/browser-full/terminal.png",
+      "sha256": "821d765abb06e89a3c297e0f215dcb019eadeb4047d6942fce1a94f1c8f5bcde",
+      "bytes": 941005
+    },
+    {
+      "path": "artifacts/game001gpr5-round-3/critic/browser-full/restart.png",
+      "sha256": "7e39ec7a15757f5290c804d1484660ebf161005cb0268eb22d652e67c4c579b9",
+      "bytes": 958269
+    }
+  ],
+  "sessionHashNote": {
+    "browserFinalSessionSha256": "b688222db5bae0177e427729c8eb8da6d1e042ae84257c33573f3b2bcf5ab6d7",
+    "preflightSessionSha256": "f425adb482132c05256fc3f2edda6035958b729e89908f676bbc5fe70d454b17",
+    "pauseEvents": 1,
+    "resumeEvents": 1,
+    "sha256AfterRemovingThoseTranscriptEvents": "f425adb482132c05256fc3f2edda6035958b729e89908f676bbc5fe70d454b17",
+    "interpretation": "The two lifecycle calls are recorded in the serialized transcript. The full-run final state digest and replayed semantic decisions match preflight; the browser and direct E2 mirrors have equal full session bytes. The harness checks both mirrors after lifecycle events but does not compare bytes across the pause/resume boundary."
+  }
+}

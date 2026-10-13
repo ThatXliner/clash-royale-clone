@@ -1,0 +1,16 @@
+Exact candidate proof:
+Archive: /tmp/game001gpr5-critic.YPrXNh
+Commit: 5ba4002e9f71830da447be1e985505c608d9c06f
+Extraction: git archive --format=tar 5ba4002e9f71830da447be1e985505c608d9c06f | tar -xf - -C /tmp/game001gpr5-critic.YPrXNh
+Blob verification: python3 artifacts/game001gpr5-round-3/critic/verify-exact-candidate.py /tmp/game001gpr5-critic.YPrXNh
+Bounded check executed in that archive:
+node --test tests/endurance-workload.test.js
+Result: exit 0, 4 passed, 0 failed; raw TAP retained as endurance-workload.exact-candidate.tap.
+
+Shared-worktree provisional run (not used as exact-candidate proof):
+node --test tests/endurance-workload.test.js
+Result: 4 passed; raw TAP retained as endurance-workload.shared-provisional.tap.
+
+Prepared full check in the exact candidate archive (not yet launched):
+env -u GAME_BROWSER_ENDURANCE_TICKS npm run test:game-browser-endurance
+Hold until root CPU-exclusive clearance and exact final preflight evidence.
