@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 428 — 2026-10-13
+
+PIECE: ART-019P — Original Kilnkeeper collection portrait, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Independent exact87da native64/128 DPR1 renders show expressiveface, tealapron andcopperlauncher/firingmouth distinguishable at64. PNG1254square andWebP512square/65626B hashes/dimensions matchprovenance; builtinimagegen prompt/license/encoding andexactlytwo original grounded lore sentences verified. No livearena/cardUI claimed. Evidence `artifacts/art019p-round-1/critic/`; archiveexternal/tmp with compactreceipt retained.
+
+BIGGEST GAP: The shipped WebP has no visualassetmanifest entry; character-creation requires its path, dimensions, bytecount, license, authorship andSHA256 registration.
+
 ## Round 427 — 2026-10-13
 
 PIECE: GAME-001GPR6 — Exact shipped presentation strict browser endurance

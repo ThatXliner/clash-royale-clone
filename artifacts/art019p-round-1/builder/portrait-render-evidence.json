@@ -1,0 +1,83 @@
+{
+  "asset_candidate": "f9654f0a257efad96a34953a9614c24281f877af",
+  "renderer": {
+    "script": "artifacts/art019p-round-1/builder/render-portrait-fixture.mjs",
+    "tool": "Playwright 1.58.2 with Google Chrome 155.0.8059.40",
+    "browser_executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "fixture_viewport_css_pixels": {
+      "width": 360,
+      "height": 220
+    },
+    "device_scale_factor": 1,
+    "fixture": "artifacts/art019p-round-1/builder/portrait-thumbnails.html"
+  },
+  "assets": {
+    "license": "AGPL-3.0-only",
+    "source_png": {
+      "path": "demo/assets/kilnkeeper-portrait.png",
+      "dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "bytes": 2659340,
+      "sha256": "f4062cfc51764726d97e3c901450ff3ae0dc8b0e25bcabd87eabc469dbf4bf4d"
+    },
+    "shipped_webp": {
+      "path": "public/assets/kilnkeeper-portrait-painted.webp",
+      "dimensions": {
+        "width": 512,
+        "height": 512
+      },
+      "bytes": 65626,
+      "sha256": "38e9f64348fa823a64755fda2496b699c88c27c7dd0a14a440e704d9093d2240"
+    }
+  },
+  "browser_decode_and_layout": {
+    "source_png": {
+      "width": 1254,
+      "height": 1254
+    },
+    "shipped_webp": {
+      "width": 512,
+      "height": 512
+    },
+    "thumb_64_css_box": {
+      "width": 64,
+      "height": 64
+    },
+    "thumb_128_css_box": {
+      "width": 128,
+      "height": 128
+    }
+  },
+  "visual_inspection": "At native 64 px, the badger face, teal apron, copper launcher, and bright firing mouth remain distinguishable; the 128 px portrait preserves those forms and more workshop detail.",
+  "screenshots": {
+    "portrait-64px.png": {
+      "path": "artifacts/art019p-round-1/builder/portrait-64px.png",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      },
+      "bytes": 10134,
+      "sha256": "f4ac6bf52e02797122ed7d5157c5903e185c3cf3ec76093b287cff9da440d619"
+    },
+    "portrait-128px.png": {
+      "path": "artifacts/art019p-round-1/builder/portrait-128px.png",
+      "dimensions": {
+        "width": 128,
+        "height": 128
+      },
+      "bytes": 38337,
+      "sha256": "032cbbbd0160d504d1bf7ce39ad116ab2f19cd17de727174a4539689a6d5636f"
+    },
+    "portrait-thumbnails-fixture.png": {
+      "path": "artifacts/art019p-round-1/builder/portrait-thumbnails-fixture.png",
+      "dimensions": {
+        "width": 360,
+        "height": 220
+      },
+      "bytes": 52945,
+      "sha256": "a947fb0e6f22347c4c5c7bd7a94d1106b7a983103aab8cd09562681237b3c623"
+    }
+  }
+}

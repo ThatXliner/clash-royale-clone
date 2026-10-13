@@ -1,0 +1,195 @@
+{
+  "review": {
+    "candidate_commit": "87da6fd4848c697fc298c2581cb7671a0a053515",
+    "candidate_parent": "f9654f0a257efad96a34953a9614c24281f877af",
+    "candidate_base": "cae439f7d860acf5f9994ed942568eb1d2d4cbf8",
+    "worktree_head_at_review": "a6e9d15b65a232c07a5b166a34be161cd482b061",
+    "candidate_files_match_committed_blobs": {
+      "artifacts/art019p-round-1/builder/kilnkeeper-concept.md": true,
+      "artifacts/art019p-round-1/builder/portrait-thumbnails.html": true,
+      "artifacts/art019p-round-1/builder/render-portrait-fixture.mjs": true,
+      "demo/assets/kilnkeeper-portrait.png": true,
+      "docs/art/kilnkeeper-portrait-provenance.json": true,
+      "public/assets/kilnkeeper-portrait-painted.webp": true
+    },
+    "result": "FAIL",
+    "biggest_gap": "The new public WebP has no record in src/content/visual-asset-manifest.js; the character-creation guidance requires its path, dimensions, byte length, license, authorship, and SHA-256 there.",
+    "candidate_git_source_hash_receipt": {
+      "artifacts/art019p-round-1/builder/kilnkeeper-concept.md": {
+        "commit_blob": "d3d37d46a2d232db1591452abc15e2297221f0a7",
+        "worktree_blob": "d3d37d46a2d232db1591452abc15e2297221f0a7",
+        "match": true
+      },
+      "artifacts/art019p-round-1/builder/portrait-thumbnails.html": {
+        "commit_blob": "c5ceb0ac56d193a25b3768a4f98ec2d52b42dae3",
+        "worktree_blob": "c5ceb0ac56d193a25b3768a4f98ec2d52b42dae3",
+        "match": true
+      },
+      "artifacts/art019p-round-1/builder/render-portrait-fixture.mjs": {
+        "commit_blob": "43e15f1d397642017e05680cd842e89dfd795065",
+        "worktree_blob": "43e15f1d397642017e05680cd842e89dfd795065",
+        "match": true
+      },
+      "demo/assets/kilnkeeper-portrait.png": {
+        "commit_blob": "1d806a7ad72e2c2cf23461796fc40289c17d8a47",
+        "worktree_blob": "1d806a7ad72e2c2cf23461796fc40289c17d8a47",
+        "match": true
+      },
+      "docs/art/kilnkeeper-portrait-provenance.json": {
+        "commit_blob": "c336ccb0ae0afb0be20e99951a7f3fe26baaa5ad",
+        "worktree_blob": "c336ccb0ae0afb0be20e99951a7f3fe26baaa5ad",
+        "match": true
+      },
+      "public/assets/kilnkeeper-portrait-painted.webp": {
+        "commit_blob": "e354ef81419440d10a376c9d711457bc375ab1f1",
+        "worktree_blob": "e354ef81419440d10a376c9d711457bc375ab1f1",
+        "match": true
+      }
+    },
+    "external_review_archive": {
+      "path": "/tmp/kilnkeeper-candidate-87da.tar.gz",
+      "bytes": 2792425,
+      "sha256": "8d4b4d17a68b037a09dd8ba754c78cb907c39b9044084a400f34e91913b86471",
+      "stored_outside_repository": true,
+      "members": [
+        "artifacts/art019p-round-1/builder/kilnkeeper-concept.md",
+        "artifacts/art019p-round-1/builder/portrait-64px.png",
+        "artifacts/art019p-round-1/builder/portrait-128px.png",
+        "artifacts/art019p-round-1/builder/portrait-render-evidence.json",
+        "artifacts/art019p-round-1/builder/portrait-thumbnails-fixture.png",
+        "artifacts/art019p-round-1/builder/portrait-thumbnails.html",
+        "artifacts/art019p-round-1/builder/render-portrait-fixture.mjs",
+        "demo/assets/kilnkeeper-portrait.png",
+        "docs/art/kilnkeeper-portrait-provenance.json",
+        "public/assets/kilnkeeper-portrait-painted.webp"
+      ]
+    }
+  },
+  "assets": {
+    "license": "AGPL-3.0-only",
+    "authorship": "in-repo-authored",
+    "generation_tool": "built-in imagegen",
+    "generation_mode": "built-in default image generation",
+    "generation_settings": {
+      "transparent_background": false,
+      "input_images": []
+    },
+    "source_png": {
+      "path": "demo/assets/kilnkeeper-portrait.png",
+      "dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "bytes": 2659340,
+      "sha256": "f4062cfc51764726d97e3c901450ff3ae0dc8b0e25bcabd87eabc469dbf4bf4d"
+    },
+    "shipped_webp": {
+      "path": "public/assets/kilnkeeper-portrait-painted.webp",
+      "dimensions": {
+        "width": 512,
+        "height": 512
+      },
+      "bytes": 65626,
+      "sha256": "38e9f64348fa823a64755fda2496b699c88c27c7dd0a14a440e704d9093d2240"
+    },
+    "provenance_record_path": "docs/art/kilnkeeper-portrait-provenance.json",
+    "provenance_source_sha256_matches": true,
+    "provenance_output_sha256_matches": true,
+    "prompt": "Use case: stylized-concept\nAsset type: square standalone card portrait for an original woodland real-time card battler\nPrimary request: Create polished portrait art for Kilnkeeper, a stout woodland badger kiln-worker and ground ranged single-shot emberseed splash caster.\nScene/backdrop: A warm copper-and-rootwood river workshop, softly blurred behind the character, with a hint of flowing water and a kiln glow.\nSubject: A stout, friendly but focused anthropomorphic badger artisan, wearing a practical teal work apron with a few simple repair patches. He holds an original compact copper-and-rootwood emberseed launcher/tool, with an oversized clearly visible bright circular firing mouth and a single glowing emberseed ready to fire. The tool should read as a crafted workshop launcher, not a firearm from any known franchise.\nStyle/medium: Saturated, polished stylized game illustration with confident painterly forms, crisp contours, expressive face, rich material detail, premium hand-painted card art.\nComposition/framing: Square portrait, chest-up, character and launcher filling most of frame, strong readable silhouette, face and large firing mouth both fully visible and separated, centered and legible when reduced to 64 pixels. No crop through the face, ears, tool mouth, or emberseed.\nLighting/mood: Warm kiln and ember light against cool teal apron accents; inviting, capable, energetic.\nColor palette: Warm copper, glowing amber, rootwood brown, teal, moss green, cream and charcoal badger markings.\nMaterials/textures: Brushed copper, dark polished rootwood, thick woven apron, soft fur, small glowing emberseed.\nConstraints: Entirely original character design and art. Make the face distinctive and engaging. Bright firing mouth must be large and readable at thumbnail size. No text, letters, numbers, logos, watermark, UI, border, card frame, or additional characters.\nAvoid: Any copied game character, card-game art, trademarked design, existing franchise cues, weapons that look like a pistol or rifle, cluttered backdrop, photorealism.",
+    "input_images": [],
+    "raw_metadata_path": "artifacts/art019p-round-1/critic/asset-raw-metadata.txt"
+  },
+  "lore": {
+    "path": "artifacts/art019p-round-1/builder/kilnkeeper-concept.md",
+    "sentence_count": 2,
+    "sentences": [
+      "Kilnkeeper tends the warm river kilns where rootwood beams are steamed and copper vessels are shaped, keeping each emberseed dry between shifts.",
+      "When raiders threaten the workshop, he loads one emberseed into his broad-mouthed launcher and sends a single burst of sparks skittering across the ground."
+    ],
+    "grounding": [
+      "river kilns",
+      "rootwood",
+      "copper",
+      "emberseed",
+      "raiders threatening the workshop"
+    ]
+  },
+  "fresh_render": {
+    "method": "Prepared Playwright fixture rerun by the critic against the committed source PNG and shipped WebP.",
+    "run_metadata_path": "artifacts/art019p-round-1/critic/portrait-fixture-run.json",
+    "decoded_assets": {
+      "source": {
+        "width": 1254,
+        "height": 1254
+      },
+      "shipped": {
+        "width": 512,
+        "height": 512
+      }
+    },
+    "native_css_geometry": {
+      "thumb-64": {
+        "loaded": true,
+        "naturalWidth": 512,
+        "naturalHeight": 512,
+        "width": 64,
+        "height": 64
+      },
+      "thumb-128": {
+        "loaded": true,
+        "naturalWidth": 512,
+        "naturalHeight": 512,
+        "width": 128,
+        "height": 128
+      }
+    },
+    "screenshots": {
+      "portrait-thumbnails-fixture.png": {
+        "path": "artifacts/art019p-round-1/critic/portrait-thumbnails-fixture.png",
+        "dimensions": {
+          "width": 360,
+          "height": 220
+        },
+        "bytes": 52945,
+        "sha256": "a947fb0e6f22347c4c5c7bd7a94d1106b7a983103aab8cd09562681237b3c623"
+      },
+      "portrait-64px.png": {
+        "path": "artifacts/art019p-round-1/critic/portrait-64px.png",
+        "dimensions": {
+          "width": 64,
+          "height": 64
+        },
+        "bytes": 10134,
+        "sha256": "f4ac6bf52e02797122ed7d5157c5903e185c3cf3ec76093b287cff9da440d619"
+      },
+      "portrait-128px.png": {
+        "path": "artifacts/art019p-round-1/critic/portrait-128px.png",
+        "dimensions": {
+          "width": 128,
+          "height": 128
+        },
+        "bytes": 38337,
+        "sha256": "032cbbbd0160d504d1bf7ce39ad116ab2f19cd17de727174a4539689a6d5636f"
+      }
+    },
+    "visual_assessment": "At 64 px, the badger face, teal apron mass, copper launcher, and circular glowing firing mouth remain distinct. At 128 px, the face and workshop detail hold up clearly. No text, logo, watermark, border, or copied franchise cue was observed."
+  },
+  "scope": {
+    "assets_only": true,
+    "live_arena_or_card_ui_integration_claimed": false,
+    "visual_asset_manifest_path": "src/content/visual-asset-manifest.js",
+    "visual_asset_manifest_entry_present": false,
+    "required_manifest_fields": [
+      "path",
+      "dimensions",
+      "byteLength",
+      "license",
+      "authorship",
+      "sha256"
+    ],
+    "reference_footage_files": [
+      "reference/footage/NEEDED.md"
+    ],
+    "reference_parity_claimed": false
+  }
+}
