@@ -1,5 +1,17 @@
 # Gauntlet Rounds
 
+## Round 417 — 2026-10-13
+
+PIECE: CARDS-017T — Remaining source-backed playable squad intervals, round 2
+
+VERDICT: PASS
+
+EVIDENCE: Independent frozen6c7 critic4a96c2f executed fullintegrationaudit6/6 in406651ms with two actual equal run hashes009ed7e778379a105792dcf32d8ff37bd72bf13c42c442bae28d48f3d7f144fc; focused45/45, determinism10/10, shipping13/13, total74/74. Independently generated exact3 changed squad bindings and63unchanged;66claimedoccurrenceartifacts61IDs distinguishedfrom60admitted55IDs; published42claim+5QUESTIONselectors unchanged47union. Runtime/browserfiles byte-identical toc981 validate priortrustedphone/desktop1..6birthwitness hashes. Actual receipts/TAP/hashchecks in `artifacts/cards017-stagger-round-2/critic/`. Round1 failures preserved.
+
+BIGGEST GAP: Changed default Briar physics requires fresh18000 browser endurance; historical geometry, memberorder and first-onset remain QUESTION.
+
+DISPOSITION: Accept relative sourced intervals and repaired exact fixture closure. Start separate GAME-001GPR5 fullendurance with unchanged caps and all continuation gates; no fullhistoricalparity claim.
+
 ## Round 416 — 2026-10-13
 
 PIECE: PUB-004 — Published-state verification documentation, round 2
