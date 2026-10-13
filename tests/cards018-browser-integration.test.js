@@ -248,11 +248,11 @@ test("Cards018 Ember Basin: editable collection enters real mixed battle and res
     await arenaLocator.waitFor({ state: "visible", timeout: 10_000 });
     const frame = page.frames().find((candidate) => candidate.url().includes("app-frame=1"));
     assert.ok(frame, "the app mounted its released battle frame");
-    await waitForCustomDeck(frame, moduleUrl, deckIds);
     await frame.evaluate(async (entryUrl) => {
       const { arenaHudController } = await import(entryUrl);
       arenaHudController.enterManualStepMode();
     }, moduleUrl);
+    await waitForCustomDeck(frame, moduleUrl, deckIds);
     const actualSetup = await frame.evaluate(async (entryUrl) => {
       const { arenaHudController } = await import(entryUrl);
       return JSON.parse(arenaHudController.session.serialize()).setup;
@@ -423,6 +423,8 @@ test("Cards018 Ember Basin: editable collection enters real mixed battle and res
         controller.stepMany(1);
         steps += 1;
       }
+      const liveStructure = controller.session.state.battle.structures.find(({ id }) =>
+        id === structureId);
       const attacks = controller.session.replay.filter(({ buildingId, type }) =>
         buildingId === structureId && type === "structure-attack");
       const checkpoint = controller.serialize();
@@ -430,8 +432,9 @@ test("Cards018 Ember Basin: editable collection enters real mixed battle and res
       const pending = controller.session.state.battle.pendingBuildingHits;
       return { attacks, checkpoint, pending, sessionBytes, structure: {
         id: structureId,
-        alive: structure.alive, hitpoints: structure.hitpoints,
-        targetKey: structure.targetKey,
+        alive: liveStructure?.alive ?? false,
+        hitpoints: liveStructure?.hitpoints ?? 0,
+        targetKey: liveStructure?.targetKey ?? null,
       } };
     }, moduleUrl);
     assert.deepEqual(secondAttack.attacks.map(({ tick }) => tick),
