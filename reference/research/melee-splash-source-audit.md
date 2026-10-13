@@ -38,6 +38,19 @@ Supercell's [3 July 2019 Season 1 balance note](https://supercell.com/en/games/c
 
 Supercell's [4 February 2023 balance note](https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-february-2023-2/) is dated before the cutoff and compares Knight usage with Valkyrie, but does not report Valkyrie radius, target layers, or splash resolution. It adds no corroboration for those mechanics. The pinned RoyaleAPI description is qualitative: “Tough melee fighter, deals area damage around her. Swarm or horde, no problem!” Treat this as a dated description carried by the snapshot, not as an exact collision specification.
 
+### Chronological primary-source check
+
+I checked Supercell-published notes for the interval after the July 2019 change through the 2023-02-18 pinned snapshot. The checked pages do not provide a dated 2.4-to-2.0 correction or define Valkyrie's hit geometry:
+
+- [1 August 2019 game update](https://supercell.com/en/games/clashroyale/blog/release-notes/game-update-1st-august-2/): the published list describes Pass Royale, Trophy Road, UI, and performance fixes; it does not mention a Valkyrie radius change.
+- [2 September 2019 Season 3 changes](https://supercell.com/en/games/clashroyale/blog/release-notes/season-3/): lists radius changes for Royal Ghost and Dark Prince, but no Valkyrie radius correction.
+- [4 November 2019 Season 5 changes](https://supercell.com/en/games/clashroyale/blog/news/season-5-balance-changes-2/): lists area-radius changes for Wall Breakers and other named cards, but no Valkyrie radius correction.
+- [4 August 2020 Season 14 changes](https://supercell.com/en/games/clashroyale/blog/release-notes/season-14-balance-changes/) and [6 September 2021 changes](https://supercell.com/en/games/clashroyale/blog/release-notes/summer-update-balance-changes-1-2/): their published change lists do not give a Valkyrie radius correction.
+- [4 April 2022 changes](https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/): the listed base Valkyrie change is hitpoints `-4%`, with no radius change stated.
+- [7 December 2022 changes](https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-2/) and [4 February 2023 changes](https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-february-2023-2/): neither reports a base Valkyrie radius change; the February note only names her as a Knight comparison.
+
+These are the specific publisher notes checked, not proof that no undocumented, in-client, or otherwise unindexed change occurred. Their silence cannot resolve the disagreement between the July 2019 official value and the February 2023 raw row. Keep that gap open; the source-confidence flags and candidate numeric values are unchanged.
+
 ## Fact, inference, and open questions
 
 | Topic | Supported fact | Limit |
@@ -53,6 +66,6 @@ Supercell's [4 February 2023 balance note](https://supercell.com/en/games/clashr
 
 ## Smallest source-supported test axis
 
-The first shared-runtime test can verify **qualitative clustered ground splash and determinism**, not exact parity: configure one attack to resolve on a primary ground target and place a second ground unit almost on top of that primary. This keeps the secondary inside both radius candidates under either a self-centered or target-centered interpretation. Assert that the nearby unit receives some area damage and that replay/snapshot continuation gives the same result. Keep this a presence-and-repeatability assertion. Do not assert equal secondary damage, a 2.0/2.4 boundary, air splash, tower splash, source-versus-target-centered geometry, or the game's per-target ordering from this evidence. A separate fact audit or direct controlled gameplay capture is needed before those become source-parity assertions.
+The first shared-runtime test can verify **qualitative clustered ground splash and determinism**, not exact parity: configure one attack to resolve on a primary ground target placed within 0.5 tile of the attacker, then place a second ground unit almost on top of the primary. This puts the secondary inside both radius candidates whether the effect is centered on the attacker or the selected target. Assert only that the nearby unit receives some area damage and that replay/snapshot continuation gives the same result. This verifies the clustered-area path, not exact target selection or geometry. Do not assert equal secondary damage, a 2.0/2.4 boundary, air splash, tower splash, source-versus-target-centered geometry, or the game's per-target ordering from this evidence. A separate fact audit or direct controlled gameplay capture is needed before those become source-parity assertions.
 
 This supports an original ground melee-splash card concept and a deterministic mechanics slice. Valkyrie and all raw names/data remain reference-only; this audit makes no product asset, identity, or lore claim.
