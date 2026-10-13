@@ -1,5 +1,17 @@
 # Gauntlet Rounds
 
+## Round 409 — 2026-10-13
+
+PIECE: ART-016 — Original light and projectile air-swarm portraits, round 1
+
+VERDICT: PASS
+
+EVIDENCE: Independent clean6ec critic30725fc renders both original portraits in collection/detail at390x844 and1440x933. Matching portrait, original two-sentence lore, seven stat cells, visible phone navigation/Cards control and no horizontal overflow pass. Exact desktop detail captures include the collection beside the selected card. Screenshot hashes and verdict under `artifacts/cards016-integration-round-1/critic/`, retained on currentbranch e703827.
+
+BIGGEST GAP: None for original artwork display; separate CARDS016I browser deployment coverage remains incomplete.
+
+DISPOSITION: Accept art screen gate only. No historical footage parity or complete roster claim; candidate remains undeployed until gameplay integration passes.
+
 ## Round 408 — 2026-10-13
 
 PIECE: CARDS-016I — Two air-swarm choices in player and RL decks, round 1
