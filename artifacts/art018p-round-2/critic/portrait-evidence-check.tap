@@ -1,0 +1,14 @@
+TAP version 13
+1..7
+ok 1 - candidate is the requested exact commit
+ok 2 - candidate asset-stage scope is exactly the nine declared files
+ok 3 - v1 edit input remains byte-identical to its recorded SHA-256
+ok 4 - v2 source provenance has exact hash, byte count, square dimensions, prompt, tool and license
+ok 5 - optimized v2 output is byte/hash documented, square 512px and under 1 MiB
+ok 6 - lore has exactly two concrete original sentences
+ok 7 - fresh browser captures are native-size PNGs
+# source 2717595 bytes sha256=3429f3eb00374226c7779857816c8e0fec15711cc89f670fb12322aa5afe7490 dimensions={"width":1254,"height":1254}
+# output 74608 bytes sha256=fbeb95f34410348c34bf68892deb25b7df387783c7d88819ee7a7b37038c87a3 webp dimensions={"width":512,"height":512}
+# v1 input 2743443 bytes sha256=15656baececa9314f1f9ed8b7d2a9539c54acf90e9c53ec1bad8edad14d60926
+# render64 10009 bytes sha256=f3a4b815790cdded6a8539cc7df887703e5be2692b269a022b0be872732479ea dimensions={"width":64,"height":64}
+# render128 38516 bytes sha256=51677eea620555e0c0412daea88a1c081395aa0e8157e21f8073b451580fb712 dimensions={"width":128,"height":128}

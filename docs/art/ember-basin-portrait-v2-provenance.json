@@ -1,0 +1,55 @@
+{
+  "license": "AGPL-3.0-only",
+  "authorship": "in-repo-authored",
+  "generation_tool": "built-in imagegen",
+  "generation_mode": "built-in image edit",
+  "encoding_tool": "cwebp 1.6.0",
+  "input_images": [
+    {
+      "asset": "demo/assets/ember-basin-portrait.png",
+      "role": "edit target and original style reference",
+      "sha256": "15656baececa9314f1f9ed8b7d2a9539c54acf90e9c53ec1bad8edad14d60926",
+      "bytes": 2743443,
+      "dimensions": {
+        "width": 1254,
+        "height": 1254
+      }
+    }
+  ],
+  "assets": [
+    {
+      "asset": "public/assets/ember-basin-portrait-painted-v2.webp",
+      "source_png": "demo/assets/ember-basin-portrait-v2.png",
+      "source_sha256": "3429f3eb00374226c7779857816c8e0fec15711cc89f670fb12322aa5afe7490",
+      "source_bytes": 2717595,
+      "source_dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "sha256": "fbeb95f34410348c34bf68892deb25b7df387783c7d88819ee7a7b37038c87a3",
+      "bytes": 74608,
+      "dimensions": {
+        "width": 512,
+        "height": 512
+      },
+      "encoding": [
+        "-q",
+        "85",
+        "-m",
+        "6",
+        "-mt",
+        "-resize",
+        "512",
+        "512"
+      ],
+      "prompt": "Use case: stylized-concept\nAsset type: square original card portrait edit for an unoccupied woodland defensive structure\nInput images: Image 1 is the existing original Ember Basin portrait and is the edit target plus style reference. Preserve its warm painterly finish, aged-copper and riverwood materials, rooted stone footing, soft river-workshop setting, square crop, and original identity while making its fixed launching hardware unmistakable at tiny thumbnail size.\nPrimary request: Refine the Ember Basin into a clear stationary splash-defense launcher. The current small rear projection reads like a backboard at 64 px, so replace it with a much larger, dominant, clearly mechanical firing channel and loading assembly.\nScene/backdrop: Keep the same quiet, softly blurred forest riverbank and timber workshop atmosphere behind the structure, with cool river greens and warm forge light. Leave the mechanism separated from the background by strong light-dark contrast.\nSubject: One centered, planted copper-and-rootwood basin launcher, visibly engineered and entirely unoccupied. Keep its broad open copper bowl as the lower central body, but reduce the bowl slightly so it no longer dominates. Nestle one small amber emberseed low in the bowl. From the back-right rim, build a large fixed upswept U-shaped launch trough with an open dark-wood channel, thick raised copper rails, a wide flared mouth, and a clearly visible oversized side pivot axle. Make the trough and pivot together occupy roughly the upper third of the portrait and give them a bold, instantly legible silhouette at 64 px. Add two heavy diagonal copper-braced struts beneath the trough that visibly connect its pivot to the grounded basin frame; make the structure read as a mechanism, not as a wooden board behind a pot. Keep stout rootwood legs, broad copper fastening bands, and small slate footings anchoring it to stone.\nStyle/medium: Preserve the original hand-painted 2.5D game-art look: dimensional softly sculpted forms, controlled painterly brushwork, tactile matte copper, dark riverwood, moss, and stone. Simplify tiny surface details in favor of large mechanical shapes with clear edges.\nComposition/framing: Same close square three-quarter portrait, slightly above eye level. Show the whole planted structure, bowl lip, pivot, long launch channel and flared outlet without cropping; leave a safe margin around the silhouette. The launcher must remain recognizable as a defensive structure when the full portrait is reduced to exactly 64 by 64 pixels.\nLighting/mood: Warm copper forge highlights and restrained amber seed glow against cool woodland shade; sturdy, crafted, watchful.\nColor palette: Keep aged copper, deep riverwood, moss green, slate stone, amber and river blue from the original.\nMaterials/textures: Hammered copper bowl and thick launch-channel rails, dark open wooden channel, large round axle, broad copper braces, carved root supports, quiet moss at stone footings. Use readable value blocks; keep fine hammered texture secondary.\nText (verbatim): None.\nConstraints: Preserve the original basin identity and woodland-river workshop art direction. One launcher structure only. The fixed firing channel, pivot axle and bracing must be more prominent than the emberseed and must read as functional hardware at thumbnail size. No crop, no overlays.\nAvoid: Cauldron or brazier reading, tiny rear tab or backboard, narrow invisible chute, bowl-only silhouette, humanoid or animal forms, face-like openings, eyes, hands or limbs, a person holding a weapon, bombs, bomb-shaped projectiles, a generic tall tower, a copied commercial game structure or recognizable silhouette, explosion, fireball, flame plume, excessive sparks, photorealism, glossy plastic, flat vector art, text, labels, numbers, logos, UI, card frame, border, watermark.",
+      "generation_output": "/Users/me/.codex/generated_images/01a13730-d3b6-7991-a6bc-47fbddf02af1/exec-0c2dd538-d1cf-4f1d-9fad-09822537541b.png",
+      "visual_fixture": "artifacts/art018p-round-2/builder/portrait-thumbnails.html",
+      "thumbnail_screenshots": [
+        "artifacts/art018p-round-2/builder/portrait-64px.png",
+        "artifacts/art018p-round-2/builder/portrait-128px.png",
+        "artifacts/art018p-round-2/builder/portrait-thumbnails-fixture.png"
+      ]
+    }
+  ]
+}

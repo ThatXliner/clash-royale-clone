@@ -1,0 +1,9 @@
+Requested candidate: a3ebdb1d41e8a6527b2d50a9928a883b429a5ba0
+Candidate parent: a142ec83a2008905c471b5496b42f6dc24d11c5e
+Exact review checkout: /private/tmp/art018p-round-2-critic-a3eb
+Checkout method: detached clean Git worktree at the requested candidate commit
+Candidate tree status before fixture execution: clean
+Builder fixture command: GAME_BROWSER_PLAYWRIGHT=/Users/me/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/index.mjs node artifacts/art018p-round-2/builder/render-portrait-fixture.mjs
+Browser: /Applications/Google Chrome.app/Contents/MacOS/Google Chrome, launched headless by the fixture
+The fixture generated native-size 64x64, 128x128 and 360x220 PNG captures; rerunning it left the checked-in builder captures byte-identical.
+Initial bare command `node artifacts/art018p-round-2/builder/render-portrait-fixture.mjs` exited 1 because this clean worktree has no local `playwright` package. The same fixture then completed successfully with `GAME_BROWSER_PLAYWRIGHT` pointed at the desktop-bundled Playwright module; no project files or dependencies were installed.
