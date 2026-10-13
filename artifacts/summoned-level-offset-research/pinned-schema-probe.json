@@ -1,0 +1,189 @@
+{
+  "checkedFiles": {
+    "README.md": {
+      "bytes": 140,
+      "sha256": "4870391371b80e0473a5785ce064d60346c959e35a516f26a555c1333ce4b255"
+    },
+    "docs/index.html": {
+      "bytes": 2838,
+      "sha256": "174f4d2e722eaabd97511eda4c65ad79b20af659d1aec4309b7ae4cc17a2e3ce"
+    },
+    "docs/json/cards_stats_building.json": {
+      "bytes": 643658,
+      "sha256": "b2f1ecc5561eaba96c8e03c7d3a180cc03e792175403a7393841568842f4b653"
+    },
+    "docs/json/cards_stats_character_buff.json": {
+      "bytes": 75549,
+      "sha256": "20da44c09a3e51c06b97291530f6b8fee909c57d2b5c7a7c64adf1721e0999f0"
+    },
+    "docs/json/cards_stats_characters.json": {
+      "bytes": 1156641,
+      "sha256": "37734d1508584e43851395c01b2d10046667eb6dc27daef37e5df56e74f933ac"
+    },
+    "docs/json/cards_stats_projectile.json": {
+      "bytes": 137874,
+      "sha256": "c883516f54f6c17ee77c15cf484b01da9ded22602214c3b0d42b1ab823bd3197"
+    },
+    "docs/json/cards_stats_spell.json": {
+      "bytes": 216318,
+      "sha256": "2bc968eeb9e36e9ddb281bf291f7265d0e7bfefa99bc0589eeba5195c229a690"
+    },
+    "docs/json/cards_stats_troop.json": {
+      "bytes": 261572,
+      "sha256": "a6e044cb510ec280dacfd54e546558276e5f40d50fbd16f47f3ff16126add33a"
+    },
+    "docs/json/rarities.json": {
+      "bytes": 17007,
+      "sha256": "04dfc711292d1edb87779634868959496e9ac0bda1398a437e70b7afeabbd10d"
+    }
+  },
+  "documentation": {
+    "README.md": {
+      "bytes": 140,
+      "levelIndexTermHits": {
+        "projectile_level_index": false,
+        "spawn_character_level_index": false,
+        "summon_character_level_index": false
+      },
+      "sha256": "4870391371b80e0473a5785ce064d60346c959e35a516f26a555c1333ce4b255"
+    },
+    "docs/index.html": {
+      "bytes": 2838,
+      "levelIndexTermHits": {
+        "projectile_level_index": false,
+        "spawn_character_level_index": false,
+        "summon_character_level_index": false
+      },
+      "sha256": "174f4d2e722eaabd97511eda4c65ad79b20af659d1aec4309b7ae4cc17a2e3ce"
+    }
+  },
+  "levelIndexFieldKeyCountsAcrossPinnedStatsJson": {
+    "projectile_level_index": 0,
+    "spawn_character_level_index": 229,
+    "summon_character_level_index": 117
+  },
+  "linkedProjectileExample": {
+    "character": {
+      "name": "Witch",
+      "projectile": "WitchProjectile",
+      "rarity": "Epic"
+    },
+    "interpretation": "raw linkage and row rarity only; no consumer rule established",
+    "projectile": {
+      "damageArrayLength": 14,
+      "name": "WitchProjectile",
+      "rarity": "Epic",
+      "separateProjectileLevelIndexFieldPresent": false
+    }
+  },
+  "primaryOfficialNotes": [
+    {
+      "excerpt": "We've now moved the cap to level 11.",
+      "published": "2021-10-25",
+      "relevance": "Confirms the tournament cap; does not define spawn-index arithmetic.",
+      "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/champions-update-article/"
+    },
+    {
+      "excerpt": "one-shot equally leveled Skeletons.",
+      "published": "2017-02-13",
+      "relevance": "Describes an equally leveled Skeleton interaction; does not define exported index fields.",
+      "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-coming-1/"
+    }
+  ],
+  "sameTreeArithmeticConsistencyCases": [
+    {
+      "candidateIndexByAddition": 10,
+      "child": "Skeleton",
+      "childRarity": "Common",
+      "childValueAtCandidate": {
+        "damage": 81,
+        "hitpoints": 81,
+        "index": 10
+      },
+      "parentTournamentLevelIndex": 5,
+      "rarity": "Epic",
+      "source": "Witch",
+      "spawn_character": "Skeleton",
+      "spawn_character_level_index": 5
+    },
+    {
+      "candidateIndexByAddition": 10,
+      "child": "Skeleton",
+      "childRarity": "Common",
+      "childValueAtCandidate": {
+        "damage": 81,
+        "hitpoints": 81,
+        "index": 10
+      },
+      "parentTournamentLevelIndex": 8,
+      "rarity": "Rare",
+      "source": "Tombstone",
+      "spawn_character": "Skeleton",
+      "spawn_character_level_index": 2
+    },
+    {
+      "candidateIndexByAddition": 10,
+      "child": "SkeletonKingSkeleton",
+      "childRarity": "Common",
+      "childValueAtCandidate": {
+        "damage": 81,
+        "hitpoints": 81,
+        "index": 10
+      },
+      "parentTournamentLevelIndex": 0,
+      "rarity": "Champion",
+      "source": "SkeletonKingGraveyard",
+      "spawn_character": "SkeletonKingSkeleton",
+      "spawn_character_level_index": 10
+    }
+  ],
+  "skeletonArmy": {
+    "candidateChildIndexByAddition": 10,
+    "card": {
+      "name": "SkeletonArmy",
+      "rarity": "Epic",
+      "summon_character": "Skeleton",
+      "summon_character_level_index": 5,
+      "summon_number": 15
+    },
+    "child": {
+      "name": "Skeleton",
+      "rarity": "Common"
+    },
+    "childArrayValues": [
+      {
+        "damage": 51,
+        "hitpoints": 51,
+        "index": 5
+      },
+      {
+        "damage": 81,
+        "hitpoints": 81,
+        "index": 10
+      }
+    ],
+    "interpretation": "data arithmetic only; not proof of field semantics",
+    "parentTournamentLevelIndexFromRarityRow": 5
+  },
+  "source": {
+    "codeOrSchemaPathCandidates": [],
+    "commit": "54fdef52c5086393b085f57faeeab8ef86b28160",
+    "committerDate": "2023-02-18T11:25:16Z",
+    "nonJsonPaths": [
+      ".gitignore",
+      "README.md",
+      "docs",
+      "docs/.nojekyll",
+      "docs/css",
+      "docs/css/index.css",
+      "docs/css/index.css.map",
+      "docs/css/index.scss",
+      "docs/index.html",
+      "docs/json"
+    ],
+    "pathCount": 43,
+    "recursiveTreeTruncated": false,
+    "repository": "RoyaleAPI/cr-api-data",
+    "treeSha": "e2b69f928c4de4b7cad3e1041aacbff8063bf732"
+  }
+}
