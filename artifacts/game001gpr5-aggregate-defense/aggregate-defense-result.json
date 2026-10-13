@@ -1,0 +1,3621 @@
+{
+  "scope": "Offline deterministic seed-zero full-workload calibration; state-aware aggregate-risk candidate, not a runtime or engine change.",
+  "policy": {
+    "sourceSetup": "exact seed-zero default-eight setup",
+    "baseline": "frozen GH planner at each 300-tick decision boundary",
+    "reactionIntervalTicks": 15,
+    "emergency": "during overtime with one South lane remaining and a live North tower-targeter, evaluate affordable single-body air cards at legal own-side points where actual current target acquisition selects that tower-targeter and attack range already reaches it; rank by estimated aggregate incoming damage from current air-capable enemies and tower-approaching air-capable units through estimated removal time, then urgency and kill time; replace a coincident baseline command",
+    "emergencyCooldownTicks": 300,
+    "estimateLimits": [
+      "aggregate attack risk uses current unit profiles and straight-line approach to the defended lane for soon approachers",
+      "predicted counter kill assumes the acquired target remains available and does not model future retargeting",
+      "body radii and deployment geometry retain their existing confidence limits"
+    ],
+    "unchanged": [
+      "seed 0",
+      "default eight-card deck",
+      "north AI",
+      "tower stats",
+      "simulation rules",
+      "18,000-tick requirement"
+    ]
+  },
+  "setup": {
+    "bytes": 39641,
+    "sha256": "306bb30da40ce7c43d6cccce8728449da90fc0e9ca7d13c81f0116ba710aec8c"
+  },
+  "outcome": {
+    "tick": 18000,
+    "terminal": true,
+    "clock": {
+      "crowns": {
+        "north": 1,
+        "south": 2
+      },
+      "destroyedTowerIds": [
+        "north:lane:left",
+        "north:lane:right",
+        "south:lane:left"
+      ],
+      "phase": "ended",
+      "result": {
+        "crowns": {
+          "north": 1,
+          "south": 2
+        },
+        "endedAtTick": 18000,
+        "kind": "win",
+        "reason": "tiebreak_lowest_hp",
+        "winner": "south"
+      },
+      "tick": 18000,
+      "towers": [
+        {
+          "hitpoints": 1182,
+          "id": "north:central"
+        },
+        {
+          "hitpoints": 0,
+          "id": "north:lane:left"
+        },
+        {
+          "hitpoints": 0,
+          "id": "north:lane:right"
+        },
+        {
+          "hitpoints": 4824,
+          "id": "south:central"
+        },
+        {
+          "hitpoints": 0,
+          "id": "south:lane:left"
+        },
+        {
+          "hitpoints": 289,
+          "id": "south:lane:right"
+        }
+      ]
+    },
+    "requiredTick": 18000,
+    "requiredTickReached": true,
+    "towers": [
+      {
+        "hitpoints": 4824,
+        "id": "south:central"
+      },
+      {
+        "hitpoints": 0,
+        "id": "south:lane:west"
+      },
+      {
+        "hitpoints": 289,
+        "id": "south:lane:east"
+      },
+      {
+        "hitpoints": 1182,
+        "id": "north:central"
+      },
+      {
+        "hitpoints": 0,
+        "id": "north:lane:west"
+      },
+      {
+        "hitpoints": 177,
+        "id": "north:lane:east"
+      }
+    ],
+    "activeUnits": {
+      "north": 7,
+      "south": 1,
+      "totalCreated": {
+        "north": 182,
+        "south": 85
+      }
+    },
+    "towerContacts": {
+      "total": 88,
+      "againstNorth": 49,
+      "againstSouth": 39
+    },
+    "deployments": {
+      "north": 77,
+      "south": 40,
+      "acceptedSouthCommands": 40
+    },
+    "opportunities": {
+      "total": 1200,
+      "baseline": 34,
+      "overtime": 480,
+      "emergency": 6,
+      "oneLaneLeft": 480,
+      "targeted": 130,
+      "inRange": 0,
+      "lethalDeadline": 0,
+      "feasibleCounter": 6,
+      "cooldownSuppressed": 87,
+      "committedLethal": 0
+    },
+    "elixir": {
+      "north": {
+        "accumulator": 144,
+        "amount": 0
+      },
+      "south": {
+        "accumulator": 0,
+        "amount": 10
+      }
+    },
+    "southDeck": {
+      "hand": [
+        "reedsting",
+        "cinderlings",
+        "coilblade",
+        "mossguard"
+      ],
+      "next": "copperskiff",
+      "queue": [
+        "copperskiff",
+        "briar-band",
+        "brassbolt",
+        "skymaul"
+      ],
+      "sequence": 40
+    }
+  },
+  "placementChecks": [
+    {
+      "x": 3500,
+      "y": 5500,
+      "legal": true,
+      "reason": "own_side_ground",
+      "confidence": "estimate"
+    },
+    {
+      "x": 14500,
+      "y": 5500,
+      "legal": true,
+      "reason": "own_side_ground",
+      "confidence": "estimate"
+    }
+  ],
+  "attempts": [
+    {
+      "cardId": "cinderlings",
+      "point": {
+        "x": 3500,
+        "y": 5500
+      },
+      "slot": 3,
+      "tick": 300,
+      "decision": "frozen-GH-baseline",
+      "commandId": 1
+    },
+    {
+      "cardId": "brassbolt",
+      "point": {
+        "x": 14500,
+        "y": 5500
+      },
+      "slot": 3,
+      "tick": 600,
+      "decision": "frozen-GH-baseline",
+      "commandId": 2
+    },
+    {
+      "cardId": "skymaul",
+      "point": {
+        "x": 14500,
+        "y": 5500
+      },
+      "slot": 1,
+      "tick": 900,
+      "decision": "frozen-GH-baseline",
+      "commandId": 3
+    },
+    {
+      "cardId": "briar-band",
+      "point": {
+        "x": 3500,
+        "y": 5500
+      },
+      "slot": 3,
+      "tick": 1500,
+      "decision": "frozen-GH-baseline",
+      "commandId": 4
+    },
+    {
+      "cardId": "mossguard",
+      "point": {
+        "x": 3500,
+        "y": 5500
+      },
+      "slot": 0,
+      "tick": 2400,
+      "decision": "frozen-GH-baseline",
+      "commandId": 5
+    },
+    {
+      "cardId": "coilblade",
+      "point": {
+        "x": 3500,
+        "y": 5500
+      },
+      "slot": 3,
+      "tick": 2700,
+      "decision": "frozen-GH-baseline",
+      "commandId": 6
+    },
+    {
+      "cardId": "brassbolt",
+      "point": {
+        "x": 3500,
+        "y": 5500
+      },
+      "slot": 3,
+      "tick": 3000,
+      "decision": "frozen-GH-baseline",
+      "commandId": 7
+    },
+    {
+      "cardId": "cinderlings",
+      "point": {
+        "x": 14500,
+        "y": 5500
+      },
+      "slot": 0,
+      "tick": 3600,
+      "decision": "frozen-GH-baseline",
+      "commandId": 8
+    },
+    {
+      "cardId": "briar-band",
+      "point": {
+        "x": 3500,
+        "y": 5500
+      },
+      "slot": 0,
+      "tick": 4500,
+      "decision": "frozen-GH-baseline",
+      "commandId": 9
+    },
+    {
+      "cardId": "skymaul",
+      "point": {
+        "x": 14500,
+        "y": 5500
+      },
+      "slot": 3,
+      "tick": 4800,
+      "decision": "frozen-GH-baseline",
+      "commandId": 10
+    },
+    {
+      "cardId": "coilblade",
+      "point": {
+        "x": 3500,
+        "y": 5500
+      },
+      "slot": 3,
+      "tick": 5700,
+      "decision": "frozen-GH-baseline",
+      "commandId": 11
+    },
+    {
+      "cardId": "mossguard",
+      "point": {
+        "x": 3500,
+        "y": 5500
+      },
+      "slot": 0,
+      "tick": 6600,
+      "decision": "frozen-GH-baseline",
+      "commandId": 12
+    },
+    {
+      "cardId": "brassbolt",
+      "point": {
+        "x": 14500,
+        "y": 5500
+      },
+      "slot": 3,
+      "tick": 7500,
+      "decision": "frozen-GH-baseline",
+      "commandId": 13
+    },
+    {
+      "cardId": "reedsting",
+      "point": {
+        "x": 14500,
+        "y": 5500
+      },
+      "slot": 1,
+      "tick": 8400,
+      "decision": "frozen-GH-baseline",
+      "commandId": 14
+    },
+    {
+      "cardId": "briar-band",
+      "point": {
+        "x": 3500,
+        "y": 5500
+      },
+      "slot": 3,
+      "tick": 8700,
+      "decision": "frozen-GH-baseline",
+      "commandId": 15
+    },
+    {
+      "cardId": "coilblade",
+      "point": {
+        "x": 14500,
+        "y": 5500
+      },
+      "slot": 3,
+      "tick": 9300,
+      "decision": "frozen-GH-baseline",
+      "commandId": 16
+    },
+    {
+      "cardId": "skymaul",
+      "point": {
+        "x": 14500,
+        "y": 5500
+      },
+      "slot": 1,
+      "tick": 9600,
+      "decision": "frozen-GH-baseline",
+      "commandId": 17
+    },
+    {
+      "cardId": "brassbolt",
+      "point": {
+        "x": 14500,
+        "y": 5500
+      },
+      "slot": 1,
+      "tick": 9900,
+      "decision": "frozen-GH-baseline",
+      "commandId": 18
+    },
+    {
+      "cardId": "cinderlings",
+      "point": {
+        "x": 3500,
+        "y": 5500
+      },
+      "slot": 0,
+      "tick": 10500,
+      "decision": "frozen-GH-baseline",
+      "commandId": 19
+    },
+    {
+      "cardId": "briar-band",
+      "point": {
+        "x": 14500,
+        "y": 5500
+      },
+      "slot": 0,
+      "tick": 10800,
+      "decision": "frozen-GH-baseline",
+      "commandId": 20
+    },
+    {
+      "cardId": "coilblade",
+      "point": {
+        "x": 3500,
+        "y": 5500
+      },
+      "slot": 0,
+      "tick": 11700,
+      "decision": "frozen-GH-baseline",
+      "commandId": 21
+    },
+    {
+      "cardId": "skymaul",
+      "point": {
+        "x": 3500,
+        "y": 5500
+      },
+      "slot": 0,
+      "tick": 12600,
+      "decision": "frozen-GH-baseline",
+      "commandId": 22
+    },
+    {
+      "cardId": "brassbolt",
+      "point": {
+        "x": 3500,
+        "y": 5500
+      },
+      "slot": 0,
+      "tick": 12900,
+      "decision": "frozen-GH-baseline",
+      "commandId": 23
+    },
+    {
+      "cardId": "copperskiff",
+      "point": {
+        "x": 14500,
+        "y": 14500
+      },
+      "slot": 2,
+      "tick": 13170,
+      "decision": "overtime-last-lane-aggregate-air-intercept",
+      "policyEvidence": {
+        "laneId": "south:lane:east",
+        "laneHitpoints": 289,
+        "currentTowerTargeters": [
+          {
+            "id": 146,
+            "cardId": "mossguard",
+            "position": {
+              "x": 14399,
+              "y": 14500
+            },
+            "targetId": 9007199254740988,
+            "hitpoints": 1221,
+            "damage": 202
+          }
+        ],
+        "selectedThreatId": 146,
+        "actualCounterAcquisition": {
+          "memberOrdinal": 0,
+          "archetypeId": "copperskiff",
+          "position": {
+            "x": 14500,
+            "y": 14500
+          },
+          "acquiredTargetId": 146,
+          "acquiredTargetCardId": "mossguard"
+        },
+        "predictedKillTick": 13829,
+        "projectedIncoming": {
+          "projectedDamage": 0,
+          "incoming": []
+        },
+        "estimatedTowerDps": 168.33333333333334,
+        "candidates": [
+          {
+            "threatId": 146,
+            "cardId": "copperskiff",
+            "point": {
+              "x": 14500,
+              "y": 14500
+            },
+            "killTick": 13829,
+            "projectedIncomingDamage": 0
+          }
+        ]
+      },
+      "suppressedBaseline": null,
+      "commandId": 24
+    },
+    {
+      "cardId": "briar-band",
+      "point": {
+        "x": 14500,
+        "y": 5500
+      },
+      "slot": 2,
+      "tick": 13200,
+      "decision": "frozen-GH-baseline",
+      "commandId": 25
+    },
+    {
+      "cardId": "coilblade",
+      "point": {
+        "x": 14500,
+        "y": 5500
+      },
+      "slot": 2,
+      "tick": 13500,
+      "decision": "frozen-GH-baseline",
+      "commandId": 26
+    },
+    {
+      "cardId": "cinderlings",
+      "point": {
+        "x": 3500,
+        "y": 5500
+      },
+      "slot": 0,
+      "tick": 13800,
+      "decision": "frozen-GH-baseline",
+      "commandId": 27
+    },
+    {
+      "cardId": "brassbolt",
+      "point": {
+        "x": 3500,
+        "y": 5500
+      },
+      "slot": 0,
+      "tick": 14100,
+      "decision": "frozen-GH-baseline",
+      "commandId": 28
+    },
+    {
+      "cardId": "skymaul",
+      "point": {
+        "x": 14500,
+        "y": 14000
+      },
+      "slot": 2,
+      "tick": 14205,
+      "decision": "overtime-last-lane-aggregate-air-intercept",
+      "policyEvidence": {
+        "laneId": "south:lane:east",
+        "laneHitpoints": 289,
+        "currentTowerTargeters": [
+          {
+            "id": 160,
+            "cardId": "reedsting",
+            "position": {
+              "x": 14500,
+              "y": 16467
+            },
+            "targetId": 9007199254740988,
+            "hitpoints": 17,
+            "damage": 131
+          },
+          {
+            "id": 176,
+            "cardId": "briar-band",
+            "position": {
+              "x": 14500,
+              "y": 15401
+            },
+            "targetId": 9007199254740988,
+            "hitpoints": 202,
+            "damage": 120
+          },
+          {
+            "id": 177,
+            "cardId": "briar-band",
+            "position": {
+              "x": 14500,
+              "y": 15401
+            },
+            "targetId": 9007199254740988,
+            "hitpoints": 202,
+            "damage": 120
+          },
+          {
+            "id": 178,
+            "cardId": "briar-band",
+            "position": {
+              "x": 14500,
+              "y": 15401
+            },
+            "targetId": 9007199254740988,
+            "hitpoints": 202,
+            "damage": 120
+          }
+        ],
+        "selectedThreatId": 176,
+        "actualCounterAcquisition": {
+          "memberOrdinal": 0,
+          "archetypeId": "skymaul",
+          "position": {
+            "x": 14500,
+            "y": 14000
+          },
+          "acquiredTargetId": 176,
+          "acquiredTargetCardId": "briar-band"
+        },
+        "predictedKillTick": 14337,
+        "projectedIncoming": {
+          "projectedDamage": 374,
+          "incoming": [
+            {
+              "id": 160,
+              "cardId": "reedsting",
+              "targetId": 9007199254740988,
+              "targetMode": "air_and_ground",
+              "damage": 131,
+              "hitSpeedTicks": 42,
+              "closestDistance": 0,
+              "approachTicks": 75,
+              "firstImpactOffset": 96,
+              "projectedHits": 1,
+              "projectedDamage": 131,
+              "approachBasis": "projected-current-tower-approach"
+            },
+            {
+              "id": 179,
+              "cardId": "briar-band",
+              "targetId": null,
+              "targetMode": "air_and_ground",
+              "damage": 81,
+              "hitSpeedTicks": 102,
+              "closestDistance": 4503,
+              "approachTicks": 0,
+              "firstImpactOffset": 82,
+              "projectedHits": 1,
+              "projectedDamage": 81,
+              "approachBasis": "current-position"
+            },
+            {
+              "id": 180,
+              "cardId": "briar-band",
+              "targetId": null,
+              "targetMode": "air_and_ground",
+              "damage": 81,
+              "hitSpeedTicks": 102,
+              "closestDistance": 3667,
+              "approachTicks": 0,
+              "firstImpactOffset": 80,
+              "projectedHits": 1,
+              "projectedDamage": 81,
+              "approachBasis": "current-position"
+            },
+            {
+              "id": 181,
+              "cardId": "briar-band",
+              "targetId": null,
+              "targetMode": "air_and_ground",
+              "damage": 81,
+              "hitSpeedTicks": 102,
+              "closestDistance": 4503,
+              "approachTicks": 0,
+              "firstImpactOffset": 82,
+              "projectedHits": 1,
+              "projectedDamage": 81,
+              "approachBasis": "current-position"
+            }
+          ]
+        },
+        "estimatedTowerDps": 514.4155844155845,
+        "candidates": [
+          {
+            "threatId": 176,
+            "cardId": "skymaul",
+            "point": {
+              "x": 14500,
+              "y": 14000
+            },
+            "killTick": 14337,
+            "projectedIncomingDamage": 374
+          },
+          {
+            "threatId": 176,
+            "cardId": "copperskiff",
+            "point": {
+              "x": 14500,
+              "y": 14750
+            },
+            "killTick": 15018,
+            "projectedIncomingDamage": 4302
+          }
+        ]
+      },
+      "suppressedBaseline": null,
+      "commandId": 29
+    },
+    {
+      "cardId": "briar-band",
+      "point": {
+        "x": 3500,
+        "y": 5500
+      },
+      "slot": 2,
+      "tick": 14400,
+      "decision": "frozen-GH-baseline",
+      "commandId": 30
+    },
+    {
+      "cardId": "copperskiff",
+      "point": {
+        "x": 15500,
+        "y": 12250
+      },
+      "slot": 0,
+      "tick": 14595,
+      "decision": "overtime-last-lane-aggregate-air-intercept",
+      "policyEvidence": {
+        "laneId": "south:lane:east",
+        "laneHitpoints": 289,
+        "currentTowerTargeters": [
+          {
+            "id": 191,
+            "cardId": "mossguard",
+            "position": {
+              "x": 14500,
+              "y": 15584
+            },
+            "targetId": 9007199254740988,
+            "hitpoints": 1766,
+            "damage": 202
+          }
+        ],
+        "selectedThreatId": 191,
+        "actualCounterAcquisition": {
+          "memberOrdinal": 0,
+          "archetypeId": "copperskiff",
+          "position": {
+            "x": 15500,
+            "y": 12250
+          },
+          "acquiredTargetId": 191,
+          "acquiredTargetCardId": "mossguard"
+        },
+        "predictedKillTick": 18832,
+        "projectedIncoming": {
+          "projectedDamage": 0,
+          "incoming": []
+        },
+        "estimatedTowerDps": 168.33333333333334,
+        "candidates": [
+          {
+            "threatId": 191,
+            "cardId": "copperskiff",
+            "point": {
+              "x": 15500,
+              "y": 12250
+            },
+            "killTick": 18832,
+            "projectedIncomingDamage": 0
+          }
+        ]
+      },
+      "suppressedBaseline": null,
+      "commandId": 31
+    },
+    {
+      "cardId": "cinderlings",
+      "point": {
+        "x": 14500,
+        "y": 5500
+      },
+      "slot": 0,
+      "tick": 14700,
+      "decision": "frozen-GH-baseline",
+      "commandId": 32
+    },
+    {
+      "cardId": "coilblade",
+      "point": {
+        "x": 14500,
+        "y": 5500
+      },
+      "slot": 2,
+      "tick": 15600,
+      "decision": "frozen-GH-baseline",
+      "commandId": 33
+    },
+    {
+      "cardId": "brassbolt",
+      "point": {
+        "x": 3500,
+        "y": 5500
+      },
+      "slot": 0,
+      "tick": 16200,
+      "decision": "frozen-GH-baseline",
+      "commandId": 34
+    },
+    {
+      "cardId": "skymaul",
+      "point": {
+        "x": 16000,
+        "y": 14750
+      },
+      "slot": 2,
+      "tick": 16350,
+      "decision": "overtime-last-lane-aggregate-air-intercept",
+      "policyEvidence": {
+        "laneId": "south:lane:east",
+        "laneHitpoints": 289,
+        "currentTowerTargeters": [
+          {
+            "id": 220,
+            "cardId": "mossguard",
+            "position": {
+              "x": 14500,
+              "y": 15601
+            },
+            "targetId": 9007199254740988,
+            "hitpoints": 245,
+            "damage": 202
+          }
+        ],
+        "selectedThreatId": 220,
+        "actualCounterAcquisition": {
+          "memberOrdinal": 0,
+          "archetypeId": "skymaul",
+          "position": {
+            "x": 16000,
+            "y": 14750
+          },
+          "acquiredTargetId": 220,
+          "acquiredTargetCardId": "mossguard"
+        },
+        "predictedKillTick": 16482,
+        "projectedIncoming": {
+          "projectedDamage": 0,
+          "incoming": []
+        },
+        "estimatedTowerDps": 168.33333333333334,
+        "candidates": [
+          {
+            "threatId": 220,
+            "cardId": "skymaul",
+            "point": {
+              "x": 16000,
+              "y": 14750
+            },
+            "killTick": 16482,
+            "projectedIncomingDamage": 0
+          }
+        ]
+      },
+      "suppressedBaseline": null,
+      "commandId": 35
+    },
+    {
+      "cardId": "reedsting",
+      "point": {
+        "x": 3500,
+        "y": 5500
+      },
+      "slot": 1,
+      "tick": 16500,
+      "decision": "frozen-GH-baseline",
+      "commandId": 36
+    },
+    {
+      "cardId": "copperskiff",
+      "point": {
+        "x": 8750,
+        "y": 14500
+      },
+      "slot": 2,
+      "tick": 16650,
+      "decision": "overtime-last-lane-aggregate-air-intercept",
+      "policyEvidence": {
+        "laneId": "south:lane:east",
+        "laneHitpoints": 289,
+        "currentTowerTargeters": [
+          {
+            "id": 219,
+            "cardId": "reedsting",
+            "position": {
+              "x": 8732,
+              "y": 14500
+            },
+            "targetId": 9007199254740988,
+            "hitpoints": 42,
+            "damage": 131
+          },
+          {
+            "id": 227,
+            "cardId": "briar-band",
+            "position": {
+              "x": 11000,
+              "y": 14500
+            },
+            "targetId": 9007199254740988,
+            "hitpoints": 202,
+            "damage": 120
+          }
+        ],
+        "selectedThreatId": 219,
+        "actualCounterAcquisition": {
+          "memberOrdinal": 0,
+          "archetypeId": "copperskiff",
+          "position": {
+            "x": 8750,
+            "y": 14500
+          },
+          "acquiredTargetId": 219,
+          "acquiredTargetCardId": "reedsting"
+        },
+        "predictedKillTick": 16764,
+        "projectedIncoming": {
+          "projectedDamage": 979,
+          "incoming": [
+            {
+              "id": 216,
+              "cardId": "briar-band",
+              "targetId": 232,
+              "targetMode": "air_and_ground",
+              "damage": 81,
+              "hitSpeedTicks": 102,
+              "closestDistance": 983,
+              "approachTicks": 0,
+              "firstImpactOffset": 74,
+              "projectedHits": 1,
+              "projectedDamage": 81,
+              "approachBasis": "current-position"
+            },
+            {
+              "id": 219,
+              "cardId": "reedsting",
+              "targetId": 9007199254740988,
+              "targetMode": "air_and_ground",
+              "damage": 131,
+              "hitSpeedTicks": 42,
+              "closestDistance": 14,
+              "approachTicks": 1,
+              "firstImpactOffset": 23,
+              "projectedHits": 3,
+              "projectedDamage": 393,
+              "approachBasis": "projected-current-tower-approach"
+            },
+            {
+              "id": 229,
+              "cardId": "briar-band",
+              "targetId": null,
+              "targetMode": "air_and_ground",
+              "damage": 81,
+              "hitSpeedTicks": 102,
+              "closestDistance": 150,
+              "approachTicks": 0,
+              "firstImpactOffset": 73,
+              "projectedHits": 1,
+              "projectedDamage": 81,
+              "approachBasis": "current-position"
+            },
+            {
+              "id": 230,
+              "cardId": "briar-band",
+              "targetId": 232,
+              "targetMode": "air_and_ground",
+              "damage": 81,
+              "hitSpeedTicks": 102,
+              "closestDistance": 150,
+              "approachTicks": 0,
+              "firstImpactOffset": 73,
+              "projectedHits": 1,
+              "projectedDamage": 81,
+              "approachBasis": "current-position"
+            },
+            {
+              "id": 231,
+              "cardId": "briar-band",
+              "targetId": null,
+              "targetMode": "air_and_ground",
+              "damage": 81,
+              "hitSpeedTicks": 102,
+              "closestDistance": 550,
+              "approachTicks": 0,
+              "firstImpactOffset": 74,
+              "projectedHits": 1,
+              "projectedDamage": 81,
+              "approachBasis": "current-position"
+            },
+            {
+              "id": 233,
+              "cardId": "reedsting",
+              "targetId": 232,
+              "targetMode": "air_and_ground",
+              "damage": 131,
+              "hitSpeedTicks": 42,
+              "closestDistance": 6486,
+              "approachTicks": 0,
+              "firstImpactOffset": 34,
+              "projectedHits": 2,
+              "projectedDamage": 262,
+              "approachBasis": "current-position"
+            }
+          ]
+        },
+        "estimatedTowerDps": 296.23376623376623,
+        "candidates": [
+          {
+            "threatId": 219,
+            "cardId": "copperskiff",
+            "point": {
+              "x": 8750,
+              "y": 14500
+            },
+            "killTick": 16764,
+            "projectedIncomingDamage": 979
+          },
+          {
+            "threatId": 227,
+            "cardId": "copperskiff",
+            "point": {
+              "x": 11000,
+              "y": 14500
+            },
+            "killTick": 16812,
+            "projectedIncomingDamage": 1241
+          }
+        ]
+      },
+      "suppressedBaseline": null,
+      "commandId": 37
+    },
+    {
+      "cardId": "briar-band",
+      "point": {
+        "x": 14500,
+        "y": 5500
+      },
+      "slot": 0,
+      "tick": 16800,
+      "decision": "frozen-GH-baseline",
+      "commandId": 38
+    },
+    {
+      "cardId": "brassbolt",
+      "point": {
+        "x": 14500,
+        "y": 5500
+      },
+      "slot": 0,
+      "tick": 17100,
+      "decision": "frozen-GH-baseline",
+      "commandId": 39
+    },
+    {
+      "cardId": "skymaul",
+      "point": {
+        "x": 11750,
+        "y": 12000
+      },
+      "slot": 0,
+      "tick": 17115,
+      "decision": "overtime-last-lane-aggregate-air-intercept",
+      "policyEvidence": {
+        "laneId": "south:lane:east",
+        "laneHitpoints": 289,
+        "currentTowerTargeters": [
+          {
+            "id": 244,
+            "cardId": "cinderlings",
+            "position": {
+              "x": 12500,
+              "y": 13525
+            },
+            "targetId": 9007199254740988,
+            "hitpoints": 81,
+            "damage": 81
+          }
+        ],
+        "selectedThreatId": 244,
+        "actualCounterAcquisition": {
+          "memberOrdinal": 0,
+          "archetypeId": "skymaul",
+          "position": {
+            "x": 11750,
+            "y": 12000
+          },
+          "acquiredTargetId": 244,
+          "acquiredTargetCardId": "cinderlings"
+        },
+        "predictedKillTick": 17247,
+        "projectedIncoming": {
+          "projectedDamage": 704,
+          "incoming": [
+            {
+              "id": 233,
+              "cardId": "reedsting",
+              "targetId": 238,
+              "targetMode": "air_and_ground",
+              "damage": 131,
+              "hitSpeedTicks": 42,
+              "closestDistance": 5912,
+              "approachTicks": 0,
+              "firstImpactOffset": 33,
+              "projectedHits": 3,
+              "projectedDamage": 393,
+              "approachBasis": "current-position"
+            },
+            {
+              "id": 243,
+              "cardId": "skymaul",
+              "targetId": 238,
+              "targetMode": "air_and_ground",
+              "damage": 311,
+              "hitSpeedTicks": 96,
+              "closestDistance": 2856,
+              "approachTicks": 16,
+              "firstImpactOffset": 88,
+              "projectedHits": 1,
+              "projectedDamage": 311,
+              "approachBasis": "current-position"
+            }
+          ]
+        },
+        "estimatedTowerDps": 81,
+        "candidates": [
+          {
+            "threatId": 244,
+            "cardId": "skymaul",
+            "point": {
+              "x": 11750,
+              "y": 12000
+            },
+            "killTick": 17247,
+            "projectedIncomingDamage": 704
+          }
+        ]
+      },
+      "suppressedBaseline": null,
+      "commandId": 40
+    }
+  ],
+  "observations": [
+    {
+      "tick": 13170,
+      "phase": "overtime",
+      "laneId": "south:lane:east",
+      "laneHitpoints": 289,
+      "towerTargetIds": [
+        146
+      ],
+      "selected": {
+        "id": 146,
+        "cardId": "mossguard",
+        "position": {
+          "x": 14399,
+          "y": 14500
+        },
+        "targetId": 9007199254740988,
+        "hitpoints": 1221,
+        "targetMode": "ground"
+      },
+      "point": {
+        "x": 14500,
+        "y": 14500
+      },
+      "cardId": "copperskiff",
+      "predictedKillTick": 13829,
+      "predictedIncoming": {
+        "projectedDamage": 0,
+        "incoming": []
+      },
+      "alternatives": [
+        {
+          "threatId": 146,
+          "cardId": "copperskiff",
+          "point": {
+            "x": 14500,
+            "y": 14500
+          },
+          "killTick": 13829,
+          "projectedIncomingDamage": 0,
+          "incoming": []
+        }
+      ],
+      "checks": []
+    },
+    {
+      "tick": 14205,
+      "phase": "overtime",
+      "laneId": "south:lane:east",
+      "laneHitpoints": 289,
+      "towerTargetIds": [
+        160,
+        176,
+        177,
+        178
+      ],
+      "selected": {
+        "id": 176,
+        "cardId": "briar-band",
+        "position": {
+          "x": 14500,
+          "y": 15401
+        },
+        "targetId": 9007199254740988,
+        "hitpoints": 202,
+        "targetMode": "ground"
+      },
+      "point": {
+        "x": 14500,
+        "y": 14000
+      },
+      "cardId": "skymaul",
+      "predictedKillTick": 14337,
+      "predictedIncoming": {
+        "projectedDamage": 374,
+        "incoming": [
+          {
+            "id": 160,
+            "cardId": "reedsting",
+            "targetId": 9007199254740988,
+            "targetMode": "air_and_ground",
+            "damage": 131,
+            "hitSpeedTicks": 42,
+            "closestDistance": 0,
+            "approachTicks": 75,
+            "firstImpactOffset": 96,
+            "projectedHits": 1,
+            "projectedDamage": 131,
+            "approachBasis": "projected-current-tower-approach"
+          },
+          {
+            "id": 179,
+            "cardId": "briar-band",
+            "targetId": null,
+            "targetMode": "air_and_ground",
+            "damage": 81,
+            "hitSpeedTicks": 102,
+            "closestDistance": 4503,
+            "approachTicks": 0,
+            "firstImpactOffset": 82,
+            "projectedHits": 1,
+            "projectedDamage": 81,
+            "approachBasis": "current-position"
+          },
+          {
+            "id": 180,
+            "cardId": "briar-band",
+            "targetId": null,
+            "targetMode": "air_and_ground",
+            "damage": 81,
+            "hitSpeedTicks": 102,
+            "closestDistance": 3667,
+            "approachTicks": 0,
+            "firstImpactOffset": 80,
+            "projectedHits": 1,
+            "projectedDamage": 81,
+            "approachBasis": "current-position"
+          },
+          {
+            "id": 181,
+            "cardId": "briar-band",
+            "targetId": null,
+            "targetMode": "air_and_ground",
+            "damage": 81,
+            "hitSpeedTicks": 102,
+            "closestDistance": 4503,
+            "approachTicks": 0,
+            "firstImpactOffset": 82,
+            "projectedHits": 1,
+            "projectedDamage": 81,
+            "approachBasis": "current-position"
+          }
+        ]
+      },
+      "alternatives": [
+        {
+          "threatId": 176,
+          "cardId": "skymaul",
+          "point": {
+            "x": 14500,
+            "y": 14000
+          },
+          "killTick": 14337,
+          "projectedIncomingDamage": 374,
+          "incoming": [
+            {
+              "id": 160,
+              "cardId": "reedsting",
+              "targetId": 9007199254740988,
+              "targetMode": "air_and_ground",
+              "damage": 131,
+              "hitSpeedTicks": 42,
+              "closestDistance": 0,
+              "approachTicks": 75,
+              "firstImpactOffset": 96,
+              "projectedHits": 1,
+              "projectedDamage": 131,
+              "approachBasis": "projected-current-tower-approach"
+            },
+            {
+              "id": 179,
+              "cardId": "briar-band",
+              "targetId": null,
+              "targetMode": "air_and_ground",
+              "damage": 81,
+              "hitSpeedTicks": 102,
+              "closestDistance": 4503,
+              "approachTicks": 0,
+              "firstImpactOffset": 82,
+              "projectedHits": 1,
+              "projectedDamage": 81,
+              "approachBasis": "current-position"
+            },
+            {
+              "id": 180,
+              "cardId": "briar-band",
+              "targetId": null,
+              "targetMode": "air_and_ground",
+              "damage": 81,
+              "hitSpeedTicks": 102,
+              "closestDistance": 3667,
+              "approachTicks": 0,
+              "firstImpactOffset": 80,
+              "projectedHits": 1,
+              "projectedDamage": 81,
+              "approachBasis": "current-position"
+            },
+            {
+              "id": 181,
+              "cardId": "briar-band",
+              "targetId": null,
+              "targetMode": "air_and_ground",
+              "damage": 81,
+              "hitSpeedTicks": 102,
+              "closestDistance": 4503,
+              "approachTicks": 0,
+              "firstImpactOffset": 82,
+              "projectedHits": 1,
+              "projectedDamage": 81,
+              "approachBasis": "current-position"
+            }
+          ]
+        },
+        {
+          "threatId": 176,
+          "cardId": "copperskiff",
+          "point": {
+            "x": 14500,
+            "y": 14750
+          },
+          "killTick": 15018,
+          "projectedIncomingDamage": 4302,
+          "incoming": [
+            {
+              "id": 160,
+              "cardId": "reedsting",
+              "targetId": 9007199254740988,
+              "targetMode": "air_and_ground",
+              "damage": 131,
+              "hitSpeedTicks": 42,
+              "closestDistance": 0,
+              "approachTicks": 52,
+              "firstImpactOffset": 73,
+              "projectedHits": 18,
+              "projectedDamage": 2358,
+              "approachBasis": "projected-current-tower-approach"
+            },
+            {
+              "id": 179,
+              "cardId": "briar-band",
+              "targetId": null,
+              "targetMode": "air_and_ground",
+              "damage": 81,
+              "hitSpeedTicks": 102,
+              "closestDistance": 3754,
+              "approachTicks": 0,
+              "firstImpactOffset": 80,
+              "projectedHits": 8,
+              "projectedDamage": 648,
+              "approachBasis": "current-position"
+            },
+            {
+              "id": 180,
+              "cardId": "briar-band",
+              "targetId": null,
+              "targetMode": "air_and_ground",
+              "damage": 81,
+              "hitSpeedTicks": 102,
+              "closestDistance": 2917,
+              "approachTicks": 0,
+              "firstImpactOffset": 78,
+              "projectedHits": 8,
+              "projectedDamage": 648,
+              "approachBasis": "current-position"
+            },
+            {
+              "id": 181,
+              "cardId": "briar-band",
+              "targetId": null,
+              "targetMode": "air_and_ground",
+              "damage": 81,
+              "hitSpeedTicks": 102,
+              "closestDistance": 3754,
+              "approachTicks": 0,
+              "firstImpactOffset": 80,
+              "projectedHits": 8,
+              "projectedDamage": 648,
+              "approachBasis": "current-position"
+            }
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "threatId": 160,
+          "cardId": "copperskiff",
+          "result": "no-legal-in-range-point-acquires-current-tower-targeter"
+        },
+        {
+          "threatId": 160,
+          "cardId": "skymaul",
+          "result": "no-legal-in-range-point-acquires-current-tower-targeter"
+        },
+        {
+          "threatId": 177,
+          "cardId": "copperskiff",
+          "result": "no-legal-in-range-point-acquires-current-tower-targeter"
+        },
+        {
+          "threatId": 177,
+          "cardId": "skymaul",
+          "result": "no-legal-in-range-point-acquires-current-tower-targeter"
+        },
+        {
+          "threatId": 178,
+          "cardId": "copperskiff",
+          "result": "no-legal-in-range-point-acquires-current-tower-targeter"
+        },
+        {
+          "threatId": 178,
+          "cardId": "skymaul",
+          "result": "no-legal-in-range-point-acquires-current-tower-targeter"
+        }
+      ]
+    },
+    {
+      "tick": 14595,
+      "phase": "overtime",
+      "laneId": "south:lane:east",
+      "laneHitpoints": 289,
+      "towerTargetIds": [
+        191
+      ],
+      "selected": {
+        "id": 191,
+        "cardId": "mossguard",
+        "position": {
+          "x": 14500,
+          "y": 15584
+        },
+        "targetId": 9007199254740988,
+        "hitpoints": 1766,
+        "targetMode": "ground"
+      },
+      "point": {
+        "x": 15500,
+        "y": 12250
+      },
+      "cardId": "copperskiff",
+      "predictedKillTick": 18832,
+      "predictedIncoming": {
+        "projectedDamage": 0,
+        "incoming": []
+      },
+      "alternatives": [
+        {
+          "threatId": 191,
+          "cardId": "copperskiff",
+          "point": {
+            "x": 15500,
+            "y": 12250
+          },
+          "killTick": 18832,
+          "projectedIncomingDamage": 0,
+          "incoming": []
+        }
+      ],
+      "checks": []
+    },
+    {
+      "tick": 16350,
+      "phase": "overtime",
+      "laneId": "south:lane:east",
+      "laneHitpoints": 289,
+      "towerTargetIds": [
+        220
+      ],
+      "selected": {
+        "id": 220,
+        "cardId": "mossguard",
+        "position": {
+          "x": 14500,
+          "y": 15601
+        },
+        "targetId": 9007199254740988,
+        "hitpoints": 245,
+        "targetMode": "ground"
+      },
+      "point": {
+        "x": 16000,
+        "y": 14750
+      },
+      "cardId": "skymaul",
+      "predictedKillTick": 16482,
+      "predictedIncoming": {
+        "projectedDamage": 0,
+        "incoming": []
+      },
+      "alternatives": [
+        {
+          "threatId": 220,
+          "cardId": "skymaul",
+          "point": {
+            "x": 16000,
+            "y": 14750
+          },
+          "killTick": 16482,
+          "projectedIncomingDamage": 0,
+          "incoming": []
+        }
+      ],
+      "checks": []
+    },
+    {
+      "tick": 16650,
+      "phase": "overtime",
+      "laneId": "south:lane:east",
+      "laneHitpoints": 289,
+      "towerTargetIds": [
+        219,
+        227
+      ],
+      "selected": {
+        "id": 219,
+        "cardId": "reedsting",
+        "position": {
+          "x": 8732,
+          "y": 14500
+        },
+        "targetId": 9007199254740988,
+        "hitpoints": 42,
+        "targetMode": "air_and_ground"
+      },
+      "point": {
+        "x": 8750,
+        "y": 14500
+      },
+      "cardId": "copperskiff",
+      "predictedKillTick": 16764,
+      "predictedIncoming": {
+        "projectedDamage": 979,
+        "incoming": [
+          {
+            "id": 216,
+            "cardId": "briar-band",
+            "targetId": 232,
+            "targetMode": "air_and_ground",
+            "damage": 81,
+            "hitSpeedTicks": 102,
+            "closestDistance": 983,
+            "approachTicks": 0,
+            "firstImpactOffset": 74,
+            "projectedHits": 1,
+            "projectedDamage": 81,
+            "approachBasis": "current-position"
+          },
+          {
+            "id": 219,
+            "cardId": "reedsting",
+            "targetId": 9007199254740988,
+            "targetMode": "air_and_ground",
+            "damage": 131,
+            "hitSpeedTicks": 42,
+            "closestDistance": 14,
+            "approachTicks": 1,
+            "firstImpactOffset": 23,
+            "projectedHits": 3,
+            "projectedDamage": 393,
+            "approachBasis": "projected-current-tower-approach"
+          },
+          {
+            "id": 229,
+            "cardId": "briar-band",
+            "targetId": null,
+            "targetMode": "air_and_ground",
+            "damage": 81,
+            "hitSpeedTicks": 102,
+            "closestDistance": 150,
+            "approachTicks": 0,
+            "firstImpactOffset": 73,
+            "projectedHits": 1,
+            "projectedDamage": 81,
+            "approachBasis": "current-position"
+          },
+          {
+            "id": 230,
+            "cardId": "briar-band",
+            "targetId": 232,
+            "targetMode": "air_and_ground",
+            "damage": 81,
+            "hitSpeedTicks": 102,
+            "closestDistance": 150,
+            "approachTicks": 0,
+            "firstImpactOffset": 73,
+            "projectedHits": 1,
+            "projectedDamage": 81,
+            "approachBasis": "current-position"
+          },
+          {
+            "id": 231,
+            "cardId": "briar-band",
+            "targetId": null,
+            "targetMode": "air_and_ground",
+            "damage": 81,
+            "hitSpeedTicks": 102,
+            "closestDistance": 550,
+            "approachTicks": 0,
+            "firstImpactOffset": 74,
+            "projectedHits": 1,
+            "projectedDamage": 81,
+            "approachBasis": "current-position"
+          },
+          {
+            "id": 233,
+            "cardId": "reedsting",
+            "targetId": 232,
+            "targetMode": "air_and_ground",
+            "damage": 131,
+            "hitSpeedTicks": 42,
+            "closestDistance": 6486,
+            "approachTicks": 0,
+            "firstImpactOffset": 34,
+            "projectedHits": 2,
+            "projectedDamage": 262,
+            "approachBasis": "current-position"
+          }
+        ]
+      },
+      "alternatives": [
+        {
+          "threatId": 219,
+          "cardId": "copperskiff",
+          "point": {
+            "x": 8750,
+            "y": 14500
+          },
+          "killTick": 16764,
+          "projectedIncomingDamage": 979,
+          "incoming": [
+            {
+              "id": 216,
+              "cardId": "briar-band",
+              "targetId": 232,
+              "targetMode": "air_and_ground",
+              "damage": 81,
+              "hitSpeedTicks": 102,
+              "closestDistance": 983,
+              "approachTicks": 0,
+              "firstImpactOffset": 74,
+              "projectedHits": 1,
+              "projectedDamage": 81,
+              "approachBasis": "current-position"
+            },
+            {
+              "id": 219,
+              "cardId": "reedsting",
+              "targetId": 9007199254740988,
+              "targetMode": "air_and_ground",
+              "damage": 131,
+              "hitSpeedTicks": 42,
+              "closestDistance": 14,
+              "approachTicks": 1,
+              "firstImpactOffset": 23,
+              "projectedHits": 3,
+              "projectedDamage": 393,
+              "approachBasis": "projected-current-tower-approach"
+            },
+            {
+              "id": 229,
+              "cardId": "briar-band",
+              "targetId": null,
+              "targetMode": "air_and_ground",
+              "damage": 81,
+              "hitSpeedTicks": 102,
+              "closestDistance": 150,
+              "approachTicks": 0,
+              "firstImpactOffset": 73,
+              "projectedHits": 1,
+              "projectedDamage": 81,
+              "approachBasis": "current-position"
+            },
+            {
+              "id": 230,
+              "cardId": "briar-band",
+              "targetId": 232,
+              "targetMode": "air_and_ground",
+              "damage": 81,
+              "hitSpeedTicks": 102,
+              "closestDistance": 150,
+              "approachTicks": 0,
+              "firstImpactOffset": 73,
+              "projectedHits": 1,
+              "projectedDamage": 81,
+              "approachBasis": "current-position"
+            },
+            {
+              "id": 231,
+              "cardId": "briar-band",
+              "targetId": null,
+              "targetMode": "air_and_ground",
+              "damage": 81,
+              "hitSpeedTicks": 102,
+              "closestDistance": 550,
+              "approachTicks": 0,
+              "firstImpactOffset": 74,
+              "projectedHits": 1,
+              "projectedDamage": 81,
+              "approachBasis": "current-position"
+            },
+            {
+              "id": 233,
+              "cardId": "reedsting",
+              "targetId": 232,
+              "targetMode": "air_and_ground",
+              "damage": 131,
+              "hitSpeedTicks": 42,
+              "closestDistance": 6486,
+              "approachTicks": 0,
+              "firstImpactOffset": 34,
+              "projectedHits": 2,
+              "projectedDamage": 262,
+              "approachBasis": "current-position"
+            }
+          ]
+        },
+        {
+          "threatId": 227,
+          "cardId": "copperskiff",
+          "point": {
+            "x": 11000,
+            "y": 14500
+          },
+          "killTick": 16812,
+          "projectedIncomingDamage": 1241,
+          "incoming": [
+            {
+              "id": 216,
+              "cardId": "briar-band",
+              "targetId": 232,
+              "targetMode": "air_and_ground",
+              "damage": 81,
+              "hitSpeedTicks": 102,
+              "closestDistance": 1267,
+              "approachTicks": 0,
+              "firstImpactOffset": 75,
+              "projectedHits": 1,
+              "projectedDamage": 81,
+              "approachBasis": "current-position"
+            },
+            {
+              "id": 219,
+              "cardId": "reedsting",
+              "targetId": 9007199254740988,
+              "targetMode": "air_and_ground",
+              "damage": 131,
+              "hitSpeedTicks": 42,
+              "closestDistance": 1750,
+              "approachTicks": 44,
+              "firstImpactOffset": 69,
+              "projectedHits": 3,
+              "projectedDamage": 393,
+              "approachBasis": "projected-current-tower-approach"
+            },
+            {
+              "id": 229,
+              "cardId": "briar-band",
+              "targetId": null,
+              "targetMode": "air_and_ground",
+              "damage": 81,
+              "hitSpeedTicks": 102,
+              "closestDistance": 2400,
+              "approachTicks": 0,
+              "firstImpactOffset": 77,
+              "projectedHits": 1,
+              "projectedDamage": 81,
+              "approachBasis": "current-position"
+            },
+            {
+              "id": 230,
+              "cardId": "briar-band",
+              "targetId": 232,
+              "targetMode": "air_and_ground",
+              "damage": 81,
+              "hitSpeedTicks": 102,
+              "closestDistance": 2100,
+              "approachTicks": 0,
+              "firstImpactOffset": 77,
+              "projectedHits": 1,
+              "projectedDamage": 81,
+              "approachBasis": "current-position"
+            },
+            {
+              "id": 231,
+              "cardId": "briar-band",
+              "targetId": null,
+              "targetMode": "air_and_ground",
+              "damage": 81,
+              "hitSpeedTicks": 102,
+              "closestDistance": 2800,
+              "approachTicks": 0,
+              "firstImpactOffset": 78,
+              "projectedHits": 1,
+              "projectedDamage": 81,
+              "approachBasis": "current-position"
+            },
+            {
+              "id": 233,
+              "cardId": "reedsting",
+              "targetId": 232,
+              "targetMode": "air_and_ground",
+              "damage": 131,
+              "hitSpeedTicks": 42,
+              "closestDistance": 4610,
+              "approachTicks": 0,
+              "firstImpactOffset": 31,
+              "projectedHits": 4,
+              "projectedDamage": 524,
+              "approachBasis": "current-position"
+            }
+          ]
+        }
+      ],
+      "checks": []
+    },
+    {
+      "tick": 17115,
+      "phase": "overtime",
+      "laneId": "south:lane:east",
+      "laneHitpoints": 289,
+      "towerTargetIds": [
+        244
+      ],
+      "selected": {
+        "id": 244,
+        "cardId": "cinderlings",
+        "position": {
+          "x": 12500,
+          "y": 13525
+        },
+        "targetId": 9007199254740988,
+        "hitpoints": 81,
+        "targetMode": "ground"
+      },
+      "point": {
+        "x": 11750,
+        "y": 12000
+      },
+      "cardId": "skymaul",
+      "predictedKillTick": 17247,
+      "predictedIncoming": {
+        "projectedDamage": 704,
+        "incoming": [
+          {
+            "id": 233,
+            "cardId": "reedsting",
+            "targetId": 238,
+            "targetMode": "air_and_ground",
+            "damage": 131,
+            "hitSpeedTicks": 42,
+            "closestDistance": 5912,
+            "approachTicks": 0,
+            "firstImpactOffset": 33,
+            "projectedHits": 3,
+            "projectedDamage": 393,
+            "approachBasis": "current-position"
+          },
+          {
+            "id": 243,
+            "cardId": "skymaul",
+            "targetId": 238,
+            "targetMode": "air_and_ground",
+            "damage": 311,
+            "hitSpeedTicks": 96,
+            "closestDistance": 2856,
+            "approachTicks": 16,
+            "firstImpactOffset": 88,
+            "projectedHits": 1,
+            "projectedDamage": 311,
+            "approachBasis": "current-position"
+          }
+        ]
+      },
+      "alternatives": [
+        {
+          "threatId": 244,
+          "cardId": "skymaul",
+          "point": {
+            "x": 11750,
+            "y": 12000
+          },
+          "killTick": 17247,
+          "projectedIncomingDamage": 704,
+          "incoming": [
+            {
+              "id": 233,
+              "cardId": "reedsting",
+              "targetId": 238,
+              "targetMode": "air_and_ground",
+              "damage": 131,
+              "hitSpeedTicks": 42,
+              "closestDistance": 5912,
+              "approachTicks": 0,
+              "firstImpactOffset": 33,
+              "projectedHits": 3,
+              "projectedDamage": 393,
+              "approachBasis": "current-position"
+            },
+            {
+              "id": 243,
+              "cardId": "skymaul",
+              "targetId": 238,
+              "targetMode": "air_and_ground",
+              "damage": 311,
+              "hitSpeedTicks": 96,
+              "closestDistance": 2856,
+              "approachTicks": 16,
+              "firstImpactOffset": 88,
+              "projectedHits": 1,
+              "projectedDamage": 311,
+              "approachBasis": "current-position"
+            }
+          ]
+        }
+      ],
+      "checks": []
+    }
+  ],
+  "significantEvents": [
+    {
+      "contactTick": 92,
+      "attackSequence": 1,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 1,
+      "sourceUnitId": 1,
+      "structureId": "south:lane:east",
+      "tick": 92,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileId": 1,
+        "sourceId": 1
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 1
+    },
+    {
+      "contactTick": 133,
+      "attackSequence": 2,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 2,
+      "sourceUnitId": 1,
+      "structureId": "south:lane:east",
+      "tick": 133,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 2,
+        "direction": "unit-to-tower",
+        "projectileId": 2,
+        "sourceId": 1
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 1
+    },
+    {
+      "contactTick": 436,
+      "attackSequence": 1,
+      "damage": 720,
+      "delivery": "melee",
+      "sourceUnitId": 3,
+      "structureId": "south:lane:west",
+      "tick": 436,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 532,
+      "attackSequence": 2,
+      "damage": 720,
+      "delivery": "melee",
+      "sourceUnitId": 3,
+      "structureId": "south:lane:west",
+      "tick": 532,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 567,
+      "attackSequence": 1,
+      "damage": 202,
+      "delivery": "melee",
+      "sourceUnitId": 2,
+      "structureId": "south:lane:east",
+      "tick": 567,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 639,
+      "attackSequence": 2,
+      "damage": 202,
+      "delivery": "melee",
+      "sourceUnitId": 2,
+      "structureId": "south:lane:east",
+      "tick": 639,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 711,
+      "attackSequence": 3,
+      "damage": 202,
+      "delivery": "melee",
+      "sourceUnitId": 2,
+      "structureId": "south:lane:east",
+      "tick": 711,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 1391,
+      "attackSequence": 1,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 7,
+      "sourceUnitId": 17,
+      "structureId": "south:lane:west",
+      "tick": 1391,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileId": 7,
+        "sourceId": 17
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 17
+    },
+    {
+      "contactTick": 1427,
+      "attackSequence": 1,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 8,
+      "sourceUnitId": 18,
+      "structureId": "south:lane:west",
+      "tick": 1427,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileId": 8,
+        "sourceId": 18
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 18
+    },
+    {
+      "contactTick": 1486,
+      "attackSequence": 2,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 9,
+      "sourceUnitId": 17,
+      "structureId": "south:lane:west",
+      "tick": 1486,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 2,
+        "direction": "unit-to-tower",
+        "projectileId": 9,
+        "sourceId": 17
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 17
+    },
+    {
+      "contactTick": 1522,
+      "attackSequence": 2,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 10,
+      "sourceUnitId": 18,
+      "structureId": "south:lane:west",
+      "tick": 1522,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 2,
+        "direction": "unit-to-tower",
+        "projectileId": 10,
+        "sourceId": 18
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 18
+    },
+    {
+      "contactTick": 1791,
+      "attackSequence": 7,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 13,
+      "sourceUnitId": 8,
+      "structureId": "north:lane:east",
+      "tick": 1791,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 7,
+        "direction": "unit-to-tower",
+        "projectileId": 13,
+        "sourceId": 8
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 8
+    },
+    {
+      "contactTick": 1849,
+      "attackSequence": 8,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 14,
+      "sourceUnitId": 8,
+      "structureId": "north:lane:east",
+      "tick": 1849,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 8,
+        "direction": "unit-to-tower",
+        "projectileId": 14,
+        "sourceId": 8
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 8
+    },
+    {
+      "contactTick": 1907,
+      "attackSequence": 9,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 15,
+      "sourceUnitId": 8,
+      "structureId": "north:lane:east",
+      "tick": 1907,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 9,
+        "direction": "unit-to-tower",
+        "projectileId": 15,
+        "sourceId": 8
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 8
+    },
+    {
+      "contactTick": 1965,
+      "attackSequence": 10,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 16,
+      "sourceUnitId": 8,
+      "structureId": "north:lane:east",
+      "tick": 1965,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 10,
+        "direction": "unit-to-tower",
+        "projectileId": 16,
+        "sourceId": 8
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 8
+    },
+    {
+      "contactTick": 2023,
+      "attackSequence": 11,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 17,
+      "sourceUnitId": 8,
+      "structureId": "north:lane:east",
+      "tick": 2023,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 11,
+        "direction": "unit-to-tower",
+        "projectileId": 17,
+        "sourceId": 8
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 8
+    },
+    {
+      "contactTick": 2064,
+      "attackSequence": 1,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 18,
+      "sourceUnitId": 22,
+      "structureId": "north:lane:west",
+      "tick": 2064,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileId": 18,
+        "sourceId": 22
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 22
+    },
+    {
+      "contactTick": 2076,
+      "attackSequence": 1,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 19,
+      "sourceUnitId": 24,
+      "structureId": "north:lane:west",
+      "tick": 2076,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileId": 19,
+        "sourceId": 24
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 24
+    },
+    {
+      "contactTick": 2081,
+      "attackSequence": 12,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 20,
+      "sourceUnitId": 8,
+      "structureId": "north:lane:east",
+      "tick": 2081,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 12,
+        "direction": "unit-to-tower",
+        "projectileId": 20,
+        "sourceId": 8
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 8
+    },
+    {
+      "contactTick": 2100,
+      "attackSequence": 1,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 21,
+      "sourceUnitId": 23,
+      "structureId": "north:lane:west",
+      "tick": 2100,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileId": 21,
+        "sourceId": 23
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 23
+    },
+    {
+      "contactTick": 2140,
+      "attackSequence": 13,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 22,
+      "sourceUnitId": 8,
+      "structureId": "north:lane:east",
+      "tick": 2140,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 13,
+        "direction": "unit-to-tower",
+        "projectileId": 22,
+        "sourceId": 8
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 8
+    },
+    {
+      "contactTick": 2198,
+      "attackSequence": 2,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 23,
+      "sourceUnitId": 23,
+      "structureId": "north:lane:west",
+      "tick": 2198,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 2,
+        "direction": "unit-to-tower",
+        "projectileId": 23,
+        "sourceId": 23
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 23
+    },
+    {
+      "contactTick": 3575,
+      "attackSequence": 1,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 25,
+      "sourceUnitId": 38,
+      "structureId": "south:lane:east",
+      "tick": 3575,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileId": 25,
+        "sourceId": 38
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 38
+    },
+    {
+      "contactTick": 3611,
+      "attackSequence": 1,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 26,
+      "sourceUnitId": 39,
+      "structureId": "south:lane:east",
+      "tick": 3611,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileId": 26,
+        "sourceId": 39
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 39
+    },
+    {
+      "contactTick": 3670,
+      "attackSequence": 2,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 27,
+      "sourceUnitId": 38,
+      "structureId": "south:lane:east",
+      "tick": 3670,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 2,
+        "direction": "unit-to-tower",
+        "projectileId": 27,
+        "sourceId": 38
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 38
+    },
+    {
+      "contactTick": 3707,
+      "attackSequence": 2,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 28,
+      "sourceUnitId": 39,
+      "structureId": "south:lane:east",
+      "tick": 3707,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 2,
+        "direction": "unit-to-tower",
+        "projectileId": 28,
+        "sourceId": 39
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 39
+    },
+    {
+      "contactTick": 3712,
+      "attackSequence": 2,
+      "damage": 720,
+      "delivery": "melee",
+      "sourceUnitId": 29,
+      "structureId": "north:lane:west",
+      "tick": 3712,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 3808,
+      "attackSequence": 3,
+      "damage": 720,
+      "delivery": "melee",
+      "sourceUnitId": 29,
+      "structureId": "north:lane:west",
+      "tick": 3808,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 3913,
+      "attackSequence": 6,
+      "damage": 202,
+      "delivery": "melee",
+      "sourceUnitId": 27,
+      "structureId": "north:lane:west",
+      "tick": 3913,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 3985,
+      "attackSequence": 7,
+      "damage": 202,
+      "delivery": "melee",
+      "sourceUnitId": 27,
+      "structureId": "north:lane:west",
+      "tick": 3985,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 4030,
+      "attackSequence": 4,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 31,
+      "sourceUnitId": 33,
+      "structureId": "north:lane:west",
+      "tick": 4030,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 4,
+        "direction": "unit-to-tower",
+        "projectileId": 31,
+        "sourceId": 33
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 33
+    },
+    {
+      "contactTick": 4057,
+      "attackSequence": 8,
+      "damage": 202,
+      "delivery": "melee",
+      "sourceUnitId": 27,
+      "structureId": "north:lane:west",
+      "tick": 4057,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 4088,
+      "attackSequence": 5,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 32,
+      "sourceUnitId": 33,
+      "structureId": "north:lane:west",
+      "tick": 4088,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 5,
+        "direction": "unit-to-tower",
+        "projectileId": 32,
+        "sourceId": 33
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 33
+    },
+    {
+      "contactTick": 4129,
+      "attackSequence": 9,
+      "damage": 202,
+      "delivery": "melee",
+      "sourceUnitId": 27,
+      "structureId": "north:lane:west",
+      "tick": 4129,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 4146,
+      "attackSequence": 6,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 33,
+      "sourceUnitId": 33,
+      "structureId": "north:lane:west",
+      "tick": 4146,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 6,
+        "direction": "unit-to-tower",
+        "projectileId": 33,
+        "sourceId": 33
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 33
+    },
+    {
+      "tick": 4146,
+      "towerId": "north:lane:west",
+      "type": "tower-destroyed"
+    },
+    {
+      "contactTick": 4367,
+      "attackSequence": 7,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 34,
+      "sourceUnitId": 33,
+      "structureId": "north:central",
+      "tick": 4367,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 7,
+        "direction": "unit-to-tower",
+        "projectileId": 34,
+        "sourceId": 33
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 33
+    },
+    {
+      "contactTick": 4425,
+      "attackSequence": 8,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 35,
+      "sourceUnitId": 33,
+      "structureId": "north:central",
+      "tick": 4425,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 8,
+        "direction": "unit-to-tower",
+        "projectileId": 35,
+        "sourceId": 33
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 33
+    },
+    {
+      "contactTick": 4484,
+      "attackSequence": 9,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 36,
+      "sourceUnitId": 33,
+      "structureId": "north:central",
+      "tick": 4484,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 9,
+        "direction": "unit-to-tower",
+        "projectileId": 36,
+        "sourceId": 33
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 33
+    },
+    {
+      "contactTick": 4543,
+      "attackSequence": 10,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 37,
+      "sourceUnitId": 33,
+      "structureId": "north:central",
+      "tick": 4543,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 10,
+        "direction": "unit-to-tower",
+        "projectileId": 37,
+        "sourceId": 33
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 33
+    },
+    {
+      "contactTick": 4601,
+      "attackSequence": 11,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 38,
+      "sourceUnitId": 33,
+      "structureId": "north:central",
+      "tick": 4601,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 11,
+        "direction": "unit-to-tower",
+        "projectileId": 38,
+        "sourceId": 33
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 33
+    },
+    {
+      "contactTick": 4660,
+      "attackSequence": 12,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 39,
+      "sourceUnitId": 33,
+      "structureId": "north:central",
+      "tick": 4660,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 12,
+        "direction": "unit-to-tower",
+        "projectileId": 39,
+        "sourceId": 33
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 33
+    },
+    {
+      "contactTick": 4685,
+      "attackSequence": 10,
+      "damage": 202,
+      "delivery": "melee",
+      "sourceUnitId": 27,
+      "structureId": "north:central",
+      "tick": 4685,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 4718,
+      "attackSequence": 13,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 40,
+      "sourceUnitId": 33,
+      "structureId": "north:central",
+      "tick": 4718,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 13,
+        "direction": "unit-to-tower",
+        "projectileId": 40,
+        "sourceId": 33
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 33
+    },
+    {
+      "contactTick": 4757,
+      "attackSequence": 11,
+      "damage": 202,
+      "delivery": "melee",
+      "sourceUnitId": 27,
+      "structureId": "north:central",
+      "tick": 4757,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 4777,
+      "attackSequence": 14,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 41,
+      "sourceUnitId": 33,
+      "structureId": "north:central",
+      "tick": 4777,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 14,
+        "direction": "unit-to-tower",
+        "projectileId": 41,
+        "sourceId": 33
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 33
+    },
+    {
+      "contactTick": 4829,
+      "attackSequence": 12,
+      "damage": 202,
+      "delivery": "melee",
+      "sourceUnitId": 27,
+      "structureId": "north:central",
+      "tick": 4829,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 4836,
+      "attackSequence": 15,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 42,
+      "sourceUnitId": 33,
+      "structureId": "north:central",
+      "tick": 4836,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 15,
+        "direction": "unit-to-tower",
+        "projectileId": 42,
+        "sourceId": 33
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 33
+    },
+    {
+      "contactTick": 4895,
+      "attackSequence": 16,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 43,
+      "sourceUnitId": 33,
+      "structureId": "north:central",
+      "tick": 4895,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 16,
+        "direction": "unit-to-tower",
+        "projectileId": 43,
+        "sourceId": 33
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 33
+    },
+    {
+      "contactTick": 4901,
+      "attackSequence": 13,
+      "damage": 202,
+      "delivery": "melee",
+      "sourceUnitId": 27,
+      "structureId": "north:central",
+      "tick": 4901,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 4955,
+      "attackSequence": 17,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 44,
+      "sourceUnitId": 33,
+      "structureId": "north:central",
+      "tick": 4955,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 17,
+        "direction": "unit-to-tower",
+        "projectileId": 44,
+        "sourceId": 33
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 33
+    },
+    {
+      "contactTick": 5015,
+      "attackSequence": 18,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 46,
+      "sourceUnitId": 33,
+      "structureId": "north:central",
+      "tick": 5015,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 18,
+        "direction": "unit-to-tower",
+        "projectileId": 46,
+        "sourceId": 33
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 33
+    },
+    {
+      "contactTick": 5075,
+      "attackSequence": 19,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 49,
+      "sourceUnitId": 33,
+      "structureId": "north:central",
+      "tick": 5075,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 19,
+        "direction": "unit-to-tower",
+        "projectileId": 49,
+        "sourceId": 33
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 33
+    },
+    {
+      "contactTick": 5726,
+      "attackSequence": 5,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 59,
+      "sourceUnitId": 50,
+      "structureId": "north:lane:east",
+      "tick": 5726,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 5,
+        "direction": "unit-to-tower",
+        "projectileId": 59,
+        "sourceId": 50
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 50
+    },
+    {
+      "contactTick": 5742,
+      "attackSequence": 5,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 60,
+      "sourceUnitId": 48,
+      "structureId": "north:lane:east",
+      "tick": 5742,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 5,
+        "direction": "unit-to-tower",
+        "projectileId": 60,
+        "sourceId": 48
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 48
+    },
+    {
+      "contactTick": 5744,
+      "attackSequence": 5,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 61,
+      "sourceUnitId": 49,
+      "structureId": "north:lane:east",
+      "tick": 5744,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 5,
+        "direction": "unit-to-tower",
+        "projectileId": 61,
+        "sourceId": 49
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 49
+    },
+    {
+      "contactTick": 5759,
+      "attackSequence": 1,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 62,
+      "sourceUnitId": 60,
+      "structureId": "south:lane:west",
+      "tick": 5759,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileId": 62,
+        "sourceId": 60
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 60
+    },
+    {
+      "contactTick": 5795,
+      "attackSequence": 1,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 63,
+      "sourceUnitId": 61,
+      "structureId": "south:lane:west",
+      "tick": 5795,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileId": 63,
+        "sourceId": 61
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 61
+    },
+    {
+      "contactTick": 5824,
+      "attackSequence": 6,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 64,
+      "sourceUnitId": 50,
+      "structureId": "north:lane:east",
+      "tick": 5824,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 6,
+        "direction": "unit-to-tower",
+        "projectileId": 64,
+        "sourceId": 50
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 50
+    },
+    {
+      "contactTick": 5840,
+      "attackSequence": 6,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 65,
+      "sourceUnitId": 48,
+      "structureId": "north:lane:east",
+      "tick": 5840,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 6,
+        "direction": "unit-to-tower",
+        "projectileId": 65,
+        "sourceId": 48
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 48
+    },
+    {
+      "contactTick": 5842,
+      "attackSequence": 6,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 66,
+      "sourceUnitId": 49,
+      "structureId": "north:lane:east",
+      "tick": 5842,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 6,
+        "direction": "unit-to-tower",
+        "projectileId": 66,
+        "sourceId": 49
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 49
+    },
+    {
+      "contactTick": 5855,
+      "attackSequence": 2,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 67,
+      "sourceUnitId": 60,
+      "structureId": "south:lane:west",
+      "tick": 5855,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 2,
+        "direction": "unit-to-tower",
+        "projectileId": 67,
+        "sourceId": 60
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 60
+    },
+    {
+      "contactTick": 5892,
+      "attackSequence": 2,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 68,
+      "sourceUnitId": 61,
+      "structureId": "south:lane:west",
+      "tick": 5892,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 2,
+        "direction": "unit-to-tower",
+        "projectileId": 68,
+        "sourceId": 61
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 61
+    },
+    {
+      "contactTick": 7474,
+      "attackSequence": 1,
+      "damage": 311,
+      "delivery": "melee",
+      "sourceUnitId": 66,
+      "structureId": "south:lane:east",
+      "tick": 7474,
+      "type": "external-structure-contact"
+    },
+    {
+      "contactTick": 7678,
+      "attackSequence": 1,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 75,
+      "sourceUnitId": 74,
+      "structureId": "south:lane:east",
+      "tick": 7678,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileId": 75,
+        "sourceId": 74
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 74
+    },
+    {
+      "contactTick": 8455,
+      "attackSequence": 16,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 103,
+      "sourceUnitId": 77,
+      "structureId": "south:lane:east",
+      "tick": 8455,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 16,
+        "direction": "unit-to-tower",
+        "projectileId": 103,
+        "sourceId": 77
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 77
+    },
+    {
+      "contactTick": 8494,
+      "attackSequence": 17,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 104,
+      "sourceUnitId": 77,
+      "structureId": "south:lane:east",
+      "tick": 8494,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 17,
+        "direction": "unit-to-tower",
+        "projectileId": 104,
+        "sourceId": 77
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 77
+    },
+    {
+      "contactTick": 8537,
+      "attackSequence": 18,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 106,
+      "sourceUnitId": 77,
+      "structureId": "south:lane:east",
+      "tick": 8537,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 18,
+        "direction": "unit-to-tower",
+        "projectileId": 106,
+        "sourceId": 77
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 77
+    },
+    {
+      "contactTick": 8577,
+      "attackSequence": 19,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 108,
+      "sourceUnitId": 77,
+      "structureId": "south:lane:east",
+      "tick": 8577,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 19,
+        "direction": "unit-to-tower",
+        "projectileId": 108,
+        "sourceId": 77
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 77
+    },
+    {
+      "contactTick": 8771,
+      "attackSequence": 1,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 110,
+      "sourceUnitId": 88,
+      "structureId": "south:lane:west",
+      "tick": 8771,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileId": 110,
+        "sourceId": 88
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 88
+    },
+    {
+      "contactTick": 8807,
+      "attackSequence": 1,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 111,
+      "sourceUnitId": 89,
+      "structureId": "south:lane:west",
+      "tick": 8807,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileId": 111,
+        "sourceId": 89
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 89
+    },
+    {
+      "contactTick": 8869,
+      "attackSequence": 2,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 112,
+      "sourceUnitId": 88,
+      "structureId": "south:lane:west",
+      "tick": 8869,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 2,
+        "direction": "unit-to-tower",
+        "projectileId": 112,
+        "sourceId": 88
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 88
+    },
+    {
+      "contactTick": 8903,
+      "attackSequence": 1,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 113,
+      "sourceUnitId": 96,
+      "structureId": "south:lane:west",
+      "tick": 8903,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileId": 113,
+        "sourceId": 96
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 96
+    },
+    {
+      "contactTick": 8906,
+      "attackSequence": 2,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 114,
+      "sourceUnitId": 89,
+      "structureId": "south:lane:west",
+      "tick": 8906,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 2,
+        "direction": "unit-to-tower",
+        "projectileId": 114,
+        "sourceId": 89
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 89
+    },
+    {
+      "contactTick": 8945,
+      "attackSequence": 2,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 115,
+      "sourceUnitId": 96,
+      "structureId": "south:lane:west",
+      "tick": 8945,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 2,
+        "direction": "unit-to-tower",
+        "projectileId": 115,
+        "sourceId": 96
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 96
+    },
+    {
+      "contactTick": 8960,
+      "attackSequence": 4,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 116,
+      "sourceUnitId": 83,
+      "structureId": "north:lane:east",
+      "tick": 8960,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 4,
+        "direction": "unit-to-tower",
+        "projectileId": 116,
+        "sourceId": 83
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 83
+    },
+    {
+      "contactTick": 8987,
+      "attackSequence": 3,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 117,
+      "sourceUnitId": 96,
+      "structureId": "south:lane:west",
+      "tick": 8987,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 3,
+        "direction": "unit-to-tower",
+        "projectileId": 117,
+        "sourceId": 96
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 96
+    },
+    {
+      "contactTick": 8999,
+      "attackSequence": 5,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 118,
+      "sourceUnitId": 83,
+      "structureId": "north:lane:east",
+      "tick": 8999,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 5,
+        "direction": "unit-to-tower",
+        "projectileId": 118,
+        "sourceId": 83
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 83
+    },
+    {
+      "contactTick": 9029,
+      "attackSequence": 4,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 119,
+      "sourceUnitId": 96,
+      "structureId": "south:lane:west",
+      "tick": 9029,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 4,
+        "direction": "unit-to-tower",
+        "projectileId": 119,
+        "sourceId": 96
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 96
+    },
+    {
+      "contactTick": 9038,
+      "attackSequence": 6,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 120,
+      "sourceUnitId": 83,
+      "structureId": "north:lane:east",
+      "tick": 9038,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 6,
+        "direction": "unit-to-tower",
+        "projectileId": 120,
+        "sourceId": 83
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 83
+    },
+    {
+      "contactTick": 9071,
+      "attackSequence": 5,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 121,
+      "sourceUnitId": 96,
+      "structureId": "south:lane:west",
+      "tick": 9071,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 5,
+        "direction": "unit-to-tower",
+        "projectileId": 121,
+        "sourceId": 96
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 96
+    },
+    {
+      "tick": 9071,
+      "towerId": "south:lane:west",
+      "type": "tower-destroyed"
+    },
+    {
+      "contactTick": 10281,
+      "attackSequence": 7,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 150,
+      "sourceUnitId": 111,
+      "structureId": "south:lane:east",
+      "tick": 10281,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 7,
+        "direction": "unit-to-tower",
+        "projectileId": 150,
+        "sourceId": 111
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 111
+    },
+    {
+      "contactTick": 10323,
+      "attackSequence": 8,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 153,
+      "sourceUnitId": 111,
+      "structureId": "south:lane:east",
+      "tick": 10323,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 8,
+        "direction": "unit-to-tower",
+        "projectileId": 153,
+        "sourceId": 111
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 111
+    },
+    {
+      "contactTick": 10365,
+      "attackSequence": 9,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 155,
+      "sourceUnitId": 111,
+      "structureId": "south:lane:east",
+      "tick": 10365,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 9,
+        "direction": "unit-to-tower",
+        "projectileId": 155,
+        "sourceId": 111
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 111
+    },
+    {
+      "contactTick": 10407,
+      "attackSequence": 10,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 157,
+      "sourceUnitId": 111,
+      "structureId": "south:lane:east",
+      "tick": 10407,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 10,
+        "direction": "unit-to-tower",
+        "projectileId": 157,
+        "sourceId": 111
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 111
+    },
+    {
+      "contactTick": 10449,
+      "attackSequence": 11,
+      "damage": 131,
+      "delivery": "projectile",
+      "projectileId": 159,
+      "sourceUnitId": 111,
+      "structureId": "south:lane:east",
+      "tick": 10449,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 11,
+        "direction": "unit-to-tower",
+        "projectileId": 159,
+        "sourceId": 111
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 111
+    },
+    {
+      "contactTick": 11786,
+      "attackSequence": 5,
+      "damage": 81,
+      "delivery": "projectile",
+      "projectileId": 205,
+      "sourceUnitId": 129,
+      "structureId": "north:lane:east",
+      "tick": 11786,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 5,
+        "direction": "unit-to-tower",
+        "projectileId": 205,
+        "sourceId": 129
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 129
+    },
+    {
+      "contactTick": 12398,
+      "attackSequence": 44,
+      "damage": 218,
+      "delivery": "projectile",
+      "projectileId": 222,
+      "sourceUnitId": 110,
+      "structureId": "north:lane:east",
+      "tick": 12398,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 44,
+        "direction": "unit-to-tower",
+        "projectileId": 222,
+        "sourceId": 110
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 110
+    },
+    {
+      "contactTick": 15192,
+      "attackSequence": 7,
+      "damage": 171,
+      "delivery": "projectile",
+      "projectileId": 334,
+      "sourceUnitId": 192,
+      "structureId": "north:lane:east",
+      "tick": 15192,
+      "type": "external-structure-contact",
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 7,
+        "direction": "unit-to-tower",
+        "projectileId": 334,
+        "sourceId": 192
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 192
+    }
+  ],
+  "trace": {
+    "startTick": 13170,
+    "endTick": 18000,
+    "laneId": "south:lane:east",
+    "commandIds": [
+      24,
+      29,
+      31,
+      35,
+      37,
+      40
+    ],
+    "deployedSouthEntityIds": [
+      159,
+      161,
+      162,
+      163,
+      164,
+      165,
+      166,
+      168,
+      173,
+      174,
+      175,
+      182,
+      183,
+      185,
+      186,
+      187,
+      188,
+      189,
+      190,
+      192,
+      194,
+      195,
+      196,
+      212,
+      225,
+      232,
+      234,
+      235,
+      237,
+      238,
+      239,
+      240,
+      241,
+      242,
+      253,
+      254
+    ],
+    "eventTypes": {
+      "session-deployed": 48,
+      "damage": 333,
+      "attack": 263,
+      "projectile-launch": 228,
+      "projectile-impact": 228,
+      "death": 112,
+      "external-structure-contact": 1
+    },
+    "eventCount": 1213,
+    "boundaryCount": 322
+  }
+}
