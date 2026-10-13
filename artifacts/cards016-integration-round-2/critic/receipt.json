@@ -1,0 +1,444 @@
+{
+  "candidateCommit": "a8c39bcc02329ba22b3fdd50be7d1089bc6010dc",
+  "piece": "CARDS-016I",
+  "verdict": "PASS",
+  "testSuiteTotals": {
+    "passed": 58,
+    "failed": 0,
+    "suites": [
+      {
+        "command": "APP_SHELL_ARTIFACTS=<critic-dir> node --test tests/app-shell.test.js",
+        "log": "app-shell-node-test-critic-path.tap",
+        "passed": 1,
+        "failed": 0,
+        "durationMs": 61786.473667
+      },
+      {
+        "command": "node --test tests/cards016-integration.test.js tests/game-roster-troops-air-swarms.test.js",
+        "log": "cards016-integration-and-air-swarms.tap",
+        "passed": 13,
+        "failed": 0,
+        "durationMs": 4276.077167
+      },
+      {
+        "command": "npm run test:editable-deck",
+        "log": "editable-deck.tap",
+        "passed": 10,
+        "failed": 0,
+        "durationMs": 20515.0705
+      },
+      {
+        "command": "npm run test:rl-environment",
+        "log": "rl-environment.tap",
+        "passed": 11,
+        "failed": 0,
+        "durationMs": 148418.281708
+      },
+      {
+        "command": "npm run test:nondeterminism-guard",
+        "log": "nondeterminism-guard.tap",
+        "passed": 10,
+        "failed": 0,
+        "durationMs": 1322.986917
+      },
+      {
+        "command": "npm run test:shipping-isolation-guard",
+        "log": "shipping-isolation-guard.tap",
+        "passed": 13,
+        "failed": 0,
+        "durationMs": 40980.237833
+      }
+    ],
+    "note": "The browser suite also passed once before its artifact output was redirected; both browser runs were 1/1."
+  },
+  "browser": {
+    "runner": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "result": "passed",
+    "viewports": [
+      {
+        "width": 720,
+        "height": 1280
+      },
+      {
+        "width": 390,
+        "height": 844
+      },
+      {
+        "width": 1440,
+        "height": 933
+      }
+    ],
+    "availableEditableCards": 18,
+    "standardDeckIds": [
+      "coilblade",
+      "mossguard",
+      "copperskiff",
+      "skymaul",
+      "brassbolt",
+      "reedsting",
+      "briar-band",
+      "cinderlings"
+    ],
+    "selectedDeck": [
+      "coilblade",
+      "stonehauler",
+      "gloamwing-cluster",
+      "coppershade-flock",
+      "brassbolt",
+      "reedsting",
+      "briar-band",
+      "cinderlings"
+    ],
+    "defaultEightPreserved": true,
+    "replacements": [
+      {
+        "added": "stonehauler",
+        "removed": "mossguard",
+        "slot": 1
+      },
+      {
+        "added": "gloamwing-cluster",
+        "removed": "copperskiff",
+        "slot": 2
+      },
+      {
+        "added": "coppershade-flock",
+        "removed": "skymaul",
+        "slot": 3
+      }
+    ],
+    "airProfiles": {
+      "gloamwing-cluster": {
+        "cost": 2,
+        "count": 5,
+        "deployEntityCount": 5,
+        "layer": "air",
+        "delivery": "melee",
+        "deliveryPolicy": "question",
+        "questionKeys": [
+          "gloamwing.body-radius-millitiles",
+          "gloamwing.count",
+          "gloamwing.damage",
+          "gloamwing.delivery",
+          "gloamwing.deploy-time-ticks",
+          "gloamwing.first-hit-ticks",
+          "gloamwing.hit-speed-ticks",
+          "gloamwing.hitpoints",
+          "gloamwing.layer",
+          "gloamwing.movement-millitiles-per-second",
+          "gloamwing.range-millitiles",
+          "gloamwing.sight-range-millitiles",
+          "gloamwing.target-mode"
+        ]
+      },
+      "coppershade-flock": {
+        "cost": 5,
+        "count": 6,
+        "deployEntityCount": 6,
+        "layer": "air",
+        "delivery": "projectile",
+        "deliveryPolicy": "source-backed",
+        "questionKeys": [
+          "coppershade.body-radius-millitiles",
+          "coppershade.count",
+          "coppershade.damage",
+          "coppershade.deploy-time-ticks",
+          "coppershade.first-hit-ticks",
+          "coppershade.hit-speed-ticks",
+          "coppershade.hitpoints",
+          "coppershade.layer",
+          "coppershade.movement-millitiles-per-second",
+          "coppershade.projectile-speed-millitiles-per-tick",
+          "coppershade.range-millitiles",
+          "coppershade.sight-range-millitiles",
+          "coppershade.target-mode"
+        ]
+      }
+    },
+    "trustedDeployments": [
+      {
+        "cardId": "gloamwing-cluster",
+        "entityCount": 5,
+        "cost": 2,
+        "point": {
+          "x": 9000,
+          "y": 6642
+        },
+        "trustedInput": true
+      },
+      {
+        "cardId": "coppershade-flock",
+        "entityCount": 6,
+        "cost": 5,
+        "point": {
+          "x": 9000,
+          "y": 6642
+        },
+        "trustedInput": true
+      }
+    ],
+    "coppershadeAirTarget": {
+      "attackerCardId": "coppershade-flock",
+      "targetCardId": "coppershade-flock",
+      "targetLayer": "air",
+      "projectileLaunchTick": 402,
+      "projectileImpactTick": 406
+    },
+    "restore": {
+      "gloamwing": {
+        "exactAtRestore": true,
+        "replayExact": true,
+        "restoredDeck": [
+          "coilblade",
+          "stonehauler",
+          "gloamwing-cluster",
+          "coppershade-flock",
+          "brassbolt",
+          "reedsting",
+          "briar-band",
+          "cinderlings"
+        ]
+      },
+      "coppershade": {
+        "attackerCardId": "coppershade-flock",
+        "attackerSide": "south",
+        "projectile": {
+          "attackSequence": 1,
+          "attackerId": 16,
+          "damage": 117,
+          "direction": "unit-to-unit",
+          "id": 8,
+          "impactTick": 406,
+          "launchTick": 402,
+          "origin": {
+            "x": 6934,
+            "y": 10765
+          },
+          "projectileId": 8,
+          "projectileIdentity": {
+            "attackSequence": 1,
+            "direction": "unit-to-unit",
+            "projectileId": 8,
+            "sourceId": 16
+          },
+          "projectileScope": "unit-to-unit",
+          "sourceId": 16,
+          "speed": 500,
+          "targetId": 9,
+          "targetPosition": {
+            "x": 5996,
+            "y": 12746
+          }
+        },
+        "exactAtRestore": true,
+        "projectileRestoredExactly": true,
+        "replayExact": true,
+        "targetCardId": "coppershade-flock",
+        "targetLayer": "air",
+        "targetSide": "north"
+      }
+    },
+    "phoneCollectionOverflow": false,
+    "desktopCollectionOverflow": false,
+    "phoneDetails": [
+      {
+        "cardId": "gloamwing-cluster",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "portraitVisible": true,
+        "detailScrollWidth": 364,
+        "detailClientWidth": 364,
+        "navigationVisible": true,
+        "screenshots": [
+          "gloamwing-cluster-phone-390x844.png",
+          "gloamwing-cluster-phone-390x844-full.png"
+        ]
+      },
+      {
+        "cardId": "coppershade-flock",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "portraitVisible": true,
+        "detailScrollWidth": 364,
+        "detailClientWidth": 364,
+        "navigationVisible": true,
+        "screenshots": [
+          "coppershade-flock-phone-390x844.png",
+          "coppershade-flock-phone-390x844-full.png"
+        ]
+      }
+    ],
+    "desktopDetails": [
+      {
+        "cardId": "gloamwing-cluster",
+        "viewport": {
+          "width": 1440,
+          "height": 933
+        },
+        "portraitVisible": true,
+        "detailScrollWidth": 474,
+        "detailClientWidth": 474
+      },
+      {
+        "cardId": "coppershade-flock",
+        "viewport": {
+          "width": 1440,
+          "height": 933
+        },
+        "portraitVisible": true,
+        "detailScrollWidth": 474,
+        "detailClientWidth": 474
+      }
+    ],
+    "phoneBattleFrame": {
+      "x": 9.65625,
+      "y": 117,
+      "width": 370.6875,
+      "height": 659
+    },
+    "screenshots": [
+      {
+        "file": "coppershade-flock-desktop-1440x933.png",
+        "sha256": "06439e6f35dd36f17dceb89935965dbe4c48190febab68f5b5d682d65ac2e2a6"
+      },
+      {
+        "file": "coppershade-flock-phone-390x844-full.png",
+        "sha256": "c4583dd16418153872efc21f9c375a0ce37d0d9da8d2349386764cae77a84d67"
+      },
+      {
+        "file": "coppershade-flock-phone-390x844.png",
+        "sha256": "c4583dd16418153872efc21f9c375a0ce37d0d9da8d2349386764cae77a84d67"
+      },
+      {
+        "file": "custom-battle-coppershade-deployed-390x844.png",
+        "sha256": "aa999ecd76749e43976e6cda667779424429a797e5ad07e0ee4c36a36df73c07"
+      },
+      {
+        "file": "custom-battle-coppershade-projectile-390x844.png",
+        "sha256": "a2abdb8eaeeb868a382285d6e5c7ba5c22b43337922bdcee79ce008faccbc8d5"
+      },
+      {
+        "file": "custom-battle-gloamwing-390x844.png",
+        "sha256": "9f170912774aa507c5d0c66b9aa1dc0d338962c8c92ff19b156dfa8350f630c2"
+      },
+      {
+        "file": "custom-battle-gloamwing-deployed-390x844.png",
+        "sha256": "5f00907c9952074123122859fe48e8bc3bc175203379eb2b7cbd65ca6b06cb27"
+      },
+      {
+        "file": "custom-battle-restart-390x844.png",
+        "sha256": "fc1a0f31fe62ecf507b04c7d0d3bf3ecbaaf717a5cec608dd80301f6b629afd3"
+      },
+      {
+        "file": "custom-battle-squall-impact-390x844.png",
+        "sha256": "af37eaa81d93d4cc4033c69b585838f0d3ccf5c6ceb6a14233d7fc0402a72f16"
+      },
+      {
+        "file": "custom-battle-squall-radius-preview-390x844.png",
+        "sha256": "02b7f4875818c10abff824c1a9576903b8b57210ea51a8ded74d81331957c557"
+      },
+      {
+        "file": "custom-battle-terminal-390x844.png",
+        "sha256": "c5144943fbc574da3b1e0819b6ac1d313bfaa1102f1b3a4c903569f2dd8629cd"
+      },
+      {
+        "file": "custom-card-stonehauler-390x844.png",
+        "sha256": "f841ed670ed489cc295f367bde2ed95c294aa588b79b793561575292d831b043"
+      },
+      {
+        "file": "custom-deck-390x844.png",
+        "sha256": "76515e9c2173dfd296ba1c50d14cdd41ccabb29d2198108aa64f2650c754904a"
+      },
+      {
+        "file": "custom-deck-coppershade-390x844.png",
+        "sha256": "73ef3ee22e6b26e1d65989b2a87dfb9e87b6ba3ede5d057a81725efb670f669b"
+      },
+      {
+        "file": "custom-deck-gloamwing-390x844.png",
+        "sha256": "798158e4ee8eb6c8f902d6614a4c96817a8acef2bfac1ff880885b74d4913f52"
+      },
+      {
+        "file": "desktop-card-details-1440x933.png",
+        "sha256": "7c4a2374cf5d6dbf74ebca8ecb46adcc9573714e56008e3fcb4bdac051729794"
+      },
+      {
+        "file": "desktop-card-portraits-1440x933.png",
+        "sha256": "8067bd913a6e7185df1da2187da6a35f7e309bffa9e83c31509eb1253bbdb7cd"
+      },
+      {
+        "file": "duskwing-trio-desktop-1440x933.png",
+        "sha256": "a3a418003c46850616eda87dcbabf063313b2954a2b80371a36a5286c46b54be"
+      },
+      {
+        "file": "duskwing-trio-phone-390x844-full.png",
+        "sha256": "9d46c1336624370a5d72030c034e138b9e53c090ba5ef68eb3bb10c9d00b7c67"
+      },
+      {
+        "file": "duskwing-trio-phone-390x844.png",
+        "sha256": "9d46c1336624370a5d72030c034e138b9e53c090ba5ef68eb3bb10c9d00b7c67"
+      },
+      {
+        "file": "gloamwing-cluster-desktop-1440x933.png",
+        "sha256": "41d3a2daa55ea81c434adff3c1069831e92bf745d1e47b133de009f228ccd6be"
+      },
+      {
+        "file": "gloamwing-cluster-phone-390x844-full.png",
+        "sha256": "d192af97d333b3c45bde34781288a2a4af5a336c1c20c410607ce0b1ff8d5249"
+      },
+      {
+        "file": "gloamwing-cluster-phone-390x844.png",
+        "sha256": "d192af97d333b3c45bde34781288a2a4af5a336c1c20c410607ce0b1ff8d5249"
+      },
+      {
+        "file": "phone-battle-720x1280.png",
+        "sha256": "86eaba1e84178dd475f28ed66f270ae40089aa3c0b59d8cb82475a82e5b4dd49"
+      },
+      {
+        "file": "phone-card-details-720x1280.png",
+        "sha256": "dacf6723b1f158d6d4259afc68c7d6377bfdab17ec75896ce3fbab7bba6d7588"
+      },
+      {
+        "file": "phone-card-portraits-390x844.png",
+        "sha256": "7338e417092e286cc6c886a6420d28c94b27407a2b0c3a3d8c6056c51fc0238b"
+      },
+      {
+        "file": "phone-card-portraits-full-390x844.png",
+        "sha256": "f3cc925c3715f0a6fbe6e3b6c367b636cbdca352a3a2bfd24faaabfd0aac803c"
+      },
+      {
+        "file": "phone-deck-720x1280.png",
+        "sha256": "f1c697dda9a4882dc0abf7e20b60e38f762b7b974b4a5326ae009601124e42c0"
+      },
+      {
+        "file": "phone-home-720x1280.png",
+        "sha256": "661f16fbce88f3538941eebf0ca9d77cf04ad3528e7e4bacb7b713b6cc271be7"
+      },
+      {
+        "file": "phone-small-battle-390x844.png",
+        "sha256": "99c547d2d4dfc29e6807cfdf0d7865b2ebdbadfff26bf1e07746ea39e6b81df1"
+      },
+      {
+        "file": "phone-squall-orb-details-720x1280.png",
+        "sha256": "60b99b4a4003415765d979b29020ad3ec015b0e1a230560923c3087884176767"
+      },
+      {
+        "file": "sunthread-pair-desktop-1440x933.png",
+        "sha256": "1cac8c0da78b6613384a3be9a12b8a299812fe23a5aa4347fad6db9fc226bf49"
+      },
+      {
+        "file": "sunthread-pair-phone-390x844-full.png",
+        "sha256": "eed78797f448ba28f1937fed8cb33d02338ff1828ccba7601b815ca83094b457"
+      },
+      {
+        "file": "sunthread-pair-phone-390x844.png",
+        "sha256": "eed78797f448ba28f1937fed8cb33d02338ff1828ccba7601b815ca83094b457"
+      }
+    ],
+    "rawEvidence": "browser-evidence.json"
+  },
+  "biggestGap": "Historical swarm formation and spawn timing remain explicitly unverified; that comparison work is tracked separately as CARDS-016D."
+}

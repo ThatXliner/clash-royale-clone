@@ -1,0 +1,5 @@
+PIECE: CARDS-016I — Two air-swarm choices in player and RL decks
+VERDICT: PASS
+CANDIDATE: a8c39bcc02329ba22b3fdd50be7d1089bc6010dc
+EVIDENCE: The focused integration/air-swarm suite passed 13/13; editable deck 10/10; RL environment 11/11; nondeterminism guard 10/10; shipping-isolation guard 13/13; and actual Chrome app-shell run 1/1. The selected eight-card deck replaced Mossguard, Copperskiff, and Skymaul with Stonehauler, Gloamwing Cluster, and Coppershade Flock while the shipped default eight remained unchanged. Trusted browser deployments recorded Gloamwing at five bodies for 2 elixir and Coppershade at six bodies for 5 elixir. Coppershade launched a projectile at an airborne Coppershade; Gloamwing and the in-flight Coppershade projectile restored and replayed exactly. The 390×844 phone and 1440×933 desktop captures show both original portraits/lore with no horizontal overflow. Raw TAP, screenshots, structured browser evidence, and hashes are in this directory; see receipt.json.
+BIGGEST GAP: Historical swarm formation and spawn timing remain explicitly unverified and are tracked separately as CARDS-016D.
