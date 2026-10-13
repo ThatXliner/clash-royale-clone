@@ -484,12 +484,11 @@ test("Cards018 Ember Basin: editable collection enters real mixed battle and res
           assert.ok(iframeBox, "the desktop comparison point is inside the real battle frame");
           const point = { x: 885, y: 771 };
           const frameSize = await frame.evaluate(() => ({ width: innerWidth, height: innerHeight }));
-          const framePoint = {
-            x: (point.x - iframeBox.x) * frameSize.width / iframeBox.width,
-            y: (point.y - iframeBox.y) * frameSize.height / iframeBox.height,
-          };
-          motionRegion = await frame.evaluate(({ x, y }) => {
-            const node = document.elementFromPoint(x, y);
+          motionRegion = await frame.evaluate(() => {
+            const card = document.querySelector(
+              '[data-ui="hud-hand"] .hud-card[data-card-id="brassbolt"]',
+            );
+            const label = card?.querySelector(".hud-card__name");
             const describe = (element) => {
               if (!element) return null;
               const style = getComputedStyle(element);
@@ -513,24 +512,28 @@ test("Cards018 Ember Basin: editable collection enters real mixed battle and res
                 },
               };
             };
-            const ancestors = [];
-            for (let element = node; element && ancestors.length < 6; element = element.parentElement) {
-              ancestors.push(describe(element));
-            }
             return {
-              hit: describe(node),
-              ancestors,
+              handLabel: describe(label),
               motionOwners: {
-                card: describe(node?.closest(".hud-card[data-slot]")),
-                hand: describe(node?.closest('[data-ui="hud-hand"]')),
-                hudFrame: describe(node?.closest(".game-ui-hud-frame")),
+                card: describe(card),
+                hand: describe(document.querySelector('[data-ui="hud-hand"]')),
+                hudFrame: describe(document.querySelector(".game-ui-hud-frame")),
               },
             };
-          }, framePoint);
+          });
+          assert.ok(motionRegion.handLabel && motionRegion.motionOwners.card,
+            "the visible Brassbolt label remains in the rendered HUD hand");
+          const labelRect = motionRegion.handLabel.rect;
+          motionRegion.pixelRegionPageBounds = {
+            x: iframeBox.x + labelRect[0] * iframeBox.width / frameSize.width,
+            y: iframeBox.y + labelRect[1] * iframeBox.height / frameSize.height,
+            width: labelRect[2] * iframeBox.width / frameSize.width,
+            height: labelRect[3] * iframeBox.height / frameSize.height,
+          };
           motionUiEvidence.push({ media: reducedMotion, pagePoint: point,
             iframeBox: { x: iframeBox.x, y: iframeBox.y,
               width: iframeBox.width, height: iframeBox.height },
-            frameSize, framePoint, motionRegion });
+            frameSize, motionRegion });
         }
         const pngName = `ember-basin-${viewport.width}x${viewport.height}-${reducedMotion === "reduce" ? "reduced" : "normal"}.png`;
         const beforePng = await page.screenshot({ path: join(ARTIFACTS, pngName),
@@ -731,9 +734,16 @@ test("Cards018 Ember Basin: editable collection enters real mixed battle and res
     const normalMotionCard = normalDesktopSample?.motionRegion.motionOwners.card;
     const reducedMotionCard = reducedDesktopSample?.motionRegion.motionOwners.card;
     assert.ok(normalMotionCard && reducedMotionCard,
-      "the 65x25 desktop motion-difference region resolves to real HUD cards in both modes");
+      "the 65x25 desktop motion-difference region overlaps the real Brassbolt HUD card in both modes");
+    for (const sample of [normalDesktopSample, reducedDesktopSample]) {
+      const bounds = sample.motionRegion.pixelRegionPageBounds;
+      assert.ok(bounds.x < 950 && bounds.x + bounds.width > 885 &&
+        bounds.y < 796 && bounds.y + bounds.height > 771,
+      `the Brassbolt label bounds overlap the actual changed pixel region: ${JSON.stringify(bounds)}`);
+    }
     assert.equal(normalMotionCard.cardId, reducedMotionCard.cardId,
       "both accessibility variants resolve the same hand card under the changed pixels");
+    assert.equal(normalMotionCard.cardId, "brassbolt");
     assert.equal(normalMotionCard.slot, reducedMotionCard.slot);
     assert.notEqual(normalMotionCard.style.transform, reducedMotionCard.style.transform,
       "the label's HUD transform layer is removed by reduced-motion styling");
