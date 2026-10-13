@@ -119,6 +119,38 @@ test("Cards018 Ember Basin: editable collection enters real mixed battle and res
   await buildRelease({ output: releaseRoot });
   const manifestBytes = await readFile(join(releaseRoot, "release-manifest.json"));
   const manifest = JSON.parse(manifestBytes.toString("utf8"));
+  const artProvenance = JSON.parse(await readFile(new URL(
+    "../docs/art/ember-basin-battle-sprite-provenance.json", import.meta.url), "utf8"));
+  const artRecord = artProvenance.assets.find(({ asset }) =>
+    asset === "public/assets/ember-basin-battle-sprite.webp");
+  const inputRecord = artProvenance.input_images.find(({ asset }) =>
+    asset === "demo/assets/ember-basin-portrait-v2.png");
+  assert.ok(artRecord && inputRecord, "complete art provenance identifies its input and output");
+  const [portraitInput, battleSourcePng, battleOutputWebp] = await Promise.all([
+    readFile(new URL("../demo/assets/ember-basin-portrait-v2.png", import.meta.url)),
+    readFile(new URL("../demo/assets/ember-basin-battle-sprite.png", import.meta.url)),
+    readFile(join(releaseRoot, artRecord.asset)),
+  ]);
+  assert.equal(sha256(portraitInput), inputRecord.sha256);
+  assert.equal(portraitInput.byteLength, inputRecord.bytes);
+  assert.equal(sha256(battleSourcePng), artRecord.source_sha256);
+  assert.equal(battleSourcePng.byteLength, artRecord.source_bytes);
+  assert.equal(battleSourcePng.readUInt32BE(16), artRecord.source_dimensions.width);
+  assert.equal(battleSourcePng.readUInt32BE(20), artRecord.source_dimensions.height);
+  assert.equal(battleSourcePng[25], 6, "the full-resolution PNG stores RGBA alpha");
+  assert.equal(sha256(battleOutputWebp), artRecord.sha256);
+  assert.equal(battleOutputWebp.byteLength, artRecord.bytes);
+  const releasedArtRecord = manifest.files.find(({ path }) => path === artRecord.asset);
+  assert.ok(releasedArtRecord, "the release manifest contains the provenance output");
+  assert.equal(releasedArtRecord.sha256, artRecord.sha256);
+  const assetProvenanceReceipt = {
+    input: { path: inputRecord.asset, bytes: portraitInput.byteLength, sha256: sha256(portraitInput) },
+    source: { path: artRecord.source_png, bytes: battleSourcePng.byteLength,
+      dimensions: artRecord.source_dimensions, sha256: sha256(battleSourcePng) },
+    output: { path: artRecord.asset, bytes: battleOutputWebp.byteLength,
+      dimensions: artRecord.dimensions, sha256: sha256(battleOutputWebp) },
+    provenancePath: "docs/art/ember-basin-battle-sprite-provenance.json",
+  };
   const server = spawn(process.execPath, [
     new URL("./game-browser-journey-server.js", import.meta.url).pathname,
     `--root=${releaseRoot}`,
@@ -152,13 +184,16 @@ test("Cards018 Ember Basin: editable collection enters real mixed battle and res
     }
   });
   const screenshots = [];
+  const motionUiEvidence = [];
   const evidence = {
     asset: null,
+    assetProvenance: assetProvenanceReceipt,
     combat: {},
     deck: [...EMBER_DECK],
     errors,
     release: { fileCount: manifest.fileCount, manifestSha256: sha256(manifestBytes) },
     screenshots,
+    motionUiEvidence,
     trustedInput: [],
   };
 
@@ -285,15 +320,15 @@ test("Cards018 Ember Basin: editable collection enters real mixed battle and res
     const firstAttack = await frame.evaluate(async (entryUrl) => {
       const { arenaHudController } = await import(entryUrl);
       const controller = arenaHudController;
+      const structure = controller.session.state.battle.structures.find(({ cardId, side }) =>
+        cardId === "ember-basin" && side === "south");
       let steps = 0;
       while (!controller.session.replay.some(({ buildingId, type }) =>
-        buildingId === 2 && type === "structure-attack") && steps < 240) {
+        buildingId === structure?.id && type === "structure-attack") && steps < 240) {
         controller.stepMany(1);
         steps += 1;
       }
       const state = controller.session.state;
-      const structure = state.battle.structures.find(({ cardId, side }) =>
-        cardId === "ember-basin" && side === "south");
       const pending = state.battle.pendingBuildingHits;
       const pendingTargetIds = pending.map(({ targetId }) => targetId);
       const targetHealth = Object.fromEntries(pendingTargetIds.map((id) => [id,
@@ -334,34 +369,66 @@ test("Cards018 Ember Basin: editable collection enters real mixed battle and res
       "the browser restores the exact pending attack payload before its impact boundary");
     assert.equal(firstAttack.pending.length, 2,
       "the in-flight defensive splash carries two targets through the shared battle state");
+    assert.deepEqual(firstAttack.pending.map(({ targetId }) => targetId), firstAttack.pendingTargetIds,
+      "the pending splash preserves its ordered target identity sequence");
     assert.deepEqual(firstAttack.restoredEvents.map(({ amount, targetId, tick }) =>
       ({ amount, targetId, tick })), firstAttack.pendingTargetIds.map((targetId) => ({
       amount: 222, targetId, tick: firstAttack.attack.tick + 1,
     })), "restoring the pending impact applies the same full-damage splash exactly once");
-    assert.ok(firstAttack.pendingTargetIds.every((id) => {
-      const delta = firstAttack.targetHealth[id] - firstAttack.afterHealth[id];
-      const replayedDamage = firstAttack.allNewEvents
-        .filter(({ targetId, type }) => type === "damage" && targetId === id)
-        .reduce((total, { amount }) => total + amount, 0);
-      return delta === replayedDamage && replayedDamage >= 222;
-    }), "both target health bars reflect the restored splash plus any simultaneous tower contact");
+    const firstImpactTick = firstAttack.attack.tick + 1;
+    const firstImpactDamageEvents = firstAttack.allNewEvents.filter(({ type }) => type === "damage");
+    const firstImpactReconciliation = firstAttack.pendingTargetIds.map((targetId) => {
+      const events = firstImpactDamageEvents.filter((event) => event.targetId === targetId);
+      const emberEvents = events.filter((event) =>
+        event.externalSourceId === `building:${firstAttack.structure.id}`);
+      const totalDamage = events.reduce((total, { amount }) => total + amount, 0);
+      assert.equal(emberEvents.length, 1,
+        `target ${targetId} receives one restored Ember contact at its impact boundary`);
+      assert.equal(emberEvents[0].amount, 222,
+        `target ${targetId} receives the full 222-point Ember splash`);
+      assert.equal(emberEvents[0].tick, firstImpactTick);
+      assert.ok(events.every(({ tick }) => tick === firstImpactTick),
+        `all same-tick damage for target ${targetId} is reported at impact tick ${firstImpactTick}`);
+      assert.ok(events.every(({ attackerId, externalSourceId }) =>
+        Number.isSafeInteger(attackerId) || (typeof externalSourceId === "string" &&
+          externalSourceId.length > 0)),
+      `every same-tick contact for target ${targetId} identifies its source`);
+      assert.equal(firstAttack.targetHealth[targetId] - firstAttack.afterHealth[targetId], totalDamage,
+        `target ${targetId} health loss reconciles to all same-tick source events`);
+      return {
+        damageEvents: events.map(({ amount, attackerId, currentHealthAfter, currentHealthBefore,
+          delivery, externalSourceId, tick }) => ({ amount,
+          sourceId: externalSourceId ?? `unit:${attackerId}`,
+          currentHealthBefore, currentHealthAfter, delivery, tick })),
+        hitpointsAfter: firstAttack.afterHealth[targetId],
+        hitpointsBefore: firstAttack.targetHealth[targetId],
+        targetId,
+        totalDamage,
+      };
+    });
+    assert.deepEqual(firstAttack.restoredEvents.map(({ targetId }) => targetId),
+      firstAttack.pendingTargetIds,
+      "the restored 222-point splash impacts targets in the pending target-ID order");
 
     const secondAttack = await frame.evaluate(async (entryUrl) => {
       const { arenaHudController } = await import(entryUrl);
       const controller = arenaHudController;
+      const structure = controller.session.state.battle.structures.find(({ cardId, side }) =>
+        cardId === "ember-basin" && side === "south");
+      const structureId = structure?.id;
       let steps = 0;
       while (controller.session.replay.filter(({ buildingId, type }) =>
-        buildingId === 2 && type === "structure-attack").length < 2 && steps < 220) {
+        buildingId === structureId && type === "structure-attack").length < 2 && steps < 220) {
         controller.stepMany(1);
         steps += 1;
       }
       const attacks = controller.session.replay.filter(({ buildingId, type }) =>
-        buildingId === 2 && type === "structure-attack");
-      const structure = controller.session.state.battle.structures.find(({ id }) => id === 2);
+        buildingId === structureId && type === "structure-attack");
       const checkpoint = controller.serialize();
       const sessionBytes = controller.session.serialize();
       const pending = controller.session.state.battle.pendingBuildingHits;
       return { attacks, checkpoint, pending, sessionBytes, structure: {
+        id: structureId,
         alive: structure.alive, hitpoints: structure.hitpoints,
         targetKey: structure.targetKey,
       } };
@@ -376,6 +443,10 @@ test("Cards018 Ember Basin: editable collection enters real mixed battle and res
     evidence.combat = {
       firstAttack: firstAttack.attack,
       firstSplashTargets: firstAttack.restoredEvents,
+      firstPendingHits: firstAttack.pending,
+      firstImpactTick,
+      firstImpactEvents: firstAttack.allNewEvents,
+      firstImpactReconciliation,
       firstTargetHealthBefore: firstAttack.targetHealth,
       firstTargetHealthAfter: firstAttack.afterHealth,
       secondAttackTicks: secondAttack.attacks.map(({ tick }) => tick),
@@ -403,6 +474,42 @@ test("Cards018 Ember Basin: editable collection enters real mixed battle and res
         const checkpoint = secondAttack.checkpoint;
         assert.equal(before.browserBytes, checkpoint,
           "the rendered contact checkpoint matches the exact serialized browser state");
+        let motionRegion = null;
+        if (viewport.width === 1_440) {
+          const iframeBox = await page.locator("[data-battle-frame-slot] iframe").boundingBox();
+          assert.ok(iframeBox, "the desktop comparison point is inside the real battle frame");
+          const point = { x: 885, y: 771 };
+          const framePoint = { x: point.x - iframeBox.x, y: point.y - iframeBox.y };
+          motionRegion = await frame.evaluate(({ x, y }) => {
+            const node = document.elementFromPoint(x, y);
+            const describe = (element) => {
+              const style = getComputedStyle(element);
+              const rect = element.getBoundingClientRect();
+              return {
+                tag: element.tagName.toLowerCase(),
+                id: element.id || null,
+                className: typeof element.className === "string" ? element.className : null,
+                dataUi: element.getAttribute("data-ui"),
+                cardId: element.getAttribute("data-card-id"),
+                text: (element.textContent ?? "").trim().replace(/\s+/gu, " ").slice(0, 80),
+                rect: [rect.x, rect.y, rect.width, rect.height],
+                style: {
+                  animationName: style.animationName,
+                  backgroundColor: style.backgroundColor,
+                  opacity: style.opacity,
+                  transform: style.transform,
+                  transitionProperty: style.transitionProperty,
+                },
+              };
+            };
+            const ancestors = [];
+            for (let element = node; element && ancestors.length < 6; element = element.parentElement) {
+              ancestors.push(describe(element));
+            }
+            return { hit: node ? describe(node) : null, ancestors };
+          }, framePoint);
+          motionUiEvidence.push({ media: reducedMotion, pagePoint: point, framePoint, motionRegion });
+        }
         const pngName = `ember-basin-${viewport.width}x${viewport.height}-${reducedMotion === "reduce" ? "reduced" : "normal"}.png`;
         const beforePng = await page.screenshot({ path: join(ARTIFACTS, pngName),
           animations: "disabled" });
@@ -428,8 +535,11 @@ test("Cards018 Ember Basin: editable collection enters real mixed battle and res
           effects: restored.effects, feedback: restored.feedback, hud: restored.hud }))), viewHash);
         assert.equal(sha256(afterPng), sha256(beforePng),
           `restored browser pixels are identical at ${viewport.width}x${viewport.height} with ${reducedMotion}`);
-        screenshots.push({ file: pngName, sha256: sha256(beforePng), viewport: [viewport.width,
-          viewport.height], reducedMotion: reducedMotion === "reduce", viewLayerSha256: viewHash });
+        screenshots.push({ file: pngName, sha256: sha256(beforePng),
+          restoredSha256: sha256(afterPng), pixelParityAfterRestore: true,
+          viewport: [viewport.width, viewport.height],
+          reducedMotion: reducedMotion === "reduce", viewLayerSha256: viewHash,
+          motionRegion });
       }
     }
 
@@ -446,22 +556,57 @@ test("Cards018 Ember Basin: editable collection enters real mixed battle and res
         return next && next.hitpoints !== unit.hitpoints
           ? [{ before: unit.hitpoints, after: next.hitpoints, id: unit.id }] : [];
       });
-      const damage = controller.session.replay.filter(({ externalSourceId, type }) =>
-        externalSourceId === "building:2" && type === "damage");
       const allNewEvents = controller.session.replay.slice(replayLength);
+      const damage = allNewEvents.filter(({ type }) => type === "damage");
       return { allNewEvents, checkpoint, changes, damage,
         stateTick: controller.session.state.tick };
     }, moduleUrl);
+    assert.equal(secondAttack.pending.length, 2,
+      "the second in-flight defensive splash also carries two targets");
+    const expectedSecondSplash = secondAttack.pending.map(({ amount, applyTick, targetId }) =>
+      ({ amount, targetId, tick: applyTick }));
+    const secondEmberDamage = secondImpact.damage.filter(({ externalSourceId }) =>
+      externalSourceId === `building:${secondAttack.structure.id}`);
+    assert.deepEqual(secondEmberDamage.map(({ amount, targetId, tick }) =>
+      ({ amount, targetId, tick })), expectedSecondSplash,
+    "the second impact applies one full-damage hit to each pending target at the recorded tick");
     assert.equal(secondImpact.changes.length, secondAttack.pending.length,
       "the restored second Ember attack updates every target's health view");
-    assert.ok(secondImpact.changes.every(({ after, before, id }) => {
-      const replayedDamage = secondImpact.allNewEvents
-        .filter(({ targetId, type }) => type === "damage" && targetId === id)
-        .reduce((total, { amount }) => total + amount, 0);
-      return before - after === replayedDamage && replayedDamage >= 222;
-    }), "each target health change equals the restored attack and any simultaneous tower damage");
-    assert.ok(secondImpact.damage.length >= 4,
-      "both attack boundaries retain their ordered multi-target contact events");
+    const secondImpactReconciliation = secondAttack.pending.map(({ applyTick, targetId }) => {
+      const events = secondImpact.damage.filter((event) => event.targetId === targetId);
+      const emberEvents = events.filter((event) =>
+        event.externalSourceId === `building:${secondAttack.structure.id}`);
+      const change = secondImpact.changes.find(({ id }) => id === targetId);
+      assert.equal(emberEvents.length, 1,
+        `second impact records one Ember contact for target ${targetId}`);
+      assert.equal(emberEvents[0].amount, 222);
+      assert.equal(emberEvents[0].tick, applyTick);
+      assert.ok(events.every(({ tick }) => tick === applyTick));
+      assert.ok(events.every(({ attackerId, externalSourceId }) =>
+        Number.isSafeInteger(attackerId) || (typeof externalSourceId === "string" &&
+          externalSourceId.length > 0)),
+      `every same-tick second-impact contact for target ${targetId} identifies its source`);
+      const totalDamage = events.reduce((total, { amount }) => total + amount, 0);
+      assert.ok(change, `target ${targetId} has a health change on the second impact`);
+      assert.equal(change.before - change.after, totalDamage,
+        `target ${targetId} health loss reconciles to all second-impact source events`);
+      return {
+        damageEvents: events.map(({ amount, attackerId, currentHealthAfter, currentHealthBefore,
+          delivery, externalSourceId, tick }) => ({ amount,
+          sourceId: externalSourceId ?? `unit:${attackerId}`,
+          currentHealthBefore, currentHealthAfter, delivery, tick })),
+        hitpointsAfter: change.after,
+        hitpointsBefore: change.before,
+        targetId,
+        totalDamage,
+      };
+    });
+    evidence.combat.secondImpact = {
+      stateTick: secondImpact.stateTick,
+      expectedPendingHits: expectedSecondSplash,
+      damageEvents: secondImpact.damage,
+      reconciliation: secondImpactReconciliation,
+    };
 
     let terminal = await frame.evaluate(async (entryUrl) => {
       const { arenaHudController } = await import(entryUrl);
@@ -515,6 +660,8 @@ test("Cards018 Ember Basin: editable collection enters real mixed battle and res
     assert.ok(Math.abs(lifeDeployment.event.materialization.point.x - 15_000) <= 1 &&
       Math.abs(lifeDeployment.event.materialization.point.y - 4_000) <= 1,
     `the trusted back-field placement maps to the intended quiet lane: ${JSON.stringify(lifeDeployment.event.materialization.point)}`);
+    assert.equal(lifeDeployment.structure.placedTick, lifeDeployment.event.tick,
+      "the lifetime receipt starts from the actual shared structure placedTick");
     await frame.evaluate(async (entryUrl) => {
       const { arenaHudController } = await import(entryUrl);
       arenaHudController.stepMany(1_799);
@@ -525,10 +672,14 @@ test("Cards018 Ember Basin: editable collection enters real mixed battle and res
       const structure = session.state.battle.structures.find(({ cardId, side }) =>
         cardId === "ember-basin" && side === "south");
       return { alive: structure?.alive ?? false, hitpoints: structure?.hitpoints ?? 0,
+        placedTick: structure?.placedTick ?? null,
         tick: session.state.tick, attacks: session.replay.filter(({ buildingId, type }) =>
           buildingId === structure?.id && type === "structure-attack").length };
     }, moduleUrl);
     assert.equal(beforeExpiry.tick, 1_800);
+    assert.equal(beforeExpiry.placedTick, lifeDeployment.structure.placedTick);
+    assert.equal(beforeExpiry.tick - beforeExpiry.placedTick, 1_799,
+      "the lifetime witness is at age 1,799 immediately before expiry");
     assert.equal(beforeExpiry.alive, true,
       "the defensive structure survives immediately before its exact 1,800-tick lifetime boundary");
     await frame.evaluate(async (entryUrl) => {
@@ -550,7 +701,20 @@ test("Cards018 Ember Basin: editable collection enters real mixed battle and res
       { alive: false, cause: "expiry", hitpoints: 0 });
     assert.equal(expired.event?.tick, 1_800,
       "the shared runtime expires Ember exactly at placement plus 1,800 ticks");
+    assert.equal(expired.event.tick - beforeExpiry.placedTick, 1_800);
+    assert.equal(expired.tick - beforeExpiry.placedTick, 1_801);
     evidence.combat.lifetime = { beforeExpiry, expired };
+    evidence.motionComparison = {
+      phoneNormalAndReducedMotionScreenshotsArePixelIdentical:
+        screenshots.find(({ file }) => file === "ember-basin-390x844-normal.png")?.sha256 ===
+        screenshots.find(({ file }) => file === "ember-basin-390x844-reduced.png")?.sha256,
+      desktopScreenshotPixelDifferenceRegion: { x: 885, y: 771, width: 65, height: 25 },
+      desktopNormalVsReducedUiPointSamples: motionUiEvidence,
+      restorePixelParityVerifiedIndependentlyInEachVariant:
+        screenshots.filter(({ file }) => /^ember-basin-\d+x\d+-(?:normal|reduced)\.png$/u.test(file))
+          .every(({ sha256, restoredSha256 }) =>
+          sha256 === restoredSha256),
+    };
 
     const artManifest = manifest.files.find(({ path }) =>
       path === "public/assets/ember-basin-battle-sprite.webp");
