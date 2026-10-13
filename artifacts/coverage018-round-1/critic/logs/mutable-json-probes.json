@@ -1,0 +1,61 @@
+{
+  "probe": "actual mutable JSON tampering against clean frozen-source archive",
+  "pristineSha256": "49d5e9f4b09e0724eab5e30624e505565514ad41e80b256528fc7111e12b2396",
+  "cases": [
+    {
+      "case": "missing historical row",
+      "exitCode": 1,
+      "rejectedBy": "pinned exact-output comparison",
+      "error": "AssertionError [ERR_ASSERTION]: generated inventory differs; inspect pinned input drift before updating"
+    },
+    {
+      "case": "duplicate historical row",
+      "exitCode": 1,
+      "rejectedBy": "pinned exact-output comparison",
+      "error": "AssertionError [ERR_ASSERTION]: generated inventory differs; inspect pinned input drift before updating"
+    },
+    {
+      "case": "duplicate editable ID",
+      "exitCode": 1,
+      "rejectedBy": "pinned exact-output comparison",
+      "error": "AssertionError [ERR_ASSERTION]: generated inventory differs; inspect pinned input drift before updating"
+    },
+    {
+      "case": "unsupported known comparator join",
+      "exitCode": 1,
+      "rejectedBy": "pinned exact-output comparison",
+      "error": "AssertionError [ERR_ASSERTION]: generated inventory differs; inspect pinned input drift before updating"
+    },
+    {
+      "case": "private QUESTION fixture promotion",
+      "exitCode": 1,
+      "rejectedBy": "pinned exact-output comparison",
+      "error": "AssertionError [ERR_ASSERTION]: generated inventory differs; inspect pinned input drift before updating"
+    },
+    {
+      "case": "wrong declaration evidence line",
+      "exitCode": 1,
+      "rejectedBy": "pinned exact-output comparison",
+      "error": "AssertionError [ERR_ASSERTION]: generated inventory differs; inspect pinned input drift before updating"
+    },
+    {
+      "case": "wrong comparator mapping line",
+      "exitCode": 1,
+      "rejectedBy": "pinned exact-output comparison",
+      "error": "AssertionError [ERR_ASSERTION]: generated inventory differs; inspect pinned input drift before updating"
+    },
+    {
+      "case": "promoted typed QUESTION record",
+      "exitCode": 1,
+      "rejectedBy": "pinned exact-output comparison",
+      "error": "AssertionError [ERR_ASSERTION]: generated inventory differs; inspect pinned input drift before updating"
+    },
+    {
+      "case": "historical execution claim",
+      "exitCode": 1,
+      "rejectedBy": "pinned exact-output comparison",
+      "error": "AssertionError [ERR_ASSERTION]: generated inventory differs; inspect pinned input drift before updating"
+    }
+  ],
+  "pristineRestored": true
+}

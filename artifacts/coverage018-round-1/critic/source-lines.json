@@ -1,0 +1,475 @@
+{
+  "sourceCommit": "a8c39bcc02329ba22b3fdd50be7d1089bc6010dc",
+  "sourceFilesPinned": 11,
+  "rows": [
+    {
+      "id": "coilblade",
+      "comparison": {
+        "status": "declared-test-comparator",
+        "referenceKey": "mini-pekka",
+        "evidenceMappingLine": 22,
+        "fullParityClaimed": false,
+        "fieldDisposition": "source-unverified fields remain QUESTION"
+      },
+      "evidence": [
+        {
+          "file": "tests/cards-basic-melee.test.js",
+          "line": 141,
+          "test": "basic melee content: field parity is reported with confidence",
+          "actualLine": "test(\"basic melee content: field parity is reported with confidence\", (context) => {",
+          "exactDeclaration": true
+        }
+      ],
+      "mapping": {
+        "file": "tests/cards-basic-melee.test.js",
+        "line": 22,
+        "actualLine": "coilblade: {",
+        "nextLine": "benchmarkKey: \"mini-pekka\","
+      }
+    },
+    {
+      "id": "mossguard",
+      "comparison": {
+        "status": "declared-test-comparator",
+        "referenceKey": "knight",
+        "evidenceMappingLine": 26,
+        "fullParityClaimed": false,
+        "fieldDisposition": "source-unverified fields remain QUESTION"
+      },
+      "evidence": [
+        {
+          "file": "tests/cards-basic-melee.test.js",
+          "line": 141,
+          "test": "basic melee content: field parity is reported with confidence",
+          "actualLine": "test(\"basic melee content: field parity is reported with confidence\", (context) => {",
+          "exactDeclaration": true
+        }
+      ],
+      "mapping": {
+        "file": "tests/cards-basic-melee.test.js",
+        "line": 26,
+        "actualLine": "mossguard: {",
+        "nextLine": "benchmarkKey: \"knight\","
+      }
+    },
+    {
+      "id": "copperskiff",
+      "comparison": {
+        "status": "declared-test-comparator",
+        "referenceKey": "flying-machine",
+        "evidenceMappingLine": 26,
+        "fullParityClaimed": false,
+        "fieldDisposition": "source-unverified fields remain QUESTION"
+      },
+      "evidence": [
+        {
+          "file": "tests/cards-basic-flying.test.js",
+          "line": 159,
+          "test": "basic flying content: all mechanics use trusted confidence dispositions",
+          "actualLine": "test(\"basic flying content: all mechanics use trusted confidence dispositions\", (context) => {",
+          "exactDeclaration": true
+        }
+      ],
+      "mapping": {
+        "file": "tests/cards-basic-flying.test.js",
+        "line": 26,
+        "actualLine": "copperskiff: \"flying-machine\",",
+        "nextLine": "};"
+      }
+    },
+    {
+      "id": "skymaul",
+      "comparison": {
+        "status": "declared-test-comparator",
+        "referenceKey": "mega-minion",
+        "evidenceMappingLine": 25,
+        "fullParityClaimed": false,
+        "fieldDisposition": "source-unverified fields remain QUESTION"
+      },
+      "evidence": [
+        {
+          "file": "tests/cards-basic-flying.test.js",
+          "line": 159,
+          "test": "basic flying content: all mechanics use trusted confidence dispositions",
+          "actualLine": "test(\"basic flying content: all mechanics use trusted confidence dispositions\", (context) => {",
+          "exactDeclaration": true
+        }
+      ],
+      "mapping": {
+        "file": "tests/cards-basic-flying.test.js",
+        "line": 25,
+        "actualLine": "skymaul: \"mega-minion\",",
+        "nextLine": "copperskiff: \"flying-machine\","
+      }
+    },
+    {
+      "id": "brassbolt",
+      "comparison": {
+        "status": "declared-test-comparator",
+        "referenceKey": "musketeer",
+        "evidenceMappingLine": 23,
+        "fullParityClaimed": false,
+        "fieldDisposition": "source-unverified fields remain QUESTION"
+      },
+      "evidence": [
+        {
+          "file": "tests/cards-basic-ranged.test.js",
+          "line": 155,
+          "test": "basic ranged content: every mechanic is compared with trusted confidence",
+          "actualLine": "test(\"basic ranged content: every mechanic is compared with trusted confidence\", (context) => {",
+          "exactDeclaration": true
+        }
+      ],
+      "mapping": {
+        "file": "tests/cards-basic-ranged.test.js",
+        "line": 23,
+        "actualLine": "brassbolt: \"musketeer\",",
+        "nextLine": "reedsting: \"dart-goblin\","
+      }
+    },
+    {
+      "id": "reedsting",
+      "comparison": {
+        "status": "declared-test-comparator",
+        "referenceKey": "dart-goblin",
+        "evidenceMappingLine": 24,
+        "fullParityClaimed": false,
+        "fieldDisposition": "source-unverified fields remain QUESTION"
+      },
+      "evidence": [
+        {
+          "file": "tests/cards-basic-ranged.test.js",
+          "line": 155,
+          "test": "basic ranged content: every mechanic is compared with trusted confidence",
+          "actualLine": "test(\"basic ranged content: every mechanic is compared with trusted confidence\", (context) => {",
+          "exactDeclaration": true
+        }
+      ],
+      "mapping": {
+        "file": "tests/cards-basic-ranged.test.js",
+        "line": 24,
+        "actualLine": "reedsting: \"dart-goblin\",",
+        "nextLine": "};"
+      }
+    },
+    {
+      "id": "briar-band",
+      "comparison": {
+        "status": "declared-test-comparator",
+        "referenceKey": "goblin-gang",
+        "evidenceMappingLine": 23,
+        "fullParityClaimed": false,
+        "fieldDisposition": "source-unverified fields remain QUESTION"
+      },
+      "evidence": [
+        {
+          "file": "tests/cards-swarms.test.js",
+          "line": 296,
+          "test": "squad content: top-level parity reports authority and questions",
+          "actualLine": "test(\"squad content: top-level parity reports authority and questions\", (context) => {",
+          "exactDeclaration": true
+        }
+      ],
+      "mapping": {
+        "file": "tests/cards-swarms.test.js",
+        "line": 23,
+        "actualLine": "\"briar-band\": \"goblin-gang\",",
+        "nextLine": "cinderlings: \"skeletons\","
+      }
+    },
+    {
+      "id": "cinderlings",
+      "comparison": {
+        "status": "declared-test-comparator",
+        "referenceKey": "skeletons",
+        "evidenceMappingLine": 24,
+        "fullParityClaimed": false,
+        "fieldDisposition": "source-unverified fields remain QUESTION"
+      },
+      "evidence": [
+        {
+          "file": "tests/cards-swarms.test.js",
+          "line": 296,
+          "test": "squad content: top-level parity reports authority and questions",
+          "actualLine": "test(\"squad content: top-level parity reports authority and questions\", (context) => {",
+          "exactDeclaration": true
+        }
+      ],
+      "mapping": {
+        "file": "tests/cards-swarms.test.js",
+        "line": 24,
+        "actualLine": "cinderlings: \"skeletons\",",
+        "nextLine": "};"
+      }
+    },
+    {
+      "id": "stonehauler",
+      "comparison": {
+        "status": "declared-test-comparator",
+        "referenceKey": "giant",
+        "evidenceMappingLine": 88,
+        "fullParityClaimed": false,
+        "fieldDisposition": "source-unverified fields remain QUESTION"
+      },
+      "evidence": [
+        {
+          "file": "tests/cards-structure-seeker.test.js",
+          "line": 86,
+          "test": "structure seeker content: field parity distinguishes questions",
+          "actualLine": "test(\"structure seeker content: field parity distinguishes questions\", (context) => {",
+          "exactDeclaration": true
+        }
+      ],
+      "mapping": {
+        "file": "tests/cards-structure-seeker.test.js",
+        "line": 88,
+        "actualLine": "const report = evaluateReferenceParity(card, \"giant\");",
+        "nextLine": "assert.deepEqual(report.authoritativeFailures, []);"
+      }
+    },
+    {
+      "id": "thornscouts",
+      "comparison": {
+        "status": "declared-test-comparator",
+        "referenceKey": "goblins",
+        "evidenceMappingLine": 314,
+        "fullParityClaimed": false,
+        "fieldDisposition": "source-unverified fields remain QUESTION"
+      },
+      "evidence": [
+        {
+          "file": "tests/cards-swarms.test.js",
+          "line": 312,
+          "test": "new squads retain the pinned Goblins and Barbarians mechanics as unverified questions",
+          "actualLine": "test(\"new squads retain the pinned Goblins and Barbarians mechanics as unverified questions\", () => {",
+          "exactDeclaration": true
+        }
+      ],
+      "mapping": {
+        "file": "tests/cards-swarms.test.js",
+        "line": 314,
+        "actualLine": "[\"thornscouts\", \"goblins\", 2, 4, 202, 120, 66, 42, 60, 500, 5500, 2000],",
+        "nextLine": "[\"forgeguard\", \"barbarians\", 5, 5, 670, 192, 78, 54, 60, 700, 5500, 1000],"
+      }
+    },
+    {
+      "id": "forgeguard",
+      "comparison": {
+        "status": "declared-test-comparator",
+        "referenceKey": "barbarians",
+        "evidenceMappingLine": 315,
+        "fullParityClaimed": false,
+        "fieldDisposition": "source-unverified fields remain QUESTION"
+      },
+      "evidence": [
+        {
+          "file": "tests/cards-swarms.test.js",
+          "line": 312,
+          "test": "new squads retain the pinned Goblins and Barbarians mechanics as unverified questions",
+          "actualLine": "test(\"new squads retain the pinned Goblins and Barbarians mechanics as unverified questions\", () => {",
+          "exactDeclaration": true
+        }
+      ],
+      "mapping": {
+        "file": "tests/cards-swarms.test.js",
+        "line": 315,
+        "actualLine": "[\"forgeguard\", \"barbarians\", 5, 5, 670, 192, 78, 54, 60, 700, 5500, 1000],",
+        "nextLine": "];"
+      }
+    },
+    {
+      "id": "cinder-host",
+      "comparison": {
+        "status": "question-fixture-only",
+        "fixtureReferences": [
+          {
+            "referenceKey": "skeleton-army",
+            "artifact": "artifacts/cards-expansion-round-2/reference-normalization.json",
+            "status": "QUESTION fixture only; not an identity join",
+            "identityJoin": false
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "file": "tests/cards-expansion-round-2.test.js",
+          "line": 60,
+          "test": "round 2: Cinder Host and Ironroot enter an editable deck and trade through GameSession",
+          "actualLine": "test(\"round 2: Cinder Host and Ironroot enter an editable deck and trade through GameSession\", () => {",
+          "exactDeclaration": true
+        }
+      ]
+    },
+    {
+      "id": "ironroot",
+      "comparison": {
+        "status": "declared-test-comparator",
+        "referenceKey": "pekka",
+        "evidenceMappingLine": 30,
+        "fullParityClaimed": false,
+        "fieldDisposition": "source-unverified fields remain QUESTION",
+        "fixtureReferences": [
+          {
+            "referenceKey": "pekka",
+            "artifact": "artifacts/cards-expansion-round-2/reference-normalization.json",
+            "status": "QUESTION field fixture only; not historical identity proof",
+            "identityJoin": false
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "file": "tests/cards-basic-melee.test.js",
+          "line": 141,
+          "test": "basic melee content: field parity is reported with confidence",
+          "actualLine": "test(\"basic melee content: field parity is reported with confidence\", (context) => {",
+          "exactDeclaration": true
+        },
+        {
+          "file": "tests/cards-expansion-round-2.test.js",
+          "line": 60,
+          "test": "round 2: Cinder Host and Ironroot enter an editable deck and trade through GameSession",
+          "actualLine": "test(\"round 2: Cinder Host and Ironroot enter an editable deck and trade through GameSession\", () => {",
+          "exactDeclaration": true
+        }
+      ],
+      "mapping": {
+        "file": "tests/cards-basic-melee.test.js",
+        "line": 30,
+        "actualLine": "ironroot: {",
+        "nextLine": "benchmarkKey: \"pekka\","
+      }
+    },
+    {
+      "id": "sunthread-pair",
+      "comparison": {
+        "status": "no-exact-historical-identity-asserted",
+        "reason": "The cited current tests do not declare a historical card key."
+      },
+      "evidence": [
+        {
+          "file": "tests/game-roster-troops-ordinary.test.js",
+          "line": 405,
+          "test": "Sunthread Pair and Duskwing Trio trade sourced air/ground projectiles through in-flight restore",
+          "actualLine": "test(\"Sunthread Pair and Duskwing Trio trade sourced air/ground projectiles through in-flight restore\", () => {",
+          "exactDeclaration": true
+        }
+      ]
+    },
+    {
+      "id": "duskwing-trio",
+      "comparison": {
+        "status": "no-exact-historical-identity-asserted",
+        "reason": "The cited current tests do not declare a historical card key."
+      },
+      "evidence": [
+        {
+          "file": "tests/game-roster-troops-ordinary.test.js",
+          "line": 405,
+          "test": "Sunthread Pair and Duskwing Trio trade sourced air/ground projectiles through in-flight restore",
+          "actualLine": "test(\"Sunthread Pair and Duskwing Trio trade sourced air/ground projectiles through in-flight restore\", () => {",
+          "exactDeclaration": true
+        }
+      ]
+    },
+    {
+      "id": "gloamwing-cluster",
+      "comparison": {
+        "status": "no-exact-historical-identity-asserted",
+        "reason": "The cited current tests do not declare a historical card key."
+      },
+      "evidence": [
+        {
+          "file": "tests/cards016-integration.test.js",
+          "line": 122,
+          "test": "editable collections admit exactly 17 troops and 18 mixed choices while preserving default eight",
+          "actualLine": "test(\"editable collections admit exactly 17 troops and 18 mixed choices while preserving default eight\", () => {",
+          "exactDeclaration": true
+        },
+        {
+          "file": "tests/cards016-integration.test.js",
+          "line": 187,
+          "test": "editable player air swarms target each other, Coppershade launches a projectile, and restore replays it exactly",
+          "actualLine": "test(\"editable player air swarms target each other, Coppershade launches a projectile, and restore replays it exactly\", () => {",
+          "exactDeclaration": true
+        },
+        {
+          "file": "tests/game-roster-troops-air-swarms.test.js",
+          "line": 193,
+          "test": "air swarm witnesses close source QUESTIONS over every unverified runtime field",
+          "actualLine": "test(\"air swarm witnesses close source QUESTIONS over every unverified runtime field\", () => {",
+          "exactDeclaration": true
+        },
+        {
+          "file": "tests/game-roster-troops-air-swarms.test.js",
+          "line": 306,
+          "test": "Gloamwing and Coppershade deploy through typed shared sessions with exact spend and cycle",
+          "actualLine": "test(\"Gloamwing and Coppershade deploy through typed shared sessions with exact spend and cycle\", () => {",
+          "exactDeclaration": true
+        }
+      ]
+    },
+    {
+      "id": "coppershade-flock",
+      "comparison": {
+        "status": "no-exact-historical-identity-asserted",
+        "reason": "The cited current tests do not declare a historical card key."
+      },
+      "evidence": [
+        {
+          "file": "tests/cards016-integration.test.js",
+          "line": 122,
+          "test": "editable collections admit exactly 17 troops and 18 mixed choices while preserving default eight",
+          "actualLine": "test(\"editable collections admit exactly 17 troops and 18 mixed choices while preserving default eight\", () => {",
+          "exactDeclaration": true
+        },
+        {
+          "file": "tests/cards016-integration.test.js",
+          "line": 187,
+          "test": "editable player air swarms target each other, Coppershade launches a projectile, and restore replays it exactly",
+          "actualLine": "test(\"editable player air swarms target each other, Coppershade launches a projectile, and restore replays it exactly\", () => {",
+          "exactDeclaration": true
+        },
+        {
+          "file": "tests/game-roster-troops-air-swarms.test.js",
+          "line": 193,
+          "test": "air swarm witnesses close source QUESTIONS over every unverified runtime field",
+          "actualLine": "test(\"air swarm witnesses close source QUESTIONS over every unverified runtime field\", () => {",
+          "exactDeclaration": true
+        },
+        {
+          "file": "tests/game-roster-troops-air-swarms.test.js",
+          "line": 306,
+          "test": "Gloamwing and Coppershade deploy through typed shared sessions with exact spend and cycle",
+          "actualLine": "test(\"Gloamwing and Coppershade deploy through typed shared sessions with exact spend and cycle\", () => {",
+          "exactDeclaration": true
+        }
+      ]
+    },
+    {
+      "id": "squall-orb",
+      "comparison": {
+        "status": "no-exact-historical-identity-asserted",
+        "reason": "The cited current tests do not declare a historical card key."
+      },
+      "evidence": [
+        {
+          "file": "tests/editable-deck.test.js",
+          "line": 127,
+          "test": "editable mixed witness admits one QUESTION-profile Squall Orb with seven troops",
+          "actualLine": "test(\"editable mixed witness admits one QUESTION-profile Squall Orb with seven troops\", () => {",
+          "exactDeclaration": true
+        },
+        {
+          "file": "tests/editable-deck.test.js",
+          "line": 155,
+          "test": "editable mixed GameSession casts from center, spends, cycles, and restores pending impact",
+          "actualLine": "test(\"editable mixed GameSession casts from center, spends, cycles, and restores pending impact\", () => {",
+          "exactDeclaration": true
+        }
+      ]
+    }
+  ],
+  "declarationErrors": []
+}
+
