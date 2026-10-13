@@ -1,0 +1,179 @@
+{
+  "round": "ART019B round 2 builder evidence",
+  "license": "AGPL-3.0-only",
+  "source_generation_tool": "OpenAI built-in imagegen edit tool",
+  "encoding": {
+    "tool": "cwebp 1.6.0",
+    "arguments": [
+      "-q",
+      "88",
+      "-m",
+      "6",
+      "-mt",
+      "-resize",
+      "512",
+      "512"
+    ],
+    "color_encoding": "lossy WebP at quality 88",
+    "alpha_encoding": "lossless WebP alpha"
+  },
+  "inputs": {
+    "approved_portrait": {
+      "path": "demo/assets/kilnkeeper-portrait.png",
+      "sha256": "f4062cfc51764726d97e3c901450ff3ae0dc8b0e25bcabd87eabc469dbf4bf4d",
+      "bytes": 2659340,
+      "dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "alpha_channel": true,
+      "alpha_extrema": [
+        255,
+        255
+      ],
+      "visible_bbox_xyxy": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "transparent_pixel_count": 0,
+      "partial_alpha_pixel_count": 0,
+      "opaque_pixel_count": 1572516
+    },
+    "v1_cutout": {
+      "path": "demo/assets/kilnkeeper-battle-sprite.png",
+      "sha256": "ddb4f26bc708fef7fcd99e1c2e6732a80d113a1d02a1d57e6f9cc1a784179b09",
+      "bytes": 1853779,
+      "dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "alpha_channel": true,
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "visible_bbox_xyxy": [
+        0,
+        0,
+        1234,
+        1254
+      ],
+      "transparent_pixel_count": 792935,
+      "partial_alpha_pixel_count": 779477,
+      "opaque_pixel_count": 104
+    }
+  },
+  "v2": {
+    "generated_source": {
+      "path": "demo/assets/kilnkeeper-battle-sprite-v2.png",
+      "sha256": "a27abf02136857fb38ca186d41fb0f69b23c6502c5b1f684d3d576f86fa726e7",
+      "bytes": 1441156,
+      "dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "alpha_channel": true,
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "visible_bbox_xyxy": [
+        0,
+        21,
+        1246,
+        1254
+      ],
+      "transparent_pixel_count": 718684,
+      "partial_alpha_pixel_count": 852739,
+      "opaque_pixel_count": 1093
+    },
+    "shipped_output": {
+      "path": "public/assets/kilnkeeper-battle-sprite.webp",
+      "sha256": "43766c813461acbfe36a949c6a972ba4e5ddf07513276bd5079cf564b1bf157a",
+      "bytes": 47138,
+      "dimensions": {
+        "width": 512,
+        "height": 512
+      },
+      "alpha_channel": true,
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "visible_bbox_xyxy": [
+        7,
+        8,
+        508,
+        512
+      ],
+      "transparent_pixel_count": 119232,
+      "partial_alpha_pixel_count": 142912,
+      "opaque_pixel_count": 0
+    },
+    "native_scale_fixture": {
+      "path": "artifacts/art019b-round-2/builder/native-scale-chrome.png",
+      "sha256": "67706eac351a5680313c46881c61c7b4edc4d027d8908f4a7aa016cbea9153fa",
+      "bytes": 56728,
+      "dimensions": {
+        "width": 760,
+        "height": 440
+      },
+      "alpha_channel": true,
+      "alpha_extrema": [
+        255,
+        255
+      ],
+      "visible_bbox_xyxy": [
+        0,
+        0,
+        760,
+        440
+      ],
+      "transparent_pixel_count": 0,
+      "partial_alpha_pixel_count": 0,
+      "opaque_pixel_count": 334400
+    },
+    "native_scale_metadata": {
+      "path": "artifacts/art019b-round-2/builder/native-scale-chrome.json",
+      "sha256": "129c3f9c68db77d2ec0a6e5797517d84307d00efa76b73d825efb1f30f3f0914",
+      "bytes": 700
+    }
+  },
+  "native_render": {
+    "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36",
+    "devicePixelRatio": 1,
+    "viewport": {
+      "width": 760,
+      "height": 440
+    },
+    "images": [
+      {
+        "naturalWidth": 512,
+        "naturalHeight": 512,
+        "cssWidth": 13,
+        "cssHeight": 13
+      },
+      {
+        "naturalWidth": 512,
+        "naturalHeight": 512,
+        "cssWidth": 104,
+        "cssHeight": 104
+      },
+      {
+        "naturalWidth": 512,
+        "naturalHeight": 512,
+        "cssWidth": 26,
+        "cssHeight": 26
+      },
+      {
+        "naturalWidth": 512,
+        "naturalHeight": 512,
+        "cssWidth": 104,
+        "cssHeight": 104
+      }
+    ]
+  },
+  "scope": "asset fixture only; no live arena integration claim"
+}

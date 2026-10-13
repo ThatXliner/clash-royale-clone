@@ -1,0 +1,27 @@
+{
+  "candidate_base": "3f02b25b84972bc7fcf8963847f899631815d344",
+  "native_render": {
+    "command": "node artifacts/art019b-round-2/builder/render-native-chrome.mjs public/assets/kilnkeeper-battle-sprite.webp artifacts/art019b-round-2/builder/native-scale-chrome.png artifacts/art019b-round-2/builder/native-scale-chrome.json",
+    "browser": "HeadlessChrome/145.0.7632.6",
+    "device_pixel_ratio": 1,
+    "measured_css_sizes": ["13×13", "26×26"],
+    "result": "passed"
+  },
+  "asset_manifest_test": {
+    "command": "npm run test:visual-asset-manifest",
+    "passed": 6,
+    "failed": 0,
+    "result": "passed",
+    "log": "artifacts/art019b-round-2/builder/visual-asset-manifest.tap"
+  },
+  "pages_build": {
+    "command": "npm run build:pages -- --out /tmp/art019b-round2-pages-3f02b25b",
+    "result": "passed",
+    "release_file_count": 49,
+    "release_bytes": 5781112,
+    "log": "artifacts/art019b-round-2/builder/build-pages.log",
+    "audit": "artifacts/art019b-round-2/builder/pages-output-audit.json"
+  },
+  "preservation": "All other visual manifest records are unchanged; the approved portrait and V1 full-resolution source bytes match the base commit.",
+  "scope": "Asset-only; the fixture does not claim live 540×960 arena integration or review."
+}

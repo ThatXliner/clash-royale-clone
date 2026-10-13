@@ -457,14 +457,14 @@ const REGISTERED_ASSETS = [
   },
   {
     authorship: "in-repo-authored",
-    byteLength: 67816,
+    byteLength: 47138,
     dimensions: { height: 512, width: 512 },
     format: "webp",
     id: "kilnkeeper-battle-sprite",
     kind: "image",
     license: "AGPL-3.0-only",
     path: "assets/kilnkeeper-battle-sprite.webp",
-    sha256: "185ca65f8522ee9b1d70e248a8e1c21f9768a789782b54e30c867fd77b3175d8",
+    sha256: "43766c813461acbfe36a949c6a972ba4e5ddf07513276bd5079cf564b1bf157a",
   },
 ];
 
