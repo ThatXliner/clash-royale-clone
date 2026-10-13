@@ -52,13 +52,15 @@ The pinned `rarities.json` rows quote the direct index field as
 Champion, respectively. The source also sets Skeleton Army's
 `"summon_character_level_index": 5`.
 
-Three independent rows in the same datamine exhibit the same additive child
-index pattern: Witch (Epic index 5, spawn offset 5), Tombstone (Rare index 8,
-spawn offset 2), and Skeleton King's `SkeletonKingGraveyard` (Champion index 0,
-spawn offset 10) each point to a Common skeleton row at candidate index 10.
-All three candidate child-array lookups return 81 HP and 81 damage. This is
-internal consistency across different source tables; it is not an independent
-engine-level confirmation of what the offset fields mean.
+Three rows in the same datamine exhibit the same additive child-index pattern:
+[Witch](https://github.com/RoyaleAPI/cr-api-data/blob/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats_characters.json#L2221-L2331)
+(Epic index 5, spawn offset 5), [Tombstone](https://github.com/RoyaleAPI/cr-api-data/blob/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats_building.json#L3900-L4010)
+(Rare index 8, spawn offset 2), and Skeleton King's
+[`SkeletonKingGraveyard`](https://github.com/RoyaleAPI/cr-api-data/blob/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats_spell.json#L2568-L2600)
+(Champion index 0, spawn offset 10) each point to a Common skeleton row at
+candidate index 10. All three candidate child-array lookups return 81 HP and
+81 damage. This is internal consistency across different source tables; it is
+not an independent engine-level confirmation of what the offset fields mean.
 
 ## Inference
 
