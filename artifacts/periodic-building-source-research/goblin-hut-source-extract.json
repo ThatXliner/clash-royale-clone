@@ -1,0 +1,159 @@
+{
+  "artifact_kind": "reference-only-source-extract",
+  "accessed_at": "2026-10-13",
+  "source_file": "docs/json/cards_stats_building.json",
+  "source_repository": "https://github.com/RoyaleAPI/cr-api-data",
+  "subject": "Goblin Hut periodic and death-spawn fields, before and after the 2022-12-07 rework",
+  "identity_scope": "This is an independent source comparator. It does not establish a mapping to project cards Bramble Cage or Ember Roost.",
+  "publisher_sources": [
+    {
+      "title": "Balance Changes",
+      "publisher": "Supercell",
+      "published": "2022-12-07",
+      "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-2/",
+      "published_values": {
+        "speargoblins_per_wave_before_after": [1, 3],
+        "between_members_seconds": 0.5,
+        "lifetime_seconds_before_after": [31, 29],
+        "spawn_frequency_seconds_before_after": [4, 10],
+        "total_speargoblins_before_after": [11, 12]
+      }
+    },
+    {
+      "title": "Balance Changes Dec 2021",
+      "publisher": "Supercell",
+      "published": "2021-12-06",
+      "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-december-2021-2/",
+      "relevant_baseline": "Goblin Hut lifetime 40s to 31s and spawn rate 4.5s to 4s. This corroborates the pre-rework values; it does not define timer origin or death-spawn scheduling."
+    }
+  ],
+  "snapshots": [
+    {
+      "label": "pre-rework",
+      "commit": "02057553d57038c47f79dc0e743d19ee938bfa3e",
+      "commit_date_utc": "2022-10-04T09:58:10Z",
+      "blob_url": "https://github.com/RoyaleAPI/cr-api-data/blob/02057553d57038c47f79dc0e743d19ee938bfa3e/docs/json/cards_stats_building.json",
+      "raw_url": "https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/02057553d57038c47f79dc0e743d19ee938bfa3e/docs/json/cards_stats_building.json",
+      "whole_file_bytes": 575873,
+      "whole_file_sha256": "5307c277d58e8cb5b2f062e77049d65aa7199a37efe2a865716a1f3dccfdb0c0",
+      "goblin_hut_row_lines": [941, 1295],
+      "field_lines": {
+        "deploy_time": 947,
+        "life_time": 979,
+        "spawn_start_time": 1045,
+        "spawn_interval": 1046,
+        "spawn_number": 1047,
+        "spawn_pause_time": 1050,
+        "spawn_character": 1052,
+        "death_spawn_count": 1063,
+        "death_spawn_character": 1064,
+        "death_spawn_deploy_time": 1076
+      },
+      "raw_profile": {
+        "key": "goblin-hut",
+        "name_en": "Goblin Hut",
+        "deploy_time": 1000,
+        "life_time": 31000,
+        "spawn_start_time": 0,
+        "spawn_interval": 0,
+        "spawn_number": 1,
+        "spawn_pause_time": 4000,
+        "spawn_character": "SpearGoblin",
+        "death_spawn_count": 3,
+        "death_spawn_character": "SpearGoblin",
+        "death_spawn_deploy_time": 0
+      }
+    },
+    {
+      "label": "2022-12-07 rework snapshot",
+      "commit": "a6dc5b3b0e4421c6b9f54b3b68722ae1a11c0da9",
+      "commit_date_utc": "2022-12-07T09:14:39Z",
+      "blob_url": "https://github.com/RoyaleAPI/cr-api-data/blob/a6dc5b3b0e4421c6b9f54b3b68722ae1a11c0da9/docs/json/cards_stats_building.json",
+      "raw_url": "https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/a6dc5b3b0e4421c6b9f54b3b68722ae1a11c0da9/docs/json/cards_stats_building.json",
+      "whole_file_bytes": 613173,
+      "whole_file_sha256": "4dd5093ed29c114a204f558dfae854b762a46e0a216ce3205a74e357f9a1cd81",
+      "goblin_hut_row_lines": [977, 1343],
+      "field_lines": {
+        "deploy_time": 983,
+        "life_time": 1016,
+        "spawn_start_time": 1082,
+        "spawn_interval": 1083,
+        "spawn_number": 1084,
+        "spawn_pause_time": 1087,
+        "spawn_character": 1089,
+        "death_spawn_count": 1101,
+        "death_spawn_character": 1102,
+        "death_spawn_deploy_time": 1114
+      },
+      "raw_profile": {
+        "key": "goblin-hut",
+        "name_en": "Goblin Hut",
+        "deploy_time": 1000,
+        "life_time": 29000,
+        "spawn_start_time": 0,
+        "spawn_interval": 500,
+        "spawn_number": 3,
+        "spawn_pause_time": 10000,
+        "spawn_character": "SpearGoblin",
+        "death_spawn_count": 3,
+        "death_spawn_character": "SpearGoblin",
+        "death_spawn_deploy_time": 0
+      }
+    },
+    {
+      "label": "pinned pre-March-2023 cutoff",
+      "commit": "54fdef52c5086393b085f57faeeab8ef86b28160",
+      "commit_date_utc": "2023-02-18T11:25:16Z",
+      "blob_url": "https://github.com/RoyaleAPI/cr-api-data/blob/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats_building.json",
+      "raw_url": "https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats_building.json",
+      "whole_file_bytes": 643658,
+      "whole_file_sha256": "b2f1ecc5561eaba96c8e03c7d3a180cc03e792175403a7393841568842f4b653",
+      "goblin_hut_row_lines": [979, 1345],
+      "field_lines": {
+        "deploy_time": 985,
+        "life_time": 1018,
+        "spawn_start_time": 1084,
+        "spawn_interval": 1085,
+        "spawn_number": 1086,
+        "spawn_pause_time": 1089,
+        "spawn_character": 1091,
+        "death_spawn_count": 1103,
+        "death_spawn_character": 1104,
+        "death_spawn_deploy_time": 1116
+      },
+      "raw_profile": {
+        "key": "goblin-hut",
+        "name_en": "Goblin Hut",
+        "deploy_time": 1000,
+        "life_time": 29000,
+        "spawn_start_time": 0,
+        "spawn_interval": 500,
+        "spawn_number": 3,
+        "spawn_pause_time": 10000,
+        "spawn_character": "SpearGoblin",
+        "death_spawn_count": 3,
+        "death_spawn_character": "SpearGoblin",
+        "death_spawn_deploy_time": 0
+      }
+    }
+  ],
+  "interpretation": {
+    "directly_supported": [
+      "The 2022-12-07 publisher note specifies three Spear Goblins per wave, 0.5 seconds between members, a 29-second lifetime, a 10-second spawn frequency, and a published total of 12.",
+      "The pinned raw fields agree on a 3-member periodic group, 500ms interval field, 10000ms pause field, 29000ms lifetime, and a 3-count SpearGoblin death-spawn record.",
+      "The post-rework raw profile is unchanged between the 2022-12-07 and 2023-02-18 snapshots."
+    ],
+    "inference_only": [
+      "If the publisher's total includes the raw death-spawn branch, then 12 = 9 periodic units + 3 death-spawn units, consistent with three periodic waves of three.",
+      "For the old profile, 11 = 8 one-unit waves at 4-second cadence during a 31-second active lifetime + 3 death spawns is consistent with a zero-offset active-time schedule. This arithmetic supports, but does not prove, that schedule origin."
+    ],
+    "unresolved_questions": [
+      "Does spawn_start_time=0 anchor to card input, end of deploy_time, start of lifetime, or another activation boundary?",
+      "Does 10-second spawn frequency mean first-member-to-first-member cadence, or a pause after the preceding batch completes?",
+      "Does the official total count include the death-spawn branch? The arithmetic strongly fits, but the note does not itemize its total.",
+      "Does natural lifetime expiry use the same death-spawn branch as destruction? Does destruction cancel pending wave members or a scheduled next wave?",
+      "What event/tick ordering applies if spawn, destruction, or expiry share a boundary? The 0-ms death_spawn_deploy_time field does not define processing order.",
+      "The repository has no Goblin Hut reference clip to independently establish first-wave onset, member timing, cancellation, or expiry behavior."
+    ]
+  }
+}
