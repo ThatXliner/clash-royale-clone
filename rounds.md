@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 422 — 2026-10-13
+
+PIECE: ART-018P — Original Ember Basin portrait asset, round 2
+
+VERDICT: PASS
+
+EVIDENCE: Independent `376ff88` exact `a3ebdb1` rerendered fixture and inspected native64×64/128×128 captures: raised channel, copperrails,pivot andbraces identify a defensive launcher. Audit7/7, source1254square2717595B SHA3429f3eb…afe7490, WebP512square74608B SHAfbeb95f3…038c87a; v1inputhash preserved, provenance/toolprompt/license/encoding and2concrete lore sentences valid. Retained `0cc47cd`, `artifacts/art018p-round-2/critic/`.
+
+BIGGEST GAP: Some darksupport/channel edges blend into the detailedbackground at64px, butbright rails/diagonals remain readable. Asset-stage pass only; realapp and13px arena integration remainsCARDS018I.
+
 ## Round 421 — 2026-10-13
 
 PIECE: ART-018P — Original Ember Basin portrait asset, round 1
