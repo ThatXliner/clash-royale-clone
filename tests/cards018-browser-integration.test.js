@@ -483,10 +483,15 @@ test("Cards018 Ember Basin: editable collection enters real mixed battle and res
           const iframeBox = await page.locator("[data-battle-frame-slot] iframe").boundingBox();
           assert.ok(iframeBox, "the desktop comparison point is inside the real battle frame");
           const point = { x: 885, y: 771 };
-          const framePoint = { x: point.x - iframeBox.x, y: point.y - iframeBox.y };
+          const frameSize = await frame.evaluate(() => ({ width: innerWidth, height: innerHeight }));
+          const framePoint = {
+            x: (point.x - iframeBox.x) * frameSize.width / iframeBox.width,
+            y: (point.y - iframeBox.y) * frameSize.height / iframeBox.height,
+          };
           motionRegion = await frame.evaluate(({ x, y }) => {
             const node = document.elementFromPoint(x, y);
             const describe = (element) => {
+              if (!element) return null;
               const style = getComputedStyle(element);
               const rect = element.getBoundingClientRect();
               return {
@@ -495,6 +500,7 @@ test("Cards018 Ember Basin: editable collection enters real mixed battle and res
                 className: typeof element.className === "string" ? element.className : null,
                 dataUi: element.getAttribute("data-ui"),
                 cardId: element.getAttribute("data-card-id"),
+                slot: element.getAttribute("data-slot"),
                 text: (element.textContent ?? "").trim().replace(/\s+/gu, " ").slice(0, 80),
                 rect: [rect.x, rect.y, rect.width, rect.height],
                 style: {
@@ -502,6 +508,7 @@ test("Cards018 Ember Basin: editable collection enters real mixed battle and res
                   backgroundColor: style.backgroundColor,
                   opacity: style.opacity,
                   transform: style.transform,
+                  transformOrigin: style.transformOrigin,
                   transitionProperty: style.transitionProperty,
                 },
               };
@@ -510,9 +517,20 @@ test("Cards018 Ember Basin: editable collection enters real mixed battle and res
             for (let element = node; element && ancestors.length < 6; element = element.parentElement) {
               ancestors.push(describe(element));
             }
-            return { hit: node ? describe(node) : null, ancestors };
+            return {
+              hit: describe(node),
+              ancestors,
+              motionOwners: {
+                card: describe(node?.closest(".hud-card[data-slot]")),
+                hand: describe(node?.closest('[data-ui="hud-hand"]')),
+                hudFrame: describe(node?.closest(".game-ui-hud-frame")),
+              },
+            };
           }, framePoint);
-          motionUiEvidence.push({ media: reducedMotion, pagePoint: point, framePoint, motionRegion });
+          motionUiEvidence.push({ media: reducedMotion, pagePoint: point,
+            iframeBox: { x: iframeBox.x, y: iframeBox.y,
+              width: iframeBox.width, height: iframeBox.height },
+            frameSize, framePoint, motionRegion });
         }
         const pngName = `ember-basin-${viewport.width}x${viewport.height}-${reducedMotion === "reduce" ? "reduced" : "normal"}.png`;
         const beforePng = await page.screenshot({ path: join(ARTIFACTS, pngName),
@@ -708,12 +726,30 @@ test("Cards018 Ember Basin: editable collection enters real mixed battle and res
     assert.equal(expired.event.tick - beforeExpiry.placedTick, 1_800);
     assert.equal(expired.tick - beforeExpiry.placedTick, 1_801);
     evidence.combat.lifetime = { beforeExpiry, expired };
+    const normalDesktopSample = motionUiEvidence.find(({ media }) => media === "no-preference");
+    const reducedDesktopSample = motionUiEvidence.find(({ media }) => media === "reduce");
+    const normalMotionCard = normalDesktopSample?.motionRegion.motionOwners.card;
+    const reducedMotionCard = reducedDesktopSample?.motionRegion.motionOwners.card;
+    assert.ok(normalMotionCard && reducedMotionCard,
+      "the 65x25 desktop motion-difference region resolves to real HUD cards in both modes");
+    assert.equal(normalMotionCard.cardId, reducedMotionCard.cardId,
+      "both accessibility variants resolve the same hand card under the changed pixels");
+    assert.equal(normalMotionCard.slot, reducedMotionCard.slot);
+    assert.notEqual(normalMotionCard.style.transform, reducedMotionCard.style.transform,
+      "the label's HUD transform layer is removed by reduced-motion styling");
     evidence.motionComparison = {
       phoneNormalAndReducedMotionScreenshotsArePixelIdentical:
         screenshots.find(({ file }) => file === "ember-basin-390x844-normal.png")?.sha256 ===
         screenshots.find(({ file }) => file === "ember-basin-390x844-reduced.png")?.sha256,
       desktopScreenshotPixelDifferenceRegion: { x: 885, y: 771, width: 65, height: 25 },
       desktopNormalVsReducedUiPointSamples: motionUiEvidence,
+      desktopMotionCause: {
+        cardId: normalMotionCard.cardId,
+        slot: normalMotionCard.slot,
+        normalTransform: normalMotionCard.style.transform,
+        reducedMotionTransform: reducedMotionCard.style.transform,
+        explanation: "the changed label pixels lie on the same HUD hand card; HUD_MOTION_STYLE retains its normal transform layer and removes it for prefers-reduced-motion",
+      },
       restorePixelParityVerifiedIndependentlyInEachVariant:
         screenshots.filter(({ file }) => /^ember-basin-\d+x\d+-(?:normal|reduced)\.png$/u.test(file))
           .every(({ sha256, restoredSha256 }) =>
