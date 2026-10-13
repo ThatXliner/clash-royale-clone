@@ -1,0 +1,43 @@
+{
+  "asset_id": "kilnkeeper-battle-sprite",
+  "authorship": "in-repo-authored",
+  "license": "AGPL-3.0-only",
+  "tool_source": "OpenAI built-in imagegen image-edit tool",
+  "input": {
+    "path": "demo/assets/kilnkeeper-portrait.png",
+    "sha256": "f4062cfc51764726d97e3c901450ff3ae0dc8b0e25bcabd87eabc469dbf4bf4d",
+    "dimensions": { "width": 1254, "height": 1254 },
+    "bytes": 2659340,
+    "role": "approved original Kilnkeeper portrait identity reference"
+  },
+  "generated_source": {
+    "path": "demo/assets/kilnkeeper-battle-sprite.png",
+    "tool_output_path": "/Users/me/.codex/generated_images/01a13785-2313-7652-85d2-81078bf64d9e/exec-9fb04265-63b4-49b7-8941-63c7994313d4.png",
+    "sha256": "ddb4f26bc708fef7fcd99e1c2e6732a80d113a1d02a1d57e6f9cc1a784179b09",
+    "dimensions": { "width": 1254, "height": 1254 },
+    "bytes": 1853779,
+    "format": "PNG",
+    "alpha_channel": true,
+    "alpha_extrema": [0, 255],
+    "transparent_pixel_count": 792935,
+    "partial_alpha_pixel_count": 779477,
+    "opaque_pixel_count": 104
+  },
+  "shipped_output": {
+    "path": "public/assets/kilnkeeper-battle-sprite.webp",
+    "sha256": "185ca65f8522ee9b1d70e248a8e1c21f9768a789782b54e30c867fd77b3175d8",
+    "dimensions": { "width": 512, "height": 512 },
+    "bytes": 67816,
+    "format": "WebP",
+    "alpha_channel": true,
+    "alpha_extrema": [0, 254],
+    "encoding": {
+      "tool": "cwebp",
+      "version": "1.6.0",
+      "arguments": ["-q", "88", "-m", "6", "-mt", "-resize", "512", "512"],
+      "color_encoding": "lossy WebP at quality 88",
+      "alpha_encoding": "lossless WebP alpha"
+    }
+  },
+  "prompt": "Use case: stylized-concept\nAsset type: transparent square single-frame combat cutout for an original real-time woodland card battler\nInput image: Image 1 is the approved Kilnkeeper portrait and the identity reference; preserve the same character's design and materials.\nPrimary request: Expand the approved Kilnkeeper portrait into one complete full-body combat cutout of the same stout woodland badger kiln-worker.\nSubject: The same friendly focused badger with charcoal and cream face markings, warm amber-brown eyes, teal work apron with tan repair patches, and the same copper-and-rootwood emberseed launcher with its distinctive oversized bright circular firing mouth. Show his entire head, both arms, apron, short sturdy legs, and both feet. Give him an alert planted stance with feet apart and a slight forward lean; keep the body broad and simple so the silhouette reads at 13 pixels tall. Hold the launcher across the torso in a clear forward three-quarter aim, with the large glowing copper mouth facing toward the viewer and slightly downward. Keep the mouth and emberseed visible, not hidden behind his hands.\nStyle/medium: Match the approved portrait's polished saturated stylized game illustration and softly sculpted painterly finish, with clean chunky forms and crisp outline separation.\nComposition/framing: Square 512px-style cutout with the complete figure centered and filling most of the canvas vertically. Leave a small transparent safety margin around ears, muzzle, launcher mouth, and feet; do not crop anything. Ground-level viewpoint, three-quarter front view.\nLighting/mood: Warm ember glow on the copper launcher, soft warm rim light, readable dark-to-light separation against transparency.\nColor palette: Keep the source image's charcoal and cream badger markings, teal apron, aged copper, rootwood brown, and amber emberseed.\nMaterials/textures: Soft fur, woven teal apron with patches, hammered copper nozzle and simple dark rootwood parts; simplify fine surface detail into bold shapes for tiny-scale readability.\nConstraints: Produce one standalone character only on a genuinely transparent background with clean alpha edges and no floor or scenery. Preserve the approved Kilnkeeper identity and core colors. No motion streaks, extra sparks outside the mouth, frames, text, labels, logos, watermark, UI, or card border.\nAvoid: An empty or opaque background, extra characters, missing feet, face redesign, a long firearm silhouette, excessive tiny details, copied commercial-game characters or art, photorealism."
+}

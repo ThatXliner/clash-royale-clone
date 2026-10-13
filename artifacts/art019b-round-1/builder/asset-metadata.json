@@ -1,0 +1,136 @@
+{
+  "round": "ART019B round 1 builder evidence",
+  "scope": "asset-only; native fixture crops at 13x13 and 26x26 pixels do not claim live-arena integration",
+  "license": "AGPL-3.0-only",
+  "encoding": {
+    "tool": "cwebp 1.6.0",
+    "arguments": [
+      "-q",
+      "88",
+      "-m",
+      "6",
+      "-mt",
+      "-resize",
+      "512",
+      "512"
+    ],
+    "webp_color": "lossy quality 88",
+    "webp_alpha": "lossless"
+  },
+  "assets": {
+    "approved_input_portrait": {
+      "path": "demo/assets/kilnkeeper-portrait.png",
+      "sha256": "f4062cfc51764726d97e3c901450ff3ae0dc8b0e25bcabd87eabc469dbf4bf4d",
+      "bytes": 2659340,
+      "dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "alpha": {
+        "present": true,
+        "extrema": [
+          255,
+          255
+        ],
+        "transparent_pixels": 0,
+        "partial_pixels": 0,
+        "opaque_pixels": 1572516
+      }
+    },
+    "generated_full_resolution_source": {
+      "path": "demo/assets/kilnkeeper-battle-sprite.png",
+      "sha256": "ddb4f26bc708fef7fcd99e1c2e6732a80d113a1d02a1d57e6f9cc1a784179b09",
+      "bytes": 1853779,
+      "dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "alpha": {
+        "present": true,
+        "extrema": [
+          0,
+          255
+        ],
+        "transparent_pixels": 792935,
+        "partial_pixels": 779477,
+        "opaque_pixels": 104
+      }
+    },
+    "shipped_webp": {
+      "path": "public/assets/kilnkeeper-battle-sprite.webp",
+      "sha256": "185ca65f8522ee9b1d70e248a8e1c21f9768a789782b54e30c867fd77b3175d8",
+      "bytes": 67816,
+      "dimensions": {
+        "width": 512,
+        "height": 512
+      },
+      "alpha": {
+        "present": true,
+        "extrema": [
+          0,
+          254
+        ],
+        "transparent_pixels": 131959,
+        "partial_pixels": 130185,
+        "opaque_pixels": 0
+      }
+    },
+    "native_13px_fixture": {
+      "path": "artifacts/art019b-round-1/builder/kilnkeeper-battle-13px.png",
+      "sha256": "9f5069dc18620dd65b064fc0b316cdf29b3513ef515a7371dc7498602812ec60",
+      "bytes": 692,
+      "dimensions": {
+        "width": 13,
+        "height": 13
+      },
+      "alpha": {
+        "present": true,
+        "extrema": [
+          0,
+          255
+        ],
+        "transparent_pixels": 38,
+        "partial_pixels": 113,
+        "opaque_pixels": 18
+      }
+    },
+    "native_26px_fixture": {
+      "path": "artifacts/art019b-round-1/builder/kilnkeeper-battle-26px.png",
+      "sha256": "5bc29e2b9555e752dd70c02baa1fc50f369add8ea4cf85972087e8ff15354049",
+      "bytes": 1916,
+      "dimensions": {
+        "width": 26,
+        "height": 26
+      },
+      "alpha": {
+        "present": true,
+        "extrema": [
+          0,
+          255
+        ],
+        "transparent_pixels": 222,
+        "partial_pixels": 406,
+        "opaque_pixels": 48
+      }
+    },
+    "checkerboard_readability_fixture": {
+      "path": "artifacts/art019b-round-1/builder/kilnkeeper-battle-native-scale-fixture.png",
+      "sha256": "00f7cfbde4523452cc2f6f0515a5506e72a62ba523e1c5974898b58e50780a9c",
+      "bytes": 8271,
+      "dimensions": {
+        "width": 560,
+        "height": 300
+      },
+      "alpha": {
+        "present": true,
+        "extrema": [
+          255,
+          255
+        ],
+        "transparent_pixels": 0,
+        "partial_pixels": 0,
+        "opaque_pixels": 168000
+      }
+    }
+  }
+}

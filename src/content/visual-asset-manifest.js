@@ -455,6 +455,17 @@ const REGISTERED_ASSETS = [
     path: "assets/kilnkeeper-portrait-painted.webp",
     sha256: "38e9f64348fa823a64755fda2496b699c88c27c7dd0a14a440e704d9093d2240",
   },
+  {
+    authorship: "in-repo-authored",
+    byteLength: 67816,
+    dimensions: { height: 512, width: 512 },
+    format: "webp",
+    id: "kilnkeeper-battle-sprite",
+    kind: "image",
+    license: "AGPL-3.0-only",
+    path: "assets/kilnkeeper-battle-sprite.webp",
+    sha256: "185ca65f8522ee9b1d70e248a8e1c21f9768a789782b54e30c867fd77b3175d8",
+  },
 ];
 
 const MANIFEST = freeze({
