@@ -799,6 +799,29 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     await page.screenshot({ path: join(ARTIFACTS, "custom-deck-gloamwing-390x844.png"),
       fullPage: true });
 
+    await page.locator('[data-replace-slot="3"]').focus();
+    await page.keyboard.press("Enter");
+    assert.equal(await page.locator("[data-replacement-title]").innerText(),
+      "Replace slot 4 · Skymaul");
+    await page.locator('[data-replacement-card-id="coppershade-flock"]').click();
+    deckIds = await page.locator("[data-deck-cards] [data-card-id]").evaluateAll((nodes) =>
+      nodes.map((node) => node.dataset.cardId));
+    assert.equal(deckIds[3], "coppershade-flock",
+      "Coppershade Flock replaces the selected Skymaul slot");
+    assert.equal(new Set(deckIds).size, 8);
+    assert.match(await page.locator("[data-deck-status]").innerText(),
+      /Coppershade Flock replaced Skymaul/u);
+    const finalDeckCosts = new Map([
+      ...createPlayableRoster(),
+      ...["stonehauler", "gloamwing-cluster", "coppershade-flock"]
+        .map((id) => projectSessionTroopBattleCard(id)),
+    ].map(({ id, cost }) => [id, cost]));
+    const finalAverageCost = deckIds.reduce((sum, id) => sum + finalDeckCosts.get(id), 0) / 8;
+    assert.equal(await page.locator("[data-average-cost]").first().innerText(),
+      finalAverageCost.toFixed(2), "the deck summary reflects both admitted air swarms");
+    await page.screenshot({ path: join(ARTIFACTS, "custom-deck-coppershade-390x844.png"),
+      fullPage: true });
+
     await page.locator('[data-nav-to="battle"]').click();
     await child.locator('[data-ui="arena"]').waitFor({ state: "visible", timeout: 8_000 });
     const waitForFrameDeck = async () => child.waitForFunction(async ({ expectedIds, entryUrl }) => {
@@ -816,6 +839,13 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       "Battle launches the actual selected eight-card setup");
     assert.deepEqual(frameSetup, JSON.parse(createEditableGameSessionSetup(deckIds)),
       "Battle uses the canonical editable setup helper");
+    const editableOpeningHand = await child.evaluate(async (entryUrl) => {
+      const { arenaHudController } = await import(entryUrl);
+      return arenaHudController.session.state.decks.south.hand;
+    }, arenaControllerUrl);
+    assert.ok(editableOpeningHand.includes("gloamwing-cluster"));
+    assert.ok(editableOpeningHand.includes("coppershade-flock"),
+      "the selected deck opens with Coppershade Flock available to the player");
     await page.screenshot({ path: join(ARTIFACTS, "custom-battle-gloamwing-390x844.png") });
 
     await page.evaluate((ids) => {
@@ -864,6 +894,7 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     assert.ok(gloamwingDeployment, "the custom air swarm deploys through the real session input");
     assert.equal(gloamwingDeployment.deployment.cardId, "gloamwing-cluster");
     assert.equal(gloamwingDeployment.deployment.entityIds.length, 5);
+    assert.equal(gloamwingDeployment.spend.cost, 2);
     assert.ok(gloamwingDeployment.deployment.point.y < 15_000,
       "Gloamwing placement is on the player's side");
     await page.screenshot({ path: join(ARTIFACTS, "custom-battle-gloamwing-deployed-390x844.png") });
@@ -890,6 +921,134 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       "custom battle continuation remains deterministic after restore");
     assert.deepEqual(continuation.restoredDeck, deckIds,
       "restoring a battle snapshot retains all eight selected card IDs");
+
+    const coppershadeBefore = await child.evaluate(async (entryUrl) => {
+      const { arenaHudController } = await import(entryUrl);
+      const state = arenaHudController.session.state;
+      return {
+        elixir: state.elixir.sides.south.amount,
+        hand: state.decks.south.hand,
+        sequence: state.decks.south.sequence,
+        tick: state.tick,
+      };
+    }, arenaControllerUrl);
+    assert.ok(coppershadeBefore.hand.includes("coppershade-flock"),
+      "Gloamwing's deck cycle leaves Coppershade ready in the custom hand");
+    await child.evaluate(() => {
+      globalThis.__appCoppershadePointerEvidence = [];
+      document.querySelector('[data-ui="arena"]').addEventListener("pointerup", (event) => {
+        globalThis.__appCoppershadePointerEvidence.push({ isTrusted: event.isTrusted,
+          clientX: event.clientX, clientY: event.clientY });
+      }, true);
+    });
+    const coppershadeSlot = child.locator(
+      '[data-ui="card-slot"][data-card-id="coppershade-flock"]');
+    await coppershadeSlot.waitFor({ state: "visible" });
+    await coppershadeSlot.click();
+    assert.equal(await child.locator(
+      '[data-ui="hud-hand"] [data-card-id="coppershade-flock"]')
+      .getAttribute("data-selected"), "true",
+    "Coppershade can be selected from the actual custom battle hand");
+    const coppershadeArena = await child.locator('[data-ui="arena"]').boundingBox();
+    assert.ok(coppershadeArena);
+    await page.mouse.click(coppershadeArena.x + coppershadeArena.width * 0.5,
+      coppershadeArena.y + coppershadeArena.height * 0.79);
+    const committedCoppershade = await child.evaluate(async (entryUrl) => {
+      const { arenaHudController } = await import(entryUrl);
+      arenaHudController.stepMany(1);
+      const state = arenaHudController.session.state;
+      const deployment = arenaHudController.session.replay.find(({ side, type, deployment: value }) =>
+        side === "south" && type === "session-deployed" &&
+        value.cardId === "coppershade-flock") ?? null;
+      const trustedPointer = [...globalThis.__appCoppershadePointerEvidence]
+        .reverse().find(({ isTrusted }) => isTrusted) ?? null;
+      return {
+        deployment,
+        elixir: state.elixir.sides.south.amount,
+        hand: state.decks.south.hand,
+        sequence: state.decks.south.sequence,
+        tick: state.tick,
+        trustedPointer,
+      };
+    }, arenaControllerUrl);
+    assert.ok(committedCoppershade.deployment,
+      "the trusted browser gesture commits a Coppershade deployment");
+    assert.equal(committedCoppershade.deployment.spend.cost, 5,
+      "Coppershade spends its five elixir in the live session");
+    assert.equal(committedCoppershade.deployment.deployment.entityIds.length, 6);
+    assert.ok(committedCoppershade.deployment.deployment.point.y < 15_000,
+      "the trusted Coppershade deployment is legal on the player's side");
+    assert.equal(committedCoppershade.sequence, coppershadeBefore.sequence + 1,
+      "Coppershade advances the actual custom deck cycle");
+    assert.ok(!committedCoppershade.hand.includes("coppershade-flock"),
+      "the played Coppershade leaves the hand after the cycle");
+    assert.ok(committedCoppershade.elixir < coppershadeBefore.elixir,
+      "the Coppershade deployment lowers the player's elixir");
+    assert.equal(committedCoppershade.trustedPointer?.isTrusted, true,
+      "Coppershade's arena placement came from a trusted Chrome pointer event");
+    await page.screenshot({ path: join(ARTIFACTS,
+      "custom-battle-coppershade-deployed-390x844.png") });
+
+    const coppershadeProjectileEvidence = await child.evaluate(async (entryUrl) => {
+      const { arenaHudController } = await import(entryUrl);
+      const controller = arenaHudController;
+      let state = controller.session.state;
+      const coppershadeIds = new Set(state.battle.units.filter(({ cardId, side }) =>
+        side === "south" && cardId === "coppershade-flock").map(({ id }) => id));
+      let projectile = null;
+      for (let tick = 0; tick < 360 && projectile === null; tick += 1) {
+        controller.stepMany(1);
+        state = controller.session.state;
+        projectile = state.battle.projectiles.find(({ attackerId }) =>
+          coppershadeIds.has(attackerId)) ?? null;
+      }
+      if (projectile === null) return { projectile: null };
+      const attacker = state.battle.units.find(({ id }) => id === projectile.attackerId);
+      const target = state.battle.units.find(({ id }) => id === projectile.targetId);
+      const checkpoint = controller.serialize();
+      const checkpointProjectile = state.battle.projectiles.find(({ id }) => id === projectile.id);
+      controller.restore(checkpoint);
+      const restored = controller.serialize();
+      const restoredProjectile = controller.session.state.battle.projectiles
+        .find(({ id }) => id === projectile.id) ?? null;
+      controller.stepMany(120);
+      const forward = controller.serialize();
+      controller.restore(checkpoint);
+      controller.stepMany(120);
+      return {
+        attackerCardId: attacker?.cardId ?? null,
+        attackerSide: attacker?.side ?? null,
+        checkpointProjectile,
+        exactAtRestore: restored === checkpoint,
+        impactTick: projectile.impactTick,
+        launchTick: projectile.launchTick,
+        projectile,
+        replayExact: controller.serialize() === forward,
+        restoredProjectileExact: JSON.stringify(restoredProjectile) ===
+          JSON.stringify(checkpointProjectile),
+        targetCardId: target?.cardId ?? null,
+        targetLayer: target?.layer ?? null,
+        targetSide: target?.side ?? null,
+      };
+    }, arenaControllerUrl);
+    assert.ok(coppershadeProjectileEvidence.projectile,
+      "Coppershade launches a real projectile in the browser session");
+    assert.equal(coppershadeProjectileEvidence.attackerCardId, "coppershade-flock");
+    assert.equal(coppershadeProjectileEvidence.attackerSide, "south");
+    assert.equal(coppershadeProjectileEvidence.targetSide, "north");
+    assert.equal(coppershadeProjectileEvidence.targetLayer, "air",
+      "the browser projectile targets a legal airborne opponent");
+    assert.ok(coppershadeProjectileEvidence.impactTick >
+      coppershadeProjectileEvidence.launchTick,
+    "the Coppershade projectile is observed in flight before impact");
+    assert.equal(coppershadeProjectileEvidence.exactAtRestore, true,
+      "restoring the in-flight Coppershade projectile reproduces exact session bytes");
+    assert.equal(coppershadeProjectileEvidence.restoredProjectileExact, true,
+      "the airborne target and projectile persist exactly across restore");
+    assert.equal(coppershadeProjectileEvidence.replayExact, true,
+      "the restored Coppershade projectile continuation replays exactly");
+    await page.screenshot({ path: join(ARTIFACTS,
+      "custom-battle-coppershade-projectile-390x844.png") });
 
     const terminal = await child.evaluate(async (entryUrl) => {
       const { arenaHudController } = await import(entryUrl);
@@ -1102,21 +1261,50 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       requestPaths: [...requests].sort(),
       battleFrame: { box: frameBox, smallBox: smallFrameBox, viewport: battleViewport },
       editableDeck: {
-        averageCost: expectedAverage,
+        averageCost: finalAverageCost,
         ids: deckIds,
-        replacement: { added: "stonehauler", removed: "mossguard", slot: 1 },
+        replacements: [
+          { added: "stonehauler", removed: "mossguard", slot: 1 },
+          { added: "gloamwing-cluster", removed: "copperskiff", slot: 2 },
+          { added: "coppershade-flock", removed: "skymaul", slot: 3 },
+        ],
         launchedSetup: frameSetup,
         invalidMessagesIgnored: true,
         pauseResume: { pausedTick: customPausedTick, resumedTick: resumedCustomTick },
-        deployment: {
-          cardId: stonehaulerDeployment.deployment.cardId,
-          point: stonehaulerDeployment.deployment.point,
-          trustedInput: true,
-        },
+        openingHand: editableOpeningHand,
+        deployments: [
+          {
+            cardId: gloamwingDeployment.deployment.cardId,
+            entityCount: gloamwingDeployment.deployment.entityIds.length,
+            cost: gloamwingDeployment.spend.cost,
+            point: gloamwingDeployment.deployment.point,
+            trustedInput: true,
+          },
+          {
+            cardId: committedCoppershade.deployment.deployment.cardId,
+            entityCount: committedCoppershade.deployment.deployment.entityIds.length,
+            cost: committedCoppershade.deployment.spend.cost,
+            point: committedCoppershade.deployment.deployment.point,
+            trustedInput: committedCoppershade.trustedPointer.isTrusted,
+          },
+        ],
         snapshot: {
-          exactAtRestore: continuation.exactAtRestore,
-          replayExact: continuation.replayed === continuation.forward,
-          restoredDeck: continuation.restoredDeck,
+          gloamwing: {
+            exactAtRestore: continuation.exactAtRestore,
+            replayExact: continuation.replayed === continuation.forward,
+            restoredDeck: continuation.restoredDeck,
+          },
+          coppershade: {
+            attackerCardId: coppershadeProjectileEvidence.attackerCardId,
+            attackerSide: coppershadeProjectileEvidence.attackerSide,
+            projectile: coppershadeProjectileEvidence.projectile,
+            exactAtRestore: coppershadeProjectileEvidence.exactAtRestore,
+            projectileRestoredExactly: coppershadeProjectileEvidence.restoredProjectileExact,
+            replayExact: coppershadeProjectileEvidence.replayExact,
+            targetCardId: coppershadeProjectileEvidence.targetCardId,
+            targetLayer: coppershadeProjectileEvidence.targetLayer,
+            targetSide: coppershadeProjectileEvidence.targetSide,
+          },
         },
         terminal: { reached: terminal.state.terminal, sessionTick: terminal.state.sessionTick,
           chunks: terminal.chunks },
