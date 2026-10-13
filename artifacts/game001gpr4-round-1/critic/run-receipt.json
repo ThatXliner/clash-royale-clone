@@ -1,0 +1,223 @@
+{
+  "task": "GAME001GPR4 current-engine browser endurance, round 1 critic",
+  "verdict": "PASS, scoped to the exact seed-zero default-deck workload",
+  "candidate": {
+    "commit": "796708ef622a0292cdd71fa4cf0a81c9af48b3b1",
+    "detachedWorktree": "/tmp/cards016-stagger-round-2-critic",
+    "command": "env -u GAME_BROWSER_ENDURANCE_TICKS npm run test:game-browser-endurance",
+    "workingDirectory": "/tmp/cards016-stagger-round-2-critic",
+    "candidateArtifactDirectory": "artifacts/game-001gp-browser-endurance",
+    "runOutputMtimeSelection": "Only active.png, endurance-result.json, restart.png, and terminal.png had fresh run mtimes and were copied; older files in the candidate artifact directory were not copied."
+  },
+  "processEvidence": {
+    "execSessionId": 17088,
+    "exitCode": 0,
+    "sampledPids": {
+      "launcherShell": 9682,
+      "npm": 9683,
+      "runner": 9710,
+      "nodeTest": 9711,
+      "playwright": 9712,
+      "enduranceServer": 9715,
+      "chromeMain": 9718,
+      "chromeRenderers": [
+        9730,
+        9731,
+        9732
+      ]
+    },
+    "completionObserved": "Root verified the node-test, Playwright, server, Chrome main, and renderer processes exited after this same run; no restart was made."
+  },
+  "tap": {
+    "testCount": 2,
+    "pass": 2,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "exactWorkloadSubtest": "game browser endurance: exact GH seed-zero workload yields through Chrome to terminal",
+    "workloadDurationMilliseconds": 811580.134083,
+    "totalDurationMilliseconds": 813794.13025
+  },
+  "measuredTelemetry": {
+    "jsonDurationMilliseconds": 811434,
+    "schedulerYieldSupported": true,
+    "finalTick": 18000,
+    "segmentRecordCount": 61,
+    "segmentTicks": 300,
+    "repeatedTick600DueToRestoreReplay": 2,
+    "maxSegmentElapsedMilliseconds": 10543,
+    "capsMilliseconds": {
+      "initialization": 300,
+      "allOtherLongTasks": 50,
+      "explicitSimulationSliceGuard": 40
+    },
+    "maxInitializationLongTaskMilliseconds": 197,
+    "initializationLongTaskDurationsMilliseconds": [
+      85,
+      197
+    ],
+    "nonInitializationLongTaskCounts": {
+      "longTasks": 0,
+      "outOfSegmentLongTasks": 0,
+      "restoreLongTasks": 0,
+      "terminalObservationLongTasks": 0,
+      "restartLongTasks": 0,
+      "finalObserverDrainLongTasks": 0,
+      "screenshotLongTasks": 0
+    },
+    "maxesByPhaseMilliseconds": {
+      "deckRestore": 1.2000000029802322,
+      "sessionStepSlice": 35.79999999701977,
+      "rafCallback": 0.29999999701976776,
+      "domCommit": 2,
+      "audioPresentation": 38.400000005960464,
+      "elixirRestore": 4.5999999940395355,
+      "sessionSerialize": 0.6000000089406967,
+      "audioFrame": 0.7999999970197678
+    },
+    "inputNormalization": {
+      "attempts": 61,
+      "planned": 42,
+      "accepted": 42,
+      "semanticMismatches": 0,
+      "noPlannedCommand": 19,
+      "primaryRecords": 2,
+      "replayedRecords": 59
+    },
+    "restore": {
+      "rewindFromTick": 600,
+      "rewindToTick": 300,
+      "elapsedMilliseconds": 10155,
+      "snapshotCutBytes": 37778,
+      "restoreLongTaskCount": 0
+    },
+    "terminal": {
+      "layers": {
+        "combat": "18000",
+        "effects": "18000",
+        "feedback": "18000",
+        "hud": "18000"
+      },
+      "overlay": {
+        "height": 428,
+        "width": 520
+      },
+      "pendingResourceCount": 0,
+      "audibleStarts": 3128,
+      "activeVoices": 0,
+      "audioFaulted": false,
+      "rendererCleanupTick": 18000
+    },
+    "restart": {
+      "layers": {
+        "combat": "0",
+        "effects": "0",
+        "feedback": "0",
+        "hud": "0"
+      },
+      "restartCount": 1,
+      "sessionTick": 0,
+      "terminal": false,
+      "activeVoices": 0,
+      "scheduledBuffers": 0,
+      "pendingResourceCount": 0
+    },
+    "finalObserverDrain": {
+      "capturedAt": 809807.5,
+      "drainedPendingCount": 0,
+      "newlyObservedTaskCount": 0,
+      "observedTaskCount": 2,
+      "longTasks": []
+    },
+    "errors": {
+      "resourceErrors": [],
+      "unhandled": [],
+      "consoleErrors": [],
+      "serverExited": true,
+      "serverStderr": "",
+      "environmentAudits": []
+    }
+  },
+  "evidenceFiles": [
+    {
+      "name": "active.png",
+      "source": {
+        "path": "../../../../../../tmp/cards016-stagger-round-2-critic/artifacts/game-001gp-browser-endurance/active.png",
+        "bytes": 958377,
+        "mtime": "2026-10-13T15:36:29.616Z",
+        "sha256": "f78fb716fd49d9e8756f7c626efe4e458f116981cd18373f96e7f78446bda9df"
+      },
+      "preservedCopy": {
+        "path": "artifacts/game001gpr4-round-1/critic/active.png",
+        "bytes": 958377,
+        "mtime": "2026-10-13T15:36:29.616Z",
+        "sha256": "f78fb716fd49d9e8756f7c626efe4e458f116981cd18373f96e7f78446bda9df"
+      },
+      "identical": true
+    },
+    {
+      "name": "endurance-result.json",
+      "source": {
+        "path": "../../../../../../tmp/cards016-stagger-round-2-critic/artifacts/game-001gp-browser-endurance/endurance-result.json",
+        "bytes": 2307372,
+        "mtime": "2026-10-13T15:49:47.663Z",
+        "sha256": "3734b212f677fc4f0e5ff9f491139dafbbcdcc6e0906f144c09bc74aaa176ed0"
+      },
+      "preservedCopy": {
+        "path": "artifacts/game001gpr4-round-1/critic/endurance-result.json",
+        "bytes": 2307372,
+        "mtime": "2026-10-13T15:49:47.663Z",
+        "sha256": "3734b212f677fc4f0e5ff9f491139dafbbcdcc6e0906f144c09bc74aaa176ed0"
+      },
+      "identical": true
+    },
+    {
+      "name": "restart.png",
+      "source": {
+        "path": "../../../../../../tmp/cards016-stagger-round-2-critic/artifacts/game-001gp-browser-endurance/restart.png",
+        "bytes": 958269,
+        "mtime": "2026-10-13T15:49:47.502Z",
+        "sha256": "7e39ec7a15757f5290c804d1484660ebf161005cb0268eb22d652e67c4c579b9"
+      },
+      "preservedCopy": {
+        "path": "artifacts/game001gpr4-round-1/critic/restart.png",
+        "bytes": 958269,
+        "mtime": "2026-10-13T15:49:47.502Z",
+        "sha256": "7e39ec7a15757f5290c804d1484660ebf161005cb0268eb22d652e67c4c579b9"
+      },
+      "identical": true
+    },
+    {
+      "name": "terminal.png",
+      "source": {
+        "path": "../../../../../../tmp/cards016-stagger-round-2-critic/artifacts/game-001gp-browser-endurance/terminal.png",
+        "bytes": 966131,
+        "mtime": "2026-10-13T15:49:47.310Z",
+        "sha256": "fb9c3a875fd5e303e9e6daed44014eb2b53121d09059664081c0ae4fcaa404c1"
+      },
+      "preservedCopy": {
+        "path": "artifacts/game001gpr4-round-1/critic/terminal.png",
+        "bytes": 966131,
+        "mtime": "2026-10-13T15:49:47.310Z",
+        "sha256": "fb9c3a875fd5e303e9e6daed44014eb2b53121d09059664081c0ae4fcaa404c1"
+      },
+      "identical": true
+    },
+    {
+      "name": "full-endurance.tap",
+      "source": {
+        "path": "artifacts/cards016-stagger-round-2/critic/full-endurance.tap",
+        "bytes": 718,
+        "mtime": "2026-10-13T15:49:49.680Z",
+        "sha256": "afbfb26006eb44407b8e9ee03b5d70001d273e2688b6fe9b8e7bb2d88d431ff1"
+      },
+      "preservedCopy": {
+        "path": "artifacts/game001gpr4-round-1/critic/full-endurance.tap",
+        "bytes": 718,
+        "mtime": "2026-10-13T15:49:49.680Z",
+        "sha256": "afbfb26006eb44407b8e9ee03b5d70001d273e2688b6fe9b8e7bb2d88d431ff1"
+      },
+      "identical": true
+    }
+  ]
+}

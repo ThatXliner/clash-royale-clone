@@ -1,0 +1,11 @@
+# GAME001GPR4 round 1 — critic verdict
+
+**PASS, scoped to the exact frozen-candidate endurance workload.** The unmodified command `env -u GAME_BROWSER_ENDURANCE_TICKS npm run test:game-browser-endurance` ran against detached candidate `796708ef622a0292cdd71fa4cf0a81c9af48b3b1`. TAP reports 2/2 passing, including the real Chrome seed-zero workload through terminal and restart (main subtest 811,580 ms; total 813,794 ms). The fresh result JSON ends at tick 18,000.
+
+The recorded architecture retained the requested 300 ms initialization cap and 50 ms cap for other long tasks. The maximum initialization task was 197 ms; all measured non-initialization long-task categories were empty. There were 61 segment records, including tick 600 once before restore and once after the restore from tick 600 back to tick 300; the longest segment took 10,543 ms. The largest simulation slice was 35.8 ms, below its 40 ms guard, and the largest audio presentation phase was 38.4 ms.
+
+The JSON records 61 GH attempts: 42 planned commands were accepted and normalized with no mismatch; 19 attempts had no planned command. Restore completed in 10,155 ms with zero restore long tasks and a 37,778-byte snapshot cut. At terminal, every view layer was at tick 18,000, the terminal overlay was present, pending resources were empty, and audio had no active voices or fault; the renderer cleaned up at tick 18,000. Restart returned every layer and the session to tick 0 with restart count 1, no active or scheduled audio buffers, and no pending resources. Resource errors, unhandled errors, console errors, server stderr, and environment audits were empty; the server exited.
+
+The copied `active.png`, `terminal.png`, and `restart.png` are the fresh screenshots produced by this run; `endurance-result.json` and `full-endurance.tap` are the corresponding fresh telemetry and test output. Their byte counts, SHA-256 hashes, original candidate paths, and mtimes are in `run-receipt.json`.
+
+**Largest remaining scope gap:** this gate exercises the exact seed-zero workload on the default eight-card deck, not every possible deck/command combination or a broader gameplay-parity set. This verdict makes no claim about those workloads.
