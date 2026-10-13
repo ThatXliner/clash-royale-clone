@@ -1,5 +1,17 @@
 # Gauntlet Rounds
 
+## Round 414 — 2026-10-13
+
+PIECE: COVERAGE-003 — Versioned eighteen-card historical roster mapping, round 1
+
+VERDICT: PASS
+
+EVIDENCE: Independent frozena8 critic885bf76 verifies109rows78/13/18,18editable/default8,55catalog60occ,12declarationcandidates6unjoined,26typedQUESTIONs andbyte-identical11/16 baselineartifacts. Six semantic mutationclasses and9 independentactualJSON tamper cases reject;107 relevantfrozen tests pass. ActualChromium productionqualification/manifest audit passes44files5443443B, manifestSHA6f28489c8dd4c5ab934dd7422298926e03e6cc268417c298416d6fbb2f091c0d, unchangedcaps/noinventory/private/reference leaks. Logs/verdict under `artifacts/coverage018-round-1/critic/`.
+
+BIGGEST GAP: Zero fullhistoricalcard executions orparity established; newerstagger mechanics are outside thisfrozenmapping.
+
+DISPOSITION: Accept versionedroster accounting only. Preserve prior11/16 artifacts; continue unsupported/source-dependent mechanics asQUESTIONs.
+
 ## Round 413 — 2026-10-13
 
 PIECE: GAME-001GPR4 — Current eighteen-choice runtime strict endurance, round 1
