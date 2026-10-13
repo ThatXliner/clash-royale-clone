@@ -1,0 +1,43 @@
+{
+  "generator": "node tests/fixtures/integration-occurrence-adapters.js",
+  "generatedArtifactCount": 3,
+  "generatedArtifactsSha256": "822d5e482622d8318f93f73597670f1f73a75853a80828df5bfce10bc23f8ba8",
+  "changedKeyCount": 3,
+  "changedKeys": [
+    "createOrdinaryProjectileSquadCatalog\u0000coppershade-flock",
+    "createOrdinaryProjectileSquadCatalog\u0000duskwing-trio",
+    "createOrdinaryProjectileSquadCatalog\u0000sunthread-pair"
+  ],
+  "expectedChangedKeys": [
+    "createOrdinaryProjectileSquadCatalog\u0000coppershade-flock",
+    "createOrdinaryProjectileSquadCatalog\u0000duskwing-trio",
+    "createOrdinaryProjectileSquadCatalog\u0000sunthread-pair"
+  ],
+  "changedKeysExact": true,
+  "unchangedEntryCount": 63,
+  "unchangedEntriesMatch": true,
+  "changedBindings": [
+    {
+      "key": "createOrdinaryProjectileSquadCatalog\u0000coppershade-flock",
+      "previous": "0baf8a36b00e1aef1244ec680e4b737879d0cb712386d913cc6d46301ca3e8e7",
+      "generated": "46b1a446ddb1d2ec37e84382e9d5814621ec7e8d331a1a57e9592497da8edd0e",
+      "checkedIn": "46b1a446ddb1d2ec37e84382e9d5814621ec7e8d331a1a57e9592497da8edd0e",
+      "generatedMatchesCheckedIn": true
+    },
+    {
+      "key": "createOrdinaryProjectileSquadCatalog\u0000duskwing-trio",
+      "previous": "e9b7e39f73bd53443dace2fac5855f5aa834a309bf9728aa65e752b42be71dbe",
+      "generated": "5e241f9758d16a9af2071ea6d69ed61f20e85b93d0e3b48794e858b203451588",
+      "checkedIn": "5e241f9758d16a9af2071ea6d69ed61f20e85b93d0e3b48794e858b203451588",
+      "generatedMatchesCheckedIn": true
+    },
+    {
+      "key": "createOrdinaryProjectileSquadCatalog\u0000sunthread-pair",
+      "previous": "1fc9b27a9c021284c37493af6b2a890933612b84a3e56871899c9a15cf94a1ad",
+      "generated": "87ee4a26c5eaf66bc3d3a60c8b3c05083714e09a696e926dbc899693ebd55de9",
+      "checkedIn": "87ee4a26c5eaf66bc3d3a60c8b3c05083714e09a696e926dbc899693ebd55de9",
+      "generatedMatchesCheckedIn": true
+    }
+  ],
+  "result": "PASS"
+}

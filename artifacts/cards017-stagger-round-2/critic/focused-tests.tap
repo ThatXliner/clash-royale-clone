@@ -1,0 +1,280 @@
+TAP version 13
+# Subtest: briar-band births members at each sourced 100 ms interval on both sides and restores at every boundary
+ok 1 - briar-band births members at each sourced 100 ms interval on both sides and restores at every boundary
+  ---
+  duration_ms: 3180.520125
+  type: 'test'
+  ...
+# Subtest: coppershade-flock births members at each sourced 100 ms interval on both sides and restores at every boundary
+ok 2 - coppershade-flock births members at each sourced 100 ms interval on both sides and restores at every boundary
+  ---
+  duration_ms: 3730.646125
+  type: 'test'
+  ...
+# Subtest: duskwing-trio births members at each sourced 100 ms interval on both sides and restores at every boundary
+ok 3 - duskwing-trio births members at each sourced 100 ms interval on both sides and restores at every boundary
+  ---
+  duration_ms: 610.240708
+  type: 'test'
+  ...
+# Subtest: forgeguard births members at each sourced 100 ms interval on both sides and restores at every boundary
+ok 4 - forgeguard births members at each sourced 100 ms interval on both sides and restores at every boundary
+  ---
+  duration_ms: 1873.723042
+  type: 'test'
+  ...
+# Subtest: gloamwing-cluster births members at each sourced 100 ms interval on both sides and restores at every boundary
+ok 5 - gloamwing-cluster births members at each sourced 100 ms interval on both sides and restores at every boundary
+  ---
+  duration_ms: 1961.650708
+  type: 'test'
+  ...
+# Subtest: sunthread-pair births members at each sourced 100 ms interval on both sides and restores at every boundary
+ok 6 - sunthread-pair births members at each sourced 100 ms interval on both sides and restores at every boundary
+  ---
+  duration_ms: 177.009791
+  type: 'test'
+  ...
+# Subtest: thornscouts births members at each sourced 100 ms interval on both sides and restores at every boundary
+ok 7 - thornscouts births members at each sourced 100 ms interval on both sides and restores at every boundary
+  ---
+  duration_ms: 1008.610375
+  type: 'test'
+  ...
+# Subtest: source receipts are required per component and reject forged interval data
+ok 8 - source receipts are required per component and reject forged interval data
+  ---
+  duration_ms: 18.466041
+  type: 'test'
+  ...
+# Subtest: skeleton exceptions and a singleton retain their existing immediate expansion
+ok 9 - skeleton exceptions and a singleton retain their existing immediate expansion
+  ---
+  duration_ms: 40.129
+  type: 'test'
+  ...
+# Subtest: Briar Band commits one player cost and natural AI cycle while both sides restore through mixed births
+ok 10 - Briar Band commits one player cost and natural AI cycle while both sides restore through mixed births
+  ---
+  duration_ms: 1885.351375
+  type: 'test'
+  ...
+# Subtest: mixed editable RL exposes and restores Briar Band's members at exact source ticks
+ok 11 - mixed editable RL exposes and restores Briar Band's members at exact source ticks
+  ---
+  duration_ms: 2191.402625
+  type: 'test'
+  ...
+# Subtest: scheduled combat births reject duplicate IDs and queue overflow atomically
+ok 12 - scheduled combat births reject duplicate IDs and queue overflow atomically
+  ---
+  duration_ms: 43.932291
+  type: 'test'
+  ...
+# Subtest: editable deck setup admits every card in canonical eight-card witnesses and closes QUESTION records
+ok 13 - editable deck setup admits every card in canonical eight-card witnesses and closes QUESTION records
+  ---
+  duration_ms: 11214.921583
+  type: 'test'
+  ...
+# Subtest: editable deck setup preserves the shipped standard setup and selected order
+ok 14 - editable deck setup preserves the shipped standard setup and selected order
+  ---
+  duration_ms: 22.855334
+  type: 'test'
+  ...
+# Subtest: editable mixed witness admits one QUESTION-profile Squall Orb with seven troops
+ok 15 - editable mixed witness admits one QUESTION-profile Squall Orb with seven troops
+  ---
+  duration_ms: 7.405875
+  type: 'test'
+  ...
+# Subtest: editable mixed GameSession casts from center, spends, cycles, and restores pending impact
+ok 16 - editable mixed GameSession casts from center, spends, cycles, and restores pending impact
+  ---
+  duration_ms: 44.778375
+  type: 'test'
+  ...
+# Subtest: editable mixed AI chooses a legal Squall Orb cast without a selected target
+ok 17 - editable mixed AI chooses a legal Squall Orb cast without a selected target
+  ---
+  duration_ms: 12.598916
+  type: 'test'
+  ...
+# Subtest: shared Cinderling archetype deploys from both cards and restores distinct member identities
+ok 18 - shared Cinderling archetype deploys from both cards and restores distinct member identities
+  ---
+  duration_ms: 4975.941875
+  type: 'test'
+  ...
+# Subtest: editable Stonehauler deployment survives deterministic restore continuation
+ok 19 - editable Stonehauler deployment survives deterministic restore continuation
+  ---
+  duration_ms: 673.625708
+  type: 'test'
+  ...
+# Subtest: new squads deploy through custom eight-card battles and restore exactly
+ok 20 - new squads deploy through custom eight-card battles and restore exactly
+  ---
+  duration_ms: 2671.81825
+  type: 'test'
+  ...
+# Subtest: seeded opponent naturally chooses both new projectile squads through typed receipts
+ok 21 - seeded opponent naturally chooses both new projectile squads through typed receipts
+  ---
+  duration_ms: 1626.665875
+  type: 'test'
+  ...
+# Subtest: editable deck rejects malformed, duplicate, unsupported, and noncanonical setups
+ok 22 - editable deck rejects malformed, duplicate, unsupported, and noncanonical setups
+  ---
+  duration_ms: 5.236834
+  type: 'test'
+  ...
+# Subtest: game roster admission: manifest is the exact integration occurrence surface with explicit exclusions
+ok 23 - game roster admission: manifest is the exact integration occurrence surface with explicit exclusions
+  ---
+  duration_ms: 2641.926875
+  type: 'test'
+  ...
+# Subtest: game roster admission: every admitted ID has one exact legal eight-card witness
+ok 24 - game roster admission: every admitted ID has one exact legal eight-card witness
+  ---
+  duration_ms: 11.020291
+  type: 'test'
+  ...
+# Subtest: game roster admission: runtime routes each admitted kind once and restores canonical history
+ok 25 - game roster admission: runtime routes each admitted kind once and restores canonical history
+  ---
+  duration_ms: 2.664833
+  type: 'test'
+  ...
+# Subtest: game roster admission: non-unit battle cards admit but can never materialize placeholders
+ok 26 - game roster admission: non-unit battle cards admit but can never materialize placeholders
+  ---
+  duration_ms: 47.787583
+  type: 'test'
+  ...
+# Subtest: game roster admission: GameSession spends, cycles, and records one typed route per play
+ok 27 - game roster admission: GameSession spends, cycles, and records one typed route per play
+  ---
+  duration_ms: 119.401416
+  type: 'test'
+  ...
+# Subtest: game roster admission: non-unit session history is chunk- and restore-exact
+ok 28 - game roster admission: non-unit session history is chunk- and restore-exact
+  ---
+  duration_ms: 1271.9405
+  type: 'test'
+  ...
+# Subtest: game roster admission: hostile runtime admission is bounded, trap-zero, and atomic
+ok 29 - game roster admission: hostile runtime admission is bounded, trap-zero, and atomic
+  ---
+  duration_ms: 23.981792
+  type: 'test'
+  ...
+# Subtest: ordinary troop projection domain is exactly the admitted profile surface
+ok 30 - ordinary troop projection domain is exactly the admitted profile surface
+  ---
+  duration_ms: 1.679625
+  type: 'test'
+  ...
+# Subtest: every projection is complete, source-agreeing, ordinary-only, and component-stable
+ok 31 - every projection is complete, source-agreeing, ordinary-only, and component-stable
+  ---
+  duration_ms: 4.695208
+  type: 'test'
+  ...
+# Subtest: every witness closes its exact questions, cards, and archetypes through LiveBattle admission
+ok 32 - every witness closes its exact questions, cards, and archetypes through LiveBattle admission
+  ---
+  duration_ms: 95.833833
+  type: 'test'
+  ...
+# Subtest: ordinary projectile delivery admits only its exact three source tuples and rejects forged restore claims
+ok 33 - ordinary projectile delivery admits only its exact three source tuples and rejects forged restore claims
+  ---
+  duration_ms: 61.176833
+  type: 'test'
+  ...
+# Subtest: Sunthread Pair and Duskwing Trio trade sourced air/ground projectiles through in-flight restore
+ok 34 - Sunthread Pair and Duskwing Trio trade sourced air/ground projectiles through in-flight restore
+  ---
+  duration_ms: 2497.212875
+  type: 'test'
+  ...
+# Subtest: legacy HTO projections are detached exact playable cards plus ordinary policies
+ok 35 - legacy HTO projections are detached exact playable cards plus ordinary policies
+  ---
+  duration_ms: 6.175125
+  type: 'test'
+  ...
+# Subtest: all official witnesses use uniform HTO policies with exact projection counts
+ok 36 - all official witnesses use uniform HTO policies with exact projection counts
+  ---
+  duration_ms: 13.0595
+  type: 'test'
+  ...
+# Subtest: playable roster preserves its estimates and records Briar Band's sourced member interval
+ok 37 - playable roster preserves its estimates and records Briar Band's sourced member interval
+  ---
+  duration_ms: 14.938
+  type: 'test'
+  ...
+# Subtest: legacy delivery/layer policy and QUESTION tampering rejects atomically
+ok 38 - legacy delivery/layer policy and QUESTION tampering rejects atomically
+  ---
+  duration_ms: 91.434458
+  type: 'test'
+  ...
+# Subtest: paired ordinary-policy omission rejects every one of the 38 entity projections
+ok 39 - paired ordinary-policy omission rejects every one of the 38 entity projections
+  ---
+  duration_ms: 259.781458
+  type: 'test'
+  ...
+# Subtest: removing all ordinary policies from one card rejects a partially downgraded roster
+ok 40 - removing all ordinary policies from one card rejects a partially downgraded roster
+  ---
+  duration_ms: 47.102416
+  type: 'test'
+  ...
+# Subtest: a genuine legacy card cannot be mixed with seven HTO policy-backed cards
+ok 41 - a genuine legacy card cannot be mixed with seven HTO policy-backed cards
+  ---
+  duration_ms: 5.232333
+  type: 'test'
+  ...
+# Subtest: all admitted troop witnesses use one shared LiveBattle deployment and entity expansion
+ok 42 - all admitted troop witnesses use one shared LiveBattle deployment and entity expansion
+  ---
+  duration_ms: 1946.590875
+  type: 'test'
+  ...
+# Subtest: fully HTO LiveBattle setup deploys, restores, and forks exactly
+ok 43 - fully HTO LiveBattle setup deploys, restores, and forks exactly
+  ---
+  duration_ms: 22.790167
+  type: 'test'
+  ...
+# Subtest: representative ordinary projection is chunk, fork, and restore exact
+ok 44 - representative ordinary projection is chunk, fork, and restore exact
+  ---
+  duration_ms: 4244.611666
+  type: 'test'
+  ...
+# Subtest: projection APIs reject hostile identities before callbacks and return detached frozen values
+ok 45 - projection APIs reject hostile identities before callbacks and return detached frozen values
+  ---
+  duration_ms: 1.173208
+  type: 'test'
+  ...
+1..45
+# tests 45
+# suites 0
+# pass 45
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 21491.804875
