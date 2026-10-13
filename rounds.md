@@ -6,7 +6,7 @@ PIECE: CARDS-016T — Source-backed relative air-swarm deployment interval, roun
 
 VERDICT: FAIL
 
-EVIDENCE: Independent frozen09b critic focused16/16, nondeterminism10/10, shipping13/13, editable10/10 andrealChrome1/1 pass. All six full default8 GameSession serializations for seeds0/23 at0/120/900 matcha8 byte-for-byte. Broader ordinary-troops suite fails `coppershade-flock materialized count`, actual1/expected6 immediately afterdeployment, tests/game-roster-troops-ordinary.test.js:677. CapturedactualTAP retained bycritic under `artifacts/cards016-stagger-round-1/critic/`; no critic sourceedits.
+EVIDENCE: Independent frozen09b critic focused16/16, nondeterminism10/10, shipping13/13, editable10/10 andrealChrome1/1 pass. All six full default8 GameSession serializations for seeds0/23 at0/120/900 matcha8 byte-for-byte. The additional selected ordinary-troops test fails0/1 on `coppershade-flock materialized count`, actual1/expected6 immediately afterdeployment, tests/game-roster-troops-ordinary.test.js:677. Actualcritic61 requestedpreflight checks pass; extra selectedordinary0/1FAIL. TAP andfullsnapshots retained in3c19377 under `artifacts/cards016-stagger-round-1/critic/`; no critic sourceedits.
 
 BIGGEST GAP: Replace stale same-boundary squad-count expectations with exact source-aware sequential-birth checks in the ordinary suite.
 
