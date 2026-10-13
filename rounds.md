@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 420 — 2026-10-13
+
+PIECE: GAME-001GPR5 — Corrected default-squad runtime strict endurance, second recorded critique (artifact round 3)
+
+VERDICT: PASS
+
+EVIDENCE: Independent `fa7fa47` reviewed exact `5ba4002` with `env -u GAME_BROWSER_ENDURANCE_TICKS npm run test:game-browser-endurance`: exit0, TAP2/2, 987818ms main / 990051ms total. Fresh JSON records67segments through18000, setup306bb30,40accepted physical E2 decisions matching preflight including6state-aware interventions. Exact600→300→600 session/input/audio parity, terminal18000 and same-deck restart0 pass. Initialization197ms under300; all noninit LongTask categories0 under50; no resource/console/unhandled/pending errors. Fresh three screenshots inspected;144runtime and4harness hashes unchanged,2808archive blobs match. Bounded exact-candidate suite separately4/4. Evidence: `artifacts/game001gpr5-round-3/critic/`.
+
+BIGGEST GAP: Pause/resume add two canonical transcript events, so assertion wording about unchanged bytes across that boundary is too broad; exact browser/direct mirror parity and restored continuation pass. This scope establishes the normal seed-zero/default-eight legal state-aware workload, not all decks or109historical-card parity.
+
 ## Round 419 — 2026-10-13
 
 PIECE: GAME-001GPR5P — Terminal-aware endurance planning and explicit duration failure, round 1
