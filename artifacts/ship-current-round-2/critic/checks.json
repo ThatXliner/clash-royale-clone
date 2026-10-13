@@ -1,0 +1,361 @@
+{
+  "checkedAtUtc": "2026-10-13T16:58:10+00:00",
+  "checks": {
+    "documented-scope": {
+      "detail": {
+        "explicitNoFullRosterClaim": true,
+        "explicitNonParityLimit": true,
+        "explicitSeedZeroDefaultEight": true
+      },
+      "pass": true
+    },
+    "frozen-doc-local-links": {
+      "detail": {
+        "blob": "e68b94435d5dfa766d1efb8528dc6ebabfc545fb",
+        "links": [
+          {
+            "resolvedPath": "artifacts/ship-current-round-2/builder/evidence.md",
+            "result": "PASS",
+            "target": "../artifacts/ship-current-round-2/builder/evidence.md"
+          },
+          {
+            "resolvedPath": "artifacts/cards016-stagger-round-2/critic/verdict.md",
+            "result": "PASS",
+            "target": "../artifacts/cards016-stagger-round-2/critic/verdict.md"
+          },
+          {
+            "resolvedPath": "reference/research/air-swarm-formation-source-audit.md",
+            "result": "PASS",
+            "target": "../reference/research/air-swarm-formation-source-audit.md"
+          },
+          {
+            "resolvedPath": "artifacts/game001gpr4-round-1/critic/verdict.md",
+            "result": "PASS",
+            "target": "../artifacts/game001gpr4-round-1/critic/verdict.md"
+          },
+          {
+            "resolvedPath": "artifacts/game001gpr4-round-1/critic/full-endurance.tap",
+            "result": "PASS",
+            "target": "../artifacts/game001gpr4-round-1/critic/full-endurance.tap"
+          },
+          {
+            "resolvedPath": "artifacts/cards017-stagger-round-1/builder/evidence.md",
+            "result": "PASS",
+            "target": "../artifacts/cards017-stagger-round-1/builder/evidence.md"
+          },
+          {
+            "resolvedPath": "docs/completion-inventory.md",
+            "result": "PASS",
+            "target": "completion-inventory.md"
+          },
+          {
+            "resolvedPath": "artifacts/vis-003hr-round-2/debug/paint-probes.md",
+            "result": "PASS",
+            "target": "../artifacts/vis-003hr-round-2/debug/paint-probes.md"
+          }
+        ],
+        "localLinkCount": 8
+      },
+      "pass": true
+    },
+    "live-https-and-choice-parse": {
+      "detail": {
+        "http": {
+          "gameIndex": {
+            "bytes": 11651,
+            "cloudflareInsightsBeaconsRemovedForSourceCompare": 1,
+            "contentType": "text/html; charset=utf-8",
+            "lastModified": "Tue, 13 Oct 2026 16:39:44 GMT",
+            "sha256": "6c33680270529f1c6d44eadd6ee07bf7bd9c7de3215300a768f29fefbe54a2dc",
+            "status": 200,
+            "url": "https://bryanhu.com/clash-royale-clone/game/public/index.html"
+          },
+          "releaseManifest": {
+            "bytes": 23107,
+            "contentType": "application/json; charset=utf-8",
+            "sha256": "378b0de2b8dd92d66d639ad92459a34e023accbcf8c4af87f6d316ec2cc9387d",
+            "status": 200,
+            "url": "https://bryanhu.com/clash-royale-clone/game/release-manifest.json"
+          },
+          "root": {
+            "bytes": 6572,
+            "cloudflareInsightsBeaconsRemovedForSourceCompare": 1,
+            "contentType": "text/html; charset=utf-8",
+            "lastModified": "Tue, 13 Oct 2026 16:39:44 GMT",
+            "normalizedSha256": "f5a88ad3d18c8add8a61564dd3c41869681e74e983e8a1a53034382610e27980",
+            "sha256": "b978629e4fbb11e6e6f8a78d1b8cdc1ba10ba54fb7b5c05309300e1979e4b51b",
+            "status": 200,
+            "url": "https://bryanhu.com/clash-royale-clone/"
+          }
+        },
+        "landingPlayTarget": "./game/public/index.html",
+        "landingReferencesRelease": true,
+        "landingTemplateMatchesLiveAfterCloudflareBeaconRemoval": true,
+        "runtime": {
+          "appShell": {
+            "bytes": 102,
+            "sha256": "f7f81122c505aa84182242cc888f126d24f82c1a4378a05b1a3b02ed610b3b96",
+            "status": 200,
+            "url": "https://bryanhu.com/clash-royale-clone/game/src/ui/app-shell.js"
+          },
+          "choices": {
+            "additionalTroopCount": 9,
+            "airSwarmIds": [
+              "gloamwing-cluster",
+              "coppershade-flock"
+            ],
+            "bothAirSwarmsPresent": true,
+            "ids": [
+              "coilblade",
+              "mossguard",
+              "copperskiff",
+              "skymaul",
+              "brassbolt",
+              "reedsting",
+              "briar-band",
+              "cinderlings",
+              "stonehauler",
+              "thornscouts",
+              "forgeguard",
+              "cinder-host",
+              "ironroot",
+              "sunthread-pair",
+              "duskwing-trio",
+              "gloamwing-cluster",
+              "coppershade-flock",
+              "squall-orb"
+            ],
+            "nonTroopChoiceCount": 1,
+            "playableBaseCount": 8,
+            "runtimeUsesChoiceArray": true,
+            "totalCount": 18,
+            "uniqueCount": 18
+          },
+          "rosterBundle": {
+            "bytes": 240008,
+            "manifestMatch": true,
+            "sha256": "0e130baed93dd8cd3554e8424b28f66a42f92ed1ce7b2367aa43156e55966b94",
+            "status": 200,
+            "url": "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CBLw_649.js"
+          },
+          "runtimeBundle": {
+            "bytes": 30882,
+            "manifestMatch": true,
+            "sha256": "3a035c5fca93152613325767195142e56b3f6ec284492f89d19c4631c435cd3c",
+            "status": 200,
+            "url": "https://bryanhu.com/clash-royale-clone/game/assets/game-runtime~public/index-D_hi7CMQ.js"
+          }
+        }
+      },
+      "pass": true
+    },
+    "local-c981-exclusion": {
+      "detail": {
+        "candidateChangesSpawnScheduling": true,
+        "candidateInEndurance": false,
+        "candidateInRelease": false,
+        "candidateParent": "394dcaa3fcee5975b0bf54869a511fba019cf30f",
+        "includesDefaultBriarBand": true,
+        "newSquadCardIdsComparedWithEndurance": [
+          "briar-band",
+          "duskwing-trio",
+          "forgeguard",
+          "sunthread-pair",
+          "thornscouts"
+        ]
+      },
+      "pass": true
+    },
+    "origin-main": {
+      "detail": {
+        "branch": "main",
+        "gitLsRemote": "ae4a63e4bc544a8c195fc24abd5f6d17801cd1d4",
+        "githubApi": "ae4a63e4bc544a8c195fc24abd5f6d17801cd1d4"
+      },
+      "pass": true
+    },
+    "pages-publication": {
+      "detail": {
+        "jobs": [
+          {
+            "conclusion": "success",
+            "name": "build",
+            "status": "completed",
+            "steps": [
+              {
+                "conclusion": "success",
+                "name": "Verify shipping isolation rules"
+              },
+              {
+                "conclusion": "success",
+                "name": "Verify the release artifact builder"
+              },
+              {
+                "conclusion": "success",
+                "name": "Verify the Pages artifact"
+              },
+              {
+                "conclusion": "success",
+                "name": "Build the project-subpath artifact"
+              },
+              {
+                "conclusion": "success",
+                "name": "Upload Pages artifact"
+              }
+            ]
+          },
+          {
+            "conclusion": "success",
+            "name": "deploy",
+            "status": "completed",
+            "steps": [
+              {
+                "conclusion": "success",
+                "name": "Publish the manually requested Pages artifact"
+              }
+            ]
+          }
+        ],
+        "latestDeployment": {
+          "environment": "github-pages",
+          "environmentUrl": "http://bryanhu.com/clash-royale-clone/",
+          "id": 7044294095,
+          "ref": "main",
+          "sha": "ae4a63e4bc544a8c195fc24abd5f6d17801cd1d4",
+          "state": "success",
+          "targetUrl": "https://github.com/ThatXliner/clash-royale-clone/actions/runs/38431846142/job/115417352050"
+        },
+        "pagesApi": {
+          "buildType": "workflow",
+          "htmlUrl": "http://bryanhu.com/clash-royale-clone/",
+          "source": {
+            "branch": "main",
+            "path": "/"
+          }
+        },
+        "run": {
+          "conclusion": "success",
+          "headBranch": "main",
+          "headSha": "ae4a63e4bc544a8c195fc24abd5f6d17801cd1d4",
+          "htmlUrl": "https://github.com/ThatXliner/clash-royale-clone/actions/runs/38431846142",
+          "id": 38431846142,
+          "status": "completed"
+        }
+      },
+      "pass": true
+    },
+    "prior-air-swarm-independent-review": {
+      "detail": {
+        "airborneProjectileAndRestoreReplayInCriticVerdict": true,
+        "browserAvailableEditableCards": 18,
+        "candidateCommit": "a8c39bcc02329ba22b3fdd50be7d1089bc6010dc",
+        "selectedDeckContainsBothSwarms": true,
+        "suiteTotals": {
+          "failed": 0,
+          "note": "The browser suite also passed once before its artifact output was redirected; both browser runs were 1/1.",
+          "passed": 58,
+          "suites": [
+            {
+              "command": "APP_SHELL_ARTIFACTS=<critic-dir> node --test tests/app-shell.test.js",
+              "durationMs": 61786.473667,
+              "failed": 0,
+              "log": "app-shell-node-test-critic-path.tap",
+              "passed": 1
+            },
+            {
+              "command": "node --test tests/cards016-integration.test.js tests/game-roster-troops-air-swarms.test.js",
+              "durationMs": 4276.077167,
+              "failed": 0,
+              "log": "cards016-integration-and-air-swarms.tap",
+              "passed": 13
+            },
+            {
+              "command": "npm run test:editable-deck",
+              "durationMs": 20515.0705,
+              "failed": 0,
+              "log": "editable-deck.tap",
+              "passed": 10
+            },
+            {
+              "command": "npm run test:rl-environment",
+              "durationMs": 148418.281708,
+              "failed": 0,
+              "log": "rl-environment.tap",
+              "passed": 11
+            },
+            {
+              "command": "npm run test:nondeterminism-guard",
+              "durationMs": 1322.986917,
+              "failed": 0,
+              "log": "nondeterminism-guard.tap",
+              "passed": 10
+            },
+            {
+              "command": "npm run test:shipping-isolation-guard",
+              "durationMs": 40980.237833,
+              "failed": 0,
+              "log": "shipping-isolation-guard.tap",
+              "passed": 13
+            }
+          ]
+        }
+      },
+      "pass": true
+    },
+    "retained-endurance-evidence": {
+      "detail": {
+        "candidateCommit": "796708ef622a0292cdd71fa4cf0a81c9af48b3b1",
+        "explicitScope": true,
+        "tap": {
+          "fail": 0,
+          "mainWorkloadMs": 811580.134083,
+          "pass": 2,
+          "tests": 2,
+          "totalMs": 813794.13025
+        },
+        "telemetry": {
+          "finalTick": 18000,
+          "initializationCapMs": 300,
+          "maxInitializationLongTaskMs": 197,
+          "nonInitializationLongTaskCounts": {
+            "finalObserverDrainLongTasks": 0,
+            "longTasks": 0,
+            "outOfSegmentLongTasks": 0,
+            "restartLongTasks": 0,
+            "restoreLongTasks": 0,
+            "screenshotLongTasks": 0,
+            "terminalObservationLongTasks": 0
+          },
+          "otherLongTaskCapMs": 50
+        }
+      },
+      "pass": true
+    },
+    "runtime-and-build-diff": {
+      "detail": {
+        "enduranceIsAncestorOfRelease": true,
+        "githubCompare": {
+          "aheadBy": 10,
+          "buildPaths": [],
+          "changedPathCount": 41,
+          "runtimePaths": [],
+          "status": "ahead",
+          "totalCommits": 10
+        },
+        "localCandidateIsAncestorOfEndurance": false,
+        "localCandidateIsAncestorOfRelease": false,
+        "localDiffRuntimeAndBuildPaths": []
+      },
+      "pass": true
+    }
+  },
+  "enduranceCommit": "796708ef622a0292cdd71fa4cf0a81c9af48b3b1",
+  "failures": [],
+  "frozenDocument": {
+    "path": "docs/verification.md",
+    "revision": "3af5418b234e262ac93e2917b1173b6991ba23cb"
+  },
+  "localCandidateCommit": "c981ec2444b9d2f08dacdb5c6f04ce6b5b786dfb",
+  "passed": true,
+  "releaseCommit": "ae4a63e4bc544a8c195fc24abd5f6d17801cd1d4"
+}
