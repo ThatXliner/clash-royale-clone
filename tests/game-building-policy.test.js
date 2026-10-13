@@ -28,8 +28,11 @@ function rosterFor(cardId) {
   const roster = structuredClone(createPlayableRoster());
   roster.splice(0, 1, structuredClone(projectSessionNonUnitBattleCard(cardId)));
   const referenced = new Set(roster.flatMap(({ entities }) => entities.flatMap((entity) =>
-    [entity.bodyRadiusPolicy, entity.projectileSpeedPolicy]
-      .filter((policy) => policy.kind === "question").map(({ questionKey }) => questionKey))));
+    [
+      ...[entity.bodyRadiusPolicy, entity.projectileSpeedPolicy]
+        .filter((policy) => policy.kind === "question").map(({ questionKey }) => questionKey),
+      ...(entity.sourceConfidencePolicy?.fields ?? []).map(({ questionKey }) => questionKey),
+    ])));
   const questions = createPlayableRosterQuestionRecords().filter(({ key }) => referenced.has(key));
   return { questions, roster };
 }

@@ -12,6 +12,7 @@ import {
   createSessionTroopWitnessQuestions,
 } from "../src/content/session-troop-roster.js";
 import { PLAYABLE_CARD_IDS } from "../src/content/playable-roster.js";
+import { projectSessionNonUnitBattleCard } from "../src/content/session-card-catalog.js";
 import { DeckCycle } from "../src/sim/deck.js";
 import { GameSession } from "../src/sim/game-session.js";
 import { LiveBattle } from "../src/sim/live-battle.js";
@@ -114,6 +115,11 @@ test("editable deck setup preserves the shipped standard setup and selected orde
     createShippedGameSessionSetup(0));
   assert.equal(createEditableGameSessionSetup(PLAYABLE_CARD_IDS, 23),
     createShippedGameSessionSetup(23));
+  for (const seed of [0, 23]) {
+    assert.equal(new GameSession(createEditableGameSessionSetup(PLAYABLE_CARD_IDS, seed)).serialize(),
+      new GameSession(createShippedGameSessionSetup(seed)).serialize(),
+      "the default eight-card GameSession state bytes remain unchanged");
+  }
 
   const reordered = [...PLAYABLE_CARD_IDS].reverse();
   const decoded = JSON.parse(createEditableGameSessionSetup(reordered, 23));
@@ -124,32 +130,130 @@ test("editable deck setup preserves the shipped standard setup and selected orde
       deliveryPolicy?.kind === "question" && layerPolicy?.kind === "question")));
 });
 
-test("editable mixed witness admits one QUESTION-profile Squall Orb with seven troops", () => {
-  const deck = ["squall-orb", ...EDITABLE_DECK_CARD_IDS.slice(0, 7)];
-  const witness = createEditableMixedDeckWitness(deck);
-  assert.deepEqual(witness.roster.map(({ id }) => id), deck);
-  assert.equal(witness.roster.filter(({ kind }) => kind === "effect").length, 1);
-  assert.equal(witness.roster.find(({ id }) => id === "squall-orb").entities.length, 0);
-  assert.deepEqual(witness.roster.filter(({ kind }) => kind === "unit").map(({ id }) => id),
-    deck.slice(1));
+test("editable mixed witnesses retain troop questions and exact Squall Orb and Ember Basin profiles", () => {
+  const decks = [
+    ["squall-orb", ...EDITABLE_DECK_CARD_IDS.slice(0, 7)],
+    ["ember-basin", ...EDITABLE_DECK_CARD_IDS.slice(0, 7)],
+    ["squall-orb", "ember-basin", ...EDITABLE_DECK_CARD_IDS.slice(0, 6)],
+  ];
+  for (const deck of decks) {
+    const witness = createEditableMixedDeckWitness(deck);
+    assert.deepEqual(witness.roster.map(({ id }) => id), deck);
+    assert.equal(witness.roster.filter(({ kind }) => kind === "effect").length,
+      Number(deck.includes("squall-orb")));
+    assert.equal(witness.roster.filter(({ kind }) => kind === "structure").length,
+      Number(deck.includes("ember-basin")));
+    assert.deepEqual(witness.questions.map(({ key }) => key),
+      [...new Set(questionReferences(witness.roster))].sort());
 
-  const spellProfile = JSON.parse(createEditableGameSessionSetup(deck, 1));
-  const battleSetup = JSON.parse(spellProfile.battleSetup);
-  const radius = battleSetup.spellProfileReceipts.profiles.find(({ profileId }) =>
-    profileId === "squall-orb-radius-v2");
-  assert.ok(radius, "mixed setup carries the separate radius v2 profile");
-  assert.deepEqual(spellProfile.deck, deck);
-  assert.deepEqual(JSON.parse(spellProfile.rosterWitness).roster, battleSetup.roster);
-  assert.equal(radius.fact.areaDamageRadiusMillitiles, 2_500);
-  assert.ok(Object.values(radius.policies).every(({ authoritative, disposition }) =>
-    authoritative === false && disposition === "question"));
+    const setup = JSON.parse(createEditableGameSessionSetup(deck, 1));
+    const battleSetup = JSON.parse(setup.battleSetup);
+    assert.deepEqual(setup.deck, deck);
+    assert.deepEqual(JSON.parse(setup.rosterWitness).roster, battleSetup.roster);
+    if (deck.includes("squall-orb")) {
+      const radius = battleSetup.spellProfileReceipts.profiles.find(({ profileId }) =>
+        profileId === "squall-orb-radius-v2");
+      assert.ok(radius, "mixed setup retains the separate radius v2 receipt");
+      assert.equal(radius.fact.areaDamageRadiusMillitiles, 2_500);
+      assert.ok(Object.values(radius.policies).every(({ authoritative, disposition }) =>
+        authoritative === false && disposition === "question"));
+    } else {
+      assert.equal(Object.hasOwn(battleSetup, "spellProfileReceipts"), false);
+    }
+    if (deck.includes("ember-basin")) {
+      const actual = battleSetup.roster.find(({ id }) => id === "ember-basin");
+      assert.deepEqual(actual, projectSessionNonUnitBattleCard("ember-basin"),
+        "the editable witness carries the admitted defensive profile receipt byte-for-byte");
+      assert.equal(actual.buildingRuntime.policy.disposition, "question");
+      assert.equal(actual.buildingRuntime.policy.confidence, "unverified");
+      assert.equal(actual.buildingRuntime.policy.corpusFields.damage.authoritative, false);
+      assert.equal(actual.buildingRuntime.policy.corpusFields.damage.confidence, "unverified");
+      assert.equal(actual.buildingRuntime.policy.corpusFields.damage.source,
+        "pinned-pre-march-2023-building-constants");
+    }
+    assert.throws(() => createEditableDeckWitness(deck), /not supported/u,
+      "the closed troop witness stays troop-only");
+  }
+
   assert.ok(EDITABLE_MIXED_DECK_CARD_IDS.includes("squall-orb"));
-  assert.throws(() => createEditableDeckWitness(deck), /not supported/u,
-    "the closed troop witness stays troop-only");
-  assert.throws(() => createEditableMixedDeckWitness(PLAYABLE_CARD_IDS), /requires Squall Orb/u);
+  assert.ok(EDITABLE_MIXED_DECK_CARD_IDS.includes("ember-basin"));
+  assert.throws(() => createEditableMixedDeckWitness(PLAYABLE_CARD_IDS),
+    /requires an admitted spell or structure/u);
   assert.throws(() => createEditableMixedDeckWitness([
     "squall-orb", "squall-orb", ...EDITABLE_DECK_CARD_IDS.slice(0, 6),
   ]), /unique/u);
+});
+
+test("editable mixed setup rejects missing troop QUESTIONs and forged building provenance", () => {
+  const deck = ["squall-orb", "ember-basin", ...EDITABLE_DECK_CARD_IDS.slice(0, 6)];
+  const valid = JSON.parse(createEditableGameSessionSetup(deck, 4));
+  const missingQuestion = structuredClone(valid);
+  const missingBattle = JSON.parse(missingQuestion.battleSetup);
+  missingBattle.questions.pop();
+  missingQuestion.battleSetup = canonical(missingBattle);
+  missingQuestion.rosterWitness = canonical({ questions: missingBattle.questions,
+    roster: missingBattle.roster });
+  assert.throws(() => new GameSession(canonical(missingQuestion)),
+    /question|witness|unresolved/iu, "every referenced troop QUESTION remains required");
+
+  const forgedSource = structuredClone(valid);
+  const forgedBattle = JSON.parse(forgedSource.battleSetup);
+  const basin = forgedBattle.roster.find(({ id }) => id === "ember-basin");
+  basin.buildingRuntime.policy.corpusFields.damage.source = "comparison-corpus-authoritative";
+  forgedSource.battleSetup = canonical(forgedBattle);
+  forgedSource.rosterWitness = canonical({ questions: forgedBattle.questions,
+    roster: forgedBattle.roster });
+  assert.throws(() => new GameSession(canonical(forgedSource)),
+    /provenance|receipt/iu, "a mixed deck cannot forge the source attached to low-confidence damage");
+});
+
+test("editable mixed spell and Ember Basin replay spends and cycles each card once", () => {
+  const deck = ["squall-orb", "ember-basin", ...EDITABLE_DECK_CARD_IDS.slice(0, 6)];
+  let seed = 0;
+  while (!deck.every((cardId) => !["squall-orb", "ember-basin"].includes(cardId) ||
+      new DeckCycle({ deck, seed: `${seed}:south` }).state.hand.includes(cardId))) {
+    seed += 1;
+    assert.ok(seed < 1_000, "both supported non-unit cards share a deterministic starting hand");
+  }
+  const rawSetup = JSON.parse(createEditableGameSessionSetup(deck, seed));
+  rawSetup.legalNorthDeployments = [];
+  rawSetup.thinkIntervalTicks = 3_600;
+  const session = new GameSession(canonical(rawSetup));
+  const before = session.state;
+  const structureSlot = before.decks.south.hand.indexOf("ember-basin");
+  session.submitPlayerCommand(canonical({ cardId: "ember-basin", commandId: 0,
+    point: { x: 3_500, y: 14_500 }, slot: structureSlot, tick: 0, type: "deploy" }));
+  session.step();
+  const afterStructure = session.state;
+  assert.equal(afterStructure.decks.south.sequence, before.decks.south.sequence + 1);
+  assert.equal(afterStructure.elixir.sides.south.amount, before.elixir.sides.south.amount - 4);
+  assert.deepEqual(afterStructure.battle.structures.map(({ cardId, side }) => ({ cardId, side })),
+    [{ cardId: "ember-basin", side: "south" }]);
+
+  const spellSlot = afterStructure.decks.south.hand.indexOf("squall-orb");
+  assert.notEqual(spellSlot, -1, "the other non-unit card remains available after the structure play");
+  session.submitPlayerCommand(canonical({ cardId: "squall-orb", commandId: 1,
+    point: { x: 8_500, y: 15_500 }, side: "south", slot: spellSlot,
+    tick: afterStructure.tick, type: "spell" }));
+  session.stepMany(3);
+  const replay = session.replay;
+  assert.equal(replay.filter(({ side, type }) =>
+    side === "south" && type === "session-structure-deployed").length, 1);
+  assert.equal(replay.filter(({ side, type }) =>
+    side === "south" && type === "session-spell-played").length, 1);
+  assert.ok(replay.some(({ profileId, type }) =>
+    type === "spell-intent-resolved" && profileId === "squall-orb-radius-v2"));
+  assert.equal(session.state.decks.south.sequence, before.decks.south.sequence + 2);
+  assert.equal(session.state.elixir.sides.south.amount, before.elixir.sides.south.amount - 8);
+  assert.equal(session.state.cardRuntime.history.filter(({ cardId }) =>
+    cardId === "ember-basin" || cardId === "squall-orb").length, 2);
+  const checkpoint = session.serialize();
+  const restored = GameSession.restore(checkpoint);
+  session.stepMany(90);
+  restored.stepMany(90);
+  assert.equal(restored.serialize(), session.serialize(),
+    "the combined spell and structure history continues identically after restore");
+  assert.equal(restored.replayBytes(), session.replayBytes());
 });
 
 test("editable mixed GameSession casts from center, spends, cycles, and restores pending impact", () => {

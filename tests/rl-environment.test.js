@@ -67,6 +67,9 @@ test("RL environment exposes a finite action catalogue and masks legal deploys",
   assert.equal(RL_ACTION_COUNT, 2_305);
   assert.equal(space.actionCount, RL_ACTION_COUNT);
   assert.equal(space.actions.length, RL_ACTION_COUNT);
+  assert.equal(space.version, 2);
+  assert.equal(observation.version, 2,
+    "the observation schema version advances with its new structures field");
   assert.deepEqual(space.actions[0], { id: 0, type: "wait" });
   assert.deepEqual(space.actions[1 + 2 * 576 + 5 * 18 + 4], {
     id: 1 + 2 * 576 + 5 * 18 + 4,
@@ -230,6 +233,86 @@ test("RL reset and legal mask deploy both sourced projectile squads with exact d
   }
 });
 
+test("RL observes Ember Basin targeting, damage, lifetime, and exact in-flight restore", () => {
+  const deck = ["ember-basin", ...EDITABLE_DECK_CARD_IDS.slice(0, 7)];
+  const seed = seedWithCardInHand(deck, "ember-basin");
+  const env = createRLEnvironment({ deck, seed, strideTicks: 1, horizonTicks: 1_800 });
+  const initial = env.observe();
+  assert.deepEqual(initial.structures, []);
+  const slot = initial.hand.indexOf("ember-basin");
+  const action = env.actionSpace().actions.find(({ point, slot: actionSlot }) =>
+    actionSlot === slot && point.x === 3_500 && point.y === 14_500);
+  assert.ok(action, "the finite action catalogue has the legal Ember Basin center cell");
+  assert.equal(initial.actionMask[action.id], true,
+    "a ground-building deployment is exposed as a legal ground-entity action");
+
+  let observation = env.step(action.id).observation;
+  assert.equal(observation.tick, 1);
+  assert.equal(observation.elixir, initial.elixir - 4);
+  assert.notEqual(observation.hand[slot], "ember-basin",
+    "the shared deck advances exactly once after structure placement");
+  assert.deepEqual(observation.structures.map(({ cardId, id }) => ({ cardId, id })),
+    [{ cardId: "ember-basin", id: 2 }]);
+  let structure = observation.structures[0];
+  assert.deepEqual({ alive: structure.alive, hitpoints: structure.hitpoints,
+    layer: structure.layer, maxHitpoints: structure.maxHitpoints,
+    owner: structure.owner, remainingTicks: structure.lifetime.remainingTicks,
+    targetMode: structure.targetMode, totalTicks: structure.lifetime.totalTicks }, {
+    alive: true, hitpoints: 1_356, layer: "ground", maxHitpoints: 1_356,
+    owner: "south", remainingTicks: 1_799, targetMode: "ground", totalTicks: 1_800,
+  });
+  assert.deepEqual(structure.lifetime.question, {
+    authoritative: false,
+    confidence: "unverified",
+    disposition: "question",
+    key: "lifetimeTicks",
+    source: "pre-evolutions-building-corpus-and-unsourced-policy-fixture",
+    value: 1_800,
+  });
+  assert.equal(structure.policy.disposition, "question");
+  assert.equal(structure.policy.confidence, "unverified");
+  assert.equal(structure.policy.corpusFields.hitpoints.authoritative, false);
+  assert.equal(structure.policy.corpusFields.hitpoints.confidence, "unverified");
+
+  while (observation.tick < 120) observation = env.step(0).observation;
+  structure = observation.structures[0];
+  assert.ok(structure.hitpoints < structure.maxHitpoints,
+    "a hostile troop can target and damage the live structure");
+  const damagedBytes = env.serialize();
+  const damagedSession = GameSession.restore(JSON.parse(damagedBytes).session);
+  const incoming = damagedSession.replay.find(({ buildingId, type }) =>
+    buildingId === structure.id && type === "structure-damaged");
+  assert.ok(incoming && incoming.amountApplied > 0 && incoming.origin === "combat-damage");
+  const attacker = observation.units.find(({ id }) => id === incoming.sourceId);
+  assert.equal(attacker?.side, "north");
+  assert.equal(attacker?.layer, "air");
+
+  while (observation.tick < 127) observation = env.step(0).observation;
+  structure = observation.structures[0];
+  const target = observation.units.find(({ id }) => id === structure.attackState.targetId);
+  assert.equal(target?.layer, "ground",
+    "the Ember Basin runtime keeps its ground-only target mode when an air target is present");
+  assert.equal(structure.targetKey, `unit:${structure.attackState.targetId}`);
+  assert.equal(structure.attackState.phase, "cycling");
+  assert.equal(structure.attackState.sequence, 1);
+
+  const inFlightBytes = env.serialize();
+  const inFlightSession = GameSession.restore(JSON.parse(inFlightBytes).session);
+  assert.deepEqual(inFlightSession.state.battle.pendingBuildingHits.map((hit) => ({
+    applyTick: hit.applyTick, origin: hit.origin, sourceId: hit.sourceId, targetId: hit.targetId,
+  })), [
+    { applyTick: 127, origin: "defensive-splash", sourceId: structure.id, targetId: 3 },
+    { applyTick: 127, origin: "defensive-splash", sourceId: structure.id, targetId: 4 },
+    { applyTick: 127, origin: "defensive-splash", sourceId: structure.id, targetId: 5 },
+  ], "one shared splash contact queues all eligible ground targets in stable ID order");
+  const restored = RLEnvironment.restore(inFlightBytes);
+  assert.deepEqual(restored.observe(), observation);
+  assert.equal(restored.serialize(), inFlightBytes);
+  assert.deepEqual(restored.step(0), env.step(0));
+  assert.equal(restored.serialize(), env.serialize(),
+    "damaged structure state and queued contacts continue exactly after RL restore");
+});
+
 test("horizon clipping truncates exactly and rejects later steps", () => {
   const env = createRLEnvironment({ seed: 4, strideTicks: 7, horizonTicks: 10 });
   const first = env.step(0);
@@ -283,7 +366,7 @@ test("observations are allowlisted, JSON-safe, and detached", () => {
   const observation = env.observe();
   const allowed = [
     "actionMask", "crowns", "elixir", "hand", "next", "phase", "status",
-    "tick", "towers", "units", "version",
+    "structures", "tick", "towers", "units", "version",
   ];
   assert.deepEqual(Object.keys(observation).sort(), [...allowed].sort());
   assert.deepEqual(JSON.parse(JSON.stringify(observation)), observation);

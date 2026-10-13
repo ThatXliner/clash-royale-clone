@@ -1,9 +1,17 @@
-import { createEditableGameSessionSetup } from "../content/editable-deck.js";
+import {
+  createEditableGameSessionSetup,
+  EDITABLE_MIXED_DECK_CARD_IDS,
+} from "../content/editable-deck.js";
+import { projectSessionNonUnitBattleCard } from "../content/session-card-catalog.js";
+import { createDefensiveBuildingQuestionRecords } from "../content/cards/buildings-defensive.js";
+import { AttackCycle } from "../sim/attack-cycle.js";
 import { PLAYABLE_CARD_IDS } from "../content/playable-roster.js";
+import { EDITABLE_DECK_CARD_IDS } from "../content/session-troop-roster.js";
 import { GAME_SESSION_MAX_BATCH_TICKS, GameSession } from "../sim/game-session.js";
 import { evaluateDeployment } from "../sim/deployment.js";
 
-export const RL_ENVIRONMENT_VERSION = 1;
+// Version 2 adds deterministic structure state to each public observation.
+export const RL_ENVIRONMENT_VERSION = 2;
 export const RL_ACTION_COUNT = 1 + 4 * 18 * 32;
 export const RL_DEFAULT_STRIDE_TICKS = 30;
 export const RL_DEFAULT_HORIZON_TICKS = 18_000;
@@ -13,6 +21,12 @@ const GRID_ROWS = 32;
 const TILE_MILLITILES = 1_000;
 const MAX_HORIZON_TICKS = 18_000;
 const ACTIONS = buildActionCatalog();
+const STRUCTURE_RUNTIMES = new Map(EDITABLE_MIXED_DECK_CARD_IDS.flatMap((id) => {
+  if (EDITABLE_DECK_CARD_IDS.includes(id)) return [];
+  const card = projectSessionNonUnitBattleCard(id);
+  return card.kind === "structure" ? [[id, card.buildingRuntime]] : [];
+}));
+const DEFENSIVE_BUILDING_QUESTIONS = createDefensiveBuildingQuestionRecords();
 const PLACEMENT_MASKS = new Map([
   "global_effect",
   "ground_entity",
@@ -117,6 +131,42 @@ function publicTower(tower) {
   };
 }
 
+function publicStructure(structure, tick) {
+  const runtime = STRUCTURE_RUNTIMES.get(structure.cardId);
+  if (!runtime) throw new TypeError(`RL observation has no admitted runtime for ${structure.cardId}`);
+  const elapsedLifetimeTicks = Math.max(0, tick - structure.placedTick);
+  const attackCycle = typeof structure.attackCycle === "string"
+    ? AttackCycle.restore(structure.attackCycle).state
+    : null;
+  return {
+    alive: structure.alive,
+    attackState: attackCycle === null ? null : {
+      nextAttackTick: attackCycle.nextAttackTick,
+      phase: attackCycle.phase,
+      sequence: attackCycle.attackSequence,
+      targetId: attackCycle.targetId,
+    },
+    cardId: structure.cardId,
+    deathCause: structure.deathCause,
+    hitpoints: structure.hitpoints,
+    id: structure.id,
+    layer: "ground",
+    lifetime: {
+      elapsedTicks: elapsedLifetimeTicks,
+      remainingTicks: Math.max(0, runtime.lifetimeTicks - elapsedLifetimeTicks),
+      totalTicks: runtime.lifetimeTicks,
+      question: clone(DEFENSIVE_BUILDING_QUESTIONS.lifetimeTicks),
+    },
+    maxHitpoints: structure.maxHitpoints,
+    owner: structure.side,
+    position: { x: structure.position.x, y: structure.position.y },
+    policy: clone(structure.policy),
+    targetKey: structure.targetKey ?? null,
+    targetMode: runtime.targetMode,
+    targetable: structure.targetable,
+  };
+}
+
 function buildPlacementMask(placementClass) {
   return ACTIONS.slice(1, 1 + GRID_ROWS * GRID_COLUMNS).map(({ point }) => evaluateDeployment({
     destroyedOpposingLaneTowers: [],
@@ -198,6 +248,9 @@ export class RLEnvironment {
       tick: state.tick,
       towers: state.battle.towers.map(publicTower),
       units: state.battle.units.map(publicUnit),
+      structures: [...state.battle.structures]
+        .sort((left, right) => left.id - right.id)
+        .map((structure) => publicStructure(structure, state.tick)),
       version: RL_ENVIRONMENT_VERSION,
     };
   }
