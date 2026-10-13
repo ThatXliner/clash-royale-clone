@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 425 — 2026-10-13
+
+PIECE: CARDS-018K — Editable defensive splash structure and RL visibility, round 3 documentation example repair
+
+VERDICT: PASS
+
+EVIDENCE: Independent exact `b33302a` archive runs bothliteralguide snippets exit0 and freshbounded1/1. Actualaction256/version2/2305actionspace reaches tick1:elixir10→6, SquallreplacesEmber, nextMossguard, reward0; costreceipt4/high/authoritative whilelifetime/profile remainQUESTIONs. StructureHP1356/lifetime/attack, JSONsafety/detachment, checkpointfuturecontinuation andv1reject pass. All499checkedblobs equald209 andsrc/tests diffempty; earlier26API+75focused/guardchecks validatedbyreceiptchecksums, notrerun. Evidence `artifacts/cards018-core-round-3/critic/`.
+
+BIGGEST GAP: No remaining gap on the core/API/documentation dimension. Existingbuildingprofile/lifetime stillunverified; original browser presentation isCARDS018I andthisdoesnotestablishhistoricalidentity/parity.
+
 ## Round 424 — 2026-10-13
 
 PIECE: CARDS-018K — Editable defensive splash structure and RL visibility, round 2 documentation repair
