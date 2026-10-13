@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 423 — 2026-10-13
+
+PIECE: CARDS-018K — Editable defensive splash structure and RL visibility, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Independent `0f2095b` exact `d20938f` cleanarchive2854/2854 blobs match, focused52/52 andguards23/23 pass. Actual default8 setup/state/120ticks/replay matchesparent atseeds0/23. Probes retain20BriarconfidenceQUESTIONs, reject4hostileprovenance edits, observeEmber1185/1356HP after171damage attick120; queued222damage totargetIDs3/4/5 attick127; deadid2 remainsobservable0HP/lifetime0. Currentcatalog55admitted60occ/61claimed66occ. Retained `4b03f24`, `artifacts/cards018-core-round-1/critic/`.
+
+BIGGEST GAP: `docs/rl-api.md` omits structures from observations and stilldescribescheckpointversion1; APIobservations/actionspace/checkpoints areversion2 andrestore rejectsolderversions. Documentactualcompatibility andexecuteupdatedexamples. No runtime/parity failureclaimed; browserpresentation remainsCARDS018I.
+
 ## Round 422 — 2026-10-13
 
 PIECE: ART-018P — Original Ember Basin portrait asset, round 2
