@@ -1,0 +1,42 @@
+{
+  "deck": [
+    "ember-basin",
+    "squall-orb",
+    "coilblade",
+    "mossguard",
+    "copperskiff",
+    "skymaul",
+    "brassbolt",
+    "reedsting"
+  ],
+  "actionId": 256,
+  "initial": {
+    "elixir": 10,
+    "hand": [
+      "ember-basin",
+      "copperskiff",
+      "skymaul",
+      "coilblade"
+    ],
+    "next": "squall-orb"
+  },
+  "after": {
+    "elixir": 6,
+    "hand": [
+      "squall-orb",
+      "copperskiff",
+      "skymaul",
+      "coilblade"
+    ],
+    "next": "mossguard"
+  },
+  "spentElixir": 4,
+  "costReceipt": {
+    "authoritative": true,
+    "confidence": "high",
+    "source": "pinned-pre-march-2023-card-roster-identity",
+    "value": 4
+  },
+  "reward": 0,
+  "tick": 1
+}

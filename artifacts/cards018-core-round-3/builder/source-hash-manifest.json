@@ -1,0 +1,63 @@
+{
+  "candidateApiCommit": "d20938fad64bfcf93fce48c08de54c2d5ba854bf",
+  "candidateApiTree": "7fe757e5c722e474ce7915c70bf7147534a06da8",
+  "executionArchive": {
+    "root": "/tmp/cards018k-candidate-5DtH2y",
+    "checkedRoots": ["src", "tests", "reference/stats", "package.json"],
+    "checkedFiles": 499,
+    "mismatches": 0,
+    "allImportedBlobsMatch": true,
+    "blobCheckScript": "artifacts/cards018-core-round-3/builder/archive-source-blob-check.mjs",
+    "blobCheckReceipt": "artifacts/cards018-core-round-3/builder/archive-source-blob-check.json",
+    "blobCheckCommand": "node artifacts/cards018-core-round-3/builder/archive-source-blob-check.mjs /tmp/cards018k-candidate-5DtH2y",
+    "round2ContinuityReceipt": "artifacts/cards018-core-round-2/critic/archive-continuity.json",
+    "srcAndTestsChangedFromApiCandidateInRound2": []
+  },
+  "directRuntimeModules": [
+    {
+      "path": "src/rl/environment.js",
+      "gitBlob": "96d8d501013611f340699976f01b589f98e1ea15",
+      "sha256": "920766cdcee0d4279a4f6ffeaad55723857647ba1c58fcc58738ad45f25454a8",
+      "archiveMatchesCandidate": true
+    },
+    {
+      "path": "src/content/editable-deck.js",
+      "gitBlob": "d99e1a8b46000fb02296821e05312d790c32d9d5",
+      "sha256": "899aef6d57126cedf28dc4ebab60692ab0b0fe702e8c384c20087132a263eccb",
+      "archiveMatchesCandidate": true
+    }
+  ],
+  "retainedRound2Receipts": {
+    "builderExample": {
+      "receipt": "artifacts/cards018-core-round-2/builder/ember-basin-rl-example.tap",
+      "passed": 14,
+      "failed": 0,
+      "sourceSha256": "487af1154c4b524632d4ef1f739c083d2ce091556a2a48e4d615016403aaa057"
+    },
+    "independentPublicApiProbe": {
+      "receipt": "artifacts/cards018-core-round-2/critic/public-api-probe.tap",
+      "passed": 12,
+      "failed": 0,
+      "sourceSha256": "69a035378cf47d2f887c695a55fb0adac1ee3ee12cd2cc67857f02326104cf60"
+    },
+    "focusedRuntimeAndGuardReceipts": {
+      "focusedPassed": 52,
+      "guardPassed": 23,
+      "totalPassed": 75,
+      "totalFailed": 0,
+      "receipt": "artifacts/cards018-core-round-2/critic/archive-continuity.json"
+    },
+    "round2EvidenceChecksumsVerified": true,
+    "round2EvidenceChecksumManifest": "artifacts/cards018-core-round-2/critic/evidence-files.sha256"
+  },
+  "round3EvidenceFileSha256": {
+    "docs/rl-api.md": "a469d70b824318162caf26554a53d8a36359d0736295f21673d00e7a7df33e83",
+    "artifacts/cards018-core-round-3/builder/documented-mixed-deck-example.mjs": "e77dd38e62af92ee4a5230574b4889be22451d64c9a04250a2ce9980c52b3b17",
+    "artifacts/cards018-core-round-3/builder/ember-basin-cycle-check.test.mjs": "63bd1c4f03f9ad7940828e278b8c31028aad6594b3a41b68f81e97c19d9cef08",
+    "artifacts/cards018-core-round-3/builder/ember-basin-cycle-check.tap": "2371e2daaf773b2990e3f4a66ac3a2f81bbd39014030c03d931bbfb1df687d9c",
+    "artifacts/cards018-core-round-3/builder/documented-mixed-deck-example.stdout.txt": "6352042e14e798c5b5ffe74b6ffd5399b396f1cc590730bd594e36fd0e2783be",
+    "artifacts/cards018-core-round-3/builder/example-result.json": "6497e72445fb127ef97b9a1ba3d8ca37f85b46ba38e066851c39d7d849f970b2",
+    "artifacts/cards018-core-round-3/builder/archive-source-blob-check.mjs": "30e9bf50569376037a5214200a6ac10462516e0fc051505801252ce4c37c06d0",
+    "artifacts/cards018-core-round-3/builder/archive-source-blob-check.json": "4dfe831c819f6fb97aa6e94b18d1301ddf2cd724096cedb577c0536077058648"
+  }
+}

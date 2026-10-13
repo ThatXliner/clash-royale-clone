@@ -32,6 +32,9 @@ const deck = [
 ];
 const env = createRLEnvironment({ deck, seed: 1, strideTicks: 1, horizonTicks: 120 });
 const initial = env.reset();
+const initialElixir = initial.elixir;
+const initialHand = [...initial.hand];
+const initialNext = initial.next;
 const space = env.actionSpace();
 if (initial.version !== 2 || space.version !== 2 || space.actionCount !== 2_305 ||
     initial.actionMask.length !== space.actionCount) {
@@ -50,7 +53,24 @@ if (transition.reward !== 0 || transition.terminated || transition.truncated) {
 }
 const basin = transition.observation.structures.find((structure) =>
   structure.cardId === "ember-basin");
+const after = transition.observation;
+const costReceipt = basin.policy.corpusFields.cost;
+if (after.elixir !== initialElixir - 4 || initialNext !== "squall-orb" ||
+    after.hand[slot] !== initialNext || after.next !== "mossguard" ||
+    costReceipt.value !== 4 || costReceipt.authoritative !== true) {
+  throw new Error("unexpected Ember Basin cost or deck cycle");
+}
 console.log({
+  costAndCycle: {
+    elixirBefore: initialElixir,
+    elixirAfter: after.elixir,
+    elixirSpent: initialElixir - after.elixir,
+    costReceipt,
+    handBefore: initialHand,
+    nextBefore: initialNext,
+    handAfter: after.hand,
+    nextAfter: after.next,
+  },
   hitpoints: basin.hitpoints,
   lifetime: basin.lifetime,
   attackState: basin.attackState,
@@ -73,6 +93,11 @@ try {
   if (error.message !== "serialized environment has an invalid shape or version") throw error;
 }
 ```
+
+With this fixed seed, the output records 10 → 6 elixir, Ember Basin's hand
+slot cycling to Squall Orb, and Mossguard becoming next. The cost receipt marks
+4 as authoritative and high-confidence; other building profile and lifetime
+values remain explicit questions.
 
 An observation and `actionSpace()` report schema version `2`. Version 2 adds a
 `structures` array without adding action IDs or changing the existing mask

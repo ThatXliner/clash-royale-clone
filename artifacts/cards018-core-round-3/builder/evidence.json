@@ -1,0 +1,85 @@
+{
+  "round": "CARDS-018K documentation repair round 3",
+  "scope": [
+    "docs/rl-api.md",
+    "artifacts/cards018-core-round-3/builder/**"
+  ],
+  "candidateApiCommit": "d20938fad64bfcf93fce48c08de54c2d5ba854bf",
+  "execution": {
+    "environment": "clean d209 API source archive with this round's guide and bounded evidence files",
+    "archiveRoot": "/tmp/cards018k-candidate-5DtH2y",
+    "archiveBlobCheck": {
+      "command": "node artifacts/cards018-core-round-3/builder/archive-source-blob-check.mjs /tmp/cards018k-candidate-5DtH2y",
+      "checkedRoots": ["src", "tests", "reference/stats", "package.json"],
+      "checkedFiles": 499,
+      "mismatches": 0,
+      "allImportedBlobsMatch": true,
+      "receipt": "artifacts/cards018-core-round-3/builder/archive-source-blob-check.json"
+    },
+    "guideExampleCommand": "node artifacts/cards018-core-round-3/builder/documented-mixed-deck-example.mjs",
+    "guideExampleExitCode": 0,
+    "boundedCheckCommand": "node --test --test-reporter=tap artifacts/cards018-core-round-3/builder/ember-basin-cycle-check.test.mjs",
+    "boundedCheckTests": 1,
+    "boundedCheckPassed": 1,
+    "boundedCheckFailed": 0,
+    "boundedCheckReceipt": "artifacts/cards018-core-round-3/builder/ember-basin-cycle-check.tap",
+    "boundedCheckAssertsExtractedSourceMatchesGuide": true
+  },
+  "observed": {
+    "deck": [
+      "ember-basin",
+      "squall-orb",
+      "coilblade",
+      "mossguard",
+      "copperskiff",
+      "skymaul",
+      "brassbolt",
+      "reedsting"
+    ],
+    "actionId": 256,
+    "tickAfterDeployment": 1,
+    "elixirBefore": 10,
+    "elixirAfter": 6,
+    "elixirSpent": 4,
+    "costReceipt": {
+      "value": 4,
+      "authoritative": true,
+      "confidence": "high",
+      "source": "pinned-pre-march-2023-card-roster-identity"
+    },
+    "handBefore": [
+      "ember-basin",
+      "copperskiff",
+      "skymaul",
+      "coilblade"
+    ],
+    "nextBefore": "squall-orb",
+    "handAfter": [
+      "squall-orb",
+      "copperskiff",
+      "skymaul",
+      "coilblade"
+    ],
+    "nextAfter": "mossguard",
+    "reward": 0,
+    "version1CheckpointRejected": true,
+    "restoredContinuationWasByteExact": true,
+    "structureLifetimeAndOtherPolicyValuesRemainQuestioned": true
+  },
+  "retainedVerification": {
+    "round2BuilderExamplePassed": 14,
+    "round2IndependentPublicApiProbePassed": 12,
+    "round2FocusedRuntimeAndGuardTestsPassed": 75,
+    "round2FocusedRuntimeAndGuardTestsFailed": 0,
+    "sourceAndTestsMatchApiCandidate": true,
+    "round2EvidenceChecksumsVerified": true,
+    "fullRuntimeSuiteRerunThisRound": false
+  },
+  "receipts": {
+    "guideOutput": "artifacts/cards018-core-round-3/builder/documented-mixed-deck-example.stdout.txt",
+    "liveValues": "artifacts/cards018-core-round-3/builder/example-result.json",
+    "sourceHashes": "artifacts/cards018-core-round-3/builder/source-hash-manifest.json",
+    "archiveBlobCheckScript": "artifacts/cards018-core-round-3/builder/archive-source-blob-check.mjs",
+    "retainedRound2Continuity": "artifacts/cards018-core-round-2/critic/archive-continuity.json"
+  }
+}
