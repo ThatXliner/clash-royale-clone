@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 430 — 2026-10-13
+
+PIECE: ART-019B — Original Kilnkeeper combat cutout, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Independent exactaa7 WebP512square/67816B, input/source/outputhashes andprovenance/realalpha/manifestoldrecords match. Assettests6/6 andPages49files pass; shippedWebPincluded, source/inputPNG/provenance/reference/artifacts/demoexcluded. FreshHeadlessChromeDPR1 native13/26CSSrenders inspected:13pxface andkeycolorcues blend,26readsbetter. Evidence `artifacts/art019b-round-1/critic/`.
+
+BIGGEST GAP: At13px the face, tealapron andcopperlauncher merge into indistinctpixels; simplify andseparate the silhouette withoutincreasing the required display size.
+
 ## Round 429 — 2026-10-13
 
 PIECE: ART-019P — Kilnkeeper portrait asset-registration repair, round 2
