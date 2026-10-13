@@ -14,17 +14,16 @@ outside the current source.
 | Measure | Current state | What it proves |
 | --- | --- | --- |
 | Historical roster | 109 identities: 78 troops, 13 buildings, 18 spells | Size of the pre-Evolutions comparison target, not implemented coverage |
-| Editable collection | 16 admitted identities: 15 troops and Squall Orb; the default deck remains 8 cards; latest two troops and their desktop/phone portraits pass scoped review | Deck admission and selection. It does not mean every card has complete historical behavior |
+| Editable collection | 18 admitted identities: 17 troops and Squall Orb; the default deck remains 8 cards; the two air-swarm choices pass focused editable-session and RL integration checks | Deck admission and selection. It does not mean every card has complete historical behavior |
 | Last independently reviewed session catalog (`6dcf64b`) | 53 admitted identities and 58 admitted source occurrences: 37 troop identities across 39 troop occurrences, 8 structures, and 8 effects | Typed identity admission and source routing, not complete gameplay for every identity |
 | Historical comparison mapping | The independently reviewed [current 16-card inventory](../artifacts/completion-inventory-current-16/card-coverage-109-current-16.json) is pinned to `6dcf64b`: 109 rows, 12 declaration-supported comparator candidates, 2 QUESTION fixture mentions and 4 unjoined identities. The older [11-mapping baseline](../artifacts/completion-inventory/reference/card-coverage-109.json) remains byte-identical | Mapping and admission evidence only; zero full historical-card executions or parity claims. The frozen inventory does not cover the newer `e3413fd` core |
 
-Gloamwing Cluster and Coppershade Flock have a new core candidate at
-`e3413fd`, which passes103 focused/guard checks but fails independent confidence
-review: its typed witness omits QUESTIONS for several low-confidence combat
-fields. A separate builder is correcting that metadata. Its catalog admits55 identities across60
-occurrences, but neither card joins the editable collection or RL deck API yet.
-Historical swarm formation and stagger remain explicit QUESTIONS; the prior
-full endurance result does not verify this changed runtime graph.
+Gloamwing Cluster and Coppershade Flock passed the independent core review at
+`7cb3143`; all ten low-confidence combat fields per role remain explicit
+QUESTIONs. The current integration candidate adds both to editable troop and
+mixed RL decks, retains those QUESTIONS in the setup, and preserves the default
+eight. Historical swarm formation and stagger remain explicit QUESTIONS; prior
+full endurance does not verify this changed runtime graph.
 
 The comparison artifact contains historical card names and keys. Keep it out of
 runtime imports, release builds, and the Pages site. The confidence ledger in
@@ -40,7 +39,7 @@ deterministic match against the computer. Actual browser evidence covers
 supported selection, deployment, spending, hand cycling, restore, terminal,
 and restart journeys. These journeys do not establish full roster parity.
 
-The current editable collection admits 15 troops and one narrow Squall Orb
+The current editable collection admits 17 troops and one narrow Squall Orb
 radius profile. `GAME-SPELL-001` passed its scoped 48/48 review: the shared
 session and browser path support a center-targeted radius cast, damage, spend
 and cycle, pending impact, and exact restore. The profile uses a 2.5-tile

@@ -439,15 +439,15 @@ test("in-flight projectile and post-death GameSession snapshots continue exactly
   }
 });
 
-test("new session-only swarm IDs do not enter the unchanged editable or RL deck seam", () => {
+test("reviewed air swarms join the editable troop and RL deck seam", () => {
   assert.deepEqual(EDITABLE_DECK_CARD_IDS, [
     ...PLAYABLE_CARD_IDS,
     "stonehauler", "thornscouts", "forgeguard", "cinder-host", "ironroot",
-    "sunthread-pair", "duskwing-trio",
+    "sunthread-pair", "duskwing-trio", GLOAMWING, COPPERSHADE,
   ]);
   for (const id of [GLOAMWING, COPPERSHADE]) {
     const deck = [...EDITABLE_DECK_CARD_IDS.slice(0, 7), id];
-    assert.throws(() => createEditableDeckWitness(deck), /not supported/u);
-    assert.throws(() => new RLEnvironment({ deck, horizonTicks: 60 }), /not supported/u);
+    assert.deepEqual(createEditableDeckWitness(deck).roster.map(({ id: cardId }) => cardId), deck);
+    assert.doesNotThrow(() => new RLEnvironment({ deck, horizonTicks: 60 }));
   }
 });

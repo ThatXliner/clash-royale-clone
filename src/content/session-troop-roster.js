@@ -59,6 +59,8 @@ export const EDITABLE_DECK_CARD_IDS = Object.freeze([
   "ironroot",
   "sunthread-pair",
   "duskwing-trio",
+  "gloamwing-cluster",
+  "coppershade-flock",
 ]);
 
 // These are source-occurrence classifications for an ordinary runtime estimate.

@@ -77,11 +77,16 @@ export function createEditableMixedDeckWitness(deckIds, ...args) {
   const roster = ids.map((id) => id === "squall-orb"
     ? projectSessionNonUnitBattleCard(id)
     : projectSessionTroopBattleCard(id));
-  const referencedQuestionKeys = new Set(roster.flatMap(({ entities }) => entities.flatMap((entity) =>
-    [entity.bodyRadiusPolicy, entity.projectileSpeedPolicy, entity.deliveryPolicy,
-      entity.layerPolicy, entity.damagePolicy]
-      .filter((policy) => policy?.kind === "question")
-      .map(({ questionKey }) => questionKey))));
+  const referencedQuestionKeys = new Set(
+    roster.flatMap(({ entities }) => entities.flatMap((entity) => [
+      ...[entity.bodyRadiusPolicy, entity.projectileSpeedPolicy, entity.deliveryPolicy,
+        entity.layerPolicy, entity.damagePolicy]
+        .filter((policy) => policy?.kind === "question")
+        .map(({ questionKey }) => questionKey),
+      ...(entity.sourceConfidencePolicy?.fields ?? [])
+        .map(({ questionKey }) => questionKey),
+    ])),
+  );
   const questionRecords = ids.filter((id) => id !== "squall-orb")
     .flatMap((id) => createSessionTroopWitnessQuestions(id));
   const byKey = new Map(questionRecords.map((record) => [record.key, record]));

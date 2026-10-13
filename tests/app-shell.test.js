@@ -50,8 +50,14 @@ const EXPECTED_INDIVIDUAL_PORTRAIT_IDS = Object.freeze([
   "ironroot",
   "sunthread-pair",
   "duskwing-trio",
+  "gloamwing-cluster",
+  "coppershade-flock",
   "squall-orb",
 ]);
+const EXPECTED_AIR_SWARM_LORE = Object.freeze({
+  "gloamwing-cluster": "Gloamwings rise from the violet reeds at dusk to follow emberseeds down the riverbank. Five of them wheel around each warm spark until ferry bells call them home.",
+  "coppershade-flock": "Coppershades roost in the offcuts piled outside the Rivermark river workshop. When the kiln wakes, all six glide over the canal and trade tiny sparks above their copper-lit nests.",
+});
 const EXPECTED_CARD_PORTRAIT_CELLS = Object.freeze([
   ...EXPECTED_ATLAS_CARD_CELLS,
   ...EXPECTED_INDIVIDUAL_PORTRAIT_IDS.map((id) => Object.freeze([id, null])),
@@ -391,6 +397,10 @@ test("player shell renders roster-derived cards and launches a paused shared bat
           assert.ok(detailDescription.includes(expectedClassification),
             `${card.displayName} summary agrees with ${entity.displayName}'s runtime classification`);
         }
+        if (Object.hasOwn(EXPECTED_AIR_SWARM_LORE, card.id)) {
+          assert.equal(await page.locator("[data-card-detail] .card-lore p").innerText(),
+            EXPECTED_AIR_SWARM_LORE[card.id], `${card.displayName} shows its original lore`);
+        }
       }
       if (card.id === "briar-band") {
         const components = await page.locator("[data-card-detail] .unit-profile h3").allInnerTexts();
@@ -456,6 +466,8 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       ["ironroot", "public/assets/ironroot-painted.webp"],
       ["sunthread-pair", "public/assets/sunthread-pair-painted.webp"],
       ["duskwing-trio", "public/assets/duskwing-trio-painted.webp"],
+      ["gloamwing-cluster", "public/assets/gloamwing-cluster-painted.webp"],
+      ["coppershade-flock", "public/assets/coppershade-flock-painted.webp"],
       ["squall-orb", "public/assets/squall-orb-painted.webp"],
     ].map(([id, path]) => [id, manifest.files.find((file) => file.path === path)]));
     assert.ok(manifestAtlasSource && [...directPortraits.values()].every(Boolean),
@@ -513,7 +525,8 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     };
 
     const phoneDetailReviews = [];
-    for (const cardId of ["sunthread-pair", "duskwing-trio"]) {
+    for (const cardId of ["sunthread-pair", "duskwing-trio",
+      "gloamwing-cluster", "coppershade-flock"]) {
       await page.locator(`[data-card-grid] [data-card-id="${cardId}"]`).click();
       await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
       const layout = await renderedDetailPortrait(page);
@@ -540,6 +553,10 @@ test("player shell renders roster-derived cards and launches a paused shared bat
         `${cardId} portrait markup does not duplicate document IDs`);
       assert.equal(await page.locator("[data-card-detail] .card-lore p").count(), 1,
         `${cardId} phone detail retains its lore`);
+      if (Object.hasOwn(EXPECTED_AIR_SWARM_LORE, cardId)) {
+        assert.equal(await page.locator("[data-card-detail] .card-lore p").innerText(),
+          EXPECTED_AIR_SWARM_LORE[cardId], `${cardId} phone detail keeps its original lore`);
+      }
       assert.equal(await page.locator("[data-card-detail] .unit-profile .stat-cell").count(), 7,
         `${cardId} phone detail retains all seven stat cells`);
       const phoneScreenshot = `${cardId}-phone-390x844.png`;
@@ -554,7 +571,8 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     await page.setViewportSize({ width: 1440, height: 933 });
     await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
     const desktopDetailReviews = [];
-    for (const cardId of ["sunthread-pair", "duskwing-trio"]) {
+    for (const cardId of ["sunthread-pair", "duskwing-trio",
+      "gloamwing-cluster", "coppershade-flock"]) {
       await page.locator(`[data-card-grid] [data-card-id="${cardId}"]`).click();
       const layout = await renderedDetailPortrait(page);
       assert.equal(layout?.cardId, cardId);
@@ -568,6 +586,10 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       assert.equal(layout.viewport.width, 1440);
       assert.equal(layout.documentWidth, 1440,
         `${cardId} desktop detail has no horizontal page overflow`);
+      if (Object.hasOwn(EXPECTED_AIR_SWARM_LORE, cardId)) {
+        assert.equal(await page.locator("[data-card-detail] .card-lore p").innerText(),
+          EXPECTED_AIR_SWARM_LORE[cardId], `${cardId} desktop detail keeps its original lore`);
+      }
       assert.ok(layout.detail.bounds.x >= 0 && layout.detail.bounds.right <= 1440 &&
         layout.detail.scrollWidth <= layout.detail.clientWidth + 1,
       `${cardId} desktop detail panel and contents fit horizontally`);
@@ -591,8 +613,14 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       "sunthread-pair-phone-390x844-full.png",
       "duskwing-trio-phone-390x844.png",
       "duskwing-trio-phone-390x844-full.png",
+      "gloamwing-cluster-phone-390x844.png",
+      "gloamwing-cluster-phone-390x844-full.png",
+      "coppershade-flock-phone-390x844.png",
+      "coppershade-flock-phone-390x844-full.png",
       "sunthread-pair-desktop-1440x933.png",
       "duskwing-trio-desktop-1440x933.png",
+      "gloamwing-cluster-desktop-1440x933.png",
+      "coppershade-flock-desktop-1440x933.png",
     ];
     cardPortraitEvidence.screenshots = await Promise.all(
       [...CARD_PORTRAIT_SCREENSHOTS, ...detailScreenshotNames].map(screenshotEvidence));
@@ -757,6 +785,20 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       nodes.map((node) => node.dataset.cardId)), deckIds,
     "the selected order survives navigating to collection and back");
 
+    await page.locator('[data-replace-slot="2"]').focus();
+    await page.keyboard.press("Enter");
+    await page.locator('[data-replacement-card-id="gloamwing-cluster"]').focus();
+    await page.keyboard.press("Enter");
+    deckIds = await page.locator("[data-deck-cards] [data-card-id]").evaluateAll((nodes) =>
+      nodes.map((node) => node.dataset.cardId));
+    assert.equal(deckIds[2], "gloamwing-cluster",
+      "Gloamwing Cluster replaces the selected Copperskiff slot");
+    assert.equal(new Set(deckIds).size, 8);
+    assert.match(await page.locator("[data-deck-status]").innerText(),
+      /Gloamwing Cluster replaced Copperskiff/u);
+    await page.screenshot({ path: join(ARTIFACTS, "custom-deck-gloamwing-390x844.png"),
+      fullPage: true });
+
     await page.locator('[data-nav-to="battle"]').click();
     await child.locator('[data-ui="arena"]').waitFor({ state: "visible", timeout: 8_000 });
     const waitForFrameDeck = async () => child.waitForFunction(async ({ expectedIds, entryUrl }) => {
@@ -774,7 +816,7 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       "Battle launches the actual selected eight-card setup");
     assert.deepEqual(frameSetup, JSON.parse(createEditableGameSessionSetup(deckIds)),
       "Battle uses the canonical editable setup helper");
-    await page.screenshot({ path: join(ARTIFACTS, "custom-battle-stonehauler-390x844.png") });
+    await page.screenshot({ path: join(ARTIFACTS, "custom-battle-gloamwing-390x844.png") });
 
     await page.evaluate((ids) => {
       document.querySelector("[data-battle-frame-slot] iframe").contentWindow.postMessage({
@@ -805,25 +847,26 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     assert.ok(resumedCustomTick > customPausedTick,
       "returning to Battle resumes the same custom setup");
 
-    const stonehaulerSlot = child.locator('[data-ui="card-slot"][data-card-id="stonehauler"]');
-    await stonehaulerSlot.waitFor({ state: "visible" });
-    await stonehaulerSlot.click();
-    assert.equal(await child.locator('[data-ui="hud-hand"] [data-card-id="stonehauler"]')
-      .getAttribute("data-selected"), "true", "Stonehauler can be selected in the live custom deck");
+    const gloamwingSlot = child.locator('[data-ui="card-slot"][data-card-id="gloamwing-cluster"]');
+    await gloamwingSlot.waitFor({ state: "visible" });
+    await gloamwingSlot.click();
+    assert.equal(await child.locator('[data-ui="hud-hand"] [data-card-id="gloamwing-cluster"]')
+      .getAttribute("data-selected"), "true", "Gloamwing can be selected in the live custom deck");
     const customArena = await child.locator('[data-ui="arena"]').boundingBox();
     assert.ok(customArena);
     await page.mouse.click(customArena.x + customArena.width / 2,
       customArena.y + customArena.height * 0.79);
-    let stonehaulerDeployment = null;
-    for (let attempt = 0; attempt < 120 && stonehaulerDeployment === null; attempt += 1) {
-      stonehaulerDeployment = await cardFrameDeployment(child, "stonehauler", arenaControllerUrl);
-      if (stonehaulerDeployment === null) await new Promise((resolve) => setTimeout(resolve, 50));
+    let gloamwingDeployment = null;
+    for (let attempt = 0; attempt < 120 && gloamwingDeployment === null; attempt += 1) {
+      gloamwingDeployment = await cardFrameDeployment(child, "gloamwing-cluster", arenaControllerUrl);
+      if (gloamwingDeployment === null) await new Promise((resolve) => setTimeout(resolve, 50));
     }
-    assert.ok(stonehaulerDeployment, "the custom card deploys through the real session input");
-    assert.equal(stonehaulerDeployment.deployment.cardId, "stonehauler");
-    assert.ok(stonehaulerDeployment.deployment.point.y < 15_000,
-      "Stonehauler placement is on the player's side");
-    await page.screenshot({ path: join(ARTIFACTS, "custom-battle-stonehauler-deployed-390x844.png") });
+    assert.ok(gloamwingDeployment, "the custom air swarm deploys through the real session input");
+    assert.equal(gloamwingDeployment.deployment.cardId, "gloamwing-cluster");
+    assert.equal(gloamwingDeployment.deployment.entityIds.length, 5);
+    assert.ok(gloamwingDeployment.deployment.point.y < 15_000,
+      "Gloamwing placement is on the player's side");
+    await page.screenshot({ path: join(ARTIFACTS, "custom-battle-gloamwing-deployed-390x844.png") });
 
     const continuation = await child.evaluate(async (entryUrl) => {
       const { arenaHudController } = await import(entryUrl);

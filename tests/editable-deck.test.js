@@ -33,11 +33,13 @@ function combinationsOfEight() {
 }
 
 function questionReferences(roster) {
-  return roster.flatMap(({ entities }) => entities.flatMap((entity) =>
-    [entity.bodyRadiusPolicy, entity.projectileSpeedPolicy, entity.deliveryPolicy,
+  return roster.flatMap(({ entities }) => entities.flatMap((entity) => [
+    ...[entity.bodyRadiusPolicy, entity.projectileSpeedPolicy, entity.deliveryPolicy,
       entity.layerPolicy, entity.damagePolicy]
       .filter((policy) => policy?.kind === "question")
-      .map(({ questionKey }) => questionKey)));
+      .map(({ questionKey }) => questionKey),
+    ...(entity.sourceConfidencePolicy?.fields ?? []).map(({ questionKey }) => questionKey),
+  ]));
 }
 
 function command(session, cardId, commandId = 0) {
