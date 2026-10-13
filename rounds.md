@@ -1,5 +1,17 @@
 # Gauntlet Rounds
 
+## Round 412 — 2026-10-13
+
+PIECE: CARDS-016T — Source-backed relative air-swarm deployment interval, round 2
+
+VERDICT: PASS
+
+EVIDENCE: Independent frozen796 critic a1a69f7 actual ordinary16/16 and focused16/16 pass. Strict per-tick counts and birth IDs verify100ms/six-tick intervals for both roles, preserving other ordinary troops. Hash continuity covers181 runtime/assets,13 scripts and345 tests with onlyordinary changed; prior61 requested gates and six full default8 snapshot comparisons are retained, not recounted as reruns. There are77 distinct scoped checks (61 original plus16 ordinary); sourcekernel524275B remains belowunchanged524288cap. Logs, continuity manifest and verdict under `artifacts/cards016-stagger-round-2/critic/`.
+
+BIGGEST GAP: None for relative deployment interval; formation geometry/memberorder/first-onset remain separate QUESTIONS.
+
+DISPOSITION: Accept sourced relative birth timing. Fresh current-engine strict18000 is separately GAME001GPR4, with exclusiveCPUwindow and unchangedcaps; no fullhistoricalparity or goalcompletion claim.
+
 ## Round 411 — 2026-10-13
 
 PIECE: CARDS-016T — Source-backed relative air-swarm deployment interval, round 1
