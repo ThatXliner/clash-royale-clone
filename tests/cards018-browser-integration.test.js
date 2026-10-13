@@ -329,6 +329,7 @@ test("Cards018 Ember Basin: editable collection enters real mixed battle and res
         steps += 1;
       }
       const state = controller.session.state;
+      const liveStructure = state.battle.structures.find(({ id }) => id === structure?.id);
       const pending = state.battle.pendingBuildingHits;
       const pendingTargetIds = pending.map(({ targetId }) => targetId);
       const targetHealth = Object.fromEntries(pendingTargetIds.map((id) => [id,
@@ -356,8 +357,8 @@ test("Cards018 Ember Basin: editable collection enters real mixed battle and res
         pendingTargetIds,
         restoredEvents,
         steps,
-        structure: { alive: structure.alive, hitpoints: structure.hitpoints,
-          targetKey: structure.targetKey },
+        structure: { id: structure?.id ?? null, alive: liveStructure?.alive ?? false,
+          hitpoints: liveStructure?.hitpoints ?? 0, targetKey: liveStructure?.targetKey ?? null },
         targetHealth,
         tick: state.tick,
       };
