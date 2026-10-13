@@ -411,6 +411,17 @@ const REGISTERED_ASSETS = [
     path: "assets/coppershade-flock-painted.webp",
     sha256: "521167c772916265e797c51c28183d91f090c2670ec7d527bf59e60a85684dec",
   },
+  {
+    authorship: "in-repo-authored",
+    byteLength: 70090,
+    dimensions: { height: 512, width: 512 },
+    format: "webp",
+    id: "ember-basin-battle-sprite",
+    kind: "image",
+    license: "AGPL-3.0-only",
+    path: "assets/ember-basin-battle-sprite.webp",
+    sha256: "9c805943147cbbe48030edb3ed2d197936319af6753a170af70d8210f1b5a7c9",
+  },
 ];
 
 const MANIFEST = freeze({

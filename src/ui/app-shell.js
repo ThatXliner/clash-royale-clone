@@ -9,7 +9,7 @@ import { getCardLore } from "./card-lore.js";
 const cards = [
   ...createPlayableRoster(),
   ...EDITABLE_MIXED_DECK_CARD_IDS.filter((id) => !PLAYABLE_CARD_IDS.includes(id))
-    .map((id) => id === "squall-orb"
+    .map((id) => id === "squall-orb" || id === "ember-basin"
       ? projectSessionNonUnitBattleCard(id) : projectSessionTroopBattleCard(id)),
 ];
 const cardById = new Map(cards.map((card) => [card.id, card]));
@@ -51,7 +51,9 @@ function countLabel(count) {
 }
 
 function cardCountLabel(card) {
-  return card.kind === "effect" ? "one spell" : countLabel(card.formation.totalCount);
+  if (card.kind === "effect") return "one spell";
+  if (card.kind === "structure") return "one structure";
+  return countLabel(card.formation.totalCount);
 }
 
 function pluralName(name, count) {
@@ -107,6 +109,10 @@ function descriptionFor(card) {
   if (card.id === radiusSpellProfile.fact.cardId) {
     const fact = radiusSpellProfile.fact;
     return `Center-cast area spell · ${formatter.format(fact.damage)} damage to enemy ground troops, flying troops, buildings and crown towers within an estimated ${formatter.format(fact.areaDamageRadiusMillitiles / 1_000)}-tile radius. Crown-tower damage is an estimated ${100 + fact.crownTowerDamagePercent}% of troop damage. Impact takes about ${formatter.format(fact.impactDelayTicks / 60)} seconds. Projectile flight and knockback are not simulated.`;
+  }
+  if (card.kind === "structure") {
+    const target = targetLabel(card.buildingRuntime?.targetMode ?? card.targetMode);
+    return `Stationary defensive structure · splash damage to ${target} targets. Its combat profile is QUESTION; shown combat values remain provisional.`;
   }
   if (card.entities.length === 1) {
     const [entity] = card.entities;
@@ -215,6 +221,33 @@ function unitProfileMarkup(entity) {
   </section>`;
 }
 
+function structureProfileMarkup(card) {
+  const profile = card.buildingRuntime;
+  if (profile === undefined) return "";
+  const question = profile.policy?.disposition === "question";
+  const suffix = question ? " (QUESTION)" : "";
+  const values = [
+    ["Cost", `${formatter.format(card.cost)} elixir`],
+    ["Health", `${formatter.format(profile.hitpoints)}${suffix}`],
+    ["Damage", `${formatter.format(profile.damage)} per attack${suffix}`],
+    ["Deploy", `${secondsValue(profile.deployTicks)}${suffix}`],
+    ["First hit", `${secondsValue(profile.firstHitTicks)}${suffix}`],
+    ["Hit speed", `${secondsValue(profile.hitSpeedTicks)}${suffix}`],
+    ["Lifetime", `${secondsValue(profile.lifetimeTicks)}${suffix}`],
+    ["Range", `${tileValue(profile.maxRangeMillitiles)}${suffix}`],
+    ["Splash radius", `${tileValue(profile.areaDamageRadiusMillitiles)}${suffix}`],
+    ["Targets", `${targetLabel(profile.targetMode)}${suffix}`],
+  ];
+  const confidence = question
+    ? "Cost is source backed; combat values are provisional profile estimates and remain QUESTION for historical comparison."
+    : "Values are from the current shared structure profile.";
+  return `<section class="unit-profile structure-profile" aria-label="${html(card.displayName)} statistics">
+    <h3>Defensive structure · ${question ? "QUESTION" : "current profile"}</h3>
+    <p>${confidence}</p>
+    <div class="stat-grid">${values.map(([label, value]) => statCell(label, value)).join("")}</div>
+  </section>`;
+}
+
 function renderCardDetails(card) {
   const lore = getCardLore(card.id);
   cardDetails.innerHTML = `<div class="detail-heading">
@@ -230,7 +263,9 @@ function renderCardDetails(card) {
       <span class="card-lore-label">Story</span><h3 id="selected-card-lore-title">A field note</h3>
       <p>${html(lore)}</p>
     </section>`}
-    ${card.kind === "effect" ? radiusSpellProfileMarkup() : card.entities.map(unitProfileMarkup).join("")}
+    ${card.kind === "effect" ? radiusSpellProfileMarkup()
+      : card.kind === "structure" ? structureProfileMarkup(card)
+        : card.entities.map(unitProfileMarkup).join("")}
     ${card.entities.length > 1 ? '<p class="detail-footnote">Health and damage are shown per unit. Count is the number deployed by the card.</p>' : ""}`;
   for (const button of cardGrid.querySelectorAll("[data-card-id]")) {
     button.setAttribute("aria-pressed", String(button.dataset.cardId === card.id));

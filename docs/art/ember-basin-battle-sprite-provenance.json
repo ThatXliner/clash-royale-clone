@@ -1,0 +1,49 @@
+{
+  "license": "AGPL-3.0-only",
+  "authorship": "in-repo-authored",
+  "generation_tool": "built-in imagegen",
+  "generation_mode": "built-in image edit",
+  "encoding_tool": "cwebp 1.6.0",
+  "input_images": [
+    {
+      "asset": "demo/assets/ember-basin-portrait-v2.png",
+      "role": "reviewed Ember Basin identity reference and edit target",
+      "sha256": "3429f3eb00374226c7779857816c8e0fec15711cc89f670fb12322aa5afe7490",
+      "bytes": 2717595,
+      "dimensions": {
+        "width": 1254,
+        "height": 1254
+      }
+    }
+  ],
+  "assets": [
+    {
+      "asset": "public/assets/ember-basin-battle-sprite.webp",
+      "source_png": "demo/assets/ember-basin-battle-sprite.png",
+      "source_sha256": "7ddf09d2d99a5ae8fb50ada1161efab4f13b935afa3f0771123867339b7f405d",
+      "source_bytes": 1524637,
+      "source_dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "sha256": "9c805943147cbbe48030edb3ed2d197936319af6753a170af70d8210f1b5a7c9",
+      "bytes": 70090,
+      "dimensions": {
+        "width": 512,
+        "height": 512
+      },
+      "encoding": [
+        "-q",
+        "92",
+        "-m",
+        "6",
+        "-mt",
+        "-resize",
+        "512",
+        "512"
+      ],
+      "prompt": "Use case: stylized-concept\nAsset type: transparent stationary defensive structure sprite for a small top-down real-time card battler\nInput images: Image 1 is the reviewed Ember Basin card portrait and is the identity reference; preserve the same object.\nPrimary request: create a clean, original, full-object arena sprite of the Ember Basin, isolated on true transparency.\nSubject: one squat defensive launcher, an open copper-rimmed bowl holding a small emberseed, with a fixed upward-sloping dark rootwood launch trough, visible round copper pivot, and broad rootwood braces down to a compact stable base.\nStyle/medium: polished hand-painted game illustration, simplified bold shapes and clear material separation, consistent with a warm woodland workshop world.\nComposition/framing: show the whole object from the same three-quarter view, centered, upright, filling most of a square canvas with safe transparent padding; make the outer silhouette and large launcher channel readable when displayed about 13 pixels tall.\nLighting/mood: warm forge highlights against dark rootwood, restrained ember glow.\nMaterials/textures: hammered copper plates and rivets, dark carved rootwood grain, one bright emberseed.\nConstraints: retain the portrait's defining open launch bowl, raised trough, side pivot, paired braces, and copper-rootwood identity; keep the object stationary and grounded; actual transparent alpha around every edge.\nAvoid: any background, environment, ground plane, cast shadow, extra object, character, text, logo, border, disconnected debris, cropped components, exaggerated spark or flame effects, or animation frames.",
+      "generation_output": "/Users/me/.codex/generated_images/01a13748-efeb-7af2-b156-8d12f29d2c60/exec-f30f786f-616e-4d95-9956-1483ce77bb3d.png"
+    }
+  ]
+}

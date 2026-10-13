@@ -16,6 +16,10 @@ const BRIAR_PAINTED_ATLAS = Object.freeze({
   windowYByDirection: Object.freeze({ north: 72, east: 62, south: 47, west: 14 }),
   width: 1254,
 });
+const EMBER_BASIN_BATTLE_IMAGE = new URL(
+  "../../public/assets/ember-basin-battle-sprite.webp",
+  import.meta.url,
+).href;
 const SPRITE_DIRECTIONS = Object.freeze(['north', 'east', 'south', 'west']);
 const shapes = {
   coilblade: [
@@ -146,7 +150,7 @@ for (const paths of Object.values(shapes)) {
   Object.freeze(paths);
 }
 export const COMBAT_ART_ARCHETYPES = Object.freeze(Object.keys(shapes));
-export const COMBAT_STRUCTURE_ART_IDS = Object.freeze(['bulwark-needle']);
+export const COMBAT_STRUCTURE_ART_IDS = Object.freeze(['bulwark-needle', 'ember-basin']);
 Object.freeze(shapes);
 
 export function getBriarRunnerPaintedFrameTransform({
@@ -251,7 +255,30 @@ export function createCombatArt(document, kind, side, layer) {
   svg.setAttribute('viewBox', '0 0 64 64');
   svg.setAttribute('class', 'combat-art');
   svg.setAttribute('aria-hidden', 'true');
-  svg.dataset.artId = Object.hasOwn(shapes, kind) ? kind : `witness-${layer}`;
+  svg.dataset.artId = Object.hasOwn(shapes, kind) || kind === "ember-basin"
+    ? kind : `witness-${layer}`;
+  if (kind === 'ember-basin') {
+    svg.setAttribute('viewBox', '0 0 512 512');
+    const teamRing = create('ellipse');
+    teamRing.setAttribute('cx', '256');
+    teamRing.setAttribute('cy', '486');
+    teamRing.setAttribute('rx', '182');
+    teamRing.setAttribute('ry', '12');
+    teamRing.setAttribute('fill', 'none');
+    teamRing.setAttribute('stroke', side === 'north' ? '#C6452E' : '#2E7F86');
+    teamRing.setAttribute('stroke-width', '24');
+    teamRing.setAttribute('aria-hidden', 'true');
+    svg.appendChild(teamRing);
+    const image = create('image');
+    image.setAttribute('href', EMBER_BASIN_BATTLE_IMAGE);
+    image.setAttribute('x', '0');
+    image.setAttribute('y', '0');
+    image.setAttribute('width', '512');
+    image.setAttribute('height', '512');
+    image.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    svg.appendChild(image);
+    return svg;
+  }
   // Unshipped witness-only kinds use an explicit family silhouette.
   const paths = Object.hasOwn(shapes, kind) ? shapes[kind] : shapes[layer === 'air' ? 'copperskiff' : 'coilblade'];
   for (const [d, fill] of paths) {
@@ -273,4 +300,4 @@ export function createCombatArt(document, kind, side, layer) {
   return svg;
 }
 
-export const COMBAT_ART_STYLE = `.combat-target-link{display:none}.combat-target-link[data-from-structure="true"]{display:block}.combat-target-link[data-from-structure="true"] line{stroke:#E9A83A99;stroke-width:70;stroke-dasharray:190 125}.combat-marker[class]{border:0;background:none;border-radius:0;box-shadow:none;width:6.2%;height:auto;aspect-ratio:1}.combat-marker--entity-ground{filter:drop-shadow(0 2px 0 #191d2244)}.combat-marker--entity-air::before{content:"";position:absolute;left:18%;right:18%;height:13%;bottom:-15%;border-radius:50%;background:#191d2244}.combat-art{display:block;width:100%;height:100%;overflow:visible}.combat-marker[data-kind="mossguard"],.combat-marker[data-kind="skymaul"]{width:7.5%}.combat-marker[data-kind="stonehauler"]{width:8.2%}.combat-marker[data-kind="bulwark-needle"]{width:8.4%;z-index:21}.combat-marker--structure[data-targeting="true"] .combat-art{filter:drop-shadow(0 0 7px #E9A83A)}.combat-marker[data-kind="briar-runner"],.combat-marker[data-kind="briar-darter"],.combat-marker[data-kind="cinderling"]{width:4.8%}.combat-marker--tower[class]{width:7%;height:0;aspect-ratio:auto}.combat-marker[class] .combat-health{width:80%;height:4px;bottom:105%;border-radius:1px;background:#DCEDE9;box-shadow:0 0 0 1px #191D22}.combat-marker--north[class] .combat-health{background:#E9A83A}.combat-marker--tower[class] .combat-health{bottom:28px;height:4px;box-shadow:0 0 0 1px #191D22}.combat-marker[data-reaction="damage"] .combat-art{filter:brightness(1.7)}.combat-marker[data-reaction="target"] .combat-art{transform:rotate(-7deg)}.combat-marker--north[data-reaction="target"] .combat-art{transform:rotate(7deg)}`;
+export const COMBAT_ART_STYLE = `.combat-target-link{display:none}.combat-target-link[data-from-structure="true"]{display:block}.combat-target-link[data-from-structure="true"] line{stroke:#E9A83A99;stroke-width:70;stroke-dasharray:190 125}.combat-marker[class]{border:0;background:none;border-radius:0;box-shadow:none;width:6.2%;height:auto;aspect-ratio:1}.combat-marker--entity-ground{filter:drop-shadow(0 2px 0 #191d2244)}.combat-marker--entity-air::before{content:"";position:absolute;left:18%;right:18%;height:13%;bottom:-15%;border-radius:50%;background:#191d2244}.combat-art{display:block;width:100%;height:100%;overflow:visible}.combat-marker[data-kind="mossguard"],.combat-marker[data-kind="skymaul"]{width:7.5%}.combat-marker[data-kind="stonehauler"]{width:8.2%}.combat-marker[data-kind="bulwark-needle"],.combat-marker[data-kind="ember-basin"]{width:8.4%;z-index:21}.combat-marker--structure[data-targeting="true"] .combat-art{filter:drop-shadow(0 0 7px #E9A83A)}.combat-marker[data-kind="briar-runner"],.combat-marker[data-kind="briar-darter"],.combat-marker[data-kind="cinderling"]{width:4.8%}.combat-marker--tower[class]{width:7%;height:0;aspect-ratio:auto}.combat-marker[class] .combat-health{width:80%;height:4px;bottom:105%;border-radius:1px;background:#DCEDE9;box-shadow:0 0 0 1px #191D22}.combat-marker--north[class] .combat-health{background:#E9A83A}.combat-marker--tower[class] .combat-health{bottom:28px;height:4px;box-shadow:0 0 0 1px #191D22}.combat-marker[data-reaction="damage"] .combat-art{filter:brightness(1.7)}.combat-marker[data-reaction="target"] .combat-art{transform:rotate(-7deg)}.combat-marker--north[data-reaction="target"] .combat-art{transform:rotate(7deg)}`;

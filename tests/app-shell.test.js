@@ -53,6 +53,7 @@ const EXPECTED_INDIVIDUAL_PORTRAIT_IDS = Object.freeze([
   "gloamwing-cluster",
   "coppershade-flock",
   "squall-orb",
+  "ember-basin",
 ]);
 const EXPECTED_AIR_SWARM_LORE = Object.freeze({
   "gloamwing-cluster": "Gloamwings rise from the violet reeds at dusk to follow emberseeds down the riverbank. Five of them wheel around each warm spark until ferry bells call them home.",
@@ -66,7 +67,7 @@ const EXPECTED_COLLECTION_IDS = Object.freeze([
   ...EXPECTED_DEFAULT_ROSTER_IDS,
   ...EXPECTED_INDIVIDUAL_PORTRAIT_IDS,
 ]);
-const EXPECTED_COLLECTION_COUNT = EXPECTED_COLLECTION_IDS.length;
+const EXPECTED_COLLECTION_COUNT = 19;
 const CARD_PORTRAIT_SCREENSHOTS = Object.freeze([
   "desktop-card-portraits-1440x933.png",
   "desktop-card-details-1440x933.png",
@@ -326,10 +327,13 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     assert.deepEqual(PLAYABLE_CARD_IDS, EXPECTED_DEFAULT_ROSTER_IDS,
       "the source playable roster matches the independently expected default eight");
     assert.deepEqual(EDITABLE_DECK_CARD_IDS,
-      [...EXPECTED_DEFAULT_ROSTER_IDS, ...EXPECTED_INDIVIDUAL_PORTRAIT_IDS.slice(0, -1)],
+      [...EXPECTED_DEFAULT_ROSTER_IDS, ...EXPECTED_INDIVIDUAL_PORTRAIT_IDS
+        .filter((id) => id !== "squall-orb" && id !== "ember-basin")],
     "the independently expected troop collection contains the completed source roster");
     assert.deepEqual(EDITABLE_MIXED_DECK_CARD_IDS, EXPECTED_COLLECTION_IDS,
-      "the editable mixed collection adds the original Squall Orb portrait");
+      "the editable mixed collection adds Squall Orb and Ember Basin to the eighteen-card pool");
+    assert.equal(EXPECTED_COLLECTION_IDS.length, EXPECTED_COLLECTION_COUNT,
+      "the mixed editable collection has exactly nineteen supported cards");
     await page.goto(`${origin}/public/index.html`, { waitUntil: "networkidle" });
     assert.equal(await page.title(), "Moss & Ember — Card battler");
     assert.equal(await page.locator(".app-nav [data-nav-to]").count(), 4);
@@ -352,9 +356,11 @@ test("player shell renders roster-derived cards and launches a paused shared bat
 
     for (const card of [...createPlayableRoster(),
       ...EDITABLE_MIXED_DECK_CARD_IDS
-        .filter((id) => !EXPECTED_DEFAULT_ROSTER_IDS.includes(id) && id !== "squall-orb")
+        .filter((id) => !EXPECTED_DEFAULT_ROSTER_IDS.includes(id) &&
+          id !== "squall-orb" && id !== "ember-basin")
         .map((id) => projectSessionTroopBattleCard(id)),
-      projectSessionNonUnitBattleCard("squall-orb")]) {
+      projectSessionNonUnitBattleCard("squall-orb"),
+      projectSessionNonUnitBattleCard("ember-basin")]) {
       const cardButton = page.locator(`[data-card-grid] [data-card-id="${card.id}"]`);
       await cardButton.click();
       assert.equal(await page.locator("[data-card-detail] h2").innerText(), card.displayName);
@@ -383,6 +389,30 @@ test("player shell renders roster-derived cards and launches a paused shared bat
           /QUESTION|confidence/u);
         await page.screenshot({ path: join(ARTIFACTS, "phone-squall-orb-details-720x1280.png"),
           fullPage: true });
+      } else if (card.kind === "structure") {
+        const profile = card.buildingRuntime;
+        const suffix = " (QUESTION)";
+        const expectedProfile = {
+          Cost: `${format(card.cost)} elixir`,
+          Health: `${format(profile.hitpoints)}${suffix}`,
+          Damage: `${format(profile.damage)} per attack${suffix}`,
+          Deploy: `${format(profile.deployTicks / 60)} s${suffix}`,
+          "First hit": `${format(profile.firstHitTicks / 60)} s${suffix}`,
+          "Hit speed": `${format(profile.hitSpeedTicks / 60)} s${suffix}`,
+          Lifetime: `${format(profile.lifetimeTicks / 60)} s${suffix}`,
+          Range: `${format(profile.maxRangeMillitiles / 1_000)} tiles${suffix}`,
+          "Splash radius": `${format(profile.areaDamageRadiusMillitiles / 1_000)} tiles${suffix}`,
+          Targets: `ground${suffix}`,
+        };
+        assert.deepEqual(await renderedProfiles(page), [expectedProfile],
+          "Ember Basin details display the shared structure profile and keep combat fields QUESTION");
+        assert.equal(await page.locator("[data-card-detail] .unit-profile").count(), 1);
+        assert.match(await page.locator("[data-card-detail] .detail-description").innerText(),
+          /Stationary defensive structure.*QUESTION/u);
+        assert.match(await page.locator("[data-card-detail] .unit-profile").innerText(),
+          /Cost is source backed; combat values are provisional profile estimates/u);
+        assert.equal(await page.locator("[data-card-detail] .card-lore p").innerText(),
+          "The Ember Basin stands where the creek turns, its copper lip warmed by emberseeds carried down from the Moss & Ember workshop. At dusk, twin braces hold its long copper-ribbed launch channel above the water, ready to turn any unwelcome visitor away.");
       } else {
         const profiles = await renderedProfiles(page);
         assert.deepEqual(profiles, card.entities.map(expectedStats), `${card.displayName} runtime facts`);
@@ -469,6 +499,7 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       ["gloamwing-cluster", "public/assets/gloamwing-cluster-painted.webp"],
       ["coppershade-flock", "public/assets/coppershade-flock-painted.webp"],
       ["squall-orb", "public/assets/squall-orb-painted.webp"],
+      ["ember-basin", "public/assets/ember-basin-portrait-painted-v2.webp"],
     ].map(([id, path]) => [id, manifest.files.find((file) => file.path === path)]));
     assert.ok(manifestAtlasSource && [...directPortraits.values()].every(Boolean),
       "the atlas and every individual original portrait are registered in the release manifest");
