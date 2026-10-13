@@ -20,7 +20,7 @@ import {
 } from "../scripts/integration-audit.js";
 
 const EXPECTED_MANIFEST_SHA256 =
-  "3f48a3de26bf31d1c04438ac0486dcd6ed30f28ed4e76ffce2557eab82a734bf";
+  "009ed7e778379a105792dcf32d8ff37bd72bf13c42c442bae28d48f3d7f144fc";
 
 function sha256LooksPinned(value) {
   return /^[\da-f]{64}$/u.test(value);
@@ -226,7 +226,7 @@ test("canonical integration audit removes temporary output after rename failure"
 
 test("canonical integration audit samples all direct occurrence mechanics", () => {
   const artifacts = probeDirectOccurrenceAdapters();
-  assert.equal(artifacts.length, 60);
+  assert.equal(artifacts.length, 66);
   for (const artifact of artifacts) {
     const facades = new Set();
     for (const [field, payloadKey] of [
@@ -304,9 +304,9 @@ test("canonical integration audit executes every supported card and reproduces a
 }, () => {
   const result = auditCanonicalIntegration({ runs: 2 });
 
-  assert.equal(result.supported, 60);
-  assert.equal(result.covered, 60);
-  assert.equal(result.uniqueSupportedIds, 55);
+  assert.equal(result.supported, 66);
+  assert.equal(result.covered, 66);
+  assert.equal(result.uniqueSupportedIds, 61);
   assert.equal(result.question, 5);
   assert.equal(result.runHashes.length, 2);
   assert.equal(result.runHashes[0], result.runHashes[1]);
@@ -316,7 +316,7 @@ test("canonical integration audit executes every supported card and reproduces a
   assert.equal(result.manifest.supported.length, result.supported);
   assert.equal(result.manifest.supportedArtifacts.length, result.supported);
   assert.equal(result.manifest.questionOnly.length, result.question);
-  assert.equal(result.manifest.runners.length, 46);
+  assert.equal(result.manifest.runners.length, 47);
   assert.deepEqual(
     [...result.manifest.supportedArtifacts].sort((left, right) =>
       left.id.localeCompare(right.id) ||

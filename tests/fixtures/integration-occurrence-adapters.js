@@ -188,6 +188,16 @@ function swarm(specification) {
 function ordinaryProjectileSquad(specification) {
   const record = recordsFor(specification);
   const witness = createSessionTroopWitness(specification.id);
+  const squad = witness.roster.find(({ id }) => id === specification.id);
+  const intervals = squad?.entities.map(({ sourceConfidencePolicy }) =>
+    sourceConfidencePolicy?.deploymentInterval);
+  if (!intervals?.length || intervals.some((interval) =>
+    interval?.milliseconds !== 100 ||
+    interval.sourceId !== "supercell-2020-06-02-multi-unit-deployment" ||
+    interval.ticks !== intervals[0].ticks)) {
+    throw new Error(`${specification.id} lacks a consistent source-derived deployment interval`);
+  }
+  const intervalTicks = intervals[0].ticks;
   const battle = new LiveBattle(canonical(witness));
   const scheduled = battle.scheduleDeploy(canonical({
     cardId: specification.id,
@@ -199,10 +209,34 @@ function ordinaryProjectileSquad(specification) {
   if (scheduled.type !== "deploy-scheduled") {
     throw new Error(`${specification.id} shared deployment was not admitted`);
   }
-  const emitted = battle.step();
-  if (battle.state.units.filter(({ cardId }) => cardId === specification.id).length !==
-      record.count) {
-    throw new Error(`${specification.id} shared squad expansion diverged from its source count`);
+  const emitted = [...battle.step()];
+  const count = (candidate) => candidate.state.units.filter(({ cardId }) =>
+    cardId === specification.id).length;
+  if (battle.state.tick !== 1 || count(battle) !== 1) {
+    throw new Error(`${specification.id} did not materialize exactly its first member at tick 1`);
+  }
+  const checkpoint = battle.serialize();
+  const restored = LiveBattle.restore(checkpoint);
+  if (restored.serialize() !== checkpoint) {
+    throw new Error(`${specification.id} partial squad checkpoint did not restore exactly`);
+  }
+  for (let elapsedTicks = 1; elapsedTicks <= intervalTicks * (record.count - 1);
+    elapsedTicks += 1) {
+    const forwardEvents = battle.step();
+    const restoredEvents = restored.step();
+    const expectedCount = Math.min(record.count,
+      1 + Math.floor(elapsedTicks / intervalTicks));
+    if (count(battle) !== expectedCount || count(restored) !== expectedCount) {
+      throw new Error(`${specification.id} birth count diverged at tick ${battle.state.tick}`);
+    }
+    if (canonical(forwardEvents) !== canonical(restoredEvents) ||
+        battle.serialize() !== restored.serialize()) {
+      throw new Error(`${specification.id} partial squad restore diverged at tick ${battle.state.tick}`);
+    }
+    emitted.push(...forwardEvents);
+  }
+  if (count(battle) !== record.count) {
+    throw new Error(`${specification.id} did not complete its source-derived member schedule`);
   }
   return directBytes(
     specification,

@@ -41,9 +41,13 @@ function mixedBattleSetup() {
   const roster = clone(createPlayableRoster());
   roster.splice(0, 2, clone(projectSessionNonUnitBattleCard("squall-orb")),
     clone(projectSessionNonUnitBattleCard("bulwark-needle")));
-  const referenced = new Set(roster.flatMap(({ entities }) => entities.flatMap((entity) =>
-    [entity.bodyRadiusPolicy, entity.projectileSpeedPolicy]
-      .filter((policy) => policy.kind === "question").map(({ questionKey }) => questionKey))));
+  const referenced = new Set(roster.flatMap(({ entities }) => entities.flatMap((entity) => [
+    ...[entity.bodyRadiusPolicy, entity.projectileSpeedPolicy, entity.deliveryPolicy,
+      entity.layerPolicy, entity.damagePolicy]
+      .filter((policy) => policy?.kind === "question")
+      .map(({ questionKey }) => questionKey),
+    ...(entity.sourceConfidencePolicy?.fields ?? []).map(({ questionKey }) => questionKey),
+  ])));
   const questions = createPlayableRosterQuestionRecords()
     .filter(({ key }) => referenced.has(key));
   return { initialWindupTicks: { central: 0, lane: 0 }, questions, roster };

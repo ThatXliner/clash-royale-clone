@@ -1,0 +1,55 @@
+Occurrence audit runner selector inventory
+Source: scripts/integration-audit.js claim()/question() declarations; executeOnce() unions these selectors through a Set and sorts them.
+Direct claims: 42
+QUESTION-only entries: 5
+Distinct runner selectors: 47
+
+- buildings-defensive
+- buildings-resource
+- buildings-spawner
+- buildings-travel
+- cards-basic-flying
+- cards-basic-melee
+- cards-basic-ranged
+- cards-structure-seeker
+- cards-swarms
+- champions
+- combat-status-heal
+- combat-status-invisibility
+- combat-status-rage
+- combat-status-ramp
+- combat-status-reset
+- combat-status-slow
+- combat-status-snare
+- combat-status-stun
+- death-conversion
+- death-effects
+- death-spawns
+- game-roster-troops-ordinary
+- shields-forms
+- spawn-placement
+- special-movement-charge
+- special-movement-charge-knockback
+- special-movement-dash
+- special-movement-dash-knockback
+- special-movement-jump
+- special-movement-knockback
+- special-movement-leap-knockback
+- special-movement-recoil
+- special-movement-retarget
+- special-projectiles-chain
+- special-projectiles-pellets
+- special-projectiles-pierce
+- special-projectiles-reflection
+- special-projectiles-return
+- spells-clone-unit
+- spells-copy-card
+- spells-instant
+- spells-periodic
+- spells-return
+- spells-roll
+- spells-spawn
+- spells-three-wave
+- spells-travel-line
+
+The generated audit measured 47 manifest runners. The old test pin of 46 did not match the source selector set; no selector was added by the CARDS017T repair.

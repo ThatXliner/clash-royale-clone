@@ -1,0 +1,7 @@
+Final-audit runner count correction
+
+Raw TAP: integration-audit-final.tap
+The run passed the exact occurrence counts, deterministic two-run hash equality, and pinned manifest SHA-256 checks, then failed only at the pinned runner count assertion in tests/integration-audit.test.js:319.
+Expected runner count: 46
+Measured generated manifest runner count: 47
+The assertion now pins 47. This is a generated manifest shape expectation, independent of the 66 occurrence records and 61 unique supported IDs.

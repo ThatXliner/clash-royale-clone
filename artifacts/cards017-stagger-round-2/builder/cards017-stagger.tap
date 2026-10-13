@@ -1,0 +1,82 @@
+TAP version 13
+# Subtest: briar-band births members at each sourced 100 ms interval on both sides and restores at every boundary
+ok 1 - briar-band births members at each sourced 100 ms interval on both sides and restores at every boundary
+  ---
+  duration_ms: 3814.5995
+  type: 'test'
+  ...
+# Subtest: coppershade-flock births members at each sourced 100 ms interval on both sides and restores at every boundary
+ok 2 - coppershade-flock births members at each sourced 100 ms interval on both sides and restores at every boundary
+  ---
+  duration_ms: 3489.397625
+  type: 'test'
+  ...
+# Subtest: duskwing-trio births members at each sourced 100 ms interval on both sides and restores at every boundary
+ok 3 - duskwing-trio births members at each sourced 100 ms interval on both sides and restores at every boundary
+  ---
+  duration_ms: 488.458208
+  type: 'test'
+  ...
+# Subtest: forgeguard births members at each sourced 100 ms interval on both sides and restores at every boundary
+ok 4 - forgeguard births members at each sourced 100 ms interval on both sides and restores at every boundary
+  ---
+  duration_ms: 1853.009416
+  type: 'test'
+  ...
+# Subtest: gloamwing-cluster births members at each sourced 100 ms interval on both sides and restores at every boundary
+ok 5 - gloamwing-cluster births members at each sourced 100 ms interval on both sides and restores at every boundary
+  ---
+  duration_ms: 1961.872791
+  type: 'test'
+  ...
+# Subtest: sunthread-pair births members at each sourced 100 ms interval on both sides and restores at every boundary
+ok 6 - sunthread-pair births members at each sourced 100 ms interval on both sides and restores at every boundary
+  ---
+  duration_ms: 176.515792
+  type: 'test'
+  ...
+# Subtest: thornscouts births members at each sourced 100 ms interval on both sides and restores at every boundary
+ok 7 - thornscouts births members at each sourced 100 ms interval on both sides and restores at every boundary
+  ---
+  duration_ms: 1167.951959
+  type: 'test'
+  ...
+# Subtest: source receipts are required per component and reject forged interval data
+ok 8 - source receipts are required per component and reject forged interval data
+  ---
+  duration_ms: 19.194667
+  type: 'test'
+  ...
+# Subtest: skeleton exceptions and a singleton retain their existing immediate expansion
+ok 9 - skeleton exceptions and a singleton retain their existing immediate expansion
+  ---
+  duration_ms: 41.922042
+  type: 'test'
+  ...
+# Subtest: Briar Band commits one player cost and natural AI cycle while both sides restore through mixed births
+ok 10 - Briar Band commits one player cost and natural AI cycle while both sides restore through mixed births
+  ---
+  duration_ms: 1853.58825
+  type: 'test'
+  ...
+# Subtest: mixed editable RL exposes and restores Briar Band's members at exact source ticks
+ok 11 - mixed editable RL exposes and restores Briar Band's members at exact source ticks
+  ---
+  duration_ms: 2134.894042
+  type: 'test'
+  ...
+# Subtest: scheduled combat births reject duplicate IDs and queue overflow atomically
+ok 12 - scheduled combat births reject duplicate IDs and queue overflow atomically
+  ---
+  duration_ms: 42.549916
+  type: 'test'
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 12
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 17300.453875

@@ -1,0 +1,12 @@
+Measured canonical occurrence audit
+
+Command: npm run test:integration-audit
+Raw TAP: integration-audit-measure.tap
+Outcome: 5/6 passed; the only failure was the pinned manifest digest assertion, after both independent audit passes had completed and their hashes matched.
+Measured supported occurrences: 66
+Measured covered occurrences: 66
+Measured unique supported IDs: 61
+Measured manifest SHA-256: 009ed7e778379a105792dcf32d8ff37bd72bf13c42c442bae28d48f3d7f144fc
+Previous pinned SHA-256: 3f48a3de26bf31d1c04438ac0486dcd6ed30f28ed4e76ffce2557eab82a734bf
+
+The roster admission assertions separately retain 60 admitted and 6 excluded occurrences. The occurrence audit's 66 direct records and 61 unique IDs are fixture coverage, not a claim of historical game parity.

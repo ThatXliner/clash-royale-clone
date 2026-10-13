@@ -313,6 +313,7 @@ test("seeded opponent naturally chooses both new projectile squads through typed
       if (!new DeckCycle({ deck, seed: `${seed}:north` }).state.hand.includes(cardId)) continue;
       const setup = JSON.parse(createEditableGameSessionSetup(deck, seed));
       setup.thinkIntervalTicks = 1;
+      const battleSetup = JSON.parse(setup.battleSetup);
       assert.equal(setup.legalNorthDeployments.length, 8,
         "the opponent keeps every naturally legal card candidate");
       const session = new GameSession(canonical(setup));
@@ -321,10 +322,12 @@ test("seeded opponent naturally chooses both new projectile squads through typed
       session.stepMany(1);
       const committed = session.replay.find(({ side, type }) =>
         side === "north" && type === "session-deployed");
-      if (committed?.deployment.cardId === cardId) fixture = { seed, session, committed };
+      if (committed?.deployment.cardId === cardId) {
+        fixture = { seed, session, committed, battleSetup };
+      }
     }
     assert.ok(fixture, `${cardId} is chosen from an unmodified seeded legal set`);
-    const { session, committed } = fixture;
+    const { session, committed, battleSetup } = fixture;
     assert.equal(committed.deployment.entityIds.length, memberCount);
     assert.equal(committed.spend.cost, 3);
 
@@ -335,14 +338,46 @@ test("seeded opponent naturally chooses both new projectile squads through typed
     });
     const units = session.state.battle.units.filter(({ cardId: id, side }) =>
       id === cardId && side === "north");
-    assert.equal(units.length, memberCount);
+    assert.equal(units.length, 1, `${cardId} births only its first member on the first tick`);
     assert.ok(units.every((unit) => unit.maxHealth === hitpoints &&
       unit.damage === damage && unit.delivery === "projectile" && unit.layer === layer),
     `${cardId} opponent units keep their admitted squad and projectile facts`);
 
+    const squad = battleSetup.roster.find(({ id }) => id === cardId);
+    const intervals = squad?.entities.map(({ sourceConfidencePolicy }) =>
+      sourceConfidencePolicy?.deploymentInterval);
+    assert.ok(intervals?.length > 0 && intervals.every((interval) =>
+      interval?.milliseconds === 100 &&
+      interval.sourceId === "supercell-2020-06-02-multi-unit-deployment" &&
+      interval.ticks === intervals[0].ticks),
+    `${cardId} members share the admitted source-derived interval receipt`);
+    const intervalTicks = intervals[0].ticks;
     const checkpoint = session.serialize();
     const restored = GameSession.restore(checkpoint);
     assert.equal(restored.serialize(), checkpoint);
+    for (let elapsedTicks = 1; elapsedTicks <= intervalTicks * (memberCount - 1);
+      elapsedTicks += 1) {
+      session.stepMany(1);
+      restored.stepMany(1);
+      const expectedCount = Math.min(memberCount,
+        1 + Math.floor(elapsedTicks / intervalTicks));
+      const currentUnits = session.state.battle.units.filter(({ cardId: id, side }) =>
+        id === cardId && side === "north");
+      const restoredUnits = restored.state.battle.units.filter(({ cardId: id, side }) =>
+        id === cardId && side === "north");
+      assert.equal(currentUnits.length, expectedCount,
+        `${cardId} birth count at state tick ${session.state.tick}`);
+      assert.equal(restoredUnits.length, expectedCount,
+        `${cardId} restored birth count at state tick ${restored.state.tick}`);
+      assert.ok(currentUnits.every((unit) => unit.maxHealth === hitpoints &&
+        unit.damage === damage && unit.delivery === "projectile" && unit.layer === layer),
+      `${cardId} keeps typed projectile facts through each birth`);
+      assert.equal(restored.serialize(), session.serialize(),
+        `${cardId} partial squad restores exactly at tick ${session.state.tick}`);
+    }
+    assert.equal(session.state.battle.units.filter(({ cardId: id, side }) =>
+      id === cardId && side === "north").length, memberCount,
+    `${cardId} reaches its complete admitted count after all source intervals`);
     session.stepMany(120);
     restored.stepMany(120);
     assert.equal(restored.serialize(), session.serialize(),

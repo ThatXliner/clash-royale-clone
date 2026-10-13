@@ -1,0 +1,38 @@
+{
+  "generator": {
+    "argv": [
+      "tests/fixtures/integration-occurrence-adapters.js"
+    ],
+    "cwd": "/Users/me/.codex/worktrees/9456/clash-royale-clone",
+    "environment": {
+      "INTEGRATION_AUDIT_OCCURRENCES": "[{\"exportName\":\"createOrdinaryProjectileSquadCatalog\",\"id\":\"coppershade-flock\",\"selector\":\"game-roster-troops-ordinary\"},{\"exportName\":\"createOrdinaryProjectileSquadCatalog\",\"id\":\"duskwing-trio\",\"selector\":\"game-roster-troops-ordinary\"},{\"exportName\":\"createOrdinaryProjectileSquadCatalog\",\"id\":\"sunthread-pair\",\"selector\":\"game-roster-troops-ordinary\"}]"
+    },
+    "executable": "/Users/me/.hermes/node/bin/node",
+    "shellEquivalent": "INTEGRATION_AUDIT_OCCURRENCES='[{\"exportName\":\"createOrdinaryProjectileSquadCatalog\",\"id\":\"coppershade-flock\",\"selector\":\"game-roster-troops-ordinary\"},{\"exportName\":\"createOrdinaryProjectileSquadCatalog\",\"id\":\"duskwing-trio\",\"selector\":\"game-roster-troops-ordinary\"},{\"exportName\":\"createOrdinaryProjectileSquadCatalog\",\"id\":\"sunthread-pair\",\"selector\":\"game-roster-troops-ordinary\"}]' /Users/me/.hermes/node/bin/node tests/fixtures/integration-occurrence-adapters.js",
+    "stdoutVersion": 3,
+    "exitCode": 0
+  },
+  "changedBindings": [
+    {
+      "key": "createOrdinaryProjectileSquadCatalog\u0000coppershade-flock",
+      "old": "0baf8a36b00e1aef1244ec680e4b737879d0cb712386d913cc6d46301ca3e8e7",
+      "generated": "46b1a446ddb1d2ec37e84382e9d5814621ec7e8d331a1a57e9592497da8edd0e",
+      "checkedIn": "46b1a446ddb1d2ec37e84382e9d5814621ec7e8d331a1a57e9592497da8edd0e"
+    },
+    {
+      "key": "createOrdinaryProjectileSquadCatalog\u0000duskwing-trio",
+      "old": "e9b7e39f73bd53443dace2fac5855f5aa834a309bf9728aa65e752b42be71dbe",
+      "generated": "5e241f9758d16a9af2071ea6d69ed61f20e85b93d0e3b48794e858b203451588",
+      "checkedIn": "5e241f9758d16a9af2071ea6d69ed61f20e85b93d0e3b48794e858b203451588"
+    },
+    {
+      "key": "createOrdinaryProjectileSquadCatalog\u0000sunthread-pair",
+      "old": "1fc9b27a9c021284c37493af6b2a890933612b84a3e56871899c9a15cf94a1ad",
+      "generated": "87ee4a26c5eaf66bc3d3a60c8b3c05083714e09a696e926dbc899693ebd55de9",
+      "checkedIn": "87ee4a26c5eaf66bc3d3a60c8b3c05083714e09a696e926dbc899693ebd55de9"
+    }
+  ],
+  "unchangedBindingCount": 63,
+  "unchangedBindingsVerifiedAgainst": "HEAD:tests/fixtures/integration-occurrence-bindings.json",
+  "result": "Only the three ordinary projectile squad occurrence bindings changed; all 63 other entries match HEAD."
+}

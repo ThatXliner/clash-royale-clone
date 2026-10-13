@@ -1,0 +1,3 @@
+Command: npm run test:integration-audit
+Exit code: 1
+The same audit run passed 4 of 6 subtests and failed both occurrence-count assertions because the current repository source reports 66 occurrences while the pinned expectations still say 60 (tests/integration-audit.test.js:229 and :307).

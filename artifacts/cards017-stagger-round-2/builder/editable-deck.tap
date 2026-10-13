@@ -1,0 +1,74 @@
+
+> moss-and-ember@0.0.0 test:editable-deck
+> node tests/editable-deck-runner.js editable-deck
+
+TAP version 13
+# Subtest: editable deck setup admits every card in canonical eight-card witnesses and closes QUESTION records
+ok 1 - editable deck setup admits every card in canonical eight-card witnesses and closes QUESTION records
+  ---
+  duration_ms: 11503.2125
+  type: 'test'
+  ...
+# Subtest: editable deck setup preserves the shipped standard setup and selected order
+ok 2 - editable deck setup preserves the shipped standard setup and selected order
+  ---
+  duration_ms: 18.517542
+  type: 'test'
+  ...
+# Subtest: editable mixed witness admits one QUESTION-profile Squall Orb with seven troops
+ok 3 - editable mixed witness admits one QUESTION-profile Squall Orb with seven troops
+  ---
+  duration_ms: 7.405459
+  type: 'test'
+  ...
+# Subtest: editable mixed GameSession casts from center, spends, cycles, and restores pending impact
+ok 4 - editable mixed GameSession casts from center, spends, cycles, and restores pending impact
+  ---
+  duration_ms: 40.575667
+  type: 'test'
+  ...
+# Subtest: editable mixed AI chooses a legal Squall Orb cast without a selected target
+ok 5 - editable mixed AI chooses a legal Squall Orb cast without a selected target
+  ---
+  duration_ms: 13.030083
+  type: 'test'
+  ...
+# Subtest: shared Cinderling archetype deploys from both cards and restores distinct member identities
+ok 6 - shared Cinderling archetype deploys from both cards and restores distinct member identities
+  ---
+  duration_ms: 5029.460333
+  type: 'test'
+  ...
+# Subtest: editable Stonehauler deployment survives deterministic restore continuation
+ok 7 - editable Stonehauler deployment survives deterministic restore continuation
+  ---
+  duration_ms: 607.396625
+  type: 'test'
+  ...
+# Subtest: new squads deploy through custom eight-card battles and restore exactly
+ok 8 - new squads deploy through custom eight-card battles and restore exactly
+  ---
+  duration_ms: 2663.369041
+  type: 'test'
+  ...
+# Subtest: seeded opponent naturally chooses both new projectile squads through typed receipts
+ok 9 - seeded opponent naturally chooses both new projectile squads through typed receipts
+  ---
+  duration_ms: 1609.614667
+  type: 'test'
+  ...
+# Subtest: editable deck rejects malformed, duplicate, unsupported, and noncanonical setups
+ok 10 - editable deck rejects malformed, duplicate, unsupported, and noncanonical setups
+  ---
+  duration_ms: 5.736958
+  type: 'test'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 21772.017709
