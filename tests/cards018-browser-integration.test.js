@@ -733,8 +733,8 @@ test("Cards018 Ember Basin: editable collection enters real mixed battle and res
     const reducedDesktopSample = motionUiEvidence.find(({ media }) => media === "reduce");
     const normalMotionCard = normalDesktopSample?.motionRegion.motionOwners.card;
     const reducedMotionCard = reducedDesktopSample?.motionRegion.motionOwners.card;
-    const normalHandTransform = normalDesktopSample?.motionRegion.motionOwners.hand?.style.transform;
-    const reducedHandTransform = reducedDesktopSample?.motionRegion.motionOwners.hand?.style.transform;
+    const normalHandTransform = normalDesktopSample?.motionRegion.motionOwners.hand?.style.transform ?? null;
+    const reducedHandTransform = reducedDesktopSample?.motionRegion.motionOwners.hand?.style.transform ?? null;
     assert.ok(normalMotionCard && reducedMotionCard,
       "the 65x25 desktop motion-difference region overlaps the real Brassbolt HUD card in both modes");
     for (const sample of [normalDesktopSample, reducedDesktopSample]) {
@@ -747,21 +747,20 @@ test("Cards018 Ember Basin: editable collection enters real mixed battle and res
       "both accessibility variants resolve the same hand card under the changed pixels");
     assert.equal(normalMotionCard.cardId, "brassbolt");
     assert.equal(normalMotionCard.slot, reducedMotionCard.slot);
-    assert.notEqual(normalHandTransform, reducedHandTransform,
-      "the HUD hand's zero-offset transform layer is removed by reduced-motion styling");
     evidence.motionComparison = {
       phoneNormalAndReducedMotionScreenshotsArePixelIdentical:
         screenshots.find(({ file }) => file === "ember-basin-390x844-normal.png")?.sha256 ===
         screenshots.find(({ file }) => file === "ember-basin-390x844-reduced.png")?.sha256,
       desktopScreenshotPixelDifferenceRegion: { x: 885, y: 771, width: 65, height: 25 },
       desktopNormalVsReducedUiPointSamples: motionUiEvidence,
-      desktopMotionCause: {
+      desktopMotionDifferenceObservation: {
         cardId: normalMotionCard.cardId,
         slot: normalMotionCard.slot,
         normalHandTransform,
         reducedMotionHandTransform: reducedHandTransform,
         cardTransform: normalMotionCard.style.transform,
-        explanation: "the changed label pixels lie on the same HUD hand card; HUD_MOTION_STYLE retains its zero-offset hand transform layer and removes it for prefers-reduced-motion",
+        labelText: normalDesktopSample.motionRegion.handLabel.text,
+        explanation: "the measured pixel delta overlaps the same Brassbolt label in the same browser and view-state checkpoint. The sampled hand/card transforms are identical in both modes, so this run does not establish the pixel-level cause; text rasterization is only a hypothesis",
       },
       restorePixelParityVerifiedIndependentlyInEachVariant:
         screenshots.filter(({ file }) => /^ember-basin-\d+x\d+-(?:normal|reduced)\.png$/u.test(file))
