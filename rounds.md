@@ -1,5 +1,17 @@
 # Gauntlet Rounds
 
+## Round 418 — 2026-10-13
+
+PIECE: GAME-001GPR5 — Corrected default-squad runtime strict endurance, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Exact frozen6c7 original command `env -u GAME_BROWSER_ENDURANCE_TICKS npm run test:game-browser-endurance` exits1 after572618ms, TAP1/2. Independent99e04bf retains46segments through13352; nextphysicalgesture24→24 bridge deliveries where25required. Lastaccepted Cinderlings slot0 (14500,5500) at13200. Fresh JSON/TAP/activePNG andmtime/hash/source receipts retained; oldterminal/restart images excluded. Init195ms≤300 andpartialdriven/restore metrics do not prove full18000/lifecycle gates. Failedplan/terminalstate notserialized byoriginalprobe, independentoffline reconstruction unfinished andexplicitlynot claimed. Actual evidence in `artifacts/game001gpr5-round-1/critic/`.
+
+BIGGEST GAP: The full workload must legitimately reach18000 and exercise all continuation gates with corrected Briar physics; current input plan continues after the recorded run stops at13352.
+
+DISPOSITION: Separate builder reproduces checkpoint fromexactcommands (reportsnorthsuddendeath13351/terminal13352) and repairs terminal-aware harness plus legitimate sustainedseed0/default8 defense. Preserve originalfailure/naturaltermination regression, full18000/50ms/300ms/restore/audio/input/restart bars andenginephysics. New workload scope must be explicit; no earlierproof substitution.
+
 ## Round 417 — 2026-10-13
 
 PIECE: CARDS-017T — Remaining source-backed playable squad intervals, round 2
