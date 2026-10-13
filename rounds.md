@@ -1,5 +1,17 @@
 # Gauntlet Rounds
 
+## Round 419 — 2026-10-13
+
+PIECE: GAME-001GPR5P — Terminal-aware endurance planning and explicit duration failure, round 1
+
+VERDICT: PASS
+
+EVIDENCE: Independent425c3c8 frozen2d6 executed focused1/1 and provenance/adversarial probe: browserJSON→copiedinput hashesmatch, twoexactreplayoutputs byte-identical, allsixderivedcheckpointhashesverified. Restored13200actualCinderlings slot0 (14500,5500) plan matches original; recordedterminal yieldsnoplan andexplicitrequired18000failure. Fake terminaltick18000doesnoteraseearlyresult; exactendactivegateallow verified. All10frozenruntimehashesunchanged; caps andinput/restore/audio/terminal/restart assertions preserved. Probe-only format/assertAPI/hashformat errors retained separately, not product defects. ActualTAP/checks in `artifacts/game001gpr5p-round-1/critic/`.
+
+BIGGEST GAP: No legitimate currentseed-zero/default8 workload has yetcompleted18000 andfreshfullbrowsercontinuation gates.
+
+DISPOSITION: Accept terminalplanning correctness only; fullGAME001GPR5 remainsFAIL andactivecalibration continues withoutengine/cap changes.
+
 ## Round 418 — 2026-10-13
 
 PIECE: GAME-001GPR5 — Corrected default-squad runtime strict endurance, round 1
