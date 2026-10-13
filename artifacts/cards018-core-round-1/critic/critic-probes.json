@@ -1,0 +1,208 @@
+{
+  "schema": {
+    "exportedVersion": 2,
+    "observationVersion": 2,
+    "hasStructuresField": true,
+    "checkpointVersion": 2
+  },
+  "briarQuestionClosure": {
+    "sourceRecords": 20,
+    "setupRecords": 20,
+    "allRecordsExact": true,
+    "keys": [
+      "briar-darter.count",
+      "briar-darter.damage",
+      "briar-darter.deploy-time-ticks",
+      "briar-darter.first-hit-ticks",
+      "briar-darter.hit-speed-ticks",
+      "briar-darter.hitpoints",
+      "briar-darter.movement-millitiles-per-second",
+      "briar-darter.range-millitiles",
+      "briar-darter.sight-range-millitiles",
+      "briar-darter.target-mode",
+      "briar-runner.count",
+      "briar-runner.damage",
+      "briar-runner.deploy-time-ticks",
+      "briar-runner.first-hit-ticks",
+      "briar-runner.hit-speed-ticks",
+      "briar-runner.hitpoints",
+      "briar-runner.movement-millitiles-per-second",
+      "briar-runner.range-millitiles",
+      "briar-runner.sight-range-millitiles",
+      "briar-runner.target-mode"
+    ]
+  },
+  "hostileProvenance": [
+    {
+      "rejected": true,
+      "message": "roster[0].buildingRuntime diverges from its canonical session-card receipt"
+    },
+    {
+      "rejected": true,
+      "message": "roster[0].buildingRuntime diverges from its canonical session-card receipt"
+    },
+    {
+      "rejected": true,
+      "message": "roster[0].buildingRuntime diverges from its canonical session-card receipt"
+    },
+    {
+      "rejected": true,
+      "message": "roster[4].entities[0] ordinary runtime policies are unresolved"
+    }
+  ],
+  "liveSplash": {
+    "damagedAtTick": 120,
+    "hp": 1185,
+    "maxHitpoints": 1356,
+    "damageEvent": {
+      "amountApplied": 171,
+      "origin": "combat-damage",
+      "sourceId": 1
+    },
+    "attacker": {
+      "id": 1,
+      "layer": "air",
+      "side": "north"
+    },
+    "tick127AttackState": {
+      "nextAttackTick": 222,
+      "phase": "cycling",
+      "sequence": 1,
+      "targetId": 3
+    },
+    "selectedTarget": {
+      "alive": true,
+      "cardId": "briar-band",
+      "hitpoints": 202,
+      "id": 3,
+      "position": {
+        "x": 3500,
+        "y": 16267
+      },
+      "side": "north",
+      "maxHitpoints": 202,
+      "count": 3,
+      "layer": "ground"
+    },
+    "pendingContactsAtTick127": [
+      {
+        "applyTick": 127,
+        "amount": 222,
+        "origin": "defensive-splash",
+        "sourceId": 2,
+        "targetId": 3
+      },
+      {
+        "applyTick": 127,
+        "amount": 222,
+        "origin": "defensive-splash",
+        "sourceId": 2,
+        "targetId": 4
+      },
+      {
+        "applyTick": 127,
+        "amount": 222,
+        "origin": "defensive-splash",
+        "sourceId": 2,
+        "targetId": 5
+      }
+    ]
+  },
+  "deadStructureObservation": {
+    "alive": false,
+    "attackState": {
+      "nextAttackTick": null,
+      "phase": "idle",
+      "sequence": 2,
+      "targetId": null
+    },
+    "cardId": "ember-basin",
+    "deathCause": "combat-damage",
+    "hitpoints": 0,
+    "id": 2,
+    "layer": "ground",
+    "lifetime": {
+      "elapsedTicks": 1800,
+      "remainingTicks": 0,
+      "totalTicks": 1800,
+      "question": {
+        "authoritative": false,
+        "confidence": "unverified",
+        "disposition": "question",
+        "key": "lifetimeTicks",
+        "source": "pre-evolutions-building-corpus-and-unsourced-policy-fixture",
+        "value": 1800
+      }
+    },
+    "maxHitpoints": 1356,
+    "owner": "south",
+    "position": {
+      "x": 3500,
+      "y": 14500
+    },
+    "policy": {
+      "confidence": "unverified",
+      "corpusFields": {
+        "cost": {
+          "authoritative": true,
+          "confidence": "high",
+          "source": "pinned-pre-march-2023-card-roster-identity",
+          "value": 4
+        },
+        "damage": {
+          "authoritative": false,
+          "confidence": "unverified",
+          "source": "pinned-pre-march-2023-building-constants",
+          "value": 222
+        },
+        "deployTicks": {
+          "authoritative": false,
+          "confidence": "unverified",
+          "source": "pinned-pre-march-2023-building-constants",
+          "value": 60
+        },
+        "firstHitTicks": {
+          "authoritative": false,
+          "confidence": "unverified",
+          "source": "pinned-pre-march-2023-building-constants",
+          "value": 66
+        },
+        "hitSpeedTicks": {
+          "authoritative": false,
+          "confidence": "unverified",
+          "source": "pinned-pre-march-2023-building-constants",
+          "value": 96
+        },
+        "hitpoints": {
+          "authoritative": false,
+          "confidence": "unverified",
+          "source": "pinned-pre-march-2023-building-constants",
+          "value": 1356
+        },
+        "maxRange": {
+          "authoritative": false,
+          "confidence": "unverified",
+          "source": "pinned-pre-march-2023-building-constants",
+          "value": 6000
+        },
+        "mode": {
+          "authoritative": false,
+          "confidence": "unverified",
+          "source": "pinned-pre-march-2023-building-constants",
+          "value": "ground"
+        },
+        "sightRange": {
+          "authoritative": false,
+          "confidence": "unverified",
+          "source": "pinned-pre-march-2023-building-constants",
+          "value": 6000
+        }
+      },
+      "disposition": "question",
+      "source": "pre-evolutions-building-corpus-and-unsourced-policy-fixture"
+    },
+    "targetKey": null,
+    "targetMode": "ground",
+    "targetable": false
+  }
+}

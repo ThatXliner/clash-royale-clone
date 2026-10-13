@@ -1,0 +1,86 @@
+
+> moss-and-ember@0.0.0 test:rl-environment
+> node tests/rl-environment-runner.js rl-environment
+
+TAP version 13
+# Subtest: RL environment exposes a finite action catalogue and masks legal deploys
+ok 1 - RL environment exposes a finite action catalogue and masks legal deploys
+  ---
+  duration_ms: 268.048458
+  type: 'test'
+  ...
+# Subtest: seeded trajectories and restored checkpoints continue identically
+ok 2 - seeded trajectories and restored checkpoints continue identically
+  ---
+  duration_ms: 393.480542
+  type: 'test'
+  ...
+# Subtest: separate instances and a custom shared deck remain independent
+ok 3 - separate instances and a custom shared deck remain independent
+  ---
+  duration_ms: 70.193291
+  type: 'test'
+  ...
+# Subtest: RL mask casts an editable Squall Orb center point and restores its pending effect
+ok 4 - RL mask casts an editable Squall Orb center point and restores its pending effect
+  ---
+  duration_ms: 96.728166
+  type: 'test'
+  ...
+# Subtest: RL reset and legal mask deploy both sourced projectile squads with exact deck restore
+ok 5 - RL reset and legal mask deploy both sourced projectile squads with exact deck restore
+  ---
+  duration_ms: 490.411625
+  type: 'test'
+  ...
+# Subtest: RL observes Ember Basin targeting, damage, lifetime, and exact in-flight restore
+ok 6 - RL observes Ember Basin targeting, damage, lifetime, and exact in-flight restore
+  ---
+  duration_ms: 3220.264208
+  type: 'test'
+  ...
+# Subtest: horizon clipping truncates exactly and rejects later steps
+ok 7 - horizon clipping truncates exactly and rejects later steps
+  ---
+  duration_ms: 80.20575
+  type: 'test'
+  ...
+# Subtest: restore rejects paused or pending GameSession checkpoints
+ok 8 - restore rejects paused or pending GameSession checkpoints
+  ---
+  duration_ms: 74.427292
+  type: 'test'
+  ...
+# Subtest: masked and out-of-range actions are atomic
+ok 9 - masked and out-of-range actions are atomic
+  ---
+  duration_ms: 10.399209
+  type: 'test'
+  ...
+# Subtest: observations are allowlisted, JSON-safe, and detached
+ok 10 - observations are allowlisted, JSON-safe, and detached
+  ---
+  duration_ms: 16.851375
+  type: 'test'
+  ...
+# Subtest: natural engine completion reports one sparse reward and seals the episode
+ok 11 - natural engine completion reports one sparse reward and seals the episode
+  ---
+  duration_ms: 56708.005375
+  type: 'test'
+  ...
+# Subtest: wait-only seed 2 reaches its pinned natural engine terminal after checkpoint restore
+ok 12 - wait-only seed 2 reaches its pinned natural engine terminal after checkpoint restore
+  ---
+  duration_ms: 44817.340583
+  type: 'test'
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 12
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 106527.107667

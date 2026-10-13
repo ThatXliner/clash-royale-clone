@@ -1,0 +1,260 @@
+{
+  "archive": {
+    "commit": "d20938f",
+    "tree": "7fe757e5c722e474ce7915c70bf7147534a06da8",
+    "tar": "/tmp/cards018k-d20938f.tar",
+    "tarBytes": 465694720,
+    "tarSha256": "bb80997b831a6e50e0b2f7571d1760f17a8914702e85c7219be99b8f348071f0",
+    "trackedBlobsVerified": 2854,
+    "allImportedTrackedBlobsMatch": true,
+    "blobManifest": "d20938f-blobs.tsv",
+    "blobManifestSha256": "28efee6564bda0a093643ccd820d1c790d64396f13790dca424e31836ea17ca3",
+    "changedBlobs": [
+      {
+        "path": "artifacts/cards018-core-round-1/builder/evidence.md",
+        "gitBlob": "064484950d24538a8f64f1b75e576de1e0af6724",
+        "extractedGitBlob": "064484950d24538a8f64f1b75e576de1e0af6724",
+        "sha256": "166815e68a448c003b8f9505d3294aaa3bfd5bc41454195290cf029da0917f47",
+        "bytes": 3296
+      },
+      {
+        "path": "src/content/editable-deck.js",
+        "gitBlob": "d99e1a8b46000fb02296821e05312d790c32d9d5",
+        "extractedGitBlob": "d99e1a8b46000fb02296821e05312d790c32d9d5",
+        "sha256": "899aef6d57126cedf28dc4ebab60692ab0b0fe702e8c384c20087132a263eccb",
+        "bytes": 6087
+      },
+      {
+        "path": "src/rl/environment.js",
+        "gitBlob": "96d8d501013611f340699976f01b589f98e1ea15",
+        "extractedGitBlob": "96d8d501013611f340699976f01b589f98e1ea15",
+        "sha256": "920766cdcee0d4279a4f6ffeaad55723857647ba1c58fcc58738ad45f25454a8",
+        "bytes": 13835
+      },
+      {
+        "path": "tests/editable-deck.test.js",
+        "gitBlob": "e047e4430406fdbdc9a019bc628c061adbb43524",
+        "extractedGitBlob": "e047e4430406fdbdc9a019bc628c061adbb43524",
+        "sha256": "0679c849169fe333eb3c1c8533b72715a56ef220998d556aaa06dd1531647f78",
+        "bytes": 26601
+      },
+      {
+        "path": "tests/game-building-policy.test.js",
+        "gitBlob": "7b08d767cb2d61dcc38e7d37e514e26884a527bf",
+        "extractedGitBlob": "7b08d767cb2d61dcc38e7d37e514e26884a527bf",
+        "sha256": "8faa43d31b482a17def61fa246f6c719f145b583a886418c2037da7ebbf70dad",
+        "bytes": 11451
+      },
+      {
+        "path": "tests/game-building-runtime.test.js",
+        "gitBlob": "c1b2c38a6dda0885c611aabf66fb8c64d91dfefc",
+        "extractedGitBlob": "c1b2c38a6dda0885c611aabf66fb8c64d91dfefc",
+        "sha256": "90dbc0041d1f8b3fc9e37089f530623e86aa54c007e4a4e84a6dc799e670e414",
+        "bytes": 31919
+      },
+      {
+        "path": "tests/game-roster-buildings.test.js",
+        "gitBlob": "36ff2c10f5f4ca276dc0598cd811286c1ad23694",
+        "extractedGitBlob": "36ff2c10f5f4ca276dc0598cd811286c1ad23694",
+        "sha256": "0623a47df1e528751a12673a7aefb1714a42a9f7fb9724f8de36d988ded6541c",
+        "bytes": 22355
+      },
+      {
+        "path": "tests/rl-environment.test.js",
+        "gitBlob": "904a86605c25bdc431057d06d1ba6d8786dfabce",
+        "extractedGitBlob": "904a86605c25bdc431057d06d1ba6d8786dfabce",
+        "sha256": "6c518354b82deab7e92fcb36579386bdcd0eb565889ca93b5b39fce94ffb524d",
+        "bytes": 22674
+      }
+    ]
+  },
+  "baseline": {
+    "commit": "a142ec8",
+    "tree": "732f993a08ab6f3ceb9c339eb6799700c62df3b6",
+    "comparedActualBytes": true,
+    "seeds": [
+      {
+        "seed": 0,
+        "fields": {
+          "setup": {
+            "baselineLength": 39215,
+            "baselineSha256": "6605be1bdf48aa971f3c55d841c19fc44a748ef1f5e25609630a25ec663c4e98",
+            "candidateLength": 39215,
+            "candidateSha256": "6605be1bdf48aa971f3c55d841c19fc44a748ef1f5e25609630a25ec663c4e98",
+            "exactBytesEqual": true
+          },
+          "initial": {
+            "baselineLength": 39253,
+            "baselineSha256": "ed371dd1d28d6be72a98bda32e434cbbc5431eea4f163e4206a1901cd08dbea1",
+            "candidateLength": 39253,
+            "candidateSha256": "ed371dd1d28d6be72a98bda32e434cbbc5431eea4f163e4206a1901cd08dbea1",
+            "exactBytesEqual": true
+          },
+          "initialReplay": {
+            "baselineLength": 2,
+            "baselineSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+            "candidateLength": 2,
+            "candidateSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+            "exactBytesEqual": true
+          },
+          "after120": {
+            "baselineLength": 41172,
+            "baselineSha256": "6ebfb5fecea169d18f74d40b57f026f152fbcb789557737863bf2d0363bc532c",
+            "candidateLength": 41172,
+            "candidateSha256": "6ebfb5fecea169d18f74d40b57f026f152fbcb789557737863bf2d0363bc532c",
+            "exactBytesEqual": true
+          },
+          "replay": {
+            "baselineLength": 1062,
+            "baselineSha256": "77cead15ee16064df86b604965cfd61070da424d08d4a2376ab1758f1208bc2c",
+            "candidateLength": 1062,
+            "candidateSha256": "77cead15ee16064df86b604965cfd61070da424d08d4a2376ab1758f1208bc2c",
+            "exactBytesEqual": true
+          }
+        }
+      },
+      {
+        "seed": 23,
+        "fields": {
+          "setup": {
+            "baselineLength": 39216,
+            "baselineSha256": "94cbdd3603f4522a8f986499813eb4e210eafd4d4b6170d7d0c81d188faaa219",
+            "candidateLength": 39216,
+            "candidateSha256": "94cbdd3603f4522a8f986499813eb4e210eafd4d4b6170d7d0c81d188faaa219",
+            "exactBytesEqual": true
+          },
+          "initial": {
+            "baselineLength": 39254,
+            "baselineSha256": "d6879256a66396ff175769546a9c66d0158bfe11d60892713a43173c6b4bff63",
+            "candidateLength": 39254,
+            "candidateSha256": "d6879256a66396ff175769546a9c66d0158bfe11d60892713a43173c6b4bff63",
+            "exactBytesEqual": true
+          },
+          "initialReplay": {
+            "baselineLength": 2,
+            "baselineSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+            "candidateLength": 2,
+            "candidateSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+            "exactBytesEqual": true
+          },
+          "after120": {
+            "baselineLength": 41173,
+            "baselineSha256": "a04a1b8bd92db6450a4e179fe0a381bc48f88f55050ebf26237c8284a0229f4c",
+            "candidateLength": 41173,
+            "candidateSha256": "a04a1b8bd92db6450a4e179fe0a381bc48f88f55050ebf26237c8284a0229f4c",
+            "exactBytesEqual": true
+          },
+          "replay": {
+            "baselineLength": 3296,
+            "baselineSha256": "23cc3261b0dfae84237f605ecbd0e48137cd0d3dba9dfb7b11fcdd7d97325861",
+            "candidateLength": 3296,
+            "candidateSha256": "23cc3261b0dfae84237f605ecbd0e48137cd0d3dba9dfb7b11fcdd7d97325861",
+            "exactBytesEqual": true
+          }
+        }
+      }
+    ],
+    "jsonSha256": "eb66706918385daaa4d839799e239da71bb26d87686eb36c91110f3f0c8a7a49"
+  },
+  "focusedAndGuardChecks": [
+    {
+      "name": "editable-deck",
+      "tests": 12,
+      "pass": 12,
+      "fail": 0,
+      "sha256": "837bb7398d8e124f408980ff87bf845c15199afac17776d413cec99367f82f80",
+      "bytes": 3071
+    },
+    {
+      "name": "rl-environment",
+      "tests": 12,
+      "pass": 12,
+      "fail": 0,
+      "sha256": "9265f88d080a434a4fff06670c336863e6d4c33f06d39119b4c3b66b179aa30c",
+      "bytes": 2724
+    },
+    {
+      "name": "game-building-runtime",
+      "tests": 15,
+      "pass": 15,
+      "fail": 0,
+      "sha256": "be1b34961896e77114cf8e416651253ed8c4ccf17efc0736c2468ee6aa5eacef",
+      "bytes": 4304
+    },
+    {
+      "name": "game-roster-buildings",
+      "tests": 10,
+      "pass": 10,
+      "fail": 0,
+      "sha256": "7a7190a36c028e23fbd19d2c5452573f97ed39eb2963de543124a9f26553adf1",
+      "bytes": 3130
+    },
+    {
+      "name": "game-building-policy",
+      "tests": 3,
+      "pass": 3,
+      "fail": 0,
+      "sha256": "9c67887aad064c75e069dedbe8e251fcefc1bb4b5639fe9359fae618693f77b1",
+      "bytes": 1046
+    },
+    {
+      "name": "nondeterminism-guard",
+      "tests": 10,
+      "pass": 10,
+      "fail": 0,
+      "sha256": "cc683d1aad78ca5e4df224548570ff90ad3fde2a4ce3581a6a3da82e64b79b17",
+      "bytes": 2612
+    },
+    {
+      "name": "shipping-isolation-guard",
+      "tests": 13,
+      "pass": 13,
+      "fail": 0,
+      "sha256": "1051a31f233514c56e5b4bf4e0d7b21ca6f3271f30e7068edb3f528247b54117",
+      "bytes": 3284
+    }
+  ],
+  "probes": {
+    "path": "critic-probes.json",
+    "sha256": "aea5bfff655fbc8d1731e0e86dc0e07502dcad17a63243be34a787d94bd5e228",
+    "briarQuestionRecords": 20,
+    "hostileProvenanceCasesRejected": 4,
+    "liveSplashAtTick120": {
+      "hp": 1185,
+      "maxHitpoints": 1356,
+      "incomingDamage": 171,
+      "attackTarget": 3,
+      "splashTargetIds": [
+        3,
+        4,
+        5
+      ]
+    },
+    "deadStructureObserved": true
+  },
+  "catalogCountsFromRuntimeManifest": {
+    "admittedIds": 55,
+    "admittedOccurrences": 60,
+    "claimedIds": 61,
+    "claimedOccurrences": 66,
+    "excludedClaimedIds": 6,
+    "excludedClaimedOccurrences": 6,
+    "questionOnlyExports": 5
+  },
+  "apiDocumentationGap": {
+    "path": "docs/rl-api.md",
+    "sha256": "891283920505cf22133d7ba0c6ea0a055d928e8586fa0afc155644cd1e093c0e",
+    "observationSectionListsStructures": false,
+    "saysCheckpointVersion1": true,
+    "candidateExportedVersion": 2,
+    "candidateCheckpointVersion": 2
+  },
+  "unchangedAuthority": {
+    "changedSourcePaths": [
+      "src/content/editable-deck.js",
+      "src/rl/environment.js"
+    ],
+    "changedSimulationModules": [],
+    "changedReferenceStats": []
+  }
+}
