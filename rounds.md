@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 427 — 2026-10-13
+
+PIECE: GAME-001GPR6 — Exact shipped presentation strict browser endurance
+
+VERDICT: PASS
+
+EVIDENCE: Clean `9f64011378d3ce1c6281d9292950a7b52f11fd2c` archive: 3,003/3,003 Git blobs and all144runtime/sixharness hashes match. Full command exit0 TAP2/2, main997382.6ms;67segments reach18000. Setup306bb30; actual600→300→600 restore browser/direct session/input/audio continuation, terminal18000/restart0. Initialization158ms≤300; drive/restore/terminal/restart/screens/finaldrain0 under50; console/resource/unhandled/pendingempty. Fresh artifacts and verdict `artifacts/game001gpr6-round-1/critic/`.
+
+BIGGEST GAP: Pause/resume assertions establish browser/direct parity after both lifecycle calls, not unchanged transcript bytes across the boundary; this scopeddefault8 performance proof does not cover subsequent Kilnkeeper runtime changes or allcustomdecks.
+
 ## Round 426 — 2026-10-13
 
 PIECE: CARDS-018I — Ember Basin browser integration and release snapshot

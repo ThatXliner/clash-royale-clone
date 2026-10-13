@@ -1,0 +1,38 @@
+{
+  "candidateCommit": "9f64011378d3ce1c6281d9292950a7b52f11fd2c",
+  "candidateTree": "58dca0000e2c574730867ad1973d0e3c09d1af18",
+  "archiveRoot": "/tmp/game001gpr6-critic.r35yL3",
+  "archiveWasCreatedFromGitArchive": true,
+  "trackedEntries": 3003,
+  "preRunTrackedBlobsVerified": 3003,
+  "preRunMismatchCount": 0,
+  "sourceRuntime": {
+    "fileCount": 144,
+    "beforeManifestSha256": "d42d03d79225b8be5e11efe83a9d1e4e7f1e912a818e180a577ef9198336e786",
+    "afterManifestSha256": "d42d03d79225b8be5e11efe83a9d1e4e7f1e912a818e180a577ef9198336e786",
+    "allHashesUnchanged": true
+  },
+  "enduranceHarness": {
+    "fileCount": 6,
+    "beforeManifestSha256": "5a090373a608357d4e7876b30a22c08be09db6b181a85028a7a16077cdf92015",
+    "afterManifestSha256": "5a090373a608357d4e7876b30a22c08be09db6b181a85028a7a16077cdf92015",
+    "allHashesUnchanged": true
+  },
+  "trackedArchiveChangesAfterRun": [
+    "artifacts/game-001gp-browser-endurance/active.png",
+    "artifacts/game-001gp-browser-endurance/endurance-result.json",
+    "artifacts/game-001gp-browser-endurance/restart.png",
+    "artifacts/game-001gp-browser-endurance/terminal.png"
+  ],
+  "changesAreRunEvidenceOutputs": true,
+  "dependencySymlink": {
+    "path": "/tmp/game001gpr6-critic.r35yL3/node_modules",
+    "target": "/Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules"
+  },
+  "testCommand": "env -u GAME_BROWSER_ENDURANCE_TICKS npm run test:game-browser-endurance",
+  "process": {
+    "pid": 38930,
+    "execSessionId": 60841,
+    "exitCode": 0
+  }
+}

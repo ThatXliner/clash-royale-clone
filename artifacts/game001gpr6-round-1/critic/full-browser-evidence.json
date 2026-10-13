@@ -1,0 +1,225 @@
+{
+  "piece": "GAME-001GPR6 browser endurance, round 1",
+  "candidateCommit": "9f64011378d3ce1c6281d9292950a7b52f11fd2c",
+  "candidateTree": "58dca0000e2c574730867ad1973d0e3c09d1af18",
+  "archiveRoot": "/tmp/game001gpr6-critic.r35yL3",
+  "archiveMethod": "git archive --format=tar 9f64011378d3ce1c6281d9292950a7b52f11fd2c | tar -xf - -C /tmp/game001gpr6-critic.r35yL3",
+  "dependencies": {
+    "nodeModulesSymlink": "/tmp/game001gpr6-critic.r35yL3/node_modules",
+    "symlinkTarget": "/Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules",
+    "node": "v22.22.3",
+    "npm": "10.9.8",
+    "playwright": "1.58.2",
+    "chrome": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+  },
+  "command": "env -u GAME_BROWSER_ENDURANCE_TICKS npm run test:game-browser-endurance",
+  "gameBrowserEnduranceTicksUnset": true,
+  "process": {
+    "pid": 38930,
+    "execSessionId": 60841,
+    "exitCode": 0
+  },
+  "tap": {
+    "tests": 2,
+    "pass": 2,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "fullBrowserSubtestDurationMilliseconds": 997382.587334,
+    "completeProcessDurationMilliseconds": 999602.18125
+  },
+  "result": {
+    "durationMilliseconds": 997249,
+    "setupSha256": "306bb30da40ce7c43d6cccce8728449da90fc0e9ca7d13c81f0116ba710aec8c",
+    "seed": 0,
+    "deckSize": 8,
+    "segments": 67,
+    "firstTick": 300,
+    "terminalTick": 18000,
+    "terminalReached": true,
+    "restoreFromTick": 600,
+    "restoreToTick": 300,
+    "restoreSnapshotTick": 300,
+    "acceptedDeliveryRecordCount": 41,
+    "uniqueCommandIds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40
+    ],
+    "decisionCounts": {
+      "frozen-GH-baseline": 35,
+      "overtime-last-lane-aggregate-air-intercept": 6
+    },
+    "yieldPolicy": "raf-scheduler-yield-raf",
+    "schedulerYieldSupported": true,
+    "state": {
+      "terminal": {
+        "crowns": {
+          "north": 1,
+          "south": 2
+        },
+        "deck": {
+          "hand": [
+            "reedsting",
+            "cinderlings",
+            "coilblade",
+            "mossguard"
+          ],
+          "next": "copperskiff",
+          "queue": [
+            "copperskiff",
+            "briar-band",
+            "brassbolt",
+            "skymaul"
+          ],
+          "sequence": 40
+        },
+        "elixir": {
+          "north": {
+            "accumulator": 144,
+            "amount": 0
+          },
+          "south": {
+            "accumulator": 0,
+            "amount": 10
+          }
+        },
+        "terminal": true,
+        "tick": 18000,
+        "towers": [
+          {
+            "hitpoints": 4824,
+            "id": "south:central"
+          },
+          {
+            "hitpoints": 0,
+            "id": "south:lane:west"
+          },
+          {
+            "hitpoints": 289,
+            "id": "south:lane:east"
+          },
+          {
+            "hitpoints": 1182,
+            "id": "north:central"
+          },
+          {
+            "hitpoints": 0,
+            "id": "north:lane:west"
+          },
+          {
+            "hitpoints": 177,
+            "id": "north:lane:east"
+          }
+        ]
+      },
+      "restartSessionTick": 0,
+      "restartAudioCursor": 0,
+      "restartHidden": true,
+      "terminalAudio": {
+        "cursor": 3097,
+        "eventCount": 3097,
+        "sessionTick": 18000,
+        "disposed": true,
+        "terminal": true,
+        "generation": 1,
+        "activeVoiceCount": 0
+      }
+    },
+    "longTaskMaximaMilliseconds": {
+      "maxInitializationLongTaskMilliseconds": 158,
+      "maxRestoreLongTaskMilliseconds": 0,
+      "maxTerminalObservationLongTaskMilliseconds": 0,
+      "maxRestartLongTaskMilliseconds": 0,
+      "maxFinalObserverDrainLongTaskMilliseconds": 0,
+      "maxScreenshotLongTaskMilliseconds": 0,
+      "maxDrivenLongTaskMilliseconds": 0,
+      "maxLongTaskMilliseconds": 158
+    },
+    "longTaskCapsMilliseconds": {
+      "initialization": 300,
+      "nonInitialization": 50
+    },
+    "consoleErrors": [],
+    "resourceErrors": [],
+    "unhandledErrors": [],
+    "pendingResources": [],
+    "browserServerExited": true,
+    "serializedTranscriptEventCountsAtTerminal": {
+      "step": 18000,
+      "pause": 1,
+      "resume": 1,
+      "submit": 40
+    },
+    "restoreObservedBeforeSessionTick": 600,
+    "restoreObservedAfterSessionTick": 300
+  },
+  "restoreAssertionsPassedWithTestExitZero": [
+    "600\u2192300 browser restore matched direct canonical session bytes and E2 bridge history",
+    "300\u2192600 browser replay reproduced exact browser snapshot, direct session bytes, E2 bridge bytes, projected layers, and audio continuation bytes",
+    "post-restore physical E2 delivery was observed"
+  ],
+  "hashVerification": {
+    "trackedGitBlobsBeforeRun": 3003,
+    "trackedEntries": 3003,
+    "preRunMismatchCount": 0,
+    "sourceRuntimeCount": 144,
+    "sourceRuntimeHashesUnchanged": true,
+    "candidateHarnessCount": 6,
+    "candidateHarnessHashesUnchanged": true,
+    "trackedPathsChangedDuringRun": [
+      "artifacts/game-001gp-browser-endurance/active.png",
+      "artifacts/game-001gp-browser-endurance/endurance-result.json",
+      "artifacts/game-001gp-browser-endurance/restart.png",
+      "artifacts/game-001gp-browser-endurance/terminal.png"
+    ]
+  },
+  "freshFiles": {
+    "rawLog": "full-browser.raw.log",
+    "tap": "browser-full/full-browser.tap",
+    "result": "browser-full/endurance-result.json",
+    "screenshots": [
+      "browser-full/active.png",
+      "browser-full/terminal.png",
+      "browser-full/restart.png"
+    ]
+  }
+}

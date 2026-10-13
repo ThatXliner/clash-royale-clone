@@ -1,0 +1,9 @@
+Candidate: 9f64011378d3ce1c6281d9292950a7b52f11fd2c
+Tree: 58dca0000e2c574730867ad1973d0e3c09d1af18
+Archive: /tmp/game001gpr6-critic.r35yL3
+Archive: git archive --format=tar 9f64011378d3ce1c6281d9292950a7b52f11fd2c | tar -xf - -C /tmp/game001gpr6-critic.r35yL3
+node_modules symlink: /tmp/game001gpr6-critic.r35yL3/node_modules -> /Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules
+Command: env -u GAME_BROWSER_ENDURANCE_TICKS npm run test:game-browser-endurance
+Process: PID 38930; exec session 60841; exit code 0
+Node v22.22.3; npm 10.9.8; Playwright 1.58.2; Chrome /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+Full browser subtest: 997382.587334 ms; complete process: 999602.181250 ms
