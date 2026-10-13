@@ -1,5 +1,17 @@
 # Gauntlet Rounds
 
+## Round 410 — 2026-10-13
+
+PIECE: CARDS-016I — Two air-swarm choices in player and RL decks, round 2
+
+VERDICT: PASS
+
+EVIDENCE: Independent exacta8c39bc critic980730f executes six suites58/58: browser1/1, focused13/13, editable10/10, RL11/11, nondeterminism10/10 and shipping13/13. Actual trusted Gloamwing5-member2-elixir and Coppershade6-member5-elixir deployments, airborne projectile contact, typed QUESTIONS and exact in-flight restore/replay pass. Editable choices18/default8, actual390x844 and1440x933 screens withoutoverflow, phoneiframe370.7x659. Receipt/TAP/screens under `artifacts/cards016-integration-round-2/critic/` retained from980730f.
+
+BIGGEST GAP: None for editable integration; historical geometry and spawn timing remain separately CARDS016D/T.
+
+DISPOSITION: Accept both additional player/JS-RL choices. Public deployment remains verified16-card snapshot; full109-card objective remains active. Next implement newly source-confirmed relative deployment interval without inventing formation geometry/onset.
+
 ## Round 409 — 2026-10-13
 
 PIECE: ART-016 — Original light and projectile air-swarm portraits, round 1
