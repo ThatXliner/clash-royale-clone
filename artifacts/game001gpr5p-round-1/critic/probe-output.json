@@ -1,0 +1,123 @@
+{
+  "provenance": {
+    "frozenJsonPath": "artifacts/game001gpr5-round-1/critic/browser-artifacts/endurance-result.json",
+    "frozenJsonSha256": "bd06ef21ccd243f48667a1ffdcb5d522613fcf03f3f3b311852dc9c8e4e90594",
+    "copiedReplayInputSha256": "bd06ef21ccd243f48667a1ffdcb5d522613fcf03f3f3b311852dc9c8e4e90594",
+    "derivedManifestSha256": "fdd388158b97cf5f12cd32bc4a3804739b5fbaad753f4dc403e3bce9fe9c4a19",
+    "replay1Sha256": "4a36209411309ccbc0e889b9d12f8d36f0890d7e36e34a934c070954c81bc61a",
+    "replay2Sha256": "4a36209411309ccbc0e889b9d12f8d36f0890d7e36e34a934c070954c81bc61a",
+    "replayOutputsByteIdentical": true,
+    "checkpointChecks": [
+      {
+        "file": "checkpoint-9000.session.json",
+        "tick": 9000,
+        "bytes": 185675,
+        "sha256": "1b7654cbe156ec3fcc40422a4f6190259d18d9998a416a1bcfb7297f6ab284c3"
+      },
+      {
+        "file": "checkpoint-10800.session.json",
+        "tick": 10800,
+        "bytes": 215003,
+        "sha256": "109caacd5076f4e5518fc43b95db73e687495046d1b7b91ce334978c45b8cf94"
+      },
+      {
+        "file": "checkpoint-12000.session.json",
+        "tick": 12000,
+        "bytes": 234469,
+        "sha256": "56f8642516fce35b01940855b3c3ab4c2ec2e5680ceb32770834acc64594147f"
+      },
+      {
+        "file": "checkpoint-12600.session.json",
+        "tick": 12600,
+        "bytes": 244069,
+        "sha256": "160b5fb685fc01a2e6f6d1cb7e603b16c93c56191bdcf930ae754b7027d396da"
+      },
+      {
+        "file": "checkpoint-12900.session.json",
+        "tick": 12900,
+        "bytes": 248999,
+        "sha256": "9f420ab238a67caa61d98504fa60774297d1c8cadeba9446221b0cf33ce9600e"
+      },
+      {
+        "file": "checkpoint-13200.session.json",
+        "tick": 13200,
+        "bytes": 253931,
+        "sha256": "a22b0f21b759ace346928fa757e896cafea89b759302a6c35f57ccd28dd01897"
+      }
+    ]
+  },
+  "probes": {
+    "plannerFunctionSha256": "3b7e904a9e83cdf3b0d820c792d2d14304a1e0724001851346af23bb8226caf9",
+    "plannerBodyMatchesPreChangeAfterGuardRemovalAndWhitespaceNormalization": true,
+    "tick13200Plan": {
+      "cardId": "cinderlings",
+      "point": {
+        "x": 14500,
+        "y": 5500
+      },
+      "slot": 0,
+      "tick": 13200
+    },
+    "recordedActivePlan": {
+      "cardId": "cinderlings",
+      "point": {
+        "x": 14500,
+        "y": 5500
+      },
+      "slot": 0,
+      "tick": 13200
+    },
+    "terminalPlanner": null,
+    "exactTerminalDiagnostic": "endurance workload ended naturally at tick 13351 before required tick 18000 (overtime_sudden_death; north won)",
+    "forged18000TickStillThrows": "endurance workload ended naturally at tick 13351 before required tick 18000 (overtime_sudden_death; north won)",
+    "exact18000ActiveGate": true,
+    "fakeManifestTickAndResultRejectedByPinnedExpectedValues": true,
+    "alteredTranscriptHashRejected": true
+  },
+  "runtime": {
+    "unchangedFrom6c7": true,
+    "battleKernelSha256": "eab70aaddccc9b60fb52d701cf0efcf37b343dc07de79650364f35f47b7f0335",
+    "frozenRuntimeFiles": [
+      {
+        "path": "src/ui/game-browser-entry.js",
+        "sha256": "3ca73736f019a65dd3d2bde8157eda4479aad2121154d5968c715cb14af52436"
+      },
+      {
+        "path": "src/content/playable-roster.js",
+        "sha256": "61107646cd9beae6871fc54360ad71a17824ea38d5588531effdef496b26b052"
+      },
+      {
+        "path": "src/sim/game-session.js",
+        "sha256": "a11f43213632bcd7be3d4945846cf5dcbfaeaf4b961a32c420c590f67519daa1"
+      },
+      {
+        "path": "src/sim/live-battle.js",
+        "sha256": "208186e8d90ba1501f563f55d42f2bb5ec5da1daaea46b96ef41c74b1a48da2a"
+      },
+      {
+        "path": "src/audio/game-audio-runtime.js",
+        "sha256": "9e6b8bc0e0ee0a29f32670e5065276caa94e23779ba257efe7aa906afd2f11b5"
+      },
+      {
+        "path": "src/ui/game-browser-loop.js",
+        "sha256": "47737f280606bbe508efb8687e575dadb7ed965be26d04f424846f67c273910a"
+      },
+      {
+        "path": "src/ui/input-controller.js",
+        "sha256": "2d98212b2fde12ebd44acc878d8249769329d8b5d46b731eb2db189f503a00e8"
+      },
+      {
+        "path": "src/ui/game-ui-projection.js",
+        "sha256": "0fc416dcdcbf17d39fdd38b343899b4f3742bfa37e78887e704f9a9fdf0a8696"
+      },
+      {
+        "path": "src/ui/arena-shell.js",
+        "sha256": "4df15178ed296d2a20bb5216db98931e24c9ac3ce7fd60cf97cbe79119ce5249"
+      },
+      {
+        "path": "src/ui/hud-state.js",
+        "sha256": "37293c154f763df41c5896d9876d9d25648b4fc3e3892c732b09b88567edc152"
+      }
+    ]
+  }
+}

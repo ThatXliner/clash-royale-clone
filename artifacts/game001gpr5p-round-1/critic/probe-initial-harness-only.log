@@ -1,0 +1,118 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: the extracted planner function is byte-for-byte identical to its pre-change body
++ actual - expected
+... Skipped lines
+
+  'function plannedSouthAttempt(session) {\n' +
+    '  const state = session.state;\n' +
++   '  if (state.terminal) return null;\n' +
+    '  const incoming = state.battle.units.filter(({ alive, position, side }) =>\n' +
+    '    alive && side === "north" && position.y < 15_000);\n' +
+    '  const lastSouthDeploymentTick = state.cardRuntime.history\n' +
+    '    .filter(({ side }) => side === "south").at(-1)?.tick ?? 0;\n' +
+    '  const guardRefreshDue = state.tick - lastSouthDeploymentTick >= 900;\n' +
+...
+    '    : lanes.sort((left, right) => Math.abs(left.position.x - nearestThreat.position.x) -\n' +
++   '      Math.abs(right.position.x - nearestThreat.position.x) ||\n' +
++   '      left.id.localeCompare(right.id))[0];\n' +
+-   '      Math.abs(right.position.x - nearestThreat.position.x) || left.id.localeCompare(right.id))[0];\n' +
+    '  assert.ok(lane, "a threatened south lane is present in canonical tower state");\n' +
+    '  return {\n' +
+    '    cardId: card.cardId,\n' +
+    '    point: { x: lane.position.x, y: lane.position.y - 2_000 },\n' +
+    '    slot: card.slot,\n' +
+
+    at file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/game001gpr5p-round-1/critic/probe-endurance-workload.mjs:82:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 'function plannedSouthAttempt(session) {\n' +
+    '  const state = session.state;\n' +
+    '  if (state.terminal) return null;\n' +
+    '  const incoming = state.battle.units.filter(({ alive, position, side }) =>\n' +
+    '    alive && side === "north" && position.y < 15_000);\n' +
+    '  const lastSouthDeploymentTick = state.cardRuntime.history\n' +
+    '    .filter(({ side }) => side === "south").at(-1)?.tick ?? 0;\n' +
+    '  const guardRefreshDue = state.tick - lastSouthDeploymentTick >= 900;\n' +
+    '  if (incoming.length === 0 && !guardRefreshDue) return null;\n' +
+    '  const candidates = state.decks.south.hand.map((cardId, slot) =>\n' +
+    '    ({ ...DEFENSIVE_PROFILE.get(cardId), cardId, cost: COSTS.get(cardId), slot }))\n' +
+    '    .sort((left, right) => right.durability - left.durability || left.speed - right.speed ||\n' +
+    '      left.cost - right.cost || left.cardId.localeCompare(right.cardId));\n' +
+    '  const airThreat = incoming.some(({ layer }) => layer === "air");\n' +
+    '  const card = incoming.length === 0\n' +
+    '    ? candidates[0]\n' +
+    '    : candidates.filter(({ cost }) => cost <= state.elixir.sides.south.amount)\n' +
+    '      .sort((left, right) => {\n' +
+    '        const pressure = airThreat ? "airPressure" : "groundPressure";\n' +
+    '        return right[pressure] - left[pressure] || right.range - left.range ||\n' +
+    '          right.durability - left.durability || left.speed - right.speed ||\n' +
+    '          left.cost - right.cost || left.cardId.localeCompare(right.cardId);\n' +
+    '      })[0];\n' +
+    '  if (card === undefined || card.cost > state.elixir.sides.south.amount) return null;\n' +
+    '  const lanes = state.battle.towers.filter(({ id }) => id.startsWith("south:lane:"));\n' +
+    '  const nearestThreat = incoming.sort((left, right) =>\n' +
+    '    left.position.y - right.position.y || left.id - right.id)[0];\n' +
+    '  const lane = nearestThreat === undefined\n' +
+    '    ? lanes.sort((left, right) => left.hitpoints - right.hitpoints ||\n' +
+    '      left.id.localeCompare(right.id))[0]\n' +
+    '    : lanes.sort((left, right) => Math.abs(left.position.x - nearestThreat.position.x) -\n' +
+    '      Math.abs(right.position.x - nearestThreat.position.x) ||\n' +
+    '      left.id.localeCompare(right.id))[0];\n' +
+    '  assert.ok(lane, "a threatened south lane is present in canonical tower state");\n' +
+    '  return {\n' +
+    '    cardId: card.cardId,\n' +
+    '    point: { x: lane.position.x, y: lane.position.y - 2_000 },\n' +
+    '    slot: card.slot,\n' +
+    '    tick: state.tick,\n' +
+    '  };\n' +
+    '}',
+  expected: 'function plannedSouthAttempt(session) {\n' +
+    '  const state = session.state;\n' +
+    '  const incoming = state.battle.units.filter(({ alive, position, side }) =>\n' +
+    '    alive && side === "north" && position.y < 15_000);\n' +
+    '  const lastSouthDeploymentTick = state.cardRuntime.history\n' +
+    '    .filter(({ side }) => side === "south").at(-1)?.tick ?? 0;\n' +
+    '  const guardRefreshDue = state.tick - lastSouthDeploymentTick >= 900;\n' +
+    '  if (incoming.length === 0 && !guardRefreshDue) return null;\n' +
+    '  const candidates = state.decks.south.hand.map((cardId, slot) =>\n' +
+    '    ({ ...DEFENSIVE_PROFILE.get(cardId), cardId, cost: COSTS.get(cardId), slot }))\n' +
+    '    .sort((left, right) => right.durability - left.durability || left.speed - right.speed ||\n' +
+    '      left.cost - right.cost || left.cardId.localeCompare(right.cardId));\n' +
+    '  const airThreat = incoming.some(({ layer }) => layer === "air");\n' +
+    '  const card = incoming.length === 0\n' +
+    '    ? candidates[0]\n' +
+    '    : candidates.filter(({ cost }) => cost <= state.elixir.sides.south.amount)\n' +
+    '      .sort((left, right) => {\n' +
+    '        const pressure = airThreat ? "airPressure" : "groundPressure";\n' +
+    '        return right[pressure] - left[pressure] || right.range - left.range ||\n' +
+    '          right.durability - left.durability || left.speed - right.speed ||\n' +
+    '          left.cost - right.cost || left.cardId.localeCompare(right.cardId);\n' +
+    '      })[0];\n' +
+    '  if (card === undefined || card.cost > state.elixir.sides.south.amount) return null;\n' +
+    '  const lanes = state.battle.towers.filter(({ id }) => id.startsWith("south:lane:"));\n' +
+    '  const nearestThreat = incoming.sort((left, right) =>\n' +
+    '    left.position.y - right.position.y || left.id - right.id)[0];\n' +
+    '  const lane = nearestThreat === undefined\n' +
+    '    ? lanes.sort((left, right) => left.hitpoints - right.hitpoints ||\n' +
+    '      left.id.localeCompare(right.id))[0]\n' +
+    '    : lanes.sort((left, right) => Math.abs(left.position.x - nearestThreat.position.x) -\n' +
+    '      Math.abs(right.position.x - nearestThreat.position.x) || left.id.localeCompare(right.id))[0];\n' +
+    '  assert.ok(lane, "a threatened south lane is present in canonical tower state");\n' +
+    '  return {\n' +
+    '    cardId: card.cardId,\n' +
+    '    point: { x: lane.position.x, y: lane.position.y - 2_000 },\n' +
+    '    slot: card.slot,\n' +
+    '    tick: state.tick,\n' +
+    '  };\n' +
+    '}',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.22.3
