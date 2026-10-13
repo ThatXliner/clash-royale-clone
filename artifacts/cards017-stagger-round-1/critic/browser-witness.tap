@@ -1,0 +1,348 @@
+{
+  "commit": "c981ec2444b9d2f08dacdb5c6f04ce6b5b786dfb",
+  "source": "public/ui-arena-shell.html via tests/game-browser-journey-server.js",
+  "result": "PASS",
+  "witness": "trusted pointer input deploys Briar Band; live browser DOM and GameSession show one additional member every six ticks",
+  "results": [
+    {
+      "consoleErrors": [],
+      "deployment": {
+        "deployment": {
+          "cardId": "briar-band",
+          "entityIds": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "point": {
+            "x": 9000,
+            "y": 7610
+          },
+          "sequence": 0,
+          "side": "south",
+          "tick": 0,
+          "type": "deployed"
+        },
+        "side": "south",
+        "spend": {
+          "accepted": true,
+          "amountAfter": 7,
+          "cost": 3,
+          "reason": "accepted",
+          "sequence": 0,
+          "side": "south",
+          "tick": 0,
+          "type": "spend"
+        },
+        "tick": 0,
+        "type": "session-deployed"
+      },
+      "hand": [
+        "briar-band",
+        "copperskiff",
+        "mossguard",
+        "cinderlings"
+      ],
+      "pageErrors": [],
+      "screenshots": [
+        {
+          "file": "phone-720x1280-tick-1.png",
+          "sha256": "8f3dd78aa4df40fbf79586085a1961337e9f60edf43479ed568df04b0e322593"
+        },
+        {
+          "file": "phone-720x1280-tick-7.png",
+          "sha256": "603d59983e559d63a6325319ac972f50f17d5a2c184527d4de7525f13275f11b"
+        },
+        {
+          "file": "phone-720x1280-tick-31.png",
+          "sha256": "c8ab459279d69ec5067a8cf6b1247cddc4340e685262ee46bc3bfabc81880b7d"
+        }
+      ],
+      "viewport": {
+        "height": 1280,
+        "name": "phone-720x1280",
+        "width": 720
+      },
+      "boundaries": [
+        {
+          "archetypes": [
+            "briar-runner"
+          ],
+          "domMarkerCount": 1,
+          "domKinds": [
+            "briar-runner"
+          ],
+          "simulationTick": 1,
+          "uiTick": 1,
+          "unitCount": 1,
+          "screenshot": "phone-720x1280-tick-1.png"
+        },
+        {
+          "archetypes": [
+            "briar-runner",
+            "briar-runner"
+          ],
+          "domMarkerCount": 2,
+          "domKinds": [
+            "briar-runner",
+            "briar-runner"
+          ],
+          "simulationTick": 7,
+          "uiTick": 7,
+          "unitCount": 2,
+          "screenshot": "phone-720x1280-tick-7.png"
+        },
+        {
+          "archetypes": [
+            "briar-runner",
+            "briar-runner",
+            "briar-runner"
+          ],
+          "domMarkerCount": 3,
+          "domKinds": [
+            "briar-runner",
+            "briar-runner",
+            "briar-runner"
+          ],
+          "simulationTick": 13,
+          "uiTick": 13,
+          "unitCount": 3
+        },
+        {
+          "archetypes": [
+            "briar-runner",
+            "briar-runner",
+            "briar-runner",
+            "briar-darter"
+          ],
+          "domMarkerCount": 4,
+          "domKinds": [
+            "briar-runner",
+            "briar-runner",
+            "briar-runner",
+            "briar-darter"
+          ],
+          "simulationTick": 19,
+          "uiTick": 19,
+          "unitCount": 4
+        },
+        {
+          "archetypes": [
+            "briar-runner",
+            "briar-runner",
+            "briar-runner",
+            "briar-darter",
+            "briar-darter"
+          ],
+          "domMarkerCount": 5,
+          "domKinds": [
+            "briar-runner",
+            "briar-runner",
+            "briar-runner",
+            "briar-darter",
+            "briar-darter"
+          ],
+          "simulationTick": 25,
+          "uiTick": 25,
+          "unitCount": 5
+        },
+        {
+          "archetypes": [
+            "briar-runner",
+            "briar-runner",
+            "briar-runner",
+            "briar-darter",
+            "briar-darter",
+            "briar-darter"
+          ],
+          "domMarkerCount": 6,
+          "domKinds": [
+            "briar-runner",
+            "briar-runner",
+            "briar-runner",
+            "briar-darter",
+            "briar-darter",
+            "briar-darter"
+          ],
+          "simulationTick": 31,
+          "uiTick": 31,
+          "unitCount": 6,
+          "screenshot": "phone-720x1280-tick-31.png"
+        }
+      ]
+    },
+    {
+      "consoleErrors": [],
+      "deployment": {
+        "deployment": {
+          "cardId": "briar-band",
+          "entityIds": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "point": {
+            "x": 9000,
+            "y": 7610
+          },
+          "sequence": 0,
+          "side": "south",
+          "tick": 0,
+          "type": "deployed"
+        },
+        "side": "south",
+        "spend": {
+          "accepted": true,
+          "amountAfter": 7,
+          "cost": 3,
+          "reason": "accepted",
+          "sequence": 0,
+          "side": "south",
+          "tick": 0,
+          "type": "spend"
+        },
+        "tick": 0,
+        "type": "session-deployed"
+      },
+      "hand": [
+        "briar-band",
+        "copperskiff",
+        "mossguard",
+        "cinderlings"
+      ],
+      "pageErrors": [],
+      "screenshots": [
+        {
+          "file": "desktop-1440x900-tick-1.png",
+          "sha256": "ee0ee4d0585329782aae6ed7ffcb2f23fbcc7c5f35763ead73a0ac73304c4efc"
+        },
+        {
+          "file": "desktop-1440x900-tick-7.png",
+          "sha256": "0ee608f64609a5cf793aa719d3f1d7094aede38644e4eaf0e4e78eac59f65652"
+        },
+        {
+          "file": "desktop-1440x900-tick-31.png",
+          "sha256": "2282c4c4915fcbdb49c0b56879fb29ceefee9dfc8bb5ff694fd6a2a48576ea6d"
+        }
+      ],
+      "viewport": {
+        "height": 900,
+        "name": "desktop-1440x900",
+        "width": 1440
+      },
+      "boundaries": [
+        {
+          "archetypes": [
+            "briar-runner"
+          ],
+          "domMarkerCount": 1,
+          "domKinds": [
+            "briar-runner"
+          ],
+          "simulationTick": 1,
+          "uiTick": 1,
+          "unitCount": 1,
+          "screenshot": "desktop-1440x900-tick-1.png"
+        },
+        {
+          "archetypes": [
+            "briar-runner",
+            "briar-runner"
+          ],
+          "domMarkerCount": 2,
+          "domKinds": [
+            "briar-runner",
+            "briar-runner"
+          ],
+          "simulationTick": 7,
+          "uiTick": 7,
+          "unitCount": 2,
+          "screenshot": "desktop-1440x900-tick-7.png"
+        },
+        {
+          "archetypes": [
+            "briar-runner",
+            "briar-runner",
+            "briar-runner"
+          ],
+          "domMarkerCount": 3,
+          "domKinds": [
+            "briar-runner",
+            "briar-runner",
+            "briar-runner"
+          ],
+          "simulationTick": 13,
+          "uiTick": 13,
+          "unitCount": 3
+        },
+        {
+          "archetypes": [
+            "briar-runner",
+            "briar-runner",
+            "briar-runner",
+            "briar-darter"
+          ],
+          "domMarkerCount": 4,
+          "domKinds": [
+            "briar-runner",
+            "briar-runner",
+            "briar-runner",
+            "briar-darter"
+          ],
+          "simulationTick": 19,
+          "uiTick": 19,
+          "unitCount": 4
+        },
+        {
+          "archetypes": [
+            "briar-runner",
+            "briar-runner",
+            "briar-runner",
+            "briar-darter",
+            "briar-darter"
+          ],
+          "domMarkerCount": 5,
+          "domKinds": [
+            "briar-runner",
+            "briar-runner",
+            "briar-runner",
+            "briar-darter",
+            "briar-darter"
+          ],
+          "simulationTick": 25,
+          "uiTick": 25,
+          "unitCount": 5
+        },
+        {
+          "archetypes": [
+            "briar-runner",
+            "briar-runner",
+            "briar-runner",
+            "briar-darter",
+            "briar-darter",
+            "briar-darter"
+          ],
+          "domMarkerCount": 6,
+          "domKinds": [
+            "briar-runner",
+            "briar-runner",
+            "briar-runner",
+            "briar-darter",
+            "briar-darter",
+            "briar-darter"
+          ],
+          "simulationTick": 31,
+          "uiTick": 31,
+          "unitCount": 6,
+          "screenshot": "desktop-1440x900-tick-31.png"
+        }
+      ]
+    }
+  ]
+}

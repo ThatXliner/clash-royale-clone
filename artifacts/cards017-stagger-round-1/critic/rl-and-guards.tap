@@ -1,0 +1,342 @@
+TAP version 13
+# Subtest: game roster admission: manifest is the exact integration occurrence surface with explicit exclusions
+not ok 1 - game roster admission: manifest is the exact integration occurrence surface with explicit exclusions
+  ---
+  duration_ms: 384.142167
+  type: 'test'
+  location: '/private/tmp/clash-cards017-critic/tests/game-roster-admission.test.js:91:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    occurrence adapters failed with status 1
+    file:///private/tmp/clash-cards017-critic/tests/fixtures/integration-occurrence-adapters.js:205
+        throw new Error(`${specification.id} shared squad expansion diverged from its source count`);
+              ^
+    
+    Error: coppershade-flock shared squad expansion diverged from its source count
+        at ordinaryProjectileSquad (file:///private/tmp/clash-cards017-critic/tests/fixtures/integration-occurrence-adapters.js:205:11)
+        at file:///private/tmp/clash-cards017-critic/tests/fixtures/integration-occurrence-adapters.js:729:10
+        at Array.map (<anonymous>)
+        at file:///private/tmp/clash-cards017-critic/tests/fixtures/integration-occurrence-adapters.js:724:34
+        at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+        at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+        at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+    
+    Node.js v22.22.3
+    
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    ordinaryProjectileSquad (file:///private/tmp/clash-cards017-critic/tests/fixtures/integration-occurrence-adapters.js:205:11)
+    file:///private/tmp/clash-cards017-critic/tests/fixtures/integration-occurrence-adapters.js:729:10
+    Array.map (<anonymous>)
+    file:///private/tmp/clash-cards017-critic/tests/fixtures/integration-occurrence-adapters.js:724:34
+    ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+    async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+    executeOccurrenceAdapters (file:///private/tmp/clash-cards017-critic/scripts/integration-audit.js:511:11)
+    probeDirectOccurrenceAdapters (file:///private/tmp/clash-cards017-critic/scripts/integration-audit.js:531:21)
+    TestContext.<anonymous> (file:///private/tmp/clash-cards017-critic/tests/game-roster-admission.test.js:93:23)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: game roster admission: every admitted ID has one exact legal eight-card witness
+ok 2 - game roster admission: every admitted ID has one exact legal eight-card witness
+  ---
+  duration_ms: 7.474542
+  type: 'test'
+  ...
+# Subtest: game roster admission: runtime routes each admitted kind once and restores canonical history
+ok 3 - game roster admission: runtime routes each admitted kind once and restores canonical history
+  ---
+  duration_ms: 5.521166
+  type: 'test'
+  ...
+# Subtest: game roster admission: non-unit battle cards admit but can never materialize placeholders
+not ok 4 - game roster admission: non-unit battle cards admit but can never materialize placeholders
+  ---
+  duration_ms: 19.691875
+  type: 'test'
+  location: '/private/tmp/clash-cards017-critic/tests/game-roster-admission.test.js:163:1'
+  failureType: 'testCodeFailure'
+  error: 'roster[6].entities[0] source confidence field lacks a QUESTION record'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    assertSessionTroopSourceConfidenceQuestions (file:///private/tmp/clash-cards017-critic/src/shared/session-troop-source-confidence-authority.js:136:13)
+    file:///private/tmp/clash-cards017-critic/src/sim/battle-continuation-kernel.js:5983:42
+    Array.map (<anonymous>)
+    file:///private/tmp/clash-cards017-critic/src/sim/battle-continuation-kernel.js:5965:10
+    Array.map (<anonymous>)
+    checkedSetup (file:///private/tmp/clash-cards017-critic/src/sim/battle-continuation-kernel.js:5947:6)
+    admittedSetup (file:///private/tmp/clash-cards017-critic/src/sim/battle-continuation-kernel.js:6249:41)
+    new LiveBattle (file:///private/tmp/clash-cards017-critic/src/sim/battle-continuation-kernel.js:6839:19)
+    new LiveBattle (file:///private/tmp/clash-cards017-critic/src/sim/live-battle.js:23:5)
+    TestContext.<anonymous> (file:///private/tmp/clash-cards017-critic/tests/game-roster-admission.test.js:165:18)
+  ...
+# Subtest: game roster admission: GameSession spends, cycles, and records one typed route per play
+not ok 5 - game roster admission: GameSession spends, cycles, and records one typed route per play
+  ---
+  duration_ms: 28.952375
+  type: 'test'
+  location: '/private/tmp/clash-cards017-critic/tests/game-roster-admission.test.js:191:1'
+  failureType: 'testCodeFailure'
+  error: 'roster[6].entities[0] source confidence field lacks a QUESTION record'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    assertSessionTroopSourceConfidenceQuestions (file:///private/tmp/clash-cards017-critic/src/shared/session-troop-source-confidence-authority.js:136:13)
+    file:///private/tmp/clash-cards017-critic/src/sim/battle-continuation-kernel.js:5983:42
+    Array.map (<anonymous>)
+    file:///private/tmp/clash-cards017-critic/src/sim/battle-continuation-kernel.js:5965:10
+    Array.map (<anonymous>)
+    checkedSetup (file:///private/tmp/clash-cards017-critic/src/sim/battle-continuation-kernel.js:5947:6)
+    admittedSetup (file:///private/tmp/clash-cards017-critic/src/sim/battle-continuation-kernel.js:6249:41)
+    new LiveBattle (file:///private/tmp/clash-cards017-critic/src/sim/battle-continuation-kernel.js:6839:19)
+    validateSetup (file:///private/tmp/clash-cards017-critic/src/sim/battle-continuation-kernel.js:12046:7)
+    new GameSession (file:///private/tmp/clash-cards017-critic/src/sim/battle-continuation-kernel.js:12205:21)
+  ...
+# Subtest: game roster admission: non-unit session history is chunk- and restore-exact
+not ok 6 - game roster admission: non-unit session history is chunk- and restore-exact
+  ---
+  duration_ms: 22.09875
+  type: 'test'
+  location: '/private/tmp/clash-cards017-critic/tests/game-roster-admission.test.js:223:1'
+  failureType: 'testCodeFailure'
+  error: 'roster[6].entities[0] source confidence field lacks a QUESTION record'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    assertSessionTroopSourceConfidenceQuestions (file:///private/tmp/clash-cards017-critic/src/shared/session-troop-source-confidence-authority.js:136:13)
+    file:///private/tmp/clash-cards017-critic/src/sim/battle-continuation-kernel.js:5983:42
+    Array.map (<anonymous>)
+    file:///private/tmp/clash-cards017-critic/src/sim/battle-continuation-kernel.js:5965:10
+    Array.map (<anonymous>)
+    checkedSetup (file:///private/tmp/clash-cards017-critic/src/sim/battle-continuation-kernel.js:5947:6)
+    admittedSetup (file:///private/tmp/clash-cards017-critic/src/sim/battle-continuation-kernel.js:6249:41)
+    new LiveBattle (file:///private/tmp/clash-cards017-critic/src/sim/battle-continuation-kernel.js:6839:19)
+    validateSetup (file:///private/tmp/clash-cards017-critic/src/sim/battle-continuation-kernel.js:12046:7)
+    new GameSession (file:///private/tmp/clash-cards017-critic/src/sim/battle-continuation-kernel.js:12205:21)
+  ...
+# Subtest: game roster admission: hostile runtime admission is bounded, trap-zero, and atomic
+ok 7 - game roster admission: hostile runtime admission is bounded, trap-zero, and atomic
+  ---
+  duration_ms: 17.86975
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: rejects direct and adversarial syntax-aware fixtures
+ok 8 - nondeterminism-guard: rejects direct and adversarial syntax-aware fixtures
+  ---
+  duration_ms: 21.870875
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: permits deterministic locals and ignores comments and strings
+ok 9 - nondeterminism-guard: permits deterministic locals and ignores comments and strings
+  ---
+  duration_ms: 2.253208
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: binds function, catch, class, and nested lexical shadows exactly
+ok 10 - nondeterminism-guard: binds function, catch, class, and nested lexical shadows exactly
+  ---
+  duration_ms: 2.882584
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: scans every simulation module and probes its runtime boundary
+ok 11 - nondeterminism-guard: scans every simulation module and probes its runtime boundary
+  ---
+  duration_ms: 682.481666
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: simulation closure admits only the exact neutral authority
+ok 12 - nondeterminism-guard: simulation closure admits only the exact neutral authority
+  ---
+  duration_ms: 225.06775
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: runtime probe denies computed capabilities the analyzer cannot resolve
+ok 13 - nondeterminism-guard: runtime probe denies computed capabilities the analyzer cannot resolve
+  ---
+  duration_ms: 57.767167
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: closes all five dormant-function critic bypasses without invoking exports
+ok 14 - nondeterminism-guard: closes all five dormant-function critic bypasses without invoking exports
+  ---
+  duration_ms: 99.787834
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: runtime linker accepts a bounded cyclic local module graph
+ok 15 - nondeterminism-guard: runtime linker accepts a bounded cyclic local module graph
+  ---
+  duration_ms: 52.505125
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: reports canonical output and fails a source set atomically
+ok 16 - nondeterminism-guard: reports canonical output and fails a source set atomically
+  ---
+  duration_ms: 0.920666
+  type: 'test'
+  ...
+# Subtest: nondeterminism-guard: enforces hostile size, depth, and file-count bounds
+ok 17 - nondeterminism-guard: enforces hostile size, depth, and file-count bounds
+  ---
+  duration_ms: 0.822584
+  type: 'test'
+  ...
+# Subtest: RL environment exposes a finite action catalogue and masks legal deploys
+ok 18 - RL environment exposes a finite action catalogue and masks legal deploys
+  ---
+  duration_ms: 127.788
+  type: 'test'
+  ...
+# Subtest: seeded trajectories and restored checkpoints continue identically
+ok 19 - seeded trajectories and restored checkpoints continue identically
+  ---
+  duration_ms: 298.615083
+  type: 'test'
+  ...
+# Subtest: separate instances and a custom shared deck remain independent
+ok 20 - separate instances and a custom shared deck remain independent
+  ---
+  duration_ms: 34.711583
+  type: 'test'
+  ...
+# Subtest: RL mask casts an editable Squall Orb center point and restores its pending effect
+ok 21 - RL mask casts an editable Squall Orb center point and restores its pending effect
+  ---
+  duration_ms: 59.281375
+  type: 'test'
+  ...
+# Subtest: RL reset and legal mask deploy both sourced projectile squads with exact deck restore
+ok 22 - RL reset and legal mask deploy both sourced projectile squads with exact deck restore
+  ---
+  duration_ms: 305.995958
+  type: 'test'
+  ...
+# Subtest: horizon clipping truncates exactly and rejects later steps
+ok 23 - horizon clipping truncates exactly and rejects later steps
+  ---
+  duration_ms: 85.780166
+  type: 'test'
+  ...
+# Subtest: restore rejects paused or pending GameSession checkpoints
+ok 24 - restore rejects paused or pending GameSession checkpoints
+  ---
+  duration_ms: 66.33225
+  type: 'test'
+  ...
+# Subtest: masked and out-of-range actions are atomic
+ok 25 - masked and out-of-range actions are atomic
+  ---
+  duration_ms: 12.134166
+  type: 'test'
+  ...
+# Subtest: observations are allowlisted, JSON-safe, and detached
+ok 26 - observations are allowlisted, JSON-safe, and detached
+  ---
+  duration_ms: 16.053458
+  type: 'test'
+  ...
+# Subtest: natural engine completion reports one sparse reward and seals the episode
+ok 27 - natural engine completion reports one sparse reward and seals the episode
+  ---
+  duration_ms: 61296.781417
+  type: 'test'
+  ...
+# Subtest: wait-only seed 2 reaches its pinned natural engine terminal after checkpoint restore
+ok 28 - wait-only seed 2 reaches its pinned natural engine terminal after checkpoint restore
+  ---
+  duration_ms: 61487.187125
+  type: 'test'
+  ...
+# shipping guard Node package targets: 4/4 covered
+# shipping guard reference adversaries: 12/12 detected
+# shipping guard identity adversaries: 11/11 detected
+# Subtest: shipping isolation guard: clean graph is canonical and excludes test fixtures
+ok 29 - shipping isolation guard: clean graph is canonical and excludes test fixtures
+  ---
+  duration_ms: 225.199708
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: rejects every encoded reference specifier form
+ok 30 - shipping isolation guard: rejects every encoded reference specifier form
+  ---
+  duration_ms: 7.441542
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: rejects protected identities after static evaluation
+ok 31 - shipping isolation guard: rejects protected identities after static evaluation
+  ---
+  duration_ms: 9.2835
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: scans unreachable distributable outputs bytewise
+ok 32 - shipping isolation guard: scans unreachable distributable outputs bytewise
+  ---
+  duration_ms: 1.59675
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: detects embedded reference-file bytes
+ok 33 - shipping isolation guard: detects embedded reference-file bytes
+  ---
+  duration_ms: 1.366708
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: rejects unresolved dynamic specifiers fail-closed
+ok 34 - shipping isolation guard: rejects unresolved dynamic specifiers fail-closed
+  ---
+  duration_ms: 14.226084
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: benign words, similar paths, URLs, and comments pass
+ok 35 - shipping isolation guard: benign words, similar paths, URLs, and comments pass
+  ---
+  duration_ms: 4.755167
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: path traversal and symlink escapes are rejected
+ok 36 - shipping isolation guard: path traversal and symlink escapes are rejected
+  ---
+  duration_ms: 4.906792
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: in-root symlink aliases cannot conceal reference files
+ok 37 - shipping isolation guard: in-root symlink aliases cannot conceal reference files
+  ---
+  duration_ms: 1.443125
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: depth, count, byte, and token bounds fail closed
+ok 38 - shipping isolation guard: depth, count, byte, and token bounds fail closed
+  ---
+  duration_ms: 3.62125
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: failures are collected atomically without mutation
+ok 39 - shipping isolation guard: failures are collected atomically without mutation
+  ---
+  duration_ms: 1.250583
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: executable CLI reports canonical success and failure
+ok 40 - shipping isolation guard: executable CLI reports canonical success and failure
+  ---
+  duration_ms: 139.611667
+  type: 'test'
+  ...
+# Subtest: shipping isolation guard: this repository's shipped entry graph passes
+ok 41 - shipping isolation guard: this repository's shipped entry graph passes
+  ---
+  duration_ms: 36540.908041
+  type: 'test'
+  ...
+1..41
+# tests 41
+# suites 0
+# pass 37
+# fail 4
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 123992.568334
