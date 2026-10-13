@@ -1,0 +1,44 @@
+{
+  "license": "AGPL-3.0-only",
+  "authorship": "in-repo-authored",
+  "generation_tool": "built-in imagegen",
+  "generation_mode": "built-in default image generation",
+  "encoding_tool": "cwebp 1.6.0",
+  "assets": [
+    {
+      "asset": "public/assets/ember-basin-portrait-painted.webp",
+      "source_png": "demo/assets/ember-basin-portrait.png",
+      "source_sha256": "15656baececa9314f1f9ed8b7d2a9539c54acf90e9c53ec1bad8edad14d60926",
+      "source_bytes": 2743443,
+      "source_dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "sha256": "1bdcc5aa3f6efdbb37cf0dab5023f326884d8e4409545749f50b4125acc1f232",
+      "bytes": 71726,
+      "dimensions": {
+        "width": 512,
+        "height": 512
+      },
+      "encoding": [
+        "-q",
+        "85",
+        "-m",
+        "6",
+        "-mt",
+        "-resize",
+        "512",
+        "512"
+      ],
+      "input_images": [],
+      "prompt": "Use case: stylized-concept\nAsset type: original square card portrait for a fantasy strategy game's defensive structure\nPrimary request: Paint an original Ember Basin, a stationary woodland-river workshop defense built to fling emberseeds at intruders. Make it instantly read as an unoccupied structure and launcher rather than a creature, person, spell effect, or ordinary pot.\nScene/backdrop: Softly blurred river workshop at a forest edge, damp slate bank and mossy timber hints, warm forge glow. Keep the setting quiet behind the structure.\nSubject: One centered, squat defensive basin launcher with a broad unmistakable silhouette: sturdy rootwood tripod pedestal anchored to stone, aged copper braces and rivets, wide deep open copper bowl with a thick raised lip, and a short fixed slotted chute or hinged launch channel rising from the bowl. A single glowing amber emberseed sits clearly inside the bowl, with only a few tiny sparks kept close to it. The machine should look static and planted, visibly engineered for defense; no wheels and no living parts.\nStyle/medium: Original hand-painted 2.5D game-card illustration with dimensional softly sculpted forms, painterly brushwork, tactile matte copper, dark riverwood, moss, stone and restrained glow; rich but clear at card scale, consistent with an original woodland workshop game-art style.\nComposition/framing: Close square three-quarter view from slightly above, one complete central structure, front lip and base fully visible, generous safe inset at every edge. Big simple shapes and strong light-dark separation so the silhouette reads at 64 px.\nLighting/mood: Warm forge light glinting on hammered copper with cool shaded river greens; sturdy, watchful, crafted.\nColor palette: Aged copper and bronze, deep riverwood, moss green, slate stone, amber emberseed, soft fern and river blue in the blurred background.\nMaterials/textures: Hammered copper bowl, riveted bands, dark polished riverwood, thick carved roots as supports, a little moss at the stone footings, subtle smoke-free ember glow.\nText (verbatim): None.\nConstraints: One structure only, no characters and no implied face, eyes, limbs or hands; readable open bowl and anchored support structure; no crop or overlays.\nAvoid: Humanoid or animal shapes, face-like openings, towers with roofs, generic cauldron on a table, weapon held by anyone, explosive blast, fireball, flame plume, excessive sparks, copied commercial game art or silhouettes, photorealism, glossy plastic, flat vector art, text, labels, numbers, logos, UI, card frame, border, watermark.",
+      "generation_output": "built-in imagegen returned a 1254 × 1254 PNG; copied intact to demo/assets/ember-basin-portrait.png",
+      "visual_fixture": "artifacts/art018p-round-1/builder/portrait-thumbnails.html",
+      "thumbnail_screenshots": [
+        "artifacts/art018p-round-1/builder/portrait-64px.png",
+        "artifacts/art018p-round-1/builder/portrait-128px.png",
+        "artifacts/art018p-round-1/builder/portrait-thumbnails-fixture.png"
+      ]
+    }
+  ]
+}
