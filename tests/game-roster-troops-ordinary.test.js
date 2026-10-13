@@ -663,6 +663,17 @@ test("all admitted troop witnesses use one shared LiveBattle deployment and enti
     const witness = createSessionTroopWitness(id);
     const target = witness.roster.find((card) => card.id === id);
     const targetQuestions = questionMap(witness.questions);
+    const intervalReceipt = target.entities[0].sourceConfidencePolicy?.deploymentInterval;
+    const intervalTicks = intervalReceipt?.ticks ?? 0;
+    if (id === "gloamwing-cluster" || id === "coppershade-flock") {
+      assert.deepEqual(intervalReceipt, {
+        milliseconds: 100,
+        sourceId: "supercell-2020-06-02-multi-unit-deployment",
+        ticks: 6,
+      }, `${id} uses the sourced 100 ms member interval`);
+    } else {
+      assert.equal(intervalReceipt, undefined, `${id} retains same-boundary ordinary expansion`);
+    }
 
     const battle = new LiveBattle(serializeSessionTroopWitness(id));
     const beforeBattle = battle.serialize();
@@ -674,8 +685,24 @@ test("all admitted troop witnesses use one shared LiveBattle deployment and enti
     battle.step();
     assert.equal(battle.replay.filter(({ type }) => type === "deployed").length, 1, id);
     assert.equal(battle.state.pendingDeployments.length, 0, id);
-    assert.equal(battle.state.units.filter(({ cardId }) => cardId === id).length,
-      source.count, `${id} materialized count`);
+    const firstUnits = battle.state.units.filter(({ cardId }) => cardId === id);
+    assert.equal(firstUnits.length, intervalTicks === 0 ? source.count : 1,
+      `${id} materialized members after its first appearance`);
+    if (intervalTicks > 0) {
+      for (let elapsedTicks = 1; elapsedTicks <= intervalTicks * (source.count - 1);
+        elapsedTicks += 1) {
+        const events = battle.step();
+        const expectedId = elapsedTicks % intervalTicks === 0
+          ? Math.floor(elapsedTicks / intervalTicks) + 1 : null;
+        assert.deepEqual(events.filter(({ type }) => type === "spawn")
+          .map(({ id: unitId, tick }) => [unitId, tick]),
+        expectedId === null ? [] : [[expectedId, elapsedTicks]],
+        `${id} member birth at elapsed tick ${elapsedTicks}`);
+        const expectedCount = Math.min(source.count, 1 + Math.floor(elapsedTicks / intervalTicks));
+        assert.equal(battle.state.units.filter(({ cardId }) => cardId === id).length,
+          expectedCount, `${id} visible member count at elapsed tick ${elapsedTicks}`);
+      }
+    }
     assert.deepEqual(battle.state.units.map(({ id: entityId }) => entityId),
       Array.from({ length: source.count }, (_, index) => index + 1), `${id} shared IDs`);
     assert.equal(battle.serialize() === beforeBattle, false, id);
@@ -685,7 +712,7 @@ test("all admitted troop witnesses use one shared LiveBattle deployment and enti
     const accepted = session.submitPlayerCommand(playerCommand(session, id));
     assert.equal(accepted.accepted, true, id);
     const events = session.step();
-    const after = session.state;
+    let after = session.state;
     const routes = after.cardRuntime.history.filter(({ cardId }) => cardId === id);
     assert.equal(routes.length, 1, `${id} typed route count`);
     assert.equal(routes[0].kind, "unit", id);
@@ -697,8 +724,21 @@ test("all admitted troop witnesses use one shared LiveBattle deployment and enti
       `${id} session deployment`);
     assert.equal(session.replay.filter(({ type }) => type === "session-deployed").length, 1, id);
     assert.equal(after.battle.pendingDeployments.length, 0, id);
-    assert.equal(after.battle.units.filter(({ cardId }) => cardId === id).length, source.count,
-      `${id} session materialization`);
+    assert.equal(after.battle.units.filter(({ cardId }) => cardId === id).length,
+      intervalTicks === 0 ? source.count : 1,
+      `${id} session exposes only members born at its first appearance`);
+    if (intervalTicks > 0) {
+      for (let elapsedTicks = 1; elapsedTicks <= intervalTicks * (source.count - 1);
+        elapsedTicks += 1) {
+        session.step();
+        assert.equal(session.state.tick, elapsedTicks + 1,
+          `${id} advances one session tick per member-interval check`);
+        const expectedCount = Math.min(source.count, 1 + Math.floor(elapsedTicks / intervalTicks));
+        assert.equal(session.state.battle.units.filter(({ cardId }) => cardId === id).length,
+          expectedCount, `${id} session unit count at elapsed tick ${elapsedTicks}`);
+      }
+      after = session.state;
+    }
     const targetUnits = after.battle.units.filter(({ cardId }) => cardId === id)
       .sort((left, right) => left.id - right.id);
     const targetEntities = target.entities.length === 0 ? [target] : target.entities;

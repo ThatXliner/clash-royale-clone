@@ -1,0 +1,106 @@
+TAP version 13
+# Subtest: ordinary troop projection domain is exactly the admitted profile surface
+ok 1 - ordinary troop projection domain is exactly the admitted profile surface
+  ---
+  duration_ms: 1.339875
+  type: 'test'
+  ...
+# Subtest: every projection is complete, source-agreeing, ordinary-only, and component-stable
+ok 2 - every projection is complete, source-agreeing, ordinary-only, and component-stable
+  ---
+  duration_ms: 4.594958
+  type: 'test'
+  ...
+# Subtest: every witness closes its exact questions, cards, and archetypes through LiveBattle admission
+ok 3 - every witness closes its exact questions, cards, and archetypes through LiveBattle admission
+  ---
+  duration_ms: 84.3
+  type: 'test'
+  ...
+# Subtest: ordinary projectile delivery admits only its exact three source tuples and rejects forged restore claims
+ok 4 - ordinary projectile delivery admits only its exact three source tuples and rejects forged restore claims
+  ---
+  duration_ms: 44.218458
+  type: 'test'
+  ...
+# Subtest: Sunthread Pair and Duskwing Trio trade sourced air/ground projectiles through in-flight restore
+ok 5 - Sunthread Pair and Duskwing Trio trade sourced air/ground projectiles through in-flight restore
+  ---
+  duration_ms: 2319.730541
+  type: 'test'
+  ...
+# Subtest: legacy HTO projections are detached exact playable cards plus ordinary policies
+ok 6 - legacy HTO projections are detached exact playable cards plus ordinary policies
+  ---
+  duration_ms: 3.539708
+  type: 'test'
+  ...
+# Subtest: all official witnesses use uniform HTO policies with exact projection counts
+ok 7 - all official witnesses use uniform HTO policies with exact projection counts
+  ---
+  duration_ms: 8.021416
+  type: 'test'
+  ...
+# Subtest: legacy playable roster bytes and QUESTION records remain unchanged
+ok 8 - legacy playable roster bytes and QUESTION records remain unchanged
+  ---
+  duration_ms: 8.0475
+  type: 'test'
+  ...
+# Subtest: legacy delivery/layer policy and QUESTION tampering rejects atomically
+ok 9 - legacy delivery/layer policy and QUESTION tampering rejects atomically
+  ---
+  duration_ms: 66.776291
+  type: 'test'
+  ...
+# Subtest: paired ordinary-policy omission rejects every one of the 38 entity projections
+ok 10 - paired ordinary-policy omission rejects every one of the 38 entity projections
+  ---
+  duration_ms: 178.898208
+  type: 'test'
+  ...
+# Subtest: removing all ordinary policies from one card rejects a partially downgraded roster
+ok 11 - removing all ordinary policies from one card rejects a partially downgraded roster
+  ---
+  duration_ms: 33.109042
+  type: 'test'
+  ...
+# Subtest: a genuine legacy card cannot be mixed with seven HTO policy-backed cards
+ok 12 - a genuine legacy card cannot be mixed with seven HTO policy-backed cards
+  ---
+  duration_ms: 5.304667
+  type: 'test'
+  ...
+# Subtest: all admitted troop witnesses use one shared LiveBattle deployment and entity expansion
+ok 13 - all admitted troop witnesses use one shared LiveBattle deployment and entity expansion
+  ---
+  duration_ms: 993.283375
+  type: 'test'
+  ...
+# Subtest: fully HTO LiveBattle setup deploys, restores, and forks exactly
+ok 14 - fully HTO LiveBattle setup deploys, restores, and forks exactly
+  ---
+  duration_ms: 18.670459
+  type: 'test'
+  ...
+# Subtest: representative ordinary projection is chunk, fork, and restore exact
+ok 15 - representative ordinary projection is chunk, fork, and restore exact
+  ---
+  duration_ms: 3576.868541
+  type: 'test'
+  ...
+# Subtest: projection APIs reject hostile identities before callbacks and return detached frozen values
+ok 16 - projection APIs reject hostile identities before callbacks and return detached frozen values
+  ---
+  duration_ms: 0.970583
+  type: 'test'
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 7511.437584
