@@ -1,0 +1,25 @@
+TAP version 13
+# Subtest: player shell renders roster-derived cards and launches a paused shared battle frame
+not ok 1 - player shell renders roster-derived cards and launches a paused shared battle frame
+  ---
+  duration_ms: 60198.390666
+  type: 'test'
+  location: '/private/tmp/cards016-integration-critic-6ec5/tests/app-shell.test.js:279:1'
+  failureType: 'testCodeFailure'
+  error: 'stonehaulerDeployment is not defined'
+  code: 'ERR_TEST_FAILURE'
+  name: 'ReferenceError'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/cards016-integration-critic-6ec5/tests/app-shell.test.js:1112:19)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 60426.654709
