@@ -1,0 +1,45 @@
+{
+  "schema": "game001gpr7a-source-host-scope-v1",
+  "sourceCommit": "ff1025e145cbff421d624ed7d3e59b5ab5671f14",
+  "execution": "Native browser ESM served from the repository root by tests/game-browser-endurance-server.js; no built dist or release bundle is consumed.",
+  "browserPage": "/tests/game-browser-endurance.html",
+  "sourceHostedPaths": [
+    "/src/sim/game-session.js",
+    "/src/ui/game-browser-entry.js",
+    "/src/audio/game-audio-runtime.js",
+    "/src/sim/deck.js",
+    "/src/sim/elixir.js",
+    "/src/ui/arena-shell.css"
+  ],
+  "pinnedHarnessPaths": [
+    "package.json",
+    "package-lock.json",
+    "tests/endurance-workload.test.js",
+    "tests/game-browser-endurance-runner.js",
+    "tests/game-browser-endurance-server.js",
+    "tests/game-browser-endurance.html",
+    "tests/game-browser-endurance.test.js",
+    "tests/helpers/endurance-workload.js"
+  ],
+  "fullStaticTestHashWalk": "Every tracked tests/** file is listed in source-cut-manifest.json; only pinnedBrowserHarnessPaths are invoked by the endurance runner.",
+  "relevantRuntimeCaps": {
+    "requiredDefaultTick": 18000,
+    "maximumExplicitTickBound": 18000,
+    "reactionPolicyTicks": 15,
+    "baselineRestoreTicks": 300,
+    "emergencyCooldownTicks": 300,
+    "maxBrowserLongTaskMilliseconds": 50,
+    "maxInitializationLongTaskMilliseconds": 300,
+    "maxExplicitSimulationSliceMilliseconds": 40,
+    "maxSegmentMilliseconds": 30000,
+    "maximumTotalDurationMilliseconds": 1200000,
+    "maxSegmentTicks": 300,
+    "presentationEveryTicks": 100,
+    "ticksPerDriveChunk": 1
+  },
+  "scenarioControl": {
+    "defaultEight": "GAME_BROWSER_ENDURANCE_SCENARIO unset; GAME_BROWSER_ENDURANCE_TICKS unset; exact default setup hash is asserted by source harness.",
+    "kilnkeeper": "GAME_BROWSER_ENDURANCE_SCENARIO=kilnkeeper; GAME_BROWSER_ENDURANCE_TICKS unset; requires reaching the natural terminal no later than the source-defined 18000-tick cap."
+  },
+  "artifacts": "GAME_BROWSER_ENDURANCE_ARTIFACTS is directed into separate critic/default-eight and critic/kilnkeeper folders under this private clone."
+}

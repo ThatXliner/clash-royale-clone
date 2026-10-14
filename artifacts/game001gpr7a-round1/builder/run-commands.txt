@@ -1,0 +1,15 @@
+# Run from /private/tmp/gpr7a-accepted-ff1025
+# Default-eight: full source-defined 18000 ticks; both bound/scenario overrides are unset.
+env -u GAME_BROWSER_ENDURANCE_TICKS -u GAME_BROWSER_ENDURANCE_SCENARIO \
+  GAME_BROWSER_PLAYWRIGHT=/private/tmp/gpr7a-accepted-ff1025/node_modules/playwright/index.mjs \
+  GAME_BROWSER_CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  GAME_BROWSER_ENDURANCE_ARTIFACTS=/private/tmp/gpr7a-accepted-ff1025/artifacts/game001gpr7a-round1/critic/default-eight/ \
+  npm run test:game-browser-endurance
+
+# Kilnkeeper: natural terminal with source-defined maximum 18000 ticks; no tick override.
+env -u GAME_BROWSER_ENDURANCE_TICKS \
+  GAME_BROWSER_ENDURANCE_SCENARIO=kilnkeeper \
+  GAME_BROWSER_PLAYWRIGHT=/private/tmp/gpr7a-accepted-ff1025/node_modules/playwright/index.mjs \
+  GAME_BROWSER_CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  GAME_BROWSER_ENDURANCE_ARTIFACTS=/private/tmp/gpr7a-accepted-ff1025/artifacts/game001gpr7a-round1/critic/kilnkeeper/ \
+  npm run test:game-browser-endurance
