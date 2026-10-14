@@ -1,0 +1,606 @@
+{
+  "after": {
+    "inner": {
+      "activeElement": {
+        "cardId": null,
+        "className": "",
+        "tag": "BODY"
+      },
+      "animations": [],
+      "bodyText": "Sound on\n2:58\n3\nMossguard\n4\nBrassbolt\n1\nCinderlings\n3\nReedsting\n4\nCopperskiff",
+      "card": {
+        "attributes": [
+          [
+            "class",
+            "card-slot"
+          ],
+          [
+            "data-ui",
+            "card-slot"
+          ],
+          [
+            "aria-label",
+            "Card slot 1"
+          ],
+          [
+            "data-card-id",
+            "brassbolt"
+          ]
+        ],
+        "children": [],
+        "html": "<div class=\"card-slot\" data-ui=\"card-slot\" aria-label=\"Card slot 1\" data-card-id=\"brassbolt\"></div>",
+        "matchesFocus": false,
+        "matchesFocusVisible": false,
+        "matchesHover": false,
+        "parent": {
+          "animationDuration": "0s",
+          "animationName": "none",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgb(25, 29, 34)",
+          "borderStyle": "solid",
+          "borderWidth": "3px",
+          "boxShadow": "rgba(244, 235, 214, 0.3) 0px 0px 0px 2px inset, rgba(25, 29, 34, 0.533) 0px 6px 0px 0px",
+          "className": "hand-tray",
+          "filter": "none",
+          "id": "",
+          "opacity": "1",
+          "rect": {
+            "x": 54,
+            "y": 1114,
+            "width": 612,
+            "height": 140
+          },
+          "tag": "SECTION",
+          "transform": "none",
+          "transitionDuration": "0s",
+          "transitionProperty": "all",
+          "willChange": "auto"
+        },
+        "style": {
+          "animationDuration": "0s",
+          "animationName": "none",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgb(255, 255, 255)",
+          "borderStyle": "none",
+          "borderWidth": "0px",
+          "boxShadow": "none",
+          "className": "card-slot",
+          "filter": "none",
+          "id": "",
+          "opacity": "1",
+          "rect": {
+            "x": 185,
+            "y": 1121,
+            "width": 112,
+            "height": 128
+          },
+          "tag": "DIV",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "transitionDuration": "0s",
+          "transitionProperty": "all",
+          "willChange": "auto"
+        },
+        "text": "",
+        "before": {
+          "content": "none",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgb(255, 255, 255)",
+          "borderStyle": "none",
+          "borderWidth": "0px",
+          "boxShadow": "none",
+          "filter": "none",
+          "opacity": "1",
+          "transform": "none",
+          "transitionDuration": "0s",
+          "animationName": "none",
+          "animationDuration": "0s"
+        },
+        "after": {
+          "content": "none",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgb(255, 255, 255)",
+          "borderStyle": "none",
+          "borderWidth": "0px",
+          "boxShadow": "none",
+          "filter": "none",
+          "opacity": "1",
+          "transform": "none",
+          "transitionDuration": "0s",
+          "animationName": "none",
+          "animationDuration": "0s"
+        }
+      },
+      "fonts": "loaded",
+      "point": {
+        "x": -722.8703862660943,
+        "y": 958.2969957081544
+      }
+    },
+    "outer": {
+      "chain": [
+        {
+          "animationDuration": "1e-05s",
+          "animationName": "none",
+          "backgroundColor": "rgb(17, 24, 32)",
+          "borderColor": "rgb(184, 181, 169)",
+          "borderStyle": "solid",
+          "borderWidth": "1px",
+          "className": "battle-frame-slot",
+          "filter": "none",
+          "id": "",
+          "opacity": "1",
+          "rect": {
+            "x": 72,
+            "y": 153.875,
+            "width": 1296,
+            "height": 728.125
+          },
+          "tag": "DIV",
+          "transform": "none",
+          "transitionDuration": "1e-05s",
+          "transitionProperty": "all",
+          "willChange": "auto"
+        },
+        {
+          "animationDuration": "1e-05s",
+          "animationName": "none",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgb(29, 48, 42)",
+          "borderStyle": "none",
+          "borderWidth": "0px",
+          "className": "app-view battle-view",
+          "filter": "none",
+          "id": "view-battle",
+          "opacity": "1",
+          "rect": {
+            "x": 72,
+            "y": 96,
+            "width": 1296,
+            "height": 786
+          },
+          "tag": "SECTION",
+          "transform": "none",
+          "transitionDuration": "1e-05s",
+          "transitionProperty": "all",
+          "willChange": "auto"
+        },
+        {
+          "animationDuration": "1e-05s",
+          "animationName": "none",
+          "backgroundColor": "rgb(17, 24, 32)",
+          "borderColor": "rgb(29, 48, 42)",
+          "borderStyle": "none",
+          "borderWidth": "0px",
+          "className": "battle-frame",
+          "filter": "none",
+          "id": "",
+          "opacity": "1",
+          "rect": {
+            "x": 516.203125,
+            "y": 154.875,
+            "width": 409.5703125,
+            "height": 728.125
+          },
+          "tag": "IFRAME",
+          "transform": "matrix(0.568848, 0, 0, 0.568848, 0, 0)",
+          "transitionDuration": "1e-05s",
+          "transitionProperty": "all",
+          "willChange": "auto"
+        },
+        {
+          "animationDuration": "1e-05s",
+          "animationName": "none",
+          "backgroundColor": "rgb(17, 24, 32)",
+          "borderColor": "rgb(184, 181, 169)",
+          "borderStyle": "solid",
+          "borderWidth": "1px",
+          "className": "battle-frame-slot",
+          "filter": "none",
+          "id": "",
+          "opacity": "1",
+          "rect": {
+            "x": 72,
+            "y": 153.875,
+            "width": 1296,
+            "height": 728.125
+          },
+          "tag": "DIV",
+          "transform": "none",
+          "transitionDuration": "1e-05s",
+          "transitionProperty": "all",
+          "willChange": "auto"
+        }
+      ],
+      "point": {
+        "x": 105,
+        "y": 700
+      }
+    }
+  },
+  "afterChildBodySha256": "efc57a156f2d87c03d7dd4b73092588ee55b999388f84abb12662aa7f84d66c0",
+  "afterViewportStable": true,
+  "afterViewportStableCaptureCount": 2,
+  "before": {
+    "inner": {
+      "activeElement": {
+        "cardId": null,
+        "className": "",
+        "tag": "BODY"
+      },
+      "animations": [],
+      "bodyText": "Sound on\n2:58\n3\nMossguard\n4\nBrassbolt\n1\nCinderlings\n3\nReedsting\n4\nCopperskiff",
+      "card": {
+        "attributes": [
+          [
+            "class",
+            "card-slot"
+          ],
+          [
+            "data-ui",
+            "card-slot"
+          ],
+          [
+            "aria-label",
+            "Card slot 1"
+          ],
+          [
+            "data-card-id",
+            "brassbolt"
+          ]
+        ],
+        "children": [],
+        "html": "<div class=\"card-slot\" data-ui=\"card-slot\" aria-label=\"Card slot 1\" data-card-id=\"brassbolt\"></div>",
+        "matchesFocus": false,
+        "matchesFocusVisible": false,
+        "matchesHover": false,
+        "parent": {
+          "animationDuration": "0s",
+          "animationName": "none",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgb(25, 29, 34)",
+          "borderStyle": "solid",
+          "borderWidth": "3px",
+          "boxShadow": "rgba(244, 235, 214, 0.3) 0px 0px 0px 2px inset, rgba(25, 29, 34, 0.533) 0px 6px 0px 0px",
+          "className": "hand-tray",
+          "filter": "none",
+          "id": "",
+          "opacity": "1",
+          "rect": {
+            "x": 54,
+            "y": 1114,
+            "width": 612,
+            "height": 140
+          },
+          "tag": "SECTION",
+          "transform": "none",
+          "transitionDuration": "0s",
+          "transitionProperty": "all",
+          "willChange": "auto"
+        },
+        "style": {
+          "animationDuration": "0s",
+          "animationName": "none",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgb(255, 255, 255)",
+          "borderStyle": "none",
+          "borderWidth": "0px",
+          "boxShadow": "none",
+          "className": "card-slot",
+          "filter": "none",
+          "id": "",
+          "opacity": "1",
+          "rect": {
+            "x": 185,
+            "y": 1121,
+            "width": 112,
+            "height": 128
+          },
+          "tag": "DIV",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "transitionDuration": "0s",
+          "transitionProperty": "all",
+          "willChange": "auto"
+        },
+        "text": "",
+        "before": {
+          "content": "none",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgb(255, 255, 255)",
+          "borderStyle": "none",
+          "borderWidth": "0px",
+          "boxShadow": "none",
+          "filter": "none",
+          "opacity": "1",
+          "transform": "none",
+          "transitionDuration": "0s",
+          "animationName": "none",
+          "animationDuration": "0s"
+        },
+        "after": {
+          "content": "none",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgb(255, 255, 255)",
+          "borderStyle": "none",
+          "borderWidth": "0px",
+          "boxShadow": "none",
+          "filter": "none",
+          "opacity": "1",
+          "transform": "none",
+          "transitionDuration": "0s",
+          "animationName": "none",
+          "animationDuration": "0s"
+        }
+      },
+      "fonts": "loaded",
+      "point": {
+        "x": -722.8703862660943,
+        "y": 958.2969957081544
+      }
+    },
+    "outer": {
+      "chain": [
+        {
+          "animationDuration": "1e-05s",
+          "animationName": "none",
+          "backgroundColor": "rgb(17, 24, 32)",
+          "borderColor": "rgb(184, 181, 169)",
+          "borderStyle": "solid",
+          "borderWidth": "1px",
+          "className": "battle-frame-slot",
+          "filter": "none",
+          "id": "",
+          "opacity": "1",
+          "rect": {
+            "x": 72,
+            "y": 153.875,
+            "width": 1296,
+            "height": 728.125
+          },
+          "tag": "DIV",
+          "transform": "none",
+          "transitionDuration": "1e-05s",
+          "transitionProperty": "all",
+          "willChange": "auto"
+        },
+        {
+          "animationDuration": "1e-05s",
+          "animationName": "none",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgb(29, 48, 42)",
+          "borderStyle": "none",
+          "borderWidth": "0px",
+          "className": "app-view battle-view",
+          "filter": "none",
+          "id": "view-battle",
+          "opacity": "1",
+          "rect": {
+            "x": 72,
+            "y": 96,
+            "width": 1296,
+            "height": 786
+          },
+          "tag": "SECTION",
+          "transform": "none",
+          "transitionDuration": "1e-05s",
+          "transitionProperty": "all",
+          "willChange": "auto"
+        },
+        {
+          "animationDuration": "1e-05s",
+          "animationName": "none",
+          "backgroundColor": "rgb(17, 24, 32)",
+          "borderColor": "rgb(29, 48, 42)",
+          "borderStyle": "none",
+          "borderWidth": "0px",
+          "className": "battle-frame",
+          "filter": "none",
+          "id": "",
+          "opacity": "1",
+          "rect": {
+            "x": 516.203125,
+            "y": 154.875,
+            "width": 409.5703125,
+            "height": 728.125
+          },
+          "tag": "IFRAME",
+          "transform": "matrix(0.568848, 0, 0, 0.568848, 0, 0)",
+          "transitionDuration": "1e-05s",
+          "transitionProperty": "all",
+          "willChange": "auto"
+        },
+        {
+          "animationDuration": "1e-05s",
+          "animationName": "none",
+          "backgroundColor": "rgb(17, 24, 32)",
+          "borderColor": "rgb(184, 181, 169)",
+          "borderStyle": "solid",
+          "borderWidth": "1px",
+          "className": "battle-frame-slot",
+          "filter": "none",
+          "id": "",
+          "opacity": "1",
+          "rect": {
+            "x": 72,
+            "y": 153.875,
+            "width": 1296,
+            "height": 728.125
+          },
+          "tag": "DIV",
+          "transform": "none",
+          "transitionDuration": "1e-05s",
+          "transitionProperty": "all",
+          "willChange": "auto"
+        }
+      ],
+      "point": {
+        "x": 105,
+        "y": 700
+      }
+    }
+  },
+  "beforeChildBodySha256": "efc57a156f2d87c03d7dd4b73092588ee55b999388f84abb12662aa7f84d66c0",
+  "beforeViewportStable": true,
+  "beforeViewportStableCaptureCount": 2,
+  "childBodyPixelIdentical": true,
+  "domAndStyleIdentical": true,
+  "viewportPixelIdentical": true,
+  "viewportSha256Before": "eb434dd7f0f3fa0a3df33a0a1f2e84e18a7c572cbe8ff2851ea48d19f3b56a3a",
+  "viewportSha256After": "eb434dd7f0f3fa0a3df33a0a1f2e84e18a7c572cbe8ff2851ea48d19f3b56a3a",
+  "pointDiff": {
+    "dimensions": [
+      1440,
+      900
+    ],
+    "differingPixelCount": 0,
+    "maximumChannelDelta": 0,
+    "differingPixels": [],
+    "samplePoint": {
+      "x": 105,
+      "y": 700
+    },
+    "frame": {
+      "x": 516.203125,
+      "y": 154.875,
+      "width": 409.5703125,
+      "height": 728.125,
+      "top": 154.875,
+      "right": 925.7734375,
+      "bottom": 883,
+      "left": 516.203125
+    },
+    "childPoint": {
+      "x": -722.8703862660943,
+      "y": 958.2969957081544
+    },
+    "topLevelElementChain": [
+      {
+        "tag": "DIV",
+        "id": "",
+        "className": "battle-frame-slot",
+        "dataUi": null,
+        "dataKind": null,
+        "dataCardId": null,
+        "rect": {
+          "x": 72,
+          "y": 153.875,
+          "width": 1296,
+          "height": 728.125
+        },
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "animationName": "none",
+        "animationDuration": "1e-05s",
+        "transform": "none",
+        "backgroundColor": "rgb(17, 24, 32)",
+        "borderColor": "rgb(184, 181, 169)"
+      },
+      {
+        "tag": "SECTION",
+        "id": "view-battle",
+        "className": "app-view battle-view",
+        "dataUi": null,
+        "dataKind": null,
+        "dataCardId": null,
+        "rect": {
+          "x": 72,
+          "y": 96,
+          "width": 1296,
+          "height": 786
+        },
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "animationName": "none",
+        "animationDuration": "1e-05s",
+        "transform": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(29, 48, 42)"
+      },
+      {
+        "tag": "MAIN",
+        "id": "",
+        "className": "app-main",
+        "dataUi": null,
+        "dataKind": null,
+        "dataCardId": null,
+        "rect": {
+          "x": 0,
+          "y": 82,
+          "width": 1440,
+          "height": 818
+        },
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "animationName": "none",
+        "animationDuration": "1e-05s",
+        "transform": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(29, 48, 42)"
+      },
+      {
+        "tag": "DIV",
+        "id": "",
+        "className": "app-shell",
+        "dataUi": null,
+        "dataKind": null,
+        "dataCardId": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 900
+        },
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "animationName": "none",
+        "animationDuration": "1e-05s",
+        "transform": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(29, 48, 42)"
+      },
+      {
+        "tag": "BODY",
+        "id": "",
+        "className": "",
+        "dataUi": null,
+        "dataKind": null,
+        "dataCardId": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 900
+        },
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "animationName": "none",
+        "animationDuration": "1e-05s",
+        "transform": "none",
+        "backgroundColor": "rgb(242, 240, 231)",
+        "borderColor": "rgb(29, 48, 42)"
+      },
+      {
+        "tag": "HTML",
+        "id": "",
+        "className": "",
+        "dataUi": null,
+        "dataKind": null,
+        "dataCardId": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 900
+        },
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "animationName": "none",
+        "animationDuration": "1e-05s",
+        "transform": "none",
+        "backgroundColor": "rgb(242, 240, 231)",
+        "borderColor": "rgb(29, 48, 42)"
+      }
+    ],
+    "childElementChain": [],
+    "activeAnimations": []
+  }
+}

@@ -1,5 +1,14 @@
 # Gauntlet Rounds
 
+## Round 456 — 2026-10-14
+
+PIECE: ART-004 round3
+VERDICT: FAIL
+
+EVIDENCE: Round456 FAIL exact8983794: browser0/1 115227ms; phone reducedrestore5pixels105,700-704 maxdelta3 despitepre/poststable2captures. DOM/styleexact, childPNGhash differs (decodedcomparison pending). Stoprepeatcaptureloop; splitFRAME-RESTORE-001 forrootcause. Productcandidate unadopted. Actualcritic artifacts/art004-aggregate-round-3/critic/.
+
+BIGGEST GAP: Samephone restore raster difference survives bounded stability synchronization; piece split toFRAME-RESTORE-001.
+
 ## Round 455 — 2026-10-14
 
 PIECE: GAME-001GPX round2
