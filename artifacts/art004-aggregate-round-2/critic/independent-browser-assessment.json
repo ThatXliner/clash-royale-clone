@@ -1,0 +1,174 @@
+{
+  "candidate": "35007f87b86bdcd52a4e6c71489c851c84df5be6",
+  "browser": "Google Chrome 155.0.8059.40 via Playwright",
+  "command": "node --test tests/combat-sprite-prototype-browser.test.js",
+  "exit": 1,
+  "failure": {
+    "testLine": 864,
+    "assertion": "the real scaled battle screenshot with reduced motion must restore pixel-identically",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "pngDimensions": [
+      390,
+      844
+    ],
+    "differingPixels": 5,
+    "maximumChannelDelta": 3,
+    "pixels": [
+      {
+        "x": 105,
+        "y": 700,
+        "before": [
+          33,
+          40,
+          47,
+          255
+        ],
+        "after": [
+          31,
+          38,
+          44,
+          255
+        ]
+      },
+      {
+        "x": 105,
+        "y": 701,
+        "before": [
+          33,
+          40,
+          47,
+          255
+        ],
+        "after": [
+          31,
+          38,
+          45,
+          255
+        ]
+      },
+      {
+        "x": 105,
+        "y": 702,
+        "before": [
+          33,
+          39,
+          47,
+          255
+        ],
+        "after": [
+          31,
+          37,
+          44,
+          255
+        ]
+      },
+      {
+        "x": 105,
+        "y": 703,
+        "before": [
+          33,
+          39,
+          47,
+          255
+        ],
+        "after": [
+          31,
+          37,
+          44,
+          255
+        ]
+      },
+      {
+        "x": 105,
+        "y": 704,
+        "before": [
+          33,
+          39,
+          47,
+          255
+        ],
+        "after": [
+          31,
+          37,
+          44,
+          255
+        ]
+      }
+    ],
+    "samplePoint": {
+      "x": 105,
+      "y": 700
+    },
+    "beforePngSha256": "4c3f354801ee42c5bed70983cefae6444fc8db4bfdec3e70dd6ace781696f1f5",
+    "afterPngSha256": "77c608e0a8c9407b41d946b3c16f0b833899a32f224058e387675014a405c095",
+    "beforePngBytes": 330760,
+    "afterPngBytes": 330767
+  },
+  "control": {
+    "desktop1440ReducedMotionDifferentPixels": 0,
+    "normalRestoreHashesMatch": true,
+    "teamPixels": {
+      "390": [
+        {
+          "side": "south",
+          "visibleTeamColorPixels": 22
+        },
+        {
+          "side": "south",
+          "visibleTeamColorPixels": 22
+        },
+        {
+          "side": "south",
+          "visibleTeamColorPixels": 25
+        },
+        {
+          "side": "north",
+          "visibleTeamColorPixels": 16
+        },
+        {
+          "side": "north",
+          "visibleTeamColorPixels": 16
+        },
+        {
+          "side": "north",
+          "visibleTeamColorPixels": 16
+        }
+      ],
+      "1440": [
+        {
+          "side": "south",
+          "visibleTeamColorPixels": 30
+        },
+        {
+          "side": "south",
+          "visibleTeamColorPixels": 30
+        },
+        {
+          "side": "south",
+          "visibleTeamColorPixels": 40
+        },
+        {
+          "side": "north",
+          "visibleTeamColorPixels": 27
+        },
+        {
+          "side": "north",
+          "visibleTeamColorPixels": 27
+        },
+        {
+          "side": "north",
+          "visibleTeamColorPixels": 27
+        }
+      ]
+    }
+  },
+  "rawTap": "combat-sprite-prototype-browser.tap",
+  "screenshots": {
+    "before": "live-browser/live-arena-integration-390-reduced-motion.png",
+    "after": "live-browser/live-arena-integration-390-reduced-motion-after-restore.png"
+  },
+  "diagnostics": "live-browser/live-arena-integration-390-reduced-motion-diagnostics.json"
+}

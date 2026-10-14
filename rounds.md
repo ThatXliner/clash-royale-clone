@@ -1,5 +1,14 @@
 # Gauntlet Rounds
 
+## Round 454 — 2026-10-14
+
+PIECE: ART-004 round2
+VERDICT: FAIL
+
+EVIDENCE: Exact35007f8 independentprototype10/10,state13/13,projection28/28,assets6/6; browser0/1 atphone reducedrestoreline864. Fivepixels105,700–704,maxdelta3 outsidearena Brassboltcard; normalbothviewports/desktopreduced exact. NativeBriarcontact andnorth16phone/27desktop threshold8/24 pass. RawTAP95.934s andPNGs artifacts/art004-aggregate-round-2/critic/. No sourceadoption/fullenduranceclaim.
+
+BIGGEST GAP: Phone outer-frame paint synchronization does not reproduce exact reduced-motion restore PNG.
+
 ## Round 453 — 2026-10-14
 
 PIECE: GAME-001GPX

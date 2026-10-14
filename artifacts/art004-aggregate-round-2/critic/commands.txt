@@ -1,0 +1,10 @@
+Candidate: 35007f87b86bdcd52a4e6c71489c851c84df5be6
+Parent:    dee765a0553e821d15b0af91a2a7b50e38f44c0f
+Execution: clean `git archive` copy at /private/tmp/art004-aggregate-round-2-critic-run; private node_modules symlink to /private/tmp/art004-aggregate-builder/node_modules.
+Browser: /Applications/Google Chrome.app/Contents/MacOS/Google Chrome via Playwright chromium.launch; deviceScaleFactor 1.
+
+node --test tests/combat-sprite-prototype.test.js
+npm run test:ui-combat-state
+npm run test:game-ui-projection
+npm run test:visual-asset-manifest
+node --test tests/combat-sprite-prototype-browser.test.js
