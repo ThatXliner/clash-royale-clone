@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "observationType": "separate read-only recheck; historical builder capture was not modified",
+  "capturedAtUtc": "2026-10-14T04:29:34.340Z",
+  "historicalCaptureAtUtc": "2026-10-14T04:22:09.481Z",
+  "live": {
+    "landing": {
+      "url": "https://bryanhu.com/clash-royale-clone/",
+      "status": 200,
+      "date": "Wed, 14 Oct 2026 04:29:34 GMT",
+      "lastModified": "Wed, 14 Oct 2026 04:18:02 GMT",
+      "bytes": 6205,
+      "sha256": "ddb87170de388b56b6c194e55c15774c1043203c373c4dc7368596e3c26db7b9",
+      "containsFullReleaseCommit": true
+    },
+    "game": {
+      "url": "https://bryanhu.com/clash-royale-clone/game/public/index.html",
+      "status": 200,
+      "date": "Wed, 14 Oct 2026 04:29:34 GMT",
+      "lastModified": "Wed, 14 Oct 2026 04:18:02 GMT",
+      "bytes": 11284,
+      "sha256": "3f761abf3c1ebbc9a52acd4dfadb64235e788980bf7d996db6aef3d17346cb8d"
+    },
+    "kilnkeeperPortrait": {
+      "url": "https://bryanhu.com/clash-royale-clone/game/public/assets/kilnkeeper-portrait-painted.webp",
+      "status": 200,
+      "date": "Wed, 14 Oct 2026 04:29:34 GMT",
+      "lastModified": "Wed, 14 Oct 2026 04:18:02 GMT",
+      "bytes": 65626,
+      "sha256": "38e9f64348fa823a64755fda2496b699c88c27c7dd0a14a440e704d9093d2240",
+      "matchesCheckedInSourceBytes": true
+    }
+  },
+  "githubWorkflowApi": {
+    "httpStatus": 200,
+    "runId": 38510398827,
+    "workflowName": "Publish GitHub Pages",
+    "ref": "main",
+    "commit": "bf1e6120196db8a2927ce6ae893812e4c9b1115d",
+    "status": "completed",
+    "conclusion": "success",
+    "createdAt": "2026-10-14T04:14:51Z",
+    "updatedAt": "2026-10-14T04:18:08Z",
+    "jobs": [
+      {
+        "name": "build",
+        "status": "completed",
+        "conclusion": "success",
+        "relevantSuccessfulSteps": [
+          "Verify shipping isolation rules",
+          "Verify the release artifact builder",
+          "Verify the Pages artifact"
+        ]
+      },
+      {
+        "name": "deploy",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "sameAsHistoricalCapture": {
+    "landingSha256": true,
+    "gameSha256": true,
+    "portraitBytes": true,
+    "portraitSha256": true,
+    "releaseCommit": true,
+    "workflowConclusion": true
+  }
+}

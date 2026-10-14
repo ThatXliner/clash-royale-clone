@@ -1,0 +1,12 @@
+Clean clone: /private/tmp/coverage004-r4-critic-checkout
+Candidate: 8a320759e5fd096d8fb6d77ae92c3e117f8a17ae
+Initial clone status: clean
+Command: node artifacts/coverage004-round-4/builder/check-guide-release.mjs
+Exit: 0
+
+Replay output comparison:
+  cmp builder/clean-archive-check.stdout.txt critic-actual.stdout.txt -> exit 0
+  cmp builder/clean-archive-check.stderr.txt critic-actual.stderr.txt -> exit 0
+  stdout is byte-identical; stderr is empty and byte-identical.
+
+The full replay stdout and stderr are preserved beside this receipt.

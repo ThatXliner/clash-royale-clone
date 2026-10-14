@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 446 — 2026-10-13
+
+PIECE: COVERAGE-004 — Current release guide, round 4
+
+VERDICT: FAIL
+
+EVIDENCE: Independent clean8a checker exit0 outputbyteequal;23links,43priorhashes,109/18/20/default8/catalog counts andlivebf1 workflow pass. Guide line42 claims response times but capture records timestamps/headers noelapsed duration. Evidence artifacts/coverage004-round-4/critic/. Productnotadopted.
+
+BIGGEST GAP: Round446 FAIL: guide claims response times but receipt only timestamps/headers/status/bytes/hash, no duration. All23links/43priorhashes/counts/source/live/checker checks pass. Word-only repair underway, guide8a remainsunaccepted; frozenbf1scope retained.
+
 ## Round 445 — 2026-10-13
 
 PIECE: CARDS-019I — Kilnkeeper arena integration, round 1
