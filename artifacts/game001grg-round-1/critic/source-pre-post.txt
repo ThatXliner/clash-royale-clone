@@ -1,0 +1,17 @@
+Independent candidate checkout audit
+
+Checkout: /tmp/game001grg-critic-clean
+HEAD: c5c2486c87ee61d844f124f0cbb5320960caee75
+Created detached from the immutable candidate commit. The new checkout was clean at creation; `git status --porcelain=v1` was empty after the candidate test run as well.
+
+Test run:
+  npm run test:game-restart
+  exit code: 0
+  captured in candidate-test.tap
+
+Production source before/after and base/candidate comparison:
+  base src tree:      3d20a2bcc4f2a8c6b476215ec7c1e7ef783e6bee
+  candidate src tree: 3d20a2bcc4f2a8c6b476215ec7c1e7ef783e6bee
+  production source unchanged.
+
+The diff from base to candidate is limited to tests/game-restart.test.js and the six listed builder evidence files in production-hash-comparison.txt. No production fix is claimed.

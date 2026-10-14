@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 448 — 2026-10-13
+
+PIECE: GAME-001GRG — Restart listener regression gate, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Independent cleanc5 restart3/3 andunchangedproduction src tree3d20a2bc pass; exactpointermove/pointerup/restartclick membership verified. Privatefake-node handcleanup faultinjection stillpassesfirstrestarttest while detachedhandcounts1each then2each afterrestoresecondrestart. Demonstrates missinghand-card cleanup coverage, not productionleak. Evidence artifacts/game001grg-round-1/critic/. Testcandidate notadopted.
+
+BIGGEST GAP: Round448 FAIL: detached hand-card callbacks are not asserted; faultinjected retention stillpasses. Round2 adds exactactivehandclickmembership andzero listeners onallfourdetachedhandnodes afterbothrestartpaths; no producerleakclaim.
+
 ## Round 447 — 2026-10-13
 
 PIECE: COVERAGE-004 — Current release guide, round 5

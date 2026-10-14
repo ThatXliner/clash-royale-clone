@@ -1,0 +1,17 @@
+Production source comparison
+
+Base commit: c348797eda805cac9b32b61af626b731209a6733
+Candidate:   c5c2486c87ee61d844f124f0cbb5320960caee75
+
+Git tree object for src at base:      3d20a2bcc4f2a8c6b476215ec7c1e7ef783e6bee
+Git tree object for src at candidate: 3d20a2bcc4f2a8c6b476215ec7c1e7ef783e6bee
+Result: identical production src tree; no production source changed.
+
+Candidate commit changes only:
+A artifacts/game001grg-round-1/builder/baseline-game-restart.tap
+A artifacts/game001grg-round-1/builder/builder-receipt.json
+A artifacts/game001grg-round-1/builder/candidate-game-restart.tap
+A artifacts/game001grg-round-1/builder/source-hash-after-final.txt
+A artifacts/game001grg-round-1/builder/source-hash-before-final.txt
+A artifacts/game001grg-round-1/builder/source-pre-post.diff
+M tests/game-restart.test.js

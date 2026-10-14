@@ -1,0 +1,32 @@
+diff --git a/tests/game-restart.test.js b/tests/game-restart.test.js
+index 544fcd7..b385a65 100644
+--- a/tests/game-restart.test.js
++++ b/tests/game-restart.test.js
+@@ -78,7 +78,10 @@ class Node {
+     return value === undefined ? [] : Array.isArray(value) ? value : [value];
+   }
+   querySelector(selector) { return this.querySelectorAll(selector)[0] ?? null; }
+-  removeEventListener(type, listener) { this.listeners.get(type)?.delete(listener); }
++  removeEventListener(type, listener) {
++    if (this.name === "card") return; // injected faulty cleanup for the probe
++    this.listeners.get(type)?.delete(listener);
++  }
+   replaceChildren(...children) {
+     for (const child of children) child.parentNode = this;
+     this.children = children;
+@@ -223,6 +226,7 @@ test("game restart: terminal click atomically replaces the whole graph with exac
+     muted: value.browser.audio.audio.muted }, policy);
+ 
+   const second = value.shells[1];
++  console.log("FAULT_INJECTION detached hand counts after restart", first.hand.map((node) => node.listenerCount()));
+   assertActiveGraphListeners(second);
+   assert.equal(value.root.firstElementChild, second.shell);
+   assert.equal(second.restart.hidden, true);
+@@ -256,6 +260,7 @@ test("game restart: terminal click atomically replaces the whole graph with exac
+   assert.equal(second.restart.hidden, false);
+   assert.equal(second.restart.emit("click", { isTrusted: true }).restartCount, 2);
+   assert.equal(value.shells.length, 3);
++  console.log("FAULT_INJECTION detached hand counts after restored second restart", second.hand.map((node) => node.listenerCount()));
+   assert.equal(value.browser.session.serialize(), expected.serialize());
+   assert.equal(second.shell.listenerCount(), 0);
+   assert.equal(second.audio.listenerCount(), 0);
