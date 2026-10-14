@@ -1,0 +1,29 @@
+ART-004 strict full-viewport restore comparisons
+
+Captured once before and once after production frame restoration. These are native, full-viewport PNG byte comparisons; there is no masking or pixel tolerance.
+
+390x844 normal:
+  before/after: live-browser/live-arena-integration-390-before-restore.png / live-browser/live-arena-integration-390-after-restore.png
+  bytes: 332025 / 332025
+  SHA-256 before/after: 9942a386aebe8e8d1d4166aa2318e624f64e3610ba9ccc26f2d14a3de934d34e
+  exact: yes
+
+1440x900 normal:
+  before/after: live-browser/live-arena-integration-1440-before-restore.png / live-browser/live-arena-integration-1440-after-restore.png
+  bytes: 417594 / 417594
+  SHA-256 before/after: 5aee2e47c640e20ca2049eb31edc0bee13583928fc6f5a25559a674027867ae2
+  exact: yes
+
+390x844 reduced motion:
+  before/after: live-browser/live-arena-integration-390-reduced-motion.png / live-browser/live-arena-integration-390-reduced-motion-after-restore.png
+  bytes: 330825 / 330825
+  SHA-256 before/after: 90fb7caa86bb6c56bfea2ae2cccad0fa2c09dd2dfbd39307eac652fe52a89b74
+  exact: yes
+  raw child-frame diagnostic: childBodyPixelIdentical=false; DOM/style and outer viewport are exact; pointDiff.differingPixelCount=0. See live-browser/live-arena-integration-390-reduced-motion-paint-diagnostics.json.
+
+1440x900 reduced motion:
+  before/after: live-browser/live-arena-integration-1440-reduced-motion.png / live-browser/live-arena-integration-1440-reduced-motion-after-restore.png
+  bytes: 415909 / 415909
+  SHA-256 before/after: f48f097c6f2996c225206af8bc935e7b62f6a906156c00b5cfff16a5c16d3059
+  exact: yes
+  raw child-frame diagnostic also reports exact child-body pixels.

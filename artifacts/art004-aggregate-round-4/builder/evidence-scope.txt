@@ -1,0 +1,23 @@
+ART-004 round 4 builder evidence
+
+Frozen source candidate
+  Base: 5ed9d7c76a7bf3b4b3c6fe6a98102921e078f146
+  Candidate: 2cda0362cdc15aa8bfc418726d42521c2d28d5b3
+  Candidate is a single commit directly on the stated base.
+  Private worktree: /private/tmp/art004-sprite-rebase-5ed9d7c
+
+The seven candidate paths are listed in candidate-changed-files.txt. They are three owned UI files and four relevant tests. No simulation/kernel, feed, shell, loop, HUD-motion, or static asset file changed; protected-simulation-diff-files.txt is empty. `git diff --check` against the base passed (exit 0).
+
+Source/asset fence
+  source-pre.sha256 and source-post.sha256 each contain hashes for all 570 tracked paths selected by `git ls-files` under src, demo, public, and tests, plus package.json, package-lock.json, and .nvmrc. The manifests compare byte-for-byte; source-pre-post.diff is empty and source-fence.exit.txt is 0. This covers the checked-in UI and public assets, dependency lock, and runtime pin before and after the install and gates.
+
+Validation evidence
+  Runtime: node v22.22.3, npm 10.9.8 (`.nvmrc` is part of the fence).
+  `npm ci`: exit 0; 19 packages added; audit found 0 vulnerabilities.
+  `node --test tests/combat-sprite-prototype.test.js tests/game-ui-projection.test.js tests/ui-combat-state.test.js`: exit 0, 60/60 pass. See owned-unit-gates.tap.txt and owned-unit-gates.exit.txt.
+  `node --test tests/combat-sprite-prototype-browser.test.js`: one browser run, exit 0, 1/1 pass. See browser-gate.tap.txt and browser-gate.exit.txt. The run used full 390x844 and 1440x900 viewport capture in normal and reduced-motion modes; exact PNG comparisons are recorded in viewport-restore-checks.txt. The browser render evidence has no page or console errors.
+
+Scope and raw evidence
+  live-browser/ contains the untouched PNG and JSON outputs from the single candidate browser run, including walk/contact poses, team readability and raw restore diagnostics. Whole-viewport restoration is byte-exact in all four profiles. The phone reduced-motion child-frame body diagnostic reports a mismatch even though the unmasked full viewport, DOM, and style comparisons pass; this is retained verbatim and is not claimed as an exact inner-frame PNG match. Historical footage was unavailable, so no historical visual parity claim is made.
+  Old raw failures from prior rounds remain in their existing locations and were not overwritten.
+  evidence-sha256.txt covers every file in this builder directory except itself.
