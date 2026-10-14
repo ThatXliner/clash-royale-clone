@@ -1,0 +1,58 @@
+{
+  "candidate": "095a8c55a6721c74f7555939a9ce21182bec3f2a",
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "deviceScaleFactor": 1
+  },
+  "normalRestore": {
+    "fromTick": 179,
+    "toTick": 171,
+    "restoredIdentically": true,
+    "exactPngBytes": true,
+    "decodedDifferingPixels": 0
+  },
+  "reducedMotion": {
+    "checkpointTick": 173,
+    "reducedHoldTick": 173,
+    "reducedHoldMotion": "true",
+    "plusOneRestoreGate": true,
+    "exactPngBytes": true,
+    "decodedDifferingPixels": 0
+  },
+  "geometryMatches": true,
+  "audioContinuationEqualAcrossRestore": true,
+  "audioPolicyEqualAcrossRestore": true,
+  "candidateGate": {
+    "geometryMatches": true,
+    "normalRestoreExact": true,
+    "normalCheckpointStable": true,
+    "normalCheckpointStableMatchesImmediate": true,
+    "normalRestoreStable": true,
+    "normalRestoreStableMatchesImmediate": true,
+    "zeroStepAccepted": true,
+    "zeroStepAuditExact": true,
+    "zeroStepViewportExact": true,
+    "zeroStepStable": true,
+    "rewoundPlusOneFrom173": true,
+    "plusOneRestoreAddsNoPixels": true,
+    "finalViewportExactToPreNoOp": true,
+    "finalCaptureStable": true,
+    "audioContinuationEqualAcrossRestore": true,
+    "audioPolicyEqualAcrossRestore": true,
+    "passes": true
+  },
+  "browserErrors": {
+    "pageErrors": [],
+    "consoleErrors": [],
+    "missingPaths": []
+  },
+  "reportedBuilderHead": "095a8c55a6721c74f7555939a9ce21182bec3f2a",
+  "candidateSourceSha256": {
+    "src/ui/game-ui-projection.js": "129b07f9f68924b6095fc26001eeb86265254cdb40acc577f418ec2daed7e6ba",
+    "src/ui/game-browser-loop.js": "f84c5f1b6928241c0c91b5c6b9501626be414b6e41a045334cb7ee0c8990c7c5",
+    "tests/game-ui-projection.test.js": "ace83cb0473d20cad67eaeb9ae3b22452c014d9c14627ce337e6c92547aa9d35",
+    "tests/game-browser-loop.test.js": "4e037881bf066c848185e721a409e981cd3027b1ac87e1c62133a33287702234"
+  },
+  "sourceFingerprintsMatchFrozenCandidate": true
+}

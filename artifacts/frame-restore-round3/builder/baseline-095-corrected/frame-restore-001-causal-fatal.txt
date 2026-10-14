@@ -1,0 +1,8 @@
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+'walk' !== 'attack'
+
+    at main (file:///private/tmp/frame-restore-round3-checkbase/tests/frame-restore-001-baseline-095-corrected.mjs:258:104)
+    at runNextTicks (node:internal/process/task_queues:64:5)
+    at process.processImmediate (node:internal/timers:452:9)
+    at process.callbackTrampoline (node:internal/async_hooks:130:17)

@@ -1,0 +1,5 @@
+AssertionError [ERR_ASSERTION]: candidate faithful exactness gate failed: {"geometryMatches":true,"normalRestoreExact":false,"normalCheckpointStable":true,"normalCheckpointStableMatchesImmediate":true,"normalRestoreStable":true,"normalRestoreStableMatchesImmediate":true,"zeroStepAccepted":true,"zeroStepAuditExact":true,"zeroStepViewportExact":true,"zeroStepStable":true,"rewoundPlusOneFrom173":true,"plusOneRestoreAddsNoPixels":true,"finalViewportExactToPreNoOp":true,"finalCaptureStable":true,"audioContinuationEqualAcrossRestore":true,"audioPolicyEqualAcrossRestore":true,"passes":false}
+
+false !== true
+
+    at main (file:///private/tmp/frame-restore-round3-checkbase/tests/frame-restore-001-candidate-095-faithful-run-2-identity.mjs:431:12)

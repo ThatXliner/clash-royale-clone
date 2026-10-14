@@ -28,7 +28,7 @@
   <div class="cards">
     <div class="card"><div class="num">264</div><div class="label">tracked pieces</div></div>
     <div class="card"><div class="num">210</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">472</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">473</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">30</div><div class="label">open questions</div></div>
   </div>
   <p class="note">Active target: <strong>FRAME-RESTORE-001 — Deterministic scaled battle frame restoration</strong>.</p>
@@ -1617,9 +1617,9 @@
         <td><code>FRAME-RESTORE-001</code></td>
         <td>Deterministic scaled battle frame restoration</td>
         <td class="state-building">BUILDING</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>One faithful immutable8983794 run isolates a same-state HUD trigger: stepMany(0) keeps tick173 and all measured session/audio/input/DOM bytes exact but replaces painted hud-card nodes, reproducing the same5 pixels105,700..704; subsequent173→174→173 restore adds0 drift. Correct painted owner is hud-card, not transparent card-slot. Evidence artifacts/frame-restore-round2/builder/faithful-causal-run1; no source fix or repeatability claim. Next preserve unchanged HUD identity through rendering and restore cleanup after CARDS-021I ownership is released.</td>
+        <td>49/50</td>
+        <td>1</td>
+        <td>Round473 FAIL exact6cf983c on095: independentprojection32/32 andloop17/17; preservedphone390 normal/reduced PNGs exact. Independentdesktop1440 normal179→171 differs29pixels max18 bbox575..811/898..911; typedcontinuation/geometryexact, reduceddesktopunrun. Candidateunaccepted. HUD/card identitiesstable; resource-meterleaf identities/paintowner omitted, causeunproved. Next boundedmeteridentity/mutationtrace and missingappend/remove/replace hostilecoverage. Artifacts/frame-restore-round3/{builder,critic}/.</td>
       </tr>
       <tr>
         <td><code>ART-004</code></td>
@@ -2626,6 +2626,7 @@
       <li><strong>R470 FAIL</strong> · CARDS-021I<br>Hidden-form restore at 390×844 changes the full-viewport image by dropping the visible unverified-combat overlay, so the exact restore criterion fails. Candidate4907e6f parentaccepted095a8c5; no sourceadoption. IndependentChrome155/Playwright1.58.2/Node22 focused47pass andbrowser0/1fail26.18s. Tee lackedpipefail, actualTAPfailure authoritative; no cleanNodeexitclaim. Fullground/airhit/lifetime/naturalterminal/restart journeyunrun. Original898HUD5pixeldrift isseparatecapturedcause; currentnotice-loss andsettlediframegeometry requireboundedfixes. Fullrawartifacts/cards021-integration-round1/critic/.</li>
       <li><strong>R471 PASS</strong> · FRAME-NOTICE-001<br>At the captured 390×844 phone viewport, the visible notice banner is clipped at the right edge; its DOM text is exact, but the PNG does not establish that the whole notice is readable, and this run does not establish the clipping cause. No I470 same-roster pixel or iframe root cause was established by this round. Adoptedexact98538d5source/test; sourceprepostfencesexact. Independentfocused71checks+positive26checks=97/97. Historicalbroadloopfixtures10pass/4fail oldpointertotal2vs1 and accidentalroster-witnessbrowser/CPUoverlapretainedbuildernotes; noall-suite/performanceclaim. Canonicalcross-rosterstalenoticefix doesnotproveI470same-rostercause orcloseFRAMEpixel/layoutbar.</li>
       <li><strong>R472 PASS</strong> · FRAME-LAYOUT-001<br>A directly matching historical reference still was unavailable, so visual parity against the pre-Evolution reference remains unverified. Adopted exact candidate source/test after independent execution; current notice source preserved. Full endurance and hidden-building presentation remain separate gates. Clarification of Round470 attribution: its strict PNG failure is authoritative; the notice-loss interpretation is not established by stored canonical notice fields. Round471 proves cross-roster notice reprojection, not the cause of Round470 same-roster pixel drift. Preserve original verdict and images.</li>
+      <li><strong>R473 FAIL</strong> · FRAME-RESTORE-001<br>Desktop normal restore 179→171 changes 29 full-viewport pixels (maximum channel delta 18) at x=575–811/y=898–911 even though the typed session, controller, input, audio continuation/policy, and measured geometry match exactly. No source adoption. Exact pre/post source fences; critic raw 49 passing unit checks and independent native desktop failure retained. The candidate remains on095; accepted layout/notice source is separate. Builder resource-meter owner mapping is a hypothesis from coordinates, not a proven cause. Next round traces omitted leaf identity and mutation before choosing a fix.</li>
   </ol>
 </body>
 </html>

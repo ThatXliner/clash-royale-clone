@@ -1,0 +1,138 @@
+{
+  "command": "node tests/frame-restore-001-baseline-095-faithful-run-1.mjs",
+  "script": "/private/tmp/frame-restore-round3-checkbase/tests/frame-restore-001-baseline-095-faithful-run-1.mjs",
+  "pid": 62723,
+  "execSession": 95334,
+  "exitCode": 0,
+  "sourceCommit": "095a8c55a6721c74f7555939a9ce21182bec3f2a",
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "deviceScaleFactor": 1
+  },
+  "chrome": "Google Chrome 155.0.8059.40",
+  "node": "v22.22.3",
+  "playwright": "1.58.2",
+  "evidence": "frame-restore-001-causal-evidence.json",
+  "result": {
+    "geometryGate": {
+      "matches": true,
+      "actual": {
+        "slot": {
+          "x": 0,
+          "y": 117,
+          "width": 390,
+          "height": 659,
+          "top": 117,
+          "right": 390,
+          "bottom": 776,
+          "left": 0
+        },
+        "frame": {
+          "x": 9.65625,
+          "y": 117,
+          "width": 370.6875,
+          "height": 659,
+          "top": 117,
+          "right": 380.34375,
+          "bottom": 776,
+          "left": 9.65625
+        }
+      },
+      "expected": {
+        "slot": {
+          "x": 0,
+          "y": 117,
+          "width": 390,
+          "height": 659
+        },
+        "frame": {
+          "x": 9.65625,
+          "y": 117,
+          "width": 370.6875,
+          "height": 659
+        }
+      }
+    },
+    "contactTick": 171,
+    "actualAttack": {
+      "attack": {
+        "attackerId": 1,
+        "sequence": 1,
+        "targetId": 9,
+        "tick": 170,
+        "type": "attack"
+      },
+      "damage": {
+        "amount": 120,
+        "attackerId": 1,
+        "currentHealthAfter": 0,
+        "currentHealthBefore": 81,
+        "delivery": "melee",
+        "targetId": 9,
+        "tick": 170,
+        "type": "damage"
+      },
+      "frame": {
+        "action": "walk",
+        "attackAge": null,
+        "pose": "attack",
+        "tick": 171
+      },
+      "source": {
+        "alive": true,
+        "attackSequence": 1,
+        "archetypeId": "briar-runner",
+        "delivery": "melee",
+        "id": 1,
+        "hitpoints": 121,
+        "side": "south",
+        "targetId": 9,
+        "phase": "cycling",
+        "nextTick": 171,
+        "nextAttackTick": 236,
+        "sourceTick": 170
+      },
+      "sessionTick": 171
+    },
+    "restoreCount": 3,
+    "normalRestoreExactViewport": true,
+    "stepManyZero": {
+      "accepted": true,
+      "eventCount": 0,
+      "tick": 173,
+      "auditChangedCategories": [
+        "paintedNodes"
+      ],
+      "differingPixelCount": 5,
+      "maximumChannelDelta": 3,
+      "boundingBox": {
+        "minX": 105,
+        "minY": 700,
+        "maxX": 105,
+        "maxY": 704
+      },
+      "stable": true
+    },
+    "plusOneRestore": {
+      "fromTick": 173,
+      "advancedTick": 174,
+      "restoredTick": 173,
+      "diffVsPostNoOpPixelCount": 0,
+      "exactPngVsPostNoOp": true
+    },
+    "cardDomIdentityBefore": [
+      22,
+      23,
+      24,
+      25
+    ],
+    "cardDomIdentityAfter": [
+      27,
+      28,
+      29,
+      30
+    ],
+    "cardDescriptionsEqualIgnoringIdentity": true
+  }
+}

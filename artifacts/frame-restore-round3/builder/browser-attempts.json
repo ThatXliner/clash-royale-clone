@@ -1,0 +1,118 @@
+{
+  "diagnostic": "FRAME-RESTORE-001 accepted 095 baseline harness compatibility",
+  "checkout": "/private/tmp/frame-restore-round3-checkbase",
+  "commit": "095a8c55a6721c74f7555939a9ce21182bec3f2a",
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "deviceScaleFactor": 1
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "pid": 59435,
+      "execSession": 75116,
+      "script": "probes/attempt-1-animation-age-guard.mjs",
+      "result": "real browser loaded and attack was found, then the inherited 898 probe asserted data-attack-animation-age === 1. Accepted 095 does not expose that attribute, so Number(undefined) was NaN. Aborted before screenshot, geometry gate, or full lifecycle result.",
+      "raw": "baseline-095/frame-restore-001-causal-fatal.txt"
+    },
+    {
+      "attempt": 2,
+      "pid": 60007,
+      "execSession": 37265,
+      "script": "probes/attempt-2-legacy-action-guard.mjs",
+      "result": "real browser loaded and attack was found, then a source-inaccurate expected action=attack assertion failed; accepted 095 correctly painted action=walk for this direct melee hit. Aborted before screenshot, geometry gate, or full lifecycle result.",
+      "raw": "baseline-095-corrected/frame-restore-001-causal-fatal.txt"
+    },
+    {
+      "attempt": 3,
+      "pid": 62723,
+      "execSession": 95334,
+      "script": "probes/faithful-baseline-095-run-1.mjs",
+      "result": "Exit 0, natural geometry gate matched. Normal tick-171 restore was pixel-exact. At reduced checkpoint tick173 the legal stepMany(0) emitted no events and left all audited simulation/browser/input/audio/font/resource bytes identical, but only paintedNodes identity changed and the viewport developed the known five pixels at x105,y700-704 (max channel delta 3). The following +1/restore pair added no further pixel difference relative to the post-no-op screenshot. This locates the first divergence at same-state projection replacement; it does not attribute the rendered change uniquely to restore.",
+      "sourceCommit": "095a8c55a6721c74f7555939a9ce21182bec3f2a",
+      "geometryGate": true,
+      "output": "baseline-095-faithful-run-1/frame-restore-001-causal-evidence.json",
+      "exitReceipt": "baseline-095-faithful-run-1/runner-exit.json",
+      "screenshots": [
+        "normal-contact-before-restore.png",
+        "normal-team-readability-contact-plus-8.png",
+        "normal-contact-after-restore.png",
+        "reducedBefore.png",
+        "reducedAfter.png",
+        "reduced-after-stepMany-zero.png",
+        "reduced-after-plus1-restore.png"
+      ],
+      "rawFatal": null
+    }
+  ],
+  "setupFailure": {
+    "pidFile": "baseline-095/setup-attempt-1.pid",
+    "raw": "baseline-095/setup-attempt-1.raw.txt",
+    "result": "The inherited runner's hard-coded source commit assertion expected 8983794bdba940cc8232bdfe1d6181a823776916; it stopped before launching the browser."
+  },
+  "screenshots": [
+    {
+      "path": "baseline-095-faithful-run-1/normal-contact-after-restore.png",
+      "sha256": "d59ba01c5c9645d61968cb1d06d9b2af0e0be9e28485be807cf8029f02504362"
+    },
+    {
+      "path": "baseline-095-faithful-run-1/normal-contact-before-restore.png",
+      "sha256": "d59ba01c5c9645d61968cb1d06d9b2af0e0be9e28485be807cf8029f02504362"
+    },
+    {
+      "path": "baseline-095-faithful-run-1/normal-team-readability-contact-plus-8.png",
+      "sha256": "7a1508b8f9de2f27dcf1e4e3d98e4a3b934a918dc8ae2d8b050a4080c0cf591d"
+    },
+    {
+      "path": "baseline-095-faithful-run-1/reduced-after-child-body.png",
+      "sha256": "77e7596e8299916d65ba87e719914b760c90b1c30ac169e3c25ffa4e8f14fe05"
+    },
+    {
+      "path": "baseline-095-faithful-run-1/reduced-after-plus1-restore-outer-capture-1.png",
+      "sha256": "b939ec99cbafeb31deadebfd81762f0c5b93a9b95318aa415a3acb33a66cef5c"
+    },
+    {
+      "path": "baseline-095-faithful-run-1/reduced-after-plus1-restore-outer-capture-2.png",
+      "sha256": "b939ec99cbafeb31deadebfd81762f0c5b93a9b95318aa415a3acb33a66cef5c"
+    },
+    {
+      "path": "baseline-095-faithful-run-1/reduced-after-plus1-restore.png",
+      "sha256": "b939ec99cbafeb31deadebfd81762f0c5b93a9b95318aa415a3acb33a66cef5c"
+    },
+    {
+      "path": "baseline-095-faithful-run-1/reduced-after-stepMany-zero-outer-capture-1.png",
+      "sha256": "b939ec99cbafeb31deadebfd81762f0c5b93a9b95318aa415a3acb33a66cef5c"
+    },
+    {
+      "path": "baseline-095-faithful-run-1/reduced-after-stepMany-zero-outer-capture-2.png",
+      "sha256": "b939ec99cbafeb31deadebfd81762f0c5b93a9b95318aa415a3acb33a66cef5c"
+    },
+    {
+      "path": "baseline-095-faithful-run-1/reduced-after-stepMany-zero.png",
+      "sha256": "b939ec99cbafeb31deadebfd81762f0c5b93a9b95318aa415a3acb33a66cef5c"
+    },
+    {
+      "path": "baseline-095-faithful-run-1/reduced-before-child-body.png",
+      "sha256": "c9ab3ac5e75f04d9b87186aaab3e1e2758f1a5309b29ef9dff07c69b1b3cd8ef"
+    },
+    {
+      "path": "baseline-095-faithful-run-1/reduced-before-restore-outer-capture-1.png",
+      "sha256": "1190cf63ecbff57854820e49e089d261ecbdb6898ec71b88f5f439cf6b2a46e2"
+    },
+    {
+      "path": "baseline-095-faithful-run-1/reduced-before-restore-outer-capture-2.png",
+      "sha256": "1190cf63ecbff57854820e49e089d261ecbdb6898ec71b88f5f439cf6b2a46e2"
+    },
+    {
+      "path": "baseline-095-faithful-run-1/reduced-before-restore.png",
+      "sha256": "1190cf63ecbff57854820e49e089d261ecbdb6898ec71b88f5f439cf6b2a46e2"
+    }
+  ],
+  "visualClaim": "The accepted-095 faithful run reproduced the five-pixel whole-viewport difference after stepMany(0). It proves the source/content audit stayed identical while painted DOM identities changed. The following restore did not add a further diff. Candidate rendering is not yet browser-verified.",
+  "browserEnvironment": {
+    "chrome": "Google Chrome 155.0.8059.40",
+    "playwright": "1.58.2",
+    "executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+  }
+}

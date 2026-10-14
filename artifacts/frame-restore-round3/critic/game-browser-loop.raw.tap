@@ -1,0 +1,112 @@
+TAP version 13
+# Subtest: game browser loop: input selection immediately projects, illegal play retains, and remount preserves
+ok 1 - game browser loop: input selection immediately projects, illegal play retains, and remount preserves
+  ---
+  duration_ms: 80.248042
+  type: 'test'
+  ...
+# Subtest: game browser loop: selection projection failure fails closed without a split controller
+ok 2 - game browser loop: selection projection failure fails closed without a split controller
+  ---
+  duration_ms: 15.947458
+  type: 'test'
+  ...
+# Subtest: game browser loop: one session mounts all projections and manual pause/resume stays aligned
+ok 3 - game browser loop: one session mounts all projections and manual pause/resume stays aligned
+  ---
+  duration_ms: 52.80775
+  type: 'test'
+  ...
+# Subtest: game browser loop: RAF backlog is capped and each frame coalesces into one stepMany
+ok 4 - game browser loop: RAF backlog is capped and each frame coalesces into one stepMany
+  ---
+  duration_ms: 520.11075
+  type: 'test'
+  ...
+# Subtest: game browser loop: input reaches the sole session and restore replaces listeners without redelivery
+ok 5 - game browser loop: input reaches the sole session and restore replaces listeners without redelivery
+  ---
+  duration_ms: 132.047166
+  type: 'test'
+  ...
+# Subtest: game browser loop: zero-step render and same-state restore retain projections and replace input
+ok 6 - game browser loop: zero-step render and same-state restore retain projections and replace input
+  ---
+  duration_ms: 34.767708
+  type: 'test'
+  ...
+# Subtest: game browser loop: restore rewinds a rendered frame without losing projection ownership
+ok 7 - game browser loop: restore rewinds a rendered frame without losing projection ownership
+  ---
+  duration_ms: 49.648792
+  type: 'test'
+  ...
+# Subtest: game browser loop: restore mounts a fresh projection after rollback poisons the old one
+ok 8 - game browser loop: restore mounts a fresh projection after rollback poisons the old one
+  ---
+  duration_ms: 34.532792
+  type: 'test'
+  ...
+# Subtest: game browser loop: endurance slices yield with input detached then commit one coherent remount
+ok 9 - game browser loop: endurance slices yield with input detached then commit one coherent remount
+  ---
+  duration_ms: 22.317042
+  type: 'test'
+  ...
+# Subtest: game browser loop: endurance entry separates slice, projection, and audio without changing commits
+ok 10 - game browser loop: endurance entry separates slice, projection, and audio without changing commits
+  ---
+  duration_ms: 521.281208
+  type: 'test'
+  ...
+# Subtest: game browser loop: yielded restore cursor preserves exact session bytes and operation cuts
+ok 11 - game browser loop: yielded restore cursor preserves exact session bytes and operation cuts
+  ---
+  duration_ms: 298.814041
+  type: 'test'
+  ...
+# Subtest: game browser loop: prepared endurance restore is opaque, exact-byte, owner-bound, and single-use
+ok 12 - game browser loop: prepared endurance restore is opaque, exact-byte, owner-bound, and single-use
+  ---
+  duration_ms: 35.641292
+  type: 'test'
+  ...
+# Subtest: game browser loop: duplicate mount rejects and cleanup is idempotent
+ok 13 - game browser loop: duplicate mount rejects and cleanup is idempotent
+  ---
+  duration_ms: 16.710042
+  type: 'test'
+  ...
+# Subtest: game browser loop: live terminal inside a batch stops simulation and settles the presentation tail
+ok 14 - game browser loop: live terminal inside a batch stops simulation and settles the presentation tail
+  ---
+  duration_ms: 6507.2575
+  type: 'test'
+  ...
+# Subtest: game browser loop: runtime and shipped entry contain no wall clock, RNG, or repeated-step catch-up
+ok 15 - game browser loop: runtime and shipped entry contain no wall clock, RNG, or repeated-step catch-up
+  ---
+  duration_ms: 2.856791
+  type: 'test'
+  ...
+# Subtest: game browser loop: terminal presentation manual ticks restore exactly and reject incoherent envelopes
+ok 16 - game browser loop: terminal presentation manual ticks restore exactly and reject incoherent envelopes
+  ---
+  duration_ms: 17648.484083
+  type: 'test'
+  ...
+# Subtest: game browser loop: disposal cancels an unfinished terminal presentation
+ok 17 - game browser loop: disposal cancels an unfinished terminal presentation
+  ---
+  duration_ms: 6316.878041
+  type: 'test'
+  ...
+1..17
+# tests 17
+# suites 0
+# pass 17
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 32388.13125

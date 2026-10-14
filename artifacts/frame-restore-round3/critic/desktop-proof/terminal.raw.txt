@@ -1,0 +1,9 @@
+AssertionError [ERR_ASSERTION]: desktop normal restore gate failed: {"sessionBytes":true,"browserSnapshot":true,"controllerState":true,"inputDom":true,"audioContinuationBytes":true,"fonts":true,"resources":true,"audioPolicy":true,"geometry":true,"fullViewportPng":false,"decodedPixels":false}
+    at main (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/frame-restore-round3/critic/faithful-candidate-095-desktop-1440x933-run-2.mjs:241:12) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}

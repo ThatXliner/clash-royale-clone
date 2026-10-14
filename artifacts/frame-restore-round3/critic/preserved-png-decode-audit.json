@@ -1,0 +1,293 @@
+{
+  "decoder": "Pillow Image.convert(RGBA), exact integer channel compare, no tolerance",
+  "pairs": [
+    {
+      "label": "phone normal",
+      "before": {
+        "path": "preserved-phone/normal-before-restore-390x844.png",
+        "bytes": 332216,
+        "sha256": "4430b9db8a0e88ac087eda62fa715b78b49268e9e89c07aa87fa155d12a3ca36",
+        "dimensions": [
+          390,
+          844
+        ]
+      },
+      "after": {
+        "path": "preserved-phone/normal-after-restore-390x844.png",
+        "bytes": 332216,
+        "sha256": "4430b9db8a0e88ac087eda62fa715b78b49268e9e89c07aa87fa155d12a3ca36",
+        "dimensions": [
+          390,
+          844
+        ]
+      },
+      "byteIdentical": true,
+      "decodedDifferingPixels": 0,
+      "maximumChannelDelta": 0,
+      "differingPixelBounds": null,
+      "firstDifferingPixels": []
+    },
+    {
+      "label": "phone reduced",
+      "before": {
+        "path": "preserved-phone/reduced-before-restore-390x844.png",
+        "bytes": 330790,
+        "sha256": "1190cf63ecbff57854820e49e089d261ecbdb6898ec71b88f5f439cf6b2a46e2",
+        "dimensions": [
+          390,
+          844
+        ]
+      },
+      "after": {
+        "path": "preserved-phone/reduced-after-restore-390x844.png",
+        "bytes": 330790,
+        "sha256": "1190cf63ecbff57854820e49e089d261ecbdb6898ec71b88f5f439cf6b2a46e2",
+        "dimensions": [
+          390,
+          844
+        ]
+      },
+      "byteIdentical": true,
+      "decodedDifferingPixels": 0,
+      "maximumChannelDelta": 0,
+      "differingPixelBounds": null,
+      "firstDifferingPixels": []
+    },
+    {
+      "label": "preserved desktop normal",
+      "before": {
+        "path": "preserved-desktop-run-2/normal-before-1440x933.png",
+        "bytes": 452836,
+        "sha256": "60cd169105c203a9ac789b027ab820003560e31d4c60f9dc2a303a93582e4d94",
+        "dimensions": [
+          1440,
+          933
+        ]
+      },
+      "after": {
+        "path": "preserved-desktop-run-2/normal-after-1440x933.png",
+        "bytes": 452832,
+        "sha256": "455a3c77368ae881d0f5e82b581e74e06a92328414449999f5092e94af6111d7",
+        "dimensions": [
+          1440,
+          933
+        ]
+      },
+      "byteIdentical": false,
+      "decodedDifferingPixels": 29,
+      "maximumChannelDelta": 18,
+      "differingPixelBounds": [
+        575,
+        898,
+        811,
+        911
+      ],
+      "firstDifferingPixels": [
+        {
+          "x": 692,
+          "y": 898,
+          "before": [
+            87,
+            91,
+            99,
+            255
+          ],
+          "after": [
+            86,
+            90,
+            97,
+            255
+          ],
+          "maxChannelDelta": 2
+        },
+        {
+          "x": 754,
+          "y": 898,
+          "before": [
+            87,
+            92,
+            100,
+            255
+          ],
+          "after": [
+            86,
+            91,
+            99,
+            255
+          ],
+          "maxChannelDelta": 1
+        },
+        {
+          "x": 763,
+          "y": 898,
+          "before": [
+            89,
+            94,
+            102,
+            255
+          ],
+          "after": [
+            89,
+            93,
+            101,
+            255
+          ],
+          "maxChannelDelta": 1
+        },
+        {
+          "x": 577,
+          "y": 899,
+          "before": [
+            143,
+            149,
+            162,
+            255
+          ],
+          "after": [
+            153,
+            160,
+            173,
+            255
+          ],
+          "maxChannelDelta": 11
+        },
+        {
+          "x": 810,
+          "y": 899,
+          "before": [
+            62,
+            65,
+            76,
+            255
+          ],
+          "after": [
+            61,
+            64,
+            75,
+            255
+          ],
+          "maxChannelDelta": 1
+        },
+        {
+          "x": 576,
+          "y": 900,
+          "before": [
+            165,
+            173,
+            185,
+            255
+          ],
+          "after": [
+            175,
+            184,
+            195,
+            255
+          ],
+          "maxChannelDelta": 11
+        },
+        {
+          "x": 811,
+          "y": 900,
+          "before": [
+            39,
+            43,
+            52,
+            255
+          ],
+          "after": [
+            37,
+            41,
+            50,
+            255
+          ],
+          "maxChannelDelta": 2
+        },
+        {
+          "x": 575,
+          "y": 901,
+          "before": [
+            85,
+            90,
+            104,
+            255
+          ],
+          "after": [
+            102,
+            107,
+            122,
+            255
+          ],
+          "maxChannelDelta": 18
+        },
+        {
+          "x": 811,
+          "y": 901,
+          "before": [
+            54,
+            49,
+            82,
+            255
+          ],
+          "after": [
+            59,
+            53,
+            90,
+            255
+          ],
+          "maxChannelDelta": 8
+        },
+        {
+          "x": 575,
+          "y": 902,
+          "before": [
+            142,
+            149,
+            163,
+            255
+          ],
+          "after": [
+            153,
+            160,
+            174,
+            255
+          ],
+          "maxChannelDelta": 11
+        },
+        {
+          "x": 811,
+          "y": 902,
+          "before": [
+            73,
+            62,
+            109,
+            255
+          ],
+          "after": [
+            79,
+            67,
+            120,
+            255
+          ],
+          "maxChannelDelta": 11
+        },
+        {
+          "x": 575,
+          "y": 903,
+          "before": [
+            114,
+            116,
+            139,
+            255
+          ],
+          "after": [
+            122,
+            123,
+            147,
+            255
+          ],
+          "maxChannelDelta": 8
+        }
+      ]
+    }
+  ]
+}

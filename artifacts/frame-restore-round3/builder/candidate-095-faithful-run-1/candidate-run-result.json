@@ -1,0 +1,71 @@
+{
+  "diagnostic": "FRAME-RESTORE-001 faithful candidate proof attempt",
+  "candidateBase": "095a8c55a6721c74f7555939a9ce21182bec3f2a",
+  "privateCandidate": true,
+  "command": "node tests/frame-restore-001-candidate-095-faithful-run-1.mjs",
+  "runnerPid": 66121,
+  "execSessionId": 8722,
+  "exitCode": 1,
+  "browserRunCount": 1,
+  "rerun": false,
+  "naturalGeometryGatePassed": true,
+  "firstFailingGate": "normal contact checkpoint must restore exact viewport PNG bytes",
+  "assertionLocation": "tests/frame-restore-001-candidate-095-faithful-run-1.mjs:323",
+  "stoppedBefore": [
+    "reduced-motion restore",
+    "stepMany(0) no-op audit",
+    "plus-one and restore viewport comparison"
+  ],
+  "captures": {
+    "before": {
+      "file": "normal-contact-before-restore.png",
+      "sha256": "4430b9db8a0e88ac087eda62fa715b78b49268e9e89c07aa87fa155d12a3ca36",
+      "bytes": 332216
+    },
+    "after": {
+      "file": "normal-contact-after-restore.png",
+      "sha256": "d59ba01c5c9645d61968cb1d06d9b2af0e0be9e28485be807cf8029f02504362",
+      "bytes": 332224
+    },
+    "dimensions": [
+      390,
+      844
+    ],
+    "byteEqual": false,
+    "decodedDiff": {
+      "pixelCount": 5,
+      "maxChannelDelta": 3,
+      "bbox": [
+        105,
+        700,
+        105,
+        704
+      ]
+    }
+  },
+  "comparisonToAccepted095Baseline": {
+    "candidatePreRestoreVsBaselineContact": {
+      "pixelCount": 5,
+      "maxChannelDelta": 3,
+      "bbox": [
+        105,
+        700,
+        105,
+        704
+      ]
+    },
+    "candidatePostRestoreVsBaselineContact": {
+      "byteEqual": true,
+      "pixelCount": 0
+    },
+    "baselineContactSha256": "d59ba01c5c9645d61968cb1d06d9b2af0e0be9e28485be807cf8029f02504362"
+  },
+  "runtimeSnapshotWritten": false,
+  "runtimeSnapshotLimitation": "The runner asserted before writing its final JSON evidence; only the raw PNGs, fatal text, PID file and this offline pixel-diff report are available.",
+  "interpretation": "Strict candidate proof failed on the first normal restore gate. This does not verify candidate correctness or the later no-op/restore gates. The five-pixel drift was present in the pre-restore image and disappeared on restore in this run.",
+  "fatalSha256": "37fc4dcc30171d045091edcae4411d4aaf24aff8ad0ace339f44ec4fba211cb7",
+  "candidateSourceHashes": {
+    "src/ui/game-ui-projection.js": "19831d7084a0796df7e215a7306c8fcf86bcfe4f11da454b9039177e8de7a285",
+    "src/ui/game-browser-loop.js": "f84c5f1b6928241c0c91b5c6b9501626be414b6e41a045334cb7ee0c8990c7c5"
+  }
+}

@@ -1,0 +1,22 @@
+--- /tmp/frame-restore-critic-6cf983c/artifacts/frame-restore-round3/builder/probes/faithful-candidate-095-desktop-1440x933-run-2.mjs
++++ /Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/frame-restore-round3/critic/faithful-candidate-095-desktop-1440x933-run-2.mjs
+@@ -8,8 +8,8 @@
+ import { execFileSync } from "node:child_process";
+ import { chromium } from "playwright";
+ 
+-const ROOT = "/private/tmp/frame-restore-round3-builder";
+-const OUTPUT = resolve(ROOT, "artifacts/frame-restore-round3/builder/desktop-1440-faithful-run-2");
++const ROOT = "/tmp/frame-restore-critic-6cf983c";
++const OUTPUT = resolve("/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/frame-restore-round3/critic/desktop-proof");
+ const CHROME = process.env.GAME_BROWSER_CHROME ?? "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+ const VIEWPORT = { width: 1440, height: 933 };
+ const DECK = ["skymaul", "brassbolt", "reedsting", "briar-band", "cinderlings", "coilblade", "mossguard", "copperskiff"];
+@@ -125,7 +125,7 @@
+ 
+ async function main() {
+   const repoCommit = execFileSync("git", ["-C", ROOT, "rev-parse", "HEAD"], { encoding: "utf8" }).trim();
+-  assert.equal(repoCommit, "095a8c55a6721c74f7555939a9ce21182bec3f2a");
++  assert.equal(repoCommit, "6cf983c6101e57de1d3b803c7e5469809b60ace4");
+   const candidateSourceSha256 = {};
+   for (const file of ["src/ui/game-ui-projection.js", "src/ui/game-browser-loop.js", "tests/game-ui-projection.test.js", "tests/game-browser-loop.test.js"]) candidateSourceSha256[file] = createHash("sha256").update(await readFile(resolve(ROOT, file))).digest("hex");
+   assert.deepEqual(candidateSourceSha256, {
