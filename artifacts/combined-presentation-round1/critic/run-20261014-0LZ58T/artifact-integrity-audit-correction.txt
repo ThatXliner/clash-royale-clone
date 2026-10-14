@@ -1,0 +1,7 @@
+Audit correction, 2026-10-14
+
+The initial integrity summary used a filename rule that grouped all *-after-restore.png images with a presumed before image. This counted 29 names, including buried-coil-natural-terminal-after-restore.png. That final natural-terminal capture intentionally has no same-state before-restore screenshot; it is separate from the seven checkpoints.
+
+The initial artifact-integrity-audit.json was overwritten before the preservation request arrived. Its full original is unavailable. The parent preserved the scalar values it observed in root-observed-initial-audit-summary.json; artifact-integrity-audit.initial-flawed-reconstructed.json is only a clearly labeled reconstruction, not the original.
+
+The 28 checkpoint contexts were then checked individually and are listed with before/after filenames, recorded and actual SHA-256 values, dimensions, and equality in restore-png-pairs.json. Every recorded file hash and dimension matches; all 28 before/after PNG hash pairs are identical. The raw browser evidence has screenshotMismatches=[] and errors=[]. The corrected machine-readable summary is artifact-integrity-audit.json. No browser captures, source, tests, or harness were changed or rerun.

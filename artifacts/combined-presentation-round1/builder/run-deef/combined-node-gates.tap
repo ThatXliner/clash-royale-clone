@@ -1,0 +1,600 @@
+TAP version 13
+# mossguard: authentic Buried Coil damage history [{"amount":230,"currentHealthAfter":1536,"currentHealthBefore":1766,"externalSourceId":"building:2","sourceSide":"south","targetId":1,"targetSide":"north","tick":103}]
+# copperskiff: authentic Buried Coil damage history [{"amount":230,"currentHealthAfter":384,"currentHealthBefore":614,"externalSourceId":"building:2","sourceSide":"south","targetId":1,"targetSide":"north","tick":103},{"amount":230,"currentHealthAfter":154,"currentHealthBefore":384,"externalSourceId":"building:2","sourceSide":"south","targetId":1,"targetSide":"north","tick":175},{"amount":230,"currentHealthAfter":0,"currentHealthBefore":154,"externalSourceId":"building:2","sourceSide":"south","targetId":1,"targetSide":"north","tick":247}]
+# Subtest: Buried Coil custom eight-card GameSession deploys, spends once, reveals, and contacts ground and air
+ok 1 - Buried Coil custom eight-card GameSession deploys, spends once, reveals, and contacts ground and air
+  ---
+  duration_ms: 1795.361
+  type: 'test'
+  ...
+# Subtest: Buried Coil ground contact feeds actual Mossguard damage, hit reaction, audio, and restore
+ok 2 - Buried Coil ground contact feeds actual Mossguard damage, hit reaction, audio, and restore
+  ---
+  duration_ms: 923.79925
+  type: 'test'
+  ...
+# Subtest: Buried Coil air contact feeds actual Copperskiff damage, hit reaction, audio, and restore
+ok 3 - Buried Coil air contact feeds actual Copperskiff damage, hit reaction, audio, and restore
+  ---
+  duration_ms: 2023.684916
+  type: 'test'
+  ...
+# Subtest: seeded AI deploys Buried Coil through its custom deck and preserves hidden lifetime on restore
+ok 4 - seeded AI deploys Buried Coil through its custom deck and preserves hidden lifetime on restore
+  ---
+  duration_ms: 13.26775
+  type: 'test'
+  ...
+# Subtest: Buried Coil hidden state and provisional lifetime survive an actual pre-expiry restore
+ok 5 - Buried Coil hidden state and provisional lifetime survive an actual pre-expiry restore
+  ---
+  duration_ms: 9445.453625
+  type: 'test'
+  ...
+# Subtest: compact wire keeps the existing public feed version and hard bounds
+ok 6 - compact wire keeps the existing public feed version and hard bounds
+  ---
+  duration_ms: 0.411625
+  type: 'test'
+  ...
+# Subtest: compact wire preserves the full v1 logical graph across restore and branches
+ok 7 - compact wire preserves the full v1 logical graph across restore and branches
+  ---
+  duration_ms: 1004.989125
+  type: 'test'
+  ...
+# Subtest: direct-contact roots append to compact v2 as the third type without mutating the parent
+ok 8 - direct-contact roots append to compact v2 as the third type without mutating the parent
+  ---
+  duration_ms: 622.3495
+  type: 'test'
+  ...
+# Subtest: compact v2 rejects noncanonical, malformed, and causally forged rows
+ok 9 - compact v2 rejects noncanonical, malformed, and causally forged rows
+  ---
+  duration_ms: 436.502375
+  type: 'test'
+  ...
+# Subtest: compact append byte-bound failure is atomic and keeps the same limits
+ok 10 - compact append byte-bound failure is atomic and keeps the same limits
+  ---
+  duration_ms: 12987.516542
+  type: 'test'
+  ...
+# Subtest: direct-contact byte-bound failure leaves a compact feed unchanged
+ok 11 - direct-contact byte-bound failure leaves a compact feed unchanged
+  ---
+  duration_ms: 338.599084
+  type: 'test'
+  ...
+# Subtest: combat-effect feed is closed, immutable, canonical, and source-authenticated
+ok 12 - combat-effect feed is closed, immutable, canonical, and source-authenticated
+  ---
+  duration_ms: 6.1825
+  type: 'test'
+  ...
+# Subtest: combat-effect snapshots keep their brand across validation
+ok 13 - combat-effect snapshots keep their brand across validation
+  ---
+  duration_ms: 0.998041
+  type: 'test'
+  ...
+# Subtest: combat-effect snapshots retain frozen history across branch appends
+ok 14 - combat-effect snapshots retain frozen history across branch appends
+  ---
+  duration_ms: 0.864584
+  type: 'test'
+  ...
+# Subtest: combat-effect feed rejects hostile lifecycle records atomically
+ok 15 - combat-effect feed rejects hostile lifecycle records atomically
+  ---
+  duration_ms: 3.865167
+  type: 'test'
+  ...
+# Subtest: structure-origin contacts require the authenticated damage join and roll back atomically
+ok 16 - structure-origin contacts require the authenticated damage join and roll back atomically
+  ---
+  duration_ms: 1.280208
+  type: 'test'
+  ...
+# Subtest: combat-effect protocol rejects premature, branched, reordered, forged, and restored writes
+ok 17 - combat-effect protocol rejects premature, branched, reordered, forged, and restored writes
+  ---
+  duration_ms: 2.325334
+  type: 'test'
+  ...
+# Subtest: authentic pre-contact travel cancellation closes its visible carrier
+ok 18 - authentic pre-contact travel cancellation closes its visible carrier
+  ---
+  duration_ms: 3.24925
+  type: 'test'
+  ...
+# Subtest: actual projectile feed-bound failure leaves mechanics and visual bytes unchanged
+ok 19 - actual projectile feed-bound failure leaves mechanics and visual bytes unchanged
+  ---
+  duration_ms: 1057.301667
+  type: 'test'
+  ...
+# Subtest: actual projectile, area, return, pierce, pellet, spell, and travel sources export closed feeds
+ok 20 - actual projectile, area, return, pierce, pellet, spell, and travel sources export closed feeds
+  ---
+  duration_ms: 45.390792
+  type: 'test'
+  ...
+# Subtest: source feed bytes survive chunks, restore, fork, signed geometry, and post-launch source death
+ok 21 - source feed bytes survive chunks, restore, fork, signed geometry, and post-launch source death
+  ---
+  duration_ms: 85.9515
+  type: 'test'
+  ...
+# Subtest: authentic battle and GameSession projections carry stable source identities
+ok 22 - authentic battle and GameSession projections carry stable source identities
+  ---
+  duration_ms: 1156.353583
+  type: 'test'
+  ...
+# Subtest: fresh processes reproduce exact feed bytes
+ok 23 - fresh processes reproduce exact feed bytes
+  ---
+  duration_ms: 74.97275
+  type: 'test'
+  ...
+# Subtest: walk and attack frames are selected only from the simulation tick and facing
+ok 24 - walk and attack frames are selected only from the simulation tick and facing
+  ---
+  duration_ms: 1.026333
+  type: 'test'
+  ...
+# Subtest: the vector comparison baseline has two authored frames per facing and action
+ok 25 - the vector comparison baseline has two authored frames per facing and action
+  ---
+  duration_ms: 4.071958
+  type: 'test'
+  ...
+# Subtest: the painted atlas maps every action, facing, and tick frame to a contained source window
+ok 26 - the painted atlas maps every action, facing, and tick frame to a contained source window
+  ---
+  duration_ms: 2.042416
+  type: 'test'
+  ...
+# Subtest: reduced motion holds the first painted atlas column for every facing
+ok 27 - reduced motion holds the first painted atlas column for every facing
+  ---
+  duration_ms: 0.127792
+  type: 'test'
+  ...
+# Subtest: painted Briar artwork carries a persistent bordered team-color footring
+ok 28 - painted Briar artwork carries a persistent bordered team-color footring
+  ---
+  duration_ms: 0.300208
+  type: 'test'
+  ...
+# Subtest: reduced motion fixes the frame while retaining the selected direction and action
+ok 29 - reduced motion fixes the frame while retaining the selected direction and action
+  ---
+  duration_ms: 0.1135
+  type: 'test'
+  ...
+# Subtest: checkpoint restore reproduces the exact sprite frame and reduced-motion state
+ok 30 - checkpoint restore reproduces the exact sprite frame and reduced-motion state
+  ---
+  duration_ms: 0.217041
+  type: 'test'
+  ...
+# Subtest: restore rejects malformed or noncanonical sprite checkpoints
+ok 31 - restore rejects malformed or noncanonical sprite checkpoints
+  ---
+  duration_ms: 0.175625
+  type: 'test'
+  ...
+# Subtest: rendered SVG carries clear team identity, frame identity, and an outlined external atlas use
+ok 32 - rendered SVG carries clear team identity, frame identity, and an outlined external atlas use
+  ---
+  duration_ms: 0.365084
+  type: 'test'
+  ...
+# Subtest: painted renderer carries team identity and the same deterministic atlas frame
+ok 33 - painted renderer carries team identity and the same deterministic atlas frame
+  ---
+  duration_ms: 0.428875
+  type: 'test'
+  ...
+# Subtest: game UI projection: one authentic session frame commits all four matching ticks
+ok 34 - game UI projection: one authentic session frame commits all four matching ticks
+  ---
+  duration_ms: 48.617
+  type: 'test'
+  ...
+# Subtest: game UI projection: an identical frame keeps every committed DOM node
+ok 35 - game UI projection: an identical frame keeps every committed DOM node
+  ---
+  duration_ms: 13.461958
+  type: 'test'
+  ...
+# Subtest: game UI projection: HUD tick metadata advances without replacing same-painted nodes
+ok 36 - game UI projection: HUD tick metadata advances without replacing same-painted nodes
+  ---
+  duration_ms: 188.364917
+  type: 'test'
+  ...
+# Subtest: game UI projection: changed HUD attributes keep slot nodes and roll back transactionally
+ok 37 - game UI projection: changed HUD attributes keep slot nodes and roll back transactionally
+  ---
+  duration_ms: 15.529416
+  type: 'test'
+  ...
+# Subtest: game UI projection: HUD appendChild mutate-then-throw restores exact live identities
+ok 38 - game UI projection: HUD appendChild mutate-then-throw restores exact live identities
+  ---
+  duration_ms: 21.50825
+  type: 'test'
+  ...
+# Subtest: game UI projection: HUD removeChild mutate-then-throw restores exact live identities
+ok 39 - game UI projection: HUD removeChild mutate-then-throw restores exact live identities
+  ---
+  duration_ms: 23.404709
+  type: 'test'
+  ...
+# Subtest: game UI projection: HUD replaceChild mutate-then-throw restores exact live identities
+ok 40 - game UI projection: HUD replaceChild mutate-then-throw restores exact live identities
+  ---
+  duration_ms: 20.581541
+  type: 'test'
+  ...
+# Subtest: game UI projection: candidate clone failure rolls back earlier HUD edits and recovers
+ok 41 - game UI projection: candidate clone failure rolls back earlier HUD edits and recovers
+  ---
+  duration_ms: 20.550709
+  type: 'test'
+  ...
+# Subtest: game UI projection: restore handoff retains identical DOM and admits the new session
+ok 42 - game UI projection: restore handoff retains identical DOM and admits the new session
+  ---
+  duration_ms: 24.433083
+  type: 'test'
+  ...
+# Subtest: game UI projection: restore handoff rewinds the HUD without replacing its slot hierarchy
+ok 43 - game UI projection: restore handoff rewinds the HUD without replacing its slot hierarchy
+  ---
+  duration_ms: 27.410041
+  type: 'test'
+  ...
+# Subtest: game UI projection: mismatched and backward canonical frames preserve every DOM byte
+ok 44 - game UI projection: mismatched and backward canonical frames preserve every DOM byte
+  ---
+  duration_ms: 31.6675
+  type: 'test'
+  ...
+# Subtest: game UI projection: hostile frames and accessors execute nothing and write nothing
+ok 45 - game UI projection: hostile frames and accessors execute nothing and write nothing
+  ---
+  duration_ms: 10.264583
+  type: 'test'
+  ...
+# Subtest: game UI projection: staging and commit failures roll back all live layers
+ok 46 - game UI projection: staging and commit failures roll back all live layers
+  ---
+  duration_ms: 15.788625
+  type: 'test'
+  ...
+# Subtest: game UI projection: combat mutate-then-throw rolls back itself and prior layers
+ok 47 - game UI projection: combat mutate-then-throw rolls back itself and prior layers
+  ---
+  duration_ms: 15.416625
+  type: 'test'
+  ...
+# Subtest: game UI projection: effects mutate-then-throw rolls back itself and prior layers
+ok 48 - game UI projection: effects mutate-then-throw rolls back itself and prior layers
+  ---
+  duration_ms: 15.895833
+  type: 'test'
+  ...
+# Subtest: game UI projection: feedback mutate-then-throw rolls back itself and prior layers
+ok 49 - game UI projection: feedback mutate-then-throw rolls back itself and prior layers
+  ---
+  duration_ms: 15.757667
+  type: 'test'
+  ...
+# Subtest: game UI projection: hud mutate-then-throw rolls back itself and prior layers
+ok 50 - game UI projection: hud mutate-then-throw rolls back itself and prior layers
+  ---
+  duration_ms: 15.026834
+  type: 'test'
+  ...
+# Subtest: game UI projection: before host failure restores exact child identities and recovers
+ok 51 - game UI projection: before host failure restores exact child identities and recovers
+  ---
+  duration_ms: 19.110583
+  type: 'test'
+  ...
+# Subtest: game UI projection: one host failure restores exact child identities and recovers
+ok 52 - game UI projection: one host failure restores exact child identities and recovers
+  ---
+  duration_ms: 19.044167
+  type: 'test'
+  ...
+# Subtest: game UI projection: all host failure restores exact child identities and recovers
+ok 53 - game UI projection: all host failure restores exact child identities and recovers
+  ---
+  duration_ms: 19.280625
+  type: 'test'
+  ...
+# Subtest: game UI projection: empty host failure restores exact child identities and recovers
+ok 54 - game UI projection: empty host failure restores exact child identities and recovers
+  ---
+  duration_ms: 19.140458
+  type: 'test'
+  ...
+# Subtest: game UI projection: an empty prior DOM rolls back and accepts a later update
+ok 55 - game UI projection: an empty prior DOM rolls back and accepts a later update
+  ---
+  duration_ms: 15.171625
+  type: 'test'
+  ...
+# Subtest: game UI projection: restoration failure poisons the mount without later writes
+ok 56 - game UI projection: restoration failure poisons the mount without later writes
+  ---
+  duration_ms: 19.342708
+  type: 'test'
+  ...
+# Subtest: game UI projection: composition rejects every hostile proxy class without callbacks
+ok 57 - game UI projection: composition rejects every hostile proxy class without callbacks
+  ---
+  duration_ms: 0.662916
+  type: 'test'
+  ...
+# Subtest: game UI projection: options reject every hostile proxy class without callbacks
+ok 58 - game UI projection: options reject every hostile proxy class without callbacks
+  ---
+  duration_ms: 9.363625
+  type: 'test'
+  ...
+# Subtest: game UI projection: frame creation mints once and performs zero session restores
+ok 59 - game UI projection: frame creation mints once and performs zero session restores
+  ---
+  duration_ms: 9.674333
+  type: 'test'
+  ...
+# Subtest: game UI projection: combat frame and mount never read raw replay authorities
+ok 60 - game UI projection: combat frame and mount never read raw replay authorities
+  ---
+  duration_ms: 18.594458
+  type: 'test'
+  ...
+# Subtest: game UI projection: terminal feedback never reads raw producer authorities
+ok 61 - game UI projection: terminal feedback never reads raw producer authorities
+  ---
+  duration_ms: 17142.686042
+  type: 'test'
+  ...
+# Subtest: game UI projection: tower health denominators come from the authoritative snapshot
+ok 62 - game UI projection: tower health denominators come from the authoritative snapshot
+  ---
+  duration_ms: 11.108666
+  type: 'test'
+  ...
+# Subtest: game UI projection: tick-120 live replay normalizes identically across chunks and restore
+ok 63 - game UI projection: tick-120 live replay normalizes identically across chunks and restore
+  ---
+  duration_ms: 584.928333
+  type: 'test'
+  ...
+# Subtest: game UI projection: authentic projectile lifecycle keeps exact IDs, ticks, and order
+ok 64 - game UI projection: authentic projectile lifecycle keeps exact IDs, ticks, and order
+  ---
+  duration_ms: 531.2755
+  type: 'test'
+  ...
+# Subtest: game UI projection: an actual Briar melee record selects the attack frame and restores exactly
+ok 65 - game UI projection: an actual Briar melee record selects the attack frame and restores exactly
+  ---
+  duration_ms: 710.661209
+  type: 'test'
+  ...
+# Subtest: game UI projection: non-Briar play output matches the accepted 5ed parent modules
+ok 66 - game UI projection: non-Briar play output matches the accepted 5ed parent modules
+  ---
+  duration_ms: 203.890625
+  type: 'test'
+  ...
+# Subtest: game UI projection: seed-2 live terminal clears dead targets and is chunk/restore exact
+ok 67 - game UI projection: seed-2 live terminal clears dead targets and is chunk/restore exact
+  ---
+  duration_ms: 28424.941834
+  type: 'test'
+  ...
+# Subtest: game UI projection: stale same-tick frame cannot replace newer selected-card bytes
+ok 68 - game UI projection: stale same-tick frame cannot replace newer selected-card bytes
+  ---
+  duration_ms: 10.867459
+  type: 'test'
+  ...
+# Subtest: game UI projection: cleanup is idempotent and rejects later projection
+ok 69 - game UI projection: cleanup is idempotent and rejects later projection
+  ---
+  duration_ms: 11.995166
+  type: 'test'
+  ...
+# Subtest: game UI projection: a real terminal session drives the match overlay at tick 18000
+ok 70 - game UI projection: a real terminal session drives the match overlay at tick 18000
+  ---
+  duration_ms: 16920.541459
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper UI projectile follows the authenticated live position through restore
+ok 71 - Kilnkeeper UI projectile follows the authenticated live position through restore
+  ---
+  duration_ms: 2733.671291
+  type: 'test'
+  ...
+# Subtest: ui combat effects: canonical direct feed projects exact rational travel
+ok 72 - ui combat effects: canonical direct feed projects exact rational travel
+  ---
+  duration_ms: 3.683917
+  type: 'test'
+  ...
+# Subtest: ui combat effects: live homing point uses the full typed projectile identity
+ok 73 - ui combat effects: live homing point uses the full typed projectile identity
+  ---
+  duration_ms: 2.54925
+  type: 'test'
+  ...
+# Subtest: ui combat effects: contact, lethal damage, death, and close are feed-causal
+ok 74 - ui combat effects: contact, lethal damage, death, and close are feed-causal
+  ---
+  duration_ms: 0.808083
+  type: 'test'
+  ...
+# Subtest: ui combat effects: direct structure contact stays on its authoritative apply boundary
+ok 75 - ui combat effects: direct structure contact stays on its authoritative apply boundary
+  ---
+  duration_ms: 1.174542
+  type: 'test'
+  ...
+# Subtest: ui combat effects: area roots retain zero-damage shared-target outcomes
+ok 76 - ui combat effects: area roots retain zero-damage shared-target outcomes
+  ---
+  duration_ms: 0.640125
+  type: 'test'
+  ...
+# Subtest: ui combat effects: return turn switches the canonical carrier leg
+ok 77 - ui combat effects: return turn switches the canonical carrier leg
+  ---
+  duration_ms: 0.64025
+  type: 'test'
+  ...
+# Subtest: ui combat effects: pellet segments are stable carriers and cancellations clear them
+ok 78 - ui combat effects: pellet segments are stable carriers and cancellations clear them
+  ---
+  duration_ms: 1.245167
+  type: 'test'
+  ...
+# Subtest: ui combat effects: serialization, restore, and DOM bytes use feed authority
+ok 79 - ui combat effects: serialization, restore, and DOM bytes use feed authority
+  ---
+  duration_ms: 1.499625
+  type: 'test'
+  ...
+# Subtest: ui combat effects: immutable event byte caching preserves canonical views
+ok 80 - ui combat effects: immutable event byte caching preserves canonical views
+  ---
+  duration_ms: 0.942792
+  type: 'test'
+  ...
+# Subtest: ui combat effects: malformed feed is rejected before projection and raw dialects never enter
+ok 81 - ui combat effects: malformed feed is rejected before projection and raw dialects never enter
+  ---
+  duration_ms: 2.195375
+  type: 'test'
+  ...
+# Subtest: ui combat effects: authentic sources project prefixes and restore exactly
+ok 82 - ui combat effects: authentic sources project prefixes and restore exactly
+  ---
+  duration_ms: 40.910625
+  type: 'test'
+  ...
+# Subtest: ui combat effects: authentic battle feed and empty feed are deterministic
+ok 83 - ui combat effects: authentic battle feed and empty feed are deterministic
+  ---
+  duration_ms: 12.144666
+  type: 'test'
+  ...
+# Subtest: non-Briar artwork and all 21 collection portraits match the accepted 5ed renderer
+ok 84 - non-Briar artwork and all 21 collection portraits match the accepted 5ed renderer
+  ---
+  duration_ms: 90.808292
+  type: 'test'
+  ...
+# Subtest: ui combat state: stable ID order projects exact millitile geometry and layers
+ok 85 - ui combat state: stable ID order projects exact millitile geometry and layers
+  ---
+  duration_ms: 1.006084
+  type: 'test'
+  ...
+# Subtest: ui combat state: high-confidence tower HP bounds health exactly
+ok 86 - ui combat state: high-confidence tower HP bounds health exactly
+  ---
+  duration_ms: 0.488667
+  type: 'test'
+  ...
+# Subtest: ui combat state: damage changes only numerator; death removes entities and terminals towers
+ok 87 - ui combat state: damage changes only numerator; death removes entities and terminals towers
+  ---
+  duration_ms: 0.4415
+  type: 'test'
+  ...
+# Subtest: ui combat state: canonical serialization restores byte-identically
+ok 88 - ui combat state: canonical serialization restores byte-identically
+  ---
+  duration_ms: 3.349708
+  type: 'test'
+  ...
+# Subtest: Buried Coil keeps its original hidden and revealed render geometry through restore
+ok 89 - Buried Coil keeps its original hidden and revealed render geometry through restore
+  ---
+  duration_ms: 1.392541
+  type: 'test'
+  ...
+# Subtest: ui combat state: one-shot and chunked state projection end in identical bytes
+ok 90 - ui combat state: one-shot and chunked state projection end in identical bytes
+  ---
+  duration_ms: 0.2205
+  type: 'test'
+  ...
+# Subtest: ui combat state: bounded causal events survive canonical restore without driving current state
+ok 91 - ui combat state: bounded causal events survive canonical restore without driving current state
+  ---
+  duration_ms: 0.700792
+  type: 'test'
+  ...
+# Subtest: ui combat state: DOM projection is byte-stable with exact inverted arena coordinates
+ok 92 - ui combat state: DOM projection is byte-stable with exact inverted arena coordinates
+  ---
+  duration_ms: 0.974458
+  type: 'test'
+  ...
+# Subtest: ui combat state: a generic target reaction cannot fabricate a Briar Runner attack pose
+ok 93 - ui combat state: a generic target reaction cannot fabricate a Briar Runner attack pose
+  ---
+  duration_ms: 1.520291
+  type: 'test'
+  ...
+# Subtest: ui combat state: terminal restore produces byte-identical DOM and zero health
+ok 94 - ui combat state: terminal restore produces byte-identical DOM and zero health
+  ---
+  duration_ms: 0.255208
+  type: 'test'
+  ...
+# Subtest: ui combat state: DOM binding validates/builds before its single commit
+ok 95 - ui combat state: DOM binding validates/builds before its single commit
+  ---
+  duration_ms: 0.185083
+  type: 'test'
+  ...
+# Subtest: ui combat state: exact shapes, accessors, prototypes, IDs, targets, HP, and bounds fail closed
+ok 96 - ui combat state: exact shapes, accessors, prototypes, IDs, targets, HP, and bounds fail closed
+  ---
+  duration_ms: 0.513625
+  type: 'test'
+  ...
+# Subtest: ui combat state: combat layer mounts inside the shipped arena primitive
+ok 97 - ui combat state: combat layer mounts inside the shipped arena primitive
+  ---
+  duration_ms: 0.411209
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper battle cutout keeps a team ring and enters the animated combat-art set
+ok 98 - Kilnkeeper battle cutout keeps a team ring and enters the animated combat-art set
+  ---
+  duration_ms: 0.155792
+  type: 'test'
+  ...
+1..98
+# tests 98
+# suites 0
+# pass 98
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 68156.222416

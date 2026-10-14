@@ -9381,3 +9381,12 @@ EVIDENCE: 65/65 passing tests across the exact owned suite, one native sprite br
 BIGGEST GAP: The candidate is based on b460, so the separate combined-source qualification and full 18,000-tick gate on the accepted current source still need to pass before treating the combined tree as qualified; this review makes no claim about root 025ce315 VIS preservation.
 
 Adopted exactsevenARTsource/testpaths fromb460, preserving all eightacceptedVISpaths. 115criticchecksumsverified. Builderfixturefailures, append-onlyPCMcheckpointcomparisonfailure andreadonlyshellstatusfailure retained; freshcriticactualNodeexits0 supplyacceptance. SingleCards021 screenshotfilename mismatch documented; nohistoricalvisualparityorcombined/enduranceclaim. CombinedsourceGPR7C/fullcurrent-sourceGPR7A remainrequired.
+
+## Round 480 — GAME-001GPR7C combined sprite and structure integration
+
+PIECE: GAME-001GPR7C
+VERDICT: PASS
+EVIDENCE: Independent new detached candidate deef7537e9a5b5caa2112da0a59c710595d072b5 and clean parent5ed. Actual Node98/98, native ART1/1 (24192.91225ms), full Cards0211/1 (321193.78875ms), all exits0. All550 tracked source/assets/tests/package hashes stayed exact. NativeChrome155/Node22.22.3/Playwright1.58.2. The65 Cards021 PNGs match recorded hashes/dimensions; all28 required phone390x844/desktop1440x933 normal/reduced checkpoint restore pairs byte-identical, no browser errors/mismatches. Trusted input, authentic sprite attack170/pose171, sole structure contact/death feedback, audio continuation, expiry and naturalterminal6645/samedeckseed0restart/postdrop exercised. Original33 tracked ART outputs restored exactly. Critic150checksumsverified; builder167files sealed and source manifests independently matched accepted git blobs. Kernel523788<=524288, unchangedlockd707c780.
+BIGGEST GAP: Matching-source full18000 default-eight and separate Kilnkeeper terminal/restart plus audio qualification remain unproved under GAME-001GPR7A; historical109 parity remains unproved.
+
+No production changes in this record. Initial critic PNG audit falsely counted29pairs by including a one-sided terminal capture; corrected28paired checkpoint hashes listed. Fullinitialaudit overwritten before preservation, explicitly unavailable; actual root-observed scalar summary and correction note retained. No image/test/harness changes or retries. Published deef via successful Pages38602481303; live landing sourceidentity and gameHTTP200 receipts retained without broad qualification claim.

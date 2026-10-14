@@ -1,0 +1,18 @@
+{
+  "status": "reconstructed scalar summary only; original JSON was overwritten and is unavailable",
+  "initialPairingResult": {
+    "screenshotRecords": 65,
+    "verifiedScreenshotFiles": 65,
+    "screenshotHashAndDimensionFailures": 0,
+    "browserErrors": 0,
+    "screenshotMismatches": 0,
+    "teamPlateSamples": 16,
+    "restoreCheckpoints": 7,
+    "restoreContexts": 28,
+    "naivelyCountedRestorePairs": 29,
+    "restorePairHashesMatch": false,
+    "integrityPass": false
+  },
+  "reason": "Initial pairing treated every filename ending in -after-restore.png as requiring a same-stem -before-restore.png capture. It included buried-coil-natural-terminal-after-restore.png, which is a distinct terminal-state capture with no before counterpart, not one of the 28 checkpoint restore pairs. No checkpoint pair was mismatched.",
+  "note": "root-observed-initial-audit-summary.json contains the exact initial scalar values observed by the parent before overwrite. This file reconstructs the critic output summary and is not the original JSON."
+}
