@@ -1,0 +1,12 @@
+Growth probe: copied the candidate's renderer and progress test into a temporary project, appended a valid `ORACLE-999` PLAN row and a complete `## Round 467 — 2026-10-15` entry, then ran `node --test tests/progress-renderer.test.js`.
+
+GROWTH PROBE exit: 0
+# tests 2
+# pass 2
+# fail 0
+
+Omitted-piece fault injection: in that temporary copy only, the renderer filtered out the appended ORACLE-999 row. The actual-source test failed with `every source piece row should render once in source order`; the expected source IDs ended in ORACLE-999 while rendered output did not.
+
+Omitted-round fault injection: in a fresh temporary copy, the renderer filtered out Round 467. The actual-source test failed with `every round should render once in source order with its full scoped metadata`.
+
+Both omission probes exited 1 as expected. All temporary copies were deleted after the probes; the candidate worktree stayed clean until these critic receipts were written.

@@ -8,6 +8,12 @@ import { generateProgress, parsePlan, parseRounds } from "../scripts/render-prog
 const pieceRow = (id, piece, state, passRate, roundCount, gap) =>
   `| ${id} | ${piece} | focused acceptance | — | ${state} | ${passRate} | ${roundCount} | ${gap} |`;
 
+const escapeHtmlText = (value) => value
+  .replaceAll("&", "&amp;")
+  .replaceAll("<", "&lt;")
+  .replaceAll(">", "&gt;")
+  .replaceAll('"', "&quot;");
+
 function temporaryDirectory(t) {
   const directory = mkdtempSync(join(tmpdir(), "progress-renderer-"));
   t.after(() => rmSync(directory, { recursive: true, force: true }));
@@ -86,23 +92,32 @@ test("actual tracked plan and round history render once to a temporary output", 
   const existingProgress = readFileSync(existingProgressPath);
   const expectedPieces = parsePlan(plan);
   const expectedRounds = parseRounds(rounds);
+  const sourcePieceIds = [...plan.matchAll(/^\|\s*([A-Z][A-Z0-9]*(?:-[A-Z0-9]+)*-\d+[A-Z0-9]*)\s*\|/gm)]
+    .map((match) => match[1]);
+  const sourceRoundNumbers = [...rounds.matchAll(/^## Round (\d+) — [^\r\n]+$/gm)]
+    .map((match) => match[1]);
 
-  assert.equal(expectedPieces.length, 261);
-  assert.equal(expectedRounds.length, 463);
-  assert.equal(new Set(expectedRounds.map(({ number }) => number)).size, 463);
+  assert.ok(sourcePieceIds.length > 0, "PLAN should contain tracked piece rows");
+  assert.ok(sourceRoundNumbers.length > 0, "round history should contain numbered headings");
+  assert.equal(new Set(sourcePieceIds).size, sourcePieceIds.length, "PLAN piece IDs should be unique");
+  assert.equal(new Set(sourceRoundNumbers).size, sourceRoundNumbers.length, "round headings should be unique");
+  assert.deepEqual(expectedPieces.map(({ id }) => id), sourcePieceIds, "the renderer parser should include every source piece row in order");
+  assert.deepEqual(expectedRounds.map(({ number }) => number), sourceRoundNumbers, "the renderer parser should include every source round heading in order");
 
   const html = generateProgress({ outputPath });
   assert.equal(readFileSync(outputPath, "utf8"), html);
   assert.deepEqual(readFileSync(existingProgressPath), existingProgress, "the shared progress page must remain untouched");
 
   const renderedPieceIds = [...html.matchAll(/<tr>\s*<td><code>([^<]+)<\/code>/g)].map((match) => match[1]);
-  const renderedRoundIds = [...html.matchAll(/<li><strong>R(\d+) /g)].map((match) => match[1]);
-  assert.deepEqual(renderedPieceIds, expectedPieces.map(({ id }) => id));
-  assert.deepEqual(renderedRoundIds, expectedRounds.map(({ number }) => number));
-  assert.equal(new Set(renderedPieceIds).size, 261);
-  assert.equal(new Set(renderedRoundIds).size, 463);
-  assert.ok(html.includes("R325 PASS for reference evidence; GAME-001HSS remains BLOCKED"));
-  assert.ok(html.includes("GAME-001HTS — Shared troop status, heal and visibility mechanics, round 4"));
-  assert.match(html, /<div class="num">261<\/div><div class="label">tracked pieces<\/div>/);
-  assert.match(html, /<div class="num">463<\/div><div class="label">completed rounds<\/div>/);
+  const renderedRounds = [...html.matchAll(/<li><strong>R(\d+) ([\s\S]*?)<\/strong> · ([\s\S]*?)<br>([\s\S]*?)<\/li>/g)]
+    .map(([, number, verdict, piece, gap]) => ({ number, verdict, piece, gap }));
+  assert.deepEqual(renderedPieceIds, sourcePieceIds, "every source piece row should render once in source order");
+  assert.deepEqual(renderedRounds, expectedRounds.map(({ number, verdict, piece, gap }) => ({
+    number,
+    verdict: escapeHtmlText(verdict),
+    piece: escapeHtmlText(piece),
+    gap: escapeHtmlText(gap),
+  })), "every round should render once in source order with its full scoped metadata");
+  assert.match(html, new RegExp(`<div class="num">${sourcePieceIds.length}<\\/div><div class="label">tracked pieces<\\/div>`));
+  assert.match(html, new RegExp(`<div class="num">${sourceRoundNumbers.length}<\\/div><div class="label">completed rounds<\\/div>`));
 });

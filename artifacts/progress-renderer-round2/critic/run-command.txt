@@ -1,0 +1,11 @@
+Candidate: 391541751dc7a7d84f64f2103f325dfc716be3c4
+Parent:   6390068c271bae54d00b4e21ce7ecf48ff0a13bc
+Private detached worktree: /private/tmp/progress-oracle-round2-critic
+
+Focused verification:
+node --test tests/progress-renderer.test.js tests/render-progress.test.js
+
+Independent render generated to a temporary path:
+node scripts/render-progress.js /private/tmp/progress-oracle-round2-generated.html
+
+No project source or default progress output was edited by the critic. Growth and omission probes ran against temporary copied project files and were removed after execution.

@@ -1,0 +1,8 @@
+This audit did not call parsePlan or parseRounds. It independently enumerated table-row IDs and round headings from raw PLAN.md/rounds.md, and parsed a separately generated HTML file with Python's standard HTMLParser. It also independently rebuilt multiline metadata fields from raw rounds.md and compared the normalized decoded output.
+
+PLAN source IDs: 262; rendered code IDs: 262; exact order/equality: True; unique source IDs: True
+Round source headings: 466; rendered entries: 466; exact heading order: True; unique headings: True
+Raw scoped round metadata matches rendered entries: True
+HTML counters: tracked pieces=262, rounds=466
+
+Generated artifact: /private/tmp/progress-oracle-round2-generated.html

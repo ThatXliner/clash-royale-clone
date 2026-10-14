@@ -1,0 +1,17 @@
+SHA-256 hashes before focused verification (candidate source state):
+88d5ca56679ea3bfe41d9e64cbab3ca1d51a752c412e0099ce310543af3aba53  scripts/render-progress.js
+37b04845062fd93266b3455c7ed00ba0e01f3c20b981394a36f7dc0d60f7b1cb  tests/progress-renderer.test.js
+552655b6d5638a1990de5d1c71de88ecf52547e31f689b4c99fb8f4141d59dfd  tests/render-progress.test.js
+9f3a23633e06ecbef5b32a8bbed622b7afbc1ac6025df8016466943fe8333bf3  PLAN.md
+872fb907eb2a95986966d12b2847fb2e7e853d781dccda9f145912d899beaed1  rounds.md
+ed15bd0956dad6e3c6eeb635fb3a00a101a76279c376ca2156bc2f93edb9cc8a  progress.html
+
+SHA-256 hashes after focused verification and independent render:
+88d5ca56679ea3bfe41d9e64cbab3ca1d51a752c412e0099ce310543af3aba53  scripts/render-progress.js
+37b04845062fd93266b3455c7ed00ba0e01f3c20b981394a36f7dc0d60f7b1cb  tests/progress-renderer.test.js
+552655b6d5638a1990de5d1c71de88ecf52547e31f689b4c99fb8f4141d59dfd  tests/render-progress.test.js
+9f3a23633e06ecbef5b32a8bbed622b7afbc1ac6025df8016466943fe8333bf3  PLAN.md
+872fb907eb2a95986966d12b2847fb2e7e853d781dccda9f145912d899beaed1  rounds.md
+ed15bd0956dad6e3c6eeb635fb3a00a101a76279c376ca2156bc2f93edb9cc8a  progress.html
+
+All six pre/post hashes match exactly.

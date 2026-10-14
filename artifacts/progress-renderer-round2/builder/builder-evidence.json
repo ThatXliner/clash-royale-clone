@@ -1,0 +1,34 @@
+{
+  "baseCommit": "726a2882bb3bfd22ec8974f14166c8e3f864e413",
+  "testCommand": "node --test tests/progress-renderer.test.js tests/render-progress.test.js",
+  "baselineExitCode": 1,
+  "baselineFailure": "Expected values to be strictly equal: 262 !== 261 at tests/progress-renderer.test.js:90",
+  "candidateExitCode": 0,
+  "sourceEnumeration": {
+    "pieceIdRows": 262,
+    "uniquePieceIds": 262,
+    "numberedRoundHeadings": 466,
+    "uniqueRoundNumbers": 466,
+    "basis": "Raw PLAN first-cell ID markers and raw rounds.md numbered headings; test cross-checks parser output and rendered order against these sequences."
+  },
+  "coverage": {
+    "everyPieceRowOnceInSourceOrder": true,
+    "everyRoundOnceInSourceOrderWithVerdictPieceAndGap": true,
+    "qualifiedWrappedVerdictFixtureRetained": true,
+    "sharedProgressBytesUntouched": true
+  },
+  "hashes": {
+    "planSha256": "dc25ae16bef86457901a650a1a0c51be06ce457042711f598c580b8650367fd9",
+    "roundsSha256": "872fb907eb2a95986966d12b2847fb2e7e853d781dccda9f145912d899beaed1",
+    "progressSha256": "ee5abe1e97a777c22114fbaf73233d7c4132dbcbc4c2459d0f40a82ea8545302",
+    "testSha256": "37b04845062fd93266b3455c7ed00ba0e01f3c20b981394a36f7dc0d60f7b1cb",
+    "baselineTapSha256": "25b0e8e0bce91abf9f7e28cd72f00fd003ae021d1421a52eda12e9ba7704c965",
+    "candidateTapSha256": "a20e982d9772d638ae160f3b3505c90a872af5493b45af6fcc9d01f4aece818b"
+  },
+  "candidateFiles": [
+    "tests/progress-renderer.test.js",
+    "artifacts/progress-renderer-round2/builder/baseline.tap",
+    "artifacts/progress-renderer-round2/builder/candidate.tap",
+    "artifacts/progress-renderer-round2/builder/builder-evidence.json"
+  ]
+}

@@ -9141,3 +9141,14 @@ Railward unresolved-only with no numeric policy, Aegis pending composition,
 no Encounter/shared-runtime claim and clean isolation/syntax/registration.
 
 BIGGEST GAP: None on the judged dimension.
+
+## Round 467 — OPS-001 evolving source test oracle
+
+Candidate `391541751dc7a7d84f64f2103f325dfc716be3c4`; independently reviewed in exact private checkout. Builder incorrectly used shared checkout/index; root restored accepted HEAD before review and fenced its exact four-path candidate. No renderer production change.
+
+PIECE: OPS-001 follow-up test oracle bar
+VERDICT: PASS
+EVIDENCE: The focused command `node --test tests/progress-renderer.test.js tests/render-progress.test.js` completed with 3/3 tests passing and 0 failures. Independent parsing of the actual source and a separately generated temporary HTML output found 262/262 PLAN IDs and 466/466 round headings, each once and in source order; independently reconstructed raw round fields match the rendered verdict, piece, and gap text for all 466 entries. An isolated source-growth probe adding a valid ORACLE-999 row and Round 467 passed. Fault injections omitting ORACLE-999 or Round 467 failed the actual-source test at its source-order completeness assertion. The test dynamically derives counts and source IDs/headings, its wrapped/scoped/qualified metadata fixture asserts literal expected output, and the default progress.html SHA-256 remained unchanged.
+BIGGEST GAP: None on this test-oracle bar; the actual source and rendered output match across the complete current catalog and round history.
+
+Evidence: artifacts/progress-renderer-round2/critic/.
