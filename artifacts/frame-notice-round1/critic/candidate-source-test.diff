@@ -1,0 +1,664 @@
+src/ui/game-browser-entry.js --- 1/5 --- JavaScript
+201  201   };
+202  202 }
+...  203 
+...  204 function projectBuildingPolicyQuestion(questionNotice, session) {
+...  205   const policyQuestion = buildingPolicyQuestion(session);
+...  206   if (questionNotice === null) {
+...  207     if (policyQuestion !== null) {
+...  208       throw new TypeError("shipped browser lacks the defensive QUESTION notice");
+...  209     }
+...  210     return null;
+...  211   }
+...  212   if (policyQuestion === null) {
+...  213     questionNotice.hidden = true;
+...  214     delete questionNotice.dataset.cardId;
+...  215     delete questionNotice.dataset.disposition;
+...  216     delete questionNotice.dataset.unverifiedFields;
+...  217     questionNotice.textContent = "";
+...  218     return null;
+...  219   }
+...  220   questionNotice.hidden = false;
+...  221   questionNotice.dataset.cardId = policyQuestion.cardId;
+...  222   questionNotice.dataset.disposition = "question";
+...  223   questionNotice.dataset.unverifiedFields = policyQuestion.unverifiedFields.join(",");
+...  224   questionNotice.textContent = policyQuestion.text;
+...  225   return policyQuestion;
+...  226 }
+203  227 
+204  228 function inputSystems(session, cards, cache) {
+205  229   const state = session.state;
+
+src/ui/game-browser-entry.js --- 2/5 --- JavaScript
+480       }                              504       }
+481       const shell = mountArenaShel   505       const shell = mountArenaShel
+... l(root);                             ... l(root);
+482       const questionNotice = shell   506       const questionNotice = shell
+... .querySelector('[data-ui="policy-q   ... .querySelector('[data-ui="policy-q
+... uestion"]');                         ... uestion"]');
+483       const policyQuestion = build   507       projectBuildingPolicyQuestio
+... ingPolicyQuestion(authenticSession   ... n(questionNotice, authenticSession
+... );                                   ... );
+484       if (policyQuestion !== null)   ... 
+...  {                                   ... 
+485         if (questionNotice === nul   ... 
+... l) {                                 ... 
+486           throw new TypeError("shi   ... 
+... pped browser lacks the defensive Q   ... 
+... UESTION notice");                    ... 
+487         }                            ... 
+488         questionNotice.hidden = fa   ... 
+... lse;                                 ... 
+489         questionNotice.dataset.car   ... 
+... dId = policyQuestion.cardId;         ... 
+490         questionNotice.dataset.dis   ... 
+... position = "question";               ... 
+491         questionNotice.dataset.unv   ... 
+... erifiedFields = policyQuestion.unv   ... 
+... erifiedFields.join(",");             ... 
+492         questionNotice.textContent   ... 
+...  = policyQuestion.text;              ... 
+493       }                              ... 
+494       const deckChoiceInertState =   508       const deckChoiceInertState =
+...  deckChoiceEnabled                   ...  deckChoiceEnabled
+495         ? Array.from(shell.childre   509         ? Array.from(shell.childre
+... n, (node) => [node, node.inert]) :   ... n, (node) => [node, node.inert]) :
+...  [];                                 ...  [];
+496       const deckChoiceOpenButton =   510       const deckChoiceOpenButton =
+...  deckChoiceEnabled                   ...  deckChoiceEnabled
+
+src/ui/game-browser-entry.js --- 3/5 --- JavaScript
+618  632         audioUiBridge, browserAudio, controls, deckChoice,
+619  633         deckChoiceButtons, deckChoiceListeners, deckChoiceOpenButton, deckChoiceStart,
+620  634         loop, onRestart, restart, syncDeckChoice,
+...  635         questionNotice,
+621  636       };
+622  637       restart.addEventListener("click", onRestart);
+623  638       audioRuntime.renderFrame();
+
+src/ui/game-browser-entry.js --- 4/5 --- JavaScript
+926  941         graph.audioRuntime.rebase(graph.loop.session);
+927  942       } else graph.audioRuntime.rebaseSilently(graph.loop.session);
+928  943       lastSession = graph.loop.session;
+...  944       projectBuildingPolicyQuestion(graph.questionNotice, graph.loop.session);
+929  945       renderRestart(graph);
+930  946       return state;
+931  947     },
+
+src/ui/game-browser-entry.js --- 5/5 --- JavaScript
+982  998           candidate.audioRuntime.rebase(candidate.loop.session);
+983  999         } else candidate.audioRuntime.rebaseSilently(candidate.loop.session);
+984 1000         lastSession = candidate.loop.session;
+... 1001         projectBuildingPolicyQuestion(candidate.questionNotice, candidate.loop.session);
+985 1002         renderRestart(candidate);
+986 1003         return state;
+987 1004       } finally {
+
+tests/game-browser-policy-notice.test.js --- JavaScript
+  1 import assert from "node:assert/strict";
+  2 import { createHash } from "node:crypto";
+  3 import { once } from "node:events";
+  4 import { existsSync, mkdirSync, writeFileSync } from "node:fs";
+  5 import { join } from "node:path";
+  6 import { spawn } from "node:child_process";
+  7 import { fileURLToPath } from "node:url";
+  8 import test from "node:test";
+  9 
+ 10 import { createEditableGameSessionSetup } from "../src/content/editable-deck.js";
+ 11 import { GameSession } from "../src/sim/game-session.js";
+ 12 import { createShippedGameSessionSetup } from "../src/ui/game-browser-entry.js";
+ 13 
+ 14 const ROOT = fileURLToPath(new URL("..", import.meta.url));
+ 15 const ARTIFACTS = process.env.FRAME_NOTICE_ARTIFACTS ??
+ 16   fileURLToPath(new URL("../artifacts/frame-notice-round1/builder/", import.meta.url));
+ 17 const CHROME = process.env.GAME_BROWSER_CHROME ??
+ 18   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+ 19 const VIEWPORT = Object.freeze({ height: 844, width: 390 });
+ 20 const BASE_DECK = Object.freeze([
+ 21   "coilblade", "mossguard", "copperskiff", "skymaul",
+ 22   "brassbolt", "reedsting", "briar-band",
+ 23 ]);
+ 24 
+ 25 function canonical(value) {
+ 26   if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
+ 27   if (value !== null && typeof value === "object") {
+ 28     return `{${Object.keys(value).sort().map((key) =>
+ 29       `${JSON.stringify(key)}:${canonical(value[key])}`).join(",")}}`;
+ 30   }
+ 31   return JSON.stringify(value);
+ 32 }
+ 33 
+ 34 function setupFor(cardId) {
+ 35   return cardId === null
+ 36     ? createShippedGameSessionSetup(0)
+ 37     : createEditableGameSessionSetup([...BASE_DECK, cardId], 0);
+ 38 }
+ 39 
+ 40 function policyAudit(sessionBytes) {
+ 41   const { setup } = JSON.parse(sessionBytes);
+ 42   const battleSetup = JSON.parse(setup.battleSetup);
+ 43   const card = battleSetup.roster.find(({ buildingRuntime }) =>
+ 44     buildingRuntime?.class === "defensive" &&
+ 45     buildingRuntime.policy?.disposition === "question");
+ 46   if (card === undefined) return null;
+ 47   return {
+ 48     cardId: card.id,
+ 49     fields: Object.fromEntries(Object.entries(card.buildingRuntime.policy.corpusFields)
+ 50       .map(([field, record]) => [field, record.authoritative])),
+ 51   };
+ 52 }
+ 53 
+ 54 function expectedNotice(sessionBytes) {
+ 55   const { setup } = JSON.parse(sessionBytes);
+ 56   const battleSetup = JSON.parse(setup.battleSetup);
+ 57   const card = battleSetup.roster.find(({ buildingRuntime }) =>
+ 58     buildingRuntime?.class === "defensive" &&
+ 59     buildingRuntime.policy?.disposition === "question");
+ 60   if (card === undefined) {
+ 61     return {
+ 62       cardId: null,
+ 63       disposition: null,
+ 64       hidden: true,
+ 65       text: "",
+ 66       unverifiedFields: null,
+ 67     };
+ 68   }
+ 69   const fields = card.buildingRuntime.policy.corpusFields;
+ 70   const unverifiedFields = Object.entries(fields)
+ 71     .filter(([, field]) => field.authoritative !== true)
+ 72     .map(([field]) => field);
+ 73   return {
+ 74     cardId: card.id,
+ 75     disposition: "question",
+ 76     hidden: false,
+ 77     text: `${card.displayName} combat: QUESTION. First-hit timing is ${fields.firstHitTicks.value === null
+ 78       ? "absent" : "unverified"}; damage, HP, deploy, range and target fields are unverified.`,
+ 79     unverifiedFields: unverifiedFields.join(","),
+ 80   };
+ 81 }
+ 82 
+ 83 async function readFirstLine(stream) {
+ 84   let buffered = "";
+ 85   stream.setEncoding("utf8");
+ 86   for await (const chunk of stream) {
+ 87     buffered += chunk;
+ 88     const end = buffered.indexOf("\n");
+ 89     if (end >= 0) return buffered.slice(0, end);
+ 90   }
+ 91   throw new Error("policy notice server exited before readiness");
+ 92 }
+ 93 
+ 94 async function stopServer(server) {
+ 95   if (server === undefined || server.exitCode !== null) return true;
+ 96   const exited = once(server, "exit").then(() => true, () => false);
+ 97   server.kill("SIGTERM");
+ 98   let didExit = await Promise.race([
+ 99     exited, new Promise((resolve) => setTimeout(() => resolve(false), 2_000)),
+100   ]);
+101   if (!didExit && server.exitCode === null) {
+102     server.kill("SIGKILL");
+103     didExit = await Promise.race([
+104       exited, new Promise((resolve) => setTimeout(() => resolve(false), 2_000)),
+105     ]);
+106   }
+107   return didExit && (server.exitCode !== null || server.signalCode !== null);
+108 }
+109 
+110 function makeForgedSession(sessionBytes) {
+111   const forged = JSON.parse(sessionBytes);
+112   const battleSetup = JSON.parse(forged.setup.battleSetup);
+113   const card = battleSetup.roster.find(({ id }) => id === "buried-coil");
+114   card.buildingRuntime.policy.corpusFields.damage.authoritative = true;
+115   forged.setup.battleSetup = canonical(battleSetup);
+116   forged.setup.rosterWitness = canonical({
+117     questions: battleSetup.questions,
+118     roster: battleSetup.roster,
+119   });
+120   return canonical(forged);
+121 }
+122 
+123 test("policy notice follows canonical roster through restore and restart", {
+124   timeout: 600_000,
+125 }, async () => {
+126   assert.ok(existsSync(CHROME), "installed Chrome is required");
+127   mkdirSync(ARTIFACTS, { recursive: true });
+128 
+129   // This terminal witness is produced by ordinary deterministic simulation.
+130   // No tower health, clock, or browser state is edited to force a result.
+131   const buriedSetupBytes = setupFor("buried-coil");
+132   const buriedTerminal = new GameSession(buriedSetupBytes);
+133   let terminalBatches = 0;
+134   while (!buriedTerminal.state.terminal && terminalBatches < 30) {
+135     buriedTerminal.stepMany(600);
+136     terminalBatches += 1;
+137   }
+138   assert.equal(buriedTerminal.state.terminal, true,
+139     "Buried Coil seed zero naturally reaches its deterministic terminal state");
+140 
+141   const setupBytes = {
+142     buriedCoil: buriedSetupBytes,
+143     emberBasin: setupFor("ember-basin"),
+144     defaultEight: setupFor(null),
+145     terminalBuriedCoilSession: buriedTerminal.serialize(),
+146   };
+147   const expectedSessions = {
+148     buriedCoil: new GameSession(setupBytes.buriedCoil).serialize(),
+149     emberBasin: new GameSession(setupBytes.emberBasin).serialize(),
+150     defaultEight: new GameSession(setupBytes.defaultEight).serialize(),
+151   };
+152   const expectedNotices = Object.fromEntries(Object.entries(expectedSessions)
+153     .map(([name, bytes]) => [name, expectedNotice(bytes)]));
+154   const expectedPolicies = Object.fromEntries(Object.entries(expectedSessions)
+155     .map(([name, bytes]) => [name, policyAudit(bytes)]));
+156   const forgedSessionBytes = makeForgedSession(expectedSessions.buriedCoil);
+157 
+158   const server = spawn(process.execPath, [
+159     new URL("./game-browser-journey-server.js", import.meta.url).pathname,
+160     `--root=${ROOT}`,
+161   ], { stdio: ["ignore", "pipe", "pipe"] });
+162   let browser;
+163   const evidence = {
+164     browserVersion: null,
+165     checks: [],
+166     consoleErrors: [],
+167     pageErrors: [],
+168     screenshots: Object.create(null),
+169     viewport: VIEWPORT,
+170   };
+171   const mismatches = [];
+172   const serializedReceipt = (value) => ({
+173     bytes: value.length,
+174     sha256: createHash("sha256").update(value).digest("hex"),
+175   });
+176   const compareSerialized = (label, actual, expected) => {
+177     const equal = actual === expected;
+178     evidence.checks.push({ label, passed: equal,
+179       actual: serializedReceipt(actual), expected: serializedReceipt(expected) });
+180     if (!equal) mismatches.push({ label, actual: serializedReceipt(actual),
+181       expected: serializedReceipt(expected) });
+182     return equal;
+183   };
+184   const compare = (label, actual, expected) => {
+185     const equal = JSON.stringify(actual) === JSON.stringify(expected);
+186     evidence.checks.push({ label, passed: equal });
+187     if (!equal) mismatches.push({ label, actual, expected });
+188     return equal;
+189   };
+190   const compareScalar = (label, actual, expected) => {
+191     const equal = actual === expected;
+192     evidence.checks.push({ label, passed: equal });
+193     if (!equal) mismatches.push({ label, actual, expected });
+194     return equal;
+195   };
+196   const recordSnapshot = (label, actual, expectedName) => {
+197     const expected = expectedSessions[expectedName];
+198     const expectedNoticeValue = expectedNotices[expectedName];
+199     const actualSessionHash = createHash("sha256").update(actual.sessionBytes).digest("hex");
+200     const expectedSessionHash = createHash("sha256").update(expected).digest("hex");
+201     const actualBrowserHash = createHash("sha256").update(actual.browserBytes).digest("hex");
+202     const actualAudioHash = createHash("sha256").update(actual.audioContinuationBytes).digest("hex");
+203     const expectedAudio = canonical({
+204       cursor: 0,
+205       disposed: false,
+206       gainBasisPoints: 10_000,
+207       muted: false,
+208       sessionBytes: expected,
+209       suppressedAcceleratedCueCount: 0,
+210       terminal: false,
+211       version: 1,
+212     });
+213     const checks = [
+214       compare(`${label}: canonical notice`, actual.notice, expectedNoticeValue),
+215       compareSerialized(`${label}: exact session bytes`, actual.sessionBytes, expected),
+216       compareSerialized(`${label}: exact browser snapshot bytes`, actual.browserBytes,
+217         actual.expectedBrowserBytes),
+218       compareSerialized(`${label}: exact audio continuation bytes`,
+219         actual.audioContinuationBytes, expectedAudio),
+220       compare(`${label}: policy authority remains unverified`, actual.policy,
+221         expectedPolicies[expectedName]),
+222     ];
+223     evidence.checks.push({ label: `${label}: session hash`, actual: actualSessionHash,
+224       expected: expectedSessionHash, passed: actualSessionHash === expectedSessionHash });
+225     evidence.checks.push({ label: `${label}: browser hash`, actual: actualBrowserHash });
+226     evidence.checks.push({ label: `${label}: audio continuation hash`, actual: actualAudioHash });
+227     if (expectedNoticeValue.cardId !== null) {
+228       const { setup } = JSON.parse(expected);
+229       const card = JSON.parse(setup.battleSetup).roster.find(({ id }) =>
+230         id === expectedNoticeValue.cardId);
+231       const corpusFields = card.buildingRuntime.policy.corpusFields;
+232       const leaked = Object.entries(corpusFields).some(([field, record]) =>
+233         field !== "cost" && record.authoritative !== true &&
+234         typeof record.value === "number" && actual.notice.text.includes(String(record.value)));
+235       compareScalar(`${label}: no provisional value in notice text`, leaked, false);
+236     }
+237     return checks.every(Boolean);
+238   };
+239   const capture = async (page, name) => {
+240     const bytes = await page.screenshot({ fullPage: false });
+241     const path = join(ARTIFACTS, `${name}.png`);
+242     writeFileSync(path, bytes);
+243     evidence.screenshots[name] = {
+244       bytes: bytes.length,
+245       path,
+246       sha256: createHash("sha256").update(bytes).digest("hex"),
+247     };
+248     return bytes;
+249   };
+250   try {
+251     const ready = JSON.parse(await readFirstLine(server.stdout));
+252     const { chromium } = await import("playwright");
+253     browser = await chromium.launch({ executablePath: CHROME, headless: true });
+254     evidence.browserVersion = browser.version();
+255     const context = await browser.newContext({ deviceScaleFactor: 1, viewport: VIEWPORT });
+256     const page = await context.newPage();
+257     page.on("console", (message) => {
+258       if (message.type() === "error") evidence.consoleErrors.push(message.text());
+259     });
+260     page.on("pageerror", (error) => evidence.pageErrors.push(String(error)));
+261     const response = await page.goto(
+262       `http://${ready.host}:${ready.port}/public/ui-arena-shell.html?app-frame=1`,
+263       { waitUntil: "domcontentloaded" },
+264     );
+265     assert.equal(response.status(), 200);
+266     await page.waitForFunction(() =>
+267       document.querySelector('[data-arena-shell-root] [data-ui="arena"]') !== null);
+268     const mounted = await page.evaluate(async (buriedSetup) => {
+269       const { arenaHudController } = await import("/src/ui/arena-shell-entry.js");
+270       const { GameSession } = await import("/src/sim/game-session.js");
+271       const { mountShippedGameBrowser } = await import("/src/ui/game-browser-entry.js");
+272       const root = document.querySelector("[data-arena-shell-root]");
+273       const disposedInitial = arenaHudController.dispose();
+274       const controller = mountShippedGameBrowser(root, window,
+275         new GameSession(buriedSetup));
+276       const manual = controller.enterManualStepMode();
+277       globalThis.__frameNoticeController = controller;
+278       return { disposedInitial, manual, notice: (() => {
+279         const node = root.querySelector('[data-ui="policy-question"]');
+280         return node ? { cardId: node.dataset.cardId ?? null,
+281           disposition: node.dataset.disposition ?? null, hidden: node.hidden,
+282           text: node.textContent, unverifiedFields: node.dataset.unverifiedFields ?? null }
+283           : null;
+284       })(), sessionBytes: controller.session.serialize(), state: controller.state };
+285     }, setupBytes.buriedCoil);
+286     compareScalar("manual source controller mounted", mounted.manual, true);
+287     compareScalar("initial canonical Buried Coil session", mounted.sessionBytes,
+288       expectedSessions.buriedCoil);
+289     compare("initial Buried Coil notice", mounted.notice, expectedNotices.buriedCoil);
+290 
+291     // Make authentic cross-roster browser snapshots on detached DOM roots.
+292     // They use the same shipped entry, real GameSession and typed bridge
+293     // serializers as the visible controller.
+294     const sourceSnapshots = await page.evaluate(async (setups) => {
+295       const { GameSession } = await import("/src/sim/game-session.js");
+296       const { mountShippedGameBrowser } = await import("/src/ui/game-browser-entry.js");
+297       const result = Object.create(null);
+298       for (const name of ["emberBasin", "defaultEight"]) {
+299         const sourceRoot = document.createElement("div");
+300         const source = mountShippedGameBrowser(sourceRoot, window,
+301           new GameSession(setups[name]));
+302         const manual = source.enterManualStepMode();
+303         if (!manual) throw new Error(`${name} source did not enter manual mode`);
+304         result[name] = {
+305           audioContinuationBytes: source.audioContinuationBytes,
+306           browserBytes: source.serialize(),
+307           sessionBytes: source.session.serialize(),
+308         };
+309         source.dispose();
+310       }
+311       return result;
+312     }, { emberBasin: setupBytes.emberBasin, defaultEight: setupBytes.defaultEight });
+313     for (const name of ["emberBasin", "defaultEight"]) {
+314       compareScalar(`${name} authentic source session`, sourceSnapshots[name].sessionBytes,
+315         expectedSessions[name]);
+316     }
+317     await page.evaluate(() => document.fonts.ready);
+318     const initialBuried = await page.evaluate(() => {
+319       const controller = globalThis.__frameNoticeController;
+320       const node = document.querySelector('[data-ui="policy-question"]');
+321       return {
+322         audioContinuationBytes: controller.audioContinuationBytes,
+323         browserBytes: controller.serialize(),
+324         notice: node ? { cardId: node.dataset.cardId ?? null,
+325           disposition: node.dataset.disposition ?? null, hidden: node.hidden,
+326           text: node.textContent, unverifiedFields: node.dataset.unverifiedFields ?? null }
+327           : null,
+328         policy: (() => {
+329           const session = JSON.parse(controller.session.serialize());
+330           const setup = JSON.parse(session.setup.battleSetup);
+331           const card = setup.roster.find(({ id }) => id === "buried-coil");
+332           return card ? { cardId: card.id, fields: Object.fromEntries(
+333             Object.entries(card.buildingRuntime.policy.corpusFields)
+334               .map(([field, record]) => [field, record.authoritative])) } : null;
+335         })(),
+336         sessionBytes: controller.session.serialize(),
+337       };
+338     });
+339     initialBuried.expectedBrowserBytes = initialBuried.browserBytes;
+340     recordSnapshot("visible Buried Coil before cross-roster restores", initialBuried,
+341       "buriedCoil");
+342     const buriedInitialPng = await capture(page, "buried-coil-initial");
+343 
+344     // Sync restore changes roster Buried Coil -> Ember Basin. The notice and
+345     // all source-bound fields must follow the canonical restored session.
+346     await page.evaluate((bytes) => globalThis.__frameNoticeController.restore(bytes),
+347       sourceSnapshots.emberBasin.browserBytes);
+348     const emberAfterSync = await page.evaluate(() => {
+349       const controller = globalThis.__frameNoticeController;
+350       const node = document.querySelector('[data-ui="policy-question"]');
+351       const setup = JSON.parse(JSON.parse(controller.session.serialize()).setup.battleSetup);
+352       const card = setup.roster.find(({ id }) => id === "ember-basin");
+353       return {
+354         audioContinuationBytes: controller.audioContinuationBytes,
+355         browserBytes: controller.serialize(),
+356         notice: node ? { cardId: node.dataset.cardId ?? null,
+357           disposition: node.dataset.disposition ?? null, hidden: node.hidden,
+358           text: node.textContent, unverifiedFields: node.dataset.unverifiedFields ?? null }
+359           : null,
+360         policy: card ? { cardId: card.id, fields: Object.fromEntries(
+361           Object.entries(card.buildingRuntime.policy.corpusFields)
+362             .map(([field, record]) => [field, record.authoritative])) } : null,
+363         sessionBytes: controller.session.serialize(),
+364       };
+365     });
+366     emberAfterSync.expectedBrowserBytes = sourceSnapshots.emberBasin.browserBytes;
+367     recordSnapshot("synchronous cross-roster restore to Ember Basin", emberAfterSync,
+368       "emberBasin");
+369     const emberSyncPng = await capture(page, "ember-basin-after-sync-restore");
+370 
+371     // Return to Buried Coil and compare the real native viewport PNG with its
+372     // untouched checkpoint. This catches stale or missing sibling notice DOM.
+373     await page.evaluate((bytes) => globalThis.__frameNoticeController.restore(bytes),
+374       initialBuried.browserBytes);
+375     const buriedAfterSync = await page.evaluate(() => {
+376       const controller = globalThis.__frameNoticeController;
+377       const node = document.querySelector('[data-ui="policy-question"]');
+378       const setup = JSON.parse(JSON.parse(controller.session.serialize()).setup.battleSetup);
+379       const card = setup.roster.find(({ id }) => id === "buried-coil");
+380       return {
+381         audioContinuationBytes: controller.audioContinuationBytes,
+382         browserBytes: controller.serialize(),
+383         notice: node ? { cardId: node.dataset.cardId ?? null,
+384           disposition: node.dataset.disposition ?? null, hidden: node.hidden,
+385           text: node.textContent, unverifiedFields: node.dataset.unverifiedFields ?? null }
+386           : null,
+387         policy: card ? { cardId: card.id, fields: Object.fromEntries(
+388           Object.entries(card.buildingRuntime.policy.corpusFields)
+389             .map(([field, record]) => [field, record.authoritative])) } : null,
+390         sessionBytes: controller.session.serialize(),
+391       };
+392     });
+393     buriedAfterSync.expectedBrowserBytes = initialBuried.browserBytes;
+394     recordSnapshot("synchronous cross-roster restore back to Buried Coil", buriedAfterSync,
+395       "buriedCoil");
+396     const buriedRestoredPng = await capture(page, "buried-coil-after-sync-restore");
+397     compareScalar("native full-viewport PNG exact after synchronous restore",
+398       buriedRestoredPng.equals(buriedInitialPng), true);
+399 
+400     // The yielding path commits the same authentic Ember snapshot after its
+401     // normal browser RAF yields. It must preserve the same typed and audio
+402     // continuation bytes as the synchronous restore.
+403     await page.evaluate(async (bytes) =>
+404       globalThis.__frameNoticeController.restoreEndurance(bytes),
+405     sourceSnapshots.emberBasin.browserBytes);
+406     const emberAfterYielding = await page.evaluate(() => {
+407       const controller = globalThis.__frameNoticeController;
+408       const node = document.querySelector('[data-ui="policy-question"]');
+409       const setup = JSON.parse(JSON.parse(controller.session.serialize()).setup.battleSetup);
+410       const card = setup.roster.find(({ id }) => id === "ember-basin");
+411       return {
+412         audioContinuationBytes: controller.audioContinuationBytes,
+413         browserBytes: controller.serialize(),
+414         notice: node ? { cardId: node.dataset.cardId ?? null,
+415           disposition: node.dataset.disposition ?? null, hidden: node.hidden,
+416           text: node.textContent, unverifiedFields: node.dataset.unverifiedFields ?? null }
+417           : null,
+418         policy: card ? { cardId: card.id, fields: Object.fromEntries(
+419           Object.entries(card.buildingRuntime.policy.corpusFields)
+420             .map(([field, record]) => [field, record.authoritative])) } : null,
+421         sessionBytes: controller.session.serialize(),
+422       };
+423     });
+424     emberAfterYielding.expectedBrowserBytes = sourceSnapshots.emberBasin.browserBytes;
+425     recordSnapshot("yielding cross-roster restore to Ember Basin", emberAfterYielding,
+426       "emberBasin");
+427     const emberYieldingPng = await capture(page, "ember-basin-after-yielding-restore");
+428     compareScalar("native full-viewport PNG exact across Ember restore paths",
+429       emberYieldingPng.equals(emberSyncPng), true);
+430 
+431     // A default eight-card restore must clear every old QUESTION field and
+432     // keep the notice hidden. Restoring a policy card after that must project
+433     // its own exact canonical identity and text again.
+434     await page.evaluate((bytes) => globalThis.__frameNoticeController.restore(bytes),
+435       sourceSnapshots.defaultEight.browserBytes);
+436     const defaultAfterSync = await page.evaluate(() => {
+437       const controller = globalThis.__frameNoticeController;
+438       const node = document.querySelector('[data-ui="policy-question"]');
+439       return { audioContinuationBytes: controller.audioContinuationBytes,
+440         browserBytes: controller.serialize(),
+441         notice: node ? { cardId: node.dataset.cardId ?? null,
+442           disposition: node.dataset.disposition ?? null, hidden: node.hidden,
+443           text: node.textContent, unverifiedFields: node.dataset.unverifiedFields ?? null }
+444           : null,
+445         policy: null, sessionBytes: controller.session.serialize() };
+446     });
+447     defaultAfterSync.expectedBrowserBytes = sourceSnapshots.defaultEight.browserBytes;
+448     recordSnapshot("synchronous cross-roster restore to default eight", defaultAfterSync,
+449       "defaultEight");
+450     await capture(page, "default-eight-hidden-notice");
+451     await page.evaluate((bytes) => globalThis.__frameNoticeController.restore(bytes),
+452       initialBuried.browserBytes);
+453     const buriedAfterDefault = await page.evaluate(() => {
+454       const controller = globalThis.__frameNoticeController;
+455       const node = document.querySelector('[data-ui="policy-question"]');
+456       const battleSetup = JSON.parse(
+457         JSON.parse(controller.session.serialize()).setup.battleSetup);
+458       const card = battleSetup.roster.find(({ id }) => id === "buried-coil");
+459       return { audioContinuationBytes: controller.audioContinuationBytes,
+460         browserBytes: controller.serialize(),
+461         notice: node ? { cardId: node.dataset.cardId ?? null,
+462           disposition: node.dataset.disposition ?? null, hidden: node.hidden,
+463           text: node.textContent, unverifiedFields: node.dataset.unverifiedFields ?? null }
+464           : null,
+465         policy: card ? { cardId: card.id, fields: Object.fromEntries(
+466           Object.entries(card.buildingRuntime.policy.corpusFields)
+467             .map(([field, record]) => [field, record.authoritative])) } : null,
+468         sessionBytes: controller.session.serialize() };
+469     });
+470     buriedAfterDefault.expectedBrowserBytes = initialBuried.browserBytes;
+471     recordSnapshot("policy notice returns after default-roster restore", buriedAfterDefault,
+472       "buriedCoil");
+473 
+474     // A forged building policy that upgrades a QUESTION field to authoritative
+475     // is rejected by canonical GameSession restore before the active graph or
+476     // the currently projected notice can change.
+477     const forgedOutcome = await page.evaluate((forgedSession) => {
+478       const controller = globalThis.__frameNoticeController;
+479       const before = controller.serialize();
+480       const envelope = JSON.parse(before);
+481       envelope.session = forgedSession;
+482       let error = null;
+483       try { controller.restore(canonicalize(envelope)); }
+484       catch (caught) { error = String(caught?.message ?? caught); }
+485       return { after: controller.serialize(), before, error };
+486       function canonicalize(value) {
+487         if (Array.isArray(value)) return `[${value.map(canonicalize).join(",")}]`;
+488         if (value !== null && typeof value === "object") {
+489           return `{${Object.keys(value).sort().map((key) =>
+490             `${JSON.stringify(key)}:${canonicalize(value[key])}`).join(",")}}`;
+491         }
+492         return JSON.stringify(value);
+493       }
+494     }, forgedSessionBytes);
+495     compareScalar("forged policy snapshot rejected", typeof forgedOutcome.error, "string");
+496     compareSerialized("forged policy snapshot leaves browser bytes unchanged",
+497       forgedOutcome.after, forgedOutcome.before);
+498 
+499     // Exercise public same-deck restart from a genuinely terminal simulation.
+500     // The browser mounts that authentic terminal snapshot; restart must rebuild
+501     // the same custom setup with its QUESTION policy still unverified.
+502     const restartOutcome = await page.evaluate(async (terminalBytes) => {
+503       const { GameSession } = await import("/src/sim/game-session.js");
+504       const { mountShippedGameBrowser } = await import("/src/ui/game-browser-entry.js");
+505       const root = document.querySelector("[data-arena-shell-root]");
+506       globalThis.__frameNoticeController.dispose();
+507       const terminalSession = GameSession.restore(terminalBytes);
+508       const controller = mountShippedGameBrowser(root, window, terminalSession);
+509       globalThis.__frameNoticeController = controller;
+510       const terminal = { state: controller.state, sessionBytes: controller.session.serialize() };
+511       const restartedState = controller.restart();
+512       const restartManual = controller.enterManualStepMode();
+513       const node = document.querySelector('[data-ui="policy-question"]');
+514       return {
+515         deck: JSON.parse(controller.session.serialize()).setup.deck,
+516         manual: restartManual,
+517         notice: node ? { cardId: node.dataset.cardId ?? null,
+518           disposition: node.dataset.disposition ?? null, hidden: node.hidden,
+519           text: node.textContent, unverifiedFields: node.dataset.unverifiedFields ?? null }
+520           : null,
+521         restartCount: restartedState.restartCount,
+522         sessionBytes: controller.session.serialize(),
+523         sessionTick: controller.session.state.tick,
+524         terminal,
+525       };
+526     }, setupBytes.terminalBuriedCoilSession);
+527     compareScalar("restart source session is naturally terminal",
+528       restartOutcome.terminal.state.terminal, true);
+529     compareScalar("restart source terminal tick", restartOutcome.terminal.state.sessionTick,
+530       buriedTerminal.state.tick);
+531     compareScalar("same-deck restart returns seed-zero setup bytes",
+532       restartOutcome.sessionBytes, expectedSessions.buriedCoil);
+533     compareScalar("same-deck restart preserves the full eight-card order",
+534       JSON.stringify(restartOutcome.deck), JSON.stringify(JSON.parse(expectedSessions.buriedCoil)
+535         .setup.deck));
+536     compareScalar("same-deck restart count", restartOutcome.restartCount, 1);
+537     compareScalar("same-deck restart is held at tick zero for native capture",
+538       restartOutcome.manual, true);
+539     compareScalar("same-deck restart session tick", restartOutcome.sessionTick, 0);
+540     compare("same-deck restart canonical notice", restartOutcome.notice,
+541       expectedNotices.buriedCoil);
+542     const restartedPng = await capture(page, "buried-coil-after-same-deck-restart");
+543     compareScalar("native full-viewport PNG exact after same-deck restart",
+544       restartedPng.equals(buriedInitialPng), true);
+545 
+546     evidence.terminalWitness = {
+547       batches: terminalBatches,
+548       tick: buriedTerminal.state.tick,
+549       result: buriedTerminal.state.clock.result,
+550       sessionSha256: createHash("sha256").update(buriedTerminal.serialize()).digest("hex"),
+551       source: "ordinary deterministic GameSession.stepMany(600) until terminal",
+552     };
+553     evidence.consoleErrors = [...evidence.consoleErrors];
+554     evidence.pageErrors = [...evidence.pageErrors];
+555     writeFileSync(join(ARTIFACTS, "notice-journey-evidence.json"),
+556       `${JSON.stringify({ evidence, mismatches }, null, 2)}\n`);
+557     assert.deepEqual(evidence.consoleErrors, [], "browser has no console errors");
+558     assert.deepEqual(evidence.pageErrors, [], "browser has no uncaught page errors");
+559     assert.deepEqual(mismatches, [],
+560       `canonical policy notice lifecycle checks: ${JSON.stringify(mismatches)}`);
+561   } finally {
+562     await browser?.close();
+563     await stopServer(server);
+564   }
+565 });
+566 
+

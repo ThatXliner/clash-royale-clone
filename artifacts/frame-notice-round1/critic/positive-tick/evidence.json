@@ -1,0 +1,106 @@
+{
+  "browserVersion": "155.0.8059.40",
+  "ticks": 600,
+  "source": {
+    "ember": {
+      "bytes": 59522,
+      "sha256": "fb26395fde765d55a6f5eb76ae5003d72f89587c5d6ce27f05c3c71283c065db",
+      "tick": 600
+    },
+    "defaultEight": {
+      "bytes": 48852,
+      "sha256": "3084aea43ee674a11b3863c42add888c0f277e89b5ba2d3e2215dc4b5c13e5a7",
+      "tick": 600
+    }
+  },
+  "restoreYields": {
+    "synchronous": 0,
+    "yielding": 1206
+  },
+  "enduranceYieldPolicy": "raf-scheduler-yield-raf",
+  "checks": {
+    "emberSourceSession": true,
+    "emberSyncSession": true,
+    "emberYieldingSession": true,
+    "emberSyncBrowser": true,
+    "emberYieldingBrowser": true,
+    "emberSyncInput": true,
+    "emberYieldingInput": true,
+    "emberSyncAudio": true,
+    "emberYieldingAudio": true,
+    "emberSyncNotice": true,
+    "emberYieldingNotice": true,
+    "defaultSession": true,
+    "defaultBrowser": true,
+    "defaultInput": true,
+    "defaultAudio": true,
+    "defaultNotice": true,
+    "emberPngEqual": true,
+    "positiveYieldObserved": true,
+    "disposeOk": true
+  },
+  "state": {
+    "emberSync": {
+      "active": true,
+      "backlogTicks": 0,
+      "domTick": 600,
+      "enduranceActive": false,
+      "terminalPresentationTick": 0,
+      "terminalPresentationRunning": false,
+      "paused": false,
+      "running": false,
+      "scheduled": false,
+      "selectedCardId": null,
+      "sessionTick": 600,
+      "terminal": false,
+      "restartCount": 0
+    },
+    "emberYielding": {
+      "active": true,
+      "backlogTicks": 0,
+      "domTick": 600,
+      "enduranceActive": false,
+      "terminalPresentationTick": 0,
+      "terminalPresentationRunning": false,
+      "paused": false,
+      "running": false,
+      "scheduled": false,
+      "selectedCardId": null,
+      "sessionTick": 600,
+      "terminal": false,
+      "restartCount": 0
+    },
+    "defaultSync": {
+      "active": true,
+      "backlogTicks": 0,
+      "domTick": 600,
+      "enduranceActive": false,
+      "terminalPresentationTick": 0,
+      "terminalPresentationRunning": false,
+      "paused": false,
+      "running": false,
+      "scheduled": false,
+      "selectedCardId": null,
+      "sessionTick": 600,
+      "terminal": false,
+      "restartCount": 0
+    }
+  },
+  "screenshots": {
+    "emberSync": {
+      "bytes": 394224,
+      "path": "/private/tmp/frame-notice-round1-critic/artifacts/frame-notice-round1/critic/positive-tick/ember-sync-600.png",
+      "sha256": "348de595ea4bd1587bb371589def6fcfd6fd9838be55a564517784cf059894da"
+    },
+    "emberYielding": {
+      "bytes": 394224,
+      "path": "/private/tmp/frame-notice-round1-critic/artifacts/frame-notice-round1/critic/positive-tick/ember-yielding-600.png",
+      "sha256": "348de595ea4bd1587bb371589def6fcfd6fd9838be55a564517784cf059894da"
+    },
+    "defaultEight": {
+      "bytes": 391685,
+      "path": "/private/tmp/frame-notice-round1-critic/artifacts/frame-notice-round1/critic/positive-tick/default-eight-600.png",
+      "sha256": "f58cdfbda861a26b9a8792ac9721963e54a3f71fc102d391dcab7ed4db1abe42"
+    }
+  }
+}

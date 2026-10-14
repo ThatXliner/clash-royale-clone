@@ -1,0 +1,559 @@
+{
+  "evidence": {
+    "browserVersion": "155.0.8059.40",
+    "checks": [
+      {
+        "label": "manual source controller mounted",
+        "passed": true
+      },
+      {
+        "label": "initial canonical Buried Coil session",
+        "passed": true
+      },
+      {
+        "label": "initial Buried Coil notice",
+        "passed": true
+      },
+      {
+        "label": "emberBasin authentic source session",
+        "passed": true
+      },
+      {
+        "label": "defaultEight authentic source session",
+        "passed": true
+      },
+      {
+        "label": "visible Buried Coil before cross-roster restores: canonical notice",
+        "passed": true
+      },
+      {
+        "label": "visible Buried Coil before cross-roster restores: exact session bytes",
+        "passed": true,
+        "actual": {
+          "bytes": 49971,
+          "sha256": "c79ad2fc68995673ccf1768a2e0d5d4374316e4dc02771857fa3828e31e99be1"
+        },
+        "expected": {
+          "bytes": 49971,
+          "sha256": "c79ad2fc68995673ccf1768a2e0d5d4374316e4dc02771857fa3828e31e99be1"
+        }
+      },
+      {
+        "label": "visible Buried Coil before cross-roster restores: exact browser snapshot bytes",
+        "passed": true,
+        "actual": {
+          "bytes": 60470,
+          "sha256": "6855c77971f728c1f5d011c685570dce1ae1b78fec24b72b30de325fd72b51c8"
+        },
+        "expected": {
+          "bytes": 60470,
+          "sha256": "6855c77971f728c1f5d011c685570dce1ae1b78fec24b72b30de325fd72b51c8"
+        }
+      },
+      {
+        "label": "visible Buried Coil before cross-roster restores: exact audio continuation bytes",
+        "passed": true,
+        "actual": {
+          "bytes": 60481,
+          "sha256": "ed4e4a3b1c221df0a157b04b253c553bdec020c48568d85531606e42b840e83a"
+        },
+        "expected": {
+          "bytes": 60481,
+          "sha256": "ed4e4a3b1c221df0a157b04b253c553bdec020c48568d85531606e42b840e83a"
+        }
+      },
+      {
+        "label": "visible Buried Coil before cross-roster restores: policy authority remains unverified",
+        "passed": true
+      },
+      {
+        "label": "visible Buried Coil before cross-roster restores: session hash",
+        "actual": "c79ad2fc68995673ccf1768a2e0d5d4374316e4dc02771857fa3828e31e99be1",
+        "expected": "c79ad2fc68995673ccf1768a2e0d5d4374316e4dc02771857fa3828e31e99be1",
+        "passed": true
+      },
+      {
+        "label": "visible Buried Coil before cross-roster restores: browser hash",
+        "actual": "6855c77971f728c1f5d011c685570dce1ae1b78fec24b72b30de325fd72b51c8"
+      },
+      {
+        "label": "visible Buried Coil before cross-roster restores: audio continuation hash",
+        "actual": "ed4e4a3b1c221df0a157b04b253c553bdec020c48568d85531606e42b840e83a"
+      },
+      {
+        "label": "visible Buried Coil before cross-roster restores: no provisional value in notice text",
+        "passed": true
+      },
+      {
+        "label": "synchronous cross-roster restore to Ember Basin: canonical notice",
+        "passed": false
+      },
+      {
+        "label": "synchronous cross-roster restore to Ember Basin: exact session bytes",
+        "passed": true,
+        "actual": {
+          "bytes": 49923,
+          "sha256": "cc29c767b8cedd8e3980cc1dd9d7992a4bf09a52934d805dee57bd28eb7b3893"
+        },
+        "expected": {
+          "bytes": 49923,
+          "sha256": "cc29c767b8cedd8e3980cc1dd9d7992a4bf09a52934d805dee57bd28eb7b3893"
+        }
+      },
+      {
+        "label": "synchronous cross-roster restore to Ember Basin: exact browser snapshot bytes",
+        "passed": true,
+        "actual": {
+          "bytes": 60422,
+          "sha256": "6a5ffdce8aa060dd87c61c1236549587c8dbab7dde6f77619c66306c33f75825"
+        },
+        "expected": {
+          "bytes": 60422,
+          "sha256": "6a5ffdce8aa060dd87c61c1236549587c8dbab7dde6f77619c66306c33f75825"
+        }
+      },
+      {
+        "label": "synchronous cross-roster restore to Ember Basin: exact audio continuation bytes",
+        "passed": true,
+        "actual": {
+          "bytes": 60433,
+          "sha256": "a2f0fcd41ae5a3d7dbff7c11d49eb18aa3c736f4b207498d646c370fc2544c25"
+        },
+        "expected": {
+          "bytes": 60433,
+          "sha256": "a2f0fcd41ae5a3d7dbff7c11d49eb18aa3c736f4b207498d646c370fc2544c25"
+        }
+      },
+      {
+        "label": "synchronous cross-roster restore to Ember Basin: policy authority remains unverified",
+        "passed": true
+      },
+      {
+        "label": "synchronous cross-roster restore to Ember Basin: session hash",
+        "actual": "cc29c767b8cedd8e3980cc1dd9d7992a4bf09a52934d805dee57bd28eb7b3893",
+        "expected": "cc29c767b8cedd8e3980cc1dd9d7992a4bf09a52934d805dee57bd28eb7b3893",
+        "passed": true
+      },
+      {
+        "label": "synchronous cross-roster restore to Ember Basin: browser hash",
+        "actual": "6a5ffdce8aa060dd87c61c1236549587c8dbab7dde6f77619c66306c33f75825"
+      },
+      {
+        "label": "synchronous cross-roster restore to Ember Basin: audio continuation hash",
+        "actual": "a2f0fcd41ae5a3d7dbff7c11d49eb18aa3c736f4b207498d646c370fc2544c25"
+      },
+      {
+        "label": "synchronous cross-roster restore to Ember Basin: no provisional value in notice text",
+        "passed": true
+      },
+      {
+        "label": "synchronous cross-roster restore back to Buried Coil: canonical notice",
+        "passed": true
+      },
+      {
+        "label": "synchronous cross-roster restore back to Buried Coil: exact session bytes",
+        "passed": true,
+        "actual": {
+          "bytes": 49971,
+          "sha256": "c79ad2fc68995673ccf1768a2e0d5d4374316e4dc02771857fa3828e31e99be1"
+        },
+        "expected": {
+          "bytes": 49971,
+          "sha256": "c79ad2fc68995673ccf1768a2e0d5d4374316e4dc02771857fa3828e31e99be1"
+        }
+      },
+      {
+        "label": "synchronous cross-roster restore back to Buried Coil: exact browser snapshot bytes",
+        "passed": true,
+        "actual": {
+          "bytes": 60470,
+          "sha256": "6855c77971f728c1f5d011c685570dce1ae1b78fec24b72b30de325fd72b51c8"
+        },
+        "expected": {
+          "bytes": 60470,
+          "sha256": "6855c77971f728c1f5d011c685570dce1ae1b78fec24b72b30de325fd72b51c8"
+        }
+      },
+      {
+        "label": "synchronous cross-roster restore back to Buried Coil: exact audio continuation bytes",
+        "passed": true,
+        "actual": {
+          "bytes": 60481,
+          "sha256": "ed4e4a3b1c221df0a157b04b253c553bdec020c48568d85531606e42b840e83a"
+        },
+        "expected": {
+          "bytes": 60481,
+          "sha256": "ed4e4a3b1c221df0a157b04b253c553bdec020c48568d85531606e42b840e83a"
+        }
+      },
+      {
+        "label": "synchronous cross-roster restore back to Buried Coil: policy authority remains unverified",
+        "passed": true
+      },
+      {
+        "label": "synchronous cross-roster restore back to Buried Coil: session hash",
+        "actual": "c79ad2fc68995673ccf1768a2e0d5d4374316e4dc02771857fa3828e31e99be1",
+        "expected": "c79ad2fc68995673ccf1768a2e0d5d4374316e4dc02771857fa3828e31e99be1",
+        "passed": true
+      },
+      {
+        "label": "synchronous cross-roster restore back to Buried Coil: browser hash",
+        "actual": "6855c77971f728c1f5d011c685570dce1ae1b78fec24b72b30de325fd72b51c8"
+      },
+      {
+        "label": "synchronous cross-roster restore back to Buried Coil: audio continuation hash",
+        "actual": "ed4e4a3b1c221df0a157b04b253c553bdec020c48568d85531606e42b840e83a"
+      },
+      {
+        "label": "synchronous cross-roster restore back to Buried Coil: no provisional value in notice text",
+        "passed": true
+      },
+      {
+        "label": "native full-viewport PNG exact after synchronous restore",
+        "passed": true
+      },
+      {
+        "label": "yielding cross-roster restore to Ember Basin: canonical notice",
+        "passed": false
+      },
+      {
+        "label": "yielding cross-roster restore to Ember Basin: exact session bytes",
+        "passed": true,
+        "actual": {
+          "bytes": 49923,
+          "sha256": "cc29c767b8cedd8e3980cc1dd9d7992a4bf09a52934d805dee57bd28eb7b3893"
+        },
+        "expected": {
+          "bytes": 49923,
+          "sha256": "cc29c767b8cedd8e3980cc1dd9d7992a4bf09a52934d805dee57bd28eb7b3893"
+        }
+      },
+      {
+        "label": "yielding cross-roster restore to Ember Basin: exact browser snapshot bytes",
+        "passed": true,
+        "actual": {
+          "bytes": 60422,
+          "sha256": "6a5ffdce8aa060dd87c61c1236549587c8dbab7dde6f77619c66306c33f75825"
+        },
+        "expected": {
+          "bytes": 60422,
+          "sha256": "6a5ffdce8aa060dd87c61c1236549587c8dbab7dde6f77619c66306c33f75825"
+        }
+      },
+      {
+        "label": "yielding cross-roster restore to Ember Basin: exact audio continuation bytes",
+        "passed": true,
+        "actual": {
+          "bytes": 60433,
+          "sha256": "a2f0fcd41ae5a3d7dbff7c11d49eb18aa3c736f4b207498d646c370fc2544c25"
+        },
+        "expected": {
+          "bytes": 60433,
+          "sha256": "a2f0fcd41ae5a3d7dbff7c11d49eb18aa3c736f4b207498d646c370fc2544c25"
+        }
+      },
+      {
+        "label": "yielding cross-roster restore to Ember Basin: policy authority remains unverified",
+        "passed": true
+      },
+      {
+        "label": "yielding cross-roster restore to Ember Basin: session hash",
+        "actual": "cc29c767b8cedd8e3980cc1dd9d7992a4bf09a52934d805dee57bd28eb7b3893",
+        "expected": "cc29c767b8cedd8e3980cc1dd9d7992a4bf09a52934d805dee57bd28eb7b3893",
+        "passed": true
+      },
+      {
+        "label": "yielding cross-roster restore to Ember Basin: browser hash",
+        "actual": "6a5ffdce8aa060dd87c61c1236549587c8dbab7dde6f77619c66306c33f75825"
+      },
+      {
+        "label": "yielding cross-roster restore to Ember Basin: audio continuation hash",
+        "actual": "a2f0fcd41ae5a3d7dbff7c11d49eb18aa3c736f4b207498d646c370fc2544c25"
+      },
+      {
+        "label": "yielding cross-roster restore to Ember Basin: no provisional value in notice text",
+        "passed": true
+      },
+      {
+        "label": "native full-viewport PNG exact across Ember restore paths",
+        "passed": true
+      },
+      {
+        "label": "synchronous cross-roster restore to default eight: canonical notice",
+        "passed": false
+      },
+      {
+        "label": "synchronous cross-roster restore to default eight: exact session bytes",
+        "passed": true,
+        "actual": {
+          "bytes": 39253,
+          "sha256": "ed371dd1d28d6be72a98bda32e434cbbc5431eea4f163e4206a1901cd08dbea1"
+        },
+        "expected": {
+          "bytes": 39253,
+          "sha256": "ed371dd1d28d6be72a98bda32e434cbbc5431eea4f163e4206a1901cd08dbea1"
+        }
+      },
+      {
+        "label": "synchronous cross-roster restore to default eight: exact browser snapshot bytes",
+        "passed": true,
+        "actual": {
+          "bytes": 47464,
+          "sha256": "49a88cdb5b2462da7847e934b9f37387b0db5319d941d5ed34a0aba906353c2e"
+        },
+        "expected": {
+          "bytes": 47464,
+          "sha256": "49a88cdb5b2462da7847e934b9f37387b0db5319d941d5ed34a0aba906353c2e"
+        }
+      },
+      {
+        "label": "synchronous cross-roster restore to default eight: exact audio continuation bytes",
+        "passed": true,
+        "actual": {
+          "bytes": 47475,
+          "sha256": "d75e03b81b380061e65c919f314939a446aae5879dfbc1c2bd744bb93e07c058"
+        },
+        "expected": {
+          "bytes": 47475,
+          "sha256": "d75e03b81b380061e65c919f314939a446aae5879dfbc1c2bd744bb93e07c058"
+        }
+      },
+      {
+        "label": "synchronous cross-roster restore to default eight: policy authority remains unverified",
+        "passed": true
+      },
+      {
+        "label": "synchronous cross-roster restore to default eight: session hash",
+        "actual": "ed371dd1d28d6be72a98bda32e434cbbc5431eea4f163e4206a1901cd08dbea1",
+        "expected": "ed371dd1d28d6be72a98bda32e434cbbc5431eea4f163e4206a1901cd08dbea1",
+        "passed": true
+      },
+      {
+        "label": "synchronous cross-roster restore to default eight: browser hash",
+        "actual": "49a88cdb5b2462da7847e934b9f37387b0db5319d941d5ed34a0aba906353c2e"
+      },
+      {
+        "label": "synchronous cross-roster restore to default eight: audio continuation hash",
+        "actual": "d75e03b81b380061e65c919f314939a446aae5879dfbc1c2bd744bb93e07c058"
+      },
+      {
+        "label": "policy notice returns after default-roster restore: canonical notice",
+        "passed": true
+      },
+      {
+        "label": "policy notice returns after default-roster restore: exact session bytes",
+        "passed": true,
+        "actual": {
+          "bytes": 49971,
+          "sha256": "c79ad2fc68995673ccf1768a2e0d5d4374316e4dc02771857fa3828e31e99be1"
+        },
+        "expected": {
+          "bytes": 49971,
+          "sha256": "c79ad2fc68995673ccf1768a2e0d5d4374316e4dc02771857fa3828e31e99be1"
+        }
+      },
+      {
+        "label": "policy notice returns after default-roster restore: exact browser snapshot bytes",
+        "passed": true,
+        "actual": {
+          "bytes": 60470,
+          "sha256": "6855c77971f728c1f5d011c685570dce1ae1b78fec24b72b30de325fd72b51c8"
+        },
+        "expected": {
+          "bytes": 60470,
+          "sha256": "6855c77971f728c1f5d011c685570dce1ae1b78fec24b72b30de325fd72b51c8"
+        }
+      },
+      {
+        "label": "policy notice returns after default-roster restore: exact audio continuation bytes",
+        "passed": true,
+        "actual": {
+          "bytes": 60481,
+          "sha256": "ed4e4a3b1c221df0a157b04b253c553bdec020c48568d85531606e42b840e83a"
+        },
+        "expected": {
+          "bytes": 60481,
+          "sha256": "ed4e4a3b1c221df0a157b04b253c553bdec020c48568d85531606e42b840e83a"
+        }
+      },
+      {
+        "label": "policy notice returns after default-roster restore: policy authority remains unverified",
+        "passed": true
+      },
+      {
+        "label": "policy notice returns after default-roster restore: session hash",
+        "actual": "c79ad2fc68995673ccf1768a2e0d5d4374316e4dc02771857fa3828e31e99be1",
+        "expected": "c79ad2fc68995673ccf1768a2e0d5d4374316e4dc02771857fa3828e31e99be1",
+        "passed": true
+      },
+      {
+        "label": "policy notice returns after default-roster restore: browser hash",
+        "actual": "6855c77971f728c1f5d011c685570dce1ae1b78fec24b72b30de325fd72b51c8"
+      },
+      {
+        "label": "policy notice returns after default-roster restore: audio continuation hash",
+        "actual": "ed4e4a3b1c221df0a157b04b253c553bdec020c48568d85531606e42b840e83a"
+      },
+      {
+        "label": "policy notice returns after default-roster restore: no provisional value in notice text",
+        "passed": true
+      },
+      {
+        "label": "forged policy snapshot rejected",
+        "passed": true
+      },
+      {
+        "label": "forged policy snapshot leaves browser bytes unchanged",
+        "passed": true,
+        "actual": {
+          "bytes": 60470,
+          "sha256": "6855c77971f728c1f5d011c685570dce1ae1b78fec24b72b30de325fd72b51c8"
+        },
+        "expected": {
+          "bytes": 60470,
+          "sha256": "6855c77971f728c1f5d011c685570dce1ae1b78fec24b72b30de325fd72b51c8"
+        }
+      },
+      {
+        "label": "restart source session is naturally terminal",
+        "passed": true
+      },
+      {
+        "label": "restart source terminal tick",
+        "passed": true
+      },
+      {
+        "label": "same-deck restart returns seed-zero setup bytes",
+        "passed": true
+      },
+      {
+        "label": "same-deck restart preserves the full eight-card order",
+        "passed": true
+      },
+      {
+        "label": "same-deck restart count",
+        "passed": true
+      },
+      {
+        "label": "same-deck restart canonical notice",
+        "passed": true
+      },
+      {
+        "label": "native full-viewport PNG exact after same-deck restart",
+        "passed": false
+      }
+    ],
+    "consoleErrors": [],
+    "pageErrors": [],
+    "screenshots": {
+      "buried-coil-initial": {
+        "bytes": 393568,
+        "path": "/private/tmp/frame-notice-round1-builder/artifacts/frame-notice-round1/builder/red-run-1/buried-coil-initial.png",
+        "sha256": "3e08ebdd3e8829199587c2c2d3ec7f74c42e278ceab91c5af46f478502b5fbcd"
+      },
+      "ember-basin-after-sync-restore": {
+        "bytes": 393568,
+        "path": "/private/tmp/frame-notice-round1-builder/artifacts/frame-notice-round1/builder/red-run-1/ember-basin-after-sync-restore.png",
+        "sha256": "3e08ebdd3e8829199587c2c2d3ec7f74c42e278ceab91c5af46f478502b5fbcd"
+      },
+      "buried-coil-after-sync-restore": {
+        "bytes": 393568,
+        "path": "/private/tmp/frame-notice-round1-builder/artifacts/frame-notice-round1/builder/red-run-1/buried-coil-after-sync-restore.png",
+        "sha256": "3e08ebdd3e8829199587c2c2d3ec7f74c42e278ceab91c5af46f478502b5fbcd"
+      },
+      "ember-basin-after-yielding-restore": {
+        "bytes": 393568,
+        "path": "/private/tmp/frame-notice-round1-builder/artifacts/frame-notice-round1/builder/red-run-1/ember-basin-after-yielding-restore.png",
+        "sha256": "3e08ebdd3e8829199587c2c2d3ec7f74c42e278ceab91c5af46f478502b5fbcd"
+      },
+      "default-eight-hidden-notice": {
+        "bytes": 393568,
+        "path": "/private/tmp/frame-notice-round1-builder/artifacts/frame-notice-round1/builder/red-run-1/default-eight-hidden-notice.png",
+        "sha256": "3e08ebdd3e8829199587c2c2d3ec7f74c42e278ceab91c5af46f478502b5fbcd"
+      },
+      "buried-coil-after-same-deck-restart": {
+        "bytes": 394273,
+        "path": "/private/tmp/frame-notice-round1-builder/artifacts/frame-notice-round1/builder/red-run-1/buried-coil-after-same-deck-restart.png",
+        "sha256": "7034250a2abeb5d96ee55c90bc881f44e5fe1e0b3565b774447bb7f4b7d32ce0"
+      }
+    },
+    "viewport": {
+      "height": 844,
+      "width": 390
+    },
+    "terminalWitness": {
+      "batches": 7,
+      "tick": 3818,
+      "result": {
+        "crowns": {
+          "north": 3,
+          "south": 0
+        },
+        "endedAtTick": 3817,
+        "kind": "win",
+        "reason": "central_destroyed",
+        "winner": "north"
+      },
+      "sessionSha256": "1bcf8712be380aa9f0d1106c80e5f93e0d0f8e9b2f3831c630c4646f8aee9d51",
+      "source": "ordinary deterministic GameSession.stepMany(600) until terminal"
+    }
+  },
+  "mismatches": [
+    {
+      "label": "synchronous cross-roster restore to Ember Basin: canonical notice",
+      "actual": {
+        "cardId": "buried-coil",
+        "disposition": "question",
+        "hidden": false,
+        "text": "Buried Coil combat: QUESTION. First-hit timing is unverified; damage, HP, deploy, range and target fields are unverified.",
+        "unverifiedFields": "damage,deployTicks,firstHitTicks,hitSpeedTicks,hitpoints,maxRange,mode,sightRange"
+      },
+      "expected": {
+        "cardId": "ember-basin",
+        "disposition": "question",
+        "hidden": false,
+        "text": "Ember Basin combat: QUESTION. First-hit timing is unverified; damage, HP, deploy, range and target fields are unverified.",
+        "unverifiedFields": "damage,deployTicks,firstHitTicks,hitSpeedTicks,hitpoints,maxRange,mode,sightRange"
+      }
+    },
+    {
+      "label": "yielding cross-roster restore to Ember Basin: canonical notice",
+      "actual": {
+        "cardId": "buried-coil",
+        "disposition": "question",
+        "hidden": false,
+        "text": "Buried Coil combat: QUESTION. First-hit timing is unverified; damage, HP, deploy, range and target fields are unverified.",
+        "unverifiedFields": "damage,deployTicks,firstHitTicks,hitSpeedTicks,hitpoints,maxRange,mode,sightRange"
+      },
+      "expected": {
+        "cardId": "ember-basin",
+        "disposition": "question",
+        "hidden": false,
+        "text": "Ember Basin combat: QUESTION. First-hit timing is unverified; damage, HP, deploy, range and target fields are unverified.",
+        "unverifiedFields": "damage,deployTicks,firstHitTicks,hitSpeedTicks,hitpoints,maxRange,mode,sightRange"
+      }
+    },
+    {
+      "label": "synchronous cross-roster restore to default eight: canonical notice",
+      "actual": {
+        "cardId": "buried-coil",
+        "disposition": "question",
+        "hidden": false,
+        "text": "Buried Coil combat: QUESTION. First-hit timing is unverified; damage, HP, deploy, range and target fields are unverified.",
+        "unverifiedFields": "damage,deployTicks,firstHitTicks,hitSpeedTicks,hitpoints,maxRange,mode,sightRange"
+      },
+      "expected": {
+        "cardId": null,
+        "disposition": null,
+        "hidden": true,
+        "text": "",
+        "unverifiedFields": null
+      }
+    },
+    {
+      "label": "native full-viewport PNG exact after same-deck restart",
+      "actual": false,
+      "expected": true
+    }
+  ]
+}

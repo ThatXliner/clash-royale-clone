@@ -1,0 +1,29 @@
+TAP version 13
+# Subtest: policy notice follows canonical roster through restore and restart
+not ok 1 - policy notice follows canonical roster through restore and restart
+  ---
+  duration_ms: 16631.629833
+  type: 'test'
+  location: '/private/tmp/frame-notice-round1-builder/tests/game-browser-policy-notice.test.js:122:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    page.evaluate: ReferenceError: policyRecord is not defined
+        at eval (eval at evaluate (:290:30), <anonymous>:10:17)
+        at UtilityScript.evaluate (<anonymous>:292:16)
+        at UtilityScript.<anonymous> (<anonymous>:1:44)
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    eval (eval at evaluate (:290:30), <anonymous>:10:17)
+    UtilityScript.evaluate (<anonymous>:292:16)
+    UtilityScript.<anonymous> (<anonymous>:1:44)
+    TestContext.<anonymous> (/private/tmp/frame-notice-round1-builder/tests/game-browser-policy-notice.test.js:452:43)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 18844.35475

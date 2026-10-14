@@ -1,0 +1,204 @@
+{
+  "browserVersion": "155.0.8059.40",
+  "ticks": 600,
+  "source": {
+    "ember": {
+      "bytes": 59522,
+      "sha256": "fb26395fde765d55a6f5eb76ae5003d72f89587c5d6ce27f05c3c71283c065db",
+      "tick": 600
+    },
+    "defaultEight": {
+      "bytes": 48852,
+      "sha256": "3084aea43ee674a11b3863c42add888c0f277e89b5ba2d3e2215dc4b5c13e5a7",
+      "tick": 600
+    }
+  },
+  "restoreYields": {
+    "synchronous": 0,
+    "yielding": 1206,
+    "defaultYielding": 1206
+  },
+  "enduranceYieldPolicy": "raf-scheduler-yield-raf",
+  "checks": {
+    "emberSourceSession": true,
+    "emberSyncSession": true,
+    "emberYieldingSession": true,
+    "emberSyncBrowser": true,
+    "emberYieldingBrowser": true,
+    "emberSyncInput": true,
+    "emberYieldingInput": true,
+    "emberSyncAudio": true,
+    "emberYieldingAudio": true,
+    "emberSyncNotice": true,
+    "emberYieldingNotice": true,
+    "defaultSession": true,
+    "defaultBrowser": true,
+    "defaultInput": true,
+    "defaultAudio": true,
+    "defaultNotice": true,
+    "defaultYieldingSession": true,
+    "defaultYieldingBrowser": true,
+    "defaultYieldingInput": true,
+    "defaultYieldingAudio": true,
+    "defaultYieldingNotice": true,
+    "defaultYieldingPngEqual": true,
+    "defaultYieldObserved": true,
+    "emberPngEqual": true,
+    "positiveYieldObserved": true,
+    "disposeOk": true
+  },
+  "restoreWitnesses": {
+    "emberSync": {
+      "sessionBytes": 59522,
+      "sessionSha256": "fb26395fde765d55a6f5eb76ae5003d72f89587c5d6ce27f05c3c71283c065db",
+      "browserBytes": 72421,
+      "browserSha256": "4dab38e52833af6ea8b99e52646a5b5a76850248193ac7174aec2c854647676a",
+      "inputBytes": 29,
+      "inputSha256": "80bb076a4ebb16f1d3b47065aafd315b52569b327b0b06db9d91ea2b74392864",
+      "audioBytes": 72433,
+      "audioSha256": "239050184ebc8269ce8cebef85a8814a554cf932e5ff8de2e833098a17893c92",
+      "notice": {
+        "cardId": "ember-basin",
+        "disposition": "question",
+        "hidden": false,
+        "text": "Ember Basin combat: QUESTION. First-hit timing is unverified; damage, HP, deploy, range and target fields are unverified.",
+        "unverifiedFields": "damage,deployTicks,firstHitTicks,hitSpeedTicks,hitpoints,maxRange,mode,sightRange"
+      }
+    },
+    "emberYielding": {
+      "sessionBytes": 59522,
+      "sessionSha256": "fb26395fde765d55a6f5eb76ae5003d72f89587c5d6ce27f05c3c71283c065db",
+      "browserBytes": 72421,
+      "browserSha256": "4dab38e52833af6ea8b99e52646a5b5a76850248193ac7174aec2c854647676a",
+      "inputBytes": 29,
+      "inputSha256": "80bb076a4ebb16f1d3b47065aafd315b52569b327b0b06db9d91ea2b74392864",
+      "audioBytes": 72433,
+      "audioSha256": "239050184ebc8269ce8cebef85a8814a554cf932e5ff8de2e833098a17893c92",
+      "notice": {
+        "cardId": "ember-basin",
+        "disposition": "question",
+        "hidden": false,
+        "text": "Ember Basin combat: QUESTION. First-hit timing is unverified; damage, HP, deploy, range and target fields are unverified.",
+        "unverifiedFields": "damage,deployTicks,firstHitTicks,hitSpeedTicks,hitpoints,maxRange,mode,sightRange"
+      }
+    },
+    "defaultSync": {
+      "sessionBytes": 48852,
+      "sessionSha256": "3084aea43ee674a11b3863c42add888c0f277e89b5ba2d3e2215dc4b5c13e5a7",
+      "browserBytes": 59463,
+      "browserSha256": "cdc0305932493019ab94a735a3419f7994c6dca0310650156096e58134085f41",
+      "inputBytes": 29,
+      "inputSha256": "80bb076a4ebb16f1d3b47065aafd315b52569b327b0b06db9d91ea2b74392864",
+      "audioBytes": 59475,
+      "audioSha256": "69bb4d6c1b6e8041c1190905d4c28f4c14cec77fed4af7f3c6f4602e1032fd9a",
+      "notice": {
+        "cardId": null,
+        "disposition": null,
+        "hidden": true,
+        "text": "",
+        "unverifiedFields": null
+      }
+    },
+    "defaultYielding": {
+      "sessionBytes": 48852,
+      "sessionSha256": "3084aea43ee674a11b3863c42add888c0f277e89b5ba2d3e2215dc4b5c13e5a7",
+      "browserBytes": 59463,
+      "browserSha256": "cdc0305932493019ab94a735a3419f7994c6dca0310650156096e58134085f41",
+      "inputBytes": 29,
+      "inputSha256": "80bb076a4ebb16f1d3b47065aafd315b52569b327b0b06db9d91ea2b74392864",
+      "audioBytes": 59475,
+      "audioSha256": "69bb4d6c1b6e8041c1190905d4c28f4c14cec77fed4af7f3c6f4602e1032fd9a",
+      "notice": {
+        "cardId": null,
+        "disposition": null,
+        "hidden": true,
+        "text": "",
+        "unverifiedFields": null
+      }
+    }
+  },
+  "state": {
+    "emberSync": {
+      "active": true,
+      "backlogTicks": 0,
+      "domTick": 600,
+      "enduranceActive": false,
+      "terminalPresentationTick": 0,
+      "terminalPresentationRunning": false,
+      "paused": false,
+      "running": false,
+      "scheduled": false,
+      "selectedCardId": null,
+      "sessionTick": 600,
+      "terminal": false,
+      "restartCount": 0
+    },
+    "emberYielding": {
+      "active": true,
+      "backlogTicks": 0,
+      "domTick": 600,
+      "enduranceActive": false,
+      "terminalPresentationTick": 0,
+      "terminalPresentationRunning": false,
+      "paused": false,
+      "running": false,
+      "scheduled": false,
+      "selectedCardId": null,
+      "sessionTick": 600,
+      "terminal": false,
+      "restartCount": 0
+    },
+    "defaultSync": {
+      "active": true,
+      "backlogTicks": 0,
+      "domTick": 600,
+      "enduranceActive": false,
+      "terminalPresentationTick": 0,
+      "terminalPresentationRunning": false,
+      "paused": false,
+      "running": false,
+      "scheduled": false,
+      "selectedCardId": null,
+      "sessionTick": 600,
+      "terminal": false,
+      "restartCount": 0
+    },
+    "defaultYielding": {
+      "active": true,
+      "backlogTicks": 0,
+      "domTick": 600,
+      "enduranceActive": false,
+      "terminalPresentationTick": 0,
+      "terminalPresentationRunning": false,
+      "paused": false,
+      "running": false,
+      "scheduled": false,
+      "selectedCardId": null,
+      "sessionTick": 600,
+      "terminal": false,
+      "restartCount": 0
+    }
+  },
+  "screenshots": {
+    "emberSync": {
+      "bytes": 394224,
+      "path": "/private/tmp/frame-notice-round1-critic/artifacts/frame-notice-round1/critic/positive-tick-final/ember-sync-600.png",
+      "sha256": "348de595ea4bd1587bb371589def6fcfd6fd9838be55a564517784cf059894da"
+    },
+    "emberYielding": {
+      "bytes": 394224,
+      "path": "/private/tmp/frame-notice-round1-critic/artifacts/frame-notice-round1/critic/positive-tick-final/ember-yielding-600.png",
+      "sha256": "348de595ea4bd1587bb371589def6fcfd6fd9838be55a564517784cf059894da"
+    },
+    "defaultEight": {
+      "bytes": 391685,
+      "path": "/private/tmp/frame-notice-round1-critic/artifacts/frame-notice-round1/critic/positive-tick-final/default-eight-600.png",
+      "sha256": "f58cdfbda861a26b9a8792ac9721963e54a3f71fc102d391dcab7ed4db1abe42"
+    },
+    "defaultEightYielding": {
+      "bytes": 391685,
+      "path": "/private/tmp/frame-notice-round1-critic/artifacts/frame-notice-round1/critic/positive-tick-final/default-eight-yielding-600.png",
+      "sha256": "f58cdfbda861a26b9a8792ac9721963e54a3f71fc102d391dcab7ed4db1abe42"
+    }
+  }
+}

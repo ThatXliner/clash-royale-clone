@@ -201,6 +201,30 @@ function buildingPolicyQuestion(session) {
   };
 }
 
+function projectBuildingPolicyQuestion(questionNotice, session) {
+  const policyQuestion = buildingPolicyQuestion(session);
+  if (questionNotice === null) {
+    if (policyQuestion !== null) {
+      throw new TypeError("shipped browser lacks the defensive QUESTION notice");
+    }
+    return null;
+  }
+  if (policyQuestion === null) {
+    questionNotice.hidden = true;
+    delete questionNotice.dataset.cardId;
+    delete questionNotice.dataset.disposition;
+    delete questionNotice.dataset.unverifiedFields;
+    questionNotice.textContent = "";
+    return null;
+  }
+  questionNotice.hidden = false;
+  questionNotice.dataset.cardId = policyQuestion.cardId;
+  questionNotice.dataset.disposition = "question";
+  questionNotice.dataset.unverifiedFields = policyQuestion.unverifiedFields.join(",");
+  questionNotice.textContent = policyQuestion.text;
+  return policyQuestion;
+}
+
 function inputSystems(session, cards, cache) {
   const state = session.state;
   const continued = cache.get(session);
@@ -480,17 +504,7 @@ export function mountShippedGameBrowser(
       }
       const shell = mountArenaShell(root);
       const questionNotice = shell.querySelector('[data-ui="policy-question"]');
-      const policyQuestion = buildingPolicyQuestion(authenticSession);
-      if (policyQuestion !== null) {
-        if (questionNotice === null) {
-          throw new TypeError("shipped browser lacks the defensive QUESTION notice");
-        }
-        questionNotice.hidden = false;
-        questionNotice.dataset.cardId = policyQuestion.cardId;
-        questionNotice.dataset.disposition = "question";
-        questionNotice.dataset.unverifiedFields = policyQuestion.unverifiedFields.join(",");
-        questionNotice.textContent = policyQuestion.text;
-      }
+      projectBuildingPolicyQuestion(questionNotice, authenticSession);
       const deckChoiceInertState = deckChoiceEnabled
         ? Array.from(shell.children, (node) => [node, node.inert]) : [];
       const deckChoiceOpenButton = deckChoiceEnabled
@@ -618,6 +632,7 @@ export function mountShippedGameBrowser(
         audioUiBridge, browserAudio, controls, deckChoice,
         deckChoiceButtons, deckChoiceListeners, deckChoiceOpenButton, deckChoiceStart,
         loop, onRestart, restart, syncDeckChoice,
+        questionNotice,
       };
       restart.addEventListener("click", onRestart);
       audioRuntime.renderFrame();
@@ -926,6 +941,7 @@ export function mountShippedGameBrowser(
         graph.audioRuntime.rebase(graph.loop.session);
       } else graph.audioRuntime.rebaseSilently(graph.loop.session);
       lastSession = graph.loop.session;
+      projectBuildingPolicyQuestion(graph.questionNotice, graph.loop.session);
       renderRestart(graph);
       return state;
     },
@@ -982,6 +998,7 @@ export function mountShippedGameBrowser(
           candidate.audioRuntime.rebase(candidate.loop.session);
         } else candidate.audioRuntime.rebaseSilently(candidate.loop.session);
         lastSession = candidate.loop.session;
+        projectBuildingPolicyQuestion(candidate.questionNotice, candidate.loop.session);
         renderRestart(candidate);
         return state;
       } finally {

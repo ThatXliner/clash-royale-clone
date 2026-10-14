@@ -1,0 +1,31 @@
+TAP version 13
+# Subtest: policy notice follows canonical roster through restore and restart
+not ok 1 - policy notice follows canonical roster through restore and restart
+  ---
+  duration_ms: 14804.160541
+  type: 'test'
+  location: '/private/tmp/frame-notice-round1-negative-control/tests/game-browser-policy-notice.test.js:123:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot find package 'playwright' imported from /private/tmp/frame-notice-round1-negative-control/tests/game-browser-policy-notice.test.js"
+  code: 'ERR_MODULE_NOT_FOUND'
+  stack: |-
+    Object.getPackageJSONURL (node:internal/modules/package_json_reader:314:9)
+    packageResolve (node:internal/modules/esm/resolve:768:81)
+    moduleResolve (node:internal/modules/esm/resolve:855:18)
+    defaultResolve (node:internal/modules/esm/resolve:985:11)
+    #cachedDefaultResolve (node:internal/modules/esm/loader:747:20)
+    ModuleLoader.resolve (node:internal/modules/esm/loader:724:38)
+    ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:320:38)
+    onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:36)
+    TracingChannel.tracePromise (node:diagnostics_channel:350:14)
+    ModuleLoader.import (node:internal/modules/esm/loader:679:21)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 17018.491791
