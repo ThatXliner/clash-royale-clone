@@ -1,0 +1,2015 @@
+{
+  "performed": true,
+  "checkpointSha256": "69b9da6a2a55a445046891e312c0772f9af6215c0205224f68239c6947cb6814",
+  "captures": [
+    "baseline-pre-restore",
+    "baseline-post-restore",
+    "ablation-pre-restore-after-CSS-injection",
+    "ablation-post-restore"
+  ],
+  "restoreCounts": {
+    "reductionPreparation": 1,
+    "baseline": 1,
+    "ablation": 1
+  },
+  "beforeBaseline": {
+    "outer": {
+      "phase": "fingerprint",
+      "time": 4962.100000023842,
+      "viewport": {
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "dpr": 1,
+        "visual": {
+          "width": 390,
+          "height": 844,
+          "scale": 1,
+          "offsetTop": 0,
+          "offsetLeft": 0
+        },
+        "screen": {
+          "width": 390,
+          "height": 844
+        }
+      },
+      "route": {
+        "active": "battle",
+        "selectedBattleNav": "page"
+      },
+      "reducedMotion": true,
+      "nodes": {
+        "shell": {
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "top": 0,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "style": {
+            "display": "flex",
+            "position": "static",
+            "boxSizing": "border-box",
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "height": "844px",
+            "minHeight": "844px",
+            "flex": "0 1 auto",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "none"
+          }
+        },
+        "header": {
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 66,
+            "top": 0,
+            "right": 390,
+            "bottom": 66,
+            "left": 0
+          },
+          "style": {
+            "display": "flex",
+            "position": "static",
+            "boxSizing": "border-box",
+            "paddingTop": "0px",
+            "paddingRight": "20px",
+            "paddingBottom": "0px",
+            "paddingLeft": "20px",
+            "height": "66px",
+            "minHeight": "66px",
+            "flex": "0 1 auto",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "none"
+          }
+        },
+        "main": {
+          "rect": {
+            "x": 0,
+            "y": 66,
+            "width": 390,
+            "height": 778,
+            "top": 66,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "style": {
+            "display": "flex",
+            "position": "static",
+            "boxSizing": "border-box",
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "68px",
+            "paddingLeft": "0px",
+            "height": "778px",
+            "minHeight": "0px",
+            "flex": "1 1 0%",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "none"
+          }
+        },
+        "battleView": {
+          "rect": {
+            "x": 0,
+            "y": 66,
+            "width": 390,
+            "height": 710,
+            "top": 66,
+            "right": 390,
+            "bottom": 776,
+            "left": 0
+          },
+          "style": {
+            "display": "flex",
+            "position": "static",
+            "boxSizing": "border-box",
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "height": "710px",
+            "minHeight": "0px",
+            "flex": "1 1 0%",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "none"
+          }
+        },
+        "heading": {
+          "rect": {
+            "x": 0,
+            "y": 66,
+            "width": 390,
+            "height": 51,
+            "top": 66,
+            "right": 390,
+            "bottom": 117,
+            "left": 0
+          },
+          "style": {
+            "display": "flex",
+            "position": "static",
+            "boxSizing": "border-box",
+            "paddingTop": "0px",
+            "paddingRight": "14px",
+            "paddingBottom": "0px",
+            "paddingLeft": "14px",
+            "height": "51px",
+            "minHeight": "auto",
+            "flex": "0 0 auto",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "none"
+          }
+        },
+        "slot": {
+          "rect": {
+            "x": 0,
+            "y": 117,
+            "width": 390,
+            "height": 659,
+            "top": 117,
+            "right": 390,
+            "bottom": 776,
+            "left": 0
+          },
+          "style": {
+            "display": "block",
+            "position": "relative",
+            "boxSizing": "border-box",
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "height": "659px",
+            "minHeight": "0px",
+            "flex": "1 1 0%",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "none"
+          }
+        },
+        "frame": {
+          "rect": {
+            "x": 9.65625,
+            "y": 117,
+            "width": 370.6875,
+            "height": 659,
+            "top": 117,
+            "right": 380.34375,
+            "bottom": 776,
+            "left": 9.65625
+          },
+          "style": {
+            "display": "block",
+            "position": "absolute",
+            "boxSizing": "border-box",
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "height": "1280px",
+            "minHeight": "0px",
+            "flex": "0 1 auto",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)"
+          }
+        },
+        "nav": {
+          "rect": {
+            "x": 0,
+            "y": 777,
+            "width": 390,
+            "height": 67,
+            "top": 777,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "style": {
+            "display": "grid",
+            "position": "fixed",
+            "boxSizing": "border-box",
+            "paddingTop": "7px",
+            "paddingRight": "9px",
+            "paddingBottom": "7px",
+            "paddingLeft": "9px",
+            "height": "67px",
+            "minHeight": "67px",
+            "flex": "0 1 auto",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "none"
+          }
+        }
+      }
+    },
+    "inner": {
+      "sessionTick": 171,
+      "controllerState": {
+        "active": true,
+        "backlogTicks": 0,
+        "domTick": 171,
+        "enduranceActive": false,
+        "terminalPresentationTick": 0,
+        "terminalPresentationRunning": false,
+        "paused": false,
+        "running": false,
+        "scheduled": false,
+        "selectedCardId": null,
+        "sessionTick": 171,
+        "terminal": false,
+        "restartCount": 0
+      },
+      "serializedSha256": "69b9da6a2a55a445046891e312c0772f9af6215c0205224f68239c6947cb6814",
+      "expectedCheckpointSha256": "69b9da6a2a55a445046891e312c0772f9af6215c0205224f68239c6947cb6814",
+      "checkpointMatches": true,
+      "mediaReducedMotion": true,
+      "activeElement": {
+        "tag": "BODY",
+        "id": "",
+        "className": ""
+      },
+      "card": {
+        "id": "brassbolt",
+        "rect": {
+          "x": 185,
+          "y": 1121,
+          "width": 112,
+          "height": 128
+        },
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "willChange": "auto",
+        "transitionProperty": "all",
+        "transitionDuration": "0s",
+        "classes": "card-slot",
+        "html": "<div class=\"card-slot\" data-ui=\"card-slot\" aria-label=\"Card slot 1\" data-card-id=\"brassbolt\"></div>"
+      },
+      "inputs": [
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "ui": "audio-toggle",
+          "cardId": null,
+          "name": null,
+          "value": "",
+          "text": "Sound on",
+          "checked": null,
+          "pressed": "false",
+          "label": "Mute audio",
+          "disabled": false,
+          "focused": false,
+          "hovered": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "ui": "deck-choice-open",
+          "cardId": null,
+          "name": null,
+          "value": "",
+          "text": "Choose deck",
+          "checked": null,
+          "pressed": null,
+          "label": null,
+          "disabled": false,
+          "focused": false,
+          "hovered": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "ui": null,
+          "cardId": null,
+          "name": null,
+          "value": "",
+          "text": "StandardEight supported cards",
+          "checked": null,
+          "pressed": "true",
+          "label": null,
+          "disabled": false,
+          "focused": false,
+          "hovered": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "ui": null,
+          "cardId": null,
+          "name": null,
+          "value": "",
+          "text": "StonehaulerReplaces Cinderlings",
+          "checked": null,
+          "pressed": "false",
+          "label": null,
+          "disabled": false,
+          "focused": false,
+          "hovered": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "ui": null,
+          "cardId": null,
+          "name": null,
+          "value": "",
+          "text": "Bulwark NeedleReplaces Cinderlings · combat QUESTION",
+          "checked": null,
+          "pressed": "false",
+          "label": null,
+          "disabled": false,
+          "focused": false,
+          "hovered": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "ui": "deck-start",
+          "cardId": null,
+          "name": null,
+          "value": "",
+          "text": "Start match",
+          "checked": null,
+          "pressed": null,
+          "label": null,
+          "disabled": false,
+          "focused": false,
+          "hovered": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "ui": "restart",
+          "cardId": null,
+          "name": null,
+          "value": "",
+          "text": "Play again",
+          "checked": null,
+          "pressed": null,
+          "label": null,
+          "disabled": false,
+          "focused": false,
+          "hovered": false
+        }
+      ],
+      "audio": {
+        "text": "Sound on",
+        "pressed": "false",
+        "label": "Mute audio",
+        "html": "<button class=\"audio-toggle\" type=\"button\" data-ui=\"audio-toggle\" aria-pressed=\"false\" aria-label=\"Mute audio\">Sound on</button>"
+      },
+      "fonts": "loaded"
+    }
+  },
+  "baselineFingerprint": {
+    "outer": {
+      "phase": "fingerprint",
+      "time": 6350.5,
+      "viewport": {
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "dpr": 1,
+        "visual": {
+          "width": 390,
+          "height": 844,
+          "scale": 1,
+          "offsetTop": 0,
+          "offsetLeft": 0
+        },
+        "screen": {
+          "width": 390,
+          "height": 844
+        }
+      },
+      "route": {
+        "active": "battle",
+        "selectedBattleNav": "page"
+      },
+      "reducedMotion": true,
+      "nodes": {
+        "shell": {
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "top": 0,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "style": {
+            "display": "flex",
+            "position": "static",
+            "boxSizing": "border-box",
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "height": "844px",
+            "minHeight": "844px",
+            "flex": "0 1 auto",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "none"
+          }
+        },
+        "header": {
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 66,
+            "top": 0,
+            "right": 390,
+            "bottom": 66,
+            "left": 0
+          },
+          "style": {
+            "display": "flex",
+            "position": "static",
+            "boxSizing": "border-box",
+            "paddingTop": "0px",
+            "paddingRight": "20px",
+            "paddingBottom": "0px",
+            "paddingLeft": "20px",
+            "height": "66px",
+            "minHeight": "66px",
+            "flex": "0 1 auto",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "none"
+          }
+        },
+        "main": {
+          "rect": {
+            "x": 0,
+            "y": 66,
+            "width": 390,
+            "height": 778,
+            "top": 66,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "style": {
+            "display": "flex",
+            "position": "static",
+            "boxSizing": "border-box",
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "68px",
+            "paddingLeft": "0px",
+            "height": "778px",
+            "minHeight": "0px",
+            "flex": "1 1 0%",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "none"
+          }
+        },
+        "battleView": {
+          "rect": {
+            "x": 0,
+            "y": 66,
+            "width": 390,
+            "height": 710,
+            "top": 66,
+            "right": 390,
+            "bottom": 776,
+            "left": 0
+          },
+          "style": {
+            "display": "flex",
+            "position": "static",
+            "boxSizing": "border-box",
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "height": "710px",
+            "minHeight": "0px",
+            "flex": "1 1 0%",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "none"
+          }
+        },
+        "heading": {
+          "rect": {
+            "x": 0,
+            "y": 66,
+            "width": 390,
+            "height": 51,
+            "top": 66,
+            "right": 390,
+            "bottom": 117,
+            "left": 0
+          },
+          "style": {
+            "display": "flex",
+            "position": "static",
+            "boxSizing": "border-box",
+            "paddingTop": "0px",
+            "paddingRight": "14px",
+            "paddingBottom": "0px",
+            "paddingLeft": "14px",
+            "height": "51px",
+            "minHeight": "auto",
+            "flex": "0 0 auto",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "none"
+          }
+        },
+        "slot": {
+          "rect": {
+            "x": 0,
+            "y": 117,
+            "width": 390,
+            "height": 659,
+            "top": 117,
+            "right": 390,
+            "bottom": 776,
+            "left": 0
+          },
+          "style": {
+            "display": "block",
+            "position": "relative",
+            "boxSizing": "border-box",
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "height": "659px",
+            "minHeight": "0px",
+            "flex": "1 1 0%",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "none"
+          }
+        },
+        "frame": {
+          "rect": {
+            "x": 9.65625,
+            "y": 117,
+            "width": 370.6875,
+            "height": 659,
+            "top": 117,
+            "right": 380.34375,
+            "bottom": 776,
+            "left": 9.65625
+          },
+          "style": {
+            "display": "block",
+            "position": "absolute",
+            "boxSizing": "border-box",
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "height": "1280px",
+            "minHeight": "0px",
+            "flex": "0 1 auto",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)"
+          }
+        },
+        "nav": {
+          "rect": {
+            "x": 0,
+            "y": 777,
+            "width": 390,
+            "height": 67,
+            "top": 777,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "style": {
+            "display": "grid",
+            "position": "fixed",
+            "boxSizing": "border-box",
+            "paddingTop": "7px",
+            "paddingRight": "9px",
+            "paddingBottom": "7px",
+            "paddingLeft": "9px",
+            "height": "67px",
+            "minHeight": "67px",
+            "flex": "0 1 auto",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "none"
+          }
+        }
+      }
+    },
+    "inner": {
+      "sessionTick": 171,
+      "controllerState": {
+        "active": true,
+        "backlogTicks": 0,
+        "domTick": 171,
+        "enduranceActive": false,
+        "terminalPresentationTick": 0,
+        "terminalPresentationRunning": false,
+        "paused": false,
+        "running": false,
+        "scheduled": false,
+        "selectedCardId": null,
+        "sessionTick": 171,
+        "terminal": false,
+        "restartCount": 0
+      },
+      "serializedSha256": "69b9da6a2a55a445046891e312c0772f9af6215c0205224f68239c6947cb6814",
+      "expectedCheckpointSha256": "69b9da6a2a55a445046891e312c0772f9af6215c0205224f68239c6947cb6814",
+      "checkpointMatches": true,
+      "mediaReducedMotion": true,
+      "activeElement": {
+        "tag": "BODY",
+        "id": "",
+        "className": ""
+      },
+      "card": {
+        "id": "brassbolt",
+        "rect": {
+          "x": 185,
+          "y": 1121,
+          "width": 112,
+          "height": 128
+        },
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "willChange": "auto",
+        "transitionProperty": "all",
+        "transitionDuration": "0s",
+        "classes": "card-slot",
+        "html": "<div class=\"card-slot\" data-ui=\"card-slot\" aria-label=\"Card slot 1\" data-card-id=\"brassbolt\"></div>"
+      },
+      "inputs": [
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "ui": "audio-toggle",
+          "cardId": null,
+          "name": null,
+          "value": "",
+          "text": "Sound on",
+          "checked": null,
+          "pressed": "false",
+          "label": "Mute audio",
+          "disabled": false,
+          "focused": false,
+          "hovered": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "ui": "deck-choice-open",
+          "cardId": null,
+          "name": null,
+          "value": "",
+          "text": "Choose deck",
+          "checked": null,
+          "pressed": null,
+          "label": null,
+          "disabled": false,
+          "focused": false,
+          "hovered": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "ui": null,
+          "cardId": null,
+          "name": null,
+          "value": "",
+          "text": "StandardEight supported cards",
+          "checked": null,
+          "pressed": "true",
+          "label": null,
+          "disabled": false,
+          "focused": false,
+          "hovered": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "ui": null,
+          "cardId": null,
+          "name": null,
+          "value": "",
+          "text": "StonehaulerReplaces Cinderlings",
+          "checked": null,
+          "pressed": "false",
+          "label": null,
+          "disabled": false,
+          "focused": false,
+          "hovered": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "ui": null,
+          "cardId": null,
+          "name": null,
+          "value": "",
+          "text": "Bulwark NeedleReplaces Cinderlings · combat QUESTION",
+          "checked": null,
+          "pressed": "false",
+          "label": null,
+          "disabled": false,
+          "focused": false,
+          "hovered": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "ui": "deck-start",
+          "cardId": null,
+          "name": null,
+          "value": "",
+          "text": "Start match",
+          "checked": null,
+          "pressed": null,
+          "label": null,
+          "disabled": false,
+          "focused": false,
+          "hovered": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "ui": "restart",
+          "cardId": null,
+          "name": null,
+          "value": "",
+          "text": "Play again",
+          "checked": null,
+          "pressed": null,
+          "label": null,
+          "disabled": false,
+          "focused": false,
+          "hovered": false
+        }
+      ],
+      "audio": {
+        "text": "Sound on",
+        "pressed": "false",
+        "label": "Mute audio",
+        "html": "<button class=\"audio-toggle\" type=\"button\" data-ui=\"audio-toggle\" aria-pressed=\"false\" aria-label=\"Mute audio\">Sound on</button>"
+      },
+      "fonts": "loaded"
+    }
+  },
+  "afterInjectionLayout": {
+    "phase": "after-card-transform-injection-before-restore",
+    "time": 6363.300000011921,
+    "viewport": {
+      "innerWidth": 390,
+      "innerHeight": 844,
+      "dpr": 1,
+      "visual": {
+        "width": 390,
+        "height": 844,
+        "scale": 1,
+        "offsetTop": 0,
+        "offsetLeft": 0
+      },
+      "screen": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    "route": {
+      "active": "battle",
+      "selectedBattleNav": "page"
+    },
+    "reducedMotion": true,
+    "nodes": {
+      "shell": {
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844,
+          "top": 0,
+          "right": 390,
+          "bottom": 844,
+          "left": 0
+        },
+        "style": {
+          "display": "flex",
+          "position": "static",
+          "boxSizing": "border-box",
+          "paddingTop": "0px",
+          "paddingRight": "0px",
+          "paddingBottom": "0px",
+          "paddingLeft": "0px",
+          "height": "844px",
+          "minHeight": "844px",
+          "flex": "0 1 auto",
+          "transitionProperty": "all",
+          "transitionDuration": "1e-05s",
+          "animationName": "none",
+          "animationDuration": "1e-05s",
+          "transform": "none"
+        }
+      },
+      "header": {
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 66,
+          "top": 0,
+          "right": 390,
+          "bottom": 66,
+          "left": 0
+        },
+        "style": {
+          "display": "flex",
+          "position": "static",
+          "boxSizing": "border-box",
+          "paddingTop": "0px",
+          "paddingRight": "20px",
+          "paddingBottom": "0px",
+          "paddingLeft": "20px",
+          "height": "66px",
+          "minHeight": "66px",
+          "flex": "0 1 auto",
+          "transitionProperty": "all",
+          "transitionDuration": "1e-05s",
+          "animationName": "none",
+          "animationDuration": "1e-05s",
+          "transform": "none"
+        }
+      },
+      "main": {
+        "rect": {
+          "x": 0,
+          "y": 66,
+          "width": 390,
+          "height": 778,
+          "top": 66,
+          "right": 390,
+          "bottom": 844,
+          "left": 0
+        },
+        "style": {
+          "display": "flex",
+          "position": "static",
+          "boxSizing": "border-box",
+          "paddingTop": "0px",
+          "paddingRight": "0px",
+          "paddingBottom": "68px",
+          "paddingLeft": "0px",
+          "height": "778px",
+          "minHeight": "0px",
+          "flex": "1 1 0%",
+          "transitionProperty": "all",
+          "transitionDuration": "1e-05s",
+          "animationName": "none",
+          "animationDuration": "1e-05s",
+          "transform": "none"
+        }
+      },
+      "battleView": {
+        "rect": {
+          "x": 0,
+          "y": 66,
+          "width": 390,
+          "height": 710,
+          "top": 66,
+          "right": 390,
+          "bottom": 776,
+          "left": 0
+        },
+        "style": {
+          "display": "flex",
+          "position": "static",
+          "boxSizing": "border-box",
+          "paddingTop": "0px",
+          "paddingRight": "0px",
+          "paddingBottom": "0px",
+          "paddingLeft": "0px",
+          "height": "710px",
+          "minHeight": "0px",
+          "flex": "1 1 0%",
+          "transitionProperty": "all",
+          "transitionDuration": "1e-05s",
+          "animationName": "none",
+          "animationDuration": "1e-05s",
+          "transform": "none"
+        }
+      },
+      "heading": {
+        "rect": {
+          "x": 0,
+          "y": 66,
+          "width": 390,
+          "height": 51,
+          "top": 66,
+          "right": 390,
+          "bottom": 117,
+          "left": 0
+        },
+        "style": {
+          "display": "flex",
+          "position": "static",
+          "boxSizing": "border-box",
+          "paddingTop": "0px",
+          "paddingRight": "14px",
+          "paddingBottom": "0px",
+          "paddingLeft": "14px",
+          "height": "51px",
+          "minHeight": "auto",
+          "flex": "0 0 auto",
+          "transitionProperty": "all",
+          "transitionDuration": "1e-05s",
+          "animationName": "none",
+          "animationDuration": "1e-05s",
+          "transform": "none"
+        }
+      },
+      "slot": {
+        "rect": {
+          "x": 0,
+          "y": 117,
+          "width": 390,
+          "height": 659,
+          "top": 117,
+          "right": 390,
+          "bottom": 776,
+          "left": 0
+        },
+        "style": {
+          "display": "block",
+          "position": "relative",
+          "boxSizing": "border-box",
+          "paddingTop": "0px",
+          "paddingRight": "0px",
+          "paddingBottom": "0px",
+          "paddingLeft": "0px",
+          "height": "659px",
+          "minHeight": "0px",
+          "flex": "1 1 0%",
+          "transitionProperty": "all",
+          "transitionDuration": "1e-05s",
+          "animationName": "none",
+          "animationDuration": "1e-05s",
+          "transform": "none"
+        }
+      },
+      "frame": {
+        "rect": {
+          "x": 9.65625,
+          "y": 117,
+          "width": 370.6875,
+          "height": 659,
+          "top": 117,
+          "right": 380.34375,
+          "bottom": 776,
+          "left": 9.65625
+        },
+        "style": {
+          "display": "block",
+          "position": "absolute",
+          "boxSizing": "border-box",
+          "paddingTop": "0px",
+          "paddingRight": "0px",
+          "paddingBottom": "0px",
+          "paddingLeft": "0px",
+          "height": "1280px",
+          "minHeight": "0px",
+          "flex": "0 1 auto",
+          "transitionProperty": "all",
+          "transitionDuration": "1e-05s",
+          "animationName": "none",
+          "animationDuration": "1e-05s",
+          "transform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)"
+        }
+      },
+      "nav": {
+        "rect": {
+          "x": 0,
+          "y": 777,
+          "width": 390,
+          "height": 67,
+          "top": 777,
+          "right": 390,
+          "bottom": 844,
+          "left": 0
+        },
+        "style": {
+          "display": "grid",
+          "position": "fixed",
+          "boxSizing": "border-box",
+          "paddingTop": "7px",
+          "paddingRight": "9px",
+          "paddingBottom": "7px",
+          "paddingLeft": "9px",
+          "height": "67px",
+          "minHeight": "67px",
+          "flex": "0 1 auto",
+          "transitionProperty": "all",
+          "transitionDuration": "1e-05s",
+          "animationName": "none",
+          "animationDuration": "1e-05s",
+          "transform": "none"
+        }
+      }
+    }
+  },
+  "ablationPreFingerprint": {
+    "outer": {
+      "phase": "fingerprint",
+      "time": 6457.800000011921,
+      "viewport": {
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "dpr": 1,
+        "visual": {
+          "width": 390,
+          "height": 844,
+          "scale": 1,
+          "offsetTop": 0,
+          "offsetLeft": 0
+        },
+        "screen": {
+          "width": 390,
+          "height": 844
+        }
+      },
+      "route": {
+        "active": "battle",
+        "selectedBattleNav": "page"
+      },
+      "reducedMotion": true,
+      "nodes": {
+        "shell": {
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "top": 0,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "style": {
+            "display": "flex",
+            "position": "static",
+            "boxSizing": "border-box",
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "height": "844px",
+            "minHeight": "844px",
+            "flex": "0 1 auto",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "none"
+          }
+        },
+        "header": {
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 66,
+            "top": 0,
+            "right": 390,
+            "bottom": 66,
+            "left": 0
+          },
+          "style": {
+            "display": "flex",
+            "position": "static",
+            "boxSizing": "border-box",
+            "paddingTop": "0px",
+            "paddingRight": "20px",
+            "paddingBottom": "0px",
+            "paddingLeft": "20px",
+            "height": "66px",
+            "minHeight": "66px",
+            "flex": "0 1 auto",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "none"
+          }
+        },
+        "main": {
+          "rect": {
+            "x": 0,
+            "y": 66,
+            "width": 390,
+            "height": 778,
+            "top": 66,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "style": {
+            "display": "flex",
+            "position": "static",
+            "boxSizing": "border-box",
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "68px",
+            "paddingLeft": "0px",
+            "height": "778px",
+            "minHeight": "0px",
+            "flex": "1 1 0%",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "none"
+          }
+        },
+        "battleView": {
+          "rect": {
+            "x": 0,
+            "y": 66,
+            "width": 390,
+            "height": 710,
+            "top": 66,
+            "right": 390,
+            "bottom": 776,
+            "left": 0
+          },
+          "style": {
+            "display": "flex",
+            "position": "static",
+            "boxSizing": "border-box",
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "height": "710px",
+            "minHeight": "0px",
+            "flex": "1 1 0%",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "none"
+          }
+        },
+        "heading": {
+          "rect": {
+            "x": 0,
+            "y": 66,
+            "width": 390,
+            "height": 51,
+            "top": 66,
+            "right": 390,
+            "bottom": 117,
+            "left": 0
+          },
+          "style": {
+            "display": "flex",
+            "position": "static",
+            "boxSizing": "border-box",
+            "paddingTop": "0px",
+            "paddingRight": "14px",
+            "paddingBottom": "0px",
+            "paddingLeft": "14px",
+            "height": "51px",
+            "minHeight": "auto",
+            "flex": "0 0 auto",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "none"
+          }
+        },
+        "slot": {
+          "rect": {
+            "x": 0,
+            "y": 117,
+            "width": 390,
+            "height": 659,
+            "top": 117,
+            "right": 390,
+            "bottom": 776,
+            "left": 0
+          },
+          "style": {
+            "display": "block",
+            "position": "relative",
+            "boxSizing": "border-box",
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "height": "659px",
+            "minHeight": "0px",
+            "flex": "1 1 0%",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "none"
+          }
+        },
+        "frame": {
+          "rect": {
+            "x": 9.65625,
+            "y": 117,
+            "width": 370.6875,
+            "height": 659,
+            "top": 117,
+            "right": 380.34375,
+            "bottom": 776,
+            "left": 9.65625
+          },
+          "style": {
+            "display": "block",
+            "position": "absolute",
+            "boxSizing": "border-box",
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "height": "1280px",
+            "minHeight": "0px",
+            "flex": "0 1 auto",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)"
+          }
+        },
+        "nav": {
+          "rect": {
+            "x": 0,
+            "y": 777,
+            "width": 390,
+            "height": 67,
+            "top": 777,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "style": {
+            "display": "grid",
+            "position": "fixed",
+            "boxSizing": "border-box",
+            "paddingTop": "7px",
+            "paddingRight": "9px",
+            "paddingBottom": "7px",
+            "paddingLeft": "9px",
+            "height": "67px",
+            "minHeight": "67px",
+            "flex": "0 1 auto",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "none"
+          }
+        }
+      }
+    },
+    "inner": {
+      "sessionTick": 171,
+      "controllerState": {
+        "active": true,
+        "backlogTicks": 0,
+        "domTick": 171,
+        "enduranceActive": false,
+        "terminalPresentationTick": 0,
+        "terminalPresentationRunning": false,
+        "paused": false,
+        "running": false,
+        "scheduled": false,
+        "selectedCardId": null,
+        "sessionTick": 171,
+        "terminal": false,
+        "restartCount": 0
+      },
+      "serializedSha256": "69b9da6a2a55a445046891e312c0772f9af6215c0205224f68239c6947cb6814",
+      "expectedCheckpointSha256": "69b9da6a2a55a445046891e312c0772f9af6215c0205224f68239c6947cb6814",
+      "checkpointMatches": true,
+      "mediaReducedMotion": true,
+      "activeElement": {
+        "tag": "BODY",
+        "id": "",
+        "className": ""
+      },
+      "card": {
+        "id": "brassbolt",
+        "rect": {
+          "x": 185,
+          "y": 1121,
+          "width": 112,
+          "height": 128
+        },
+        "transform": "none",
+        "willChange": "auto",
+        "transitionProperty": "all",
+        "transitionDuration": "0s",
+        "classes": "card-slot",
+        "html": "<div class=\"card-slot\" data-ui=\"card-slot\" aria-label=\"Card slot 1\" data-card-id=\"brassbolt\"></div>"
+      },
+      "inputs": [
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "ui": "audio-toggle",
+          "cardId": null,
+          "name": null,
+          "value": "",
+          "text": "Sound on",
+          "checked": null,
+          "pressed": "false",
+          "label": "Mute audio",
+          "disabled": false,
+          "focused": false,
+          "hovered": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "ui": "deck-choice-open",
+          "cardId": null,
+          "name": null,
+          "value": "",
+          "text": "Choose deck",
+          "checked": null,
+          "pressed": null,
+          "label": null,
+          "disabled": false,
+          "focused": false,
+          "hovered": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "ui": null,
+          "cardId": null,
+          "name": null,
+          "value": "",
+          "text": "StandardEight supported cards",
+          "checked": null,
+          "pressed": "true",
+          "label": null,
+          "disabled": false,
+          "focused": false,
+          "hovered": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "ui": null,
+          "cardId": null,
+          "name": null,
+          "value": "",
+          "text": "StonehaulerReplaces Cinderlings",
+          "checked": null,
+          "pressed": "false",
+          "label": null,
+          "disabled": false,
+          "focused": false,
+          "hovered": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "ui": null,
+          "cardId": null,
+          "name": null,
+          "value": "",
+          "text": "Bulwark NeedleReplaces Cinderlings · combat QUESTION",
+          "checked": null,
+          "pressed": "false",
+          "label": null,
+          "disabled": false,
+          "focused": false,
+          "hovered": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "ui": "deck-start",
+          "cardId": null,
+          "name": null,
+          "value": "",
+          "text": "Start match",
+          "checked": null,
+          "pressed": null,
+          "label": null,
+          "disabled": false,
+          "focused": false,
+          "hovered": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "ui": "restart",
+          "cardId": null,
+          "name": null,
+          "value": "",
+          "text": "Play again",
+          "checked": null,
+          "pressed": null,
+          "label": null,
+          "disabled": false,
+          "focused": false,
+          "hovered": false
+        }
+      ],
+      "audio": {
+        "text": "Sound on",
+        "pressed": "false",
+        "label": "Mute audio",
+        "html": "<button class=\"audio-toggle\" type=\"button\" data-ui=\"audio-toggle\" aria-pressed=\"false\" aria-label=\"Mute audio\">Sound on</button>"
+      },
+      "fonts": "loaded"
+    }
+  },
+  "ablationFingerprint": {
+    "outer": {
+      "phase": "fingerprint",
+      "time": 7712.200000017881,
+      "viewport": {
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "dpr": 1,
+        "visual": {
+          "width": 390,
+          "height": 844,
+          "scale": 1,
+          "offsetTop": 0,
+          "offsetLeft": 0
+        },
+        "screen": {
+          "width": 390,
+          "height": 844
+        }
+      },
+      "route": {
+        "active": "battle",
+        "selectedBattleNav": "page"
+      },
+      "reducedMotion": true,
+      "nodes": {
+        "shell": {
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "top": 0,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "style": {
+            "display": "flex",
+            "position": "static",
+            "boxSizing": "border-box",
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "height": "844px",
+            "minHeight": "844px",
+            "flex": "0 1 auto",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "none"
+          }
+        },
+        "header": {
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 66,
+            "top": 0,
+            "right": 390,
+            "bottom": 66,
+            "left": 0
+          },
+          "style": {
+            "display": "flex",
+            "position": "static",
+            "boxSizing": "border-box",
+            "paddingTop": "0px",
+            "paddingRight": "20px",
+            "paddingBottom": "0px",
+            "paddingLeft": "20px",
+            "height": "66px",
+            "minHeight": "66px",
+            "flex": "0 1 auto",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "none"
+          }
+        },
+        "main": {
+          "rect": {
+            "x": 0,
+            "y": 66,
+            "width": 390,
+            "height": 778,
+            "top": 66,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "style": {
+            "display": "flex",
+            "position": "static",
+            "boxSizing": "border-box",
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "68px",
+            "paddingLeft": "0px",
+            "height": "778px",
+            "minHeight": "0px",
+            "flex": "1 1 0%",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "none"
+          }
+        },
+        "battleView": {
+          "rect": {
+            "x": 0,
+            "y": 66,
+            "width": 390,
+            "height": 710,
+            "top": 66,
+            "right": 390,
+            "bottom": 776,
+            "left": 0
+          },
+          "style": {
+            "display": "flex",
+            "position": "static",
+            "boxSizing": "border-box",
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "height": "710px",
+            "minHeight": "0px",
+            "flex": "1 1 0%",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "none"
+          }
+        },
+        "heading": {
+          "rect": {
+            "x": 0,
+            "y": 66,
+            "width": 390,
+            "height": 51,
+            "top": 66,
+            "right": 390,
+            "bottom": 117,
+            "left": 0
+          },
+          "style": {
+            "display": "flex",
+            "position": "static",
+            "boxSizing": "border-box",
+            "paddingTop": "0px",
+            "paddingRight": "14px",
+            "paddingBottom": "0px",
+            "paddingLeft": "14px",
+            "height": "51px",
+            "minHeight": "auto",
+            "flex": "0 0 auto",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "none"
+          }
+        },
+        "slot": {
+          "rect": {
+            "x": 0,
+            "y": 117,
+            "width": 390,
+            "height": 659,
+            "top": 117,
+            "right": 390,
+            "bottom": 776,
+            "left": 0
+          },
+          "style": {
+            "display": "block",
+            "position": "relative",
+            "boxSizing": "border-box",
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "height": "659px",
+            "minHeight": "0px",
+            "flex": "1 1 0%",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "none"
+          }
+        },
+        "frame": {
+          "rect": {
+            "x": 9.65625,
+            "y": 117,
+            "width": 370.6875,
+            "height": 659,
+            "top": 117,
+            "right": 380.34375,
+            "bottom": 776,
+            "left": 9.65625
+          },
+          "style": {
+            "display": "block",
+            "position": "absolute",
+            "boxSizing": "border-box",
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "height": "1280px",
+            "minHeight": "0px",
+            "flex": "0 1 auto",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)"
+          }
+        },
+        "nav": {
+          "rect": {
+            "x": 0,
+            "y": 777,
+            "width": 390,
+            "height": 67,
+            "top": 777,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "style": {
+            "display": "grid",
+            "position": "fixed",
+            "boxSizing": "border-box",
+            "paddingTop": "7px",
+            "paddingRight": "9px",
+            "paddingBottom": "7px",
+            "paddingLeft": "9px",
+            "height": "67px",
+            "minHeight": "67px",
+            "flex": "0 1 auto",
+            "transitionProperty": "all",
+            "transitionDuration": "1e-05s",
+            "animationName": "none",
+            "animationDuration": "1e-05s",
+            "transform": "none"
+          }
+        }
+      }
+    },
+    "inner": {
+      "sessionTick": 171,
+      "controllerState": {
+        "active": true,
+        "backlogTicks": 0,
+        "domTick": 171,
+        "enduranceActive": false,
+        "terminalPresentationTick": 0,
+        "terminalPresentationRunning": false,
+        "paused": false,
+        "running": false,
+        "scheduled": false,
+        "selectedCardId": null,
+        "sessionTick": 171,
+        "terminal": false,
+        "restartCount": 0
+      },
+      "serializedSha256": "69b9da6a2a55a445046891e312c0772f9af6215c0205224f68239c6947cb6814",
+      "expectedCheckpointSha256": "69b9da6a2a55a445046891e312c0772f9af6215c0205224f68239c6947cb6814",
+      "checkpointMatches": true,
+      "mediaReducedMotion": true,
+      "activeElement": {
+        "tag": "BODY",
+        "id": "",
+        "className": ""
+      },
+      "card": {
+        "id": "brassbolt",
+        "rect": {
+          "x": 185,
+          "y": 1121,
+          "width": 112,
+          "height": 128
+        },
+        "transform": "none",
+        "willChange": "auto",
+        "transitionProperty": "all",
+        "transitionDuration": "0s",
+        "classes": "card-slot",
+        "html": "<div class=\"card-slot\" data-ui=\"card-slot\" aria-label=\"Card slot 1\" data-card-id=\"brassbolt\"></div>"
+      },
+      "inputs": [
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "ui": "audio-toggle",
+          "cardId": null,
+          "name": null,
+          "value": "",
+          "text": "Sound on",
+          "checked": null,
+          "pressed": "false",
+          "label": "Mute audio",
+          "disabled": false,
+          "focused": false,
+          "hovered": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "ui": "deck-choice-open",
+          "cardId": null,
+          "name": null,
+          "value": "",
+          "text": "Choose deck",
+          "checked": null,
+          "pressed": null,
+          "label": null,
+          "disabled": false,
+          "focused": false,
+          "hovered": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "ui": null,
+          "cardId": null,
+          "name": null,
+          "value": "",
+          "text": "StandardEight supported cards",
+          "checked": null,
+          "pressed": "true",
+          "label": null,
+          "disabled": false,
+          "focused": false,
+          "hovered": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "ui": null,
+          "cardId": null,
+          "name": null,
+          "value": "",
+          "text": "StonehaulerReplaces Cinderlings",
+          "checked": null,
+          "pressed": "false",
+          "label": null,
+          "disabled": false,
+          "focused": false,
+          "hovered": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "ui": null,
+          "cardId": null,
+          "name": null,
+          "value": "",
+          "text": "Bulwark NeedleReplaces Cinderlings · combat QUESTION",
+          "checked": null,
+          "pressed": "false",
+          "label": null,
+          "disabled": false,
+          "focused": false,
+          "hovered": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "ui": "deck-start",
+          "cardId": null,
+          "name": null,
+          "value": "",
+          "text": "Start match",
+          "checked": null,
+          "pressed": null,
+          "label": null,
+          "disabled": false,
+          "focused": false,
+          "hovered": false
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "ui": "restart",
+          "cardId": null,
+          "name": null,
+          "value": "",
+          "text": "Play again",
+          "checked": null,
+          "pressed": null,
+          "label": null,
+          "disabled": false,
+          "focused": false,
+          "hovered": false
+        }
+      ],
+      "audio": {
+        "text": "Sound on",
+        "pressed": "false",
+        "label": "Mute audio",
+        "html": "<button class=\"audio-toggle\" type=\"button\" data-ui=\"audio-toggle\" aria-pressed=\"false\" aria-label=\"Mute audio\">Sound on</button>"
+      },
+      "fonts": "loaded"
+    }
+  },
+  "diffs": {
+    "baselinePreVsPostRestore": {
+      "dimensionsA": [
+        390,
+        844
+      ],
+      "dimensionsB": [
+        390,
+        844
+      ],
+      "differingPixelCount": 0,
+      "maximumChannelDelta": 0,
+      "boundingBox": null,
+      "firstDifferingPixels": []
+    },
+    "baselinePostVsAblationPreRestore": {
+      "dimensionsA": [
+        390,
+        844
+      ],
+      "dimensionsB": [
+        390,
+        844
+      ],
+      "differingPixelCount": 0,
+      "maximumChannelDelta": 0,
+      "boundingBox": null,
+      "firstDifferingPixels": []
+    },
+    "ablationPreVsPostRestore": {
+      "dimensionsA": [
+        390,
+        844
+      ],
+      "dimensionsB": [
+        390,
+        844
+      ],
+      "differingPixelCount": 0,
+      "maximumChannelDelta": 0,
+      "boundingBox": null,
+      "firstDifferingPixels": []
+    },
+    "baselinePostVsAblationPostRestore": {
+      "dimensionsA": [
+        390,
+        844
+      ],
+      "dimensionsB": [
+        390,
+        844
+      ],
+      "differingPixelCount": 0,
+      "maximumChannelDelta": 0,
+      "boundingBox": null,
+      "firstDifferingPixels": []
+    }
+  },
+  "pixelMappings": {
+    "baselinePreVsPostRestore": [],
+    "baselinePostVsAblationPreRestore": [],
+    "ablationPreVsPostRestore": [],
+    "baselinePostVsAblationPostRestore": []
+  },
+  "exactR3FivePixelPatternPresent": false,
+  "stateChecks": {
+    "baselinePreMatchesCheckpoint": true,
+    "baselinePostMatchesCheckpoint": true,
+    "ablationPreMatchesCheckpoint": true,
+    "ablationPostMatchesCheckpoint": true,
+    "sameInputAudioAcrossCaptures": true,
+    "serializedStateSameAcrossCaptures": true
+  }
+}

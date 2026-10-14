@@ -1,0 +1,50 @@
+{
+  "candidateCommit": "8983794bdba940cc8232bdfe1d6181a823776916",
+  "privateCheckout": "/private/tmp/frame-layer-ablation-898",
+  "privateCheckoutHead": "8983794bdba940cc8232bdfe1d6181a823776916",
+  "sourceFingerprintMethod": "SHA-256 over exact file bytes from candidate commit; Git blob IDs recorded alongside. Runner hash is over the private untracked diagnostic script.",
+  "files": [
+    {
+      "path": "src/ui/app-shell.js",
+      "gitBlob": "3aa29b569ef0e06c60613f28cf988065c771d30d",
+      "sha256": "52583b25caeb58b0e9217d87702748cb6cf29e983d370b065a7159a1d0dbe330",
+      "bytes": 25295
+    },
+    {
+      "path": "src/ui/app-shell.css",
+      "gitBlob": "69da01d551f378dfe27c7b274d58d3f611affb01",
+      "sha256": "f4720d7b9f07b0b6bc646e68bfb4192a140c91d2da84e18227891fa5b56f3a04",
+      "bytes": 29996
+    },
+    {
+      "path": "src/ui/arena-shell-entry.js",
+      "gitBlob": "5d0724399770366d0a0927965a4d2c01d5a71330",
+      "sha256": "73cdec8ef684dbc7027a05a08f6457a04eb65d5b5e653fab49a9be0e92f5a7d2",
+      "bytes": 17358
+    },
+    {
+      "path": "src/ui/arena-shell.js",
+      "gitBlob": "6c3306106e2ed4896cc6b3d22e51c08b2dc26efb",
+      "sha256": "4df15178ed296d2a20bb5216db98931e24c9ac3ce7fd60cf97cbe79119ce5249",
+      "bytes": 5846
+    },
+    {
+      "path": "src/ui/arena-shell.css",
+      "gitBlob": "7dd1733e2cd7e4b160cc28877a3cdd232248754d",
+      "sha256": "f3daa8659e1ac6ccbaeadd9017a3f8f30e5b8e065a7d5bcdabec81291860978e",
+      "bytes": 14259
+    },
+    {
+      "path": "tests/combat-sprite-prototype-browser.test.js",
+      "gitBlob": "df80f873349fe6c3778b50fcd0bbf4dfe1fc1320",
+      "sha256": "f898cdb66c680e2171721e6fdf63b2f298059e8a8c5f6874ec9df1325ef5a1ae",
+      "bytes": 50077
+    },
+    {
+      "path": "/private/tmp/frame-layer-ablation-898/tests/frame-restore-001-matched-layout.mjs",
+      "scope": "private diagnostic runner, not candidate source",
+      "sha256": "87715e92a5c6a971647ad70fc3b095999f1d0154fd34957b27539d5f0d6d7d24",
+      "bytes": 28615
+    }
+  ]
+}

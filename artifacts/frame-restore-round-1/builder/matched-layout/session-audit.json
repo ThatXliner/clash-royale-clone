@@ -1,0 +1,115 @@
+{
+  "sessionId": 3154,
+  "processId": 84361,
+  "exitCode": 0,
+  "stdoutArtifact": "runner-terminal-session-3154.stdout.txt",
+  "tapOutput": false,
+  "terminalFormat": "single-line JSON status record; standalone Playwright runner did not emit TAP",
+  "geometryGateMatches": true,
+  "geometry": {
+    "slot": {
+      "x": 0,
+      "y": 117,
+      "width": 390,
+      "height": 659,
+      "top": 117,
+      "right": 390,
+      "bottom": 776,
+      "left": 0
+    },
+    "frame": {
+      "x": 9.65625,
+      "y": 117,
+      "width": 370.6875,
+      "height": 659,
+      "top": 117,
+      "right": 380.34375,
+      "bottom": 776,
+      "left": 9.65625
+    }
+  },
+  "restoreCountsFromCompletedComparison": {
+    "reductionPreparation": 1,
+    "baseline": 1,
+    "ablation": 1
+  },
+  "topLevelRestoreCountsFieldInRawEvidence": {
+    "reductionPreparation": 1,
+    "baseline": 0,
+    "ablation": 0
+  },
+  "restoreCountNote": "The runner writes matched-layout-layout.json before the comparison, so the evidence JSON top-level restoreCounts remains its pre-comparison value (baseline=0, ablation=0). The completed comparison.restoreCounts records the actual baseline=1 and ablation=1 restores.",
+  "diffs": {
+    "baselinePreVsPostRestore": {
+      "dimensionsA": [
+        390,
+        844
+      ],
+      "dimensionsB": [
+        390,
+        844
+      ],
+      "differingPixelCount": 0,
+      "maximumChannelDelta": 0,
+      "boundingBox": null,
+      "firstDifferingPixels": []
+    },
+    "baselinePostVsAblationPreRestore": {
+      "dimensionsA": [
+        390,
+        844
+      ],
+      "dimensionsB": [
+        390,
+        844
+      ],
+      "differingPixelCount": 0,
+      "maximumChannelDelta": 0,
+      "boundingBox": null,
+      "firstDifferingPixels": []
+    },
+    "ablationPreVsPostRestore": {
+      "dimensionsA": [
+        390,
+        844
+      ],
+      "dimensionsB": [
+        390,
+        844
+      ],
+      "differingPixelCount": 0,
+      "maximumChannelDelta": 0,
+      "boundingBox": null,
+      "firstDifferingPixels": []
+    },
+    "baselinePostVsAblationPostRestore": {
+      "dimensionsA": [
+        390,
+        844
+      ],
+      "dimensionsB": [
+        390,
+        844
+      ],
+      "differingPixelCount": 0,
+      "maximumChannelDelta": 0,
+      "boundingBox": null,
+      "firstDifferingPixels": []
+    }
+  },
+  "exactFivePixelPatternPresent": false,
+  "stateChecks": {
+    "baselinePreMatchesCheckpoint": true,
+    "baselinePostMatchesCheckpoint": true,
+    "ablationPreMatchesCheckpoint": true,
+    "ablationPostMatchesCheckpoint": true,
+    "sameInputAudioAcrossCaptures": true,
+    "serializedStateSameAcrossCaptures": true
+  },
+  "browserErrors": {
+    "pageErrors": [],
+    "consoleErrors": [],
+    "missingPaths": []
+  },
+  "sourceFingerprints": "source-fingerprints.json"
+}
