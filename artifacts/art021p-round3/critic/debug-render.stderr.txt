@@ -1,0 +1,72 @@
+REQUEST /?theme=light
+REQUEST /assets/buried-coil-hidden
+ASSET buried-coil-hidden true
+REQUEST /assets/buried-coil-revealed
+ASSET buried-coil-revealed true
+REQUEST /assets/buried-coil-revealed.svg
+ASSET buried-coil-revealed.svg false
+REQUEST /assets/buried-coil-portrait
+ASSET buried-coil-portrait true
+DECODE [
+  {
+    src: 'http://127.0.0.1:63853/assets/buried-coil-hidden',
+    ok: true,
+    natural: [ 512, 512 ]
+  },
+  {
+    src: 'http://127.0.0.1:63853/assets/buried-coil-revealed',
+    ok: true,
+    natural: [ 13, 13 ]
+  },
+  {
+    src: 'http://127.0.0.1:63853/assets/buried-coil-hidden',
+    ok: true,
+    natural: [ 512, 512 ]
+  },
+  {
+    src: 'http://127.0.0.1:63853/assets/buried-coil-revealed',
+    ok: true,
+    natural: [ 13, 13 ]
+  },
+  {
+    src: 'http://127.0.0.1:63853/assets/buried-coil-revealed.svg',
+    ok: false,
+    error: 'The source image cannot be decoded.',
+    natural: [ 0, 0 ]
+  },
+  {
+    src: 'http://127.0.0.1:63853/assets/buried-coil-revealed.svg',
+    ok: false,
+    error: 'The source image cannot be decoded.',
+    natural: [ 0, 0 ]
+  },
+  {
+    src: 'http://127.0.0.1:63853/assets/buried-coil-revealed.svg',
+    ok: false,
+    error: 'The source image cannot be decoded.',
+    natural: [ 0, 0 ]
+  },
+  {
+    src: 'http://127.0.0.1:63853/assets/buried-coil-revealed.svg',
+    ok: false,
+    error: 'The source image cannot be decoded.',
+    natural: [ 0, 0 ]
+  },
+  {
+    src: 'http://127.0.0.1:63853/assets/buried-coil-portrait',
+    ok: true,
+    natural: [ 512, 512 ]
+  },
+  {
+    src: 'http://127.0.0.1:63853/assets/buried-coil-portrait',
+    ok: true,
+    natural: [ 512, 512 ]
+  }
+]
+page.evaluate: InvalidStateError: Failed to execute 'drawImage' on 'CanvasRenderingContext2D': The HTMLImageElement provided is in the 'broken' state.
+    at eval (eval at evaluate (:290:30), <anonymous>:11:19)
+    at Array.map (<anonymous>)
+    at eval (eval at evaluate (:290:30), <anonymous>:3:23)
+    at UtilityScript.evaluate (<anonymous>:292:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+    at /private/tmp/art021p-round3-svg-critic/artifacts/art021p-round3/critic/debug-render.cjs:134:39

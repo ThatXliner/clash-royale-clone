@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 463 — 2026-10-14
+
+PIECE: ART-021P round3
+
+VERDICT: FAIL
+
+EVIDENCE: Round463 FAIL exact7f371aa: manifest6/6, originalSVG13px77visiblepixels/twohollowloops/threefeet andprotected26records/assets pass; synthetic13x15platefixture yields only3exactteamcolorpixels at13 vs24at26. Improve transparentplate clearance withoutchangingfixture orlosingfeet/loops. No artproductadopted; livearena geometry unverified. FreshChromium DPR1 phone390x844/desktop1440x933/light+dark native13/26px andportraits64/78; errors0, source/provenancehashes exact. Explicitfixtureplate11x4+1pxborderbelow13pxsprite, no actualarena claim. NativeRGBA/counts/crops artifacts/art021p-round3/critic/. Priorloops/feetgap nowpasses; thisisfirst separateplate gap, notthreefailuresonsamegap. RevealedSVG/provenance-onlyrepair round4 delegated.
+
+BIGGEST GAP: The revealed sprite obscures nearly all of the separate team plate at13px.
+
 ## Round 462 — 2026-10-14
 
 PIECE: CARDS-021K round2
