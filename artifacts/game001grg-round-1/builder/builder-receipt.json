@@ -1,0 +1,45 @@
+{
+  "piece": "GAME-001GRG restart listener regression gate",
+  "baseCommit": "c348797eda805cac9b32b61af626b731209a6733",
+  "worktree": "/tmp/game001grg-builder",
+  "result": "PASS",
+  "cause": "The prior aggregate count expected one arena callback, but the pointer input controller intentionally registers one pointermove and one pointerup callback.",
+  "behavioralAssertions": [
+    "Each active arena has exactly pointermove and pointerup membership, with one callback per type.",
+    "Each active restart control has exactly one click callback.",
+    "The second detached graph has no remaining shell, audio, restart, or arena callbacks.",
+    "Existing stale pointer, restart, and frame callback rejection assertions remain."
+  ],
+  "preserved": [
+    "Atomic seed-zero restart and serialized session equality",
+    "Input assertions",
+    "Audio policy and source cleanup assertions"
+  ],
+  "productionFilesChanged": [],
+  "commands": [
+    {
+      "command": "npm run test:game-restart",
+      "exitCode": 1,
+      "evidence": "baseline-game-restart.tap"
+    },
+    {
+      "command": "npm run test:game-restart",
+      "exitCode": 0,
+      "evidence": "candidate-game-restart.tap",
+      "testsPassed": 3,
+      "testsFailed": 0
+    }
+  ],
+  "sourceSha256BeforeFinalRun": "ed560b369eac5254833fafc3ebaea5af632a645a7820c965d1343466302eabdd",
+  "sourceSha256AfterFinalRun": "ed560b369eac5254833fafc3ebaea5af632a645a7820c965d1343466302eabdd",
+  "sourceDelta": "source-pre-post.diff",
+  "ownedFiles": [
+    "tests/game-restart.test.js",
+    "artifacts/game001grg-round-1/builder/baseline-game-restart.tap",
+    "artifacts/game001grg-round-1/builder/candidate-game-restart.tap",
+    "artifacts/game001grg-round-1/builder/source-pre-post.diff",
+    "artifacts/game001grg-round-1/builder/source-hash-before-final.txt",
+    "artifacts/game001grg-round-1/builder/source-hash-after-final.txt",
+    "artifacts/game001grg-round-1/builder/builder-receipt.json"
+  ]
+}

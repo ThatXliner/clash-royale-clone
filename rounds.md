@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 450 — 2026-10-13
+
+PIECE: GAME-001GRG — Restart listener regression gate, round 2
+
+VERDICT: PASS
+
+EVIDENCE: Independent clean0d4 restart3/3. Sameprivate card-removal fault nowfails2/3 atdetachedhand0 expectedempty actualclick1; prior-roundsamefaultpassed3/3. Exactactivearena pointermove/pointerup, restartclick andfourhandclick memberships plusbothdetachedhandcleanup verified; originalseed/session/input/audio/stalecallbackchecks retained. Source/testprepost hashes match; no src change. Evidence artifacts/game001grg-round-2/critic/. FakeDOMscope only, no productionleak ornewKbrowserproof claim.
+
+BIGGEST GAP: FakeDOM regression gate doesnot establishnativebrowserKrestart; CARDS-019I remainsseparate.
+
 ## Round 449 — 2026-10-13
 
 PIECE: PUB-003 — Reader-first README collection count, round 2

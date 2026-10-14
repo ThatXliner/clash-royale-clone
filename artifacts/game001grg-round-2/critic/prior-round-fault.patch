@@ -1,0 +1,14 @@
+--- prior-round/tests/game-restart.test.js
++++ prior-fault/tests/game-restart.test.js
+@@ -78,7 +78,10 @@
+     return value === undefined ? [] : Array.isArray(value) ? value : [value];
+   }
+   querySelector(selector) { return this.querySelectorAll(selector)[0] ?? null; }
+-  removeEventListener(type, listener) { this.listeners.get(type)?.delete(listener); }
++  removeEventListener(type, listener) {
++    if (this.name === "card") return;
++    this.listeners.get(type)?.delete(listener);
++  }
+   replaceChildren(...children) {
+     for (const child of children) child.parentNode = this;
+     this.children = children;

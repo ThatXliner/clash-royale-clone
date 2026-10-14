@@ -1,0 +1,45 @@
+{
+  "piece": "GAME-001GRG restart listener regression gate, round 2",
+  "acceptedBase": "f366a1a6af66c8630dade65932b5e30c52678ded",
+  "priorRound1CandidateCommit": "dcf82fa068c85d65f50f9814694c03c3efd68984",
+  "worktree": "/tmp/game001grg-r2-builder",
+  "result": "PASS",
+  "baseline": {
+    "command": "npm run test:game-restart",
+    "exitCode": 1,
+    "evidence": "baseline-game-restart.tap",
+    "signal": "The prior total-arena assertion failed with expected 1 and actual 2 at line 250."
+  },
+  "candidate": {
+    "command": "npm run test:game-restart",
+    "exitCode": 0,
+    "evidence": "candidate-game-restart.tap",
+    "testsPassed": 3,
+    "testsFailed": 0
+  },
+  "faultInjection": {
+    "mutation": "In a private copy, fake Node.removeEventListener returns without removing callbacks when the node name is card.",
+    "derivedFrom": "artifacts/game001grg-round-1/critic/fault-injection.patch",
+    "adaptedPatch": "fault-injection-r2.patch",
+    "privateRunEvidence": "fault-injection-game-restart.tap",
+    "exitCode": 1,
+    "signal": "The first detached-hand assertion fails for hand card 0: expected no listeners, found one click listener."
+  },
+  "coverage": [
+    "Every active hand has four cards, each with exactly one click callback.",
+    "Each detached hand has four cards, each with no callbacks after its restart transition.",
+    "Hand cleanup is checked after both the initial restart and the restored second restart.",
+    "Active arena event membership remains exactly one pointermove and one pointerup callback, and restart remains one click callback.",
+    "Existing stale-graph callback, seed-zero, session, input, and audio checks remain."
+  ],
+  "changedFilesFromAcceptedBase": [
+    "tests/game-restart.test.js",
+    "artifacts/game001grg-round-1/builder/**",
+    "artifacts/game001grg-round-2/builder/**"
+  ],
+  "productionFilesChanged": [],
+  "otherTestsChanged": [],
+  "sourceSha256BeforeFinalRun": "944eb7920f2cb4b714f73406f6f73b24eaa0c61cc550aca28f5425485405a87a",
+  "sourceSha256AfterFinalRun": "944eb7920f2cb4b714f73406f6f73b24eaa0c61cc550aca28f5425485405a87a",
+  "sourceDelta": "source-pre-post.diff"
+}

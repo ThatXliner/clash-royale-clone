@@ -1,0 +1,53 @@
+diff --git a/tests/game-restart.test.js b/tests/game-restart.test.js
+index 4f4c26c..544fcd7 100644
+--- a/tests/game-restart.test.js
++++ b/tests/game-restart.test.js
+@@ -168,12 +168,22 @@ function layer(shell, name) {
+ function descendants(node) {
+   return node.children.flatMap((child) => [child, ...descendants(child)]);
+ }
+ 
++function assertActiveGraphListeners({ arena, restart }) {
++  const counts = (node) => [...node.listeners]
++    .map(([type, listeners]) => [type, listeners.size])
++    .filter(([, count]) => count > 0)
++    .sort(([left], [right]) => left.localeCompare(right));
++  assert.deepEqual(counts(arena), [["pointermove", 1], ["pointerup", 1]]);
++  assert.deepEqual(counts(restart), [["click", 1]]);
++}
++
+ test("game restart: terminal click atomically replaces the whole graph with exact seed zero", async () => {
+   const session = liveSeedTwoSession();
+   const value = fixture(session);
+   const first = value.shells[0];
++  assertActiveGraphListeners(first);
+   const staleFrame = [...value.scheduler.callbacks.values()][0];
+   const stalePointer = [...first.arena.listeners.get("pointerup")][0];
+   const staleRestart = [...first.restart.listeners.get("click")][0];
+   assert.equal(first.restart.hidden, true);
+@@ -212,8 +222,9 @@ test("game restart: terminal click atomically replaces the whole graph with exac
+   assert.deepEqual({ gainBasisPoints: value.browser.audio.audio.gainBasisPoints,
+     muted: value.browser.audio.audio.muted }, policy);
+ 
+   const second = value.shells[1];
++  assertActiveGraphListeners(second);
+   assert.equal(value.root.firstElementChild, second.shell);
+   assert.equal(second.restart.hidden, true);
+   assert.equal(first.shell.listenerCount(), 0);
+   assert.equal(first.audio.listenerCount(), 0);
+@@ -245,10 +256,13 @@ test("game restart: terminal click atomically replaces the whole graph with exac
+   assert.equal(second.restart.hidden, false);
+   assert.equal(second.restart.emit("click", { isTrusted: true }).restartCount, 2);
+   assert.equal(value.shells.length, 3);
+   assert.equal(value.browser.session.serialize(), expected.serialize());
+-  assert.equal(value.shells[2].restart.listenerCount(), 1);
+-  assert.equal(value.shells[2].arena.listenerCount(), 1);
++  assert.equal(second.shell.listenerCount(), 0);
++  assert.equal(second.audio.listenerCount(), 0);
++  assert.equal(second.restart.listenerCount(), 0);
++  assert.equal(second.arena.listenerCount(), 0);
++  assertActiveGraphListeners(value.shells[2]);
+   assert.equal(value.shells[2].hand.reduce((sum, node) => sum + node.listenerCount(), 0), 4);
+   assert.equal(value.browser.dispose(), true);
+   assert.equal(value.browser.dispose(), false);
+ });

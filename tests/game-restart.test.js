@@ -169,10 +169,32 @@ function descendants(node) {
   return node.children.flatMap((child) => [child, ...descendants(child)]);
 }
 
+function assertActiveGraphListeners({ arena, restart }) {
+  const counts = (node) => [...node.listeners]
+    .map(([type, listeners]) => [type, listeners.size])
+    .filter(([, count]) => count > 0)
+    .sort(([left], [right]) => left.localeCompare(right));
+  assert.deepEqual(counts(arena), [["pointermove", 1], ["pointerup", 1]]);
+  assert.deepEqual(counts(restart), [["click", 1]]);
+}
+
+function assertHandListeners(hand, expected) {
+  assert.equal(hand.length, 4);
+  for (const [index, card] of hand.entries()) {
+    const counts = [...card.listeners]
+      .map(([type, listeners]) => [type, listeners.size])
+      .filter(([, count]) => count > 0)
+      .sort(([left], [right]) => left.localeCompare(right));
+    assert.deepEqual(counts, expected, "hand card " + index + " listener membership");
+  }
+}
+
 test("game restart: terminal click atomically replaces the whole graph with exact seed zero", async () => {
   const session = liveSeedTwoSession();
   const value = fixture(session);
   const first = value.shells[0];
+  assertActiveGraphListeners(first);
+  assertHandListeners(first.hand, [["click", 1]]);
   const staleFrame = [...value.scheduler.callbacks.values()][0];
   const stalePointer = [...first.arena.listeners.get("pointerup")][0];
   const staleRestart = [...first.restart.listeners.get("click")][0];
@@ -213,12 +235,15 @@ test("game restart: terminal click atomically replaces the whole graph with exac
     muted: value.browser.audio.audio.muted }, policy);
 
   const second = value.shells[1];
+  assertActiveGraphListeners(second);
+  assertHandListeners(second.hand, [["click", 1]]);
   assert.equal(value.root.firstElementChild, second.shell);
   assert.equal(second.restart.hidden, true);
   assert.equal(first.shell.listenerCount(), 0);
   assert.equal(first.audio.listenerCount(), 0);
   assert.equal(first.restart.listenerCount(), 0);
   assert.equal(first.arena.listenerCount(), 0);
+  assertHandListeners(first.hand, []);
   for (const name of ["combat", "effects", "feedback", "hud"]) {
     assert.equal(layer(first.shell, name).children.length, 0,
       `${name} stale projection must be empty`);
@@ -246,9 +271,13 @@ test("game restart: terminal click atomically replaces the whole graph with exac
   assert.equal(second.restart.emit("click", { isTrusted: true }).restartCount, 2);
   assert.equal(value.shells.length, 3);
   assert.equal(value.browser.session.serialize(), expected.serialize());
-  assert.equal(value.shells[2].restart.listenerCount(), 1);
-  assert.equal(value.shells[2].arena.listenerCount(), 1);
-  assert.equal(value.shells[2].hand.reduce((sum, node) => sum + node.listenerCount(), 0), 4);
+  assert.equal(second.shell.listenerCount(), 0);
+  assert.equal(second.audio.listenerCount(), 0);
+  assert.equal(second.restart.listenerCount(), 0);
+  assert.equal(second.arena.listenerCount(), 0);
+  assertHandListeners(second.hand, []);
+  assertActiveGraphListeners(value.shells[2]);
+  assertHandListeners(value.shells[2].hand, [["click", 1]]);
   assert.equal(value.browser.dispose(), true);
   assert.equal(value.browser.dispose(), false);
 });
