@@ -1,0 +1,31 @@
+Candidate checkout: /tmp/game001gpx-critic-ac45251
+Candidate commit: ac45251686288696f8033f9490e7bcedf8909825
+Parent commit: 6a646216c77abc24907a8039c1ebfe11c9167822
+
+Workload suite
+Command: node --test tests/endurance-workload.test.js
+Final runner PID: 25002
+Exec session: 17660
+Exit: 0
+Raw TAP: artifacts/game001gpx-round-1/critic/endurance-workload.tap
+
+Default-eight bounded browser smoke
+Command: GAME_BROWSER_ENDURANCE_TICKS=900 npm run test:game-browser-endurance
+npm PID: 25775; runner PID: 25787; node --test PID: 25788; test PID: 25789; server PID: 25790; Chrome PID: 25793
+Exec session: 90572
+Exit: 0
+Raw TAP: artifacts/game001gpx-round-1/critic/browser-default-900.tap
+Raw telemetry and screenshot: artifacts/game001gpx-round-1/critic/default-browser-900/
+
+Kilnkeeper bounded browser smoke
+Command: GAME_BROWSER_ENDURANCE_SCENARIO=kilnkeeper GAME_BROWSER_ENDURANCE_TICKS=900 npm run test:game-browser-endurance
+npm PID: 26638; runner PID: 26650; node --test PID: 26651; test PID: 26652; server PID: 26654; Chrome PID: 26659
+Exec session: 84319
+Exit: 0
+Raw TAP: artifacts/game001gpx-round-1/critic/browser-kilnkeeper-900.tap
+Raw telemetry and screenshot: artifacts/game001gpx-round-1/critic/kilnkeeper-browser-900/
+
+Unknown scenario rejection probe
+Command: GAME_BROWSER_ENDURANCE_SCENARIO=not-a-scenario GAME_BROWSER_ENDURANCE_TICKS=900 node --test tests/game-browser-endurance.test.js
+Expected nonzero exit: 1; TypeError explicitly says unsupported GAME_BROWSER_ENDURANCE_SCENARIO
+Raw TAP: artifacts/game001gpx-round-1/critic/unknown-scenario.tap

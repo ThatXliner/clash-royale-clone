@@ -1,0 +1,167 @@
+{
+  "candidate": {
+    "commit": "ac45251686288696f8033f9490e7bcedf8909825",
+    "parent": "6a646216c77abc24907a8039c1ebfe11c9167822",
+    "checkout": "/tmp/game001gpx-critic-ac45251"
+  },
+  "workloadSuite": {
+    "tests": 7,
+    "passed": 7,
+    "failed": 0,
+    "exit": 0,
+    "durationMilliseconds": 9729.287334,
+    "rawTap": "endurance-workload.tap"
+  },
+  "browserRuns": {
+    "defaultEight": {
+      "scenario": "default-eight",
+      "qualificationMode": "default-eight-bounded-smoke-900",
+      "qualificationResult": null,
+      "setupSha256": "306bb30da40ce7c43d6cccce8728449da90fc0e9ca7d13c81f0116ba710aec8c",
+      "runOutcome": {
+        "kind": "tick-bound",
+        "tick": 900
+      },
+      "durationMilliseconds": 59268,
+      "maxLongTaskMilliseconds": 178,
+      "maxInitializationLongTaskMilliseconds": 178,
+      "maxDrivenLongTaskMilliseconds": 0,
+      "maxRestoreLongTaskMilliseconds": 0,
+      "maxOneTickSliceMilliseconds": 9.099999994039536,
+      "maxSegmentMilliseconds": 10269,
+      "segmentEndTicks": [
+        300,
+        600,
+        600,
+        900
+      ],
+      "restore": {
+        "fromTick": 600,
+        "toTick": 300
+      },
+      "consoleErrorCount": 0,
+      "unhandledErrorCount": 0,
+      "resourceErrorCount": 0,
+      "audioChunkFields": [
+        "authorityRecordCount",
+        "audibleCueCap",
+        "candidateCueCount",
+        "cursor",
+        "cueSequences",
+        "skippedCueCount",
+        "startSequences",
+        "transactionCount"
+      ]
+    },
+    "kilnkeeper": {
+      "scenario": "kilnkeeper",
+      "qualificationMode": "kilnkeeper-bounded-smoke-900",
+      "qualificationResult": "bounded-smoke-only",
+      "setupSha256": "9b2a1c5a86c2d5c0c2d623389b69c465409e65d5d84988591630b980ee7b3ba9",
+      "runOutcome": {
+        "kind": "tick-bound",
+        "tick": 900
+      },
+      "durationMilliseconds": 57152,
+      "maxLongTaskMilliseconds": 178,
+      "maxInitializationLongTaskMilliseconds": 178,
+      "maxDrivenLongTaskMilliseconds": 0,
+      "maxRestoreLongTaskMilliseconds": 0,
+      "maxOneTickSliceMilliseconds": 8.5,
+      "maxSegmentMilliseconds": 10268,
+      "segmentEndTicks": [
+        300,
+        600,
+        600,
+        900
+      ],
+      "restore": {
+        "fromTick": 600,
+        "toTick": 300
+      },
+      "consoleErrorCount": 0,
+      "unhandledErrorCount": 0,
+      "resourceErrorCount": 0,
+      "audioChunkFields": [
+        "authorityRecordCount",
+        "audibleCueCap",
+        "candidateCueCount",
+        "cursor",
+        "cueSequences",
+        "skippedCueCount",
+        "startSequences",
+        "transactionCount"
+      ]
+    }
+  },
+  "kilnkeeperInteraction": {
+    "playerCost": 5,
+    "playerDeploymentTick": 0,
+    "northLaunchTick": 60,
+    "northPositionAt300": {
+      "x": 3500,
+      "y": 15050
+    },
+    "northProjectileContactsAt600": 3,
+    "restoredProjectileContactsAt600": 3,
+    "firstContact": {
+      "projectileId": 2,
+      "status": "contact",
+      "targetId": 9007199254740987,
+      "tick": 243,
+      "type": "projectile-impact",
+      "attackSequence": 1,
+      "direction": "unit-to-tower",
+      "projectileIdentity": {
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileId": 2,
+        "sourceId": 3
+      },
+      "projectileScope": "unit-to-tower",
+      "sourceId": 3
+    },
+    "playerDeploymentSequence": 0,
+    "southCycleAssertion": "passed in workload and browser suites: deck sequence is exactly 1 at tick 300"
+  },
+  "cueDomainAudit": {
+    "chunkAudioFields": [
+      "authorityRecordCount",
+      "audibleCueCap",
+      "candidateCueCount",
+      "cursor",
+      "cueSequences",
+      "skippedCueCount",
+      "startSequences",
+      "transactionCount"
+    ],
+    "typedCueFieldsAbsent": [
+      "type",
+      "family",
+      "cueId",
+      "domain"
+    ],
+    "restoreDiagnosticFieldsComparedInTest": [
+      "cursor",
+      "eventCount",
+      "sessionTick",
+      "suppressedAcceleratedCueCount"
+    ],
+    "restoreDiagnosticFieldsPresentButNotCompared": [
+      "uiCommandCount",
+      "uiSequence",
+      "cueCount",
+      "projectionOffset",
+      "transactionCount",
+      "generation"
+    ]
+  },
+  "sourceFence": {
+    "file": "source-pre-post.txt",
+    "status": "unchanged"
+  },
+  "screenshots": [
+    "default-browser-900/active.png",
+    "kilnkeeper-browser-900/active.png"
+  ]
+}

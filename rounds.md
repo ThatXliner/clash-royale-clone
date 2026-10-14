@@ -1,5 +1,14 @@
 # Gauntlet Rounds
 
+## Round 453 — 2026-10-14
+
+PIECE: GAME-001GPX
+VERDICT: FAIL
+
+EVIDENCE: Exactac45251 independent workload7/7; default900 browser2/2 61651ms, K900 browser2/2 59518ms, unknownscenario rejected. Source3files pre/postexact. Capturedaudio onlynumericsequence/startsequence; restore selecteddiagnostics omittypedUIcues. Evidence artifacts/game001gpx-round-1/critic/. Shortsmokes notfullqualification.
+
+BIGGEST GAP: Typed audio cue domain/identity parity acrossrestore is unproved.
+
 ## Round 452 — 2026-10-13
 
 PIECE: CARDS-019I — Kilnkeeper arena integration, round 2
