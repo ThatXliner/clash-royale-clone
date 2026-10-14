@@ -27,1976 +27,261 @@
   <p class="sub">Updated 2026-10-13 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
     <div class="card"><div class="num">245</div><div class="label">tracked pieces</div></div>
-    <div class="card"><div class="num">194</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">436</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">195</div><div class="label">passed</div></div>
+    <div class="card"><div class="num">437</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">29</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Active builds: <strong>CARDS-019H1 — shared target following</strong> and <strong>ART-020B — Rivet Runners battle cutout</strong>. Portrait accepted; core and live arena integration remain separate gates.</p>
+  <p class="note">Active build: <strong>CARDS-019H1 — shared target following</strong>. Rivet Runners portrait and battle cutout are accepted. Card gameplay and live arena integration remain separate gates.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
       <thead><tr><th>ID</th><th>Piece</th><th>State</th><th>Tests</th><th>Rounds</th><th>Current gap / result</th></tr></thead>
       <tbody>
-      <tr>
-        <td><code>PUB-001</code></td>
-        <td>Branded GitHub repository documentation</td>
-        <td class="state-pass">PASS</td>
-        <td>20/20</td>
-        <td>1</td>
-        <td>Round 1 verified the clean source archive install, release build/serve, README RL example, license hash/provenance, links, templates and original brand rendering; no gap on the judged documentation dimension</td>
-      </tr>
-      <tr>
-        <td><code>PUB-002</code></td>
-        <td>GitHub Pages landing and demo artifact</td>
-        <td class="state-pass">PASS</td>
-        <td>5/5</td>
-        <td>1</td>
-        <td>Round 1 verified the isolated project-subpath build, responsive landing, keyboard navigation, real card-info flow, trusted Battle deployment/cycle, and RL import/reset/step; no gap on the judged publication dimension</td>
-      </tr>
-      <tr>
-        <td><code>SIM-001</code></td>
-        <td>Fixed-step world and replay log (superseded)</td>
-        <td class="state-question">QUESTION</td>
-        <td>5/5</td>
-        <td>3</td>
-        <td>Wrong-shaped after three source-gate bypass rounds; split into SIM-001K and GUARD-001</td>
-      </tr>
-      <tr>
-        <td><code>SIM-001K</code></td>
-        <td>Fixed-step world and replay kernel</td>
-        <td class="state-pass">PASS</td>
-        <td>4/4</td>
-        <td>1</td>
-        <td>None on judged dimension</td>
-      </tr>
-      <tr>
-        <td><code>GUARD-001</code></td>
-        <td>Simulation nondeterminism enforcement</td>
-        <td class="state-pass">PASS</td>
-        <td>9/9</td>
-        <td>3</td>
-        <td>Round 3 passed: bypasses, valid lexical shadows, recursive/cyclic graphs, runtime boundary, canonical output, all bounds, and 20 simulation modules passed</td>
-      </tr>
-      <tr>
-        <td><code>SIM-002</code></td>
-        <td>Seeded random stream</td>
-        <td class="state-pass">PASS</td>
-        <td>6/6</td>
-        <td>1</td>
-        <td>None on judged dimension</td>
-      </tr>
-      <tr>
-        <td><code>SIM-003</code></td>
-        <td>Entity lifecycle and stable ordering</td>
-        <td class="state-pass">PASS</td>
-        <td>6/6</td>
-        <td>1</td>
-        <td>None on judged dimension</td>
-      </tr>
-      <tr>
-        <td><code>SIM-004</code></td>
-        <td>Damage, health, death, and simultaneous trades</td>
-        <td class="state-pass">PASS</td>
-        <td>9/9</td>
-        <td>1</td>
-        <td>None on judged dimension</td>
-      </tr>
-      <tr>
-        <td><code>SIM-005</code></td>
-        <td>Spatial coordinates and collision queries</td>
-        <td class="state-pass">PASS</td>
-        <td>9/9</td>
-        <td>1</td>
-        <td>None on judged dimension</td>
-      </tr>
-      <tr>
-        <td><code>SIM-006</code></td>
-        <td>Target eligibility and acquisition</td>
-        <td class="state-pass">PASS</td>
-        <td>8/8</td>
-        <td>1</td>
-        <td>None on judged dimension</td>
-      </tr>
-      <tr>
-        <td><code>SIM-007</code></td>
-        <td>Movement integration</td>
-        <td class="state-pass">PASS</td>
-        <td>8/8</td>
-        <td>1</td>
-        <td>None on judged dimension</td>
-      </tr>
-      <tr>
-        <td><code>SIM-008</code></td>
-        <td>Attack windup and cycle</td>
-        <td class="state-pass">PASS</td>
-        <td>8/8</td>
-        <td>1</td>
-        <td>None on judged dimension; load/deploy fixtures remain non-authoritative estimates</td>
-      </tr>
-      <tr>
-        <td><code>SIM-009</code></td>
-        <td>Melee contact combat</td>
-        <td class="state-pass">PASS</td>
-        <td>6/6</td>
-        <td>1</td>
-        <td>None on judged dimension; reference-derived mechanics remain confidence-labeled estimates</td>
-      </tr>
-      <tr>
-        <td><code>SIM-010</code></td>
-        <td>Projectile combat</td>
-        <td class="state-pass">PASS</td>
-        <td>8/8</td>
-        <td>1</td>
-        <td>None on judged dimension; straight-flight static target model only</td>
-      </tr>
-      <tr>
-        <td><code>SIM-011</code></td>
-        <td>Area damage</td>
-        <td class="state-pass">PASS</td>
-        <td>11/11</td>
-        <td>2</td>
-        <td>None on judged dimension; exhausted ID sentinel restores byte-identically</td>
-      </tr>
-      <tr>
-        <td><code>SIM-012</code></td>
-        <td>Multi-unit formations</td>
-        <td class="state-pass">PASS</td>
-        <td>8/8</td>
-        <td>1</td>
-        <td>None on judged dimension</td>
-      </tr>
-      <tr>
-        <td><code>ARENA-001</code></td>
-        <td>18×32 arena and static obstacles</td>
-        <td class="state-pass">PASS</td>
-        <td>9/9</td>
-        <td>1</td>
-        <td>None on judged dimension; bridge/tower geometry remains confidence-labeled estimate</td>
-      </tr>
-      <tr>
-        <td><code>ARENA-002</code></td>
-        <td>Ground pathfinding through bridges</td>
-        <td class="state-pass">PASS</td>
-        <td>10/10</td>
-        <td>2</td>
-        <td>None on judged dimension; coarse point-agent and estimate caveats retained</td>
-      </tr>
-      <tr>
-        <td><code>ARENA-003</code></td>
-        <td>Flying movement over terrain</td>
-        <td class="state-pass">PASS</td>
-        <td>8/8</td>
-        <td>1</td>
-        <td>None on judged dimension; axis-aligned target movement only</td>
-      </tr>
-      <tr>
-        <td><code>ARENA-004</code></td>
-        <td>Deployment legality</td>
-        <td class="state-pass">PASS</td>
-        <td>12/12</td>
-        <td>2</td>
-        <td>None on judged dimension; estimated masks use rotationally symmetric closed-edge policy</td>
-      </tr>
-      <tr>
-        <td><code>MATCH-001</code></td>
-        <td>Crown towers and activation</td>
-        <td class="state-pass">PASS</td>
-        <td>11/11</td>
-        <td>3</td>
-        <td>None on judged dimension; snapshot state is derived from canonical causal steps</td>
-      </tr>
-      <tr>
-        <td><code>MATCH-002</code></td>
-        <td>Elixir generation and spending</td>
-        <td class="state-pass">PASS</td>
-        <td>17/17</td>
-        <td>3</td>
-        <td>None on judged dimension; canonical limits match worst-case derived replay cost</td>
-      </tr>
-      <tr>
-        <td><code>MATCH-003</code></td>
-        <td>Deck, hand, next card, and deterministic cycle</td>
-        <td class="state-pass">PASS</td>
-        <td>7/7</td>
-        <td>1</td>
-        <td>None on judged dimension; shuffle/cycle is original configurable rule pending footage</td>
-      </tr>
-      <tr>
-        <td><code>MATCH-004</code></td>
-        <td>Regulation, overtime, tiebreak, and crowns</td>
-        <td class="state-pass">PASS</td>
-        <td>20/20</td>
-        <td>2</td>
-        <td>None on judged dimension</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-001</code></td>
-        <td>Original runtime card schema and validation (superseded)</td>
-        <td class="state-question">QUESTION</td>
-        <td>16/16</td>
-        <td>4</td>
-        <td>Wrong-shaped after three static reference-path bypass rounds; split into CONTENT-001S and GUARD-002</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-001S</code></td>
-        <td>Original runtime card schema</td>
-        <td class="state-pass">PASS</td>
-        <td>20/20</td>
-        <td>3</td>
-        <td>None on judged dimension</td>
-      </tr>
-      <tr>
-        <td><code>GUARD-002</code></td>
-        <td>Reference and protected-identity shipping isolation</td>
-        <td class="state-question">QUESTION</td>
-        <td>13/13</td>
-        <td>3</td>
-        <td>Wrong-shaped after three graph-closure rounds: custom exports conditions and reflective code loaders remain executable outside a dependency-free static evaluator; requires actual bundler/runtime sandbox enforcement</td>
-      </tr>
-      <tr>
-        <td><code>GUARD-002R</code></td>
-        <td>Actual release-artifact isolation boundary</td>
-        <td class="state-pass">PASS</td>
-        <td>3/3</td>
-        <td>1</td>
-        <td>None on the judged dimension; CSP is origin-scoped, so same-origin off-manifest requests rely on the manifest-only server to reject and record them.</td>
-      </tr>
-      <tr>
-        <td><code>GUARD-002H</code></td>
-        <td>Manifest-only local release host</td>
-        <td class="state-pass">PASS</td>
-        <td>1/1</td>
-        <td>1</td>
-        <td>None on manifest-bound delivery; an in-root parent symlink is followed only for its explicitly listed, hash-matching alias, and the artifact audit rejects symlink trees</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-002</code></td>
-        <td>Basic single melee troops</td>
-        <td class="state-pass">PASS</td>
-        <td>12/12</td>
-        <td>3</td>
-        <td>None on judged dimension</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-003</code></td>
-        <td>Basic ranged ground troops</td>
-        <td class="state-pass">PASS</td>
-        <td>14/14</td>
-        <td>3</td>
-        <td>None on judged dimension; projectile travel remains explicitly unsourced/non-claimed</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-004</code></td>
-        <td>Basic flying troops</td>
-        <td class="state-pass">PASS</td>
-        <td>13/13</td>
-        <td>1</td>
-        <td>None on judged dimension; collision/projectile travel/moving-target behavior remains explicitly non-claimed</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-005</code></td>
-        <td>Swarms and mixed squads</td>
-        <td class="state-pass">PASS</td>
-        <td>13/13</td>
-        <td>1</td>
-        <td>None on judged dimension; formation/radius/projectile/full-match parity remains explicitly non-claimed</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-006</code></td>
-        <td>Building-targeting troops</td>
-        <td class="state-pass">PASS</td>
-        <td>14/14</td>
-        <td>2</td>
-        <td>None on judged dimension; coarse path/zero-radius/first-hit confidence caveats remain explicit</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-007</code></td>
-        <td>Shields and form transitions</td>
-        <td class="state-pass">PASS</td>
-        <td>15/15</td>
-        <td>1</td>
-        <td>None on judged dimension; shield/form behavior remains an explicit question fixture outside the common schema</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-008</code></td>
-        <td>Charge, dash, jump, and recoil movement (superseded)</td>
-        <td class="state-question">QUESTION</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Wrong-shaped during evidence audit; split into CONTENT-008C/D/J/R</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-008C</code></td>
-        <td>Charge arming and charged strike</td>
-        <td class="state-pass">PASS</td>
-        <td>12/12</td>
-        <td>2</td>
-        <td>None on judged dimension; special values remain executable question fixtures</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-008D</code></td>
-        <td>Targeted dash and untargetable transit</td>
-        <td class="state-pass">PASS</td>
-        <td>17/17</td>
-        <td>2</td>
-        <td>None on judged dimension; special values remain executable question fixtures</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-008J</code></td>
-        <td>Jump transit and landing impact</td>
-        <td class="state-pass">PASS</td>
-        <td>15/15</td>
-        <td>2</td>
-        <td>None on judged dimension; special values remain executable question fixtures</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-008R</code></td>
-        <td>Attack-triggered recoil displacement</td>
-        <td class="state-pass">PASS</td>
-        <td>15/15</td>
-        <td>2</td>
-        <td>R2 PASS: checked BigInt projection/addition rejects unsafe intermediates; 17 oracle boundaries and 1,273 restore splits passed</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-009</code></td>
-        <td>Chained, piercing, returning, and multi-projectile attacks (superseded)</td>
-        <td class="state-question">QUESTION</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Wrong-shaped during evidence audit; split into CONTENT-009C/P/R/M; special-mechanic values are absent from the corpus</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-009C</code></td>
-        <td>Chained target attacks</td>
-        <td class="state-pass">PASS</td>
-        <td>23/23</td>
-        <td>1</td>
-        <td>None on judged dimension; 144 independent probes and all 88 restore splits passed; chain-only values remain QUESTION fixtures</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-009P</code></td>
-        <td>Linear piercing projectiles</td>
-        <td class="state-pass">PASS</td>
-        <td>28/28</td>
-        <td>3</td>
-        <td>None on judged dimension; policy and runtime agree across 104 capsule oracle cases and 49 restore splits</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-009R</code></td>
-        <td>Outbound and returning projectiles</td>
-        <td class="state-pass">PASS</td>
-        <td>27/27</td>
-        <td>2</td>
-        <td>None on judged dimension; 48 signed boundary cases, 96 leg checks, caller-mutation isolation, and restore passed</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-009M</code></td>
-        <td>Fixed-fan pellet volleys</td>
-        <td class="state-pass">PASS</td>
-        <td>30/30</td>
-        <td>1</td>
-        <td>None on judged dimension; 72 independent signed boundary cases, all 96 restore splits, caller-mutation isolation, hostile bounds, and runtime identity isolation passed</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-010</code></td>
-        <td>Ramping attacks, stun, slow, snare, and reset (superseded)</td>
-        <td class="state-question">QUESTION</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Wrong-shaped during evidence audit; split into CONTENT-010R/U/L/N/X</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-010R</code></td>
-        <td>Consecutive-target ramping attacks</td>
-        <td class="state-pass">PASS</td>
-        <td>13/13</td>
-        <td>1</td>
-        <td>None on judged dimension; stage saturation, all five reset paths, 432 independent restore cuts, hostile/noncausal rejection, and identity isolation passed</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-010U</code></td>
-        <td>Timed full-disable stun</td>
-        <td class="state-pass">PASS</td>
-        <td>23/23</td>
-        <td>2</td>
-        <td>None on judged dimension; targetless loss is a serializable no-op, 541 independent restore cuts and Round 1 lifecycle oracle passed</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-010L</code></td>
-        <td>Timed movement-and-attack slow</td>
-        <td class="state-pass">PASS</td>
-        <td>21/21</td>
-        <td>1</td>
-        <td>None on judged dimension; 3,132 scalar-oracle boundaries and restore cuts plus 4,096-tick drift probe passed</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-010N</code></td>
-        <td>Timed movement-only snare</td>
-        <td class="state-pass">PASS</td>
-        <td>21/21</td>
-        <td>1</td>
-        <td>None on judged dimension; 460 movement-oracle cases, 231 restore cuts, unaffected attack schedule, and adversarial isolation passed</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-010X</code></td>
-        <td>Instantaneous combat reset composition</td>
-        <td class="state-pass">PASS</td>
-        <td>22/22</td>
-        <td>1</td>
-        <td>None on judged dimension; 40 independent phase/stage/counter states and 129 causal restore cuts passed without changing ramp semantics</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-011</code></td>
-        <td>Periodic and death spawns (superseded)</td>
-        <td class="state-question">QUESTION</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Wrong-shaped during evidence audit; split into CONTENT-011A/P/D; cadence, lifetime, placement, ownership, and recursive death-spawn policy are absent from the corpus</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-011A</code></td>
-        <td>Spawn batch materialization and deterministic placement</td>
-        <td class="state-pass">PASS</td>
-        <td>18/18</td>
-        <td>3</td>
-        <td>None on judged dimension; 67 independent causal, hostile, ledger-forgery, bound, overflow, and restore probes passed</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-011P</code></td>
-        <td>Periodic spawn cadence and lifetime stop</td>
-        <td class="state-pass">PASS</td>
-        <td>20/20</td>
-        <td>1</td>
-        <td>None on judged dimension; 22 lethal timings, 585 chunk schedules, 375 restore cuts, and causal ledger probes passed</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-011D</code></td>
-        <td>Exactly-once death-triggered spawns</td>
-        <td class="state-pass">PASS</td>
-        <td>16/16</td>
-        <td>1</td>
-        <td>None on judged dimension; separate critic passed 46 additional adversarial probes through 64 recursive triggers and explicit bounds</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-012</code></td>
-        <td>Charge, leap, dash, knockback, and retarget composition (superseded)</td>
-        <td class="state-question">QUESTION</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Wrong-shaped during evidence audit; split into CONTENT-012T/K/C/L/D</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-012T</code></td>
-        <td>Retarget and attack-cycle lifecycle</td>
-        <td class="state-pass">PASS</td>
-        <td>18/18</td>
-        <td>1</td>
-        <td>None on judged dimension; independent reducer, mode/kind/layer matrix, 24 QUESTION records, hostile inputs, and every restore cut passed</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-012K</code></td>
-        <td>Instantaneous forced knockback displacement</td>
-        <td class="state-pass">PASS</td>
-        <td>17/17</td>
-        <td>1</td>
-        <td>None on judged dimension; 86 independent projection, corner, overflow, hostile, restore, and provenance probes passed</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-012C</code></td>
-        <td>Charged-strike interruption and retarget composition</td>
-        <td class="state-pass">PASS</td>
-        <td>24/24</td>
-        <td>2</td>
-        <td>None on judged dimension; 1,631 independent assertions covered setup preflight, duplicates, signed overflow paths, atomic failures, trace and 501 restore cuts</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-012L</code></td>
-        <td>Leap interruption, landing, and retarget composition</td>
-        <td class="state-pass">PASS</td>
-        <td>18/18</td>
-        <td>2</td>
-        <td>None on judged dimension; 4,016 independent assertions confirmed interruption retarget 81/readiness 123 and unchanged landing retarget 97/readiness 139</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-012D</code></td>
-        <td>Dash interruption, arrival, and retarget composition</td>
-        <td class="state-pass">PASS</td>
-        <td>19/19</td>
-        <td>2</td>
-        <td>None on judged dimension; exact primitive event parity passed at interruption tick 60 and death ticks 59/60/70/89 across 1,410 restore cuts</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-012E</code></td>
-        <td>Death damage and triggered effects</td>
-        <td class="state-pass">PASS</td>
-        <td>21/21</td>
-        <td>2</td>
-        <td>None on judged dimension; 1,513 attribution, chain, geometry, overflow, restore, snapshot, and scope probes passed</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-013</code></td>
-        <td>Healing, rage, invisibility, reflection, and conversion (superseded)</td>
-        <td class="state-question">QUESTION</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Wrong-shaped during evidence audit; split into CONTENT-013H/R/I/F/C; all special values and policies are corpus-absent QUESTIONS</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-013H</code></td>
-        <td>Instant healing and maximum-health cap</td>
-        <td class="state-pass">PASS</td>
-        <td>12/12</td>
-        <td>1</td>
-        <td>None on judged dimension; separate critic matched exact damage/death/heal ordering, exclusions, 47 QUESTION records, hostile inputs, chunking, and every restore cut</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-013R</code></td>
-        <td>Timed movement-and-attack rage</td>
-        <td class="state-pass">PASS</td>
-        <td>17/17</td>
-        <td>1</td>
-        <td>None on judged dimension; exact BigInt oracle, every phase, 281 restore cuts, drift, hostile snapshots, and all 48 QUESTION records passed</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-013I</code></td>
-        <td>Invisibility, reveal, and reacquisition</td>
-        <td class="state-pass">PASS</td>
-        <td>26/26</td>
-        <td>2</td>
-        <td>None on judged dimension; exact 23-field provenance bijection, all gameplay traces, 31 restore cuts, hostile inputs, and 4,096-tick run passed</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-013F</code></td>
-        <td>Deterministic projectile reflection</td>
-        <td class="state-pass">PASS</td>
-        <td>28/28</td>
-        <td>2</td>
-        <td>None on judged dimension; construction rejected all 16 independently probed nonintegral original/reflected signed diagonals and execution failures were byte-atomic</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-013C</code></td>
-        <td>Curse-triggered death conversion and spawn ownership</td>
-        <td class="state-pass">PASS</td>
-        <td>20/20</td>
-        <td>4</td>
-        <td>Round 4 passed: bornTick and batches are setup-order invariant; mixed periodic conversion preserves one shared ledger and ownership overlay</td>
-      </tr>
-      <tr>
-        <td><code>CONTENT-014</code></td>
-        <td>Champion abilities</td>
-        <td class="state-pass">PASS</td>
-        <td>19/19</td>
-        <td>2</td>
-        <td>Round 2 passed: real activation matched nine primitive contracts, 105 restore cuts, lifecycle boundaries, hashes, and 116 QUESTION records</td>
-      </tr>
-      <tr>
-        <td><code>BUILDING-001</code></td>
-        <td>Defensive buildings</td>
-        <td class="state-pass">PASS</td>
-        <td>23/23</td>
-        <td>4</td>
-        <td>Round 4 re-passed after refreshing the attack-cycle.js integrity pin broken by the 2a5bd7a status-runtime integration; behavioral differential verified unchanged, cascade into integration-audit resolved; paused-stepping coverage for the newly pinned paths remains open</td>
-      </tr>
-      <tr>
-        <td><code>BUILDING-002</code></td>
-        <td>Spawner buildings</td>
-        <td class="state-pass">PASS</td>
-        <td>18/18</td>
-        <td>1</td>
-        <td>Round 1 passed: shared primitive bytes/events, exact death batches, lifetimes, chunks, restore, and 13 QUESTION records passed</td>
-      </tr>
-      <tr>
-        <td><code>BUILDING-003A</code></td>
-        <td>Resource-generation buildings</td>
-        <td class="state-pass">PASS</td>
-        <td>13/13</td>
-        <td>3</td>
-        <td>Round 3 passed: unified sequence, legacy restore, 4,201-tick differential, 1,701 cuts, bounds, resource hash, and 12 QUESTION records passed</td>
-      </tr>
-      <tr>
-        <td><code>BUILDING-003B</code></td>
-        <td>Underground travel buildings</td>
-        <td class="state-pass">PASS</td>
-        <td>13/13</td>
-        <td>1</td>
-        <td>Round 1 passed: exact travel/emergence/spawn, primitive differentials, 301 cuts, bounds, and 14 QUESTION records passed</td>
-      </tr>
-      <tr>
-        <td><code>SPELL-001</code></td>
-        <td>Instant radius damage spells</td>
-        <td class="state-pass">PASS</td>
-        <td>19/19</td>
-        <td>2</td>
-        <td>Round 2 passed: 60 eligibility combinations, all liveness routes, primitive hashes, and 129 restore cuts matched</td>
-      </tr>
-      <tr>
-        <td><code>SPELL-002A</code></td>
-        <td>Traveling spell line and impact</td>
-        <td class="state-pass">PASS</td>
-        <td>15/15</td>
-        <td>2</td>
-        <td>Round 2 passed: exact swept contacts, ordering, death/cancel latches, 129 restore cuts, and primitive differentials passed</td>
-      </tr>
-      <tr>
-        <td><code>SPELL-002B</code></td>
-        <td>Three-wave traveling spell</td>
-        <td class="state-pass">PASS</td>
-        <td>13/13</td>
-        <td>1</td>
-        <td>Round 1 passed: three boundaries, geometry/damage, ordering, cancellations, restore, primitives, and 11 QUESTION records passed</td>
-      </tr>
-      <tr>
-        <td><code>SPELL-002C</code></td>
-        <td>Returning traveling spell</td>
-        <td class="state-pass">PASS</td>
-        <td>15/15</td>
-        <td>3</td>
-        <td>Round 3 passed: direct terminal primitive bytes persist through cuts 39/128, all 129 restore cuts, lifecycle, bounds, hash, and 14 QUESTION records passed</td>
-      </tr>
-      <tr>
-        <td><code>SPELL-002D</code></td>
-        <td>Rolling collision spell</td>
-        <td class="state-pass">PASS</td>
-        <td>15/15</td>
-        <td>2</td>
-        <td>Round 2 passed: exact radius-aware entry oracle, obstacle suppression, geometry, restore, bounds, and 17 QUESTION records passed</td>
-      </tr>
-      <tr>
-        <td><code>SPELL-003</code></td>
-        <td>Periodic area spells</td>
-        <td class="state-pass">PASS</td>
-        <td>21/21</td>
-        <td>2</td>
-        <td>Round 2 passed: 52-vector exact pull oracle, mappings, shared area/slow, restore, bounds, and 28 QUESTION records passed</td>
-      </tr>
-      <tr>
-        <td><code>SPELL-004</code></td>
-        <td>Spawn spells</td>
-        <td class="state-pass">PASS</td>
-        <td>14/14</td>
-        <td>2</td>
-        <td>Round 2 passed: single causal placement batch per boundary, nested ledger bytes, cancellation, 129 cuts, and 14 QUESTION records passed</td>
-      </tr>
-      <tr>
-        <td><code>SPELL-005A</code></td>
-        <td>Previous-card copy effect</td>
-        <td class="state-pass">PASS</td>
-        <td>14/14</td>
-        <td>3</td>
-        <td>Round 3 passed: strict byte-canonical restore, UTF-8 byte limits, multibyte/surrogate cases, cycle differential, and bounds passed</td>
-      </tr>
-      <tr>
-        <td><code>SPELL-005B</code></td>
-        <td>Deployed-unit clone effect</td>
-        <td class="state-pass">PASS</td>
-        <td>16/16</td>
-        <td>1</td>
-        <td>Round 1 passed: geometry, exclusions, ownership, shared-cycle/form differentials, restore, bounds, and 25 QUESTION records passed</td>
-      </tr>
-      <tr>
-        <td><code>INTEGRATION-001</code></td>
-        <td>Canonical interaction suite (superseded)</td>
-        <td class="state-question">QUESTION</td>
-        <td>58/58</td>
-        <td>3</td>
-        <td>Wrong-shaped after three occurrence-binding rounds; split into INTEGRATION-001K and INTEGRATION-001C</td>
-      </tr>
-      <tr>
-        <td><code>INTEGRATION-001K</code></td>
-        <td>Deterministic runtime event-surface integration (superseded)</td>
-        <td class="state-question">QUESTION</td>
-        <td>58/58</td>
-        <td>3</td>
-        <td>Wrong-shaped after three TAP-parser rounds; split into INTEGRATION-001R and GUARD-003</td>
-      </tr>
-      <tr>
-        <td><code>INTEGRATION-001R</code></td>
-        <td>Deterministic registered runtime artifacts</td>
-        <td class="state-pass">PASS</td>
-        <td>58/58</td>
-        <td>2</td>
-        <td>Round 2 refreshed eight stale static occurrence pins and the aggregate manifest after independently checking catalog bindings and defining events; admission 7/7 and integration audit 6/6 pass, fresh critic confirms mutation rejection</td>
-      </tr>
-      <tr>
-        <td><code>INTEGRATION-001RP</code></td>
-        <td>Reconcile canonical integration manifest after later rounds</td>
-        <td class="state-pass">PASS</td>
-        <td>6/6</td>
-        <td>1</td>
-        <td>Round 1 passed: only defensive-building TAP `pass/tests` changed 23→24 due to the provenance test in `eb57e2e`; reconstructed baseline SHA `022ee978…`, current SHA `7eeeab12…`, 58 bindings/46 runners/5 QUESTION exports, and fresh identical sweeps confirmed.</td>
-      </tr>
-      <tr>
-        <td><code>GUARD-003</code></td>
-        <td>Exhaustive TAP execution-proof parser</td>
-        <td class="state-question">QUESTION</td>
-        <td>6/6</td>
-        <td>3</td>
-        <td>Wrong-shaped parser proof: matched result names containing # SKIP/# TODO directives remain accepted under forged zero counters</td>
-      </tr>
-      <tr>
-        <td><code>INTEGRATION-001C</code></td>
-        <td>Exhaustive per-card causal mechanic binding</td>
-        <td class="state-question">QUESTION</td>
-        <td>58/58</td>
-        <td>3</td>
-        <td>40/58 mechanic payloads omit the ID; charge/dash/jump/charge-knockback stop at generic target-acquired rather than defining events</td>
-      </tr>
-      <tr>
-        <td><code>UI-001</code></td>
-        <td>Playable original-art arena shell (superseded)</td>
-        <td class="state-question">QUESTION</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Wrong-shaped during readiness audit; split into UI-001A/B/C</td>
-      </tr>
-      <tr>
-        <td><code>UI-001A</code></td>
-        <td>Original empty-arena render shell</td>
-        <td class="state-pass">PASS</td>
-        <td>7/7</td>
-        <td>2</td>
-        <td>Round 2 passed: exact inner geometry, complete shell primitives, deterministic DOM/render bytes, provenance, hostile mount, and full suite passed</td>
-      </tr>
-      <tr>
-        <td><code>UI-001AP</code></td>
-        <td>Reconcile arena source-byte pins after policy UI and compositor changes</td>
-        <td class="state-pass">PASS</td>
-        <td>13/13</td>
-        <td>1</td>
-        <td>Round 1 passed: all four pins equal current source SHA-256; only the four reviewed shell markup/CSS commits changed bytes. Local original-art provenance, exact geometry, and 720×1280 Chrome landmarks/stacking pass.</td>
-      </tr>
-      <tr>
-        <td><code>UI-001B</code></td>
-        <td>Deterministic HUD and hand projection</td>
-        <td class="state-pass">PASS</td>
-        <td>9/9</td>
-        <td>2</td>
-        <td>Round 2 passed: shipped initial/update controller, canonical HUD state, deterministic bytes, strict cardinality/access, transactional rollback, escaping, and guards passed</td>
-      </tr>
-      <tr>
-        <td><code>UI-001C</code></td>
-        <td>Arena pointer and card-play interaction (superseded)</td>
-        <td class="state-question">QUESTION</td>
-        <td>12/12</td>
-        <td>3</td>
-        <td>Wrong-shaped after three external-transaction rounds; split into UI-001CK and UI-001CT</td>
-      </tr>
-      <tr>
-        <td><code>UI-001CK</code></td>
-        <td>Shipped arena card-play kernel</td>
-        <td class="state-pass">PASS</td>
-        <td>13/13</td>
-        <td>2</td>
-        <td>Round 2 passed: measured inner-client edges, border rejection, exact mouse/touch commands, normal commit, bounds, and byte-identical restore passed</td>
-      </tr>
-      <tr>
-        <td><code>UI-001CT</code></td>
-        <td>Hostile external commit fault containment</td>
-        <td class="state-question">QUESTION</td>
-        <td>12/12</td>
-        <td>3</td>
-        <td>Arbitrary callbacks can mutate external state and then make compensation fail; current poison blocks mutations/serialization but diagnostic getter policy remains unresolved</td>
-      </tr>
-      <tr>
-        <td><code>UI-002</code></td>
-        <td>Placement and combat feedback (superseded)</td>
-        <td class="state-question">QUESTION</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Wrong-shaped during readiness audit; split into UI-002A/B/C/D</td>
-      </tr>
-      <tr>
-        <td><code>UI-002A</code></td>
-        <td>Placement preview and deploy feedback</td>
-        <td class="state-pass">PASS</td>
-        <td>13/13</td>
-        <td>4</td>
-        <td>Round 4 passed: pointer/legacy branches, compatibility suppression, opaque receipts, exact geometry/visuals, commands, bounds, and cleanup passed</td>
-      </tr>
-      <tr>
-        <td><code>UI-002B</code></td>
-        <td>Entity, tower-health, and targeting projection</td>
-        <td class="state-pass">PASS</td>
-        <td>11/11</td>
-        <td>1</td>
-        <td>Round 1 passed: exact reference HP, stable bounded canonical projection/DOM, hostile rejection, and shipped mount</td>
-      </tr>
-      <tr>
-        <td><code>UI-002C</code></td>
-        <td>Projectile and area-effect feedback (superseded)</td>
-        <td class="state-question">QUESTION</td>
-        <td>15/15</td>
-        <td>3</td>
-        <td>Wrong-shaped after three causal replay-schema rounds; split into UI-002CP and UI-002CV</td>
-      </tr>
-      <tr>
-        <td><code>UI-002CP</code></td>
-        <td>Closed combat-effect feed export</td>
-        <td class="state-pass">PASS</td>
-        <td>9/9</td>
-        <td>5</td>
-        <td>Round 5 passed: independent feed-bound failures at second contact, lethal death, ordinary close, synthetic impact and synthetic close preserved feed, state, replay, serialization and fork bytes exactly</td>
-      </tr>
-      <tr>
-        <td><code>UI-002CV</code></td>
-        <td>Causal combat-effect view projection</td>
-        <td class="state-pass">PASS</td>
-        <td>9/9</td>
-        <td>3</td>
-        <td>Round 3 passed at 460c6e5: zero terminal raw-authority reads, canonical feedback validation, exact mounted rollback/retry, and real Chrome play/combat/terminal/restart/repeat</td>
-      </tr>
-      <tr>
-        <td><code>UI-002D</code></td>
-        <td>Crown score and match-end feedback</td>
-        <td class="state-pass">PASS</td>
-        <td>15/15</td>
-        <td>3</td>
-        <td>Round 3 passed: restored MatchClock snapshot/replay causally proves terminal/tiebreak projection</td>
-      </tr>
-      <tr>
-        <td><code>VIS-001</code></td>
-        <td>Empty-arena visual calibration</td>
-        <td class="state-blocked">BLOCKED</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Required footage absent</td>
-      </tr>
-      <tr>
-        <td><code>VIS-002</code></td>
-        <td>Motion and combat visual calibration</td>
-        <td class="state-blocked">BLOCKED</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Required footage absent</td>
-      </tr>
-      <tr>
-        <td><code>VIS-003</code></td>
-        <td>Production presentation polish umbrella</td>
-        <td class="state-pass">PASS</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>All original-presentation subpieces and integrated endurance pass for the shipped default roster; captured-game parity remains VIS-001/VIS-002</td>
-      </tr>
-      <tr>
-        <td><code>VIS-003A</code></td>
-        <td>Original art direction and asset provenance</td>
-        <td class="state-pass">PASS</td>
-        <td>6/6</td>
-        <td>1</td>
-        <td>Round 1 passed: frozen Rivermark bible pinned by digest, fail-closed asset manifest with byte-for-byte disk parity over three authored CC0 SVG icons, non-vacuous reference-hash disjointness and 22 hostile admission rejections</td>
-      </tr>
-      <tr>
-        <td><code>VIS-003B</code></td>
-        <td>Arena, river, bridges, and tower art</td>
-        <td class="state-pass">PASS</td>
-        <td>6/6</td>
-        <td>4</td>
-        <td>Round4 passed: six authored tower bodies/roofs with shaded volume, exact centers/bridges and readable combat; captured-game parity remains unverified</td>
-      </tr>
-      <tr>
-        <td><code>VIS-003C</code></td>
-        <td>Combatant, projectile, and effect assets</td>
-        <td class="state-pass">PASS</td>
-        <td>3/3</td>
-        <td>5</td>
-        <td>Round 5 passed: both teams assert all 10 identities, unique silhouettes, paired geometry, and red/teal body mapping; serialized view restore reproduces DOM exactly and the gameplay-scale contact sheet confirms the art renders</td>
-      </tr>
-      <tr>
-        <td><code>VIS-003D</code></td>
-        <td>Card, hand, HUD, and match-feedback art</td>
-        <td class="state-pass">PASS</td>
-        <td>9/9</td>
-        <td>5</td>
-        <td>Round 5 passed: five exact whole-PNG SHA-256 hashes matched across four fresh Chrome processes; seven moving combat/effect selectors and zero region masks preserve static HUD, bridge, towers, and interface art</td>
-      </tr>
-      <tr>
-        <td><code>VIS-003E</code></td>
-        <td>Deterministic animation and interaction polish</td>
-        <td class="state-pass">PASS</td>
-        <td>6/6</td>
-        <td>2</td>
-        <td>Fresh Chrome verifies normal RAF terminal tail, exact restored ages0/6/12/24, frozen simulation, reduced motion and restart; historical footage remains unavailable</td>
-      </tr>
-      <tr>
-        <td><code>AUDIO-002</code></td>
-        <td>Authored original soundscape and mix polish</td>
-        <td class="state-pass">PASS</td>
-        <td>5/5</td>
-        <td>2</td>
-        <td>Round 2 passed: four real-displacement movement cues reached standard Chrome, stationary deploys emitted none, public replay stayed exact, and direct/chunk/restore plus evidence hashes reproduced</td>
-      </tr>
-      <tr>
-        <td><code>VIS-003G</code></td>
-        <td>Integrated production-polish browser journey</td>
-        <td class="state-pass">PASS</td>
-        <td>1/1</td>
-        <td>1</td>
-        <td>Fresh visual critic passes twelve states without blocking defects; full18000-tick endurance round6 now also passes</td>
-      </tr>
-      <tr>
-        <td><code>AUDIO-001</code></td>
-        <td>Original audio event system (superseded)</td>
-        <td class="state-question">QUESTION</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Wrong-shaped during readiness audit; split into AUDIO-001A/B</td>
-      </tr>
-      <tr>
-        <td><code>AUDIO-001A</code></td>
-        <td>Deterministic audio cue projection</td>
-        <td class="state-pass">PASS</td>
-        <td>12/12</td>
-        <td>2</td>
-        <td>Round 2 passed: causal tower credit, real death mapping, exact capacity, ordering, atomicity, and restore</td>
-      </tr>
-      <tr>
-        <td><code>AUDIO-001B</code></td>
-        <td>Original audio rendering and provenance</td>
-        <td class="state-pass">PASS</td>
-        <td>11/11</td>
-        <td>2</td>
-        <td>Round 2 passed: deterministic PCM, reproducible waveform provenance, concrete backend, lifecycle, bounds, and terminal faults</td>
-      </tr>
-      <tr>
-        <td><code>RELEASE-001A</code></td>
-        <td>Reproducible production artifact</td>
-        <td class="state-question">QUESTION</td>
-        <td>18/18</td>
-        <td>3</td>
-        <td>Wrong-shaped after three browser-graph closure rounds: custom HTML/SVG parser still accepts untraversed browser-fetching syntax</td>
-      </tr>
-      <tr>
-        <td><code>RELEASE-001B</code></td>
-        <td>Standards-based production dependency graph</td>
-        <td class="state-pass">PASS</td>
-        <td>25/25</td>
-        <td>2</td>
-        <td>Independent frozen 3d18d45 release 20/20 and Pages 5/5 pass; two builds share manifest be5959cf…aabbab51 (38 files, 5,541,603 bytes). Actual Chromium game/controller/RL flows and manifest-bound requests pass; producer failures preserve prior bytes. Does not certify predecessor dependency-free tooling, remote deployment, endurance or historical parity.</td>
-      </tr>
-      <tr>
-        <td><code>RELEASE-001W</code></td>
-        <td>Shipped runtime projection wiring</td>
-        <td class="state-pass">PASS</td>
-        <td>1/1</td>
-        <td>1</td>
-        <td>Fresh built-only Chrome journey passes twelve states,69 manifest-listed app paths, actual audio, exact restart and idempotent cleanup</td>
-      </tr>
-      <tr>
-        <td><code>RELEASE-001M</code></td>
-        <td>Entry-accurate shipping manifest and audit</td>
-        <td class="state-blocked">BLOCKED</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Runtime wiring now passes; browser-graph enforcement and entry-accurate provenance audit remain unresolved</td>
-      </tr>
-      <tr>
-        <td><code>RELEASE-001</code></td>
-        <td>Clean distributable</td>
-        <td class="state-blocked">BLOCKED</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Waiting on release subpieces, visual captures, causal integration questions, and enforcement questions</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001R</code></td>
-        <td>Playable eight-card runtime roster</td>
-        <td class="state-pass">PASS</td>
-        <td>9/9</td>
-        <td>5</td>
-        <td>Regression Round 5 passed full-value/order/freeze and 60-node graph detachment across eight cards/nine entities; all alias probes fail and canonical 11,154-byte roster output remains unchanged</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001P</code></td>
-        <td>Continuous deterministic battle movement (superseded)</td>
-        <td class="state-question">QUESTION</td>
-        <td>8/8</td>
-        <td>3</td>
-        <td>Wrong-shaped after three restore-provenance rounds; split into GAME-001PK and GAME-001PH</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001PK</code></td>
-        <td>Live-produced battle movement kernel</td>
-        <td class="state-pass">PASS</td>
-        <td>5/5</td>
-        <td>1</td>
-        <td>Round 1 passed: 8 live journeys, 220 restore cuts, both bridges/radii/signed speeds/chunks/atomic rejections passed</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001PH</code></td>
-        <td>Hostile movement-history canonicalization</td>
-        <td class="state-question">QUESTION</td>
-        <td>0/3</td>
-        <td>3</td>
-        <td>Wrong-shaped after three canonicality rounds: the bounded &gt;64 pair and &gt;128 exact-window cutoffs accept distinct 129-command and 29-command byte-fixed histories with identical reachable authority; exact global minimality is incompatible with the current bounded online-history bar</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001PHR</code></td>
-        <td>Battle movement history runtime cost</td>
-        <td class="state-pass">PASS</td>
-        <td>23/23</td>
-        <td>1</td>
-        <td>Fresh critic passed 23 history tests and 5 kernel tests; 97,035 bytes stable, serialize/restore 2.26/2.28 s to 0.55/0.57 s. Parent global-minimality QUESTION remains</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001K</code></td>
-        <td>Dynamic ordinary-unit combat kernel</td>
-        <td class="state-pass">PASS</td>
-        <td>9/9</td>
-        <td>2</td>
-        <td>Round 2 passed: due-spawn and multi-boundary failures are byte-atomic; causal restore forgeries reject</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001KX</code></td>
-        <td>External structure-target and damage ingress</td>
-        <td class="state-pass">PASS</td>
-        <td>9/9</td>
-        <td>3</td>
-        <td>Round 3 passed: permanent disjoint identity reservations and projectile attack-sequence provenance passed live/restore bounds</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001TX</code></td>
-        <td>Side-aware crown-tower target feed</td>
-        <td class="state-pass">PASS</td>
-        <td>9/9</td>
-        <td>1</td>
-        <td>Round 1 passed: all six towers attacked only hostile sides; identity/restore/bounds and legacy v3 compatibility passed</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001T</code></td>
-        <td>Dynamic unit-to-tower combat adapter (superseded)</td>
-        <td class="state-question">QUESTION</td>
-        <td>11/11</td>
-        <td>3</td>
-        <td>Wrong-shaped after three projectile-provenance rounds; split into GAME-001TK and GAME-001TH</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001TK</code></td>
-        <td>Live-produced unit↔tower combat kernel</td>
-        <td class="state-pass">PASS</td>
-        <td>7/7</td>
-        <td>1</td>
-        <td>Round 1 passed: authoritative bidirectional damage/activation/deaths, preview isolation, chunks and all live cuts passed</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001TH</code></td>
-        <td>Exhaustive cross-module projectile identity chain</td>
-        <td class="state-pass">PASS</td>
-        <td>17/17</td>
-        <td>3</td>
-        <td>Round 3 passed: all three directions carry source-minted identity; no origin lookup remains; 16 hostile preview forms reject trap-zero and the single-use state-bound receipt lifecycle is exact</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001A</code></td>
-        <td>Live battle state and ordinary troop combat</td>
-        <td class="state-pass">PASS</td>
-        <td>9/9</td>
-        <td>5</td>
-        <td>Original live-battle bar independently green through rounds 3-5: both directions, tower destruction, deaths/trades, chunks/restores and atomic capacity; hostile admission proof split to GAME-001AH after three validation-only gaps</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001AH</code></td>
-        <td>Hostile LiveBattle setup and snapshot admission</td>
-        <td class="state-pass">PASS</td>
-        <td>10/10</td>
-        <td>1</td>
-        <td>Round 1 passed: exact/one-over outer limits, controlled deep/wide rejection, Unicode scalar policy, legitimate tick-600 restore and guard all independently passed</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001B</code></td>
-        <td>Player command-to-battle bridge</td>
-        <td class="state-pass">PASS</td>
-        <td>11/11</td>
-        <td>3</td>
-        <td>Core receipt→spend→cycle→LiveBattle bar repeatedly green; capability-safe controller lifecycle split to GAME-001BH after three authority-boundary rounds</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001BH</code></td>
-        <td>Capability-safe player-controller authority lifecycle (superseded)</td>
-        <td class="state-question">QUESTION</td>
-        <td>18/18</td>
-        <td>3</td>
-        <td>Wrong-shaped after three lifecycle rounds; split into GAME-001BHA and GAME-001BHR</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001BHA</code></td>
-        <td>Zero-execution single-use HUD capability admission</td>
-        <td class="state-pass">PASS</td>
-        <td>18/18</td>
-        <td>3</td>
-        <td>Round 3 passed: primitive trap-zero admission, exact bridge brand, permanent tokens, sink/bridge authority claims and sequential fresh-token release</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001BHR</code></td>
-        <td>Fresh-token authoritative remount continuation</td>
-        <td class="state-pass">PASS</td>
-        <td>6/6</td>
-        <td>3</td>
-        <td>Production authoritative remount/advance/restore sealed behind frozen diagnostics; raw option admission split to GAME-001BHRA after three rounds</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001BHRA</code></td>
-        <td>Trap-zero production session option admission</td>
-        <td class="state-pass">PASS</td>
-        <td>7/7</td>
-        <td>1</td>
-        <td>Round 1 passed: object/callable/revoked/cross-realm/accessor/primitive probes trap-zero; captured single-use tokens and production lifecycle passed</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001O</code></td>
-        <td>Deterministic opponent decision kernel</td>
-        <td class="state-pass">PASS</td>
-        <td>10/10</td>
-        <td>2</td>
-        <td>Round 2 passed: full observation provenance rejects 13 causal forgeries; size edges and restore bytes passed</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HC</code></td>
-        <td>Bounded full-match battle history and checkpoints</td>
-        <td class="state-pass">PASS</td>
-        <td>5/5</td>
-        <td>3</td>
-        <td>Current v2 full-match history independently passed through tick 18,000; nested legacy continuation identity split to GAME-001HCL after three compatibility rounds</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HCL</code></td>
-        <td>Continuation-complete nested legacy history upgrade</td>
-        <td class="state-pass">PASS</td>
-        <td>5/5</td>
-        <td>2</td>
-        <td>Round 2 passed: all 12 private dimensions compare iteratively; exact 256-unit/36,352-event legacy amplification upgrades and continues</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001C</code></td>
-        <td>Opponent-to-battle integration</td>
-        <td class="state-pass">PASS</td>
-        <td>13/13</td>
-        <td>4</td>
-        <td>Full tick-18,000 autonomous opponent loop, roster/cost authority, admission bounds, chunks/restores and guard passed independently</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001V</code></td>
-        <td>Tower-state to match-victory evidence bridge</td>
-        <td class="state-pass">PASS</td>
-        <td>10/10</td>
-        <td>2</td>
-        <td>Round 2 passed: authoritative tower bytes replay exact transitions; hostile streams have no accepted API</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001D</code></td>
-        <td>Unified match session loop</td>
-        <td class="state-pass">PASS</td>
-        <td>8/8</td>
-        <td>3</td>
-        <td>Round 3 passed exact chronological terminal prefix: live simultaneous lane deaths, central terminal, batch/chunk/final-step/restore byte parity and all-authority freeze</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001E</code></td>
-        <td>Live browser runtime umbrella</td>
-        <td class="state-pass">PASS</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>E1 atomic projection, E2 exact input delivery, E3 scheduler/lifecycle and E4 fresh restart all passed separate executable bars</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001E1</code></td>
-        <td>Atomic session-to-view projection</td>
-        <td class="state-pass">PASS</td>
-        <td>18/18</td>
-        <td>5</td>
-        <td>Round 5 passed one-snapshot atomic projection through authentic tick-120 and live terminal combat, exact lifecycle normalization, authoritative maxima, trap-zero admission and rollback</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001E2</code></td>
-        <td>Browser input-to-session delivery</td>
-        <td class="state-pass">PASS</td>
-        <td>6/6</td>
-        <td>2</td>
-        <td>Round 2 passed trap-zero module-owned session authentication, exact-once pointer/touch delivery, atomic rejection and restore without redelivery</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001E3</code></td>
-        <td>Browser entry lifecycle and scheduler</td>
-        <td class="state-pass">PASS</td>
-        <td>6/6</td>
-        <td>2</td>
-        <td>Round 2 passed authoritative tick/hand/deck/elixir and command-ID continuation across RAF/restore, bounded batched scheduling, terminal/listener cleanup and shipped entry mounting</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001E4</code></td>
-        <td>Restart control and fresh-session lifecycle</td>
-        <td class="state-pass">PASS</td>
-        <td>3/3</td>
-        <td>1</td>
-        <td>Round 1 passed authentic terminal replacement, byte-exact seed-0 reset, repeated restart, stale graph/listener/audio cleanup, policy preservation and hostile cleanup aggregation</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001F</code></td>
-        <td>Live match audio umbrella</td>
-        <td class="state-pass">PASS</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>F1 authoritative cue feed and F2 trusted-gesture audible browser backend both passed their separate executable bars</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001F1</code></td>
-        <td>Session event-to-audio feed</td>
-        <td class="state-pass">PASS</td>
-        <td>7/7</td>
-        <td>2</td>
-        <td>Round 2 passed exact registration, authoritative ordered cue feed/dedupe, persistent gain/mute across restart, terminal cleanup and bounded trap-zero restore</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001F2</code></td>
-        <td>Audible browser backend and controls</td>
-        <td class="state-pass">PASS</td>
-        <td>11/11</td>
-        <td>3</td>
-        <td>Round 3 passed trusted unlock, audible control transactions, all-source rollback, atomic policy state, permanent faulting and observed idempotent cleanup</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001GH</code></td>
-        <td>Sustained active-match composite history</td>
-        <td class="state-pass">PASS</td>
-        <td>1/1</td>
-        <td>2</td>
-        <td>Round 2 passed exact tick 18,000 with 319,534-byte terminal snapshot, exact restore cuts and private null-prototype compact handles; independent export/proxy/import probes found no authority leak</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001GP</code></td>
-        <td>Sustained browser-match throughput</td>
-        <td class="state-pass">PASS</td>
-        <td>1/1</td>
-        <td>9</td>
-        <td>Retained same independent1464219 full18000 execution from GAME-001GPR round3: exact continuation/terminal/restart, no non-initialization longtasks or resource errors. Earlier failed revisions remain historical evidence; no additional execution claimed.</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001GPV</code></td>
-        <td>Browser endurance long-task attribution</td>
-        <td class="state-pass">PASS</td>
-        <td>2/2</td>
-        <td>2</td>
-        <td>Round 2 fresh critic passed delayed-task probe and 900-tick run; follow-up full 18,000-tick Chrome run passed 2/2 in 804.2 s, 61 segments, zero driven long tasks, initialization max 176 ms and exact terminal/restart</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001GS</code></td>
-        <td>Short authentic browser match journey</td>
-        <td class="state-pass">PASS</td>
-        <td>1/1</td>
-        <td>3</td>
-        <td>Independent current6dc short Chrome journey passes actual trusted controls, tick600 deterministic repeat, terminal1590 north3-1/32events and restart with zero console/unhandled errors. Evidence4663c20; full109 execution outside scope.</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001G</code></td>
-        <td>Playable browser match journey umbrella</td>
-        <td class="state-pass">PASS</td>
-        <td>0/0</td>
-        <td>1</td>
-        <td>Scoped default8/candidate16 browser umbrella: current6dc short journey passes independently; prior146 full18000 restore/audio/input/terminal/restart proof retained by identical simulation/combat/audio/motion/harness hashes. No fresh6dc full run or full109 parity claim.</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001H</code></td>
-        <td>Supported-roster runtime coverage umbrella</td>
-        <td class="state-blocked">BLOCKED</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Split into independently judged shared admission, authority integration, troop, building and spell session bindings</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HA</code></td>
-        <td>Heterogeneous session card admission and typed history</td>
-        <td class="state-pass">PASS</td>
-        <td>7/7</td>
-        <td>1</td>
-        <td>Round 1 passed exact 58/53 accounting, 47 admitted legal deck witnesses, six sourced QUESTION exclusions, typed once-only routing, zero non-unit placeholders and bounded canonical history</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HTA</code></td>
-        <td>Shared troop mechanic authority seam</td>
-        <td class="state-pass">PASS</td>
-        <td>7/7</td>
-        <td>3</td>
-        <td>Round 3 passed: the seam observes the canonical tick-102 Mossguard attack→202 damage→causal receipt with no external ingress or gameplay delta; early/forged contacts and hostile inputs reject exactly</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HT</code></td>
-        <td>Unified-session troop roster mechanics umbrella</td>
-        <td class="state-blocked">BLOCKED</td>
-        <td>0/0</td>
-        <td>1</td>
-        <td>Round 1 failed; split by independently executable projection/mechanic families after audit found 31 admitted IDs, two QUESTION identities and no honest one-patch shared-runtime path</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HTP</code></td>
-        <td>Troop occurrence and session-profile contract</td>
-        <td class="state-pass">PASS</td>
-        <td>11/11</td>
-        <td>1</td>
-        <td>Round 1 passed exact 35/33 accounting, all 33 admitted source joins, two stale QUESTION fail-closed pins, one profile/composition per duplicated ID, canonical frozen clones and trap-zero hostile lookup</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HTO</code></td>
-        <td>Ordinary troop projection into eight-card witness sessions</td>
-        <td class="state-pass">PASS</td>
-        <td>14/14</td>
-        <td>3</td>
-        <td>Round 3 passed all 31 real sessions, 32 entities and 64 policies; 128 paired omissions, 31 whole-card omissions and every mixed legacy/HTO policy mode reject before admission</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HTMP</code></td>
-        <td>Movement/form source-profile contract</td>
-        <td class="state-pass">PASS</td>
-        <td>25/25</td>
-        <td>12</td>
-        <td>Round 12 passed 80 real nested-alias rejections, 210 synthetic delimiter rejections, exact 6/30 domain admission, zero hostile effects and the pinned 67,284-byte manifest/hash</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HTM</code></td>
-        <td>Shared troop movement and form mechanics</td>
-        <td class="state-pass">PASS</td>
-        <td>22/22</td>
-        <td>5</td>
-        <td>Round 5 re-passed after replacing the flaky absolute restore-time bound with a scaled 256-vs-1024 ratio guard (quadratic baseline ~16x passes with headroom, cubic fails decisively, load-invariant); serialization purity from round 4 unchanged</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HTJP</code></td>
-        <td>Projectile source-profile contract</td>
-        <td class="state-pass">PASS</td>
-        <td>26/26</td>
-        <td>6</td>
-        <td>Round 6 passed 1,105 source mutations, 452 hostile cases with zero callbacks/traps, 32 TOCTOU probes, eight authority forgeries, exact 66,903-byte manifest/hash and all dependent suites</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HTJ</code></td>
-        <td>Shared troop projectile mechanics</td>
-        <td class="state-pass">PASS</td>
-        <td>6/6</td>
-        <td>2</td>
-        <td>Round 2 passed private exact-receipt plan issuance, 40 fresh-process authority attacks, 113 altered receipts, 11 facade mismatches, realpath-exact guard closure and all 165 required selector tests</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HTSP</code></td>
-        <td>Status/heal/visibility source-profile contract</td>
-        <td class="state-pass">PASS</td>
-        <td>15/15</td>
-        <td>2</td>
-        <td>Round 2 passed exact 8/8 profiles, 240 QUESTION records, seven two-read catalog closures, 153 independent adversaries, Railward unresolved-only, Aegis pending composition and stable 82,575-byte serialization</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HTS</code></td>
-        <td>Shared troop status, heal and visibility mechanics</td>
-        <td class="state-pass">PASS</td>
-        <td>33/33</td>
-        <td>4</td>
-        <td>Round 4 passed exact receipt-bound projections, 317 independent mutation cases, stale setup/proxy/two-read attacks, six witnesses, 36 restore cuts and every named dependency/guard</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HTC</code></td>
-        <td>Shared champion and duplicated-facade troop composition umbrella</td>
-        <td class="state-blocked">BLOCKED</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Split into independently evidenceable charge and champion/reflection compositions; both child pieces remain source-blocked</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HTEC</code></td>
-        <td>Emberlance charge/knockback/retarget composition</td>
-        <td class="state-blocked">BLOCKED</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Cutoff sources establish 3.0-tile charge range, 2× speed and 392 bonus damage, but not reset classes, inclusive tick boundary, same-boundary hit/death order or serialized state; current 3.5-tile QUESTION fixture conflicts with the cutoff</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HTAC</code></td>
-        <td>Aegis Sage champion/reflection composition</td>
-        <td class="state-blocked">BLOCKED</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Cutoff sources establish cost 1, cooldown 17 s, active duration 4 s, radius 1.5 tiles and 80% reduction, but not activation delay, projectile enum semantics, identity/target rewrite, simultaneous order or expiry/death boundaries; current 0.5-tile QUESTION fixture conflicts with the cutoff</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HBA</code></td>
-        <td>Shared building mechanic authority seam</td>
-        <td class="state-pass">PASS</td>
-        <td>14/14</td>
-        <td>2</td>
-        <td>Round 2 passed: exact frozen catalog receipts are pinned across parser, LiveBattle, GameSession and reducer; forged leaves/shapes/swaps reject trap-zero while private legacy restore remains exact</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HB</code></td>
-        <td>Unified-session building roster mechanics</td>
-        <td class="state-question">QUESTION</td>
-        <td>10/10</td>
-        <td>3</td>
-        <td>Round 3 confirms shared execution and the HBP provenance fix, but the required periodic/death-spawn GameSession path remains unverified: Bramble Cage and Ember Roost still have identity-only QUESTION records and reject admission, while Burrow Rig emits a spawn-question event without a unit. The isolated BUILDING-002 encounter does not establish a source-backed shared-session spawner. Sourceaudit55afe51 separately corroborates GoblinHut3/wave,500ms intermember,10s frequency,29s lifetime andrawdeathcount3; timerorigin/cadenceanchor/expiryordering remainQUESTION andnooriginalruntimealias is asserted.</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HBP</code></td>
-        <td>Nondefensive building policy provenance</td>
-        <td class="state-pass">PASS</td>
-        <td>3/3</td>
-        <td>1</td>
-        <td>Round 1 passed all nine QUESTION fields through catalog, receipt, and live structure; 45/45 per-field admission attacks reject. Cinder ordinary attack is 160; death damage is 200 QUESTION and tower damage is 70 QUESTION at 35%. One-step/chunk/restore bytes and the seed-zero standard deck remain exact.</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HSA</code></td>
-        <td>Shared spell-effect authority seam</td>
-        <td class="state-pass">PASS</td>
-        <td>10/10</td>
-        <td>2</td>
-        <td>Round 2 passed: all admitted effects without an exact profile reject visibly and byte-atomically before spend/cycle/route under both aliases; profiled Squall retains exact shared 689 damage and zero placeholders</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HI</code></td>
-        <td>Shared roster authority integration</td>
-        <td class="state-pass">PASS</td>
-        <td>1/1</td>
-        <td>1</td>
-        <td>Round 1 passed one real mixed GameSession graph with exact once-only cross-kind routes/spends, shared combat/effects, byte-identical continuation paths, hostile receipt rejection and no placeholders</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HUIK</code></td>
-        <td>Nondefault troop witness in shipped browser</td>
-        <td class="state-pass">PASS</td>
-        <td>1/1</td>
-        <td>1</td>
-        <td>Fresh critic passed real Chrome witness 1/1, restart 3/3 and default journey 1/1; physical play spent 5 elixir, created one shared unit, exact restore and witness restart; body-radius/delivery/layer policies remain QUESTION</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HUIR</code></td>
-        <td>In-app supported-deck choice</td>
-        <td class="state-pass">PASS</td>
-        <td>2/2</td>
-        <td>2</td>
-        <td>Round 2 passed both browser suites: hidden chooser controls are excluded from the journey inventory and cannot take focus; the standard chooser is visible and clickable; seed-zero opening, pre-match presentation, default journey, and same-deck restart checks pass. Keyboard focus entry/containment after opening remains untested</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HUIB</code></td>
-        <td>In-app defensive-building witness</td>
-        <td class="state-question">QUESTION</td>
-        <td>26/26</td>
-        <td>5</td>
-        <td>Round 5 preserves and rejects stripped/forged profile receipts, carries the QUESTION policy through GameSession/live structures and browser restore, keeps Standard exact, and restores the full 720×1280 viewport with 0 changed pixels. However, the live session still executes `firstHitTicks=0` against a source `null` and performs six attacks using unverified Cannon damage 212, HP 824, deploy 60 ticks, range 5,500, and ground targeting; labeling those estimates QUESTION does not meet the no-unsourced-policy bar. Source audit: reference/research/cannon-combat-source-audit.md confirms the cutoff datamine but no established first-hit semantics or same-cutoff corroboration; retain provisional labeling and do not claim parity.</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HUIF</code></td>
-        <td>Keyboard-complete pre-match deck chooser</td>
-        <td class="state-pass">PASS</td>
-        <td>1/1</td>
-        <td>1</td>
-        <td>None on judged dimension; real Chrome keyboard flow and pointer/default/restart regressions pass</td>
-      </tr>
-      <tr>
-        <td><code>VIS-003H</code></td>
-        <td>Exact browser frame restore boundary</td>
-        <td class="state-pass">PASS</td>
-        <td>1/1</td>
-        <td>1</td>
-        <td>Round 1 passes in Chrome 153.0.8010.53: standard tick 0 and Bulwark targeting tick 114/unit:4 have identical checkpoint/repeat/restore PNG hashes and zero pixel deltas; browser/session/DOM/HUD/input bytes stay exact. Historical footage parity remains VIS-001/VIS-002</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HS</code></td>
-        <td>Unified-session spell roster mechanics umbrella</td>
-        <td class="state-blocked">BLOCKED</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Split by profile/effect family; Squall&#x27;s four private facades cannot count until one source-backed common-session composition exists</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HSQ</code></td>
-        <td>Spell occurrence and common-composition evidence contract</td>
-        <td class="state-blocked">BLOCKED</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Four Squall exports demonstrably reuse one base catalog; return is an unsourced fixture context, not proven card phase. Resolve context classification and independently source real activation/travel/impact policy</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HSQO</code></td>
-        <td>Spell occurrence and fixture-context accounting</td>
-        <td class="state-pass">PASS</td>
-        <td>4/4</td>
-        <td>1</td>
-        <td>Fresh critic verified all 13 occurrences, 10 identities and four shared Squall fixture contexts; zero complete card profiles. Parent HSQ composition remains blocked</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HSP</code></td>
-        <td>Shared periodic spell mechanics</td>
-        <td class="state-blocked">BLOCKED</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Pinned cutoff supplement exposes 78 area/buff fields; the isolated Blight Ring/Fault Pulse movement-only slow fixtures now match the corroborated 15%/50% values. The universal crown ratio still conflicts, and shared activation/refresh/rounding/pull order remain unresolved</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HSPF</code></td>
-        <td>Corroborated periodic movement-slow facts</td>
-        <td class="state-pass">PASS</td>
-        <td>75/75</td>
-        <td>2</td>
-        <td>Round 2 passed all five focused suites (75/75), refreshed and verified all 58 occurrence bindings in two identical integration sweeps, and confirmed all six GameSession/LiveBattle execution attempts still reject atomically. This closes the isolated fixture/pin contract only; GAME-001HSP remains BLOCKED and full periodic composition and unresolved lifecycle/order rules remain QUESTION. Round 1&#x27;s stale pin failure and dated metadata correction remain in rounds.md.</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HSS</code></td>
-        <td>Shared instant and status spell mechanics</td>
-        <td class="state-blocked">BLOCKED</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Pinned cutoff supplement verifies 61 fields: separate Tempo friendly buff/enemy damage areas, raw 135 speed multipliers and Static 500-ms stun. Generic 7/4 rage conflicts; activation, refresh, reset classes and ordering remain unresolved</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001HST</code></td>
-        <td>Shared traveling, wave, return and roll spell mechanics</td>
-        <td class="state-blocked">BLOCKED</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Isolated line/wave/return/roll facades are deterministic but lack common-session composition receipts</td>
-      </tr>
-      <tr>
-        <td><code>APP-001</code></td>
-        <td>Player-facing home, collection and card mechanics info</td>
-        <td class="state-pass">PASS</td>
-        <td>23/23</td>
-        <td>1</td>
-        <td>Round 1 passed actual Chrome at 720×1280, 390×844, and 1440×900; eight runtime card profiles and Briar Band components display exactly; battle deploy/pause/resume and release isolation pass. None on judged dimension</td>
-      </tr>
-      <tr>
-        <td><code>APP-002D</code></td>
-        <td>Deterministic editable-deck setup</td>
-        <td class="state-pass">PASS</td>
-        <td>4/4</td>
-        <td>1</td>
-        <td>Round 1 passed all nine ordered subsets, default bytes, QUESTION closure, rejection, deterministic chunk/restore replay and live Stonehauler deployment; generic setup admission still honors caller-authored estimates only as explicitly unverified QUESTION values</td>
-      </tr>
-      <tr>
-        <td><code>APP-002</code></td>
-        <td>Editable eight-card deck and match launch</td>
-        <td class="state-pass">PASS</td>
-        <td>34/34</td>
-        <td>1</td>
-        <td>Round 1 passed production build/browser checks, canonical custom setup launch, restore/restart, hostile-message rejection and 390×844 slot-8 keyboard/pointer access; slot 8 needs a 76px scroll to clear the fixed navigation from the initial position</td>
-      </tr>
-      <tr>
-        <td><code>APP-003</code></td>
-        <td>Deck and card-info interaction polish</td>
-        <td class="state-pass">PASS</td>
-        <td>8/8</td>
-        <td>2</td>
-        <td>Round 2 passed both requested test suites and an independent trusted Tab/Shift+Tab audit at 320×568 and 390×844; all settled focus targets clear fixed navigation and are at least 44px. Round 1 and 2 found no remaining gap on the judged dimension</td>
-      </tr>
-      <tr>
-        <td><code>APP-004</code></td>
-        <td>Readable hand and next-card HUD in packaged Battle</td>
-        <td class="state-pass">PASS</td>
-        <td>9/9</td>
-        <td>2</td>
-        <td>Round 2 passed both requested suites and independent 720×1280 geometry: elixir right=715.609px with its 2px outline inside the frame; fourth card target is 112×128px, 3px clear of the badge box. Names/costs and trusted cycle/deploy behavior pass at all three viewports. At 1280×720 the smallest typography margins are 0.277px for names and 0.847px for costs.</td>
-      </tr>
-      <tr>
-        <td><code>RL-001</code></td>
-        <td>Deterministic JavaScript training environment</td>
-        <td class="state-pass">PASS</td>
-        <td>2/2</td>
-        <td>3</td>
-        <td>Round 3 passed focused Node checks: wait-only seed 2 restores at tick 2,400 and reproduces every transition to its natural north 3–0 win at tick 4,899 with reward −1; horizon clipping remains a separate truncation at tick 10. Artifact commit changes tests only.</td>
-      </tr>
-      <tr>
-        <td><code>VIS-003HR</code></td>
-        <td>Exact frame restore after a long rendered branch</td>
-        <td class="state-pass">PASS</td>
-        <td>2/2</td>
-        <td>2</td>
-        <td>Round 2 on immutable `948eb63` passed UI/visual source pins, short exact restore, the real 140-tick Bulwark branch with byte-identical viewport and zero pixel delta, and full 18,000-tick browser endurance with terminal/restart and unchanged long-task caps. Round 1&#x27;s two-pixel mismatch remains recorded in rounds.md.</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001GPVT</code></td>
-        <td>Terminal and restart long-task attribution</td>
-        <td class="state-pass">PASS</td>
-        <td>2/2</td>
-        <td>6</td>
-        <td>Retained same1464219 classifier/full18000 execution: explicit terminal/restart/drain attribution and unchanged50/300ms caps pass, initialization154ms and no qualifying lifecycle longtasks. No new separate execution claimed.</td>
-      </tr>
-      <tr>
-        <td><code>ART-004</code></td>
-        <td>Original deterministic 2D sprite prototype</td>
-        <td class="state-building">BUILDING</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>User requested improved art and suggested sprite sheets; isolated prototype must be rendered and judged separately before arena integration.</td>
-      </tr>
-      <tr>
-        <td><code>PUB-003</code></td>
-        <td>Reader-first README and separate engineering guides</td>
-        <td class="state-pass">PASS</td>
-        <td>2/2</td>
-        <td>1</td>
-        <td>Independent reader-first README review passed; mechanics explained in plain language, technical commands/API/evidence moved to linked guides. Live prototype publication is separately PUB-004.</td>
-      </tr>
-      <tr>
-        <td><code>ART-005</code></td>
-        <td>Painted arena and troop asset quality</td>
-        <td class="state-building">BUILDING</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>User prioritized immediate asset quality; current flat vector prototype is insufficient and its 720px fixture overstated actual troop scale. Painted sprite and arena builders own disjoint assets and demos.</td>
-      </tr>
-      <tr>
-        <td><code>ART-005C</code></td>
-        <td>Painted portraits across playable screens</td>
-        <td class="state-pass">PASS</td>
-        <td>1/1</td>
-        <td>3</td>
-        <td>Independent frozen 686b6ee full app flow passes; actual Pages desktop/phone renders show all nine portraits, correct Stonehauler deck replacement, matching hashes, no browser/HTTP errors or overflow, and zero navigation overlap.</td>
-      </tr>
-      <tr>
-        <td><code>ART-005A</code></td>
-        <td>Painted terrain in playable arena</td>
-        <td class="state-pass">PASS</td>
-        <td>19/19</td>
-        <td>2</td>
-        <td>Independent42da2ef focused19/19 passes including real desktop Chrome; CSS/WebP hashes identical to independently rendered R1 phone deployment/nooverflow. Local-image provenance remains manifest/hash bound. Historical parity unverified.</td>
-      </tr>
-      <tr>
-        <td><code>ART-005S</code></td>
-        <td>Painted troop animation in playable battle</td>
-        <td class="state-pass">PASS</td>
-        <td>51/51</td>
-        <td>3</td>
-        <td>Independent frozen 217b210 source-hosted review passes 51/51. Actual desktop and phone captures restore byte-for-byte in normal and reduced motion; opposing team baseplates remain readable at final phone scale. One overlapped north marker has only two color pixels. Packaged release, endurance and historical parity are outside this verdict.</td>
-      </tr>
-      <tr>
-        <td><code>LORE-001</code></td>
-        <td>Original world and card lore</td>
-        <td class="state-pass">PASS</td>
-        <td>1/1</td>
-        <td>1</td>
-        <td>Independent frozen e235a0f app-polish passes; all nine visible stories match at desktop and phone sizes, separate from mechanics; zero horizontal overflow and final-stat/navigation overlap. World guide linked in README.</td>
-      </tr>
-      <tr>
-        <td><code>CARDS-011</code></td>
-        <td>Classic melee squad collection expansion</td>
-        <td class="state-pass">PASS</td>
-        <td>80/80</td>
-        <td>1</td>
-        <td>Independent frozen 42bcf09 passes focused73, app-shell1 and asset6 checks. Actual desktop/phone portraits and stories render; both custom-deck squads deploy and restore exactly; default eight-card setup preserved. Historical stat corroboration remains incomplete.</td>
-      </tr>
-      <tr>
-        <td><code>GAME-SPELL-001</code></td>
-        <td>Full radius spell through player and agent decks</td>
-        <td class="state-pass">PASS</td>
-        <td>48/48</td>
-        <td>1</td>
-        <td>Independent frozen bccd0a9 passes runtime41, app-shell1 and assets6; actual mixed deck, trusted cast, spend/cycle, pending restore and area damage work. Flight/knockback remain excluded; source guard and scoped full endurance now pass; complete historical spell behavior remains open.</td>
-      </tr>
-      <tr>
-        <td><code>SKILL-CHAR-001</code></td>
-        <td>Reusable original character creation</td>
-        <td class="state-pass">PASS</td>
-        <td>3/3</td>
-        <td>1</td>
-        <td>Independent validator/copy check and concept-only/planning-only forward tests pass on 45b1947. Installed user skill matches repo; planning-only instructions could be clearer but both explicit boundaries were honored.</td>
-      </tr>
-      <tr>
-        <td><code>CARDS-013</code></td>
-        <td>Full swarm and heavy melee choices</td>
-        <td class="state-pass">PASS</td>
-        <td>86/86</td>
-        <td>2</td>
-        <td>Core85/85 retained; independent ce3beba app-shell1/1 and actual desktop/phone target profiles show consistent current classification with provisional source wording, original portraits/lore and default8. Global stale collection notice corrected in next batch.</td>
-      </tr>
-      <tr>
-        <td><code>PROGRESS-001</code></td>
-        <td>Complete live piece inventory</td>
-        <td class="state-pass">PASS</td>
-        <td>1/1</td>
-        <td>1</td>
-        <td>Independent frozen generator review renders all 210 valid rows with exact values and all 375 existing trajectories; unknown valid prefixes included, malformed rows excluded.</td>
-      </tr>
-      <tr>
-        <td><code>RELEASE-GUARD-001</code></td>
-        <td>Preserve source and asset guard admission</td>
-        <td class="state-building">BUILDING</td>
-        <td>29/29</td>
-        <td>1</td>
-        <td>Current6dc guards23, Pages5 and shortjourney1 pass with canonical assets and retained146 full endurance. Earlier restore/path failures are resolved for this scope; separately reproduced production release/host isolation failures remain under RELEASE-TEST001 diagnosis before broad release qualification.</td>
-      </tr>
-      <tr>
-        <td><code>RELEASE-ASSET-001</code></td>
-        <td>Canonical imported asset deduplication</td>
-        <td class="state-pass">PASS</td>
-        <td>29/29</td>
-        <td>1</td>
-        <td>Independent frozen 6dc review 4663c20 passes guards23, Pages5 and short journey1. Production42 files/5354760B, all42 hashes/sizes match,15 canonical assets unchanged with zero duplicates/protected paths. Actual prefixed sprites/arena/portraits decode and JS/RL reset-step-restore qualifies. Prior146 full57/57 retained by matching runtime/harness hashes; no fresh18k run.</td>
-      </tr>
-      <tr>
-        <td><code>CARDS-015</code></td>
-        <td>Ranged pair and flying trio choices</td>
-        <td class="state-pass">PASS</td>
-        <td>64/64</td>
-        <td>1</td>
-        <td>Independent9b5 core/API63+RL1 pass; actual53file8134132B production qualifies and16mixed/15troop collection with default8 renders correct current-game stats/lore/controls. Source stats remain non-authoritative, speed/layer QUESTION. Separate ART015 round2 now passes actual phone and desktop portrait details.</td>
-      </tr>
-      <tr>
-        <td><code>ART-015</code></td>
-        <td>Original ranged-pair and flying-trio portraits</td>
-        <td class="state-pass">PASS</td>
-        <td>1/1</td>
-        <td>2</td>
-        <td>Independent frozen6dc browser review5bb0c6f passes16 decoded mappings and both portraits/lore at1440x933 and390x844. Phone64px portraits, panels right378/bottom653 and622, visible44px back/nav, focused title, uniqueIDs and seven stats. Original provenance matches; no historical parity claim.</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001GPR</code></td>
-        <td>Restore transaction throughput</td>
-        <td class="state-pass">PASS</td>
-        <td>57/57</td>
-        <td>3</td>
-        <td>Independent immutable1464219 passes55 preflight plus2 strict endurance tests. Full18000 ticks/61 segments, exact600-to300-to600 session/input/layers/audio, terminal/restart, zero resource/console errors. Unchanged50/300ms caps: initialization154ms; no qualifying non-initialization longtasks. Evidence463013b, artifacts/game-001gpr-round-3/critic. Scope default8/candidate16 only.</td>
-      </tr>
-      <tr>
-        <td><code>RELEASE-TEST-001</code></td>
-        <td>Current production isolation test qualification</td>
-        <td class="state-pass">PASS</td>
-        <td>33/33</td>
-        <td>2</td>
-        <td>Independent1872 candidate suites33/33, originalpolicyprobes9/9 and additionalresolvededgeprobes8/8 pass. RealCSP/prefixedbrowserRL and15canonicalassets/caps/cleanup verified; evidence9af101d includedf6c203b. Scope source-isolation only, no currentfullendurance or109-card release claim.</td>
-      </tr>
-      <tr>
-        <td><code>COVERAGE-002</code></td>
-        <td>Versioned current historical roster mapping</td>
-        <td class="state-pass">PASS</td>
-        <td>6/6</td>
-        <td>2</td>
-        <td>Independent round2 rejects all six semantic mutation classes, including fixture promotion and false evidence lines. Frozen6dc inventory109 rows/16 editable/default8/53 admitted58occ remains reproducible;67 focused tests pass. Actual42-file production exclusion audit passes. Mapping only: zero full historical executions; newer core not covered.</td>
-      </tr>
-      <tr>
-        <td><code>CARDS-016K</code></td>
-        <td>Two additional classic air-swarm runtime roles</td>
-        <td class="state-pass">PASS</td>
-        <td>24/24</td>
-        <td>2</td>
-        <td>Independent clean7cb criticd95d19e air-swarm8/8 and ordinary16/16 pass; direct hostile admission probes8/8 reject missing/forged/dangling/wrong-value metadata. Default8 snapshots6/6 byte-identical against6dc; strict current18000 passes. Ten estimate QUESTIONS per newrole remain explicit; both roles remain outside16 editable/RL choices.</td>
-      </tr>
-      <tr>
-        <td><code>ART-016P</code></td>
-        <td>Original air-swarm portrait assets and lore</td>
-        <td class="state-pass">PASS</td>
-        <td>8/8</td>
-        <td>2</td>
-        <td>Independent clean7cb criticd95d19e art2/2 and manifest6/6 pass; actual native64px Coppershade has six separate copper birds in3x2 arrangement. Provenance and original atlas preserved. Asset-only scope; real public editable phone/desktop ART016 remains blocked.</td>
-      </tr>
-      <tr>
-        <td><code>ART-016</code></td>
-        <td>Original light and projectile air-swarm portraits</td>
-        <td class="state-pass">PASS</td>
-        <td>1/1</td>
-        <td>1</td>
-        <td>Independent clean6ec critic30725fc real390x844 and1440x933 detail renders forbothcards show originalmatchingportrait/lore/sevenstats, nohorizontaloverflow andvisiblephonenavigation/Cardscontrol. Screens/hashes retainede703827. Artworkscopeonly; CARDS016I trustedCoppershadeflow stillunderrepair.</td>
-      </tr>
-      <tr>
-        <td><code>CARDS-016I</code></td>
-        <td>Two air-swarm choices in player and RL decks</td>
-        <td class="state-pass">PASS</td>
-        <td>58/58</td>
-        <td>2</td>
-        <td>Independent exacta8 critic980730f six suites58/58: browser1, core13, editable10, RL11, guards23. Actual18choices/default8, trusted5body2costGloamwing and6body5costCoppershade, airborneprojectile, typedQUESTIONS andexactrestore/replay. Real390x844/1440x933 controls/details/nooverflow pass. Historicalformation/stagger remainsCARDS016D/T, no109parity ornewdeploymentclaim.</td>
-      </tr>
-      <tr>
-        <td><code>CARDS-016D</code></td>
-        <td>Historical swarm formation and spawn timing</td>
-        <td class="state-question">QUESTION</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Sourceaudit3545777 confirms official2020 per-member100ms interval and2022 deploy-radius spacing change; raw750/600 retained. Exactgeometry/memberorder/anchor/first-onset stillQUESTION, no matchedfootage. Current generic300 same-batch model lacksconfirmedstagger; CARDS016T implementsrelativeinterval separately withoutpromotingunknowngeometry/onset.</td>
-      </tr>
-      <tr>
-        <td><code>PUB-004</code></td>
-        <td>Publish current playable prototype</td>
-        <td class="state-pass">PASS</td>
-        <td>2/2</td>
-        <td>2</td>
-        <td>Round2 independent b41e7c2 verifies live ae4a63e release/workflow38431846142 success,18uniquechoices includingbothairswarms, actualHTTP200 andruntime/roster bytes matchmanifest. Publishedruntime unchanged from full18000 reviewed796:2/2,init197≤300/noninit50caps. Eightdocslinksresolve; pendingc981 defaultBriar/fivesquad timing excluded. Prior round1 physical publicbrowser proof retained; no109parity claim.</td>
-      </tr>
-      <tr>
-        <td><code>RELEASE-PRELOAD-001</code></td>
-        <td>Generated preload helper source provenance</td>
-        <td class="state-pass">PASS</td>
-        <td>44/44</td>
-        <td>3</td>
-        <td>Independent exact8e criticbd34e02: release22/22, guards13/13, shipping release4/4, Pages5/5; additional40/40 authored-helper probes reject. Actual prefixed Pages44files/5443302B with all17 canonical assets byte-identical and59 successful requests. Actual38176273703 build/deploy SUCCESS. Prior generated-helper/CSS/naming failures retained.</td>
-      </tr>
-      <tr>
-        <td><code>CARDS-016T</code></td>
-        <td>Source-backed relative air-swarm deployment interval</td>
-        <td class="state-pass">PASS</td>
-        <td>77/77</td>
-        <td>2</td>
-        <td>Independent frozen796 critic a1a69f7 actualordinary16/16+focused16/16; runtime/assets andallunchangedharnesshashes retain61priorrequestedpasses withoutdouble-countingcore16 (77distinctscopedchecks). Sixfullserializeddefault8snapshots identicaltoa8; kernel524275 under524288cap. Relative100msbirthaxis accepted; geometry/order/onsetQUESTIONs remain. Currentstrict18000 separatelyGAME001GPR4.</td>
-      </tr>
-      <tr>
-        <td><code>COVERAGE-003</code></td>
-        <td>Versioned eighteen-card historical roster mapping</td>
-        <td class="state-pass">PASS</td>
-        <td>6/6</td>
-        <td>1</td>
-        <td>Independent critic885bf76 frozena8 generates109rows78/13/18,18editable/default8,55catalog60occ,12declarationcandidates6unjoined and26typedQUESTIONs; old11/16hashesunchanged. Sixsemanticclasses+9actualJSONtampercases reject;107focusedtests pass. Actual44file5443443B production/Chromiummanifest audit excludesinventory/reference/private paths underunchangedcaps. Zero109historicalexecutions/parity; newerstaggeroutsidefrozenmapping.</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001GPR4</code></td>
-        <td>Current eighteen-choice runtime strict endurance</td>
-        <td class="state-pass">PASS</td>
-        <td>2/2</td>
-        <td>1</td>
-        <td>Independent exact796 critic629b42e full18000 originalsession17088 exit0, main811580ms/total813794ms. Init197ms≤300; allnoninitlongtaskcategories0 under50. Exact600→300 restore/audio/input42/42, terminal18000/restart0 count1 andzeroresources/errors. FreshTAP/JSON/PNGs/mtimehashreceipt retained. Scopedseed0/default8 workloadonly, notall18combinations or109parity.</td>
-      </tr>
-      <tr>
-        <td><code>CARDS-017T</code></td>
-        <td>Remaining source-backed playable squad intervals</td>
-        <td class="state-pass">PASS</td>
-        <td>74/74</td>
-        <td>2</td>
-        <td>Independent frozen6c7 critic4a96c2f: fullintegrationaudit6/6 actualtwohashruns,focused45/45,guards23/23. Exact3generatedbindingupdates/63unchanged,66claimedartifacts61IDs distinctfrom60admitted55IDs; unchanged47selectors. Priortrustedphone/desktopbirthwitnesshash-valid withruntimec981continuity. Strictreceipts/partialrestore andsourceinterval accepted; geometry/onset/memberorder remainQUESTION. ChangeddefaultBriar needs freshGAME001GPR5 endurance, no prior796proof substitution.</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001GPR5</code></td>
-        <td>Corrected default-squad runtime strict endurance</td>
-        <td class="state-pass">PASS</td>
-        <td>2/2</td>
-        <td>2</td>
-        <td>Independentfa7fa47 exact5ba fullstrictcommand exit0 TAP2/2:987818ms main990051ms total,67segments reach18000. Setup306bb30;40physicalE2 decisions including6state-aware counters matchfrozenpreflight. Restore600→300→600 exactsession/input/audio parity; terminal18000/restart0; init197≤300 andallnoninitLongTaskcategories0 under50; resources/console/unhandledempty. Exact2808blobs and144runtime/4harness hashesmatch. Pause/resume intentionally add2transcript records; mirror parity holds, assertionwordingoverstatescross-boundarybyteinvariance. Scopeddefault8workloadonly, not109parity.</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001GPR5P</code></td>
-        <td>Terminal-aware endurance planning and explicit duration failure</td>
-        <td class="state-pass">PASS</td>
-        <td>1/1</td>
-        <td>1</td>
-        <td>Independent425c3c8 frozen2d6 focused1/1 plus actual provenance/adversarial probe: originalJSONhash/copiedinput/manifest andtwoidenticalreplays, exactactive13200Cinderlingsplan, terminalnoplanning andexplicitunmet18000diagnostic, forgedterminalcountrejection/exactendactiveallow,10frozenruntimehashesunchanged. Caps/input/restore/audio/restartassertions preserved. This planning guard is retained; later GAME001GPR5 round420 supplies fresh18k proof for the adaptive workload.</td>
-      </tr>
-      <tr>
-        <td><code>CARDS-018K</code></td>
-        <td>Editable defensive splash structure and RL visibility</td>
-        <td class="state-pass">PASS</td>
-        <td>1/1</td>
-        <td>3</td>
-        <td>Independent exactb333 docsrepair: bothliteralguide snippets exit0, freshbounded1/1, action256/version2/2305actions, tick1elixir10→6, Ember→Squallhand,nextMossguard,costreceipt4highauthoritative; HP1356/lifetime/attack,Qhonesty,JSONdetachment,checkpointcontinuation/v1reject pass. All499checkedblobs equal d209,src/tests unchanged; previous75core+26API checks retainedviareceiptchecksums notrerun. Default8bytes preserved. Existingbuildingprofile/lifetime remainQUESTIONS; livebrowserpresentation separatelyCARDS018I.</td>
-      </tr>
-      <tr>
-        <td><code>CARDS-018I</code></td>
-        <td>Original Ember Basin card presentation and browser integration</td>
-        <td class="state-pass">PASS</td>
-        <td>25/25</td>
-        <td>1</td>
-        <td>Independent exact7f8baee browser1/1, assets6/6, shipping13/13, Pages5/5 and build47files pass. Trusted19thchoice customdeck, cost/cycle, two222splash hits96ticks apart, expiry1800→1801, same-mode restore pixels and restart verified. Builder repeat has startup timing fixture race retained; no historical parity or full19-deck endurance claim.</td>
-      </tr>
-      <tr>
-        <td><code>ART-018P</code></td>
-        <td>Original Ember Basin portrait asset</td>
-        <td class="state-pass">PASS</td>
-        <td>7/7</td>
-        <td>2</td>
-        <td>Independent376ff88 exacta3ebdb1 fresh64/128px renders show defensive launchchannel,rails,pivot andbraces; source1254square2717595B/output512square74608B hashes andv1preservation/toolprompt/license/lore match, audit7/7. Retained0cc47cd. Darkbackground blends someedges at64px butbrightdiagonals readable. Asset-only; phone/desktop/arena integration remainsCARDS018I.</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001GPR6</code></td>
-        <td>Shipped nineteen-choice presentation strict endurance</td>
-        <td class="state-pass">PASS</td>
-        <td>2/2</td>
-        <td>1</td>
-        <td>Independent exact9f64011 cleanarchive3003blobs/144src/6harness match. Full997383ms TAP2/2:67segments18000, restore600→300→600 browser/direct/input/audio parity, terminal18000/restart0; init158≤300 andnoninitcategories0 under50; errors/resourcesempty. Pause/resume intentionallyaddtranscriptrecords; mirrorparity notcross-boundarybyteinvariance. Scopeddefault8only; subsequentKilnkeeperkernel changesnotcovered.</td>
-      </tr>
-      <tr>
-        <td><code>CARDS-019K</code></td>
-        <td>Ordinary mobile ranged splash shared engine</td>
-        <td class="state-pass">PASS</td>
-        <td>6/6</td>
-        <td>2</td>
-        <td>Independent6cc corePASS: full audit6/RL12, profiles26/runtime6, ordinary21/source11/editor12/schema20, guard10+13/release4/host1. Actual AIcost5/cycle1, unit/building/tower281 contacts once, exact pending/damaged restore+fork; 18 provenance mutations reject and old8seed0/23 hashes unchanged. Kernel523929&lt;=524288. Homing remainsCARDS019H; baselinegame-session8/9 stale instant-squad assertion separatelyGAME001MS; no broad all-suite/historical parity claim.</td>
-      </tr>
-      <tr>
-        <td><code>ART-019P</code></td>
-        <td>Original Kilnkeeper collection portrait</td>
-        <td class="state-pass">PASS</td>
-        <td>6/6</td>
-        <td>2</td>
-        <td>Independentexactc23 repair: all20priorrecords unchanged, correct512sq65626Bhash/license/authorship registration; originalsource/provenance/lore/renderbytes equal87da, native64/128readability inspected. Cleanmanifest6/6 andPages48files5733974B, allreleasehashes match; reference/sourcePNG/provenance/lore/artifacts/demoexcluded. No livecardUI/arena claim.</td>
-      </tr>
-      <tr>
-        <td><code>CARDS-019H</code></td>
-        <td>Source-bounded homing projectile continuation</td>
-        <td class="state-question">QUESTION</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Rawlinkedprojectile homingtrue documented; currenthost lockedimpact point differs. Need sourcebounded sharedhoming model and questioned ambiguousboundary/order semantics, actualmovingtarget interaction before fullcardfidelity claim.</td>
-      </tr>
-      <tr>
-        <td><code>CARDS-019H1</code></td>
-        <td>Shared homing flag and target-following integration</td>
-        <td class="state-building">BUILDING</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Accepted core dependency nowPASS. Sharedtarget-following build next; runtime speed, rounding, death/retarget/contact policies remain explicitlyunverified. No historicalhoming parity claim.</td>
-      </tr>
-      <tr>
-        <td><code>CARDS-019H2</code></td>
-        <td>Historical homing motion and contact calibration</td>
-        <td class="state-question">QUESTION</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Bounded primary-source check confirms raw600 andSupercell2019Princess tuning450→600 butno physicalunitdefinition. Character-scale600/60=10tiles/s remainshypothesis; runtime500milli/tick staysQUESTION. Need stationaryprojectilespawn/contact framecalibration andseparatemovingtarget/order/death evidence; scope artifacts/cards019h2-speed-scope/builder/scope.md.</td>
-      </tr>
-      <tr>
-        <td><code>ART-019B</code></td>
-        <td>Original Kilnkeeper combat cutout asset</td>
-        <td class="state-pass">PASS</td>
-        <td>6/6</td>
-        <td>2</td>
-        <td>Independentexact1ba nativeChromeDPR1 actual13/26CSSrenders:face/tealapron/side-separatedlauncher/feet remain distinctat13. Realalpha0–254/transparentcorners,512sq47138Bhash/provenance/input/v1/portraitcontinuity verified; onlytargetmanifesthash/bytes change. Asset6/6/Pages49files5781112B/isolation pass. Actual540x960arena/UI stillCARDS019I.</td>
-      </tr>
-      <tr>
-        <td><code>CARDS-019I</code></td>
-        <td>Kilnkeeper card and arena presentation</td>
-        <td class="state-todo">TODO</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Core/assets accepted; sharedhomingflag integration mustpass before actualbrowserintegration. Historicalcalibration CARDS019H2 QUESTION.</td>
-      </tr>
-      <tr>
-        <td><code>GAME-001MS</code></td>
-        <td>Shared-session squad materialization verification</td>
-        <td class="state-pass">PASS</td>
-        <td>9/9</td>
-        <td>1</td>
-        <td>Independent clean15a9889 fullgame-session9/9 exit0 (82172ms). All8defaultroles: actual player+AI one spend/cycle each, unique causal members, exact Briar globalbirths0/6/12/18/24/30 andinstant Cinderlings; later damage/death/towerdamage required. Source151f/parentff byte-identical, original8othergates retained. Firstonset/order/orientation/formation remainQUESTION; proofscope acceptedcore before H1sourcechanges.</td>
-      </tr>
-      <tr>
-        <td><code>ART-020P</code></td>
-        <td>Original Rivet Runners collection portrait</td>
-        <td class="state-pass">PASS</td>
-        <td>6/6</td>
-        <td>1</td>
-        <td>Independent7fa freshChrome155 DPR1 native64/128 portraits readable; originalduo faces/mallets distinct. Source1254PNG2819557B hash/provenance/styleinput valid;512WebP76868B byte-reproducedcwebp1.6.0. Single11-line manifestrecord, allpriorrecordsunchanged; asset6/6/Pages50files5882827B/exclusion pass. Minor64px malletmargin nit; no livecard/arena claim.</td>
-      </tr>
-      <tr>
-        <td><code>CARDS-020K</code></td>
-        <td>Two fast ground melee members in shared session</td>
-        <td class="state-blocked">BLOCKED</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Read-only scope identified frozen26000043 role, no current admission. Confirm pinned full-signature has no omitted special ability before source-profile build; original portrait underway, no gameplay claim.</td>
-      </tr>
-      <tr>
-        <td><code>ART-020B</code></td>
-        <td>Original Rivet Runners battle cutout</td>
-        <td class="state-fail">FAIL</td>
-        <td>6/6</td>
-        <td>1</td>
-        <td>Independent6402 nativeChrome155 DPR1:26pxclear,13px vest/feetmergeintobrownbody andmalletlosescoppercap/head-handle distinction onlight/darkbackgrounds. Metadata6/6/Pages51files/reencodedhash/sourcealpha/provenance pass;3224archivefilesmatch. Failedproductstayscandidateonly; regenerate brightertealvest withclear muzzle/weapon/twofeet separation at13px.</td>
-      </tr>
-      <tr>
-        <td><code>CARDS-020I</code></td>
-        <td>Rivet Runners card and arena presentation</td>
-        <td class="state-blocked">BLOCKED</td>
-        <td>0/0</td>
-        <td>0</td>
-        <td>Core/battle asset and precedingKilnkeeper integration notaccepted; no current21-choice browser claim.</td>
-      </tr>
+      <tr><td><code>PUB-001</code></td><td>Branded GitHub repository documentation</td><td class="state-pass">PASS</td><td>20/20</td><td>1</td><td>Round 1 verified the clean source archive install, release build/serve, README RL example, license hash/provenance, links, templates and original brand rendering; no gap on the judged documentation dimension</td></tr>
+      <tr><td><code>PUB-002</code></td><td>GitHub Pages landing and demo artifact</td><td class="state-pass">PASS</td><td>5/5</td><td>1</td><td>Round 1 verified the isolated project-subpath build, responsive landing, keyboard navigation, real card-info flow, trusted Battle deployment/cycle, and RL import/reset/step; no gap on the judged publication dimension</td></tr>
+      <tr><td><code>SIM-001</code></td><td>Fixed-step world and replay log (superseded)</td><td class="state-question">QUESTION</td><td>5/5</td><td>3</td><td>Wrong-shaped after three source-gate bypass rounds; split into SIM-001K and GUARD-001</td></tr>
+      <tr><td><code>SIM-001K</code></td><td>Fixed-step world and replay kernel</td><td class="state-pass">PASS</td><td>4/4</td><td>1</td><td>None on judged dimension</td></tr>
+      <tr><td><code>GUARD-001</code></td><td>Simulation nondeterminism enforcement</td><td class="state-pass">PASS</td><td>9/9</td><td>3</td><td>Round 3 passed: bypasses, valid lexical shadows, recursive/cyclic graphs, runtime boundary, canonical output, all bounds, and 20 simulation modules passed</td></tr>
+      <tr><td><code>SIM-002</code></td><td>Seeded random stream</td><td class="state-pass">PASS</td><td>6/6</td><td>1</td><td>None on judged dimension</td></tr>
+      <tr><td><code>SIM-003</code></td><td>Entity lifecycle and stable ordering</td><td class="state-pass">PASS</td><td>6/6</td><td>1</td><td>None on judged dimension</td></tr>
+      <tr><td><code>SIM-004</code></td><td>Damage, health, death, and simultaneous trades</td><td class="state-pass">PASS</td><td>9/9</td><td>1</td><td>None on judged dimension</td></tr>
+      <tr><td><code>SIM-005</code></td><td>Spatial coordinates and collision queries</td><td class="state-pass">PASS</td><td>9/9</td><td>1</td><td>None on judged dimension</td></tr>
+      <tr><td><code>SIM-006</code></td><td>Target eligibility and acquisition</td><td class="state-pass">PASS</td><td>8/8</td><td>1</td><td>None on judged dimension</td></tr>
+      <tr><td><code>SIM-007</code></td><td>Movement integration</td><td class="state-pass">PASS</td><td>8/8</td><td>1</td><td>None on judged dimension</td></tr>
+      <tr><td><code>SIM-008</code></td><td>Attack windup and cycle</td><td class="state-pass">PASS</td><td>8/8</td><td>1</td><td>None on judged dimension; load/deploy fixtures remain non-authoritative estimates</td></tr>
+      <tr><td><code>SIM-009</code></td><td>Melee contact combat</td><td class="state-pass">PASS</td><td>6/6</td><td>1</td><td>None on judged dimension; reference-derived mechanics remain confidence-labeled estimates</td></tr>
+      <tr><td><code>SIM-010</code></td><td>Projectile combat</td><td class="state-pass">PASS</td><td>8/8</td><td>1</td><td>None on judged dimension; straight-flight static target model only</td></tr>
+      <tr><td><code>SIM-011</code></td><td>Area damage</td><td class="state-pass">PASS</td><td>11/11</td><td>2</td><td>None on judged dimension; exhausted ID sentinel restores byte-identically</td></tr>
+      <tr><td><code>SIM-012</code></td><td>Multi-unit formations</td><td class="state-pass">PASS</td><td>8/8</td><td>1</td><td>None on judged dimension</td></tr>
+      <tr><td><code>ARENA-001</code></td><td>18×32 arena and static obstacles</td><td class="state-pass">PASS</td><td>9/9</td><td>1</td><td>None on judged dimension; bridge/tower geometry remains confidence-labeled estimate</td></tr>
+      <tr><td><code>ARENA-002</code></td><td>Ground pathfinding through bridges</td><td class="state-pass">PASS</td><td>10/10</td><td>2</td><td>None on judged dimension; coarse point-agent and estimate caveats retained</td></tr>
+      <tr><td><code>ARENA-003</code></td><td>Flying movement over terrain</td><td class="state-pass">PASS</td><td>8/8</td><td>1</td><td>None on judged dimension; axis-aligned target movement only</td></tr>
+      <tr><td><code>ARENA-004</code></td><td>Deployment legality</td><td class="state-pass">PASS</td><td>12/12</td><td>2</td><td>None on judged dimension; estimated masks use rotationally symmetric closed-edge policy</td></tr>
+      <tr><td><code>MATCH-001</code></td><td>Crown towers and activation</td><td class="state-pass">PASS</td><td>11/11</td><td>3</td><td>None on judged dimension; snapshot state is derived from canonical causal steps</td></tr>
+      <tr><td><code>MATCH-002</code></td><td>Elixir generation and spending</td><td class="state-pass">PASS</td><td>17/17</td><td>3</td><td>None on judged dimension; canonical limits match worst-case derived replay cost</td></tr>
+      <tr><td><code>MATCH-003</code></td><td>Deck, hand, next card, and deterministic cycle</td><td class="state-pass">PASS</td><td>7/7</td><td>1</td><td>None on judged dimension; shuffle/cycle is original configurable rule pending footage</td></tr>
+      <tr><td><code>MATCH-004</code></td><td>Regulation, overtime, tiebreak, and crowns</td><td class="state-pass">PASS</td><td>20/20</td><td>2</td><td>None on judged dimension</td></tr>
+      <tr><td><code>CONTENT-001</code></td><td>Original runtime card schema and validation (superseded)</td><td class="state-question">QUESTION</td><td>16/16</td><td>4</td><td>Wrong-shaped after three static reference-path bypass rounds; split into CONTENT-001S and GUARD-002</td></tr>
+      <tr><td><code>CONTENT-001S</code></td><td>Original runtime card schema</td><td class="state-pass">PASS</td><td>20/20</td><td>3</td><td>None on judged dimension</td></tr>
+      <tr><td><code>GUARD-002</code></td><td>Reference and protected-identity shipping isolation</td><td class="state-question">QUESTION</td><td>13/13</td><td>3</td><td>Wrong-shaped after three graph-closure rounds: custom exports conditions and reflective code loaders remain executable outside a dependency-free static evaluator; requires actual bundler/runtime sandbox enforcement</td></tr>
+      <tr><td><code>GUARD-002R</code></td><td>Actual release-artifact isolation boundary</td><td class="state-pass">PASS</td><td>3/3</td><td>1</td><td>None on the judged dimension; CSP is origin-scoped, so same-origin off-manifest requests rely on the manifest-only server to reject and record them.</td></tr>
+      <tr><td><code>GUARD-002H</code></td><td>Manifest-only local release host</td><td class="state-pass">PASS</td><td>1/1</td><td>1</td><td>None on manifest-bound delivery; an in-root parent symlink is followed only for its explicitly listed, hash-matching alias, and the artifact audit rejects symlink trees</td></tr>
+      <tr><td><code>CONTENT-002</code></td><td>Basic single melee troops</td><td class="state-pass">PASS</td><td>12/12</td><td>3</td><td>None on judged dimension</td></tr>
+      <tr><td><code>CONTENT-003</code></td><td>Basic ranged ground troops</td><td class="state-pass">PASS</td><td>14/14</td><td>3</td><td>None on judged dimension; projectile travel remains explicitly unsourced/non-claimed</td></tr>
+      <tr><td><code>CONTENT-004</code></td><td>Basic flying troops</td><td class="state-pass">PASS</td><td>13/13</td><td>1</td><td>None on judged dimension; collision/projectile travel/moving-target behavior remains explicitly non-claimed</td></tr>
+      <tr><td><code>CONTENT-005</code></td><td>Swarms and mixed squads</td><td class="state-pass">PASS</td><td>13/13</td><td>1</td><td>None on judged dimension; formation/radius/projectile/full-match parity remains explicitly non-claimed</td></tr>
+      <tr><td><code>CONTENT-006</code></td><td>Building-targeting troops</td><td class="state-pass">PASS</td><td>14/14</td><td>2</td><td>None on judged dimension; coarse path/zero-radius/first-hit confidence caveats remain explicit</td></tr>
+      <tr><td><code>CONTENT-007</code></td><td>Shields and form transitions</td><td class="state-pass">PASS</td><td>15/15</td><td>1</td><td>None on judged dimension; shield/form behavior remains an explicit question fixture outside the common schema</td></tr>
+      <tr><td><code>CONTENT-008</code></td><td>Charge, dash, jump, and recoil movement (superseded)</td><td class="state-question">QUESTION</td><td>0/0</td><td>0</td><td>Wrong-shaped during evidence audit; split into CONTENT-008C/D/J/R</td></tr>
+      <tr><td><code>CONTENT-008C</code></td><td>Charge arming and charged strike</td><td class="state-pass">PASS</td><td>12/12</td><td>2</td><td>None on judged dimension; special values remain executable question fixtures</td></tr>
+      <tr><td><code>CONTENT-008D</code></td><td>Targeted dash and untargetable transit</td><td class="state-pass">PASS</td><td>17/17</td><td>2</td><td>None on judged dimension; special values remain executable question fixtures</td></tr>
+      <tr><td><code>CONTENT-008J</code></td><td>Jump transit and landing impact</td><td class="state-pass">PASS</td><td>15/15</td><td>2</td><td>None on judged dimension; special values remain executable question fixtures</td></tr>
+      <tr><td><code>CONTENT-008R</code></td><td>Attack-triggered recoil displacement</td><td class="state-pass">PASS</td><td>15/15</td><td>2</td><td>R2 PASS: checked BigInt projection/addition rejects unsafe intermediates; 17 oracle boundaries and 1,273 restore splits passed</td></tr>
+      <tr><td><code>CONTENT-009</code></td><td>Chained, piercing, returning, and multi-projectile attacks (superseded)</td><td class="state-question">QUESTION</td><td>0/0</td><td>0</td><td>Wrong-shaped during evidence audit; split into CONTENT-009C/P/R/M; special-mechanic values are absent from the corpus</td></tr>
+      <tr><td><code>CONTENT-009C</code></td><td>Chained target attacks</td><td class="state-pass">PASS</td><td>23/23</td><td>1</td><td>None on judged dimension; 144 independent probes and all 88 restore splits passed; chain-only values remain QUESTION fixtures</td></tr>
+      <tr><td><code>CONTENT-009P</code></td><td>Linear piercing projectiles</td><td class="state-pass">PASS</td><td>28/28</td><td>3</td><td>None on judged dimension; policy and runtime agree across 104 capsule oracle cases and 49 restore splits</td></tr>
+      <tr><td><code>CONTENT-009R</code></td><td>Outbound and returning projectiles</td><td class="state-pass">PASS</td><td>27/27</td><td>2</td><td>None on judged dimension; 48 signed boundary cases, 96 leg checks, caller-mutation isolation, and restore passed</td></tr>
+      <tr><td><code>CONTENT-009M</code></td><td>Fixed-fan pellet volleys</td><td class="state-pass">PASS</td><td>30/30</td><td>1</td><td>None on judged dimension; 72 independent signed boundary cases, all 96 restore splits, caller-mutation isolation, hostile bounds, and runtime identity isolation passed</td></tr>
+      <tr><td><code>CONTENT-010</code></td><td>Ramping attacks, stun, slow, snare, and reset (superseded)</td><td class="state-question">QUESTION</td><td>0/0</td><td>0</td><td>Wrong-shaped during evidence audit; split into CONTENT-010R/U/L/N/X</td></tr>
+      <tr><td><code>CONTENT-010R</code></td><td>Consecutive-target ramping attacks</td><td class="state-pass">PASS</td><td>13/13</td><td>1</td><td>None on judged dimension; stage saturation, all five reset paths, 432 independent restore cuts, hostile/noncausal rejection, and identity isolation passed</td></tr>
+      <tr><td><code>CONTENT-010U</code></td><td>Timed full-disable stun</td><td class="state-pass">PASS</td><td>23/23</td><td>2</td><td>None on judged dimension; targetless loss is a serializable no-op, 541 independent restore cuts and Round 1 lifecycle oracle passed</td></tr>
+      <tr><td><code>CONTENT-010L</code></td><td>Timed movement-and-attack slow</td><td class="state-pass">PASS</td><td>21/21</td><td>1</td><td>None on judged dimension; 3,132 scalar-oracle boundaries and restore cuts plus 4,096-tick drift probe passed</td></tr>
+      <tr><td><code>CONTENT-010N</code></td><td>Timed movement-only snare</td><td class="state-pass">PASS</td><td>21/21</td><td>1</td><td>None on judged dimension; 460 movement-oracle cases, 231 restore cuts, unaffected attack schedule, and adversarial isolation passed</td></tr>
+      <tr><td><code>CONTENT-010X</code></td><td>Instantaneous combat reset composition</td><td class="state-pass">PASS</td><td>22/22</td><td>1</td><td>None on judged dimension; 40 independent phase/stage/counter states and 129 causal restore cuts passed without changing ramp semantics</td></tr>
+      <tr><td><code>CONTENT-011</code></td><td>Periodic and death spawns (superseded)</td><td class="state-question">QUESTION</td><td>0/0</td><td>0</td><td>Wrong-shaped during evidence audit; split into CONTENT-011A/P/D; cadence, lifetime, placement, ownership, and recursive death-spawn policy are absent from the corpus</td></tr>
+      <tr><td><code>CONTENT-011A</code></td><td>Spawn batch materialization and deterministic placement</td><td class="state-pass">PASS</td><td>18/18</td><td>3</td><td>None on judged dimension; 67 independent causal, hostile, ledger-forgery, bound, overflow, and restore probes passed</td></tr>
+      <tr><td><code>CONTENT-011P</code></td><td>Periodic spawn cadence and lifetime stop</td><td class="state-pass">PASS</td><td>20/20</td><td>1</td><td>None on judged dimension; 22 lethal timings, 585 chunk schedules, 375 restore cuts, and causal ledger probes passed</td></tr>
+      <tr><td><code>CONTENT-011D</code></td><td>Exactly-once death-triggered spawns</td><td class="state-pass">PASS</td><td>16/16</td><td>1</td><td>None on judged dimension; separate critic passed 46 additional adversarial probes through 64 recursive triggers and explicit bounds</td></tr>
+      <tr><td><code>CONTENT-012</code></td><td>Charge, leap, dash, knockback, and retarget composition (superseded)</td><td class="state-question">QUESTION</td><td>0/0</td><td>0</td><td>Wrong-shaped during evidence audit; split into CONTENT-012T/K/C/L/D</td></tr>
+      <tr><td><code>CONTENT-012T</code></td><td>Retarget and attack-cycle lifecycle</td><td class="state-pass">PASS</td><td>18/18</td><td>1</td><td>None on judged dimension; independent reducer, mode/kind/layer matrix, 24 QUESTION records, hostile inputs, and every restore cut passed</td></tr>
+      <tr><td><code>CONTENT-012K</code></td><td>Instantaneous forced knockback displacement</td><td class="state-pass">PASS</td><td>17/17</td><td>1</td><td>None on judged dimension; 86 independent projection, corner, overflow, hostile, restore, and provenance probes passed</td></tr>
+      <tr><td><code>CONTENT-012C</code></td><td>Charged-strike interruption and retarget composition</td><td class="state-pass">PASS</td><td>24/24</td><td>2</td><td>None on judged dimension; 1,631 independent assertions covered setup preflight, duplicates, signed overflow paths, atomic failures, trace and 501 restore cuts</td></tr>
+      <tr><td><code>CONTENT-012L</code></td><td>Leap interruption, landing, and retarget composition</td><td class="state-pass">PASS</td><td>18/18</td><td>2</td><td>None on judged dimension; 4,016 independent assertions confirmed interruption retarget 81/readiness 123 and unchanged landing retarget 97/readiness 139</td></tr>
+      <tr><td><code>CONTENT-012D</code></td><td>Dash interruption, arrival, and retarget composition</td><td class="state-pass">PASS</td><td>19/19</td><td>2</td><td>None on judged dimension; exact primitive event parity passed at interruption tick 60 and death ticks 59/60/70/89 across 1,410 restore cuts</td></tr>
+      <tr><td><code>CONTENT-012E</code></td><td>Death damage and triggered effects</td><td class="state-pass">PASS</td><td>21/21</td><td>2</td><td>None on judged dimension; 1,513 attribution, chain, geometry, overflow, restore, snapshot, and scope probes passed</td></tr>
+      <tr><td><code>CONTENT-013</code></td><td>Healing, rage, invisibility, reflection, and conversion (superseded)</td><td class="state-question">QUESTION</td><td>0/0</td><td>0</td><td>Wrong-shaped during evidence audit; split into CONTENT-013H/R/I/F/C; all special values and policies are corpus-absent QUESTIONS</td></tr>
+      <tr><td><code>CONTENT-013H</code></td><td>Instant healing and maximum-health cap</td><td class="state-pass">PASS</td><td>12/12</td><td>1</td><td>None on judged dimension; separate critic matched exact damage/death/heal ordering, exclusions, 47 QUESTION records, hostile inputs, chunking, and every restore cut</td></tr>
+      <tr><td><code>CONTENT-013R</code></td><td>Timed movement-and-attack rage</td><td class="state-pass">PASS</td><td>17/17</td><td>1</td><td>None on judged dimension; exact BigInt oracle, every phase, 281 restore cuts, drift, hostile snapshots, and all 48 QUESTION records passed</td></tr>
+      <tr><td><code>CONTENT-013I</code></td><td>Invisibility, reveal, and reacquisition</td><td class="state-pass">PASS</td><td>26/26</td><td>2</td><td>None on judged dimension; exact 23-field provenance bijection, all gameplay traces, 31 restore cuts, hostile inputs, and 4,096-tick run passed</td></tr>
+      <tr><td><code>CONTENT-013F</code></td><td>Deterministic projectile reflection</td><td class="state-pass">PASS</td><td>28/28</td><td>2</td><td>None on judged dimension; construction rejected all 16 independently probed nonintegral original/reflected signed diagonals and execution failures were byte-atomic</td></tr>
+      <tr><td><code>CONTENT-013C</code></td><td>Curse-triggered death conversion and spawn ownership</td><td class="state-pass">PASS</td><td>20/20</td><td>4</td><td>Round 4 passed: bornTick and batches are setup-order invariant; mixed periodic conversion preserves one shared ledger and ownership overlay</td></tr>
+      <tr><td><code>CONTENT-014</code></td><td>Champion abilities</td><td class="state-pass">PASS</td><td>19/19</td><td>2</td><td>Round 2 passed: real activation matched nine primitive contracts, 105 restore cuts, lifecycle boundaries, hashes, and 116 QUESTION records</td></tr>
+      <tr><td><code>BUILDING-001</code></td><td>Defensive buildings</td><td class="state-pass">PASS</td><td>23/23</td><td>4</td><td>Round 4 re-passed after refreshing the attack-cycle.js integrity pin broken by the 2a5bd7a status-runtime integration; behavioral differential verified unchanged, cascade into integration-audit resolved; paused-stepping coverage for the newly pinned paths remains open</td></tr>
+      <tr><td><code>BUILDING-002</code></td><td>Spawner buildings</td><td class="state-pass">PASS</td><td>18/18</td><td>1</td><td>Round 1 passed: shared primitive bytes/events, exact death batches, lifetimes, chunks, restore, and 13 QUESTION records passed</td></tr>
+      <tr><td><code>BUILDING-003A</code></td><td>Resource-generation buildings</td><td class="state-pass">PASS</td><td>13/13</td><td>3</td><td>Round 3 passed: unified sequence, legacy restore, 4,201-tick differential, 1,701 cuts, bounds, resource hash, and 12 QUESTION records passed</td></tr>
+      <tr><td><code>BUILDING-003B</code></td><td>Underground travel buildings</td><td class="state-pass">PASS</td><td>13/13</td><td>1</td><td>Round 1 passed: exact travel/emergence/spawn, primitive differentials, 301 cuts, bounds, and 14 QUESTION records passed</td></tr>
+      <tr><td><code>SPELL-001</code></td><td>Instant radius damage spells</td><td class="state-pass">PASS</td><td>19/19</td><td>2</td><td>Round 2 passed: 60 eligibility combinations, all liveness routes, primitive hashes, and 129 restore cuts matched</td></tr>
+      <tr><td><code>SPELL-002A</code></td><td>Traveling spell line and impact</td><td class="state-pass">PASS</td><td>15/15</td><td>2</td><td>Round 2 passed: exact swept contacts, ordering, death/cancel latches, 129 restore cuts, and primitive differentials passed</td></tr>
+      <tr><td><code>SPELL-002B</code></td><td>Three-wave traveling spell</td><td class="state-pass">PASS</td><td>13/13</td><td>1</td><td>Round 1 passed: three boundaries, geometry/damage, ordering, cancellations, restore, primitives, and 11 QUESTION records passed</td></tr>
+      <tr><td><code>SPELL-002C</code></td><td>Returning traveling spell</td><td class="state-pass">PASS</td><td>15/15</td><td>3</td><td>Round 3 passed: direct terminal primitive bytes persist through cuts 39/128, all 129 restore cuts, lifecycle, bounds, hash, and 14 QUESTION records passed</td></tr>
+      <tr><td><code>SPELL-002D</code></td><td>Rolling collision spell</td><td class="state-pass">PASS</td><td>15/15</td><td>2</td><td>Round 2 passed: exact radius-aware entry oracle, obstacle suppression, geometry, restore, bounds, and 17 QUESTION records passed</td></tr>
+      <tr><td><code>SPELL-003</code></td><td>Periodic area spells</td><td class="state-pass">PASS</td><td>21/21</td><td>2</td><td>Round 2 passed: 52-vector exact pull oracle, mappings, shared area/slow, restore, bounds, and 28 QUESTION records passed</td></tr>
+      <tr><td><code>SPELL-004</code></td><td>Spawn spells</td><td class="state-pass">PASS</td><td>14/14</td><td>2</td><td>Round 2 passed: single causal placement batch per boundary, nested ledger bytes, cancellation, 129 cuts, and 14 QUESTION records passed</td></tr>
+      <tr><td><code>SPELL-005A</code></td><td>Previous-card copy effect</td><td class="state-pass">PASS</td><td>14/14</td><td>3</td><td>Round 3 passed: strict byte-canonical restore, UTF-8 byte limits, multibyte/surrogate cases, cycle differential, and bounds passed</td></tr>
+      <tr><td><code>SPELL-005B</code></td><td>Deployed-unit clone effect</td><td class="state-pass">PASS</td><td>16/16</td><td>1</td><td>Round 1 passed: geometry, exclusions, ownership, shared-cycle/form differentials, restore, bounds, and 25 QUESTION records passed</td></tr>
+      <tr><td><code>INTEGRATION-001</code></td><td>Canonical interaction suite (superseded)</td><td class="state-question">QUESTION</td><td>58/58</td><td>3</td><td>Wrong-shaped after three occurrence-binding rounds; split into INTEGRATION-001K and INTEGRATION-001C</td></tr>
+      <tr><td><code>INTEGRATION-001K</code></td><td>Deterministic runtime event-surface integration (superseded)</td><td class="state-question">QUESTION</td><td>58/58</td><td>3</td><td>Wrong-shaped after three TAP-parser rounds; split into INTEGRATION-001R and GUARD-003</td></tr>
+      <tr><td><code>INTEGRATION-001R</code></td><td>Deterministic registered runtime artifacts</td><td class="state-pass">PASS</td><td>58/58</td><td>2</td><td>Round 2 refreshed eight stale static occurrence pins and the aggregate manifest after independently checking catalog bindings and defining events; admission 7/7 and integration audit 6/6 pass, fresh critic confirms mutation rejection</td></tr>
+      <tr><td><code>INTEGRATION-001RP</code></td><td>Reconcile canonical integration manifest after later rounds</td><td class="state-pass">PASS</td><td>6/6</td><td>1</td><td>Round 1 passed: only defensive-building TAP `pass/tests` changed 23→24 due to the provenance test in `eb57e2e`; reconstructed baseline SHA `022ee978…`, current SHA `7eeeab12…`, 58 bindings/46 runners/5 QUESTION exports, and fresh identical sweeps confirmed.</td></tr>
+      <tr><td><code>GUARD-003</code></td><td>Exhaustive TAP execution-proof parser</td><td class="state-question">QUESTION</td><td>6/6</td><td>3</td><td>Wrong-shaped parser proof: matched result names containing # SKIP/# TODO directives remain accepted under forged zero counters</td></tr>
+      <tr><td><code>INTEGRATION-001C</code></td><td>Exhaustive per-card causal mechanic binding</td><td class="state-question">QUESTION</td><td>58/58</td><td>3</td><td>40/58 mechanic payloads omit the ID; charge/dash/jump/charge-knockback stop at generic target-acquired rather than defining events</td></tr>
+      <tr><td><code>UI-001</code></td><td>Playable original-art arena shell (superseded)</td><td class="state-question">QUESTION</td><td>0/0</td><td>0</td><td>Wrong-shaped during readiness audit; split into UI-001A/B/C</td></tr>
+      <tr><td><code>UI-001A</code></td><td>Original empty-arena render shell</td><td class="state-pass">PASS</td><td>7/7</td><td>2</td><td>Round 2 passed: exact inner geometry, complete shell primitives, deterministic DOM/render bytes, provenance, hostile mount, and full suite passed</td></tr>
+      <tr><td><code>UI-001AP</code></td><td>Reconcile arena source-byte pins after policy UI and compositor changes</td><td class="state-pass">PASS</td><td>13/13</td><td>1</td><td>Round 1 passed: all four pins equal current source SHA-256; only the four reviewed shell markup/CSS commits changed bytes. Local original-art provenance, exact geometry, and 720×1280 Chrome landmarks/stacking pass.</td></tr>
+      <tr><td><code>UI-001B</code></td><td>Deterministic HUD and hand projection</td><td class="state-pass">PASS</td><td>9/9</td><td>2</td><td>Round 2 passed: shipped initial/update controller, canonical HUD state, deterministic bytes, strict cardinality/access, transactional rollback, escaping, and guards passed</td></tr>
+      <tr><td><code>UI-001C</code></td><td>Arena pointer and card-play interaction (superseded)</td><td class="state-question">QUESTION</td><td>12/12</td><td>3</td><td>Wrong-shaped after three external-transaction rounds; split into UI-001CK and UI-001CT</td></tr>
+      <tr><td><code>UI-001CK</code></td><td>Shipped arena card-play kernel</td><td class="state-pass">PASS</td><td>13/13</td><td>2</td><td>Round 2 passed: measured inner-client edges, border rejection, exact mouse/touch commands, normal commit, bounds, and byte-identical restore passed</td></tr>
+      <tr><td><code>UI-001CT</code></td><td>Hostile external commit fault containment</td><td class="state-question">QUESTION</td><td>12/12</td><td>3</td><td>Arbitrary callbacks can mutate external state and then make compensation fail; current poison blocks mutations/serialization but diagnostic getter policy remains unresolved</td></tr>
+      <tr><td><code>UI-002</code></td><td>Placement and combat feedback (superseded)</td><td class="state-question">QUESTION</td><td>0/0</td><td>0</td><td>Wrong-shaped during readiness audit; split into UI-002A/B/C/D</td></tr>
+      <tr><td><code>UI-002A</code></td><td>Placement preview and deploy feedback</td><td class="state-pass">PASS</td><td>13/13</td><td>4</td><td>Round 4 passed: pointer/legacy branches, compatibility suppression, opaque receipts, exact geometry/visuals, commands, bounds, and cleanup passed</td></tr>
+      <tr><td><code>UI-002B</code></td><td>Entity, tower-health, and targeting projection</td><td class="state-pass">PASS</td><td>11/11</td><td>1</td><td>Round 1 passed: exact reference HP, stable bounded canonical projection/DOM, hostile rejection, and shipped mount</td></tr>
+      <tr><td><code>UI-002C</code></td><td>Projectile and area-effect feedback (superseded)</td><td class="state-question">QUESTION</td><td>15/15</td><td>3</td><td>Wrong-shaped after three causal replay-schema rounds; split into UI-002CP and UI-002CV</td></tr>
+      <tr><td><code>UI-002CP</code></td><td>Closed combat-effect feed export</td><td class="state-pass">PASS</td><td>9/9</td><td>5</td><td>Round 5 passed: independent feed-bound failures at second contact, lethal death, ordinary close, synthetic impact and synthetic close preserved feed, state, replay, serialization and fork bytes exactly</td></tr>
+      <tr><td><code>UI-002CV</code></td><td>Causal combat-effect view projection</td><td class="state-pass">PASS</td><td>9/9</td><td>3</td><td>Round 3 passed at 460c6e5: zero terminal raw-authority reads, canonical feedback validation, exact mounted rollback/retry, and real Chrome play/combat/terminal/restart/repeat</td></tr>
+      <tr><td><code>UI-002D</code></td><td>Crown score and match-end feedback</td><td class="state-pass">PASS</td><td>15/15</td><td>3</td><td>Round 3 passed: restored MatchClock snapshot/replay causally proves terminal/tiebreak projection</td></tr>
+      <tr><td><code>VIS-001</code></td><td>Empty-arena visual calibration</td><td class="state-blocked">BLOCKED</td><td>0/0</td><td>0</td><td>Required footage absent</td></tr>
+      <tr><td><code>VIS-002</code></td><td>Motion and combat visual calibration</td><td class="state-blocked">BLOCKED</td><td>0/0</td><td>0</td><td>Required footage absent</td></tr>
+      <tr><td><code>VIS-003</code></td><td>Production presentation polish umbrella</td><td class="state-pass">PASS</td><td>0/0</td><td>0</td><td>All original-presentation subpieces and integrated endurance pass for the shipped default roster; captured-game parity remains VIS-001/VIS-002</td></tr>
+      <tr><td><code>VIS-003A</code></td><td>Original art direction and asset provenance</td><td class="state-pass">PASS</td><td>6/6</td><td>1</td><td>Round 1 passed: frozen Rivermark bible pinned by digest, fail-closed asset manifest with byte-for-byte disk parity over three authored CC0 SVG icons, non-vacuous reference-hash disjointness and 22 hostile admission rejections</td></tr>
+      <tr><td><code>VIS-003B</code></td><td>Arena, river, bridges, and tower art</td><td class="state-pass">PASS</td><td>6/6</td><td>4</td><td>Round4 passed: six authored tower bodies/roofs with shaded volume, exact centers/bridges and readable combat; captured-game parity remains unverified</td></tr>
+      <tr><td><code>VIS-003C</code></td><td>Combatant, projectile, and effect assets</td><td class="state-pass">PASS</td><td>3/3</td><td>5</td><td>Round 5 passed: both teams assert all 10 identities, unique silhouettes, paired geometry, and red/teal body mapping; serialized view restore reproduces DOM exactly and the gameplay-scale contact sheet confirms the art renders</td></tr>
+      <tr><td><code>VIS-003D</code></td><td>Card, hand, HUD, and match-feedback art</td><td class="state-pass">PASS</td><td>9/9</td><td>5</td><td>Round 5 passed: five exact whole-PNG SHA-256 hashes matched across four fresh Chrome processes; seven moving combat/effect selectors and zero region masks preserve static HUD, bridge, towers, and interface art</td></tr>
+      <tr><td><code>VIS-003E</code></td><td>Deterministic animation and interaction polish</td><td class="state-pass">PASS</td><td>6/6</td><td>2</td><td>Fresh Chrome verifies normal RAF terminal tail, exact restored ages0/6/12/24, frozen simulation, reduced motion and restart; historical footage remains unavailable</td></tr>
+      <tr><td><code>AUDIO-002</code></td><td>Authored original soundscape and mix polish</td><td class="state-pass">PASS</td><td>5/5</td><td>2</td><td>Round 2 passed: four real-displacement movement cues reached standard Chrome, stationary deploys emitted none, public replay stayed exact, and direct/chunk/restore plus evidence hashes reproduced</td></tr>
+      <tr><td><code>VIS-003G</code></td><td>Integrated production-polish browser journey</td><td class="state-pass">PASS</td><td>1/1</td><td>1</td><td>Fresh visual critic passes twelve states without blocking defects; full18000-tick endurance round6 now also passes</td></tr>
+      <tr><td><code>AUDIO-001</code></td><td>Original audio event system (superseded)</td><td class="state-question">QUESTION</td><td>0/0</td><td>0</td><td>Wrong-shaped during readiness audit; split into AUDIO-001A/B</td></tr>
+      <tr><td><code>AUDIO-001A</code></td><td>Deterministic audio cue projection</td><td class="state-pass">PASS</td><td>12/12</td><td>2</td><td>Round 2 passed: causal tower credit, real death mapping, exact capacity, ordering, atomicity, and restore</td></tr>
+      <tr><td><code>AUDIO-001B</code></td><td>Original audio rendering and provenance</td><td class="state-pass">PASS</td><td>11/11</td><td>2</td><td>Round 2 passed: deterministic PCM, reproducible waveform provenance, concrete backend, lifecycle, bounds, and terminal faults</td></tr>
+      <tr><td><code>RELEASE-001A</code></td><td>Reproducible production artifact</td><td class="state-question">QUESTION</td><td>18/18</td><td>3</td><td>Wrong-shaped after three browser-graph closure rounds: custom HTML/SVG parser still accepts untraversed browser-fetching syntax</td></tr>
+      <tr><td><code>RELEASE-001B</code></td><td>Standards-based production dependency graph</td><td class="state-pass">PASS</td><td>25/25</td><td>2</td><td>Independent frozen 3d18d45 release 20/20 and Pages 5/5 pass; two builds share manifest be5959cf…aabbab51 (38 files, 5,541,603 bytes). Actual Chromium game/controller/RL flows and manifest-bound requests pass; producer failures preserve prior bytes. Does not certify predecessor dependency-free tooling, remote deployment, endurance or historical parity.</td></tr>
+      <tr><td><code>RELEASE-001W</code></td><td>Shipped runtime projection wiring</td><td class="state-pass">PASS</td><td>1/1</td><td>1</td><td>Fresh built-only Chrome journey passes twelve states,69 manifest-listed app paths, actual audio, exact restart and idempotent cleanup</td></tr>
+      <tr><td><code>RELEASE-001M</code></td><td>Entry-accurate shipping manifest and audit</td><td class="state-blocked">BLOCKED</td><td>0/0</td><td>0</td><td>Runtime wiring now passes; browser-graph enforcement and entry-accurate provenance audit remain unresolved</td></tr>
+      <tr><td><code>RELEASE-001</code></td><td>Clean distributable</td><td class="state-blocked">BLOCKED</td><td>0/0</td><td>0</td><td>Waiting on release subpieces, visual captures, causal integration questions, and enforcement questions</td></tr>
+      <tr><td><code>GAME-001R</code></td><td>Playable eight-card runtime roster</td><td class="state-pass">PASS</td><td>9/9</td><td>5</td><td>Regression Round 5 passed full-value/order/freeze and 60-node graph detachment across eight cards/nine entities; all alias probes fail and canonical 11,154-byte roster output remains unchanged</td></tr>
+      <tr><td><code>GAME-001P</code></td><td>Continuous deterministic battle movement (superseded)</td><td class="state-question">QUESTION</td><td>8/8</td><td>3</td><td>Wrong-shaped after three restore-provenance rounds; split into GAME-001PK and GAME-001PH</td></tr>
+      <tr><td><code>GAME-001PK</code></td><td>Live-produced battle movement kernel</td><td class="state-pass">PASS</td><td>5/5</td><td>1</td><td>Round 1 passed: 8 live journeys, 220 restore cuts, both bridges/radii/signed speeds/chunks/atomic rejections passed</td></tr>
+      <tr><td><code>GAME-001PH</code></td><td>Hostile movement-history canonicalization</td><td class="state-question">QUESTION</td><td>0/3</td><td>3</td><td>Wrong-shaped after three canonicality rounds: the bounded &gt;64 pair and &gt;128 exact-window cutoffs accept distinct 129-command and 29-command byte-fixed histories with identical reachable authority; exact global minimality is incompatible with the current bounded online-history bar</td></tr>
+      <tr><td><code>GAME-001PHR</code></td><td>Battle movement history runtime cost</td><td class="state-pass">PASS</td><td>23/23</td><td>1</td><td>Fresh critic passed 23 history tests and 5 kernel tests; 97,035 bytes stable, serialize/restore 2.26/2.28 s to 0.55/0.57 s. Parent global-minimality QUESTION remains</td></tr>
+      <tr><td><code>GAME-001K</code></td><td>Dynamic ordinary-unit combat kernel</td><td class="state-pass">PASS</td><td>9/9</td><td>2</td><td>Round 2 passed: due-spawn and multi-boundary failures are byte-atomic; causal restore forgeries reject</td></tr>
+      <tr><td><code>GAME-001KX</code></td><td>External structure-target and damage ingress</td><td class="state-pass">PASS</td><td>9/9</td><td>3</td><td>Round 3 passed: permanent disjoint identity reservations and projectile attack-sequence provenance passed live/restore bounds</td></tr>
+      <tr><td><code>GAME-001TX</code></td><td>Side-aware crown-tower target feed</td><td class="state-pass">PASS</td><td>9/9</td><td>1</td><td>Round 1 passed: all six towers attacked only hostile sides; identity/restore/bounds and legacy v3 compatibility passed</td></tr>
+      <tr><td><code>GAME-001T</code></td><td>Dynamic unit-to-tower combat adapter (superseded)</td><td class="state-question">QUESTION</td><td>11/11</td><td>3</td><td>Wrong-shaped after three projectile-provenance rounds; split into GAME-001TK and GAME-001TH</td></tr>
+      <tr><td><code>GAME-001TK</code></td><td>Live-produced unit↔tower combat kernel</td><td class="state-pass">PASS</td><td>7/7</td><td>1</td><td>Round 1 passed: authoritative bidirectional damage/activation/deaths, preview isolation, chunks and all live cuts passed</td></tr>
+      <tr><td><code>GAME-001TH</code></td><td>Exhaustive cross-module projectile identity chain</td><td class="state-pass">PASS</td><td>17/17</td><td>3</td><td>Round 3 passed: all three directions carry source-minted identity; no origin lookup remains; 16 hostile preview forms reject trap-zero and the single-use state-bound receipt lifecycle is exact</td></tr>
+      <tr><td><code>GAME-001A</code></td><td>Live battle state and ordinary troop combat</td><td class="state-pass">PASS</td><td>9/9</td><td>5</td><td>Original live-battle bar independently green through rounds 3-5: both directions, tower destruction, deaths/trades, chunks/restores and atomic capacity; hostile admission proof split to GAME-001AH after three validation-only gaps</td></tr>
+      <tr><td><code>GAME-001AH</code></td><td>Hostile LiveBattle setup and snapshot admission</td><td class="state-pass">PASS</td><td>10/10</td><td>1</td><td>Round 1 passed: exact/one-over outer limits, controlled deep/wide rejection, Unicode scalar policy, legitimate tick-600 restore and guard all independently passed</td></tr>
+      <tr><td><code>GAME-001B</code></td><td>Player command-to-battle bridge</td><td class="state-pass">PASS</td><td>11/11</td><td>3</td><td>Core receipt→spend→cycle→LiveBattle bar repeatedly green; capability-safe controller lifecycle split to GAME-001BH after three authority-boundary rounds</td></tr>
+      <tr><td><code>GAME-001BH</code></td><td>Capability-safe player-controller authority lifecycle (superseded)</td><td class="state-question">QUESTION</td><td>18/18</td><td>3</td><td>Wrong-shaped after three lifecycle rounds; split into GAME-001BHA and GAME-001BHR</td></tr>
+      <tr><td><code>GAME-001BHA</code></td><td>Zero-execution single-use HUD capability admission</td><td class="state-pass">PASS</td><td>18/18</td><td>3</td><td>Round 3 passed: primitive trap-zero admission, exact bridge brand, permanent tokens, sink/bridge authority claims and sequential fresh-token release</td></tr>
+      <tr><td><code>GAME-001BHR</code></td><td>Fresh-token authoritative remount continuation</td><td class="state-pass">PASS</td><td>6/6</td><td>3</td><td>Production authoritative remount/advance/restore sealed behind frozen diagnostics; raw option admission split to GAME-001BHRA after three rounds</td></tr>
+      <tr><td><code>GAME-001BHRA</code></td><td>Trap-zero production session option admission</td><td class="state-pass">PASS</td><td>7/7</td><td>1</td><td>Round 1 passed: object/callable/revoked/cross-realm/accessor/primitive probes trap-zero; captured single-use tokens and production lifecycle passed</td></tr>
+      <tr><td><code>GAME-001O</code></td><td>Deterministic opponent decision kernel</td><td class="state-pass">PASS</td><td>10/10</td><td>2</td><td>Round 2 passed: full observation provenance rejects 13 causal forgeries; size edges and restore bytes passed</td></tr>
+      <tr><td><code>GAME-001HC</code></td><td>Bounded full-match battle history and checkpoints</td><td class="state-pass">PASS</td><td>5/5</td><td>3</td><td>Current v2 full-match history independently passed through tick 18,000; nested legacy continuation identity split to GAME-001HCL after three compatibility rounds</td></tr>
+      <tr><td><code>GAME-001HCL</code></td><td>Continuation-complete nested legacy history upgrade</td><td class="state-pass">PASS</td><td>5/5</td><td>2</td><td>Round 2 passed: all 12 private dimensions compare iteratively; exact 256-unit/36,352-event legacy amplification upgrades and continues</td></tr>
+      <tr><td><code>GAME-001C</code></td><td>Opponent-to-battle integration</td><td class="state-pass">PASS</td><td>13/13</td><td>4</td><td>Full tick-18,000 autonomous opponent loop, roster/cost authority, admission bounds, chunks/restores and guard passed independently</td></tr>
+      <tr><td><code>GAME-001V</code></td><td>Tower-state to match-victory evidence bridge</td><td class="state-pass">PASS</td><td>10/10</td><td>2</td><td>Round 2 passed: authoritative tower bytes replay exact transitions; hostile streams have no accepted API</td></tr>
+      <tr><td><code>GAME-001D</code></td><td>Unified match session loop</td><td class="state-pass">PASS</td><td>8/8</td><td>3</td><td>Round 3 passed exact chronological terminal prefix: live simultaneous lane deaths, central terminal, batch/chunk/final-step/restore byte parity and all-authority freeze</td></tr>
+      <tr><td><code>GAME-001E</code></td><td>Live browser runtime umbrella</td><td class="state-pass">PASS</td><td>0/0</td><td>0</td><td>E1 atomic projection, E2 exact input delivery, E3 scheduler/lifecycle and E4 fresh restart all passed separate executable bars</td></tr>
+      <tr><td><code>GAME-001E1</code></td><td>Atomic session-to-view projection</td><td class="state-pass">PASS</td><td>18/18</td><td>5</td><td>Round 5 passed one-snapshot atomic projection through authentic tick-120 and live terminal combat, exact lifecycle normalization, authoritative maxima, trap-zero admission and rollback</td></tr>
+      <tr><td><code>GAME-001E2</code></td><td>Browser input-to-session delivery</td><td class="state-pass">PASS</td><td>6/6</td><td>2</td><td>Round 2 passed trap-zero module-owned session authentication, exact-once pointer/touch delivery, atomic rejection and restore without redelivery</td></tr>
+      <tr><td><code>GAME-001E3</code></td><td>Browser entry lifecycle and scheduler</td><td class="state-pass">PASS</td><td>6/6</td><td>2</td><td>Round 2 passed authoritative tick/hand/deck/elixir and command-ID continuation across RAF/restore, bounded batched scheduling, terminal/listener cleanup and shipped entry mounting</td></tr>
+      <tr><td><code>GAME-001E4</code></td><td>Restart control and fresh-session lifecycle</td><td class="state-pass">PASS</td><td>3/3</td><td>1</td><td>Round 1 passed authentic terminal replacement, byte-exact seed-0 reset, repeated restart, stale graph/listener/audio cleanup, policy preservation and hostile cleanup aggregation</td></tr>
+      <tr><td><code>GAME-001F</code></td><td>Live match audio umbrella</td><td class="state-pass">PASS</td><td>0/0</td><td>0</td><td>F1 authoritative cue feed and F2 trusted-gesture audible browser backend both passed their separate executable bars</td></tr>
+      <tr><td><code>GAME-001F1</code></td><td>Session event-to-audio feed</td><td class="state-pass">PASS</td><td>7/7</td><td>2</td><td>Round 2 passed exact registration, authoritative ordered cue feed/dedupe, persistent gain/mute across restart, terminal cleanup and bounded trap-zero restore</td></tr>
+      <tr><td><code>GAME-001F2</code></td><td>Audible browser backend and controls</td><td class="state-pass">PASS</td><td>11/11</td><td>3</td><td>Round 3 passed trusted unlock, audible control transactions, all-source rollback, atomic policy state, permanent faulting and observed idempotent cleanup</td></tr>
+      <tr><td><code>GAME-001GH</code></td><td>Sustained active-match composite history</td><td class="state-pass">PASS</td><td>1/1</td><td>2</td><td>Round 2 passed exact tick 18,000 with 319,534-byte terminal snapshot, exact restore cuts and private null-prototype compact handles; independent export/proxy/import probes found no authority leak</td></tr>
+      <tr><td><code>GAME-001GP</code></td><td>Sustained browser-match throughput</td><td class="state-pass">PASS</td><td>1/1</td><td>9</td><td>Retained same independent1464219 full18000 execution from GAME-001GPR round3: exact continuation/terminal/restart, no non-initialization longtasks or resource errors. Earlier failed revisions remain historical evidence; no additional execution claimed.</td></tr>
+      <tr><td><code>GAME-001GPV</code></td><td>Browser endurance long-task attribution</td><td class="state-pass">PASS</td><td>2/2</td><td>2</td><td>Round 2 fresh critic passed delayed-task probe and 900-tick run; follow-up full 18,000-tick Chrome run passed 2/2 in 804.2 s, 61 segments, zero driven long tasks, initialization max 176 ms and exact terminal/restart</td></tr>
+      <tr><td><code>GAME-001GS</code></td><td>Short authentic browser match journey</td><td class="state-pass">PASS</td><td>1/1</td><td>3</td><td>Independent current6dc short Chrome journey passes actual trusted controls, tick600 deterministic repeat, terminal1590 north3-1/32events and restart with zero console/unhandled errors. Evidence4663c20; full109 execution outside scope.</td></tr>
+      <tr><td><code>GAME-001G</code></td><td>Playable browser match journey umbrella</td><td class="state-pass">PASS</td><td>0/0</td><td>1</td><td>Scoped default8/candidate16 browser umbrella: current6dc short journey passes independently; prior146 full18000 restore/audio/input/terminal/restart proof retained by identical simulation/combat/audio/motion/harness hashes. No fresh6dc full run or full109 parity claim.</td></tr>
+      <tr><td><code>GAME-001H</code></td><td>Supported-roster runtime coverage umbrella</td><td class="state-blocked">BLOCKED</td><td>0/0</td><td>0</td><td>Split into independently judged shared admission, authority integration, troop, building and spell session bindings</td></tr>
+      <tr><td><code>GAME-001HA</code></td><td>Heterogeneous session card admission and typed history</td><td class="state-pass">PASS</td><td>7/7</td><td>1</td><td>Round 1 passed exact 58/53 accounting, 47 admitted legal deck witnesses, six sourced QUESTION exclusions, typed once-only routing, zero non-unit placeholders and bounded canonical history</td></tr>
+      <tr><td><code>GAME-001HTA</code></td><td>Shared troop mechanic authority seam</td><td class="state-pass">PASS</td><td>7/7</td><td>3</td><td>Round 3 passed: the seam observes the canonical tick-102 Mossguard attack→202 damage→causal receipt with no external ingress or gameplay delta; early/forged contacts and hostile inputs reject exactly</td></tr>
+      <tr><td><code>GAME-001HT</code></td><td>Unified-session troop roster mechanics umbrella</td><td class="state-blocked">BLOCKED</td><td>0/0</td><td>1</td><td>Round 1 failed; split by independently executable projection/mechanic families after audit found 31 admitted IDs, two QUESTION identities and no honest one-patch shared-runtime path</td></tr>
+      <tr><td><code>GAME-001HTP</code></td><td>Troop occurrence and session-profile contract</td><td class="state-pass">PASS</td><td>11/11</td><td>1</td><td>Round 1 passed exact 35/33 accounting, all 33 admitted source joins, two stale QUESTION fail-closed pins, one profile/composition per duplicated ID, canonical frozen clones and trap-zero hostile lookup</td></tr>
+      <tr><td><code>GAME-001HTO</code></td><td>Ordinary troop projection into eight-card witness sessions</td><td class="state-pass">PASS</td><td>14/14</td><td>3</td><td>Round 3 passed all 31 real sessions, 32 entities and 64 policies; 128 paired omissions, 31 whole-card omissions and every mixed legacy/HTO policy mode reject before admission</td></tr>
+      <tr><td><code>GAME-001HTMP</code></td><td>Movement/form source-profile contract</td><td class="state-pass">PASS</td><td>25/25</td><td>12</td><td>Round 12 passed 80 real nested-alias rejections, 210 synthetic delimiter rejections, exact 6/30 domain admission, zero hostile effects and the pinned 67,284-byte manifest/hash</td></tr>
+      <tr><td><code>GAME-001HTM</code></td><td>Shared troop movement and form mechanics</td><td class="state-pass">PASS</td><td>22/22</td><td>5</td><td>Round 5 re-passed after replacing the flaky absolute restore-time bound with a scaled 256-vs-1024 ratio guard (quadratic baseline ~16x passes with headroom, cubic fails decisively, load-invariant); serialization purity from round 4 unchanged</td></tr>
+      <tr><td><code>GAME-001HTJP</code></td><td>Projectile source-profile contract</td><td class="state-pass">PASS</td><td>26/26</td><td>6</td><td>Round 6 passed 1,105 source mutations, 452 hostile cases with zero callbacks/traps, 32 TOCTOU probes, eight authority forgeries, exact 66,903-byte manifest/hash and all dependent suites</td></tr>
+      <tr><td><code>GAME-001HTJ</code></td><td>Shared troop projectile mechanics</td><td class="state-pass">PASS</td><td>6/6</td><td>2</td><td>Round 2 passed private exact-receipt plan issuance, 40 fresh-process authority attacks, 113 altered receipts, 11 facade mismatches, realpath-exact guard closure and all 165 required selector tests</td></tr>
+      <tr><td><code>GAME-001HTSP</code></td><td>Status/heal/visibility source-profile contract</td><td class="state-pass">PASS</td><td>15/15</td><td>2</td><td>Round 2 passed exact 8/8 profiles, 240 QUESTION records, seven two-read catalog closures, 153 independent adversaries, Railward unresolved-only, Aegis pending composition and stable 82,575-byte serialization</td></tr>
+      <tr><td><code>GAME-001HTS</code></td><td>Shared troop status, heal and visibility mechanics</td><td class="state-pass">PASS</td><td>33/33</td><td>4</td><td>Round 4 passed exact receipt-bound projections, 317 independent mutation cases, stale setup/proxy/two-read attacks, six witnesses, 36 restore cuts and every named dependency/guard</td></tr>
+      <tr><td><code>GAME-001HTC</code></td><td>Shared champion and duplicated-facade troop composition umbrella</td><td class="state-blocked">BLOCKED</td><td>0/0</td><td>0</td><td>Split into independently evidenceable charge and champion/reflection compositions; both child pieces remain source-blocked</td></tr>
+      <tr><td><code>GAME-001HTEC</code></td><td>Emberlance charge/knockback/retarget composition</td><td class="state-blocked">BLOCKED</td><td>0/0</td><td>0</td><td>Cutoff sources establish 3.0-tile charge range, 2× speed and 392 bonus damage, but not reset classes, inclusive tick boundary, same-boundary hit/death order or serialized state; current 3.5-tile QUESTION fixture conflicts with the cutoff</td></tr>
+      <tr><td><code>GAME-001HTAC</code></td><td>Aegis Sage champion/reflection composition</td><td class="state-blocked">BLOCKED</td><td>0/0</td><td>0</td><td>Cutoff sources establish cost 1, cooldown 17 s, active duration 4 s, radius 1.5 tiles and 80% reduction, but not activation delay, projectile enum semantics, identity/target rewrite, simultaneous order or expiry/death boundaries; current 0.5-tile QUESTION fixture conflicts with the cutoff</td></tr>
+      <tr><td><code>GAME-001HBA</code></td><td>Shared building mechanic authority seam</td><td class="state-pass">PASS</td><td>14/14</td><td>2</td><td>Round 2 passed: exact frozen catalog receipts are pinned across parser, LiveBattle, GameSession and reducer; forged leaves/shapes/swaps reject trap-zero while private legacy restore remains exact</td></tr>
+      <tr><td><code>GAME-001HB</code></td><td>Unified-session building roster mechanics</td><td class="state-question">QUESTION</td><td>10/10</td><td>3</td><td>Round 3 confirms shared execution and the HBP provenance fix, but the required periodic/death-spawn GameSession path remains unverified: Bramble Cage and Ember Roost still have identity-only QUESTION records and reject admission, while Burrow Rig emits a spawn-question event without a unit. The isolated BUILDING-002 encounter does not establish a source-backed shared-session spawner. Sourceaudit55afe51 separately corroborates GoblinHut3/wave,500ms intermember,10s frequency,29s lifetime andrawdeathcount3; timerorigin/cadenceanchor/expiryordering remainQUESTION andnooriginalruntimealias is asserted.</td></tr>
+      <tr><td><code>GAME-001HBP</code></td><td>Nondefensive building policy provenance</td><td class="state-pass">PASS</td><td>3/3</td><td>1</td><td>Round 1 passed all nine QUESTION fields through catalog, receipt, and live structure; 45/45 per-field admission attacks reject. Cinder ordinary attack is 160; death damage is 200 QUESTION and tower damage is 70 QUESTION at 35%. One-step/chunk/restore bytes and the seed-zero standard deck remain exact.</td></tr>
+      <tr><td><code>GAME-001HSA</code></td><td>Shared spell-effect authority seam</td><td class="state-pass">PASS</td><td>10/10</td><td>2</td><td>Round 2 passed: all admitted effects without an exact profile reject visibly and byte-atomically before spend/cycle/route under both aliases; profiled Squall retains exact shared 689 damage and zero placeholders</td></tr>
+      <tr><td><code>GAME-001HI</code></td><td>Shared roster authority integration</td><td class="state-pass">PASS</td><td>1/1</td><td>1</td><td>Round 1 passed one real mixed GameSession graph with exact once-only cross-kind routes/spends, shared combat/effects, byte-identical continuation paths, hostile receipt rejection and no placeholders</td></tr>
+      <tr><td><code>GAME-001HUIK</code></td><td>Nondefault troop witness in shipped browser</td><td class="state-pass">PASS</td><td>1/1</td><td>1</td><td>Fresh critic passed real Chrome witness 1/1, restart 3/3 and default journey 1/1; physical play spent 5 elixir, created one shared unit, exact restore and witness restart; body-radius/delivery/layer policies remain QUESTION</td></tr>
+      <tr><td><code>GAME-001HUIR</code></td><td>In-app supported-deck choice</td><td class="state-pass">PASS</td><td>2/2</td><td>2</td><td>Round 2 passed both browser suites: hidden chooser controls are excluded from the journey inventory and cannot take focus; the standard chooser is visible and clickable; seed-zero opening, pre-match presentation, default journey, and same-deck restart checks pass. Keyboard focus entry/containment after opening remains untested</td></tr>
+      <tr><td><code>GAME-001HUIB</code></td><td>In-app defensive-building witness</td><td class="state-question">QUESTION</td><td>26/26</td><td>5</td><td>Round 5 preserves and rejects stripped/forged profile receipts, carries the QUESTION policy through GameSession/live structures and browser restore, keeps Standard exact, and restores the full 720×1280 viewport with 0 changed pixels. However, the live session still executes `firstHitTicks=0` against a source `null` and performs six attacks using unverified Cannon damage 212, HP 824, deploy 60 ticks, range 5,500, and ground targeting; labeling those estimates QUESTION does not meet the no-unsourced-policy bar. Source audit: reference/research/cannon-combat-source-audit.md confirms the cutoff datamine but no established first-hit semantics or same-cutoff corroboration; retain provisional labeling and do not claim parity.</td></tr>
+      <tr><td><code>GAME-001HUIF</code></td><td>Keyboard-complete pre-match deck chooser</td><td class="state-pass">PASS</td><td>1/1</td><td>1</td><td>None on judged dimension; real Chrome keyboard flow and pointer/default/restart regressions pass</td></tr>
+      <tr><td><code>VIS-003H</code></td><td>Exact browser frame restore boundary</td><td class="state-pass">PASS</td><td>1/1</td><td>1</td><td>Round 1 passes in Chrome 153.0.8010.53: standard tick 0 and Bulwark targeting tick 114/unit:4 have identical checkpoint/repeat/restore PNG hashes and zero pixel deltas; browser/session/DOM/HUD/input bytes stay exact. Historical footage parity remains VIS-001/VIS-002</td></tr>
+      <tr><td><code>GAME-001HS</code></td><td>Unified-session spell roster mechanics umbrella</td><td class="state-blocked">BLOCKED</td><td>0/0</td><td>0</td><td>Split by profile/effect family; Squall&#x27;s four private facades cannot count until one source-backed common-session composition exists</td></tr>
+      <tr><td><code>GAME-001HSQ</code></td><td>Spell occurrence and common-composition evidence contract</td><td class="state-blocked">BLOCKED</td><td>0/0</td><td>0</td><td>Four Squall exports demonstrably reuse one base catalog; return is an unsourced fixture context, not proven card phase. Resolve context classification and independently source real activation/travel/impact policy</td></tr>
+      <tr><td><code>GAME-001HSQO</code></td><td>Spell occurrence and fixture-context accounting</td><td class="state-pass">PASS</td><td>4/4</td><td>1</td><td>Fresh critic verified all 13 occurrences, 10 identities and four shared Squall fixture contexts; zero complete card profiles. Parent HSQ composition remains blocked</td></tr>
+      <tr><td><code>GAME-001HSP</code></td><td>Shared periodic spell mechanics</td><td class="state-blocked">BLOCKED</td><td>0/0</td><td>0</td><td>Pinned cutoff supplement exposes 78 area/buff fields; the isolated Blight Ring/Fault Pulse movement-only slow fixtures now match the corroborated 15%/50% values. The universal crown ratio still conflicts, and shared activation/refresh/rounding/pull order remain unresolved</td></tr>
+      <tr><td><code>GAME-001HSPF</code></td><td>Corroborated periodic movement-slow facts</td><td class="state-pass">PASS</td><td>75/75</td><td>2</td><td>Round 2 passed all five focused suites (75/75), refreshed and verified all 58 occurrence bindings in two identical integration sweeps, and confirmed all six GameSession/LiveBattle execution attempts still reject atomically. This closes the isolated fixture/pin contract only; GAME-001HSP remains BLOCKED and full periodic composition and unresolved lifecycle/order rules remain QUESTION. Round 1&#x27;s stale pin failure and dated metadata correction remain in rounds.md.</td></tr>
+      <tr><td><code>GAME-001HSS</code></td><td>Shared instant and status spell mechanics</td><td class="state-blocked">BLOCKED</td><td>0/0</td><td>0</td><td>Pinned cutoff supplement verifies 61 fields: separate Tempo friendly buff/enemy damage areas, raw 135 speed multipliers and Static 500-ms stun. Generic 7/4 rage conflicts; activation, refresh, reset classes and ordering remain unresolved</td></tr>
+      <tr><td><code>GAME-001HST</code></td><td>Shared traveling, wave, return and roll spell mechanics</td><td class="state-blocked">BLOCKED</td><td>0/0</td><td>0</td><td>Isolated line/wave/return/roll facades are deterministic but lack common-session composition receipts</td></tr>
+      <tr><td><code>APP-001</code></td><td>Player-facing home, collection and card mechanics info</td><td class="state-pass">PASS</td><td>23/23</td><td>1</td><td>Round 1 passed actual Chrome at 720×1280, 390×844, and 1440×900; eight runtime card profiles and Briar Band components display exactly; battle deploy/pause/resume and release isolation pass. None on judged dimension</td></tr>
+      <tr><td><code>APP-002D</code></td><td>Deterministic editable-deck setup</td><td class="state-pass">PASS</td><td>4/4</td><td>1</td><td>Round 1 passed all nine ordered subsets, default bytes, QUESTION closure, rejection, deterministic chunk/restore replay and live Stonehauler deployment; generic setup admission still honors caller-authored estimates only as explicitly unverified QUESTION values</td></tr>
+      <tr><td><code>APP-002</code></td><td>Editable eight-card deck and match launch</td><td class="state-pass">PASS</td><td>34/34</td><td>1</td><td>Round 1 passed production build/browser checks, canonical custom setup launch, restore/restart, hostile-message rejection and 390×844 slot-8 keyboard/pointer access; slot 8 needs a 76px scroll to clear the fixed navigation from the initial position</td></tr>
+      <tr><td><code>APP-003</code></td><td>Deck and card-info interaction polish</td><td class="state-pass">PASS</td><td>8/8</td><td>2</td><td>Round 2 passed both requested test suites and an independent trusted Tab/Shift+Tab audit at 320×568 and 390×844; all settled focus targets clear fixed navigation and are at least 44px. Round 1 and 2 found no remaining gap on the judged dimension</td></tr>
+      <tr><td><code>APP-004</code></td><td>Readable hand and next-card HUD in packaged Battle</td><td class="state-pass">PASS</td><td>9/9</td><td>2</td><td>Round 2 passed both requested suites and independent 720×1280 geometry: elixir right=715.609px with its 2px outline inside the frame; fourth card target is 112×128px, 3px clear of the badge box. Names/costs and trusted cycle/deploy behavior pass at all three viewports. At 1280×720 the smallest typography margins are 0.277px for names and 0.847px for costs.</td></tr>
+      <tr><td><code>RL-001</code></td><td>Deterministic JavaScript training environment</td><td class="state-pass">PASS</td><td>2/2</td><td>3</td><td>Round 3 passed focused Node checks: wait-only seed 2 restores at tick 2,400 and reproduces every transition to its natural north 3–0 win at tick 4,899 with reward −1; horizon clipping remains a separate truncation at tick 10. Artifact commit changes tests only.</td></tr>
+      <tr><td><code>VIS-003HR</code></td><td>Exact frame restore after a long rendered branch</td><td class="state-pass">PASS</td><td>2/2</td><td>2</td><td>Round 2 on immutable `948eb63` passed UI/visual source pins, short exact restore, the real 140-tick Bulwark branch with byte-identical viewport and zero pixel delta, and full 18,000-tick browser endurance with terminal/restart and unchanged long-task caps. Round 1&#x27;s two-pixel mismatch remains recorded in rounds.md.</td></tr>
+      <tr><td><code>GAME-001GPVT</code></td><td>Terminal and restart long-task attribution</td><td class="state-pass">PASS</td><td>2/2</td><td>6</td><td>Retained same1464219 classifier/full18000 execution: explicit terminal/restart/drain attribution and unchanged50/300ms caps pass, initialization154ms and no qualifying lifecycle longtasks. No new separate execution claimed.</td></tr>
+      <tr><td><code>ART-004</code></td><td>Original deterministic 2D sprite prototype</td><td class="state-building">BUILDING</td><td>0/0</td><td>0</td><td>User requested improved art and suggested sprite sheets; isolated prototype must be rendered and judged separately before arena integration.</td></tr>
+      <tr><td><code>PUB-003</code></td><td>Reader-first README and separate engineering guides</td><td class="state-pass">PASS</td><td>2/2</td><td>1</td><td>Independent reader-first README review passed; mechanics explained in plain language, technical commands/API/evidence moved to linked guides. Live prototype publication is separately PUB-004.</td></tr>
+      <tr><td><code>ART-005</code></td><td>Painted arena and troop asset quality</td><td class="state-building">BUILDING</td><td>0/0</td><td>0</td><td>User prioritized immediate asset quality; current flat vector prototype is insufficient and its 720px fixture overstated actual troop scale. Painted sprite and arena builders own disjoint assets and demos.</td></tr>
+      <tr><td><code>ART-005C</code></td><td>Painted portraits across playable screens</td><td class="state-pass">PASS</td><td>1/1</td><td>3</td><td>Independent frozen 686b6ee full app flow passes; actual Pages desktop/phone renders show all nine portraits, correct Stonehauler deck replacement, matching hashes, no browser/HTTP errors or overflow, and zero navigation overlap.</td></tr>
+      <tr><td><code>ART-005A</code></td><td>Painted terrain in playable arena</td><td class="state-pass">PASS</td><td>19/19</td><td>2</td><td>Independent42da2ef focused19/19 passes including real desktop Chrome; CSS/WebP hashes identical to independently rendered R1 phone deployment/nooverflow. Local-image provenance remains manifest/hash bound. Historical parity unverified.</td></tr>
+      <tr><td><code>ART-005S</code></td><td>Painted troop animation in playable battle</td><td class="state-pass">PASS</td><td>51/51</td><td>3</td><td>Independent frozen 217b210 source-hosted review passes 51/51. Actual desktop and phone captures restore byte-for-byte in normal and reduced motion; opposing team baseplates remain readable at final phone scale. One overlapped north marker has only two color pixels. Packaged release, endurance and historical parity are outside this verdict.</td></tr>
+      <tr><td><code>LORE-001</code></td><td>Original world and card lore</td><td class="state-pass">PASS</td><td>1/1</td><td>1</td><td>Independent frozen e235a0f app-polish passes; all nine visible stories match at desktop and phone sizes, separate from mechanics; zero horizontal overflow and final-stat/navigation overlap. World guide linked in README.</td></tr>
+      <tr><td><code>CARDS-011</code></td><td>Classic melee squad collection expansion</td><td class="state-pass">PASS</td><td>80/80</td><td>1</td><td>Independent frozen 42bcf09 passes focused73, app-shell1 and asset6 checks. Actual desktop/phone portraits and stories render; both custom-deck squads deploy and restore exactly; default eight-card setup preserved. Historical stat corroboration remains incomplete.</td></tr>
+      <tr><td><code>GAME-SPELL-001</code></td><td>Full radius spell through player and agent decks</td><td class="state-pass">PASS</td><td>48/48</td><td>1</td><td>Independent frozen bccd0a9 passes runtime41, app-shell1 and assets6; actual mixed deck, trusted cast, spend/cycle, pending restore and area damage work. Flight/knockback remain excluded; source guard and scoped full endurance now pass; complete historical spell behavior remains open.</td></tr>
+      <tr><td><code>SKILL-CHAR-001</code></td><td>Reusable original character creation</td><td class="state-pass">PASS</td><td>3/3</td><td>1</td><td>Independent validator/copy check and concept-only/planning-only forward tests pass on 45b1947. Installed user skill matches repo; planning-only instructions could be clearer but both explicit boundaries were honored.</td></tr>
+      <tr><td><code>CARDS-013</code></td><td>Full swarm and heavy melee choices</td><td class="state-pass">PASS</td><td>86/86</td><td>2</td><td>Core85/85 retained; independent ce3beba app-shell1/1 and actual desktop/phone target profiles show consistent current classification with provisional source wording, original portraits/lore and default8. Global stale collection notice corrected in next batch.</td></tr>
+      <tr><td><code>PROGRESS-001</code></td><td>Complete live piece inventory</td><td class="state-pass">PASS</td><td>1/1</td><td>1</td><td>Independent frozen generator review renders all 210 valid rows with exact values and all 375 existing trajectories; unknown valid prefixes included, malformed rows excluded.</td></tr>
+      <tr><td><code>RELEASE-GUARD-001</code></td><td>Preserve source and asset guard admission</td><td class="state-building">BUILDING</td><td>29/29</td><td>1</td><td>Current6dc guards23, Pages5 and shortjourney1 pass with canonical assets and retained146 full endurance. Earlier restore/path failures are resolved for this scope; separately reproduced production release/host isolation failures remain under RELEASE-TEST001 diagnosis before broad release qualification.</td></tr>
+      <tr><td><code>RELEASE-ASSET-001</code></td><td>Canonical imported asset deduplication</td><td class="state-pass">PASS</td><td>29/29</td><td>1</td><td>Independent frozen 6dc review 4663c20 passes guards23, Pages5 and short journey1. Production42 files/5354760B, all42 hashes/sizes match,15 canonical assets unchanged with zero duplicates/protected paths. Actual prefixed sprites/arena/portraits decode and JS/RL reset-step-restore qualifies. Prior146 full57/57 retained by matching runtime/harness hashes; no fresh18k run.</td></tr>
+      <tr><td><code>CARDS-015</code></td><td>Ranged pair and flying trio choices</td><td class="state-pass">PASS</td><td>64/64</td><td>1</td><td>Independent9b5 core/API63+RL1 pass; actual53file8134132B production qualifies and16mixed/15troop collection with default8 renders correct current-game stats/lore/controls. Source stats remain non-authoritative, speed/layer QUESTION. Separate ART015 round2 now passes actual phone and desktop portrait details.</td></tr>
+      <tr><td><code>ART-015</code></td><td>Original ranged-pair and flying-trio portraits</td><td class="state-pass">PASS</td><td>1/1</td><td>2</td><td>Independent frozen6dc browser review5bb0c6f passes16 decoded mappings and both portraits/lore at1440x933 and390x844. Phone64px portraits, panels right378/bottom653 and622, visible44px back/nav, focused title, uniqueIDs and seven stats. Original provenance matches; no historical parity claim.</td></tr>
+      <tr><td><code>GAME-001GPR</code></td><td>Restore transaction throughput</td><td class="state-pass">PASS</td><td>57/57</td><td>3</td><td>Independent immutable1464219 passes55 preflight plus2 strict endurance tests. Full18000 ticks/61 segments, exact600-to300-to600 session/input/layers/audio, terminal/restart, zero resource/console errors. Unchanged50/300ms caps: initialization154ms; no qualifying non-initialization longtasks. Evidence463013b, artifacts/game-001gpr-round-3/critic. Scope default8/candidate16 only.</td></tr>
+      <tr><td><code>RELEASE-TEST-001</code></td><td>Current production isolation test qualification</td><td class="state-pass">PASS</td><td>33/33</td><td>2</td><td>Independent1872 candidate suites33/33, originalpolicyprobes9/9 and additionalresolvededgeprobes8/8 pass. RealCSP/prefixedbrowserRL and15canonicalassets/caps/cleanup verified; evidence9af101d includedf6c203b. Scope source-isolation only, no currentfullendurance or109-card release claim.</td></tr>
+      <tr><td><code>COVERAGE-002</code></td><td>Versioned current historical roster mapping</td><td class="state-pass">PASS</td><td>6/6</td><td>2</td><td>Independent round2 rejects all six semantic mutation classes, including fixture promotion and false evidence lines. Frozen6dc inventory109 rows/16 editable/default8/53 admitted58occ remains reproducible;67 focused tests pass. Actual42-file production exclusion audit passes. Mapping only: zero full historical executions; newer core not covered.</td></tr>
+      <tr><td><code>CARDS-016K</code></td><td>Two additional classic air-swarm runtime roles</td><td class="state-pass">PASS</td><td>24/24</td><td>2</td><td>Independent clean7cb criticd95d19e air-swarm8/8 and ordinary16/16 pass; direct hostile admission probes8/8 reject missing/forged/dangling/wrong-value metadata. Default8 snapshots6/6 byte-identical against6dc; strict current18000 passes. Ten estimate QUESTIONS per newrole remain explicit; both roles remain outside16 editable/RL choices.</td></tr>
+      <tr><td><code>ART-016P</code></td><td>Original air-swarm portrait assets and lore</td><td class="state-pass">PASS</td><td>8/8</td><td>2</td><td>Independent clean7cb criticd95d19e art2/2 and manifest6/6 pass; actual native64px Coppershade has six separate copper birds in3x2 arrangement. Provenance and original atlas preserved. Asset-only scope; real public editable phone/desktop ART016 remains blocked.</td></tr>
+      <tr><td><code>ART-016</code></td><td>Original light and projectile air-swarm portraits</td><td class="state-pass">PASS</td><td>1/1</td><td>1</td><td>Independent clean6ec critic30725fc real390x844 and1440x933 detail renders forbothcards show originalmatchingportrait/lore/sevenstats, nohorizontaloverflow andvisiblephonenavigation/Cardscontrol. Screens/hashes retainede703827. Artworkscopeonly; CARDS016I trustedCoppershadeflow stillunderrepair.</td></tr>
+      <tr><td><code>CARDS-016I</code></td><td>Two air-swarm choices in player and RL decks</td><td class="state-pass">PASS</td><td>58/58</td><td>2</td><td>Independent exacta8 critic980730f six suites58/58: browser1, core13, editable10, RL11, guards23. Actual18choices/default8, trusted5body2costGloamwing and6body5costCoppershade, airborneprojectile, typedQUESTIONS andexactrestore/replay. Real390x844/1440x933 controls/details/nooverflow pass. Historicalformation/stagger remainsCARDS016D/T, no109parity ornewdeploymentclaim.</td></tr>
+      <tr><td><code>CARDS-016D</code></td><td>Historical swarm formation and spawn timing</td><td class="state-question">QUESTION</td><td>0/0</td><td>0</td><td>Sourceaudit3545777 confirms official2020 per-member100ms interval and2022 deploy-radius spacing change; raw750/600 retained. Exactgeometry/memberorder/anchor/first-onset stillQUESTION, no matchedfootage. Current generic300 same-batch model lacksconfirmedstagger; CARDS016T implementsrelativeinterval separately withoutpromotingunknowngeometry/onset.</td></tr>
+      <tr><td><code>PUB-004</code></td><td>Publish current playable prototype</td><td class="state-pass">PASS</td><td>2/2</td><td>2</td><td>Round2 independent b41e7c2 verifies live ae4a63e release/workflow38431846142 success,18uniquechoices includingbothairswarms, actualHTTP200 andruntime/roster bytes matchmanifest. Publishedruntime unchanged from full18000 reviewed796:2/2,init197≤300/noninit50caps. Eightdocslinksresolve; pendingc981 defaultBriar/fivesquad timing excluded. Prior round1 physical publicbrowser proof retained; no109parity claim.</td></tr>
+      <tr><td><code>RELEASE-PRELOAD-001</code></td><td>Generated preload helper source provenance</td><td class="state-pass">PASS</td><td>44/44</td><td>3</td><td>Independent exact8e criticbd34e02: release22/22, guards13/13, shipping release4/4, Pages5/5; additional40/40 authored-helper probes reject. Actual prefixed Pages44files/5443302B with all17 canonical assets byte-identical and59 successful requests. Actual38176273703 build/deploy SUCCESS. Prior generated-helper/CSS/naming failures retained.</td></tr>
+      <tr><td><code>CARDS-016T</code></td><td>Source-backed relative air-swarm deployment interval</td><td class="state-pass">PASS</td><td>77/77</td><td>2</td><td>Independent frozen796 critic a1a69f7 actualordinary16/16+focused16/16; runtime/assets andallunchangedharnesshashes retain61priorrequestedpasses withoutdouble-countingcore16 (77distinctscopedchecks). Sixfullserializeddefault8snapshots identicaltoa8; kernel524275 under524288cap. Relative100msbirthaxis accepted; geometry/order/onsetQUESTIONs remain. Currentstrict18000 separatelyGAME001GPR4.</td></tr>
+      <tr><td><code>COVERAGE-003</code></td><td>Versioned eighteen-card historical roster mapping</td><td class="state-pass">PASS</td><td>6/6</td><td>1</td><td>Independent critic885bf76 frozena8 generates109rows78/13/18,18editable/default8,55catalog60occ,12declarationcandidates6unjoined and26typedQUESTIONs; old11/16hashesunchanged. Sixsemanticclasses+9actualJSONtampercases reject;107focusedtests pass. Actual44file5443443B production/Chromiummanifest audit excludesinventory/reference/private paths underunchangedcaps. Zero109historicalexecutions/parity; newerstaggeroutsidefrozenmapping.</td></tr>
+      <tr><td><code>GAME-001GPR4</code></td><td>Current eighteen-choice runtime strict endurance</td><td class="state-pass">PASS</td><td>2/2</td><td>1</td><td>Independent exact796 critic629b42e full18000 originalsession17088 exit0, main811580ms/total813794ms. Init197ms≤300; allnoninitlongtaskcategories0 under50. Exact600→300 restore/audio/input42/42, terminal18000/restart0 count1 andzeroresources/errors. FreshTAP/JSON/PNGs/mtimehashreceipt retained. Scopedseed0/default8 workloadonly, notall18combinations or109parity.</td></tr>
+      <tr><td><code>CARDS-017T</code></td><td>Remaining source-backed playable squad intervals</td><td class="state-pass">PASS</td><td>74/74</td><td>2</td><td>Independent frozen6c7 critic4a96c2f: fullintegrationaudit6/6 actualtwohashruns,focused45/45,guards23/23. Exact3generatedbindingupdates/63unchanged,66claimedartifacts61IDs distinctfrom60admitted55IDs; unchanged47selectors. Priortrustedphone/desktopbirthwitnesshash-valid withruntimec981continuity. Strictreceipts/partialrestore andsourceinterval accepted; geometry/onset/memberorder remainQUESTION. ChangeddefaultBriar needs freshGAME001GPR5 endurance, no prior796proof substitution.</td></tr>
+      <tr><td><code>GAME-001GPR5</code></td><td>Corrected default-squad runtime strict endurance</td><td class="state-pass">PASS</td><td>2/2</td><td>2</td><td>Independentfa7fa47 exact5ba fullstrictcommand exit0 TAP2/2:987818ms main990051ms total,67segments reach18000. Setup306bb30;40physicalE2 decisions including6state-aware counters matchfrozenpreflight. Restore600→300→600 exactsession/input/audio parity; terminal18000/restart0; init197≤300 andallnoninitLongTaskcategories0 under50; resources/console/unhandledempty. Exact2808blobs and144runtime/4harness hashesmatch. Pause/resume intentionally add2transcript records; mirror parity holds, assertionwordingoverstatescross-boundarybyteinvariance. Scopeddefault8workloadonly, not109parity.</td></tr>
+      <tr><td><code>GAME-001GPR5P</code></td><td>Terminal-aware endurance planning and explicit duration failure</td><td class="state-pass">PASS</td><td>1/1</td><td>1</td><td>Independent425c3c8 frozen2d6 focused1/1 plus actual provenance/adversarial probe: originalJSONhash/copiedinput/manifest andtwoidenticalreplays, exactactive13200Cinderlingsplan, terminalnoplanning andexplicitunmet18000diagnostic, forgedterminalcountrejection/exactendactiveallow,10frozenruntimehashesunchanged. Caps/input/restore/audio/restartassertions preserved. This planning guard is retained; later GAME001GPR5 round420 supplies fresh18k proof for the adaptive workload.</td></tr>
+      <tr><td><code>CARDS-018K</code></td><td>Editable defensive splash structure and RL visibility</td><td class="state-pass">PASS</td><td>1/1</td><td>3</td><td>Independent exactb333 docsrepair: bothliteralguide snippets exit0, freshbounded1/1, action256/version2/2305actions, tick1elixir10→6, Ember→Squallhand,nextMossguard,costreceipt4highauthoritative; HP1356/lifetime/attack,Qhonesty,JSONdetachment,checkpointcontinuation/v1reject pass. All499checkedblobs equal d209,src/tests unchanged; previous75core+26API checks retainedviareceiptchecksums notrerun. Default8bytes preserved. Existingbuildingprofile/lifetime remainQUESTIONS; livebrowserpresentation separatelyCARDS018I.</td></tr>
+      <tr><td><code>CARDS-018I</code></td><td>Original Ember Basin card presentation and browser integration</td><td class="state-pass">PASS</td><td>25/25</td><td>1</td><td>Independent exact7f8baee browser1/1, assets6/6, shipping13/13, Pages5/5 and build47files pass. Trusted19thchoice customdeck, cost/cycle, two222splash hits96ticks apart, expiry1800→1801, same-mode restore pixels and restart verified. Builder repeat has startup timing fixture race retained; no historical parity or full19-deck endurance claim.</td></tr>
+      <tr><td><code>ART-018P</code></td><td>Original Ember Basin portrait asset</td><td class="state-pass">PASS</td><td>7/7</td><td>2</td><td>Independent376ff88 exacta3ebdb1 fresh64/128px renders show defensive launchchannel,rails,pivot andbraces; source1254square2717595B/output512square74608B hashes andv1preservation/toolprompt/license/lore match, audit7/7. Retained0cc47cd. Darkbackground blends someedges at64px butbrightdiagonals readable. Asset-only; phone/desktop/arena integration remainsCARDS018I.</td></tr>
+      <tr><td><code>GAME-001GPR6</code></td><td>Shipped nineteen-choice presentation strict endurance</td><td class="state-pass">PASS</td><td>2/2</td><td>1</td><td>Independent exact9f64011 cleanarchive3003blobs/144src/6harness match. Full997383ms TAP2/2:67segments18000, restore600→300→600 browser/direct/input/audio parity, terminal18000/restart0; init158≤300 andnoninitcategories0 under50; errors/resourcesempty. Pause/resume intentionallyaddtranscriptrecords; mirrorparity notcross-boundarybyteinvariance. Scopeddefault8only; subsequentKilnkeeperkernel changesnotcovered.</td></tr>
+      <tr><td><code>CARDS-019K</code></td><td>Ordinary mobile ranged splash shared engine</td><td class="state-pass">PASS</td><td>6/6</td><td>2</td><td>Independent6cc corePASS: full audit6/RL12, profiles26/runtime6, ordinary21/source11/editor12/schema20, guard10+13/release4/host1. Actual AIcost5/cycle1, unit/building/tower281 contacts once, exact pending/damaged restore+fork; 18 provenance mutations reject and old8seed0/23 hashes unchanged. Kernel523929&lt;=524288. Homing remainsCARDS019H; baselinegame-session8/9 stale instant-squad assertion separatelyGAME001MS; no broad all-suite/historical parity claim.</td></tr>
+      <tr><td><code>ART-019P</code></td><td>Original Kilnkeeper collection portrait</td><td class="state-pass">PASS</td><td>6/6</td><td>2</td><td>Independentexactc23 repair: all20priorrecords unchanged, correct512sq65626Bhash/license/authorship registration; originalsource/provenance/lore/renderbytes equal87da, native64/128readability inspected. Cleanmanifest6/6 andPages48files5733974B, allreleasehashes match; reference/sourcePNG/provenance/lore/artifacts/demoexcluded. No livecardUI/arena claim.</td></tr>
+      <tr><td><code>CARDS-019H</code></td><td>Source-bounded homing projectile continuation</td><td class="state-question">QUESTION</td><td>0/0</td><td>0</td><td>Rawlinkedprojectile homingtrue documented; currenthost lockedimpact point differs. Need sourcebounded sharedhoming model and questioned ambiguousboundary/order semantics, actualmovingtarget interaction before fullcardfidelity claim.</td></tr>
+      <tr><td><code>CARDS-019H1</code></td><td>Shared homing flag and target-following integration</td><td class="state-building">BUILDING</td><td>0/0</td><td>0</td><td>Accepted core dependency nowPASS. Sharedtarget-following build next; runtime speed, rounding, death/retarget/contact policies remain explicitlyunverified. No historicalhoming parity claim.</td></tr>
+      <tr><td><code>CARDS-019H2</code></td><td>Historical homing motion and contact calibration</td><td class="state-question">QUESTION</td><td>0/0</td><td>0</td><td>Bounded primary-source check confirms raw600 andSupercell2019Princess tuning450→600 butno physicalunitdefinition. Character-scale600/60=10tiles/s remainshypothesis; runtime500milli/tick staysQUESTION. Need stationaryprojectilespawn/contact framecalibration andseparatemovingtarget/order/death evidence; scope artifacts/cards019h2-speed-scope/builder/scope.md.</td></tr>
+      <tr><td><code>ART-019B</code></td><td>Original Kilnkeeper combat cutout asset</td><td class="state-pass">PASS</td><td>6/6</td><td>2</td><td>Independentexact1ba nativeChromeDPR1 actual13/26CSSrenders:face/tealapron/side-separatedlauncher/feet remain distinctat13. Realalpha0–254/transparentcorners,512sq47138Bhash/provenance/input/v1/portraitcontinuity verified; onlytargetmanifesthash/bytes change. Asset6/6/Pages49files5781112B/isolation pass. Actual540x960arena/UI stillCARDS019I.</td></tr>
+      <tr><td><code>CARDS-019I</code></td><td>Kilnkeeper card and arena presentation</td><td class="state-todo">TODO</td><td>0/0</td><td>0</td><td>Core/assets accepted; sharedhomingflag integration mustpass before actualbrowserintegration. Historicalcalibration CARDS019H2 QUESTION.</td></tr>
+      <tr><td><code>GAME-001MS</code></td><td>Shared-session squad materialization verification</td><td class="state-pass">PASS</td><td>9/9</td><td>1</td><td>Independent clean15a9889 fullgame-session9/9 exit0 (82172ms). All8defaultroles: actual player+AI one spend/cycle each, unique causal members, exact Briar globalbirths0/6/12/18/24/30 andinstant Cinderlings; later damage/death/towerdamage required. Source151f/parentff byte-identical, original8othergates retained. Firstonset/order/orientation/formation remainQUESTION; proofscope acceptedcore before H1sourcechanges.</td></tr>
+      <tr><td><code>ART-020P</code></td><td>Original Rivet Runners collection portrait</td><td class="state-pass">PASS</td><td>6/6</td><td>1</td><td>Independent7fa freshChrome155 DPR1 native64/128 portraits readable; originalduo faces/mallets distinct. Source1254PNG2819557B hash/provenance/styleinput valid;512WebP76868B byte-reproducedcwebp1.6.0. Single11-line manifestrecord, allpriorrecordsunchanged; asset6/6/Pages50files5882827B/exclusion pass. Minor64px malletmargin nit; no livecard/arena claim.</td></tr>
+      <tr><td><code>CARDS-020K</code></td><td>Two fast ground melee members in shared session</td><td class="state-blocked">BLOCKED</td><td>0/0</td><td>0</td><td>Read-only scope identified frozen26000043 role, no current admission. Confirm pinned full-signature has no omitted special ability before source-profile build; original portrait underway, no gameplay claim.</td></tr>
+      <tr><td><code>ART-020B</code></td><td>Original Rivet Runners battle cutout</td><td class="state-pass">PASS</td><td>6/6</td><td>2</td><td>Fresh Chrome 155 DPR1 renders preserve face, teal vest, copper mallet and handle, and two feet at native 13/26px on light/dark backgrounds. Manifest 6/6, exact re-encoding and Pages 51/51 hashes pass. Isolated asset accepted; real arena integration remains CARDS-020I.</td></tr>
+      <tr><td><code>CARDS-020I</code></td><td>Rivet Runners card and arena presentation</td><td class="state-blocked">BLOCKED</td><td>0/0</td><td>0</td><td>Core/battle asset and precedingKilnkeeper integration notaccepted; no current21-choice browser claim.</td></tr>
       </tbody>
     </table>
   </div>

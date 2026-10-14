@@ -1,0 +1,156 @@
+{
+  "baseHead": "dbd7afe4a8901b5b61c83ebc92137a5bd26e5451",
+  "scope": "ART-020B round-two asset preparation only; no gameplay integration or art verdict",
+  "authorship": "in-repo-authored",
+  "license": "AGPL-3.0-only",
+  "sources": [
+    {
+      "path": "demo/assets/rivet-runners-battle-sprite-v1.png",
+      "sha256": "39b814504a9efe7f65b044ad0706589d3419d04ad3be0e53f55cdda5846edac3",
+      "bytes": 2210210
+    },
+    {
+      "path": "demo/assets/rivet-runners-battle-sprite-v2.png",
+      "sha256": "8fe8439376ab117cb88dac92c5eb9a32a9ee564c3f72a3ab3dccfe9aa22f8b65",
+      "bytes": 2220668
+    },
+    {
+      "path": "demo/assets/rivet-runners-battle-sprite.png",
+      "sha256": "1eb0f74862d3ec768e1fcfac727d20be8d7fd0fa2c5b88e93207ae296349663e",
+      "bytes": 1890785
+    }
+  ],
+  "approvedPortraitInput": {
+    "path": "demo/assets/rivet-runners-portrait.png",
+    "sha256": "b84c733e475b50d746d955ec805d0c5da1e998ca4e2fc9f76305f661ce942de0",
+    "dimensions": {
+      "width": 1254,
+      "height": 1254
+    },
+    "bytes": 2819557
+  },
+  "shippedOutput": {
+    "path": "public/assets/rivet-runners-battle-sprite.webp",
+    "sha256": "0a9d033f894bd19178871a2927117cf66bb7f42c0b65dc224e11cecca0b4ce53",
+    "bytes": 78170
+  },
+  "provenance": {
+    "path": "docs/art/rivet-runners-battle-sprite-provenance.json",
+    "sha256": "6a7cc18afcc64411d10de5a5341f06bb476595d2299dddb9c86fab41afbab0aa",
+    "bytes": 23889
+  },
+  "manifest": {
+    "path": "src/content/visual-asset-manifest.js",
+    "sha256": "0da323e0117679dd5c140af8ebde7551f8e52d2e8eff5da3b95b2d3e43d25d9b",
+    "bytes": 18252,
+    "base_sha256": "7687ba0f87627eb9866a98153db4318d223431cb2a6b45eed851e4048ce79358",
+    "added_records": 1
+  },
+  "nativeChromeDpr1": {
+    "browser": "Google Chrome",
+    "version": "155.0.8059.40",
+    "sourceSha256": "0a9d033f894bd19178871a2927117cf66bb7f42c0b65dc224e11cecca0b4ce53",
+    "renders": [
+      {
+        "sizeCssPx": 13,
+        "background": "dark",
+        "complete": true,
+        "naturalWidth": 512,
+        "naturalHeight": 512,
+        "renderedWidth": 13,
+        "renderedHeight": 13,
+        "stageWidth": 13,
+        "stageHeight": 13,
+        "devicePixelRatio": 1,
+        "alphaMin8Bit": 0,
+        "alphaMax8Bit": 254,
+        "screenshot": "native-chrome-css-13-dark-dpr1.png"
+      },
+      {
+        "sizeCssPx": 13,
+        "background": "light",
+        "complete": true,
+        "naturalWidth": 512,
+        "naturalHeight": 512,
+        "renderedWidth": 13,
+        "renderedHeight": 13,
+        "stageWidth": 13,
+        "stageHeight": 13,
+        "devicePixelRatio": 1,
+        "alphaMin8Bit": 0,
+        "alphaMax8Bit": 254,
+        "screenshot": "native-chrome-css-13-light-dpr1.png"
+      },
+      {
+        "sizeCssPx": 26,
+        "background": "dark",
+        "complete": true,
+        "naturalWidth": 512,
+        "naturalHeight": 512,
+        "renderedWidth": 26,
+        "renderedHeight": 26,
+        "stageWidth": 26,
+        "stageHeight": 26,
+        "devicePixelRatio": 1,
+        "alphaMin8Bit": 0,
+        "alphaMax8Bit": 254,
+        "screenshot": "native-chrome-css-26-dark-dpr1.png"
+      },
+      {
+        "sizeCssPx": 26,
+        "background": "light",
+        "complete": true,
+        "naturalWidth": 512,
+        "naturalHeight": 512,
+        "renderedWidth": 26,
+        "renderedHeight": 26,
+        "stageWidth": 26,
+        "stageHeight": 26,
+        "devicePixelRatio": 1,
+        "alphaMin8Bit": 0,
+        "alphaMax8Bit": 254,
+        "screenshot": "native-chrome-css-26-light-dpr1.png"
+      }
+    ]
+  },
+  "manifestTests": {
+    "command": "npm run test:visual-asset-manifest",
+    "passed": 6,
+    "failed": 0
+  },
+  "pagesBuild": {
+    "command": "npm run build:pages -- --out /tmp/art-020b-round-2-pages --repository ThatXliner/clash-royale-clone --ref art-020b-round-2-candidate",
+    "releaseFileCount": 51,
+    "releaseTotalBytes": 5960997,
+    "verifiedReleaseFileHashes": 51,
+    "newWebpOccurrences": 1,
+    "protectedSourceOrProvenancePathsInOutput": [],
+    "priorManifestBytesPreserved": true,
+    "manifestAddedRecordCount": 1
+  },
+  "candidateFiles": [
+    "artifacts/art-020b-round-2/builder/assemble-candidate.mjs",
+    "artifacts/art-020b-round-2/builder/audit-pages-output.mjs",
+    "artifacts/art-020b-round-2/builder/asset-hashes.sha256",
+    "artifacts/art-020b-round-2/builder/builder-receipt.json",
+    "artifacts/art-020b-round-2/builder/candidate-owned-files.txt",
+    "artifacts/art-020b-round-2/builder/manifest-delta.patch",
+    "artifacts/art-020b-round-2/builder/native-chrome-css-13-dark-dpr1.png",
+    "artifacts/art-020b-round-2/builder/native-chrome-css-13-light-dpr1.png",
+    "artifacts/art-020b-round-2/builder/native-chrome-css-26-dark-dpr1.png",
+    "artifacts/art-020b-round-2/builder/native-chrome-css-26-light-dpr1.png",
+    "artifacts/art-020b-round-2/builder/native-chrome-evidence.json",
+    "artifacts/art-020b-round-2/builder/pages-build-exclusion.json",
+    "artifacts/art-020b-round-2/builder/pages-build.log",
+    "artifacts/art-020b-round-2/builder/record-receipts.mjs",
+    "artifacts/art-020b-round-2/builder/render-native.mjs",
+    "artifacts/art-020b-round-2/builder/update-provenance.mjs",
+    "artifacts/art-020b-round-2/builder/visual-asset-manifest.tap",
+    "demo/assets/rivet-runners-battle-sprite-v1.png",
+    "demo/assets/rivet-runners-battle-sprite-v2.png",
+    "demo/assets/rivet-runners-battle-sprite.png",
+    "public/assets/rivet-runners-battle-sprite.webp",
+    "docs/art/rivet-runners-battle-sprite-provenance.json",
+    "src/content/visual-asset-manifest.js"
+  ]
+}

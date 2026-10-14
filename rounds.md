@@ -1,5 +1,16 @@
 # Gauntlet Rounds
 
+## Round 437 — 2026-10-13
+
+PIECE: ART-020B — Original Rivet Runners battle cutout
+VERDICT: PASS
+
+EVIDENCE: In fresh Google Chrome 155.0.8059.40 at DPR 1, the 512×512 WebP renders at exactly 13×13 and 26×26 CSS pixels on both light and dark arena-like backgrounds; the fresh native captures are pixel-identical to the builder captures. At 13px the otter's cream muzzle/face, teal vest, copper mallet head with its darker rootwood handle, and two separated feet remain identifiable as a melee unit; all parts are clear at 26px. The 1254×1254 RGBA source is 1,890,785 bytes, SHA-256 `1eb0f74862d3ec768e1fcfac727d20be8d7fd0fa2c5b88e93207ae296349663e`, with alpha 0–255. The 512×512 WebP is 78,170 bytes, SHA-256 `0a9d033f894bd19178871a2927117cf66bb7f42c0b65dc224e11cecca0b4ce53`, with alpha 0–254; cwebp 1.6.0 re-encoding with the recorded settings reproduced its hash exactly. Provenance records the V1/V2/V3 source history, prompts, input hashes, dimensions, sizes, tool, license and encoding. All 15 earlier provenance records and 42 earlier art files are byte-identical to the parent; the manifest has exactly one new record. The visual-asset-manifest test passed 6/6. The frozen Pages build produced 51 release files totaling 5,960,997 bytes; all 51 hashes passed, the new WebP appears once, and no protected paths or full-source image hashes appear in the output.
+
+BIGGEST GAP: Integrate the accepted asset through CARDS-020I and verify it in the real 540×960 arena, since this verdict covers only the isolated cutout.
+
+Evidence: `fresh-native-browser-evidence.json`, the four `fresh-chrome-css-*-dpr1.png` captures, `independent-audit.json`, `manifest-test.log`, and `pages-build.log` in this directory.
+
 ## Round 436 — 2026-10-13
 
 PIECE: ART-020B — Original Rivet Runners battle cutout, round 1

@@ -1,0 +1,31 @@
+ART-020B round 2 independent critic commands
+Candidate: 473e853cfb6fc6a35476a82fb096cbef08e21835
+Parent: dbd7afe4a8901b5b61c83ebc92137a5bd26e5451
+Clean checkout: /private/tmp/art020b-round2-critic
+Evidence directory: /Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/art-020b-round-2/critic
+
+1. git worktree add --detach /private/tmp/art020b-round2-critic 473e853cfb6fc6a35476a82fb096cbef08e21835
+   Exit: 0
+2. npm ci --no-audit --no-fund
+   Exit: 0
+   Raw output: npm-ci.log
+3. npm run test:visual-asset-manifest
+   Exit: 0
+   Result: 6 tests passed, 0 failed. Raw output: manifest-test.log
+4. npm run build:pages -- --out /private/tmp/art020b-round2-critic-pages
+   Exit: 0
+   Result: 51 release files, 5,960,997 bytes. Raw output: pages-build.log
+5. node /Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/art-020b-round-2/critic/render-native.mjs
+   Exit: 0
+   Result: fresh Google Chrome 155.0.8059.40 at DPR 1; natural 512x512 image rendered at exact 13x13 and 26x26 CSS px on light and dark gradients. Raw output: fresh-native-browser-command.log; metrics and hashes: fresh-native-browser-evidence.json.
+6. cwebp -quiet -q 88 -m 6 -metadata none -resize 512 512 demo/assets/rivet-runners-battle-sprite.png -o /Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/art-020b-round-2/critic/reencoded-rivet-runners-battle.webp
+   Exit: 0
+   Result: output SHA-256 matched shipped WebP exactly.
+7. python3 /Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/art-020b-round-2/critic/independent-audit.py
+   Exit: 0
+   Result: independent source/provenance/manifest/release audit passed. Raw output: independent-audit-command.log; hash manifest: independent-audit.json.
+8. Pixel compare builder and fresh native screenshots with Pillow
+   Exit: 0
+   Result: all four native renders pixel-identical; builder-render-pixel-comparison.json.
+
+Setup note: an initial npm-ci command redirection returned shell exit 1 because this evidence directory had not yet been created; npm did not run. After creating the directory, command 2 ran successfully.
