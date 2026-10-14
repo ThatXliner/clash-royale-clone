@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 438 — 2026-10-13
+
+PIECE: COVERAGE-004 — Current release evidence guide, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Independent clean candidate 2a9ce31 has 18 resolving links; catalog extraction reproduces 56/61 admitted, 62/67 claimed and QUESTION5. Fresh live Chrome confirms20 choices with generic Kilnkeeper fallback, portrait/lore0, errors0; main dbd7afe and workflow38501010696 successful. Guide scopes ninef endurance away from current runtime. Included checker exits1 at line34 with TypeError reading missing editablePoolIds from legacy app001 eight-card receipt; committed success does not reproduce. Exact stdout/stderr and independent raw rechecks retained in artifacts/coverage004-round-1/critic/. Failed guide stays candidate only.
+
+BIGGEST GAP: Correct the checker browser-evidence input/schema and regenerate its success receipt from the immutable archive.
+
 ## Round 437 — 2026-10-13
 
 PIECE: ART-020B — Original Rivet Runners battle cutout
