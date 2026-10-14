@@ -1,0 +1,87 @@
+{
+  "purpose": "Same-fixture unobstructed plate-only upper-bound diagnostic. The sprite visibility is hidden; stage and plate dimensions/placement/color are unchanged from the R3/R4 fixture.",
+  "browser": "Chromium 145.0.7632.6",
+  "nativeCapture": true,
+  "captureDpr": 1,
+  "screenshot": "plate-north-13-hidden-sprite-upper-bound.png",
+  "screenshotSha256": "0274bed773b4c075242316dc0bf4138026faec8cf6f9fd20dda5751630a66d89",
+  "decoded": {
+    "dimensions": [
+      13,
+      15
+    ],
+    "exactTeamColorRGBA": [
+      198,
+      69,
+      46,
+      255
+    ],
+    "exactTeamColorPixelCount": 3,
+    "positions": [
+      [
+        5,
+        13
+      ],
+      [
+        6,
+        13
+      ],
+      [
+        7,
+        13
+      ]
+    ]
+  },
+  "fixtureGeometryRelativeToStage": {
+    "stage": [
+      0,
+      0,
+      13,
+      15
+    ],
+    "plate": [
+      1,
+      11,
+      11,
+      4
+    ],
+    "image": [
+      0,
+      0,
+      13,
+      13
+    ]
+  },
+  "r3CriticFixtureGeometryRelativeToStage": {
+    "stage": [
+      0,
+      0,
+      13,
+      15
+    ],
+    "plate": [
+      1,
+      11,
+      11,
+      4
+    ],
+    "image": [
+      0,
+      0,
+      13,
+      13
+    ]
+  },
+  "spriteVisibility": "hidden solely for plate-only upper-bound measurement; image natural size and geometry retained",
+  "threshold": {
+    "13 CSS px minimum exact team-color pixels": 8,
+    "unobstructed maximum": 3,
+    "feasible under fixed fixture geometry": false
+  },
+  "fixtureSource": {
+    "file": "fresh-render.cjs",
+    "sha256": "5f9ffe9753cc2046a029fed13bdb1f7cfbdc8d881ac7327e75f7ace60a1264ea",
+    "copiedByteExactFrom": "R3 independent critic fixture; byte comparison verified against R3 reference separately"
+  },
+  "consoleErrors": []
+}

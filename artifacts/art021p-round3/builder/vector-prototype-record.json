@@ -1,0 +1,134 @@
+{
+  "task": "ART021P vector-source prototype preparation",
+  "acceptedBase": "bb0882312fa5d6edb83229ff66d9fd0c212d8068",
+  "status": "artifact-only prototype; not shipped, not adopted, and not independently critiqued",
+  "authorship": {
+    "type": "original agent-authored SVG code",
+    "basis": "approved Buried Coil concept only",
+    "imageGenerationUsed": false,
+    "externalAssetsOrReferences": [],
+    "bitmapTracing": false
+  },
+  "source": {
+    "path": "buried-coil-revealed.svg",
+    "bytes": 1899,
+    "sha256": "984c2fde2620d6f936e078d7c773618fc300875227e7ec7f28d8f73d8430c3f5",
+    "viewBox": "0 0 13 13",
+    "intrinsicDimensions": [
+      13,
+      13
+    ],
+    "palette": {
+      "darkRootwood": "#3d2b21",
+      "copper": "#c66f32",
+      "copperHighlight": "#e8a34b",
+      "copperShadow": "#814528",
+      "rootwood": "#70482f",
+      "legRootwood": "#503927",
+      "emberseed": "#ffd45a"
+    },
+    "form": "Two hollow copper loops separated by a transparent row; short central rootwood mast; one amber core; three stepped legs with three separated two-pixel feet."
+  },
+  "sourceEncodingPlan": {
+    "ifLaterApproved": "Ship the original SVG directly as the public visual asset, preserving its 13x13 viewBox and transparent alpha; keep an identical authored copy under demo/assets/buried-coil-revealed.svg and the served copy under public/assets/buried-coil-revealed.svg, then register the SVG dimensions, bytes, license, authorship and SHA-256. Direct SVG at CSS 13x13 matches the native prototype path. Do not derive product art from the 13px screenshot.",
+    "primaryFormat": "SVG",
+    "logicalDimensions": [
+      13,
+      13
+    ],
+    "directSvgNativeCaptureVerified": true,
+    "rasterFallback": "A 520x520 SVG raster and lossless WebP were tested at CSS 13x13; Chromium produced 129 differing RGBA pixels versus direct SVG. Do not use this WebP route unless a future export/runtime pairing is separately resolved and verified.",
+    "rasterFallbackReport": "encoding-roundtrip.json",
+    "notShippedYet": true
+  },
+  "nativeEvidence": {
+    "browser": "145.0.7632.6",
+    "phone": {
+      "viewport": [
+        390,
+        844
+      ],
+      "dpr": 1,
+      "natural": [
+        13,
+        13
+      ],
+      "cssRect": [
+        100,
+        100,
+        13,
+        13
+      ],
+      "screenshot": "phone-native-13px-dpr1.png",
+      "screenshotSha256": "6e64af8073335f436e929e054573224c57588c18ed61c1b60b2053f5b8baa0dd",
+      "consoleErrors": [],
+      "visiblePixelsAtAlphaGreaterThan32": 77,
+      "alphaMaskRows": [
+        "...#######...",
+        "...##...##...",
+        "...#######...",
+        ".............",
+        "..#########..",
+        "..##.....##..",
+        "..#########..",
+        ".....###.....",
+        "....#####....",
+        "...######....",
+        "..##..#.##...",
+        ".###.###.###.",
+        ".###.###.###."
+      ]
+    },
+    "desktop": {
+      "viewport": [
+        1440,
+        933
+      ],
+      "dpr": 1,
+      "natural": [
+        13,
+        13
+      ],
+      "cssRect": [
+        100,
+        100,
+        13,
+        13
+      ],
+      "screenshot": "desktop-native-13px-dpr1.png",
+      "screenshotSha256": "6e64af8073335f436e929e054573224c57588c18ed61c1b60b2053f5b8baa0dd",
+      "consoleErrors": [],
+      "visiblePixelsAtAlphaGreaterThan32": 77,
+      "alphaMaskRows": [
+        "...#######...",
+        "...##...##...",
+        "...#######...",
+        ".............",
+        "..#########..",
+        "..##.....##..",
+        "..#########..",
+        ".....###.....",
+        "....#####....",
+        "...######....",
+        "..##..#.##...",
+        ".###.###.###.",
+        ".###.###.###."
+      ]
+    },
+    "geometryEvidence": "The outer ring rows are separated by an entirely transparent row; each of the final two rows contains three independent three-pixel feet with one transparent column between them. At the preceding row, the three leg groups are separate.",
+    "artifacts": [
+      "native-scale.html",
+      "capture-native.cjs",
+      "native-measurements.json",
+      "phone-native-13px-dpr1.png",
+      "desktop-native-13px-dpr1.png",
+      "prototype-record.json",
+      "encoding-roundtrip.cjs",
+      "encoding-roundtrip.json",
+      "prototype-520.png",
+      "prototype-520.webp",
+      "prototype-520-webp-css13.png"
+    ],
+    "status": "Native geometry recorded for independent review; no PASS or adoption claim."
+  }
+}

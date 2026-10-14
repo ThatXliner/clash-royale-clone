@@ -1,0 +1,160 @@
+demo/assets/buried-coil-revealed-original.svg --- XML
+20   <rect x="5" y="8" width="3" height  20   <rect x="5" y="8" width="3" height
+.. ="1" fill="#c66f32"/>                 .. ="1" fill="#c66f32"/>
+21   <rect x="6" y="8" width="1" height  21   <rect x="6" y="8" width="1" height
+.. ="2" fill="#ffd45a"/>                 .. ="2" fill="#ffd45a"/>
+22                                       22 
+23   <!-- Three independent stepped leg  23   <!-- Three independent stepped leg
+.. s terminate in separated, two-pixel   .. s terminate in separated feet, with 
+.. feet. -->                             .. a clear lower row for the independen
+..                                       .. t team plate. -->
+24   <path fill="#503927" d="M4 9H5V10H  24   <path fill="#503927" d="M4 9H5V10H
+.. 4V11H2V10H3V9Z"/>                     .. 4V11H2V10H3V9Z"/>
+25   <path fill="#503927" d="M8 9H9V10H  25   <path fill="#503927" d="M8 9H9V10H
+.. 10V11H8V10H9V9Z"/>                    .. 10V11H8V10H9V9Z"/>
+26   <rect x="6" y="9" width="1" height  26   <rect x="6" y="9" width="1" height
+.. ="2" fill="#503927"/>                 .. ="2" fill="#503927"/>
+27   <path fill="#3d2b21" d="M1 11H4V13  27   <path fill="#3d2b21" d="M1 11H4V12
+.. H1Z M5 11H8V13H5Z M9 11H12V13H9Z"/>   .. H1Z M5 11H8V12H5Z M9 11H12V12H9Z"/>
+28   <path fill="#c66f32" d="M1 11H4V12  28   <path fill="#c66f32" d="M1 11H4V12
+.. H1Z M5 11H8V12H5Z M9 11H12V12H9Z"/>   .. H1Z M5 11H8V12H5Z M9 11H12V12H9Z"/>
+29   <path fill="#e8a34b" d="M2 11H3V12  29   <path fill="#e8a34b" d="M2 11H3V12
+.. H2Z M6 11H7V12H6Z M10 11H11V12H10Z"/  .. H2Z M6 11H7V12H6Z M10 11H11V12H10Z"/
+.. >                                     .. >
+30 </svg>                                30 </svg>
+
+docs/art/buried-coil-revealed-provenance.json --- 1/4 --- JSON
+ 1 {                                      1 {
+ 2   "asset_id": "buried-coil-revealed-   2   "asset_id": "buried-coil-revealed-
+ . battle-sprite",                        . battle-sprite",
+ 3   "version": 3,                        3   "version": 4,
+ 4   "authorship": "in-repo-authored",    4   "authorship": "in-repo-authored",
+ 5   "license": "AGPL-3.0-only",          5   "license": "AGPL-3.0-only",
+ 6   "authoring_method": "Original agen   6   "authoring_method": "Original agen
+ . t-authored SVG markup, written direc   . t-authored SVG markup, written direc
+ . tly from the approved Buried Coil co   . tly from the approved Buried Coil co
+ . ncept. No image-generation tool or e   . ncept. No image-generation tool or e
+ . xternal visual input was used.",       . xternal visual input was used.",
+
+docs/art/buried-coil-revealed-provenance.json --- 2/4 --- JSON
+27   "authored_source": {                27   "authored_source": {
+28     "path": "demo/assets/buried-coil  28     "path": "demo/assets/buried-coil
+.. -revealed-original.svg",              .. -revealed-original.svg",
+29     "format": "SVG",                  29     "format": "SVG",
+30     "bytes": 1899,                    30     "bytes": 1943,
+31     "sha256": "984c2fde2620d6f936e07  31     "sha256": "b215fe54eacad4d2866f3
+.. 8d7c773618fc300875227e7ec7f28d8f73d8  .. a8dc22d85cd3b3348c8783c92d7c194235a4
+.. 430c3f5",                             .. e7ba4ed",
+32     "dimensions": {                   32     "dimensions": {
+33       "width": 13,                    33       "width": 13,
+34       "height": 13                    34       "height": 13
+
+docs/art/buried-coil-revealed-provenance.json --- 3/4 --- JSON
+41     "path": "public/assets/buried-co  41     "path": "public/assets/buried-co
+.. il-revealed.svg",                     .. il-revealed.svg",
+42     "format": "SVG",                  42     "format": "SVG",
+43     "bytes": 1565,                    43     "bytes": 1565,
+44     "sha256": "0e677493ea65b9132ed55  44     "sha256": "a36c2d310d5d0c3fd7e27
+.. 3ec21a1efdf474cc887d6e21d569ff4fc3f9  .. 9ac5b02c829cfe9f02b0718e1988cf4f42c7
+.. 6189b53",                             .. 053530c",
+45     "dimensions": {                   45     "dimensions": {
+46       "width": 13,                    46       "width": 13,
+47       "height": 13                    47       "height": 13
+
+docs/art/buried-coil-revealed-provenance.json --- 4/4 --- JSON
+71     "desktop_capture": "artifacts/ar  71     "desktop_capture": "artifacts/ar
+.. t021p-round3/builder/vector-prototyp  .. t021p-round3/builder/vector-prototyp
+.. e-desktop-13px.png",                  .. e-desktop-13px.png",
+72     "browser": "Playwright Chromium   72     "browser": "Playwright Chromium 
+.. 145.0.7632.6",                        .. 145.0.7632.6",
+73     "source_sha256": "984c2fde2620d6  73     "source_sha256": "984c2fde2620d6
+.. f936e078d7c773618fc300875227e7ec7f28  .. f936e078d7c773618fc300875227e7ec7f28
+.. d8f73d8430c3f5",                      .. d8f73d8430c3f5",
+74     "note": "These prototype capture  74     "note": "The R3 prototype captur
+.. s use the original source SVG before  .. es use the original source SVG befor
+..  public minification. The shipped mi  .. e public minification. R3's independ
+.. nified SVG was separately rendered d  .. ent critique found the loops and thr
+.. irectly from its public asset path i  .. ee feet discernible, but only 3 exac
+.. n Chromium 145 at 13 CSS px and DPR   .. t team-color pixels at 13 CSS px ver
+.. 1 on phone and desktop viewports. Th  .. sus the 8-pixel bar; the 26 CSS px s
+.. is verifies the asset-stage renderin  .. tage had 24. R4 shortens only the lo
+.. g only; it does not verify live aren  .. wer foot bases to leave a transparen
+.. a or card-template integration."      .. t row over the separate plate. R4 na
+..                                       .. tive captures use the unchanged asse
+..                                       .. t-stage fixture and do not claim liv
+..                                       .. e arena or card-template integration
+..                                       .. ."
+75   },                                  75   },
+76   "round3_status": "Focused manifest  76   "round3_status": "R3 independent c
+..  and native asset-stage checks are c  .. ritique failed the 13 CSS px team-pl
+.. omplete; independent native-scale cr  .. ate bar (3 exact pixels versus 8); l
+.. itique remains pending. No pass or a  .. oops and three feet were discernible
+.. doption claim. Live arena and card-t  .. , and the 26 CSS px stage had 24. Ra
+.. emplate integration remain unverifie  .. w critique evidence is preserved und
+.. d."                                   .. er artifacts/art021p-round4/builder/
+..                                       .. r3-reference/.",
+..                                       77   "round4_status": "R4 asset revisio
+..                                       .. n prepared; exact fixture rerender a
+..                                       .. nd focused manifest verification pen
+..                                       .. ding. No pass or adoption claim. Liv
+..                                       .. e arena and card-template integratio
+..                                       .. n remain unverified."
+77 }                                     78 }
+
+public/assets/buried-coil-revealed.svg --- XML
+1 <svg xmlns="http://www.w3.org/2000/sv  1 <svg xmlns="http://www.w3.org/2000/sv
+. g" width="13" height="13" viewBox="0   . g" width="13" height="13" viewBox="0 
+. 0 13 13" shape-rendering="crispEdges"  . 0 13 13" shape-rendering="crispEdges"
+.  role="img" aria-labelledby="title de  .  role="img" aria-labelledby="title de
+. sc"><title id="title">Buried Coil, re  . sc"><title id="title">Buried Coil, re
+. vealed form</title><desc id="desc">An  . vealed form</title><desc id="desc">An
+.  original three-footed rootwood looko  .  original three-footed rootwood looko
+. ut with two open copper coil rings an  . ut with two open copper coil rings an
+. d a bright emberseed core.</desc><met  . d a bright emberseed core.</desc><met
+. adata>Original code-drawn vector prot  . adata>Original code-drawn vector prot
+. otype by Codex for Moss &amp; Ember.   . otype by Codex for Moss &amp; Ember. 
+. Authored from the approved Buried Coi  . Authored from the approved Buried Coi
+. l concept; no reference art, bitmap t  . l concept; no reference art, bitmap t
+. racing, external imagery, or embedded  . racing, external imagery, or embedded
+.  fonts.</metadata><path fill="#3d2b21  .  fonts.</metadata><path fill="#3d2b21
+. " fill-rule="evenodd" d="M3 0H10V3H3Z  . " fill-rule="evenodd" d="M3 0H10V3H3Z
+.  M5 1H8V2H5Z"/><path fill="#c66f32" f  .  M5 1H8V2H5Z"/><path fill="#c66f32" f
+. ill-rule="evenodd" d="M4 0H9V3H4Z M5   . ill-rule="evenodd" d="M4 0H9V3H4Z M5 
+. 1H8V2H5Z"/><path fill="#e8a34b" d="M5  . 1H8V2H5Z"/><path fill="#e8a34b" d="M5
+.  0H8V1H5Z"/><path fill="#814528" d="M  .  0H8V1H5Z"/><path fill="#814528" d="M
+. 4 2H9V3H4Z"/><path fill="#3d2b21" fil  . 4 2H9V3H4Z"/><path fill="#3d2b21" fil
+. l-rule="evenodd" d="M2 4H11V7H2Z M4 5  . l-rule="evenodd" d="M2 4H11V7H2Z M4 5
+. H9V6H4Z"/><path fill="#c66f32" fill-r  . H9V6H4Z"/><path fill="#c66f32" fill-r
+. ule="evenodd" d="M3 4H10V7H3Z M4 5H9V  . ule="evenodd" d="M3 4H10V7H3Z M4 5H9V
+. 6H4Z"/><path fill="#e8a34b" d="M4 4H9  . 6H4Z"/><path fill="#e8a34b" d="M4 4H9
+. V5H4Z"/><path fill="#814528" d="M3 6H  . V5H4Z"/><path fill="#814528" d="M3 6H
+. 10V7H3Z"/><rect x="5" y="7" width="3"  . 10V7H3Z"/><rect x="5" y="7" width="3"
+.  height="1" fill="#70482f"/><rect x="  .  height="1" fill="#70482f"/><rect x="
+. 4" y="8" width="5" height="2" fill="#  . 4" y="8" width="5" height="2" fill="#
+. 3d2b21"/><rect x="5" y="8" width="3"   . 3d2b21"/><rect x="5" y="8" width="3" 
+. height="1" fill="#c66f32"/><rect x="6  . height="1" fill="#c66f32"/><rect x="6
+. " y="8" width="1" height="2" fill="#f  . " y="8" width="1" height="2" fill="#f
+. fd45a"/><path fill="#503927" d="M4 9H  . fd45a"/><path fill="#503927" d="M4 9H
+. 5V10H4V11H2V10H3V9Z"/><path fill="#50  . 5V10H4V11H2V10H3V9Z"/><path fill="#50
+. 3927" d="M8 9H9V10H10V11H8V10H9V9Z"/>  . 3927" d="M8 9H9V10H10V11H8V10H9V9Z"/>
+. <rect x="6" y="9" width="1" height="2  . <rect x="6" y="9" width="1" height="2
+. " fill="#503927"/><path fill="#3d2b21  . " fill="#503927"/><path fill="#3d2b21
+. " d="M1 11H4V13H1Z M5 11H8V13H5Z M9 1  . " d="M1 11H4V12H1Z M5 11H8V12H5Z M9 1
+. 1H12V13H9Z"/><path fill="#c66f32" d="  . 1H12V12H9Z"/><path fill="#c66f32" d="
+. M1 11H4V12H1Z M5 11H8V12H5Z M9 11H12V  . M1 11H4V12H1Z M5 11H8V12H5Z M9 11H12V
+. 12H9Z"/><path fill="#e8a34b" d="M2 11  . 12H9Z"/><path fill="#e8a34b" d="M2 11
+. H3V12H2Z M6 11H7V12H6Z M10 11H11V12H1  . H3V12H2Z M6 11H7V12H6Z M10 11H11V12H1
+. 0Z"/></svg>                            . 0Z"/></svg>
+
+src/content/visual-asset-manifest.js --- JavaScript
+519     kind: "image",                   519     kind: "image",
+520     license: "AGPL-3.0-only",        520     license: "AGPL-3.0-only",
+521     path: "assets/buried-coil-revea  521     path: "assets/buried-coil-revea
+... led.svg",                            ... led.svg",
+522     sha256: "0e677493ea65b9132ed553  522     sha256: "a36c2d310d5d0c3fd7e279
+... ec21a1efdf474cc887d6e21d569ff4fc3f9  ... ac5b02c829cfe9f02b0718e1988cf4f42c7
+... 6189b53",                            ... 053530c",
+523   },                                 523   },
+524 ];                                   524 ];
+525                                      525 
+

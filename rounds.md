@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 464 — 2026-10-14
+
+PIECE: ART-021P causal fixture recheck
+
+VERDICT: PASS — asset-stage only
+
+EVIDENCE: Round464 PASS unchanged7f371aa assets after independent causal fixture recheck: 6/6 manifest, original13px loops/threefeet/portrait/hidden-revealed distinction pass. Syntheticplate exactcolors3hidden->3visible at13 (coverage50->32light/48->32dark), 34->24at26; visible separateband. PriorFAIL463 retained; numeric8 requirement impossible inunobstructedfixture. Actualarena/cardteamidentity andrestore remain021I. Freshnegativecontrol hidesimageonlywithsame13x15stage/11x4oval+1border; nofixturegeometry/cropchanged. Originalrenderstillcoverssomeantialiased/border/shadowpixels, but retains separateband andallnativeassetcriteria. 26colors34->24, coverage174->112light/173->111dark. R4buildertrialrestoredR3sourcebyteexact; candidateunchanged. Scopefullysynthetic, no livearena promotion. Artifacts/art021p-round3/critic/{verdict-initial-fail.txt,verdict.txt,plate-causal-control-summary.json} andround4builderupperboundevidence retained.
+
+BIGGEST GAP: Actualcard/arena teamidentity andrestore/restart still requireCARDS021I; historicalmechanics remainQUESTION.
+
 ## Round 463 — 2026-10-14
 
 PIECE: ART-021P round3

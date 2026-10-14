@@ -1,0 +1,78 @@
+{
+  "asset_id": "buried-coil-revealed-battle-sprite",
+  "version": 4,
+  "authorship": "in-repo-authored",
+  "license": "AGPL-3.0-only",
+  "authoring_method": "Original agent-authored SVG markup, written directly from the approved Buried Coil concept. No image-generation tool or external visual input was used.",
+  "input_images": [],
+  "external_references": [],
+  "concept_basis": {
+    "original_functional_role": "A concealed defensive structure that waits beneath a copper hatch, then rises to aim focused emberseed pulses at nearby intruders.",
+    "revealed_form": "A short, sturdy lookout tower with a three-footed silhouette, a bright central emberseed, and two thick copper coil rings crowning the mast.",
+    "palette": [
+      "dark rootwood",
+      "#3d2b21",
+      "copper",
+      "#c66f32",
+      "copper highlight",
+      "#e8a34b",
+      "copper shadow",
+      "#814528",
+      "rootwood",
+      "#70482f",
+      "emberseed",
+      "#ffd45a"
+    ]
+  },
+  "authored_source": {
+    "path": "demo/assets/buried-coil-revealed-original.svg",
+    "format": "SVG",
+    "bytes": 1943,
+    "sha256": "b215fe54eacad4d2866f3a8dc22d85cd3b3348c8783c92d7c194235a4e7ba4ed",
+    "dimensions": {
+      "width": 13,
+      "height": 13
+    },
+    "viewBox": "0 0 13 13",
+    "alpha_background": "transparent",
+    "authorship_note": "Readable original source SVG; includes comments and title/description metadata."
+  },
+  "shipped_output": {
+    "path": "public/assets/buried-coil-revealed.svg",
+    "format": "SVG",
+    "bytes": 1565,
+    "sha256": "a36c2d310d5d0c3fd7e279ac5b02c829cfe9f02b0718e1988cf4f42c7053530c",
+    "dimensions": {
+      "width": 13,
+      "height": 13
+    },
+    "viewBox": "0 0 13 13",
+    "alpha_background": "transparent",
+    "optimization": {
+      "method": "Removed XML comments and whitespace between tags only; no geometry, path coordinates, fill values, or SVG accessibility metadata changed.",
+      "tool": "Deterministic in-repo text minification"
+    }
+  },
+  "supersedes_prior_bitmap_candidate": {
+    "source_path": "demo/assets/buried-coil-revealed.png",
+    "source_sha256": "7934840d85488965cbf55fdc1f891816b40c08f06922c1501cae42a167b505e9",
+    "source_bytes": 366179,
+    "prior_shipped_path": "public/assets/buried-coil-revealed.webp",
+    "prior_shipped_sha256": "ac2dcfc6947e4cd347e02ea9fcf781a925ad7a6be2854b3a831b4e571a9220cf",
+    "prior_shipped_bytes": 14592,
+    "prior_provenance_copy": "artifacts/art021p-round3/builder/previous-bitmap-provenance.json",
+    "prior_provenance_sha256": "ca791f1ad4f14f0fd185f22ed446d948f908a667cdbc6e3dc0388e747487a432",
+    "prior_round2_native_observation": "The bitmap builder capture recorded merged lower supports at 13 CSS px; no R2 independent-critic verdict is asserted here.",
+    "preserved_native_evidence": "artifacts/art021p-round2/builder/final-native-pixel-measurements.json"
+  },
+  "vector_prototype_reference": {
+    "record": "artifacts/art021p-round3/builder/vector-prototype-record.json",
+    "phone_capture": "artifacts/art021p-round3/builder/vector-prototype-phone-13px.png",
+    "desktop_capture": "artifacts/art021p-round3/builder/vector-prototype-desktop-13px.png",
+    "browser": "Playwright Chromium 145.0.7632.6",
+    "source_sha256": "984c2fde2620d6f936e078d7c773618fc300875227e7ec7f28d8f73d8430c3f5",
+    "note": "The R3 prototype captures use the original source SVG before public minification. R3's independent critique found the loops and three feet discernible, but only 3 exact team-color pixels at 13 CSS px versus the 8-pixel bar; the 26 CSS px stage had 24. R4 shortens only the lower foot bases to leave a transparent row over the separate plate. R4 native captures use the unchanged asset-stage fixture and do not claim live arena or card-template integration."
+  },
+  "round3_status": "R3 independent critique failed the 13 CSS px team-plate bar (3 exact pixels versus 8); loops and three feet were discernible, and the 26 CSS px stage had 24. Raw critique evidence is preserved under artifacts/art021p-round4/builder/r3-reference/.",
+  "round4_status": "R4 asset revision prepared; exact fixture rerender and focused manifest verification pending. No pass or adoption claim. Live arena and card-template integration remain unverified."
+}

@@ -1,0 +1,78 @@
+{
+  "asset_id": "buried-coil-hidden-battle-sprite",
+  "version": 1,
+  "authorship": "in-repo-authored",
+  "license": "AGPL-3.0-only",
+  "tool_source": "OpenAI built-in imagegen image-generation tool",
+  "generation_mode": "built-in default image generation",
+  "generation_settings": {
+    "transparent_background": true,
+    "input_images": []
+  },
+  "generated_source": {
+    "path": "demo/assets/buried-coil-hidden.png",
+    "sha256": "5a590c7ebe699392a014d3d14b81ba686bb1bcbdbadfddaa254363dfece3e814",
+    "bytes": 1335049,
+    "dimensions": {
+      "width": 1254,
+      "height": 1254
+    },
+    "alpha_channel": true,
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bbox_xyxy": [
+      37,
+      31,
+      1236,
+      1237
+    ],
+    "transparent_pixel_count": 966145,
+    "partial_alpha_pixel_count": 605474,
+    "opaque_pixel_count": 897,
+    "tool_output_path": "/Users/me/.codex/generated_images/01a138df-4bae-7ba0-a4d3-9c7d6d09ae24/exec-558947ab-a165-4226-8f8b-0e2960cbe461.png",
+    "format": "PNG"
+  },
+  "shipped_output": {
+    "path": "public/assets/buried-coil-hidden.webp",
+    "sha256": "5ee469494f97eab0652cc150d6b23b75c5bca44eba90b84a88cf8faf98d1a469",
+    "bytes": 43144,
+    "dimensions": {
+      "width": 512,
+      "height": 512
+    },
+    "alpha_channel": true,
+    "alpha_extrema": [
+      0,
+      254
+    ],
+    "visible_bbox_xyxy": [
+      26,
+      40,
+      486,
+      494
+    ],
+    "transparent_pixel_count": 160673,
+    "partial_alpha_pixel_count": 101471,
+    "opaque_pixel_count": 0,
+    "format": "WebP",
+    "encoding": {
+      "tool": "cwebp",
+      "version": "1.6.0",
+      "arguments": [
+        "-q",
+        "88",
+        "-m",
+        "6",
+        "-mt",
+        "-resize",
+        "512",
+        "512"
+      ],
+      "color_encoding": "lossy WebP at quality 88",
+      "alpha_encoding": "lossless WebP alpha"
+    }
+  },
+  "prompt": "Use case: stylized-concept\nAsset type: transparent static battle-form cutout for an original woodland card battler, judged at 13 px tall\nPrimary request: Draw the concealed state of the original Buried Coil structure as one simple, unmistakable arena silhouette.\nSubject: A low, fully closed round copper hatch that sits nearly flush with the ground; broad flattened rim, exactly three large dark rivet heads spaced around it, and one short bright emberseed slit at the center. It is still hidden: no tower, mast, legs, or rising parts.\nStyle/medium: Original hand-painted game asset with bold compact shapes, a strong dark contour, restrained broad highlights, and simple metal and rootwood materials.\nComposition/framing: Single centered top three-quarter view, square canvas, hatch large in frame, complete rim inside bounds with a little transparent margin. Keep the outer shape readable when the whole image is shown at 13 px high.\nColor: Shared copper and dark rootwood body with one amber emberseed point; no side-specific colors because the game team plate is a separate frontmost overlay.\nBackground: Genuinely transparent, no floor, scenery, cast shadow, smoke, splash, or glow outside the hatch.\nConstraints: Original device only. No text, lettering, logo, watermark, border, UI, characters, weapons, or extra objects. Make a flat closed hatch silhouette that clearly differs from the raised tower form."
+}

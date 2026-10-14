@@ -1,0 +1,121 @@
+{
+  "acceptedBase": "b0b20ad6b50e7d99b59abeb799708a64ce92f192",
+  "changedManifestAssetId": "buried-coil-revealed-battle-sprite",
+  "changedManifestFields": [
+    "byteLength",
+    "dimensions",
+    "format",
+    "path",
+    "sha256"
+  ],
+  "manifestRecordCount": {
+    "base": 27,
+    "current": 27
+  },
+  "allOtherManifestRecordsUnchanged": true,
+  "allOtherShippedAssetHashesUnchanged": true,
+  "unchangedAssetCount": 26,
+  "protectedAssetChecks": [
+    {
+      "id": "briar-runner-painted-sheet",
+      "path": "public/assets/briar-runner-painted-sheet.png",
+      "baseSha256": "a1aa43df00dacc212beedb4905dddd7a57db412981ea29662bc1d868a97794f4",
+      "currentSha256": "a1aa43df00dacc212beedb4905dddd7a57db412981ea29662bc1d868a97794f4",
+      "same": true
+    },
+    {
+      "id": "briar-runner-sprite-sheet",
+      "path": "public/assets/briar-runner-sprite-sheet.svg",
+      "baseSha256": "5f25d05932e3c56f9a8dfce7ea9b9d02e9ad2fb34ef0ce983733f9b97b6b7a2e",
+      "currentSha256": "5f25d05932e3c56f9a8dfce7ea9b9d02e9ad2fb34ef0ce983733f9b97b6b7a2e",
+      "same": true
+    },
+    {
+      "id": "rivet-runners-battle-sprite",
+      "path": "public/assets/rivet-runners-battle-sprite.webp",
+      "baseSha256": "0a9d033f894bd19178871a2927117cf66bb7f42c0b65dc224e11cecca0b4ce53",
+      "currentSha256": "0a9d033f894bd19178871a2927117cf66bb7f42c0b65dc224e11cecca0b4ce53",
+      "same": true
+    },
+    {
+      "id": "rivet-runners-portrait-painted",
+      "path": "public/assets/rivet-runners-portrait-painted.webp",
+      "baseSha256": "6df560ccabb6c7f7347225bdb4c0fe2f9eadbb3aa1f769b6b540cd6f96c35b77",
+      "currentSha256": "6df560ccabb6c7f7347225bdb4c0fe2f9eadbb3aa1f769b6b540cd6f96c35b77",
+      "same": true
+    },
+    {
+      "id": "buried-coil-portrait",
+      "path": "public/assets/buried-coil-portrait.webp",
+      "baseSha256": "e52c43cc2c56f4aef3d3410a8a7adb1df63de581eb2fd93f443d85271ae62d5b",
+      "currentSha256": "e52c43cc2c56f4aef3d3410a8a7adb1df63de581eb2fd93f443d85271ae62d5b",
+      "same": true
+    },
+    {
+      "id": "buried-coil-hidden-battle-sprite",
+      "path": "public/assets/buried-coil-hidden.webp",
+      "baseSha256": "5ee469494f97eab0652cc150d6b23b75c5bca44eba90b84a88cf8faf98d1a469",
+      "currentSha256": "5ee469494f97eab0652cc150d6b23b75c5bca44eba90b84a88cf8faf98d1a469",
+      "same": true
+    }
+  ],
+  "productFiles": {
+    "originalBitmapSource": {
+      "path": "demo/assets/buried-coil-revealed.png",
+      "unchangedFromBase": true,
+      "sha256": "7934840d85488965cbf55fdc1f891816b40c08f06922c1501cae42a167b505e9"
+    },
+    "sourceSvg": {
+      "path": "demo/assets/buried-coil-revealed-original.svg",
+      "bytes": 1899,
+      "sha256": "984c2fde2620d6f936e078d7c773618fc300875227e7ec7f28d8f73d8430c3f5"
+    },
+    "publicSvg": {
+      "path": "public/assets/buried-coil-revealed.svg",
+      "bytes": 1565,
+      "sha256": "0e677493ea65b9132ed553ec21a1efdf474cc887d6e21d569ff4fc3f96189b53",
+      "dimensions": {
+        "height": 13,
+        "width": 13
+      },
+      "byteLengthMatchesManifest": true,
+      "hashMatchesManifest": true,
+      "publicOutputEqualsDocumentedMinification": true
+    },
+    "previousPublicWebp": {
+      "path": "public/assets/buried-coil-revealed.webp",
+      "removed": true,
+      "archivedAs": "artifacts/art021p-round3/builder/previous-bitmap-shipped.webp",
+      "archiveMatchesBase": true,
+      "sha256": "ac2dcfc6947e4cd347e02ea9fcf781a925ad7a6be2854b3a831b4e571a9220cf"
+    },
+    "previousProvenance": {
+      "path": "docs/art/buried-coil-revealed-provenance.json",
+      "archivedAs": "artifacts/art021p-round3/builder/previous-bitmap-provenance.json",
+      "archiveMatchesBase": true,
+      "sha256": "ca791f1ad4f14f0fd185f22ed446d948f908a667cdbc6e3dc0388e747487a432"
+    }
+  },
+  "noValidatorChanges": true,
+  "checksRun": [
+    {
+      "command": "npm run test:visual-asset-manifest",
+      "receipt": "artifacts/art021p-round3/builder/manifest-test-after-provenance.tap",
+      "result": "6 passed, 0 failed after updating the provenance note to accurately scope asset-stage evidence"
+    },
+    {
+      "check": "Product SVG output rendered directly at 13 CSS px, DPR 1, in Chromium 145.0.7632.6 on phone 390x844 and desktop 1440x933 viewports",
+      "receipt": "artifacts/art021p-round3/builder/product-native-measurements.json",
+      "result": "both captures: 77 visible pixels, 3 distinct feet, [1,0,12,13] visible bounds, no console errors; identical crop SHA-256 6e64af8073335f436e929e054573224c57588c18ed61c1b60b2053f5b8baa0dd"
+    },
+    {
+      "check": "R3 source/provenance/old-asset fence revalidated against accepted base",
+      "receipt": "artifacts/art021p-round3/builder/verification-receipt.json",
+      "result": "27 manifest records; other 26 records and shipped files byte-identical; authored/output SVG metadata matches actual bytes; prior bitmap failure/provenance preserved byte-exact"
+    }
+  ],
+  "checksPending": [
+    "independent native-scale critique"
+  ],
+  "reasonPending": "Focused checks are complete. Independent critique remains pending; no pass or adoption claim is made."
+}

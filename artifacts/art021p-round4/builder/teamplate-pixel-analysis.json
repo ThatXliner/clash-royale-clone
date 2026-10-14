@@ -1,0 +1,1562 @@
+{
+  "sourceFixture": "fresh-render.cjs (copied byte-exact from the R3 independent critic)",
+  "criteria": {
+    "13 CSS px": "at least 8 exact team-color pixels",
+    "26 CSS px": "at least 24 exact team-color pixels"
+  },
+  "captures": [
+    {
+      "file": "phone-light-teamplate-north-13.png",
+      "sha256": "25adf1cef7b7c48c245ceea6276381f68bf6463d372f7865424a9d51aabdbe9b",
+      "dimensions": [
+        13,
+        15
+      ],
+      "viewport": "phone",
+      "theme": "light",
+      "side": "north",
+      "size": 13,
+      "exactTeamColorRGBA": [
+        198,
+        69,
+        46,
+        255
+      ],
+      "exactTeamColorPixelCount": 3,
+      "requiredMinimum": 8,
+      "meetsBar": false,
+      "positions": [
+        [
+          5,
+          13
+        ],
+        [
+          6,
+          13
+        ],
+        [
+          7,
+          13
+        ]
+      ]
+    },
+    {
+      "file": "phone-light-teamplate-south-13.png",
+      "sha256": "f7c477723cfce16b109ba038f899725da249cc4e97c7b96062a50215610c6e32",
+      "dimensions": [
+        13,
+        15
+      ],
+      "viewport": "phone",
+      "theme": "light",
+      "side": "south",
+      "size": 13,
+      "exactTeamColorRGBA": [
+        46,
+        127,
+        134,
+        255
+      ],
+      "exactTeamColorPixelCount": 3,
+      "requiredMinimum": 8,
+      "meetsBar": false,
+      "positions": [
+        [
+          5,
+          13
+        ],
+        [
+          6,
+          13
+        ],
+        [
+          7,
+          13
+        ]
+      ]
+    },
+    {
+      "file": "phone-light-teamplate-north-26.png",
+      "sha256": "749d8beed4867ce19928f73660354ecf93e09582f80490c00ca85dc879e79091",
+      "dimensions": [
+        26,
+        30
+      ],
+      "viewport": "phone",
+      "theme": "light",
+      "side": "north",
+      "size": 26,
+      "exactTeamColorRGBA": [
+        198,
+        69,
+        46,
+        255
+      ],
+      "exactTeamColorPixelCount": 34,
+      "requiredMinimum": 24,
+      "meetsBar": true,
+      "positions": [
+        [
+          6,
+          25
+        ],
+        [
+          7,
+          25
+        ],
+        [
+          8,
+          25
+        ],
+        [
+          9,
+          25
+        ],
+        [
+          10,
+          25
+        ],
+        [
+          11,
+          25
+        ],
+        [
+          12,
+          25
+        ],
+        [
+          13,
+          25
+        ],
+        [
+          14,
+          25
+        ],
+        [
+          15,
+          25
+        ],
+        [
+          16,
+          25
+        ],
+        [
+          17,
+          25
+        ],
+        [
+          18,
+          25
+        ],
+        [
+          19,
+          25
+        ],
+        [
+          6,
+          26
+        ],
+        [
+          7,
+          26
+        ],
+        [
+          8,
+          26
+        ],
+        [
+          9,
+          26
+        ],
+        [
+          10,
+          26
+        ],
+        [
+          11,
+          26
+        ],
+        [
+          12,
+          26
+        ],
+        [
+          13,
+          26
+        ],
+        [
+          14,
+          26
+        ],
+        [
+          15,
+          26
+        ],
+        [
+          16,
+          26
+        ],
+        [
+          17,
+          26
+        ],
+        [
+          18,
+          26
+        ],
+        [
+          19,
+          26
+        ],
+        [
+          10,
+          27
+        ],
+        [
+          11,
+          27
+        ],
+        [
+          12,
+          27
+        ],
+        [
+          13,
+          27
+        ],
+        [
+          14,
+          27
+        ],
+        [
+          15,
+          27
+        ]
+      ]
+    },
+    {
+      "file": "phone-light-teamplate-south-26.png",
+      "sha256": "c521ee8c56e1de1d0b2cb52665cad8f1b50a5547ecdc4bc54ead4f720b440237",
+      "dimensions": [
+        26,
+        30
+      ],
+      "viewport": "phone",
+      "theme": "light",
+      "side": "south",
+      "size": 26,
+      "exactTeamColorRGBA": [
+        46,
+        127,
+        134,
+        255
+      ],
+      "exactTeamColorPixelCount": 34,
+      "requiredMinimum": 24,
+      "meetsBar": true,
+      "positions": [
+        [
+          6,
+          25
+        ],
+        [
+          7,
+          25
+        ],
+        [
+          8,
+          25
+        ],
+        [
+          9,
+          25
+        ],
+        [
+          10,
+          25
+        ],
+        [
+          11,
+          25
+        ],
+        [
+          12,
+          25
+        ],
+        [
+          13,
+          25
+        ],
+        [
+          14,
+          25
+        ],
+        [
+          15,
+          25
+        ],
+        [
+          16,
+          25
+        ],
+        [
+          17,
+          25
+        ],
+        [
+          18,
+          25
+        ],
+        [
+          19,
+          25
+        ],
+        [
+          6,
+          26
+        ],
+        [
+          7,
+          26
+        ],
+        [
+          8,
+          26
+        ],
+        [
+          9,
+          26
+        ],
+        [
+          10,
+          26
+        ],
+        [
+          11,
+          26
+        ],
+        [
+          12,
+          26
+        ],
+        [
+          13,
+          26
+        ],
+        [
+          14,
+          26
+        ],
+        [
+          15,
+          26
+        ],
+        [
+          16,
+          26
+        ],
+        [
+          17,
+          26
+        ],
+        [
+          18,
+          26
+        ],
+        [
+          19,
+          26
+        ],
+        [
+          10,
+          27
+        ],
+        [
+          11,
+          27
+        ],
+        [
+          12,
+          27
+        ],
+        [
+          13,
+          27
+        ],
+        [
+          14,
+          27
+        ],
+        [
+          15,
+          27
+        ]
+      ]
+    },
+    {
+      "file": "phone-dark-teamplate-north-13.png",
+      "sha256": "5853dfa4c317530040bfb8e1cc12b7368af0ffcb2e6277016b8191111fe52eb4",
+      "dimensions": [
+        13,
+        15
+      ],
+      "viewport": "phone",
+      "theme": "dark",
+      "side": "north",
+      "size": 13,
+      "exactTeamColorRGBA": [
+        198,
+        69,
+        46,
+        255
+      ],
+      "exactTeamColorPixelCount": 3,
+      "requiredMinimum": 8,
+      "meetsBar": false,
+      "positions": [
+        [
+          5,
+          13
+        ],
+        [
+          6,
+          13
+        ],
+        [
+          7,
+          13
+        ]
+      ]
+    },
+    {
+      "file": "phone-dark-teamplate-south-13.png",
+      "sha256": "8501f26fcc6ad311d40394e2b361a0c73ffbc6a959af33a025dda5523c0bf4b3",
+      "dimensions": [
+        13,
+        15
+      ],
+      "viewport": "phone",
+      "theme": "dark",
+      "side": "south",
+      "size": 13,
+      "exactTeamColorRGBA": [
+        46,
+        127,
+        134,
+        255
+      ],
+      "exactTeamColorPixelCount": 3,
+      "requiredMinimum": 8,
+      "meetsBar": false,
+      "positions": [
+        [
+          5,
+          13
+        ],
+        [
+          6,
+          13
+        ],
+        [
+          7,
+          13
+        ]
+      ]
+    },
+    {
+      "file": "phone-dark-teamplate-north-26.png",
+      "sha256": "405ba5d389b947793aba574d000f09a1ddd060fc7c9902a31cd404549cc1cc83",
+      "dimensions": [
+        26,
+        30
+      ],
+      "viewport": "phone",
+      "theme": "dark",
+      "side": "north",
+      "size": 26,
+      "exactTeamColorRGBA": [
+        198,
+        69,
+        46,
+        255
+      ],
+      "exactTeamColorPixelCount": 34,
+      "requiredMinimum": 24,
+      "meetsBar": true,
+      "positions": [
+        [
+          6,
+          25
+        ],
+        [
+          7,
+          25
+        ],
+        [
+          8,
+          25
+        ],
+        [
+          9,
+          25
+        ],
+        [
+          10,
+          25
+        ],
+        [
+          11,
+          25
+        ],
+        [
+          12,
+          25
+        ],
+        [
+          13,
+          25
+        ],
+        [
+          14,
+          25
+        ],
+        [
+          15,
+          25
+        ],
+        [
+          16,
+          25
+        ],
+        [
+          17,
+          25
+        ],
+        [
+          18,
+          25
+        ],
+        [
+          19,
+          25
+        ],
+        [
+          6,
+          26
+        ],
+        [
+          7,
+          26
+        ],
+        [
+          8,
+          26
+        ],
+        [
+          9,
+          26
+        ],
+        [
+          10,
+          26
+        ],
+        [
+          11,
+          26
+        ],
+        [
+          12,
+          26
+        ],
+        [
+          13,
+          26
+        ],
+        [
+          14,
+          26
+        ],
+        [
+          15,
+          26
+        ],
+        [
+          16,
+          26
+        ],
+        [
+          17,
+          26
+        ],
+        [
+          18,
+          26
+        ],
+        [
+          19,
+          26
+        ],
+        [
+          10,
+          27
+        ],
+        [
+          11,
+          27
+        ],
+        [
+          12,
+          27
+        ],
+        [
+          13,
+          27
+        ],
+        [
+          14,
+          27
+        ],
+        [
+          15,
+          27
+        ]
+      ]
+    },
+    {
+      "file": "phone-dark-teamplate-south-26.png",
+      "sha256": "35c5b3cb49408b0d463561a43ffda238b65602a38f7560292f277588cc0bcf8b",
+      "dimensions": [
+        26,
+        30
+      ],
+      "viewport": "phone",
+      "theme": "dark",
+      "side": "south",
+      "size": 26,
+      "exactTeamColorRGBA": [
+        46,
+        127,
+        134,
+        255
+      ],
+      "exactTeamColorPixelCount": 34,
+      "requiredMinimum": 24,
+      "meetsBar": true,
+      "positions": [
+        [
+          6,
+          25
+        ],
+        [
+          7,
+          25
+        ],
+        [
+          8,
+          25
+        ],
+        [
+          9,
+          25
+        ],
+        [
+          10,
+          25
+        ],
+        [
+          11,
+          25
+        ],
+        [
+          12,
+          25
+        ],
+        [
+          13,
+          25
+        ],
+        [
+          14,
+          25
+        ],
+        [
+          15,
+          25
+        ],
+        [
+          16,
+          25
+        ],
+        [
+          17,
+          25
+        ],
+        [
+          18,
+          25
+        ],
+        [
+          19,
+          25
+        ],
+        [
+          6,
+          26
+        ],
+        [
+          7,
+          26
+        ],
+        [
+          8,
+          26
+        ],
+        [
+          9,
+          26
+        ],
+        [
+          10,
+          26
+        ],
+        [
+          11,
+          26
+        ],
+        [
+          12,
+          26
+        ],
+        [
+          13,
+          26
+        ],
+        [
+          14,
+          26
+        ],
+        [
+          15,
+          26
+        ],
+        [
+          16,
+          26
+        ],
+        [
+          17,
+          26
+        ],
+        [
+          18,
+          26
+        ],
+        [
+          19,
+          26
+        ],
+        [
+          10,
+          27
+        ],
+        [
+          11,
+          27
+        ],
+        [
+          12,
+          27
+        ],
+        [
+          13,
+          27
+        ],
+        [
+          14,
+          27
+        ],
+        [
+          15,
+          27
+        ]
+      ]
+    },
+    {
+      "file": "desktop-light-teamplate-north-13.png",
+      "sha256": "25adf1cef7b7c48c245ceea6276381f68bf6463d372f7865424a9d51aabdbe9b",
+      "dimensions": [
+        13,
+        15
+      ],
+      "viewport": "desktop",
+      "theme": "light",
+      "side": "north",
+      "size": 13,
+      "exactTeamColorRGBA": [
+        198,
+        69,
+        46,
+        255
+      ],
+      "exactTeamColorPixelCount": 3,
+      "requiredMinimum": 8,
+      "meetsBar": false,
+      "positions": [
+        [
+          5,
+          13
+        ],
+        [
+          6,
+          13
+        ],
+        [
+          7,
+          13
+        ]
+      ]
+    },
+    {
+      "file": "desktop-light-teamplate-south-13.png",
+      "sha256": "f7c477723cfce16b109ba038f899725da249cc4e97c7b96062a50215610c6e32",
+      "dimensions": [
+        13,
+        15
+      ],
+      "viewport": "desktop",
+      "theme": "light",
+      "side": "south",
+      "size": 13,
+      "exactTeamColorRGBA": [
+        46,
+        127,
+        134,
+        255
+      ],
+      "exactTeamColorPixelCount": 3,
+      "requiredMinimum": 8,
+      "meetsBar": false,
+      "positions": [
+        [
+          5,
+          13
+        ],
+        [
+          6,
+          13
+        ],
+        [
+          7,
+          13
+        ]
+      ]
+    },
+    {
+      "file": "desktop-light-teamplate-north-26.png",
+      "sha256": "749d8beed4867ce19928f73660354ecf93e09582f80490c00ca85dc879e79091",
+      "dimensions": [
+        26,
+        30
+      ],
+      "viewport": "desktop",
+      "theme": "light",
+      "side": "north",
+      "size": 26,
+      "exactTeamColorRGBA": [
+        198,
+        69,
+        46,
+        255
+      ],
+      "exactTeamColorPixelCount": 34,
+      "requiredMinimum": 24,
+      "meetsBar": true,
+      "positions": [
+        [
+          6,
+          25
+        ],
+        [
+          7,
+          25
+        ],
+        [
+          8,
+          25
+        ],
+        [
+          9,
+          25
+        ],
+        [
+          10,
+          25
+        ],
+        [
+          11,
+          25
+        ],
+        [
+          12,
+          25
+        ],
+        [
+          13,
+          25
+        ],
+        [
+          14,
+          25
+        ],
+        [
+          15,
+          25
+        ],
+        [
+          16,
+          25
+        ],
+        [
+          17,
+          25
+        ],
+        [
+          18,
+          25
+        ],
+        [
+          19,
+          25
+        ],
+        [
+          6,
+          26
+        ],
+        [
+          7,
+          26
+        ],
+        [
+          8,
+          26
+        ],
+        [
+          9,
+          26
+        ],
+        [
+          10,
+          26
+        ],
+        [
+          11,
+          26
+        ],
+        [
+          12,
+          26
+        ],
+        [
+          13,
+          26
+        ],
+        [
+          14,
+          26
+        ],
+        [
+          15,
+          26
+        ],
+        [
+          16,
+          26
+        ],
+        [
+          17,
+          26
+        ],
+        [
+          18,
+          26
+        ],
+        [
+          19,
+          26
+        ],
+        [
+          10,
+          27
+        ],
+        [
+          11,
+          27
+        ],
+        [
+          12,
+          27
+        ],
+        [
+          13,
+          27
+        ],
+        [
+          14,
+          27
+        ],
+        [
+          15,
+          27
+        ]
+      ]
+    },
+    {
+      "file": "desktop-light-teamplate-south-26.png",
+      "sha256": "bec4203d2b4ccb6d4914a8af3589eb07ce8ec1117d32dcfe4b1d5aaf12afa339",
+      "dimensions": [
+        26,
+        30
+      ],
+      "viewport": "desktop",
+      "theme": "light",
+      "side": "south",
+      "size": 26,
+      "exactTeamColorRGBA": [
+        46,
+        127,
+        134,
+        255
+      ],
+      "exactTeamColorPixelCount": 34,
+      "requiredMinimum": 24,
+      "meetsBar": true,
+      "positions": [
+        [
+          6,
+          25
+        ],
+        [
+          7,
+          25
+        ],
+        [
+          8,
+          25
+        ],
+        [
+          9,
+          25
+        ],
+        [
+          10,
+          25
+        ],
+        [
+          11,
+          25
+        ],
+        [
+          12,
+          25
+        ],
+        [
+          13,
+          25
+        ],
+        [
+          14,
+          25
+        ],
+        [
+          15,
+          25
+        ],
+        [
+          16,
+          25
+        ],
+        [
+          17,
+          25
+        ],
+        [
+          18,
+          25
+        ],
+        [
+          19,
+          25
+        ],
+        [
+          6,
+          26
+        ],
+        [
+          7,
+          26
+        ],
+        [
+          8,
+          26
+        ],
+        [
+          9,
+          26
+        ],
+        [
+          10,
+          26
+        ],
+        [
+          11,
+          26
+        ],
+        [
+          12,
+          26
+        ],
+        [
+          13,
+          26
+        ],
+        [
+          14,
+          26
+        ],
+        [
+          15,
+          26
+        ],
+        [
+          16,
+          26
+        ],
+        [
+          17,
+          26
+        ],
+        [
+          18,
+          26
+        ],
+        [
+          19,
+          26
+        ],
+        [
+          10,
+          27
+        ],
+        [
+          11,
+          27
+        ],
+        [
+          12,
+          27
+        ],
+        [
+          13,
+          27
+        ],
+        [
+          14,
+          27
+        ],
+        [
+          15,
+          27
+        ]
+      ]
+    },
+    {
+      "file": "desktop-dark-teamplate-north-13.png",
+      "sha256": "5853dfa4c317530040bfb8e1cc12b7368af0ffcb2e6277016b8191111fe52eb4",
+      "dimensions": [
+        13,
+        15
+      ],
+      "viewport": "desktop",
+      "theme": "dark",
+      "side": "north",
+      "size": 13,
+      "exactTeamColorRGBA": [
+        198,
+        69,
+        46,
+        255
+      ],
+      "exactTeamColorPixelCount": 3,
+      "requiredMinimum": 8,
+      "meetsBar": false,
+      "positions": [
+        [
+          5,
+          13
+        ],
+        [
+          6,
+          13
+        ],
+        [
+          7,
+          13
+        ]
+      ]
+    },
+    {
+      "file": "desktop-dark-teamplate-south-13.png",
+      "sha256": "8501f26fcc6ad311d40394e2b361a0c73ffbc6a959af33a025dda5523c0bf4b3",
+      "dimensions": [
+        13,
+        15
+      ],
+      "viewport": "desktop",
+      "theme": "dark",
+      "side": "south",
+      "size": 13,
+      "exactTeamColorRGBA": [
+        46,
+        127,
+        134,
+        255
+      ],
+      "exactTeamColorPixelCount": 3,
+      "requiredMinimum": 8,
+      "meetsBar": false,
+      "positions": [
+        [
+          5,
+          13
+        ],
+        [
+          6,
+          13
+        ],
+        [
+          7,
+          13
+        ]
+      ]
+    },
+    {
+      "file": "desktop-dark-teamplate-north-26.png",
+      "sha256": "405ba5d389b947793aba574d000f09a1ddd060fc7c9902a31cd404549cc1cc83",
+      "dimensions": [
+        26,
+        30
+      ],
+      "viewport": "desktop",
+      "theme": "dark",
+      "side": "north",
+      "size": 26,
+      "exactTeamColorRGBA": [
+        198,
+        69,
+        46,
+        255
+      ],
+      "exactTeamColorPixelCount": 34,
+      "requiredMinimum": 24,
+      "meetsBar": true,
+      "positions": [
+        [
+          6,
+          25
+        ],
+        [
+          7,
+          25
+        ],
+        [
+          8,
+          25
+        ],
+        [
+          9,
+          25
+        ],
+        [
+          10,
+          25
+        ],
+        [
+          11,
+          25
+        ],
+        [
+          12,
+          25
+        ],
+        [
+          13,
+          25
+        ],
+        [
+          14,
+          25
+        ],
+        [
+          15,
+          25
+        ],
+        [
+          16,
+          25
+        ],
+        [
+          17,
+          25
+        ],
+        [
+          18,
+          25
+        ],
+        [
+          19,
+          25
+        ],
+        [
+          6,
+          26
+        ],
+        [
+          7,
+          26
+        ],
+        [
+          8,
+          26
+        ],
+        [
+          9,
+          26
+        ],
+        [
+          10,
+          26
+        ],
+        [
+          11,
+          26
+        ],
+        [
+          12,
+          26
+        ],
+        [
+          13,
+          26
+        ],
+        [
+          14,
+          26
+        ],
+        [
+          15,
+          26
+        ],
+        [
+          16,
+          26
+        ],
+        [
+          17,
+          26
+        ],
+        [
+          18,
+          26
+        ],
+        [
+          19,
+          26
+        ],
+        [
+          10,
+          27
+        ],
+        [
+          11,
+          27
+        ],
+        [
+          12,
+          27
+        ],
+        [
+          13,
+          27
+        ],
+        [
+          14,
+          27
+        ],
+        [
+          15,
+          27
+        ]
+      ]
+    },
+    {
+      "file": "desktop-dark-teamplate-south-26.png",
+      "sha256": "71570282b9ee76582a877565b26057522397c87082b814d99345ed87fb950116",
+      "dimensions": [
+        26,
+        30
+      ],
+      "viewport": "desktop",
+      "theme": "dark",
+      "side": "south",
+      "size": 26,
+      "exactTeamColorRGBA": [
+        46,
+        127,
+        134,
+        255
+      ],
+      "exactTeamColorPixelCount": 34,
+      "requiredMinimum": 24,
+      "meetsBar": true,
+      "positions": [
+        [
+          6,
+          25
+        ],
+        [
+          7,
+          25
+        ],
+        [
+          8,
+          25
+        ],
+        [
+          9,
+          25
+        ],
+        [
+          10,
+          25
+        ],
+        [
+          11,
+          25
+        ],
+        [
+          12,
+          25
+        ],
+        [
+          13,
+          25
+        ],
+        [
+          14,
+          25
+        ],
+        [
+          15,
+          25
+        ],
+        [
+          16,
+          25
+        ],
+        [
+          17,
+          25
+        ],
+        [
+          18,
+          25
+        ],
+        [
+          19,
+          25
+        ],
+        [
+          6,
+          26
+        ],
+        [
+          7,
+          26
+        ],
+        [
+          8,
+          26
+        ],
+        [
+          9,
+          26
+        ],
+        [
+          10,
+          26
+        ],
+        [
+          11,
+          26
+        ],
+        [
+          12,
+          26
+        ],
+        [
+          13,
+          26
+        ],
+        [
+          14,
+          26
+        ],
+        [
+          15,
+          26
+        ],
+        [
+          16,
+          26
+        ],
+        [
+          17,
+          26
+        ],
+        [
+          18,
+          26
+        ],
+        [
+          19,
+          26
+        ],
+        [
+          10,
+          27
+        ],
+        [
+          11,
+          27
+        ],
+        [
+          12,
+          27
+        ],
+        [
+          13,
+          27
+        ],
+        [
+          14,
+          27
+        ],
+        [
+          15,
+          27
+        ]
+      ]
+    }
+  ],
+  "allCapturesMeetBar": false
+}

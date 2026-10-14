@@ -1,0 +1,384 @@
+{
+  "trial": "R4 one geometry revision: shorten the three revealed dark foot pads by one source row; original three feet and two-loop form preserved. No fixture/plate edits.",
+  "productSnapshots": [
+    {
+      "repoPath": "demo/assets/buried-coil-revealed-original.svg",
+      "snapshot": "trial1/product-snapshot/buried-coil-revealed-original.svg",
+      "bytes": 1943,
+      "sha256": "b215fe54eacad4d2866f3a8dc22d85cd3b3348c8783c92d7c194235a4e7ba4ed"
+    },
+    {
+      "repoPath": "public/assets/buried-coil-revealed.svg",
+      "snapshot": "trial1/product-snapshot/buried-coil-revealed.svg",
+      "bytes": 1565,
+      "sha256": "a36c2d310d5d0c3fd7e279ac5b02c829cfe9f02b0718e1988cf4f42c7053530c"
+    },
+    {
+      "repoPath": "docs/art/buried-coil-revealed-provenance.json",
+      "snapshot": "trial1/product-snapshot/buried-coil-revealed-provenance.json",
+      "bytes": 4265,
+      "sha256": "0e60c424d212d3f27b8bd01419f86d48c06be805dd5997701e1a7593e52cd35e"
+    },
+    {
+      "repoPath": "src/content/visual-asset-manifest.js",
+      "snapshot": "trial1/product-snapshot/visual-asset-manifest.js",
+      "bytes": 19291,
+      "sha256": "f54ae416a95fdd301ec3fbda6752a4407c56c32985a031cf6a1e3e7fa465abf2"
+    }
+  ],
+  "rawTrialOutputs": [
+    {
+      "file": "asset-build-receipt.json",
+      "bytes": 1207,
+      "sha256": "97b1b74b442e589e75c9b6ab62b971a4395a02b4297e614261ffcaf1dc8c3252"
+    },
+    {
+      "file": "desktop-dark-buried-coil-hidden-13.png",
+      "bytes": 369,
+      "sha256": "8081473133503d78e8d92b67414f8b6a48e0d4126693e8b4092fe4084b900262"
+    },
+    {
+      "file": "desktop-dark-buried-coil-hidden-26.png",
+      "bytes": 939,
+      "sha256": "0e8af874932914f49f7f4c7b802f4c481e7a8a5e978afc28ad74c78d86e94ad2"
+    },
+    {
+      "file": "desktop-dark-buried-coil-portrait-64.png",
+      "bytes": 9781,
+      "sha256": "72b8d777c28c71c713e1cb2fa3a348c23f331dacef792f37e1d352013879aaa8"
+    },
+    {
+      "file": "desktop-dark-buried-coil-portrait-78.png",
+      "bytes": 14329,
+      "sha256": "03376738974af4a91d8f4c6c052c2bd4ed2f2478d59b6c88976a1bc7259e9213"
+    },
+    {
+      "file": "desktop-dark-buried-coil-revealed-13.png",
+      "bytes": 273,
+      "sha256": "dbfc04289bf1292f9edd607aa62c7dc49c643b45dc61dd8498effbe14095e6c5"
+    },
+    {
+      "file": "desktop-dark-buried-coil-revealed-26.png",
+      "bytes": 330,
+      "sha256": "5929cc5546eb7d6fac64f550da36eadc89951e41dfc457bf0b101e7ce072b883"
+    },
+    {
+      "file": "desktop-dark-plate-north-13.png",
+      "bytes": 311,
+      "sha256": "fa034c192f24cd15348933cb80e757f1e9bfffe6e4124525a5ca1de2b9c531c3"
+    },
+    {
+      "file": "desktop-dark-plate-north-26.png",
+      "bytes": 482,
+      "sha256": "490003f553556c9bca440765d74709bc33c192caa99c5f790c2897413790a315"
+    },
+    {
+      "file": "desktop-dark-plate-south-13.png",
+      "bytes": 311,
+      "sha256": "0c14903f7f831c39ba7fda9626faa8e47cba629b9fd64e2ec29917d18f217ffa"
+    },
+    {
+      "file": "desktop-dark-plate-south-26.png",
+      "bytes": 484,
+      "sha256": "e5d22261eef6ed306ab0042baeaea5bd024c66d0b3be8b140c0f146ffe6854ac"
+    },
+    {
+      "file": "desktop-dark-teamplate-north-13.png",
+      "bytes": 385,
+      "sha256": "5853dfa4c317530040bfb8e1cc12b7368af0ffcb2e6277016b8191111fe52eb4"
+    },
+    {
+      "file": "desktop-dark-teamplate-north-26.png",
+      "bytes": 660,
+      "sha256": "405ba5d389b947793aba574d000f09a1ddd060fc7c9902a31cd404549cc1cc83"
+    },
+    {
+      "file": "desktop-dark-teamplate-south-13.png",
+      "bytes": 382,
+      "sha256": "8501f26fcc6ad311d40394e2b361a0c73ffbc6a959af33a025dda5523c0bf4b3"
+    },
+    {
+      "file": "desktop-dark-teamplate-south-26.png",
+      "bytes": 661,
+      "sha256": "71570282b9ee76582a877565b26057522397c87082b814d99345ed87fb950116"
+    },
+    {
+      "file": "desktop-dark-viewport.png",
+      "bytes": 64057,
+      "sha256": "8a359edf7668dc7659a1339b595007bc10236bea976d07ce3f4a547630f9fe34"
+    },
+    {
+      "file": "desktop-light-buried-coil-hidden-13.png",
+      "bytes": 418,
+      "sha256": "8eceeac7c111ea93de22946e836f195e4cd5552e190e5ead4613d947f41c76e1"
+    },
+    {
+      "file": "desktop-light-buried-coil-hidden-26.png",
+      "bytes": 1071,
+      "sha256": "8408533abe82ab9c8c526f876df489a753702e5adda768ade74542b7f03841d2"
+    },
+    {
+      "file": "desktop-light-buried-coil-portrait-64.png",
+      "bytes": 9781,
+      "sha256": "72b8d777c28c71c713e1cb2fa3a348c23f331dacef792f37e1d352013879aaa8"
+    },
+    {
+      "file": "desktop-light-buried-coil-portrait-78.png",
+      "bytes": 14329,
+      "sha256": "03376738974af4a91d8f4c6c052c2bd4ed2f2478d59b6c88976a1bc7259e9213"
+    },
+    {
+      "file": "desktop-light-buried-coil-revealed-13.png",
+      "bytes": 265,
+      "sha256": "96f62baedbd1263a497e27bf49d16c0ae87fd392f2b1e34d3d0c1fb86e27d029"
+    },
+    {
+      "file": "desktop-light-buried-coil-revealed-26.png",
+      "bytes": 313,
+      "sha256": "78c066f9bdfea27d46a6910f9e574efcaae992b91ceac50225ef1409c851a7b1"
+    },
+    {
+      "file": "desktop-light-plate-north-13.png",
+      "bytes": 308,
+      "sha256": "d3f93e2e193aa10b3bf40bc7842e67e422efb80576c68646d71ef0ef24a6423f"
+    },
+    {
+      "file": "desktop-light-plate-north-26.png",
+      "bytes": 442,
+      "sha256": "c883b8ed0e87b242d88b6d67e5b27038b49ccec3d49fcfb59801631c135818b4"
+    },
+    {
+      "file": "desktop-light-plate-south-13.png",
+      "bytes": 311,
+      "sha256": "040075b2629238785642cadb7e2327107df64c19fc32180c452808d9f727b2e4"
+    },
+    {
+      "file": "desktop-light-plate-south-26.png",
+      "bytes": 451,
+      "sha256": "a18026f3a50c07ed6ae606188d7d20af269bd2254984ac791f1eab903e7a2f3b"
+    },
+    {
+      "file": "desktop-light-teamplate-north-13.png",
+      "bytes": 388,
+      "sha256": "25adf1cef7b7c48c245ceea6276381f68bf6463d372f7865424a9d51aabdbe9b"
+    },
+    {
+      "file": "desktop-light-teamplate-north-26.png",
+      "bytes": 651,
+      "sha256": "749d8beed4867ce19928f73660354ecf93e09582f80490c00ca85dc879e79091"
+    },
+    {
+      "file": "desktop-light-teamplate-south-13.png",
+      "bytes": 392,
+      "sha256": "f7c477723cfce16b109ba038f899725da249cc4e97c7b96062a50215610c6e32"
+    },
+    {
+      "file": "desktop-light-teamplate-south-26.png",
+      "bytes": 658,
+      "sha256": "bec4203d2b4ccb6d4914a8af3589eb07ce8ec1117d32dcfe4b1d5aaf12afa339"
+    },
+    {
+      "file": "desktop-light-viewport.png",
+      "bytes": 63860,
+      "sha256": "f1276528083df9989db15b5df81652e74f74b4283f8b1b31661008a795390caf"
+    },
+    {
+      "file": "fresh-browser-native-renders.json",
+      "bytes": 430807,
+      "sha256": "94cb8f017b7193ba0e357f7c91b3b37afff291ef5d571b7692e8d85557131814"
+    },
+    {
+      "file": "fresh-render-run.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "fresh-render-run.stdout.json",
+      "bytes": 68722,
+      "sha256": "40424e708116436de44988c63cf83360b51da58914118c1a56c093f9d97d3cb1"
+    },
+    {
+      "file": "phone-dark-buried-coil-hidden-13.png",
+      "bytes": 369,
+      "sha256": "09c04597ff009d0960abd97555abad877a027c4f8375d89eca125c2ae0597b69"
+    },
+    {
+      "file": "phone-dark-buried-coil-hidden-26.png",
+      "bytes": 939,
+      "sha256": "0e8af874932914f49f7f4c7b802f4c481e7a8a5e978afc28ad74c78d86e94ad2"
+    },
+    {
+      "file": "phone-dark-buried-coil-portrait-64.png",
+      "bytes": 9781,
+      "sha256": "72b8d777c28c71c713e1cb2fa3a348c23f331dacef792f37e1d352013879aaa8"
+    },
+    {
+      "file": "phone-dark-buried-coil-portrait-78.png",
+      "bytes": 14333,
+      "sha256": "876bb7d857b632f955b92049d982dd78deed63612d27763cb0ca58fabb4cbe2c"
+    },
+    {
+      "file": "phone-dark-buried-coil-revealed-13.png",
+      "bytes": 273,
+      "sha256": "dbfc04289bf1292f9edd607aa62c7dc49c643b45dc61dd8498effbe14095e6c5"
+    },
+    {
+      "file": "phone-dark-buried-coil-revealed-26.png",
+      "bytes": 330,
+      "sha256": "5929cc5546eb7d6fac64f550da36eadc89951e41dfc457bf0b101e7ce072b883"
+    },
+    {
+      "file": "phone-dark-plate-north-13.png",
+      "bytes": 311,
+      "sha256": "fa034c192f24cd15348933cb80e757f1e9bfffe6e4124525a5ca1de2b9c531c3"
+    },
+    {
+      "file": "phone-dark-plate-north-26.png",
+      "bytes": 482,
+      "sha256": "490003f553556c9bca440765d74709bc33c192caa99c5f790c2897413790a315"
+    },
+    {
+      "file": "phone-dark-plate-south-13.png",
+      "bytes": 311,
+      "sha256": "0c14903f7f831c39ba7fda9626faa8e47cba629b9fd64e2ec29917d18f217ffa"
+    },
+    {
+      "file": "phone-dark-plate-south-26.png",
+      "bytes": 483,
+      "sha256": "35ecd8857d08b9aef5ef1a2350a23a41cb0589e0d2068a4aff4a0b288447df9c"
+    },
+    {
+      "file": "phone-dark-teamplate-north-13.png",
+      "bytes": 385,
+      "sha256": "5853dfa4c317530040bfb8e1cc12b7368af0ffcb2e6277016b8191111fe52eb4"
+    },
+    {
+      "file": "phone-dark-teamplate-north-26.png",
+      "bytes": 660,
+      "sha256": "405ba5d389b947793aba574d000f09a1ddd060fc7c9902a31cd404549cc1cc83"
+    },
+    {
+      "file": "phone-dark-teamplate-south-13.png",
+      "bytes": 382,
+      "sha256": "8501f26fcc6ad311d40394e2b361a0c73ffbc6a959af33a025dda5523c0bf4b3"
+    },
+    {
+      "file": "phone-dark-teamplate-south-26.png",
+      "bytes": 662,
+      "sha256": "35c5b3cb49408b0d463561a43ffda238b65602a38f7560292f277588cc0bcf8b"
+    },
+    {
+      "file": "phone-dark-viewport.png",
+      "bytes": 57436,
+      "sha256": "d86c4753fd06fc0107f472d931494288a930fdeb1ce917dfee55a361f28b28b9"
+    },
+    {
+      "file": "phone-light-buried-coil-hidden-13.png",
+      "bytes": 417,
+      "sha256": "07ba0d78ad60b6610779ffb20ce033be1b2b6f2ab0fd7698f3bfdc4d52b62217"
+    },
+    {
+      "file": "phone-light-buried-coil-hidden-26.png",
+      "bytes": 1071,
+      "sha256": "8408533abe82ab9c8c526f876df489a753702e5adda768ade74542b7f03841d2"
+    },
+    {
+      "file": "phone-light-buried-coil-portrait-64.png",
+      "bytes": 9781,
+      "sha256": "72b8d777c28c71c713e1cb2fa3a348c23f331dacef792f37e1d352013879aaa8"
+    },
+    {
+      "file": "phone-light-buried-coil-portrait-78.png",
+      "bytes": 14333,
+      "sha256": "876bb7d857b632f955b92049d982dd78deed63612d27763cb0ca58fabb4cbe2c"
+    },
+    {
+      "file": "phone-light-buried-coil-revealed-13.png",
+      "bytes": 265,
+      "sha256": "96f62baedbd1263a497e27bf49d16c0ae87fd392f2b1e34d3d0c1fb86e27d029"
+    },
+    {
+      "file": "phone-light-buried-coil-revealed-26.png",
+      "bytes": 313,
+      "sha256": "78c066f9bdfea27d46a6910f9e574efcaae992b91ceac50225ef1409c851a7b1"
+    },
+    {
+      "file": "phone-light-plate-north-13.png",
+      "bytes": 308,
+      "sha256": "d3f93e2e193aa10b3bf40bc7842e67e422efb80576c68646d71ef0ef24a6423f"
+    },
+    {
+      "file": "phone-light-plate-north-26.png",
+      "bytes": 442,
+      "sha256": "c883b8ed0e87b242d88b6d67e5b27038b49ccec3d49fcfb59801631c135818b4"
+    },
+    {
+      "file": "phone-light-plate-south-13.png",
+      "bytes": 311,
+      "sha256": "040075b2629238785642cadb7e2327107df64c19fc32180c452808d9f727b2e4"
+    },
+    {
+      "file": "phone-light-plate-south-26.png",
+      "bytes": 451,
+      "sha256": "f0eba3334d69b34e658ca08dc6390017468f58722c23ddd064872a874ae68958"
+    },
+    {
+      "file": "phone-light-teamplate-north-13.png",
+      "bytes": 388,
+      "sha256": "25adf1cef7b7c48c245ceea6276381f68bf6463d372f7865424a9d51aabdbe9b"
+    },
+    {
+      "file": "phone-light-teamplate-north-26.png",
+      "bytes": 651,
+      "sha256": "749d8beed4867ce19928f73660354ecf93e09582f80490c00ca85dc879e79091"
+    },
+    {
+      "file": "phone-light-teamplate-south-13.png",
+      "bytes": 392,
+      "sha256": "f7c477723cfce16b109ba038f899725da249cc4e97c7b96062a50215610c6e32"
+    },
+    {
+      "file": "phone-light-teamplate-south-26.png",
+      "bytes": 657,
+      "sha256": "c521ee8c56e1de1d0b2cb52665cad8f1b50a5547ecdc4bc54ead4f720b440237"
+    },
+    {
+      "file": "phone-light-viewport.png",
+      "bytes": 57503,
+      "sha256": "c867b239f81e68f5f672071498fbfa74d3fd9a5cb42bd88c1bf7a805ee6d7d90"
+    },
+    {
+      "file": "plate-north-13-hidden-sprite-upper-bound.png",
+      "bytes": 259,
+      "sha256": "0274bed773b4c075242316dc0bf4138026faec8cf6f9fd20dda5751630a66d89"
+    },
+    {
+      "file": "teamplate-pixel-analysis.json",
+      "bytes": 22443,
+      "sha256": "89846e594cb608e3d83542ba0cb5c427b08fdf69d21c8cbf7823f4cf2f281c55"
+    },
+    {
+      "file": "teamplate-pixel-analysis.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "teamplate-pixel-analysis.stdout.json",
+      "bytes": 3194,
+      "sha256": "3512adeb477063a3a06e62c1f2b52f8cebcc560a9cc2225ceb6b9c15903cdab9"
+    }
+  ],
+  "result": {
+    "13px": {
+      "observed": 3,
+      "required": 8,
+      "pass": false
+    },
+    "26px": {
+      "observed": 34,
+      "required": 24,
+      "pass": true
+    },
+    "sameFixtureAllPhoneDesktopLightDarkSides": true
+  }
+}

@@ -1,0 +1,950 @@
+{
+  "candidateHead": "7f371aa4a81f2593dcfd8d6b9f2aa9dcc0cb96eb",
+  "candidateTree": "70c02db7c4a04ef1ae232b979de33d113c7ba5bc",
+  "browser": "145.0.7632.6",
+  "scope": "Critic-only causal diagnostic. Re-renders frozen R3 public SVG in the unchanged synthetic asset-stage geometry; sprite-hidden control changes only CSS visibility:hidden. No app/arena geometry or product file is changed.",
+  "svg": {
+    "path": "public/assets/buried-coil-revealed.svg",
+    "bytes": 1565,
+    "sha256": "0e677493ea65b9132ed553ec21a1efdf474cc887d6e21d569ff4fc3f96189b53"
+  },
+  "fixtureGeometry": {
+    "stage13": "13x15 CSS px; sprite 13x13 at left:0 top:0; plate left:1 bottom:0 width:11 height:4 border:1px solid #f4ebd6 border-radius:50%; background north #c6452e / south #2e7f86; box-shadow 0 1px 1px #191d22",
+    "stage26": "26x30 CSS px; sprite 26x26 at left:0 top:0; plate left:2 bottom:0 width:22 height:8 border-width:2px; same colors/border radius/shadow",
+    "attribution": "Synthetic critic fixture copied from fresh-render.cjs; not sourced from the product prototype or a live arena template."
+  },
+  "captures": [
+    {
+      "key": "phone-light-north-13",
+      "viewportName": "phone",
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "light",
+      "geometry": {
+        "stage": [
+          14,
+          12,
+          13,
+          15
+        ],
+        "plate": [
+          1,
+          11,
+          11,
+          4
+        ],
+        "sprite": [
+          0,
+          0,
+          13,
+          13
+        ],
+        "teamColor": "rgb(198, 69, 46)",
+        "plateCss": {
+          "border": "1px solid rgb(244, 235, 214)",
+          "borderRadius": "50%",
+          "boxShadow": "rgb(25, 29, 34) 0px 1px 1px 0px"
+        },
+        "dpr": 1
+      },
+      "files": {
+        "asset-visible-plate-on": {
+          "path": "plate-control-phone-light-north-13-asset-visible-plate-on.png",
+          "bytes": 373,
+          "sha256": "e8467b18ea9ea44e346d2012c4dd09a763d4645c311f4a4cdc5410ebc9e34672"
+        },
+        "asset-hidden-plate-on": {
+          "path": "plate-control-phone-light-north-13-asset-hidden-plate-on.png",
+          "bytes": 259,
+          "sha256": "0274bed773b4c075242316dc0bf4138026faec8cf6f9fd20dda5751630a66d89"
+        },
+        "asset-hidden-plate-off": {
+          "path": "plate-control-phone-light-north-13-asset-hidden-plate-off.png",
+          "bytes": 111,
+          "sha256": "0015962266d7cbcaf12735369f7d0804dd0e09ba78e18cd0f23ecce5a9751555"
+        },
+        "asset-visible-plate-off": {
+          "path": "plate-control-phone-light-north-13-asset-visible-plate-off.png",
+          "bytes": 275,
+          "sha256": "e157e383f08649c19cc140ee2b91acaad65bae240169be66877418b9048660c2"
+        }
+      }
+    },
+    {
+      "key": "phone-light-south-13",
+      "viewportName": "phone",
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "light",
+      "geometry": {
+        "stage": [
+          14,
+          31,
+          13,
+          15
+        ],
+        "plate": [
+          1,
+          11,
+          11,
+          4
+        ],
+        "sprite": [
+          0,
+          0,
+          13,
+          13
+        ],
+        "teamColor": "rgb(46, 127, 134)",
+        "plateCss": {
+          "border": "1px solid rgb(244, 235, 214)",
+          "borderRadius": "50%",
+          "boxShadow": "rgb(25, 29, 34) 0px 1px 1px 0px"
+        },
+        "dpr": 1
+      },
+      "files": {
+        "asset-visible-plate-on": {
+          "path": "plate-control-phone-light-south-13-asset-visible-plate-on.png",
+          "bytes": 371,
+          "sha256": "cc8d8b59ec5beb9a00e019ce5932a5b89cd00097ebdda0c621b246693a2d78bb"
+        },
+        "asset-hidden-plate-on": {
+          "path": "plate-control-phone-light-south-13-asset-hidden-plate-on.png",
+          "bytes": 257,
+          "sha256": "c68a919271e9aa112b13465d69bfd46e2049b1c6272faa6f1b36939ad331b6d7"
+        },
+        "asset-hidden-plate-off": {
+          "path": "plate-control-phone-light-south-13-asset-hidden-plate-off.png",
+          "bytes": 111,
+          "sha256": "0015962266d7cbcaf12735369f7d0804dd0e09ba78e18cd0f23ecce5a9751555"
+        },
+        "asset-visible-plate-off": {
+          "path": "plate-control-phone-light-south-13-asset-visible-plate-off.png",
+          "bytes": 275,
+          "sha256": "e157e383f08649c19cc140ee2b91acaad65bae240169be66877418b9048660c2"
+        }
+      }
+    },
+    {
+      "key": "phone-light-north-26",
+      "viewportName": "phone",
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "light",
+      "geometry": {
+        "stage": [
+          14,
+          50,
+          26,
+          30
+        ],
+        "plate": [
+          2,
+          22,
+          22,
+          8
+        ],
+        "sprite": [
+          0,
+          0,
+          26,
+          26
+        ],
+        "teamColor": "rgb(198, 69, 46)",
+        "plateCss": {
+          "border": "2px solid rgb(244, 235, 214)",
+          "borderRadius": "50%",
+          "boxShadow": "rgb(25, 29, 34) 0px 1px 1px 0px"
+        },
+        "dpr": 1
+      },
+      "files": {
+        "asset-visible-plate-on": {
+          "path": "plate-control-phone-light-north-26-asset-visible-plate-on.png",
+          "bytes": 626,
+          "sha256": "0fefb47df3197b32b4bbe0bd62250b2fbbe6bbed54c468d1023f2b4abb7516f3"
+        },
+        "asset-hidden-plate-on": {
+          "path": "plate-control-phone-light-north-26-asset-hidden-plate-on.png",
+          "bytes": 505,
+          "sha256": "af2e177d612628abc66128f0766690c98b6db2eb4ece1f30c57ab5fe850ec511"
+        },
+        "asset-hidden-plate-off": {
+          "path": "plate-control-phone-light-north-26-asset-hidden-plate-off.png",
+          "bytes": 118,
+          "sha256": "a806acbbe67ea620798e5d6bf1ef01e7b4aee212f6ae90632c641ee89cdcd05c"
+        },
+        "asset-visible-plate-off": {
+          "path": "plate-control-phone-light-north-26-asset-visible-plate-off.png",
+          "bytes": 326,
+          "sha256": "f0729c41e6814f1fdafcc9764b095262f869bf27314c900d322b9c6cf42d834b"
+        }
+      }
+    },
+    {
+      "key": "phone-light-south-26",
+      "viewportName": "phone",
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "light",
+      "geometry": {
+        "stage": [
+          14,
+          84,
+          26,
+          30
+        ],
+        "plate": [
+          2,
+          22,
+          22,
+          8
+        ],
+        "sprite": [
+          0,
+          0,
+          26,
+          26
+        ],
+        "teamColor": "rgb(46, 127, 134)",
+        "plateCss": {
+          "border": "2px solid rgb(244, 235, 214)",
+          "borderRadius": "50%",
+          "boxShadow": "rgb(25, 29, 34) 0px 1px 1px 0px"
+        },
+        "dpr": 1
+      },
+      "files": {
+        "asset-visible-plate-on": {
+          "path": "plate-control-phone-light-south-26-asset-visible-plate-on.png",
+          "bytes": 624,
+          "sha256": "423d693cb7a65f3a8ecb7b464c988062235236c7feb7c1beaaf8a4ccb7f417ab"
+        },
+        "asset-hidden-plate-on": {
+          "path": "plate-control-phone-light-south-26-asset-hidden-plate-on.png",
+          "bytes": 510,
+          "sha256": "d060d394d6fc0e61dd412c06c3fa2671c5268691bc5bd95ee05b1e5ebe582f92"
+        },
+        "asset-hidden-plate-off": {
+          "path": "plate-control-phone-light-south-26-asset-hidden-plate-off.png",
+          "bytes": 118,
+          "sha256": "a806acbbe67ea620798e5d6bf1ef01e7b4aee212f6ae90632c641ee89cdcd05c"
+        },
+        "asset-visible-plate-off": {
+          "path": "plate-control-phone-light-south-26-asset-visible-plate-off.png",
+          "bytes": 326,
+          "sha256": "f0729c41e6814f1fdafcc9764b095262f869bf27314c900d322b9c6cf42d834b"
+        }
+      },
+      "consoleErrors": []
+    },
+    {
+      "key": "phone-dark-north-13",
+      "viewportName": "phone",
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "dark",
+      "geometry": {
+        "stage": [
+          14,
+          12,
+          13,
+          15
+        ],
+        "plate": [
+          1,
+          11,
+          11,
+          4
+        ],
+        "sprite": [
+          0,
+          0,
+          13,
+          13
+        ],
+        "teamColor": "rgb(198, 69, 46)",
+        "plateCss": {
+          "border": "1px solid rgb(244, 235, 214)",
+          "borderRadius": "50%",
+          "boxShadow": "rgb(25, 29, 34) 0px 1px 1px 0px"
+        },
+        "dpr": 1
+      },
+      "files": {
+        "asset-visible-plate-on": {
+          "path": "plate-control-phone-dark-north-13-asset-visible-plate-on.png",
+          "bytes": 372,
+          "sha256": "b1097ec9010f2ae399cc987c1d27200684b148aa26e37981b39bab9f2d12ef8d"
+        },
+        "asset-hidden-plate-on": {
+          "path": "plate-control-phone-dark-north-13-asset-hidden-plate-on.png",
+          "bytes": 269,
+          "sha256": "023e8597c4722737d45767a0364e05dd634d36ca9bc5204c8e396091040e9d52"
+        },
+        "asset-hidden-plate-off": {
+          "path": "plate-control-phone-dark-north-13-asset-hidden-plate-off.png",
+          "bytes": 110,
+          "sha256": "bf13bfa16f4803281b378b1839df021f93cdf34a7af38c1df2f6099305a59733"
+        },
+        "asset-visible-plate-off": {
+          "path": "plate-control-phone-dark-north-13-asset-visible-plate-off.png",
+          "bytes": 283,
+          "sha256": "55ccefeee39e87543c7762fc87423f5fde017eb0bdf9491b49ee09d7ea4534eb"
+        }
+      }
+    },
+    {
+      "key": "phone-dark-south-13",
+      "viewportName": "phone",
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "dark",
+      "geometry": {
+        "stage": [
+          14,
+          31,
+          13,
+          15
+        ],
+        "plate": [
+          1,
+          11,
+          11,
+          4
+        ],
+        "sprite": [
+          0,
+          0,
+          13,
+          13
+        ],
+        "teamColor": "rgb(46, 127, 134)",
+        "plateCss": {
+          "border": "1px solid rgb(244, 235, 214)",
+          "borderRadius": "50%",
+          "boxShadow": "rgb(25, 29, 34) 0px 1px 1px 0px"
+        },
+        "dpr": 1
+      },
+      "files": {
+        "asset-visible-plate-on": {
+          "path": "plate-control-phone-dark-south-13-asset-visible-plate-on.png",
+          "bytes": 368,
+          "sha256": "dab9316392f18c6b8e765aff701a290e75166b89577ed64a53ab40e8ff5acab8"
+        },
+        "asset-hidden-plate-on": {
+          "path": "plate-control-phone-dark-south-13-asset-hidden-plate-on.png",
+          "bytes": 267,
+          "sha256": "d87644cc637212313700b4bf291b67b2301bdc11012afd950f48ccd375b316df"
+        },
+        "asset-hidden-plate-off": {
+          "path": "plate-control-phone-dark-south-13-asset-hidden-plate-off.png",
+          "bytes": 110,
+          "sha256": "bf13bfa16f4803281b378b1839df021f93cdf34a7af38c1df2f6099305a59733"
+        },
+        "asset-visible-plate-off": {
+          "path": "plate-control-phone-dark-south-13-asset-visible-plate-off.png",
+          "bytes": 283,
+          "sha256": "55ccefeee39e87543c7762fc87423f5fde017eb0bdf9491b49ee09d7ea4534eb"
+        }
+      }
+    },
+    {
+      "key": "phone-dark-north-26",
+      "viewportName": "phone",
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "dark",
+      "geometry": {
+        "stage": [
+          14,
+          50,
+          26,
+          30
+        ],
+        "plate": [
+          2,
+          22,
+          22,
+          8
+        ],
+        "sprite": [
+          0,
+          0,
+          26,
+          26
+        ],
+        "teamColor": "rgb(198, 69, 46)",
+        "plateCss": {
+          "border": "2px solid rgb(244, 235, 214)",
+          "borderRadius": "50%",
+          "boxShadow": "rgb(25, 29, 34) 0px 1px 1px 0px"
+        },
+        "dpr": 1
+      },
+      "files": {
+        "asset-visible-plate-on": {
+          "path": "plate-control-phone-dark-north-26-asset-visible-plate-on.png",
+          "bytes": 628,
+          "sha256": "a0900f9d184de1e26e1036090753ea9abfa2989944404d47a4a532c81c174e5b"
+        },
+        "asset-hidden-plate-on": {
+          "path": "plate-control-phone-dark-north-26-asset-hidden-plate-on.png",
+          "bytes": 500,
+          "sha256": "08db843056c2f2bf3f212cf16cbaeac04789b2da6b878be3b97a1efc6ac0c25c"
+        },
+        "asset-hidden-plate-off": {
+          "path": "plate-control-phone-dark-north-26-asset-hidden-plate-off.png",
+          "bytes": 118,
+          "sha256": "c0efa09b821c47e30ca971e799ea51a12d81ad947d8900e7b957854d9aebdf36"
+        },
+        "asset-visible-plate-off": {
+          "path": "plate-control-phone-dark-north-26-asset-visible-plate-off.png",
+          "bytes": 344,
+          "sha256": "d78e25b28ab59d392007dc72f1bbfe82770f2462560e390e1e11bccd3b967610"
+        }
+      }
+    },
+    {
+      "key": "phone-dark-south-26",
+      "viewportName": "phone",
+      "viewport": [
+        390,
+        844
+      ],
+      "theme": "dark",
+      "geometry": {
+        "stage": [
+          14,
+          84,
+          26,
+          30
+        ],
+        "plate": [
+          2,
+          22,
+          22,
+          8
+        ],
+        "sprite": [
+          0,
+          0,
+          26,
+          26
+        ],
+        "teamColor": "rgb(46, 127, 134)",
+        "plateCss": {
+          "border": "2px solid rgb(244, 235, 214)",
+          "borderRadius": "50%",
+          "boxShadow": "rgb(25, 29, 34) 0px 1px 1px 0px"
+        },
+        "dpr": 1
+      },
+      "files": {
+        "asset-visible-plate-on": {
+          "path": "plate-control-phone-dark-south-26-asset-visible-plate-on.png",
+          "bytes": 627,
+          "sha256": "4d7671be86380e104a920107af08d7ecd9e36aa08e529cbc16ee17cb6c0c3fdd"
+        },
+        "asset-hidden-plate-on": {
+          "path": "plate-control-phone-dark-south-26-asset-hidden-plate-on.png",
+          "bytes": 508,
+          "sha256": "77a1e10dff74f2d195273614ec5e898ced2631030dd651aaa4c96943960ea484"
+        },
+        "asset-hidden-plate-off": {
+          "path": "plate-control-phone-dark-south-26-asset-hidden-plate-off.png",
+          "bytes": 118,
+          "sha256": "c0efa09b821c47e30ca971e799ea51a12d81ad947d8900e7b957854d9aebdf36"
+        },
+        "asset-visible-plate-off": {
+          "path": "plate-control-phone-dark-south-26-asset-visible-plate-off.png",
+          "bytes": 344,
+          "sha256": "d78e25b28ab59d392007dc72f1bbfe82770f2462560e390e1e11bccd3b967610"
+        }
+      },
+      "consoleErrors": []
+    },
+    {
+      "key": "desktop-light-north-13",
+      "viewportName": "desktop",
+      "viewport": [
+        1440,
+        933
+      ],
+      "theme": "light",
+      "geometry": {
+        "stage": [
+          14,
+          12,
+          13,
+          15
+        ],
+        "plate": [
+          1,
+          11,
+          11,
+          4
+        ],
+        "sprite": [
+          0,
+          0,
+          13,
+          13
+        ],
+        "teamColor": "rgb(198, 69, 46)",
+        "plateCss": {
+          "border": "1px solid rgb(244, 235, 214)",
+          "borderRadius": "50%",
+          "boxShadow": "rgb(25, 29, 34) 0px 1px 1px 0px"
+        },
+        "dpr": 1
+      },
+      "files": {
+        "asset-visible-plate-on": {
+          "path": "plate-control-desktop-light-north-13-asset-visible-plate-on.png",
+          "bytes": 373,
+          "sha256": "e8467b18ea9ea44e346d2012c4dd09a763d4645c311f4a4cdc5410ebc9e34672"
+        },
+        "asset-hidden-plate-on": {
+          "path": "plate-control-desktop-light-north-13-asset-hidden-plate-on.png",
+          "bytes": 259,
+          "sha256": "0274bed773b4c075242316dc0bf4138026faec8cf6f9fd20dda5751630a66d89"
+        },
+        "asset-hidden-plate-off": {
+          "path": "plate-control-desktop-light-north-13-asset-hidden-plate-off.png",
+          "bytes": 111,
+          "sha256": "0015962266d7cbcaf12735369f7d0804dd0e09ba78e18cd0f23ecce5a9751555"
+        },
+        "asset-visible-plate-off": {
+          "path": "plate-control-desktop-light-north-13-asset-visible-plate-off.png",
+          "bytes": 275,
+          "sha256": "e157e383f08649c19cc140ee2b91acaad65bae240169be66877418b9048660c2"
+        }
+      }
+    },
+    {
+      "key": "desktop-light-south-13",
+      "viewportName": "desktop",
+      "viewport": [
+        1440,
+        933
+      ],
+      "theme": "light",
+      "geometry": {
+        "stage": [
+          14,
+          31,
+          13,
+          15
+        ],
+        "plate": [
+          1,
+          11,
+          11,
+          4
+        ],
+        "sprite": [
+          0,
+          0,
+          13,
+          13
+        ],
+        "teamColor": "rgb(46, 127, 134)",
+        "plateCss": {
+          "border": "1px solid rgb(244, 235, 214)",
+          "borderRadius": "50%",
+          "boxShadow": "rgb(25, 29, 34) 0px 1px 1px 0px"
+        },
+        "dpr": 1
+      },
+      "files": {
+        "asset-visible-plate-on": {
+          "path": "plate-control-desktop-light-south-13-asset-visible-plate-on.png",
+          "bytes": 371,
+          "sha256": "cc8d8b59ec5beb9a00e019ce5932a5b89cd00097ebdda0c621b246693a2d78bb"
+        },
+        "asset-hidden-plate-on": {
+          "path": "plate-control-desktop-light-south-13-asset-hidden-plate-on.png",
+          "bytes": 257,
+          "sha256": "c68a919271e9aa112b13465d69bfd46e2049b1c6272faa6f1b36939ad331b6d7"
+        },
+        "asset-hidden-plate-off": {
+          "path": "plate-control-desktop-light-south-13-asset-hidden-plate-off.png",
+          "bytes": 111,
+          "sha256": "0015962266d7cbcaf12735369f7d0804dd0e09ba78e18cd0f23ecce5a9751555"
+        },
+        "asset-visible-plate-off": {
+          "path": "plate-control-desktop-light-south-13-asset-visible-plate-off.png",
+          "bytes": 275,
+          "sha256": "e157e383f08649c19cc140ee2b91acaad65bae240169be66877418b9048660c2"
+        }
+      }
+    },
+    {
+      "key": "desktop-light-north-26",
+      "viewportName": "desktop",
+      "viewport": [
+        1440,
+        933
+      ],
+      "theme": "light",
+      "geometry": {
+        "stage": [
+          14,
+          50,
+          26,
+          30
+        ],
+        "plate": [
+          2,
+          22,
+          22,
+          8
+        ],
+        "sprite": [
+          0,
+          0,
+          26,
+          26
+        ],
+        "teamColor": "rgb(198, 69, 46)",
+        "plateCss": {
+          "border": "2px solid rgb(244, 235, 214)",
+          "borderRadius": "50%",
+          "boxShadow": "rgb(25, 29, 34) 0px 1px 1px 0px"
+        },
+        "dpr": 1
+      },
+      "files": {
+        "asset-visible-plate-on": {
+          "path": "plate-control-desktop-light-north-26-asset-visible-plate-on.png",
+          "bytes": 626,
+          "sha256": "0fefb47df3197b32b4bbe0bd62250b2fbbe6bbed54c468d1023f2b4abb7516f3"
+        },
+        "asset-hidden-plate-on": {
+          "path": "plate-control-desktop-light-north-26-asset-hidden-plate-on.png",
+          "bytes": 505,
+          "sha256": "af2e177d612628abc66128f0766690c98b6db2eb4ece1f30c57ab5fe850ec511"
+        },
+        "asset-hidden-plate-off": {
+          "path": "plate-control-desktop-light-north-26-asset-hidden-plate-off.png",
+          "bytes": 118,
+          "sha256": "a806acbbe67ea620798e5d6bf1ef01e7b4aee212f6ae90632c641ee89cdcd05c"
+        },
+        "asset-visible-plate-off": {
+          "path": "plate-control-desktop-light-north-26-asset-visible-plate-off.png",
+          "bytes": 326,
+          "sha256": "f0729c41e6814f1fdafcc9764b095262f869bf27314c900d322b9c6cf42d834b"
+        }
+      }
+    },
+    {
+      "key": "desktop-light-south-26",
+      "viewportName": "desktop",
+      "viewport": [
+        1440,
+        933
+      ],
+      "theme": "light",
+      "geometry": {
+        "stage": [
+          14,
+          84,
+          26,
+          30
+        ],
+        "plate": [
+          2,
+          22,
+          22,
+          8
+        ],
+        "sprite": [
+          0,
+          0,
+          26,
+          26
+        ],
+        "teamColor": "rgb(46, 127, 134)",
+        "plateCss": {
+          "border": "2px solid rgb(244, 235, 214)",
+          "borderRadius": "50%",
+          "boxShadow": "rgb(25, 29, 34) 0px 1px 1px 0px"
+        },
+        "dpr": 1
+      },
+      "files": {
+        "asset-visible-plate-on": {
+          "path": "plate-control-desktop-light-south-26-asset-visible-plate-on.png",
+          "bytes": 624,
+          "sha256": "423d693cb7a65f3a8ecb7b464c988062235236c7feb7c1beaaf8a4ccb7f417ab"
+        },
+        "asset-hidden-plate-on": {
+          "path": "plate-control-desktop-light-south-26-asset-hidden-plate-on.png",
+          "bytes": 510,
+          "sha256": "d060d394d6fc0e61dd412c06c3fa2671c5268691bc5bd95ee05b1e5ebe582f92"
+        },
+        "asset-hidden-plate-off": {
+          "path": "plate-control-desktop-light-south-26-asset-hidden-plate-off.png",
+          "bytes": 118,
+          "sha256": "a806acbbe67ea620798e5d6bf1ef01e7b4aee212f6ae90632c641ee89cdcd05c"
+        },
+        "asset-visible-plate-off": {
+          "path": "plate-control-desktop-light-south-26-asset-visible-plate-off.png",
+          "bytes": 326,
+          "sha256": "f0729c41e6814f1fdafcc9764b095262f869bf27314c900d322b9c6cf42d834b"
+        }
+      },
+      "consoleErrors": []
+    },
+    {
+      "key": "desktop-dark-north-13",
+      "viewportName": "desktop",
+      "viewport": [
+        1440,
+        933
+      ],
+      "theme": "dark",
+      "geometry": {
+        "stage": [
+          14,
+          12,
+          13,
+          15
+        ],
+        "plate": [
+          1,
+          11,
+          11,
+          4
+        ],
+        "sprite": [
+          0,
+          0,
+          13,
+          13
+        ],
+        "teamColor": "rgb(198, 69, 46)",
+        "plateCss": {
+          "border": "1px solid rgb(244, 235, 214)",
+          "borderRadius": "50%",
+          "boxShadow": "rgb(25, 29, 34) 0px 1px 1px 0px"
+        },
+        "dpr": 1
+      },
+      "files": {
+        "asset-visible-plate-on": {
+          "path": "plate-control-desktop-dark-north-13-asset-visible-plate-on.png",
+          "bytes": 372,
+          "sha256": "b1097ec9010f2ae399cc987c1d27200684b148aa26e37981b39bab9f2d12ef8d"
+        },
+        "asset-hidden-plate-on": {
+          "path": "plate-control-desktop-dark-north-13-asset-hidden-plate-on.png",
+          "bytes": 269,
+          "sha256": "023e8597c4722737d45767a0364e05dd634d36ca9bc5204c8e396091040e9d52"
+        },
+        "asset-hidden-plate-off": {
+          "path": "plate-control-desktop-dark-north-13-asset-hidden-plate-off.png",
+          "bytes": 110,
+          "sha256": "bf13bfa16f4803281b378b1839df021f93cdf34a7af38c1df2f6099305a59733"
+        },
+        "asset-visible-plate-off": {
+          "path": "plate-control-desktop-dark-north-13-asset-visible-plate-off.png",
+          "bytes": 283,
+          "sha256": "55ccefeee39e87543c7762fc87423f5fde017eb0bdf9491b49ee09d7ea4534eb"
+        }
+      }
+    },
+    {
+      "key": "desktop-dark-south-13",
+      "viewportName": "desktop",
+      "viewport": [
+        1440,
+        933
+      ],
+      "theme": "dark",
+      "geometry": {
+        "stage": [
+          14,
+          31,
+          13,
+          15
+        ],
+        "plate": [
+          1,
+          11,
+          11,
+          4
+        ],
+        "sprite": [
+          0,
+          0,
+          13,
+          13
+        ],
+        "teamColor": "rgb(46, 127, 134)",
+        "plateCss": {
+          "border": "1px solid rgb(244, 235, 214)",
+          "borderRadius": "50%",
+          "boxShadow": "rgb(25, 29, 34) 0px 1px 1px 0px"
+        },
+        "dpr": 1
+      },
+      "files": {
+        "asset-visible-plate-on": {
+          "path": "plate-control-desktop-dark-south-13-asset-visible-plate-on.png",
+          "bytes": 368,
+          "sha256": "dab9316392f18c6b8e765aff701a290e75166b89577ed64a53ab40e8ff5acab8"
+        },
+        "asset-hidden-plate-on": {
+          "path": "plate-control-desktop-dark-south-13-asset-hidden-plate-on.png",
+          "bytes": 267,
+          "sha256": "d87644cc637212313700b4bf291b67b2301bdc11012afd950f48ccd375b316df"
+        },
+        "asset-hidden-plate-off": {
+          "path": "plate-control-desktop-dark-south-13-asset-hidden-plate-off.png",
+          "bytes": 110,
+          "sha256": "bf13bfa16f4803281b378b1839df021f93cdf34a7af38c1df2f6099305a59733"
+        },
+        "asset-visible-plate-off": {
+          "path": "plate-control-desktop-dark-south-13-asset-visible-plate-off.png",
+          "bytes": 283,
+          "sha256": "55ccefeee39e87543c7762fc87423f5fde017eb0bdf9491b49ee09d7ea4534eb"
+        }
+      }
+    },
+    {
+      "key": "desktop-dark-north-26",
+      "viewportName": "desktop",
+      "viewport": [
+        1440,
+        933
+      ],
+      "theme": "dark",
+      "geometry": {
+        "stage": [
+          14,
+          50,
+          26,
+          30
+        ],
+        "plate": [
+          2,
+          22,
+          22,
+          8
+        ],
+        "sprite": [
+          0,
+          0,
+          26,
+          26
+        ],
+        "teamColor": "rgb(198, 69, 46)",
+        "plateCss": {
+          "border": "2px solid rgb(244, 235, 214)",
+          "borderRadius": "50%",
+          "boxShadow": "rgb(25, 29, 34) 0px 1px 1px 0px"
+        },
+        "dpr": 1
+      },
+      "files": {
+        "asset-visible-plate-on": {
+          "path": "plate-control-desktop-dark-north-26-asset-visible-plate-on.png",
+          "bytes": 628,
+          "sha256": "a0900f9d184de1e26e1036090753ea9abfa2989944404d47a4a532c81c174e5b"
+        },
+        "asset-hidden-plate-on": {
+          "path": "plate-control-desktop-dark-north-26-asset-hidden-plate-on.png",
+          "bytes": 500,
+          "sha256": "08db843056c2f2bf3f212cf16cbaeac04789b2da6b878be3b97a1efc6ac0c25c"
+        },
+        "asset-hidden-plate-off": {
+          "path": "plate-control-desktop-dark-north-26-asset-hidden-plate-off.png",
+          "bytes": 118,
+          "sha256": "c0efa09b821c47e30ca971e799ea51a12d81ad947d8900e7b957854d9aebdf36"
+        },
+        "asset-visible-plate-off": {
+          "path": "plate-control-desktop-dark-north-26-asset-visible-plate-off.png",
+          "bytes": 344,
+          "sha256": "d78e25b28ab59d392007dc72f1bbfe82770f2462560e390e1e11bccd3b967610"
+        }
+      }
+    },
+    {
+      "key": "desktop-dark-south-26",
+      "viewportName": "desktop",
+      "viewport": [
+        1440,
+        933
+      ],
+      "theme": "dark",
+      "geometry": {
+        "stage": [
+          14,
+          84,
+          26,
+          30
+        ],
+        "plate": [
+          2,
+          22,
+          22,
+          8
+        ],
+        "sprite": [
+          0,
+          0,
+          26,
+          26
+        ],
+        "teamColor": "rgb(46, 127, 134)",
+        "plateCss": {
+          "border": "2px solid rgb(244, 235, 214)",
+          "borderRadius": "50%",
+          "boxShadow": "rgb(25, 29, 34) 0px 1px 1px 0px"
+        },
+        "dpr": 1
+      },
+      "files": {
+        "asset-visible-plate-on": {
+          "path": "plate-control-desktop-dark-south-26-asset-visible-plate-on.png",
+          "bytes": 627,
+          "sha256": "4d7671be86380e104a920107af08d7ecd9e36aa08e529cbc16ee17cb6c0c3fdd"
+        },
+        "asset-hidden-plate-on": {
+          "path": "plate-control-desktop-dark-south-26-asset-hidden-plate-on.png",
+          "bytes": 508,
+          "sha256": "77a1e10dff74f2d195273614ec5e898ced2631030dd651aaa4c96943960ea484"
+        },
+        "asset-hidden-plate-off": {
+          "path": "plate-control-desktop-dark-south-26-asset-hidden-plate-off.png",
+          "bytes": 118,
+          "sha256": "c0efa09b821c47e30ca971e799ea51a12d81ad947d8900e7b957854d9aebdf36"
+        },
+        "asset-visible-plate-off": {
+          "path": "plate-control-desktop-dark-south-26-asset-visible-plate-off.png",
+          "bytes": 344,
+          "sha256": "d78e25b28ab59d392007dc72f1bbfe82770f2462560e390e1e11bccd3b967610"
+        }
+      },
+      "consoleErrors": []
+    }
+  ]
+}

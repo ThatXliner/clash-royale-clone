@@ -1,0 +1,40 @@
+{
+  "status": "focused checks complete; candidate awaiting independent critique",
+  "acceptedBase": "b0b20ad6b50e7d99b59abeb799708a64ce92f192",
+  "testsRun": [
+    {
+      "command": "npm run test:visual-asset-manifest",
+      "receipt": "artifacts/art021p-round3/builder/manifest-test.tap",
+      "result": "6 passed, 0 failed"
+    },
+    {
+      "command": "npm run test:visual-asset-manifest",
+      "receipt": "artifacts/art021p-round3/builder/manifest-test-after-provenance.tap",
+      "result": "6 passed, 0 failed after correcting the scope note in the provenance file"
+    },
+    {
+      "command": "node artifacts/art021p-round3/builder/verify-r3-source-fence.cjs",
+      "receipt": "artifacts/art021p-round3/builder/verification-receipt.json",
+      "result": "source, provenance, manifest, and 26 unchanged asset fences verified"
+    }
+  ],
+  "testsPending": [
+    "independent native-scale critique"
+  ],
+  "reasonPending": "Focused manifest and native product-render checks are complete. Independent critique remains pending; no pass or adoption claim is made.",
+  "noPassClaim": true,
+  "productNativeEvidence": {
+    "prototypeSourceCapture": "artifacts/art021p-round3/builder/vector-prototype-native-measurements.json",
+    "prototypeScreenshots": [
+      "artifacts/art021p-round3/builder/vector-prototype-phone-13px.png",
+      "artifacts/art021p-round3/builder/vector-prototype-desktop-13px.png"
+    ],
+    "productOutputNativeCapture": "artifacts/art021p-round3/builder/product-native-measurements.json",
+    "productOutputNativeScreenshots": [
+      "artifacts/art021p-round3/builder/product-phone-native-13px-dpr1.png",
+      "artifacts/art021p-round3/builder/product-desktop-native-13px-dpr1.png"
+    ],
+    "result": "public SVG rendered at 13 CSS px / DPR 1, 77 visible pixels, three separate feet, identical phone/desktop RGBA"
+  },
+  "expectedFocusedManifestTest": "npm run test:visual-asset-manifest"
+}

@@ -1,0 +1,128 @@
+{
+  "asset_id": "buried-coil-revealed-battle-sprite",
+  "version": 2,
+  "authorship": "in-repo-authored",
+  "license": "AGPL-3.0-only",
+  "tool_source": "OpenAI built-in imagegen image-edit tool",
+  "generation_mode": "built-in image edit",
+  "generation_settings": {
+    "transparent_background": true,
+    "input_images": [
+      {
+        "path": "/Users/me/.codex/generated_images/01a138df-4bae-7ba0-a4d3-9c7d6d09ae24/exec-17b41e33-ca06-4da5-8479-76db654048b4.png",
+        "sha256": "4e634c6d6ca32e47b78cb3b9ccc55c6f5ec782d6b11ed850e2f7148cb8626040"
+      }
+    ]
+  },
+  "generated_source": {
+    "path": "demo/assets/buried-coil-revealed.png",
+    "sha256": "7934840d85488965cbf55fdc1f891816b40c08f06922c1501cae42a167b505e9",
+    "bytes": 366179,
+    "dimensions": {
+      "width": 1254,
+      "height": 1254
+    },
+    "alpha_channel": true,
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bbox_xyxy": [
+      87,
+      84,
+      1129,
+      1223
+    ],
+    "transparent_pixel_count": 1253088,
+    "partial_alpha_pixel_count": 315915,
+    "opaque_pixel_count": 3513,
+    "tool_output_path": "/Users/me/.codex/generated_images/01a138df-4bae-7ba0-a4d3-9c7d6d09ae24/exec-8f36e63f-c954-482d-9b58-dcbad8ed6878.png",
+    "format": "PNG",
+    "refinement_input": {
+      "path": "/Users/me/.codex/generated_images/01a138df-4bae-7ba0-a4d3-9c7d6d09ae24/exec-17b41e33-ca06-4da5-8479-76db654048b4.png",
+      "sha256": "4e634c6d6ca32e47b78cb3b9ccc55c6f5ec782d6b11ed850e2f7148cb8626040",
+      "bytes": 207934,
+      "saved_evidence_path": "artifacts/art021p-round2/builder/refinement-pass-2-source.png",
+      "saved_evidence_sha256": "4e634c6d6ca32e47b78cb3b9ccc55c6f5ec782d6b11ed850e2f7148cb8626040"
+    }
+  },
+  "shipped_output": {
+    "path": "public/assets/buried-coil-revealed.webp",
+    "sha256": "ac2dcfc6947e4cd347e02ea9fcf781a925ad7a6be2854b3a831b4e571a9220cf",
+    "bytes": 14592,
+    "dimensions": {
+      "width": 512,
+      "height": 512
+    },
+    "alpha_channel": true,
+    "alpha_extrema": [
+      0,
+      254
+    ],
+    "visible_bbox_xyxy": [
+      42,
+      36,
+      385,
+      474
+    ],
+    "transparent_pixel_count": 207441,
+    "partial_alpha_pixel_count": 54703,
+    "opaque_pixel_count": 0,
+    "format": "WebP",
+    "encoding": {
+      "tool": "cwebp",
+      "version": "1.6.0",
+      "arguments": [
+        "-q",
+        "88",
+        "-m",
+        "6",
+        "-mt",
+        "-resize",
+        "512",
+        "512"
+      ],
+      "color_encoding": "lossy WebP at quality 88",
+      "alpha_encoding": "lossless WebP alpha"
+    }
+  },
+  "prompt": "Use case: stylized-concept\nAsset type: transparent, tiny static battle sprite; exact target 13×13 CSS pixels at DPR 1\nPrimary request: Re-render the supplied original Buried Coil pixel-art form with the same palette and structure but remove its excessive transparent margins so the entire tower is bold and countable at 13×13.\nScale and crop: The source art is too small inside its square. Zoom the complete device up within the square, preserving its proportions, until the visible device spans roughly 11 of 13 logical pixels in height and 9 of 13 logical pixels in width, with only about one transparent logical pixel around it. Do not change CSS size or add a circular platform.\nRequired shape at 13×13: Two visibly separate copper coil loops at the top with one full logical pixel of clear dark/transparent gap between them; a thin central rootwood mast; one bright amber core in the middle; and three countable separated feet in the lower half, left, right, and forward. Leave at least one fully transparent logical pixel between the feet at the bottom. Keep the hatch as three short broken copper arcs that stop between the feet. Never merge the supports into a solid base, disk, skirt, or wide band.\nStyle: Very simple crisp pixel art with flat color blocks and hard alpha edges, no texture, gradients, antialiasing, tiny details, shadows, glow, particles, or ornament. Use the original neutral copper, dark rootwood, and amber palette from the supplied image.\nComposition: Keep the whole two-loop crown and all three feet in frame; use almost the full square height and a broad tripod span. Negative spaces must survive a native browser render down to exactly 13×13 pixels.\nConstraints: The supplied original generated Buried Coil image is the only visual input. Preserve its object identity while simplifying. No other art, references, text, logos, UI, environment, characters, or team colors.",
+  "supersedes_round1": {
+    "generated_source_path": "demo/assets/buried-coil-revealed.png",
+    "generated_source_sha256": "3e80ea133991990319e55f83f846c6c6db18ef4c05521211553fa5ce1326b9d4",
+    "shipped_output_path": "public/assets/buried-coil-revealed.webp",
+    "shipped_output_sha256": "bca30fdf3ad8cf989affc42b7efb03ba38d4c33fda8e92131cc90c7c2d356cea",
+    "critic_verdict": "FAIL: actual 13 CSS px render merges three feet and coil crown."
+  },
+  "native_scale_check": {
+    "browser": "Playwright Chromium 145.0.7632.6",
+    "device_scale_factor": 1,
+    "viewports": [
+      [
+        390,
+        844
+      ],
+      [
+        1440,
+        933
+      ]
+    ],
+    "natural_dimensions": [
+      512,
+      512
+    ],
+    "css_dimensions": [
+      13,
+      13
+    ],
+    "pixel_aligned_position": [
+      100,
+      100
+    ],
+    "captures": [
+      "artifacts/art021p-round2/builder/phone-revealed-css-13px-dpr1.png",
+      "artifacts/art021p-round2/builder/desktop-revealed-css-13px-dpr1.png"
+    ],
+    "visual_status": "still fails: lower support mask merges; crown loops remain hard to distinguish at 13 CSS px; preserved for independent critique"
+  }
+}

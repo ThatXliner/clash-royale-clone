@@ -1,0 +1,12 @@
+/private/tmp/art021p-round3-svg-critic/artifacts/art021p-round3/critic/analyze-plate-control.py:20: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  ap=list(a.getdata());bp=list(b.getdata())
+/private/tmp/art021p-round3-svg-critic/artifacts/art021p-round3/critic/analyze-plate-control.py:22: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  def exact(im):return {i for i,p in enumerate(im.getdata()) if p==target}
+/private/tmp/art021p-round3-svg-critic/artifacts/art021p-round3/critic/analyze-plate-control.py:27: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  mask=set(); op=list(on.getdata()); bp=list(off.getdata())
+/private/tmp/art021p-round3-svg-critic/artifacts/art021p-round3/critic/analyze-plate-control.py:54: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  old["sameDecodedPixelsAsFreshVisibleState"]=list(oldimg.getdata())==list(loaded['asset-visible-plate-on'].getdata())
+/private/tmp/art021p-round3-svg-critic/artifacts/art021p-round3/critic/analyze-plate-control.py:58: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  for state,im in loaded.items(): color_counts[state]=sum(1 for p in im.getdata() if p==target)
+/private/tmp/art021p-round3-svg-critic/artifacts/art021p-round3/critic/analyze-plate-control.py:69: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  "rawDecodedRGBPixels":{k:list(im.getdata()) for k,im in loaded.items()},

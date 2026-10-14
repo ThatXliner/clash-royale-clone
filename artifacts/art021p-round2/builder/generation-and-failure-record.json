@@ -1,0 +1,107 @@
+{
+  "task": "ART021P round 2 revealed-form repair",
+  "acceptedBase": "407fd61c83f9f962280d363e85af364041c5f223",
+  "onlyProductChanges": [
+    "demo/assets/buried-coil-revealed.png",
+    "public/assets/buried-coil-revealed.webp",
+    "docs/art/buried-coil-revealed-provenance.json",
+    "src/content/visual-asset-manifest.js (only buried-coil-revealed-battle-sprite byteLength and sha256)"
+  ],
+  "initialIndependentFailure": {
+    "verdict": "FAIL",
+    "source": "artifacts/art021p-round2/builder/round1-critic-verdict.md",
+    "nativeMeasurements": "artifacts/art021p-round2/builder/round1-native-pixel-measurements.json",
+    "nativeCrop": "artifacts/art021p-round2/builder/round1-native-css-13px.png"
+  },
+  "imagegenPasses": [
+    {
+      "name": "pass1",
+      "source": "artifacts/art021p-round2/builder/refinement-pass-1-source.png",
+      "sha256": "fd7ee6b70012ef5581b3770a1f80fbbf6b2fb727c1e8c87c858a29179c78843f",
+      "nativeCrop": "artifacts/art021p-round2/builder/refinement-pass-1-native-css-13px.png",
+      "observation": "Native 13px crop reduced the tower to a faint narrow glyph; no readable tripod."
+    },
+    {
+      "name": "pass2",
+      "source": "artifacts/art021p-round2/builder/refinement-pass-2-source.png",
+      "sha256": "4e634c6d6ca32e47b78cb3b9ccc55c6f5ec782d6b11ed850e2f7148cb8626040",
+      "nativeCrop": "artifacts/art021p-round2/builder/refinement-pass-2-native-css-13px.png",
+      "observation": "Pixel-art shape retained twin bands and leg color but source art was too narrow; native crop remained a small central form."
+    },
+    {
+      "name": "pass3-final",
+      "source": "demo/assets/buried-coil-revealed.png",
+      "sha256": "7934840d85488965cbf55fdc1f891816b40c08f06922c1501cae42a167b505e9",
+      "toolOutput": "/Users/me/.codex/generated_images/01a138df-4bae-7ba0-a4d3-9c7d6d09ae24/exec-8f36e63f-c954-482d-9b58-dcbad8ed6878.png",
+      "shipped": "public/assets/buried-coil-revealed.webp",
+      "shippedSha256": "ac2dcfc6947e4cd347e02ea9fcf781a925ad7a6be2854b3a831b4e571a9220cf",
+      "nativeCrop": "artifacts/art021p-round2/builder/phone-revealed-css-13px-dpr1.png",
+      "observation": "Improved scale and contrast, yet native 13px support pixels still merge; no PASS claimed."
+    }
+  ],
+  "finalNativeEvidence": {
+    "capture": "actual Chromium element screenshot, CSS image at exact 13×13 and DPR1; position [100,100]",
+    "browser": "Playwright Chromium 145.0.7632.6",
+    "alphaThreshold": 32,
+    "visiblePixelCount": 53,
+    "visibleBBoxXYXY": [
+      3,
+      1,
+      10,
+      12
+    ],
+    "alphaMaskRows": [
+      ".............",
+      "....#####....",
+      "....#####....",
+      "....#####....",
+      "....#####....",
+      "....#####....",
+      ".....###.....",
+      ".....###.....",
+      ".....###.....",
+      "....#####....",
+      "...#######...",
+      "...#######...",
+      "............."
+    ],
+    "approximateColorRows": [
+      ".............",
+      "....wwwww....",
+      "....wCwCw....",
+      "....wCCCw....",
+      "....wwwww....",
+      "....wCCCC....",
+      ".....CCw.....",
+      ".....CCC.....",
+      ".....www.....",
+      "....wwwww....",
+      "...wCwCwCC...",
+      "...wCwCCCw...",
+      "............."
+    ],
+    "colorLegend": {
+      "A": "amber",
+      "C": "copper",
+      "w": "rootwood/light brown",
+      "d": "dark",
+      ".": "transparent/alpha at or below 32"
+    },
+    "observed": "Still fails the explicit raised three-foot and separated coil crown criterion; lower support pixels merge into one broad shape."
+  },
+  "captureReport": "artifacts/art021p-round2/builder/native-scale-capture.json",
+  "captureHtml": "artifacts/art021p-round2/builder/native-scale.html",
+  "captureScript": "artifacts/art021p-round2/builder/capture-native-scale.cjs",
+  "finalSourceFence": {
+    "round1SourceHash": "3e80ea133991990319e55f83f846c6c6db18ef4c05521211553fa5ce1326b9d4",
+    "round1WebpHash": "bca30fdf3ad8cf989affc42b7efb03ba38d4c33fda8e92131cc90c7c2d356cea",
+    "round2SourceHash": "7934840d85488965cbf55fdc1f891816b40c08f06922c1501cae42a167b505e9",
+    "round2WebpHash": "ac2dcfc6947e4cd347e02ea9fcf781a925ad7a6be2854b3a831b4e571a9220cf",
+    "webpBytes": 14592,
+    "dimensions": [
+      512,
+      512
+    ]
+  },
+  "reviewState": "candidate for independent critique; criteria unresolved; no self-PASS"
+}

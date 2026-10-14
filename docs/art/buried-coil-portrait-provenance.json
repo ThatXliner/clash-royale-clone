@@ -1,0 +1,78 @@
+{
+  "asset_id": "buried-coil-portrait",
+  "version": 1,
+  "authorship": "in-repo-authored",
+  "license": "AGPL-3.0-only",
+  "tool_source": "OpenAI built-in imagegen image-generation tool",
+  "generation_mode": "built-in default image generation",
+  "generation_settings": {
+    "transparent_background": false,
+    "input_images": []
+  },
+  "generated_source": {
+    "path": "demo/assets/buried-coil-portrait.png",
+    "sha256": "9467e8565c451b265eca65a8849bf7b1c6600996d82f6ff5a281e6ed0fb99097",
+    "bytes": 2863911,
+    "dimensions": {
+      "width": 1254,
+      "height": 1254
+    },
+    "alpha_channel": false,
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "visible_bbox_xyxy": [
+      0,
+      0,
+      1254,
+      1254
+    ],
+    "transparent_pixel_count": 0,
+    "partial_alpha_pixel_count": 0,
+    "opaque_pixel_count": 1572516,
+    "tool_output_path": "/Users/me/.codex/generated_images/01a138df-4bae-7ba0-a4d3-9c7d6d09ae24/exec-0a0fad86-030a-4886-af7b-ff1265fcb9a8.png",
+    "format": "PNG"
+  },
+  "shipped_output": {
+    "path": "public/assets/buried-coil-portrait.webp",
+    "sha256": "e52c43cc2c56f4aef3d3410a8a7adb1df63de581eb2fd93f443d85271ae62d5b",
+    "bytes": 75334,
+    "dimensions": {
+      "width": 512,
+      "height": 512
+    },
+    "alpha_channel": false,
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "visible_bbox_xyxy": [
+      0,
+      0,
+      512,
+      512
+    ],
+    "transparent_pixel_count": 0,
+    "partial_alpha_pixel_count": 0,
+    "opaque_pixel_count": 262144,
+    "format": "WebP",
+    "encoding": {
+      "tool": "cwebp",
+      "version": "1.6.0",
+      "arguments": [
+        "-q",
+        "85",
+        "-m",
+        "6",
+        "-mt",
+        "-resize",
+        "512",
+        "512"
+      ],
+      "color_encoding": "lossy WebP at quality 85",
+      "alpha_encoding": "not applicable (opaque portrait)"
+    }
+  },
+  "prompt": "Use case: stylized-concept\nAsset type: original square card portrait for the Buried Coil card in an original woodland river-workshop battler\nPrimary request: Paint a distinctive copper defensive device for a card thumbnail, centered on its transition from hidden hatch to revealed lookout.\nScene/backdrop: An alderwood river workshop at a sluice, with a few broad leaves, timber beams, and soft river spray in the distance.\nSubject: One buried defensive coil: a low round copper hatch opened to reveal a compact, sturdy lookout tower rising from beneath it. Give the tower a three-footed silhouette, a bright amber emberseed core, and two thick copper coil rings at the crown. Keep metal, wood, hatch, and emberseed visibly separate.\nStyle/medium: Original polished hand-painted game illustration with confident contours, broad material shapes, warm copper highlights, moss greens, dark riverwood, and ember amber.\nComposition/framing: Square close portrait, one device filling the center; show both the hatch rim and the complete coil crown. Keep the silhouette readable when reduced to a small square card thumbnail. Background stays secondary and uncluttered.\nLighting/mood: Warm emberseed glow against cool river mist; crafted, quietly vigilant.\nConstraints: Original design only. No text, lettering, logo, watermark, card frame, UI, people, or creatures. Do not resemble or name any existing commercial game assets or characters."
+}
