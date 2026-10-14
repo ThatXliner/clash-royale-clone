@@ -1,5 +1,14 @@
 # Gauntlet Rounds
 
+## Round 459 — 2026-10-14
+
+PIECE: CARDS-021K
+VERDICT: FAIL
+
+EVIDENCE: Round459 FAIL exact9d8b542 despiteindependent99/99 gates andactual4cost/230groundair/reveal/lifetime/restore. RLstructureobservation omitscurrenthiddenstate andsourcehidden/reveal QUESTIONreceipts, testsomitassertions. Repaircanonicalobservation/Qclosure; no coreproductadopted, no21releaseclaim. Source/default8seed0/23bytefences exact,kernel524103. Evidence artifacts/cards021-core-round1/critic/.
+
+BIGGEST GAP: RLobservablehidden/reveal state andQUESTIONreceipts omitted fromactualobservation.
+
 ## Round 458 — 2026-10-14
 
 PIECE: ART-021P

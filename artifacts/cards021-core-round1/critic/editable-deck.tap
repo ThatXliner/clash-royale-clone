@@ -1,0 +1,82 @@
+TAP version 13
+# Subtest: editable deck setup admits every card in canonical eight-card witnesses and closes QUESTION records
+ok 1 - editable deck setup admits every card in canonical eight-card witnesses and closes QUESTION records
+  ---
+  duration_ms: 11163.621041
+  type: 'test'
+  ...
+# Subtest: editable deck setup preserves the shipped standard setup and selected order
+ok 2 - editable deck setup preserves the shipped standard setup and selected order
+  ---
+  duration_ms: 57.751958
+  type: 'test'
+  ...
+# Subtest: editable mixed witnesses retain troop questions and exact non-unit profile receipts
+ok 3 - editable mixed witnesses retain troop questions and exact non-unit profile receipts
+  ---
+  duration_ms: 49.798125
+  type: 'test'
+  ...
+# Subtest: editable mixed setup rejects missing troop QUESTIONs and forged building provenance
+ok 4 - editable mixed setup rejects missing troop QUESTIONs and forged building provenance
+  ---
+  duration_ms: 11.352792
+  type: 'test'
+  ...
+# Subtest: editable mixed spell and Ember Basin replay spends and cycles each card once
+ok 5 - editable mixed spell and Ember Basin replay spends and cycles each card once
+  ---
+  duration_ms: 564.581375
+  type: 'test'
+  ...
+# Subtest: editable mixed GameSession casts from center, spends, cycles, and restores pending impact
+ok 6 - editable mixed GameSession casts from center, spends, cycles, and restores pending impact
+  ---
+  duration_ms: 33.4355
+  type: 'test'
+  ...
+# Subtest: editable mixed AI chooses a legal Squall Orb cast without a selected target
+ok 7 - editable mixed AI chooses a legal Squall Orb cast without a selected target
+  ---
+  duration_ms: 12.778375
+  type: 'test'
+  ...
+# Subtest: shared Cinderling archetype deploys from both cards and restores distinct member identities
+ok 8 - shared Cinderling archetype deploys from both cards and restores distinct member identities
+  ---
+  duration_ms: 4897.4615
+  type: 'test'
+  ...
+# Subtest: editable Stonehauler deployment survives deterministic restore continuation
+ok 9 - editable Stonehauler deployment survives deterministic restore continuation
+  ---
+  duration_ms: 662.316584
+  type: 'test'
+  ...
+# Subtest: new squads deploy through custom eight-card battles and restore exactly
+ok 10 - new squads deploy through custom eight-card battles and restore exactly
+  ---
+  duration_ms: 4235.1645
+  type: 'test'
+  ...
+# Subtest: seeded opponent naturally chooses both new projectile squads through typed receipts
+ok 11 - seeded opponent naturally chooses both new projectile squads through typed receipts
+  ---
+  duration_ms: 2775.231792
+  type: 'test'
+  ...
+# Subtest: editable deck rejects malformed, duplicate, unsupported, and noncanonical setups
+ok 12 - editable deck rejects malformed, duplicate, unsupported, and noncanonical setups
+  ---
+  duration_ms: 5.735458
+  type: 'test'
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 12
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 24721.604792

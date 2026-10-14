@@ -1,0 +1,94 @@
+{
+  "candidateCommit": "9d8b542c7927b3d95f78d88ff723d088bc0a4bd0",
+  "privateWorktree": "/private/tmp/cards021k-builder-76e202",
+  "commands": [
+    {
+      "command": "node --test tests/cards021-integration.test.js",
+      "tap": "artifacts/cards021-core-round1/critic/cards021-integration.tap",
+      "exitCode": 0,
+      "tests": 3,
+      "passed": 3,
+      "failed": 0,
+      "durationMs": 11151.930792
+    },
+    {
+      "command": "node --test tests/editable-deck.test.js",
+      "tap": "artifacts/cards021-core-round1/critic/editable-deck.tap",
+      "exitCode": 0,
+      "tests": 12,
+      "passed": 12,
+      "failed": 0,
+      "durationMs": 24721.604792
+    },
+    {
+      "command": "node --test tests/rl-environment.test.js",
+      "tap": "artifacts/cards021-core-round1/critic/rl-environment.tap",
+      "exitCode": 0,
+      "tests": 13,
+      "passed": 13,
+      "failed": 0,
+      "durationMs": 102692.914916
+    },
+    {
+      "command": "npm run test:content-schema",
+      "tap": "artifacts/cards021-core-round1/critic/content-schema.tap",
+      "exitCode": 0,
+      "tests": 20,
+      "passed": 20,
+      "failed": 0,
+      "durationMs": 444.890542
+    },
+    {
+      "command": "npm run test:nondeterminism-guard",
+      "tap": "artifacts/cards021-core-round1/critic/nondeterminism-guard.tap",
+      "exitCode": 0,
+      "tests": 10,
+      "passed": 10,
+      "failed": 0,
+      "durationMs": 1005.291416
+    },
+    {
+      "command": "npm run test:shipping-isolation-guard",
+      "tap": "artifacts/cards021-core-round1/critic/shipping-isolation-guard.tap",
+      "exitCode": 0,
+      "tests": 13,
+      "passed": 13,
+      "failed": 0,
+      "durationMs": 33167.381666
+    },
+    {
+      "command": "npm run test:game-building-runtime",
+      "tap": "artifacts/cards021-core-round1/critic/game-building-runtime.tap",
+      "exitCode": 0,
+      "tests": 15,
+      "passed": 15,
+      "failed": 0,
+      "durationMs": 19569.155416
+    },
+    {
+      "command": "npm run test:game-building-policy",
+      "tap": "artifacts/cards021-core-round1/critic/game-building-policy.tap",
+      "exitCode": 0,
+      "tests": 3,
+      "passed": 3,
+      "failed": 0,
+      "durationMs": 1126.372666
+    },
+    {
+      "command": "node --test tests/game-roster-buildings.test.js",
+      "tap": "artifacts/cards021-core-round1/critic/game-roster-buildings.tap",
+      "exitCode": 0,
+      "tests": 10,
+      "passed": 10,
+      "failed": 0,
+      "durationMs": 22097.426166
+    }
+  ],
+  "totalTests": 99,
+  "totalPassed": 99,
+  "totalFailed": 0,
+  "liveToolSessionsClosed": [
+    42650,
+    64351
+  ]
+}

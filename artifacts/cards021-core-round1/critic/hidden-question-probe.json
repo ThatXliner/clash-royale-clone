@@ -1,0 +1,97 @@
+{
+  "slot": 0,
+  "actionId": 256,
+  "observationStructureKeys": [
+    "alive",
+    "attackState",
+    "cardId",
+    "deathCause",
+    "hitpoints",
+    "id",
+    "layer",
+    "lifetime",
+    "maxHitpoints",
+    "owner",
+    "policy",
+    "position",
+    "targetKey",
+    "targetMode",
+    "targetable"
+  ],
+  "policyKeys": [
+    "confidence",
+    "corpusFields",
+    "disposition",
+    "source"
+  ],
+  "corpusFieldKeys": [
+    "cost",
+    "damage",
+    "deployTicks",
+    "firstHitTicks",
+    "hitSpeedTicks",
+    "hitpoints",
+    "maxRange",
+    "mode",
+    "sightRange"
+  ],
+  "lifetimeQuestion": {
+    "authoritative": false,
+    "confidence": "unverified",
+    "disposition": "question",
+    "key": "lifetimeTicks",
+    "source": "pre-evolutions-building-corpus-and-unsourced-policy-fixture",
+    "value": 1800
+  },
+  "separateQuestions": {
+    "hiddenInitialPolicy": {
+      "authoritative": false,
+      "confidence": "unverified",
+      "disposition": "question",
+      "key": "hiddenInitialPolicy",
+      "source": "pre-evolutions-building-corpus-and-unsourced-policy-fixture",
+      "value": "concealed-and-untargetable-until-an-eligible-target-is-in-sight"
+    },
+    "hiddenReconcealPolicy": {
+      "authoritative": false,
+      "confidence": "unverified",
+      "disposition": "question",
+      "key": "hiddenReconcealPolicy",
+      "source": "pre-evolutions-building-corpus-and-unsourced-policy-fixture",
+      "value": "reconceal-on-first-boundary-with-no-eligible-target"
+    },
+    "hiddenRevealAttackBoundary": {
+      "authoritative": false,
+      "confidence": "unverified",
+      "disposition": "question",
+      "key": "hiddenRevealAttackBoundary",
+      "source": "pre-evolutions-building-corpus-and-unsourced-policy-fixture",
+      "value": "reveal-and-begin-windup-on-the-same-integer-boundary"
+    },
+    "lifetimeDestructionBoundary": {
+      "authoritative": false,
+      "confidence": "unverified",
+      "disposition": "question",
+      "key": "lifetimeDestructionBoundary",
+      "source": "pre-evolutions-building-corpus-and-unsourced-policy-fixture",
+      "value": "alive-before-and-destroyed-at-placement-plus-1800-ticks"
+    },
+    "lifetimeTicks": {
+      "authoritative": false,
+      "confidence": "unverified",
+      "disposition": "question",
+      "key": "lifetimeTicks",
+      "source": "pre-evolutions-building-corpus-and-unsourced-policy-fixture",
+      "value": 1800
+    },
+    "targetModePolicy": {
+      "authoritative": false,
+      "confidence": "unverified",
+      "disposition": "question",
+      "key": "targetModePolicy",
+      "source": "pre-evolutions-building-corpus-and-unsourced-policy-fixture",
+      "value": "ground-air-and-structure-eligibility-follows-corpus-target-mode"
+    }
+  },
+  "exposedQuestionKeys": []
+}

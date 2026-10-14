@@ -1,0 +1,70 @@
+TAP version 13
+# Subtest: game roster buildings: bulwark uses one real GameSession route, spend, cycle, materialization, and shared unit ingress
+ok 1 - game roster buildings: bulwark uses one real GameSession route, spend, cycle, materialization, and shared unit ingress
+  ---
+  duration_ms: 319.068292
+  type: 'test'
+  ...
+# Subtest: game roster buildings: the exact HA/INTEGRATION building occurrence subset is bijective and keeps global shared IDs explicit
+ok 2 - game roster buildings: the exact HA/INTEGRATION building occurrence subset is bijective and keeps global shared IDs explicit
+  ---
+  duration_ms: 0.882333
+  type: 'test'
+  ...
+# Subtest: game roster buildings: every admitted identity uses exactly one kind-correct GameSession placement with no placeholder unit
+ok 3 - game roster buildings: every admitted identity uses exactly one kind-correct GameSession placement with no placeholder unit
+  ---
+  duration_ms: 230.318667
+  type: 'test'
+  ...
+# Subtest: game roster buildings: identity-only spawner claims reject visibly and leave the real session unchanged
+ok 4 - game roster buildings: identity-only spawner claims reject visibly and leave the real session unchanged
+  ---
+  duration_ms: 45.692416
+  type: 'test'
+  ...
+# Subtest: game roster buildings: defensive QUESTION estimates reach shared attacks, concealment, ramp, and siege phases
+ok 5 - game roster buildings: defensive QUESTION estimates reach shared attacks, concealment, ramp, and siege phases
+  ---
+  duration_ms: 3121.419792
+  type: 'test'
+  ...
+# Subtest: game roster buildings: Ember Basin splash contacts every authoritative same-circle target in stable ID order
+ok 6 - game roster buildings: Ember Basin splash contacts every authoritative same-circle target in stable ID order
+  ---
+  duration_ms: 538.775583
+  type: 'test'
+  ...
+# Subtest: game roster buildings: defensive lifetime reaches canonical terminal state in a bounded 1,800-tick real session
+ok 7 - game roster buildings: defensive lifetime reaches canonical terminal state in a bounded 1,800-tick real session
+  ---
+  duration_ms: 4657.378167
+  type: 'test'
+  ...
+# Subtest: game roster buildings: simultaneous two-owner Aether grants enter ElixirMatch once and preserve chunk/restore bytes
+ok 8 - game roster buildings: simultaneous two-owner Aether grants enter ElixirMatch once and preserve chunk/restore bytes
+  ---
+  duration_ms: 4971.067666
+  type: 'test'
+  ...
+# Subtest: game roster buildings: Burrow Rig travels through the shared path state and freezes its unsourced child as QUESTION
+ok 9 - game roster buildings: Burrow Rig travels through the shared path state and freezes its unsourced child as QUESTION
+  ---
+  duration_ms: 1455.945208
+  type: 'test'
+  ...
+# Subtest: game roster buildings: Cinder Reliquary dies from authoritative unit contact and triggers its death effect once
+ok 10 - game roster buildings: Cinder Reliquary dies from authoritative unit contact and triggers its death effect once
+  ---
+  duration_ms: 6613.967334
+  type: 'test'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 22097.426166

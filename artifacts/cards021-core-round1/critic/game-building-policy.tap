@@ -1,0 +1,32 @@
+
+> moss-and-ember@0.0.0 test:game-building-policy
+> node tests/game-building-policy-runner.js game-building-policy
+
+TAP version 13
+# Subtest: game building policy: nondefensive profiles carry exact catalog QUESTION records through live structures
+ok 1 - game building policy: nondefensive profiles carry exact catalog QUESTION records through live structures
+  ---
+  duration_ms: 14.079084
+  type: 'test'
+  ...
+# Subtest: game building policy: stripped, forged, contradictory, and omitted policies reject at setup admission
+ok 2 - game building policy: stripped, forged, contradictory, and omitted policies reject at setup admission
+  ---
+  duration_ms: 290.507334
+  type: 'test'
+  ...
+# Subtest: game building policy: single steps, chunks, and restored sessions retain exact policy bytes
+ok 3 - game building policy: single steps, chunks, and restored sessions retain exact policy bytes
+  ---
+  duration_ms: 611.871625
+  type: 'test'
+  ...
+1..3
+# tests 3
+# suites 0
+# pass 3
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1126.372666

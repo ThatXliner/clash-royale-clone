@@ -1,0 +1,40 @@
+{
+  "seed": 1,
+  "initialHand": [
+    "buried-coil",
+    "skymaul",
+    "brassbolt",
+    "mossguard"
+  ],
+  "restoreBytesExact": true,
+  "publicForkMethod": "undefined",
+  "publicContinuationFork": null,
+  "coilAccepted": {
+    "accepted": true,
+    "commandId": 0,
+    "tick": 0,
+    "type": "player-command-admitted"
+  },
+  "troopAccepted": {
+    "accepted": true,
+    "commandId": 0,
+    "tick": 0,
+    "type": "player-command-admitted"
+  },
+  "coilBranchStructures": [
+    {
+      "cardId": "buried-coil",
+      "alive": true
+    }
+  ],
+  "troopBranchUnits": [
+    {
+      "cardId": "mossguard",
+      "alive": true,
+      "side": "south"
+    }
+  ],
+  "branchesDiverged": true,
+  "sourceCheckpointUnchanged": true,
+  "sourceStateUnaffectedByBranchActions": true
+}

@@ -1,0 +1,88 @@
+TAP version 13
+# Subtest: RL environment exposes a finite action catalogue and masks legal deploys
+ok 1 - RL environment exposes a finite action catalogue and masks legal deploys
+  ---
+  duration_ms: 135.757583
+  type: 'test'
+  ...
+# Subtest: seeded trajectories and restored checkpoints continue identically
+ok 2 - seeded trajectories and restored checkpoints continue identically
+  ---
+  duration_ms: 381.571125
+  type: 'test'
+  ...
+# Subtest: separate instances and a custom shared deck remain independent
+ok 3 - separate instances and a custom shared deck remain independent
+  ---
+  duration_ms: 33.156125
+  type: 'test'
+  ...
+# Subtest: RL mask casts an editable Squall Orb center point and restores its pending effect
+ok 4 - RL mask casts an editable Squall Orb center point and restores its pending effect
+  ---
+  duration_ms: 103.425666
+  type: 'test'
+  ...
+# Subtest: RL reset and legal mask deploy sourced projectile cards with exact deck restore
+ok 5 - RL reset and legal mask deploy sourced projectile cards with exact deck restore
+  ---
+  duration_ms: 693.15425
+  type: 'test'
+  ...
+# Subtest: RL observes Ember Basin targeting, damage, lifetime, and exact in-flight restore
+ok 6 - RL observes Ember Basin targeting, damage, lifetime, and exact in-flight restore
+  ---
+  duration_ms: 4483.35425
+  type: 'test'
+  ...
+# Subtest: RL admits Buried Coil in a custom eight-card deck and restores its QUESTION observation
+ok 7 - RL admits Buried Coil in a custom eight-card deck and restores its QUESTION observation
+  ---
+  duration_ms: 103.5085
+  type: 'test'
+  ...
+# Subtest: horizon clipping truncates exactly and rejects later steps
+ok 8 - horizon clipping truncates exactly and rejects later steps
+  ---
+  duration_ms: 150.1255
+  type: 'test'
+  ...
+# Subtest: restore rejects paused or pending GameSession checkpoints
+ok 9 - restore rejects paused or pending GameSession checkpoints
+  ---
+  duration_ms: 106.001
+  type: 'test'
+  ...
+# Subtest: masked and out-of-range actions are atomic
+ok 10 - masked and out-of-range actions are atomic
+  ---
+  duration_ms: 18.735209
+  type: 'test'
+  ...
+# Subtest: observations are allowlisted, JSON-safe, and detached
+ok 11 - observations are allowlisted, JSON-safe, and detached
+  ---
+  duration_ms: 27.439459
+  type: 'test'
+  ...
+# Subtest: natural engine completion reports one sparse reward and seals the episode
+ok 12 - natural engine completion reports one sparse reward and seals the episode
+  ---
+  duration_ms: 51151.066625
+  type: 'test'
+  ...
+# Subtest: wait-only seed 2 reaches its pinned natural engine terminal after checkpoint restore
+ok 13 - wait-only seed 2 reaches its pinned natural engine terminal after checkpoint restore
+  ---
+  duration_ms: 45084.141625
+  type: 'test'
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 102692.914916
