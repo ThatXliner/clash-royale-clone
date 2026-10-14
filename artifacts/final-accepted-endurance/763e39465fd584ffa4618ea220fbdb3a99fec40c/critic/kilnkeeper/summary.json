@@ -1,0 +1,376 @@
+{
+  "scenario": "kilnkeeper",
+  "qualificationMode": "kilnkeeper-natural-terminal-and-same-deck-restart",
+  "qualificationResult": "qualified-natural-terminal-and-same-deck-restart",
+  "setup": {
+    "sha256": "9b2a1c5a86c2d5c0c2d623389b69c465409e65d5d84988591630b980ee7b3ba9",
+    "byteLength": 77885,
+    "seed": 0,
+    "deck": [
+      "coilblade",
+      "mossguard",
+      "copperskiff",
+      "kilnkeeper",
+      "brassbolt",
+      "reedsting",
+      "briar-band",
+      "cinderlings"
+    ]
+  },
+  "outcome": {
+    "kind": "natural-terminal",
+    "result": {
+      "crowns": {
+        "north": 2,
+        "south": 1
+      },
+      "endedAtTick": 10800,
+      "kind": "win",
+      "reason": "regulation_crowns",
+      "winner": "north"
+    },
+    "tick": 10800
+  },
+  "terminal": {
+    "sessionTick": 10800,
+    "terminal": true,
+    "winner": "north",
+    "crowns": {
+      "north": 2,
+      "south": 1
+    },
+    "reason": "regulation_crowns",
+    "terminalSessionSha256": "af76cbba66ac73dd8bba529af02b61f216a00c6d4daef8ddf13990c3bc5286d8",
+    "terminalOverlay": {
+      "height": 428,
+      "width": 520
+    },
+    "restart": {
+      "sessionTick": 0,
+      "restartCount": 1,
+      "restartHidden": true,
+      "seed": 0,
+      "deck": [
+        "coilblade",
+        "mossguard",
+        "copperskiff",
+        "kilnkeeper",
+        "brassbolt",
+        "reedsting",
+        "briar-band",
+        "cinderlings"
+      ],
+      "sessionSha256": "082140eb2af4dea00eb8206a1ebe34e49215c93396b48630e7b688fab675a519"
+    }
+  },
+  "durationMs": 448184,
+  "caps": {
+    "maxInitializationLongTaskMs": 159,
+    "maxNoninitialLongTaskMs": 0,
+    "maxRestoreLongTaskMs": 0,
+    "maxTerminalObservationLongTaskMs": 0,
+    "maxRestartLongTaskMs": 0,
+    "maxFinalObserverDrainLongTaskMs": 0,
+    "maxScreenshotLongTaskMs": 0,
+    "maxAnyLongTaskMs": 159,
+    "maxSyncSessionStepSliceMs": 22.900000005960464,
+    "maxRestoreSyncSliceMs": 7.600000023841858,
+    "maxSegmentWallMs": 10311,
+    "segmentCount": 37
+  },
+  "longTaskCounts": {
+    "noninitial": 0,
+    "initialization": 2,
+    "restore": 0,
+    "terminal": 0,
+    "restart": 0,
+    "finalDrain": 0,
+    "screenshot": 0,
+    "outOfSegment": 0
+  },
+  "restore": {
+    "rewindFromTick": 600,
+    "rewindToTick": 300,
+    "snapshotBytes": 99459,
+    "elapsedMs": 10196,
+    "sessionBytesBeforeSha256": "b81428f777aa38e8d98fd5e7b48a339e06cc797db792046c3d2d3b088a673db3",
+    "sessionBytesAfterSha256": "f29a376134c6e4b4b909928d25febaf484cc6be8df2fcb359cfcfb7c0edd2be0",
+    "audioContinuationBeforeSha256": "1b1fb4841c9bcc386952e0e8960625d95dcca84e61eeac5c40cdf1b3fc492b65",
+    "audioContinuationAfterSha256": "e220d155c1545eaeb5ed1e0829423c058b84f169626788f12919b397cd2db589"
+  },
+  "input": {
+    "normalizedCommandCount": 38,
+    "firstTick": 0,
+    "lastTick": 10500
+  },
+  "audioReplay": {
+    "restoreCutCursor": 25,
+    "uiSequenceAtBranch": 4,
+    "uiSequenceAfterRestore": 4,
+    "uiSequenceAfterReplay": 6,
+    "actualStartsBranch": {
+      "count": 54,
+      "sha256": "131f530b9277e79bde24f3c8451982d0337756f071c9b4bc3294144082e0fb8e",
+      "domainCounts": {
+        "ui": 4,
+        "simulation": 50
+      },
+      "minTick": 0,
+      "maxTick": 411,
+      "first": {
+        "cueId": "card-select",
+        "domain": "ui",
+        "family": "cardSelect",
+        "sequence": 0,
+        "tick": 0,
+        "type": "card-select"
+      },
+      "last": {
+        "cueId": "contact-impact",
+        "domain": "simulation",
+        "family": "impact",
+        "sequence": 53,
+        "tick": 411,
+        "type": "projectile-impact"
+      }
+    },
+    "actualStartsAfterRestore": {
+      "count": 54,
+      "sha256": "131f530b9277e79bde24f3c8451982d0337756f071c9b4bc3294144082e0fb8e",
+      "domainCounts": {
+        "ui": 4,
+        "simulation": 50
+      },
+      "minTick": 0,
+      "maxTick": 411,
+      "first": {
+        "cueId": "card-select",
+        "domain": "ui",
+        "family": "cardSelect",
+        "sequence": 0,
+        "tick": 0,
+        "type": "card-select"
+      },
+      "last": {
+        "cueId": "contact-impact",
+        "domain": "simulation",
+        "family": "impact",
+        "sequence": 53,
+        "tick": 411,
+        "type": "projectile-impact"
+      }
+    },
+    "originalTypedSimulationContinuation": {
+      "count": 27,
+      "sha256": "87e7630d1e633cb3dd7bd849a4d1268af58d19508372f92015dd1f1db58c027a",
+      "domainCounts": {
+        "simulation": 27
+      },
+      "minTick": 300,
+      "maxTick": 411,
+      "first": {
+        "cueId": "field-deploy",
+        "domain": "simulation",
+        "family": "deploy",
+        "sequence": 25,
+        "tick": 300,
+        "type": "deployed"
+      },
+      "last": {
+        "cueId": "contact-impact",
+        "domain": "simulation",
+        "family": "impact",
+        "sequence": 53,
+        "tick": 411,
+        "type": "projectile-impact"
+      }
+    },
+    "replayedTypedSimulationContinuation": {
+      "count": 27,
+      "sha256": "87e7630d1e633cb3dd7bd849a4d1268af58d19508372f92015dd1f1db58c027a",
+      "domainCounts": {
+        "simulation": 27
+      },
+      "minTick": 300,
+      "maxTick": 411,
+      "first": {
+        "cueId": "field-deploy",
+        "domain": "simulation",
+        "family": "deploy",
+        "sequence": 25,
+        "tick": 300,
+        "type": "deployed"
+      },
+      "last": {
+        "cueId": "contact-impact",
+        "domain": "simulation",
+        "family": "impact",
+        "sequence": 53,
+        "tick": 411,
+        "type": "projectile-impact"
+      }
+    },
+    "typedSimulationContinuationEqual": true,
+    "actualStartsAfterReplay": {
+      "count": 83,
+      "sha256": "6049ea44d004157d9c159c1892eda9d5cd9bf96f8d4bc8e431bed72d1e9dc797",
+      "domainCounts": {
+        "ui": 6,
+        "simulation": 77
+      },
+      "minTick": 0,
+      "maxTick": 411,
+      "first": {
+        "cueId": "card-select",
+        "domain": "ui",
+        "family": "cardSelect",
+        "sequence": 0,
+        "tick": 0,
+        "type": "card-select"
+      },
+      "last": {
+        "cueId": "contact-impact",
+        "domain": "simulation",
+        "family": "impact",
+        "sequence": 53,
+        "tick": 411,
+        "type": "projectile-impact"
+      }
+    },
+    "replayedUiStarts": {
+      "count": 2,
+      "sha256": "d0d0e196ed847e92c947d95f160c89b59cd9a6e27febfd929ad32a67da200028",
+      "domainCounts": {
+        "ui": 2
+      },
+      "minTick": 300,
+      "maxTick": 300,
+      "first": {
+        "cueId": "card-select",
+        "domain": "ui",
+        "family": "cardSelect",
+        "sequence": 4,
+        "tick": 300,
+        "type": "card-select"
+      },
+      "last": {
+        "cueId": "card-play",
+        "domain": "ui",
+        "family": "cardPlay",
+        "sequence": 5,
+        "tick": 300,
+        "type": "card-play"
+      }
+    },
+    "sequenceZeroDomains": [
+      "simulation",
+      "ui"
+    ]
+  },
+  "kilnkeeperEvidence": {
+    "playerDelivery": [
+      "command",
+      "costFromSelectedRoster",
+      "openingSouthElixir",
+      "openingSouthHand",
+      "setupDeck"
+    ],
+    "playerDeployment": [
+      "deployment",
+      "side",
+      "spend",
+      "tick",
+      "type"
+    ],
+    "northLaunch": [
+      "deployment",
+      "entityId",
+      "launchedAtTick"
+    ],
+    "northPositionAt300": [
+      "x",
+      "y"
+    ],
+    "northProjectileContactsAt600": {
+      "count": 3,
+      "first": {
+        "projectileId": 2,
+        "status": "contact",
+        "targetId": 9007199254740987,
+        "tick": 243,
+        "type": "projectile-impact",
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileIdentity": {
+          "attackSequence": 1,
+          "direction": "unit-to-tower",
+          "projectileId": 2,
+          "sourceId": 3
+        },
+        "projectileScope": "unit-to-tower",
+        "sourceId": 3
+      },
+      "last": {
+        "projectileId": 7,
+        "status": "contact",
+        "targetId": 9007199254740987,
+        "tick": 411,
+        "type": "projectile-impact",
+        "attackSequence": 3,
+        "direction": "unit-to-tower",
+        "projectileIdentity": {
+          "attackSequence": 3,
+          "direction": "unit-to-tower",
+          "projectileId": 7,
+          "sourceId": 3
+        },
+        "projectileScope": "unit-to-tower",
+        "sourceId": 3
+      }
+    },
+    "restoredProjectileContactsAt600": {
+      "count": 3,
+      "first": {
+        "projectileId": 2,
+        "status": "contact",
+        "targetId": 9007199254740987,
+        "tick": 243,
+        "type": "projectile-impact",
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileIdentity": {
+          "attackSequence": 1,
+          "direction": "unit-to-tower",
+          "projectileId": 2,
+          "sourceId": 3
+        },
+        "projectileScope": "unit-to-tower",
+        "sourceId": 3
+      },
+      "last": {
+        "projectileId": 7,
+        "status": "contact",
+        "targetId": 9007199254740987,
+        "tick": 411,
+        "type": "projectile-impact",
+        "attackSequence": 3,
+        "direction": "unit-to-tower",
+        "projectileIdentity": {
+          "attackSequence": 3,
+          "direction": "unit-to-tower",
+          "projectileId": 7,
+          "sourceId": 3
+        },
+        "projectileScope": "unit-to-tower",
+        "sourceId": 3
+      }
+    }
+  },
+  "cleanup": {
+    "serverExited": true,
+    "consoleErrors": 0,
+    "unhandled": 0,
+    "resourceErrors": 0,
+    "pendingResources": 0
+  }
+}

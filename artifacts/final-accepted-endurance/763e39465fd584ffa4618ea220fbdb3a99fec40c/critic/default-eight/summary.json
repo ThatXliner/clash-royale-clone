@@ -1,0 +1,281 @@
+{
+  "scenario": "default-eight",
+  "qualificationMode": "default-eight-full-18k",
+  "setup": {
+    "sha256": "306bb30da40ce7c43d6cccce8728449da90fc0e9ca7d13c81f0116ba710aec8c",
+    "byteLength": 39641,
+    "seed": 0,
+    "deck": [
+      "coilblade",
+      "mossguard",
+      "copperskiff",
+      "skymaul",
+      "brassbolt",
+      "reedsting",
+      "briar-band",
+      "cinderlings"
+    ]
+  },
+  "outcome": {
+    "kind": "natural-terminal",
+    "result": {
+      "crowns": {
+        "north": 1,
+        "south": 2
+      },
+      "endedAtTick": 18000,
+      "kind": "win",
+      "reason": "tiebreak_lowest_hp",
+      "winner": "south"
+    },
+    "tick": 18000
+  },
+  "terminal": {
+    "sessionTick": 18000,
+    "terminal": true,
+    "winner": "south",
+    "crowns": {
+      "north": 1,
+      "south": 2
+    },
+    "reason": "tiebreak_lowest_hp",
+    "terminalSessionSha256": "b688222db5bae0177e427729c8eb8da6d1e042ae84257c33573f3b2bcf5ab6d7",
+    "terminalOverlay": {
+      "height": 428,
+      "width": 520
+    },
+    "restart": {
+      "sessionTick": 0,
+      "restartCount": 1,
+      "restartHidden": true,
+      "seed": 0,
+      "deck": [
+        "coilblade",
+        "mossguard",
+        "copperskiff",
+        "skymaul",
+        "brassbolt",
+        "reedsting",
+        "briar-band",
+        "cinderlings"
+      ],
+      "sessionSha256": "ed371dd1d28d6be72a98bda32e434cbbc5431eea4f163e4206a1901cd08dbea1"
+    }
+  },
+  "durationMs": 968223,
+  "caps": {
+    "maxInitializationLongTaskMs": 161,
+    "maxNoninitialLongTaskMs": 0,
+    "maxRestoreLongTaskMs": 0,
+    "maxTerminalObservationLongTaskMs": 0,
+    "maxRestartLongTaskMs": 0,
+    "maxFinalObserverDrainLongTaskMs": 0,
+    "maxScreenshotLongTaskMs": 0,
+    "maxAnyLongTaskMs": 161,
+    "maxSyncSessionStepSliceMs": 34.099999994039536,
+    "maxRestoreSyncSliceMs": 8.399999976158142,
+    "maxSegmentWallMs": 10347,
+    "segmentCount": 67
+  },
+  "longTaskCounts": {
+    "noninitial": 0,
+    "initialization": 2,
+    "restore": 0,
+    "terminal": 0,
+    "restart": 0,
+    "finalDrain": 0,
+    "screenshot": 0,
+    "outOfSegment": 0
+  },
+  "restore": {
+    "rewindFromTick": 600,
+    "rewindToTick": 300,
+    "snapshotBytes": 54012,
+    "elapsedMs": 10156,
+    "beforeSessionSha256": "9aa01a83548a1bd4bb736878de6ce244bb383b66fb1075c1abc206fa991bcbcc",
+    "afterSessionSha256": "57813c849a0208478279ce036497d764537c93d796c16c9c8c98ac8b2d580ae0",
+    "beforeAudioContinuationSha256": "1a7577ab8831d5c186784447f1e8644011b9d076dcf6ef11f6ef0a87715dd243",
+    "afterAudioContinuationSha256": "792a9b43a1cb891001415f53b38748f6b9717b1f1c15e6ec6a86b0e87a4f5122",
+    "beforeBridgeSha256": "0297935bad5de59643d43fdc2f8135df9fca8e7e6eaad1ebdd713ebb595ca2ad",
+    "afterBridgeSha256": "80bb076a4ebb16f1d3b47065aafd315b52569b327b0b06db9d91ea2b74392864"
+  },
+  "input": {
+    "normalizedCommandCount": 67,
+    "acceptedBrowserCommandIdsMonotonic": false,
+    "firstAcceptedBrowserCommandId": null,
+    "lastAcceptedBrowserCommandId": null,
+    "firstTick": 0,
+    "lastTick": 17700
+  },
+  "audioReplay": {
+    "restoreCutCursor": 28,
+    "uiSequenceAtBranch": 2,
+    "uiSequenceAfterRestore": 2,
+    "uiSequenceAfterReplay": 4,
+    "actualStartsBranch": {
+      "count": 55,
+      "sha256": "d18c775d8ee9e0dc42ee6da8076b74232d29af2dfcc4193208c5177a51010e34",
+      "domainCounts": {
+        "simulation": 53,
+        "ui": 2
+      },
+      "minTick": 0,
+      "maxTick": 594,
+      "first": {
+        "cueId": "field-deploy",
+        "domain": "simulation",
+        "family": "deploy",
+        "sequence": 0,
+        "tick": 0,
+        "type": "deployed"
+      },
+      "last": {
+        "cueId": "vital-damage",
+        "domain": "simulation",
+        "family": "damage",
+        "sequence": 62,
+        "tick": 594,
+        "type": "damage"
+      }
+    },
+    "actualStartsAfterRestore": {
+      "count": 55,
+      "sha256": "d18c775d8ee9e0dc42ee6da8076b74232d29af2dfcc4193208c5177a51010e34",
+      "domainCounts": {
+        "simulation": 53,
+        "ui": 2
+      },
+      "minTick": 0,
+      "maxTick": 594,
+      "first": {
+        "cueId": "field-deploy",
+        "domain": "simulation",
+        "family": "deploy",
+        "sequence": 0,
+        "tick": 0,
+        "type": "deployed"
+      },
+      "last": {
+        "cueId": "vital-damage",
+        "domain": "simulation",
+        "family": "damage",
+        "sequence": 62,
+        "tick": 594,
+        "type": "damage"
+      }
+    },
+    "originalTypedSimulationContinuation": {
+      "count": 29,
+      "sha256": "d65cdfcaedade98e8a9fb82b33c8dfb8fd563a9bec304bd4205cc8809d2a6e7f",
+      "domainCounts": {
+        "simulation": 29
+      },
+      "minTick": 300,
+      "maxTick": 594,
+      "first": {
+        "cueId": "field-deploy",
+        "domain": "simulation",
+        "family": "deploy",
+        "sequence": 28,
+        "tick": 300,
+        "type": "deployed"
+      },
+      "last": {
+        "cueId": "vital-damage",
+        "domain": "simulation",
+        "family": "damage",
+        "sequence": 62,
+        "tick": 594,
+        "type": "damage"
+      }
+    },
+    "replayedTypedSimulationContinuation": {
+      "count": 29,
+      "sha256": "d65cdfcaedade98e8a9fb82b33c8dfb8fd563a9bec304bd4205cc8809d2a6e7f",
+      "domainCounts": {
+        "simulation": 29
+      },
+      "minTick": 300,
+      "maxTick": 594,
+      "first": {
+        "cueId": "field-deploy",
+        "domain": "simulation",
+        "family": "deploy",
+        "sequence": 28,
+        "tick": 300,
+        "type": "deployed"
+      },
+      "last": {
+        "cueId": "vital-damage",
+        "domain": "simulation",
+        "family": "damage",
+        "sequence": 62,
+        "tick": 594,
+        "type": "damage"
+      }
+    },
+    "typedSimulationContinuationEqual": true,
+    "actualStartsAfterReplay": {
+      "count": 86,
+      "sha256": "0e9b92788f1c107db026f258e7fa234d146bcdfcb383a95a091ce48b0d322e62",
+      "domainCounts": {
+        "simulation": 82,
+        "ui": 4
+      },
+      "minTick": 0,
+      "maxTick": 594,
+      "first": {
+        "cueId": "field-deploy",
+        "domain": "simulation",
+        "family": "deploy",
+        "sequence": 0,
+        "tick": 0,
+        "type": "deployed"
+      },
+      "last": {
+        "cueId": "vital-damage",
+        "domain": "simulation",
+        "family": "damage",
+        "sequence": 62,
+        "tick": 594,
+        "type": "damage"
+      }
+    },
+    "replayedUiStarts": {
+      "count": 2,
+      "sha256": "c3c320a2c20862c87335143b2cecfa6d6aa7707e050aec161dfebf4835e4d0df",
+      "domainCounts": {
+        "ui": 2
+      },
+      "minTick": 300,
+      "maxTick": 300,
+      "first": {
+        "cueId": "card-select",
+        "domain": "ui",
+        "family": "cardSelect",
+        "sequence": 2,
+        "tick": 300,
+        "type": "card-select"
+      },
+      "last": {
+        "cueId": "card-play",
+        "domain": "ui",
+        "family": "cardPlay",
+        "sequence": 3,
+        "tick": 300,
+        "type": "card-play"
+      }
+    },
+    "sequenceZeroDomains": [
+      "simulation",
+      "ui"
+    ]
+  },
+  "cleanup": {
+    "serverExited": true,
+    "consoleErrors": 0,
+    "unhandled": 0,
+    "resourceErrors": 0,
+    "pendingResources": 0
+  }
+}

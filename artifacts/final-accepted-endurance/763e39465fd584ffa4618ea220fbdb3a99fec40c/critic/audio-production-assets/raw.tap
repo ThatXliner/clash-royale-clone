@@ -1,0 +1,44 @@
+
+> moss-and-ember@0.0.0 test:audio-production-assets
+> node tests/audio-production-assets-runner.js audio-production-assets
+
+TAP version 13
+# Subtest: audio production assets: complete original inventory has pinned layered PCM provenance
+ok 1 - audio production assets: complete original inventory has pinned layered PCM provenance
+  ---
+  duration_ms: 23.382042
+  type: 'test'
+  ...
+# Subtest: audio production assets: fresh processes reproduce the production waveform receipt
+ok 2 - audio production assets: fresh processes reproduce the production waveform receipt
+  ---
+  duration_ms: 225.112458
+  type: 'test'
+  ...
+# Subtest: audio production assets: movement rate limiting and dense integer mix stay deterministic
+ok 3 - audio production assets: movement rate limiting and dense integer mix stay deterministic
+  ---
+  duration_ms: 13.187
+  type: 'test'
+  ...
+# Subtest: audio production assets: authenticated UI commands are ordered, idempotent, and restart-scoped
+ok 4 - audio production assets: authenticated UI commands are ordered, idempotent, and restart-scoped
+  ---
+  duration_ms: 41.019166
+  type: 'test'
+  ...
+# Subtest: audio production assets: real Chrome unlocks and schedules captured PCM through the shipped sink
+ok 5 - audio production assets: real Chrome unlocks and schedules captured PCM through the shipped sink
+  ---
+  duration_ms: 5522.618208
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6037.968208

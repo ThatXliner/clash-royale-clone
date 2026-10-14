@@ -1,0 +1,80 @@
+
+> moss-and-ember@0.0.0 test:game-browser-audio
+> node tests/game-browser-audio-runner.js game-browser-audio
+
+TAP version 13
+# Subtest: game browser audio: first trusted gesture unlocks exactly one context
+ok 1 - game browser audio: first trusted gesture unlocks exactly one context
+  ---
+  duration_ms: 23.102
+  type: 'test'
+  ...
+# Subtest: game browser audio: cues create real buffers and sources only after unlock
+ok 2 - game browser audio: cues create real buffers and sources only after unlock
+  ---
+  duration_ms: 71.378583
+  type: 'test'
+  ...
+# Subtest: game browser audio: toggle and gain affect active and future voices
+ok 3 - game browser audio: toggle and gain affect active and future voices
+  ---
+  duration_ms: 50.316417
+  type: 'test'
+  ...
+# Subtest: game browser audio: disposal stops voices, disconnects, closes, and unbinds once
+ok 4 - game browser audio: disposal stops voices, disconnects, closes, and unbinds once
+  ---
+  duration_ms: 21.920834
+  type: 'test'
+  ...
+# Subtest: game browser audio: session replacement preserves one sink and output policy
+ok 5 - game browser audio: session replacement preserves one sink and output policy
+  ---
+  duration_ms: 41.01
+  type: 'test'
+  ...
+# Subtest: game browser audio: shipped entry mounts, renders, restores, and disposes one sink
+ok 6 - game browser audio: shipped entry mounts, renders, restores, and disposes one sink
+  ---
+  duration_ms: 82.473083
+  type: 'test'
+  ...
+# Subtest: game browser audio: a later source failure rolls back and faults the whole transaction
+ok 7 - game browser audio: a later source failure rolls back and faults the whole transaction
+  ---
+  duration_ms: 21.73125
+  type: 'test'
+  ...
+# Subtest: game browser audio: rejected gain policy retains exact committed state
+ok 8 - game browser audio: rejected gain policy retains exact committed state
+  ---
+  duration_ms: 20.585292
+  type: 'test'
+  ...
+# Subtest: game browser audio: rejected mute policy retains exact committed state
+ok 9 - game browser audio: rejected mute policy retains exact committed state
+  ---
+  duration_ms: 20.626833
+  type: 'test'
+  ...
+# Subtest: game browser audio: rejected resume, suspend, and close promises are all observed
+ok 10 - game browser audio: rejected resume, suspend, and close promises are all observed
+  ---
+  duration_ms: 20.332541
+  type: 'test'
+  ...
+# Subtest: game browser audio: hostile environment admission is callback-atomic
+ok 11 - game browser audio: hostile environment admission is callback-atomic
+  ---
+  duration_ms: 9.235958
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 593.942708
