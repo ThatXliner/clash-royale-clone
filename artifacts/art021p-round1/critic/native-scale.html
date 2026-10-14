@@ -1,0 +1,23 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Buried Coil native asset scale audit</title>
+<style>
+*{box-sizing:border-box}body{margin:0;padding:20px;font:14px/1.35 system-ui,sans-serif;color:#1d2927;background:#f1f0e7}
+h1{font-size:20px;margin:0 0 8px}p{max-width:72ch;margin:0 0 18px;color:#49524d}.group{margin:16px 0;padding:14px;border:1px solid #c8cabe;border-radius:8px;background:#faf9f3}
+.row{display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap}.tile{display:flex;flex-direction:column;gap:6px;font-size:12px}.arena{width:42px;height:42px;display:grid;place-items:center;border:1px solid #53684b;background:#94a77c}.arena.dark{border-color:#d0c4a8;background:#293732}.arena.checker{background-color:#ddd;background-image:linear-gradient(45deg,#fff 25%,transparent 25%),linear-gradient(-45deg,#fff 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#fff 75%),linear-gradient(-45deg,transparent 75%,#fff 75%);background-size:8px 8px;background-position:0 0,0 4px,4px -4px,-4px 0}
+.sprite{width:13px;height:13px;display:block;object-fit:fill}.thumb{width:64px;height:64px;object-fit:cover;border-radius:6px;border:1px solid #404943}.thumb78{width:78px;height:78px;object-fit:cover;border-radius:7px;border:1px solid #404943}.card{padding:6px;background:#252d29;border-radius:8px;box-shadow:0 2px 8px #0004;width:max-content}.caption{font-size:11px;color:#59645e}</style>
+<h1>Buried Coil art: native-size inspection</h1>
+<p>Standalone asset diagnostic, not an application capture. Battle forms are 13×13 CSS pixels at device scale factor 1; portrait tiles are exactly 64×64 and 78×78 CSS pixels. Uniform arena-like and checker backgrounds expose alpha edges and halos.</p>
+<section class="group"><h2>Battle forms at 13×13 CSS px</h2><div class="row">
+<div class="tile">Hidden · field <div class="arena"><img class="sprite" src="../../../public/assets/buried-coil-hidden.webp"></div></div>
+<div class="tile">Revealed · field <div class="arena"><img class="sprite" src="../../../public/assets/buried-coil-revealed.webp"></div></div>
+<div class="tile">Hidden · dark <div class="arena dark"><img class="sprite" src="../../../public/assets/buried-coil-hidden.webp"></div></div>
+<div class="tile">Revealed · dark <div class="arena dark"><img class="sprite" src="../../../public/assets/buried-coil-revealed.webp"></div></div>
+<div class="tile">Hidden · checker <div class="arena checker"><img class="sprite" src="../../../public/assets/buried-coil-hidden.webp"></div></div>
+<div class="tile">Revealed · checker <div class="arena checker"><img class="sprite" src="../../../public/assets/buried-coil-revealed.webp"></div></div>
+</div></section>
+<section class="group"><h2>Square portrait in native thumbnail sizes</h2><div class="row">
+<div class="tile"><div class="card"><img class="thumb" src="../../../public/assets/buried-coil-portrait.webp"></div><span>64×64 CSS px</span></div>
+<div class="tile"><div class="card"><img class="thumb78" src="../../../public/assets/buried-coil-portrait.webp"></div><span>78×78 CSS px</span></div>
+</div></section>

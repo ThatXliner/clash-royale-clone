@@ -1,0 +1,97 @@
+{
+  "task": "ART021P Buried Coil original art asset bundle",
+  "acceptedBase": "76e202ff85d8d5920fc58a248b1324f56da5b3f2",
+  "baseManifestSha256": "0da323e0117679dd5c140af8ebde7551f8e52d2e8eff5da3b95b2d3e43d25d9b",
+  "candidateManifestSha256": "36c85a5cf1a10734c64c8d75df37970238d3d13972a362cde56fb5bb5251cc40",
+  "baseManifestAssetCount": 24,
+  "candidateManifestAssetCount": 27,
+  "originalManifestRecordsUnchanged": true,
+  "protectedExistingAssetFence": [
+    {
+      "path": "public/assets/kilnkeeper-battle-sprite.webp",
+      "sha256": "43766c813461acbfe36a949c6a972ba4e5ddf07513276bd5079cf564b1bf157a",
+      "bytes": 47138,
+      "unchangedFromBase": true
+    },
+    {
+      "path": "public/assets/rivet-runners-battle-sprite.webp",
+      "sha256": "0a9d033f894bd19178871a2927117cf66bb7f42c0b65dc224e11cecca0b4ce53",
+      "bytes": 78170,
+      "unchangedFromBase": true
+    },
+    {
+      "path": "public/assets/card-portraits-painted.webp",
+      "sha256": "16307a59bde57889e11bcd7b86b54d69ba9985eae6ef436d9703e528fba58e4f",
+      "bytes": 320516,
+      "unchangedFromBase": true
+    },
+    {
+      "path": "public/assets/kilnkeeper-portrait-painted.webp",
+      "sha256": "38e9f64348fa823a64755fda2496b699c88c27c7dd0a14a440e704d9093d2240",
+      "bytes": 65626,
+      "unchangedFromBase": true
+    },
+    {
+      "path": "public/assets/rivet-runners-portrait-painted.webp",
+      "sha256": "6df560ccabb6c7f7347225bdb4c0fe2f9eadbb3aa1f769b6b540cd6f96c35b77",
+      "bytes": 76868,
+      "unchangedFromBase": true
+    },
+    {
+      "path": "public/assets/briar-runner-painted-sheet.png",
+      "sha256": "a1aa43df00dacc212beedb4905dddd7a57db412981ea29662bc1d868a97794f4",
+      "bytes": 987565,
+      "unchangedFromBase": true
+    },
+    {
+      "path": "public/assets/briar-runner-sprite-sheet.svg",
+      "sha256": "5f25d05932e3c56f9a8dfce7ea9b9d02e9ad2fb34ef0ce983733f9b97b6b7a2e",
+      "bytes": 7692,
+      "unchangedFromBase": true
+    }
+  ],
+  "newShippedAssetFence": [
+    {
+      "path": "public/assets/buried-coil-hidden.webp",
+      "sha256": "5ee469494f97eab0652cc150d6b23b75c5bca44eba90b84a88cf8faf98d1a469",
+      "bytes": 43144,
+      "under1MiB": true
+    },
+    {
+      "path": "public/assets/buried-coil-portrait.webp",
+      "sha256": "e52c43cc2c56f4aef3d3410a8a7adb1df63de581eb2fd93f443d85271ae62d5b",
+      "bytes": 75334,
+      "under1MiB": true
+    },
+    {
+      "path": "public/assets/buried-coil-revealed.webp",
+      "sha256": "bca30fdf3ad8cf989affc42b7efb03ba38d4c33fda8e92131cc90c7c2d356cea",
+      "bytes": 37414,
+      "under1MiB": true
+    }
+  ],
+  "focusedValidation": {
+    "command": "npm run test:visual-asset-manifest",
+    "tests": 6,
+    "passed": 6,
+    "failed": 0
+  },
+  "visualInspection": {
+    "portrait": "64\u00d764 thumbnail downsample inspected",
+    "battleForms": "512\u00d7512 WebP downsampled with Lanczos to exactly 13\u00d713, inspected with transparent checker and separate illustrative teamplate overlay",
+    "captureType": "standalone asset scale diagnostic, not application UI"
+  },
+  "ownedPathsOnly": [
+    "demo/assets/buried-coil-portrait.png",
+    "demo/assets/buried-coil-hidden.png",
+    "demo/assets/buried-coil-revealed.png",
+    "public/assets/buried-coil-portrait.webp",
+    "public/assets/buried-coil-hidden.webp",
+    "public/assets/buried-coil-revealed.webp",
+    "docs/art/buried-coil-portrait-provenance.json",
+    "docs/art/buried-coil-hidden-provenance.json",
+    "docs/art/buried-coil-revealed-provenance.json",
+    "src/content/visual-asset-manifest.js (three appended asset records)",
+    "artifacts/art021p-round1/builder/**"
+  ]
+}

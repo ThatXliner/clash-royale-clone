@@ -1,0 +1,90 @@
+{
+  "browser": "Playwright Chromium 145.0.7632.6, DPR1",
+  "rendering": "actual shipped WebP decoded and CSS-scaled at pixel-aligned integer coordinates",
+  "battleForms": {
+    "hidden": {
+      "pngSize": [
+        13,
+        13
+      ],
+      "alphaThreshold": 32,
+      "visiblePixelCount": 108,
+      "visibleBboxXYXY": [
+        0,
+        2,
+        13,
+        13
+      ],
+      "maskRows": [
+        ".............",
+        ".............",
+        ".............",
+        "...#######...",
+        "..#########..",
+        "############.",
+        "#############",
+        "#############",
+        "#############",
+        "###########.#",
+        "##..#########",
+        "##..#########",
+        "##..###.##..."
+      ],
+      "transparentPixels": 51,
+      "partialAlphaPixels": 101,
+      "opaquePixels": 17
+    },
+    "revealed": {
+      "pngSize": [
+        13,
+        13
+      ],
+      "alphaThreshold": 32,
+      "visiblePixelCount": 130,
+      "visibleBboxXYXY": [
+        0,
+        0,
+        13,
+        13
+      ],
+      "maskRows": [
+        ".....###.....",
+        "....######...",
+        "...#######...",
+        "...#######...",
+        "..#########..",
+        "############.",
+        "#############",
+        "#############",
+        "#############",
+        "#############",
+        "#############",
+        "#############",
+        "##..######..."
+      ],
+      "transparentPixels": 28,
+      "partialAlphaPixels": 108,
+      "opaquePixels": 33
+    },
+    "portrait-css-64px-dpr1.png": {
+      "pngSize": [
+        64,
+        64
+      ],
+      "fileBytes": 8960
+    },
+    "portrait-css-78px-dpr1.png": {
+      "pngSize": [
+        78,
+        78
+      ],
+      "fileBytes": 14116
+    }
+  },
+  "silhouetteComparison": {
+    "intersectionPixelCount": 108,
+    "unionPixelCount": 130,
+    "differentPixelCount": 22,
+    "intersectionOverUnion": 0.8307692307692308
+  }
+}

@@ -1,0 +1,238 @@
+{
+  "commit": "407fd61c83f9f962280d363e85af364041c5f223",
+  "parent": "76e202ff85d8d5920fc58a248b1324f56da5b3f2",
+  "changedPaths": [
+    "artifacts/art021p-round1/builder/13px-readability.json",
+    "artifacts/art021p-round1/builder/buried-coil-art-scale-review.png",
+    "artifacts/art021p-round1/builder/buried-coil-revealed-first-generation.png",
+    "artifacts/art021p-round1/builder/buried-coil-revealed-refined-source.png",
+    "artifacts/art021p-round1/builder/generation-record.json",
+    "artifacts/art021p-round1/builder/revealed-13px-initial-vs-refined.png",
+    "artifacts/art021p-round1/builder/source-fence.json",
+    "demo/assets/buried-coil-hidden.png",
+    "demo/assets/buried-coil-portrait.png",
+    "demo/assets/buried-coil-revealed.png",
+    "docs/art/buried-coil-hidden-provenance.json",
+    "docs/art/buried-coil-portrait-provenance.json",
+    "docs/art/buried-coil-revealed-provenance.json",
+    "public/assets/buried-coil-hidden.webp",
+    "public/assets/buried-coil-portrait.webp",
+    "public/assets/buried-coil-revealed.webp",
+    "src/content/visual-asset-manifest.js"
+  ],
+  "changedPathCount": 17,
+  "referencePathsChanged": [],
+  "assets": [
+    {
+      "id": "buried-coil-portrait",
+      "license": "AGPL-3.0-only",
+      "authorship": "in-repo-authored",
+      "source": {
+        "path": "demo/assets/buried-coil-portrait.png",
+        "sha256": "9467e8565c451b265eca65a8849bf7b1c6600996d82f6ff5a281e6ed0fb99097",
+        "bytes": 2863911,
+        "format": "PNG",
+        "dimensions": [
+          1254,
+          1254
+        ],
+        "mode": "RGB",
+        "alpha": {},
+        "matches_provenance": true
+      },
+      "output": {
+        "path": "public/assets/buried-coil-portrait.webp",
+        "sha256": "e52c43cc2c56f4aef3d3410a8a7adb1df63de581eb2fd93f443d85271ae62d5b",
+        "bytes": 75334,
+        "format": "WEBP",
+        "dimensions": [
+          512,
+          512
+        ],
+        "mode": "RGB",
+        "alpha": {},
+        "matches_provenance": true,
+        "under_1MiB": true
+      }
+    },
+    {
+      "id": "buried-coil-hidden-battle-sprite",
+      "license": "AGPL-3.0-only",
+      "authorship": "in-repo-authored",
+      "source": {
+        "path": "demo/assets/buried-coil-hidden.png",
+        "sha256": "5a590c7ebe699392a014d3d14b81ba686bb1bcbdbadfddaa254363dfece3e814",
+        "bytes": 1335049,
+        "format": "PNG",
+        "dimensions": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "alpha": {
+          "min": 0,
+          "max": 255,
+          "transparent": 966145,
+          "partial": 605474,
+          "opaque": 897,
+          "bbox": [
+            37,
+            31,
+            1236,
+            1237
+          ]
+        },
+        "matches_provenance": true
+      },
+      "output": {
+        "path": "public/assets/buried-coil-hidden.webp",
+        "sha256": "5ee469494f97eab0652cc150d6b23b75c5bca44eba90b84a88cf8faf98d1a469",
+        "bytes": 43144,
+        "format": "WEBP",
+        "dimensions": [
+          512,
+          512
+        ],
+        "mode": "RGBA",
+        "alpha": {
+          "min": 0,
+          "max": 254,
+          "transparent": 160673,
+          "partial": 101471,
+          "opaque": 0,
+          "bbox": [
+            26,
+            40,
+            486,
+            494
+          ]
+        },
+        "matches_provenance": true,
+        "under_1MiB": true
+      }
+    },
+    {
+      "id": "buried-coil-revealed-battle-sprite",
+      "license": "AGPL-3.0-only",
+      "authorship": "in-repo-authored",
+      "source": {
+        "path": "demo/assets/buried-coil-revealed.png",
+        "sha256": "3e80ea133991990319e55f83f846c6c6db18ef4c05521211553fa5ce1326b9d4",
+        "bytes": 1000851,
+        "format": "PNG",
+        "dimensions": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "alpha": {
+          "min": 0,
+          "max": 255,
+          "transparent": 980997,
+          "partial": 589548,
+          "opaque": 1971,
+          "bbox": [
+            0,
+            54,
+            1216,
+            1214
+          ]
+        },
+        "matches_provenance": true
+      },
+      "output": {
+        "path": "public/assets/buried-coil-revealed.webp",
+        "sha256": "bca30fdf3ad8cf989affc42b7efb03ba38d4c33fda8e92131cc90c7c2d356cea",
+        "bytes": 37414,
+        "format": "WEBP",
+        "dimensions": [
+          512,
+          512
+        ],
+        "mode": "RGBA",
+        "alpha": {
+          "min": 0,
+          "max": 254,
+          "transparent": 162746,
+          "partial": 99398,
+          "opaque": 0,
+          "bbox": [
+            72,
+            22,
+            477,
+            486
+          ]
+        },
+        "matches_provenance": true,
+        "under_1MiB": true
+      }
+    }
+  ],
+  "refinementInput": {
+    "path": "artifacts/art021p-round1/builder/buried-coil-revealed-first-generation.png",
+    "sha256": "5e1e82791693d101b7e5c69041beddc2606775b943b4dbda84ffe1096dae4ce1",
+    "bytes": 1239380
+  },
+  "protectedExistingAssets": [
+    {
+      "path": "public/assets/kilnkeeper-battle-sprite.webp",
+      "baseSha256": "43766c813461acbfe36a949c6a972ba4e5ddf07513276bd5079cf564b1bf157a",
+      "candidateSha256": "43766c813461acbfe36a949c6a972ba4e5ddf07513276bd5079cf564b1bf157a",
+      "bytes": 47138,
+      "matchesBase": true,
+      "matchesReceipt": true
+    },
+    {
+      "path": "public/assets/rivet-runners-battle-sprite.webp",
+      "baseSha256": "0a9d033f894bd19178871a2927117cf66bb7f42c0b65dc224e11cecca0b4ce53",
+      "candidateSha256": "0a9d033f894bd19178871a2927117cf66bb7f42c0b65dc224e11cecca0b4ce53",
+      "bytes": 78170,
+      "matchesBase": true,
+      "matchesReceipt": true
+    },
+    {
+      "path": "public/assets/card-portraits-painted.webp",
+      "baseSha256": "16307a59bde57889e11bcd7b86b54d69ba9985eae6ef436d9703e528fba58e4f",
+      "candidateSha256": "16307a59bde57889e11bcd7b86b54d69ba9985eae6ef436d9703e528fba58e4f",
+      "bytes": 320516,
+      "matchesBase": true,
+      "matchesReceipt": true
+    },
+    {
+      "path": "public/assets/kilnkeeper-portrait-painted.webp",
+      "baseSha256": "38e9f64348fa823a64755fda2496b699c88c27c7dd0a14a440e704d9093d2240",
+      "candidateSha256": "38e9f64348fa823a64755fda2496b699c88c27c7dd0a14a440e704d9093d2240",
+      "bytes": 65626,
+      "matchesBase": true,
+      "matchesReceipt": true
+    },
+    {
+      "path": "public/assets/rivet-runners-portrait-painted.webp",
+      "baseSha256": "6df560ccabb6c7f7347225bdb4c0fe2f9eadbb3aa1f769b6b540cd6f96c35b77",
+      "candidateSha256": "6df560ccabb6c7f7347225bdb4c0fe2f9eadbb3aa1f769b6b540cd6f96c35b77",
+      "bytes": 76868,
+      "matchesBase": true,
+      "matchesReceipt": true
+    },
+    {
+      "path": "public/assets/briar-runner-painted-sheet.png",
+      "baseSha256": "a1aa43df00dacc212beedb4905dddd7a57db412981ea29662bc1d868a97794f4",
+      "candidateSha256": "a1aa43df00dacc212beedb4905dddd7a57db412981ea29662bc1d868a97794f4",
+      "bytes": 987565,
+      "matchesBase": true,
+      "matchesReceipt": true
+    },
+    {
+      "path": "public/assets/briar-runner-sprite-sheet.svg",
+      "baseSha256": "5f25d05932e3c56f9a8dfce7ea9b9d02e9ad2fb34ef0ce983733f9b97b6b7a2e",
+      "candidateSha256": "5f25d05932e3c56f9a8dfce7ea9b9d02e9ad2fb34ef0ce983733f9b97b6b7a2e",
+      "bytes": 7692,
+      "matchesBase": true,
+      "matchesReceipt": true
+    }
+  ],
+  "sourceFenceClaimsOriginalRecordsUnchanged": true,
+  "baseManifestCount": 24,
+  "candidateManifestCount": 27,
+  "newAssetsAllUnder1MiB": true
+}

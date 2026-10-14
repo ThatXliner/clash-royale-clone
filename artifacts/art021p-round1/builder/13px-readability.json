@@ -1,0 +1,69 @@
+{
+  "hidden": {
+    "width": 13,
+    "height": 13,
+    "alphaThreshold": 32,
+    "visiblePixelCount": 78,
+    "visibleBboxXYXY": [
+      0,
+      3,
+      13,
+      11
+    ],
+    "maskRows": [
+      ".............",
+      ".............",
+      ".............",
+      "...#######...",
+      "..#########..",
+      ".###########.",
+      "#############",
+      "#############",
+      ".###########.",
+      "..#########..",
+      "....#####....",
+      ".............",
+      "............."
+    ]
+  },
+  "revealed": {
+    "width": 13,
+    "height": 13,
+    "alphaThreshold": 32,
+    "visiblePixelCount": 77,
+    "visibleBboxXYXY": [
+      2,
+      0,
+      11,
+      13
+    ],
+    "maskRows": [
+      ".....###.....",
+      "....######...",
+      "...#######...",
+      "....######...",
+      "....#####....",
+      ".....###.....",
+      ".....###.....",
+      "....#####....",
+      "..#########..",
+      "..#########..",
+      "..#########..",
+      "..#########..",
+      ".....###....."
+    ]
+  },
+  "silhouetteComparison": {
+    "differentPixelCount": 65,
+    "unionPixelCount": 110,
+    "intersectionOverUnion": 0.4090909090909091
+  },
+  "portraitThumbnail": {
+    "source": "public/assets/buried-coil-portrait.webp",
+    "thumbnailDimensions": [
+      64,
+      64
+    ],
+    "purpose": "manual card-thumbnail-scale visual inspection"
+  }
+}

@@ -1,5 +1,14 @@
 # Gauntlet Rounds
 
+## Round 458 — 2026-10-14
+
+PIECE: ART-021P
+VERDICT: FAIL
+
+EVIDENCE: Round458 FAIL exact407fd61: manifest6/6/provenance/sourcebytes/old24records andprotectedhashes pass. NativeChrome13px revealedfeet/crown merge; alphaIoU0.831 hidden108/revealed130px. Portrait64/78px readable. Refinerevealed silhouette only; no assets/manifestproductadopted. IndependentDPR1 Chrome145 native13px assets and64/78pxportrait inphone390x844/desktop1440x933; artifacts/art021p-round1/critic/.
+
+BIGGEST GAP: Revealed three-footedcoil silhouette doesnot surviveactual13px CSSraster.
+
 ## Round 457 — 2026-10-14
 
 PIECE: MELEE-AREA-001

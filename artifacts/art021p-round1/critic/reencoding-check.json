@@ -1,0 +1,33 @@
+{
+  "cwebpVersion": "1.6.0\nlibsharpyuv: 0.4.2",
+  "checks": [
+    {
+      "asset": "portrait",
+      "command": "cwebp -q 85 -m 6 -mt -resize 512 512 /private/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/art021p-critic-407fd61-xgdv1jkh/demo/assets/buried-coil-portrait.png -o /private/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/art021p-critic-407fd61-xgdv1jkh/artifacts/art021p-round1/critic/reencoded-check/buried-coil-portrait.webp",
+      "reencodedSha256": "e52c43cc2c56f4aef3d3410a8a7adb1df63de581eb2fd93f443d85271ae62d5b",
+      "shippedSha256": "e52c43cc2c56f4aef3d3410a8a7adb1df63de581eb2fd93f443d85271ae62d5b",
+      "byteIdentical": true,
+      "reencodedBytes": 75334,
+      "shippedBytes": 75334
+    },
+    {
+      "asset": "hidden",
+      "command": "cwebp -q 88 -m 6 -mt -resize 512 512 /private/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/art021p-critic-407fd61-xgdv1jkh/demo/assets/buried-coil-hidden.png -o /private/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/art021p-critic-407fd61-xgdv1jkh/artifacts/art021p-round1/critic/reencoded-check/buried-coil-hidden.webp",
+      "reencodedSha256": "5ee469494f97eab0652cc150d6b23b75c5bca44eba90b84a88cf8faf98d1a469",
+      "shippedSha256": "5ee469494f97eab0652cc150d6b23b75c5bca44eba90b84a88cf8faf98d1a469",
+      "byteIdentical": true,
+      "reencodedBytes": 43144,
+      "shippedBytes": 43144
+    },
+    {
+      "asset": "revealed",
+      "command": "cwebp -q 88 -m 6 -mt -resize 512 512 /private/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/art021p-critic-407fd61-xgdv1jkh/demo/assets/buried-coil-revealed.png -o /private/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/art021p-critic-407fd61-xgdv1jkh/artifacts/art021p-round1/critic/reencoded-check/buried-coil-revealed.webp",
+      "reencodedSha256": "bca30fdf3ad8cf989affc42b7efb03ba38d4c33fda8e92131cc90c7c2d356cea",
+      "shippedSha256": "bca30fdf3ad8cf989affc42b7efb03ba38d4c33fda8e92131cc90c7c2d356cea",
+      "byteIdentical": true,
+      "reencodedBytes": 37414,
+      "shippedBytes": 37414
+    }
+  ],
+  "allReencodedByteIdentical": true
+}
