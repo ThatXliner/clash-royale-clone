@@ -1,0 +1,28 @@
+{
+  "baseCommit": "c57d3ab30d1295709d168a88941f7ad708be737e",
+  "generatorCommand": "node scripts/render-progress.js <temporary-output-path>",
+  "testCommand": "node --test tests/progress-renderer.test.js tests/render-progress.test.js",
+  "testExitCode": 0,
+  "generatedPageSha256": "b71f1320769a40981ac7221759ac6dacfdecd7702a3ffccc8001c733722fa0dc",
+  "generatedCounts": {
+    "validPlanPieces": 261,
+    "numberedRounds": 463
+  },
+  "exactOnceInSourceOrder": true,
+  "scopedVerdictExample": "R325 PASS for reference evidence; GAME-001HSS remains BLOCKED",
+  "sourceFenceSha256Before": {
+    "PLAN.md": "4f3160c53af56541dc5c2cdf7e0e13057ce7ac216fbefb6128a8906b1c3c780e",
+    "rounds.md": "1d119b37d1853d662e8a31ebab5e0bb60077ce8277316b7b6182d6734e55001f",
+    "progress.html": "25689fdca0d703fc896ddff222ca410370425380a34a41f6055a2040877e5116"
+  },
+  "sourceFenceSha256After": {
+    "PLAN.md": "4f3160c53af56541dc5c2cdf7e0e13057ce7ac216fbefb6128a8906b1c3c780e",
+    "rounds.md": "1d119b37d1853d662e8a31ebab5e0bb60077ce8277316b7b6182d6734e55001f",
+    "progress.html": "25689fdca0d703fc896ddff222ca410370425380a34a41f6055a2040877e5116"
+  },
+  "sourceAndSharedPageUnchanged": true,
+  "candidateSourceSha256": {
+    "scripts/render-progress.js": "88d5ca56679ea3bfe41d9e64cbab3ca1d51a752c412e0099ce310543af3aba53",
+    "tests/progress-renderer.test.js": "0869d2d2980836fbbd1ff78b6c0942e2715851358beae6dbabaf2d62f37bdc59"
+  }
+}

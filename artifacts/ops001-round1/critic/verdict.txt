@@ -1,0 +1,30 @@
+PIECE: OPS-001 — Complete gauntlet progress rendering
+VERDICT: PASS
+EVIDENCE:
+
+$ node --test tests/progress-renderer.test.js tests/render-progress.test.js
+TAP version 13
+# Subtest: temporary fixtures preserve wrapped names, scoped verdicts, ordering, gaps, and escaping
+ok 1 - temporary fixtures preserve wrapped names, scoped verdicts, ordering, gaps, and escaping
+# Subtest: actual tracked plan and round history render once to a temporary output
+ok 2 - actual tracked plan and round history render once to a temporary output
+# Subtest: progress renderer includes valid new prefixes and keeps round trajectories
+ok 3 - progress renderer includes valid new prefixes and keeps round trajectories
+1..3
+# tests 3
+# suites 0
+# pass 3
+# fail 0
+
+Independent Python HTMLParser audit compared the generated default CLI page to raw PLAN.md table rows and raw numbered rounds.md headings. It matched all 261/261 valid piece rows and all 463/463 unique numbered rounds in source order. All 261 PLAN gaps and 463 round BIGGEST GAP values were nonempty and retained. Summary values matched the source counts: 261 tracked, 204 PASS, 463 rounds, 30 QUESTION; status rows also matched (17 BLOCKED, 10 BUILDING). Four wrapped PIECE names and nine adjacent PIECE/VERDICT pairs survived.
+
+Scoped source verdicts remained exact in the generated page:
+R325: PASS for reference evidence; GAME-001HSS remains BLOCKED
+R323: PASS for reference evidence; GAME-001HSP remains BLOCKED
+R319: PASS on captured visual dimension; full piece BLOCKED on GAME-001GP
+
+The output is one self-contained HTML file with embedded CSS and no external references. HTML entity parsing recovered every source field exactly; the real source fields contained 1 '<', 3 '>', and 4 double quotes, and the output contained the corresponding escaped entities. The fixture test also passed its '<', '>', '&', and quote escaping assertions.
+
+Running the CLI from a separate working directory wrote its default output beside the script, confirming file-URL-relative behavior. An explicit output path produced byte-identical HTML and left the default output hash unchanged. PLAN.md and rounds.md SHA-256 values were identical before and after generation (hashes in source-before.sha256 and source-after.sha256).
+
+BIGGEST GAP: No remaining gap on this renderer bar; the page faithfully reflects its source, so errors already present in PLAN.md or rounds.md remain source-data issues.
