@@ -1,0 +1,88 @@
+
+> moss-and-ember@0.0.0 test:game-session
+> node tests/game-session-runner.js game-session
+
+TAP version 13
+# Subtest: game session: one boundary commits south ingress and north proposal into one battle
+ok 1 - game session: one boundary commits south ingress and north proposal into one battle
+  ---
+  duration_ms: 78.458875
+  type: 'test'
+  ...
+# Subtest: game session: both sides materialize all eight cards and repeated plays fight
+not ok 2 - game session: both sides materialize all eight cards and repeated plays fight
+  ---
+  duration_ms: 181.711667
+  type: 'test'
+  location: '/Users/me/.codex/worktrees/9456/clash-royale-clone/tests/game-session.test.js:57:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 6
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 6
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/tests/game-session.test.js:73:14)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: game session: pause, resume, restart, chunks, and restore cuts preserve exact bytes
+ok 3 - game session: pause, resume, restart, chunks, and restore cuts preserve exact bytes
+  ---
+  duration_ms: 6698.853209
+  type: 'test'
+  ...
+# Subtest: game session: append-only transcript witness stays canonical across isolated ticks
+ok 4 - game session: append-only transcript witness stays canonical across isolated ticks
+  ---
+  duration_ms: 880.73725
+  type: 'test'
+  ...
+# Subtest: game session: full regulation/overtime/tiebreak reaches one frozen terminal result
+ok 5 - game session: full regulation/overtime/tiebreak reaches one frozen terminal result
+  ---
+  duration_ms: 39188.897208
+  type: 'test'
+  ...
+# Subtest: game session: illegal, insufficient, stale, duplicate, and hostile inputs are atomic
+ok 6 - game session: illegal, insufficient, stale, duplicate, and hostile inputs are atomic
+  ---
+  duration_ms: 35.492
+  type: 'test'
+  ...
+# Subtest: game session: setup admission is scalar-safe, byte-exact, bounded, and non-observing
+ok 7 - game session: setup admission is scalar-safe, byte-exact, bounded, and non-observing
+  ---
+  duration_ms: 55.76375
+  type: 'test'
+  ...
+# Subtest: game session: transcript admission and causal replay reject all supplied witnesses
+ok 8 - game session: transcript admission and causal replay reject all supplied witnesses
+  ---
+  duration_ms: 351.450084
+  type: 'test'
+  ...
+# Subtest: game session: live simultaneous tower deaths and central terminal stop every authority exactly
+ok 9 - game session: live simultaneous tower deaths and central terminal stop every authority exactly
+  ---
+  duration_ms: 42885.173666
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 8
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 90481.6965

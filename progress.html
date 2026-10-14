@@ -27,11 +27,11 @@
   <p class="sub">Updated 2026-10-13 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
     <div class="card"><div class="num">243</div><div class="label">tracked pieces</div></div>
-    <div class="card"><div class="num">192</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">433</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">193</div><div class="label">passed</div></div>
+    <div class="card"><div class="num">434</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">29</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Active builds: <strong>CARDS-019H1 — shared target following</strong> and <strong>GAME-001MS — squad materialization verification</strong>. Portrait preparation: ART-020P Rivet Runners. Kilnkeeper bounded core passed; historical calibration remains QUESTION.</p>
+  <p class="note">Active builds: <strong>CARDS-019H1 — shared target following</strong> and <strong>ART-020P — Rivet Runners portrait</strong>. Accepted source passes the full squad-materialization gate; historical calibration remains QUESTION.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -1960,10 +1960,10 @@
       <tr>
         <td><code>GAME-001MS</code></td>
         <td>Shared-session squad materialization verification</td>
-        <td class="state-building">BUILDING</td>
-        <td>8/9</td>
-        <td>0</td>
-        <td>Independent candidate6cc and baseline0cbd both fail the legacy all-members-after-one-step assertion (1 vs6). Reconcile the test with accepted squad timing and prove causal member births for both sides; investigate actual mismatch before editing.</td>
+        <td class="state-pass">PASS</td>
+        <td>9/9</td>
+        <td>1</td>
+        <td>Independent clean15a9889 fullgame-session9/9 exit0 (82172ms). All8defaultroles: actual player+AI one spend/cycle each, unique causal members, exact Briar globalbirths0/6/12/18/24/30 andinstant Cinderlings; later damage/death/towerdamage required. Source151f/parentff byte-identical, original8othergates retained. Firstonset/order/orientation/formation remainQUESTION; proofscope acceptedcore before H1sourcechanges.</td>
       </tr>
       <tr>
         <td><code>ART-020P</code></td>
@@ -1986,6 +1986,7 @@
   </div>
   <h2>Round trajectory</h2>
   <ol>
+      <li><strong>R434 PASS</strong> · GAME-001MS — Shared-session squad materialization gate<br>All9tests pass on acceptedcore; staged births/spend/cycle/causal members andrealcombat retained. Historical firstonset/formation remainQUESTION.</li>
       <li><strong>R433 PASS</strong> · CARDS-019K — Kilnkeeper splash core repair, round 2<br>Bounded core passes; historicalhoming remainsQUESTION andbaseline squadassertion separatelyGAME001MS.</li>
       <li><strong>R432 FAIL</strong> · CARDS-019K — Source-bounded Kilnkeeper shared splash core, round 1<br>Existing shared projectile consumers cannot import because the new authoritative source factory is missing from the source-binding map; repair that producer without weakening the cache-completeness check.</li>
       <li><strong>R431 PASS</strong> · ART-019B — Kilnkeeper combat cutout readability repair, round 2<br>No remaining isolated asset-stage gap; live540x960 arena andcardUI integration remain unverified andbelongtoCARDS019I.</li>

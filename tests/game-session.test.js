@@ -8,6 +8,23 @@ import { createPlayableRoster, createPlayableRosterQuestionRecords } from "../sr
 const ROSTER = createPlayableRoster();
 const DECK = ROSTER.map(({ id }) => id);
 const SOUTH = { x: 3_500, y: 14_500 };
+// Independent expected schedule for the admitted default deck. CARDS-017T
+// sources 100 ms between squad members, or six 60 Hz simulation ticks. The
+// zero offset is the existing first-member deployment boundary convention;
+// it is not a claim that historical first-onset timing has been calibrated.
+// The Briar fixture checks the interval and multiplicity without asserting
+// historical component/member order. Cinderlings retain the sourced Skeleton
+// instant-expansion exception.
+const EXPECTED_DEFAULT_SPAWN_OFFSETS = Object.freeze({
+  coilblade: [0],
+  mossguard: [0],
+  copperskiff: [0],
+  skymaul: [0],
+  brassbolt: [0],
+  reedsting: [0],
+  "briar-band": [0, 6, 12, 18, 24, 30],
+  cinderlings: [0, 0, 0],
+});
 function canonical(value) { if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
   if (value && typeof value === "object") return `{${Object.keys(value).sort().map((key) =>
     `${JSON.stringify(key)}:${canonical(value[key])}`).join(",")}}`; return JSON.stringify(value); }
@@ -54,25 +71,90 @@ test("game session: one boundary commits south ingress and north proposal into o
   assert.ok(session.state.battle.units.some(({ side }) => side === "north"));
 });
 
-test("game session: both sides materialize all eight cards and repeated plays fight", () => {
-  const counts = new Map(ROSTER.map(({ count, id }) => [id, count]));
+test("game session: both sides materialize the default deck at exact boundaries and combat", () => {
+  assert.deepEqual(Object.keys(EXPECTED_DEFAULT_SPAWN_OFFSETS).sort(), [...DECK].sort(),
+    "the independent materialization fixture covers the full default-eight roster");
   for (const cardId of DECK) {
     let seed = 0;
     for (; seed < 10_000; seed += 1) {
       if (new DeckCycle({ deck: DECK, seed: `${seed}:south` }).state.hand.includes(cardId) &&
           new DeckCycle({ deck: DECK, seed: `${seed}:north` }).state.hand.includes(cardId)) break;
     }
+    assert.ok(seed < 10_000, `${cardId} has a deterministic seed in both initial hands`);
     const session = new GameSession(setup({ candidates: [
       { cardId, point: { x: 3_500, y: 17_500 } },
-    ], seed }));
+    ], seed, think: 1_000 }));
+    const beforeDecks = clone(session.state.decks);
     const slot = session.state.decks.south.hand.indexOf(cardId);
     session.submitPlayerCommand(canonical({ cardId, commandId: 0, point: SOUTH,
       slot, tick: 0, type: "deploy" }));
     session.step();
+
+    const memberOffsets = EXPECTED_DEFAULT_SPAWN_OFFSETS[cardId];
+    const commits = session.replay.filter(({ type }) => type === "session-deployed");
+    assert.equal(commits.length, 2, `${cardId}: exactly one player and one AI deployment`);
+    assert.deepEqual(new Set(commits.map(({ side }) => side)), new Set(["north", "south"]),
+      `${cardId}: both real session paths commit`);
+    assert.ok(commits.every(({ tick }) => tick === 0), `${cardId}: both deploy at the opening boundary`);
+    const allEntityIds = commits.flatMap(({ deployment }) => deployment.entityIds);
+    assert.equal(new Set(allEntityIds).size, allEntityIds.length,
+      `${cardId}: deployment member IDs are unique across both sides`);
+    assert.equal(new Set(commits.map(({ deployment }) => deployment.sequence)).size, 2,
+      `${cardId}: one distinct deployment sequence per side`);
+    assert.equal(new Set(commits.map(({ spend }) => spend.sequence)).size, 2,
+      `${cardId}: one distinct accepted spend per side`);
+
     for (const side of ["north", "south"]) {
-      assert.equal(session.state.battle.units.filter((unit) =>
-        unit.cardId === cardId && unit.side === side).length, counts.get(cardId));
+      const [commit] = commits.filter((entry) => entry.side === side);
+      assert.equal(commit.deployment.cardId, cardId);
+      assert.equal(commit.deployment.entityIds.length, memberOffsets.length,
+        `${cardId}/${side}: one causal deployment owns the expected member IDs`);
+      assert.equal(commit.spend.accepted, true, `${cardId}/${side}: spend is accepted once`);
+      assert.equal(session.state.elixir.sides[side].amount, commit.spend.amountAfter,
+        `${cardId}/${side}: the committed spend is reflected by the shared elixir state`);
+      const before = beforeDecks[side], after = session.state.decks[side];
+      const playedSlot = before.hand.indexOf(cardId);
+      assert.equal(after.sequence, before.sequence + 1, `${cardId}/${side}: one deck cycle`);
+      assert.equal(after.hand[playedSlot], before.queue[0],
+        `${cardId}/${side}: the played slot advances once`);
+      assert.deepEqual(after.queue, [...before.queue.slice(1), cardId],
+        `${cardId}/${side}: exactly one card returns to the cycle`);
     }
+
+    const assertBirthBoundary = (processedOffset) => {
+      assert.equal(session.state.tick, processedOffset + 1,
+        `${cardId}: state tick immediately follows processed boundary ${processedOffset}`);
+      const unitsById = new Map(session.state.battle.units.map((unit) => [unit.id, unit]));
+      assert.equal(unitsById.size, session.state.battle.units.length,
+        `${cardId}: live member IDs remain unique`);
+      for (const commit of commits) {
+        const { entityIds } = commit.deployment;
+        const members = entityIds.map((id) => unitsById.get(id)).filter(Boolean);
+        assert.ok(members.every((unit) => unit.cardId === cardId && unit.side === commit.side),
+          `${cardId}/${commit.side}: every live member belongs to this causal deployment`);
+        const actualOffsets = members.map((unit) => unit.spawnedAt - commit.tick)
+          .sort((left, right) => left - right);
+        const expectedOffsets = memberOffsets.filter((offset) => offset <= processedOffset)
+          .sort((left, right) => left - right);
+        assert.deepEqual(actualOffsets, expectedOffsets,
+          `${cardId}/${commit.side}: members materialize at the documented boundaries through ${processedOffset}`);
+      }
+      assert.equal(session.replay.filter(({ type }) => type === "session-deployed").length, 2,
+        `${cardId}: the bounded AI setup produces no repeated deployment during counting`);
+    };
+
+    assertBirthBoundary(0);
+    for (const offset of [...new Set(memberOffsets)].slice(1)) {
+      // Reach the state immediately before the next scheduled birth, verify
+      // the count has not advanced early, then process that exact boundary.
+      session.stepMany(offset - session.state.tick);
+      assert.equal(session.state.tick, offset);
+      assertBirthBoundary(offset - 1);
+      session.step();
+      assertBirthBoundary(offset);
+    }
+    assert.equal(session.state.battle.units.filter(({ id }) => allEntityIds.includes(id)).length,
+      memberOffsets.length * 2, `${cardId}: both causal deployments eventually complete`);
   }
   const session = new GameSession(setup({ seed: "coverage" }));
   session.submitPlayerCommand(command(session, 0));

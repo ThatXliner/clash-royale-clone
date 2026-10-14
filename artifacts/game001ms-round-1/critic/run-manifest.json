@@ -1,0 +1,48 @@
+{
+  "candidate_commit": "15a98894f7311c32e598f9bd08c12f7aaa413924",
+  "candidate_tree": "240eb7f642272d5254a131d453d328a910cddb87",
+  "parent_commit": "ff7be6069e0c1edd068c5a3e01501b5167f12950",
+  "accepted_source_commit": "151f54b7a40a266100522c7bdb3e3fca39b9918f",
+  "archive_path": "/tmp/game001ms-critic.BdutXt",
+  "archive_method": "git archive candidate commit, extracted outside the shared worktree",
+  "command": "npm run test:game-session",
+  "working_directory": "/tmp/game001ms-critic.BdutXt",
+  "node": "v22.22.3",
+  "npm": "10.9.8",
+  "exec_session_id": 47921,
+  "os_pid": null,
+  "os_pid_note": "The exec tool exposed session handle 47921 but no operating-system PID. The foreground command completed naturally with exit code 0; no process was cancelled or restarted.",
+  "exit_code": 0,
+  "tap_summary": {
+    "tests": 9,
+    "passed": 9,
+    "failed": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "duration_ms": 82172.423709
+  },
+  "sha256": {
+    "raw_tap_transcribed_from_exec_result": "5769539b785446b587da82629900352ba9ea139edd83f4f4e3d09a8a2de140b0",
+    "candidate_tests_game_session_js": "e8246c0c88c91d556a7af495e88a22a41343da747ce326ac10637581e5c61e78",
+    "candidate_src_sim_game_session_js": "a11f43213632bcd7be3d4945846cf5dcbfaeaf4b961a32c420c590f67519daa1",
+    "candidate_src_sim_battle_continuation_kernel_js": "01ad1bb40bde6e11be6946b36913e21763076d091f6cda3d0fbf471435413aa4",
+    "candidate_src_sim_game_opponent_js": "475fb4b5d15551069fcf74d93d562c84837f47a327d1a99502758feacb738994"
+  },
+  "source_comparisons": {
+    "accepted_to_candidate_src_diff_exit": 0,
+    "parent_to_candidate_src_diff_exit": 0,
+    "changed_candidate_paths": [
+      "artifacts/game001ms-round-1/builder/SHA256SUMS",
+      "artifacts/game001ms-round-1/builder/baseline-exit.txt",
+      "artifacts/game001ms-round-1/builder/baseline-failure.tap",
+      "artifacts/game001ms-round-1/builder/evidence.md",
+      "artifacts/game001ms-round-1/builder/focused-boundary-exit.txt",
+      "artifacts/game001ms-round-1/builder/focused-boundary-source.txt",
+      "artifacts/game001ms-round-1/builder/focused-boundary.tap",
+      "artifacts/game001ms-round-1/builder/full-game-session-exit.txt",
+      "artifacts/game001ms-round-1/builder/full-game-session.tap",
+      "artifacts/game001ms-round-1/builder/test-delta.patch",
+      "tests/game-session.test.js"
+    ]
+  }
+}

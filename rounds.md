@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 434 — 2026-10-13
+
+PIECE: GAME-001MS — Shared-session squad materialization verification, round 1
+
+VERDICT: PASS
+
+EVIDENCE: Independent clean immutable15a9889 full npm run test:game-session completed naturally9/9, exit0,82172ms. Test-only delta; src tree byte-identical parentff7 andaccepted151f. All8defaultroles each commit player+actualAI proposal, spend once/cycle once, unique causal members andpre/postbirthboundary counts. BriarBand globalbirth offsets0/6/12/18/24/30; Cinderlings instant exception. Latercombat retains damage/death/towerdamage assertions andall8othergates. Source100ms intervalsupports6ticks; observedfirstonset/memberorder/orientation/formation remainQUESTION. Prior8/9 instantcount failure retained. Raw evidence artifacts/game001ms-round-1/critic/.
+
+BIGGEST GAP: No remaining gate gap on accepted151f source; new H1 runtime requires its own verification and historical formation/onset calibration remains open.
+
 ## Round 433 — 2026-10-13
 
 PIECE: CARDS-019K — Source-bounded Kilnkeeper shared splash core, round 2

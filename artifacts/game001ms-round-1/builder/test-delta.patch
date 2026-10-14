@@ -1,0 +1,228 @@
+tests/game-session.test.js --- 1/2 --- JavaScript
+ 8   8 const ROSTER = createPlayableRoster();
+ 9   9 const DECK = ROSTER.map(({ id }) => id);
+10  10 const SOUTH = { x: 3_500, y: 14_500 };
+..  11 // Independent expected schedule for the admitted default deck. CARDS-017T
+..  12 // sources 100 ms between squad members, or six 60 Hz simulation ticks. The
+..  13 // zero offset is the existing first-member deployment boundary convention;
+..  14 // it is not a claim that historical first-onset timing has been calibrated.
+..  15 // The Briar fixture checks the interval and multiplicity without asserting
+..  16 // historical component/member order. Cinderlings retain the sourced Skeleton
+..  17 // instant-expansion exception.
+..  18 const EXPECTED_DEFAULT_SPAWN_OFFSETS = Object.freeze({
+..  19   coilblade: [0],
+..  20   mossguard: [0],
+..  21   copperskiff: [0],
+..  22   skymaul: [0],
+..  23   brassbolt: [0],
+..  24   reedsting: [0],
+..  25   "briar-band": [0, 6, 12, 18, 24, 30],
+..  26   cinderlings: [0, 0, 0],
+..  27 });
+11  28 function canonical(value) { if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
+12  29   if (value && typeof value === "object") return `{${Object.keys(value).sort().map((key) =>
+13  30     `${JSON.stringify(key)}:${canonical(value[key])}`).join(",")}}`; return JSON.stringify(value); }
+
+tests/game-session.test.js --- 2/2 --- JavaScript
+54   assert.ok(session.state.battle.un   71   assert.ok(session.state.battle.un
+.. its.some(({ side }) => side === "no   .. its.some(({ side }) => side === "no
+.. rth"));                               .. rth"));
+55 });                                   72 });
+56                                       73 
+57 test("game session: both sides mate   74 test("game session: both sides mate
+.. rialize all eight cards and repeate   .. rialize the default deck at exact b
+.. d plays fight", () => {               .. oundaries and combat", () => {
+58   const counts = new Map(ROSTER.map   75   assert.deepEqual(Object.keys(EXPE
+.. (({ count, id }) => [id, count]));    .. CTED_DEFAULT_SPAWN_OFFSETS).sort(),
+..                                       ..  [...DECK].sort(),
+..                                       76     "the independent materializatio
+..                                       .. n fixture covers the full default-e
+..                                       .. ight roster");
+59   for (const cardId of DECK) {        77   for (const cardId of DECK) {
+60     let seed = 0;                     78     let seed = 0;
+61     for (; seed < 10_000; seed += 1   79     for (; seed < 10_000; seed += 1
+.. ) {                                   .. ) {
+62       if (new DeckCycle({ deck: DEC   80       if (new DeckCycle({ deck: DEC
+.. K, seed: `${seed}:south` }).state.h   .. K, seed: `${seed}:south` }).state.h
+.. and.includes(cardId) &&               .. and.includes(cardId) &&
+63           new DeckCycle({ deck: DEC   81           new DeckCycle({ deck: DEC
+.. K, seed: `${seed}:north` }).state.h   .. K, seed: `${seed}:north` }).state.h
+.. and.includes(cardId)) break;          .. and.includes(cardId)) break;
+64     }                                 82     }
+..                                       83     assert.ok(seed < 10_000, `${car
+..                                       .. dId} has a deterministic seed in bo
+..                                       .. th initial hands`);
+65     const session = new GameSession   84     const session = new GameSession
+.. (setup({ candidates: [                .. (setup({ candidates: [
+66       { cardId, point: { x: 3_500,    85       { cardId, point: { x: 3_500, 
+.. y: 17_500 } },                        .. y: 17_500 } },
+67     ], seed }));                      86     ], seed, think: 1_000 }));
+..                                       87     const beforeDecks = clone(sessi
+..                                       .. on.state.decks);
+68     const slot = session.state.deck   88     const slot = session.state.deck
+.. s.south.hand.indexOf(cardId);         .. s.south.hand.indexOf(cardId);
+69     session.submitPlayerCommand(can   89     session.submitPlayerCommand(can
+.. onical({ cardId, commandId: 0, poin   .. onical({ cardId, commandId: 0, poin
+.. t: SOUTH,                             .. t: SOUTH,
+70       slot, tick: 0, type: "deploy"   90       slot, tick: 0, type: "deploy"
+..  }));                                 ..  }));
+71     session.step();                   91     session.step();
+..                                       92 
+..                                       93     const memberOffsets = EXPECTED_
+..                                       .. DEFAULT_SPAWN_OFFSETS[cardId];
+..                                       94     const commits = session.replay.
+..                                       .. filter(({ type }) => type === "sess
+..                                       .. ion-deployed");
+..                                       95     assert.equal(commits.length, 2,
+..                                       ..  `${cardId}: exactly one player and
+..                                       ..  one AI deployment`);
+..                                       96     assert.deepEqual(new Set(commit
+..                                       .. s.map(({ side }) => side)), new Set
+..                                       .. (["north", "south"]),
+..                                       97       `${cardId}: both real session
+..                                       ..  paths commit`);
+..                                       98     assert.ok(commits.every(({ tick
+..                                       ..  }) => tick === 0), `${cardId}: bot
+..                                       .. h deploy at the opening boundary`);
+..                                       99     const allEntityIds = commits.fl
+..                                       .. atMap(({ deployment }) => deploymen
+..                                       .. t.entityIds);
+..                                      100     assert.equal(new Set(allEntityI
+..                                      ... ds).size, allEntityIds.length,
+..                                      101       `${cardId}: deployment member
+..                                      ...  IDs are unique across both sides`)
+..                                      ... ;
+..                                      102     assert.equal(new Set(commits.ma
+..                                      ... p(({ deployment }) => deployment.se
+..                                      ... quence)).size, 2,
+..                                      103       `${cardId}: one distinct depl
+..                                      ... oyment sequence per side`);
+..                                      104     assert.equal(new Set(commits.ma
+..                                      ... p(({ spend }) => spend.sequence)).s
+..                                      ... ize, 2,
+..                                      105       `${cardId}: one distinct acce
+..                                      ... pted spend per side`);
+..                                      106 
+72     for (const side of ["north", "s  107     for (const side of ["north", "s
+.. outh"]) {                            ... outh"]) {
+..                                      108       const [commit] = commits.filt
+..                                      ... er((entry) => entry.side === side);
+..                                      109       assert.equal(commit.deploymen
+..                                      ... t.cardId, cardId);
+..                                      110       assert.equal(commit.deploymen
+..                                      ... t.entityIds.length, memberOffsets.l
+..                                      ... ength,
+..                                      111         `${cardId}/${side}: one cau
+..                                      ... sal deployment owns the expected me
+..                                      ... mber IDs`);
+..                                      112       assert.equal(commit.spend.acc
+..                                      ... epted, true, `${cardId}/${side}: sp
+..                                      ... end is accepted once`);
+..                                      113       assert.equal(session.state.el
+..                                      ... ixir.sides[side].amount, commit.spe
+..                                      ... nd.amountAfter,
+..                                      114         `${cardId}/${side}: the com
+..                                      ... mitted spend is reflected by the sh
+..                                      ... ared elixir state`);
+..                                      115       const before = beforeDecks[si
+..                                      ... de], after = session.state.decks[si
+..                                      ... de];
+..                                      116       const playedSlot = before.han
+..                                      ... d.indexOf(cardId);
+..                                      117       assert.equal(after.sequence, 
+..                                      ... before.sequence + 1, `${cardId}/${s
+..                                      ... ide}: one deck cycle`);
+..                                      118       assert.equal(after.hand[playe
+..                                      ... dSlot], before.queue[0],
+..                                      119         `${cardId}/${side}: the pla
+..                                      ... yed slot advances once`);
+..                                      120       assert.deepEqual(after.queue,
+..                                      ...  [...before.queue.slice(1), cardId]
+..                                      ... ,
+..                                      121         `${cardId}/${side}: exactly
+..                                      ...  one card returns to the cycle`);
+..                                      122     }
+..                                      123 
+..                                      124     const assertBirthBoundary = (pr
+..                                      ... ocessedOffset) => {
+..                                      125       assert.equal(session.state.ti
+..                                      ... ck, processedOffset + 1,
+..                                      126         `${cardId}: state tick imme
+..                                      ... diately follows processed boundary 
+..                                      ... ${processedOffset}`);
+..                                      127       const unitsById = new Map(ses
+..                                      ... sion.state.battle.units.map((unit) 
+..                                      ... => [unit.id, unit]));
+..                                      128       assert.equal(unitsById.size, 
+..                                      ... session.state.battle.units.length,
+..                                      129         `${cardId}: live member IDs
+..                                      ...  remain unique`);
+..                                      130       for (const commit of commits)
+..                                      ...  {
+..                                      131         const { entityIds } = commi
+..                                      ... t.deployment;
+..                                      132         const members = entityIds.m
+..                                      ... ap((id) => unitsById.get(id)).filte
+..                                      ... r(Boolean);
+..                                      133         assert.ok(members.every((un
+..                                      ... it) => unit.cardId === cardId && un
+..                                      ... it.side === commit.side),
+..                                      134           `${cardId}/${commit.side}
+..                                      ... : every live member belongs to this
+..                                      ...  causal deployment`);
+..                                      135         const actualOffsets = membe
+..                                      ... rs.map((unit) => unit.spawnedAt - c
+..                                      ... ommit.tick)
+..                                      136           .sort((left, right) => le
+..                                      ... ft - right);
+..                                      137         const expectedOffsets = mem
+..                                      ... berOffsets.filter((offset) => offse
+..                                      ... t <= processedOffset)
+..                                      138           .sort((left, right) => le
+..                                      ... ft - right);
+..                                      139         assert.deepEqual(actualOffs
+..                                      ... ets, expectedOffsets,
+..                                      140           `${cardId}/${commit.side}
+..                                      ... : members materialize at the docume
+..                                      ... nted boundaries through ${processed
+..                                      ... Offset}`);
+..                                      141       }
+..                                      142       assert.equal(session.replay.f
+..                                      ... ilter(({ type }) => type === "sessi
+..                                      ... on-deployed").length, 2,
+..                                      143         `${cardId}: the bounded AI 
+..                                      ... setup produces no repeated deployme
+..                                      ... nt during counting`);
+..                                      144     };
+..                                      145 
+..                                      146     assertBirthBoundary(0);
+..                                      147     for (const offset of [...new Se
+..                                      ... t(memberOffsets)].slice(1)) {
+..                                      148       // Reach the state immediatel
+..                                      ... y before the next scheduled birth, 
+..                                      ... verify
+..                                      149       // the count has not advanced
+..                                      ...  early, then process that exact bou
+..                                      ... ndary.
+..                                      150       session.stepMany(offset - ses
+..                                      ... sion.state.tick);
+..                                      151       assert.equal(session.state.ti
+..                                      ... ck, offset);
+..                                      152       assertBirthBoundary(offset - 
+..                                      ... 1);
+..                                      153       session.step();
+..                                      154       assertBirthBoundary(offset);
+..                                      155     }
+73       assert.equal(session.state.ba  156     assert.equal(session.state.batt
+.. ttle.units.filter((unit) =>          ... le.units.filter(({ id }) => allEnti
+..                                      ... tyIds.includes(id)).length,
+74         unit.cardId === cardId && u  157       memberOffsets.length * 2, `${
+.. nit.side === side).length, counts.g  ... cardId}: both causal deployments ev
+.. et(cardId));                         ... entually complete`);
+75     }                                ... 
+76   }                                  158   }
+77   const session = new GameSession(s  159   const session = new GameSession(s
+.. etup({ seed: "coverage" }));         ... etup({ seed: "coverage" }));
+78   session.submitPlayerCommand(comma  160   session.submitPlayerCommand(comma
+.. nd(session, 0));                     ... nd(session, 0));
+
