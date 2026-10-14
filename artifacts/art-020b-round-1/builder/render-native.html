@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rivet Runners battle cutout native-size render</title>
+  <style>
+    html, body { margin: 0; padding: 0; background: #505c57; }
+    #stage { display: block; overflow: hidden; background: #505c57; }
+    img { display: block; object-fit: contain; }
+  </style>
+</head>
+<body>
+  <div id="stage"><img id="sprite" alt="Rivet Runners battle cutout"></div>
+  <script>
+    const params = new URL(location.href).searchParams;
+    const size = Number(params.get("size"));
+    const sprite = document.querySelector("#sprite");
+    const stage = document.querySelector("#stage");
+    if (![13, 26].includes(size)) throw new Error("Unsupported fixture size");
+    stage.style.width = `${size}px`;
+    stage.style.height = `${size}px`;
+    sprite.width = size;
+    sprite.height = size;
+    sprite.src = new URL(params.get("src"), location.href).href;
+  </script>
+</body>
+</html>

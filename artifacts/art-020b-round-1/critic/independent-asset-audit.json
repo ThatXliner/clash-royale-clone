@@ -1,0 +1,194 @@
+{
+  "candidate": "/tmp/art-020b-rivet-runners.HZPTr8/checkout-final",
+  "provenancePath": "/tmp/art-020b-rivet-runners.HZPTr8/checkout-final/docs/art/rivet-runners-battle-sprite-provenance.json",
+  "tool": "OpenAI built-in imagegen image-edit tool",
+  "license": "AGPL-3.0-only",
+  "encoding": {
+    "tool": "cwebp",
+    "version": "1.6.0",
+    "arguments": [
+      "-quiet",
+      "-q",
+      "88",
+      "-m",
+      "6",
+      "-metadata",
+      "none",
+      "-resize",
+      "512",
+      "512"
+    ],
+    "color_encoding": "lossy WebP at quality 88",
+    "alpha_encoding": "lossless WebP alpha"
+  },
+  "images": {
+    "portrait": {
+      "path": "demo/assets/rivet-runners-portrait.png",
+      "bytes": 2819557,
+      "sha256": "b84c733e475b50d746d955ec805d0c5da1e998ca4e2fc9f76305f661ce942de0",
+      "format": "PNG",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGB"
+    },
+    "v1": {
+      "path": "demo/assets/rivet-runners-battle-sprite-v1.png",
+      "bytes": 2210210,
+      "sha256": "39b814504a9efe7f65b044ad0706589d3419d04ad3be0e53f55cdda5846edac3",
+      "format": "PNG",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaMin8Bit": 0,
+      "alphaMax8Bit": 255,
+      "transparentPixelCount": 720518,
+      "translucentPixelCount": 851699,
+      "opaquePixelCount": 299,
+      "cornerAlpha": [
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    "finalSource": {
+      "path": "demo/assets/rivet-runners-battle-sprite.png",
+      "bytes": 2220668,
+      "sha256": "8fe8439376ab117cb88dac92c5eb9a32a9ee564c3f72a3ab3dccfe9aa22f8b65",
+      "format": "PNG",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaMin8Bit": 0,
+      "alphaMax8Bit": 255,
+      "transparentPixelCount": 666984,
+      "translucentPixelCount": 905470,
+      "opaquePixelCount": 62,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "shippedWebp": {
+      "path": "public/assets/rivet-runners-battle-sprite.webp",
+      "bytes": 94112,
+      "sha256": "1813f2570ddf88dc72144ea2b49a24d818e639054c23145aed2a368d619925b4",
+      "format": "WEBP",
+      "dimensions": [
+        512,
+        512
+      ],
+      "mode": "RGBA",
+      "alphaMin8Bit": 0,
+      "alphaMax8Bit": 253,
+      "transparentPixelCount": 110822,
+      "translucentPixelCount": 151322,
+      "opaquePixelCount": 0,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  "checks": [
+    {
+      "label": "portrait input source hash",
+      "expected": "b84c733e475b50d746d955ec805d0c5da1e998ca4e2fc9f76305f661ce942de0",
+      "actual": "b84c733e475b50d746d955ec805d0c5da1e998ca4e2fc9f76305f661ce942de0",
+      "pass": true
+    },
+    {
+      "label": "preserved v1 hash",
+      "expected": "39b814504a9efe7f65b044ad0706589d3419d04ad3be0e53f55cdda5846edac3",
+      "actual": "39b814504a9efe7f65b044ad0706589d3419d04ad3be0e53f55cdda5846edac3",
+      "pass": true
+    },
+    {
+      "label": "final generated source hash",
+      "expected": "8fe8439376ab117cb88dac92c5eb9a32a9ee564c3f72a3ab3dccfe9aa22f8b65",
+      "actual": "8fe8439376ab117cb88dac92c5eb9a32a9ee564c3f72a3ab3dccfe9aa22f8b65",
+      "pass": true
+    },
+    {
+      "label": "shipped WebP hash",
+      "expected": "1813f2570ddf88dc72144ea2b49a24d818e639054c23145aed2a368d619925b4",
+      "actual": "1813f2570ddf88dc72144ea2b49a24d818e639054c23145aed2a368d619925b4",
+      "pass": true
+    },
+    {
+      "label": "reencoded WebP exact hash",
+      "expected": "1813f2570ddf88dc72144ea2b49a24d818e639054c23145aed2a368d619925b4",
+      "actual": "1813f2570ddf88dc72144ea2b49a24d818e639054c23145aed2a368d619925b4",
+      "pass": true
+    },
+    {
+      "label": "license",
+      "expected": "AGPL-3.0-only",
+      "actual": "AGPL-3.0-only",
+      "pass": true
+    },
+    {
+      "label": "authorship",
+      "expected": "in-repo-authored",
+      "actual": "in-repo-authored",
+      "pass": true
+    },
+    {
+      "label": "tool source",
+      "expected": "OpenAI built-in imagegen image-edit tool",
+      "actual": "OpenAI built-in imagegen image-edit tool",
+      "pass": true
+    },
+    {
+      "label": "generator prompt count",
+      "expected": 2,
+      "actual": 2,
+      "pass": true
+    },
+    {
+      "label": "all generation prompts present",
+      "expected": true,
+      "actual": true,
+      "pass": true
+    },
+    {
+      "label": "WebP byte limit",
+      "expected": true,
+      "actual": true,
+      "pass": true
+    },
+    {
+      "label": "all four final WebP corners transparent",
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "actual": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "pass": true
+    },
+    {
+      "label": "actual generated files are RGBA with genuine transparency",
+      "expected": true,
+      "actual": true,
+      "pass": true
+    }
+  ],
+  "result": "pass"
+}

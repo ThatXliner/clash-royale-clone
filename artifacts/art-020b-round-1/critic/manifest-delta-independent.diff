@@ -1,0 +1,20 @@
+--- artifacts/art-020b-round-1/critic/base-visual-asset-manifest.js	2026-10-13 18:54:40
++++ /tmp/art-020b-rivet-runners.HZPTr8/checkout-final/src/content/visual-asset-manifest.js	2026-10-13 18:48:37
+@@ -477,6 +477,17 @@
+     path: "assets/rivet-runners-portrait-painted.webp",
+     sha256: "6df560ccabb6c7f7347225bdb4c0fe2f9eadbb3aa1f769b6b540cd6f96c35b77",
+   },
++  {
++    authorship: "in-repo-authored",
++    byteLength: 94112,
++    dimensions: { height: 512, width: 512 },
++    format: "webp",
++    id: "rivet-runners-battle-sprite",
++    kind: "image",
++    license: "AGPL-3.0-only",
++    path: "assets/rivet-runners-battle-sprite.webp",
++    sha256: "1813f2570ddf88dc72144ea2b49a24d818e639054c23145aed2a368d619925b4",
++  },
+ ];
+ 
+ const MANIFEST = freeze({

@@ -1,0 +1,75 @@
+{
+  "round": "ART-020B",
+  "identity": "Rivet Runners battle cutout",
+  "base_commit": "b181f166dec37811a9978b87b62a2bfc401f0a31",
+  "product_files": [
+    "demo/assets/rivet-runners-battle-sprite-v1.png",
+    "demo/assets/rivet-runners-battle-sprite.png",
+    "public/assets/rivet-runners-battle-sprite.webp",
+    "docs/art/rivet-runners-battle-sprite-provenance.json",
+    "src/content/visual-asset-manifest.js"
+  ],
+  "preserved_v1_source": {
+    "canonical_path": "demo/assets/rivet-runners-battle-sprite-v1.png",
+    "archive_copy_path": "artifacts/art-020b-round-1/builder/v1-rivet-runners-battle-sprite.png",
+    "sha256": "39b814504a9efe7f65b044ad0706589d3419d04ad3be0e53f55cdda5846edac3",
+    "bytes": 2210210,
+    "dimensions": { "width": 1254, "height": 1254 },
+    "copy_verified_byte_identical": true
+  },
+  "revision_history": [
+    {
+      "attempt": 1,
+      "canonical_source": "demo/assets/rivet-runners-battle-sprite-v1.png",
+      "archive_copy": "artifacts/art-020b-round-1/builder/v1-rivet-runners-battle-sprite.png",
+      "tool_output_path": "/Users/me/.codex/generated_images/01a137f7-1e7c-7bc0-9ee5-255c4869fd0b/exec-d4e58d3e-aae0-4b9c-8fba-14987d923bce.png",
+      "sha256": "39b814504a9efe7f65b044ad0706589d3419d04ad3be0e53f55cdda5846edac3",
+      "reason_for_revision": "The actual 13px Chrome fixture rendered the face too small relative to the weapon and torso."
+    },
+    {
+      "attempt": 2,
+      "source": "demo/assets/rivet-runners-battle-sprite.png",
+      "sha256": "8fe8439376ab117cb88dac92c5eb9a32a9ee564c3f72a3ab3dccfe9aa22f8b65",
+      "notes": "Revised proportions, retained the approved identity, and preserved genuine RGBA transparency."
+    }
+  ],
+  "source_alpha": {
+    "channel": "8-bit RGBA",
+    "normalized_min": 0,
+    "normalized_max": 1,
+    "normalized_mean": 0.526411,
+    "eight_bit_min": 0,
+    "eight_bit_max": 255
+  },
+  "optimized_alpha": {
+    "channel": "WebP alpha",
+    "normalized_min": 0,
+    "normalized_max": 0.992157,
+    "normalized_mean": 0.526405,
+    "eight_bit_min": 0,
+    "eight_bit_max": 253
+  },
+  "encoding": {
+    "command": "cwebp -quiet -q 88 -m 6 -metadata none -resize 512 512 demo/assets/rivet-runners-battle-sprite.png -o public/assets/rivet-runners-battle-sprite.webp",
+    "version": "1.6.0",
+    "shipped_bytes": 94112,
+    "limit_bytes": 1048576
+  },
+  "renders": {
+    "browser": "Google Chrome 155.0.8059.40",
+    "device_pixel_ratio": 1,
+    "rendered_sizes_css_px": [13, 26],
+    "metrics_receipt": "artifacts/art-020b-round-1/builder/native-chrome-render-final.json",
+    "screenshots": [
+      "artifacts/art-020b-round-1/builder/rivet-runners-battle-final-13px.png",
+      "artifacts/art-020b-round-1/builder/rivet-runners-battle-final-26px.png"
+    ]
+  },
+  "tests": {
+    "manifest": "6 passed, 0 failed on the clean frozen source candidate",
+    "clean_candidate_pages_build": "51 release files, 5976939 bytes; production assets and manifest are unchanged by the preserved demo-source copy",
+    "pages_exclusion": "saved clean Pages walk confirms no demo/source paths are published, including the canonical v1 source",
+    "preserved_portrait_record": "rivet-runners-portrait-painted retained at 76868 bytes and SHA256 6df560ccabb6c7f7347225bdb4c0fe2f9eadbb3aa1f769b6b540cd6f96c35b77"
+  },
+  "blind_critic": "pending; builder records renders and facts only"
+}

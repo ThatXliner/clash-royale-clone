@@ -1,0 +1,29 @@
+Fresh native Chrome render
+Command: node artifacts/art-020b-round-1/critic/render-critic-chrome.mjs
+Exit: 0
+Browser: Google Chrome 155.0.8059.40; CSS sizes 13 and 26; DPR 1; dark and light backgrounds.
+Evidence: fresh-chrome-native-evidence.json and four fresh-chrome-css-*-dpr1.png files.
+
+Visual asset manifest tests
+Command: node tests/visual-asset-manifest-runner.js visual-asset-manifest
+Working directory: /tmp/art-020b-rivet-runners.HZPTr8/checkout-final
+Exit: 0; 6 passed, 0 failed.
+Output: visual-asset-manifest.tap
+
+Independent asset audit
+Command: python3 artifacts/art-020b-round-1/critic/independent-asset-audit.py
+Exit: 0; all recorded identity, source/output hashes, prompt/license/encoding, alpha, and cwebp re-encode checks passed.
+
+Independent Pages artifact audit
+Command: node artifacts/art-020b-round-1/critic/independent-pages-audit.mjs
+Exit: 0; 51/51 release hashes verified; new WebP once; zero protected/source/provenance paths.
+Output: independent-pages-audit.json
+
+WebP byte reproduction
+Command: cwebp -quiet -q 88 -m 6 -metadata none -resize 512 512 /tmp/art-020b-rivet-runners.HZPTr8/checkout-final/demo/assets/rivet-runners-battle-sprite.png -o artifacts/art-020b-round-1/critic/reencoded-from-candidate.webp
+Exit: 0; reproduced SHA-256 1813f2570ddf88dc72144ea2b49a24d818e639054c23145aed2a368d619925b4 exactly.
+
+Immutable checkout identity audit
+Command: node artifacts/art-020b-round-1/critic/immutable-checkout-audit.mjs
+Exit: 0; all 3,224 tracked file contents match commit 6402dd6c472c3cfd63fd8f06a62505e759159ece and its tree hash matches candidate receipt. A pre-existing untracked node_modules symlink is reported separately as local tooling.
+Output: immutable-checkout-audit.json

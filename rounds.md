@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 436 — 2026-10-13
+
+PIECE: ART-020B — Original Rivet Runners battle cutout, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Independent immutable6402dd6 freshChrome155 DPR1 render overlight/darkarena-colored backgrounds:26x26otter/malletclear;13x13vest/feet mergeintobrownbody, malletlosescoppercap/head-and-handle distinction. Manifest6/6 andPages51files pass, releasehashesallverified/newWebPonce/protectedpathsabsent. Genuinealpha/provenance/re-encodingSHA match. All3224trackedarchivefilesmatch. Failedpublicsprite/manifestnotadoptedintoHEAD; exactcandidate retainedcodex/art020b-battle-candidate, fullV1/V2PNGunderdemo inthatcandidate. Evidence artifacts/art-020b-round-1/critic/.
+
+BIGGEST GAP: Regenerate the cutout with a brighter teal vest and clearer separation of the muzzle, mallet, and both feet at13px.
+
 ## Round 435 — 2026-10-13
 
 PIECE: ART-020P — Original Rivet Runners collection portrait, round 1
