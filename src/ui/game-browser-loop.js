@@ -100,12 +100,14 @@ function checkedScheduler(value) {
   return scheduler;
 }
 
-function cleanupGraph(graph) {
+function cleanupGraph(graph, preserveProjection = false) {
   const errors = [];
   if (graph === null) return errors;
   try { graph.bridge.unsubscribe(); } catch (error) { errors.push(error); }
   try { graph.input?.cleanup(); } catch (error) { errors.push(error); }
-  try { graph.projection.cleanup(); } catch (error) { errors.push(error); }
+  if (!preserveProjection) {
+    try { graph.projection.cleanup(); } catch (error) { errors.push(error); }
+  }
   return errors;
 }
 
@@ -145,6 +147,7 @@ export function mountGameBrowserLoop(options) {
   let selectedCardId = null;
   let selectionProjectionFault = false;
   let selectionCleanupQueued = false;
+  let projectionHandoffPending = false;
   // This never leaves the loop closure. A prepared restore capability minted
   // for one loop cannot be consumed by any other mounted loop.
   const preparedRestoreOwner = Object.freeze({});
@@ -168,8 +171,10 @@ export function mountGameBrowserLoop(options) {
     selectedCardId = selection;
     const frame = createGameUiFrame(session,
       createGameUiOptions("south", selection, terminalPresentationTick));
-    graph.projection.project(frame);
+    if (projectionHandoffPending) graph.projection.handoff(frame);
+    else graph.projection.project(frame);
     domTick = frame.tick;
+    projectionHandoffPending = false;
     if (domTick !== session.state.tick) throw new Error("game browser DOM tick diverged");
     return frame;
   };
@@ -241,7 +246,7 @@ export function mountGameBrowserLoop(options) {
     }
     return true;
   };
-  const buildGraph = (candidateSession, bridgeBytes = null) => {
+  const buildGraph = (candidateSession, bridgeBytes = null, retainedProjection = null) => {
     const input = checked.createInput(candidateSession, nextCommandId(bridgeBytes),
       selectedCardId, onInputSelection);
     let bridge = null, projection = null;
@@ -249,7 +254,7 @@ export function mountGameBrowserLoop(options) {
       bridge = bridgeBytes === null
         ? new GameInputBridge(input, candidateSession)
         : GameInputBridge.restore(bridgeBytes, input, candidateSession);
-      projection = mountGameUiProjection(layers);
+      projection = retainedProjection ?? mountGameUiProjection(layers);
       const candidate = { bridge, input, projection };
       graph = candidate;
       selectedCardId = typeof input.selectedCardId === "string"
@@ -258,7 +263,9 @@ export function mountGameBrowserLoop(options) {
     } catch (error) {
       try { bridge?.unsubscribe(); } catch {}
       try { input?.cleanup(); } catch {}
-      try { projection?.cleanup(); } catch {}
+      if (retainedProjection === null) {
+        try { projection?.cleanup(); } catch {}
+      }
       throw error;
     }
   };
@@ -331,17 +338,25 @@ export function mountGameBrowserLoop(options) {
   };
   const restoreCandidate = (snapshot, candidate) => {
     inOperation = true;
+    let retainedProjection = null;
     try {
       cancel();
-      const cleanupErrors = cleanupGraph(graph); graph = null;
+      const previousProjection = graph?.projection ?? null;
+      const preserveProjection = previousProjection?.canHandoff() === true;
+      retainedProjection = preserveProjection ? previousProjection : null;
+      const cleanupErrors = cleanupGraph(graph, preserveProjection); graph = null;
       if (cleanupErrors.length) {
+        if (retainedProjection !== null) {
+          try { retainedProjection.cleanup(); } catch (error) { cleanupErrors.push(error); }
+        }
         active = false; ACTIVE_ROOTS.delete(checked.root);
         throw new AggregateError(cleanupErrors, "game browser restore cleanup failed");
       }
       session = candidate; selectedCardId = null;
       terminalPresentationTick = snapshot.terminalPresentation?.tick ?? (session.state.terminal ? GAME_UI_TERMINAL_PRESENTATION_TICKS : 0);
       terminalPresentationRunning = snapshot.terminalPresentation?.running ?? false;
-      buildGraph(session, snapshot.bridge);
+      buildGraph(session, snapshot.bridge, retainedProjection);
+      projectionHandoffPending = retainedProjection !== null;
       running = snapshot.running; lastTimestamp = null; fractionalTicks = 0; backlogTicks = 0;
       render();
       if (session.state.paused || session.state.terminal) suspendInput();
@@ -351,6 +366,9 @@ export function mountGameBrowserLoop(options) {
       cancel(); running = false;
       if (graph === null) {
         active = false; ACTIVE_ROOTS.delete(checked.root);
+        if (retainedProjection !== null) {
+          try { retainedProjection.cleanup(); } catch {}
+        }
       }
       throw error;
     } finally { inOperation = false; }

@@ -281,6 +281,151 @@ function sameChildren(left, right) {
   return left.length === right.length && left.every((child, index) => child === right[index]);
 }
 
+function sameRenderedNode(left, right) {
+  if (left === right) return true;
+  return typeof left?.isEqualNode === "function" && left.isEqualNode(right);
+}
+
+function cloneRenderedNode(node) {
+  if (typeof node?.cloneNode !== "function") {
+    throw new TypeError("game UI HUD candidate node cannot be cloned");
+  }
+  const clone = node.cloneNode(true);
+  if (!sameRenderedNode(clone, node)) {
+    throw new Error("game UI HUD candidate clone changed its rendered content");
+  }
+  return clone;
+}
+
+function compatibleRenderedNode(left, right) {
+  return left !== null && left !== undefined && right !== null && right !== undefined &&
+    typeof left.nodeType === "number" && left.nodeType === right.nodeType &&
+    left.nodeName === right.nodeName &&
+    (left.namespaceURI ?? null) === (right.namespaceURI ?? null);
+}
+
+function renderedAttributeEntries(node) {
+  if (!node?.attributes || typeof node.getAttribute !== "function" ||
+      typeof node.setAttribute !== "function" || typeof node.removeAttribute !== "function") {
+    return null;
+  }
+  return Array.from(node.attributes, (attribute) => Array.isArray(attribute)
+    ? attribute : [attribute.name, attribute.value]);
+}
+
+function planRenderedNodePatch(current, candidate, operations = []) {
+  if (!compatibleRenderedNode(current, candidate)) return null;
+  if (current.nodeType === 3 || current.nodeType === 4 || current.nodeType === 8) {
+    if (current.nodeValue !== candidate.nodeValue) {
+      operations.push({ kind: "value", node: current, value: candidate.nodeValue });
+    }
+    return operations;
+  }
+  if (current.nodeType !== 1) {
+    return sameRenderedNode(current, candidate) ? operations : null;
+  }
+
+  const currentAttributes = renderedAttributeEntries(current);
+  const candidateAttributes = renderedAttributeEntries(candidate);
+  if (currentAttributes === null || candidateAttributes === null) return null;
+  const expectedAttributes = new Map(candidateAttributes);
+  for (const [name] of currentAttributes) {
+    if (!expectedAttributes.has(name)) operations.push({ kind: "attribute", node: current, name, value: null });
+  }
+  for (const [name, value] of candidateAttributes) {
+    if (current.getAttribute(name) !== value) {
+      operations.push({ kind: "attribute", node: current, name, value });
+    }
+  }
+
+  if (!current.childNodes || !candidate.childNodes) return null;
+  const currentChildren = Array.from(current.childNodes);
+  const candidateChildren = Array.from(candidate.childNodes);
+  const sharedLength = Math.min(currentChildren.length, candidateChildren.length);
+  for (let index = 0; index < sharedLength; index += 1) {
+    const prior = currentChildren[index];
+    const next = candidateChildren[index];
+    if (compatibleRenderedNode(prior, next)) {
+      if (planRenderedNodePatch(prior, next, operations) === null) return null;
+    } else {
+      if (typeof current.replaceChild !== "function") return null;
+      operations.push({ kind: "replace", parent: current, prior, next });
+    }
+  }
+  for (let index = currentChildren.length - 1; index >= candidateChildren.length; index -= 1) {
+    if (typeof current.removeChild !== "function") return null;
+    operations.push({ kind: "remove", parent: current, prior: currentChildren[index] });
+  }
+  for (let index = sharedLength; index < candidateChildren.length; index += 1) {
+    if (typeof current.appendChild !== "function") return null;
+    operations.push({ kind: "append", parent: current, next: candidateChildren[index] });
+  }
+  return operations;
+}
+
+function applyRenderedNodePatch(operations, undo) {
+  for (const operation of operations) {
+    if (operation.kind === "attribute") {
+      const prior = operation.node.getAttribute(operation.name);
+      undo.push(() => {
+        if (prior === null) operation.node.removeAttribute(operation.name);
+        else operation.node.setAttribute(operation.name, prior);
+        if (operation.node.getAttribute(operation.name) !== prior) {
+          throw new Error("game UI HUD attribute rollback did not restore its value");
+        }
+      });
+      if (operation.value === null) operation.node.removeAttribute(operation.name);
+      else operation.node.setAttribute(operation.name, operation.value);
+    } else if (operation.kind === "value") {
+      const prior = operation.node.nodeValue;
+      undo.push(() => {
+        operation.node.nodeValue = prior;
+        if (operation.node.nodeValue !== prior) {
+          throw new Error("game UI HUD text rollback did not restore its value");
+        }
+      });
+      operation.node.nodeValue = operation.value;
+    } else if (operation.kind === "replace") {
+      const { parent, prior, next } = operation;
+      // Keep the detached candidate tree intact for the final exact comparison.
+      const replacement = cloneRenderedNode(next);
+      const following = prior.nextSibling;
+      undo.push(() => {
+        if (prior.parentNode === parent) return;
+        if (replacement.parentNode === parent) parent.replaceChild(prior, replacement);
+        else parent.insertBefore(prior, following?.parentNode === parent ? following : null);
+        if (prior.parentNode !== parent) {
+          throw new Error("game UI HUD replacement rollback did not restore its node");
+        }
+      });
+      parent.replaceChild(replacement, prior);
+    } else if (operation.kind === "remove") {
+      const { parent, prior } = operation;
+      const next = prior.nextSibling;
+      undo.push(() => {
+        if (prior.parentNode === parent) return;
+        parent.insertBefore(prior, next?.parentNode === parent ? next : null);
+        if (prior.parentNode !== parent) {
+          throw new Error("game UI HUD removal rollback did not restore its node");
+        }
+      });
+      parent.removeChild(prior);
+    } else {
+      const { parent, next } = operation;
+      // Appending a candidate node directly would detach it from the staged
+      // tree before the post-commit equality check.
+      const inserted = cloneRenderedNode(next);
+      undo.push(() => {
+        if (inserted.parentNode === parent) parent.removeChild(inserted);
+        if (inserted.parentNode === parent) {
+          throw new Error("game UI HUD insertion rollback did not remove its node");
+        }
+      });
+      parent.appendChild(inserted);
+    }
+  }
+}
+
 function stage(layer) {
   return layer.ownerDocument.createElement("div");
 }
@@ -296,7 +441,138 @@ export function mountGameUiProjection(value) {
   let lastTick = -1;
   let lastSequence = -1;
   let source = null;
+  let lastChildren = Object.fromEntries(Object.keys(layers).map((name) => [name, []]));
+  const projectFrame = (frame, handoff) => {
+    if (!active) throw new RangeError("game UI projection is cleaned up");
+    if (poisoned) throw new Error("game UI projection is poisoned");
+    if (!frame || typeof frame !== "object" || !FRAMES.has(frame)) {
+      throw new TypeError("game UI projection requires a canonical session frame");
+    }
+    if (handoff) {
+      if (source === null || frame.source === source) {
+        throw new RangeError("game UI session handoff requires a different mounted session");
+      }
+    } else {
+      if (frame.tick < lastTick) throw new RangeError("game UI frame tick cannot move backward");
+      if (source !== null && frame.source !== source) {
+        throw new RangeError("game UI frame belongs to a different session");
+      }
+      if (frame.sequence <= lastSequence) {
+        throw new RangeError("game UI frame sequence must advance strictly");
+      }
+    }
+
+    const prior = Object.fromEntries(Object.entries(layers)
+      .map(([name, layer]) => [name, children(layer)]));
+
+    // Complete every projection against detached layers before the first
+    // write to live DOM. A hostile document therefore cannot partially
+    // advance any visible subsystem.
+    const staged = {
+      combat: stage(layers.combat),
+      effects: stage(layers.effects),
+      feedback: stage(layers.feedback),
+      hud: stage(layers.hud),
+    };
+    bindCombatViewModel(staged.combat, frame.combat);
+    bindCombatEffectsViewModel(staged.effects, frame.effects);
+    bindCombatMotion(staged.combat, staged.effects, FRAME_MOTION.get(frame));
+    bindMatchFeedback(staged.feedback, frame.feedback);
+    if (frame.feedback.overlay) {
+      const panel = children(children(staged.feedback)[0]).find(node => node.className === "match-feedback__overlay");
+      const age = FRAME_TERMINAL_TICK.get(frame) ?? GAME_UI_TERMINAL_PRESENTATION_TICKS;
+      const remaining = (GAME_UI_TERMINAL_PRESENTATION_TICKS - age) / GAME_UI_TERMINAL_PRESENTATION_TICKS;
+      panel.dataset.presentationTick = String(age);
+      panel.style.setProperty("--terminal-scale", String(1 - remaining * .12));
+      panel.style.setProperty("--terminal-lift", `${remaining * 28}px`);
+      panel.style.setProperty("--terminal-opacity", String(1 - remaining * .55));
+    }
+    const hudFrame = layers.hud.ownerDocument.createElement("div");
+    hudFrame.className = "game-ui-hud-frame";
+    hudFrame.dataset.tick = String(frame.tick);
+    hudFrame.innerHTML = getHudMarkup(frame.hud);
+    bindHudMotion(hudFrame, frame.hud, FRAME_HUD_RECEIPT.get(frame));
+    staged.hud.replaceChildren(hudFrame);
+
+    const committed = [];
+    const inPlaceUndo = new Map();
+    try {
+      for (const name of ["combat", "effects", "feedback", "hud"]) {
+        const candidate = children(staged[name]);
+        // HUD cards sit on a fractionally scaled layer, so retain their parent
+        // chain through state rewinds even when the projected attributes change.
+        if (name === "hud" && prior[name].length === 1 && candidate.length === 1 &&
+            compatibleRenderedNode(prior[name][0], candidate[0])) {
+          const patch = planRenderedNodePatch(prior[name][0], candidate[0]);
+          if (patch !== null) {
+            if (patch.length === 0 && sameRenderedNode(prior[name][0], candidate[0])) continue;
+            committed.push(name);
+            const undo = [];
+            inPlaceUndo.set(name, undo);
+            applyRenderedNodePatch(patch, undo);
+            if (!sameRenderedNode(prior[name][0], candidate[0])) {
+              throw new Error("game UI hud layer did not match its in-place candidate");
+            }
+            continue;
+          }
+        }
+        // Re-rendering a semantically identical projection should not detach
+        // and reattach its painted subtree. A restored session may have a new
+        // private source identity while its authenticated presentation bytes
+        // remain identical, so handoff and ordinary projection share this
+        // exact DOM equality check.
+        if (sameChildren(prior[name], lastChildren[name]) &&
+            prior[name].length === candidate.length &&
+            prior[name].every((node, index) => sameRenderedNode(node, candidate[index]))) {
+          continue;
+        }
+        // Register the layer before invoking hostile DOM. A conforming or
+        // adversarial replaceChildren may mutate and then throw.
+        committed.push(name);
+        layers[name].replaceChildren(...candidate);
+        if (!sameChildren(children(layers[name]), candidate)) {
+          throw new Error(`game UI ${name} layer did not commit its candidate`);
+        }
+      }
+    } catch (error) {
+      const rollbackErrors = [];
+      for (let index = committed.length - 1; index >= 0; index -= 1) {
+        const name = committed[index];
+        const inPlace = inPlaceUndo.get(name);
+        if (inPlace !== undefined) {
+          for (let undoIndex = inPlace.length - 1; undoIndex >= 0; undoIndex -= 1) {
+            try { inPlace[undoIndex](); } catch (caught) { rollbackErrors.push(caught); }
+          }
+          if (!sameChildren(children(layers[name]), prior[name])) {
+            rollbackErrors.push(new Error(`game UI ${name} did not restore its prior children`));
+          }
+          continue;
+        }
+        try {
+          layers[name].replaceChildren(...prior[name]);
+          if (!sameChildren(children(layers[name]), prior[name])) {
+            throw new Error(`game UI ${name} layer did not restore its prior children`);
+          }
+        } catch (caught) {
+          rollbackErrors.push(caught);
+        }
+      }
+      if (rollbackErrors.length > 0) {
+        poisoned = true;
+        throw new AggregateError([error, ...rollbackErrors],
+          "game UI projection is poisoned after rollback failure");
+      }
+      throw error;
+    }
+    lastTick = frame.tick;
+    lastSequence = frame.sequence;
+    source = frame.source;
+    lastChildren = Object.fromEntries(Object.keys(layers)
+      .map((name) => [name, children(layers[name])]));
+    return frame;
+  };
   return Object.freeze({
+    canHandoff() { return active && !poisoned; },
     cleanup() {
       if (!active) return false;
       if (poisoned) {
@@ -309,88 +585,7 @@ export function mountGameUiProjection(value) {
       active = false;
       return true;
     },
-    project(frame) {
-      if (!active) throw new RangeError("game UI projection is cleaned up");
-      if (poisoned) throw new Error("game UI projection is poisoned");
-      if (!frame || typeof frame !== "object" || !FRAMES.has(frame)) {
-        throw new TypeError("game UI projection requires a canonical session frame");
-      }
-      if (frame.tick < lastTick) throw new RangeError("game UI frame tick cannot move backward");
-      if (source !== null && frame.source !== source) {
-        throw new RangeError("game UI frame belongs to a different session");
-      }
-      if (frame.sequence <= lastSequence) {
-        throw new RangeError("game UI frame sequence must advance strictly");
-      }
-
-      const prior = Object.fromEntries(Object.entries(layers)
-        .map(([name, layer]) => [name, children(layer)]));
-
-      // Complete every projection against detached layers before the first
-      // write to live DOM. A hostile document therefore cannot partially
-      // advance any visible subsystem.
-      const staged = {
-        combat: stage(layers.combat),
-        effects: stage(layers.effects),
-        feedback: stage(layers.feedback),
-        hud: stage(layers.hud),
-      };
-      bindCombatViewModel(staged.combat, frame.combat);
-      bindCombatEffectsViewModel(staged.effects, frame.effects);
-      bindCombatMotion(staged.combat, staged.effects, FRAME_MOTION.get(frame));
-      bindMatchFeedback(staged.feedback, frame.feedback);
-      if (frame.feedback.overlay) {
-        const panel = children(children(staged.feedback)[0]).find(node => node.className === "match-feedback__overlay");
-        const age = FRAME_TERMINAL_TICK.get(frame) ?? GAME_UI_TERMINAL_PRESENTATION_TICKS;
-        const remaining = (GAME_UI_TERMINAL_PRESENTATION_TICKS - age) / GAME_UI_TERMINAL_PRESENTATION_TICKS;
-        panel.dataset.presentationTick = String(age);
-        panel.style.setProperty("--terminal-scale", String(1 - remaining * .12));
-        panel.style.setProperty("--terminal-lift", `${remaining * 28}px`);
-        panel.style.setProperty("--terminal-opacity", String(1 - remaining * .55));
-      }
-      const hudFrame = layers.hud.ownerDocument.createElement("div");
-      hudFrame.className = "game-ui-hud-frame";
-      hudFrame.dataset.tick = String(frame.tick);
-      hudFrame.innerHTML = getHudMarkup(frame.hud);
-      bindHudMotion(hudFrame, frame.hud, FRAME_HUD_RECEIPT.get(frame));
-      staged.hud.replaceChildren(hudFrame);
-
-      const committed = [];
-      try {
-        for (const name of ["combat", "effects", "feedback", "hud"]) {
-          // Register the layer before invoking hostile DOM. A conforming or
-          // adversarial replaceChildren may mutate and then throw.
-          committed.push(name);
-          const candidate = children(staged[name]);
-          layers[name].replaceChildren(...candidate);
-          if (!sameChildren(children(layers[name]), candidate)) {
-            throw new Error(`game UI ${name} layer did not commit its candidate`);
-          }
-        }
-      } catch (error) {
-        const rollbackErrors = [];
-        for (let index = committed.length - 1; index >= 0; index -= 1) {
-          const name = committed[index];
-          try {
-            layers[name].replaceChildren(...prior[name]);
-            if (!sameChildren(children(layers[name]), prior[name])) {
-              throw new Error(`game UI ${name} layer did not restore its prior children`);
-            }
-          } catch (caught) {
-            rollbackErrors.push(caught);
-          }
-        }
-        if (rollbackErrors.length > 0) {
-          poisoned = true;
-          throw new AggregateError([error, ...rollbackErrors],
-            "game UI projection is poisoned after rollback failure");
-        }
-        throw error;
-      }
-      lastTick = frame.tick;
-      lastSequence = frame.sequence;
-      source = frame.source;
-      return frame;
-    },
+    project(frame) { return projectFrame(frame, false); },
+    handoff(frame) { return projectFrame(frame, true); },
   });
 }

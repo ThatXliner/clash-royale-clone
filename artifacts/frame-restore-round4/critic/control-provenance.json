@@ -1,0 +1,11 @@
+{
+  "candidateCommit": "f2f55b820bf5ec8fdec279084e8db33e10c881fc",
+  "parentCommit": "9f305bb01d0b3c515cfc80f857a303218a1d1acb",
+  "immutableRunnerCommit": "182ba6d4c0df6de0dcef7247d34d1c86b5766410",
+  "immutableRunnerSha256": "84de9ff792487e76cf4349d7c86361a7f64a298c9639381e4151682e96029a2a",
+  "controlHelperSha256": "9214e956432d905e80650fac1f1147933635abb846ffbd8cef0a72366a9559eb",
+  "controlHelperDelta": "desktop-only viewport, normal-only early return after the original strict normal gate, normal-only overall summary; no ROOT/OUTPUT/source-fence edits",
+  "productionDelta": "only removes ;transform:translateZ(0) from .hud-resource-progress in src/ui/hud-motion.js",
+  "geometryAndProjection": "all other production files remain at exact candidate f2 commit",
+  "sourceValidation": "node --check on control hud-motion.js and helper; git diff --check passed"
+}

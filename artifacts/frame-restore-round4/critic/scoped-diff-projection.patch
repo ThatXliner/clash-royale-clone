@@ -1,0 +1,350 @@
+src/ui/game-ui-projection.js --- 1/5 --- JavaScript
+281 281   return left.length === right.length && left.every((child, index) => child === right[index]);
+282 282 }
+... 283 
+... 284 function sameRenderedNode(left, right) {
+... 285   if (left === right) return true;
+... 286   return typeof left?.isEqualNode === "function" && left.isEqualNode(right);
+... 287 }
+... 288 
+... 289 function cloneRenderedNode(node) {
+... 290   if (typeof node?.cloneNode !== "function") {
+... 291     throw new TypeError("game UI HUD candidate node cannot be cloned");
+... 292   }
+... 293   const clone = node.cloneNode(true);
+... 294   if (!sameRenderedNode(clone, node)) {
+... 295     throw new Error("game UI HUD candidate clone changed its rendered content");
+... 296   }
+... 297   return clone;
+... 298 }
+... 299 
+... 300 function compatibleRenderedNode(left, right) {
+... 301   return left !== null && left !== undefined && right !== null && right !== undefined &&
+... 302     typeof left.nodeType === "number" && left.nodeType === right.nodeType &&
+... 303     left.nodeName === right.nodeName &&
+... 304     (left.namespaceURI ?? null) === (right.namespaceURI ?? null);
+... 305 }
+... 306 
+... 307 function renderedAttributeEntries(node) {
+... 308   if (!node?.attributes || typeof node.getAttribute !== "function" ||
+... 309       typeof node.setAttribute !== "function" || typeof node.removeAttribute !== "function") {
+... 310     return null;
+... 311   }
+... 312   return Array.from(node.attributes, (attribute) => Array.isArray(attribute)
+... 313     ? attribute : [attribute.name, attribute.value]);
+... 314 }
+... 315 
+... 316 function planRenderedNodePatch(current, candidate, operations = []) {
+... 317   if (!compatibleRenderedNode(current, candidate)) return null;
+... 318   if (current.nodeType === 3 || current.nodeType === 4 || current.nodeType === 8) {
+... 319     if (current.nodeValue !== candidate.nodeValue) {
+... 320       operations.push({ kind: "value", node: current, value: candidate.nodeValue });
+... 321     }
+... 322     return operations;
+... 323   }
+... 324   if (current.nodeType !== 1) {
+... 325     return sameRenderedNode(current, candidate) ? operations : null;
+... 326   }
+... 327 
+... 328   const currentAttributes = renderedAttributeEntries(current);
+... 329   const candidateAttributes = renderedAttributeEntries(candidate);
+... 330   if (currentAttributes === null || candidateAttributes === null) return null;
+... 331   const expectedAttributes = new Map(candidateAttributes);
+... 332   for (const [name] of currentAttributes) {
+... 333     if (!expectedAttributes.has(name)) operations.push({ kind: "attribute", node: current, name, value: null });
+... 334   }
+... 335   for (const [name, value] of candidateAttributes) {
+... 336     if (current.getAttribute(name) !== value) {
+... 337       operations.push({ kind: "attribute", node: current, name, value });
+... 338     }
+... 339   }
+... 340 
+... 341   if (!current.childNodes || !candidate.childNodes) return null;
+... 342   const currentChildren = Array.from(current.childNodes);
+... 343   const candidateChildren = Array.from(candidate.childNodes);
+... 344   const sharedLength = Math.min(currentChildren.length, candidateChildren.length);
+... 345   for (let index = 0; index < sharedLength; index += 1) {
+... 346     const prior = currentChildren[index];
+... 347     const next = candidateChildren[index];
+... 348     if (compatibleRenderedNode(prior, next)) {
+... 349       if (planRenderedNodePatch(prior, next, operations) === null) return null;
+... 350     } else {
+... 351       if (typeof current.replaceChild !== "function") return null;
+... 352       operations.push({ kind: "replace", parent: current, prior, next });
+... 353     }
+... 354   }
+... 355   for (let index = currentChildren.length - 1; index >= candidateChildren.length; index -= 1) {
+... 356     if (typeof current.removeChild !== "function") return null;
+... 357     operations.push({ kind: "remove", parent: current, prior: currentChildren[index] });
+... 358   }
+... 359   for (let index = sharedLength; index < candidateChildren.length; index += 1) {
+... 360     if (typeof current.appendChild !== "function") return null;
+... 361     operations.push({ kind: "append", parent: current, next: candidateChildren[index] });
+... 362   }
+... 363   return operations;
+... 364 }
+... 365 
+... 366 function applyRenderedNodePatch(operations, undo) {
+... 367   for (const operation of operations) {
+... 368     if (operation.kind === "attribute") {
+... 369       const prior = operation.node.getAttribute(operation.name);
+... 370       undo.push(() => {
+... 371         if (prior === null) operation.node.removeAttribute(operation.name);
+... 372         else operation.node.setAttribute(operation.name, prior);
+... 373         if (operation.node.getAttribute(operation.name) !== prior) {
+... 374           throw new Error("game UI HUD attribute rollback did not restore its value");
+... 375         }
+... 376       });
+... 377       if (operation.value === null) operation.node.removeAttribute(operation.name);
+... 378       else operation.node.setAttribute(operation.name, operation.value);
+... 379     } else if (operation.kind === "value") {
+... 380       const prior = operation.node.nodeValue;
+... 381       undo.push(() => {
+... 382         operation.node.nodeValue = prior;
+... 383         if (operation.node.nodeValue !== prior) {
+... 384           throw new Error("game UI HUD text rollback did not restore its value");
+... 385         }
+... 386       });
+... 387       operation.node.nodeValue = operation.value;
+... 388     } else if (operation.kind === "replace") {
+... 389       const { parent, prior, next } = operation;
+... 390       // Keep the detached candidate tree intact for the final exact comparison.
+... 391       const replacement = cloneRenderedNode(next);
+... 392       const following = prior.nextSibling;
+... 393       undo.push(() => {
+... 394         if (prior.parentNode === parent) return;
+... 395         if (replacement.parentNode === parent) parent.replaceChild(prior, replacement);
+... 396         else parent.insertBefore(prior, following?.parentNode === parent ? following : null);
+... 397         if (prior.parentNode !== parent) {
+... 398           throw new Error("game UI HUD replacement rollback did not restore its node");
+... 399         }
+... 400       });
+... 401       parent.replaceChild(replacement, prior);
+... 402     } else if (operation.kind === "remove") {
+... 403       const { parent, prior } = operation;
+... 404       const next = prior.nextSibling;
+... 405       undo.push(() => {
+... 406         if (prior.parentNode === parent) return;
+... 407         parent.insertBefore(prior, next?.parentNode === parent ? next : null);
+... 408         if (prior.parentNode !== parent) {
+... 409           throw new Error("game UI HUD removal rollback did not restore its node");
+... 410         }
+... 411       });
+... 412       parent.removeChild(prior);
+... 413     } else {
+... 414       const { parent, next } = operation;
+... 415       // Appending a candidate node directly would detach it from the staged
+... 416       // tree before the post-commit equality check.
+... 417       const inserted = cloneRenderedNode(next);
+... 418       undo.push(() => {
+... 419         if (inserted.parentNode === parent) parent.removeChild(inserted);
+... 420         if (inserted.parentNode === parent) {
+... 421           throw new Error("game UI HUD insertion rollback did not remove its node");
+... 422         }
+... 423       });
+... 424       parent.appendChild(inserted);
+... 425     }
+... 426   }
+... 427 }
+283 428 
+284 429 function stage(layer) {
+285 430   return layer.ownerDocument.createElement("div");
+
+src/ui/game-ui-projection.js --- 2/5 --- JavaScript
+296   let lastTick = -1;                 441   let lastTick = -1;
+297   let lastSequence = -1;             442   let lastSequence = -1;
+298   let source = null;                 443   let source = null;
+299   return Object.freeze({             ... 
+300     cleanup() {                      ... 
+301       if (!active) return false;     444   let lastChildren = Object.fromEnt
+...                                      ... ries(Object.keys(layers).map((name)
+...                                      ...  => [name, []]));
+302       if (poisoned) {                ... 
+303         active = false;              ... 
+304         return true;                 ... 
+305       }                              ... 
+306       for (const name of ["hud", "f  445   const projectFrame = (frame, hand
+... eedback", "effects", "combat"]) {    ... off) => {
+307         layers[name].replaceChildre  ... 
+... n();                                 ... 
+308       }                              ... 
+309       active = false;                ... 
+310       return true;                   ... 
+311     },                               ... 
+312     project(frame) {                 ... 
+313       if (!active) throw new RangeE  446     if (!active) throw new RangeErr
+... rror("game UI projection is cleaned  ... or("game UI projection is cleaned u
+...  up");                               ... p");
+314       if (poisoned) throw new Error  447     if (poisoned) throw new Error("
+... ("game UI projection is poisoned");  ... game UI projection is poisoned");
+315       if (!frame || typeof frame !=  448     if (!frame || typeof frame !== 
+... = "object" || !FRAMES.has(frame)) {  ... "object" || !FRAMES.has(frame)) {
+316         throw new TypeError("game U  449       throw new TypeError("game UI 
+... I projection requires a canonical s  ... projection requires a canonical ses
+... ession frame");                      ... sion frame");
+317       }                              450     }
+...                                      451     if (handoff) {
+...                                      452       if (source === null || frame.
+...                                      ... source === source) {
+...                                      453         throw new RangeError("game 
+...                                      ... UI session handoff requires a diffe
+...                                      ... rent mounted session");
+...                                      454       }
+...                                      455     } else {
+318       if (frame.tick < lastTick) th  456       if (frame.tick < lastTick) th
+... row new RangeError("game UI frame t  ... row new RangeError("game UI frame t
+... ick cannot move backward");          ... ick cannot move backward");
+319       if (source !== null && frame.  457       if (source !== null && frame.
+... source !== source) {                 ... source !== source) {
+320         throw new RangeError("game   458         throw new RangeError("game 
+... UI frame belongs to a different ses  ... UI frame belongs to a different ses
+... sion");                              ... sion");
+321       }                              459       }
+322       if (frame.sequence <= lastSeq  460       if (frame.sequence <= lastSeq
+... uence) {                             ... uence) {
+323         throw new RangeError("game   461         throw new RangeError("game 
+... UI frame sequence must advance stri  ... UI frame sequence must advance stri
+... ctly");                              ... ctly");
+324       }                              462       }
+...                                      463     }
+325                                      464 
+326       const prior = Object.fromEntr  465     const prior = Object.fromEntrie
+... ies(Object.entries(layers)           ... s(Object.entries(layers)
+327         .map(([name, layer]) => [na  466       .map(([name, layer]) => [name
+... me, children(layer)]));              ... , children(layer)]));
+
+src/ui/game-ui-projection.js --- 3/5 --- JavaScript
+356       staged.hud.replaceChildren(hu  495     staged.hud.replaceChildren(hudF
+... dFrame);                             ... rame);
+357                                      496 
+358       const committed = [];          497     const committed = [];
+...                                      498     const inPlaceUndo = new Map();
+359       try {                          499     try {
+360         for (const name of ["combat  500       for (const name of ["combat",
+... ", "effects", "feedback", "hud"]) {  ...  "effects", "feedback", "hud"]) {
+361           // Register the layer bef  501         const candidate = children(
+... ore invoking hostile DOM. A conform  ... staged[name]);
+... ing or                               ... 
+362           // adversarial replaceChi  502         // HUD cards sit on a fract
+... ldren may mutate and then throw.     ... ionally scaled layer, so retain the
+...                                      ... ir parent
+...                                      503         // chain through state rewi
+...                                      ... nds even when the projected attribu
+...                                      ... tes change.
+...                                      504         if (name === "hud" && prior
+...                                      ... [name].length === 1 && candidate.le
+...                                      ... ngth === 1 &&
+...                                      505             compatibleRenderedNode(
+...                                      ... prior[name][0], candidate[0])) {
+...                                      506           const patch = planRendere
+...                                      ... dNodePatch(prior[name][0], candidat
+...                                      ... e[0]);
+...                                      507           if (patch !== null) {
+...                                      508             if (patch.length === 0 
+...                                      ... && sameRenderedNode(prior[name][0],
+...                                      ...  candidate[0])) continue;
+363           committed.push(name);      509             committed.push(name);
+...                                      510             const undo = [];
+...                                      511             inPlaceUndo.set(name, u
+...                                      ... ndo);
+...                                      512             applyRenderedNodePatch(
+...                                      ... patch, undo);
+...                                      513             if (!sameRenderedNode(p
+...                                      ... rior[name][0], candidate[0])) {
+...                                      514               throw new Error("game
+...                                      ...  UI hud layer did not match its in-
+...                                      ... place candidate");
+...                                      515             }
+...                                      516             continue;
+...                                      517           }
+...                                      518         }
+...                                      519         // Re-rendering a semantica
+...                                      ... lly identical projection should not
+...                                      ...  detach
+...                                      520         // and reattach its painted
+...                                      ...  subtree. A restored session may ha
+...                                      ... ve a new
+...                                      521         // private source identity 
+...                                      ... while its authenticated presentatio
+...                                      ... n bytes
+...                                      522         // remain identical, so han
+...                                      ... doff and ordinary projection share 
+...                                      ... this
+...                                      523         // exact DOM equality check
+...                                      ... .
+364           const candidate = childre  524         if (sameChildren(prior[name
+... n(staged[name]);                     ... ], lastChildren[name]) &&
+...                                      525             prior[name].length === 
+...                                      ... candidate.length &&
+...                                      526             prior[name].every((node
+...                                      ... , index) => sameRenderedNode(node, 
+...                                      ... candidate[index]))) {
+...                                      527           continue;
+...                                      528         }
+...                                      529         // Register the layer befor
+...                                      ... e invoking hostile DOM. A conformin
+...                                      ... g or
+...                                      530         // adversarial replaceChild
+...                                      ... ren may mutate and then throw.
+...                                      531         committed.push(name);
+365           layers[name].replaceChild  532         layers[name].replaceChildre
+... ren(...candidate);                   ... n(...candidate);
+366           if (!sameChildren(childre  533         if (!sameChildren(children(
+... n(layers[name]), candidate)) {       ... layers[name]), candidate)) {
+367             throw new Error(`game U  534           throw new Error(`game UI 
+... I ${name} layer did not commit its   ... ${name} layer did not commit its ca
+... candidate`);                         ... ndidate`);
+
+src/ui/game-ui-projection.js --- 4/5 --- JavaScript
+371 538       const rollbackErrors = [];
+372 539       for (let index = committed.length - 1; index >= 0; index -= 1) {
+373 540         const name = committed[index];
+... 541         const inPlace = inPlaceUndo.get(name);
+... 542         if (inPlace !== undefined) {
+... 543           for (let undoIndex = inPlace.length - 1; undoIndex >= 0; undoIndex -= 1) {
+... 544             try { inPlace[undoIndex](); } catch (caught) { rollbackErrors.push(caught); }
+... 545           }
+... 546           if (!sameChildren(children(layers[name]), prior[name])) {
+... 547             rollbackErrors.push(new Error(`game UI ${name} did not restore its prior children`));
+... 548           }
+... 549           continue;
+... 550         }
+374 551         try {
+375 552           layers[name].replaceChildren(...prior[name]);
+376 553           if (!sameChildren(children(layers[name]), prior[name])) {
+
+src/ui/game-ui-projection.js --- 5/5 --- JavaScript
+390       lastTick = frame.tick;         567     lastTick = frame.tick;
+391       lastSequence = frame.sequence  568     lastSequence = frame.sequence;
+... ;                                    ... 
+392       source = frame.source;         569     source = frame.source;
+...                                      570     lastChildren = Object.fromEntri
+...                                      ... es(Object.keys(layers)
+...                                      571       .map((name) => [name, childre
+...                                      ... n(layers[name])]));
+393       return frame;                  572     return frame;
+394     },                               573   };
+...                                      574   return Object.freeze({
+...                                      575     canHandoff() { return active &&
+...                                      ...  !poisoned; },
+...                                      576     cleanup() {
+...                                      577       if (!active) return false;
+...                                      578       if (poisoned) {
+...                                      579         active = false;
+...                                      580         return true;
+...                                      581       }
+...                                      582       for (const name of ["hud", "f
+...                                      ... eedback", "effects", "combat"]) {
+...                                      583         layers[name].replaceChildre
+...                                      ... n();
+...                                      584       }
+...                                      585       active = false;
+...                                      586       return true;
+...                                      587     },
+...                                      588     project(frame) { return project
+...                                      ... Frame(frame, false); },
+...                                      589     handoff(frame) { return project
+...                                      ... Frame(frame, true); },
+395   });                                590   });
+396 }                                    591 }
+

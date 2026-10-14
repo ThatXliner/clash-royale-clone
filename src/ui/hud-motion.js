@@ -22,6 +22,6 @@ export const HUD_MOTION_STYLE = `
 .game-ui-hud-frame [data-ui="hud-hand"]{transform:translateY(var(--opening-offset))}
 ${[0,1,2,3].map(slot => `.game-ui-hud-frame[data-arrival-slot="${slot}"] .hud-card[data-slot="${slot}"]{transform:translateY(var(--arrival-offset)) rotate(var(--arrival-tilt));transform-origin:50% 100%}`).join('')}
 .game-ui-hud-frame [data-ui="hud-elixir"]{transform:scale(var(--spend-scale))}
-.hud-resource-progress{position:absolute;left:115px;top:1251px;width:496px;height:22px;pointer-events:none;z-index:17;border-radius:7px;background:#5B4B8A;clip-path:inset(0 calc(100% - var(--resource-percent)) 0 0 round 7px);box-shadow:inset 0 3px #DCEDE9}
+.hud-resource-progress{position:absolute;left:115px;top:1251px;width:496px;height:22px;pointer-events:none;z-index:17;border-radius:7px;background:#5B4B8A;clip-path:inset(0 calc(100% - var(--resource-percent)) 0 0 round 7px);box-shadow:inset 0 3px #DCEDE9;transform:translateZ(0)}
 @media(prefers-reduced-motion:reduce){.game-ui-hud-frame [data-ui="hud-hand"],.game-ui-hud-frame .hud-card[data-slot],.game-ui-hud-frame [data-ui="hud-elixir"]{transform:none!important}}
 `;

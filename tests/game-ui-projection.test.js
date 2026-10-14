@@ -17,7 +17,7 @@ import {
   createGameUiOptions,
   mountGameUiProjection,
 } from "../src/ui/game-ui-projection.js";
-import { serializeHudViewModel } from "../src/ui/hud-state.js";
+import { getHudMarkup, serializeHudViewModel } from "../src/ui/hud-state.js";
 import { serializeMatchFeedbackViewModel } from "../src/ui/match-feedback.js";
 import {
   createPlayableRoster,
@@ -94,6 +94,16 @@ class Node {
     }
   }
   setAttribute(key, value) { this.attributes.set(key, value); }
+  isEqualNode(other) {
+    if (!(other instanceof Node) || this.name !== other.name ||
+        this.className !== other.className || this.innerHTML !== other.innerHTML ||
+        this.textContent !== other.textContent ||
+        JSON.stringify([...this.attributes].sort()) !== JSON.stringify([...other.attributes].sort()) ||
+        JSON.stringify(Object.entries(this.dataset).sort()) !== JSON.stringify(Object.entries(other.dataset).sort()) ||
+        JSON.stringify([...this.style.values].sort()) !== JSON.stringify([...other.style.values].sort()) ||
+        this.children.length !== other.children.length) return false;
+    return this.children.every((child, index) => child.isEqualNode(other.children[index]));
+  }
 }
 
 function fixture() {
@@ -106,6 +116,239 @@ function fixture() {
     layers: Object.fromEntries(["combat", "effects", "feedback", "hud"]
       .map((name) => [name, new Node(document, name)])),
   };
+}
+
+class TreeNode {
+  constructor(ownerDocument, name, nodeType = 1, nodeValue = null) {
+    this.ownerDocument = ownerDocument;
+    this.nodeType = nodeType;
+    this.nodeName = nodeType === 3 ? "#text" : name.toUpperCase();
+    this.name = name;
+    this.nodeValue = nodeValue;
+    this.parentNode = null;
+    this.childNodes = [];
+    this.attributes = new Map();
+    this._dataset = {};
+    this.dataset = new Proxy(this._dataset, {
+      set: (target, key, value) => {
+        const result = Reflect.set(target, key, String(value));
+        this.setAttribute(`data-${String(key).replace(/[A-Z]/gu, match => `-${match.toLowerCase()}`)}`,
+          String(value));
+        return result;
+      },
+      deleteProperty: (target, key) => {
+        const result = Reflect.deleteProperty(target, key);
+        this.removeAttribute(`data-${String(key).replace(/[A-Z]/gu, match => `-${match.toLowerCase()}`)}`);
+        return result;
+      },
+    });
+    this.style = {
+      values: new Map(),
+      setProperty: (key, value) => {
+        this.style.values.set(key, String(value));
+        this.attributes.set("style", [...this.style.values]
+          .map(([name, property]) => `${name}: ${property};`).join(" "));
+      },
+    };
+    this.throwAfterSetAttribute = null;
+    this.throwAfterAppendChild = false;
+    this.throwAfterRemoveChild = false;
+    this.throwAfterReplaceChild = false;
+    this.throwAfterReplace = false;
+    this.throwOnReplace = false;
+  }
+  get children() { return this.childNodes; }
+  get className() { return this.getAttribute("class") ?? ""; }
+  set className(value) { this.setAttribute("class", value); }
+  get innerHTML() {
+    if (this.nodeType !== 1) return undefined;
+    return this.childNodes.map((child) => child.outerHTML).join("");
+  }
+  set innerHTML(markup) {
+    for (const child of this.childNodes) child.parentNode = null;
+    this.childNodes = [];
+    const stack = [this];
+    const tokens = String(markup).match(/<!--[\s\S]*?-->|<\/?[a-zA-Z][^>]*>|[^<]+/gu) ?? [];
+    for (const token of tokens) {
+      if (token.startsWith("<!--")) continue;
+      if (token.startsWith("</")) {
+        if (stack.length > 1) stack.pop();
+        continue;
+      }
+      if (token.startsWith("<")) {
+        const tag = /^<([a-zA-Z][\w:-]*)/u.exec(token)?.[1];
+        if (!tag) continue;
+        const element = this.ownerDocument.createElement(tag);
+        const attrSource = token.slice(tag.length + 1, token.length - 1);
+        const attrPattern = /([^\s=/>]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s/>]+)))?/gu;
+        for (const match of attrSource.matchAll(attrPattern)) {
+          const [, name, doubleQuoted, singleQuoted, bare] = match;
+          element.setAttribute(name, decodeFixtureHtml(doubleQuoted ?? singleQuoted ?? bare ?? ""));
+        }
+        stack.at(-1).appendChild(element);
+        if (!token.endsWith("/>") && !["area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"].includes(tag.toLowerCase())) {
+          stack.push(element);
+        }
+        continue;
+      }
+      stack.at(-1).appendChild(this.ownerDocument.createTextNode(decodeFixtureHtml(token)));
+    }
+  }
+  get textContent() {
+    if (this.nodeType === 3) return this.nodeValue ?? "";
+    return this.childNodes.map((child) => child.textContent).join("");
+  }
+  set textContent(value) {
+    if (this.nodeType === 3) { this.nodeValue = String(value); return; }
+    this.replaceChildren(this.ownerDocument.createTextNode(String(value)));
+  }
+  get outerHTML() {
+    if (this.nodeType === 3) return escapeFixtureHtml(this.nodeValue ?? "");
+    const attrs = [...this.attributes].map(([name, value]) => ` ${name}="${escapeFixtureHtml(value)}"`).join("");
+    return `<${this.name}${attrs}>${this.innerHTML}</${this.name}>`;
+  }
+  getAttribute(name) { return this.attributes.has(name) ? this.attributes.get(name) : null; }
+  hasAttribute(name) { return this.attributes.has(name); }
+  cloneNode(deep = false) {
+    if (this.nodeType === 3) return this.ownerDocument.createTextNode(this.nodeValue ?? "");
+    const clone = this.ownerDocument.createElement(this.name);
+    for (const [name, value] of this.attributes) clone.setAttribute(name, value);
+    if (deep) {
+      for (const child of this.childNodes) clone.appendChild(child.cloneNode(true));
+    }
+    return clone;
+  }
+  setAttribute(name, value) {
+    value = String(value);
+    this.attributes.set(name, value);
+    if (name === "class") this._className = value;
+    if (name.startsWith("data-")) {
+      const key = name.slice(5).replace(/-([a-z])/gu, (_match, letter) => letter.toUpperCase());
+      this._dataset[key] = value;
+    }
+    if (name === "style") {
+      this.style.values.clear();
+      for (const declaration of value.split(";")) {
+        const separator = declaration.indexOf(":");
+        if (separator >= 0) this.style.values.set(declaration.slice(0, separator).trim(), declaration.slice(separator + 1).trim());
+      }
+    }
+    if (this.throwAfterSetAttribute === name) {
+      this.throwAfterSetAttribute = null;
+      throw new Error("hostile mutate-then-throw attribute");
+    }
+  }
+  removeAttribute(name) {
+    this.attributes.delete(name);
+    if (name === "class") this._className = "";
+    if (name.startsWith("data-")) {
+      const key = name.slice(5).replace(/-([a-z])/gu, (_match, letter) => letter.toUpperCase());
+      delete this._dataset[key];
+    }
+    if (name === "style") this.style.values.clear();
+  }
+  appendChild(child) {
+    if (child.parentNode) child.parentNode.removeChild(child);
+    child.parentNode = this;
+    this.childNodes.push(child);
+    if (this.throwAfterAppendChild) {
+      this.throwAfterAppendChild = false;
+      throw new Error("hostile mutate-then-throw appendChild");
+    }
+    return child;
+  }
+  insertBefore(child, reference) {
+    if (child.parentNode) child.parentNode.removeChild(child);
+    child.parentNode = this;
+    const index = reference === null ? -1 : this.childNodes.indexOf(reference);
+    if (index < 0) this.childNodes.push(child);
+    else this.childNodes.splice(index, 0, child);
+    return child;
+  }
+  removeChild(child) {
+    const index = this.childNodes.indexOf(child);
+    if (index < 0) throw new Error("node is not a child");
+    this.childNodes.splice(index, 1);
+    child.parentNode = null;
+    if (this.throwAfterRemoveChild) {
+      this.throwAfterRemoveChild = false;
+      throw new Error("hostile mutate-then-throw removeChild");
+    }
+    return child;
+  }
+  replaceChild(next, prior) {
+    const index = this.childNodes.indexOf(prior);
+    if (index < 0) throw new Error("node is not a child");
+    if (next.parentNode) next.parentNode.removeChild(next);
+    next.parentNode = this;
+    this.childNodes[index] = next;
+    prior.parentNode = null;
+    if (this.throwAfterReplaceChild) {
+      this.throwAfterReplaceChild = false;
+      throw new Error("hostile mutate-then-throw replaceChild");
+    }
+    return prior;
+  }
+  replaceChildren(...children) {
+    if (this.throwOnReplace) { this.throwOnReplace = false; throw new Error("hostile commit"); }
+    for (const child of this.childNodes) child.parentNode = null;
+    this.childNodes = [];
+    for (const child of children) this.appendChild(child);
+    if (this.throwAfterReplace) {
+      this.throwAfterReplace = false;
+      throw new Error("hostile mutate-then-throw commit");
+    }
+  }
+  get nextSibling() {
+    if (!this.parentNode) return null;
+    return this.parentNode.childNodes[this.parentNode.childNodes.indexOf(this) + 1] ?? null;
+  }
+  isEqualNode(other) {
+    return other instanceof TreeNode && this.nodeType === other.nodeType &&
+      this.nodeName === other.nodeName && this.nodeValue === other.nodeValue &&
+      JSON.stringify([...this.attributes].sort()) === JSON.stringify([...other.attributes].sort()) &&
+      this.childNodes.length === other.childNodes.length &&
+      this.childNodes.every((child, index) => child.isEqualNode(other.childNodes[index]));
+  }
+}
+
+function decodeFixtureHtml(value) {
+  return value.replace(/&(?:amp|lt|gt|quot|#39);/gu, (entity) => ({
+    "&amp;": "&", "&lt;": "<", "&gt;": ">", "&quot;": "\"", "&#39;": "'",
+  })[entity]);
+}
+
+function escapeFixtureHtml(value) {
+  return String(value).replace(/[&<>"']/gu, (character) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;",
+  })[character]);
+}
+
+function treeFixture() {
+  const document = {
+    createElement(name) { return new TreeNode(document, name); },
+    createElementNS(_namespace, name) { return new TreeNode(document, name); },
+    createTextNode(value) { return new TreeNode(document, "#text", 3, String(value)); },
+  };
+  const layers = Object.fromEntries(["combat", "effects", "feedback", "hud"]
+    .map((name) => [name, new TreeNode(document, "div")]));
+  return { document, layers };
+}
+
+function findTreeNode(root, predicate) {
+  if (predicate(root)) return root;
+  for (const child of root.childNodes ?? []) {
+    const found = findTreeNode(child, predicate);
+    if (found) return found;
+  }
+  return null;
+}
+
+function hudTree(root) {
+  const projection = findTreeNode(root, (node) => node.dataset?.ui === "hud-projection");
+  const hand = findTreeNode(root, (node) => node.dataset?.ui === "hud-hand");
+  const cards = hand.childNodes.filter((node) => node.className === "hud-card");
+  return { projection, hand, cards };
 }
 
 function nodeBytes(node) {
@@ -136,6 +379,30 @@ function assertSameLayerChildren(layers, prior) {
     assert.equal(layers[name].children.length, prior[name].length, name);
     for (const [index, child] of prior[name].entries()) {
       assert.strictEqual(layers[name].children[index], child, `${name}[${index}]`);
+    }
+  }
+}
+
+function treeIdentitySnapshot(layers) {
+  const snapshot = [];
+  const visit = (node) => {
+    snapshot.push({ node, parent: node.parentNode, children: [...node.childNodes] });
+    for (const child of node.childNodes) visit(child);
+  };
+  for (const layer of Object.values(layers)) visit(layer);
+  return snapshot;
+}
+
+function assertSameTreeIdentities(layers, prior) {
+  const current = treeIdentitySnapshot(layers);
+  assert.equal(current.length, prior.length, "live DOM has the same node count");
+  for (const [index, expected] of prior.entries()) {
+    const actual = current[index];
+    assert.strictEqual(actual.node, expected.node, `node identity ${index}`);
+    assert.strictEqual(actual.parent, expected.parent, `parent identity ${index}`);
+    assert.equal(actual.children.length, expected.children.length, `child count ${index}`);
+    for (const [childIndex, child] of expected.children.entries()) {
+      assert.strictEqual(actual.children[childIndex], child, `child identity ${index}.${childIndex}`);
     }
   }
 }
@@ -212,6 +479,7 @@ test("game UI projection: one authentic session frame commits all four matching 
   ], [0, 0, 0, 0, 0]);
   const { layers } = fixture();
   const mounted = mountGameUiProjection(layers);
+  assert.equal(mounted.canHandoff(), true);
   assert.equal(mounted.project(initial), initial);
   assert.equal(layers.combat.children[0].dataset.tick, "0");
   assert.equal(layers.effects.children[0].dataset.tick, "0");
@@ -225,6 +493,259 @@ test("game UI projection: one authentic session frame commits all four matching 
   for (const name of ["combat", "effects", "feedback", "hud"]) {
     assert.equal(layers[name].children[0].dataset.tick, "1", name);
   }
+});
+
+test("game UI projection: an identical frame keeps every committed DOM node", () => {
+  const session = new GameSession(setup());
+  const first = createGameUiFrame(session);
+  const sameState = createGameUiFrame(session);
+  const { layers } = fixture();
+  const mounted = mountGameUiProjection(layers);
+  mounted.project(first);
+  const prior = layerChildren(layers);
+
+  mounted.project(sameState);
+
+  assertSameLayerChildren(layers, prior);
+});
+
+test("game UI projection: HUD tick metadata advances without replacing same-painted nodes", () => {
+  const session = new GameSession(setup({ starting: 10 }));
+  session.stepMany(24);
+  const checkpoint = session.serialize();
+  const beforeFrame = createGameUiFrame(session);
+  const { layers } = treeFixture();
+  const mounted = mountGameUiProjection(layers);
+  mounted.project(beforeFrame);
+
+  const priorRoot = layers.hud.childNodes[0];
+  const priorTree = hudTree(priorRoot);
+  const priorCards = [...priorTree.cards];
+  const priorCardParents = priorCards.map((card) => card.parentNode);
+  const priorTimer = findTreeNode(priorRoot, (node) => node.dataset?.ui === "hud-timer");
+  const priorTimerText = priorTimer.textContent;
+  const priorRootStyle = [...priorRoot.style.values];
+  session.step();
+  const nextFrame = createGameUiFrame(session);
+  const beforeMarkup = getHudMarkup(beforeFrame.hud);
+  const nextMarkup = getHudMarkup(nextFrame.hud);
+  assert.equal(nextMarkup.replace('data-tick="25"', 'data-tick="24"'), beforeMarkup,
+    "the HUD body changes only its tick metadata between these frames");
+
+  mounted.project(nextFrame);
+
+  assert.strictEqual(layers.hud.childNodes[0], priorRoot);
+  assert.strictEqual(priorRoot.dataset.tick, "25");
+  const nextTree = hudTree(priorRoot);
+  assert.strictEqual(nextTree.projection.dataset.tick, "25");
+  assert.strictEqual(nextTree.hand, priorTree.hand);
+  assert.deepEqual(nextTree.cards, priorCards);
+  assert.deepEqual(nextTree.cards.map((card) => card.parentNode), priorCardParents);
+  assert.deepEqual([...priorRoot.style.values], priorRootStyle);
+
+  session.stepMany(35);
+  mounted.project(createGameUiFrame(session));
+  assert.strictEqual(layers.hud.childNodes[0], priorRoot);
+  assert.strictEqual(findTreeNode(priorRoot, (node) => node.dataset?.ui === "hud-timer"), priorTimer);
+  assert.notEqual(priorTimer.textContent, priorTimerText,
+    "a changed timer is written into its retained text node");
+  assert.deepEqual(hudTree(priorRoot).cards, priorCards);
+  assert.deepEqual(hudTree(priorRoot).cards.map((card) => card.parentNode), priorCardParents);
+
+  const restored = GameSession.restore(checkpoint);
+  mounted.handoff(createGameUiFrame(restored));
+  assert.strictEqual(layers.hud.childNodes[0], priorRoot);
+  assert.strictEqual(priorRoot.dataset.tick, "24");
+  assert.strictEqual(hudTree(priorRoot).projection.dataset.tick, "24");
+  assert.deepEqual(hudTree(priorRoot).cards, priorCards);
+  assert.deepEqual(hudTree(priorRoot).cards.map((card) => card.parentNode), priorCardParents);
+  assert.equal(priorTimer.textContent, priorTimerText);
+  assert.equal(mounted.cleanup(), true);
+  assert.equal(layers.hud.childNodes.length, 0);
+  assert.equal(priorRoot.parentNode, null);
+});
+
+test("game UI projection: changed HUD attributes keep slot nodes and roll back transactionally", () => {
+  const session = new GameSession(setup());
+  const { layers } = treeFixture();
+  const mounted = mountGameUiProjection(layers);
+  mounted.project(createGameUiFrame(session));
+  const root = layers.hud.childNodes[0];
+  const priorBytes = allBytes(layers);
+  const priorTree = hudTree(root);
+  const selectedCard = priorTree.cards[0];
+  const selectedId = selectedCard.dataset.cardId;
+  const selectedFrame = createGameUiFrame(session, createGameUiOptions("south", selectedId));
+
+  selectedCard.throwAfterSetAttribute = "data-selected";
+  assert.throws(() => mounted.project(selectedFrame), /mutate-then-throw attribute/u);
+  assert.equal(allBytes(layers), priorBytes,
+    "a mutate-then-throw in-place HUD patch rolls back earlier layers and HUD attributes");
+  assert.strictEqual(layers.hud.childNodes[0], root);
+  assert.strictEqual(hudTree(root).cards[0], selectedCard);
+  assert.equal(selectedCard.dataset.selected, "false");
+
+  mounted.project(selectedFrame);
+  const selectedTree = hudTree(root);
+  assert.strictEqual(layers.hud.childNodes[0], root);
+  assert.deepEqual(selectedTree.cards, priorTree.cards);
+  assert.deepEqual(selectedTree.cards.map((card) => card.parentNode), priorTree.cards.map((card) => card.parentNode));
+  assert.equal(selectedTree.cards[0].dataset.selected, "true");
+  assert.equal(mounted.cleanup(), true);
+  for (const layer of Object.values(layers)) assert.equal(layer.childNodes.length, 0);
+});
+
+for (const operation of ["appendChild", "removeChild", "replaceChild"]) {
+  test(`game UI projection: HUD ${operation} mutate-then-throw restores exact live identities`, () => {
+    const session = new GameSession(setup());
+    const initial = createGameUiFrame(session);
+    const { document, layers } = treeFixture();
+    const mounted = mountGameUiProjection(layers);
+    mounted.project(initial);
+    const root = layers.hud.childNodes[0];
+    const { hand, cards } = hudTree(root);
+    const expectedCardCount = cards.length;
+    let hostileParent;
+    let failureFlag;
+
+    if (operation === "appendChild") {
+      hostileParent = hand;
+      failureFlag = "throwAfterAppendChild";
+      hand.removeChild(cards.at(-1));
+    } else if (operation === "removeChild") {
+      hostileParent = hand;
+      failureFlag = "throwAfterRemoveChild";
+      hand.appendChild(document.createTextNode("hostile extra child"));
+    } else {
+      const name = findTreeNode(cards[0], (node) => node.className === "hud-card__name");
+      assert.ok(name);
+      const replacement = document.createElement("em");
+      replacement.className = name.className;
+      replacement.textContent = name.textContent;
+      hostileParent = name.parentNode;
+      hostileParent.replaceChild(replacement, name);
+      failureFlag = "throwAfterReplaceChild";
+    }
+
+    const beforeBytes = allBytes(layers);
+    const beforeIdentities = treeIdentitySnapshot(layers);
+    hostileParent[failureFlag] = true;
+    session.step();
+    const next = createGameUiFrame(session);
+
+    assert.throws(() => mounted.project(next), new RegExp(`mutate-then-throw ${operation}`, "u"));
+    assert.equal(allBytes(layers), beforeBytes,
+      `${operation} failure restores the complete prior serialized tree`);
+    assertSameTreeIdentities(layers, beforeIdentities);
+    assert.equal(mounted.canHandoff(), true, "a successful rollback keeps the mount usable");
+
+    mounted.project(next);
+    const nextHud = hudTree(layers.hud.childNodes[0]);
+    assert.equal(layers.hud.childNodes[0].dataset.tick, "1");
+    assert.equal(nextHud.cards.length, expectedCardCount);
+    if (operation === "replaceChild") {
+      assert.equal(findTreeNode(nextHud.cards[0], (node) => node.className === "hud-card__name").nodeName, "SPAN");
+    }
+    assert.equal(mounted.cleanup(), true);
+    for (const layer of Object.values(layers)) assert.equal(layer.childNodes.length, 0);
+  });
+}
+
+test("game UI projection: candidate clone failure rolls back earlier HUD edits and recovers", () => {
+  const session = new GameSession(setup());
+  const { document, layers } = treeFixture();
+  const mounted = mountGameUiProjection(layers);
+  mounted.project(createGameUiFrame(session));
+  const root = layers.hud.childNodes[0];
+  const { hand, cards } = hudTree(root);
+  hand.removeChild(cards.at(-1));
+  const beforeBytes = allBytes(layers);
+  const beforeIdentities = treeIdentitySnapshot(layers);
+  const createElement = document.createElement.bind(document);
+  document.createElement = (name) => {
+    const node = createElement(name);
+    if (name === "span") {
+      const clone = node.cloneNode.bind(node);
+      node.cloneNode = function hostileClone(deep = false) {
+        if (this.className === "hud-card") throw new Error("hostile candidate clone");
+        return clone(deep);
+      };
+    }
+    return node;
+  };
+  session.step();
+  const next = createGameUiFrame(session);
+
+  assert.throws(() => mounted.project(next), /hostile candidate clone/u);
+  assert.equal(allBytes(layers), beforeBytes);
+  assertSameTreeIdentities(layers, beforeIdentities);
+  assert.equal(mounted.canHandoff(), true);
+
+  document.createElement = createElement;
+  mounted.project(next);
+  assert.equal(layers.hud.childNodes[0].dataset.tick, "1");
+  assert.equal(hudTree(layers.hud.childNodes[0]).cards.length, cards.length);
+  assert.equal(mounted.cleanup(), true);
+  for (const layer of Object.values(layers)) assert.equal(layer.childNodes.length, 0);
+});
+
+test("game UI projection: restore handoff retains identical DOM and admits the new session", () => {
+  const source = new GameSession(setup());
+  const { layers } = fixture();
+  const mounted = mountGameUiProjection(layers);
+  mounted.project(createGameUiFrame(source));
+  const prior = layerChildren(layers);
+
+  const restored = GameSession.restore(source.serialize());
+  const restoredFrame = createGameUiFrame(restored);
+  assert.notStrictEqual(restoredFrame.source, createGameUiFrame(source).source);
+  mounted.handoff(restoredFrame);
+  assertSameLayerChildren(layers, prior);
+
+  restored.step();
+  const advanced = createGameUiFrame(restored);
+  mounted.project(advanced);
+  for (const layer of Object.values(layers)) {
+    assert.equal(layer.children[0].dataset.tick, "1");
+  }
+  assert.equal(mounted.cleanup(), true);
+});
+
+test("game UI projection: restore handoff rewinds the HUD without replacing its slot hierarchy", () => {
+  const source = new GameSession(setup());
+  const checkpoint = source.serialize();
+  const { layers } = treeFixture();
+  const mounted = mountGameUiProjection(layers);
+  mounted.project(createGameUiFrame(source));
+
+  source.stepMany(3);
+  mounted.project(createGameUiFrame(source));
+  for (const layer of Object.values(layers)) {
+    assert.equal(layer.children[0].dataset.tick, "3");
+  }
+  const laterChildren = layerChildren(layers);
+  const laterHud = hudTree(laterChildren.hud[0]);
+  const laterCards = [...laterHud.cards];
+  const laterParents = laterCards.map((card) => card.parentNode);
+
+  const restored = GameSession.restore(checkpoint);
+  mounted.handoff(createGameUiFrame(restored));
+
+  for (const [name, layer] of Object.entries(layers)) {
+    assert.equal(layer.children[0].dataset.tick, "0", `${name} restored tick`);
+    if (name === "hud") {
+      assert.strictEqual(layer.children[0], laterChildren[name][0],
+        "the HUD frame can be updated in place across a rewind");
+    } else {
+      assert.notStrictEqual(layer.children[0], laterChildren[name][0],
+        `${name} changed content after rewind`);
+    }
+  }
+  const restoredHud = hudTree(layers.hud.children[0]);
+  assert.equal(restoredHud.projection.dataset.tick, "0");
+  assert.deepEqual(restoredHud.cards, laterCards);
+  assert.deepEqual(restoredHud.cards.map((card) => card.parentNode), laterParents);
+  assert.equal(mounted.cleanup(), true);
 });
 
 test("game UI projection: mismatched and backward canonical frames preserve every DOM byte", () => {
@@ -366,13 +887,16 @@ test("game UI projection: restoration failure poisons the mount without later wr
   const mounted = mountGameUiProjection(layers);
   mounted.project(zero);
   const calls = installRestorationFailure(layers.effects);
+  assert.equal(mounted.canHandoff(), true);
   assert.throws(() => mounted.project(one), /poisoned/u);
+  assert.equal(mounted.canHandoff(), false);
   const afterFailure = allBytes(layers);
   assert.equal(calls(), 2);
   assert.throws(() => mounted.project(two), /poisoned/u);
   assert.equal(calls(), 2);
   assert.equal(allBytes(layers), afterFailure);
   assert.equal(mounted.cleanup(), true);
+  assert.equal(mounted.canHandoff(), false);
   assert.equal(allBytes(layers), afterFailure);
   assert.equal(mounted.cleanup(), false);
 });

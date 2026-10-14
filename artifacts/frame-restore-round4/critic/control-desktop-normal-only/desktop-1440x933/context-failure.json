@@ -1,0 +1,12 @@
+{
+  "viewport": {
+    "name": "desktop-1440x933",
+    "width": 1440,
+    "height": 933
+  },
+  "pid": 81785,
+  "error": "AssertionError [ERR_ASSERTION]: desktop-1440x933: normal checkpoint restore failed: {\"naturalGeometryPresent\":true,\"geometryUnchanged\":true,\"exactAudit\":true,\"wholeViewportPngExact\":false,\"decodedPixelsExact\":false,\"tick171Restored\":true,\"naturalGeometryStable\":true}\n\nfalse !== true\n",
+  "stack": "AssertionError [ERR_ASSERTION]: desktop-1440x933: normal checkpoint restore failed: {\"naturalGeometryPresent\":true,\"geometryUnchanged\":true,\"exactAudit\":true,\"wholeViewportPngExact\":false,\"decodedPixelsExact\":false,\"tick171Restored\":true,\"naturalGeometryStable\":true}\n\nfalse !== true\n\n    at runViewport (file:///private/tmp/frame-restore-round4-control-81620/.frame-restore-round4-control-runner.mjs:281:14)\n    at async main (file:///private/tmp/frame-restore-round4-control-81620/.frame-restore-round4-control-runner.mjs:376:51)",
+  "pageErrors": [],
+  "consoleErrors": []
+}

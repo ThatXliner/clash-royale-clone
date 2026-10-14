@@ -74,6 +74,16 @@ class Node {
     }
   }
   setAttribute(key, value) { this.attributes.set(key, value); }
+  isEqualNode(other) {
+    if (!(other instanceof Node) || this.name !== other.name ||
+        this.className !== other.className || this.innerHTML !== other.innerHTML ||
+        this.textContent !== other.textContent ||
+        JSON.stringify([...this.attributes].sort()) !== JSON.stringify([...other.attributes].sort()) ||
+        JSON.stringify(Object.entries(this.dataset).sort()) !== JSON.stringify(Object.entries(other.dataset).sort()) ||
+        JSON.stringify([...this.style.values].sort()) !== JSON.stringify([...other.style.values].sort()) ||
+        this.children.length !== other.children.length) return false;
+    return this.children.every((child, index) => child.isEqualNode(other.children[index]));
+  }
 }
 
 class FakeRaf {
@@ -156,6 +166,14 @@ function assertTicks(value, tick) {
   }
 }
 
+function assertPointerInputListeners(arena, mounted) {
+  const actual = Object.fromEntries([...arena.listeners]
+    .filter(([, listeners]) => listeners.size > 0)
+    .sort(([left], [right]) => left.localeCompare(right))
+    .map(([name, listeners]) => [name, listeners.size]));
+  assert.deepEqual(actual, mounted ? { pointermove: 1, pointerup: 1 } : {});
+}
+
 test("game browser loop: input selection immediately projects, illegal play retains, and remount preserves", () => {
   const value = fixture();
   const hudMarkup = () => value.layers.hud.children[0].innerHTML;
@@ -224,7 +242,7 @@ test("game browser loop: one session mounts all projections and manual pause/res
   assert.equal(value.hand.reduce((sum, node) => sum + node.listenerCount(), 0), 0);
   assert.equal(value.loop.state.paused, true); assert.deepEqual(value.loop.stepMany(5), []);
   assertTicks(value, 5); assert.equal(value.loop.resume(), true); assert.equal(value.scheduler.size, 1);
-  assert.equal(value.arena.listenerCount(), 1);
+  assertPointerInputListeners(value.arena, true);
   assert.equal(value.hand.reduce((sum, node) => sum + node.listenerCount(), 0), 4);
   value.scheduler.fire(0); value.scheduler.fire(1_000 / 60); assertTicks(value, 6);
   assert.equal(value.loop.resume(), false);
@@ -278,7 +296,7 @@ test("game browser loop: input reaches the sole session and restore replaces lis
   const stalePointer = [...value.arena.listeners.get("pointerup")][0];
   value.loop.stepMany(10); assertTicks(value, 13);
   value.loop.restore(snapshot); assert.notEqual(value.loop.session, beforeSession); assertTicks(value, 3);
-  assert.equal(value.arena.listenerCount(), 1);
+  assertPointerInputListeners(value.arena, true);
   assert.equal(value.hand.reduce((sum, node) => sum + node.listenerCount(), 0), 4);
   const restoredBytes = value.loop.session.serialize();
   assert.throws(() => stalePointer({ clientX: 270, clientY: 708 }), /disposed/u);
@@ -289,6 +307,80 @@ test("game browser loop: input reaches the sole session and restore replaces lis
   assert.equal(commits.length, 3);
   assert.equal(new Set(commits.map(({ deployment }) => deployment.sequence)).size, 3);
   assert.equal(value.loop.dispose(), true);
+  assert.equal(value.arena.listenerCount(), 0);
+  assert.equal(value.hand.reduce((sum, node) => sum + node.listenerCount(), 0), 0);
+});
+
+test("game browser loop: zero-step render and same-state restore retain projections and replace input", () => {
+  const value = fixture();
+  const before = Object.fromEntries(Object.entries(value.layers)
+    .map(([name, layer]) => [name, [...layer.children]]));
+  value.loop.stepMany(0);
+  for (const [name, layer] of Object.entries(value.layers)) {
+    assert.deepEqual(layer.children, before[name], `${name} zero-step projection`);
+    assert.ok(layer.children.every((child, index) => child === before[name][index]),
+      `${name} zero-step identity`);
+  }
+
+  const snapshot = value.loop.serialize();
+  const handListeners = value.hand.reduce((sum, node) => sum + node.listenerCount(), 0);
+  const stalePointer = [...value.arena.listeners.get("pointerup")][0];
+  value.loop.restore(snapshot);
+  for (const [name, layer] of Object.entries(value.layers)) {
+    assert.ok(layer.children.every((child, index) => child === before[name][index]),
+      `${name} restore identity`);
+  }
+  assertPointerInputListeners(value.arena, true);
+  assert.equal(value.hand.reduce((sum, node) => sum + node.listenerCount(), 0), handListeners);
+  assertPointerInputListeners(value.arena, true);
+  assert.throws(() => stalePointer({ clientX: 270, clientY: 708 }), /disposed/u);
+  value.loop.dispose();
+  assert.equal(value.arena.listenerCount(), 0);
+  assert.equal(value.hand.reduce((sum, node) => sum + node.listenerCount(), 0), 0);
+});
+
+test("game browser loop: restore rewinds a rendered frame without losing projection ownership", () => {
+  const value = fixture();
+  const checkpoint = value.loop.serialize();
+  value.loop.stepMany(5);
+  assertTicks(value, 5);
+  const stalePointer = [...value.arena.listeners.get("pointerup")][0];
+
+  value.loop.restore(checkpoint);
+
+  assert.notEqual(value.loop.state.sessionTick, 5);
+  assertTicks(value, 0);
+  assertPointerInputListeners(value.arena, true);
+  assert.equal(value.hand.reduce((sum, node) => sum + node.listenerCount(), 0), 4);
+  assert.throws(() => stalePointer({ clientX: 270, clientY: 708 }), /disposed/u);
+  assert.equal(value.loop.dispose(), true);
+  assertPointerInputListeners(value.arena, false);
+  assert.equal(value.hand.reduce((sum, node) => sum + node.listenerCount(), 0), 0);
+});
+
+test("game browser loop: restore mounts a fresh projection after rollback poisons the old one", () => {
+  const value = fixture();
+  const effects = value.layers.effects;
+  const replace = effects.replaceChildren.bind(effects);
+  let calls = 0;
+  effects.replaceChildren = (...children) => {
+    calls += 1;
+    if (calls === 1) {
+      replace(...children);
+      throw new Error("hostile effects commit");
+    }
+    if (calls === 2) throw new Error("hostile effects rollback");
+    return replace(...children);
+  };
+
+  assert.throws(() => value.loop.stepMany(1), /poisoned/u);
+  assert.equal(calls, 2);
+  const snapshot = value.loop.serialize();
+  value.loop.restore(snapshot);
+  assertTicks(value, 1);
+  assertPointerInputListeners(value.arena, true);
+  assert.equal(value.hand.reduce((sum, node) => sum + node.listenerCount(), 0), 4);
+  value.loop.dispose();
   assert.equal(value.arena.listenerCount(), 0);
   assert.equal(value.hand.reduce((sum, node) => sum + node.listenerCount(), 0), 0);
 });
@@ -307,7 +399,7 @@ test("game browser loop: endurance slices yield with input detached then commit 
   assert.equal(value.loop.state.domTick, 0, "simulation remains unpresented until its transaction");
   value.loop.presentEnduranceFrame(); assertTicks(value, 2);
   assert.equal(value.loop.finishEnduranceSegment().state.enduranceActive, false);
-  assert.equal(value.arena.listenerCount(), 1);
+  assertPointerInputListeners(value.arena, true);
   assert.equal(value.hand.reduce((sum, node) => sum + node.listenerCount(), 0), 4);
   value.loop.dispose();
 });
@@ -351,8 +443,7 @@ test("game browser loop: endurance entry separates slice, projection, and audio 
   assert.equal(value.loop.session.serialize(), expected.serialize(),
     "projection leaves the exact simulation bytes unchanged");
   value.loop.finishEnduranceSegment();
-  assert.equal(value.arena.listenerCount(), 1,
-    "the committed transaction performs exactly one resumed input controller mount");
+  assertPointerInputListeners(value.arena, true);
   value.loop.dispose();
 });
 

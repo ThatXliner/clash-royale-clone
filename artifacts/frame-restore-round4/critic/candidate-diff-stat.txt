@@ -1,0 +1,17 @@
+ .../desktop-1440-dedicated-layer-run-1/README.md   |    11 +
+ .../dedicated-layer-after.png                      |   Bin 0 -> 452884 bytes
+ .../dedicated-layer-before.png                     |   Bin 0 -> 452884 bytes
+ .../frame-restore-001-desktop-evidence.json        | 32601 +++++++++++++++++++
+ .../normal-after.png                               |   Bin 0 -> 452832 bytes
+ .../normal-before.png                              |   Bin 0 -> 452836 bytes
+ .../runner-exit.json                               |     8 +
+ .../runner-output.txt                              |     1 +
+ .../runner-pid.txt                                 |     1 +
+ .../unit-projection-first-failure-excerpt.txt      |    42 +
+ ...candidate-6cf-desktop-dedicated-layer-run-1.mjs |   538 +
+ src/ui/game-browser-loop.js                        |    34 +-
+ src/ui/game-ui-projection.js                       |   351 +-
+ src/ui/hud-motion.js                               |     2 +-
+ tests/game-browser-loop.test.js                    |   101 +-
+ tests/game-ui-projection.test.js                   |   526 +-
+ 16 files changed, 34123 insertions(+), 93 deletions(-)

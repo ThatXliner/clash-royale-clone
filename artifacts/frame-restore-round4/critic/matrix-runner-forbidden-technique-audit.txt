@@ -1,0 +1,10 @@
+66:    page.evaluate(() => document.fonts.ready),
+70:    page.evaluate(() => new Promise((done) => requestAnimationFrame(() => requestAnimationFrame(done)))),
+71:    child.evaluate(() => new Promise((done) => requestAnimationFrame(() => requestAnimationFrame(done)))),
+75:  const outer = await page.evaluate((name) => {
+128:  const png = await page.screenshot({ fullPage: false, animations: 'allow' });
+133:  return page.evaluate(async ({ a, b }) => {
+170:  const context = await browser.newContext({ deviceScaleFactor: 1, viewport: { width: viewport.width, height: viewport.height } });
+181:    await frame.locator('[data-ui="arena"]').waitFor({ state: 'visible', timeout: 8000 });
+241:    await frame.locator('.combat-marker[data-kind="briar-runner"]').first().waitFor({ state: 'attached', timeout: 5000 });
+276:    await page.emulateMedia({ reducedMotion: 'reduce' });

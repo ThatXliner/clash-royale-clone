@@ -9224,3 +9224,12 @@ EVIDENCE: Frozen candidate `6cf983c6101e57de1d3b803c7e5469809b60ace4` on parent 
 BIGGEST GAP: Desktop normal restore 179→171 changes 29 full-viewport pixels (maximum channel delta 18) at x=575–811/y=898–911 even though the typed session, controller, input, audio continuation/policy, and measured geometry match exactly.
 
 No source adoption. Exact pre/post source fences; critic raw 49 passing unit checks and independent native desktop failure retained. The candidate remains on095; accepted layout/notice source is separate. Builder resource-meter owner mapping is a hypothesis from coordinates, not a proven cause. Next round traces omitted leaf identity and mutation before choosing a fix.
+
+## Round 474 — FRAME-RESTORE-001 exact restored scaled frame
+
+PIECE: FRAME-RESTORE-001
+VERDICT: PASS
+EVIDENCE: `node --test tests/game-ui-projection.test.js` passed 36/36 (exit 0); `node --test tests/game-browser-loop.test.js` passed 17/17 (exit 0). The immutable runner (SHA-256 84de9ff792487e76cf4349d7c86361a7f64a298c9639381e4151682e96029a2a) passed on native Chrome 155.0.8059.40 in phone 390x844 and desktop 1440x933, normal and reduced. All normal 179→171 and reduced 173→174→173 restores had exact typed state, audio continuation and gain/mute policy, natural geometry, byte-identical whole-viewport PNGs, and 0 decoded pixel differences; both iframes retained a 720x1280 inner document. Source pre/post fences were identical. The one-property control (remove only `.hud-resource-progress { transform: translateZ(0) }`) failed the desktop normal PNG gate: 18 differing pixels, max channel delta 32, bbox x=574–809/y=896–909, while state and geometry remained exact. The removed transform is required on this geometry for exact restoration. Full evidence, raw TAP, PNGs, pre/post fences, control delta, and hashes are in this directory.
+BIGGEST GAP: Full 18k/endurance and historical-parity qualification remain unproven; this PASS is scoped to FRAME-RESTORE-001.
+
+Adoptedexactfiveownedsource/testpaths fromf2 afterindependentexecution; artifacts182 containsnosourcedelta. BuilderfirstmatrixharnessReferenceError retained, no comparisons/productverdictfromthatattempt. Hostileappend/replace staged-tree defectfixedwithclones; append/remove/replace rollback/retry tests included36projectioncases. Full18000default andseparateKilnkeeper terminal/restart qualification remainrequired onfinalacceptedsource.

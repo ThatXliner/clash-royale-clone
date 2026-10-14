@@ -1,0 +1,136 @@
+src/ui/game-browser-loop.js --- 1/7 --- JavaScript
+100 100   return scheduler;
+101 101 }
+102 102 
+103 103 function cleanupGraph(graph, preserveProjection = false) {
+104 104   const errors = [];
+105 105   if (graph === null) return errors;
+106 106   try { graph.bridge.unsubscribe(); } catch (error) { errors.push(error); }
+107 107   try { graph.input?.cleanup(); } catch (error) { errors.push(error); }
+... 108   if (!preserveProjection) {
+108 109     try { graph.projection.cleanup(); } catch (error) { errors.push(error); }
+... 110   }
+109 111   return errors;
+110 112 }
+111 113 
+
+src/ui/game-browser-loop.js --- 2/7 --- JavaScript
+145 147   let selectedCardId = null;
+146 148   let selectionProjectionFault = false;
+147 149   let selectionCleanupQueued = false;
+... 150   let projectionHandoffPending = false;
+148 151   // This never leaves the loop closure. A prepared restore capability minted
+149 152   // for one loop cannot be consumed by any other mounted loop.
+150 153   const preparedRestoreOwner = Object.freeze({});
+
+src/ui/game-browser-loop.js --- 3/7 --- JavaScript
+168 171     selectedCardId = selection;
+169 172     const frame = createGameUiFrame(session,
+170 173       createGameUiOptions("south", selection, terminalPresentationTick));
+... 174     if (projectionHandoffPending) graph.projection.handoff(frame);
+171 175     else graph.projection.project(frame);
+172 176     domTick = frame.tick;
+... 177     projectionHandoffPending = false;
+173 178     if (domTick !== session.state.tick) throw new Error("game browser DOM tick diverged");
+174 179     return frame;
+175 180   };
+
+src/ui/game-browser-loop.js --- 4/7 --- JavaScript
+241 246     }
+242 247     return true;
+243 248   };
+244 249   const buildGraph = (candidateSession, bridgeBytes = null, retainedProjection = null) => {
+245 250     const input = checked.createInput(candidateSession, nextCommandId(bridgeBytes),
+246 251       selectedCardId, onInputSelection);
+247 252     let bridge = null, projection = null;
+248 253     try {
+249 254       bridge = bridgeBytes === null
+250 255         ? new GameInputBridge(input, candidateSession)
+251 256         : GameInputBridge.restore(bridgeBytes, input, candidateSession);
+252 257       projection = retainedProjection ?? mountGameUiProjection(layers);
+253 258       const candidate = { bridge, input, projection };
+254 259       graph = candidate;
+255 260       selectedCardId = typeof input.selectedCardId === "string"
+
+src/ui/game-browser-loop.js --- 5/7 --- JavaScript
+258 263     } catch (error) {
+259 264       try { bridge?.unsubscribe(); } catch {}
+260 265       try { input?.cleanup(); } catch {}
+... 266       if (retainedProjection === null) {
+261 267         try { projection?.cleanup(); } catch {}
+... 268       }
+262 269       throw error;
+263 270     }
+264 271   };
+
+src/ui/game-browser-loop.js --- 6/7 --- JavaScript
+331 338   };
+332 339   const restoreCandidate = (snapshot, candidate) => {
+333 340     inOperation = true;
+... 341     let retainedProjection = null;
+334 342     try {
+335 343       cancel();
+... 344       const previousProjection = graph?.projection ?? null;
+... 345       const preserveProjection = previousProjection?.canHandoff() === true;
+... 346       retainedProjection = preserveProjection ? previousProjection : null;
+336 347       const cleanupErrors = cleanupGraph(graph, preserveProjection); graph = null;
+337 348       if (cleanupErrors.length) {
+... 349         if (retainedProjection !== null) {
+... 350           try { retainedProjection.cleanup(); } catch (error) { cleanupErrors.push(error); }
+... 351         }
+338 352         active = false; ACTIVE_ROOTS.delete(checked.root);
+339 353         throw new AggregateError(cleanupErrors, "game browser restore cleanup failed");
+340 354       }
+341 355       session = candidate; selectedCardId = null;
+342 356       terminalPresentationTick = snapshot.terminalPresentation?.tick ?? (session.state.terminal ? GAME_UI_TERMINAL_PRESENTATION_TICKS : 0);
+343 357       terminalPresentationRunning = snapshot.terminalPresentation?.running ?? false;
+344 358       buildGraph(session, snapshot.bridge, retainedProjection);
+... 359       projectionHandoffPending = retainedProjection !== null;
+345 360       running = snapshot.running; lastTimestamp = null; fractionalTicks = 0; backlogTicks = 0;
+346 361       render();
+347 362       if (session.state.paused || session.state.terminal) suspendInput();
+
+src/ui/game-browser-loop.js --- 7/7 --- JavaScript
+351 366       cancel(); running = false;
+352 367       if (graph === null) {
+353 368         active = false; ACTIVE_ROOTS.delete(checked.root);
+... 369         if (retainedProjection !== null) {
+... 370           try { retainedProjection.cleanup(); } catch {}
+... 371         }
+354 372       }
+355 373       throw error;
+356 374     } finally { inOperation = false; }
+
+src/ui/hud-motion.js --- JavaScript
+18   node.appendChild(progress);         18   node.appendChild(progress);
+19 }                                     19 }
+20                                       20 
+21 export const HUD_MOTION_STYLE = `     21 export const HUD_MOTION_STYLE = `
+22 .game-ui-hud-frame [data-ui="hud-han  22 .game-ui-hud-frame [data-ui="hud-han
+.. d"]{transform:translateY(var(--openi  .. d"]{transform:translateY(var(--openi
+.. ng-offset))}                          .. ng-offset))}
+23 ${[0,1,2,3].map(slot => `.game-ui-hu  23 ${[0,1,2,3].map(slot => `.game-ui-hu
+.. d-frame[data-arrival-slot="${slot}"]  .. d-frame[data-arrival-slot="${slot}"]
+..  .hud-card[data-slot="${slot}"]{tran  ..  .hud-card[data-slot="${slot}"]{tran
+.. sform:translateY(var(--arrival-offse  .. sform:translateY(var(--arrival-offse
+.. t)) rotate(var(--arrival-tilt));tran  .. t)) rotate(var(--arrival-tilt));tran
+.. sform-origin:50% 100%}`).join('')}    .. sform-origin:50% 100%}`).join('')}
+24 .game-ui-hud-frame [data-ui="hud-eli  24 .game-ui-hud-frame [data-ui="hud-eli
+.. xir"]{transform:scale(var(--spend-sc  .. xir"]{transform:scale(var(--spend-sc
+.. ale))}                                .. ale))}
+25 .hud-resource-progress{position:abso  25 .hud-resource-progress{position:abso
+.. lute;left:115px;top:1251px;width:496  .. lute;left:115px;top:1251px;width:496
+.. px;height:22px;pointer-events:none;z  .. px;height:22px;pointer-events:none;z
+.. -index:17;border-radius:7px;backgrou  .. -index:17;border-radius:7px;backgrou
+.. nd:#5B4B8A;clip-path:inset(0 calc(10  .. nd:#5B4B8A;clip-path:inset(0 calc(10
+.. 0% - var(--resource-percent)) 0 0 ro  .. 0% - var(--resource-percent)) 0 0 ro
+.. und 7px);box-shadow:inset 0 3px #DCE  .. und 7px);box-shadow:inset 0 3px #DCE
+.. DE9}                                  .. DE9;transform:translateZ(0)}
+26 @media(prefers-reduced-motion:reduce  26 @media(prefers-reduced-motion:reduce
+.. ){.game-ui-hud-frame [data-ui="hud-h  .. ){.game-ui-hud-frame [data-ui="hud-h
+.. and"],.game-ui-hud-frame .hud-card[d  .. and"],.game-ui-hud-frame .hud-card[d
+.. ata-slot],.game-ui-hud-frame [data-u  .. ata-slot],.game-ui-hud-frame [data-u
+.. i="hud-elixir"]{transform:none!impor  .. i="hud-elixir"]{transform:none!impor
+.. tant}}                                .. tant}}
+27 `;                                    27 `;
+

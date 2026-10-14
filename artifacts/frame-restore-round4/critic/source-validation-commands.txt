@@ -1,0 +1,5 @@
+node --check src/ui/game-browser-loop.js
+node --check src/ui/game-ui-projection.js
+node --check src/ui/hud-motion.js
+node --check tests/game-browser-loop.test.js
+node --check tests/game-ui-projection.test.js

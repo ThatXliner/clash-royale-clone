@@ -1,0 +1,41 @@
+--- /Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/frame-restore-round4/critic/matrix-runner-immutable.mjs	2026-10-14 06:19:01
++++ /tmp/frame-restore-round4-control-81620/.frame-restore-round4-control-runner.mjs	2026-10-14 06:24:31
+@@ -13,7 +13,8 @@
+ const CHROME = process.env.GAME_BROWSER_CHROME ?? '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+ const COMMIT = 'f2f55b820bf5ec8fdec279084e8db33e10c881fc';
+ const BASE = '9f305bb01d0b3c515cfc80f857a303218a1d1acb';
+-const VIEWPORTS = [{ name: 'phone-390x844', width: 390, height: 844 }, { name: 'desktop-1440x933', width: 1440, height: 933 }];
++const VIEWPORTS = [{ name: 'desktop-1440x933', width: 1440, height: 933 }];
++const NORMAL_ONLY = process.env.FRAME_RESTORE_NORMAL_ONLY === '1';
+ const DECK = ['skymaul', 'brassbolt', 'reedsting', 'briar-band', 'cinderlings', 'coilblade', 'mossguard', 'copperskiff'];
+ const OWNED = ['src/ui/game-ui-projection.js', 'src/ui/game-browser-loop.js', 'src/ui/hud-motion.js', 'tests/game-ui-projection.test.js', 'tests/game-browser-loop.test.js'];
+ const MIME = { '.css': 'text/css; charset=utf-8', '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.json': 'application/json; charset=utf-8', '.png': 'image/png', '.svg': 'image/svg+xml' };
+@@ -273,6 +274,16 @@
+     normalStateExact.restoredCombatMarkup = checkpoint.combat === normalRestore.combat;
+     const normalGate = { naturalGeometryPresent: nonzeroNaturalGeometry(initialGeometry), geometryUnchanged: geometrySignature(normalBefore.state.geometry) === geometrySignature(normalAfter.state.geometry), exactAudit: Object.values(normalStateExact).every(Boolean), wholeViewportPngExact: normalBefore.png.equals(normalAfter.png), decodedPixelsExact: normalDiff.differingPixelCount === 0, tick171Restored: normalRestore.tick === 171, naturalGeometryStable: geometrySignature(initialGeometry) === geometrySignature(normalBefore.state.geometry) };
+ 
++    if (NORMAL_ONLY) {
++      const contextResult = { viewport, actualViewport: initialGeometry.outer.viewport, boot, attack, initialNaturalGeometry: initialGeometry, normal: { advance, restore: normalRestore, checkpointAudit, before: { bytes: normalBefore.bytes, sha256: normalBefore.sha256 }, after: { bytes: normalAfter.bytes, sha256: normalAfter.sha256 }, exactStateFields: normalStateExact, pixelDiff: normalDiff, gate: normalGate }, restoreCount: 2, pageErrors, consoleErrors };
++      writeFileSync(resolve(output, 'context-evidence.json'), `${JSON.stringify(contextResult, null, 2)}\n`);
++      log({ context: viewport.name, pid: process.pid, normal: normalGate, normalPixelDiff: { count: normalDiff.differingPixelCount, max: normalDiff.maximumChannelDelta, bbox: normalDiff.boundingBox }, naturalFrame: initialGeometry.outer.nodes.frame.rect, restoreCount: 2 });
++      assert.equal(Object.values(normalGate).every(Boolean), true, `${viewport.name}: normal checkpoint restore failed: ${JSON.stringify(normalGate)}`);
++      assert.deepEqual(pageErrors, [], `${viewport.name}: page errors`);
++      assert.deepEqual(consoleErrors, [], `${viewport.name}: console errors`);
++      return contextResult;
++    }
++
+     await page.emulateMedia({ reducedMotion: 'reduce' });
+     const lateReducedRestore = await child.evaluate((bytes) => {
+       const c = globalThis.__spriteRendererProbe;
+@@ -365,9 +376,9 @@
+     for (const viewport of VIEWPORTS) matrix.push(await runViewport(browser, url, viewport, missingPaths));
+     const afterFence = await sourceFence();
+     const sourceUnchanged = JSON.stringify(beforeFence.sourceSha256) === JSON.stringify(afterFence.sourceSha256) && beforeFence.head === afterFence.head;
+-    const evidence = { diagnostic: 'FRAME-RESTORE-001 final frozen-candidate production-CSS matrix', startedAt, finishedAt: new Date().toISOString(), pid: process.pid, commit: beforeFence.head, base: beforeFence.base, browserVersion, chromiumPath: existsSync(CHROME) ? CHROME : 'playwright-default', sourceFenceBefore: beforeFence, sourceFenceAfter: afterFence, sourceUnchanged, missingPaths, contexts: matrix, overall: { sourceUnchanged, allContextsGreen: matrix.length === VIEWPORTS.length && matrix.every((context) => Object.values(context.normal.gate).every(Boolean) && Object.values(context.reduced.gate).every(Boolean)) && missingPaths.length === 0 } };
++    const evidence = { diagnostic: NORMAL_ONLY ? 'FRAME-RESTORE-001 desktop normal resource-progress-transform negative control' : 'FRAME-RESTORE-001 final frozen-candidate production-CSS matrix', normalOnly: NORMAL_ONLY, startedAt, finishedAt: new Date().toISOString(), pid: process.pid, commit: beforeFence.head, base: beforeFence.base, browserVersion, chromiumPath: existsSync(CHROME) ? CHROME : 'playwright-default', sourceFenceBefore: beforeFence, sourceFenceAfter: afterFence, sourceUnchanged, missingPaths, contexts: matrix, overall: { sourceUnchanged, allContextsGreen: matrix.length === VIEWPORTS.length && matrix.every((context) => Object.values(context.normal.gate).every(Boolean) && (NORMAL_ONLY || Object.values(context.reduced.gate).every(Boolean))) && missingPaths.length === 0 } };
+     writeFileSync(resolve(OUTPUT, 'matrix-evidence.json'), `${JSON.stringify(evidence, null, 2)}\n`);
+-    log({ status: evidence.overall.allContextsGreen && sourceUnchanged ? 'matrix-green' : 'matrix-failed', pid: process.pid, sourceUnchanged, missingPaths, contexts: matrix.map((context) => ({ viewport: context.viewport.name, normal: context.normal.gate, normalPixels: context.normal.pixelDiff.differingPixelCount, reduced: context.reduced.gate, reducedPixels: context.reduced.pixelDiff.differingPixelCount })), evidence: resolve(OUTPUT, 'matrix-evidence.json') });
++    log({ status: evidence.overall.allContextsGreen && sourceUnchanged ? 'matrix-green' : 'matrix-failed', pid: process.pid, sourceUnchanged, missingPaths, contexts: matrix.map((context) => ({ viewport: context.viewport.name, normal: context.normal.gate, normalPixels: context.normal.pixelDiff.differingPixelCount, reduced: context.reduced?.gate ?? null, reducedPixels: context.reduced?.pixelDiff?.differingPixelCount ?? null })), evidence: resolve(OUTPUT, 'matrix-evidence.json') });
+     assert.equal(sourceUnchanged, true, 'candidate runtime/source dependencies changed during matrix');
+     assert.equal(evidence.overall.allContextsGreen, true, 'one or more strict matrix contexts failed');
+   } catch (error) {
