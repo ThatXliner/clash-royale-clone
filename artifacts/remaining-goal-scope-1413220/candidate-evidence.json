@@ -1,0 +1,461 @@
+{
+  "anchorHead": "1413220847b8f05051cce7e1fa10f7eb90cad3a1",
+  "buildingSpawnerReview": {
+    "decision": "Do not transfer these source facts into project identities without a supported identity mapping and lifecycle evidence.",
+    "furnaceFacts": {
+      "deathSpawnCount": 1,
+      "lifetimeMs": 33000,
+      "publisherSupport": "33-second lifetime, 6-second spawn rate and one additional Fire Spirit",
+      "spawnMemberCount": 1,
+      "withinWavePauseMs": 6000
+    },
+    "goblinCageFacts": {
+      "childDeployDelayMs": 500,
+      "deathSpawnCount": 1,
+      "lifetimeMs": 20000,
+      "publisherSupport": "one Brawler on destruction and 20-second lifetime"
+    },
+    "source": "Local spawner-composition-source-audit.md; source mappings are working analogs, not proven aliases.",
+    "unresolved": [
+      "Bramble Cage and Ember Roost identity/child mapping is not source-proven",
+      "timer origin and cadence anchor",
+      "lifetime expiry death-spawn behavior",
+      "destruction cancellation and same-boundary order",
+      "project child identity mapping"
+    ]
+  },
+  "eliteBarbariansFullSignatureReview": {
+    "card": {
+      "cost": 6,
+      "id": 26000043,
+      "key": "elite-barbarians",
+      "sc_key": "AngryBarbarians"
+    },
+    "character": {
+      "areaDamageRadiusRaw": 0,
+      "baseSpeedRaw": 90,
+      "characterDeployDelayMs": 400,
+      "chargeDashJumpSignature": "zero/false in the pinned export",
+      "collisionRadiusRaw": 500,
+      "deployTimeMs": 1000,
+      "fieldCount": 278,
+      "hitSpeedMs": 1400,
+      "loadTimeMs": 900,
+      "massRaw": 4,
+      "walkingSpeedTweakPercentage": -20
+    },
+    "decision": "Do not admit as a plain two-member ordinary profile. This is the candidate CARDS-020K behind GAME-001CHS/GAME-001CHR, not a low-gap substitute.",
+    "source": "RoyaleAPI pinned commit 54fdef52c5086393b085f57faeeab8ef86b28160, as extracted and hashed in the local signature-scope artifact",
+    "supported": [
+      "two initial members",
+      "six-tick inter-member interval from dated 2020 publisher note"
+    ],
+    "troop": {
+      "count": 2,
+      "levelIndex": 0,
+      "memberIntervalRawMs": 100,
+      "projectileAndAbilityLinks": "no linked projectile, buff, hero ability or passive ability in the pinned export",
+      "summonRadiusRaw": 700,
+      "summonWidthRaw": 0,
+      "summonedCharacter": "AngryBarbarian"
+    },
+    "unresolvedBeforeFullRoleAdmission": [
+      "walking_speed_tweak_percentage effect and basis",
+      "character deploy_delay event boundary",
+      "collision_radius use across formation, pathfinding and melee contact",
+      "mass units and any pushback/contact effect",
+      "exact summon geometry and first-member onset",
+      "all normalized combat fields remain per-row QUESTION in the comparison corpus"
+    ]
+  },
+  "normalizedRows": {
+    "elite-barbarians": {
+      "area_damage_radius_tiles": null,
+      "components": [
+        {
+          "area_damage_radius_tiles": null,
+          "count": 2,
+          "damage": 384,
+          "deploy_time_seconds": 1.0,
+          "first_hit_seconds": 0.9,
+          "hit_speed_seconds": 1.4,
+          "hitpoints": 1341,
+          "movement_speed": "fast",
+          "movement_speed_tiles_per_second": 1.5,
+          "name": "Elite Barbarian",
+          "range_tiles": 1.2,
+          "role": "primary",
+          "sight_range_tiles": 6.0,
+          "targets": "ground"
+        }
+      ],
+      "count": 2,
+      "damage": 384,
+      "deploy_time_seconds": 1.0,
+      "elixir_cost": 6,
+      "first_hit_seconds": 0.9,
+      "hit_speed_seconds": 1.4,
+      "hitpoints": 1341,
+      "id": 26000043,
+      "key": "elite-barbarians",
+      "movement_speed": "fast",
+      "movement_speed_tiles_per_second": 1.5,
+      "name": "Elite Barbarians",
+      "notes": [],
+      "range_tiles": 1.2,
+      "rarity": "common",
+      "sight_range_tiles": 6.0,
+      "targets": "ground",
+      "tournament_level": 11,
+      "type": "troop",
+      "unverified_fields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count"
+      ]
+    },
+    "furnace": {
+      "area_damage_radius_tiles": null,
+      "components": [
+        {
+          "area_damage_radius_tiles": null,
+          "count": 1,
+          "damage": null,
+          "deploy_time_seconds": 1.0,
+          "first_hit_seconds": null,
+          "hit_speed_seconds": 6.0,
+          "hitpoints": 848,
+          "movement_speed": "stationary",
+          "movement_speed_tiles_per_second": null,
+          "name": "Furnace",
+          "range_tiles": null,
+          "role": "primary",
+          "sight_range_tiles": null,
+          "targets": "ground"
+        }
+      ],
+      "count": 1,
+      "damage": null,
+      "deploy_time_seconds": 1.0,
+      "elixir_cost": 4,
+      "first_hit_seconds": null,
+      "hit_speed_seconds": 6.0,
+      "hitpoints": 848,
+      "id": 27000010,
+      "key": "furnace",
+      "movement_speed": "stationary",
+      "movement_speed_tiles_per_second": null,
+      "name": "Furnace",
+      "notes": [],
+      "range_tiles": null,
+      "rarity": "rare",
+      "sight_range_tiles": null,
+      "targets": "ground",
+      "tournament_level": 11,
+      "type": "building",
+      "unverified_fields": [
+        "hitpoints",
+        "hit_speed_seconds",
+        "deploy_time_seconds",
+        "movement_speed",
+        "targets",
+        "count"
+      ]
+    },
+    "goblin-cage": {
+      "area_damage_radius_tiles": null,
+      "components": [
+        {
+          "area_damage_radius_tiles": null,
+          "count": 1,
+          "damage": null,
+          "deploy_time_seconds": 1.0,
+          "first_hit_seconds": null,
+          "hit_speed_seconds": 10.0,
+          "hitpoints": 742,
+          "movement_speed": "stationary",
+          "movement_speed_tiles_per_second": null,
+          "name": "Goblin Cage",
+          "range_tiles": 5.0,
+          "role": "primary",
+          "sight_range_tiles": 20.0,
+          "targets": "ground"
+        }
+      ],
+      "count": 1,
+      "damage": null,
+      "deploy_time_seconds": 1.0,
+      "elixir_cost": 4,
+      "first_hit_seconds": null,
+      "hit_speed_seconds": 10.0,
+      "hitpoints": 742,
+      "id": 27000012,
+      "key": "goblin-cage",
+      "movement_speed": "stationary",
+      "movement_speed_tiles_per_second": null,
+      "name": "Goblin Cage",
+      "notes": [],
+      "range_tiles": 5.0,
+      "rarity": "rare",
+      "sight_range_tiles": 20.0,
+      "targets": "ground",
+      "tournament_level": 11,
+      "type": "building",
+      "unverified_fields": [
+        "hitpoints",
+        "hit_speed_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed",
+        "targets",
+        "count"
+      ]
+    },
+    "goblin-hut": {
+      "area_damage_radius_tiles": null,
+      "components": [
+        {
+          "area_damage_radius_tiles": null,
+          "count": 1,
+          "damage": null,
+          "deploy_time_seconds": 1.0,
+          "first_hit_seconds": null,
+          "hit_speed_seconds": 10.0,
+          "hitpoints": 848,
+          "movement_speed": "stationary",
+          "movement_speed_tiles_per_second": null,
+          "name": "Goblin Hut",
+          "range_tiles": null,
+          "role": "primary",
+          "sight_range_tiles": null,
+          "targets": "ground"
+        }
+      ],
+      "count": 1,
+      "damage": null,
+      "deploy_time_seconds": 1.0,
+      "elixir_cost": 5,
+      "first_hit_seconds": null,
+      "hit_speed_seconds": 10.0,
+      "hitpoints": 848,
+      "id": 27000001,
+      "key": "goblin-hut",
+      "movement_speed": "stationary",
+      "movement_speed_tiles_per_second": null,
+      "name": "Goblin Hut",
+      "notes": [],
+      "range_tiles": null,
+      "rarity": "rare",
+      "sight_range_tiles": null,
+      "targets": "ground",
+      "tournament_level": 11,
+      "type": "building",
+      "unverified_fields": [
+        "hitpoints",
+        "hit_speed_seconds",
+        "deploy_time_seconds",
+        "movement_speed",
+        "targets",
+        "count"
+      ]
+    },
+    "valkyrie": {
+      "area_damage_radius_tiles": 2.0,
+      "components": [
+        {
+          "area_damage_radius_tiles": 2.0,
+          "count": 1,
+          "damage": 267,
+          "deploy_time_seconds": 1.0,
+          "first_hit_seconds": 1.4,
+          "hit_speed_seconds": 1.5,
+          "hitpoints": 1908,
+          "movement_speed": "medium",
+          "movement_speed_tiles_per_second": 1.0,
+          "name": "Valkyrie",
+          "range_tiles": 1.2,
+          "role": "primary",
+          "sight_range_tiles": 5.5,
+          "targets": "ground"
+        }
+      ],
+      "count": 1,
+      "damage": 267,
+      "deploy_time_seconds": 1.0,
+      "elixir_cost": 4,
+      "first_hit_seconds": 1.4,
+      "hit_speed_seconds": 1.5,
+      "hitpoints": 1908,
+      "id": 26000011,
+      "key": "valkyrie",
+      "movement_speed": "medium",
+      "movement_speed_tiles_per_second": 1.0,
+      "name": "Valkyrie",
+      "notes": [],
+      "range_tiles": 1.2,
+      "rarity": "rare",
+      "sight_range_tiles": 5.5,
+      "targets": "ground",
+      "tournament_level": 11,
+      "type": "troop",
+      "unverified_fields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count",
+        "area_damage_radius_tiles"
+      ]
+    }
+  },
+  "sourceFiles": {
+    "artifacts/cards020k-signature-scope/builder/scope.md": "31465541eef7b9822778eca46d13a58da199738cd091ad3278b3b87e6169f6bf",
+    "artifacts/cards020k-stat-semantics-scope/builder/scope.md": "75507bb45bd070a23db5f272a66ef368d7768ebe4efaf6c2f417bef305fc9e38",
+    "artifacts/next-roster-batch-scope/builder/scope.md": "0e399cc3dac113c66c70aaa02582ab46e4114d11cc76359e17997723bab6cda1",
+    "reference/research/melee-splash-source-audit.md": "e4eabb9cb40552311a610f5247166fd9f1fd415f20a0f0d9da9060a7f3e65586",
+    "reference/research/spawner-composition-source-audit.md": "4a3ab1942134c2a80cdfd68e2721469e670228feb1f39ce0aff97ca82b57a852"
+  },
+  "valkyrieMeleeAreaReview": {
+    "datedPublisherConflict": {
+      "2019-07": "Supercell note says range 1.2 tiles and area radius 2.4 tiles.",
+      "2023-02-18": "pinned row encodes range 1200 and area radius 2000; local convention normalizes to 1.2 and 2.0 tiles.",
+      "resolved": false
+    },
+    "decision": "Best candidate for a missing shared mechanic. A bounded deterministic clustered-ground runtime slice is actionable now with versioned, non-authoritative QUESTION policies; full-role admission and historical calibration remain behind complete signature review and a controlled, permissioned pre-cutoff capture.",
+    "normalized": {
+      "area_damage_radius_tiles": 2.0,
+      "components": [
+        {
+          "area_damage_radius_tiles": 2.0,
+          "count": 1,
+          "damage": 267,
+          "deploy_time_seconds": 1.0,
+          "first_hit_seconds": 1.4,
+          "hit_speed_seconds": 1.5,
+          "hitpoints": 1908,
+          "movement_speed": "medium",
+          "movement_speed_tiles_per_second": 1.0,
+          "name": "Valkyrie",
+          "range_tiles": 1.2,
+          "role": "primary",
+          "sight_range_tiles": 5.5,
+          "targets": "ground"
+        }
+      ],
+      "count": 1,
+      "damage": 267,
+      "deploy_time_seconds": 1.0,
+      "elixir_cost": 4,
+      "first_hit_seconds": 1.4,
+      "hit_speed_seconds": 1.5,
+      "hitpoints": 1908,
+      "id": 26000011,
+      "key": "valkyrie",
+      "movement_speed": "medium",
+      "movement_speed_tiles_per_second": 1.0,
+      "name": "Valkyrie",
+      "notes": [],
+      "range_tiles": 1.2,
+      "rarity": "rare",
+      "sight_range_tiles": 5.5,
+      "targets": "ground",
+      "tournament_level": 11,
+      "type": "troop",
+      "unverified_fields": [
+        "hitpoints",
+        "damage",
+        "hit_speed_seconds",
+        "first_hit_seconds",
+        "deploy_time_seconds",
+        "range_tiles",
+        "sight_range_tiles",
+        "movement_speed_tiles_per_second",
+        "movement_speed",
+        "targets",
+        "count",
+        "area_damage_radius_tiles"
+      ]
+    },
+    "rawExtractIsCompleteCharacterRecord": false,
+    "rawSelectedFacts": {
+      "all_targets_hit": false,
+      "area_damage_radius": 2000,
+      "attacks_air": false,
+      "attacks_ground": true,
+      "collision_radius": 500,
+      "multiple_targets": 0,
+      "projectile": null,
+      "range": 1200,
+      "self_as_aoe_center": true
+    },
+    "rawSelectedFieldCount": 30,
+    "runtimeGap": {
+      "conclusion": "melee-area requires a shared combat path; projectile splash is not a valid shortcut",
+      "directMeleeBranch": "one direct hit in the melee-delivery branch",
+      "existingAreaPath": "ordinary projectile impact",
+      "file": "src/sim/battle-continuation-kernel.js",
+      "projectileSplashFile": "src/sim/ordinary-projectile-splash.js"
+    },
+    "source": "Pinned 2023-02-18 row, local selective extraction and local dated source audit",
+    "supportedClaim": "qualitative ground melee area damage around the unit",
+    "unresolved": [
+      "full raw character signature",
+      "effective center and radius boundary",
+      "splash target layers and secondary damage rule",
+      "target cap/order and simultaneous application",
+      "tower/building interaction"
+    ]
+  },
+  "artAggregateReview": {
+    "art004": {
+      "planState": "BUILDING 0/0",
+      "proofAlreadyPresent": [
+        "original Briar Runner directional walk and attack frames",
+        "simulation-tick frame selection and reduced-motion policy",
+        "focused source/browser tests and current 720x1280 plus 390x844 captures",
+        "byte-identical checkpoint restore at both tested viewports"
+      ],
+      "currentRealAssetGaps": [],
+      "nextAction": "Fresh ART-004 aggregate proof/critic on exact accepted source; reconcile latest accepted sprite critique and current phone marker visibility.",
+      "historicalParityBlockedByFootage": true
+    },
+    "art005": {
+      "planState": "BUILDING 0/0",
+      "acceptedChildren": ["ART-005A", "ART-005S"],
+      "registeredArenaAsset": {
+        "path": "public/assets/moss-ember-arena-painted.webp",
+        "sha256": "22713e1725c21a8f853df5e2af3278689e7e844783606d93c7a12a365d8e930e"
+      },
+      "registeredTroopAsset": {
+        "path": "public/assets/briar-runner-painted-sheet.png",
+        "sha256": "a1aa43df00dacc212beedb4905dddd7a57db412981ea29662bc1d868a97794f4"
+      },
+      "currentRealAssetGaps": [],
+      "nextAction": "Fresh aggregate accepted-HEAD render/critique showing painted terrain and troop frames together with HUD, legal geometry, team identity, and exact restore.",
+      "historicalParityBlockedByFootage": true
+    }
+  },
+  "releaseGuardAggregateReview": {
+    "planState": "BUILDING 29/29",
+    "stalePlanGap": "RELEASE-TEST-001 production release/host isolation failures are resolved by its accepted 33/33 source-isolation pass.",
+    "acceptedRelevantChildren": ["GAME-SPELL-001", "ART-005S", "RELEASE-ASSET-001", "RELEASE-TEST-001"],
+    "remainingEvidenceGate": "Current accepted-source aggregate plus strict 18000-tick/default-eight and separate expanded natural-terminal match evidence from GAME-001GPR7.",
+    "nextAction": "After CARDS-019I acceptance and GPR7 source freeze, refresh aggregate source guards, spell legacy-byte checks, registered assets in source and packaged output, assembled Pages qualification, and full-endurance retention.",
+    "notAReleaseOr109CardParityClaim": true
+  }
+}

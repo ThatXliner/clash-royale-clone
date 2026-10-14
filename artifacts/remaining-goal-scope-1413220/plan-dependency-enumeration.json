@@ -1,0 +1,2550 @@
+{
+  "anchor": {
+    "acceptedHead": "1413220847b8f05051cce7e1fa10f7eb90cad3a1",
+    "planSha256": "a2d8da7c5dfa559afd7e98bb287cb16b50462ce0fd5ed949cf704acdcd4f75ac",
+    "sourceLedgerSha256": "9d2e56266451a02486f6893d35f37989660d6f9d838be2d953b8e242beff78ee",
+    "statsCardsSha256": "2903e9b3cb759fd6229b0463df4de8b29a5500995a768691fcfc9b5c05ff6b5f",
+    "workingTreeAtInventoryStart": "clean detached checkout"
+  },
+  "currentAndStaleInventories": {
+    "checkedOutRuntimeCountsMustBeCapturedSeparately": true,
+    "olderGeneratedInventory": {
+      "admittedIds": 49,
+      "admittedOccurrences": 54,
+      "editableCount": 11,
+      "path": "artifacts/completion-inventory/reference/card-coverage-109.json",
+      "sha256": "e68bf690793d531c863f14117deace21de595c906ecbc8bf39cc98856cd33c07"
+    },
+    "snapshot16": {
+      "counts": {
+        "IDsWithoutExactHistoricalIdentityClaim": 4,
+        "additionalTestDeclaredComparator": 1,
+        "currentAdmittedOccurrences": 19,
+        "currentProfileOrEstimateRecords": 16,
+        "editableCurrentIds": 16,
+        "editableCurrentKinds": {
+          "effect": 1,
+          "unit": 15
+        },
+        "fullHistoricalCardExecutions": 0,
+        "historicalParityClaims": 0,
+        "historicalRows": 109,
+        "historicalTypes": {
+          "building": 13,
+          "spell": 18,
+          "troop": 78
+        },
+        "questionFixtureMentions": 2,
+        "retainedBaselineComparators": 11,
+        "sessionCatalog": {
+          "admittedIds": 53,
+          "admittedOccurrences": 58,
+          "effects": 8,
+          "structures": 8,
+          "unitOccurrences": 39,
+          "units": 37
+        },
+        "totalTestDeclaredComparators": 12,
+        "unchangedDefaultDeckIds": 8
+      },
+      "path": "artifacts/completion-inventory-current-16/card-coverage-109-current-16.json",
+      "sha256": "674aa6320a79ae452f854e2bcc6e40fe4a504b3963cddb28815e876ef206118b",
+      "sourceCommit": "6dcf64b81751f69f9fe7520878ac136bda9143ed"
+    },
+    "snapshot18": {
+      "counts": {
+        "IDsWithoutExactHistoricalIdentityClaim": 6,
+        "additionalTestDeclaredComparator": 1,
+        "currentAdmittedOccurrences": 21,
+        "currentProfileOrEstimateRecords": 18,
+        "editableCurrentIds": 18,
+        "editableCurrentKinds": {
+          "effect": 1,
+          "structure": 0,
+          "unit": 17
+        },
+        "fullHistoricalCardExecutions": 0,
+        "historicalParityClaims": 0,
+        "historicalRows": 109,
+        "historicalTypes": {
+          "building": 13,
+          "spell": 18,
+          "troop": 78
+        },
+        "questionFixtureMentions": 2,
+        "retainedBaselineComparators": 11,
+        "sessionCatalog": {
+          "admittedIds": 55,
+          "admittedOccurrences": 60,
+          "effects": 8,
+          "structures": 8,
+          "unitOccurrences": 41,
+          "units": 39
+        },
+        "totalTestDeclaredComparators": 12,
+        "typedUnverifiedMechanicsQuestionCards": 2,
+        "typedUnverifiedMechanicsQuestionRecords": 26,
+        "unchangedDefaultDeckIds": 8
+      },
+      "path": "artifacts/completion-inventory-current-18/card-coverage-109-current-18.json",
+      "sha256": "49d5e9f4b09e0724eab5e30624e505565514ad41e80b256528fc7111e12b2396",
+      "sourceCommit": "a8c39bcc02329ba22b3fdd50be7d1089bc6010dc"
+    }
+  },
+  "historicalTarget": {
+    "candidateNormalizedRows": {
+      "elite-barbarians": {
+        "area_damage_radius_tiles": null,
+        "components": [
+          {
+            "area_damage_radius_tiles": null,
+            "count": 2,
+            "damage": 384,
+            "deploy_time_seconds": 1.0,
+            "first_hit_seconds": 0.9,
+            "hit_speed_seconds": 1.4,
+            "hitpoints": 1341,
+            "movement_speed": "fast",
+            "movement_speed_tiles_per_second": 1.5,
+            "name": "Elite Barbarian",
+            "range_tiles": 1.2,
+            "role": "primary",
+            "sight_range_tiles": 6.0,
+            "targets": "ground"
+          }
+        ],
+        "count": 2,
+        "damage": 384,
+        "deploy_time_seconds": 1.0,
+        "elixir_cost": 6,
+        "first_hit_seconds": 0.9,
+        "hit_speed_seconds": 1.4,
+        "hitpoints": 1341,
+        "id": 26000043,
+        "key": "elite-barbarians",
+        "movement_speed": "fast",
+        "movement_speed_tiles_per_second": 1.5,
+        "name": "Elite Barbarians",
+        "notes": [],
+        "range_tiles": 1.2,
+        "rarity": "common",
+        "sight_range_tiles": 6.0,
+        "targets": "ground",
+        "tournament_level": 11,
+        "type": "troop",
+        "unverified_fields": [
+          "hitpoints",
+          "damage",
+          "hit_speed_seconds",
+          "first_hit_seconds",
+          "deploy_time_seconds",
+          "range_tiles",
+          "sight_range_tiles",
+          "movement_speed_tiles_per_second",
+          "movement_speed",
+          "targets",
+          "count"
+        ]
+      },
+      "furnace": {
+        "area_damage_radius_tiles": null,
+        "components": [
+          {
+            "area_damage_radius_tiles": null,
+            "count": 1,
+            "damage": null,
+            "deploy_time_seconds": 1.0,
+            "first_hit_seconds": null,
+            "hit_speed_seconds": 6.0,
+            "hitpoints": 848,
+            "movement_speed": "stationary",
+            "movement_speed_tiles_per_second": null,
+            "name": "Furnace",
+            "range_tiles": null,
+            "role": "primary",
+            "sight_range_tiles": null,
+            "targets": "ground"
+          }
+        ],
+        "count": 1,
+        "damage": null,
+        "deploy_time_seconds": 1.0,
+        "elixir_cost": 4,
+        "first_hit_seconds": null,
+        "hit_speed_seconds": 6.0,
+        "hitpoints": 848,
+        "id": 27000010,
+        "key": "furnace",
+        "movement_speed": "stationary",
+        "movement_speed_tiles_per_second": null,
+        "name": "Furnace",
+        "notes": [],
+        "range_tiles": null,
+        "rarity": "rare",
+        "sight_range_tiles": null,
+        "targets": "ground",
+        "tournament_level": 11,
+        "type": "building",
+        "unverified_fields": [
+          "hitpoints",
+          "hit_speed_seconds",
+          "deploy_time_seconds",
+          "movement_speed",
+          "targets",
+          "count"
+        ]
+      },
+      "goblin-cage": {
+        "area_damage_radius_tiles": null,
+        "components": [
+          {
+            "area_damage_radius_tiles": null,
+            "count": 1,
+            "damage": null,
+            "deploy_time_seconds": 1.0,
+            "first_hit_seconds": null,
+            "hit_speed_seconds": 10.0,
+            "hitpoints": 742,
+            "movement_speed": "stationary",
+            "movement_speed_tiles_per_second": null,
+            "name": "Goblin Cage",
+            "range_tiles": 5.0,
+            "role": "primary",
+            "sight_range_tiles": 20.0,
+            "targets": "ground"
+          }
+        ],
+        "count": 1,
+        "damage": null,
+        "deploy_time_seconds": 1.0,
+        "elixir_cost": 4,
+        "first_hit_seconds": null,
+        "hit_speed_seconds": 10.0,
+        "hitpoints": 742,
+        "id": 27000012,
+        "key": "goblin-cage",
+        "movement_speed": "stationary",
+        "movement_speed_tiles_per_second": null,
+        "name": "Goblin Cage",
+        "notes": [],
+        "range_tiles": 5.0,
+        "rarity": "rare",
+        "sight_range_tiles": 20.0,
+        "targets": "ground",
+        "tournament_level": 11,
+        "type": "building",
+        "unverified_fields": [
+          "hitpoints",
+          "hit_speed_seconds",
+          "deploy_time_seconds",
+          "range_tiles",
+          "sight_range_tiles",
+          "movement_speed",
+          "targets",
+          "count"
+        ]
+      },
+      "goblin-hut": {
+        "area_damage_radius_tiles": null,
+        "components": [
+          {
+            "area_damage_radius_tiles": null,
+            "count": 1,
+            "damage": null,
+            "deploy_time_seconds": 1.0,
+            "first_hit_seconds": null,
+            "hit_speed_seconds": 10.0,
+            "hitpoints": 848,
+            "movement_speed": "stationary",
+            "movement_speed_tiles_per_second": null,
+            "name": "Goblin Hut",
+            "range_tiles": null,
+            "role": "primary",
+            "sight_range_tiles": null,
+            "targets": "ground"
+          }
+        ],
+        "count": 1,
+        "damage": null,
+        "deploy_time_seconds": 1.0,
+        "elixir_cost": 5,
+        "first_hit_seconds": null,
+        "hit_speed_seconds": 10.0,
+        "hitpoints": 848,
+        "id": 27000001,
+        "key": "goblin-hut",
+        "movement_speed": "stationary",
+        "movement_speed_tiles_per_second": null,
+        "name": "Goblin Hut",
+        "notes": [],
+        "range_tiles": null,
+        "rarity": "rare",
+        "sight_range_tiles": null,
+        "targets": "ground",
+        "tournament_level": 11,
+        "type": "building",
+        "unverified_fields": [
+          "hitpoints",
+          "hit_speed_seconds",
+          "deploy_time_seconds",
+          "movement_speed",
+          "targets",
+          "count"
+        ]
+      },
+      "valkyrie": {
+        "area_damage_radius_tiles": 2.0,
+        "components": [
+          {
+            "area_damage_radius_tiles": 2.0,
+            "count": 1,
+            "damage": 267,
+            "deploy_time_seconds": 1.0,
+            "first_hit_seconds": 1.4,
+            "hit_speed_seconds": 1.5,
+            "hitpoints": 1908,
+            "movement_speed": "medium",
+            "movement_speed_tiles_per_second": 1.0,
+            "name": "Valkyrie",
+            "range_tiles": 1.2,
+            "role": "primary",
+            "sight_range_tiles": 5.5,
+            "targets": "ground"
+          }
+        ],
+        "count": 1,
+        "damage": 267,
+        "deploy_time_seconds": 1.0,
+        "elixir_cost": 4,
+        "first_hit_seconds": 1.4,
+        "hit_speed_seconds": 1.5,
+        "hitpoints": 1908,
+        "id": 26000011,
+        "key": "valkyrie",
+        "movement_speed": "medium",
+        "movement_speed_tiles_per_second": 1.0,
+        "name": "Valkyrie",
+        "notes": [],
+        "range_tiles": 1.2,
+        "rarity": "rare",
+        "sight_range_tiles": 5.5,
+        "targets": "ground",
+        "tournament_level": 11,
+        "type": "troop",
+        "unverified_fields": [
+          "hitpoints",
+          "damage",
+          "hit_speed_seconds",
+          "first_hit_seconds",
+          "deploy_time_seconds",
+          "range_tiles",
+          "sight_range_tiles",
+          "movement_speed_tiles_per_second",
+          "movement_speed",
+          "targets",
+          "count",
+          "area_damage_radius_tiles"
+        ]
+      }
+    },
+    "countByType": {
+      "building": 13,
+      "spell": 18,
+      "troop": 78
+    },
+    "identityCount": 109,
+    "unverifiedFieldOccurrences": {
+      "area_damage_radius_tiles": 25,
+      "count": 90,
+      "damage": 94,
+      "deploy_time_seconds": 91,
+      "first_hit_seconds": 83,
+      "hit_speed_seconds": 88,
+      "hitpoints": 91,
+      "movement_speed": 91,
+      "movement_speed_tiles_per_second": 78,
+      "range_tiles": 85,
+      "sight_range_tiles": 86,
+      "targets": 109
+    },
+    "valkyrieExtractGeneratorFieldListIsSelective": true,
+    "valkyriePinnedSelectedRawExtract": {
+      "card_description_row": {
+        "description": "Tough melee fighter, deals area damage around her. Swarm or horde, no problem! She can take them all out with a few spins.",
+        "elixir": 4,
+        "key": "valkyrie",
+        "name": "Valkyrie",
+        "rarity": "Rare",
+        "type": "Troop"
+      },
+      "character_row": {
+        "all_targets_hit": false,
+        "area_damage_radius": 2000,
+        "attacks_air": false,
+        "attacks_ground": true,
+        "building_target": false,
+        "collision_radius": 500,
+        "damage": 126,
+        "damage_per_level": [
+          126,
+          138,
+          152,
+          167,
+          183,
+          201,
+          221,
+          243,
+          267,
+          293,
+          322,
+          354,
+          389,
+          428,
+          471,
+          517,
+          569
+        ],
+        "deploy_time": 1000,
+        "description": "Tough melee fighter, deals area damage around her. Swarm or horde, no problem! She can take them all out with a few spins.",
+        "elixir": 4,
+        "hit_speed": 1500,
+        "hitpoints": 900,
+        "hitpoints_per_level": [
+          900,
+          990,
+          1089,
+          1197,
+          1314,
+          1440,
+          1584,
+          1737,
+          1908,
+          2097,
+          2304,
+          2529,
+          2781,
+          3060,
+          3366,
+          3699,
+          4068
+        ],
+        "id": 26000011,
+        "key": "valkyrie",
+        "load_time": 1400,
+        "minimum_range": 0,
+        "multiple_targets": 0,
+        "name": "Valkyrie",
+        "projectile": null,
+        "range": 1200,
+        "rarity": "Rare",
+        "self_as_aoe_center": true,
+        "sight_range": 5500,
+        "speed": 60,
+        "target_only_buildings": false,
+        "target_only_towers": false,
+        "target_only_troops": false,
+        "type": "Troop"
+      },
+      "source": {
+        "cards_blob_sha": "9a26927d54fbf358138e10d2f5bb5519e6f8602e",
+        "cards_path": "docs/json/cards.json",
+        "cards_raw_sha256": "312574f75ada2ff5ad605e1eb122c3b620d1163c5a675d67cd9e64122b3d6946",
+        "characters_blob_sha": "a86a93da5b27a27ae891cfa3c67b13b7f3b2080e",
+        "characters_path": "docs/json/cards_stats_characters.json",
+        "characters_raw_sha256": "37734d1508584e43851395c01b2d10046667eb6dc27daef37e5df56e74f933ac",
+        "commit": "54fdef52c5086393b085f57faeeab8ef86b28160",
+        "commit_date_utc": "2023-02-18T11:25:16Z",
+        "publisher": "RoyaleAPI",
+        "repository": "https://github.com/RoyaleAPI/cr-api-data"
+      }
+    },
+    "valkyrieSelectedRawFieldCount": 30
+  },
+  "plan": {
+    "focusDependencyFrontier": [
+      {
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "CARDS-019K",
+            "state": "PASS"
+          },
+          {
+            "id": "CARDS-019H1",
+            "state": "PASS"
+          },
+          {
+            "id": "CARDS-019D",
+            "state": "PASS"
+          },
+          {
+            "id": "ART-019P",
+            "state": "PASS"
+          },
+          {
+            "id": "ART-019B",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "CARDS-019K",
+          "CARDS-019H1",
+          "CARDS-019D",
+          "ART-019P",
+          "ART-019B"
+        ],
+        "dependsOnRaw": "CARDS-019K, CARDS-019H1, CARDS-019D, ART-019P, ART-019B",
+        "gap": "Round445 FAIL: same-custom-deck terminal restart/audio/event proof missing acrossfourcontexts. Subsequentbaseline reproduction shows2vs1 isstaleaggregatearena listenerassertion: intended pointermove+pointerup, not duplicate restartlistener. SeparateGAME-001GRG repair underreview; actualKrestart proof rebuild ongoing, no producerleak proven andno arena adoption.",
+        "id": "CARDS-019I",
+        "line": 353,
+        "state": "BUILDING",
+        "unresolvedDependencyText": []
+      },
+      {
+        "allListedDependenciesPass": false,
+        "dependencyStates": [
+          {
+            "id": "GAME-001GPR6",
+            "state": "PASS"
+          },
+          {
+            "id": "CARDS-019I",
+            "state": "BUILDING"
+          },
+          {
+            "id": "APP-004G",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "GAME-001GPR6",
+          "CARDS-019I",
+          "APP-004G"
+        ],
+        "dependsOnRaw": "GAME-001GPR6, CARDS-019I, APP-004G",
+        "gap": "Await independent CARDS-019I acceptance, then freeze exact accepted source. Older9f proof does not cover newer homing or arena projection. Full default-eight18000 and separate actual expanded Kilnkeeper match required; natural early terminal of expanded workload must not be overridden.",
+        "id": "GAME-001GPR7",
+        "line": 340,
+        "state": "BLOCKED",
+        "unresolvedDependencyText": []
+      },
+      {
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "GAME-001HBA",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001HBP",
+            "state": "PASS"
+          },
+          {
+            "id": "BUILDING-001",
+            "state": "PASS"
+          },
+          {
+            "id": "BUILDING-002",
+            "state": "PASS"
+          },
+          {
+            "id": "BUILDING-003A",
+            "state": "PASS"
+          },
+          {
+            "id": "BUILDING-003B",
+            "state": "PASS"
+          },
+          {
+            "id": "CONTENT-012E",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "GAME-001HBA",
+          "GAME-001HBP",
+          "BUILDING-001",
+          "BUILDING-002",
+          "BUILDING-003A",
+          "BUILDING-003B",
+          "CONTENT-012E"
+        ],
+        "dependsOnRaw": "GAME-001HBA, GAME-001HBP, BUILDING-001, BUILDING-002, BUILDING-003A, BUILDING-003B, CONTENT-012E",
+        "gap": "Round 3 confirms shared execution and the HBP provenance fix, but the required periodic/death-spawn GameSession path remains unverified: Bramble Cage and Ember Roost still have identity-only QUESTION records and reject admission, while Burrow Rig emits a spawn-question event without a unit. The isolated BUILDING-002 encounter does not establish a source-backed shared-session spawner. Sourceaudit55afe51 separately corroborates GoblinHut3/wave,500ms intermember,10s frequency,29s lifetime andrawdeathcount3; timerorigin/cadenceanchor/expiryordering remainQUESTION andnooriginalruntimealias is asserted.",
+        "id": "GAME-001HB",
+        "line": 230,
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      },
+      {
+        "allListedDependenciesPass": false,
+        "dependencyStates": [
+          {
+            "id": "GAME-001HA",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001HI",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001HT",
+            "state": "BLOCKED"
+          },
+          {
+            "id": "GAME-001HB",
+            "state": "QUESTION"
+          },
+          {
+            "id": "GAME-001HS",
+            "state": "BLOCKED"
+          }
+        ],
+        "dependsOn": [
+          "GAME-001HA",
+          "GAME-001HI",
+          "GAME-001HT",
+          "GAME-001HB",
+          "GAME-001HS"
+        ],
+        "dependsOnRaw": "GAME-001HA, GAME-001HI, GAME-001HT, GAME-001HB, GAME-001HS",
+        "gap": "Split into independently judged shared admission, authority integration, troop, building and spell session bindings",
+        "id": "GAME-001H",
+        "line": 214,
+        "state": "BLOCKED",
+        "unresolvedDependencyText": []
+      },
+      {
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "GAME-001HA",
+            "state": "PASS"
+          },
+          {
+            "id": "INTEGRATION-001R",
+            "state": "PASS"
+          },
+          {
+            "id": "SPELL-001",
+            "state": "PASS"
+          },
+          {
+            "id": "SPELL-002B",
+            "state": "PASS"
+          },
+          {
+            "id": "SPELL-002C",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "GAME-001HA",
+          "INTEGRATION-001R",
+          "SPELL-001",
+          "SPELL-002B",
+          "SPELL-002C"
+        ],
+        "dependsOnRaw": "GAME-001HA, INTEGRATION-001R, SPELL-001, SPELL-002B, SPELL-002C",
+        "gap": "Four Squall exports demonstrably reuse one base catalog; return is an unsourced fixture context, not proven card phase. Resolve context classification and independently source real activation/travel/impact policy",
+        "id": "GAME-001HSQ",
+        "line": 240,
+        "state": "BLOCKED",
+        "unresolvedDependencyText": []
+      },
+      {
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "GAME-001HTP",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001HTA",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001HTM",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "GAME-001HTP",
+          "GAME-001HTA",
+          "GAME-001HTM"
+        ],
+        "dependsOnRaw": "GAME-001HTP, GAME-001HTA, GAME-001HTM",
+        "gap": "Cutoff sources establish 3.0-tile charge range, 2\u00d7 speed and 392 bonus damage, but not reset classes, inclusive tick boundary, same-boundary hit/death order or serialized state; current 3.5-tile QUESTION fixture conflicts with the cutoff",
+        "id": "GAME-001HTEC",
+        "line": 227,
+        "state": "BLOCKED",
+        "unresolvedDependencyText": []
+      },
+      {
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "GAME-001HTP",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001HTA",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001HTJ",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001HTS",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "GAME-001HTP",
+          "GAME-001HTA",
+          "GAME-001HTJ",
+          "GAME-001HTS"
+        ],
+        "dependsOnRaw": "GAME-001HTP, GAME-001HTA, GAME-001HTJ, GAME-001HTS",
+        "gap": "Cutoff sources establish cost 1, cooldown 17 s, active duration 4 s, radius 1.5 tiles and 80% reduction, but not activation delay, projectile enum semantics, identity/target rewrite, simultaneous order or expiry/death boundaries; current 0.5-tile QUESTION fixture conflicts with the cutoff",
+        "id": "GAME-001HTAC",
+        "line": 228,
+        "state": "BLOCKED",
+        "unresolvedDependencyText": []
+      },
+      {
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "COVERAGE-003",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "COVERAGE-003"
+        ],
+        "dependsOnRaw": "COVERAGE-003",
+        "gap": "Bounded primary-source lookup completed: June2020 supports100ms member interval only. Walking tweak -20, separate character deploy400ms, collision radius500 and mass4 remain undefined by dated consumer evidence; scope artifacts/cards020k-stat-semantics-scope/builder/scope.md. No inferred multipliers.",
+        "id": "GAME-001CHS",
+        "line": 365,
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      },
+      {
+        "allListedDependenciesPass": false,
+        "dependencyStates": [
+          {
+            "id": "GAME-001CHS",
+            "state": "QUESTION"
+          },
+          {
+            "id": "CARDS-019H1",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "GAME-001CHS",
+          "CARDS-019H1"
+        ],
+        "dependsOnRaw": "GAME-001CHS, CARDS-019H1",
+        "gap": "Requires source semantics gate; current multi-member radius is provisional 300 and other raw fields are omitted. Split needed before Rivet Runners admission.",
+        "id": "GAME-001CHR",
+        "line": 366,
+        "state": "BLOCKED",
+        "unresolvedDependencyText": []
+      },
+      {
+        "allListedDependenciesPass": false,
+        "dependencyStates": [
+          {
+            "id": "CARDS-019H1",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001MS",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001CHR",
+            "state": "BLOCKED"
+          }
+        ],
+        "dependsOn": [
+          "CARDS-019H1",
+          "GAME-001MS",
+          "GAME-001CHR"
+        ],
+        "dependsOnRaw": "CARDS-019H1, GAME-001MS, GAME-001CHR",
+        "gap": "Full pinned signature has no active linked special ability, but ordinary projection omits walking-speed tweak -20, character deploy delay 400ms, collision radius 500 and mass 4. Shared stat semantics/runtime must be represented before complete-role admission; source scope artifacts/cards020k-signature-scope/builder/scope.md.",
+        "id": "CARDS-020K",
+        "line": 358,
+        "state": "BLOCKED",
+        "unresolvedDependencyText": []
+      },
+      {
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "UI-001A",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "UI-001A"
+        ],
+        "dependsOnRaw": "UI-001A",
+        "gap": "Required footage absent",
+        "id": "VIS-001",
+        "line": 150,
+        "state": "BLOCKED",
+        "unresolvedDependencyText": []
+      },
+      {
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "UI-002A",
+            "state": "PASS"
+          },
+          {
+            "id": "UI-002B",
+            "state": "PASS"
+          },
+          {
+            "id": "UI-002CV",
+            "state": "PASS"
+          },
+          {
+            "id": "UI-002D",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "UI-002A",
+          "UI-002B",
+          "UI-002CV",
+          "UI-002D"
+        ],
+        "dependsOnRaw": "UI-002A, UI-002B, UI-002CV, UI-002D",
+        "gap": "Required footage absent",
+        "id": "VIS-002",
+        "line": 151,
+        "state": "BLOCKED",
+        "unresolvedDependencyText": []
+      },
+      {
+        "allListedDependenciesPass": false,
+        "dependencyStates": [
+          {
+            "id": "GAME-001HUIR",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001HB",
+            "state": "QUESTION"
+          },
+          {
+            "id": "VIS-003C",
+            "state": "PASS"
+          },
+          {
+            "id": "VIS-003D",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "GAME-001HUIR",
+          "GAME-001HB",
+          "VIS-003C",
+          "VIS-003D"
+        ],
+        "dependsOnRaw": "GAME-001HUIR, GAME-001HB, VIS-003C, VIS-003D",
+        "gap": "Round 5 preserves and rejects stripped/forged profile receipts, carries the QUESTION policy through GameSession/live structures and browser restore, keeps Standard exact, and restores the full 720\u00d71280 viewport with 0 changed pixels. However, the live session still executes `firstHitTicks=0` against a source `null` and performs six attacks using unverified Cannon damage 212, HP 824, deploy 60 ticks, range 5,500, and ground targeting; labeling those estimates QUESTION does not meet the no-unsourced-policy bar. Source audit: reference/research/cannon-combat-source-audit.md confirms the cutoff datamine but no established first-hit semantics or same-cutoff corroboration; retain provisional labeling and do not claim parity.",
+        "id": "GAME-001HUIB",
+        "line": 236,
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      }
+    ],
+    "incompleteCount": 52,
+    "incompleteRows": [
+      {
+        "acceptance": "Original combined bar: tick/replay behavior plus exhaustive nondeterminism source gate",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [],
+        "dependsOn": [],
+        "dependsOnRaw": "\u2014",
+        "gap": "Wrong-shaped after three source-gate bypass rounds; split into SIM-001K and GUARD-001",
+        "id": "SIM-001",
+        "line": 50,
+        "passRate": "5/5",
+        "piece": "Fixed-step world and replay log (superseded)",
+        "rounds": "3",
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Original combined bar: schema correctness plus exhaustive protected-name/reference-import isolation",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "SIM-001K",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "SIM-001K"
+        ],
+        "dependsOnRaw": "SIM-001K",
+        "gap": "Wrong-shaped after three static reference-path bypass rounds; split into CONTENT-001S and GUARD-002",
+        "id": "CONTENT-001",
+        "line": 72,
+        "passRate": "16/16",
+        "piece": "Original runtime card schema and validation (superseded)",
+        "rounds": "4",
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "`npm test -- shipping-isolation-guard`: resolver/module-graph and distributable-byte enforcement proves no shipped entry can resolve, import, embed, or bundle `reference/` or protected benchmark identities, including escaped/concatenated specifiers, while test-only comparison fixtures remain excluded",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [],
+        "dependsOn": [],
+        "dependsOnRaw": "\u2014",
+        "gap": "Wrong-shaped after three graph-closure rounds: custom exports conditions and reflective code loaders remain executable outside a dependency-free static evaluator; requires actual bundler/runtime sandbox enforcement",
+        "id": "GUARD-002",
+        "line": 74,
+        "passRate": "13/13",
+        "piece": "Reference and protected-identity shipping isolation",
+        "rounds": "3",
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Original combined bar bundled four unrelated movement state machines",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "ARENA-002",
+            "state": "PASS"
+          },
+          {
+            "id": "SIM-008",
+            "state": "PASS"
+          },
+          {
+            "id": "CONTENT-001S",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "ARENA-002",
+          "SIM-008",
+          "CONTENT-001S"
+        ],
+        "dependsOnRaw": "ARENA-002, SIM-008, CONTENT-001S",
+        "gap": "Wrong-shaped during evidence audit; split into CONTENT-008C/D/J/R",
+        "id": "CONTENT-008",
+        "line": 83,
+        "passRate": "0/0",
+        "piece": "Charge, dash, jump, and recoil movement (superseded)",
+        "rounds": "0",
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Original combined bar bundled four independently judged targeting/collision state machines",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "SIM-010",
+            "state": "PASS"
+          },
+          {
+            "id": "SIM-011",
+            "state": "PASS"
+          },
+          {
+            "id": "CONTENT-001S",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "SIM-010",
+          "SIM-011",
+          "CONTENT-001S"
+        ],
+        "dependsOnRaw": "SIM-010, SIM-011, CONTENT-001S",
+        "gap": "Wrong-shaped during evidence audit; split into CONTENT-009C/P/R/M; special-mechanic values are absent from the corpus",
+        "id": "CONTENT-009",
+        "line": 88,
+        "passRate": "0/0",
+        "piece": "Chained, piercing, returning, and multi-projectile attacks (superseded)",
+        "rounds": "0",
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Original combined bar bundled five independently judged state machines and several absent-value policies",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "SIM-008",
+            "state": "PASS"
+          },
+          {
+            "id": "CONTENT-001S",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "SIM-008",
+          "CONTENT-001S"
+        ],
+        "dependsOnRaw": "SIM-008, CONTENT-001S",
+        "gap": "Wrong-shaped during evidence audit; split into CONTENT-010R/U/L/N/X",
+        "id": "CONTENT-010",
+        "line": 93,
+        "passRate": "0/0",
+        "piece": "Ramping attacks, stun, slow, snare, and reset (superseded)",
+        "rounds": "0",
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Original combined bar bundled shared placement, periodic scheduling/lifetime, and death-trigger state machines",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "SIM-003",
+            "state": "PASS"
+          },
+          {
+            "id": "SIM-004",
+            "state": "PASS"
+          },
+          {
+            "id": "SIM-012",
+            "state": "PASS"
+          },
+          {
+            "id": "CONTENT-001S",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "SIM-003",
+          "SIM-004",
+          "SIM-012",
+          "CONTENT-001S"
+        ],
+        "dependsOnRaw": "SIM-003, SIM-004, SIM-012, CONTENT-001S",
+        "gap": "Wrong-shaped during evidence audit; split into CONTENT-011A/P/D; cadence, lifetime, placement, ownership, and recursive death-spawn policy are absent from the corpus",
+        "id": "CONTENT-011",
+        "line": 99,
+        "passRate": "0/0",
+        "piece": "Periodic and death spawns (superseded)",
+        "rounds": "0",
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Original bar coupled five independently judged lifecycle/geometry state machines",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "CONTENT-008C",
+            "state": "PASS"
+          },
+          {
+            "id": "CONTENT-008D",
+            "state": "PASS"
+          },
+          {
+            "id": "CONTENT-008J",
+            "state": "PASS"
+          },
+          {
+            "id": "SIM-006",
+            "state": "PASS"
+          },
+          {
+            "id": "SIM-008",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "CONTENT-008C",
+          "CONTENT-008D",
+          "CONTENT-008J",
+          "SIM-006",
+          "SIM-008"
+        ],
+        "dependsOnRaw": "CONTENT-008C, CONTENT-008D, CONTENT-008J, SIM-006, SIM-008",
+        "gap": "Wrong-shaped during evidence audit; split into CONTENT-012T/K/C/L/D",
+        "id": "CONTENT-012",
+        "line": 103,
+        "passRate": "0/0",
+        "piece": "Charge, leap, dash, knockback, and retarget composition (superseded)",
+        "rounds": "0",
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Original combined bar bundled five unrelated health, modifier, targeting, projectile, and death-spawn state machines",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "SIM-010",
+            "state": "PASS"
+          },
+          {
+            "id": "CONTENT-010L",
+            "state": "PASS"
+          },
+          {
+            "id": "CONTENT-011A",
+            "state": "PASS"
+          },
+          {
+            "id": "CONTENT-001S",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "SIM-010",
+          "CONTENT-010L",
+          "CONTENT-011A",
+          "CONTENT-001S"
+        ],
+        "dependsOnRaw": "SIM-010, CONTENT-010L, CONTENT-011A, CONTENT-001S",
+        "gap": "Wrong-shaped during evidence audit; split into CONTENT-013H/R/I/F/C; all special values and policies are corpus-absent QUESTIONS",
+        "id": "CONTENT-013",
+        "line": 110,
+        "passRate": "0/0",
+        "piece": "Healing, rage, invisibility, reflection, and conversion (superseded)",
+        "rounds": "0",
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Original combined bar coupled deterministic selector/runtime integration with exhaustive causal proof that each exported card record configures its claimed mechanic",
+        "allListedDependenciesPass": false,
+        "dependencyStates": [],
+        "dependsOn": [],
+        "dependsOnRaw": "All simulation/content pieces",
+        "gap": "Wrong-shaped after three occurrence-binding rounds; split into INTEGRATION-001K and INTEGRATION-001C",
+        "id": "INTEGRATION-001",
+        "line": 130,
+        "passRate": "58/58",
+        "piece": "Canonical interaction suite (superseded)",
+        "rounds": "3",
+        "state": "QUESTION",
+        "unresolvedDependencyText": [
+          "All simulation/content pieces"
+        ]
+      },
+      {
+        "acceptance": "Original split still coupled actual runtime/artifact determinism with exhaustive hostile TAP-language validation",
+        "allListedDependenciesPass": false,
+        "dependencyStates": [],
+        "dependsOn": [],
+        "dependsOnRaw": "All simulation/content pieces",
+        "gap": "Wrong-shaped after three TAP-parser rounds; split into INTEGRATION-001R and GUARD-003",
+        "id": "INTEGRATION-001K",
+        "line": 131,
+        "passRate": "58/58",
+        "piece": "Deterministic runtime event-surface integration (superseded)",
+        "rounds": "3",
+        "state": "QUESTION",
+        "unresolvedDependencyText": [
+          "All simulation/content pieces"
+        ]
+      },
+      {
+        "acceptance": "Hostile TAP13 grammar tests prove bailouts, failures, directives, nested masking, malformed structure, controls, garbage, and bounds cannot be certified by forged clean summaries while valid Node TAP is accepted",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [],
+        "dependsOn": [],
+        "dependsOnRaw": "\u2014",
+        "gap": "Wrong-shaped parser proof: matched result names containing # SKIP/# TODO directives remain accepted under forged zero counters",
+        "id": "GUARD-003",
+        "line": 134,
+        "passRate": "6/6",
+        "piece": "Exhaustive TAP execution-proof parser",
+        "rounds": "3",
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Every one of 58 exported occurrences causally configures and reaches a defining event of its claimed facade; raw artifact bytes prove the selected export record was used, not merely co-packaged",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "INTEGRATION-001R",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "INTEGRATION-001R"
+        ],
+        "dependsOnRaw": "INTEGRATION-001R",
+        "gap": "40/58 mechanic payloads omit the ID; charge/dash/jump/charge-knockback stop at generic target-acquired rather than defining events",
+        "id": "INTEGRATION-001C",
+        "line": 135,
+        "passRate": "58/58",
+        "piece": "Exhaustive per-card causal mechanic binding",
+        "rounds": "3",
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Original combined bar bundled static rendering, state projection, and pointer interaction",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "MATCH-003",
+            "state": "PASS"
+          },
+          {
+            "id": "ARENA-004",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "MATCH-003",
+          "ARENA-004"
+        ],
+        "dependsOnRaw": "MATCH-003, ARENA-004",
+        "gap": "Wrong-shaped during readiness audit; split into UI-001A/B/C",
+        "id": "UI-001",
+        "line": 136,
+        "passRate": "0/0",
+        "piece": "Playable original-art arena shell (superseded)",
+        "rounds": "0",
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Original combined bar mixed shipped pointer/card-play behavior with proof of atomic recovery from arbitrary hostile external commit callbacks",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "UI-001B",
+            "state": "PASS"
+          },
+          {
+            "id": "ARENA-004",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "UI-001B",
+          "ARENA-004"
+        ],
+        "dependsOnRaw": "UI-001B, ARENA-004",
+        "gap": "Wrong-shaped after three external-transaction rounds; split into UI-001CK and UI-001CT",
+        "id": "UI-001C",
+        "line": 140,
+        "passRate": "12/12",
+        "piece": "Arena pointer and card-play interaction (superseded)",
+        "rounds": "3",
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Injected external commit callbacks either roll back controller, HUD, deck, and elixir atomically or deterministically expose only a fault diagnosis and no divergent state",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "UI-001CK",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "UI-001CK"
+        ],
+        "dependsOnRaw": "UI-001CK",
+        "gap": "Arbitrary callbacks can mutate external state and then make compensation fail; current poison blocks mutations/serialization but diagnostic getter policy remains unresolved",
+        "id": "UI-001CT",
+        "line": 142,
+        "passRate": "12/12",
+        "piece": "Hostile external commit fault containment",
+        "rounds": "3",
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Original combined bar bundled four independently rendered state projections",
+        "allListedDependenciesPass": false,
+        "dependencyStates": [
+          {
+            "id": "UI-001CK",
+            "state": "PASS"
+          },
+          {
+            "id": "INTEGRATION-001",
+            "state": "QUESTION"
+          }
+        ],
+        "dependsOn": [
+          "UI-001CK",
+          "INTEGRATION-001"
+        ],
+        "dependsOnRaw": "UI-001CK, INTEGRATION-001",
+        "gap": "Wrong-shaped during readiness audit; split into UI-002A/B/C/D",
+        "id": "UI-002",
+        "line": 143,
+        "passRate": "0/0",
+        "piece": "Placement and combat feedback (superseded)",
+        "rounds": "0",
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Original bar made one renderer consume every private mechanics replay dialect while also demanding a closed causal presentation contract",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "UI-002B",
+            "state": "PASS"
+          },
+          {
+            "id": "INTEGRATION-001R",
+            "state": "PASS"
+          },
+          {
+            "id": "SIM-010",
+            "state": "PASS"
+          },
+          {
+            "id": "SIM-011",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "UI-002B",
+          "INTEGRATION-001R",
+          "SIM-010",
+          "SIM-011"
+        ],
+        "dependsOnRaw": "UI-002B, INTEGRATION-001R, SIM-010, SIM-011",
+        "gap": "Wrong-shaped after three causal replay-schema rounds; split into UI-002CP and UI-002CV",
+        "id": "UI-002C",
+        "line": 146,
+        "passRate": "15/15",
+        "piece": "Projectile and area-effect feedback (superseded)",
+        "rounds": "3",
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Blind side-by-side at matched viewport passes against licensed `01_empty_arena_start.png`; cannot run until capture exists",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "UI-001A",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "UI-001A"
+        ],
+        "dependsOnRaw": "UI-001A",
+        "gap": "Required footage absent",
+        "id": "VIS-001",
+        "line": 150,
+        "passRate": "0/0",
+        "piece": "Empty-arena visual calibration",
+        "rounds": "0",
+        "state": "BLOCKED",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Blind frame/timing comparisons pass required bridge, attack, projectile, splash, death, tower, elixir, and overtime captures",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "UI-002A",
+            "state": "PASS"
+          },
+          {
+            "id": "UI-002B",
+            "state": "PASS"
+          },
+          {
+            "id": "UI-002CV",
+            "state": "PASS"
+          },
+          {
+            "id": "UI-002D",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "UI-002A",
+          "UI-002B",
+          "UI-002CV",
+          "UI-002D"
+        ],
+        "dependsOnRaw": "UI-002A, UI-002B, UI-002CV, UI-002D",
+        "gap": "Required footage absent",
+        "id": "VIS-002",
+        "line": 151,
+        "passRate": "0/0",
+        "piece": "Motion and combat visual calibration",
+        "rounds": "0",
+        "state": "BLOCKED",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Original combined bar coupled deterministic event-to-cue projection with authored sound rendering and provenance",
+        "allListedDependenciesPass": false,
+        "dependencyStates": [
+          {
+            "id": "INTEGRATION-001",
+            "state": "QUESTION"
+          }
+        ],
+        "dependsOn": [
+          "INTEGRATION-001"
+        ],
+        "dependsOnRaw": "INTEGRATION-001",
+        "gap": "Wrong-shaped during readiness audit; split into AUDIO-001A/B",
+        "id": "AUDIO-001",
+        "line": 160,
+        "passRate": "0/0",
+        "piece": "Original audio event system (superseded)",
+        "rounds": "0",
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "`npm test -- release-build`: a dependency-free deterministic build emits a bounded explicit HTML/CSS/JS/JSON artifact graph plus canonical byte-hash manifest; two clean builds match and no tests/reference/maps escape into output",
+        "allListedDependenciesPass": false,
+        "dependencyStates": [
+          {
+            "id": "UI-001A",
+            "state": "PASS"
+          },
+          {
+            "id": "GUARD-002",
+            "state": "QUESTION"
+          }
+        ],
+        "dependsOn": [
+          "UI-001A",
+          "GUARD-002"
+        ],
+        "dependsOnRaw": "UI-001A, GUARD-002",
+        "gap": "Wrong-shaped after three browser-graph closure rounds: custom HTML/SVG parser still accepts untraversed browser-fetching syntax",
+        "id": "RELEASE-001A",
+        "line": 163,
+        "passRate": "18/18",
+        "piece": "Reproducible production artifact",
+        "rounds": "3",
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "`npm test -- release-shipping`: explicit browser/build entries, HTML, CSS, media, maps, full protected identity sources, and the production output tree are audited against a persisted canonical source/provenance manifest",
+        "allListedDependenciesPass": false,
+        "dependencyStates": [
+          {
+            "id": "RELEASE-001A",
+            "state": "QUESTION"
+          },
+          {
+            "id": "RELEASE-001W",
+            "state": "PASS"
+          },
+          {
+            "id": "GUARD-002",
+            "state": "QUESTION"
+          }
+        ],
+        "dependsOn": [
+          "RELEASE-001A",
+          "RELEASE-001W",
+          "GUARD-002"
+        ],
+        "dependsOnRaw": "RELEASE-001A, RELEASE-001W, GUARD-002",
+        "gap": "Runtime wiring now passes; browser-graph enforcement and entry-accurate provenance audit remain unresolved",
+        "id": "RELEASE-001M",
+        "line": 166,
+        "passRate": "0/0",
+        "piece": "Entry-accurate shipping manifest and audit",
+        "rounds": "0",
+        "state": "BLOCKED",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Production build contains no `reference/` files, benchmark names/assets/text, source maps leaking fixtures, nondeterministic sim calls, or missing original-asset provenance; clean install and `npm test` pass",
+        "allListedDependenciesPass": false,
+        "dependencyStates": [
+          {
+            "id": "RELEASE-001A",
+            "state": "QUESTION"
+          },
+          {
+            "id": "RELEASE-001W",
+            "state": "PASS"
+          },
+          {
+            "id": "RELEASE-001M",
+            "state": "BLOCKED"
+          },
+          {
+            "id": "INTEGRATION-001R",
+            "state": "PASS"
+          },
+          {
+            "id": "INTEGRATION-001C",
+            "state": "QUESTION"
+          },
+          {
+            "id": "VIS-001",
+            "state": "BLOCKED"
+          },
+          {
+            "id": "VIS-002",
+            "state": "BLOCKED"
+          },
+          {
+            "id": "GUARD-001",
+            "state": "PASS"
+          },
+          {
+            "id": "GUARD-002",
+            "state": "QUESTION"
+          },
+          {
+            "id": "GUARD-003",
+            "state": "QUESTION"
+          }
+        ],
+        "dependsOn": [
+          "RELEASE-001A",
+          "RELEASE-001W",
+          "RELEASE-001M",
+          "INTEGRATION-001R",
+          "INTEGRATION-001C",
+          "VIS-001",
+          "VIS-002",
+          "GUARD-001",
+          "GUARD-002",
+          "GUARD-003"
+        ],
+        "dependsOnRaw": "RELEASE-001A, RELEASE-001W, RELEASE-001M, INTEGRATION-001R, INTEGRATION-001C, VIS-001, VIS-002, GUARD-001, GUARD-002, GUARD-003",
+        "gap": "Waiting on release subpieces, visual captures, causal integration questions, and enforcement questions",
+        "id": "RELEASE-001",
+        "line": 167,
+        "passRate": "0/0",
+        "piece": "Clean distributable",
+        "rounds": "0",
+        "state": "BLOCKED",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Original bar coupled live movement/restore behavior with exhaustive hostile minimal-history proof",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "SIM-005",
+            "state": "PASS"
+          },
+          {
+            "id": "SIM-007",
+            "state": "PASS"
+          },
+          {
+            "id": "ARENA-001",
+            "state": "PASS"
+          },
+          {
+            "id": "ARENA-002",
+            "state": "PASS"
+          },
+          {
+            "id": "ARENA-003",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "SIM-005",
+          "SIM-007",
+          "ARENA-001",
+          "ARENA-002",
+          "ARENA-003"
+        ],
+        "dependsOnRaw": "SIM-005, SIM-007, ARENA-001, ARENA-002, ARENA-003",
+        "gap": "Wrong-shaped after three restore-provenance rounds; split into GAME-001PK and GAME-001PH",
+        "id": "GAME-001P",
+        "line": 178,
+        "passRate": "8/8",
+        "piece": "Continuous deterministic battle movement (superseded)",
+        "rounds": "3",
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "`npm test -- battle-movement-history`: restore rejects semantically redundant, overridden, omitted, duplicated, reordered, or forged command histories and accepts exactly one minimal canonical history for each reachable state",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "GAME-001PK",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "GAME-001PK"
+        ],
+        "dependsOnRaw": "GAME-001PK",
+        "gap": "Wrong-shaped after three canonicality rounds: the bounded >64 pair and >128 exact-window cutoffs accept distinct 129-command and 29-command byte-fixed histories with identical reachable authority; exact global minimality is incompatible with the current bounded online-history bar",
+        "id": "GAME-001PH",
+        "line": 180,
+        "passRate": "0/3",
+        "piece": "Hostile movement-history canonicalization",
+        "rounds": "3",
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Original bar coupled executable unit\u2194tower composition with exhaustive identity on every upstream unit-to-unit event",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "GAME-001KX",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001TX",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "GAME-001KX",
+          "GAME-001TX"
+        ],
+        "dependsOnRaw": "GAME-001KX, GAME-001TX",
+        "gap": "Wrong-shaped after three projectile-provenance rounds; split into GAME-001TK and GAME-001TH",
+        "id": "GAME-001T",
+        "line": 185,
+        "passRate": "11/11",
+        "piece": "Dynamic unit-to-tower combat adapter (superseded)",
+        "rounds": "3",
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Original bar coupled zero-execution capability admission with fresh authoritative remount continuation",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "GAME-001B",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "GAME-001B"
+        ],
+        "dependsOnRaw": "GAME-001B",
+        "gap": "Wrong-shaped after three lifecycle rounds; split into GAME-001BHA and GAME-001BHR",
+        "id": "GAME-001BH",
+        "line": 191,
+        "passRate": "18/18",
+        "piece": "Capability-safe player-controller authority lifecycle (superseded)",
+        "rounds": "3",
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "`npm test -- game-roster` runs the admission, troop, building and spell session selectors and proves their exact union is 58 claimed occurrences / 53 unique runtime IDs with no omission, duplicate or QUESTION-only export counted as supported",
+        "allListedDependenciesPass": false,
+        "dependencyStates": [
+          {
+            "id": "GAME-001HA",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001HI",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001HT",
+            "state": "BLOCKED"
+          },
+          {
+            "id": "GAME-001HB",
+            "state": "QUESTION"
+          },
+          {
+            "id": "GAME-001HS",
+            "state": "BLOCKED"
+          }
+        ],
+        "dependsOn": [
+          "GAME-001HA",
+          "GAME-001HI",
+          "GAME-001HT",
+          "GAME-001HB",
+          "GAME-001HS"
+        ],
+        "dependsOnRaw": "GAME-001HA, GAME-001HI, GAME-001HT, GAME-001HB, GAME-001HS",
+        "gap": "Split into independently judged shared admission, authority integration, troop, building and spell session bindings",
+        "id": "GAME-001H",
+        "line": 214,
+        "passRate": "0/0",
+        "piece": "Supported-roster runtime coverage umbrella",
+        "rounds": "0",
+        "state": "BLOCKED",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "`npm test -- game-roster-troops`: all 35 claimed troop occurrences / 33 IDs are accounted for; every sourced/admitted mechanic executes in one shared GameSession authority while the two identity-only QUESTION claims reject visibly; no private encounter counts as coverage",
+        "allListedDependenciesPass": false,
+        "dependencyStates": [
+          {
+            "id": "GAME-001HTP",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001HTO",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001HTM",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001HTJ",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001HTS",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001HTC",
+            "state": "BLOCKED"
+          }
+        ],
+        "dependsOn": [
+          "GAME-001HTP",
+          "GAME-001HTO",
+          "GAME-001HTM",
+          "GAME-001HTJ",
+          "GAME-001HTS",
+          "GAME-001HTC"
+        ],
+        "dependsOnRaw": "GAME-001HTP, GAME-001HTO, GAME-001HTM, GAME-001HTJ, GAME-001HTS, GAME-001HTC",
+        "gap": "Round 1 failed; split by independently executable projection/mechanic families after audit found 31 admitted IDs, two QUESTION identities and no honest one-patch shared-runtime path",
+        "id": "GAME-001HT",
+        "line": 217,
+        "passRate": "0/0",
+        "piece": "Unified-session troop roster mechanics umbrella",
+        "rounds": "1",
+        "state": "BLOCKED",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "`npm test -- game-roster-troops-composition`: the independently sourced Emberlance and Aegis Sage compositions both execute once per deployment/action in the same GameSession and duplicate facades never double-count or create private authority",
+        "allListedDependenciesPass": false,
+        "dependencyStates": [
+          {
+            "id": "GAME-001HTEC",
+            "state": "BLOCKED"
+          },
+          {
+            "id": "GAME-001HTAC",
+            "state": "BLOCKED"
+          }
+        ],
+        "dependsOn": [
+          "GAME-001HTEC",
+          "GAME-001HTAC"
+        ],
+        "dependsOnRaw": "GAME-001HTEC, GAME-001HTAC",
+        "gap": "Split into independently evidenceable charge and champion/reflection compositions; both child pieces remain source-blocked",
+        "id": "GAME-001HTC",
+        "line": 226,
+        "passRate": "0/0",
+        "piece": "Shared champion and duplicated-facade troop composition umbrella",
+        "rounds": "0",
+        "state": "BLOCKED",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "`npm test -- game-roster-troops-emberlance-composition`: one source-backed receipt defines charge arming, speed/damage, displacement and retarget resets, contact ordering, cancellation and serialized phase state; the two exported claims execute through one shared host authority",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "GAME-001HTP",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001HTA",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001HTM",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "GAME-001HTP",
+          "GAME-001HTA",
+          "GAME-001HTM"
+        ],
+        "dependsOnRaw": "GAME-001HTP, GAME-001HTA, GAME-001HTM",
+        "gap": "Cutoff sources establish 3.0-tile charge range, 2\u00d7 speed and 392 bonus damage, but not reset classes, inclusive tick boundary, same-boundary hit/death order or serialized state; current 3.5-tile QUESTION fixture conflicts with the cutoff",
+        "id": "GAME-001HTEC",
+        "line": 227,
+        "passRate": "0/0",
+        "piece": "Emberlance charge/knockback/retarget composition",
+        "rounds": "0",
+        "state": "BLOCKED",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "`npm test -- game-roster-troops-aegis-composition`: one source-backed receipt defines ability spend/cooldown/activation, aura eligibility, projectile interception/identity rewrite, reflection ordering, parent-death cancellation and serialized phase state; champion and reflection claims execute through one shared host authority",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "GAME-001HTP",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001HTA",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001HTJ",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001HTS",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "GAME-001HTP",
+          "GAME-001HTA",
+          "GAME-001HTJ",
+          "GAME-001HTS"
+        ],
+        "dependsOnRaw": "GAME-001HTP, GAME-001HTA, GAME-001HTJ, GAME-001HTS",
+        "gap": "Cutoff sources establish cost 1, cooldown 17 s, active duration 4 s, radius 1.5 tiles and 80% reduction, but not activation delay, projectile enum semantics, identity/target rewrite, simultaneous order or expiry/death boundaries; current 0.5-tile QUESTION fixture conflicts with the cutoff",
+        "id": "GAME-001HTAC",
+        "line": 228,
+        "passRate": "0/0",
+        "piece": "Aegis Sage champion/reflection composition",
+        "rounds": "0",
+        "state": "BLOCKED",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "`npm test -- game-roster-buildings`: all sourced/admitted building IDs use kind-correct placement and execute defensive/lifetime, periodic/death spawn, resource, underground-travel and death-effect mechanics against authoritative GameSession tower/unit/elixir state with exact chunk/restore history; identity-only QUESTION claims reject visibly",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "GAME-001HBA",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001HBP",
+            "state": "PASS"
+          },
+          {
+            "id": "BUILDING-001",
+            "state": "PASS"
+          },
+          {
+            "id": "BUILDING-002",
+            "state": "PASS"
+          },
+          {
+            "id": "BUILDING-003A",
+            "state": "PASS"
+          },
+          {
+            "id": "BUILDING-003B",
+            "state": "PASS"
+          },
+          {
+            "id": "CONTENT-012E",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "GAME-001HBA",
+          "GAME-001HBP",
+          "BUILDING-001",
+          "BUILDING-002",
+          "BUILDING-003A",
+          "BUILDING-003B",
+          "CONTENT-012E"
+        ],
+        "dependsOnRaw": "GAME-001HBA, GAME-001HBP, BUILDING-001, BUILDING-002, BUILDING-003A, BUILDING-003B, CONTENT-012E",
+        "gap": "Round 3 confirms shared execution and the HBP provenance fix, but the required periodic/death-spawn GameSession path remains unverified: Bramble Cage and Ember Roost still have identity-only QUESTION records and reject admission, while Burrow Rig emits a spawn-question event without a unit. The isolated BUILDING-002 encounter does not establish a source-backed shared-session spawner. Sourceaudit55afe51 separately corroborates GoblinHut3/wave,500ms intermember,10s frequency,29s lifetime andrawdeathcount3; timerorigin/cadenceanchor/expiryordering remainQUESTION andnooriginalruntimealias is asserted.",
+        "id": "GAME-001HB",
+        "line": 230,
+        "passRate": "10/10",
+        "piece": "Unified-session building roster mechanics",
+        "rounds": "3",
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "`npm test -- game-browser-building-choice`: the visible shipped deck chooser offers a legal eight-card deck replacing one default card with the admitted Bulwark Needle structure; a trusted 720\u00d71280 Chrome gesture spends its sourced 3 elixir, places one shared structure at a legal arena point, shows distinct original structure art and its defensive combat state, and proves exact session/HUD/input/visual restore and same-deck restart; Standard and Stonehauler choices, default auto-start, hidden-control and browser-journey contracts remain exact; no QUESTION-only building or unsourced policy is promoted",
+        "allListedDependenciesPass": false,
+        "dependencyStates": [
+          {
+            "id": "GAME-001HUIR",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001HB",
+            "state": "QUESTION"
+          },
+          {
+            "id": "VIS-003C",
+            "state": "PASS"
+          },
+          {
+            "id": "VIS-003D",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "GAME-001HUIR",
+          "GAME-001HB",
+          "VIS-003C",
+          "VIS-003D"
+        ],
+        "dependsOnRaw": "GAME-001HUIR, GAME-001HB, VIS-003C, VIS-003D",
+        "gap": "Round 5 preserves and rejects stripped/forged profile receipts, carries the QUESTION policy through GameSession/live structures and browser restore, keeps Standard exact, and restores the full 720\u00d71280 viewport with 0 changed pixels. However, the live session still executes `firstHitTicks=0` against a source `null` and performs six attacks using unverified Cannon damage 212, HP 824, deploy 60 ticks, range 5,500, and ground targeting; labeling those estimates QUESTION does not meet the no-unsourced-policy bar. Source audit: reference/research/cannon-combat-source-audit.md confirms the cutoff datamine but no established first-hit semantics or same-cutoff corroboration; retain provisional labeling and do not claim parity.",
+        "id": "GAME-001HUIB",
+        "line": 236,
+        "passRate": "26/26",
+        "piece": "In-app defensive-building witness",
+        "rounds": "5",
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "`npm test -- game-roster-spells`: all 13 claimed occurrences / 10 IDs are accounted for; 11 admitted occurrences / 8 IDs execute their sourced common-session compositions with no placeholder troops, while `cloudseed-flask` and `hollowgarden` reject as explicit QUESTION identities",
+        "allListedDependenciesPass": false,
+        "dependencyStates": [
+          {
+            "id": "GAME-001HSQ",
+            "state": "BLOCKED"
+          },
+          {
+            "id": "GAME-001HSP",
+            "state": "BLOCKED"
+          },
+          {
+            "id": "GAME-001HSS",
+            "state": "BLOCKED"
+          },
+          {
+            "id": "GAME-001HST",
+            "state": "BLOCKED"
+          }
+        ],
+        "dependsOn": [
+          "GAME-001HSQ",
+          "GAME-001HSP",
+          "GAME-001HSS",
+          "GAME-001HST"
+        ],
+        "dependsOnRaw": "GAME-001HSQ, GAME-001HSP, GAME-001HSS, GAME-001HST",
+        "gap": "Split by profile/effect family; Squall's four private facades cannot count until one source-backed common-session composition exists",
+        "id": "GAME-001HS",
+        "line": 239,
+        "passRate": "0/0",
+        "piece": "Unified-session spell roster mechanics umbrella",
+        "rounds": "0",
+        "state": "BLOCKED",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "`npm test -- game-roster-spell-profiles`: a frozen `(exportName,id)` manifest accounts for 13/10 exactly, preserves two QUESTION identities, and supplies one canonical Squall composition receipt defining whether instant/knockback/travel/return are ordered phases, variants or contexts plus target/radius/tower policy",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "GAME-001HA",
+            "state": "PASS"
+          },
+          {
+            "id": "INTEGRATION-001R",
+            "state": "PASS"
+          },
+          {
+            "id": "SPELL-001",
+            "state": "PASS"
+          },
+          {
+            "id": "SPELL-002B",
+            "state": "PASS"
+          },
+          {
+            "id": "SPELL-002C",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "GAME-001HA",
+          "INTEGRATION-001R",
+          "SPELL-001",
+          "SPELL-002B",
+          "SPELL-002C"
+        ],
+        "dependsOnRaw": "GAME-001HA, INTEGRATION-001R, SPELL-001, SPELL-002B, SPELL-002C",
+        "gap": "Four Squall exports demonstrably reuse one base catalog; return is an unsourced fixture context, not proven card phase. Resolve context classification and independently source real activation/travel/impact policy",
+        "id": "GAME-001HSQ",
+        "line": 240,
+        "passRate": "0/0",
+        "piece": "Spell occurrence and common-composition evidence contract",
+        "rounds": "0",
+        "state": "BLOCKED",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "`npm test -- game-roster-spells-periodic`: sourced Blight Ring, Fault Pulse and Gravity Well profiles schedule all periodic contacts/statuses against shared units/towers/ticks with exact route/spend/cycle, no placeholders and exact chunk/restore history",
+        "allListedDependenciesPass": false,
+        "dependencyStates": [
+          {
+            "id": "GAME-001HSQ",
+            "state": "BLOCKED"
+          },
+          {
+            "id": "GAME-001HSA",
+            "state": "PASS"
+          },
+          {
+            "id": "SPELL-002D",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "GAME-001HSQ",
+          "GAME-001HSA",
+          "SPELL-002D"
+        ],
+        "dependsOnRaw": "GAME-001HSQ, GAME-001HSA, SPELL-002D",
+        "gap": "Pinned cutoff supplement exposes 78 area/buff fields; the isolated Blight Ring/Fault Pulse movement-only slow fixtures now match the corroborated 15%/50% values. The universal crown ratio still conflicts, and shared activation/refresh/rounding/pull order remain unresolved",
+        "id": "GAME-001HSP",
+        "line": 242,
+        "passRate": "0/0",
+        "piece": "Shared periodic spell mechanics",
+        "rounds": "0",
+        "state": "BLOCKED",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "`npm test -- game-roster-spells-status`: sourced Static Burst and Tempo Field reset/rage/status effects apply through shared combat/status authority with exact target eligibility, duration/order and atomic QUESTION rejection",
+        "allListedDependenciesPass": false,
+        "dependencyStates": [
+          {
+            "id": "GAME-001HSQ",
+            "state": "BLOCKED"
+          },
+          {
+            "id": "GAME-001HSA",
+            "state": "PASS"
+          },
+          {
+            "id": "SPELL-001",
+            "state": "PASS"
+          },
+          {
+            "id": "SPELL-004",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "GAME-001HSQ",
+          "GAME-001HSA",
+          "SPELL-001",
+          "SPELL-004"
+        ],
+        "dependsOnRaw": "GAME-001HSQ, GAME-001HSA, SPELL-001, SPELL-004",
+        "gap": "Pinned cutoff supplement verifies 61 fields: separate Tempo friendly buff/enemy damage areas, raw 135 speed multipliers and Static 500-ms stun. Generic 7/4 rage conflicts; activation, refresh, reset classes and ordering remain unresolved",
+        "id": "GAME-001HSS",
+        "line": 244,
+        "passRate": "0/0",
+        "piece": "Shared instant and status spell mechanics",
+        "rounds": "0",
+        "state": "BLOCKED",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "`npm test -- game-roster-spells-travel`: sourced Skyshard Volley and Ironbark Roller plus any authorized Squall legs use one shared projectile/path/contact identity chain through all waves/turn/return/roll phases with exact cancellation and restore history",
+        "allListedDependenciesPass": false,
+        "dependencyStates": [
+          {
+            "id": "GAME-001HSQ",
+            "state": "BLOCKED"
+          },
+          {
+            "id": "GAME-001HSA",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001TH",
+            "state": "PASS"
+          },
+          {
+            "id": "SPELL-002A",
+            "state": "PASS"
+          },
+          {
+            "id": "SPELL-002C",
+            "state": "PASS"
+          },
+          {
+            "id": "SPELL-003",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "GAME-001HSQ",
+          "GAME-001HSA",
+          "GAME-001TH",
+          "SPELL-002A",
+          "SPELL-002C",
+          "SPELL-003"
+        ],
+        "dependsOnRaw": "GAME-001HSQ, GAME-001HSA, GAME-001TH, SPELL-002A, SPELL-002C, SPELL-003",
+        "gap": "Isolated line/wave/return/roll facades are deterministic but lack common-session composition receipts",
+        "id": "GAME-001HST",
+        "line": 245,
+        "passRate": "0/0",
+        "piece": "Shared traveling, wave, return and roll spell mechanics",
+        "rounds": "0",
+        "state": "BLOCKED",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Original directional walk and attack frames for a playable unit render legibly at actual arena scale; simulation tick selects frames; team identity, reduced motion and exact restored-frame rendering remain clear; no reference assets or gameplay changes",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "VIS-003C",
+            "state": "PASS"
+          },
+          {
+            "id": "VIS-003HR",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "VIS-003C",
+          "VIS-003HR"
+        ],
+        "dependsOnRaw": "VIS-003C, VIS-003HR",
+        "gap": "User requested improved art and suggested sprite sheets; isolated prototype must be rendered and judged separately before arena integration.",
+        "id": "ART-004",
+        "line": 260,
+        "passRate": "0/0",
+        "piece": "Original deterministic 2D sprite prototype",
+        "rounds": "0",
+        "state": "BUILDING",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Original painted arena and sprites show depth, clear silhouettes, consistent light and materials in actual 540\u00d7960 playfield within 720\u00d71280 shell and at 390px viewport; legal geometry and game state stay unchanged; tick-driven sprites restore exactly; actual before/after renders judged separately, no historical parity claim",
+        "allListedDependenciesPass": false,
+        "dependencyStates": [
+          {
+            "id": "ART-004",
+            "state": "BUILDING"
+          },
+          {
+            "id": "VIS-003HR",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "ART-004",
+          "VIS-003HR"
+        ],
+        "dependsOnRaw": "ART-004, VIS-003HR",
+        "gap": "User prioritized immediate asset quality; current flat vector prototype is insufficient and its 720px fixture overstated actual troop scale. Painted sprite and arena builders own disjoint assets and demos.",
+        "id": "ART-005",
+        "line": 264,
+        "passRate": "0/0",
+        "piece": "Painted arena and troop asset quality",
+        "rounds": "0",
+        "state": "BUILDING",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Current simulation graph passes the unchanged bounded nondeterminism analyzer and shipping-isolation guard; radius spell extraction preserves all effects and legacy bytes, sprite URLs resolve to original registered assets in source and packaged renders; independent tests, assembled Pages qualification and full endurance retention",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "GAME-SPELL-001",
+            "state": "PASS"
+          },
+          {
+            "id": "ART-005S",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001GPR",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "GAME-SPELL-001",
+          "ART-005S",
+          "GAME-001GPR"
+        ],
+        "dependsOnRaw": "GAME-SPELL-001, ART-005S, GAME-001GPR",
+        "gap": "Current6dc guards23, Pages5 and shortjourney1 pass with canonical assets and retained146 full endurance. Earlier restore/path failures are resolved for this scope; separately reproduced production release/host isolation failures remain under RELEASE-TEST001 diagnosis before broad release qualification.",
+        "id": "RELEASE-GUARD-001",
+        "line": 281,
+        "passRate": "29/29",
+        "piece": "Preserve source and asset guard admission",
+        "rounds": "1",
+        "state": "BUILDING",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Source-backed semantics and matched captured evidence establish the five/six-member formation from raw summon_radius750/600 and summon_deploy_delay100ms, then shared GameSession implements and tests the same placement/order/timing without changing deterministic continuation",
+        "allListedDependenciesPass": false,
+        "dependencyStates": [
+          {
+            "id": "CARDS-016K",
+            "state": "PASS"
+          },
+          {
+            "id": "VIS-002",
+            "state": "BLOCKED"
+          }
+        ],
+        "dependsOn": [
+          "CARDS-016K",
+          "VIS-002"
+        ],
+        "dependsOnRaw": "CARDS-016K, VIS-002",
+        "gap": "Sourceaudit3545777 confirms official2020 per-member100ms interval and2022 deploy-radius spacing change; raw750/600 retained. Exactgeometry/memberorder/anchor/first-onset stillQUESTION, no matchedfootage. Current generic300 same-batch model lacksconfirmedstagger; CARDS016T implementsrelativeinterval separately withoutpromotingunknowngeometry/onset.",
+        "id": "CARDS-016D",
+        "line": 316,
+        "passRate": "0/0",
+        "piece": "Historical swarm formation and spawn timing",
+        "rounds": "0",
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Exact accepted twenty-choice runtime completes full18000 default-eight browser journey under unchanged50ms lifecycle/300ms initialization caps; actual restore/audio/input continuation and restart exact. Separate trusted expanded Kilnkeeper deck/AI match proves pursuit/contact/restore/restart with its natural terminal. Fresh immutable hashes/rawTAP/JSON/screens; no old-runtime proof substitution",
+        "allListedDependenciesPass": false,
+        "dependencyStates": [
+          {
+            "id": "GAME-001GPR6",
+            "state": "PASS"
+          },
+          {
+            "id": "CARDS-019I",
+            "state": "BUILDING"
+          },
+          {
+            "id": "APP-004G",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "GAME-001GPR6",
+          "CARDS-019I",
+          "APP-004G"
+        ],
+        "dependsOnRaw": "GAME-001GPR6, CARDS-019I, APP-004G",
+        "gap": "Await independent CARDS-019I acceptance, then freeze exact accepted source. Older9f proof does not cover newer homing or arena projection. Full default-eight18000 and separate actual expanded Kilnkeeper match required; natural early terminal of expanded workload must not be overridden.",
+        "id": "GAME-001GPR7",
+        "line": 340,
+        "passRate": "0/0",
+        "piece": "Expanded twenty-card runtime strict endurance",
+        "rounds": "0",
+        "state": "BLOCKED",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Pinned homingtrue ordinary projectile follows live target through shared deterministic motion/contact and exact pending restore; death/movement/retarget/impact timing explicitly source-bounded, no straight-flight parity substitution",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "CARDS-019K",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001HTJ",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "CARDS-019K",
+          "GAME-001HTJ"
+        ],
+        "dependsOnRaw": "CARDS-019K, GAME-001HTJ",
+        "gap": "Rawlinkedprojectile homingtrue documented; currenthost lockedimpact point differs. Need sourcebounded sharedhoming model and questioned ambiguousboundary/order semantics, actualmovingtarget interaction before fullcardfidelity claim.",
+        "id": "CARDS-019H",
+        "line": 347,
+        "passRate": "0/0",
+        "piece": "Source-bounded homing projectile continuation",
+        "rounds": "0",
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Evidence resolves raw speed units/conversion, bearing/turn/rounding, death/retarget/out-of-range policies, contact geometry/layer/order and arrival timing; equivalent real footage/source interactions support full historical homing claim",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "CARDS-019H1",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "CARDS-019H1"
+        ],
+        "dependsOnRaw": "CARDS-019H1",
+        "gap": "Bounded primary-source check confirms raw600 andSupercell2019Princess tuning450\u2192600 butno physicalunitdefinition. Character-scale600/60=10tiles/s remainshypothesis; runtime500milli/tick staysQUESTION. Need stationaryprojectilespawn/contact framecalibration andseparatemovingtarget/order/death evidence; scope artifacts/cards019h2-speed-scope/builder/scope.md.",
+        "id": "CARDS-019H2",
+        "line": 349,
+        "passRate": "0/0",
+        "piece": "Historical homing motion and contact calibration",
+        "rounds": "0",
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Reviewedcorecard is20theditablechoice with approvedoriginalportrait/lore andtransparentbattleart; actualtrustedcustomdeck/deploy/splash/spend/cycle, damaged/inflightrestore andsame-deckrestart atphone/desktop/motion modes; exactnativearena13pxsilhouette/layers/pixels andsourceisolation verified",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "CARDS-019K",
+            "state": "PASS"
+          },
+          {
+            "id": "CARDS-019H1",
+            "state": "PASS"
+          },
+          {
+            "id": "CARDS-019D",
+            "state": "PASS"
+          },
+          {
+            "id": "ART-019P",
+            "state": "PASS"
+          },
+          {
+            "id": "ART-019B",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "CARDS-019K",
+          "CARDS-019H1",
+          "CARDS-019D",
+          "ART-019P",
+          "ART-019B"
+        ],
+        "dependsOnRaw": "CARDS-019K, CARDS-019H1, CARDS-019D, ART-019P, ART-019B",
+        "gap": "Round445 FAIL: same-custom-deck terminal restart/audio/event proof missing acrossfourcontexts. Subsequentbaseline reproduction shows2vs1 isstaleaggregatearena listenerassertion: intended pointermove+pointerup, not duplicate restartlistener. SeparateGAME-001GRG repair underreview; actualKrestart proof rebuild ongoing, no producerleak proven andno arena adoption.",
+        "id": "CARDS-019I",
+        "line": 353,
+        "passRate": "0/1",
+        "piece": "Kilnkeeper card and arena presentation",
+        "rounds": "1",
+        "state": "BUILDING",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "New original Rivet Runners profile implements complete two-member melee role through actual GameSession/AI/editable deck/RL; source-backed6tick member interval, independent melee contacts and partial-squad restore/fork exact; combat/formation/onset unverified fields QUESTION; no cosmetic duplicate/private facade",
+        "allListedDependenciesPass": false,
+        "dependencyStates": [
+          {
+            "id": "CARDS-019H1",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001MS",
+            "state": "PASS"
+          },
+          {
+            "id": "GAME-001CHR",
+            "state": "BLOCKED"
+          }
+        ],
+        "dependsOn": [
+          "CARDS-019H1",
+          "GAME-001MS",
+          "GAME-001CHR"
+        ],
+        "dependsOnRaw": "CARDS-019H1, GAME-001MS, GAME-001CHR",
+        "gap": "Full pinned signature has no active linked special ability, but ordinary projection omits walking-speed tweak -20, character deploy delay 400ms, collision radius 500 and mass 4. Shared stat semantics/runtime must be represented before complete-role admission; source scope artifacts/cards020k-signature-scope/builder/scope.md.",
+        "id": "CARDS-020K",
+        "line": 358,
+        "passRate": "0/0",
+        "piece": "Two fast ground melee members in shared session",
+        "rounds": "0",
+        "state": "BLOCKED",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Reviewed complete shared two-member role becomes21st editable choice with original portrait/two-sentence lore/battle sprite; actual trusted customdeck player+AI spend/cycle/6tick births/independentmelee contacts andpartial restore/restart atphone+desktop/motion modes; sourcequestions truthful andreference isolated",
+        "allListedDependenciesPass": false,
+        "dependencyStates": [
+          {
+            "id": "CARDS-020K",
+            "state": "BLOCKED"
+          },
+          {
+            "id": "ART-020P",
+            "state": "PASS"
+          },
+          {
+            "id": "ART-020B",
+            "state": "PASS"
+          },
+          {
+            "id": "CARDS-019I",
+            "state": "BUILDING"
+          }
+        ],
+        "dependsOn": [
+          "CARDS-020K",
+          "ART-020P",
+          "ART-020B",
+          "CARDS-019I"
+        ],
+        "dependsOnRaw": "CARDS-020K, ART-020P, ART-020B, CARDS-019I",
+        "gap": "Core/battle asset and precedingKilnkeeper integration notaccepted; no current21-choice browser claim.",
+        "id": "CARDS-020I",
+        "line": 361,
+        "passRate": "0/0",
+        "piece": "Rivet Runners card and arena presentation",
+        "rounds": "0",
+        "state": "BLOCKED",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Dated source or actual consumer defines walking-speed tweak, character deploy delay, collision radius and mass separately from base speed and member interval; raw values and unresolved interpretation retained; no guessed multiplier or omitted field promoted",
+        "allListedDependenciesPass": true,
+        "dependencyStates": [
+          {
+            "id": "COVERAGE-003",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "COVERAGE-003"
+        ],
+        "dependsOnRaw": "COVERAGE-003",
+        "gap": "Bounded primary-source lookup completed: June2020 supports100ms member interval only. Walking tweak -20, separate character deploy400ms, collision radius500 and mass4 remain undefined by dated consumer evidence; scope artifacts/cards020k-stat-semantics-scope/builder/scope.md. No inferred multipliers.",
+        "id": "GAME-001CHS",
+        "line": 365,
+        "passRate": "0/0",
+        "piece": "Raw character-stat semantics evidence",
+        "rounds": "0",
+        "state": "QUESTION",
+        "unresolvedDependencyText": []
+      },
+      {
+        "acceptance": "Evidence-backed shared host represents the resolved character speed, deploy, radius and mass semantics with causal snapshots, melee and movement interactions; exact old-role bytes or explicitly reviewed intentional changes; no card-specific workaround or absent fields counted as full role",
+        "allListedDependenciesPass": false,
+        "dependencyStates": [
+          {
+            "id": "GAME-001CHS",
+            "state": "QUESTION"
+          },
+          {
+            "id": "CARDS-019H1",
+            "state": "PASS"
+          }
+        ],
+        "dependsOn": [
+          "GAME-001CHS",
+          "CARDS-019H1"
+        ],
+        "dependsOnRaw": "GAME-001CHS, CARDS-019H1",
+        "gap": "Requires source semantics gate; current multi-member radius is provisional 300 and other raw fields are omitted. Split needed before Rivet Runners admission.",
+        "id": "GAME-001CHR",
+        "line": 366,
+        "passRate": "0/0",
+        "piece": "Shared raw character-stat runtime",
+        "rounds": "0",
+        "state": "BLOCKED",
+        "unresolvedDependencyText": []
+      }
+    ],
+    "incompleteWithAllListedDepsPassCount": 31,
+    "incompleteWithAllListedDepsPassIds": [
+      "SIM-001",
+      "CONTENT-001",
+      "GUARD-002",
+      "CONTENT-008",
+      "CONTENT-009",
+      "CONTENT-010",
+      "CONTENT-011",
+      "CONTENT-012",
+      "CONTENT-013",
+      "GUARD-003",
+      "INTEGRATION-001C",
+      "UI-001",
+      "UI-001C",
+      "UI-001CT",
+      "UI-002C",
+      "VIS-001",
+      "VIS-002",
+      "GAME-001P",
+      "GAME-001PH",
+      "GAME-001T",
+      "GAME-001BH",
+      "GAME-001HTEC",
+      "GAME-001HTAC",
+      "GAME-001HB",
+      "GAME-001HSQ",
+      "ART-004",
+      "RELEASE-GUARD-001",
+      "CARDS-019H",
+      "CARDS-019H2",
+      "CARDS-019I",
+      "GAME-001CHS"
+    ],
+    "rowCount": 252,
+    "stateCounts": {
+      "BLOCKED": 18,
+      "BUILDING": 4,
+      "PASS": 200,
+      "QUESTION": 30
+    }
+  },
+  "sourceHashes": {
+    "PLAN.md": "a2d8da7c5dfa559afd7e98bb287cb16b50462ce0fd5ed949cf704acdcd4f75ac",
+    "artifacts/cards020k-signature-scope/builder/scope.md": "31465541eef7b9822778eca46d13a58da199738cd091ad3278b3b87e6169f6bf",
+    "artifacts/cards020k-stat-semantics-scope/builder/scope.md": "75507bb45bd070a23db5f272a66ef368d7768ebe4efaf6c2f417bef305fc9e38",
+    "artifacts/completion-inventory-current-16/card-coverage-109-current-16.json": "674aa6320a79ae452f854e2bcc6e40fe4a504b3963cddb28815e876ef206118b",
+    "artifacts/completion-inventory-current-18/card-coverage-109-current-18.json": "49d5e9f4b09e0724eab5e30624e505565514ad41e80b256528fc7111e12b2396",
+    "artifacts/completion-inventory/reference/card-coverage-109.json": "e68bf690793d531c863f14117deace21de595c906ecbc8bf39cc98856cd33c07",
+    "artifacts/melee-splash-source-research/pinned-valkyrie-extract.json": "59d2100d3b65de4ac71e0839eb319bbe91eb8531b895ec6d84b6e42d6b759c10",
+    "artifacts/next-roster-batch-scope/builder/scope.md": "0e399cc3dac113c66c70aaa02582ab46e4114d11cc76359e17997723bab6cda1",
+    "reference/footage/NEEDED.md": "977ea21b5bbda32e5a29eb838d4a92e0b8f9a394eb25e846c959f7e4d11e7a0d",
+    "reference/research/melee-splash-source-audit.md": "e4eabb9cb40552311a610f5247166fd9f1fd415f20a0f0d9da9060a7f3e65586",
+    "reference/research/spawner-composition-source-audit.md": "4a3ab1942134c2a80cdfd68e2721469e670228feb1f39ce0aff97ca82b57a852",
+    "reference/stats/SOURCES.md": "9d2e56266451a02486f6893d35f37989660d6f9d838be2d953b8e242beff78ee",
+    "reference/stats/cards.json": "2903e9b3cb759fd6229b0463df4de8b29a5500995a768691fcfc9b5c05ff6b5f",
+    "src/content/editable-deck.js": "899aef6d57126cedf28dc4ebab60692ab0b0fe702e8c384c20087132a263eccb",
+    "src/content/session-card-catalog.js": "7f3084637c0c9cd02a7eeeb8173e30034c78c48b97f21d0670fdcb3b0badc1af",
+    "src/content/session-troop-profile-catalog.js": "6182cd28e4705321eca7dc28bb9803ea010188826e7dcdf3702e68cd4dee010a",
+    "src/content/session-troop-roster.js": "aee8195b07a127d8ffa7991748cf77ead6aa16adc631994dfe18e87642a33a35",
+    "src/rl/environment.js": "920766cdcee0d4279a4f6ffeaad55723857647ba1c58fcc58738ad45f25454a8",
+    "src/sim/battle-continuation-kernel.js": "8c1a9d41a7882ccbe561f989fd6773f34e3663ed870fa1ec9961dd3871409a36",
+    "src/sim/ordinary-projectile-splash.js": "6da865ca762855c6468fbccc49557ebf28feab0f6ba9faf2b2b964d9198a2406"
+  }
+}

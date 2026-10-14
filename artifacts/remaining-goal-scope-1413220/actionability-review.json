@@ -1,0 +1,96 @@
+{
+  "acceptedHead": "1413220847b8f05051cce7e1fa10f7eb90cad3a1",
+  "reviewKind": "read-only remaining-goal actionability, not builder or critic acceptance",
+  "anchoredStatusEvidence": {
+    "planSha256": "a2d8da7c5dfa559afd7e98bb287cb16b50462ce0fd5ed949cf704acdcd4f75ac",
+    "planRows": {
+      "CARDS-019I": "BUILDING 0/1; PLAN gap cites Round 445 FAIL",
+      "GAME-001GPR7": "BLOCKED 0/0; blocked on GAME-001GPR6, CARDS-019I, APP-004G",
+      "GAME-001GRG": "PASS 3/3; rounds count 2"
+    },
+    "roundsSha256": "c55769c34619f83a190a254f95e44e9f7f242acdcc151e2c1534b08ceaeee928",
+    "rounds": {
+      "447": "COVERAGE-004 PASS, round 5",
+      "449": "PUB-003 PASS, round 2",
+      "450": "GAME-001GRG PASS, round 2; fake-DOM regression only, not native-browser Kilnkeeper restart"
+    },
+    "scope": "Source/version anchored to accepted HEAD; no transient session identifier or elapsed-time claim."
+  },
+  "meleeAreaRuntime": {
+    "candidate": "shared melee-area contact for a ground melee-splash role",
+    "currentRuntime": {
+      "directMelee": "The attack branch appends a single primary unit hit (battle-continuation-kernel.js around line 3054).",
+      "areaMechanic": "ordinary-projectile-splash.js is applied at projectile impact (kernel around lines 3089-3128)."
+    },
+    "sourceSupportedSlice": "The local pinned-source audit supports qualitative clustered ground melee splash and exact deterministic replay/restore. Its safe fixture puts the primary target within 0.5 tile of the attacker and a second ground unit almost on top of the primary; both candidate center/radius readings include the secondary.",
+    "explicitQuestionPolicies": [
+      "effective radius (pinned raw 2.0 vs dated publisher 2.4 tiles)",
+      "attacker/target effective center and boundary rule",
+      "air/ground splash eligibility beyond direct attacks_ground/attacks_air flags",
+      "secondary damage equality/falloff",
+      "target cap, tie-breaking and event application order",
+      "tower/building splash"
+    ],
+    "implementationBar": "A bounded runtime can use separately versioned, non-authoritative executable estimates for unresolved policies and must keep those as QUESTIONS; tests only establish the overlapping-ground qualitative slice, deterministic ordering as an explicit local rule, and byte-exact continuation. Preserve legacy direct-melee behavior and bytes for existing profiles.",
+    "notEstablished": [
+      "full raw character signature: current pinned extraction selects 30 fields and local audit marks it incomplete",
+      "exact historical calibration",
+      "full Valkyrie-like role admission or full historical execution"
+    ],
+    "footageDependency": "No lawful melee-area clip is present. Missing footage blocks calibration/full historical-role admission, not the bounded shared-runtime slice."
+  },
+  "artReviewActions": {
+    "ART-004": {
+      "planState": "BUILDING 0/0",
+      "realProductGapFound": false,
+      "evidence": "Directional walk/attack, tick selection, reduced-motion, browser render and exact restore already exist in the isolated prototype and accepted ART-005S critique.",
+      "next": "Fresh aggregate builder+separate critic proof on the exact accepted HEAD; no new frames presumed necessary."
+    },
+    "ART-005": {
+      "planState": "BUILDING 0/0",
+      "realProductGapFound": false,
+      "acceptedChildren": ["ART-005A", "ART-005S"],
+      "evidence": "Painted terrain and Briar atlas are manifest-registered original source assets; separate child proof has real desktop/phone renders and exact restore.",
+      "next": "Fresh aggregate accepted-HEAD render/critique combining terrain, troop, HUD, geometry, team identity and restore; no missing base material identified.",
+      "historicalVisualCalibrationStillNeedsFootage": true
+    }
+  },
+  "releaseGuard": {
+    "planState": "BUILDING 29/29",
+    "staleGap": "The plan still says RELEASE-TEST-001 production isolation diagnosis is pending; accepted RELEASE-TEST-001 is PASS 33/33 and explicitly qualifies source isolation only.",
+    "stillRequired": [
+      "current accepted-source nondeterminism/isolation guards",
+      "spell extraction and legacy serialization bytes",
+      "registered sprite paths in source and packaged render",
+      "assembled Pages qualification",
+      "current strict full-endurance retention/evidence"
+    ],
+    "freshAggregateDependency": "After CARDS-019I acceptance and GAME-001GPR7 exact source freeze; GPR7 supplies the current full 18,000-tick default-eight proof and separate expanded natural-terminal match.",
+    "notEstablished": "No release guard pass, 109-card execution coverage, or historical parity is claimed here."
+  },
+  "inputDigests": {
+    "artifacts/arena-art-round-2/critic/critic-report.md": "5d7625036dbd1d66054909d794dc4999f748bf17290e66bef44494673395ba32",
+    "artifacts/coverage004-round-5/critic/verdict.md": "9e137d708fcc24916f9f5cf812f323bafe46f407ec622741099d6870a7baa11d",
+    "artifacts/game001grg-round-2/critic/verdict.md": "4376bb57670afd3e05629fe5b320e31032a21e26f50615ff2d989af38eded5aa",
+    "artifacts/melee-splash-source-research/pinned-valkyrie-extract.json": "59d2100d3b65de4ac71e0839eb319bbe91eb8531b895ec6d84b6e42d6b759c10",
+    "artifacts/pub003-round-2/critic/verdict.md": "cfbd911e66f93100410c9edc1c23c92c907041182c0c3f430505a9a921e6e3b8",
+    "artifacts/release-asset-round-1/critic/verdict.md": "ba39828865f62658ba1b79b45c26ebdf4bfe27b7a8f5b4e351e0ad38677f27fa",
+    "artifacts/release-guard-round-1/critic/round-1-evidence.md": "3f261ebfe0f3cab2723ae60902997b30c12b0ca1b1956adeac3983480023511e",
+    "artifacts/release-test-round-2/critic/verdict.md": "7597bf3122e483268f39ef4518a5f645e36d77af8de09b549b61a10a23888861",
+    "artifacts/sprite-art-round-4/critic/verdict.md": "44d3987220c3219804912864bd661d7316e1bd9f6ae16852a5543a1f3c28e6fe",
+    "public/assets/briar-runner-painted-sheet.png": "a1aa43df00dacc212beedb4905dddd7a57db412981ea29662bc1d868a97794f4",
+    "public/assets/moss-ember-arena-painted.webp": "22713e1725c21a8f853df5e2af3278689e7e844783606d93c7a12a365d8e930e",
+    "reference/research/melee-splash-source-audit.md": "e4eabb9cb40552311a610f5247166fd9f1fd415f20a0f0d9da9060a7f3e65586",
+    "rounds.md": "c55769c34619f83a190a254f95e44e9f7f242acdcc151e2c1534b08ceaeee928",
+    "src/sim/battle-continuation-kernel.js": "8c1a9d41a7882ccbe561f989fd6773f34e3663ed870fa1ec9961dd3871409a36",
+    "src/sim/ordinary-projectile-splash.js": "6da865ca762855c6468fbccc49557ebf28feab0f6ba9faf2b2b964d9198a2406",
+    "src/ui/combat-sprite-prototype.js": "626388c9d3a686636b85f2256595e7d3859ac24e042a3f21600ad3fe90c17272"
+  },
+  "notRun": [
+    "tests",
+    "build",
+    "browser gameplay",
+    "external search",
+    "product changes"
+  ]
+}

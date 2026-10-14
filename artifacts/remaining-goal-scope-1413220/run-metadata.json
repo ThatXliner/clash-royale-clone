@@ -1,0 +1,165 @@
+{
+  "acceptedHead": "1413220847b8f05051cce7e1fa10f7eb90cad3a1",
+  "actionabilityReview": {
+    "path": "artifacts/remaining-goal-scope-1413220/actionability-review.json",
+    "scope": "bounded melee-area runtime vs calibration/full-role gate; aggregate ART and release-guard proof status",
+    "sha256": "74cbc18ca2048c54c42634df24b747be870d1fd902c21844351dc16c0dc5842a"
+  },
+  "anchoredPlanAndRounds": {
+    "head": "1413220847b8f05051cce7e1fa10f7eb90cad3a1",
+    "noTransientSessionOrElapsedTimeClaims": true,
+    "planRows": {
+      "CARDS-019I": "BUILDING 0/1; PLAN gap cites Round 445 FAIL",
+      "GAME-001GPR7": "BLOCKED 0/0; dependencies GAME-001GPR6, CARDS-019I, APP-004G",
+      "GAME-001GRG": "PASS 3/3; two rounds"
+    },
+    "planSha256": "a2d8da7c5dfa559afd7e98bb287cb16b50462ce0fd5ed949cf704acdcd4f75ac",
+    "rounds": {
+      "447": {
+        "piece": "COVERAGE-004",
+        "round": 5,
+        "verdict": "PASS"
+      },
+      "449": {
+        "piece": "PUB-003",
+        "round": 2,
+        "verdict": "PASS"
+      },
+      "450": {
+        "piece": "GAME-001GRG",
+        "round": 2,
+        "scopeLimit": "FakeDOM regression gate; no native-browser Kilnkeeper restart claim",
+        "verdict": "PASS"
+      }
+    },
+    "roundsSha256": "c55769c34619f83a190a254f95e44e9f7f242acdcc151e2c1534b08ceaeee928",
+    "sourceFiles": {
+      "artifacts/coverage004-round-5/critic/verdict.md": "9e137d708fcc24916f9f5cf812f323bafe46f407ec622741099d6870a7baa11d",
+      "artifacts/game001grg-round-2/critic/verdict.md": "4376bb57670afd3e05629fe5b320e31032a21e26f50615ff2d989af38eded5aa",
+      "artifacts/pub003-round-2/critic/verdict.md": "cfbd911e66f93100410c9edc1c23c92c907041182c0c3f430505a9a921e6e3b8",
+      "rounds.md": "c55769c34619f83a190a254f95e44e9f7f242acdcc151e2c1534b08ceaeee928"
+    }
+  },
+  "checkout": "/tmp/remaining-goal-scope-1413220",
+  "checkoutMode": "clean detached private worktree",
+  "commands": [
+    "git worktree add --detach /tmp/remaining-goal-scope-1413220 1413220847b8f05051cce7e1fa10f7eb90cad3a1",
+    "python3 artifacts/remaining-goal-scope-1413220/analyze_scope.py",
+    "node artifacts/remaining-goal-scope-1413220/capture_runtime_manifest.mjs",
+    "python3 artifacts/remaining-goal-scope-1413220/capture_source_queries.py",
+    "git status --short --branch",
+    "git rev-parse HEAD"
+  ],
+  "enumerationRunOutput": "enumeration-run.txt",
+  "finalStatus": "only untracked artifacts/remaining-goal-scope-1413220/ directory; no files outside owned directory modified",
+  "initialStatus": "clean at HEAD 1413220847b8f05051cce7e1fa10f7eb90cad3a1",
+  "notPerformed": [
+    "tests",
+    "build",
+    "browser gameplay",
+    "external search",
+    "product changes",
+    "independent critique"
+  ],
+  "ownedOutputs": [
+    {
+      "bytes": 6760,
+      "path": "artifacts/remaining-goal-scope-1413220/actionability-review.json",
+      "sha256": "74cbc18ca2048c54c42634df24b747be870d1fd902c21844351dc16c0dc5842a"
+    },
+    {
+      "bytes": 9595,
+      "path": "artifacts/remaining-goal-scope-1413220/analyze_scope.py",
+      "sha256": "fdb67e4b54a498e2f47e1bd46373dd3230b910bc170c748e292dc224f0c11c6b"
+    },
+    {
+      "bytes": 15921,
+      "path": "artifacts/remaining-goal-scope-1413220/candidate-evidence.json",
+      "sha256": "40f5b85ac9d210ce7ba2b003795d84b00744cf39e3b4342bd6f301987c1f2f24"
+    },
+    {
+      "bytes": 1682,
+      "path": "artifacts/remaining-goal-scope-1413220/capture_runtime_manifest.mjs",
+      "sha256": "9868c494c11565b9c5b80ab16afce8b9e13d5e87f47447a886f3f3ad85787bde"
+    },
+    {
+      "bytes": 1816,
+      "path": "artifacts/remaining-goal-scope-1413220/capture_source_queries.py",
+      "sha256": "b6ec68672141599ce80f07760c5e0278ae82e5b9a8d9cf36b2f21ddbf1a24de7"
+    },
+    {
+      "bytes": 8182,
+      "path": "artifacts/remaining-goal-scope-1413220/current-runtime-manifest.json",
+      "sha256": "51f27b459c7453fce250710ffdd2a504d1515a1d4b7b1ca79dc95f5564b177e6"
+    },
+    {
+      "bytes": 1561,
+      "path": "artifacts/remaining-goal-scope-1413220/enumeration-run.txt",
+      "sha256": "df7594153ac54dd600fddf4024d52971e851307703fb0d50384a173c37384ea4"
+    },
+    {
+      "bytes": 91864,
+      "path": "artifacts/remaining-goal-scope-1413220/plan-dependency-enumeration.json",
+      "sha256": "b3c1d779295857e85ee5b01507ddf3367273871181640511e64eee80176eb5eb"
+    },
+    {
+      "bytes": 13733,
+      "path": "artifacts/remaining-goal-scope-1413220/scope.md",
+      "sha256": "89733cd78ba486ee69f817a383ca94bb3a80b51696ea85033119d5d24de1a3eb"
+    },
+    {
+      "bytes": 7167,
+      "path": "artifacts/remaining-goal-scope-1413220/source-query-results.txt",
+      "sha256": "48b3d072d26a0de514552c7d8fa528c3fc74d1735fc638bb7ef74e78cd49110e"
+    }
+  ],
+  "sharedCheckoutUsedAsEvidence": false,
+  "sourceInputSha256": {
+    "PLAN.md": "a2d8da7c5dfa559afd7e98bb287cb16b50462ce0fd5ed949cf704acdcd4f75ac",
+    "artifacts/cards020k-signature-scope/builder/scope.md": "31465541eef7b9822778eca46d13a58da199738cd091ad3278b3b87e6169f6bf",
+    "artifacts/cards020k-stat-semantics-scope/builder/scope.md": "75507bb45bd070a23db5f272a66ef368d7768ebe4efaf6c2f417bef305fc9e38",
+    "artifacts/completion-inventory-current-16/card-coverage-109-current-16.json": "674aa6320a79ae452f854e2bcc6e40fe4a504b3963cddb28815e876ef206118b",
+    "artifacts/completion-inventory-current-18/card-coverage-109-current-18.json": "49d5e9f4b09e0724eab5e30624e505565514ad41e80b256528fc7111e12b2396",
+    "artifacts/completion-inventory/reference/card-coverage-109.json": "e68bf690793d531c863f14117deace21de595c906ecbc8bf39cc98856cd33c07",
+    "artifacts/coverage004-round-5/critic/verdict.md": "9e137d708fcc24916f9f5cf812f323bafe46f407ec622741099d6870a7baa11d",
+    "artifacts/game001grg-round-2/critic/verdict.md": "4376bb57670afd3e05629fe5b320e31032a21e26f50615ff2d989af38eded5aa",
+    "artifacts/melee-splash-source-research/pinned-valkyrie-extract.json": "59d2100d3b65de4ac71e0839eb319bbe91eb8531b895ec6d84b6e42d6b759c10",
+    "artifacts/next-roster-batch-scope/builder/scope.md": "0e399cc3dac113c66c70aaa02582ab46e4114d11cc76359e17997723bab6cda1",
+    "artifacts/pub003-round-2/critic/verdict.md": "cfbd911e66f93100410c9edc1c23c92c907041182c0c3f430505a9a921e6e3b8",
+    "reference/footage/NEEDED.md": "977ea21b5bbda32e5a29eb838d4a92e0b8f9a394eb25e846c959f7e4d11e7a0d",
+    "reference/research/melee-splash-source-audit.md": "e4eabb9cb40552311a610f5247166fd9f1fd415f20a0f0d9da9060a7f3e65586",
+    "reference/research/spawner-composition-source-audit.md": "4a3ab1942134c2a80cdfd68e2721469e670228feb1f39ce0aff97ca82b57a852",
+    "reference/stats/SOURCES.md": "9d2e56266451a02486f6893d35f37989660d6f9d838be2d953b8e242beff78ee",
+    "reference/stats/cards.json": "2903e9b3cb759fd6229b0463df4de8b29a5500995a768691fcfc9b5c05ff6b5f",
+    "rounds.md": "c55769c34619f83a190a254f95e44e9f7f242acdcc151e2c1534b08ceaeee928",
+    "src/content/editable-deck.js": "899aef6d57126cedf28dc4ebab60692ab0b0fe702e8c384c20087132a263eccb",
+    "src/content/session-card-catalog.js": "7f3084637c0c9cd02a7eeeb8173e30034c78c48b97f21d0670fdcb3b0badc1af",
+    "src/content/session-troop-profile-catalog.js": "6182cd28e4705321eca7dc28bb9803ea010188826e7dcdf3702e68cd4dee010a",
+    "src/content/session-troop-roster.js": "aee8195b07a127d8ffa7991748cf77ead6aa16adc631994dfe18e87642a33a35",
+    "src/rl/environment.js": "920766cdcee0d4279a4f6ffeaad55723857647ba1c58fcc58738ad45f25454a8",
+    "src/sim/battle-continuation-kernel.js": "8c1a9d41a7882ccbe561f989fd6773f34e3663ed870fa1ec9961dd3871409a36",
+    "src/sim/ordinary-projectile-splash.js": "6da865ca762855c6468fbccc49557ebf28feab0f6ba9faf2b2b964d9198a2406"
+  },
+  "sourceQueries": "source-query-results.txt",
+  "summary": {
+    "admittedSessionCardIds": 56,
+    "admittedTroopProfiles": 40,
+    "editableMixedDeckChoices": 20,
+    "historicalParityExecutions": 0,
+    "historicalRosterRows": 109,
+    "historicalTypeCounts": {
+      "building": 13,
+      "spell": 18,
+      "troop": 78
+    },
+    "incompleteRows": 52,
+    "incompleteWithAllListedDepsPass": 31,
+    "planRows": 252,
+    "planStateCounts": {
+      "BLOCKED": 18,
+      "BUILDING": 4,
+      "PASS": 200,
+      "QUESTION": 30
+    }
+  }
+}
