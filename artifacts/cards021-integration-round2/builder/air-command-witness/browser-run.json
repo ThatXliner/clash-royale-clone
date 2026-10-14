@@ -1,0 +1,14 @@
+{
+  "phase": "live-reveal",
+  "pid": 88685,
+  "node": "v22.22.3",
+  "chrome": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+  "playwright": "/Users/me/.codex/worktrees/d092a29e-844b-459d-b145-c548db10d485/billion/node_modules/.pnpm/playwright@1.58.2/node_modules/playwright/index.mjs",
+  "chromeVersion": "155.0.8059.40",
+  "failure": {
+    "name": "TimeoutError",
+    "message": "locator.innerText: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-battle-frame-slot] iframe').contentFrame().locator('[data-ui=\"card-slot\"][data-card-id=\"mossguard\"]').locator('.hud-card__cost')\u001b[22m\n",
+    "stack": "locator.innerText: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-battle-frame-slot] iframe').contentFrame().locator('[data-ui=\"card-slot\"][data-card-id=\"mossguard\"]').locator('.hud-card__cost')\u001b[22m\n\n    at deployCard (/private/tmp/cards021i-round2-builder-8cb7/tests/cards021-browser-integration.test.js:955:69)\n    at async TestContext.<anonymous> (/private/tmp/cards021i-round2-builder-8cb7/tests/cards021-browser-integration.test.js:1050:5)"
+  },
+  "phaseAtExit": "live-reveal"
+}

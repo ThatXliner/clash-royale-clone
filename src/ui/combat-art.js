@@ -20,6 +20,14 @@ const EMBER_BASIN_BATTLE_IMAGE = new URL(
   "../../public/assets/ember-basin-battle-sprite.webp",
   import.meta.url,
 ).href;
+const BURIED_COIL_HIDDEN_IMAGE = new URL(
+  "../../public/assets/buried-coil-hidden.webp",
+  import.meta.url,
+).href;
+const BURIED_COIL_REVEALED_IMAGE = new URL(
+  "../../public/assets/buried-coil-revealed.svg",
+  import.meta.url,
+).href;
 const KILNKEEPER_BATTLE_IMAGE = new URL(
   "../../public/assets/kilnkeeper-battle-sprite.webp",
   import.meta.url,
@@ -154,7 +162,7 @@ for (const paths of Object.values(shapes)) {
   Object.freeze(paths);
 }
 export const COMBAT_ART_ARCHETYPES = Object.freeze([...Object.keys(shapes), 'kilnkeeper']);
-export const COMBAT_STRUCTURE_ART_IDS = Object.freeze(['bulwark-needle', 'ember-basin']);
+export const COMBAT_STRUCTURE_ART_IDS = Object.freeze(['bulwark-needle', 'buried-coil', 'ember-basin']);
 Object.freeze(shapes);
 
 export function getBriarRunnerPaintedFrameTransform({
@@ -251,7 +259,10 @@ export function createBriarRunnerPaintedArt(document, {
   return svg;
 }
 
-export function createCombatArt(document, kind, side, layer) {
+export function createCombatArt(document, kind, side, layer, hidden = false) {
+  if (typeof hidden !== 'boolean' || (kind !== "buried-coil" && hidden)) {
+    throw new TypeError("combat art hidden state must be a Buried Coil boolean");
+  }
   const create = typeof document.createElementNS === 'function'
     ? (tag) => document.createElementNS('http://www.w3.org/2000/svg', tag)
     : (tag) => document.createElement(tag);
@@ -260,7 +271,7 @@ export function createCombatArt(document, kind, side, layer) {
   svg.setAttribute('class', 'combat-art');
   svg.setAttribute('aria-hidden', 'true');
   svg.dataset.artId = Object.hasOwn(shapes, kind) ||
-    kind === "ember-basin" || kind === "kilnkeeper"
+    kind === "ember-basin" || kind === "buried-coil" || kind === "kilnkeeper"
     ? kind : `witness-${layer}`;
   if (kind === "kilnkeeper") {
     svg.setAttribute('viewBox', '0 0 512 512');
@@ -306,6 +317,33 @@ export function createCombatArt(document, kind, side, layer) {
     svg.appendChild(image);
     return svg;
   }
+  if (kind === "buried-coil") {
+    svg.setAttribute('viewBox', '0 0 512 512');
+    svg.dataset.hidden = String(hidden);
+    svg.dataset.form = hidden ? "hidden" : "revealed";
+    svg.dataset.teamColor = side;
+    // The team plate sits beyond the approved artwork on the home-facing edge.
+    const teamPlate = create('rect');
+    teamPlate.dataset.teamColor = side;
+    teamPlate.setAttribute('x', '38');
+    teamPlate.setAttribute('y', side === 'north' ? '-512' : '512');
+    teamPlate.setAttribute('width', '436');
+    teamPlate.setAttribute('height', '88');
+    teamPlate.setAttribute('rx', '44');
+    teamPlate.setAttribute('fill', side === 'north' ? '#C6452E' : '#2E7F86');
+    teamPlate.setAttribute('shape-rendering', 'crispEdges');
+    teamPlate.setAttribute('aria-hidden', 'true');
+    const image = create('image');
+    image.setAttribute('href', hidden ? BURIED_COIL_HIDDEN_IMAGE : BURIED_COIL_REVEALED_IMAGE);
+    image.setAttribute('x', '0');
+    image.setAttribute('y', '0');
+    image.setAttribute('width', '512');
+    image.setAttribute('height', '512');
+    image.setAttribute('preserveAspectRatio', 'none');
+    svg.appendChild(image);
+    svg.appendChild(teamPlate);
+    return svg;
+  }
   // Unshipped witness-only kinds use an explicit family silhouette.
   const paths = Object.hasOwn(shapes, kind) ? shapes[kind] : shapes[layer === 'air' ? 'copperskiff' : 'coilblade'];
   for (const [d, fill] of paths) {
@@ -327,4 +365,4 @@ export function createCombatArt(document, kind, side, layer) {
   return svg;
 }
 
-export const COMBAT_ART_STYLE = `.combat-target-link{display:none}.combat-target-link[data-from-structure="true"]{display:block}.combat-target-link[data-from-structure="true"] line{stroke:#E9A83A99;stroke-width:70;stroke-dasharray:190 125}.combat-marker[class]{border:0;background:none;border-radius:0;box-shadow:none;width:6.2%;height:auto;aspect-ratio:1}.combat-marker--entity-ground{filter:drop-shadow(0 2px 0 #191d2244)}.combat-marker--entity-air::before{content:"";position:absolute;left:18%;right:18%;height:13%;bottom:-15%;border-radius:50%;background:#191d2244}.combat-art{display:block;width:100%;height:100%;overflow:visible}.combat-marker[data-kind="mossguard"],.combat-marker[data-kind="skymaul"]{width:7.5%}.combat-marker[data-kind="stonehauler"]{width:8.2%}.combat-marker[data-kind="bulwark-needle"],.combat-marker[data-kind="ember-basin"]{width:8.4%;z-index:21}.combat-marker--structure[data-targeting="true"] .combat-art{filter:drop-shadow(0 0 7px #E9A83A)}.combat-marker[data-kind="briar-runner"],.combat-marker[data-kind="briar-darter"],.combat-marker[data-kind="cinderling"]{width:4.8%}.combat-marker--tower[class]{width:7%;height:0;aspect-ratio:auto}.combat-marker[class] .combat-health{width:80%;height:4px;bottom:105%;border-radius:1px;background:#DCEDE9;box-shadow:0 0 0 1px #191D22}.combat-marker--north[class] .combat-health{background:#E9A83A}.combat-marker--tower[class] .combat-health{bottom:28px;height:4px;box-shadow:0 0 0 1px #191D22}.combat-marker[data-reaction="damage"] .combat-art{filter:brightness(1.7)}.combat-marker[data-reaction="target"] .combat-art{transform:rotate(-7deg)}.combat-marker--north[data-reaction="target"] .combat-art{transform:rotate(7deg)}`;
+export const COMBAT_ART_STYLE = `.combat-target-link{display:none}.combat-target-link[data-from-structure="true"]{display:block}.combat-target-link[data-from-structure="true"] line{stroke:#E9A83A99;stroke-width:70;stroke-dasharray:190 125}.combat-marker[class]{border:0;background:none;border-radius:0;box-shadow:none;width:6.2%;height:auto;aspect-ratio:1}.combat-marker--entity-ground{filter:drop-shadow(0 2px 0 #191d2244)}.combat-marker--entity-air::before{content:"";position:absolute;left:18%;right:18%;height:13%;bottom:-15%;border-radius:50%;background:#191d2244}.combat-art{display:block;width:100%;height:100%;overflow:visible}.combat-marker[data-kind="mossguard"],.combat-marker[data-kind="skymaul"]{width:7.5%}.combat-marker[data-kind="stonehauler"]{width:8.2%}.combat-marker[data-kind="bulwark-needle"],.combat-marker[data-kind="buried-coil"],.combat-marker[data-kind="ember-basin"]{width:8.4%;z-index:21}.combat-marker--structure[data-targeting="true"] .combat-art{filter:drop-shadow(0 0 7px #E9A83A)}.combat-marker[data-kind="briar-runner"],.combat-marker[data-kind="briar-darter"],.combat-marker[data-kind="cinderling"]{width:4.8%}.combat-marker--tower[class]{width:7%;height:0;aspect-ratio:auto}.combat-marker[class] .combat-health{width:80%;height:4px;bottom:105%;border-radius:1px;background:#DCEDE9;box-shadow:0 0 0 1px #191D22}.combat-marker--north[class] .combat-health{background:#E9A83A}.combat-marker--tower[class] .combat-health{bottom:28px;height:4px;box-shadow:0 0 0 1px #191D22}.combat-marker[data-reaction="damage"] .combat-art{filter:brightness(1.7)}.combat-marker[data-reaction="target"] .combat-art{transform:rotate(-7deg)}.combat-marker--north[data-reaction="target"] .combat-art{transform:rotate(7deg)}`;

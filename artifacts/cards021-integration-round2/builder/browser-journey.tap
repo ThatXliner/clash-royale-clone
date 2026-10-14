@@ -1,0 +1,28 @@
+TAP version 13
+# Subtest: Cards021 Buried Coil collection and arena use the authentic seed-zero eight-card journey
+not ok 1 - Cards021 Buried Coil collection and arena use the authentic seed-zero eight-card journey
+  ---
+  duration_ms: 23580.05525
+  type: 'test'
+  location: '/private/tmp/cards021i-round2-builder-8cb7/tests/cards021-browser-integration.test.js:412:1'
+  failureType: 'testCodeFailure'
+  error: 'the ground hit applies real target damage: {"amount":230,"buildingId":2,"targetCardId":"mossguard","targetHealth":1766,"targetMaxHealth":1766,"targetId":3,"targetLayer":"ground","tick":102}'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/cards021i-round2-builder-8cb7/tests/cards021-browser-integration.test.js:893:12)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 24364.707917

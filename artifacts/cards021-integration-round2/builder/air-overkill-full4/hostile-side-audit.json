@@ -1,0 +1,34 @@
+{
+  "source": "browser-evidence.json from the completed actual Chromium run; no simulation rerun or state injection",
+  "browser": {
+    "chrome": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "chromeVersion": "155.0.8059.40",
+    "node": "v22.22.3",
+    "pid": 91265,
+    "playwright": "/Users/me/.codex/worktrees/d092a29e-844b-459d-b145-c548db10d485/billion/node_modules/.pnpm/playwright@1.58.2/node_modules/playwright/index.mjs"
+  },
+  "air": {
+    "buildingId": 1,
+    "targetId": 5,
+    "targetSideAtContact": "south",
+    "targetSideAfterContact": "south",
+    "attackerSideFromSameSessionCanonicalExpiryState": "north",
+    "attackerDomSideAtContact": "north",
+    "targetDomSideAtContact": null,
+    "hostile": true
+  },
+  "ground": {
+    "buildingId": 1,
+    "targetId": 3,
+    "targetSideFromTrustedSessionDeploymentReceipt": "south",
+    "targetSideFromDeploymentWitnessUnit": "south",
+    "attackerSideFromSameSessionCanonicalExpiryState": "north",
+    "attackerDomSideAtContact": null,
+    "targetDomSideAtContact": null,
+    "hostile": true
+  },
+  "limitations": [
+    "The earlier successful run did not persist canonical attacker structure and DOM sides in its ground-contact record. The test now captures and asserts both from the same ground-contact snapshot for the critic rerun.",
+    "The air target is already removed from the contact DOM after its lethal hit. The test cross-checks its canonical side at contact against the target DOM side captured immediately before that same queued contact, then verifies the side is unchanged in the post-contact canonical state."
+  ]
+}

@@ -1,0 +1,18 @@
+CARDS-021I critic fence audit
+
+Candidate worktree: /private/tmp/cards021-round2-critic-4328451
+Candidate HEAD: 4328451baff001721460e91b5611ee5f10b21883
+Parent: 8cb7e6509ce3d39d54ac3f0140657404bbb6a1dc
+Candidate worktree status after all runs: clean
+Non-artifact diff against parent: exactly the six expected paths (five UI files and tests/cards021-browser-integration.test.js).
+Post-run hashes: source-post-hashes.txt exactly matches the captured source-pre-hashes.txt for all guarded and owned files.
+Guard results: all non-owned src files match parent; assets, visual manifest, audio/simulation/feed, app-shell/entry/HUD-motion/loop, package.json and package-lock.json match parent.
+
+Shared assigned checkout: /Users/me/.codex/worktrees/9456/clash-royale-clone
+Shared HEAD at final audit: 161743ef9f1d305f54efa0386eca7dfdb3057663 (matches session baseline).
+Shared index path reported by Git: /Users/me/Developer/mine/clash-royale-clone/.git/worktrees/clash-royale-clone9/index
+Shared index SHA-256 at start and final audit: 8e79bb09cef07999afb8d2c991c3f1a9b5562528a82d74eef865a39582def914
+
+Browser process: Node PID 93441; Chrome PID 93480. browser-run.json reports phase complete; both processes were absent at the final process check. Chrome 155.0.8059.40; Node v22.22.3; Playwright 1.58.2. No retry or smoke mode was used.
+
+Evidence written for this audit is confined to this critic artifact directory. No candidate production or test files were edited by the critic. The shared checkout, its HEAD, and its index were not modified.

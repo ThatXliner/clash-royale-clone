@@ -1,0 +1,92 @@
+
+> moss-and-ember@0.0.0 test:ui-combat-state
+> node tests/ui-combat-state-runner.js ui-combat-state
+
+TAP version 13
+# Subtest: ui combat state: stable ID order projects exact millitile geometry and layers
+ok 1 - ui combat state: stable ID order projects exact millitile geometry and layers
+  ---
+  duration_ms: 1.881958
+  type: 'test'
+  ...
+# Subtest: ui combat state: high-confidence tower HP bounds health exactly
+ok 2 - ui combat state: high-confidence tower HP bounds health exactly
+  ---
+  duration_ms: 0.651584
+  type: 'test'
+  ...
+# Subtest: ui combat state: damage changes only numerator; death removes entities and terminals towers
+ok 3 - ui combat state: damage changes only numerator; death removes entities and terminals towers
+  ---
+  duration_ms: 0.371167
+  type: 'test'
+  ...
+# Subtest: ui combat state: canonical serialization restores byte-identically
+ok 4 - ui combat state: canonical serialization restores byte-identically
+  ---
+  duration_ms: 0.974167
+  type: 'test'
+  ...
+# Subtest: ui combat state: one-shot and chunked state projection end in identical bytes
+ok 5 - ui combat state: one-shot and chunked state projection end in identical bytes
+  ---
+  duration_ms: 0.56875
+  type: 'test'
+  ...
+# Subtest: ui combat state: bounded causal events survive canonical restore without driving current state
+ok 6 - ui combat state: bounded causal events survive canonical restore without driving current state
+  ---
+  duration_ms: 0.666708
+  type: 'test'
+  ...
+# Subtest: ui combat state: DOM projection is byte-stable with exact inverted arena coordinates
+ok 7 - ui combat state: DOM projection is byte-stable with exact inverted arena coordinates
+  ---
+  duration_ms: 1.618666
+  type: 'test'
+  ...
+# Subtest: ui combat state: painted Briar Runner pose follows tick, target bearing, contact, and restore
+ok 8 - ui combat state: painted Briar Runner pose follows tick, target bearing, contact, and restore
+  ---
+  duration_ms: 1.189583
+  type: 'test'
+  ...
+# Subtest: ui combat state: terminal restore produces byte-identical DOM and zero health
+ok 9 - ui combat state: terminal restore produces byte-identical DOM and zero health
+  ---
+  duration_ms: 0.429458
+  type: 'test'
+  ...
+# Subtest: ui combat state: DOM binding validates/builds before its single commit
+ok 10 - ui combat state: DOM binding validates/builds before its single commit
+  ---
+  duration_ms: 0.448
+  type: 'test'
+  ...
+# Subtest: ui combat state: exact shapes, accessors, prototypes, IDs, targets, HP, and bounds fail closed
+ok 11 - ui combat state: exact shapes, accessors, prototypes, IDs, targets, HP, and bounds fail closed
+  ---
+  duration_ms: 0.779209
+  type: 'test'
+  ...
+# Subtest: ui combat state: combat layer mounts inside the shipped arena primitive
+ok 12 - ui combat state: combat layer mounts inside the shipped arena primitive
+  ---
+  duration_ms: 0.326459
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper battle cutout keeps a team ring and enters the animated combat-art set
+ok 13 - Kilnkeeper battle cutout keeps a team ring and enters the animated combat-art set
+  ---
+  duration_ms: 0.083417
+  type: 'test'
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 89.20725

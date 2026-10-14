@@ -1,0 +1,28 @@
+TAP version 13
+# Subtest: Cards021 Buried Coil collection and arena use the authentic seed-zero eight-card journey
+not ok 1 - Cards021 Buried Coil collection and arena use the authentic seed-zero eight-card journey
+  ---
+  duration_ms: 59852.665708
+  type: 'test'
+  location: '/private/tmp/cards021i-round2-builder-8cb7/tests/cards021-browser-integration.test.js:500:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    frame.evaluate: ReferenceError: structures is not defined
+        at eval (eval at evaluate (:290:30), <anonymous>:68:14)
+        at async <anonymous>:316:30
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    eval (eval at evaluate (:290:30), <anonymous>:68:14)
+    async <anonymous>:316:30
+    advanceUntilMatch (/private/tmp/cards021i-round2-builder-8cb7/tests/cards021-browser-integration.test.js:301:30)
+    TestContext.<anonymous> (/private/tmp/cards021i-round2-builder-8cb7/tests/cards021-browser-integration.test.js:1027:11)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 60077.169083

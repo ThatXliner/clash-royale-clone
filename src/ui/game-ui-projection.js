@@ -122,6 +122,7 @@ function combatState(state, effectEvents) {
     targetId: liveTargetId(unit.targetId),
   })).concat(structures.map((structure) => ({
     hitpoints: structure.hitpoints,
+    ...(structure.cardId === "buried-coil" ? { hidden: structure.hidden } : {}),
     id: structure.id,
     kind: structure.cardId,
     layer: "ground",

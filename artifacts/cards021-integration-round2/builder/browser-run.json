@@ -1,0 +1,14 @@
+{
+  "phase": "ground-attack",
+  "pid": 84427,
+  "node": "v22.22.3",
+  "chrome": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+  "playwright": "/Users/me/.codex/worktrees/d092a29e-844b-459d-b145-c548db10d485/billion/node_modules/.pnpm/playwright@1.58.2/node_modules/playwright/index.mjs",
+  "chromeVersion": "155.0.8059.40",
+  "failure": {
+    "name": "AssertionError",
+    "message": "the ground hit applies real target damage: {\"amount\":230,\"buildingId\":2,\"targetCardId\":\"mossguard\",\"targetHealth\":1766,\"targetMaxHealth\":1766,\"targetId\":3,\"targetLayer\":\"ground\",\"tick\":102}",
+    "stack": "AssertionError [ERR_ASSERTION]: the ground hit applies real target damage: {\"amount\":230,\"buildingId\":2,\"targetCardId\":\"mossguard\",\"targetHealth\":1766,\"targetMaxHealth\":1766,\"targetId\":3,\"targetLayer\":\"ground\",\"tick\":102}\n    at TestContext.<anonymous> (file:///private/tmp/cards021i-round2-builder-8cb7/tests/cards021-browser-integration.test.js:893:12)\n    at async Test.run (node:internal/test_runner/test:1054:7)\n    at async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)"
+  },
+  "phaseAtExit": "ground-attack"
+}

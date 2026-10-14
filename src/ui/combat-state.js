@@ -14,7 +14,7 @@ export const COMBAT_ENTITY_LIMIT = 512;
 export const COMBAT_EVENT_LIMIT = 2_048;
 export const COMBAT_TOWER_LIMIT = 16;
 export const COMBAT_TARGET_LINK_LIMIT = COMBAT_ENTITY_LIMIT + COMBAT_TOWER_LIMIT;
-export const COMBAT_VIEW_VERSION = 1;
+export const COMBAT_VIEW_VERSION = 2;
 
 const CANONICAL_VIEWS = new WeakSet();
 const SIDES = new Set(["north", "south"]);
@@ -28,7 +28,7 @@ export function getCombatStyleText() {
   return COMBAT_STYLE_TEXT;
 }
 
-function dataObject(value, keys, label) {
+function dataObject(value, keys, label, optionalKeys = []) {
   if (
     value === null ||
     typeof value !== "object" ||
@@ -41,14 +41,16 @@ function dataObject(value, keys, label) {
   }
   const descriptors = Object.getOwnPropertyDescriptors(value);
   const actual = Reflect.ownKeys(descriptors);
+  const allowed = new Set([...keys, ...optionalKeys]);
   if (
-    actual.length !== keys.length ||
-    actual.some((key) => typeof key !== "string" || !keys.includes(key))
+    keys.some((key) => !Object.hasOwn(descriptors, key)) ||
+    actual.length > keys.length + optionalKeys.length ||
+    actual.some((key) => typeof key !== "string" || !allowed.has(key))
   ) {
     throw new TypeError(`${label} has an invalid shape`);
   }
   const result = {};
-  for (const key of keys) {
+  for (const key of [...keys, ...optionalKeys.filter((key) => Object.hasOwn(descriptors, key))]) {
     const descriptor = descriptors[key];
     if (
       !descriptor ||
@@ -197,7 +199,12 @@ function checkedEntities(value) {
         "position",
         "side",
         "targetId",
-      ], label);
+      ], label, ["hidden"]);
+      const hasHiddenState = Object.hasOwn(entity, "hidden");
+      if ((entity.kind === "buried-coil") !== hasHiddenState ||
+          (hasHiddenState && typeof entity.hidden !== "boolean")) {
+        throw new TypeError(`${label}.hidden must be present only as a Buried Coil boolean`);
+      }
       const id = checkedId(entity.id, `${label}.id`);
       const target = checkedTargetId(entity.targetId, `${label}.targetId`);
       const checkedHealth = health(entity.hitpoints, entity.maxHitpoints, label);
@@ -206,6 +213,7 @@ function checkedEntities(value) {
       }
       return {
         ...checkedHealth,
+        hidden: hasHiddenState ? entity.hidden : false,
         id: id.value,
         key: id.key,
         kind: token(entity.kind, `${label}.kind`),
@@ -321,6 +329,7 @@ export function createCombatViewModel(state) {
       ...marker(entity),
       kind: entity.kind,
       layer: entity.layer,
+      ...(entity.kind === "buried-coil" ? { hidden: entity.hidden } : {}),
     })),
     events,
     links,
@@ -367,7 +376,12 @@ function stateFromView(raw) {
   const entities = denseArray(view.entities, COMBAT_ENTITY_LIMIT, "combat view.entities").map((rawEntity, index) => {
     const entity = dataObject(rawEntity, [
       "healthDenominator", "healthNumerator", "id", "key", "kind", "layer", "side", "x", "y",
-    ], `combat view.entities[${index}]`);
+    ], `combat view.entities[${index}]`, ["hidden"]);
+    const hasHiddenState = Object.hasOwn(entity, "hidden");
+    if ((entity.kind === "buried-coil") !== hasHiddenState ||
+        (hasHiddenState && typeof entity.hidden !== "boolean")) {
+      throw new TypeError(`combat view entity[${index}].hidden must be present only as a Buried Coil boolean`);
+    }
     const id = checkedId(entity.id, `combat view.entities[${index}].id`);
     if (entity.key !== id.key) throw new TypeError("combat view entity key is noncanonical");
     return {
@@ -379,6 +393,7 @@ function stateFromView(raw) {
       position: { x: entity.x, y: entity.y },
       side: entity.side,
       targetId: null,
+      ...(hasHiddenState ? { hidden: entity.hidden } : {}),
     };
   });
   const towers = denseArray(view.towers, COMBAT_TOWER_LIMIT, "combat view.towers").map((rawTower, index) => {
@@ -539,6 +554,7 @@ export function bindCombatViewModel(layer, view) {
     setCommonNode(node, entity, `entity-${entity.layer}`);
     node.dataset.kind = entity.kind;
     node.dataset.layer = entity.layer;
+    if (entity.kind === "buried-coil") node.dataset.hidden = String(entity.hidden);
     const reaction = reactions.get(entity.key) ?? "idle";
     node.dataset.reaction = reaction;
     if (structureKeys.has(entity.key)) {
@@ -554,7 +570,7 @@ export function bindCombatViewModel(layer, view) {
         side: entity.side,
         tick: canonical.tick,
       })
-      : createCombatArt(layer.ownerDocument, entity.kind, entity.side, entity.layer);
+      : createCombatArt(layer.ownerDocument, entity.kind, entity.side, entity.layer, entity.hidden);
     node.appendChild(art);
     nodes.push(node);
   }

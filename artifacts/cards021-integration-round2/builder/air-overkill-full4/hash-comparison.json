@@ -1,0 +1,110 @@
+{
+  "preRunHashesFile": "pre-run-owned-and-asset-hashes.txt",
+  "postAuditHashesFile": "post-audit-owned-and-asset-hashes.txt",
+  "postAuditGuardHashesFile": "post-audit-guard-hashes.txt",
+  "ownedFiles": [
+    {
+      "file": "src/ui/card-lore.js",
+      "before": "437fb856528faaac054284cd248c2d8e5342e199f0531a8371e2076201a56002",
+      "after": "437fb856528faaac054284cd248c2d8e5342e199f0531a8371e2076201a56002",
+      "unchanged": true
+    },
+    {
+      "file": "src/ui/card-portrait-art.js",
+      "before": "a96710de5354d6be20b1f023bdd783ce642a7d49b666b07e13476bcda4a612e6",
+      "after": "a96710de5354d6be20b1f023bdd783ce642a7d49b666b07e13476bcda4a612e6",
+      "unchanged": true
+    },
+    {
+      "file": "src/ui/combat-art.js",
+      "before": "a362244cc1ba91cb09b9399b1cef251d68d61a8e649db16034a98c15bfe1f89e",
+      "after": "a362244cc1ba91cb09b9399b1cef251d68d61a8e649db16034a98c15bfe1f89e",
+      "unchanged": true
+    },
+    {
+      "file": "src/ui/combat-state.js",
+      "before": "8eb4b4f3e9b788c0569cafa8dcc0dded01e53a21c5f376c3d750856d688edf4d",
+      "after": "8eb4b4f3e9b788c0569cafa8dcc0dded01e53a21c5f376c3d750856d688edf4d",
+      "unchanged": true
+    },
+    {
+      "file": "src/ui/game-ui-projection.js",
+      "before": "18680b493edf07f513a006cede2d0de14315c0abd2995c03b3dc1dda91801b6b",
+      "after": "18680b493edf07f513a006cede2d0de14315c0abd2995c03b3dc1dda91801b6b",
+      "unchanged": true
+    },
+    {
+      "file": "tests/cards021-browser-integration.test.js",
+      "before": "063665c863de20f665ffd990c577d269e4e54f36a7087cc568f9532d4d928992",
+      "after": "f86c766c73184176be65a572bc52521923049488db9c9b805a84c85dcedf3680",
+      "unchanged": false
+    },
+    {
+      "file": "public/assets/buried-coil-portrait.webp",
+      "before": "e52c43cc2c56f4aef3d3410a8a7adb1df63de581eb2fd93f443d85271ae62d5b",
+      "after": "e52c43cc2c56f4aef3d3410a8a7adb1df63de581eb2fd93f443d85271ae62d5b",
+      "unchanged": true
+    },
+    {
+      "file": "public/assets/buried-coil-hidden.webp",
+      "before": "5ee469494f97eab0652cc150d6b23b75c5bca44eba90b84a88cf8faf98d1a469",
+      "after": "5ee469494f97eab0652cc150d6b23b75c5bca44eba90b84a88cf8faf98d1a469",
+      "unchanged": true
+    },
+    {
+      "file": "public/assets/buried-coil-revealed.svg",
+      "before": "0e677493ea65b9132ed553ec21a1efdf474cc887d6e21d569ff4fc3f96189b53",
+      "after": "0e677493ea65b9132ed553ec21a1efdf474cc887d6e21d569ff4fc3f96189b53",
+      "unchanged": true
+    },
+    {
+      "file": "src/content/visual-asset-manifest.js",
+      "before": "bc0255f4751f1056260a06e19327c2e0c274d6ebbcb545fb26b9365f8897706d",
+      "after": "bc0255f4751f1056260a06e19327c2e0c274d6ebbcb545fb26b9365f8897706d",
+      "unchanged": true
+    }
+  ],
+  "guardedFiles": [
+    {
+      "file": "src/content/visual-asset-manifest.js",
+      "before": "bc0255f4751f1056260a06e19327c2e0c274d6ebbcb545fb26b9365f8897706d",
+      "after": "bc0255f4751f1056260a06e19327c2e0c274d6ebbcb545fb26b9365f8897706d",
+      "unchanged": true
+    },
+    {
+      "file": "src/ui/app-shell.js",
+      "before": "12f566f0a7e417ff3260aee097bd11b94e28636b68f7226b6f81652194bf710e",
+      "after": "12f566f0a7e417ff3260aee097bd11b94e28636b68f7226b6f81652194bf710e",
+      "unchanged": true
+    },
+    {
+      "file": "src/ui/game-browser-entry.js",
+      "before": "2f13356b4cad13343ad7cd5fb67ffed65ef82e92639fba4d408a96d31b14cee8",
+      "after": "2f13356b4cad13343ad7cd5fb67ffed65ef82e92639fba4d408a96d31b14cee8",
+      "unchanged": true
+    },
+    {
+      "file": "src/ui/hud-motion.js",
+      "before": "18b377194878e070f3b4ddeda90a9c02dbd907959f99e4e0ca3e0c233de6157d",
+      "after": "18b377194878e070f3b4ddeda90a9c02dbd907959f99e4e0ca3e0c233de6157d",
+      "unchanged": true
+    },
+    {
+      "file": "src/ui/game-browser-loop.js",
+      "before": "f84c5f1b6928241c0c91b5c6b9501626be414b6e41a045334cb7ee0c8990c7c5",
+      "after": "f84c5f1b6928241c0c91b5c6b9501626be414b6e41a045334cb7ee0c8990c7c5",
+      "unchanged": true
+    },
+    {
+      "file": "src/ui/arena-shell-entry.js",
+      "before": "73cdec8ef684dbc7027a05a08f6457a04eb65d5b5e653fab49a9be0e92f5a7d2",
+      "after": "73cdec8ef684dbc7027a05a08f6457a04eb65d5b5e653fab49a9be0e92f5a7d2",
+      "unchanged": true
+    }
+  ],
+  "guardFilesUnchanged": true,
+  "productSourceFilesUnchangedAfterSuccessfulRun": true,
+  "assetsAndManifestUnchangedAfterSuccessfulRun": true,
+  "testFileChangedAfterSuccessfulRunOnlyForHostileSideEvidence": true,
+  "note": "The successful run completed before adding hostile-side assertions; the test-only additions are syntax-checked and retained for the fresh critic rerun."
+}

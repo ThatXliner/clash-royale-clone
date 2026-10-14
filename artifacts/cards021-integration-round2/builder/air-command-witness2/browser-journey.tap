@@ -1,0 +1,28 @@
+TAP version 13
+# Subtest: Cards021 Buried Coil collection and arena use the authentic seed-zero eight-card journey
+not ok 1 - Cards021 Buried Coil collection and arena use the authentic seed-zero eight-card journey
+  ---
+  duration_ms: 18409.41825
+  type: 'test'
+  location: '/private/tmp/cards021i-round2-builder-8cb7/tests/cards021-browser-integration.test.js:510:1'
+  failureType: 'testCodeFailure'
+  error: 'ground target: the trusted pointer creates a fresh exact canonical player command; witness={"before":{"bridge":"{\\"deliveries\\":[{\\"admission\\":{\\"accepted\\":true,\\"commandId\\":1,\\"tick\\":0,\\"type\\":\\"player-command-admitted\\"},\\"command\\":{\\"cardId\\":\\"buried-coil\\",\\"commandId\\":1,\\"point\\":{\\"x\\":8500,\\"y\\":11000},\\"slot\\":1,\\"tick\\":0,\\"type\\":\\"deploy\\"}}],\\"version\\":1}","elixir":6,"hand":["mossguard","brassbolt","copperskiff","cinderlings"],"pendingPlayerCommands":[],"pointers":1,"replayLength":4,"tick":1,"transcriptLength":6},"cardCost":3,"witness":{"bridge":"{\\"deliveries\\":[{\\"admission\\":{\\"accepted\\":true,\\"commandId\\":1,\\"tick\\":0,\\"type\\":\\"player-command-admitted\\"},\\"command\\":{\\"cardId\\":\\"buried-coil\\",\\"commandId\\":1,\\"point\\":{\\"x\\":8500,\\"y\\":11000},\\"slot\\":1,\\"tick\\":0,\\"type\\":\\"deploy\\"}},{\\"admission\\":{\\"accepted\\":true,\\"commandId\\":2,\\"tick\\":1,\\"type\\":\\"player-command-admitted\\"},\\"command\\":{\\"cardId\\":\\"mossguard\\",\\"commandId\\":2,\\"point\\":{\\"x\\":5999,\\"y\\":14000},\\"slot\\":0,\\"tick\\":1,\\"type\\":\\"deploy\\"}}],\\"version\\":1}","elixir":3,"hand":["briar-band","brassbolt","copperskiff","cinderlings"],"newCommands":[{"command":{"cardId":"mossguard","commandId":2,"point":{"x":5999,"y":14000},"slot":0,"tick":1,"type":"deploy"},"type":"submit"}],"newDeployments":[{"deployment":{"cardId":"mossguard","entityIds":[3],"point":{"x":5999,"y":14000},"sequence":2,"side":"south","tick":1,"type":"deployed"},"side":"south","spend":{"accepted":true,"amountAfter":3,"cost":3,"reason":"accepted","sequence":2,"side":"south","tick":1,"type":"spend"},"tick":1,"type":"session-deployed"}],"pendingPlayerCommands":[],"pointers":[{"isTrusted":true,"clientX":269.9935302734375,"clientY":647.993408203125}],"replayTail":[{"deployment":{"cardId":"mossguard","entityIds":[3],"point":{"x":5999,"y":14000},"sequence":2,"side":"south","tick":1,"type":"deployed"},"side":"south","spend":{"accepted":true,"amountAfter":3,"cost":3,"reason":"accepted","sequence":2,"side":"south","tick":1,"type":"spend"},"tick":1,"type":"session-deployed"},{"buildingId":2,"tick":1,"type":"building-revealed"}],"tick":2,"units":[{"alive":true,"cardId":"mossguard","hitpoints":1766,"id":3,"layer":"ground","side":"south"}]}}'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    deployCard (file:///private/tmp/cards021i-round2-builder-8cb7/tests/cards021-browser-integration.test.js:1021:14)
+    async TestContext.<anonymous> (file:///private/tmp/cards021i-round2-builder-8cb7/tests/cards021-browser-integration.test.js:1053:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 18636.523541

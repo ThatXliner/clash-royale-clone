@@ -1,0 +1,14 @@
+{
+  "phase": "air-attack",
+  "pid": 86610,
+  "node": "v22.22.3",
+  "chrome": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+  "playwright": "/Users/me/.codex/worktrees/d092a29e-844b-459d-b145-c548db10d485/billion/node_modules/.pnpm/playwright@1.58.2/node_modules/playwright/index.mjs",
+  "chromeVersion": "155.0.8059.40",
+  "failure": {
+    "name": "AssertionError",
+    "message": "a real Buried Coil hit against an eligible air target did not occur within 1200 canonical ticks; result={\"matched\":false,\"steps\":1200,\"terminal\":false,\"tick\":1305}",
+    "stack": "AssertionError [ERR_ASSERTION]: a real Buried Coil hit against an eligible air target did not occur within 1200 canonical ticks; result={\"matched\":false,\"steps\":1200,\"terminal\":false,\"tick\":1305}\n    at advanceUntilMatch (file:///private/tmp/cards021i-round2-builder-8cb7/tests/cards021-browser-integration.test.js:369:10)\n    at async TestContext.<anonymous> (file:///private/tmp/cards021i-round2-builder-8cb7/tests/cards021-browser-integration.test.js:1004:5)\n    at async Test.run (node:internal/test_runner/test:1054:7)\n    at async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)"
+  },
+  "phaseAtExit": "air-attack"
+}
