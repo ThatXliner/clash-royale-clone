@@ -1,0 +1,62 @@
+# CARDS-019I integration scope
+
+## Source boundary and current UI state
+
+This is a read-only integration map. The clean UI/source snapshot is `6198883470fa48f6746974d7590168ae3011ac37` (`Accept native-size Rivet Runners battle cutout round 437`); the preceding plan reconciliation is `f02b8bece83bf5b5162bd8f56c236cfd28b6e9c5`. The `src/ui/app-shell.js`, `src/content/editable-deck.js`, and other owner files listed below are byte-identical at both revisions. The shared checkout was dirty during this review and was not used as source authority.
+
+The deployed page was checked separately in real Chrome 155 at 390×844, DPR 1. It returned HTTP 200 and displayed 20 collection entries. Selecting Kilnkeeper showed its name and core stats, but no portrait image, no lore, and no loaded Kilnkeeper art. Treat this as the 19 existing presented cards plus one provisional generic Kilnkeeper fallback. It is not accepted CARDS-019I presentation. The same distinction applies to the clean 619 browser probe: it also shows 20 because the CARDS-019K core admission already adds `kilnkeeper` to `EDITABLE_DECK_CARD_IDS`, while the presentation mappings are absent. The former 19-card expectations are stale after that core admission: `tests/app-shell.test.js` expects 19, and `tests/cards018-browser-integration.test.js` fails at its 19-card assertion with actual 20. Preserve the Ember Basin checks while updating the collection expectation as part of the approved integration.
+
+The live deployment evidence is `live-deployment-browser-probe.json`, `live-kilnkeeper-detail-phone-390x844.png`, `live-http-headers.txt`, and `live-index-http-body.html`. The browser saw HTTP 200; the raw curl body is 11,284 bytes, SHA-256 `d7f0d91e13a33a6d1a966302f7a338208ddad7dc9bbf13a733f292ef076ef470`. The browser navigation `Response.body()` is retained as a separately labeled 11,651-byte value, and the post-selection `document.documentElement.outerHTML` is 35,117 bytes; neither is labeled as the raw curl body. All 17 loaded JavaScript responses were HTTP 200. The entry bundle `game/assets/game-runtime~public/index-DL8YB73d.js` is 33,264 bytes, SHA-256 `76dcd24f375ea20dea41742dfcbd0e1c02bf3db9394f48868be687e762159f7b`; the sorted loaded-JavaScript response manifest SHA-256 is `2b8ca36633eebb9369983a990e2ed0541b633414ff936adbb4a32143af4040ea`. The JSON has every URL, status, size, and digest. No Git source revision is inferred from the deployed bundle hashes.
+
+At clean revision 619, the staged approved assets are already registered: portrait `kilnkeeper-portrait-painted`, 512×512 WebP, 65,626 bytes, SHA-256 `38e9f64348fa823a64755fda2496b699c88c27c7dd0a14a440e704d9093d2240`; battle cutout `kilnkeeper-battle-sprite`, 512×512 WebP, 47,138 bytes, SHA-256 `43766c813461acbfe36a949c6a972ba4e5ddf07513276bd5079cf564b1bf157a`. ART-019P has the two approved lore sentences in `artifacts/art019p-round-1/builder/kilnkeeper-concept.md`. The exact approved details text is:
+
+> Kilnkeeper tends the warm river kilns where rootwood beams are steamed and copper vessels are shaped, keeping each emberseed dry between shifts.
+>
+> When raiders threaten the workshop, he loads one emberseed into his broad-mouthed launcher and sends a single burst of sparks skittering across the ground.
+
+The parent reports that CARDS-019D is now a separate TODO for the collection portrait/lore slice, with CARDS-019K and ART-019P accepted dependencies. That work can land independently of H1. Full CARDS-019I arena presentation remains dependent on H1. The frozen intended H1 implementation inspected here is `eaed44cf29865d7fd9c1fcc54a3420733e8b9d9f`; its `PLAN.md` still labels H1 BUILDING. The parent separately reports terminal H1 audit PASS at `ad9c67` with measurements `62/Q5/selectors47`; use the exact accepted H1 source revision from that audit when building the arena integration. This scope does not promote `eaed44c` or its code into accepted status.
+
+## Identity and live-projectile probe
+
+The collision case is real: one `BattleTowerCombat` fixture at clean revision 619 calls `step(0)` with unit id 9 at (3500, 7500), projectile speed 1000, and a ready south west lane tower. Both the unit shot (`unit-to-tower`, source id `9`) and crown-tower shot (`tower-to-unit`, source id `south:lane:west`) allocate local `projectileId: 1` and `attackSequence: 1`. The runtime emits 10 events including both launches and contacts. The event identities remain distinct by `direction` and typed `sourceId`; they produce distinct visual roots `projectile.unit-to-tower.9.none.1.1` and `projectile.tower-to-unit.ssouth%3Alane%3Awest.none.1.1`. The renderer's contact keys include the full root id plus event id, and the restored combat-effects view serializes byte-identically. The targeted runtime test passed (1/1); see `projectile-identity-runtime-probe.json` and `projectile-identity-runtime-test.tap`.
+
+The audited renderer source is exact: `src/sim/combat-effect-feed.js` SHA-256 `56e00f0bfa449e9efa29d794c8f34793ffdef13d12a533c7d13723cfeb70f0ea` builds a root id from type, direction, source, effect, projectile id, and attack sequence; `src/ui/combat-effects.js` SHA-256 `a848f6e2e1bbe38046dc496aac578cae2a1c282e04f594103375962f178f0af2` keys paths/impacts by that root, and its view restore is exact. `src/ui/game-ui-projection.js` SHA-256 `0fc416dcdcbf17d39fdd38b343899b4f3742bfa37e78887e704f9a9fdf0a8696` consumes one authentic session snapshot; `src/ui/combat-motion.js` SHA-256 `dab2da5df0ed2264bc33c6b18eff58cba6d3319f086a0ebc939063804b2c7e03` uses projected effect roots for motion. There is no projectile-ID-only renderer key in this path.
+
+Audio also does not correlate by local projectile id. `src/audio/audio-events.js` SHA-256 `6be744a0b1080857aaa83285fe1c1d20bbc95422dc630e1d215be6faedd587f3` accepts the ordered event stream and emits one record per event sequence; `src/audio/game-audio-runtime.js` SHA-256 `9e6b8bc0e0ee0a29f32670e5065276caa94e23779ba257efe7aa906afd2f11b5` restores from the session bytes, event-byte prefix, and sequence cursor. In the runtime probe, the unit `projectile-launch` maps to the launch cue. `tower-projectile-launch` currently yields `unknown/no-cue`; this is a cue-taxonomy omission, not a numeric-ID collision, and should only be included if the integration scope requires an audible tower launch.
+
+The H1 visual seam is still separate from identity. At clean 619, `combat-effects.js` computes an in-flight location by linear interpolation from the launch root's saved `from` and `to`, while `game-ui-projection.js` does not pass the live `state.battle.projectiles` array into that projection. H1's frozen engine snapshot carries a moving projectile `position` and target identity. Once the accepted H1 revision is selected, the arena presentation should consume those authoritative live positions and key them with the complete typed identity (direction, source, attack sequence, projectile id); it must not join on `projectileId` alone or substitute a fixed contact tick. No defect was found in existing root/audio identity matching; the current gap is that the view is static rather than homing-aware.
+
+## Exact integration owners
+
+Collection, detail, and deck-choice owners:
+
+- `src/ui/app-shell.js` assembles cards, collection markup, details, and replacement choices from the admitted roster. Its clean 619 SHA-256 is `060abc24e332b828f59a79e896a7413310786960f1d62bf8b24a713e413a66a1`.
+- `src/ui/card-portrait-art.js` maps card ids to existing manifest assets; it has no Kilnkeeper mapping. SHA-256 `9cef78518cfd5d33865cded4a62f75412a07d3bcea496c9d08a3c2a5e630a0ce`.
+- `src/ui/card-lore.js` owns the details lore table; it has no Kilnkeeper entry. SHA-256 `d19b8492764262344d86e001bf93bea14717dea2b76b025a71df90dfc67e7637`.
+- `src/content/editable-deck.js` composes the editable id pool; `src/content/session-troop-roster.js` admits Kilnkeeper into the base editable unit pool. The latter is the reason the unreviewed id already appears.
+- `src/content/visual-asset-manifest.js` already has both accepted image records; no new art record is needed for the previously accepted files.
+
+Arena, identity, and runtime owners:
+
+- `src/ui/combat-art.js` maps combat kinds to art; unknown Kilnkeeper currently gets the generic `witness-ground` shape. Add the accepted cutout mapping here.
+- `src/ui/combat-state.js` renders entity markers through `createCombatArt`; `src/ui/game-ui-projection.js` assembles current session state/effects; `src/ui/combat-effects.js` projects projectile visuals; `src/ui/combat-motion.js` applies motion and hit/reaction poses.
+- `src/ui/game-browser-entry.js`, `src/ui/game-browser-loop.js`, and `src/ui/arena-shell-entry.js` own browser session start, frame updates, and restore wiring. `src/ui/input-controller.js` owns trusted card selection/deploy input.
+- `src/audio/audio-events.js`, `src/audio/game-audio-runtime.js`, and `src/ui/game-audio-bridge.js` own audio event projection/runtime/bridge if cue behavior becomes part of the acceptance.
+
+The existing test owners at clean 619 are `tests/app-shell.test.js` (currently hardcodes 19), `tests/cards018-browser-integration.test.js` (currently hardcodes 19 and verifies Ember Basin; its assertion failed on clean 619 with actual 20), `tests/combat-art-asset-browser.test.js`, `tests/ui-combat-state.test.js`, `tests/ui-combat-effects.test.js`, `tests/browser-frame-restore.test.js`, `tests/game-browser-deck-choice.test.js`, `tests/game-browser-journey.test.js`, `tests/audio-events.test.js`, and `tests/game-audio-runtime.test.js`. Add a focused `tests/cards019-browser-integration.test.js` for the Kilnkeeper path; keep the existing Cards018 Ember Basin journey intact while changing the shared collection-size assertion to the accepted 20-card state.
+
+## Smallest decisive browser journey
+
+Use a real Chrome run with trusted pointer input, not a DOM-only fixture. Run all four presentation contexts: phone 390×844 and desktop 1440×933, each under `no-preference` and `reduce`, DPR 1. Preserve the app's existing layout and capture the battle cutout at the accepted native 13 CSS-pixel proof size as well as in its real arena position.
+
+1. Build and serve a clean candidate release. Open Cards, assert the accepted collection has 20 entries, select Kilnkeeper, confirm the exact approved portrait decodes from its manifest URL and both approved lore sentences appear. Inspect the collection and replacement choice at both viewports.
+2. Open the deck editor, replace a real slot with Kilnkeeper through pointer input, and assert the deck remains eight unique ids with correct elixir cost/average and cycle advancement. Preserve a recorded roster/deck and source revision for replay.
+3. Start the actual battle, select and deploy Kilnkeeper with trusted pointer input, then derive observations from the live `GameSession`/replay: one elixir spend, one cycle advance, AI Kilnkeeper when legally/seededly selected, actual splash contact/damage, and the active projectile's full identity. Use event predicates and live positions; do not hardcode a contact tick. Assert the cutout is used for the real entity marker, team/layer indicators remain legible, and the H1 projectile visual follows the current target position.
+4. Capture one pending in-flight snapshot and one damaged/contact snapshot in each motion mode. Restore each exact `GameSession` snapshot without changing motion preference; compare canonical session/view/effect/audio bytes and the rendered pixels, then restart with the same deck and verify the initial frame and selection state. Repeat at both viewports. Confirm no duplicate audio/replay events across restore.
+
+## Reproduction artifacts
+
+- `projectile-identity-runtime-probe.mjs` and `.json`: actual runtime collision fixture at clean revision 619 with source-file SHA-256s, both full namespaces, visual root/impact keys, audio records, and exact effect-view restore equality.
+- `projectile-identity-runtime-test.tap`: focused `tests/battle-projectile-history.test.js` namespace-collision test, 1/1 passed.
+- `current-ui-browser-probe.mjs`, `.json`, screenshots, and `cards018-current-ui-browser.tap`: clean 619 post-019K UI observation only. It shows the fallback and the expected19 assertion failure; it is not an accepted UI claim.
+- `live-deployment-browser-probe.mjs` and `.json`, screenshot, captured headers, and raw HTTP body: read-only deployed browser observation and response hashes.

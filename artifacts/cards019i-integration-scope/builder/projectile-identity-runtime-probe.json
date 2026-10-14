@@ -1,0 +1,249 @@
+{
+  "source": {
+    "revision": "6198883470fa48f6746974d7590168ae3011ac37",
+    "note": "clean accepted pre-integration source used for this namespace probe; post-019K core admission makes the UI choice count an interim observation, not accepted CARDS-019I presentation",
+    "sha256": {
+      "src/sim/battle-continuation-kernel.js": "01ad1bb40bde6e11be6946b36913e21763076d091f6cda3d0fbf471435413aa4",
+      "src/sim/combat-effect-feed.js": "56e00f0bfa449e9efa29d794c8f34793ffdef13d12a533c7d13723cfeb70f0ea",
+      "src/ui/combat-effects.js": "a848f6e2e1bbe38046dc496aac578cae2a1c282e04f594103375962f178f0af2",
+      "src/ui/game-ui-projection.js": "0fc416dcdcbf17d39fdd38b343899b4f3742bfa37e78887e704f9a9fdf0a8696",
+      "src/ui/combat-motion.js": "dab2da5df0ed2264bc33c6b18eff58cba6d3319f086a0ebc939063804b2c7e03",
+      "src/audio/audio-events.js": "6be744a0b1080857aaa83285fe1c1d20bbc95422dc630e1d215be6faedd587f3",
+      "src/audio/game-audio-runtime.js": "9e6b8bc0e0ee0a29f32670e5065276caa94e23779ba257efe7aa906afd2f11b5"
+    }
+  },
+  "fixture": {
+    "kind": "actual BattleTowerCombat runtime fixture",
+    "call": "BattleTowerCombat.step(0)",
+    "unit": {
+      "id": 9,
+      "side": "north",
+      "position": {
+        "x": 3500,
+        "y": 7500
+      },
+      "delivery": "projectile",
+      "projectileSpeed": 1000
+    },
+    "firstBatchTypes": [
+      "target",
+      "attack",
+      "external-structure-attack",
+      "projectile-launch",
+      "projectile-impact",
+      "external-structure-contact",
+      "tower-projectile-launch",
+      "external-unit-contact",
+      "damage"
+    ],
+    "battleTickAfterStep": null
+  },
+  "projectileIdentities": [
+    {
+      "type": "attack",
+      "attackSequence": 1,
+      "direction": "unit-to-tower",
+      "projectileId": 1,
+      "sourceId": 9
+    },
+    {
+      "type": "external-structure-attack",
+      "attackSequence": 1,
+      "direction": "unit-to-tower",
+      "projectileId": 1,
+      "sourceId": 9
+    },
+    {
+      "type": "projectile-launch",
+      "attackSequence": 1,
+      "direction": "unit-to-tower",
+      "projectileId": 1,
+      "sourceId": 9
+    },
+    {
+      "type": "projectile-impact",
+      "attackSequence": 1,
+      "direction": "unit-to-tower",
+      "projectileId": 1,
+      "sourceId": 9
+    },
+    {
+      "type": "external-structure-contact",
+      "attackSequence": 1,
+      "direction": "unit-to-tower",
+      "projectileId": 1,
+      "sourceId": 9
+    },
+    {
+      "type": "tower-projectile-launch",
+      "attackSequence": 1,
+      "direction": "tower-to-unit",
+      "projectileId": 1,
+      "sourceId": "south:lane:west"
+    },
+    {
+      "type": "external-unit-contact",
+      "attackSequence": 1,
+      "direction": "tower-to-unit",
+      "projectileId": 1,
+      "sourceId": "south:lane:west"
+    },
+    {
+      "type": "damage",
+      "attackSequence": 1,
+      "direction": "tower-to-unit",
+      "projectileId": 1,
+      "sourceId": "south:lane:west"
+    }
+  ],
+  "sharedLocalProjectileIdOne": [
+    {
+      "type": "attack",
+      "attackSequence": 1,
+      "direction": "unit-to-tower",
+      "projectileId": 1,
+      "sourceId": 9
+    },
+    {
+      "type": "external-structure-attack",
+      "attackSequence": 1,
+      "direction": "unit-to-tower",
+      "projectileId": 1,
+      "sourceId": 9
+    },
+    {
+      "type": "projectile-launch",
+      "attackSequence": 1,
+      "direction": "unit-to-tower",
+      "projectileId": 1,
+      "sourceId": 9
+    },
+    {
+      "type": "projectile-impact",
+      "attackSequence": 1,
+      "direction": "unit-to-tower",
+      "projectileId": 1,
+      "sourceId": 9
+    },
+    {
+      "type": "external-structure-contact",
+      "attackSequence": 1,
+      "direction": "unit-to-tower",
+      "projectileId": 1,
+      "sourceId": 9
+    },
+    {
+      "type": "tower-projectile-launch",
+      "attackSequence": 1,
+      "direction": "tower-to-unit",
+      "projectileId": 1,
+      "sourceId": "south:lane:west"
+    },
+    {
+      "type": "external-unit-contact",
+      "attackSequence": 1,
+      "direction": "tower-to-unit",
+      "projectileId": 1,
+      "sourceId": "south:lane:west"
+    },
+    {
+      "type": "damage",
+      "attackSequence": 1,
+      "direction": "tower-to-unit",
+      "projectileId": 1,
+      "sourceId": "south:lane:west"
+    }
+  ],
+  "effectFeed": {
+    "rootIds": [
+      "projectile.unit-to-tower.9.none.1.1",
+      "projectile.tower-to-unit.ssouth%3Alane%3Awest.none.1.1"
+    ],
+    "recordCount": 8,
+    "viewAtTick": 0,
+    "projectileKeys": [],
+    "impactKeys": [
+      "projectile.unit-to-tower.9.none.1.1:contact:2",
+      "projectile.unit-to-tower.9.none.1.1:contact:3",
+      "projectile.tower-to-unit.ssouth%3Alane%3Awest.none.1.1:contact:5"
+    ],
+    "restoreBytesEqual": true
+  },
+  "audioProjection": {
+    "recordCount": 10,
+    "records": [
+      {
+        "cueId": "field-deploy",
+        "family": "deploy",
+        "reason": "mapped",
+        "sequence": 0,
+        "type": "spawn"
+      },
+      {
+        "cueId": null,
+        "family": null,
+        "reason": "irrelevant",
+        "sequence": 1,
+        "type": "target"
+      },
+      {
+        "cueId": "strike-release",
+        "family": "attack",
+        "reason": "mapped",
+        "sequence": 2,
+        "type": "attack"
+      },
+      {
+        "cueId": null,
+        "family": null,
+        "reason": "unknown",
+        "sequence": 3,
+        "type": "external-structure-attack"
+      },
+      {
+        "cueId": "bolt-flight",
+        "family": "launch",
+        "reason": "mapped",
+        "sequence": 4,
+        "type": "projectile-launch"
+      },
+      {
+        "cueId": "contact-impact",
+        "family": "impact",
+        "reason": "mapped",
+        "sequence": 5,
+        "type": "projectile-impact"
+      },
+      {
+        "cueId": null,
+        "family": null,
+        "reason": "unknown",
+        "sequence": 6,
+        "type": "external-structure-contact"
+      },
+      {
+        "cueId": null,
+        "family": null,
+        "reason": "unknown",
+        "sequence": 7,
+        "type": "tower-projectile-launch"
+      },
+      {
+        "cueId": null,
+        "family": null,
+        "reason": "unknown",
+        "sequence": 8,
+        "type": "external-unit-contact"
+      },
+      {
+        "cueId": "vital-damage",
+        "family": "damage",
+        "reason": "mapped",
+        "sequence": 9,
+        "type": "damage"
+      }
+    ],
+    "hasOneRecordPerRuntimeEvent": true,
+    "snapshotBytes": 3768
+  }
+}
