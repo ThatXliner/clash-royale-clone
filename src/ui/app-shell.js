@@ -406,12 +406,22 @@ function ensureBattleFrame() {
 function layoutBattleFrame() {
   if (battleFrame === null) return;
   const bounds = battleFrameSlot.getBoundingClientRect();
-  const scale = Math.min(bounds.width / 720, bounds.height / 1_280);
+  const slotStyle = getComputedStyle(battleFrameSlot);
+  const borderLeft = Number.parseFloat(slotStyle.borderLeftWidth) || 0;
+  const borderRight = Number.parseFloat(slotStyle.borderRightWidth) || 0;
+  const borderTop = Number.parseFloat(slotStyle.borderTopWidth) || 0;
+  const borderBottom = Number.parseFloat(slotStyle.borderBottomWidth) || 0;
+  const width = bounds.width - borderLeft - borderRight;
+  const height = bounds.height - borderTop - borderBottom;
+  const scale = Math.min(width / 720, height / 1_280);
   if (!Number.isFinite(scale) || scale <= 0) return;
-  battleFrame.style.left = `${(bounds.width - 720 * scale) / 2}px`;
-  battleFrame.style.top = `${(bounds.height - 1_280 * scale) / 2}px`;
+  battleFrame.style.left = `${(width - 720 * scale) / 2}px`;
+  battleFrame.style.top = `${(height - 1_280 * scale) / 2}px`;
   battleFrame.style.transform = `scale(${scale})`;
 }
+
+const battleFrameSlotResizeObserver = new ResizeObserver(layoutBattleFrame);
+battleFrameSlotResizeObserver.observe(battleFrameSlot);
 
 function closeDetailAndFocusList() {
   const cardsView = views.get("cards");

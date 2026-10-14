@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "command": "node --test tests/app-shell-layout.test.js",
+  "execSession": 69332,
+  "exitCode": 1,
+  "durationMs": 15700,
+  "rawTapAvailable": false,
+  "rawTapLimitation": "The direct terminal session buffer was no longer available when this builder resumed; no TAP file was captured. This structured receipt records only the numeric outcome reported by the parent and is not a reconstruction of raw TAP.",
+  "scenario": "phone Battle after desktop resize with reduced motion enabled",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "settledSlot": {
+    "x": 0,
+    "y": 117,
+    "width": 390,
+    "height": 659
+  },
+  "inlineFrameStyle": {
+    "left": "9.65625px",
+    "top": "0px",
+    "transform": "scale(0.514844)"
+  },
+  "expectedSettledScale": 0.51484375,
+  "computedTransform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+  "observedIframeRect": {
+    "x": 0,
+    "y": 276.328125,
+    "width": 246,
+    "height": 437.333374
+  },
+  "failure": "The settled-slot assertion observed the target inline transform but the computed matrix and iframe rect still reflected the earlier 0.341667 scale.",
+  "interpretation": "This may be an observation during the authored reduced-motion CSS transition; that explanation is not yet proven. The next bounded requestAnimationFrame receipt records computed transition data and actual geometry until a natural settled fit or the sample cap."
+}

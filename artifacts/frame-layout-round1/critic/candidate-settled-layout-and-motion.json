@@ -1,0 +1,418 @@
+{
+  "schemaVersion": 1,
+  "source": "isolated copy of tests/app-shell-layout.test.js; added only final layout JSON logging and PNG screenshots",
+  "viewports": {
+    "desktop": [
+      1440,
+      933
+    ],
+    "phone": [
+      390,
+      844
+    ]
+  },
+  "fitToleranceCssPx": 0.015625,
+  "matrixScaleEpsilon": 1e-06,
+  "childViewport": [
+    720,
+    1280
+  ],
+  "phaseResults": {
+    "desktop Battle": {
+      "firstObserved": {
+        "phase": "desktop Battle",
+        "sample": 1,
+        "raf": 1,
+        "time": 909.7000000178814,
+        "viewport": {
+          "width": 1440,
+          "height": 933
+        },
+        "slot": {
+          "x": 72,
+          "y": 153.875,
+          "width": 1296,
+          "height": 761.125
+        },
+        "content": {
+          "x": 73,
+          "y": 154.875,
+          "width": 1294,
+          "height": 759.125
+        },
+        "iframe": {
+          "x": 506.484375,
+          "y": 154.875,
+          "width": 427.0078125,
+          "height": 759.125
+        },
+        "inline": {
+          "left": "433.496px",
+          "top": "0px",
+          "transform": "scale(0.593066)"
+        },
+        "computed": {
+          "left": "433.496px",
+          "top": "0px",
+          "transform": "matrix(0.593066, 0, 0, 0.593066, 0, 0)",
+          "transformOrigin": "0px 0px",
+          "transitionProperty": "all",
+          "transitionDuration": "0s",
+          "transitionDelay": "0s",
+          "animations": []
+        },
+        "expectedScale": 0.59306640625,
+        "scale": 0.593066,
+        "slotSettled": true,
+        "frameFits": true,
+        "fits": true
+      },
+      "settled": {
+        "phase": "desktop Battle",
+        "sample": 1,
+        "raf": 1,
+        "time": 909.7000000178814,
+        "viewport": {
+          "width": 1440,
+          "height": 933
+        },
+        "slot": {
+          "x": 72,
+          "y": 153.875,
+          "width": 1296,
+          "height": 761.125
+        },
+        "content": {
+          "x": 73,
+          "y": 154.875,
+          "width": 1294,
+          "height": 759.125
+        },
+        "iframe": {
+          "x": 506.484375,
+          "y": 154.875,
+          "width": 427.0078125,
+          "height": 759.125
+        },
+        "inline": {
+          "left": "433.496px",
+          "top": "0px",
+          "transform": "scale(0.593066)"
+        },
+        "computed": {
+          "left": "433.496px",
+          "top": "0px",
+          "transform": "matrix(0.593066, 0, 0, 0.593066, 0, 0)",
+          "transformOrigin": "0px 0px",
+          "transitionProperty": "all",
+          "transitionDuration": "0s",
+          "transitionDelay": "0s",
+          "animations": []
+        },
+        "expectedScale": 0.59306640625,
+        "scale": 0.593066,
+        "slotSettled": true,
+        "frameFits": true,
+        "fits": true
+      },
+      "samples": 1
+    },
+    "phone Battle after desktop resize": {
+      "firstObserved": {
+        "phase": "phone Battle after desktop resize",
+        "sample": 2,
+        "raf": 2,
+        "time": 1068.300000011921,
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "slot": {
+          "x": 72,
+          "y": 159,
+          "width": 246,
+          "height": 756
+        },
+        "content": {
+          "x": 72,
+          "y": 159,
+          "width": 246,
+          "height": 756
+        },
+        "iframe": {
+          "x": 505.484375,
+          "y": 159,
+          "width": 427.0078125,
+          "height": 759.125
+        },
+        "inline": {
+          "left": "433.496px",
+          "top": "0px",
+          "transform": "scale(0.593066)"
+        },
+        "computed": {
+          "left": "433.496px",
+          "top": "0px",
+          "transform": "matrix(0.593066, 0, 0, 0.593066, 0, 0)",
+          "transformOrigin": "0px 0px",
+          "transitionProperty": "all",
+          "transitionDuration": "1e-05s",
+          "transitionDelay": "0s",
+          "animations": []
+        },
+        "expectedScale": 0.3416666666666667,
+        "scale": 0.593066,
+        "slotSettled": false,
+        "frameFits": false,
+        "fits": false
+      },
+      "settled": {
+        "phase": "phone Battle after desktop resize",
+        "sample": 7,
+        "raf": 7,
+        "time": 1139.5,
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "slot": {
+          "x": 0,
+          "y": 117,
+          "width": 390,
+          "height": 659
+        },
+        "content": {
+          "x": 0,
+          "y": 117,
+          "width": 390,
+          "height": 659
+        },
+        "iframe": {
+          "x": 9.65625,
+          "y": 117,
+          "width": 370.6875,
+          "height": 659
+        },
+        "inline": {
+          "left": "9.65625px",
+          "top": "0px",
+          "transform": "scale(0.514844)"
+        },
+        "computed": {
+          "left": "9.65625px",
+          "top": "0px",
+          "transform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)",
+          "transformOrigin": "0px 0px",
+          "transitionProperty": "all",
+          "transitionDuration": "1e-05s",
+          "transitionDelay": "0s",
+          "animations": []
+        },
+        "expectedScale": 0.51484375,
+        "scale": 0.514844,
+        "slotSettled": true,
+        "frameFits": true,
+        "fits": true
+      },
+      "samples": 6
+    },
+    "desktop Battle after hidden-slot resize": {
+      "firstObserved": {
+        "phase": "desktop Battle after hidden-slot resize",
+        "sample": 8,
+        "raf": 8,
+        "time": 1380,
+        "viewport": {
+          "width": 1440,
+          "height": 933
+        },
+        "slot": {
+          "x": 72,
+          "y": 153.875,
+          "width": 1296,
+          "height": 761.125
+        },
+        "content": {
+          "x": 73,
+          "y": 154.875,
+          "width": 1294,
+          "height": 759.125
+        },
+        "iframe": {
+          "x": 82.65625,
+          "y": 154.875,
+          "width": 370.6875,
+          "height": 659
+        },
+        "inline": {
+          "left": "9.65625px",
+          "top": "0px",
+          "transform": "scale(0.514844)"
+        },
+        "computed": {
+          "left": "9.65625px",
+          "top": "0px",
+          "transform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)",
+          "transformOrigin": "0px 0px",
+          "transitionProperty": "all",
+          "transitionDuration": "0s",
+          "transitionDelay": "0s",
+          "animations": []
+        },
+        "expectedScale": 0.59306640625,
+        "scale": 0.514844,
+        "slotSettled": true,
+        "frameFits": false,
+        "fits": false
+      },
+      "settled": {
+        "phase": "desktop Battle after hidden-slot resize",
+        "sample": 10,
+        "raf": 10,
+        "time": 1407.0999999940395,
+        "viewport": {
+          "width": 1440,
+          "height": 933
+        },
+        "slot": {
+          "x": 72,
+          "y": 153.875,
+          "width": 1296,
+          "height": 761.125
+        },
+        "content": {
+          "x": 73,
+          "y": 154.875,
+          "width": 1294,
+          "height": 759.125
+        },
+        "iframe": {
+          "x": 506.484375,
+          "y": 154.875,
+          "width": 427.0078125,
+          "height": 759.125
+        },
+        "inline": {
+          "left": "433.496px",
+          "top": "0px",
+          "transform": "scale(0.593066)"
+        },
+        "computed": {
+          "left": "433.496px",
+          "top": "0px",
+          "transform": "matrix(0.593066, 0, 0, 0.593066, 0, 0)",
+          "transformOrigin": "0px 0px",
+          "transitionProperty": "all",
+          "transitionDuration": "0s",
+          "transitionDelay": "0s",
+          "animations": []
+        },
+        "expectedScale": 0.59306640625,
+        "scale": 0.593066,
+        "slotSettled": true,
+        "frameFits": true,
+        "fits": true
+      },
+      "samples": 3
+    },
+    "phone Battle after returning from Deck": {
+      "firstObserved": {
+        "phase": "phone Battle after returning from Deck",
+        "sample": 11,
+        "raf": 11,
+        "time": 1519.9000000059605,
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "slot": {
+          "x": 0,
+          "y": 117,
+          "width": 390,
+          "height": 659
+        },
+        "content": {
+          "x": 0,
+          "y": 117,
+          "width": 390,
+          "height": 659
+        },
+        "iframe": {
+          "x": 433.484375,
+          "y": 117,
+          "width": 427.0078125,
+          "height": 759.125
+        },
+        "inline": {
+          "left": "433.496px",
+          "top": "0px",
+          "transform": "scale(0.593066)"
+        },
+        "computed": {
+          "left": "433.496px",
+          "top": "0px",
+          "transform": "matrix(0.593066, 0, 0, 0.593066, 0, 0)",
+          "transformOrigin": "0px 0px",
+          "transitionProperty": "all",
+          "transitionDuration": "0s",
+          "transitionDelay": "0s",
+          "animations": []
+        },
+        "expectedScale": 0.51484375,
+        "scale": 0.593066,
+        "slotSettled": true,
+        "frameFits": false,
+        "fits": false
+      },
+      "settled": {
+        "phase": "phone Battle after returning from Deck",
+        "sample": 12,
+        "raf": 12,
+        "time": 1523,
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "slot": {
+          "x": 0,
+          "y": 117,
+          "width": 390,
+          "height": 659
+        },
+        "content": {
+          "x": 0,
+          "y": 117,
+          "width": 390,
+          "height": 659
+        },
+        "iframe": {
+          "x": 9.65625,
+          "y": 117,
+          "width": 370.6875,
+          "height": 659
+        },
+        "inline": {
+          "left": "9.65625px",
+          "top": "0px",
+          "transform": "scale(0.514844)"
+        },
+        "computed": {
+          "left": "9.65625px",
+          "top": "0px",
+          "transform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)",
+          "transformOrigin": "0px 0px",
+          "transitionProperty": "all",
+          "transitionDuration": "0s",
+          "transitionDelay": "0s",
+          "animations": []
+        },
+        "expectedScale": 0.51484375,
+        "scale": 0.514844,
+        "slotSettled": true,
+        "frameFits": true,
+        "fits": true
+      },
+      "samples": 2
+    }
+  }
+}

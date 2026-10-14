@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "candidateCommit": "80a2d96771164d4e39ebe2c832995c34f93b01ad",
+  "candidateParent": "095a8c55a6721c74f7555939a9ce21182bec3f2a",
+  "candidateWorktree": "/private/tmp/frame-layout-round1-critic-gpt6",
+  "candidateWorktreeClean": true,
+  "negativeControlWorktree": "/private/tmp/frame-layout-round1-negative-control",
+  "negativeControlBase": "80a2d96771164d4e39ebe2c832995c34f93b01ad",
+  "negativeControlOnlyChangedFile": "src/ui/app-shell.js",
+  "negativeControlChange": "Removed only the ResizeObserver construction/subscription; retained border-subtracted content-box computation and window resize handler.",
+  "cssUnchangedSha256": "f4720d7b9f07b0b6bc646e68bfb4192a140c91d2da84e18227891fa5b56f3a04",
+  "candidateSourceSha256": "12f566f0a7e417ff3260aee097bd11b94e28636b68f7226b6f81652194bf710e",
+  "candidateTestSha256": "40415b855a838c2597477f180bd56533d69e7bb5586492e6e580b911dcbedc53",
+  "candidateRegression": "PASS 1/1",
+  "candidateFocusedLayout": "PASS 1/1",
+  "negativeControl": "EXPECTED FAIL 0/1"
+}

@@ -1,0 +1,292 @@
+{
+  "schemaVersion": 1,
+  "task": "FRAME-LAYOUT-001",
+  "builderBranch": "codex/frame-layout-001-builder",
+  "acceptedBaseCommit": "095a8c55a6721c74f7555939a9ce21182bec3f2a",
+  "diagnosticPresentationCommit": "4907e6f0dd3fd37022946a68b1467affc0c84ea3",
+  "sourceFence": {
+    "allowed": [
+      "src/ui/app-shell.js",
+      "tests/app-shell-layout.test.js",
+      "artifacts/frame-layout-round1/builder"
+    ],
+    "forbidden": [
+      "src/ui/game-ui-projection.js",
+      "src/ui/game-browser-loop.js",
+      "src/ui/combat-*",
+      "src/ui/*art*",
+      "src/ui/*.css",
+      "public/assets",
+      "reference/stats"
+    ],
+    "sharedRootIndexTouched": false
+  },
+  "sourceFreezeReceipt": {
+    "path": "references/freeze-receipt.md",
+    "sha256": "0362c75101a77dbb0dd21fd68fe5658ea253212b3af05824fa9fee7fb25726dd"
+  },
+  "priorGeometryReceipt": {
+    "path": "references/cards021-geometry-browser-evidence.json",
+    "sha256": "2a479bfe84331fecc67cddad1d8577c828edcce2eaa6bd20d2eaab7bd446704c"
+  },
+  "preFixReproduction": {
+    "command": "CARDS021_BROWSER_ARTIFACTS=/private/tmp/frame-layout-round1-builder/artifacts/frame-layout-round1/builder/repro CARDS021_CONTINUE_AFTER_EXACT_PNG_FAILURES=1 node --test artifacts/frame-layout-round1/builder/frame-layout-repro.test.mjs",
+    "exitCode": 1,
+    "originalAssertion": "repro/frame-layout-assertion.json",
+    "originalAssertionSha256": "0a54e25eae51c1f76facf081cb1218a6faa1f8b61b8e2e2ee538283050975182",
+    "parserValidatedReceipt": "repro/frame-layout-assertion-validated.json",
+    "parserValidatedActualScale": 0.341667,
+    "expectedSettledScale": 0.51484375,
+    "rawCallTrace": "repro/frame-layout-call-trace.json",
+    "observedCallTimeSlot": {
+      "x": 72,
+      "y": 159,
+      "width": 246,
+      "height": 756
+    },
+    "observedSettledSlot": {
+      "x": 0,
+      "y": 117,
+      "width": 390,
+      "height": 659
+    },
+    "settledSlotHadNoFollowingAppLayoutCall": true,
+    "interpretation": "ResizeObserver recorded the settled slot but app-shell did not relayout; this establishes the missed settled-size update, not why the browser delivered the earlier resize callback at transitional geometry.",
+    "strictPngFailureIsIndependentAndNotApass": true
+  },
+  "sourcePatch": "Observe the actual frame slot and relayout on its size changes; calculate scale and centering from the measured inner rectangle after subtracting computed border insets.",
+  "verification": {
+    "syntaxChecks": "passed after latest test edit",
+    "releaseBuild": {
+      "status": "passed",
+      "fileCount": 54,
+      "afterSourceChange": true
+    },
+    "focusedBrowserAttempts": [
+      {
+        "command": "node --test tests/app-shell-layout.test.js",
+        "execSession": 6479,
+        "exitCode": 1,
+        "receipt": "focused-layout-run1.tap",
+        "note": "Initial outer-border centering assertion rejected a 1px border offset before the inner-rectangle source correction."
+      },
+      {
+        "command": "node --test tests/app-shell-layout.test.js",
+        "execSession": 15103,
+        "exitCode": 1,
+        "receipt": "focused-layout-run2.tap",
+        "note": "Confirmed inner scale/height geometry; oracle stopped at a 0.01171875px DOMRect center delta. Current oracle uses the explicit 1/64 CSS layout unit bound; green run pending."
+      },
+      {
+        "command": "node --test tests/app-shell-layout.test.js",
+        "execSession": 69332,
+        "exitCode": 1,
+        "receipt": "repro/focused-layout-run3-observation.json",
+        "rawTapAvailable": false,
+        "note": "Reported phone geometry had target inline scale 0.514844 but computed matrix and rect still showed 0.341667. Parent terminal output was unavailable to capture as raw TAP; the JSON receipt records reported numbers without reconstructing terminal output."
+      },
+      {
+        "command": "node --test tests/app-shell-layout.test.js > artifacts/frame-layout-round1/builder/focused-layout-run4.tap 2>&1",
+        "execSession": 42962,
+        "nodePid": 66609,
+        "exitCode": 1,
+        "receipt": "focused-layout-run4.tap",
+        "geometrySamples": "repro/focused-layout-settlement-samples.json",
+        "note": "Recorded seven finite RAF samples through a successful reduced-motion phone resize, including the authored 10\u00b5s left/top/transform transitions and their natural settled frame. The test then stopped at a strict-mode selector ambiguity for the Deck navigation button, before hidden-slot and return paths; selector is now scoped to .app-nav."
+      },
+      {
+        "command": "node --test tests/app-shell-layout.test.js > artifacts/frame-layout-round1/builder/focused-layout-run5.tap 2>&1",
+        "execSession": 92256,
+        "nodePid": 67431,
+        "testRunnerPid": 67441,
+        "exitCode": 0,
+        "receipt": "focused-layout-run5.tap",
+        "geometrySamples": "repro/focused-layout-settlement-samples.json",
+        "note": "Passed the bounded natural-RAF geometry regression after scoping the Deck navigation selector. Captured 12 finite samples before assertions/cleanup; phone, hidden-slot desktop, and return-to-phone layouts reached the measured content-box fit, with the child viewport still 720x1280."
+      }
+    ],
+    "focusedBrowserRegression": "passed in run 5: all four actual iframe layouts reached their settled measured content-box fit; twelve finite natural-RAF samples preserve the transient CSS transition geometry and resulting relayout."
+  },
+  "files": [
+    {
+      "path": "focused-layout-run1.tap",
+      "size": 1289,
+      "sha256": "99eef6313e3884b07a0a249fb68e2ecf348b59beec8c9caf9979d65d2b5be0b5"
+    },
+    {
+      "path": "focused-layout-run2.tap",
+      "size": 1379,
+      "sha256": "d29708e0b98b29375bcb0ec89e5cb0e3d0b5690778b4e5ebbc8dfd8ed1f0f063"
+    },
+    {
+      "path": "repro/focused-layout-run3-observation.json",
+      "size": 1420,
+      "sha256": "c5eab5c4886353e5e3aee53ffaff4bf516a345f4ac6ffb2e8a25abaaf925518a"
+    },
+    {
+      "path": "repro/css-layout-unit-check.json",
+      "size": 1032,
+      "sha256": "a720272655505a6a1f38b21f9099a5e4992658dd3e78f3c7dd9250db03c866f4"
+    },
+    {
+      "path": "focused-layout-run4.tap",
+      "size": 1083,
+      "sha256": "1db94a1da49eda5d38fd5a6b9b0d3fc60b43fdcd96e0ebd86b6dcc5f3304dd3a"
+    },
+    {
+      "path": "repro/focused-layout-run4-settlement-samples.json",
+      "size": 15824,
+      "sha256": "5c48e6334986edc53bb377b87a146712066a462cd316127c2ba4f2d94322528d"
+    },
+    {
+      "path": "frame-layout-evidence.mjs",
+      "size": 1747,
+      "sha256": "44fc71e2ad9713cdb6589546c1237da1b181739775bb96aff8af49eed8f17b4b"
+    },
+    {
+      "path": "frame-layout-repro.test.mjs",
+      "size": 58844,
+      "sha256": "63c11b32c81640f49bdcdd4426a84408376ab8b8e00e07cc4cb61081d945f2b5"
+    },
+    {
+      "path": "references/cards021-geometry-browser-evidence.json",
+      "size": 154598,
+      "sha256": "2a479bfe84331fecc67cddad1d8577c828edcce2eaa6bd20d2eaab7bd446704c"
+    },
+    {
+      "path": "references/freeze-receipt.md",
+      "size": 6193,
+      "sha256": "0362c75101a77dbb0dd21fd68fe5658ea253212b3af05824fa9fee7fb25726dd"
+    },
+    {
+      "path": "repro/browser-evidence.json",
+      "size": 80208,
+      "sha256": "54a044dbac1073c20f512026181df7b3ef9fe9c8cb075190a132d1d58202bddb"
+    },
+    {
+      "path": "repro/buried-coil-custom-deck-phone-390x844.png",
+      "size": 135888,
+      "sha256": "cdd61289f4e1e09836a371ea526617cc81d8d98b1126af35544ebb535c39cd83"
+    },
+    {
+      "path": "repro/buried-coil-detail-desktop-1440x933.png",
+      "size": 921557,
+      "sha256": "a68d749d0534dcc3abbe51d8858164361162b1427d1d356030aab3dcdd51146b"
+    },
+    {
+      "path": "repro/buried-coil-detail-phone-390x844.png",
+      "size": 73868,
+      "sha256": "4ee75f4b44f5555dcb5e1500d07621710f11c13d061323bf9101cfe5ed8386d1"
+    },
+    {
+      "path": "repro/frame-layout-assertion-validated.json",
+      "size": 8409,
+      "sha256": "8ae0c64f259003ec0d57b653cdee1bf25d7b9dcb2e438a1255e75bc766f93a7a"
+    },
+    {
+      "path": "repro/frame-layout-assertion.json",
+      "size": 7856,
+      "sha256": "0a54e25eae51c1f76facf081cb1218a6faa1f8b61b8e2e2ee538283050975182"
+    },
+    {
+      "path": "repro/frame-layout-call-trace.json",
+      "size": 7687264,
+      "sha256": "772a3dc36c729ea0f05fbe6b00a9913a1610c8e6fef79e4e920f05a6515f0a8e"
+    },
+    {
+      "path": "repro/hidden-desktop-normal-after-restore.png",
+      "size": 354995,
+      "sha256": "54011890d8cffcd9540714ddc197064908e7207b5740409f6acc492919437dbd"
+    },
+    {
+      "path": "repro/hidden-desktop-normal-before-restore.png",
+      "size": 354995,
+      "sha256": "54011890d8cffcd9540714ddc197064908e7207b5740409f6acc492919437dbd"
+    },
+    {
+      "path": "repro/hidden-desktop-normal-north-combat-art.png",
+      "size": 1290,
+      "sha256": "1b29142dcb264a5c201087190153ed8ade4b73a6842f728898e4ca2af615c5c2"
+    },
+    {
+      "path": "repro/hidden-desktop-normal-south-combat-art.png",
+      "size": 1342,
+      "sha256": "2d85b32433b218d194c8af8de8b771d9993cb871d126425a4b7782691fd289da"
+    },
+    {
+      "path": "repro/hidden-desktop-reduced-after-restore.png",
+      "size": 354919,
+      "sha256": "e4d7dc899ecdb84c62a11b119b418c6e7fdc3f96cef62db5e81b9e2c1cd1f96a"
+    },
+    {
+      "path": "repro/hidden-desktop-reduced-before-restore.png",
+      "size": 354919,
+      "sha256": "e4d7dc899ecdb84c62a11b119b418c6e7fdc3f96cef62db5e81b9e2c1cd1f96a"
+    },
+    {
+      "path": "repro/hidden-desktop-reduced-north-combat-art.png",
+      "size": 1290,
+      "sha256": "1b29142dcb264a5c201087190153ed8ade4b73a6842f728898e4ca2af615c5c2"
+    },
+    {
+      "path": "repro/hidden-desktop-reduced-south-combat-art.png",
+      "size": 1342,
+      "sha256": "2d85b32433b218d194c8af8de8b771d9993cb871d126425a4b7782691fd289da"
+    },
+    {
+      "path": "repro/hidden-phone-normal-after-restore.png",
+      "size": 325864,
+      "sha256": "dabf300157a54813165c71141cee041a2afff76b13ce2711fde2bf28cd7207d2"
+    },
+    {
+      "path": "repro/hidden-phone-normal-before-restore.png",
+      "size": 325864,
+      "sha256": "8db63f1e7f88e21f42f8d0328eef542b41a879f6de42ba90b328d5c3b28555b8"
+    },
+    {
+      "path": "repro/hidden-phone-normal-north-combat-art.png",
+      "size": 1256,
+      "sha256": "2ae957044ebd4d007076980f45c03bea9c64818ad2945ae34bd3dc1bc6adee58"
+    },
+    {
+      "path": "repro/hidden-phone-normal-south-combat-art.png",
+      "size": 1301,
+      "sha256": "fa3397aad3268229b6ef2ca4ff4d2f4ea9302bb1a2c2eec58feb16b397d20871"
+    },
+    {
+      "path": "repro/hidden-phone-reduced-after-restore.png",
+      "size": 325745,
+      "sha256": "70033b0e0f9834e5b8b5cc320996873f893f5eca47cd0a3c233bcc0b6be0375e"
+    },
+    {
+      "path": "repro/hidden-phone-reduced-before-restore.png",
+      "size": 325745,
+      "sha256": "70033b0e0f9834e5b8b5cc320996873f893f5eca47cd0a3c233bcc0b6be0375e"
+    },
+    {
+      "path": "repro/hidden-phone-reduced-north-combat-art.png",
+      "size": 1256,
+      "sha256": "2ae957044ebd4d007076980f45c03bea9c64818ad2945ae34bd3dc1bc6adee58"
+    },
+    {
+      "path": "repro/hidden-phone-reduced-south-combat-art.png",
+      "size": 1301,
+      "sha256": "fa3397aad3268229b6ef2ca4ff4d2f4ea9302bb1a2c2eec58feb16b397d20871"
+    },
+    {
+      "path": "focused-layout-run5.tap",
+      "size": 356,
+      "sha256": "3d337b755f039a73d9abfdd261fae3a8c0f843280d3d53a581f6255e75518a54"
+    },
+    {
+      "path": "repro/focused-layout-settlement-samples.json",
+      "size": 21428,
+      "sha256": "97256b520f180b11d3adc96bd00e634913b15780c832691f183ae6782d22766a"
+    },
+    {
+      "path": "candidate-freeze.md",
+      "size": 1847,
+      "sha256": "7ad5819ae206c2d8278ea364befe04ee81fdb049773d312c345257d909b129dd"
+    }
+  ]
+}

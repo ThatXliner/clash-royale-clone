@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "source": "focused-layout-run2.tap",
+  "sourceSha256": "d29708e0b98b29375bcb0ec89e5cb0e3d0b5690778b4e5ebbc8dfd8ed1f0f063",
+  "calculation": "Recomputed offline from the desktop Battle geometry reported by the raw TAP failure.",
+  "slotBorderBox": {
+    "x": 72,
+    "width": 1296,
+    "height": 761.125
+  },
+  "contentBox": {
+    "x": 73,
+    "width": 1294,
+    "height": 759.125
+  },
+  "iframeRect": {
+    "x": 506.484375,
+    "width": 427.0078125
+  },
+  "horizontalCenterErrorPx": -0.01171875,
+  "absoluteCenterErrorPx": 0.01171875,
+  "cssLayoutUnitPx": 0.015625,
+  "fractionOfCssLayoutUnit": 0.75,
+  "expectedScale": 0.59306640625,
+  "reportedComputedMatrixScale": 0.593066,
+  "matrixSerializationError": 4.0624999997351807e-7,
+  "matrixScaleEpsilon": 0.000001,
+  "result": "The run-2 center failure is within one CSS layout unit, and the matrix rounding is within the independent scale serialization bound. The source geometry correction is retained; this receipt does not alter the raw failed TAP."
+}

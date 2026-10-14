@@ -1,0 +1,13 @@
+diff --git a/src/ui/app-shell.js b/src/ui/app-shell.js
+index 61117e3..bb79a89 100644
+--- a/src/ui/app-shell.js
++++ b/src/ui/app-shell.js
+@@ -420,8 +420,6 @@ function layoutBattleFrame() {
+   battleFrame.style.transform = `scale(${scale})`;
+ }
+ 
+-const battleFrameSlotResizeObserver = new ResizeObserver(layoutBattleFrame);
+-battleFrameSlotResizeObserver.observe(battleFrameSlot);
+ 
+ function closeDetailAndFocusList() {
+   const cardsView = views.get("cards");

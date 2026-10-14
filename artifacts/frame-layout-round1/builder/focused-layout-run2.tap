@@ -1,0 +1,28 @@
+TAP version 13
+# Subtest: battle iframe follows the settled slot across viewport, motion, and view changes
+not ok 1 - battle iframe follows the settled slot across viewport, motion, and view changes
+  ---
+  duration_ms: 15350.9605
+  type: 'test'
+  location: '/private/tmp/frame-layout-round1-builder/tests/app-shell-layout.test.js:107:1'
+  failureType: 'testCodeFailure'
+  error: 'desktop Battle: iframe is horizontally centered in the slot content box; {"slot":{"x":72,"y":153.875,"width":1296,"height":761.125},"slotContent":{"x":73,"y":154.875,"width":1294,"height":759.125},"iframe":{"x":506.484375,"y":154.875,"width":427.0078125,"height":759.125},"inline":{"left":"433.496px","top":"0px","transform":"scale(0.593066)"},"matrix":"matrix(0.593066, 0, 0, 0.593066, 0, 0)","scale":0.593066,"viewport":{"width":1440,"height":933},"frameViewport":{"width":720,"height":1280}}'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    assertFrameFits (file:///private/tmp/frame-layout-round1-builder/tests/app-shell-layout.test.js:92:10)
+    TestContext.<anonymous> (file:///private/tmp/frame-layout-round1-builder/tests/app-shell-layout.test.js:146:3)
+    async Test.run (node:internal/test_runner/test:1054:7)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 15488.7205

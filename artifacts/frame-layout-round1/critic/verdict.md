@@ -1,0 +1,14 @@
+PIECE: FRAME-LAYOUT-001
+VERDICT: PASS
+
+EVIDENCE:
+
+- Independent run of `node --test tests/app-shell-layout.test.js` on frozen candidate `80a2d96771164d4e39ebe2c832995c34f93b01ad` (direct parent `095a8c55a6721c74f7555939a9ce21182bec3f2a`) passed: 1 test, 0 failures. The test used bounded native `requestAnimationFrame` polling, a 1/64 CSS-pixel geometry tolerance, and a 1e-6 matrix-scale tolerance. Its raw TAP and 12-sample transient/settled JSON are preserved here.
+- At 1440×933, the settled slot was 1296×761.125px and its measured content box was 1294×759.125px after 1px borders. The iframe was centered at x=506.484375px, y=154.875px, measured 427.0078125×759.125px, and used scale 0.593066 (expected 0.59306640625). At 390×844, the settled slot/content box was 390×659px; the iframe measured 370.6875×659px at x=9.65625px, y=117px, with scale 0.514844 (expected 0.51484375). Both the phone after desktop resize and the phone after returning from Deck fit. Every final child viewport read was 720×1280.
+- Final computed iframe transition metadata was `all / 0s / 0s` in normal motion and `all / 1e-05s / 0s` with reduced motion; no active animations remained after settlement. Candidate CSS hash matches the parent CSS hash. Four rendered PNGs and the instrumented final-layout JSON are preserved alongside the raw 12-sample JSON.
+- `npm run test:app-shell` passed: 1 test, 0 failures. That regression verifies the eight-card default, 21-card collection, and typed profile copy.
+- Observer-only negative control failed at the phone settlement check as expected. Its only source delta removes the ResizeObserver construction/subscription; the candidate border-subtracted content-box math remains. The preexisting window resize listener first wrote scale 0.341667 from a transient 246×756 slot. With no observer to follow the final 390×659 slot, the iframe stayed 246×437.333px at y=276.328125px: 144px short on the right and 62.338501px short at the bottom, with a 159.328125px top gap. The final expected scale was 0.51484375; actual scale was 0.341667. Raw failure TAP and final computed/inline geometry JSON are preserved.
+- Source fence: candidate source/test were not edited by the critic; the candidate worktree is clean at 80a2d96. The negative-control worktree differs only in `src/ui/app-shell.js`. The builder's earlier run-3 result still has no raw TAP and remains a non-raw report; this verdict rests on the independent raw runs above.
+- Browser processes from the candidate, regression, capture, and negative-control runs exited; each test teardown closed Chromium and its server. No historical footage still matching these exact shell states was available, so this verdict makes no visual-parity claim.
+
+BIGGEST GAP: A directly matching historical reference still was unavailable, so visual parity against the pre-Evolution reference remains unverified.

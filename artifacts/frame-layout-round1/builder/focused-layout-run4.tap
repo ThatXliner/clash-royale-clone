@@ -1,0 +1,29 @@
+TAP version 13
+# Subtest: battle iframe follows the settled slot across viewport, motion, and view changes
+not ok 1 - battle iframe follows the settled slot across viewport, motion, and view changes
+  ---
+  duration_ms: 18145.555625
+  type: 'test'
+  location: '/private/tmp/frame-layout-round1-builder/tests/app-shell-layout.test.js:230:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    locator.click: Error: strict mode violation: locator('[data-nav-to="deck"]') resolved to 2 elements:
+        1) <button type="button" data-nav-to="deck" aria-controls="view-deck">Deck</button> aka getByRole('button', { name: 'Deck' })
+        2) <button type="button" class="text-link" data-nav-to="deck">…</button> aka getByText('View deck →')
+    
+    Call log:
+    [2m  - waiting for locator('[data-nav-to="deck"]')[22m
+    
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    TestContext.<anonymous> (/private/tmp/frame-layout-round1-builder/tests/app-shell-layout.test.js:282:46)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 18317.085333

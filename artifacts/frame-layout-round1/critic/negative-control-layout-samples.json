@@ -1,0 +1,5952 @@
+{
+  "schemaVersion": 1,
+  "command": "node --test tests/app-shell-layout.test.js",
+  "acceptedBaseCommit": "095a8c55a6721c74f7555939a9ce21182bec3f2a",
+  "sampleSource": "native requestAnimationFrame polling; no sleeps or forced events",
+  "maxRafSamplesPerSettledSlot": 120,
+  "rafCount": 122,
+  "samples": [
+    {
+      "phase": "desktop Battle",
+      "sample": 1,
+      "raf": 1,
+      "time": 858.6999999880791,
+      "viewport": {
+        "width": 1440,
+        "height": 933
+      },
+      "slot": {
+        "x": 72,
+        "y": 153.875,
+        "width": 1296,
+        "height": 761.125
+      },
+      "content": {
+        "x": 73,
+        "y": 154.875,
+        "width": 1294,
+        "height": 759.125
+      },
+      "iframe": {
+        "x": 506.484375,
+        "y": 154.875,
+        "width": 427.0078125,
+        "height": 759.125
+      },
+      "inline": {
+        "left": "433.496px",
+        "top": "0px",
+        "transform": "scale(0.593066)"
+      },
+      "computed": {
+        "left": "433.496px",
+        "top": "0px",
+        "transform": "matrix(0.593066, 0, 0, 0.593066, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "0s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.59306640625,
+      "scale": 0.593066,
+      "slotSettled": true,
+      "frameFits": true,
+      "fits": true
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 2,
+      "raf": 2,
+      "time": 870.6999999880791,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 72,
+        "y": 159,
+        "width": 246,
+        "height": 756
+      },
+      "content": {
+        "x": 72,
+        "y": 159,
+        "width": 246,
+        "height": 756
+      },
+      "iframe": {
+        "x": 505.484375,
+        "y": 159,
+        "width": 427.0078125,
+        "height": 759.125
+      },
+      "inline": {
+        "left": "433.496px",
+        "top": "0px",
+        "transform": "scale(0.593066)"
+      },
+      "computed": {
+        "left": "433.496px",
+        "top": "0px",
+        "transform": "matrix(0.593066, 0, 0, 0.593066, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.3416666666666667,
+      "scale": 0.593066,
+      "slotSettled": false,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 3,
+      "raf": 3,
+      "time": 871.5999999940395,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 72,
+        "y": 159,
+        "width": 246,
+        "height": 756
+      },
+      "content": {
+        "x": 72,
+        "y": 159,
+        "width": 246,
+        "height": 756
+      },
+      "iframe": {
+        "x": 505.484375,
+        "y": 159,
+        "width": 427.0078125,
+        "height": 759.125
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "433.496px",
+        "top": "0px",
+        "transform": "matrix(0.593066, 0, 0, 0.593066, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": [
+          {
+            "type": "CSSTransition",
+            "property": "left",
+            "name": null,
+            "playState": "running",
+            "currentTime": 0,
+            "timing": {
+              "delay": 0,
+              "direction": "normal",
+              "duration": 0.01,
+              "easing": "ease",
+              "endDelay": 0,
+              "fill": "backwards",
+              "iterationStart": 0,
+              "iterations": 1,
+              "activeDuration": 0.01,
+              "currentIteration": 0,
+              "endTime": 0.01,
+              "localTime": 0,
+              "progress": 0
+            }
+          },
+          {
+            "type": "CSSTransition",
+            "property": "top",
+            "name": null,
+            "playState": "running",
+            "currentTime": 0,
+            "timing": {
+              "delay": 0,
+              "direction": "normal",
+              "duration": 0.01,
+              "easing": "ease",
+              "endDelay": 0,
+              "fill": "backwards",
+              "iterationStart": 0,
+              "iterations": 1,
+              "activeDuration": 0.01,
+              "currentIteration": 0,
+              "endTime": 0.01,
+              "localTime": 0,
+              "progress": 0
+            }
+          },
+          {
+            "type": "CSSTransition",
+            "property": "transform",
+            "name": null,
+            "playState": "running",
+            "currentTime": 0,
+            "timing": {
+              "delay": 0,
+              "direction": "normal",
+              "duration": 0.01,
+              "easing": "ease",
+              "endDelay": 0,
+              "fill": "backwards",
+              "iterationStart": 0,
+              "iterations": 1,
+              "activeDuration": 0.01,
+              "currentIteration": 0,
+              "endTime": 0.01,
+              "localTime": 0,
+              "progress": 0
+            }
+          }
+        ]
+      },
+      "expectedScale": 0.3416666666666667,
+      "scale": 0.593066,
+      "slotSettled": false,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 4,
+      "raf": 4,
+      "time": 913.8000000119209,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 72,
+        "y": 159,
+        "width": 246,
+        "height": 756
+      },
+      "content": {
+        "x": 72,
+        "y": 159,
+        "width": 246,
+        "height": 756
+      },
+      "iframe": {
+        "x": 505.484375,
+        "y": 159,
+        "width": 427.0078125,
+        "height": 759.125
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "433.496px",
+        "top": "0px",
+        "transform": "matrix(0.593066, 0, 0, 0.593066, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": [
+          {
+            "type": "CSSTransition",
+            "property": "left",
+            "name": null,
+            "playState": "running",
+            "currentTime": 0,
+            "timing": {
+              "delay": 0,
+              "direction": "normal",
+              "duration": 0.01,
+              "easing": "ease",
+              "endDelay": 0,
+              "fill": "backwards",
+              "iterationStart": 0,
+              "iterations": 1,
+              "activeDuration": 0.01,
+              "currentIteration": 0,
+              "endTime": 0.01,
+              "localTime": 0,
+              "progress": 0
+            }
+          },
+          {
+            "type": "CSSTransition",
+            "property": "top",
+            "name": null,
+            "playState": "running",
+            "currentTime": 0,
+            "timing": {
+              "delay": 0,
+              "direction": "normal",
+              "duration": 0.01,
+              "easing": "ease",
+              "endDelay": 0,
+              "fill": "backwards",
+              "iterationStart": 0,
+              "iterations": 1,
+              "activeDuration": 0.01,
+              "currentIteration": 0,
+              "endTime": 0.01,
+              "localTime": 0,
+              "progress": 0
+            }
+          },
+          {
+            "type": "CSSTransition",
+            "property": "transform",
+            "name": null,
+            "playState": "running",
+            "currentTime": 0,
+            "timing": {
+              "delay": 0,
+              "direction": "normal",
+              "duration": 0.01,
+              "easing": "ease",
+              "endDelay": 0,
+              "fill": "backwards",
+              "iterationStart": 0,
+              "iterations": 1,
+              "activeDuration": 0.01,
+              "currentIteration": 0,
+              "endTime": 0.01,
+              "localTime": 0,
+              "progress": 0
+            }
+          }
+        ]
+      },
+      "expectedScale": 0.3416666666666667,
+      "scale": 0.593066,
+      "slotSettled": false,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 5,
+      "raf": 5,
+      "time": 939,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 6,
+      "raf": 6,
+      "time": 954.6999999880791,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 7,
+      "raf": 7,
+      "time": 971.0999999940395,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 8,
+      "raf": 8,
+      "time": 987.6999999880791,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 9,
+      "raf": 9,
+      "time": 1004.5,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 10,
+      "raf": 10,
+      "time": 1021.1999999880791,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 11,
+      "raf": 11,
+      "time": 1037.800000011921,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 12,
+      "raf": 12,
+      "time": 1054.4000000059605,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 13,
+      "raf": 13,
+      "time": 1071.0999999940395,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 14,
+      "raf": 14,
+      "time": 1087.699999988079,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 15,
+      "raf": 15,
+      "time": 1104.4000000059605,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 16,
+      "raf": 16,
+      "time": 1121.0999999940395,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 17,
+      "raf": 17,
+      "time": 1137.699999988079,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 18,
+      "raf": 18,
+      "time": 1154.4000000059605,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 19,
+      "raf": 19,
+      "time": 1171,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 20,
+      "raf": 20,
+      "time": 1187.699999988079,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 21,
+      "raf": 21,
+      "time": 1204.4000000059605,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 22,
+      "raf": 22,
+      "time": 1221,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 23,
+      "raf": 23,
+      "time": 1237.800000011921,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 24,
+      "raf": 24,
+      "time": 1254.4000000059605,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 25,
+      "raf": 25,
+      "time": 1271,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 26,
+      "raf": 26,
+      "time": 1287.699999988079,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 27,
+      "raf": 27,
+      "time": 1304.300000011921,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 28,
+      "raf": 28,
+      "time": 1321,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 29,
+      "raf": 29,
+      "time": 1337.699999988079,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 30,
+      "raf": 30,
+      "time": 1354.300000011921,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 31,
+      "raf": 31,
+      "time": 1371,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 32,
+      "raf": 32,
+      "time": 1387.699999988079,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 33,
+      "raf": 33,
+      "time": 1404.300000011921,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 34,
+      "raf": 34,
+      "time": 1421,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 35,
+      "raf": 35,
+      "time": 1437.699999988079,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 36,
+      "raf": 36,
+      "time": 1454.5,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 37,
+      "raf": 37,
+      "time": 1471.0999999940395,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 38,
+      "raf": 38,
+      "time": 1487.699999988079,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 39,
+      "raf": 39,
+      "time": 1504.4000000059605,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 40,
+      "raf": 40,
+      "time": 1521,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 41,
+      "raf": 41,
+      "time": 1537.800000011921,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 42,
+      "raf": 42,
+      "time": 1554.4000000059605,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 43,
+      "raf": 43,
+      "time": 1571.0999999940395,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 44,
+      "raf": 44,
+      "time": 1587.699999988079,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 45,
+      "raf": 45,
+      "time": 1604.300000011921,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 46,
+      "raf": 46,
+      "time": 1621.0999999940395,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 47,
+      "raf": 47,
+      "time": 1637.699999988079,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 48,
+      "raf": 48,
+      "time": 1654.4000000059605,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 49,
+      "raf": 49,
+      "time": 1671,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 50,
+      "raf": 50,
+      "time": 1687.699999988079,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 51,
+      "raf": 51,
+      "time": 1704.4000000059605,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 52,
+      "raf": 52,
+      "time": 1721.0999999940395,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 53,
+      "raf": 53,
+      "time": 1737.699999988079,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 54,
+      "raf": 54,
+      "time": 1754.4000000059605,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 55,
+      "raf": 55,
+      "time": 1771,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 56,
+      "raf": 56,
+      "time": 1787.699999988079,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 57,
+      "raf": 57,
+      "time": 1804.4000000059605,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 58,
+      "raf": 58,
+      "time": 1821.0999999940395,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 59,
+      "raf": 59,
+      "time": 1837.699999988079,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 60,
+      "raf": 60,
+      "time": 1854.4000000059605,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 61,
+      "raf": 61,
+      "time": 1871,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 62,
+      "raf": 62,
+      "time": 1887.699999988079,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 63,
+      "raf": 63,
+      "time": 1904.4000000059605,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 64,
+      "raf": 64,
+      "time": 1921.0999999940395,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 65,
+      "raf": 65,
+      "time": 1937.699999988079,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 66,
+      "raf": 66,
+      "time": 1954.300000011921,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 67,
+      "raf": 67,
+      "time": 1971.0999999940395,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 68,
+      "raf": 68,
+      "time": 1987.699999988079,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 69,
+      "raf": 69,
+      "time": 2004.300000011921,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 70,
+      "raf": 70,
+      "time": 2021.0999999940395,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 71,
+      "raf": 71,
+      "time": 2037.699999988079,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 72,
+      "raf": 72,
+      "time": 2054.300000011921,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 73,
+      "raf": 73,
+      "time": 2071.0999999940395,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 74,
+      "raf": 74,
+      "time": 2087.699999988079,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 75,
+      "raf": 75,
+      "time": 2104.4000000059605,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 76,
+      "raf": 76,
+      "time": 2121.300000011921,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 77,
+      "raf": 77,
+      "time": 2137.699999988079,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 78,
+      "raf": 78,
+      "time": 2154.300000011921,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 79,
+      "raf": 79,
+      "time": 2171,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 80,
+      "raf": 80,
+      "time": 2187.699999988079,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 81,
+      "raf": 81,
+      "time": 2204.300000011921,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 82,
+      "raf": 82,
+      "time": 2221.0999999940395,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 83,
+      "raf": 83,
+      "time": 2237.800000011921,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 84,
+      "raf": 84,
+      "time": 2254.300000011921,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 85,
+      "raf": 85,
+      "time": 2271.0999999940395,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 86,
+      "raf": 86,
+      "time": 2287.699999988079,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 87,
+      "raf": 87,
+      "time": 2304.4000000059605,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 88,
+      "raf": 88,
+      "time": 2321.0999999940395,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 89,
+      "raf": 89,
+      "time": 2337.699999988079,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 90,
+      "raf": 90,
+      "time": 2354.300000011921,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 91,
+      "raf": 91,
+      "time": 2371.0999999940395,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 92,
+      "raf": 92,
+      "time": 2387.5999999940395,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 93,
+      "raf": 93,
+      "time": 2404.4000000059605,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 94,
+      "raf": 94,
+      "time": 2421,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 95,
+      "raf": 95,
+      "time": 2437.699999988079,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 96,
+      "raf": 96,
+      "time": 2454.300000011921,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 97,
+      "raf": 97,
+      "time": 2471,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 98,
+      "raf": 98,
+      "time": 2487.699999988079,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 99,
+      "raf": 99,
+      "time": 2504.300000011921,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 100,
+      "raf": 100,
+      "time": 2521,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 101,
+      "raf": 101,
+      "time": 2537.699999988079,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 102,
+      "raf": 102,
+      "time": 2554.4000000059605,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 103,
+      "raf": 103,
+      "time": 2571,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 104,
+      "raf": 104,
+      "time": 2587.699999988079,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 105,
+      "raf": 105,
+      "time": 2604.4000000059605,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 106,
+      "raf": 106,
+      "time": 2621.0999999940395,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 107,
+      "raf": 107,
+      "time": 2637.699999988079,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 108,
+      "raf": 108,
+      "time": 2654.4000000059605,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 109,
+      "raf": 109,
+      "time": 2671,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 110,
+      "raf": 110,
+      "time": 2687.800000011921,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 111,
+      "raf": 111,
+      "time": 2704.4000000059605,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 112,
+      "raf": 112,
+      "time": 2721.0999999940395,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 113,
+      "raf": 113,
+      "time": 2737.800000011921,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 114,
+      "raf": 114,
+      "time": 2754.4000000059605,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 115,
+      "raf": 115,
+      "time": 2771,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 116,
+      "raf": 116,
+      "time": 2787.699999988079,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 117,
+      "raf": 117,
+      "time": 2804.4000000059605,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 118,
+      "raf": 118,
+      "time": 2821,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 119,
+      "raf": 119,
+      "time": 2837.699999988079,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 120,
+      "raf": 120,
+      "time": 2854.300000011921,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 121,
+      "raf": 121,
+      "time": 2871,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    }
+  ]
+}

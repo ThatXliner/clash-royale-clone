@@ -1,0 +1,3085 @@
+{
+  "deck": [
+    "coilblade",
+    "mossguard",
+    "copperskiff",
+    "buried-coil",
+    "brassbolt",
+    "reedsting",
+    "briar-band",
+    "cinderlings"
+  ],
+  "errors": [],
+  "screenshots": [
+    {
+      "file": "buried-coil-detail-phone-390x844.png",
+      "sha256": "4ee75f4b44f5555dcb5e1500d07621710f11c13d061323bf9101cfe5ed8386d1",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "file": "buried-coil-detail-desktop-1440x933.png",
+      "sha256": "a68d749d0534dcc3abbe51d8858164361162b1427d1d356030aab3dcdd51146b",
+      "viewport": {
+        "width": 1440,
+        "height": 933
+      }
+    },
+    {
+      "file": "buried-coil-custom-deck-phone-390x844.png",
+      "sha256": "cdd61289f4e1e09836a371ea526617cc81d8d98b1126af35544ebb535c39cd83",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "file": "hidden-phone-normal-before-restore.png",
+      "sha256": "8db63f1e7f88e21f42f8d0328eef542b41a879f6de42ba90b328d5c3b28555b8",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "file": "hidden-phone-normal-after-restore.png",
+      "sha256": "dabf300157a54813165c71141cee041a2afff76b13ce2711fde2bf28cd7207d2",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "file": "hidden-phone-reduced-before-restore.png",
+      "sha256": "70033b0e0f9834e5b8b5cc320996873f893f5eca47cd0a3c233bcc0b6be0375e",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "file": "hidden-phone-reduced-after-restore.png",
+      "sha256": "70033b0e0f9834e5b8b5cc320996873f893f5eca47cd0a3c233bcc0b6be0375e",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "file": "hidden-desktop-normal-before-restore.png",
+      "sha256": "54011890d8cffcd9540714ddc197064908e7207b5740409f6acc492919437dbd",
+      "viewport": {
+        "width": 1440,
+        "height": 933
+      }
+    },
+    {
+      "file": "hidden-desktop-normal-after-restore.png",
+      "sha256": "54011890d8cffcd9540714ddc197064908e7207b5740409f6acc492919437dbd",
+      "viewport": {
+        "width": 1440,
+        "height": 933
+      }
+    },
+    {
+      "file": "hidden-desktop-reduced-before-restore.png",
+      "sha256": "e4d7dc899ecdb84c62a11b119b418c6e7fdc3f96cef62db5e81b9e2c1cd1f96a",
+      "viewport": {
+        "width": 1440,
+        "height": 933
+      }
+    },
+    {
+      "file": "hidden-desktop-reduced-after-restore.png",
+      "sha256": "e4d7dc899ecdb84c62a11b119b418c6e7fdc3f96cef62db5e81b9e2c1cd1f96a",
+      "viewport": {
+        "width": 1440,
+        "height": 933
+      }
+    }
+  ],
+  "screenshotMismatches": [
+    {
+      "afterFile": "hidden-phone-normal-after-restore.png",
+      "afterSha256": "dabf300157a54813165c71141cee041a2afff76b13ce2711fde2bf28cd7207d2",
+      "beforeFile": "hidden-phone-normal-before-restore.png",
+      "beforeSha256": "8db63f1e7f88e21f42f8d0328eef542b41a879f6de42ba90b328d5c3b28555b8",
+      "context": "hidden-phone-normal"
+    }
+  ],
+  "teamPlatePixels": [
+    {
+      "color": "198,69,46",
+      "count": 49,
+      "crop": [
+        100,
+        361,
+        120,
+        366
+      ],
+      "size": [
+        20,
+        5
+      ],
+      "artFile": "hidden-phone-normal-north-combat-art.png",
+      "file": "hidden-phone-normal-before-restore.png",
+      "form": "hidden",
+      "markerBounds": {
+        "x": 98.375,
+        "y": 384.890625,
+        "width": 23.359375,
+        "height": 23.34375
+      },
+      "plateBounds": {
+        "x": 100.109375,
+        "y": 361.53125,
+        "width": 19.890625,
+        "height": 4.015625
+      },
+      "minimum": 8,
+      "plateAudit": {
+        "alive": true,
+        "ancestors": [
+          {
+            "className": "combat-marker combat-marker--entity-ground combat-marker--north combat-marker--structure",
+            "display": "block",
+            "filter": "drop-shadow(rgba(25, 29, 34, 0.267) 0px 2px 0px)",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "span",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 172.3203125,
+              "y": 520.3203125,
+              "width": 45.359375,
+              "height": 45.359375
+            }
+          },
+          {
+            "className": "combat-frame",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "div",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 90,
+              "y": 108,
+              "width": 540,
+              "height": 960
+            }
+          },
+          {
+            "className": "game-browser-layer game-browser-layer--combat",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "div",
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "visibility": "visible",
+            "rect": {
+              "x": 90,
+              "y": 108,
+              "width": 540,
+              "height": 960
+            }
+          },
+          {
+            "className": "arena",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "section",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 86,
+              "y": 104,
+              "width": 548,
+              "height": 968
+            }
+          },
+          {
+            "className": "battle-shell",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "main",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          },
+          {
+            "className": "",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "div",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          },
+          {
+            "className": "",
+            "display": "grid",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "body",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          },
+          {
+            "className": "",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "html",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          }
+        ],
+        "art": {
+          "children": [
+            {
+              "fill": null,
+              "href": "http://127.0.0.1:54955/public/assets/buried-coil-hidden.webp",
+              "tagName": "image"
+            },
+            {
+              "fill": "#C6452E",
+              "href": null,
+              "tagName": "rect"
+            }
+          ],
+          "dataset": {
+            "artId": "buried-coil",
+            "hidden": "true",
+            "form": "hidden",
+            "teamColor": "north"
+          },
+          "rect": {
+            "x": 172.3203125,
+            "y": 520.3203125,
+            "width": 45.359375,
+            "height": 45.359375
+          },
+          "viewBox": "0 0 512 512"
+        },
+        "domState": {
+          "combatId": "2",
+          "destroyed": null,
+          "hidden": "true",
+          "hit": null,
+          "kind": "buried-coil",
+          "pose": null,
+          "reaction": "idle",
+          "side": "north",
+          "targeting": "false"
+        },
+        "effects": [],
+        "form": "hidden",
+        "image": {
+          "href": "http://127.0.0.1:54955/public/assets/buried-coil-hidden.webp",
+          "rect": {
+            "x": 172.3203125,
+            "y": 520.3203125,
+            "width": 45.359375,
+            "height": 45.359375
+          }
+        },
+        "hitpoints": 1152,
+        "healthBar": {
+          "background": "rgb(233, 168, 58)",
+          "rect": {
+            "x": 176.8515625,
+            "y": 514.0546875,
+            "width": 36.28125,
+            "height": 4
+          }
+        },
+        "maxHitpoints": 1152,
+        "plate": {
+          "attributes": {
+            "fill": "#C6452E",
+            "teamColor": "north"
+          },
+          "computedFill": "rgb(198, 69, 46)",
+          "rect": {
+            "x": 175.68682861328125,
+            "y": 474.9609375,
+            "width": 38.6263427734375,
+            "height": 7.796142578125
+          }
+        },
+        "side": "north",
+        "targetable": false,
+        "tick": 1
+      },
+      "side": "north",
+      "viewport": "phone"
+    },
+    {
+      "color": "46,127,134",
+      "count": 48,
+      "crop": [
+        177,
+        508,
+        198,
+        513
+      ],
+      "size": [
+        21,
+        5
+      ],
+      "artFile": "hidden-phone-normal-south-combat-art.png",
+      "file": "hidden-phone-normal-before-restore.png",
+      "form": "hidden",
+      "markerBounds": {
+        "x": 175.609375,
+        "y": 485.28125,
+        "width": 23.34375,
+        "height": 23.359375
+      },
+      "plateBounds": {
+        "x": 177.328125,
+        "y": 508.640625,
+        "width": 19.890625,
+        "height": 4
+      },
+      "minimum": 8,
+      "plateAudit": {
+        "alive": true,
+        "ancestors": [
+          {
+            "className": "combat-marker combat-marker--entity-ground combat-marker--south combat-marker--structure",
+            "display": "block",
+            "filter": "drop-shadow(rgba(25, 29, 34, 0.267) 0px 2px 0px)",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "span",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 322.3203125,
+              "y": 715.3203125,
+              "width": 45.359375,
+              "height": 45.359375
+            }
+          },
+          {
+            "className": "combat-frame",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "div",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 90,
+              "y": 108,
+              "width": 540,
+              "height": 960
+            }
+          },
+          {
+            "className": "game-browser-layer game-browser-layer--combat",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "div",
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "visibility": "visible",
+            "rect": {
+              "x": 90,
+              "y": 108,
+              "width": 540,
+              "height": 960
+            }
+          },
+          {
+            "className": "arena",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "section",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 86,
+              "y": 104,
+              "width": 548,
+              "height": 968
+            }
+          },
+          {
+            "className": "battle-shell",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "main",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          },
+          {
+            "className": "",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "div",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          },
+          {
+            "className": "",
+            "display": "grid",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "body",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          },
+          {
+            "className": "",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "html",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          }
+        ],
+        "art": {
+          "children": [
+            {
+              "fill": null,
+              "href": "http://127.0.0.1:54955/public/assets/buried-coil-hidden.webp",
+              "tagName": "image"
+            },
+            {
+              "fill": "#2E7F86",
+              "href": null,
+              "tagName": "rect"
+            }
+          ],
+          "dataset": {
+            "artId": "buried-coil",
+            "hidden": "true",
+            "form": "hidden",
+            "teamColor": "south"
+          },
+          "rect": {
+            "x": 322.3203125,
+            "y": 715.3203125,
+            "width": 45.359375,
+            "height": 45.359375
+          },
+          "viewBox": "0 0 512 512"
+        },
+        "domState": {
+          "combatId": "1",
+          "destroyed": null,
+          "hidden": "true",
+          "hit": null,
+          "kind": "buried-coil",
+          "pose": null,
+          "reaction": "idle",
+          "side": "south",
+          "targeting": "false"
+        },
+        "effects": [],
+        "form": "hidden",
+        "image": {
+          "href": "http://127.0.0.1:54955/public/assets/buried-coil-hidden.webp",
+          "rect": {
+            "x": 322.3203125,
+            "y": 715.3203125,
+            "width": 45.359375,
+            "height": 45.359375
+          }
+        },
+        "hitpoints": 1152,
+        "healthBar": {
+          "background": "rgb(220, 237, 233)",
+          "rect": {
+            "x": 326.8515625,
+            "y": 709.0546875,
+            "width": 36.28125,
+            "height": 4
+          }
+        },
+        "maxHitpoints": 1152,
+        "plate": {
+          "attributes": {
+            "fill": "#2E7F86",
+            "teamColor": "south"
+          },
+          "computedFill": "rgb(46, 127, 134)",
+          "rect": {
+            "x": 325.68682861328125,
+            "y": 760.6796875,
+            "width": 38.6263427734375,
+            "height": 7.796142578125
+          }
+        },
+        "side": "south",
+        "targetable": false,
+        "tick": 1
+      },
+      "side": "south",
+      "viewport": "phone"
+    },
+    {
+      "color": "198,69,46",
+      "count": 49,
+      "crop": [
+        100,
+        361,
+        120,
+        366
+      ],
+      "size": [
+        20,
+        5
+      ],
+      "artFile": "hidden-phone-reduced-north-combat-art.png",
+      "file": "hidden-phone-reduced-before-restore.png",
+      "form": "hidden",
+      "markerBounds": {
+        "x": 98.375,
+        "y": 384.890625,
+        "width": 23.359375,
+        "height": 23.34375
+      },
+      "plateBounds": {
+        "x": 100.109375,
+        "y": 361.53125,
+        "width": 19.890625,
+        "height": 4.015625
+      },
+      "minimum": 8,
+      "plateAudit": {
+        "alive": true,
+        "ancestors": [
+          {
+            "className": "combat-marker combat-marker--entity-ground combat-marker--north combat-marker--structure",
+            "display": "block",
+            "filter": "drop-shadow(rgba(25, 29, 34, 0.267) 0px 2px 0px)",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "span",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 172.3203125,
+              "y": 520.3203125,
+              "width": 45.359375,
+              "height": 45.359375
+            }
+          },
+          {
+            "className": "combat-frame",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "div",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 90,
+              "y": 108,
+              "width": 540,
+              "height": 960
+            }
+          },
+          {
+            "className": "game-browser-layer game-browser-layer--combat",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "div",
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "visibility": "visible",
+            "rect": {
+              "x": 90,
+              "y": 108,
+              "width": 540,
+              "height": 960
+            }
+          },
+          {
+            "className": "arena",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "section",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 86,
+              "y": 104,
+              "width": 548,
+              "height": 968
+            }
+          },
+          {
+            "className": "battle-shell",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "main",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          },
+          {
+            "className": "",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "div",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          },
+          {
+            "className": "",
+            "display": "grid",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "body",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          },
+          {
+            "className": "",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "html",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          }
+        ],
+        "art": {
+          "children": [
+            {
+              "fill": null,
+              "href": "http://127.0.0.1:54955/public/assets/buried-coil-hidden.webp",
+              "tagName": "image"
+            },
+            {
+              "fill": "#C6452E",
+              "href": null,
+              "tagName": "rect"
+            }
+          ],
+          "dataset": {
+            "artId": "buried-coil",
+            "hidden": "true",
+            "form": "hidden",
+            "teamColor": "north"
+          },
+          "rect": {
+            "x": 172.3203125,
+            "y": 520.3203125,
+            "width": 45.359375,
+            "height": 45.359375
+          },
+          "viewBox": "0 0 512 512"
+        },
+        "domState": {
+          "combatId": "2",
+          "destroyed": null,
+          "hidden": "true",
+          "hit": null,
+          "kind": "buried-coil",
+          "pose": null,
+          "reaction": "idle",
+          "side": "north",
+          "targeting": "false"
+        },
+        "effects": [],
+        "form": "hidden",
+        "image": {
+          "href": "http://127.0.0.1:54955/public/assets/buried-coil-hidden.webp",
+          "rect": {
+            "x": 172.3203125,
+            "y": 520.3203125,
+            "width": 45.359375,
+            "height": 45.359375
+          }
+        },
+        "hitpoints": 1152,
+        "healthBar": {
+          "background": "rgb(233, 168, 58)",
+          "rect": {
+            "x": 176.8515625,
+            "y": 514.0546875,
+            "width": 36.28125,
+            "height": 4
+          }
+        },
+        "maxHitpoints": 1152,
+        "plate": {
+          "attributes": {
+            "fill": "#C6452E",
+            "teamColor": "north"
+          },
+          "computedFill": "rgb(198, 69, 46)",
+          "rect": {
+            "x": 175.68682861328125,
+            "y": 474.9609375,
+            "width": 38.6263427734375,
+            "height": 7.796142578125
+          }
+        },
+        "side": "north",
+        "targetable": false,
+        "tick": 1
+      },
+      "side": "north",
+      "viewport": "phone"
+    },
+    {
+      "color": "46,127,134",
+      "count": 48,
+      "crop": [
+        177,
+        508,
+        198,
+        513
+      ],
+      "size": [
+        21,
+        5
+      ],
+      "artFile": "hidden-phone-reduced-south-combat-art.png",
+      "file": "hidden-phone-reduced-before-restore.png",
+      "form": "hidden",
+      "markerBounds": {
+        "x": 175.609375,
+        "y": 485.28125,
+        "width": 23.34375,
+        "height": 23.359375
+      },
+      "plateBounds": {
+        "x": 177.328125,
+        "y": 508.640625,
+        "width": 19.890625,
+        "height": 4
+      },
+      "minimum": 8,
+      "plateAudit": {
+        "alive": true,
+        "ancestors": [
+          {
+            "className": "combat-marker combat-marker--entity-ground combat-marker--south combat-marker--structure",
+            "display": "block",
+            "filter": "drop-shadow(rgba(25, 29, 34, 0.267) 0px 2px 0px)",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "span",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 322.3203125,
+              "y": 715.3203125,
+              "width": 45.359375,
+              "height": 45.359375
+            }
+          },
+          {
+            "className": "combat-frame",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "div",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 90,
+              "y": 108,
+              "width": 540,
+              "height": 960
+            }
+          },
+          {
+            "className": "game-browser-layer game-browser-layer--combat",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "div",
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "visibility": "visible",
+            "rect": {
+              "x": 90,
+              "y": 108,
+              "width": 540,
+              "height": 960
+            }
+          },
+          {
+            "className": "arena",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "section",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 86,
+              "y": 104,
+              "width": 548,
+              "height": 968
+            }
+          },
+          {
+            "className": "battle-shell",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "main",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          },
+          {
+            "className": "",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "div",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          },
+          {
+            "className": "",
+            "display": "grid",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "body",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          },
+          {
+            "className": "",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "html",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          }
+        ],
+        "art": {
+          "children": [
+            {
+              "fill": null,
+              "href": "http://127.0.0.1:54955/public/assets/buried-coil-hidden.webp",
+              "tagName": "image"
+            },
+            {
+              "fill": "#2E7F86",
+              "href": null,
+              "tagName": "rect"
+            }
+          ],
+          "dataset": {
+            "artId": "buried-coil",
+            "hidden": "true",
+            "form": "hidden",
+            "teamColor": "south"
+          },
+          "rect": {
+            "x": 322.3203125,
+            "y": 715.3203125,
+            "width": 45.359375,
+            "height": 45.359375
+          },
+          "viewBox": "0 0 512 512"
+        },
+        "domState": {
+          "combatId": "1",
+          "destroyed": null,
+          "hidden": "true",
+          "hit": null,
+          "kind": "buried-coil",
+          "pose": null,
+          "reaction": "idle",
+          "side": "south",
+          "targeting": "false"
+        },
+        "effects": [],
+        "form": "hidden",
+        "image": {
+          "href": "http://127.0.0.1:54955/public/assets/buried-coil-hidden.webp",
+          "rect": {
+            "x": 322.3203125,
+            "y": 715.3203125,
+            "width": 45.359375,
+            "height": 45.359375
+          }
+        },
+        "hitpoints": 1152,
+        "healthBar": {
+          "background": "rgb(220, 237, 233)",
+          "rect": {
+            "x": 326.8515625,
+            "y": 709.0546875,
+            "width": 36.28125,
+            "height": 4
+          }
+        },
+        "maxHitpoints": 1152,
+        "plate": {
+          "attributes": {
+            "fill": "#2E7F86",
+            "teamColor": "south"
+          },
+          "computedFill": "rgb(46, 127, 134)",
+          "rect": {
+            "x": 325.68682861328125,
+            "y": 760.6796875,
+            "width": 38.6263427734375,
+            "height": 7.796142578125
+          }
+        },
+        "side": "south",
+        "targetable": false,
+        "tick": 1
+      },
+      "side": "south",
+      "viewport": "phone"
+    },
+    {
+      "color": "198,69,46",
+      "count": 48,
+      "crop": [
+        697,
+        402,
+        718,
+        407
+      ],
+      "size": [
+        21,
+        5
+      ],
+      "artFile": "hidden-desktop-normal-north-combat-art.png",
+      "file": "hidden-desktop-normal-before-restore.png",
+      "form": "hidden",
+      "markerBounds": {
+        "x": 695.359375,
+        "y": 425.609375,
+        "width": 23.59375,
+        "height": 23.59375
+      },
+      "plateBounds": {
+        "x": 697.09375,
+        "y": 402,
+        "width": 20.109375,
+        "height": 4.0625
+      },
+      "minimum": 24,
+      "plateAudit": {
+        "alive": true,
+        "ancestors": [
+          {
+            "className": "combat-marker combat-marker--entity-ground combat-marker--north combat-marker--structure",
+            "display": "block",
+            "filter": "drop-shadow(rgba(25, 29, 34, 0.267) 0px 2px 0px)",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "span",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 172.3203125,
+              "y": 520.3203125,
+              "width": 45.359375,
+              "height": 45.359375
+            }
+          },
+          {
+            "className": "combat-frame",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "div",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 90,
+              "y": 108,
+              "width": 540,
+              "height": 960
+            }
+          },
+          {
+            "className": "game-browser-layer game-browser-layer--combat",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "div",
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "visibility": "visible",
+            "rect": {
+              "x": 90,
+              "y": 108,
+              "width": 540,
+              "height": 960
+            }
+          },
+          {
+            "className": "arena",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "section",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 86,
+              "y": 104,
+              "width": 548,
+              "height": 968
+            }
+          },
+          {
+            "className": "battle-shell",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "main",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          },
+          {
+            "className": "",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "div",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          },
+          {
+            "className": "",
+            "display": "grid",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "body",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          },
+          {
+            "className": "",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "html",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          }
+        ],
+        "art": {
+          "children": [
+            {
+              "fill": null,
+              "href": "http://127.0.0.1:54955/public/assets/buried-coil-hidden.webp",
+              "tagName": "image"
+            },
+            {
+              "fill": "#C6452E",
+              "href": null,
+              "tagName": "rect"
+            }
+          ],
+          "dataset": {
+            "artId": "buried-coil",
+            "hidden": "true",
+            "form": "hidden",
+            "teamColor": "north"
+          },
+          "rect": {
+            "x": 172.3203125,
+            "y": 520.3203125,
+            "width": 45.359375,
+            "height": 45.359375
+          },
+          "viewBox": "0 0 512 512"
+        },
+        "domState": {
+          "combatId": "2",
+          "destroyed": null,
+          "hidden": "true",
+          "hit": null,
+          "kind": "buried-coil",
+          "pose": null,
+          "reaction": "idle",
+          "side": "north",
+          "targeting": "false"
+        },
+        "effects": [],
+        "form": "hidden",
+        "image": {
+          "href": "http://127.0.0.1:54955/public/assets/buried-coil-hidden.webp",
+          "rect": {
+            "x": 172.3203125,
+            "y": 520.3203125,
+            "width": 45.359375,
+            "height": 45.359375
+          }
+        },
+        "hitpoints": 1152,
+        "healthBar": {
+          "background": "rgb(233, 168, 58)",
+          "rect": {
+            "x": 176.8515625,
+            "y": 514.0546875,
+            "width": 36.28125,
+            "height": 4
+          }
+        },
+        "maxHitpoints": 1152,
+        "plate": {
+          "attributes": {
+            "fill": "#C6452E",
+            "teamColor": "north"
+          },
+          "computedFill": "rgb(198, 69, 46)",
+          "rect": {
+            "x": 175.68682861328125,
+            "y": 474.9609375,
+            "width": 38.6263427734375,
+            "height": 7.796142578125
+          }
+        },
+        "side": "north",
+        "targetable": false,
+        "tick": 1
+      },
+      "side": "north",
+      "viewport": "desktop"
+    },
+    {
+      "color": "46,127,134",
+      "count": 48,
+      "crop": [
+        775,
+        550,
+        796,
+        555
+      ],
+      "size": [
+        21,
+        5
+      ],
+      "artFile": "hidden-desktop-normal-south-combat-art.png",
+      "file": "hidden-desktop-normal-before-restore.png",
+      "form": "hidden",
+      "markerBounds": {
+        "x": 773.40625,
+        "y": 527.0625,
+        "width": 23.59375,
+        "height": 23.609375
+      },
+      "plateBounds": {
+        "x": 775.140625,
+        "y": 550.671875,
+        "width": 20.109375,
+        "height": 4.046875
+      },
+      "minimum": 24,
+      "plateAudit": {
+        "alive": true,
+        "ancestors": [
+          {
+            "className": "combat-marker combat-marker--entity-ground combat-marker--south combat-marker--structure",
+            "display": "block",
+            "filter": "drop-shadow(rgba(25, 29, 34, 0.267) 0px 2px 0px)",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "span",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 322.3203125,
+              "y": 715.3203125,
+              "width": 45.359375,
+              "height": 45.359375
+            }
+          },
+          {
+            "className": "combat-frame",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "div",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 90,
+              "y": 108,
+              "width": 540,
+              "height": 960
+            }
+          },
+          {
+            "className": "game-browser-layer game-browser-layer--combat",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "div",
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "visibility": "visible",
+            "rect": {
+              "x": 90,
+              "y": 108,
+              "width": 540,
+              "height": 960
+            }
+          },
+          {
+            "className": "arena",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "section",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 86,
+              "y": 104,
+              "width": 548,
+              "height": 968
+            }
+          },
+          {
+            "className": "battle-shell",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "main",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          },
+          {
+            "className": "",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "div",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          },
+          {
+            "className": "",
+            "display": "grid",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "body",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          },
+          {
+            "className": "",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "html",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          }
+        ],
+        "art": {
+          "children": [
+            {
+              "fill": null,
+              "href": "http://127.0.0.1:54955/public/assets/buried-coil-hidden.webp",
+              "tagName": "image"
+            },
+            {
+              "fill": "#2E7F86",
+              "href": null,
+              "tagName": "rect"
+            }
+          ],
+          "dataset": {
+            "artId": "buried-coil",
+            "hidden": "true",
+            "form": "hidden",
+            "teamColor": "south"
+          },
+          "rect": {
+            "x": 322.3203125,
+            "y": 715.3203125,
+            "width": 45.359375,
+            "height": 45.359375
+          },
+          "viewBox": "0 0 512 512"
+        },
+        "domState": {
+          "combatId": "1",
+          "destroyed": null,
+          "hidden": "true",
+          "hit": null,
+          "kind": "buried-coil",
+          "pose": null,
+          "reaction": "idle",
+          "side": "south",
+          "targeting": "false"
+        },
+        "effects": [],
+        "form": "hidden",
+        "image": {
+          "href": "http://127.0.0.1:54955/public/assets/buried-coil-hidden.webp",
+          "rect": {
+            "x": 322.3203125,
+            "y": 715.3203125,
+            "width": 45.359375,
+            "height": 45.359375
+          }
+        },
+        "hitpoints": 1152,
+        "healthBar": {
+          "background": "rgb(220, 237, 233)",
+          "rect": {
+            "x": 326.8515625,
+            "y": 709.0546875,
+            "width": 36.28125,
+            "height": 4
+          }
+        },
+        "maxHitpoints": 1152,
+        "plate": {
+          "attributes": {
+            "fill": "#2E7F86",
+            "teamColor": "south"
+          },
+          "computedFill": "rgb(46, 127, 134)",
+          "rect": {
+            "x": 325.68682861328125,
+            "y": 760.6796875,
+            "width": 38.6263427734375,
+            "height": 7.796142578125
+          }
+        },
+        "side": "south",
+        "targetable": false,
+        "tick": 1
+      },
+      "side": "south",
+      "viewport": "desktop"
+    },
+    {
+      "color": "198,69,46",
+      "count": 48,
+      "crop": [
+        697,
+        402,
+        718,
+        407
+      ],
+      "size": [
+        21,
+        5
+      ],
+      "artFile": "hidden-desktop-reduced-north-combat-art.png",
+      "file": "hidden-desktop-reduced-before-restore.png",
+      "form": "hidden",
+      "markerBounds": {
+        "x": 695.359375,
+        "y": 425.609375,
+        "width": 23.59375,
+        "height": 23.59375
+      },
+      "plateBounds": {
+        "x": 697.09375,
+        "y": 402,
+        "width": 20.109375,
+        "height": 4.0625
+      },
+      "minimum": 24,
+      "plateAudit": {
+        "alive": true,
+        "ancestors": [
+          {
+            "className": "combat-marker combat-marker--entity-ground combat-marker--north combat-marker--structure",
+            "display": "block",
+            "filter": "drop-shadow(rgba(25, 29, 34, 0.267) 0px 2px 0px)",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "span",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 172.3203125,
+              "y": 520.3203125,
+              "width": 45.359375,
+              "height": 45.359375
+            }
+          },
+          {
+            "className": "combat-frame",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "div",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 90,
+              "y": 108,
+              "width": 540,
+              "height": 960
+            }
+          },
+          {
+            "className": "game-browser-layer game-browser-layer--combat",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "div",
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "visibility": "visible",
+            "rect": {
+              "x": 90,
+              "y": 108,
+              "width": 540,
+              "height": 960
+            }
+          },
+          {
+            "className": "arena",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "section",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 86,
+              "y": 104,
+              "width": 548,
+              "height": 968
+            }
+          },
+          {
+            "className": "battle-shell",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "main",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          },
+          {
+            "className": "",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "div",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          },
+          {
+            "className": "",
+            "display": "grid",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "body",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          },
+          {
+            "className": "",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "html",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          }
+        ],
+        "art": {
+          "children": [
+            {
+              "fill": null,
+              "href": "http://127.0.0.1:54955/public/assets/buried-coil-hidden.webp",
+              "tagName": "image"
+            },
+            {
+              "fill": "#C6452E",
+              "href": null,
+              "tagName": "rect"
+            }
+          ],
+          "dataset": {
+            "artId": "buried-coil",
+            "hidden": "true",
+            "form": "hidden",
+            "teamColor": "north"
+          },
+          "rect": {
+            "x": 172.3203125,
+            "y": 520.3203125,
+            "width": 45.359375,
+            "height": 45.359375
+          },
+          "viewBox": "0 0 512 512"
+        },
+        "domState": {
+          "combatId": "2",
+          "destroyed": null,
+          "hidden": "true",
+          "hit": null,
+          "kind": "buried-coil",
+          "pose": null,
+          "reaction": "idle",
+          "side": "north",
+          "targeting": "false"
+        },
+        "effects": [],
+        "form": "hidden",
+        "image": {
+          "href": "http://127.0.0.1:54955/public/assets/buried-coil-hidden.webp",
+          "rect": {
+            "x": 172.3203125,
+            "y": 520.3203125,
+            "width": 45.359375,
+            "height": 45.359375
+          }
+        },
+        "hitpoints": 1152,
+        "healthBar": {
+          "background": "rgb(233, 168, 58)",
+          "rect": {
+            "x": 176.8515625,
+            "y": 514.0546875,
+            "width": 36.28125,
+            "height": 4
+          }
+        },
+        "maxHitpoints": 1152,
+        "plate": {
+          "attributes": {
+            "fill": "#C6452E",
+            "teamColor": "north"
+          },
+          "computedFill": "rgb(198, 69, 46)",
+          "rect": {
+            "x": 175.68682861328125,
+            "y": 474.9609375,
+            "width": 38.6263427734375,
+            "height": 7.796142578125
+          }
+        },
+        "side": "north",
+        "targetable": false,
+        "tick": 1
+      },
+      "side": "north",
+      "viewport": "desktop"
+    },
+    {
+      "color": "46,127,134",
+      "count": 48,
+      "crop": [
+        775,
+        550,
+        796,
+        555
+      ],
+      "size": [
+        21,
+        5
+      ],
+      "artFile": "hidden-desktop-reduced-south-combat-art.png",
+      "file": "hidden-desktop-reduced-before-restore.png",
+      "form": "hidden",
+      "markerBounds": {
+        "x": 773.40625,
+        "y": 527.0625,
+        "width": 23.59375,
+        "height": 23.609375
+      },
+      "plateBounds": {
+        "x": 775.140625,
+        "y": 550.671875,
+        "width": 20.109375,
+        "height": 4.046875
+      },
+      "minimum": 24,
+      "plateAudit": {
+        "alive": true,
+        "ancestors": [
+          {
+            "className": "combat-marker combat-marker--entity-ground combat-marker--south combat-marker--structure",
+            "display": "block",
+            "filter": "drop-shadow(rgba(25, 29, 34, 0.267) 0px 2px 0px)",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "span",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 322.3203125,
+              "y": 715.3203125,
+              "width": 45.359375,
+              "height": 45.359375
+            }
+          },
+          {
+            "className": "combat-frame",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "div",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 90,
+              "y": 108,
+              "width": 540,
+              "height": 960
+            }
+          },
+          {
+            "className": "game-browser-layer game-browser-layer--combat",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "div",
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "visibility": "visible",
+            "rect": {
+              "x": 90,
+              "y": 108,
+              "width": 540,
+              "height": 960
+            }
+          },
+          {
+            "className": "arena",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "section",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 86,
+              "y": 104,
+              "width": 548,
+              "height": 968
+            }
+          },
+          {
+            "className": "battle-shell",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "main",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          },
+          {
+            "className": "",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "div",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          },
+          {
+            "className": "",
+            "display": "grid",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "body",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          },
+          {
+            "className": "",
+            "display": "block",
+            "filter": "none",
+            "mixBlendMode": "normal",
+            "opacity": "1",
+            "tagName": "html",
+            "transform": "none",
+            "visibility": "visible",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 720,
+              "height": 1280
+            }
+          }
+        ],
+        "art": {
+          "children": [
+            {
+              "fill": null,
+              "href": "http://127.0.0.1:54955/public/assets/buried-coil-hidden.webp",
+              "tagName": "image"
+            },
+            {
+              "fill": "#2E7F86",
+              "href": null,
+              "tagName": "rect"
+            }
+          ],
+          "dataset": {
+            "artId": "buried-coil",
+            "hidden": "true",
+            "form": "hidden",
+            "teamColor": "south"
+          },
+          "rect": {
+            "x": 322.3203125,
+            "y": 715.3203125,
+            "width": 45.359375,
+            "height": 45.359375
+          },
+          "viewBox": "0 0 512 512"
+        },
+        "domState": {
+          "combatId": "1",
+          "destroyed": null,
+          "hidden": "true",
+          "hit": null,
+          "kind": "buried-coil",
+          "pose": null,
+          "reaction": "idle",
+          "side": "south",
+          "targeting": "false"
+        },
+        "effects": [],
+        "form": "hidden",
+        "image": {
+          "href": "http://127.0.0.1:54955/public/assets/buried-coil-hidden.webp",
+          "rect": {
+            "x": 322.3203125,
+            "y": 715.3203125,
+            "width": 45.359375,
+            "height": 45.359375
+          }
+        },
+        "hitpoints": 1152,
+        "healthBar": {
+          "background": "rgb(220, 237, 233)",
+          "rect": {
+            "x": 326.8515625,
+            "y": 709.0546875,
+            "width": 36.28125,
+            "height": 4
+          }
+        },
+        "maxHitpoints": 1152,
+        "plate": {
+          "attributes": {
+            "fill": "#2E7F86",
+            "teamColor": "south"
+          },
+          "computedFill": "rgb(46, 127, 134)",
+          "rect": {
+            "x": 325.68682861328125,
+            "y": 760.6796875,
+            "width": 38.6263427734375,
+            "height": 7.796142578125
+          }
+        },
+        "side": "south",
+        "targetable": false,
+        "tick": 1
+      },
+      "side": "south",
+      "viewport": "desktop"
+    }
+  ],
+  "layoutAudit": [
+    {
+      "label": "battle-frame-mounted",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "devicePixelRatio": 1,
+      "inner": {
+        "width": 390,
+        "height": 844
+      },
+      "visualViewport": {
+        "width": 390,
+        "height": 844,
+        "scale": 1,
+        "offsetLeft": 0,
+        "offsetTop": 0
+      },
+      "scroll": {
+        "x": 0,
+        "y": 0
+      },
+      "shell": {
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844
+        },
+        "display": "flex",
+        "flex": "0 1 auto",
+        "minHeight": "844px",
+        "overflow": "visible",
+        "transform": "none"
+      },
+      "main": {
+        "rect": {
+          "x": 0,
+          "y": 66,
+          "width": 390,
+          "height": 778
+        },
+        "display": "flex",
+        "flex": "1 1 0%",
+        "minHeight": "0px",
+        "overflow": "visible",
+        "transform": "none"
+      },
+      "battleView": null,
+      "slot": {
+        "rect": {
+          "x": 0,
+          "y": 117,
+          "width": 390,
+          "height": 659
+        },
+        "display": "block",
+        "flex": "1 1 0%",
+        "minHeight": "0px",
+        "overflow": "hidden",
+        "transform": "none"
+      },
+      "iframe": {
+        "rect": {
+          "x": 9.65625,
+          "y": 117,
+          "width": 370.6875,
+          "height": 659
+        },
+        "display": "block",
+        "flex": "0 1 auto",
+        "minHeight": "0px",
+        "overflow": "clip",
+        "transform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)",
+        "attributes": {
+          "width": null,
+          "height": null
+        },
+        "inline": {
+          "left": "9.65625px",
+          "top": "0px",
+          "transform": "scale(0.514844)"
+        },
+        "contentViewport": {
+          "width": 720,
+          "height": 1280
+        }
+      }
+    },
+    {
+      "label": "ai-buried-coil-deployed",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "devicePixelRatio": 1,
+      "inner": {
+        "width": 390,
+        "height": 844
+      },
+      "visualViewport": {
+        "width": 390,
+        "height": 844,
+        "scale": 1,
+        "offsetLeft": 0,
+        "offsetTop": 0
+      },
+      "scroll": {
+        "x": 0,
+        "y": 0
+      },
+      "shell": {
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844
+        },
+        "display": "flex",
+        "flex": "0 1 auto",
+        "minHeight": "844px",
+        "overflow": "visible",
+        "transform": "none"
+      },
+      "main": {
+        "rect": {
+          "x": 0,
+          "y": 66,
+          "width": 390,
+          "height": 778
+        },
+        "display": "flex",
+        "flex": "1 1 0%",
+        "minHeight": "0px",
+        "overflow": "visible",
+        "transform": "none"
+      },
+      "battleView": null,
+      "slot": {
+        "rect": {
+          "x": 0,
+          "y": 117,
+          "width": 390,
+          "height": 659
+        },
+        "display": "block",
+        "flex": "1 1 0%",
+        "minHeight": "0px",
+        "overflow": "hidden",
+        "transform": "none"
+      },
+      "iframe": {
+        "rect": {
+          "x": 9.65625,
+          "y": 117,
+          "width": 370.6875,
+          "height": 659
+        },
+        "display": "block",
+        "flex": "0 1 auto",
+        "minHeight": "0px",
+        "overflow": "clip",
+        "transform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)",
+        "attributes": {
+          "width": null,
+          "height": null
+        },
+        "inline": {
+          "left": "9.65625px",
+          "top": "0px",
+          "transform": "scale(0.514844)"
+        },
+        "contentViewport": {
+          "width": 720,
+          "height": 1280
+        }
+      }
+    },
+    {
+      "label": "player-buried-coil-deployed",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "devicePixelRatio": 1,
+      "inner": {
+        "width": 390,
+        "height": 844
+      },
+      "visualViewport": {
+        "width": 390,
+        "height": 844,
+        "scale": 1,
+        "offsetLeft": 0,
+        "offsetTop": 0
+      },
+      "scroll": {
+        "x": 0,
+        "y": 0
+      },
+      "shell": {
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844
+        },
+        "display": "flex",
+        "flex": "0 1 auto",
+        "minHeight": "844px",
+        "overflow": "visible",
+        "transform": "none"
+      },
+      "main": {
+        "rect": {
+          "x": 0,
+          "y": 66,
+          "width": 390,
+          "height": 778
+        },
+        "display": "flex",
+        "flex": "1 1 0%",
+        "minHeight": "0px",
+        "overflow": "visible",
+        "transform": "none"
+      },
+      "battleView": null,
+      "slot": {
+        "rect": {
+          "x": 0,
+          "y": 117,
+          "width": 390,
+          "height": 659
+        },
+        "display": "block",
+        "flex": "1 1 0%",
+        "minHeight": "0px",
+        "overflow": "hidden",
+        "transform": "none"
+      },
+      "iframe": {
+        "rect": {
+          "x": 9.65625,
+          "y": 117,
+          "width": 370.6875,
+          "height": 659
+        },
+        "display": "block",
+        "flex": "0 1 auto",
+        "minHeight": "0px",
+        "overflow": "clip",
+        "transform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)",
+        "attributes": {
+          "width": null,
+          "height": null
+        },
+        "inline": {
+          "left": "9.65625px",
+          "top": "0px",
+          "transform": "scale(0.514844)"
+        },
+        "contentViewport": {
+          "width": 720,
+          "height": 1280
+        }
+      }
+    },
+    {
+      "label": "hidden-phone-normal",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "devicePixelRatio": 1,
+      "inner": {
+        "width": 390,
+        "height": 844
+      },
+      "visualViewport": {
+        "width": 390,
+        "height": 844,
+        "scale": 1,
+        "offsetLeft": 0,
+        "offsetTop": 0
+      },
+      "scroll": {
+        "x": 0,
+        "y": 0
+      },
+      "shell": {
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844
+        },
+        "display": "flex",
+        "flex": "0 1 auto",
+        "minHeight": "844px",
+        "overflow": "visible",
+        "transform": "none"
+      },
+      "main": {
+        "rect": {
+          "x": 0,
+          "y": 66,
+          "width": 390,
+          "height": 778
+        },
+        "display": "flex",
+        "flex": "1 1 0%",
+        "minHeight": "0px",
+        "overflow": "visible",
+        "transform": "none"
+      },
+      "battleView": null,
+      "slot": {
+        "rect": {
+          "x": 0,
+          "y": 117,
+          "width": 390,
+          "height": 659
+        },
+        "display": "block",
+        "flex": "1 1 0%",
+        "minHeight": "0px",
+        "overflow": "hidden",
+        "transform": "none"
+      },
+      "iframe": {
+        "rect": {
+          "x": 9.65625,
+          "y": 117,
+          "width": 370.6875,
+          "height": 659
+        },
+        "display": "block",
+        "flex": "0 1 auto",
+        "minHeight": "0px",
+        "overflow": "clip",
+        "transform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)",
+        "attributes": {
+          "width": null,
+          "height": null
+        },
+        "inline": {
+          "left": "9.65625px",
+          "top": "0px",
+          "transform": "scale(0.514844)"
+        },
+        "contentViewport": {
+          "width": 720,
+          "height": 1280
+        }
+      }
+    },
+    {
+      "label": "hidden-phone-reduced",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "devicePixelRatio": 1,
+      "inner": {
+        "width": 390,
+        "height": 844
+      },
+      "visualViewport": {
+        "width": 390,
+        "height": 844,
+        "scale": 1,
+        "offsetLeft": 0,
+        "offsetTop": 0
+      },
+      "scroll": {
+        "x": 0,
+        "y": 0
+      },
+      "shell": {
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844
+        },
+        "display": "flex",
+        "flex": "0 1 auto",
+        "minHeight": "844px",
+        "overflow": "visible",
+        "transform": "none"
+      },
+      "main": {
+        "rect": {
+          "x": 0,
+          "y": 66,
+          "width": 390,
+          "height": 778
+        },
+        "display": "flex",
+        "flex": "1 1 0%",
+        "minHeight": "0px",
+        "overflow": "visible",
+        "transform": "none"
+      },
+      "battleView": null,
+      "slot": {
+        "rect": {
+          "x": 0,
+          "y": 117,
+          "width": 390,
+          "height": 659
+        },
+        "display": "block",
+        "flex": "1 1 0%",
+        "minHeight": "0px",
+        "overflow": "hidden",
+        "transform": "none"
+      },
+      "iframe": {
+        "rect": {
+          "x": 9.65625,
+          "y": 117,
+          "width": 370.6875,
+          "height": 659
+        },
+        "display": "block",
+        "flex": "0 1 auto",
+        "minHeight": "0px",
+        "overflow": "clip",
+        "transform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)",
+        "attributes": {
+          "width": null,
+          "height": null
+        },
+        "inline": {
+          "left": "9.65625px",
+          "top": "0px",
+          "transform": "scale(0.514844)"
+        },
+        "contentViewport": {
+          "width": 720,
+          "height": 1280
+        }
+      }
+    },
+    {
+      "label": "hidden-desktop-normal",
+      "viewport": {
+        "width": 1440,
+        "height": 933
+      },
+      "devicePixelRatio": 1,
+      "inner": {
+        "width": 1440,
+        "height": 933
+      },
+      "visualViewport": {
+        "width": 1440,
+        "height": 933,
+        "scale": 1,
+        "offsetLeft": 0,
+        "offsetTop": 0
+      },
+      "scroll": {
+        "x": 0,
+        "y": 0
+      },
+      "shell": {
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 933
+        },
+        "display": "flex",
+        "flex": "0 1 auto",
+        "minHeight": "933px",
+        "overflow": "visible",
+        "transform": "none"
+      },
+      "main": {
+        "rect": {
+          "x": 0,
+          "y": 82,
+          "width": 1440,
+          "height": 851
+        },
+        "display": "flex",
+        "flex": "1 1 0%",
+        "minHeight": "0px",
+        "overflow": "visible",
+        "transform": "none"
+      },
+      "battleView": null,
+      "slot": {
+        "rect": {
+          "x": 72,
+          "y": 153.875,
+          "width": 1296,
+          "height": 761.125
+        },
+        "display": "block",
+        "flex": "1 1 auto",
+        "minHeight": "360px",
+        "overflow": "hidden",
+        "transform": "none"
+      },
+      "iframe": {
+        "rect": {
+          "x": 605.6875,
+          "y": 154.875,
+          "width": 374.625,
+          "height": 666
+        },
+        "display": "block",
+        "flex": "0 1 auto",
+        "minHeight": "0px",
+        "overflow": "clip",
+        "transform": "matrix(0.520312, 0, 0, 0.520312, 0, 0)",
+        "attributes": {
+          "width": null,
+          "height": null
+        },
+        "inline": {
+          "left": "532.688px",
+          "top": "0px",
+          "transform": "scale(0.520312)"
+        },
+        "contentViewport": {
+          "width": 720,
+          "height": 1280
+        }
+      }
+    },
+    {
+      "label": "hidden-desktop-reduced",
+      "viewport": {
+        "width": 1440,
+        "height": 933
+      },
+      "devicePixelRatio": 1,
+      "inner": {
+        "width": 1440,
+        "height": 933
+      },
+      "visualViewport": {
+        "width": 1440,
+        "height": 933,
+        "scale": 1,
+        "offsetLeft": 0,
+        "offsetTop": 0
+      },
+      "scroll": {
+        "x": 0,
+        "y": 0
+      },
+      "shell": {
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 933
+        },
+        "display": "flex",
+        "flex": "0 1 auto",
+        "minHeight": "933px",
+        "overflow": "visible",
+        "transform": "none"
+      },
+      "main": {
+        "rect": {
+          "x": 0,
+          "y": 82,
+          "width": 1440,
+          "height": 851
+        },
+        "display": "flex",
+        "flex": "1 1 0%",
+        "minHeight": "0px",
+        "overflow": "visible",
+        "transform": "none"
+      },
+      "battleView": null,
+      "slot": {
+        "rect": {
+          "x": 72,
+          "y": 153.875,
+          "width": 1296,
+          "height": 761.125
+        },
+        "display": "block",
+        "flex": "1 1 auto",
+        "minHeight": "360px",
+        "overflow": "hidden",
+        "transform": "none"
+      },
+      "iframe": {
+        "rect": {
+          "x": 605.6875,
+          "y": 154.875,
+          "width": 374.625,
+          "height": 666
+        },
+        "display": "block",
+        "flex": "0 1 auto",
+        "minHeight": "0px",
+        "overflow": "clip",
+        "transform": "matrix(0.520312, 0, 0, 0.520312, 0, 0)",
+        "attributes": {
+          "width": null,
+          "height": null
+        },
+        "inline": {
+          "left": "532.688px",
+          "top": "0px",
+          "transform": "scale(0.520312)"
+        },
+        "contentViewport": {
+          "width": 720,
+          "height": 1280
+        }
+      }
+    }
+  ],
+  "checkpoints": [
+    {
+      "name": "hidden",
+      "contexts": [
+        {
+          "browserSha256": "044ed4d07867a20007945e5a58021c78a27c0c379de4cc9667d2942441cb1c31",
+          "context": "hidden-phone-normal",
+          "outerLayout": {
+            "label": "hidden-phone-normal",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "devicePixelRatio": 1,
+            "inner": {
+              "width": 390,
+              "height": 844
+            },
+            "visualViewport": {
+              "width": 390,
+              "height": 844,
+              "scale": 1,
+              "offsetLeft": 0,
+              "offsetTop": 0
+            },
+            "scroll": {
+              "x": 0,
+              "y": 0
+            },
+            "shell": {
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 390,
+                "height": 844
+              },
+              "display": "flex",
+              "flex": "0 1 auto",
+              "minHeight": "844px",
+              "overflow": "visible",
+              "transform": "none"
+            },
+            "main": {
+              "rect": {
+                "x": 0,
+                "y": 66,
+                "width": 390,
+                "height": 778
+              },
+              "display": "flex",
+              "flex": "1 1 0%",
+              "minHeight": "0px",
+              "overflow": "visible",
+              "transform": "none"
+            },
+            "battleView": null,
+            "slot": {
+              "rect": {
+                "x": 0,
+                "y": 117,
+                "width": 390,
+                "height": 659
+              },
+              "display": "block",
+              "flex": "1 1 0%",
+              "minHeight": "0px",
+              "overflow": "hidden",
+              "transform": "none"
+            },
+            "iframe": {
+              "rect": {
+                "x": 9.65625,
+                "y": 117,
+                "width": 370.6875,
+                "height": 659
+              },
+              "display": "block",
+              "flex": "0 1 auto",
+              "minHeight": "0px",
+              "overflow": "clip",
+              "transform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)",
+              "attributes": {
+                "width": null,
+                "height": null
+              },
+              "inline": {
+                "left": "9.65625px",
+                "top": "0px",
+                "transform": "scale(0.514844)"
+              },
+              "contentViewport": {
+                "width": 720,
+                "height": 1280
+              }
+            }
+          },
+          "fullViewportPngSha256": "8db63f1e7f88e21f42f8d0328eef542b41a879f6de42ba90b328d5c3b28555b8",
+          "sessionSha256": "9e6a705c527931cff30b8718ff8f7dc7bf4ac03f4a5276e9466390896c320082",
+          "tick": 1
+        },
+        {
+          "browserSha256": "044ed4d07867a20007945e5a58021c78a27c0c379de4cc9667d2942441cb1c31",
+          "context": "hidden-phone-reduced",
+          "outerLayout": {
+            "label": "hidden-phone-reduced",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "devicePixelRatio": 1,
+            "inner": {
+              "width": 390,
+              "height": 844
+            },
+            "visualViewport": {
+              "width": 390,
+              "height": 844,
+              "scale": 1,
+              "offsetLeft": 0,
+              "offsetTop": 0
+            },
+            "scroll": {
+              "x": 0,
+              "y": 0
+            },
+            "shell": {
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 390,
+                "height": 844
+              },
+              "display": "flex",
+              "flex": "0 1 auto",
+              "minHeight": "844px",
+              "overflow": "visible",
+              "transform": "none"
+            },
+            "main": {
+              "rect": {
+                "x": 0,
+                "y": 66,
+                "width": 390,
+                "height": 778
+              },
+              "display": "flex",
+              "flex": "1 1 0%",
+              "minHeight": "0px",
+              "overflow": "visible",
+              "transform": "none"
+            },
+            "battleView": null,
+            "slot": {
+              "rect": {
+                "x": 0,
+                "y": 117,
+                "width": 390,
+                "height": 659
+              },
+              "display": "block",
+              "flex": "1 1 0%",
+              "minHeight": "0px",
+              "overflow": "hidden",
+              "transform": "none"
+            },
+            "iframe": {
+              "rect": {
+                "x": 9.65625,
+                "y": 117,
+                "width": 370.6875,
+                "height": 659
+              },
+              "display": "block",
+              "flex": "0 1 auto",
+              "minHeight": "0px",
+              "overflow": "clip",
+              "transform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)",
+              "attributes": {
+                "width": null,
+                "height": null
+              },
+              "inline": {
+                "left": "9.65625px",
+                "top": "0px",
+                "transform": "scale(0.514844)"
+              },
+              "contentViewport": {
+                "width": 720,
+                "height": 1280
+              }
+            }
+          },
+          "fullViewportPngSha256": "70033b0e0f9834e5b8b5cc320996873f893f5eca47cd0a3c233bcc0b6be0375e",
+          "sessionSha256": "9e6a705c527931cff30b8718ff8f7dc7bf4ac03f4a5276e9466390896c320082",
+          "tick": 1
+        },
+        {
+          "browserSha256": "044ed4d07867a20007945e5a58021c78a27c0c379de4cc9667d2942441cb1c31",
+          "context": "hidden-desktop-normal",
+          "outerLayout": {
+            "label": "hidden-desktop-normal",
+            "viewport": {
+              "width": 1440,
+              "height": 933
+            },
+            "devicePixelRatio": 1,
+            "inner": {
+              "width": 1440,
+              "height": 933
+            },
+            "visualViewport": {
+              "width": 1440,
+              "height": 933,
+              "scale": 1,
+              "offsetLeft": 0,
+              "offsetTop": 0
+            },
+            "scroll": {
+              "x": 0,
+              "y": 0
+            },
+            "shell": {
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 1440,
+                "height": 933
+              },
+              "display": "flex",
+              "flex": "0 1 auto",
+              "minHeight": "933px",
+              "overflow": "visible",
+              "transform": "none"
+            },
+            "main": {
+              "rect": {
+                "x": 0,
+                "y": 82,
+                "width": 1440,
+                "height": 851
+              },
+              "display": "flex",
+              "flex": "1 1 0%",
+              "minHeight": "0px",
+              "overflow": "visible",
+              "transform": "none"
+            },
+            "battleView": null,
+            "slot": {
+              "rect": {
+                "x": 72,
+                "y": 153.875,
+                "width": 1296,
+                "height": 761.125
+              },
+              "display": "block",
+              "flex": "1 1 auto",
+              "minHeight": "360px",
+              "overflow": "hidden",
+              "transform": "none"
+            },
+            "iframe": {
+              "rect": {
+                "x": 605.6875,
+                "y": 154.875,
+                "width": 374.625,
+                "height": 666
+              },
+              "display": "block",
+              "flex": "0 1 auto",
+              "minHeight": "0px",
+              "overflow": "clip",
+              "transform": "matrix(0.520312, 0, 0, 0.520312, 0, 0)",
+              "attributes": {
+                "width": null,
+                "height": null
+              },
+              "inline": {
+                "left": "532.688px",
+                "top": "0px",
+                "transform": "scale(0.520312)"
+              },
+              "contentViewport": {
+                "width": 720,
+                "height": 1280
+              }
+            }
+          },
+          "fullViewportPngSha256": "54011890d8cffcd9540714ddc197064908e7207b5740409f6acc492919437dbd",
+          "sessionSha256": "9e6a705c527931cff30b8718ff8f7dc7bf4ac03f4a5276e9466390896c320082",
+          "tick": 1
+        },
+        {
+          "browserSha256": "044ed4d07867a20007945e5a58021c78a27c0c379de4cc9667d2942441cb1c31",
+          "context": "hidden-desktop-reduced",
+          "outerLayout": {
+            "label": "hidden-desktop-reduced",
+            "viewport": {
+              "width": 1440,
+              "height": 933
+            },
+            "devicePixelRatio": 1,
+            "inner": {
+              "width": 1440,
+              "height": 933
+            },
+            "visualViewport": {
+              "width": 1440,
+              "height": 933,
+              "scale": 1,
+              "offsetLeft": 0,
+              "offsetTop": 0
+            },
+            "scroll": {
+              "x": 0,
+              "y": 0
+            },
+            "shell": {
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 1440,
+                "height": 933
+              },
+              "display": "flex",
+              "flex": "0 1 auto",
+              "minHeight": "933px",
+              "overflow": "visible",
+              "transform": "none"
+            },
+            "main": {
+              "rect": {
+                "x": 0,
+                "y": 82,
+                "width": 1440,
+                "height": 851
+              },
+              "display": "flex",
+              "flex": "1 1 0%",
+              "minHeight": "0px",
+              "overflow": "visible",
+              "transform": "none"
+            },
+            "battleView": null,
+            "slot": {
+              "rect": {
+                "x": 72,
+                "y": 153.875,
+                "width": 1296,
+                "height": 761.125
+              },
+              "display": "block",
+              "flex": "1 1 auto",
+              "minHeight": "360px",
+              "overflow": "hidden",
+              "transform": "none"
+            },
+            "iframe": {
+              "rect": {
+                "x": 605.6875,
+                "y": 154.875,
+                "width": 374.625,
+                "height": 666
+              },
+              "display": "block",
+              "flex": "0 1 auto",
+              "minHeight": "0px",
+              "overflow": "clip",
+              "transform": "matrix(0.520312, 0, 0, 0.520312, 0, 0)",
+              "attributes": {
+                "width": null,
+                "height": null
+              },
+              "inline": {
+                "left": "532.688px",
+                "top": "0px",
+                "transform": "scale(0.520312)"
+              },
+              "contentViewport": {
+                "width": 720,
+                "height": 1280
+              }
+            }
+          },
+          "fullViewportPngSha256": "e4d7dc899ecdb84c62a11b119b418c6e7fdc3f96cef62db5e81b9e2c1cd1f96a",
+          "sessionSha256": "9e6a705c527931cff30b8718ff8f7dc7bf4ac03f4a5276e9466390896c320082",
+          "tick": 1
+        }
+      ]
+    }
+  ],
+  "release": {
+    "fileCount": 54,
+    "manifestFiles": [
+      {
+        "path": "public/assets/buried-coil-hidden.webp",
+        "size": 43144,
+        "sha256": "5ee469494f97eab0652cc150d6b23b75c5bca44eba90b84a88cf8faf98d1a469"
+      },
+      {
+        "path": "public/assets/buried-coil-portrait.webp",
+        "size": 75334,
+        "sha256": "e52c43cc2c56f4aef3d3410a8a7adb1df63de581eb2fd93f443d85271ae62d5b"
+      },
+      {
+        "path": "public/assets/buried-coil-revealed.svg",
+        "size": 1565,
+        "sha256": "0e677493ea65b9132ed553ec21a1efdf474cc887d6e21d569ff4fc3f96189b53"
+      }
+    ]
+  },
+  "trustedInput": [
+    {
+      "isTrusted": true,
+      "clientX": 345.0005187988281,
+      "clientY": 737.9940795898438
+    }
+  ]
+}

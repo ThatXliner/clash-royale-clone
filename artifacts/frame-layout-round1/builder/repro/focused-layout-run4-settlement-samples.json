@@ -1,0 +1,614 @@
+{
+  "schemaVersion": 1,
+  "command": "node --test tests/app-shell-layout.test.js",
+  "acceptedBaseCommit": "095a8c55a6721c74f7555939a9ce21182bec3f2a",
+  "sampleSource": "native requestAnimationFrame polling; no sleeps or forced events",
+  "maxRafSamplesPerSettledSlot": 120,
+  "rafCount": 7,
+  "samples": [
+    {
+      "phase": "desktop Battle",
+      "sample": 1,
+      "raf": 1,
+      "time": 848.5999999940395,
+      "viewport": {
+        "width": 1440,
+        "height": 933
+      },
+      "slot": {
+        "x": 72,
+        "y": 153.875,
+        "width": 1296,
+        "height": 761.125
+      },
+      "content": {
+        "x": 73,
+        "y": 154.875,
+        "width": 1294,
+        "height": 759.125
+      },
+      "iframe": {
+        "x": 506.484375,
+        "y": 154.875,
+        "width": 427.0078125,
+        "height": 759.125
+      },
+      "inline": {
+        "left": "433.496px",
+        "top": "0px",
+        "transform": "scale(0.593066)"
+      },
+      "computed": {
+        "left": "433.496px",
+        "top": "0px",
+        "transform": "matrix(0.593066, 0, 0, 0.593066, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "0s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.59306640625,
+      "scale": 0.593066,
+      "slotSettled": true,
+      "frameFits": true,
+      "fits": true
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 2,
+      "raf": 2,
+      "time": 895,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 72,
+        "y": 159,
+        "width": 246,
+        "height": 756
+      },
+      "content": {
+        "x": 72,
+        "y": 159,
+        "width": 246,
+        "height": 756
+      },
+      "iframe": {
+        "x": 505.484375,
+        "y": 159,
+        "width": 427.0078125,
+        "height": 759.125
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "433.496px",
+        "top": "0px",
+        "transform": "matrix(0.593066, 0, 0, 0.593066, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": [
+          {
+            "type": "CSSTransition",
+            "property": "left",
+            "name": null,
+            "playState": "running",
+            "currentTime": 0,
+            "timing": {
+              "delay": 0,
+              "direction": "normal",
+              "duration": 0.01,
+              "easing": "ease",
+              "endDelay": 0,
+              "fill": "backwards",
+              "iterationStart": 0,
+              "iterations": 1,
+              "activeDuration": 0.01,
+              "currentIteration": 0,
+              "endTime": 0.01,
+              "localTime": 0,
+              "progress": 0
+            }
+          },
+          {
+            "type": "CSSTransition",
+            "property": "top",
+            "name": null,
+            "playState": "running",
+            "currentTime": 0,
+            "timing": {
+              "delay": 0,
+              "direction": "normal",
+              "duration": 0.01,
+              "easing": "ease",
+              "endDelay": 0,
+              "fill": "backwards",
+              "iterationStart": 0,
+              "iterations": 1,
+              "activeDuration": 0.01,
+              "currentIteration": 0,
+              "endTime": 0.01,
+              "localTime": 0,
+              "progress": 0
+            }
+          },
+          {
+            "type": "CSSTransition",
+            "property": "transform",
+            "name": null,
+            "playState": "running",
+            "currentTime": 0,
+            "timing": {
+              "delay": 0,
+              "direction": "normal",
+              "duration": 0.01,
+              "easing": "ease",
+              "endDelay": 0,
+              "fill": "backwards",
+              "iterationStart": 0,
+              "iterations": 1,
+              "activeDuration": 0.01,
+              "currentIteration": 0,
+              "endTime": 0.01,
+              "localTime": 0,
+              "progress": 0
+            }
+          }
+        ]
+      },
+      "expectedScale": 0.3416666666666667,
+      "scale": 0.593066,
+      "slotSettled": false,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 3,
+      "raf": 3,
+      "time": 905.4000000059605,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 72,
+        "y": 159,
+        "width": 246,
+        "height": 756
+      },
+      "content": {
+        "x": 72,
+        "y": 159,
+        "width": 246,
+        "height": 756
+      },
+      "iframe": {
+        "x": 505.484375,
+        "y": 159,
+        "width": 427.0078125,
+        "height": 759.125
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "433.496px",
+        "top": "0px",
+        "transform": "matrix(0.593066, 0, 0, 0.593066, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": [
+          {
+            "type": "CSSTransition",
+            "property": "left",
+            "name": null,
+            "playState": "running",
+            "currentTime": 0,
+            "timing": {
+              "delay": 0,
+              "direction": "normal",
+              "duration": 0.01,
+              "easing": "ease",
+              "endDelay": 0,
+              "fill": "backwards",
+              "iterationStart": 0,
+              "iterations": 1,
+              "activeDuration": 0.01,
+              "currentIteration": 0,
+              "endTime": 0.01,
+              "localTime": 0,
+              "progress": 0
+            }
+          },
+          {
+            "type": "CSSTransition",
+            "property": "top",
+            "name": null,
+            "playState": "running",
+            "currentTime": 0,
+            "timing": {
+              "delay": 0,
+              "direction": "normal",
+              "duration": 0.01,
+              "easing": "ease",
+              "endDelay": 0,
+              "fill": "backwards",
+              "iterationStart": 0,
+              "iterations": 1,
+              "activeDuration": 0.01,
+              "currentIteration": 0,
+              "endTime": 0.01,
+              "localTime": 0,
+              "progress": 0
+            }
+          },
+          {
+            "type": "CSSTransition",
+            "property": "transform",
+            "name": null,
+            "playState": "running",
+            "currentTime": 0,
+            "timing": {
+              "delay": 0,
+              "direction": "normal",
+              "duration": 0.01,
+              "easing": "ease",
+              "endDelay": 0,
+              "fill": "backwards",
+              "iterationStart": 0,
+              "iterations": 1,
+              "activeDuration": 0.01,
+              "currentIteration": 0,
+              "endTime": 0.01,
+              "localTime": 0,
+              "progress": 0
+            }
+          }
+        ]
+      },
+      "expectedScale": 0.3416666666666667,
+      "scale": 0.593066,
+      "slotSettled": false,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 4,
+      "raf": 4,
+      "time": 917.5,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "scale(0.341667)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 5,
+      "raf": 5,
+      "time": 927.3000000119209,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "9.65625px",
+        "top": "0px",
+        "transform": "scale(0.514844)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": [
+          {
+            "type": "CSSTransition",
+            "property": "left",
+            "name": null,
+            "playState": "running",
+            "currentTime": 0,
+            "timing": {
+              "delay": 0,
+              "direction": "normal",
+              "duration": 0.01,
+              "easing": "ease",
+              "endDelay": 0,
+              "fill": "backwards",
+              "iterationStart": 0,
+              "iterations": 1,
+              "activeDuration": 0.01,
+              "currentIteration": 0,
+              "endTime": 0.01,
+              "localTime": 0,
+              "progress": 0
+            }
+          },
+          {
+            "type": "CSSTransition",
+            "property": "top",
+            "name": null,
+            "playState": "running",
+            "currentTime": 0,
+            "timing": {
+              "delay": 0,
+              "direction": "normal",
+              "duration": 0.01,
+              "easing": "ease",
+              "endDelay": 0,
+              "fill": "backwards",
+              "iterationStart": 0,
+              "iterations": 1,
+              "activeDuration": 0.01,
+              "currentIteration": 0,
+              "endTime": 0.01,
+              "localTime": 0,
+              "progress": 0
+            }
+          },
+          {
+            "type": "CSSTransition",
+            "property": "transform",
+            "name": null,
+            "playState": "running",
+            "currentTime": 0,
+            "timing": {
+              "delay": 0,
+              "direction": "normal",
+              "duration": 0.01,
+              "easing": "ease",
+              "endDelay": 0,
+              "fill": "backwards",
+              "iterationStart": 0,
+              "iterations": 1,
+              "activeDuration": 0.01,
+              "currentIteration": 0,
+              "endTime": 0.01,
+              "localTime": 0,
+              "progress": 0
+            }
+          }
+        ]
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 6,
+      "raf": 6,
+      "time": 943.5,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "inline": {
+        "left": "9.65625px",
+        "top": "0px",
+        "transform": "scale(0.514844)"
+      },
+      "computed": {
+        "left": "0px",
+        "top": "159.333px",
+        "transform": "matrix(0.341667, 0, 0, 0.341667, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": [
+          {
+            "type": "CSSTransition",
+            "property": "left",
+            "name": null,
+            "playState": "running",
+            "currentTime": 0,
+            "timing": {
+              "delay": 0,
+              "direction": "normal",
+              "duration": 0.01,
+              "easing": "ease",
+              "endDelay": 0,
+              "fill": "backwards",
+              "iterationStart": 0,
+              "iterations": 1,
+              "activeDuration": 0.01,
+              "currentIteration": 0,
+              "endTime": 0.01,
+              "localTime": 0,
+              "progress": 0
+            }
+          },
+          {
+            "type": "CSSTransition",
+            "property": "top",
+            "name": null,
+            "playState": "running",
+            "currentTime": 0,
+            "timing": {
+              "delay": 0,
+              "direction": "normal",
+              "duration": 0.01,
+              "easing": "ease",
+              "endDelay": 0,
+              "fill": "backwards",
+              "iterationStart": 0,
+              "iterations": 1,
+              "activeDuration": 0.01,
+              "currentIteration": 0,
+              "endTime": 0.01,
+              "localTime": 0,
+              "progress": 0
+            }
+          },
+          {
+            "type": "CSSTransition",
+            "property": "transform",
+            "name": null,
+            "playState": "running",
+            "currentTime": 0,
+            "timing": {
+              "delay": 0,
+              "direction": "normal",
+              "duration": 0.01,
+              "easing": "ease",
+              "endDelay": 0,
+              "fill": "backwards",
+              "iterationStart": 0,
+              "iterations": 1,
+              "activeDuration": 0.01,
+              "currentIteration": 0,
+              "endTime": 0.01,
+              "localTime": 0,
+              "progress": 0
+            }
+          }
+        ]
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.341667,
+      "slotSettled": true,
+      "frameFits": false,
+      "fits": false
+    },
+    {
+      "phase": "phone Battle after desktop resize",
+      "sample": 7,
+      "raf": 7,
+      "time": 960.2000000178814,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "content": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 9.65625,
+        "y": 117,
+        "width": 370.6875,
+        "height": 659
+      },
+      "inline": {
+        "left": "9.65625px",
+        "top": "0px",
+        "transform": "scale(0.514844)"
+      },
+      "computed": {
+        "left": "9.65625px",
+        "top": "0px",
+        "transform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)",
+        "transformOrigin": "0px 0px",
+        "transitionProperty": "all",
+        "transitionDuration": "1e-05s",
+        "transitionDelay": "0s",
+        "animations": []
+      },
+      "expectedScale": 0.51484375,
+      "scale": 0.514844,
+      "slotSettled": true,
+      "frameFits": true,
+      "fits": true
+    }
+  ]
+}

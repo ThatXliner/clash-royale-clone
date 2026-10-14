@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "piece": "FRAME-LAYOUT-001",
+  "candidateCommit": "80a2d96771164d4e39ebe2c832995c34f93b01ad",
+  "parentCommit": "095a8c55a6721c74f7555939a9ce21182bec3f2a",
+  "candidateWorktree": "/private/tmp/frame-layout-round1-critic-gpt6",
+  "candidateWorktreeCleanAtPreflight": true,
+  "candidateSourceSha256": "12f566f0a7e417ff3260aee097bd11b94e28636b68f7226b6f81652194bf710e",
+  "candidateTestSha256": "40415b855a838c2597477f180bd56533d69e7bb5586492e6e580b911dcbedc53",
+  "negativeControlWorktree": "/private/tmp/frame-layout-round1-negative-control",
+  "negativeControlDelta": "Removed only the ResizeObserver construction/subscription; retained the candidate content-box and border subtraction logic.",
+  "node": "v22.22.3",
+  "npmWrapper": "/Users/me/.local/bin/npm",
+  "npm": "10.9.8",
+  "chrome": "Google Chrome 155.0.8059.40",
+  "playwrightImport": "/Users/me/.codex/worktrees/d092a29e-844b-459d-b145-c548db10d485/billion/node_modules/.pnpm/playwright@1.58.2/node_modules/playwright/index.mjs",
+  "install": "npm ci --ignore-scripts passed in both detached worktrees; 19 packages added each.",
+  "browserExecution": "Completed after root released the shared browser; exact candidate, targeted startup regression, and observer-only negative-control runs have raw TAP logs.",
+  "candidateTestCommand": "node --test tests/app-shell-layout.test.js",
+  "results": {
+    "candidateLayoutTest": {
+      "command": "node --test tests/app-shell-layout.test.js",
+      "pass": 1,
+      "fail": 0
+    },
+    "appShellRegression": {
+      "command": "npm run test:app-shell",
+      "pass": 1,
+      "fail": 0
+    },
+    "negativeControl": {
+      "command": "node --test tests/app-shell-layout.test.js",
+      "expectedFailure": true,
+      "onlySourceChange": "Remove slot ResizeObserver construction/subscription."
+    }
+  }
+}

@@ -1,0 +1,29 @@
+TAP version 13
+# Subtest: battle iframe follows the settled slot across viewport, motion, and view changes
+not ok 1 - battle iframe follows the settled slot across viewport, motion, and view changes
+  ---
+  duration_ms: 17731.895208
+  type: 'test'
+  location: '/private/tmp/frame-layout-round1-negative-control/tests/app-shell-layout.test.js:230:1'
+  failureType: 'testCodeFailure'
+  error: 'phone Battle after desktop resize: actual iframe geometry did not settle to the measured slot'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    file:///private/tmp/frame-layout-round1-negative-control/tests/app-shell-layout.test.js:200:11
+    runNextTicks (node:internal/process/task_queues:64:5)
+    process.processImmediate (node:internal/timers:452:9)
+    process.callbackTrampoline (node:internal/async_hooks:130:17)
+    async waitForFrameAndSlotToSettle (file:///private/tmp/frame-layout-round1-negative-control/tests/app-shell-layout.test.js:96:3)
+    async TestContext.<anonymous> (file:///private/tmp/frame-layout-round1-negative-control/tests/app-shell-layout.test.js:279:3)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 18436.984
