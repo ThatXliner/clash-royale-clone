@@ -1,0 +1,245 @@
+{
+  "scenario": "default-eight",
+  "qualificationMode": "default-eight-full-18k",
+  "durationMilliseconds": 975112,
+  "setupBytes": 39641,
+  "setupSha256": "306bb30da40ce7c43d6cccce8728449da90fc0e9ca7d13c81f0116ba710aec8c",
+  "segments": {
+    "count": 67,
+    "lastTick": 18000,
+    "maxSegmentMilliseconds": 10333
+  },
+  "timing": {
+    "maxSessionStepSliceMilliseconds": 30.700000017881393,
+    "maxRestoreStepSliceMilliseconds": 7.600000023841858,
+    "capMilliseconds": 40,
+    "maxInitializationLongTaskMilliseconds": 162,
+    "initializationLongTasks": [
+      {
+        "duration": 87,
+        "name": "self",
+        "startTime": 144.5
+      },
+      {
+        "duration": 162,
+        "name": "self",
+        "startTime": 258.7000000178814
+      }
+    ],
+    "nonInitialLongTaskCounts": {
+      "driven": 0,
+      "outOfSegment": 0,
+      "restore": 0,
+      "terminal": 0,
+      "restart": 0,
+      "finalDrain": 0,
+      "screenshot": 0
+    }
+  },
+  "restore": {
+    "tick": 300,
+    "snapshotBytes": 54012,
+    "rewindFromTick": 600,
+    "rewindToTick": 300,
+    "afterSessionBytes": {
+      "length": 44513,
+      "sha256": "57813c849a0208478279ce036497d764537c93d796c16c9c8c98ac8b2d580ae0",
+      "version": 2,
+      "seed": 0,
+      "transcriptLength": 302
+    },
+    "bridgeAfter": {
+      "type": "string",
+      "keys": [],
+      "length": 29,
+      "sha256": "80bb076a4ebb16f1d3b47065aafd315b52569b327b0b06db9d91ea2b74392864"
+    },
+    "audioContinuationAfter": {
+      "length": 54024,
+      "sha256": "792a9b43a1cb891001415f53b38748f6b9717b1f1c15e6ec6a86b0e87a4f5122"
+    },
+    "branchSinkStarts": [
+      "actualStarts",
+      "runtimeTransactions"
+    ],
+    "sinkIdentityUnchangedAfterRestore": true,
+    "restoredActualStartCount": 55,
+    "uiSequence": [
+      2,
+      2,
+      4
+    ]
+  },
+  "audioContinuation": {
+    "originalCount": 29,
+    "replayedCount": 29,
+    "exactIdentityEqual": true,
+    "restoreAudioCursor": 28,
+    "actualSinkBranchCount": 55,
+    "actualSinkReplayCount": 86,
+    "replayedUiStarts": [
+      {
+        "cueId": "card-select",
+        "domain": "ui",
+        "family": "cardSelect",
+        "sequence": 2,
+        "tick": 300,
+        "type": "card-select"
+      },
+      {
+        "cueId": "card-play",
+        "domain": "ui",
+        "family": "cardPlay",
+        "sequence": 3,
+        "tick": 300,
+        "type": "card-play"
+      }
+    ],
+    "sequenceZeroDomains": [
+      "simulation",
+      "ui"
+    ]
+  },
+  "terminal": {
+    "outcome": {
+      "kind": "natural-terminal",
+      "result": {
+        "crowns": {
+          "north": 1,
+          "south": 2
+        },
+        "endedAtTick": 18000,
+        "kind": "win",
+        "reason": "tiebreak_lowest_hp",
+        "winner": "south"
+      },
+      "tick": 18000
+    },
+    "finalView": {
+      "state": {
+        "sessionTick": 18000,
+        "terminal": true,
+        "restartCount": 0,
+        "selectedCardId": null
+      },
+      "sessionBytes": {
+        "length": 332999,
+        "sha256": "b688222db5bae0177e427729c8eb8da6d1e042ae84257c33573f3b2bcf5ab6d7",
+        "version": 2,
+        "seed": 0,
+        "transcriptLength": 18042
+      },
+      "bridge": {
+        "type": "object",
+        "keys": [],
+        "sha256": null
+      },
+      "audioContinuationBytes": {
+        "sha256": null
+      },
+      "audioEvidence": {
+        "keys": [],
+        "sha256": null
+      },
+      "audioDiagnostics": {
+        "cursor": 3097,
+        "eventCount": 3097,
+        "cueCount": 2877,
+        "uiSequence": 82,
+        "uiCommandCount": 82,
+        "sessionTick": 18000,
+        "terminal": true,
+        "disposed": true,
+        "faulted": false,
+        "suppressedAcceleratedCueCount": 136
+      },
+      "audio": {
+        "active": true,
+        "activeVoiceCount": 0,
+        "audibleStartCount": 2876,
+        "scheduledBufferCount": 2876,
+        "muted": false,
+        "gainBasisPoints": 10000,
+        "unlocked": true,
+        "unlockCount": 1
+      },
+      "layers": {
+        "combat": "18000",
+        "effects": "18000",
+        "feedback": "18000",
+        "hud": "18000"
+      },
+      "terminalOverlay": {
+        "width": 520,
+        "height": 428
+      },
+      "restartHidden": false
+    },
+    "restarted": {
+      "state": {
+        "sessionTick": 0,
+        "terminal": false,
+        "restartCount": 1,
+        "selectedCardId": null
+      },
+      "sessionBytes": {
+        "length": 39253,
+        "sha256": "ed371dd1d28d6be72a98bda32e434cbbc5431eea4f163e4206a1901cd08dbea1",
+        "version": 2,
+        "seed": 0,
+        "transcriptLength": 0
+      },
+      "bridge": {
+        "type": "object",
+        "keys": [],
+        "sha256": null
+      },
+      "audioContinuationBytes": {
+        "sha256": null
+      },
+      "audioEvidence": {
+        "keys": [],
+        "sha256": null
+      },
+      "audioDiagnostics": {
+        "cursor": 0,
+        "eventCount": 0,
+        "cueCount": 0,
+        "uiSequence": 0,
+        "uiCommandCount": 0,
+        "sessionTick": 0,
+        "terminal": false,
+        "disposed": false,
+        "faulted": false,
+        "suppressedAcceleratedCueCount": 0
+      },
+      "audio": {
+        "active": true,
+        "activeVoiceCount": 0,
+        "audibleStartCount": 0,
+        "scheduledBufferCount": 0,
+        "muted": false,
+        "gainBasisPoints": 10000,
+        "unlocked": false,
+        "unlockCount": 0
+      },
+      "layers": {
+        "combat": "0",
+        "effects": "0",
+        "feedback": "0",
+        "hud": "0"
+      },
+      "terminalOverlay": null,
+      "restartHidden": true
+    }
+  },
+  "diagnostics": {
+    "consoleErrors": 0,
+    "environmentAudits": 0,
+    "resourceErrors": 0,
+    "unhandled": 0,
+    "pendingResources": 0,
+    "serverStderr": "",
+    "serverExited": true
+  }
+}

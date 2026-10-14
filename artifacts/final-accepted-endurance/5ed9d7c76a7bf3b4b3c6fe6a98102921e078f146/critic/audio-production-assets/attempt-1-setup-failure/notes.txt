@@ -1,0 +1,1 @@
+First run used an isolated output root without pre-creating artifacts/audio-002-round-1; it failed at writeOfflineRender with ENOENT after the real Chrome assertions. Preserved exact raw TAP and exit.
