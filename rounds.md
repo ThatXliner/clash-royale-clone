@@ -1,5 +1,25 @@
 # Gauntlet Rounds
 
+## Round 441 — 2026-10-13
+
+PIECE: COVERAGE-004 — Current release evidence guide, round 2
+
+VERDICT: FAIL
+
+EVIDENCE: Clean236fbf checker exit0, stdout2338B byte-equal committed receipt/log, stderr0; links18/18 and independent catalog56/61 admitted,62/67 claimed,Q5 verified. Prose calls Kilnkeeper twentieth choice although real display position18/20; also calls H1 presentation whereas H1 is homing and I is presentation. Guide remains candidate only. Raw evidence artifacts/coverage004-round-2/critic/.
+
+BIGGEST GAP: Separate collection count/admission chronology from display order, and name homing runtime and card presentation reviews accurately.
+
+## Round 440 — 2026-10-13
+
+PIECE: CARDS-019D — Kilnkeeper collection portrait and lore, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Independent a66a852 freshChrome four contexts, decoded accepted512portrait atphone64/desktop78, exactlore, defaults8/custom8, allold19 maps exact, errors0; Pages51/assets6/app-shell/EmberBasin journey pass. Detail caveat marks only groundlayer; unverifiedcombatvalues lack visible provisional/QUESTION labeling. Parent app-polish strict locator failure independently reproduced. FailedUIcandidate notadopted. Evidence artifacts/cards019d-round-1/critic/.
+
+BIGGEST GAP: Add a clear provisional combat-stat caveat while preserving actual values and original lore.
+
 ## Round 439 — 2026-10-13
 
 PIECE: CARDS-019H1 — Shared homing flag and target following, round 1

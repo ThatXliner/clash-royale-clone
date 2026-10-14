@@ -1,0 +1,177 @@
+{
+  "renderedCopy": "Current game: Ground unit · ranged attacks · targets ground and air. The ground layer remains provisional for historical comparison.",
+  "profileValues": {
+    "health": 720,
+    "damage": 281,
+    "hitSpeedTicks": 84,
+    "rangeMillitiles": 5500,
+    "targetMode": "ground-and-air"
+  },
+  "sourceConfidenceQuestionCount": 20,
+  "sourceConfidenceQuestions": [
+    {
+      "authoritative": false,
+      "confidence": "unverified",
+      "disposition": "question",
+      "key": "kilnkeeper.body-radius-millitiles",
+      "source": "runtime-playability-estimate-not-comparison-corpus",
+      "value": 500
+    },
+    {
+      "authoritative": false,
+      "confidence": "unverified",
+      "disposition": "question",
+      "key": "kilnkeeper.character-area-damage-radius-millitiles",
+      "source": "pinned-royaleapi-54fdef52:cards_stats_characters#wizard",
+      "value": 0
+    },
+    {
+      "authoritative": false,
+      "confidence": "unverified",
+      "disposition": "question",
+      "key": "kilnkeeper.count",
+      "source": "runtime-playability-estimate-not-comparison-corpus",
+      "value": 1
+    },
+    {
+      "authoritative": false,
+      "confidence": "unverified",
+      "disposition": "question",
+      "key": "kilnkeeper.damage",
+      "source": "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile",
+      "value": 281
+    },
+    {
+      "authoritative": false,
+      "confidence": "unverified",
+      "disposition": "question",
+      "key": "kilnkeeper.deploy-time-ticks",
+      "source": "runtime-playability-estimate-not-comparison-corpus",
+      "value": 60
+    },
+    {
+      "authoritative": false,
+      "confidence": "unverified",
+      "disposition": "question",
+      "key": "kilnkeeper.first-hit-ticks",
+      "source": "runtime-playability-estimate-not-comparison-corpus",
+      "value": 60
+    },
+    {
+      "authoritative": false,
+      "confidence": "unverified",
+      "disposition": "question",
+      "key": "kilnkeeper.hit-speed-ticks",
+      "source": "runtime-playability-estimate-not-comparison-corpus",
+      "value": 84
+    },
+    {
+      "authoritative": false,
+      "confidence": "unverified",
+      "disposition": "question",
+      "key": "kilnkeeper.hitpoints",
+      "source": "runtime-playability-estimate-not-comparison-corpus",
+      "value": 720
+    },
+    {
+      "authoritative": false,
+      "confidence": "unverified",
+      "disposition": "question",
+      "key": "kilnkeeper.layer",
+      "source": "runtime-playability-estimate-not-comparison-corpus",
+      "value": 1
+    },
+    {
+      "authoritative": false,
+      "confidence": "unverified",
+      "disposition": "question",
+      "key": "kilnkeeper.movement-millitiles-per-second",
+      "source": "runtime-playability-estimate-not-comparison-corpus",
+      "value": 1000
+    },
+    {
+      "authoritative": false,
+      "confidence": "unverified",
+      "disposition": "question",
+      "key": "kilnkeeper.projectile-aoe-to-air",
+      "source": "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile",
+      "value": 1
+    },
+    {
+      "authoritative": false,
+      "confidence": "unverified",
+      "disposition": "question",
+      "key": "kilnkeeper.projectile-aoe-to-ground",
+      "source": "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile",
+      "value": 1
+    },
+    {
+      "authoritative": false,
+      "confidence": "unverified",
+      "disposition": "question",
+      "key": "kilnkeeper.projectile-homing",
+      "source": "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile",
+      "value": 1
+    },
+    {
+      "authoritative": false,
+      "confidence": "unverified",
+      "disposition": "question",
+      "key": "kilnkeeper.projectile-only-enemies",
+      "source": "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile",
+      "value": 1
+    },
+    {
+      "authoritative": false,
+      "confidence": "unverified",
+      "disposition": "question",
+      "key": "kilnkeeper.projectile-speed-millitiles-per-tick",
+      "source": "runtime-playability-estimate-not-comparison-corpus",
+      "value": 500
+    },
+    {
+      "authoritative": false,
+      "confidence": "unverified",
+      "disposition": "question",
+      "key": "kilnkeeper.projectile-speed-raw",
+      "source": "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile",
+      "value": 600
+    },
+    {
+      "authoritative": false,
+      "confidence": "unverified",
+      "disposition": "question",
+      "key": "kilnkeeper.projectile-splash-radius-millitiles",
+      "source": "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile",
+      "value": 1500
+    },
+    {
+      "authoritative": false,
+      "confidence": "unverified",
+      "disposition": "question",
+      "key": "kilnkeeper.range-millitiles",
+      "source": "runtime-playability-estimate-not-comparison-corpus",
+      "value": 5500
+    },
+    {
+      "authoritative": false,
+      "confidence": "unverified",
+      "disposition": "question",
+      "key": "kilnkeeper.sight-range-millitiles",
+      "source": "runtime-playability-estimate-not-comparison-corpus",
+      "value": 5500
+    },
+    {
+      "authoritative": false,
+      "confidence": "unverified",
+      "disposition": "question",
+      "key": "kilnkeeper.target-mode",
+      "source": "runtime-playability-estimate-not-comparison-corpus",
+      "value": 3
+    }
+  ],
+  "sourceImage": {
+    "bytes": 65626,
+    "sha256": "38e9f64348fa823a64755fda2496b699c88c27c7dd0a14a440e704d9093d2240"
+  }
+}

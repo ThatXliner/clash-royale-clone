@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "reviewedCommit": "236fbf505d16772075f06e683ac984cbece04a51",
+  "reviewedTree": "3216f17ef22da9277e8cc05e56fc3ab4e1c59cf6",
+  "actualParent": "695f74ff714a625e673bacea8ae3e9ff4b1143d0",
+  "candidateFreeze": {
+    "candidateCommit": "695f74ff714a625e673bacea8ae3e9ff4b1143d0",
+    "parentCommit": "a1da57cfd2795e39a212f97821bb52e92c25f081",
+    "tree": "4cc6983ac8fa2cc82e26c575cf9da4f263648c50"
+  },
+  "cleanArchiveChecker": {
+    "command": "node artifacts/coverage004-round-2/builder/check-guide-evidence.mjs",
+    "exitCode": 0,
+    "stdoutBytes": 2338,
+    "stdoutSha256": "a5192b09c5f8ac6b08de37b33169798b50921003c1349332401a82e32dc561f5",
+    "stdoutMatchesCommittedReceipt": true,
+    "stdoutMatchesCommittedLog": true,
+    "stderrBytes": 0
+  },
+  "localGuideLinks": {
+    "checked": 18,
+    "missing": 0
+  },
+  "frozenHistoricalMap": {
+    "sourceCommit": "a8c39bcc02329ba22b3fdd50be7d1089bc6010dc",
+    "historicalRows": 109,
+    "types": { "troop": 78, "building": 13, "spell": 18 },
+    "editableIds": 18,
+    "declaredComparatorCandidates": 12,
+    "fullHistoricalCardExecutions": 0,
+    "historicalParityClaims": 0
+  },
+  "independentlyReproducedCatalog": {
+    "sourceCommit": "151f54b7a40a266100522c7bdb3e3fca39b9918f",
+    "counts": {
+      "admittedIds": 56,
+      "admittedOccurrences": 61,
+      "claimedIds": 62,
+      "claimedOccurrences": 67,
+      "excludedClaimedIds": 6,
+      "excludedClaimedOccurrences": 6,
+      "questionOnlyExports": 5
+    }
+  },
+  "lastReviewedBrowserCollection": {
+    "candidateCommit": "7f8baee2922a7eff197f43d1804a526ffacacd22",
+    "editablePoolCount": 19,
+    "editablePoolIds": [
+      "coilblade", "mossguard", "copperskiff", "skymaul", "brassbolt", "reedsting", "briar-band", "cinderlings", "stonehauler", "thornscouts", "forgeguard", "cinder-host", "ironroot", "sunthread-pair", "duskwing-trio", "gloamwing-cluster", "coppershade-flock", "squall-orb", "ember-basin"
+    ],
+    "builderReceiptBattleDeckCount": 8,
+    "criticReceiptBattleDeckCount": 8,
+    "testSourceSha256": "a66f6d45e99d26b5fbddd2213be4836a4eb417002e432b4b3dfcd08d2e8e36ab",
+    "testSourceMatchesPinnedCommit": true,
+    "criticTap": { "tests": 1, "pass": 1, "fail": 0, "cancelled": 0 },
+    "builderAndCriticManifestSha256Match": true,
+    "manifestSha256": "e77d65fdc327944306eb830a4dee921d17da68b06fe89d4475ef099e5ec84fc9",
+    "hashSemantics": "Pinned browser test hashes the raw bytes of release-manifest.json."
+  },
+  "kilnkeeperLocalArchiveReplay": {
+    "sourceCommit": "6198883470fa48f6746974d7590168ae3011ac37",
+    "httpStatus": 200,
+    "collectionCount": 20,
+    "kilnkeeperPositionOneBased": 18,
+    "portraitCount": 0,
+    "loreCount": 0,
+    "kilnkeeperArtRequests": 0,
+    "deckSize": 8,
+    "deckContainsKilnkeeper": true,
+    "pageErrors": 0
+  },
+  "kilnkeeperLiveEvidence": {
+    "collectionCount": 20,
+    "kilnkeeperPositionOneBased": 18,
+    "portraitCount": 0,
+    "loreCount": 0,
+    "browserErrors": 0,
+    "entryBundleStatus": 200,
+    "entryBundleBytes": 33264,
+    "entryBundleSha256": "76dcd24f375ea20dea41742dfcbd0e1c02bf3db9394f48868be687e762159f7b",
+    "currentEntryBundleMatchesReceipt": true,
+    "currentLandingHttpStatus": 200,
+    "currentGameHttpStatus": 200
+  },
+  "defaultEightComparison": {
+    "baselineCommit": "6dcf64b81751f69f9fe7520878ac136bda9143ed",
+    "reviewedCommit": "e3413fdc529a366a56e2d0b35afb7fa7b14dcd6f",
+    "exactSnapshots": 6,
+    "seeds": [0, 23],
+    "ticks": [0, 120, 900],
+    "allSnapshotHashesEqual": true,
+    "fullEngineSuiteReRun": false
+  },
+  "endurance": {
+    "candidateCommit": "9f64011378d3ce1c6281d9292950a7b52f11fd2c",
+    "seed": 0,
+    "deckSize": 8,
+    "terminalTick": 18000,
+    "segments": 67,
+    "restore": "600→300→600 replay asserted",
+    "restartTick": 0,
+    "pauseRecords": 1,
+    "resumeRecords": 1,
+    "candidateIsAncestorOfPublicCommit": true,
+    "kilnkeeperSourceAbsentAtEnduranceCandidate": true,
+    "kilnkeeperSourcePresentAtPublicCommit": true,
+    "runtimeSourceFilesChangedBeforePublicCommit": 11
+  },
+  "sourceIsolation": {
+    "round1Verdict": "FAIL",
+    "round2Verdict": "PASS",
+    "scopedGuardTap": { "tests": 28, "pass": 28, "fail": 0 },
+    "pagesTap": { "tests": 5, "pass": 5, "fail": 0 },
+    "oldRound1CriticTreeUnchangedFromBase": true
+  },
+  "freezePlanScope": {
+    "cards019h1Status": "BUILDING",
+    "cards019h1Scope": "Shared homing flag and target-following integration",
+    "cards019iStatus": "TODO",
+    "cards019iScope": "Kilnkeeper card and arena presentation",
+    "guideConflatesH1WithPresentationReview": true
+  },
+  "release": {
+    "workflowId": 38501010696,
+    "branch": "main",
+    "commit": "dbd7afe4a8901b5b61c83ebc92137a5bd26e5451",
+    "workflowConclusion": "success",
+    "landingHttpStatus": 200,
+    "gameHttpStatus": 200
+  },
+  "treeIntegrity": {
+    "sourceGameProductTreeUnchangedFromBase": true,
+    "targetChangesFromBase": 8,
+    "targetChangesAreDocumentationAndCoverageEvidenceOnly": true
+  },
+  "verdict": "FAIL",
+  "biggestGap": "The guide says Kilnkeeper is the 20th choice. Both the committed live receipt and an independent Chrome run from clean source commit 6198883470fa48f6746974d7590168ae3011ac37 show 20 choices with Kilnkeeper at position 18.",
+  "secondaryGap": "The guide calls H1 a presentation/integration review, but the frozen PLAN defines CARDS-019H1 as homing integration (BUILDING) and CARDS-019I as Kilnkeeper presentation (TODO). The pending state is right; the scope attribution is conflated."
+}
