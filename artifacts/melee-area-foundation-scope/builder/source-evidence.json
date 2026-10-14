@@ -1,0 +1,169 @@
+{
+  "snapshot": {
+    "acceptedHead": "108dc70382d62a88854c0b65dbfd1493dbac8b2e",
+    "checkout": "/tmp/melee-area-foundation-108dc",
+    "basis": "clean detached checkout; read-only source inspection",
+    "testsOrBuildsRun": false
+  },
+  "signature": {
+    "path": "artifacts/melee-area-full-signature-scope/builder/pinned-linked-rows.json",
+    "sha256": "b482690ef2f9cd3493ca6a22d857202314d03257ef5468f90365bbd8d2c114f1",
+    "pinnedUpstreamCommit": "54fdef52c5086393b085f57faeeab8ef86b28160",
+    "rowFields": {
+      "card": 9,
+      "troop": 81,
+      "character": 289
+    },
+    "parsedCharacterFacts": {
+      "id": 26000011,
+      "key": "valkyrie",
+      "damage_per_level_index_8": 267,
+      "range": 1200,
+      "area_damage_radius": 2000,
+      "self_as_aoe_center": true,
+      "attacks_ground": true,
+      "attacks_air": false,
+      "collision_radius": 500,
+      "mass": 5,
+      "multiple_targets": 0,
+      "all_targets_hit": false,
+      "override_attack_finish_time": true,
+      "attack_finish_time": 100,
+      "projectile": null
+    },
+    "query": "Parsed the existing selected-row JSON locally; enumerated character object keys and count, then printed the identity, area/contact, damage, mass, target, and attack-finish fields. No upstream dataset was downloaded or imported."
+  },
+  "sourceFiles": [
+    {
+      "path": "src/sim/battle-continuation-kernel.js",
+      "sha256": "8c1a9d41a7882ccbe561f989fd6773f34e3663ed870fa1ec9961dd3871409a36",
+      "lineRanges": [
+        { "lines": "2891-2964", "finding": "attacker and live unit iteration is ID-sorted; one target is retained/acquired; AttackCycle yields attack records" },
+        { "lines": "3054-3069", "finding": "melee unit-to-unit path pushes only the primary unit hit; melee unit-to-structure path emits one external contact" },
+        { "lines": "3082-3150", "finding": "due-projectile impact is a separate area path and dispatches only through projectile splash profile/impact center" },
+        { "lines": "3214-3240", "finding": "all unit hits resolve through the existing simultaneous batch; damage follows input order and deaths are emitted from the same batch" },
+        { "lines": "2685-2698,2701-2734,2831-2859", "finding": "canonical snapshots retain setup plus causal transcript/history; restore replays operations and requires byte-identical serialization" },
+        { "lines": "5003-5008,5411-5490", "finding": "BattleTowerCombat previews/commits shared contacts while BattleCombat and CrownTowerBattle retain their respective unit/tower health authority" },
+        { "lines": "8308-8318", "finding": "LiveBattle applies building:* external structure contacts exactly once to building health" },
+        { "lines": "6690-6710", "finding": "combatSpec currently forwards projectile splash fields; no generic melee area policy is attached" }
+      ],
+      "queries": [
+        "rg -n 'stepBoundary|melee|ordinaryProjectileSplash|impact|damage|checkpoint|restore|replay|feed|history' src/sim/battle-continuation-kernel.js",
+        "nl -ba src/sim/battle-continuation-kernel.js | sed -n '2890,2965p;3050,3076p;3080,3152p;3214,3240p'",
+        "rg -n 'external-structure-contact|BattleCombat|externalHits|serialize|static restore|#advance' src/sim/battle-continuation-kernel.js"
+      ]
+    },
+    {
+      "path": "src/sim/ordinary-projectile-splash.js",
+      "sha256": "6da865ca762855c6468fbccc49557ebf28feab0f6ba9faf2b2b964d9198a2406",
+      "lineRanges": [
+        { "lines": "195-215", "finding": "pure victim scan filters alive, targetable, enemy side, non-primary ID and target layer, applies circle overlap and sorts IDs" },
+        { "lines": "217-264", "finding": "projectile-specific planner resolves primary status/eligibility, emits primary plus ordered secondary unit/building contacts and hit-source provenance" }
+      ],
+      "queries": [
+        "rg -n 'function selectTargets|planOrdinaryProjectileSplashImpact|selectOrdinaryProjectileSplashTargets' src/sim/ordinary-projectile-splash.js",
+        "nl -ba src/sim/ordinary-projectile-splash.js | sed -n '195,270p'"
+      ]
+    },
+    {
+      "path": "src/sim/area-damage.js",
+      "sha256": "c3df6728aceaebba8f9c0afbb94ed207c5cf842eb8a4f736bfae9bc1a823eab0",
+      "lineRanges": [
+        { "lines": "170-178", "finding": "AreaDamageSystem is deterministic but described as an independent area-damage storage system" },
+        { "lines": "236-275", "finding": "area resolver selects sorted eligible circles and applies damage to its own cloned DamageSystem before committing" }
+      ],
+      "queries": [
+        "rg -n 'AreaDamageSystem|\\.resolve\\(.*area|areaDamage\\.resolve|new AreaDamageSystem' src tests",
+        "nl -ba src/sim/area-damage.js | sed -n '170,178p;229,275p'"
+      ]
+    },
+    {
+      "path": "src/sim/spatial.js",
+      "sha256": "6afee6321acfe9eada77d68d3d88361bdff3c08685debf916f1685cf6491607e",
+      "lineRanges": [
+        { "lines": "175-203", "finding": "circlesOverlap uses exact BigInt squared-distance comparison; tangency is inclusive by default" }
+      ],
+      "queries": [
+        "rg -n 'function circlesOverlap|export function circlesOverlap' src/sim/spatial.js",
+        "nl -ba src/sim/spatial.js | sed -n '175,203p'"
+      ]
+    },
+    {
+      "path": "src/sim/damage.js",
+      "sha256": "a0766301172c897354b2c3b8dd0afedbaf77ba2864a231b42ced1bef31fe61e7",
+      "lineRanges": [
+        { "lines": "56-63,171-203,207-254", "finding": "simultaneous hits use pre-batch alive state, emit hit events in input order, and order death events by entity ID" }
+      ],
+      "queries": [
+        "nl -ba src/sim/damage.js | sed -n '56,66p;170,254p'"
+      ]
+    },
+    {
+      "path": "src/content/session-troop-roster.js",
+      "sha256": "aee8195b07a127d8ffa7991748cf77ead6aa16adc631994dfe18e87642a33a35",
+      "lineRanges": [
+        { "lines": "113-145,342-386", "finding": "ordinary troop projection carries raw areaDamageRadiusMillitiles separately; it only attaches the existing ordinary-projectile splash profile when one is source-admitted" },
+        { "lines": "389-410", "finding": "card/component projection stays closed to the source roster shape" }
+      ],
+      "queries": [
+        "rg -n 'areaDamageRadius|splashProfile|projectOrdinaryEntity|projectFromSource' src/content/session-troop-roster.js",
+        "nl -ba src/content/session-troop-roster.js | sed -n '113,145p;342,410p'"
+      ]
+    },
+    {
+      "path": "tests/game-roster-troops-ordinary.test.js",
+      "sha256": "not-recorded-in-this-scope",
+      "lineRanges": [
+        { "lines": "954-1025", "finding": "existing focused tests establish projectile-only area selection ordering, direct-primary de-duplication, and eligibility filters" },
+        { "lines": "1032-1097", "finding": "actual GameSession projectile splash test restores a pending projectile and compares events, serialized state and replay bytes" }
+      ],
+      "queries": [
+        "rg -n 'ordinary splash plans stable|damages bounded enemy splash victims through GameSession' tests/game-roster-troops-ordinary.test.js",
+        "nl -ba tests/game-roster-troops-ordinary.test.js | sed -n '954,1025p;1032,1097p'"
+      ]
+    },
+    {
+      "path": "reference/stats/SOURCES.md",
+      "sha256": "9d2e56266451a02486f6893d35f37989660d6f9d838be2d953b8e242beff78ee",
+      "lineRanges": [
+        { "lines": "9-12", "finding": "roster identity/cost are high-confidence; combat constants are medium-high datamine snapshot with per-field unverified status" },
+        { "lines": "20-38", "finding": "raw distances/times are thousandths/milliseconds; level 11 Rare uses array index 8; damage is per attack; unverified fields remain explicit" }
+      ],
+      "queries": [
+        "cat reference/stats/SOURCES.md",
+        "nl -ba reference/stats/SOURCES.md | sed -n '7,38p'"
+      ]
+    },
+    {
+      "path": "reference/research/melee-splash-source-audit.md",
+      "sha256": "e4eabb9cb40552311a610f5247166fd9f1fd415f20a0f0d9da9060a7f3e65586",
+      "lineRanges": [
+        { "lines": "1-22,45-76", "finding": "qualitative ground melee-area role is supported; pinned 2.0 radius conflicts with dated 2019 2.4 publisher value; center/layer/secondary damage/order/geometry remain open" }
+      ],
+      "queries": [
+        "cat reference/research/melee-splash-source-audit.md"
+      ]
+    },
+    {
+      "path": "artifacts/melee-area-full-signature-scope/builder/scope.md",
+      "sha256": "0f25a0f190c3e9a22522c7bbce05e6d59d6e6d62d8ab6efdb46fce17f0b99e21",
+      "lineRanges": [
+        { "lines": "3-8,24-35", "finding": "complete card/troop/character link has 9/81/289 fields; zeros/nulls/false remain stored evidence rather than semantics" },
+        { "lines": "41-58", "finding": "active area/contact fields, unresolved semantics, provisional shared-core seam, and high-overlap fixture are enumerated" }
+      ],
+      "queries": [
+        "nl -ba artifacts/melee-area-full-signature-scope/builder/scope.md | sed -n '1,58p'"
+      ]
+    },
+    {
+      "path": "artifacts/remaining-goal-scope-1413220/scope.md",
+      "sha256": "89733cd78ba486ee69f817a383ca94bb3a80b51696ea85033119d5d24de1a3eb",
+      "lineRanges": [
+        { "lines": "19-23,42-46", "finding": "mechanics gap and provisional test boundary are stated; its 30-field-only limitation is stale because the newer full signature artifact exists at this HEAD" }
+      ],
+      "queries": [
+        "nl -ba artifacts/remaining-goal-scope-1413220/scope.md | sed -n '15,23p;38,46p'"
+      ]
+    }
+  ]
+}
