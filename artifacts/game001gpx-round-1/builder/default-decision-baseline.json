@@ -1,0 +1,86 @@
+{
+  "baselineSource": {
+    "commit": "6a646216c77abc24907a8039c1ebfe11c9167822",
+    "helperSha256": "e8b1615ab14c90c718c2e2b92cc3e1cf8f30600597520d088eb0e0571499aa31",
+    "capturedBeforeGPXChanges": true
+  },
+  "setupSha256": "306bb30da40ce7c43d6cccce8728449da90fc0e9ca7d13c81f0116ba710aec8c",
+  "snapshots": [
+    {
+      "normalizedCommand": null,
+      "plan": null,
+      "tick": 0,
+      "snapshotBytes": 39679,
+      "snapshotSha256": "f157dba4bd467d25b8bb172c8088814fd946ec1b29eb874bc95b2c5867cfeaa7"
+    },
+    {
+      "normalizedCommand": {
+        "cardId": "cinderlings",
+        "point": {
+          "x": 3500,
+          "y": 5500
+        },
+        "slot": 3,
+        "tick": 300
+      },
+      "plan": {
+        "cardId": "cinderlings",
+        "point": {
+          "x": 3500,
+          "y": 5500
+        },
+        "slot": 3,
+        "tick": 300
+      },
+      "tick": 300,
+      "snapshotBytes": 44478,
+      "snapshotSha256": "40406e92705eb69129a042293c549c3501f5a31f335fa76fb7b6e029ddb71382"
+    },
+    {
+      "normalizedCommand": {
+        "cardId": "cinderlings",
+        "point": {
+          "x": 3500,
+          "y": 5500
+        },
+        "slot": 3,
+        "tick": 600
+      },
+      "plan": {
+        "cardId": "cinderlings",
+        "point": {
+          "x": 3500,
+          "y": 5500
+        },
+        "slot": 3,
+        "tick": 600
+      },
+      "tick": 600,
+      "snapshotBytes": 49278,
+      "snapshotSha256": "e2d6368cf364cc54f7543946637591685d746f790732f479a0b19b49f9deeb7c"
+    },
+    {
+      "normalizedCommand": {
+        "cardId": "skymaul",
+        "point": {
+          "x": 14500,
+          "y": 5500
+        },
+        "slot": 1,
+        "tick": 900
+      },
+      "plan": {
+        "cardId": "skymaul",
+        "point": {
+          "x": 14500,
+          "y": 5500
+        },
+        "slot": 1,
+        "tick": 900
+      },
+      "tick": 900,
+      "snapshotBytes": 54078,
+      "snapshotSha256": "8af13aeabd23c9646fc364d5120a0de64957cb883e1cfea68895eb499ec4f5d3"
+    }
+  ]
+}

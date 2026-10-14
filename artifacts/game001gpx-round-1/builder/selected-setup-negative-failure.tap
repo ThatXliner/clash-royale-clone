@@ -1,0 +1,81 @@
+TAP version 13
+# Subtest: the integrated workload keeps the exact setup and frozen 300-tick baseline
+ok 1 - the integrated workload keeps the exact setup and frozen 300-tick baseline
+  ---
+  duration_ms: 935.616791
+  type: 'test'
+  ...
+# Subtest: selected-source profiles preserve pre-adaptation default snapshots and commands
+ok 2 - selected-source profiles preserve pre-adaptation default snapshots and commands
+  ---
+  duration_ms: 4069.983916
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper selected setup drives source-derived planning and real seeded contact
+ok 3 - Kilnkeeper selected setup drives source-derived planning and real seeded contact
+  ---
+  duration_ms: 2236.165375
+  type: 'test'
+  ...
+# Subtest: selected workload rejects unsupported, incomplete, and noncanonical setups
+not ok 4 - selected workload rejects unsupported, incomplete, and noncanonical setups
+  ---
+  duration_ms: 16.526167
+  type: 'test'
+  location: '/private/tmp/game001gpx-builder-6a646/tests/endurance-workload.test.js:160:1'
+  failureType: 'testCodeFailure'
+  error: 'an admitted mixed deck with a spell cannot silently receive a troop-only forecast'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual:
+  error: 'selected endurance setup contains a missing or unsupported unit profile'
+  name: 'TypeError'
+  stack: |-
+    createWorkloadCatalog (file:///private/tmp/game001gpx-builder-6a646/tests/helpers/endurance-workload.js:39:13)
+    workloadCatalogFromSetupBytes (file:///private/tmp/game001gpx-builder-6a646/tests/helpers/endurance-workload.js:125:10)
+    createSelectedEnduranceWorkloadPolicy (file:///private/tmp/game001gpx-builder-6a646/tests/helpers/endurance-workload.js:411:14)
+    file:///private/tmp/game001gpx-builder-6a646/tests/endurance-workload.test.js:164:23
+    getActual (node:assert:609:5)
+    Function.throws (node:assert:757:24)
+    TestContext.<anonymous> (file:///private/tmp/game001gpx-builder-6a646/tests/endurance-workload.test.js:164:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+  operator: 'throws'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/game001gpx-builder-6a646/tests/endurance-workload.test.js:164:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: incremental preview matches accepted commands and resets cleanly at a rewind
+ok 5 - incremental preview matches accepted commands and resets cleanly at a rewind
+  ---
+  duration_ms: 2242.063125
+  type: 'test'
+  ...
+# Subtest: cooldown history can rewind to a prior prefix and rejects unordered history
+ok 6 - cooldown history can rewind to a prior prefix and rejects unordered history
+  ---
+  duration_ms: 0.294291
+  type: 'test'
+  ...
+# Subtest: the replay-derived natural terminal stops planning and keeps the 18,000-tick gate red
+ok 7 - the replay-derived natural terminal stops planning and keeps the 18,000-tick gate red
+  ---
+  duration_ms: 0.3385
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 6
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 9667.796417

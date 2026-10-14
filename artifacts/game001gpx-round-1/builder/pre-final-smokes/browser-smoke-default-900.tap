@@ -1,0 +1,26 @@
+
+> moss-and-ember@0.0.0 test:game-browser-endurance
+> node tests/game-browser-endurance-runner.js game-browser-endurance
+
+TAP version 13
+# Subtest: game browser endurance: delayed long-task entries retain their measured interval
+ok 1 - game browser endurance: delayed long-task entries retain their measured interval
+  ---
+  duration_ms: 1.857167
+  type: 'test'
+  ...
+# Subtest: game browser endurance: default-eight seed-zero workload uses the yielding driver
+ok 2 - game browser endurance: default-eight seed-zero workload uses the yielding driver
+  ---
+  duration_ms: 57748.35675
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 59968.554542

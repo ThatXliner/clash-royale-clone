@@ -1,0 +1,7 @@
+base ac45251686288696f8033f9490e7bcedf8909825
+candidate 785c65442218308073c45e4b8df86ce64e857688
+changed production source paths:
+git diff --exit-code BASE CANDIDATE -- src: exit 0
+git diff --check BASE CANDIDATE: exit 0
+changed candidate-owned non-source path:
+M	tests/game-browser-endurance.test.js

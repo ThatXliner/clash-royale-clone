@@ -1,0 +1,14 @@
+PIECE: GAME-001GPX — selected-deck browser endurance audio parity
+VERDICT: PASS
+
+EVIDENCE (fresh run from clean archive of candidate 785c65442218308073c45e4b8df86ce64e857688):
+- `node --test tests/endurance-workload.test.js`: 7/7 passed, 0 failed.
+- Default-eight Chrome bounded run: 3/3 passed in 60.58 s, at tick 900. `qualificationMode=default-eight-bounded-smoke-900`; `runOutcome={kind:tick-bound,tick:900}`; `terminal=false`. Four 300-tick segments had zero attributed long tasks; initialization maximum was 191 ms (300 ms cap). Console, unhandled, resource, and pending-resource error arrays were empty; server exited.
+- Kilnkeeper Chrome bounded run: 3/3 passed in 59.51 s, at tick 900. `qualificationMode=kilnkeeper-bounded-smoke-900`; `runOutcome={kind:tick-bound,tick:900}`; `terminal=false`. Four 300-tick segments had zero attributed long tasks; initialization maximum was 163 ms. Console, unhandled, resource, and pending-resource error arrays were empty; server exited.
+- Selected deck hash was `9b2a1c5a86c2d5c0c2d623389b69c465409e65d5d84988591630b980ee7b3ba9`. A trusted physical tick-0 gesture deployed Kilnkeeper from slot 1 at its admitted cost 5, reducing south elixir from 10 to 5; the cycle sequence advanced exactly once and Kilnkeeper left the hand. Seeded north Kilnkeeper deployed at tick 60, moved from y=17500 to y=15050 by tick 300, and produced actual projectile contacts at ticks 243, 327, and 411. After 600→300→600 restore/replay, the typed contact records matched exactly.
+- Actual BrowserPcmAudioSink starts were compared with captured GameAudioRuntime cues and renderer starts by domain, sequence, cueId, type, family, and tick. Default-eight actual starts: 55 at the 600-tick branch, still 55 after restore, 86 after replay; UI sequence 2→2→4. Kilnkeeper: 54→54→83; UI sequence 4→4→6. Each profile records colliding simulation/UI sequence 0 separately. Replay reproduced the 29 default / 27 Kilnkeeper typed simulation continuation cues and emitted the expected new UI cues at sequences 2–3 / 4–5. The focused mutation probe passed while asserting that cue-identity and domain mutations throw in the same comparator used by the browser evidence checks.
+- Source fence: base `ac45251686288696f8033f9490e7bcedf8909825`; `git diff --exit-code BASE CANDIDATE -- src` and `git diff --check BASE CANDIDATE` both exited 0. The only changed test path is `tests/game-browser-endurance.test.js`; no production or scheduling source changed. The unchanged harness retains the default strict 18,000-tick run, 50 ms driven-task cap, 300-tick segments, and the expanded Kilnkeeper natural-terminal plus same-selected-seed-zero-deck restart gate.
+
+BIGGEST GAP: These 900-tick smokes stop at the explicit tick bound before natural terminal and restart, so this round does not independently prove either full qualification path.
+
+Raw output, actual browser telemetry/screens, mutation TAP, and source-fence evidence are in this directory.

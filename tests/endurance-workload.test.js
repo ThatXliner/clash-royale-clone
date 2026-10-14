@@ -3,13 +3,18 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 
+import { createEditableGameSessionSetup } from "../src/content/editable-deck.js";
 import { GameSession } from "../src/sim/game-session.js";
 import {
+  createSelectedEnduranceWorkloadPolicy,
   createEnduranceWorkloadPolicy,
   ENDURANCE_BASELINE_INTERVAL_TICKS,
   ENDURANCE_REQUIRED_TICK,
   assertEnduranceWorkloadCanContinue,
   exactEnduranceSetupBytes,
+  exactKilnkeeperEnduranceSetupBytes,
+  KILNKEEPER_ENDURANCE_DECK,
+  normalizedWorkloadCommand,
   plannedSouthAttempt,
 } from "./helpers/endurance-workload.js";
 
@@ -18,6 +23,11 @@ const TERMINAL_REPLAY = new URL(
   import.meta.url,
 );
 const AGGREGATE_SETUP_SHA256 = "306bb30da40ce7c43d6cccce8728449da90fc0e9ca7d13c81f0116ba710aec8c";
+const KILNKEEPER_SETUP_SHA256 = "9b2a1c5a86c2d5c0c2d623389b69c465409e65d5d84988591630b980ee7b3ba9";
+const DEFAULT_DECISION_BASELINE = new URL(
+  "../artifacts/game001gpx-round-1/builder/default-decision-baseline.json",
+  import.meta.url,
+);
 
 function canonical(value) {
   if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
@@ -43,6 +53,125 @@ test("the integrated workload keeps the exact setup and frozen 300-tick baseline
     "the integrated policy preserves the original baseline card, slot, point, and tick");
   assert.deepEqual(policy.snapshot(), { emergencyDecisionTicks: [] },
     "baseline decisions do not consume the overtime emergency cooldown");
+});
+
+test("selected-source profiles preserve pre-adaptation default snapshots and commands", () => {
+  const baseline = JSON.parse(readFileSync(DEFAULT_DECISION_BASELINE, "utf8"));
+  const setupBytes = exactEnduranceSetupBytes();
+  assert.equal(createHash("sha256").update(setupBytes).digest("hex"), baseline.setupSha256);
+  assert.equal(baseline.baselineSource.capturedBeforeGPXChanges, true);
+
+  const legacy = new GameSession(setupBytes);
+  const selected = new GameSession(setupBytes);
+  const legacyPolicy = createEnduranceWorkloadPolicy();
+  const selectedPolicy = createSelectedEnduranceWorkloadPolicy({ setupBytes });
+  for (const expected of baseline.snapshots) {
+    while (legacy.state.tick < expected.tick) legacy.stepMany(15);
+    while (selected.state.tick < expected.tick) selected.stepMany(15);
+    const legacyBytes = legacy.serialize();
+    const selectedBytes = selected.serialize();
+    assert.equal(legacyBytes, selectedBytes,
+      `legacy and selected-source sessions have identical bytes at tick ${expected.tick}`);
+    assert.equal(createHash("sha256").update(legacyBytes).digest("hex"),
+      expected.snapshotSha256, `pre-adaptation snapshot hash matches at tick ${expected.tick}`);
+    assert.equal(legacyBytes.length, expected.snapshotBytes);
+
+    const legacyPlan = legacyPolicy.plan(legacy);
+    const selectedPlan = selectedPolicy.plan(selected);
+    assert.deepEqual(legacyPlan === null ? null : normalizedWorkloadCommand(legacyPlan),
+      expected.normalizedCommand,
+      `frozen default command matches its saved source baseline at tick ${expected.tick}`);
+    assert.deepEqual(selectedPlan === null ? null : normalizedWorkloadCommand(selectedPlan),
+      expected.normalizedCommand,
+      `setup-derived profile command matches the same baseline at tick ${expected.tick}`);
+    assert.deepEqual(selectedPlan, legacyPlan,
+      `selected-source policy preserves the exact policy decision at tick ${expected.tick}`);
+  }
+});
+
+test("Kilnkeeper selected setup drives source-derived planning and real seeded contact", () => {
+  const setupBytes = exactKilnkeeperEnduranceSetupBytes();
+  assert.equal(createHash("sha256").update(setupBytes).digest("hex"), KILNKEEPER_SETUP_SHA256);
+  assert.equal(createEditableGameSessionSetup(KILNKEEPER_ENDURANCE_DECK, 0), setupBytes,
+    "the scenario uses the canonical editable-deck setup, not a private profile patch");
+  const setup = JSON.parse(setupBytes);
+  const battleSetup = JSON.parse(setup.battleSetup);
+  const card = battleSetup.roster.find(({ id }) => id === "kilnkeeper");
+  assert.ok(card, "the selected authenticated roster contains Kilnkeeper");
+  assert.equal(setup.thinkIntervalTicks, 60,
+    "the seeded AI uses the actual selected-deck cadence");
+
+  const session = new GameSession(setupBytes);
+  const policy = createSelectedEnduranceWorkloadPolicy({ setupBytes });
+  assert.equal(policy.plan(session), null);
+  const initial = session.state;
+  const slot = initial.decks.south.hand.indexOf(card.id);
+  assert.ok(slot >= 0, "Kilnkeeper is in the seed-zero player opening hand");
+  const command = { cardId: card.id, commandId: 1,
+    point: { x: 9_000, y: 10_000 }, slot, tick: 0, type: "deploy" };
+  const admission = session.submitPlayerCommand(canonical(command));
+  assert.equal(admission.accepted, true);
+  session.stepMany(1);
+
+  const southDeployment = session.replay.find((entry) => entry.type === "session-deployed" &&
+    entry.side === "south" && entry.deployment.cardId === card.id);
+  assert.ok(southDeployment, "the actual player deployment enters the canonical transcript");
+  assert.equal(southDeployment.spend.cost, card.cost,
+    "the spend uses the admitted selected-roster cost");
+  assert.equal(session.state.decks.south.sequence, initial.decks.south.sequence + 1,
+    "the initial card play advances the canonical deck cycle once");
+  assert.equal(session.state.decks.south.hand.includes(card.id), false,
+    "the played Kilnkeeper leaves the active hand after the cycle");
+
+  let aiDeployment = null;
+  let aiEntityId = null;
+  let positionAfterPursuit = null;
+  let aiImpact = null;
+  while (session.state.tick < 600 && !session.state.terminal) {
+    session.stepMany(1);
+    if (aiDeployment === null) {
+      aiDeployment = session.replay.find((entry) => entry.type === "session-deployed" &&
+        entry.side === "north" && entry.deployment.cardId === card.id) ?? null;
+      aiEntityId = aiDeployment?.deployment.entityIds?.[0] ?? null;
+    }
+    if (aiEntityId !== null && session.state.tick === 300) {
+      const unit = session.state.battle.units.find(({ id }) => id === aiEntityId);
+      assert.ok(unit?.alive, "the AI Kilnkeeper remains alive while following its target");
+      positionAfterPursuit = unit.position;
+      assert.notDeepEqual(positionAfterPursuit, aiDeployment.deployment.point,
+        "the launched unit follows its live path from the legal deployment point");
+    }
+    if (aiEntityId !== null) {
+      aiImpact = session.replay.find((entry) => entry.type === "projectile-impact" &&
+        entry.sourceId === aiEntityId && entry.status === "contact") ?? aiImpact;
+    }
+  }
+  assert.ok(aiDeployment, "the seeded north AI launches Kilnkeeper from its selected hand");
+  assert.equal(aiDeployment.deployment.tick, 60,
+    "the AI launch occurs on the configured 60-tick decision boundary");
+  assert.ok(aiEntityId !== null);
+  assert.ok(positionAfterPursuit, "the actual AI Kilnkeeper moved before projectile contact");
+  assert.ok(aiImpact, "the actual shared battle records Kilnkeeper projectile contact");
+  assert.equal(aiImpact.projectileIdentity.sourceId, aiEntityId);
+  assert.equal(aiImpact.projectileIdentity.projectileId, aiImpact.projectileId);
+  assert.ok(aiImpact.tick >= aiDeployment.deployment.tick);
+});
+
+test("selected workload rejects unsupported, incomplete, and noncanonical setups", () => {
+  const mixedDeck = [...KILNKEEPER_ENDURANCE_DECK];
+  mixedDeck[0] = "squall-orb";
+  const mixedSetup = createEditableGameSessionSetup(mixedDeck, 0);
+  assert.throws(() => createSelectedEnduranceWorkloadPolicy({ setupBytes: mixedSetup }),
+    /missing or unsupported unit profile/u,
+    "an admitted mixed deck with a spell cannot silently receive a troop-only forecast");
+
+  const validSetup = exactKilnkeeperEnduranceSetupBytes();
+  assert.throws(() => createSelectedEnduranceWorkloadPolicy({ setupBytes: `${validSetup} ` }),
+    /canonical JSON text/u,
+    "noncanonical setup bytes are rejected rather than normalized into a guessed profile");
+  assert.throws(() => createSelectedEnduranceWorkloadPolicy({ setupBytes: undefined }),
+    /canonical JSON text/u,
+    "missing authenticated setup bytes do not fall back to default profiles");
 });
 
 test("incremental preview matches accepted commands and resets cleanly at a rewind", () => {

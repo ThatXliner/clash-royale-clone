@@ -1,0 +1,146 @@
+{
+  "acceptedBaseCommit": "6a646216c77abc24907a8039c1ebfe11c9167822",
+  "sourceHashFence": "artifacts/game001gpx-round-1/builder/source-hash-fence.json",
+  "workloadSuite": {
+    "command": "node --test tests/endurance-workload.test.js",
+    "tapPath": "artifacts/game001gpx-round-1/builder/endurance-workload-final.tap",
+    "tapCounts": {
+      "tests": 7,
+      "suites": 0,
+      "passed": 7,
+      "failed": 0
+    },
+    "preChangeDefaultDecisionBaseline": "artifacts/game001gpx-round-1/builder/default-decision-baseline.json"
+  },
+  "browserSmokeRuns": [
+    {
+      "scenario": "default-eight",
+      "qualificationMode": "default-eight-bounded-smoke-900",
+      "command": "GAME_BROWSER_ENDURANCE_TICKS=900 npm run test:game-browser-endurance",
+      "tapPath": "artifacts/game001gpx-round-1/builder/browser-smoke-default-900.tap",
+      "tapCounts": {
+        "assertionTests": 2,
+        "tests": 2,
+        "suites": 0,
+        "passed": 2,
+        "failed": 0
+      },
+      "setupSha256": "306bb30da40ce7c43d6cccce8728449da90fc0e9ca7d13c81f0116ba710aec8c",
+      "runOutcome": {
+        "kind": "tick-bound",
+        "tick": 900
+      },
+      "restore": {
+        "fromTick": 600,
+        "toTick": 300,
+        "exactSessionReplayInputAudioAndViewAssertionsPassed": true
+      },
+      "metrics": {
+        "initializationLongTaskMilliseconds": 171,
+        "maxLifecycleLongTaskMilliseconds": 171,
+        "maxExplicitOneTickSliceMilliseconds": 11.799999982118607,
+        "maxSegmentWallClockMilliseconds": 10267,
+        "totalWallClockMilliseconds": 57999
+      }
+    },
+    {
+      "scenario": "kilnkeeper",
+      "qualificationMode": "kilnkeeper-bounded-smoke-900",
+      "qualificationResult": "bounded-smoke-only",
+      "command": "GAME_BROWSER_ENDURANCE_SCENARIO=kilnkeeper GAME_BROWSER_ENDURANCE_TICKS=900 npm run test:game-browser-endurance",
+      "tapPath": "artifacts/game001gpx-round-1/builder/browser-smoke-900.tap",
+      "tapCounts": {
+        "assertionTests": 2,
+        "tests": 2,
+        "suites": 0,
+        "passed": 2,
+        "failed": 0
+      },
+      "setupSha256": "9b2a1c5a86c2d5c0c2d623389b69c465409e65d5d84988591630b980ee7b3ba9",
+      "runOutcome": {
+        "kind": "tick-bound",
+        "tick": 900
+      },
+      "playerGesture": {
+        "command": {
+          "cardId": "kilnkeeper",
+          "point": {
+            "x": 9000,
+            "y": 10000
+          },
+          "slot": 1,
+          "tick": 0
+        },
+        "costFromSelectedRoster": 5,
+        "openingSouthElixir": 10,
+        "openingSouthHand": [
+          "mossguard",
+          "kilnkeeper",
+          "copperskiff",
+          "cinderlings"
+        ],
+        "setupDeck": [
+          "coilblade",
+          "mossguard",
+          "copperskiff",
+          "kilnkeeper",
+          "brassbolt",
+          "reedsting",
+          "briar-band",
+          "cinderlings"
+        ]
+      },
+      "northLaunch": {
+        "deployment": {
+          "cardId": "kilnkeeper",
+          "entityIds": [
+            3
+          ],
+          "point": {
+            "x": 3500,
+            "y": 17500
+          },
+          "sequence": 2,
+          "side": "north",
+          "tick": 60,
+          "type": "deployed"
+        },
+        "entityId": 3,
+        "launchedAtTick": 60
+      },
+      "northPositionAt300": {
+        "x": 3500,
+        "y": 15050
+      },
+      "northProjectileContactCount": 3,
+      "restore": {
+        "fromTick": 600,
+        "toTick": 300,
+        "contactEventsRestoredAndCompared": 3,
+        "exactSessionReplayInputAudioAndViewAssertionsPassed": true
+      },
+      "metrics": {
+        "initializationLongTaskMilliseconds": 174,
+        "maxLifecycleLongTaskMilliseconds": 174,
+        "maxExplicitOneTickSliceMilliseconds": 7.9000000059604645,
+        "maxSegmentWallClockMilliseconds": 10270,
+        "totalWallClockMilliseconds": 56820
+      }
+    }
+  ],
+  "unchangedCaps": {
+    "browserLifecycleLongTaskMilliseconds": 50,
+    "explicitOneTickSliceMilliseconds": 40,
+    "initializationLongTaskMilliseconds": 300,
+    "segmentWallClockMilliseconds": 30000,
+    "totalWallClockMilliseconds": 1200000,
+    "yieldingSimulationChunkTicks": 1,
+    "presentationTicks": 100,
+    "segmentTicks": 300
+  },
+  "qualificationLimits": {
+    "fullDefaultEight18000TickRun": "not run here",
+    "expandedKilnkeeperNaturalTerminalAndSameDeckRestart": "not run here; the no-override scenario requires a natural terminal and exact same-deck restart",
+    "performanceQualification": "not claimed; both final browser runs are bounded 900-tick smokes"
+  }
+}

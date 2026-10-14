@@ -21,18 +21,29 @@ import {
   ENDURANCE_BASELINE_INTERVAL_TICKS,
   ENDURANCE_REACTION_INTERVAL_TICKS,
   createEnduranceWorkloadPolicy,
+  createSelectedEnduranceWorkloadPolicy,
   exactEnduranceSetupBytes,
+  exactKilnkeeperEnduranceSetupBytes,
+  KILNKEEPER_ENDURANCE_DECK,
+  normalizedWorkloadCommand,
 } from "./helpers/endurance-workload.js";
 
 const PLAYWRIGHT = process.env.GAME_BROWSER_PLAYWRIGHT ??
   "/Users/me/.codex/worktrees/d092a29e-844b-459d-b145-c548db10d485/billion/node_modules/.pnpm/playwright@1.58.2/node_modules/playwright/index.mjs";
 const CHROME = process.env.GAME_BROWSER_CHROME ??
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
-const ARTIFACTS = new URL("../artifacts/game-001gp-browser-endurance/", import.meta.url).pathname;
-
 const SEGMENT_TICKS = ENDURANCE_BASELINE_INTERVAL_TICKS;
 const TERMINAL_TICK = 18_000;
-const EXPECTED_SETUP_SHA256 = "306bb30da40ce7c43d6cccce8728449da90fc0e9ca7d13c81f0116ba710aec8c";
+const DEFAULT_SCENARIO = "default-eight";
+const KILNKEEPER_SCENARIO = "kilnkeeper";
+const SCENARIO = process.env.GAME_BROWSER_ENDURANCE_SCENARIO ?? DEFAULT_SCENARIO;
+const EXPLICIT_TICK_BOUND = process.env.GAME_BROWSER_ENDURANCE_TICKS !== undefined;
+const ARTIFACTS = process.env.GAME_BROWSER_ENDURANCE_ARTIFACTS ?? new URL(
+  `../artifacts/game001gpx-round-1/builder/browser/${SCENARIO}/`, import.meta.url,
+).pathname;
+const EXPECTED_SETUP_SHA256 = SCENARIO === KILNKEEPER_SCENARIO
+  ? "9b2a1c5a86c2d5c0c2d623389b69c465409e65d5d84988591630b980ee7b3ba9"
+  : "306bb30da40ce7c43d6cccce8728449da90fc0e9ca7d13c81f0116ba710aec8c";
 const TEST_END_TICK = process.env.GAME_BROWSER_ENDURANCE_TICKS === undefined
   ? TERMINAL_TICK : Number(process.env.GAME_BROWSER_ENDURANCE_TICKS);
 const MAX_BROWSER_LONG_TASK_MS = 50;
@@ -48,7 +59,13 @@ const SLICE_AUDIT_QUIESCENCE_DELAY_MS = 2_000;
 const SLICE_AUDIT_ATTEMPTS = 2;
 const MAX_SEGMENT_WALL_CLOCK_MS = 30_000;
 const MAX_ENDURANCE_WALL_CLOCK_MS = 1_200_000;
-const FULL_RUN = TEST_END_TICK === TERMINAL_TICK;
+const FULL_DEFAULT_RUN = SCENARIO === DEFAULT_SCENARIO && TEST_END_TICK === TERMINAL_TICK;
+const EXPANDED_TERMINAL_RUN = SCENARIO === KILNKEEPER_SCENARIO && !EXPLICIT_TICK_BOUND;
+const RUN_IS_SMOKE = !FULL_DEFAULT_RUN && !EXPANDED_TERMINAL_RUN;
+
+if (![DEFAULT_SCENARIO, KILNKEEPER_SCENARIO].includes(SCENARIO)) {
+  throw new TypeError(`unsupported GAME_BROWSER_ENDURANCE_SCENARIO: ${SCENARIO}`);
+}
 
 if (!Number.isSafeInteger(TEST_END_TICK) || TEST_END_TICK < 900 ||
     TEST_END_TICK > TERMINAL_TICK || TEST_END_TICK % SEGMENT_TICKS !== 0) {
@@ -66,6 +83,104 @@ function canonical(value) {
   }
   return JSON.stringify(value);
 }
+
+const UI_AUDIO_SOURCE_TYPES = new Set([
+  "card-play", "card-select", "ui-confirm", "ui-reject", "ui-toggle",
+]);
+
+function audioIdentityKey(cue) {
+  return JSON.stringify([cue.domain, cue.sequence, cue.cueId, cue.type,
+    cue.family, cue.tick]);
+}
+
+function assertAudioIdentityParity(actual, expected, message) {
+  assert.deepEqual(actual.map((cue) => ({ cueId: cue.cueId, domain: cue.domain,
+    family: cue.family, sequence: cue.sequence, tick: cue.tick, type: cue.type })),
+  expected.map((cue) => ({ cueId: cue.cueId, domain: cue.domain,
+    family: cue.family, sequence: cue.sequence, tick: cue.tick, type: cue.type })), message);
+}
+
+function normalizedRuntimeAudioStarts(transactions) {
+  return transactions.flatMap(({ domain, method, starts }) => {
+    assert.ok(domain === "simulation" || domain === "ui",
+      `audio transaction ${method} has a canonical source domain`);
+    return starts.map(({ cueId, family, sequence, sourceType, startTick }) => {
+      assert.equal(typeof sourceType, "string", "audio start preserves its source type");
+      if (domain === "ui") {
+        assert.equal(UI_AUDIO_SOURCE_TYPES.has(sourceType), true,
+          `UI source type ${sourceType} belongs to the shipped UI audio taxonomy`);
+      } else {
+        assert.equal(UI_AUDIO_SOURCE_TYPES.has(sourceType), false,
+          `simulation source type ${sourceType} stays outside the UI audio taxonomy`);
+      }
+      return { cueId, domain, family, sequence, tick: startTick,
+        type: sourceType };
+    });
+  });
+}
+
+function normalizedRuntimeAudioCues(transactions) {
+  return transactions.flatMap(({ domain, method, cues }) => {
+    assert.ok(domain === "simulation" || domain === "ui",
+      `audio transaction ${method} has a canonical cue domain`);
+    return cues.map(({ cueId, family, sequence, tick, type }) => {
+      assert.equal(typeof type, "string", "typed audio cue preserves its source type");
+      if (domain === "ui") {
+        assert.equal(UI_AUDIO_SOURCE_TYPES.has(type), true,
+          `UI cue type ${type} belongs to the shipped UI audio taxonomy`);
+      } else {
+        assert.equal(UI_AUDIO_SOURCE_TYPES.has(type), false,
+          `simulation cue type ${type} stays outside the UI audio taxonomy`);
+      }
+      return { cueId, domain, family, sequence, tick, type };
+    });
+  });
+}
+
+function normalizedBrowserAudioStarts(evidence) {
+  const runtimeStarts = normalizedRuntimeAudioStarts(evidence.runtimeTransactions);
+  const runtimeCues = normalizedRuntimeAudioCues(evidence.runtimeTransactions);
+  assertAudioIdentityParity(runtimeStarts, runtimeCues,
+    "typed runtime cues match the starts returned by the actual audio renderer");
+  const actual = evidence.actualStarts.map(({ cueId, family, sequence, sourceType, startTick }) => {
+    assert.equal(typeof sourceType, "string", "actual sink observation preserves source type");
+    const domain = UI_AUDIO_SOURCE_TYPES.has(sourceType) ? "ui" : "simulation";
+    if (domain === "simulation") {
+      assert.ok(runtimeStarts.some((cue) => cue.domain === "simulation" &&
+        cue.type === sourceType),
+      `unknown sink source type ${sourceType} must match a captured simulation cue`);
+    }
+    const cue = { cueId, domain, family, sequence, tick: startTick, type: sourceType };
+    return cue;
+  });
+  assertAudioIdentityParity(actual, runtimeStarts,
+    "real browser sink observations match typed runtime starts exactly once and in order");
+  return actual;
+}
+
+function assertUiAudioSequence(starts, sequence, message) {
+  const actual = starts.filter(({ domain }) => domain === "ui")
+    .map(({ sequence: cueSequence }) => cueSequence);
+  assert.deepEqual(actual, Array.from({ length: sequence }, (_, index) => index), message);
+}
+
+test("game browser endurance: typed audio identity keeps UI and simulation sequence domains distinct", () => {
+  const simulation = { cueId: "field-deploy", domain: "simulation", family: "deploy",
+    sequence: 0, tick: 0, type: "session-deployed" };
+  const ui = { cueId: "card-select", domain: "ui", family: "cardSelect",
+    sequence: 0, tick: 0, type: "card-select" };
+  const expected = [simulation, ui];
+  assert.notEqual(audioIdentityKey(simulation), audioIdentityKey(ui),
+    "equal numeric sequences in distinct source domains remain distinct identities");
+  assertAudioIdentityParity(expected, structuredClone(expected),
+    "canonical typed cue identity compares equal");
+  assert.throws(() => assertAudioIdentityParity(expected, [
+    { ...simulation, cueId: "card-select", family: "cardSelect", type: "card-select" }, ui,
+  ], "cue identity mutation is rejected"), /cueId|family|type/u);
+  assert.throws(() => assertAudioIdentityParity(expected, [simulation,
+    { ...ui, domain: "simulation" },
+  ], "domain mutation is rejected"), /domain/u);
+});
 
 function normalizedCommand(command) {
   return { cardId: command.cardId, point: command.point, slot: command.slot,
@@ -217,9 +332,10 @@ async function stopServer(server) {
 
 async function browserView(page, options = {}) {
   const checked = { audioContinuation: false, bridge: false, bytes: false, digest: false,
-    loop: false, ...options };
+    audioEvidence: false, loop: false, ...options };
   return page.evaluate((requested) => {
     const controller = globalThis.__gameBrowserEnduranceController;
+    const telemetry = globalThis.__gameBrowserEndurancePerformance;
     const diagnostics = controller.audioDiagnostics;
     const state = requested.digest ? controller.session.state : null;
     const loopSnapshot = requested.bridge ? JSON.parse(controller.serialize()) : null;
@@ -233,6 +349,10 @@ async function browserView(page, options = {}) {
       audioContinuationBytes: requested.audioContinuation
         ? controller.audioContinuationBytes : null,
       audioDiagnostics: diagnostics,
+      audioEvidence: requested.audioEvidence ? {
+        actualStarts: controller.audioScheduledPcm,
+        runtimeTransactions: telemetry.audioCueTransactions,
+      } : null,
       bridge: loopSnapshot === null ? null : JSON.parse(loopSnapshot.bridge),
       layers,
       pendingResources: performance.getEntriesByType("resource")
@@ -299,9 +419,11 @@ async function restoreBrowserSnapshot(page, snapshot) {
   const restored = await page.evaluate(async (bytes) => {
     const controller = globalThis.__gameBrowserEnduranceController;
     const telemetry = globalThis.__gameBrowserEndurancePerformance;
+    const audioEvidence = () => ({ actualStarts: controller.audioScheduledPcm,
+      runtimeTransactions: telemetry.audioCueTransactions });
     const before = { audio: controller.audio, audioContinuationBytes: controller.audioContinuationBytes,
       diagnostics: controller.audioDiagnostics, bridge: JSON.parse(controller.serialize()).bridge,
-      sessionBytes: controller.session.serialize() };
+      sessionBytes: controller.session.serialize(), audioEvidence: audioEvidence() };
     const startedAt = performance.now();
     telemetry.timingContext = { kind: "restore", nextTick: 0 };
     try {
@@ -317,7 +439,7 @@ async function restoreBrowserSnapshot(page, snapshot) {
         audioContinuationBytes: controller.audioContinuationBytes,
         diagnostics: controller.audioDiagnostics,
         bridge: JSON.parse(controller.serialize()).bridge, state,
-        sessionBytes: controller.session.serialize() }, before,
+        sessionBytes: controller.session.serialize(), audioEvidence: audioEvidence() }, before,
         elapsedMilliseconds: Math.round(finishedAt - startedAt), finishedAt, startedAt };
     } finally {
       telemetry.timingContext = null;
@@ -417,7 +539,7 @@ function assertSegmentTransactions(driven, fromTick, seenCueSequences, seenStart
   return expectedTick;
 }
 
-test("game browser endurance: exact GH seed-zero workload yields through Chrome to terminal", {
+test(`game browser endurance: ${SCENARIO} seed-zero workload uses the yielding driver`, {
   timeout: MAX_ENDURANCE_WALL_CLOCK_MS + 60_000,
 }, async () => {
   assert.ok(existsSync(PLAYWRIGHT), "installed Playwright equivalent is required");
@@ -425,6 +547,10 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
   mkdirSync(ARTIFACTS, { recursive: true });
 
   const telemetry = {
+    scenario: SCENARIO,
+    qualificationMode: FULL_DEFAULT_RUN ? "default-eight-full-18k"
+      : EXPANDED_TERMINAL_RUN ? "kilnkeeper-natural-terminal-required"
+        : `${SCENARIO}-bounded-smoke-${TEST_END_TICK}`,
     architecture: {
       audioPolicy: "Each 100-tick-or-terminal presentation consumes all authority records; accelerated rendering selects newest critical then newest remaining cues up to a fixed cap.",
       browserApi: "mountShippedGameBrowser().enterManualStepMode().driveEnduranceSegment(1..300)",
@@ -516,6 +642,7 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
         }
       };
       globalThis.__gameBrowserEndurancePerformance = {
+        audioCueTransactions: [],
         longTasks,
         observer: null,
         supported,
@@ -534,11 +661,17 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
     assert.equal(response.status(), 200);
     await page.waitForSelector("[data-arena-shell-root]", { state: "attached" });
 
-    const setup = exactEnduranceSetupBytes();
+    const setup = SCENARIO === KILNKEEPER_SCENARIO
+      ? exactKilnkeeperEnduranceSetupBytes() : exactEnduranceSetupBytes();
     const setupSha256 = createHash("sha256").update(setup).digest("hex");
     assert.equal(setupSha256, EXPECTED_SETUP_SHA256,
-      "the browser receives the reviewed exact seed-zero/default-eight setup");
+      SCENARIO === KILNKEEPER_SCENARIO
+        ? "the browser receives the reviewed canonical seed-zero Kilnkeeper setup"
+        : "the browser receives the reviewed exact seed-zero/default-eight setup");
     telemetry.setupSha256 = setupSha256;
+    telemetry.setupBytes = setup.length;
+    telemetry.scenarioDeck = SCENARIO === KILNKEEPER_SCENARIO
+      ? KILNKEEPER_ENDURANCE_DECK : null;
     const mounted = await page.evaluate(async (setupBytes) => {
       const [
         { GameSession },
@@ -577,6 +710,33 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
           finally { recordTiming(label, startedAt, detail(argumentsList)); }
         };
       };
+      const wrapAudioTransaction = (key, label, domain) => {
+        const original = GameAudioRuntime.prototype[key];
+        GameAudioRuntime.prototype[key] = function wrappedAudioTransaction(...argumentsList) {
+          const startedAt = performance.now();
+          let result;
+          try {
+            result = original.apply(this, argumentsList);
+            return result;
+          } finally {
+            recordTiming(label, startedAt);
+            if (result !== undefined) {
+              const telemetry = globalThis.__gameBrowserEndurancePerformance;
+              const cues = key === "submitUiCommand"
+                ? result.cue === null ? [] : [result.cue]
+                : result.cues;
+              telemetry.audioCueTransactions.push({
+                cues: cues.map(({ cueId, family, sequence, tick, type }) =>
+                  ({ cueId, domain, family, sequence, tick, type })),
+                domain,
+                method: key,
+                starts: result.starts.map(({ cueId, family, sequence, sourceType, startTick }) =>
+                  ({ cueId, domain, family, sequence, sourceType, startTick })),
+              });
+            }
+          }
+        };
+      };
       const sessionRestore = GameSession.restore;
       GameSession.restore = function wrappedSessionRestore(...argumentsList) {
         const startedAt = performance.now();
@@ -612,8 +772,9 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
         try { return sessionSerialize.apply(this, argumentsList); }
         finally { recordTiming(label, startedAt); }
       };
-      wrap(GameAudioRuntime.prototype, "renderAcceleratedFrame", "audioPresentation");
-      wrap(GameAudioRuntime.prototype, "renderFrame", "audioFrame");
+      wrapAudioTransaction("renderAcceleratedFrame", "audioPresentation", "simulation");
+      wrapAudioTransaction("renderFrame", "audioFrame", "simulation");
+      wrapAudioTransaction("submitUiCommand", "audioUiCommand", "ui");
       wrap(GameAudioRuntime.prototype, "assertRebaseable", "audioRestorePreflight");
       wrap(GameAudioRuntime.prototype, "rebase", "audioRebase");
       wrap(GameAudioRuntime.prototype, "rebaseSilently", "audioSilentRebase");
@@ -691,7 +852,9 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       "Chrome PerformanceObserver longtask evidence is available");
 
     let direct = new GameSession(setup);
-    const workloadPolicy = createEnduranceWorkloadPolicy();
+    const workloadPolicy = SCENARIO === KILNKEEPER_SCENARIO
+      ? createSelectedEnduranceWorkloadPolicy({ setupBytes: setup })
+      : createEnduranceWorkloadPolicy();
     let longTaskCursor = initializationTasks.cursor;
     let firstDriveStartedAt = null;
     const observedLongTaskEntries = [...initializationTasks.tasks];
@@ -701,6 +864,7 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
     let restored = false;
     let restoreCut = null;
     let restoreBranch = null;
+    let restoreAudioObservation = null;
     let replayParityProven = false;
     let postRestoreDelivery = false;
     let lastSuccessfulTick = 0;
@@ -708,6 +872,14 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
     const seenStartSequences = new Set();
     const pauseTick = 300;
     const restoreTick = 300;
+    const kilnkeeperEvidence = SCENARIO === KILNKEEPER_SCENARIO ? {
+      playerDelivery: null,
+      playerDeployment: null,
+      northLaunch: null,
+      northPositionAt300: null,
+      northProjectileContactsAt600: null,
+      restoredProjectileContactsAt600: null,
+    } : null;
     const acceptedEmergencyTicksThrough = (tick) => telemetry.transportIdNormalization
       .filter((entry) => entry.timeline === "primary" && entry.tick < tick &&
         entry.decision === "overtime-last-lane-aggregate-air-intercept" &&
@@ -801,8 +973,44 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       recordHostPhase(telemetry, "final-observer-drain-host-wall", drainFromTick,
         hostDrainStartedAt, { observedTaskCount: observedLongTaskEntries.length });
     };
-    while (direct.state.tick < TEST_END_TICK) {
-      assertEnduranceWorkloadCanContinue(direct, TEST_END_TICK);
+    if (SCENARIO === KILNKEEPER_SCENARIO) {
+      const selectedSetup = JSON.parse(setup);
+      const selectedRoster = JSON.parse(selectedSetup.battleSetup).roster;
+      const kilnkeeper = selectedRoster.find(({ id }) => id === "kilnkeeper");
+      const openingState = direct.state;
+      const slot = openingState.decks.south.hand.indexOf("kilnkeeper");
+      assert.ok(kilnkeeper && slot >= 0,
+        "the actual seed-zero player hand offers the selected Kilnkeeper profile");
+      const plan = { cardId: kilnkeeper.id, point: { x: 9_000, y: 10_000 }, slot, tick: 0 };
+      const delivery = await deliverPhysicalPlan(page, plan);
+      assert.deepEqual(normalizedCommand(delivery.command), normalizedWorkloadCommand(plan),
+        "the initial physical gesture names the selected Kilnkeeper card, slot, and tick");
+      assert.equal(direct.submitPlayerCommand(canonical(delivery.command)).accepted, true,
+        "the initial native browser gesture is accepted by the direct E2 session");
+      kilnkeeperEvidence.playerDelivery = {
+        command: normalizedCommand(delivery.command),
+        costFromSelectedRoster: kilnkeeper.cost,
+        openingSouthElixir: openingState.elixir.sides.south.amount,
+        openingSouthHand: openingState.decks.south.hand,
+        setupDeck: selectedSetup.deck,
+      };
+      telemetry.initialPlayerKilnkeeperDelivery = kilnkeeperEvidence.playerDelivery;
+      telemetry.transportIdNormalization.push({
+        acceptedBrowserCommandId: delivery.command.commandId,
+        decision: "initial-player-kilnkeeper-gesture",
+        reactionBoundaryIndex: 0,
+        normalized: normalizedCommand(delivery.command),
+        planned: plan,
+        tick: 0,
+        timeline: "primary",
+      });
+    }
+
+    while (direct.state.tick < TEST_END_TICK &&
+        !(SCENARIO === KILNKEEPER_SCENARIO && direct.state.terminal)) {
+      if (SCENARIO === DEFAULT_SCENARIO) {
+        assertEnduranceWorkloadCanContinue(direct, TEST_END_TICK);
+      }
       const fromTick = direct.state.tick;
       const hostSegmentStartedAt = performance.now();
       if (previousHostSegmentFinishedAt !== null) {
@@ -939,7 +1147,57 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       recordHostPhase(telemetry, "direct-mirror-state-assertions", fromTick,
         directMirrorAssertionsStartedAt, { directStepChunkDurations });
 
-      if (direct.state.tick === TEST_END_TICK) {
+      if (kilnkeeperEvidence !== null) {
+        const selectedRoster = JSON.parse(JSON.parse(setup).battleSetup).roster;
+        const kilnkeeper = selectedRoster.find(({ id }) => id === "kilnkeeper");
+        const playerEvent = direct.replay.find((entry) => entry.type === "session-deployed" &&
+          entry.side === "south" && entry.deployment.cardId === "kilnkeeper");
+        assert.ok(playerEvent, "the physical player Kilnkeeper is paid and deployed in GameSession");
+        assert.equal(playerEvent.spend.cost, kilnkeeper.cost,
+          "the canonical spend equals the admitted selected-roster cost");
+        if (direct.state.tick === 300 && kilnkeeperEvidence.playerDeployment === null) {
+          assert.equal(direct.state.decks.south.sequence, 1,
+            "the initial paid Kilnkeeper deployment advances the cycle exactly once");
+          assert.equal(direct.state.decks.south.hand.includes("kilnkeeper"), false,
+            "the paid initial Kilnkeeper leaves the player hand through normal cycling");
+          kilnkeeperEvidence.playerDeployment = playerEvent;
+        }
+
+        const aiEvent = direct.replay.find((entry) => entry.type === "session-deployed" &&
+          entry.side === "north" && entry.deployment.cardId === "kilnkeeper");
+        if (direct.state.tick >= 300 && kilnkeeperEvidence.northLaunch === null) {
+          assert.ok(aiEvent, "the seeded AI launches Kilnkeeper through the canonical session");
+          assert.equal(aiEvent.deployment.tick, 60,
+            "the AI Kilnkeeper launch matches the setup's 60-tick think cadence");
+          const aiEntityId = aiEvent.deployment.entityIds[0];
+          const aiUnit = direct.state.battle.units.find(({ id }) => id === aiEntityId);
+          assert.ok(aiUnit?.alive, "the AI Kilnkeeper is still alive after its pursuit span");
+          assert.notDeepEqual(aiUnit.position, aiEvent.deployment.point,
+            "the AI Kilnkeeper has followed its path since launch");
+          kilnkeeperEvidence.northLaunch = {
+            deployment: aiEvent.deployment,
+            entityId: aiEntityId,
+            launchedAtTick: aiEvent.deployment.tick,
+          };
+          kilnkeeperEvidence.northPositionAt300 = aiUnit.position;
+        }
+        if (direct.state.tick >= 600) {
+          const sourceIds = new Set(direct.replay.filter((entry) =>
+            entry.type === "session-deployed" && entry.side === "north" &&
+            entry.deployment.cardId === "kilnkeeper")
+            .flatMap((entry) => entry.deployment.entityIds));
+          const contacts = direct.replay.filter((entry) =>
+            entry.type === "projectile-impact" && entry.status === "contact" &&
+            sourceIds.has(entry.sourceId));
+          assert.ok(contacts.length > 0,
+            "the AI Kilnkeeper pursuit reaches an actual shared-host projectile contact");
+          kilnkeeperEvidence.northProjectileContactsAt600 = contacts;
+        }
+        telemetry.kilnkeeperEvidence = kilnkeeperEvidence;
+      }
+
+      if (direct.state.tick === TEST_END_TICK ||
+          (SCENARIO === KILNKEEPER_SCENARIO && direct.state.terminal)) {
         terminalObservationInterval = { finishedAt: Infinity,
           id: "terminal-observation", kind: "terminal-observation",
           startedAt: driven.finishedAt };
@@ -1035,6 +1293,7 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
         assert.deepEqual(policyState.emergencyDecisionTicks, recordedEmergencyTicks,
           "restore-cut cooldown history matches accepted primary-branch physical inputs");
         restoreCut = {
+          audioCursor: cutView.audioDiagnostics.cursor,
           bridge: JSON.parse(browserSnapshot).bridge,
           browserSnapshot,
           directBytes: direct.serialize(),
@@ -1049,11 +1308,18 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       if (restoreCut !== null && !restored &&
           direct.state.tick === restoreTick + SEGMENT_TICKS) {
         const restoreBranchStartedAt = performance.now();
-        const branchView = await browserView(page, { audioContinuation: true, bridge: true,
-          bytes: true });
+        const branchView = await browserView(page, { audioContinuation: true, audioEvidence: true,
+          bridge: true, bytes: true });
+        const branchAudioStarts = normalizedBrowserAudioStarts(branchView.audioEvidence);
+        assertUiAudioSequence(branchAudioStarts, branchView.audioDiagnostics.uiSequence,
+          "actual browser UI cue sequences exactly cover the runtime UI sequence");
+        assert.deepEqual([...new Set(branchAudioStarts.filter(({ sequence }) => sequence === 0)
+          .map(({ domain }) => domain))].sort(), ["simulation", "ui"],
+        "actual UI and simulation starts retain their colliding sequence-zero domains");
         const branchSnapshot = await page.evaluate(() =>
           globalThis.__gameBrowserEnduranceController.serialize());
         restoreBranch = {
+          audioStarts: branchAudioStarts,
           audioContinuationBytes: branchView.audioContinuationBytes,
           audioDiagnostics: branchView.audioDiagnostics,
           browserSnapshot: branchSnapshot,
@@ -1063,6 +1329,9 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
           audioReplayLength: branchView.audioReplayLength,
           policyState: workloadPolicy.snapshot(),
           tick: direct.state.tick,
+          kilnkeeperContacts: kilnkeeperEvidence === null ? null : direct.replay.filter((entry) =>
+            entry.type === "projectile-impact" && entry.status === "contact" &&
+            kilnkeeperEvidence.northLaunch?.entityId === entry.sourceId),
         };
         const restoredView = await restoreBrowserSnapshot(page, restoreCut.browserSnapshot);
         const restoreWindow = { finishedAt: restoredView.finishedAt,
@@ -1107,9 +1376,30 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
         assert.equal(restoredView.after.diagnostics.projectionOffset, getGameSessionAudioReplay(direct).length);
         assert.equal(restoredView.after.diagnostics.cueCount, 0,
           "restore rebases rather than rendering the restored cue history");
+        const audioBeforeRestore = normalizedBrowserAudioStarts(restoredView.before.audioEvidence);
+        const audioAfterRestore = normalizedBrowserAudioStarts(restoredView.after.audioEvidence);
+        assertAudioIdentityParity(audioBeforeRestore, restoreBranch.audioStarts,
+          "restore begins from the exact actual audio sink stream captured at the branch");
+        assertAudioIdentityParity(audioAfterRestore, audioBeforeRestore,
+          "restore creates no new actual UI or simulation audio starts");
+        assert.equal(restoredView.before.diagnostics.uiSequence,
+          restoreBranch.audioDiagnostics.uiSequence,
+          "pre-restore UI cue sequence matches the branch boundary");
+        assert.equal(restoredView.after.diagnostics.uiSequence,
+          restoredView.before.diagnostics.uiSequence,
+          "restore preserves the independent UI cue sequence without rewinding or replaying it");
+        assert.equal(restoredView.after.diagnostics.uiCommandCount,
+          restoredView.before.diagnostics.uiCommandCount,
+          "restore leaves the accepted UI audio command count unchanged");
+        assertUiAudioSequence(audioAfterRestore, restoredView.after.diagnostics.uiSequence,
+          "post-restore actual UI cue identities cover the retained UI sequence");
         assert.equal(restoredView.after.audio.audio.audibleStartCount,
           restoredView.before.audio.audio.audibleStartCount,
           "restore creates zero duplicate audible browser starts");
+        restoreAudioObservation = {
+          actualSinkStartsAfterRestore: audioAfterRestore,
+          uiSequenceAfterRestore: restoredView.after.diagnostics.uiSequence,
+        };
         await page.waitForTimeout(0);
         const restoreTasks = await readNewLongTasks(page, longTaskCursor);
         longTaskCursor = restoreTasks.cursor;
@@ -1133,8 +1423,9 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
         const replayParityStartedAt = performance.now();
         const replayedSnapshot = await page.evaluate(() =>
           globalThis.__gameBrowserEnduranceController.serialize());
-        const replayed = await browserView(page, { audioContinuation: true, bridge: true,
-          bytes: true });
+        const replayed = await browserView(page, { audioContinuation: true, audioEvidence: true,
+          bridge: true, bytes: true });
+        const replayedAudioStarts = normalizedBrowserAudioStarts(replayed.audioEvidence);
         assert.equal(replayedSnapshot, restoreBranch.browserSnapshot,
           "600→300→600 browser replay reproduces its exact loop/input continuation bytes");
         assert.equal(replayed.sessionBytes, restoreBranch.directBytes,
@@ -1156,9 +1447,52 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
         { cursor: restoreBranch.audioDiagnostics.cursor,
           eventCount: restoreBranch.audioDiagnostics.eventCount,
           sessionTick: restoreBranch.audioDiagnostics.sessionTick,
-          suppressedAcceleratedCueCount:
-            restoreBranch.audioDiagnostics.suppressedAcceleratedCueCount },
-        "replayed audio authority/continuation diagnostics return to the branch boundary");
+          suppressedAcceleratedCueCount: restoreBranch.audioDiagnostics.suppressedAcceleratedCueCount },
+        "replayed simulation audio authority diagnostics return to the branch boundary");
+        assert.equal(replayed.audioDiagnostics.uiCommandCount,
+          replayed.audioDiagnostics.uiSequence,
+          "replayed UI command count and sequence remain the same canonical counter");
+        const replayedTailStarts = replayedAudioStarts.slice(restoreBranch.audioStarts.length);
+        const originalContinuationStarts = restoreBranch.audioStarts.filter(({ domain, sequence }) =>
+          domain === "simulation" && sequence >= restoreCut.audioCursor);
+        const replayedContinuationStarts = replayedTailStarts.filter(({ domain }) =>
+          domain === "simulation");
+        assertAudioIdentityParity(replayedContinuationStarts, originalContinuationStarts,
+          "restore and replay reproduce typed simulation cue identities after the canonical cut");
+        const replayedUiStarts = replayedTailStarts.filter(({ domain }) => domain === "ui");
+        assert.equal(replayed.audioDiagnostics.uiSequence,
+          restoreBranch.audioDiagnostics.uiSequence + replayedUiStarts.length,
+          "replayed physical UI cues advance the retained UI command sequence exactly once");
+        assert.deepEqual(replayedUiStarts.map(({ sequence }) => sequence),
+          Array.from({ length: replayedUiStarts.length }, (_, index) =>
+            restoreBranch.audioDiagnostics.uiSequence + index),
+          "replayed UI cue starts continue from the pre-restore sequence without aliasing simulation IDs");
+        assertUiAudioSequence(replayedAudioStarts, replayed.audioDiagnostics.uiSequence,
+          "replayed actual UI starts cover the complete retained UI sequence");
+        assert.ok(restoreAudioObservation !== null,
+          "typed actual sink observations survive the restore continuation boundary");
+        telemetry.audioCueParity = {
+          actualSinkStartsAtBranch: restoreBranch.audioStarts,
+          actualSinkStartsAfterRestore: restoreAudioObservation.actualSinkStartsAfterRestore,
+          actualSinkStartsAfterReplay: replayedAudioStarts,
+          originalTypedSimulationContinuation: originalContinuationStarts,
+          replayedTypedSimulationContinuation: replayedContinuationStarts,
+          restoreCutAudioCursor: restoreCut.audioCursor,
+          uiSequenceAtBranch: restoreBranch.audioDiagnostics.uiSequence,
+          uiSequenceAfterRestore: restoreAudioObservation.uiSequenceAfterRestore,
+          uiSequenceAfterReplay: replayed.audioDiagnostics.uiSequence,
+          replayedUiStarts,
+          sequenceZeroDomains: ["simulation", "ui"],
+        };
+        if (kilnkeeperEvidence !== null) {
+          const restoredContacts = direct.replay.filter((entry) =>
+            entry.type === "projectile-impact" && entry.status === "contact" &&
+            kilnkeeperEvidence.northLaunch?.entityId === entry.sourceId);
+          assert.deepEqual(restoredContacts, restoreBranch.kilnkeeperContacts,
+            "600→300→600 replay restores the same typed Kilnkeeper projectile contact event");
+          kilnkeeperEvidence.restoredProjectileContactsAt600 = restoredContacts;
+          telemetry.kilnkeeperEvidence = kilnkeeperEvidence;
+        }
         replayParityProven = true;
         recordHostPhase(telemetry, "replayed-branch-parity-roundtrip-and-assertions", fromTick,
           replayParityStartedAt);
@@ -1175,19 +1509,39 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       "terminal browser bytes equal direct GameSession E2 mirror bytes");
     assert.deepEqual(finalView.stateDigest, stateDigest(direct.state),
       "terminal browser state equals the direct E2 mirror state");
-    assert.equal(direct.state.tick, TEST_END_TICK);
-    assert.equal(direct.state.terminal, FULL_RUN);
-    assert.equal(finalView.state.terminal, FULL_RUN);
+    if (SCENARIO === DEFAULT_SCENARIO) {
+      assert.equal(direct.state.tick, TEST_END_TICK);
+      assert.equal(direct.state.terminal, FULL_DEFAULT_RUN);
+      assert.equal(finalView.state.terminal, FULL_DEFAULT_RUN);
+    } else {
+      assert.ok(direct.state.tick <= TEST_END_TICK,
+        "the expanded scenario stops only at its real terminal or explicit tick bound");
+      if (!direct.state.terminal) assert.equal(direct.state.tick, TEST_END_TICK);
+      assert.equal(finalView.state.terminal, direct.state.terminal);
+    }
+    const naturalTerminal = direct.state.terminal;
+    telemetry.runOutcome = naturalTerminal ? {
+      kind: "natural-terminal",
+      result: direct.state.clock.result,
+      tick: direct.state.tick,
+    } : { kind: "tick-bound", tick: direct.state.tick };
+    if (EXPANDED_TERMINAL_RUN) {
+      telemetry.qualificationResult = naturalTerminal
+        ? "terminal-reached-restart-check-pending"
+        : "not-qualified-no-terminal-by-18000-tick-bound";
+      assert.equal(naturalTerminal, true,
+        "expanded qualification requires a naturally reached terminal before the 18,000 bound");
+    }
     const activeSides = new Set(direct.state.cardRuntime.history.map(({ side }) => side));
     assert.equal(activeSides.has("north") && activeSides.has("south"), true,
       "exact GH workload retains paid active play for both sides");
-    assert.equal(FULL_RUN ? postRestoreDelivery : true, true,
+    assert.equal(FULL_DEFAULT_RUN || EXPANDED_TERMINAL_RUN ? postRestoreDelivery : true, true,
       "a post-restore physical E2 delivery proves no stale input callback remains");
     assert.equal(replayParityProven, true,
       "a divergent restore cut replays through the same browser bytes and input history");
     recordHostPhase(telemetry, "terminal-final-state-assertions", direct.state.tick,
       finalAssertionsStartedAt);
-    if (FULL_RUN) {
+    if (FULL_DEFAULT_RUN || (EXPANDED_TERMINAL_RUN && naturalTerminal)) {
       assert.equal(finalView.audioDiagnostics.disposed, true,
         "terminal audio renderer cleans up its graph");
       assert.equal(finalView.audio.audio.activeVoiceCount, 0,
@@ -1217,9 +1571,13 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       recordHostPhase(telemetry, "restart-browser-view-roundtrip", direct.state.tick,
         restartedViewStartedAt);
       const restartAssertionsStartedAt = performance.now();
-      assert.equal(restarted.sessionBytes,
-        new GameSession(createShippedGameSessionSetup(0)).serialize(),
-        "terminal restart creates the exact shipped seed-zero session");
+      const expectedRestart = SCENARIO === KILNKEEPER_SCENARIO
+        ? new GameSession(setup).serialize()
+        : new GameSession(createShippedGameSessionSetup(0)).serialize();
+      assert.equal(restarted.sessionBytes, expectedRestart,
+        SCENARIO === KILNKEEPER_SCENARIO
+          ? "terminal restart creates the exact same selected seed-zero deck"
+          : "terminal restart creates the exact shipped seed-zero session");
       assert.equal(restarted.state.sessionTick, 0);
       assert.equal(restarted.restartHidden, true);
       assert.equal(restarted.terminalOverlay, null);
@@ -1235,8 +1593,16 @@ test("game browser endurance: exact GH seed-zero workload yields through Chrome 
       recordHostPhase(telemetry, "restart-finish-page-clock-roundtrip", 0,
         restartFinishMarkStartedAt, { browserFinishedAt: restartInterval.finishedAt });
       telemetry.terminal = { finalView, restarted };
+      if (SCENARIO === KILNKEEPER_SCENARIO) {
+        telemetry.qualificationMode = "kilnkeeper-natural-terminal-and-same-deck-restart";
+        telemetry.qualificationResult = "qualified-natural-terminal-and-same-deck-restart";
+      }
     } else {
-      telemetry.terminal = { smoke: true, finalView };
+      telemetry.terminal = { smoke: RUN_IS_SMOKE, finalView,
+        outcome: telemetry.runOutcome };
+      if (SCENARIO === KILNKEEPER_SCENARIO) {
+        telemetry.qualificationResult = "bounded-smoke-only";
+      }
       const terminalFinishMarkStartedAt = performance.now();
       terminalObservationInterval.finishedAt = await page.evaluate(() => performance.now());
       recordHostPhase(telemetry, "terminal-observation-finish-page-clock-roundtrip",

@@ -1,0 +1,52 @@
+TAP version 13
+# Subtest: the integrated workload keeps the exact setup and frozen 300-tick baseline
+ok 1 - the integrated workload keeps the exact setup and frozen 300-tick baseline
+  ---
+  duration_ms: 1589.242334
+  type: 'test'
+  ...
+# Subtest: selected-source profiles preserve pre-adaptation default snapshots and commands
+ok 2 - selected-source profiles preserve pre-adaptation default snapshots and commands
+  ---
+  duration_ms: 6630.019708
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper selected setup drives source-derived planning and real seeded contact
+ok 3 - Kilnkeeper selected setup drives source-derived planning and real seeded contact
+  ---
+  duration_ms: 3921.659875
+  type: 'test'
+  ...
+# Subtest: selected workload rejects unsupported, incomplete, and noncanonical setups
+ok 4 - selected workload rejects unsupported, incomplete, and noncanonical setups
+  ---
+  duration_ms: 18.998542
+  type: 'test'
+  ...
+# Subtest: incremental preview matches accepted commands and resets cleanly at a rewind
+ok 5 - incremental preview matches accepted commands and resets cleanly at a rewind
+  ---
+  duration_ms: 2817.996166
+  type: 'test'
+  ...
+# Subtest: cooldown history can rewind to a prior prefix and rejects unordered history
+ok 6 - cooldown history can rewind to a prior prefix and rejects unordered history
+  ---
+  duration_ms: 0.338583
+  type: 'test'
+  ...
+# Subtest: the replay-derived natural terminal stops planning and keeps the 18,000-tick gate red
+ok 7 - the replay-derived natural terminal stops planning and keeps the 18,000-tick gate red
+  ---
+  duration_ms: 0.642625
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 15240.051416
