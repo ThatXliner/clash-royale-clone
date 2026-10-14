@@ -1,0 +1,19 @@
+Pinned runtime used for the sequential critic gates:
+Node: v22.22.3
+npm: 10.9.8
+Chrome: Google Chrome 155.0.8059.40
+Playwright: 1.58.2 (/private/tmp/art004-aggregate-round-5-critic-b460d2e319ca67ff/node_modules/playwright/index.mjs)
+package-lock SHA-256: d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4
+
+Process evidence and actual Node test-runner exits:
+npm ci: PID 46826; exit 0; completed before tests.
+Owned deterministic tests: node --test tests/ui-combat-state.test.js tests/game-ui-projection.test.js tests/combat-sprite-prototype.test.js; Node PID 46960; shell session 24393; actual exit 0; TAP 63/63, no skips; duration 69,323.367 ms.
+Native browser sprite test: node --test tests/combat-sprite-prototype-browser.test.js; Node PID 48017; shell session 53775; actual exit 0; TAP 1/1; duration 46,280.192 ms.
+Unmodified Cards021 browser journey: node --test tests/cards021-browser-integration.test.js; Node PID 48829 (wrapper PID 48828); shell session 39049; actual exit 0; TAP 1/1; duration 314,710.145 ms; browser phase complete.
+Aggregate: 65 tests passed, 0 failed, 0 skipped. Raw TAP, stderr, PID and exit files are preserved next to this report.
+
+Artifact audit:
+Native sprite/browser evidence has zero page errors and zero console errors. Captured walk/attack/reduced-motion states and live Briar contact/team pixels in 390x844 and 1440x933 contexts; full viewport restore PNGs match exactly. Real contact is tick 170 with damage 120 and target HP 81 to 0. The tested child DOM captures were inspected; no claim is made about inner sprite-region exactness beyond test assertions.
+Cards021 emitted 56 screenshots; all 56/56 actual PNG hashes match browser-evidence.json. It records zero errors and zero restore mismatches. All 24 ordinary checkpoint before/after pairs plus the natural-terminal pair match byte-for-byte at phone/desktop, normal/reduced motion. Actual trusted pointer events and typed deployment witnesses are recorded. The audit found a filename mismatch: buried-coil-air-contact-death-phone-390x844.png is actually 1440x933; its evidence records that viewport, and it was not treated as a phone image.
+Audio restore proof in native-art: checkpoint PCM 32 receipts; forward history 34; immediate post-restore history exactly equals forward history and checkpoint is its exact prefix; replay is exact through the 34-receipt prefix and reproduces the same 2-receipt cue suffix. Checkpoint continuation bytes/diagnostics match immediately after restore at both viewports, with no duplicated cue. The Cards021 browser gate also asserts deep equality of session, DOM/HUD, input bridge, and typed audio before/after restore; ground/air cue PCM count deltas are preserved in its JSON evidence.
+Trusted pointer and typed bridge receipts for the native sprite test are asserted by the passing browser test but are not persisted as raw event fields in browser-render-evidence.json; the compact native-art/critic-audit.txt preserves this distinction.

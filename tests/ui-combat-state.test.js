@@ -1,9 +1,15 @@
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
+import { basename, resolve } from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import test from "node:test";
 
 import { createCombatArt, COMBAT_ART_ARCHETYPES } from "../src/ui/combat-art.js";
+import { getCardLore } from "../src/ui/card-lore.js";
+import { getCardPortrait, getCardPortraitIds } from "../src/ui/card-portrait-art.js";
+import { createPlayableRoster, PLAYABLE_CARD_IDS } from "../src/content/playable-roster.js";
 
 import {
   bindCombatViewModel,
@@ -127,6 +133,125 @@ function nodeBytes(node) {
   });
 }
 
+function renderedArtBytes(node) {
+  const attributes = [...node.attributes].map(([name, value]) => {
+    if (name !== "href" || typeof value !== "string" || !value.startsWith("file:")) {
+      return [name, value];
+    }
+    const pathname = new URL(value).pathname;
+    const asset = pathname.slice(pathname.lastIndexOf("/public/") + 1);
+    return [name, `/${asset}`];
+  }).sort();
+  return JSON.stringify({
+    attributes,
+    children: node.children.map((child) => JSON.parse(renderedArtBytes(child))),
+    className: node.className,
+    dataset: Object.fromEntries(Object.entries(node.dataset).sort()),
+    style: [...node.style.values].sort(),
+  });
+}
+
+function renderedArtSnapshot(node) {
+  const assets = [];
+  const collect = (current) => {
+    const href = current.attributes.get("href");
+    if (typeof href === "string" && href.startsWith("file:")) {
+      const assetPath = fileURLToPath(href);
+      assets.push({
+        path: `/public/assets/${basename(assetPath)}`,
+        sha256: createHash("sha256").update(readFileSync(assetPath)).digest("hex"),
+      });
+    }
+    for (const child of current.children) collect(child);
+  };
+  collect(node);
+  return { assets, bytes: renderedArtBytes(node) };
+}
+
+function artDocument() {
+  return dom().document;
+}
+
+function cardPortraitOutput(module, cardId) {
+  const portrait = module.getCardPortrait(cardId);
+  const assetPath = fileURLToPath(portrait.src);
+  return {
+    asset: portrait.asset,
+    cell: portrait.cell,
+    imageSha256: createHash("sha256").update(readFileSync(assetPath)).digest("hex"),
+    src: `/public/assets/${basename(assetPath)}`,
+  };
+}
+
+test("non-Briar artwork and all 21 collection portraits match the accepted 5ed renderer", {
+  skip: process.env.ART004_PARENT_ROOT ? false : "set ART004_PARENT_ROOT to the accepted 5ed checkout",
+}, async () => {
+  const parentRoot = resolve(process.env.ART004_PARENT_ROOT);
+  const parentSha = execFileSync("git", ["-C", parentRoot, "rev-parse", "HEAD"], {
+    encoding: "utf8",
+  }).trim();
+  assert.equal(parentSha, "5ed9d7c76a7bf3b4b3c6fe6a98102921e078f146",
+    "the visual comparison must execute the exact accepted parent source");
+  const parentStatus = execFileSync("git", ["-C", parentRoot, "status", "--porcelain=v1",
+    "--untracked-files=no", "--", "src", "public", "tests", "package.json", "package-lock.json"], {
+    encoding: "utf8",
+  });
+  assert.equal(parentStatus, "", "the accepted parent's source, assets, tests, and manifest are clean");
+  assert.equal(createHash("sha256").update(readFileSync(resolve(parentRoot, "package-lock.json")))
+    .digest("hex"), "d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4",
+  "the accepted parent lockfile matches the Round 476 source fence");
+
+  const parentModule = (path) => import(pathToFileURL(resolve(parentRoot, path)).href);
+  const [parentArt, parentState, parentPortraits, parentLore, parentRoster] = await Promise.all([
+    parentModule("src/ui/combat-art.js"),
+    parentModule("src/ui/combat-state.js"),
+    parentModule("src/ui/card-portrait-art.js"),
+    parentModule("src/ui/card-lore.js"),
+    parentModule("src/content/playable-roster.js"),
+  ]);
+
+  assert.deepEqual(PLAYABLE_CARD_IDS, parentRoster.PLAYABLE_CARD_IDS,
+    "the accepted default deck order remains exact");
+  assert.deepEqual(createPlayableRoster(), parentRoster.createPlayableRoster(),
+    "default card rendering metadata remains exact");
+  assert.deepEqual(getCombatStyleText(), parentState.getCombatStyleText(),
+    "the combat presentation rules remain byte-identical outside Briar's authored frames");
+
+  const portraitIds = getCardPortraitIds();
+  assert.equal(portraitIds.length, 21, "the accepted collection has 21 card portrait outputs");
+  assert.deepEqual(portraitIds, parentPortraits.getCardPortraitIds(),
+    "the full accepted collection order, including Buried Coil, is preserved");
+  assert.ok(portraitIds.includes("buried-coil"));
+  for (const cardId of portraitIds) {
+    assert.deepEqual({
+      lore: getCardLore(cardId),
+      portrait: cardPortraitOutput({ getCardPortrait }, cardId),
+    }, {
+      lore: parentLore.getCardLore(cardId),
+      portrait: cardPortraitOutput(parentPortraits, cardId),
+    }, `${cardId} keeps the accepted lore and pixel-source asset`);
+  }
+
+  const expectedKinds = parentArt.COMBAT_ART_ARCHETYPES
+    .filter((kind) => kind !== "briar-runner").sort();
+  assert.deepEqual(COMBAT_ART_ARCHETYPES.filter((kind) => kind !== "briar-runner").sort(),
+    expectedKinds, "all other combat-art archetypes remain present");
+  const layersByKind = new Map(createPlayableRoster().flatMap(({ entities }) =>
+    entities.map(({ archetypeId, layer }) => [archetypeId, layer])));
+  for (const kind of expectedKinds) {
+    const layer = layersByKind.get(kind) ?? "ground";
+    for (const side of ["north", "south"]) {
+      const hiddenStates = kind === "buried-coil" ? [false, true] : [false];
+      for (const hidden of hiddenStates) {
+        const expected = parentArt.createCombatArt(artDocument(), kind, side, layer, hidden);
+        const actual = createCombatArt(artDocument(), kind, side, layer, hidden);
+        assert.deepEqual(renderedArtSnapshot(actual), renderedArtSnapshot(expected),
+          `${kind}/${side}/${layer}/hidden=${hidden} keeps its accepted rendered SVG`);
+      }
+    }
+  }
+});
+
 function digest(bytes) {
   return createHash("sha256").update(bytes).digest("hex");
 }
@@ -221,6 +346,62 @@ test("ui combat state: canonical serialization restores byte-identically", () =>
   );
 });
 
+test("Buried Coil keeps its original hidden and revealed render geometry through restore", () => {
+  for (const side of ["north", "south"]) {
+    for (const hidden of [true, false]) {
+      const { document, layer } = dom();
+      const buriedCoil = entity({
+        id: side === "north" ? 10 : 11,
+        kind: "buried-coil",
+        layer: "ground",
+        position: side === "north" ? { x: 3_500, y: 24_000 } : { x: 3_500, y: 8_000 },
+        side,
+        targetId: null,
+      });
+      const source = createCombatViewModel({
+        entities: [{ ...buriedCoil, hidden }],
+        events: [],
+        tick: 17,
+        towers: [],
+      });
+      bindCombatViewModel(layer, source);
+      const marker = layer.children[0].children.find(({ dataset }) =>
+        dataset.kind === "buried-coil");
+      const art = marker.children[1];
+      const [image, plate] = art.children;
+      const color = side === "north" ? "#C6452E" : "#2E7F86";
+      assert.equal(marker.dataset.hidden, String(hidden));
+      assert.equal(marker.dataset.structure, "true");
+      assert.equal(art.dataset.hidden, String(hidden));
+      assert.equal(art.dataset.form, hidden ? "hidden" : "revealed");
+      assert.equal(art.attributes.get("viewBox"), "0 0 512 512");
+      assert.equal(image.attributes.get("href"), new URL(
+        hidden ? "../public/assets/buried-coil-hidden.webp" :
+          "../public/assets/buried-coil-revealed.svg",
+        import.meta.url,
+      ).href);
+      assert.deepEqual(Object.fromEntries(plate.attributes), {
+        x: "38",
+        y: side === "north" ? "-512" : "512",
+        width: "436",
+        height: "88",
+        rx: "44",
+        fill: color,
+        "shape-rendering": "crispEdges",
+        "aria-hidden": "true",
+      });
+      assert.equal(plate.dataset.teamColor, side);
+
+      const checkpoint = serializeCombatViewModel(source);
+      const restoredLayer = dom().layer;
+      bindCombatViewModel(restoredLayer, restoreCombatViewModel(checkpoint));
+      assert.equal(nodeBytes(restoredLayer), nodeBytes(layer),
+        `${side}/hidden=${hidden} artwork restores byte-for-byte`);
+      assert.equal(document, layer.ownerDocument);
+    }
+  }
+});
+
 test("ui combat state: one-shot and chunked state projection end in identical bytes", () => {
   const frames = [
     state({ tick: 42 }),
@@ -283,7 +464,7 @@ test("ui combat state: DOM projection is byte-stable with exact inverted arena c
   assert.equal(link.attributes.get("y2"), "7500");
 });
 
-test("ui combat state: painted Briar Runner pose follows tick, target bearing, contact, and restore", () => {
+test("ui combat state: a generic target reaction cannot fabricate a Briar Runner attack pose", () => {
   const runnerState = (tick, eventTick = null) => state({
     entities: [entity({
       id: 17,
@@ -323,17 +504,19 @@ test("ui combat state: painted Briar Runner pose follows tick, target bearing, c
   const walkingNext = boundArt(runnerState(45));
   assert.equal(walkingNext.art.dataset.spriteFrame, "briar-walk-north-1");
 
-  const attacking = boundArt(runnerState(42, 42));
-  assert.equal(attacking.art.dataset.spriteAction, "attack");
-  assert.equal(attacking.art.dataset.spriteFrame, "briar-attack-north-0");
+  const targetReaction = boundArt(runnerState(42, 42));
+  assert.equal(targetReaction.runner.dataset.reaction, "target");
+  assert.equal(targetReaction.art.dataset.spriteAction, "walk");
+  assert.equal(targetReaction.art.dataset.spriteFrame, "briar-walk-north-0");
   const restoredLayer = dom().layer;
-  const restoredView = restoreCombatViewModel(serializeCombatViewModel(attacking.view));
+  const restoredView = restoreCombatViewModel(serializeCombatViewModel(targetReaction.view));
   bindCombatViewModel(restoredLayer, restoredView);
   const restoredBytes = nodeBytes(restoredLayer);
   const restoredRunner = restoredLayer.children[0].children.find(({ dataset }) =>
     dataset.kind === "briar-runner");
-  assert.equal(restoredBytes, attacking.bytes);
+  assert.equal(restoredBytes, targetReaction.bytes);
   assert.equal(restoredRunner.dataset.reaction, "target");
+  assert.equal(restoredRunner.children[1].dataset.spriteAction, "walk");
 
   const reducedDocument = dom();
   reducedDocument.document.defaultView = {

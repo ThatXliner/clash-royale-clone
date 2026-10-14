@@ -127,10 +127,11 @@ test("painted Briar artwork carries a persistent bordered team-color footring", 
     assert.equal(footring.getAttribute("fill"), color);
     assert.equal(footring.getAttribute("stroke"), "#F4EBD6");
     assert.equal(footring.getAttribute("stroke-width"), "5");
-    assert.equal(footring.getAttribute("x"), "683.75");
-    assert.equal(footring.getAttribute("y"), "1130.5");
-    assert.equal(footring.getAttribute("width"), "200");
-    assert.equal(footring.getAttribute("height"), "44");
+    assert.equal(footring.getAttribute("x"), "676.75");
+    assert.equal(footring.getAttribute("y"), "1108.5");
+    assert.equal(footring.getAttribute("width"), "214");
+    assert.equal(footring.getAttribute("height"), "72");
+    assert.equal(footring.getAttribute("rx"), "36");
     assert.equal(atlas.name, "image");
     assert.equal(atlas.getAttribute("href"),
       new URL("../public/assets/briar-runner-painted-sheet.png", import.meta.url).href);

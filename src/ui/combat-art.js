@@ -235,11 +235,11 @@ export function createBriarRunnerPaintedArt(document, {
 
   const teamFootring = create('rect');
   teamFootring.dataset.teamColor = side;
-  teamFootring.setAttribute('x', String(sourceX + 10));
-  teamFootring.setAttribute('y', String(sourceY + 176));
-  teamFootring.setAttribute('width', '200');
-  teamFootring.setAttribute('height', '44');
-  teamFootring.setAttribute('rx', '22');
+  teamFootring.setAttribute('x', String(sourceX + 3));
+  teamFootring.setAttribute('y', String(sourceY + 154));
+  teamFootring.setAttribute('width', '214');
+  teamFootring.setAttribute('height', '72');
+  teamFootring.setAttribute('rx', '36');
   teamFootring.setAttribute('fill', side === 'north' ? '#C6452E' : '#2E7F86');
   teamFootring.setAttribute('stroke', BONE);
   teamFootring.setAttribute('stroke-width', '5');

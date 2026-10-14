@@ -1,5 +1,6 @@
 import { bindHudMotion } from "./hud-motion.js";
 import { createCombatMotionView, bindCombatMotion } from "./combat-motion.js";
+import { createBriarRunnerPaintedArt } from "./combat-art.js";
 import {
   GameSession,
   isAuthenticGameSession,
@@ -157,14 +158,76 @@ function combatState(state, effectEvents) {
   return { entities, events, tick: state.tick, towers };
 }
 
-function mintFrameParts(snapshot, combat, effects, feedback, hud) {
+function briarAttackContacts(state, motion) {
+  const units = new Map(state.battle.units.map((unit) => [unit.id, unit]));
+  const poses = new Map(motion.poses.map((pose) => [pose.id, pose.pose]));
+  const contacts = [];
+  for (const contact of motion.contacts) {
+    const identity = /^([1-9][0-9]*):([1-9][0-9]*)$/u.exec(contact.id);
+    if (identity === null) continue;
+    const sourceId = Number(identity[1]);
+    const sequence = Number(identity[2]);
+    const source = units.get(sourceId);
+    if (!source || source.archetypeId !== "briar-runner" ||
+        source.delivery !== "melee" || !source.alive || source.hitpoints <= 0 ||
+        poses.get(sourceId) !== "attack") continue;
+    const cycle = source.attack;
+    const sourceTick = source.spawnedAt + cycle.nextAttackTick - cycle.config.hitSpeedTicks;
+    if (cycle.phase !== "cycling" || cycle.statusWork ||
+        cycle.attackSequence !== sequence || cycle.targetId !== contact.targetId ||
+        contact.tick !== sourceTick || contact.age !== state.tick - sourceTick ||
+        contact.age < 0 || contact.age >= 4) continue;
+    contacts.push(Object.freeze({
+      sourceClass: source.delivery,
+      sourceAge: contact.age,
+      sourceId,
+      sourceSequence: sequence,
+      sourceTick,
+    }));
+  }
+  return Object.freeze(contacts);
+}
+
+function bindBriarAttackFrames(combat, view, contacts) {
+  if (contacts.length === 0) return;
+  const frame = children(combat)[0];
+  if (!frame) throw new TypeError("combat frame is missing while binding Briar attacks");
+  const markers = new Map(children(frame).filter((node) =>
+    node.dataset?.kind === "briar-runner")
+    .map((node) => [Number(node.dataset.combatId), node]));
+  for (const contact of contacts) {
+    const marker = markers.get(contact.sourceId);
+    if (!marker) throw new TypeError("Briar contact source is missing from the combat frame");
+    const nodes = children(marker);
+    const artIndex = nodes.findIndex((node) => node.dataset?.artId === "briar-runner");
+    if (artIndex === -1) throw new TypeError("Briar contact source has no painted art");
+    const currentArt = nodes[artIndex];
+    const art = createBriarRunnerPaintedArt(marker.ownerDocument, {
+      action: "attack",
+      direction: currentArt.dataset.spriteDirection,
+      reducedMotion: currentArt.dataset.reducedMotion === "true",
+      side: marker.dataset.side,
+      tick: contact.sourceAge,
+    });
+    art.dataset.simulationTick = String(view.tick);
+    art.dataset.attackAnimationAge = String(contact.sourceAge);
+    art.dataset.attackSourceId = String(contact.sourceId);
+    art.dataset.attackSourceSequence = String(contact.sourceSequence);
+    art.dataset.attackSourceTick = String(contact.sourceTick);
+    art.dataset.attackSourceClass = contact.sourceClass;
+    nodes[artIndex] = art;
+    marker.replaceChildren(...nodes);
+  }
+}
+
+function mintFrameParts(snapshot, combat, effects, feedback, hud, motion, attacks) {
   if (!isAuthenticGameSessionProjectionSnapshot(snapshot)) {
     throw new TypeError("game UI frame parts require an authentic projection snapshot");
   }
   const parts = Object.freeze({ combat, effects, feedback, hud,
     sequence: snapshot.sequence, source: snapshot.source, tick: snapshot.state.tick,
     version: GAME_UI_FRAME_VERSION });
-  FRAME_MOTION.set(parts, createCombatMotionView(snapshot, effects));
+  FRAME_MOTION.set(parts, Object.freeze({ attacks, view: motion }));
   FRAME_HUD_RECEIPT.set(parts, snapshot.hudFeedback.lastCardPlay[hud.elixir.side]);
   FRAME_PARTS.add(parts);
   return parts;
@@ -255,12 +318,15 @@ export function createGameUiFrame(session, options = DEFAULT_GAME_UI_OPTIONS) {
     session,
   );
   const feedback = createSessionMatchFeedbackViewModel(snapshot);
+  const motion = createCombatMotionView(snapshot, effects);
   const frame = composeGameUiFrame(mintFrameParts(
     snapshot,
     createCombatViewModel(combatState(state, effects.events)),
     effects,
     feedback,
     hud,
+    motion,
+    briarAttackContacts(state, motion),
   ));
   FRAME_TERMINAL_TICK.set(frame, options.terminalPresentationTick);
   return frame;
@@ -477,7 +543,9 @@ export function mountGameUiProjection(value) {
     };
     bindCombatViewModel(staged.combat, frame.combat);
     bindCombatEffectsViewModel(staged.effects, frame.effects);
-    bindCombatMotion(staged.combat, staged.effects, FRAME_MOTION.get(frame));
+    const motion = FRAME_MOTION.get(frame);
+    bindCombatMotion(staged.combat, staged.effects, motion.view);
+    bindBriarAttackFrames(staged.combat, motion.view, motion.attacks);
     bindMatchFeedback(staged.feedback, frame.feedback);
     if (frame.feedback.overlay) {
       const panel = children(children(staged.feedback)[0]).find(node => node.className === "match-feedback__overlay");

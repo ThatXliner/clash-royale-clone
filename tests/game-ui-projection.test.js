@@ -1,4 +1,9 @@
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
+import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
+import { pathToFileURL } from "node:url";
 import test from "node:test";
 import vm from "node:vm";
 
@@ -25,6 +30,7 @@ import {
   PLAYABLE_CARD_IDS,
 } from "../src/content/playable-roster.js";
 import { createEditableGameSessionSetup } from "../src/content/editable-deck.js";
+import { selectBriarRunnerFrame } from "../src/ui/combat-sprite-prototype.js";
 
 function canonical(value) {
   if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
@@ -1150,6 +1156,181 @@ test("game UI projection: authentic projectile lifecycle keeps exact IDs, ticks,
   assert.ok(launches.length > 0);
   assert.ok(launches.every(({ payload }) => payload.projectileId !== null));
   assert.ok(frame.combat.events.some(({ type }) => type === "target"));
+});
+
+test("game UI projection: an actual Briar melee record selects the attack frame and restores exactly", () => {
+  const deck = ["briar-band", "mossguard",
+    ...PLAYABLE_CARD_IDS.filter((id) => id !== "briar-band" && id !== "mossguard").slice(0, 6)];
+  const configured = JSON.parse(createEditableGameSessionSetup(deck, 2));
+  configured.legalNorthDeployments = [
+    { cardId: "mossguard", point: { x: 3_500, y: 17_500 } },
+  ];
+  configured.thinkIntervalTicks = 3_600;
+  configured.thinkOffsetTicks = 0;
+  const session = new GameSession(canonical(configured));
+  const slot = session.state.decks.south.hand.indexOf("briar-band");
+  assert.notEqual(slot, -1, "the legal Briar card is in the real player's hand");
+  session.submitPlayerCommand(canonical({
+    cardId: "briar-band",
+    commandId: 0,
+    point: { x: 3_500, y: 14_500 },
+    slot,
+    tick: session.state.tick,
+    type: "deploy",
+  }));
+
+  let witness = null;
+  for (let step = 0; step < 600 && witness === null; step += 1) {
+    const events = session.step();
+    const units = new Map(session.state.battle.units.map((unit) => [unit.id, unit]));
+    const attack = events.find((event) => event.type === "attack" &&
+      units.get(event.attackerId)?.archetypeId === "briar-runner");
+    if (!attack) continue;
+    const attacker = units.get(attack.attackerId);
+    const damage = events.find((event) => event.type === "damage" &&
+      event.attackerId === attack.attackerId && event.targetId === attack.targetId &&
+      event.delivery === "melee" && event.tick === attack.tick);
+    if (!damage) continue;
+    witness = { attack, attacker, damage };
+  }
+  assert.ok(witness, "the actual deployed Briar lands a primary melee attack within 600 ticks");
+  const { attack, attacker, damage } = witness;
+  const sourceTick = attacker.spawnedAt + attacker.attack.nextAttackTick -
+    attacker.attack.config.hitSpeedTicks;
+  assert.equal(attacker.delivery, "melee");
+  assert.equal(attack.sequence, attacker.attack.attackSequence);
+  assert.equal(attack.targetId, attacker.attack.targetId);
+  assert.equal(attack.tick, sourceTick,
+    "the rendered contact tick joins the actual attack record to the unit attack cycle");
+  assert.equal(damage.attackerId, attack.attackerId);
+  assert.equal(damage.currentHealthAfter, damage.currentHealthBefore - damage.amount);
+
+  const checkpoint = session.serialize();
+  const frame = createGameUiFrame(session);
+  const attackAge = frame.tick - attack.tick;
+  assert.equal(attackAge, 1,
+    "the genuine primary contact is rendered at its first aged simulation boundary");
+  assert.ok(attackAge < 4,
+    "the source strike is still in the motion projection's primary attack pose");
+  const originalLayers = fixture().layers;
+  mountGameUiProjection(originalLayers).project(frame);
+  const markerFor = (layers, id) => layers.combat.children[0].children.find((node) =>
+    node.dataset.combatId === String(id));
+  const artFor = (layers, id) => markerFor(layers, id).children.find((node) =>
+    node.dataset.artId === "briar-runner");
+  const attackArt = artFor(originalLayers, attack.attackerId);
+  assert.equal(attackArt.dataset.spriteAction, "attack");
+  assert.equal(attackArt.dataset.attackSourceId, String(attack.attackerId));
+  assert.equal(attackArt.dataset.attackSourceSequence, String(attack.sequence));
+  assert.equal(attackArt.dataset.attackSourceTick, String(attack.tick));
+  assert.equal(attackArt.dataset.attackSourceClass, "melee");
+  assert.equal(attackArt.dataset.simulationTick, String(frame.tick));
+  assert.equal(attackArt.dataset.attackAnimationAge, String(attackAge));
+  assert.equal(attackArt.dataset.spriteFrame, selectBriarRunnerFrame({
+    action: "attack",
+    direction: attackArt.dataset.spriteDirection,
+    tick: attackAge,
+  }).id);
+
+  const restored = GameSession.restore(checkpoint);
+  const restoredFrame = createGameUiFrame(restored);
+  const restoredLayers = fixture().layers;
+  mountGameUiProjection(restoredLayers).project(restoredFrame);
+  assert.equal(allBytes(restoredLayers), allBytes(originalLayers),
+    "the true attack frame and source identity restore to identical DOM bytes");
+
+  session.stepMany(2);
+  const agedFrame = createGameUiFrame(session);
+  const agedLayers = fixture().layers;
+  mountGameUiProjection(agedLayers).project(agedFrame);
+  const agedArt = artFor(agedLayers, attack.attackerId);
+  const agedAttackAge = agedFrame.tick - attack.tick;
+  assert.equal(agedAttackAge, 3);
+  assert.equal(agedArt.dataset.spriteAction, "attack");
+  assert.equal(agedArt.dataset.attackSourceTick, String(attack.tick));
+  assert.equal(agedArt.dataset.simulationTick, String(agedFrame.tick));
+  assert.equal(agedArt.dataset.attackAnimationAge, String(agedAttackAge));
+  assert.equal(agedArt.dataset.spriteFrame, selectBriarRunnerFrame({
+    action: "attack",
+    direction: agedArt.dataset.spriteDirection,
+    tick: agedAttackAge,
+  }).id);
+  assert.notEqual(agedArt.dataset.spriteFrame, attackArt.dataset.spriteFrame,
+    "real simulation age advances the primary attack atlas frame before recoil");
+
+  session.step();
+  const recovered = createGameUiFrame(session);
+  const recoveredLayers = fixture().layers;
+  mountGameUiProjection(recoveredLayers).project(recovered);
+  const recoveredArt = artFor(recoveredLayers, attack.attackerId);
+  assert.equal(recoveredArt.dataset.spriteAction, "walk",
+    "the attack frame ends as soon as the canonical strike pose ages into recoil");
+  assert.equal(recoveredArt.dataset.attackSourceTick, undefined);
+});
+
+test("game UI projection: non-Briar play output matches the accepted 5ed parent modules", {
+  skip: process.env.ART004_PARENT_ROOT ? false : "set ART004_PARENT_ROOT to the accepted 5ed checkout",
+}, async () => {
+  const parentRoot = resolve(process.env.ART004_PARENT_ROOT);
+  const parentSha = execFileSync("git", ["-C", parentRoot, "rev-parse", "HEAD"], {
+    encoding: "utf8",
+  }).trim();
+  assert.equal(parentSha, "5ed9d7c76a7bf3b4b3c6fe6a98102921e078f146",
+    "projection comparison must execute the exact accepted parent source");
+  const parentStatus = execFileSync("git", ["-C", parentRoot, "status", "--porcelain=v1",
+    "--untracked-files=no", "--", "src", "public", "tests", "package.json", "package-lock.json"], {
+    encoding: "utf8",
+  });
+  assert.equal(parentStatus, "", "the accepted parent's source, assets, tests, and manifest are clean");
+  assert.equal(createHash("sha256").update(readFileSync(resolve(parentRoot, "package-lock.json")))
+    .digest("hex"), "d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4",
+  "the accepted parent lockfile matches the Round 476 source fence");
+  const parentModule = (path) => import(pathToFileURL(resolve(parentRoot, path)).href);
+  const [parentSessionModule, parentProjection] = await Promise.all([
+    parentModule("src/sim/game-session.js"),
+    parentModule("src/ui/game-ui-projection.js"),
+  ]);
+
+  const setupBytes = setup({
+    candidates: [{ cardId: "mossguard", point: { x: 3_500, y: 17_500 } }],
+    initialWindupTicks: { central: 10_000, lane: 10_000 },
+    seed: 0,
+    think: 3_600,
+  });
+  const current = new GameSession(setupBytes);
+  const parent = new parentSessionModule.GameSession(setupBytes);
+  const command = (session) => {
+    const slot = session.state.decks.south.hand.indexOf("mossguard");
+    assert.notEqual(slot, -1, "the parent and candidate both start with Mossguard in hand");
+    return canonical({
+      cardId: "mossguard",
+      commandId: 0,
+      point: { x: 3_500, y: 14_500 },
+      slot,
+      tick: session.state.tick,
+      type: "deploy",
+    });
+  };
+  current.submitPlayerCommand(command(current));
+  parent.submitPlayerCommand(command(parent));
+
+  const output = (session, projector) => {
+    const layers = treeFixture().layers;
+    projector.mountGameUiProjection(layers).project(projector.createGameUiFrame(session));
+    return allBytes(layers);
+  };
+  const frames = [0, 1, 8, 32];
+  for (const tick of frames) {
+    if (tick > current.state.tick) {
+      current.stepMany(tick - current.state.tick);
+      parent.stepMany(tick - parent.state.tick);
+    }
+    assert.equal(current.serialize(), parent.serialize(),
+      `the deterministic non-Briar session state agrees at tick ${tick}`);
+    assert.equal(output(current, { createGameUiFrame, mountGameUiProjection }),
+      output(parent, parentProjection),
+      `the complete non-Briar combat, effects, feedback, and HUD tree agrees at tick ${tick}`);
+  }
 });
 
 test("game UI projection: seed-2 live terminal clears dead targets and is chunk/restore exact", () => {

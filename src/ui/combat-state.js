@@ -564,7 +564,10 @@ export function bindCombatViewModel(layer, view) {
     }
     const art = entity.kind === "briar-runner"
       ? createBriarRunnerPaintedArt(layer.ownerDocument, {
-        action: reaction === "target" ? "attack" : "walk",
+        // Generic effect reactions do not prove this unit's own primary
+        // attack. The authenticated GameSession motion projection upgrades a
+        // Briar to its attack frame only when it supplies a real melee contact.
+        action: "walk",
         direction: briarFacingDirection(entity, linksBySource.get(entity.key)),
         reducedMotion,
         side: entity.side,
