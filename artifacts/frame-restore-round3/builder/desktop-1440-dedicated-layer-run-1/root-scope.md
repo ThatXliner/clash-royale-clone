@@ -1,0 +1,1 @@
+Single paired causal intervention on immutable6cf: control29 pixels/max18; scoped injected transform creates meter layer31/backend173 and intervention0 pixels/max0, typed states and geometry exact. Diagnostic only, not productPASS. Production CSS must be independently verified across all contexts after rebase; unchanged performance caps and full18k remain required.
