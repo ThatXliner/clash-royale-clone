@@ -1,0 +1,84 @@
+{
+  "sourceSnapshot": {
+    "commit": "bf1e6120196db8a2927ce6ae893812e4c9b1115d",
+    "tree": "a306815db49583c41059dc19b37628aa5cb8c7a7"
+  },
+  "guide": {
+    "sha256": "44eb96cb9adc4b17a104f91fa28b095d2bdbaf60dd0628f0b77c79cd995cb196",
+    "localMarkdownLinksChecked": 23,
+    "localMarkdownLinksMissing": 0,
+    "displayOrdinalClaimed": false
+  },
+  "historicalScope": {
+    "targetRows": 109,
+    "types": {
+      "troop": 78,
+      "building": 13,
+      "spell": 18
+    },
+    "frozenEditableIds": 18,
+    "fullHistoricalExecutions": 0,
+    "historicalParityClaims": 0
+  },
+  "currentCollection": {
+    "editableTroopIds": 18,
+    "mixedCollectionChoices": 20,
+    "defaultDeckIds": 8
+  },
+  "generatedCatalogs": {
+    "sessionCards": {
+      "admittedIds": 56,
+      "admittedOccurrences": 61,
+      "claimedIds": 62,
+      "claimedOccurrences": 67,
+      "excludedClaimedIds": 6,
+      "excludedClaimedOccurrences": 6,
+      "questionOnlyExports": 5
+    },
+    "troopProfiles": {
+      "admittedIds": 40,
+      "admittedOccurrences": 42,
+      "claimedIds": 42,
+      "claimedOccurrences": 44,
+      "duplicateCompositionIds": 2,
+      "questionIds": 2,
+      "questionOccurrences": 2
+    }
+  },
+  "reviewSnapshot": {
+    "h1": "PASS",
+    "h2": "QUESTION",
+    "collectionPresentation": "PASS",
+    "appPolish": "PASS",
+    "arenaCandidate": "32c31da5269391cc0f6766cfacc0c78f0982fa5d",
+    "arenaAccepted": false
+  },
+  "publicRelease": {
+    "ref": "main",
+    "commit": "bf1e6120196db8a2927ce6ae893812e4c9b1115d",
+    "workflowRun": 38510398827,
+    "workflowConclusion": "success",
+    "capturedAtUtc": "2026-10-14T04:22:09.481Z",
+    "landingStatus": 200,
+    "landingContainsFullCommit": true,
+    "gameStatus": 200,
+    "portraitStatus": 200,
+    "portraitBytes": 65626,
+    "portraitSha256": "38e9f64348fa823a64755fda2496b699c88c27c7dd0a14a440e704d9093d2240"
+  },
+  "priorCoverage004Evidence": {
+    "filesChecked": 43,
+    "changedFiles": 0
+  },
+  "olderRuntimeEvidence": {
+    "defaultEightExactSnapshots": 6,
+    "enduranceCandidate": "9f64011378d3ce1c6281d9292950a7b52f11fd2c",
+    "enduranceTicks": 18000,
+    "enduranceSegments": 67,
+    "appliesToCurrentRuntime": false
+  },
+  "sourceIsolation": {
+    "successor": "PASS 28/28 + Pages 5/5",
+    "olderFailureRetained": true
+  }
+}

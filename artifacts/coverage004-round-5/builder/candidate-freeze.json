@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "base": {
+    "acceptedRootDocsCommit": "0576880efe5154d1a39e970427ef343030911f02",
+    "acceptedRootDocsTree": "776e3cd4696ff8193288e89b070080d003802c45",
+    "sourceAndReleaseClaimsRemainAnchoredTo": "bf1e6120196db8a2927ce6ae893812e4c9b1115d"
+  },
+  "round4Candidate": {
+    "originalCandidateCommit": "8a320759e5fd096d8fb6d77ae92c3e117f8a17ae",
+    "integratedGuideAndEvidenceCommit": "0fcb8e1",
+    "round4BuilderFilesPreservedByteForByte": true,
+    "preservationManifest": "artifacts/coverage004-round-5/builder/round4-builder-preservation.sha256"
+  },
+  "reconciliation": {
+    "scope": "Correct the guide's description of recorded fields in the existing live-release receipt.",
+    "changedGuideLine": 42,
+    "oldClaim": "response times",
+    "recordedFields": [
+      "requested and final URLs",
+      "HTTP status codes",
+      "selected response headers",
+      "byte lengths",
+      "SHA-256 hashes",
+      "capture timestamp",
+      "landing-page full-commit check"
+    ],
+    "captureOrHistoricalEvidenceModified": false
+  },
+  "releaseSnapshot": {
+    "ref": "main",
+    "commit": "bf1e6120196db8a2927ce6ae893812e4c9b1115d",
+    "workflowRun": 38510398827,
+    "workflowConclusion": "success",
+    "liveCaptureAtUtc": "2026-10-14T04:22:09.481Z",
+    "receipt": "artifacts/coverage004-round-4/builder/live-release-evidence.json"
+  },
+  "immutableArchiveCheck": {
+    "command": "node artifacts/coverage004-round-4/builder/check-guide-release.mjs",
+    "testedGuideCandidate": "11cb3bfd34e3ed3632ee66f7fb053b6722e5824a",
+    "exitCode": 0,
+    "stdoutBytes": 2301,
+    "stdoutSha256": "740f64bd8e14c2e944cf3b10d30fa77c6af05df485ef618398843aaca42d6b71",
+    "stderrBytes": 0,
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "guideSha256": "1c5b6c2ffe0722c087f0ac4d57ac150c41b56b9042992711f8e6889c6dd5a14e",
+    "localMarkdownLinksChecked": 23,
+    "localMarkdownLinksMissing": 0,
+    "priorCoverage004EvidenceFilesChecked": 43,
+    "priorCoverage004EvidenceFilesChanged": 0,
+    "stdout": "artifacts/coverage004-round-5/builder/clean-archive-check.stdout.txt",
+    "stderr": "artifacts/coverage004-round-5/builder/clean-archive-check.stderr.txt"
+  }
+}

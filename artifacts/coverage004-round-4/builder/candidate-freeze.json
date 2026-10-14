@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "sourceSnapshot": {
+    "commit": "bf1e6120196db8a2927ce6ae893812e4c9b1115d",
+    "tree": "a306815db49583c41059dc19b37628aa5cb8c7a7",
+    "parent": "049ce5087c57864d842c85b7550001131648aedf",
+    "committedAt": "2026-10-13T21:05:01-07:00",
+    "checkout": "clean detached worktree before round-4 edits"
+  },
+  "reviewSnapshot": {
+    "CARDS-019H1": { "status": "PASS", "round": 439, "scope": "bounded shared target-following" },
+    "CARDS-019H2": { "status": "QUESTION", "scope": "historical homing calibration" },
+    "CARDS-019D": { "status": "PASS", "round": 443, "scope": "Kilnkeeper portrait and lore" },
+    "APP-004G": { "status": "PASS", "round": 444, "scope": "expanded-collection app polish" },
+    "CARDS-019I": {
+      "status": "unaccepted",
+      "candidate": "32c31da5269391cc0f6766cfacc0c78f0982fa5d",
+      "scope": "Kilnkeeper card and arena presentation",
+      "review": "independent review in progress"
+    }
+  },
+  "externalReleaseSnapshot": {
+    "capturedAtUtc": "2026-10-14T04:22:09.481Z",
+    "ref": "main",
+    "commit": "bf1e6120196db8a2927ce6ae893812e4c9b1115d",
+    "workflowRun": 38510398827,
+    "workflowStatus": "completed",
+    "workflowConclusion": "success",
+    "landingStatus": 200,
+    "gameStatus": 200,
+    "kilnkeeperPortraitStatus": 200,
+    "kilnkeeperPortraitBytes": 65626,
+    "kilnkeeperPortraitSha256": "38e9f64348fa823a64755fda2496b699c88c27c7dd0a14a440e704d9093d2240"
+  },
+  "preservationManifest": "artifacts/coverage004-round-4/builder/preserved-prior-evidence.sha256",
+  "immutableArchiveCheck": {
+    "command": "node artifacts/coverage004-round-4/builder/check-guide-release.mjs",
+    "candidateMustBeBuiltFrom": "bf1e6120196db8a2927ce6ae893812e4c9b1115d",
+    "savedOutput": "artifacts/coverage004-round-4/builder/clean-archive-check.stdout.txt",
+    "savedError": "artifacts/coverage004-round-4/builder/clean-archive-check.stderr.txt"
+  }
+}

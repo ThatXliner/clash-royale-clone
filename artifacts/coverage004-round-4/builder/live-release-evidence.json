@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "capturedAtUtc": "2026-10-14T04:22:09.481Z",
+  "repository": "ThatXliner/clash-royale-clone",
+  "release": {
+    "ref": "main",
+    "commit": "bf1e6120196db8a2927ce6ae893812e4c9b1115d",
+    "workflow": {
+      "name": "Publish GitHub Pages",
+      "runId": 38510398827,
+      "url": "https://github.com/ThatXliner/clash-royale-clone/actions/runs/38510398827",
+      "status": "completed",
+      "conclusion": "success",
+      "source": "github-workflow-38510398827.json"
+    }
+  },
+  "live": {
+    "landing": {
+      "url": "https://bryanhu.com/clash-royale-clone/",
+      "status": 200,
+      "finalUrl": "https://bryanhu.com/clash-royale-clone/",
+      "headers": {
+        "contentType": "text/html; charset=utf-8",
+        "date": "Wed, 14 Oct 2026 04:22:09 GMT",
+        "lastModified": "Wed, 14 Oct 2026 04:18:02 GMT",
+        "etag": null
+      },
+      "bytes": 6205,
+      "sha256": "ddb87170de388b56b6c194e55c15774c1043203c373c4dc7368596e3c26db7b9",
+      "containsFullReleaseCommit": true
+    },
+    "game": {
+      "url": "https://bryanhu.com/clash-royale-clone/game/public/index.html",
+      "status": 200,
+      "finalUrl": "https://bryanhu.com/clash-royale-clone/game/public/index.html",
+      "headers": {
+        "contentType": "text/html; charset=utf-8",
+        "date": "Wed, 14 Oct 2026 04:22:09 GMT",
+        "lastModified": "Wed, 14 Oct 2026 04:18:02 GMT",
+        "etag": null
+      },
+      "bytes": 11284,
+      "sha256": "3f761abf3c1ebbc9a52acd4dfadb64235e788980bf7d996db6aef3d17346cb8d"
+    },
+    "kilnkeeperPortrait": {
+      "url": "https://bryanhu.com/clash-royale-clone/game/public/assets/kilnkeeper-portrait-painted.webp",
+      "status": 200,
+      "finalUrl": "https://bryanhu.com/clash-royale-clone/game/public/assets/kilnkeeper-portrait-painted.webp",
+      "headers": {
+        "contentType": "image/webp",
+        "date": "Wed, 14 Oct 2026 04:22:09 GMT",
+        "lastModified": "Wed, 14 Oct 2026 04:18:02 GMT",
+        "etag": "\"6acf027a-1005a\""
+      },
+      "bytes": 65626,
+      "sha256": "38e9f64348fa823a64755fda2496b699c88c27c7dd0a14a440e704d9093d2240"
+    }
+  },
+  "checks": {
+    "landingHttp200": true,
+    "landingIdentifiesFullReleaseCommit": true,
+    "gameHttp200": true,
+    "portraitHttp200": true,
+    "portraitMatchesCheckedInBytes": true
+  }
+}

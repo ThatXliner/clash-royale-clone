@@ -1,0 +1,4 @@
+archive_dir="$(mktemp -d /private/tmp/coverage004-r5-critic.XXXXXX)"
+git archive 124c0b322efd6252a9d2bf6e5f891e4e3e7ff661 | tar -x -C "$archive_dir"
+cd "$archive_dir"
+node artifacts/coverage004-round-4/builder/check-guide-release.mjs > /Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/coverage004-round-5/critic/clean-archive.stdout.txt 2> /Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/coverage004-round-5/critic/clean-archive.stderr.txt
