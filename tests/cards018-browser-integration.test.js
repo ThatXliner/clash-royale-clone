@@ -216,8 +216,8 @@ test("Cards018 Ember Basin: editable collection enters real mixed battle and res
       join(ARTIFACTS, "custom-deck-phone-390x844.png"))), viewport: [390, 844] });
 
     await page.locator('.app-nav [data-nav-to="cards"]').click();
-    assert.equal(await page.locator("[data-card-grid] [data-card-id]").count(), 19,
-      "the released collection visibly contains exactly nineteen cards");
+    assert.equal(await page.locator("[data-card-grid] [data-card-id]").count(), 20,
+      "the released collection visibly contains exactly twenty cards");
     const emberCard = page.locator('[data-card-grid] [data-card-id="ember-basin"]');
     await emberCard.click();
     assert.equal(await page.locator("[data-card-detail] h2").innerText(), "Ember Basin");

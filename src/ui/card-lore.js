@@ -20,6 +20,7 @@ const CARD_LORE = Object.freeze({
   "gloamwing-cluster": "Gloamwings rise from the violet reeds at dusk to follow emberseeds down the riverbank. Five of them wheel around each warm spark until ferry bells call them home.",
   "coppershade-flock": "Coppershades roost in the offcuts piled outside the Rivermark river workshop. When the kiln wakes, all six glide over the canal and trade tiny sparks above their copper-lit nests.",
   "ember-basin": "The Ember Basin stands where the creek turns, its copper lip warmed by emberseeds carried down from the Moss & Ember workshop. At dusk, twin braces hold its long copper-ribbed launch channel above the water, ready to turn any unwelcome visitor away.",
+  kilnkeeper: "Kilnkeeper tends the warm river kilns where rootwood beams are steamed and copper vessels are shaped, keeping each emberseed dry between shifts. When raiders threaten the workshop, he loads one emberseed into his broad-mouthed launcher and sends a single burst of sparks skittering across the ground.",
 });
 
 export function getCardLore(cardId) {

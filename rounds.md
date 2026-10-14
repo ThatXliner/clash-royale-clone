@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 443 — 2026-10-13
+
+PIECE: CARDS-019D — Kilnkeeper collection portrait and lore, round 2
+
+VERDICT: PASS
+
+EVIDENCE: Independent b8c70ba/7f2c978 realChrome155 DPR1 phone390x844/desktop1440x933 normal+reduced: decoded512portrait at64/78CSSpx, exacttwo-sentence lore, caveat visible inviewport, source-backedcost5 distinct combatQUESTION, groundclassification retained. Default8/custom8/backfocus exact; old19 portrait/lore fingerprints unchanged. Details1/1, app-shell1/1, Cards0181/1, Pages5/5, assets6/6. All51release size/SHA match, protectedpaths absent. No content/sim delta;20priorQUESTION records exact andcurrent34 allunverified. Original portraitSHA38e9f643 unchanged. Evidence artifacts/cards019d-round-2/critic/. Collection slice only; full arena/historical parity unclaimed.
+
+BIGGEST GAP: No historical combat record establishes parity; combat values remain explicitly QUESTION and arena integration remains separately pending.
+
 ## Round 442 — 2026-10-13
 
 PIECE: COVERAGE-004 — Current release evidence guide, round 3

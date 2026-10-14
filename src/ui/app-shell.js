@@ -102,7 +102,11 @@ function questionClassificationCopy(entity) {
   const confidenceNote = provisionalFields.length === 1
     ? `The ${provisionalFields[0]} remains provisional for historical comparison.`
     : `The ${provisionalFields.join(" and ")} remain provisional for historical comparison.`;
-  return `Current game: ${layer} unit · ${delivery} attacks · targets ${targetLabel(entity.targetMode)}. ${confidenceNote}`;
+  const combatConfidenceNote = entity.archetypeId === "kilnkeeper" &&
+    entity.sourceConfidencePolicy?.fields?.length > 0
+    ? " The 5-elixir cost is source backed; combat values are unverified estimates and remain QUESTION for historical comparison."
+    : "";
+  return `Current game: ${layer} unit · ${delivery} attacks · targets ${targetLabel(entity.targetMode)}. ${confidenceNote}${combatConfidenceNote}`;
 }
 
 function descriptionFor(card) {

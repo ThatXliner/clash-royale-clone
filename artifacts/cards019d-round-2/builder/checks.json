@@ -1,0 +1,111 @@
+{
+  "sourceTestCandidateCommit": "7f2c978309d792059fdd09586ca8fbefc155a69c",
+  "browser": {
+    "name": "Google Chrome",
+    "version": "155.0.8059.40",
+    "deviceScaleFactor": 1,
+    "collectionCount": 20,
+    "portrait": {
+      "path": "public/assets/kilnkeeper-portrait-painted.webp",
+      "bytes": 65626,
+      "dimensions": [512, 512],
+      "sha256": "38e9f64348fa823a64755fda2496b699c88c27c7dd0a14a440e704d9093d2240"
+    },
+    "previousMappings": {
+      "portraitCount": 19,
+      "portraitSha256": "81c05bdd4e1f3cab949409ebccee575f29d4f3e1116fa3cbd5d9dddabc245dd3",
+      "loreSha256": "575ffb9a932b2e5d33c610539615e8bf94e925bbf1f82dee06384aa3f4407c05"
+    },
+    "caveat": "The 5-elixir cost is source backed; combat values are unverified estimates and remain QUESTION for historical comparison.",
+    "contexts": [
+      {
+        "name": "phone-normal",
+        "viewport": [390, 844],
+        "reducedMotion": "no-preference",
+        "caveatVisible": true,
+        "caveatRect": [30, 179, 360, 241],
+        "portraitCss": [64, 64],
+        "detailScreenshotSha256": "08df2fa01990e8786df03103da4b87f2e284cc8d26c77971d3d38c442940d356",
+        "customDeckIds": [
+          "kilnkeeper", "mossguard", "copperskiff", "skymaul",
+          "brassbolt", "reedsting", "briar-band", "cinderlings"
+        ]
+      },
+      {
+        "name": "phone-reduced",
+        "viewport": [390, 844],
+        "reducedMotion": "reduce",
+        "caveatVisible": true,
+        "caveatRect": [30, 179, 360, 241],
+        "portraitCss": [64, 64],
+        "detailScreenshotSha256": "08df2fa01990e8786df03103da4b87f2e284cc8d26c77971d3d38c442940d356"
+      },
+      {
+        "name": "desktop-normal",
+        "viewport": [1440, 933],
+        "reducedMotion": "no-preference",
+        "caveatVisible": true,
+        "caveatRect": [914.453125, 132, 1345.984375, 200.1875],
+        "portraitCss": [78, 78],
+        "detailScreenshotSha256": "7cbed9ca8ef8db6fc715caf61b5cf2f0cfe8fa950ec80aeeba98e9ece3a473bb"
+      },
+      {
+        "name": "desktop-reduced",
+        "viewport": [1440, 933],
+        "reducedMotion": "reduce",
+        "caveatVisible": true,
+        "caveatRect": [914.453125, 132, 1345.984375, 200.1875],
+        "portraitCss": [78, 78],
+        "detailScreenshotSha256": "eed51be97381734ef43fff035063601e30ea9067bfc3093c3f4296a879999f82"
+      }
+    ],
+    "contentSignatureSha256": "0405cda56d8950b5c291ae50f19fac424de6486fff9fcbb5aed1c57b245f8a69",
+    "releaseManifest": {
+      "fileCount": 51,
+      "sha256": "792fd37d3fdec89bcaa72a29ee9f4e1c6f4a730535710755f06453367b5087ab"
+    },
+    "browserErrors": []
+  },
+  "checks": [
+    {
+      "command": "node --test tests/cards019-card-details.test.js",
+      "result": "PASS",
+      "exitCode": 0,
+      "log": "test-cards019-final.log"
+    },
+    {
+      "command": "npm run test:app-shell",
+      "result": "PASS",
+      "exitCode": 0,
+      "log": "test-app-shell.log"
+    },
+    {
+      "command": "node --test tests/cards018-browser-integration.test.js",
+      "result": "PASS",
+      "exitCode": 0,
+      "log": "test-cards018.log"
+    },
+    {
+      "command": "npm run test:publication-pages",
+      "result": "PASS: 5 tests",
+      "exitCode": 0,
+      "log": "test-pages.log",
+      "browserRequests": 25,
+      "requestFailures": 0,
+      "browserErrors": 0,
+      "consoleErrors": 0,
+      "screenshot": "pages-painted-briar.png"
+    }
+  ],
+  "preexistingPagesBuilderEvidencePreserved": {
+    "artifacts/release-asset-round-1/builder/pages-painted-briar.png": {
+      "bytes": 989096,
+      "sha256BeforeAndAfter": "e19d8fa32236d5f999f8adf83edb572706db37af69619256837a0a7481e61a60"
+    },
+    "artifacts/release-asset-round-1/builder/pages-painted-briar.json": {
+      "bytes": 10308,
+      "sha256BeforeAndAfter": "f90e5c1c827609513f0856103d41a1441f748f401a705a26ee698afe5c7523b8"
+    }
+  },
+  "appPolishBaseline": "Not rerun. The independent round-1 critic records the same preexisting strict-mode data-replacement locator ambiguity on its parent and candidate."
+}

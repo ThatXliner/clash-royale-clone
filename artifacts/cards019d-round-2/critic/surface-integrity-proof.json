@@ -1,0 +1,259 @@
+{
+  "candidateCommit": "b8c70ba5325d53e2f376ce3108c3a87a6ccb9e92",
+  "sourceCommit": "7f2c978309d792059fdd09586ca8fbefc155a69c",
+  "baseCommit": "ddaf00e64eab6e1d314163fc5212b19f4398c8fd",
+  "kilnkeeper": {
+    "cost": 5,
+    "costIsOutsideCombatQuestions": true,
+    "layerPolicy": {
+      "kind": "question",
+      "questionKey": "kilnkeeper.layer"
+    },
+    "deliveryPolicy": {
+      "archetypeId": "kilnkeeper",
+      "cardId": "kilnkeeper",
+      "catalogId": "ordinary-projectile-splash-v1",
+      "delivery": "projectile",
+      "kind": "source-backed"
+    },
+    "values": {
+      "count": 1,
+      "hitpoints": 720,
+      "damage": 281,
+      "hitSpeedTicks": 84,
+      "firstHitTicks": 60,
+      "movementMillitilesPerSecond": 1000,
+      "rangeMillitiles": 5500,
+      "sightRangeMillitiles": 5500,
+      "targetMode": "ground-and-air"
+    },
+    "currentQuestionCount": 34,
+    "allCurrentQuestionsRemainUnverified": true,
+    "priorRoundQuestionCount": 20,
+    "priorQuestionsRemainExact": true
+  },
+  "legacyMappings": {
+    "portraitCount": 19,
+    "portraitRows": [
+      [
+        "coilblade",
+        "card-portraits-painted",
+        0
+      ],
+      [
+        "mossguard",
+        "card-portraits-painted",
+        1
+      ],
+      [
+        "copperskiff",
+        "card-portraits-painted",
+        2
+      ],
+      [
+        "skymaul",
+        "card-portraits-painted",
+        3
+      ],
+      [
+        "brassbolt",
+        "card-portraits-painted",
+        4
+      ],
+      [
+        "reedsting",
+        "card-portraits-painted",
+        5
+      ],
+      [
+        "briar-band",
+        "card-portraits-painted",
+        6
+      ],
+      [
+        "cinderlings",
+        "card-portraits-painted",
+        7
+      ],
+      [
+        "stonehauler",
+        "stonehauler-painted",
+        null
+      ],
+      [
+        "thornscouts",
+        "thornscouts-painted",
+        null
+      ],
+      [
+        "forgeguard",
+        "forgeguard-painted",
+        null
+      ],
+      [
+        "squall-orb",
+        "squall-orb-painted",
+        null
+      ],
+      [
+        "cinder-host",
+        "cinder-host-painted",
+        null
+      ],
+      [
+        "ironroot",
+        "ironroot-painted",
+        null
+      ],
+      [
+        "sunthread-pair",
+        "sunthread-pair-painted",
+        null
+      ],
+      [
+        "duskwing-trio",
+        "duskwing-trio-painted",
+        null
+      ],
+      [
+        "gloamwing-cluster",
+        "gloamwing-cluster-painted",
+        null
+      ],
+      [
+        "coppershade-flock",
+        "coppershade-flock-painted",
+        null
+      ],
+      [
+        "ember-basin",
+        "ember-basin-portrait-painted-v2",
+        null
+      ]
+    ],
+    "portraitSha256": "81c05bdd4e1f3cab949409ebccee575f29d4f3e1116fa3cbd5d9dddabc245dd3",
+    "loreRows": [
+      [
+        "coilblade",
+        "A clockwork duelist was assembled from a cracked kiln bell and copper from the old riverworks. At dusk, its blade catches the forge light like a thin line of sunrise."
+      ],
+      [
+        "mossguard",
+        "This grove keeper wears a shield cut from an old bough, with leaves pressed into the grain. Each leaf marks a trail the woodland guides promised to keep clear."
+      ],
+      [
+        "copperskiff",
+        "The little airship began as a copper kettle patched into a hull beside the mill. Its canvas sail still carries the scent of river rain."
+      ],
+      [
+        "skymaul",
+        "A stone wanderer drifted down from the cloud shelf, carrying a hammer left behind by the first valley smith. Copper bands around its arms keep little chips of rock from tumbling loose."
+      ],
+      [
+        "brassbolt",
+        "The ranger made a crossbow from a brass hinge and a piece of bell metal. Amber fletching on each bolt points home to the lanterns of the foundry."
+      ],
+      [
+        "reedsting",
+        "A marsh pathfinder ties reeds into a hood and the cords of each arrow. Small stitched marks on the lining count every crossing through the river grass."
+      ],
+      [
+        "briar-band",
+        "The runners and darters met in a thorn maze and chose the same leaf mark for their masks. They leave chalk arrows on the stumps so the next scout can find the way out."
+      ],
+      [
+        "cinderlings",
+        "Three ember sprouts woke beneath a fallen lantern in a bed of ash. They gather sparks in nutshell caps and leave tiny lights along the stones."
+      ],
+      [
+        "stonehauler",
+        "This broad pack carrier is built around a core of quarry stone, wrapped in weathered rootwood. Copper bells on its straps ring out when it reaches the river workshops."
+      ],
+      [
+        "thornscouts",
+        "The four Thornscouts mark safe crossings with tiny cuts in their light blades. Pale leaf masks turn their faces into a blur among the fern paths."
+      ],
+      [
+        "forgeguard",
+        "Five Forgeguard keep the river workshops supplied with hammers and axes. Their copper aprons darken at the seams, but each hammer tap keeps the old bridge pins true."
+      ],
+      [
+        "squall-orb",
+        "Rivermark glassblowers formed the Squall Orb from stormglass swept downstream after a spring squall. Its copper collar rests on the foundry shelf, where apprentices mark the days they carried its bright shards through the rain."
+      ],
+      [
+        "cinder-host",
+        "Fifteen ember sprouts gathered in the ash beds when the Rivermark kiln first cooled for winter. At dawn, their scorched nutshell caps made a bright trail from the woodpile to the workshop door."
+      ],
+      [
+        "ironroot",
+        "The oak beside Emberfall’s old foundry split when an ironstone seam surfaced through its roots. Rivermark smiths bound its crooked trunk with hammered copper and cut a broad blade from the dark seam."
+      ],
+      [
+        "sunthread-pair",
+        "When emberseed lights began appearing above the Rivermark root bridges, two woodland wardens braided copper thread through their yew bows so travelers could follow each safe trail. At dusk, the Sunthread Pair trade watch from the amber-lit fern paths and send warning arrows toward any lantern lost in the trees."
+      ],
+      [
+        "duskwing-trio",
+        "Three owl-moths hatched from a reed basket warmed beside an emberseed stove at the Emberfall river workshop. Each twilight they carry the seed’s tiny glow through the fern hollows, guiding Rivermark ferrymakers home above the water."
+      ],
+      [
+        "gloamwing-cluster",
+        "Gloamwings rise from the violet reeds at dusk to follow emberseeds down the riverbank. Five of them wheel around each warm spark until ferry bells call them home."
+      ],
+      [
+        "coppershade-flock",
+        "Coppershades roost in the offcuts piled outside the Rivermark river workshop. When the kiln wakes, all six glide over the canal and trade tiny sparks above their copper-lit nests."
+      ],
+      [
+        "ember-basin",
+        "The Ember Basin stands where the creek turns, its copper lip warmed by emberseeds carried down from the Moss & Ember workshop. At dusk, twin braces hold its long copper-ribbed launch channel above the water, ready to turn any unwelcome visitor away."
+      ]
+    ],
+    "loreSha256": "575ffb9a932b2e5d33c610539615e8bf94e925bbf1f82dee06384aa3f4407c05"
+  },
+  "approvedStory": {
+    "text": "Kilnkeeper tends the warm river kilns where rootwood beams are steamed and copper vessels are shaped, keeping each emberseed dry between shifts. When raiders threaten the workshop, he loads one emberseed into his broad-mouthed launcher and sends a single burst of sparks skittering across the ground.",
+    "sentenceCount": 2
+  },
+  "asset": {
+    "path": "public/assets/kilnkeeper-portrait-painted.webp",
+    "sourcePng": {
+      "path": "demo/assets/kilnkeeper-portrait.png",
+      "bytes": 2659340,
+      "dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "sha256": "f4062cfc51764726d97e3c901450ff3ae0dc8b0e25bcabd87eabc469dbf4bf4d"
+    },
+    "shipped": {
+      "bytes": 65626,
+      "dimensions": {
+        "height": 512,
+        "width": 512
+      },
+      "sha256": "38e9f64348fa823a64755fda2496b699c88c27c7dd0a14a440e704d9093d2240",
+      "manifest": {
+        "authorship": "in-repo-authored",
+        "byteLength": 65626,
+        "dimensions": {
+          "height": 512,
+          "width": 512
+        },
+        "format": "webp",
+        "id": "kilnkeeper-portrait-painted",
+        "kind": "image",
+        "license": "AGPL-3.0-only",
+        "path": "assets/kilnkeeper-portrait-painted.webp",
+        "sha256": "38e9f64348fa823a64755fda2496b699c88c27c7dd0a14a440e704d9093d2240"
+      }
+    },
+    "provenance": {
+      "authorship": "in-repo-authored",
+      "generation_tool": "built-in imagegen",
+      "input_images": [],
+      "license": "AGPL-3.0-only"
+    }
+  }
+}

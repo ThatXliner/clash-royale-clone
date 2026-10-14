@@ -52,6 +52,7 @@ const EXPECTED_INDIVIDUAL_PORTRAIT_IDS = Object.freeze([
   "duskwing-trio",
   "gloamwing-cluster",
   "coppershade-flock",
+  "kilnkeeper",
   "squall-orb",
   "ember-basin",
 ]);
@@ -67,7 +68,7 @@ const EXPECTED_COLLECTION_IDS = Object.freeze([
   ...EXPECTED_DEFAULT_ROSTER_IDS,
   ...EXPECTED_INDIVIDUAL_PORTRAIT_IDS,
 ]);
-const EXPECTED_COLLECTION_COUNT = 19;
+const EXPECTED_COLLECTION_COUNT = 20;
 const CARD_PORTRAIT_SCREENSHOTS = Object.freeze([
   "desktop-card-portraits-1440x933.png",
   "desktop-card-details-1440x933.png",
@@ -130,7 +131,11 @@ function expectedQuestionClassification(entity) {
   const confidenceNote = provisionalFields.length === 1
     ? `The ${provisionalFields[0]} remains provisional for historical comparison.`
     : `The ${provisionalFields.join(" and ")} remain provisional for historical comparison.`;
-  return `Current game: ${layer} unit · ${delivery} attacks · targets ${target}. ${confidenceNote}`;
+  const combatConfidenceNote = entity.archetypeId === "kilnkeeper" &&
+    entity.sourceConfidencePolicy?.fields?.length > 0
+    ? " The 5-elixir cost is source backed; combat values are unverified estimates and remain QUESTION for historical comparison."
+    : "";
+  return `Current game: ${layer} unit · ${delivery} attacks · targets ${target}. ${confidenceNote}${combatConfidenceNote}`;
 }
 
 async function renderedProfiles(page) {
@@ -331,9 +336,9 @@ test("player shell renders roster-derived cards and launches a paused shared bat
         .filter((id) => id !== "squall-orb" && id !== "ember-basin")],
     "the independently expected troop collection contains the completed source roster");
     assert.deepEqual(EDITABLE_MIXED_DECK_CARD_IDS, EXPECTED_COLLECTION_IDS,
-      "the editable mixed collection adds Squall Orb and Ember Basin to the eighteen-card pool");
+      "the editable mixed collection adds Squall Orb and Ember Basin to the nineteen-card pool");
     assert.equal(EXPECTED_COLLECTION_IDS.length, EXPECTED_COLLECTION_COUNT,
-      "the mixed editable collection has exactly nineteen supported cards");
+      "the mixed editable collection has exactly twenty supported cards");
     await page.goto(`${origin}/public/index.html`, { waitUntil: "networkidle" });
     assert.equal(await page.title(), "Moss & Ember — Card battler");
     assert.equal(await page.locator(".app-nav [data-nav-to]").count(), 4);
@@ -498,6 +503,7 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       ["duskwing-trio", "public/assets/duskwing-trio-painted.webp"],
       ["gloamwing-cluster", "public/assets/gloamwing-cluster-painted.webp"],
       ["coppershade-flock", "public/assets/coppershade-flock-painted.webp"],
+      ["kilnkeeper", "public/assets/kilnkeeper-portrait-painted.webp"],
       ["squall-orb", "public/assets/squall-orb-painted.webp"],
       ["ember-basin", "public/assets/ember-basin-portrait-painted-v2.webp"],
     ].map(([id, path]) => [id, manifest.files.find((file) => file.path === path)]));
