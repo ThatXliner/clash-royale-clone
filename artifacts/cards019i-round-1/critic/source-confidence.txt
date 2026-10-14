@@ -1,0 +1,11 @@
+Pinned source uncertainty review
+
+reference/stats/SOURCES.md identifies RoyaleAPI commit 54fdef52c5086393b085f57faeeab8ef86b28160, snapshot 2023-02-18. It says card data is a historical reconstruction and per-value second-source status is listed in unverified_fields; it notes datamine tournament level 11 is Rare index 8.
+
+Normalized reference/stats/cards.json has no Kilnkeeper. Its Wizard row has damage 281, area_damage_radius_tiles null, and damage among its unverified_fields: true.
+
+The candidate cites raw pinned docs/json/cards_stats_projectile.json#chr_wizardProjectile (whole-file SHA-256 c883516f54f6c17ee77c15cf484b01da9ded22602214c3b0d42b1ab823bd3197) and docs/json/cards_stats_characters.json#wizard. The raw projectile record has damage_per_level index 8 = 281, radius=1500, homing=true, speed=600, aoe_to_air=true, aoe_to_ground=true, only_enemies=true. Source URI: https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats_projectile.json .
+
+Candidate labels those source facts and all Kilnkeeper-specific runtime policy fields as unverified / QUESTION in src/shared/session-troop-source-confidence-authority.js. The current 281/radius values therefore support only the question profile; they are not promoted to historical Kilnkeeper behavior. reference/footage contains only NEEDED.md and no gameplay evidence for this card, so historical visual/mechanical parity remains QUESTION.
+
+Final source hash comparison: 39/39 unchanged; changed=0.

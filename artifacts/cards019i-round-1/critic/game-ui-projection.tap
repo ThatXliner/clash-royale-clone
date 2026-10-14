@@ -1,0 +1,176 @@
+
+> moss-and-ember@0.0.0 test:game-ui-projection
+> node tests/game-ui-projection-runner.js game-ui-projection
+
+TAP version 13
+# Subtest: game UI projection: one authentic session frame commits all four matching ticks
+ok 1 - game UI projection: one authentic session frame commits all four matching ticks
+  ---
+  duration_ms: 47.102667
+  type: 'test'
+  ...
+# Subtest: game UI projection: mismatched and backward canonical frames preserve every DOM byte
+ok 2 - game UI projection: mismatched and backward canonical frames preserve every DOM byte
+  ---
+  duration_ms: 41.179792
+  type: 'test'
+  ...
+# Subtest: game UI projection: hostile frames and accessors execute nothing and write nothing
+ok 3 - game UI projection: hostile frames and accessors execute nothing and write nothing
+  ---
+  duration_ms: 10.944458
+  type: 'test'
+  ...
+# Subtest: game UI projection: staging and commit failures roll back all live layers
+ok 4 - game UI projection: staging and commit failures roll back all live layers
+  ---
+  duration_ms: 19.165625
+  type: 'test'
+  ...
+# Subtest: game UI projection: combat mutate-then-throw rolls back itself and prior layers
+ok 5 - game UI projection: combat mutate-then-throw rolls back itself and prior layers
+  ---
+  duration_ms: 18.7095
+  type: 'test'
+  ...
+# Subtest: game UI projection: effects mutate-then-throw rolls back itself and prior layers
+ok 6 - game UI projection: effects mutate-then-throw rolls back itself and prior layers
+  ---
+  duration_ms: 17.486125
+  type: 'test'
+  ...
+# Subtest: game UI projection: feedback mutate-then-throw rolls back itself and prior layers
+ok 7 - game UI projection: feedback mutate-then-throw rolls back itself and prior layers
+  ---
+  duration_ms: 17.035958
+  type: 'test'
+  ...
+# Subtest: game UI projection: hud mutate-then-throw rolls back itself and prior layers
+ok 8 - game UI projection: hud mutate-then-throw rolls back itself and prior layers
+  ---
+  duration_ms: 16.577667
+  type: 'test'
+  ...
+# Subtest: game UI projection: before host failure restores exact child identities and recovers
+ok 9 - game UI projection: before host failure restores exact child identities and recovers
+  ---
+  duration_ms: 25.804291
+  type: 'test'
+  ...
+# Subtest: game UI projection: one host failure restores exact child identities and recovers
+ok 10 - game UI projection: one host failure restores exact child identities and recovers
+  ---
+  duration_ms: 23.302292
+  type: 'test'
+  ...
+# Subtest: game UI projection: all host failure restores exact child identities and recovers
+ok 11 - game UI projection: all host failure restores exact child identities and recovers
+  ---
+  duration_ms: 21.749875
+  type: 'test'
+  ...
+# Subtest: game UI projection: empty host failure restores exact child identities and recovers
+ok 12 - game UI projection: empty host failure restores exact child identities and recovers
+  ---
+  duration_ms: 24.684166
+  type: 'test'
+  ...
+# Subtest: game UI projection: an empty prior DOM rolls back and accepts a later update
+ok 13 - game UI projection: an empty prior DOM rolls back and accepts a later update
+  ---
+  duration_ms: 17.67525
+  type: 'test'
+  ...
+# Subtest: game UI projection: restoration failure poisons the mount without later writes
+ok 14 - game UI projection: restoration failure poisons the mount without later writes
+  ---
+  duration_ms: 22.016
+  type: 'test'
+  ...
+# Subtest: game UI projection: composition rejects every hostile proxy class without callbacks
+ok 15 - game UI projection: composition rejects every hostile proxy class without callbacks
+  ---
+  duration_ms: 0.746666
+  type: 'test'
+  ...
+# Subtest: game UI projection: options reject every hostile proxy class without callbacks
+ok 16 - game UI projection: options reject every hostile proxy class without callbacks
+  ---
+  duration_ms: 9.49875
+  type: 'test'
+  ...
+# Subtest: game UI projection: frame creation mints once and performs zero session restores
+ok 17 - game UI projection: frame creation mints once and performs zero session restores
+  ---
+  duration_ms: 9.220167
+  type: 'test'
+  ...
+# Subtest: game UI projection: combat frame and mount never read raw replay authorities
+ok 18 - game UI projection: combat frame and mount never read raw replay authorities
+  ---
+  duration_ms: 18.060375
+  type: 'test'
+  ...
+# Subtest: game UI projection: terminal feedback never reads raw producer authorities
+ok 19 - game UI projection: terminal feedback never reads raw producer authorities
+  ---
+  duration_ms: 17171.741875
+  type: 'test'
+  ...
+# Subtest: game UI projection: tower health denominators come from the authoritative snapshot
+ok 20 - game UI projection: tower health denominators come from the authoritative snapshot
+  ---
+  duration_ms: 11.766708
+  type: 'test'
+  ...
+# Subtest: game UI projection: tick-120 live replay normalizes identically across chunks and restore
+ok 21 - game UI projection: tick-120 live replay normalizes identically across chunks and restore
+  ---
+  duration_ms: 505.568917
+  type: 'test'
+  ...
+# Subtest: game UI projection: authentic projectile lifecycle keeps exact IDs, ticks, and order
+ok 22 - game UI projection: authentic projectile lifecycle keeps exact IDs, ticks, and order
+  ---
+  duration_ms: 546.584833
+  type: 'test'
+  ...
+# Subtest: game UI projection: seed-2 live terminal clears dead targets and is chunk/restore exact
+ok 23 - game UI projection: seed-2 live terminal clears dead targets and is chunk/restore exact
+  ---
+  duration_ms: 28377.941333
+  type: 'test'
+  ...
+# Subtest: game UI projection: stale same-tick frame cannot replace newer selected-card bytes
+ok 24 - game UI projection: stale same-tick frame cannot replace newer selected-card bytes
+  ---
+  duration_ms: 10.661084
+  type: 'test'
+  ...
+# Subtest: game UI projection: cleanup is idempotent and rejects later projection
+ok 25 - game UI projection: cleanup is idempotent and rejects later projection
+  ---
+  duration_ms: 9.219417
+  type: 'test'
+  ...
+# Subtest: game UI projection: a real terminal session drives the match overlay at tick 18000
+ok 26 - game UI projection: a real terminal session drives the match overlay at tick 18000
+  ---
+  duration_ms: 17956.317083
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper UI projectile follows the authenticated live position through restore
+ok 27 - Kilnkeeper UI projectile follows the authenticated live position through restore
+  ---
+  duration_ms: 3040.236542
+  type: 'test'
+  ...
+1..27
+# tests 27
+# suites 0
+# pass 27
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 68165.232666

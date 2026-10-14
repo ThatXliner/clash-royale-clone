@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 445 — 2026-10-13
+
+PIECE: CARDS-019I — Kilnkeeper arena integration, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Independent exact32c clean Chrome four contexts1/1, projection27/27, effects11/11, state13/13, assets6/6, release22/22, ordinary25/25, details1/1 pass; live pending past plannedarrival and281contact/radius1500 ring verified. Source39/39 unchanged. Restart suite2/3 fails line250: expected1listener actual2 afterrestoresecondrestart. K browser journey only replaces deck inphone-normal and omits terminal controller.restart/audio assertions. Evidence artifacts/cards019i-round-1/critic/. Candidate product not adopted.
+
+BIGGEST GAP: Round445 FAIL: same-custom-deck terminal restart/audio/event proof missing acrossfourcontexts; actual restart afterrestore duplicates listener2vs1. Builder reproduces accepted baseline andcandidate totrace cause, then repairs proof/rootcause; no arena adoption.
+
 ## Round 444 — 2026-10-13
 
 PIECE: APP-004G — Expanded-collection polish verification

@@ -1,0 +1,11 @@
+Source pre/post verification
+
+Candidate: 32c31da5269391cc0f6766cfacc0c78f0982fa5d (parent bf1e6120196db8a2927ce6ae893812e4c9b1115d)
+Checkout: /tmp/cards019i-critic-32c31da (detached, private critic worktree)
+Prehash receipt: source-pre.sha256
+Posthash receipt: source-post.sha256
+Comparison: all 39/39 listed tracked candidate/builder evidence files have identical SHA-256 before and after review; changed source/test files: 0.
+
+Working tree before tests: clean (checkout-status-before.txt). After the release-build suite, only four tracked generated files under artifacts/release-001b-round-2 were dirty in the private checkout; no source or test file was modified. Those generated changes remain private.
+
+Raw TAP receipts are retained in this directory. No test artifacts were written into the shared root checkout; visual/evidence receipts were written only under artifacts/cards019i-round-1/critic.

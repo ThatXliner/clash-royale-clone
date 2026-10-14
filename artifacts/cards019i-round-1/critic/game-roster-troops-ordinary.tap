@@ -1,0 +1,164 @@
+
+> moss-and-ember@0.0.0 test:game-roster-troops-ordinary
+> node tests/game-roster-troops-ordinary-runner.js game-roster-troops-ordinary
+
+TAP version 13
+# Subtest: ordinary troop projection domain is exactly the admitted profile surface
+ok 1 - ordinary troop projection domain is exactly the admitted profile surface
+  ---
+  duration_ms: 1.432
+  type: 'test'
+  ...
+# Subtest: every projection is complete, source-agreeing, ordinary-only, and component-stable
+ok 2 - every projection is complete, source-agreeing, ordinary-only, and component-stable
+  ---
+  duration_ms: 4.799334
+  type: 'test'
+  ...
+# Subtest: every witness closes its exact questions, cards, and archetypes through LiveBattle admission
+ok 3 - every witness closes its exact questions, cards, and archetypes through LiveBattle admission
+  ---
+  duration_ms: 94.805917
+  type: 'test'
+  ...
+# Subtest: ordinary projectile delivery admits only its exact four source tuples and rejects forged restore claims
+ok 4 - ordinary projectile delivery admits only its exact four source tuples and rejects forged restore claims
+  ---
+  duration_ms: 63.256042
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper source questions and splash profile reject forged setup and pending snapshots
+ok 5 - Kilnkeeper source questions and splash profile reject forged setup and pending snapshots
+  ---
+  duration_ms: 2173.127875
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper follows moving ground and air targets through shared-host restore and fork
+ok 6 - Kilnkeeper follows moving ground and air targets through shared-host restore and fork
+  ---
+  duration_ms: 1645.407667
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper's pending homing projectile fizzles once when its locked target dies
+ok 7 - Kilnkeeper's pending homing projectile fizzles once when its locked target dies
+  ---
+  duration_ms: 2253.671292
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper's launched homing projectile continues after its source dies and restores exactly
+ok 8 - Kilnkeeper's launched homing projectile continues after its source dies and restores exactly
+  ---
+  duration_ms: 1060.660041
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper follows its locked target after it leaves the launch-origin range
+ok 9 - Kilnkeeper follows its locked target after it leaves the launch-origin range
+  ---
+  duration_ms: 4764.065042
+  type: 'test'
+  ...
+# Subtest: ordinary splash plans stable mixed troop, building, and tower contacts without a duplicate primary
+ok 10 - ordinary splash plans stable mixed troop, building, and tower contacts without a duplicate primary
+  ---
+  duration_ms: 0.813208
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper damages bounded enemy splash victims through GameSession and restores in flight
+ok 11 - Kilnkeeper damages bounded enemy splash victims through GameSession and restores in flight
+  ---
+  duration_ms: 1512.224833
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper GameSession impacts damage an enemy building once through canonical external contact
+ok 12 - Kilnkeeper GameSession impacts damage an enemy building once through canonical external contact
+  ---
+  duration_ms: 2792.231959
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper GameSession crown-tower impact resolves exactly one primary contact
+ok 13 - Kilnkeeper GameSession crown-tower impact resolves exactly one primary contact
+  ---
+  duration_ms: 876.923084
+  type: 'test'
+  ...
+# Subtest: Sunthread Pair and Duskwing Trio trade sourced air/ground projectiles through in-flight restore
+ok 14 - Sunthread Pair and Duskwing Trio trade sourced air/ground projectiles through in-flight restore
+  ---
+  duration_ms: 2128.33625
+  type: 'test'
+  ...
+# Subtest: legacy HTO projections are detached exact playable cards plus ordinary policies
+ok 15 - legacy HTO projections are detached exact playable cards plus ordinary policies
+  ---
+  duration_ms: 2.715375
+  type: 'test'
+  ...
+# Subtest: all official witnesses use uniform HTO policies with exact projection counts
+ok 16 - all official witnesses use uniform HTO policies with exact projection counts
+  ---
+  duration_ms: 8.096458
+  type: 'test'
+  ...
+# Subtest: playable roster preserves its estimates and records Briar Band's sourced member interval
+ok 17 - playable roster preserves its estimates and records Briar Band's sourced member interval
+  ---
+  duration_ms: 13.89775
+  type: 'test'
+  ...
+# Subtest: legacy delivery/layer policy and QUESTION tampering rejects atomically
+ok 18 - legacy delivery/layer policy and QUESTION tampering rejects atomically
+  ---
+  duration_ms: 90.903459
+  type: 'test'
+  ...
+# Subtest: paired ordinary-policy omission rejects every one of the 38 entity projections
+ok 19 - paired ordinary-policy omission rejects every one of the 38 entity projections
+  ---
+  duration_ms: 256.36225
+  type: 'test'
+  ...
+# Subtest: removing all ordinary policies from one card rejects a partially downgraded roster
+ok 20 - removing all ordinary policies from one card rejects a partially downgraded roster
+  ---
+  duration_ms: 48.095166
+  type: 'test'
+  ...
+# Subtest: a genuine legacy card cannot be mixed with seven HTO policy-backed cards
+ok 21 - a genuine legacy card cannot be mixed with seven HTO policy-backed cards
+  ---
+  duration_ms: 6.48875
+  type: 'test'
+  ...
+# Subtest: all admitted troop witnesses use one shared LiveBattle deployment and entity expansion
+ok 22 - all admitted troop witnesses use one shared LiveBattle deployment and entity expansion
+  ---
+  duration_ms: 1577.954375
+  type: 'test'
+  ...
+# Subtest: fully HTO LiveBattle setup deploys, restores, and forks exactly
+ok 23 - fully HTO LiveBattle setup deploys, restores, and forks exactly
+  ---
+  duration_ms: 19.420542
+  type: 'test'
+  ...
+# Subtest: representative ordinary projection is chunk, fork, and restore exact
+ok 24 - representative ordinary projection is chunk, fork, and restore exact
+  ---
+  duration_ms: 3669.147084
+  type: 'test'
+  ...
+# Subtest: projection APIs reject hostile identities before callbacks and return detached frozen values
+ok 25 - projection APIs reject hostile identities before callbacks and return detached frozen values
+  ---
+  duration_ms: 1.170708
+  type: 'test'
+  ...
+1..25
+# tests 25
+# suites 0
+# pass 25
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 25255.303291
