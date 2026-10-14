@@ -1,0 +1,1490 @@
+{
+  "diagnostic": "FRAME-RESTORE001",
+  "candidateCommit": "8983794bdba940cc8232bdfe1d6181a823776916",
+  "privateCheckout": "/private/tmp/frame-layer-ablation-898",
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "deviceScaleFactor": 1
+  },
+  "pageFrame": {
+    "x": 14.25,
+    "y": 117,
+    "width": 337.5,
+    "height": 600
+  },
+  "emulatedReducedMotion": true,
+  "baselineAndAblationUsedSamePage": true,
+  "restoreCount": {
+    "baseline": 1,
+    "ablation": 1
+  },
+  "checkpointSha256": "69b9da6a2a55a445046891e312c0772f9af6215c0205224f68239c6947cb6814",
+  "checkpointTick": 171,
+  "actualAttack": {
+    "attack": {
+      "attackerId": 1,
+      "sequence": 1,
+      "targetId": 9,
+      "tick": 170
+    },
+    "damage": {
+      "amount": 120,
+      "currentHealthBefore": 81,
+      "currentHealthAfter": 0,
+      "delivery": "melee",
+      "targetId": 9,
+      "tick": 170
+    },
+    "source": {
+      "id": 1,
+      "side": "south",
+      "archetypeId": "briar-runner",
+      "delivery": "melee",
+      "alive": true,
+      "hitpoints": 121,
+      "attackSequence": 1
+    },
+    "frame": {
+      "action": "attack",
+      "animationAge": 1,
+      "sourceClass": "melee",
+      "sourceId": 1,
+      "sourceSequence": 1,
+      "sourceTick": 170,
+      "tick": 171,
+      "reducedMotion": "true"
+    },
+    "sessionTick": 171
+  },
+  "stableCaptures": {
+    "beforeBaseline": {
+      "stable": true,
+      "count": 2
+    },
+    "afterBaseline": {
+      "stable": true,
+      "count": 2
+    },
+    "afterAblation": {
+      "stable": true,
+      "count": 2
+    }
+  },
+  "baselineRestoreDiff": {
+    "dimensions": [
+      390,
+      844
+    ],
+    "differingPixelCount": 1,
+    "maximumChannelDelta": 1,
+    "boundingBox": {
+      "minX": 94,
+      "minY": 660,
+      "maxX": 94,
+      "maxY": 660
+    },
+    "firstDifferingPixels": [
+      {
+        "x": 94,
+        "y": 660,
+        "before": [
+          98,
+          104,
+          89,
+          255
+        ],
+        "after": [
+          98,
+          104,
+          88,
+          255
+        ]
+      }
+    ]
+  },
+  "ablationVsBaselineDiff": {
+    "dimensions": [
+      390,
+      844
+    ],
+    "differingPixelCount": 0,
+    "maximumChannelDelta": 0,
+    "boundingBox": null,
+    "firstDifferingPixels": []
+  },
+  "fingerprints": {
+    "beforeBaseline": {
+      "outer": {
+        "activeElement": {
+          "tag": "IFRAME",
+          "className": "battle-frame"
+        },
+        "frameRect": {
+          "x": 14.25,
+          "y": 117,
+          "width": 337.5,
+          "height": 600
+        },
+        "nav": [
+          {
+            "target": "home",
+            "ariaCurrent": null,
+            "className": ""
+          },
+          {
+            "target": "deck",
+            "ariaCurrent": null,
+            "className": ""
+          },
+          {
+            "target": "cards",
+            "ariaCurrent": null,
+            "className": ""
+          },
+          {
+            "target": "battle",
+            "ariaCurrent": "page",
+            "className": "nav-battle"
+          }
+        ],
+        "scroll": {
+          "x": 0,
+          "y": 0
+        },
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "dpr": 1
+        }
+      },
+      "inner": {
+        "tick": 171,
+        "controllerState": {
+          "active": true,
+          "backlogTicks": 0,
+          "domTick": 171,
+          "enduranceActive": false,
+          "terminalPresentationTick": 0,
+          "terminalPresentationRunning": false,
+          "paused": false,
+          "running": false,
+          "scheduled": false,
+          "selectedCardId": null,
+          "sessionTick": 171,
+          "terminal": false,
+          "restartCount": 0
+        },
+        "serializedSha256": "69b9da6a2a55a445046891e312c0772f9af6215c0205224f68239c6947cb6814",
+        "fonts": "loaded",
+        "mediaReducedMotion": true,
+        "activeElement": {
+          "tag": "BODY",
+          "id": "",
+          "cardId": null,
+          "className": ""
+        },
+        "card": {
+          "html": "<div class=\"card-slot\" data-ui=\"card-slot\" aria-label=\"Card slot 1\" data-card-id=\"brassbolt\"></div>",
+          "text": "",
+          "attributes": [
+            [
+              "class",
+              "card-slot"
+            ],
+            [
+              "data-ui",
+              "card-slot"
+            ],
+            [
+              "aria-label",
+              "Card slot 1"
+            ],
+            [
+              "data-card-id",
+              "brassbolt"
+            ]
+          ],
+          "focus": false,
+          "focusVisible": false,
+          "hover": false,
+          "style": {
+            "rect": {
+              "x": 185,
+              "y": 1121,
+              "width": 112,
+              "height": 128
+            },
+            "offset": {
+              "width": 112,
+              "height": 128
+            },
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "willChange": "auto",
+            "boxShadow": "none",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderColor": "rgb(255, 255, 255)",
+            "borderWidth": "0px",
+            "borderStyle": "none",
+            "transitionProperty": "all",
+            "transitionDuration": "0s",
+            "animationName": "none",
+            "animationDuration": "0s"
+          },
+          "parentStyle": {
+            "rect": {
+              "x": 54,
+              "y": 1114,
+              "width": 612,
+              "height": 140
+            },
+            "offset": {
+              "width": 612,
+              "height": 140
+            },
+            "transform": "none",
+            "willChange": "auto",
+            "boxShadow": "rgba(244, 235, 214, 0.3) 0px 0px 0px 2px inset, rgba(25, 29, 34, 0.533) 0px 6px 0px 0px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderColor": "rgb(25, 29, 34)",
+            "borderWidth": "3px",
+            "borderStyle": "solid",
+            "transitionProperty": "all",
+            "transitionDuration": "0s",
+            "animationName": "none",
+            "animationDuration": "0s"
+          },
+          "before": {
+            "content": "none",
+            "background-color": "rgba(0, 0, 0, 0)",
+            "border-color": "rgb(255, 255, 255)",
+            "box-shadow": "none",
+            "transform": "none",
+            "animation-name": "none",
+            "transition-duration": "0s"
+          },
+          "after": {
+            "content": "none",
+            "background-color": "rgba(0, 0, 0, 0)",
+            "border-color": "rgb(255, 255, 255)",
+            "box-shadow": "none",
+            "transform": "none",
+            "animation-name": "none",
+            "transition-duration": "0s"
+          }
+        },
+        "allCardSlots": [
+          {
+            "cardId": "brassbolt",
+            "style": {
+              "rect": {
+                "x": 185,
+                "y": 1121,
+                "width": 112,
+                "height": 128
+              },
+              "offset": {
+                "width": 112,
+                "height": 128
+              },
+              "transform": "matrix(1, 0, 0, 1, 0, 0)",
+              "willChange": "auto",
+              "boxShadow": "none",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderColor": "rgb(255, 255, 255)",
+              "borderWidth": "0px",
+              "borderStyle": "none",
+              "transitionProperty": "all",
+              "transitionDuration": "0s",
+              "animationName": "none",
+              "animationDuration": "0s"
+            },
+            "focus": false,
+            "hover": false
+          },
+          {
+            "cardId": "cinderlings",
+            "style": {
+              "rect": {
+                "x": 305,
+                "y": 1121,
+                "width": 112,
+                "height": 128
+              },
+              "offset": {
+                "width": 112,
+                "height": 128
+              },
+              "transform": "matrix(1, 0, 0, 1, 0, 0)",
+              "willChange": "auto",
+              "boxShadow": "none",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderColor": "rgb(255, 255, 255)",
+              "borderWidth": "0px",
+              "borderStyle": "none",
+              "transitionProperty": "all",
+              "transitionDuration": "0s",
+              "animationName": "none",
+              "animationDuration": "0s"
+            },
+            "focus": false,
+            "hover": false
+          },
+          {
+            "cardId": "reedsting",
+            "style": {
+              "rect": {
+                "x": 425,
+                "y": 1121,
+                "width": 112,
+                "height": 128
+              },
+              "offset": {
+                "width": 112,
+                "height": 128
+              },
+              "transform": "matrix(1, 0, 0, 1, 0, 0)",
+              "willChange": "auto",
+              "boxShadow": "none",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderColor": "rgb(255, 255, 255)",
+              "borderWidth": "0px",
+              "borderStyle": "none",
+              "transitionProperty": "all",
+              "transitionDuration": "0s",
+              "animationName": "none",
+              "animationDuration": "0s"
+            },
+            "focus": false,
+            "hover": false
+          },
+          {
+            "cardId": "copperskiff",
+            "style": {
+              "rect": {
+                "x": 545,
+                "y": 1121,
+                "width": 112,
+                "height": 128
+              },
+              "offset": {
+                "width": 112,
+                "height": 128
+              },
+              "transform": "matrix(1, 0, 0, 1, 0, 0)",
+              "willChange": "auto",
+              "boxShadow": "none",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderColor": "rgb(255, 255, 255)",
+              "borderWidth": "0px",
+              "borderStyle": "none",
+              "transitionProperty": "all",
+              "transitionDuration": "0s",
+              "animationName": "none",
+              "animationDuration": "0s"
+            },
+            "focus": false,
+            "hover": false
+          }
+        ],
+        "audio": {
+          "text": "Sound on",
+          "pressed": "false",
+          "label": "Mute audio",
+          "html": "<button class=\"audio-toggle\" type=\"button\" data-ui=\"audio-toggle\" aria-pressed=\"false\" aria-label=\"Mute audio\">Sound on</button>"
+        },
+        "controls": [
+          {
+            "tag": "BUTTON",
+            "type": "button",
+            "ui": "audio-toggle",
+            "cardId": null,
+            "name": null,
+            "value": "",
+            "text": "Sound on",
+            "checked": null,
+            "pressed": "false",
+            "label": "Mute audio",
+            "disabled": false,
+            "selected": null,
+            "focused": false,
+            "hovered": false
+          },
+          {
+            "tag": "BUTTON",
+            "type": "button",
+            "ui": "deck-choice-open",
+            "cardId": null,
+            "name": null,
+            "value": "",
+            "text": "Choose deck",
+            "checked": null,
+            "pressed": null,
+            "label": null,
+            "disabled": false,
+            "selected": null,
+            "focused": false,
+            "hovered": false
+          },
+          {
+            "tag": "BUTTON",
+            "type": "button",
+            "ui": null,
+            "cardId": null,
+            "name": null,
+            "value": "",
+            "text": "StandardEight supported cards",
+            "checked": null,
+            "pressed": "true",
+            "label": null,
+            "disabled": false,
+            "selected": null,
+            "focused": false,
+            "hovered": false
+          },
+          {
+            "tag": "BUTTON",
+            "type": "button",
+            "ui": null,
+            "cardId": null,
+            "name": null,
+            "value": "",
+            "text": "StonehaulerReplaces Cinderlings",
+            "checked": null,
+            "pressed": "false",
+            "label": null,
+            "disabled": false,
+            "selected": null,
+            "focused": false,
+            "hovered": false
+          },
+          {
+            "tag": "BUTTON",
+            "type": "button",
+            "ui": null,
+            "cardId": null,
+            "name": null,
+            "value": "",
+            "text": "Bulwark NeedleReplaces Cinderlings \u00b7 combat QUESTION",
+            "checked": null,
+            "pressed": "false",
+            "label": null,
+            "disabled": false,
+            "selected": null,
+            "focused": false,
+            "hovered": false
+          },
+          {
+            "tag": "BUTTON",
+            "type": "button",
+            "ui": "deck-start",
+            "cardId": null,
+            "name": null,
+            "value": "",
+            "text": "Start match",
+            "checked": null,
+            "pressed": null,
+            "label": null,
+            "disabled": false,
+            "selected": null,
+            "focused": false,
+            "hovered": false
+          },
+          {
+            "tag": "BUTTON",
+            "type": "button",
+            "ui": "restart",
+            "cardId": null,
+            "name": null,
+            "value": "",
+            "text": "Play again",
+            "checked": null,
+            "pressed": null,
+            "label": null,
+            "disabled": false,
+            "selected": null,
+            "focused": false,
+            "hovered": false
+          }
+        ],
+        "combatHtmlSha256": "7bdec426b9c67bac02729455b5923fff55ff0ffa7f86f75c05e61451feb578c1",
+        "activeAnimations": [],
+        "missingCombatLayer": false
+      }
+    },
+    "afterBaseline": {
+      "outer": {
+        "activeElement": {
+          "tag": "IFRAME",
+          "className": "battle-frame"
+        },
+        "frameRect": {
+          "x": 14.25,
+          "y": 117,
+          "width": 337.5,
+          "height": 600
+        },
+        "nav": [
+          {
+            "target": "home",
+            "ariaCurrent": null,
+            "className": ""
+          },
+          {
+            "target": "deck",
+            "ariaCurrent": null,
+            "className": ""
+          },
+          {
+            "target": "cards",
+            "ariaCurrent": null,
+            "className": ""
+          },
+          {
+            "target": "battle",
+            "ariaCurrent": "page",
+            "className": "nav-battle"
+          }
+        ],
+        "scroll": {
+          "x": 0,
+          "y": 0
+        },
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "dpr": 1
+        }
+      },
+      "inner": {
+        "tick": 171,
+        "controllerState": {
+          "active": true,
+          "backlogTicks": 0,
+          "domTick": 171,
+          "enduranceActive": false,
+          "terminalPresentationTick": 0,
+          "terminalPresentationRunning": false,
+          "paused": false,
+          "running": false,
+          "scheduled": false,
+          "selectedCardId": null,
+          "sessionTick": 171,
+          "terminal": false,
+          "restartCount": 0
+        },
+        "serializedSha256": "69b9da6a2a55a445046891e312c0772f9af6215c0205224f68239c6947cb6814",
+        "fonts": "loaded",
+        "mediaReducedMotion": true,
+        "activeElement": {
+          "tag": "BODY",
+          "id": "",
+          "cardId": null,
+          "className": ""
+        },
+        "card": {
+          "html": "<div class=\"card-slot\" data-ui=\"card-slot\" aria-label=\"Card slot 1\" data-card-id=\"brassbolt\"></div>",
+          "text": "",
+          "attributes": [
+            [
+              "class",
+              "card-slot"
+            ],
+            [
+              "data-ui",
+              "card-slot"
+            ],
+            [
+              "aria-label",
+              "Card slot 1"
+            ],
+            [
+              "data-card-id",
+              "brassbolt"
+            ]
+          ],
+          "focus": false,
+          "focusVisible": false,
+          "hover": false,
+          "style": {
+            "rect": {
+              "x": 185,
+              "y": 1121,
+              "width": 112,
+              "height": 128
+            },
+            "offset": {
+              "width": 112,
+              "height": 128
+            },
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "willChange": "auto",
+            "boxShadow": "none",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderColor": "rgb(255, 255, 255)",
+            "borderWidth": "0px",
+            "borderStyle": "none",
+            "transitionProperty": "all",
+            "transitionDuration": "0s",
+            "animationName": "none",
+            "animationDuration": "0s"
+          },
+          "parentStyle": {
+            "rect": {
+              "x": 54,
+              "y": 1114,
+              "width": 612,
+              "height": 140
+            },
+            "offset": {
+              "width": 612,
+              "height": 140
+            },
+            "transform": "none",
+            "willChange": "auto",
+            "boxShadow": "rgba(244, 235, 214, 0.3) 0px 0px 0px 2px inset, rgba(25, 29, 34, 0.533) 0px 6px 0px 0px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderColor": "rgb(25, 29, 34)",
+            "borderWidth": "3px",
+            "borderStyle": "solid",
+            "transitionProperty": "all",
+            "transitionDuration": "0s",
+            "animationName": "none",
+            "animationDuration": "0s"
+          },
+          "before": {
+            "content": "none",
+            "background-color": "rgba(0, 0, 0, 0)",
+            "border-color": "rgb(255, 255, 255)",
+            "box-shadow": "none",
+            "transform": "none",
+            "animation-name": "none",
+            "transition-duration": "0s"
+          },
+          "after": {
+            "content": "none",
+            "background-color": "rgba(0, 0, 0, 0)",
+            "border-color": "rgb(255, 255, 255)",
+            "box-shadow": "none",
+            "transform": "none",
+            "animation-name": "none",
+            "transition-duration": "0s"
+          }
+        },
+        "allCardSlots": [
+          {
+            "cardId": "brassbolt",
+            "style": {
+              "rect": {
+                "x": 185,
+                "y": 1121,
+                "width": 112,
+                "height": 128
+              },
+              "offset": {
+                "width": 112,
+                "height": 128
+              },
+              "transform": "matrix(1, 0, 0, 1, 0, 0)",
+              "willChange": "auto",
+              "boxShadow": "none",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderColor": "rgb(255, 255, 255)",
+              "borderWidth": "0px",
+              "borderStyle": "none",
+              "transitionProperty": "all",
+              "transitionDuration": "0s",
+              "animationName": "none",
+              "animationDuration": "0s"
+            },
+            "focus": false,
+            "hover": false
+          },
+          {
+            "cardId": "cinderlings",
+            "style": {
+              "rect": {
+                "x": 305,
+                "y": 1121,
+                "width": 112,
+                "height": 128
+              },
+              "offset": {
+                "width": 112,
+                "height": 128
+              },
+              "transform": "matrix(1, 0, 0, 1, 0, 0)",
+              "willChange": "auto",
+              "boxShadow": "none",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderColor": "rgb(255, 255, 255)",
+              "borderWidth": "0px",
+              "borderStyle": "none",
+              "transitionProperty": "all",
+              "transitionDuration": "0s",
+              "animationName": "none",
+              "animationDuration": "0s"
+            },
+            "focus": false,
+            "hover": false
+          },
+          {
+            "cardId": "reedsting",
+            "style": {
+              "rect": {
+                "x": 425,
+                "y": 1121,
+                "width": 112,
+                "height": 128
+              },
+              "offset": {
+                "width": 112,
+                "height": 128
+              },
+              "transform": "matrix(1, 0, 0, 1, 0, 0)",
+              "willChange": "auto",
+              "boxShadow": "none",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderColor": "rgb(255, 255, 255)",
+              "borderWidth": "0px",
+              "borderStyle": "none",
+              "transitionProperty": "all",
+              "transitionDuration": "0s",
+              "animationName": "none",
+              "animationDuration": "0s"
+            },
+            "focus": false,
+            "hover": false
+          },
+          {
+            "cardId": "copperskiff",
+            "style": {
+              "rect": {
+                "x": 545,
+                "y": 1121,
+                "width": 112,
+                "height": 128
+              },
+              "offset": {
+                "width": 112,
+                "height": 128
+              },
+              "transform": "matrix(1, 0, 0, 1, 0, 0)",
+              "willChange": "auto",
+              "boxShadow": "none",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderColor": "rgb(255, 255, 255)",
+              "borderWidth": "0px",
+              "borderStyle": "none",
+              "transitionProperty": "all",
+              "transitionDuration": "0s",
+              "animationName": "none",
+              "animationDuration": "0s"
+            },
+            "focus": false,
+            "hover": false
+          }
+        ],
+        "audio": {
+          "text": "Sound on",
+          "pressed": "false",
+          "label": "Mute audio",
+          "html": "<button class=\"audio-toggle\" type=\"button\" data-ui=\"audio-toggle\" aria-pressed=\"false\" aria-label=\"Mute audio\">Sound on</button>"
+        },
+        "controls": [
+          {
+            "tag": "BUTTON",
+            "type": "button",
+            "ui": "audio-toggle",
+            "cardId": null,
+            "name": null,
+            "value": "",
+            "text": "Sound on",
+            "checked": null,
+            "pressed": "false",
+            "label": "Mute audio",
+            "disabled": false,
+            "selected": null,
+            "focused": false,
+            "hovered": false
+          },
+          {
+            "tag": "BUTTON",
+            "type": "button",
+            "ui": "deck-choice-open",
+            "cardId": null,
+            "name": null,
+            "value": "",
+            "text": "Choose deck",
+            "checked": null,
+            "pressed": null,
+            "label": null,
+            "disabled": false,
+            "selected": null,
+            "focused": false,
+            "hovered": false
+          },
+          {
+            "tag": "BUTTON",
+            "type": "button",
+            "ui": null,
+            "cardId": null,
+            "name": null,
+            "value": "",
+            "text": "StandardEight supported cards",
+            "checked": null,
+            "pressed": "true",
+            "label": null,
+            "disabled": false,
+            "selected": null,
+            "focused": false,
+            "hovered": false
+          },
+          {
+            "tag": "BUTTON",
+            "type": "button",
+            "ui": null,
+            "cardId": null,
+            "name": null,
+            "value": "",
+            "text": "StonehaulerReplaces Cinderlings",
+            "checked": null,
+            "pressed": "false",
+            "label": null,
+            "disabled": false,
+            "selected": null,
+            "focused": false,
+            "hovered": false
+          },
+          {
+            "tag": "BUTTON",
+            "type": "button",
+            "ui": null,
+            "cardId": null,
+            "name": null,
+            "value": "",
+            "text": "Bulwark NeedleReplaces Cinderlings \u00b7 combat QUESTION",
+            "checked": null,
+            "pressed": "false",
+            "label": null,
+            "disabled": false,
+            "selected": null,
+            "focused": false,
+            "hovered": false
+          },
+          {
+            "tag": "BUTTON",
+            "type": "button",
+            "ui": "deck-start",
+            "cardId": null,
+            "name": null,
+            "value": "",
+            "text": "Start match",
+            "checked": null,
+            "pressed": null,
+            "label": null,
+            "disabled": false,
+            "selected": null,
+            "focused": false,
+            "hovered": false
+          },
+          {
+            "tag": "BUTTON",
+            "type": "button",
+            "ui": "restart",
+            "cardId": null,
+            "name": null,
+            "value": "",
+            "text": "Play again",
+            "checked": null,
+            "pressed": null,
+            "label": null,
+            "disabled": false,
+            "selected": null,
+            "focused": false,
+            "hovered": false
+          }
+        ],
+        "combatHtmlSha256": "7bdec426b9c67bac02729455b5923fff55ff0ffa7f86f75c05e61451feb578c1",
+        "activeAnimations": [],
+        "missingCombatLayer": false
+      }
+    },
+    "afterAblation": {
+      "outer": {
+        "activeElement": {
+          "tag": "IFRAME",
+          "className": "battle-frame"
+        },
+        "frameRect": {
+          "x": 14.25,
+          "y": 117,
+          "width": 337.5,
+          "height": 600
+        },
+        "nav": [
+          {
+            "target": "home",
+            "ariaCurrent": null,
+            "className": ""
+          },
+          {
+            "target": "deck",
+            "ariaCurrent": null,
+            "className": ""
+          },
+          {
+            "target": "cards",
+            "ariaCurrent": null,
+            "className": ""
+          },
+          {
+            "target": "battle",
+            "ariaCurrent": "page",
+            "className": "nav-battle"
+          }
+        ],
+        "scroll": {
+          "x": 0,
+          "y": 0
+        },
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "dpr": 1
+        }
+      },
+      "inner": {
+        "tick": 171,
+        "controllerState": {
+          "active": true,
+          "backlogTicks": 0,
+          "domTick": 171,
+          "enduranceActive": false,
+          "terminalPresentationTick": 0,
+          "terminalPresentationRunning": false,
+          "paused": false,
+          "running": false,
+          "scheduled": false,
+          "selectedCardId": null,
+          "sessionTick": 171,
+          "terminal": false,
+          "restartCount": 0
+        },
+        "serializedSha256": "69b9da6a2a55a445046891e312c0772f9af6215c0205224f68239c6947cb6814",
+        "fonts": "loaded",
+        "mediaReducedMotion": true,
+        "activeElement": {
+          "tag": "BODY",
+          "id": "",
+          "cardId": null,
+          "className": ""
+        },
+        "card": {
+          "html": "<div class=\"card-slot\" data-ui=\"card-slot\" aria-label=\"Card slot 1\" data-card-id=\"brassbolt\"></div>",
+          "text": "",
+          "attributes": [
+            [
+              "class",
+              "card-slot"
+            ],
+            [
+              "data-ui",
+              "card-slot"
+            ],
+            [
+              "aria-label",
+              "Card slot 1"
+            ],
+            [
+              "data-card-id",
+              "brassbolt"
+            ]
+          ],
+          "focus": false,
+          "focusVisible": false,
+          "hover": false,
+          "style": {
+            "rect": {
+              "x": 185,
+              "y": 1121,
+              "width": 112,
+              "height": 128
+            },
+            "offset": {
+              "width": 112,
+              "height": 128
+            },
+            "transform": "none",
+            "willChange": "auto",
+            "boxShadow": "none",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderColor": "rgb(255, 255, 255)",
+            "borderWidth": "0px",
+            "borderStyle": "none",
+            "transitionProperty": "all",
+            "transitionDuration": "0s",
+            "animationName": "none",
+            "animationDuration": "0s"
+          },
+          "parentStyle": {
+            "rect": {
+              "x": 54,
+              "y": 1114,
+              "width": 612,
+              "height": 140
+            },
+            "offset": {
+              "width": 612,
+              "height": 140
+            },
+            "transform": "none",
+            "willChange": "auto",
+            "boxShadow": "rgba(244, 235, 214, 0.3) 0px 0px 0px 2px inset, rgba(25, 29, 34, 0.533) 0px 6px 0px 0px",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderColor": "rgb(25, 29, 34)",
+            "borderWidth": "3px",
+            "borderStyle": "solid",
+            "transitionProperty": "all",
+            "transitionDuration": "0s",
+            "animationName": "none",
+            "animationDuration": "0s"
+          },
+          "before": {
+            "content": "none",
+            "background-color": "rgba(0, 0, 0, 0)",
+            "border-color": "rgb(255, 255, 255)",
+            "box-shadow": "none",
+            "transform": "none",
+            "animation-name": "none",
+            "transition-duration": "0s"
+          },
+          "after": {
+            "content": "none",
+            "background-color": "rgba(0, 0, 0, 0)",
+            "border-color": "rgb(255, 255, 255)",
+            "box-shadow": "none",
+            "transform": "none",
+            "animation-name": "none",
+            "transition-duration": "0s"
+          }
+        },
+        "allCardSlots": [
+          {
+            "cardId": "brassbolt",
+            "style": {
+              "rect": {
+                "x": 185,
+                "y": 1121,
+                "width": 112,
+                "height": 128
+              },
+              "offset": {
+                "width": 112,
+                "height": 128
+              },
+              "transform": "none",
+              "willChange": "auto",
+              "boxShadow": "none",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderColor": "rgb(255, 255, 255)",
+              "borderWidth": "0px",
+              "borderStyle": "none",
+              "transitionProperty": "all",
+              "transitionDuration": "0s",
+              "animationName": "none",
+              "animationDuration": "0s"
+            },
+            "focus": false,
+            "hover": false
+          },
+          {
+            "cardId": "cinderlings",
+            "style": {
+              "rect": {
+                "x": 305,
+                "y": 1121,
+                "width": 112,
+                "height": 128
+              },
+              "offset": {
+                "width": 112,
+                "height": 128
+              },
+              "transform": "none",
+              "willChange": "auto",
+              "boxShadow": "none",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderColor": "rgb(255, 255, 255)",
+              "borderWidth": "0px",
+              "borderStyle": "none",
+              "transitionProperty": "all",
+              "transitionDuration": "0s",
+              "animationName": "none",
+              "animationDuration": "0s"
+            },
+            "focus": false,
+            "hover": false
+          },
+          {
+            "cardId": "reedsting",
+            "style": {
+              "rect": {
+                "x": 425,
+                "y": 1121,
+                "width": 112,
+                "height": 128
+              },
+              "offset": {
+                "width": 112,
+                "height": 128
+              },
+              "transform": "none",
+              "willChange": "auto",
+              "boxShadow": "none",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderColor": "rgb(255, 255, 255)",
+              "borderWidth": "0px",
+              "borderStyle": "none",
+              "transitionProperty": "all",
+              "transitionDuration": "0s",
+              "animationName": "none",
+              "animationDuration": "0s"
+            },
+            "focus": false,
+            "hover": false
+          },
+          {
+            "cardId": "copperskiff",
+            "style": {
+              "rect": {
+                "x": 545,
+                "y": 1121,
+                "width": 112,
+                "height": 128
+              },
+              "offset": {
+                "width": 112,
+                "height": 128
+              },
+              "transform": "none",
+              "willChange": "auto",
+              "boxShadow": "none",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderColor": "rgb(255, 255, 255)",
+              "borderWidth": "0px",
+              "borderStyle": "none",
+              "transitionProperty": "all",
+              "transitionDuration": "0s",
+              "animationName": "none",
+              "animationDuration": "0s"
+            },
+            "focus": false,
+            "hover": false
+          }
+        ],
+        "audio": {
+          "text": "Sound on",
+          "pressed": "false",
+          "label": "Mute audio",
+          "html": "<button class=\"audio-toggle\" type=\"button\" data-ui=\"audio-toggle\" aria-pressed=\"false\" aria-label=\"Mute audio\">Sound on</button>"
+        },
+        "controls": [
+          {
+            "tag": "BUTTON",
+            "type": "button",
+            "ui": "audio-toggle",
+            "cardId": null,
+            "name": null,
+            "value": "",
+            "text": "Sound on",
+            "checked": null,
+            "pressed": "false",
+            "label": "Mute audio",
+            "disabled": false,
+            "selected": null,
+            "focused": false,
+            "hovered": false
+          },
+          {
+            "tag": "BUTTON",
+            "type": "button",
+            "ui": "deck-choice-open",
+            "cardId": null,
+            "name": null,
+            "value": "",
+            "text": "Choose deck",
+            "checked": null,
+            "pressed": null,
+            "label": null,
+            "disabled": false,
+            "selected": null,
+            "focused": false,
+            "hovered": false
+          },
+          {
+            "tag": "BUTTON",
+            "type": "button",
+            "ui": null,
+            "cardId": null,
+            "name": null,
+            "value": "",
+            "text": "StandardEight supported cards",
+            "checked": null,
+            "pressed": "true",
+            "label": null,
+            "disabled": false,
+            "selected": null,
+            "focused": false,
+            "hovered": false
+          },
+          {
+            "tag": "BUTTON",
+            "type": "button",
+            "ui": null,
+            "cardId": null,
+            "name": null,
+            "value": "",
+            "text": "StonehaulerReplaces Cinderlings",
+            "checked": null,
+            "pressed": "false",
+            "label": null,
+            "disabled": false,
+            "selected": null,
+            "focused": false,
+            "hovered": false
+          },
+          {
+            "tag": "BUTTON",
+            "type": "button",
+            "ui": null,
+            "cardId": null,
+            "name": null,
+            "value": "",
+            "text": "Bulwark NeedleReplaces Cinderlings \u00b7 combat QUESTION",
+            "checked": null,
+            "pressed": "false",
+            "label": null,
+            "disabled": false,
+            "selected": null,
+            "focused": false,
+            "hovered": false
+          },
+          {
+            "tag": "BUTTON",
+            "type": "button",
+            "ui": "deck-start",
+            "cardId": null,
+            "name": null,
+            "value": "",
+            "text": "Start match",
+            "checked": null,
+            "pressed": null,
+            "label": null,
+            "disabled": false,
+            "selected": null,
+            "focused": false,
+            "hovered": false
+          },
+          {
+            "tag": "BUTTON",
+            "type": "button",
+            "ui": "restart",
+            "cardId": null,
+            "name": null,
+            "value": "",
+            "text": "Play again",
+            "checked": null,
+            "pressed": null,
+            "label": null,
+            "disabled": false,
+            "selected": null,
+            "focused": false,
+            "hovered": false
+          }
+        ],
+        "combatHtmlSha256": "7bdec426b9c67bac02729455b5923fff55ff0ffa7f86f75c05e61451feb578c1",
+        "activeAnimations": [],
+        "missingCombatLayer": false
+      }
+    }
+  },
+  "invariants": {
+    "baselineStateMatchesCheckpoint": true,
+    "ablationStateMatchesCheckpoint": true,
+    "stateBytesEqualBeforeAndAfterAblation": true,
+    "cardGeometryEqual": true,
+    "allCardGeometryEqual": true,
+    "inputAndAudioEqual": true,
+    "onlyTargetTransformExpected": true,
+    "baselineCardTransform": "matrix(1, 0, 0, 1, 0, 0)",
+    "ablationCardTransform": "none"
+  },
+  "server404s": [],
+  "pixelEvidence": {
+    "wholeViewport": true,
+    "baselineBeforeVsAfter": {
+      "dimensions": [
+        390,
+        844
+      ],
+      "differingPixelCount": 1,
+      "maximumChannelDelta": 1,
+      "boundingBox": {
+        "minX": 94,
+        "minY": 660,
+        "maxX": 94,
+        "maxY": 660
+      },
+      "firstDifferingPixels": [
+        {
+          "x": 94,
+          "y": 660,
+          "before": [
+            98,
+            104,
+            89,
+            255
+          ],
+          "after": [
+            98,
+            104,
+            88,
+            255
+          ]
+        }
+      ]
+    },
+    "afterInjectionAndRestoreVsBaselineAfterRestore": {
+      "dimensions": [
+        390,
+        844
+      ],
+      "differingPixelCount": 0,
+      "maximumChannelDelta": 0,
+      "boundingBox": null,
+      "firstDifferingPixels": []
+    },
+    "priorReportedFivePixelRegion": {
+      "viewportCoordinates": {
+        "x": 105,
+        "yFrom": 700,
+        "yTo": 704
+      },
+      "observedDifferingPixelCountThisRun": 0
+    },
+    "currentOnePixelBaselineMismatch": {
+      "viewportCoordinate": {
+        "x": 94,
+        "y": 660
+      },
+      "childFrameCoordinate": {
+        "x": 170.133,
+        "y": 1158.4
+      },
+      "nearestCapturedCard": {
+        "cardId": "brassbolt",
+        "rect": {
+          "x": 185,
+          "y": 1121,
+          "width": 112,
+          "height": 128
+        }
+      },
+      "capturedCardParentRectAndStyle": {
+        "rect": {
+          "x": 54,
+          "y": 1114,
+          "width": 612,
+          "height": 140
+        },
+        "offset": {
+          "width": 612,
+          "height": 140
+        },
+        "transform": "none",
+        "willChange": "auto",
+        "boxShadow": "rgba(244, 235, 214, 0.3) 0px 0px 0px 2px inset, rgba(25, 29, 34, 0.533) 0px 6px 0px 0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(25, 29, 34)",
+        "borderWidth": "3px",
+        "borderStyle": "solid",
+        "transitionProperty": "all",
+        "transitionDuration": "0s",
+        "animationName": "none",
+        "animationDuration": "0s"
+      },
+      "spatialRelation": "The mapped point lies inside the captured card parent rectangle and 14.867 CSS px left of the Brassbolt card rectangle. This runner did not record elementFromPoint at the pixel, so the hit element is not asserted."
+    }
+  },
+  "captureFiles": {
+    "baseline-before-restore-390x844.png": {
+      "sha256": "abb1a0f6e61f4c4f2c6a5e44d33df64a08534274587210173b190c5cc72bfb9b",
+      "bytes": 281616
+    },
+    "baseline-after-restore-390x844.png": {
+      "sha256": "6cdb5952944b58c1b9071731144d27ce62eab441bbe76c146a74ef0482c2eb0c",
+      "bytes": 281616
+    },
+    "layer-ablation-after-restore-390x844.png": {
+      "sha256": "6cdb5952944b58c1b9071731144d27ce62eab441bbe76c146a74ef0482c2eb0c",
+      "bytes": 281616
+    }
+  },
+  "causalLimitations": [
+    "The run had one baseline restore and one transform:none ablation restore using the same checkpoint, page, reduced-motion mode, input controls, audio toggle, and tick.",
+    "No separate screenshot was taken after CSS injection and before the ablation restore, so this run cannot distinguish a raster change caused by the injected style from one caused by the restore paint.",
+    "The reported five-pixel Brassbolt-edge mismatch did not recur in this single run; the baseline instead differed at one pixel at (94,660), outside the Brassbolt card rectangle. The baseline and ablation post-restore PNGs are identical, so the result does not support translateZ(0) as a cause in this sample and does not establish resolution."
+  ],
+  "execution": {
+    "completedNodeTestPid": 59620,
+    "completedExecSessionId": "3510",
+    "preRestoreSetupFailures": [
+      {
+        "execSessionId": "28495",
+        "tap": "setup-attempt-1.raw.tap",
+        "failure": "asserted sessionTick 170; observed 171; no restore occurred"
+      },
+      {
+        "execSessionId": "99240",
+        "tap": "setup-attempt-2.raw.tap",
+        "failure": "asserted checkpoint tick 170; observed 171; no restore occurred"
+      }
+    ],
+    "noProductFilesChanged": true
+  },
+  "originalFailureGeometryComparison": {
+    "priorR3Reported": {
+      "viewport": [
+        390,
+        844
+      ],
+      "frame": {
+        "x": 9.65625,
+        "y": 117,
+        "width": 370.6875,
+        "height": 659
+      },
+      "scale": 0.514844
+    },
+    "thisProbe": {
+      "viewport": [
+        390,
+        844
+      ],
+      "frame": {
+        "x": 14.25,
+        "y": 117,
+        "width": 337.5,
+        "height": 600
+      },
+      "scale": 0.46875
+    },
+    "interpretation": "Both pages use the 390x844 outer viewport, but the actual app iframe has different size and scale. The ablation does not reproduce the original scaled card-edge geometry and cannot establish cause for the prior five-pixel mismatch."
+  },
+  "nextMinimalCausalCase": {
+    "hypothesis": "The prior failure depends on the naturally measured parent battle-frame-slot geometry and fractional app-shell scale.",
+    "procedure": "In a single same-origin 390x844 app session, record window and visualViewport dimensions, battle-frame-slot and iframe bounding boxes, computed layout styles, and iframe scale as derived by layoutBattleFrame(). Compare those measurements with the prior failing R3 evidence. Run the one baseline plus one transform ablation only after the natural slot/frame geometry matches; do not force iframe width, height, or pixel bounds.",
+    "sourceMechanism": "src/ui/app-shell.js layoutBattleFrame computes scale from battle-frame-slot bounds and applies transform: scale(...); src/ui/app-shell.css defines the flex slot and 720x1280 iframe."
+  }
+}

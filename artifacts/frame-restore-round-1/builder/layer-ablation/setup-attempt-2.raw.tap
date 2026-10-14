@@ -1,0 +1,32 @@
+TAP version 13
+# Subtest: FRAME-RESTORE001: one reduced-motion baseline restore and one card-layer ablation
+not ok 1 - FRAME-RESTORE001: one reduced-motion baseline restore and one card-layer ablation
+  ---
+  duration_ms: 5598.226916
+  type: 'test'
+  location: '/private/tmp/frame-layer-ablation-898/tests/frame-restore-001-layer-ablation.mjs:216:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    171 !== 170
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 170
+  actual: 171
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/frame-layer-ablation-898/tests/frame-restore-001-layer-ablation.mjs:318:10)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6081.336917

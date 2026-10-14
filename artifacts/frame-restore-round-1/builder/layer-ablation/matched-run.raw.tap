@@ -1,0 +1,73 @@
+TAP version 13
+# {
+#   "diagnostic": "FRAME-RESTORE001",
+#   "resultFile": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/frame-restore-round-1/builder/layer-ablation/frame-restore-001-evidence.json",
+#   "baselineRestoreDiff": {
+#     "dimensions": [
+#       390,
+#       844
+#     ],
+#     "differingPixelCount": 1,
+#     "maximumChannelDelta": 1,
+#     "boundingBox": {
+#       "minX": 94,
+#       "minY": 660,
+#       "maxX": 94,
+#       "maxY": 660
+#     },
+#     "firstDifferingPixels": [
+#       {
+#         "x": 94,
+#         "y": 660,
+#         "before": [
+#           98,
+#           104,
+#           89,
+#           255
+#         ],
+#         "after": [
+#           98,
+#           104,
+#           88,
+#           255
+#         ]
+#       }
+#     ]
+#   },
+#   "ablationVsBaselineDiff": {
+#     "dimensions": [
+#       390,
+#       844
+#     ],
+#     "differingPixelCount": 0,
+#     "maximumChannelDelta": 0,
+#     "boundingBox": null,
+#     "firstDifferingPixels": []
+#   },
+#   "invariants": {
+#     "baselineStateMatchesCheckpoint": true,
+#     "ablationStateMatchesCheckpoint": true,
+#     "stateBytesEqualBeforeAndAfterAblation": true,
+#     "cardGeometryEqual": true,
+#     "allCardGeometryEqual": true,
+#     "inputAndAudioEqual": true,
+#     "onlyTargetTransformExpected": true,
+#     "baselineCardTransform": "matrix(1, 0, 0, 1, 0, 0)",
+#     "ablationCardTransform": "none"
+#   }
+# }
+# Subtest: FRAME-RESTORE001: one reduced-motion baseline restore and one card-layer ablation
+ok 1 - FRAME-RESTORE001: one reduced-motion baseline restore and one card-layer ablation
+  ---
+  duration_ms: 7942.375208
+  type: 'test'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 8204.264292
