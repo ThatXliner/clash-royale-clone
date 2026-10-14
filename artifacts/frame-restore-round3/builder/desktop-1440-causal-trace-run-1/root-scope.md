@@ -1,0 +1,1 @@
+Immutable 6cf diagnostic only. Process exit0 means observation completed; strict PNG remains FAIL (29 pixels/max18). Stable identities and percentage/paint changes establish correlation, not clip-path rasterization cause. No source adoption; reduced desktop unrun.
