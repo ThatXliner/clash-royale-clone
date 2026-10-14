@@ -1,0 +1,15 @@
+# FRAME-RESTORE001 faithful lifecycle ablation
+
+One fresh Chrome run used immutable commit `8983794bdba940cc8232bdfe1d6181a823776916`, a 390×844 viewport, and the natural R3 frame geometry: slot `(0,117) 390×659`; iframe `(9.65625,117) 370.6875×659`, scale `0.514844`. The authentic Briar contact was event tick 170 / session tick 171; the reduced checkpoint was tick 173. The sequence recorded the normal contact restore, +2 retarget, +6 team capture, late `prefers-reduced-motion` switch and contact restore, +2 reduced hold, then the reduced checkpoint restore. Four total restores were observed.
+
+The previous faithful replay reproduced five differing edge pixels at `(105,700)`–`(105,704)`, maximum channel delta 3. This new run’s unmodified tick-173 baseline was exact (0 differing pixels), so the target failure did not recur. With only the child-frame rule `.card-slot { transform: none !important; }`, the computed transform changed to `none`, the card rect stayed `(185,1121) 112×128`, and the injected pre-restore viewport still differed from the unmodified baseline by 0 pixels. One subsequent restore to tick 173 kept the same serialized checkpoint SHA and was exact against the injected pre-restore viewport (0 differing pixels). Both injected captures stabilized after two whole-viewport captures. The matched experiment therefore cannot establish that the transform caused the intermittent edge; this run began without the edge.
+
+Audio remained “Sound on” (`aria-pressed=false`), the active element stayed `BODY`, the Brassbolt slot and controls were not hovered/focused, and the geometry/controller/checkpoint were held constant. The restore count increased from 3 before the injected restore to 4 after it. No page errors, console errors, or missing assets were recorded.
+
+CDP `LayerTree` was enabled and produced layer-tree updates (17 layers before injection, 13 after), but CDP could not resolve the child-frame card node through `DOM.describeNode` (“Could not find node with given id”). No compositor layer or reason is claimed.
+
+No production change is supported by this run. The candidate CSS ownership location remains `src/ui/arena-shell.css:702-705`; any product edit should wait for a matched run where the five-pixel baseline is present and the same-page ablation removes it. The original R3 lifecycle is in `tests/combat-sprite-prototype-browser.test.js` (normal mount at 499–523; contact/normal restore at 747–889; late reduced-motion sequence at 891–1005; exact failure assertion at 1051). The diagnostic preserved the exact pixel equality criterion with `Buffer.equals` and compact decoded counts.
+
+Runner PID: `99523`; exec session: `63878`; exit code: `0`. Exit 0 means the diagnostic completed; the baseline was a pass-shaped capture, not evidence that the original five-pixel failure is fixed.
+
+The raw run JSON is preserved as `faithful-ablation-evidence-as-run.json`. The main `faithful-ablation-evidence.json` normalizes one runner label that had been hard-coded as `exactPngBytes: false` even though its decoded baseline diff was zero.
