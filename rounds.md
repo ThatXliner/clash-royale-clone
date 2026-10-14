@@ -9337,3 +9337,23 @@ Those remain explicit project gaps.
 BIGGEST GAP: Full109historicalmechanics and visualparity remainunproved; future source changes require matching qualification.
 
 Prior Round461 FAIL retained. First audio-output ENOENT attempt preserved; setup directory repaired without source/harness edits. Adapter WebAudio doubles distinguished from nativeChrome45nonzeroPCM buffers. Source unchanged; this round adopts evidence only.
+
+## Round 477 — ART-004 rebased original sprite prototype
+
+PIECE: ART-004 original deterministic 2D sprite prototype (frozen candidate 2cda0362cdc15aa8bfc418726d42521c2d28d5b3)
+
+VERDICT: FAIL
+
+EVIDENCE:
+- Required unit command passed 60/60 (0 failed, 67,204.496 ms); provenance is the builder checkout at /private/tmp/art004-sprite-rebase-5ed9d7c, not the clean critic checkout. The pre/post tracked-source hashes match. The redundant private unit attempt was terminated before results and is excluded.
+- One complete native Chrome browser run from a fresh private detached checkout at exact HEAD 2cda0362cdc15aa8bfc418726d42521c2d28d5b3 passed 1/1 in 47,024.908 ms. Node 22.22.3, npm 10.9.8, Chrome 155.0.8059.40, Playwright 1.58.2; lock SHA256 d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4. The actual test child was PID 21712 (session 53946; Chrome PID 21715). No masking, injected CSS, capture retries, paint waits, or GPU flags.
+- Browser evidence shows directional walk and attack frames, deterministic tick/frame selection, reduced-motion hold, and an authentic south Briar Runner melee contact at tick 170 (sequence 1, target 9; target health 81 to 0; attacker remains alive at 121 HP), with the live frame marked attack at age 1 and returning to walk after retarget.
+- Whole-viewport before/after restore captures are byte-identical in all four covered contexts: 1440x900 normal 5aee2e47c640e20ca2049eb31edc0bee13583928fc6f5a25559a674027867ae2; 390x844 normal 9942a386aebe8e8d1d4166aa2318e624f64e3610ba9ccc26f2d14a3de934d34e; 1440x900 reduced f48f097c6f2996c225206af8bc935e7b62f6a906156c00b5cfff16a5c16d3059; 390x844 reduced 90fb7caa86bb6c56bfea2ae2cccad0fa2c09dd2dfbd39307eac652fe52a89b74. Phone child-body diagnostic is not pixel-exact: 212 RGB pixels differ in bbox (32,12)-(181,120) of a 372x659 child image, with max channel deltas 3,2,2. This lies in the top HUD/upper-frame region; Briar sprites are around child y=595-620, and the full viewport and sampled Briar point are exact. Thus I do not claim child-body exactness or attribute the difference more specifically.
+- Actual sprite-scale imagery is legible in the 390x844 and 1440x900 arena captures; phone actor markers are about 13.34 CSS px. Team-color crop counts exceed the tested minima (phone 22/22/25 south and 16/16/16 north, minimum 8; desktop 30/30/41 south and 27/27/27 north, minimum 24). No historical gameplay still matched this screen, so no historical parity claim.
+- Candidate diff is confined to the seven declared owned source/test files; tracked hashes are unchanged across the private native browser run. No public assets or protected simulation/input/audio/shell files changed.
+
+BIGGEST GAP: The qualification bar requires Buried/default/prior-rendering coverage, but the browser/default fixture and owned tests contain no Buried-coil case or captured comparison against prior rendering; the suite therefore does not establish that the sprite layer preserves that required buried-card/prior-art case.
+
+Coverage limits: native integration desktop viewport is 1440x900 rather than the requested 1440x933; browser proof does not explicitly exercise preservation of typed state, input, or audio. Those are not counted as the primary gap above.
+
+No source adoption. 61/61 executed tests passed but missing required scope makes this round FAIL. 42critic evidence checksums verified; unit-run builder cwd and excluded interrupted duplicate are preserved honestly. New builder round addresses coverage; raw child-body diagnostic is retained without claiming whole child-frame exactness.
