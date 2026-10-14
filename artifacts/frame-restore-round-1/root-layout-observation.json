@@ -1,0 +1,21 @@
+{
+  "sourceCommit": "6b46ddf864684c4d99e28931889554b70f52b677",
+  "rejectedCandidate": "8983794bdba940cc8232bdfe1d6181a823776916",
+  "facts": {
+    "appShell": "src/ui/app-shell.js:389",
+    "measurement": "slot.getBoundingClientRect; scale=min(width/720,height/1280)",
+    "calls": "frame mount and window resize",
+    "rejectedTest": "tests/combat-sprite-prototype-browser.test.js:891 emulates reduce after normal mount",
+    "probe": "runner.mjs emulates reduce before goto and mount",
+    "rejectedFrame": [
+      370.6875,
+      659
+    ],
+    "probeFrame": [
+      337.5,
+      600
+    ]
+  },
+  "hypothesis": "Mount motion policy/timing changes initial frame measurement; requires causal layout investigation, not proven raster root cause.",
+  "scope": "No product edit, no accepted restore fix, no full endurance proof."
+}
