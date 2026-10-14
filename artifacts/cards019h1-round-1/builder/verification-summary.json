@@ -1,0 +1,257 @@
+{
+  "candidate": {
+    "parent": "6198883470fa48f6746974d7590168ae3011ac37",
+    "sourceCommit": "eaed44cf29865d7fd9c1fcc54a3420733e8b9d9f",
+    "finalCommit": "7a6bc18828675f9ec47b51e29880e7cb8fc23023",
+    "worktree": "/tmp/cards019h1-candidate-6198883",
+    "kernelBytes": 523244,
+    "kernelCapBytes": 524288,
+    "sourceFiles": [
+      "src/shared/ordinary-projectile-delivery-authority.js",
+      "src/shared/session-troop-source-confidence-authority.js",
+      "src/sim/battle-continuation-kernel.js",
+      "src/sim/ordinary-projectile-homing.js",
+      "src/sim/ordinary-projectile-splash.js"
+    ],
+    "testFiles": [
+      "tests/fixtures/integration-occurrence-bindings.json",
+      "tests/game-roster-admission.test.js",
+      "tests/game-roster-buildings.test.js",
+      "tests/game-roster-troops-ordinary.test.js",
+      "tests/integration-audit.test.js",
+      "tests/nondeterminism-guard.test.js"
+    ]
+  },
+  "canonicalAudit": {
+    "command": "node scripts/integration-audit.js --runs=2 --output=/tmp/cards019h1-integration-manifest.json",
+    "exitCode": 0,
+    "sessionId": 11643,
+    "nodePid": 26837,
+    "manifestSha256": "ad9cf6fcd67e51fffbc00e77f44c7b2818af5d3f766436f4145048713f03cb51",
+    "runHashes": [
+      "ad9cf6fcd67e51fffbc00e77f44c7b2818af5d3f766436f4145048713f03cb51",
+      "ad9cf6fcd67e51fffbc00e77f44c7b2818af5d3f766436f4145048713f03cb51"
+    ],
+    "manifestBytes": 536426,
+    "covered": 67,
+    "supported": 67,
+    "uniqueSupportedIds": 62,
+    "questionOnly": 5,
+    "selectors": 47,
+    "shippingIsolationSha256": "32813b6f3f11885bcaaeb08e9a7c14194b9e6cc2c328d294f7fabd3addc536c5",
+    "sourceHashListSha256BeforeAndAfter": "764e1805d5c93cc51f60cb0199886bb584541336288b9f47338bedcf49d4d79b",
+    "sourceHashEntries": 3346
+  },
+  "occurrenceContinuity": {
+    "beforeEntries": 67,
+    "afterEntries": 67,
+    "changedBinding": "createOrdinaryProjectileSplashCatalog\\u0000kilnkeeper",
+    "changedBindingBefore": "c1f165e5249c92c84d9867d10e10ea15b007bb8f7d9e6886e6bb807a1de17255",
+    "changedBindingAfter": "326db5e5c03bc37da5ae92f2d38a47638258165f4aebfb93c3bd5617d575474a",
+    "unchangedOldBindings": 66,
+    "added": 0,
+    "removed": 0,
+    "allOldNonKilnkeeperArtifactsExact": true,
+    "onlyRunnerCountChange": {
+      "selector": "game-roster-troops-ordinary",
+      "before": 21,
+      "after": 25
+    }
+  },
+  "default8": {
+    "baseline": "0cbd7e5c245e58aedc3598f51ad5371d7477ab9e",
+    "seeds": [
+      0,
+      23
+    ],
+    "exactOutputSha256": "fe7c05c0c06ec1140ab4bfda1e21def75af0895f21542201a1378479d1d358bd",
+    "baselineEqualsCandidate": true,
+    "editableMatches": true,
+    "finalMatches": true,
+    "replayMatches": true
+  },
+  "testGates": [
+    {
+      "command": "node --test --test-name-pattern=after it leaves the launch-origin range tests/game-roster-troops-ordinary.test.js",
+      "passed": 1,
+      "total": 1,
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:game-roster-troops-ordinary",
+      "passed": 25,
+      "total": 25,
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:game-roster-troops-projectile",
+      "passed": 6,
+      "total": 6,
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:game-roster-troop-profiles",
+      "passed": 11,
+      "total": 11,
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:nondeterminism-guard",
+      "passed": 10,
+      "total": 10,
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:game-roster-admission",
+      "passed": 7,
+      "total": 7,
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:game-roster-troops-projectile-profiles",
+      "passed": 26,
+      "total": 26,
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:game-session",
+      "passed": 9,
+      "total": 9,
+      "exitCode": 0
+    },
+    {
+      "command": "node tests/game-roster-buildings-runner.js game-roster-buildings",
+      "passed": 10,
+      "total": 10,
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:rl-environment",
+      "passed": 12,
+      "total": 12,
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:content-schema",
+      "passed": 20,
+      "total": 20,
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:shipping-isolation-guard",
+      "passed": 13,
+      "total": 13,
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:shipping-isolation-release",
+      "passed": 4,
+      "total": 4,
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:shipping-isolation-host",
+      "passed": 1,
+      "total": 1,
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:release-runtime",
+      "passed": 1,
+      "total": 1,
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:release-build",
+      "passed": 22,
+      "total": 22,
+      "exitCode": 0
+    }
+  ],
+  "enduranceAssertion": {
+    "current": {
+      "command": "npm run test:game-session-endurance",
+      "sessionId": 15248,
+      "exitCode": 1,
+      "terminalTick": 13351,
+      "winner": "north",
+      "crowns": {
+        "north": 2,
+        "south": 1
+      },
+      "towers": [
+        {
+          "id": "north:central",
+          "hitpoints": 1182
+        },
+        {
+          "id": "north:lane:left",
+          "hitpoints": 0
+        },
+        {
+          "id": "north:lane:right",
+          "hitpoints": 348
+        },
+        {
+          "id": "south:central",
+          "hitpoints": 4824
+        },
+        {
+          "id": "south:lane:left",
+          "hitpoints": 0
+        },
+        {
+          "id": "south:lane:right",
+          "hitpoints": 0
+        }
+      ]
+    },
+    "acceptedCoreBaseline": {
+      "command": "node tests/game-session-endurance-runner.js game-session-endurance",
+      "cwd": "/tmp/ordinary-splash-h1-baseline-151f54b-20261013",
+      "sessionId": 81903,
+      "exitCode": 1,
+      "terminalTick": 13351,
+      "winner": "north",
+      "crowns": {
+        "north": 2,
+        "south": 1
+      },
+      "towers": [
+        {
+          "id": "north:central",
+          "hitpoints": 1182
+        },
+        {
+          "id": "north:lane:left",
+          "hitpoints": 0
+        },
+        {
+          "id": "north:lane:right",
+          "hitpoints": 348
+        },
+        {
+          "id": "south:central",
+          "hitpoints": 4824
+        },
+        {
+          "id": "south:lane:left",
+          "hitpoints": 0
+        },
+        {
+          "id": "south:lane:right",
+          "hitpoints": 0
+        }
+      ]
+    },
+    "sameNaturalTerminalOutcome": true,
+    "interpretation": "Pre-existing fixed-active 18000-tick assertion conflicts with natural sudden-death termination. No gameplay changes made to force continuation; parent notes terminal-aware browser endurance passes."
+  },
+  "questionPolicy": {
+    "rawSourceHomingFlag": true,
+    "confidence": "unverified QUESTION; not authoritative",
+    "runtimePursuitSpeed": 500,
+    "otherMotionArrivalDeathRangePolicies": "each explicitly represented as unverified/non-authoritative QUESTION",
+    "historicalParityClaim": false
+  }
+}\n
