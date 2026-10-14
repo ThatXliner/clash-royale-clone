@@ -1,0 +1,17 @@
+APP004G critic checkout and source integrity
+
+Candidate: 7bef030efd669cf636b778b7c46a0c518900aec5
+Accepted parent: 049ce5087c57864d842c85b7550001131648aedf
+Checkout: /tmp/app004g-critic-7bef030 (detached HEAD)
+
+Before the run, `git status --porcelain=v1 --untracked-files=all` was empty.
+After npm ci, the Chrome run, and the live-DOM probe, the same status remained empty; `git diff --quiet HEAD --` exited 0. The test output and screenshots were directed to this critic folder.
+
+The candidate commit's complete tracked delta from its accepted parent is recorded in candidate-commit-scope.diff. It contains builder evidence under artifacts/app004g-round-1/builder and tests/app-polish.test.js only. No source, UI, asset, simulation, or root documentation file changed.
+
+Git tree object IDs match between parent and candidate:
+src:    3d20a2bcc4f2a8c6b476215ec7c1e7ef783e6bee
+public: d27c6aae1f938be294685726e03a9e65f7635ddf
+demo:   17b9aa10b5e737ac5f3a370877c887a593028331
+
+Browser run: Google Chrome 155.0.8059.40, launched by Playwright with the explicit executable path. Dependency install was isolated to the detached checkout. Full run command: npm run test:app-polish with GAME_BROWSER_PLAYWRIGHT, GAME_BROWSER_CHROME, and APP_POLISH_ARTIFACTS set to the paths recorded in run-command.txt.

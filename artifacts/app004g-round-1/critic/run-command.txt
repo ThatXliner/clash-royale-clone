@@ -1,0 +1,9 @@
+Checkout: /tmp/app004g-critic-7bef030
+Candidate HEAD: 7bef030efd669cf636b778b7c46a0c518900aec5
+
+GAME_BROWSER_PLAYWRIGHT=/Users/me/.codex/worktrees/d092a29e-844b-459d-b145-c548db10d485/billion/node_modules/.pnpm/playwright@1.58.2/node_modules/playwright/index.mjs
+GAME_BROWSER_CHROME=/Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+APP_POLISH_ARTIFACTS=/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/app004g-round-1/critic
+npm run test:app-polish
+
+The test was launched with the three environment values above and its real terminal TAP output was tee'd to candidate-app-polish.tap.

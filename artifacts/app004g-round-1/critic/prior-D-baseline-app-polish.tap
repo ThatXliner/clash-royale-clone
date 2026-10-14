@@ -1,0 +1,42 @@
+
+> moss-and-ember@0.0.0 test:app-polish
+> node tests/app-polish-runner.js app-polish
+
+TAP version 13
+# Subtest: mobile app controls scroll clear of navigation and retain deck and card feedback
+not ok 1 - mobile app controls scroll clear of navigation and retain deck and card feedback
+  ---
+  duration_ms: 17454.801875
+  type: 'test'
+  location: '/private/tmp/cards019d-baseline-2a29833/tests/app-polish.test.js:178:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    locator.waitFor: Error: strict mode violation: locator('[data-replacement-card-id]') resolved to 12 elements:
+        1) <button type="button" class="replacement-choice" data-replacement-card-id="stonehauler" aria-label="Replace with Stonehauler, costs 5 elixir">…</button> aka getByRole('button', { name: 'Replace with Stonehauler,' })
+        2) <button type="button" class="replacement-choice" data-replacement-card-id="thornscouts" aria-label="Replace with Thornscouts, costs 2 elixir">…</button> aka getByRole('button', { name: 'Replace with Thornscouts,' })
+        3) <button type="button" class="replacement-choice" data-replacement-card-id="forgeguard" aria-label="Replace with Forgeguard, costs 5 elixir">…</button> aka getByRole('button', { name: 'Replace with Forgeguard,' })
+        4) <button type="button" class="replacement-choice" data-replacement-card-id="cinder-host" aria-label="Replace with Cinder Host, costs 3 elixir">…</button> aka getByRole('button', { name: 'Replace with Cinder Host,' })
+        5) <button type="button" class="replacement-choice" data-replacement-card-id="ironroot" aria-label="Replace with Ironroot, costs 7 elixir">…</button> aka getByRole('button', { name: 'Replace with Ironroot, costs' })
+        6) <button type="button" class="replacement-choice" data-replacement-card-id="sunthread-pair" aria-label="Replace with Sunthread Pair, costs 3 elixir">…</button> aka getByRole('button', { name: 'Replace with Sunthread Pair,' })
+        7) <button type="button" class="replacement-choice" data-replacement-card-id="duskwing-trio" aria-label="Replace with Duskwing Trio, costs 3 elixir">…</button> aka getByRole('button', { name: 'Replace with Duskwing Trio,' })
+        8) <button type="button" class="replacement-choice" data-replacement-card-id="gloamwing-cluster" aria-label="Replace with Gloamwing Cluster, costs 2 elixir">…</button> aka getByRole('button', { name: 'Replace with Gloamwing' })
+        9) <button type="button" class="replacement-choice" data-replacement-card-id="coppershade-flock" aria-label="Replace with Coppershade Flock, costs 5 elixir">…</button> aka getByRole('button', { name: 'Replace with Coppershade' })
+        10) <button type="button" class="replacement-choice" data-replacement-card-id="kilnkeeper" aria-label="Replace with Kilnkeeper, costs 5 elixir">…</button> aka getByRole('button', { name: 'Replace with Kilnkeeper,' })
+        ...
+    
+    Call log:
+    [2m  - waiting for locator('[data-replacement-card-id]') to be visible[22m
+    
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    TestContext.<anonymous> (/private/tmp/cards019d-baseline-2a29833/tests/app-polish.test.js:234:54)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 17595.769875

@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 444 — 2026-10-13
+
+PIECE: APP-004G — Expanded-collection polish verification
+
+VERDICT: PASS
+
+EVIDENCE: Independent exact7bef Chrome155 full app-polish journey passes 1/1, with 20 collection cards, 12 replacement choices, unique intended focus, 44px targets, trusted input, keyboard traversal and no overflow. Product tree unchanged. Evidence artifacts/app004g-round-1/critic/.
+
+BIGGEST GAP: Follow-on focus identity is recorded by the independent DOM audit rather than the main suite.
+
 ## Round 443 — 2026-10-13
 
 PIECE: CARDS-019D — Kilnkeeper collection portrait and lore, round 2

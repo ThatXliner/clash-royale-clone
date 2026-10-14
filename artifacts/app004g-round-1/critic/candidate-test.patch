@@ -1,0 +1,180 @@
+tests/app-polish.test.js --- 1/6 --- JavaScript
+ 15  15   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+ 16  16 const ARTIFACTS = process.env.APP_POLISH_ARTIFACTS ??
+ 17  17   new URL("../artifacts/app-003-round-1/", import.meta.url).pathname;
+ ..  18 const FIRST_REPLACEMENT_CHOICE = '[data-replacement-card-id="stonehauler"]';
+ ..  19 const FOCUSED_REPLACEMENT_CHOICE = "[data-replacement-card-id]:focus";
+ 18  20 
+ 19  21 async function serverAddress(stream) {
+ 20  22   let output = "";
+
+tests/app-polish.test.js --- 2/6 --- JavaScript
+231     await firstReplace.focus();      233     await firstReplace.focus();
+232     await safeTarget(page, '[data-r  234     await safeTarget(page, '[data-r
+... eplace-slot="0"]', "first Replace c  ... eplace-slot="0"]', "first Replace c
+... ontrol after keyboard focus");       ... ontrol after keyboard focus");
+233     await page.keyboard.press("Ente  235     await page.keyboard.press("Ente
+... r");                                 ... r");
+234     await page.locator("[data-repla  236     await page.locator(FIRST_REPLAC
+... cement-card-id]").waitFor({ state:   ... EMENT_CHOICE).waitFor({ state: "vis
+... "visible" });                        ... ible" });
+...                                      237     assert.equal(await page.locator
+...                                      ... ("[data-replacement-card-id]").coun
+...                                      ... t(), 12,
+...                                      238       "the 20-card collection offer
+...                                      ... s 12 replacements outside the eight
+...                                      ... -card deck");
+235     assert.equal(await page.evaluat  239     assert.equal(await page.evaluat
+... e(() => document.activeElement?.dat  ... e(() => document.activeElement?.dat
+... aset?.replacementCardId), "stonehau  ... aset?.replacementCardId), "stonehau
+... ler",                                ... ler",
+236       "keyboard activation opens th  240       "keyboard activation opens th
+... e replacement choice and moves focu  ... e replacement choice and moves focu
+... s to it");                           ... s to it");
+237     await safeTarget(page, "[data-r  241     await safeTarget(page, FIRST_RE
+... eplacement-card-id]", "replacement   ... PLACEMENT_CHOICE, "focused Stonehau
+... choice after keyboard activation");  ... ler choice after keyboard activatio
+...                                      ... n");
+238     await page.keyboard.press("Esca  242     await page.keyboard.press("Esca
+... pe");                                ... pe");
+239     await safeTarget(page, '[data-r  243     await safeTarget(page, '[data-r
+... eplace-slot="0"]', "first Replace c  ... eplace-slot="0"]', "first Replace c
+... ontrol after closing choices");      ... ontrol after closing choices");
+240                                      244 
+241     const lastReplace = page.locato  245     const lastReplace = page.locato
+... r('[data-replace-slot="7"]');        ... r('[data-replace-slot="7"]');
+242     await lastReplace.focus();       246     await lastReplace.focus();
+243     await safeTarget(page, '[data-r  247     await safeTarget(page, '[data-r
+... eplace-slot="7"]', "last Replace co  ... eplace-slot="7"]', "last Replace co
+... ntrol after keyboard focus");        ... ntrol after keyboard focus");
+244     await page.keyboard.press("Ente  248     await page.keyboard.press("Ente
+... r");                                 ... r");
+245     await page.locator("[data-repla  249     await page.locator(FIRST_REPLAC
+... cement-card-id]").waitFor({ state:   ... EMENT_CHOICE).waitFor({ state: "vis
+... "visible" });                        ... ible" });
+246     await safeTarget(page, "[data-r  250     await safeTarget(page, FIRST_RE
+... eplacement-card-id]", "last-slot re  ... PLACEMENT_CHOICE, "focused Stonehau
+... placement choice");                  ... ler choice for the last slot");
+247     await page.keyboard.press("Esca  251     await page.keyboard.press("Esca
+... pe");                                ... pe");
+248                                      252 
+249     await page.mouse.move(30, 420);  253     await page.mouse.move(30, 420);
+
+tests/app-polish.test.js --- 3/6 --- JavaScript
+260     await page.mouse.click(replaceB  264     await page.mouse.click(replaceB
+... ox.x + replaceBox.width / 2, replac  ... ox.x + replaceBox.width / 2, replac
+... eBox.y + replaceBox.height / 2);     ... eBox.y + replaceBox.height / 2);
+261     assert.equal(await lastReplace.  265     assert.equal(await lastReplace.
+... getAttribute("data-pointer-was-trus  ... getAttribute("data-pointer-was-trus
+... ted"), "true",                       ... ted"), "true",
+262       "the last slot opened from an  266       "the last slot opened from an
+...  actual browser pointer event");     ...  actual browser pointer event");
+263     await page.locator("[data-repla  267     await page.locator(FIRST_REPLAC
+... cement-card-id]").waitFor({ state:   ... EMENT_CHOICE).waitFor({ state: "vis
+... "visible" });                        ... ible" });
+264     await safeTarget(page, "[data-r  268     await safeTarget(page, FIRST_RE
+... eplacement-card-id]", "replacement   ... PLACEMENT_CHOICE, "focused Stonehau
+... choice after trusted pointer activa  ... ler choice after trusted pointer ac
+... tion");                              ... tivation");
+265     await page.screenshot({ path: j  269     await page.screenshot({ path: j
+... oin(ARTIFACTS, "after-replacement-c  ... oin(ARTIFACTS, "after-replacement-c
+... hoice-390x844.png"), fullPage: true  ... hoice-390x844.png"), fullPage: true
+...  });                                 ...  });
+266     layouts.push({ width: 390, heig  270     layouts.push({ width: 390, heig
+... ht: 844, view: "replacement", ...aw  ... ht: 844, view: "replacement", ...aw
+... ait assertNoHorizontalOverflow(page  ... ait assertNoHorizontalOverflow(page
+... , "390x844 replacement") });         ... , "390x844 replacement") });
+267     await assertVisibleAppTargets(p  271     await assertVisibleAppTargets(p
+... age, "390x844 replacement");         ... age, "390x844 replacement");
+
+tests/app-polish.test.js --- 4/6 --- JavaScript
+297     await assertVisibleAppTargets(p  301     await assertVisibleAppTargets(p
+... age, "empty search recovery");       ... age, "empty search recovery");
+298     await page.locator('[data-actio  302     await page.locator('[data-actio
+... n="clear-search"]').click();         ... n="clear-search"]').click();
+299     assert.equal(await page.locator  303     assert.equal(await page.locator
+... ("[data-card-search]").inputValue()  ... ("[data-card-search]").inputValue()
+... , "");                               ... , "");
+300     assert.equal(await page.locator  304     assert.equal(await page.locator
+... ("[data-card-grid] [data-card-id]")  ... ("[data-card-grid] [data-card-id]")
+... .count(), 11,                        ... .count(), 20,
+301       "Clear search restores the fu  305       "Clear search restores the fu
+... ll editable collection");            ... ll 20-card editable collection");
+302     assert.equal(await page.evaluat  306     assert.equal(await page.evaluat
+... e(() => document.activeElement?.dat  ... e(() => document.activeElement?.dat
+... aset?.cardSearch !== undefined ||    ... aset?.cardSearch !== undefined ||
+303       document.activeElement?.getAt  307       document.activeElement?.getAt
+... tribute("data-card-search") !== nul  ... tribute("data-card-search") !== nul
+... l), true,                            ... l), true,
+304     "clearing search returns focus   308     "clearing search returns focus 
+... to the search field");               ... to the search field");
+
+tests/app-polish.test.js --- 5/6 --- JavaScript
+317       layouts.push({ ...viewport, v  321       layouts.push({ ...viewport, v
+... iew: "deck", ...await assertNoHoriz  ... iew: "deck", ...await assertNoHoriz
+... ontalOverflow(page, `${viewport.wid  ... ontalOverflow(page, `${viewport.wid
+... th}x${viewport.height} deck`) });    ... th}x${viewport.height} deck`) });
+318       await assertVisibleAppTargets  322       await assertVisibleAppTargets
+... (page, `${viewport.width}x${viewpor  ... (page, `${viewport.width}x${viewpor
+... t.height} deck`);                    ... t.height} deck`);
+319       await page.locator('[data-rep  323       await page.locator('[data-rep
+... lace-slot="0"]').click();            ... lace-slot="0"]').click();
+320       await page.locator("[data-rep  324       await page.locator(FOCUSED_RE
+... lacement-card-id]").waitFor({ state  ... PLACEMENT_CHOICE).waitFor({ state: 
+... : "visible" });                      ... "visible" });
+321       layouts.push({ ...viewport, v  325       layouts.push({ ...viewport, v
+... iew: "replacement", ...await assert  ... iew: "replacement", ...await assert
+... NoHorizontalOverflow(page, `${viewp  ... NoHorizontalOverflow(page, `${viewp
+... ort.width}x${viewport.height} repla  ... ort.width}x${viewport.height} repla
+... cement`) });                         ... cement`) });
+322       await assertVisibleAppTargets  326       await assertVisibleAppTargets
+... (page, `${viewport.width}x${viewpor  ... (page, `${viewport.width}x${viewpor
+... t.height} replacement`);             ... t.height} replacement`);
+323       await page.keyboard.press("Es  327       await page.keyboard.press("Es
+... cape");                              ... cape");
+
+tests/app-polish.test.js --- 6/6 --- JavaScript
+343     const reducedMotionFocus = awai  347     const reducedMotionFocus = awai
+... t assertNativeFocusClear(page,       ... t assertNativeFocusClear(page,
+344       "reduced-motion focus on the   348       "reduced-motion focus on the 
+... last Replace control at 320x568");   ... last Replace control at 320x568");
+345     assert.deepEqual(failures, [],   349     assert.deepEqual(failures, [], 
+... "the production shell runs without   ... "the production shell runs without 
+... browser errors");                    ... browser errors");
+346     writeFileSync(join(ARTIFACTS, "  350     writeFileSync(join(ARTIFACTS, "
+... browser-evidence.json"), `${JSON.st  ... browser-evidence.json"), `${JSON.st
+... ringify({                            ... ringify({
+347       release: { entrypoints: manif  351       release: { entrypoints: manif
+... est.entrypoints, fileCount: manifes  ... est.entrypoints, fileCount: manifes
+... t.fileCount },                       ... t.fileCount },
+348       initialPhoneLayout,            352       initialPhoneLayout,
+349       postScrollRect,                353       postScrollRect,
+350       firstKeyboard: "opened, focus  354       firstKeyboard: "opened, focus
+... ed, escaped, and restored to a clea  ... ed, escaped, and restored to a clea
+... r first-slot target",                ... r first-slot target",
+351       lastKeyboard: "opened, focuse  355       lastKeyboard: "opened, focuse
+... d, escaped, and restored to a clear  ... d, escaped, and restored to a clear
+...  last-slot target",                  ...  last-slot target",
+352       keyboardTraversal,             356       keyboardTraversal,
+353       trustedPointer: { wasTrusted:  357       trustedPointer: { wasTrusted:
+...  true, target: "last slot after whe  ...  true, target: "last slot after whe
+... el scroll" },                        ... el scroll" },
+354       replacement: { added: "stoneh  358       replacement: { added: "stoneh
+... auler", slot: 7, visibleConfirmatio  ... auler", slot: 7, visibleConfirmatio
+... n: "Updated" },                      ... n: "Updated" },
+355       emptySearch: { clearAction: t  359       emptySearch: { clearAction: t
+... rue, restoredCards: 9, focusReturne  ... rue, restoredCards: 20, focusReturn
+... d: true },                           ... ed: true },
+...                                      360       replacementChoices: { availab
+...                                      ... leForEightCardDeck: 12, firstFocuse
+...                                      ... dChoice: "stonehauler" },
+356       viewports: layouts,            361       viewports: layouts,
+357       reducedMotion: { ...reducedMo  362       reducedMotion: { ...reducedMo
+... tion, focusedTarget: reducedMotionF  ... tion, focusedTarget: reducedMotionF
+... ocus },                              ... ocus },
+358       result: "passed",              363       result: "passed",
+359     }, null, 2)}\n`);                364     }, null, 2)}\n`);
+360   } finally {                        365   } finally {
+361     await page.close();              366     await page.close();
+362     await browser.close();           367     await browser.close();
+

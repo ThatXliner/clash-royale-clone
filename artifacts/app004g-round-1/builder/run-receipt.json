@@ -1,0 +1,36 @@
+{
+  "round": "APP004G expanded collection polish gate repair",
+  "baseCommit": "68b20a143d83fb4650ef203d67d401cad31b9ec0",
+  "candidateTest": "tests/app-polish.test.js",
+  "candidateTestSha256": "976221beb32a264f7944cf8a590522c0d7c088c15d63413c425ad83b44bcc3d1",
+  "baselineTestSha256": "16b187b217b80b45ec26c8df68fa0c10d2d90e7f98fed5b8d59fdb18083db9bf",
+  "productionAppShellSha256AtBase": "060abc24e332b828f59a79e896a7413310786960f1d62bf8b24a713e413a66a1",
+  "runtime": {
+    "node": "v22.22.3",
+    "browser": "Google Chrome 155.0.8059.40",
+    "playwrightModule": "/Users/me/.codex/worktrees/d092a29e-844b-459d-b145-c548db10d485/billion/node_modules/.pnpm/playwright@1.58.2/node_modules/playwright/index.mjs"
+  },
+  "baseline": {
+    "exitCode": 1,
+    "failure": "The generic [data-replacement-card-id] locator resolved to 12 visible replacement buttons, causing strict-mode failure at the first replacement menu.",
+    "tap": "baseline-app-polish.tap",
+    "screenshot": "baseline-after-deck-390x844.png"
+  },
+  "candidate": {
+    "exitCode": 0,
+    "tap": "candidate-app-polish.tap",
+    "screenshotsAndEvidence": "chrome-run/",
+    "checks": {
+      "replacementChoicesForEightCardDeck": 12,
+      "firstFocusedChoice": "stonehauler",
+      "clearSearchRestoresCards": 20,
+      "keyboardTraversalControlsPerDirection": 16,
+      "phoneViewports": ["320x568", "390x844"],
+      "trustedPointer": true,
+      "44pxTargetsAndHitGeometry": true,
+      "horizontalOverflow": false,
+      "reducedMotion": true
+    }
+  },
+  "scope": "Only the app-polish test and this builder receipt/evidence; production source, simulation, UI, and other tests are unchanged."
+}

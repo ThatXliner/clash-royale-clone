@@ -15,6 +15,8 @@ const CHROME = process.env.GAME_BROWSER_CHROME ??
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const ARTIFACTS = process.env.APP_POLISH_ARTIFACTS ??
   new URL("../artifacts/app-003-round-1/", import.meta.url).pathname;
+const FIRST_REPLACEMENT_CHOICE = '[data-replacement-card-id="stonehauler"]';
+const FOCUSED_REPLACEMENT_CHOICE = "[data-replacement-card-id]:focus";
 
 async function serverAddress(stream) {
   let output = "";
@@ -231,10 +233,12 @@ test("mobile app controls scroll clear of navigation and retain deck and card fe
     await firstReplace.focus();
     await safeTarget(page, '[data-replace-slot="0"]', "first Replace control after keyboard focus");
     await page.keyboard.press("Enter");
-    await page.locator("[data-replacement-card-id]").waitFor({ state: "visible" });
+    await page.locator(FIRST_REPLACEMENT_CHOICE).waitFor({ state: "visible" });
+    assert.equal(await page.locator("[data-replacement-card-id]").count(), 12,
+      "the 20-card collection offers 12 replacements outside the eight-card deck");
     assert.equal(await page.evaluate(() => document.activeElement?.dataset?.replacementCardId), "stonehauler",
       "keyboard activation opens the replacement choice and moves focus to it");
-    await safeTarget(page, "[data-replacement-card-id]", "replacement choice after keyboard activation");
+    await safeTarget(page, FIRST_REPLACEMENT_CHOICE, "focused Stonehauler choice after keyboard activation");
     await page.keyboard.press("Escape");
     await safeTarget(page, '[data-replace-slot="0"]', "first Replace control after closing choices");
 
@@ -242,8 +246,8 @@ test("mobile app controls scroll clear of navigation and retain deck and card fe
     await lastReplace.focus();
     await safeTarget(page, '[data-replace-slot="7"]', "last Replace control after keyboard focus");
     await page.keyboard.press("Enter");
-    await page.locator("[data-replacement-card-id]").waitFor({ state: "visible" });
-    await safeTarget(page, "[data-replacement-card-id]", "last-slot replacement choice");
+    await page.locator(FIRST_REPLACEMENT_CHOICE).waitFor({ state: "visible" });
+    await safeTarget(page, FIRST_REPLACEMENT_CHOICE, "focused Stonehauler choice for the last slot");
     await page.keyboard.press("Escape");
 
     await page.mouse.move(30, 420);
@@ -260,8 +264,8 @@ test("mobile app controls scroll clear of navigation and retain deck and card fe
     await page.mouse.click(replaceBox.x + replaceBox.width / 2, replaceBox.y + replaceBox.height / 2);
     assert.equal(await lastReplace.getAttribute("data-pointer-was-trusted"), "true",
       "the last slot opened from an actual browser pointer event");
-    await page.locator("[data-replacement-card-id]").waitFor({ state: "visible" });
-    await safeTarget(page, "[data-replacement-card-id]", "replacement choice after trusted pointer activation");
+    await page.locator(FIRST_REPLACEMENT_CHOICE).waitFor({ state: "visible" });
+    await safeTarget(page, FIRST_REPLACEMENT_CHOICE, "focused Stonehauler choice after trusted pointer activation");
     await page.screenshot({ path: join(ARTIFACTS, "after-replacement-choice-390x844.png"), fullPage: true });
     layouts.push({ width: 390, height: 844, view: "replacement", ...await assertNoHorizontalOverflow(page, "390x844 replacement") });
     await assertVisibleAppTargets(page, "390x844 replacement");
@@ -297,8 +301,8 @@ test("mobile app controls scroll clear of navigation and retain deck and card fe
     await assertVisibleAppTargets(page, "empty search recovery");
     await page.locator('[data-action="clear-search"]').click();
     assert.equal(await page.locator("[data-card-search]").inputValue(), "");
-    assert.equal(await page.locator("[data-card-grid] [data-card-id]").count(), 11,
-      "Clear search restores the full editable collection");
+    assert.equal(await page.locator("[data-card-grid] [data-card-id]").count(), 20,
+      "Clear search restores the full 20-card editable collection");
     assert.equal(await page.evaluate(() => document.activeElement?.dataset?.cardSearch !== undefined ||
       document.activeElement?.getAttribute("data-card-search") !== null), true,
     "clearing search returns focus to the search field");
@@ -317,7 +321,7 @@ test("mobile app controls scroll clear of navigation and retain deck and card fe
       layouts.push({ ...viewport, view: "deck", ...await assertNoHorizontalOverflow(page, `${viewport.width}x${viewport.height} deck`) });
       await assertVisibleAppTargets(page, `${viewport.width}x${viewport.height} deck`);
       await page.locator('[data-replace-slot="0"]').click();
-      await page.locator("[data-replacement-card-id]").waitFor({ state: "visible" });
+      await page.locator(FOCUSED_REPLACEMENT_CHOICE).waitFor({ state: "visible" });
       layouts.push({ ...viewport, view: "replacement", ...await assertNoHorizontalOverflow(page, `${viewport.width}x${viewport.height} replacement`) });
       await assertVisibleAppTargets(page, `${viewport.width}x${viewport.height} replacement`);
       await page.keyboard.press("Escape");
@@ -352,7 +356,8 @@ test("mobile app controls scroll clear of navigation and retain deck and card fe
       keyboardTraversal,
       trustedPointer: { wasTrusted: true, target: "last slot after wheel scroll" },
       replacement: { added: "stonehauler", slot: 7, visibleConfirmation: "Updated" },
-      emptySearch: { clearAction: true, restoredCards: 9, focusReturned: true },
+      emptySearch: { clearAction: true, restoredCards: 20, focusReturned: true },
+      replacementChoices: { availableForEightCardDeck: 12, firstFocusedChoice: "stonehauler" },
       viewports: layouts,
       reducedMotion: { ...reducedMotion, focusedTarget: reducedMotionFocus },
       result: "passed",
