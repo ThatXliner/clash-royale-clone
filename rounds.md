@@ -9166,3 +9166,12 @@ PIECE: RELEASE-ARENA-001
 VERDICT: PASS
 EVIDENCE: Independent exact8a89beeb app-shell1/1, release22/22, Pages5/5. Actualprojectprefixartifact6112788/8388608B, default8/collection21, visiblearena+RLsteprestore/noerrors. Buriedsingletargetground+air/no splash andEmber1tilegroundsplash tables matchcanonicalprofiles; costsourcebacked/noncostQUESTION. Oldfalsecopynegativecontrolfailsassertion. Sourceprepostexact. Criticwrappedapp-shellrepeat retained; nofullenduranceclaim. Artifacts/release-arena-failure-round2/critic/.
 BIGGEST GAP: No gap on current startup/profile truthfulness bar; minor Ember Basin radius row says “1 tiles,” while its description correctly says “1-tile radius.” Full endurance and Buried presentation remain separate.
+
+## Round 470 — CARDS-021I original hidden-building presentation
+
+PIECE: CARDS-021I
+VERDICT: FAIL
+EVIDENCE: Focused TAP passed 47/47. The bounded real-browser smoke TAP failed 0/1 at the strict revealed-form smoke assertion: hidden phone-normal restore PNG changed from SHA-256 8db63f1e7f88e21f42f8d0328eef542b41a879f6de42ba90b328d5c3b28555b8 to dabf300157a54813165c71141cee041a2afff76b13ce2711fde2bf28cd7207d2. Visual inspection shows the “Buried Coil combat: QUESTION…” overlay present before restore and absent after. Team plate evidence passed the 8-pixel phone / 24-pixel desktop thresholds (revealed phone: 20; desktop: 48). The exact browser screenshots, full browser-evidence.json, and raw TAP are preserved under browser-smoke/. A later phone layout audit also records a 246×437 iframe at x=0 after desktop-to-phone resize, versus the initial 371×659 iframe.
+BIGGEST GAP: Hidden-form restore at 390×844 changes the full-viewport image by dropping the visible unverified-combat overlay, so the exact restore criterion fails.
+
+Candidate4907e6f parentaccepted095a8c5; no sourceadoption. IndependentChrome155/Playwright1.58.2/Node22 focused47pass andbrowser0/1fail26.18s. Tee lackedpipefail, actualTAPfailure authoritative; no cleanNodeexitclaim. Fullground/airhit/lifetime/naturalterminal/restart journeyunrun. Original898HUD5pixeldrift isseparatecapturedcause; currentnotice-loss andsettlediframegeometry requireboundedfixes. Fullrawartifacts/cards021-integration-round1/critic/.

@@ -1,0 +1,12 @@
+Independent critic checkout
+Candidate commit: 4907e6f0dd3fd37022946a68b1467affc0c84ea3
+Candidate parent: 095a8c55a6721c74f7555939a9ce21182bec3f2a
+Checkout HEAD verified equal to candidate commit.
+Source scope is frozen to the candidate commit; no source files were edited during critique.
+The private checkout contains only generated critic artifacts as untracked files.
+Full commit-to-parent patch and changed-path list are stored beside this fence.
+
+Candidate-owned UI paths: src/ui/card-lore.js, src/ui/card-portrait-art.js, src/ui/combat-art.js, src/ui/combat-state.js, src/ui/game-ui-projection.js.
+Focused tests: tests/ui-combat-state.test.js, tests/game-ui-projection.test.js, tests/card-expansion-art.test.js, tests/cards021-integration.test.js.
+New browser test: tests/cards021-browser-integration.test.js.
+Reference audit: reference/stats/cards.json contains no Buried Coil record; authored combat values remain marked QUESTION/unverified in the card presentation and integration fixture.

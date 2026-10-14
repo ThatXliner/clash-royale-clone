@@ -1,0 +1,479 @@
+{
+  "candidate": "4907e6f0dd3fd37022946a68b1467affc0c84ea3",
+  "focused": {
+    "passed": 47,
+    "failed": 0,
+    "durationMs": 68370
+  },
+  "browserSmoke": {
+    "passed": 0,
+    "failed": 1,
+    "durationMs": 26184,
+    "stop": "bounded revealed-form smoke assertion"
+  },
+  "screenshotMismatches": [
+    {
+      "afterFile": "hidden-phone-normal-after-restore.png",
+      "afterSha256": "dabf300157a54813165c71141cee041a2afff76b13ce2711fde2bf28cd7207d2",
+      "beforeFile": "hidden-phone-normal-before-restore.png",
+      "beforeSha256": "8db63f1e7f88e21f42f8d0328eef542b41a879f6de42ba90b328d5c3b28555b8",
+      "context": "hidden-phone-normal"
+    }
+  ],
+  "screenshotPairVisualFinding": "The before-restore screenshot contains the Buried Coil combat QUESTION overlay above the timer; the after-restore screenshot does not.",
+  "trustedInput": [
+    {
+      "isTrusted": true,
+      "clientX": 345.0005187988281,
+      "clientY": 737.9940795898438
+    }
+  ],
+  "browserErrors": [],
+  "teamPlatePixels": [
+    {
+      "file": "hidden-phone-normal-before-restore.png",
+      "form": "hidden",
+      "viewport": "phone",
+      "side": "north",
+      "count": 49,
+      "minimum": 8,
+      "markerBounds": {
+        "x": 98.375,
+        "y": 384.890625,
+        "width": 23.359375,
+        "height": 23.34375
+      },
+      "plateBounds": {
+        "x": 100.109375,
+        "y": 361.53125,
+        "width": 19.890625,
+        "height": 4.015625
+      }
+    },
+    {
+      "file": "hidden-phone-normal-before-restore.png",
+      "form": "hidden",
+      "viewport": "phone",
+      "side": "south",
+      "count": 48,
+      "minimum": 8,
+      "markerBounds": {
+        "x": 175.609375,
+        "y": 485.28125,
+        "width": 23.34375,
+        "height": 23.359375
+      },
+      "plateBounds": {
+        "x": 177.328125,
+        "y": 508.640625,
+        "width": 19.890625,
+        "height": 4
+      }
+    },
+    {
+      "file": "hidden-phone-reduced-before-restore.png",
+      "form": "hidden",
+      "viewport": "phone",
+      "side": "north",
+      "count": 49,
+      "minimum": 8,
+      "markerBounds": {
+        "x": 98.375,
+        "y": 384.890625,
+        "width": 23.359375,
+        "height": 23.34375
+      },
+      "plateBounds": {
+        "x": 100.109375,
+        "y": 361.53125,
+        "width": 19.890625,
+        "height": 4.015625
+      }
+    },
+    {
+      "file": "hidden-phone-reduced-before-restore.png",
+      "form": "hidden",
+      "viewport": "phone",
+      "side": "south",
+      "count": 48,
+      "minimum": 8,
+      "markerBounds": {
+        "x": 175.609375,
+        "y": 485.28125,
+        "width": 23.34375,
+        "height": 23.359375
+      },
+      "plateBounds": {
+        "x": 177.328125,
+        "y": 508.640625,
+        "width": 19.890625,
+        "height": 4
+      }
+    },
+    {
+      "file": "hidden-desktop-normal-before-restore.png",
+      "form": "hidden",
+      "viewport": "desktop",
+      "side": "north",
+      "count": 48,
+      "minimum": 24,
+      "markerBounds": {
+        "x": 695.359375,
+        "y": 425.609375,
+        "width": 23.59375,
+        "height": 23.59375
+      },
+      "plateBounds": {
+        "x": 697.09375,
+        "y": 402,
+        "width": 20.109375,
+        "height": 4.0625
+      }
+    },
+    {
+      "file": "hidden-desktop-normal-before-restore.png",
+      "form": "hidden",
+      "viewport": "desktop",
+      "side": "south",
+      "count": 48,
+      "minimum": 24,
+      "markerBounds": {
+        "x": 773.40625,
+        "y": 527.0625,
+        "width": 23.59375,
+        "height": 23.609375
+      },
+      "plateBounds": {
+        "x": 775.140625,
+        "y": 550.671875,
+        "width": 20.109375,
+        "height": 4.046875
+      }
+    },
+    {
+      "file": "hidden-desktop-reduced-before-restore.png",
+      "form": "hidden",
+      "viewport": "desktop",
+      "side": "north",
+      "count": 48,
+      "minimum": 24,
+      "markerBounds": {
+        "x": 695.359375,
+        "y": 425.609375,
+        "width": 23.59375,
+        "height": 23.59375
+      },
+      "plateBounds": {
+        "x": 697.09375,
+        "y": 402,
+        "width": 20.109375,
+        "height": 4.0625
+      }
+    },
+    {
+      "file": "hidden-desktop-reduced-before-restore.png",
+      "form": "hidden",
+      "viewport": "desktop",
+      "side": "south",
+      "count": 48,
+      "minimum": 24,
+      "markerBounds": {
+        "x": 773.40625,
+        "y": 527.0625,
+        "width": 23.59375,
+        "height": 23.609375
+      },
+      "plateBounds": {
+        "x": 775.140625,
+        "y": 550.671875,
+        "width": 20.109375,
+        "height": 4.046875
+      }
+    },
+    {
+      "file": "revealed-phone-normal-before-restore.png",
+      "form": "revealed",
+      "viewport": "phone",
+      "side": "north",
+      "count": 20,
+      "minimum": 8,
+      "markerBounds": {
+        "x": 58.875,
+        "y": 454.109375,
+        "width": 15.5,
+        "height": 15.5
+      },
+      "plateBounds": {
+        "x": 60.03125,
+        "y": 438.609375,
+        "width": 13.1875,
+        "height": 2.65625
+      }
+    },
+    {
+      "file": "revealed-phone-normal-before-restore.png",
+      "form": "hidden",
+      "viewport": "phone",
+      "side": "south",
+      "count": 20,
+      "minimum": 8,
+      "markerBounds": {
+        "x": 110.125,
+        "y": 520.734375,
+        "width": 15.5,
+        "height": 15.5
+      },
+      "plateBounds": {
+        "x": 111.28125,
+        "y": 536.234375,
+        "width": 13.1875,
+        "height": 2.65625
+      }
+    },
+    {
+      "file": "revealed-phone-reduced-before-restore.png",
+      "form": "revealed",
+      "viewport": "phone",
+      "side": "north",
+      "count": 20,
+      "minimum": 8,
+      "markerBounds": {
+        "x": 58.875,
+        "y": 454.109375,
+        "width": 15.5,
+        "height": 15.5
+      },
+      "plateBounds": {
+        "x": 60.03125,
+        "y": 438.609375,
+        "width": 13.1875,
+        "height": 2.65625
+      }
+    },
+    {
+      "file": "revealed-phone-reduced-before-restore.png",
+      "form": "hidden",
+      "viewport": "phone",
+      "side": "south",
+      "count": 20,
+      "minimum": 8,
+      "markerBounds": {
+        "x": 110.125,
+        "y": 520.734375,
+        "width": 15.5,
+        "height": 15.5
+      },
+      "plateBounds": {
+        "x": 111.28125,
+        "y": 536.234375,
+        "width": 13.1875,
+        "height": 2.65625
+      }
+    },
+    {
+      "file": "revealed-desktop-normal-before-restore.png",
+      "form": "revealed",
+      "viewport": "desktop",
+      "side": "north",
+      "count": 48,
+      "minimum": 24,
+      "markerBounds": {
+        "x": 695.359375,
+        "y": 425.609375,
+        "width": 23.59375,
+        "height": 23.59375
+      },
+      "plateBounds": {
+        "x": 697.09375,
+        "y": 402,
+        "width": 20.109375,
+        "height": 4.0625
+      }
+    },
+    {
+      "file": "revealed-desktop-normal-before-restore.png",
+      "form": "hidden",
+      "viewport": "desktop",
+      "side": "south",
+      "count": 48,
+      "minimum": 24,
+      "markerBounds": {
+        "x": 773.40625,
+        "y": 527.0625,
+        "width": 23.59375,
+        "height": 23.609375
+      },
+      "plateBounds": {
+        "x": 775.140625,
+        "y": 550.671875,
+        "width": 20.109375,
+        "height": 4.046875
+      }
+    },
+    {
+      "file": "revealed-desktop-reduced-before-restore.png",
+      "form": "revealed",
+      "viewport": "desktop",
+      "side": "north",
+      "count": 48,
+      "minimum": 24,
+      "markerBounds": {
+        "x": 695.359375,
+        "y": 425.609375,
+        "width": 23.59375,
+        "height": 23.59375
+      },
+      "plateBounds": {
+        "x": 697.09375,
+        "y": 402,
+        "width": 20.109375,
+        "height": 4.0625
+      }
+    },
+    {
+      "file": "revealed-desktop-reduced-before-restore.png",
+      "form": "hidden",
+      "viewport": "desktop",
+      "side": "south",
+      "count": 48,
+      "minimum": 24,
+      "markerBounds": {
+        "x": 773.40625,
+        "y": 527.0625,
+        "width": 23.59375,
+        "height": 23.609375
+      },
+      "plateBounds": {
+        "x": 775.140625,
+        "y": 550.671875,
+        "width": 20.109375,
+        "height": 4.046875
+      }
+    }
+  ],
+  "viewportGeometry": [
+    {
+      "label": "battle-frame-mounted",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 9.65625,
+        "y": 117,
+        "width": 370.6875,
+        "height": 659
+      },
+      "iframeScale": "scale(0.514844)",
+      "contentViewport": {
+        "width": 720,
+        "height": 1280
+      }
+    },
+    {
+      "label": "revealed-phone-normal",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "iframeScale": "scale(0.341667)",
+      "contentViewport": {
+        "width": 720,
+        "height": 1280
+      }
+    },
+    {
+      "label": "revealed-phone-reduced",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "slot": {
+        "x": 0,
+        "y": 117,
+        "width": 390,
+        "height": 659
+      },
+      "iframe": {
+        "x": 0,
+        "y": 276.328125,
+        "width": 246,
+        "height": 437.3333740234375
+      },
+      "iframeScale": "scale(0.341667)",
+      "contentViewport": {
+        "width": 720,
+        "height": 1280
+      }
+    },
+    {
+      "label": "revealed-desktop-normal",
+      "viewport": {
+        "width": 1440,
+        "height": 933
+      },
+      "slot": {
+        "x": 72,
+        "y": 153.875,
+        "width": 1296,
+        "height": 761.125
+      },
+      "iframe": {
+        "x": 605.6875,
+        "y": 154.875,
+        "width": 374.625,
+        "height": 666
+      },
+      "iframeScale": "scale(0.520312)",
+      "contentViewport": {
+        "width": 720,
+        "height": 1280
+      }
+    },
+    {
+      "label": "revealed-desktop-reduced",
+      "viewport": {
+        "width": 1440,
+        "height": 933
+      },
+      "slot": {
+        "x": 72,
+        "y": 153.875,
+        "width": 1296,
+        "height": 761.125
+      },
+      "iframe": {
+        "x": 605.6875,
+        "y": 154.875,
+        "width": 374.625,
+        "height": 666
+      },
+      "iframeScale": "scale(0.520312)",
+      "contentViewport": {
+        "width": 720,
+        "height": 1280
+      }
+    }
+  ],
+  "terminalJourney": "Not run after the bounded screenshot gate failed.",
+  "provenance": "reference/stats/cards.json has no Buried Coil record; authored combat values stayed QUESTION/unverified.",
+  "artifacts": "browser-smoke/ contains the raw TAP, screenshots, evidence JSON, and per-marker renders."
+}

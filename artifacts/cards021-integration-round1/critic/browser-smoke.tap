@@ -1,0 +1,32 @@
+TAP version 13
+# Subtest: Cards021 Buried Coil collection and arena use the authentic seed-zero eight-card journey
+not ok 1 - Cards021 Buried Coil collection and arena use the authentic seed-zero eight-card journey
+  ---
+  duration_ms: 25396.355958
+  type: 'test'
+  location: '/private/tmp/cards021i-4907-critic/tests/cards021-browser-integration.test.js:378:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    revealed-form smoke retains strict PNG restore mismatches: [{"afterFile":"hidden-phone-normal-after-restore.png","afterSha256":"dabf300157a54813165c71141cee041a2afff76b13ce2711fde2bf28cd7207d2","beforeFile":"hidden-phone-normal-before-restore.png","beforeSha256":"8db63f1e7f88e21f42f8d0328eef542b41a879f6de42ba90b328d5c3b28555b8","context":"hidden-phone-normal"}]
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/cards021i-4907-critic/tests/cards021-browser-integration.test.js:830:14)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 26184.080042

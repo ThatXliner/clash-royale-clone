@@ -1,0 +1,32 @@
+--- a/src/ui/app-shell.js
++++ b/src/ui/app-shell.js
+@@ -9,7 +9,7 @@
+ const cards = [
+   ...createPlayableRoster(),
+   ...EDITABLE_MIXED_DECK_CARD_IDS.filter((id) => !PLAYABLE_CARD_IDS.includes(id))
+-    .map((id) => id === "squall-orb" || id === "ember-basin"
++    .map((id) => id === "squall-orb" || id === "ember-basin" || id === "buried-coil"
+       ? projectSessionNonUnitBattleCard(id) : projectSessionTroopBattleCard(id)),
+ ];
+ const cardById = new Map(cards.map((card) => [card.id, card]));
+@@ -77,7 +77,9 @@
+ }
+ 
+ function targetLabel(mode) {
+-  if (mode === "ground-and-air") return "ground and air";
++  if (mode === "ground-and-air" || mode === "ground_and_air" || mode === "air_and_ground") {
++    return "ground and air";
++  }
+   if (mode === "ground") return "ground";
+   if (mode === "air") return "air";
+   if (mode === "structures") return "structures";
+@@ -113,6 +115,9 @@
+   if (card.id === radiusSpellProfile.fact.cardId) {
+     const fact = radiusSpellProfile.fact;
+     return `Center-cast area spell · ${formatter.format(fact.damage)} damage to enemy ground troops, flying troops, buildings and crown towers within an estimated ${formatter.format(fact.areaDamageRadiusMillitiles / 1_000)}-tile radius. Crown-tower damage is an estimated ${100 + fact.crownTowerDamagePercent}% of troop damage. Impact takes about ${formatter.format(fact.impactDelayTicks / 60)} seconds. Projectile flight and knockback are not simulated.`;
++  }
++  if (card.id === "buried-coil") {
++    return "Concealed defensive structure · its historical combat behavior is QUESTION; only the four-elixir cost is source backed.";
+   }
+   if (card.kind === "structure") {
+     const target = targetLabel(card.buildingRuntime?.targetMode ?? card.targetMode);

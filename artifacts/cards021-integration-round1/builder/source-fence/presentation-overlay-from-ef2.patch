@@ -1,0 +1,543 @@
+diff --git a/src/ui/card-lore.js b/src/ui/card-lore.js
+index 5081de0..cf00c27 100644
+--- a/src/ui/card-lore.js
++++ b/src/ui/card-lore.js
+@@ -20,6 +20,7 @@ const CARD_LORE = Object.freeze({
+   "gloamwing-cluster": "Gloamwings rise from the violet reeds at dusk to follow emberseeds down the riverbank. Five of them wheel around each warm spark until ferry bells call them home.",
+   "coppershade-flock": "Coppershades roost in the offcuts piled outside the Rivermark river workshop. When the kiln wakes, all six glide over the canal and trade tiny sparks above their copper-lit nests.",
+   "ember-basin": "The Ember Basin stands where the creek turns, its copper lip warmed by emberseeds carried down from the Moss & Ember workshop. At dusk, twin braces hold its long copper-ribbed launch channel above the water, ready to turn any unwelcome visitor away.",
++  "buried-coil": "At the alderwood river workshop, Ilyra winds a young emberseed into a copper coil and seals it beneath a hatch beside the sluice. When raider boots shake the roots, the seed glows and the hatch lifts a riveted lookout to guard the waterwheel.",
+   kilnkeeper: "Kilnkeeper tends the warm river kilns where rootwood beams are steamed and copper vessels are shaped, keeping each emberseed dry between shifts. When raiders threaten the workshop, he loads one emberseed into his broad-mouthed launcher and sends a single burst of sparks skittering across the ground.",
+ });
+ 
+diff --git a/src/ui/card-portrait-art.js b/src/ui/card-portrait-art.js
+index 2420f7d..0b0117f 100644
+--- a/src/ui/card-portrait-art.js
++++ b/src/ui/card-portrait-art.js
+@@ -18,6 +18,7 @@ const CARD_PORTRAITS = Object.freeze({
+   "gloamwing-cluster": Object.freeze({ asset: "gloamwing-cluster-painted", cell: null }),
+   "coppershade-flock": Object.freeze({ asset: "coppershade-flock-painted", cell: null }),
+   "ember-basin": Object.freeze({ asset: "ember-basin-portrait-painted-v2", cell: null }),
++  "buried-coil": Object.freeze({ asset: "buried-coil-portrait", cell: null }),
+   kilnkeeper: Object.freeze({ asset: "kilnkeeper-portrait-painted", cell: null }),
+ });
+ 
+@@ -70,6 +71,10 @@ const PORTRAIT_ASSET_PATHS = Object.freeze({
+     "../../public/assets/ember-basin-portrait-painted-v2.webp",
+     import.meta.url,
+   ).href,
++  "buried-coil-portrait": new URL(
++    "../../public/assets/buried-coil-portrait.webp",
++    import.meta.url,
++  ).href,
+   "kilnkeeper-portrait-painted": new URL(
+     "../../public/assets/kilnkeeper-portrait-painted.webp",
+     import.meta.url,
+diff --git a/src/ui/combat-art.js b/src/ui/combat-art.js
+index a241c0e..3cfa5e2 100644
+--- a/src/ui/combat-art.js
++++ b/src/ui/combat-art.js
+@@ -20,6 +20,14 @@ const EMBER_BASIN_BATTLE_IMAGE = new URL(
+   "../../public/assets/ember-basin-battle-sprite.webp",
+   import.meta.url,
+ ).href;
++const BURIED_COIL_HIDDEN_IMAGE = new URL(
++  "../../public/assets/buried-coil-hidden.webp",
++  import.meta.url,
++).href;
++const BURIED_COIL_REVEALED_IMAGE = new URL(
++  "../../public/assets/buried-coil-revealed.svg",
++  import.meta.url,
++).href;
+ const KILNKEEPER_BATTLE_IMAGE = new URL(
+   "../../public/assets/kilnkeeper-battle-sprite.webp",
+   import.meta.url,
+@@ -154,7 +162,7 @@ for (const paths of Object.values(shapes)) {
+   Object.freeze(paths);
+ }
+ export const COMBAT_ART_ARCHETYPES = Object.freeze([...Object.keys(shapes), 'kilnkeeper']);
+-export const COMBAT_STRUCTURE_ART_IDS = Object.freeze(['bulwark-needle', 'ember-basin']);
++export const COMBAT_STRUCTURE_ART_IDS = Object.freeze(['bulwark-needle', 'buried-coil', 'ember-basin']);
+ Object.freeze(shapes);
+ 
+ export function getBriarRunnerPaintedFrameTransform({
+@@ -251,7 +259,10 @@ export function createBriarRunnerPaintedArt(document, {
+   return svg;
+ }
+ 
+-export function createCombatArt(document, kind, side, layer) {
++export function createCombatArt(document, kind, side, layer, hidden = false) {
++  if (typeof hidden !== 'boolean' || (kind !== "buried-coil" && hidden)) {
++    throw new TypeError("combat art hidden state must be a Buried Coil boolean");
++  }
+   const create = typeof document.createElementNS === 'function'
+     ? (tag) => document.createElementNS('http://www.w3.org/2000/svg', tag)
+     : (tag) => document.createElement(tag);
+@@ -260,7 +271,7 @@ export function createCombatArt(document, kind, side, layer) {
+   svg.setAttribute('class', 'combat-art');
+   svg.setAttribute('aria-hidden', 'true');
+   svg.dataset.artId = Object.hasOwn(shapes, kind) ||
+-    kind === "ember-basin" || kind === "kilnkeeper"
++    kind === "ember-basin" || kind === "buried-coil" || kind === "kilnkeeper"
+     ? kind : `witness-${layer}`;
+   if (kind === "kilnkeeper") {
+     svg.setAttribute('viewBox', '0 0 512 512');
+@@ -306,6 +317,35 @@ export function createCombatArt(document, kind, side, layer) {
+     svg.appendChild(image);
+     return svg;
+   }
++  if (kind === "buried-coil") {
++    svg.setAttribute('viewBox', '0 0 512 512');
++    svg.dataset.hidden = String(hidden);
++    svg.dataset.form = hidden ? "hidden" : "revealed";
++    svg.dataset.teamColor = side;
++    // Keep the opaque team identifier outside the approved artwork, on the
++    // team's home-facing edge: above North and below South. This stays clear
++    // of the lookout's feet, coil loops, and the river at the arena midpoint.
++    const teamPlate = create('rect');
++    teamPlate.dataset.teamColor = side;
++    teamPlate.setAttribute('x', '38');
++    teamPlate.setAttribute('y', side === 'north' ? '-512' : '512');
++    teamPlate.setAttribute('width', '436');
++    teamPlate.setAttribute('height', '88');
++    teamPlate.setAttribute('rx', '44');
++    teamPlate.setAttribute('fill', side === 'north' ? '#C6452E' : '#2E7F86');
++    teamPlate.setAttribute('shape-rendering', 'crispEdges');
++    teamPlate.setAttribute('aria-hidden', 'true');
++    const image = create('image');
++    image.setAttribute('href', hidden ? BURIED_COIL_HIDDEN_IMAGE : BURIED_COIL_REVEALED_IMAGE);
++    image.setAttribute('x', '0');
++    image.setAttribute('y', '0');
++    image.setAttribute('width', '512');
++    image.setAttribute('height', '512');
++    image.setAttribute('preserveAspectRatio', 'none');
++    svg.appendChild(image);
++    svg.appendChild(teamPlate);
++    return svg;
++  }
+   // Unshipped witness-only kinds use an explicit family silhouette.
+   const paths = Object.hasOwn(shapes, kind) ? shapes[kind] : shapes[layer === 'air' ? 'copperskiff' : 'coilblade'];
+   for (const [d, fill] of paths) {
+@@ -327,4 +367,4 @@ export function createCombatArt(document, kind, side, layer) {
+   return svg;
+ }
+ 
+-export const COMBAT_ART_STYLE = `.combat-target-link{display:none}.combat-target-link[data-from-structure="true"]{display:block}.combat-target-link[data-from-structure="true"] line{stroke:#E9A83A99;stroke-width:70;stroke-dasharray:190 125}.combat-marker[class]{border:0;background:none;border-radius:0;box-shadow:none;width:6.2%;height:auto;aspect-ratio:1}.combat-marker--entity-ground{filter:drop-shadow(0 2px 0 #191d2244)}.combat-marker--entity-air::before{content:"";position:absolute;left:18%;right:18%;height:13%;bottom:-15%;border-radius:50%;background:#191d2244}.combat-art{display:block;width:100%;height:100%;overflow:visible}.combat-marker[data-kind="mossguard"],.combat-marker[data-kind="skymaul"]{width:7.5%}.combat-marker[data-kind="stonehauler"]{width:8.2%}.combat-marker[data-kind="bulwark-needle"],.combat-marker[data-kind="ember-basin"]{width:8.4%;z-index:21}.combat-marker--structure[data-targeting="true"] .combat-art{filter:drop-shadow(0 0 7px #E9A83A)}.combat-marker[data-kind="briar-runner"],.combat-marker[data-kind="briar-darter"],.combat-marker[data-kind="cinderling"]{width:4.8%}.combat-marker--tower[class]{width:7%;height:0;aspect-ratio:auto}.combat-marker[class] .combat-health{width:80%;height:4px;bottom:105%;border-radius:1px;background:#DCEDE9;box-shadow:0 0 0 1px #191D22}.combat-marker--north[class] .combat-health{background:#E9A83A}.combat-marker--tower[class] .combat-health{bottom:28px;height:4px;box-shadow:0 0 0 1px #191D22}.combat-marker[data-reaction="damage"] .combat-art{filter:brightness(1.7)}.combat-marker[data-reaction="target"] .combat-art{transform:rotate(-7deg)}.combat-marker--north[data-reaction="target"] .combat-art{transform:rotate(7deg)}`;
++export const COMBAT_ART_STYLE = `.combat-target-link{display:none}.combat-target-link[data-from-structure="true"]{display:block}.combat-target-link[data-from-structure="true"] line{stroke:#E9A83A99;stroke-width:70;stroke-dasharray:190 125}.combat-marker[class]{border:0;background:none;border-radius:0;box-shadow:none;width:6.2%;height:auto;aspect-ratio:1}.combat-marker--entity-ground{filter:drop-shadow(0 2px 0 #191d2244)}.combat-marker--entity-air::before{content:"";position:absolute;left:18%;right:18%;height:13%;bottom:-15%;border-radius:50%;background:#191d2244}.combat-art{display:block;width:100%;height:100%;overflow:visible}.combat-marker[data-kind="mossguard"],.combat-marker[data-kind="skymaul"]{width:7.5%}.combat-marker[data-kind="stonehauler"]{width:8.2%}.combat-marker[data-kind="bulwark-needle"],.combat-marker[data-kind="buried-coil"],.combat-marker[data-kind="ember-basin"]{width:8.4%;z-index:21}.combat-marker--structure[data-targeting="true"] .combat-art{filter:drop-shadow(0 0 7px #E9A83A)}.combat-marker[data-kind="briar-runner"],.combat-marker[data-kind="briar-darter"],.combat-marker[data-kind="cinderling"]{width:4.8%}.combat-marker--tower[class]{width:7%;height:0;aspect-ratio:auto}.combat-marker[class] .combat-health{width:80%;height:4px;bottom:105%;border-radius:1px;background:#DCEDE9;box-shadow:0 0 0 1px #191D22}.combat-marker--north[class] .combat-health{background:#E9A83A}.combat-marker--tower[class] .combat-health{bottom:28px;height:4px;box-shadow:0 0 0 1px #191D22}.combat-marker[data-reaction="damage"] .combat-art{filter:brightness(1.7)}.combat-marker[data-reaction="target"] .combat-art{transform:rotate(-7deg)}.combat-marker--north[data-reaction="target"] .combat-art{transform:rotate(7deg)}`;
+diff --git a/src/ui/combat-state.js b/src/ui/combat-state.js
+index 3242d5f..acc4c11 100644
+--- a/src/ui/combat-state.js
++++ b/src/ui/combat-state.js
+@@ -14,7 +14,7 @@ export const COMBAT_ENTITY_LIMIT = 512;
+ export const COMBAT_EVENT_LIMIT = 2_048;
+ export const COMBAT_TOWER_LIMIT = 16;
+ export const COMBAT_TARGET_LINK_LIMIT = COMBAT_ENTITY_LIMIT + COMBAT_TOWER_LIMIT;
+-export const COMBAT_VIEW_VERSION = 1;
++export const COMBAT_VIEW_VERSION = 2;
+ 
+ const CANONICAL_VIEWS = new WeakSet();
+ const SIDES = new Set(["north", "south"]);
+@@ -189,6 +189,7 @@ function checkedEntities(value) {
+     .map((raw, index) => {
+       const label = `combat entities[${index}]`;
+       const entity = dataObject(raw, [
++        "hidden",
+         "hitpoints",
+         "id",
+         "kind",
+@@ -204,8 +205,13 @@ function checkedEntities(value) {
+       if (!LAYERS.has(entity.layer)) {
+         throw new TypeError(`${label}.layer must be air or ground`);
+       }
++      if (typeof entity.hidden !== "boolean" ||
++          (entity.hidden && entity.kind !== "buried-coil")) {
++        throw new TypeError(`${label}.hidden must be a Buried Coil boolean`);
++      }
+       return {
+         ...checkedHealth,
++        hidden: entity.hidden,
+         id: id.value,
+         key: id.key,
+         kind: token(entity.kind, `${label}.kind`),
+@@ -319,6 +325,7 @@ export function createCombatViewModel(state) {
+   const view = {
+     entities: entities.filter(({ hitpoints }) => hitpoints > 0).map((entity) => ({
+       ...marker(entity),
++      hidden: entity.hidden,
+       kind: entity.kind,
+       layer: entity.layer,
+     })),
+@@ -366,12 +373,13 @@ function stateFromView(raw) {
+   if (view.version !== COMBAT_VIEW_VERSION) throw new TypeError("combat view version is unsupported");
+   const entities = denseArray(view.entities, COMBAT_ENTITY_LIMIT, "combat view.entities").map((rawEntity, index) => {
+     const entity = dataObject(rawEntity, [
+-      "healthDenominator", "healthNumerator", "id", "key", "kind", "layer", "side", "x", "y",
++      "healthDenominator", "healthNumerator", "hidden", "id", "key", "kind", "layer", "side", "x", "y",
+     ], `combat view.entities[${index}]`);
+     const id = checkedId(entity.id, `combat view.entities[${index}].id`);
+     if (entity.key !== id.key) throw new TypeError("combat view entity key is noncanonical");
+     return {
+       hitpoints: entity.healthNumerator,
++      hidden: entity.hidden,
+       id: entity.id,
+       kind: entity.kind,
+       layer: entity.layer,
+@@ -539,6 +547,7 @@ export function bindCombatViewModel(layer, view) {
+     setCommonNode(node, entity, `entity-${entity.layer}`);
+     node.dataset.kind = entity.kind;
+     node.dataset.layer = entity.layer;
++    if (entity.kind === "buried-coil") node.dataset.hidden = String(entity.hidden);
+     const reaction = reactions.get(entity.key) ?? "idle";
+     node.dataset.reaction = reaction;
+     if (structureKeys.has(entity.key)) {
+@@ -554,7 +563,7 @@ export function bindCombatViewModel(layer, view) {
+         side: entity.side,
+         tick: canonical.tick,
+       })
+-      : createCombatArt(layer.ownerDocument, entity.kind, entity.side, entity.layer);
++      : createCombatArt(layer.ownerDocument, entity.kind, entity.side, entity.layer, entity.hidden);
+     node.appendChild(art);
+     nodes.push(node);
+   }
+diff --git a/src/ui/game-ui-projection.js b/src/ui/game-ui-projection.js
+index c73e905..43ee486 100644
+--- a/src/ui/game-ui-projection.js
++++ b/src/ui/game-ui-projection.js
+@@ -113,6 +113,7 @@ function combatState(state, effectEvents) {
+   };
+   const entities = state.battle.units.map((unit) => ({
+     hitpoints: unit.hitpoints,
++    hidden: false,
+     id: unit.id,
+     kind: unit.archetypeId,
+     layer: unit.layer,
+@@ -122,6 +123,7 @@ function combatState(state, effectEvents) {
+     targetId: liveTargetId(unit.targetId),
+   })).concat(structures.map((structure) => ({
+     hitpoints: structure.hitpoints,
++    hidden: structure.cardId === "buried-coil" && structure.hidden === true,
+     id: structure.id,
+     kind: structure.cardId,
+     layer: "ground",
+diff --git a/tests/app-polish.test.js b/tests/app-polish.test.js
+index 09ca6bb..79e1d13 100644
+--- a/tests/app-polish.test.js
++++ b/tests/app-polish.test.js
+@@ -301,8 +301,8 @@ test("mobile app controls scroll clear of navigation and retain deck and card fe
+     await assertVisibleAppTargets(page, "empty search recovery");
+     await page.locator('[data-action="clear-search"]').click();
+     assert.equal(await page.locator("[data-card-search]").inputValue(), "");
+-    assert.equal(await page.locator("[data-card-grid] [data-card-id]").count(), 20,
+-      "Clear search restores the full 20-card editable collection");
++    assert.equal(await page.locator("[data-card-grid] [data-card-id]").count(), 21,
++      "Clear search restores the full 21-card editable collection");
+     assert.equal(await page.evaluate(() => document.activeElement?.dataset?.cardSearch !== undefined ||
+       document.activeElement?.getAttribute("data-card-search") !== null), true,
+     "clearing search returns focus to the search field");
+@@ -356,8 +356,8 @@ test("mobile app controls scroll clear of navigation and retain deck and card fe
+       keyboardTraversal,
+       trustedPointer: { wasTrusted: true, target: "last slot after wheel scroll" },
+       replacement: { added: "stonehauler", slot: 7, visibleConfirmation: "Updated" },
+-      emptySearch: { clearAction: true, restoredCards: 20, focusReturned: true },
+-      replacementChoices: { availableForEightCardDeck: 12, firstFocusedChoice: "stonehauler" },
++      emptySearch: { clearAction: true, restoredCards: 21, focusReturned: true },
++      replacementChoices: { availableForEightCardDeck: 13, firstFocusedChoice: "stonehauler" },
+       viewports: layouts,
+       reducedMotion: { ...reducedMotion, focusedTarget: reducedMotionFocus },
+       result: "passed",
+diff --git a/tests/card-expansion-art.test.js b/tests/card-expansion-art.test.js
+index f9f019c..9581bc3 100644
+--- a/tests/card-expansion-art.test.js
++++ b/tests/card-expansion-art.test.js
+@@ -79,6 +79,18 @@ test("card expansion portraits resolve to original standalone square assets", ()
+   assert.equal(getCardPortrait("missing-expansion-card"), null);
+ });
+ 
++test("Buried Coil uses its accepted portrait and the approved two-sentence field note", () => {
++  const portrait = getCardPortrait("buried-coil");
++  assert.deepEqual({ asset: portrait?.asset, cell: portrait?.cell }, {
++    asset: "buried-coil-portrait", cell: null,
++  });
++  assert.equal(new URL(portrait.src).pathname,
++    join(ROOT, "public", "assets", "buried-coil-portrait.webp"));
++  assert.equal(getCardLore("buried-coil"),
++    "At the alderwood river workshop, Ilyra winds a young emberseed into a copper coil and seals it beneath a hatch beside the sluice. When raider boots shake the roots, the seed glows and the hatch lifts a riveted lookout to guard the waterwheel.");
++  assert.equal(getCardLore("buried-coil").split(/(?<=[.!?])\s+/u).length, 2);
++});
++
+ test("card expansion art preserves full sources and licensed, hashed shipped portraits", () => {
+   const manifest = createVisualAssetManifest();
+   for (const { id, file, sourceSha256, outputSha256, sourceBytes, outputBytes,
+diff --git a/tests/cards018-browser-integration.test.js b/tests/cards018-browser-integration.test.js
+index 9829b78..29a17a1 100644
+--- a/tests/cards018-browser-integration.test.js
++++ b/tests/cards018-browser-integration.test.js
+@@ -216,8 +216,8 @@ test("Cards018 Ember Basin: editable collection enters real mixed battle and res
+       join(ARTIFACTS, "custom-deck-phone-390x844.png"))), viewport: [390, 844] });
+ 
+     await page.locator('.app-nav [data-nav-to="cards"]').click();
+-    assert.equal(await page.locator("[data-card-grid] [data-card-id]").count(), 20,
+-      "the released collection visibly contains exactly twenty cards");
++    assert.equal(await page.locator("[data-card-grid] [data-card-id]").count(), 21,
++      "the released collection visibly contains the original twenty cards and Buried Coil");
+     const emberCard = page.locator('[data-card-grid] [data-card-id="ember-basin"]');
+     await emberCard.click();
+     assert.equal(await page.locator("[data-card-detail] h2").innerText(), "Ember Basin");
+diff --git a/tests/cards019-card-details.test.js b/tests/cards019-card-details.test.js
+index fc85376..6045f9c 100644
+--- a/tests/cards019-card-details.test.js
++++ b/tests/cards019-card-details.test.js
+@@ -25,7 +25,7 @@ const EXPECTED_OLD_CARD_IDS = Object.freeze([
+   "cinder-host", "ironroot", "sunthread-pair", "duskwing-trio", "gloamwing-cluster",
+   "coppershade-flock", "ember-basin",
+ ]);
+-const EXPECTED_COLLECTION_IDS = Object.freeze([...EXPECTED_OLD_CARD_IDS, "kilnkeeper"]);
++const EXPECTED_COLLECTION_IDS = Object.freeze([...EXPECTED_OLD_CARD_IDS, "buried-coil", "kilnkeeper"]);
+ const EXPECTED_DEFAULT_DECK = Object.freeze([
+   "coilblade", "mossguard", "copperskiff", "skymaul",
+   "brassbolt", "reedsting", "briar-band", "cinderlings",
+@@ -54,7 +54,7 @@ async function serverAddress(stream) {
+ }
+ 
+ function oldMappingSnapshots() {
+-  const portraitIds = getCardPortraitIds().filter((id) => id !== "kilnkeeper");
++  const portraitIds = getCardPortraitIds().filter((id) => id !== "kilnkeeper" && id !== "buried-coil");
+   const portraitRows = portraitIds.map((id) => {
+     const portrait = getCardPortrait(id);
+     return [id, portrait.asset, portrait.cell];
+@@ -78,7 +78,7 @@ test("Cards019D Kilnkeeper collection portrait and lore render in real Chrome",
+   assert.equal(sha256(sourcePortrait), KILNKEEPER_PORTRAIT.sha256,
+     "the accepted Kilnkeeper portrait asset remains byte-identical");
+   assert.deepEqual(getCardPortraitIds(), EXPECTED_COLLECTION_IDS,
+-    "Kilnkeeper is the only new portrait mapping after the original nineteen");
++    "Buried Coil and Kilnkeeper are appended after the original nineteen");
+   const oldMappings = oldMappingSnapshots();
+   assert.deepEqual(oldMappings.portraitIds, EXPECTED_OLD_CARD_IDS);
+   assert.equal(sha256(Buffer.from(JSON.stringify(oldMappings.portraitRows))),
+@@ -176,8 +176,8 @@ test("Cards019D Kilnkeeper collection portrait and lore render in real Chrome",
+       await page.locator('[data-nav-to="cards"]').click();
+       const cards = page.locator("[data-card-grid] [data-card-id]");
+       const collectionIds = await cards.evaluateAll((nodes) => nodes.map((node) => node.dataset.cardId));
+-      assert.equal(collectionIds.length, 20,
+-        `${contextSpec.name}: all twenty choices appear in the actual collection`);
++      assert.equal(collectionIds.length, 21,
++        `${contextSpec.name}: all twenty-one choices appear in the actual collection`);
+       assert.deepEqual([...collectionIds].sort(), [...EXPECTED_COLLECTION_IDS].sort(),
+         `${contextSpec.name}: the original nineteen and Kilnkeeper are the exact collection`);
+       evidence.collectionIds = collectionIds;
+@@ -214,9 +214,9 @@ test("Cards019D Kilnkeeper collection portrait and lore render in real Chrome",
+           }));
+         },
+       );
+-      assert.equal(collectionImages.length, 20);
++      assert.equal(collectionImages.length, 21);
+       assert.ok(collectionImages.every(({ decoded }) => decoded),
+-        `${contextSpec.name}: all twenty displayed collection portraits decode`);
++        `${contextSpec.name}: all twenty-one displayed collection portraits decode`);
+ 
+       const collectionScreenshot = contextSpec.name === "phone-normal" ||
+         contextSpec.name === "desktop-normal"
+@@ -314,7 +314,7 @@ test("Cards019D Kilnkeeper collection portrait and lore render in real Chrome",
+       } else {
+         await page.locator('.app-nav [data-nav-to="cards"]').click();
+       }
+-      assert.equal(await page.locator("[data-card-grid] [data-card-id]").count(), 20,
++      assert.equal(await page.locator("[data-card-grid] [data-card-id]").count(), 21,
+         `${contextSpec.name}: back returns to the full collection`);
+       const returnedImages = await page.locator("[data-card-grid] .card-art-image").evaluateAll(
+         async (images) => {
+diff --git a/tests/ui-combat-state.test.js b/tests/ui-combat-state.test.js
+index 182a2c8..bcabaef 100644
+--- a/tests/ui-combat-state.test.js
++++ b/tests/ui-combat-state.test.js
+@@ -17,6 +17,7 @@ import {
+ } from "../src/ui/combat-state.js";
+ 
+ function entity({
++  hidden = false,
+   hitpoints = 640,
+   id = 1,
+   kind = "mossguard",
+@@ -26,7 +27,7 @@ function entity({
+   side = "south",
+   targetId = "north:lane:left",
+ } = {}) {
+-  return { hitpoints, id, kind, layer, maxHitpoints, position, side, targetId };
++  return { hidden, hitpoints, id, kind, layer, maxHitpoints, position, side, targetId };
+ }
+ 
+ function tower({
+@@ -141,6 +142,7 @@ test("ui combat state: stable ID order projects exact millitile geometry and lay
+   assert.deepEqual(view.entities[0], {
+     healthDenominator: 640,
+     healthNumerator: 640,
++    hidden: false,
+     id: 1,
+     key: "n:1",
+     kind: "mossguard",
+@@ -221,6 +223,54 @@ test("ui combat state: canonical serialization restores byte-identically", () =>
+   );
+ });
+ 
++test("Buried Coil's live form comes from its typed hidden state and restores with its team plate", () => {
++  for (const hidden of [true, false]) {
++    const { document, layer } = dom();
++    const view = createCombatViewModel(state({
++      entities: [entity({ hidden, id: 8, kind: "buried-coil", targetId: null })],
++      events: [{ entityId: 8, sequence: 0, tick: 42, type: "target" }],
++      towers: [],
++    }));
++    bindCombatViewModel(layer, view);
++    const marker = layer.children[0].children[0];
++    const art = marker.children[1];
++    const [image, plate] = art.children;
++    assert.equal(marker.dataset.hidden, String(hidden));
++    assert.equal(art.dataset.form, hidden ? "hidden" : "revealed",
++      "a recent target event does not select the sprite form");
++    assert.equal(image.attributes.get("href"), new URL(
++      hidden ? "../public/assets/buried-coil-hidden.webp" : "../public/assets/buried-coil-revealed.svg",
++      import.meta.url,
++    ).href);
++    assert.equal(plate.dataset.teamColor, "south");
++    assert.equal(plate.attributes.get("fill"), "#2E7F86");
++    assert.equal(art.attributes.get("viewBox"), "0 0 512 512");
++    assert.equal(plate.attributes.get("y"), "512",
++      "the team identifier starts after the art viewBox so it cannot cover the feet");
++    assert.equal(plate.attributes.get("height"), "88",
++      "the compact detached team identifier stays clear of the structure artwork");
++
++    const restoredLayer = dom().layer;
++    bindCombatViewModel(restoredLayer,
++      restoreCombatViewModel(serializeCombatViewModel(view)));
++    assert.equal(nodeBytes(restoredLayer), nodeBytes(layer),
++      "the serialized typed form rebuilds the exact combat DOM");
++  }
++  const north = dom();
++  bindCombatViewModel(north.layer, createCombatViewModel(state({
++    entities: [entity({ hidden: true, id: 9, kind: "buried-coil", side: "north", targetId: null })],
++    events: [], towers: [],
++  })));
++  const northPlate = north.layer.children[0].children[0].children[1].children[1];
++  assert.equal(northPlate.attributes.get("y"), "-512",
++    "the north team plate stays above the coil and away from the river-facing edge");
++  assert.equal(northPlate.attributes.get("height"), "88");
++  assert.throws(() => createCombatViewModel(state({
++    entities: [entity({ hidden: true, kind: "mossguard", targetId: null })],
++    towers: [],
++  })), /Buried Coil boolean/u);
++});
++
+ test("ui combat state: one-shot and chunked state projection end in identical bytes", () => {
+   const frames = [
+     state({ tick: 42 }),
+diff --git a/tests/visual-combat-assets.test.js b/tests/visual-combat-assets.test.js
+index b83ece1..94b45d8 100644
+--- a/tests/visual-combat-assets.test.js
++++ b/tests/visual-combat-assets.test.js
+@@ -1,13 +1,14 @@
+ import assert from 'node:assert/strict';
++import { createHash } from 'node:crypto';
+ import test from 'node:test';
+ import { spawn } from 'node:child_process';
+-import { mkdirSync, writeFileSync } from 'node:fs';
++import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+ import { COMBAT_ART_ARCHETYPES } from '../src/ui/combat-art.js';
+ const OUT = process.env.VISUAL_COMBAT_ASSETS_OUT ??
+   new URL('../artifacts/visual-003c-round-3/', import.meta.url).pathname;
+ const PLAYWRIGHT = process.env.GAME_BROWSER_PLAYWRIGHT ?? '/Users/me/.codex/worktrees/d092a29e-844b-459d-b145-c548db10d485/billion/node_modules/.pnpm/playwright@1.58.2/node_modules/playwright/index.mjs';
+ 
+-test('visual combat assets: every original silhouette mounts at game scale, restores exactly, and hides diagnostic links', { timeout: 120000 }, async () => {
++test('visual combat assets: every original combat asset mounts at game scale, restores exactly, and hides diagnostic links', { timeout: 120000 }, async () => {
+   mkdirSync(OUT, { recursive: true });
+   const server = spawn(process.execPath, [new URL('./game-browser-journey-server.js', import.meta.url).pathname], { stdio: ['ignore', 'pipe', 'inherit'] });
+   let browser;
+@@ -56,9 +57,10 @@ test('visual combat assets: every original silhouette mounts at game scale, rest
+       const arena = document.querySelector('[data-ui="arena"]');
+       const layer = document.querySelector('[data-game-browser-layer="combat"]');
+       const entities = ['north', 'south'].flatMap((side, sideIndex) => kinds.map((kind, i) => ({
++        hidden: false,
+         id: sideIndex * 20 + i + 1, kind, side, layer: ['skymaul','copperskiff'].includes(kind) ? 'air' : 'ground',
+         position: {
+-          x: 5000 + Math.floor(i / 7) * 8000,
++          x: 5000 + Math.floor(i / 7) * 6000,
+           y: (sideIndex === 0 ? 30000 : 12800) - (i % 7) * 1800,
+         },
+         hitpoints: 70, maxHitpoints: 100, targetId: null,
+@@ -73,6 +75,9 @@ test('visual combat assets: every original silhouette mounts at game scale, rest
+       const art = [...layer.querySelectorAll('.combat-art')].map(svg => {
+         const marker = svg.parentNode;
+         const paintedAtlas = svg.querySelector('image');
++        const teamEllipseStrokes = [...svg.querySelectorAll('ellipse')]
++          .map(ellipse => ellipse.getAttribute('stroke'))
++          .filter(Boolean);
+         const paths = [...svg.querySelectorAll('path')];
+         const pathData = paths.map(path => ({
+           d: path.getAttribute('d'),
+@@ -84,15 +89,20 @@ test('visual combat assets: every original silhouette mounts at game scale, rest
+           markerKind: marker.dataset.kind,
+           imageHref: paintedAtlas?.getAttribute('href') ?? null,
+           painted: paintedAtlas !== null,
++          teamEllipseStrokes,
+           side: marker.dataset.side,
+           spriteAction: svg.dataset.spriteAction ?? null,
+           spriteDirection: svg.dataset.spriteDirection ?? null,
+           spriteFrame: svg.dataset.spriteFrame ?? null,
+           paths: pathData.map(path => path.d).join('|'),
++          silhouette: pathData.length > 0
++            ? pathData.map(path => path.d).join('|')
++            : paintedAtlas?.getAttribute('href') ?? '',
+           pathData,
+           healthHeight: marker.querySelector(".combat-health").getBoundingClientRect().height,
+           width: svg.getBoundingClientRect().width,
+           height: svg.getBoundingClientRect().height,
++          viewBox: svg.getAttribute('viewBox'),
+         };
+       });
+       const linksHidden = [...layer.querySelectorAll('.combat-target-link')].every(n => getComputedStyle(n).display === 'none');
+@@ -146,13 +156,24 @@ test('visual combat assets: every original silhouette mounts at game scale, rest
+     assert.deepEqual(result.art.map(({ kind, markerKind, side }) =>
+       ({ kind, markerKind, side })), expectedMapping,
+     'every rendered team variant must map to its registry kind and side');
++    const renderIdentity = (art) => {
++      if (art.paths) return `vector:${art.paths}`;
++      assert.ok(art.imageHref, `${art.kind} must expose path geometry or a painted atlas`);
++      const assetPath = new URL(art.imageHref).pathname;
++      assert.match(assetPath, /^\/public\/assets\/[a-z0-9._-]+$/u,
++        `${art.kind} atlas must be served from the shipped asset directory`);
++      const assetName = assetPath.slice('/public/assets/'.length);
++      const bytes = readFileSync(new URL(`../public/assets/${assetName}`, import.meta.url));
++      const sourceHash = createHash('sha256').update(bytes).digest('hex');
++      return `raster:${sourceHash}:viewBox:${art.viewBox}`;
++    };
+     for (const side of ['north', 'south']) {
+       const teamArt = result.art.filter(art => art.side === side);
+       assert.equal(teamArt.length, COMBAT_ART_ARCHETYPES.length,
+         `${side} must render every registered archetype exactly once`);
+-      assert.equal(new Set(teamArt.map(art => art.paths)).size,
++      assert.equal(new Set(teamArt.map(renderIdentity)).size,
+         COMBAT_ART_ARCHETYPES.length,
+-        `${side} must retain a distinct silhouette for every archetype`);
++        `${side} must retain a distinct rendered identity for every archetype`);
+     }
+     const artBySideAndKind = new Map(result.art.map(art =>
+       [`${art.side}\0${art.kind}`, art]));
+@@ -173,6 +194,19 @@ test('visual combat assets: every original silhouette mounts at game scale, rest
+         }
+         continue;
+       }
++      if (kind === 'kilnkeeper') {
++        for (const [side, sprite, color] of [
++          ['north', north, '#C6452E'],
++          ['south', south, '#2E7F86'],
++        ]) {
++          assert.equal(sprite.painted, true, `${side} Kilnkeeper must use its approved battle atlas`);
++          assert.equal(sprite.imageHref,
++            `http://${ready.host}:${ready.port}/public/assets/kilnkeeper-battle-sprite.webp`);
++          assert.deepEqual(sprite.teamEllipseStrokes, [color],
++            `${side} Kilnkeeper must retain its exact team-color ground ring`);
++        }
++        continue;
++      }
+       const northBody = north.pathData.slice(0, -1);
+       const southBody = south.pathData.slice(0, -1);
+       assert.deepEqual(northBody.map(path => path.d),
