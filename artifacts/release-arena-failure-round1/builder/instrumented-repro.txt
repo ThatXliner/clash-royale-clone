@@ -1,0 +1,229 @@
+TAP version 13
+# Subtest: RELEASE-001B emits a deterministic bounded graph and serves the exact game and RL module
+not ok 1 - RELEASE-001B emits a deterministic bounded graph and serves the exact game and RL module
+  ---
+  duration_ms: 27682.015958
+  type: 'test'
+  location: '/private/tmp/release-arena-failure-builder/tests/release-001b.test.js:94:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    locator.waitFor: Timeout 15000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('[data-battle-frame-slot] iframe').contentFrame().locator('[data-ui="arena"]') to be visible[22m
+    
+    Release browser failure diagnostics:
+    {
+      "runtimeErrors": [
+        "RangeError: session troop battle card ID is unknown or not admitted\n    at projectSessionTroopBattleCard (http://127.0.0.1:51488/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DrYgWmwr.js:3724:29)\n    at http://127.0.0.1:51488/assets/game-runtime~public/index-CgOHDTCp.js:490:215\n    at Array.map (<anonymous>)\n    at http://127.0.0.1:51488/assets/game-runtime~public/index-CgOHDTCp.js:490:119\n    at http://127.0.0.1:51488/assets/rolldown-runtime-Cl99QfTQ.js:6:23\n    at init_app_shell$1 (http://127.0.0.1:51488/assets/game-runtime~public/index-CgOHDTCp.js:570:6)\n    at http://127.0.0.1:51488/assets/game-runtime~public/index-CgOHDTCp.js:577:3\n    at http://127.0.0.1:51488/assets/rolldown-runtime-Cl99QfTQ.js:6:23\n    at init_public (http://127.0.0.1:51488/assets/game-runtime~public/index-CgOHDTCp.js:578:6)\n    at http://127.0.0.1:51488/src/ui/app-shell.js:2:1",
+        "RangeError: session troop battle card ID is unknown or not admitted\n    at projectSessionTroopBattleCard (http://127.0.0.1:51488/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DrYgWmwr.js:3724:29)\n    at http://127.0.0.1:51488/assets/game-runtime~public/index-CgOHDTCp.js:490:215\n    at Array.map (<anonymous>)\n    at http://127.0.0.1:51488/assets/game-runtime~public/index-CgOHDTCp.js:490:119\n    at http://127.0.0.1:51488/assets/rolldown-runtime-Cl99QfTQ.js:6:23\n    at init_app_shell$1 (http://127.0.0.1:51488/assets/game-runtime~public/index-CgOHDTCp.js:570:6)\n    at http://127.0.0.1:51488/assets/game-runtime~public/index-CgOHDTCp.js:577:3\n    at http://127.0.0.1:51488/assets/rolldown-runtime-Cl99QfTQ.js:6:23\n    at init_public (http://127.0.0.1:51488/assets/game-runtime~public/index-CgOHDTCp.js:578:6)\n    at http://127.0.0.1:51488/src/ui/app-shell.js:2:1"
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "resourceType": "document",
+          "url": "/public/index.html",
+          "status": 200,
+          "contentType": "text/html; charset=utf-8",
+          "failure": null
+        },
+        {
+          "method": "GET",
+          "resourceType": "script",
+          "url": "/src/ui/app-shell.js",
+          "status": 200,
+          "contentType": "text/javascript; charset=utf-8",
+          "failure": null
+        },
+        {
+          "method": "GET",
+          "resourceType": "script",
+          "url": "/assets/rolldown-runtime-Cl99QfTQ.js",
+          "status": 200,
+          "contentType": "text/javascript; charset=utf-8",
+          "failure": null
+        },
+        {
+          "method": "GET",
+          "resourceType": "script",
+          "url": "/assets/game-runtime~public/index~public/ui-arena-shell-D-709RTF.js",
+          "status": 200,
+          "contentType": "text/javascript; charset=utf-8",
+          "failure": null
+        },
+        {
+          "method": "GET",
+          "resourceType": "script",
+          "url": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-Bzq3gmJw.js",
+          "status": 200,
+          "contentType": "text/javascript; charset=utf-8",
+          "failure": null
+        },
+        {
+          "method": "GET",
+          "resourceType": "script",
+          "url": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-iYK_h2t5.js",
+          "status": 200,
+          "contentType": "text/javascript; charset=utf-8",
+          "failure": null
+        },
+        {
+          "method": "GET",
+          "resourceType": "script",
+          "url": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CjdkHAop.js",
+          "status": 200,
+          "contentType": "text/javascript; charset=utf-8",
+          "failure": null
+        },
+        {
+          "method": "GET",
+          "resourceType": "script",
+          "url": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BM1WwEOH.js",
+          "status": 200,
+          "contentType": "text/javascript; charset=utf-8",
+          "failure": null
+        },
+        {
+          "method": "GET",
+          "resourceType": "script",
+          "url": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-C641BeuM.js",
+          "status": 200,
+          "contentType": "text/javascript; charset=utf-8",
+          "failure": null
+        },
+        {
+          "method": "GET",
+          "resourceType": "script",
+          "url": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-COi7sJl_.js",
+          "status": 200,
+          "contentType": "text/javascript; charset=utf-8",
+          "failure": null
+        },
+        {
+          "method": "GET",
+          "resourceType": "script",
+          "url": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-N3t5PBB6.js",
+          "status": 200,
+          "contentType": "text/javascript; charset=utf-8",
+          "failure": null
+        },
+        {
+          "method": "GET",
+          "resourceType": "script",
+          "url": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-pofg9WkJ.js",
+          "status": 200,
+          "contentType": "text/javascript; charset=utf-8",
+          "failure": null
+        },
+        {
+          "method": "GET",
+          "resourceType": "script",
+          "url": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-Bion3G78.js",
+          "status": 200,
+          "contentType": "text/javascript; charset=utf-8",
+          "failure": null
+        },
+        {
+          "method": "GET",
+          "resourceType": "script",
+          "url": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DcW0jNLi.js",
+          "status": 200,
+          "contentType": "text/javascript; charset=utf-8",
+          "failure": null
+        },
+        {
+          "method": "GET",
+          "resourceType": "script",
+          "url": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-C8Y6xEz0.js",
+          "status": 200,
+          "contentType": "text/javascript; charset=utf-8",
+          "failure": null
+        },
+        {
+          "method": "GET",
+          "resourceType": "script",
+          "url": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-D3Nnx2X_.js",
+          "status": 200,
+          "contentType": "text/javascript; charset=utf-8",
+          "failure": null
+        },
+        {
+          "method": "GET",
+          "resourceType": "script",
+          "url": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DrYgWmwr.js",
+          "status": 200,
+          "contentType": "text/javascript; charset=utf-8",
+          "failure": null
+        },
+        {
+          "method": "GET",
+          "resourceType": "script",
+          "url": "/assets/game-runtime~public/index-CgOHDTCp.js",
+          "status": 200,
+          "contentType": "text/javascript; charset=utf-8",
+          "failure": null
+        },
+        {
+          "method": "GET",
+          "resourceType": "stylesheet",
+          "url": "/assets/asset-D-AK-JuF.css",
+          "status": 200,
+          "contentType": "text/css; charset=utf-8",
+          "failure": null
+        }
+      ],
+      "pages": [
+        {
+          "url": "http://127.0.0.1:51488/public/index.html",
+          "document": {
+            "url": "http://127.0.0.1:51488/public/index.html",
+            "title": "Moss & Ember — Card battler",
+            "readyState": "complete",
+            "activeView": "home",
+            "battleViewHidden": true,
+            "battleFrameCount": 0,
+            "battleFrame": null
+          },
+          "frames": [
+            {
+              "name": "",
+              "url": "http://127.0.0.1:51488/public/index.html",
+              "document": {
+                "title": "Moss & Ember — Card battler",
+                "readyState": "complete",
+                "bodyAppFrame": null,
+                "bodyText": "Moss & Ember\nCARD BATTLES\nHome\nDeck\nCards\nBattle ↗\n\n THE WILDLANDS ARE READY\n\nMeet your crew.\nEnter the arena.\n\nLearn what each card does, review your battle deck, then take the same crew into a match.\n\nEnter the arena\n→\nView cards\nSTANDARD DECK\n8 CARD ROTATION\n\nREADY LINEUP\n\nYour deck\nView deck\n→\n8\ncards in rotation\n3.13\naverage elixir\n\nFIRST MATCH?\n\nHow to play\n✳\n01\n\nManage elixir. It refills du",
+                "arenaCount": 0,
+                "arenaVisible": false,
+                "scripts": [
+                  {
+                    "type": "module",
+                    "path": "/src/ui/app-shell.js"
+                  }
+                ],
+                "stylesheets": [
+                  "/assets/asset-D-AK-JuF.css"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    enterBattle (/private/tmp/release-arena-failure-builder/scripts/release-browser-qualification.js:315:6)
+    async runGameFlow (/private/tmp/release-arena-failure-builder/scripts/release-browser-qualification.js:344:3)
+    async qualifyBrowserArtifact (/private/tmp/release-arena-failure-builder/scripts/release-browser-qualification.js:649:11)
+    async buildRelease (/private/tmp/release-arena-failure-builder/scripts/build-release.js:795:30)
+    async TestContext.<anonymous> (/private/tmp/release-arena-failure-builder/tests/release-001b.test.js:103:22)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 28156.064584
