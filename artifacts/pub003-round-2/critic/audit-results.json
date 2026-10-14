@@ -1,0 +1,58 @@
+{
+  "baseCommit": "bfd957c5d044137dca1a17a21b3b79edc5760782",
+  "baseTree": "4e530cd4776206643f5f66f7ff23d6c93d9c89a3",
+  "candidateCommit": "87f7966fcf1c31399e327fa0a32bb68c3e008926",
+  "candidateTree": "177f410cac0b85e3b00f70360560aa38de049a4f",
+  "freshArchiveRoot": "/private/tmp/pub003-r2-critic.Glha6s",
+  "readme": {
+    "baseSha256": "00e535986e0cf6a0db9b4fd2725bf2c786d2337f56d87588146f1f8a9bf0272e",
+    "candidateSha256": "69b8c89b7e5a7380907cf03e12c5a79673c7980a6be8413bd18be1c633d6396d",
+    "exactlyOneNineteenToTwentyReplacement": true,
+    "lineInsertions": 1,
+    "lineDeletions": 1
+  },
+  "changedPaths": [
+    "M\tREADME.md",
+    "A\tartifacts/pub003-round-2/builder/README-before-after.txt",
+    "A\tartifacts/pub003-round-2/builder/candidate-freeze.json",
+    "A\tartifacts/pub003-round-2/builder/candidate-owned-files.txt",
+    "A\tartifacts/pub003-round-2/builder/capture-collection-evidence.mjs",
+    "A\tartifacts/pub003-round-2/builder/check-readme-links.mjs",
+    "A\tartifacts/pub003-round-2/builder/collection-count-evidence.json",
+    "A\tartifacts/pub003-round-2/builder/readme-linkcheck.command.txt",
+    "A\tartifacts/pub003-round-2/builder/readme-linkcheck.stderr.txt",
+    "A\tartifacts/pub003-round-2/builder/readme-linkcheck.stdout.json"
+  ],
+  "productSourceTestsDocsByteEqual": true,
+  "sourceDiffExitCode": 0,
+  "count": {
+    "editableTroops": 18,
+    "mixedCollection": 20,
+    "defaultDeck": 8,
+    "guidePath": "docs/completion-inventory.md",
+    "guideSha256": "1c5b6c2ffe0722c087f0ac4d57ac150c41b56b9042992711f8e6889c6dd5a14e",
+    "publicReceiptPath": "artifacts/coverage004-round-4/builder/live-release-evidence.json",
+    "publicReleaseCommit": "bf1e6120196db8a2927ce6ae893812e4c9b1115d",
+    "publicReleaseWorkflowConclusion": "success",
+    "publicLandingStatus": 200,
+    "publicGameStatus": 200,
+    "matchesCommittedBuilderEvidence": true
+  },
+  "readmeLinks": {
+    "checked": 14,
+    "missing": 0,
+    "externalSkipped": 2
+  },
+  "builderFreeze": {
+    "acceptedBase": "bfd957c5d044137dca1a17a21b3b79edc5760782",
+    "publicReleaseCommit": "bf1e6120196db8a2927ce6ae893812e4c9b1115d"
+  },
+  "liveReceipt": {
+    "ref": "main",
+    "commit": "bf1e6120196db8a2927ce6ae893812e4c9b1115d",
+    "workflowConclusion": "success",
+    "landingStatus": 200,
+    "gameStatus": 200,
+    "containsFullReleaseCommit": true
+  }
+}

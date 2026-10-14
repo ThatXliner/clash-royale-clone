@@ -1,0 +1,29 @@
+Fresh clean archive
+  source repo: /private/tmp/pub003-r2-builder
+  source commit: 87f7966fcf1c31399e327fa0a32bb68c3e008926
+  command: git -C /private/tmp/pub003-r2-builder archive --format=tar 87f7966fcf1c31399e327fa0a32bb68c3e008926 | tar -xf - -C /private/tmp/pub003-r2-critic.Glha6s
+  archive root: /private/tmp/pub003-r2-critic.Glha6s
+
+Focused candidate checks (run in the fresh archive)
+  node artifacts/pub003-round-2/builder/capture-collection-evidence.mjs
+  exit: 0
+  stdout: count-capture.stdout.json
+  stderr: count-capture.stderr.txt
+
+  node artifacts/pub003-round-2/builder/check-readme-links.mjs
+  exit: 0
+  stdout: readme-linkcheck.stdout.json
+  stderr: readme-linkcheck.stderr.txt
+
+Focused critic TAP audit (reads source and receipts from the fresh archive)
+  PUB003_CLEAN_ROOT=/private/tmp/pub003-r2-critic.Glha6s PUB003_GIT_REPO=/private/tmp/pub003-r2-builder node --test /private/tmp/pub003-r2-builder/artifacts/pub003-round-2/critic/readme-collection-audit.test.mjs
+  exit: 0
+  stdout: readme-collection-audit.tap
+  stderr: readme-collection-audit.stderr.txt
+
+Commit comparison
+  git diff --no-ext-diff --unified=3 bfd957c5d044137dca1a17a21b3b79edc5760782 87f7966fcf1c31399e327fa0a32bb68c3e008926 -- README.md
+  git diff --no-ext-diff --word-diff=plain bfd957c5d044137dca1a17a21b3b79edc5760782 87f7966fcf1c31399e327fa0a32bb68c3e008926 -- README.md
+  git diff --no-ext-diff --no-renames --name-status bfd957c5d044137dca1a17a21b3b79edc5760782 87f7966fcf1c31399e327fa0a32bb68c3e008926
+  git diff --no-ext-diff --no-renames --quiet bfd957c5d044137dca1a17a21b3b79edc5760782 87f7966fcf1c31399e327fa0a32bb68c3e008926 -- src tests public dist docs
+  product/source/test/doc diff exit: 0 (no differences)

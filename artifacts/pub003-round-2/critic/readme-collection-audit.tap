@@ -1,0 +1,40 @@
+TAP version 13
+# Subtest: README keeps the prototype, original art, AI-opponent, and pre-2023 framing
+ok 1 - README keeps the prototype, original art, AI-opponent, and pre-2023 framing
+  ---
+  duration_ms: 0.645917
+  type: 'test'
+  ...
+# Subtest: README differs from base by exactly the nineteen-to-twenty count word
+ok 2 - README differs from base by exactly the nineteen-to-twenty count word
+  ---
+  duration_ms: 26.2095
+  type: 'test'
+  ...
+# Subtest: admitted editable collection contains 20 cards and default deck contains 8
+ok 3 - admitted editable collection contains 20 cards and default deck contains 8
+  ---
+  duration_ms: 126.818
+  type: 'test'
+  ...
+# Subtest: current guide and versioned live release receipt match the admitted count
+ok 4 - current guide and versioned live release receipt match the admitted count
+  ---
+  duration_ms: 0.781625
+  type: 'test'
+  ...
+# Subtest: all 14 local README targets resolve
+ok 5 - all 14 local README targets resolve
+  ---
+  duration_ms: 0.072625
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 227.736291

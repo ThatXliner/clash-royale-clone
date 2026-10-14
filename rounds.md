@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 449 — 2026-10-13
+
+PIECE: PUB-003 — Reader-first README collection count, round 2
+
+VERDICT: PASS
+
+EVIDENCE: Independent exact87f cleanarchive audit5/5:20unique mixedcollection/default8 andversionedlivebf1receipt match;14local READMElinks resolve. READMEdiff exactlynineteen-card→twenty-card; src/tests/public/dist/docs byteequalbase. Readermechanics/prototype limits unchanged; no gameplayrerunclaim. Evidence artifacts/pub003-round-2/critic/.
+
+BIGGEST GAP: No scoped text defect remains; unchanged mechanics prose is not new gameplay verification.
+
 ## Round 448 — 2026-10-13
 
 PIECE: GAME-001GRG — Restart listener regression gate, round 1

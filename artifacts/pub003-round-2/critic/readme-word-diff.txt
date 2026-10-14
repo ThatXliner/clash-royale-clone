@@ -1,0 +1,12 @@
+diff --git a/README.md b/README.md
+index 9c2e3ed..32a325e 100644
+--- a/README.md
++++ b/README.md
+@@ -12,7 +12,7 @@
+  <img src="docs/brand/banner.svg" alt="Moss &amp; Ember — an original card battler" width="100%">
+</p>
+
+Play against a computer opponent. Build an eight-card deck from the [-nineteen-card-]{+twenty-card+}
+collection, then choose from your hand and spend elixir, which refills during
+the match, to deploy units in the arena. They move and fight on their own. Take
+tower crowns before time runs out to win.

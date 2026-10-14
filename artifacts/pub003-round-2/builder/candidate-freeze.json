@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "base": {
+    "acceptedCommit": "bfd957c5d044137dca1a17a21b3b79edc5760782",
+    "tree": "4e530cd4776206643f5f66f7ff23d6c93d9c89a3"
+  },
+  "scope": {
+    "onlyDocumentationCountChanged": true,
+    "file": "README.md",
+    "oldPhrase": "nineteen-card collection",
+    "newPhrase": "twenty-card collection",
+    "beforeSha256": "00e535986e0cf6a0db9b4fd2725bf2c786d2337f56d87588146f1f8a9bf0272e",
+    "afterSha256": "69b8c89b7e5a7380907cf03e12c5a79673c7980a6be8413bd18be1c633d6396d"
+  },
+  "countEvidence": {
+    "captureCommand": "node artifacts/pub003-round-2/builder/capture-collection-evidence.mjs",
+    "receipt": "artifacts/pub003-round-2/builder/collection-count-evidence.json",
+    "mixedCollectionChoices": 20,
+    "editableTroopIds": 18,
+    "defaultDeckCards": 8,
+    "browserAuditChoices": 20,
+    "publicRelease": {
+      "ref": "main",
+      "commit": "bf1e6120196db8a2927ce6ae893812e4c9b1115d",
+      "workflowRun": 38510398827,
+      "conclusion": "success",
+      "capturedAtUtc": "2026-10-14T04:22:09.481Z",
+      "landingStatus": 200,
+      "gameStatus": 200
+    }
+  },
+  "linkCheck": {
+    "command": "node artifacts/pub003-round-2/builder/check-readme-links.mjs",
+    "scope": "Relative Markdown links and local HTML image/link targets in README.md",
+    "exitCode": 0,
+    "localLinksChecked": 14,
+    "localLinksMissing": 0,
+    "externalLinksSkipped": 2,
+    "stdout": "artifacts/pub003-round-2/builder/readme-linkcheck.stdout.json",
+    "stderr": "artifacts/pub003-round-2/builder/readme-linkcheck.stderr.txt"
+  }
+}
