@@ -1,0 +1,37 @@
+{
+  "transitionIdentity": 1835,
+  "preTransition": {
+    "recordCount": 3668,
+    "wireVersion": 1,
+    "wireBytes": 1048455
+  },
+  "transitionRetryAfterRejectedAppend": {
+    "eventId": 3669,
+    "wireVersion": 2,
+    "recordCount": 3670
+  },
+  "compactRejectedAppend": {
+    "wireVersionRemained": 2,
+    "bytesUnchanged": true,
+    "recordCursorUnchanged": true,
+    "nextValidEventId": 3671
+  },
+  "adversarialWireRejections": [
+    "unknown wire version",
+    "extra top-level key",
+    "root tuple too short",
+    "root tuple too long",
+    "unknown root type code",
+    "child tuple too short",
+    "unknown child phase code",
+    "parent ID coercion",
+    "parent ID forward reference",
+    "root tick coercion",
+    "fractional child tick",
+    "child tick before root",
+    "forged root identity",
+    "unsupported close reason"
+  ],
+  "rejectionCount": 16,
+  "allChecksPassed": true
+}

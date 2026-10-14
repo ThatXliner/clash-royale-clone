@@ -1,0 +1,18 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: event 3,899 should be included after advancing over its simulation tick
+
+3900 !== 3899
+
+    at file:///private/tmp/late-feed-bound-critic/artifacts/late-feed-bound-round1/critic/recorded-default-boundary-continuation.mjs:77:12 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 3900,
+  expected: 3899,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.22.3

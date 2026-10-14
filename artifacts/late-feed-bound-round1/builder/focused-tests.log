@@ -1,0 +1,100 @@
+TAP version 13
+# Subtest: compact wire keeps the existing public feed version and hard bounds
+ok 1 - compact wire keeps the existing public feed version and hard bounds
+  ---
+  duration_ms: 0.452333
+  type: 'test'
+  ...
+# Subtest: compact wire preserves the full v1 logical graph across restore and branches
+ok 2 - compact wire preserves the full v1 logical graph across restore and branches
+  ---
+  duration_ms: 973.113708
+  type: 'test'
+  ...
+# Subtest: compact v2 rejects noncanonical, malformed, and causally forged rows
+ok 3 - compact v2 rejects noncanonical, malformed, and causally forged rows
+  ---
+  duration_ms: 420.681584
+  type: 'test'
+  ...
+# Subtest: compact append byte-bound failure is atomic and keeps the same limits
+ok 4 - compact append byte-bound failure is atomic and keeps the same limits
+  ---
+  duration_ms: 12580.4055
+  type: 'test'
+  ...
+# Subtest: combat-effect feed is closed, immutable, canonical, and source-authenticated
+ok 5 - combat-effect feed is closed, immutable, canonical, and source-authenticated
+  ---
+  duration_ms: 3.824542
+  type: 'test'
+  ...
+# Subtest: combat-effect snapshots keep their brand across validation
+ok 6 - combat-effect snapshots keep their brand across validation
+  ---
+  duration_ms: 1.121667
+  type: 'test'
+  ...
+# Subtest: combat-effect snapshots retain frozen history across branch appends
+ok 7 - combat-effect snapshots retain frozen history across branch appends
+  ---
+  duration_ms: 0.930209
+  type: 'test'
+  ...
+# Subtest: combat-effect feed rejects hostile lifecycle records atomically
+ok 8 - combat-effect feed rejects hostile lifecycle records atomically
+  ---
+  duration_ms: 3.83375
+  type: 'test'
+  ...
+# Subtest: combat-effect protocol rejects premature, branched, reordered, forged, and restored writes
+ok 9 - combat-effect protocol rejects premature, branched, reordered, forged, and restored writes
+  ---
+  duration_ms: 2.939625
+  type: 'test'
+  ...
+# Subtest: authentic pre-contact travel cancellation closes its visible carrier
+ok 10 - authentic pre-contact travel cancellation closes its visible carrier
+  ---
+  duration_ms: 3.262875
+  type: 'test'
+  ...
+# Subtest: actual projectile feed-bound failure leaves mechanics and visual bytes unchanged
+ok 11 - actual projectile feed-bound failure leaves mechanics and visual bytes unchanged
+  ---
+  duration_ms: 1025.719375
+  type: 'test'
+  ...
+# Subtest: actual projectile, area, return, pierce, pellet, spell, and travel sources export closed feeds
+ok 12 - actual projectile, area, return, pierce, pellet, spell, and travel sources export closed feeds
+  ---
+  duration_ms: 45.928084
+  type: 'test'
+  ...
+# Subtest: source feed bytes survive chunks, restore, fork, signed geometry, and post-launch source death
+ok 13 - source feed bytes survive chunks, restore, fork, signed geometry, and post-launch source death
+  ---
+  duration_ms: 86.089709
+  type: 'test'
+  ...
+# Subtest: authentic battle and GameSession projections carry stable source identities
+ok 14 - authentic battle and GameSession projections carry stable source identities
+  ---
+  duration_ms: 1099.27375
+  type: 'test'
+  ...
+# Subtest: fresh processes reproduce exact feed bytes
+ok 15 - fresh processes reproduce exact feed bytes
+  ---
+  duration_ms: 70.954375
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 14027.119375

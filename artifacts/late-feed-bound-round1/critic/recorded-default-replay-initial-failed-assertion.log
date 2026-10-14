@@ -1,0 +1,18 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+3858 !== 3898
+
+    at file:///private/tmp/late-feed-bound-critic/artifacts/late-feed-bound-round1/critic/recorded-default-replay.mjs:140:8 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 3858,
+  expected: 3898,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.22.3

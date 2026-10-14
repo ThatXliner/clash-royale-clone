@@ -669,7 +669,7 @@ test("actual projectile feed-bound failure leaves mechanics and visual bytes unc
   assert.deepEqual(combat.replay, before.replay);
   assert.deepEqual(combat.state, before.state);
 
-  const futureCount = 3000;
+  const futureCount = 5000;
   const targetId = 9_000_000;
   const sources = Array.from(
     { length: futureCount },

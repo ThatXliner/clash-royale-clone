@@ -1,0 +1,51 @@
+{
+  "scenario": "kilnkeeper",
+  "mode": "kilnkeeper-bounded-smoke-900",
+  "setupSha256": "9b2a1c5a86c2d5c0c2d623389b69c465409e65d5d84988591630b980ee7b3ba9",
+  "durationMs": 56640,
+  "segments": [
+    {
+      "tick": 300,
+      "elapsedMilliseconds": 10254
+    },
+    {
+      "tick": 600,
+      "elapsedMilliseconds": 10258
+    },
+    {
+      "tick": 600,
+      "elapsedMilliseconds": 10264
+    },
+    {
+      "tick": 900,
+      "elapsedMilliseconds": 10244
+    }
+  ],
+  "restoreCut": {
+    "snapshotBytes": 99459,
+    "tick": 300
+  },
+  "restore": {
+    "rewindFromTick": 600,
+    "rewindToTick": 300,
+    "elapsedMilliseconds": 10187
+  },
+  "audioCueParityKeys": [
+    "actualSinkStartsAtBranch",
+    "actualSinkStartsAfterRestore",
+    "actualSinkStartsAfterReplay",
+    "originalTypedSimulationContinuation",
+    "replayedTypedSimulationContinuation",
+    "restoreCutAudioCursor",
+    "uiSequenceAtBranch",
+    "uiSequenceAfterRestore",
+    "uiSequenceAfterReplay",
+    "replayedUiStarts",
+    "sequenceZeroDomains"
+  ],
+  "terminal": {
+    "smoke": true,
+    "sessionTick": 900,
+    "restartHidden": true
+  }
+}

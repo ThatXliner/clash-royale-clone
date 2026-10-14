@@ -1,0 +1,11 @@
+Default-eight causal byte probe (private accepted checkout, recorded browser workload)
+
+The raw browser run reached and completed segment tick 17,700. Its stack failed from the policy's private lookahead during previewBoundary; the exact candidate was a projectile close at simulation tick 17,789. The independent direct replay's GameSession had committed through tick 17,715 when the following batch rolled back. It restored the tick-300 cut, reproduced the tick-600 branch bytes, and replayed the 40 recorded accepted decisions.
+
+Immediately before candidate event 3,899: 3,898 records, 1,048,458 bytes of canonical record bodies, 1,048,484 total canonical v1 bytes. Candidate event body plus its comma adds 165 bytes, yielding 1,048,649 total, 73 bytes over the unchanged 1,048,576-byte limit. The 16,384-record limit was not close.
+
+Throw stack: appendChecked -> appendCombatEffectEvent -> BattleCombat.#appendVisualClose -> BattleCombat.#advance -> #applyBoundary -> BattleCombat.previewBoundary -> BattleTowerCombat.step -> GameSession.#advanceFromSession.
+
+Probe command: node artifacts/late-feed-bound-round1/builder/probe-recorded-default.mjs
+Probe output: probe-recorded-default.log
+The source file was restored byte-for-byte before implementation; instrumentation only enriched the existing bound error in this private checkout and did not alter append behavior.

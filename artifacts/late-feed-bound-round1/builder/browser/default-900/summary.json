@@ -1,0 +1,51 @@
+{
+  "scenario": "default-eight",
+  "mode": "default-eight-bounded-smoke-900",
+  "setupSha256": "306bb30da40ce7c43d6cccce8728449da90fc0e9ca7d13c81f0116ba710aec8c",
+  "durationMs": 57993,
+  "segments": [
+    {
+      "tick": 300,
+      "elapsedMilliseconds": 10260
+    },
+    {
+      "tick": 600,
+      "elapsedMilliseconds": 10265
+    },
+    {
+      "tick": 600,
+      "elapsedMilliseconds": 10269
+    },
+    {
+      "tick": 900,
+      "elapsedMilliseconds": 10268
+    }
+  ],
+  "restoreCut": {
+    "snapshotBytes": 54012,
+    "tick": 300
+  },
+  "restore": {
+    "rewindFromTick": 600,
+    "rewindToTick": 300,
+    "elapsedMilliseconds": 10163
+  },
+  "audioCueParityKeys": [
+    "actualSinkStartsAtBranch",
+    "actualSinkStartsAfterRestore",
+    "actualSinkStartsAfterReplay",
+    "originalTypedSimulationContinuation",
+    "replayedTypedSimulationContinuation",
+    "restoreCutAudioCursor",
+    "uiSequenceAtBranch",
+    "uiSequenceAfterRestore",
+    "uiSequenceAfterReplay",
+    "replayedUiStarts",
+    "sequenceZeroDomains"
+  ],
+  "terminal": {
+    "smoke": true,
+    "sessionTick": 900,
+    "restartHidden": true
+  }
+}

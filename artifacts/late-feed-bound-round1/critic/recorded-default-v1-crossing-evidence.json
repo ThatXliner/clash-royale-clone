@@ -1,0 +1,400 @@
+{
+  "actualEvent3899": {
+    "eventId": 3899,
+    "parentId": 3895,
+    "payload": {
+      "reason": "complete"
+    },
+    "phase": "close",
+    "rootId": "projectile.unit-to-unit.234.none.447.20",
+    "tick": 17789,
+    "type": "projectile"
+  },
+  "actualV1Crossing": {
+    "recordBefore": {
+      "endEventId": 3898,
+      "bytes": 1048484,
+      "acceptedBaseSerializerAgrees": true
+    },
+    "overflowRecord": {
+      "endEventId": 3899,
+      "bytes": 1048649,
+      "overBy": 73,
+      "record": {
+        "eventId": 3899,
+        "parentId": 3895,
+        "payload": {
+          "reason": "complete"
+        },
+        "phase": "close",
+        "rootId": "projectile.unit-to-unit.234.none.447.20",
+        "tick": 17789,
+        "type": "projectile"
+      }
+    },
+    "firstCrossingEventId": 3899,
+    "unchangedByteLimit": 1048576
+  },
+  "allActualV1PrefixesThroughSameTick": [
+    {
+      "endEventId": 3886,
+      "lastRecord": {
+        "eventId": 3886,
+        "parentId": null,
+        "payload": {
+          "direction": "unit-to-unit",
+          "effectId": null,
+          "from": {
+            "denominator": "1",
+            "xNumerator": "14500",
+            "yNumerator": "16135"
+          },
+          "impactTick": 17789,
+          "projectileId": 448,
+          "radius": 0,
+          "segments": [],
+          "sequence": 7,
+          "sourceId": 255,
+          "to": {
+            "denominator": "1",
+            "xNumerator": "7628",
+            "yNumerator": "14500"
+          }
+        },
+        "phase": "open",
+        "rootId": "projectile.unit-to-unit.255.none.448.7",
+        "tick": 17775,
+        "type": "projectile"
+      },
+      "v1Bytes": 1045498,
+      "overUnchangedLimit": false,
+      "baselineAcceptedBytes": 1045498,
+      "baselineRejectedForBound": false
+    },
+    {
+      "endEventId": 3887,
+      "lastRecord": {
+        "eventId": 3887,
+        "parentId": null,
+        "payload": {
+          "direction": "unit-to-unit",
+          "effectId": null,
+          "from": {
+            "denominator": "1",
+            "xNumerator": "12500",
+            "yNumerator": "9749"
+          },
+          "impactTick": 17802,
+          "projectileId": 449,
+          "radius": 0,
+          "segments": [],
+          "sequence": 8,
+          "sourceId": 253,
+          "to": {
+            "denominator": "1",
+            "xNumerator": "14500",
+            "yNumerator": "16135"
+          }
+        },
+        "phase": "open",
+        "rootId": "projectile.unit-to-unit.253.none.449.8",
+        "tick": 17789,
+        "type": "projectile"
+      },
+      "v1Bytes": 1045910,
+      "overUnchangedLimit": false,
+      "baselineAcceptedBytes": 1045910,
+      "baselineRejectedForBound": false
+    },
+    {
+      "endEventId": 3888,
+      "lastRecord": {
+        "eventId": 3888,
+        "parentId": 3884,
+        "payload": {
+          "point": {
+            "denominator": "1",
+            "xNumerator": "7628",
+            "yNumerator": "14500"
+          },
+          "status": "contact",
+          "subId": null,
+          "targetId": 234
+        },
+        "phase": "contact",
+        "rootId": "projectile.unit-to-unit.233.none.446.25",
+        "tick": 17789,
+        "type": "projectile"
+      },
+      "v1Bytes": 1046173,
+      "overUnchangedLimit": false,
+      "baselineAcceptedBytes": 1046173,
+      "baselineRejectedForBound": false
+    },
+    {
+      "endEventId": 3889,
+      "lastRecord": {
+        "eventId": 3889,
+        "parentId": 3888,
+        "payload": {
+          "point": {
+            "denominator": "1",
+            "xNumerator": "7628",
+            "yNumerator": "14500"
+          },
+          "status": "contact",
+          "subId": null,
+          "targetId": 234
+        },
+        "phase": "contact",
+        "rootId": "projectile.unit-to-unit.233.none.446.25",
+        "tick": 17789,
+        "type": "projectile"
+      },
+      "v1Bytes": 1046436,
+      "overUnchangedLimit": false,
+      "baselineAcceptedBytes": 1046436,
+      "baselineRejectedForBound": false
+    },
+    {
+      "endEventId": 3890,
+      "lastRecord": {
+        "eventId": 3890,
+        "parentId": 3885,
+        "payload": {
+          "point": {
+            "denominator": "1",
+            "xNumerator": "14500",
+            "yNumerator": "16135"
+          },
+          "status": "contact",
+          "subId": null,
+          "targetId": 255
+        },
+        "phase": "contact",
+        "rootId": "projectile.unit-to-unit.234.none.447.20",
+        "tick": 17789,
+        "type": "projectile"
+      },
+      "v1Bytes": 1046700,
+      "overUnchangedLimit": false,
+      "baselineAcceptedBytes": 1046700,
+      "baselineRejectedForBound": false
+    },
+    {
+      "endEventId": 3891,
+      "lastRecord": {
+        "eventId": 3891,
+        "parentId": 3890,
+        "payload": {
+          "point": {
+            "denominator": "1",
+            "xNumerator": "14500",
+            "yNumerator": "16135"
+          },
+          "status": "contact",
+          "subId": null,
+          "targetId": 255
+        },
+        "phase": "contact",
+        "rootId": "projectile.unit-to-unit.234.none.447.20",
+        "tick": 17789,
+        "type": "projectile"
+      },
+      "v1Bytes": 1046964,
+      "overUnchangedLimit": false,
+      "baselineAcceptedBytes": 1046964,
+      "baselineRejectedForBound": false
+    },
+    {
+      "endEventId": 3892,
+      "lastRecord": {
+        "eventId": 3892,
+        "parentId": 3886,
+        "payload": {
+          "point": {
+            "denominator": "1",
+            "xNumerator": "7628",
+            "yNumerator": "14500"
+          },
+          "status": "contact",
+          "subId": null,
+          "targetId": 234
+        },
+        "phase": "contact",
+        "rootId": "projectile.unit-to-unit.255.none.448.7",
+        "tick": 17789,
+        "type": "projectile"
+      },
+      "v1Bytes": 1047226,
+      "overUnchangedLimit": false,
+      "baselineAcceptedBytes": 1047226,
+      "baselineRejectedForBound": false
+    },
+    {
+      "endEventId": 3893,
+      "lastRecord": {
+        "eventId": 3893,
+        "parentId": 3892,
+        "payload": {
+          "point": {
+            "denominator": "1",
+            "xNumerator": "7628",
+            "yNumerator": "14500"
+          },
+          "status": "contact",
+          "subId": null,
+          "targetId": 234
+        },
+        "phase": "contact",
+        "rootId": "projectile.unit-to-unit.255.none.448.7",
+        "tick": 17789,
+        "type": "projectile"
+      },
+      "v1Bytes": 1047488,
+      "overUnchangedLimit": false,
+      "baselineAcceptedBytes": 1047488,
+      "baselineRejectedForBound": false
+    },
+    {
+      "endEventId": 3894,
+      "lastRecord": {
+        "eventId": 3894,
+        "parentId": 3889,
+        "payload": {
+          "amount": 131,
+          "currentHealthAfter": 129,
+          "currentHealthBefore": 260,
+          "targetId": 234
+        },
+        "phase": "damage",
+        "rootId": "projectile.unit-to-unit.233.none.446.25",
+        "tick": 17789,
+        "type": "projectile"
+      },
+      "v1Bytes": 1047713,
+      "overUnchangedLimit": false,
+      "baselineAcceptedBytes": 1047713,
+      "baselineRejectedForBound": false
+    },
+    {
+      "endEventId": 3895,
+      "lastRecord": {
+        "eventId": 3895,
+        "parentId": 3891,
+        "payload": {
+          "amount": 131,
+          "currentHealthAfter": 129,
+          "currentHealthBefore": 260,
+          "targetId": 255
+        },
+        "phase": "damage",
+        "rootId": "projectile.unit-to-unit.234.none.447.20",
+        "tick": 17789,
+        "type": "projectile"
+      },
+      "v1Bytes": 1047938,
+      "overUnchangedLimit": false,
+      "baselineAcceptedBytes": 1047938,
+      "baselineRejectedForBound": false
+    },
+    {
+      "endEventId": 3896,
+      "lastRecord": {
+        "eventId": 3896,
+        "parentId": 3893,
+        "payload": {
+          "amount": 131,
+          "currentHealthAfter": 0,
+          "currentHealthBefore": 129,
+          "targetId": 234
+        },
+        "phase": "damage",
+        "rootId": "projectile.unit-to-unit.255.none.448.7",
+        "tick": 17789,
+        "type": "projectile"
+      },
+      "v1Bytes": 1048160,
+      "overUnchangedLimit": false,
+      "baselineAcceptedBytes": 1048160,
+      "baselineRejectedForBound": false
+    },
+    {
+      "endEventId": 3897,
+      "lastRecord": {
+        "eventId": 3897,
+        "parentId": 3896,
+        "payload": {
+          "targetId": 234
+        },
+        "phase": "death",
+        "rootId": "projectile.unit-to-unit.255.none.448.7",
+        "tick": 17789,
+        "type": "projectile"
+      },
+      "v1Bytes": 1048319,
+      "overUnchangedLimit": false,
+      "baselineAcceptedBytes": 1048319,
+      "baselineRejectedForBound": false
+    },
+    {
+      "endEventId": 3898,
+      "lastRecord": {
+        "eventId": 3898,
+        "parentId": 3894,
+        "payload": {
+          "reason": "complete"
+        },
+        "phase": "close",
+        "rootId": "projectile.unit-to-unit.233.none.446.25",
+        "tick": 17789,
+        "type": "projectile"
+      },
+      "v1Bytes": 1048484,
+      "overUnchangedLimit": false,
+      "baselineAcceptedBytes": 1048484,
+      "baselineRejectedForBound": false
+    },
+    {
+      "endEventId": 3899,
+      "lastRecord": {
+        "eventId": 3899,
+        "parentId": 3895,
+        "payload": {
+          "reason": "complete"
+        },
+        "phase": "close",
+        "rootId": "projectile.unit-to-unit.234.none.447.20",
+        "tick": 17789,
+        "type": "projectile"
+      },
+      "v1Bytes": 1048649,
+      "overUnchangedLimit": true,
+      "baselineAcceptedBytes": null,
+      "baselineRejectedForBound": true
+    },
+    {
+      "endEventId": 3900,
+      "lastRecord": {
+        "eventId": 3900,
+        "parentId": 3897,
+        "payload": {
+          "reason": "complete"
+        },
+        "phase": "close",
+        "rootId": "projectile.unit-to-unit.255.none.448.7",
+        "tick": 17789,
+        "type": "projectile"
+      },
+      "v1Bytes": 1048813,
+      "overUnchangedLimit": true,
+      "baselineAcceptedBytes": null,
+      "baselineRejectedForBound": true
+    }
+  ],
+  "candidateWireAtSessionCursor17790": {
+    "version": 2,
+    "bytes": 516830,
+    "records": 3900
+  }
+}

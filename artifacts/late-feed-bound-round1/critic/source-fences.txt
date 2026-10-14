@@ -1,0 +1,15 @@
+Candidate source fence
+
+d0c09502d65406d5f9c4c7c827e1053179d2504a
+parent=7550ca38fa3e415d337927a0c9ad34ff63637741
+tree=5beeb9870b5f58c288d269d8b0ce0a2823485eef
+source worktree diff=[]
+
+fd0f1447040d540fd9d315c2f221fdfd96affca1ec0044475d5505493d661c05  src/sim/combat-effect-feed.js  38167 bytes
+dcc8352f7c70c0c929441dfbb920e7a1f2ac834c2847fd436d6436489eef1835  tests/combat-effect-feed-bound.test.js  7650 bytes
+1ae318bfed374c83ac43549f8ef7b76056946d182378384040e6206af1b8be43  tests/combat-effect-protocol.test.js  35214 bytes
+9d2e56266451a02486f6893d35f37989660d6f9d838be2d953b8e242beff78ee  reference/stats/SOURCES.md  8968 bytes
+3c53658da7c1696f8a1ba5671b5bb81512d100d2f8bd289d4fe5d61c2fd476ec  artifacts/late-feed-bound-round1/critic/raw-original-fail.json  2268051 bytes
+56e00f0bfa449e9efa29d794c8f34793ffdef13d12a533c7d13723cfeb70f0ea  artifacts/late-feed-bound-round1/critic/baseline-7550-combat-effect-feed.js  33310 bytes
+
+Raw browser artifact records original scenario default-eight; accepted production source declared in actual-command.txt: ff1025e145cbff421d624ed7d3e59b5ab5671f14.

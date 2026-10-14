@@ -1,0 +1,770 @@
+{
+  "restoredCheckpoint": {
+    "tick": 17715,
+    "bytes": 328439,
+    "sha256": "813a3b012b55f68c0a6c59ac14556c7d42d40e1add99fdd57ad7dfe329cb2690",
+    "exactRoundTrip": true
+  },
+  "priorAt17715": {
+    "wireVersion": 1,
+    "recordCount": 3858,
+    "rootCount": 829,
+    "phases": {
+      "open": 829,
+      "contact": 1250,
+      "damage": 735,
+      "close": 829,
+      "death": 215
+    },
+    "rootTypes": {
+      "projectile": 829
+    },
+    "rootDirections": {
+      "tower-to-unit": 386,
+      "unit-to-tower": 72,
+      "unit-to-unit": 371
+    },
+    "wireBytes": 1037611,
+    "wireSha256": "3d816b2703144bba497434eb44f8d3676b241e08226d9464fd8e62b0c780ce39",
+    "expandedBytes": 1037611,
+    "expandedSha256": "3d816b2703144bba497434eb44f8d3676b241e08226d9464fd8e62b0c780ce39",
+    "firstEvent": {
+      "eventId": 1,
+      "parentId": null,
+      "payload": {
+        "direction": "tower-to-unit",
+        "effectId": null,
+        "from": {
+          "denominator": "1",
+          "xNumerator": "14500",
+          "yNumerator": "7500"
+        },
+        "impactTick": 65,
+        "projectileId": 1,
+        "radius": 0,
+        "segments": [],
+        "sequence": 1,
+        "sourceId": "south:lane:east",
+        "to": {
+          "denominator": "1",
+          "xNumerator": "14500",
+          "yNumerator": "15300"
+        }
+      },
+      "phase": "open",
+      "rootId": "projectile.tower-to-unit.ssouth%3Alane%3Aeast.none.1.1",
+      "tick": 65,
+      "type": "projectile"
+    },
+    "lastEvent": {
+      "eventId": 3858,
+      "parentId": 3857,
+      "payload": {
+        "reason": "complete"
+      },
+      "phase": "close",
+      "rootId": "projectile.unit-to-unit.234.none.443.18",
+      "tick": 17701,
+      "type": "projectile"
+    }
+  },
+  "baseline7550PriorWireExact": true,
+  "boundaryCursors": [
+    {
+      "cursor": 17789,
+      "stateTick": 17789,
+      "wireVersion": 1,
+      "recordCount": 3886,
+      "rootCount": 837,
+      "phases": {
+        "open": 837,
+        "contact": 1257,
+        "damage": 740,
+        "close": 834,
+        "death": 218
+      },
+      "rootTypes": {
+        "projectile": 837
+      },
+      "rootDirections": {
+        "tower-to-unit": 389,
+        "unit-to-tower": 72,
+        "unit-to-unit": 376
+      },
+      "wireBytes": 1045498,
+      "wireSha256": "4496efaa280b8759afbf80aa4be478a74c710b99e0a865ccf7442771ebebe3ec",
+      "expandedBytes": 1045498,
+      "expandedSha256": "4496efaa280b8759afbf80aa4be478a74c710b99e0a865ccf7442771ebebe3ec",
+      "firstEvent": {
+        "eventId": 1,
+        "parentId": null,
+        "payload": {
+          "direction": "tower-to-unit",
+          "effectId": null,
+          "from": {
+            "denominator": "1",
+            "xNumerator": "14500",
+            "yNumerator": "7500"
+          },
+          "impactTick": 65,
+          "projectileId": 1,
+          "radius": 0,
+          "segments": [],
+          "sequence": 1,
+          "sourceId": "south:lane:east",
+          "to": {
+            "denominator": "1",
+            "xNumerator": "14500",
+            "yNumerator": "15300"
+          }
+        },
+        "phase": "open",
+        "rootId": "projectile.tower-to-unit.ssouth%3Alane%3Aeast.none.1.1",
+        "tick": 65,
+        "type": "projectile"
+      },
+      "lastEvent": {
+        "eventId": 3886,
+        "parentId": null,
+        "payload": {
+          "direction": "unit-to-unit",
+          "effectId": null,
+          "from": {
+            "denominator": "1",
+            "xNumerator": "14500",
+            "yNumerator": "16135"
+          },
+          "impactTick": 17789,
+          "projectileId": 448,
+          "radius": 0,
+          "segments": [],
+          "sequence": 7,
+          "sourceId": 255,
+          "to": {
+            "denominator": "1",
+            "xNumerator": "7628",
+            "yNumerator": "14500"
+          }
+        },
+        "phase": "open",
+        "rootId": "projectile.unit-to-unit.255.none.448.7",
+        "tick": 17775,
+        "type": "projectile"
+      },
+      "recentEvents": [
+        {
+          "eventId": 3881,
+          "parentId": 3880,
+          "payload": {
+            "amount": 109,
+            "currentHealthAfter": 0,
+            "currentHealthBefore": 81,
+            "targetId": 260
+          },
+          "phase": "damage",
+          "rootId": "projectile.tower-to-unit.ssouth%3Alane%3Aeast.none.389.202",
+          "tick": 17751,
+          "type": "projectile"
+        },
+        {
+          "eventId": 3882,
+          "parentId": 3881,
+          "payload": {
+            "targetId": 260
+          },
+          "phase": "death",
+          "rootId": "projectile.tower-to-unit.ssouth%3Alane%3Aeast.none.389.202",
+          "tick": 17751,
+          "type": "projectile"
+        },
+        {
+          "eventId": 3883,
+          "parentId": 3882,
+          "payload": {
+            "reason": "complete"
+          },
+          "phase": "close",
+          "rootId": "projectile.tower-to-unit.ssouth%3Alane%3Aeast.none.389.202",
+          "tick": 17751,
+          "type": "projectile"
+        },
+        {
+          "eventId": 3884,
+          "parentId": null,
+          "payload": {
+            "direction": "unit-to-unit",
+            "effectId": null,
+            "from": {
+              "denominator": "1",
+              "xNumerator": "14500",
+              "yNumerator": "16136"
+            },
+            "impactTick": 17789,
+            "projectileId": 446,
+            "radius": 0,
+            "segments": [],
+            "sequence": 25,
+            "sourceId": 233,
+            "to": {
+              "denominator": "1",
+              "xNumerator": "7628",
+              "yNumerator": "14500"
+            }
+          },
+          "phase": "open",
+          "rootId": "projectile.unit-to-unit.233.none.446.25",
+          "tick": 17775,
+          "type": "projectile"
+        },
+        {
+          "eventId": 3885,
+          "parentId": null,
+          "payload": {
+            "direction": "unit-to-unit",
+            "effectId": null,
+            "from": {
+              "denominator": "1",
+              "xNumerator": "7628",
+              "yNumerator": "14500"
+            },
+            "impactTick": 17789,
+            "projectileId": 447,
+            "radius": 0,
+            "segments": [],
+            "sequence": 20,
+            "sourceId": 234,
+            "to": {
+              "denominator": "1",
+              "xNumerator": "14500",
+              "yNumerator": "16135"
+            }
+          },
+          "phase": "open",
+          "rootId": "projectile.unit-to-unit.234.none.447.20",
+          "tick": 17775,
+          "type": "projectile"
+        },
+        {
+          "eventId": 3886,
+          "parentId": null,
+          "payload": {
+            "direction": "unit-to-unit",
+            "effectId": null,
+            "from": {
+              "denominator": "1",
+              "xNumerator": "14500",
+              "yNumerator": "16135"
+            },
+            "impactTick": 17789,
+            "projectileId": 448,
+            "radius": 0,
+            "segments": [],
+            "sequence": 7,
+            "sourceId": 255,
+            "to": {
+              "denominator": "1",
+              "xNumerator": "7628",
+              "yNumerator": "14500"
+            }
+          },
+          "phase": "open",
+          "rootId": "projectile.unit-to-unit.255.none.448.7",
+          "tick": 17775,
+          "type": "projectile"
+        }
+      ]
+    },
+    {
+      "cursor": 17790,
+      "stateTick": 17790,
+      "wireVersion": 2,
+      "recordCount": 3900,
+      "rootCount": 838,
+      "phases": {
+        "open": 838,
+        "contact": 1263,
+        "damage": 743,
+        "close": 837,
+        "death": 219
+      },
+      "rootTypes": {
+        "projectile": 838
+      },
+      "rootDirections": {
+        "tower-to-unit": 389,
+        "unit-to-tower": 72,
+        "unit-to-unit": 377
+      },
+      "wireBytes": 516830,
+      "wireSha256": "41790a6f6ace7a04134d8fcf9db9652dcd9c6a72acb32529a4ecdc2310d3441b",
+      "expandedBytes": 1048813,
+      "expandedSha256": "0036a9d596ec79fe70b5f5c09bf3e4dd3e62ee855b75435c1ad2699ca5d8f30a",
+      "firstEvent": {
+        "eventId": 1,
+        "parentId": null,
+        "payload": {
+          "direction": "tower-to-unit",
+          "effectId": null,
+          "from": {
+            "denominator": "1",
+            "xNumerator": "14500",
+            "yNumerator": "7500"
+          },
+          "impactTick": 65,
+          "projectileId": 1,
+          "radius": 0,
+          "segments": [],
+          "sequence": 1,
+          "sourceId": "south:lane:east",
+          "to": {
+            "denominator": "1",
+            "xNumerator": "14500",
+            "yNumerator": "15300"
+          }
+        },
+        "phase": "open",
+        "rootId": "projectile.tower-to-unit.ssouth%3Alane%3Aeast.none.1.1",
+        "tick": 65,
+        "type": "projectile"
+      },
+      "lastEvent": {
+        "eventId": 3900,
+        "parentId": 3897,
+        "payload": {
+          "reason": "complete"
+        },
+        "phase": "close",
+        "rootId": "projectile.unit-to-unit.255.none.448.7",
+        "tick": 17789,
+        "type": "projectile"
+      },
+      "recentEvents": [
+        {
+          "eventId": 3895,
+          "parentId": 3891,
+          "payload": {
+            "amount": 131,
+            "currentHealthAfter": 129,
+            "currentHealthBefore": 260,
+            "targetId": 255
+          },
+          "phase": "damage",
+          "rootId": "projectile.unit-to-unit.234.none.447.20",
+          "tick": 17789,
+          "type": "projectile"
+        },
+        {
+          "eventId": 3896,
+          "parentId": 3893,
+          "payload": {
+            "amount": 131,
+            "currentHealthAfter": 0,
+            "currentHealthBefore": 129,
+            "targetId": 234
+          },
+          "phase": "damage",
+          "rootId": "projectile.unit-to-unit.255.none.448.7",
+          "tick": 17789,
+          "type": "projectile"
+        },
+        {
+          "eventId": 3897,
+          "parentId": 3896,
+          "payload": {
+            "targetId": 234
+          },
+          "phase": "death",
+          "rootId": "projectile.unit-to-unit.255.none.448.7",
+          "tick": 17789,
+          "type": "projectile"
+        },
+        {
+          "eventId": 3898,
+          "parentId": 3894,
+          "payload": {
+            "reason": "complete"
+          },
+          "phase": "close",
+          "rootId": "projectile.unit-to-unit.233.none.446.25",
+          "tick": 17789,
+          "type": "projectile"
+        },
+        {
+          "eventId": 3899,
+          "parentId": 3895,
+          "payload": {
+            "reason": "complete"
+          },
+          "phase": "close",
+          "rootId": "projectile.unit-to-unit.234.none.447.20",
+          "tick": 17789,
+          "type": "projectile"
+        },
+        {
+          "eventId": 3900,
+          "parentId": 3897,
+          "payload": {
+            "reason": "complete"
+          },
+          "phase": "close",
+          "rootId": "projectile.unit-to-unit.255.none.448.7",
+          "tick": 17789,
+          "type": "projectile"
+        }
+      ]
+    },
+    {
+      "cursor": 17791,
+      "stateTick": 17791,
+      "wireVersion": 2,
+      "recordCount": 3900,
+      "rootCount": 838,
+      "phases": {
+        "open": 838,
+        "contact": 1263,
+        "damage": 743,
+        "close": 837,
+        "death": 219
+      },
+      "rootTypes": {
+        "projectile": 838
+      },
+      "rootDirections": {
+        "tower-to-unit": 389,
+        "unit-to-tower": 72,
+        "unit-to-unit": 377
+      },
+      "wireBytes": 516830,
+      "wireSha256": "41790a6f6ace7a04134d8fcf9db9652dcd9c6a72acb32529a4ecdc2310d3441b",
+      "expandedBytes": 1048813,
+      "expandedSha256": "0036a9d596ec79fe70b5f5c09bf3e4dd3e62ee855b75435c1ad2699ca5d8f30a",
+      "firstEvent": {
+        "eventId": 1,
+        "parentId": null,
+        "payload": {
+          "direction": "tower-to-unit",
+          "effectId": null,
+          "from": {
+            "denominator": "1",
+            "xNumerator": "14500",
+            "yNumerator": "7500"
+          },
+          "impactTick": 65,
+          "projectileId": 1,
+          "radius": 0,
+          "segments": [],
+          "sequence": 1,
+          "sourceId": "south:lane:east",
+          "to": {
+            "denominator": "1",
+            "xNumerator": "14500",
+            "yNumerator": "15300"
+          }
+        },
+        "phase": "open",
+        "rootId": "projectile.tower-to-unit.ssouth%3Alane%3Aeast.none.1.1",
+        "tick": 65,
+        "type": "projectile"
+      },
+      "lastEvent": {
+        "eventId": 3900,
+        "parentId": 3897,
+        "payload": {
+          "reason": "complete"
+        },
+        "phase": "close",
+        "rootId": "projectile.unit-to-unit.255.none.448.7",
+        "tick": 17789,
+        "type": "projectile"
+      },
+      "recentEvents": [
+        {
+          "eventId": 3895,
+          "parentId": 3891,
+          "payload": {
+            "amount": 131,
+            "currentHealthAfter": 129,
+            "currentHealthBefore": 260,
+            "targetId": 255
+          },
+          "phase": "damage",
+          "rootId": "projectile.unit-to-unit.234.none.447.20",
+          "tick": 17789,
+          "type": "projectile"
+        },
+        {
+          "eventId": 3896,
+          "parentId": 3893,
+          "payload": {
+            "amount": 131,
+            "currentHealthAfter": 0,
+            "currentHealthBefore": 129,
+            "targetId": 234
+          },
+          "phase": "damage",
+          "rootId": "projectile.unit-to-unit.255.none.448.7",
+          "tick": 17789,
+          "type": "projectile"
+        },
+        {
+          "eventId": 3897,
+          "parentId": 3896,
+          "payload": {
+            "targetId": 234
+          },
+          "phase": "death",
+          "rootId": "projectile.unit-to-unit.255.none.448.7",
+          "tick": 17789,
+          "type": "projectile"
+        },
+        {
+          "eventId": 3898,
+          "parentId": 3894,
+          "payload": {
+            "reason": "complete"
+          },
+          "phase": "close",
+          "rootId": "projectile.unit-to-unit.233.none.446.25",
+          "tick": 17789,
+          "type": "projectile"
+        },
+        {
+          "eventId": 3899,
+          "parentId": 3895,
+          "payload": {
+            "reason": "complete"
+          },
+          "phase": "close",
+          "rootId": "projectile.unit-to-unit.234.none.447.20",
+          "tick": 17789,
+          "type": "projectile"
+        },
+        {
+          "eventId": 3900,
+          "parentId": 3897,
+          "payload": {
+            "reason": "complete"
+          },
+          "phase": "close",
+          "rootId": "projectile.unit-to-unit.255.none.448.7",
+          "tick": 17789,
+          "type": "projectile"
+        }
+      ]
+    },
+    {
+      "cursor": 17792,
+      "stateTick": 17792,
+      "wireVersion": 2,
+      "recordCount": 3900,
+      "rootCount": 838,
+      "phases": {
+        "open": 838,
+        "contact": 1263,
+        "damage": 743,
+        "close": 837,
+        "death": 219
+      },
+      "rootTypes": {
+        "projectile": 838
+      },
+      "rootDirections": {
+        "tower-to-unit": 389,
+        "unit-to-tower": 72,
+        "unit-to-unit": 377
+      },
+      "wireBytes": 516830,
+      "wireSha256": "41790a6f6ace7a04134d8fcf9db9652dcd9c6a72acb32529a4ecdc2310d3441b",
+      "expandedBytes": 1048813,
+      "expandedSha256": "0036a9d596ec79fe70b5f5c09bf3e4dd3e62ee855b75435c1ad2699ca5d8f30a",
+      "firstEvent": {
+        "eventId": 1,
+        "parentId": null,
+        "payload": {
+          "direction": "tower-to-unit",
+          "effectId": null,
+          "from": {
+            "denominator": "1",
+            "xNumerator": "14500",
+            "yNumerator": "7500"
+          },
+          "impactTick": 65,
+          "projectileId": 1,
+          "radius": 0,
+          "segments": [],
+          "sequence": 1,
+          "sourceId": "south:lane:east",
+          "to": {
+            "denominator": "1",
+            "xNumerator": "14500",
+            "yNumerator": "15300"
+          }
+        },
+        "phase": "open",
+        "rootId": "projectile.tower-to-unit.ssouth%3Alane%3Aeast.none.1.1",
+        "tick": 65,
+        "type": "projectile"
+      },
+      "lastEvent": {
+        "eventId": 3900,
+        "parentId": 3897,
+        "payload": {
+          "reason": "complete"
+        },
+        "phase": "close",
+        "rootId": "projectile.unit-to-unit.255.none.448.7",
+        "tick": 17789,
+        "type": "projectile"
+      },
+      "recentEvents": [
+        {
+          "eventId": 3895,
+          "parentId": 3891,
+          "payload": {
+            "amount": 131,
+            "currentHealthAfter": 129,
+            "currentHealthBefore": 260,
+            "targetId": 255
+          },
+          "phase": "damage",
+          "rootId": "projectile.unit-to-unit.234.none.447.20",
+          "tick": 17789,
+          "type": "projectile"
+        },
+        {
+          "eventId": 3896,
+          "parentId": 3893,
+          "payload": {
+            "amount": 131,
+            "currentHealthAfter": 0,
+            "currentHealthBefore": 129,
+            "targetId": 234
+          },
+          "phase": "damage",
+          "rootId": "projectile.unit-to-unit.255.none.448.7",
+          "tick": 17789,
+          "type": "projectile"
+        },
+        {
+          "eventId": 3897,
+          "parentId": 3896,
+          "payload": {
+            "targetId": 234
+          },
+          "phase": "death",
+          "rootId": "projectile.unit-to-unit.255.none.448.7",
+          "tick": 17789,
+          "type": "projectile"
+        },
+        {
+          "eventId": 3898,
+          "parentId": 3894,
+          "payload": {
+            "reason": "complete"
+          },
+          "phase": "close",
+          "rootId": "projectile.unit-to-unit.233.none.446.25",
+          "tick": 17789,
+          "type": "projectile"
+        },
+        {
+          "eventId": 3899,
+          "parentId": 3895,
+          "payload": {
+            "reason": "complete"
+          },
+          "phase": "close",
+          "rootId": "projectile.unit-to-unit.234.none.447.20",
+          "tick": 17789,
+          "type": "projectile"
+        },
+        {
+          "eventId": 3900,
+          "parentId": 3897,
+          "payload": {
+            "reason": "complete"
+          },
+          "phase": "close",
+          "rootId": "projectile.unit-to-unit.255.none.448.7",
+          "tick": 17789,
+          "type": "projectile"
+        }
+      ]
+    }
+  ],
+  "finalAt18000": {
+    "tick": 18000,
+    "terminal": true,
+    "sessionBytes": 332999,
+    "sessionSha256": "b688222db5bae0177e427729c8eb8da6d1e042ae84257c33573f3b2bcf5ab6d7",
+    "feed": {
+      "wireVersion": 2,
+      "recordCount": 3931,
+      "rootCount": 843,
+      "phases": {
+        "open": 843,
+        "contact": 1275,
+        "damage": 749,
+        "close": 843,
+        "death": 221
+      },
+      "rootTypes": {
+        "projectile": 843
+      },
+      "rootDirections": {
+        "tower-to-unit": 389,
+        "unit-to-tower": 72,
+        "unit-to-unit": 382
+      },
+      "wireBytes": 520699,
+      "wireSha256": "6c55a4a9c11653adb6c4d2b2bc0dd0862995f03aebd0ebe7444e6bb85c97b7f6",
+      "expandedBytes": 1056690,
+      "expandedSha256": "e0b56480ef7588d4f7cb2e4baa613e646bea41ed562ae7c476b1be2f58f32a20",
+      "firstEvent": {
+        "eventId": 1,
+        "parentId": null,
+        "payload": {
+          "direction": "tower-to-unit",
+          "effectId": null,
+          "from": {
+            "denominator": "1",
+            "xNumerator": "14500",
+            "yNumerator": "7500"
+          },
+          "impactTick": 65,
+          "projectileId": 1,
+          "radius": 0,
+          "segments": [],
+          "sequence": 1,
+          "sourceId": "south:lane:east",
+          "to": {
+            "denominator": "1",
+            "xNumerator": "14500",
+            "yNumerator": "15300"
+          }
+        },
+        "phase": "open",
+        "rootId": "projectile.tower-to-unit.ssouth%3Alane%3Aeast.none.1.1",
+        "tick": 65,
+        "type": "projectile"
+      },
+      "lastEvent": {
+        "eventId": 3931,
+        "parentId": 3930,
+        "payload": {
+          "reason": "complete"
+        },
+        "phase": "close",
+        "rootId": "projectile.unit-to-unit.253.none.454.11",
+        "tick": 17995,
+        "type": "projectile"
+      }
+    }
+  },
+  "contiguousEventIdsFrom1NoEviction": true,
+  "actualFinalGraphRestoreValidateAndPlainExpandedReserializationExact": true,
+  "unchangedLimits": {
+    "maxWireBytes": 1048576,
+    "maxRecords": 16384
+  }
+}

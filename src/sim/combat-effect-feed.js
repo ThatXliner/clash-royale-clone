@@ -8,6 +8,7 @@
  */
 
 const COMBAT_EFFECT_FEED_VERSION = 1;
+const COMBAT_EFFECT_FEED_COMPACT_VERSION = 2;
 const COMBAT_EFFECT_FEED_MAX_RECORDS = 16_384;
 const COMBAT_EFFECT_FEED_MAX_BYTES = 1_048_576;
 const COMBAT_EFFECT_FEED_MAX_DEPTH = 16;
@@ -22,6 +23,7 @@ const COMBAT_EFFECT_FEED_MAX_COORDINATE = 65_536;
 const COMBAT_EFFECT_FEED_MAX_DENOMINATOR = 1_000_000;
 const FEED_SNAPSHOT_PREFIX = "{\"records\":[";
 const FEED_SNAPSHOT_SUFFIX = "],\"version\":1}";
+const FEED_COMPACT_SNAPSHOT_SUFFIX = "],\"version\":2}";
 const UTF8 = new TextEncoder();
 
 const RECORD_KEYS = [
@@ -61,6 +63,9 @@ const ROOT_ID_TOKEN = /^[a-z][A-Za-z0-9.%_~!\-]*(?:\.[A-Za-z0-9.%_~!\-]+){5}$/u;
 
 const FEED_STATES = new WeakMap();
 const NORMALIZED_SNAPSHOT_ROOTS = new WeakSet();
+const NORMALIZED_SNAPSHOT_WIRE_VERSIONS = new WeakMap();
+const COMPACT_TYPES = ["area", "projectile"];
+const COMPACT_PHASES = ["open", "contact", "damage", "death", "impact", "turn", "close"];
 
 function clone(value) {
   return JSON.parse(canonicalJson(value));
@@ -419,7 +424,21 @@ function appendChecked(state, record) {
     UTF8.encode(canonicalJson(checked)).byteLength;
   const nextSnapshotBytes = UTF8.encode(FEED_SNAPSHOT_PREFIX).byteLength +
     nextRecordBytes + UTF8.encode(FEED_SNAPSHOT_SUFFIX).byteLength;
-  if (nextSnapshotBytes > COMBAT_EFFECT_FEED_MAX_BYTES) {
+  const compactRecord = compactRecordFor(checked);
+  const nextCompactRecordBytes = state.compactRecordBytes +
+    (state.records.length === 0 ? 0 : 1) +
+    UTF8.encode(canonicalJson(compactRecord)).byteLength;
+  const nextCompactSnapshotBytes = UTF8.encode(FEED_SNAPSHOT_PREFIX).byteLength +
+    nextCompactRecordBytes + UTF8.encode(FEED_COMPACT_SNAPSHOT_SUFFIX).byteLength;
+  let nextWireVersion = state.wireVersion;
+  if (nextWireVersion === COMBAT_EFFECT_FEED_VERSION &&
+      nextSnapshotBytes > COMBAT_EFFECT_FEED_MAX_BYTES) {
+    if (nextCompactSnapshotBytes > COMBAT_EFFECT_FEED_MAX_BYTES) {
+      throw new RangeError("combat effect feed exceeds its byte bound");
+    }
+    nextWireVersion = COMBAT_EFFECT_FEED_COMPACT_VERSION;
+  } else if (nextWireVersion === COMBAT_EFFECT_FEED_COMPACT_VERSION &&
+      nextCompactSnapshotBytes > COMBAT_EFFECT_FEED_MAX_BYTES) {
     throw new RangeError("combat effect feed exceeds its byte bound");
   }
 
@@ -545,27 +564,102 @@ function appendChecked(state, record) {
   }
   state.records.push(freeze(checked));
   state.recordBytes = nextRecordBytes;
+  state.compactRecordBytes = nextCompactRecordBytes;
+  state.wireVersion = nextWireVersion;
   state.nextEventId += 1;
   if (checked.type === "area") state.lastAreaTick = checked.tick;
   return checked;
 }
 
-function snapshotState(value) {
-  const snapshot = exact(value, SNAPSHOT_KEYS, "combat effect feed snapshot");
-  if (snapshot.version !== COMBAT_EFFECT_FEED_VERSION) {
-    throw new TypeError("combat effect feed version is unsupported");
-  }
-  const records = dense(snapshot.records, COMBAT_EFFECT_FEED_MAX_RECORDS, "combat effect feed records");
-  const state = {
+function emptyState(wireVersion = COMBAT_EFFECT_FEED_VERSION) {
+  return {
+    compactRecordBytes: 0,
     lastAreaTick: -1,
     nextEventId: 1,
     recordBytes: 0,
     records: [],
     roots: new Map(),
+    wireVersion,
   };
+}
+
+function snapshotState(value, wireVersion = COMBAT_EFFECT_FEED_VERSION) {
+  const snapshot = exact(value, SNAPSHOT_KEYS, "combat effect feed snapshot");
+  if (snapshot.version !== COMBAT_EFFECT_FEED_VERSION) {
+    throw new TypeError("combat effect feed version is unsupported");
+  }
+  const records = dense(snapshot.records, COMBAT_EFFECT_FEED_MAX_RECORDS, "combat effect feed records");
+  const state = emptyState(wireVersion);
   for (let index = 0; index < records.length; index += 1) {
     const checked = checkedRecord(records[index], `combat effect feed records[${index}]`);
     appendChecked(state, checked);
+  }
+  return state;
+}
+
+// Compact v2 is a wire projection only. Roots encode [tick, typeCode, payload];
+// children encode [parentId, tick, phaseCode, payload]. Array position supplies
+// the contiguous event ID, root payloads supply their injective root ID, and
+// children inherit type and root identity from their authenticated parent.
+function compactRecordFor(record) {
+  if (record.parentId === null) {
+    return [record.tick, COMPACT_TYPES.indexOf(record.type), record.payload];
+  }
+  return [record.parentId, record.tick, COMPACT_PHASES.indexOf(record.phase), record.payload];
+}
+
+function snapshotStateFromCompact(value) {
+  const snapshot = exact(value, SNAPSHOT_KEYS, "compact combat effect feed snapshot");
+  if (snapshot.version !== COMBAT_EFFECT_FEED_COMPACT_VERSION) {
+    throw new TypeError("compact combat effect feed version is unsupported");
+  }
+  const rows = dense(snapshot.records, COMBAT_EFFECT_FEED_MAX_RECORDS,
+    "compact combat effect feed records");
+  const state = emptyState(COMBAT_EFFECT_FEED_COMPACT_VERSION);
+  for (let index = 0; index < rows.length; index += 1) {
+    const row = dense(rows[index], 4, `compact combat effect feed records[${index}]`);
+    const eventId = index + 1;
+    let record;
+    if (row.length === 3) {
+      const [tick, typeCode, payload] = row;
+      if (!Number.isSafeInteger(typeCode) || typeCode < 0 || typeCode >= COMPACT_TYPES.length) {
+        throw new TypeError(`compact combat effect feed records[${index}] type code is invalid`);
+      }
+      const type = COMPACT_TYPES[typeCode];
+      record = {
+        eventId,
+        parentId: null,
+        payload,
+        phase: "open",
+        rootId: rootIdentity(type, payload),
+        tick,
+        type,
+      };
+    } else if (row.length === 4) {
+      const [parentId, tick, phaseCode, payload] = row;
+      if (!Number.isSafeInteger(parentId) || parentId < 1 || parentId >= eventId) {
+        throw new TypeError(`compact combat effect feed records[${index}] parent ID is invalid`);
+      }
+      if (!Number.isSafeInteger(phaseCode) || phaseCode < 0 || phaseCode >= COMPACT_PHASES.length) {
+        throw new TypeError(`compact combat effect feed records[${index}] phase code is invalid`);
+      }
+      const parent = state.records[parentId - 1];
+      if (parent === undefined) {
+        throw new TypeError(`compact combat effect feed records[${index}] parent is missing`);
+      }
+      record = {
+        eventId,
+        parentId,
+        payload,
+        phase: COMPACT_PHASES[phaseCode],
+        rootId: parent.rootId,
+        tick,
+        type: parent.type,
+      };
+    } else {
+      throw new TypeError(`compact combat effect feed records[${index}] has an invalid row shape`);
+    }
+    appendChecked(state, record);
   }
   return state;
 }
@@ -578,6 +672,7 @@ function snapshotFromState(state) {
     records: Object.freeze([...state.records]),
   });
   NORMALIZED_SNAPSHOT_ROOTS.add(snapshot);
+  NORMALIZED_SNAPSHOT_WIRE_VERSIONS.set(snapshot, state.wireVersion);
   return snapshot;
 }
 
@@ -615,6 +710,7 @@ function forkState(state) {
   // structural copy avoids revalidating the complete transcript on every
   // transactional source fork while preserving independent append state.
   return {
+    compactRecordBytes: state.compactRecordBytes,
     lastAreaTick: state.lastAreaTick,
     nextEventId: state.nextEventId,
     recordBytes: state.recordBytes,
@@ -626,11 +722,17 @@ function forkState(state) {
       deathTargets: new Set(root.deathTargets),
       impactTargets: new Set(root.impactTargets),
     }])),
+    wireVersion: state.wireVersion,
   };
 }
 
 function serializeState(state) {
-  const serialized = canonicalJson(snapshotFromState(state));
+  const serialized = state.wireVersion === COMBAT_EFFECT_FEED_VERSION
+    ? canonicalJson(snapshotFromState(state))
+    : canonicalJson({
+      records: state.records.map(compactRecordFor),
+      version: COMBAT_EFFECT_FEED_COMPACT_VERSION,
+    });
   if (new TextEncoder().encode(serialized).byteLength > COMBAT_EFFECT_FEED_MAX_BYTES) {
     throw new RangeError("combat effect feed exceeds its byte bound");
   }
@@ -638,13 +740,7 @@ function serializeState(state) {
 }
 
 function createCombatEffectFeed() {
-  return apiForState({
-    lastAreaTick: -1,
-    nextEventId: 1,
-    recordBytes: 0,
-    records: [],
-    roots: new Map(),
-  });
+  return apiForState(emptyState());
 }
 
 function appendCombatEffectEvent(feed, value) {
@@ -741,14 +837,17 @@ function appendCombatEffectRoot(feed, value) {
 function validateCombatEffectFeed(value) {
   if (NORMALIZED_SNAPSHOT_ROOTS.has(value)) return value;
   const trusted = FEED_STATES.get(value);
-  if (trusted !== undefined) return snapshotFromState(snapshotState(snapshotFromState(trusted)));
+  if (trusted !== undefined) {
+    return snapshotFromState(snapshotState(snapshotFromState(trusted), trusted.wireVersion));
+  }
   return snapshotFromState(snapshotState(value));
 }
 
 function serializeCombatEffectFeed(value) {
   const state = FEED_STATES.get(value);
   if (state !== undefined) return serializeState(state);
-  return serializeState(snapshotState(value));
+  const wireVersion = NORMALIZED_SNAPSHOT_WIRE_VERSIONS.get(value) ?? COMBAT_EFFECT_FEED_VERSION;
+  return serializeState(snapshotState(value, wireVersion));
 }
 
 function restoreCombatEffectFeed(serialized) {
@@ -764,7 +863,12 @@ function parseSerializedFeed(serialized) {
   let raw;
   try { raw = JSON.parse(serialized); }
   catch { throw new TypeError("combat effect feed bytes must be valid JSON"); }
-  const state = snapshotState(raw);
+  const envelope = exact(raw, SNAPSHOT_KEYS, "combat effect feed snapshot");
+  const state = envelope.version === COMBAT_EFFECT_FEED_VERSION
+    ? snapshotState(raw)
+    : envelope.version === COMBAT_EFFECT_FEED_COMPACT_VERSION
+      ? snapshotStateFromCompact(raw)
+      : (() => { throw new TypeError("combat effect feed version is unsupported"); })();
   if (serializeState(state) !== serialized) throw new TypeError("combat effect feed bytes must be canonical JSON");
   return state;
 }

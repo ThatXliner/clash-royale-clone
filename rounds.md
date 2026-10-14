@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 466 — 2026-10-14
+
+PIECE: GAME-001GFB
+
+VERDICT: PASS — bounded-history scope only
+
+EVIDENCE: Round466 PASS exactd0c0950: independent72/72 focused/adjacent tests,16 malformed-wire rejects and transactional rollback. All3,931 records/843 roots retained at terminal18k in520,699 wire bytes. Old v1 bytes match at live17715 and before event3899; first overflowing close at17789 switches format losslessly. Actual graph/fork/restore/validate exact. Full browser qualification remains separate. Actualfocused15/15, area11/11, session9/9, projection27/27, nondeterminism10/10. Sixteen malformedinputs rejected; rejectedthreshold/compactappends preservebytes/version/cursor. Baseline17,715 wire1,037,611B exact; record3,898 prefix1,048,484B exact; event3,899 close tick17,789 makesoldv1 prefix1,048,649B (+73). Livecursor17,790 has3,900records in516,830v2 bytes (two same-tick closes). Terminal18k fullgraph3,931/843 in520,699B. Authenticated append rebuild/fork3932-3933/parent independence/branchrestore exact. Early300pause/resume/restore/replay600 sessions49,444B exact. Falseforecast-cursor,last-event andhalf-openclock oracleassertions preserved with correctedcausalchecks. Complete raw artifacts/late-feed-bound-round1/critic/. Buildertwo900Chrome smokes3/3 each, but neitherbuildernorcriticexecutedfullbrowser18000 forthisrevision. Fullnpmtest absentPlaywrightsetupfailure andabortedexpandedrunner retained; no all-suiteclaim.
+
+BIGGEST GAP: Matching accepted source still requires full strict browser default18000 and separate Kilnkeeper terminal/restart qualification.
+
 ## Round 465 — 2026-10-14
 
 PIECE: OPS-001
