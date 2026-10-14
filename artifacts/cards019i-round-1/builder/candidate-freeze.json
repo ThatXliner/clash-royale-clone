@@ -1,0 +1,63 @@
+{
+  "baseCommit": "bf1e6120196db8a2927ce6ae893812e4c9b1115d",
+  "candidate": "CARDS-019I Kilnkeeper arena presentation",
+  "failedReceipts": [
+    "browser-run-1-failure.tap",
+    "game-ui-projection.raw.tap"
+  ],
+  "finalBrowserEvidence": "cards019-browser-integration-evidence.json",
+  "ownedSourceFiles": [
+    "src/ui/combat-art.js",
+    "src/ui/combat-effects.js",
+    "src/ui/game-ui-projection.js",
+    "tests/game-ui-projection.test.js",
+    "tests/ui-combat-effects.test.js",
+    "tests/ui-combat-state.test.js",
+    "tests/cards019-browser-integration.test.js"
+  ],
+  "reconstructionNote": "reconstruction-note.md",
+  "sourceHashes": "source-hashes.sha256",
+  "verification": [
+    {
+      "command": "node --test --test-name-pattern=\"Kilnkeeper UI projectile|combat effects|Kilnkeeper battle cutout\" tests/game-ui-projection.test.js tests/ui-combat-effects.test.js tests/ui-combat-state.test.js",
+      "note": "Focused check after feed-only fix; full runners below cover all cases.",
+      "result": "pass 13/13"
+    },
+    {
+      "command": "npm run test:game-ui-projection",
+      "evidence": "game-ui-projection-r2.raw.tap",
+      "result": "pass 27/27"
+    },
+    {
+      "command": "npm run test:ui-combat-effects",
+      "evidence": "ui-combat-effects-r2.raw.tap",
+      "result": "pass 11/11"
+    },
+    {
+      "command": "npm run test:ui-combat-state",
+      "evidence": "ui-combat-state-r2.raw.tap",
+      "result": "pass 13/13"
+    },
+    {
+      "command": "node --test --test-name-pattern=\"Cards019I Kilnkeeper follows live projectiles\" tests/cards019-browser-integration.test.js",
+      "contexts": [
+        "phone-normal 390x844 DPR1",
+        "phone-reduced 390x844 DPR1",
+        "desktop-normal 1440x933 DPR1",
+        "desktop-reduced 1440x933 DPR1"
+      ],
+      "evidence": "browser-run-3.tap",
+      "result": "pass 1/1, 33.9s"
+    },
+    {
+      "command": "npm run test:release-build",
+      "evidence": "release-build.raw.tap",
+      "result": "pass 22/22"
+    },
+    {
+      "command": "npm run test:visual-asset-manifest",
+      "evidence": "visual-asset-manifest.raw.tap",
+      "result": "pass 6/6"
+    }
+  ]
+}

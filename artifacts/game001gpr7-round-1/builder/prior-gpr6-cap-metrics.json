@@ -1,0 +1,80 @@
+{
+  "label": "historical GPR6 reference only; it is not evidence for candidate 88 or GPR7",
+  "candidateCommit": "9f64011378d3ce1c6281d9292950a7b52f11fd2c",
+  "candidateTree": "58dca0000e2c574730867ad1973d0e3c09d1af18",
+  "command": "env -u GAME_BROWSER_ENDURANCE_TICKS npm run test:game-browser-endurance",
+  "node": "v22.22.3",
+  "npm": "10.9.8",
+  "playwright": "1.58.2",
+  "chrome": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+  "process": {
+    "pid": 38930,
+    "execSessionId": 60841,
+    "exitCode": 0
+  },
+  "tap": {
+    "tests": 2,
+    "pass": 2,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "fullBrowserSubtestDurationMilliseconds": 997382.587334,
+    "completeProcessDurationMilliseconds": 999602.18125
+  },
+  "setupSha256": "306bb30da40ce7c43d6cccce8728449da90fc0e9ca7d13c81f0116ba710aec8c",
+  "seed": 0,
+  "deckSize": 8,
+  "segments": 67,
+  "firstTick": 300,
+  "terminalTick": 18000,
+  "terminalReached": true,
+  "restore": {
+    "fromTick": 600,
+    "toTick": 300,
+    "replayRoundTripProven": true,
+    "postRestorePhysicalDeliveryProven": true
+  },
+  "longTaskCapsMilliseconds": {
+    "initialization": 300,
+    "nonInitialization": 50
+  },
+  "longTaskMaximaMilliseconds": {
+    "maxInitializationLongTaskMilliseconds": 158,
+    "maxRestoreLongTaskMilliseconds": 0,
+    "maxTerminalObservationLongTaskMilliseconds": 0,
+    "maxRestartLongTaskMilliseconds": 0,
+    "maxFinalObserverDrainLongTaskMilliseconds": 0,
+    "maxScreenshotLongTaskMilliseconds": 0,
+    "maxDrivenLongTaskMilliseconds": 0,
+    "maxLongTaskMilliseconds": 158
+  },
+  "maxBrowserSegmentElapsedMilliseconds": 10332,
+  "maxExplicitSessionStepSliceMilliseconds": 30.900000005960464,
+  "expectedRunWallClockCapsMilliseconds": {
+    "segment": 30000,
+    "overall": 1200000
+  },
+  "browserErrors": {
+    "console": 0,
+    "resource": 0,
+    "unhandled": 0,
+    "pendingResources": 0,
+    "serverExited": true
+  },
+  "priorHashFence": {
+    "trackedGitBlobsBeforeRun": 3003,
+    "trackedEntries": 3003,
+    "preRunMismatchCount": 0,
+    "sourceRuntimeCount": 144,
+    "sourceRuntimeHashesUnchanged": true,
+    "candidateHarnessCount": 6,
+    "candidateHarnessHashesUnchanged": true,
+    "trackedPathsChangedDuringRun": [
+      "artifacts/game-001gp-browser-endurance/active.png",
+      "artifacts/game-001gp-browser-endurance/endurance-result.json",
+      "artifacts/game-001gp-browser-endurance/restart.png",
+      "artifacts/game-001gp-browser-endurance/terminal.png"
+    ]
+  }
+}

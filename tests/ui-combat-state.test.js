@@ -3,6 +3,8 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 
+import { createCombatArt, COMBAT_ART_ARCHETYPES } from "../src/ui/combat-art.js";
+
 import {
   bindCombatViewModel,
   COMBAT_ENTITY_LIMIT,
@@ -418,4 +420,16 @@ test("ui combat state: combat layer mounts inside the shipped arena primitive", 
   assert.match(entry, /mountCombatLayer\(shell\)/u);
   assert.match(getCombatStyleText(), /\.combat-marker--entity-air/u);
   assert.match(getCombatStyleText(), /\.combat-target-link line/u);
+});
+
+test("Kilnkeeper battle cutout keeps a team ring and enters the animated combat-art set", () => {
+  const { document } = dom();
+  const art = createCombatArt(document, "kilnkeeper", "south", "ground");
+  assert.ok(COMBAT_ART_ARCHETYPES.includes("kilnkeeper"));
+  assert.equal(art.dataset.artId, "kilnkeeper");
+  assert.equal(art.attributes.get("viewBox"), "0 0 512 512");
+  assert.deepEqual(art.children.map(({ name }) => name), ["ellipse", "image"]);
+  assert.equal(art.children[0].attributes.get("stroke"), "#2E7F86");
+  assert.equal(art.children[1].attributes.get("href"),
+    new URL("../public/assets/kilnkeeper-battle-sprite.webp", import.meta.url).href);
 });

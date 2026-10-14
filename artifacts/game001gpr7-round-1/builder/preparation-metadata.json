@@ -1,0 +1,22 @@
+{
+  "status": "preparation only; no GPR7 browser run on this candidate",
+  "candidateCommit": "88f0beb5991016395732f71f7b465b6624a184fe",
+  "candidateTree": "162eebcdff2aa67285491f162b15486ba9551ad3",
+  "candidatePath": "/tmp/cards019i-final-e6fe",
+  "sourceRuntimeSha256Manifest": "source-runtime-88.sha256",
+  "sourceRuntimeFileCount": 147,
+  "harnessSha256Manifest": "browser-endurance-harness-88.sha256",
+  "harnessFileCount": 8,
+  "changedSourceFileCountSinceGpr6": 20,
+  "changedHarnessFileCountSinceGpr6": 0,
+  "fullCommand": "env -u GAME_BROWSER_ENDURANCE_TICKS npm run test:game-browser-endurance",
+  "shortSmokeExecuted": false,
+  "fullRunExecuted": false,
+  "sourceWorkingTreeNote": "Hashes bind the committed candidate tree; an untracked node_modules symlink in this worktree is excluded from git archive and from both hash manifests.",
+  "evidenceFiles": [
+    "candidate-scope-88.json",
+    "browser-url-manifest-88.json",
+    "prior-gpr6-cap-metrics.json",
+    "preparation.md"
+  ]
+}

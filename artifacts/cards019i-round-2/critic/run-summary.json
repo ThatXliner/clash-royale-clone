@@ -1,0 +1,420 @@
+{
+  "candidate": "88f0beb5991016395732f71f7b465b6624a184fe",
+  "base": "e6fe04bdfdc963540ec439cf53fa813d62018d63",
+  "checks": {
+    "browserIntegration": {
+      "tests": 1,
+      "pass": 1,
+      "fail": 0,
+      "durationMs": 253032.184958
+    },
+    "gameRestart": {
+      "tests": 3,
+      "pass": 3,
+      "fail": 0,
+      "durationMs": 14260.151833
+    },
+    "gameUiProjection": {
+      "tests": 27,
+      "pass": 27,
+      "fail": 0,
+      "durationMs": 83090.295333
+    },
+    "uiCombatEffects": {
+      "tests": 11,
+      "pass": 11,
+      "fail": 0,
+      "durationMs": 197.133625
+    },
+    "uiCombatState": {
+      "tests": 13,
+      "pass": 13,
+      "fail": 0,
+      "durationMs": 99.24125
+    },
+    "visualAssetManifest": {
+      "tests": 6,
+      "pass": 6,
+      "fail": 0,
+      "durationMs": 88.663083
+    },
+    "releaseBuild": {
+      "tests": 22,
+      "pass": 22,
+      "fail": 0,
+      "durationMs": 56100.786417
+    }
+  },
+  "screenshotCount": 20,
+  "screenshots": [
+    "kilnkeeper-desktop-normal-arena-entry.png",
+    "kilnkeeper-desktop-normal-native-marker.png",
+    "kilnkeeper-desktop-normal-projectile-pursuit.png",
+    "kilnkeeper-desktop-normal-splash-contact.png",
+    "kilnkeeper-desktop-normal-terminal-restart-entry.png",
+    "kilnkeeper-desktop-reduced-arena-entry.png",
+    "kilnkeeper-desktop-reduced-native-marker.png",
+    "kilnkeeper-desktop-reduced-projectile-pursuit.png",
+    "kilnkeeper-desktop-reduced-splash-contact.png",
+    "kilnkeeper-desktop-reduced-terminal-restart-entry.png",
+    "kilnkeeper-phone-normal-arena-entry.png",
+    "kilnkeeper-phone-normal-native-marker.png",
+    "kilnkeeper-phone-normal-projectile-pursuit.png",
+    "kilnkeeper-phone-normal-splash-contact.png",
+    "kilnkeeper-phone-normal-terminal-restart-entry.png",
+    "kilnkeeper-phone-reduced-arena-entry.png",
+    "kilnkeeper-phone-reduced-native-marker.png",
+    "kilnkeeper-phone-reduced-projectile-pursuit.png",
+    "kilnkeeper-phone-reduced-splash-contact.png",
+    "kilnkeeper-phone-reduced-terminal-restart-entry.png"
+  ],
+  "contexts": [
+    {
+      "motion": "no-preference",
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "homing": {
+        "launchTick": 181,
+        "plannedImpactTick": 182,
+        "pendingTick": 184,
+        "projectilePositionAtPending": {
+          "x": 7500,
+          "y": 14500
+        },
+        "targetId": 1,
+        "targetPositionAtLaunch": {
+          "x": 5050,
+          "y": 14500
+        },
+        "targetPositionAtPending": {
+          "x": 5100,
+          "y": 14500
+        },
+        "identity": {
+          "attackSequence": 1,
+          "direction": "unit-to-unit",
+          "projectileId": 2,
+          "sourceId": 3
+        }
+      },
+      "contact": {
+        "damage": 281,
+        "eventTick": 187,
+        "sessionTickAfterContact": 188,
+        "damagedTarget": "coilblade",
+        "hpBefore": 1034,
+        "hpAfter": 753
+      },
+      "pixels": {
+        "contactRestoreSha256": "1b90e9760615957741d30c43eea45f7e31a6acb86afe2eb9a668069ff6e74610",
+        "inFlightRestoreSha256": "e6d8f1241213e980294907f954a8e5fbe33d1afa6da384fcdb51907db48662f1",
+        "initialBattleSha256": "e0d4d5c3c638ae074dec3cbe0d3dfe039e44b3f8346363b09f835f9ea0f859de",
+        "terminalRestartSha256": "e0d4d5c3c638ae074dec3cbe0d3dfe039e44b3f8346363b09f835f9ea0f859de"
+      },
+      "terminal": {
+        "tick": 6788,
+        "eventCount": 512,
+        "replayLength": 524,
+        "terminalRestoreByteExact": true
+      },
+      "restart": {
+        "seed": 0,
+        "deck": [
+          "coilblade",
+          "mossguard",
+          "copperskiff",
+          "kilnkeeper",
+          "brassbolt",
+          "reedsting",
+          "briar-band",
+          "cinderlings"
+        ],
+        "tick": 0,
+        "replayLength": 0,
+        "restartCount": 1,
+        "detachedListeners": 0,
+        "listenerTargets": 8,
+        "activeListenerCount": 12,
+        "firstDeployment": {
+          "cost": 5,
+          "cycleSequence": 1,
+          "deploymentCount": 1,
+          "elixirAfter": 5,
+          "eventCount": 2,
+          "trustedPointer": true
+        }
+      },
+      "screenshots": [
+        "kilnkeeper-phone-normal-arena-entry.png",
+        "kilnkeeper-phone-normal-native-marker.png",
+        "kilnkeeper-phone-normal-projectile-pursuit.png",
+        "kilnkeeper-phone-normal-splash-contact.png",
+        "kilnkeeper-phone-normal-terminal-restart-entry.png"
+      ]
+    },
+    {
+      "motion": "reduce",
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "homing": {
+        "launchTick": 181,
+        "plannedImpactTick": 182,
+        "pendingTick": 184,
+        "projectilePositionAtPending": {
+          "x": 7500,
+          "y": 14500
+        },
+        "targetId": 1,
+        "targetPositionAtLaunch": {
+          "x": 5050,
+          "y": 14500
+        },
+        "targetPositionAtPending": {
+          "x": 5100,
+          "y": 14500
+        },
+        "identity": {
+          "attackSequence": 1,
+          "direction": "unit-to-unit",
+          "projectileId": 2,
+          "sourceId": 3
+        }
+      },
+      "contact": {
+        "damage": 281,
+        "eventTick": 187,
+        "sessionTickAfterContact": 188,
+        "damagedTarget": "coilblade",
+        "hpBefore": 1034,
+        "hpAfter": 753
+      },
+      "pixels": {
+        "contactRestoreSha256": "c914c26f2f019696d2b33e4403c1beab7356d92546ea9c69cbb5fcf80efe2d17",
+        "inFlightRestoreSha256": "315c2073e54004a29c5f4901210d6cb06d7a9fe77bb392441255980b59d3d808",
+        "initialBattleSha256": "16f009fd46242fd9cf9fec7505673cf8ccdcbe9a1de25f38b62acf37c8acb562",
+        "terminalRestartSha256": "16f009fd46242fd9cf9fec7505673cf8ccdcbe9a1de25f38b62acf37c8acb562"
+      },
+      "terminal": {
+        "tick": 6788,
+        "eventCount": 512,
+        "replayLength": 524,
+        "terminalRestoreByteExact": true
+      },
+      "restart": {
+        "seed": 0,
+        "deck": [
+          "coilblade",
+          "mossguard",
+          "copperskiff",
+          "kilnkeeper",
+          "brassbolt",
+          "reedsting",
+          "briar-band",
+          "cinderlings"
+        ],
+        "tick": 0,
+        "replayLength": 0,
+        "restartCount": 1,
+        "detachedListeners": 0,
+        "listenerTargets": 8,
+        "activeListenerCount": 12,
+        "firstDeployment": {
+          "cost": 5,
+          "cycleSequence": 1,
+          "deploymentCount": 1,
+          "elixirAfter": 5,
+          "eventCount": 2,
+          "trustedPointer": true
+        }
+      },
+      "screenshots": [
+        "kilnkeeper-phone-reduced-arena-entry.png",
+        "kilnkeeper-phone-reduced-native-marker.png",
+        "kilnkeeper-phone-reduced-projectile-pursuit.png",
+        "kilnkeeper-phone-reduced-splash-contact.png",
+        "kilnkeeper-phone-reduced-terminal-restart-entry.png"
+      ]
+    },
+    {
+      "motion": "no-preference",
+      "viewport": {
+        "height": 933,
+        "width": 1440
+      },
+      "homing": {
+        "launchTick": 181,
+        "plannedImpactTick": 182,
+        "pendingTick": 184,
+        "projectilePositionAtPending": {
+          "x": 7500,
+          "y": 14500
+        },
+        "targetId": 1,
+        "targetPositionAtLaunch": {
+          "x": 5050,
+          "y": 14500
+        },
+        "targetPositionAtPending": {
+          "x": 5100,
+          "y": 14500
+        },
+        "identity": {
+          "attackSequence": 1,
+          "direction": "unit-to-unit",
+          "projectileId": 2,
+          "sourceId": 3
+        }
+      },
+      "contact": {
+        "damage": 281,
+        "eventTick": 187,
+        "sessionTickAfterContact": 188,
+        "damagedTarget": "coilblade",
+        "hpBefore": 1034,
+        "hpAfter": 753
+      },
+      "pixels": {
+        "contactRestoreSha256": "241cc5b259ceb6002606640b4651ae1951831ab8de3359f2bcbe0f182f779ca4",
+        "inFlightRestoreSha256": "7634098d277ba13eff34623cacebc26a30579ea486d3dc6c028d7c119c96121f",
+        "initialBattleSha256": "1b671f1b709b2bf8b8be622aa65512c309fe0d78c70387c0b7dd05495b29e8d6",
+        "terminalRestartSha256": "1b671f1b709b2bf8b8be622aa65512c309fe0d78c70387c0b7dd05495b29e8d6"
+      },
+      "terminal": {
+        "tick": 6788,
+        "eventCount": 512,
+        "replayLength": 524,
+        "terminalRestoreByteExact": true
+      },
+      "restart": {
+        "seed": 0,
+        "deck": [
+          "coilblade",
+          "mossguard",
+          "copperskiff",
+          "kilnkeeper",
+          "brassbolt",
+          "reedsting",
+          "briar-band",
+          "cinderlings"
+        ],
+        "tick": 0,
+        "replayLength": 0,
+        "restartCount": 1,
+        "detachedListeners": 0,
+        "listenerTargets": 8,
+        "activeListenerCount": 12,
+        "firstDeployment": {
+          "cost": 5,
+          "cycleSequence": 1,
+          "deploymentCount": 1,
+          "elixirAfter": 5,
+          "eventCount": 2,
+          "trustedPointer": true
+        }
+      },
+      "screenshots": [
+        "kilnkeeper-desktop-normal-arena-entry.png",
+        "kilnkeeper-desktop-normal-native-marker.png",
+        "kilnkeeper-desktop-normal-projectile-pursuit.png",
+        "kilnkeeper-desktop-normal-splash-contact.png",
+        "kilnkeeper-desktop-normal-terminal-restart-entry.png"
+      ]
+    },
+    {
+      "motion": "reduce",
+      "viewport": {
+        "height": 933,
+        "width": 1440
+      },
+      "homing": {
+        "launchTick": 181,
+        "plannedImpactTick": 182,
+        "pendingTick": 184,
+        "projectilePositionAtPending": {
+          "x": 7500,
+          "y": 14500
+        },
+        "targetId": 1,
+        "targetPositionAtLaunch": {
+          "x": 5050,
+          "y": 14500
+        },
+        "targetPositionAtPending": {
+          "x": 5100,
+          "y": 14500
+        },
+        "identity": {
+          "attackSequence": 1,
+          "direction": "unit-to-unit",
+          "projectileId": 2,
+          "sourceId": 3
+        }
+      },
+      "contact": {
+        "damage": 281,
+        "eventTick": 187,
+        "sessionTickAfterContact": 188,
+        "damagedTarget": "coilblade",
+        "hpBefore": 1034,
+        "hpAfter": 753
+      },
+      "pixels": {
+        "contactRestoreSha256": "106d9b224593ef4f1837745b68daafa33c9b388728aab4804768f6f87051f9f5",
+        "inFlightRestoreSha256": "41450db0b8a6e847e9d66d6ceb984b20176c77c7324a60da1b73d30cdbf14b24",
+        "initialBattleSha256": "3ed6a6d5b610e3e5bdb4bc48faec6ea912b4661151fc5eba7acfda9de024ba40",
+        "terminalRestartSha256": "3ed6a6d5b610e3e5bdb4bc48faec6ea912b4661151fc5eba7acfda9de024ba40"
+      },
+      "terminal": {
+        "tick": 6788,
+        "eventCount": 512,
+        "replayLength": 524,
+        "terminalRestoreByteExact": true
+      },
+      "restart": {
+        "seed": 0,
+        "deck": [
+          "coilblade",
+          "mossguard",
+          "copperskiff",
+          "kilnkeeper",
+          "brassbolt",
+          "reedsting",
+          "briar-band",
+          "cinderlings"
+        ],
+        "tick": 0,
+        "replayLength": 0,
+        "restartCount": 1,
+        "detachedListeners": 0,
+        "listenerTargets": 8,
+        "activeListenerCount": 12,
+        "firstDeployment": {
+          "cost": 5,
+          "cycleSequence": 1,
+          "deploymentCount": 1,
+          "elixirAfter": 5,
+          "eventCount": 2,
+          "trustedPointer": true
+        }
+      },
+      "screenshots": [
+        "kilnkeeper-desktop-reduced-arena-entry.png",
+        "kilnkeeper-desktop-reduced-native-marker.png",
+        "kilnkeeper-desktop-reduced-projectile-pursuit.png",
+        "kilnkeeper-desktop-reduced-splash-contact.png",
+        "kilnkeeper-desktop-reduced-terminal-restart-entry.png"
+      ]
+    }
+  ],
+  "asset": {
+    "bytes": 47138,
+    "path": "public/assets/kilnkeeper-battle-sprite.webp",
+    "sha256": "43766c813461acbfe36a949c6a972ba4e5ddf07513276bd5079cf564b1bf157a"
+  },
+  "assetAndReferenceChangesFromBase": [],
+  "artAndReferencePreservation": "git diff reported no paths in public/assets, demo/assets, docs/art, reference/stats, src/content/cards, or src/content/editable-deck.js"
+}

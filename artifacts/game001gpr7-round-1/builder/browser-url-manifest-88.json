@@ -1,0 +1,45 @@
+{
+  "candidateCommit": "88f0beb5991016395732f71f7b465b6624a184fe",
+  "candidateTree": "162eebcdff2aa67285491f162b15486ba9551ad3",
+  "server": {
+    "source": "tests/game-browser-endurance-server.js",
+    "root": "repository root resolved from the server script path",
+    "bindHost": "127.0.0.1",
+    "port": "0 (ephemeral)",
+    "cacheControl": "no-store",
+    "contentTypes": {
+      ".css": "text/css; charset=utf-8",
+      ".html": "text/html; charset=utf-8",
+      ".js": "text/javascript; charset=utf-8",
+      ".json": "application/json; charset=utf-8",
+      "other": "application/octet-stream"
+    }
+  },
+  "browser": {
+    "engine": "Chrome via Playwright chromium.launch({ executablePath: CHROME, headless: true })",
+    "viewport": {
+      "width": 720,
+      "height": 1280,
+      "deviceScaleFactor": 1
+    },
+    "mainPageUrlTemplate": "http://127.0.0.1:<ephemeral-port>/tests/game-browser-endurance.html",
+    "directPageStylesheet": "/src/ui/arena-shell.css",
+    "dynamicModuleRoots": [
+      "/src/sim/game-session.js",
+      "/src/ui/game-browser-entry.js",
+      "/src/audio/game-audio-runtime.js",
+      "/src/sim/deck.js",
+      "/src/sim/elixir.js"
+    ],
+    "loaderMode": "native ESM source modules served by the local test server; this endurance command does not invoke the release builder or use a deployed build URL",
+    "successfulRequestInventory": "not captured by the current harness; browserView records resources whose duration and responseEnd are both zero as pendingResources"
+  },
+  "outputFilesWrittenByFullTest": [
+    "artifacts/game-001gp-browser-endurance/active.png",
+    "artifacts/game-001gp-browser-endurance/endurance-result.json",
+    "artifacts/game-001gp-browser-endurance/restart.png",
+    "artifacts/game-001gp-browser-endurance/terminal.png"
+  ],
+  "command": "env -u GAME_BROWSER_ENDURANCE_TICKS npm run test:game-browser-endurance",
+  "artifactsShouldBeCapturedFrom": "an isolated git archive/clean checkout of the exact accepted candidate, then copied under artifacts/game001gpr7-round-1/builder/"
+}

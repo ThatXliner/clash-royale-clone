@@ -1,0 +1,548 @@
+{
+  "asset": {
+    "bytes": 47138,
+    "path": "public/assets/kilnkeeper-battle-sprite.webp",
+    "sha256": "43766c813461acbfe36a949c6a972ba4e5ddf07513276bd5079cf564b1bf157a"
+  },
+  "contexts": [
+    {
+      "contact": {
+        "damage": {
+          "amount": 281,
+          "currentHealthAfter": 753,
+          "currentHealthBefore": 1034,
+          "targetId": 1,
+          "type": "damage",
+          "attackerId": 3,
+          "delivery": "projectile",
+          "projectileId": 2,
+          "projectileIdentity": {
+            "attackSequence": 1,
+            "direction": "unit-to-unit",
+            "projectileId": 2,
+            "sourceId": 3
+          },
+          "tick": 187,
+          "attackSequence": 1,
+          "direction": "unit-to-unit",
+          "projectileScope": "unit-to-unit",
+          "sourceId": 3
+        },
+        "tick": 188,
+        "ticksFromPendingRestore": 4,
+        "damagedTarget": {
+          "alive": true,
+          "cardId": "coilblade",
+          "id": 1,
+          "hitpoints": 753,
+          "maxHitpoints": 1361,
+          "position": {
+            "x": 5200,
+            "y": 14500
+          },
+          "side": "north",
+          "displayedHealth": {
+            "current": "753",
+            "maximum": "1361",
+            "barCurrent": "matrix(0.55327, 0, 0, 1, 0, 0)"
+          }
+        }
+      },
+      "deck": [
+        "coilblade",
+        "mossguard",
+        "copperskiff",
+        "kilnkeeper",
+        "brassbolt",
+        "reedsting",
+        "briar-band",
+        "cinderlings"
+      ],
+      "errors": [],
+      "inFlight": {
+        "identity": {
+          "attackSequence": 1,
+          "direction": "unit-to-unit",
+          "projectileId": 2,
+          "sourceId": 3
+        },
+        "launchTick": 181,
+        "launchPlannedImpactTick": 182,
+        "pendingTick": 184,
+        "pendingPosition": {
+          "x": 7500,
+          "y": 14500
+        },
+        "rootId": "projectile.unit-to-unit.3.none.2.1",
+        "targetAtLaunch": {
+          "x": 5050,
+          "y": 14500
+        },
+        "targetAtPending": {
+          "x": 5100,
+          "y": 14500
+        },
+        "targetId": 1,
+        "viewPoint": {
+          "denominator": "1",
+          "xNumerator": "7500",
+          "yNumerator": "14500"
+        }
+      },
+      "motionPreference": "no-preference",
+      "pixels": {
+        "contactRestoreSha256": "1b90e9760615957741d30c43eea45f7e31a6acb86afe2eb9a668069ff6e74610",
+        "inFlightRestoreSha256": "e6d8f1241213e980294907f954a8e5fbe33d1afa6da384fcdb51907db48662f1"
+      },
+      "restart": {
+        "deck": [
+          "coilblade",
+          "mossguard",
+          "copperskiff",
+          "kilnkeeper",
+          "brassbolt",
+          "reedsting",
+          "briar-band",
+          "cinderlings"
+        ],
+        "replayLength": 0,
+        "sessionTick": 0
+      },
+      "screenshots": [
+        "kilnkeeper-phone-normal-arena-entry.png",
+        "kilnkeeper-phone-normal-native-marker.png",
+        "kilnkeeper-phone-normal-projectile-pursuit.png",
+        "kilnkeeper-phone-normal-splash-contact.png"
+      ],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "trustedPlayerDeploy": {
+        "point": {
+          "x": 8500,
+          "y": 14500
+        },
+        "screenPoint": {
+          "x": 187.27760036496352,
+          "y": 442.894095428719
+        },
+        "spend": {
+          "accepted": true,
+          "amountAfter": 5,
+          "cost": 5,
+          "reason": "accepted",
+          "sequence": 2,
+          "side": "south",
+          "tick": 61,
+          "type": "spend"
+        },
+        "cycleSequence": 1,
+        "markerBounds": [
+          328.265625,
+          616.265625,
+          33.46875,
+          33.46875
+        ]
+      }
+    },
+    {
+      "contact": {
+        "damage": {
+          "amount": 281,
+          "currentHealthAfter": 753,
+          "currentHealthBefore": 1034,
+          "targetId": 1,
+          "type": "damage",
+          "attackerId": 3,
+          "delivery": "projectile",
+          "projectileId": 2,
+          "projectileIdentity": {
+            "attackSequence": 1,
+            "direction": "unit-to-unit",
+            "projectileId": 2,
+            "sourceId": 3
+          },
+          "tick": 187,
+          "attackSequence": 1,
+          "direction": "unit-to-unit",
+          "projectileScope": "unit-to-unit",
+          "sourceId": 3
+        },
+        "tick": 188,
+        "ticksFromPendingRestore": 4,
+        "damagedTarget": {
+          "alive": true,
+          "cardId": "coilblade",
+          "id": 1,
+          "hitpoints": 753,
+          "maxHitpoints": 1361,
+          "position": {
+            "x": 5200,
+            "y": 14500
+          },
+          "side": "north",
+          "displayedHealth": {
+            "current": "753",
+            "maximum": "1361",
+            "barCurrent": "matrix(0.55327, 0, 0, 1, 0, 0)"
+          }
+        }
+      },
+      "deck": [
+        "coilblade",
+        "mossguard",
+        "copperskiff",
+        "kilnkeeper",
+        "brassbolt",
+        "reedsting",
+        "briar-band",
+        "cinderlings"
+      ],
+      "errors": [],
+      "inFlight": {
+        "identity": {
+          "attackSequence": 1,
+          "direction": "unit-to-unit",
+          "projectileId": 2,
+          "sourceId": 3
+        },
+        "launchTick": 181,
+        "launchPlannedImpactTick": 182,
+        "pendingTick": 184,
+        "pendingPosition": {
+          "x": 7500,
+          "y": 14500
+        },
+        "rootId": "projectile.unit-to-unit.3.none.2.1",
+        "targetAtLaunch": {
+          "x": 5050,
+          "y": 14500
+        },
+        "targetAtPending": {
+          "x": 5100,
+          "y": 14500
+        },
+        "targetId": 1,
+        "viewPoint": {
+          "denominator": "1",
+          "xNumerator": "7500",
+          "yNumerator": "14500"
+        }
+      },
+      "motionPreference": "reduce",
+      "pixels": {
+        "contactRestoreSha256": "c914c26f2f019696d2b33e4403c1beab7356d92546ea9c69cbb5fcf80efe2d17",
+        "inFlightRestoreSha256": "315c2073e54004a29c5f4901210d6cb06d7a9fe77bb392441255980b59d3d808"
+      },
+      "restart": null,
+      "screenshots": [
+        "kilnkeeper-phone-reduced-arena-entry.png",
+        "kilnkeeper-phone-reduced-native-marker.png",
+        "kilnkeeper-phone-reduced-projectile-pursuit.png",
+        "kilnkeeper-phone-reduced-splash-contact.png"
+      ],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "trustedPlayerDeploy": {
+        "point": {
+          "x": 8500,
+          "y": 14500
+        },
+        "screenPoint": {
+          "x": 175.96875,
+          "y": 413.71875
+        },
+        "spend": {
+          "accepted": true,
+          "amountAfter": 5,
+          "cost": 5,
+          "reason": "accepted",
+          "sequence": 2,
+          "side": "south",
+          "tick": 61,
+          "type": "spend"
+        },
+        "cycleSequence": 1,
+        "markerBounds": [
+          328.265625,
+          616.265625,
+          33.46875,
+          33.46875
+        ]
+      }
+    },
+    {
+      "contact": {
+        "damage": {
+          "amount": 281,
+          "currentHealthAfter": 753,
+          "currentHealthBefore": 1034,
+          "targetId": 1,
+          "type": "damage",
+          "attackerId": 3,
+          "delivery": "projectile",
+          "projectileId": 2,
+          "projectileIdentity": {
+            "attackSequence": 1,
+            "direction": "unit-to-unit",
+            "projectileId": 2,
+            "sourceId": 3
+          },
+          "tick": 187,
+          "attackSequence": 1,
+          "direction": "unit-to-unit",
+          "projectileScope": "unit-to-unit",
+          "sourceId": 3
+        },
+        "tick": 188,
+        "ticksFromPendingRestore": 4,
+        "damagedTarget": {
+          "alive": true,
+          "cardId": "coilblade",
+          "id": 1,
+          "hitpoints": 753,
+          "maxHitpoints": 1361,
+          "position": {
+            "x": 5200,
+            "y": 14500
+          },
+          "side": "north",
+          "displayedHealth": {
+            "current": "753",
+            "maximum": "1361",
+            "barCurrent": "matrix(0.55327, 0, 0, 1, 0, 0)"
+          }
+        }
+      },
+      "deck": [
+        "coilblade",
+        "mossguard",
+        "copperskiff",
+        "kilnkeeper",
+        "brassbolt",
+        "reedsting",
+        "briar-band",
+        "cinderlings"
+      ],
+      "errors": [],
+      "inFlight": {
+        "identity": {
+          "attackSequence": 1,
+          "direction": "unit-to-unit",
+          "projectileId": 2,
+          "sourceId": 3
+        },
+        "launchTick": 181,
+        "launchPlannedImpactTick": 182,
+        "pendingTick": 184,
+        "pendingPosition": {
+          "x": 7500,
+          "y": 14500
+        },
+        "rootId": "projectile.unit-to-unit.3.none.2.1",
+        "targetAtLaunch": {
+          "x": 5050,
+          "y": 14500
+        },
+        "targetAtPending": {
+          "x": 5100,
+          "y": 14500
+        },
+        "targetId": 1,
+        "viewPoint": {
+          "denominator": "1",
+          "xNumerator": "7500",
+          "yNumerator": "14500"
+        }
+      },
+      "motionPreference": "no-preference",
+      "pixels": {
+        "contactRestoreSha256": "241cc5b259ceb6002606640b4651ae1951831ab8de3359f2bcbe0f182f779ca4",
+        "inFlightRestoreSha256": "7634098d277ba13eff34623cacebc26a30579ea486d3dc6c028d7c119c96121f"
+      },
+      "restart": null,
+      "screenshots": [
+        "kilnkeeper-desktop-normal-arena-entry.png",
+        "kilnkeeper-desktop-normal-native-marker.png",
+        "kilnkeeper-desktop-normal-projectile-pursuit.png",
+        "kilnkeeper-desktop-normal-splash-contact.png"
+      ],
+      "viewport": {
+        "height": 933,
+        "width": 1440
+      },
+      "trustedPlayerDeploy": {
+        "point": {
+          "x": 8500,
+          "y": 14500
+        },
+        "screenPoint": {
+          "x": 712.072679060219,
+          "y": 531.2735989152893
+        },
+        "spend": {
+          "accepted": true,
+          "amountAfter": 5,
+          "cost": 5,
+          "reason": "accepted",
+          "sequence": 2,
+          "side": "south",
+          "tick": 61,
+          "type": "spend"
+        },
+        "cycleSequence": 1,
+        "markerBounds": [
+          328.265625,
+          616.265625,
+          33.46875,
+          33.46875
+        ]
+      }
+    },
+    {
+      "contact": {
+        "damage": {
+          "amount": 281,
+          "currentHealthAfter": 753,
+          "currentHealthBefore": 1034,
+          "targetId": 1,
+          "type": "damage",
+          "attackerId": 3,
+          "delivery": "projectile",
+          "projectileId": 2,
+          "projectileIdentity": {
+            "attackSequence": 1,
+            "direction": "unit-to-unit",
+            "projectileId": 2,
+            "sourceId": 3
+          },
+          "tick": 187,
+          "attackSequence": 1,
+          "direction": "unit-to-unit",
+          "projectileScope": "unit-to-unit",
+          "sourceId": 3
+        },
+        "tick": 188,
+        "ticksFromPendingRestore": 4,
+        "damagedTarget": {
+          "alive": true,
+          "cardId": "coilblade",
+          "id": 1,
+          "hitpoints": 753,
+          "maxHitpoints": 1361,
+          "position": {
+            "x": 5200,
+            "y": 14500
+          },
+          "side": "north",
+          "displayedHealth": {
+            "current": "753",
+            "maximum": "1361",
+            "barCurrent": "matrix(0.55327, 0, 0, 1, 0, 0)"
+          }
+        }
+      },
+      "deck": [
+        "coilblade",
+        "mossguard",
+        "copperskiff",
+        "kilnkeeper",
+        "brassbolt",
+        "reedsting",
+        "briar-band",
+        "cinderlings"
+      ],
+      "errors": [],
+      "inFlight": {
+        "identity": {
+          "attackSequence": 1,
+          "direction": "unit-to-unit",
+          "projectileId": 2,
+          "sourceId": 3
+        },
+        "launchTick": 181,
+        "launchPlannedImpactTick": 182,
+        "pendingTick": 184,
+        "pendingPosition": {
+          "x": 7500,
+          "y": 14500
+        },
+        "rootId": "projectile.unit-to-unit.3.none.2.1",
+        "targetAtLaunch": {
+          "x": 5050,
+          "y": 14500
+        },
+        "targetAtPending": {
+          "x": 5100,
+          "y": 14500
+        },
+        "targetId": 1,
+        "viewPoint": {
+          "denominator": "1",
+          "xNumerator": "7500",
+          "yNumerator": "14500"
+        }
+      },
+      "motionPreference": "reduce",
+      "pixels": {
+        "contactRestoreSha256": "2bd104657f8e49f6a05badd197575c69b823c17ff818b705b06c55d2c435a76f",
+        "inFlightRestoreSha256": "f1620e7f4251794cbf27bff7395fb0e6e481826cf22dc2f5f254500efd7218c8"
+      },
+      "restart": null,
+      "screenshots": [
+        "kilnkeeper-desktop-reduced-arena-entry.png",
+        "kilnkeeper-desktop-reduced-native-marker.png",
+        "kilnkeeper-desktop-reduced-projectile-pursuit.png",
+        "kilnkeeper-desktop-reduced-splash-contact.png"
+      ],
+      "viewport": {
+        "height": 933,
+        "width": 1440
+      },
+      "trustedPlayerDeploy": {
+        "point": {
+          "x": 8500,
+          "y": 14500
+        },
+        "screenPoint": {
+          "x": 712.8385606751824,
+          "y": 498.6410769628099
+        },
+        "spend": {
+          "accepted": true,
+          "amountAfter": 5,
+          "cost": 5,
+          "reason": "accepted",
+          "sequence": 2,
+          "side": "south",
+          "tick": 61,
+          "type": "spend"
+        },
+        "cycleSequence": 1,
+        "markerBounds": [
+          328.265625,
+          616.265625,
+          33.46875,
+          33.46875
+        ]
+      }
+    }
+  ],
+  "deck": [
+    "coilblade",
+    "mossguard",
+    "copperskiff",
+    "kilnkeeper",
+    "brassbolt",
+    "reedsting",
+    "briar-band",
+    "cinderlings"
+  ],
+  "release": {
+    "fileCount": 51,
+    "manifestSha256": "a8a50f7a6203a2807e2e4137e5181fdd89c666de665ef6b14de560de4fa44eb9"
+  }
+}

@@ -1,0 +1,28 @@
+TAP version 13
+# Subtest: painted sprite atlas renders at real playfield scale in both teams, viewports, and restore
+not ok 1 - painted sprite atlas renders at real playfield scale in both teams, viewports, and restore
+  ---
+  duration_ms: 12377.163
+  type: 'test'
+  location: '/private/tmp/art004-aggregate-builder/tests/combat-sprite-prototype-browser.test.js:240:1'
+  failureType: 'testCodeFailure'
+  error: 'north team color survives the actual 390px scaled marker: 6 pixels in the most visible 14×14 marker; expected at least 8'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/art004-aggregate-builder/tests/combat-sprite-prototype-browser.test.js:512:14)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 12628.316333

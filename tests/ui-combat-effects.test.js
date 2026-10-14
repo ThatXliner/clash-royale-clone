@@ -19,6 +19,7 @@ import { ProjectileCombat } from "../src/sim/projectile.js";
 import {
   appendCombatEffectEvent,
   appendCombatEffectRoot,
+  combatEffectRootId,
   createCombatEffectFeed,
   validateCombatEffectFeed,
 } from "../src/sim/combat-effect-feed.js";
@@ -313,6 +314,55 @@ test("ui combat effects: canonical direct feed projects exact rational travel", 
     tick: 5,
   });
   assert.equal(serializeCombatEffectsViewModel(named), serializeCombatEffectsViewModel(view));
+});
+
+
+test("ui combat effects: live homing point uses the full typed projectile identity", () => {
+  const feed = createCombatEffectFeed();
+  const unitRoot = appendCombatEffectRoot(feed, {
+    direction: "unit-to-tower", effectId: null, from: point(1_000, 1_000),
+    impactTick: 3, projectileId: 1, radius: 0, segments: [], sequence: 1,
+    sourceId: 9, tick: 0, to: point(9_000, 1_000), type: "projectile",
+  });
+  const towerRoot = appendCombatEffectRoot(feed, {
+    direction: "tower-to-unit", effectId: null, from: point(2_000, 2_000),
+    impactTick: 3, projectileId: 1, radius: 0, segments: [], sequence: 1,
+    sourceId: "south:lane:west", tick: 0, to: point(8_000, 2_000), type: "projectile",
+  });
+  const live = [{
+    attackSequence: 1,
+    direction: "unit-to-tower",
+    position: point(7_000, 4_000),
+    projectileId: 1,
+    projectileIdentity: {
+      attackSequence: 1,
+      direction: "unit-to-tower",
+      projectileId: 1,
+      sourceId: 9,
+    },
+    sourceId: 9,
+    splashProfile: { homing: true },
+  }];
+  const view = createCombatEffectsViewModel(feed, 2, live);
+  assert.deepEqual(view.projectiles.find(({ key }) => key === unitRoot.rootId)?.point, {
+    denominator: "1", xNumerator: "7000", yNumerator: "4000",
+  });
+  assert.deepEqual(view.projectiles.find(({ key }) => key === towerRoot.rootId)?.point, {
+    denominator: "3", xNumerator: "18000", yNumerator: "6000",
+  }, "the tower projectile with the same local id retains its own straight-flight point");
+  const bytes = serializeCombatEffectsViewModel(view);
+  assert.equal(serializeCombatEffectsViewModel(restoreCombatEffectsViewModel(bytes, live)), bytes);
+  assert.throws(() => restoreCombatEffectsViewModel(bytes), /not causally derivable/u,
+    "a homing position is restored from the current authentic battle state");
+
+  const forged = structuredClone(live);
+  forged[0].projectileIdentity.sourceId = 10;
+  assert.throws(() => createCombatEffectsViewModel(feed, 2, forged), /diverges/u);
+  assert.equal(combatEffectRootId({
+    direction: "unit-to-tower", effectId: null, projectileId: 1,
+    sequence: 1, sourceId: 9, type: "projectile",
+  }), unitRoot.rootId, "root identity encoding is injective over source and direction");
+  assert.notEqual(unitRoot.rootId, towerRoot.rootId);
 });
 
 test("ui combat effects: contact, lethal damage, death, and close are feed-causal", () => {

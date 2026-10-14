@@ -1,0 +1,85 @@
+{
+  "manifestSource": "src/content/visual-asset-manifest.js",
+  "manifestVersion": 1,
+  "visualAssetCount": 24,
+  "paintedAtlasProvenance": {
+    "asset": "public/assets/briar-runner-painted-sheet.png",
+    "authorship": "generated for Moss & Ember with image_gen.imagegen; no reference image supplied",
+    "dimensions": {
+      "width": 1254,
+      "height": 1254,
+      "format": "PNG",
+      "colorType": "RGBA"
+    },
+    "sha256": "a1aa43df00dacc212beedb4905dddd7a57db412981ea29662bc1d868a97794f4",
+    "license": "AGPL-3.0-only",
+    "atlas": {
+      "grid": "4 columns by 4 rows; equal 313.5px cells",
+      "columns": [
+        "walkA",
+        "walkB",
+        "attackWindup",
+        "attackRelease"
+      ],
+      "rows": [
+        "north",
+        "east",
+        "south",
+        "west"
+      ]
+    },
+    "generation": {
+      "tool": "image_gen.imagegen",
+      "promptSummary": "Create an original transparent-background painted game sprite atlas for the Moss & Ember woodland fighter Briar Runner. Use a carved wood mask with amber eyes, layered leaf hood and armor, teal cloth, and a short blade. Lay out four cardinal facings as rows and walk A, walk B, attack windup, and attack release as columns. Keep the same character proportions, foot anchor, lighting, and material treatment in every frame; keep each silhouette contained within its cell with clear gutters. Make the figure bold and readable at a 26px marker size. Do not add text, labels, a grid, checkerboard, or copied game characters or assets.",
+      "promptVerbatim": false,
+      "selection": "Third generated candidate; prior candidates with edge clipping were rejected."
+    }
+  },
+  "assets": [
+    {
+      "authorship": "in-repo-authored",
+      "byteLength": 987565,
+      "dimensions": {
+        "height": 1254,
+        "width": 1254
+      },
+      "format": "png",
+      "id": "briar-runner-painted-sheet",
+      "kind": "image",
+      "license": "AGPL-3.0-only",
+      "path": "assets/briar-runner-painted-sheet.png",
+      "sha256": "a1aa43df00dacc212beedb4905dddd7a57db412981ea29662bc1d868a97794f4",
+      "actualByteLength": 987565,
+      "actualSha256": "a1aa43df00dacc212beedb4905dddd7a57db412981ea29662bc1d868a97794f4",
+      "dimensionsReadFromPngHeader": {
+        "width": 1254,
+        "height": 1254,
+        "colorType": 6
+      },
+      "manifestMatchesDisk": true
+    },
+    {
+      "authorship": "in-repo-authored",
+      "byteLength": 7692,
+      "dimensions": {
+        "height": 408,
+        "width": 600
+      },
+      "format": "svg",
+      "id": "briar-runner-sprite-sheet",
+      "kind": "image",
+      "license": "AGPL-3.0-only",
+      "path": "assets/briar-runner-sprite-sheet.svg",
+      "sha256": "5f25d05932e3c56f9a8dfce7ea9b9d02e9ad2fb34ef0ce983733f9b97b6b7a2e",
+      "actualByteLength": 7692,
+      "actualSha256": "5f25d05932e3c56f9a8dfce7ea9b9d02e9ad2fb34ef0ce983733f9b97b6b7a2e",
+      "dimensionsReadFromPngHeader": null,
+      "manifestMatchesDisk": true
+    }
+  ],
+  "focusedProof": {
+    "visualAssetManifest": "6/6 passed; includes zero byte overlap with reference corpus and provenance source guard",
+    "prototypeUnitBounds": "10/10 passed; includes every direction/action/frame cell-window containment",
+    "browserAtlasAndSourceWindowAssertions": "reached on phone and 720px prototype page before current-app legibility assertion failed"
+  }
+}

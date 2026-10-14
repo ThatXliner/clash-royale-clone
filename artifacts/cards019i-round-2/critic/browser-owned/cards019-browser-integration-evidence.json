@@ -1,0 +1,1063 @@
+{
+  "asset": {
+    "bytes": 47138,
+    "path": "public/assets/kilnkeeper-battle-sprite.webp",
+    "sha256": "43766c813461acbfe36a949c6a972ba4e5ddf07513276bd5079cf564b1bf157a"
+  },
+  "contexts": [
+    {
+      "contact": {
+        "damage": {
+          "amount": 281,
+          "currentHealthAfter": 753,
+          "currentHealthBefore": 1034,
+          "targetId": 1,
+          "type": "damage",
+          "attackerId": 3,
+          "delivery": "projectile",
+          "projectileId": 2,
+          "projectileIdentity": {
+            "attackSequence": 1,
+            "direction": "unit-to-unit",
+            "projectileId": 2,
+            "sourceId": 3
+          },
+          "tick": 187,
+          "attackSequence": 1,
+          "direction": "unit-to-unit",
+          "projectileScope": "unit-to-unit",
+          "sourceId": 3
+        },
+        "tick": 188,
+        "ticksFromPendingRestore": 4,
+        "damagedTarget": {
+          "alive": true,
+          "cardId": "coilblade",
+          "id": 1,
+          "hitpoints": 753,
+          "maxHitpoints": 1361,
+          "position": {
+            "x": 5200,
+            "y": 14500
+          },
+          "side": "north",
+          "displayedHealth": {
+            "current": "753",
+            "maximum": "1361",
+            "barCurrent": "matrix(0.55327, 0, 0, 1, 0, 0)"
+          }
+        }
+      },
+      "deck": [
+        "coilblade",
+        "mossguard",
+        "copperskiff",
+        "kilnkeeper",
+        "brassbolt",
+        "reedsting",
+        "briar-band",
+        "cinderlings"
+      ],
+      "errors": [],
+      "inFlight": {
+        "identity": {
+          "attackSequence": 1,
+          "direction": "unit-to-unit",
+          "projectileId": 2,
+          "sourceId": 3
+        },
+        "launchTick": 181,
+        "launchPlannedImpactTick": 182,
+        "pendingTick": 184,
+        "pendingPosition": {
+          "x": 7500,
+          "y": 14500
+        },
+        "rootId": "projectile.unit-to-unit.3.none.2.1",
+        "targetAtLaunch": {
+          "x": 5050,
+          "y": 14500
+        },
+        "targetAtPending": {
+          "x": 5100,
+          "y": 14500
+        },
+        "targetId": 1,
+        "viewPoint": {
+          "denominator": "1",
+          "xNumerator": "7500",
+          "yNumerator": "14500"
+        }
+      },
+      "motionPreference": "no-preference",
+      "pixels": {
+        "contactRestoreSha256": "1b90e9760615957741d30c43eea45f7e31a6acb86afe2eb9a668069ff6e74610",
+        "inFlightRestoreSha256": "e6d8f1241213e980294907f954a8e5fbe33d1afa6da384fcdb51907db48662f1",
+        "initialBattleSha256": "e0d4d5c3c638ae074dec3cbe0d3dfe039e44b3f8346363b09f835f9ea0f859de",
+        "terminalRestartSha256": "e0d4d5c3c638ae074dec3cbe0d3dfe039e44b3f8346363b09f835f9ea0f859de"
+      },
+      "restart": {
+        "audioPolicy": {
+          "gainBasisPoints": 10000,
+          "muted": false
+        },
+        "audioSessionSha256": "082140eb2af4dea00eb8206a1ebe34e49215c93396b48630e7b688fab675a519",
+        "audioContinuationStateMatchesInitial": true,
+        "browserBytesResetToInitial": false,
+        "deck": [
+          "coilblade",
+          "mossguard",
+          "copperskiff",
+          "kilnkeeper",
+          "brassbolt",
+          "reedsting",
+          "briar-band",
+          "cinderlings"
+        ],
+        "detachedListeners": [],
+        "firstValidDeployment": {
+          "cost": 5,
+          "cycleSequence": 1,
+          "deploymentCount": 1,
+          "elixirAfter": 5,
+          "eventCount": 2,
+          "trustedPointer": true
+        },
+        "listenerGraph": [
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "keydown"
+              },
+              {
+                "count": 1,
+                "type": "mousedown"
+              },
+              {
+                "count": 1,
+                "type": "pointerdown"
+              },
+              {
+                "count": 1,
+                "type": "touchend"
+              }
+            ],
+            "target": "arena-shell"
+          },
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "click"
+              }
+            ],
+            "target": "audio-toggle"
+          },
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "click"
+              }
+            ],
+            "target": "restart"
+          },
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "pointermove"
+              },
+              {
+                "count": 1,
+                "type": "pointerup"
+              }
+            ],
+            "target": "arena"
+          },
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "click"
+              }
+            ],
+            "target": "card-slot-0"
+          },
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "click"
+              }
+            ],
+            "target": "card-slot-1"
+          },
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "click"
+              }
+            ],
+            "target": "card-slot-2"
+          },
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "click"
+              }
+            ],
+            "target": "card-slot-3"
+          }
+        ],
+        "replayLength": 0,
+        "restartCount": 1,
+        "sessionTick": 0,
+        "terminal": {
+          "browserSha256": "17ae2c7c18a65f720ff5dba28a29e313a938561fb67bd0d65b05d05ba7bfd5f6",
+          "eventCount": 512,
+          "replayLength": 524,
+          "restoredByteExact": true,
+          "sessionSha256": "fa1a2c946ed6454c1519523b80a457a80fc4e5124faa03ca5100e4fa3166f4aa",
+          "tick": 6788
+        },
+        "terminalRestartScreenshot": "kilnkeeper-phone-normal-terminal-restart-entry.png"
+      },
+      "screenshots": [
+        "kilnkeeper-phone-normal-arena-entry.png",
+        "kilnkeeper-phone-normal-native-marker.png",
+        "kilnkeeper-phone-normal-projectile-pursuit.png",
+        "kilnkeeper-phone-normal-splash-contact.png",
+        "kilnkeeper-phone-normal-terminal-restart-entry.png"
+      ],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "trustedPlayerDeploy": {
+        "point": {
+          "x": 8500,
+          "y": 14500
+        },
+        "screenPoint": {
+          "x": 187.27760036496352,
+          "y": 442.894095428719
+        },
+        "spend": {
+          "accepted": true,
+          "amountAfter": 5,
+          "cost": 5,
+          "reason": "accepted",
+          "sequence": 2,
+          "side": "south",
+          "tick": 61,
+          "type": "spend"
+        },
+        "cycleSequence": 1,
+        "markerBounds": [
+          328.265625,
+          616.265625,
+          33.46875,
+          33.46875
+        ]
+      }
+    },
+    {
+      "contact": {
+        "damage": {
+          "amount": 281,
+          "currentHealthAfter": 753,
+          "currentHealthBefore": 1034,
+          "targetId": 1,
+          "type": "damage",
+          "attackerId": 3,
+          "delivery": "projectile",
+          "projectileId": 2,
+          "projectileIdentity": {
+            "attackSequence": 1,
+            "direction": "unit-to-unit",
+            "projectileId": 2,
+            "sourceId": 3
+          },
+          "tick": 187,
+          "attackSequence": 1,
+          "direction": "unit-to-unit",
+          "projectileScope": "unit-to-unit",
+          "sourceId": 3
+        },
+        "tick": 188,
+        "ticksFromPendingRestore": 4,
+        "damagedTarget": {
+          "alive": true,
+          "cardId": "coilblade",
+          "id": 1,
+          "hitpoints": 753,
+          "maxHitpoints": 1361,
+          "position": {
+            "x": 5200,
+            "y": 14500
+          },
+          "side": "north",
+          "displayedHealth": {
+            "current": "753",
+            "maximum": "1361",
+            "barCurrent": "matrix(0.55327, 0, 0, 1, 0, 0)"
+          }
+        }
+      },
+      "deck": [
+        "coilblade",
+        "mossguard",
+        "copperskiff",
+        "kilnkeeper",
+        "brassbolt",
+        "reedsting",
+        "briar-band",
+        "cinderlings"
+      ],
+      "errors": [],
+      "inFlight": {
+        "identity": {
+          "attackSequence": 1,
+          "direction": "unit-to-unit",
+          "projectileId": 2,
+          "sourceId": 3
+        },
+        "launchTick": 181,
+        "launchPlannedImpactTick": 182,
+        "pendingTick": 184,
+        "pendingPosition": {
+          "x": 7500,
+          "y": 14500
+        },
+        "rootId": "projectile.unit-to-unit.3.none.2.1",
+        "targetAtLaunch": {
+          "x": 5050,
+          "y": 14500
+        },
+        "targetAtPending": {
+          "x": 5100,
+          "y": 14500
+        },
+        "targetId": 1,
+        "viewPoint": {
+          "denominator": "1",
+          "xNumerator": "7500",
+          "yNumerator": "14500"
+        }
+      },
+      "motionPreference": "reduce",
+      "pixels": {
+        "contactRestoreSha256": "c914c26f2f019696d2b33e4403c1beab7356d92546ea9c69cbb5fcf80efe2d17",
+        "inFlightRestoreSha256": "315c2073e54004a29c5f4901210d6cb06d7a9fe77bb392441255980b59d3d808",
+        "initialBattleSha256": "16f009fd46242fd9cf9fec7505673cf8ccdcbe9a1de25f38b62acf37c8acb562",
+        "terminalRestartSha256": "16f009fd46242fd9cf9fec7505673cf8ccdcbe9a1de25f38b62acf37c8acb562"
+      },
+      "restart": {
+        "audioPolicy": {
+          "gainBasisPoints": 10000,
+          "muted": false
+        },
+        "audioSessionSha256": "082140eb2af4dea00eb8206a1ebe34e49215c93396b48630e7b688fab675a519",
+        "audioContinuationStateMatchesInitial": true,
+        "browserBytesResetToInitial": false,
+        "deck": [
+          "coilblade",
+          "mossguard",
+          "copperskiff",
+          "kilnkeeper",
+          "brassbolt",
+          "reedsting",
+          "briar-band",
+          "cinderlings"
+        ],
+        "detachedListeners": [],
+        "firstValidDeployment": {
+          "cost": 5,
+          "cycleSequence": 1,
+          "deploymentCount": 1,
+          "elixirAfter": 5,
+          "eventCount": 2,
+          "trustedPointer": true
+        },
+        "listenerGraph": [
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "keydown"
+              },
+              {
+                "count": 1,
+                "type": "mousedown"
+              },
+              {
+                "count": 1,
+                "type": "pointerdown"
+              },
+              {
+                "count": 1,
+                "type": "touchend"
+              }
+            ],
+            "target": "arena-shell"
+          },
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "click"
+              }
+            ],
+            "target": "audio-toggle"
+          },
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "click"
+              }
+            ],
+            "target": "restart"
+          },
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "pointermove"
+              },
+              {
+                "count": 1,
+                "type": "pointerup"
+              }
+            ],
+            "target": "arena"
+          },
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "click"
+              }
+            ],
+            "target": "card-slot-0"
+          },
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "click"
+              }
+            ],
+            "target": "card-slot-1"
+          },
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "click"
+              }
+            ],
+            "target": "card-slot-2"
+          },
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "click"
+              }
+            ],
+            "target": "card-slot-3"
+          }
+        ],
+        "replayLength": 0,
+        "restartCount": 1,
+        "sessionTick": 0,
+        "terminal": {
+          "browserSha256": "d3c99e4c457f4fa41182b7354ee30658d0708831044acc83569cba185f98868d",
+          "eventCount": 512,
+          "replayLength": 524,
+          "restoredByteExact": true,
+          "sessionSha256": "4e8870bc62154cdab4b6baa19571d525cf9d5e511356ccdfb0f1220410aabe6d",
+          "tick": 6788
+        },
+        "terminalRestartScreenshot": "kilnkeeper-phone-reduced-terminal-restart-entry.png"
+      },
+      "screenshots": [
+        "kilnkeeper-phone-reduced-arena-entry.png",
+        "kilnkeeper-phone-reduced-native-marker.png",
+        "kilnkeeper-phone-reduced-projectile-pursuit.png",
+        "kilnkeeper-phone-reduced-splash-contact.png",
+        "kilnkeeper-phone-reduced-terminal-restart-entry.png"
+      ],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "trustedPlayerDeploy": {
+        "point": {
+          "x": 8500,
+          "y": 14500
+        },
+        "screenPoint": {
+          "x": 175.96875,
+          "y": 413.71875
+        },
+        "spend": {
+          "accepted": true,
+          "amountAfter": 5,
+          "cost": 5,
+          "reason": "accepted",
+          "sequence": 2,
+          "side": "south",
+          "tick": 61,
+          "type": "spend"
+        },
+        "cycleSequence": 1,
+        "markerBounds": [
+          328.265625,
+          616.265625,
+          33.46875,
+          33.46875
+        ]
+      }
+    },
+    {
+      "contact": {
+        "damage": {
+          "amount": 281,
+          "currentHealthAfter": 753,
+          "currentHealthBefore": 1034,
+          "targetId": 1,
+          "type": "damage",
+          "attackerId": 3,
+          "delivery": "projectile",
+          "projectileId": 2,
+          "projectileIdentity": {
+            "attackSequence": 1,
+            "direction": "unit-to-unit",
+            "projectileId": 2,
+            "sourceId": 3
+          },
+          "tick": 187,
+          "attackSequence": 1,
+          "direction": "unit-to-unit",
+          "projectileScope": "unit-to-unit",
+          "sourceId": 3
+        },
+        "tick": 188,
+        "ticksFromPendingRestore": 4,
+        "damagedTarget": {
+          "alive": true,
+          "cardId": "coilblade",
+          "id": 1,
+          "hitpoints": 753,
+          "maxHitpoints": 1361,
+          "position": {
+            "x": 5200,
+            "y": 14500
+          },
+          "side": "north",
+          "displayedHealth": {
+            "current": "753",
+            "maximum": "1361",
+            "barCurrent": "matrix(0.55327, 0, 0, 1, 0, 0)"
+          }
+        }
+      },
+      "deck": [
+        "coilblade",
+        "mossguard",
+        "copperskiff",
+        "kilnkeeper",
+        "brassbolt",
+        "reedsting",
+        "briar-band",
+        "cinderlings"
+      ],
+      "errors": [],
+      "inFlight": {
+        "identity": {
+          "attackSequence": 1,
+          "direction": "unit-to-unit",
+          "projectileId": 2,
+          "sourceId": 3
+        },
+        "launchTick": 181,
+        "launchPlannedImpactTick": 182,
+        "pendingTick": 184,
+        "pendingPosition": {
+          "x": 7500,
+          "y": 14500
+        },
+        "rootId": "projectile.unit-to-unit.3.none.2.1",
+        "targetAtLaunch": {
+          "x": 5050,
+          "y": 14500
+        },
+        "targetAtPending": {
+          "x": 5100,
+          "y": 14500
+        },
+        "targetId": 1,
+        "viewPoint": {
+          "denominator": "1",
+          "xNumerator": "7500",
+          "yNumerator": "14500"
+        }
+      },
+      "motionPreference": "no-preference",
+      "pixels": {
+        "contactRestoreSha256": "241cc5b259ceb6002606640b4651ae1951831ab8de3359f2bcbe0f182f779ca4",
+        "inFlightRestoreSha256": "7634098d277ba13eff34623cacebc26a30579ea486d3dc6c028d7c119c96121f",
+        "initialBattleSha256": "1b671f1b709b2bf8b8be622aa65512c309fe0d78c70387c0b7dd05495b29e8d6",
+        "terminalRestartSha256": "1b671f1b709b2bf8b8be622aa65512c309fe0d78c70387c0b7dd05495b29e8d6"
+      },
+      "restart": {
+        "audioPolicy": {
+          "gainBasisPoints": 10000,
+          "muted": false
+        },
+        "audioSessionSha256": "082140eb2af4dea00eb8206a1ebe34e49215c93396b48630e7b688fab675a519",
+        "audioContinuationStateMatchesInitial": true,
+        "browserBytesResetToInitial": false,
+        "deck": [
+          "coilblade",
+          "mossguard",
+          "copperskiff",
+          "kilnkeeper",
+          "brassbolt",
+          "reedsting",
+          "briar-band",
+          "cinderlings"
+        ],
+        "detachedListeners": [],
+        "firstValidDeployment": {
+          "cost": 5,
+          "cycleSequence": 1,
+          "deploymentCount": 1,
+          "elixirAfter": 5,
+          "eventCount": 2,
+          "trustedPointer": true
+        },
+        "listenerGraph": [
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "keydown"
+              },
+              {
+                "count": 1,
+                "type": "mousedown"
+              },
+              {
+                "count": 1,
+                "type": "pointerdown"
+              },
+              {
+                "count": 1,
+                "type": "touchend"
+              }
+            ],
+            "target": "arena-shell"
+          },
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "click"
+              }
+            ],
+            "target": "audio-toggle"
+          },
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "click"
+              }
+            ],
+            "target": "restart"
+          },
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "pointermove"
+              },
+              {
+                "count": 1,
+                "type": "pointerup"
+              }
+            ],
+            "target": "arena"
+          },
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "click"
+              }
+            ],
+            "target": "card-slot-0"
+          },
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "click"
+              }
+            ],
+            "target": "card-slot-1"
+          },
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "click"
+              }
+            ],
+            "target": "card-slot-2"
+          },
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "click"
+              }
+            ],
+            "target": "card-slot-3"
+          }
+        ],
+        "replayLength": 0,
+        "restartCount": 1,
+        "sessionTick": 0,
+        "terminal": {
+          "browserSha256": "17ae2c7c18a65f720ff5dba28a29e313a938561fb67bd0d65b05d05ba7bfd5f6",
+          "eventCount": 512,
+          "replayLength": 524,
+          "restoredByteExact": true,
+          "sessionSha256": "fa1a2c946ed6454c1519523b80a457a80fc4e5124faa03ca5100e4fa3166f4aa",
+          "tick": 6788
+        },
+        "terminalRestartScreenshot": "kilnkeeper-desktop-normal-terminal-restart-entry.png"
+      },
+      "screenshots": [
+        "kilnkeeper-desktop-normal-arena-entry.png",
+        "kilnkeeper-desktop-normal-native-marker.png",
+        "kilnkeeper-desktop-normal-projectile-pursuit.png",
+        "kilnkeeper-desktop-normal-splash-contact.png",
+        "kilnkeeper-desktop-normal-terminal-restart-entry.png"
+      ],
+      "viewport": {
+        "height": 933,
+        "width": 1440
+      },
+      "trustedPlayerDeploy": {
+        "point": {
+          "x": 8500,
+          "y": 14500
+        },
+        "screenPoint": {
+          "x": 712.072679060219,
+          "y": 531.2735989152893
+        },
+        "spend": {
+          "accepted": true,
+          "amountAfter": 5,
+          "cost": 5,
+          "reason": "accepted",
+          "sequence": 2,
+          "side": "south",
+          "tick": 61,
+          "type": "spend"
+        },
+        "cycleSequence": 1,
+        "markerBounds": [
+          328.265625,
+          616.265625,
+          33.46875,
+          33.46875
+        ]
+      }
+    },
+    {
+      "contact": {
+        "damage": {
+          "amount": 281,
+          "currentHealthAfter": 753,
+          "currentHealthBefore": 1034,
+          "targetId": 1,
+          "type": "damage",
+          "attackerId": 3,
+          "delivery": "projectile",
+          "projectileId": 2,
+          "projectileIdentity": {
+            "attackSequence": 1,
+            "direction": "unit-to-unit",
+            "projectileId": 2,
+            "sourceId": 3
+          },
+          "tick": 187,
+          "attackSequence": 1,
+          "direction": "unit-to-unit",
+          "projectileScope": "unit-to-unit",
+          "sourceId": 3
+        },
+        "tick": 188,
+        "ticksFromPendingRestore": 4,
+        "damagedTarget": {
+          "alive": true,
+          "cardId": "coilblade",
+          "id": 1,
+          "hitpoints": 753,
+          "maxHitpoints": 1361,
+          "position": {
+            "x": 5200,
+            "y": 14500
+          },
+          "side": "north",
+          "displayedHealth": {
+            "current": "753",
+            "maximum": "1361",
+            "barCurrent": "matrix(0.55327, 0, 0, 1, 0, 0)"
+          }
+        }
+      },
+      "deck": [
+        "coilblade",
+        "mossguard",
+        "copperskiff",
+        "kilnkeeper",
+        "brassbolt",
+        "reedsting",
+        "briar-band",
+        "cinderlings"
+      ],
+      "errors": [],
+      "inFlight": {
+        "identity": {
+          "attackSequence": 1,
+          "direction": "unit-to-unit",
+          "projectileId": 2,
+          "sourceId": 3
+        },
+        "launchTick": 181,
+        "launchPlannedImpactTick": 182,
+        "pendingTick": 184,
+        "pendingPosition": {
+          "x": 7500,
+          "y": 14500
+        },
+        "rootId": "projectile.unit-to-unit.3.none.2.1",
+        "targetAtLaunch": {
+          "x": 5050,
+          "y": 14500
+        },
+        "targetAtPending": {
+          "x": 5100,
+          "y": 14500
+        },
+        "targetId": 1,
+        "viewPoint": {
+          "denominator": "1",
+          "xNumerator": "7500",
+          "yNumerator": "14500"
+        }
+      },
+      "motionPreference": "reduce",
+      "pixels": {
+        "contactRestoreSha256": "106d9b224593ef4f1837745b68daafa33c9b388728aab4804768f6f87051f9f5",
+        "inFlightRestoreSha256": "41450db0b8a6e847e9d66d6ceb984b20176c77c7324a60da1b73d30cdbf14b24",
+        "initialBattleSha256": "3ed6a6d5b610e3e5bdb4bc48faec6ea912b4661151fc5eba7acfda9de024ba40",
+        "terminalRestartSha256": "3ed6a6d5b610e3e5bdb4bc48faec6ea912b4661151fc5eba7acfda9de024ba40"
+      },
+      "restart": {
+        "audioPolicy": {
+          "gainBasisPoints": 10000,
+          "muted": false
+        },
+        "audioSessionSha256": "082140eb2af4dea00eb8206a1ebe34e49215c93396b48630e7b688fab675a519",
+        "audioContinuationStateMatchesInitial": true,
+        "browserBytesResetToInitial": false,
+        "deck": [
+          "coilblade",
+          "mossguard",
+          "copperskiff",
+          "kilnkeeper",
+          "brassbolt",
+          "reedsting",
+          "briar-band",
+          "cinderlings"
+        ],
+        "detachedListeners": [],
+        "firstValidDeployment": {
+          "cost": 5,
+          "cycleSequence": 1,
+          "deploymentCount": 1,
+          "elixirAfter": 5,
+          "eventCount": 2,
+          "trustedPointer": true
+        },
+        "listenerGraph": [
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "keydown"
+              },
+              {
+                "count": 1,
+                "type": "mousedown"
+              },
+              {
+                "count": 1,
+                "type": "pointerdown"
+              },
+              {
+                "count": 1,
+                "type": "touchend"
+              }
+            ],
+            "target": "arena-shell"
+          },
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "click"
+              }
+            ],
+            "target": "audio-toggle"
+          },
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "click"
+              }
+            ],
+            "target": "restart"
+          },
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "pointermove"
+              },
+              {
+                "count": 1,
+                "type": "pointerup"
+              }
+            ],
+            "target": "arena"
+          },
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "click"
+              }
+            ],
+            "target": "card-slot-0"
+          },
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "click"
+              }
+            ],
+            "target": "card-slot-1"
+          },
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "click"
+              }
+            ],
+            "target": "card-slot-2"
+          },
+          {
+            "listeners": [
+              {
+                "count": 1,
+                "type": "click"
+              }
+            ],
+            "target": "card-slot-3"
+          }
+        ],
+        "replayLength": 0,
+        "restartCount": 1,
+        "sessionTick": 0,
+        "terminal": {
+          "browserSha256": "45a658526b2ce96ad28cbde62652a46e9a173b03fdc0441188a598c921c9e3e0",
+          "eventCount": 512,
+          "replayLength": 524,
+          "restoredByteExact": true,
+          "sessionSha256": "bca60f098d44f3652b16c84c00c2368117101dd6137fbe68df5897a61d0d2d8b",
+          "tick": 6788
+        },
+        "terminalRestartScreenshot": "kilnkeeper-desktop-reduced-terminal-restart-entry.png"
+      },
+      "screenshots": [
+        "kilnkeeper-desktop-reduced-arena-entry.png",
+        "kilnkeeper-desktop-reduced-native-marker.png",
+        "kilnkeeper-desktop-reduced-projectile-pursuit.png",
+        "kilnkeeper-desktop-reduced-splash-contact.png",
+        "kilnkeeper-desktop-reduced-terminal-restart-entry.png"
+      ],
+      "viewport": {
+        "height": 933,
+        "width": 1440
+      },
+      "trustedPlayerDeploy": {
+        "point": {
+          "x": 8500,
+          "y": 14500
+        },
+        "screenPoint": {
+          "x": 712.8385606751824,
+          "y": 498.6410769628099
+        },
+        "spend": {
+          "accepted": true,
+          "amountAfter": 5,
+          "cost": 5,
+          "reason": "accepted",
+          "sequence": 2,
+          "side": "south",
+          "tick": 61,
+          "type": "spend"
+        },
+        "cycleSequence": 1,
+        "markerBounds": [
+          328.265625,
+          616.265625,
+          33.46875,
+          33.46875
+        ]
+      }
+    }
+  ],
+  "deck": [
+    "coilblade",
+    "mossguard",
+    "copperskiff",
+    "kilnkeeper",
+    "brassbolt",
+    "reedsting",
+    "briar-band",
+    "cinderlings"
+  ],
+  "release": {
+    "fileCount": 51,
+    "manifestSha256": "a8a50f7a6203a2807e2e4137e5181fdd89c666de665ef6b14de560de4fa44eb9"
+  }
+}

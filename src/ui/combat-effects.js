@@ -3,9 +3,17 @@ import {
   ARENA_WIDTH_MILLITILES,
 } from "../sim/arena-geometry.js";
 import {
+  combatEffectRootId,
   COMBAT_EFFECT_FEED_MAX_RECORDS,
   validateCombatEffectFeed,
 } from "../sim/combat-effect-feed.js";
+import {
+  isAuthenticGameSession,
+  isAuthenticGameSessionProjectionSnapshot,
+} from "../sim/game-session.js";
+import {
+  assertOrdinaryProjectileSplashProfile,
+} from "../shared/ordinary-projectile-delivery-authority.js";
 
 // The feed is the bounded event source. The view deliberately keeps its old
 // public names so the rest of the browser renderer does not need a second
@@ -24,6 +32,7 @@ const PROJECTILE_DIRECTIONS = new Set([
   "unit-to-tower", "unit-to-unit",
 ]);
 const FEED_VERSION = 1;
+const SPLASH_BURST_LIFETIME_TICKS = 8;
 const UTF8 = new TextEncoder();
 
 const STYLE_TEXT = `.combat-effects{position:absolute;z-index:35;inset:0;overflow:hidden;pointer-events:none}.combat-effects__frame{position:absolute;inset:0}.combat-effect-path{position:absolute;inset:0;width:100%;height:100%;overflow:visible}.combat-effect-path line{stroke:#d9f4d5aa;stroke-width:100;stroke-linecap:round;stroke-dasharray:210 130}.combat-effect-projectile,.combat-effect-impact,.combat-effect-area{position:absolute;left:calc(var(--effect-x-num)*100%/(18000*var(--effect-den)));top:calc(var(--effect-y-num)*100%/(32000*var(--effect-den)));translate:-50% -50%;border-radius:50%}.combat-effect-projectile{width:12px;height:12px;background:#fff0a5;border:2px solid #603d28;box-shadow:0 0 8px #ffcd65}.combat-effect-projectile[data-kind="return"]{border-radius:35% 65%;background:#8ce7dd}.combat-effect-projectile[data-kind="pellet"]{width:7px;height:7px}.combat-effect-impact{width:24px;height:24px;border:4px double #ffe6a0;background:#e8703655}.combat-effect-area{width:calc(var(--effect-radius)*200%/18000);aspect-ratio:1;border:3px solid #f2c66e;background:#d96f3933}.combat-effect-path{display:none}.combat-effect-projectile{width:15px;height:7px;border:1px solid #191D22;border-radius:0;background:#F4EBD6;clip-path:polygon(0 0,70% 18%,100% 50%,70% 82%,0 100%,20% 50%);box-shadow:none}.combat-effect-projectile[data-kind="return"]{background:#DCEDE9;clip-path:polygon(0 0,100% 35%,40% 100%,55% 40%)}.combat-effect-projectile[data-kind="pellet"]{width:8px;height:8px;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}.combat-effect-impact{width:30px;height:30px;border:0;border-radius:0;background:#E9A83A;clip-path:polygon(50% 0,60% 30%,87% 12%,72% 42%,100% 50%,70% 60%,89% 88%,59% 72%,50% 100%,40% 72%,12% 88%,28% 59%,0 50%,29% 40%,13% 12%,41% 28%)}.combat-effect-impact[data-kind="contact"]{width:22px;height:22px;background:#F4EBD6}.combat-effect-area{border:2px solid #E9A83A;background:repeating-conic-gradient(from 0deg,#5B4B8A33 0deg 20deg,transparent 20deg 40deg);box-shadow:inset 0 0 0 5px #191D2233}.combat-effect-area::after{content:"";position:absolute;inset:12%;border:1px dashed #F4EBD6;border-radius:50%}`;
@@ -219,6 +228,189 @@ function projectilePoint(record, tick) {
   );
 }
 
+function liveHomingProjectilePoints(value) {
+  if (value === undefined) return new Map();
+  if (!Array.isArray(value) || Object.getPrototypeOf(value) !== Array.prototype ||
+      value.length > COMBAT_EFFECT_PRIMITIVE_LIMIT) {
+    throw new TypeError("live projectile positions must be a bounded plain array");
+  }
+  const points = new Map();
+  for (const [index, raw] of value.entries()) {
+    const label = `live projectiles[${index}]`;
+    const record = plainDataObject(raw, label);
+    if (Object.getOwnPropertySymbols(record).length !== 0) {
+      throw new TypeError(`${label} must contain only string keys`);
+    }
+    const descriptors = Object.getOwnPropertyDescriptors(record);
+    const field = (key) => {
+      const descriptor = descriptors[key];
+      if (descriptor === undefined || !descriptor.enumerable ||
+          !Object.hasOwn(descriptor, "value")) {
+        throw new TypeError(`${label}.${key} must be an enumerable data property`);
+      }
+      return descriptor.value;
+    };
+    const splashDescriptor = descriptors.splashProfile;
+    if (splashDescriptor === undefined) continue;
+    if (!splashDescriptor.enumerable || !Object.hasOwn(splashDescriptor, "value")) {
+      throw new TypeError(`${label}.splashProfile must be an enumerable data property`);
+    }
+    const splashProfile = splashDescriptor.value;
+    if (splashProfile === undefined || splashProfile === null) continue;
+    const profile = plainDataObject(splashProfile, `${label}.splashProfile`);
+    const profileDescriptors = Object.getOwnPropertyDescriptors(profile);
+    const homingDescriptor = profileDescriptors.homing;
+    if (homingDescriptor === undefined || !homingDescriptor.enumerable ||
+        !Object.hasOwn(homingDescriptor, "value")) {
+      throw new TypeError(`${label}.splashProfile.homing must be an enumerable data property`);
+    }
+    if (homingDescriptor.value !== true) continue;
+
+    const identity = exactDataObject(field("projectileIdentity"), [
+      "attackSequence", "direction", "projectileId", "sourceId",
+    ], `${label}.projectileIdentity`);
+    for (const key of ["attackSequence", "direction", "projectileId", "sourceId"]) {
+      if (field(key) !== identity[key]) {
+        throw new TypeError(`${label}.${key} diverges from its typed projectile identity`);
+      }
+    }
+    integer(identity.attackSequence, 1, Number.MAX_SAFE_INTEGER,
+      `${label}.projectileIdentity.attackSequence`);
+    integer(identity.projectileId, 1, Number.MAX_SAFE_INTEGER,
+      `${label}.projectileIdentity.projectileId`);
+    const rawPoint = exactDataObject(field("position"), ["x", "y"], `${label}.position`);
+    const point = {
+      denominator: "1",
+      xNumerator: String(integer(rawPoint.x, 0, ARENA_WIDTH_MILLITILES, `${label}.position.x`)),
+      yNumerator: String(integer(rawPoint.y, 0, ARENA_LENGTH_MILLITILES, `${label}.position.y`)),
+    };
+    const rootId = combatEffectRootId({
+      direction: identity.direction,
+      effectId: null,
+      projectileId: identity.projectileId,
+      sequence: identity.attackSequence,
+      sourceId: identity.sourceId,
+      type: "projectile",
+    });
+    if (points.has(rootId)) throw new TypeError(`${label} duplicates a live projectile identity`);
+    points.set(rootId, point);
+  }
+  return points;
+}
+
+function projectileIdentityRoot(value, label) {
+  const identity = exactDataObject(value, [
+    "attackSequence", "direction", "projectileId", "sourceId",
+  ], label);
+  return combatEffectRootId({
+    direction: identity.direction,
+    effectId: null,
+    projectileId: identity.projectileId,
+    sequence: identity.attackSequence,
+    sourceId: identity.sourceId,
+    type: "projectile",
+  });
+}
+
+function ordinarySplashAreaRecords(snapshot, sessionOwner, feed, feedRecords, roots, tick) {
+  if (snapshot === undefined) return [];
+  if (!isAuthenticGameSessionProjectionSnapshot(snapshot) ||
+      !isAuthenticGameSession(sessionOwner) ||
+      snapshot.combatEffectFeed !== feed || snapshot.state.tick !== tick) {
+    throw new TypeError("ordinary splash visuals require the matching authentic session snapshot");
+  }
+
+  // The authenticated setup catalog and immutable unit ledger carry the source
+  // profile link. The renderer joins those to the primary contact in the closed
+  // effect feed; it never reads the session's raw replay dialect.
+  const battleSetup = JSON.parse(snapshot.setup.battleSetup);
+  const definitions = new Map(battleSetup.roster.map((card) => [card.id, card]));
+  const sourceProfiles = new Map();
+  for (const unit of snapshot.state.battle.units) {
+    const definition = definitions.get(unit.cardId);
+    if (definition === undefined) continue;
+    const component = definition.entities.find(({ archetypeId }) =>
+      archetypeId === unit.archetypeId);
+    if (component?.projectileSplashPolicy === undefined) continue;
+    const profile = assertOrdinaryProjectileSplashProfile(
+      component.projectileSplashPolicy, unit.cardId, unit.archetypeId,
+    );
+    if (sourceProfiles.has(unit.id)) {
+      throw new TypeError("ordinary splash source unit identity is duplicated");
+    }
+    sourceProfiles.set(unit.id, profile);
+  }
+  if (sourceProfiles.size === 0) return [];
+
+  const bursts = [];
+  const burstRoots = new Set();
+  for (const record of feedRecords) {
+    if (record.phase !== "contact" || record.payload.status !== "contact" ||
+        tick < record.tick || tick - record.tick >= SPLASH_BURST_LIFETIME_TICKS ||
+        record.parentId === null) continue;
+    const root = roots.get(record.rootId);
+    if (root === undefined || root.open.type !== "projectile" ||
+        record.parentId !== root.open.eventId) continue;
+    const sourceId = root.open.payload.sourceId;
+    const profile = sourceProfiles.get(sourceId);
+    if (profile === undefined) continue;
+
+    const identity = {
+      attackSequence: root.open.payload.sequence,
+      direction: root.open.payload.direction,
+      projectileId: root.open.payload.projectileId,
+      sourceId,
+    };
+    if (projectileIdentityRoot(identity, "ordinary splash feed root identity") !== record.rootId) {
+      throw new TypeError("ordinary splash contact identity diverges from its typed feed root");
+    }
+    if (burstRoots.has(record.rootId)) {
+      throw new TypeError("ordinary splash projectile has more than one primary feed contact");
+    }
+    burstRoots.add(record.rootId);
+    bursts.push({
+      key: `${record.rootId}:splash:${record.eventId}`,
+      point: record.payload.point,
+      radius: profile.radiusMillitiles,
+      sourceSequence: identity.attackSequence,
+    });
+  }
+  if (bursts.length > COMBAT_EFFECT_PRIMITIVE_LIMIT) {
+    throw new RangeError("ordinary splash burst count exceeds its bound");
+  }
+  return bursts;
+}
+
+function liveHomingLeg(root, endpoint, tick) {
+  const open = root.open;
+  if (open.type !== "projectile" || open.payload.to === null ||
+      open.payload.segments.length !== 0 || open.payload.direction === "return" ||
+      tick < open.tick ||
+      (root.impact !== null && root.impact.tick <= tick) ||
+      (root.close !== null && root.close.tick <= tick)) {
+    return null;
+  }
+  return {
+    from: open.payload.from,
+    impactTick: Math.max(open.payload.impactTick, tick + 1),
+    key: carrierKey(open.rootId, endpoint.id),
+    kind: visualKind(open.payload.direction),
+    launchTick: open.tick,
+    sourceSequence: open.payload.sequence,
+    to: endpoint.to,
+  };
+}
+
+function assertLiveHomingRootsAreActive(roots, livePositions, tick) {
+  for (const rootId of livePositions.keys()) {
+    const root = roots.get(rootId);
+    if (root === undefined || root.open.type !== "projectile" ||
+        !carrierEndpoints(root).some((endpoint) => liveHomingLeg(root, endpoint, tick) !== null)) {
+      throw new TypeError("live homing projectile has no active full-identity effect root");
+    }
+  }
+}
+
 function impactRecord(root, record, suffix = null) {
   return {
     key: suffix === null ? root.open.rootId : `${root.open.rootId}:${suffix}:${record.eventId}`,
@@ -269,9 +461,10 @@ function validateSerializedTree(value, label, depth = 0, budget = { nodes: 0 }) 
   throw new TypeError(`${label} contains unsupported data`);
 }
 
-function buildView(input, suppliedTick) {
+function buildView(input, suppliedTick, suppliedLiveProjectiles, sessionSnapshot, sessionOwner) {
   const { feed, tick: rawTick } = projectionInput(input, suppliedTick);
   const tick = integer(rawTick, 0, Number.MAX_SAFE_INTEGER, "combat effects view.tick");
+  const livePoints = liveHomingProjectilePoints(suppliedLiveProjectiles);
   // UI-002CP owns the complete schema, lifecycle state machine, byte bound,
   // and canonical record normalization. The renderer consumes this one
   // normalized snapshot and never interprets producer replay dialects.
@@ -325,12 +518,21 @@ function buildView(input, suppliedTick) {
     }
   }
 
+  areaVisuals.push(...ordinarySplashAreaRecords(
+    sessionSnapshot, sessionOwner, feed, records, roots, tick,
+  ));
+
+  assertLiveHomingRootsAreActive(roots, livePoints, tick);
+
   const paths = [];
   const projectiles = [];
   for (const root of roots.values()) {
     if (root.open.type !== "projectile") continue;
     for (const endpoint of carrierEndpoints(root)) {
-      const active = activeLeg(root, endpoint, tick);
+      const livePoint = livePoints.get(root.open.rootId);
+      const active = livePoint === undefined
+        ? activeLeg(root, endpoint, tick)
+        : liveHomingLeg(root, endpoint, tick);
       if (active === null) continue;
       paths.push({
         from: active.from,
@@ -344,7 +546,7 @@ function buildView(input, suppliedTick) {
       projectiles.push({
         key: active.key,
         kind: active.kind,
-        point: projectilePoint(active, tick),
+        point: livePoint ?? projectilePoint(active, tick),
         sourceSequence: active.sourceSequence,
       });
     }
@@ -374,8 +576,10 @@ function buildView(input, suppliedTick) {
  * `{ feed, tick }` is accepted for callers that pass a named projection
  * input. No legacy `{ events, tick }` input is admitted.
  */
-export function createCombatEffectsViewModel(feedOrInput, suppliedTick) {
-  return buildView(feedOrInput, suppliedTick);
+export function createCombatEffectsViewModel(
+  feedOrInput, suppliedTick, liveProjectiles, sessionSnapshot, sessionOwner,
+) {
+  return buildView(feedOrInput, suppliedTick, liveProjectiles, sessionSnapshot, sessionOwner);
 }
 
 export function isCanonicalCombatEffectsViewModel(view) {
@@ -408,7 +612,9 @@ export function serializeCombatEffectsViewModel(view) {
   return bytes;
 }
 
-export function restoreCombatEffectsViewModel(bytes) {
+export function restoreCombatEffectsViewModel(
+  bytes, liveProjectiles, sessionSnapshot, sessionOwner,
+) {
   if (typeof bytes !== "string" || UTF8.encode(bytes).byteLength > COMBAT_EFFECT_VIEW_MAX_BYTES) {
     throw new TypeError("combat effects bytes must be a bounded string");
   }
@@ -434,9 +640,10 @@ export function restoreCombatEffectsViewModel(bytes) {
   let restored;
   try {
     restored = createCombatEffectsViewModel({
-      feed: { records: source.events, version: FEED_VERSION },
+      feed: sessionSnapshot?.combatEffectFeed ??
+        { records: source.events, version: FEED_VERSION },
       tick: source.tick,
-    });
+    }, undefined, liveProjectiles, sessionSnapshot, sessionOwner);
   } catch (error) {
     throw new TypeError(`combat effects view is not causally derivable: ${error.message}`);
   }

@@ -6,6 +6,7 @@ import { GameSession } from "../src/sim/game-session.js";
 import { TOWER_COMBAT_CONFIG } from "../src/sim/towers.js";
 import {
   serializeCombatEffectsViewModel,
+  restoreCombatEffectsViewModel,
 } from "../src/ui/combat-effects.js";
 import {
   serializeCombatViewModel,
@@ -21,7 +22,9 @@ import { serializeMatchFeedbackViewModel } from "../src/ui/match-feedback.js";
 import {
   createPlayableRoster,
   createPlayableRosterQuestionRecords,
+  PLAYABLE_CARD_IDS,
 } from "../src/content/playable-roster.js";
+import { createEditableGameSessionSetup } from "../src/content/editable-deck.js";
 
 function canonical(value) {
   if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
@@ -701,4 +704,116 @@ test("game UI projection: a real terminal session drives the match overlay at ti
   assert.equal(layers.feedback.children[0].dataset.tick, "18000");
   assert.ok(layers.feedback.children[0].children.some((node) =>
     node.className === "match-feedback__overlay"));
+});
+
+test("Kilnkeeper UI projectile follows the authenticated live position through restore", () => {
+  const deck = ["kilnkeeper", "cinder-host",
+    ...PLAYABLE_CARD_IDS.filter((id) => id !== "kilnkeeper" && id !== "cinder-host").slice(0, 6)];
+  const configured = JSON.parse(createEditableGameSessionSetup(deck, 2));
+  configured.legalNorthDeployments = [
+    { cardId: "cinder-host", point: { x: 3_500, y: 21_000 } },
+  ];
+  configured.startingElixir = { north: 10, south: 10 };
+  configured.thinkIntervalTicks = 3_600;
+  const session = new GameSession(canonical(configured));
+  const slot = session.state.decks.south.hand.indexOf("kilnkeeper");
+  assert.notEqual(slot, -1);
+  session.submitPlayerCommand(canonical({
+    cardId: "kilnkeeper",
+    commandId: 0,
+    point: { x: 3_500, y: 14_500 },
+    slot,
+    tick: session.state.tick,
+    type: "deploy",
+  }));
+  session.stepMany(121);
+  let projectile = session.state.battle.projectiles.find(({ splashProfile }) =>
+    splashProfile?.homing === true);
+  assert.ok(projectile, "the actual shared host has a pending Kilnkeeper projectile");
+  const launch = session.replay.find(({ projectile: record, type }) =>
+    type === "projectile-launch" && record?.id === projectile.id);
+  assert.ok(launch);
+  for (let attempt = 0; attempt < 12 &&
+      projectile.position.x === launch.projectile.origin.x &&
+      projectile.position.y === launch.projectile.origin.y; attempt += 1) {
+    session.step();
+    projectile = session.state.battle.projectiles.find(({ id }) => id === projectile.id);
+  }
+  assert.ok(projectile, "the pending projectile remains live while it pursues its target");
+  assert.notDeepEqual(projectile.position, launch.projectile.origin,
+    "the actual homing runtime has moved the pending projectile");
+
+  const checkpoint = session.serialize();
+  const originalReplay = session.replayBytes();
+  const frame = createGameUiFrame(session);
+  const root = frame.effects.events.find((event) => event.phase === "open" &&
+    event.payload.direction === projectile.direction &&
+    event.payload.sourceId === projectile.sourceId &&
+    event.payload.sequence === projectile.attackSequence &&
+    event.payload.projectileId === projectile.projectileId);
+  assert.ok(root, "the effect root retains direction, typed source, attack sequence, and projectile id");
+  const visual = frame.effects.projectiles.find(({ key }) => key === root.rootId);
+  assert.ok(visual, "the pending projectile remains visible after its provisional contact tick");
+  assert.deepEqual(visual.point, {
+    denominator: "1",
+    xNumerator: String(projectile.position.x),
+    yNumerator: String(projectile.position.y),
+  }, "the arena projection uses the current source position rather than interpolating to launch aim");
+  const effectsBytes = serializeCombatEffectsViewModel(frame.effects);
+  assert.equal(serializeCombatEffectsViewModel(restoreCombatEffectsViewModel(
+    effectsBytes,
+    session.state.battle.projectiles,
+  )), effectsBytes);
+
+  const restored = GameSession.restore(checkpoint);
+  const forked = GameSession.restore(checkpoint);
+  assert.equal(restored.serialize(), checkpoint);
+  assert.equal(forked.serialize(), checkpoint);
+  assert.equal(restored.replayBytes(), originalReplay);
+  const restoredFrame = createGameUiFrame(restored);
+  const forkedFrame = createGameUiFrame(forked);
+  assert.equal(serializeCombatEffectsViewModel(restoredFrame.effects), effectsBytes);
+  assert.equal(serializeCombatEffectsViewModel(forkedFrame.effects), effectsBytes);
+  assert.equal(projectionBytes(restoredFrame), projectionBytes(frame));
+  assert.equal(projectionBytes(forkedFrame), projectionBytes(frame));
+
+  const originalLayers = fixture().layers;
+  const restoredLayers = fixture().layers;
+  mountGameUiProjection(originalLayers).project(frame);
+  mountGameUiProjection(restoredLayers).project(restoredFrame);
+  assert.equal(allBytes(restoredLayers), allBytes(originalLayers),
+    "the actual combat and effect DOM bytes match after session restore");
+
+  const hasContact = (candidate) => candidate.replay.some((event) =>
+    event.type === "projectile-impact" && event.status === "contact" &&
+    JSON.stringify(event.projectileIdentity) === JSON.stringify(projectile.projectileIdentity));
+  let contactSteps = 0;
+  while (!hasContact(session) && contactSteps < 128) {
+    session.step();
+    restored.step();
+    forked.step();
+    contactSteps += 1;
+  }
+  assert.ok(contactSteps > 0 && hasContact(session),
+    "the actual ordinary splash projectile reaches its target on the shared host");
+  assert.equal(session.serialize(), restored.serialize());
+  assert.equal(session.serialize(), forked.serialize());
+
+  const warmContact = createGameUiFrame(session);
+  const coldBranch = GameSession.restore(checkpoint);
+  coldBranch.stepMany(contactSteps);
+  const coldContact = createGameUiFrame(coldBranch);
+  const rootId = root.rootId;
+  const warmBursts = warmContact.effects.areas.filter(({ key }) =>
+    key.startsWith(`${rootId}:splash:`));
+  const coldBursts = coldContact.effects.areas.filter(({ key }) =>
+    key.startsWith(`${rootId}:splash:`));
+  assert.equal(warmBursts.length, 1,
+    "the real impact produces one visible burst even though its primary contact has repeated feed records");
+  assert.deepEqual(coldBursts, warmBursts,
+    "a cold restored branch rebuilds the same geometry for the same full projectile identity");
+  assert.equal(projectionBytes(coldContact), projectionBytes(warmContact),
+    "warm and cold derivation agree across a restored branch with the same history length");
+  assert.equal(projectionBytes(createGameUiFrame(restored)), projectionBytes(warmContact));
+  assert.equal(projectionBytes(createGameUiFrame(forked)), projectionBytes(warmContact));
 });

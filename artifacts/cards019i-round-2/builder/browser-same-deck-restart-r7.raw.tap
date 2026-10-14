@@ -1,0 +1,35 @@
+TAP version 13
+# Subtest: Cards019I Kilnkeeper follows live projectiles in real browser battle and restores each motion mode
+not ok 1 - Cards019I Kilnkeeper follows live projectiles in real browser battle and restores each motion mode
+  ---
+  duration_ms: 72551.608958
+  type: 'test'
+  location: '/private/tmp/cards019i-arena-candidate/tests/cards019-browser-integration.test.js:338:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    phone-normal: restart and deployment do not duplicate scheduled audio cues
+    
+    4 !== 7
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 7
+  actual: 4
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/cards019i-arena-candidate/tests/cards019-browser-integration.test.js:1072:12)
+    runNextTicks (node:internal/process/task_queues:64:5)
+    process.processImmediate (node:internal/timers:452:9)
+    process.callbackTrampoline (node:internal/async_hooks:130:17)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 72781.558291

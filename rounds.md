@@ -1,5 +1,25 @@
 # Gauntlet Rounds
 
+## Round 452 — 2026-10-13
+
+PIECE: CARDS-019I — Kilnkeeper arena integration, round 2
+
+VERDICT: PASS
+
+EVIDENCE: Independent exact88 realChrome1/1 across4DPR1contexts (253s),20screens: projectilelive184pastplanned182, movedtarget5050→5100, contact281at187HP1034→753. Terminal6788restorebyteexact; seed0samecustomdeckrestarttick0/replay0 andfirsttrustedKdeploycost5/cycle1/southcount1; allmodeentry/restartpixels exact. Restart3/3, projection27/27, effects11/11,state13/13,assets6/6,release22/22; sourceprepostclean. Evidence artifacts/cards019i-round-2/critic/. Historicalparity/fullruntimeendurance unclaimed.
+
+BIGGEST GAP: JSONreceipt omits exactcontactpoint/radius though actualassertions comparecanonicalvalues; fullendurance remainsseparate.
+
+## Round 451 — 2026-10-13
+
+PIECE: ART-004 — Current sprite prototype aggregate, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Independent fresh55b source/art/testbyteequalbase. Unit10/10/assets6/6 pass; actualphone390x844 browserfailsnorth6pixels in14x14 vsunchanged8threshold (samples5/4/6, south14/16/14). Nativearena278.016x494.25, marker13.3377; desktopmarker14.7367. Prototypeattacktick3 only; genuineapp600tickscan showswalknoattack. Normalrestoreexact, reducedoutercapture5pixelmismatch. Evidence artifacts/art004-aggregate-round-1/critic/. No product delta.
+
+BIGGEST GAP: Genuine live-app attack tick is unproven; phone northteamcolor alsofails8pixelbar.
+
 ## Round 450 — 2026-10-13
 
 PIECE: GAME-001GRG — Restart listener regression gate, round 2

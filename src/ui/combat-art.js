@@ -20,6 +20,10 @@ const EMBER_BASIN_BATTLE_IMAGE = new URL(
   "../../public/assets/ember-basin-battle-sprite.webp",
   import.meta.url,
 ).href;
+const KILNKEEPER_BATTLE_IMAGE = new URL(
+  "../../public/assets/kilnkeeper-battle-sprite.webp",
+  import.meta.url,
+).href;
 const SPRITE_DIRECTIONS = Object.freeze(['north', 'east', 'south', 'west']);
 const shapes = {
   coilblade: [
@@ -149,7 +153,7 @@ for (const paths of Object.values(shapes)) {
   for (const path of paths) Object.freeze(path);
   Object.freeze(paths);
 }
-export const COMBAT_ART_ARCHETYPES = Object.freeze(Object.keys(shapes));
+export const COMBAT_ART_ARCHETYPES = Object.freeze([...Object.keys(shapes), 'kilnkeeper']);
 export const COMBAT_STRUCTURE_ART_IDS = Object.freeze(['bulwark-needle', 'ember-basin']);
 Object.freeze(shapes);
 
@@ -255,8 +259,31 @@ export function createCombatArt(document, kind, side, layer) {
   svg.setAttribute('viewBox', '0 0 64 64');
   svg.setAttribute('class', 'combat-art');
   svg.setAttribute('aria-hidden', 'true');
-  svg.dataset.artId = Object.hasOwn(shapes, kind) || kind === "ember-basin"
+  svg.dataset.artId = Object.hasOwn(shapes, kind) ||
+    kind === "ember-basin" || kind === "kilnkeeper"
     ? kind : `witness-${layer}`;
+  if (kind === "kilnkeeper") {
+    svg.setAttribute('viewBox', '0 0 512 512');
+    const teamRing = create('ellipse');
+    teamRing.setAttribute('cx', '256');
+    teamRing.setAttribute('cy', '486');
+    teamRing.setAttribute('rx', '182');
+    teamRing.setAttribute('ry', '15');
+    teamRing.setAttribute('fill', 'none');
+    teamRing.setAttribute('stroke', side === 'north' ? '#C6452E' : '#2E7F86');
+    teamRing.setAttribute('stroke-width', '34');
+    teamRing.setAttribute('aria-hidden', 'true');
+    svg.appendChild(teamRing);
+    const image = create('image');
+    image.setAttribute('href', KILNKEEPER_BATTLE_IMAGE);
+    image.setAttribute('x', '0');
+    image.setAttribute('y', '0');
+    image.setAttribute('width', '512');
+    image.setAttribute('height', '512');
+    image.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    svg.appendChild(image);
+    return svg;
+  }
   if (kind === 'ember-basin') {
     svg.setAttribute('viewBox', '0 0 512 512');
     const teamRing = create('ellipse');

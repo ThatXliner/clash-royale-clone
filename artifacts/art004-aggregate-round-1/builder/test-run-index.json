@@ -1,0 +1,85 @@
+{
+  "baseCommit": "e6fe04bdfdc963540ec439cf53fa813d62018d63",
+  "scope": "ART-004 aggregate evidence only; no source, art, demo, test, plan, rounds, progress, or index edits",
+  "runs": [
+    {
+      "command": "node --test tests/combat-sprite-prototype.test.js",
+      "exitCode": 0,
+      "passed": 10,
+      "failed": 0,
+      "rawOutput": "combat-sprite-prototype.tap"
+    },
+    {
+      "command": "node --test tests/visual-asset-manifest.test.js",
+      "exitCode": 0,
+      "passed": 6,
+      "failed": 0,
+      "rawOutput": "visual-asset-manifest.tap",
+      "relevantAssertions": [
+        "registry matches shipped assets on disk byte-for-byte",
+        "zero byte overlap with the reference corpus",
+        "provenance never references protected-game sources"
+      ]
+    },
+    {
+      "command": "node --test tests/combat-sprite-prototype-browser.test.js",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "durationMs": 12377,
+      "rawOutput": "combat-sprite-prototype-browser.tap",
+      "failure": "At actual app-shell viewport 390x844, the most visible north team color was 6 pixels in a 14x14 marker; the existing test requires at least 8. The runner still completed the 720x1280 checks and the 390x844 prototype-page walk/attack/restore captures before reaching the phone app-shell assertion."
+    }
+  ],
+  "freshActualShellCaptures": {
+    "primaryRun": "current-shell-evidence.json",
+    "phone": {
+      "viewport": "390x844",
+      "deviceScaleFactor": 1,
+      "simulationTick": 125,
+      "normalAction": "walk",
+      "normalFrames": [
+        "briar-walk-north-1",
+        "briar-walk-south-1"
+      ],
+      "reducedMotionFrames": [
+        "briar-walk-north-0",
+        "briar-walk-south-0"
+      ],
+      "normalAndReducedRestorePixelIdentical": true,
+      "northTeamPixelsAtFrame1": [7, 7, 7],
+      "screenshotPrefix": "phone-390x844-"
+    },
+    "desktop": {
+      "viewport": "1440x900",
+      "deviceScaleFactor": 1,
+      "simulationTick": 125,
+      "normalAction": "walk",
+      "normalFrames": [
+        "briar-walk-north-1",
+        "briar-walk-south-1"
+      ],
+      "reducedMotionFrames": [
+        "briar-walk-north-0",
+        "briar-walk-south-0"
+      ],
+      "normalAndReducedRestorePixelIdentical": true,
+      "screenshotPrefix": "desktop-1440x900-"
+    },
+    "attackPose": "No attack pose was observed in the actual live-session captures after 600 further simulation ticks at the ordinary or near-bridge legal deployment. The fresh prototype-page browser capture does include the tick-3 attack pose for both teams and all four facings; see prototype-demo-phone-390-attack.png."
+  },
+  "freshPhoneFailureEvidence": {
+    "screenshot": "browser-suite-phone-390-failing-render.png",
+    "counts": "browser-suite-phone-390-team-pixels.json",
+    "maximumNorthColorPixels": 6,
+    "threshold": 8,
+    "countedCrop": "14x14"
+  },
+  "sourceIsolationAndBounds": {
+    "originalPaintedAtlasProvenance": "painted-atlas-original-provenance.json",
+    "currentManifestAndDiskAudit": "asset-source-manifest-audit.json",
+    "sourceHashPrePost": "source-hashes-pre-post.json",
+    "referenceCorpusByteOverlap": "0 bytes, per visual-asset-manifest.test.js",
+    "frameAtlasBounds": "all painted action/direction/frame source windows contained in 1254x1254 atlas cells, per prototype unit test"
+  }
+}

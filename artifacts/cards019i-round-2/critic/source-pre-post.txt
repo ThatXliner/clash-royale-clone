@@ -1,0 +1,13 @@
+Candidate: 88f0beb5991016395732f71f7b465b6624a184fe
+Base: e6fe04bdfdc963540ec439cf53fa813d62018d63
+Candidate worktree was clean before and after the requested checks. The temporary node_modules symlink used to run tests was removed. Release-build rewrote four tracked test-fixture JSON files in the private checkout; those exact test side effects were restored to candidate HEAD, leaving the checkout clean.
+
+SHA-256 before and after (identical):
+aca7c17d2b6f8d4528deb37d9f1f2dd6a55d06a556c5ed45b6834b544c39bc07  src/ui/combat-art.js
+34011d20e08753c69818eb52037a07c3b2eb3166f3bb0ddc7274d3d9f2509cb2  src/ui/combat-effects.js
+163fdf2ac3fdd5bac680b98bc04ca80effec2de7f1c7c45bfc2d53637b9a4ea  src/ui/game-ui-projection.js
+3abe157fa5dfb88e6ed6be09e774ecdf8e70e7851b014c6f4c2009240580b5c0  tests/cards019-browser-integration.test.js
+73cdec8ef684dbc7027a05a08f6457a04eb65d5b5e653fab49a9be0e92f5a7d2  src/ui/arena-shell-entry.js
+56e00f0bfa449e9efa29d794c8f34793ffdef13d12a533c7d13723cfeb70f0ea  src/sim/combat-effect-feed.js
+
+The candidate has no changes to public/demo art, art provenance, reference stats, card catalog, or editable default deck between base and HEAD. The visual-asset-manifest test also passed its byte-identity and zero-reference-overlap checks.

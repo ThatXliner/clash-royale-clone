@@ -1,0 +1,9 @@
+Actual browser run:
+- node --test runner PID 8628
+- temporary game-browser-journey-server PID 8657
+- headless Google Chrome PID 8661
+All three exited when the test passed. The test-owned server and Chrome were not restarted or left running.
+
+Unrelated live process observed before and after:
+- PID 97209: Vite for /Users/me/Developer/mine/thatxliner.github.io on 127.0.0.1:5173
+Left running and untouched.

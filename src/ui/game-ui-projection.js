@@ -246,7 +246,13 @@ export function createGameUiFrame(session, options = DEFAULT_GAME_UI_OPTIONS) {
   // Validate and normalize the closed producer feed before deriving any
   // combat presentation. The combat state and effects view share this one
   // admitted source; neither consumes the session replay dialect.
-  const effects = createCombatEffectsViewModel(snapshot.combatEffectFeed, state.tick);
+  const effects = createCombatEffectsViewModel(
+    snapshot.combatEffectFeed,
+    state.tick,
+    state.battle.projectiles,
+    snapshot,
+    session,
+  );
   const feedback = createSessionMatchFeedbackViewModel(snapshot);
   const frame = composeGameUiFrame(mintFrameParts(
     snapshot,

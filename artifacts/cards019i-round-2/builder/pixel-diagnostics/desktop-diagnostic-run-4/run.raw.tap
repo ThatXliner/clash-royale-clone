@@ -1,0 +1,34 @@
+TAP version 13
+# Subtest: DIAGNOSTIC desktop-only Cards019I pixel state
+not ok 1 - DIAGNOSTIC desktop-only Cards019I pixel state
+  ---
+  duration_ms: 77879.99475
+  type: 'test'
+  location: '/private/tmp/cards019i-arena-candidate/tests/cards019-browser-desktop-diagnostic.test.js:383:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    desktop-normal-diagnostic: terminal restart renders pixels identical to the same-deck entry
+    + actual - expected
+    
+    + '1b671f1b709b2bf8b8be622aa65512c309fe0d78c70387c0b7dd05495b29e8d6'
+    - '23d1e8eacbab02a957d2bb473f8255431ae6157fc7ea3adcbc732e04713fa407'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: '23d1e8eacbab02a957d2bb473f8255431ae6157fc7ea3adcbc732e04713fa407'
+  actual: '1b671f1b709b2bf8b8be622aa65512c309fe0d78c70387c0b7dd05495b29e8d6'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/cards019i-arena-candidate/tests/cards019-browser-desktop-diagnostic.test.js:1139:12)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 78194.576959

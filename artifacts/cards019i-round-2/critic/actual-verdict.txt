@@ -1,0 +1,27 @@
+PIECE: CARDS019I — real Chrome homing, impact, restore, and terminal restart integration
+VERDICT: PASS
+
+EVIDENCE:
+
+Actual requested browser command output from the clean candidate checkout, with artifacts written to `artifacts/cards019i-round-2/critic/browser-owned`:
+
+```text
+# Subtest: Cards019I Kilnkeeper follows live projectiles in real browser battle and restores each motion mode
+ok 1
+  duration_ms: 252787.305416
+1..1
+# tests 1
+# pass 1
+# fail 0
+# duration_ms 253032.184958
+```
+
+The real Chrome run used four DPR-1 contexts: phone 390x844 and desktop 1440x933, each with normal and reduced motion. It produced 20 screenshots. In every context the player projectile launched at tick 181 with planned impact tick 182; it was still live at tick 184, at x=7500 while its target moved from x=5050 to x=5100. The actual damage event at tick 187 dealt 281, changing the target from 1034 to 753 HP. The browser assertions joined one visible splash ring to the full typed launch identity, checked its center against the canonical contact-feed point, and checked its radius against the launched profile (the profile is 1500 millitiles). The restored contact and in-flight views matched their same-mode screenshot hashes.
+
+In all four contexts the match reached terminal tick 6788 (terminal continuation returned 512 events; replay length was 524); terminal restore was byte-exact. A trusted restart click produced seed 0, the same eight-card deck, tick 0, and replay length 0. The first trusted Kilnkeeper deploy then spent 5 elixir, advanced the cycle once, and yielded one south-side deployment. The active listener graph matched the initial graph (12 listeners across the observed controls; no detached listeners). The test also asserted exact audio continuation reset, no replayed PCM cues, unique cue sequences, and same-mode screenshot SHA-256 equality between entry and restart.
+
+Requested focused suite results: `game-restart` 3/3, `game-ui-projection` 27/27, `ui-combat-effects` 11/11, `ui-combat-state` 13/13, `visual-asset-manifest` 6/6, and `release-build` 22/22. The visual manifest suite confirmed byte-identical shipped assets and zero overlap with the reference corpus. No art, provenance, stats, card catalog, or editable default-deck paths differ from the candidate base.
+
+Source SHA-256 fingerprints before and after are identical; the private candidate worktree is clean. The first browser invocation stopped before test loading because this clean checkout has no `node_modules`; the passing rerun used a temporary symlink to the matching-lockfile shared dependency directory, then removed it. The release-build suite rewrote four tracked fixture JSON files in the private checkout; those test side effects were restored to candidate HEAD.
+
+BIGGEST GAP: the generated browser evidence JSON omits the exact feed contact point and splash radius, so the passing runtime equality assertions prove them during the run but a later reviewer must rerun the browser test to recover those values.

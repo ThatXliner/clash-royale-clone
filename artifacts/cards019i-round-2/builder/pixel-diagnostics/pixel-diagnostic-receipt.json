@@ -1,0 +1,247 @@
+{
+  "scope": "Private desktop-normal diagnostic only; not the four-context qualification.",
+  "commands": [
+    "CARDS019I_BROWSER_ARTIFACTS=/tmp/cards019i-desktop-diagnostic/run2 node --test --test-name-pattern=\"DIAGNOSTIC desktop-only\" tests/cards019-browser-desktop-diagnostic.test.js",
+    "CARDS019I_BROWSER_ARTIFACTS=/tmp/cards019i-desktop-diagnostic/run4 node --test --test-name-pattern=\"DIAGNOSTIC desktop-only\" tests/cards019-browser-desktop-diagnostic.test.js",
+    "CARDS019I_BROWSER_ARTIFACTS=/tmp/cards019i-desktop-diagnostic/run5 node --test --test-name-pattern=\"DIAGNOSTIC desktop-only\" tests/cards019-browser-desktop-diagnostic.test.js"
+  ],
+  "observations": {
+    "unflushedOuterPage": {
+      "size": [
+        1440,
+        933
+      ],
+      "changedPixelCount": 9,
+      "maxChannelDelta": 5,
+      "changedPixels": [
+        {
+          "at": [
+            640,
+            366
+          ],
+          "initial": [
+            36,
+            44,
+            45
+          ],
+          "restart": [
+            40,
+            48,
+            49
+          ]
+        },
+        {
+          "at": [
+            640,
+            367
+          ],
+          "initial": [
+            36,
+            44,
+            45
+          ],
+          "restart": [
+            40,
+            48,
+            49
+          ]
+        },
+        {
+          "at": [
+            640,
+            368
+          ],
+          "initial": [
+            36,
+            44,
+            45
+          ],
+          "restart": [
+            40,
+            48,
+            49
+          ]
+        },
+        {
+          "at": [
+            72,
+            911
+          ],
+          "initial": [
+            215,
+            213,
+            203
+          ],
+          "restart": [
+            220,
+            218,
+            208
+          ]
+        },
+        {
+          "at": [
+            73,
+            912
+          ],
+          "initial": [
+            182,
+            180,
+            170
+          ],
+          "restart": [
+            181,
+            180,
+            170
+          ]
+        },
+        {
+          "at": [
+            1366,
+            912
+          ],
+          "initial": [
+            182,
+            180,
+            170
+          ],
+          "restart": [
+            181,
+            180,
+            170
+          ]
+        },
+        {
+          "at": [
+            74,
+            913
+          ],
+          "initial": [
+            182,
+            180,
+            170
+          ],
+          "restart": [
+            181,
+            180,
+            170
+          ]
+        },
+        {
+          "at": [
+            75,
+            914
+          ],
+          "initial": [
+            215,
+            213,
+            203
+          ],
+          "restart": [
+            220,
+            218,
+            208
+          ]
+        },
+        {
+          "at": [
+            1364,
+            914
+          ],
+          "initial": [
+            215,
+            213,
+            203
+          ],
+          "restart": [
+            220,
+            218,
+            208
+          ]
+        }
+      ],
+      "initialPngSha256": "1e53b0f8c78ccb3c29322e7998d6bbf02aae03b45000d22eb15c0a6f2e66e923",
+      "restartPngSha256": "1549d2eb7e6f9a9344953491ca264ca3ad6d3454f648d9244325d40082a445a0"
+    },
+    "initialRepeatedOuterPage": {
+      "size": [
+        1440,
+        933
+      ],
+      "changedPixelCount": 0,
+      "maxChannelDelta": 0,
+      "changedPixels": [],
+      "initialPngSha256": "1e53b0f8c78ccb3c29322e7998d6bbf02aae03b45000d22eb15c0a6f2e66e923",
+      "restartPngSha256": "1e53b0f8c78ccb3c29322e7998d6bbf02aae03b45000d22eb15c0a6f2e66e923"
+    },
+    "restartRepeatedOuterPage": {
+      "size": [
+        1440,
+        933
+      ],
+      "changedPixelCount": 0,
+      "maxChannelDelta": 0,
+      "changedPixels": [],
+      "initialPngSha256": "1549d2eb7e6f9a9344953491ca264ca3ad6d3454f648d9244325d40082a445a0",
+      "restartPngSha256": "1549d2eb7e6f9a9344953491ca264ca3ad6d3454f648d9244325d40082a445a0"
+    },
+    "unflushedInnerFrame": {
+      "size": [
+        430,
+        762
+      ],
+      "changedPixelCount": 0,
+      "maxChannelDelta": 0,
+      "changedPixels": [],
+      "initialPngSha256": "e02270fd1b2002bdf74ce6796553207a862de99dd9820b1e6dd8a393e889f113",
+      "restartPngSha256": "e02270fd1b2002bdf74ce6796553207a862de99dd9820b1e6dd8a393e889f113"
+    },
+    "flushedOuterPage": {
+      "size": [
+        1440,
+        933
+      ],
+      "changedPixelCount": 0,
+      "maxChannelDelta": 0,
+      "changedPixels": [],
+      "initialPngSha256": "1b671f1b709b2bf8b8be622aa65512c309fe0d78c70387c0b7dd05495b29e8d6",
+      "restartPngSha256": "1b671f1b709b2bf8b8be622aa65512c309fe0d78c70387c0b7dd05495b29e8d6"
+    },
+    "flushedRepeatedOuterPageInitial": {
+      "size": [
+        1440,
+        933
+      ],
+      "changedPixelCount": 0,
+      "maxChannelDelta": 0,
+      "changedPixels": [],
+      "initialPngSha256": "1b671f1b709b2bf8b8be622aa65512c309fe0d78c70387c0b7dd05495b29e8d6",
+      "restartPngSha256": "1b671f1b709b2bf8b8be622aa65512c309fe0d78c70387c0b7dd05495b29e8d6"
+    },
+    "flushedRepeatedOuterPageRestart": {
+      "size": [
+        1440,
+        933
+      ],
+      "changedPixelCount": 0,
+      "maxChannelDelta": 0,
+      "changedPixels": [],
+      "initialPngSha256": "1b671f1b709b2bf8b8be622aa65512c309fe0d78c70387c0b7dd05495b29e8d6",
+      "restartPngSha256": "1b671f1b709b2bf8b8be622aa65512c309fe0d78c70387c0b7dd05495b29e8d6"
+    },
+    "flushedInnerFrame": {
+      "size": [
+        430,
+        762
+      ],
+      "changedPixelCount": 0,
+      "maxChannelDelta": 0,
+      "changedPixels": [],
+      "initialPngSha256": "e02270fd1b2002bdf74ce6796553207a862de99dd9820b1e6dd8a393e889f113",
+      "restartPngSha256": "e02270fd1b2002bdf74ce6796553207a862de99dd9820b1e6dd8a393e889f113"
+    },
+    "outerLayoutAndHitStyleJsonSame": true,
+    "arenaDomTreeAndLayerJsonSame": true,
+    "framePaintSynchronization": "Capture the actual iframe body, await two child-frame requestAnimationFrame boundaries, then capture the unchanged top-level page viewport. The desktop-only diagnostic passes with exact page pixel equality."
+  },
+  "finalFourContextRun": "artifacts/cards019i-round-2/builder/browser-same-deck-restart-r14.raw.tap"
+}
