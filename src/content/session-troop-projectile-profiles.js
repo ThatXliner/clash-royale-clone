@@ -27,6 +27,7 @@ import {
   getOrdinaryProjectileDeliveryPolicy,
 } from "../shared/ordinary-projectile-delivery-authority.js";
 import { createOrdinaryProjectileSquadCatalog } from "./cards/ordinary-projectile-squads.js";
+import { createOrdinaryProjectileSplashCatalog } from "./cards/ordinary-projectile-splash.js";
 
 const VERSION = 1;
 const MAX_SOURCE_CATALOG_ROWS = 64;
@@ -966,20 +967,32 @@ function assertHtpSurface(htpManifest) {
 }
 
 function assertOrdinarySourceClaims(htpManifest, htpMap) {
-  if (ORDINARY_PROJECTILE_SOURCE_CLAIMS.length !== 3) {
-    throw new Error("ordinary projectile source admission must contain exactly three claims");
+  if (ORDINARY_PROJECTILE_SOURCE_CLAIMS.length !== 4) {
+    throw new Error("ordinary projectile source admission must contain exactly four claims");
   }
-  const rows = createOrdinaryProjectileSquadCatalog();
-  if (!Array.isArray(rows) || rows.length !== 3) {
-    throw new Error("ordinary projectile source catalog must contain exactly three cards");
+  const catalogs = new Map([
+    ["createOrdinaryProjectileSquadCatalog", {
+      catalogId: "ordinary-projectile-squads-v1",
+      rows: createOrdinaryProjectileSquadCatalog(),
+    }],
+    ["createOrdinaryProjectileSplashCatalog", {
+      catalogId: "ordinary-projectile-splash-v1",
+      rows: createOrdinaryProjectileSplashCatalog(),
+    }],
+  ]);
+  const rowMaps = new Map();
+  for (const [exportName, { rows }] of catalogs) {
+    if (!Array.isArray(rows)) {
+      throw new Error(`${exportName} must return an ordinary projectile source catalog`);
+    }
+    rowMaps.set(exportName, new Map(rows.map((row) => [row.id, row])));
   }
-  const rowById = new Map(rows.map((row) => [row.id, row]));
   const pairs = [];
   for (const claim of ORDINARY_PROJECTILE_SOURCE_CLAIMS) {
     exactKeys(claim, ["archetypeId", "cardId", "catalogId", "sourceExport"],
       "ordinary projectile source claim", { exactPrototype: true });
-    if (claim.catalogId !== "ordinary-projectile-squads-v1" ||
-        claim.sourceExport !== "createOrdinaryProjectileSquadCatalog") {
+    const catalog = catalogs.get(claim.sourceExport);
+    if (catalog === undefined || claim.catalogId !== catalog.catalogId) {
       throw new Error("ordinary projectile source claim is not bound to its canonical catalog");
     }
     const spec = { exportName: claim.sourceExport, id: claim.cardId };
@@ -991,7 +1004,7 @@ function assertOrdinarySourceClaims(htpManifest, htpMap) {
     }
     const profile = htpProfileFor(htpManifest, spec,
       `${claim.sourceExport}/${claim.cardId}`);
-    const sourceCard = rowById.get(claim.cardId);
+    const sourceCard = rowMaps.get(claim.sourceExport).get(claim.cardId);
     if (sourceCard === undefined || sourceCard.components.length !== 1 ||
         sourceCard.count !== sourceCard.components[0].count ||
         sourceCard.components[0].id !== claim.archetypeId ||
@@ -1011,9 +1024,11 @@ function assertOrdinarySourceClaims(htpManifest, htpMap) {
   const expectedPairs = ORDINARY_PROJECTILE_SOURCE_CLAIMS
     .map(({ cardId, sourceExport }) => sourceRecordKey(sourceExport, cardId))
     .sort(compareText);
-  if (canonical(pairs.slice().sort(compareText)) !== canonical(expectedPairs) ||
-      canonical([...rowById.keys()].sort(compareText)) !==
-        canonical(ORDINARY_PROJECTILE_SOURCE_CLAIMS.map(({ cardId }) => cardId).sort(compareText))) {
+  const rowsMatchClaims = [...catalogs.keys()].every((exportName) =>
+    canonical([...rowMaps.get(exportName).keys()].sort(compareText)) === canonical(
+      ORDINARY_PROJECTILE_SOURCE_CLAIMS.filter(({ sourceExport }) => sourceExport === exportName)
+        .map(({ cardId }) => cardId).sort(compareText)));
+  if (canonical(pairs.slice().sort(compareText)) !== canonical(expectedPairs) || !rowsMatchClaims) {
     throw new Error("ordinary projectile source claim pairs do not exactly match their catalog rows");
   }
   return pairs;

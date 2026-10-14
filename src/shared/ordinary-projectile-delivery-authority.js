@@ -18,9 +18,28 @@ export const ORDINARY_PROJECTILE_SOURCE_CLAIMS = Object.freeze([
     catalogId: CATALOG_ID,
     sourceExport: "createOrdinaryProjectileSquadCatalog",
   }),
+  Object.freeze({
+    cardId: "kilnkeeper",
+    archetypeId: "kilnkeeper",
+    catalogId: "ordinary-projectile-splash-v1",
+    sourceExport: "createOrdinaryProjectileSplashCatalog",
+  }),
 ]);
+const SPLASH_SOURCE_PROFILE = Object.freeze({
+  archetypeId: "kilnkeeper",
+  cardId: "kilnkeeper",
+  catalogId: "ordinary-projectile-splash-v1",
+  enemiesOnly: true,
+  radiusMillitiles: 1_500,
+  sourceExport: "createOrdinaryProjectileSplashCatalog",
+  targetLayers: Object.freeze(["air", "ground"]),
+});
 const POLICY_KEYS = Object.freeze([
   "archetypeId", "cardId", "catalogId", "delivery", "kind",
+]);
+const SPLASH_PROFILE_KEYS = Object.freeze([
+  "archetypeId", "cardId", "catalogId", "enemiesOnly", "radiusMillitiles",
+  "sourceExport", "targetLayers",
 ]);
 
 function exact(value, keys, label) {
@@ -38,6 +57,20 @@ function exact(value, keys, label) {
     throw new TypeError(`${label} has an invalid shape`);
   }
   return Object.fromEntries(keys.map((key) => [key, descriptors[key].value]));
+}
+
+function exactLayers(value, expected) {
+  if (!Array.isArray(value) || Object.getPrototypeOf(value) !== Array.prototype ||
+      value.length !== expected.length) return false;
+  const descriptors = Object.getOwnPropertyDescriptors(value);
+  if (Reflect.ownKeys(descriptors).length !== expected.length + 1 ||
+      !Object.hasOwn(descriptors, "length") || descriptors.length.value !== expected.length ||
+      descriptors.length.enumerable || Object.hasOwn(descriptors, Symbol.iterator)) return false;
+  return expected.every((layer, index) => {
+    const descriptor = descriptors[String(index)];
+    return descriptor !== undefined && descriptor.enumerable &&
+      Object.hasOwn(descriptor, "value") && descriptor.value === layer;
+  });
 }
 
 function claimFor(cardId, archetypeId) {
@@ -58,6 +91,46 @@ export function getOrdinaryProjectileDeliveryPolicy(cardId, archetypeId) {
     delivery: "projectile",
     kind: "source-backed",
   };
+}
+
+export function getOrdinaryProjectileSplashProfile(cardId, archetypeId) {
+  if (typeof cardId !== "string" || typeof archetypeId !== "string") {
+    throw new TypeError("ordinary projectile splash identities must be strings");
+  }
+  if (cardId !== SPLASH_SOURCE_PROFILE.cardId ||
+      archetypeId !== SPLASH_SOURCE_PROFILE.archetypeId) return null;
+  return {
+    ...SPLASH_SOURCE_PROFILE,
+    targetLayers: [...SPLASH_SOURCE_PROFILE.targetLayers],
+  };
+}
+
+export function getOrdinaryProjectileSplashSourceFacts(cardId, archetypeId) {
+  const profile = getOrdinaryProjectileSplashProfile(cardId, archetypeId);
+  if (profile === null) return null;
+  return {
+    aoeToAir: profile.targetLayers.includes("air"),
+    aoeToGround: profile.targetLayers.includes("ground"),
+    characterAreaDamageRadiusMillitiles: 0,
+    homing: true,
+    onlyEnemies: profile.enemiesOnly,
+    radiusMillitiles: profile.radiusMillitiles,
+    speedRaw: 600,
+  };
+}
+
+export function assertOrdinaryProjectileSplashProfile(value, cardId, archetypeId) {
+  const profile = exact(value, SPLASH_PROFILE_KEYS, "ordinary projectile splash profile");
+  const expected = getOrdinaryProjectileSplashProfile(cardId, archetypeId);
+  if (expected === null || profile.archetypeId !== expected.archetypeId ||
+      profile.cardId !== expected.cardId || profile.catalogId !== expected.catalogId ||
+      profile.enemiesOnly !== expected.enemiesOnly ||
+      profile.radiusMillitiles !== expected.radiusMillitiles ||
+      profile.sourceExport !== expected.sourceExport ||
+      !exactLayers(profile.targetLayers, expected.targetLayers)) {
+    throw new TypeError("ordinary projectile splash profile differs from its admitted source claim");
+  }
+  return expected;
 }
 
 function createAdmittedPolicy(cardId, archetypeId) {

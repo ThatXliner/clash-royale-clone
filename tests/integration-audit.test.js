@@ -226,7 +226,7 @@ test("canonical integration audit removes temporary output after rename failure"
 
 test("canonical integration audit samples all direct occurrence mechanics", () => {
   const artifacts = probeDirectOccurrenceAdapters();
-  assert.equal(artifacts.length, 66);
+  assert.equal(artifacts.length, 67);
   for (const artifact of artifacts) {
     const facades = new Set();
     for (const [field, payloadKey] of [
@@ -304,9 +304,9 @@ test("canonical integration audit executes every supported card and reproduces a
 }, () => {
   const result = auditCanonicalIntegration({ runs: 2 });
 
-  assert.equal(result.supported, 66);
-  assert.equal(result.covered, 66);
-  assert.equal(result.uniqueSupportedIds, 61);
+  assert.equal(result.supported, 67);
+  assert.equal(result.covered, 67);
+  assert.equal(result.uniqueSupportedIds, 62);
   assert.equal(result.question, 5);
   assert.equal(result.runHashes.length, 2);
   assert.equal(result.runHashes[0], result.runHashes[1]);

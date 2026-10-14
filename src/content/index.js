@@ -44,6 +44,10 @@ export {
 } from "./cards/ordinary-projectile-squads.js";
 
 export {
+  createOrdinaryProjectileSplashCatalog,
+} from "./cards/ordinary-projectile-splash.js";
+
+export {
   SpawnBatchMaterializer,
   createSpawnPlacementQuestionRecords,
 } from "./cards/spawn-placement.js";

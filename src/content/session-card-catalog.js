@@ -15,6 +15,7 @@ const CLAIMS = Object.freeze([
   ["createBasicMeleeCatalog", ["coilblade", "ironroot", "mossguard"]],
   ["createBasicRangedCatalog", ["brassbolt", "reedsting"]],
   ["createOrdinaryProjectileSquadCatalog", ["coppershade-flock", "duskwing-trio", "sunthread-pair"]],
+  ["createOrdinaryProjectileSplashCatalog", ["kilnkeeper"]],
   ["createSwarmCatalog", ["briar-band", "cinder-host", "cinderlings", "forgeguard", "gloamwing-cluster", "thornscouts"]],
   ["DEATH_SPAWN_IDENTITY", ["ashen-nest"]],
   ["DEATH_CONVERSION_IDENTITY", ["gloam-shepherd"]],

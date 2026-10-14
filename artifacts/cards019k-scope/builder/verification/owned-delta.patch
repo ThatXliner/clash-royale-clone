@@ -1,0 +1,1965 @@
+diff --git a/scripts/integration-audit.js b/scripts/integration-audit.js
+index a6cfc2d..6131997 100644
+--- a/scripts/integration-audit.js
++++ b/scripts/integration-audit.js
+@@ -38,6 +38,7 @@ const claims = [
+   claim("createBasicFlyingCatalog", "cards/basic-flying.js", "cards-basic-flying", ["copperskiff", "skymaul"]),
+   claim("createBasicMeleeCatalog", "cards/basic-melee.js", "cards-basic-melee", ["coilblade", "ironroot", "mossguard"]),
+   claim("createBasicRangedCatalog", "cards/basic-ranged.js", "cards-basic-ranged", ["brassbolt", "reedsting"]),
++  claim("createOrdinaryProjectileSplashCatalog", "cards/ordinary-projectile-splash.js", "game-roster-troops-ordinary", ["kilnkeeper"]),
+   claim("createOrdinaryProjectileSquadCatalog", "cards/ordinary-projectile-squads.js", "game-roster-troops-ordinary", ["coppershade-flock", "duskwing-trio", "sunthread-pair"]),
+   claim("createSwarmCatalog", "cards/swarms.js", "cards-swarms", ["briar-band", "cinder-host", "cinderlings", "forgeguard", "gloamwing-cluster", "thornscouts"]),
+   claim("DEATH_SPAWN_IDENTITY", "cards/death-spawns.js", "death-spawns", ["ashen-nest"], "createDeathSpawnFixture"),
+diff --git a/src/content/index.js b/src/content/index.js
+index c0333ef..03c672e 100644
+--- a/src/content/index.js
++++ b/src/content/index.js
+@@ -43,6 +43,10 @@ export {
+   createOrdinaryProjectileSquadCatalog,
+ } from "./cards/ordinary-projectile-squads.js";
+ 
++export {
++  createOrdinaryProjectileSplashCatalog,
++} from "./cards/ordinary-projectile-splash.js";
++
+ export {
+   SpawnBatchMaterializer,
+   createSpawnPlacementQuestionRecords,
+diff --git a/src/content/session-card-catalog.js b/src/content/session-card-catalog.js
+index 132dcc8..bcf630d 100644
+--- a/src/content/session-card-catalog.js
++++ b/src/content/session-card-catalog.js
+@@ -15,6 +15,7 @@ const CLAIMS = Object.freeze([
+   ["createBasicMeleeCatalog", ["coilblade", "ironroot", "mossguard"]],
+   ["createBasicRangedCatalog", ["brassbolt", "reedsting"]],
+   ["createOrdinaryProjectileSquadCatalog", ["coppershade-flock", "duskwing-trio", "sunthread-pair"]],
++  ["createOrdinaryProjectileSplashCatalog", ["kilnkeeper"]],
+   ["createSwarmCatalog", ["briar-band", "cinder-host", "cinderlings", "forgeguard", "gloamwing-cluster", "thornscouts"]],
+   ["DEATH_SPAWN_IDENTITY", ["ashen-nest"]],
+   ["DEATH_CONVERSION_IDENTITY", ["gloam-shepherd"]],
+diff --git a/src/content/session-troop-profile-catalog.js b/src/content/session-troop-profile-catalog.js
+index e1f35c1..1a8917b 100644
+--- a/src/content/session-troop-profile-catalog.js
++++ b/src/content/session-troop-profile-catalog.js
+@@ -11,10 +11,10 @@ const UNIT_QUESTION_CLASSIFICATIONS = Object.freeze([
+   Object.freeze({ exportName: "DEATH_CONVERSION_IDENTITY", id: "gloam-shepherd" }),
+ ]);
+ const EXPECTED_COUNTS = Object.freeze({
+-  admittedIds: 39,
+-  admittedOccurrences: 41,
+-  claimedIds: 41,
+-  claimedOccurrences: 43,
++  admittedIds: 40,
++  admittedOccurrences: 42,
++  claimedIds: 42,
++  claimedOccurrences: 44,
+   duplicateCompositionIds: 2,
+   questionIds: 2,
+   questionOccurrences: 2,
+diff --git a/src/content/session-troop-projectile-profiles.js b/src/content/session-troop-projectile-profiles.js
+index 046d1da..3eaf644 100644
+--- a/src/content/session-troop-projectile-profiles.js
++++ b/src/content/session-troop-projectile-profiles.js
+@@ -27,6 +27,7 @@ import {
+   getOrdinaryProjectileDeliveryPolicy,
+ } from "../shared/ordinary-projectile-delivery-authority.js";
+ import { createOrdinaryProjectileSquadCatalog } from "./cards/ordinary-projectile-squads.js";
++import { createOrdinaryProjectileSplashCatalog } from "./cards/ordinary-projectile-splash.js";
+ 
+ const VERSION = 1;
+ const MAX_SOURCE_CATALOG_ROWS = 64;
+@@ -966,20 +967,32 @@ function assertHtpSurface(htpManifest) {
+ }
+ 
+ function assertOrdinarySourceClaims(htpManifest, htpMap) {
+-  if (ORDINARY_PROJECTILE_SOURCE_CLAIMS.length !== 3) {
+-    throw new Error("ordinary projectile source admission must contain exactly three claims");
++  if (ORDINARY_PROJECTILE_SOURCE_CLAIMS.length !== 4) {
++    throw new Error("ordinary projectile source admission must contain exactly four claims");
+   }
+-  const rows = createOrdinaryProjectileSquadCatalog();
+-  if (!Array.isArray(rows) || rows.length !== 3) {
+-    throw new Error("ordinary projectile source catalog must contain exactly three cards");
++  const catalogs = new Map([
++    ["createOrdinaryProjectileSquadCatalog", {
++      catalogId: "ordinary-projectile-squads-v1",
++      rows: createOrdinaryProjectileSquadCatalog(),
++    }],
++    ["createOrdinaryProjectileSplashCatalog", {
++      catalogId: "ordinary-projectile-splash-v1",
++      rows: createOrdinaryProjectileSplashCatalog(),
++    }],
++  ]);
++  const rowMaps = new Map();
++  for (const [exportName, { rows }] of catalogs) {
++    if (!Array.isArray(rows)) {
++      throw new Error(`${exportName} must return an ordinary projectile source catalog`);
++    }
++    rowMaps.set(exportName, new Map(rows.map((row) => [row.id, row])));
+   }
+-  const rowById = new Map(rows.map((row) => [row.id, row]));
+   const pairs = [];
+   for (const claim of ORDINARY_PROJECTILE_SOURCE_CLAIMS) {
+     exactKeys(claim, ["archetypeId", "cardId", "catalogId", "sourceExport"],
+       "ordinary projectile source claim", { exactPrototype: true });
+-    if (claim.catalogId !== "ordinary-projectile-squads-v1" ||
+-        claim.sourceExport !== "createOrdinaryProjectileSquadCatalog") {
++    const catalog = catalogs.get(claim.sourceExport);
++    if (catalog === undefined || claim.catalogId !== catalog.catalogId) {
+       throw new Error("ordinary projectile source claim is not bound to its canonical catalog");
+     }
+     const spec = { exportName: claim.sourceExport, id: claim.cardId };
+@@ -991,7 +1004,7 @@ function assertOrdinarySourceClaims(htpManifest, htpMap) {
+     }
+     const profile = htpProfileFor(htpManifest, spec,
+       `${claim.sourceExport}/${claim.cardId}`);
+-    const sourceCard = rowById.get(claim.cardId);
++    const sourceCard = rowMaps.get(claim.sourceExport).get(claim.cardId);
+     if (sourceCard === undefined || sourceCard.components.length !== 1 ||
+         sourceCard.count !== sourceCard.components[0].count ||
+         sourceCard.components[0].id !== claim.archetypeId ||
+@@ -1011,9 +1024,11 @@ function assertOrdinarySourceClaims(htpManifest, htpMap) {
+   const expectedPairs = ORDINARY_PROJECTILE_SOURCE_CLAIMS
+     .map(({ cardId, sourceExport }) => sourceRecordKey(sourceExport, cardId))
+     .sort(compareText);
+-  if (canonical(pairs.slice().sort(compareText)) !== canonical(expectedPairs) ||
+-      canonical([...rowById.keys()].sort(compareText)) !==
+-        canonical(ORDINARY_PROJECTILE_SOURCE_CLAIMS.map(({ cardId }) => cardId).sort(compareText))) {
++  const rowsMatchClaims = [...catalogs.keys()].every((exportName) =>
++    canonical([...rowMaps.get(exportName).keys()].sort(compareText)) === canonical(
++      ORDINARY_PROJECTILE_SOURCE_CLAIMS.filter(({ sourceExport }) => sourceExport === exportName)
++        .map(({ cardId }) => cardId).sort(compareText)));
++  if (canonical(pairs.slice().sort(compareText)) !== canonical(expectedPairs) || !rowsMatchClaims) {
+     throw new Error("ordinary projectile source claim pairs do not exactly match their catalog rows");
+   }
+   return pairs;
+diff --git a/src/content/session-troop-projectile-source-admission.js b/src/content/session-troop-projectile-source-admission.js
+index d1e7b79..11df7d7 100644
+--- a/src/content/session-troop-projectile-source-admission.js
++++ b/src/content/session-troop-projectile-source-admission.js
+@@ -2,6 +2,7 @@ import { createBasicFlyingCatalog } from "./cards/basic-flying.js";
+ import { createBasicMeleeCatalog } from "./cards/basic-melee.js";
+ import { createBasicRangedCatalog } from "./cards/basic-ranged.js";
+ import { createSwarmCatalog } from "./cards/swarms.js";
++import { createOrdinaryProjectileSplashCatalog } from "./cards/ordinary-projectile-splash.js";
+ import { createChainSpecialCatalog } from "./cards/special-projectiles-chain.js";
+ import { createPierceSpecialCatalog } from "./cards/special-projectiles-pierce.js";
+ import { createReturnSpecialCatalog } from "./cards/special-projectiles-return.js";
+@@ -72,6 +73,7 @@ export const AUTHORITATIVE_PROJECTILE_SOURCE_IDS_BY_EXPORT = Object.freeze({
+   createReturnSpecialCatalog: Object.freeze(["rune-reaver"]),
+   createPelletSpecialCatalog: Object.freeze(["scatterguard"]),
+   createReflectionSpecialCatalog: Object.freeze(["aegis-sage"]),
++  createOrdinaryProjectileSplashCatalog: Object.freeze(["kilnkeeper"]),
+ });
+ 
+ const SOURCE_BINDINGS = Object.freeze({
+@@ -84,6 +86,7 @@ const SOURCE_BINDINGS = Object.freeze({
+   createReturnSpecialCatalog,
+   createPelletSpecialCatalog,
+   createReflectionSpecialCatalog,
++  createOrdinaryProjectileSplashCatalog,
+ });
+ 
+ function clone(value) {
+@@ -121,7 +124,7 @@ function sourceRecordKey(exportName, id) {
+   return `${exportName}\u0000${id}`;
+ }
+ 
+-// This is the one closed authoritative witness for all nine source catalogs.
++// This is the one closed authoritative witness for every admitted source catalog.
+ // It is a complete canonical serialization, not a collision-prone digest.
+ const EXPECTED_SOURCE_WITNESS_MAP = Object.freeze({
+   [sourceRecordKey("createBasicMeleeCatalog", "coilblade")]: canonical({
+@@ -581,6 +584,25 @@ const EXPECTED_SOURCE_WITNESS_MAP = Object.freeze({
+     sightRangeMillitiles: 5500,
+     targetMode: "ground",
+   }),
++  [sourceRecordKey("createOrdinaryProjectileSplashCatalog", "kilnkeeper")]: canonical({
++    areaDamageRadiusMillitiles: null,
++    components: [],
++    cost: 5,
++    count: 1,
++    damage: 281,
++    deployTimeTicks: 60,
++    displayName: "Kilnkeeper",
++    firstHitTicks: 60,
++    hitSpeedTicks: 84,
++    hitpoints: 720,
++    id: "kilnkeeper",
++    kind: "unit",
++    movementMillitilesPerSecond: 1000,
++    rangeMillitiles: 5500,
++    rarity: "uncommon",
++    sightRangeMillitiles: 5500,
++    targetMode: "ground-and-air",
++  }),
+ });
+ 
+ function exactKeys(value, expected, label) {
+diff --git a/src/content/session-troop-roster.js b/src/content/session-troop-roster.js
+index 632701f..cac9616 100644
+--- a/src/content/session-troop-roster.js
++++ b/src/content/session-troop-roster.js
+@@ -2,6 +2,7 @@ import { createBasicFlyingCatalog } from "./cards/basic-flying.js";
+ import { createBasicMeleeCatalog } from "./cards/basic-melee.js";
+ import { createBasicRangedCatalog } from "./cards/basic-ranged.js";
+ import { createOrdinaryProjectileSquadCatalog } from "./cards/ordinary-projectile-squads.js";
++import { createOrdinaryProjectileSplashCatalog } from "./cards/ordinary-projectile-splash.js";
+ import { createSwarmCatalog } from "./cards/swarms.js";
+ import { createStructureSeekerCatalog } from "./cards/structure-seeker.js";
+ import { createShieldFormCatalog } from "./cards/shields-forms.js";
+@@ -31,7 +32,11 @@ import {
+ import { createSessionTroopProfileManifest } from "./session-troop-profile-catalog.js";
+ import { assertSafeCardCatalogGraph } from "./schema.js";
+ import { assertAuthoritativeProjectileSourceCatalogs } from "./session-troop-projectile-source-admission.js";
+-import { getOrdinaryProjectileDeliveryPolicy } from "../shared/ordinary-projectile-delivery-authority.js";
++import {
++  getOrdinaryProjectileDeliveryPolicy,
++  getOrdinaryProjectileSplashProfile,
++  getOrdinaryProjectileSplashSourceFacts,
++} from "../shared/ordinary-projectile-delivery-authority.js";
+ import {
+   encodeSessionTroopSourceConfidenceValue,
+   getSessionTroopSourceConfidencePolicy,
+@@ -61,12 +66,14 @@ export const EDITABLE_DECK_CARD_IDS = Object.freeze([
+   "duskwing-trio",
+   "gloamwing-cluster",
+   "coppershade-flock",
++  "kilnkeeper",
+ ]);
+ 
+ // These are source-occurrence classifications for an ordinary runtime estimate.
+ // They do not claim the special mechanic represented by the catalog export.
+ const PROJECTILE_OCCURRENCES = new Set([
+   "createOrdinaryProjectileSquadCatalog",
++  "createOrdinaryProjectileSplashCatalog",
+   "createChainSpecialCatalog",
+   "createPelletSpecialCatalog",
+   "createPierceSpecialCatalog",
+@@ -79,6 +86,7 @@ const SOURCE_FACTORIES = Object.freeze({
+   createBasicMeleeCatalog,
+   createBasicRangedCatalog,
+   createOrdinaryProjectileSquadCatalog,
++  createOrdinaryProjectileSplashCatalog,
+   createSwarmCatalog,
+   createStructureSeekerCatalog,
+   createShieldFormCatalog,
+@@ -366,6 +374,12 @@ function projectOrdinaryEntity(card, component) {
+   };
+   const sourceConfidencePolicy = getSessionTroopSourceConfidencePolicy(card.id, archetypeId);
+   if (sourceConfidencePolicy !== null) entity.sourceConfidencePolicy = sourceConfidencePolicy;
++  const splashPolicy = getOrdinaryProjectileSplashProfile(card.id, archetypeId);
++  if (splashPolicy !== null) {
++    entity.projectileSplashPolicy = splashPolicy;
++    entity.projectileSplashSourceFacts =
++      getOrdinaryProjectileSplashSourceFacts(card.id, archetypeId);
++  }
+   if (source.damage === null) {
+     entity.damagePolicy = questionPolicy(`${archetypeId}.damage`);
+   }
+@@ -451,9 +465,13 @@ function questionRecordFor(key, card) {
+   const confidenceField = entity.sourceConfidencePolicy?.fields.find((field) =>
+     field.questionKey === key);
+   if (confidenceField !== undefined) {
+-    return estimateQuestion(key, encodeSessionTroopSourceConfidenceValue(
+-      confidenceField.valueEncoding, entity[confidenceField.field],
++    const value = confidenceField.field.split(".")
++      .reduce((current, field) => current?.[field], entity);
++    const record = estimateQuestion(key, encodeSessionTroopSourceConfidenceValue(
++      confidenceField.valueEncoding, value,
+     ));
++    if (confidenceField.source !== undefined) record.source = confidenceField.source;
++    return record;
+   }
+   if (key.endsWith(".body-radius-millitiles")) {
+     return estimateQuestion(key, estimateBodyRadius(entity));
+diff --git a/src/shared/ordinary-projectile-delivery-authority.js b/src/shared/ordinary-projectile-delivery-authority.js
+index d510ead..5b1aae5 100644
+--- a/src/shared/ordinary-projectile-delivery-authority.js
++++ b/src/shared/ordinary-projectile-delivery-authority.js
+@@ -18,10 +18,29 @@ export const ORDINARY_PROJECTILE_SOURCE_CLAIMS = Object.freeze([
+     catalogId: CATALOG_ID,
+     sourceExport: "createOrdinaryProjectileSquadCatalog",
+   }),
++  Object.freeze({
++    cardId: "kilnkeeper",
++    archetypeId: "kilnkeeper",
++    catalogId: "ordinary-projectile-splash-v1",
++    sourceExport: "createOrdinaryProjectileSplashCatalog",
++  }),
+ ]);
++const SPLASH_SOURCE_PROFILE = Object.freeze({
++  archetypeId: "kilnkeeper",
++  cardId: "kilnkeeper",
++  catalogId: "ordinary-projectile-splash-v1",
++  enemiesOnly: true,
++  radiusMillitiles: 1_500,
++  sourceExport: "createOrdinaryProjectileSplashCatalog",
++  targetLayers: Object.freeze(["air", "ground"]),
++});
+ const POLICY_KEYS = Object.freeze([
+   "archetypeId", "cardId", "catalogId", "delivery", "kind",
+ ]);
++const SPLASH_PROFILE_KEYS = Object.freeze([
++  "archetypeId", "cardId", "catalogId", "enemiesOnly", "radiusMillitiles",
++  "sourceExport", "targetLayers",
++]);
+ 
+ function exact(value, keys, label) {
+   if (value === null || typeof value !== "object" || Array.isArray(value) ||
+@@ -40,6 +59,20 @@ function exact(value, keys, label) {
+   return Object.fromEntries(keys.map((key) => [key, descriptors[key].value]));
+ }
+ 
++function exactLayers(value, expected) {
++  if (!Array.isArray(value) || Object.getPrototypeOf(value) !== Array.prototype ||
++      value.length !== expected.length) return false;
++  const descriptors = Object.getOwnPropertyDescriptors(value);
++  if (Reflect.ownKeys(descriptors).length !== expected.length + 1 ||
++      !Object.hasOwn(descriptors, "length") || descriptors.length.value !== expected.length ||
++      descriptors.length.enumerable || Object.hasOwn(descriptors, Symbol.iterator)) return false;
++  return expected.every((layer, index) => {
++    const descriptor = descriptors[String(index)];
++    return descriptor !== undefined && descriptor.enumerable &&
++      Object.hasOwn(descriptor, "value") && descriptor.value === layer;
++  });
++}
++
+ function claimFor(cardId, archetypeId) {
+   return ORDINARY_PROJECTILE_SOURCE_CLAIMS.find((claim) => claim.cardId === cardId &&
+     claim.archetypeId === archetypeId);
+@@ -60,6 +93,46 @@ export function getOrdinaryProjectileDeliveryPolicy(cardId, archetypeId) {
+   };
+ }
+ 
++export function getOrdinaryProjectileSplashProfile(cardId, archetypeId) {
++  if (typeof cardId !== "string" || typeof archetypeId !== "string") {
++    throw new TypeError("ordinary projectile splash identities must be strings");
++  }
++  if (cardId !== SPLASH_SOURCE_PROFILE.cardId ||
++      archetypeId !== SPLASH_SOURCE_PROFILE.archetypeId) return null;
++  return {
++    ...SPLASH_SOURCE_PROFILE,
++    targetLayers: [...SPLASH_SOURCE_PROFILE.targetLayers],
++  };
++}
++
++export function getOrdinaryProjectileSplashSourceFacts(cardId, archetypeId) {
++  const profile = getOrdinaryProjectileSplashProfile(cardId, archetypeId);
++  if (profile === null) return null;
++  return {
++    aoeToAir: profile.targetLayers.includes("air"),
++    aoeToGround: profile.targetLayers.includes("ground"),
++    characterAreaDamageRadiusMillitiles: 0,
++    homing: true,
++    onlyEnemies: profile.enemiesOnly,
++    radiusMillitiles: profile.radiusMillitiles,
++    speedRaw: 600,
++  };
++}
++
++export function assertOrdinaryProjectileSplashProfile(value, cardId, archetypeId) {
++  const profile = exact(value, SPLASH_PROFILE_KEYS, "ordinary projectile splash profile");
++  const expected = getOrdinaryProjectileSplashProfile(cardId, archetypeId);
++  if (expected === null || profile.archetypeId !== expected.archetypeId ||
++      profile.cardId !== expected.cardId || profile.catalogId !== expected.catalogId ||
++      profile.enemiesOnly !== expected.enemiesOnly ||
++      profile.radiusMillitiles !== expected.radiusMillitiles ||
++      profile.sourceExport !== expected.sourceExport ||
++      !exactLayers(profile.targetLayers, expected.targetLayers)) {
++    throw new TypeError("ordinary projectile splash profile differs from its admitted source claim");
++  }
++  return expected;
++}
++
+ function createAdmittedPolicy(cardId, archetypeId) {
+   const policy = getOrdinaryProjectileDeliveryPolicy(cardId, archetypeId);
+   if (policy === null) throw new RangeError("ordinary projectile source identity is not admitted");
+diff --git a/src/shared/session-troop-source-confidence-authority.js b/src/shared/session-troop-source-confidence-authority.js
+index dc02567..36faa13 100644
+--- a/src/shared/session-troop-source-confidence-authority.js
++++ b/src/shared/session-troop-source-confidence-authority.js
+@@ -10,11 +10,35 @@ const SOURCE_CONFIDENCE_FIELDS = Object.freeze([
+   Object.freeze({ field: "sightRangeMillitiles", questionKeySuffix: "sight-range-millitiles", valueEncoding: "positive-integer" }),
+   Object.freeze({ field: "targetMode", questionKeySuffix: "target-mode", valueEncoding: "target-mode-code" }),
+ ]);
++const KILNKEEPER_PROJECTILE_FIELDS = Object.freeze([
++  Object.freeze({ field: "projectileSplashSourceFacts.characterAreaDamageRadiusMillitiles",
++    questionKeySuffix: "character-area-damage-radius-millitiles", valueEncoding: "nonnegative-integer",
++    source: "pinned-royaleapi-54fdef52:cards_stats_characters#wizard" }),
++  Object.freeze({ field: "projectileSplashSourceFacts.radiusMillitiles",
++    questionKeySuffix: "projectile-splash-radius-millitiles", valueEncoding: "positive-integer",
++    source: "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile" }),
++  Object.freeze({ field: "projectileSplashSourceFacts.speedRaw",
++    questionKeySuffix: "projectile-speed-raw", valueEncoding: "positive-integer",
++    source: "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile" }),
++  Object.freeze({ field: "projectileSplashSourceFacts.homing",
++    questionKeySuffix: "projectile-homing", valueEncoding: "boolean-code",
++    source: "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile" }),
++  Object.freeze({ field: "projectileSplashSourceFacts.aoeToAir",
++    questionKeySuffix: "projectile-aoe-to-air", valueEncoding: "boolean-code",
++    source: "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile" }),
++  Object.freeze({ field: "projectileSplashSourceFacts.aoeToGround",
++    questionKeySuffix: "projectile-aoe-to-ground", valueEncoding: "boolean-code",
++    source: "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile" }),
++  Object.freeze({ field: "projectileSplashSourceFacts.onlyEnemies",
++    questionKeySuffix: "projectile-only-enemies", valueEncoding: "boolean-code",
++    source: "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile" }),
++]);
+ 
+ const SOURCE_CONFIDENCE_CLAIMS = Object.freeze([
+   Object.freeze({ cardId: "briar-band", archetypeId: "briar-runner" }),
+   Object.freeze({ cardId: "briar-band", archetypeId: "briar-darter" }),
+   Object.freeze({ cardId: "gloamwing-cluster", archetypeId: "gloamwing" }),
++  Object.freeze({ cardId: "kilnkeeper", archetypeId: "kilnkeeper" }),
+   Object.freeze({ cardId: "coppershade-flock", archetypeId: "coppershade" }),
+   Object.freeze({ cardId: "duskwing-trio", archetypeId: "duskwing" }),
+   Object.freeze({ cardId: "forgeguard", archetypeId: "forgeguard" }),
+@@ -33,6 +57,10 @@ const TARGET_MODE_CODES = Object.freeze({
+   "ground-and-air": 3,
+   structures: 4,
+ });
++const DEFAULT_QUESTION_SOURCE = "runtime-playability-estimate-not-comparison-corpus";
++const ZERO_QUESTION_KEYS = new Set([
++  "kilnkeeper.character-area-damage-radius-millitiles",
++]);
+ 
+ function exact(value, keys, label) {
+   if (value === null || typeof value !== "object" || Array.isArray(value) ||
+@@ -52,11 +80,14 @@ function exact(value, keys, label) {
+ }
+ 
+ function expectedPolicy(archetypeId) {
++  const fields = [...SOURCE_CONFIDENCE_FIELDS,
++    ...(archetypeId === "kilnkeeper" ? KILNKEEPER_PROJECTILE_FIELDS : [])];
+   return {
+-    fields: SOURCE_CONFIDENCE_FIELDS.map(({ field, questionKeySuffix, valueEncoding }) => ({
++    fields: fields.map(({ field, questionKeySuffix, valueEncoding, source }) => ({
+       field,
+       questionKey: `${archetypeId}.${questionKeySuffix}`,
+       valueEncoding,
++      ...(source === undefined ? {} : { source }),
+     })),
+     deploymentInterval: { ...DEPLOYMENT_INTERVAL },
+   };
+@@ -85,15 +116,18 @@ export function assertSessionTroopSourceConfidencePolicy(value, cardId, archetyp
+     throw new TypeError("session troop source confidence field inventory is incomplete");
+   }
+   const fields = policy.fields.map((raw, index) => {
+-    const record = exact(raw, ["field", "questionKey", "valueEncoding"],
+-      `session troop source confidence policy.fields[${index}]`);
+     const reference = expected.fields[index];
++    const record = exact(raw, reference.source === undefined
++      ? ["field", "questionKey", "valueEncoding"]
++      : ["field", "questionKey", "source", "valueEncoding"],
++      `session troop source confidence policy.fields[${index}]`);
+     if (record.field !== reference.field || record.questionKey !== reference.questionKey ||
+-        record.valueEncoding !== reference.valueEncoding) {
++        record.valueEncoding !== reference.valueEncoding || record.source !== reference.source) {
+       throw new TypeError("session troop source confidence field inventory diverges");
+     }
+     return { field: record.field, questionKey: record.questionKey,
+-      valueEncoding: record.valueEncoding };
++      valueEncoding: record.valueEncoding,
++      ...(reference.source === undefined ? {} : { source: reference.source }) };
+   });
+   const interval = exact(policy.deploymentInterval, ["milliseconds", "sourceId", "ticks"],
+     "session troop deployment interval receipt");
+@@ -106,6 +140,12 @@ export function assertSessionTroopSourceConfidencePolicy(value, cardId, archetyp
+ }
+ 
+ export function encodeSessionTroopSourceConfidenceValue(valueEncoding, value) {
++  if (valueEncoding === "nonnegative-integer") {
++    if (!Number.isSafeInteger(value) || value < 0) {
++      throw new TypeError("session troop source confidence value must be a nonnegative integer");
++    }
++    return value;
++  }
+   if (valueEncoding === "positive-integer") {
+     if (!Number.isSafeInteger(value) || value < 1) {
+       throw new TypeError("session troop source confidence value must be a positive integer");
+@@ -118,11 +158,25 @@ export function encodeSessionTroopSourceConfidenceValue(valueEncoding, value) {
+     }
+     return TARGET_MODE_CODES[value];
+   }
++  if (valueEncoding === "boolean-code") {
++    if (typeof value !== "boolean") {
++      throw new TypeError("session troop source confidence boolean is invalid");
++    }
++    return value ? 1 : 0;
++  }
+   throw new TypeError("session troop source confidence value encoding is not admitted");
+ }
+ 
++export function sessionTroopSourceQuestionMinimum(key) {
++  return ZERO_QUESTION_KEYS.has(key) ? 0 : 1;
++}
++
++function confidenceFieldValue(entity, path) {
++  return path.split(".").reduce((value, key) => value?.[key], entity);
++}
++
+ export function assertSessionTroopSourceConfidenceQuestions({
+-  present, value, cardId, archetypeId, entity, questionKeys, questionValues,
++  present, value, cardId, archetypeId, entity, questionKeys, questionValues, questionSources,
+   referencedQuestionKeys, label,
+ }) {
+   const expected = getSessionTroopSourceConfidencePolicy(cardId, archetypeId);
+@@ -136,11 +190,14 @@ export function assertSessionTroopSourceConfidenceQuestions({
+       throw new TypeError(`${label} source confidence field lacks a QUESTION record`);
+     }
+     const expectedValue = encodeSessionTroopSourceConfidenceValue(
+-      field.valueEncoding, entity[field.field],
++      field.valueEncoding, confidenceFieldValue(entity, field.field),
+     );
+     if (questionValues.get(field.questionKey) !== expectedValue) {
+       throw new TypeError(`${label} source confidence QUESTION diverges from its estimate`);
+     }
++    if (questionSources.get(field.questionKey) !== (field.source ?? DEFAULT_QUESTION_SOURCE)) {
++      throw new TypeError(`${label} source confidence QUESTION provenance diverges`);
++    }
+     referencedQuestionKeys.add(field.questionKey);
+   }
+   return policy;
+diff --git a/src/sim/battle-continuation-kernel.js b/src/sim/battle-continuation-kernel.js
+index dc42560..24a7b8a 100644
+--- a/src/sim/battle-continuation-kernel.js
++++ b/src/sim/battle-continuation-kernel.js
+@@ -45,6 +45,7 @@ import {
+ } from "../shared/ordinary-projectile-delivery-authority.js";
+ import {
+   assertSessionTroopSourceConfidenceQuestions,
++  sessionTroopSourceQuestionMinimum,
+ } from "../shared/session-troop-source-confidence-authority.js";
+ import {
+   createSpellIntentRuntime,
+@@ -67,6 +68,15 @@ import {
+   mapLiveBattleTowerStateToMatchEvidence,
+ } from "./tower-evidence-map.js";
+ import { appendSpellAreaImpact, checkedAreaImpact } from "./spell-area-impact.js";
++import {
++  checkedCombatSpawn as checkedSpawn,
++  checkedCombatUnit as checkedUnit,
++  copyCombatUnitFields,
++  ordinaryProjectileSplashCombatFields,
++  ordinaryProjectileSplashEntityFields,
++  ordinaryProjectileSplashEntityShape,
++  planOrdinaryProjectileSplashImpact,
++} from "./ordinary-projectile-splash.js";
+ 
+ const SPELL_TOWER_FOOTPRINT_RADII = Object.freeze({ central: 2_829, lane: 2_122 });
+ 
+@@ -1642,15 +1652,6 @@ const SNAPSHOT_GRAPH_LIMITS = Object.freeze({
+   stringLength: 524_288,
+ });
+ const SIDES = new Set(["north", "south"]);
+-const LAYERS = new Set(["air", "ground"]);
+-const TARGET_MODES = new Set(["air", "air_and_ground", "buildings", "ground", "none"]);
+-const DELIVERIES = new Set(["melee", "projectile"]);
+-const UNIT_KEYS = [
+-  "cadenceTicks", "damage", "delivery", "deployTicks", "firstHitTicks",
+-  "id", "layer", "maxHealth", "position", "projectileSpeed", "radius",
+-  "reach", "side", "sightRange", "targetMode",
+-];
+-const SPAWN_KEYS = [...UNIT_KEYS, "tick"];
+ const POSITION_KEYS = ["id", "position", "tick"];
+ const POSITIONS_KEYS = ["positions", "tick"];
+ const STRUCTURE_KEYS = [
+@@ -1729,46 +1730,6 @@ function integer(value, minimum, maximum, label) {
+   return value;
+ }
+ 
+-function checkedUnit(value, label = "battle combat unit") {
+-  const unit = exact(value, UNIT_KEYS, label);
+-  integer(unit.id, 1, Number.MAX_SAFE_INTEGER, `${label}.id`);
+-  if (!SIDES.has(unit.side)) throw new TypeError(`${label}.side is invalid`);
+-  if (!LAYERS.has(unit.layer)) throw new TypeError(`${label}.layer is invalid`);
+-  if (!TARGET_MODES.has(unit.targetMode)) {
+-    throw new TypeError(`${label}.targetMode is invalid`);
+-  }
+-  if (!DELIVERIES.has(unit.delivery)) {
+-    throw new TypeError(`${label}.delivery is invalid`);
+-  }
+-  const position = validatePosition(unit.position, `${label}.position`);
+-  validateCircle({ position, radius: unit.radius }, `${label} circle`);
+-  integer(unit.sightRange, 0, MAX_SPATIAL_MILLITILES, `${label}.sightRange`);
+-  integer(unit.reach, 0, MAX_SPATIAL_MILLITILES, `${label}.reach`);
+-  integer(unit.maxHealth, 1, MAX_STAT, `${label}.maxHealth`);
+-  integer(unit.damage, 0, MAX_STAT, `${label}.damage`);
+-  integer(unit.deployTicks, 0, MAX_TICK, `${label}.deployTicks`);
+-  integer(unit.firstHitTicks, 0, MAX_TICK, `${label}.firstHitTicks`);
+-  integer(unit.cadenceTicks, 1, MAX_TICK, `${label}.cadenceTicks`);
+-  if (unit.delivery === "melee") {
+-    if (unit.projectileSpeed !== null) {
+-      throw new TypeError(`${label}.projectileSpeed must be null for melee delivery`);
+-    }
+-  } else {
+-    integer(unit.projectileSpeed, 1, MAX_STAT, `${label}.projectileSpeed`);
+-  }
+-  return { ...unit, position: { ...position } };
+-}
+-
+-function checkedSpawn(value, label = "battle combat spawn") {
+-  const command = exact(value, SPAWN_KEYS, label);
+-  const tick = integer(command.tick, 0, MAX_TICK, `${label}.tick`);
+-  const spec = checkedUnit(
+-    Object.fromEntries(UNIT_KEYS.map((key) => [key, command[key]])),
+-    `${label}.unit`,
+-  );
+-  return { ...spec, tick };
+-}
+-
+ function checkedPosition(value) {
+   const command = exact(value, POSITION_KEYS, "battle combat position command");
+   return {
+@@ -2441,7 +2402,7 @@ class BattleCombat {
+       setup: this.#setup,
+       tick: this.#tick,
+       units: this.#units.map((unit) => ({
+-        ...Object.fromEntries(UNIT_KEYS.map((key) => [key, unit[key]])),
++        ...copyCombatUnitFields(unit, clone),
+         attack: unit.attack.serialize(),
+         spawnedAt: unit.spawnedAt,
+         targetId: unit.targetId,
+@@ -2935,10 +2896,7 @@ class BattleCombat {
+         const entry = dueSpawns[index];
+         integer(entry.sequence, 0, MAX_HISTORY, `due spawn ${index}.sequence`);
+         if (entry.tick !== tick) throw new RangeError(`due spawn ${index} has the wrong tick`);
+-        checkedUnit(
+-          Object.fromEntries(UNIT_KEYS.map((key) => [key, entry[key]])),
+-          `due spawn ${index}.unit`,
+-        );
++        checkedUnit(copyCombatUnitFields(entry, clone), `due spawn ${index}.unit`);
+         if (occupied.has(entry.id)) {
+           throw new RangeError(`due spawn ${index} has an occupied unit ID`);
+         }
+@@ -3064,6 +3022,9 @@ class BattleCombat {
+           targetId: attack.target.id,
+           targetPosition: { ...attack.target.position },
+         };
++        if (attack.attacker.splashProfile !== undefined) {
++          projectile.splashProfile = clone(attack.attacker.splashProfile);
++        }
+         if (attack.structure !== null) {
+           projectile.structureKind = attack.structure.kind;
+           projectile.structureLayer = attack.structure.layer;
+@@ -3135,6 +3096,12 @@ class BattleCombat {
+       const health = Object.hasOwn(projectile, "structureId")
+         ? null
+         : this.#damage.get(projectile.targetId);
++      const splashProfile = projectile.splashProfile;
++      const splashAttacker = splashProfile === undefined
++        ? null : this.#unit(projectile.attackerId);
++      if (splashProfile !== undefined && splashAttacker === null) {
++        throw new TypeError("splash projectile source unit is missing");
++      }
+       const status = Object.hasOwn(projectile, "structureId")
+         ? targetStructure === null || targetStructure.structureId !== projectile.structureId ||
+           targetStructure.side !== projectile.structureSide ||
+@@ -3143,41 +3110,57 @@ class BattleCombat {
+           ? "target_missing"
+           : !targetStructure.alive || !targetStructure.targetable ? "target_dead" : "contact"
+         : health === null ? "target_missing" : health.dead ? "target_dead" : "contact";
+-      const visualRoot = this.#visualRoot(projectile.projectileIdentity);
+-      if (visualRoot !== undefined) {
+-        this.#appendVisualContact(visualRoot, projectile.targetPosition, projectile.targetId, status, tick);
++      const primaryTarget = targetStructure ?? this.#unit(projectile.targetId);
++      const unitTargets = splashProfile === undefined ? [] : this.#units.map((unit) => ({
++        alive: !this.#damage.get(unit.id).dead,
++        id: unit.id,
++        layer: unit.layer,
++        position: unit.position,
++        radius: unit.radius,
++        side: unit.side,
++        targetable: controls.get(unit.id)?.targetable ?? true,
++      }));
++      const impact = planOrdinaryProjectileSplashImpact({
++        attackerId: projectile.attackerId,
++        attackSequence: projectile.attackSequence,
++        center: projectile.targetPosition,
++        damage: projectile.damage,
++        enemySide: splashAttacker === null ? null :
++          (splashAttacker.side === "north" ? "south" : "north"),
++        primaryKind: targetStructure === null ? "unit" : "structure",
++        primaryStatus: status,
++        primaryTarget,
++        primaryTargetId: projectile.targetId,
++        primaryTargetable: targetStructure?.targetable ??
++          controls.get(projectile.targetId)?.targetable ?? true,
++        profile: splashProfile ?? null,
++        projectileId: projectile.id,
++        structures: external.structures,
++        tick,
++        units: unitTargets,
++      });
++      for (const contact of impact.visualContacts) {
++        const visualRoot = this.#visualRoot(projectile.projectileIdentity);
++        if (visualRoot === undefined) continue;
++        this.#appendVisualContact(visualRoot, contact.position, contact.id, contact.status, tick);
+         visualRootsToClose.set(visualRoot.rootId, {
+-          reason: status === "contact" ? "complete" : "target-missing",
++          reason: contact.status === "contact" ? "complete" : "target-missing",
+           root: visualRoot,
+         });
+       }
+       boundary.push(withProjectileIdentity({
+         projectileId: projectile.id,
+-        status,
++        status: impact.impactStatus,
+         targetId: projectile.targetId,
+         tick,
+         type: "projectile-impact",
+       }, projectile.projectileIdentity));
+-      if (status === "contact") {
+-        if (targetStructure === null) {
+-          hits.push({ amount: projectile.damage, targetId: projectile.targetId });
+-          hitSources.push({ attackerId: projectile.attackerId, delivery: "projectile",
+-            projectileId: projectile.id,
+-            projectileIdentity: clone(projectile.projectileIdentity),
+-          });
+-        } else {
+-          boundary.push(withProjectileIdentity({
+-            contactTick: tick,
+-            attackSequence: projectile.attackSequence,
+-            damage: projectile.damage,
+-            delivery: "projectile",
+-            projectileId: projectile.id,
+-            sourceUnitId: projectile.attackerId,
+-            structureId: projectile.structureId,
+-            tick,
+-            type: "external-structure-contact",
+-          }, projectile.projectileIdentity));
+-        }
++      hits.push(...impact.unitHits);
++      hitSources.push(...impact.hitSources.map((source) => ({
++        ...source, projectileIdentity: clone(projectile.projectileIdentity),
++      })));
++      for (const contact of impact.structureContacts) {
++        boundary.push(withProjectileIdentity(contact, projectile.projectileIdentity));
+       }
+     }
+     if (dueProjectiles.length > 0) {
+@@ -3440,7 +3423,7 @@ class BattleCombat {
+ 
+   #activate(spec, tick, sink = this.#events) {
+     if (this.#units.length >= MAX_UNITS) throw new RangeError("battle combat unit bound exceeded");
+-    const canonicalSpec = Object.fromEntries(UNIT_KEYS.map((key) => [key, clone(spec[key])]));
++    const canonicalSpec = copyCombatUnitFields(spec, clone);
+     const unit = {
+       ...canonicalSpec,
+       attack: new AttackCycle({
+@@ -3501,7 +3484,7 @@ class BattleCombat {
+     candidate.#setup = clone(this.#setup);
+     candidate.#tick = this.#tick;
+     candidate.#units = this.#units.map((unit) => ({
+-      ...Object.fromEntries(UNIT_KEYS.map((key) => [key, clone(unit[key])])),
++      ...copyCombatUnitFields(unit, clone),
+       // Each unit owns an authentic private AttackCycle. Forking it preserves
+       // an independent continuation without repeatedly serializing, parsing,
+       // and re-admitting that trusted internal authority for every session
+@@ -5928,13 +5911,16 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
+       if (record.authoritative !== false || record.disposition !== "question") {
+         throw new TypeError(`live battle setup.questions[${index}] must be non-authoritative`);
+       }
++      const key = string(record.key, `questions[${index}].key`);
+       return {
+         authoritative: false,
+         confidence: string(record.confidence, `questions[${index}].confidence`),
+         disposition: "question",
+-        key: string(record.key, `questions[${index}].key`),
++        key,
+         source: string(record.source, `questions[${index}].source`),
+-        value: integer(record.value, 1, Number.MAX_SAFE_INTEGER, `questions[${index}].value`),
++        value: integer(record.value,
++          sessionTroopSourceQuestionMinimum(key),
++          Number.MAX_SAFE_INTEGER, `questions[${index}].value`),
+       };
+     });
+   if (new Set(questions.map(({ key }) => key)).size !== questions.length) {
+@@ -5942,6 +5928,7 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
+   }
+   const questionKeys = new Set(questions.map(({ key }) => key));
+   const questionValues = new Map(questions.map(({ key, value: answer }) => [key, answer]));
++  const questionSources = new Map(questions.map(({ key, source }) => [key, source]));
+   const referencedQuestionKeys = new Set();
+   const roster = denseArray(setup.roster, "live battle setup.roster", 8)
+     .map((value, cardIndex) => {
+@@ -5971,13 +5958,13 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
+             !Array.isArray(raw) && Object.hasOwn(raw, "damagePolicy");
+           const hasSourceConfidencePolicy = raw !== null && typeof raw === "object" &&
+             !Array.isArray(raw) && Object.hasOwn(raw, "sourceConfidencePolicy");
+-          const entityKeys = [
++          const splashShape = ordinaryProjectileSplashEntityShape(raw, [
+             ...ENTITY_KEYS,
+             ...(hasOrdinaryPolicies ? ENTITY_ORDINARY_POLICY_KEYS : []),
+             ...(hasDamagePolicy ? ENTITY_DAMAGE_POLICY_KEYS : []),
+             ...(hasSourceConfidencePolicy ? ENTITY_SOURCE_CONFIDENCE_KEYS : []),
+-          ];
+-          const entity = exact(raw, entityKeys, label);
++          ]);
++          const entity = exact(raw, splashShape.keys, label);
+           const archetypeId = identity(entity.archetypeId, entity.displayName,
+             `${label}.archetypeId`);
+           const sourceConfidencePolicy = assertSessionTroopSourceConfidenceQuestions({
+@@ -5988,6 +5975,7 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
+             entity,
+             questionKeys,
+             questionValues,
++            questionSources,
+             referencedQuestionKeys,
+             label,
+           });
+@@ -6007,6 +5995,9 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
+           const damagePolicy = hasDamagePolicy
+             ? checkedPolicy(entity.damagePolicy, `${label}.damagePolicy`)
+             : null;
++          const projectileSplashFields = splashShape.hasProfile
++            ? ordinaryProjectileSplashEntityFields(entity, cardId, archetypeId, label)
++            : {};
+           for (const policy of [bodyRadiusPolicy, projectileSpeedPolicy]) {
+             if (policy.kind === "question" && !questionKeys.has(policy.questionKey)) {
+               throw new TypeError(`${label} has an unresolved question policy`);
+@@ -6098,6 +6089,7 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
+             sightRangeMillitiles: nonnegative(entity.sightRangeMillitiles,
+               `${label}.sightRangeMillitiles`),
+             targetMode: string(entity.targetMode, `${label}.targetMode`),
++            ...projectileSplashFields,
+           };
+           if (hasOrdinaryPolicies) {
+             normalizedEntity.deliveryPolicy = deliveryPolicy;
+@@ -6221,9 +6213,8 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
+   if (canonical(actualQuestions) !== canonical(expectedQuestions)) {
+     throw new TypeError("live battle questions must be the canonical exact referenced inventory");
+   }
+-  if (new Set(questions.map(({ source }) => source)).size !== 1 ||
+-      questions.some(({ confidence }) => confidence !== "unverified")) {
+-    throw new TypeError("live battle questions must share canonical unverified provenance");
++  if (questions.some(({ confidence }) => confidence !== "unverified")) {
++    throw new TypeError("live battle questions must retain unverified confidence");
+   }
+   const canonicalQuestions = [...questions].sort((left, right) =>
+     left.key < right.key ? -1 : left.key > right.key ? 1 : 0);
+@@ -6712,7 +6703,7 @@ function placedEntities(card, point, firstId, questionValues, movementOverride =
+ 
+ function combatSpec(entity, side) {
+   const component = entity.component;
+-  return {
++  const spec = {
+     cadenceTicks: component.hitSpeedTicks,
+     damage: component.damage,
+     delivery: component.delivery,
+@@ -6728,7 +6719,9 @@ function combatSpec(entity, side) {
+     side,
+     sightRange: component.sightRangeMillitiles,
+     targetMode: targetMode(component.targetMode),
++    ...ordinaryProjectileSplashCombatFields(component),
+   };
++  return spec;
+ }
+ 
+ function currentContactSourceProfileFromRoster(card) {
+diff --git a/src/sim/session-troop-status-runtime.js b/src/sim/session-troop-status-runtime.js
+index 50b7b9b..03f1665 100644
+--- a/src/sim/session-troop-status-runtime.js
++++ b/src/sim/session-troop-status-runtime.js
+@@ -1,3 +1,13 @@
++import {
++  assertSessionTroopSourceConfidencePolicy,
++  encodeSessionTroopSourceConfidenceValue,
++} from "../shared/session-troop-source-confidence-authority.js";
++import {
++  assertOrdinaryProjectileSplashProfile,
++  getOrdinaryProjectileSplashProfile,
++  getOrdinaryProjectileSplashSourceFacts,
++} from "../shared/ordinary-projectile-delivery-authority.js";
++
+ export const SESSION_TROOP_STATUS_RUNTIME_VERSION = 1;
+ export const SESSION_TROOP_STATUS_RUNTIME_MAX_COMMANDS = 1_024;
+ export const SESSION_TROOP_STATUS_RUNTIME_MAX_SOURCES = 1_024;
+@@ -154,6 +164,9 @@ const STATUS_QUESTION_KEYS = Object.freeze([
+   "authoritative", "confidence", "disposition", "key", "source", "value",
+ ]);
+ const STATUS_QUESTION_SOURCE = "runtime-playability-estimate-not-comparison-corpus";
++const KILNKEEPER_AREA_RADIUS_KEY = "kilnkeeper.character-area-damage-radius-millitiles";
++const KILNKEEPER_AREA_RADIUS_SOURCE =
++  "pinned-royaleapi-54fdef52:cards_stats_characters#wizard";
+ const STATUS_LAYER_RESOLUTION = 1;
+ const STATUS_PROJECTILE_SPEED_RESOLUTION = 500;
+ const STATUS_MAX_QUESTIONS = 256;
+@@ -272,7 +285,39 @@ function statusRosterData(value) {
+   return normalized;
+ }
+ 
+-function statusQuestionData(value) {
++function assertKilnkeeperAreaRadiusClosure(record, roster) {
++  if (record.source !== KILNKEEPER_AREA_RADIUS_SOURCE || record.value !== 0) {
++    throw new TypeError("kilnkeeper area radius QUESTION diverges from its pinned source receipt");
++  }
++  const matches = roster.flatMap((card) => card.id === "kilnkeeper"
++    ? card.entities.filter(({ archetypeId }) => archetypeId === "kilnkeeper")
++      .map((entity) => ({ card, entity }))
++    : []);
++  if (matches.length !== 1) {
++    throw new TypeError("kilnkeeper area radius QUESTION has no unique source confidence closure");
++  }
++  const [{ card, entity }] = matches;
++  const policy = assertSessionTroopSourceConfidencePolicy(
++    entity.sourceConfidencePolicy, card.id, entity.archetypeId,
++  );
++  const confidenceField = policy.fields.find(({ questionKey }) =>
++    questionKey === KILNKEEPER_AREA_RADIUS_KEY);
++  const sourceProfile = getOrdinaryProjectileSplashProfile(card.id, entity.archetypeId);
++  const sourceFacts = getOrdinaryProjectileSplashSourceFacts(card.id, entity.archetypeId);
++  if (confidenceField === undefined || confidenceField.field !==
++      "projectileSplashSourceFacts.characterAreaDamageRadiusMillitiles" ||
++      confidenceField.valueEncoding !== "nonnegative-integer" ||
++      confidenceField.source !== KILNKEEPER_AREA_RADIUS_SOURCE || sourceProfile === null ||
++      canonical(assertOrdinaryProjectileSplashProfile(entity.projectileSplashPolicy,
++        card.id, entity.archetypeId)) !== canonical(sourceProfile) ||
++      canonical(entity.projectileSplashSourceFacts) !== canonical(sourceFacts) ||
++      encodeSessionTroopSourceConfidenceValue(confidenceField.valueEncoding,
++        entity.projectileSplashSourceFacts.characterAreaDamageRadiusMillitiles) !== record.value) {
++    throw new TypeError("kilnkeeper area radius QUESTION has an invalid source confidence closure");
++  }
++}
++
++function statusQuestionData(value, roster) {
+   const normalized = dataTree(value, "status runtime question inventory");
+   if (!Array.isArray(normalized) || normalized.length > STATUS_MAX_QUESTIONS) {
+     throw new TypeError("status runtime question inventory must be a bounded array");
+@@ -286,13 +331,17 @@ function statusQuestionData(value) {
+         record.source.length === 0) {
+       throw new TypeError(`status runtime question inventory[${index}] is not an unresolved QUESTION`);
+     }
++    if (record.key === KILNKEEPER_AREA_RADIUS_KEY) {
++      assertKilnkeeperAreaRadiusClosure(record, roster);
++    }
+     return {
+       authoritative: false,
+       confidence: "unverified",
+       disposition: "question",
+       key: record.key,
+       source: record.source,
+-      value: integer(record.value, 1, Number.MAX_SAFE_INTEGER,
++      value: integer(record.value,
++        record.key === KILNKEEPER_AREA_RADIUS_KEY ? 0 : 1, Number.MAX_SAFE_INTEGER,
+         `status runtime question inventory[${index}].value`),
+     };
+   });
+@@ -492,7 +541,7 @@ function statusSignals(roster) {
+ 
+ function validateSourceRoster(roster, receipt, questions = undefined) {
+   const normalized = statusRosterData(roster);
+-  const questionMap = questions === undefined ? null : statusQuestionData(questions);
++  const questionMap = questions === undefined ? null : statusQuestionData(questions, normalized);
+   const { cardIds, cards, entityClaims } = statusSignals(normalized);
+   if (receipt === undefined) {
+     // Legacy ordinary projections can contain a card that later gained a
+diff --git a/tests/editable-deck.test.js b/tests/editable-deck.test.js
+index e047e44..e0e52ef 100644
+--- a/tests/editable-deck.test.js
++++ b/tests/editable-deck.test.js
+@@ -80,9 +80,10 @@ test("editable deck setup admits every card in canonical eight-card witnesses an
+     const references = questionReferences(witness.roster);
+     const expectedKeys = [...new Set(references)].sort();
+     assert.deepEqual(witness.questions.map(({ key }) => key), expectedKeys);
+-    assert.ok(witness.questions.every(({ authoritative, confidence, disposition, value }) =>
++    assert.ok(witness.questions.every(({ authoritative, confidence, disposition, key, value }) =>
+       authoritative === false && confidence === "unverified" && disposition === "question" &&
+-      Number.isSafeInteger(value) && value > 0));
++      Number.isSafeInteger(value) &&
++      (key === "kilnkeeper.character-area-damage-radius-millitiles" ? value === 0 : value > 0)));
+     for (const question of witness.questions) {
+       assert.deepEqual(question, originalQuestions.get(question.key), question.key);
+     }
+diff --git a/tests/fixtures/integration-occurrence-adapters.js b/tests/fixtures/integration-occurrence-adapters.js
+index 8f1c1ee..5687078 100644
+--- a/tests/fixtures/integration-occurrence-adapters.js
++++ b/tests/fixtures/integration-occurrence-adapters.js
+@@ -1,6 +1,8 @@
+ import { createHash } from "node:crypto";
+ 
+ import * as content from "../../src/content/index.js";
++import { createEditableGameSessionSetup } from "../../src/content/editable-deck.js";
++import { PLAYABLE_CARD_IDS } from "../../src/content/playable-roster.js";
+ import { createSessionTroopWitness } from "../../src/content/session-troop-roster.js";
+ import {
+   BasicFlyingDuel,
+@@ -25,6 +27,7 @@ import {
+   createSpawnSpellFixture,
+ } from "../../src/content/index.js";
+ import { DamageSystem } from "../../src/sim/damage.js";
++import { GameSession } from "../../src/sim/game-session.js";
+ import { LiveBattle } from "../../src/sim/live-battle.js";
+ import { MeleeDuel } from "../../src/sim/melee.js";
+ 
+@@ -248,6 +251,51 @@ function ordinaryProjectileSquad(specification) {
+   );
+ }
+ 
++function ordinaryProjectileSplash(specification) {
++  const record = recordsFor(specification);
++  const deck = [specification.id, "cinder-host",
++    ...PLAYABLE_CARD_IDS.filter((id) =>
++      id !== specification.id && id !== "cinder-host").slice(0, 6)];
++  const setup = JSON.parse(createEditableGameSessionSetup(deck, 2));
++  setup.legalNorthDeployments = [{
++    cardId: "cinder-host",
++    point: { x: 3_500, y: 21_000 },
++  }];
++  setup.startingElixir = { north: 10, south: 10 };
++  setup.thinkIntervalTicks = 3_600;
++  const session = new GameSession(canonical(setup));
++  const slot = session.state.decks.south.hand.indexOf(specification.id);
++  if (slot < 0) throw new Error(`${specification.id} is absent from the authenticated opening hand`);
++  const command = session.submitPlayerCommand(canonical({
++    cardId: specification.id,
++    commandId: 0,
++    point: { x: 3_500, y: 14_500 },
++    slot,
++    tick: 0,
++    type: "deploy",
++  }));
++  const emitted = [command, ...session.stepMany(125)];
++  const launch = session.replay.find((event) =>
++    event.type === "projectile-launch" &&
++    event.projectile?.splashProfile?.cardId === specification.id);
++  if (!launch || launch.projectile.splashProfile.radiusMillitiles !== 1_500) {
++    throw new Error(`${specification.id} did not launch its admitted ordinary splash projectile`);
++  }
++  const impacts = session.replay.filter(({ projectileId, type }) =>
++    projectileId === launch.projectileId && type === "damage");
++  if (impacts.length < 2 || impacts.some(({ amount }) => amount !== record.damage)) {
++    throw new Error(`${specification.id} did not damage its primary and secondary GameSession victims`);
++  }
++  return directBytes(
++    specification,
++    "GameSession+ordinary projectile splash source receipt",
++    record,
++    session.state,
++    emitted,
++    session.replay,
++  );
++}
++
+ function heal(specification) {
+   const questions = createHealQuestionRecords();
+   const amount = specification.id === "bloom-wisp"
+@@ -648,6 +696,7 @@ const ADAPTER_ENTRIES = [
+   ["createBasicFlyingCatalog", basicFlying],
+   ["createBasicMeleeCatalog", basicMelee],
+   ["createBasicRangedCatalog", basicRanged],
++  ["createOrdinaryProjectileSplashCatalog", ordinaryProjectileSplash],
+   ["createOrdinaryProjectileSquadCatalog", ordinaryProjectileSquad],
+   ["createChampionAbilityCatalog", champion],
+   ["createDefensiveBuildingCatalog", defensiveBuilding],
+diff --git a/tests/fixtures/integration-occurrence-bindings.json b/tests/fixtures/integration-occurrence-bindings.json
+index 5214a2a..daafd87 100644
+--- a/tests/fixtures/integration-occurrence-bindings.json
++++ b/tests/fixtures/integration-occurrence-bindings.json
+@@ -27,6 +27,7 @@
+   "createInvisibilitySpecialCatalog\u0000veil-prowler": "2ebfdb8573d26ec4670c68fa7e39b51625fdcb0332e2f60ff227dffaecd02471",
+   "createJumpSpecialCatalog\u0000stonevault": "4a53a8ca246b58aec7ca8f581dca01a69ee44a468f1e7e3ebbafd252c42e1502",
+   "createKnockbackSpecialCatalog\u0000squall-orb": "b3c73ba9481cc02071a45920073e5fc646222a84349145b747f08c73a40f8278",
++  "createOrdinaryProjectileSplashCatalog\u0000kilnkeeper": "68f1df69efee6d8069cee72542c962d8a62f6919b9d069c9096975fb62222044",
+   "createOrdinaryProjectileSquadCatalog\u0000coppershade-flock": "46b1a446ddb1d2ec37e84382e9d5814621ec7e8d331a1a57e9592497da8edd0e",
+   "createOrdinaryProjectileSquadCatalog\u0000duskwing-trio": "5e241f9758d16a9af2071ea6d69ed61f20e85b93d0e3b48794e858b203451588",
+   "createOrdinaryProjectileSquadCatalog\u0000sunthread-pair": "87ee4a26c5eaf66bc3d3a60c8b3c05083714e09a696e926dbc899693ebd55de9",
+diff --git a/tests/game-roster-troop-profiles.test.js b/tests/game-roster-troop-profiles.test.js
+index e707b02..068c93e 100644
+--- a/tests/game-roster-troop-profiles.test.js
++++ b/tests/game-roster-troop-profiles.test.js
+@@ -41,6 +41,7 @@ const EXPECTED_OCCURRENCES = [
+   ["createSwarmCatalog", "gloamwing-cluster", "admitted"],
+   ["createChampionAbilityCatalog", "iron-borer", "admitted"],
+   ["createBasicMeleeCatalog", "ironroot", "admitted"],
++  ["createOrdinaryProjectileSplashCatalog", "kilnkeeper", "admitted"],
+   ["createBasicMeleeCatalog", "mossguard", "admitted"],
+   ["createPierceSpecialCatalog", "prism-warden", "admitted"],
+   ["createStunSpecialCatalog", "pulse-sentry", "admitted"],
+@@ -64,7 +65,7 @@ const EXPECTED_IDS = [
+   "aegis-sage", "ashen-nest", "bloom-wisp", "bone-regent", "brassbolt",
+   "briar-band", "cinder-host", "cinder-ray", "cinderback", "cinderlings", "coilblade",
+   "coppershade-flock", "copperskiff", "dawnmender", "dusk-ranger", "duskwing-trio", "emberlance", "forgeguard", "gilded-lancer",
+-  "gloam-shepherd", "gloamwing-cluster", "iron-borer", "ironroot", "mossguard", "prism-warden", "pulse-sentry",
++  "gloam-shepherd", "gloamwing-cluster", "iron-borer", "ironroot", "kilnkeeper", "mossguard", "prism-warden", "pulse-sentry",
+   "railward", "reedsting", "rime-adept", "rune-reaver", "scatterguard", "skymaul",
+   "stonehauler", "stonevault", "stormkite", "sunthread-pair", "tether-rider", "thornscouts", "veil-prowler",
+   "veilrunner", "wayfinder",
+@@ -111,13 +112,13 @@ function occurrenceTriples(manifest) {
+   );
+ }
+ 
+-test("game roster troop profiles: exact 43 occurrence pairs and 41 identity IDs", () => {
++test("game roster troop profiles: exact 44 occurrence pairs and 42 identity IDs", () => {
+   const manifest = createSessionTroopProfileManifest();
+   assert.deepEqual(occurrenceTriples(manifest), EXPECTED_OCCURRENCES);
+-  assert.equal(manifest.occurrences.length, 43);
++  assert.equal(manifest.occurrences.length, 44);
+   assert.equal(new Set(manifest.occurrences.map(({ exportName, id }) =>
+     `${exportName}\u0000${id}`
+-  )).size, 43);
++  )).size, 44);
+   assert.deepEqual(
+     [...new Set(manifest.occurrences.map(({ id }) => id))].sort(),
+     [...EXPECTED_IDS].sort(),
+@@ -127,10 +128,10 @@ test("game roster troop profiles: exact 43 occurrence pairs and 41 identity IDs"
+ test("game roster troop profiles: exact admitted/question counts and derived session slice", () => {
+   const manifest = createSessionTroopProfileManifest();
+   assert.deepEqual(manifest.counts, {
+-    admittedIds: 39,
+-    admittedOccurrences: 41,
+-    claimedIds: 41,
+-    claimedOccurrences: 43,
++    admittedIds: 40,
++    admittedOccurrences: 42,
++    claimedIds: 42,
++    claimedOccurrences: 44,
+     duplicateCompositionIds: 2,
+     questionIds: 2,
+     questionOccurrences: 2,
+@@ -160,8 +161,8 @@ test("game roster troop profiles: admitted profiles are complete, source-backed,
+   assert.ok(deepFrozen(first));
+   assert.ok(deepFrozen(second));
+   assert.deepEqual(first, second);
+-  assert.equal(first.profiles.length, 39);
+-  assert.equal(new Set(first.profiles.map(({ id }) => id)).size, 39);
++  assert.equal(first.profiles.length, 40);
++  assert.equal(new Set(first.profiles.map(({ id }) => id)).size, 40);
+ 
+   for (const profile of first.profiles) {
+     assert.deepEqual(Object.keys(profile).sort(), [
+diff --git a/tests/game-roster-troops-ordinary.test.js b/tests/game-roster-troops-ordinary.test.js
+index 442dc45..8f4deba 100644
+--- a/tests/game-roster-troops-ordinary.test.js
++++ b/tests/game-roster-troops-ordinary.test.js
+@@ -5,6 +5,7 @@ import * as content from "../src/content/index.js";
+ import {
+   createSessionTroopProfileManifest,
+ } from "../src/content/session-troop-profile-catalog.js";
++import { createEditableGameSessionSetup } from "../src/content/editable-deck.js";
+ import {
+   createSessionTroopWitness,
+   createSessionTroopWitnessQuestions,
+@@ -21,20 +22,27 @@ import {
+ import { DeckCycle } from "../src/sim/deck.js";
+ import { GameSession } from "../src/sim/game-session.js";
+ import { LiveBattle, parseLiveBattleSetup } from "../src/sim/live-battle.js";
+-import { ORDINARY_PROJECTILE_SOURCE_CLAIMS } from "../src/shared/ordinary-projectile-delivery-authority.js";
++import {
++  planOrdinaryProjectileSplashImpact,
++  selectOrdinaryProjectileSplashTargets,
++} from "../src/sim/ordinary-projectile-splash.js";
++import {
++  getOrdinaryProjectileSplashProfile,
++  ORDINARY_PROJECTILE_SOURCE_CLAIMS,
++} from "../src/shared/ordinary-projectile-delivery-authority.js";
+ 
+ const ADMITTED_IDS = Object.freeze([
+   "aegis-sage", "bloom-wisp", "bone-regent", "brassbolt", "briar-band",
+   "cinder-host", "cinder-ray", "cinderback", "cinderlings", "coilblade", "coppershade-flock", "copperskiff",
+   "dawnmender", "dusk-ranger", "duskwing-trio", "emberlance", "forgeguard", "gilded-lancer", "gloamwing-cluster", "iron-borer",
+-  "ironroot", "mossguard", "prism-warden", "pulse-sentry", "railward", "reedsting",
++  "ironroot", "kilnkeeper", "mossguard", "prism-warden", "pulse-sentry", "railward", "reedsting",
+   "rime-adept", "rune-reaver", "scatterguard", "skymaul", "stonehauler",
+   "stonevault", "stormkite", "sunthread-pair", "tether-rider", "thornscouts", "veil-prowler", "veilrunner",
+   "wayfinder",
+ ]);
+ const STAGGERED_CARD_IDS = new Set([
+   "briar-band", "coppershade-flock", "duskwing-trio", "forgeguard",
+-  "gloamwing-cluster", "sunthread-pair", "thornscouts",
++  "gloamwing-cluster", "kilnkeeper", "sunthread-pair", "thornscouts",
+ ]);
+ const QUESTION_IDS = Object.freeze(["ashen-nest", "gloam-shepherd"]);
+ const SOUTH = Object.freeze({ x: 3_500, y: 14_500 });
+@@ -133,11 +141,20 @@ function witnessSetup(id) {
+   };
+ }
+ 
+-function pairedProjectileDuelSetup() {
+-  const witnesses = [
+-    createSessionTroopWitness("sunthread-pair"),
+-    createSessionTroopWitness("duskwing-trio"),
+-  ];
++function kilnkeeperSessionSetup() {
++  const deck = ["kilnkeeper", "cinder-host",
++    ...PLAYABLE_CARD_IDS.filter((id) => id !== "kilnkeeper" && id !== "cinder-host").slice(0, 6)];
++  const seed = 2;
++  const setup = JSON.parse(createEditableGameSessionSetup(deck, seed));
++  setup.legalNorthDeployments = [{ cardId: "cinder-host", point: { x: 3_500, y: 21_000 } }];
++  setup.startingElixir = { north: 10, south: 10 };
++  setup.thinkIntervalTicks = 3_600;
++  return { deck, seed, setup: canonical(setup) };
++}
++
++function pairedProjectileSetup(cardIds) {
++  const sourceIds = [...cardIds];
++  const witnesses = sourceIds.map((id) => createSessionTroopWitness(id));
+   const cardsById = new Map();
+   const questionsByKey = new Map();
+   for (const witness of witnesses) {
+@@ -148,8 +165,9 @@ function pairedProjectileDuelSetup() {
+       else questionsByKey.set(question.key, question);
+     }
+   }
+-  const cardIds = ["sunthread-pair", "duskwing-trio", ...PLAYABLE_CARD_IDS.slice(0, 6)];
+-  const roster = cardIds.map((id) => {
++  const selectedIds = [...sourceIds,
++    ...PLAYABLE_CARD_IDS.filter((id) => !sourceIds.includes(id)).slice(0, 8 - sourceIds.length)];
++  const roster = selectedIds.map((id) => {
+     const card = cardsById.get(id);
+     assert.ok(card, `paired witness includes ${id}`);
+     return clone(card);
+@@ -166,6 +184,10 @@ function pairedProjectileDuelSetup() {
+   });
+ }
+ 
++function pairedProjectileDuelSetup() {
++  return pairedProjectileSetup(["sunthread-pair", "duskwing-trio"]);
++}
++
+ function playerCommand(session, id) {
+   const slot = session.state.decks.south.hand.indexOf(id);
+   assert.notEqual(slot, -1, `${id} is in the authentic south opening hand`);
+@@ -217,7 +239,7 @@ function expectedEntityRuntime(entity, questions) {
+ test("ordinary troop projection domain is exactly the admitted profile surface", () => {
+   const manifest = createSessionTroopProfileManifest();
+   assert.deepEqual(manifest.profiles.map(({ id }) => id), ADMITTED_IDS);
+-  assert.equal(manifest.profiles.length, 39);
++  assert.equal(manifest.profiles.length, 40);
+   assert.deepEqual(ADMITTED_IDS, [...new Set(ADMITTED_IDS)]);
+   for (const id of [...QUESTION_IDS, "not-a-troop", "coilblade\u200b"]) {
+     assert.throws(() => projectSessionTroopBattleCard(id), /unknown|QUESTION|admitted/u);
+@@ -254,7 +276,9 @@ test("every projection is complete, source-agreeing, ordinary-only, and componen
+         `${profile.id} source confidence metadata boundary`);
+       const allowedKeys = [...ENTITY_KEYS, ...ORDINARY_POLICY_KEYS,
+         ...(sourceEntity.damage === null ? ["damagePolicy"] : []),
+-        ...(hasSourceConfidencePolicy ? ["sourceConfidencePolicy"] : [])];
++        ...(hasSourceConfidencePolicy ? ["sourceConfidencePolicy"] : []),
++        ...(profile.id === "kilnkeeper"
++          ? ["projectileSplashPolicy", "projectileSplashSourceFacts"] : [])];
+       assert.deepEqual(Object.keys(entity).sort(), [...allowedKeys].sort(),
+         `${profile.id} ordinary entity shape`);
+       for (const field of ENTITY_KEYS) {
+@@ -316,9 +340,17 @@ test("every witness closes its exact questions, cards, and archetypes through Li
+     assert.equal(references.length, questions.length, `${id} has no unused question records`);
+     assert.deepEqual(questions.map(({ key }) => key), referenced, `${id} question closure`);
+     assert.equal(new Set(questions.map(({ key }) => key)).size, questions.length, id);
+-    assert.ok(questions.every(({ authoritative, confidence, disposition, source, value }) =>
+-      authoritative === false && confidence === "unverified" && disposition === "question" &&
+-      source === QUESTION_SOURCE && Number.isSafeInteger(value) && value >= 1), id);
++    assert.ok(questions.every(({ authoritative, confidence, disposition, key, source, value }) => {
++      const expectedSource = key === "kilnkeeper.character-area-damage-radius-millitiles"
++        ? "pinned-royaleapi-54fdef52:cards_stats_characters#wizard"
++        : key.startsWith("kilnkeeper.projectile-") &&
++          key !== "kilnkeeper.projectile-speed-millitiles-per-tick"
++          ? "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile"
++          : QUESTION_SOURCE;
++      return authoritative === false && confidence === "unverified" && disposition === "question" &&
++        source === expectedSource && Number.isSafeInteger(value) &&
++        (key === "kilnkeeper.character-area-damage-radius-millitiles" ? value === 0 : value >= 1);
++    }), id);
+     assert.equal(canonical(parseLiveBattleSetup(canonical(witness))), canonical(witness),
+       `${id} canonical LiveBattle admission`);
+   }
+@@ -331,12 +363,13 @@ test("every witness closes its exact questions, cards, and archetypes through Li
+   }
+ });
+ 
+-test("ordinary projectile delivery admits only its exact three source tuples and rejects forged restore claims", () => {
++test("ordinary projectile delivery admits only its exact four source tuples and rejects forged restore claims", () => {
+   assert.deepEqual(ORDINARY_PROJECTILE_SOURCE_CLAIMS.map(({ cardId, archetypeId }) =>
+     [cardId, archetypeId]), [
+     ["sunthread-pair", "sunthread-warden"],
+     ["duskwing-trio", "duskwing"],
+     ["coppershade-flock", "coppershade"],
++    ["kilnkeeper", "kilnkeeper"],
+   ]);
+   const policyFor = (claim) => ({
+     archetypeId: claim.archetypeId,
+@@ -404,6 +437,309 @@ test("ordinary projectile delivery admits only its exact three source tuples and
+     "restore must re-run canonical ordinary source admission");
+ });
+ 
++test("Kilnkeeper source questions and splash profile reject forged setup and pending snapshots", () => {
++  const witness = clone(createSessionTroopWitness("kilnkeeper"));
++  const entity = witness.roster.find(({ id }) => id === "kilnkeeper").entities[0];
++  const mutations = [
++    (target) => { target.projectileSplashPolicy.radiusMillitiles -= 1; },
++    (target) => { target.projectileSplashPolicy.targetLayers = ["ground"]; },
++    (target) => { target.projectileSplashPolicy.enemiesOnly = false; },
++    (target) => { target.projectileSplashPolicy.cardId = "brassbolt"; },
++    (target) => { target.projectileSplashPolicy.sourceExport = "forged-catalog"; },
++    (target) => { target.projectileSplashSourceFacts.radiusMillitiles -= 1; },
++    (target) => { target.projectileSplashSourceFacts.onlyEnemies = false; },
++  ];
++  assert.ok(entity.projectileSplashPolicy);
++  assert.equal(entity.projectileSplashSourceFacts.radiusMillitiles, 1_500);
++  assert.equal(entity.projectileSplashSourceFacts.characterAreaDamageRadiusMillitiles, 0);
++  for (const mutate of mutations) {
++    const malformed = clone(witness);
++    mutate(malformed.roster.find(({ id }) => id === "kilnkeeper").entities[0]);
++    assert.throws(() => parseLiveBattleSetup(canonical(malformed)), /splash|profile|source/u);
++  }
++
++  for (const [key, value] of [
++    ["kilnkeeper.character-area-damage-radius-millitiles", -1],
++    ["kilnkeeper.character-area-damage-radius-millitiles", 0.5],
++    ["kilnkeeper.projectile-splash-radius-millitiles", 0],
++    ["kilnkeeper.projectile-splash-radius-millitiles", -1],
++    ["kilnkeeper.projectile-splash-radius-millitiles", 1_500.5],
++  ]) {
++    const malformed = clone(witness);
++    malformed.questions.find((question) => question.key === key).value = value;
++    assert.throws(() => parseLiveBattleSetup(canonical(malformed)),
++      /safe integers|question|source|splash/u,
++      `${key} rejects ${value}`);
++  }
++  const missingQuestion = clone(witness);
++  missingQuestion.questions = missingQuestion.questions.filter(({ key }) =>
++    key !== "kilnkeeper.projectile-splash-radius-millitiles");
++  assert.throws(() => parseLiveBattleSetup(canonical(missingQuestion)), /question|source|splash/u);
++
++  const battle = new LiveBattle(pairedProjectileSetup(["kilnkeeper", "cinder-host"]));
++  battle.scheduleDeploy(canonical({
++    cardId: "cinder-host", point: NORTH, sequence: 0, side: "north", tick: 0,
++  }));
++  battle.scheduleDeploy(canonical({
++    cardId: "kilnkeeper", point: SOUTH, sequence: 1, side: "south", tick: 0,
++  }));
++  let pending = null;
++  for (let tick = 0; tick < 240 && pending === null; tick += 1) {
++    battle.step();
++    if (battle.state.projectiles.some(({ splashProfile }) => splashProfile !== undefined)) {
++      pending = battle.serialize();
++    }
++  }
++  assert.ok(pending, "the actual LiveBattle host retains a source-bound pending splash projectile");
++  assert.equal(LiveBattle.restore(pending).serialize(), pending);
++  for (const mutate of mutations) {
++    const forged = JSON.parse(pending);
++    const sourceEntity = forged.setup.roster
++      .find(({ id }) => id === "kilnkeeper").entities[0];
++    mutate(sourceEntity);
++    assert.throws(() => LiveBattle.restore(canonical(forged)), /splash|profile|source/u);
++  }
++  const forgedQuestion = JSON.parse(pending);
++  forgedQuestion.setup.questions.find(({ key }) =>
++    key === "kilnkeeper.projectile-splash-radius-millitiles").value += 1;
++  assert.throws(() => LiveBattle.restore(canonical(forgedQuestion)), /question|source|splash/u,
++    "the actual pending snapshot rejects a forged source question record");
++});
++
++test("ordinary splash plans stable mixed troop, building, and tower contacts without a duplicate primary", () => {
++  const profile = getOrdinaryProjectileSplashProfile("kilnkeeper", "kilnkeeper");
++  const center = { x: 0, y: 0 };
++  const units = [
++    { alive: true, id: 1, layer: "ground", position: center, radius: 0, side: "south", targetable: true },
++    { alive: true, id: 2, layer: "ground", position: center, radius: 0, side: "north", targetable: true },
++    { alive: true, id: 3, layer: "air", position: { x: 1_500, y: 0 }, radius: 0, side: "north", targetable: true },
++    { alive: true, id: 4, layer: "ground", position: { x: 1_501, y: 0 }, radius: 0, side: "north", targetable: true },
++    { alive: false, id: 5, layer: "ground", position: center, radius: 0, side: "north", targetable: true },
++    { alive: true, id: 6, layer: "air", position: center, radius: 0, side: "north", targetable: false },
++    { alive: true, id: 7, layer: "ground", position: center, radius: 0, side: "north", targetable: true },
++  ];
++  const structures = [
++    { alive: true, id: 8, layer: "ground", position: { x: 0, y: 1_500 }, radius: 0,
++      side: "north", structureId: "north:building:2", targetable: true },
++    { alive: true, id: 9, layer: "ground", position: { x: -1_500, y: 0 }, radius: 0,
++      side: "north", structureId: "north:lane:west", targetable: true },
++    { alive: false, id: 10, layer: "ground", position: center, radius: 0,
++      side: "north", structureId: "north:building:dead", targetable: true },
++  ];
++  const parameters = {
++    center, enemySide: "north", primaryTargetId: 2, profile, structures, units,
++  };
++  assert.deepEqual(selectOrdinaryProjectileSplashTargets(parameters).map(({ id }) => id),
++    [3, 7, 8, 9], "inclusive boundary, both target layers, and stable cross-kind ID order");
++
++  const planned = planOrdinaryProjectileSplashImpact({
++    ...parameters,
++    attackerId: 20,
++    attackSequence: 1,
++    damage: 281,
++    primaryKind: "unit",
++    primaryStatus: "contact",
++    primaryTarget: units[1],
++    primaryTargetable: true,
++    projectileId: 4,
++    tick: 12,
++  });
++  assert.deepEqual(planned.unitHits.map(({ targetId }) => targetId), [2, 3, 7]);
++  assert.deepEqual(planned.structureContacts.map(({ structureId }) => structureId),
++    ["north:building:2", "north:lane:west"]);
++  assert.equal(planned.unitHits.filter(({ targetId }) => targetId === 2).length, 1,
++    "the primary unit receives one direct hit and is excluded from secondary splash");
++  const ineligiblePrimary = planOrdinaryProjectileSplashImpact({
++    ...parameters,
++    attackerId: 20,
++    attackSequence: 1,
++    damage: 281,
++    primaryKind: "unit",
++    primaryStatus: "contact",
++    primaryTarget: units[1],
++    primaryTargetable: false,
++    projectileId: 4,
++    tick: 12,
++  });
++  assert.equal(ineligiblePrimary.impactStatus, "target_missing");
++  assert.deepEqual(ineligiblePrimary.unitHits.map(({ targetId }) => targetId), [3, 7],
++    "an ineligible primary receives no direct hit while other eligible splash targets resolve");
++  const movedUnits = clone(units);
++  movedUnits[1].position = { x: 1_501, y: 0 };
++  const movedPrimary = planOrdinaryProjectileSplashImpact({
++    ...parameters,
++    attackerId: 20,
++    attackSequence: 1,
++    damage: 281,
++    primaryKind: "unit",
++    primaryStatus: "contact",
++    primaryTarget: movedUnits[1],
++    primaryTargetable: true,
++    projectileId: 4,
++    tick: 13,
++    units: movedUnits,
++  });
++  assert.equal(movedPrimary.impactStatus, "target_missing",
++    "the locked impact point does not direct-hit a primary that moved beyond its radius");
++  assert.deepEqual(movedPrimary.unitHits.map(({ targetId }) => targetId), [3, 7]);
++});
++
++test("Kilnkeeper damages bounded enemy splash victims through GameSession and restores in flight", () => {
++  const { deck, setup } = kilnkeeperSessionSetup();
++  const session = new GameSession(setup);
++  const initialDeckSequence = session.state.decks.south.sequence;
++  assert.ok(session.state.decks.south.hand.includes("kilnkeeper"));
++  session.submitPlayerCommand(playerCommand(session, "kilnkeeper"));
++  session.stepMany(121);
++  const projectile = session.state.battle.projectiles.find(({ splashProfile }) =>
++    splashProfile !== undefined);
++  assert.ok(projectile, "GameSession retains the ordinary splash projectile before impact");
++  assert.equal(projectile.damage, 281);
++  assert.equal(projectile.splashProfile.radiusMillitiles, 1_500);
++  assert.deepEqual(projectile.splashProfile.targetLayers, ["air", "ground"]);
++  assert.deepEqual(JSON.parse(session.serialize()).setup.deck, deck);
++  const deploy = session.replay.filter(({ deployment, type }) =>
++    type === "session-deployed" && deployment?.cardId === "kilnkeeper");
++  assert.equal(deploy.length, 1);
++  assert.equal(deploy[0].spend.cost, 5);
++  assert.equal(deploy[0].spend.accepted, true);
++  assert.equal(session.state.decks.south.sequence, initialDeckSequence + 1,
++    "one committed play advances the authentic eight-card cycle once");
++  assert.equal(session.state.cardRuntime.history.filter(({ cardId }) =>
++    cardId === "kilnkeeper").length, 1);
++
++  const checkpoint = session.serialize();
++  const primaryAtLaunch = session.state.battle.units.find(({ id }) =>
++    id === projectile.targetId);
++  assert.ok(primaryAtLaunch?.alive);
++  assert.deepEqual(primaryAtLaunch.position, projectile.targetPosition,
++    "the projectile locks its impact center to the primary's launch position");
++  const restored = GameSession.restore(checkpoint);
++  assert.equal(restored.serialize(), checkpoint);
++  const ticksThroughImpact = projectile.impactTick - session.state.tick + 1;
++  assert.deepEqual(restored.stepMany(ticksThroughImpact), session.stepMany(ticksThroughImpact));
++  assert.equal(restored.serialize(), session.serialize());
++  assert.equal(restored.replayBytes(), session.replayBytes());
++
++  const launchId = projectile.id;
++  const impact = session.replay.find(({ projectileId, type }) =>
++    type === "projectile-impact" && projectileId === launchId);
++  assert.equal(impact?.status, "contact");
++  const primaryAtImpact = session.state.battle.units.find(({ id }) =>
++    id === projectile.targetId);
++  assert.notDeepEqual(primaryAtImpact.position, projectile.targetPosition,
++    "the enemy primary moves after launch while the projectile keeps its locked center");
++  const primaryDx = BigInt(primaryAtImpact.position.x - projectile.targetPosition.x);
++  const primaryDy = BigInt(primaryAtImpact.position.y - projectile.targetPosition.y);
++  const primaryLimit = BigInt(projectile.splashProfile.radiusMillitiles + primaryAtImpact.radius);
++  assert.ok(primaryDx * primaryDx + primaryDy * primaryDy <= primaryLimit * primaryLimit,
++    "the moving primary remains inside the impact-centered radius when directly hit");
++  const hits = session.replay.filter(({ projectileId, type }) =>
++    type === "damage" && projectileId === launchId);
++  const targetIds = hits.map(({ targetId }) => targetId);
++  assert.deepEqual(targetIds, [projectile.targetId, 3, 11],
++  "direct target resolves once, then eligible members resolve in stable ID order");
++  assert.deepEqual(targetIds.slice(1), [...targetIds.slice(1)].sort((left, right) => left - right));
++  assert.equal(new Set(targetIds).size, targetIds.length, "a projectile never hits a unit twice");
++  assert.ok(hits.every(({ amount }) => amount === 281));
++  assert.ok(!targetIds.includes(2), "the enemy outside the splash circle is untouched");
++  const outside = session.state.battle.units.find(({ id }) => id === 2);
++  const outsideDx = BigInt(outside.position.x - projectile.targetPosition.x);
++  const outsideDy = BigInt(outside.position.y - projectile.targetPosition.y);
++  const outsideLimit = BigInt(projectile.splashProfile.radiusMillitiles + outside.radius);
++  assert.ok(outsideDx * outsideDx + outsideDy * outsideDy > outsideLimit * outsideLimit);
++});
++
++test("Kilnkeeper GameSession impacts damage an enemy building once through canonical external contact", () => {
++  const deck = ["kilnkeeper", "cinder-host", "ember-basin",
++    ...PLAYABLE_CARD_IDS.filter((id) =>
++      !["kilnkeeper", "cinder-host", "ember-basin"].includes(id)).slice(0, 5)];
++  const setup = JSON.parse(createEditableGameSessionSetup(deck, 26));
++  setup.legalNorthDeployments = [
++    { cardId: "cinder-host", point: { x: 7_000, y: 23_500 } },
++    { cardId: "ember-basin", point: { x: 7_000, y: 20_000 } },
++  ];
++  setup.startingElixir = { north: 10, south: 10 };
++  setup.thinkIntervalTicks = 1;
++  const session = new GameSession(canonical(setup));
++  const initialNorthSequence = session.state.decks.north.sequence;
++  const command = JSON.parse(playerCommand(session, "kilnkeeper"));
++  command.point = { x: 7_000, y: 14_500 };
++  session.submitPlayerCommand(canonical(command));
++  session.stepMany(121);
++
++  const projectile = session.state.battle.projectiles.find(({ splashProfile }) =>
++    splashProfile !== undefined);
++  assert.ok(projectile);
++  const building = session.state.battle.structures.find(({ id }) => id === projectile.targetId);
++  assert.equal(building?.cardId, "ember-basin");
++  assert.equal(projectile.structureId, `building:${building.id}`);
++  const checkpoint = session.serialize();
++  const restored = GameSession.restore(checkpoint);
++  const ticksThroughImpact = projectile.impactTick - session.state.tick + 1;
++  assert.deepEqual(restored.stepMany(ticksThroughImpact), session.stepMany(ticksThroughImpact));
++  assert.equal(restored.serialize(), session.serialize());
++  assert.equal(restored.replayBytes(), session.replayBytes());
++
++  const northUnitPlay = session.replay.find(({ deployment, type }) =>
++    type === "session-deployed" && deployment?.cardId === "cinder-host");
++  const northStructurePlay = session.replay.find(({ spend, type }) =>
++    type === "session-structure-deployed" && spend?.side === "north");
++  assert.equal(northUnitPlay?.spend.cost, 3);
++  assert.equal(northUnitPlay?.spend.accepted, true);
++  assert.equal(northStructurePlay?.spend.cost, 4);
++  assert.equal(northStructurePlay?.spend.accepted, true);
++  assert.equal(session.state.decks.north.sequence, initialNorthSequence + 2,
++    "the deterministic opponent commits two legal cards and advances its real deck cycle");
++
++  const contacts = session.replay.filter(({ projectileId, type }) =>
++    projectileId === projectile.id && type === "external-structure-contact");
++  assert.equal(contacts.length, 1, "the primary building receives one canonical external contact");
++  assert.equal(contacts[0].structureId, projectile.structureId);
++  assert.equal(contacts[0].damage, 281);
++  const damaged = session.replay.find(({ buildingId, type }) =>
++    type === "structure-damaged" && buildingId === building.id);
++  assert.equal(damaged?.amountApplied, 281);
++  assert.equal(session.state.battle.structures.find(({ id }) => id === building.id).hitpoints,
++    building.maxHitpoints - 281);
++});
++
++test("Kilnkeeper GameSession crown-tower impact resolves exactly one primary contact", () => {
++  const deck = ["kilnkeeper",
++    ...PLAYABLE_CARD_IDS.filter((id) => id !== "kilnkeeper").slice(0, 7)];
++  const setup = JSON.parse(createEditableGameSessionSetup(deck, 2));
++  setup.legalNorthDeployments = [];
++  setup.startingElixir = { north: 10, south: 10 };
++  setup.thinkIntervalTicks = 3_600;
++  const session = new GameSession(canonical(setup));
++  const command = JSON.parse(playerCommand(session, "kilnkeeper"));
++  command.point = { x: 6_000, y: 14_500 };
++  session.submitPlayerCommand(canonical(command));
++  const towerId = "north:lane:west";
++  const initialTower = session.state.battle.towers.find(({ id }) => id === towerId);
++  assert.ok(initialTower?.hitpoints > 0);
++  session.stepMany(293);
++
++  const projectile = session.state.battle.projectiles.find(({ splashProfile }) =>
++    splashProfile !== undefined);
++  assert.ok(projectile);
++  assert.equal(projectile.structureId, towerId);
++  const checkpoint = session.serialize();
++  const restored = GameSession.restore(checkpoint);
++  const ticksThroughImpact = projectile.impactTick - session.state.tick + 1;
++  assert.deepEqual(restored.stepMany(ticksThroughImpact), session.stepMany(ticksThroughImpact));
++  assert.equal(restored.serialize(), session.serialize());
++  assert.equal(restored.replayBytes(), session.replayBytes());
++
++  const contacts = session.replay.filter(({ projectileId, type }) =>
++    projectileId === projectile.id && type === "external-structure-contact");
++  assert.equal(contacts.length, 1, "a crown-tower primary is excluded from secondary splash");
++  assert.equal(contacts[0].structureId, towerId);
++  assert.equal(contacts[0].damage, 281);
++  assert.equal(session.state.battle.towers.find(({ id }) => id === towerId).hitpoints,
++    initialTower.hitpoints - 281);
++});
++
+ test("Sunthread Pair and Duskwing Trio trade sourced air/ground projectiles through in-flight restore", () => {
+   const battle = new LiveBattle(pairedProjectileDuelSetup());
+   assert.equal(battle.scheduleDeploy(canonical({
+@@ -502,10 +838,10 @@ test("all official witnesses use uniform HTO policies with exact projection coun
+   const projectedEntities = projectedCards.flatMap(({ entities }) => entities);
+   const projectedPolicies = projectedEntities.flatMap((entity) =>
+     ORDINARY_POLICY_KEYS.map((field) => entity[field]));
+-  assert.equal(ADMITTED_IDS.length, 39);
+-  assert.equal(projectedEntities.length, 40);
+-  assert.equal(new Set(projectedEntities.map(({ archetypeId }) => archetypeId)).size, 39);
+-  assert.equal(projectedPolicies.length, 80);
++  assert.equal(ADMITTED_IDS.length, 40);
++  assert.equal(projectedEntities.length, 41);
++  assert.equal(new Set(projectedEntities.map(({ archetypeId }) => archetypeId)).size, 40);
++  assert.equal(projectedPolicies.length, 82);
+   assert.ok(projectedEntities.every(({ deliveryPolicy, layerPolicy }) =>
+     (deliveryPolicy.kind === "question" || deliveryPolicy.kind === "source-backed") &&
+     layerPolicy.kind === "question"));
+diff --git a/tests/integration-audit.test.js b/tests/integration-audit.test.js
+index ae50494..13753e6 100644
+--- a/tests/integration-audit.test.js
++++ b/tests/integration-audit.test.js
+@@ -226,7 +226,7 @@ test("canonical integration audit removes temporary output after rename failure"
+ 
+ test("canonical integration audit samples all direct occurrence mechanics", () => {
+   const artifacts = probeDirectOccurrenceAdapters();
+-  assert.equal(artifacts.length, 66);
++  assert.equal(artifacts.length, 67);
+   for (const artifact of artifacts) {
+     const facades = new Set();
+     for (const [field, payloadKey] of [
+@@ -304,9 +304,9 @@ test("canonical integration audit executes every supported card and reproduces a
+ }, () => {
+   const result = auditCanonicalIntegration({ runs: 2 });
+ 
+-  assert.equal(result.supported, 66);
+-  assert.equal(result.covered, 66);
+-  assert.equal(result.uniqueSupportedIds, 61);
++  assert.equal(result.supported, 67);
++  assert.equal(result.covered, 67);
++  assert.equal(result.uniqueSupportedIds, 62);
+   assert.equal(result.question, 5);
+   assert.equal(result.runHashes.length, 2);
+   assert.equal(result.runHashes[0], result.runHashes[1]);
+diff --git a/tests/rl-environment.test.js b/tests/rl-environment.test.js
+index 904a866..f8ab988 100644
+--- a/tests/rl-environment.test.js
++++ b/tests/rl-environment.test.js
+@@ -170,10 +170,11 @@ test("RL mask casts an editable Squall Orb center point and restores its pending
+     "pending effect replay remains byte-exact after restore");
+ });
+ 
+-test("RL reset and legal mask deploy both sourced projectile squads with exact deck restore", () => {
+-  for (const [cardId, memberCount, hitpoints, damage, layer] of [
+-    ["sunthread-pair", 2, 304, 107, "ground"],
+-    ["duskwing-trio", 3, 230, 117, "air"],
++test("RL reset and legal mask deploy sourced projectile cards with exact deck restore", () => {
++  for (const [cardId, memberCount, hitpoints, damage, layer, cost] of [
++    ["sunthread-pair", 2, 304, 107, "ground", 3],
++    ["duskwing-trio", 3, 230, 117, "air", 3],
++    ["kilnkeeper", 1, 720, 281, "ground", 5],
+   ]) {
+     const deck = [cardId, ...PLAYABLE_CARD_IDS.slice(0, 7)];
+     const seed = seedWithCardInHand(deck, cardId);
+@@ -191,6 +192,7 @@ test("RL reset and legal mask deploy both sourced projectile squads with exact d
+     const transition = env.step(action.id);
+     assert.equal(transition.info.actionId, action.id);
+     assert.equal(transition.observation.tick, 1);
++    observation = transition.observation;
+     const publicUnits = transition.observation.units.filter(({ cardId: id, side }) =>
+       id === cardId && side === "south");
+     assert.equal(publicUnits.length, 1,
+@@ -220,6 +222,7 @@ test("RL reset and legal mask deploy both sourced projectile squads with exact d
+       side === "south" && type === "session-deployed");
+     assert.equal(committed?.deployment.cardId, cardId);
+     assert.equal(committed?.deployment.entityIds.length, memberCount);
++    assert.equal(committed?.spend.cost, cost);
+     const runtimeUnits = session.state.battle.units.filter(({ cardId: id, side }) =>
+       id === cardId && side === "south");
+     assert.ok(runtimeUnits.every((unit) => unit.damage === damage &&
+diff --git a/src/content/cards/ordinary-projectile-splash.js b/src/content/cards/ordinary-projectile-splash.js
+new file mode 100644
+index 0000000..594c819
+--- /dev/null
++++ b/src/content/cards/ordinary-projectile-splash.js
+@@ -0,0 +1,26 @@
++import { createCardCatalog } from "../schema.js";
++
++const DEFINITIONS = [{
++  id: "kilnkeeper",
++  displayName: "Kilnkeeper",
++  cost: 5,
++  kind: "unit",
++    rarity: "uncommon",
++  hitpoints: 720,
++  damage: 281,
++  hitSpeedTicks: 84,
++  firstHitTicks: 60,
++  deployTimeTicks: 60,
++  rangeMillitiles: 5_500,
++  sightRangeMillitiles: 5_500,
++  movementMillitilesPerSecond: 1_000,
++  targetMode: "ground-and-air",
++  count: 1,
++  areaDamageRadiusMillitiles: null,
++  components: [],
++}];
++
++/** Returns the original single-unit source row for the ordinary splash profile. */
++export function createOrdinaryProjectileSplashCatalog() {
++  return createCardCatalog(DEFINITIONS);
++}
+diff --git a/src/sim/ordinary-projectile-splash.js b/src/sim/ordinary-projectile-splash.js
+new file mode 100644
+index 0000000..dc42e46
+--- /dev/null
++++ b/src/sim/ordinary-projectile-splash.js
+@@ -0,0 +1,261 @@
++import {
++  assertOrdinaryProjectileSplashProfile,
++  getOrdinaryProjectileSplashSourceFacts,
++} from "../shared/ordinary-projectile-delivery-authority.js";
++import {
++  MAX_SPATIAL_MILLITILES,
++  circlesOverlap,
++  validateCircle,
++  validatePosition,
++} from "./spatial.js";
++
++export const COMBAT_UNIT_KEYS = Object.freeze([
++  "cadenceTicks", "damage", "delivery", "deployTicks", "firstHitTicks",
++  "id", "layer", "maxHealth", "position", "projectileSpeed", "radius",
++  "reach", "side", "sightRange", "targetMode",
++]);
++const SIDES = new Set(["north", "south"]);
++const LAYERS = new Set(["air", "ground"]);
++const TARGET_MODES = new Set(["air", "air_and_ground", "buildings", "ground", "none"]);
++const DELIVERIES = new Set(["melee", "projectile"]);
++const MAX_TICK = 1_000_000_000;
++const MAX_STAT = 1_000_000_000;
++
++const UNIT_PROFILE_KEYS = Object.freeze([
++  "archetypeId", "cardId", "catalogId", "enemiesOnly", "radiusMillitiles",
++  "sourceExport", "targetLayers",
++]);
++const SOURCE_FACT_KEYS = Object.freeze([
++  "aoeToAir", "aoeToGround", "characterAreaDamageRadiusMillitiles", "homing",
++  "onlyEnemies", "radiusMillitiles", "speedRaw",
++]);
++const SETUP_FIELDS = Object.freeze([
++  "projectileSplashPolicy", "projectileSplashSourceFacts",
++]);
++
++function exact(value, keys, label) {
++  if (value === null || typeof value !== "object" || Array.isArray(value) ||
++      (Object.getPrototypeOf(value) !== Object.prototype &&
++       Object.getPrototypeOf(value) !== null)) {
++    throw new TypeError(`${label} must be a plain object`);
++  }
++  const descriptors = Object.getOwnPropertyDescriptors(value);
++  const actual = Reflect.ownKeys(descriptors).sort();
++  const expected = [...keys].sort();
++  if (actual.length !== expected.length ||
++      actual.some((key, index) => key !== expected[index]) ||
++      Object.values(descriptors).some((descriptor) =>
++        !descriptor.enumerable || !Object.hasOwn(descriptor, "value"))) {
++    throw new TypeError(`${label} has an invalid shape`);
++  }
++  return Object.fromEntries(keys.map((key) => [key, descriptors[key].value]));
++}
++
++function ownDataObject(value, label) {
++  if (value === null || typeof value !== "object" || Array.isArray(value) ||
++      (Object.getPrototypeOf(value) !== Object.prototype &&
++       Object.getPrototypeOf(value) !== null) || Object.getOwnPropertySymbols(value).length !== 0) {
++    throw new TypeError(`${label} must be a plain string-keyed data object`);
++  }
++  const descriptors = Object.getOwnPropertyDescriptors(value);
++  for (const [key, descriptor] of Object.entries(descriptors)) {
++    if (!descriptor.enumerable || !Object.hasOwn(descriptor, "value")) {
++      throw new TypeError(`${label}.${key} must be an enumerable data property`);
++    }
++  }
++  return descriptors;
++}
++
++function integer(value, minimum, maximum, label) {
++  if (!Number.isSafeInteger(value) || value < minimum || value > maximum) {
++    throw new TypeError(`${label} must be a safe integer from ${minimum} through ${maximum}`);
++  }
++  return value;
++}
++
++function checkedProfile(value, label) {
++  const profile = exact(value, UNIT_PROFILE_KEYS, label);
++  return assertOrdinaryProjectileSplashProfile(profile, profile.cardId, profile.archetypeId);
++}
++
++export function checkedUnitSplashShape(value, label, keys) {
++  const descriptors = ownDataObject(value, label);
++  const hasProfile = Object.hasOwn(descriptors, "splashProfile");
++  const unit = exact(value, hasProfile ? [...keys, "splashProfile"] : keys, label);
++  return {
++    profile: hasProfile ? checkedProfile(unit.splashProfile, `${label}.splashProfile`) : null,
++    unit,
++  };
++}
++
++export function checkedSpawnSplashShape(value, label, keys) {
++  const descriptors = ownDataObject(value, label);
++  const hasProfile = Object.hasOwn(descriptors, "splashProfile");
++  const record = exact(value, hasProfile ? [...keys, "splashProfile"] : keys, label);
++  return {
++    profile: hasProfile ? checkedProfile(record.splashProfile, `${label}.splashProfile`) : null,
++    record,
++  };
++}
++
++export function checkedCombatUnit(value, label = "battle combat unit") {
++  const { profile, unit } = checkedUnitSplashShape(value, label, COMBAT_UNIT_KEYS);
++  integer(unit.id, 1, Number.MAX_SAFE_INTEGER, `${label}.id`);
++  if (!SIDES.has(unit.side)) throw new TypeError(`${label}.side is invalid`);
++  if (!LAYERS.has(unit.layer)) throw new TypeError(`${label}.layer is invalid`);
++  if (!TARGET_MODES.has(unit.targetMode)) {
++    throw new TypeError(`${label}.targetMode is invalid`);
++  }
++  if (!DELIVERIES.has(unit.delivery)) {
++    throw new TypeError(`${label}.delivery is invalid`);
++  }
++  const position = validatePosition(unit.position, `${label}.position`);
++  validateCircle({ position, radius: unit.radius }, `${label} circle`);
++  integer(unit.sightRange, 0, MAX_SPATIAL_MILLITILES, `${label}.sightRange`);
++  integer(unit.reach, 0, MAX_SPATIAL_MILLITILES, `${label}.reach`);
++  integer(unit.maxHealth, 1, MAX_STAT, `${label}.maxHealth`);
++  integer(unit.damage, 0, MAX_STAT, `${label}.damage`);
++  integer(unit.deployTicks, 0, MAX_TICK, `${label}.deployTicks`);
++  integer(unit.firstHitTicks, 0, MAX_TICK, `${label}.firstHitTicks`);
++  integer(unit.cadenceTicks, 1, MAX_TICK, `${label}.cadenceTicks`);
++  if (unit.delivery === "melee") {
++    if (unit.projectileSpeed !== null) {
++      throw new TypeError(`${label}.projectileSpeed must be null for melee delivery`);
++    }
++  } else {
++    integer(unit.projectileSpeed, 1, MAX_STAT, `${label}.projectileSpeed`);
++  }
++  return { ...unit, position: { ...position },
++    ...(profile === null ? {} : { splashProfile: profile }) };
++}
++
++export function copyCombatUnitFields(unit, cloneValue) {
++  const fields = Object.fromEntries(COMBAT_UNIT_KEYS.map((key) => [key, cloneValue(unit[key])]));
++  if (Object.hasOwn(unit, "splashProfile")) fields.splashProfile = cloneValue(unit.splashProfile);
++  return fields;
++}
++
++export function checkedCombatSpawn(value, label = "battle combat spawn") {
++  const { profile, record: command } =
++    checkedSpawnSplashShape(value, label, [...COMBAT_UNIT_KEYS, "tick"]);
++  const tick = integer(command.tick, 0, MAX_TICK, `${label}.tick`);
++  const unit = checkedCombatUnit(Object.fromEntries([
++    ...COMBAT_UNIT_KEYS, ...(profile === null ? [] : ["splashProfile"]),
++  ].map((key) => [key, command[key]])), `${label}.unit`);
++  return { ...unit, tick };
++}
++
++export function ordinaryProjectileSplashEntityShape(raw, keys) {
++  const hasProfile = raw !== null && typeof raw === "object" && !Array.isArray(raw) &&
++    (Object.hasOwn(raw, "projectileSplashPolicy") ||
++      Object.hasOwn(raw, "projectileSplashSourceFacts"));
++  return {
++    hasProfile,
++    keys: hasProfile ? [...keys, ...SETUP_FIELDS] : keys,
++  };
++}
++
++export function assertOrdinaryProjectileSplashReceipt(entity, cardId, archetypeId, label) {
++  const profile = assertOrdinaryProjectileSplashProfile(
++    exact(entity.projectileSplashPolicy, UNIT_PROFILE_KEYS,
++      `${label}.projectileSplashPolicy`), cardId, archetypeId,
++  );
++  const sourceFacts = exact(entity.projectileSplashSourceFacts, SOURCE_FACT_KEYS,
++    `${label}.projectileSplashSourceFacts`);
++  const expected = getOrdinaryProjectileSplashSourceFacts(cardId, archetypeId);
++  if (expected === null || SOURCE_FACT_KEYS.some((key) => sourceFacts[key] !== expected[key])) {
++    throw new TypeError(`${label} splash source facts diverge from their pinned receipt`);
++  }
++  return { profile, sourceFacts };
++}
++
++export function ordinaryProjectileSplashEntityFields(entity, cardId, archetypeId, label) {
++  const { profile, sourceFacts } =
++    assertOrdinaryProjectileSplashReceipt(entity, cardId, archetypeId, label);
++  return {
++    projectileSplashPolicy: profile,
++    projectileSplashSourceFacts: sourceFacts,
++  };
++}
++
++export function ordinaryProjectileSplashCombatFields(component) {
++  return component.projectileSplashPolicy === undefined
++    ? {} : { splashProfile: component.projectileSplashPolicy };
++}
++
++function selectTargets({ center, enemySide, primaryTargetId, profile, structures, units }) {
++  const targets = [];
++  const overlaps = (target) => circlesOverlap(
++    { position: center, radius: profile.radiusMillitiles },
++    { position: target.position, radius: target.radius },
++  );
++  for (const unit of units) {
++    if (!unit.alive || !unit.targetable || unit.side !== enemySide ||
++        unit.id === primaryTargetId || !profile.targetLayers.includes(unit.layer) ||
++        !overlaps(unit)) continue;
++    targets.push({ ...unit, targetKind: "unit" });
++  }
++  for (const structure of structures) {
++    if (!structure.alive || !structure.targetable || structure.side !== enemySide ||
++        structure.id === primaryTargetId || !profile.targetLayers.includes(structure.layer) ||
++        !overlaps(structure)) continue;
++    targets.push({ ...structure, targetKind: "structure" });
++  }
++  targets.sort((left, right) => left.id - right.id);
++  return targets;
++}
++
++export function planOrdinaryProjectileSplashImpact({
++  attackerId, attackSequence, center, damage, enemySide, primaryKind, primaryStatus,
++  primaryTarget, primaryTargetId, primaryTargetable, profile, projectileId, structures,
++  tick, units,
++}) {
++  const primaryWithinSplash = profile === null || primaryStatus !== "contact" ||
++    (primaryTarget !== null && circlesOverlap(
++      { position: center, radius: profile.radiusMillitiles },
++      { position: primaryTarget.position, radius: primaryTarget.radius ?? 0 },
++    ));
++  const eligiblePrimary = profile === null || primaryStatus !== "contact" ||
++    (primaryTarget !== null && primaryTarget.side === enemySide &&
++      profile.targetLayers.includes(primaryTarget.layer) && primaryTargetable && primaryWithinSplash);
++  const impactStatus = eligiblePrimary ? primaryStatus : "target_missing";
++  const splashTargets = profile === null ? [] : selectTargets({
++    center, enemySide, primaryTargetId, profile, structures, units,
++  });
++  const unitHits = [];
++  const hitSources = [];
++  const structureContacts = [];
++  const visualContacts = [{ id: primaryTargetId, position: center, status: impactStatus }];
++  const addContact = (target, kind) => {
++    visualContacts.push({ id: target.id, position: target.position, status: "contact" });
++    if (kind === "unit") {
++      unitHits.push({ amount: damage, targetId: target.id });
++      hitSources.push({ attackerId, delivery: "projectile", projectileId });
++    } else {
++      structureContacts.push({
++        contactTick: tick,
++        attackSequence,
++        damage,
++        delivery: "projectile",
++        projectileId,
++        sourceUnitId: attackerId,
++        structureId: target.structureId,
++        tick,
++        type: "external-structure-contact",
++      });
++    }
++  };
++  if (impactStatus === "contact") {
++    addContact(primaryKind === "structure"
++      ? { ...primaryTarget, structureId: primaryTarget.structureId }
++      : { id: primaryTargetId, position: center }, primaryKind);
++  }
++  for (const target of splashTargets) addContact(target, target.targetKind);
++  return { hitSources, impactStatus, structureContacts, unitHits, visualContacts };
++}
++
++export function selectOrdinaryProjectileSplashTargets({
++  center, enemySide, primaryTargetId, profile, structures, units,
++}) {
++  return selectTargets({ center, enemySide, primaryTargetId, profile, structures, units });
++}

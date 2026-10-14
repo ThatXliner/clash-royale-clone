@@ -1,0 +1,82 @@
+TAP version 13
+# Subtest: RL environment exposes a finite action catalogue and masks legal deploys
+ok 1 - RL environment exposes a finite action catalogue and masks legal deploys
+  ---
+  duration_ms: 83.250042
+  type: 'test'
+  ...
+# Subtest: seeded trajectories and restored checkpoints continue identically
+ok 2 - seeded trajectories and restored checkpoints continue identically
+  ---
+  duration_ms: 216.254666
+  type: 'test'
+  ...
+# Subtest: separate instances and a custom shared deck remain independent
+ok 3 - separate instances and a custom shared deck remain independent
+  ---
+  duration_ms: 24.950416
+  type: 'test'
+  ...
+# Subtest: RL mask casts an editable Squall Orb center point and restores its pending effect
+ok 4 - RL mask casts an editable Squall Orb center point and restores its pending effect
+  ---
+  duration_ms: 50.6405
+  type: 'test'
+  ...
+# Subtest: RL reset and legal mask deploy sourced projectile cards with exact deck restore
+ok 5 - RL reset and legal mask deploy sourced projectile cards with exact deck restore
+  ---
+  duration_ms: 344.919458
+  type: 'test'
+  ...
+# Subtest: RL observes Ember Basin targeting, damage, lifetime, and exact in-flight restore
+ok 6 - RL observes Ember Basin targeting, damage, lifetime, and exact in-flight restore
+  ---
+  duration_ms: 2577.386416
+  type: 'test'
+  ...
+# Subtest: horizon clipping truncates exactly and rejects later steps
+ok 7 - horizon clipping truncates exactly and rejects later steps
+  ---
+  duration_ms: 76.192792
+  type: 'test'
+  ...
+# Subtest: restore rejects paused or pending GameSession checkpoints
+ok 8 - restore rejects paused or pending GameSession checkpoints
+  ---
+  duration_ms: 59.846458
+  type: 'test'
+  ...
+# Subtest: masked and out-of-range actions are atomic
+ok 9 - masked and out-of-range actions are atomic
+  ---
+  duration_ms: 10.658709
+  type: 'test'
+  ...
+# Subtest: observations are allowlisted, JSON-safe, and detached
+ok 10 - observations are allowlisted, JSON-safe, and detached
+  ---
+  duration_ms: 15.422584
+  type: 'test'
+  ...
+# Subtest: natural engine completion reports one sparse reward and seals the episode
+ok 11 - natural engine completion reports one sparse reward and seals the episode
+  ---
+  duration_ms: 53165.325042
+  type: 'test'
+  ...
+# Subtest: wait-only seed 2 reaches its pinned natural engine terminal after checkpoint restore
+ok 12 - wait-only seed 2 reaches its pinned natural engine terminal after checkpoint restore
+  ---
+  duration_ms: 57831.821208
+  type: 'test'
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 12
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 114656.764958

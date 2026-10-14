@@ -1,0 +1,25 @@
+CARDS019K builder verification evidence
+
+Baseline source revision: 0cbd7e5c245e58aedc3598f51ad5371d7477ab9e
+Baseline construction: git archive HEAD package.json src | tar -x -C "$baseline_dir"
+Identical baseline and candidate input script: default8-hash.mjs
+Measured seeds: 0 and 23
+Continuation: 120 ticks, then 120 more ticks from a restored checkpoint
+Compared SHA-256: setup, initial canonical GameSession serialization, tick-120 serialization, replay bytes at tick 120, tick-240 serialization, replay bytes at tick 240
+Comparison command: diff -u default8-baseline.out default8-candidate.out
+Comparison result: PASS; diff output empty; editableMatches, finalMatches, replayMatches are true for both seeds.
+
+Focused tests:
+- Editable shipped-standard setup preservation: PASS, 1/1.
+- Kilnkeeper source questions, splash planner, actual GameSession moving-unit splash, external building contact, and crown-tower contact: PASS, 5/5.
+- Sourced-projectile RL deployment and exact deck/session restore: PASS, 1/1.
+
+Kernel size: 523929 bytes (limit 524288 bytes; 359 bytes below cap).
+
+Full RL suite status: CANCELLED / incomplete, not pass or fail. Command: node --test tests/rl-environment.test.js. Tool session: 17390. It printed only TAP version 13 before Ctrl-C; no individual test result was produced. Do not infer suite status from the focused 1/1 RL case.
+
+Initial integration audit: `npm run test:integration-audit`, tool session 35598, exited 1 after 513.5 seconds. Tests 1-3 and 5 passed; tests 4 and 6 failed on the exact supported-occurrence assertion in `tests/integration-audit.test.js`: expected 66, actual 67. The new Kilnkeeper occurrence caused the count change. No binding mismatch was reported.
+
+After the first audit, exact count guards were updated to 67 supported/covered occurrences and 62 unique IDs. The focused raw-binding and direct-occurrence tests then passed 2/2 in 6.9 seconds. `EXPECTED_MANIFEST_SHA256` remains the previous 66-entry pin because the failed aggregate test stopped at the old occurrence count before printing the newly computed digest. The new aggregate pin must be obtained from an actual 67-entry audit run before acceptance.
+
+Frozen owned delta: `/tmp/cards019k-core-delta.patch`; SHA-256 `8c34a9ecae0bff51c16e08bf07523a4e6822807fbfeea98aff16974366a9ed6a`. It applies cleanly to baseline HEAD `0cbd7e5c245e58aedc3598f51ad5371d7477ab9e` (dry-run against `git archive HEAD package.json src tests scripts` passed). It contains only the owned files listed in `owned-files.txt`; the shared dirty UI/manifest work is excluded.

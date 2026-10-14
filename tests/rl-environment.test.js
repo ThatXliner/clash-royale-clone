@@ -170,10 +170,11 @@ test("RL mask casts an editable Squall Orb center point and restores its pending
     "pending effect replay remains byte-exact after restore");
 });
 
-test("RL reset and legal mask deploy both sourced projectile squads with exact deck restore", () => {
-  for (const [cardId, memberCount, hitpoints, damage, layer] of [
-    ["sunthread-pair", 2, 304, 107, "ground"],
-    ["duskwing-trio", 3, 230, 117, "air"],
+test("RL reset and legal mask deploy sourced projectile cards with exact deck restore", () => {
+  for (const [cardId, memberCount, hitpoints, damage, layer, cost] of [
+    ["sunthread-pair", 2, 304, 107, "ground", 3],
+    ["duskwing-trio", 3, 230, 117, "air", 3],
+    ["kilnkeeper", 1, 720, 281, "ground", 5],
   ]) {
     const deck = [cardId, ...PLAYABLE_CARD_IDS.slice(0, 7)];
     const seed = seedWithCardInHand(deck, cardId);
@@ -191,6 +192,7 @@ test("RL reset and legal mask deploy both sourced projectile squads with exact d
     const transition = env.step(action.id);
     assert.equal(transition.info.actionId, action.id);
     assert.equal(transition.observation.tick, 1);
+    observation = transition.observation;
     const publicUnits = transition.observation.units.filter(({ cardId: id, side }) =>
       id === cardId && side === "south");
     assert.equal(publicUnits.length, 1,
@@ -220,6 +222,7 @@ test("RL reset and legal mask deploy both sourced projectile squads with exact d
       side === "south" && type === "session-deployed");
     assert.equal(committed?.deployment.cardId, cardId);
     assert.equal(committed?.deployment.entityIds.length, memberCount);
+    assert.equal(committed?.spend.cost, cost);
     const runtimeUnits = session.state.battle.units.filter(({ cardId: id, side }) =>
       id === cardId && side === "south");
     assert.ok(runtimeUnits.every((unit) => unit.damage === damage &&

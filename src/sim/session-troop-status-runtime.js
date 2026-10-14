@@ -1,3 +1,13 @@
+import {
+  assertSessionTroopSourceConfidencePolicy,
+  encodeSessionTroopSourceConfidenceValue,
+} from "../shared/session-troop-source-confidence-authority.js";
+import {
+  assertOrdinaryProjectileSplashProfile,
+  getOrdinaryProjectileSplashProfile,
+  getOrdinaryProjectileSplashSourceFacts,
+} from "../shared/ordinary-projectile-delivery-authority.js";
+
 export const SESSION_TROOP_STATUS_RUNTIME_VERSION = 1;
 export const SESSION_TROOP_STATUS_RUNTIME_MAX_COMMANDS = 1_024;
 export const SESSION_TROOP_STATUS_RUNTIME_MAX_SOURCES = 1_024;
@@ -154,6 +164,9 @@ const STATUS_QUESTION_KEYS = Object.freeze([
   "authoritative", "confidence", "disposition", "key", "source", "value",
 ]);
 const STATUS_QUESTION_SOURCE = "runtime-playability-estimate-not-comparison-corpus";
+const KILNKEEPER_AREA_RADIUS_KEY = "kilnkeeper.character-area-damage-radius-millitiles";
+const KILNKEEPER_AREA_RADIUS_SOURCE =
+  "pinned-royaleapi-54fdef52:cards_stats_characters#wizard";
 const STATUS_LAYER_RESOLUTION = 1;
 const STATUS_PROJECTILE_SPEED_RESOLUTION = 500;
 const STATUS_MAX_QUESTIONS = 256;
@@ -272,7 +285,39 @@ function statusRosterData(value) {
   return normalized;
 }
 
-function statusQuestionData(value) {
+function assertKilnkeeperAreaRadiusClosure(record, roster) {
+  if (record.source !== KILNKEEPER_AREA_RADIUS_SOURCE || record.value !== 0) {
+    throw new TypeError("kilnkeeper area radius QUESTION diverges from its pinned source receipt");
+  }
+  const matches = roster.flatMap((card) => card.id === "kilnkeeper"
+    ? card.entities.filter(({ archetypeId }) => archetypeId === "kilnkeeper")
+      .map((entity) => ({ card, entity }))
+    : []);
+  if (matches.length !== 1) {
+    throw new TypeError("kilnkeeper area radius QUESTION has no unique source confidence closure");
+  }
+  const [{ card, entity }] = matches;
+  const policy = assertSessionTroopSourceConfidencePolicy(
+    entity.sourceConfidencePolicy, card.id, entity.archetypeId,
+  );
+  const confidenceField = policy.fields.find(({ questionKey }) =>
+    questionKey === KILNKEEPER_AREA_RADIUS_KEY);
+  const sourceProfile = getOrdinaryProjectileSplashProfile(card.id, entity.archetypeId);
+  const sourceFacts = getOrdinaryProjectileSplashSourceFacts(card.id, entity.archetypeId);
+  if (confidenceField === undefined || confidenceField.field !==
+      "projectileSplashSourceFacts.characterAreaDamageRadiusMillitiles" ||
+      confidenceField.valueEncoding !== "nonnegative-integer" ||
+      confidenceField.source !== KILNKEEPER_AREA_RADIUS_SOURCE || sourceProfile === null ||
+      canonical(assertOrdinaryProjectileSplashProfile(entity.projectileSplashPolicy,
+        card.id, entity.archetypeId)) !== canonical(sourceProfile) ||
+      canonical(entity.projectileSplashSourceFacts) !== canonical(sourceFacts) ||
+      encodeSessionTroopSourceConfidenceValue(confidenceField.valueEncoding,
+        entity.projectileSplashSourceFacts.characterAreaDamageRadiusMillitiles) !== record.value) {
+    throw new TypeError("kilnkeeper area radius QUESTION has an invalid source confidence closure");
+  }
+}
+
+function statusQuestionData(value, roster) {
   const normalized = dataTree(value, "status runtime question inventory");
   if (!Array.isArray(normalized) || normalized.length > STATUS_MAX_QUESTIONS) {
     throw new TypeError("status runtime question inventory must be a bounded array");
@@ -286,13 +331,17 @@ function statusQuestionData(value) {
         record.source.length === 0) {
       throw new TypeError(`status runtime question inventory[${index}] is not an unresolved QUESTION`);
     }
+    if (record.key === KILNKEEPER_AREA_RADIUS_KEY) {
+      assertKilnkeeperAreaRadiusClosure(record, roster);
+    }
     return {
       authoritative: false,
       confidence: "unverified",
       disposition: "question",
       key: record.key,
       source: record.source,
-      value: integer(record.value, 1, Number.MAX_SAFE_INTEGER,
+      value: integer(record.value,
+        record.key === KILNKEEPER_AREA_RADIUS_KEY ? 0 : 1, Number.MAX_SAFE_INTEGER,
         `status runtime question inventory[${index}].value`),
     };
   });
@@ -492,7 +541,7 @@ function statusSignals(roster) {
 
 function validateSourceRoster(roster, receipt, questions = undefined) {
   const normalized = statusRosterData(roster);
-  const questionMap = questions === undefined ? null : statusQuestionData(questions);
+  const questionMap = questions === undefined ? null : statusQuestionData(questions, normalized);
   const { cardIds, cards, entityClaims } = statusSignals(normalized);
   if (receipt === undefined) {
     // Legacy ordinary projections can contain a card that later gained a

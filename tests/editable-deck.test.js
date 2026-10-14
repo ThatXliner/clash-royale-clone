@@ -80,9 +80,10 @@ test("editable deck setup admits every card in canonical eight-card witnesses an
     const references = questionReferences(witness.roster);
     const expectedKeys = [...new Set(references)].sort();
     assert.deepEqual(witness.questions.map(({ key }) => key), expectedKeys);
-    assert.ok(witness.questions.every(({ authoritative, confidence, disposition, value }) =>
+    assert.ok(witness.questions.every(({ authoritative, confidence, disposition, key, value }) =>
       authoritative === false && confidence === "unverified" && disposition === "question" &&
-      Number.isSafeInteger(value) && value > 0));
+      Number.isSafeInteger(value) &&
+      (key === "kilnkeeper.character-area-damage-radius-millitiles" ? value === 0 : value > 0)));
     for (const question of witness.questions) {
       assert.deepEqual(question, originalQuestions.get(question.key), question.key);
     }

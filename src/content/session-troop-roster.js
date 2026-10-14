@@ -2,6 +2,7 @@ import { createBasicFlyingCatalog } from "./cards/basic-flying.js";
 import { createBasicMeleeCatalog } from "./cards/basic-melee.js";
 import { createBasicRangedCatalog } from "./cards/basic-ranged.js";
 import { createOrdinaryProjectileSquadCatalog } from "./cards/ordinary-projectile-squads.js";
+import { createOrdinaryProjectileSplashCatalog } from "./cards/ordinary-projectile-splash.js";
 import { createSwarmCatalog } from "./cards/swarms.js";
 import { createStructureSeekerCatalog } from "./cards/structure-seeker.js";
 import { createShieldFormCatalog } from "./cards/shields-forms.js";
@@ -31,7 +32,11 @@ import {
 import { createSessionTroopProfileManifest } from "./session-troop-profile-catalog.js";
 import { assertSafeCardCatalogGraph } from "./schema.js";
 import { assertAuthoritativeProjectileSourceCatalogs } from "./session-troop-projectile-source-admission.js";
-import { getOrdinaryProjectileDeliveryPolicy } from "../shared/ordinary-projectile-delivery-authority.js";
+import {
+  getOrdinaryProjectileDeliveryPolicy,
+  getOrdinaryProjectileSplashProfile,
+  getOrdinaryProjectileSplashSourceFacts,
+} from "../shared/ordinary-projectile-delivery-authority.js";
 import {
   encodeSessionTroopSourceConfidenceValue,
   getSessionTroopSourceConfidencePolicy,
@@ -61,12 +66,14 @@ export const EDITABLE_DECK_CARD_IDS = Object.freeze([
   "duskwing-trio",
   "gloamwing-cluster",
   "coppershade-flock",
+  "kilnkeeper",
 ]);
 
 // These are source-occurrence classifications for an ordinary runtime estimate.
 // They do not claim the special mechanic represented by the catalog export.
 const PROJECTILE_OCCURRENCES = new Set([
   "createOrdinaryProjectileSquadCatalog",
+  "createOrdinaryProjectileSplashCatalog",
   "createChainSpecialCatalog",
   "createPelletSpecialCatalog",
   "createPierceSpecialCatalog",
@@ -79,6 +86,7 @@ const SOURCE_FACTORIES = Object.freeze({
   createBasicMeleeCatalog,
   createBasicRangedCatalog,
   createOrdinaryProjectileSquadCatalog,
+  createOrdinaryProjectileSplashCatalog,
   createSwarmCatalog,
   createStructureSeekerCatalog,
   createShieldFormCatalog,
@@ -366,6 +374,12 @@ function projectOrdinaryEntity(card, component) {
   };
   const sourceConfidencePolicy = getSessionTroopSourceConfidencePolicy(card.id, archetypeId);
   if (sourceConfidencePolicy !== null) entity.sourceConfidencePolicy = sourceConfidencePolicy;
+  const splashPolicy = getOrdinaryProjectileSplashProfile(card.id, archetypeId);
+  if (splashPolicy !== null) {
+    entity.projectileSplashPolicy = splashPolicy;
+    entity.projectileSplashSourceFacts =
+      getOrdinaryProjectileSplashSourceFacts(card.id, archetypeId);
+  }
   if (source.damage === null) {
     entity.damagePolicy = questionPolicy(`${archetypeId}.damage`);
   }
@@ -451,9 +465,13 @@ function questionRecordFor(key, card) {
   const confidenceField = entity.sourceConfidencePolicy?.fields.find((field) =>
     field.questionKey === key);
   if (confidenceField !== undefined) {
-    return estimateQuestion(key, encodeSessionTroopSourceConfidenceValue(
-      confidenceField.valueEncoding, entity[confidenceField.field],
+    const value = confidenceField.field.split(".")
+      .reduce((current, field) => current?.[field], entity);
+    const record = estimateQuestion(key, encodeSessionTroopSourceConfidenceValue(
+      confidenceField.valueEncoding, value,
     ));
+    if (confidenceField.source !== undefined) record.source = confidenceField.source;
+    return record;
   }
   if (key.endsWith(".body-radius-millitiles")) {
     return estimateQuestion(key, estimateBodyRadius(entity));

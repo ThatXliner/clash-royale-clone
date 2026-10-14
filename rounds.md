@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 432 — 2026-10-13
+
+PIECE: CARDS-019K — Source-bounded Kilnkeeper shared splash core, round 1
+
+VERDICT: FAIL
+
+EVIDENCE: Independentexact562 fullRL12/12 (114656.8ms/naturalterminaltests completed), profiles11/ordinary21/editable12/schema20/shipping13+4 pass. AIcost5/decksequence+1/cardreceipt1/exact63298Brestore; pending134473B anddamaged135097B restore/fork/impact exact; default8 seed0/23 archivedhashes match. Adjacentprojectileprofiles/runtime suites bothfailimport atsession-troop-projectile-profiles.js:801: newauthoritativeexport absentSOURCE_BINDINGS; strictcache9vs10 rejection. Nondeterminism9/10 oldinventory; directguard46files/probed/0violations. Fullaudit450235ms5/6 executes67covered/62IDs/5QUESTION/tworunhashesequal thenoldpinFAIL: actuale6dc0251fa427ec0f629fedb554f32cea2c5053bcdb6324524f9b960861bb750 vs009ed7e778379a105792dcf32d8ff37bd72bf13c42c442bae28d48f3d7f144fc. Damage281 stillgenericruntimeestimateQ, missingcanonicalpinnedlinked-projectiledamage_per_level[8] binding. Rawartifacts `artifacts/cards019-core-round-1/critic/`.
+
+BIGGEST GAP: Existing shared projectile consumers cannot import because the new authoritative source factory is missing from the source-binding map; repair that producer without weakening the cache-completeness check.
+
 ## Round 431 — 2026-10-13
 
 PIECE: ART-019B — Kilnkeeper combat cutout readability repair, round 2

@@ -2,6 +2,7 @@ import { createBasicFlyingCatalog } from "./cards/basic-flying.js";
 import { createBasicMeleeCatalog } from "./cards/basic-melee.js";
 import { createBasicRangedCatalog } from "./cards/basic-ranged.js";
 import { createSwarmCatalog } from "./cards/swarms.js";
+import { createOrdinaryProjectileSplashCatalog } from "./cards/ordinary-projectile-splash.js";
 import { createChainSpecialCatalog } from "./cards/special-projectiles-chain.js";
 import { createPierceSpecialCatalog } from "./cards/special-projectiles-pierce.js";
 import { createReturnSpecialCatalog } from "./cards/special-projectiles-return.js";
@@ -72,6 +73,7 @@ export const AUTHORITATIVE_PROJECTILE_SOURCE_IDS_BY_EXPORT = Object.freeze({
   createReturnSpecialCatalog: Object.freeze(["rune-reaver"]),
   createPelletSpecialCatalog: Object.freeze(["scatterguard"]),
   createReflectionSpecialCatalog: Object.freeze(["aegis-sage"]),
+  createOrdinaryProjectileSplashCatalog: Object.freeze(["kilnkeeper"]),
 });
 
 const SOURCE_BINDINGS = Object.freeze({
@@ -84,6 +86,7 @@ const SOURCE_BINDINGS = Object.freeze({
   createReturnSpecialCatalog,
   createPelletSpecialCatalog,
   createReflectionSpecialCatalog,
+  createOrdinaryProjectileSplashCatalog,
 });
 
 function clone(value) {
@@ -121,7 +124,7 @@ function sourceRecordKey(exportName, id) {
   return `${exportName}\u0000${id}`;
 }
 
-// This is the one closed authoritative witness for all nine source catalogs.
+// This is the one closed authoritative witness for every admitted source catalog.
 // It is a complete canonical serialization, not a collision-prone digest.
 const EXPECTED_SOURCE_WITNESS_MAP = Object.freeze({
   [sourceRecordKey("createBasicMeleeCatalog", "coilblade")]: canonical({
@@ -580,6 +583,25 @@ const EXPECTED_SOURCE_WITNESS_MAP = Object.freeze({
     rarity: "heroic",
     sightRangeMillitiles: 5500,
     targetMode: "ground",
+  }),
+  [sourceRecordKey("createOrdinaryProjectileSplashCatalog", "kilnkeeper")]: canonical({
+    areaDamageRadiusMillitiles: null,
+    components: [],
+    cost: 5,
+    count: 1,
+    damage: 281,
+    deployTimeTicks: 60,
+    displayName: "Kilnkeeper",
+    firstHitTicks: 60,
+    hitSpeedTicks: 84,
+    hitpoints: 720,
+    id: "kilnkeeper",
+    kind: "unit",
+    movementMillitilesPerSecond: 1000,
+    rangeMillitiles: 5500,
+    rarity: "uncommon",
+    sightRangeMillitiles: 5500,
+    targetMode: "ground-and-air",
   }),
 });
 

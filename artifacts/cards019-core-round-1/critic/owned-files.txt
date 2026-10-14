@@ -1,0 +1,27 @@
+CARDS019K core candidate base HEAD: 0cbd7e5c245e58aedc3598f51ad5371d7477ab9e
+Owned-delta patch: /tmp/cards019k-core-delta.patch
+Owned-delta SHA-256: 8c34a9ecae0bff51c16e08bf07523a4e6822807fbfeea98aff16974366a9ed6a
+Patch dry-run: PASS against `git archive HEAD package.json src tests scripts`
+Aggregate manifest pin: pending actual 67-entry digest; `tests/integration-audit.test.js` currently retains its old 66-entry SHA pin.
+
+Owned files in the patch:
+scripts/integration-audit.js
+src/content/cards/ordinary-projectile-splash.js
+src/content/index.js
+src/content/session-card-catalog.js
+src/content/session-troop-profile-catalog.js
+src/content/session-troop-projectile-profiles.js
+src/content/session-troop-projectile-source-admission.js
+src/content/session-troop-roster.js
+src/shared/ordinary-projectile-delivery-authority.js
+src/shared/session-troop-source-confidence-authority.js
+src/sim/battle-continuation-kernel.js
+src/sim/ordinary-projectile-splash.js
+src/sim/session-troop-status-runtime.js
+tests/editable-deck.test.js
+tests/fixtures/integration-occurrence-adapters.js
+tests/fixtures/integration-occurrence-bindings.json
+tests/game-roster-troop-profiles.test.js
+tests/game-roster-troops-ordinary.test.js
+tests/integration-audit.test.js
+tests/rl-environment.test.js

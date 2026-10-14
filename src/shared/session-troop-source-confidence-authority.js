@@ -10,11 +10,35 @@ const SOURCE_CONFIDENCE_FIELDS = Object.freeze([
   Object.freeze({ field: "sightRangeMillitiles", questionKeySuffix: "sight-range-millitiles", valueEncoding: "positive-integer" }),
   Object.freeze({ field: "targetMode", questionKeySuffix: "target-mode", valueEncoding: "target-mode-code" }),
 ]);
+const KILNKEEPER_PROJECTILE_FIELDS = Object.freeze([
+  Object.freeze({ field: "projectileSplashSourceFacts.characterAreaDamageRadiusMillitiles",
+    questionKeySuffix: "character-area-damage-radius-millitiles", valueEncoding: "nonnegative-integer",
+    source: "pinned-royaleapi-54fdef52:cards_stats_characters#wizard" }),
+  Object.freeze({ field: "projectileSplashSourceFacts.radiusMillitiles",
+    questionKeySuffix: "projectile-splash-radius-millitiles", valueEncoding: "positive-integer",
+    source: "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile" }),
+  Object.freeze({ field: "projectileSplashSourceFacts.speedRaw",
+    questionKeySuffix: "projectile-speed-raw", valueEncoding: "positive-integer",
+    source: "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile" }),
+  Object.freeze({ field: "projectileSplashSourceFacts.homing",
+    questionKeySuffix: "projectile-homing", valueEncoding: "boolean-code",
+    source: "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile" }),
+  Object.freeze({ field: "projectileSplashSourceFacts.aoeToAir",
+    questionKeySuffix: "projectile-aoe-to-air", valueEncoding: "boolean-code",
+    source: "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile" }),
+  Object.freeze({ field: "projectileSplashSourceFacts.aoeToGround",
+    questionKeySuffix: "projectile-aoe-to-ground", valueEncoding: "boolean-code",
+    source: "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile" }),
+  Object.freeze({ field: "projectileSplashSourceFacts.onlyEnemies",
+    questionKeySuffix: "projectile-only-enemies", valueEncoding: "boolean-code",
+    source: "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile" }),
+]);
 
 const SOURCE_CONFIDENCE_CLAIMS = Object.freeze([
   Object.freeze({ cardId: "briar-band", archetypeId: "briar-runner" }),
   Object.freeze({ cardId: "briar-band", archetypeId: "briar-darter" }),
   Object.freeze({ cardId: "gloamwing-cluster", archetypeId: "gloamwing" }),
+  Object.freeze({ cardId: "kilnkeeper", archetypeId: "kilnkeeper" }),
   Object.freeze({ cardId: "coppershade-flock", archetypeId: "coppershade" }),
   Object.freeze({ cardId: "duskwing-trio", archetypeId: "duskwing" }),
   Object.freeze({ cardId: "forgeguard", archetypeId: "forgeguard" }),
@@ -33,6 +57,10 @@ const TARGET_MODE_CODES = Object.freeze({
   "ground-and-air": 3,
   structures: 4,
 });
+const DEFAULT_QUESTION_SOURCE = "runtime-playability-estimate-not-comparison-corpus";
+const ZERO_QUESTION_KEYS = new Set([
+  "kilnkeeper.character-area-damage-radius-millitiles",
+]);
 
 function exact(value, keys, label) {
   if (value === null || typeof value !== "object" || Array.isArray(value) ||
@@ -52,11 +80,14 @@ function exact(value, keys, label) {
 }
 
 function expectedPolicy(archetypeId) {
+  const fields = [...SOURCE_CONFIDENCE_FIELDS,
+    ...(archetypeId === "kilnkeeper" ? KILNKEEPER_PROJECTILE_FIELDS : [])];
   return {
-    fields: SOURCE_CONFIDENCE_FIELDS.map(({ field, questionKeySuffix, valueEncoding }) => ({
+    fields: fields.map(({ field, questionKeySuffix, valueEncoding, source }) => ({
       field,
       questionKey: `${archetypeId}.${questionKeySuffix}`,
       valueEncoding,
+      ...(source === undefined ? {} : { source }),
     })),
     deploymentInterval: { ...DEPLOYMENT_INTERVAL },
   };
@@ -85,15 +116,18 @@ export function assertSessionTroopSourceConfidencePolicy(value, cardId, archetyp
     throw new TypeError("session troop source confidence field inventory is incomplete");
   }
   const fields = policy.fields.map((raw, index) => {
-    const record = exact(raw, ["field", "questionKey", "valueEncoding"],
-      `session troop source confidence policy.fields[${index}]`);
     const reference = expected.fields[index];
+    const record = exact(raw, reference.source === undefined
+      ? ["field", "questionKey", "valueEncoding"]
+      : ["field", "questionKey", "source", "valueEncoding"],
+      `session troop source confidence policy.fields[${index}]`);
     if (record.field !== reference.field || record.questionKey !== reference.questionKey ||
-        record.valueEncoding !== reference.valueEncoding) {
+        record.valueEncoding !== reference.valueEncoding || record.source !== reference.source) {
       throw new TypeError("session troop source confidence field inventory diverges");
     }
     return { field: record.field, questionKey: record.questionKey,
-      valueEncoding: record.valueEncoding };
+      valueEncoding: record.valueEncoding,
+      ...(reference.source === undefined ? {} : { source: reference.source }) };
   });
   const interval = exact(policy.deploymentInterval, ["milliseconds", "sourceId", "ticks"],
     "session troop deployment interval receipt");
@@ -106,6 +140,12 @@ export function assertSessionTroopSourceConfidencePolicy(value, cardId, archetyp
 }
 
 export function encodeSessionTroopSourceConfidenceValue(valueEncoding, value) {
+  if (valueEncoding === "nonnegative-integer") {
+    if (!Number.isSafeInteger(value) || value < 0) {
+      throw new TypeError("session troop source confidence value must be a nonnegative integer");
+    }
+    return value;
+  }
   if (valueEncoding === "positive-integer") {
     if (!Number.isSafeInteger(value) || value < 1) {
       throw new TypeError("session troop source confidence value must be a positive integer");
@@ -118,11 +158,25 @@ export function encodeSessionTroopSourceConfidenceValue(valueEncoding, value) {
     }
     return TARGET_MODE_CODES[value];
   }
+  if (valueEncoding === "boolean-code") {
+    if (typeof value !== "boolean") {
+      throw new TypeError("session troop source confidence boolean is invalid");
+    }
+    return value ? 1 : 0;
+  }
   throw new TypeError("session troop source confidence value encoding is not admitted");
 }
 
+export function sessionTroopSourceQuestionMinimum(key) {
+  return ZERO_QUESTION_KEYS.has(key) ? 0 : 1;
+}
+
+function confidenceFieldValue(entity, path) {
+  return path.split(".").reduce((value, key) => value?.[key], entity);
+}
+
 export function assertSessionTroopSourceConfidenceQuestions({
-  present, value, cardId, archetypeId, entity, questionKeys, questionValues,
+  present, value, cardId, archetypeId, entity, questionKeys, questionValues, questionSources,
   referencedQuestionKeys, label,
 }) {
   const expected = getSessionTroopSourceConfidencePolicy(cardId, archetypeId);
@@ -136,10 +190,13 @@ export function assertSessionTroopSourceConfidenceQuestions({
       throw new TypeError(`${label} source confidence field lacks a QUESTION record`);
     }
     const expectedValue = encodeSessionTroopSourceConfidenceValue(
-      field.valueEncoding, entity[field.field],
+      field.valueEncoding, confidenceFieldValue(entity, field.field),
     );
     if (questionValues.get(field.questionKey) !== expectedValue) {
       throw new TypeError(`${label} source confidence QUESTION diverges from its estimate`);
+    }
+    if (questionSources.get(field.questionKey) !== (field.source ?? DEFAULT_QUESTION_SOURCE)) {
+      throw new TypeError(`${label} source confidence QUESTION provenance diverges`);
     }
     referencedQuestionKeys.add(field.questionKey);
   }

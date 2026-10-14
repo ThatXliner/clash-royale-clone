@@ -45,6 +45,7 @@ import {
 } from "../shared/ordinary-projectile-delivery-authority.js";
 import {
   assertSessionTroopSourceConfidenceQuestions,
+  sessionTroopSourceQuestionMinimum,
 } from "../shared/session-troop-source-confidence-authority.js";
 import {
   createSpellIntentRuntime,
@@ -67,6 +68,15 @@ import {
   mapLiveBattleTowerStateToMatchEvidence,
 } from "./tower-evidence-map.js";
 import { appendSpellAreaImpact, checkedAreaImpact } from "./spell-area-impact.js";
+import {
+  checkedCombatSpawn as checkedSpawn,
+  checkedCombatUnit as checkedUnit,
+  copyCombatUnitFields,
+  ordinaryProjectileSplashCombatFields,
+  ordinaryProjectileSplashEntityFields,
+  ordinaryProjectileSplashEntityShape,
+  planOrdinaryProjectileSplashImpact,
+} from "./ordinary-projectile-splash.js";
 
 const SPELL_TOWER_FOOTPRINT_RADII = Object.freeze({ central: 2_829, lane: 2_122 });
 
@@ -1642,15 +1652,6 @@ const SNAPSHOT_GRAPH_LIMITS = Object.freeze({
   stringLength: 524_288,
 });
 const SIDES = new Set(["north", "south"]);
-const LAYERS = new Set(["air", "ground"]);
-const TARGET_MODES = new Set(["air", "air_and_ground", "buildings", "ground", "none"]);
-const DELIVERIES = new Set(["melee", "projectile"]);
-const UNIT_KEYS = [
-  "cadenceTicks", "damage", "delivery", "deployTicks", "firstHitTicks",
-  "id", "layer", "maxHealth", "position", "projectileSpeed", "radius",
-  "reach", "side", "sightRange", "targetMode",
-];
-const SPAWN_KEYS = [...UNIT_KEYS, "tick"];
 const POSITION_KEYS = ["id", "position", "tick"];
 const POSITIONS_KEYS = ["positions", "tick"];
 const STRUCTURE_KEYS = [
@@ -1727,46 +1728,6 @@ function integer(value, minimum, maximum, label) {
     throw new TypeError(`${label} must be a safe integer from ${minimum} through ${maximum}`);
   }
   return value;
-}
-
-function checkedUnit(value, label = "battle combat unit") {
-  const unit = exact(value, UNIT_KEYS, label);
-  integer(unit.id, 1, Number.MAX_SAFE_INTEGER, `${label}.id`);
-  if (!SIDES.has(unit.side)) throw new TypeError(`${label}.side is invalid`);
-  if (!LAYERS.has(unit.layer)) throw new TypeError(`${label}.layer is invalid`);
-  if (!TARGET_MODES.has(unit.targetMode)) {
-    throw new TypeError(`${label}.targetMode is invalid`);
-  }
-  if (!DELIVERIES.has(unit.delivery)) {
-    throw new TypeError(`${label}.delivery is invalid`);
-  }
-  const position = validatePosition(unit.position, `${label}.position`);
-  validateCircle({ position, radius: unit.radius }, `${label} circle`);
-  integer(unit.sightRange, 0, MAX_SPATIAL_MILLITILES, `${label}.sightRange`);
-  integer(unit.reach, 0, MAX_SPATIAL_MILLITILES, `${label}.reach`);
-  integer(unit.maxHealth, 1, MAX_STAT, `${label}.maxHealth`);
-  integer(unit.damage, 0, MAX_STAT, `${label}.damage`);
-  integer(unit.deployTicks, 0, MAX_TICK, `${label}.deployTicks`);
-  integer(unit.firstHitTicks, 0, MAX_TICK, `${label}.firstHitTicks`);
-  integer(unit.cadenceTicks, 1, MAX_TICK, `${label}.cadenceTicks`);
-  if (unit.delivery === "melee") {
-    if (unit.projectileSpeed !== null) {
-      throw new TypeError(`${label}.projectileSpeed must be null for melee delivery`);
-    }
-  } else {
-    integer(unit.projectileSpeed, 1, MAX_STAT, `${label}.projectileSpeed`);
-  }
-  return { ...unit, position: { ...position } };
-}
-
-function checkedSpawn(value, label = "battle combat spawn") {
-  const command = exact(value, SPAWN_KEYS, label);
-  const tick = integer(command.tick, 0, MAX_TICK, `${label}.tick`);
-  const spec = checkedUnit(
-    Object.fromEntries(UNIT_KEYS.map((key) => [key, command[key]])),
-    `${label}.unit`,
-  );
-  return { ...spec, tick };
 }
 
 function checkedPosition(value) {
@@ -2441,7 +2402,7 @@ class BattleCombat {
       setup: this.#setup,
       tick: this.#tick,
       units: this.#units.map((unit) => ({
-        ...Object.fromEntries(UNIT_KEYS.map((key) => [key, unit[key]])),
+        ...copyCombatUnitFields(unit, clone),
         attack: unit.attack.serialize(),
         spawnedAt: unit.spawnedAt,
         targetId: unit.targetId,
@@ -2935,10 +2896,7 @@ class BattleCombat {
         const entry = dueSpawns[index];
         integer(entry.sequence, 0, MAX_HISTORY, `due spawn ${index}.sequence`);
         if (entry.tick !== tick) throw new RangeError(`due spawn ${index} has the wrong tick`);
-        checkedUnit(
-          Object.fromEntries(UNIT_KEYS.map((key) => [key, entry[key]])),
-          `due spawn ${index}.unit`,
-        );
+        checkedUnit(copyCombatUnitFields(entry, clone), `due spawn ${index}.unit`);
         if (occupied.has(entry.id)) {
           throw new RangeError(`due spawn ${index} has an occupied unit ID`);
         }
@@ -3064,6 +3022,9 @@ class BattleCombat {
           targetId: attack.target.id,
           targetPosition: { ...attack.target.position },
         };
+        if (attack.attacker.splashProfile !== undefined) {
+          projectile.splashProfile = clone(attack.attacker.splashProfile);
+        }
         if (attack.structure !== null) {
           projectile.structureKind = attack.structure.kind;
           projectile.structureLayer = attack.structure.layer;
@@ -3135,6 +3096,12 @@ class BattleCombat {
       const health = Object.hasOwn(projectile, "structureId")
         ? null
         : this.#damage.get(projectile.targetId);
+      const splashProfile = projectile.splashProfile;
+      const splashAttacker = splashProfile === undefined
+        ? null : this.#unit(projectile.attackerId);
+      if (splashProfile !== undefined && splashAttacker === null) {
+        throw new TypeError("splash projectile source unit is missing");
+      }
       const status = Object.hasOwn(projectile, "structureId")
         ? targetStructure === null || targetStructure.structureId !== projectile.structureId ||
           targetStructure.side !== projectile.structureSide ||
@@ -3143,41 +3110,57 @@ class BattleCombat {
           ? "target_missing"
           : !targetStructure.alive || !targetStructure.targetable ? "target_dead" : "contact"
         : health === null ? "target_missing" : health.dead ? "target_dead" : "contact";
-      const visualRoot = this.#visualRoot(projectile.projectileIdentity);
-      if (visualRoot !== undefined) {
-        this.#appendVisualContact(visualRoot, projectile.targetPosition, projectile.targetId, status, tick);
+      const primaryTarget = targetStructure ?? this.#unit(projectile.targetId);
+      const unitTargets = splashProfile === undefined ? [] : this.#units.map((unit) => ({
+        alive: !this.#damage.get(unit.id).dead,
+        id: unit.id,
+        layer: unit.layer,
+        position: unit.position,
+        radius: unit.radius,
+        side: unit.side,
+        targetable: controls.get(unit.id)?.targetable ?? true,
+      }));
+      const impact = planOrdinaryProjectileSplashImpact({
+        attackerId: projectile.attackerId,
+        attackSequence: projectile.attackSequence,
+        center: projectile.targetPosition,
+        damage: projectile.damage,
+        enemySide: splashAttacker === null ? null :
+          (splashAttacker.side === "north" ? "south" : "north"),
+        primaryKind: targetStructure === null ? "unit" : "structure",
+        primaryStatus: status,
+        primaryTarget,
+        primaryTargetId: projectile.targetId,
+        primaryTargetable: targetStructure?.targetable ??
+          controls.get(projectile.targetId)?.targetable ?? true,
+        profile: splashProfile ?? null,
+        projectileId: projectile.id,
+        structures: external.structures,
+        tick,
+        units: unitTargets,
+      });
+      for (const contact of impact.visualContacts) {
+        const visualRoot = this.#visualRoot(projectile.projectileIdentity);
+        if (visualRoot === undefined) continue;
+        this.#appendVisualContact(visualRoot, contact.position, contact.id, contact.status, tick);
         visualRootsToClose.set(visualRoot.rootId, {
-          reason: status === "contact" ? "complete" : "target-missing",
+          reason: contact.status === "contact" ? "complete" : "target-missing",
           root: visualRoot,
         });
       }
       boundary.push(withProjectileIdentity({
         projectileId: projectile.id,
-        status,
+        status: impact.impactStatus,
         targetId: projectile.targetId,
         tick,
         type: "projectile-impact",
       }, projectile.projectileIdentity));
-      if (status === "contact") {
-        if (targetStructure === null) {
-          hits.push({ amount: projectile.damage, targetId: projectile.targetId });
-          hitSources.push({ attackerId: projectile.attackerId, delivery: "projectile",
-            projectileId: projectile.id,
-            projectileIdentity: clone(projectile.projectileIdentity),
-          });
-        } else {
-          boundary.push(withProjectileIdentity({
-            contactTick: tick,
-            attackSequence: projectile.attackSequence,
-            damage: projectile.damage,
-            delivery: "projectile",
-            projectileId: projectile.id,
-            sourceUnitId: projectile.attackerId,
-            structureId: projectile.structureId,
-            tick,
-            type: "external-structure-contact",
-          }, projectile.projectileIdentity));
-        }
+      hits.push(...impact.unitHits);
+      hitSources.push(...impact.hitSources.map((source) => ({
+        ...source, projectileIdentity: clone(projectile.projectileIdentity),
+      })));
+      for (const contact of impact.structureContacts) {
+        boundary.push(withProjectileIdentity(contact, projectile.projectileIdentity));
       }
     }
     if (dueProjectiles.length > 0) {
@@ -3440,7 +3423,7 @@ class BattleCombat {
 
   #activate(spec, tick, sink = this.#events) {
     if (this.#units.length >= MAX_UNITS) throw new RangeError("battle combat unit bound exceeded");
-    const canonicalSpec = Object.fromEntries(UNIT_KEYS.map((key) => [key, clone(spec[key])]));
+    const canonicalSpec = copyCombatUnitFields(spec, clone);
     const unit = {
       ...canonicalSpec,
       attack: new AttackCycle({
@@ -3501,7 +3484,7 @@ class BattleCombat {
     candidate.#setup = clone(this.#setup);
     candidate.#tick = this.#tick;
     candidate.#units = this.#units.map((unit) => ({
-      ...Object.fromEntries(UNIT_KEYS.map((key) => [key, clone(unit[key])])),
+      ...copyCombatUnitFields(unit, clone),
       // Each unit owns an authentic private AttackCycle. Forking it preserves
       // an independent continuation without repeatedly serializing, parsing,
       // and re-admitting that trusted internal authority for every session
@@ -5928,13 +5911,16 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
       if (record.authoritative !== false || record.disposition !== "question") {
         throw new TypeError(`live battle setup.questions[${index}] must be non-authoritative`);
       }
+      const key = string(record.key, `questions[${index}].key`);
       return {
         authoritative: false,
         confidence: string(record.confidence, `questions[${index}].confidence`),
         disposition: "question",
-        key: string(record.key, `questions[${index}].key`),
+        key,
         source: string(record.source, `questions[${index}].source`),
-        value: integer(record.value, 1, Number.MAX_SAFE_INTEGER, `questions[${index}].value`),
+        value: integer(record.value,
+          sessionTroopSourceQuestionMinimum(key),
+          Number.MAX_SAFE_INTEGER, `questions[${index}].value`),
       };
     });
   if (new Set(questions.map(({ key }) => key)).size !== questions.length) {
@@ -5942,6 +5928,7 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
   }
   const questionKeys = new Set(questions.map(({ key }) => key));
   const questionValues = new Map(questions.map(({ key, value: answer }) => [key, answer]));
+  const questionSources = new Map(questions.map(({ key, source }) => [key, source]));
   const referencedQuestionKeys = new Set();
   const roster = denseArray(setup.roster, "live battle setup.roster", 8)
     .map((value, cardIndex) => {
@@ -5971,13 +5958,13 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
             !Array.isArray(raw) && Object.hasOwn(raw, "damagePolicy");
           const hasSourceConfidencePolicy = raw !== null && typeof raw === "object" &&
             !Array.isArray(raw) && Object.hasOwn(raw, "sourceConfidencePolicy");
-          const entityKeys = [
+          const splashShape = ordinaryProjectileSplashEntityShape(raw, [
             ...ENTITY_KEYS,
             ...(hasOrdinaryPolicies ? ENTITY_ORDINARY_POLICY_KEYS : []),
             ...(hasDamagePolicy ? ENTITY_DAMAGE_POLICY_KEYS : []),
             ...(hasSourceConfidencePolicy ? ENTITY_SOURCE_CONFIDENCE_KEYS : []),
-          ];
-          const entity = exact(raw, entityKeys, label);
+          ]);
+          const entity = exact(raw, splashShape.keys, label);
           const archetypeId = identity(entity.archetypeId, entity.displayName,
             `${label}.archetypeId`);
           const sourceConfidencePolicy = assertSessionTroopSourceConfidenceQuestions({
@@ -5988,6 +5975,7 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
             entity,
             questionKeys,
             questionValues,
+            questionSources,
             referencedQuestionKeys,
             label,
           });
@@ -6007,6 +5995,9 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
           const damagePolicy = hasDamagePolicy
             ? checkedPolicy(entity.damagePolicy, `${label}.damagePolicy`)
             : null;
+          const projectileSplashFields = splashShape.hasProfile
+            ? ordinaryProjectileSplashEntityFields(entity, cardId, archetypeId, label)
+            : {};
           for (const policy of [bodyRadiusPolicy, projectileSpeedPolicy]) {
             if (policy.kind === "question" && !questionKeys.has(policy.questionKey)) {
               throw new TypeError(`${label} has an unresolved question policy`);
@@ -6098,6 +6089,7 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
             sightRangeMillitiles: nonnegative(entity.sightRangeMillitiles,
               `${label}.sightRangeMillitiles`),
             targetMode: string(entity.targetMode, `${label}.targetMode`),
+            ...projectileSplashFields,
           };
           if (hasOrdinaryPolicies) {
             normalizedEntity.deliveryPolicy = deliveryPolicy;
@@ -6221,9 +6213,8 @@ function checkedSetup(value, { legacyStructureReceipts = false } = {}) {
   if (canonical(actualQuestions) !== canonical(expectedQuestions)) {
     throw new TypeError("live battle questions must be the canonical exact referenced inventory");
   }
-  if (new Set(questions.map(({ source }) => source)).size !== 1 ||
-      questions.some(({ confidence }) => confidence !== "unverified")) {
-    throw new TypeError("live battle questions must share canonical unverified provenance");
+  if (questions.some(({ confidence }) => confidence !== "unverified")) {
+    throw new TypeError("live battle questions must retain unverified confidence");
   }
   const canonicalQuestions = [...questions].sort((left, right) =>
     left.key < right.key ? -1 : left.key > right.key ? 1 : 0);
@@ -6712,7 +6703,7 @@ function placedEntities(card, point, firstId, questionValues, movementOverride =
 
 function combatSpec(entity, side) {
   const component = entity.component;
-  return {
+  const spec = {
     cadenceTicks: component.hitSpeedTicks,
     damage: component.damage,
     delivery: component.delivery,
@@ -6728,7 +6719,9 @@ function combatSpec(entity, side) {
     side,
     sightRange: component.sightRangeMillitiles,
     targetMode: targetMode(component.targetMode),
+    ...ordinaryProjectileSplashCombatFields(component),
   };
+  return spec;
 }
 
 function currentContactSourceProfileFromRoster(card) {

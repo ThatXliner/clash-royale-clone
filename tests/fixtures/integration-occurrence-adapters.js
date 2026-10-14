@@ -1,6 +1,8 @@
 import { createHash } from "node:crypto";
 
 import * as content from "../../src/content/index.js";
+import { createEditableGameSessionSetup } from "../../src/content/editable-deck.js";
+import { PLAYABLE_CARD_IDS } from "../../src/content/playable-roster.js";
 import { createSessionTroopWitness } from "../../src/content/session-troop-roster.js";
 import {
   BasicFlyingDuel,
@@ -25,6 +27,7 @@ import {
   createSpawnSpellFixture,
 } from "../../src/content/index.js";
 import { DamageSystem } from "../../src/sim/damage.js";
+import { GameSession } from "../../src/sim/game-session.js";
 import { LiveBattle } from "../../src/sim/live-battle.js";
 import { MeleeDuel } from "../../src/sim/melee.js";
 
@@ -245,6 +248,51 @@ function ordinaryProjectileSquad(specification) {
     battle.state,
     emitted,
     battle.replay,
+  );
+}
+
+function ordinaryProjectileSplash(specification) {
+  const record = recordsFor(specification);
+  const deck = [specification.id, "cinder-host",
+    ...PLAYABLE_CARD_IDS.filter((id) =>
+      id !== specification.id && id !== "cinder-host").slice(0, 6)];
+  const setup = JSON.parse(createEditableGameSessionSetup(deck, 2));
+  setup.legalNorthDeployments = [{
+    cardId: "cinder-host",
+    point: { x: 3_500, y: 21_000 },
+  }];
+  setup.startingElixir = { north: 10, south: 10 };
+  setup.thinkIntervalTicks = 3_600;
+  const session = new GameSession(canonical(setup));
+  const slot = session.state.decks.south.hand.indexOf(specification.id);
+  if (slot < 0) throw new Error(`${specification.id} is absent from the authenticated opening hand`);
+  const command = session.submitPlayerCommand(canonical({
+    cardId: specification.id,
+    commandId: 0,
+    point: { x: 3_500, y: 14_500 },
+    slot,
+    tick: 0,
+    type: "deploy",
+  }));
+  const emitted = [command, ...session.stepMany(125)];
+  const launch = session.replay.find((event) =>
+    event.type === "projectile-launch" &&
+    event.projectile?.splashProfile?.cardId === specification.id);
+  if (!launch || launch.projectile.splashProfile.radiusMillitiles !== 1_500) {
+    throw new Error(`${specification.id} did not launch its admitted ordinary splash projectile`);
+  }
+  const impacts = session.replay.filter(({ projectileId, type }) =>
+    projectileId === launch.projectileId && type === "damage");
+  if (impacts.length < 2 || impacts.some(({ amount }) => amount !== record.damage)) {
+    throw new Error(`${specification.id} did not damage its primary and secondary GameSession victims`);
+  }
+  return directBytes(
+    specification,
+    "GameSession+ordinary projectile splash source receipt",
+    record,
+    session.state,
+    emitted,
+    session.replay,
   );
 }
 
@@ -648,6 +696,7 @@ const ADAPTER_ENTRIES = [
   ["createBasicFlyingCatalog", basicFlying],
   ["createBasicMeleeCatalog", basicMelee],
   ["createBasicRangedCatalog", basicRanged],
+  ["createOrdinaryProjectileSplashCatalog", ordinaryProjectileSplash],
   ["createOrdinaryProjectileSquadCatalog", ordinaryProjectileSquad],
   ["createChampionAbilityCatalog", champion],
   ["createDefensiveBuildingCatalog", defensiveBuilding],
