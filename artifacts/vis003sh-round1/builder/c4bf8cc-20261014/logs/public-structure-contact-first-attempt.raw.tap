@@ -1,0 +1,43 @@
+TAP version 13
+# Subtest: Buried Coil ground contact feeds actual Mossguard damage, hit reaction, audio, and restore
+ok 1 - Buried Coil ground contact feeds actual Mossguard damage, hit reaction, audio, and restore
+  ---
+  duration_ms: 932.251875
+  type: 'test'
+  ...
+# Subtest: Buried Coil air contact feeds actual Copperskiff damage, hit reaction, audio, and restore
+not ok 2 - Buried Coil air contact feeds actual Copperskiff damage, hit reaction, audio, and restore
+  ---
+  duration_ms: 456.077709
+  type: 'test'
+  location: '/private/tmp/vis003sh-builder-5ed9d7c/tests/cards021-integration.test.js:263:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    copperskiff: test covers the intended lethal clamp
+    
+    false !== true
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    assertBuriedCoilDirectContact (file:///private/tmp/vis003sh-builder-5ed9d7c/tests/cards021-integration.test.js:193:10)
+    TestContext.<anonymous> (file:///private/tmp/vis003sh-builder-5ed9d7c/tests/cards021-integration.test.js:264:3)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 1
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1541.616458

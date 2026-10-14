@@ -1,0 +1,114 @@
+TAP version 13
+# mossguard: authentic Buried Coil damage history [{"amount":230,"currentHealthAfter":1536,"currentHealthBefore":1766,"externalSourceId":"building:2","sourceSide":"south","targetId":1,"targetSide":"north","tick":103}]
+# copperskiff: authentic Buried Coil damage history [{"amount":230,"currentHealthAfter":384,"currentHealthBefore":614,"externalSourceId":"building:2","sourceSide":"south","targetId":1,"targetSide":"north","tick":103},{"amount":230,"currentHealthAfter":154,"currentHealthBefore":384,"externalSourceId":"building:2","sourceSide":"south","targetId":1,"targetSide":"north","tick":175},{"amount":230,"currentHealthAfter":0,"currentHealthBefore":154,"externalSourceId":"building:2","sourceSide":"south","targetId":1,"targetSide":"north","tick":247}]
+# Subtest: Buried Coil custom eight-card GameSession deploys, spends once, reveals, and contacts ground and air
+ok 1 - Buried Coil custom eight-card GameSession deploys, spends once, reveals, and contacts ground and air
+  ---
+  duration_ms: 1670.913
+  type: 'test'
+  ...
+# Subtest: Buried Coil ground contact feeds actual Mossguard damage, hit reaction, audio, and restore
+ok 2 - Buried Coil ground contact feeds actual Mossguard damage, hit reaction, audio, and restore
+  ---
+  duration_ms: 870.419625
+  type: 'test'
+  ...
+# Subtest: Buried Coil air contact feeds actual Copperskiff damage, hit reaction, audio, and restore
+ok 3 - Buried Coil air contact feeds actual Copperskiff damage, hit reaction, audio, and restore
+  ---
+  duration_ms: 1957.29425
+  type: 'test'
+  ...
+# Subtest: seeded AI deploys Buried Coil through its custom deck and preserves hidden lifetime on restore
+ok 4 - seeded AI deploys Buried Coil through its custom deck and preserves hidden lifetime on restore
+  ---
+  duration_ms: 12.909208
+  type: 'test'
+  ...
+# Subtest: Buried Coil hidden state and provisional lifetime survive an actual pre-expiry restore
+ok 5 - Buried Coil hidden state and provisional lifetime survive an actual pre-expiry restore
+  ---
+  duration_ms: 9091.186542
+  type: 'test'
+  ...
+# Subtest: ui combat effects: canonical direct feed projects exact rational travel
+ok 6 - ui combat effects: canonical direct feed projects exact rational travel
+  ---
+  duration_ms: 3.0875
+  type: 'test'
+  ...
+# Subtest: ui combat effects: live homing point uses the full typed projectile identity
+ok 7 - ui combat effects: live homing point uses the full typed projectile identity
+  ---
+  duration_ms: 2.680042
+  type: 'test'
+  ...
+# Subtest: ui combat effects: contact, lethal damage, death, and close are feed-causal
+ok 8 - ui combat effects: contact, lethal damage, death, and close are feed-causal
+  ---
+  duration_ms: 0.760916
+  type: 'test'
+  ...
+# Subtest: ui combat effects: direct structure contact stays on its authoritative apply boundary
+ok 9 - ui combat effects: direct structure contact stays on its authoritative apply boundary
+  ---
+  duration_ms: 1.070541
+  type: 'test'
+  ...
+# Subtest: ui combat effects: area roots retain zero-damage shared-target outcomes
+ok 10 - ui combat effects: area roots retain zero-damage shared-target outcomes
+  ---
+  duration_ms: 0.592375
+  type: 'test'
+  ...
+# Subtest: ui combat effects: return turn switches the canonical carrier leg
+ok 11 - ui combat effects: return turn switches the canonical carrier leg
+  ---
+  duration_ms: 0.5995
+  type: 'test'
+  ...
+# Subtest: ui combat effects: pellet segments are stable carriers and cancellations clear them
+ok 12 - ui combat effects: pellet segments are stable carriers and cancellations clear them
+  ---
+  duration_ms: 1.321292
+  type: 'test'
+  ...
+# Subtest: ui combat effects: serialization, restore, and DOM bytes use feed authority
+ok 13 - ui combat effects: serialization, restore, and DOM bytes use feed authority
+  ---
+  duration_ms: 1.413875
+  type: 'test'
+  ...
+# Subtest: ui combat effects: immutable event byte caching preserves canonical views
+ok 14 - ui combat effects: immutable event byte caching preserves canonical views
+  ---
+  duration_ms: 0.907542
+  type: 'test'
+  ...
+# Subtest: ui combat effects: malformed feed is rejected before projection and raw dialects never enter
+ok 15 - ui combat effects: malformed feed is rejected before projection and raw dialects never enter
+  ---
+  duration_ms: 1.4985
+  type: 'test'
+  ...
+# Subtest: ui combat effects: authentic sources project prefixes and restore exactly
+ok 16 - ui combat effects: authentic sources project prefixes and restore exactly
+  ---
+  duration_ms: 34.71
+  type: 'test'
+  ...
+# Subtest: ui combat effects: authentic battle feed and empty feed are deterministic
+ok 17 - ui combat effects: authentic battle feed and empty feed are deterministic
+  ---
+  duration_ms: 10.097583
+  type: 'test'
+  ...
+1..17
+# tests 17
+# suites 0
+# pass 17
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 13790.662958
