@@ -1,0 +1,351 @@
+{
+  "scenario": "kilnkeeper",
+  "qualificationMode": "kilnkeeper-natural-terminal-and-same-deck-restart",
+  "qualificationResult": "qualified-natural-terminal-and-same-deck-restart",
+  "durationMilliseconds": 448232,
+  "setupBytes": 77885,
+  "setupSha256": "9b2a1c5a86c2d5c0c2d623389b69c465409e65d5d84988591630b980ee7b3ba9",
+  "scenarioDeck": [
+    "coilblade",
+    "mossguard",
+    "copperskiff",
+    "kilnkeeper",
+    "brassbolt",
+    "reedsting",
+    "briar-band",
+    "cinderlings"
+  ],
+  "segments": {
+    "count": 37,
+    "lastTick": 10800,
+    "maxSegmentMilliseconds": 10284
+  },
+  "timing": {
+    "maxSessionStepSliceMilliseconds": 23.299999982118607,
+    "maxRestoreStepSliceMilliseconds": 8.5,
+    "maxInitializationLongTaskMilliseconds": 162,
+    "initializationLongTasks": [
+      {
+        "duration": 99,
+        "name": "self",
+        "startTime": 156.59999999403954
+      },
+      {
+        "duration": 162,
+        "name": "self",
+        "startTime": 289.40000000596046
+      }
+    ],
+    "nonInitialLongTaskCounts": {
+      "driven": 0,
+      "outOfSegment": 0,
+      "restore": 0,
+      "terminal": 0,
+      "restart": 0,
+      "finalDrain": 0,
+      "screenshot": 0
+    }
+  },
+  "runOutcome": {
+    "kind": "natural-terminal",
+    "result": {
+      "crowns": {
+        "north": 2,
+        "south": 1
+      },
+      "endedAtTick": 10800,
+      "kind": "win",
+      "reason": "regulation_crowns",
+      "winner": "north"
+    },
+    "tick": 10800
+  },
+  "terminal": {
+    "final": {
+      "state": {
+        "sessionTick": 10800,
+        "terminal": true,
+        "restartCount": 0
+      },
+      "session": {
+        "seed": 0,
+        "bytes": 2,
+        "transcriptEntries": 10822,
+        "types": {
+          "submit": 20,
+          "step": 10800,
+          "pause": 1,
+          "resume": 1
+        }
+      },
+      "overlay": {
+        "width": 520,
+        "height": 428
+      },
+      "restartHidden": false,
+      "audio": {
+        "activeVoiceCount": 0,
+        "audibleStartCount": 1370,
+        "muted": false,
+        "gainBasisPoints": 10000,
+        "unlocked": true
+      },
+      "diagnostics": {
+        "terminal": true,
+        "disposed": true,
+        "faulted": false
+      }
+    },
+    "restarted": {
+      "state": {
+        "sessionTick": 0,
+        "terminal": false,
+        "restartCount": 1
+      },
+      "session": {
+        "seed": 0,
+        "bytes": 2,
+        "transcriptEntries": 0,
+        "types": {}
+      },
+      "overlay": null,
+      "restartHidden": true
+    }
+  },
+  "restoreAudio": {
+    "cutTick": 300,
+    "rewindFrom": 600,
+    "rewindTo": 300,
+    "snapshotBytes": 99459,
+    "branchSinkCount": 54,
+    "afterRestoreSinkCount": 54,
+    "sinkIdentityUnchangedAfterRestore": true,
+    "originalTypedCount": 27,
+    "replayedTypedCount": 27,
+    "typedIdentityExact": true,
+    "uiSequence": [
+      4,
+      4,
+      6
+    ],
+    "replayedUiStarts": [
+      {
+        "cueId": "card-select",
+        "domain": "ui",
+        "family": "cardSelect",
+        "sequence": 4,
+        "tick": 300,
+        "type": "card-select"
+      },
+      {
+        "cueId": "card-play",
+        "domain": "ui",
+        "family": "cardPlay",
+        "sequence": 5,
+        "tick": 300,
+        "type": "card-play"
+      }
+    ],
+    "sequenceZeroDomains": [
+      "simulation",
+      "ui"
+    ]
+  },
+  "kilnkeeperEvidence": {
+    "playerDelivery": {
+      "command": {
+        "cardId": "kilnkeeper",
+        "point": {
+          "x": 9000,
+          "y": 10000
+        },
+        "slot": 1,
+        "tick": 0
+      },
+      "costFromSelectedRoster": 5,
+      "openingSouthElixir": 10,
+      "openingSouthHand": [
+        "mossguard",
+        "kilnkeeper",
+        "copperskiff",
+        "cinderlings"
+      ],
+      "setupDeck": [
+        "coilblade",
+        "mossguard",
+        "copperskiff",
+        "kilnkeeper",
+        "brassbolt",
+        "reedsting",
+        "briar-band",
+        "cinderlings"
+      ]
+    },
+    "playerDeployment": {
+      "deployment": {
+        "cardId": "kilnkeeper",
+        "entityIds": [
+          1
+        ],
+        "point": {
+          "x": 9000,
+          "y": 10000
+        },
+        "sequence": 0,
+        "side": "south",
+        "tick": 0,
+        "type": "deployed"
+      },
+      "side": "south",
+      "spend": {
+        "accepted": true,
+        "amountAfter": 5,
+        "cost": 5,
+        "reason": "accepted",
+        "sequence": 0,
+        "side": "south",
+        "tick": 0,
+        "type": "spend"
+      },
+      "tick": 0,
+      "type": "session-deployed"
+    },
+    "northLaunch": {
+      "deployment": {
+        "cardId": "kilnkeeper",
+        "entityIds": [
+          3
+        ],
+        "point": {
+          "x": 3500,
+          "y": 17500
+        },
+        "sequence": 2,
+        "side": "north",
+        "tick": 60,
+        "type": "deployed"
+      },
+      "entityId": 3,
+      "launchedAtTick": 60
+    },
+    "northPositionAt300": {
+      "x": 3500,
+      "y": 15050
+    },
+    "northProjectileContactsAt600": [
+      {
+        "projectileId": 2,
+        "status": "contact",
+        "targetId": 9007199254740987,
+        "tick": 243,
+        "type": "projectile-impact",
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileIdentity": {
+          "attackSequence": 1,
+          "direction": "unit-to-tower",
+          "projectileId": 2,
+          "sourceId": 3
+        },
+        "projectileScope": "unit-to-tower",
+        "sourceId": 3
+      },
+      {
+        "projectileId": 4,
+        "status": "contact",
+        "targetId": 9007199254740987,
+        "tick": 327,
+        "type": "projectile-impact",
+        "attackSequence": 2,
+        "direction": "unit-to-tower",
+        "projectileIdentity": {
+          "attackSequence": 2,
+          "direction": "unit-to-tower",
+          "projectileId": 4,
+          "sourceId": 3
+        },
+        "projectileScope": "unit-to-tower",
+        "sourceId": 3
+      },
+      {
+        "projectileId": 7,
+        "status": "contact",
+        "targetId": 9007199254740987,
+        "tick": 411,
+        "type": "projectile-impact",
+        "attackSequence": 3,
+        "direction": "unit-to-tower",
+        "projectileIdentity": {
+          "attackSequence": 3,
+          "direction": "unit-to-tower",
+          "projectileId": 7,
+          "sourceId": 3
+        },
+        "projectileScope": "unit-to-tower",
+        "sourceId": 3
+      }
+    ],
+    "restoredProjectileContactsAt600": [
+      {
+        "projectileId": 2,
+        "status": "contact",
+        "targetId": 9007199254740987,
+        "tick": 243,
+        "type": "projectile-impact",
+        "attackSequence": 1,
+        "direction": "unit-to-tower",
+        "projectileIdentity": {
+          "attackSequence": 1,
+          "direction": "unit-to-tower",
+          "projectileId": 2,
+          "sourceId": 3
+        },
+        "projectileScope": "unit-to-tower",
+        "sourceId": 3
+      },
+      {
+        "projectileId": 4,
+        "status": "contact",
+        "targetId": 9007199254740987,
+        "tick": 327,
+        "type": "projectile-impact",
+        "attackSequence": 2,
+        "direction": "unit-to-tower",
+        "projectileIdentity": {
+          "attackSequence": 2,
+          "direction": "unit-to-tower",
+          "projectileId": 4,
+          "sourceId": 3
+        },
+        "projectileScope": "unit-to-tower",
+        "sourceId": 3
+      },
+      {
+        "projectileId": 7,
+        "status": "contact",
+        "targetId": 9007199254740987,
+        "tick": 411,
+        "type": "projectile-impact",
+        "attackSequence": 3,
+        "direction": "unit-to-tower",
+        "projectileIdentity": {
+          "attackSequence": 3,
+          "direction": "unit-to-tower",
+          "projectileId": 7,
+          "sourceId": 3
+        },
+        "projectileScope": "unit-to-tower",
+        "sourceId": 3
+      }
+    ]
+  },
+  "diagnostics": {
+    "consoleErrors": 0,
+    "environmentAudits": 0,
+    "resourceErrors": 0,
+    "unhandled": 0,
+    "pendingResources": 0,
+    "serverStderr": "",
+    "serverExited": true
+  }
+}
