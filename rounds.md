@@ -9152,3 +9152,10 @@ EVIDENCE: The focused command `node --test tests/progress-renderer.test.js tests
 BIGGEST GAP: None on this test-oracle bar; the actual source and rendered output match across the complete current catalog and round history.
 
 Evidence: artifacts/progress-renderer-round2/critic/.
+
+## Round 468 — RELEASE-ARENA-001 startup and truthful defensive details
+
+PIECE: RELEASE-ARENA-001
+VERDICT: FAIL
+EVIDENCE: Independent exact43292aae app-shell1/1, release22/22, Pages5/5, isolation13/13+4/4; actualprefixed21collection/default8/visiblearena/noerrors and wrongprojectornegativecontrol reproducesRangeError. Built Burieddetail claims splashdamage to notavailabletargets; canonicalradiusnull/top-levelground-and-air/runtimeair_and_ground. Sourceprepostexact; overlapofnegativecontrol/isolationprocessespreserved,no performanceclaim. Fullverdict andactualPNG/JSON at artifacts/release-arena-failure-round1/critic/.
+BIGGEST GAP: Buried Coil user-visible detail invents splash damage and hides its ground-and-air target mode; render actual profile with truthful QUESTION markings and regressions.

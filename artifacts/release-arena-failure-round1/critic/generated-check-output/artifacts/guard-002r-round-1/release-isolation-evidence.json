@@ -1,0 +1,797 @@
+{
+  "schemaVersion": 1,
+  "production": {
+    "artifactFiles": 54,
+    "identicalBuilds": true,
+    "manifestSha256": "ead5aee60a23b10b6597a3bdfe490627aee6097e0b9aba8d0dcb090515b5d1a2",
+    "referenceFilesCompared": 26,
+    "totalBytes": 6112129,
+    "csp": "default-src 'none'; base-uri 'self'; connect-src 'self'; font-src 'self' data:; form-action 'none'; frame-src 'self'; img-src 'self' data:; media-src 'self'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; worker-src 'self'",
+    "normalRequestCount": 54
+  },
+  "browser": {
+    "attemptedRequests": [
+      {
+        "failure": null,
+        "path": "/public/index.html",
+        "resourceType": "document",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/ui/app-shell.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/rolldown-runtime-Cl99QfTQ.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/index~public/ui-arena-shell-D-709RTF.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-Bzq3gmJw.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-iYK_h2t5.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CjdkHAop.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BM1WwEOH.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-C641BeuM.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-COi7sJl_.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-N3t5PBB6.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-pofg9WkJ.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-Bion3G78.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DcW0jNLi.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-C8Y6xEz0.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-D3Nnx2X_.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DrYgWmwr.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/index-8JvZ-9m6.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/asset-D-AK-JuF.css",
+        "resourceType": "stylesheet",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/public/assets/card-portraits-painted.webp",
+        "resourceType": "image",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/public/assets/stonehauler-painted.webp",
+        "resourceType": "image",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/public/assets/thornscouts-painted.webp",
+        "resourceType": "image",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/public/assets/forgeguard-painted.webp",
+        "resourceType": "image",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/public/assets/cinder-host-painted.webp",
+        "resourceType": "image",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/public/assets/ironroot-painted.webp",
+        "resourceType": "image",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/public/assets/sunthread-pair-painted.webp",
+        "resourceType": "image",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/public/assets/duskwing-trio-painted.webp",
+        "resourceType": "image",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/public/assets/gloamwing-cluster-painted.webp",
+        "resourceType": "image",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/public/assets/coppershade-flock-painted.webp",
+        "resourceType": "image",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/public/assets/kilnkeeper-portrait-painted.webp",
+        "resourceType": "image",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/public/assets/squall-orb-painted.webp",
+        "resourceType": "image",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/public/assets/ember-basin-portrait-painted-v2.webp",
+        "resourceType": "image",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/public/ui-arena-shell.html",
+        "resourceType": "document",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/src/ui/arena-shell-bootstrap.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/rolldown-runtime-Cl99QfTQ.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/index~public/ui-arena-shell-D-709RTF.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-Bzq3gmJw.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-iYK_h2t5.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CjdkHAop.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BM1WwEOH.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-C641BeuM.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-COi7sJl_.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-N3t5PBB6.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-pofg9WkJ.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-Bion3G78.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DcW0jNLi.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-C8Y6xEz0.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-D3Nnx2X_.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DrYgWmwr.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-butphPat.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-SwkQS5eo.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-DBPM86AU.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/ui-arena-shell-er5XVwGC.css",
+        "resourceType": "stylesheet",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/public/assets/moss-ember-arena-painted.webp",
+        "resourceType": "image",
+        "status": 200
+      },
+      {
+        "failure": "net::ERR_FAILED",
+        "path": "/src/ui/arena-shell.css",
+        "resourceType": "document",
+        "status": null
+      },
+      {
+        "failure": null,
+        "path": "/public/index.html",
+        "resourceType": "document",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/public/index-S7V_JJKg.js",
+        "resourceType": "script",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/index-Dzh7ceyS.css",
+        "resourceType": "stylesheet",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/pixel-CR7U9-eL.svg",
+        "resourceType": "image",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/quiet-DrmJUoyg.wav",
+        "resourceType": "media",
+        "status": 200
+      },
+      {
+        "failure": null,
+        "path": "/assets/surface-F-YaksaO.svg",
+        "resourceType": "image",
+        "status": 200
+      },
+      {
+        "failure": "blocked by CSP before network dispatch",
+        "path": "https://release-off-manifest.invalid/__release_unmanifested_fetch__",
+        "resourceType": "fetch",
+        "status": null
+      }
+    ],
+    "failedManifestRequest": {
+      "method": "GET",
+      "path": "/src/ui/arena-shell.css",
+      "resourceType": "document",
+      "status": null,
+      "failure": "net::ERR_FAILED"
+    },
+    "fetchCallsBeforeCsp": [
+      "/__release_unmanifested_fetch__"
+    ],
+    "hostileLoaderAttempts": [
+      {
+        "label": "eval",
+        "result": "EvalError"
+      },
+      {
+        "label": "Function",
+        "result": "EvalError"
+      },
+      {
+        "label": "aliased Function",
+        "result": "EvalError"
+      }
+    ],
+    "hostilePolicyViolations": [
+      {
+        "blockedURI": "eval",
+        "effectiveDirective": "script-src"
+      },
+      {
+        "blockedURI": "eval",
+        "effectiveDirective": "script-src"
+      },
+      {
+        "blockedURI": "eval",
+        "effectiveDirective": "script-src"
+      },
+      {
+        "blockedURI": "https://release-off-manifest.invalid/__release_unmanifested_fetch__",
+        "effectiveDirective": "connect-src"
+      },
+      {
+        "blockedURI": "https://release-off-manifest.invalid",
+        "effectiveDirective": "frame-src"
+      }
+    ],
+    "requestsSeenByServers": [
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "public/index.html",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/ui/app-shell.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/rolldown-runtime-Cl99QfTQ.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell-D-709RTF.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-Bzq3gmJw.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-iYK_h2t5.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CjdkHAop.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/asset-D-AK-JuF.css",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BM1WwEOH.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-C641BeuM.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-COi7sJl_.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-N3t5PBB6.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-pofg9WkJ.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-Bion3G78.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DcW0jNLi.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-C8Y6xEz0.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-D3Nnx2X_.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DrYgWmwr.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/index-8JvZ-9m6.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "public/assets/card-portraits-painted.webp",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "public/assets/stonehauler-painted.webp",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "public/assets/thornscouts-painted.webp",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "public/assets/forgeguard-painted.webp",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "public/assets/cinder-host-painted.webp",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "public/assets/ironroot-painted.webp",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "public/assets/sunthread-pair-painted.webp",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "public/assets/duskwing-trio-painted.webp",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "public/assets/gloamwing-cluster-painted.webp",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "public/assets/coppershade-flock-painted.webp",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "public/assets/kilnkeeper-portrait-painted.webp",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "public/assets/squall-orb-painted.webp",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "public/assets/ember-basin-portrait-painted-v2.webp",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "public/ui-arena-shell.html",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "src/ui/arena-shell-bootstrap.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/rolldown-runtime-Cl99QfTQ.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell-D-709RTF.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-Bzq3gmJw.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-iYK_h2t5.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CjdkHAop.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/ui-arena-shell-er5XVwGC.css",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BM1WwEOH.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-C641BeuM.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-COi7sJl_.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-N3t5PBB6.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-pofg9WkJ.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-Bion3G78.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DcW0jNLi.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-C8Y6xEz0.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-D3Nnx2X_.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DrYgWmwr.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-butphPat.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-SwkQS5eo.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-DBPM86AU.js",
+        "status": 200
+      },
+      {
+        "artifact": "production",
+        "method": "GET",
+        "path": "public/assets/moss-ember-arena-painted.webp",
+        "status": 200
+      },
+      {
+        "artifact": "hostile",
+        "method": "GET",
+        "path": "public/index.html",
+        "status": 200
+      },
+      {
+        "artifact": "hostile",
+        "method": "GET",
+        "path": "assets/public/index-S7V_JJKg.js",
+        "status": 200
+      },
+      {
+        "artifact": "hostile",
+        "method": "GET",
+        "path": "assets/index-Dzh7ceyS.css",
+        "status": 200
+      },
+      {
+        "artifact": "hostile",
+        "method": "GET",
+        "path": "assets/pixel-CR7U9-eL.svg",
+        "status": 200
+      },
+      {
+        "artifact": "hostile",
+        "method": "GET",
+        "path": "assets/quiet-DrmJUoyg.wav",
+        "status": 200
+      },
+      {
+        "artifact": "hostile",
+        "method": "GET",
+        "path": "assets/surface-F-YaksaO.svg",
+        "status": 200
+      }
+    ],
+    "offManifestFetchReachedServer": false
+  }
+}

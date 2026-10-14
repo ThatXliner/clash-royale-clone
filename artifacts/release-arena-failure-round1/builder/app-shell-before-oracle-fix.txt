@@ -1,0 +1,74 @@
+
+> moss-and-ember@0.0.0 test:app-shell
+> node tests/app-shell-runner.js app-shell
+
+TAP version 13
+# Subtest: player shell renders roster-derived cards and launches a paused shared battle frame
+not ok 1 - player shell renders roster-derived cards and launches a paused shared battle frame
+  ---
+  duration_ms: 21741.8435
+  type: 'test'
+  location: '/private/tmp/release-arena-failure-builder/tests/app-shell.test.js:286:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    every missing collection card can replace the selected slot
+    + actual - expected
+    ... Skipped lines
+
+      [
+        'stonehauler',
+        'thornscouts',
+        'forgeguard',
+        'cinder-host',
+    ...
+        'ember-basin',
+    +   'buried-coil'
+      ]
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0: 'stonehauler'
+    1: 'thornscouts'
+    2: 'forgeguard'
+    3: 'cinder-host'
+    4: 'ironroot'
+    5: 'sunthread-pair'
+    6: 'duskwing-trio'
+    7: 'gloamwing-cluster'
+    8: 'coppershade-flock'
+    9: 'kilnkeeper'
+    10: 'squall-orb'
+    11: 'ember-basin'
+  actual:
+    0: 'stonehauler'
+    1: 'thornscouts'
+    2: 'forgeguard'
+    3: 'cinder-host'
+    4: 'ironroot'
+    5: 'sunthread-pair'
+    6: 'duskwing-trio'
+    7: 'gloamwing-cluster'
+    8: 'coppershade-flock'
+    9: 'kilnkeeper'
+    10: 'squall-orb'
+    11: 'ember-basin'
+    12: 'buried-coil'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/release-arena-failure-builder/tests/app-shell.test.js:802:12)
+    runNextTicks (node:internal/process/task_queues:64:5)
+    process.processImmediate (node:internal/timers:452:9)
+    process.callbackTrampoline (node:internal/async_hooks:130:17)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 21971.725041

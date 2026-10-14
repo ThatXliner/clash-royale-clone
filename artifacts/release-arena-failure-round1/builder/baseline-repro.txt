@@ -10,7 +10,7 @@ not ok 1 - RELEASE-001B emits a deterministic bounded graph and serves the exact
     locator.waitFor: Timeout 15000ms exceeded.
     Call log:
     [2m  - waiting for locator('[data-battle-frame-slot] iframe').contentFrame().locator('[data-ui="arena"]') to be visible[22m
-    
+
   code: 'ERR_TEST_FAILURE'
   name: 'TimeoutError'
   stack: |-
