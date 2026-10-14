@@ -174,6 +174,7 @@ function captureBrowserActivity(context) {
       method: request.method(),
       resourceType: request.resourceType(),
       status: null,
+      contentType: null,
       url: request.url(),
     };
     requests.push(record);
@@ -181,7 +182,10 @@ function captureBrowserActivity(context) {
   });
   context.on("response", (response) => {
     const record = byRequest.get(response.request());
-    if (record) record.status = response.status();
+    if (record) {
+      record.status = response.status();
+      record.contentType = response.headers()["content-type"] ?? null;
+    }
   });
   context.on("requestfailed", (request) => {
     const record = byRequest.get(request);
@@ -210,6 +214,83 @@ function captureBrowserActivity(context) {
   context.on("page", attachPage);
   for (const page of context.pages()) attachPage(page);
   return { requests, runtimeErrors, workerUrls };
+}
+
+async function browserFailureSnapshot(context, activity, baseUrl) {
+  const origin = new URL(baseUrl).origin;
+  const pages = await Promise.all(context.pages().map(async (page) => {
+    if (page.isClosed()) return { closed: true };
+    const document = await page.evaluate(() => {
+      const battleView = document.querySelector('[data-app-view="battle"]');
+      const frame = document.querySelector("[data-battle-frame-slot] iframe");
+      let frameSummary = null;
+      if (frame) {
+        const bounds = frame.getBoundingClientRect();
+        frameSummary = {
+          src: frame.getAttribute("src"),
+          resolvedSrc: frame.src,
+          sandbox: frame.getAttribute("sandbox"),
+          loading: frame.loading,
+          width: bounds.width,
+          height: bounds.height,
+        };
+      }
+      return {
+        url: location.href,
+        title: document.title,
+        readyState: document.readyState,
+        activeView: document.querySelector(".app-shell")?.dataset.viewActive ?? null,
+        battleViewHidden: battleView?.hidden ?? null,
+        battleFrameCount: document.querySelectorAll("[data-battle-frame-slot] iframe").length,
+        battleFrame: frameSummary,
+      };
+    }).catch((error) => ({ inspectionError: error?.message ?? String(error) }));
+    const frames = await Promise.all(page.frames().map(async (frame) => ({
+      name: frame.name(),
+      url: frame.url(),
+      document: await frame.evaluate(() => {
+        const arena = document.querySelector('[data-ui="arena"]');
+        const bounds = arena?.getBoundingClientRect();
+        return {
+          title: document.title,
+          readyState: document.readyState,
+          bodyAppFrame: document.body?.dataset.appFrame ?? null,
+          bodyText: document.body?.innerText?.slice(0, 400) ?? "",
+          arenaCount: document.querySelectorAll('[data-ui="arena"]').length,
+          arenaVisible: Boolean(arena && bounds && bounds.width > 0 && bounds.height > 0),
+          scripts: [...document.scripts].map((script) => ({
+            type: script.type,
+            path: script.src ? new URL(script.src, document.baseURI).pathname : "inline",
+          })),
+          stylesheets: [...document.querySelectorAll('link[rel="stylesheet"]')].map((link) =>
+            new URL(link.href, document.baseURI).pathname),
+        };
+      }).catch((error) => ({ inspectionError: error?.message ?? String(error) })),
+    })));
+    return { url: page.url(), document, frames };
+  }));
+  const requests = activity.requests.slice(-200).map((record) => {
+    let url = record.url;
+    try {
+      const parsed = new URL(record.url);
+      url = parsed.origin === origin ? `${parsed.pathname}${parsed.search}` : parsed.origin;
+    } catch {
+      url = "<invalid URL>";
+    }
+    return {
+      method: record.method,
+      resourceType: record.resourceType,
+      url,
+      status: record.status,
+      contentType: record.contentType,
+      failure: record.failure,
+    };
+  });
+  return {
+    runtimeErrors: [...activity.runtimeErrors],
+    requests,
+    pages,
+  };
 }
 
 async function waitForSettledPages(context) {
@@ -562,20 +643,34 @@ export async function qualifyBrowserArtifact({
     browser = await launchChromium();
     context = await browser.newContext({ serviceWorkers: "block" });
     const activity = captureBrowserActivity(context);
-    const { flows, gamePage } = flow === "game"
-      ? await runGameFlow({
-        baseUrl: host.baseUrl,
-        browserEntrypoints,
-        context,
-        landingPage,
-        mountedPath: normalizedMountedPath,
-      })
-      : await runGenericFlow({
-        baseUrl: host.baseUrl,
-        browserEntrypoints,
-        context,
-        moduleEntrypoints,
-      });
+    let flowResult;
+    try {
+      flowResult = flow === "game"
+        ? await runGameFlow({
+          baseUrl: host.baseUrl,
+          browserEntrypoints,
+          context,
+          landingPage,
+          mountedPath: normalizedMountedPath,
+        })
+        : await runGenericFlow({
+          baseUrl: host.baseUrl,
+          browserEntrypoints,
+          context,
+          moduleEntrypoints,
+        });
+    } catch (error) {
+      if (flow === "game") {
+        try {
+          const diagnostics = await browserFailureSnapshot(context, activity, host.baseUrl);
+          error.message = `${error.message}\nRelease browser failure diagnostics:\n${JSON.stringify(diagnostics, null, 2)}`;
+        } catch (diagnosticError) {
+          error.message = `${error.message}\nRelease browser diagnostics unavailable: ${diagnosticError?.message ?? diagnosticError}`;
+        }
+      }
+      throw error;
+    }
+    const { flows, gamePage } = flowResult;
     const modules = await importAndExerciseModules({
       baseUrl: host.baseUrl,
       context,

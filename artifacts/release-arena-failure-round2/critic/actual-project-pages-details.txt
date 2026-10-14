@@ -1,0 +1,15 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+locator.getAttribute: Error: strict mode violation: locator('a[href*="game/public/index.html"]') resolved to 3 elements:
+    1) <a class="primary-nav__play" href="./game/public/index.html">…</a> aka getByRole('link', { name: 'Play the demo' })
+    2) <a class="button button--ember" href="./game/public/index.html">…</a> aka getByRole('link', { name: 'Enter the arena' })
+    3) <a class="button button--paper" href="./game/public/index.html">…</a> aka getByRole('link', { name: 'Play Moss & Ember' })
+
+Call log:
+[2m  - waiting for locator('a[href*="game/public/index.html"]')[22m
+
+    at /private/tmp/release-arena-failure-round2-critic/artifacts/release-arena-failure-round2/critic/audit-project-pages.mjs:122:71
+
+Node.js v22.22.3

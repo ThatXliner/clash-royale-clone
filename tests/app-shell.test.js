@@ -67,8 +67,13 @@ const EXPECTED_CARD_PORTRAIT_CELLS = Object.freeze([
 const EXPECTED_COLLECTION_IDS = Object.freeze([
   ...EXPECTED_DEFAULT_ROSTER_IDS,
   ...EXPECTED_INDIVIDUAL_PORTRAIT_IDS,
+  "buried-coil",
 ]);
-const EXPECTED_COLLECTION_COUNT = 20;
+const EXPECTED_COLLECTION_COUNT = 21;
+const EXPECTED_REPLACEMENT_CARD_IDS = Object.freeze([
+  ...EXPECTED_INDIVIDUAL_PORTRAIT_IDS,
+  "buried-coil",
+]);
 const CARD_PORTRAIT_SCREENSHOTS = Object.freeze([
   "desktop-card-portraits-1440x933.png",
   "desktop-card-details-1440x933.png",
@@ -336,9 +341,9 @@ test("player shell renders roster-derived cards and launches a paused shared bat
         .filter((id) => id !== "squall-orb" && id !== "ember-basin")],
     "the independently expected troop collection contains the completed source roster");
     assert.deepEqual(EDITABLE_MIXED_DECK_CARD_IDS, EXPECTED_COLLECTION_IDS,
-      "the editable mixed collection adds Squall Orb and Ember Basin to the nineteen-card pool");
+      "the editable mixed collection adds Squall Orb, Ember Basin, and Buried Coil to the collection");
     assert.equal(EXPECTED_COLLECTION_IDS.length, EXPECTED_COLLECTION_COUNT,
-      "the mixed editable collection has exactly twenty supported cards");
+      "the mixed editable collection has exactly twenty-one supported cards");
     await page.goto(`${origin}/public/index.html`, { waitUntil: "networkidle" });
     assert.equal(await page.title(), "Moss & Ember — Card battler");
     assert.equal(await page.locator(".app-nav [data-nav-to]").count(), 4);
@@ -358,11 +363,44 @@ test("player shell renders roster-derived cards and launches a paused shared bat
     assert.equal(await page.locator("[data-card-grid] [data-card-id]").count(),
       EXPECTED_COLLECTION_COUNT);
     assert.equal(await page.locator("[data-card-detail] h2").innerText(), "Coilblade");
+    const buriedCoilChoice = page.locator('[data-card-grid] [data-card-id="buried-coil"]');
+    assert.equal(await buriedCoilChoice.count(), 1,
+      "the admitted defensive structure remains an editable collection choice");
+    await buriedCoilChoice.click();
+    assert.equal(await page.locator("[data-card-detail] h2").innerText(), "Buried Coil");
+    assert.equal(await page.locator("[data-card-detail] .unit-profile").count(), 1,
+      "Buried Coil uses its typed structure projection");
+    const buriedCoilProfile = projectSessionNonUnitBattleCard("buried-coil").buildingRuntime;
+    assert.equal(buriedCoilProfile.targetMode, "air_and_ground",
+      "the accepted runtime profile retains its canonical air-and-ground target mode");
+    assert.equal(buriedCoilProfile.areaDamageRadiusMillitiles, null,
+      "the accepted runtime profile has no splash radius");
+    assert.equal(buriedCoilProfile.policy.disposition, "question",
+      "the defensive building profile remains provisional for historical comparison");
+    assert.deepEqual(await renderedProfiles(page), [{
+      Cost: "4 elixir",
+      Health: `${format(buriedCoilProfile.hitpoints)} (QUESTION)`,
+      Damage: `${format(buriedCoilProfile.damage)} per attack (QUESTION)`,
+      Deploy: `${format(buriedCoilProfile.deployTicks / 60)} s (QUESTION)`,
+      "First hit": `${format(buriedCoilProfile.firstHitTicks / 60)} s (QUESTION)`,
+      "Hit speed": `${format(buriedCoilProfile.hitSpeedTicks / 60)} s (QUESTION)`,
+      Lifetime: `${format(buriedCoilProfile.lifetimeTicks / 60)} s (QUESTION)`,
+      Range: `${format(buriedCoilProfile.maxRangeMillitiles / 1_000)} tiles (QUESTION)`,
+      "Splash radius": "None (QUESTION)",
+      Targets: "ground and air (QUESTION)",
+    }], "Buried Coil detail matches its canonical provisional defensive profile");
+    const buriedCoilDescription = await page.locator("[data-card-detail] .detail-description").innerText();
+    assert.equal(buriedCoilDescription,
+      "Stationary defensive structure · single-target attacks against ground and air targets. Its combat profile is QUESTION; shown combat values remain provisional.",
+      "Buried Coil summary follows its current single-target ground-and-air profile");
+    assert.doesNotMatch(buriedCoilDescription, /splash damage|not available/iu,
+      "Buried Coil summary does not invent splash damage or unavailable targets");
+    await page.keyboard.press("Escape");
 
     for (const card of [...createPlayableRoster(),
       ...EDITABLE_MIXED_DECK_CARD_IDS
         .filter((id) => !EXPECTED_DEFAULT_ROSTER_IDS.includes(id) &&
-          id !== "squall-orb" && id !== "ember-basin")
+          id !== "squall-orb" && id !== "ember-basin" && id !== "buried-coil")
         .map((id) => projectSessionTroopBattleCard(id)),
       projectSessionNonUnitBattleCard("squall-orb"),
       projectSessionNonUnitBattleCard("ember-basin")]) {
@@ -412,8 +450,9 @@ test("player shell renders roster-derived cards and launches a paused shared bat
         assert.deepEqual(await renderedProfiles(page), [expectedProfile],
           "Ember Basin details display the shared structure profile and keep combat fields QUESTION");
         assert.equal(await page.locator("[data-card-detail] .unit-profile").count(), 1);
-        assert.match(await page.locator("[data-card-detail] .detail-description").innerText(),
-          /Stationary defensive structure.*QUESTION/u);
+        assert.equal(await page.locator("[data-card-detail] .detail-description").innerText(),
+          "Stationary defensive structure · splash damage against ground targets within a 1-tile radius. Its combat profile is QUESTION; shown combat values remain provisional.",
+          "Ember Basin keeps the accepted ground splash profile and provisional confidence");
         assert.match(await page.locator("[data-card-detail] .unit-profile").innerText(),
           /Cost is source backed; combat values are provisional profile estimates/u);
         assert.equal(await page.locator("[data-card-detail] .card-lore p").innerText(),
@@ -789,7 +828,7 @@ test("player shell renders roster-derived cards and launches a paused shared bat
       "Replace slot 2 · Mossguard");
     assert.deepEqual(await page.locator("[data-replacement-card-id]").evaluateAll((nodes) =>
       nodes.map((node) => node.dataset.replacementCardId)),
-    EXPECTED_INDIVIDUAL_PORTRAIT_IDS,
+    EXPECTED_REPLACEMENT_CARD_IDS,
     "every missing collection card can replace the selected slot");
     assert.equal(await page.evaluate(() => document.activeElement?.dataset?.replacementCardId),
       "stonehauler", "the replacement choice is reachable by keyboard");

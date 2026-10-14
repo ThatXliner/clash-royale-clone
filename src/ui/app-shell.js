@@ -1,6 +1,9 @@
 import { createPlayableRoster, PLAYABLE_CARD_IDS } from "../content/playable-roster.js";
 import { projectSessionTroopBattleCard } from "../content/session-troop-roster.js";
-import { EDITABLE_MIXED_DECK_CARD_IDS } from "../content/editable-deck.js";
+import {
+  EDITABLE_DECK_CARD_IDS,
+  EDITABLE_MIXED_DECK_CARD_IDS,
+} from "../content/editable-deck.js";
 import { projectSessionNonUnitBattleCard } from "../content/session-card-catalog.js";
 import { createSessionRadiusSpellProfileReceipts } from "../content/session-spell-profile-receipts.js";
 import { getCardPortrait } from "./card-portrait-art.js";
@@ -9,8 +12,8 @@ import { getCardLore } from "./card-lore.js";
 const cards = [
   ...createPlayableRoster(),
   ...EDITABLE_MIXED_DECK_CARD_IDS.filter((id) => !PLAYABLE_CARD_IDS.includes(id))
-    .map((id) => id === "squall-orb" || id === "ember-basin"
-      ? projectSessionNonUnitBattleCard(id) : projectSessionTroopBattleCard(id)),
+    .map((id) => EDITABLE_DECK_CARD_IDS.includes(id)
+      ? projectSessionTroopBattleCard(id) : projectSessionNonUnitBattleCard(id)),
 ];
 const cardById = new Map(cards.map((card) => [card.id, card]));
 const radiusSpellProfile = createSessionRadiusSpellProfileReceipts().profiles[0];
@@ -77,7 +80,7 @@ function speedValue(millitilesPerSecond) {
 }
 
 function targetLabel(mode) {
-  if (mode === "ground-and-air") return "ground and air";
+  if (mode === "ground-and-air" || mode === "air_and_ground") return "ground and air";
   if (mode === "ground") return "ground";
   if (mode === "air") return "air";
   if (mode === "structures") return "structures";
@@ -115,8 +118,19 @@ function descriptionFor(card) {
     return `Center-cast area spell · ${formatter.format(fact.damage)} damage to enemy ground troops, flying troops, buildings and crown towers within an estimated ${formatter.format(fact.areaDamageRadiusMillitiles / 1_000)}-tile radius. Crown-tower damage is an estimated ${100 + fact.crownTowerDamagePercent}% of troop damage. Impact takes about ${formatter.format(fact.impactDelayTicks / 60)} seconds. Projectile flight and knockback are not simulated.`;
   }
   if (card.kind === "structure") {
-    const target = targetLabel(card.buildingRuntime?.targetMode ?? card.targetMode);
-    return `Stationary defensive structure · splash damage to ${target} targets. Its combat profile is QUESTION; shown combat values remain provisional.`;
+    const profile = card.buildingRuntime;
+    if (profile?.class === "defensive") {
+      const targets = targetLabel(profile.targetMode);
+      const attack = profile.areaDamageRadiusMillitiles === null
+        ? `single-target attacks against ${targets} targets`
+        : `splash damage against ${targets} targets within a ${formatter.format(
+          profile.areaDamageRadiusMillitiles / 1_000)}-tile radius`;
+      const confidence = profile.policy?.disposition === "question"
+        ? "Its combat profile is QUESTION; shown combat values remain provisional."
+        : "Its combat values use the current shared defensive profile.";
+      return `Stationary defensive structure · ${attack}. ${confidence}`;
+    }
+    return "Stationary structure · combat targeting is not available in the current profile.";
   }
   if (card.entities.length === 1) {
     const [entity] = card.entities;
@@ -230,6 +244,9 @@ function structureProfileMarkup(card) {
   if (profile === undefined) return "";
   const question = profile.policy?.disposition === "question";
   const suffix = question ? " (QUESTION)" : "";
+  const splashRadius = profile.class === "defensive" &&
+    profile.areaDamageRadiusMillitiles === null
+    ? "None" : tileValue(profile.areaDamageRadiusMillitiles);
   const values = [
     ["Cost", `${formatter.format(card.cost)} elixir`],
     ["Health", `${formatter.format(profile.hitpoints)}${suffix}`],
@@ -239,8 +256,8 @@ function structureProfileMarkup(card) {
     ["Hit speed", `${secondsValue(profile.hitSpeedTicks)}${suffix}`],
     ["Lifetime", `${secondsValue(profile.lifetimeTicks)}${suffix}`],
     ["Range", `${tileValue(profile.maxRangeMillitiles)}${suffix}`],
-    ["Splash radius", `${tileValue(profile.areaDamageRadiusMillitiles)}${suffix}`],
-    ["Targets", `${targetLabel(profile.targetMode)}${suffix}`],
+    ["Splash radius", `${splashRadius}${suffix}`],
+    ["Targets", `${targetLabel(profile.targetMode ?? card.targetMode)}${suffix}`],
   ];
   const confidence = question
     ? "Cost is source backed; combat values are provisional profile estimates and remain QUESTION for historical comparison."

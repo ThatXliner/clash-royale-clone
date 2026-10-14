@@ -1,0 +1,524 @@
+{
+  "candidate": "8a89beebcffea1a51a492da4140c3f42c30f7bb6",
+  "repository": "ThatXliner/clash-royale-clone",
+  "ref": "main",
+  "output": "/private/tmp/release-arena-failure-round2-pages-output",
+  "pagesPrefix": "/clash-royale-clone",
+  "fileCount": 54,
+  "releaseBytes": 6112788,
+  "browserQualification": {
+    "schemaVersion": 1,
+    "serverMode": "pages",
+    "flow": "game",
+    "prefix": "/clash-royale-clone",
+    "mountedPath": "game",
+    "browserEntrypoints": [],
+    "moduleEntrypoints": [
+      "src/rl/environment.js",
+      "src/ui/arena-shell-entry.js"
+    ],
+    "flows": [
+      {
+        "kind": "landing",
+        "path": "index.html"
+      },
+      {
+        "kind": "pages-cta",
+        "path": "game/public/index.html"
+      },
+      {
+        "kind": "battle",
+        "path": "game/public/index.html"
+      }
+    ],
+    "modules": [
+      {
+        "path": "src/rl/environment.js",
+        "exports": [
+          "RLEnvironment",
+          "RL_ACTION_COUNT",
+          "RL_DEFAULT_HORIZON_TICKS",
+          "RL_DEFAULT_STRIDE_TICKS",
+          "RL_ENVIRONMENT_VERSION",
+          "createRLEnvironment"
+        ],
+        "imported": true,
+        "initialTick": 0,
+        "resetTick": 0,
+        "stepTick": 1,
+        "stepStatus": "running",
+        "terminated": false,
+        "truncated": false,
+        "restoredTick": 1,
+        "restoredMatches": true,
+        "serializedBytes": 47555
+      },
+      {
+        "path": "src/ui/arena-shell-entry.js",
+        "attachedArena": true,
+        "controllerPresent": true,
+        "exports": [
+          "arenaHudController",
+          "createArenaHudController",
+          "createArenaSessionInjectionCapability",
+          "createInitialArenaHudSystems",
+          "mountArenaShellWithHud"
+        ],
+        "hasControllerApi": true,
+        "imported": true,
+        "sessionActive": true,
+        "sessionTick": 35
+      }
+    ],
+    "requestCount": 63,
+    "requests": [
+      {
+        "method": "GET",
+        "path": "assets/asset-D-AK-JuF.css",
+        "resourceType": "stylesheet",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/index-DKZ9MDHW.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell-D-709RTF.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell-D-709RTF.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-Bion3G78.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-Bion3G78.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BM1WwEOH.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BM1WwEOH.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-Bzq3gmJw.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-Bzq3gmJw.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-C641BeuM.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-C641BeuM.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-C8Y6xEz0.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-C8Y6xEz0.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CjdkHAop.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CjdkHAop.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-COi7sJl_.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-COi7sJl_.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-D3Nnx2X_.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-D3Nnx2X_.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DcW0jNLi.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DcW0jNLi.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DrYgWmwr.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DrYgWmwr.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-iYK_h2t5.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-iYK_h2t5.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-N3t5PBB6.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-N3t5PBB6.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-pofg9WkJ.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-pofg9WkJ.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-butphPat.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-butphPat.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-DBPM86AU.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-SwkQS5eo.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/rolldown-runtime-Cl99QfTQ.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/rolldown-runtime-Cl99QfTQ.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/site.css",
+        "resourceType": "stylesheet",
+        "scope": "pages",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "assets/ui-arena-shell-er5XVwGC.css",
+        "resourceType": "stylesheet",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "brand/banner.svg",
+        "resourceType": "image",
+        "scope": "pages",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "brand/gameplay.png",
+        "resourceType": "image",
+        "scope": "pages",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "brand/logo.svg",
+        "resourceType": "image",
+        "scope": "pages",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "brand/logo.svg",
+        "resourceType": "other",
+        "scope": "pages",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "index.html",
+        "resourceType": "document",
+        "scope": "pages",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "public/assets/card-portraits-painted.webp",
+        "resourceType": "image",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "public/assets/cinder-host-painted.webp",
+        "resourceType": "image",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "public/assets/coppershade-flock-painted.webp",
+        "resourceType": "image",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "public/assets/duskwing-trio-painted.webp",
+        "resourceType": "image",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "public/assets/ember-basin-portrait-painted-v2.webp",
+        "resourceType": "image",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "public/assets/forgeguard-painted.webp",
+        "resourceType": "image",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "public/assets/gloamwing-cluster-painted.webp",
+        "resourceType": "image",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "public/assets/ironroot-painted.webp",
+        "resourceType": "image",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "public/assets/kilnkeeper-portrait-painted.webp",
+        "resourceType": "image",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "public/assets/moss-ember-arena-painted.webp",
+        "resourceType": "image",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "public/assets/squall-orb-painted.webp",
+        "resourceType": "image",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "public/assets/stonehauler-painted.webp",
+        "resourceType": "image",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "public/assets/sunthread-pair-painted.webp",
+        "resourceType": "image",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "public/assets/thornscouts-painted.webp",
+        "resourceType": "image",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "public/index.html",
+        "resourceType": "document",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "public/ui-arena-shell.html",
+        "resourceType": "document",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "src/rl/environment.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "src/ui/app-shell.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "src/ui/arena-shell-bootstrap.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "src/ui/arena-shell-entry.js",
+        "resourceType": "script",
+        "scope": "release",
+        "status": 200
+      }
+    ],
+    "workers": [],
+    "serviceWorkers": "blocked",
+    "runtimeErrors": [],
+    "releaseManifestPath": "game/release-manifest.json",
+    "releaseManifestFileCount": 54,
+    "pagesFileCount": 64
+  }
+}

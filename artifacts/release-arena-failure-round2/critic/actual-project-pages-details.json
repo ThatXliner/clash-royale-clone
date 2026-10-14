@@ -1,0 +1,264 @@
+{
+  "candidate": "8a89beebcffea1a51a492da4140c3f42c30f7bb6",
+  "pagesPrefix": "/clash-royale-clone",
+  "pagesOutput": "/private/tmp/release-arena-failure-round2-pages-output",
+  "landing": {
+    "title": "Moss & Ember — Card battles for curious minds",
+    "status": 200,
+    "gameHref": "./game/public/index.html"
+  },
+  "game": {
+    "url": "http://127.0.0.1:54135/clash-royale-clone/game/public/index.html",
+    "status": 200,
+    "title": "Moss & Ember — Card battler",
+    "navigationButtonCount": 4,
+    "defaultDeckSize": "8",
+    "defaultDeckCardIds": [
+      "coilblade",
+      "mossguard",
+      "copperskiff",
+      "skymaul",
+      "brassbolt",
+      "reedsting",
+      "briar-band",
+      "cinderlings"
+    ],
+    "admittedCardCount": 21,
+    "admittedCardIds": [
+      "coilblade",
+      "mossguard",
+      "copperskiff",
+      "skymaul",
+      "brassbolt",
+      "reedsting",
+      "briar-band",
+      "cinderlings",
+      "stonehauler",
+      "thornscouts",
+      "forgeguard",
+      "cinder-host",
+      "ironroot",
+      "sunthread-pair",
+      "duskwing-trio",
+      "gloamwing-cluster",
+      "coppershade-flock",
+      "kilnkeeper",
+      "squall-orb",
+      "ember-basin",
+      "buried-coil"
+    ],
+    "buriedCoil": {
+      "id": "buried-coil",
+      "name": "Buried Coil",
+      "canonicalProfile": {
+        "class": "defensive",
+        "areaDamageRadiusMillitiles": null,
+        "damage": 230,
+        "deployTicks": 60,
+        "firstHitTicks": 42,
+        "hitSpeedTicks": 72,
+        "hitpoints": 1152,
+        "lifetimeTicks": 1800,
+        "maxRangeMillitiles": 5500,
+        "minRangeMillitiles": 0,
+        "policy": {
+          "confidence": "unverified",
+          "corpusFields": {
+            "cost": {
+              "authoritative": true,
+              "confidence": "high",
+              "source": "pinned-pre-march-2023-card-roster-identity",
+              "value": 4
+            },
+            "damage": {
+              "authoritative": false,
+              "confidence": "unverified",
+              "source": "pinned-pre-march-2023-building-constants",
+              "value": 230
+            },
+            "deployTicks": {
+              "authoritative": false,
+              "confidence": "unverified",
+              "source": "pinned-pre-march-2023-building-constants",
+              "value": 60
+            },
+            "firstHitTicks": {
+              "authoritative": false,
+              "confidence": "unverified",
+              "source": "pinned-pre-march-2023-building-constants",
+              "value": 42
+            },
+            "hitSpeedTicks": {
+              "authoritative": false,
+              "confidence": "unverified",
+              "source": "pinned-pre-march-2023-building-constants",
+              "value": 72
+            },
+            "hitpoints": {
+              "authoritative": false,
+              "confidence": "unverified",
+              "source": "pinned-pre-march-2023-building-constants",
+              "value": 1152
+            },
+            "maxRange": {
+              "authoritative": false,
+              "confidence": "unverified",
+              "source": "pinned-pre-march-2023-building-constants",
+              "value": 5500
+            },
+            "mode": {
+              "authoritative": false,
+              "confidence": "unverified",
+              "source": "pinned-pre-march-2023-building-constants",
+              "value": "air_and_ground"
+            },
+            "sightRange": {
+              "authoritative": false,
+              "confidence": "unverified",
+              "source": "pinned-pre-march-2023-building-constants",
+              "value": 5500
+            }
+          },
+          "disposition": "question",
+          "source": "pre-evolutions-building-corpus-and-unsourced-policy-fixture"
+        },
+        "rampStages": [
+          230
+        ],
+        "rampThresholds": [
+          0
+        ],
+        "targetMode": "air_and_ground",
+        "variant": "hidden"
+      },
+      "displayedProfile": [
+        {
+          "heading": "Defensive structure · QUESTION",
+          "note": "Cost is source backed; combat values are provisional profile estimates and remain QUESTION for historical comparison.",
+          "values": {
+            "Cost": "4 elixir",
+            "Health": "1,152 (QUESTION)",
+            "Damage": "230 per attack (QUESTION)",
+            "Deploy": "1 s (QUESTION)",
+            "First hit": "0.7 s (QUESTION)",
+            "Hit speed": "1.2 s (QUESTION)",
+            "Lifetime": "30 s (QUESTION)",
+            "Range": "5.5 tiles (QUESTION)",
+            "Splash radius": "None (QUESTION)",
+            "Targets": "ground and air (QUESTION)"
+          }
+        }
+      ],
+      "displayedDescription": "Stationary defensive structure · single-target attacks against ground and air targets. Its combat profile is QUESTION; shown combat values remain provisional.",
+      "screenshot": "/private/tmp/release-arena-failure-round2-critic/artifacts/release-arena-failure-round2/critic/buried-coil-project-prefix-1440x1000.png"
+    },
+    "emberBasin": {
+      "id": "ember-basin",
+      "name": "Ember Basin",
+      "canonicalProfile": {
+        "class": "defensive",
+        "areaDamageRadiusMillitiles": 1000,
+        "damage": 222,
+        "deployTicks": 60,
+        "firstHitTicks": 66,
+        "hitSpeedTicks": 96,
+        "hitpoints": 1356,
+        "lifetimeTicks": 1800,
+        "maxRangeMillitiles": 6000,
+        "minRangeMillitiles": 0,
+        "policy": {
+          "confidence": "unverified",
+          "corpusFields": {
+            "cost": {
+              "authoritative": true,
+              "confidence": "high",
+              "source": "pinned-pre-march-2023-card-roster-identity",
+              "value": 4
+            },
+            "damage": {
+              "authoritative": false,
+              "confidence": "unverified",
+              "source": "pinned-pre-march-2023-building-constants",
+              "value": 222
+            },
+            "deployTicks": {
+              "authoritative": false,
+              "confidence": "unverified",
+              "source": "pinned-pre-march-2023-building-constants",
+              "value": 60
+            },
+            "firstHitTicks": {
+              "authoritative": false,
+              "confidence": "unverified",
+              "source": "pinned-pre-march-2023-building-constants",
+              "value": 66
+            },
+            "hitSpeedTicks": {
+              "authoritative": false,
+              "confidence": "unverified",
+              "source": "pinned-pre-march-2023-building-constants",
+              "value": 96
+            },
+            "hitpoints": {
+              "authoritative": false,
+              "confidence": "unverified",
+              "source": "pinned-pre-march-2023-building-constants",
+              "value": 1356
+            },
+            "maxRange": {
+              "authoritative": false,
+              "confidence": "unverified",
+              "source": "pinned-pre-march-2023-building-constants",
+              "value": 6000
+            },
+            "mode": {
+              "authoritative": false,
+              "confidence": "unverified",
+              "source": "pinned-pre-march-2023-building-constants",
+              "value": "ground"
+            },
+            "sightRange": {
+              "authoritative": false,
+              "confidence": "unverified",
+              "source": "pinned-pre-march-2023-building-constants",
+              "value": 6000
+            }
+          },
+          "disposition": "question",
+          "source": "pre-evolutions-building-corpus-and-unsourced-policy-fixture"
+        },
+        "rampStages": [
+          222
+        ],
+        "rampThresholds": [
+          0
+        ],
+        "targetMode": "ground",
+        "variant": "splash"
+      },
+      "displayedProfile": [
+        {
+          "heading": "Defensive structure · QUESTION",
+          "note": "Cost is source backed; combat values are provisional profile estimates and remain QUESTION for historical comparison.",
+          "values": {
+            "Cost": "4 elixir",
+            "Health": "1,356 (QUESTION)",
+            "Damage": "222 per attack (QUESTION)",
+            "Deploy": "1 s (QUESTION)",
+            "First hit": "1.1 s (QUESTION)",
+            "Hit speed": "1.6 s (QUESTION)",
+            "Lifetime": "30 s (QUESTION)",
+            "Range": "6 tiles (QUESTION)",
+            "Splash radius": "1 tiles (QUESTION)",
+            "Targets": "ground (QUESTION)"
+          }
+        }
+      ],
+      "displayedDescription": "Stationary defensive structure · splash damage against ground targets within a 1-tile radius. Its combat profile is QUESTION; shown combat values remain provisional.",
+      "screenshot": "/private/tmp/release-arena-failure-round2-critic/artifacts/release-arena-failure-round2/critic/ember-basin-project-prefix-1440x1000.png"
+    }
+  },
+  "runtimeErrors": [],
+  "requestFailures": [],
+  "httpErrors": []
+}

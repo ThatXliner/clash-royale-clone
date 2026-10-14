@@ -9159,3 +9159,10 @@ PIECE: RELEASE-ARENA-001
 VERDICT: FAIL
 EVIDENCE: Independent exact43292aae app-shell1/1, release22/22, Pages5/5, isolation13/13+4/4; actualprefixed21collection/default8/visiblearena/noerrors and wrongprojectornegativecontrol reproducesRangeError. Built Burieddetail claims splashdamage to notavailabletargets; canonicalradiusnull/top-levelground-and-air/runtimeair_and_ground. Sourceprepostexact; overlapofnegativecontrol/isolationprocessespreserved,no performanceclaim. Fullverdict andactualPNG/JSON at artifacts/release-arena-failure-round1/critic/.
 BIGGEST GAP: Buried Coil user-visible detail invents splash damage and hides its ground-and-air target mode; render actual profile with truthful QUESTION markings and regressions.
+
+## Round 469 — RELEASE-ARENA-001 startup and current structure details
+
+PIECE: RELEASE-ARENA-001
+VERDICT: PASS
+EVIDENCE: Independent exact8a89beeb app-shell1/1, release22/22, Pages5/5. Actualprojectprefixartifact6112788/8388608B, default8/collection21, visiblearena+RLsteprestore/noerrors. Buriedsingletargetground+air/no splash andEmber1tilegroundsplash tables matchcanonicalprofiles; costsourcebacked/noncostQUESTION. Oldfalsecopynegativecontrolfailsassertion. Sourceprepostexact. Criticwrappedapp-shellrepeat retained; nofullenduranceclaim. Artifacts/release-arena-failure-round2/critic/.
+BIGGEST GAP: No gap on current startup/profile truthfulness bar; minor Ember Basin radius row says “1 tiles,” while its description correctly says “1-tile radius.” Full endurance and Buried presentation remain separate.
