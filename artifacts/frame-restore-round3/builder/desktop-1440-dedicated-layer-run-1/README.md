@@ -1,0 +1,11 @@
+# FRAME-RESTORE-001 dedicated-layer intervention
+
+This is one bounded causal diagnostic on frozen source `6cf983c6101e57de1d3b803c7e5469809b60ace4`, at 1440×933, DPR 1, Chrome 155.0.8059.40, Playwright 1.58.2. The runner was PID 76741 and exited 0. The source hashes are in `frame-restore-001-desktop-evidence.json`; the runner verified that all tracked source bytes were unchanged during the run.
+
+The unchanged control followed the original phone-case lifecycle at the desktop viewport: authentic Briar contact at attack tick 170, painted checkpoint 171, advance by 2 then 6 ticks to 179, restore 171, and capture the whole viewport. It reproduced 29 differing pixels, maximum channel delta 18, in x=575–811/y=898–911. Session bytes, browser/controller snapshots, input, audio continuation and policy, fonts, resources, and geometry matched; only the strict PNG/pixel gates failed.
+
+At tick 171, the runner applied exactly this temporary rule after the control pair: `.hud-resource-progress{transform:translateZ(0)!important}`. The element stayed at x=115/y=1251, size 496×22, with the same resource percentage and clip path. The intervention pair repeated the same 171→179→171 lifecycle. The full 1440×933 PNGs were byte-identical and decoded to zero differing pixels. Session, controller, input, audio continuation and policy, fonts, resources, and all recorded geometry gates matched.
+
+CDP identified the same progress node (backend node 173) in a new dedicated layer (layer 31, 398×22, parent layer 5), with reason “Has a trivial 3d transform.” Its paint count changed from 1 before restore to 3 after restore; the unmodified control had no separate progress layer. This supports isolation of the progress clip’s rasterization as the cause of the reproduced repaint drift. It is one desktop, normal-motion diagnostic and does not qualify phone/desktop reduced-motion behavior or endurance performance. The temporary rule was injected by the runner; this evidence alone is not production acceptance.
+
+The original full-viewport PNGs and compact strict comparison are preserved alongside the JSON. The first full projection-suite run also exposed an independent candidate-tree bug in in-place append/replace operations; a captured excerpt from its terminal output is preserved as `unit-projection-first-failure-excerpt.txt` (not a complete raw log).

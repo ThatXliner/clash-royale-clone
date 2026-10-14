@@ -1,0 +1,8 @@
+{
+  "pid": 79349,
+  "commit": "f2f55b820bf5ec8fdec279084e8db33e10c881fc",
+  "error": "Error: frame.evaluate: ReferenceError: safe is not defined\n    at eval (eval at evaluate (:290:30), <anonymous>:10:24)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)",
+  "stack": "frame.evaluate: ReferenceError: safe is not defined\n    at eval (eval at evaluate (:290:30), <anonymous>:10:24)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at audit (/private/tmp/frame-restore-round3-final/artifacts/frame-restore-round3/builder/probes/final-production-matrix-9f.mjs:98:29)\n    at async runViewport (/private/tmp/frame-restore-round3-final/artifacts/frame-restore-round3/builder/probes/final-production-matrix-9f.mjs:244:29)\n    at async main (/private/tmp/frame-restore-round3-final/artifacts/frame-restore-round3/builder/probes/final-production-matrix-9f.mjs:364:51)",
+  "contextsCompleted": [],
+  "missingPaths": []
+}

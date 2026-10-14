@@ -1,0 +1,42 @@
+Captured excerpt from the runner terminal output returned by exec session 23918; this is not a complete raw log.
+
+TAP version 13
+# Subtest: game UI projection: HUD appendChild mutate-then-throw restores exact live identities
+not ok 5 - game UI projection: HUD appendChild mutate-then-throw restores exact live identities
+  ---
+  duration_ms: 21.413917
+  type: 'test'
+  location: '/private/tmp/frame-restore-round3-builder/tests/game-ui-projection.test.js:590:3'
+  failureType: 'testCodeFailure'
+  error: 'game UI hud layer did not match its in-place candidate'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    projectFrame (file:///private/tmp/frame-restore-round3-builder/src/ui/game-ui-projection.js:498:21)
+    Object.project (file:///private/tmp/frame-restore-round3-builder/src/ui/game-ui-projection.js:572:29)
+    TestContext.<anonymous> (file:///private/tmp/frame-restore-round3-builder/tests/game-ui-projection.test.js:633:13)
+# Subtest: game UI projection: HUD removeChild mutate-then-throw restores exact live identities
+ok 6 - game UI projection: HUD removeChild mutate-then-throw restores exact live identities
+# Subtest: game UI projection: HUD replaceChild mutate-then-throw restores exact live identities
+not ok 7 - game UI projection: HUD replaceChild mutate-then-throw restores exact live identities
+  ---
+  duration_ms: 20.39125
+  type: 'test'
+  location: '/private/tmp/frame-restore-round3-builder/tests/game-ui-projection.test.js:590:3'
+  failureType: 'testCodeFailure'
+  error: 'game UI hud layer did not match its in-place candidate'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    projectFrame (file:///private/tmp/frame-restore-round3-builder/src/ui/game-ui-projection.js:498:21)
+    Object.project (file:///private/tmp/frame-restore-round3-builder/src/ui/game-ui-projection.js:572:29)
+    TestContext.<anonymous> (file:///private/tmp/frame-restore-round3-builder/tests/game-ui-projection.test.js:633:13)
+# tests 35
+# pass 33
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 65944.37825
+
+Runner: `node tests/game-ui-projection-runner.js game-ui-projection`
+Exec session: 23918
+Exit code: 1
