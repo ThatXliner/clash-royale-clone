@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "prefix": "/clash-royale-clone/",
+  "repository": "ThatXliner/clash-royale-clone",
+  "build": {
+    "fileCount": 54,
+    "releaseBytes": 6112129,
+    "manifestFileCount": 54,
+    "manifestTotalBytes": 6112129,
+    "underExisting8MiBCap": true,
+    "csp": "default-src 'none'; base-uri 'self'; connect-src 'self'; font-src 'self' data:; form-action 'none'; frame-src 'self'; img-src 'self' data:; media-src 'self'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; worker-src 'self'",
+    "cspHasSelfScript": true,
+    "cspHasNoUnsafeEval": true,
+    "qualification": {
+      "flow": "game",
+      "prefix": "/clash-royale-clone",
+      "flows": [
+        {
+          "kind": "landing",
+          "path": "index.html"
+        },
+        {
+          "kind": "pages-cta",
+          "path": "game/public/index.html"
+        },
+        {
+          "kind": "battle",
+          "path": "game/public/index.html"
+        }
+      ],
+      "requestCount": 63,
+      "runtimeErrors": [],
+      "workers": [],
+      "moduleCount": 2,
+      "moduleKinds": [
+        "src/rl/environment.js",
+        "src/ui/arena-shell-entry.js"
+      ],
+      "releaseManifestFileCount": 54,
+      "pagesFileCount": 64
+    }
+  },
+  "browser": {
+    "landingStatus": 200,
+    "gameStatus": 200,
+    "gameUrl": "http://127.0.0.1:53038/clash-royale-clone/game/public/index.html",
+    "navigationCount": 4,
+    "collectionCount": 21,
+    "cardIds": [
+      "coilblade",
+      "mossguard",
+      "copperskiff",
+      "skymaul",
+      "brassbolt",
+      "reedsting",
+      "briar-band",
+      "cinderlings",
+      "stonehauler",
+      "thornscouts",
+      "forgeguard",
+      "cinder-host",
+      "ironroot",
+      "sunthread-pair",
+      "duskwing-trio",
+      "gloamwing-cluster",
+      "coppershade-flock",
+      "kilnkeeper",
+      "squall-orb",
+      "ember-basin",
+      "buried-coil"
+    ],
+    "buriedCoil": {
+      "heading": "Buried Coil",
+      "description": "Stationary defensive structure · splash damage to not available targets. Its combat profile is QUESTION; shown combat values remain provisional.",
+      "profileHeading": "Defensive structure · QUESTION",
+      "profileText": "Defensive structure · QUESTION\n\nCost is source backed; combat values are provisional profile estimates and remain QUESTION for historical comparison.\n\nCOST\n4 elixir\nHEALTH\n1,152 (QUESTION)\nDAMAGE\n230 per attack (QUESTION)\nDEPLOY\n1 s (QUESTION)\nFIRST HIT\n0.7 s (QUESTION)\nHIT SPEED\n1.2 s (QUESTION)\nLIFETIME\n30 s (QUESTION)\nRANGE\n5.5 tiles (QUESTION)\nSPLASH RADIUS\nNot available (QUESTION)\nTARGETS\nnot available (QUESTION)"
+    },
+    "buriedCoilDetailScreenshot": "/private/tmp/release-arena-failure-critic/artifacts/release-arena-failure-round1/critic/prefixed-buried-coil-detail.png",
+    "activeView": "battle",
+    "battleFrameCount": 1,
+    "frame": {
+      "src": "./ui-arena-shell.html?app-frame=1",
+      "resolvedSrc": "http://127.0.0.1:53038/clash-royale-clone/game/public/ui-arena-shell.html?app-frame=1",
+      "sandbox": null,
+      "loading": "eager"
+    },
+    "arena": {
+      "visible": true,
+      "width": 548,
+      "height": 968,
+      "bodyText": "Sound on\n3:00\n4\nBrassbolt\n3\nMossguard\n3\nSkymaul\n4\nCopperskiff\n1\nCinderlings"
+    },
+    "runtimeErrors": [],
+    "consoleErrors": [],
+    "failedRequests": [],
+    "ownOriginRequestsOutsidePrefix": []
+  },
+  "checks": {
+    "landingAndGameNavigation": true,
+    "admittedCollectionHas21Cards": true,
+    "buriedCoilTypedStructureProfile": true,
+    "buriedCoilTargetIsGroundAndAir": false,
+    "buriedCoilShowsNoSplashRadius": false,
+    "descriptionClaimsSplashDamage": true,
+    "liveProfileHasNoSplashRadius": true,
+    "mechanicDescriptionConflict": true,
+    "arenaLoadsInBattleView": true,
+    "allOwnOriginRequestsStayUnderPrefix": true,
+    "noRuntimeConsoleOrRequestErrors": true,
+    "pagesQualificationHasNoRuntimeErrors": true
+  }
+}
