@@ -78,6 +78,12 @@ import {
   planOrdinaryProjectileSplashImpact,
 } from "./ordinary-projectile-splash.js";
 import {
+  canonicalMeleeAreaSetup,
+  canonicalMeleeTowerSetup,
+  exactMeleeAreaSetup,
+  planMeleeUnitAttack,
+} from "./area-target-selection.js";
+import {
   advanceOrdinaryProjectileQueue,
   ordinaryProjectileImpactTargetStatus,
   ordinaryProjectileTargetInRange,
@@ -2312,14 +2318,15 @@ class BattleCombat {
 
   constructor(setup = { units: [] }) {
     runtimeInstances.add(this);
-    const checked = exact(setup, ["units"], "battle combat setup");
+    const checked = exactMeleeAreaSetup(setup, ["units"], "battle combat setup");
     const units = denseArray(checked.units, "battle combat setup.units")
       .map((unit, index) => checkedUnit(unit, `battle combat setup.units[${index}]`));
     if (new Set(units.map(({ id }) => id)).size !== units.length) {
       throw new TypeError("battle combat setup unit IDs must be unique");
     }
     const canonicalUnits = [...units].sort((left, right) => left.id - right.id);
-    this.#setup = { units: clone(canonicalUnits) };
+    this.#setup = canonicalMeleeAreaSetup(checked, canonicalUnits, clone,
+      "battle combat setup");
     for (const unit of canonicalUnits) {
       this.#activate(unit, 0);
     }
@@ -2726,7 +2733,7 @@ class BattleCombat {
     const checked = exact(snapshot,
       ["history", "setup", "structureSets", "transcript", "version"],
       "battle combat snapshot");
-    exact(checked.setup, ["units"], "battle combat snapshot.setup");
+    const setup = exactMeleeAreaSetup(checked.setup, ["units"], "battle combat snapshot.setup");
     const transcript = denseArray(checked.transcript,
       "battle combat snapshot.transcript", MAX_HISTORY);
     const history = denseArray(checked.history, "battle combat snapshot.history", MAX_HISTORY);
@@ -2754,7 +2761,7 @@ class BattleCombat {
     const structureSets = denseArray(checked.structureSets,
       "battle combat snapshot.structureSets", MAX_EXTERNAL_ENTRIES).map((structures, index) =>
       checkedBoundary({ externalHits: [], externalProjectiles: [], structures, tick: 0 }).structures);
-    const restored = new BattleCombat(checked.setup);
+    const restored = new BattleCombat(setup);
     let operations = 0;
     const structuresFor = (value, label) => {
       const index = integer(value, 0, structureSets.length - 1, `${label}.structureSet`);
@@ -3053,8 +3060,17 @@ class BattleCombat {
       }
       if (attack.attacker.delivery === "melee") {
         if (attack.structure === null) {
-          hits.push({ amount: attack.attacker.damage, targetId: attack.target.id });
-          hitSources.push({ attackerId: attack.attacker.id, delivery: "melee" });
+          const area = planMeleeUnitAttack({
+            attacker: attack.attacker,
+            attackSequence: attack.sequence,
+            areaPolicies: this.#setup.meleeAreaPolicies,
+            controls,
+            damage: this.#damage,
+            primaryTargetId: attack.target.id,
+            units: this.#units,
+          });
+          hits.push(...area.unitHits);
+          hitSources.push(...area.hitSources);
         } else {
           boundary.push({
             contactTick: tick,
@@ -5018,17 +5034,20 @@ class BattleTowerCombat {
 
   constructor(value) {
     runtimeInstances.add(this);
-    const setup = exact(
+    const setup = exactMeleeAreaSetup(
       value,
       ["initialWindupTicks", "units"],
       "battle tower setup",
     );
     preflightUnitIds(setup.units);
-    this.#combat = new BattleCombat({ units: setup.units });
+    this.#combat = new BattleCombat({ units: setup.units,
+      ...(Object.hasOwn(setup, "meleeAreaPolicies")
+        ? { meleeAreaPolicies: setup.meleeAreaPolicies } : {}) });
+    const canonicalSetup = canonicalMeleeTowerSetup(setup, setup.units, "battle tower setup");
     this.#towers = new CrownTowerBattle({
       initialWindupTicks: setup.initialWindupTicks,
     });
-    this.#setup = clone(setup);
+    this.#setup = clone(canonicalSetup);
     this.#history = [];
     this.#historyCount = 0;
     this.#isContinuation = false;
@@ -5285,7 +5304,7 @@ class BattleTowerCombat {
       const history = denseArray(checked.history, "battle tower snapshot.history");
       const transcript = denseArray(checked.transcript, "battle tower snapshot.transcript");
       const restored = new BattleTowerCombat(
-        exact(checked.setup, ["initialWindupTicks", "units"], "snapshot setup"));
+        exactMeleeAreaSetup(checked.setup, ["initialWindupTicks", "units"], "snapshot setup"));
       let operations = history.length;
       const replay = (operation, index, label) => {
         plain(operation, `${label}[${index}]`);
@@ -5364,7 +5383,9 @@ class BattleTowerCombat {
     if (combatSnapshot.version !== checked.version) {
       throw new TypeError("battle tower and combat snapshot versions are mixed");
     }
-    const setup = exact(checked.setup, ["initialWindupTicks", "units"], "snapshot setup");
+    const setup = checked.version === 1
+      ? exact(checked.setup, ["initialWindupTicks", "units"], "snapshot setup")
+      : exactMeleeAreaSetup(checked.setup, ["initialWindupTicks", "units"], "snapshot setup");
     const history = denseArray(checked.history, "battle tower snapshot.history");
     const restored = new BattleTowerCombat(setup);
     for (let index = 0; index < history.length; index += 1) {

@@ -1,0 +1,73 @@
+[
+  {
+    "tick": 0,
+    "damage": [
+      {
+        "amount": 10,
+        "currentHealthAfter": 0,
+        "currentHealthBefore": 10,
+        "targetId": 2,
+        "type": "damage",
+        "attackerId": 1,
+        "delivery": "melee",
+        "tick": 0
+      },
+      {
+        "amount": 10,
+        "currentHealthAfter": 0,
+        "currentHealthBefore": 10,
+        "targetId": 3,
+        "type": "damage",
+        "attackerId": 1,
+        "attackSequence": 1,
+        "delivery": "melee",
+        "meleeAreaPolicyVersion": "melee-area-question-v1",
+        "tick": 0
+      },
+      {
+        "amount": 10,
+        "currentHealthAfter": 0,
+        "currentHealthBefore": 10,
+        "targetId": 1,
+        "type": "damage",
+        "attackerId": 2,
+        "delivery": "melee",
+        "tick": 0
+      }
+    ],
+    "deaths": [
+      {
+        "targetId": 1,
+        "type": "death",
+        "tick": 0
+      },
+      {
+        "targetId": 2,
+        "type": "death",
+        "tick": 0
+      },
+      {
+        "targetId": 3,
+        "type": "death",
+        "tick": 0
+      }
+    ],
+    "state": [
+      {
+        "id": 1,
+        "hitpoints": 0,
+        "alive": false
+      },
+      {
+        "id": 2,
+        "hitpoints": 0,
+        "alive": false
+      },
+      {
+        "id": 3,
+        "hitpoints": 0,
+        "alive": false
+      }
+    ]
+  }
+]

@@ -62,6 +62,7 @@ const permitted = [
 
 const EXPECTED_SIMULATION_MODULES = Object.freeze([
   "area-damage.js",
+  "area-target-selection.js",
   "arena-geometry.js",
   "attack-cycle.js",
   "battle-combat.js",

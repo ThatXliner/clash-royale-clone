@@ -1,5 +1,14 @@
 # Gauntlet Rounds
 
+## Round 457 — 2026-10-14
+
+PIECE: MELEE-AREA-001
+VERDICT: PASS
+
+EVIDENCE: Round457 PASS exactb5c735e all12gates141/141; actualsimultaneous primary/secondary/counter deaths probe, sourcepre/postexact, defaultsnapshotbytespreserved. Kernel524103/524288. Firstsymlinkfixture release20/22 retained; exactphysicalreference22/22. Closedopt-inQUESTIONpolicy only; historicalsemantics/cardadmission unproved. Gatecounts5+10+7+10+25+6+6+11+9+20+12+22; artifacts/melee-area-round-1/critic/. No fullenduranceclaim.
+
+BIGGEST GAP: Historicalcenter/radius/body/layers/damage/structures/finish remainQUESTION; foundationdoesnotadmitcard.
+
 ## Round 456 — 2026-10-14
 
 PIECE: ART-004 round3

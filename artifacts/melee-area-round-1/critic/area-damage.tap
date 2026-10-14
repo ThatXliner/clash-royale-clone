@@ -1,0 +1,80 @@
+
+> moss-and-ember@0.0.0 test:area-damage
+> node tests/area-damage-runner.js area-damage
+
+TAP version 13
+# Subtest: area-damage: circle boundary is inclusive and one millitile out misses
+ok 1 - area-damage: circle boundary is inclusive and one millitile out misses
+  ---
+  duration_ms: 4.123625
+  type: 'test'
+  ...
+# Subtest: area-damage: target modes use layer and structure semantics
+ok 2 - area-damage: target modes use layer and structure semantics
+  ---
+  duration_ms: 2.946667
+  type: 'test'
+  ...
+# Subtest: area-damage: dead, untargetable, candidate-dead, and missing IDs miss
+ok 3 - area-damage: dead, untargetable, candidate-dead, and missing IDs miss
+  ---
+  duration_ms: 0.787291
+  type: 'test'
+  ...
+# Subtest: area-damage: duplicate IDs reject atomically before any damage
+ok 4 - area-damage: duplicate IDs reject atomically before any damage
+  ---
+  duration_ms: 0.498708
+  type: 'test'
+  ...
+# Subtest: area-damage: victims are one simultaneous stable replay batch
+ok 5 - area-damage: victims are one simultaneous stable replay batch
+  ---
+  duration_ms: 1.671125
+  type: 'test'
+  ...
+# Subtest: area-damage: effect IDs are monotonic including explicit no-target effects
+ok 6 - area-damage: effect IDs are monotonic including explicit no-target effects
+  ---
+  duration_ms: 0.525209
+  type: 'test'
+  ...
+# Subtest: area-damage: malformed effects and candidates are atomic
+ok 7 - area-damage: malformed effects and candidates are atomic
+  ---
+  duration_ms: 0.415709
+  type: 'test'
+  ...
+# Subtest: area-damage: returned replay is isolated JSON
+ok 8 - area-damage: returned replay is isolated JSON
+  ---
+  duration_ms: 0.273958
+  type: 'test'
+  ...
+# Subtest: area-damage: restore continues byte-identically
+ok 9 - area-damage: restore continues byte-identically
+  ---
+  duration_ms: 2.123542
+  type: 'test'
+  ...
+# Subtest: area-damage: unreachable effect-ID jumps reject instead of forging exhaustion
+ok 10 - area-damage: unreachable effect-ID jumps reject instead of forging exhaustion
+  ---
+  duration_ms: 0.541083
+  type: 'test'
+  ...
+# Subtest: area-damage: malformed snapshots are rejected
+ok 11 - area-damage: malformed snapshots are rejected
+  ---
+  duration_ms: 0.321667
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 72.980583

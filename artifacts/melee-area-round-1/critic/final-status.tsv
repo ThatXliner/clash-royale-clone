@@ -1,0 +1,14 @@
+case	result	TAP
+node --test tests/melee-area.test.js	PASS 5/5	melee-area.tap
+npm run test:battle-combat	PASS 10/10	battle-combat.tap
+npm run test:battle-towers-kernel	PASS 7/7	battle-towers-kernel.tap
+npm run test:nondeterminism-guard	PASS 10/10	nondeterminism-guard.tap
+npm run test:game-roster-troops-ordinary	PASS 25/25	ordinary-troop-roster.tap
+npm run test:game-roster-troops-projectile	PASS 6/6	projectile-troop-roster.tap
+npm run test:melee	PASS 6/6	melee.tap
+npm run test:area-damage	PASS 11/11	area-damage.tap
+npm run test:game-session	PASS 9/9	game-session.tap
+npm run test:content-schema	PASS 20/20	content-schema.tap
+npm run test:rl-environment	PASS 12/12	rl-environment.tap
+npm run test:release-build with reference symlink	SETUP ISSUE 20/22; protected-path assertion followed symlink outside candidate	release-build.tap
+npm run test:release-build with exact archived reference	PASS 22/22	release-build-physical-reference.tap

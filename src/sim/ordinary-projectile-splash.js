@@ -2,6 +2,7 @@ import {
   assertOrdinaryProjectileSplashProfile,
   getOrdinaryProjectileSplashSourceFacts,
 } from "../shared/ordinary-projectile-delivery-authority.js";
+import { selectAreaTargets } from "./area-target-selection.js";
 import {
   MAX_SPATIAL_MILLITILES,
   circlesOverlap,
@@ -192,27 +193,6 @@ export function ordinaryProjectileSplashCombatFields(component) {
     ? {} : { splashProfile: component.projectileSplashPolicy };
 }
 
-function selectTargets({ center, enemySide, primaryTargetId, profile, structures, units }) {
-  const targets = [];
-  const overlaps = (target) => circlesOverlap(
-    { position: center, radius: profile.radiusMillitiles },
-    { position: target.position, radius: target.radius },
-  );
-  for (const unit of units) {
-    if (!unit.alive || !unit.targetable || unit.side !== enemySide ||
-        unit.id === primaryTargetId || !profile.targetLayers.includes(unit.layer) ||
-        !overlaps(unit)) continue;
-    targets.push({ ...unit, targetKind: "unit" });
-  }
-  for (const structure of structures) {
-    if (!structure.alive || !structure.targetable || structure.side !== enemySide ||
-        structure.id === primaryTargetId || !profile.targetLayers.includes(structure.layer) ||
-        !overlaps(structure)) continue;
-    targets.push({ ...structure, targetKind: "structure" });
-  }
-  targets.sort((left, right) => left.id - right.id);
-  return targets;
-}
 
 export function planOrdinaryProjectileSplashImpact({
   attackerId, attackSequence, center, damage, enemySide, primaryKind, primaryStatus,
@@ -228,7 +208,7 @@ export function planOrdinaryProjectileSplashImpact({
     (primaryTarget !== null && primaryTarget.side === enemySide &&
       profile.targetLayers.includes(primaryTarget.layer) && primaryTargetable && primaryWithinSplash);
   const impactStatus = eligiblePrimary ? primaryStatus : "target_missing";
-  const splashTargets = profile === null ? [] : selectTargets({
+  const splashTargets = profile === null ? [] : selectAreaTargets({
     center, enemySide, primaryTargetId, profile, structures, units,
   });
   const unitHits = [];
@@ -266,5 +246,5 @@ export function planOrdinaryProjectileSplashImpact({
 export function selectOrdinaryProjectileSplashTargets({
   center, enemySide, primaryTargetId, profile, structures, units,
 }) {
-  return selectTargets({ center, enemySide, primaryTargetId, profile, structures, units });
+  return selectAreaTargets({ center, enemySide, primaryTargetId, profile, structures, units });
 }
