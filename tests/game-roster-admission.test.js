@@ -98,8 +98,8 @@ test("game roster admission: manifest is the exact integration occurrence surfac
     ({ exportName, id })).sort((left, right) => left.id.localeCompare(right.id) ||
       left.exportName.localeCompare(right.exportName));
   assert.deepEqual(manifest.occurrences.map(({ exportName, id }) => ({ exportName, id })), integration);
-  assert.deepEqual(manifest.counts, { admittedIds: 55, admittedOccurrences: 60,
-    claimedIds: 61, claimedOccurrences: 66, excludedClaimedIds: 6,
+  assert.deepEqual(manifest.counts, { admittedIds: 56, admittedOccurrences: 61,
+    claimedIds: 62, claimedOccurrences: 67, excludedClaimedIds: 6,
     excludedClaimedOccurrences: 6, questionOnlyExports: 5 });
   assert.deepEqual(manifest.excludedClaims.map(({ id }) => id), QUESTION_IDS);
   assert.ok(manifest.excludedClaims.every(({ reason, status }) => status === "question" &&
@@ -111,6 +111,11 @@ test("game roster admission: manifest is the exact integration occurrence surfac
   assert.deepEqual(manifest.cards.find(({ id }) => id === "squall-orb").occurrenceExports,
     ["createInstantSpellCatalog", "createKnockbackSpecialCatalog",
       "createReturningSpellCatalog", "createTravelingLineSpellCatalog"]);
+  assert.deepEqual(manifest.cards.find(({ id }) => id === "kilnkeeper").occurrenceExports,
+    ["createOrdinaryProjectileSplashCatalog"]);
+  assert.deepEqual(manifest.occurrences.filter(({ id }) => id === "kilnkeeper"), [
+    { exportName: "createOrdinaryProjectileSplashCatalog", id: "kilnkeeper", status: "admitted" },
+  ]);
   assert.equal(serializeSessionCardManifest(), canonical(manifest));
   assert.deepEqual(createSessionCardManifest(), manifest);
   assert.notEqual(createSessionCardManifest(), manifest);
@@ -121,7 +126,7 @@ test("game roster admission: every admitted ID has one exact legal eight-card wi
   const manifest = createSessionCardManifest();
   const admitted = new Set(manifest.cards.map(({ id }) => id));
   const witnesses = createSessionCardDeckWitnesses();
-  assert.equal(witnesses.length, 55);
+  assert.equal(witnesses.length, 56);
   assert.deepEqual(new Set(witnesses.map(({ cardId }) => cardId)), admitted);
   for (const { cardId, deck } of witnesses) {
     assert.equal(deck.length, 8);

@@ -1,0 +1,50 @@
+
+> moss-and-ember@0.0.0 test:game-roster-troops-projectile
+> node tests/game-roster-troops-projectile-runner.js game-roster-troops-projectile
+
+TAP version 13
+# Subtest: projectile support is the exact HTP/HTO/HTJP receipt join
+ok 1 - projectile support is the exact HTP/HTO/HTJP receipt join
+  ---
+  duration_ms: 42.604375
+  type: 'test'
+  ...
+# Subtest: each sourced projectile occurrence uses shared host identity, health, tick, and history
+ok 2 - each sourced projectile occurrence uses shared host identity, health, tick, and history
+  ---
+  duration_ms: 6698.128417
+  type: 'test'
+  ...
+# Subtest: QUESTION-only ranged identities and special continuations reject atomically
+ok 3 - QUESTION-only ranged identities and special continuations reject atomically
+  ---
+  duration_ms: 192.049625
+  type: 'test'
+  ...
+# Subtest: projectile runtime restore, fork, replay, and terminal retention are byte-identical
+ok 4 - projectile runtime restore, fork, replay, and terminal retention are byte-identical
+  ---
+  duration_ms: 21560.524333
+  type: 'test'
+  ...
+# Subtest: closed receipt admission rejects forged plans and roster TOCTOU
+ok 5 - closed receipt admission rejects forged plans and roster TOCTOU
+  ---
+  duration_ms: 14.2405
+  type: 'test'
+  ...
+# Subtest: closed projectile authority has no public registrar and survives fresh-process preemption routes
+ok 6 - closed projectile authority has no public registrar and survives fresh-process preemption routes
+  ---
+  duration_ms: 4409.507708
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 33088.932958

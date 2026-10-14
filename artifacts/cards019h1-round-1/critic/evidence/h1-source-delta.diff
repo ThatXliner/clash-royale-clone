@@ -1,0 +1,1352 @@
+src/shared/ordinary-projectile-delivery-authority.js --- 1/4 --- JavaScript
+ 30  30   cardId: "kilnkeeper",
+ 31  31   catalogId: "ordinary-projectile-splash-v1",
+ 32  32   enemiesOnly: true,
+ ..  33   homing: true,
+ ..  34   homingRuntimePolicy: Object.freeze({
+ ..  35     pursuitSpeedMillitilesPerTick: 500,
+ ..  36     directionUpdateRule: "aim-after-unit-motion-each-boundary",
+ ..  37     directionRoundingRule: "ceil-distance-truncate-components-toward-zero",
+ ..  38     targetLockRule: "retain-launch-target-id",
+ ..  39     retargetRule: "never-reacquire",
+ ..  40     targetDeathRule: "fizzle-on-first-boundary-after-death",
+ ..  41     sourceDeathRule: "continue-after-launch",
+ ..  42     outOfRangeRule: "continue-after-launch-range",
+ ..  43     outOfBoundsRule: "continue-while-position-is-valid",
+ ..  44     contactRadiusRule: "target-body-radius",
+ ..  45     impactCenterRule: "live-target-center",
+ ..  46     intermediateCollisionRule: "no-intermediate-collision",
+ ..  47     arrivalBoundaryRule: "first-boundary-reaching-contact-radius",
+ ..  48     contactOrderRule: "after-motion-before-simultaneous-damage",
+ ..  49   }),
+ 33  50   radiusMillitiles: 1_500,
+ 34  51   sourceExport: "createOrdinaryProjectileSplashCatalog",
+ 35  52   targetLayers: Object.freeze(["air", "ground"]),
+
+src/shared/ordinary-projectile-delivery-authority.js --- 2/4 --- JavaScript
+ 38  55   "archetypeId", "cardId", "catalogId", "delivery", "kind",
+ 39  56 ]);
+ 40  57 const SPLASH_PROFILE_KEYS = Object.freeze([
+ 41  58   "archetypeId", "cardId", "catalogId", "enemiesOnly", "homing",
+ 42  59   "homingRuntimePolicy", "radiusMillitiles", "sourceExport", "targetLayers",
+ 43  60 ]);
+ ..  61 const HOMING_RUNTIME_POLICY_KEYS = Object.freeze([
+ ..  62   "arrivalBoundaryRule", "contactOrderRule", "contactRadiusRule", "directionRoundingRule",
+ ..  63   "directionUpdateRule", "impactCenterRule", "intermediateCollisionRule",
+ ..  64   "outOfBoundsRule", "outOfRangeRule", "pursuitSpeedMillitilesPerTick",
+ ..  65   "retargetRule", "sourceDeathRule", "targetDeathRule", "targetLockRule",
+ ..  66 ]);
+ 44  67 const WIZARD_PROJECTILE_DAMAGE_RECEIPT = Object.freeze({
+ 45  68   damage: 281,
+ 46  69   index: 8,
+
+src/shared/ordinary-projectile-delivery-authority.js --- 3/4 --- JavaScript
+111 134       archetypeId !== SPLASH_SOURCE_PROFILE.archetypeId) return null;
+112 135   return {
+113 136     ...SPLASH_SOURCE_PROFILE,
+... 137     homingRuntimePolicy: { ...SPLASH_SOURCE_PROFILE.homingRuntimePolicy },
+114 138     targetLayers: [...SPLASH_SOURCE_PROFILE.targetLayers],
+115 139   };
+116 140 }
+
+src/shared/ordinary-projectile-delivery-authority.js --- 4/4 --- JavaScript
+140 164 
+141 165 export function assertOrdinaryProjectileSplashProfile(value, cardId, archetypeId) {
+142 166   const profile = exact(value, SPLASH_PROFILE_KEYS, "ordinary projectile splash profile");
+... 167   const homingRuntimePolicy = exact(profile.homingRuntimePolicy,
+... 168     HOMING_RUNTIME_POLICY_KEYS, "ordinary projectile homing runtime QUESTION policy");
+143 169   const expected = getOrdinaryProjectileSplashProfile(cardId, archetypeId);
+144 170   if (expected === null || profile.archetypeId !== expected.archetypeId ||
+145 171       profile.cardId !== expected.cardId || profile.catalogId !== expected.catalogId ||
+146 172       profile.enemiesOnly !== expected.enemiesOnly ||
+... 173       profile.homing !== expected.homing ||
+... 174       HOMING_RUNTIME_POLICY_KEYS.some((key) =>
+... 175         homingRuntimePolicy[key] !== expected.homingRuntimePolicy[key]) ||
+147 176       profile.radiusMillitiles !== expected.radiusMillitiles ||
+148 177       profile.sourceExport !== expected.sourceExport ||
+149 178       !exactLayers(profile.targetLayers, expected.targetLayers)) {
+
+src/shared/session-troop-source-confidence-authority.js --- 1/3 --- JavaScript
+ 23  23   Object.freeze({ field: "projectileSplashSourceFacts.homing",
+ 24  24     questionKeySuffix: "projectile-homing", valueEncoding: "boolean-code",
+ 25  25     source: "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile" }),
+ ..  26   Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.pursuitSpeedMillitilesPerTick",
+ ..  27     questionKeySuffix: "homing-pursuit-speed-millitiles-per-tick", valueEncoding: "positive-integer" }),
+ ..  28   Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.directionUpdateRule",
+ ..  29     questionKeySuffix: "homing-direction-update-rule", valueEncoding: "homing-runtime-policy-code" }),
+ ..  30   Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.directionRoundingRule",
+ ..  31     questionKeySuffix: "homing-direction-rounding-rule", valueEncoding: "homing-runtime-policy-code" }),
+ ..  32   Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.targetLockRule",
+ ..  33     questionKeySuffix: "homing-target-lock-rule", valueEncoding: "homing-runtime-policy-code" }),
+ ..  34   Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.retargetRule",
+ ..  35     questionKeySuffix: "homing-retarget-rule", valueEncoding: "homing-runtime-policy-code" }),
+ ..  36   Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.targetDeathRule",
+ ..  37     questionKeySuffix: "homing-target-death-rule", valueEncoding: "homing-runtime-policy-code" }),
+ ..  38   Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.sourceDeathRule",
+ ..  39     questionKeySuffix: "homing-source-death-rule", valueEncoding: "homing-runtime-policy-code" }),
+ ..  40   Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.outOfRangeRule",
+ ..  41     questionKeySuffix: "homing-out-of-range-rule", valueEncoding: "homing-runtime-policy-code" }),
+ ..  42   Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.outOfBoundsRule",
+ ..  43     questionKeySuffix: "homing-out-of-bounds-rule", valueEncoding: "homing-runtime-policy-code" }),
+ ..  44   Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.contactRadiusRule",
+ ..  45     questionKeySuffix: "homing-contact-radius-rule", valueEncoding: "homing-runtime-policy-code" }),
+ ..  46   Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.impactCenterRule",
+ ..  47     questionKeySuffix: "homing-impact-center-rule", valueEncoding: "homing-runtime-policy-code" }),
+ ..  48   Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.intermediateCollisionRule",
+ ..  49     questionKeySuffix: "homing-intermediate-collision-rule", valueEncoding: "homing-runtime-policy-code" }),
+ ..  50   Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.arrivalBoundaryRule",
+ ..  51     questionKeySuffix: "homing-arrival-boundary-rule", valueEncoding: "homing-runtime-policy-code" }),
+ ..  52   Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.contactOrderRule",
+ ..  53     questionKeySuffix: "homing-contact-order-rule", valueEncoding: "homing-runtime-policy-code" }),
+ 26  54   Object.freeze({ field: "projectileSplashSourceFacts.aoeToAir",
+ 27  55     questionKeySuffix: "projectile-aoe-to-air", valueEncoding: "boolean-code",
+ 28  56     source: "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile" }),
+
+src/shared/session-troop-source-confidence-authority.js --- 2/3 --- JavaScript
+ 63  91 const ZERO_QUESTION_KEYS = new Set([
+ 64  92   "kilnkeeper.character-area-damage-radius-millitiles",
+ 65  93 ]);
+ ..  94 const HOMING_RUNTIME_POLICY_CODES = Object.freeze({
+ ..  95   "aim-after-unit-motion-each-boundary": 1,
+ ..  96   "after-motion-before-simultaneous-damage": 2,
+ ..  97   "ceil-distance-truncate-components-toward-zero": 3,
+ ..  98   "continue-after-launch": 4,
+ ..  99   "continue-after-launch-range": 5,
+ .. 100   "continue-while-position-is-valid": 6,
+ .. 101   "first-boundary-reaching-contact-radius": 7,
+ .. 102   "fizzle-on-first-boundary-after-death": 8,
+ .. 103   "live-target-center": 9,
+ .. 104   "never-reacquire": 10,
+ .. 105   "no-intermediate-collision": 11,
+ .. 106   "retain-launch-target-id": 12,
+ .. 107   "target-body-radius": 13,
+ .. 108 });
+ 66 109 
+ 67 110 function exact(value, keys, label) {
+ 68 111   if (value === null || typeof value !== "object" || Array.isArray(value) ||
+
+src/shared/session-troop-source-confidence-authority.js --- 3/3 --- JavaScript
+171 214     }
+172 215     return value ? 1 : 0;
+173 216   }
+... 217   if (valueEncoding === "homing-runtime-policy-code") {
+... 218     if (typeof value !== "string" || !Object.hasOwn(HOMING_RUNTIME_POLICY_CODES, value)) {
+... 219       throw new TypeError("session troop homing runtime QUESTION policy is invalid");
+... 220     }
+... 221     return HOMING_RUNTIME_POLICY_CODES[value];
+... 222   }
+174 223   throw new TypeError("session troop source confidence value encoding is not admitted");
+175 224 }
+176 225 
+
+src/sim/battle-continuation-kernel.js --- 1/10 --- Text (exceeded DFT_GRAPH_LIMIT)
+  77   77   ordinaryProjectileSplashEntityShape,
+  78   78   planOrdinaryProjectileSplashImpact,
+  79   79 } from "./ordinary-projectile-splash.js";
+  ..   80 import {
+  ..   81   advanceOrdinaryProjectileQueue,
+  ..   82   ordinaryProjectileImpactTargetStatus,
+  ..   83   ordinaryProjectileTargetInRange,
+  ..   84   ordinaryProjectileTravelTicks,
+  ..   85   resolveOrdinaryProjectileHomingTarget,
+  ..   86 } from "./ordinary-projectile-homing.js";
+  80   87 
+  81   88 const SPELL_TOWER_FOOTPRINT_RADII = Object.freeze({ central: 2_829, lane: 2_122 });
+  82   89 
+
+src/sim/battle-continuation-kernel.js --- 2/10 --- Text (exceeded DFT_GRAPH_LIMIT)
+2160 2167 }
+2161 2168 
+2162 2169 
+2163 .... function inRange(attacker, target, range) {
+2164 ....   const dx = BigInt(attacker.position.x) - BigInt(target.position.x);
+2165 ....   const dy = BigInt(attacker.position.y) - BigInt(target.position.y);
+2166 ....   const radius = BigInt(attacker.radius + range + target.radius);
+2167 ....   return dx * dx + dy * dy <= radius * radius;
+2168 .... }
+2169 .... 
+2170 .... function travelTicks(attacker, target, speed) {
+2171 ....   const dx = BigInt(attacker.position.x) - BigInt(target.position.x);
+2172 ....   const dy = BigInt(attacker.position.y) - BigInt(target.position.y);
+2173 ....   const distanceSquared = dx * dx + dy * dy;
+2174 ....   const contact = BigInt(target.radius);
+2175 ....   if (distanceSquared <= contact * contact) return 0;
+2176 ....   const velocity = BigInt(speed);
+2177 ....   const reached = (ticks) => {
+2178 ....     const distance = contact + velocity * ticks;
+2179 ....     return distance * distance >= distanceSquared;
+2180 ....   };
+2181 ....   let low = 0n;
+2182 ....   let high = 1n;
+2183 ....   while (!reached(high)) high *= 2n;
+2184 ....   while (low + 1n < high) {
+2185 ....     const middle = (low + high) / 2n;
+2186 ....     if (reached(middle)) high = middle;
+2187 ....     else low = middle;
+2188 ....   }
+2189 ....   if (high > BigInt(MAX_TICK)) throw new RangeError("projectile flight exceeds tick bounds");
+2190 ....   return Number(high);
+2191 .... }
+2192 .... 
+2193 2170 function projectileIdentity(direction, sourceId, attackSequence, projectileId) {
+2194 2171   if (!PROJECTILE_DIRECTIONS.has(direction)) {
+2195 2172     throw new TypeError("projectile identity direction is invalid");
+
+src/sim/battle-continuation-kernel.js --- 3/10 --- Text (exceeded DFT_GRAPH_LIMIT)
+2967       const targetUnit = target ==  2944       const targetUnit = target ==
+.... = null ? null : this.#unit(target.  .... = null ? null : this.#unit(target.
+.... id);                                .... id);
+2968       const targetStructure = targ  2945       const targetStructure = targ
+.... et === null ? null : externalById.  .... et === null ? null : externalById.
+.... get(target.id) ?? null;             .... get(target.id) ?? null;
+2969       const attackTarget = targetU  2946       const attackTarget = targetU
+.... nit ?? targetStructure;             .... nit ?? targetStructure;
+2970       const eligible = attackTarge  2947       const eligible = attackTarge
+.... t !== null && inRange(attacker, at  .... t !== null && ordinaryProjectileTa
+.... tackTarget, attacker.reach);        .... rgetInRange(
+....                                     2948         attacker, attackTarget, at
+....                                     .... tacker.reach,
+....                                     2949       );
+2971       const attackInput = {         2950       const attackInput = {
+2972         targetEligible: eligible,   2951         targetEligible: eligible,
+2973         targetId: eligible ? attac  2952         targetId: eligible ? attac
+.... kTarget.id : null,                  .... kTarget.id : null,
+
+src/sim/battle-continuation-kernel.js --- 4/10 --- Text (exceeded DFT_GRAPH_LIMIT)
+2985       }                             2964       }
+2986     }                               2965     }
+2987                                     2966 
+2988     const dueProjectiles = this.#p  2967     const queue = advanceOrdinaryP
+.... rojectiles                          .... rojectileQueue({
+....                                     2968       maxTick: MAX_TICK,
+....                                     2969       projectiles: this.#projectil
+....                                     .... es,
+2989       .filter((projectile) => proj  2970       resolveTarget: (projectile) 
+.... ectile.impactTick === tick)         .... => resolveOrdinaryProjectileHoming
+....                                     .... Target(projectile,
+....                                     2971         externalById, this.#units,
+....                                     ....  this.#damage, controls),
+2990       .sort((left, right) => left.  2972       tick,
+.... id - right.id);                     .... 
+....                                     2973     });
+....                                     2974     const dueProjectiles = queue.d
+....                                     .... ue;
+....                                     2975     this.#projectiles = queue.pend
+....                                     .... ing;
+2991     const hits = [];                2976     const hits = [];
+2992     const hitSources = [];          2977     const hitSources = [];
+2993     for (const attack of attacks)   2978     for (const attack of attacks) 
+.... {                                   .... {
+2994       const duration = attack.atta  2979       const homing = attack.attack
+.... cker.delivery === "projectile"      .... er.splashProfile?.homing === true;
+....                                     2980       const duration = attack.atta
+....                                     .... cker.delivery === "projectile" && 
+....                                     .... !homing
+2995         ? travelTicks(attack.attac  2981         ? ordinaryProjectileTravel
+.... ker, attack.target, attack.attacke  .... Ticks(
+.... r.projectileSpeed)                  .... 
+....                                     2982           attack.attacker, attack.
+....                                     .... target, attack.attacker.projectile
+....                                     .... Speed, MAX_TICK,
+2996         : 0;                        2983         ) : 0;
+2997       let projectile = null;        2984       let projectile = null;
+2998       let projectileProvenance = n  2985       let projectileProvenance = n
+.... ull;                                .... ull;
+2999       if (attack.attacker.delivery  2986       if (attack.attacker.delivery
+....  === "projectile") {                ....  === "projectile") {
+3000         if (tick + duration > MAX_  2987         if (homing ? tick >= MAX_T
+.... TICK) throw new RangeError("projec  .... ICK : tick + duration > MAX_TICK) 
+.... tile impact exceeds tick bounds");  .... {
+....                                     2988           throw new RangeError("pr
+....                                     .... ojectile impact exceeds tick bound
+....                                     .... s");
+....                                     2989         }
+3001         const direction = attack.s  2990         const direction = attack.s
+.... tructure === null ? "unit-to-unit"  .... tructure === null ? "unit-to-unit"
+....  : "unit-to-tower";                 ....  : "unit-to-tower";
+3002         projectileProvenance = pro  2991         projectileProvenance = pro
+.... jectileIdentity(                    .... jectileIdentity(
+3003           direction,                2992           direction,
+
+src/sim/battle-continuation-kernel.js --- 5/10 --- Text (exceeded DFT_GRAPH_LIMIT)
+3011           damage: attack.attacker.  3000           damage: attack.attacker.
+.... damage,                             .... damage,
+3012           direction: projectilePro  3001           direction: projectilePro
+.... venance.direction,                  .... venance.direction,
+3013           id: this.#nextProjectile  3002           id: this.#nextProjectile
+.... Id,                                 .... Id,
+3014           impactTick: tick + durat  3003           impactTick: homing ? tic
+.... ion,                                .... k + 1 : tick + duration,
+3015           launchTick: tick,         3004           launchTick: tick,
+3016           origin: { ...attack.atta  3005           origin: { ...attack.atta
+.... cker.position },                    .... cker.position },
+3017           projectileId: projectile  3006           projectileId: projectile
+.... Provenance.projectileId,            .... Provenance.projectileId,
+
+src/sim/battle-continuation-kernel.js --- 6/10 --- Text (exceeded DFT_GRAPH_LIMIT)
+3021 3010           speed: attack.attacker.projectileSpeed,
+3022 3011           targetId: attack.target.id,
+3023 3012           targetPosition: { ...attack.target.position },
+.... 3013           ...(homing ? { position: { ...attack.attacker.position } } : {}),
+3024 3014         };
+3025 3015         if (attack.attacker.splashProfile !== undefined) {
+3026 3016           projectile.splashProfile = clone(attack.attacker.splashProfile);
+
+src/sim/battle-continuation-kernel.js --- 7/10 --- Text (exceeded DFT_GRAPH_LIMIT)
+3048         : withProjectileIdentity(a  3038         : withProjectileIdentity(a
+.... ttackEvent, projectileProvenance))  .... ttackEvent, projectileProvenance))
+.... ;                                   .... ;
+3049       if (attack.structure !== nul  3039       if (attack.structure !== nul
+.... l) {                                .... l) {
+3050         const structureAttack = {   3040         const structureAttack = {
+3051           contactTick: tick + dura  3041           ...(homing ? {} : { cont
+.... tion,                               .... actTick: tick + duration }),
+3052           attackSequence: attack.s  3042           attackSequence: attack.s
+.... equence,                            .... equence,
+3053           damage: attack.attacker.  3043           damage: attack.attacker.
+.... damage,                             .... damage,
+3054           delivery: attack.attacke  3044           delivery: attack.attacke
+.... r.delivery,                         .... r.delivery,
+
+src/sim/battle-continuation-kernel.js --- 8/10 --- Text (exceeded DFT_GRAPH_LIMIT)
+3083           tick,                     3073           tick,
+3084           type: "projectile-launch  3074           type: "projectile-launch
+.... ",                                  .... ",
+3085         }, projectileProvenance));  3075         }, projectileProvenance));
+3086         if (duration === 0) duePro  3076         if (duration === 0 && !hom
+.... jectiles.push(projectile);          .... ing) dueProjectiles.push(projectil
+....                                     .... e);
+3087       }                             3077       }
+3088     }                               3078     }
+3089     dueProjectiles.sort((left, rig  3079     dueProjectiles.sort((left, rig
+.... ht) => left.id - right.id);         .... ht) => left.id - right.id);
+
+src/sim/battle-continuation-kernel.js --- 9/10 --- Text (exceeded DFT_GRAPH_LIMIT)
+3102       if (splashProfile !== undefi  3092       if (splashProfile !== undefi
+.... ned && splashAttacker === null) {   .... ned && splashAttacker === null) {
+3103         throw new TypeError("splas  3093         throw new TypeError("splas
+.... h projectile source unit is missin  .... h projectile source unit is missin
+.... g");                                .... g");
+3104       }                             3094       }
+3105       const status = Object.hasOwn  3095       const { homing, primaryTarge
+.... (projectile, "structureId")         .... table, status } = ordinaryProjecti
+....                                     .... leImpactTargetStatus(
+3106         ? targetStructure === null  .... 
+....  || targetStructure.structureId !=  .... 
+.... = projectile.structureId ||         .... 
+3107           targetStructure.side !==  3096         projectile, targetStructur
+....  projectile.structureSide ||        .... e, health,
+3108           targetStructure.kind !==  .... 
+....  projectile.structureKind ||        .... 
+3109           targetStructure.layer !=  3097         controls.get(projectile.ta
+.... = projectile.structureLayer         .... rgetId)?.targetable ?? true,
+3110           ? "target_missing"        .... 
+3111           : !targetStructure.alive  .... 
+....  || !targetStructure.targetable ?   .... 
+.... "target_dead" : "contact"           .... 
+3112         : health === null ? "targe  3098       );
+.... t_missing" : health.dead ? "target  .... 
+.... _dead" : "contact";                 .... 
+3113       const primaryTarget = target  3099       const primaryTarget = target
+.... Structure ?? this.#unit(projectile  .... Structure ?? this.#unit(projectile
+.... .targetId);                         .... .targetId);
+3114       const unitTargets = splashPr  3100       const unitTargets = splashPr
+.... ofile === undefined ? [] : this.#u  .... ofile === undefined ? [] : this.#u
+.... nits.map((unit) => ({               .... nits.map((unit) => ({
+3115         alive: !this.#damage.get(u  3101         alive: !this.#damage.get(u
+.... nit.id).dead,                       .... nit.id).dead,
+
+src/sim/battle-continuation-kernel.js --- 10/10 --- Text (exceeded DFT_GRAPH_LIMIT)
+3123       const impact = planOrdinaryP  3109       const impact = planOrdinaryP
+.... rojectileSplashImpact({             .... rojectileSplashImpact({
+3124         attackerId: projectile.att  3110         attackerId: projectile.att
+.... ackerId,                            .... ackerId,
+3125         attackSequence: projectile  3111         attackSequence: projectile
+.... .attackSequence,                    .... .attackSequence,
+3126         center: projectile.targetP  3112         center: homing && status !
+.... osition,                            .... == "contact"
+....                                     3113           ? projectile.position : 
+....                                     .... projectile.targetPosition,
+3127         damage: projectile.damage,  3114         damage: projectile.damage,
+3128         enemySide: splashAttacker   3115         enemySide: splashAttacker 
+.... === null ? null :                   .... === null ? null :
+3129           (splashAttacker.side ===  3116           (splashAttacker.side ===
+....  "north" ? "south" : "north"),      ....  "north" ? "south" : "north"),
+3130         primaryKind: targetStructu  3117         primaryKind: targetStructu
+.... re === null ? "unit" : "structure"  .... re === null ? "unit" : "structure"
+.... ,                                   .... ,
+3131         primaryStatus: status,      3118         primaryStatus: status,
+3132         primaryTarget,              3119         primaryTarget,
+3133         primaryTargetId: projectil  3120         primaryTargetId: projectil
+.... e.targetId,                         .... e.targetId,
+3134         primaryTargetable: targetS  3121         primaryTargetable,
+.... tructure?.targetable ??             .... 
+3135           controls.get(projectile.  3122         profile: homing && status 
+.... targetId)?.targetable ?? true,      .... !== "contact" ? null : splashProfi
+....                                     .... le ?? null,
+3136         profile: splashProfile ??   .... 
+.... null,                               .... 
+3137         projectileId: projectile.i  3123         projectileId: projectile.i
+.... d,                                  .... d,
+3138         structures: external.struc  3124         structures: external.struc
+.... tures,                              .... tures,
+3139         tick,                       3125         tick,
+
+src/sim/ordinary-projectile-homing.js --- JavaScript
+  1 function ceilingSquareRoot(value) {
+  2   if (value < 2n) return value;
+  3   let estimate = value;
+  4   let next = (estimate + 1n) / 2n;
+  5   while (next < estimate) {
+  6     estimate = next;
+  7     next = (estimate + value / estimate) / 2n;
+  8   }
+  9   return estimate * estimate === value ? estimate : estimate + 1n;
+ 10 }
+ 11 
+ 12 export function ordinaryProjectileTargetInRange(attacker, target, range) {
+ 13   const dx = BigInt(attacker.position.x) - BigInt(target.position.x);
+ 14   const dy = BigInt(attacker.position.y) - BigInt(target.position.y);
+ 15   const radius = BigInt(attacker.radius + range + target.radius);
+ 16   return dx * dx + dy * dy <= radius * radius;
+ 17 }
+ 18 
+ 19 export function ordinaryProjectileTravelTicks(attacker, target, speed, maxTick) {
+ 20   const dx = BigInt(attacker.position.x) - BigInt(target.position.x);
+ 21   const dy = BigInt(attacker.position.y) - BigInt(target.position.y);
+ 22   const distanceSquared = dx * dx + dy * dy;
+ 23   const contact = BigInt(target.radius);
+ 24   if (distanceSquared <= contact * contact) return 0;
+ 25   const velocity = BigInt(speed);
+ 26   const reached = (ticks) => {
+ 27     const distance = contact + velocity * ticks;
+ 28     return distance * distance >= distanceSquared;
+ 29   };
+ 30   let low = 0n;
+ 31   let high = 1n;
+ 32   while (!reached(high)) high *= 2n;
+ 33   while (low + 1n < high) {
+ 34     const middle = (low + high) / 2n;
+ 35     if (reached(middle)) high = middle;
+ 36     else low = middle;
+ 37   }
+ 38   if (high > BigInt(maxTick)) throw new RangeError("projectile flight exceeds tick bounds");
+ 39   return Number(high);
+ 40 }
+ 41 
+ 42 export function ordinaryProjectileImpactTargetStatus(projectile, targetStructure,
+ 43   targetHealth, controlledTargetable) {
+ 44   const structureTarget = Object.hasOwn(projectile, "structureId");
+ 45   const status = structureTarget
+ 46     ? targetStructure === null || targetStructure.structureId !== projectile.structureId ||
+ 47       targetStructure.side !== projectile.structureSide ||
+ 48       targetStructure.kind !== projectile.structureKind ||
+ 49       targetStructure.layer !== projectile.structureLayer
+ 50       ? "target_missing"
+ 51       : !targetStructure.alive || !targetStructure.targetable ? "target_dead" : "contact"
+ 52     : targetHealth === null ? "target_missing" : targetHealth.dead ? "target_dead" : "contact";
+ 53   const homing = projectile.splashProfile?.homing === true;
+ 54   const primaryTargetable = targetStructure?.targetable ?? controlledTargetable;
+ 55   return {
+ 56     homing,
+ 57     primaryTargetable,
+ 58     status: homing && status === "contact" && !primaryTargetable ? "target_missing" : status,
+ 59   };
+ 60 }
+ 61 
+ 62 export function advanceOrdinaryProjectileHoming({ position, targetPosition, targetRadius, speed }) {
+ 63   const dx = BigInt(targetPosition.x) - BigInt(position.x);
+ 64   const dy = BigInt(targetPosition.y) - BigInt(position.y);
+ 65   const distanceSquared = dx * dx + dy * dy;
+ 66   const contactDistance = BigInt(targetRadius);
+ 67   const stepDistance = BigInt(speed);
+ 68   const reach = contactDistance + stepDistance;
+ 69   if (distanceSquared <= reach * reach) {
+ 70     return { contact: true, position: { ...targetPosition } };
+ 71   }
+ 72   const distance = ceilingSquareRoot(distanceSquared);
+ 73   const stepX = dx * stepDistance / distance;
+ 74   const stepY = dy * stepDistance / distance;
+ 75   return {
+ 76     contact: false,
+ 77     position: {
+ 78       x: Number(BigInt(position.x) + stepX),
+ 79       y: Number(BigInt(position.y) + stepY),
+ 80     },
+ 81   };
+ 82 }
+ 83 
+ 84 export function advanceOrdinaryProjectileQueue({ projectiles, tick, maxTick, resolveTarget }) {
+ 85   const due = [];
+ 86   const pending = [];
+ 87   for (const projectile of projectiles) {
+ 88     if (projectile.impactTick !== tick) {
+ 89       pending.push(projectile);
+ 90       continue;
+ 91     }
+ 92     if (projectile.splashProfile?.homing !== true) {
+ 93       due.push(projectile);
+ 94       continue;
+ 95     }
+ 96     const target = resolveTarget(projectile);
+ 97     if (target === null) {
+ 98       due.push(projectile);
+ 99       continue;
+100     }
+101     const movement = advanceOrdinaryProjectileHoming({
+102       position: projectile.position,
+103       speed: projectile.speed,
+104       targetPosition: target.position,
+105       targetRadius: target.radius,
+106     });
+107     const advanced = {
+108       ...projectile,
+109       impactTick: movement.contact ? tick : tick + 1,
+110       position: movement.position,
+111       targetPosition: { ...target.position },
+112     };
+113     if (movement.contact) due.push(advanced);
+114     else {
+115       if (tick >= maxTick) {
+116         throw new RangeError("homing projectile continuation exceeds tick bounds");
+117       }
+118       pending.push(advanced);
+119     }
+120   }
+121   due.sort((left, right) => left.id - right.id);
+122   return { due, pending };
+123 }
+124 
+125 export function resolveOrdinaryProjectileHomingTarget(projectile, externalById,
+126   units, damage, controls) {
+127   const targetStructure = Object.hasOwn(projectile, "structureId")
+128     ? externalById.get(projectile.targetId) ?? null : null;
+129   const targetUnit = targetStructure === null
+130     ? units.find(({ id }) => id === projectile.targetId) ?? null : null;
+131   const targetHealth = targetUnit === null ? null : damage.get(projectile.targetId);
+132   const target = targetStructure ?? targetUnit;
+133   const available = targetStructure !== null
+134     ? targetStructure.structureId === projectile.structureId &&
+135       targetStructure.side === projectile.structureSide &&
+136       targetStructure.kind === projectile.structureKind &&
+137       targetStructure.layer === projectile.structureLayer &&
+138       targetStructure.alive && targetStructure.targetable
+139     : targetUnit !== null && targetHealth !== null && !targetHealth.dead &&
+140       (controls.get(projectile.targetId)?.targetable ?? true);
+141   return available ? target : null;
+142 }
+143 
+144 
+
+src/sim/ordinary-projectile-splash.js --- 1/2 --- JavaScript
+ 22 const MAX_STAT = 1_000_000_000;
+ 23 
+ 24 const UNIT_PROFILE_KEYS = Object.freeze([
+ 25   "archetypeId", "cardId", "catalogId", "enemiesOnly", "homing",
+ 26   "homingRuntimePolicy", "radiusMillitiles", "sourceExport", "targetLayers",
+ 27 ]);
+ 28 const SOURCE_FACT_KEYS = Object.freeze([
+ 29   "aoeToAir", "aoeToGround", "characterAreaDamageRadiusMillitiles", "homing",
+
+src/sim/ordinary-projectile-splash.js --- 2/2 --- JavaScript
+128 128     }
+129 129   } else {
+130 130     integer(unit.projectileSpeed, 1, MAX_STAT, `${label}.projectileSpeed`);
+... 131     if (profile?.homing === true &&
+... 132         unit.projectileSpeed !== profile.homingRuntimePolicy.pursuitSpeedMillitilesPerTick) {
+... 133       throw new TypeError(`${label}.projectileSpeed diverges from its homing runtime QUESTION`);
+... 134     }
+131 135   }
+132 136   return { ...unit, position: { ...position },
+133 137     ...(profile === null ? {} : { splashProfile: profile }) };
+
+tests/fixtures/integration-occurrence-bindings.json --- JSON
+27   "createInvisibilitySpecialCatalog\  27   "createInvisibilitySpecialCatalog\
+.. u0000veil-prowler": "2ebfdb8573d26ec  .. u0000veil-prowler": "2ebfdb8573d26ec
+.. 4670c68fa7e39b51625fdcb0332e2f60ff22  .. 4670c68fa7e39b51625fdcb0332e2f60ff22
+.. 7dffaecd02471",                       .. 7dffaecd02471",
+28   "createJumpSpecialCatalog\u0000sto  28   "createJumpSpecialCatalog\u0000sto
+.. nevault": "4a53a8ca246b58aec7ca8f581  .. nevault": "4a53a8ca246b58aec7ca8f581
+.. dca01a69ee44a468f1e7e3ebbafd252c42e1  .. dca01a69ee44a468f1e7e3ebbafd252c42e1
+.. 502",                                 .. 502",
+29   "createKnockbackSpecialCatalog\u00  29   "createKnockbackSpecialCatalog\u00
+.. 00squall-orb": "b3c73ba9481cc02071a4  .. 00squall-orb": "b3c73ba9481cc02071a4
+.. 5920073e5fc646222a84349145b747f08c73  .. 5920073e5fc646222a84349145b747f08c73
+.. a40f8278",                            .. a40f8278",
+30   "createOrdinaryProjectileSplashCat  30   "createOrdinaryProjectileSplashCat
+.. alog\u0000kilnkeeper": "c1f165e5249c  .. alog\u0000kilnkeeper": "326db5e5c03b
+.. 92c84d9867d10e10ea15b007bb8f7d9e6886  .. c37da5ae92f2d38a47638258165f4aebfb93
+.. e6bb807a1de17255",                    .. c3bd5617d575474a",
+31   "createOrdinaryProjectileSquadCata  31   "createOrdinaryProjectileSquadCata
+.. log\u0000coppershade-flock": "46b1a4  .. log\u0000coppershade-flock": "46b1a4
+.. 46ddb1d2ec37e84382e9d5814621ec7e8d33  .. 46ddb1d2ec37e84382e9d5814621ec7e8d33
+.. 1a1a57e9592497da8edd0e",              .. 1a1a57e9592497da8edd0e",
+32   "createOrdinaryProjectileSquadCata  32   "createOrdinaryProjectileSquadCata
+.. log\u0000duskwing-trio": "5e241f9758  .. log\u0000duskwing-trio": "5e241f9758
+.. d16a9af2071ea6d69ed61f20e85b93d0e3b4  .. d16a9af2071ea6d69ed61f20e85b93d0e3b4
+.. 8794e858b203451588",                  .. 8794e858b203451588",
+33   "createOrdinaryProjectileSquadCata  33   "createOrdinaryProjectileSquadCata
+.. log\u0000sunthread-pair": "87ee4a26c  .. log\u0000sunthread-pair": "87ee4a26c
+.. 5eaf66bc3d3a60c8b3c05083714e09a696e9  .. 5eaf66bc3d3a60c8b3c05083714e09a696e9
+.. 26dbc899693ebd55de9",                 .. 26dbc899693ebd55de9",
+
+tests/game-roster-admission.test.js --- 1/3 --- JavaScript
+ 98     ({ exportName, id })).sort((lef   98     ({ exportName, id })).sort((lef
+ .. t, right) => left.id.localeCompare(   .. t, right) => left.id.localeCompare(
+ .. right.id) ||                          .. right.id) ||
+ 99       left.exportName.localeCompare   99       left.exportName.localeCompare
+ .. (right.exportName));                  .. (right.exportName));
+100   assert.deepEqual(manifest.occurre  100   assert.deepEqual(manifest.occurre
+... nces.map(({ exportName, id }) => ({  ... nces.map(({ exportName, id }) => ({
+...  exportName, id })), integration);   ...  exportName, id })), integration);
+101   assert.deepEqual(manifest.counts,  101   assert.deepEqual(manifest.counts,
+...  { admittedIds: 55, admittedOccurre  ...  { admittedIds: 56, admittedOccurre
+... nces: 60,                            ... nces: 61,
+102     claimedIds: 61, claimedOccurren  102     claimedIds: 62, claimedOccurren
+... ces: 66, excludedClaimedIds: 6,      ... ces: 67, excludedClaimedIds: 6,
+103     excludedClaimedOccurrences: 6,   103     excludedClaimedOccurrences: 6, 
+... questionOnlyExports: 5 });           ... questionOnlyExports: 5 });
+104   assert.deepEqual(manifest.exclude  104   assert.deepEqual(manifest.exclude
+... dClaims.map(({ id }) => id), QUESTI  ... dClaims.map(({ id }) => id), QUESTI
+... ON_IDS);                             ... ON_IDS);
+105   assert.ok(manifest.excludedClaims  105   assert.ok(manifest.excludedClaims
+... .every(({ reason, status }) => stat  ... .every(({ reason, status }) => stat
+... us === "question" &&                 ... us === "question" &&
+
+tests/game-roster-admission.test.js --- 2/3 --- JavaScript
+111 111   assert.deepEqual(manifest.cards.find(({ id }) => id === "squall-orb").occurrenceExports,
+112 112     ["createInstantSpellCatalog", "createKnockbackSpecialCatalog",
+113 113       "createReturningSpellCatalog", "createTravelingLineSpellCatalog"]);
+... 114   assert.deepEqual(manifest.cards.find(({ id }) => id === "kilnkeeper").occurrenceExports,
+... 115     ["createOrdinaryProjectileSplashCatalog"]);
+... 116   assert.deepEqual(manifest.occurrences.filter(({ id }) => id === "kilnkeeper"), [
+... 117     { exportName: "createOrdinaryProjectileSplashCatalog", id: "kilnkeeper", status: "admitted" },
+... 118   ]);
+114 119   assert.equal(serializeSessionCardManifest(), canonical(manifest));
+115 120   assert.deepEqual(createSessionCardManifest(), manifest);
+116 121   assert.notEqual(createSessionCardManifest(), manifest);
+
+tests/game-roster-admission.test.js --- 3/3 --- JavaScript
+121   const manifest = createSessionCar  126   const manifest = createSessionCar
+... dManifest();                         ... dManifest();
+122   const admitted = new Set(manifest  127   const admitted = new Set(manifest
+... .cards.map(({ id }) => id));         ... .cards.map(({ id }) => id));
+123   const witnesses = createSessionCa  128   const witnesses = createSessionCa
+... rdDeckWitnesses();                   ... rdDeckWitnesses();
+124   assert.equal(witnesses.length, 55  129   assert.equal(witnesses.length, 56
+... );                                   ... );
+125   assert.deepEqual(new Set(witnesse  130   assert.deepEqual(new Set(witnesse
+... s.map(({ cardId }) => cardId)), adm  ... s.map(({ cardId }) => cardId)), adm
+... itted);                              ... itted);
+126   for (const { cardId, deck } of wi  131   for (const { cardId, deck } of wi
+... tnesses) {                           ... tnesses) {
+127     assert.equal(deck.length, 8);    132     assert.equal(deck.length, 8);
+
+tests/game-roster-buildings.test.js --- JavaScript
+174     staticOccurrences, "the HA mani  174     staticOccurrences, "the HA mani
+... fest is the complete frozen INTEGRA  ... fest is the complete frozen INTEGRA
+... TION occurrence union");             ... TION occurrence union");
+175   assert.deepEqual(occurrences.map(  175   assert.deepEqual(occurrences.map(
+... ({ exportName, id, status }) => [ex  ... ({ exportName, id, status }) => [ex
+... portName, id, status]), expected);   ... portName, id, status]), expected);
+176   assert.deepEqual(occurrences.map(  176   assert.deepEqual(occurrences.map(
+... ({ exportName, id }) => ({ exportNa  ... ({ exportName, id }) => ({ exportNa
+... me, id })), integrationOccurrences)  ... me, id })), integrationOccurrences)
+... ;                                    ... ;
+177   assert.deepEqual(manifest.counts,  177   assert.deepEqual(manifest.counts,
+...  { admittedIds: 55, admittedOccurre  ...  { admittedIds: 56, admittedOccurre
+... nces: 60,                            ... nces: 61,
+178     claimedIds: 61, claimedOccurren  178     claimedIds: 62, claimedOccurren
+... ces: 66, excludedClaimedIds: 6,      ... ces: 67, excludedClaimedIds: 6,
+179     excludedClaimedOccurrences: 6,   179     excludedClaimedOccurrences: 6, 
+... questionOnlyExports: 5 });           ... questionOnlyExports: 5 });
+180   assert.deepEqual(SESSION_BUILDING  180   assert.deepEqual(SESSION_BUILDING
+... _ADMITTED_IDS, [                     ... _ADMITTED_IDS, [
+181     "aether-well", "bulwark-needle"  181     "aether-well", "bulwark-needle"
+... , "buried-coil", "burrow-rig", "cin  ... , "buried-coil", "burrow-rig", "cin
+... der-reliquary",                      ... der-reliquary",
+
+tests/game-roster-troops-ordinary.test.js --- 1/11 --- Text (exceeded DFT_GRAPH_LIMIT)
+201  201   });
+202  202 }
+203  203 
+...  204 function ceilingSquareRoot(value) {
+...  205   let low = 0n;
+...  206   let high = value + 1n;
+...  207   while (low + 1n < high) {
+...  208     const middle = (low + high) / 2n;
+...  209     if (middle * middle < value) low = middle;
+...  210     else high = middle;
+...  211   }
+...  212   return high * high === value ? high : high;
+...  213 }
+...  214 
+...  215 function expectedHomingAdvance(position, targetPosition, targetRadius, speed) {
+...  216   const dx = BigInt(targetPosition.x) - BigInt(position.x);
+...  217   const dy = BigInt(targetPosition.y) - BigInt(position.y);
+...  218   const distanceSquared = dx * dx + dy * dy;
+...  219   const reach = BigInt(targetRadius + speed);
+...  220   if (distanceSquared <= reach * reach) {
+...  221     return { contact: true, position: { ...targetPosition } };
+...  222   }
+...  223   const distance = ceilingSquareRoot(distanceSquared);
+...  224   return {
+...  225     contact: false,
+...  226     position: {
+...  227       x: Number(BigInt(position.x) + dx * BigInt(speed) / distance),
+...  228       y: Number(BigInt(position.y) + dy * BigInt(speed) / distance),
+...  229     },
+...  230   };
+...  231 }
+...  232 
+...  233 function advanceSessionHomingBoundary(session, projectileId) {
+...  234   const before = session.state.battle.projectiles.find(({ id }) => id === projectileId);
+...  235   assert.ok(before, `pending projectile ${projectileId}`);
+...  236   const events = session.stepMany(1);
+...  237   const after = session.state.battle.projectiles.find(({ id }) => id === projectileId);
+...  238   const impact = events.find(({ projectileId: id, type }) =>
+...  239     id === projectileId && type === "projectile-impact");
+...  240   const target = session.state.battle.units.find(({ id }) => id === before.targetId);
+...  241   assert.ok(target, "the selected unit identity remains in the live host");
+...  242   const expected = expectedHomingAdvance(before.position, target.position, target.radius, 500);
+...  243   if (after !== undefined) {
+...  244     assert.equal(expected.contact, false, "a projectile stays pending until body-radius arrival");
+...  245     assert.deepEqual(after.position, expected.position,
+...  246       "the host position follows the independently computed 500-per-tick step");
+...  247     assert.deepEqual(after.targetPosition, target.position,
+...  248       "the host refreshes the locked target's live center at each boundary");
+...  249     assert.equal(after.targetId, before.targetId, "the host keeps its launch target identity");
+...  250     assert.equal(after.impactTick, session.state.tick,
+...  251       "the next contact boundary moves with the projectile instead of staying at launch time");
+...  252   } else {
+...  253     assert.ok(impact, "a removed homing projectile emits its single terminal impact");
+...  254     assert.equal(expected.contact, true, "contact is checked against the moved target body");
+...  255     assert.equal(impact.status, "contact");
+...  256   }
+...  257   return events;
+...  258 }
+...  259 
+...  260 function advanceLiveBattleHomingBoundary(battle, projectileId) {
+...  261   const before = battle.state.projectiles.find(({ id }) => id === projectileId);
+...  262   assert.ok(before, `pending homing projectile ${projectileId}`);
+...  263   const events = battle.step();
+...  264   const after = battle.state.projectiles.find(({ id }) => id === projectileId);
+...  265   const impact = events.find(({ projectileId: id, type }) =>
+...  266     id === projectileId && type === "projectile-impact");
+...  267   const target = battle.state.units.find(({ id }) => id === before.targetId);
+...  268   assert.ok(target?.alive, "the locked target remains a live unit during the pursuit fixture");
+...  269   const expected = expectedHomingAdvance(before.position, target.position, target.radius, 500);
+...  270   if (after !== undefined) {
+...  271     assert.equal(expected.contact, false, "the projectile does not arrive before body-radius contact");
+...  272     assert.deepEqual(after.position, expected.position,
+...  273       "each shared-host coordinate matches the independent speed-and-rounding oracle");
+...  274     assert.deepEqual(after.targetPosition, target.position,
+...  275       "the shared host follows the selected target's current position");
+...  276     assert.equal(after.targetId, before.targetId, "the projectile retains its selected target ID");
+...  277     assert.equal(after.impactTick, battle.state.tick,
+...  278       "the next boundary follows pursuit instead of a fixed launch-time deadline");
+...  279   } else {
+...  280     assert.ok(impact, "arrival removes the projectile only with its terminal contact event");
+...  281     assert.equal(expected.contact, true, "terminal contact matches the independent body-radius oracle");
+...  282     assert.equal(impact.status, "contact");
+...  283   }
+...  284   return {
+...  285     events,
+...  286     impact,
+...  287     projectileStep: after === undefined ? null : {
+...  288       x: after.position.x - before.position.x,
+...  289       y: after.position.y - before.position.y,
+...  290     },
+...  291     target,
+...  292   };
+...  293 }
+...  294 
+...  295 function continueToProjectileImpact(session, projectileId, maximumTicks = 900) {
+...  296   const events = [];
+...  297   for (let advanced = 0; advanced < maximumTicks; advanced += 1) {
+...  298     const batch = session.stepMany(1);
+...  299     events.push(...batch);
+...  300     if (batch.some((event) => event.type === "projectile-impact" &&
+...  301         event.projectileId === projectileId)) return events;
+...  302   }
+...  303   throw new Error(`projectile ${projectileId} did not contact or fizzle within ${maximumTicks} ticks`);
+...  304 }
+...  305 
+...  306 function liveBattleWithRadiusSpell(targetCardId, seed = 2) {
+...  307   const coreIds = ["kilnkeeper", "squall-orb", targetCardId];
+...  308   const deck = [...coreIds,
+...  309     ...PLAYABLE_CARD_IDS.filter((id) => !coreIds.includes(id)).slice(0, 5)];
+...  310   const setup = JSON.parse(createEditableGameSessionSetup(deck, seed));
+...  311   return new LiveBattle(setup.battleSetup);
+...  312 }
+...  313 
+...  314 function continueLiveBattleProjectile(continuations, projectileId, maximumTicks = 900) {
+...  315   for (let advanced = 0; advanced < maximumTicks; advanced += 1) {
+...  316     const events = continuations.map((battle) => battle.step());
+...  317     assert.deepEqual(events[1], events[0], `restored projectile events at continuation ${advanced}`);
+...  318     assert.deepEqual(events[2], events[0], `forked projectile events at continuation ${advanced}`);
+...  319     for (const battle of continuations.slice(1)) {
+...  320       assert.equal(battle.serialize(), continuations[0].serialize());
+...  321       assert.deepEqual(battle.replay, continuations[0].replay);
+...  322     }
+...  323     const impact = events[0].find(({ projectileId: id, type }) =>
+...  324       id === projectileId && type === "projectile-impact");
+...  325     if (impact !== undefined) return { events: events[0], impact };
+...  326   }
+...  327   throw new Error(`projectile ${projectileId} did not contact or fizzle within ${maximumTicks} ticks`);
+...  328 }
+...  329 
+204  330 function runtimeTargetMode(targetMode) {
+205  331   if (targetMode === "ground-and-air") return "air_and_ground";
+
+tests/game-roster-troops-ordinary.test.js --- 2/11 --- Text (exceeded DFT_GRAPH_LIMIT)
+446  572     (target) => { target.projectileSplashPolicy.radiusMillitiles -= 1; },
+447  573     (target) => { target.projectileSplashPolicy.targetLayers = ["ground"]; },
+448  574     (target) => { target.projectileSplashPolicy.enemiesOnly = false; },
+...  575     (target) => { target.projectileSplashPolicy.homing = false; },
+...  576     (target) => { target.projectileSplashPolicy.homingRuntimePolicy.pursuitSpeedMillitilesPerTick += 1; },
+...  577     (target) => { target.projectileSplashPolicy.homingRuntimePolicy.directionUpdateRule = "launch-only"; },
+...  578     (target) => { target.projectileSplashPolicy.homingRuntimePolicy.directionRoundingRule = "nearest"; },
+...  579     (target) => { target.projectileSplashPolicy.homingRuntimePolicy.targetLockRule = "retarget"; },
+...  580     (target) => { target.projectileSplashPolicy.homingRuntimePolicy.retargetRule = "nearest-enemy"; },
+...  581     (target) => { target.projectileSplashPolicy.homingRuntimePolicy.targetDeathRule = "continue"; },
+...  582     (target) => { target.projectileSplashPolicy.homingRuntimePolicy.sourceDeathRule = "fizzle"; },
+...  583     (target) => { target.projectileSplashPolicy.homingRuntimePolicy.outOfRangeRule = "fizzle"; },
+...  584     (target) => { target.projectileSplashPolicy.homingRuntimePolicy.outOfBoundsRule = "wrap"; },
+...  585     (target) => { target.projectileSplashPolicy.homingRuntimePolicy.contactRadiusRule = "point"; },
+...  586     (target) => { target.projectileSplashPolicy.homingRuntimePolicy.impactCenterRule = "launch-target"; },
+...  587     (target) => { target.projectileSplashPolicy.homingRuntimePolicy.intermediateCollisionRule = "collide"; },
+...  588     (target) => { target.projectileSplashPolicy.homingRuntimePolicy.arrivalBoundaryRule = "immediate"; },
+...  589     (target) => { target.projectileSplashPolicy.homingRuntimePolicy.contactOrderRule = "after-damage"; },
+449  590     (target) => { target.projectileSplashPolicy.cardId = "brassbolt"; },
+450  591     (target) => { target.projectileSplashPolicy.sourceExport = "forged-catalog"; },
+...  592     (target) => { target.projectileSplashSourceFacts.homing = false; },
+...  593     (target) => {
+...  594       target.sourceConfidencePolicy.fields.find(({ questionKey }) =>
+...  595         questionKey === "kilnkeeper.homing-target-lock-rule").valueEncoding = "positive-integer";
+...  596     },
+451  597     (target) => { target.projectileSplashSourceFacts.radiusMillitiles -= 1; },
+452  598     (target) => { target.projectileSplashSourceFacts.onlyEnemies = false; },
+453  599     (target) => { target.damage += 1; },
+
+tests/game-roster-troops-ordinary.test.js --- 3/11 --- Text (exceeded DFT_GRAPH_LIMIT)
+474  620     "c883516f54f6c17ee77c15cf484b01da9ded22602214c3b0d42b1ab823bd3197");
+475  621   assert.equal(entity.projectileSplashSourceFacts.projectileDamageSourceUri,
+476  622     "https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats_projectile.json");
+...  623   assert.equal(entity.projectileSplashSourceFacts.homing, true,
+...  624     "the pinned raw flag is retained as an unverified source QUESTION");
+...  625   assert.equal(entity.projectileSplashPolicy.homing, true);
+...  626   assert.equal(entity.projectileSplashPolicy.homingRuntimePolicy.pursuitSpeedMillitilesPerTick, 500);
+...  627   assert.ok(witness.questions.some(({ authoritative, confidence, disposition, key, source, value }) =>
+...  628     key === "kilnkeeper.projectile-homing" && authoritative === false &&
+...  629     confidence === "unverified" && disposition === "question" && value === 1 &&
+...  630     source === "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile"));
+...  631   for (const [field, value] of Object.entries(entity.projectileSplashPolicy.homingRuntimePolicy)) {
+...  632     const key = `kilnkeeper.homing-${field.replace(/[A-Z]/gu, (letter) =>
+...  633       `-${letter.toLowerCase()}`).replaceAll("_", "-")}`;
+...  634     assert.ok(witness.questions.some(({ authoritative, confidence, disposition, key: questionKey,
+...  635       source, value: questionValue }) => questionKey === key && authoritative === false &&
+...  636       confidence === "unverified" && disposition === "question" &&
+...  637       source === QUESTION_SOURCE && questionValue >= 1), `${field} remains a runtime QUESTION`);
+...  638     assert.notEqual(value, undefined);
+...  639   }
+477  640   const damageQuestion = witness.questions.find(({ key }) => key === "kilnkeeper.damage");
+478  641   assert.deepEqual(damageQuestion, {
+479  642     authoritative: false,
+
+tests/game-roster-troops-ordinary.test.js --- 4/11 --- Text (exceeded DFT_GRAPH_LIMIT)
+486   for (const mutate of mutations)    649   for (const mutate of mutations) 
+... {                                    ... {
+487     const malformed = clone(witnes   650     const malformed = clone(witnes
+... s);                                  ... s);
+488     mutate(malformed.roster.find((   651     mutate(malformed.roster.find((
+... { id }) => id === "kilnkeeper").en   ... { id }) => id === "kilnkeeper").en
+... tities[0]);                          ... tities[0]);
+489     assert.throws(() => parseLiveB   652     assert.throws(() => parseLiveB
+... attleSetup(canonical(malformed)),    ... attleSetup(canonical(malformed)),
+... /splash|profile|source/u);           ... 
+...                                      653       /homing|splash|profile|sourc
+...                                      ... e|QUESTION/u);
+490   }                                  654   }
+491                                      655 
+492   for (const [key, value] of [       656   for (const [key, value] of [
+
+tests/game-roster-troops-ordinary.test.js --- 5/11 --- Text (exceeded DFT_GRAPH_LIMIT)
+495  659     ["kilnkeeper.projectile-splash-radius-millitiles", 0],
+496  660     ["kilnkeeper.projectile-splash-radius-millitiles", -1],
+497  661     ["kilnkeeper.projectile-splash-radius-millitiles", 1_500.5],
+...  662     ["kilnkeeper.homing-pursuit-speed-millitiles-per-tick", 501],
+...  663     ["kilnkeeper.homing-direction-update-rule", 99],
+498  664   ]) {
+499  665     const malformed = clone(witness);
+500  666     malformed.questions.find((question) => question.key === key).value = value;
+
+tests/game-roster-troops-ordinary.test.js --- 6/11 --- Text (exceeded DFT_GRAPH_LIMIT)
+506  672   missingQuestion.questions = missingQuestion.questions.filter(({ key }) =>
+507  673     key !== "kilnkeeper.projectile-splash-radius-millitiles");
+508  674   assert.throws(() => parseLiveBattleSetup(canonical(missingQuestion)), /question|source|splash/u);
+...  675   const missingHomingQuestion = clone(witness);
+...  676   missingHomingQuestion.questions = missingHomingQuestion.questions.filter(({ key }) =>
+...  677     key !== "kilnkeeper.homing-target-lock-rule");
+...  678   assert.throws(() => parseLiveBattleSetup(canonical(missingHomingQuestion)),
+...  679     /question|source|splash|homing/u);
+509  680 
+510  681   const battle = new LiveBattle(pairedProjectileSetup(["kilnkeeper", "cinder-host"]));
+511  682   battle.scheduleDeploy(canonical({
+
+tests/game-roster-troops-ordinary.test.js --- 7/11 --- Text (exceeded DFT_GRAPH_LIMIT)
+523   }                                  694   }
+524   assert.ok(pending, "the actual L   695   assert.ok(pending, "the actual L
+... iveBattle host retains a source-bo   ... iveBattle host retains a source-bo
+... und pending splash projectile");     ... und pending splash projectile");
+525   assert.equal(LiveBattle.restore(   696   assert.equal(LiveBattle.restore(
+... pending).serialize(), pending);      ... pending).serialize(), pending);
+...                                      697   for (const mutate of [
+...                                      698     (projectile) => { projectile.p
+...                                      ... osition = { x: 1, y: 1 }; },
+...                                      699     (projectile) => { projectile.i
+...                                      ... mpactTick = 1; },
+...                                      700   ]) {
+...                                      701     const forged = JSON.parse(pend
+...                                      ... ing);
+...                                      702     const forgedMotion = {};
+...                                      703     mutate(forgedMotion);
+...                                      704     forged.homingProjectiles = [fo
+...                                      ... rgedMotion];
+...                                      705     assert.throws(() => LiveBattle
+...                                      ... .restore(canonical(forged)), /snap
+...                                      ... shot|shape|homing/u,
+...                                      706       "strict restore rejects inje
+...                                      ... cted position and next-boundary mo
+...                                      ... tion authority");
+...                                      707   }
+526   for (const mutate of mutations)    708   for (const mutate of mutations) 
+... {                                    ... {
+527     const forged = JSON.parse(pend   709     const forged = JSON.parse(pend
+... ing);                                ... ing);
+528     const sourceEntity = forged.se   710     const sourceEntity = forged.se
+... tup.roster                           ... tup.roster
+529       .find(({ id }) => id === "ki   711       .find(({ id }) => id === "ki
+... lnkeeper").entities[0];              ... lnkeeper").entities[0];
+530     mutate(sourceEntity);            712     mutate(sourceEntity);
+531     assert.throws(() => LiveBattle   713     assert.throws(() => LiveBattle
+... .restore(canonical(forged)), /spla   ... .restore(canonical(forged)), /homi
+... sh|profile|source/u);                ... ng|splash|profile|source/u);
+532   }                                  714   }
+533   const forgedQuestion = JSON.pars   715   const forgedQuestion = JSON.pars
+... e(pending);                          ... e(pending);
+534   forgedQuestion.setup.questions.f   716   forgedQuestion.setup.questions.f
+... ind(({ key }) =>                     ... ind(({ key }) =>
+
+tests/game-roster-troops-ordinary.test.js --- 8/11 --- Text (exceeded DFT_GRAPH_LIMIT)
+541  723     "the actual pending snapshot rejects a forged projectile damage QUESTION");
+542  724 });
+543  725 
+...  726 test("Kilnkeeper follows moving ground and air targets through shared-host restore and fork", () => {
+...  727   for (const [targetCardId, targetLayer, sourcePoint, targetPoint] of [
+...  728     ["coilblade", "ground", { x: 5_000, y: 14_500 }, { x: 3_500, y: 19_500 }],
+...  729     ["skymaul", "air", { x: 3_500, y: 14_500 }, { x: 5_000, y: 19_500 }],
+...  730   ]) {
+...  731     const battle = new LiveBattle(pairedProjectileSetup(["kilnkeeper", targetCardId]));
+...  732     battle.scheduleDeploy(canonical({
+...  733       cardId: targetCardId, point: targetPoint, sequence: 0,
+...  734       side: "north", tick: 0,
+...  735     }));
+...  736     battle.scheduleDeploy(canonical({
+...  737       cardId: "kilnkeeper", point: sourcePoint, sequence: 1,
+...  738       side: "south", tick: 0,
+...  739     }));
+...  740     let launch = null;
+...  741     for (let tick = 0; tick < 240 && launch === null; tick += 1) {
+...  742       launch = battle.step().find(({ projectile, type }) => type === "projectile-launch" &&
+...  743         projectile?.splashProfile?.homing === true) ?? null;
+...  744     }
+...  745     assert.ok(launch, `${targetLayer} target receives a Kilnkeeper projectile`);
+...  746     const projectileId = launch.projectile.id;
+...  747     const targetId = launch.projectile.targetId;
+...  748     const launchTarget = battle.state.units.find(({ id }) => id === targetId);
+...  749     assert.equal(launch.projectile.direction, "unit-to-unit");
+...  750     assert.equal(launch.projectile.speed, 500);
+...  751     assert.equal(launchTarget?.cardId, targetCardId);
+...  752     assert.equal(launchTarget?.layer, targetLayer);
+...  753     assert.deepEqual(launch.projectile.targetPosition, launchTarget.position);
+...  754 
+...  755     const checkpoint = battle.serialize();
+...  756     const continuations = [battle, LiveBattle.restore(checkpoint), battle.fork()];
+...  757     assert.ok(continuations.every((candidate) => candidate.serialize() === checkpoint));
+...  758     let movedAfterLaunch = false;
+...  759     let impact = null;
+...  760     let pursuitBoundaries = 0;
+...  761     const projectileSteps = new Set();
+...  762     for (; pursuitBoundaries < 120 && impact === null; pursuitBoundaries += 1) {
+...  763       const boundaries = continuations.map((candidate) =>
+...  764         advanceLiveBattleHomingBoundary(candidate, projectileId));
+...  765       assert.deepEqual(boundaries[1].events, boundaries[0].events,
+...  766         `${targetLayer} restored events match at pursuit boundary ${pursuitBoundaries}`);
+...  767       assert.deepEqual(boundaries[2].events, boundaries[0].events,
+...  768         `${targetLayer} fork events match at pursuit boundary ${pursuitBoundaries}`);
+...  769       for (const candidate of continuations.slice(1)) {
+...  770         assert.equal(candidate.serialize(), continuations[0].serialize());
+...  771         assert.deepEqual(candidate.replay, continuations[0].replay);
+...  772       }
+...  773       const target = boundaries[0].target;
+...  774       if (boundaries[0].projectileStep !== null) {
+...  775         projectileSteps.add(`${boundaries[0].projectileStep.x},${boundaries[0].projectileStep.y}`);
+...  776       }
+...  777       movedAfterLaunch ||= target.position.x !== launch.projectile.targetPosition.x ||
+...  778         target.position.y !== launch.projectile.targetPosition.y;
+...  779       impact = boundaries[0].impact ?? null;
+...  780     }
+...  781     assert.ok(movedAfterLaunch, `${targetLayer} target changes position during flight`);
+...  782     assert.ok(projectileSteps.size > 1,
+...  783       `${targetLayer} homing changes its direction as the live target moves`);
+...  784     assert.ok(impact, `${targetLayer} projectile reaches the declared contact radius`);
+...  785     assert.equal(impact.targetId, targetId);
+...  786     assert.equal(impact.tick, launch.tick + pursuitBoundaries,
+...  787       "contact tick equals the independently stepped pursuit boundary");
+...  788     const impacts = battle.replay.filter(({ projectileId: id, type }) =>
+...  789       id === projectileId && type === "projectile-impact");
+...  790     assert.equal(impacts.length, 1, "the locked target produces one terminal impact");
+...  791     assert.equal(impacts[0].status, "contact");
+...  792     const directHits = battle.replay.filter(({ projectileId: id, targetId: hitId, type }) =>
+...  793       id === projectileId && hitId === targetId && type === "damage");
+...  794     assert.equal(directHits.length, 1, "the selected target receives exactly one direct contact");
+...  795     assert.equal(directHits[0].amount, 281);
+...  796   }
+...  797 });
+...  798 
+...  799 test("Kilnkeeper's pending homing projectile fizzles once when its locked target dies", () => {
+...  800   const battle = liveBattleWithRadiusSpell("cinder-host");
+...  801   battle.scheduleDeploy(canonical({
+...  802     cardId: "cinder-host", point: { x: 3_500, y: 21_000 }, sequence: 0,
+...  803     side: "north", tick: 0,
+...  804   }));
+...  805   battle.scheduleDeploy(canonical({
+...  806     cardId: "kilnkeeper", point: { x: 3_500, y: 14_500 }, sequence: 1,
+...  807     side: "south", tick: 0,
+...  808   }));
+...  809   let launch = null;
+...  810   for (let tick = 0; tick < 240 && launch === null; tick += 1) {
+...  811     launch = battle.step().find(({ projectile, type }) => type === "projectile-launch" &&
+...  812       projectile?.splashProfile?.homing === true)?.projectile ?? null;
+...  813   }
+...  814   assert.ok(launch, "the shared host launches before the locked troop is removed");
+...  815   const target = battle.state.units.find(({ id }) => id === launch.targetId);
+...  816   assert.equal(target.cardId, "cinder-host");
+...  817   assert.equal(battle.scheduleSpell({
+...  818     cardId: "squall-orb", point: target.position, sequence: 2,
+...  819     side: "south", tick: battle.state.tick,
+...  820   }).type, "spell-intent-scheduled");
+...  821 
+...  822   for (let tick = 0; tick < 10 &&
+...  823       battle.state.units.find(({ id }) => id === launch.targetId)?.alive; tick += 1) {
+...  824     battle.step();
+...  825   }
+...  826   assert.equal(battle.state.units.find(({ id }) => id === launch.targetId)?.alive, false,
+...  827     "the actual area spell kills the selected live target");
+...  828   assert.ok(battle.state.projectiles.some(({ id }) => id === launch.id),
+...  829     "the serialized homing projectile remains pending until its next boundary");
+...  830 
+...  831   const checkpoint = battle.serialize();
+...  832   const continuations = [battle, LiveBattle.restore(checkpoint), battle.fork()];
+...  833   assert.ok(continuations.every((candidate) => candidate.serialize() === checkpoint));
+...  834   const { impact } = continueLiveBattleProjectile(continuations, launch.id);
+...  835   assert.equal(impact.status, "target_dead");
+...  836   assert.equal(battle.replay.filter(({ projectileId, type }) =>
+...  837     projectileId === launch.id && type === "projectile-impact").length, 1,
+...  838   "a dead locked target produces one terminal fizzle event");
+...  839   assert.equal(battle.replay.filter(({ projectileId, type }) =>
+...  840     projectileId === launch.id && type === "damage").length, 0,
+...  841   "a dead locked target receives no direct hit or secondary splash");
+...  842 });
+...  843 
+...  844 test("Kilnkeeper's launched homing projectile continues after its source dies and restores exactly", () => {
+...  845   const battle = liveBattleWithRadiusSpell("coilblade");
+...  846   battle.scheduleDeploy(canonical({
+...  847     cardId: "coilblade", point: { x: 3_500, y: 21_400 }, sequence: 0,
+...  848     side: "north", tick: 0,
+...  849   }));
+...  850   battle.scheduleDeploy(canonical({
+...  851     cardId: "kilnkeeper", point: { x: 3_500, y: 14_500 }, sequence: 1,
+...  852     side: "south", tick: 0,
+...  853   }));
+...  854   let launch = null;
+...  855   for (let tick = 0; tick < 240 && launch === null; tick += 1) {
+...  856     launch = battle.step().find(({ projectile, type }) => type === "projectile-launch" &&
+...  857       projectile?.splashProfile?.homing === true)?.projectile ?? null;
+...  858   }
+...  859   assert.ok(launch, "the shared host launches before its source is removed");
+...  860   const source = battle.state.units.find(({ id }) => id === launch.sourceId);
+...  861   assert.equal(source.cardId, "kilnkeeper");
+...  862   for (let sequence = 2; sequence < 4; sequence += 1) {
+...  863     assert.equal(battle.scheduleSpell({
+...  864       cardId: "squall-orb", point: source.position, sequence,
+...  865       side: "north", tick: battle.state.tick,
+...  866     }).type, "spell-intent-scheduled");
+...  867   }
+...  868   for (let tick = 0; tick < 10 &&
+...  869       battle.state.units.find(({ id }) => id === launch.sourceId)?.alive; tick += 1) {
+...  870     battle.step();
+...  871   }
+...  872   assert.equal(battle.state.units.find(({ id }) => id === launch.sourceId)?.alive, false,
+...  873     "the actual area spells kill the projectile source");
+...  874   assert.ok(battle.state.projectiles.some(({ id }) => id === launch.id),
+...  875     "source death leaves the already launched projectile pending");
+...  876 
+...  877   const checkpoint = battle.serialize();
+...  878   const continuations = [battle, LiveBattle.restore(checkpoint), battle.fork()];
+...  879   assert.ok(continuations.every((candidate) => candidate.serialize() === checkpoint));
+...  880   const { impact } = continueLiveBattleProjectile(continuations, launch.id);
+...  881   assert.equal(impact.status, "contact");
+...  882   assert.equal(battle.state.units.find(({ id }) => id === launch.sourceId)?.alive, false);
+...  883   const hits = battle.replay.filter(({ projectileId, type }) =>
+...  884     projectileId === launch.id && type === "damage");
+...  885   assert.equal(hits.length, 1, "the source-dead projectile still makes one primary contact");
+...  886   assert.equal(hits[0].targetId, launch.targetId);
+...  887   assert.equal(hits[0].amount, 281);
+...  888 });
+...  889 
+...  890 test("Kilnkeeper follows its locked target after it leaves the launch-origin range", () => {
+...  891   const battle = new LiveBattle(pairedProjectileSetup(["kilnkeeper", "stonehauler"]));
+...  892   assert.equal(battle.scheduleDeploy(canonical({
+...  893     cardId: "stonehauler", point: { x: 3_500, y: 21_000 }, sequence: 0,
+...  894     side: "north", tick: 0,
+...  895   })).type, "deploy-scheduled");
+...  896   assert.equal(battle.scheduleDeploy(canonical({
+...  897     cardId: "kilnkeeper", point: { x: 3_500, y: 14_500 }, sequence: 1,
+...  898     side: "south", tick: 1_010,
+...  899   })).type, "deploy-scheduled");
+...  900 
+...  901   let launch = null;
+...  902   for (let tick = 0; tick < 1_150 && launch === null; tick += 1) {
+...  903     launch = battle.step().find(({ projectile, type }) => type === "projectile-launch" &&
+...  904       projectile?.splashProfile?.homing === true &&
+...  905       battle.state.units.find(({ id }) => id === projectile.targetId)?.cardId === "stonehauler") ?? null;
+...  906   }
+...  907   assert.ok(launch, "the shared host launches at the still-in-range Stonehauler");
+...  908   const projectileId = launch.projectile.id;
+...  909   const targetId = launch.projectile.targetId;
+...  910   const source = battle.state.units.find(({ id }) => id === launch.projectile.sourceId);
+...  911   const target = battle.state.units.find(({ id }) => id === targetId);
+...  912   assert.equal(target?.cardId, "stonehauler");
+...  913   assert.ok(source);
+...  914   const runtimePolicy = launch.projectile.splashProfile.homingRuntimePolicy;
+...  915   assert.equal(runtimePolicy.outOfRangeRule, "continue-after-launch-range");
+...  916   const launchOrigin = launch.projectile.origin;
+...  917   const rangeLimit = source.reach + source.radius + target.radius;
+...  918   const rangeLimitSquared = BigInt(rangeLimit) * BigInt(rangeLimit);
+...  919   const continuations = [battle];
+...  920   let rangeCrossing = null;
+...  921   for (let tick = 0; tick < 30 && rangeCrossing === null; tick += 1) {
+...  922     const boundary = advanceLiveBattleHomingBoundary(battle, projectileId);
+...  923     const liveTarget = battle.state.units.find(({ id }) => id === targetId);
+...  924     const dx = BigInt(liveTarget.position.x - launchOrigin.x);
+...  925     const dy = BigInt(liveTarget.position.y - launchOrigin.y);
+...  926     if (dx * dx + dy * dy > rangeLimitSquared) {
+...  927       assert.ok(battle.state.projectiles.some(({ id }) => id === projectileId),
+...  928         "the homing projectile remains pending after its target exits launch-origin range");
+...  929       assert.equal(boundary.impact, undefined,
+...  930         "range exit does not substitute an immediate fizzle for live pursuit");
+...  931       rangeCrossing = { tick: battle.state.tick - 1, targetPosition: { ...liveTarget.position } };
+...  932     }
+...  933   }
+...  934   assert.ok(rangeCrossing, "the live target crosses beyond the immutable launch-origin range");
+...  935   const checkpoint = battle.serialize();
+...  936   continuations.push(LiveBattle.restore(checkpoint), battle.fork());
+...  937   assert.ok(continuations.every((candidate) => candidate.serialize() === checkpoint));
+...  938   const { impact } = continueLiveBattleProjectile(continuations, projectileId);
+...  939   assert.equal(impact.status, "contact",
+...  940     "the original target remains tracked through the out-of-range segment");
+...  941   assert.equal(impact.targetId, targetId);
+...  942   assert.ok(impact.tick > rangeCrossing.tick,
+...  943     "contact follows a real pending interval after the launch-range crossing");
+...  944   const hits = battle.replay.filter(({ projectileId: id, sourceId, type }) =>
+...  945     id === projectileId && sourceId === launch.projectile.sourceId && type === "damage");
+...  946   const primaryHits = hits.filter(({ targetId: id }) => id === targetId);
+...  947   assert.equal(primaryHits.length, 1, "the out-of-range pursuit resolves one primary hit");
+...  948   assert.equal(primaryHits[0].amount, 281);
+...  949   assert.equal(new Set(hits.map(({ targetId: id }) => id)).size, hits.length,
+...  950     "primary and splash contacts never damage one victim twice");
+...  951   assert.ok(hits.every(({ amount }) => amount === 281));
+...  952 });
+...  953 
+544  954 test("ordinary splash plans stable mixed troop, building, and tower contacts without a duplicate primary", () => {
+545  955   const profile = getOrdinaryProjectileSplashProfile("kilnkeeper", "kilnkeeper");
+
+tests/game-roster-troops-ordinary.test.js --- 9/11 --- Text (exceeded DFT_GRAPH_LIMIT)
+644     cardId === "kilnkeeper").lengt  1054     cardId === "kilnkeeper").lengt
+... h, 1);                              .... h, 1);
+645                                     1055 
+646   const checkpoint = session.seria  1056   const checkpoint = session.seria
+... lize();                             .... lize();
+647   const primaryAtLaunch = session.  1057   const launchId = projectile.id;
+... state.battle.units.find(({ id }) =  .... 
+... >                                   .... 
+...                                     1058   const launch = session.replay.fi
+...                                     .... nd(({ projectile: record, type }) 
+...                                     .... =>
+...                                     1059     type === "projectile-launch" &
+...                                     .... & record?.id === launchId);
+...                                     1060   assert.ok(launch, "the shared ho
+...                                     .... st records the current projectile 
+...                                     .... launch");
+648     id === projectile.targetId);    1061   const primaryAtLaunch = session.
+...                                     .... state.battle.units.find(({ id }) =
+...                                     .... > id === projectile.targetId);
+649   assert.ok(primaryAtLaunch?.alive  1062   assert.ok(primaryAtLaunch?.alive
+... );                                  .... );
+650   assert.deepEqual(primaryAtLaunch  1063   assert.deepEqual(primaryAtLaunch
+... .position, projectile.targetPositi  .... .position, launch.projectile.targe
+... on,                                 .... tPosition,
+651     "the projectile locks its impa  1064     "the launch receipt captures t
+... ct center to the primary's launch   .... he selected target center at launc
+... position");                         .... h");
+...                                     1065   assert.deepEqual(projectile.posi
+...                                     .... tion, launch.projectile.origin,
+...                                     1066     "a newly launched homing proje
+...                                     .... ctile begins at its source");
+652   const restored = GameSession.res  1067   const restored = GameSession.res
+... tore(checkpoint);                   .... tore(checkpoint);
+653   assert.equal(restored.serialize(  1068   assert.equal(restored.serialize(
+... ), checkpoint);                     .... ), checkpoint);
+654   const ticksThroughImpact = proje  1069   const restoredEvents = continueT
+... ctile.impactTick - session.state.t  .... oProjectileImpact(restored, launch
+... ick + 1;                            .... Id);
+...                                     1070   const directEvents = continueToP
+...                                     .... rojectileImpact(session, launchId)
+...                                     .... ;
+655   assert.deepEqual(restored.stepMa  1071   assert.deepEqual(restoredEvents,
+... ny(ticksThroughImpact), session.st  ....  directEvents,
+... epMany(ticksThroughImpact));        .... 
+...                                     1072     "actual pending projectiles fo
+...                                     .... llow the same target after GameSes
+...                                     .... sion restore");
+656   assert.equal(restored.serialize(  1073   assert.equal(restored.serialize(
+... ), session.serialize());            .... ), session.serialize());
+657   assert.equal(restored.replayByte  1074   assert.equal(restored.replayByte
+... s(), session.replayBytes());        .... s(), session.replayBytes());
+658                                     1075 
+659   const launchId = projectile.id;   .... 
+660   const impact = session.replay.fi  1076   const impact = session.replay.fi
+... nd(({ projectileId, type }) =>      .... nd(({ projectileId, type }) =>
+661     type === "projectile-impact" &  1077     type === "projectile-impact" &
+... & projectileId === launchId);       .... & projectileId === launchId);
+662   assert.equal(impact?.status, "co  1078   assert.equal(impact?.status, "co
+... ntact");                            .... ntact");
+663   const primaryAtImpact = session.  1079   const primaryAtImpact = session.
+... state.battle.units.find(({ id }) =  .... state.battle.units.find(({ id }) =
+... >                                   .... >
+664     id === projectile.targetId);    1080     id === projectile.targetId);
+665   assert.notDeepEqual(primaryAtImp  1081   assert.notDeepEqual(primaryAtImp
+... act.position, projectile.targetPos  .... act.position, launch.projectile.ta
+... ition,                              .... rgetPosition,
+666     "the enemy primary moves after  1082     "the locked target moves after
+...  launch while the projectile keeps  ....  launch and is tracked to its live
+...  its locked center");               ....  center");
+667   const primaryDx = BigInt(primary  .... 
+... AtImpact.position.x - projectile.t  .... 
+... argetPosition.x);                   .... 
+668   const primaryDy = BigInt(primary  .... 
+... AtImpact.position.y - projectile.t  .... 
+... argetPosition.y);                   .... 
+669   const primaryLimit = BigInt(proj  .... 
+... ectile.splashProfile.radiusMilliti  .... 
+... les + primaryAtImpact.radius);      .... 
+670   assert.ok(primaryDx * primaryDx   .... 
+... + primaryDy * primaryDy <= primary  .... 
+... Limit * primaryLimit,               .... 
+671     "the moving primary remains in  .... 
+... side the impact-centered radius wh  .... 
+... en directly hit");                  .... 
+672   const hits = session.replay.filt  1083   const hits = session.replay.filt
+... er(({ projectileId, type }) =>      .... er(({ projectileId, type }) =>
+673     type === "damage" && projectil  1084     type === "damage" && projectil
+... eId === launchId);                  .... eId === launchId);
+674   const targetIds = hits.map(({ ta  1085   const targetIds = hits.map(({ ta
+... rgetId }) => targetId);             .... rgetId }) => targetId);
+675   assert.deepEqual(targetIds, [pro  1086   assert.equal(targetIds[0], proje
+... jectile.targetId, 3, 11],           .... ctile.targetId,
+676   "direct target resolves once, th  1087     "direct target resolves first 
+... en eligible members resolve in sta  .... at its live impact center");
+... ble ID order");                     .... 
+677   assert.deepEqual(targetIds.slice  1088   assert.deepEqual(targetIds.slice
+... (1), [...targetIds.slice(1)].sort(  .... (1), [...targetIds.slice(1)].sort(
+... (left, right) => left - right));    .... (left, right) => left - right));
+678   assert.equal(new Set(targetIds).  1089   assert.equal(new Set(targetIds).
+... size, targetIds.length, "a project  .... size, targetIds.length, "a project
+... ile never hits a unit twice");      .... ile never hits a unit twice");
+679   assert.ok(hits.every(({ amount }  1090   assert.ok(hits.every(({ amount }
+... ) => amount === 281));              .... ) => amount === 281));
+680   assert.ok(!targetIds.includes(2)  1091   assert.ok(!targetIds.includes(2)
+... , "the enemy outside the splash ci  .... , "the enemy outside the splash ci
+... rcle is untouched");                .... rcle is untouched");
+681   const outside = session.state.ba  1092   const outside = session.state.ba
+... ttle.units.find(({ id }) => id ===  .... ttle.units.find(({ id }) => id ===
+...  2);                                ....  2);
+682   const outsideDx = BigInt(outside  1093   const outsideDx = BigInt(outside
+... .position.x - projectile.targetPos  .... .position.x - primaryAtImpact.posi
+... ition.x);                           .... tion.x);
+683   const outsideDy = BigInt(outside  1094   const outsideDy = BigInt(outside
+... .position.y - projectile.targetPos  .... .position.y - primaryAtImpact.posi
+... ition.y);                           .... tion.y);
+684   const outsideLimit = BigInt(proj  1095   const outsideLimit = BigInt(proj
+... ectile.splashProfile.radiusMilliti  .... ectile.splashProfile.radiusMilliti
+... les + outside.radius);              .... les + outside.radius);
+685   assert.ok(outsideDx * outsideDx   1096   assert.ok(outsideDx * outsideDx 
+... + outsideDy * outsideDy > outsideL  .... + outsideDy * outsideDy > outsideL
+... imit * outsideLimit);               .... imit * outsideLimit);
+686 });                                 1097 });
+
+tests/game-roster-troops-ordinary.test.js --- 10/11 --- Text (exceeded DFT_GRAPH_LIMIT)
+711   assert.equal(projectile.structur  1122   assert.equal(projectile.structur
+... eId, `building:${building.id}`);    .... eId, `building:${building.id}`);
+712   const checkpoint = session.seria  1123   const checkpoint = session.seria
+... lize();                             .... lize();
+713   const restored = GameSession.res  1124   const restored = GameSession.res
+... tore(checkpoint);                   .... tore(checkpoint);
+714   const ticksThroughImpact = proje  1125   const restoredImpactEvents = con
+... ctile.impactTick - session.state.t  .... tinueToProjectileImpact(restored, 
+... ick + 1;                            .... projectile.id);
+...                                     1126   const directImpactEvents = conti
+...                                     .... nueToProjectileImpact(session, pro
+...                                     .... jectile.id);
+715   assert.deepEqual(restored.stepMa  1127   assert.deepEqual(restoredImpactE
+... ny(ticksThroughImpact), session.st  .... vents, directImpactEvents);
+... epMany(ticksThroughImpact));        .... 
+716   assert.equal(restored.serialize(  1128   assert.equal(restored.serialize(
+... ), session.serialize());            .... ), session.serialize());
+717   assert.equal(restored.replayByte  1129   assert.equal(restored.replayByte
+... s(), session.replayBytes());        .... s(), session.replayBytes());
+718                                     1130 
+
+tests/game-roster-troops-ordinary.test.js --- 11/11 --- Text (exceeded DFT_GRAPH_LIMIT)
+761   assert.equal(projectile.structur  1173   assert.equal(projectile.structur
+... eId, towerId);                      .... eId, towerId);
+762   const checkpoint = session.seria  1174   const checkpoint = session.seria
+... lize();                             .... lize();
+763   const restored = GameSession.res  1175   const restored = GameSession.res
+... tore(checkpoint);                   .... tore(checkpoint);
+764   const ticksThroughImpact = proje  1176   const restoredImpactEvents = con
+... ctile.impactTick - session.state.t  .... tinueToProjectileImpact(restored, 
+... ick + 1;                            .... projectile.id);
+...                                     1177   const directImpactEvents = conti
+...                                     .... nueToProjectileImpact(session, pro
+...                                     .... jectile.id);
+765   assert.deepEqual(restored.stepMa  1178   assert.deepEqual(restoredImpactE
+... ny(ticksThroughImpact), session.st  .... vents, directImpactEvents);
+... epMany(ticksThroughImpact));        .... 
+766   assert.equal(restored.serialize(  1179   assert.equal(restored.serialize(
+... ), session.serialize());            .... ), session.serialize());
+767   assert.equal(restored.replayByte  1180   assert.equal(restored.replayByte
+... s(), session.replayBytes());        .... s(), session.replayBytes());
+768                                     1181 
+
+tests/nondeterminism-guard.test.js --- JavaScript
+87 87   "melee.js",
+88 88   "movement.js",
+89 89   "opponent-controller.js",
+.. 90   "ordinary-projectile-homing.js",
+90 91   "ordinary-projectile-splash.js",
+91 92   "pathfinding.js",
+92 93   "projectile.js",
+

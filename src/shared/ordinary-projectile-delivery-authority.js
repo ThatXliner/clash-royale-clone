@@ -30,6 +30,23 @@ const SPLASH_SOURCE_PROFILE = Object.freeze({
   cardId: "kilnkeeper",
   catalogId: "ordinary-projectile-splash-v1",
   enemiesOnly: true,
+  homing: true,
+  homingRuntimePolicy: Object.freeze({
+    pursuitSpeedMillitilesPerTick: 500,
+    directionUpdateRule: "aim-after-unit-motion-each-boundary",
+    directionRoundingRule: "ceil-distance-truncate-components-toward-zero",
+    targetLockRule: "retain-launch-target-id",
+    retargetRule: "never-reacquire",
+    targetDeathRule: "fizzle-on-first-boundary-after-death",
+    sourceDeathRule: "continue-after-launch",
+    outOfRangeRule: "continue-after-launch-range",
+    outOfBoundsRule: "continue-while-position-is-valid",
+    contactRadiusRule: "target-body-radius",
+    impactCenterRule: "live-target-center",
+    intermediateCollisionRule: "no-intermediate-collision",
+    arrivalBoundaryRule: "first-boundary-reaching-contact-radius",
+    contactOrderRule: "after-motion-before-simultaneous-damage",
+  }),
   radiusMillitiles: 1_500,
   sourceExport: "createOrdinaryProjectileSplashCatalog",
   targetLayers: Object.freeze(["air", "ground"]),
@@ -38,8 +55,14 @@ const POLICY_KEYS = Object.freeze([
   "archetypeId", "cardId", "catalogId", "delivery", "kind",
 ]);
 const SPLASH_PROFILE_KEYS = Object.freeze([
-  "archetypeId", "cardId", "catalogId", "enemiesOnly", "radiusMillitiles",
-  "sourceExport", "targetLayers",
+  "archetypeId", "cardId", "catalogId", "enemiesOnly", "homing",
+  "homingRuntimePolicy", "radiusMillitiles", "sourceExport", "targetLayers",
+]);
+const HOMING_RUNTIME_POLICY_KEYS = Object.freeze([
+  "arrivalBoundaryRule", "contactOrderRule", "contactRadiusRule", "directionRoundingRule",
+  "directionUpdateRule", "impactCenterRule", "intermediateCollisionRule",
+  "outOfBoundsRule", "outOfRangeRule", "pursuitSpeedMillitilesPerTick",
+  "retargetRule", "sourceDeathRule", "targetDeathRule", "targetLockRule",
 ]);
 const WIZARD_PROJECTILE_DAMAGE_RECEIPT = Object.freeze({
   damage: 281,
@@ -111,6 +134,7 @@ export function getOrdinaryProjectileSplashProfile(cardId, archetypeId) {
       archetypeId !== SPLASH_SOURCE_PROFILE.archetypeId) return null;
   return {
     ...SPLASH_SOURCE_PROFILE,
+    homingRuntimePolicy: { ...SPLASH_SOURCE_PROFILE.homingRuntimePolicy },
     targetLayers: [...SPLASH_SOURCE_PROFILE.targetLayers],
   };
 }
@@ -140,10 +164,15 @@ export function getOrdinaryProjectileSplashSourceFacts(cardId, archetypeId) {
 
 export function assertOrdinaryProjectileSplashProfile(value, cardId, archetypeId) {
   const profile = exact(value, SPLASH_PROFILE_KEYS, "ordinary projectile splash profile");
+  const homingRuntimePolicy = exact(profile.homingRuntimePolicy,
+    HOMING_RUNTIME_POLICY_KEYS, "ordinary projectile homing runtime QUESTION policy");
   const expected = getOrdinaryProjectileSplashProfile(cardId, archetypeId);
   if (expected === null || profile.archetypeId !== expected.archetypeId ||
       profile.cardId !== expected.cardId || profile.catalogId !== expected.catalogId ||
       profile.enemiesOnly !== expected.enemiesOnly ||
+      profile.homing !== expected.homing ||
+      HOMING_RUNTIME_POLICY_KEYS.some((key) =>
+        homingRuntimePolicy[key] !== expected.homingRuntimePolicy[key]) ||
       profile.radiusMillitiles !== expected.radiusMillitiles ||
       profile.sourceExport !== expected.sourceExport ||
       !exactLayers(profile.targetLayers, expected.targetLayers)) {

@@ -23,6 +23,34 @@ const KILNKEEPER_PROJECTILE_FIELDS = Object.freeze([
   Object.freeze({ field: "projectileSplashSourceFacts.homing",
     questionKeySuffix: "projectile-homing", valueEncoding: "boolean-code",
     source: "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile" }),
+  Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.pursuitSpeedMillitilesPerTick",
+    questionKeySuffix: "homing-pursuit-speed-millitiles-per-tick", valueEncoding: "positive-integer" }),
+  Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.directionUpdateRule",
+    questionKeySuffix: "homing-direction-update-rule", valueEncoding: "homing-runtime-policy-code" }),
+  Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.directionRoundingRule",
+    questionKeySuffix: "homing-direction-rounding-rule", valueEncoding: "homing-runtime-policy-code" }),
+  Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.targetLockRule",
+    questionKeySuffix: "homing-target-lock-rule", valueEncoding: "homing-runtime-policy-code" }),
+  Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.retargetRule",
+    questionKeySuffix: "homing-retarget-rule", valueEncoding: "homing-runtime-policy-code" }),
+  Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.targetDeathRule",
+    questionKeySuffix: "homing-target-death-rule", valueEncoding: "homing-runtime-policy-code" }),
+  Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.sourceDeathRule",
+    questionKeySuffix: "homing-source-death-rule", valueEncoding: "homing-runtime-policy-code" }),
+  Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.outOfRangeRule",
+    questionKeySuffix: "homing-out-of-range-rule", valueEncoding: "homing-runtime-policy-code" }),
+  Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.outOfBoundsRule",
+    questionKeySuffix: "homing-out-of-bounds-rule", valueEncoding: "homing-runtime-policy-code" }),
+  Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.contactRadiusRule",
+    questionKeySuffix: "homing-contact-radius-rule", valueEncoding: "homing-runtime-policy-code" }),
+  Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.impactCenterRule",
+    questionKeySuffix: "homing-impact-center-rule", valueEncoding: "homing-runtime-policy-code" }),
+  Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.intermediateCollisionRule",
+    questionKeySuffix: "homing-intermediate-collision-rule", valueEncoding: "homing-runtime-policy-code" }),
+  Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.arrivalBoundaryRule",
+    questionKeySuffix: "homing-arrival-boundary-rule", valueEncoding: "homing-runtime-policy-code" }),
+  Object.freeze({ field: "projectileSplashPolicy.homingRuntimePolicy.contactOrderRule",
+    questionKeySuffix: "homing-contact-order-rule", valueEncoding: "homing-runtime-policy-code" }),
   Object.freeze({ field: "projectileSplashSourceFacts.aoeToAir",
     questionKeySuffix: "projectile-aoe-to-air", valueEncoding: "boolean-code",
     source: "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile" }),
@@ -63,6 +91,21 @@ const KILNKEEPER_DAMAGE_SOURCE =
 const ZERO_QUESTION_KEYS = new Set([
   "kilnkeeper.character-area-damage-radius-millitiles",
 ]);
+const HOMING_RUNTIME_POLICY_CODES = Object.freeze({
+  "aim-after-unit-motion-each-boundary": 1,
+  "after-motion-before-simultaneous-damage": 2,
+  "ceil-distance-truncate-components-toward-zero": 3,
+  "continue-after-launch": 4,
+  "continue-after-launch-range": 5,
+  "continue-while-position-is-valid": 6,
+  "first-boundary-reaching-contact-radius": 7,
+  "fizzle-on-first-boundary-after-death": 8,
+  "live-target-center": 9,
+  "never-reacquire": 10,
+  "no-intermediate-collision": 11,
+  "retain-launch-target-id": 12,
+  "target-body-radius": 13,
+});
 
 function exact(value, keys, label) {
   if (value === null || typeof value !== "object" || Array.isArray(value) ||
@@ -170,6 +213,12 @@ export function encodeSessionTroopSourceConfidenceValue(valueEncoding, value) {
       throw new TypeError("session troop source confidence boolean is invalid");
     }
     return value ? 1 : 0;
+  }
+  if (valueEncoding === "homing-runtime-policy-code") {
+    if (typeof value !== "string" || !Object.hasOwn(HOMING_RUNTIME_POLICY_CODES, value)) {
+      throw new TypeError("session troop homing runtime QUESTION policy is invalid");
+    }
+    return HOMING_RUNTIME_POLICY_CODES[value];
   }
   throw new TypeError("session troop source confidence value encoding is not admitted");
 }

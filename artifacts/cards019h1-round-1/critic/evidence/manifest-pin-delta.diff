@@ -1,0 +1,12 @@
+tests/integration-audit.test.js --- JavaScript
+20 } from "../scripts/integration-audit  20 } from "../scripts/integration-audit
+.. .js";                                 .. .js";
+21                                       21 
+22 const EXPECTED_MANIFEST_SHA256 =      22 const EXPECTED_MANIFEST_SHA256 =
+23   "d7e64a47fe3fead14b3bb07f0a636dd0d  23   "ad9cf6fcd67e51fffbc00e77f44c7b281
+.. db8f4ade8d120a2c087d01e6fff7bed";     .. 8af5d3f766436f4145048713f03cb51";
+24                                       24 
+25 function sha256LooksPinned(value) {   25 function sha256LooksPinned(value) {
+26   return /^[\da-f]{64}$/u.test(value  26   return /^[\da-f]{64}$/u.test(value
+.. );                                    .. );
+

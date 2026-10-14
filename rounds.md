@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 439 — 2026-10-13
+
+PIECE: CARDS-019H1 — Shared homing flag and target following, round 1
+
+VERDICT: PASS
+
+EVIDENCE: Independent immutable7a6bc18 shared-host ground contact124 after4 boundaries, air contact126 after6; both targets moved100millitiles, paths diverged from locked launch center, integer-motion/arrival oracle0mismatches across10boundaries, onecontacteach. Pending restore/fork/events/replay/bytes exact; target-deathfizzle/source-deathcontinuation/naturalrangecrossing pass. All14 prescribed gates pass; ordinary25/25, integration6/6 duration442139.911ms. ActualPID33653/session28674 exited0 naturally. Source tree4cdefc3b clean before/after; kernel523244B<=524288. 66nonK bindings identical; default8seed0/23 bytes exact. Rawhomingtrue provenance retained; rawspeed600 unknownunits distinct500milli/tick estimate, namedruntimepolicies remainQUESTION. Evidence artifacts/cards019h1-round-1/critic/.
+
+BIGGEST GAP: Historical calibration needs qualifying source or frame-measured footage for speed units and pursuit/contact policy semantics; parent H/H2 remain QUESTION. No historical parity or full-roster claim.
+
 ## Round 438 — 2026-10-13
 
 PIECE: COVERAGE-004 — Current release evidence guide, round 1

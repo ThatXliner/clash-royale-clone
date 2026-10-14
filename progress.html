@@ -27,11 +27,11 @@
   <p class="sub">Updated 2026-10-13 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
     <div class="card"><div class="num">249</div><div class="label">tracked pieces</div></div>
-    <div class="card"><div class="num">195</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">438</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">196</div><div class="label">passed</div></div>
+    <div class="card"><div class="num">439</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">30</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Independent reviews: <strong>CARDS-019H1</strong> and <strong>COVERAGE-004</strong>. Active build: <strong>CARDS-019D — Kilnkeeper collection portrait and lore</strong>. Complete arena integration and historical parity remain unproven.</p>
+  <p class="note">Homing runtime H1 accepted; historical H2 remains QUESTION. Collection-detail and guide reviews continue. Full arena integration and matching endurance remain pending.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -273,7 +273,7 @@
 <tr><td><code>CARDS-019K</code></td><td>Ordinary mobile ranged splash shared engine</td><td class="state-pass">PASS</td><td>6/6</td><td>2</td><td>Independent6cc corePASS: full audit6/RL12, profiles26/runtime6, ordinary21/source11/editor12/schema20, guard10+13/release4/host1. Actual AIcost5/cycle1, unit/building/tower281 contacts once, exact pending/damaged restore+fork; 18 provenance mutations reject and old8seed0/23 hashes unchanged. Kernel523929&lt;=524288. Homing remainsCARDS019H; baselinegame-session8/9 stale instant-squad assertion separatelyGAME001MS; no broad all-suite/historical parity claim.</td></tr>
 <tr><td><code>ART-019P</code></td><td>Original Kilnkeeper collection portrait</td><td class="state-pass">PASS</td><td>6/6</td><td>2</td><td>Independentexactc23 repair: all20priorrecords unchanged, correct512sq65626Bhash/license/authorship registration; originalsource/provenance/lore/renderbytes equal87da, native64/128readability inspected. Cleanmanifest6/6 andPages48files5733974B, allreleasehashes match; reference/sourcePNG/provenance/lore/artifacts/demoexcluded. No livecardUI/arena claim.</td></tr>
 <tr><td><code>CARDS-019H</code></td><td>Source-bounded homing projectile continuation</td><td class="state-question">QUESTION</td><td>0/0</td><td>0</td><td>Rawlinkedprojectile homingtrue documented; currenthost lockedimpact point differs. Need sourcebounded sharedhoming model and questioned ambiguousboundary/order semantics, actualmovingtarget interaction before fullcardfidelity claim.</td></tr>
-<tr><td><code>CARDS-019H1</code></td><td>Shared homing flag and target-following integration</td><td class="state-building">BUILDING</td><td>0/0</td><td>0</td><td>Frozen candidate 7a6bc18 passed canonical dual audit ad9cf6fc, old66 bindings and default8 seed0/23 bytes exact. Independent critic has passed ordinary25 and projectile6; remaining full gates pending. Historical calibration remains QUESTION.</td></tr>
+<tr><td><code>CARDS-019H1</code></td><td>Shared homing flag and target-following integration</td><td class="state-pass">PASS</td><td>25/25</td><td>1</td><td>Independent clean 7a6bc18 PASS: ordinary25/25 and all14 prescribed gates, fullaudit6/6 (442139ms). Ground/air contacts124/126 with0 oracle mismatches, exact pending restore/fork/events/replay; death/range branches pass. Old66 bindings and seed0/23 default8 bytes exact; kernel523244 under524288. Historical speed/turn/contact/death policies remain QUESTION in H2.</td></tr>
 <tr><td><code>CARDS-019H2</code></td><td>Historical homing motion and contact calibration</td><td class="state-question">QUESTION</td><td>0/0</td><td>0</td><td>Bounded primary-source check confirms raw600 andSupercell2019Princess tuning450→600 butno physicalunitdefinition. Character-scale600/60=10tiles/s remainshypothesis; runtime500milli/tick staysQUESTION. Need stationaryprojectilespawn/contact framecalibration andseparatemovingtarget/order/death evidence; scope artifacts/cards019h2-speed-scope/builder/scope.md.</td></tr>
 <tr><td><code>ART-019B</code></td><td>Original Kilnkeeper combat cutout asset</td><td class="state-pass">PASS</td><td>6/6</td><td>2</td><td>Independentexact1ba nativeChromeDPR1 actual13/26CSSrenders:face/tealapron/side-separatedlauncher/feet remain distinctat13. Realalpha0–254/transparentcorners,512sq47138Bhash/provenance/input/v1/portraitcontinuity verified; onlytargetmanifesthash/bytes change. Asset6/6/Pages49files5781112B/isolation pass. Actual540x960arena/UI stillCARDS019I.</td></tr>
 <tr><td><code>CARDS-019I</code></td><td>Kilnkeeper card and arena presentation</td><td class="state-todo">TODO</td><td>0/0</td><td>0</td><td>Core/assets accepted; sharedhomingflag integration mustpass before actualbrowserintegration. Historicalcalibration CARDS019H2 QUESTION.</td></tr>
@@ -291,6 +291,7 @@
   </div>
   <h2>Round trajectory</h2>
   <ol>
+<li><strong>R439 PASS</strong> · CARDS-019H1 — Shared target following<br>Actual ground/air motion oracle, death/range cases, restoration and all14 gates pass. Historical calibration remains QUESTION.</li>
 <li><strong>R438 FAIL</strong> · COVERAGE-004 — Current release evidence guide<br>Clean checker reads wrong legacy browser schema; correct input and regenerate immutable success receipt. Guide claims independently confirmed.</li>
       <li><strong>R437 PASS</strong> · ART-020B — Original Rivet Runners battle cutout, round 2<br>Native 13/26px face, vest, mallet and feet remain distinct; provenance, encoding, manifest and release exclusion pass. Real arena integration remains CARDS-020I.</li>
       <li><strong>R436 FAIL</strong> · ART-020B — Rivet Runners battle cutout<br>At13pxvest/feet/mallet merge; brightenandseparate shape blocks. Metadata6/6green doesnotverifyvisualreadability.</li>

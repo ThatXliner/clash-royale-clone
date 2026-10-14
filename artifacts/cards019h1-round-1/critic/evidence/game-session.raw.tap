@@ -1,0 +1,68 @@
+
+> moss-and-ember@0.0.0 test:game-session
+> node tests/game-session-runner.js game-session
+
+TAP version 13
+# Subtest: game session: one boundary commits south ingress and north proposal into one battle
+ok 1 - game session: one boundary commits south ingress and north proposal into one battle
+  ---
+  duration_ms: 59.509625
+  type: 'test'
+  ...
+# Subtest: game session: both sides materialize the default deck at exact boundaries and combat
+ok 2 - game session: both sides materialize the default deck at exact boundaries and combat
+  ---
+  duration_ms: 1460.071791
+  type: 'test'
+  ...
+# Subtest: game session: pause, resume, restart, chunks, and restore cuts preserve exact bytes
+ok 3 - game session: pause, resume, restart, chunks, and restore cuts preserve exact bytes
+  ---
+  duration_ms: 4303.805083
+  type: 'test'
+  ...
+# Subtest: game session: append-only transcript witness stays canonical across isolated ticks
+ok 4 - game session: append-only transcript witness stays canonical across isolated ticks
+  ---
+  duration_ms: 822.934292
+  type: 'test'
+  ...
+# Subtest: game session: full regulation/overtime/tiebreak reaches one frozen terminal result
+ok 5 - game session: full regulation/overtime/tiebreak reaches one frozen terminal result
+  ---
+  duration_ms: 33853.511541
+  type: 'test'
+  ...
+# Subtest: game session: illegal, insufficient, stale, duplicate, and hostile inputs are atomic
+ok 6 - game session: illegal, insufficient, stale, duplicate, and hostile inputs are atomic
+  ---
+  duration_ms: 31.78025
+  type: 'test'
+  ...
+# Subtest: game session: setup admission is scalar-safe, byte-exact, bounded, and non-observing
+ok 7 - game session: setup admission is scalar-safe, byte-exact, bounded, and non-observing
+  ---
+  duration_ms: 49.848208
+  type: 'test'
+  ...
+# Subtest: game session: transcript admission and causal replay reject all supplied witnesses
+ok 8 - game session: transcript admission and causal replay reject all supplied witnesses
+  ---
+  duration_ms: 322.203208
+  type: 'test'
+  ...
+# Subtest: game session: live simultaneous tower deaths and central terminal stop every authority exactly
+ok 9 - game session: live simultaneous tower deaths and central terminal stop every authority exactly
+  ---
+  duration_ms: 36361.374916
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 77366.897834

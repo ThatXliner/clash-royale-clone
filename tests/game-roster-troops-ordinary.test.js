@@ -201,6 +201,132 @@ function playerCommand(session, id) {
   });
 }
 
+function ceilingSquareRoot(value) {
+  let low = 0n;
+  let high = value + 1n;
+  while (low + 1n < high) {
+    const middle = (low + high) / 2n;
+    if (middle * middle < value) low = middle;
+    else high = middle;
+  }
+  return high * high === value ? high : high;
+}
+
+function expectedHomingAdvance(position, targetPosition, targetRadius, speed) {
+  const dx = BigInt(targetPosition.x) - BigInt(position.x);
+  const dy = BigInt(targetPosition.y) - BigInt(position.y);
+  const distanceSquared = dx * dx + dy * dy;
+  const reach = BigInt(targetRadius + speed);
+  if (distanceSquared <= reach * reach) {
+    return { contact: true, position: { ...targetPosition } };
+  }
+  const distance = ceilingSquareRoot(distanceSquared);
+  return {
+    contact: false,
+    position: {
+      x: Number(BigInt(position.x) + dx * BigInt(speed) / distance),
+      y: Number(BigInt(position.y) + dy * BigInt(speed) / distance),
+    },
+  };
+}
+
+function advanceSessionHomingBoundary(session, projectileId) {
+  const before = session.state.battle.projectiles.find(({ id }) => id === projectileId);
+  assert.ok(before, `pending projectile ${projectileId}`);
+  const events = session.stepMany(1);
+  const after = session.state.battle.projectiles.find(({ id }) => id === projectileId);
+  const impact = events.find(({ projectileId: id, type }) =>
+    id === projectileId && type === "projectile-impact");
+  const target = session.state.battle.units.find(({ id }) => id === before.targetId);
+  assert.ok(target, "the selected unit identity remains in the live host");
+  const expected = expectedHomingAdvance(before.position, target.position, target.radius, 500);
+  if (after !== undefined) {
+    assert.equal(expected.contact, false, "a projectile stays pending until body-radius arrival");
+    assert.deepEqual(after.position, expected.position,
+      "the host position follows the independently computed 500-per-tick step");
+    assert.deepEqual(after.targetPosition, target.position,
+      "the host refreshes the locked target's live center at each boundary");
+    assert.equal(after.targetId, before.targetId, "the host keeps its launch target identity");
+    assert.equal(after.impactTick, session.state.tick,
+      "the next contact boundary moves with the projectile instead of staying at launch time");
+  } else {
+    assert.ok(impact, "a removed homing projectile emits its single terminal impact");
+    assert.equal(expected.contact, true, "contact is checked against the moved target body");
+    assert.equal(impact.status, "contact");
+  }
+  return events;
+}
+
+function advanceLiveBattleHomingBoundary(battle, projectileId) {
+  const before = battle.state.projectiles.find(({ id }) => id === projectileId);
+  assert.ok(before, `pending homing projectile ${projectileId}`);
+  const events = battle.step();
+  const after = battle.state.projectiles.find(({ id }) => id === projectileId);
+  const impact = events.find(({ projectileId: id, type }) =>
+    id === projectileId && type === "projectile-impact");
+  const target = battle.state.units.find(({ id }) => id === before.targetId);
+  assert.ok(target?.alive, "the locked target remains a live unit during the pursuit fixture");
+  const expected = expectedHomingAdvance(before.position, target.position, target.radius, 500);
+  if (after !== undefined) {
+    assert.equal(expected.contact, false, "the projectile does not arrive before body-radius contact");
+    assert.deepEqual(after.position, expected.position,
+      "each shared-host coordinate matches the independent speed-and-rounding oracle");
+    assert.deepEqual(after.targetPosition, target.position,
+      "the shared host follows the selected target's current position");
+    assert.equal(after.targetId, before.targetId, "the projectile retains its selected target ID");
+    assert.equal(after.impactTick, battle.state.tick,
+      "the next boundary follows pursuit instead of a fixed launch-time deadline");
+  } else {
+    assert.ok(impact, "arrival removes the projectile only with its terminal contact event");
+    assert.equal(expected.contact, true, "terminal contact matches the independent body-radius oracle");
+    assert.equal(impact.status, "contact");
+  }
+  return {
+    events,
+    impact,
+    projectileStep: after === undefined ? null : {
+      x: after.position.x - before.position.x,
+      y: after.position.y - before.position.y,
+    },
+    target,
+  };
+}
+
+function continueToProjectileImpact(session, projectileId, maximumTicks = 900) {
+  const events = [];
+  for (let advanced = 0; advanced < maximumTicks; advanced += 1) {
+    const batch = session.stepMany(1);
+    events.push(...batch);
+    if (batch.some((event) => event.type === "projectile-impact" &&
+        event.projectileId === projectileId)) return events;
+  }
+  throw new Error(`projectile ${projectileId} did not contact or fizzle within ${maximumTicks} ticks`);
+}
+
+function liveBattleWithRadiusSpell(targetCardId, seed = 2) {
+  const coreIds = ["kilnkeeper", "squall-orb", targetCardId];
+  const deck = [...coreIds,
+    ...PLAYABLE_CARD_IDS.filter((id) => !coreIds.includes(id)).slice(0, 5)];
+  const setup = JSON.parse(createEditableGameSessionSetup(deck, seed));
+  return new LiveBattle(setup.battleSetup);
+}
+
+function continueLiveBattleProjectile(continuations, projectileId, maximumTicks = 900) {
+  for (let advanced = 0; advanced < maximumTicks; advanced += 1) {
+    const events = continuations.map((battle) => battle.step());
+    assert.deepEqual(events[1], events[0], `restored projectile events at continuation ${advanced}`);
+    assert.deepEqual(events[2], events[0], `forked projectile events at continuation ${advanced}`);
+    for (const battle of continuations.slice(1)) {
+      assert.equal(battle.serialize(), continuations[0].serialize());
+      assert.deepEqual(battle.replay, continuations[0].replay);
+    }
+    const impact = events[0].find(({ projectileId: id, type }) =>
+      id === projectileId && type === "projectile-impact");
+    if (impact !== undefined) return { events: events[0], impact };
+  }
+  throw new Error(`projectile ${projectileId} did not contact or fizzle within ${maximumTicks} ticks`);
+}
+
 function runtimeTargetMode(targetMode) {
   if (targetMode === "ground-and-air") return "air_and_ground";
   if (targetMode === "structures") return "buildings";
@@ -446,8 +572,28 @@ test("Kilnkeeper source questions and splash profile reject forged setup and pen
     (target) => { target.projectileSplashPolicy.radiusMillitiles -= 1; },
     (target) => { target.projectileSplashPolicy.targetLayers = ["ground"]; },
     (target) => { target.projectileSplashPolicy.enemiesOnly = false; },
+    (target) => { target.projectileSplashPolicy.homing = false; },
+    (target) => { target.projectileSplashPolicy.homingRuntimePolicy.pursuitSpeedMillitilesPerTick += 1; },
+    (target) => { target.projectileSplashPolicy.homingRuntimePolicy.directionUpdateRule = "launch-only"; },
+    (target) => { target.projectileSplashPolicy.homingRuntimePolicy.directionRoundingRule = "nearest"; },
+    (target) => { target.projectileSplashPolicy.homingRuntimePolicy.targetLockRule = "retarget"; },
+    (target) => { target.projectileSplashPolicy.homingRuntimePolicy.retargetRule = "nearest-enemy"; },
+    (target) => { target.projectileSplashPolicy.homingRuntimePolicy.targetDeathRule = "continue"; },
+    (target) => { target.projectileSplashPolicy.homingRuntimePolicy.sourceDeathRule = "fizzle"; },
+    (target) => { target.projectileSplashPolicy.homingRuntimePolicy.outOfRangeRule = "fizzle"; },
+    (target) => { target.projectileSplashPolicy.homingRuntimePolicy.outOfBoundsRule = "wrap"; },
+    (target) => { target.projectileSplashPolicy.homingRuntimePolicy.contactRadiusRule = "point"; },
+    (target) => { target.projectileSplashPolicy.homingRuntimePolicy.impactCenterRule = "launch-target"; },
+    (target) => { target.projectileSplashPolicy.homingRuntimePolicy.intermediateCollisionRule = "collide"; },
+    (target) => { target.projectileSplashPolicy.homingRuntimePolicy.arrivalBoundaryRule = "immediate"; },
+    (target) => { target.projectileSplashPolicy.homingRuntimePolicy.contactOrderRule = "after-damage"; },
     (target) => { target.projectileSplashPolicy.cardId = "brassbolt"; },
     (target) => { target.projectileSplashPolicy.sourceExport = "forged-catalog"; },
+    (target) => { target.projectileSplashSourceFacts.homing = false; },
+    (target) => {
+      target.sourceConfidencePolicy.fields.find(({ questionKey }) =>
+        questionKey === "kilnkeeper.homing-target-lock-rule").valueEncoding = "positive-integer";
+    },
     (target) => { target.projectileSplashSourceFacts.radiusMillitiles -= 1; },
     (target) => { target.projectileSplashSourceFacts.onlyEnemies = false; },
     (target) => { target.damage += 1; },
@@ -474,6 +620,23 @@ test("Kilnkeeper source questions and splash profile reject forged setup and pen
     "c883516f54f6c17ee77c15cf484b01da9ded22602214c3b0d42b1ab823bd3197");
   assert.equal(entity.projectileSplashSourceFacts.projectileDamageSourceUri,
     "https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats_projectile.json");
+  assert.equal(entity.projectileSplashSourceFacts.homing, true,
+    "the pinned raw flag is retained as an unverified source QUESTION");
+  assert.equal(entity.projectileSplashPolicy.homing, true);
+  assert.equal(entity.projectileSplashPolicy.homingRuntimePolicy.pursuitSpeedMillitilesPerTick, 500);
+  assert.ok(witness.questions.some(({ authoritative, confidence, disposition, key, source, value }) =>
+    key === "kilnkeeper.projectile-homing" && authoritative === false &&
+    confidence === "unverified" && disposition === "question" && value === 1 &&
+    source === "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile"));
+  for (const [field, value] of Object.entries(entity.projectileSplashPolicy.homingRuntimePolicy)) {
+    const key = `kilnkeeper.homing-${field.replace(/[A-Z]/gu, (letter) =>
+      `-${letter.toLowerCase()}`).replaceAll("_", "-")}`;
+    assert.ok(witness.questions.some(({ authoritative, confidence, disposition, key: questionKey,
+      source, value: questionValue }) => questionKey === key && authoritative === false &&
+      confidence === "unverified" && disposition === "question" &&
+      source === QUESTION_SOURCE && questionValue >= 1), `${field} remains a runtime QUESTION`);
+    assert.notEqual(value, undefined);
+  }
   const damageQuestion = witness.questions.find(({ key }) => key === "kilnkeeper.damage");
   assert.deepEqual(damageQuestion, {
     authoritative: false,
@@ -486,7 +649,8 @@ test("Kilnkeeper source questions and splash profile reject forged setup and pen
   for (const mutate of mutations) {
     const malformed = clone(witness);
     mutate(malformed.roster.find(({ id }) => id === "kilnkeeper").entities[0]);
-    assert.throws(() => parseLiveBattleSetup(canonical(malformed)), /splash|profile|source/u);
+    assert.throws(() => parseLiveBattleSetup(canonical(malformed)),
+      /homing|splash|profile|source|QUESTION/u);
   }
 
   for (const [key, value] of [
@@ -495,6 +659,8 @@ test("Kilnkeeper source questions and splash profile reject forged setup and pen
     ["kilnkeeper.projectile-splash-radius-millitiles", 0],
     ["kilnkeeper.projectile-splash-radius-millitiles", -1],
     ["kilnkeeper.projectile-splash-radius-millitiles", 1_500.5],
+    ["kilnkeeper.homing-pursuit-speed-millitiles-per-tick", 501],
+    ["kilnkeeper.homing-direction-update-rule", 99],
   ]) {
     const malformed = clone(witness);
     malformed.questions.find((question) => question.key === key).value = value;
@@ -506,6 +672,11 @@ test("Kilnkeeper source questions and splash profile reject forged setup and pen
   missingQuestion.questions = missingQuestion.questions.filter(({ key }) =>
     key !== "kilnkeeper.projectile-splash-radius-millitiles");
   assert.throws(() => parseLiveBattleSetup(canonical(missingQuestion)), /question|source|splash/u);
+  const missingHomingQuestion = clone(witness);
+  missingHomingQuestion.questions = missingHomingQuestion.questions.filter(({ key }) =>
+    key !== "kilnkeeper.homing-target-lock-rule");
+  assert.throws(() => parseLiveBattleSetup(canonical(missingHomingQuestion)),
+    /question|source|splash|homing/u);
 
   const battle = new LiveBattle(pairedProjectileSetup(["kilnkeeper", "cinder-host"]));
   battle.scheduleDeploy(canonical({
@@ -523,12 +694,23 @@ test("Kilnkeeper source questions and splash profile reject forged setup and pen
   }
   assert.ok(pending, "the actual LiveBattle host retains a source-bound pending splash projectile");
   assert.equal(LiveBattle.restore(pending).serialize(), pending);
+  for (const mutate of [
+    (projectile) => { projectile.position = { x: 1, y: 1 }; },
+    (projectile) => { projectile.impactTick = 1; },
+  ]) {
+    const forged = JSON.parse(pending);
+    const forgedMotion = {};
+    mutate(forgedMotion);
+    forged.homingProjectiles = [forgedMotion];
+    assert.throws(() => LiveBattle.restore(canonical(forged)), /snapshot|shape|homing/u,
+      "strict restore rejects injected position and next-boundary motion authority");
+  }
   for (const mutate of mutations) {
     const forged = JSON.parse(pending);
     const sourceEntity = forged.setup.roster
       .find(({ id }) => id === "kilnkeeper").entities[0];
     mutate(sourceEntity);
-    assert.throws(() => LiveBattle.restore(canonical(forged)), /splash|profile|source/u);
+    assert.throws(() => LiveBattle.restore(canonical(forged)), /homing|splash|profile|source/u);
   }
   const forgedQuestion = JSON.parse(pending);
   forgedQuestion.setup.questions.find(({ key }) =>
@@ -539,6 +721,234 @@ test("Kilnkeeper source questions and splash profile reject forged setup and pen
   forgedDamageQuestion.setup.questions.find(({ key }) => key === "kilnkeeper.damage").value += 1;
   assert.throws(() => LiveBattle.restore(canonical(forgedDamageQuestion)), /question|source|splash/u,
     "the actual pending snapshot rejects a forged projectile damage QUESTION");
+});
+
+test("Kilnkeeper follows moving ground and air targets through shared-host restore and fork", () => {
+  for (const [targetCardId, targetLayer, sourcePoint, targetPoint] of [
+    ["coilblade", "ground", { x: 5_000, y: 14_500 }, { x: 3_500, y: 19_500 }],
+    ["skymaul", "air", { x: 3_500, y: 14_500 }, { x: 5_000, y: 19_500 }],
+  ]) {
+    const battle = new LiveBattle(pairedProjectileSetup(["kilnkeeper", targetCardId]));
+    battle.scheduleDeploy(canonical({
+      cardId: targetCardId, point: targetPoint, sequence: 0,
+      side: "north", tick: 0,
+    }));
+    battle.scheduleDeploy(canonical({
+      cardId: "kilnkeeper", point: sourcePoint, sequence: 1,
+      side: "south", tick: 0,
+    }));
+    let launch = null;
+    for (let tick = 0; tick < 240 && launch === null; tick += 1) {
+      launch = battle.step().find(({ projectile, type }) => type === "projectile-launch" &&
+        projectile?.splashProfile?.homing === true) ?? null;
+    }
+    assert.ok(launch, `${targetLayer} target receives a Kilnkeeper projectile`);
+    const projectileId = launch.projectile.id;
+    const targetId = launch.projectile.targetId;
+    const launchTarget = battle.state.units.find(({ id }) => id === targetId);
+    assert.equal(launch.projectile.direction, "unit-to-unit");
+    assert.equal(launch.projectile.speed, 500);
+    assert.equal(launchTarget?.cardId, targetCardId);
+    assert.equal(launchTarget?.layer, targetLayer);
+    assert.deepEqual(launch.projectile.targetPosition, launchTarget.position);
+
+    const checkpoint = battle.serialize();
+    const continuations = [battle, LiveBattle.restore(checkpoint), battle.fork()];
+    assert.ok(continuations.every((candidate) => candidate.serialize() === checkpoint));
+    let movedAfterLaunch = false;
+    let impact = null;
+    let pursuitBoundaries = 0;
+    const projectileSteps = new Set();
+    for (; pursuitBoundaries < 120 && impact === null; pursuitBoundaries += 1) {
+      const boundaries = continuations.map((candidate) =>
+        advanceLiveBattleHomingBoundary(candidate, projectileId));
+      assert.deepEqual(boundaries[1].events, boundaries[0].events,
+        `${targetLayer} restored events match at pursuit boundary ${pursuitBoundaries}`);
+      assert.deepEqual(boundaries[2].events, boundaries[0].events,
+        `${targetLayer} fork events match at pursuit boundary ${pursuitBoundaries}`);
+      for (const candidate of continuations.slice(1)) {
+        assert.equal(candidate.serialize(), continuations[0].serialize());
+        assert.deepEqual(candidate.replay, continuations[0].replay);
+      }
+      const target = boundaries[0].target;
+      if (boundaries[0].projectileStep !== null) {
+        projectileSteps.add(`${boundaries[0].projectileStep.x},${boundaries[0].projectileStep.y}`);
+      }
+      movedAfterLaunch ||= target.position.x !== launch.projectile.targetPosition.x ||
+        target.position.y !== launch.projectile.targetPosition.y;
+      impact = boundaries[0].impact ?? null;
+    }
+    assert.ok(movedAfterLaunch, `${targetLayer} target changes position during flight`);
+    assert.ok(projectileSteps.size > 1,
+      `${targetLayer} homing changes its direction as the live target moves`);
+    assert.ok(impact, `${targetLayer} projectile reaches the declared contact radius`);
+    assert.equal(impact.targetId, targetId);
+    assert.equal(impact.tick, launch.tick + pursuitBoundaries,
+      "contact tick equals the independently stepped pursuit boundary");
+    const impacts = battle.replay.filter(({ projectileId: id, type }) =>
+      id === projectileId && type === "projectile-impact");
+    assert.equal(impacts.length, 1, "the locked target produces one terminal impact");
+    assert.equal(impacts[0].status, "contact");
+    const directHits = battle.replay.filter(({ projectileId: id, targetId: hitId, type }) =>
+      id === projectileId && hitId === targetId && type === "damage");
+    assert.equal(directHits.length, 1, "the selected target receives exactly one direct contact");
+    assert.equal(directHits[0].amount, 281);
+  }
+});
+
+test("Kilnkeeper's pending homing projectile fizzles once when its locked target dies", () => {
+  const battle = liveBattleWithRadiusSpell("cinder-host");
+  battle.scheduleDeploy(canonical({
+    cardId: "cinder-host", point: { x: 3_500, y: 21_000 }, sequence: 0,
+    side: "north", tick: 0,
+  }));
+  battle.scheduleDeploy(canonical({
+    cardId: "kilnkeeper", point: { x: 3_500, y: 14_500 }, sequence: 1,
+    side: "south", tick: 0,
+  }));
+  let launch = null;
+  for (let tick = 0; tick < 240 && launch === null; tick += 1) {
+    launch = battle.step().find(({ projectile, type }) => type === "projectile-launch" &&
+      projectile?.splashProfile?.homing === true)?.projectile ?? null;
+  }
+  assert.ok(launch, "the shared host launches before the locked troop is removed");
+  const target = battle.state.units.find(({ id }) => id === launch.targetId);
+  assert.equal(target.cardId, "cinder-host");
+  assert.equal(battle.scheduleSpell({
+    cardId: "squall-orb", point: target.position, sequence: 2,
+    side: "south", tick: battle.state.tick,
+  }).type, "spell-intent-scheduled");
+
+  for (let tick = 0; tick < 10 &&
+      battle.state.units.find(({ id }) => id === launch.targetId)?.alive; tick += 1) {
+    battle.step();
+  }
+  assert.equal(battle.state.units.find(({ id }) => id === launch.targetId)?.alive, false,
+    "the actual area spell kills the selected live target");
+  assert.ok(battle.state.projectiles.some(({ id }) => id === launch.id),
+    "the serialized homing projectile remains pending until its next boundary");
+
+  const checkpoint = battle.serialize();
+  const continuations = [battle, LiveBattle.restore(checkpoint), battle.fork()];
+  assert.ok(continuations.every((candidate) => candidate.serialize() === checkpoint));
+  const { impact } = continueLiveBattleProjectile(continuations, launch.id);
+  assert.equal(impact.status, "target_dead");
+  assert.equal(battle.replay.filter(({ projectileId, type }) =>
+    projectileId === launch.id && type === "projectile-impact").length, 1,
+  "a dead locked target produces one terminal fizzle event");
+  assert.equal(battle.replay.filter(({ projectileId, type }) =>
+    projectileId === launch.id && type === "damage").length, 0,
+  "a dead locked target receives no direct hit or secondary splash");
+});
+
+test("Kilnkeeper's launched homing projectile continues after its source dies and restores exactly", () => {
+  const battle = liveBattleWithRadiusSpell("coilblade");
+  battle.scheduleDeploy(canonical({
+    cardId: "coilblade", point: { x: 3_500, y: 21_400 }, sequence: 0,
+    side: "north", tick: 0,
+  }));
+  battle.scheduleDeploy(canonical({
+    cardId: "kilnkeeper", point: { x: 3_500, y: 14_500 }, sequence: 1,
+    side: "south", tick: 0,
+  }));
+  let launch = null;
+  for (let tick = 0; tick < 240 && launch === null; tick += 1) {
+    launch = battle.step().find(({ projectile, type }) => type === "projectile-launch" &&
+      projectile?.splashProfile?.homing === true)?.projectile ?? null;
+  }
+  assert.ok(launch, "the shared host launches before its source is removed");
+  const source = battle.state.units.find(({ id }) => id === launch.sourceId);
+  assert.equal(source.cardId, "kilnkeeper");
+  for (let sequence = 2; sequence < 4; sequence += 1) {
+    assert.equal(battle.scheduleSpell({
+      cardId: "squall-orb", point: source.position, sequence,
+      side: "north", tick: battle.state.tick,
+    }).type, "spell-intent-scheduled");
+  }
+  for (let tick = 0; tick < 10 &&
+      battle.state.units.find(({ id }) => id === launch.sourceId)?.alive; tick += 1) {
+    battle.step();
+  }
+  assert.equal(battle.state.units.find(({ id }) => id === launch.sourceId)?.alive, false,
+    "the actual area spells kill the projectile source");
+  assert.ok(battle.state.projectiles.some(({ id }) => id === launch.id),
+    "source death leaves the already launched projectile pending");
+
+  const checkpoint = battle.serialize();
+  const continuations = [battle, LiveBattle.restore(checkpoint), battle.fork()];
+  assert.ok(continuations.every((candidate) => candidate.serialize() === checkpoint));
+  const { impact } = continueLiveBattleProjectile(continuations, launch.id);
+  assert.equal(impact.status, "contact");
+  assert.equal(battle.state.units.find(({ id }) => id === launch.sourceId)?.alive, false);
+  const hits = battle.replay.filter(({ projectileId, type }) =>
+    projectileId === launch.id && type === "damage");
+  assert.equal(hits.length, 1, "the source-dead projectile still makes one primary contact");
+  assert.equal(hits[0].targetId, launch.targetId);
+  assert.equal(hits[0].amount, 281);
+});
+
+test("Kilnkeeper follows its locked target after it leaves the launch-origin range", () => {
+  const battle = new LiveBattle(pairedProjectileSetup(["kilnkeeper", "stonehauler"]));
+  assert.equal(battle.scheduleDeploy(canonical({
+    cardId: "stonehauler", point: { x: 3_500, y: 21_000 }, sequence: 0,
+    side: "north", tick: 0,
+  })).type, "deploy-scheduled");
+  assert.equal(battle.scheduleDeploy(canonical({
+    cardId: "kilnkeeper", point: { x: 3_500, y: 14_500 }, sequence: 1,
+    side: "south", tick: 1_010,
+  })).type, "deploy-scheduled");
+
+  let launch = null;
+  for (let tick = 0; tick < 1_150 && launch === null; tick += 1) {
+    launch = battle.step().find(({ projectile, type }) => type === "projectile-launch" &&
+      projectile?.splashProfile?.homing === true &&
+      battle.state.units.find(({ id }) => id === projectile.targetId)?.cardId === "stonehauler") ?? null;
+  }
+  assert.ok(launch, "the shared host launches at the still-in-range Stonehauler");
+  const projectileId = launch.projectile.id;
+  const targetId = launch.projectile.targetId;
+  const source = battle.state.units.find(({ id }) => id === launch.projectile.sourceId);
+  const target = battle.state.units.find(({ id }) => id === targetId);
+  assert.equal(target?.cardId, "stonehauler");
+  assert.ok(source);
+  const runtimePolicy = launch.projectile.splashProfile.homingRuntimePolicy;
+  assert.equal(runtimePolicy.outOfRangeRule, "continue-after-launch-range");
+  const launchOrigin = launch.projectile.origin;
+  const rangeLimit = source.reach + source.radius + target.radius;
+  const rangeLimitSquared = BigInt(rangeLimit) * BigInt(rangeLimit);
+  const continuations = [battle];
+  let rangeCrossing = null;
+  for (let tick = 0; tick < 30 && rangeCrossing === null; tick += 1) {
+    const boundary = advanceLiveBattleHomingBoundary(battle, projectileId);
+    const liveTarget = battle.state.units.find(({ id }) => id === targetId);
+    const dx = BigInt(liveTarget.position.x - launchOrigin.x);
+    const dy = BigInt(liveTarget.position.y - launchOrigin.y);
+    if (dx * dx + dy * dy > rangeLimitSquared) {
+      assert.ok(battle.state.projectiles.some(({ id }) => id === projectileId),
+        "the homing projectile remains pending after its target exits launch-origin range");
+      assert.equal(boundary.impact, undefined,
+        "range exit does not substitute an immediate fizzle for live pursuit");
+      rangeCrossing = { tick: battle.state.tick - 1, targetPosition: { ...liveTarget.position } };
+    }
+  }
+  assert.ok(rangeCrossing, "the live target crosses beyond the immutable launch-origin range");
+  const checkpoint = battle.serialize();
+  continuations.push(LiveBattle.restore(checkpoint), battle.fork());
+  assert.ok(continuations.every((candidate) => candidate.serialize() === checkpoint));
+  const { impact } = continueLiveBattleProjectile(continuations, projectileId);
+  assert.equal(impact.status, "contact",
+    "the original target remains tracked through the out-of-range segment");
+  assert.equal(impact.targetId, targetId);
+  assert.ok(impact.tick > rangeCrossing.tick,
+    "contact follows a real pending interval after the launch-range crossing");
+  const hits = battle.replay.filter(({ projectileId: id, sourceId, type }) =>
+    id === projectileId && sourceId === launch.projectile.sourceId && type === "damage");
+  const primaryHits = hits.filter(({ targetId: id }) => id === targetId);
+  assert.equal(primaryHits.length, 1, "the out-of-range pursuit resolves one primary hit");
+  assert.equal(primaryHits[0].amount, 281);
+  assert.equal(new Set(hits.map(({ targetId: id }) => id)).size, hits.length,
+    "primary and splash contacts never damage one victim twice");
+  assert.ok(hits.every(({ amount }) => amount === 281));
 });
 
 test("ordinary splash plans stable mixed troop, building, and tower contacts without a duplicate primary", () => {
@@ -644,43 +1054,44 @@ test("Kilnkeeper damages bounded enemy splash victims through GameSession and re
     cardId === "kilnkeeper").length, 1);
 
   const checkpoint = session.serialize();
-  const primaryAtLaunch = session.state.battle.units.find(({ id }) =>
-    id === projectile.targetId);
+  const launchId = projectile.id;
+  const launch = session.replay.find(({ projectile: record, type }) =>
+    type === "projectile-launch" && record?.id === launchId);
+  assert.ok(launch, "the shared host records the current projectile launch");
+  const primaryAtLaunch = session.state.battle.units.find(({ id }) => id === projectile.targetId);
   assert.ok(primaryAtLaunch?.alive);
-  assert.deepEqual(primaryAtLaunch.position, projectile.targetPosition,
-    "the projectile locks its impact center to the primary's launch position");
+  assert.deepEqual(primaryAtLaunch.position, launch.projectile.targetPosition,
+    "the launch receipt captures the selected target center at launch");
+  assert.deepEqual(projectile.position, launch.projectile.origin,
+    "a newly launched homing projectile begins at its source");
   const restored = GameSession.restore(checkpoint);
   assert.equal(restored.serialize(), checkpoint);
-  const ticksThroughImpact = projectile.impactTick - session.state.tick + 1;
-  assert.deepEqual(restored.stepMany(ticksThroughImpact), session.stepMany(ticksThroughImpact));
+  const restoredEvents = continueToProjectileImpact(restored, launchId);
+  const directEvents = continueToProjectileImpact(session, launchId);
+  assert.deepEqual(restoredEvents, directEvents,
+    "actual pending projectiles follow the same target after GameSession restore");
   assert.equal(restored.serialize(), session.serialize());
   assert.equal(restored.replayBytes(), session.replayBytes());
 
-  const launchId = projectile.id;
   const impact = session.replay.find(({ projectileId, type }) =>
     type === "projectile-impact" && projectileId === launchId);
   assert.equal(impact?.status, "contact");
   const primaryAtImpact = session.state.battle.units.find(({ id }) =>
     id === projectile.targetId);
-  assert.notDeepEqual(primaryAtImpact.position, projectile.targetPosition,
-    "the enemy primary moves after launch while the projectile keeps its locked center");
-  const primaryDx = BigInt(primaryAtImpact.position.x - projectile.targetPosition.x);
-  const primaryDy = BigInt(primaryAtImpact.position.y - projectile.targetPosition.y);
-  const primaryLimit = BigInt(projectile.splashProfile.radiusMillitiles + primaryAtImpact.radius);
-  assert.ok(primaryDx * primaryDx + primaryDy * primaryDy <= primaryLimit * primaryLimit,
-    "the moving primary remains inside the impact-centered radius when directly hit");
+  assert.notDeepEqual(primaryAtImpact.position, launch.projectile.targetPosition,
+    "the locked target moves after launch and is tracked to its live center");
   const hits = session.replay.filter(({ projectileId, type }) =>
     type === "damage" && projectileId === launchId);
   const targetIds = hits.map(({ targetId }) => targetId);
-  assert.deepEqual(targetIds, [projectile.targetId, 3, 11],
-  "direct target resolves once, then eligible members resolve in stable ID order");
+  assert.equal(targetIds[0], projectile.targetId,
+    "direct target resolves first at its live impact center");
   assert.deepEqual(targetIds.slice(1), [...targetIds.slice(1)].sort((left, right) => left - right));
   assert.equal(new Set(targetIds).size, targetIds.length, "a projectile never hits a unit twice");
   assert.ok(hits.every(({ amount }) => amount === 281));
   assert.ok(!targetIds.includes(2), "the enemy outside the splash circle is untouched");
   const outside = session.state.battle.units.find(({ id }) => id === 2);
-  const outsideDx = BigInt(outside.position.x - projectile.targetPosition.x);
-  const outsideDy = BigInt(outside.position.y - projectile.targetPosition.y);
+  const outsideDx = BigInt(outside.position.x - primaryAtImpact.position.x);
+  const outsideDy = BigInt(outside.position.y - primaryAtImpact.position.y);
   const outsideLimit = BigInt(projectile.splashProfile.radiusMillitiles + outside.radius);
   assert.ok(outsideDx * outsideDx + outsideDy * outsideDy > outsideLimit * outsideLimit);
 });
@@ -711,8 +1122,9 @@ test("Kilnkeeper GameSession impacts damage an enemy building once through canon
   assert.equal(projectile.structureId, `building:${building.id}`);
   const checkpoint = session.serialize();
   const restored = GameSession.restore(checkpoint);
-  const ticksThroughImpact = projectile.impactTick - session.state.tick + 1;
-  assert.deepEqual(restored.stepMany(ticksThroughImpact), session.stepMany(ticksThroughImpact));
+  const restoredImpactEvents = continueToProjectileImpact(restored, projectile.id);
+  const directImpactEvents = continueToProjectileImpact(session, projectile.id);
+  assert.deepEqual(restoredImpactEvents, directImpactEvents);
   assert.equal(restored.serialize(), session.serialize());
   assert.equal(restored.replayBytes(), session.replayBytes());
 
@@ -761,8 +1173,9 @@ test("Kilnkeeper GameSession crown-tower impact resolves exactly one primary con
   assert.equal(projectile.structureId, towerId);
   const checkpoint = session.serialize();
   const restored = GameSession.restore(checkpoint);
-  const ticksThroughImpact = projectile.impactTick - session.state.tick + 1;
-  assert.deepEqual(restored.stepMany(ticksThroughImpact), session.stepMany(ticksThroughImpact));
+  const restoredImpactEvents = continueToProjectileImpact(restored, projectile.id);
+  const directImpactEvents = continueToProjectileImpact(session, projectile.id);
+  assert.deepEqual(restoredImpactEvents, directImpactEvents);
   assert.equal(restored.serialize(), session.serialize());
   assert.equal(restored.replayBytes(), session.replayBytes());
 

@@ -77,6 +77,13 @@ import {
   ordinaryProjectileSplashEntityShape,
   planOrdinaryProjectileSplashImpact,
 } from "./ordinary-projectile-splash.js";
+import {
+  advanceOrdinaryProjectileQueue,
+  ordinaryProjectileImpactTargetStatus,
+  ordinaryProjectileTargetInRange,
+  ordinaryProjectileTravelTicks,
+  resolveOrdinaryProjectileHomingTarget,
+} from "./ordinary-projectile-homing.js";
 
 const SPELL_TOWER_FOOTPRINT_RADII = Object.freeze({ central: 2_829, lane: 2_122 });
 
@@ -2160,36 +2167,6 @@ function compactHistory(history) {
 }
 
 
-function inRange(attacker, target, range) {
-  const dx = BigInt(attacker.position.x) - BigInt(target.position.x);
-  const dy = BigInt(attacker.position.y) - BigInt(target.position.y);
-  const radius = BigInt(attacker.radius + range + target.radius);
-  return dx * dx + dy * dy <= radius * radius;
-}
-
-function travelTicks(attacker, target, speed) {
-  const dx = BigInt(attacker.position.x) - BigInt(target.position.x);
-  const dy = BigInt(attacker.position.y) - BigInt(target.position.y);
-  const distanceSquared = dx * dx + dy * dy;
-  const contact = BigInt(target.radius);
-  if (distanceSquared <= contact * contact) return 0;
-  const velocity = BigInt(speed);
-  const reached = (ticks) => {
-    const distance = contact + velocity * ticks;
-    return distance * distance >= distanceSquared;
-  };
-  let low = 0n;
-  let high = 1n;
-  while (!reached(high)) high *= 2n;
-  while (low + 1n < high) {
-    const middle = (low + high) / 2n;
-    if (reached(middle)) high = middle;
-    else low = middle;
-  }
-  if (high > BigInt(MAX_TICK)) throw new RangeError("projectile flight exceeds tick bounds");
-  return Number(high);
-}
-
 function projectileIdentity(direction, sourceId, attackSequence, projectileId) {
   if (!PROJECTILE_DIRECTIONS.has(direction)) {
     throw new TypeError("projectile identity direction is invalid");
@@ -2967,7 +2944,9 @@ class BattleCombat {
       const targetUnit = target === null ? null : this.#unit(target.id);
       const targetStructure = target === null ? null : externalById.get(target.id) ?? null;
       const attackTarget = targetUnit ?? targetStructure;
-      const eligible = attackTarget !== null && inRange(attacker, attackTarget, attacker.reach);
+      const eligible = attackTarget !== null && ordinaryProjectileTargetInRange(
+        attacker, attackTarget, attacker.reach,
+      );
       const attackInput = {
         targetEligible: eligible,
         targetId: eligible ? attackTarget.id : null,
@@ -2985,19 +2964,29 @@ class BattleCombat {
       }
     }
 
-    const dueProjectiles = this.#projectiles
-      .filter((projectile) => projectile.impactTick === tick)
-      .sort((left, right) => left.id - right.id);
+    const queue = advanceOrdinaryProjectileQueue({
+      maxTick: MAX_TICK,
+      projectiles: this.#projectiles,
+      resolveTarget: (projectile) => resolveOrdinaryProjectileHomingTarget(projectile,
+        externalById, this.#units, this.#damage, controls),
+      tick,
+    });
+    const dueProjectiles = queue.due;
+    this.#projectiles = queue.pending;
     const hits = [];
     const hitSources = [];
     for (const attack of attacks) {
-      const duration = attack.attacker.delivery === "projectile"
-        ? travelTicks(attack.attacker, attack.target, attack.attacker.projectileSpeed)
-        : 0;
+      const homing = attack.attacker.splashProfile?.homing === true;
+      const duration = attack.attacker.delivery === "projectile" && !homing
+        ? ordinaryProjectileTravelTicks(
+          attack.attacker, attack.target, attack.attacker.projectileSpeed, MAX_TICK,
+        ) : 0;
       let projectile = null;
       let projectileProvenance = null;
       if (attack.attacker.delivery === "projectile") {
-        if (tick + duration > MAX_TICK) throw new RangeError("projectile impact exceeds tick bounds");
+        if (homing ? tick >= MAX_TICK : tick + duration > MAX_TICK) {
+          throw new RangeError("projectile impact exceeds tick bounds");
+        }
         const direction = attack.structure === null ? "unit-to-unit" : "unit-to-tower";
         projectileProvenance = projectileIdentity(
           direction,
@@ -3011,7 +3000,7 @@ class BattleCombat {
           damage: attack.attacker.damage,
           direction: projectileProvenance.direction,
           id: this.#nextProjectileId,
-          impactTick: tick + duration,
+          impactTick: homing ? tick + 1 : tick + duration,
           launchTick: tick,
           origin: { ...attack.attacker.position },
           projectileId: projectileProvenance.projectileId,
@@ -3021,6 +3010,7 @@ class BattleCombat {
           speed: attack.attacker.projectileSpeed,
           targetId: attack.target.id,
           targetPosition: { ...attack.target.position },
+          ...(homing ? { position: { ...attack.attacker.position } } : {}),
         };
         if (attack.attacker.splashProfile !== undefined) {
           projectile.splashProfile = clone(attack.attacker.splashProfile);
@@ -3048,7 +3038,7 @@ class BattleCombat {
         : withProjectileIdentity(attackEvent, projectileProvenance));
       if (attack.structure !== null) {
         const structureAttack = {
-          contactTick: tick + duration,
+          ...(homing ? {} : { contactTick: tick + duration }),
           attackSequence: attack.sequence,
           damage: attack.attacker.damage,
           delivery: attack.attacker.delivery,
@@ -3083,7 +3073,7 @@ class BattleCombat {
           tick,
           type: "projectile-launch",
         }, projectileProvenance));
-        if (duration === 0) dueProjectiles.push(projectile);
+        if (duration === 0 && !homing) dueProjectiles.push(projectile);
       }
     }
     dueProjectiles.sort((left, right) => left.id - right.id);
@@ -3102,14 +3092,10 @@ class BattleCombat {
       if (splashProfile !== undefined && splashAttacker === null) {
         throw new TypeError("splash projectile source unit is missing");
       }
-      const status = Object.hasOwn(projectile, "structureId")
-        ? targetStructure === null || targetStructure.structureId !== projectile.structureId ||
-          targetStructure.side !== projectile.structureSide ||
-          targetStructure.kind !== projectile.structureKind ||
-          targetStructure.layer !== projectile.structureLayer
-          ? "target_missing"
-          : !targetStructure.alive || !targetStructure.targetable ? "target_dead" : "contact"
-        : health === null ? "target_missing" : health.dead ? "target_dead" : "contact";
+      const { homing, primaryTargetable, status } = ordinaryProjectileImpactTargetStatus(
+        projectile, targetStructure, health,
+        controls.get(projectile.targetId)?.targetable ?? true,
+      );
       const primaryTarget = targetStructure ?? this.#unit(projectile.targetId);
       const unitTargets = splashProfile === undefined ? [] : this.#units.map((unit) => ({
         alive: !this.#damage.get(unit.id).dead,
@@ -3123,7 +3109,8 @@ class BattleCombat {
       const impact = planOrdinaryProjectileSplashImpact({
         attackerId: projectile.attackerId,
         attackSequence: projectile.attackSequence,
-        center: projectile.targetPosition,
+        center: homing && status !== "contact"
+          ? projectile.position : projectile.targetPosition,
         damage: projectile.damage,
         enemySide: splashAttacker === null ? null :
           (splashAttacker.side === "north" ? "south" : "north"),
@@ -3131,9 +3118,8 @@ class BattleCombat {
         primaryStatus: status,
         primaryTarget,
         primaryTargetId: projectile.targetId,
-        primaryTargetable: targetStructure?.targetable ??
-          controls.get(projectile.targetId)?.targetable ?? true,
-        profile: splashProfile ?? null,
+        primaryTargetable,
+        profile: homing && status !== "contact" ? null : splashProfile ?? null,
         projectileId: projectile.id,
         structures: external.structures,
         tick,

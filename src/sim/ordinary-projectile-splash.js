@@ -22,8 +22,8 @@ const MAX_TICK = 1_000_000_000;
 const MAX_STAT = 1_000_000_000;
 
 const UNIT_PROFILE_KEYS = Object.freeze([
-  "archetypeId", "cardId", "catalogId", "enemiesOnly", "radiusMillitiles",
-  "sourceExport", "targetLayers",
+  "archetypeId", "cardId", "catalogId", "enemiesOnly", "homing",
+  "homingRuntimePolicy", "radiusMillitiles", "sourceExport", "targetLayers",
 ]);
 const SOURCE_FACT_KEYS = Object.freeze([
   "aoeToAir", "aoeToGround", "characterAreaDamageRadiusMillitiles", "homing",
@@ -128,6 +128,10 @@ export function checkedCombatUnit(value, label = "battle combat unit") {
     }
   } else {
     integer(unit.projectileSpeed, 1, MAX_STAT, `${label}.projectileSpeed`);
+    if (profile?.homing === true &&
+        unit.projectileSpeed !== profile.homingRuntimePolicy.pursuitSpeedMillitilesPerTick) {
+      throw new TypeError(`${label}.projectileSpeed diverges from its homing runtime QUESTION`);
+    }
   }
   return { ...unit, position: { ...position },
     ...(profile === null ? {} : { splashProfile: profile }) };

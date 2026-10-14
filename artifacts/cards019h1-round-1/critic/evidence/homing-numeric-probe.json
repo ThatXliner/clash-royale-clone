@@ -1,0 +1,210 @@
+[
+  {
+    "targetCardId": "coilblade",
+    "targetLayer": "ground",
+    "launchTick": 120,
+    "projectileId": 1,
+    "targetId": 1,
+    "launchProjectilePosition": {
+      "x": 4500,
+      "y": 14500
+    },
+    "launchTargetCenter": {
+      "x": 3500,
+      "y": 16475
+    },
+    "launchTargetRadius": 500,
+    "contactTick": 124,
+    "pursuitBoundaries": 4,
+    "targetMovedBoundaries": 4,
+    "oracleChecks": 4,
+    "oracleMismatches": 0,
+    "uniqueLiveStepVectors": 3,
+    "firstFiveLivePositions": [
+      {
+        "tick": 122,
+        "x": 4272,
+        "y": 14944
+      },
+      {
+        "tick": 123,
+        "x": 4042,
+        "y": 15387
+      },
+      {
+        "tick": 124,
+        "x": 3807,
+        "y": 15827
+      }
+    ],
+    "targetPositions": [
+      {
+        "tick": 122,
+        "x": 3500,
+        "y": 16450
+      },
+      {
+        "tick": 123,
+        "x": 3500,
+        "y": 16425
+      },
+      {
+        "tick": 124,
+        "x": 3500,
+        "y": 16400
+      },
+      {
+        "tick": 125,
+        "x": 3500,
+        "y": 16375
+      }
+    ],
+    "firstLockedPathDivergence": {
+      "tick": 122,
+      "live": {
+        "x": 4272,
+        "y": 14944
+      },
+      "locked": {
+        "x": 4275,
+        "y": 14946
+      }
+    },
+    "targetDisplacementFromLaunchAtContact": 100,
+    "launchPointTravelTicksAtRuntimeSpeed": 4,
+    "contactPosition": {
+      "x": 3500,
+      "y": 16375
+    },
+    "targetAtContact": {
+      "x": 3500,
+      "y": 16375
+    },
+    "impactStatus": "contact",
+    "liveContactCenterDiffersFromLockedLaunchCenter": true,
+    "exactlyOneImpact": true,
+    "snapshotValidation": {
+      "restoredByteExact": true,
+      "injectedMotionRejected": true,
+      "injectedStateRejected": true,
+      "tamperedProfileRejected": true,
+      "tamperedCausalBattleStateRejected": true,
+      "serializedMotionWitnessFieldAbsent": true,
+      "battleHistoryRecordsAtPendingLaunch": 244
+    }
+  },
+  {
+    "targetCardId": "skymaul",
+    "targetLayer": "air",
+    "launchTick": 120,
+    "projectileId": 1,
+    "targetId": 1,
+    "launchProjectilePosition": {
+      "x": 3500,
+      "y": 14500
+    },
+    "launchTargetCenter": {
+      "x": 4421,
+      "y": 17570
+    },
+    "launchTargetRadius": 500,
+    "contactTick": 126,
+    "pursuitBoundaries": 6,
+    "targetMovedBoundaries": 6,
+    "oracleChecks": 6,
+    "oracleMismatches": 0,
+    "uniqueLiveStepVectors": 2,
+    "firstFiveLivePositions": [
+      {
+        "tick": 122,
+        "x": 3643,
+        "y": 14978
+      },
+      {
+        "tick": 123,
+        "x": 3786,
+        "y": 15456
+      },
+      {
+        "tick": 124,
+        "x": 3929,
+        "y": 15934
+      },
+      {
+        "tick": 125,
+        "x": 4073,
+        "y": 16412
+      },
+      {
+        "tick": 126,
+        "x": 4217,
+        "y": 16890
+      }
+    ],
+    "targetPositions": [
+      {
+        "tick": 122,
+        "x": 4416,
+        "y": 17554
+      },
+      {
+        "tick": 123,
+        "x": 4412,
+        "y": 17537
+      },
+      {
+        "tick": 124,
+        "x": 4407,
+        "y": 17522
+      },
+      {
+        "tick": 125,
+        "x": 4402,
+        "y": 17506
+      },
+      {
+        "tick": 126,
+        "x": 4397,
+        "y": 17489
+      },
+      {
+        "tick": 127,
+        "x": 4393,
+        "y": 17474
+      }
+    ],
+    "firstLockedPathDivergence": {
+      "tick": 125,
+      "live": {
+        "x": 4073,
+        "y": 16412
+      },
+      "locked": {
+        "x": 4072,
+        "y": 16412
+      }
+    },
+    "targetDisplacementFromLaunchAtContact": 100,
+    "launchPointTravelTicksAtRuntimeSpeed": 6,
+    "contactPosition": {
+      "x": 4393,
+      "y": 17474
+    },
+    "targetAtContact": {
+      "x": 4393,
+      "y": 17474
+    },
+    "impactStatus": "contact",
+    "liveContactCenterDiffersFromLockedLaunchCenter": true,
+    "exactlyOneImpact": true,
+    "snapshotValidation": {
+      "restoredByteExact": true,
+      "injectedMotionRejected": true,
+      "injectedStateRejected": true,
+      "tamperedProfileRejected": true,
+      "tamperedCausalBattleStateRejected": true,
+      "serializedMotionWitnessFieldAbsent": true,
+      "battleHistoryRecordsAtPendingLaunch": 244
+    }
+  }
+]
