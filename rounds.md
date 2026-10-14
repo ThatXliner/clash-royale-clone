@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 433 — 2026-10-13
+
+PIECE: CARDS-019K — Source-bounded Kilnkeeper shared splash core, round 2
+
+VERDICT: PASS
+
+EVIDENCE: Independent immutable6cc8656 full RL12/12 (108947ms), fullaudit6/6 (432397ms), profiles26/runtime6, ordinary21/source11/editor12/schema20, guards10+13/release4/host1. Audit d7e64a47fe3fead14b3bb07f0a636dd0ddb8f4ade8d120a2c087d01e6fff7bed; twofullsweepsmatch andold66bindingsunchanged. Actual AI spends5/cyclesonce; actualunit/building/towercontacts281once; pending/damagedrestore+fork bytes/events exact. Boundary1500included,1501outside/friendly/dead/untargetableexcluded; movedoutsideprimary nothit. Eighteen provenance/confidence mutationsreject. Old8seed0/23setup/session/replayhashesequalbaseline0cbd. All510sourcehashesunchanged; kernel523929<=524288. Evidence56files hashverified in artifacts/cards019-core-round-2/critic/. Broadgame-session8/9 staleimmediate-squadassertion failsidenticallyonbaseline, separatelyGAME001MS. No UI/current20-cardendurance/fullhistoricalhomingclaim.
+
+BIGGEST GAP: No remaining bounded splash-core gap; historical homing remains CARDS019H and preexisting shared-session squad assertion is GAME001MS.
+
 ## Round 432 — 2026-10-13
 
 PIECE: CARDS-019K — Source-bounded Kilnkeeper shared splash core, round 1

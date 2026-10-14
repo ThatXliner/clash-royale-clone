@@ -27,7 +27,11 @@ const UNIT_PROFILE_KEYS = Object.freeze([
 ]);
 const SOURCE_FACT_KEYS = Object.freeze([
   "aoeToAir", "aoeToGround", "characterAreaDamageRadiusMillitiles", "homing",
-  "onlyEnemies", "radiusMillitiles", "speedRaw",
+  "onlyEnemies", "projectileDamage", "projectileDamageLinkedProjectileId",
+  "projectileDamagePerLevelIndex", "projectileDamageRarity",
+  "projectileDamageSourceCommit", "projectileDamageSourceFile",
+  "projectileDamageSourceFileSha256", "projectileDamageSourceUri",
+  "projectileDamageTournamentLevel", "radiusMillitiles", "speedRaw",
 ]);
 const SETUP_FIELDS = Object.freeze([
   "projectileSplashPolicy", "projectileSplashSourceFacts",
@@ -163,7 +167,8 @@ export function assertOrdinaryProjectileSplashReceipt(entity, cardId, archetypeI
   const sourceFacts = exact(entity.projectileSplashSourceFacts, SOURCE_FACT_KEYS,
     `${label}.projectileSplashSourceFacts`);
   const expected = getOrdinaryProjectileSplashSourceFacts(cardId, archetypeId);
-  if (expected === null || SOURCE_FACT_KEYS.some((key) => sourceFacts[key] !== expected[key])) {
+  if (expected === null || SOURCE_FACT_KEYS.some((key) => sourceFacts[key] !== expected[key]) ||
+      entity.damage !== expected.projectileDamage) {
     throw new TypeError(`${label} splash source facts diverge from their pinned receipt`);
   }
   return { profile, sourceFacts };

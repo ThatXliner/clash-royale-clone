@@ -1,0 +1,50 @@
+{
+  "baseHead": "cd98224cfb5d19f0b92c953354fa0f87162ded10",
+  "command": "node scripts/integration-audit.js --runs=2 --output=artifacts/cards019k-scope/builder/verification/round432-integration-manifest.json",
+  "exitCode": 0,
+  "manifest": {
+    "bytes": 534750,
+    "path": "artifacts/cards019k-scope/builder/verification/round432-integration-manifest.json",
+    "sha256": "d7e64a47fe3fead14b3bb07f0a636dd0ddb8f4ade8d120a2c087d01e6fff7bed"
+  },
+  "runHashes": [
+    "d7e64a47fe3fead14b3bb07f0a636dd0ddb8f4ade8d120a2c087d01e6fff7bed",
+    "d7e64a47fe3fead14b3bb07f0a636dd0ddb8f4ade8d120a2c087d01e6fff7bed"
+  ],
+  "covered": 67,
+  "supported": 67,
+  "uniqueSupportedIds": 62,
+  "questionOnly": 5,
+  "selectors": 47,
+  "shippingIsolationSha256": "730b4a2c392961374c3f35eb831fecd7e974c6859b26a64646670007835293e8",
+  "fixtureContinuity": {
+    "bindingsFile": "tests/fixtures/integration-occurrence-bindings.json",
+    "beforeDocumentSha256": "1ec37fad909061957e37d20ee07840de4a1753ad6fe6211f72f36dc01543c294",
+    "afterDocumentSha256": "af6fbd75f0f98ae859add95db42b1b14ee08582d913642592a6899e3e3fc1fff",
+    "entriesBefore": 67,
+    "entriesAfter": 67,
+    "changedExistingEntries": [
+      {
+        "key": "createOrdinaryProjectileSplashCatalog\u0000kilnkeeper",
+        "before": "68f1df69efee6d8069cee72542c962d8a62f6919b9d069c9096975fb62222044",
+        "after": "c1f165e5249c92c84d9867d10e10ea15b007bb8f7d9e6886e6bb807a1de17255"
+      }
+    ],
+    "addedEntries": 0,
+    "removedEntries": 0,
+    "unchangedOtherEntries": 66,
+    "allOtherBindingsExactlyRetained": true
+  },
+  "sourceHashCheck": {
+    "preAuditHashes": "artifacts/cards019k-scope/builder/verification/round432-pre-audit-source-sha256.txt",
+    "frozenHashes": "artifacts/cards019k-scope/builder/verification/round432-frozen-source-sha256.txt",
+    "filesUnchangedDuringAudit": 22,
+    "expectedPostAuditPinChange": {
+      "file": "tests/integration-audit.test.js",
+      "before": "7166c38e01b34eaa6fddaa6ef2e691407f53e85e2ac50c951fad9bb02623c6a8",
+      "after": "9f97116064e9b023cb32877ad30fc276ce414661183048823feb94dc14b01333"
+    }
+  },
+  "kernelBytes": 523929,
+  "kernelBudgetBytes": 524288
+}

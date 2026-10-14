@@ -41,7 +41,17 @@ const SPLASH_PROFILE_KEYS = Object.freeze([
   "archetypeId", "cardId", "catalogId", "enemiesOnly", "radiusMillitiles",
   "sourceExport", "targetLayers",
 ]);
-
+const WIZARD_PROJECTILE_DAMAGE_RECEIPT = Object.freeze({
+  damage: 281,
+  index: 8,
+  linkedProjectileId: "chr_wizardProjectile",
+  rarity: "rare",
+  sourceCommit: "54fdef52c5086393b085f57faeeab8ef86b28160",
+  sourceFile: "docs/json/cards_stats_projectile.json",
+  sourceFileSha256: "c883516f54f6c17ee77c15cf484b01da9ded22602214c3b0d42b1ab823bd3197",
+  sourceUri: "https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats_projectile.json",
+  tournamentLevel: 11,
+});
 function exact(value, keys, label) {
   if (value === null || typeof value !== "object" || Array.isArray(value) ||
       Object.getPrototypeOf(value) !== Object.prototype) {
@@ -114,6 +124,15 @@ export function getOrdinaryProjectileSplashSourceFacts(cardId, archetypeId) {
     characterAreaDamageRadiusMillitiles: 0,
     homing: true,
     onlyEnemies: profile.enemiesOnly,
+    projectileDamage: WIZARD_PROJECTILE_DAMAGE_RECEIPT.damage,
+    projectileDamagePerLevelIndex: WIZARD_PROJECTILE_DAMAGE_RECEIPT.index,
+    projectileDamageLinkedProjectileId: WIZARD_PROJECTILE_DAMAGE_RECEIPT.linkedProjectileId,
+    projectileDamageRarity: WIZARD_PROJECTILE_DAMAGE_RECEIPT.rarity,
+    projectileDamageSourceCommit: WIZARD_PROJECTILE_DAMAGE_RECEIPT.sourceCommit,
+    projectileDamageSourceFile: WIZARD_PROJECTILE_DAMAGE_RECEIPT.sourceFile,
+    projectileDamageSourceFileSha256: WIZARD_PROJECTILE_DAMAGE_RECEIPT.sourceFileSha256,
+    projectileDamageSourceUri: WIZARD_PROJECTILE_DAMAGE_RECEIPT.sourceUri,
+    projectileDamageTournamentLevel: WIZARD_PROJECTILE_DAMAGE_RECEIPT.tournamentLevel,
     radiusMillitiles: profile.radiusMillitiles,
     speedRaw: 600,
   };

@@ -26,12 +26,12 @@
   <h1>Gauntlet progress</h1>
   <p class="sub">Updated 2026-10-13 · executable game journeys required · deterministic simulation · original shipped identities and assets only</p>
   <div class="cards">
-    <div class="card"><div class="num">240</div><div class="label">tracked pieces</div></div>
-    <div class="card"><div class="num">191</div><div class="label">passed</div></div>
-    <div class="card"><div class="num">432</div><div class="label">completed rounds</div></div>
+    <div class="card"><div class="num">241</div><div class="label">tracked pieces</div></div>
+    <div class="card"><div class="num">192</div><div class="label">passed</div></div>
+    <div class="card"><div class="num">433</div><div class="label">completed rounds</div></div>
     <div class="card"><div class="num">29</div><div class="label">open questions</div></div>
   </div>
-  <p class="note">Active review: <strong>CARDS-019K — immutable Kilnkeeper core repair</strong>. Full integration audit and source-drift probes remain pending. Shipped main retains the reviewed nineteen-card gameplay.</p>
+  <p class="note">Active builds: <strong>CARDS-019H1 — shared target following</strong> and <strong>GAME-001MS — squad materialization verification</strong>. Kilnkeeper bounded core passed; historical calibration remains QUESTION.</p>
   <h2>Every piece</h2>
   <div class="table-wrap">
     <table>
@@ -1904,10 +1904,10 @@
       <tr>
         <td><code>CARDS-019K</code></td>
         <td>Ordinary mobile ranged splash shared engine</td>
-        <td class="state-fail">FAIL</td>
-        <td>5/6</td>
-        <td>1</td>
-        <td>Independent562 fullRL12/12/focused44/schema20/shipping13+4 pass; AIcost5cycle1 andpending/impact/damagedrestore+fork exact. Bothadjacentprojectile suites failimport: authoritative newfactory missingSOURCE_BINDINGS map (9vs10), cachecompleteness rightlyrejects. Guard9/10 oldinventory/direct46modules0violations; fullaudit450235ms5/6oldpin actuale6dc0251…861bb750. Damage281 lacks pinnedlinkedrowQbinding. Repaircacheproducer/sourceprovenance/guardinventory+regeneratepin; noacceptance orfullhistoricalparity. Round2 immutable6cc8656 underfreshindependentreview: source-map+primarycomponent+linked281QUESTION repairs; buildertworun67manifestd7e64a47…e6fff7bed, old66bindingsunchanged. Acceptancependingactualcriticfullaudit/RL/adjacentcommands; shipped0cbdstill19choices.</td>
+        <td class="state-pass">PASS</td>
+        <td>6/6</td>
+        <td>2</td>
+        <td>Independent6cc corePASS: full audit6/RL12, profiles26/runtime6, ordinary21/source11/editor12/schema20, guard10+13/release4/host1. Actual AIcost5/cycle1, unit/building/tower281 contacts once, exact pending/damaged restore+fork; 18 provenance mutations reject and old8seed0/23 hashes unchanged. Kernel523929&lt;=524288. Homing remainsCARDS019H; baselinegame-session8/9 stale instant-squad assertion separatelyGAME001MS; no broad all-suite/historical parity claim.</td>
       </tr>
       <tr>
         <td><code>ART-019P</code></td>
@@ -1928,10 +1928,10 @@
       <tr>
         <td><code>CARDS-019H1</code></td>
         <td>Shared homing flag and target-following integration</td>
-        <td class="state-blocked">BLOCKED</td>
+        <td class="state-building">BUILDING</td>
         <td>0/0</td>
         <td>0</td>
-        <td>Await accepted core. Source flag supports target following; runtime speed, pursuit rounding and edge policies remain unverified. Scope: artifacts/cards019h-scope/builder/scope.md.</td>
+        <td>Accepted core dependency nowPASS. Sharedtarget-following build next; runtime speed, rounding, death/retarget/contact policies remain explicitlyunverified. No historicalhoming parity claim.</td>
       </tr>
       <tr>
         <td><code>CARDS-019H2</code></td>
@@ -1955,13 +1955,22 @@
         <td class="state-todo">TODO</td>
         <td>0/0</td>
         <td>0</td>
-        <td>Needsacceptedcore/battleasset before browserintegration. Straight-flight model hominggap remainsCARDS019H; nofullhistoricalcardparityclaim.</td>
+        <td>Core/assets accepted; sharedhomingflag integration mustpass before actualbrowserintegration. Historicalcalibration CARDS019H2 QUESTION.</td>
+      </tr>
+      <tr>
+        <td><code>GAME-001MS</code></td>
+        <td>Shared-session squad materialization verification</td>
+        <td class="state-building">BUILDING</td>
+        <td>8/9</td>
+        <td>0</td>
+        <td>Independent candidate6cc and baseline0cbd both fail the legacy all-members-after-one-step assertion (1 vs6). Reconcile the test with accepted squad timing and prove causal member births for both sides; investigate actual mismatch before editing.</td>
       </tr>
       </tbody>
     </table>
   </div>
   <h2>Round trajectory</h2>
   <ol>
+      <li><strong>R433 PASS</strong> · CARDS-019K — Kilnkeeper splash core repair, round 2<br>Bounded core passes; historicalhoming remainsQUESTION andbaseline squadassertion separatelyGAME001MS.</li>
       <li><strong>R432 FAIL</strong> · CARDS-019K — Source-bounded Kilnkeeper shared splash core, round 1<br>Existing shared projectile consumers cannot import because the new authoritative source factory is missing from the source-binding map; repair that producer without weakening the cache-completeness check.</li>
       <li><strong>R431 PASS</strong> · ART-019B — Kilnkeeper combat cutout readability repair, round 2<br>No remaining isolated asset-stage gap; live540x960 arena andcardUI integration remain unverified andbelongtoCARDS019I.</li>
       <li><strong>R430 FAIL</strong> · ART-019B — Original Kilnkeeper combat cutout, round 1<br>At13px the face, tealapron andcopperlauncher merge into indistinctpixels; simplify andseparate the silhouette withoutincreasing the required display size.</li>

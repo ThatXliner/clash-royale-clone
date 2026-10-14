@@ -58,6 +58,8 @@ const TARGET_MODE_CODES = Object.freeze({
   structures: 4,
 });
 const DEFAULT_QUESTION_SOURCE = "runtime-playability-estimate-not-comparison-corpus";
+const KILNKEEPER_DAMAGE_SOURCE =
+  "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile";
 const ZERO_QUESTION_KEYS = new Set([
   "kilnkeeper.character-area-damage-radius-millitiles",
 ]);
@@ -83,12 +85,17 @@ function expectedPolicy(archetypeId) {
   const fields = [...SOURCE_CONFIDENCE_FIELDS,
     ...(archetypeId === "kilnkeeper" ? KILNKEEPER_PROJECTILE_FIELDS : [])];
   return {
-    fields: fields.map(({ field, questionKeySuffix, valueEncoding, source }) => ({
-      field,
-      questionKey: `${archetypeId}.${questionKeySuffix}`,
-      valueEncoding,
-      ...(source === undefined ? {} : { source }),
-    })),
+    fields: fields.map(({ field, questionKeySuffix, valueEncoding, source }) => {
+      const provenance = source ?? (archetypeId === "kilnkeeper" && field === "damage"
+        ? KILNKEEPER_DAMAGE_SOURCE
+        : undefined);
+      return {
+        field,
+        questionKey: `${archetypeId}.${questionKeySuffix}`,
+        valueEncoding,
+        ...(provenance === undefined ? {} : { source: provenance }),
+      };
+    }),
     deploymentInterval: { ...DEPLOYMENT_INTERVAL },
   };
 }

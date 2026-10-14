@@ -432,6 +432,14 @@ const SOURCE_BINDINGS = new Map([
       sourceModule: "cards/swarms",
     },
   }],
+  ["createOrdinaryProjectileSplashCatalog", {
+    evidence: {
+      delivery: "ordinary-splash-projectile",
+      verification: "game-roster-troops-ordinary",
+      sourceExports: ["createOrdinaryProjectileSplashCatalog"],
+      sourceModule: "cards/ordinary-projectile-splash",
+    },
+  }],
   ["createChainSpecialCatalog", {
     evidence: {
       delivery: "special-projectile",

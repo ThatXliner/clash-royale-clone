@@ -20,7 +20,7 @@ import {
 } from "../scripts/integration-audit.js";
 
 const EXPECTED_MANIFEST_SHA256 =
-  "009ed7e778379a105792dcf32d8ff37bd72bf13c42c442bae28d48f3d7f144fc";
+  "d7e64a47fe3fead14b3bb07f0a636dd0ddb8f4ade8d120a2c087d01e6fff7bed";
 
 function sha256LooksPinned(value) {
   return /^[\da-f]{64}$/u.test(value);

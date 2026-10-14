@@ -18,6 +18,7 @@ import {
   createBasicRangedCombatant,
 } from "../src/content/cards/basic-ranged.js";
 import { createSwarmCatalog } from "../src/content/cards/swarms.js";
+import { createOrdinaryProjectileSplashCatalog } from "../src/content/cards/ordinary-projectile-splash.js";
 import {
   createChainQuestionFixture,
   createChainSpecialCatalog,
@@ -131,6 +132,7 @@ const SOURCE_MODULE_PATHS = Object.freeze(Object.fromEntries(
     createReturnSpecialCatalog: "cards/special-projectiles-return.js",
     createPelletSpecialCatalog: "cards/special-projectiles-pellets.js",
     createReflectionSpecialCatalog: "cards/special-projectiles-reflection.js",
+  createOrdinaryProjectileSplashCatalog: "cards/ordinary-projectile-splash.js",
   }).map(([exportName, relativePath]) => [
     exportName,
     fileURLToPath(new URL(`../src/content/${relativePath}`, import.meta.url)),
@@ -181,6 +183,7 @@ const REBRANDED_SOURCE_BINDINGS = Object.freeze([
   Object.freeze(["createReturnSpecialCatalog", "rune-reaver"]),
   Object.freeze(["createPelletSpecialCatalog", "scatterguard"]),
   Object.freeze(["createReflectionSpecialCatalog", "aegis-sage"]),
+  Object.freeze(["createOrdinaryProjectileSplashCatalog", "kilnkeeper"]),
 ]);
 const REBRANDED_SOURCE_FIELD_MUTATIONS = Object.freeze([
   Object.freeze(["areaDamageRadiusMillitiles", "record.areaDamageRadiusMillitiles = record.areaDamageRadiusMillitiles === null ? 1 : record.areaDamageRadiusMillitiles + 1;"]),
@@ -236,6 +239,7 @@ const EXPECTED_SOURCE_PAIRS = [
   ["createReturnSpecialCatalog", "rune-reaver"],
   ["createPelletSpecialCatalog", "scatterguard"],
   ["createReflectionSpecialCatalog", "aegis-sage"],
+  ["createOrdinaryProjectileSplashCatalog", "kilnkeeper"],
 ];
 
 const PROJECTILE_SOURCE_WRAPPER_PROBE = String.raw`
@@ -480,19 +484,40 @@ test("projectile profiles: exact admitted occurrence/card/archetype domain and p
       `${source.catalogExport}\u0000${source.record.id}`),
     ...manifest.excludedOccurrences.map(({ exportName, id }) => `${exportName}\u0000${id}`),
   ];
-  assert.equal(classifiedKeys.length, 43);
-  assert.equal(new Set(classifiedKeys).size, 43);
+  assert.equal(classifiedKeys.length, 44);
+  assert.equal(new Set(classifiedKeys).size, 44);
   assert.deepEqual(new Set(classifiedKeys), htpKeys);
+  const kilnkeeper = createOrdinaryProjectileSplashCatalog().find(({ id }) => id === "kilnkeeper");
+  assert.equal(kilnkeeper.count, 1);
+  assert.deepEqual(kilnkeeper.components, [{
+    areaDamageRadiusMillitiles: null,
+    count: 1,
+    damage: 281,
+    deployTimeTicks: 60,
+    displayName: "Kilnkeeper",
+    firstHitTicks: 60,
+    hitSpeedTicks: 84,
+    hitpoints: 720,
+    id: "kilnkeeper",
+    kind: "unit",
+    movementMillitilesPerSecond: 1_000,
+    rangeMillitiles: 5_500,
+    role: "primary",
+    sightRangeMillitiles: 5_500,
+    targetMode: "ground-and-air",
+  }]);
+  assert.equal(kilnkeeper.components[0].count, kilnkeeper.count);
 });
 
-test("projectile profiles: the complete witness map covers exactly the nine source export sets", () => {
+test("projectile profiles: the complete witness map covers exactly the ten source export sets", () => {
   const source = readFileSync(PROJECTILE_SOURCE_ADMISSION_MODULE_PATH, "utf8");
   const pinnedPairs = [...source.matchAll(
     /\[sourceRecordKey\("([^"]+)", "([^"]+)"\)\]: canonical\(\{/gu,
   )].map(([, exportName, id]) => [exportName, id]);
   const sortPairs = (pairs) => [...pairs].sort(([leftExport, leftId], [rightExport, rightId]) =>
     leftId.localeCompare(rightId) || leftExport.localeCompare(rightExport));
-  assert.equal(pinnedPairs.length, 18);
+  assert.equal(pinnedPairs.length, 19);
+  assert.equal(new Set(pinnedPairs.map(([exportName]) => exportName)).size, 10);
   assert.deepEqual(sortPairs(pinnedPairs), sortPairs(EXPECTED_SOURCE_PAIRS));
   assert.match(source, /const AUTHORITATIVE_PROJECTILE_SOURCE_IDS_BY_EXPORT = Object\.freeze\(\{/u);
   assert.match(source, /const EXPECTED_SOURCE_WITNESS_MAP = Object\.freeze\(\{/u);
@@ -522,7 +547,7 @@ test("projectile profiles: every bound row rejects same-ID scalar drift", () => 
     assert.equal(result.accepted, false, `${exportName}/${id} scalar drift was accepted`);
     rejects += 1;
   }
-  assert.equal(rejects, 18);
+  assert.equal(rejects, 19);
 });
 
 test("projectile source admission: rebranded cost drift rejects before every shared consumer", () => {
@@ -543,7 +568,7 @@ test("projectile source admission: rebranded cost drift rejects before every sha
       probes += 1;
     }
   }
-  assert.equal(probes, 40);
+  assert.equal(probes, 44);
 });
 
 test("projectile source admission: rebranded canonical key order stays usable in every shared consumer", () => {
@@ -566,7 +591,7 @@ test("projectile source admission: rebranded canonical key order stays usable in
       probes += 1;
     }
   }
-  assert.equal(probes, 40);
+  assert.equal(probes, 44);
 });
 
 test("projectile source admission: every scalar source field rejects rebranding through every shared consumer", () => {
@@ -609,7 +634,7 @@ test("projectile source admission: every scalar source field rejects rebranding 
       probes += 1;
     }
   }
-  assert.equal(probes, 700);
+  assert.equal(probes, 764);
 });
 
 test("projectile source admission: rebranded first-versus-second reads reject before every shared consumer", () => {
@@ -633,7 +658,7 @@ test("projectile source admission: rebranded first-versus-second reads reject be
       probes += 1;
     }
   }
-  assert.equal(probes, 40);
+  assert.equal(probes, 44);
 });
 
 test("projectile source admission: rebranded source shape and nested drift fail before output", () => {
@@ -722,6 +747,12 @@ test("projectile profiles: representative source fields, shapes, and nested Bria
     ));
     assert.equal(result.accepted, false, `${label} was accepted`);
   }
+  const forgedKilnkeeperComponent = runSourceWrapperProbe(sourceWrapperCase(
+    "createOrdinaryProjectileSplashCatalog",
+    "kilnkeeper",
+    "record.components[0].damage += 1;",
+  ));
+  assert.equal(forgedKilnkeeperComponent.accepted, false);
   assert.equal(fieldCases.length, 17);
   assert.equal(shapeCases.length, 6);
   assert.equal(nestedCases.length, 4);

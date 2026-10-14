@@ -343,6 +343,8 @@ test("every witness closes its exact questions, cards, and archetypes through Li
     assert.ok(questions.every(({ authoritative, confidence, disposition, key, source, value }) => {
       const expectedSource = key === "kilnkeeper.character-area-damage-radius-millitiles"
         ? "pinned-royaleapi-54fdef52:cards_stats_characters#wizard"
+        : key === "kilnkeeper.damage"
+          ? "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile"
         : key.startsWith("kilnkeeper.projectile-") &&
           key !== "kilnkeeper.projectile-speed-millitiles-per-tick"
           ? "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile"
@@ -448,10 +450,39 @@ test("Kilnkeeper source questions and splash profile reject forged setup and pen
     (target) => { target.projectileSplashPolicy.sourceExport = "forged-catalog"; },
     (target) => { target.projectileSplashSourceFacts.radiusMillitiles -= 1; },
     (target) => { target.projectileSplashSourceFacts.onlyEnemies = false; },
+    (target) => { target.damage += 1; },
+    (target) => { target.projectileSplashSourceFacts.projectileDamage += 1; },
+    (target) => { target.projectileSplashSourceFacts.projectileDamagePerLevelIndex -= 1; },
+    (target) => { target.projectileSplashSourceFacts.projectileDamageLinkedProjectileId = "otherProjectile"; },
+    (target) => { target.projectileSplashSourceFacts.projectileDamageSourceFileSha256 = "0".repeat(64); },
+    (target) => { target.projectileSplashSourceFacts.projectileDamageSourceUri = "https://example.invalid/forged.json"; },
   ];
   assert.ok(entity.projectileSplashPolicy);
   assert.equal(entity.projectileSplashSourceFacts.radiusMillitiles, 1_500);
   assert.equal(entity.projectileSplashSourceFacts.characterAreaDamageRadiusMillitiles, 0);
+  assert.equal(entity.projectileSplashSourceFacts.projectileDamage, 281);
+  assert.equal(entity.projectileSplashSourceFacts.projectileDamagePerLevelIndex, 8);
+  assert.equal(entity.projectileSplashSourceFacts.projectileDamageLinkedProjectileId,
+    "chr_wizardProjectile");
+  assert.equal(entity.projectileSplashSourceFacts.projectileDamageRarity, "rare");
+  assert.equal(entity.projectileSplashSourceFacts.projectileDamageTournamentLevel, 11);
+  assert.equal(entity.projectileSplashSourceFacts.projectileDamageSourceCommit,
+    "54fdef52c5086393b085f57faeeab8ef86b28160");
+  assert.equal(entity.projectileSplashSourceFacts.projectileDamageSourceFile,
+    "docs/json/cards_stats_projectile.json");
+  assert.equal(entity.projectileSplashSourceFacts.projectileDamageSourceFileSha256,
+    "c883516f54f6c17ee77c15cf484b01da9ded22602214c3b0d42b1ab823bd3197");
+  assert.equal(entity.projectileSplashSourceFacts.projectileDamageSourceUri,
+    "https://raw.githubusercontent.com/RoyaleAPI/cr-api-data/54fdef52c5086393b085f57faeeab8ef86b28160/docs/json/cards_stats_projectile.json");
+  const damageQuestion = witness.questions.find(({ key }) => key === "kilnkeeper.damage");
+  assert.deepEqual(damageQuestion, {
+    authoritative: false,
+    confidence: "unverified",
+    disposition: "question",
+    key: "kilnkeeper.damage",
+    source: "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile",
+    value: 281,
+  });
   for (const mutate of mutations) {
     const malformed = clone(witness);
     mutate(malformed.roster.find(({ id }) => id === "kilnkeeper").entities[0]);
@@ -504,6 +535,10 @@ test("Kilnkeeper source questions and splash profile reject forged setup and pen
     key === "kilnkeeper.projectile-splash-radius-millitiles").value += 1;
   assert.throws(() => LiveBattle.restore(canonical(forgedQuestion)), /question|source|splash/u,
     "the actual pending snapshot rejects a forged source question record");
+  const forgedDamageQuestion = JSON.parse(pending);
+  forgedDamageQuestion.setup.questions.find(({ key }) => key === "kilnkeeper.damage").value += 1;
+  assert.throws(() => LiveBattle.restore(canonical(forgedDamageQuestion)), /question|source|splash/u,
+    "the actual pending snapshot rejects a forged projectile damage QUESTION");
 });
 
 test("ordinary splash plans stable mixed troop, building, and tower contacts without a duplicate primary", () => {

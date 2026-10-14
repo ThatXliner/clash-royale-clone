@@ -87,6 +87,7 @@ const EXPECTED_SIMULATION_MODULES = Object.freeze([
   "melee.js",
   "movement.js",
   "opponent-controller.js",
+  "ordinary-projectile-splash.js",
   "pathfinding.js",
   "projectile.js",
   "rng.js",
