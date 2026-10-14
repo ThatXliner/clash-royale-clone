@@ -18,6 +18,7 @@ export const EDITABLE_MIXED_DECK_CARD_IDS = Object.freeze([
   ...EDITABLE_DECK_CARD_IDS,
   "squall-orb",
   "ember-basin",
+  "buried-coil",
 ]);
 
 function canonical(value) {

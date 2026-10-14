@@ -131,11 +131,13 @@ test("editable deck setup preserves the shipped standard setup and selected orde
       deliveryPolicy?.kind === "question" && layerPolicy?.kind === "question")));
 });
 
-test("editable mixed witnesses retain troop questions and exact Squall Orb and Ember Basin profiles", () => {
+test("editable mixed witnesses retain troop questions and exact non-unit profile receipts", () => {
   const decks = [
     ["squall-orb", ...EDITABLE_DECK_CARD_IDS.slice(0, 7)],
     ["ember-basin", ...EDITABLE_DECK_CARD_IDS.slice(0, 7)],
+    ["buried-coil", ...EDITABLE_DECK_CARD_IDS.slice(0, 7)],
     ["squall-orb", "ember-basin", ...EDITABLE_DECK_CARD_IDS.slice(0, 6)],
+    ["buried-coil", "ember-basin", ...EDITABLE_DECK_CARD_IDS.slice(0, 6)],
   ];
   for (const deck of decks) {
     const witness = createEditableMixedDeckWitness(deck);
@@ -143,7 +145,7 @@ test("editable mixed witnesses retain troop questions and exact Squall Orb and E
     assert.equal(witness.roster.filter(({ kind }) => kind === "effect").length,
       Number(deck.includes("squall-orb")));
     assert.equal(witness.roster.filter(({ kind }) => kind === "structure").length,
-      Number(deck.includes("ember-basin")));
+      Number(deck.includes("ember-basin")) + Number(deck.includes("buried-coil")));
     assert.deepEqual(witness.questions.map(({ key }) => key),
       [...new Set(questionReferences(witness.roster))].sort());
 
@@ -172,12 +174,36 @@ test("editable mixed witnesses retain troop questions and exact Squall Orb and E
       assert.equal(actual.buildingRuntime.policy.corpusFields.damage.source,
         "pinned-pre-march-2023-building-constants");
     }
+    if (deck.includes("buried-coil")) {
+      const actual = battleSetup.roster.find(({ id }) => id === "buried-coil");
+      assert.deepEqual(actual, projectSessionNonUnitBattleCard("buried-coil"),
+        "the editable witness carries the existing Buried Coil profile and source receipt unchanged");
+      assert.equal(actual.buildingRuntime.class, "defensive");
+      assert.equal(actual.buildingRuntime.variant, "hidden");
+      assert.equal(actual.buildingRuntime.policy.disposition, "question");
+      assert.equal(actual.buildingRuntime.policy.confidence, "unverified");
+      assert.deepEqual(actual.buildingRuntime.policy.corpusFields.cost, {
+        authoritative: true,
+        confidence: "high",
+        source: "pinned-pre-march-2023-card-roster-identity",
+        value: 4,
+      }, "only the existing four-elixir card cost has high-confidence source support");
+      for (const field of ["damage", "deployTicks", "firstHitTicks", "hitSpeedTicks",
+        "hitpoints", "maxRange", "mode", "sightRange"]) {
+        assert.equal(actual.buildingRuntime.policy.corpusFields[field].authoritative, false,
+          `Buried Coil ${field} remains non-authoritative`);
+        assert.equal(actual.buildingRuntime.policy.corpusFields[field].confidence, "unverified",
+          `Buried Coil ${field} remains unverified`);
+      }
+    }
     assert.throws(() => createEditableDeckWitness(deck), /not supported/u,
       "the closed troop witness stays troop-only");
   }
 
   assert.ok(EDITABLE_MIXED_DECK_CARD_IDS.includes("squall-orb"));
   assert.ok(EDITABLE_MIXED_DECK_CARD_IDS.includes("ember-basin"));
+  assert.ok(EDITABLE_MIXED_DECK_CARD_IDS.includes("buried-coil"));
+  assert.equal(EDITABLE_MIXED_DECK_CARD_IDS.length, 21);
   assert.throws(() => createEditableMixedDeckWitness(PLAYABLE_CARD_IDS),
     /requires an admitted spell or structure/u);
   assert.throws(() => createEditableMixedDeckWitness([

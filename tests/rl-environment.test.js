@@ -7,6 +7,7 @@ import {
 } from "../src/rl/environment.js";
 import { EDITABLE_DECK_CARD_IDS } from "../src/content/session-troop-roster.js";
 import { PLAYABLE_CARD_IDS } from "../src/content/playable-roster.js";
+import { createDefensiveBuildingQuestionRecords } from "../src/content/cards/buildings-defensive.js";
 import { DeckCycle } from "../src/sim/deck.js";
 import { GameSession } from "../src/sim/game-session.js";
 
@@ -57,6 +58,38 @@ function seedWithCardInHand(deck, cardId) {
     }
   }
   throw new Error(`${cardId} has no bounded deterministic south hand witness`);
+}
+
+function seedWithCardOnlyInSouthHand(deck, cardId) {
+  for (let seed = 0; seed < 1_000; seed += 1) {
+    const south = new DeckCycle({ deck, seed: `${seed}:south` }).state.hand;
+    const north = new DeckCycle({ deck, seed: `${seed}:north` }).state.hand;
+    if (south.includes(cardId) && !north.includes(cardId)) return seed;
+  }
+  throw new Error(`${cardId} has no bounded south-only starting-hand witness`);
+}
+
+function buriedCoilHiddenQuestions() {
+  const records = createDefensiveBuildingQuestionRecords();
+  return Object.fromEntries([
+    "hiddenInitialPolicy",
+    "hiddenReconcealPolicy",
+    "hiddenRevealAttackBoundary",
+  ].map((key) => [key, records[key]]));
+}
+
+function checkpointWithBuriedCoilPolicyMutation(serialized, mutate) {
+  const wrapper = JSON.parse(serialized);
+  const session = JSON.parse(wrapper.session);
+  for (const key of ["battleSetup", "rosterWitness"]) {
+    const witness = JSON.parse(session.setup[key]);
+    const card = witness.roster.find(({ id }) => id === "buried-coil");
+    assert.ok(card?.buildingRuntime?.policy, "the canonical setup carries Buried Coil policy receipts");
+    mutate(card.buildingRuntime.policy);
+    session.setup[key] = canonical(witness);
+  }
+  wrapper.session = canonical(session);
+  return canonical(wrapper);
 }
 
 test("RL environment exposes a finite action catalogue and masks legal deploys", () => {
@@ -272,6 +305,10 @@ test("RL observes Ember Basin targeting, damage, lifetime, and exact in-flight r
     source: "pre-evolutions-building-corpus-and-unsourced-policy-fixture",
     value: 1_800,
   });
+  assert.equal(Object.hasOwn(structure, "hidden"), false,
+    "non-hidden building roles keep the previous observation shape");
+  assert.equal(Object.hasOwn(structure, "hiddenPolicyQuestions"), false,
+    "hidden-only QUESTIONS are not attached to ordinary buildings");
   assert.equal(structure.policy.disposition, "question");
   assert.equal(structure.policy.confidence, "unverified");
   assert.equal(structure.policy.corpusFields.hitpoints.authoritative, false);
@@ -314,6 +351,177 @@ test("RL observes Ember Basin targeting, damage, lifetime, and exact in-flight r
   assert.deepEqual(restored.step(0), env.step(0));
   assert.equal(restored.serialize(), env.serialize(),
     "damaged structure state and queued contacts continue exactly after RL restore");
+});
+
+test("RL admits Buried Coil in a custom eight-card deck and restores its QUESTION observation", () => {
+  const deck = ["buried-coil", ...EDITABLE_DECK_CARD_IDS.slice(0, 7)];
+  const seed = seedWithCardOnlyInSouthHand(deck, "buried-coil");
+  const env = createRLEnvironment({ deck, seed, strideTicks: 1, horizonTicks: 12 });
+  const initial = env.observe();
+  assert.deepEqual(JSON.parse(env.serialize()).config.deck, deck);
+  const slot = initial.hand.indexOf("buried-coil");
+  assert.notEqual(slot, -1, "the selected mixed deck exposes Buried Coil in the player hand");
+  const action = env.actionSpace().actions.find(({ point, slot: actionSlot }) =>
+    actionSlot === slot && point.x === 3_500 && point.y === 14_500);
+  assert.ok(action, "the ordinary ground-building action is present in the finite action catalog");
+  assert.equal(initial.actionMask[action.id], true,
+    "the selected Buried Coil card is legal in the RL action mask");
+
+  const transition = env.step(action.id);
+  assert.equal(transition.info.actionId, action.id);
+  assert.equal(transition.observation.tick, 1);
+  assert.equal(transition.observation.elixir, initial.elixir - 4);
+  assert.notEqual(transition.observation.hand[slot], "buried-coil",
+    "the real RL action spends and cycles the selected card exactly once");
+  const [structure] = transition.observation.structures.filter(({ cardId, owner }) =>
+    cardId === "buried-coil" && owner === "south");
+  assert.ok(structure?.alive, "the shared GameSession materializes the real defensive building");
+  assert.equal(structure.layer, "ground");
+  assert.equal(structure.targetMode, "air_and_ground");
+  assert.equal(structure.policy.disposition, "question");
+  assert.equal(structure.policy.confidence, "unverified");
+  assert.deepEqual(structure.policy.corpusFields.cost, {
+    authoritative: true,
+    confidence: "high",
+    source: "pinned-pre-march-2023-card-roster-identity",
+    value: 4,
+  });
+  assert.deepEqual(structure.lifetime.question, {
+    authoritative: false,
+    confidence: "unverified",
+    disposition: "question",
+    key: "lifetimeTicks",
+    source: "pre-evolutions-building-corpus-and-unsourced-policy-fixture",
+    value: 1_800,
+  });
+  assert.equal(typeof structure.hidden, "boolean",
+    "the RL boundary exposes the canonical live hidden state for this role");
+  assert.equal(structure.hidden, !structure.targetable,
+    "concealment and targetability reflect the same canonical structure state");
+  assert.deepEqual(structure.hiddenPolicyQuestions, buriedCoilHiddenQuestions(),
+    "the structure carries the separate canonical hidden-policy QUESTION receipts");
+  for (const field of ["damage", "deployTicks", "firstHitTicks", "hitSpeedTicks",
+    "hitpoints", "maxRange", "mode", "sightRange"]) {
+    assert.equal(structure.policy.corpusFields[field].authoritative, false,
+      `${field} remains non-authoritative in the RL observation`);
+    assert.equal(structure.policy.corpusFields[field].confidence, "unverified",
+      `${field} remains unverified in the RL observation`);
+  }
+
+  const checkpoint = env.serialize();
+  const restored = RLEnvironment.restore(checkpoint);
+  assert.equal(restored.serialize(), checkpoint,
+    "the exact mixed-deck setup and live Buried Coil state survive authenticated restore");
+  assert.deepEqual(restored.observe(), transition.observation);
+  assert.deepEqual(restored.step(0), env.step(0));
+  assert.equal(restored.serialize(), env.serialize(),
+    "restored RL observations and deterministic continuation remain byte-identical");
+});
+
+test("RL exposes Buried Coil conceal, reveal, reconceal, and restored QUESTION state", () => {
+  const deck = ["buried-coil", "mossguard", "duskwing-trio", "coilblade",
+    "copperskiff", "skymaul", "brassbolt", "reedsting"];
+  const env = createRLEnvironment({ deck, seed: 1, strideTicks: 30, horizonTicks: 1_200 });
+  const initial = env.observe();
+  const slot = initial.hand.indexOf("buried-coil");
+  assert.notEqual(slot, -1);
+  const deployment = env.actionSpace().actions.find(({ point, slot: actionSlot }) =>
+    actionSlot === slot && point.x === 3_500 && point.y === 9_500);
+  assert.ok(deployment && initial.actionMask[deployment.id],
+    "the selected card has an ordinary legal deployment cell outside initial sight");
+
+  let observation = env.step(deployment.id).observation;
+  let [structure] = observation.structures.filter(({ cardId, owner }) =>
+    cardId === "buried-coil" && owner === "south");
+  assert.ok(structure?.alive);
+  assert.equal(structure.hidden, true,
+    "the actual structure begins concealed before an eligible enemy arrives in sight");
+  assert.equal(structure.targetable, false);
+  assert.deepEqual(structure.hiddenPolicyQuestions, buriedCoilHiddenQuestions());
+
+  while (structure.hidden && observation.tick < 300) {
+    observation = env.step(0).observation;
+    structure = observation.structures.find(({ id }) => id === structure.id);
+  }
+  assert.equal(structure.hidden, false,
+    "the actual seeded opponent causes the shared structure runtime to reveal the building");
+  assert.equal(structure.targetable, true);
+  assert.ok(Number.isSafeInteger(structure.attackState.targetId),
+    "the revealed observation names the live canonical target");
+
+  const revealedCheckpoint = env.serialize();
+  assert.throws(() => RLEnvironment.restore(checkpointWithBuriedCoilPolicyMutation(
+    revealedCheckpoint, (policy) => { delete policy.corpusFields.mode; },
+  )), /canonical session-card receipt/u,
+  "the real RL restore route rejects a missing canonical profile QUESTION receipt");
+  assert.throws(() => RLEnvironment.restore(checkpointWithBuriedCoilPolicyMutation(
+    revealedCheckpoint, (policy) => { policy.corpusFields.damage.authoritative = true; },
+  )), /canonical session-card receipt/u,
+  "the real RL restore route rejects a forged source-confidence receipt");
+  const restored = RLEnvironment.restore(revealedCheckpoint);
+  assert.equal(restored.serialize(), revealedCheckpoint);
+  assert.deepEqual(restored.observe(), observation,
+    "restore reproduces hidden state and the exact QUESTION receipts from the canonical profile");
+  const reconcealed = env.step(0);
+  assert.deepEqual(restored.step(0), reconcealed,
+    "restored and original branches cross the same visibility boundary");
+  observation = reconcealed.observation;
+  structure = observation.structures.find(({ id }) => id === structure.id);
+  assert.equal(structure.hidden, true,
+    "when the eligible target leaves, the live building reports its reconcealed state");
+  assert.equal(structure.targetable, false);
+  assert.equal(structure.attackState.targetId, null);
+  assert.deepEqual(structure.hiddenPolicyQuestions, buriedCoilHiddenQuestions());
+
+  const session = GameSession.restore(JSON.parse(env.serialize()).session);
+  assert.deepEqual(session.replay.filter(({ buildingId, type }) =>
+    buildingId === structure.id && ["building-hidden", "building-revealed"].includes(type)
+  ).map(({ type }) => type), ["building-revealed", "building-hidden"],
+  "the reported state changes correspond to the canonical causal visibility events");
+});
+
+test("RL keeps Buried Coil's lifetime QUESTION through restore and its expiry boundary", () => {
+  const deck = ["buried-coil", ...EDITABLE_DECK_CARD_IDS.slice(0, 7)];
+  const env = createRLEnvironment({ deck, seed: 2, strideTicks: 300, horizonTicks: 1_801 });
+  const initial = env.observe();
+  const slot = initial.hand.indexOf("buried-coil");
+  assert.notEqual(slot, -1);
+  const deployment = env.actionSpace().actions.find(({ point, slot: actionSlot }) =>
+    actionSlot === slot && point.x === 3_500 && point.y === 500);
+  assert.ok(deployment && initial.actionMask[deployment.id]);
+
+  let observation = env.step(deployment.id).observation;
+  let structure = observation.structures.find(({ cardId, owner }) =>
+    cardId === "buried-coil" && owner === "south");
+  assert.equal(structure.hidden, true);
+  while (observation.tick < 1_800) observation = env.step(0).observation;
+  structure = observation.structures.find(({ id }) => id === structure.id);
+  assert.equal(observation.tick, 1_800);
+  assert.equal(structure.alive, true);
+  assert.equal(structure.hidden, true);
+  assert.deepEqual(structure.lifetime, {
+    elapsedTicks: 1_800,
+    remainingTicks: 0,
+    totalTicks: 1_800,
+    question: createDefensiveBuildingQuestionRecords().lifetimeTicks,
+  }, "the live value and separate lifetime behavior remain explicit QUESTIONS");
+  assert.deepEqual(structure.hiddenPolicyQuestions, buriedCoilHiddenQuestions());
+
+  const checkpoint = env.serialize();
+  const restored = RLEnvironment.restore(checkpoint);
+  assert.equal(restored.serialize(), checkpoint);
+  assert.deepEqual(restored.observe(), observation);
+  assert.deepEqual(restored.step(0), env.step(0));
+  observation = restored.observe();
+  structure = observation.structures.find(({ id }) => id === structure.id);
+  assert.equal(observation.tick, 1_801);
+  assert.equal(structure.alive, false);
+  assert.equal(structure.deathCause, "expiry");
+  assert.equal(structure.hidden, true,
+    "the observation retains the last canonical hidden state after expiry");
+  const session = GameSession.restore(JSON.parse(restored.serialize()).session);
+  assert.ok(session.replay.some(({ buildingId, reason, type }) =>
+    buildingId === structure.id && type === "structure-destroyed" && reason === "lifetime"));
 });
 
 test("horizon clipping truncates exactly and rejects later steps", () => {

@@ -1,0 +1,58 @@
+{
+  "candidateStatus": "frozen-for-independent-review; selected builder checks complete",
+  "candidateParent": "9d8b542c7927b3d95f78d88ff723d088bc0a4bd0",
+  "acceptedBase": "76e202ff85d8d5920fc58a248b1324f56da5b3f2",
+  "ownedSourceAndTestSha256": {
+    "src/rl/environment.js": {
+      "parentSha256": "920766cdcee0d4279a4f6ffeaad55723857647ba1c58fcc58738ad45f25454a8",
+      "candidateSha256": "973a96a53928b830a747881506febf3138bc78f6e2b06f66e4957d822b577441"
+    },
+    "tests/rl-environment.test.js": {
+      "parentSha256": "1fbe0c50f788d88a8cd805319ead21b3cf266251cb59899b2a8edc2c45c7f614",
+      "candidateSha256": "c06e732327b426594618bf7ddf02196895afd7a43457937fb630f9e33b1ff9b3"
+    }
+  },
+  "ownedBuilderReceipts": [
+    "artifacts/cards021-core-round2/builder/STATUS.md",
+    "artifacts/cards021-core-round2/builder/cards021-integration.final.tap",
+    "artifacts/cards021-core-round2/builder/content-schema.final.tap",
+    "artifacts/cards021-core-round2/builder/default8-r2-hashes.json",
+    "artifacts/cards021-core-round2/builder/editable-deck.final.tap",
+    "artifacts/cards021-core-round2/builder/game-building-policy.final.tap",
+    "artifacts/cards021-core-round2/builder/nondeterminism-guard.final.tap",
+    "artifacts/cards021-core-round2/builder/rl-environment.final.tap",
+    "artifacts/cards021-core-round2/builder/rl-environment.initial.tap",
+    "artifacts/cards021-core-round2/builder/rl-hidden-focused.tap",
+    "artifacts/cards021-core-round2/builder/shipping-isolation-guard.final.tap",
+    "artifacts/cards021-core-round2/builder/source-fence.json",
+    "artifacts/cards021-core-round2/builder/test-results.md"
+  ],
+  "testStatus": {
+    "fullRlSuiteBeforeFixtureCorrection": "14/15; one failed reconceal assertion, raw TAP retained",
+    "correctedConcealRevealRestoreTest": "1/1 pass; 1.6 seconds",
+    "lifetimeExpiryRestoreTestInInitialFullRun": "pass; 25.9 seconds",
+    "fullRlSuiteAfterFinalTestEdits": "15/15 pass; exit 0; 125.5 seconds",
+    "cards021GameSessionIntegration": "3/3 pass",
+    "editableDeck": "12/12 pass",
+    "gameBuildingPolicy": "3/3 pass",
+    "contentSchema": "20/20 pass",
+    "nondeterminismGuard": "10/10 pass",
+    "shippingIsolationGuard": "13/13 pass",
+    "diffCheck": "pass"
+  },
+  "compatibility": {
+    "default8Seed0And23NestedSetupAndSessionHashesMatchR1": true,
+    "default8ObservationsHaveNoStructures": true,
+    "newObservationFields": "conditional on canonical defensive hidden variant; absent for other roles",
+    "rlEnvironmentVersionChanged": false,
+    "gameSessionSnapshotOrKernelChanged": false,
+    "kernelBytes": 524103,
+    "kernelCapBytes": 524288,
+    "kernelSha256": "7e21668d9348670cf4ebb9d4fb917be146b75b97acaf974b253ab57d6a5361c2"
+  },
+  "claimLimits": [
+    "Hidden/reconceal/reveal behavior receipts remain QUESTION, unverified, and non-authoritative.",
+    "Runtime observation of an event does not promote historical source confidence.",
+    "This candidate is not adopted and has no public 21-choice, presentation, browser, full-endurance, or historical-parity qualification."
+  ]
+}

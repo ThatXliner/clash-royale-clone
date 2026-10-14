@@ -138,7 +138,7 @@ function publicStructure(structure, tick) {
   const attackCycle = typeof structure.attackCycle === "string"
     ? AttackCycle.restore(structure.attackCycle).state
     : null;
-  return {
+  const result = {
     alive: structure.alive,
     attackState: attackCycle === null ? null : {
       nextAttackTick: attackCycle.nextAttackTick,
@@ -165,6 +165,15 @@ function publicStructure(structure, tick) {
     targetMode: runtime.targetMode,
     targetable: structure.targetable,
   };
+  if (runtime.class === "defensive" && runtime.variant === "hidden") {
+    result.hidden = structure.hidden;
+    result.hiddenPolicyQuestions = Object.fromEntries([
+      "hiddenInitialPolicy",
+      "hiddenReconcealPolicy",
+      "hiddenRevealAttackBoundary",
+    ].map((key) => [key, clone(DEFENSIVE_BUILDING_QUESTIONS[key])]));
+  }
+  return result;
 }
 
 function buildPlacementMask(placementClass) {

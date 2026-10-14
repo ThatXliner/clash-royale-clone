@@ -1,0 +1,42 @@
+{
+  "baseCommit": "76e202ff85d8d5920fc58a248b1324f56da5b3f2",
+  "candidateParent": "9d8b542c7927b3d95f78d88ff723d088bc0a4bd0",
+  "comparison": "Current RL serialized snapshots and nested GameSession/setup hashes for unchanged default deck, seeds 0 and 23; nested hashes match retained R1 baseline.",
+  "current": {
+    "0": {
+      "observationStructureCount": 0,
+      "rlEnvironmentSha256": "a7a2d05fe052e49b52d3ce637aa4ab664ea6d56c570e0a0b6d3cf700e3884fa2",
+      "serializedBytes": 47537,
+      "sessionSha256": "ed371dd1d28d6be72a98bda32e434cbbc5431eea4f163e4206a1901cd08dbea1",
+      "setupSha256": "6605be1bdf48aa971f3c55d841c19fc44a748ef1f5e25609630a25ec663c4e98"
+    },
+    "23": {
+      "observationStructureCount": 0,
+      "rlEnvironmentSha256": "6ddb44dafece21ecb86a2956e468294f8701acbf1ec9408888970f90f0117c5f",
+      "serializedBytes": 47539,
+      "sessionSha256": "d6879256a66396ff175769546a9c66d0158bfe11d60892713a43173c6b4bff63",
+      "setupSha256": "94cbdd3603f4522a8f986499813eb4e210eafd4d4b6170d7d0c81d188faaa219"
+    }
+  },
+  "retainedR1BaselineSetupAndSession": {
+    "0": {
+      "sessionSha256": "ed371dd1d28d6be72a98bda32e434cbbc5431eea4f163e4206a1901cd08dbea1",
+      "setupSha256": "6605be1bdf48aa971f3c55d841c19fc44a748ef1f5e25609630a25ec663c4e98"
+    },
+    "23": {
+      "sessionSha256": "d6879256a66396ff175769546a9c66d0158bfe11d60892713a43173c6b4bff63",
+      "setupSha256": "94cbdd3603f4522a8f986499813eb4e210eafd4d4b6170d7d0c81d188faaa219"
+    }
+  },
+  "kernel": {
+    "bytes": 524103,
+    "capBytes": 524288,
+    "changed": false,
+    "path": "src/sim/battle-continuation-kernel.js",
+    "sha256": "7e21668d9348670cf4ebb9d4fb917be146b75b97acaf974b253ab57d6a5361c2"
+  },
+  "limitations": [
+    "R1 provides baseline setup/session digests, not a separate baseline RL-wrapper digest.",
+    "The new observation keys apply only to a canonical hidden defensive building, absent from the unchanged default deck."
+  ]
+}

@@ -1,0 +1,208 @@
+TAP version 13
+# Subtest: Buried Coil custom eight-card GameSession deploys, spends once, reveals, and contacts ground and air
+ok 1 - Buried Coil custom eight-card GameSession deploys, spends once, reveals, and contacts ground and air
+  ---
+  duration_ms: 1995.51225
+  type: 'test'
+  ...
+# Subtest: seeded AI deploys Buried Coil through its custom deck and preserves hidden lifetime on restore
+ok 2 - seeded AI deploys Buried Coil through its custom deck and preserves hidden lifetime on restore
+  ---
+  duration_ms: 13.983916
+  type: 'test'
+  ...
+# Subtest: Buried Coil hidden state and provisional lifetime survive an actual pre-expiry restore
+ok 3 - Buried Coil hidden state and provisional lifetime survive an actual pre-expiry restore
+  ---
+  duration_ms: 10079.076375
+  type: 'test'
+  ...
+# Subtest: editable deck setup admits every card in canonical eight-card witnesses and closes QUESTION records
+ok 4 - editable deck setup admits every card in canonical eight-card witnesses and closes QUESTION records
+  ---
+  duration_ms: 10240.4035
+  type: 'test'
+  ...
+# Subtest: editable deck setup preserves the shipped standard setup and selected order
+ok 5 - editable deck setup preserves the shipped standard setup and selected order
+  ---
+  duration_ms: 57.502625
+  type: 'test'
+  ...
+# Subtest: editable mixed witnesses retain troop questions and exact non-unit profile receipts
+ok 6 - editable mixed witnesses retain troop questions and exact non-unit profile receipts
+  ---
+  duration_ms: 47.603458
+  type: 'test'
+  ...
+# Subtest: editable mixed setup rejects missing troop QUESTIONs and forged building provenance
+ok 7 - editable mixed setup rejects missing troop QUESTIONs and forged building provenance
+  ---
+  duration_ms: 9.781375
+  type: 'test'
+  ...
+# Subtest: editable mixed spell and Ember Basin replay spends and cycles each card once
+ok 8 - editable mixed spell and Ember Basin replay spends and cycles each card once
+  ---
+  duration_ms: 595.251375
+  type: 'test'
+  ...
+# Subtest: editable mixed GameSession casts from center, spends, cycles, and restores pending impact
+ok 9 - editable mixed GameSession casts from center, spends, cycles, and restores pending impact
+  ---
+  duration_ms: 32.112334
+  type: 'test'
+  ...
+# Subtest: editable mixed AI chooses a legal Squall Orb cast without a selected target
+ok 10 - editable mixed AI chooses a legal Squall Orb cast without a selected target
+  ---
+  duration_ms: 11.680042
+  type: 'test'
+  ...
+# Subtest: shared Cinderling archetype deploys from both cards and restores distinct member identities
+ok 11 - shared Cinderling archetype deploys from both cards and restores distinct member identities
+  ---
+  duration_ms: 4843.863208
+  type: 'test'
+  ...
+# Subtest: editable Stonehauler deployment survives deterministic restore continuation
+ok 12 - editable Stonehauler deployment survives deterministic restore continuation
+  ---
+  duration_ms: 616.79975
+  type: 'test'
+  ...
+# Subtest: new squads deploy through custom eight-card battles and restore exactly
+ok 13 - new squads deploy through custom eight-card battles and restore exactly
+  ---
+  duration_ms: 2629.712416
+  type: 'test'
+  ...
+# Subtest: seeded opponent naturally chooses both new projectile squads through typed receipts
+ok 14 - seeded opponent naturally chooses both new projectile squads through typed receipts
+  ---
+  duration_ms: 1696.2145
+  type: 'test'
+  ...
+# Subtest: editable deck rejects malformed, duplicate, unsupported, and noncanonical setups
+ok 15 - editable deck rejects malformed, duplicate, unsupported, and noncanonical setups
+  ---
+  duration_ms: 5.283792
+  type: 'test'
+  ...
+# Subtest: game building policy: nondefensive profiles carry exact catalog QUESTION records through live structures
+ok 16 - game building policy: nondefensive profiles carry exact catalog QUESTION records through live structures
+  ---
+  duration_ms: 18.369166
+  type: 'test'
+  ...
+# Subtest: game building policy: stripped, forged, contradictory, and omitted policies reject at setup admission
+ok 17 - game building policy: stripped, forged, contradictory, and omitted policies reject at setup admission
+  ---
+  duration_ms: 349.354208
+  type: 'test'
+  ...
+# Subtest: game building policy: single steps, chunks, and restored sessions retain exact policy bytes
+ok 18 - game building policy: single steps, chunks, and restored sessions retain exact policy bytes
+  ---
+  duration_ms: 737.214083
+  type: 'test'
+  ...
+# Subtest: RL environment exposes a finite action catalogue and masks legal deploys
+ok 19 - RL environment exposes a finite action catalogue and masks legal deploys
+  ---
+  duration_ms: 97.61575
+  type: 'test'
+  ...
+# Subtest: seeded trajectories and restored checkpoints continue identically
+ok 20 - seeded trajectories and restored checkpoints continue identically
+  ---
+  duration_ms: 273.91925
+  type: 'test'
+  ...
+# Subtest: separate instances and a custom shared deck remain independent
+ok 21 - separate instances and a custom shared deck remain independent
+  ---
+  duration_ms: 29.343833
+  type: 'test'
+  ...
+# Subtest: RL mask casts an editable Squall Orb center point and restores its pending effect
+ok 22 - RL mask casts an editable Squall Orb center point and restores its pending effect
+  ---
+  duration_ms: 58.363416
+  type: 'test'
+  ...
+# Subtest: RL reset and legal mask deploy sourced projectile cards with exact deck restore
+ok 23 - RL reset and legal mask deploy sourced projectile cards with exact deck restore
+  ---
+  duration_ms: 423.35675
+  type: 'test'
+  ...
+# Subtest: RL observes Ember Basin targeting, damage, lifetime, and exact in-flight restore
+ok 24 - RL observes Ember Basin targeting, damage, lifetime, and exact in-flight restore
+  ---
+  duration_ms: 2739.412125
+  type: 'test'
+  ...
+# Subtest: RL admits Buried Coil in a custom eight-card deck and restores its QUESTION observation
+ok 25 - RL admits Buried Coil in a custom eight-card deck and restores its QUESTION observation
+  ---
+  duration_ms: 62.318208
+  type: 'test'
+  ...
+# Subtest: RL exposes Buried Coil conceal, reveal, reconceal, and restored QUESTION state
+ok 26 - RL exposes Buried Coil conceal, reveal, reconceal, and restored QUESTION state
+  ---
+  duration_ms: 1403.869041
+  type: 'test'
+  ...
+# Subtest: RL keeps Buried Coil's lifetime QUESTION through restore and its expiry boundary
+ok 27 - RL keeps Buried Coil's lifetime QUESTION through restore and its expiry boundary
+  ---
+  duration_ms: 27361.313709
+  type: 'test'
+  ...
+# Subtest: horizon clipping truncates exactly and rejects later steps
+ok 28 - horizon clipping truncates exactly and rejects later steps
+  ---
+  duration_ms: 78.20325
+  type: 'test'
+  ...
+# Subtest: restore rejects paused or pending GameSession checkpoints
+ok 29 - restore rejects paused or pending GameSession checkpoints
+  ---
+  duration_ms: 64.054625
+  type: 'test'
+  ...
+# Subtest: masked and out-of-range actions are atomic
+ok 30 - masked and out-of-range actions are atomic
+  ---
+  duration_ms: 11.472208
+  type: 'test'
+  ...
+# Subtest: observations are allowlisted, JSON-safe, and detached
+ok 31 - observations are allowlisted, JSON-safe, and detached
+  ---
+  duration_ms: 17.165791
+  type: 'test'
+  ...
+# Subtest: natural engine completion reports one sparse reward and seals the episode
+ok 32 - natural engine completion reports one sparse reward and seals the episode
+  ---
+  duration_ms: 51559.483792
+  type: 'test'
+  ...
+# Subtest: wait-only seed 2 reaches its pinned natural engine terminal after checkpoint restore
+ok 33 - wait-only seed 2 reaches its pinned natural engine terminal after checkpoint restore
+  ---
+  duration_ms: 44801.605792
+  type: 'test'
+  ...
+1..33
+# tests 33
+# suites 0
+# pass 33
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 129279.382042

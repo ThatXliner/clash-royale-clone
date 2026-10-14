@@ -1,0 +1,120 @@
+TAP version 13
+# Subtest: RL environment exposes a finite action catalogue and masks legal deploys
+ok 1 - RL environment exposes a finite action catalogue and masks legal deploys
+  ---
+  duration_ms: 82.775584
+  type: 'test'
+  ...
+# Subtest: seeded trajectories and restored checkpoints continue identically
+ok 2 - seeded trajectories and restored checkpoints continue identically
+  ---
+  duration_ms: 214.291958
+  type: 'test'
+  ...
+# Subtest: separate instances and a custom shared deck remain independent
+ok 3 - separate instances and a custom shared deck remain independent
+  ---
+  duration_ms: 25.595834
+  type: 'test'
+  ...
+# Subtest: RL mask casts an editable Squall Orb center point and restores its pending effect
+ok 4 - RL mask casts an editable Squall Orb center point and restores its pending effect
+  ---
+  duration_ms: 49.947583
+  type: 'test'
+  ...
+# Subtest: RL reset and legal mask deploy sourced projectile cards with exact deck restore
+ok 5 - RL reset and legal mask deploy sourced projectile cards with exact deck restore
+  ---
+  duration_ms: 332.623375
+  type: 'test'
+  ...
+# Subtest: RL observes Ember Basin targeting, damage, lifetime, and exact in-flight restore
+ok 6 - RL observes Ember Basin targeting, damage, lifetime, and exact in-flight restore
+  ---
+  duration_ms: 2432.452916
+  type: 'test'
+  ...
+# Subtest: RL admits Buried Coil in a custom eight-card deck and restores its QUESTION observation
+ok 7 - RL admits Buried Coil in a custom eight-card deck and restores its QUESTION observation
+  ---
+  duration_ms: 54.554875
+  type: 'test'
+  ...
+# Subtest: RL exposes Buried Coil conceal, reveal, reconceal, and restored QUESTION state
+not ok 8 - RL exposes Buried Coil conceal, reveal, reconceal, and restored QUESTION state
+  ---
+  duration_ms: 1080.17475
+  type: 'test'
+  location: '/private/tmp/cards021k-builder-76e202/tests/rl-environment.test.js:403:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    when the eligible target leaves, the live building reports its reconcealed state
+    
+    false !== true
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/cards021k-builder-76e202/tests/rl-environment.test.js:443:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: RL keeps Buried Coil's lifetime QUESTION through restore and its expiry boundary
+ok 9 - RL keeps Buried Coil's lifetime QUESTION through restore and its expiry boundary
+  ---
+  duration_ms: 25917.916167
+  type: 'test'
+  ...
+# Subtest: horizon clipping truncates exactly and rejects later steps
+ok 10 - horizon clipping truncates exactly and rejects later steps
+  ---
+  duration_ms: 77.123083
+  type: 'test'
+  ...
+# Subtest: restore rejects paused or pending GameSession checkpoints
+ok 11 - restore rejects paused or pending GameSession checkpoints
+  ---
+  duration_ms: 61.534542
+  type: 'test'
+  ...
+# Subtest: masked and out-of-range actions are atomic
+ok 12 - masked and out-of-range actions are atomic
+  ---
+  duration_ms: 10.632042
+  type: 'test'
+  ...
+# Subtest: observations are allowlisted, JSON-safe, and detached
+ok 13 - observations are allowlisted, JSON-safe, and detached
+  ---
+  duration_ms: 15.582334
+  type: 'test'
+  ...
+# Subtest: natural engine completion reports one sparse reward and seals the episode
+ok 14 - natural engine completion reports one sparse reward and seals the episode
+  ---
+  duration_ms: 61868.617125
+  type: 'test'
+  ...
+# Subtest: wait-only seed 2 reaches its pinned natural engine terminal after checkpoint restore
+ok 15 - wait-only seed 2 reaches its pinned natural engine terminal after checkpoint restore
+  ---
+  duration_ms: 44335.620125
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 14
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 136748.052417

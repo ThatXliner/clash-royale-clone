@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 462 — 2026-10-14
+
+PIECE: CARDS-021K round2
+
+VERDICT: PASS
+
+EVIDENCE: Round462 PASS exactf0cd988: independent33/33 runtime plus43/43 guards, hiddenstate conceal1/reveal66/reconceal109 and3unverifiedQUESTIONreceipts observable, missing/forged/extra rejects andexactrestorebranches. Default8seed0/23 andnonhiddenobs bytes preserved; kernel524103 unchanged. Core21 admission accepted only; art/UI021I andhistoricalparity unproved. Raw post-Node zshreadonlystatus wrappererror retained. Actual TAP33 tests/pass33/fail0/duration129279ms. Guards schema20/nondeterminism10/isolation13; candidateoneallowlistentry andconditionalhiddenRLmetadata only. Independent grounded/air/contact/deploy/cost4/lifetime checks, actual hidden QUESTIONreceipts remainauthoritativefalse/unverified/question, accepted7550defaultsetup/session/RL hashes exact. Allreference/public/demo unchanged. Evidence artifacts/cards021-core-round2/critic/ plusbuilderinitial14/15failureandcorrectedfull15/15 retained. Nodefinishedwithzero-failureTAP; wrapperitselfhadreadonlystatuserror, no cleanwrapperexitclaimed.
+
+BIGGEST GAP: Art andbrowserintegration remain separate; proposedhistoricalbinding andcombat/hidden/lifetime semantics remainQUESTION ratherthanparity.
+
 ## Round 461 — 2026-10-14
 
 PIECE: GAME-001GPR7A

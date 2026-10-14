@@ -1,0 +1,128 @@
+{
+  "candidateCommit": "f0cd988f03357da26fcf6d5dcb3a78a49c84e1f2",
+  "acceptedBase": "7550ca3",
+  "candidateParent": "9d8b542c7927b3d95f78d88ff723d088bc0a4bd0",
+  "changedSourceAndTestPathsFromAccepted": [
+    "M\tsrc/content/editable-deck.js",
+    "M\tsrc/rl/environment.js",
+    "A\ttests/cards021-integration.test.js",
+    "M\ttests/editable-deck.test.js",
+    "M\ttests/rl-environment.test.js"
+  ],
+  "referenceDeltaFromAccepted": [],
+  "publicAndDemoDeltaFromAccepted": [],
+  "sourceFiles": {
+    "src/content/editable-deck.js": {
+      "currentBytes": 6104,
+      "currentSha256": "fc164e2e42f01212542848e7688e6a1b6b773e3dd508760ce8ddd99efe9586e3",
+      "acceptedBytes": 6087,
+      "acceptedSha256": "899aef6d57126cedf28dc4ebab60692ab0b0fe702e8c384c20087132a263eccb",
+      "changedFromAccepted": true
+    },
+    "src/rl/environment.js": {
+      "currentBytes": 14195,
+      "currentSha256": "973a96a53928b830a747881506febf3138bc78f6e2b06f66e4957d822b577441",
+      "acceptedBytes": 13835,
+      "acceptedSha256": "920766cdcee0d4279a4f6ffeaad55723857647ba1c58fcc58738ad45f25454a8",
+      "changedFromAccepted": true
+    },
+    "src/content/cards/buildings-defensive.js": {
+      "currentBytes": 36168,
+      "currentSha256": "30ee46b0f00766a9687f332a1eb236e77132b1da0cc496a9a6ad156e75767224",
+      "acceptedBytes": 36168,
+      "acceptedSha256": "30ee46b0f00766a9687f332a1eb236e77132b1da0cc496a9a6ad156e75767224",
+      "changedFromAccepted": false
+    },
+    "src/sim/session-building-runtime.js": {
+      "currentBytes": 46328,
+      "currentSha256": "75bdeb3584c6eef761a5f03311bb09149f02f95468fb8eebe85031c16395ce27",
+      "acceptedBytes": 46328,
+      "acceptedSha256": "75bdeb3584c6eef761a5f03311bb09149f02f95468fb8eebe85031c16395ce27",
+      "changedFromAccepted": false
+    },
+    "src/sim/game-session.js": {
+      "currentBytes": 1357,
+      "currentSha256": "a11f43213632bcd7be3d4945846cf5dcbfaeaf4b961a32c420c590f67519daa1",
+      "acceptedBytes": 1357,
+      "acceptedSha256": "a11f43213632bcd7be3d4945846cf5dcbfaeaf4b961a32c420c590f67519daa1",
+      "changedFromAccepted": false
+    },
+    "src/sim/battle-continuation-kernel.js": {
+      "currentBytes": 524103,
+      "currentSha256": "7e21668d9348670cf4ebb9d4fb917be146b75b97acaf974b253ab57d6a5361c2",
+      "acceptedBytes": 524103,
+      "acceptedSha256": "7e21668d9348670cf4ebb9d4fb917be146b75b97acaf974b253ab57d6a5361c2",
+      "changedFromAccepted": false
+    },
+    "src/content/session-card-catalog.js": {
+      "currentBytes": 16795,
+      "currentSha256": "7f3084637c0c9cd02a7eeeb8173e30034c78c48b97f21d0670fdcb3b0badc1af",
+      "acceptedBytes": 16795,
+      "acceptedSha256": "7f3084637c0c9cd02a7eeeb8173e30034c78c48b97f21d0670fdcb3b0badc1af",
+      "changedFromAccepted": false
+    },
+    "src/sim/session-building-profile-receipts.js": {
+      "currentBytes": 10250,
+      "currentSha256": "8f6d3d7c7b8775517163f80a82c1db04dc3ec412bb84e0b9ef8c9fc902c96eb8",
+      "acceptedBytes": 10250,
+      "acceptedSha256": "8f6d3d7c7b8775517163f80a82c1db04dc3ec412bb84e0b9ef8c9fc902c96eb8",
+      "changedFromAccepted": false
+    }
+  },
+  "kernelCapBytes": 524288,
+  "default8CandidateVsAcceptedRecordsIdentical": true,
+  "default8Candidate": [
+    {
+      "seed": 0,
+      "rlBytes": 47537,
+      "rlSha256": "a7a2d05fe052e49b52d3ce637aa4ab664ea6d56c570e0a0b6d3cf700e3884fa2",
+      "sessionSha256": "ed371dd1d28d6be72a98bda32e434cbbc5431eea4f163e4206a1901cd08dbea1",
+      "setupSha256": "6605be1bdf48aa971f3c55d841c19fc44a748ef1f5e25609630a25ec663c4e98",
+      "setupType": "object",
+      "observationStructureCount": 0
+    },
+    {
+      "seed": 23,
+      "rlBytes": 47539,
+      "rlSha256": "6ddb44dafece21ecb86a2956e468294f8701acbf1ec9408888970f90f0117c5f",
+      "sessionSha256": "d6879256a66396ff175769546a9c66d0158bfe11d60892713a43173c6b4bff63",
+      "setupSha256": "94cbdd3603f4522a8f986499813eb4e210eafd4d4b6170d7d0c81d188faaa219",
+      "setupType": "object",
+      "observationStructureCount": 0
+    }
+  ],
+  "default8Accepted": [
+    {
+      "seed": 0,
+      "rlBytes": 47537,
+      "rlSha256": "a7a2d05fe052e49b52d3ce637aa4ab664ea6d56c570e0a0b6d3cf700e3884fa2",
+      "sessionSha256": "ed371dd1d28d6be72a98bda32e434cbbc5431eea4f163e4206a1901cd08dbea1",
+      "setupSha256": "6605be1bdf48aa971f3c55d841c19fc44a748ef1f5e25609630a25ec663c4e98",
+      "setupType": "object",
+      "observationStructureCount": 0
+    },
+    {
+      "seed": 23,
+      "rlBytes": 47539,
+      "rlSha256": "6ddb44dafece21ecb86a2956e468294f8701acbf1ec9408888970f90f0117c5f",
+      "sessionSha256": "d6879256a66396ff175769546a9c66d0158bfe11d60892713a43173c6b4bff63",
+      "setupSha256": "94cbdd3603f4522a8f986499813eb4e210eafd4d4b6170d7d0c81d188faaa219",
+      "setupType": "object",
+      "observationStructureCount": 0
+    }
+  ],
+  "referenceJoinDisposition": "proposed profile match only; current 109-row map declares no comparator for Tesla; requires a refreshed explicit mapping receipt before any historical comparison",
+  "proposedHistoricalComparator": {
+    "id": 27000006,
+    "key": "tesla",
+    "name": "Tesla"
+  },
+  "teslaCurrentComparatorIds": [],
+  "teslaFullHistoricalCardExecutionClaimed": false,
+  "pinnedTeslaBuildingRawFieldCount": 353,
+  "referenceProductImportProhibited": true,
+  "artifactReceiptCommit": "a46f39d8a9c8fd9e4bb51e890bfb25e871c95fbe",
+  "artifactReceiptParent": "f0cd988f03357da26fcf6d5dcb3a78a49c84e1f2",
+  "receiptSourceDelta": "artifact logs and status only; no source or test changes",
+  "receiptAdoptedAsSource": false
+}
