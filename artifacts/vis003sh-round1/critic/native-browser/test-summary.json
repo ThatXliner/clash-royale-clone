@@ -1,0 +1,44 @@
+{
+  "runs": [
+    {
+      "command": "node --test tests/combat-effect-protocol.test.js tests/combat-effect-feed-bound.test.js",
+      "passed": 18,
+      "failed": 0,
+      "durationMs": 15142.650875,
+      "exitCode": 0,
+      "tap": "protocol-feed.raw.tap"
+    },
+    {
+      "command": "node --test tests/ui-combat-effects.test.js tests/cards021-integration.test.js",
+      "passed": 17,
+      "failed": 0,
+      "durationMs": 14358.905834,
+      "exitCode": 0,
+      "tap": "ui-cards021.raw.tap"
+    },
+    {
+      "command": "node --test tests/cards021-browser-integration.test.js",
+      "passed": 1,
+      "failed": 0,
+      "durationMs": 330153.461583,
+      "exitCode": 0,
+      "tap": "cards021-browser.raw.tap",
+      "browser": {
+        "chrome": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "chromeVersion": "155.0.8059.40",
+        "node": "v22.22.3",
+        "npm": "10.9.8",
+        "playwright": "1.58.2"
+      },
+      "environment": {
+        "GAME_BROWSER_CHROME": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "GAME_BROWSER_PLAYWRIGHT": "/tmp/vis003sh-critic-round1/node_modules/playwright/index.mjs",
+        "CARDS021_BROWSER_ARTIFACTS": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/vis003sh-round1/critic/native-browser"
+      },
+      "runnerShellPid": 36051,
+      "runnerExecSession": 78782
+    }
+  ],
+  "totalPassed": 36,
+  "totalFailed": 0
+}

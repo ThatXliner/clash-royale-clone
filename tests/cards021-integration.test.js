@@ -4,7 +4,10 @@ import test from "node:test";
 import { EDITABLE_DECK_CARD_IDS } from "../src/content/session-troop-roster.js";
 import { createEditableGameSessionSetup } from "../src/content/editable-deck.js";
 import { DeckCycle } from "../src/sim/deck.js";
-import { GameSession } from "../src/sim/game-session.js";
+import { GameSession, getGameSessionAudioReplay } from "../src/sim/game-session.js";
+import { createCombatEffectsViewModel } from "../src/ui/combat-effects.js";
+import { createCombatMotionView } from "../src/ui/combat-motion.js";
+import { createGameUiFrame } from "../src/ui/game-ui-projection.js";
 
 const SOUTH = Object.freeze({ x: 3_500, y: 14_500 });
 const NORTH = Object.freeze({ x: 3_500, y: 17_500 });
@@ -36,8 +39,9 @@ function seedForHands(deck, southCardId, northCardId) {
   throw new Error(`no bounded seeded starting-hand witness for ${southCardId}/${northCardId}`);
 }
 
-function sessionSetup(seed, { legalNorthCardId = null, thinkIntervalTicks = 3_600 } = {}) {
-  const setup = JSON.parse(createEditableGameSessionSetup(DECK, seed));
+function sessionSetup(seed, { deck = DECK, legalNorthCardId = null,
+  thinkIntervalTicks = 3_600 } = {}) {
+  const setup = JSON.parse(createEditableGameSessionSetup(deck, seed));
   setup.legalNorthDeployments = legalNorthCardId === null ? [] : [{
     cardId: legalNorthCardId,
     point: NORTH,
@@ -58,6 +62,13 @@ function deployPlayerCard(session, cardId, commandId = 0) {
     tick: session.state.tick,
     type: "deploy",
   }));
+}
+
+function stepUntil(session, predicate, maxTicks, label) {
+  for (let stepped = 0; stepped < maxTicks && !predicate(); stepped += 1) {
+    session.step();
+  }
+  assert.ok(predicate(), `${label} did not occur within ${maxTicks} real session ticks`);
 }
 
 test("Buried Coil custom eight-card GameSession deploys, spends once, reveals, and contacts ground and air", () => {
@@ -128,6 +139,206 @@ test("Buried Coil custom eight-card GameSession deploys, spends once, reveals, a
     assert.equal(sourcePolicy.corpusFields.damage.authoritative, false);
     assert.equal(sourcePolicy.corpusFields.damage.confidence, "unverified");
   }
+});
+
+function assertBuriedCoilDirectContact({ cardId, deck = DECK, layer, lethal }) {
+  const seed = seedForHands(deck, BURIED_COIL, cardId);
+  const session = new GameSession(sessionSetup(seed, {
+    deck,
+    legalNorthCardId: cardId,
+    thinkIntervalTicks: 1,
+  }));
+  deployPlayerCard(session, BURIED_COIL);
+  session.step();
+
+  const coil = session.state.battle.structures.find(({ cardId, side }) =>
+    cardId === BURIED_COIL && side === "south");
+  assert.ok(coil, `${cardId}: the real Coil structure remains in shared battle state`);
+  stepUntil(session, () => session.replay.some(({ buildingId, type }) =>
+    buildingId === coil.id && type === "structure-attack"), 1_200,
+  `${cardId}: the real Buried Coil launch`);
+  const attacks = session.replay.filter(({ buildingId, type }) =>
+    buildingId === coil.id && type === "structure-attack");
+  const attack = attacks[0];
+  const failureContext = attack === undefined ? JSON.stringify({
+    coil: {
+      alive: coil.alive,
+      hidden: coil.hidden,
+      hitpoints: coil.hitpoints,
+      id: coil.id,
+      targetKey: coil.targetKey,
+      targetable: coil.targetable,
+    },
+    misses: session.replay.filter(({ sourceId, type }) =>
+      sourceId === coil.id && type === "building-contact-missed"),
+    northDeployments: session.replay.filter(({ deployment, side, type }) =>
+      side === "north" && type === "session-deployed" &&
+      deployment.cardId === cardId),
+    tick: session.state.tick,
+    units: session.state.battle.units.map(({ alive, cardId: unitCardId, hitpoints, id,
+      layer: unitLayer, position, side, targetable }) => ({ alive, cardId: unitCardId,
+      hitpoints, id, layer: unitLayer, position, side, targetable })),
+  }) : "";
+  assert.ok(attack, `${cardId}: the real Buried Coil launches its first queued hit ${failureContext}`);
+  const isCoilDamage = ({ externalSourceId, targetId, type }) =>
+    type === "damage" && externalSourceId === `building:${attack.buildingId}` &&
+    targetId === attack.targetId;
+  stepUntil(session, () => session.replay.some(({ externalSourceId, targetId, tick, type }) =>
+    isCoilDamage({ externalSourceId, targetId, type }) && tick === attack.tick + 1), 2,
+  `${cardId}: the queued next-boundary damage`);
+  const damageHistory = () => session.replay.filter(isCoilDamage);
+  const firstDamage = damageHistory()[0];
+  assert.ok(firstDamage, `${cardId}: the admitted next-boundary contact applies real unit damage`);
+  assert.equal(firstDamage.tick, attack.tick + 1);
+  assert.equal(firstDamage.amount, attack.amount);
+  assert.equal(firstDamage.currentHealthAfter, Math.max(0,
+    firstDamage.currentHealthBefore - firstDamage.amount));
+  if (lethal) {
+    assert.ok(firstDamage.currentHealthAfter > 0,
+      `${cardId}: the first authentic structure contact is nonlethal`);
+    stepUntil(session, () => damageHistory().some(({ currentHealthAfter, tick }) =>
+      tick > firstDamage.tick && currentHealthAfter === 0), 1_200,
+    `${cardId}: a later authentic structure contact kills the previously damaged air target`);
+  }
+  const damage = lethal
+    ? damageHistory().find(({ currentHealthAfter, tick }) =>
+      tick > firstDamage.tick && currentHealthAfter === 0)
+    : firstDamage;
+  assert.ok(damage, `${cardId}: the selected actual contact resolves its intended outcome`);
+  assert.equal(damage.currentHealthAfter, Math.max(0,
+    damage.currentHealthBefore - damage.amount));
+  assert.equal(damage.currentHealthAfter === 0, lethal,
+    `${cardId}: the selected direct-contact record covers the intended ${lethal ? "lethal" : "nonlethal"} clamp`);
+  const targetUnit = session.state.battle.units.find(({ id }) => id === attack.targetId);
+  const damageAudit = damageHistory().map(({ amount, currentHealthAfter, currentHealthBefore,
+    externalSourceId, targetId, tick }) => ({ amount, currentHealthAfter, currentHealthBefore,
+    externalSourceId, sourceSide: coil.side, targetId, targetSide: targetUnit?.side ?? null, tick }));
+  console.log(`${cardId}: authentic Buried Coil damage history ${JSON.stringify(damageAudit)}`);
+
+  const projection = session.projectionSnapshot();
+  if (lethal) {
+    const firstRoot = projection.combatEffectFeed.records.find(({ phase, tick, type, payload }) =>
+      phase === "open" && type === "contact" && tick === firstDamage.tick &&
+      payload.sourceId === attack.buildingId && payload.targetId === attack.targetId);
+    assert.ok(firstRoot, `${cardId}: the first nonlethal attack has its own authenticated contact root`);
+    assert.deepEqual(projection.combatEffectFeed.records.filter(({ rootId }) =>
+      rootId === firstRoot.rootId).map(({ phase }) => phase),
+    ["open", "contact", "damage", "close"],
+    `${cardId}: the first air contact closes as nonlethal before the later kill`);
+  }
+  const root = projection.combatEffectFeed.records.find(({ phase, tick, type }) =>
+    phase === "open" && type === "contact" && tick === damage.tick);
+  assert.ok(root, `${cardId}: actual structure contact receives a direct-contact root`);
+  const targetPosition = session.state.battle.units.find(({ id }) => id === attack.targetId).position;
+  assert.deepEqual(root.payload.point, {
+    denominator: "1",
+    xNumerator: String(targetPosition.x),
+    yNumerator: String(targetPosition.y),
+  });
+  assert.equal(root.payload.sourceId, attack.buildingId);
+  assert.equal(root.payload.targetId, attack.targetId);
+  assert.match(root.payload.sequence, new RegExp(`^${damage.tick}:(0|[1-9][0-9]*)$`, "u"));
+  const causalRecords = projection.combatEffectFeed.records.filter(({ rootId }) =>
+    rootId === root.rootId);
+  assert.deepEqual(causalRecords.map(({ phase }) => phase), lethal
+    ? ["open", "contact", "damage", "death", "close"]
+    : ["open", "contact", "damage", "close"]);
+  assert.deepEqual(causalRecords.find(({ phase }) => phase === "damage").payload, {
+    amount: damage.amount,
+    currentHealthAfter: damage.currentHealthAfter,
+    currentHealthBefore: damage.currentHealthBefore,
+    targetId: damage.targetId,
+  });
+
+  const applyBoundaryEffects = createCombatEffectsViewModel(
+    projection.combatEffectFeed, damage.tick,
+  );
+  const contactRecord = causalRecords.find(({ phase }) => phase === "contact");
+  const boundaryImpacts = applyBoundaryEffects.impacts.filter(({ key, kind, sourceSequence }) =>
+    kind === "contact" && key === `${root.rootId}:contact:${contactRecord.eventId}` &&
+    sourceSequence === root.payload.sequence);
+  assert.equal(boundaryImpacts.length, 1,
+    `${cardId}: direct contact produces one point-impact visual at its apply boundary`);
+  const cursorEffects = createCombatEffectsViewModel(
+    projection.combatEffectFeed, session.state.tick,
+  );
+  assert.equal(session.state.tick, damage.tick + 1,
+    `${cardId}: the real browser frame advances one cursor beyond the canonical contact tick`);
+  assert.equal(cursorEffects.impacts.some(({ key }) => key.startsWith(`${root.rootId}:`)), false,
+    `${cardId}: the feed view does not duplicate the contact at the post-step cursor`);
+  const expectedResidualKey = `${root.rootId}:${contactRecord.payload.point.xNumerator}:${contactRecord.payload.point.yNumerator}:${contactRecord.payload.point.denominator}`;
+  const motionAtCursor = createCombatMotionView(projection, cursorEffects);
+  const contactResiduals = motionAtCursor.residuals.filter(({ key }) => key === expectedResidualKey);
+  assert.equal(contactResiduals.length, 1,
+    `${cardId}: the existing authenticated motion residual is the single post-step point impact`);
+  assert.deepEqual(contactResiduals[0], {
+    key: expectedResidualKey,
+    kind: "contact",
+    point: contactRecord.payload.point,
+    tick: damage.tick,
+  });
+  assert.equal(cursorEffects.paths.some(({ key }) => key.includes(root.rootId)), false,
+    `${cardId}: a direct contact never projects a moving path`);
+  assert.equal(cursorEffects.projectiles.some(({ key }) => key.includes(root.rootId)), false,
+    `${cardId}: a direct contact never projects a physical projectile`);
+
+  const frame = createGameUiFrame(session);
+  assert.ok(frame.combat.events.some(({ entityId, tick, type }) =>
+    entityId === attack.targetId && tick === damage.tick && type === "damage"),
+  `${cardId}: the normal combat projection carries the target damage reaction`);
+  assert.deepEqual(frame.effects.events, projection.combatEffectFeed.records,
+    `${cardId}: visible effects derive from the authenticated feed`);
+  const audio = getGameSessionAudioReplay(session);
+  assert.ok(audio.some(({ amount, externalSourceId, targetId, tick, type }) =>
+    type === "damage" && amount === damage.amount &&
+    externalSourceId === `building:${attack.buildingId}` &&
+    targetId === attack.targetId && tick === damage.tick),
+  `${cardId}: the original damage event continues to drive audio`);
+
+  const serialized = session.serialize();
+  const restored = GameSession.restore(serialized);
+  assert.equal(restored.serialize(), serialized, `${cardId}: the hit checkpoint restores exactly`);
+  assert.deepEqual(restored.projectionSnapshot().combatEffectFeed,
+    projection.combatEffectFeed, `${cardId}: direct contact effects restore exactly`);
+  const restoredFrame = createGameUiFrame(restored);
+  const restoredMotion = createCombatMotionView(restored.projectionSnapshot(), restoredFrame.effects);
+  assert.deepEqual(restoredFrame.effects.impacts, cursorEffects.impacts,
+    `${cardId}: exact restore does not duplicate the post-contact impact`);
+  assert.deepEqual(restoredMotion.residuals.filter(({ key }) => key === expectedResidualKey),
+    contactResiduals, `${cardId}: the single point impact reappears identically after exact restore`);
+  assert.deepEqual(getGameSessionAudioReplay(restored), audio,
+    `${cardId}: original audio events remain restore-exact`);
+  session.stepMany(4);
+  restored.stepMany(4);
+  assert.equal(restored.serialize(), session.serialize(),
+    `${cardId}: live and restored branches continue identically`);
+  const liveBranchFrame = createGameUiFrame(session);
+  const restoredBranchFrame = createGameUiFrame(restored);
+  const liveBranchMotion = createCombatMotionView(session.projectionSnapshot(), liveBranchFrame.effects);
+  const restoredBranchMotion = createCombatMotionView(restored.projectionSnapshot(), restoredBranchFrame.effects);
+  assert.deepEqual(restoredBranchFrame.effects.impacts, liveBranchFrame.effects.impacts,
+    `${cardId}: forked branches project the same post-contact effects`);
+  assert.deepEqual(restoredBranchMotion.residuals, liveBranchMotion.residuals,
+    `${cardId}: forked branches project the same authenticated contact residuals`);
+  session.stepMany(4);
+  restored.stepMany(4);
+  const expiredLiveFrame = createGameUiFrame(session);
+  const expiredRestoredFrame = createGameUiFrame(restored);
+  const expiredLiveMotion = createCombatMotionView(session.projectionSnapshot(), expiredLiveFrame.effects);
+  const expiredRestoredMotion = createCombatMotionView(restored.projectionSnapshot(), expiredRestoredFrame.effects);
+  assert.equal(expiredLiveMotion.residuals.some(({ key }) => key === expectedResidualKey), false,
+    `${cardId}: the direct point residual expires after its bounded display lifetime`);
+  assert.deepEqual(expiredRestoredMotion.residuals, expiredLiveMotion.residuals,
+    `${cardId}: restored branches expire the residual at the same deterministic cursor`);
+  assert.deepEqual(getGameSessionAudioReplay(restored), getGameSessionAudioReplay(session));
+}
+
+test("Buried Coil ground contact feeds actual Mossguard damage, hit reaction, audio, and restore", () => {
+  assertBuriedCoilDirectContact({ cardId: "mossguard", layer: "ground", lethal: false });
+});
+
+test("Buried Coil air contact feeds actual Copperskiff damage, hit reaction, audio, and restore", () => {
+  assertBuriedCoilDirectContact({ cardId: "copperskiff", layer: "air", lethal: true });
 });
 
 test("seeded AI deploys Buried Coil through its custom deck and preserves hidden lifetime on restore", () => {

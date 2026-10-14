@@ -42,6 +42,7 @@ import {
   COMBAT_EFFECT_FEED_MAX_ROOT_ID_LENGTH,
   appendCombatEffectEvent,
   appendCombatEffectRoot,
+  appendCombatEffectStructureContacts,
   combatEffectFeedSnapshot,
   combatEffectRootId,
   createCombatEffectFeed,
@@ -88,6 +89,60 @@ function areaCandidate(id, x, overrides = {}) {
     radius: 0,
     targetable: true,
     ...overrides,
+  };
+}
+
+function directStructureContactInput({ tick = 12, sourceId = 41, targetId = 73,
+  amount = 230, currentHealthBefore = 221, currentHealthAfter = 0 } = {}) {
+  const externalSourceId = `building:${sourceId}`;
+  const events = [
+    {
+      contactTick: tick,
+      damage: amount,
+      delivery: "melee",
+      sourceId: externalSourceId,
+      targetUnitId: targetId,
+      tick,
+      type: "external-unit-contact",
+    },
+    {
+      amount,
+      currentHealthAfter,
+      currentHealthBefore,
+      externalSourceId,
+      targetId,
+      tick,
+      type: "damage",
+    },
+  ];
+  if (currentHealthBefore > 0 && currentHealthAfter === 0) {
+    events.push({ targetId, tick, type: "death" });
+  }
+  return {
+    acceptedHits: [{
+      damage: amount,
+      delivery: "melee",
+      sourceId: externalSourceId,
+      targetUnitId: targetId,
+    }],
+    events,
+    hits: [{
+      amount,
+      applyTick: tick,
+      origin: "defensive-attack",
+      sourceId,
+      targetId,
+      targetKind: "unit",
+    }],
+    knownStructures: [{
+      id: sourceId,
+      kind: "structure",
+      layer: "ground",
+      side: "south",
+      structureId: externalSourceId,
+    }],
+    tick,
+    units: [{ id: targetId, position: { x: 4200, y: 17700 } }],
   };
 }
 
@@ -450,6 +505,89 @@ test("combat-effect feed rejects hostile lifecycle records atomically", () => {
   });
   assert.throws(() => validateCombatEffectFeed(forged), /data property|shape/u);
   assert.equal(traps, 0);
+});
+
+test("structure-origin contacts require the authenticated damage join and roll back atomically", () => {
+  const feed = createCombatEffectFeed();
+  const valid = directStructureContactInput();
+  appendCombatEffectStructureContacts(feed, valid);
+  const snapshot = assertClosedFeed(feed);
+  const records = snapshot.records;
+  assert.deepEqual(records.map(({ type, phase }) => `${type}:${phase}`), [
+    "contact:open", "contact:contact", "contact:damage", "contact:death", "contact:close",
+  ]);
+  const root = records[0];
+  assert.equal(root.payload.sequence, "12:0");
+  assert.equal(root.payload.sourceId, 41);
+  assert.equal(root.payload.targetId, 73);
+  assert.deepEqual(root.payload.point, {
+    denominator: "1",
+    xNumerator: "4200",
+    yNumerator: "17700",
+  });
+  assert.notEqual(root.rootId, combatEffectRootId({
+    direction: "unit-to-unit",
+    effectId: null,
+    projectileId: 1,
+    sequence: "12:0",
+    sourceId: 41,
+    type: "projectile",
+  }), "the direct-contact root identity cannot alias a physical projectile");
+
+  const rejected = (input, pattern) => {
+    const candidateFeed = createCombatEffectFeed();
+    const before = serializeCombatEffectFeed(candidateFeed);
+    assert.throws(() => appendCombatEffectStructureContacts(candidateFeed, input), pattern);
+    assert.equal(serializeCombatEffectFeed(candidateFeed), before,
+      "a rejected direct-contact join leaves all feed bytes unchanged");
+  };
+  const missingContact = structuredClone(valid);
+  missingContact.events = missingContact.events.filter(({ type }) =>
+    type !== "external-unit-contact");
+  rejected(missingContact, /no resolved contact event/u);
+
+  const rejectedHit = structuredClone(valid);
+  rejectedHit.acceptedHits[0].damage -= 1;
+  rejected(rejectedHit, /source is not admitted/u);
+
+  const missingDamage = structuredClone(valid);
+  missingDamage.events.find(({ type }) => type === "damage").externalSourceId = "building:99";
+  rejected(missingDamage, /no resolved damage event/u);
+
+  const unknownSource = structuredClone(valid);
+  unknownSource.knownStructures = [];
+  rejected(unknownSource, /source is not admitted/u);
+
+  const missingDeath = structuredClone(valid);
+  missingDeath.events = missingDeath.events.filter(({ type }) => type !== "death");
+  rejected(missingDeath, /no resolved death event/u);
+
+  const missFeed = createCombatEffectFeed();
+  const miss = structuredClone(valid);
+  miss.events = [{ amount: 230, origin: "defensive-attack", sourceId: 41,
+    targetId: 73, targetKind: "unit", tick: 12, type: "building-contact-missed" }];
+  appendCombatEffectStructureContacts(missFeed, miss);
+  assert.equal(missFeed.records.length, 0,
+    "an authentic stale-target miss never mints a direct damage root");
+
+  const batchFeed = createCombatEffectFeed();
+  const batchBefore = batchFeed.serialize();
+  const partialBatch = directStructureContactInput({ currentHealthBefore: 1000,
+    currentHealthAfter: 770 });
+  partialBatch.hits.push({ amount: 230, applyTick: 12, origin: "defensive-attack",
+    sourceId: 42, targetId: 74, targetKind: "unit" });
+  partialBatch.acceptedHits.push({ damage: 230, delivery: "melee",
+    sourceId: "building:42", targetUnitId: 74 });
+  partialBatch.events.push({ contactTick: 12, damage: 230, delivery: "melee",
+    sourceId: "building:42", targetUnitId: 74, tick: 12,
+    type: "external-unit-contact" });
+  partialBatch.knownStructures.push({ id: 42, kind: "structure", layer: "ground",
+    side: "south", structureId: "building:42" });
+  partialBatch.units.push({ id: 74, position: { x: 5000, y: 17700 } });
+  assert.throws(() => appendCombatEffectStructureContacts(batchFeed, partialBatch),
+    /no resolved damage event/u);
+  assert.equal(batchFeed.serialize(), batchBefore,
+    "a malformed later join rolls back all earlier contacts in the same batch");
 });
 
 test("combat-effect protocol rejects premature, branched, reordered, forged, and restored writes", () => {

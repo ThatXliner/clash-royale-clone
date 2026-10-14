@@ -9357,3 +9357,18 @@ BIGGEST GAP: The qualification bar requires Buried/default/prior-rendering cover
 Coverage limits: native integration desktop viewport is 1440x900 rather than the requested 1440x933; browser proof does not explicitly exercise preservation of typed state, input, or audio. Those are not counted as the primary gap above.
 
 No source adoption. 61/61 executed tests passed but missing required scope makes this round FAIL. 42critic evidence checksums verified; unit-run builder cwd and excluded interrupted duplicate are preserved honestly. New builder round addresses coverage; raw child-body diagnostic is retained without claiming whole child-frame exactness.
+
+## Round 478 — VIS-003SH authenticated structure damage feedback
+
+PIECE: VIS-003SH — Structure-origin damage feedback
+VERDICT: PASS
+EVIDENCE:
+- Exact frozen candidate c4bf8ccefbd0dcb0a6c554a247d2199e13fcd7b0 was tested in a clean detached checkout; its parent delta contains only the eight authorized paths. The kernel is 523788 bytes under the 524288-byte cap. All 537 tracked src/public/tests/package files have identical pre/post SHA-256 manifests, and the checkout is clean.
+- Focused tests passed 18/18 and UI/CARDS-021 integration passed 17/17. The one full native Chrome 155.0.8059.40 browser journey passed (36/36 total), with no browser evidence errors and no screenshot mismatches.
+- Ground contact at post-step tick 103 joined structure 1 to Mossguard 3 at (3818, 13500). One authenticated contact root closes after one damage event; 230 damage changes HP 1766→1536, target feedback is data-reaction=damage, and exactly one vital-damage cue is emitted (audio PCM cue count 8→9). The captured phone and desktop frames show the contact state.
+- Lethal air contact at tick 353 joined structure 1 to Copperskiff 5 at (3499, 14500). One contact residual appears in the effects DOM at that point; one 230-damage event clamps HP 221→0, the target combat DOM node count is 0, one death remnant remains, and the sequence contains one vital-damage cue and one unit-fall cue. The browser captures show the lethal frame.
+- The browser produced 65 full-viewport PNGs (36 at 390×844 and 29 at 1440×933). Independent SHA-256 and PNG IHDR checks found zero mismatches; all 28 normal/reduced-motion before/after-restore pairs are byte-identical. Typed evidence also records natural terminal tick 6645, seed 0, the same eight-card restart deck, and the first post-restart cost-4 deployment at cycle 1.
+- Protocol output preserves the compact v1 graph through restore/fork, appends direct-contact roots to compact v2, and passes forged-write, rollback, canonicality, and byte-bound cases. No replay parsing or UI health inference is needed in the exercised path.
+BIGGEST GAP: This round establishes deterministic rendered feedback and restore fidelity, while parity with a corresponding historical pre-March-2023 structure-hit frame remains unproved.
+
+Adopted exact8ownedsource/testpaths fromc4bf afterfreshindependentexecution. Rawintermediatetwo-markerpass andfirstmissing-effectKeyfailure retained separately, notfinalproof. Rootscope clarifies eventticks versus livecursor and earlierPIDattribution. No stat/art/audioasset changes, unchangedkernelcap. Full matching-source qualification reopened; historical109/footageparity remainsunproved.

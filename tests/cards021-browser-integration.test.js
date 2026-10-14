@@ -169,6 +169,17 @@ async function readMatchEvidence(frame, moduleUrl, targetDamageBoundary = null) 
       `[data-game-browser-layer="${name}"]`,
     )?.innerHTML ?? null;
     const audio = controller.audioDiagnostics;
+    const combatEffectFeed = targetDamageBoundary === null ? null :
+      controller.session.projectionSnapshot().combatEffectFeed;
+    const combatTargetFeedback = targetDamageBoundary === null ? null : (() => {
+      const node = document.querySelector(
+        `.combat-marker[data-combat-id="${targetDamageBoundary.targetId}"]`,
+      );
+      return node === null ? { exists: false, reaction: null } : {
+        exists: true,
+        reaction: node.dataset.reaction ?? null,
+      };
+    })();
     return {
       audio: {
         bytes: controller.audioContinuationBytes,
@@ -190,6 +201,8 @@ async function readMatchEvidence(frame, moduleUrl, targetDamageBoundary = null) 
         currentHealthBefore, externalSourceId, targetId, tick }) => ({ amount,
         currentHealthAfter, currentHealthBefore, externalSourceId: externalSourceId ?? null,
         targetId, tick })),
+      combatEffectFeed,
+      combatTargetFeedback,
       dom: {
         combat: layer("combat"),
         effects: layer("effects"),
@@ -227,6 +240,10 @@ async function readMatchEvidence(frame, moduleUrl, targetDamageBoundary = null) 
       projectiles: state.battle.projectiles.map(({ identity, position, targetId }) => ({
         identity, position, targetId,
       })),
+      contactImpactMarkers: [...document.querySelectorAll(
+        '.combat-effect-impact[data-kind="contact"]',
+      )].map((node) => ({ effectKey: node.dataset.effectKey ?? null,
+        kind: node.dataset.kind ?? null, residualImpact: node.dataset.residualImpact ?? null })),
       deploymentEvents: controller.session.replay.filter(({ type }) =>
         type === "session-deployed" || type === "session-structure-deployed"),
       replayLength: controller.session.replay.length,
@@ -241,8 +258,8 @@ async function readMatchEvidence(frame, moduleUrl, targetDamageBoundary = null) 
       structureLifetimes,
       tick: state.tick,
       terminal: state.terminal,
-      units: state.battle.units.map(({ alive, cardId, hitpoints, id, layer, side }) => ({
-        alive, cardId, hitpoints, id, layer, side,
+      units: state.battle.units.map(({ alive, cardId, hitpoints, id, layer, position, side }) => ({
+        alive, cardId, hitpoints, id, layer, position, side,
       })),
     };
   }, { entryUrl: moduleUrl, targetDamageBoundary });
@@ -678,7 +695,9 @@ test("Cards021 Buried Coil collection and arena use the authentic seed-zero eigh
     return entry;
   };
 
-  const restoreCheckpointAtAllContexts = async (name, { verifyTeamPlate = false } = {}) => {
+  const restoreCheckpointAtAllContexts = async (name, {
+    verifyTeamPlate = false, targetDamageBoundary = null,
+  } = {}) => {
     await frame.evaluate(async (entryUrl) => {
       const { arenaHudController: controller } = await import(entryUrl);
       controller.pause();
@@ -780,7 +799,7 @@ test("Cards021 Buried Coil collection and arena use the authentic seed-zero eigh
           }
         }
 
-        const before = await readMatchEvidence(frame, moduleUrl);
+        const before = await readMatchEvidence(frame, moduleUrl, targetDamageBoundary);
         assert.equal(before.media.prefersReducedMotion, expectedReducedMotion,
           `${contextName}: the strict baseline reports the requested browser media preference`);
         assert.ok(before.media.renderedReducedMotion.every((value) =>
@@ -793,7 +812,7 @@ test("Cards021 Buried Coil collection and arena use the authentic seed-zero eigh
           return controller.serialize();
         }, { entryUrl: moduleUrl, bytes: before.browserBytes });
         await settleGeometry(page);
-        const after = await readMatchEvidence(frame, moduleUrl);
+        const after = await readMatchEvidence(frame, moduleUrl, targetDamageBoundary);
         const afterFile = `${contextName}-after-restore.png`;
         const afterPng = await recordPageScreenshot(afterFile);
         assert.equal(after.media.prefersReducedMotion, expectedReducedMotion,
@@ -1132,13 +1151,20 @@ test("Cards021 Buried Coil collection and arena use the authentic seed-zero eigh
     await advanceUntilMatch(frame, moduleUrl, { kind: "structure-attack", layer: "ground" },
       "a real Buried Coil hit against an eligible ground target", 600);
     const beforeGroundContact = await readMatchEvidence(frame, moduleUrl);
+    const groundHitBeforeContact = beforeGroundContact.structureAttacks.find(({ targetLayer }) =>
+      targetLayer === "ground");
+    assert.ok(groundHitBeforeContact, "the queued ground launch is captured before contact");
     run.phase = "ground-contact-applytick";
     evidence.phase = run.phase;
     await persistRun();
     await advanceUntilMatch(frame, moduleUrl, { kind: "structure-contact", layer: "ground" },
       "the queued Buried Coil ground contact at its recorded apply boundary", 6);
-    const groundAttack = await readMatchEvidence(frame, moduleUrl);
-    const groundHit = groundAttack.structureAttacks.find(({ targetLayer }) => targetLayer === "ground");
+    const groundAttack = await readMatchEvidence(frame, moduleUrl, {
+      targetId: groundHitBeforeContact.targetId,
+      tick: groundHitBeforeContact.tick + 1,
+    });
+    const groundHit = groundAttack.structureAttacks.find(({ targetId, targetLayer }) =>
+      targetLayer === "ground" && targetId === groundHitBeforeContact.targetId);
     assert.ok(groundHit, "ground contact is recorded by the shared real session");
     const groundAttackerStructure = groundAttack.structures.find(({ id }) =>
       id === groundHit.buildingId);
@@ -1160,6 +1186,41 @@ test("Cards021 Buried Coil collection and arena use the authentic seed-zero eigh
     assert.equal(groundDamage.targetHealth, groundDamage.currentHealthAfter);
     assert.ok(groundDamage.targetHealth < groundDamage.targetMaxHealth,
       `the ground hit lowers the live target HP: ${JSON.stringify(groundDamage)}`);
+    assert.ok(groundTargetAtContact,
+      "the ground contact target is present in the canonical unit snapshot");
+    const groundContactRoot = groundAttack.combatEffectFeed.records.find(({ payload, phase,
+      tick, type }) => phase === "open" && type === "contact" && tick === groundDamage.tick &&
+      payload.sourceId === groundHit.buildingId && payload.targetId === groundHit.targetId);
+    assert.ok(groundContactRoot,
+      "the public session feed authenticates this structure-origin ground contact");
+    assert.equal(groundContactRoot.payload.sourceId, groundHit.buildingId);
+    assert.equal(groundContactRoot.payload.targetId, groundHit.targetId);
+    assert.match(groundContactRoot.payload.sequence,
+      new RegExp(`^${groundDamage.tick}:(0|[1-9][0-9]*)$`, "u"));
+    assert.deepEqual(groundContactRoot.payload.point, {
+      denominator: "1",
+      xNumerator: String(groundTargetAtContact.position.x),
+      yNumerator: String(groundTargetAtContact.position.y),
+    }, "the direct root is fixed at the authentic target's contact position");
+    const groundContactRecords = groundAttack.combatEffectFeed.records.filter(({ rootId }) =>
+      rootId === groundContactRoot.rootId);
+    assert.ok(groundContactRecords.every(({ type }) => type === "contact"),
+      "a structure contact never masquerades as a physical projectile root");
+    assert.deepEqual(groundContactRecords.map(({ phase }) => phase),
+      ["open", "contact", "damage", "close"],
+      "the nonlethal ground contact has one closed damage lifecycle");
+    const groundContactChild = groundContactRecords.find(({ phase }) => phase === "contact");
+    const groundResidualKey = `${groundContactRoot.rootId}:${groundContactChild.payload.point.xNumerator}:${groundContactChild.payload.point.yNumerator}:${groundContactChild.payload.point.denominator}`;
+    assert.equal(groundAttack.contactImpactMarkers.filter(({ effectKey, kind, residualImpact }) =>
+      kind === "contact" && effectKey === null && residualImpact === groundResidualKey).length, 1,
+    "the native effects layer renders exactly one existing authenticated contact residual at the post-step cursor");
+    assert.equal(groundAttack.contactImpactMarkers.some(({ effectKey }) =>
+      effectKey === `${groundContactRoot.rootId}:contact:${groundContactChild.eventId}`), false,
+    "the feed apply-boundary primitive is not duplicated at the incremented browser cursor");
+    assert.equal(groundAttack.combatTargetFeedback?.exists, true,
+      "the nonlethal ground target still has its native combat marker");
+    assert.equal(groundAttack.combatTargetFeedback.reaction, "damage",
+      "the target marker consumes the real damage event as its visible hit reaction");
     const groundMarker = frameLocator.locator(
       `.combat-marker[data-combat-id="${groundHit.targetId}"]`,
     );
@@ -1176,13 +1237,16 @@ test("Cards021 Buried Coil collection and arena use the authentic seed-zero eigh
       attackerDomSide: groundAttackerDomSide,
       targetAtContact: groundTargetAtContact ?? null,
       targetDomSide: groundTargetDomSide,
+      combatEffectFeed: groundAttack.combatEffectFeed,
+      contactRoot: groundContactRoot,
+      contactRecords: groundContactRecords,
+      contactImpactMarkers: groundAttack.contactImpactMarkers,
+      targetFeedback: groundAttack.combatTargetFeedback,
     };
     await persistEvidence();
     assert.ok(groundAttackerStructure,
       "the ground contact's attacker is present in the canonical structure snapshot");
     assert.equal(groundAttackerStructure.cardId, "buried-coil");
-    assert.ok(groundTargetAtContact,
-      "the ground contact's target is present in the canonical unit snapshot");
     assert.equal(groundTargetAtContact.cardId, "mossguard");
     assert.equal(groundAttackerDomSide, groundAttackerStructure.side,
       "the ground contact DOM side matches its canonical attacking Coil side");
@@ -1199,6 +1263,16 @@ test("Cards021 Buried Coil collection and arena use the authentic seed-zero eigh
     "the rendered ground health bar visibly scales below full after damage");
     assert.ok(groundCueDelta.some(({ cueId }) => cueId === "vital-damage"),
     "the actual ground damage schedules the original vital-damage audio cue");
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await settleGeometry(page);
+    const groundContactScreenshot = "buried-coil-ground-contact-phone-390x844.png";
+    await recordPageScreenshot(groundContactScreenshot);
+    evidence.groundContact.screenshot = groundContactScreenshot;
+    await persistEvidence();
+    await restoreCheckpointAtAllContexts("ground-contact", {
+      targetDamageBoundary: { targetId: groundHit.targetId, tick: groundDamage.tick },
+    });
 
     run.phase = "air-attack";
     evidence.phase = run.phase;
@@ -1226,6 +1300,39 @@ test("Cards021 Buried Coil collection and arena use the authentic seed-zero eigh
     assert.ok(airDamage, "the recorded coil launch resolves as a real air damage event");
     const airTargetBeforeContact = beforeAirContact.units.find(({ id }) => id === airHit.targetId);
     const airTargetAfterContact = airAttack.units.find(({ id }) => id === airHit.targetId);
+    assert.ok(airTargetAfterContact,
+      "the lethal air target remains in session state after its contact");
+    const airContactRoot = airAttack.combatEffectFeed.records.find(({ payload, phase, tick,
+      type }) => phase === "open" && type === "contact" && tick === airDamage.tick &&
+      payload.sourceId === airHit.buildingId && payload.targetId === airHit.targetId);
+    assert.ok(airContactRoot,
+      "the public session feed authenticates this structure-origin air contact");
+    assert.equal(airContactRoot.payload.sourceId, airHit.buildingId);
+    assert.equal(airContactRoot.payload.targetId, airHit.targetId);
+    assert.match(airContactRoot.payload.sequence,
+      new RegExp(`^${airDamage.tick}:(0|[1-9][0-9]*)$`, "u"));
+    assert.deepEqual(airContactRoot.payload.point, {
+      denominator: "1",
+      xNumerator: String(airTargetAfterContact.position.x),
+      yNumerator: String(airTargetAfterContact.position.y),
+    }, "the direct lethal root uses the authentic air target's contact position");
+    const airContactRecords = airAttack.combatEffectFeed.records.filter(({ rootId }) =>
+      rootId === airContactRoot.rootId);
+    assert.ok(airContactRecords.every(({ type }) => type === "contact"),
+      "a lethal structure contact never masquerades as a physical projectile root");
+    assert.deepEqual(airContactRecords.map(({ phase }) => phase),
+      ["open", "contact", "damage", "death", "close"],
+      "the lethal air contact records damage and death in one closed lifecycle");
+    const airContactChild = airContactRecords.find(({ phase }) => phase === "contact");
+    const airResidualKey = `${airContactRoot.rootId}:${airContactChild.payload.point.xNumerator}:${airContactChild.payload.point.yNumerator}:${airContactChild.payload.point.denominator}`;
+    assert.equal(airAttack.contactImpactMarkers.filter(({ effectKey, kind, residualImpact }) =>
+      kind === "contact" && effectKey === null && residualImpact === airResidualKey).length, 1,
+    "the native effects layer renders exactly one existing authenticated lethal residual at the post-step cursor");
+    assert.equal(airAttack.contactImpactMarkers.some(({ effectKey }) =>
+      effectKey === `${airContactRoot.rootId}:contact:${airContactChild.eventId}`), false,
+    "the feed apply-boundary primitive is not duplicated at the incremented browser cursor");
+    assert.deepEqual(airAttack.combatTargetFeedback, { exists: false, reaction: null },
+      "the dead Copperskiff has no stale marker on which to invent a hit reaction");
     const airAttackerStructure = airAttack.structures.find(({ id }) =>
       id === airHit.buildingId);
     const airAttackerDomSide = combatMarkerSide(airAttack.dom.combat, airHit.buildingId);
@@ -1244,6 +1351,9 @@ test("Cards021 Buried Coil collection and arena use the authentic seed-zero eigh
       ? await readCombatHealthPresentation(airMarker)
       : null;
     const airCueDelta = airAttack.audio.pcm.slice(beforeAirContact.audio.pcm.length);
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await settleGeometry(page);
     const airContactScreenshot = "buried-coil-air-contact-death-phone-390x844.png";
     await recordPageScreenshot(airContactScreenshot);
     evidence.airContact = {
@@ -1257,6 +1367,11 @@ test("Cards021 Buried Coil collection and arena use the authentic seed-zero eigh
       healthPresentation: airHealthPresentation,
       markerCount: airMarkerCount,
       newCues: airCueDelta,
+      combatEffectFeed: airAttack.combatEffectFeed,
+      contactRoot: airContactRoot,
+      contactRecords: airContactRecords,
+      contactImpactMarkers: airAttack.contactImpactMarkers,
+      targetFeedback: airAttack.combatTargetFeedback,
       attackerStructure: airAttackerStructure ?? null,
       attackerDomSide: airAttackerDomSide,
       targetAfter: airTargetAfterContact ?? null,
@@ -1355,10 +1470,12 @@ test("Cards021 Buried Coil collection and arena use the authentic seed-zero eigh
     }
     assert.ok(airCueDelta.some(({ cueId }) => cueId === "vital-damage"),
     "the actual air damage schedules the original vital-damage audio cue");
-    run.phase = "damaged-four-context-restores";
+    run.phase = "air-contact-death-four-context-restores";
     evidence.phase = run.phase;
     await persistRun();
-    await restoreCheckpointAtAllContexts("damaged");
+    await restoreCheckpointAtAllContexts("air-contact-death", {
+      targetDamageBoundary: { targetId: airHit.targetId, tick: airDamage.tick },
+    });
 
     run.phase = "inflight-four-context-restores";
     evidence.phase = run.phase;

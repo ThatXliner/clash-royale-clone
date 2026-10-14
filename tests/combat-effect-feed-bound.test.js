@@ -7,6 +7,7 @@ import {
   COMBAT_EFFECT_FEED_MAX_RECORDS,
   appendCombatEffectEvent,
   appendCombatEffectRoot,
+  appendCombatEffectStructureContacts,
   combatEffectFeedSnapshot,
   createCombatEffectFeed,
   restoreCombatEffectFeed,
@@ -54,6 +55,26 @@ function appendCancelledProjectile(feed, identity) {
     tick: identity,
     type: "projectile",
   });
+}
+
+function directStructureContactInput(tick = 20_000) {
+  return {
+    acceptedHits: [{ damage: 230, delivery: "melee", sourceId: "building:41",
+      targetUnitId: 73 }],
+    events: [
+      { contactTick: tick, damage: 230, delivery: "melee", sourceId: "building:41",
+        targetUnitId: 73, tick, type: "external-unit-contact" },
+      { amount: 230, currentHealthAfter: 0, currentHealthBefore: 221,
+        externalSourceId: "building:41", targetId: 73, tick, type: "damage" },
+      { targetId: 73, tick, type: "death" },
+    ],
+    hits: [{ amount: 230, applyTick: tick, origin: "defensive-attack", sourceId: 41,
+      targetId: 73, targetKind: "unit" }],
+    knownStructures: [{ id: 41, kind: "structure", layer: "ground", side: "south",
+      structureId: "building:41" }],
+    tick,
+    units: [{ id: 73, position: { x: 4200, y: 17700 } }],
+  };
 }
 
 function buildCompactFeed() {
@@ -106,6 +127,22 @@ test("compact wire preserves the full v1 logical graph across restore and branch
   assert.equal(feed.serialize(), bytes, "appending to a v2 fork does not mutate its parent");
   assert.equal(serializeCombatEffectFeed(restoreCombatEffectFeed(branch.serialize())),
     branch.serialize());
+});
+
+test("direct-contact roots append to compact v2 as the third type without mutating the parent", () => {
+  const { feed } = buildCompactFeed();
+  const parentBytes = feed.serialize();
+  const branch = feed.fork();
+  appendCombatEffectStructureContacts(branch, directStructureContactInput());
+  const bytes = branch.serialize();
+  const compact = JSON.parse(bytes);
+  assert.equal(compact.version, 2);
+  const directRoot = compact.records.find((row) => Array.isArray(row) && row.length === 3 &&
+    row[1] === 2);
+  assert.ok(directRoot, "compact type index 2 remains the appended direct-contact type");
+  assert.equal(JSON.parse(serializeCombatEffectFeed(restoreCombatEffectFeed(bytes))).version, 2);
+  assert.equal(serializeCombatEffectFeed(restoreCombatEffectFeed(bytes)), bytes);
+  assert.equal(feed.serialize(), parentBytes, "the parent v2 feed retains its exact bytes");
 });
 
 test("compact v2 rejects noncanonical, malformed, and causally forged rows", () => {
@@ -191,4 +228,54 @@ test("compact append byte-bound failure is atomic and keeps the same limits", ()
   assert.equal(JSON.parse(branch.serialize()).version, 2);
   assert.ok(utf8Bytes(branch.serialize()) <= COMBAT_EFFECT_FEED_MAX_BYTES);
   assert.ok(utf8Bytes(feed.serialize()) <= COMBAT_EFFECT_FEED_MAX_BYTES);
+});
+
+test("direct-contact byte-bound failure leaves a compact feed unchanged", () => {
+  const { feed, nextIdentity } = buildCompactFeed();
+  const branch = feed.fork();
+  let identity = nextIdentity;
+  let reachedByteBound = false;
+  for (; identity <= COMBAT_EFFECT_FEED_MAX_RECORDS / 2; identity += 1) {
+    let root;
+    try {
+      root = appendCombatEffectRoot(branch, {
+        direction: "projectile",
+        effectId: null,
+        from: { x: 1000, y: 1000 },
+        impactTick: identity + 1,
+        projectileId: identity,
+        radius: 0,
+        segments: [],
+        sequence: identity,
+        sourceId: 1,
+        tick: identity,
+        to: { x: 3000, y: 1000 },
+        type: "projectile",
+      });
+    } catch (error) {
+      assert.match(error.message, /byte bound/u);
+      reachedByteBound = true;
+      break;
+    }
+    try {
+      appendCombatEffectEvent(branch, {
+        parentId: root.eventId,
+        payload: { reason: "launch-cancelled" },
+        phase: "close",
+        rootId: root.rootId,
+        tick: identity,
+        type: "projectile",
+      });
+    } catch (error) {
+      assert.match(error.message, /byte bound/u);
+      reachedByteBound = true;
+      break;
+    }
+  }
+  assert.equal(reachedByteBound, true, "the compact feed reaches its unchanged byte bound");
+  const before = branch.serialize();
+  assert.throws(() => appendCombatEffectStructureContacts(branch,
+    directStructureContactInput(identity + 1)), /byte bound|record bound/u);
+  assert.equal(branch.serialize(), before,
+    "a rejected direct-contact root does not partially append open/contact/damage/death records");
 });

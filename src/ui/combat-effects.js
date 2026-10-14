@@ -414,7 +414,7 @@ function assertLiveHomingRootsAreActive(roots, livePositions, tick) {
 function impactRecord(root, record, suffix = null) {
   return {
     key: suffix === null ? root.open.rootId : `${root.open.rootId}:${suffix}:${record.eventId}`,
-    kind: visualKind(root.open.payload.direction),
+    kind: root.open.type === "contact" ? "contact" : visualKind(root.open.payload.direction),
     point: record.payload.point ?? record.payload.center,
     sourceSequence: root.open.payload.sequence,
   };

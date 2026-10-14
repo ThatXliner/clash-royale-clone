@@ -1,0 +1,393 @@
+{
+  "sourceCommit": "c4bf8ccefbd0dcb0a6c554a247d2199e13fcd7b0",
+  "browser": {
+    "chromeVersion": "155.0.8059.40",
+    "chrome": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "node": "v22.22.3",
+    "playwright": "/tmp/vis003sh-critic-round1/node_modules/playwright/index.mjs",
+    "browserEvidencePhase": "complete",
+    "errors": []
+  },
+  "ground": {
+    "root": {
+      "id": "contact.contact.1.3.none.s103%3A0",
+      "tick": 103,
+      "phase": "open",
+      "sourceId": 1,
+      "targetId": 3,
+      "point": {
+        "denominator": "1",
+        "xNumerator": "3818",
+        "yNumerator": "13500"
+      },
+      "pointAsNumber": {
+        "x": 3818,
+        "y": 13500
+      }
+    },
+    "sourceStructureId": 1,
+    "records": [
+      {
+        "eventId": 1,
+        "parentId": null,
+        "phase": "open",
+        "tick": 103,
+        "payload": {
+          "point": {
+            "denominator": "1",
+            "xNumerator": "3818",
+            "yNumerator": "13500"
+          },
+          "sequence": "103:0",
+          "sourceId": 1,
+          "targetId": 3
+        }
+      },
+      {
+        "eventId": 2,
+        "parentId": 1,
+        "phase": "contact",
+        "tick": 103,
+        "payload": {
+          "point": {
+            "denominator": "1",
+            "xNumerator": "3818",
+            "yNumerator": "13500"
+          },
+          "status": "contact",
+          "subId": null,
+          "targetId": 3
+        }
+      },
+      {
+        "eventId": 3,
+        "parentId": 2,
+        "phase": "damage",
+        "tick": 103,
+        "payload": {
+          "amount": 230,
+          "currentHealthAfter": 1536,
+          "currentHealthBefore": 1766,
+          "targetId": 3
+        }
+      },
+      {
+        "eventId": 4,
+        "parentId": 3,
+        "phase": "close",
+        "tick": 103,
+        "payload": {
+          "reason": "complete"
+        }
+      }
+    ],
+    "rootCount": 1,
+    "damageRecordCount": 1,
+    "deathRecordCount": 0,
+    "sourceOwnsActualTargetPoint": true,
+    "targetPosition": {
+      "x": 3818,
+      "y": 13500
+    },
+    "residuals": 1,
+    "impact": [
+      {
+        "effectKey": null,
+        "kind": "contact",
+        "residualImpact": "contact.contact.1.3.none.s103%3A0:3818:13500:1"
+      }
+    ],
+    "damage": {
+      "amount": 230,
+      "buildingId": 1,
+      "currentHealthAfter": 1536,
+      "currentHealthBefore": 1766,
+      "targetCardId": "mossguard",
+      "targetHealth": 1536,
+      "targetMaxHealth": 1766,
+      "targetId": 3,
+      "targetLayer": "ground",
+      "tick": 103
+    },
+    "healthPresentation": {
+      "current": "1536",
+      "maximum": "1766",
+      "rect": {
+        "height": 4,
+        "width": 28.172149658203125
+      },
+      "scaleX": 0.869762
+    },
+    "targetFeedback": {
+      "exists": true,
+      "reaction": "damage"
+    },
+    "targetBefore": {
+      "alive": true,
+      "cardId": "mossguard",
+      "hitpoints": 1536,
+      "id": 3,
+      "layer": "ground",
+      "position": {
+        "x": 3818,
+        "y": 13500
+      },
+      "side": "south"
+    },
+    "targetAfter": null,
+    "targetDomNodes": null,
+    "deathRemnants": null,
+    "domContactResiduals": null,
+    "audioPcm": {
+      "before": 8,
+      "after": 9,
+      "delta": 1
+    },
+    "cues": [
+      {
+        "cueId": "vital-damage",
+        "sequence": 10,
+        "sourceType": "damage"
+      }
+    ],
+    "terminal": null,
+    "tick": null
+  },
+  "air": {
+    "root": {
+      "id": "contact.contact.1.5.none.s353%3A0",
+      "tick": 353,
+      "phase": "open",
+      "sourceId": 1,
+      "targetId": 5,
+      "point": {
+        "denominator": "1",
+        "xNumerator": "3499",
+        "yNumerator": "14500"
+      },
+      "pointAsNumber": {
+        "x": 3499,
+        "y": 14500
+      }
+    },
+    "sourceStructureId": 1,
+    "records": [
+      {
+        "eventId": 58,
+        "parentId": null,
+        "phase": "open",
+        "tick": 353,
+        "payload": {
+          "point": {
+            "denominator": "1",
+            "xNumerator": "3499",
+            "yNumerator": "14500"
+          },
+          "sequence": "353:0",
+          "sourceId": 1,
+          "targetId": 5
+        }
+      },
+      {
+        "eventId": 59,
+        "parentId": 58,
+        "phase": "contact",
+        "tick": 353,
+        "payload": {
+          "point": {
+            "denominator": "1",
+            "xNumerator": "3499",
+            "yNumerator": "14500"
+          },
+          "status": "contact",
+          "subId": null,
+          "targetId": 5
+        }
+      },
+      {
+        "eventId": 60,
+        "parentId": 59,
+        "phase": "damage",
+        "tick": 353,
+        "payload": {
+          "amount": 230,
+          "currentHealthAfter": 0,
+          "currentHealthBefore": 221,
+          "targetId": 5
+        }
+      },
+      {
+        "eventId": 61,
+        "parentId": 60,
+        "phase": "death",
+        "tick": 353,
+        "payload": {
+          "targetId": 5
+        }
+      },
+      {
+        "eventId": 62,
+        "parentId": 61,
+        "phase": "close",
+        "tick": 353,
+        "payload": {
+          "reason": "complete"
+        }
+      }
+    ],
+    "rootCount": 1,
+    "damageRecordCount": 1,
+    "deathRecordCount": 1,
+    "sourceOwnsActualTargetPoint": true,
+    "targetPosition": {
+      "x": 3499,
+      "y": 14500
+    },
+    "residuals": 1,
+    "impact": [
+      {
+        "effectKey": null,
+        "kind": "contact",
+        "residualImpact": "contact.contact.1.5.none.s353%3A0:3499:14500:1"
+      }
+    ],
+    "damage": {
+      "amount": 230,
+      "buildingId": 1,
+      "currentHealthAfter": 0,
+      "currentHealthBefore": 221,
+      "targetCardId": "copperskiff",
+      "targetHealth": 0,
+      "targetMaxHealth": 614,
+      "targetId": 5,
+      "targetLayer": "air",
+      "tick": 353
+    },
+    "healthPresentation": null,
+    "targetFeedback": {
+      "exists": false,
+      "reaction": null
+    },
+    "targetBefore": {
+      "alive": true,
+      "cardId": "copperskiff",
+      "hitpoints": 221,
+      "id": 5,
+      "layer": "air",
+      "position": {
+        "x": 3499,
+        "y": 14500
+      },
+      "side": "south"
+    },
+    "targetAfter": {
+      "alive": false,
+      "cardId": "copperskiff",
+      "hitpoints": 0,
+      "id": 5,
+      "layer": "air",
+      "position": {
+        "x": 3499,
+        "y": 14500
+      },
+      "side": "south"
+    },
+    "targetDomNodes": 0,
+    "deathRemnants": 1,
+    "domContactResiduals": 1,
+    "audioPcm": {
+      "before": 45,
+      "after": 47,
+      "delta": 2
+    },
+    "cues": [
+      {
+        "cueId": "vital-damage",
+        "sequence": 48,
+        "sourceType": "damage"
+      },
+      {
+        "cueId": "unit-fall",
+        "sequence": 49,
+        "sourceType": "death"
+      }
+    ],
+    "terminal": false,
+    "tick": 354
+  },
+  "final": {
+    "seed": 0,
+    "setupDeck": [
+      "coilblade",
+      "mossguard",
+      "copperskiff",
+      "buried-coil",
+      "brassbolt",
+      "reedsting",
+      "briar-band",
+      "cinderlings"
+    ],
+    "restart": {
+      "deck": [
+        "coilblade",
+        "mossguard",
+        "copperskiff",
+        "buried-coil",
+        "brassbolt",
+        "reedsting",
+        "briar-band",
+        "cinderlings"
+      ],
+      "restartCount": 1,
+      "seed": 0
+    },
+    "postRestartDrop": {
+      "cost": 4,
+      "cycle": 1,
+      "tick": 1
+    },
+    "naturalTerminalTick": 6645,
+    "lifetime": {
+      "events": [
+        {
+          "buildingId": 1,
+          "cause": "expiry",
+          "tick": 1800
+        },
+        {
+          "buildingId": 2,
+          "cause": "expiry",
+          "tick": 1802
+        }
+      ],
+      "steps": 1395,
+      "structures": [
+        {
+          "alive": false,
+          "cardId": "buried-coil",
+          "deathCause": "expiry",
+          "hidden": true,
+          "hitpoints": 0,
+          "id": 1,
+          "maxHitpoints": 1152,
+          "placedTick": 0,
+          "side": "north",
+          "targetable": false
+        },
+        {
+          "alive": false,
+          "cardId": "buried-coil",
+          "deathCause": "expiry",
+          "hidden": false,
+          "hitpoints": 0,
+          "id": 2,
+          "maxHitpoints": 1152,
+          "placedTick": 2,
+          "side": "south",
+          "targetable": false
+        }
+      ],
+      "tick": 1803
+    }
+  }
+}

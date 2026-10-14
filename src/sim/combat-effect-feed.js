@@ -34,6 +34,7 @@ const PAYLOAD_OPEN_KEYS = [
   "direction", "effectId", "from", "impactTick", "projectileId", "radius",
   "segments", "sequence", "sourceId", "to",
 ];
+const PAYLOAD_DIRECT_CONTACT_OPEN_KEYS = ["point", "sequence", "sourceId", "targetId"];
 const PAYLOAD_TURN_KEYS = ["point"];
 const PAYLOAD_CONTACT_KEYS = ["point", "status", "subId", "targetId"];
 const PAYLOAD_IMPACT_KEYS = ["center", "radius", "targetIds"];
@@ -43,7 +44,7 @@ const PAYLOAD_DAMAGE_KEYS = [
 const PAYLOAD_DEATH_KEYS = ["targetId"];
 const PAYLOAD_CLOSE_KEYS = ["reason"];
 
-const TYPES = new Set(["area", "projectile"]);
+const TYPES = new Set(["area", "projectile", "contact"]);
 const PROJECTILE_DIRECTIONS = new Set([
   "pierce", "pellet", "projectile", "return", "tower-to-unit", "travel",
   "unit-to-tower", "unit-to-unit",
@@ -52,6 +53,7 @@ const PROJECTILE_PHASES = new Set([
   "close", "contact", "damage", "death", "impact", "open", "turn",
 ]);
 const AREA_PHASES = new Set(["close", "damage", "death", "impact", "open"]);
+const DIRECT_CONTACT_PHASES = new Set(["close", "contact", "damage", "death", "open"]);
 const CONTACT_STATUSES = new Set([
   "contact", "target-dead", "target-missing", "observed",
 ]);
@@ -64,7 +66,7 @@ const ROOT_ID_TOKEN = /^[a-z][A-Za-z0-9.%_~!\-]*(?:\.[A-Za-z0-9.%_~!\-]+){5}$/u;
 const FEED_STATES = new WeakMap();
 const NORMALIZED_SNAPSHOT_ROOTS = new WeakSet();
 const NORMALIZED_SNAPSHOT_WIRE_VERSIONS = new WeakMap();
-const COMPACT_TYPES = ["area", "projectile"];
+const COMPACT_TYPES = ["area", "projectile", "contact"];
 const COMPACT_PHASES = ["open", "contact", "damage", "death", "impact", "turn", "close"];
 
 function clone(value) {
@@ -234,7 +236,8 @@ function combatEffectRootId(value) {
   const { direction, type } = raw;
   if (!TYPES.has(type)) throw new TypeError("combat effect root type is invalid");
   if ((type === "area" && direction !== "area") ||
-      (type === "projectile" && !PROJECTILE_DIRECTIONS.has(direction))) {
+      (type === "projectile" && !PROJECTILE_DIRECTIONS.has(direction)) ||
+      (type === "contact" && direction !== "contact")) {
     throw new TypeError("combat effect root direction is unsupported");
   }
   boundedText(direction, "combat effect root direction");
@@ -249,10 +252,24 @@ function combatEffectRootId(value) {
   if (type === "projectile" && sourceId === null) {
     throw new TypeError("combat effect projectile root identity is not canonical");
   }
+  if (type === "contact" &&
+      (sourceId === null || effectId === null || projectileId !== null || sequence === null)) {
+    throw new TypeError("combat effect direct contact root identity is not canonical");
+  }
   return `${type}.${direction}.${identityPart(sourceId)}.${identityPart(effectId)}.${identityPart(projectileId)}.${identityPart(sequence)}`;
 }
 
 function rootIdentity(type, payload) {
+  if (type === "contact") {
+    return combatEffectRootId({
+      direction: "contact",
+      effectId: payload.targetId,
+      projectileId: null,
+      sequence: payload.sequence,
+      sourceId: payload.sourceId,
+      type,
+    });
+  }
   return combatEffectRootId({
     direction: payload.direction,
     effectId: payload.effectId,
@@ -281,6 +298,21 @@ function checkedSegments(value, label) {
 }
 
 function checkedOpenPayload(value, label, type, tick) {
+  if (type === "contact") {
+    const raw = exact(value, PAYLOAD_DIRECT_CONTACT_OPEN_KEYS, label);
+    boundedText(raw.sequence, `${label}.sequence`);
+    const sequence = /^(0|[1-9][0-9]*):(0|[1-9][0-9]*)$/u.exec(raw.sequence);
+    if (sequence === null || sequence[1] !== String(tick) ||
+        !Number.isSafeInteger(Number(sequence[2])) || String(Number(sequence[2])) !== sequence[2]) {
+      throw new TypeError(`${label}.sequence must identify its contact tick and ordinal`);
+    }
+    return {
+      point: canonicalPoint(raw.point, `${label}.point`),
+      sequence: raw.sequence,
+      sourceId: integer(raw.sourceId, 1, Number.MAX_SAFE_INTEGER, `${label}.sourceId`),
+      targetId: integer(raw.targetId, 1, Number.MAX_SAFE_INTEGER, `${label}.targetId`),
+    };
+  }
   const raw = exact(value, PAYLOAD_OPEN_KEYS, label);
   if (!PROJECTILE_DIRECTIONS.has(raw.direction) &&
       !(type === "area" && raw.direction === "area")) {
@@ -399,7 +431,8 @@ function checkedRecord(value, label) {
   if (!ROOT_ID_TOKEN.test(rootId)) throw new TypeError(`${label}.rootId is not canonical`);
   const tick = integer(raw.tick, 0, Number.MAX_SAFE_INTEGER, `${label}.tick`);
   if (!TYPES.has(raw.type)) throw new TypeError(`${label}.type is unsupported`);
-  const phases = raw.type === "area" ? AREA_PHASES : PROJECTILE_PHASES;
+  const phases = raw.type === "area" ? AREA_PHASES :
+    raw.type === "contact" ? DIRECT_CONTACT_PHASES : PROJECTILE_PHASES;
   if (!phases.has(raw.phase)) throw new TypeError(`${label}.phase is unsupported`);
   const payload = checkedPayload(raw.payload, raw.type, raw.phase, tick, `${label}.payload`);
   return { eventId, parentId, payload, phase: raw.phase, rootId, tick, type: raw.type };
@@ -488,7 +521,12 @@ function appendChecked(state, record) {
         impact: new Set(["open"]),
         close: new Set(["damage", "death", "impact"]),
       }
-      : {
+      : checked.type === "contact" ? {
+        contact: new Set(["open"]),
+        damage: new Set(["contact"]),
+        death: new Set(["damage"]),
+        close: new Set(["damage", "death"]),
+      } : {
         contact: new Set(["contact", "damage", "death", "impact", "open", "turn"]),
         damage: new Set(["contact", "damage", "impact"]),
         death: new Set(["damage", "death"]),
@@ -505,6 +543,9 @@ function appendChecked(state, record) {
     }
     if (checked.phase === "damage") {
       const targetId = checked.payload.targetId;
+      if (checked.type === "contact" && targetId !== root.payload.targetId) {
+        throw new TypeError("combat effect direct contact damage target diverges from its root");
+      }
       if (root.deathTargets.has(targetId)) {
         throw new TypeError("combat effect damage follows target death");
       }
@@ -518,6 +559,9 @@ function appendChecked(state, record) {
       }
       root.damagedTargets.add(targetId);
     } else if (checked.phase === "death") {
+      if (checked.type === "contact" && checked.payload.targetId !== root.payload.targetId) {
+        throw new TypeError("combat effect direct contact death target diverges from its root");
+      }
       if (!root.damagedTargets.has(checked.payload.targetId)) {
         throw new TypeError("combat effect death target has no causal damage");
       }
@@ -526,6 +570,12 @@ function appendChecked(state, record) {
       }
       root.deathTargets.add(checked.payload.targetId);
     } else if (checked.phase === "contact") {
+      if (checked.type === "contact" &&
+          (root.contactTargets.size !== 0 || checked.payload.targetId !== root.payload.targetId ||
+           checked.payload.status !== "contact" ||
+           canonicalJson(checked.payload.point) !== canonicalJson(root.payload.point))) {
+        throw new TypeError("combat effect direct contact child diverges from its root");
+      }
       const previousStatus = root.contactTargets.get(checked.payload.targetId);
       if (previousStatus !== undefined &&
           previousStatus !== "contact" &&
@@ -545,6 +595,9 @@ function appendChecked(state, record) {
     if (checked.phase === "close") {
       if (checked.type === "area" && !root.impactSeen) {
         throw new TypeError("combat effect area close requires a preceding impact");
+      }
+      if (checked.type === "contact" && !root.damagedTargets.has(root.payload.targetId)) {
+        throw new TypeError("combat effect direct contact close requires a preceding damage");
       }
       if (checked.type === "projectile" &&
           !root.contactTargets.size && !root.impactSeen && !root.turnSeen) {
@@ -801,12 +854,21 @@ function appendCombatEffectEvent(feed, value) {
 }
 
 function appendCombatEffectRoot(feed, value) {
-  const raw = exact(value, [
+  const directContact = value !== null && typeof value === "object" &&
+    Object.getOwnPropertyDescriptor(value, "type")?.value === "contact";
+  const raw = exact(value, directContact ? [
+    "point", "sequence", "sourceId", "targetId", "tick", "type",
+  ] : [
     "direction", "effectId", "from", "impactTick", "projectileId", "radius",
     "segments", "sequence", "sourceId", "to", "tick", "type",
   ], "combat effect root");
   const type = raw.type;
-  const payload = {
+  const payload = type === "contact" ? {
+    point: raw.point,
+    sequence: raw.sequence,
+    sourceId: raw.sourceId,
+    targetId: raw.targetId,
+  } : {
     direction: raw.direction,
     effectId: raw.effectId,
     from: raw.from,
@@ -832,6 +894,159 @@ function appendCombatEffectRoot(feed, value) {
     tick: raw.tick,
     type,
   });
+}
+
+function appendCombatEffectChild(feed, root, phase, payload, tick, type = "projectile") {
+  const child = appendCombatEffectEvent(feed, {
+    parentId: root.lastEventId,
+    payload,
+    phase,
+    rootId: root.rootId,
+    tick,
+    type,
+  });
+  root.lastEventId = child.eventId;
+  return child;
+}
+
+function appendCombatEffectProjectileRoot(feed, projectile, from, to, tick, impactTick, radius = 0) {
+  const identity = projectile.projectileIdentity;
+  const root = appendCombatEffectRoot(feed, {
+    direction: identity.direction,
+    effectId: null,
+    from,
+    impactTick,
+    projectileId: identity.projectileId,
+    radius,
+    segments: [],
+    sequence: identity.attackSequence,
+    sourceId: identity.sourceId,
+    tick,
+    to,
+    type: "projectile",
+  });
+  return { lastEventId: root.eventId, rootId: root.rootId };
+}
+
+function appendCombatEffectDirectContact(feed, value) {
+  const state = FEED_STATES.get(feed);
+  if (state === undefined) throw new TypeError("combat effect feed authority is invalid");
+  const raw = exact(value, [
+    "amount", "currentHealthAfter", "currentHealthBefore", "death", "ordinal", "point",
+    "sourceId", "targetId", "tick",
+  ], "combat effect direct contact");
+  const tick = integer(raw.tick, 0, Number.MAX_SAFE_INTEGER, "direct contact.tick");
+  const ordinal = integer(raw.ordinal, 0, Number.MAX_SAFE_INTEGER, "direct contact.ordinal");
+  if (typeof raw.death !== "boolean") throw new TypeError("direct contact.death must be boolean");
+  const point = canonicalPoint(raw.point, "direct contact.point");
+  const sourceId = integer(raw.sourceId, 1, Number.MAX_SAFE_INTEGER, "direct contact.sourceId");
+  const targetId = integer(raw.targetId, 1, Number.MAX_SAFE_INTEGER, "direct contact.targetId");
+  const amount = integer(raw.amount, 0, Number.MAX_SAFE_INTEGER, "direct contact.amount");
+  const currentHealthBefore = integer(
+    raw.currentHealthBefore, 0, Number.MAX_SAFE_INTEGER, "direct contact.currentHealthBefore",
+  );
+  const currentHealthAfter = integer(
+    raw.currentHealthAfter, 0, Number.MAX_SAFE_INTEGER, "direct contact.currentHealthAfter",
+  );
+  if (currentHealthAfter > currentHealthBefore ||
+      currentHealthBefore - currentHealthAfter > amount ||
+      raw.death && (currentHealthBefore === 0 || currentHealthAfter !== 0)) {
+    throw new TypeError("direct contact is not a canonical damage transition");
+  }
+  const preview = forkState(state);
+  const previewFeed = apiForState(preview);
+  const rootRecord = appendCombatEffectRoot(previewFeed, {
+    point,
+    sequence: `${tick}:${ordinal}`,
+    sourceId,
+    targetId,
+    tick,
+    type: "contact",
+  });
+  const root = { lastEventId: rootRecord.eventId, rootId: rootRecord.rootId };
+  appendCombatEffectChild(previewFeed, root, "contact",
+    { point, status: "contact", subId: null, targetId }, tick, "contact");
+  appendCombatEffectChild(previewFeed, root, "damage",
+    { amount, currentHealthAfter, currentHealthBefore, targetId }, tick, "contact");
+  if (raw.death) appendCombatEffectChild(previewFeed, root, "death", { targetId }, tick, "contact");
+  appendCombatEffectChild(previewFeed, root, "close", { reason: "complete" }, tick, "contact");
+  const staged = FEED_STATES.get(previewFeed);
+  if (staged === undefined) throw new TypeError("combat effect preview authority is invalid");
+  Object.assign(state, staged);
+  return Object.freeze(state.records.slice(-(raw.death ? 5 : 4)));
+}
+
+function appendCombatEffectStructureContacts(feed, value) {
+  const state = FEED_STATES.get(feed);
+  if (state === undefined) throw new TypeError("combat effect feed authority is invalid");
+  const raw = exact(value, [
+    "acceptedHits", "events", "hits", "knownStructures", "tick", "units",
+  ], "direct structure contacts");
+  const tick = integer(raw.tick, 0, Number.MAX_SAFE_INTEGER, "direct structure contacts.tick");
+  const contacts = raw.events.filter((event) => event.tick === tick &&
+    event.type === "external-unit-contact");
+  const damages = raw.events.filter((event) => event.tick === tick && event.type === "damage");
+  const usedContacts = new Set();
+  const usedDamages = new Set();
+  const usedAcceptedHits = new Set();
+  const resolved = [];
+  for (const [ordinal, hit] of raw.hits.entries()) {
+    if (hit.targetKind !== "unit") continue;
+    const sourceId = `building:${hit.sourceId}`;
+    const source = raw.knownStructures.find(({ id }) => id === hit.sourceId);
+    if (source === undefined || source.structureId !== sourceId ||
+        source.kind !== "structure" || source.layer !== "ground") {
+      throw new TypeError("direct structure contact source is not admitted");
+    }
+    const contactIndex = contacts.findIndex((event, index) => !usedContacts.has(index) &&
+      event.contactTick === tick && event.damage === hit.amount && event.delivery === "melee" &&
+      event.sourceId === sourceId && event.targetUnitId === hit.targetId);
+    if (contactIndex === -1) {
+      const missed = raw.events.some((event) => event.tick === tick &&
+        event.type === "building-contact-missed" && event.amount === hit.amount &&
+        event.origin === hit.origin && event.sourceId === hit.sourceId &&
+        event.targetId === hit.targetId && event.targetKind === "unit");
+      if (missed) continue;
+      throw new TypeError("direct structure contact has no resolved contact event");
+    }
+    const acceptedIndex = raw.acceptedHits.findIndex((entry, index) =>
+      !usedAcceptedHits.has(index) && entry.damage === hit.amount &&
+      entry.delivery === "melee" && entry.sourceId === sourceId &&
+      entry.targetUnitId === hit.targetId);
+    if (acceptedIndex === -1) {
+      throw new TypeError("direct structure contact source is not admitted");
+    }
+    const damageIndex = damages.findIndex((event, index) => !usedDamages.has(index) &&
+      event.externalSourceId === sourceId && event.amount === hit.amount &&
+      event.targetId === hit.targetId);
+    const target = raw.units.find(({ id }) => id === hit.targetId);
+    if (damageIndex === -1 || target === undefined) {
+      throw new TypeError("direct structure contact has no resolved damage event");
+    }
+    usedContacts.add(contactIndex);
+    usedDamages.add(damageIndex);
+    usedAcceptedHits.add(acceptedIndex);
+    const damage = damages[damageIndex];
+    const death = damage.currentHealthBefore > 0 && damage.currentHealthAfter === 0;
+    if (death && !raw.events.some((event) => event.tick === tick &&
+        event.type === "death" && event.targetId === hit.targetId)) {
+      throw new TypeError("lethal structure contact has no resolved death event");
+    }
+    resolved.push({
+      amount: damage.amount,
+      currentHealthAfter: damage.currentHealthAfter,
+      currentHealthBefore: damage.currentHealthBefore,
+      death,
+      ordinal,
+      point: target.position,
+      sourceId: hit.sourceId,
+      targetId: hit.targetId,
+      tick,
+    });
+  }
+  const preview = apiForState(forkState(state));
+  for (const contact of resolved) appendCombatEffectDirectContact(preview, contact);
+  Object.assign(state, FEED_STATES.get(preview));
 }
 
 function validateCombatEffectFeed(value) {
@@ -888,7 +1103,10 @@ export {
   COMBAT_EFFECT_FEED_MAX_COORDINATE,
   COMBAT_EFFECT_FEED_MAX_DENOMINATOR,
   COMBAT_EFFECT_FEED_MAX_ROOT_ID_LENGTH,
+  appendCombatEffectChild,
   appendCombatEffectEvent,
+  appendCombatEffectStructureContacts,
+  appendCombatEffectProjectileRoot,
   appendCombatEffectRoot,
   combatEffectFeedSnapshot,
   combatEffectRootId,

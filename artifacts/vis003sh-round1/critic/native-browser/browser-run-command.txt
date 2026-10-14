@@ -1,0 +1,4 @@
+GAME_BROWSER_CHROME=/Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+GAME_BROWSER_PLAYWRIGHT=/tmp/vis003sh-critic-round1/node_modules/playwright/index.mjs
+CARDS021_BROWSER_ARTIFACTS=/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/vis003sh-round1/critic/native-browser
+node --test tests/cards021-browser-integration.test.js

@@ -56,8 +56,10 @@ import { MAX_SPATIAL_MILLITILES, circlesOverlap, validateCircle, validatePositio
 import { retainOrAcquireTarget, targetCandidate } from "./targeting.js";
 import { createStageSideDeployment } from "./game-side-deploy-core.js";
 import {
+  appendCombatEffectChild,
   appendCombatEffectEvent,
-  appendCombatEffectRoot,
+  appendCombatEffectProjectileRoot,
+  appendCombatEffectStructureContacts,
   combatEffectRootId,
   combatEffectFeedSnapshot,
   createCombatEffectFeed,
@@ -1643,7 +1645,7 @@ class BattleMovement {
 }
 
 function defineBattleCombat(registerCompact) {
-  let compact, currentTick;
+  let compact, currentTick, recordStructureContacts;
   const runtimeInstances = new WeakSet();
   const previewReceipts = new WeakMap();
 
@@ -2411,6 +2413,12 @@ class BattleCombat {
         throw new TypeError("internal defineBattleCombat tick receiver is invalid");
       }
       return value.#tick;
+    };
+    recordStructureContacts = (value, hits, tick, events) => {
+      if (!runtimeInstances.has(value)) {
+        throw new TypeError("internal structure contact receiver is invalid");
+      }
+      value.#recordStructureContacts(hits, tick, events);
     };
   }
   /** Computes one boundary on a witness-free fork without retaining history. */
@@ -3299,48 +3307,16 @@ class BattleCombat {
   }
 
   #openVisualProjectile(projectile, tick) {
-    const identity = projectile.projectileIdentity;
-    const root = appendCombatEffectRoot(this.#feed, {
-      direction: identity.direction,
-      effectId: null,
-      from: projectile.origin,
-      impactTick: projectile.impactTick,
-      projectileId: identity.projectileId,
-      // BattleCombat's projectile primitive has no independent radius field;
-      // its authoritative contact geometry is the target's radius. The
-      // visual envelope therefore records the same zero-radius carrier used
-      // by the projectile timing contract.
-      radius: 0,
-      segments: [],
-      sequence: identity.attackSequence,
-      sourceId: identity.sourceId,
-      tick,
-      to: projectile.targetPosition,
-      type: "projectile",
-    });
-    const visualRoot = { lastEventId: root.eventId, rootId: root.rootId };
-    this.#feedRoots.set(root.rootId, visualRoot);
+    const visualRoot = appendCombatEffectProjectileRoot(this.#feed, projectile,
+      projectile.origin, projectile.targetPosition, tick, projectile.impactTick);
+    this.#feedRoots.set(visualRoot.rootId, visualRoot);
     return visualRoot;
   }
 
   #openExternalVisualProjectile(projectile, origin, target, tick) {
-    const identity = projectile.projectileIdentity;
-    const root = appendCombatEffectRoot(this.#feed, {
-      direction: identity.direction,
-      effectId: null,
-      from: origin,
-      impactTick: tick,
-      projectileId: identity.projectileId,
-      radius: projectile.radius ?? 0,
-      segments: [],
-      sequence: identity.attackSequence,
-      sourceId: identity.sourceId,
-      tick,
-      to: target,
-      type: "projectile",
-    });
-    const visualRoot = { lastEventId: root.eventId, rootId: root.rootId };
-    this.#feedRoots.set(root.rootId, visualRoot);
+    const visualRoot = appendCombatEffectProjectileRoot(this.#feed, projectile,
+      origin, target, tick, tick, projectile.radius ?? 0);
+    this.#feedRoots.set(visualRoot.rootId, visualRoot);
     return visualRoot;
   }
 
@@ -3362,65 +3338,44 @@ class BattleCombat {
       target_dead: "target-dead",
       target_missing: "target-missing",
     };
-    const child = appendCombatEffectEvent(this.#feed, {
-      parentId: root.lastEventId,
-      payload: {
-        point,
-        status: statusMap[status] ?? "observed",
-        subId: null,
-        targetId,
-      },
-      phase: "contact",
-      rootId: root.rootId,
-      tick,
-      type: "projectile",
-    });
-    root.lastEventId = child.eventId;
-    return child;
+    return appendCombatEffectChild(this.#feed, root, "contact", {
+      point,
+      status: statusMap[status] ?? "observed",
+      subId: null,
+      targetId,
+    }, tick);
   }
 
   #appendVisualDamage(root, event) {
-    const child = appendCombatEffectEvent(this.#feed, {
-      parentId: root.lastEventId,
-      payload: {
-        amount: event.amount,
-        currentHealthAfter: event.currentHealthAfter,
-        currentHealthBefore: event.currentHealthBefore,
-        targetId: event.targetId,
-      },
-      phase: "damage",
-      rootId: root.rootId,
-      tick: event.tick,
-      type: "projectile",
-    });
-    root.lastEventId = child.eventId;
-    return child;
+    return appendCombatEffectChild(this.#feed, root, "damage", {
+      amount: event.amount,
+      currentHealthAfter: event.currentHealthAfter,
+      currentHealthBefore: event.currentHealthBefore,
+      targetId: event.targetId,
+    }, event.tick);
   }
 
   #appendVisualDeath(root, targetId, tick) {
-    const child = appendCombatEffectEvent(this.#feed, {
-      parentId: root.lastEventId,
-      payload: { targetId },
-      phase: "death",
-      rootId: root.rootId,
-      tick,
-      type: "projectile",
-    });
-    root.lastEventId = child.eventId;
-    return child;
+    return appendCombatEffectChild(this.#feed, root, "death", { targetId }, tick);
   }
 
   #appendVisualClose(root, reason, tick) {
-    const child = appendCombatEffectEvent(this.#feed, {
-      parentId: root.lastEventId,
-      payload: { reason },
-      phase: "close",
-      rootId: root.rootId,
+    return appendCombatEffectChild(this.#feed, root, "close", { reason }, tick);
+  }
+
+  #recordStructureContacts(hits, tick, events) {
+    const boundary = this.#history.at(-1);
+    if (boundary?.type !== "boundary" || boundary.command.tick !== tick) {
+      throw new TypeError("direct structure contact has no admitted combat boundary");
+    }
+    appendCombatEffectStructureContacts(this.#feed, {
+      acceptedHits: boundary.command.externalHits,
+      events,
+      hits,
+      knownStructures: this.#knownExternalStructures,
       tick,
-      type: "projectile",
+      units: this.#units,
     });
-    root.lastEventId = child.eventId;
-    return child;
   }
 
   #activate(spec, tick, sink = this.#events) {
@@ -3541,7 +3496,8 @@ const DynamicBattleCombat = BattleCombat;
     }
     return compact(value);
   }, registerCompact);
-  return { BattleCombat, DynamicBattleCombat, MAX_BATTLE_COMBAT_STEP_TICKS, currentTick };
+  return { BattleCombat, DynamicBattleCombat, MAX_BATTLE_COMBAT_STEP_TICKS, currentTick,
+    recordStructureContacts };
 }
 
 function defineTowers(registerCompact) {
@@ -4450,8 +4406,9 @@ function towerSecondsToTicks(seconds) {
 
 function defineBattleTowers(BattleCombat, CrownTowerBattle, MAX_BATTLE_COMBAT_STEP_TICKS,
   battleCombatCompactClone, resolveBattleCombat, crownTowerCompactClone,
-  resolveCrownTower, battleCombatCurrentTick, crownTowerCurrentTick, registerCompact) {
-  let compact, towerSnapshot;
+  resolveCrownTower, battleCombatCurrentTick, crownTowerCurrentTick,
+  recordCombatStructureContacts, registerCompact) {
+  let compact, towerSnapshot, recordStructureContacts;
   const runtimeInstances = new WeakSet();
 
 const MAX_BATTLE_TOWER_STEP_TICKS = MAX_BATTLE_COMBAT_STEP_TICKS;
@@ -5125,6 +5082,12 @@ class BattleTowerCombat {
       }
       return value.#towerSnapshot();
     };
+    recordStructureContacts = (value, hits, tick, events) => {
+      if (!runtimeInstances.has(value)) {
+        throw new TypeError("internal defineBattleTowers structure contact receiver is invalid");
+      }
+      recordCombatStructureContacts(value.#combatRuntime(), hits, tick, events);
+    };
   }
   spawn(command) {
     this.#reserveHistory();
@@ -5580,12 +5543,13 @@ const IntegratedBattleTowers = BattleTowerCombat;
     }
     return compact(value);
   }, registerCompact);
-  return { BattleTowerCombat, IntegratedBattleTowers, MAX_BATTLE_TOWER_STEP_TICKS, towerSnapshot };
+  return { BattleTowerCombat, IntegratedBattleTowers, MAX_BATTLE_TOWER_STEP_TICKS,
+    recordStructureContacts, towerSnapshot };
 }
 
 function defineLiveBattle(BattleMovement, BattleTowerCombat, battleMovementCompactClone,
   resolveBattleMovement, battleTowerCompactClone, resolveBattleTower, battleTowerSnapshot,
-  registerCompact) {
+  battleTowerRecordStructureContacts, registerCompact) {
   let compact, towerSnapshot, advanceFromSession, combatEffectFeed;
   const runtimeInstances = new WeakSet();
 
@@ -8291,6 +8255,9 @@ class LiveBattle {
         } : {}) });
     }
     boundary.push(...combatEvents);
+    if (dueBuilding?.length) {
+      battleTowerRecordStructureContacts(battle, dueBuilding, tick, boundary);
+    }
 
     if (this.#projectileRuntime !== null) {
       // The host event list is the sole source of projectile identity.  The
@@ -9500,12 +9467,13 @@ const towers = defineTowers((clone, resolve) => {
 crownTowerCurrentTick = towers.currentTick;
 const battleTowers = defineBattleTowers(combat.BattleCombat, towers.CrownTowerBattle,
   combat.MAX_BATTLE_COMBAT_STEP_TICKS, compactCombat, resolveCombat, compactCrownTower,
-  resolveCrownTower, battleCombatCurrentTick, crownTowerCurrentTick, (clone, resolve) => {
+  resolveCrownTower, battleCombatCurrentTick, crownTowerCurrentTick,
+  combat.recordStructureContacts, (clone, resolve) => {
     compactBattleTowers = clone; resolveBattleTowers = resolve;
   });
 const liveBattle = defineLiveBattle(movement.BattleMovement, battleTowers.BattleTowerCombat,
   compactMovement, resolveMovement, compactBattleTowers, resolveBattleTowers,
-  battleTowers.towerSnapshot,
+  battleTowers.towerSnapshot, battleTowers.recordStructureContacts,
   (clone, resolve) => { compactLiveBattle = clone; resolveLiveBattle = resolve; });
 liveBattleAdvanceFromSession = liveBattle.advanceFromSession;
 liveBattleTowerSnapshot = liveBattle.towerSnapshot;
