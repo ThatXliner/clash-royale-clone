@@ -1,0 +1,1 @@
+Causal diagnosis only; no production fix or PASS. In findings, contact tick171 names the rendered/session cursor: the actual attack/damage event is tick170, observed at cursor171. The reduced checkpoint is173. All raw findings are retained. HUD projection ownership remains with CARDS-021I until its candidate freezes.
