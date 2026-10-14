@@ -1,0 +1,50 @@
+{
+  "browser": "Playwright Chromium 145.0.7632.6",
+  "deviceScaleFactor": 1,
+  "viewports": [
+    {
+      "label": "phone",
+      "dpr": 1,
+      "viewport": [
+        390,
+        844
+      ],
+      "natural": [
+        512,
+        512
+      ],
+      "css": [
+        13,
+        13
+      ],
+      "xy": [
+        100,
+        100
+      ],
+      "board": "round1-phone-native-board.png",
+      "crop": "round1-phone-sprite-css13px-dpr1.png"
+    },
+    {
+      "label": "desktop",
+      "dpr": 1,
+      "viewport": [
+        1440,
+        933
+      ],
+      "natural": [
+        512,
+        512
+      ],
+      "css": [
+        13,
+        13
+      ],
+      "xy": [
+        100,
+        100
+      ],
+      "board": "round1-desktop-native-board.png",
+      "crop": "round1-desktop-sprite-css13px-dpr1.png"
+    }
+  ]
+}

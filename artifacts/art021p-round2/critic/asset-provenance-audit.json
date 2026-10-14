@@ -1,0 +1,135 @@
+{
+  "acceptedBase": "407fd61c83f9f962280d363e85af364041c5f223",
+  "candidate": "b0b20ad6b50e7d99b59abeb799708a64ce92f192",
+  "assetSource": {
+    "sha256": "7934840d85488965cbf55fdc1f891816b40c08f06922c1501cae42a167b505e9",
+    "bytes": 366179,
+    "format": "PNG",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "alphaVisibleBBoxHalfOpen": [
+      87,
+      84,
+      1129,
+      1223
+    ]
+  },
+  "assetOutput": {
+    "sha256": "ac2dcfc6947e4cd347e02ea9fcf781a925ad7a6be2854b3a831b4e571a9220cf",
+    "bytes": 14592,
+    "format": "WEBP",
+    "dimensions": [
+      512,
+      512
+    ],
+    "alphaExtrema": [
+      0,
+      254
+    ],
+    "alphaVisibleBBoxHalfOpen": [
+      42,
+      36,
+      385,
+      474
+    ]
+  },
+  "inputEvidence": {
+    "file": "artifacts/art021p-round2/builder/refinement-pass-2-source.png",
+    "sha256": "4e634c6d6ca32e47b78cb3b9ccc55c6f5ec782d6b11ed850e2f7148cb8626040",
+    "recordedSha256": "4e634c6d6ca32e47b78cb3b9ccc55c6f5ec782d6b11ed850e2f7148cb8626040"
+  },
+  "imagegenToolOutput": {
+    "exists": true,
+    "sha256": "7934840d85488965cbf55fdc1f891816b40c08f06922c1501cae42a167b505e9"
+  },
+  "license": "AGPL-3.0-only",
+  "tool": {
+    "source": "OpenAI built-in imagegen image-edit tool",
+    "mode": "built-in image edit"
+  },
+  "cwebp": {
+    "version": "1.6.0\nlibsharpyuv: 0.4.2",
+    "returncode": 0,
+    "reencodedSha256": "ac2dcfc6947e4cd347e02ea9fcf781a925ad7a6be2854b3a831b4e571a9220cf",
+    "exactByteMatch": true
+  },
+  "manifest": {
+    "baseCount": 27,
+    "candidateCount": 27,
+    "changedRecords": [
+      {
+        "id": "buried-coil-revealed-battle-sprite",
+        "old": {
+          "authorship": "in-repo-authored",
+          "byteLength": 37414,
+          "dimensions": {
+            "height": 512,
+            "width": 512
+          },
+          "format": "webp",
+          "id": "buried-coil-revealed-battle-sprite",
+          "kind": "image",
+          "license": "AGPL-3.0-only",
+          "path": "assets/buried-coil-revealed.webp",
+          "sha256": "bca30fdf3ad8cf989affc42b7efb03ba38d4c33fda8e92131cc90c7c2d356cea"
+        },
+        "new": {
+          "authorship": "in-repo-authored",
+          "byteLength": 14592,
+          "dimensions": {
+            "height": 512,
+            "width": 512
+          },
+          "format": "webp",
+          "id": "buried-coil-revealed-battle-sprite",
+          "kind": "image",
+          "license": "AGPL-3.0-only",
+          "path": "assets/buried-coil-revealed.webp",
+          "sha256": "ac2dcfc6947e4cd347e02ea9fcf781a925ad7a6be2854b3a831b4e571a9220cf"
+        }
+      }
+    ],
+    "preservedNonRevealedRecordCount": 26,
+    "preservedTargetAssets": {
+      "public/assets/buried-coil-portrait.webp": {
+        "sha256": "e52c43cc2c56f4aef3d3410a8a7adb1df63de581eb2fd93f443d85271ae62d5b",
+        "bytes": 75334,
+        "byteIdenticalToBaseCommit": true
+      },
+      "public/assets/buried-coil-hidden.webp": {
+        "sha256": "5ee469494f97eab0652cc150d6b23b75c5bca44eba90b84a88cf8faf98d1a469",
+        "bytes": 43144,
+        "byteIdenticalToBaseCommit": true
+      }
+    },
+    "allNonRevealedAssetsPreserved": true
+  },
+  "checks": {
+    "sourceShaMatchesProvenance": true,
+    "sourceBytesMatchProvenance": true,
+    "sourceDimensionsMatchProvenance": true,
+    "shippedShaMatchesProvenance": true,
+    "shippedBytesMatchProvenance": true,
+    "shippedDimensionsMatchProvenance": true,
+    "sourceUnderOneMiB": true,
+    "shippedUnderOneMiB": true,
+    "inputArtifactMatchesRecordedGenerationInput": true,
+    "toolOutputPathMatchesFinalSource": true,
+    "promptFileMatchesProvenance": true,
+    "licenseIsAgpl": true,
+    "authorsToolAndModeRecorded": true,
+    "cwebpReencodeExact": true,
+    "manifestCountsStable": true,
+    "onlyRevealedManifestRecordChanged": true,
+    "onlyByteLengthAndShaChanged": true,
+    "allNonRevealedManifestAssetsPreserved": true,
+    "portraitAndHiddenByteEqualBase": true
+  },
+  "allChecksPass": true
+}

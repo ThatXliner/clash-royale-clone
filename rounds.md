@@ -1,5 +1,14 @@
 # Gauntlet Rounds
 
+## Round 460 — 2026-10-14
+
+PIECE: ART-021P round2
+VERDICT: FAIL
+
+EVIDENCE: Round460 FAIL exactb0b20ad native13px53alpha pixels: solid5x5crown/7x2base, loops/feet merged. Manifest6/6/provenance/old26assets preserved. Originalvectorprototype3d35f86 renders77pixels distinctloops/feet butnotreviewed/shipped. No productassetsadopted. NativeChrome145 DPR1phone390x844/desktop1440x933 actual13px screenshots; artifacts/art021p-round2/critic/.
+
+BIGGEST GAP: ActualCSS13px crown andfeet merge.
+
 ## Round 459 — 2026-10-14
 
 PIECE: CARDS-021K

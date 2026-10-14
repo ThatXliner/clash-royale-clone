@@ -1,0 +1,50 @@
+
+> moss-and-ember@0.0.0 test:visual-asset-manifest
+> node tests/visual-asset-manifest-runner.js visual-asset-manifest
+
+TAP version 13
+# Subtest: visual asset manifest: frozen visual bible pins all six dimensions
+ok 1 - visual asset manifest: frozen visual bible pins all six dimensions
+  ---
+  duration_ms: 1.365417
+  type: 'test'
+  ...
+# Subtest: visual asset manifest: visual bible is content-addressed by pinned digest
+ok 2 - visual asset manifest: visual bible is content-addressed by pinned digest
+  ---
+  duration_ms: 0.276125
+  type: 'test'
+  ...
+# Subtest: visual asset manifest: registry matches shipped assets on disk byte-for-byte
+ok 3 - visual asset manifest: registry matches shipped assets on disk byte-for-byte
+  ---
+  duration_ms: 7.114292
+  type: 'test'
+  ...
+# Subtest: visual asset manifest: zero byte overlap with the reference corpus
+ok 4 - visual asset manifest: zero byte overlap with the reference corpus
+  ---
+  duration_ms: 1.393375
+  type: 'test'
+  ...
+# Subtest: visual asset manifest: provenance never references protected-game sources
+ok 5 - visual asset manifest: provenance never references protected-game sources
+  ---
+  duration_ms: 0.217458
+  type: 'test'
+  ...
+# Subtest: visual asset manifest: admission accepts only the closed canonical surface
+ok 6 - visual asset manifest: admission accepts only the closed canonical surface
+  ---
+  duration_ms: 2.801334
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 67.236583
