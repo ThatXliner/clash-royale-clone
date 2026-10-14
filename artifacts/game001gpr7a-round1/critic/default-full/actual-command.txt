@@ -1,0 +1,14 @@
+Working directory: /private/tmp/gpr7a-accepted-ff1025
+Started: 2026-10-14T08:13:14Z
+Exec session: 46486
+Launcher shell PID: 8645
+Node endurance runner PID: 8738
+Node test runner PID: 8750
+Browser test server PID: 8751
+Chrome PID: 8805
+Terminal observed: 2026-10-14T08:29:19Z; session 46486 closed after TAP output.
+
+Exact command:
+env -u GAME_BROWSER_ENDURANCE_TICKS -u GAME_BROWSER_ENDURANCE_SCENARIO GAME_BROWSER_CHROME='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' GAME_BROWSER_PLAYWRIGHT='/private/tmp/gpr7a-accepted-ff1025/node_modules/playwright/index.mjs' GAME_BROWSER_ENDURANCE_ARTIFACTS='/private/tmp/gpr7a-accepted-ff1025/artifacts/game001gpr7a-round1/critic/default-full/' npm run test:game-browser-endurance
+
+The command's stdout/stderr is tee'd to actual-output.log. Source tree is accepted commit ff1025e145cbff421d624ed7d3e59b5ab5671f14 (tree 3b22af3d20da35bf529da9580b9d95e3213ba9fa).

@@ -1,0 +1,25 @@
+PIECE: GAME-001GPR7A — Accepted twenty-card source strict qualification
+VERDICT: FAIL
+
+EVIDENCE:
+Default full default-eight run (the unchanged 18,000-tick default, setup SHA 306bb30da40ce7c43d6cccce8728449da90fc0e9ca7d13c81f0116ba710aec8c) produced:
+  not ok 3 - game browser endurance: default-eight seed-zero workload uses the yielding driver
+  failureType: testCodeFailure
+  error: 'combat effect feed exceeds its byte bound'
+  RangeError at appendChecked -> appendCombatEffectEvent -> #appendVisualClose
+  duration_ms: 959226.453834
+  # tests 3; # pass 2; # fail 1
+
+The JSON reports 66 scheduler segments, last recorded segment tick 17,700, 18,000 aggregate simulation ticks across chunk/replay work, and `terminal: null`. It therefore did not prove the required full default journey, terminal observation, or restart. The error is the remaining gap; timing caps were within bounds: initialization max 185 ms (<300 ms), driven long tasks 0, max segment 10,373 ms (<30,000 ms), max session-step slice 27.7 ms (<40 ms). The 600->300 restore/replay assertions ran: 29 original/replayed typed simulation cues match, sequence-zero domains are simulation and ui, UI sequence 2 remains unchanged on restore and reaches 4 on replay; actual cue IDs include field-deploy, soft-locomotion, vital-damage, card-select, and card-play. No console/unhandled/resource errors; browser server exited.
+
+The separate custom-eight Kilnkeeper natural-terminal subtest passed:
+  ok 3 - game browser endurance: kilnkeeper seed-zero workload uses the yielding driver
+  duration_ms: 447453.463334
+  # tests 3; # pass 3; # fail 0
+  # duration_ms 449667.926458
+
+Its JSON qualificationResult is `qualified-natural-terminal-and-same-deck-restart`; North naturally wins 2–1 at tick 10,800. The real south player deploys the five-cost Kilnkeeper from its opening hand once at tick 0; the seeded North AI pursues and lands contacts at ticks 243/327/411, repeated identically after restore. At terminal, audio is disposed with zero active voices. Restart returns the same eight-card deck, seed 0, 10/10 elixir, tick/DOM 0, restartCount 1, empty transcript, audio cue/cursor/event/UI counters at 0, zero voices/starts, and no pending resources. Initialization max 162 ms, driven long tasks 0, no browser errors. Actual terminal.png and restart.png were inspected.
+
+BIGGEST GAP: The default-eight match still throws `combat effect feed exceeds its byte bound` while closing a visual effect in its last recorded tick-17,700 segment, so it never completes terminal observation and restart.
+
+SCOPE: This qualifies the custom Kilnkeeper natural-terminal/restart branch only. The run loaded native HTML/ESM/CSS through the test server; it does not measure compiled Pages/CDN timing or establish full 109-card coverage. All actual TAP, JSON, screenshots, commands, and source hashes are in this private critic directory.

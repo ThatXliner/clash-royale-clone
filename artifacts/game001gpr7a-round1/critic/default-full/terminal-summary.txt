@@ -1,0 +1,8 @@
+TAP result: FAIL. The two fast guard subtests passed; the full default-eight subtest failed.
+Terminal time: 2026-10-14T08:29:19Z.
+Exact failure: RangeError: combat effect feed exceeds its byte bound; thrown by appendChecked while appending a visual-close event.
+Qualification mode/setup: default-eight-full-18k; SHA-256 306bb30da40ce7c43d6cccce8728449da90fc0e9ca7d13c81f0116ba710aec8c; 39,641 setup bytes.
+Duration: 959,104 ms. 66 segments; latest completed segment tick 17,700; telemetry sums 18,000 simulation ticks across recorded chunk/replay work. The test stopped before terminal observation/restart, and terminal is null.
+Observed bounds: initialization max long task 185 ms (<300 ms cap); driven long tasks 0; max segment 10,373 ms (<30,000 ms cap); max session-step slice 27.7 ms (<40 ms cap). No restore/terminal/restart long tasks, console errors, unhandled errors, or resource errors. Browser server exited.
+Restore/replay evidence: cut 600 -> 300; restore audio cursor 28; UI sequence 2 at branch and after restore, then 4 after replay; 29 original/replayed typed simulation cues match; typed sequence-zero domains are simulation and ui. Recorded cue IDs include field-deploy, soft-locomotion, vital-damage, card-select, and card-play. Actual sink starts are 55 at branch, 55 after restore, 86 after replay.
+The launch was piped through tee without pipefail. Session 46486 returned wrapper exit 0, so TAP `not ok 3` plus endurance-result.json are the authoritative test result.

@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 461 — 2026-10-14
+
+PIECE: GAME-001GPR7A
+
+VERDICT: FAIL
+
+EVIDENCE: Round461 FAIL exact ff1025: default TAP2/3 fails at last recorded segment17700 on combat-effect feed byte bound before terminal/restart; timing caps pass (init185ms, driven0, sync27.7ms). Separate Kilnkeeper natural terminal10800 and same-deck restart PASS3/3. Diagnose bounded feed lifecycle; no full default qualification or109 parity claim. Actual default duration959226ms: appendChecked -> appendCombatEffectEvent -> #appendVisualClose. Default restore29 typed cues/UI2->2->4/sink55->55->86 passed; terminal null. Custom Kilnkeeper duration447453ms, north2-1 regulation terminal, cost5 once, AI contacts243/327/411, exact replay27 cues, clean audio and seed0/custom8 restart. Native Chrome155 on exact148src/24assets/8harness; physical reference, source pre/post exact. Evidence artifacts/game001gpr7a-round1/critic/. Pages deployment38536718103 independently succeeded at7550ca3, live landing commit verified; browser endurance is native ESM, not compiled CDN timing.
+
+BIGGEST GAP: The default-eight match exceeds its combat-effect feed byte bound before terminal and restart; bounded deterministic history must retain causal restore/audio/input semantics.
+
 ## Round 460 — 2026-10-14
 
 PIECE: ART-021P round2
