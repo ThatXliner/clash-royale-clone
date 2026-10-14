@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-14T02:46:18.969Z",
+  "repository": "ThatXliner/clash-royale-clone",
+  "main": {
+    "branch": "main",
+    "sha": "dbd7afe4a8901b5b61c83ebc92137a5bd26e5451",
+    "expectedReviewedSha": "dbd7afe4a8901b5b61c83ebc92137a5bd26e5451",
+    "matchesExpected": true,
+    "commitUrl": "https://github.com/ThatXliner/clash-royale-clone/commit/dbd7afe4a8901b5b61c83ebc92137a5bd26e5451"
+  },
+  "workflow": {
+    "id": 38501010696,
+    "name": "Publish GitHub Pages",
+    "status": "completed",
+    "conclusion": "success",
+    "headBranch": "main",
+    "headSha": "dbd7afe4a8901b5b61c83ebc92137a5bd26e5451",
+    "url": "https://github.com/ThatXliner/clash-royale-clone/actions/runs/38501010696",
+    "jobs": [
+      {
+        "name": "build",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/ThatXliner/clash-royale-clone/actions/runs/38501010696/job/115647707985"
+      },
+      {
+        "name": "deploy",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/ThatXliner/clash-royale-clone/actions/runs/38501010696/job/115648366978"
+      }
+    ]
+  },
+  "livePages": {
+    "landing": {
+      "url": "https://bryanhu.com/clash-royale-clone/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "lastModified": "Wed, 14 Oct 2026 02:28:42 GMT"
+    },
+    "game": {
+      "url": "https://bryanhu.com/clash-royale-clone/game/public/index.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "lastModified": "Wed, 14 Oct 2026 02:28:42 GMT"
+    }
+  }
+}

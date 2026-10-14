@@ -1,0 +1,22 @@
+{
+  "sourceCommit": "151f54b7a40a266100522c7bdb3e3fca39b9918f",
+  "sourceTree": "b15b0f0760c9248ddacf4ebdde7a9e4578ecb27a",
+  "extraction": "git archive --format=tar 151f54b7a40a266100522c7bdb3e3fca39b9918f | tar -xf - -C /tmp/coverage004-151f",
+  "readOnlyCommand": "node --input-type=module -e 'import {createSessionCardManifest} from \"./src/content/session-card-catalog.js\"; console.log(JSON.stringify(createSessionCardManifest().counts,null,2));'",
+  "counts": {
+    "admittedIds": 56,
+    "admittedOccurrences": 61,
+    "claimedIds": 62,
+    "claimedOccurrences": 67,
+    "excludedClaimedIds": 6,
+    "excludedClaimedOccurrences": 6,
+    "questionOnlyExports": 5
+  },
+  "crossCheck": {
+    "independentCandidateCommit": "6cc8656e4f6c967868edac4bd71c87c57c6e7009",
+    "criticVerdict": "artifacts/cards019-core-round-2/critic/verdict.md",
+    "reportedSupportedOccurrences": 67,
+    "reportedUniqueIds": 62,
+    "result": "counts agree; catalog admission counts are not full historical role executions"
+  }
+}

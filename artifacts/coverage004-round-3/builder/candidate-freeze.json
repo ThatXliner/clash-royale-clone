@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "f9ab8ef0cd93027a969d502f2a2b32b8407802fc",
+  "ownedGuide": "docs/completion-inventory.md",
+  "round3Builder": "artifacts/coverage004-round-3/builder",
+  "preservedPriorBuilders": [
+    "artifacts/coverage004-round-1/builder",
+    "artifacts/coverage004-round-2/builder"
+  ],
+  "preservedPriorBuilderHashManifest": "artifacts/coverage004-round-3/builder/preserved-prior-builder-hashes.sha256",
+  "preReceiptCleanArchiveCheck": {
+    "tree": "ddbac95640db86da38c7ffdbd98ae9317b314856",
+    "command": "node artifacts/coverage004-round-3/builder/check-guide-evidence.mjs",
+    "exitCode": 0,
+    "stdoutPath": "artifacts/coverage004-round-3/builder/clean-archive-check.stdout",
+    "stdoutBytes": 2926,
+    "stdoutSha256": "13c9a01b549f88116ac9b0d450e15a17f5a0cdb39568a8ee173e5ff6906c424d",
+    "stderrPath": "artifacts/coverage004-round-3/builder/clean-archive-check.stderr",
+    "stderrBytes": 0,
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "guideReceiptPath": "artifacts/coverage004-round-3/builder/guide-checks.json",
+    "guideReceiptSha256": "13c9a01b549f88116ac9b0d450e15a17f5a0cdb39568a8ee173e5ff6906c424d",
+    "stdoutExactlyMatchesReceipt": true
+  },
+  "finalCandidateRecheck": "Re-run the same command from the final immutable candidate archive and compare stdout, stderr, and guide-checks.json byte-for-byte against the saved files."
+}

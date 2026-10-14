@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 442 — 2026-10-13
+
+PIECE: COVERAGE-004 — Current release evidence guide, round 3
+
+VERDICT: PASS
+
+EVIDENCE: Independent clean9006 candidate checker exit0; stdout2926B exact committedreceipt/log, stderr0, links21/21. Independent109/18/12mapping withzero fullhistoricalexecutions/parity; catalog151f reproduces56/61admitted62/67claimed,Q5. Reviewed19uniquechoices/deck8 pinnedtest1/1; public/current20 includesKgenericfallback atdisplayposition18 withoutordinalclaim. FrozenH1PASS74cd/H2QUESTION/DFAIL/IBUILDING distinct. Publicdbd7afe/workflow38501010696 success/HTTP200 scopedseparatelyolder9f18000proof. Prior12builder hashes andsource/productpaths unchanged. Exactcandidateguide andbuilder evidence adopted; priorfailures retained. Evidence artifacts/coverage004-round-3/critic/.
+
+BIGGEST GAP: The full109 historical target still has zero complete historical executions or parity claims; the guide accurately preserves that limit.
+
 ## Round 441 — 2026-10-13
 
 PIECE: COVERAGE-004 — Current release evidence guide, round 2

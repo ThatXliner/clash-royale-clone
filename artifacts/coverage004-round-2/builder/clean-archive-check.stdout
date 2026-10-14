@@ -1,0 +1,89 @@
+{
+  "guideSha256": "aeb701a139dcb6b5952e73ab5798de41e741457ebee324f5f54df17837a20d5b",
+  "localMarkdownLinks": {
+    "checked": 18,
+    "missing": 0
+  },
+  "frozenMapping": {
+    "historicalRows": 109,
+    "editableIds": 18,
+    "historicalExecutions": 0,
+    "parityClaims": 0
+  },
+  "reviewedBrowser": {
+    "choices": 19,
+    "evidenceCandidate": "7f8baee2922a7eff197f43d1804a526ffacacd22",
+    "testSourceSha256": "a66f6d45e99d26b5fbddd2213be4836a4eb417002e432b4b3dfcd08d2e8e36ab",
+    "testAssertion": "released collection visibly contains exactly nineteen cards",
+    "criticTap": {
+      "tests": 1,
+      "pass": 1,
+      "fail": 0,
+      "cancelled": 0
+    },
+    "criticBattleDeckSize": 8,
+    "releaseManifestSha256": "e77d65fdc327944306eb830a4dee921d17da68b06fe89d4475ef099e5ec84fc9",
+    "addedSinceFrozenMapping": [
+      "ember-basin"
+    ]
+  },
+  "currentSourceProbe": {
+    "choices": 20,
+    "kilnkeeperVisible": true,
+    "portraitCount": 0,
+    "loreCount": 0
+  },
+  "liveBrowserProbe": {
+    "choices": 20,
+    "kilnkeeperVisible": true,
+    "portraitCount": 0,
+    "loreCount": 0,
+    "errors": 0,
+    "entryBundleStatus": 200,
+    "entryBundleSha256": "76dcd24f375ea20dea41742dfcbd0e1c02bf3db9394f48868be687e762159f7b",
+    "screenshotSha256Verified": true
+  },
+  "sessionCatalog": {
+    "admittedIds": 56,
+    "admittedOccurrences": 61,
+    "claimedIds": 62,
+    "claimedOccurrences": 67,
+    "excludedClaimedIds": 6,
+    "excludedClaimedOccurrences": 6,
+    "questionOnlyExports": 5
+  },
+  "endurance": {
+    "candidate": "9f64011378d3ce1c6281d9292950a7b52f11fd2c",
+    "deckSize": 8,
+    "ticks": 18000,
+    "segments": 67,
+    "pauseRecords": 1,
+    "resumeRecords": 1,
+    "appliesToCurrentPublicRuntime": false
+  },
+  "defaultEightSnapshotComparison": {
+    "baselineCommit": "6dcf64b81751f69f9fe7520878ac136bda9143ed",
+    "reviewedCommit": "e3413fdc529a366a56e2d0b35afb7fa7b14dcd6f",
+    "seeds": [
+      0,
+      23
+    ],
+    "ticks": [
+      0,
+      120,
+      900
+    ],
+    "exactSnapshots": 6
+  },
+  "sourceIsolation": {
+    "successor": "PASS 28/28 + Pages 5/5",
+    "olderFailureRetained": true
+  },
+  "liveRelease": {
+    "mainSha": "dbd7afe4a8901b5b61c83ebc92137a5bd26e5451",
+    "workflow": 38501010696,
+    "workflowConclusion": "success",
+    "landingStatus": 200,
+    "gameStatus": 200
+  }
+}

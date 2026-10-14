@@ -1,0 +1,141 @@
+{
+  "candidate": {
+    "commit": "9006a11e2bd6db06f53fb0f2038107069c6e6848",
+    "tree": "e7ace7ecb45ed489c88aa145e239c2ee7185b4d5",
+    "parent": "f9ab8ef0cd93027a969d502f2a2b32b8407802fc",
+    "guideSha256": "8aad650c55e0bc47e395dcc5cfba0a5bb1618127c1338e5826029b3821aaf0f0"
+  },
+  "document": {
+    "localMarkdownLinks": 21,
+    "ordinalTermsPresent": false,
+    "historicalExecutionCount": 0,
+    "historicalParityClaimCount": 0,
+    "frozenComparatorCount": 12,
+    "unchangedDefaultDeckIds": 8
+  },
+  "frozenMapping": {
+    "sourceCommit": "a8c39bcc02329ba22b3fdd50be7d1089bc6010dc",
+    "rows": 109,
+    "types": {
+      "troop": 78,
+      "building": 13,
+      "spell": 18
+    },
+    "editableIds": 18,
+    "kinds": {
+      "unit": 17,
+      "structure": 0,
+      "effect": 1
+    }
+  },
+  "reviewedBrowser": {
+    "choices": 19,
+    "uniqueChoices": 19,
+    "addedSinceFrozenMap": [
+      "ember-basin"
+    ],
+    "evidenceCandidate": "7f8baee2922a7eff197f43d1804a526ffacacd22",
+    "testSha256": "a66f6d45e99d26b5fbddd2213be4836a4eb417002e432b4b3dfcd08d2e8e36ab",
+    "testHashPinnedInVerdict": true,
+    "visible19Assertion": true,
+    "tap": {
+      "tests": true,
+      "pass": true,
+      "failZero": true
+    },
+    "battleDeckSize": 8,
+    "releaseManifestSha256": "e77d65fdc327944306eb830a4dee921d17da68b06fe89d4475ef099e5ec84fc9",
+    "criticManifestMatches": true
+  },
+  "sourceSnapshotProbe": {
+    "choices": 20,
+    "kilnkeeperVisible": true,
+    "selectable": true,
+    "portraitCount": 0,
+    "loreCount": 0,
+    "loadedKilnkeeperAssets": [],
+    "browserErrors": 0
+  },
+  "liveProbe": {
+    "url": "https://bryanhu.com/clash-royale-clone/game/public/index.html",
+    "httpStatus": 200,
+    "choices": 20,
+    "uniqueIds": 20,
+    "kilnkeeperVisible": true,
+    "kilnkeeperDomIndex1Based": 18,
+    "portraitCount": 0,
+    "loreCount": 0,
+    "browserErrors": 0,
+    "entryBundleStatus": 200,
+    "entryBundleSha256": "76dcd24f375ea20dea41742dfcbd0e1c02bf3db9394f48868be687e762159f7b",
+    "screenshotSha256": "e4aea345c0d21c2e35a17dc480ddbd1ba08d17744add97fda009135cc0470835"
+  },
+  "catalog": {
+    "sourceCommit": "151f54b7a40a266100522c7bdb3e3fca39b9918f",
+    "admittedIds": 56,
+    "admittedOccurrences": 61,
+    "claimedIds": 62,
+    "claimedOccurrences": 67,
+    "excludedClaimedIds": 6,
+    "excludedClaimedOccurrences": 6,
+    "questionOnlyExports": 5
+  },
+  "endurance": {
+    "candidate": "9f64011378d3ce1c6281d9292950a7b52f11fd2c",
+    "deckSize": 8,
+    "ticks": 18000,
+    "segments": 67,
+    "pauseRecords": 1,
+    "resumeRecords": 1,
+    "appliesToCurrentPublicRuntime": false
+  },
+  "defaultEightSnapshots": {
+    "exact": true,
+    "baselineCommit": "6dcf64b81751f69f9fe7520878ac136bda9143ed",
+    "reviewedCommit": "e3413fdc529a366a56e2d0b35afb7fa7b14dcd6f",
+    "seeds": [
+      0,
+      23
+    ],
+    "ticks": [
+      0,
+      120,
+      900
+    ],
+    "count": 6
+  },
+  "statuses": {
+    "h1PlanPass": true,
+    "h1BoundedPass": true,
+    "h1HistoricalParityCaveat": true,
+    "h2Question": true,
+    "dPlanFail": true,
+    "dVerdictFail": true,
+    "dCaveatGap": true,
+    "iBuilding": true
+  },
+  "liveRelease": {
+    "mainSha": "dbd7afe4a8901b5b61c83ebc92137a5bd26e5451",
+    "matchesExpected": true,
+    "workflowId": 38501010696,
+    "status": "completed",
+    "conclusion": "success",
+    "jobConclusions": [
+      "success",
+      "success"
+    ],
+    "landing": {
+      "url": "https://bryanhu.com/clash-royale-clone/",
+      "status": 200
+    },
+    "game": {
+      "url": "https://bryanhu.com/clash-royale-clone/game/public/index.html",
+      "status": 200
+    }
+  },
+  "sourceIsolation": {
+    "successorPass28of28": true,
+    "pagesPass5of5": true,
+    "olderFailureRetained": true
+  }
+}
