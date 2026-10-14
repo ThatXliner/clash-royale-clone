@@ -1,0 +1,80 @@
+{
+  "candidate_full_sha": "b460d2e319ca67ff82503ffca31506e941c39d85",
+  "qualified_parent_sha": "5ed9d7c76a7bf3b4b3c6fe6a98102921e078f146",
+  "changed_files_against_parent": [
+    "src/ui/combat-art.js",
+    "src/ui/combat-state.js",
+    "src/ui/game-ui-projection.js",
+    "tests/combat-sprite-prototype-browser.test.js",
+    "tests/combat-sprite-prototype.test.js",
+    "tests/game-ui-projection.test.js",
+    "tests/ui-combat-state.test.js"
+  ],
+  "src_change_scope_ok": true,
+  "src_changes": [
+    "src/ui/combat-art.js",
+    "src/ui/combat-state.js",
+    "src/ui/game-ui-projection.js"
+  ],
+  "test_change_scope_ok": true,
+  "test_changes": [
+    "tests/combat-sprite-prototype-browser.test.js",
+    "tests/combat-sprite-prototype.test.js",
+    "tests/game-ui-projection.test.js",
+    "tests/ui-combat-state.test.js"
+  ],
+  "public_assets_package_files_unchanged": true,
+  "unexpected_public_assets_package_changes": [],
+  "package_lock_sha256": "d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4",
+  "expected_package_lock_sha256": "d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4",
+  "package_lock_hash_matches_expected": true,
+  "runtime": {
+    "node": "v22.22.3",
+    "npm": "10.9.8",
+    "chrome": "155.0.8059.40"
+  },
+  "gate_counts": {
+    "owned_corrected_unit_and_projection_checks": 63,
+    "art_browser": 1,
+    "unmodified_cards021_browser": 1,
+    "total_reportable_unique_checks": 65
+  },
+  "cards021_tap": {
+    "pass": 1,
+    "fail": 0,
+    "duration_ms": 317184.53325,
+    "wrapper_exit": 1,
+    "wrapper_exit_reason": "zsh readonly status variable; node exit code not captured"
+  },
+  "audio_restore_proof": {
+    "1440": {
+      "checkpoint_continuation_restored_exactly": true,
+      "branch_continuation_replayed_exactly": true,
+      "typed_pcm_receipts_unchanged_through_restore": true,
+      "pcm_receipt_sha256_before_restore": "ab27fe5cbb35328f85008dd774d12b1d7c48912657069c5dee283ebc0ac4d5bf",
+      "pcm_receipt_sha256_after_restore": "ab27fe5cbb35328f85008dd774d12b1d7c48912657069c5dee283ebc0ac4d5bf",
+      "replay_tail_count": 2,
+      "expected_replay_tail_count": 2,
+      "replay_tail_sha256_matches": true,
+      "checkpoint_continuation_sha256": "a3130d0b69a856f883c91b1c642f7dc2bf4b8b747376c7f1b7a1738f63863749",
+      "restored_continuation_sha256": "a3130d0b69a856f883c91b1c642f7dc2bf4b8b747376c7f1b7a1738f63863749"
+    },
+    "390": {
+      "checkpoint_continuation_restored_exactly": true,
+      "branch_continuation_replayed_exactly": true,
+      "typed_pcm_receipts_unchanged_through_restore": true,
+      "pcm_receipt_sha256_before_restore": "ab27fe5cbb35328f85008dd774d12b1d7c48912657069c5dee283ebc0ac4d5bf",
+      "pcm_receipt_sha256_after_restore": "ab27fe5cbb35328f85008dd774d12b1d7c48912657069c5dee283ebc0ac4d5bf",
+      "replay_tail_count": 2,
+      "expected_replay_tail_count": 2,
+      "replay_tail_sha256_matches": true,
+      "checkpoint_continuation_sha256": "0945dcaf53c59b631a81fbe3d0dc90229e663fd1a81f418648491bc95919c9d8",
+      "restored_continuation_sha256": "0945dcaf53c59b631a81fbe3d0dc90229e663fd1a81f418648491bc95919c9d8"
+    }
+  },
+  "raw_failure_preserved": "gates/combat-sprite-prototype-browser.tap and live-browser-audio-fail-1/",
+  "corrected_art_browser_tap": "gates/combat-sprite-prototype-browser-audio-fixed.tap",
+  "unmodified_cards021_tap": "gates/cards021-browser-integration.tap",
+  "source_fence_result": "only the three ART UI modules and four owned tests differ against qualified parent",
+  "shared_worktree_status": "no shared source, HEAD, or index touched; only evidence copied below"
+}
