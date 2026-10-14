@@ -1,5 +1,15 @@
 # Gauntlet Rounds
 
+## Round 435 — 2026-10-13
+
+PIECE: ART-020P — Original Rivet Runners collection portrait, round 1
+
+VERDICT: PASS
+
+EVIDENCE: Independent immutable7fa4bc3 freshGoogleChrome155 DPR1 exact64/128CSSpx renders: two originalotter faces andmalletshapes readable. Preserved1254sqPNG2819557B sourceSHA b84c733e475b50d746d955ec805d0c5da1e998ca4e2fc9f76305f661ce942de0;512sqWebP76868B SHA6df560ccabb6c7f7347225bdb4c0fe2f9eadbb3aa1f769b6b540cd6f96c35b77 reproducedbyteequalwithcwebp1.6.0. Prompt/builtinimagegen/styleinput/source/output/license/encoding provenance matches. Exactlyone11-line manifestrecord, oldrecordsbyteequal. Assettest6/6;Pages50files5882827B includesexactWebPonce/excludesprotectedsourcehash/reference/docs/provenance/demo/tests/artifacts/node_modules. Originalname/lore2sentences verified. Evidence artifacts/art-020p-round-1/critic/. No gameplay/livearena/fullcharacterintegrationclaim.
+
+BIGGEST GAP: The mallet heads have little frame margin at64px, though their silhouettes remainreadable; no blocking portrait-stage gap.
+
 ## Round 434 — 2026-10-13
 
 PIECE: GAME-001MS — Shared-session squad materialization verification, round 1

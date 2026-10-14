@@ -1,0 +1,39 @@
+{
+  "browser": "Google Chrome via Playwright channel=chrome",
+  "chromeVersion": "155.0.8059.40",
+  "headless": true,
+  "deviceScaleFactor": 1,
+  "pageUrl": "http://127.0.0.1:50678/__review.html",
+  "publishedAsset": "game/public/assets/rivet-runners-portrait-painted.webp",
+  "publishedAssetBytes": 76868,
+  "publishedAssetSha256": "6df560ccabb6c7f7347225bdb4c0fe2f9eadbb3aa1f769b6b540cd6f96c35b77",
+  "metrics": {
+    "devicePixelRatio": 1,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+    "images": [
+      {
+        "id": "portrait64",
+        "alt": "Rivet Runners portrait at 64 CSS pixels",
+        "cssWidth": 64,
+        "cssHeight": 64,
+        "naturalWidth": 512,
+        "naturalHeight": 512,
+        "currentSrc": "http://127.0.0.1:50678/game/public/assets/rivet-runners-portrait-painted.webp"
+      },
+      {
+        "id": "portrait128",
+        "alt": "Rivet Runners portrait at 128 CSS pixels",
+        "cssWidth": 128,
+        "cssHeight": 128,
+        "naturalWidth": 512,
+        "naturalHeight": 512,
+        "currentSrc": "http://127.0.0.1:50678/game/public/assets/rivet-runners-portrait-painted.webp"
+      }
+    ]
+  },
+  "screenshots": [
+    "rivet-runners-chrome-css64-dpr1.png",
+    "rivet-runners-chrome-css128-dpr1.png",
+    "rivet-runners-chrome-native-pair.png"
+  ]
+}

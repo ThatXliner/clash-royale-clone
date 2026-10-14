@@ -1,0 +1,43 @@
+{
+  "assetId": "rivet-runners-portrait-painted",
+  "authorship": "in-repo-authored",
+  "license": "AGPL-3.0-only",
+  "scope": "Original collection portrait asset; portrait stage only. No battle sprite, portrait lookup, UI, card admission, or gameplay integration is included.",
+  "generation": {
+    "tool": "Codex built-in image_gen.imagegen",
+    "mode": "generate",
+    "generatedToolPath": "/Users/me/.codex/generated_images/01a137f7-1e7c-7bc0-9ee5-255c4869fd0b/exec-31aa70a7-e78d-46ea-b11b-d54990a4b506.png",
+    "inputImage": {
+      "role": "Style reference for painterly rendering, warm light, and atmospheric depth only; no subject, pose, environment, or composition reuse.",
+      "path": "public/assets/coppershade-flock-painted.webp",
+      "dimensions": { "width": 512, "height": 512 },
+      "byteLength": 36532,
+      "sha256": "521167c772916265e797c51c28183d91f090c2670ec7d527bf59e60a85684dec"
+    },
+    "prompt": "Use case: stylized-concept\nAsset type: square painted collection portrait for an original fantasy card battler\nInput images: Image 1 is a style reference only for painterly rendering, warm light, and atmospheric depth; do not reuse its birds, characters, pose, environment, or composition.\nPrimary request: create a distinct original portrait for Rivet Runners, a pair of adult anthropomorphic river-otter workshop couriers who fight with chunky rootwood mallets.\nScene/backdrop: warm timber river-mill workshop with soft river light and a few softly glowing emberseed signal lamps; keep the setting quiet behind the characters.\nSubject: exactly two adult river otters shoulder-to-shoulder, both faces large and clearly distinct, both wearing practical moss-teal work vests with a few broad copper fasteners. Give them lively, alert expressions and strong readable silhouettes. Each carries a large, unmistakable mallet with a broad chunky rootwood head and simple copper bands; place the two mallets around the outside edges so their tool role reads immediately.\nStyle/medium: polished painterly fantasy game portrait, tactile fur and carved wood, softly blended background, crisp expressive faces and clean shape grouping, consistent with Image 1's painterly light and depth.\nComposition/framing: centered square close-up from chest up, both faces and both mallet heads visible, big simple shapes with clear separation, designed to remain legible when reduced to 64px.\nLighting/mood: warm workshop glow, lively and capable, friendly team energy.\nColor palette: river moss teal, russet and dark brown fur, warm copper, honey ember gold, muted timber.\nMaterials/textures: soft detailed fur, woven work vests, smooth carved rootwood, simple copper fasteners and mallet bands.\nText (verbatim): none.\nConstraints: entirely original character and scene design; no copied game characters, assets, names, or text; no armor, clutter, tiny gears, labels, logos, card border, watermark, or extra characters."
+  },
+  "source": {
+    "path": "demo/assets/rivet-runners-portrait.png",
+    "format": "png",
+    "dimensions": { "width": 1254, "height": 1254 },
+    "color": "8-bit RGB",
+    "byteLength": 2819557,
+    "sha256": "b84c733e475b50d746d955ec805d0c5da1e998ca4e2fc9f76305f661ce942de0"
+  },
+  "output": {
+    "path": "public/assets/rivet-runners-portrait-painted.webp",
+    "format": "webp",
+    "encoding": "lossy VP8",
+    "dimensions": { "width": 512, "height": 512 },
+    "byteLength": 76868,
+    "sha256": "6df560ccabb6c7f7347225bdb4c0fe2f9eadbb3aa1f769b6b540cd6f96c35b77",
+    "encodingSettings": {
+      "tool": "cwebp 1.6.0",
+      "command": "cwebp -quiet -q 88 -m 6 -metadata none -resize 512 512 demo/assets/rivet-runners-portrait.png -o public/assets/rivet-runners-portrait-painted.webp",
+      "quality": 88,
+      "method": 6,
+      "metadata": "none",
+      "resize": [512, 512]
+    }
+  }
+}

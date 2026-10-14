@@ -1,0 +1,290 @@
+{
+  "candidate": {
+    "commit": "7fa4bc3f521cc113752227f8fa13ae430f9607aa",
+    "parent": "14b5826dd7eb2205677a1e2a92a4be652be76f6d",
+    "archivePath": "/tmp/codex-art020p-critic-20261013"
+  },
+  "changedFiles": [
+    {
+      "status": "A",
+      "path": "artifacts/art-020p-round-1/builder/asset-hashes.sha256"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-020p-round-1/builder/builder-receipt.json"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-020p-round-1/builder/make-clean-candidate.mjs"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-020p-round-1/builder/native-chrome-render.json"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-020p-round-1/builder/own-candidate-receipt.json"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-020p-round-1/builder/pages-build-audit.mjs"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-020p-round-1/builder/pages-build-exclusion.json"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-020p-round-1/builder/render-portrait-native.mjs"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-020p-round-1/builder/render-portrait.html"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-020p-round-1/builder/rivet-runners-128px.png"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-020p-round-1/builder/rivet-runners-64px.png"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-020p-round-1/builder/rivet-runners-concept.md"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-020p-round-1/builder/visual-asset-manifest.tap"
+    },
+    {
+      "status": "A",
+      "path": "artifacts/art-020p-round-1/review-source-note.txt"
+    },
+    {
+      "status": "A",
+      "path": "demo/assets/rivet-runners-portrait.png"
+    },
+    {
+      "status": "A",
+      "path": "docs/art/rivet-runners-portrait-provenance.json"
+    },
+    {
+      "status": "A",
+      "path": "public/assets/rivet-runners-portrait-painted.webp"
+    },
+    {
+      "status": "M",
+      "path": "src/content/visual-asset-manifest.js"
+    }
+  ],
+  "changedSourcePaths": [
+    {
+      "status": "M",
+      "path": "src/content/visual-asset-manifest.js"
+    }
+  ],
+  "candidateScopeChecks": {
+    "onlyManifestChangedUnderSrc": true,
+    "noTestsPlanOrProgressChanged": true
+  },
+  "assets": {
+    "source": {
+      "path": "/tmp/codex-art020p-critic-20261013/demo/assets/rivet-runners-portrait.png",
+      "format": "png",
+      "width": 1254,
+      "height": 1254,
+      "byteLength": 2819557,
+      "sha256": "b84c733e475b50d746d955ec805d0c5da1e998ca4e2fc9f76305f661ce942de0"
+    },
+    "sourceHeader": {
+      "pngSignature": "89504e470d0a1a0a",
+      "colorType": 2,
+      "bitDepth": 8
+    },
+    "originalGenerationFile": {
+      "path": "/Users/me/.codex/generated_images/01a137f7-1e7c-7bc0-9ee5-255c4869fd0b/exec-31aa70a7-e78d-46ea-b11b-d54990a4b506.png",
+      "format": "png",
+      "width": 1254,
+      "height": 1254,
+      "byteLength": 2819557,
+      "sha256": "b84c733e475b50d746d955ec805d0c5da1e998ca4e2fc9f76305f661ce942de0"
+    },
+    "sourceEqualsOriginalGenerationFile": true,
+    "styleInput": {
+      "path": "/tmp/codex-art020p-critic-20261013/public/assets/coppershade-flock-painted.webp",
+      "format": "webp",
+      "width": 512,
+      "height": 512,
+      "byteLength": 36532,
+      "sha256": "521167c772916265e797c51c28183d91f090c2670ec7d527bf59e60a85684dec"
+    },
+    "declaredSourceMatches": true,
+    "declaredStyleInputMatches": true,
+    "candidateOutput": {
+      "path": "/tmp/codex-art020p-critic-20261013/public/assets/rivet-runners-portrait-painted.webp",
+      "format": "webp",
+      "width": 512,
+      "height": 512,
+      "byteLength": 76868,
+      "sha256": "6df560ccabb6c7f7347225bdb4c0fe2f9eadbb3aa1f769b6b540cd6f96c35b77"
+    },
+    "reproducedOutput": {
+      "path": "/tmp/codex-art020p-critic-20261013/reproduced.webp",
+      "format": "webp",
+      "width": 512,
+      "height": 512,
+      "byteLength": 76868,
+      "sha256": "6df560ccabb6c7f7347225bdb4c0fe2f9eadbb3aa1f769b6b540cd6f96c35b77"
+    },
+    "publishedOutput": {
+      "path": "/tmp/codex-art020p-pages-output/game/public/assets/rivet-runners-portrait-painted.webp",
+      "format": "webp",
+      "width": 512,
+      "height": 512,
+      "byteLength": 76868,
+      "sha256": "6df560ccabb6c7f7347225bdb4c0fe2f9eadbb3aa1f769b6b540cd6f96c35b77"
+    },
+    "declaredOutputMatches": true,
+    "publicationBytesEqualCandidate": true,
+    "belowOneMiB": true,
+    "license": {
+      "provenance": "AGPL-3.0-only",
+      "manifest": "AGPL-3.0-only",
+      "matches": true
+    },
+    "authorship": "in-repo-authored",
+    "generationTool": "Codex built-in image_gen.imagegen",
+    "cwebpVersion": "1.6.0\nlibsharpyuv: 0.4.2",
+    "cwebpSettings": {
+      "tool": "cwebp 1.6.0",
+      "command": "cwebp -quiet -q 88 -m 6 -metadata none -resize 512 512 demo/assets/rivet-runners-portrait.png -o public/assets/rivet-runners-portrait-painted.webp",
+      "quality": 88,
+      "method": 6,
+      "metadata": "none",
+      "resize": [
+        512,
+        512
+      ]
+    },
+    "cwebpReproductionMatches": true,
+    "promptComplete": true
+  },
+  "manifestPreservation": {
+    "exactNewRecord": "  {\n    authorship: \"in-repo-authored\",\n    byteLength: 76868,\n    dimensions: { height: 512, width: 512 },\n    format: \"webp\",\n    id: \"rivet-runners-portrait-painted\",\n    kind: \"image\",\n    license: \"AGPL-3.0-only\",\n    path: \"assets/rivet-runners-portrait-painted.webp\",\n    sha256: \"6df560ccabb6c7f7347225bdb4c0fe2f9eadbb3aa1f769b6b540cd6f96c35b77\",\n  },\n",
+    "oldRecordsByteEqualToParent": true,
+    "onlyAdditionsInManifestDiff": true,
+    "removedLineCount": 0,
+    "addedLineCount": 11
+  },
+  "characterChecks": {
+    "loreSentenceCount": 2,
+    "loreSentences": [
+      "The Rivet Runners carry copper repair kits between river mills, using paired rootwood mallets to clear fallen timber.",
+      "When emberseed alarms sound, they abandon their deliveries and race together to defend the workshop bridges."
+    ],
+    "exactReferenceCardNameMatches": 0,
+    "changedProductFilesContainOnlyPortraitStage": [
+      "demo/assets/rivet-runners-portrait.png",
+      "docs/art/rivet-runners-portrait-provenance.json",
+      "public/assets/rivet-runners-portrait-painted.webp",
+      "src/content/visual-asset-manifest.js"
+    ],
+    "noPortraitLookupOrGameplayIntegration": true
+  },
+  "commands": {
+    "visualAssetManifest": {
+      "command": "npm run test:visual-asset-manifest",
+      "exitCode": 0,
+      "outputPath": "artifacts/art-020p-round-1/critic/visual-asset-manifest.log",
+      "passing": true
+    },
+    "pagesBuild": {
+      "command": "npm run build:pages -- --out /tmp/codex-art020p-pages-output",
+      "exitCode": 0,
+      "outputPath": "artifacts/art-020p-round-1/critic/build-pages.log",
+      "output": "> moss-and-ember@0.0.0 build:pages\n> node scripts/build-pages.js --out /tmp/codex-art020p-pages-output\n\nPages artifact: /tmp/codex-art020p-pages-output (50 release files; 5882827 bytes)"
+    }
+  },
+  "publicationAudit": {
+    "root": "/tmp/codex-art020p-pages-output",
+    "fileCount": 60,
+    "releaseFileCount": 52,
+    "releaseManifestFileCount": 50,
+    "releaseManifestBytes": 5882827,
+    "exactPublishedWebpPaths": [
+      "game/public/assets/rivet-runners-portrait-painted.webp"
+    ],
+    "sourcePngPaths": [],
+    "sourcePngShaPresent": false,
+    "provenancePaths": [],
+    "forbiddenPublicationPaths": [],
+    "passes": true
+  },
+  "chromeRender": {
+    "browser": "Google Chrome via Playwright channel=chrome",
+    "chromeVersion": "155.0.8059.40",
+    "headless": true,
+    "deviceScaleFactor": 1,
+    "pageUrl": "http://127.0.0.1:50678/__review.html",
+    "publishedAsset": "game/public/assets/rivet-runners-portrait-painted.webp",
+    "publishedAssetBytes": 76868,
+    "publishedAssetSha256": "6df560ccabb6c7f7347225bdb4c0fe2f9eadbb3aa1f769b6b540cd6f96c35b77",
+    "metrics": {
+      "devicePixelRatio": 1,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "images": [
+        {
+          "id": "portrait64",
+          "alt": "Rivet Runners portrait at 64 CSS pixels",
+          "cssWidth": 64,
+          "cssHeight": 64,
+          "naturalWidth": 512,
+          "naturalHeight": 512,
+          "currentSrc": "http://127.0.0.1:50678/game/public/assets/rivet-runners-portrait-painted.webp"
+        },
+        {
+          "id": "portrait128",
+          "alt": "Rivet Runners portrait at 128 CSS pixels",
+          "cssWidth": 128,
+          "cssHeight": 128,
+          "naturalWidth": 512,
+          "naturalHeight": 512,
+          "currentSrc": "http://127.0.0.1:50678/game/public/assets/rivet-runners-portrait-painted.webp"
+        }
+      ]
+    },
+    "screenshots": [
+      "rivet-runners-chrome-css64-dpr1.png",
+      "rivet-runners-chrome-css128-dpr1.png",
+      "rivet-runners-chrome-native-pair.png"
+    ]
+  },
+  "screenshotFacts": [
+    {
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/art-020p-round-1/critic/rivet-runners-chrome-css64-dpr1.png",
+      "format": "png",
+      "width": 64,
+      "height": 64,
+      "byteLength": 9869,
+      "sha256": "6c7bba17b34320142674c5db11b5f331076587ee7eb74710009d087c3f536130"
+    },
+    {
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/art-020p-round-1/critic/rivet-runners-chrome-css128-dpr1.png",
+      "format": "png",
+      "width": 128,
+      "height": 128,
+      "byteLength": 37365,
+      "sha256": "358bef759aafecd42ce8a12b78b1c7ecb4b20d6fd64d43f4f8e0087c2a7c154f"
+    },
+    {
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/art-020p-round-1/critic/rivet-runners-chrome-native-pair.png",
+      "format": "png",
+      "width": 240,
+      "height": 220,
+      "byteLength": 52356,
+      "sha256": "3930a077d177f9e092cef9205f6c26c4f8f5dcc6d9bd109d0bbafe9e35c46556"
+    }
+  ],
+  "allChecksPass": true
+}

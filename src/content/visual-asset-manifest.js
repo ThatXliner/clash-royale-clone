@@ -466,6 +466,17 @@ const REGISTERED_ASSETS = [
     path: "assets/kilnkeeper-battle-sprite.webp",
     sha256: "43766c813461acbfe36a949c6a972ba4e5ddf07513276bd5079cf564b1bf157a",
   },
+  {
+    authorship: "in-repo-authored",
+    byteLength: 76868,
+    dimensions: { height: 512, width: 512 },
+    format: "webp",
+    id: "rivet-runners-portrait-painted",
+    kind: "image",
+    license: "AGPL-3.0-only",
+    path: "assets/rivet-runners-portrait-painted.webp",
+    sha256: "6df560ccabb6c7f7347225bdb4c0fe2f9eadbb3aa1f769b6b540cd6f96c35b77",
+  },
 ];
 
 const MANIFEST = freeze({

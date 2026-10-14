@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rivet Runners portrait native-size render</title>
+  <style>
+    html, body { margin: 0; padding: 0; background: #15130f; }
+    img { display: block; object-fit: contain; }
+  </style>
+</head>
+<body>
+  <img id="portrait" src="../../../public/assets/rivet-runners-portrait-painted.webp" alt="Rivet Runners portrait">
+  <script>
+    const size = Number(new URL(location.href).searchParams.get("size"));
+    const portrait = document.querySelector("#portrait");
+    if (![64, 128].includes(size)) throw new Error("Unsupported fixture size");
+    portrait.width = size;
+    portrait.height = size;
+  </script>
+</body>
+</html>
