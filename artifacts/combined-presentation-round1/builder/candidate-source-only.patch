@@ -1,0 +1,2173 @@
+src/ui/combat-art.js --- JavaScript
+235                                      235 
+236   const teamFootring = create('rect  236   const teamFootring = create('rect
+... ');                                  ... ');
+237   teamFootring.dataset.teamColor =   237   teamFootring.dataset.teamColor = 
+... side;                                ... side;
+238   teamFootring.setAttribute('x', St  238   teamFootring.setAttribute('x', St
+... ring(sourceX + 10));                 ... ring(sourceX + 3));
+239   teamFootring.setAttribute('y', St  239   teamFootring.setAttribute('y', St
+... ring(sourceY + 176));                ... ring(sourceY + 154));
+240   teamFootring.setAttribute('width'  240   teamFootring.setAttribute('width'
+... , '200');                            ... , '214');
+241   teamFootring.setAttribute('height  241   teamFootring.setAttribute('height
+... ', '44');                            ... ', '72');
+242   teamFootring.setAttribute('rx', '  242   teamFootring.setAttribute('rx', '
+... 22');                                ... 36');
+243   teamFootring.setAttribute('fill',  243   teamFootring.setAttribute('fill',
+...  side === 'north' ? '#C6452E' : '#2  ...  side === 'north' ? '#C6452E' : '#2
+... E7F86');                             ... E7F86');
+244   teamFootring.setAttribute('stroke  244   teamFootring.setAttribute('stroke
+... ', BONE);                            ... ', BONE);
+245   teamFootring.setAttribute('stroke  245   teamFootring.setAttribute('stroke
+... -width', '5');                       ... -width', '5');
+
+src/ui/combat-state.js --- JavaScript
+564     }                                564     }
+565     const art = entity.kind === "br  565     const art = entity.kind === "br
+... iar-runner"                          ... iar-runner"
+566       ? createBriarRunnerPaintedArt  566       ? createBriarRunnerPaintedArt
+... (layer.ownerDocument, {              ... (layer.ownerDocument, {
+...                                      567         // Generic effect reactions
+...                                      ...  do not prove this unit's own prima
+...                                      ... ry
+...                                      568         // attack. The authenticate
+...                                      ... d GameSession motion projection upg
+...                                      ... rades a
+...                                      569         // Briar to its attack fram
+...                                      ... e only when it supplies a real mele
+...                                      ... e contact.
+567         action: reaction === "targe  570         action: "walk",
+... t" ? "attack" : "walk",              ... 
+568         direction: briarFacingDirec  571         direction: briarFacingDirec
+... tion(entity, linksBySource.get(enti  ... tion(entity, linksBySource.get(enti
+... ty.key)),                            ... ty.key)),
+569         reducedMotion,               572         reducedMotion,
+570         side: entity.side,           573         side: entity.side,
+
+src/ui/game-ui-projection.js --- 1/4 --- JavaScript
+  1   1 import { bindHudMotion } from "./hud-motion.js";
+  2   2 import { createCombatMotionView, bindCombatMotion } from "./combat-motion.js";
+  .   3 import { createBriarRunnerPaintedArt } from "./combat-art.js";
+  3   4 import {
+  4   5   GameSession,
+  5   6   isAuthenticGameSession,
+
+src/ui/game-ui-projection.js --- 2/4 --- JavaScript
+157   return { entities, events, tick:   158   return { entities, events, tick: 
+... state.tick, towers };                ... state.tick, towers };
+158 }                                    159 }
+...                                      160 
+...                                      161 function briarAttackContacts(state,
+...                                      ...  motion) {
+...                                      162   const units = new Map(state.battl
+...                                      ... e.units.map((unit) => [unit.id, uni
+...                                      ... t]));
+...                                      163   const poses = new Map(motion.pose
+...                                      ... s.map((pose) => [pose.id, pose.pose
+...                                      ... ]));
+...                                      164   const contacts = [];
+...                                      165   for (const contact of motion.cont
+...                                      ... acts) {
+...                                      166     const identity = /^([1-9][0-9]*
+...                                      ... ):([1-9][0-9]*)$/u.exec(contact.id)
+...                                      ... ;
+...                                      167     if (identity === null) continue
+...                                      ... ;
+...                                      168     const sourceId = Number(identit
+...                                      ... y[1]);
+...                                      169     const sequence = Number(identit
+...                                      ... y[2]);
+...                                      170     const source = units.get(source
+...                                      ... Id);
+...                                      171     if (!source || source.archetype
+...                                      ... Id !== "briar-runner" ||
+...                                      172         source.delivery !== "melee"
+...                                      ...  || !source.alive || source.hitpoin
+...                                      ... ts <= 0 ||
+...                                      173         poses.get(sourceId) !== "at
+...                                      ... tack") continue;
+...                                      174     const cycle = source.attack;
+...                                      175     const sourceTick = source.spawn
+...                                      ... edAt + cycle.nextAttackTick - cycle
+...                                      ... .config.hitSpeedTicks;
+...                                      176     if (cycle.phase !== "cycling" |
+...                                      ... | cycle.statusWork ||
+...                                      177         cycle.attackSequence !== se
+...                                      ... quence || cycle.targetId !== contac
+...                                      ... t.targetId ||
+...                                      178         contact.tick !== sourceTick
+...                                      ...  || contact.age !== state.tick - so
+...                                      ... urceTick ||
+...                                      179         contact.age < 0 || contact.
+...                                      ... age >= 4) continue;
+...                                      180     contacts.push(Object.freeze({
+...                                      181       sourceClass: source.delivery,
+...                                      182       sourceAge: contact.age,
+...                                      183       sourceId,
+...                                      184       sourceSequence: sequence,
+...                                      185       sourceTick,
+...                                      186     }));
+...                                      187   }
+...                                      188   return Object.freeze(contacts);
+...                                      189 }
+...                                      190 
+...                                      191 function bindBriarAttackFrames(comb
+...                                      ... at, view, contacts) {
+...                                      192   if (contacts.length === 0) return
+...                                      ... ;
+...                                      193   const frame = children(combat)[0]
+...                                      ... ;
+...                                      194   if (!frame) throw new TypeError("
+...                                      ... combat frame is missing while bindi
+...                                      ... ng Briar attacks");
+...                                      195   const markers = new Map(children(
+...                                      ... frame).filter((node) =>
+...                                      196     node.dataset?.kind === "briar-r
+...                                      ... unner")
+...                                      197     .map((node) => [Number(node.dat
+...                                      ... aset.combatId), node]));
+...                                      198   for (const contact of contacts) {
+...                                      199     const marker = markers.get(cont
+...                                      ... act.sourceId);
+...                                      200     if (!marker) throw new TypeErro
+...                                      ... r("Briar contact source is missing 
+...                                      ... from the combat frame");
+...                                      201     const nodes = children(marker);
+...                                      202     const artIndex = nodes.findInde
+...                                      ... x((node) => node.dataset?.artId ===
+...                                      ...  "briar-runner");
+...                                      203     if (artIndex === -1) throw new 
+...                                      ... TypeError("Briar contact source has
+...                                      ...  no painted art");
+...                                      204     const currentArt = nodes[artInd
+...                                      ... ex];
+...                                      205     const art = createBriarRunnerPa
+...                                      ... intedArt(marker.ownerDocument, {
+...                                      206       action: "attack",
+...                                      207       direction: currentArt.dataset
+...                                      ... .spriteDirection,
+...                                      208       reducedMotion: currentArt.dat
+...                                      ... aset.reducedMotion === "true",
+...                                      209       side: marker.dataset.side,
+...                                      210       tick: contact.sourceAge,
+...                                      211     });
+...                                      212     art.dataset.simulationTick = St
+...                                      ... ring(view.tick);
+...                                      213     art.dataset.attackAnimationAge 
+...                                      ... = String(contact.sourceAge);
+...                                      214     art.dataset.attackSourceId = St
+...                                      ... ring(contact.sourceId);
+...                                      215     art.dataset.attackSourceSequenc
+...                                      ... e = String(contact.sourceSequence);
+...                                      216     art.dataset.attackSourceTick = 
+...                                      ... String(contact.sourceTick);
+...                                      217     art.dataset.attackSourceClass =
+...                                      ...  contact.sourceClass;
+...                                      218     nodes[artIndex] = art;
+...                                      219     marker.replaceChildren(...nodes
+...                                      ... );
+...                                      220   }
+...                                      221 }
+159                                      222 
+160 function mintFrameParts(snapshot, c  223 function mintFrameParts(snapshot, c
+... ombat, effects, feedback, hud) {     ... ombat, effects, feedback, hud, moti
+...                                      ... on, attacks) {
+161   if (!isAuthenticGameSessionProjec  224   if (!isAuthenticGameSessionProjec
+... tionSnapshot(snapshot)) {            ... tionSnapshot(snapshot)) {
+162     throw new TypeError("game UI fr  225     throw new TypeError("game UI fr
+... ame parts require an authentic proj  ... ame parts require an authentic proj
+... ection snapshot");                   ... ection snapshot");
+163   }                                  226   }
+164   const parts = Object.freeze({ com  227   const parts = Object.freeze({ com
+... bat, effects, feedback, hud,         ... bat, effects, feedback, hud,
+165     sequence: snapshot.sequence, so  228     sequence: snapshot.sequence, so
+... urce: snapshot.source, tick: snapsh  ... urce: snapshot.source, tick: snapsh
+... ot.state.tick,                       ... ot.state.tick,
+166     version: GAME_UI_FRAME_VERSION   229     version: GAME_UI_FRAME_VERSION 
+... });                                  ... });
+167   FRAME_MOTION.set(parts, createCom  230   FRAME_MOTION.set(parts, Object.fr
+... batMotionView(snapshot, effects));   ... eeze({ attacks, view: motion }));
+168   FRAME_HUD_RECEIPT.set(parts, snap  231   FRAME_HUD_RECEIPT.set(parts, snap
+... shot.hudFeedback.lastCardPlay[hud.e  ... shot.hudFeedback.lastCardPlay[hud.e
+... lixir.side]);                        ... lixir.side]);
+169   FRAME_PARTS.add(parts);            232   FRAME_PARTS.add(parts);
+170   return parts;                      233   return parts;
+
+src/ui/game-ui-projection.js --- 3/4 --- JavaScript
+255 318     session,
+256 319   );
+257 320   const feedback = createSessionMatchFeedbackViewModel(snapshot);
+... 321   const motion = createCombatMotionView(snapshot, effects);
+258 322   const frame = composeGameUiFrame(mintFrameParts(
+259 323     snapshot,
+260 324     createCombatViewModel(combatState(state, effects.events)),
+261 325     effects,
+262 326     feedback,
+263 327     hud,
+... 328     motion,
+... 329     briarAttackContacts(state, motion),
+264 330   ));
+265 331   FRAME_TERMINAL_TICK.set(frame, options.terminalPresentationTick);
+266 332   return frame;
+
+src/ui/game-ui-projection.js --- 4/4 --- JavaScript
+477     };                               543     };
+478     bindCombatViewModel(staged.comb  544     bindCombatViewModel(staged.comb
+... at, frame.combat);                   ... at, frame.combat);
+479     bindCombatEffectsViewModel(stag  545     bindCombatEffectsViewModel(stag
+... ed.effects, frame.effects);          ... ed.effects, frame.effects);
+...                                      546     const motion = FRAME_MOTION.get
+...                                      ... (frame);
+480     bindCombatMotion(staged.combat,  547     bindCombatMotion(staged.combat,
+...  staged.effects, FRAME_MOTION.get(f  ...  staged.effects, motion.view);
+... rame));                              ... 
+...                                      548     bindBriarAttackFrames(staged.co
+...                                      ... mbat, motion.view, motion.attacks);
+481     bindMatchFeedback(staged.feedba  549     bindMatchFeedback(staged.feedba
+... ck, frame.feedback);                 ... ck, frame.feedback);
+482     if (frame.feedback.overlay) {    550     if (frame.feedback.overlay) {
+483       const panel = children(childr  551       const panel = children(childr
+... en(staged.feedback)[0]).find(node =  ... en(staged.feedback)[0]).find(node =
+... > node.className === "match-feedbac  ... > node.className === "match-feedbac
+... k__overlay");                        ... k__overlay");
+
+tests/combat-sprite-prototype-browser.test.js --- 1/16 --- Text (exceeded DFT_GRAPH_LIMIT)
+  9 import test from "node:test";          9 import test from "node:test";
+ 10                                       10 
+ 11 import { chromium } from "playwrig    11 import { chromium } from "playwrig
+ .. ht";                                  .. ht";
+ ..                                       12 import { selectBriarRunnerFrame } 
+ ..                                       .. from "../src/ui/combat-sprite-prot
+ ..                                       .. otype.js";
+ 12                                       13 
+ 13 const ROOT = resolve(fileURLToPath    14 const ROOT = resolve(fileURLToPath
+ .. (new URL("..", import.meta.url)));    .. (new URL("..", import.meta.url)));
+ 14 const ARTIFACTS = resolve(ROOT, "a    15 const ARTIFACTS = resolve(ROOT, "a
+ .. rtifacts/sprite-art-round-4");        .. rtifacts/art004-aggregate-round-5/
+ ..                                       .. builder/live-browser");
+ 15 const CHROME = process.env.GAME_BR    16 const CHROME = process.env.GAME_BR
+ .. OWSER_CHROME ??                       .. OWSER_CHROME ??
+ 16   "/Applications/Google Chrome.app    17   "/Applications/Google Chrome.app
+ .. /Contents/MacOS/Google Chrome";       .. /Contents/MacOS/Google Chrome";
+ 17 const CONTENT_TYPES = Object.freez    18 const CONTENT_TYPES = Object.freez
+ .. e({                                   .. e({
+
+tests/combat-sprite-prototype-browser.test.js --- 2/16 --- Text (exceeded DFT_GRAPH_LIMIT)
+ 27   28   "cinderlings", "coilblade", "mossguard", "copperskiff",
+ 28   29 ]);
+ 29   30 
+ ..   31 function audioContinuationFacts(audio) {
+ ..   32   return Object.fromEntries([
+ ..   33     "cursor",
+ ..   34     "eventCount",
+ ..   35     "gainBasisPoints",
+ ..   36     "muted",
+ ..   37     "sessionTick",
+ ..   38     "suppressedAcceleratedCueCount",
+ ..   39     "terminal",
+ ..   40     "uiCommandCount",
+ ..   41     "uiSequence",
+ ..   42     "uiLastTick",
+ ..   43   ].map((key) => [key, audio[key]]));
+ ..   44 }
+ ..   45 
+ ..   46 function pcmContinuationProof(receipts) {
+ ..   47   return receipts.map(({ cueId, effectiveGainBasisPoints, energy, family,
+ ..   48     mixGainBasisPoints, outputGainBasisPoints, outputMuted, peak, rmsBasisPoints,
+ ..   49     sampleCount, sampleRateHz, sequence, sourceType, startTick, waveformSha256 }) => ({
+ ..   50     cueId,
+ ..   51     effectiveGainBasisPoints,
+ ..   52     energy,
+ ..   53     family,
+ ..   54     mixGainBasisPoints,
+ ..   55     outputGainBasisPoints,
+ ..   56     outputMuted,
+ ..   57     peak,
+ ..   58     rmsBasisPoints,
+ ..   59     sampleCount,
+ ..   60     sampleRateHz,
+ ..   61     sequence,
+ ..   62     sourceType,
+ ..   63     startTick,
+ ..   64     waveformSha256,
+ ..   65   }));
+ ..   66 }
+ ..   67 
+ ..   68 function canonical(value) {
+ ..   69   if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
+ ..   70   if (value !== null && typeof value === "object") {
+ ..   71     return `{${Object.keys(value).sort().map((key) =>
+ ..   72       `${JSON.stringify(key)}:${canonical(value[key])}`).join(",")}}`;
+ ..   73   }
+ ..   74   return JSON.stringify(value);
+ ..   75 }
+ ..   76 
+ ..   77 function sha256Canonical(value) {
+ ..   78   return createHash("sha256").update(canonical(value)).digest("hex");
+ ..   79 }
+ ..   80 
+ 30   81 async function startStaticServer() {
+ 31   82   const missingPaths = [];
+ 32   83   const server = createServer(async (request, response) => {
+
+tests/combat-sprite-prototype-browser.test.js --- 3/16 --- Text (exceeded DFT_GRAPH_LIMIT)
+131  182         }
+132  183       }
+133  184       return {
+...  185         actorId: crop.actorId,
+134  186         side: crop.side,
+135  187         teamColor: crop.color,
+136  188         visibleTeamColorPixels,
+
+tests/combat-sprite-prototype-browser.test.js --- 4/16 --- Text (exceeded DFT_GRAPH_LIMIT)
+237  289   });
+238  290 }
+239  291 
+...  292 async function reducedRestorePaintFingerprint(page, child, point) {
+...  293   const frameBox = await page.locator("[data-battle-frame-slot] iframe").boundingBox();
+...  294   assert.ok(frameBox && frameBox.width > 0 && frameBox.height > 0);
+...  295   const childPoint = {
+...  296     x: (point.x - frameBox.x) * (720 / frameBox.width),
+...  297     y: (point.y - frameBox.y) * (1280 / frameBox.height),
+...  298   };
+...  299   const [outer, inner] = await Promise.all([
+...  300     page.evaluate(({ x, y }) => {
+...  301       const frame = document.querySelector("[data-battle-frame-slot] iframe");
+...  302       const slot = frame?.parentElement;
+...  303       const element = document.elementFromPoint(x, y);
+...  304       const style = (node) => {
+...  305         if (!node) return null;
+...  306         const computed = getComputedStyle(node);
+...  307         const rect = node.getBoundingClientRect();
+...  308         return {
+...  309           animationDuration: computed.animationDuration,
+...  310           animationName: computed.animationName,
+...  311           backgroundColor: computed.backgroundColor,
+...  312           borderColor: computed.borderColor,
+...  313           borderStyle: computed.borderStyle,
+...  314           borderWidth: computed.borderWidth,
+...  315           className: typeof node.className === "string"
+...  316             ? node.className : node.className?.baseVal ?? null,
+...  317           filter: computed.filter,
+...  318           id: node.id,
+...  319           opacity: computed.opacity,
+...  320           rect: { x: rect.x, y: rect.y, width: rect.width, height: rect.height },
+...  321           tag: node.tagName,
+...  322           transform: computed.transform,
+...  323           transitionDuration: computed.transitionDuration,
+...  324           transitionProperty: computed.transitionProperty,
+...  325           willChange: computed.willChange,
+...  326         };
+...  327       };
+...  328       return {
+...  329         chain: [element, element?.parentElement, frame, slot]
+...  330           .filter(Boolean).map(style),
+...  331         point: { x, y },
+...  332       };
+...  333     }, point),
+...  334     child.evaluate(({ x, y }) => {
+...  335       const slot = document.querySelector(
+...  336         '[data-ui="card-slot"][data-card-id="brassbolt"]',
+...  337       );
+...  338       const style = (node) => {
+...  339         if (!node) return null;
+...  340         const computed = getComputedStyle(node);
+...  341         const rect = node.getBoundingClientRect();
+...  342         return {
+...  343           animationDuration: computed.animationDuration,
+...  344           animationName: computed.animationName,
+...  345           backgroundColor: computed.backgroundColor,
+...  346           borderColor: computed.borderColor,
+...  347           borderStyle: computed.borderStyle,
+...  348           borderWidth: computed.borderWidth,
+...  349           boxShadow: computed.boxShadow,
+...  350           className: typeof node.className === "string"
+...  351             ? node.className : node.className?.baseVal ?? null,
+...  352           filter: computed.filter,
+...  353           id: node.id,
+...  354           opacity: computed.opacity,
+...  355           rect: { x: rect.x, y: rect.y, width: rect.width, height: rect.height },
+...  356           tag: node.tagName,
+...  357           transform: computed.transform,
+...  358           transitionDuration: computed.transitionDuration,
+...  359           transitionProperty: computed.transitionProperty,
+...  360           willChange: computed.willChange,
+...  361         };
+...  362       };
+...  363       const pseudo = (node, selector) => {
+...  364         if (!node) return null;
+...  365         const computed = getComputedStyle(node, selector);
+...  366         return Object.fromEntries([
+...  367           "content", "backgroundColor", "borderColor", "borderStyle",
+...  368           "borderWidth", "boxShadow", "filter", "opacity", "transform",
+...  369           "transitionDuration", "animationName", "animationDuration",
+...  370         ].map((property) => [property,
+...  371           computed.getPropertyValue(property.replace(/[A-Z]/gu,
+...  372             (letter) => `-${letter.toLowerCase()}`))]));
+...  373       };
+...  374       const active = document.activeElement;
+...  375       return {
+...  376         activeElement: active ? {
+...  377           cardId: active.dataset?.cardId ?? null,
+...  378           className: typeof active.className === "string" ? active.className : null,
+...  379           tag: active.tagName,
+...  380         } : null,
+...  381         animations: document.getAnimations({ subtree: true }).map((animation) => ({
+...  382           currentTime: animation.currentTime,
+...  383           playState: animation.playState,
+...  384           target: animation.effect?.target?.tagName ?? null,
+...  385         })),
+...  386         bodyText: document.body.innerText,
+...  387         card: slot ? {
+...  388           attributes: [...slot.attributes].map(({ name, value }) => [name, value]),
+...  389           children: [...slot.children].map((node) => node.outerHTML),
+...  390           html: slot.outerHTML,
+...  391           matchesFocus: slot.matches(":focus"),
+...  392           matchesFocusVisible: slot.matches(":focus-visible"),
+...  393           matchesHover: slot.matches(":hover"),
+...  394           parent: style(slot.parentElement),
+...  395           style: style(slot),
+...  396           text: slot.textContent,
+...  397           before: pseudo(slot, "::before"),
+...  398           after: pseudo(slot, "::after"),
+...  399         } : null,
+...  400         fonts: document.fonts.status,
+...  401         point: { x, y },
+...  402       };
+...  403     }, childPoint),
+...  404   ]);
+...  405   return { inner, outer };
+...  406 }
+...  407 
+240  408 test("painted sprite atlas renders at real playfield scale in both teams, viewports, and restore", {
+241  409   timeout: 90_000,
+
+tests/combat-sprite-prototype-browser.test.js --- 5/16 --- Text (exceeded DFT_GRAPH_LIMIT)
+349                                      517 
+350   evidence.liveArenaIntegration =    518   evidence.liveArenaIntegration = 
+... [];                                  ... [];
+351   for (const viewport of [           519   for (const viewport of [
+352     { width: 720, height: 1280 },    520     { width: 1440, height: 933 },
+353     { width: 390, height: 844 },     521     { width: 390, height: 844 },
+354   ]) {                               522   ]) {
+355     const page = await browser.new   523     const page = await browser.new
+... Page({ deviceScaleFactor: 1, viewp   ... Page({ deviceScaleFactor: 1, viewp
+... ort });                              ... ort });
+
+tests/combat-sprite-prototype-browser.test.js --- 6/16 --- Text (exceeded DFT_GRAPH_LIMIT)
+370  538     });
+371  539     const child = page.frames().find((candidate) => candidate.url().includes("app-frame=1"));
+372  540     assert.ok(child, "the app shell must mount its real scaled battle frame");
+...  541     await child.evaluate(() => {
+...  542       globalThis.__art004TrustedPointers = [];
+...  543       document.addEventListener("pointerup", (event) => {
+...  544         if (!(event.target instanceof Element)) return;
+...  545         const target = event.target.closest('[data-ui="card-slot"], [data-ui="arena"]');
+...  546         if (!target) return;
+...  547         globalThis.__art004TrustedPointers.push({
+...  548           cardId: target.dataset.cardId ?? null,
+...  549           isTrusted: event.isTrusted,
+...  550           type: event.type,
+...  551           ui: target.dataset.ui,
+...  552         });
+...  553       }, true);
+...  554     });
+373  555     const boot = await child.evaluate(async (deck) => {
+374  556       const { arenaHudController } = await import("/src/ui/arena-shell-entry.js");
+375  557       const controller = arenaHudController;
+
+tests/combat-sprite-prototype-browser.test.js --- 7/16 --- Text (exceeded DFT_GRAPH_LIMIT)
+401     const arenaBox = await arena.b   583     const arenaBox = await arena.b
+... oundingBox();                        ... oundingBox();
+402     assert.ok(arenaBox && arenaBox   584     assert.ok(arenaBox && arenaBox
+... .width > 0 && arenaBox.height > 0)   ... .width > 0 && arenaBox.height > 0)
+... ;                                    ... ;
+403     await page.mouse.click(arenaBo   585     await page.mouse.click(arenaBo
+... x.x + arenaBox.width / 2,            ... x.x + arenaBox.width / 2,
+404       arenaBox.y + arenaBox.height   586       arenaBox.y + arenaBox.height
+...  * 0.79);                            ...  * 0.54);
+405     await child.evaluate(() => glo   587     const actualAttack = await chi
+... balThis.__spriteRendererProbe.step   ... ld.evaluate(() => {
+... Many(120));                          ... 
+...                                      588       const controller = globalThi
+...                                      ... s.__spriteRendererProbe;
+...                                      589       for (let step = 0; step < 60
+...                                      ... 0; step += 1) {
+...                                      590         const beforeState = contro
+...                                      ... ller.session.state;
+...                                      591         const events = controller.
+...                                      ... stepMany(1);
+...                                      592         const state = controller.s
+...                                      ... ession.state;
+...                                      593         const units = new Map(befo
+...                                      ... reState.battle.units.map((unit) =>
+...                                      ...  [unit.id, unit]));
+...                                      594         const attack = events.find
+...                                      ... ((event) => event.type === "attack
+...                                      ... " &&
+...                                      595           units.get(event.attacker
+...                                      ... Id)?.archetypeId === "briar-runner
+...                                      ... " &&
+...                                      596           units.get(event.attacker
+...                                      ... Id)?.side === "south");
+...                                      597         if (!attack) continue;
+...                                      598         const source = state.battl
+...                                      ... e.units.find((unit) => unit.id ===
+...                                      ...  attack.attackerId);
+...                                      599         if (!source) continue;
+...                                      600         const damage = events.find
+...                                      ... ((event) => event.type === "damage
+...                                      ... " &&
+...                                      601           event.attackerId === att
+...                                      ... ack.attackerId && event.targetId =
+...                                      ... == attack.targetId &&
+...                                      602           event.delivery === "mele
+...                                      ... e" && event.tick === attack.tick);
+...                                      603         if (!damage) continue;
+...                                      604         const marker = [...documen
+...                                      ... t.querySelectorAll(
+...                                      605           '.combat-marker[data-kin
+...                                      ... d="briar-runner"]',
+...                                      606         )].find((candidate) => can
+...                                      ... didate.dataset.combatId === String
+...                                      ... (attack.attackerId));
+...                                      607         const art = marker?.queryS
+...                                      ... elector(".combat-art");
+...                                      608         return {
+...                                      609           attack: {
+...                                      610             attackerId: attack.att
+...                                      ... ackerId,
+...                                      611             sequence: attack.seque
+...                                      ... nce,
+...                                      612             targetId: attack.targe
+...                                      ... tId,
+...                                      613             tick: attack.tick,
+...                                      614             type: attack.type,
+...                                      615           },
+...                                      616           damage: {
+...                                      617             amount: damage.amount,
+...                                      618             attackerId: damage.att
+...                                      ... ackerId,
+...                                      619             currentHealthAfter: da
+...                                      ... mage.currentHealthAfter,
+...                                      620             currentHealthBefore: d
+...                                      ... amage.currentHealthBefore,
+...                                      621             delivery: damage.deliv
+...                                      ... ery,
+...                                      622             targetId: damage.targe
+...                                      ... tId,
+...                                      623             tick: damage.tick,
+...                                      624             type: damage.type,
+...                                      625           },
+...                                      626           frame: art ? {
+...                                      627             action: art.dataset.sp
+...                                      ... riteAction,
+...                                      628             animationAge: Number(a
+...                                      ... rt.dataset.attackAnimationAge),
+...                                      629             sourceClass: art.datas
+...                                      ... et.attackSourceClass ?? null,
+...                                      630             sourceId: Number(art.d
+...                                      ... ataset.attackSourceId),
+...                                      631             sourceSequence: Number
+...                                      ... (art.dataset.attackSourceSequence)
+...                                      ... ,
+...                                      632             sourceTick: Number(art
+...                                      ... .dataset.attackSourceTick),
+...                                      633             tick: Number(art.datas
+...                                      ... et.simulationTick),
+...                                      634           } : null,
+...                                      635           source: {
+...                                      636             alive: source.alive,
+...                                      637             attackSequence: source
+...                                      ... .attack.attackSequence,
+...                                      638             archetypeId: source.ar
+...                                      ... chetypeId,
+...                                      639             delivery: source.deliv
+...                                      ... ery,
+...                                      640             id: source.id,
+...                                      641             hitpoints: source.hitp
+...                                      ... oints,
+...                                      642             side: source.side,
+...                                      643             sourceTick: source.spa
+...                                      ... wnedAt + source.attack.nextAttackT
+...                                      ... ick -
+...                                      644               source.attack.config
+...                                      ... .hitSpeedTicks,
+...                                      645           },
+...                                      646           sessionTick: state.tick,
+...                                      647         };
+...                                      648       }
+...                                      649       return null;
+...                                      650     });
+...                                      651     assert.ok(actualAttack, "the a
+...                                      ... ctual legal south Briar deployment
+...                                      ...  lands a primary melee attack");
+...                                      652     assert.equal(actualAttack.sour
+...                                      ... ce.archetypeId, "briar-runner");
+...                                      653     assert.equal(actualAttack.sour
+...                                      ... ce.delivery, "melee");
+...                                      654     assert.equal(actualAttack.sour
+...                                      ... ce.side, "south");
+...                                      655     assert.equal(actualAttack.atta
+...                                      ... ck.attackerId, actualAttack.source
+...                                      ... .id);
+...                                      656     assert.equal(actualAttack.atta
+...                                      ... ck.sequence, actualAttack.source.a
+...                                      ... ttackSequence);
+...                                      657     assert.equal(actualAttack.atta
+...                                      ... ck.tick, actualAttack.source.sourc
+...                                      ... eTick);
+...                                      658     assert.equal(actualAttack.sess
+...                                      ... ionTick - actualAttack.attack.tick
+...                                      ... , 1,
+...                                      659       "the live renderer starts fr
+...                                      ... om the first simulation age after 
+...                                      ... primary contact");
+...                                      660     assert.equal(actualAttack.sour
+...                                      ... ce.alive, true);
+...                                      661     assert.ok(actualAttack.source.
+...                                      ... hitpoints > 0,
+...                                      662       "the primary source is still
+...                                      ...  alive when its contact frame is p
+...                                      ... rojected");
+...                                      663     assert.equal(actualAttack.dama
+...                                      ... ge.attackerId, actualAttack.attack
+...                                      ... .attackerId);
+...                                      664     assert.equal(actualAttack.dama
+...                                      ... ge.targetId, actualAttack.attack.t
+...                                      ... argetId);
+...                                      665     assert.equal(actualAttack.dama
+...                                      ... ge.delivery, "melee");
+...                                      666     assert.equal(actualAttack.dama
+...                                      ... ge.tick, actualAttack.attack.tick)
+...                                      ... ;
+...                                      667     assert.equal(actualAttack.dama
+...                                      ... ge.currentHealthAfter, Math.max(0,
+...                                      668       actualAttack.damage.currentH
+...                                      ... ealthBefore - actualAttack.damage.
+...                                      ... amount));
+...                                      669     assert.deepEqual(actualAttack.
+...                                      ... frame, {
+...                                      670       action: "attack",
+...                                      671       animationAge: 1,
+...                                      672       sourceClass: "melee",
+...                                      673       sourceId: actualAttack.attac
+...                                      ... k.attackerId,
+...                                      674       sourceSequence: actualAttack
+...                                      ... .attack.sequence,
+...                                      675       sourceTick: actualAttack.att
+...                                      ... ack.tick,
+...                                      676       tick: actualAttack.sessionTi
+...                                      ... ck,
+...                                      677     });
+406     await frame.locator('.combat-m   678     await frame.locator('.combat-m
+... arker[data-kind="briar-runner"]').   ... arker[data-kind="briar-runner"]').
+... first().waitFor({                    ... first().waitFor({
+407       state: "attached",             679       state: "attached",
+408       timeout: 5_000,                680       timeout: 5_000,
+409     });                              681     });
+410     const frameBox = await frameEl   682     const frameBox = await frameEl
+... ement.boundingBox();                 ... ement.boundingBox();
+411     assert.ok(frameBox && frameBox   683     assert.ok(frameBox && frameBox
+... .width > 0 && frameBox.height > 0,   ... .width > 0 && frameBox.height > 0,
+412       `the real app-shell iframe i   684       `the real app-shell iframe i
+... s laid out: ${JSON.stringify(frame   ... s laid out: ${JSON.stringify(frame
+... Box)}`);                             ... Box)}`);
+413     const live = await child.evalu   685     const live = await child.evalu
+... ate(async ({ scaleX, scaleY }) =>    ... ate(async ({ actualAttack, scaleX,
+... {                                    ...  scaleY }) => {
+414       const arenaNode = document.q   686       const arenaNode = document.q
+... uerySelector('[data-ui="arena"]');   ... uerySelector('[data-ui="arena"]');
+415       const arenaRect = arenaNode.   687       const arenaRect = arenaNode.
+... getBoundingClientRect();             ... getBoundingClientRect();
+416       const markers = await Promis   688       const markers = await Promis
+... e.all([...document.querySelectorAl   ... e.all([...document.querySelectorAl
+... l(                                   ... l(
+
+tests/combat-sprite-prototype-browser.test.js --- 8/16 --- Text (exceeded DFT_GRAPH_LIMIT)
+421  693         const footring = art?.querySelector('[data-team-color]');
+422  694         const footringRect = footring?.getBoundingClientRect();
+423  695         return {
+...  696           actorId: Number(marker.dataset.combatId),
+424  697           action: art?.dataset.spriteAction ?? null,
+...  698           attackAnimationAge: art?.dataset.attackAnimationAge ?? null,
+...  699           attackSourceClass: art?.dataset.attackSourceClass ?? null,
+...  700           attackSourceId: art?.dataset.attackSourceId ?? null,
+...  701           attackSourceSequence: art?.dataset.attackSourceSequence ?? null,
+...  702           attackSourceTick: art?.dataset.attackSourceTick ?? null,
+425  703           asset: art?.querySelector('image')?.getAttribute('href') ?? null,
+426  704           direction: art?.dataset.spriteDirection ?? null,
+427  705           frame: art?.dataset.spriteFrame ?? null,
+
+tests/combat-sprite-prototype-browser.test.js --- 9/16 --- Text (exceeded DFT_GRAPH_LIMIT)
+455           y: Number(arenaRect.y.to   733           y: Number(arenaRect.y.to
+... Fixed(2)),                           ... Fixed(2)),
+456         },                           734         },
+457         markers,                     735         markers,
+...                                      736         actualAttack,
+458         sessionTick: globalThis.__   737         sessionTick: globalThis.__
+... spriteRendererProbe.state.sessionT   ... spriteRendererProbe.state.sessionT
+... ick,                                 ... ick,
+459         unitCount: globalThis.__sp   738         unitCount: globalThis.__sp
+... riteRendererProbe.session.state.ba   ... riteRendererProbe.session.state.ba
+... ttle.units.length,                   ... ttle.units.length,
+460       };                             739       };
+461     }, { scaleX: frameBox.width /    740     }, { actualAttack, scaleX: fra
+... 720, scaleY: frameBox.height / 128   ... meBox.width / 720, scaleY: frameBo
+... 0 });                                ... x.height / 1280 });
+462     assert.ok(Math.abs(frameBox.wi   741     assert.ok(Math.abs(frameBox.wi
+... dth / 720 - frameBox.height / 1280   ... dth / 720 - frameBox.height / 1280
+... ) < 0.005,                           ... ) < 0.005,
+463       `app-shell scales the canoni   742       `app-shell scales the canoni
+... cal battle frame uniformly: ${JSON   ... cal battle frame uniformly: ${JSON
+... .stringify(frameBox)}`);             ... .stringify(frameBox)}`);
+464     assert.ok(live.arena.width > 0   743     assert.ok(live.arena.width > 0
+...  && live.arena.height > 0);          ...  && live.arena.height > 0);
+465     assert.ok(live.markers.length    744     assert.ok(live.markers.length 
+... > 0, "real GameSession deployment    ... > 0, "real GameSession deployment 
+... must render Briar Runner");          ... must render Briar Runner");
+466     assert.deepEqual([...new Set(l   745     assert.deepEqual([...new Set(l
+... ive.markers.map(({ side }) => side   ... ive.markers.map(({ side }) => side
+... ))].sort(), ["north", "south"],      ... ))].sort(), ["north", "south"],
+467       "the real two-sided match mu   746       "the real two-sided match mu
+... st show painted Briar units for bo   ... st show painted Briar units for bo
+... th teams");                          ... th teams");
+...                                      747     assert.deepEqual(live.actualAt
+...                                      ... tack, actualAttack);
+...                                      748     const attackedMarker = live.ma
+...                                      ... rkers.find(({ actorId }) =>
+...                                      749       actorId === actualAttack.att
+...                                      ... ack.attackerId);
+...                                      750     assert.ok(attackedMarker);
+...                                      751     assert.equal(attackedMarker.ac
+...                                      ... tion, "attack");
+...                                      752     assert.equal(Number(attackedMa
+...                                      ... rker.attackAnimationAge), 1);
+...                                      753     assert.equal(attackedMarker.at
+...                                      ... tackSourceClass, "melee");
+...                                      754     assert.equal(Number(attackedMa
+...                                      ... rker.attackSourceId), actualAttack
+...                                      ... .attack.attackerId);
+...                                      755     assert.equal(Number(attackedMa
+...                                      ... rker.attackSourceSequence), actual
+...                                      ... Attack.attack.sequence);
+...                                      756     assert.equal(Number(attackedMa
+...                                      ... rker.attackSourceTick), actualAtta
+...                                      ... ck.attack.tick);
+...                                      757     assert.equal(attackedMarker.fr
+...                                      ... ame, selectBriarRunnerFrame({
+...                                      758       action: "attack",
+...                                      759       direction: attackedMarker.di
+...                                      ... rection,
+...                                      760       tick: actualAttack.sessionTi
+...                                      ... ck - actualAttack.attack.tick,
+...                                      761     }).id);
+468     const phoneViewport = viewport   762     const phoneViewport = viewport
+... .width === 390;                      ... .width === 390;
+469     for (const marker of live.mark   763     for (const marker of live.mark
+... ers) {                               ... ers) {
+470       assert.ok(Math.abs(marker.wi   764       assert.ok(Math.abs(marker.wi
+... dth - live.arena.sourceWidth * 0.0   ... dth - live.arena.sourceWidth * 0.0
+... 48) < 0.02,                          ... 48) < 0.02,
+
+tests/combat-sprite-prototype-browser.test.js --- 10/16 --- Text (exceeded DFT_GRAPH_LIMIT)
+483       assert.match(marker.frame, /   777       assert.match(marker.frame, /
+... ^briar-(walk|attack)-(north|east|s   ... ^briar-(walk|attack)-(north|east|s
+... outh|west)-[01]$/u);                 ... outh|west)-[01]$/u);
+484       assert.equal(marker.tick, li   778       assert.equal(marker.tick, li
+... ve.sessionTick);                     ... ve.sessionTick);
+485     }                                779     }
+...                                      780     const checkpoint = await child
+...                                      ... .evaluate(() => {
+...                                      781       const controller = globalThi
+...                                      ... s.__spriteRendererProbe;
+...                                      782       const bytes = controller.ser
+...                                      ... ialize();
+...                                      783       const browser = JSON.parse(b
+...                                      ... ytes);
+...                                      784       const audio = controller.aud
+...                                      ... ioDiagnostics;
+...                                      785       return {
+...                                      786         audio: {
+...                                      787           continuationBytes: contr
+...                                      ... oller.audioContinuationBytes,
+...                                      788           cursor: audio.cursor,
+...                                      789           eventCount: audio.eventC
+...                                      ... ount,
+...                                      790           gainBasisPoints: audio.g
+...                                      ... ainBasisPoints,
+...                                      791           muted: audio.muted,
+...                                      792           pcm: controller.audioSch
+...                                      ... eduledPcm.map((observation) => ({ 
+...                                      ... ...observation })),
+...                                      793           sessionTick: audio.sessi
+...                                      ... onTick,
+...                                      794           suppressedAcceleratedCue
+...                                      ... Count: audio.suppressedAccelerated
+...                                      ... CueCount,
+...                                      795           terminal: audio.terminal
+...                                      ... ,
+...                                      796           uiCommandCount: audio.ui
+...                                      ... CommandCount,
+...                                      797           uiLastTick: audio.uiLast
+...                                      ... Tick,
+...                                      798           uiSequence: audio.uiSequ
+...                                      ... ence,
+...                                      799         },
+...                                      800         bridgeBytes: browser.bridg
+...                                      ... e,
+...                                      801         bytes,
+...                                      802         combat: document.querySele
+...                                      ... ctor('[data-game-browser-layer="co
+...                                      ... mbat"]').innerHTML,
+...                                      803         deliveries: JSON.parse(bro
+...                                      ... wser.bridge).deliveries,
+...                                      804         trustedPointers: [...globa
+...                                      ... lThis.__art004TrustedPointers],
+...                                      805       };
+...                                      806     });
+...                                      807     assert.ok(checkpoint.trustedPo
+...                                      ... inters.some(({ isTrusted, ui }) =>
+...                                      808       isTrusted && ui === "card-sl
+...                                      ... ot"),
+...                                      809     "the Briar card selection is s
+...                                      ... ubmitted by a trusted player point
+...                                      ... er");
+...                                      810     assert.ok(checkpoint.trustedPo
+...                                      ... inters.some(({ isTrusted, ui }) =>
+...                                      811       isTrusted && ui === "arena")
+...                                      ... ,
+...                                      812     "the Briar deployment point is
+...                                      ...  submitted by a trusted player poi
+...                                      ... nter");
+...                                      813     assert.equal(checkpoint.delive
+...                                      ... ries.length, 1,
+...                                      814       "the browser input bridge re
+...                                      ... tains exactly the real player depl
+...                                      ... oyment");
+...                                      815     assert.deepEqual(checkpoint.de
+...                                      ... liveries[0].command, {
+...                                      816       cardId: "briar-band",
+...                                      817       commandId: 1,
+...                                      818       point: checkpoint.deliveries
+...                                      ... [0].command.point,
+...                                      819       slot: checkpoint.deliveries[
+...                                      ... 0].command.slot,
+...                                      820       tick: checkpoint.deliveries[
+...                                      ... 0].command.tick,
+...                                      821       type: "deploy",
+...                                      822     });
+...                                      823     assert.deepEqual(Object.keys(c
+...                                      ... heckpoint.deliveries[0].command.po
+...                                      ... int).sort(), ["x", "y"]);
+...                                      824     assert.ok(Number.isSafeInteger
+...                                      ... (checkpoint.deliveries[0].command.
+...                                      ... slot));
+...                                      825     assert.ok(Number.isSafeInteger
+...                                      ... (checkpoint.deliveries[0].command.
+...                                      ... tick));
+...                                      826     assert.ok(checkpoint.audio.con
+...                                      ... tinuationBytes.length > 0);
+...                                      827     assert.ok(checkpoint.audio.cur
+...                                      ... sor > 0,
+...                                      828       "the audio continuation has 
+...                                      ... consumed real session events befor
+...                                      ... e checkpointing");
+...                                      829     assert.equal(checkpoint.audio.
+...                                      ... sessionTick, live.sessionTick);
+486     const beforeRestoreScreenshot    830     const beforeRestoreScreenshot 
+... = await page.screenshot();           ... = await page.screenshot();
+...                                      831     writeFileSync(resolve(ARTIFACT
+...                                      ... S,
+...                                      832       `live-arena-integration-${vi
+...                                      ... ewport.width}-attack-contact.png`)
+...                                      ... , beforeRestoreScreenshot);
+487     const screenScaleX = frameBox.   833     const screenScaleX = frameBox.
+... width / 720;                         ... width / 720;
+488     const screenScaleY = frameBox.   834     const screenScaleY = frameBox.
+... height / 1280;                       ... height / 1280;
+489     const screenshotMarkers = live   835 
+... .markers.map((marker) => ({          ... 
+...                                      836     const evolvedAttack = await ch
+...                                      ... ild.evaluate(({ sourceId, sequence
+...                                      ...  }) => {
+...                                      837       const controller = globalThi
+...                                      ... s.__spriteRendererProbe;
+...                                      838       controller.stepMany(2);
+...                                      839       const state = controller.ses
+...                                      ... sion.state;
+...                                      840       const source = state.battle.
+...                                      ... units.find((unit) => unit.id === s
+...                                      ... ourceId);
+...                                      841       const marker = [...document.
+...                                      ... querySelectorAll(
+...                                      842         '.combat-marker[data-kind=
+...                                      ... "briar-runner"]',
+...                                      843       )].find((candidate) => candi
+...                                      ... date.dataset.combatId === String(s
+...                                      ... ourceId));
+...                                      844       const art = marker?.querySel
+...                                      ... ector(".combat-art");
+...                                      845       return art ? {
+...                                      846         action: art.dataset.sprite
+...                                      ... Action,
+...                                      847         animationAge: art.dataset.
+...                                      ... attackAnimationAge ?? null,
+...                                      848         frame: art.dataset.spriteF
+...                                      ... rame,
+...                                      849         sourceClass: art.dataset.a
+...                                      ... ttackSourceClass ?? null,
+...                                      850         sourceId: art.dataset.atta
+...                                      ... ckSourceId === undefined
+...                                      851           ? null : Number(art.data
+...                                      ... set.attackSourceId),
+...                                      852         sourceSequence: art.datase
+...                                      ... t.attackSourceSequence === undefin
+...                                      ... ed
+...                                      853           ? null : Number(art.data
+...                                      ... set.attackSourceSequence),
+...                                      854         sourceTick: art.dataset.at
+...                                      ... tackSourceTick === undefined
+...                                      855           ? null : Number(art.data
+...                                      ... set.attackSourceTick),
+...                                      856         tick: Number(art.dataset.s
+...                                      ... imulationTick),
+...                                      857         sequence,
+...                                      858         witness: source ? {
+...                                      859           alive: source.alive,
+...                                      860           attackSequence: source.a
+...                                      ... ttack.attackSequence,
+...                                      861           cyclePhase: source.attac
+...                                      ... k.phase,
+...                                      862           hp: source.hitpoints,
+...                                      863           pose: marker.dataset.pos
+...                                      ... e,
+...                                      864           sourceTick: source.spawn
+...                                      ... edAt + source.attack.nextAttackTic
+...                                      ... k -
+...                                      865             source.attack.config.h
+...                                      ... itSpeedTicks,
+...                                      866           stateTick: state.tick,
+...                                      867           targetId: source.attack.
+...                                      ... targetId,
+...                                      868         } : null,
+...                                      869       } : null;
+...                                      870     }, { sourceId: actualAttack.at
+...                                      ... tack.attackerId,
+...                                      871       sequence: actualAttack.attac
+...                                      ... k.sequence });
+...                                      872     assert.ok(evolvedAttack);
+...                                      873     assert.equal(evolvedAttack.tic
+...                                      ... k, live.sessionTick + 2,
+...                                      874       JSON.stringify(evolvedAttack
+...                                      ... ));
+...                                      875     assert.equal(evolvedAttack.act
+...                                      ... ion, "walk");
+...                                      876     assert.equal(evolvedAttack.ani
+...                                      ... mationAge, null);
+...                                      877     assert.equal(evolvedAttack.sou
+...                                      ... rceClass, null);
+...                                      878     assert.equal(evolvedAttack.sou
+...                                      ... rceId, null);
+...                                      879     assert.equal(evolvedAttack.sou
+...                                      ... rceSequence, null);
+...                                      880     assert.equal(evolvedAttack.sou
+...                                      ... rceTick, null);
+...                                      881     assert.equal(evolvedAttack.wit
+...                                      ... ness.alive, true);
+...                                      882     assert.ok(evolvedAttack.witnes
+...                                      ... s.hp > 0);
+...                                      883     assert.equal(evolvedAttack.wit
+...                                      ... ness.attackSequence, actualAttack.
+...                                      ... attack.sequence);
+...                                      884     assert.equal(evolvedAttack.wit
+...                                      ... ness.cyclePhase, "winding");
+...                                      885     assert.equal(evolvedAttack.wit
+...                                      ... ness.pose, "idle");
+...                                      886     assert.notEqual(evolvedAttack.
+...                                      ... witness.targetId, actualAttack.att
+...                                      ... ack.targetId,
+...                                      887       "the source has retargeted a
+...                                      ... fter its authentic lethal contact"
+...                                      ... );
+...                                      888     assert.notEqual(evolvedAttack.
+...                                      ... witness.sourceTick, actualAttack.a
+...                                      ... ttack.tick,
+...                                      889       "the new cycle has no curren
+...                                      ... t attack pose to animate from the 
+...                                      ... old contact");
+...                                      890 
+...                                      891     const teamReadability = await 
+...                                      ... child.evaluate(({ sourceId, sequen
+...                                      ... ce }) => {
+...                                      892       const controller = globalThi
+...                                      ... s.__spriteRendererProbe;
+...                                      893       controller.stepMany(6);
+...                                      894       const markers = [...document
+...                                      ... .querySelectorAll(
+...                                      895         '.combat-marker[data-kind=
+...                                      ... "briar-runner"]',
+...                                      896       )].map((marker) => {
+...                                      897         const rect = marker.getBou
+...                                      ... ndingClientRect();
+...                                      898         const art = marker.querySe
+...                                      ... lector(".combat-art");
+...                                      899         const footring = art?.quer
+...                                      ... ySelector('[data-team-color]');
+...                                      900         return {
+...                                      901           actorId: Number(marker.d
+...                                      ... ataset.combatId),
+...                                      902           color: footring?.getAttr
+...                                      ... ibute("fill") ?? null,
+...                                      903           height: rect.height,
+...                                      904           side: marker.classList.c
+...                                      ... ontains("combat-marker--north") ? 
+...                                      ... "north" : "south",
+...                                      905           width: rect.width,
+...                                      906           x: rect.x,
+...                                      907           y: rect.y,
+...                                      908         };
+...                                      909       });
+...                                      910       const audio = controller.aud
+...                                      ... ioDiagnostics;
+...                                      911       return {
+...                                      912         audioContinuationBytes: co
+...                                      ... ntroller.audioContinuationBytes,
+...                                      913         audioDiagnostics: {
+...                                      914           cursor: audio.cursor,
+...                                      915           eventCount: audio.eventC
+...                                      ... ount,
+...                                      916           gainBasisPoints: audio.g
+...                                      ... ainBasisPoints,
+...                                      917           muted: audio.muted,
+...                                      918           sessionTick: audio.sessi
+...                                      ... onTick,
+...                                      919           suppressedAcceleratedCue
+...                                      ... Count: audio.suppressedAccelerated
+...                                      ... CueCount,
+...                                      920           terminal: audio.terminal
+...                                      ... ,
+...                                      921           uiCommandCount: audio.ui
+...                                      ... CommandCount,
+...                                      922           uiLastTick: audio.uiLast
+...                                      ... Tick,
+...                                      923           uiSequence: audio.uiSequ
+...                                      ... ence,
+...                                      924         },
+...                                      925         audioPcm: controller.audio
+...                                      ... ScheduledPcm.map((observation) => 
+...                                      ... ({ ...observation })),
+...                                      926         browserBytes: controller.s
+...                                      ... erialize(),
+...                                      927         contactOverlayVisible: [..
+...                                      ... .document.querySelectorAll(".comba
+...                                      ... t-melee-contact")]
+...                                      928           .some((node) => node.dat
+...                                      ... aset.contactId === `${sourceId}:${
+...                                      ... sequence}`),
+...                                      929         markers,
+...                                      930         tick: controller.state.ses
+...                                      ... sionTick,
+...                                      931       };
+...                                      932     }, { sourceId: actualAttack.at
+...                                      ... tack.attackerId,
+...                                      933       sequence: actualAttack.attac
+...                                      ... k.sequence });
+...                                      934     assert.equal(teamReadability.t
+...                                      ... ick, live.sessionTick + 8);
+...                                      935     assert.equal(teamReadability.c
+...                                      ... ontactOverlayVisible, false,
+...                                      936       "the authentic contact star 
+...                                      ... has expired before sampling team p
+...                                      ... ixels");
+...                                      937     const teamReadabilityScreensho
+...                                      ... t = await page.screenshot();
+...                                      938     const screenshotMarkers = team
+...                                      ... Readability.markers.map((marker) =
+...                                      ... > ({
+...                                      939       actorId: marker.actorId,
+490       side: marker.side,             940       side: marker.side,
+491       color: marker.teamColor,       941       color: marker.color,
+492       x: frameBox.x + marker.x * s   942       x: frameBox.x + marker.x * s
+... creenScaleX,                         ... creenScaleX,
+493       y: frameBox.y + marker.y * s   943       y: frameBox.y + marker.y * s
+... creenScaleY,                         ... creenScaleY,
+494       width: marker.width * screen   944       width: marker.width * screen
+... ScaleX,                              ... ScaleX,
+495       height: marker.height * scre   945       height: marker.height * scre
+... enScaleY,                            ... enScaleY,
+496     }));                             946     }));
+497     const teamPixelSamples = await   947     const teamPixelSamples = await
+...  sampleTeamPixelsFromScreenshot(     ...  sampleTeamPixelsFromScreenshot(
+498       page, beforeRestoreScreensho   948       page, teamReadabilityScreens
+... t, screenshotMarkers);               ... hot, screenshotMarkers);
+499     for (let index = 0; index < li   ... 
+... ve.markers.length; index += 1) {     ... 
+500       live.markers[index].visibleT   ... 
+... eamColorPixels = teamPixelSamples[   ... 
+... index].visibleTeamColorPixels;       ... 
+501     }                                ... 
+502     writeFileSync(resolve(ARTIFACT   949     writeFileSync(resolve(ARTIFACT
+... S,                                   ... S,
+503       `live-arena-integration-${vi   950       `live-arena-integration-${vi
+... ewport.width}-marker-sample.png`),   ... ewport.width}-team-readability.png
+...  beforeRestoreScreenshot);           ... `),
+...                                      951     teamReadabilityScreenshot);
+504     writeFileSync(resolve(ARTIFACT   952     writeFileSync(resolve(ARTIFACT
+... S,                                   ... S,
+505       `live-arena-integration-${vi   953       `live-arena-integration-${vi
+... ewport.width}-team-pixels.json`),    ... ewport.width}-team-pixels.json`),
+506     `${JSON.stringify(teamPixelSam   954     `${JSON.stringify({ teamReadab
+... ples, null, 2)}\n`);                 ... ility, samples: teamPixelSamples }
+...                                      ... , null, 2)}\n`);
+507     const minimumVisibleTeamColorP   955     const minimumVisibleTeamColorP
+... ixels = phoneViewport ? 8 : 24;      ... ixels = phoneViewport ? 8 : 24;
+508     for (const side of ["north", "   956     for (const side of ["north", "
+... south"]) {                           ... south"]) {
+509       const maximumVisiblePixels =   957       const maximumVisiblePixels =
+...  Math.max(...teamPixelSamples        ...  Math.max(...teamPixelSamples
+
+tests/combat-sprite-prototype-browser.test.js --- 11/16 --- Text (exceeded DFT_GRAPH_LIMIT)
+515           `${teamPixelSamples[0].c   963           `${teamPixelSamples[0].c
+... rop.height} marker; expected at le   ... rop.height} marker; expected at le
+... ast ` +                              ... ast ` +
+516           `${minimumVisibleTeamCol   964           `${minimumVisibleTeamCol
+... orPixels}`);                         ... orPixels}`);
+517     }                                965     }
+518     const checkpoint = await child   966     const restored = await child.e
+... .evaluate(() => globalThis.__sprit   ... valuate(({ bytes, expectedCombat }
+... eRendererProbe.serialize());         ... ) => {
+519     const restored = await child.e   ... 
+... valuate((bytes) => {                 ... 
+520       const controller = globalThi   967       const controller = globalThi
+... s.__spriteRendererProbe;             ... s.__spriteRendererProbe;
+521       const before = document.quer   ... 
+... ySelector('[data-game-browser-laye   ... 
+... r="combat"]').innerHTML;             ... 
+522       controller.stepMany(1);        ... 
+523       controller.restore(bytes);     968       controller.restore(bytes);
+524       controller.enterManualStepMo   969       controller.enterManualStepMo
+... de();                                ... de();
+525       const after = document.query   970       const after = document.query
+... Selector('[data-game-browser-layer   ... Selector('[data-game-browser-layer
+... ="combat"]').innerHTML;              ... ="combat"]').innerHTML;
+526       return { identical: before =   971       const browserBytes = control
+... == after, tick: controller.state.s   ... ler.serialize();
+... essionTick };                        ... 
+...                                      972       const browser = JSON.parse(b
+...                                      ... rowserBytes);
+...                                      973       const audio = controller.aud
+...                                      ... ioDiagnostics;
+...                                      974       return {
+...                                      975         audio: {
+...                                      976           continuationBytes: contr
+...                                      ... oller.audioContinuationBytes,
+...                                      977           cursor: audio.cursor,
+...                                      978           eventCount: audio.eventC
+...                                      ... ount,
+...                                      979           gainBasisPoints: audio.g
+...                                      ... ainBasisPoints,
+...                                      980           muted: audio.muted,
+...                                      981           pcm: controller.audioSch
+...                                      ... eduledPcm.map((observation) => ({ 
+...                                      ... ...observation })),
+...                                      982           sessionTick: audio.sessi
+...                                      ... onTick,
+...                                      983           suppressedAcceleratedCue
+...                                      ... Count: audio.suppressedAccelerated
+...                                      ... CueCount,
+...                                      984           terminal: audio.terminal
+...                                      ... ,
+...                                      985           uiCommandCount: audio.ui
+...                                      ... CommandCount,
+...                                      986           uiLastTick: audio.uiLast
+...                                      ... Tick,
+...                                      987           uiSequence: audio.uiSequ
+...                                      ... ence,
+...                                      988         },
+...                                      989         bridgeBytes: browser.bridg
+...                                      ... e,
+...                                      990         browserBytes,
+...                                      991         identical: expectedCombat 
+...                                      ... === after,
+...                                      992         tick: controller.state.ses
+...                                      ... sionTick,
+...                                      993       };
+527     }, checkpoint);                  994     }, { bytes: checkpoint.bytes, 
+...                                      ... expectedCombat: checkpoint.combat 
+...                                      ... });
+528     assert.deepEqual(restored, { i   995     assert.equal(restored.identica
+... dentical: true, tick: live.session   ... l, true);
+... Tick });                             ... 
+...                                      996     assert.equal(restored.tick, li
+...                                      ... ve.sessionTick);
+...                                      997     assert.equal(restored.browserB
+...                                      ... ytes, checkpoint.bytes,
+...                                      998       "production restore preserve
+...                                      ... s the exact browser, session, and 
+...                                      ... typed command snapshot");
+...                                      999     assert.equal(restored.bridgeBy
+...                                      ... tes, checkpoint.bridgeBytes,
+...                                     1000       "the trusted typed deploymen
+...                                     .... t remains in the restored input br
+...                                     .... idge");
+...                                     1001     assert.equal(restored.audio.co
+...                                     .... ntinuationBytes, checkpoint.audio.
+...                                     .... continuationBytes,
+...                                     1002       "restore reproduces the exac
+...                                     .... t deterministic audio continuation
+...                                     ....  bytes");
+...                                     1003     assert.deepEqual(audioContinua
+...                                     .... tionFacts(restored.audio), audioCo
+...                                     .... ntinuationFacts(checkpoint.audio),
+...                                     1004       "restore reproduces the chec
+...                                     .... kpoint audio cursor and stable dia
+...                                     .... gnostics exactly");
+...                                     1005     assert.deepEqual(teamReadabili
+...                                     .... ty.audioPcm.slice(0, checkpoint.au
+...                                     .... dio.pcm.length),
+...                                     1006       checkpoint.audio.pcm,
+...                                     1007       "advancing after the checkpo
+...                                     .... int keeps its already scheduled PC
+...                                     .... M receipts as an exact prefix");
+...                                     1008     assert.deepEqual(restored.audi
+...                                     .... o.pcm, teamReadability.audioPcm,
+...                                     1009       "restore leaves the complete
+...                                     ....  already scheduled typed PCM recei
+...                                     .... pt history unchanged");
+529     const afterRestoreScreenshot =  1010     const afterRestoreScreenshot =
+...  await page.screenshot();           ....  await page.screenshot();
+530     assert.deepEqual(afterRestoreS  1011     assert.deepEqual(afterRestoreS
+... creenshot, beforeRestoreScreenshot  .... creenshot, beforeRestoreScreenshot
+... ,                                   .... ,
+531       "the real scaled battle scre  1012       "the real scaled battle scre
+... enshot must restore pixel-identica  .... enshot must restore pixel-identica
+... lly");                              .... lly");
+
+tests/combat-sprite-prototype-browser.test.js --- 12/16 --- Text (exceeded DFT_GRAPH_LIMIT)
+535     writeFileSync(resolve(ARTIFACT  1016     writeFileSync(resolve(ARTIFACT
+... S,                                  .... S,
+536       `live-arena-integration-${vi  1017       `live-arena-integration-${vi
+... ewport.width}-after-restore.png`),  .... ewport.width}-after-restore.png`),
+...  afterRestoreScreenshot);           ....  afterRestoreScreenshot);
+537                                     1018 
+...                                     1019     const replayedAudio = await ch
+...                                     .... ild.evaluate(() => {
+...                                     1020       const controller = globalThi
+...                                     .... s.__spriteRendererProbe;
+...                                     1021       controller.stepMany(2);
+...                                     1022       controller.stepMany(6);
+...                                     1023       const audio = controller.aud
+...                                     .... ioDiagnostics;
+...                                     1024       return {
+...                                     1025         audioContinuationBytes: co
+...                                     .... ntroller.audioContinuationBytes,
+...                                     1026         audioDiagnostics: {
+...                                     1027           cursor: audio.cursor,
+...                                     1028           eventCount: audio.eventC
+...                                     .... ount,
+...                                     1029           gainBasisPoints: audio.g
+...                                     .... ainBasisPoints,
+...                                     1030           muted: audio.muted,
+...                                     1031           sessionTick: audio.sessi
+...                                     .... onTick,
+...                                     1032           suppressedAcceleratedCue
+...                                     .... Count: audio.suppressedAccelerated
+...                                     .... CueCount,
+...                                     1033           terminal: audio.terminal
+...                                     .... ,
+...                                     1034           uiCommandCount: audio.ui
+...                                     .... CommandCount,
+...                                     1035           uiLastTick: audio.uiLast
+...                                     .... Tick,
+...                                     1036           uiSequence: audio.uiSequ
+...                                     .... ence,
+...                                     1037         },
+...                                     1038         audioPcm: controller.audio
+...                                     .... ScheduledPcm.map((observation) => 
+...                                     .... ({ ...observation })),
+...                                     1039         browserBytes: controller.s
+...                                     .... erialize(),
+...                                     1040         tick: controller.state.ses
+...                                     .... sionTick,
+...                                     1041       };
+...                                     1042     });
+...                                     1043     assert.equal(replayedAudio.tic
+...                                     .... k, teamReadability.tick);
+...                                     1044     assert.equal(replayedAudio.bro
+...                                     .... wserBytes, teamReadability.browser
+...                                     .... Bytes,
+...                                     1045       "restoring and replaying the
+...                                     ....  same ticks reproduces the exact b
+...                                     .... rowser continuation bytes");
+...                                     1046     assert.equal(replayedAudio.aud
+...                                     .... ioContinuationBytes, teamReadabili
+...                                     .... ty.audioContinuationBytes,
+...                                     1047       "restoring and replaying rep
+...                                     .... roduces the exact audio continuati
+...                                     .... on bytes");
+...                                     1048     assert.deepEqual(audioContinua
+...                                     .... tionFacts(replayedAudio.audioDiagn
+...                                     .... ostics),
+...                                     1049       audioContinuationFacts(teamR
+...                                     .... eadability.audioDiagnostics),
+...                                     1050       "restoring and replaying rep
+...                                     .... roduces the stable audio cursor an
+...                                     .... d diagnostics");
+...                                     1051     const expectedAudioTail = pcmC
+...                                     .... ontinuationProof(
+...                                     1052       teamReadability.audioPcm.sli
+...                                     .... ce(checkpoint.audio.pcm.length));
+...                                     1053     const replayedAudioTail = pcmC
+...                                     .... ontinuationProof(
+...                                     1054       replayedAudio.audioPcm.slice
+...                                     .... (teamReadability.audioPcm.length))
+...                                     .... ;
+...                                     1055     assert.deepEqual(replayedAudio
+...                                     .... Tail, expectedAudioTail,
+...                                     1056       "restored future ticks produ
+...                                     .... ce the exact typed cue and PCM wav
+...                                     .... eform-hash suffix");
+...                                     1057 
+...                                     1058     const audioRestoreProof = {
+...                                     1059       checkpoint: {
+...                                     1060         audioContinuationBytes: ch
+...                                     .... eckpoint.audio.continuationBytes,
+...                                     1061         audioContinuationSha256: c
+...                                     .... reateHash("sha256")
+...                                     1062           .update(checkpoint.audio
+...                                     .... .continuationBytes).digest("hex"),
+...                                     1063         diagnostics: audioContinua
+...                                     .... tionFacts(checkpoint.audio),
+...                                     1064         pcmReceiptCount: checkpoin
+...                                     .... t.audio.pcm.length,
+...                                     1065         pcmReceipts: checkpoint.au
+...                                     .... dio.pcm,
+...                                     1066         pcmReceiptsSha256: sha256C
+...                                     .... anonical(checkpoint.audio.pcm),
+...                                     1067       },
+...                                     1068       beforeRestore: {
+...                                     1069         audioContinuationBytes: te
+...                                     .... amReadability.audioContinuationByt
+...                                     .... es,
+...                                     1070         diagnostics: audioContinua
+...                                     .... tionFacts(teamReadability.audioDia
+...                                     .... gnostics),
+...                                     1071         pcmReceiptCount: teamReada
+...                                     .... bility.audioPcm.length,
+...                                     1072         pcmReceipts: teamReadabili
+...                                     .... ty.audioPcm,
+...                                     1073         pcmReceiptsSha256: sha256C
+...                                     .... anonical(teamReadability.audioPcm)
+...                                     .... ,
+...                                     1074       },
+...                                     1075       afterRestore: {
+...                                     1076         audioContinuationBytes: re
+...                                     .... stored.audio.continuationBytes,
+...                                     1077         diagnostics: audioContinua
+...                                     .... tionFacts(restored.audio),
+...                                     1078         pcmReceiptCount: restored.
+...                                     .... audio.pcm.length,
+...                                     1079         pcmReceipts: restored.audi
+...                                     .... o.pcm,
+...                                     1080         pcmReceiptsSha256: sha256C
+...                                     .... anonical(restored.audio.pcm),
+...                                     1081       },
+...                                     1082       replayed: {
+...                                     1083         audioContinuationBytes: re
+...                                     .... playedAudio.audioContinuationBytes
+...                                     .... ,
+...                                     1084         diagnostics: audioContinua
+...                                     .... tionFacts(replayedAudio.audioDiagn
+...                                     .... ostics),
+...                                     1085         pcmReceiptCount: replayedA
+...                                     .... udio.audioPcm.length,
+...                                     1086         pcmReceipts: replayedAudio
+...                                     .... .audioPcm,
+...                                     1087         pcmReceiptsSha256: sha256C
+...                                     .... anonical(replayedAudio.audioPcm),
+...                                     1088         pcmContinuationTail: repla
+...                                     .... yedAudioTail,
+...                                     1089         pcmContinuationTailSha256:
+...                                     ....  sha256Canonical(replayedAudioTail
+...                                     .... ),
+...                                     1090         expectedPcmContinuationTai
+...                                     .... l: expectedAudioTail,
+...                                     1091         expectedPcmContinuationTai
+...                                     .... lSha256: sha256Canonical(expectedA
+...                                     .... udioTail),
+...                                     1092       },
+...                                     1093     };
+...                                     1094     writeFileSync(resolve(ARTIFACT
+...                                     .... S,
+...                                     1095       `live-arena-integration-${vi
+...                                     .... ewport.width}-audio-restore.json`)
+...                                     .... ,
+...                                     1096     `${JSON.stringify(audioRestore
+...                                     .... Proof, null, 2)}\n`);
+...                                     1097 
+538     await page.emulateMedia({ redu  1098     await page.emulateMedia({ redu
+... cedMotion: "reduce" });             .... cedMotion: "reduce" });
+539     const reducedMotionState = awa  1099     const reducedMotionState = awa
+... it child.evaluate((bytes) => {      .... it child.evaluate(({ bytes, source
+...                                     .... Id }) => {
+540       const controller = globalThi  1100       const controller = globalThi
+... s.__spriteRendererProbe;            .... s.__spriteRendererProbe;
+541       controller.restore(bytes);    1101       controller.restore(bytes);
+542       controller.enterManualStepMo  1102       controller.enterManualStepMo
+... de();                               .... de();
+
+tests/combat-sprite-prototype-browser.test.js --- 13/16 --- Text (exceeded DFT_GRAPH_LIMIT)
+551           side: node.dataset.sprit  1111           side: node.dataset.sprit
+... eSide,                              .... eSide,
+552           teamColor: node.querySel  1112           teamColor: node.querySel
+... ector('[data-team-color]')?.getAtt  .... ector('[data-team-color]')?.getAtt
+... ribute('fill') ?? null,             .... ribute('fill') ?? null,
+553         })),                        1113         })),
+...                                     1114         attack: (() => {
+...                                     1115           const marker = [...docum
+...                                     .... ent.querySelectorAll(
+...                                     1116             '.combat-marker[data-k
+...                                     .... ind="briar-runner"]',
+...                                     1117           )].find((candidate) => c
+...                                     .... andidate.dataset.combatId === Stri
+...                                     .... ng(sourceId));
+...                                     1118           const node = marker?.que
+...                                     .... rySelector(".combat-art");
+...                                     1119           return node ? {
+...                                     1120             action: node.dataset.s
+...                                     .... priteAction,
+...                                     1121             animationAge: Number(n
+...                                     .... ode.dataset.attackAnimationAge),
+...                                     1122             frame: node.dataset.sp
+...                                     .... riteFrame,
+...                                     1123             reducedMotion: node.da
+...                                     .... taset.reducedMotion,
+...                                     1124             sourceClass: node.data
+...                                     .... set.attackSourceClass,
+...                                     1125             sourceId: Number(node.
+...                                     .... dataset.attackSourceId),
+...                                     1126             sourceSequence: Number
+...                                     .... (node.dataset.attackSourceSequence
+...                                     .... ),
+...                                     1127             sourceTick: Number(nod
+...                                     .... e.dataset.attackSourceTick),
+...                                     1128             tick: Number(node.data
+...                                     .... set.simulationTick),
+...                                     1129           } : null;
+...                                     1130         })(),
+554         tick: controller.state.ses  1131         tick: controller.state.ses
+... sionTick,                           .... sionTick,
+555       };                            1132       };
+556     }, checkpoint);                 1133     }, { bytes: checkpoint.bytes, 
+...                                     .... sourceId: actualAttack.attack.atta
+...                                     .... ckerId });
+557     assert.equal(reducedMotionStat  1134     assert.equal(reducedMotionStat
+... e.mediaReducedMotion, true);        .... e.mediaReducedMotion, true);
+558     assert.equal(reducedMotionStat  1135     assert.equal(reducedMotionStat
+... e.tick, live.sessionTick);          .... e.tick, live.sessionTick);
+559     assert.ok(reducedMotionState.s  1136     assert.ok(reducedMotionState.s
+... prites.length > 0);                 .... prites.length > 0);
+
+tests/combat-sprite-prototype-browser.test.js --- 14/16 --- Text (exceeded DFT_GRAPH_LIMIT)
+562       assert.ok(sprite.frame.endsW  1139       assert.ok(sprite.frame.endsW
+... ith("-0"), `reduced motion frame $  .... ith("-0"), `reduced motion frame $
+... {sprite.frame}`);                   .... {sprite.frame}`);
+563       assert.equal(sprite.teamColo  1140       assert.equal(sprite.teamColo
+... r, sprite.side === "north" ? "#C64  .... r, sprite.side === "north" ? "#C64
+... 52E" : "#2E7F86");                  .... 52E" : "#2E7F86");
+564     }                               1141     }
+...                                     1142     assert.deepEqual(reducedMotion
+...                                     .... State.attack, {
+...                                     1143       action: "attack",
+...                                     1144       animationAge: 1,
+...                                     1145       frame: selectBriarRunnerFram
+...                                     .... e({
+...                                     1146         action: "attack",
+...                                     1147         direction: attackedMarker.
+...                                     .... direction,
+...                                     1148         reducedMotion: true,
+...                                     1149         tick: 1,
+...                                     1150       }).id,
+...                                     1151       reducedMotion: "true",
+...                                     1152       sourceClass: "melee",
+...                                     1153       sourceId: actualAttack.attac
+...                                     .... k.attackerId,
+...                                     1154       sourceSequence: actualAttack
+...                                     .... .attack.sequence,
+...                                     1155       sourceTick: actualAttack.att
+...                                     .... ack.tick,
+...                                     1156       tick: live.sessionTick,
+...                                     1157     });
+...                                     1158     const reducedHold = await chil
+...                                     .... d.evaluate(({ sourceId }) => {
+...                                     1159       const controller = globalThi
+...                                     .... s.__spriteRendererProbe;
+...                                     1160       controller.stepMany(2);
+...                                     1161       const marker = [...document.
+...                                     .... querySelectorAll(
+...                                     1162         '.combat-marker[data-kind=
+...                                     .... "briar-runner"]',
+...                                     1163       )].find((candidate) => candi
+...                                     .... date.dataset.combatId === String(s
+...                                     .... ourceId));
+...                                     1164       const art = marker?.querySel
+...                                     .... ector(".combat-art");
+...                                     1165       return art ? {
+...                                     1166         action: art.dataset.sprite
+...                                     .... Action,
+...                                     1167         animationAge: art.dataset.
+...                                     .... attackAnimationAge ?? null,
+...                                     1168         frame: art.dataset.spriteF
+...                                     .... rame,
+...                                     1169         reducedMotion: art.dataset
+...                                     .... .reducedMotion,
+...                                     1170         sourceId: art.dataset.atta
+...                                     .... ckSourceId === undefined
+...                                     1171           ? null : Number(art.data
+...                                     .... set.attackSourceId),
+...                                     1172         sourceSequence: art.datase
+...                                     .... t.attackSourceSequence === undefin
+...                                     .... ed
+...                                     1173           ? null : Number(art.data
+...                                     .... set.attackSourceSequence),
+...                                     1174         sourceTick: art.dataset.at
+...                                     .... tackSourceTick === undefined
+...                                     1175           ? null : Number(art.data
+...                                     .... set.attackSourceTick),
+...                                     1176         tick: Number(art.dataset.s
+...                                     .... imulationTick),
+...                                     1177       } : null;
+...                                     1178     }, { sourceId: actualAttack.at
+...                                     .... tack.attackerId });
+...                                     1179     assert.deepEqual(reducedHold, 
+...                                     .... {
+...                                     1180       action: "walk",
+...                                     1181       animationAge: null,
+...                                     1182       frame: selectBriarRunnerFram
+...                                     .... e({
+...                                     1183         action: "walk",
+...                                     1184         direction: attackedMarker.
+...                                     .... direction,
+...                                     1185         reducedMotion: true,
+...                                     1186         tick: live.sessionTick + 2
+...                                     .... ,
+...                                     1187       }).id,
+...                                     1188       reducedMotion: "true",
+...                                     1189       sourceId: null,
+...                                     1190       sourceSequence: null,
+...                                     1191       sourceTick: null,
+...                                     1192       tick: live.sessionTick + 2,
+...                                     1193     });
+...                                     1194     const beforeReducedChild = awa
+...                                     .... it frame.locator("body").screensho
+...                                     .... t();
+...                                     1195     const beforeReducedFingerprint
+...                                     ....  = await reducedRestorePaintFinger
+...                                     .... print(page, child,
+...                                     1196       { x: 105, y: 700 });
+565     const beforeReducedMotion = aw  1197     const beforeReducedMotion = aw
+... ait page.screenshot();              .... ait page.screenshot();
+...                                     1198     const reducedCheckpoint = awai
+...                                     .... t child.evaluate(() =>
+...                                     1199       globalThis.__spriteRendererP
+...                                     .... robe.serialize());
+566     await child.evaluate((bytes) =  1200     await child.evaluate((bytes) =
+... > {                                 .... > {
+567       const controller = globalThi  1201       const controller = globalThi
+... s.__spriteRendererProbe;            .... s.__spriteRendererProbe;
+568       controller.stepMany(1);       1202       controller.stepMany(1);
+569       controller.restore(bytes);    1203       controller.restore(bytes);
+570       controller.enterManualStepMo  1204       controller.enterManualStepMo
+... de();                               .... de();
+571     }, checkpoint);                 1205     }, reducedCheckpoint);
+...                                     1206     const afterReducedChild = awai
+...                                     .... t frame.locator("body").screenshot
+...                                     .... ();
+...                                     1207     const afterReducedFingerprint 
+...                                     .... = await reducedRestorePaintFingerp
+...                                     .... rint(page, child,
+...                                     1208       { x: 105, y: 700 });
+572     const afterReducedMotion = awa  1209     const afterReducedMotion = awa
+... it page.screenshot();               .... it page.screenshot();
+573     const reducedMotionPixelDiagno  1210     const reducedMotionPixelDiagno
+... stics = await compareScreenshotsAt  .... stics = await compareScreenshotsAt
+... Point(                              .... Point(
+574       page,                         1211       page,
+575       beforeReducedMotion,          1212       beforeReducedMotion,
+576       afterReducedMotion,           1213       afterReducedMotion,
+577       { x: 105, y: 700 },           1214       { x: 105, y: 700 },
+578     );                              1215     );
+...                                     1216     const reducedMotionPaintDiagno
+...                                     .... stics = {
+...                                     1217       after: afterReducedFingerpri
+...                                     .... nt,
+...                                     1218       afterChildBodySha256: create
+...                                     .... Hash("sha256").update(afterReduced
+...                                     .... Child).digest("hex"),
+...                                     1219       before: beforeReducedFingerp
+...                                     .... rint,
+...                                     1220       beforeChildBodySha256: creat
+...                                     .... eHash("sha256").update(beforeReduc
+...                                     .... edChild).digest("hex"),
+...                                     1221       childBodyPixelIdentical: bef
+...                                     .... oreReducedChild.equals(afterReduce
+...                                     .... dChild),
+...                                     1222       domAndStyleIdentical: JSON.s
+...                                     .... tringify(beforeReducedFingerprint)
+...                                     ....  ===
+...                                     1223         JSON.stringify(afterReduce
+...                                     .... dFingerprint),
+...                                     1224       viewportPixelIdentical: befo
+...                                     .... reReducedMotion.equals(afterReduce
+...                                     .... dMotion),
+...                                     1225       viewportSha256Before: create
+...                                     .... Hash("sha256").update(beforeReduce
+...                                     .... dMotion).digest("hex"),
+...                                     1226       viewportSha256After: createH
+...                                     .... ash("sha256").update(afterReducedM
+...                                     .... otion).digest("hex"),
+...                                     1227       pointDiff: reducedMotionPixe
+...                                     .... lDiagnostics,
+...                                     1228     };
+579     writeFileSync(resolve(ARTIFACT  1229     writeFileSync(resolve(ARTIFACT
+... S,                                  .... S,
+580       `live-arena-integration-${vi  1230       `live-arena-integration-${vi
+... ewport.width}-reduced-motion.png`)  .... ewport.width}-reduced-motion.png`)
+... , beforeReducedMotion);             .... , beforeReducedMotion);
+581     writeFileSync(resolve(ARTIFACT  1231     writeFileSync(resolve(ARTIFACT
+... S,                                  .... S,
+
+tests/combat-sprite-prototype-browser.test.js --- 15/16 --- Text (exceeded DFT_GRAPH_LIMIT)
+584 1234     writeFileSync(resolve(ARTIFACTS,
+585 1235       `live-arena-integration-${viewport.width}-reduced-motion-diagnostics.json`),
+586 1236     `${JSON.stringify(reducedMotionPixelDiagnostics, null, 2)}\n`);
+... 1237     writeFileSync(resolve(ARTIFACTS,
+... 1238       `live-arena-integration-${viewport.width}-reduced-motion-paint-diagnostics.json`),
+... 1239     `${JSON.stringify(reducedMotionPaintDiagnostics, null, 2)}\n`);
+... 1240     writeFileSync(resolve(ARTIFACTS,
+... 1241       `live-arena-integration-${viewport.width}-reduced-motion-child-before.png`),
+... 1242     beforeReducedChild);
+... 1243     writeFileSync(resolve(ARTIFACTS,
+... 1244       `live-arena-integration-${viewport.width}-reduced-motion-child-after.png`),
+... 1245     afterReducedChild);
+587 1246     assert.deepEqual(afterReducedMotion, beforeReducedMotion,
+588 1247       "the real scaled battle screenshot with reduced motion must restore pixel-identically");
+589 1248     const reducedMotionSha256 = createHash("sha256").update(beforeReducedMotion).digest("hex");
+590 1249     await page.screenshot({ path: resolve(ARTIFACTS,
+591 1250       `live-arena-integration-${viewport.width}.png`) });
+592 1251     evidence.liveArenaIntegration.push({
+... 1252       actualAttack,
+... 1253       audioRestore: {
+... 1254         checkpointContinuationSha256: audioRestoreProof.checkpoint.audioContinuationSha256,
+... 1255         checkpointPcmReceiptCount: audioRestoreProof.checkpoint.pcmReceiptCount,
+... 1256         checkpointPcmReceiptsSha256: audioRestoreProof.checkpoint.pcmReceiptsSha256,
+... 1257         afterRestorePcmReceiptCount: audioRestoreProof.afterRestore.pcmReceiptCount,
+... 1258         afterRestorePcmReceiptsSha256: audioRestoreProof.afterRestore.pcmReceiptsSha256,
+... 1259         replayedPcmReceiptCount: audioRestoreProof.replayed.pcmReceiptCount,
+... 1260         replayedPcmReceiptsSha256: audioRestoreProof.replayed.pcmReceiptsSha256,
+... 1261         replayedPcmContinuationTailSha256: audioRestoreProof.replayed.pcmContinuationTailSha256,
+... 1262       },
+593 1263       ...live,
+594 1264       markerPixelSamples: teamPixelSamples,
+595 1265       frame: { height: Number(frameBox.height.toFixed(2)),
+
+tests/combat-sprite-prototype-browser.test.js --- 16/16 --- Text (exceeded DFT_GRAPH_LIMIT)
+601 1271         ...reducedMotionState,
+602 1272         pixelIdenticalAfterRestore: true,
+603 1273         screenshotSha256: reducedMotionSha256,
+... 1274         paintDiagnostics: reducedMotionPaintDiagnostics,
+604 1275       },
+605 1276       viewport,
+606 1277     });
+
+tests/combat-sprite-prototype.test.js --- JavaScript
+127     assert.equal(footring.getAttrib  127     assert.equal(footring.getAttrib
+... ute("fill"), color);                 ... ute("fill"), color);
+128     assert.equal(footring.getAttrib  128     assert.equal(footring.getAttrib
+... ute("stroke"), "#F4EBD6");           ... ute("stroke"), "#F4EBD6");
+129     assert.equal(footring.getAttrib  129     assert.equal(footring.getAttrib
+... ute("stroke-width"), "5");           ... ute("stroke-width"), "5");
+130     assert.equal(footring.getAttrib  130     assert.equal(footring.getAttrib
+... ute("x"), "683.75");                 ... ute("x"), "676.75");
+131     assert.equal(footring.getAttrib  131     assert.equal(footring.getAttrib
+... ute("y"), "1130.5");                 ... ute("y"), "1108.5");
+132     assert.equal(footring.getAttrib  132     assert.equal(footring.getAttrib
+... ute("width"), "200");                ... ute("width"), "214");
+133     assert.equal(footring.getAttrib  133     assert.equal(footring.getAttrib
+... ute("height"), "44");                ... ute("height"), "72");
+...                                      134     assert.equal(footring.getAttrib
+...                                      ... ute("rx"), "36");
+134     assert.equal(atlas.name, "image  135     assert.equal(atlas.name, "image
+... ");                                  ... ");
+135     assert.equal(atlas.getAttribute  136     assert.equal(atlas.getAttribute
+... ("href"),                            ... ("href"),
+136       new URL("../public/assets/bri  137       new URL("../public/assets/bri
+... ar-runner-painted-sheet.png", impor  ... ar-runner-painted-sheet.png", impor
+... t.meta.url).href);                   ... t.meta.url).href);
+
+tests/game-ui-projection.test.js --- 1/3 --- JavaScript
+   1    1 import assert from "node:assert/strict";
+   .    2 import { execFileSync } from "node:child_process";
+   .    3 import { createHash } from "node:crypto";
+   .    4 import { readFileSync } from "node:fs";
+   .    5 import { resolve } from "node:path";
+   .    6 import { pathToFileURL } from "node:url";
+   2    7 import test from "node:test";
+   3    8 import vm from "node:vm";
+   4    9 
+
+tests/game-ui-projection.test.js --- 2/3 --- JavaScript
+  25   30   PLAYABLE_CARD_IDS,
+  26   31 } from "../src/content/playable-roster.js";
+  27   32 import { createEditableGameSessionSetup } from "../src/content/editable-deck.js";
+  ..   33 import { selectBriarRunnerFrame } from "../src/ui/combat-sprite-prototype.js";
+  28   34 
+  29   35 function canonical(value) {
+  30   36   if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
+
+tests/game-ui-projection.test.js --- 3/3 --- JavaScript
+1152 1158   assert.ok(frame.combat.events.some(({ type }) => type === "target"));
+1153 1159 });
+.... 1160 
+.... 1161 test("game UI projection: an actual Briar melee record selects the attack frame and restores exactly", () => {
+.... 1162   const deck = ["briar-band", "mossguard",
+.... 1163     ...PLAYABLE_CARD_IDS.filter((id) => id !== "briar-band" && id !== "mossguard").slice(0, 6)];
+.... 1164   const configured = JSON.parse(createEditableGameSessionSetup(deck, 2));
+.... 1165   configured.legalNorthDeployments = [
+.... 1166     { cardId: "mossguard", point: { x: 3_500, y: 17_500 } },
+.... 1167   ];
+.... 1168   configured.thinkIntervalTicks = 3_600;
+.... 1169   configured.thinkOffsetTicks = 0;
+.... 1170   const session = new GameSession(canonical(configured));
+.... 1171   const slot = session.state.decks.south.hand.indexOf("briar-band");
+.... 1172   assert.notEqual(slot, -1, "the legal Briar card is in the real player's hand");
+.... 1173   session.submitPlayerCommand(canonical({
+.... 1174     cardId: "briar-band",
+.... 1175     commandId: 0,
+.... 1176     point: { x: 3_500, y: 14_500 },
+.... 1177     slot,
+.... 1178     tick: session.state.tick,
+.... 1179     type: "deploy",
+.... 1180   }));
+.... 1181 
+.... 1182   let witness = null;
+.... 1183   for (let step = 0; step < 600 && witness === null; step += 1) {
+.... 1184     const events = session.step();
+.... 1185     const units = new Map(session.state.battle.units.map((unit) => [unit.id, unit]));
+.... 1186     const attack = events.find((event) => event.type === "attack" &&
+.... 1187       units.get(event.attackerId)?.archetypeId === "briar-runner");
+.... 1188     if (!attack) continue;
+.... 1189     const attacker = units.get(attack.attackerId);
+.... 1190     const damage = events.find((event) => event.type === "damage" &&
+.... 1191       event.attackerId === attack.attackerId && event.targetId === attack.targetId &&
+.... 1192       event.delivery === "melee" && event.tick === attack.tick);
+.... 1193     if (!damage) continue;
+.... 1194     witness = { attack, attacker, damage };
+.... 1195   }
+.... 1196   assert.ok(witness, "the actual deployed Briar lands a primary melee attack within 600 ticks");
+.... 1197   const { attack, attacker, damage } = witness;
+.... 1198   const sourceTick = attacker.spawnedAt + attacker.attack.nextAttackTick -
+.... 1199     attacker.attack.config.hitSpeedTicks;
+.... 1200   assert.equal(attacker.delivery, "melee");
+.... 1201   assert.equal(attack.sequence, attacker.attack.attackSequence);
+.... 1202   assert.equal(attack.targetId, attacker.attack.targetId);
+.... 1203   assert.equal(attack.tick, sourceTick,
+.... 1204     "the rendered contact tick joins the actual attack record to the unit attack cycle");
+.... 1205   assert.equal(damage.attackerId, attack.attackerId);
+.... 1206   assert.equal(damage.currentHealthAfter, damage.currentHealthBefore - damage.amount);
+.... 1207 
+.... 1208   const checkpoint = session.serialize();
+.... 1209   const frame = createGameUiFrame(session);
+.... 1210   const attackAge = frame.tick - attack.tick;
+.... 1211   assert.equal(attackAge, 1,
+.... 1212     "the genuine primary contact is rendered at its first aged simulation boundary");
+.... 1213   assert.ok(attackAge < 4,
+.... 1214     "the source strike is still in the motion projection's primary attack pose");
+.... 1215   const originalLayers = fixture().layers;
+.... 1216   mountGameUiProjection(originalLayers).project(frame);
+.... 1217   const markerFor = (layers, id) => layers.combat.children[0].children.find((node) =>
+.... 1218     node.dataset.combatId === String(id));
+.... 1219   const artFor = (layers, id) => markerFor(layers, id).children.find((node) =>
+.... 1220     node.dataset.artId === "briar-runner");
+.... 1221   const attackArt = artFor(originalLayers, attack.attackerId);
+.... 1222   assert.equal(attackArt.dataset.spriteAction, "attack");
+.... 1223   assert.equal(attackArt.dataset.attackSourceId, String(attack.attackerId));
+.... 1224   assert.equal(attackArt.dataset.attackSourceSequence, String(attack.sequence));
+.... 1225   assert.equal(attackArt.dataset.attackSourceTick, String(attack.tick));
+.... 1226   assert.equal(attackArt.dataset.attackSourceClass, "melee");
+.... 1227   assert.equal(attackArt.dataset.simulationTick, String(frame.tick));
+.... 1228   assert.equal(attackArt.dataset.attackAnimationAge, String(attackAge));
+.... 1229   assert.equal(attackArt.dataset.spriteFrame, selectBriarRunnerFrame({
+.... 1230     action: "attack",
+.... 1231     direction: attackArt.dataset.spriteDirection,
+.... 1232     tick: attackAge,
+.... 1233   }).id);
+.... 1234 
+.... 1235   const restored = GameSession.restore(checkpoint);
+.... 1236   const restoredFrame = createGameUiFrame(restored);
+.... 1237   const restoredLayers = fixture().layers;
+.... 1238   mountGameUiProjection(restoredLayers).project(restoredFrame);
+.... 1239   assert.equal(allBytes(restoredLayers), allBytes(originalLayers),
+.... 1240     "the true attack frame and source identity restore to identical DOM bytes");
+.... 1241 
+.... 1242   session.stepMany(2);
+.... 1243   const agedFrame = createGameUiFrame(session);
+.... 1244   const agedLayers = fixture().layers;
+.... 1245   mountGameUiProjection(agedLayers).project(agedFrame);
+.... 1246   const agedArt = artFor(agedLayers, attack.attackerId);
+.... 1247   const agedAttackAge = agedFrame.tick - attack.tick;
+.... 1248   assert.equal(agedAttackAge, 3);
+.... 1249   assert.equal(agedArt.dataset.spriteAction, "attack");
+.... 1250   assert.equal(agedArt.dataset.attackSourceTick, String(attack.tick));
+.... 1251   assert.equal(agedArt.dataset.simulationTick, String(agedFrame.tick));
+.... 1252   assert.equal(agedArt.dataset.attackAnimationAge, String(agedAttackAge));
+.... 1253   assert.equal(agedArt.dataset.spriteFrame, selectBriarRunnerFrame({
+.... 1254     action: "attack",
+.... 1255     direction: agedArt.dataset.spriteDirection,
+.... 1256     tick: agedAttackAge,
+.... 1257   }).id);
+.... 1258   assert.notEqual(agedArt.dataset.spriteFrame, attackArt.dataset.spriteFrame,
+.... 1259     "real simulation age advances the primary attack atlas frame before recoil");
+.... 1260 
+.... 1261   session.step();
+.... 1262   const recovered = createGameUiFrame(session);
+.... 1263   const recoveredLayers = fixture().layers;
+.... 1264   mountGameUiProjection(recoveredLayers).project(recovered);
+.... 1265   const recoveredArt = artFor(recoveredLayers, attack.attackerId);
+.... 1266   assert.equal(recoveredArt.dataset.spriteAction, "walk",
+.... 1267     "the attack frame ends as soon as the canonical strike pose ages into recoil");
+.... 1268   assert.equal(recoveredArt.dataset.attackSourceTick, undefined);
+.... 1269 });
+.... 1270 
+.... 1271 test("game UI projection: non-Briar play output matches the accepted 5ed parent modules", {
+.... 1272   skip: process.env.ART004_PARENT_ROOT ? false : "set ART004_PARENT_ROOT to the accepted 5ed checkout",
+.... 1273 }, async () => {
+.... 1274   const parentRoot = resolve(process.env.ART004_PARENT_ROOT);
+.... 1275   const parentSha = execFileSync("git", ["-C", parentRoot, "rev-parse", "HEAD"], {
+.... 1276     encoding: "utf8",
+.... 1277   }).trim();
+.... 1278   assert.equal(parentSha, "5ed9d7c76a7bf3b4b3c6fe6a98102921e078f146",
+.... 1279     "projection comparison must execute the exact accepted parent source");
+.... 1280   const parentStatus = execFileSync("git", ["-C", parentRoot, "status", "--porcelain=v1",
+.... 1281     "--untracked-files=no", "--", "src", "public", "tests", "package.json", "package-lock.json"], {
+.... 1282     encoding: "utf8",
+.... 1283   });
+.... 1284   assert.equal(parentStatus, "", "the accepted parent's source, assets, tests, and manifest are clean");
+.... 1285   assert.equal(createHash("sha256").update(readFileSync(resolve(parentRoot, "package-lock.json")))
+.... 1286     .digest("hex"), "d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4",
+.... 1287   "the accepted parent lockfile matches the Round 476 source fence");
+.... 1288   const parentModule = (path) => import(pathToFileURL(resolve(parentRoot, path)).href);
+.... 1289   const [parentSessionModule, parentProjection] = await Promise.all([
+.... 1290     parentModule("src/sim/game-session.js"),
+.... 1291     parentModule("src/ui/game-ui-projection.js"),
+.... 1292   ]);
+.... 1293 
+.... 1294   const setupBytes = setup({
+.... 1295     candidates: [{ cardId: "mossguard", point: { x: 3_500, y: 17_500 } }],
+.... 1296     initialWindupTicks: { central: 10_000, lane: 10_000 },
+.... 1297     seed: 0,
+.... 1298     think: 3_600,
+.... 1299   });
+.... 1300   const current = new GameSession(setupBytes);
+.... 1301   const parent = new parentSessionModule.GameSession(setupBytes);
+.... 1302   const command = (session) => {
+.... 1303     const slot = session.state.decks.south.hand.indexOf("mossguard");
+.... 1304     assert.notEqual(slot, -1, "the parent and candidate both start with Mossguard in hand");
+.... 1305     return canonical({
+.... 1306       cardId: "mossguard",
+.... 1307       commandId: 0,
+.... 1308       point: { x: 3_500, y: 14_500 },
+.... 1309       slot,
+.... 1310       tick: session.state.tick,
+.... 1311       type: "deploy",
+.... 1312     });
+.... 1313   };
+.... 1314   current.submitPlayerCommand(command(current));
+.... 1315   parent.submitPlayerCommand(command(parent));
+.... 1316 
+.... 1317   const output = (session, projector) => {
+.... 1318     const layers = treeFixture().layers;
+.... 1319     projector.mountGameUiProjection(layers).project(projector.createGameUiFrame(session));
+.... 1320     return allBytes(layers);
+.... 1321   };
+.... 1322   const frames = [0, 1, 8, 32];
+.... 1323   for (const tick of frames) {
+.... 1324     if (tick > current.state.tick) {
+.... 1325       current.stepMany(tick - current.state.tick);
+.... 1326       parent.stepMany(tick - parent.state.tick);
+.... 1327     }
+.... 1328     assert.equal(current.serialize(), parent.serialize(),
+.... 1329       `the deterministic non-Briar session state agrees at tick ${tick}`);
+.... 1330     assert.equal(output(current, { createGameUiFrame, mountGameUiProjection }),
+.... 1331       output(parent, parentProjection),
+.... 1332       `the complete non-Briar combat, effects, feedback, and HUD tree agrees at tick ${tick}`);
+.... 1333   }
+.... 1334 });
+1154 1335 
+1155 1336 test("game UI projection: seed-2 live terminal clears dead targets and is chunk/restore exact", () => {
+1156 1337   const configured = setup({
+
+tests/ui-combat-state.test.js --- 1/5 --- JavaScript
+  1   1 import assert from "node:assert/strict";
+  .   2 import { execFileSync } from "node:child_process";
+  2   3 import { createHash } from "node:crypto";
+  3   4 import { readFileSync } from "node:fs";
+  .   5 import { basename, resolve } from "node:path";
+  .   6 import { fileURLToPath, pathToFileURL } from "node:url";
+  4   7 import test from "node:test";
+  5   8 
+  6   9 import { createCombatArt, COMBAT_ART_ARCHETYPES } from "../src/ui/combat-art.js";
+  .  10 import { getCardLore } from "../src/ui/card-lore.js";
+  .  11 import { getCardPortrait, getCardPortraitIds } from "../src/ui/card-portrait-art.js";
+  .  12 import { createPlayableRoster, PLAYABLE_CARD_IDS } from "../src/content/playable-roster.js";
+  7  13 
+  8  14 import {
+  9  15   bindCombatViewModel,
+
+tests/ui-combat-state.test.js --- 2/5 --- JavaScript
+127 133   });
+128 134 }
+... 135 
+... 136 function renderedArtBytes(node) {
+... 137   const attributes = [...node.attributes].map(([name, value]) => {
+... 138     if (name !== "href" || typeof value !== "string" || !value.startsWith("file:")) {
+... 139       return [name, value];
+... 140     }
+... 141     const pathname = new URL(value).pathname;
+... 142     const asset = pathname.slice(pathname.lastIndexOf("/public/") + 1);
+... 143     return [name, `/${asset}`];
+... 144   }).sort();
+... 145   return JSON.stringify({
+... 146     attributes,
+... 147     children: node.children.map((child) => JSON.parse(renderedArtBytes(child))),
+... 148     className: node.className,
+... 149     dataset: Object.fromEntries(Object.entries(node.dataset).sort()),
+... 150     style: [...node.style.values].sort(),
+... 151   });
+... 152 }
+... 153 
+... 154 function renderedArtSnapshot(node) {
+... 155   const assets = [];
+... 156   const collect = (current) => {
+... 157     const href = current.attributes.get("href");
+... 158     if (typeof href === "string" && href.startsWith("file:")) {
+... 159       const assetPath = fileURLToPath(href);
+... 160       assets.push({
+... 161         path: `/public/assets/${basename(assetPath)}`,
+... 162         sha256: createHash("sha256").update(readFileSync(assetPath)).digest("hex"),
+... 163       });
+... 164     }
+... 165     for (const child of current.children) collect(child);
+... 166   };
+... 167   collect(node);
+... 168   return { assets, bytes: renderedArtBytes(node) };
+... 169 }
+... 170 
+... 171 function artDocument() {
+... 172   return dom().document;
+... 173 }
+... 174 
+... 175 function cardPortraitOutput(module, cardId) {
+... 176   const portrait = module.getCardPortrait(cardId);
+... 177   const assetPath = fileURLToPath(portrait.src);
+... 178   return {
+... 179     asset: portrait.asset,
+... 180     cell: portrait.cell,
+... 181     imageSha256: createHash("sha256").update(readFileSync(assetPath)).digest("hex"),
+... 182     src: `/public/assets/${basename(assetPath)}`,
+... 183   };
+... 184 }
+... 185 
+... 186 test("non-Briar artwork and all 21 collection portraits match the accepted 5ed renderer", {
+... 187   skip: process.env.ART004_PARENT_ROOT ? false : "set ART004_PARENT_ROOT to the accepted 5ed checkout",
+... 188 }, async () => {
+... 189   const parentRoot = resolve(process.env.ART004_PARENT_ROOT);
+... 190   const parentSha = execFileSync("git", ["-C", parentRoot, "rev-parse", "HEAD"], {
+... 191     encoding: "utf8",
+... 192   }).trim();
+... 193   assert.equal(parentSha, "5ed9d7c76a7bf3b4b3c6fe6a98102921e078f146",
+... 194     "the visual comparison must execute the exact accepted parent source");
+... 195   const parentStatus = execFileSync("git", ["-C", parentRoot, "status", "--porcelain=v1",
+... 196     "--untracked-files=no", "--", "src", "public", "tests", "package.json", "package-lock.json"], {
+... 197     encoding: "utf8",
+... 198   });
+... 199   assert.equal(parentStatus, "", "the accepted parent's source, assets, tests, and manifest are clean");
+... 200   assert.equal(createHash("sha256").update(readFileSync(resolve(parentRoot, "package-lock.json")))
+... 201     .digest("hex"), "d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4",
+... 202   "the accepted parent lockfile matches the Round 476 source fence");
+... 203 
+... 204   const parentModule = (path) => import(pathToFileURL(resolve(parentRoot, path)).href);
+... 205   const [parentArt, parentState, parentPortraits, parentLore, parentRoster] = await Promise.all([
+... 206     parentModule("src/ui/combat-art.js"),
+... 207     parentModule("src/ui/combat-state.js"),
+... 208     parentModule("src/ui/card-portrait-art.js"),
+... 209     parentModule("src/ui/card-lore.js"),
+... 210     parentModule("src/content/playable-roster.js"),
+... 211   ]);
+... 212 
+... 213   assert.deepEqual(PLAYABLE_CARD_IDS, parentRoster.PLAYABLE_CARD_IDS,
+... 214     "the accepted default deck order remains exact");
+... 215   assert.deepEqual(createPlayableRoster(), parentRoster.createPlayableRoster(),
+... 216     "default card rendering metadata remains exact");
+... 217   assert.deepEqual(getCombatStyleText(), parentState.getCombatStyleText(),
+... 218     "the combat presentation rules remain byte-identical outside Briar's authored frames");
+... 219 
+... 220   const portraitIds = getCardPortraitIds();
+... 221   assert.equal(portraitIds.length, 21, "the accepted collection has 21 card portrait outputs");
+... 222   assert.deepEqual(portraitIds, parentPortraits.getCardPortraitIds(),
+... 223     "the full accepted collection order, including Buried Coil, is preserved");
+... 224   assert.ok(portraitIds.includes("buried-coil"));
+... 225   for (const cardId of portraitIds) {
+... 226     assert.deepEqual({
+... 227       lore: getCardLore(cardId),
+... 228       portrait: cardPortraitOutput({ getCardPortrait }, cardId),
+... 229     }, {
+... 230       lore: parentLore.getCardLore(cardId),
+... 231       portrait: cardPortraitOutput(parentPortraits, cardId),
+... 232     }, `${cardId} keeps the accepted lore and pixel-source asset`);
+... 233   }
+... 234 
+... 235   const expectedKinds = parentArt.COMBAT_ART_ARCHETYPES
+... 236     .filter((kind) => kind !== "briar-runner").sort();
+... 237   assert.deepEqual(COMBAT_ART_ARCHETYPES.filter((kind) => kind !== "briar-runner").sort(),
+... 238     expectedKinds, "all other combat-art archetypes remain present");
+... 239   const layersByKind = new Map(createPlayableRoster().flatMap(({ entities }) =>
+... 240     entities.map(({ archetypeId, layer }) => [archetypeId, layer])));
+... 241   for (const kind of expectedKinds) {
+... 242     const layer = layersByKind.get(kind) ?? "ground";
+... 243     for (const side of ["north", "south"]) {
+... 244       const hiddenStates = kind === "buried-coil" ? [false, true] : [false];
+... 245       for (const hidden of hiddenStates) {
+... 246         const expected = parentArt.createCombatArt(artDocument(), kind, side, layer, hidden);
+... 247         const actual = createCombatArt(artDocument(), kind, side, layer, hidden);
+... 248         assert.deepEqual(renderedArtSnapshot(actual), renderedArtSnapshot(expected),
+... 249           `${kind}/${side}/${layer}/hidden=${hidden} keeps its accepted rendered SVG`);
+... 250       }
+... 251     }
+... 252   }
+... 253 });
+129 254 
+130 255 function digest(bytes) {
+131 256   return createHash("sha256").update(bytes).digest("hex");
+
+tests/ui-combat-state.test.js --- 3/5 --- JavaScript
+221 346   );
+222 347 });
+... 348 
+... 349 test("Buried Coil keeps its original hidden and revealed render geometry through restore", () => {
+... 350   for (const side of ["north", "south"]) {
+... 351     for (const hidden of [true, false]) {
+... 352       const { document, layer } = dom();
+... 353       const buriedCoil = entity({
+... 354         id: side === "north" ? 10 : 11,
+... 355         kind: "buried-coil",
+... 356         layer: "ground",
+... 357         position: side === "north" ? { x: 3_500, y: 24_000 } : { x: 3_500, y: 8_000 },
+... 358         side,
+... 359         targetId: null,
+... 360       });
+... 361       const source = createCombatViewModel({
+... 362         entities: [{ ...buriedCoil, hidden }],
+... 363         events: [],
+... 364         tick: 17,
+... 365         towers: [],
+... 366       });
+... 367       bindCombatViewModel(layer, source);
+... 368       const marker = layer.children[0].children.find(({ dataset }) =>
+... 369         dataset.kind === "buried-coil");
+... 370       const art = marker.children[1];
+... 371       const [image, plate] = art.children;
+... 372       const color = side === "north" ? "#C6452E" : "#2E7F86";
+... 373       assert.equal(marker.dataset.hidden, String(hidden));
+... 374       assert.equal(marker.dataset.structure, "true");
+... 375       assert.equal(art.dataset.hidden, String(hidden));
+... 376       assert.equal(art.dataset.form, hidden ? "hidden" : "revealed");
+... 377       assert.equal(art.attributes.get("viewBox"), "0 0 512 512");
+... 378       assert.equal(image.attributes.get("href"), new URL(
+... 379         hidden ? "../public/assets/buried-coil-hidden.webp" :
+... 380           "../public/assets/buried-coil-revealed.svg",
+... 381         import.meta.url,
+... 382       ).href);
+... 383       assert.deepEqual(Object.fromEntries(plate.attributes), {
+... 384         x: "38",
+... 385         y: side === "north" ? "-512" : "512",
+... 386         width: "436",
+... 387         height: "88",
+... 388         rx: "44",
+... 389         fill: color,
+... 390         "shape-rendering": "crispEdges",
+... 391         "aria-hidden": "true",
+... 392       });
+... 393       assert.equal(plate.dataset.teamColor, side);
+... 394 
+... 395       const checkpoint = serializeCombatViewModel(source);
+... 396       const restoredLayer = dom().layer;
+... 397       bindCombatViewModel(restoredLayer, restoreCombatViewModel(checkpoint));
+... 398       assert.equal(nodeBytes(restoredLayer), nodeBytes(layer),
+... 399         `${side}/hidden=${hidden} artwork restores byte-for-byte`);
+... 400       assert.equal(document, layer.ownerDocument);
+... 401     }
+... 402   }
+... 403 });
+223 404 
+224 405 test("ui combat state: one-shot and chunked state projection end in identical bytes", () => {
+225 406   const frames = [
+
+tests/ui-combat-state.test.js --- 4/5 --- JavaScript
+283   assert.equal(link.attributes.get(  464   assert.equal(link.attributes.get(
+... "y2"), "7500");                      ... "y2"), "7500");
+284 });                                  465 });
+285                                      466 
+286 test("ui combat state: painted Bria  467 test("ui combat state: a generic ta
+... r Runner pose follows tick, target   ... rget reaction cannot fabricate a Br
+... bearing, contact, and restore", ()   ... iar Runner attack pose", () => {
+... => {                                 ... 
+287   const runnerState = (tick, eventT  468   const runnerState = (tick, eventT
+... ick = null) => state({               ... ick = null) => state({
+288     entities: [entity({              469     entities: [entity({
+289       id: 17,                        470       id: 17,
+
+tests/ui-combat-state.test.js --- 5/5 --- JavaScript
+323   const walkingNext = boundArt(runn  504   const walkingNext = boundArt(runn
+... erState(45));                        ... erState(45));
+324   assert.equal(walkingNext.art.data  505   assert.equal(walkingNext.art.data
+... set.spriteFrame, "briar-walk-north-  ... set.spriteFrame, "briar-walk-north-
+... 1");                                 ... 1");
+325                                      506 
+326   const attacking = boundArt(runner  507   const targetReaction = boundArt(r
+... State(42, 42));                      ... unnerState(42, 42));
+...                                      508   assert.equal(targetReaction.runne
+...                                      ... r.dataset.reaction, "target");
+327   assert.equal(attacking.art.datase  509   assert.equal(targetReaction.art.d
+... t.spriteAction, "attack");           ... ataset.spriteAction, "walk");
+328   assert.equal(attacking.art.datase  510   assert.equal(targetReaction.art.d
+... t.spriteFrame, "briar-attack-north-  ... ataset.spriteFrame, "briar-walk-nor
+... 0");                                 ... th-0");
+329   const restoredLayer = dom().layer  511   const restoredLayer = dom().layer
+... ;                                    ... ;
+330   const restoredView = restoreComba  512   const restoredView = restoreComba
+... tViewModel(serializeCombatViewModel  ... tViewModel(serializeCombatViewModel
+... (attacking.view));                   ... (targetReaction.view));
+331   bindCombatViewModel(restoredLayer  513   bindCombatViewModel(restoredLayer
+... , restoredView);                     ... , restoredView);
+332   const restoredBytes = nodeBytes(r  514   const restoredBytes = nodeBytes(r
+... estoredLayer);                       ... estoredLayer);
+333   const restoredRunner = restoredLa  515   const restoredRunner = restoredLa
+... yer.children[0].children.find(({ da  ... yer.children[0].children.find(({ da
+... taset }) =>                          ... taset }) =>
+334     dataset.kind === "briar-runner"  516     dataset.kind === "briar-runner"
+... );                                   ... );
+335   assert.equal(restoredBytes, attac  517   assert.equal(restoredBytes, targe
+... king.bytes);                         ... tReaction.bytes);
+336   assert.equal(restoredRunner.datas  518   assert.equal(restoredRunner.datas
+... et.reaction, "target");              ... et.reaction, "target");
+...                                      519   assert.equal(restoredRunner.child
+...                                      ... ren[1].dataset.spriteAction, "walk"
+...                                      ... );
+337                                      520 
+338   const reducedDocument = dom();     521   const reducedDocument = dom();
+339   reducedDocument.document.defaultV  522   reducedDocument.document.defaultV
+... iew = {                              ... iew = {
+

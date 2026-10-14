@@ -1,0 +1,192 @@
+{
+  "status": "PREPARATION_ONLY_UNREVIEWED_NO_TESTS_OR_BROWSER_RUN",
+  "candidateCommit": "69a44d3b35f84ede74e2bc20ca4aa2f50d3bfa9d",
+  "candidateParent": [
+    "b9b0aff3bb85e099b1438fcffbb13e34fe9ff9c0"
+  ],
+  "baseCommit": "b9b0aff3bb85e099b1438fcffbb13e34fe9ff9c0",
+  "baseParent": [
+    "025ce315873219c8a4351357a29ebdd0d45df8ce"
+  ],
+  "acceptedVisCommit": "c4bf8ccefbd0dcb0a6c554a247d2199e13fcd7b0",
+  "acceptedVisParent": [
+    "5ed9d7c76a7bf3b4b3c6fe6a98102921e078f146"
+  ],
+  "commonBaseB9AndC4bf": "5ed9d7c76a7bf3b4b3c6fe6a98102921e078f146",
+  "artComponentCommit": "b460d2e319ca67ff82503ffca31506e941c39d85",
+  "artComponentParent": [
+    "f7327cb026e2fe37feb8410a22c376d63a933c22"
+  ],
+  "artComponentComparisonBase": "5ed9d7c76a7bf3b4b3c6fe6a98102921e078f146",
+  "candidateDeltaFromB9": [
+    "src/ui/combat-art.js",
+    "src/ui/combat-state.js",
+    "src/ui/game-ui-projection.js",
+    "tests/combat-sprite-prototype-browser.test.js",
+    "tests/combat-sprite-prototype.test.js",
+    "tests/game-ui-projection.test.js",
+    "tests/ui-combat-state.test.js"
+  ],
+  "candidateDeltaExactlySevenArtPaths": true,
+  "b460DeltaFrom5ed": [
+    "src/ui/combat-art.js",
+    "src/ui/combat-state.js",
+    "src/ui/game-ui-projection.js",
+    "tests/combat-sprite-prototype-browser.test.js",
+    "tests/combat-sprite-prototype.test.js",
+    "tests/game-ui-projection.test.js",
+    "tests/ui-combat-state.test.js"
+  ],
+  "b460DeltaExactlySevenArtPaths": true,
+  "artPaths": [
+    {
+      "path": "src/ui/combat-art.js",
+      "baseB9Blob": "585a2052473299947ec5506da59423536def0963",
+      "componentB460Blob": "5757522ce19742b30bf28360f9b1b425ebdb8a46",
+      "candidateBlob": "5757522ce19742b30bf28360f9b1b425ebdb8a46",
+      "candidateSha256": "8e56a793096ace7e6849c527d685c164f47521ad62d38e814bb1f6457ba1b849",
+      "matchesB460": true
+    },
+    {
+      "path": "src/ui/combat-state.js",
+      "baseB9Blob": "f4b631143d0003a656edf17638c9c8d66e4d9555",
+      "componentB460Blob": "3180434a499931f5253ec2cfdf5dfb86b7bd8c67",
+      "candidateBlob": "3180434a499931f5253ec2cfdf5dfb86b7bd8c67",
+      "candidateSha256": "2ee8d07ec2f9de31acaad5448d628390c5e8f90c98874f7046d2690172934ea1",
+      "matchesB460": true
+    },
+    {
+      "path": "src/ui/game-ui-projection.js",
+      "baseB9Blob": "2209fa30ccb1847cb6e7df4fb299f4f167b5570d",
+      "componentB460Blob": "1d1b589b501278cebd2696312f4cc7f1f3b80b20",
+      "candidateBlob": "1d1b589b501278cebd2696312f4cc7f1f3b80b20",
+      "candidateSha256": "b15f2cd1e3359c925d31fab9b095b06f429cc7e8f6f10f276b2714b57c6f9fb7",
+      "matchesB460": true
+    },
+    {
+      "path": "tests/combat-sprite-prototype.test.js",
+      "baseB9Blob": "d92543a422f9d3043640f22bcd1f160fe3a1fead",
+      "componentB460Blob": "3f23610c5535b04d2d8162be717f524e90230de4",
+      "candidateBlob": "3f23610c5535b04d2d8162be717f524e90230de4",
+      "candidateSha256": "2447eb4a676cf2a5cf721ddad3de1d33061db2d7ccae24bea45833b805089a89",
+      "matchesB460": true
+    },
+    {
+      "path": "tests/combat-sprite-prototype-browser.test.js",
+      "baseB9Blob": "3d9c6bffed10e45b0d16e634101b84e7583aa9c5",
+      "componentB460Blob": "b693955aa224492fab9a1746068dd18a3d666f7e",
+      "candidateBlob": "b693955aa224492fab9a1746068dd18a3d666f7e",
+      "candidateSha256": "036100f71fe9efcd0cf7444447103adeaecb3ba2148dab7e85031d5e9bf1f92b",
+      "matchesB460": true
+    },
+    {
+      "path": "tests/game-ui-projection.test.js",
+      "baseB9Blob": "6d19f00fba914edd35616ab3bb0b567e1b09babf",
+      "componentB460Blob": "171e98a861a836c7b3411f5f9c4fff6ce456801a",
+      "candidateBlob": "171e98a861a836c7b3411f5f9c4fff6ce456801a",
+      "candidateSha256": "81b37cc2abfc176a394af5bd1c6c317a1f6586cb00919d01ca45a6dff10cfe14",
+      "matchesB460": true
+    },
+    {
+      "path": "tests/ui-combat-state.test.js",
+      "baseB9Blob": "182a2c8ab0d7bfc385084a0e61a5439d7ec229c6",
+      "componentB460Blob": "da469e28413a18b68ceebbf5c1d9025383efcd87",
+      "candidateBlob": "da469e28413a18b68ceebbf5c1d9025383efcd87",
+      "candidateSha256": "40cdba8c82d25544f81c9c69f4be37a803fa4d0acb16315c963fd5578a293304",
+      "matchesB460": true
+    }
+  ],
+  "visPaths": [
+    {
+      "path": "src/sim/battle-continuation-kernel.js",
+      "acceptedC4bfBlob": "3426d73673cd532418eadcbe4cd704cd0f4c3614",
+      "baseB9Blob": "3426d73673cd532418eadcbe4cd704cd0f4c3614",
+      "candidateBlob": "3426d73673cd532418eadcbe4cd704cd0f4c3614",
+      "candidateSha256": "115c43146f5818c69a98120e856ddaa5d20243fced3609320d90edc7ae933bea",
+      "b9MatchesC4bf": true,
+      "candidatePreservesB9": true
+    },
+    {
+      "path": "src/sim/combat-effect-feed.js",
+      "acceptedC4bfBlob": "2c2ee7a40f1052beee6fa0a16f3d509e5b7c363a",
+      "baseB9Blob": "2c2ee7a40f1052beee6fa0a16f3d509e5b7c363a",
+      "candidateBlob": "2c2ee7a40f1052beee6fa0a16f3d509e5b7c363a",
+      "candidateSha256": "427b3f9381d60ef77247d59ba05a73b175fed2490053967951fc1351fa3d0ba9",
+      "b9MatchesC4bf": true,
+      "candidatePreservesB9": true
+    },
+    {
+      "path": "src/ui/combat-effects.js",
+      "acceptedC4bfBlob": "209337cf3e55bda503918bdd9856e4192dac9d6f",
+      "baseB9Blob": "209337cf3e55bda503918bdd9856e4192dac9d6f",
+      "candidateBlob": "209337cf3e55bda503918bdd9856e4192dac9d6f",
+      "candidateSha256": "6f4efe8b7e7b924530e914076ffda4e5d4589f330a1df0c1f96fb5f9ea5693cb",
+      "b9MatchesC4bf": true,
+      "candidatePreservesB9": true
+    },
+    {
+      "path": "tests/cards021-browser-integration.test.js",
+      "acceptedC4bfBlob": "d4926342d93ddd32353ebd4946d76b03e571e1cf",
+      "baseB9Blob": "d4926342d93ddd32353ebd4946d76b03e571e1cf",
+      "candidateBlob": "d4926342d93ddd32353ebd4946d76b03e571e1cf",
+      "candidateSha256": "694cb8de60767355ecead5969b2531b259cf817f17331567bbc966d14052775f",
+      "b9MatchesC4bf": true,
+      "candidatePreservesB9": true
+    },
+    {
+      "path": "tests/cards021-integration.test.js",
+      "acceptedC4bfBlob": "67045854ada3fc1fa83c42c1ef9ddd7f5b211452",
+      "baseB9Blob": "67045854ada3fc1fa83c42c1ef9ddd7f5b211452",
+      "candidateBlob": "67045854ada3fc1fa83c42c1ef9ddd7f5b211452",
+      "candidateSha256": "2e7d30c9a41c3cd4646043c17c8062df45f3122466e35d8546d106169c85ca6a",
+      "b9MatchesC4bf": true,
+      "candidatePreservesB9": true
+    },
+    {
+      "path": "tests/combat-effect-feed-bound.test.js",
+      "acceptedC4bfBlob": "24f33ab149a144f284c7c6e86d28592e76df9d2a",
+      "baseB9Blob": "24f33ab149a144f284c7c6e86d28592e76df9d2a",
+      "candidateBlob": "24f33ab149a144f284c7c6e86d28592e76df9d2a",
+      "candidateSha256": "9002f1536b5175106cd7ce269b3ee25aa8bd04531c6a678ffb16fd02afb79e8e",
+      "b9MatchesC4bf": true,
+      "candidatePreservesB9": true
+    },
+    {
+      "path": "tests/combat-effect-protocol.test.js",
+      "acceptedC4bfBlob": "d811ed91f090b92727aebb8a563356f7f8d017d7",
+      "baseB9Blob": "d811ed91f090b92727aebb8a563356f7f8d017d7",
+      "candidateBlob": "d811ed91f090b92727aebb8a563356f7f8d017d7",
+      "candidateSha256": "98bacf8d764ea24861cf98be7307ceeb2314314e1893c038787d8436a0e80f62",
+      "b9MatchesC4bf": true,
+      "candidatePreservesB9": true
+    },
+    {
+      "path": "tests/ui-combat-effects.test.js",
+      "acceptedC4bfBlob": "fd639c100e7cccca70005b3994d622442b102975",
+      "baseB9Blob": "fd639c100e7cccca70005b3994d622442b102975",
+      "candidateBlob": "fd639c100e7cccca70005b3994d622442b102975",
+      "candidateSha256": "5d60a918fa7338f8f1a3fdfd6e4b417feb4168d7b9d0c61fddd4296676f26dba",
+      "b9MatchesC4bf": true,
+      "candidatePreservesB9": true
+    }
+  ],
+  "visEightBlobIdentityPreserved": true,
+  "artSevenBlobsCopiedExactlyFromB460": true,
+  "kernelBytes": 523788,
+  "kernelCapBytes": 524288,
+  "kernelUnderCap": true,
+  "kernelSha256": "115c43146f5818c69a98120e856ddaa5d20243fced3609320d90edc7ae933bea",
+  "packageLockSha256": "d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4",
+  "expectedToolchain": {
+    "node": "22.22.3",
+    "npm": "10.9.8",
+    "chrome": "155.0.8059.40",
+    "playwright": "1.58.2"
+  },
+  "qualificationStatus": "PENDING_ART004_INDEPENDENT_VERDICT_AND_ROOT_RELEASE; GPR7A_FULL_QUALIFICATION_NOT_RUN",
+  "historicalParity": "NOT_CLAIMED; reference/stats/SOURCES.md low-confidence fields remain QUESTIONS; no full 109-card parity claim",
+  "candidateTree": "24d7fa3e26c7ab2266b3d3028de7dbe8d83b42ff",
+  "artVisPathIntersection": [],
+  "artAndVisPathsDisjoint": true,
+  "candidateDeltaTouchesNoProtectedVisPath": true
+}
