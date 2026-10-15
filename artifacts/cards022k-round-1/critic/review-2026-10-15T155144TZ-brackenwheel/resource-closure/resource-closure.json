@@ -1,0 +1,47 @@
+{
+  "cleanup_commands": [
+    {
+      "argv": [
+        "git",
+        "worktree",
+        "remove",
+        "--force",
+        "/private/tmp/cards022k-melee-splash-critic-review-2026-10-15T155144TZ-brackenwheel"
+      ],
+      "direct_exit": 0
+    },
+    {
+      "argv": [
+        "git",
+        "worktree",
+        "remove",
+        "--force",
+        "/private/tmp/cards022k-melee-splash-parent-review-2026-10-15T155144TZ-brackenwheel"
+      ],
+      "direct_exit": 0
+    }
+  ],
+  "verification": {
+    "argv": [
+      "git",
+      "worktree",
+      "list",
+      "--porcelain"
+    ],
+    "direct_exit": 0,
+    "checked_private_paths": [
+      {
+        "path": "/private/tmp/cards022k-melee-splash-critic-review-2026-10-15T155144TZ-brackenwheel",
+        "exists_after_cleanup": false,
+        "listed_by_git": false
+      },
+      {
+        "path": "/private/tmp/cards022k-melee-splash-parent-review-2026-10-15T155144TZ-brackenwheel",
+        "exists_after_cleanup": false,
+        "listed_by_git": false
+      }
+    ],
+    "all_removed": true
+  },
+  "scope": "Only this critic's two detached review worktrees; the builder checkout and shared root checkout were not removed."
+}

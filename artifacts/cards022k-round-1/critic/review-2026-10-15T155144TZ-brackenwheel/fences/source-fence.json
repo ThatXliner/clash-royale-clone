@@ -1,0 +1,195 @@
+{
+  "candidateCommit": "7ef53c7ca1a914d62a60b2ea3b148ca452d575f7",
+  "baselineCommit": "09eae7fd6dc8ba19503328869da3e8c651f4ed43",
+  "sourceAndTestPathCount": 17,
+  "sourceAndTestFiles": [
+    {
+      "path": "src/content/cards/basic-melee.js",
+      "commitContentSha256": "503ce411967087e8e9d77a0c6207e3971791127ae3bfdc75a8002f20fde9adf2",
+      "postReviewWorkingTreeSha256": "503ce411967087e8e9d77a0c6207e3971791127ae3bfdc75a8002f20fde9adf2",
+      "matches": true
+    },
+    {
+      "path": "src/content/session-card-catalog.js",
+      "commitContentSha256": "9f863bd823ec6f90a09b423c9023a00624be38939e512171e6f830d6e2321390",
+      "postReviewWorkingTreeSha256": "9f863bd823ec6f90a09b423c9023a00624be38939e512171e6f830d6e2321390",
+      "matches": true
+    },
+    {
+      "path": "src/content/session-troop-profile-catalog.js",
+      "commitContentSha256": "5948940ba0f3a2cbc80dd17eb8bf16983d49de71f0dd47d89e3624faf93f3e45",
+      "postReviewWorkingTreeSha256": "5948940ba0f3a2cbc80dd17eb8bf16983d49de71f0dd47d89e3624faf93f3e45",
+      "matches": true
+    },
+    {
+      "path": "src/content/session-troop-projectile-profiles.js",
+      "commitContentSha256": "a72cc28471c0060b7ceb6927d6479099611c4e6146e1aa43c690b2d5c521e850",
+      "postReviewWorkingTreeSha256": "a72cc28471c0060b7ceb6927d6479099611c4e6146e1aa43c690b2d5c521e850",
+      "matches": true
+    },
+    {
+      "path": "src/content/session-troop-projectile-source-admission.js",
+      "commitContentSha256": "ba4ab5698c435b536284e13546b26aa2934a7035362078b55e47b9e7ac90938e",
+      "postReviewWorkingTreeSha256": "ba4ab5698c435b536284e13546b26aa2934a7035362078b55e47b9e7ac90938e",
+      "matches": true
+    },
+    {
+      "path": "src/content/session-troop-roster.js",
+      "commitContentSha256": "385c5b5b23c018aa8f0c8aad12084844bbc9619f0e06f31d7df96118624581ca",
+      "postReviewWorkingTreeSha256": "385c5b5b23c018aa8f0c8aad12084844bbc9619f0e06f31d7df96118624581ca",
+      "matches": true
+    },
+    {
+      "path": "src/shared/session-troop-melee-area-authority.js",
+      "commitContentSha256": "6fd6fec634f0274ebac6b995e091db1ecea796170d60c57a23ed071e4dd66703",
+      "postReviewWorkingTreeSha256": "6fd6fec634f0274ebac6b995e091db1ecea796170d60c57a23ed071e4dd66703",
+      "matches": true
+    },
+    {
+      "path": "src/shared/session-troop-projectile-authority.js",
+      "commitContentSha256": "e5c1b496551bb7b5d63f3f05a304f207a8c1de7b7c1dfcd072d7b27c1b5bbd82",
+      "postReviewWorkingTreeSha256": "e5c1b496551bb7b5d63f3f05a304f207a8c1de7b7c1dfcd072d7b27c1b5bbd82",
+      "matches": true
+    },
+    {
+      "path": "src/shared/session-troop-source-confidence-authority.js",
+      "commitContentSha256": "e6b82d8dbcdd480e51d880c02bfd9fc2bb71fbcc03a66b0258d852024c2c21dd",
+      "postReviewWorkingTreeSha256": "e6b82d8dbcdd480e51d880c02bfd9fc2bb71fbcc03a66b0258d852024c2c21dd",
+      "matches": true
+    },
+    {
+      "path": "src/sim/area-target-selection.js",
+      "commitContentSha256": "e13419e1b86f552f2d9c7ff6af837368731068f93357539ae200ede787963399",
+      "postReviewWorkingTreeSha256": "e13419e1b86f552f2d9c7ff6af837368731068f93357539ae200ede787963399",
+      "matches": true
+    },
+    {
+      "path": "src/sim/ordinary-projectile-splash.js",
+      "commitContentSha256": "0f011e7d6163fa81d05d01526efeacdd68c5f673b22adcd8523f0cef0f40f1b5",
+      "postReviewWorkingTreeSha256": "0f011e7d6163fa81d05d01526efeacdd68c5f673b22adcd8523f0cef0f40f1b5",
+      "matches": true
+    },
+    {
+      "path": "tests/cards-basic-melee.test.js",
+      "commitContentSha256": "acf4d5335de0d7497395d1c5ad97a6fbd6fb6aa26bbfe86ed6a82c23d33f46b8",
+      "postReviewWorkingTreeSha256": "acf4d5335de0d7497395d1c5ad97a6fbd6fb6aa26bbfe86ed6a82c23d33f46b8",
+      "matches": true
+    },
+    {
+      "path": "tests/cards-basic-ranged.test.js",
+      "commitContentSha256": "8943da9c1b9f5a984ce09c69ccc43cef3986d1465ba4c6d87fdc6a3450937ff7",
+      "postReviewWorkingTreeSha256": "8943da9c1b9f5a984ce09c69ccc43cef3986d1465ba4c6d87fdc6a3450937ff7",
+      "matches": true
+    },
+    {
+      "path": "tests/cards022k-brackenwheel.test.js",
+      "commitContentSha256": "77bfb0767d795e81e80158762dab96aeab48b3bceef610e2ef18f2021dd0925d",
+      "postReviewWorkingTreeSha256": "77bfb0767d795e81e80158762dab96aeab48b3bceef610e2ef18f2021dd0925d",
+      "matches": true
+    },
+    {
+      "path": "tests/game-roster-troop-profiles.test.js",
+      "commitContentSha256": "1bea515504bda93fe21186f7fca21b96f57e19326be589f37a2267ac27db23f5",
+      "postReviewWorkingTreeSha256": "1bea515504bda93fe21186f7fca21b96f57e19326be589f37a2267ac27db23f5",
+      "matches": true
+    },
+    {
+      "path": "tests/game-roster-troops-ordinary.test.js",
+      "commitContentSha256": "e333f9acdf184f8e19b5f71559541fafc9bc3f402fed3c6688dff439678dc1d8",
+      "postReviewWorkingTreeSha256": "e333f9acdf184f8e19b5f71559541fafc9bc3f402fed3c6688dff439678dc1d8",
+      "matches": true
+    },
+    {
+      "path": "tests/game-roster-troops-projectile-profiles.test.js",
+      "commitContentSha256": "a27200410840b03f06a1188bde657d27daa702d604a88dadbb1c028c5c9f4d31",
+      "postReviewWorkingTreeSha256": "a27200410840b03f06a1188bde657d27daa702d604a88dadbb1c028c5c9f4d31",
+      "matches": true
+    }
+  ],
+  "allChangedSourceTestFilesMatchFrozenCommit": true,
+  "workingTreeSrcTestsDiffExit": 0,
+  "indexSrcTestsDiffExit": 0,
+  "candidateStatus": "",
+  "candidateStatusExit": 0,
+  "dependencyAndReleaseConfigDiffExit": 0,
+  "kernel": {
+    "parent": {
+      "bytes": 523788,
+      "sha256": "115c43146f5818c69a98120e856ddaa5d20243fced3609320d90edc7ae933bea"
+    },
+    "candidate": {
+      "bytes": 523788,
+      "sha256": "115c43146f5818c69a98120e856ddaa5d20243fced3609320d90edc7ae933bea"
+    }
+  },
+  "kernelWithin524288Bytes": true,
+  "kernelMatchesParent": true,
+  "commands": [
+    {
+      "name": "changed-src-tests",
+      "argv": [
+        "git",
+        "diff",
+        "--name-only",
+        "09eae7fd6dc8ba19503328869da3e8c651f4ed43..7ef53c7ca1a914d62a60b2ea3b148ca452d575f7",
+        "--",
+        "src",
+        "tests"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "working-tree-src-tests",
+      "argv": [
+        "git",
+        "diff",
+        "--quiet",
+        "7ef53c7ca1a914d62a60b2ea3b148ca452d575f7",
+        "--",
+        "src",
+        "tests"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "index-src-tests",
+      "argv": [
+        "git",
+        "diff",
+        "--cached",
+        "--quiet",
+        "7ef53c7ca1a914d62a60b2ea3b148ca452d575f7",
+        "--",
+        "src",
+        "tests"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "candidate-status",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain=v1",
+        "--untracked-files=all"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "dependency-and-release-config",
+      "argv": [
+        "git",
+        "diff",
+        "--exit-code",
+        "09eae7fd6dc8ba19503328869da3e8c651f4ed43",
+        "7ef53c7ca1a914d62a60b2ea3b148ca452d575f7",
+        "--",
+        "package.json",
+        "pnpm-lock.yaml",
+        "release-build.config.json",
+        "scripts/build-release.js"
+      ],
+      "exit": 0
+    }
+  ]
+}

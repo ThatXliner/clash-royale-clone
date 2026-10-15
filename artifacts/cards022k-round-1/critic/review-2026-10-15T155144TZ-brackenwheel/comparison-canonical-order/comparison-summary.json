@@ -1,0 +1,945 @@
+{
+  "defaultDeckIds": [
+    "coilblade",
+    "mossguard",
+    "copperskiff",
+    "skymaul",
+    "brassbolt",
+    "reedsting",
+    "briar-band",
+    "cinderlings"
+  ],
+  "parentRosterBytes": 17267,
+  "candidateRosterBytes": 17267,
+  "parentRosterSha256": "ae6c0bf3db8dce45c9eace06215b45c2972203d4ed08d6df6fe9f7cc925e0785",
+  "candidateRosterSha256": "ae6c0bf3db8dce45c9eace06215b45c2972203d4ed08d6df6fe9f7cc925e0785",
+  "seedCount": 4,
+  "checkpointCount": 20,
+  "exactEqual": true,
+  "checkpoints": [
+    {
+      "seed": 2,
+      "label": "submitted-before-step",
+      "exactEqual": true,
+      "serializedBytes": 39381,
+      "replayBytes": 2,
+      "restoreExactParent": true,
+      "restoreExactCandidate": true,
+      "deploymentsParent": [],
+      "deploymentsCandidate": []
+    },
+    {
+      "seed": 2,
+      "label": "tick-1",
+      "exactEqual": true,
+      "serializedBytes": 39397,
+      "replayBytes": 625,
+      "restoreExactParent": true,
+      "restoreExactCandidate": true,
+      "deploymentsParent": [
+        {
+          "cardId": "copperskiff",
+          "cost": 4,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "north",
+          "tick": 0
+        }
+      ],
+      "deploymentsCandidate": [
+        {
+          "cardId": "copperskiff",
+          "cost": 4,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "north",
+          "tick": 0
+        }
+      ]
+    },
+    {
+      "seed": 2,
+      "label": "tick-60",
+      "exactEqual": true,
+      "serializedBytes": 40341,
+      "replayBytes": 1258,
+      "restoreExactParent": true,
+      "restoreExactCandidate": true,
+      "deploymentsParent": [
+        {
+          "cardId": "copperskiff",
+          "cost": 4,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "cardId": "mossguard",
+          "cost": 3,
+          "side": "north",
+          "tick": 1
+        },
+        {
+          "cardId": "briar-band",
+          "cost": 3,
+          "side": "north",
+          "tick": 2
+        }
+      ],
+      "deploymentsCandidate": [
+        {
+          "cardId": "copperskiff",
+          "cost": 4,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "cardId": "mossguard",
+          "cost": 3,
+          "side": "north",
+          "tick": 1
+        },
+        {
+          "cardId": "briar-band",
+          "cost": 3,
+          "side": "north",
+          "tick": 2
+        }
+      ]
+    },
+    {
+      "seed": 2,
+      "label": "tick-120",
+      "exactEqual": true,
+      "serializedBytes": 41301,
+      "replayBytes": 4770,
+      "restoreExactParent": true,
+      "restoreExactCandidate": true,
+      "deploymentsParent": [
+        {
+          "cardId": "copperskiff",
+          "cost": 4,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "cardId": "mossguard",
+          "cost": 3,
+          "side": "north",
+          "tick": 1
+        },
+        {
+          "cardId": "briar-band",
+          "cost": 3,
+          "side": "north",
+          "tick": 2
+        }
+      ],
+      "deploymentsCandidate": [
+        {
+          "cardId": "copperskiff",
+          "cost": 4,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "cardId": "mossguard",
+          "cost": 3,
+          "side": "north",
+          "tick": 1
+        },
+        {
+          "cardId": "briar-band",
+          "cost": 3,
+          "side": "north",
+          "tick": 2
+        }
+      ]
+    },
+    {
+      "seed": 2,
+      "label": "tick-144",
+      "exactEqual": true,
+      "serializedBytes": 41685,
+      "replayBytes": 7221,
+      "restoreExactParent": true,
+      "restoreExactCandidate": true,
+      "deploymentsParent": [
+        {
+          "cardId": "copperskiff",
+          "cost": 4,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "cardId": "mossguard",
+          "cost": 3,
+          "side": "north",
+          "tick": 1
+        },
+        {
+          "cardId": "briar-band",
+          "cost": 3,
+          "side": "north",
+          "tick": 2
+        }
+      ],
+      "deploymentsCandidate": [
+        {
+          "cardId": "copperskiff",
+          "cost": 4,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "cardId": "mossguard",
+          "cost": 3,
+          "side": "north",
+          "tick": 1
+        },
+        {
+          "cardId": "briar-band",
+          "cost": 3,
+          "side": "north",
+          "tick": 2
+        }
+      ]
+    },
+    {
+      "seed": 28,
+      "label": "submitted-before-step",
+      "exactEqual": true,
+      "serializedBytes": 39380,
+      "replayBytes": 2,
+      "restoreExactParent": true,
+      "restoreExactCandidate": true,
+      "deploymentsParent": [],
+      "deploymentsCandidate": []
+    },
+    {
+      "seed": 28,
+      "label": "tick-1",
+      "exactEqual": true,
+      "serializedBytes": 39396,
+      "replayBytes": 625,
+      "restoreExactParent": true,
+      "restoreExactCandidate": true,
+      "deploymentsParent": [
+        {
+          "cardId": "mossguard",
+          "cost": 3,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "copperskiff",
+          "cost": 4,
+          "side": "north",
+          "tick": 0
+        }
+      ],
+      "deploymentsCandidate": [
+        {
+          "cardId": "mossguard",
+          "cost": 3,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "copperskiff",
+          "cost": 4,
+          "side": "north",
+          "tick": 0
+        }
+      ]
+    },
+    {
+      "seed": 28,
+      "label": "tick-60",
+      "exactEqual": true,
+      "serializedBytes": 40340,
+      "replayBytes": 1253,
+      "restoreExactParent": true,
+      "restoreExactCandidate": true,
+      "deploymentsParent": [
+        {
+          "cardId": "mossguard",
+          "cost": 3,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "copperskiff",
+          "cost": 4,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "north",
+          "tick": 1
+        },
+        {
+          "cardId": "cinderlings",
+          "cost": 1,
+          "side": "north",
+          "tick": 2
+        }
+      ],
+      "deploymentsCandidate": [
+        {
+          "cardId": "mossguard",
+          "cost": 3,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "copperskiff",
+          "cost": 4,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "north",
+          "tick": 1
+        },
+        {
+          "cardId": "cinderlings",
+          "cost": 1,
+          "side": "north",
+          "tick": 2
+        }
+      ]
+    },
+    {
+      "seed": 28,
+      "label": "tick-120",
+      "exactEqual": true,
+      "serializedBytes": 41300,
+      "replayBytes": 4756,
+      "restoreExactParent": true,
+      "restoreExactCandidate": true,
+      "deploymentsParent": [
+        {
+          "cardId": "mossguard",
+          "cost": 3,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "copperskiff",
+          "cost": 4,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "north",
+          "tick": 1
+        },
+        {
+          "cardId": "cinderlings",
+          "cost": 1,
+          "side": "north",
+          "tick": 2
+        }
+      ],
+      "deploymentsCandidate": [
+        {
+          "cardId": "mossguard",
+          "cost": 3,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "copperskiff",
+          "cost": 4,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "north",
+          "tick": 1
+        },
+        {
+          "cardId": "cinderlings",
+          "cost": 1,
+          "side": "north",
+          "tick": 2
+        }
+      ]
+    },
+    {
+      "seed": 28,
+      "label": "tick-144",
+      "exactEqual": true,
+      "serializedBytes": 41684,
+      "replayBytes": 6510,
+      "restoreExactParent": true,
+      "restoreExactCandidate": true,
+      "deploymentsParent": [
+        {
+          "cardId": "mossguard",
+          "cost": 3,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "copperskiff",
+          "cost": 4,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "north",
+          "tick": 1
+        },
+        {
+          "cardId": "cinderlings",
+          "cost": 1,
+          "side": "north",
+          "tick": 2
+        }
+      ],
+      "deploymentsCandidate": [
+        {
+          "cardId": "mossguard",
+          "cost": 3,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "copperskiff",
+          "cost": 4,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "north",
+          "tick": 1
+        },
+        {
+          "cardId": "cinderlings",
+          "cost": 1,
+          "side": "north",
+          "tick": 2
+        }
+      ]
+    },
+    {
+      "seed": 58,
+      "label": "submitted-before-step",
+      "exactEqual": true,
+      "serializedBytes": 39380,
+      "replayBytes": 2,
+      "restoreExactParent": true,
+      "restoreExactCandidate": true,
+      "deploymentsParent": [],
+      "deploymentsCandidate": []
+    },
+    {
+      "seed": 58,
+      "label": "tick-1",
+      "exactEqual": true,
+      "serializedBytes": 39396,
+      "replayBytes": 629,
+      "restoreExactParent": true,
+      "restoreExactCandidate": true,
+      "deploymentsParent": [
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "cinderlings",
+          "cost": 1,
+          "side": "north",
+          "tick": 0
+        }
+      ],
+      "deploymentsCandidate": [
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "cinderlings",
+          "cost": 1,
+          "side": "north",
+          "tick": 0
+        }
+      ]
+    },
+    {
+      "seed": 58,
+      "label": "tick-60",
+      "exactEqual": true,
+      "serializedBytes": 40340,
+      "replayBytes": 1253,
+      "restoreExactParent": true,
+      "restoreExactCandidate": true,
+      "deploymentsParent": [
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "cinderlings",
+          "cost": 1,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "north",
+          "tick": 1
+        },
+        {
+          "cardId": "copperskiff",
+          "cost": 4,
+          "side": "north",
+          "tick": 2
+        }
+      ],
+      "deploymentsCandidate": [
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "cinderlings",
+          "cost": 1,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "north",
+          "tick": 1
+        },
+        {
+          "cardId": "copperskiff",
+          "cost": 4,
+          "side": "north",
+          "tick": 2
+        }
+      ]
+    },
+    {
+      "seed": 58,
+      "label": "tick-120",
+      "exactEqual": true,
+      "serializedBytes": 41300,
+      "replayBytes": 9975,
+      "restoreExactParent": true,
+      "restoreExactCandidate": true,
+      "deploymentsParent": [
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "cinderlings",
+          "cost": 1,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "north",
+          "tick": 1
+        },
+        {
+          "cardId": "copperskiff",
+          "cost": 4,
+          "side": "north",
+          "tick": 2
+        }
+      ],
+      "deploymentsCandidate": [
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "cinderlings",
+          "cost": 1,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "north",
+          "tick": 1
+        },
+        {
+          "cardId": "copperskiff",
+          "cost": 4,
+          "side": "north",
+          "tick": 2
+        }
+      ]
+    },
+    {
+      "seed": 58,
+      "label": "tick-144",
+      "exactEqual": true,
+      "serializedBytes": 41684,
+      "replayBytes": 12152,
+      "restoreExactParent": true,
+      "restoreExactCandidate": true,
+      "deploymentsParent": [
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "cinderlings",
+          "cost": 1,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "north",
+          "tick": 1
+        },
+        {
+          "cardId": "copperskiff",
+          "cost": 4,
+          "side": "north",
+          "tick": 2
+        }
+      ],
+      "deploymentsCandidate": [
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "cinderlings",
+          "cost": 1,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "north",
+          "tick": 1
+        },
+        {
+          "cardId": "copperskiff",
+          "cost": 4,
+          "side": "north",
+          "tick": 2
+        }
+      ]
+    },
+    {
+      "seed": 444,
+      "label": "submitted-before-step",
+      "exactEqual": true,
+      "serializedBytes": 39381,
+      "replayBytes": 2,
+      "restoreExactParent": true,
+      "restoreExactCandidate": true,
+      "deploymentsParent": [],
+      "deploymentsCandidate": []
+    },
+    {
+      "seed": 444,
+      "label": "tick-1",
+      "exactEqual": true,
+      "serializedBytes": 39397,
+      "replayBytes": 623,
+      "restoreExactParent": true,
+      "restoreExactCandidate": true,
+      "deploymentsParent": [
+        {
+          "cardId": "reedsting",
+          "cost": 3,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "coilblade",
+          "cost": 4,
+          "side": "north",
+          "tick": 0
+        }
+      ],
+      "deploymentsCandidate": [
+        {
+          "cardId": "reedsting",
+          "cost": 3,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "coilblade",
+          "cost": 4,
+          "side": "north",
+          "tick": 0
+        }
+      ]
+    },
+    {
+      "seed": 444,
+      "label": "tick-60",
+      "exactEqual": true,
+      "serializedBytes": 40341,
+      "replayBytes": 1251,
+      "restoreExactParent": true,
+      "restoreExactCandidate": true,
+      "deploymentsParent": [
+        {
+          "cardId": "reedsting",
+          "cost": 3,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "coilblade",
+          "cost": 4,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "north",
+          "tick": 1
+        },
+        {
+          "cardId": "cinderlings",
+          "cost": 1,
+          "side": "north",
+          "tick": 2
+        }
+      ],
+      "deploymentsCandidate": [
+        {
+          "cardId": "reedsting",
+          "cost": 3,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "coilblade",
+          "cost": 4,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "north",
+          "tick": 1
+        },
+        {
+          "cardId": "cinderlings",
+          "cost": 1,
+          "side": "north",
+          "tick": 2
+        }
+      ]
+    },
+    {
+      "seed": 444,
+      "label": "tick-120",
+      "exactEqual": true,
+      "serializedBytes": 41301,
+      "replayBytes": 5955,
+      "restoreExactParent": true,
+      "restoreExactCandidate": true,
+      "deploymentsParent": [
+        {
+          "cardId": "reedsting",
+          "cost": 3,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "coilblade",
+          "cost": 4,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "north",
+          "tick": 1
+        },
+        {
+          "cardId": "cinderlings",
+          "cost": 1,
+          "side": "north",
+          "tick": 2
+        }
+      ],
+      "deploymentsCandidate": [
+        {
+          "cardId": "reedsting",
+          "cost": 3,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "coilblade",
+          "cost": 4,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "north",
+          "tick": 1
+        },
+        {
+          "cardId": "cinderlings",
+          "cost": 1,
+          "side": "north",
+          "tick": 2
+        }
+      ]
+    },
+    {
+      "seed": 444,
+      "label": "tick-144",
+      "exactEqual": true,
+      "serializedBytes": 41685,
+      "replayBytes": 5955,
+      "restoreExactParent": true,
+      "restoreExactCandidate": true,
+      "deploymentsParent": [
+        {
+          "cardId": "reedsting",
+          "cost": 3,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "coilblade",
+          "cost": 4,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "north",
+          "tick": 1
+        },
+        {
+          "cardId": "cinderlings",
+          "cost": 1,
+          "side": "north",
+          "tick": 2
+        }
+      ],
+      "deploymentsCandidate": [
+        {
+          "cardId": "reedsting",
+          "cost": 3,
+          "side": "south",
+          "tick": 0
+        },
+        {
+          "cardId": "coilblade",
+          "cost": 4,
+          "side": "north",
+          "tick": 0
+        },
+        {
+          "cardId": "brassbolt",
+          "cost": 4,
+          "side": "north",
+          "tick": 1
+        },
+        {
+          "cardId": "cinderlings",
+          "cost": 1,
+          "side": "north",
+          "tick": 2
+        }
+      ]
+    }
+  ]
+}

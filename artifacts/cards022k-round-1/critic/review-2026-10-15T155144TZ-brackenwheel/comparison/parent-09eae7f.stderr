@@ -1,0 +1,17 @@
+file:///private/tmp/cards022k-melee-splash-parent-review-2026-10-15T155144TZ-brackenwheel/src/sim/battle-continuation-kernel.js:11208
+      throw new TypeError(`${label} must be unique and canonically ordered`);
+            ^
+
+TypeError: observation.legalNorthDeployments must be unique and canonically ordered
+    at checkCanonicalOrder (file:///private/tmp/cards022k-melee-splash-parent-review-2026-10-15T155144TZ-brackenwheel/src/sim/battle-continuation-kernel.js:11208:13)
+    at validateObservation (file:///private/tmp/cards022k-melee-splash-parent-review-2026-10-15T155144TZ-brackenwheel/src/sim/battle-continuation-kernel.js:11349:3)
+    at OpponentController.stepMany (file:///private/tmp/cards022k-melee-splash-parent-review-2026-10-15T155144TZ-brackenwheel/src/sim/battle-continuation-kernel.js:11507:27)
+    at OpponentController.step (file:///private/tmp/cards022k-melee-splash-parent-review-2026-10-15T155144TZ-brackenwheel/src/sim/battle-continuation-kernel.js:11489:17)
+    at #advanceMany (file:///private/tmp/cards022k-melee-splash-parent-review-2026-10-15T155144TZ-brackenwheel/src/sim/battle-continuation-kernel.js:12549:35)
+    at GameSession.stepMany (file:///private/tmp/cards022k-melee-splash-parent-review-2026-10-15T155144TZ-brackenwheel/src/sim/battle-continuation-kernel.js:12405:40)
+    at file:///private/tmp/cards022k-melee-splash-parent-review-2026-10-15T155144TZ-brackenwheel/[eval1]:53:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:282:26)
+    at async ModuleLoader.executeModuleJob (node:internal/modules/esm/loader:278:20)
+
+Node.js v22.22.3

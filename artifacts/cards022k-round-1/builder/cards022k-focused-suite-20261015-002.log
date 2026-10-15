@@ -1,0 +1,576 @@
+TAP version 13
+# Subtest: basic melee content: catalog is exact, canonical, and isolated
+ok 1 - basic melee content: catalog is exact, canonical, and isolated
+  ---
+  duration_ms: 1.457458
+  type: 'test'
+  ...
+# Subtest: basic melee content: field parity is reported with confidence
+ok 2 - basic melee content: field parity is reported with confidence
+  ---
+  duration_ms: 0.474458
+  type: 'test'
+  ...
+# parity report [{"identity":"original-runtime-identity","runtimeId":"brackenwheel","authoritativeFailures":[],"fields":[{"actual":4,"benchmarkField":"elixir_cost","disposition":"match","expected":4,"provenance":{"confidence":"authoritative","source":"cards.json corroborated field elixir_cost"},"runtimeCard":"brackenwheel","runtimeField":"cost"},{"actual":"unit","benchmarkField":"type","disposition":"match","expected":"unit","provenance":{"confidence":"authoritative","source":"cards.json corroborated field type"},"runtimeCard":"brackenwheel","runtimeField":"kind"},{"actual":"uncommon","benchmarkField":"rarity","disposition":"match","expected":"uncommon","provenance":{"confidence":"authoritative","source":"cards.json corroborated field rarity"},"runtimeCard":"brackenwheel","runtimeField":"rarity"},{"actual":1908,"benchmarkField":"hitpoints","disposition":"question-backed-match","expected":1908,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains hitpoints"},"runtimeCard":"brackenwheel","runtimeField":"hitpoints"},{"actual":267,"benchmarkField":"damage","disposition":"question-backed-match","expected":267,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains damage"},"runtimeCard":"brackenwheel","runtimeField":"damage"},{"actual":90,"benchmarkField":"hit_speed_seconds","disposition":"question-backed-match","expected":90,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains hit_speed_seconds"},"runtimeCard":"brackenwheel","runtimeField":"hitSpeedTicks"},{"actual":84,"benchmarkField":"first_hit_seconds","disposition":"question-backed-match","expected":84,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains first_hit_seconds"},"runtimeCard":"brackenwheel","runtimeField":"firstHitTicks"},{"actual":60,"benchmarkField":"deploy_time_seconds","disposition":"question-backed-match","expected":60,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains deploy_time_seconds"},"runtimeCard":"brackenwheel","runtimeField":"deployTimeTicks"},{"actual":1200,"benchmarkField":"range_tiles","disposition":"question-backed-match","expected":1200,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains range_tiles"},"runtimeCard":"brackenwheel","runtimeField":"rangeMillitiles"},{"actual":5500,"benchmarkField":"sight_range_tiles","disposition":"question-backed-match","expected":5500,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains sight_range_tiles"},"runtimeCard":"brackenwheel","runtimeField":"sightRangeMillitiles"},{"actual":1000,"benchmarkField":"movement_speed_tiles_per_second","disposition":"question-backed-match","expected":1000,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains movement_speed_tiles_per_second"},"runtimeCard":"brackenwheel","runtimeField":"movementMillitilesPerSecond"},{"actual":"ground","benchmarkField":"targets","disposition":"question-backed-match","expected":"ground","provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains targets"},"runtimeCard":"brackenwheel","runtimeField":"targetMode"},{"actual":1,"benchmarkField":"count","disposition":"question-backed-match","expected":1,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains count"},"runtimeCard":"brackenwheel","runtimeField":"count"},{"actual":2000,"benchmarkField":"area_damage_radius_tiles","disposition":"question-backed-match","expected":2000,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains area_damage_radius_tiles"},"runtimeCard":"brackenwheel","runtimeField":"areaDamageRadiusMillitiles"}],"questions":[{"actual":1908,"benchmarkField":"hitpoints","disposition":"question-backed-match","expected":1908,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains hitpoints"},"runtimeCard":"brackenwheel","runtimeField":"hitpoints"},{"actual":267,"benchmarkField":"damage","disposition":"question-backed-match","expected":267,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains damage"},"runtimeCard":"brackenwheel","runtimeField":"damage"},{"actual":90,"benchmarkField":"hit_speed_seconds","disposition":"question-backed-match","expected":90,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains hit_speed_seconds"},"runtimeCard":"brackenwheel","runtimeField":"hitSpeedTicks"},{"actual":84,"benchmarkField":"first_hit_seconds","disposition":"question-backed-match","expected":84,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains first_hit_seconds"},"runtimeCard":"brackenwheel","runtimeField":"firstHitTicks"},{"actual":60,"benchmarkField":"deploy_time_seconds","disposition":"question-backed-match","expected":60,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains deploy_time_seconds"},"runtimeCard":"brackenwheel","runtimeField":"deployTimeTicks"},{"actual":1200,"benchmarkField":"range_tiles","disposition":"question-backed-match","expected":1200,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains range_tiles"},"runtimeCard":"brackenwheel","runtimeField":"rangeMillitiles"},{"actual":5500,"benchmarkField":"sight_range_tiles","disposition":"question-backed-match","expected":5500,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains sight_range_tiles"},"runtimeCard":"brackenwheel","runtimeField":"sightRangeMillitiles"},{"actual":1000,"benchmarkField":"movement_speed_tiles_per_second","disposition":"question-backed-match","expected":1000,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains movement_speed_tiles_per_second"},"runtimeCard":"brackenwheel","runtimeField":"movementMillitilesPerSecond"},{"actual":"ground","benchmarkField":"targets","disposition":"question-backed-match","expected":"ground","provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains targets"},"runtimeCard":"brackenwheel","runtimeField":"targetMode"},{"actual":1,"benchmarkField":"count","disposition":"question-backed-match","expected":1,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains count"},"runtimeCard":"brackenwheel","runtimeField":"count"},{"actual":2000,"benchmarkField":"area_damage_radius_tiles","disposition":"question-backed-match","expected":2000,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains area_damage_radius_tiles"},"runtimeCard":"brackenwheel","runtimeField":"areaDamageRadiusMillitiles"}]},{"identity":"original-runtime-identity","runtimeId":"coilblade","authoritativeFailures":[],"fields":[{"actual":4,"benchmarkField":"elixir_cost","disposition":"match","expected":4,"provenance":{"confidence":"authoritative","source":"cards.json corroborated field elixir_cost"},"runtimeCard":"coilblade","runtimeField":"cost"},{"actual":"unit","benchmarkField":"type","disposition":"match","expected":"unit","provenance":{"confidence":"authoritative","source":"cards.json corroborated field type"},"runtimeCard":"coilblade","runtimeField":"kind"},{"actual":"uncommon","benchmarkField":"rarity","disposition":"match","expected":"uncommon","provenance":{"confidence":"authoritative","source":"cards.json corroborated field rarity"},"runtimeCard":"coilblade","runtimeField":"rarity"},{"actual":1361,"benchmarkField":"hitpoints","disposition":"question-backed-match","expected":1361,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains hitpoints"},"runtimeCard":"coilblade","runtimeField":"hitpoints"},{"actual":720,"benchmarkField":"damage","disposition":"question-backed-match","expected":720,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains damage"},"runtimeCard":"coilblade","runtimeField":"damage"},{"actual":96,"benchmarkField":"hit_speed_seconds","disposition":"question-backed-match","expected":96,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains hit_speed_seconds"},"runtimeCard":"coilblade","runtimeField":"hitSpeedTicks"},{"actual":66,"benchmarkField":"first_hit_seconds","disposition":"question-backed-match","expected":66,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains first_hit_seconds"},"runtimeCard":"coilblade","runtimeField":"firstHitTicks"},{"actual":60,"benchmarkField":"deploy_time_seconds","disposition":"question-backed-match","expected":60,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains deploy_time_seconds"},"runtimeCard":"coilblade","runtimeField":"deployTimeTicks"},{"actual":800,"benchmarkField":"range_tiles","disposition":"question-backed-match","expected":800,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains range_tiles"},"runtimeCard":"coilblade","runtimeField":"rangeMillitiles"},{"actual":5500,"benchmarkField":"sight_range_tiles","disposition":"question-backed-match","expected":5500,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains sight_range_tiles"},"runtimeCard":"coilblade","runtimeField":"sightRangeMillitiles"},{"actual":1500,"benchmarkField":"movement_speed_tiles_per_second","disposition":"question-backed-match","expected":1500,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains movement_speed_tiles_per_second"},"runtimeCard":"coilblade","runtimeField":"movementMillitilesPerSecond"},{"actual":"ground","benchmarkField":"targets","disposition":"question-backed-match","expected":"ground","provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains targets"},"runtimeCard":"coilblade","runtimeField":"targetMode"},{"actual":1,"benchmarkField":"count","disposition":"question-backed-match","expected":1,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains count"},"runtimeCard":"coilblade","runtimeField":"count"},{"actual":null,"benchmarkField":"area_damage_radius_tiles","disposition":"match","expected":null,"provenance":{"confidence":"authoritative","source":"cards.json corroborated field area_damage_radius_tiles"},"runtimeCard":"coilblade","runtimeField":"areaDamageRadiusMillitiles"}],"questions":[{"actual":1361,"benchmarkField":"hitpoints","disposition":"question-backed-match","expected":1361,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains hitpoints"},"runtimeCard":"coilblade","runtimeField":"hitpoints"},{"actual":720,"benchmarkField":"damage","disposition":"question-backed-match","expected":720,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains damage"},"runtimeCard":"coilblade","runtimeField":"damage"},{"actual":96,"benchmarkField":"hit_speed_seconds","disposition":"question-backed-match","expected":96,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains hit_speed_seconds"},"runtimeCard":"coilblade","runtimeField":"hitSpeedTicks"},{"actual":66,"benchmarkField":"first_hit_seconds","disposition":"question-backed-match","expected":66,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains first_hit_seconds"},"runtimeCard":"coilblade","runtimeField":"firstHitTicks"},{"actual":60,"benchmarkField":"deploy_time_seconds","disposition":"question-backed-match","expected":60,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains deploy_time_seconds"},"runtimeCard":"coilblade","runtimeField":"deployTimeTicks"},{"actual":800,"benchmarkField":"range_tiles","disposition":"question-backed-match","expected":800,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains range_tiles"},"runtimeCard":"coilblade","runtimeField":"rangeMillitiles"},{"actual":5500,"benchmarkField":"sight_range_tiles","disposition":"question-backed-match","expected":5500,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains sight_range_tiles"},"runtimeCard":"coilblade","runtimeField":"sightRangeMillitiles"},{"actual":1500,"benchmarkField":"movement_speed_tiles_per_second","disposition":"question-backed-match","expected":1500,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains movement_speed_tiles_per_second"},"runtimeCard":"coilblade","runtimeField":"movementMillitilesPerSecond"},{"actual":"ground","benchmarkField":"targets","disposition":"question-backed-match","expected":"ground","provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains targets"},"runtimeCard":"coilblade","runtimeField":"targetMode"},{"actual":1,"benchmarkField":"count","disposition":"question-backed-match","expected":1,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains count"},"runtimeCard":"coilblade","runtimeField":"count"}]},{"identity":"original-runtime-identity","runtimeId":"ironroot","authoritativeFailures":[],"fields":[{"actual":7,"benchmarkField":"elixir_cost","disposition":"match","expected":7,"provenance":{"confidence":"authoritative","source":"cards.json corroborated field elixir_cost"},"runtimeCard":"ironroot","runtimeField":"cost"},{"actual":"unit","benchmarkField":"type","disposition":"match","expected":"unit","provenance":{"confidence":"authoritative","source":"cards.json corroborated field type"},"runtimeCard":"ironroot","runtimeField":"kind"},{"actual":"special","benchmarkField":"rarity","disposition":"match","expected":"special","provenance":{"confidence":"authoritative","source":"cards.json corroborated field rarity"},"runtimeCard":"ironroot","runtimeField":"rarity"},{"actual":3760,"benchmarkField":"hitpoints","disposition":"question-backed-match","expected":3760,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains hitpoints"},"runtimeCard":"ironroot","runtimeField":"hitpoints"},{"actual":816,"benchmarkField":"damage","disposition":"question-backed-match","expected":816,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains damage"},"runtimeCard":"ironroot","runtimeField":"damage"},{"actual":108,"benchmarkField":"hit_speed_seconds","disposition":"question-backed-match","expected":108,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains hit_speed_seconds"},"runtimeCard":"ironroot","runtimeField":"hitSpeedTicks"},{"actual":78,"benchmarkField":"first_hit_seconds","disposition":"question-backed-match","expected":78,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains first_hit_seconds"},"runtimeCard":"ironroot","runtimeField":"firstHitTicks"},{"actual":60,"benchmarkField":"deploy_time_seconds","disposition":"question-backed-match","expected":60,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains deploy_time_seconds"},"runtimeCard":"ironroot","runtimeField":"deployTimeTicks"},{"actual":1200,"benchmarkField":"range_tiles","disposition":"question-backed-match","expected":1200,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains range_tiles"},"runtimeCard":"ironroot","runtimeField":"rangeMillitiles"},{"actual":5000,"benchmarkField":"sight_range_tiles","disposition":"question-backed-match","expected":5000,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains sight_range_tiles"},"runtimeCard":"ironroot","runtimeField":"sightRangeMillitiles"},{"actual":750,"benchmarkField":"movement_speed_tiles_per_second","disposition":"question-backed-match","expected":750,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains movement_speed_tiles_per_second"},"runtimeCard":"ironroot","runtimeField":"movementMillitilesPerSecond"},{"actual":"ground","benchmarkField":"targets","disposition":"question-backed-match","expected":"ground","provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains targets"},"runtimeCard":"ironroot","runtimeField":"targetMode"},{"actual":1,"benchmarkField":"count","disposition":"question-backed-match","expected":1,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains count"},"runtimeCard":"ironroot","runtimeField":"count"},{"actual":null,"benchmarkField":"area_damage_radius_tiles","disposition":"match","expected":null,"provenance":{"confidence":"authoritative","source":"cards.json corroborated field area_damage_radius_tiles"},"runtimeCard":"ironroot","runtimeField":"areaDamageRadiusMillitiles"}],"questions":[{"actual":3760,"benchmarkField":"hitpoints","disposition":"question-backed-match","expected":3760,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains hitpoints"},"runtimeCard":"ironroot","runtimeField":"hitpoints"},{"actual":816,"benchmarkField":"damage","disposition":"question-backed-match","expected":816,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains damage"},"runtimeCard":"ironroot","runtimeField":"damage"},{"actual":108,"benchmarkField":"hit_speed_seconds","disposition":"question-backed-match","expected":108,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains hit_speed_seconds"},"runtimeCard":"ironroot","runtimeField":"hitSpeedTicks"},{"actual":78,"benchmarkField":"first_hit_seconds","disposition":"question-backed-match","expected":78,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains first_hit_seconds"},"runtimeCard":"ironroot","runtimeField":"firstHitTicks"},{"actual":60,"benchmarkField":"deploy_time_seconds","disposition":"question-backed-match","expected":60,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains deploy_time_seconds"},"runtimeCard":"ironroot","runtimeField":"deployTimeTicks"},{"actual":1200,"benchmarkField":"range_tiles","disposition":"question-backed-match","expected":1200,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains range_tiles"},"runtimeCard":"ironroot","runtimeField":"rangeMillitiles"},{"actual":5000,"benchmarkField":"sight_range_tiles","disposition":"question-backed-match","expected":5000,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains sight_range_tiles"},"runtimeCard":"ironroot","runtimeField":"sightRangeMillitiles"},{"actual":750,"benchmarkField":"movement_speed_tiles_per_second","disposition":"question-backed-match","expected":750,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains movement_speed_tiles_per_second"},"runtimeCard":"ironroot","runtimeField":"movementMillitilesPerSecond"},{"actual":"ground","benchmarkField":"targets","disposition":"question-backed-match","expected":"ground","provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains targets"},"runtimeCard":"ironroot","runtimeField":"targetMode"},{"actual":1,"benchmarkField":"count","disposition":"question-backed-match","expected":1,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains count"},"runtimeCard":"ironroot","runtimeField":"count"}]},{"identity":"original-runtime-identity","runtimeId":"mossguard","authoritativeFailures":[],"fields":[{"actual":3,"benchmarkField":"elixir_cost","disposition":"match","expected":3,"provenance":{"confidence":"authoritative","source":"cards.json corroborated field elixir_cost"},"runtimeCard":"mossguard","runtimeField":"cost"},{"actual":"unit","benchmarkField":"type","disposition":"match","expected":"unit","provenance":{"confidence":"authoritative","source":"cards.json corroborated field type"},"runtimeCard":"mossguard","runtimeField":"kind"},{"actual":"standard","benchmarkField":"rarity","disposition":"match","expected":"standard","provenance":{"confidence":"authoritative","source":"cards.json corroborated field rarity"},"runtimeCard":"mossguard","runtimeField":"rarity"},{"actual":1766,"benchmarkField":"hitpoints","disposition":"question-backed-match","expected":1766,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains hitpoints"},"runtimeCard":"mossguard","runtimeField":"hitpoints"},{"actual":202,"benchmarkField":"damage","disposition":"question-backed-match","expected":202,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains damage"},"runtimeCard":"mossguard","runtimeField":"damage"},{"actual":72,"benchmarkField":"hit_speed_seconds","disposition":"match","expected":72,"provenance":{"confidence":"authoritative","source":"cards.json corroborated field hit_speed_seconds"},"runtimeCard":"mossguard","runtimeField":"hitSpeedTicks"},{"actual":42,"benchmarkField":"first_hit_seconds","disposition":"question-backed-match","expected":42,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains first_hit_seconds"},"runtimeCard":"mossguard","runtimeField":"firstHitTicks"},{"actual":60,"benchmarkField":"deploy_time_seconds","disposition":"question-backed-match","expected":60,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains deploy_time_seconds"},"runtimeCard":"mossguard","runtimeField":"deployTimeTicks"},{"actual":1200,"benchmarkField":"range_tiles","disposition":"question-backed-match","expected":1200,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains range_tiles"},"runtimeCard":"mossguard","runtimeField":"rangeMillitiles"},{"actual":5500,"benchmarkField":"sight_range_tiles","disposition":"question-backed-match","expected":5500,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains sight_range_tiles"},"runtimeCard":"mossguard","runtimeField":"sightRangeMillitiles"},{"actual":1000,"benchmarkField":"movement_speed_tiles_per_second","disposition":"question-backed-match","expected":1000,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains movement_speed_tiles_per_second"},"runtimeCard":"mossguard","runtimeField":"movementMillitilesPerSecond"},{"actual":"ground","benchmarkField":"targets","disposition":"question-backed-match","expected":"ground","provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains targets"},"runtimeCard":"mossguard","runtimeField":"targetMode"},{"actual":1,"benchmarkField":"count","disposition":"question-backed-match","expected":1,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains count"},"runtimeCard":"mossguard","runtimeField":"count"},{"actual":null,"benchmarkField":"area_damage_radius_tiles","disposition":"match","expected":null,"provenance":{"confidence":"authoritative","source":"cards.json corroborated field area_damage_radius_tiles"},"runtimeCard":"mossguard","runtimeField":"areaDamageRadiusMillitiles"}],"questions":[{"actual":1766,"benchmarkField":"hitpoints","disposition":"question-backed-match","expected":1766,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains hitpoints"},"runtimeCard":"mossguard","runtimeField":"hitpoints"},{"actual":202,"benchmarkField":"damage","disposition":"question-backed-match","expected":202,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains damage"},"runtimeCard":"mossguard","runtimeField":"damage"},{"actual":42,"benchmarkField":"first_hit_seconds","disposition":"question-backed-match","expected":42,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains first_hit_seconds"},"runtimeCard":"mossguard","runtimeField":"firstHitTicks"},{"actual":60,"benchmarkField":"deploy_time_seconds","disposition":"question-backed-match","expected":60,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains deploy_time_seconds"},"runtimeCard":"mossguard","runtimeField":"deployTimeTicks"},{"actual":1200,"benchmarkField":"range_tiles","disposition":"question-backed-match","expected":1200,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains range_tiles"},"runtimeCard":"mossguard","runtimeField":"rangeMillitiles"},{"actual":5500,"benchmarkField":"sight_range_tiles","disposition":"question-backed-match","expected":5500,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains sight_range_tiles"},"runtimeCard":"mossguard","runtimeField":"sightRangeMillitiles"},{"actual":1000,"benchmarkField":"movement_speed_tiles_per_second","disposition":"question-backed-match","expected":1000,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains movement_speed_tiles_per_second"},"runtimeCard":"mossguard","runtimeField":"movementMillitilesPerSecond"},{"actual":"ground","benchmarkField":"targets","disposition":"question-backed-match","expected":"ground","provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains targets"},"runtimeCard":"mossguard","runtimeField":"targetMode"},{"actual":1,"benchmarkField":"count","disposition":"question-backed-match","expected":1,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains count"},"runtimeCard":"mossguard","runtimeField":"count"}]}]
+# Subtest: basic melee content: an authoritative mutation is a hard failure
+ok 3 - basic melee content: an authoritative mutation is a hard failure
+  ---
+  duration_ms: 0.211917
+  type: 'test'
+  ...
+# Subtest: basic melee content: an unverified mutation is recorded as a question
+ok 4 - basic melee content: an unverified mutation is recorded as a question
+  ---
+  duration_ms: 0.142709
+  type: 'test'
+  ...
+# Subtest: basic melee content: parity provenance is an isolated trusted snapshot
+ok 5 - basic melee content: parity provenance is an isolated trusted snapshot
+  ---
+  duration_ms: 14.210417
+  type: 'test'
+  ...
+# Subtest: basic melee content: parity boundary rejects hostile provenance
+ok 6 - basic melee content: parity boundary rejects hostile provenance
+  ---
+  duration_ms: 14.246833
+  type: 'test'
+  ...
+# Subtest: basic melee content: parity boundary rejects malformed mappings and calls
+ok 7 - basic melee content: parity boundary rejects malformed mappings and calls
+  ---
+  duration_ms: 50.933166
+  type: 'test'
+  ...
+# Subtest: basic melee content: shipped module contains only original identities
+ok 8 - basic melee content: shipped module contains only original identities
+  ---
+  duration_ms: 0.965458
+  type: 'test'
+  ...
+# Subtest: basic melee content: mirrors resolve at derived ticks
+ok 9 - basic melee content: mirrors resolve at derived ticks
+  ---
+  duration_ms: 128.825833
+  type: 'test'
+  ...
+# Subtest: basic melee content: cross-duel is derived from runtime definitions
+ok 10 - basic melee content: cross-duel is derived from runtime definitions
+  ---
+  duration_ms: 19.386917
+  type: 'test'
+  ...
+# Subtest: basic melee content: input order and snapshot boundaries are deterministic
+ok 11 - basic melee content: input order and snapshot boundaries are deterministic
+  ---
+  duration_ms: 72.667416
+  type: 'test'
+  ...
+# Subtest: basic melee content: splash identity uses only the shared battle reducer
+ok 12 - basic melee content: splash identity uses only the shared battle reducer
+  ---
+  duration_ms: 0.193042
+  type: 'test'
+  ...
+# Subtest: basic melee content: full raw signature leaves non-schema mechanics unresolved
+ok 13 - basic melee content: full raw signature leaves non-schema mechanics unresolved
+  ---
+  duration_ms: 0.818625
+  type: 'test'
+  ...
+# Subtest: basic melee content: projection validates identity and placement
+ok 14 - basic melee content: projection validates identity and placement
+  ---
+  duration_ms: 0.344375
+  type: 'test'
+  ...
+# Subtest: basic ranged content: catalog is exact, canonical, and isolated
+ok 15 - basic ranged content: catalog is exact, canonical, and isolated
+  ---
+  duration_ms: 1.921375
+  type: 'test'
+  ...
+# Subtest: basic ranged content: every mechanic is compared with trusted confidence
+ok 16 - basic ranged content: every mechanic is compared with trusted confidence
+  ---
+  duration_ms: 0.41475
+  type: 'test'
+  ...
+# parity report [{"identity":"original-runtime-identity","runtimeId":"brassbolt","authoritativeFailures":[],"fields":[{"actual":4,"benchmarkField":"elixir_cost","disposition":"match","expected":4,"provenance":{"confidence":"authoritative","source":"cards.json corroborated field elixir_cost"},"runtimeCard":"brassbolt","runtimeField":"cost"},{"actual":"unit","benchmarkField":"type","disposition":"match","expected":"unit","provenance":{"confidence":"authoritative","source":"cards.json corroborated field type"},"runtimeCard":"brassbolt","runtimeField":"kind"},{"actual":"uncommon","benchmarkField":"rarity","disposition":"match","expected":"uncommon","provenance":{"confidence":"authoritative","source":"cards.json corroborated field rarity"},"runtimeCard":"brassbolt","runtimeField":"rarity"},{"actual":720,"benchmarkField":"hitpoints","disposition":"question-backed-match","expected":720,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains hitpoints"},"runtimeCard":"brassbolt","runtimeField":"hitpoints"},{"actual":218,"benchmarkField":"damage","disposition":"question-backed-match","expected":218,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains damage"},"runtimeCard":"brassbolt","runtimeField":"damage"},{"actual":60,"benchmarkField":"hit_speed_seconds","disposition":"question-backed-match","expected":60,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains hit_speed_seconds"},"runtimeCard":"brassbolt","runtimeField":"hitSpeedTicks"},{"actual":12,"benchmarkField":"first_hit_seconds","disposition":"question-backed-match","expected":12,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains first_hit_seconds"},"runtimeCard":"brassbolt","runtimeField":"firstHitTicks"},{"actual":60,"benchmarkField":"deploy_time_seconds","disposition":"question-backed-match","expected":60,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains deploy_time_seconds"},"runtimeCard":"brassbolt","runtimeField":"deployTimeTicks"},{"actual":6000,"benchmarkField":"range_tiles","disposition":"question-backed-match","expected":6000,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains range_tiles"},"runtimeCard":"brassbolt","runtimeField":"rangeMillitiles"},{"actual":6000,"benchmarkField":"sight_range_tiles","disposition":"question-backed-match","expected":6000,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains sight_range_tiles"},"runtimeCard":"brassbolt","runtimeField":"sightRangeMillitiles"},{"actual":1000,"benchmarkField":"movement_speed_tiles_per_second","disposition":"question-backed-match","expected":1000,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains movement_speed_tiles_per_second"},"runtimeCard":"brassbolt","runtimeField":"movementMillitilesPerSecond"},{"actual":"ground-and-air","benchmarkField":"targets","disposition":"question-backed-match","expected":"ground-and-air","provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains targets"},"runtimeCard":"brassbolt","runtimeField":"targetMode"},{"actual":1,"benchmarkField":"count","disposition":"question-backed-match","expected":1,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains count"},"runtimeCard":"brassbolt","runtimeField":"count"},{"actual":null,"benchmarkField":"area_damage_radius_tiles","disposition":"match","expected":null,"provenance":{"confidence":"authoritative","source":"cards.json corroborated field area_damage_radius_tiles"},"runtimeCard":"brassbolt","runtimeField":"areaDamageRadiusMillitiles"}],"questions":[{"actual":720,"benchmarkField":"hitpoints","disposition":"question-backed-match","expected":720,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains hitpoints"},"runtimeCard":"brassbolt","runtimeField":"hitpoints"},{"actual":218,"benchmarkField":"damage","disposition":"question-backed-match","expected":218,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains damage"},"runtimeCard":"brassbolt","runtimeField":"damage"},{"actual":60,"benchmarkField":"hit_speed_seconds","disposition":"question-backed-match","expected":60,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains hit_speed_seconds"},"runtimeCard":"brassbolt","runtimeField":"hitSpeedTicks"},{"actual":12,"benchmarkField":"first_hit_seconds","disposition":"question-backed-match","expected":12,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains first_hit_seconds"},"runtimeCard":"brassbolt","runtimeField":"firstHitTicks"},{"actual":60,"benchmarkField":"deploy_time_seconds","disposition":"question-backed-match","expected":60,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains deploy_time_seconds"},"runtimeCard":"brassbolt","runtimeField":"deployTimeTicks"},{"actual":6000,"benchmarkField":"range_tiles","disposition":"question-backed-match","expected":6000,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains range_tiles"},"runtimeCard":"brassbolt","runtimeField":"rangeMillitiles"},{"actual":6000,"benchmarkField":"sight_range_tiles","disposition":"question-backed-match","expected":6000,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains sight_range_tiles"},"runtimeCard":"brassbolt","runtimeField":"sightRangeMillitiles"},{"actual":1000,"benchmarkField":"movement_speed_tiles_per_second","disposition":"question-backed-match","expected":1000,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains movement_speed_tiles_per_second"},"runtimeCard":"brassbolt","runtimeField":"movementMillitilesPerSecond"},{"actual":"ground-and-air","benchmarkField":"targets","disposition":"question-backed-match","expected":"ground-and-air","provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains targets"},"runtimeCard":"brassbolt","runtimeField":"targetMode"},{"actual":1,"benchmarkField":"count","disposition":"question-backed-match","expected":1,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains count"},"runtimeCard":"brassbolt","runtimeField":"count"}]},{"identity":"original-runtime-identity","runtimeId":"reedsting","authoritativeFailures":[],"fields":[{"actual":3,"benchmarkField":"elixir_cost","disposition":"match","expected":3,"provenance":{"confidence":"authoritative","source":"cards.json corroborated field elixir_cost"},"runtimeCard":"reedsting","runtimeField":"cost"},{"actual":"unit","benchmarkField":"type","disposition":"match","expected":"unit","provenance":{"confidence":"authoritative","source":"cards.json corroborated field type"},"runtimeCard":"reedsting","runtimeField":"kind"},{"actual":"uncommon","benchmarkField":"rarity","disposition":"match","expected":"uncommon","provenance":{"confidence":"authoritative","source":"cards.json corroborated field rarity"},"runtimeCard":"reedsting","runtimeField":"rarity"},{"actual":260,"benchmarkField":"hitpoints","disposition":"question-backed-match","expected":260,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains hitpoints"},"runtimeCard":"reedsting","runtimeField":"hitpoints"},{"actual":131,"benchmarkField":"damage","disposition":"question-backed-match","expected":131,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains damage"},"runtimeCard":"reedsting","runtimeField":"damage"},{"actual":42,"benchmarkField":"hit_speed_seconds","disposition":"question-backed-match","expected":42,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains hit_speed_seconds"},"runtimeCard":"reedsting","runtimeField":"hitSpeedTicks"},{"actual":21,"benchmarkField":"first_hit_seconds","disposition":"question-backed-match","expected":21,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains first_hit_seconds"},"runtimeCard":"reedsting","runtimeField":"firstHitTicks"},{"actual":60,"benchmarkField":"deploy_time_seconds","disposition":"question-backed-match","expected":60,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains deploy_time_seconds"},"runtimeCard":"reedsting","runtimeField":"deployTimeTicks"},{"actual":6500,"benchmarkField":"range_tiles","disposition":"question-backed-match","expected":6500,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains range_tiles"},"runtimeCard":"reedsting","runtimeField":"rangeMillitiles"},{"actual":7500,"benchmarkField":"sight_range_tiles","disposition":"question-backed-match","expected":7500,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains sight_range_tiles"},"runtimeCard":"reedsting","runtimeField":"sightRangeMillitiles"},{"actual":2000,"benchmarkField":"movement_speed_tiles_per_second","disposition":"question-backed-match","expected":2000,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains movement_speed_tiles_per_second"},"runtimeCard":"reedsting","runtimeField":"movementMillitilesPerSecond"},{"actual":"ground-and-air","benchmarkField":"targets","disposition":"question-backed-match","expected":"ground-and-air","provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains targets"},"runtimeCard":"reedsting","runtimeField":"targetMode"},{"actual":1,"benchmarkField":"count","disposition":"question-backed-match","expected":1,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains count"},"runtimeCard":"reedsting","runtimeField":"count"},{"actual":null,"benchmarkField":"area_damage_radius_tiles","disposition":"match","expected":null,"provenance":{"confidence":"authoritative","source":"cards.json corroborated field area_damage_radius_tiles"},"runtimeCard":"reedsting","runtimeField":"areaDamageRadiusMillitiles"}],"questions":[{"actual":260,"benchmarkField":"hitpoints","disposition":"question-backed-match","expected":260,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains hitpoints"},"runtimeCard":"reedsting","runtimeField":"hitpoints"},{"actual":131,"benchmarkField":"damage","disposition":"question-backed-match","expected":131,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains damage"},"runtimeCard":"reedsting","runtimeField":"damage"},{"actual":42,"benchmarkField":"hit_speed_seconds","disposition":"question-backed-match","expected":42,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains hit_speed_seconds"},"runtimeCard":"reedsting","runtimeField":"hitSpeedTicks"},{"actual":21,"benchmarkField":"first_hit_seconds","disposition":"question-backed-match","expected":21,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains first_hit_seconds"},"runtimeCard":"reedsting","runtimeField":"firstHitTicks"},{"actual":60,"benchmarkField":"deploy_time_seconds","disposition":"question-backed-match","expected":60,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains deploy_time_seconds"},"runtimeCard":"reedsting","runtimeField":"deployTimeTicks"},{"actual":6500,"benchmarkField":"range_tiles","disposition":"question-backed-match","expected":6500,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains range_tiles"},"runtimeCard":"reedsting","runtimeField":"rangeMillitiles"},{"actual":7500,"benchmarkField":"sight_range_tiles","disposition":"question-backed-match","expected":7500,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains sight_range_tiles"},"runtimeCard":"reedsting","runtimeField":"sightRangeMillitiles"},{"actual":2000,"benchmarkField":"movement_speed_tiles_per_second","disposition":"question-backed-match","expected":2000,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains movement_speed_tiles_per_second"},"runtimeCard":"reedsting","runtimeField":"movementMillitilesPerSecond"},{"actual":"ground-and-air","benchmarkField":"targets","disposition":"question-backed-match","expected":"ground-and-air","provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains targets"},"runtimeCard":"reedsting","runtimeField":"targetMode"},{"actual":1,"benchmarkField":"count","disposition":"question-backed-match","expected":1,"provenance":{"confidence":"unverified","source":"cards.json unverified_fields contains count"},"runtimeCard":"reedsting","runtimeField":"count"}]}]
+# Subtest: basic ranged content: confidence controls failure versus question
+ok 17 - basic ranged content: confidence controls failure versus question
+  ---
+  duration_ms: 0.249042
+  type: 'test'
+  ...
+# Subtest: basic ranged content: shipped module contains only original identities
+ok 18 - basic ranged content: shipped module contains only original identities
+  ---
+  duration_ms: 1.495291
+  type: 'test'
+  ...
+# Subtest: basic ranged content: mirror cadence and draw ticks are derived
+ok 19 - basic ranged content: mirror cadence and draw ticks are derived
+  ---
+  duration_ms: 52.216584
+  type: 'test'
+  ...
+# Subtest: basic ranged content: cross duel is derived from runtime definitions
+ok 20 - basic ranged content: cross duel is derived from runtime definitions
+  ---
+  duration_ms: 24.3655
+  type: 'test'
+  ...
+# Subtest: basic ranged content: fresh, chunked, reversed, and restored runs are byte deterministic
+ok 21 - basic ranged content: fresh, chunked, reversed, and restored runs are byte deterministic
+  ---
+  duration_ms: 59.598458
+  type: 'test'
+  ...
+# Subtest: basic ranged content: duel geometry is explicit and immediate-impact only
+ok 22 - basic ranged content: duel geometry is explicit and immediate-impact only
+  ---
+  duration_ms: 8.942667
+  type: 'test'
+  ...
+# Subtest: basic ranged content: projection, setup, and snapshot reject malformed inputs
+ok 23 - basic ranged content: projection, setup, and snapshot reject malformed inputs
+  ---
+  duration_ms: 2.956375
+  type: 'test'
+  ...
+# Subtest: basic ranged content: snapshot ceilings are derived for every ordered pairing
+ok 24 - basic ranged content: snapshot ceilings are derived for every ordered pairing
+  ---
+  duration_ms: 67.071792
+  type: 'test'
+  ...
+# Subtest: basic ranged content: oversized histories reject before entry inspection
+ok 25 - basic ranged content: oversized histories reject before entry inspection
+  ---
+  duration_ms: 43.62725
+  type: 'test'
+  ...
+# Subtest: basic ranged content: snapshot ticks reject one boundary beyond each duel
+ok 26 - basic ranged content: snapshot ticks reject one boundary beyond each duel
+  ---
+  duration_ms: 15.003667
+  type: 'test'
+  ...
+# Subtest: basic ranged content: snapshots are canonical causal histories
+ok 27 - basic ranged content: snapshots are canonical causal histories
+  ---
+  duration_ms: 1574.695417
+  type: 'test'
+  ...
+# Subtest: basic ranged content: reordered, duplicate, future, and post-terminal histories reject atomically
+ok 28 - basic ranged content: reordered, duplicate, future, and post-terminal histories reject atomically
+  ---
+  duration_ms: 13.961917
+  type: 'test'
+  ...
+# Subtest: Brackenwheel mixed-deck profile carries closed per-field QUESTION receipts
+ok 29 - Brackenwheel mixed-deck profile carries closed per-field QUESTION receipts
+  ---
+  duration_ms: 25.989875
+  type: 'test'
+  ...
+# Subtest: Brackenwheel live area contact is stable and survives exact restore and fork
+ok 30 - Brackenwheel live area contact is stable and survives exact restore and fork
+  ---
+  duration_ms: 1077.098166
+  type: 'test'
+  ...
+# Subtest: Brackenwheel GameSession AI contact applies primary and secondary damage once across restore forks
+ok 31 - Brackenwheel GameSession AI contact applies primary and secondary damage once across restore forks
+  ---
+  duration_ms: 1343.0965
+  type: 'test'
+  ...
+# Subtest: Brackenwheel player, AI, and RL deployments charge and cycle once
+ok 32 - Brackenwheel player, AI, and RL deployments charge and cycle once
+  ---
+  duration_ms: 56.416541
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: exact 45 occurrence pairs and 43 identity IDs
+ok 33 - game roster troop profiles: exact 45 occurrence pairs and 43 identity IDs
+  ---
+  duration_ms: 1.655292
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: exact admitted/question counts and derived session slice
+ok 34 - game roster troop profiles: exact admitted/question counts and derived session slice
+  ---
+  duration_ms: 0.647209
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: admitted profiles are complete, source-backed, sorted, frozen, and detached
+ok 35 - game roster troop profiles: admitted profiles are complete, source-backed, sorted, frozen, and detached
+  ---
+  duration_ms: 6.811458
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: QUESTION identities reject without an invented profile
+ok 36 - game roster troop profiles: QUESTION identities reject without an invented profile
+  ---
+  duration_ms: 0.571083
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: duplicated IDs have one honest shared composition each
+ok 37 - game roster troop profiles: duplicated IDs have one honest shared composition each
+  ---
+  duration_ms: 0.356666
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: composition execution facts remain explicit QUESTIONs
+ok 38 - game roster troop profiles: composition execution facts remain explicit QUESTIONs
+  ---
+  duration_ms: 0.248625
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: every occurrence maps once to a profile/question and duplicate membership is bijective
+ok 39 - game roster troop profiles: every occurrence maps once to a profile/question and duplicate membership is bijective
+  ---
+  duration_ms: 0.380792
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: canonical serialization is repeatable and immutable-only
+ok 40 - game roster troop profiles: canonical serialization is repeatable and immutable-only
+  ---
+  duration_ms: 0.728917
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: primitive-only lookup rejects hostile values without callbacks
+ok 41 - game roster troop profiles: primitive-only lookup rejects hostile values without callbacks
+  ---
+  duration_ms: 1.2975
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: hostile clone mutation cannot affect future calls
+ok 42 - game roster troop profiles: hostile clone mutation cannot affect future calls
+  ---
+  duration_ms: 0.606917
+  type: 'test'
+  ...
+# Subtest: game roster troop profiles: shipped module is deterministic and isolated
+ok 43 - game roster troop profiles: shipped module is deterministic and isolated
+  ---
+  duration_ms: 0.469125
+  type: 'test'
+  ...
+# Subtest: ordinary troop projection domain is exactly the admitted profile surface
+ok 44 - ordinary troop projection domain is exactly the admitted profile surface
+  ---
+  duration_ms: 1.441667
+  type: 'test'
+  ...
+# Subtest: every projection is complete, source-agreeing, ordinary-only, and component-stable
+ok 45 - every projection is complete, source-agreeing, ordinary-only, and component-stable
+  ---
+  duration_ms: 4.164417
+  type: 'test'
+  ...
+# Subtest: every witness closes its exact questions, cards, and archetypes through LiveBattle admission
+ok 46 - every witness closes its exact questions, cards, and archetypes through LiveBattle admission
+  ---
+  duration_ms: 101.474
+  type: 'test'
+  ...
+# Subtest: ordinary projectile delivery admits only its exact four source tuples and rejects forged restore claims
+ok 47 - ordinary projectile delivery admits only its exact four source tuples and rejects forged restore claims
+  ---
+  duration_ms: 65.545708
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper source questions and splash profile reject forged setup and pending snapshots
+ok 48 - Kilnkeeper source questions and splash profile reject forged setup and pending snapshots
+  ---
+  duration_ms: 2160.4925
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper follows moving ground and air targets through shared-host restore and fork
+ok 49 - Kilnkeeper follows moving ground and air targets through shared-host restore and fork
+  ---
+  duration_ms: 1501.147416
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper's pending homing projectile fizzles once when its locked target dies
+ok 50 - Kilnkeeper's pending homing projectile fizzles once when its locked target dies
+  ---
+  duration_ms: 2096.431167
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper's launched homing projectile continues after its source dies and restores exactly
+ok 51 - Kilnkeeper's launched homing projectile continues after its source dies and restores exactly
+  ---
+  duration_ms: 930.871583
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper follows its locked target after it leaves the launch-origin range
+ok 52 - Kilnkeeper follows its locked target after it leaves the launch-origin range
+  ---
+  duration_ms: 4214.752666
+  type: 'test'
+  ...
+# Subtest: ordinary splash plans stable mixed troop, building, and tower contacts without a duplicate primary
+ok 53 - ordinary splash plans stable mixed troop, building, and tower contacts without a duplicate primary
+  ---
+  duration_ms: 0.717334
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper damages bounded enemy splash victims through GameSession and restores in flight
+ok 54 - Kilnkeeper damages bounded enemy splash victims through GameSession and restores in flight
+  ---
+  duration_ms: 1459.166541
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper GameSession impacts damage an enemy building once through canonical external contact
+ok 55 - Kilnkeeper GameSession impacts damage an enemy building once through canonical external contact
+  ---
+  duration_ms: 2645.410042
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper GameSession crown-tower impact resolves exactly one primary contact
+ok 56 - Kilnkeeper GameSession crown-tower impact resolves exactly one primary contact
+  ---
+  duration_ms: 790.725292
+  type: 'test'
+  ...
+# Subtest: Sunthread Pair and Duskwing Trio trade sourced air/ground projectiles through in-flight restore
+ok 57 - Sunthread Pair and Duskwing Trio trade sourced air/ground projectiles through in-flight restore
+  ---
+  duration_ms: 1958.749375
+  type: 'test'
+  ...
+# Subtest: legacy HTO projections are detached exact playable cards plus ordinary policies
+ok 58 - legacy HTO projections are detached exact playable cards plus ordinary policies
+  ---
+  duration_ms: 2.834959
+  type: 'test'
+  ...
+# Subtest: all official witnesses use uniform HTO policies with exact projection counts
+ok 59 - all official witnesses use uniform HTO policies with exact projection counts
+  ---
+  duration_ms: 8.185916
+  type: 'test'
+  ...
+# Subtest: playable roster preserves its estimates and records Briar Band's sourced member interval
+ok 60 - playable roster preserves its estimates and records Briar Band's sourced member interval
+  ---
+  duration_ms: 12.99075
+  type: 'test'
+  ...
+# Subtest: legacy delivery/layer policy and QUESTION tampering rejects atomically
+ok 61 - legacy delivery/layer policy and QUESTION tampering rejects atomically
+  ---
+  duration_ms: 86.834959
+  type: 'test'
+  ...
+# Subtest: paired ordinary-policy omission rejects every one of the 38 entity projections
+ok 62 - paired ordinary-policy omission rejects every one of the 38 entity projections
+  ---
+  duration_ms: 250.937334
+  type: 'test'
+  ...
+# Subtest: removing all ordinary policies from one card rejects a partially downgraded roster
+ok 63 - removing all ordinary policies from one card rejects a partially downgraded roster
+  ---
+  duration_ms: 47.361417
+  type: 'test'
+  ...
+# Subtest: a genuine legacy card cannot be mixed with seven HTO policy-backed cards
+ok 64 - a genuine legacy card cannot be mixed with seven HTO policy-backed cards
+  ---
+  duration_ms: 5.991375
+  type: 'test'
+  ...
+# Subtest: all admitted troop witnesses use one shared LiveBattle deployment and entity expansion
+ok 65 - all admitted troop witnesses use one shared LiveBattle deployment and entity expansion
+  ---
+  duration_ms: 1528.977667
+  type: 'test'
+  ...
+# Subtest: fully HTO LiveBattle setup deploys, restores, and forks exactly
+ok 66 - fully HTO LiveBattle setup deploys, restores, and forks exactly
+  ---
+  duration_ms: 18.28125
+  type: 'test'
+  ...
+# Subtest: representative ordinary projection is chunk, fork, and restore exact
+ok 67 - representative ordinary projection is chunk, fork, and restore exact
+  ---
+  duration_ms: 3502.363459
+  type: 'test'
+  ...
+# Subtest: projection APIs reject hostile identities before callbacks and return detached frozen values
+ok 68 - projection APIs reject hostile identities before callbacks and return detached frozen values
+  ---
+  duration_ms: 1.2535
+  type: 'test'
+  ...
+# Subtest: projectile profiles: exact admitted occurrence/card/archetype domain and pinned remainder
+ok 69 - projectile profiles: exact admitted occurrence/card/archetype domain and pinned remainder
+  ---
+  duration_ms: 2.299042
+  type: 'test'
+  ...
+# Subtest: projectile profiles: the complete witness map covers exactly the ten source export sets
+ok 70 - projectile profiles: the complete witness map covers exactly the ten source export sets
+  ---
+  duration_ms: 0.709792
+  type: 'test'
+  ...
+# Subtest: projectile profiles: every bound row rejects same-ID scalar drift
+ok 71 - projectile profiles: every bound row rejects same-ID scalar drift
+  ---
+  duration_ms: 1965.321292
+  type: 'test'
+  ...
+# Subtest: projectile source admission: rebranded cost drift rejects before every shared consumer
+ok 72 - projectile source admission: rebranded cost drift rejects before every shared consumer
+  ---
+  duration_ms: 3952.149125
+  type: 'test'
+  ...
+# Subtest: projectile source admission: rebranded canonical key order stays usable in every shared consumer
+ok 73 - projectile source admission: rebranded canonical key order stays usable in every shared consumer
+  ---
+  duration_ms: 6270.784375
+  type: 'test'
+  ...
+# Subtest: projectile source admission: every scalar source field rejects rebranding through every shared consumer
+ok 74 - projectile source admission: every scalar source field rejects rebranding through every shared consumer
+  ---
+  duration_ms: 67997.844833
+  type: 'test'
+  ...
+# Subtest: projectile source admission: rebranded first-versus-second reads reject before every shared consumer
+ok 75 - projectile source admission: rebranded first-versus-second reads reject before every shared consumer
+  ---
+  duration_ms: 3914.445708
+  type: 'test'
+  ...
+# Subtest: projectile source admission: rebranded source shape and nested drift fail before output
+ok 76 - projectile source admission: rebranded source shape and nested drift fail before output
+  ---
+  duration_ms: 2467.4005
+  type: 'test'
+  ...
+# Subtest: projectile profiles: representative source fields, shapes, and nested Briar changes fail closed
+ok 77 - projectile profiles: representative source fields, shapes, and nested Briar changes fail closed
+  ---
+  duration_ms: 2438.463125
+  type: 'test'
+  ...
+# Subtest: projectile profiles: source reads, HTP, and HTO drift reject before exposure
+ok 78 - projectile profiles: source reads, HTP, and HTO drift reject before exposure
+  ---
+  duration_ms: 614.315167
+  type: 'test'
+  ...
+# Subtest: projectile profiles: source rows and every nested component reject hostile shapes trap-zero
+ok 79 - projectile profiles: source rows and every nested component reject hostile shapes trap-zero
+  ---
+  duration_ms: 2531.278417
+  type: 'test'
+  ...
+# Subtest: projectile profiles: every source binding is admitted before first-read hostile access
+ok 80 - projectile profiles: every source binding is admitted before first-read hostile access
+  ---
+  duration_ms: 8483.918709
+  type: 'test'
+  ...
+# Subtest: projectile profiles: a normal admitted catalog remains usable by the shared runtime
+ok 81 - projectile profiles: a normal admitted catalog remains usable by the shared runtime
+  ---
+  duration_ms: 22.220792
+  type: 'test'
+  ...
+# Subtest: projectile profiles: every claimed source join is exact and profiles are one-per-ID
+ok 82 - projectile profiles: every claimed source join is exact and profiles are one-per-ID
+  ---
+  duration_ms: 1.125458
+  type: 'test'
+  ...
+# Subtest: projectile profiles: components stay owned by their card and duplicated compositions do not double count
+ok 83 - projectile profiles: components stay owned by their card and duplicated compositions do not double count
+  ---
+  duration_ms: 0.755875
+  type: 'test'
+  ...
+# Subtest: projectile profiles: unresolved delivery dependencies join exact HTO QUESTION records
+ok 84 - projectile profiles: unresolved delivery dependencies join exact HTO QUESTION records
+  ---
+  duration_ms: 1.474875
+  type: 'test'
+  ...
+# Subtest: projectile profiles: all five question fixtures are exact, fresh, and provenance-preserving
+ok 85 - projectile profiles: all five question fixtures are exact, fresh, and provenance-preserving
+  ---
+  duration_ms: 2.050083
+  type: 'test'
+  ...
+# Subtest: projectile profiles: ordinary delivery remains QUESTION and special geometry stays fixture-owned
+ok 86 - projectile profiles: ordinary delivery remains QUESTION and special geometry stays fixture-owned
+  ---
+  duration_ms: 0.815542
+  type: 'test'
+  ...
+# Subtest: projectile profiles: generic basic-ranged launch evidence is test-only and cannot admit either card
+ok 87 - projectile profiles: generic basic-ranged launch evidence is test-only and cannot admit either card
+  ---
+  duration_ms: 7.29975
+  type: 'test'
+  ...
+# Subtest: projectile profiles: generic flying launch evidence cannot admit Copperskiff
+ok 88 - projectile profiles: generic flying launch evidence cannot admit Copperskiff
+  ---
+  duration_ms: 7.246958
+  type: 'test'
+  ...
+# Subtest: projectile profiles: Aegis composition remains pending for GAME-001HTC
+ok 89 - projectile profiles: Aegis composition remains pending for GAME-001HTC
+  ---
+  duration_ms: 0.545542
+  type: 'test'
+  ...
+# Subtest: projectile profiles: GAME-001TH identity adapter is required but has no second identity authority
+ok 90 - projectile profiles: GAME-001TH identity adapter is required but has no second identity authority
+  ---
+  duration_ms: 0.516833
+  type: 'test'
+  ...
+# Subtest: projectile profiles: no encounter/private simulator execution or coverage is claimed
+ok 91 - projectile profiles: no encounter/private simulator execution or coverage is claimed
+  ---
+  duration_ms: 1.207209
+  type: 'test'
+  ...
+# Subtest: projectile profiles: outputs are fresh, deeply frozen, detached, and canonical
+ok 92 - projectile profiles: outputs are fresh, deeply frozen, detached, and canonical
+  ---
+  duration_ms: 2.995833
+  type: 'test'
+  ...
+# Subtest: projectile profiles: primitive hostile lookup matrix is trap-zero and fail-closed
+ok 93 - projectile profiles: primitive hostile lookup matrix is trap-zero and fail-closed
+  ---
+  duration_ms: 0.792708
+  type: 'test'
+  ...
+# Subtest: projectile profiles: static isolation and source-change bounds are explicit
+ok 94 - projectile profiles: static isolation and source-change bounds are explicit
+  ---
+  duration_ms: 1.82925
+  type: 'test'
+  ...
+1..94
+# tests 94
+# suites 0
+# pass 94
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 101162.212084
