@@ -1,0 +1,17 @@
+{
+  "candidate": "b9dd02595506300978db16601278faa0a7acad52",
+  "distFiles": 77,
+  "distByteIdenticalBeforeAndAfterReleaseChecks": true,
+  "releaseEvidenceFilesBefore": 13,
+  "releaseEvidenceFilesAfter": 13,
+  "releaseTestMutationsRestoredFromPreTestBytes": true,
+  "mutatedTrackedEvidenceFiles": [
+    "escaped-css-producer-rejection.json",
+    "evidence.json",
+    "external-base-producer-rejection.json",
+    "opaque-srcdoc-producer-rejection.json"
+  ],
+  "shippingReleaseEvidenceSavedExternally": true,
+  "candidateWorktreeCleanAfterCleanup": true,
+  "note": "Four pre-test artifacts are copied in release-mutated-artifact-backup/ with SHA256SUMS. The complete temporary restore snapshots and generated historical release packet copies below are excluded from the owned packet index."
+}

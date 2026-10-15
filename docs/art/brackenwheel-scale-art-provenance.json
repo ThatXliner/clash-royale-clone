@@ -1,0 +1,179 @@
+{
+  "asset_id": "brackenwheel-scale-art",
+  "version": 1,
+  "authorship": "in-repo-authored",
+  "license": "AGPL-3.0-only",
+  "authoring_method": "hand-authored SVG paths for the native small-size renderer",
+  "renderer_source": "src/ui/brackenwheel-art.js",
+  "external_art_or_runtime_inputs": [],
+  "identity_reference": {
+    "path": "demo/assets/brackenwheel-portrait.png",
+    "role": "identity and palette reference only",
+    "sha256": "ad0654107fe957283b1e9e107a3be155934f1032820600bb62f6ddd6851a56bc",
+    "bytes": 2650041,
+    "dimensions": {
+      "width": 1254,
+      "height": 1254
+    }
+  },
+  "native_geometry": {
+    "format": "SVG paths emitted by JavaScript; no rasterization or embedded image",
+    "viewBox": [
+      0,
+      0,
+      32,
+      32
+    ],
+    "body_bounds_units_including_strokes": [
+      0.6,
+      1.6,
+      30.0,
+      30.0
+    ],
+    "body_height_units": 28.4,
+    "target_body_css_pixels": 13,
+    "semantic_parts": [
+      "hair",
+      "face",
+      "sleeves",
+      "apron",
+      "open copper sickle",
+      "separate legs and boots"
+    ],
+    "geometry_notes": "The sickle is a thick, open C-shaped stroke with its opening facing right. The two boot paths have a deliberate horizontal gap after their dark outlines. Shapes use broad solid colors and dark outlines; no facial or hair detail is needed at 13 CSS pixels.",
+    "palette": {
+      "hair": "#8e3f2c",
+      "face": "#f3bd91",
+      "sleeves": "#bd5038",
+      "apron": "#187c77",
+      "sickle": "#f0a52d",
+      "outline": "#251a18"
+    }
+  },
+  "renderer_selection": {
+    "input": "explicit bodyCssPixels argument; no layout measurement, global counter, time, or randomness",
+    "native_svg": "bodyCssPixels < 26",
+    "frozen_painted_webp": "bodyCssPixels >= 26",
+    "painted_asset_provenance": "docs/art/brackenwheel-battle-sprite-provenance.json",
+    "painted_asset_sha256": "440ef5d41aa289c8701151ad36916e0cdce1ce3bcfb2996852c0dc3d10d4621c",
+    "painted_body_alpha_fraction": 0.978515625
+  },
+  "visual_validation": {
+    "status": "builder capture set recorded; independent critic review pending",
+    "arena_css_pixels": {
+      "width": 540,
+      "height": 960
+    },
+    "device_scale_factor": 1,
+    "requested_body_css_pixels": [
+      13,
+      26
+    ],
+    "tones": [
+      "light",
+      "dark"
+    ],
+    "fixture": "demo/brackenwheel-scale-art.html",
+    "captures": [
+      {
+        "file": "artifacts/art-022l-round-1/builder/13-css-light.png",
+        "body_css_pixels_requested": 13,
+        "tone": "light",
+        "renderer": "native-svg",
+        "viewport": {
+          "bytes": 4265,
+          "height": 960,
+          "sha256": "49d1a18840b1e7cb3a8c9368a9c0ee788e751ba5dced0eeebbce06fc2ed0411c",
+          "width": 540,
+          "device_scale_factor": 1
+        },
+        "measured_body_css_pixels_from_source_bounds": 12.9935546875,
+        "composited_foreground_bounds_xyxy_exclusive": [
+          263,
+          473,
+          277,
+          487
+        ],
+        "composited_foreground_bounds_method": "Pixel bounds of the rendered figure in a flat, opaque arena capture; these are composited-color bounds, not source alpha bounds.",
+        "page_errors": []
+      },
+      {
+        "file": "artifacts/art-022l-round-1/builder/26-css-light.png",
+        "body_css_pixels_requested": 26,
+        "tone": "light",
+        "renderer": "painted-webp",
+        "viewport": {
+          "bytes": 5167,
+          "height": 960,
+          "sha256": "618691632642e2a9b944311aadf4718ad73fd4fe1435abc65bf628885145e987",
+          "width": 540,
+          "device_scale_factor": 1
+        },
+        "measured_body_css_pixels_from_source_bounds": 25.9918212890625,
+        "composited_foreground_bounds_xyxy_exclusive": [
+          258,
+          467,
+          279,
+          493
+        ],
+        "composited_foreground_bounds_method": "Pixel bounds of the rendered figure in a flat, opaque arena capture; these are composited-color bounds, not source alpha bounds.",
+        "page_errors": []
+      },
+      {
+        "file": "artifacts/art-022l-round-1/builder/13-css-dark.png",
+        "body_css_pixels_requested": 13,
+        "tone": "dark",
+        "renderer": "native-svg",
+        "viewport": {
+          "bytes": 4216,
+          "height": 960,
+          "sha256": "85bd5c95c0cbcff4cecacdf195108630a887a3a2769b9c784445aed67a070b5a",
+          "width": 540,
+          "device_scale_factor": 1
+        },
+        "measured_body_css_pixels_from_source_bounds": 12.9935546875,
+        "composited_foreground_bounds_xyxy_exclusive": [
+          263,
+          474,
+          277,
+          487
+        ],
+        "composited_foreground_bounds_method": "Pixel bounds of the rendered figure in a flat, opaque arena capture; these are composited-color bounds, not source alpha bounds.",
+        "page_errors": []
+      },
+      {
+        "file": "artifacts/art-022l-round-1/builder/26-css-dark.png",
+        "body_css_pixels_requested": 26,
+        "tone": "dark",
+        "renderer": "painted-webp",
+        "viewport": {
+          "bytes": 5028,
+          "height": 960,
+          "sha256": "3f69bde59e8d9683672233701f5e52670a9686097a49b06ebfecca7c0e1add14",
+          "width": 540,
+          "device_scale_factor": 1
+        },
+        "measured_body_css_pixels_from_source_bounds": 25.9918212890625,
+        "composited_foreground_bounds_xyxy_exclusive": [
+          258,
+          467,
+          279,
+          493
+        ],
+        "composited_foreground_bounds_method": "Pixel bounds of the rendered figure in a flat, opaque arena capture; these are composited-color bounds, not source alpha bounds.",
+        "page_errors": []
+      }
+    ],
+    "browser": {
+      "name": "Google Chrome",
+      "version": "155.0.8059.40",
+      "playwright_version": "1.58.2",
+      "viewport_css_pixels": {
+        "height": 960,
+        "width": 540
+      },
+      "device_scale_factor": 1,
+      "page_errors": []
+    }
+  }
+}

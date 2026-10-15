@@ -1,0 +1,24 @@
+ART-022L independent critic packet — owned files
+Candidate: b9dd02595506300978db16601278faa0a7acad52 (parent 91b99fb967b650e5a58ed1df0d96c69b396e7dfe)
+Verdict: PASS; see verdict.md.
+
+Primary visual evidence
+- screenshots/*.png — the four actual full 540x960 DPR1 captures.
+- browser-evidence.json, browser-capture.stdout.raw, browser-capture.stderr.raw, browser-capture.exit — captured metrics, raw runner output, direct exit.
+- capture-brackenwheel-scale-art-no-gpu-overrides.mjs, capture-harness-diff.patch, capture-harness-requested-argv.txt — external-only corrected harness; the checked-in builder capture's GPU-override method is retained and explicitly excluded from critic visual proof.
+- inspection-crops/*.png — 80x80 crops enlarged 5x with nearest-neighbor from the four fullscreens, for inspection only; not recaptures.
+
+Required test and source evidence
+- focused-helper.*, visual-asset-manifest.*, shipping-isolation-guard.*, release-build.*, shipping-isolation-release.* — stdout, stderr, and direct exit files.
+- shipping-isolation-release-evidence.json — current release test output directed outside the candidate checkout.
+- source-prefence.txt, source-scope-and-frozen-assets.txt, source-fences.txt, source-post-light-check.txt, source-post-release-status.txt, candidate-source-checksums.sha256 — candidate/source fences and exact afd9 asset comparisons.
+- rendered-image-checksums.sha256 — screenshot and inspection-crop hashes.
+- pre-release-baseline.json, post-release-cleanup.json, release-cleanup-summary.json — pre/post hashes and exact cleanup results.
+- release-mutated-artifact-backup/* — the four pre-test artifacts overwritten during the release suite and their pre-test SHA-256 ledger.
+- browser-process-closure-v2.* — corrected no-leftover-Playwright-profile check; exit 0.
+- prior-builder-attempts-index.txt and prior-builder-attempts/* — preserved builder failures/corrections. browser-path-discovery-failure.txt and browser-process-closure-method-note.txt document two critic probe corrections. No visual capture was retried.
+
+Excluded from this owned packet
+- release-backup/** and release-build-suite-generated-evidence/** are temporary full-directory restore copies, including unrelated historical release evidence; they are not part of this packet or its checksum ledger. Original candidate evidence files were restored byte-for-byte and left in place. Unchanged context can be referenced by the frozen candidate Git blobs.
+
+The final SHA-256 ledger is `final-evidence-checksums.sha256`; it covers every owned file except the ledger itself and excludes the temporary full-directory backups above.

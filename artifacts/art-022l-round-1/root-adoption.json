@@ -1,0 +1,18 @@
+{
+  "candidate": "b9dd02595506300978db16601278faa0a7acad52",
+  "adoptedPaths": [
+    "demo/assets/brackenwheel-battle-sprite.png",
+    "demo/brackenwheel-scale-art.html",
+    "demo/brackenwheel-scale-art.js",
+    "docs/art/brackenwheel-battle-sprite-provenance.json",
+    "docs/art/brackenwheel-scale-art-provenance.json",
+    "public/assets/brackenwheel-battle-sprite.webp",
+    "src/content/visual-asset-manifest.js",
+    "src/ui/brackenwheel-art.js",
+    "tests/brackenwheel-scale-art.test.js"
+  ],
+  "freshCases": 51,
+  "verifiedBuilderLedgerEntries": 60,
+  "verifiedCriticLedgerEntries": 87,
+  "scope": "Original native SVG small13 and unchanged painted26 art only; actual collection/battle integration and matching-source endurance pending. Bitmap-only ART022B remains stopped FAIL, not retroactively passed. Builder GPU-override captures excluded from visual proof; fresh critic external no-custom-args Chrome155 captures qualify both scales. Modest dark boot contrast noted, feet remain separate."
+}

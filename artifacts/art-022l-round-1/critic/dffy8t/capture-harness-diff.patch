@@ -1,0 +1,47 @@
+--- /private/tmp/art-022l-brackenwheel-builder-91b99fb/artifacts/art-022l-round-1/builder/capture-brackenwheel-scale-art.mjs
++++ /private/tmp/art-022l-critic-dffy8t/capture-brackenwheel-scale-art-no-gpu-overrides.mjs
+@@ -1,11 +1,14 @@
+ import { createHash } from "node:crypto";
+ import { createServer } from "node:http";
+-import { readFile, writeFile } from "node:fs/promises";
++import { mkdir, readFile, writeFile } from "node:fs/promises";
+ import { extname, resolve } from "node:path";
+ import { fileURLToPath, pathToFileURL } from "node:url";
+ 
+-const root = resolve(fileURLToPath(new URL("../../..", import.meta.url)));
+-const output = resolve(root, "artifacts/art-022l-round-1/builder");
++const root = "/private/tmp/art-022l-brackenwheel-builder-91b99fb";
++const evidenceRoot = process.env.TASK_EVIDENCE_DIR;
++const output = resolve(evidenceRoot, "screenshots");
++const evidenceOutput = resolve(evidenceRoot, "browser-evidence.json");
++await mkdir(output, { recursive: true });
+ const playwrightPath = process.env.GAME_BROWSER_PLAYWRIGHT;
+ const chromePath = process.env.GAME_BROWSER_CHROME;
+ if (!playwrightPath || !chromePath || !playwrightPath.startsWith("/")) {
+@@ -54,14 +57,6 @@
+ let capturedBrowserVersion;
+ try {
+   browser = await chromium.launch({
+-    args: [
+-      "--force-color-profile=srgb",
+-      "--force-device-scale-factor=1",
+-      "--disable-gpu",
+-      "--use-angle=swiftshader",
+-      "--font-render-hinting=none",
+-      "--disable-lcd-text",
+-    ],
+     executablePath: chromePath,
+     headless: true,
+   });
+@@ -144,8 +139,10 @@
+   chromeExecutable: chromePath,
+   deviceScaleFactor: 1,
+   fixture: "demo/brackenwheel-scale-art.html",
++  requestedLaunchArgs: [],
++  captureHarness: "external copy; builder --disable-gpu and --use-angle=swiftshader args removed",
+   viewport: { height: 960, width: 540 },
+   captures,
+ };
+-await writeFile(resolve(output, "browser-evidence.json"), `${JSON.stringify(evidence, null, 2)}\n`);
++await writeFile(evidenceOutput, `${JSON.stringify(evidence, null, 2)}\n`);
+ process.stdout.write(`${JSON.stringify(evidence, null, 2)}\n`);

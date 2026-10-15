@@ -1,0 +1,26 @@
+FAILURE, preserved at focused-test-first.{stdout.raw,stderr.raw,exit.txt}:
+node --test tests/brackenwheel-scale-art.test.js
+
+CORRECTED PASS, preserved at focused-test-corrected-01.{stdout.raw,stderr.raw,exit.txt}:
+node --test tests/brackenwheel-scale-art.test.js
+
+PASS, preserved at visual-asset-manifest.{stdout.raw,stderr.raw,exit.txt}:
+node tests/visual-asset-manifest-runner.js visual-asset-manifest
+
+PASS, preserved at shipping-isolation-guard.{stdout.raw,stderr.raw,exit.txt}:
+node tests/shipping-isolation-guard-runner.js shipping-isolation-guard
+
+Browser capture PASS (capture only, not visual judgment), preserved at browser-capture.{stdout.raw,stderr.raw,exit.txt} and browser-evidence.json:
+node artifacts/art-022l-round-1/builder/capture-brackenwheel-scale-art.mjs
+
+Initial release gate attempts failed before tests because the clean checkout had no installed vite dependency; raw invocations are release-build.{stdout.raw,stderr.raw,exit.txt} and shipping-isolation-release.{stdout.raw,stderr.raw,exit.txt}.
+
+npm ci completed from the lockfile only; result is npm-ci.{stdout.raw,stderr.raw,exit.txt}.
+
+PASS 22/22, preserved at release-build-corrected-01.{stdout.raw,stderr.raw,exit.txt}:
+node tests/release-build-runner.js release-build
+
+PASS 4/4, preserved at shipping-isolation-release-corrected-01.{stdout.raw,stderr.raw,exit.txt}:
+node tests/shipping-isolation-release-runner.js shipping-isolation-release
+
+Before release gates, `pre-release-baseline.json` records hashes of 77 existing dist files and both pre-existing release evidence files. `/private/tmp/art-022l-brackenwheel-baseline` is the exact temporary byte backup used for cleanup. `post-release-cleanup.json` records the evidence-file restore and confirms dist and both evidence files match the baseline hashes.

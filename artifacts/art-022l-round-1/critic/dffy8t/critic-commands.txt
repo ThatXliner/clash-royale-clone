@@ -1,0 +1,4 @@
+Node: PATH=/Users/me/.hermes/node/bin:$PATH node --version
+Focused helper: node --test tests/brackenwheel-scale-art.test.js
+Manifest: node tests/visual-asset-manifest-runner.js visual-asset-manifest
+Shipping guard: node tests/shipping-isolation-guard-runner.js shipping-isolation-guard

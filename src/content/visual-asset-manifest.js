@@ -523,6 +523,17 @@ const REGISTERED_ASSETS = [
   },
   {
     authorship: "in-repo-authored",
+    byteLength: 49440,
+    dimensions: { height: 512, width: 512 },
+    format: "webp",
+    id: "brackenwheel-battle-sprite",
+    kind: "image",
+    license: "AGPL-3.0-only",
+    path: "assets/brackenwheel-battle-sprite.webp",
+    sha256: "440ef5d41aa289c8701151ad36916e0cdce1ce3bcfb2996852c0dc3d10d4621c",
+  },
+  {
+    authorship: "in-repo-authored",
     byteLength: 62014,
     dimensions: { height: 512, width: 512 },
     format: "webp",

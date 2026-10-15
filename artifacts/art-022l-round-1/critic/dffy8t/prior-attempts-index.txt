@@ -1,0 +1,5 @@
+Builder failures and corrections copied from the frozen candidate artifact directory:
+- focused-test-first: initial helper assertion failure; focused-test-corrected-01: corrected pass after widening the right boot path.
+- release-build and shipping-isolation-release: initial invocations stopped before test execution because vite was not installed; npm-ci installs lockfile dependencies; corrected release runs are retained.
+- No critic browser or release-build attempts have been made; awaiting the HBRC exclusive window.
+Original records remain in artifacts/art-022l-round-1/builder/ in the frozen candidate.

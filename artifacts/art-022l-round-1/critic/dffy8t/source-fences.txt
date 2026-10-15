@@ -1,0 +1,43 @@
+frozen_commit=afd9b341cdf2082937b4c7fad53f664f90be5b1c
+
+Candidate changed product paths:
+demo/assets/brackenwheel-battle-sprite.png
+demo/brackenwheel-scale-art.html
+demo/brackenwheel-scale-art.js
+docs/art/brackenwheel-battle-sprite-provenance.json
+docs/art/brackenwheel-scale-art-provenance.json
+public/assets/brackenwheel-battle-sprite.webp
+src/content/visual-asset-manifest.js
+src/ui/brackenwheel-art.js
+tests/brackenwheel-scale-art.test.js
+
+Unexpected package/sim/game-ui paths:
+
+Manifest diff:
+src/content/visual-asset-manifest.js --- JavaScript
+521 521     path: "assets/buried-coil-revealed.svg",
+522 522     sha256: "0e677493ea65b9132ed553ec21a1efdf474cc887d6e21d569ff4fc3f96189b53",
+523 523   },
+... 524   {
+... 525     authorship: "in-repo-authored",
+... 526     byteLength: 49440,
+... 527     dimensions: { height: 512, width: 512 },
+... 528     format: "webp",
+... 529     id: "brackenwheel-battle-sprite",
+... 530     kind: "image",
+... 531     license: "AGPL-3.0-only",
+... 532     path: "assets/brackenwheel-battle-sprite.webp",
+... 533     sha256: "440ef5d41aa289c8701151ad36916e0cdce1ce3bcfb2996852c0dc3d10d4621c",
+... 534   },
+524 535   {
+525 536     authorship: "in-repo-authored",
+526 537     byteLength: 62014,
+
+
+Frozen file SHA256 current vs afd9 commit:
+demo/assets/brackenwheel-battle-sprite.png candidate=699d28064446b7fd17d5acaba45fdabcbf91f6ffde82252cd39ff294b792dc35
+demo/assets/brackenwheel-battle-sprite.png afd9=699d28064446b7fd17d5acaba45fdabcbf91f6ffde82252cd39ff294b792dc35
+public/assets/brackenwheel-battle-sprite.webp candidate=440ef5d41aa289c8701151ad36916e0cdce1ce3bcfb2996852c0dc3d10d4621c
+public/assets/brackenwheel-battle-sprite.webp afd9=440ef5d41aa289c8701151ad36916e0cdce1ce3bcfb2996852c0dc3d10d4621c
+docs/art/brackenwheel-battle-sprite-provenance.json candidate=4cd8bad77158701a0aa10154299ad381bbd72d44f136db4a0abce2f40d3b9f39
+docs/art/brackenwheel-battle-sprite-provenance.json afd9=4cd8bad77158701a0aa10154299ad381bbd72d44f136db4a0abce2f40d3b9f39

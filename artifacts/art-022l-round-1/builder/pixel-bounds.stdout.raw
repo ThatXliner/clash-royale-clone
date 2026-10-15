@@ -1,0 +1,77 @@
+{
+  "method": "Pixel bounds of the rendered figure in a flat, opaque arena capture; these are composited-color bounds, not source alpha bounds.",
+  "captures": [
+    {
+      "file": "13-css-dark.png",
+      "backgroundRgb": [
+        24,
+        37,
+        43
+      ],
+      "threshold": "max per-channel RGB difference > 8 from the flat arena background",
+      "foregroundPixelCount": 108,
+      "visibleBoundsXYXYExclusive": [
+        263,
+        474,
+        277,
+        487
+      ],
+      "visibleWidthPixels": 14,
+      "visibleHeightPixels": 13
+    },
+    {
+      "file": "13-css-light.png",
+      "backgroundRgb": [
+        217,
+        226,
+        220
+      ],
+      "threshold": "max per-channel RGB difference > 8 from the flat arena background",
+      "foregroundPixelCount": 134,
+      "visibleBoundsXYXYExclusive": [
+        263,
+        473,
+        277,
+        487
+      ],
+      "visibleWidthPixels": 14,
+      "visibleHeightPixels": 14
+    },
+    {
+      "file": "26-css-dark.png",
+      "backgroundRgb": [
+        24,
+        37,
+        43
+      ],
+      "threshold": "max per-channel RGB difference > 8 from the flat arena background",
+      "foregroundPixelCount": 328,
+      "visibleBoundsXYXYExclusive": [
+        258,
+        467,
+        279,
+        493
+      ],
+      "visibleWidthPixels": 21,
+      "visibleHeightPixels": 26
+    },
+    {
+      "file": "26-css-light.png",
+      "backgroundRgb": [
+        217,
+        226,
+        220
+      ],
+      "threshold": "max per-channel RGB difference > 8 from the flat arena background",
+      "foregroundPixelCount": 369,
+      "visibleBoundsXYXYExclusive": [
+        258,
+        467,
+        279,
+        493
+      ],
+      "visibleWidthPixels": 21,
+      "visibleHeightPixels": 26
+    }
+  ]
+}

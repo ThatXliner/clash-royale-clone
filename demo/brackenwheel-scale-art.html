@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" data-fixture="brackenwheel-scale-art">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <title>Brackenwheel Scale Art Fixture</title>
+    <style>
+      html,
+      body {
+        width: 540px;
+        height: 960px;
+        margin: 0;
+        overflow: hidden;
+      }
+
+      body {
+        font-family: sans-serif;
+      }
+
+      .arena {
+        display: grid;
+        width: 540px;
+        height: 960px;
+        place-items: center;
+      }
+
+      .arena[data-tone="light"] {
+        background: #d9e2dc;
+      }
+
+      .arena[data-tone="dark"] {
+        background: #18252b;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="arena" data-art-host aria-label="540 by 960 Brackenwheel art preview"></main>
+    <script type="module" src="./brackenwheel-scale-art.js"></script>
+  </body>
+</html>

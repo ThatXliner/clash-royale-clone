@@ -9543,3 +9543,12 @@ EVIDENCE: Fresh independent candidate44e69 gate cases63/63, actualexit0 for nond
 BIGGEST GAP: Builder report says seven tracked paths differ; actualscope is seven product source/test paths plus36 evidence paths. Rawreport preserved; root scope corrects wording.
 
 Adopt exact7HBR source/test paths only, preserving acceptedcore, portrait/manifest, package/lock andkernel. Fresh critic worktree clean, four mutated release reports restored, dist identical, reviewed processes closed anduserChrome93861 untouched. Independent source identity and real release execution support this assembly acceptance; canonical raw-output gap remains explicit. This does not accept editable/RL admission, art/UI integration, full18000 browser endurance, orhistorical parity. All unsupported consumer/stat semantics remain QUESTION.
+
+## Round 498 - ART-022L Brackenwheel scale-specific native and painted art
+
+PIECE: ART-022L
+VERDICT: PASS
+EVIDENCE: Fresh critic Chrome155 full540x960DPR1light/dark captures at13/26CSSpx: nativeSVG13 measured12.9935546875 andpainted26 measured25.9918212890625, zero pageerrors, head/apron/open copper sickle/separatefeet visible. Actual51testcases helper6/manifest6/guard13/release22/shippingrelease4 all directexit0. SourcePNG/WebP/paintedprovenance identicalafd9; one manifestentry andno existinggameUI/sim/package changes. Rootverified60builderhash/byteledgerentries andallownedcriticchecksumentries.
+BIGGEST GAP: Dark-background13px boots have modest contrast, but their separation remains visible and meets the silhouette bar.
+
+Adopt exact9isolatedasset/helper/fixture/provenance/testpaths. Builderchecked-in capture usesGPUoverrideflags andits screenshots are excluded fromfreshvisualproof; criticexternalcorrectedharness usedno customlauncharguments, exactdiff/argv/rawcaptures retained. Fourreleaseartifactsideeffects restored, distbyteequal, candidateclean, correctedprocessclosureexit0, userChromeuntouched. Initialself-matchingprocessprobe andbrowserpathdiscoverymethodcorrections preserved. Unrelatedfullhistoricalreleasebackup excludedfromboundedcriticpacket. This doesnotretroactivelypassstoppedART022B; newnative-small/painted-large methodindependentlymeetssamebar. ActualCARDS022Icollection/battleintegration andCARDS022Qmatching-sourcefullendurance remainrequired.

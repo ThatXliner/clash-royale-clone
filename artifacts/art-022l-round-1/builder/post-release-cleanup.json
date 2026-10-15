@@ -1,0 +1,57 @@
+{
+  "dist_changed_by_test": false,
+  "dist_restored": false,
+  "dist_matches_baseline_after_cleanup": true,
+  "evidence": [
+    {
+      "path": "artifacts/release-001b-round-2/evidence.json",
+      "changed_by_test": true,
+      "restored": true
+    },
+    {
+      "path": "artifacts/guard-002r-round-1/release-isolation-evidence.json",
+      "changed_by_test": false,
+      "restored": false
+    }
+  ],
+  "final_evidence": [
+    {
+      "path": "artifacts/release-001b-round-2/evidence.json",
+      "exists": true,
+      "sha256": "c421ca748d35de98a2ec1cdb8a576e355091c89fb7e2c3655ad9249d3154d9c8"
+    },
+    {
+      "path": "artifacts/guard-002r-round-1/release-isolation-evidence.json",
+      "exists": true,
+      "sha256": "d9669f7fa177f22601590143280012267d695b8a05611c7ad3fdef69a7fd9fb3"
+    }
+  ],
+  "additional_test_mutated_release_reports": [
+    {
+      "path": "artifacts/release-001b-round-2/escaped-css-producer-rejection.json",
+      "changed_by_test": true,
+      "restored": true,
+      "baseline_bytes": 500,
+      "baseline_sha256": "1493a14bc85b28bc0b5a1a0183b783cc5bea4828ca991642c3d2c323dda23d2f",
+      "final_sha256": "1493a14bc85b28bc0b5a1a0183b783cc5bea4828ca991642c3d2c323dda23d2f"
+    },
+    {
+      "path": "artifacts/release-001b-round-2/external-base-producer-rejection.json",
+      "changed_by_test": true,
+      "restored": true,
+      "baseline_bytes": 485,
+      "baseline_sha256": "6fa0fd3faa63eadd32775de8c94514d12d6d776cff1b2d049a397c38d37558dc",
+      "final_sha256": "6fa0fd3faa63eadd32775de8c94514d12d6d776cff1b2d049a397c38d37558dc"
+    },
+    {
+      "path": "artifacts/release-001b-round-2/opaque-srcdoc-producer-rejection.json",
+      "changed_by_test": true,
+      "restored": true,
+      "baseline_bytes": 1333,
+      "baseline_sha256": "c6e2844ac3b4d42e6b7b72b766c81adb91dbe8f7fdeb13a294fb9fa500dc5b4a",
+      "final_sha256": "c6e2844ac3b4d42e6b7b72b766c81adb91dbe8f7fdeb13a294fb9fa500dc5b4a"
+    }
+  ],
+  "working_tree_restored_to_test_baseline": true,
+  "temporary_byte_backup_removed_after_hash_verification": true
+}
