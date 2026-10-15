@@ -1,0 +1,667 @@
+{
+  "asset_id": "mossguard-directional-sprite",
+  "candidate_state": "round-2 unreviewed builder candidate; not registered or gameplay-integrated",
+  "source_dimensions_px": {
+    "width": 1254,
+    "height": 1254
+  },
+  "grid": {
+    "columns": 4,
+    "rows": 4,
+    "facing_row_order": [
+      "north",
+      "east",
+      "south",
+      "west"
+    ],
+    "pose_column_order": [
+      "walk-a",
+      "walk-b",
+      "melee-windup",
+      "melee-contact"
+    ],
+    "cell_rect_px": {
+      "width": 313.5,
+      "height": 313.5
+    },
+    "divisible_canvas": false,
+    "cell_rect_rule": "rect for column c, row r is [c*313.5, r*313.5, (c+1)*313.5, (r+1)*313.5), in source pixel-edge coordinates. Pixel-center assignment regions are recorded per frame; fractional boundaries are not rounded, cropped, padded, or resampled in the source."
+  },
+  "native_scale_preview": {
+    "browser_capture_path": "artifacts/art-005m-round-2/builder/browser-native-13css-cell-preview.png",
+    "preview_html_path": "artifacts/art-005m-round-2/builder/native-13px-preview.html",
+    "css_frame_size_px": {
+      "width": 13,
+      "height": 13
+    },
+    "css_sheet_background_size_px": {
+      "width": 52,
+      "height": 52
+    },
+    "device_scale_factor": 1,
+    "viewport_css_px": {
+      "width": 240,
+      "height": 170
+    },
+    "capture_tool": "Google Chrome headless new mode",
+    "body_scale_note": "13 CSS px is the cell width and height. Measured full alpha-bbox heights vary by frame; they are 11.817\u201313 CSS px. This measures the whole silhouette, not the torso/body alone."
+  },
+  "alpha_sheet_stats": {
+    "width": 1254,
+    "height": 1254,
+    "alpha_channel": true,
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_alpha_bbox_xyxy_inclusive_start_exclusive_end": [
+      0,
+      13,
+      1254,
+      1254
+    ],
+    "transparent_pixel_count": 819665,
+    "partial_alpha_pixel_count": 750253,
+    "opaque_pixel_count": 2598,
+    "source_bytes": 1646845,
+    "source_sha256": "54dc7009d30aa235c250f036fcf8446416b977b78303cd23248c5a95a97e0904"
+  },
+  "anchor_status": "incomplete; no foot-contact anchors assigned",
+  "anchor_review_note": "Several cell silhouettes touch or cross their logical frame boundaries, and the west row touches the source canvas boundary. Without a clear sole-contact point separate from the alpha extent, anchors are intentionally left unassigned for independent review.",
+  "frames": [
+    {
+      "frame_id": "north-walk-a",
+      "facing": "north",
+      "pose": "walk-a",
+      "frame_rect_source_px": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 313.5,
+        "bottom_exclusive": 313.5
+      },
+      "pixel_center_assignment_region_xyxy": [
+        0,
+        0,
+        313,
+        313
+      ],
+      "alpha_bbox_source_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        0,
+        13,
+        313,
+        313
+      ],
+      "alpha_bbox_local_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        0,
+        13,
+        313,
+        313
+      ],
+      "alpha_pixel_count_in_assigned_region": 46212,
+      "alpha_bottom_global_pixel_index_y": 312,
+      "full_alpha_bbox_height_at_13_css_px_cell": 12.44,
+      "foot_contact_anchor_source_px": null,
+      "foot_contact_anchor_status": "unassigned_incomplete",
+      "foot_contact_anchor_reason": "Direct inspection shows frame/sheet edge contact or uncertain sole attribution in this generated sheet. The alpha bottom is recorded separately and is not treated as a foot anchor; no numeric anchor is inferred."
+    },
+    {
+      "frame_id": "north-walk-b",
+      "facing": "north",
+      "pose": "walk-b",
+      "frame_rect_source_px": {
+        "x": 313.5,
+        "y": 0.0,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 627.0,
+        "bottom_exclusive": 313.5
+      },
+      "pixel_center_assignment_region_xyxy": [
+        313,
+        0,
+        627,
+        313
+      ],
+      "alpha_bbox_source_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        313,
+        16,
+        627,
+        313
+      ],
+      "alpha_bbox_local_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        0,
+        16,
+        314,
+        313
+      ],
+      "alpha_pixel_count_in_assigned_region": 43950,
+      "alpha_bottom_global_pixel_index_y": 312,
+      "full_alpha_bbox_height_at_13_css_px_cell": 12.316,
+      "foot_contact_anchor_source_px": null,
+      "foot_contact_anchor_status": "unassigned_incomplete",
+      "foot_contact_anchor_reason": "Direct inspection shows frame/sheet edge contact or uncertain sole attribution in this generated sheet. The alpha bottom is recorded separately and is not treated as a foot anchor; no numeric anchor is inferred."
+    },
+    {
+      "frame_id": "north-melee-windup",
+      "facing": "north",
+      "pose": "melee-windup",
+      "frame_rect_source_px": {
+        "x": 627.0,
+        "y": 0.0,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 940.5,
+        "bottom_exclusive": 313.5
+      },
+      "pixel_center_assignment_region_xyxy": [
+        627,
+        0,
+        940,
+        313
+      ],
+      "alpha_bbox_source_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        628,
+        21,
+        929,
+        313
+      ],
+      "alpha_bbox_local_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        1,
+        21,
+        302,
+        313
+      ],
+      "alpha_pixel_count_in_assigned_region": 50405,
+      "alpha_bottom_global_pixel_index_y": 312,
+      "full_alpha_bbox_height_at_13_css_px_cell": 12.108,
+      "foot_contact_anchor_source_px": null,
+      "foot_contact_anchor_status": "unassigned_incomplete",
+      "foot_contact_anchor_reason": "Direct inspection shows frame/sheet edge contact or uncertain sole attribution in this generated sheet. The alpha bottom is recorded separately and is not treated as a foot anchor; no numeric anchor is inferred."
+    },
+    {
+      "frame_id": "north-melee-contact",
+      "facing": "north",
+      "pose": "melee-contact",
+      "frame_rect_source_px": {
+        "x": 940.5,
+        "y": 0.0,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 1254.0,
+        "bottom_exclusive": 313.5
+      },
+      "pixel_center_assignment_region_xyxy": [
+        940,
+        0,
+        1254,
+        313
+      ],
+      "alpha_bbox_source_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        968,
+        23,
+        1254,
+        311
+      ],
+      "alpha_bbox_local_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        28,
+        23,
+        314,
+        311
+      ],
+      "alpha_pixel_count_in_assigned_region": 47341,
+      "alpha_bottom_global_pixel_index_y": 310,
+      "full_alpha_bbox_height_at_13_css_px_cell": 11.943,
+      "foot_contact_anchor_source_px": null,
+      "foot_contact_anchor_status": "unassigned_incomplete",
+      "foot_contact_anchor_reason": "Direct inspection shows frame/sheet edge contact or uncertain sole attribution in this generated sheet. The alpha bottom is recorded separately and is not treated as a foot anchor; no numeric anchor is inferred."
+    },
+    {
+      "frame_id": "east-walk-a",
+      "facing": "east",
+      "pose": "walk-a",
+      "frame_rect_source_px": {
+        "x": 0.0,
+        "y": 313.5,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 313.5,
+        "bottom_exclusive": 627.0
+      },
+      "pixel_center_assignment_region_xyxy": [
+        0,
+        313,
+        313,
+        627
+      ],
+      "alpha_bbox_source_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        31,
+        313,
+        313,
+        623
+      ],
+      "alpha_bbox_local_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        31,
+        0,
+        313,
+        310
+      ],
+      "alpha_pixel_count_in_assigned_region": 48059,
+      "alpha_bottom_global_pixel_index_y": 622,
+      "full_alpha_bbox_height_at_13_css_px_cell": 12.855,
+      "foot_contact_anchor_source_px": null,
+      "foot_contact_anchor_status": "unassigned_incomplete",
+      "foot_contact_anchor_reason": "Direct inspection shows frame/sheet edge contact or uncertain sole attribution in this generated sheet. The alpha bottom is recorded separately and is not treated as a foot anchor; no numeric anchor is inferred."
+    },
+    {
+      "frame_id": "east-walk-b",
+      "facing": "east",
+      "pose": "walk-b",
+      "frame_rect_source_px": {
+        "x": 313.5,
+        "y": 313.5,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 627.0,
+        "bottom_exclusive": 627.0
+      },
+      "pixel_center_assignment_region_xyxy": [
+        313,
+        313,
+        627,
+        627
+      ],
+      "alpha_bbox_source_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        313,
+        313,
+        627,
+        623
+      ],
+      "alpha_bbox_local_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        0,
+        0,
+        314,
+        310
+      ],
+      "alpha_pixel_count_in_assigned_region": 46577,
+      "alpha_bottom_global_pixel_index_y": 622,
+      "full_alpha_bbox_height_at_13_css_px_cell": 12.855,
+      "foot_contact_anchor_source_px": null,
+      "foot_contact_anchor_status": "unassigned_incomplete",
+      "foot_contact_anchor_reason": "Direct inspection shows frame/sheet edge contact or uncertain sole attribution in this generated sheet. The alpha bottom is recorded separately and is not treated as a foot anchor; no numeric anchor is inferred."
+    },
+    {
+      "frame_id": "east-melee-windup",
+      "facing": "east",
+      "pose": "melee-windup",
+      "frame_rect_source_px": {
+        "x": 627.0,
+        "y": 313.5,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 940.5,
+        "bottom_exclusive": 627.0
+      },
+      "pixel_center_assignment_region_xyxy": [
+        627,
+        313,
+        940,
+        627
+      ],
+      "alpha_bbox_source_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        628,
+        313,
+        917,
+        615
+      ],
+      "alpha_bbox_local_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        1,
+        0,
+        290,
+        302
+      ],
+      "alpha_pixel_count_in_assigned_region": 47436,
+      "alpha_bottom_global_pixel_index_y": 614,
+      "full_alpha_bbox_height_at_13_css_px_cell": 12.523,
+      "foot_contact_anchor_source_px": null,
+      "foot_contact_anchor_status": "unassigned_incomplete",
+      "foot_contact_anchor_reason": "Direct inspection shows frame/sheet edge contact or uncertain sole attribution in this generated sheet. The alpha bottom is recorded separately and is not treated as a foot anchor; no numeric anchor is inferred."
+    },
+    {
+      "frame_id": "east-melee-contact",
+      "facing": "east",
+      "pose": "melee-contact",
+      "frame_rect_source_px": {
+        "x": 940.5,
+        "y": 313.5,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 1254.0,
+        "bottom_exclusive": 627.0
+      },
+      "pixel_center_assignment_region_xyxy": [
+        940,
+        313,
+        1254,
+        627
+      ],
+      "alpha_bbox_source_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        940,
+        314,
+        1250,
+        612
+      ],
+      "alpha_bbox_local_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        0,
+        1,
+        310,
+        299
+      ],
+      "alpha_pixel_count_in_assigned_region": 45936,
+      "alpha_bottom_global_pixel_index_y": 611,
+      "full_alpha_bbox_height_at_13_css_px_cell": 12.357,
+      "foot_contact_anchor_source_px": null,
+      "foot_contact_anchor_status": "unassigned_incomplete",
+      "foot_contact_anchor_reason": "Direct inspection shows frame/sheet edge contact or uncertain sole attribution in this generated sheet. The alpha bottom is recorded separately and is not treated as a foot anchor; no numeric anchor is inferred."
+    },
+    {
+      "frame_id": "south-walk-a",
+      "facing": "south",
+      "pose": "walk-a",
+      "frame_rect_source_px": {
+        "x": 0.0,
+        "y": 627.0,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 313.5,
+        "bottom_exclusive": 940.5
+      },
+      "pixel_center_assignment_region_xyxy": [
+        0,
+        627,
+        313,
+        940
+      ],
+      "alpha_bbox_source_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        0,
+        633,
+        313,
+        940
+      ],
+      "alpha_bbox_local_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        0,
+        6,
+        313,
+        313
+      ],
+      "alpha_pixel_count_in_assigned_region": 46206,
+      "alpha_bottom_global_pixel_index_y": 939,
+      "full_alpha_bbox_height_at_13_css_px_cell": 12.73,
+      "foot_contact_anchor_source_px": null,
+      "foot_contact_anchor_status": "unassigned_incomplete",
+      "foot_contact_anchor_reason": "Direct inspection shows frame/sheet edge contact or uncertain sole attribution in this generated sheet. The alpha bottom is recorded separately and is not treated as a foot anchor; no numeric anchor is inferred."
+    },
+    {
+      "frame_id": "south-walk-b",
+      "facing": "south",
+      "pose": "walk-b",
+      "frame_rect_source_px": {
+        "x": 313.5,
+        "y": 627.0,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 627.0,
+        "bottom_exclusive": 940.5
+      },
+      "pixel_center_assignment_region_xyxy": [
+        313,
+        627,
+        627,
+        940
+      ],
+      "alpha_bbox_source_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        313,
+        632,
+        595,
+        940
+      ],
+      "alpha_bbox_local_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        0,
+        5,
+        282,
+        313
+      ],
+      "alpha_pixel_count_in_assigned_region": 45335,
+      "alpha_bottom_global_pixel_index_y": 939,
+      "full_alpha_bbox_height_at_13_css_px_cell": 12.772,
+      "foot_contact_anchor_source_px": null,
+      "foot_contact_anchor_status": "unassigned_incomplete",
+      "foot_contact_anchor_reason": "Direct inspection shows frame/sheet edge contact or uncertain sole attribution in this generated sheet. The alpha bottom is recorded separately and is not treated as a foot anchor; no numeric anchor is inferred."
+    },
+    {
+      "frame_id": "south-melee-windup",
+      "facing": "south",
+      "pose": "melee-windup",
+      "frame_rect_source_px": {
+        "x": 627.0,
+        "y": 627.0,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 940.5,
+        "bottom_exclusive": 940.5
+      },
+      "pixel_center_assignment_region_xyxy": [
+        627,
+        627,
+        940,
+        940
+      ],
+      "alpha_bbox_source_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        638,
+        633,
+        939,
+        918
+      ],
+      "alpha_bbox_local_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        11,
+        6,
+        312,
+        291
+      ],
+      "alpha_pixel_count_in_assigned_region": 53071,
+      "alpha_bottom_global_pixel_index_y": 917,
+      "full_alpha_bbox_height_at_13_css_px_cell": 11.818,
+      "foot_contact_anchor_source_px": null,
+      "foot_contact_anchor_status": "unassigned_incomplete",
+      "foot_contact_anchor_reason": "Direct inspection shows frame/sheet edge contact or uncertain sole attribution in this generated sheet. The alpha bottom is recorded separately and is not treated as a foot anchor; no numeric anchor is inferred."
+    },
+    {
+      "frame_id": "south-melee-contact",
+      "facing": "south",
+      "pose": "melee-contact",
+      "frame_rect_source_px": {
+        "x": 940.5,
+        "y": 627.0,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 1254.0,
+        "bottom_exclusive": 940.5
+      },
+      "pixel_center_assignment_region_xyxy": [
+        940,
+        627,
+        1254,
+        940
+      ],
+      "alpha_bbox_source_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        945,
+        647,
+        1226,
+        940
+      ],
+      "alpha_bbox_local_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        5,
+        20,
+        286,
+        313
+      ],
+      "alpha_pixel_count_in_assigned_region": 43746,
+      "alpha_bottom_global_pixel_index_y": 939,
+      "full_alpha_bbox_height_at_13_css_px_cell": 12.15,
+      "foot_contact_anchor_source_px": null,
+      "foot_contact_anchor_status": "unassigned_incomplete",
+      "foot_contact_anchor_reason": "Direct inspection shows frame/sheet edge contact or uncertain sole attribution in this generated sheet. The alpha bottom is recorded separately and is not treated as a foot anchor; no numeric anchor is inferred."
+    },
+    {
+      "frame_id": "west-walk-a",
+      "facing": "west",
+      "pose": "walk-a",
+      "frame_rect_source_px": {
+        "x": 0.0,
+        "y": 940.5,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 313.5,
+        "bottom_exclusive": 1254.0
+      },
+      "pixel_center_assignment_region_xyxy": [
+        0,
+        940,
+        313,
+        1254
+      ],
+      "alpha_bbox_source_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        0,
+        940,
+        313,
+        1254
+      ],
+      "alpha_bbox_local_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        0,
+        0,
+        313,
+        314
+      ],
+      "alpha_pixel_count_in_assigned_region": 48217,
+      "alpha_bottom_global_pixel_index_y": 1253,
+      "full_alpha_bbox_height_at_13_css_px_cell": 13.021,
+      "foot_contact_anchor_source_px": null,
+      "foot_contact_anchor_status": "unassigned_incomplete",
+      "foot_contact_anchor_reason": "Direct inspection shows frame/sheet edge contact or uncertain sole attribution in this generated sheet. The alpha bottom is recorded separately and is not treated as a foot anchor; no numeric anchor is inferred."
+    },
+    {
+      "frame_id": "west-walk-b",
+      "facing": "west",
+      "pose": "walk-b",
+      "frame_rect_source_px": {
+        "x": 313.5,
+        "y": 940.5,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 627.0,
+        "bottom_exclusive": 1254.0
+      },
+      "pixel_center_assignment_region_xyxy": [
+        313,
+        940,
+        627,
+        1254
+      ],
+      "alpha_bbox_source_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        313,
+        940,
+        627,
+        1234
+      ],
+      "alpha_bbox_local_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        0,
+        0,
+        314,
+        294
+      ],
+      "alpha_pixel_count_in_assigned_region": 46416,
+      "alpha_bottom_global_pixel_index_y": 1233,
+      "full_alpha_bbox_height_at_13_css_px_cell": 12.191,
+      "foot_contact_anchor_source_px": null,
+      "foot_contact_anchor_status": "unassigned_incomplete",
+      "foot_contact_anchor_reason": "Direct inspection shows frame/sheet edge contact or uncertain sole attribution in this generated sheet. The alpha bottom is recorded separately and is not treated as a foot anchor; no numeric anchor is inferred."
+    },
+    {
+      "frame_id": "west-melee-windup",
+      "facing": "west",
+      "pose": "melee-windup",
+      "frame_rect_source_px": {
+        "x": 627.0,
+        "y": 940.5,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 940.5,
+        "bottom_exclusive": 1254.0
+      },
+      "pixel_center_assignment_region_xyxy": [
+        627,
+        940,
+        940,
+        1254
+      ],
+      "alpha_bbox_source_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        628,
+        943,
+        918,
+        1230
+      ],
+      "alpha_bbox_local_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        1,
+        3,
+        291,
+        290
+      ],
+      "alpha_pixel_count_in_assigned_region": 46317,
+      "alpha_bottom_global_pixel_index_y": 1229,
+      "full_alpha_bbox_height_at_13_css_px_cell": 11.901,
+      "foot_contact_anchor_source_px": null,
+      "foot_contact_anchor_status": "unassigned_incomplete",
+      "foot_contact_anchor_reason": "Direct inspection shows frame/sheet edge contact or uncertain sole attribution in this generated sheet. The alpha bottom is recorded separately and is not treated as a foot anchor; no numeric anchor is inferred."
+    },
+    {
+      "frame_id": "west-melee-contact",
+      "facing": "west",
+      "pose": "melee-contact",
+      "frame_rect_source_px": {
+        "x": 940.5,
+        "y": 940.5,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 1254.0,
+        "bottom_exclusive": 1254.0
+      },
+      "pixel_center_assignment_region_xyxy": [
+        940,
+        940,
+        1254,
+        1254
+      ],
+      "alpha_bbox_source_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        946,
+        947,
+        1240,
+        1254
+      ],
+      "alpha_bbox_local_pixel_indices_xyxy_inclusive_start_exclusive_end": [
+        6,
+        7,
+        300,
+        314
+      ],
+      "alpha_pixel_count_in_assigned_region": 47627,
+      "alpha_bottom_global_pixel_index_y": 1253,
+      "full_alpha_bbox_height_at_13_css_px_cell": 12.73,
+      "foot_contact_anchor_source_px": null,
+      "foot_contact_anchor_status": "unassigned_incomplete",
+      "foot_contact_anchor_reason": "Direct inspection shows frame/sheet edge contact or uncertain sole attribution in this generated sheet. The alpha bottom is recorded separately and is not treated as a foot anchor; no numeric anchor is inferred."
+    }
+  ],
+  "alpha_occupied_frame_regions": 16,
+  "frame_occupancy_note": "All 16 pixel-center-assigned regions contain some alpha; occupancy is not evidence that the pose is complete, correctly faced, or safely framed."
+}

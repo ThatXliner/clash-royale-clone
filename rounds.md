@@ -9417,3 +9417,12 @@ EVIDENCE: Fresh exactc4a0da4 asset-blob review independently decodes1254x1254 PN
 BIGGEST GAP: Reduce encoded asset below1MiB while preserving readable clean-edged poses and consistent foot alignment.
 
 No demo/docs/public/renderer adoption or gameplay claim. Rootverified11criticmanifest hashes. Builder3rawgenerations/prompts, bothlosslessencoderoutputs anddecodeproof preserved; builderZen screenshot was displayed butnot saved, criticactualcaptures supplysavedrenderproof. Failedcandidatefourownedblobs archived as evidence only. No source/stat/input/audio/package changes; acceptedfullRound481 remains unchanged.
+
+## Round 484 — ART-005M Mossguard revision
+
+PIECE: ART-005M
+VERDICT: FAIL
+EVIDENCE: Fresh exacte5b8431 blob review independently decodes1254x1254 RGBA,16equal313.5pxrects and identical PNG/WebP RGBA. WebP1151374B exceeds1048576 by102798. All16foot-contactanchors unassigned. One actualChrome13x13CSSframe render exits0 at240x170/deviceScale1, savedPNG/rawcommand/stdout/stderr/exit. Warmbrightedges and weakwalk/meleepose separation remain. Fullalphasilhouettes11.818–13.021CSSpx include sprout; this does not prove13pxbody. OriginalportraitSHA/AGPLlineage verified, no runtime/public/test/referencepaths changed.
+BIGGEST GAP: Encodedasset remains102798bytes over1MiB, with cleanedges/poseclarity/consistentfootbaseline still required.
+
+No source/public/demo/docs adoption. Rootverifiedcriticchecksums; two rawgenerationattempts/prompts, losslessencode/decodeproof and corrected13framecapture preserved. Earlier16frame/rough15bodyscreenshot retained as diagnostic, not13bodyproof. Candidatefourownedfiles archivedasevidenceonly. ExistingBriar uses a220px displaywindow within313.5pxcells; nextrevision must distinguish bodyextent/displaywindow from wholecell ratherthan claim13frame equals13body. Integrationownershipnote preserved, gameplay/performanceunproved and fullRound481 unchanged.

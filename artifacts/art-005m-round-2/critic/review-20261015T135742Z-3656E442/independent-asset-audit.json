@@ -1,0 +1,508 @@
+{
+  "candidate_commit": "e5b8431b484f06a86debf0d6911228de2fc04643",
+  "source_png": {
+    "path": "demo/assets/mossguard-directional-sprite-source.png",
+    "bytes": 1646845,
+    "sha256": "54dc7009d30aa235c250f036fcf8446416b977b78303cd23248c5a95a97e0904",
+    "decoded_size_px": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixels": 819665,
+    "opaque_pixels": 2598,
+    "partial_alpha_pixels": 750253
+  },
+  "output_webp": {
+    "path": "demo/assets/mossguard-directional-sprite.webp",
+    "bytes": 1151374,
+    "sha256": "2e7592634efb629d8900b8e08cec664d0c0c41540384660718156d0bd8ef65d7",
+    "decoded_size_px": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "limit_bytes": 1048576,
+    "over_limit_bytes": 102798,
+    "within_limit": false,
+    "decoded_rgba_pixel_equal_to_source_png": true,
+    "decoded_rgba_sha256": "67e6ae3235cb3b2290786c834eeefeef971326258ccbf5de4dd533bd87517e03"
+  },
+  "layout": {
+    "source_size_px": [
+      1254,
+      1254
+    ],
+    "grid": [
+      4,
+      4
+    ],
+    "actual_rect_count": 16,
+    "all_equal_rects": true,
+    "rect_width_px": 313.5,
+    "rect_height_px": 313.5,
+    "frames": [
+      {
+        "frame_id": "north-walk-a",
+        "assigned_pixels_xyxy": [
+          0,
+          0,
+          313,
+          313
+        ],
+        "alpha_bbox_local_xyxy": [
+          0,
+          13,
+          313,
+          313
+        ],
+        "alpha_bbox_height_source_px": 300,
+        "alpha_bbox_height_css_at_13px_frame": 12.44,
+        "touches_cell_edge": {
+          "left": true,
+          "top": false,
+          "right": true,
+          "bottom": true
+        },
+        "foot_contact_anchor_source_px": null,
+        "anchor_status": "unassigned_incomplete"
+      },
+      {
+        "frame_id": "north-walk-b",
+        "assigned_pixels_xyxy": [
+          313,
+          0,
+          627,
+          313
+        ],
+        "alpha_bbox_local_xyxy": [
+          0,
+          16,
+          314,
+          313
+        ],
+        "alpha_bbox_height_source_px": 297,
+        "alpha_bbox_height_css_at_13px_frame": 12.316,
+        "touches_cell_edge": {
+          "left": true,
+          "top": false,
+          "right": true,
+          "bottom": true
+        },
+        "foot_contact_anchor_source_px": null,
+        "anchor_status": "unassigned_incomplete"
+      },
+      {
+        "frame_id": "north-melee-windup",
+        "assigned_pixels_xyxy": [
+          627,
+          0,
+          940,
+          313
+        ],
+        "alpha_bbox_local_xyxy": [
+          1,
+          21,
+          302,
+          313
+        ],
+        "alpha_bbox_height_source_px": 292,
+        "alpha_bbox_height_css_at_13px_frame": 12.108,
+        "touches_cell_edge": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": true
+        },
+        "foot_contact_anchor_source_px": null,
+        "anchor_status": "unassigned_incomplete"
+      },
+      {
+        "frame_id": "north-melee-contact",
+        "assigned_pixels_xyxy": [
+          940,
+          0,
+          1254,
+          313
+        ],
+        "alpha_bbox_local_xyxy": [
+          28,
+          23,
+          314,
+          311
+        ],
+        "alpha_bbox_height_source_px": 288,
+        "alpha_bbox_height_css_at_13px_frame": 11.943,
+        "touches_cell_edge": {
+          "left": false,
+          "top": false,
+          "right": true,
+          "bottom": false
+        },
+        "foot_contact_anchor_source_px": null,
+        "anchor_status": "unassigned_incomplete"
+      },
+      {
+        "frame_id": "east-walk-a",
+        "assigned_pixels_xyxy": [
+          0,
+          313,
+          313,
+          627
+        ],
+        "alpha_bbox_local_xyxy": [
+          31,
+          0,
+          313,
+          310
+        ],
+        "alpha_bbox_height_source_px": 310,
+        "alpha_bbox_height_css_at_13px_frame": 12.855,
+        "touches_cell_edge": {
+          "left": false,
+          "top": true,
+          "right": true,
+          "bottom": false
+        },
+        "foot_contact_anchor_source_px": null,
+        "anchor_status": "unassigned_incomplete"
+      },
+      {
+        "frame_id": "east-walk-b",
+        "assigned_pixels_xyxy": [
+          313,
+          313,
+          627,
+          627
+        ],
+        "alpha_bbox_local_xyxy": [
+          0,
+          0,
+          314,
+          310
+        ],
+        "alpha_bbox_height_source_px": 310,
+        "alpha_bbox_height_css_at_13px_frame": 12.855,
+        "touches_cell_edge": {
+          "left": true,
+          "top": true,
+          "right": true,
+          "bottom": false
+        },
+        "foot_contact_anchor_source_px": null,
+        "anchor_status": "unassigned_incomplete"
+      },
+      {
+        "frame_id": "east-melee-windup",
+        "assigned_pixels_xyxy": [
+          627,
+          313,
+          940,
+          627
+        ],
+        "alpha_bbox_local_xyxy": [
+          1,
+          0,
+          290,
+          302
+        ],
+        "alpha_bbox_height_source_px": 302,
+        "alpha_bbox_height_css_at_13px_frame": 12.523,
+        "touches_cell_edge": {
+          "left": false,
+          "top": true,
+          "right": false,
+          "bottom": false
+        },
+        "foot_contact_anchor_source_px": null,
+        "anchor_status": "unassigned_incomplete"
+      },
+      {
+        "frame_id": "east-melee-contact",
+        "assigned_pixels_xyxy": [
+          940,
+          313,
+          1254,
+          627
+        ],
+        "alpha_bbox_local_xyxy": [
+          0,
+          1,
+          310,
+          299
+        ],
+        "alpha_bbox_height_source_px": 298,
+        "alpha_bbox_height_css_at_13px_frame": 12.357,
+        "touches_cell_edge": {
+          "left": true,
+          "top": false,
+          "right": false,
+          "bottom": false
+        },
+        "foot_contact_anchor_source_px": null,
+        "anchor_status": "unassigned_incomplete"
+      },
+      {
+        "frame_id": "south-walk-a",
+        "assigned_pixels_xyxy": [
+          0,
+          627,
+          313,
+          940
+        ],
+        "alpha_bbox_local_xyxy": [
+          0,
+          6,
+          313,
+          313
+        ],
+        "alpha_bbox_height_source_px": 307,
+        "alpha_bbox_height_css_at_13px_frame": 12.73,
+        "touches_cell_edge": {
+          "left": true,
+          "top": false,
+          "right": true,
+          "bottom": true
+        },
+        "foot_contact_anchor_source_px": null,
+        "anchor_status": "unassigned_incomplete"
+      },
+      {
+        "frame_id": "south-walk-b",
+        "assigned_pixels_xyxy": [
+          313,
+          627,
+          627,
+          940
+        ],
+        "alpha_bbox_local_xyxy": [
+          0,
+          5,
+          282,
+          313
+        ],
+        "alpha_bbox_height_source_px": 308,
+        "alpha_bbox_height_css_at_13px_frame": 12.772,
+        "touches_cell_edge": {
+          "left": true,
+          "top": false,
+          "right": false,
+          "bottom": true
+        },
+        "foot_contact_anchor_source_px": null,
+        "anchor_status": "unassigned_incomplete"
+      },
+      {
+        "frame_id": "south-melee-windup",
+        "assigned_pixels_xyxy": [
+          627,
+          627,
+          940,
+          940
+        ],
+        "alpha_bbox_local_xyxy": [
+          11,
+          6,
+          312,
+          291
+        ],
+        "alpha_bbox_height_source_px": 285,
+        "alpha_bbox_height_css_at_13px_frame": 11.818,
+        "touches_cell_edge": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        },
+        "foot_contact_anchor_source_px": null,
+        "anchor_status": "unassigned_incomplete"
+      },
+      {
+        "frame_id": "south-melee-contact",
+        "assigned_pixels_xyxy": [
+          940,
+          627,
+          1254,
+          940
+        ],
+        "alpha_bbox_local_xyxy": [
+          5,
+          20,
+          286,
+          313
+        ],
+        "alpha_bbox_height_source_px": 293,
+        "alpha_bbox_height_css_at_13px_frame": 12.15,
+        "touches_cell_edge": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": true
+        },
+        "foot_contact_anchor_source_px": null,
+        "anchor_status": "unassigned_incomplete"
+      },
+      {
+        "frame_id": "west-walk-a",
+        "assigned_pixels_xyxy": [
+          0,
+          940,
+          313,
+          1254
+        ],
+        "alpha_bbox_local_xyxy": [
+          0,
+          0,
+          313,
+          314
+        ],
+        "alpha_bbox_height_source_px": 314,
+        "alpha_bbox_height_css_at_13px_frame": 13.021,
+        "touches_cell_edge": {
+          "left": true,
+          "top": true,
+          "right": true,
+          "bottom": true
+        },
+        "foot_contact_anchor_source_px": null,
+        "anchor_status": "unassigned_incomplete"
+      },
+      {
+        "frame_id": "west-walk-b",
+        "assigned_pixels_xyxy": [
+          313,
+          940,
+          627,
+          1254
+        ],
+        "alpha_bbox_local_xyxy": [
+          0,
+          0,
+          314,
+          294
+        ],
+        "alpha_bbox_height_source_px": 294,
+        "alpha_bbox_height_css_at_13px_frame": 12.191,
+        "touches_cell_edge": {
+          "left": true,
+          "top": true,
+          "right": true,
+          "bottom": false
+        },
+        "foot_contact_anchor_source_px": null,
+        "anchor_status": "unassigned_incomplete"
+      },
+      {
+        "frame_id": "west-melee-windup",
+        "assigned_pixels_xyxy": [
+          627,
+          940,
+          940,
+          1254
+        ],
+        "alpha_bbox_local_xyxy": [
+          1,
+          3,
+          291,
+          290
+        ],
+        "alpha_bbox_height_source_px": 287,
+        "alpha_bbox_height_css_at_13px_frame": 11.901,
+        "touches_cell_edge": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        },
+        "foot_contact_anchor_source_px": null,
+        "anchor_status": "unassigned_incomplete"
+      },
+      {
+        "frame_id": "west-melee-contact",
+        "assigned_pixels_xyxy": [
+          940,
+          940,
+          1254,
+          1254
+        ],
+        "alpha_bbox_local_xyxy": [
+          6,
+          7,
+          300,
+          314
+        ],
+        "alpha_bbox_height_source_px": 307,
+        "alpha_bbox_height_css_at_13px_frame": 12.73,
+        "touches_cell_edge": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": true
+        },
+        "foot_contact_anchor_source_px": null,
+        "anchor_status": "unassigned_incomplete"
+      }
+    ],
+    "anchor_count_assigned": 0,
+    "anchor_count_unassigned": 16,
+    "full_alpha_bbox_height_css_at_13px_frame_min_max": [
+      11.818,
+      13.021
+    ]
+  },
+  "lineage": {
+    "provenance_license": "AGPL-3.0-only",
+    "identity_input_path": "/private/tmp/release-guard-round2-builder-033f1107/public/assets/card-portraits-painted.webp",
+    "expected_identity_sha256": "16307a59bde57889e11bcd7b86b54d69ba9985eae6ef436d9703e528fba58e4f",
+    "current_original_portrait_atlas_sha256": "16307a59bde57889e11bcd7b86b54d69ba9985eae6ef436d9703e528fba58e4f",
+    "identity_hash_matches": true,
+    "identity_scope": "top-row second portrait (Mossguard); no other atlas cell or background was used as character reference",
+    "portrait_atlas_license": "AGPL-3.0-only",
+    "portrait_atlas_license_agrees": true
+  },
+  "source_fences": {
+    "changed_paths": [
+      "artifacts/art-005m-round-2/builder/browser-actual-16css-cell-preview.png",
+      "artifacts/art-005m-round-2/builder/browser-native-13css-cell-preview.png",
+      "artifacts/art-005m-round-2/builder/decoded-round-2.png",
+      "artifacts/art-005m-round-2/builder/encoding-evidence.txt",
+      "artifacts/art-005m-round-2/builder/native-13px-preview.html",
+      "artifacts/art-005m-round-2/builder/raw-generation/attempt-01-prompt.txt",
+      "artifacts/art-005m-round-2/builder/raw-generation/attempt-01-source.png",
+      "artifacts/art-005m-round-2/builder/raw-generation/attempt-01-tool-receipt.txt",
+      "artifacts/art-005m-round-2/builder/raw-generation/attempt-02-prompt.txt",
+      "artifacts/art-005m-round-2/builder/raw-generation/attempt-02-source.png",
+      "artifacts/art-005m-round-2/builder/raw-generation/attempt-02-tool-receipt.txt",
+      "artifacts/art-005m-round-2/builder/raw-generation/attempt-02-trigger.md",
+      "demo/assets/mossguard-directional-sprite-source.png",
+      "demo/assets/mossguard-directional-sprite.webp",
+      "docs/art/mossguard-sprite-layout.json",
+      "docs/art/mossguard-sprite-provenance.json"
+    ],
+    "contains_reference_path": false,
+    "contains_runtime_path": false
+  },
+  "render": {
+    "method": "Google Chrome headless; frozen static preview HTML; exact file URL to frozen candidate checkout; --force-device-scale-factor=1; --window-size=240,170; --hide-scrollbars; one screenshot",
+    "css_frame_size_px": [
+      13,
+      13
+    ],
+    "device_scale_factor": 1,
+    "viewport_css_px": [
+      240,
+      170
+    ],
+    "exit_code": 0,
+    "screenshot_path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/art-005m-round-2/critic/review-20261015T135742Z-3656E442/actual-browser-13css-frame.png",
+    "screenshot_bytes": 11068,
+    "screenshot_sha256": "d906bc1ed15187b2b11aed2d7d935b75f37775fd7d2dccd1c729a4d76b849cff",
+    "stdout_raw_path": "render-stdout.raw",
+    "stderr_raw_path": "render-stderr.raw",
+    "native_browser_window": "none acquired; headless Chrome process exited"
+  }
+}

@@ -1,0 +1,24 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mossguard sprite native-scale preview</title>
+<style>
+:root { color-scheme: light; font-family: system-ui, sans-serif; }
+body { margin: 12px; background: #f3f0e8; color: #24251f; }
+main { width: max-content; }
+header { font-size: 9px; line-height: 12px; margin: 0 0 5px 35px; }
+.grid { display: grid; grid-template-columns: 31px repeat(4,13px); grid-template-rows: 10px repeat(4,13px); gap: 2px; align-items: center; }
+.col-label,.row-label { font-size: 6px; line-height: 7px; text-align: center; }
+.row-label { text-align: right; padding-right: 2px; }
+.frame { box-sizing: border-box; width: 13px; height: 13px; image-rendering: auto; background-image: url("../../../demo/assets/mossguard-directional-sprite.webp"), conic-gradient(#cbc9c1 25%, #f6f5f1 0 50%, #cbc9c1 0 75%, #f6f5f1 0); background-size: 52px 52px, 4px 4px; background-repeat: no-repeat, repeat; }
+</style>
+<main>
+<header>13 CSS px per cell · native scale · 1254px sheet sampled to 52px</header>
+<div class="grid">
+  <div></div><div class="col-label">walk A</div><div class="col-label">walk B</div><div class="col-label">windup</div><div class="col-label">contact</div>
+  <div class="row-label">north</div><div class="frame" style="background-position:0 0,0 0"></div><div class="frame" style="background-position:-13px 0,0 0"></div><div class="frame" style="background-position:-26px 0,0 0"></div><div class="frame" style="background-position:-39px 0,0 0"></div>
+  <div class="row-label">east</div><div class="frame" style="background-position:0 -13px,0 0"></div><div class="frame" style="background-position:-13px -13px,0 0"></div><div class="frame" style="background-position:-26px -13px,0 0"></div><div class="frame" style="background-position:-39px -13px,0 0"></div>
+  <div class="row-label">south</div><div class="frame" style="background-position:0 -26px,0 0"></div><div class="frame" style="background-position:-13px -26px,0 0"></div><div class="frame" style="background-position:-26px -26px,0 0"></div><div class="frame" style="background-position:-39px -26px,0 0"></div>
+  <div class="row-label">west</div><div class="frame" style="background-position:0 -39px,0 0"></div><div class="frame" style="background-position:-13px -39px,0 0"></div><div class="frame" style="background-position:-26px -39px,0 0"></div><div class="frame" style="background-position:-39px -39px,0 0"></div>
+</div>
+</main>

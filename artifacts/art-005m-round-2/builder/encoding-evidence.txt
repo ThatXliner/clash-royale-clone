@@ -1,0 +1,13 @@
+Mechanical encoding command (exit 0):
+cwebp -lossless -exact -z 9 demo/assets/mossguard-directional-sprite-source.png -o demo/assets/mossguard-directional-sprite.webp
+cwebp output: 1254 x 1254; 1,151,374 bytes; lossless ARGB. Gate: FAIL, 102,798 bytes above 1,048,576-byte limit.
+Decode command (exit 0):
+dwebp demo/assets/mossguard-directional-sprite.webp -o artifacts/art-005m-round-2/builder/decoded-round-2.png
+Pillow decoded RGBA pixel bytes compare: equal; both 1254 x 1254; RGBA SHA-256 67e6ae3235cb3b2290786c834eeefeef971326258ccbf5de4dd533bd87517e03.
+Exact selected PNG: SHA-256 54dc7009d30aa235c250f036fcf8446416b977b78303cd23248c5a95a97e0904; 1,646,845 bytes.
+Exact lossless WebP: SHA-256 2e7592634efb629d8900b8e08cec664d0c0c41540384660718156d0bd8ef65d7; 1,151,374 bytes.
+cwebp version check (exit 0): 1.6.0; libsharpyuv 0.4.2.
+Actual native-scale browser capture (exit 0; Chrome emitted CVDisplayLinkCreateWithCGDisplay warnings in headless mode):
+/Applications/Google Chrome.app/Contents/MacOS/Google Chrome --headless=new --disable-gpu --hide-scrollbars --force-device-scale-factor=1 --window-size=240,170 --screenshot=artifacts/art-005m-round-2/builder/browser-native-13css-cell-preview.png file:///Users/me/.codex/worktrees/mossguard-sprite-asset/clash-royale-clone/artifacts/art-005m-round-2/builder/native-13px-preview.html
+Screenshot dimensions: 240 x 170; 11,068 bytes; SHA-256 d906bc1ed15187b2b11aed2d7d935b75f37775fd7d2dccd1c729a4d76b849cff.
+HTML uses 13 x 13 CSS pixel cells, background-size 52 x 52 CSS pixels for the full 4 x 4 sheet, device scale factor 1. No screenshot resampling.
