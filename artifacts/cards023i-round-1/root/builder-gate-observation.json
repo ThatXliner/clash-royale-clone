@@ -1,0 +1,99 @@
+{
+  "candidate": "722a50f2042ab22d1a8563c8231bcb824b4c2e14",
+  "classification": "builder preparation; fresh critic pending, no source adoption",
+  "gates": [
+    {
+      "gate": "app-shell",
+      "exitCode": 0,
+      "pass": 1,
+      "fail": 0,
+      "skip": 0,
+      "stdoutSha256": "f9653bac59385c9a1f9a0240cf093a49e8bb4388270720dc773d150592d3be67",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "gate": "cards023-browser",
+      "exitCode": 0,
+      "pass": 1,
+      "fail": 0,
+      "skip": 0,
+      "stdoutSha256": "4b8c275667478f197b18e4020625554cc759e69479731fb3db2c9a17a8178ca3",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "gate": "game-ui-projection",
+      "exitCode": 0,
+      "pass": 37,
+      "fail": 0,
+      "skip": 1,
+      "stdoutSha256": "fb17975e169361d90c6f43f6a30857a8047c9bc88fed3619d0fa093e448ada9a",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "gate": "nondeterminism-guard",
+      "exitCode": 0,
+      "pass": 10,
+      "fail": 0,
+      "skip": 0,
+      "stdoutSha256": "c5dc1a83d40076673c1a6b02833db05c5a5235f8399e94543bccfe023e6668d3",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "gate": "release-build",
+      "exitCode": 0,
+      "pass": 22,
+      "fail": 0,
+      "skip": 0,
+      "stdoutSha256": "ea89083ed827f9ddb40ca01d9cbdb3e5dccb8ce64f9f628899ba454d7a413db5",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "gate": "shipping-isolation-guard",
+      "exitCode": 0,
+      "pass": 13,
+      "fail": 0,
+      "skip": 0,
+      "stdoutSha256": "82bbe79b94fed62c4c9dc221617e3366e9b7475c6155c7627be667f93c105c08",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "gate": "shipping-isolation-host",
+      "exitCode": 0,
+      "pass": 1,
+      "fail": 0,
+      "skip": 0,
+      "stdoutSha256": "7abcb6849bd05e13fa050e7dfa990736a4a8623e33f0156b873c7e15a4edf6bf",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "gate": "shipping-isolation-release",
+      "exitCode": 0,
+      "pass": 4,
+      "fail": 0,
+      "skip": 0,
+      "stdoutSha256": "6c4b42ae2b082ec23450347b3e45f5aa69963a6aa769a3ea75c547497a13b7b6",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "gate": "ui-combat-state",
+      "exitCode": 0,
+      "pass": 18,
+      "fail": 0,
+      "skip": 1,
+      "stdoutSha256": "933428a6c767a1af1a11412c03de3fa57bccf6c2589bf33c6c8c572280cb419b",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "gate": "visual-asset-manifest",
+      "exitCode": 0,
+      "pass": 6,
+      "fail": 0,
+      "skip": 0,
+      "stdoutSha256": "bdf188922cb7141bf4aca457fed93376fe63e3f3d8bb3670167cbfeffc6bd6f3",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "passedExecutions": 113,
+  "optionalSkippedExecutions": 2,
+  "fullEnduranceQualified": false
+}
