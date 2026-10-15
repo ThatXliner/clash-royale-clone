@@ -1,0 +1,36 @@
+TAP version 13
+# Subtest: shared combat factory extraction matches accepted-main bytes and host identities
+ok 1 - shared combat factory extraction matches accepted-main bytes and host identities
+  ---
+  duration_ms: 47.171625
+  type: 'test'
+  ...
+# Subtest: shared combat factory extraction preserves receipt-backed GameSession and tower output
+not ok 2 - shared combat factory extraction preserves receipt-backed GameSession and tower output
+  ---
+  duration_ms: 49.876416
+  type: 'test'
+  location: '/private/tmp/game-001htjx-runtime-prepared-7a75c24/tests/battle-combat-baseline-differential.test.js:452:1'
+  failureType: 'testCodeFailure'
+  error: 'assertOpaqueContinuationHandle is not defined'
+  code: 'ERR_TEST_FAILURE'
+  name: 'ReferenceError'
+  stack: |-
+    issuePrevalidatedGameSessionSetup (file:///private/tmp/game-001htjx-runtime-prepared-7a75c24/src/sim/battle-continuation-kernel.js:10164:3)
+    new GameSession (file:///private/tmp/game-001htjx-runtime-prepared-7a75c24/src/sim/battle-continuation-kernel.js:10306:24)
+    new GameSession (file:///private/tmp/game-001htjx-runtime-prepared-7a75c24/src/sim/game-session.js:20:5)
+    createSession (file:///private/tmp/game-001htjx-runtime-prepared-7a75c24/tests/battle-combat-baseline-differential.test.js:243:10)
+    runSessionReceiptFixture (file:///private/tmp/game-001htjx-runtime-prepared-7a75c24/tests/battle-combat-baseline-differential.test.js:268:19)
+    TestContext.<anonymous> (file:///private/tmp/game-001htjx-runtime-prepared-7a75c24/tests/battle-combat-baseline-differential.test.js:461:7)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 1
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 267.428083

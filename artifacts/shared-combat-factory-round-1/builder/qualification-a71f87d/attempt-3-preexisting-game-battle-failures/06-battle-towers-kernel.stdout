@@ -1,0 +1,52 @@
+TAP version 13
+# Subtest: battle tower kernel: one state owns exact bidirectional HP and preview work never leaks
+ok 1 - battle tower kernel: one state owns exact bidirectional HP and preview work never leaks
+  ---
+  duration_ms: 13.664708
+  type: 'test'
+  ...
+# Subtest: battle tower kernel: hostile layer targeting and friendly filtering are side-correct
+ok 2 - battle tower kernel: hostile layer targeting and friendly filtering are side-correct
+  ---
+  duration_ms: 7.093292
+  type: 'test'
+  ...
+# Subtest: battle tower kernel: lane death activates central, suppresses the dead lane, and shoots legally
+ok 3 - battle tower kernel: lane death activates central, suppresses the dead lane, and shoots legally
+  ---
+  duration_ms: 4.750834
+  type: 'test'
+  ...
+# Subtest: battle tower kernel: direct central activation and simultaneous lethal windows are exact
+ok 4 - battle tower kernel: direct central activation and simultaneous lethal windows are exact
+  ---
+  duration_ms: 11.033333
+  type: 'test'
+  ...
+# Subtest: battle tower kernel: a due scheduled unit attacks and is targetable on its first boundary
+ok 5 - battle tower kernel: a due scheduled unit attacks and is targetable on its first boundary
+  ---
+  duration_ms: 7.357583
+  type: 'test'
+  ...
+# Subtest: battle tower kernel: sequential, chunked, and every live restore cut match events/state/bytes
+ok 6 - battle tower kernel: sequential, chunked, and every live restore cut match events/state/bytes
+  ---
+  duration_ms: 812.907125
+  type: 'test'
+  ...
+# Subtest: battle tower kernel: structurally valid bounds and invalid commands reject atomically
+ok 7 - battle tower kernel: structurally valid bounds and invalid commands reject atomically
+  ---
+  duration_ms: 0.943458
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 937.927916

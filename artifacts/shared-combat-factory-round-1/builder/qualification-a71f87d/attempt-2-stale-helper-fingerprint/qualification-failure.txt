@@ -1,0 +1,7 @@
+First runtime gate only: 01-baseline-differential.
+Direct PID: 82641. Direct exit: 1.
+Node test summary: 2 tests, 1 pass, 1 fail, 0 skipped.
+Behavioral subtest 2 passed in 46053.663 ms.
+Subtest 1 failed because tests/battle-combat-baseline-differential.test.js:40 pins the old opaque helper SHA ca24764235cde41107e67aa8e18f1fcc09e9db9a126df0e9e68e0a53d2ab7991; actual authorized helper export SHA is c1ea311230dc4f65bceccd46eff60b8be68d2c559fe60d9f9a9b9c3a2dfce84e.
+This is a stale exact-source fingerprint, with no behavioral assertions skipped or relaxed. No later gates ran.
+Pre-existing generated report remained unchanged at SHA256 d9669f7fa177f22601590143280012267d695b8a05611c7ad3fdef69a7fd9fb3.

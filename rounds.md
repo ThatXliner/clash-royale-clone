@@ -9660,3 +9660,12 @@ EVIDENCE: Fresh exact8d2a candidate on accepted4c23968 canonicalguard. NativeChr
 BIGGEST GAP: Full current-source endurance remains open under CARDS-022Q; no full109 or historical parity claim.
 
 Adopt seven UI/test paths only plus evidence/tracking. No sim/content/RL/package/assets changes. InitialmissingVite attempt and originalstatus-capturelimitation preserved; locked npmci repaired environment beforefresh passing sequence, no productfix or weakened test. Round508FAIL retained as history; Round509 separately repaired requiredreleaseguard.
+
+## Round 511 - GAME-001HTJX shared combat factory extraction, round 1
+
+PIECE: GAME-001HTJX
+VERDICT: FAIL
+EVIDENCE: Fresh independent exacta71 candidate game-battle.test.js8pass3fail/direct1/PID91637,21.94s,0skips; first required gate stops further critique. Failures: tick0units20vs30 line56; missingQUESTION rejection message doesnotmatch unresolved-or-inventory line278; valid surrogate-pair fixture doesnotproduce expectedTypeError line466. Critic source inventory before/after exact. Separate builder accepted-main9e directPID88876/exit1 reproduces same8pass3fail with identicaltestsource. Builder2/2 baseline differential and focusedcombat/session/roster/isolation/release gates passed, but broaddefaultnpmtest was deliberatelyinterrupted afteractualfailures/direct130, notqualified; retainedreleaseartifact andremainingdispatcherchecks notrun. Originalmissingvalidator andstalehelperfingerprint failures, narrowbindings/fingerprint repairs, allraws and17generatedreportcapture/restore retained. Rootverified349builderledgerfiles andcriticsealedledger.
+BIGGEST GAP: Required shared battle verification fails three existing assertions on both accepted production and extraction, leaving the required default suite unqualified.
+
+Critic raw NO-GO is recorded as FAIL in the required tracking vocabulary; raw report preserved unchanged. No extraction source/test adopted. Split GAME-001BTC todiagnose actual scheduling,source-confidence andUnicode contracts before repair; do notassumeallare staleexpectations merelybecausebaselinefails. Fresh independent critique and matching factoryqualification remainrequired. Fullcurrentbrowserendurance,full109 andhistoricalparity remainopen.

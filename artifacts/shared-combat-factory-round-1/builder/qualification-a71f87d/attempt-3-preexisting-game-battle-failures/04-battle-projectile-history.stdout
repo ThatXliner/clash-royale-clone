@@ -1,0 +1,112 @@
+TAP version 13
+# Subtest: projectile history: raw unit-to-unit ranged attack carries one identity from attack through damage
+ok 1 - projectile history: raw unit-to-unit ranged attack carries one identity from attack through damage
+  ---
+  duration_ms: 6.699041
+  type: 'test'
+  ...
+# Subtest: projectile history: unit-to-tower launch, contact, and structure ingress retain identity
+ok 2 - projectile history: unit-to-tower launch, contact, and structure ingress retain identity
+  ---
+  duration_ms: 3.841416
+  type: 'test'
+  ...
+# Subtest: projectile history: tower shot authority and projected tower damage share the allocated identity
+ok 3 - projectile history: tower shot authority and projected tower damage share the allocated identity
+  ---
+  duration_ms: 7.558583
+  type: 'test'
+  ...
+# Subtest: projectile history: simultaneous unit and tower namespaces may both allocate projectile ID one
+ok 4 - projectile history: simultaneous unit and tower namespaces may both allocate projectile ID one
+  ---
+  duration_ms: 5.304792
+  type: 'test'
+  ...
+# Subtest: projectile history: a dead in-flight target keeps terminal identity without false damage
+ok 5 - projectile history: a dead in-flight target keeps terminal identity without false damage
+  ---
+  duration_ms: 1.258792
+  type: 'test'
+  ...
+# Subtest: projectile history: fresh, chunks, and every restore cut preserve identity events and bytes
+ok 6 - projectile history: fresh, chunks, and every restore cut preserve identity events and bytes
+  ---
+  duration_ms: 385.367875
+  type: 'test'
+  ...
+# Subtest: projectile history: delayed impact and damage use their own current identity
+ok 7 - projectile history: delayed impact and damage use their own current identity
+  ---
+  duration_ms: 11.439042
+  type: 'test'
+  ...
+# Subtest: projectile history: unit-to-tower contact forwards its current identity into tower damage
+ok 8 - projectile history: unit-to-tower contact forwards its current identity into tower damage
+  ---
+  duration_ms: 2.534208
+  type: 'test'
+  ...
+# Subtest: projectile history: current adapter bytes omit origin state and legacy upgrade never trusts forged origins
+ok 9 - projectile history: current adapter bytes omit origin state and legacy upgrade never trusts forged origins
+  ---
+  duration_ms: 6.415708
+  type: 'test'
+  ...
+# Subtest: projectile history: current raw identity and mirrors reject atomically without prior-launch repair
+ok 10 - projectile history: current raw identity and mirrors reject atomically without prior-launch repair
+  ---
+  duration_ms: 1.119208
+  type: 'test'
+  ...
+# Subtest: projectile history: legacy ingress normalizes once to current nested identity
+ok 11 - projectile history: legacy ingress normalizes once to current nested identity
+  ---
+  duration_ms: 0.853334
+  type: 'test'
+  ...
+# Subtest: projectile history: every nested identity and scalar mirror rejects atomically
+ok 12 - projectile history: every nested identity and scalar mirror rejects atomically
+  ---
+  duration_ms: 0.841958
+  type: 'test'
+  ...
+# Subtest: projectile history: structure projectile source and scope mirrors reject atomically
+ok 13 - projectile history: structure projectile source and scope mirrors reject atomically
+  ---
+  duration_ms: 0.357584
+  type: 'test'
+  ...
+# Subtest: projectile history: missing, swapped, duplicate, and wrong ingress identities reject byte-atomically
+ok 14 - projectile history: missing, swapped, duplicate, and wrong ingress identities reject byte-atomically
+  ---
+  duration_ms: 5.7635
+  type: 'test'
+  ...
+# Subtest: projectile history: preview capability admission is trap-zero and atomic
+ok 15 - projectile history: preview capability admission is trap-zero and atomic
+  ---
+  duration_ms: 3.269375
+  type: 'test'
+  ...
+# Subtest: projectile history: preview receipts bind owner, generation, and retry rule
+ok 16 - projectile history: preview receipts bind owner, generation, and retry rule
+  ---
+  duration_ms: 3.67125
+  type: 'test'
+  ...
+# Subtest: projectile history: no adjacent-event lookup remains in the provenance authority
+ok 17 - projectile history: no adjacent-event lookup remains in the provenance authority
+  ---
+  duration_ms: 1.579792
+  type: 'test'
+  ...
+1..17
+# tests 17
+# suites 0
+# pass 17
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 526.692375

@@ -1,0 +1,148 @@
+TAP version 13
+# Subtest: game battle: all eight starter cards materialize stable singles and squad counts
+not ok 1 - game battle: all eight starter cards materialize stable singles and squad counts
+  ---
+  duration_ms: 54.904708
+  type: 'test'
+  location: '/private/tmp/game-001htjx-critic-a71f87d38eb423612474500cc0be60893ceb8eeb/tests/game-battle.test.js:43:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    20 !== 30
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 30
+  actual: 20
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/game-001htjx-critic-a71f87d38eb423612474500cc0be60893ceb8eeb/tests/game-battle.test.js:56:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: game battle: public forks preserve causal state and transcripts
+ok 2 - game battle: public forks preserve causal state and transcripts
+  ---
+  duration_ms: 109.3455
+  type: 'test'
+  ...
+# Subtest: game battle: mirrored 600-tick journeys include deaths, tower destruction, chunks, and restore cuts
+ok 3 - game battle: mirrored 600-tick journeys include deaths, tower destruction, chunks, and restore cuts
+  ---
+  duration_ms: 20369.981291
+  type: 'test'
+  ...
+# Subtest: game battle: symmetric opposing troops die in one simultaneous trade window
+ok 4 - game battle: symmetric opposing troops die in one simultaneous trade window
+  ---
+  duration_ms: 578.277708
+  type: 'test'
+  ...
+# Subtest: game battle: two-sided ranged deployments move, interact, damage, and retain direct/bridge policies
+ok 5 - game battle: two-sided ranged deployments move, interact, damage, and retain direct/bridge policies
+  ---
+  duration_ms: 125.016542
+  type: 'test'
+  ...
+# Subtest: game battle: post-zero deployments, chunks, replay, and live restore cuts are exact
+ok 6 - game battle: post-zero deployments, chunks, replay, and live restore cuts are exact
+  ---
+  duration_ms: 334.430834
+  type: 'test'
+  ...
+# Subtest: game battle: hostile deploys, duplicate order, bounds, and forged witnesses reject atomically
+ok 7 - game battle: hostile deploys, duplicate order, bounds, and forged witnesses reject atomically
+  ---
+  duration_ms: 18.989875
+  type: 'test'
+  ...
+# Subtest: game battle: injected identity graph and QUESTION inventory are canonically closed
+not ok 8 - game battle: injected identity graph and QUESTION inventory are canonically closed
+  ---
+  duration_ms: 49.524667
+  type: 'test'
+  location: '/private/tmp/game-001htjx-critic-a71f87d38eb423612474500cc0be60893ceb8eeb/tests/game-battle.test.js:235:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /unresolved|inventory/u. Input:
+    
+    'TypeError: roster[6].entities[1] source confidence field lacks a QUESTION record'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual:
+  error: 'roster[6].entities[1] source confidence field lacks a QUESTION record'
+  name: 'TypeError'
+  stack: |-
+    assertSessionTroopSourceConfidenceQuestions (file:///private/tmp/game-001htjx-critic-a71f87d38eb423612474500cc0be60893ceb8eeb/src/shared/session-troop-source-confidence-authority.js:264:13)
+    file:///private/tmp/game-001htjx-critic-a71f87d38eb423612474500cc0be60893ceb8eeb/src/sim/battle-continuation-kernel.js:4054:42
+    Array.map (<anonymous>)
+    file:///private/tmp/game-001htjx-critic-a71f87d38eb423612474500cc0be60893ceb8eeb/src/sim/battle-continuation-kernel.js:4036:10
+    Array.map (<anonymous>)
+    checkedSetup (file:///private/tmp/game-001htjx-critic-a71f87d38eb423612474500cc0be60893ceb8eeb/src/sim/battle-continuation-kernel.js:4018:6)
+    parseLiveBattleSetup (file:///private/tmp/game-001htjx-critic-a71f87d38eb423612474500cc0be60893ceb8eeb/src/sim/battle-continuation-kernel.js:4343:10)
+    file:///private/tmp/game-001htjx-critic-a71f87d38eb423612474500cc0be60893ceb8eeb/tests/game-battle.test.js:240:25
+    getActual (node:assert:609:5)
+    Function.throws (node:assert:757:24)
+  operator: 'throws'
+  stack: |-
+    reject (file:///private/tmp/game-001htjx-critic-a71f87d38eb423612474500cc0be60893ceb8eeb/tests/game-battle.test.js:240:12)
+    TestContext.<anonymous> (file:///private/tmp/game-001htjx-critic-a71f87d38eb423612474500cc0be60893ceb8eeb/tests/game-battle.test.js:278:3)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: game battle: untrusted executable setup graphs reject without running traps
+ok 9 - game battle: untrusted executable setup graphs reject without running traps
+  ---
+  duration_ms: 62.161125
+  type: 'test'
+  ...
+# Subtest: game battle: restore preflights hostile parsed graphs before recursive canonicalization
+not ok 10 - game battle: restore preflights hostile parsed graphs before recursive canonicalization
+  ---
+  duration_ms: 113.61125
+  type: 'test'
+  location: '/private/tmp/game-001htjx-critic-a71f87d38eb423612474500cc0be60893ceb8eeb/tests/game-battle.test.js:415:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(pairedError instanceof TypeError)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/game-001htjx-critic-a71f87d38eb423612474500cc0be60893ceb8eeb/tests/game-battle.test.js:466:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: game battle: an over-capacity due boundary rejects before any mutation
+ok 11 - game battle: an over-capacity due boundary rejects before any mutation
+  ---
+  duration_ms: 25.979291
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 8
+# fail 3
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 21938.851625

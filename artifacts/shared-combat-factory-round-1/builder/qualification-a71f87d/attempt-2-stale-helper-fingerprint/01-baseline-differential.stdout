@@ -1,0 +1,42 @@
+TAP version 13
+# Subtest: shared combat factory extraction matches accepted-main bytes and host identities
+not ok 1 - shared combat factory extraction matches accepted-main bytes and host identities
+  ---
+  duration_ms: 1.369833
+  type: 'test'
+  location: '/private/tmp/game-001htjx-runtime-prepared-7a75c24/tests/battle-combat-baseline-differential.test.js:420:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    src/sim/opaque-continuation.js candidate source hash
+    + actual - expected
+    
+    + 'c1ea311230dc4f65bceccd46eff60b8be68d2c559fe60d9f9a9b9c3a2dfce84e'
+    - 'ca24764235cde41107e67aa8e18f1fcc09e9db9a126df0e9e68e0a53d2ab7991'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'ca24764235cde41107e67aa8e18f1fcc09e9db9a126df0e9e68e0a53d2ab7991'
+  actual: 'c1ea311230dc4f65bceccd46eff60b8be68d2c559fe60d9f9a9b9c3a2dfce84e'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/game-001htjx-runtime-prepared-7a75c24/tests/battle-combat-baseline-differential.test.js:425:12)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: shared combat factory extraction preserves receipt-backed GameSession and tower output
+ok 2 - shared combat factory extraction preserves receipt-backed GameSession and tower output
+  ---
+  duration_ms: 46053.663083
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 1
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 46235.783958

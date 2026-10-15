@@ -1,0 +1,31 @@
+commit d49ea27509c710939a8f493e5122f359f2bab85c
+Author:     ThatXliner <bryan.hu.2020@gmail.com>
+AuthorDate: Thu Oct 15 16:24:07 2026 -0700
+Commit:     ThatXliner <bryan.hu.2020@gmail.com>
+CommitDate: Thu Oct 15 16:24:07 2026 -0700
+
+    Restore opaque continuation validator binding
+
+diff --git a/src/sim/battle-continuation-kernel.js b/src/sim/battle-continuation-kernel.js
+index 24b1cfda..d1cbde61 100644
+--- a/src/sim/battle-continuation-kernel.js
++++ b/src/sim/battle-continuation-kernel.js
+@@ -7,7 +7,7 @@ import {
+ } from "./arena-geometry.js";
+ import { AttackCycle, attackSecondsToTicks } from "./attack-cycle.js";
+ import { defineBattleCombat } from "./battle-combat-runtime.js";
+-import { opaqueContinuation } from "./opaque-continuation.js";
++import { assertOpaqueContinuationHandle, opaqueContinuation } from "./opaque-continuation.js";
+ import { DamageSystem } from "./damage.js";
+ import { DeckCycle } from "./deck.js";
+ import { evaluateDeployment } from "./deployment.js";
+diff --git a/src/sim/opaque-continuation.js b/src/sim/opaque-continuation.js
+index 1b618caa..59b9af63 100644
+--- a/src/sim/opaque-continuation.js
++++ b/src/sim/opaque-continuation.js
+@@ -1,4 +1,4 @@
+-function assertOpaqueContinuationHandle(handle) {
++export function assertOpaqueContinuationHandle(handle) {
+   if (Object.getPrototypeOf(handle) !== null || !Object.isFrozen(handle) ||
+       Reflect.ownKeys(handle).length !== 0 || JSON.stringify(handle) !== "{}" ||
+       ["fork", "replay", "restore", "serialize"].some((name) => name in handle)) {

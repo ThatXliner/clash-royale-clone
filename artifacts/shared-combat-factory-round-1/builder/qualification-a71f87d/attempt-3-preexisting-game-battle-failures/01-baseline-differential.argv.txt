@@ -1,0 +1,22 @@
+/usr/bin/env
+-i
+PATH=/Users/me/.hermes/node/bin:/usr/bin:/bin:/usr/sbin:/sbin
+HOME=/private/tmp/game-001htjx-gates-retry-a71f87d/home
+TMPDIR=/private/tmp/game-001htjx-gates-retry-a71f87d/tmp
+SHARED_COMBAT_BASELINE_ROOT=/private/tmp/game-001htjx-baseline
+GAME001HTJX_RUNTIME_RELEASE=1
+GAME_BROWSER_CHROME=/Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+GAME_BROWSER_PLAYWRIGHT=/private/tmp/game-001htjx-runtime-prepared-7a75c24/node_modules/playwright/index.mjs
+SHIPPING_ISOLATION_RELEASE_EVIDENCE=/private/tmp/game-001htjx-gates-retry-a71f87d/new-generated-reports/release-isolation-evidence.json
+PLAYWRIGHT_BROWSERS_PATH=/private/tmp/game-001htjx-gates-retry-a71f87d/playwright-browsers
+PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+PLAYWRIGHT_PACKAGE_ROOT=/private/tmp/game-001htjx-runtime-prepared-7a75c24/node_modules/playwright
+npm_config_cache=/private/tmp/game-001htjx-gates-retry-a71f87d/npm-cache
+npm_config_update_notifier=false
+LANG=C
+LC_ALL=C
+CI=1
+NO_COLOR=1
+/Users/me/.hermes/node/bin/node
+--test
+tests/battle-combat-baseline-differential.test.js

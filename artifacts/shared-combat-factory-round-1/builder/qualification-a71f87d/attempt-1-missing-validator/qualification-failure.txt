@@ -1,0 +1,7 @@
+First runtime gate only: 01-baseline-differential.
+Direct PID: 82169. Direct exit: 1.
+Node test summary: 2 tests, 1 pass, 1 fail, 0 skipped.
+Failure: ReferenceError: assertOpaqueContinuationHandle is not defined.
+Location: src/sim/battle-continuation-kernel.js:10164, called by issuePrevalidatedGameSessionSetup.
+Other gates were not run. No test/source changes were made during this failed qualification attempt.
+Pre-existing generated report remained unchanged at SHA256 d9669f7fa177f22601590143280012267d695b8a05611c7ad3fdef69a7fd9fb3.
