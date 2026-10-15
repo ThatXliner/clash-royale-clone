@@ -1,0 +1,10 @@
+{
+  "attempt": "git archive exact commit followed by Python safe extraction",
+  "commit": "e8cb87fa2983ebea553c6eada4b54a746e369c7e",
+  "failure": "Extraction stopped at a tracked artifact symlink whose target is absolute.",
+  "exception": "tarfile.AbsoluteLinkError",
+  "preservedRawStdout": "archive.stdout.tar",
+  "preservedRawStderr": "archive.stderr.txt",
+  "preservedCommandReceipt": "private-checkout-receipt.json",
+  "disposition": "No extracted files were used; subsequent review uses exact git-show blobs in a new folder."
+}

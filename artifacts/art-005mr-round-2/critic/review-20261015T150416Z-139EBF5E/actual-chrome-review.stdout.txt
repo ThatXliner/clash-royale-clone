@@ -1,0 +1,208 @@
+{
+  "completed": true,
+  "failure": null,
+  "chromeVersion": "155.0.8059.40\n              (Official Build)\n              \n              (arm64)",
+  "playwrightVersion": "1.58.2",
+  "strictZeroGpuFlagsProven": true,
+  "screenshots": {
+    "before": {
+      "path": "before-original-vector-1440x1200.png",
+      "width": 1440,
+      "height": 1200,
+      "sha256": "3830a2017827c9953ff1c60ab320802309ccd3b51389312a2dd102ee0a0a78f6"
+    },
+    "after": {
+      "path": "after-vector-rig-1440x1200.png",
+      "width": 1440,
+      "height": 1200,
+      "sha256": "cf364a8a68c3f47591c255ade92bed6b981868fe54f20a522a7f920892a43bca"
+    },
+    "comparison": {
+      "path": "comparison-default-1440x1200.png",
+      "width": 1440,
+      "height": 1252,
+      "sha256": "e2d6381776896c313b7b0712d448ea8eb50f222580bba2ef76bef3a3fdedf19b"
+    },
+    "diagnostic": {
+      "path": "enlarged-diagnostic-only.png",
+      "width": 1340,
+      "height": 615,
+      "sha256": "25dadc1d62261ffe8c3487dfca156d85441905ad568d18d60869e2ef93739653",
+      "classification": "enlarged diagnostic only; not native-scale evidence"
+    }
+  },
+  "audit": {
+    "bodyCount": 16,
+    "aggregate": {
+      "allBodiesInsideSafeBounds": false,
+      "allSolesMatchAnchor": true,
+      "minBodyHeightCssPx": 13,
+      "maxBodyHeightCssPx": 13,
+      "allNativeCells16CssPx": true,
+      "directions": [
+        "north",
+        "east",
+        "south",
+        "west"
+      ],
+      "poses": [
+        "walkA",
+        "walkB",
+        "meleeWindup",
+        "contact"
+      ],
+      "teams": [
+        "ember",
+        "jade"
+      ]
+    },
+    "baseline": [
+      {
+        "side": "north",
+        "bodyBoundsViewBox": {
+          "x": 6,
+          "y": 3,
+          "width": 54,
+          "height": 54,
+          "right": 60,
+          "bottom": 57
+        },
+        "svgCssSize": {
+          "width": 15.40625,
+          "height": 15.40625
+        },
+        "bodyHeightCssPx": 12.9990234375,
+        "strokeWidths": [
+          2
+        ]
+      },
+      {
+        "side": "south",
+        "bodyBoundsViewBox": {
+          "x": 6,
+          "y": 3,
+          "width": 54,
+          "height": 54,
+          "right": 60,
+          "bottom": 57
+        },
+        "svgCssSize": {
+          "width": 15.40625,
+          "height": 15.40625
+        },
+        "bodyHeightCssPx": 12.9990234375,
+        "strokeWidths": [
+          2
+        ]
+      }
+    ],
+    "gradientAudit": {
+      "uniqueIds": true,
+      "gradientIds": [
+        "mossguard-native-north-walkA-wood",
+        "mossguard-native-north-walkA-wood-light",
+        "mossguard-native-north-walkA-leaf",
+        "mossguard-native-north-walkB-wood",
+        "mossguard-native-north-walkB-wood-light",
+        "mossguard-native-north-walkB-leaf",
+        "mossguard-native-north-meleeWindup-wood",
+        "mossguard-native-north-meleeWindup-wood-light",
+        "mossguard-native-north-meleeWindup-leaf",
+        "mossguard-native-north-contact-wood",
+        "mossguard-native-north-contact-wood-light",
+        "mossguard-native-north-contact-leaf",
+        "mossguard-native-east-walkA-wood",
+        "mossguard-native-east-walkA-wood-light",
+        "mossguard-native-east-walkA-leaf",
+        "mossguard-native-east-walkB-wood",
+        "mossguard-native-east-walkB-wood-light",
+        "mossguard-native-east-walkB-leaf",
+        "mossguard-native-east-meleeWindup-wood",
+        "mossguard-native-east-meleeWindup-wood-light",
+        "mossguard-native-east-meleeWindup-leaf",
+        "mossguard-native-east-contact-wood",
+        "mossguard-native-east-contact-wood-light",
+        "mossguard-native-east-contact-leaf",
+        "mossguard-native-south-walkA-wood",
+        "mossguard-native-south-walkA-wood-light",
+        "mossguard-native-south-walkA-leaf",
+        "mossguard-native-south-walkB-wood",
+        "mossguard-native-south-walkB-wood-light",
+        "mossguard-native-south-walkB-leaf",
+        "mossguard-native-south-meleeWindup-wood",
+        "mossguard-native-south-meleeWindup-wood-light",
+        "mossguard-native-south-meleeWindup-leaf",
+        "mossguard-native-south-contact-wood",
+        "mossguard-native-south-contact-wood-light",
+        "mossguard-native-south-contact-leaf",
+        "mossguard-native-west-walkA-wood",
+        "mossguard-native-west-walkA-wood-light",
+        "mossguard-native-west-walkA-leaf",
+        "mossguard-native-west-walkB-wood",
+        "mossguard-native-west-walkB-wood-light",
+        "mossguard-native-west-walkB-leaf",
+        "mossguard-native-west-meleeWindup-wood",
+        "mossguard-native-west-meleeWindup-wood-light",
+        "mossguard-native-west-meleeWindup-leaf",
+        "mossguard-native-west-contact-wood",
+        "mossguard-native-west-contact-wood-light",
+        "mossguard-native-west-contact-leaf",
+        "mossguard-diagnostic-north-walkA-wood",
+        "mossguard-diagnostic-north-walkA-wood-light",
+        "mossguard-diagnostic-north-walkA-leaf",
+        "mossguard-diagnostic-north-walkB-wood",
+        "mossguard-diagnostic-north-walkB-wood-light",
+        "mossguard-diagnostic-north-walkB-leaf",
+        "mossguard-diagnostic-north-meleeWindup-wood",
+        "mossguard-diagnostic-north-meleeWindup-wood-light",
+        "mossguard-diagnostic-north-meleeWindup-leaf",
+        "mossguard-diagnostic-north-contact-wood",
+        "mossguard-diagnostic-north-contact-wood-light",
+        "mossguard-diagnostic-north-contact-leaf",
+        "mossguard-diagnostic-east-walkA-wood",
+        "mossguard-diagnostic-east-walkA-wood-light",
+        "mossguard-diagnostic-east-walkA-leaf",
+        "mossguard-diagnostic-east-walkB-wood",
+        "mossguard-diagnostic-east-walkB-wood-light",
+        "mossguard-diagnostic-east-walkB-leaf",
+        "mossguard-diagnostic-east-meleeWindup-wood",
+        "mossguard-diagnostic-east-meleeWindup-wood-light",
+        "mossguard-diagnostic-east-meleeWindup-leaf",
+        "mossguard-diagnostic-east-contact-wood",
+        "mossguard-diagnostic-east-contact-wood-light",
+        "mossguard-diagnostic-east-contact-leaf",
+        "mossguard-diagnostic-south-walkA-wood",
+        "mossguard-diagnostic-south-walkA-wood-light",
+        "mossguard-diagnostic-south-walkA-leaf",
+        "mossguard-diagnostic-south-walkB-wood",
+        "mossguard-diagnostic-south-walkB-wood-light",
+        "mossguard-diagnostic-south-walkB-leaf",
+        "mossguard-diagnostic-south-meleeWindup-wood",
+        "mossguard-diagnostic-south-meleeWindup-wood-light",
+        "mossguard-diagnostic-south-meleeWindup-leaf",
+        "mossguard-diagnostic-south-contact-wood",
+        "mossguard-diagnostic-south-contact-wood-light",
+        "mossguard-diagnostic-south-contact-leaf",
+        "mossguard-diagnostic-west-walkA-wood",
+        "mossguard-diagnostic-west-walkA-wood-light",
+        "mossguard-diagnostic-west-walkA-leaf",
+        "mossguard-diagnostic-west-walkB-wood",
+        "mossguard-diagnostic-west-walkB-wood-light",
+        "mossguard-diagnostic-west-walkB-leaf",
+        "mossguard-diagnostic-west-meleeWindup-wood",
+        "mossguard-diagnostic-west-meleeWindup-wood-light",
+        "mossguard-diagnostic-west-meleeWindup-leaf",
+        "mossguard-diagnostic-west-contact-wood",
+        "mossguard-diagnostic-west-contact-wood-light",
+        "mossguard-diagnostic-west-contact-leaf"
+      ],
+      "allGradientIdsUnique": true,
+      "allGradientRefsLocal": true,
+      "gradientRefCount": 256,
+      "nonLocalGradientRefs": []
+    }
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "requestFailures": []
+}

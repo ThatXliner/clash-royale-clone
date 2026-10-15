@@ -9444,3 +9444,12 @@ EVIDENCE: Independent clean6190e56 clone focusedtest1/1 actualexit0. NativeChrom
 BIGGEST GAP: Make the native-size walk and melee pose pairs clearly distinguishable with larger silhouette changes while preserving safe geometry and anchor.
 
 No prototype/source adoption. Rootverifiedcriticchecksums and previously14builderhashes. Builderinitialhiddenbaseline0.48metric andcorrectedvisibleunion evidence retained; finaltestdirectexit0. Criticfirstreadonly-zsh-statuswrapperfailure, occupiedinitialport and unavailablebrowserprovider recorded; freshfocusedexit0/nativecomparison suppliesactualproof. RepeatedgradientIDs32each renderidenticaldefinitions butremainpreintegrationissue. Allownedfiles archived asfailedcandidateevidence; production/assets/simulation/input/audio/package unchanged, fullRound481 unchanged. No gameplay/painterly/historicalparity claim.
+
+## Round 487 — ART-005MR native pose separation revision
+
+PIECE: ART-005MR
+VERDICT: FAIL
+EVIDENCE: Independent exact e8cb87f review focused Node1/1 actualexit0. Chrome155.0.8059.40/pinnedPlaywright1.58.2 defaultGPU captures actual1440x1200 viewport/deviceScale1; fullcomparison1440x1252. Originalbody12.999px and16 rig bodies13px, all safe bounds andsole58;96 unique gradientIDs and256 localreferences. Native pose pairs still rely on small limb/fist shifts. Root independently verified 52 critic checksums.
+BIGGEST GAP: Walk A/B and melee windup/contact need reliably distinct native13px silhouettes across all four facings.
+
+No prototype or production adoption. Builder auto-added unsafeSwiftShader capture is not strictGPU proof; fresh critic pinned capture supplies nooverride proof. Initial archive extraction safety failure preserved; private-checkout/node_modules/Chromeprofile execution trees excluded from this record. Initial raw geometry audit misread width/height as right/bottom; unchanged saved coordinates support corrected derived report, no rerender/masking/tolerance. Browser/server closed. Failed candidate fourfiles and builder/rawcritic evidence archived only. FullRound481 production source unchanged. New CARDS022K scope follows remaining-roster audit; core admission is separate from original art/browser integration and historical parity.

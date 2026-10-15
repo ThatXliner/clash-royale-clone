@@ -1,0 +1,754 @@
+{
+  "derivedFrom": "browser-evidence.json from one completed actual Chrome capture; no rerender or screenshot retry",
+  "methodCorrection": "The initial raw audit treated safeBounds [x,y,width,height] as [left,top,right,bottom]. This report recomputes right=x+width and bottom=y+height and preserves the original raw report unchanged.",
+  "renderIdentity": {
+    "chromeVersion": "155.0.8059.40\n              (Official Build)\n              \n              (arm64)",
+    "playwrightVersion": "1.58.2",
+    "viewport": {
+      "innerWidth": 1440,
+      "innerHeight": 1200,
+      "devicePixelRatio": 1,
+      "scrollWidth": 1440,
+      "scrollHeight": 1252
+    },
+    "gpuFlags": {
+      "forbiddenFlags": [
+        "--enable-unsafe-swiftshader",
+        "--disable-gpu",
+        "--use-angle",
+        "--use-gl"
+      ],
+      "found": [],
+      "strictZeroGpuFlagsProven": true
+    },
+    "pageErrors": [],
+    "consoleErrors": [],
+    "requestFailures": []
+  },
+  "baselineMeasuredStrokeInclusive": [
+    {
+      "side": "north",
+      "bodyBoundsViewBox": {
+        "x": 6,
+        "y": 3,
+        "width": 54,
+        "height": 54,
+        "right": 60,
+        "bottom": 57
+      },
+      "svgCssSize": {
+        "width": 15.40625,
+        "height": 15.40625
+      },
+      "bodyHeightCssPx": 12.9990234375,
+      "strokeWidths": [
+        2
+      ]
+    },
+    {
+      "side": "south",
+      "bodyBoundsViewBox": {
+        "x": 6,
+        "y": 3,
+        "width": 54,
+        "height": 54,
+        "right": 60,
+        "bottom": 57
+      },
+      "svgCssSize": {
+        "width": 15.40625,
+        "height": 15.40625
+      },
+      "bodyHeightCssPx": 12.9990234375,
+      "strokeWidths": [
+        2
+      ]
+    }
+  ],
+  "baselineDisplayedMeasurement": "Stroke-inclusive original path body: 13.00 CSS px",
+  "rigDisplayedMeasurement": "Rendered body geometry: 13.00\u201313.00 CSS px \u00b7 16 poses",
+  "nativePoseCount": 16,
+  "poses": [
+    {
+      "direction": "north",
+      "pose": "walkA",
+      "team": "ember",
+      "tick": 0,
+      "bodyBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 56,
+        "height": 52,
+        "right": 60,
+        "bottom": 58
+      },
+      "declaredSafeBoundsEncoding": "[x,y,width,height]",
+      "declaredSafeBoundsViewBox": [
+        4,
+        6,
+        56,
+        52
+      ],
+      "bodyInsideSafeBounds": true,
+      "bodyHeightCssPx": 13,
+      "soleAnchorViewBox": [
+        32,
+        58
+      ],
+      "measuredSoleBottomYViewBox": 58,
+      "soleBottomMatchesAnchor": true,
+      "allArtBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 56,
+        "height": 55.099998474121094,
+        "right": 60,
+        "bottom": 61.099998474121094
+      },
+      "pathStrokeWidths": [
+        0
+      ]
+    },
+    {
+      "direction": "north",
+      "pose": "walkB",
+      "team": "ember",
+      "tick": 17,
+      "bodyBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 56,
+        "height": 52,
+        "right": 60,
+        "bottom": 58
+      },
+      "declaredSafeBoundsEncoding": "[x,y,width,height]",
+      "declaredSafeBoundsViewBox": [
+        4,
+        6,
+        56,
+        52
+      ],
+      "bodyInsideSafeBounds": true,
+      "bodyHeightCssPx": 13,
+      "soleAnchorViewBox": [
+        32,
+        58
+      ],
+      "measuredSoleBottomYViewBox": 58,
+      "soleBottomMatchesAnchor": true,
+      "allArtBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 56,
+        "height": 55.099998474121094,
+        "right": 60,
+        "bottom": 61.099998474121094
+      },
+      "pathStrokeWidths": [
+        0
+      ]
+    },
+    {
+      "direction": "north",
+      "pose": "meleeWindup",
+      "team": "ember",
+      "tick": 34,
+      "bodyBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 56,
+        "height": 52,
+        "right": 60,
+        "bottom": 58
+      },
+      "declaredSafeBoundsEncoding": "[x,y,width,height]",
+      "declaredSafeBoundsViewBox": [
+        4,
+        6,
+        56,
+        52
+      ],
+      "bodyInsideSafeBounds": true,
+      "bodyHeightCssPx": 13,
+      "soleAnchorViewBox": [
+        32,
+        58
+      ],
+      "measuredSoleBottomYViewBox": 58,
+      "soleBottomMatchesAnchor": true,
+      "allArtBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 56,
+        "height": 55.099998474121094,
+        "right": 60,
+        "bottom": 61.099998474121094
+      },
+      "pathStrokeWidths": [
+        0
+      ]
+    },
+    {
+      "direction": "north",
+      "pose": "contact",
+      "team": "ember",
+      "tick": 51,
+      "bodyBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 56,
+        "height": 52,
+        "right": 60,
+        "bottom": 58
+      },
+      "declaredSafeBoundsEncoding": "[x,y,width,height]",
+      "declaredSafeBoundsViewBox": [
+        4,
+        6,
+        56,
+        52
+      ],
+      "bodyInsideSafeBounds": true,
+      "bodyHeightCssPx": 13,
+      "soleAnchorViewBox": [
+        32,
+        58
+      ],
+      "measuredSoleBottomYViewBox": 58,
+      "soleBottomMatchesAnchor": true,
+      "allArtBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 56,
+        "height": 55.099998474121094,
+        "right": 60,
+        "bottom": 61.099998474121094
+      },
+      "pathStrokeWidths": [
+        0
+      ]
+    },
+    {
+      "direction": "east",
+      "pose": "walkA",
+      "team": "jade",
+      "tick": 31,
+      "bodyBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 56,
+        "height": 52,
+        "right": 60,
+        "bottom": 58
+      },
+      "declaredSafeBoundsEncoding": "[x,y,width,height]",
+      "declaredSafeBoundsViewBox": [
+        4,
+        6,
+        56,
+        52
+      ],
+      "bodyInsideSafeBounds": true,
+      "bodyHeightCssPx": 13,
+      "soleAnchorViewBox": [
+        32,
+        58
+      ],
+      "measuredSoleBottomYViewBox": 58,
+      "soleBottomMatchesAnchor": true,
+      "allArtBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 56,
+        "height": 55.099998474121094,
+        "right": 60,
+        "bottom": 61.099998474121094
+      },
+      "pathStrokeWidths": [
+        0
+      ]
+    },
+    {
+      "direction": "east",
+      "pose": "walkB",
+      "team": "jade",
+      "tick": 48,
+      "bodyBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 56,
+        "height": 52,
+        "right": 60,
+        "bottom": 58
+      },
+      "declaredSafeBoundsEncoding": "[x,y,width,height]",
+      "declaredSafeBoundsViewBox": [
+        4,
+        6,
+        56,
+        52
+      ],
+      "bodyInsideSafeBounds": true,
+      "bodyHeightCssPx": 13,
+      "soleAnchorViewBox": [
+        32,
+        58
+      ],
+      "measuredSoleBottomYViewBox": 58,
+      "soleBottomMatchesAnchor": true,
+      "allArtBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 56,
+        "height": 55.099998474121094,
+        "right": 60,
+        "bottom": 61.099998474121094
+      },
+      "pathStrokeWidths": [
+        0
+      ]
+    },
+    {
+      "direction": "east",
+      "pose": "meleeWindup",
+      "team": "jade",
+      "tick": 65,
+      "bodyBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 56,
+        "height": 52,
+        "right": 60,
+        "bottom": 58
+      },
+      "declaredSafeBoundsEncoding": "[x,y,width,height]",
+      "declaredSafeBoundsViewBox": [
+        4,
+        6,
+        56,
+        52
+      ],
+      "bodyInsideSafeBounds": true,
+      "bodyHeightCssPx": 13,
+      "soleAnchorViewBox": [
+        32,
+        58
+      ],
+      "measuredSoleBottomYViewBox": 58,
+      "soleBottomMatchesAnchor": true,
+      "allArtBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 56,
+        "height": 55.099998474121094,
+        "right": 60,
+        "bottom": 61.099998474121094
+      },
+      "pathStrokeWidths": [
+        0
+      ]
+    },
+    {
+      "direction": "east",
+      "pose": "contact",
+      "team": "jade",
+      "tick": 82,
+      "bodyBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 56,
+        "height": 52,
+        "right": 60,
+        "bottom": 58
+      },
+      "declaredSafeBoundsEncoding": "[x,y,width,height]",
+      "declaredSafeBoundsViewBox": [
+        4,
+        6,
+        56,
+        52
+      ],
+      "bodyInsideSafeBounds": true,
+      "bodyHeightCssPx": 13,
+      "soleAnchorViewBox": [
+        32,
+        58
+      ],
+      "measuredSoleBottomYViewBox": 58,
+      "soleBottomMatchesAnchor": true,
+      "allArtBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 56,
+        "height": 55.099998474121094,
+        "right": 60,
+        "bottom": 61.099998474121094
+      },
+      "pathStrokeWidths": [
+        0
+      ]
+    },
+    {
+      "direction": "south",
+      "pose": "walkA",
+      "team": "ember",
+      "tick": 62,
+      "bodyBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 55,
+        "height": 52,
+        "right": 59,
+        "bottom": 58
+      },
+      "declaredSafeBoundsEncoding": "[x,y,width,height]",
+      "declaredSafeBoundsViewBox": [
+        4,
+        6,
+        56,
+        52
+      ],
+      "bodyInsideSafeBounds": true,
+      "bodyHeightCssPx": 13,
+      "soleAnchorViewBox": [
+        32,
+        58
+      ],
+      "measuredSoleBottomYViewBox": 58,
+      "soleBottomMatchesAnchor": true,
+      "allArtBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 55,
+        "height": 55.099998474121094,
+        "right": 59,
+        "bottom": 61.099998474121094
+      },
+      "pathStrokeWidths": [
+        0
+      ]
+    },
+    {
+      "direction": "south",
+      "pose": "walkB",
+      "team": "ember",
+      "tick": 79,
+      "bodyBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 55,
+        "height": 52,
+        "right": 59,
+        "bottom": 58
+      },
+      "declaredSafeBoundsEncoding": "[x,y,width,height]",
+      "declaredSafeBoundsViewBox": [
+        4,
+        6,
+        56,
+        52
+      ],
+      "bodyInsideSafeBounds": true,
+      "bodyHeightCssPx": 13,
+      "soleAnchorViewBox": [
+        32,
+        58
+      ],
+      "measuredSoleBottomYViewBox": 58,
+      "soleBottomMatchesAnchor": true,
+      "allArtBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 55,
+        "height": 55.099998474121094,
+        "right": 59,
+        "bottom": 61.099998474121094
+      },
+      "pathStrokeWidths": [
+        0
+      ]
+    },
+    {
+      "direction": "south",
+      "pose": "meleeWindup",
+      "team": "ember",
+      "tick": 96,
+      "bodyBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 56,
+        "height": 52,
+        "right": 60,
+        "bottom": 58
+      },
+      "declaredSafeBoundsEncoding": "[x,y,width,height]",
+      "declaredSafeBoundsViewBox": [
+        4,
+        6,
+        56,
+        52
+      ],
+      "bodyInsideSafeBounds": true,
+      "bodyHeightCssPx": 13,
+      "soleAnchorViewBox": [
+        32,
+        58
+      ],
+      "measuredSoleBottomYViewBox": 58,
+      "soleBottomMatchesAnchor": true,
+      "allArtBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 56,
+        "height": 55.099998474121094,
+        "right": 60,
+        "bottom": 61.099998474121094
+      },
+      "pathStrokeWidths": [
+        0
+      ]
+    },
+    {
+      "direction": "south",
+      "pose": "contact",
+      "team": "ember",
+      "tick": 113,
+      "bodyBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 56,
+        "height": 52,
+        "right": 60,
+        "bottom": 58
+      },
+      "declaredSafeBoundsEncoding": "[x,y,width,height]",
+      "declaredSafeBoundsViewBox": [
+        4,
+        6,
+        56,
+        52
+      ],
+      "bodyInsideSafeBounds": true,
+      "bodyHeightCssPx": 13,
+      "soleAnchorViewBox": [
+        32,
+        58
+      ],
+      "measuredSoleBottomYViewBox": 58,
+      "soleBottomMatchesAnchor": true,
+      "allArtBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 56,
+        "height": 55.099998474121094,
+        "right": 60,
+        "bottom": 61.099998474121094
+      },
+      "pathStrokeWidths": [
+        0
+      ]
+    },
+    {
+      "direction": "west",
+      "pose": "walkA",
+      "team": "jade",
+      "tick": 93,
+      "bodyBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 56,
+        "height": 52,
+        "right": 60,
+        "bottom": 58
+      },
+      "declaredSafeBoundsEncoding": "[x,y,width,height]",
+      "declaredSafeBoundsViewBox": [
+        4,
+        6,
+        56,
+        52
+      ],
+      "bodyInsideSafeBounds": true,
+      "bodyHeightCssPx": 13,
+      "soleAnchorViewBox": [
+        32,
+        58
+      ],
+      "measuredSoleBottomYViewBox": 58,
+      "soleBottomMatchesAnchor": true,
+      "allArtBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 56,
+        "height": 55.099998474121094,
+        "right": 60,
+        "bottom": 61.099998474121094
+      },
+      "pathStrokeWidths": [
+        0
+      ]
+    },
+    {
+      "direction": "west",
+      "pose": "walkB",
+      "team": "jade",
+      "tick": 110,
+      "bodyBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 56,
+        "height": 52,
+        "right": 60,
+        "bottom": 58
+      },
+      "declaredSafeBoundsEncoding": "[x,y,width,height]",
+      "declaredSafeBoundsViewBox": [
+        4,
+        6,
+        56,
+        52
+      ],
+      "bodyInsideSafeBounds": true,
+      "bodyHeightCssPx": 13,
+      "soleAnchorViewBox": [
+        32,
+        58
+      ],
+      "measuredSoleBottomYViewBox": 58,
+      "soleBottomMatchesAnchor": true,
+      "allArtBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 56,
+        "height": 55.099998474121094,
+        "right": 60,
+        "bottom": 61.099998474121094
+      },
+      "pathStrokeWidths": [
+        0
+      ]
+    },
+    {
+      "direction": "west",
+      "pose": "meleeWindup",
+      "team": "jade",
+      "tick": 127,
+      "bodyBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 56,
+        "height": 52,
+        "right": 60,
+        "bottom": 58
+      },
+      "declaredSafeBoundsEncoding": "[x,y,width,height]",
+      "declaredSafeBoundsViewBox": [
+        4,
+        6,
+        56,
+        52
+      ],
+      "bodyInsideSafeBounds": true,
+      "bodyHeightCssPx": 13,
+      "soleAnchorViewBox": [
+        32,
+        58
+      ],
+      "measuredSoleBottomYViewBox": 58,
+      "soleBottomMatchesAnchor": true,
+      "allArtBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 56,
+        "height": 55.099998474121094,
+        "right": 60,
+        "bottom": 61.099998474121094
+      },
+      "pathStrokeWidths": [
+        0
+      ]
+    },
+    {
+      "direction": "west",
+      "pose": "contact",
+      "team": "jade",
+      "tick": 144,
+      "bodyBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 56,
+        "height": 52,
+        "right": 60,
+        "bottom": 58
+      },
+      "declaredSafeBoundsEncoding": "[x,y,width,height]",
+      "declaredSafeBoundsViewBox": [
+        4,
+        6,
+        56,
+        52
+      ],
+      "bodyInsideSafeBounds": true,
+      "bodyHeightCssPx": 13,
+      "soleAnchorViewBox": [
+        32,
+        58
+      ],
+      "measuredSoleBottomYViewBox": 58,
+      "soleBottomMatchesAnchor": true,
+      "allArtBoundsViewBox": {
+        "x": 4,
+        "y": 6,
+        "width": 56,
+        "height": 55.099998474121094,
+        "right": 60,
+        "bottom": 61.099998474121094
+      },
+      "pathStrokeWidths": [
+        0
+      ]
+    }
+  ],
+  "aggregate": {
+    "allBodiesInsideSafeBounds": true,
+    "allSoleBottomsMatchAnchor": true,
+    "minBodyHeightCssPx": 13,
+    "maxBodyHeightCssPx": 13,
+    "directions": [
+      "east",
+      "north",
+      "south",
+      "west"
+    ],
+    "poses": [
+      "contact",
+      "meleeWindup",
+      "walkA",
+      "walkB"
+    ],
+    "teams": [
+      "ember",
+      "jade"
+    ],
+    "allNativeCells16CssPx": true,
+    "maxFullArtRightViewBox": 60,
+    "maxFullArtBottomViewBox": 61.099998474121094,
+    "allFullArtInsideViewBox": true
+  },
+  "gradientAudit": {
+    "count": 96,
+    "allIdsUnique": true,
+    "allRefsLocal": true,
+    "referenceCount": 256
+  },
+  "explicitInputStaticAudit": {
+    "forbiddenNondeterminismTokens": [],
+    "hasClockDrivenAnimation": false,
+    "hasExplicitTickValidation": true,
+    "hasReferenceImport": false,
+    "imports": [
+      "../src/ui/combat-art.js"
+    ]
+  }
+}

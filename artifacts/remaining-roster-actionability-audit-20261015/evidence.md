@@ -1,0 +1,22 @@
+# Remaining roster actionability audit
+
+Snapshot inspected: `09eae7fd6dc8ba19503328869da3e8c651f4ed43`, using `git show` because the shared worktree has unrelated dirty state. This audit adds only this evidence file; no tests or external lookups were run. The accepted `CARDS-021I` row is the 21st editable choice (PLAN.md line 371); frozen `COVERAGE-003` remains an 18-choice inventory with zero full historical executions (PLAN.md line 331). These counts describe different scopes.
+
+## Eligible internal-plumbing piece: an original melee-splash troop profile
+
+Use the pinned `valkyrie` row as a test-only comparator for a new original single-unit ground-melee profile. The row describes a cost-4, one-body, ground-targeting melee profile with a non-null area radius; it has no component or multi-member timing complication (`reference/stats/cards.json`, `valkyrie` record beginning at line 2848). Its non-cost combat fields, including area radius, are explicitly in `unverified_fields`. `SOURCES.md` says these remain unverified per field and distinguishes them from roster/schema identity fields (lines 11, 33–38).
+
+This is a real mechanic gap, not another basic-melee duplicate: the current basic-melee catalog contains only single-target profiles with null area radius (`src/content/cards/basic-melee.js`, lines 3–61), while the shared BattleCombat melee-area reducer is accepted with a closed, versioned QUESTION policy. The PLAN entry `MELEE-AREA-001` is PASS and explicitly says the reducer has no playable admission or historical-parity claim yet (PLAN.md line 350). `tests/melee.test.js` already has a Knight-versus-Valkyrie baseline (line 153), but it asserts duel attacks and health only; it does not exercise area contacts through GameSession. `GAME-001HTO` already defines the session witness pattern with explicit QUESTION policies for uncertain radii and projectiles (PLAN.md line 220).
+
+Internal scope: add a separately named original profile and typed melee-area QUESTION binding; admit it to the mixed editable deck/session catalog; connect it to the existing shared reducer; add the test-only mapping to the pinned row. Keep every listed low-confidence stat and splash-radius/contact detail QUESTION. This can add one executable historical-row mapping without claiming parity or shipping reference names/data. No new hit-order or area semantics should be invented.
+
+Required focused checks: player and AI deploy the profile through the same GameSession with one spend/cycle; a primary and multiple eligible secondary contacts resolve once in stable order; question receipts are required and survive snapshot/restore/fork; the custom 8-card JS/RL witness includes it while the default deck bytes remain unchanged; test mapping and source isolation remain explicit. The original card art/collection journey is a later separate gate. To remove the QUESTIONs, obtain matched pre-March-2023 evidence for attack timing, splash radius/eligibility, and contact ordering; until then, the closed policy is the limit of the claim.
+
+Owned plumbing paths to start from: `src/content/cards/basic-melee.js`, `src/content/session-troop-roster.js`, `src/content/session-troop-profile-catalog.js`, and the ordinary troop/admission selectors under `tests/`.
+
+## Two inspected boundaries that are not cleared candidates
+
+- **Rascals mixed squad:** the pinned row has one melee and two ranged component types, but the accepted 100 ms member-sequence receipts in `CARDS-017T` name specific roles (including Briar Band), and projectile-profile receipts use an explicit admitted-ID manifest (`GAME-001HTJP`). Do not generalize that timing/delivery contract to Rascals without adding a valid source receipt or keeping the missing mechanics blocked. `SOURCES.md` also excludes full ability composition from its common schema (line 43).
+- **Periodic/death-spawn buildings:** `GAME-001HB` remains QUESTION because shared GameSession spawning is not established; timer origin, cadence anchor, and expiry ordering remain unresolved. The isolated building encounter does not close that consumer gap (PLAN.md line 231). Primary source or matched footage must resolve those policies before whole-card admission.
+
+The separate Rivet Runners blocker is narrow to that signature: `GAME-001CHS` lacks dated consumer evidence for the walking-speed tweak, separate 400 ms character deploy delay, collision radius, and mass, and `GAME-001CHR` therefore remains BLOCKED (PLAN.md lines 379–380). It is not a roster-wide blocker for a one-body melee-splash profile.

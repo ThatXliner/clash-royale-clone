@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "piece": "ART-005MR",
+  "round": 2,
+  "artifact": "Original, development-only native-vector Mossguard pose-rig study; not connected to battle rendering.",
+  "roundStatus": "Candidate frozen for independent critique; builder makes no art-quality pass claim.",
+  "revision": [
+    "Moved both planted/lifted feet between walkA and walkB with larger silhouette shifts in all four facings.",
+    "Reposed the single free wooden fist into a close meleeWindup tuck and a visibly extended contact gesture; removed the fixed duplicate fist that masked pose changes.",
+    "Each renderer call requires a validated SVG-safe instance prefix; the demo supplies deterministic per-cell prefixes so its 96 gradient IDs are unique and locally referenced."
+  ],
+  "claimBoundary": [
+    "The previous painted-sheet ART-005M remains FAIL; this is not a painted sheet or historical-parity claim.",
+    "This isolated prototype proves no authentic battle-engine integration, contact timing, restoration, or gameplay behavior."
+  ],
+  "authorship": {
+    "method": "Hand-authored original SVG paths and linear gradients in JavaScript.",
+    "imageGenerationTool": null,
+    "bitmapSource": null,
+    "additionalDependencies": [],
+    "license": "AGPL-3.0-only repository license; original comparison vector baseline declares CC0-1.0."
+  },
+  "sourceFences": {
+    "originalBaseline": {
+      "path": "src/ui/combat-art.js",
+      "sha256": "8e56a793096ace7e6849c527d685c164f47521ad62d38e814bb1f6457ba1b849",
+      "use": "Read-only before comparison in the demo."
+    },
+    "referenceSourcesRead": [
+      "reference/stats/SOURCES.md, per AGENTS.md."
+    ],
+    "referenceArtworkOrGameAssetsUsed": [],
+    "importedOrBundledReferenceFiles": []
+  },
+  "authoredFiles": {
+    "demo/mossguard-vector-rig.js": {
+      "sha256": "3b58509f99691567ae02579d12e85b7933b4efcd3e1cfdcdbd41963294f90a43"
+    },
+    "demo/mossguard-vector-rig.html": {
+      "sha256": "0b3eef9be48a426af7523d7dce1cba49e8a073e69c933ae332a850e6572730a9"
+    },
+    "tests/mossguard-vector-rig.test.js": {
+      "sha256": "5005e5d4e3387201aba486ee06698c5e8099e2045fd5b856b215140b75d37ebd"
+    }
+  },
+  "geometry": {
+    "directions": [
+      "north",
+      "east",
+      "south",
+      "west"
+    ],
+    "poses": [
+      "walkA",
+      "walkB",
+      "meleeWindup",
+      "contact"
+    ],
+    "viewBox": [
+      0,
+      0,
+      64,
+      64
+    ],
+    "bodyHeightCssPx": 13,
+    "safeBoundsViewBox": [
+      4,
+      6,
+      60,
+      58
+    ],
+    "sharedSoleAnchor": [
+      32,
+      58
+    ],
+    "actualMeasurement": "Chrome body-group getBBox in SVG local user units with its explicit group transform applied; all body paths included and no body paths have strokes. The ground shadow is outside the measured group.",
+    "fullPerPoseMeasurements": "artifacts/art-005mr-round-2/builder/corrected-capture-01/native-render-evidence.json"
+  },
+  "test": {
+    "command": "node --test tests/mossguard-vector-rig.test.js",
+    "directExitCode": 0,
+    "rawReceipt": "artifacts/art-005mr-round-2/builder/owned-test-command-and-exit.txt",
+    "rawReceiptSha256": "9a101c344346f00ca690c64418e634f38b797bad92365994a44518ea79370650"
+  },
+  "nativeRender": {
+    "browser": "155.0.8059.40",
+    "executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "viewportCssPx": [
+      1440,
+      1200
+    ],
+    "deviceScaleFactor": 1,
+    "screenshots": [
+      {
+        "path": "artifacts/art-005mr-round-2/builder/corrected-capture-01/before-original-vector-1440x1200.png",
+        "sha256": "3830a2017827c9953ff1c60ab320802309ccd3b51389312a2dd102ee0a0a78f6",
+        "width": 1440,
+        "height": 1200
+      },
+      {
+        "path": "artifacts/art-005mr-round-2/builder/corrected-capture-01/after-vector-rig-1440x1200.png",
+        "sha256": "cf364a8a68c3f47591c255ade92bed6b981868fe54f20a522a7f920892a43bca",
+        "width": 1440,
+        "height": 1200
+      },
+      {
+        "path": "artifacts/art-005mr-round-2/builder/corrected-capture-01/comparison-default-1440x1252.png",
+        "sha256": "e2d6381776896c313b7b0712d448ea8eb50f222580bba2ef76bef3a3fdedf19b",
+        "width": 1440,
+        "height": 1252
+      }
+    ],
+    "baselineBodyHeightCssPx": 12.9990234375,
+    "rigBodyHeightsCssPx": [
+      13,
+      13
+    ],
+    "all16InsideSafeBounds": true,
+    "all16SharedSoleAnchor": true,
+    "svgInstances": 32,
+    "gradientIds": {
+      "count": 96,
+      "unique": 96,
+      "localRefsPass": true
+    },
+    "pageErrors": [],
+    "consoleErrors": [],
+    "directExitCode": 0,
+    "commandReceipt": "artifacts/art-005mr-round-2/builder/corrected-capture-01/native-render-command-and-exit.txt",
+    "commandReceiptSha256": "15a0b1811667468c04aec440a50dd85465bb7b5719a99c1a45aa815f2294cb56",
+    "strictZeroGpuRelatedFlagsProven": false,
+    "gpuFlagCaveat": "Playwright auto-added --enable-unsafe-swiftshader twice. No disable-gpu/use-angle/use-gl flag was supplied; exact full command line is in the evidence JSON.",
+    "serverStopped": true
+  },
+  "preservedAuditFailure": {
+    "path": "artifacts/art-005mr-round-2/builder/native-render-evidence.json",
+    "commandReceipt": "artifacts/art-005mr-round-2/builder/native-render-command-and-exit.txt",
+    "directExitCode": 1,
+    "cause": "First audit mixed getCTM viewport-space CSS coordinates with root viewBox units and falsely reported 3.25 CSS px. The art was not adjusted to fit those numbers; the raw screenshots and report are preserved. Corrected audit measures local getBBox plus only the explicit group transform."
+  },
+  "priorCritique": {
+    "verdict": "FAIL",
+    "source": "artifacts/art-005mr-round-1/critic/review-20261015-26tHkyop/final-verdict.md",
+    "finding": "Walk phases and windup/contact were too similar at native scale; round two revises their macro leg and fist geometry."
+  },
+  "evidenceDirectory": "artifacts/art-005mr-round-2/builder/",
+  "integrityLedger": "artifacts/art-005mr-round-2/builder/checksums.sha256"
+}

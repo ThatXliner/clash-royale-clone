@@ -1,0 +1,958 @@
+{
+  "schemaVersion": 1,
+  "round": 2,
+  "browserVersion": "155.0.8059.40",
+  "executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+  "method": "Playwright launched the installed Google Chrome with headless:true; no args override. The main page used a 1440x1200 CSS viewport at deviceScaleFactor 1. Screenshots were fullPage.",
+  "viewport": {
+    "width": 1440,
+    "height": 1200
+  },
+  "deviceScaleFactor": 1,
+  "chromeCommandLine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,Translate,AutoDeElevate,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-6QIZUd --remote-debugging-pipe --no-startup-window --noerrdialogs --flag-switches-begin --flag-switches-end --enable-unsafe-swiftshader",
+  "gpuFlagsPresent": true,
+  "pageErrors": [],
+  "consoleErrors": [],
+  "captures": [
+    {
+      "path": "artifacts/art-005mr-round-2/builder/corrected-capture-01/before-original-vector-1440x1200.png",
+      "width": 1440,
+      "height": 1200,
+      "bytes": 182134
+    },
+    {
+      "path": "artifacts/art-005mr-round-2/builder/corrected-capture-01/after-vector-rig-1440x1200.png",
+      "width": 1440,
+      "height": 1200,
+      "bytes": 567629
+    },
+    {
+      "path": "artifacts/art-005mr-round-2/builder/corrected-capture-01/comparison-default-1440x1252.png",
+      "width": 1440,
+      "height": 1252,
+      "bytes": 606793
+    }
+  ],
+  "measurementMethod": "Actual DOM SVG body-group getBBox in SVG local user units, transformed by the group's explicit transform list into the root viewBox; every visible body path was included. Body paths have zero strokes. Ground shadow remains outside the measured body group.",
+  "measurements": {
+    "native": [
+      {
+        "direction": "north",
+        "pose": "walkA",
+        "team": "ember",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "strokedPaths": 0,
+        "pathCount": 24,
+        "svgCssSize": 16,
+        "boundsSource": "body group getBBox in SVG local user units, transformed by the group's explicit transform list only; all body paths inspected"
+      },
+      {
+        "direction": "north",
+        "pose": "walkB",
+        "team": "ember",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "strokedPaths": 0,
+        "pathCount": 24,
+        "svgCssSize": 16,
+        "boundsSource": "body group getBBox in SVG local user units, transformed by the group's explicit transform list only; all body paths inspected"
+      },
+      {
+        "direction": "north",
+        "pose": "meleeWindup",
+        "team": "ember",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "strokedPaths": 0,
+        "pathCount": 24,
+        "svgCssSize": 16,
+        "boundsSource": "body group getBBox in SVG local user units, transformed by the group's explicit transform list only; all body paths inspected"
+      },
+      {
+        "direction": "north",
+        "pose": "contact",
+        "team": "ember",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "strokedPaths": 0,
+        "pathCount": 24,
+        "svgCssSize": 16,
+        "boundsSource": "body group getBBox in SVG local user units, transformed by the group's explicit transform list only; all body paths inspected"
+      },
+      {
+        "direction": "east",
+        "pose": "walkA",
+        "team": "jade",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "strokedPaths": 0,
+        "pathCount": 25,
+        "svgCssSize": 16,
+        "boundsSource": "body group getBBox in SVG local user units, transformed by the group's explicit transform list only; all body paths inspected"
+      },
+      {
+        "direction": "east",
+        "pose": "walkB",
+        "team": "jade",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "strokedPaths": 0,
+        "pathCount": 25,
+        "svgCssSize": 16,
+        "boundsSource": "body group getBBox in SVG local user units, transformed by the group's explicit transform list only; all body paths inspected"
+      },
+      {
+        "direction": "east",
+        "pose": "meleeWindup",
+        "team": "jade",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "strokedPaths": 0,
+        "pathCount": 25,
+        "svgCssSize": 16,
+        "boundsSource": "body group getBBox in SVG local user units, transformed by the group's explicit transform list only; all body paths inspected"
+      },
+      {
+        "direction": "east",
+        "pose": "contact",
+        "team": "jade",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "strokedPaths": 0,
+        "pathCount": 25,
+        "svgCssSize": 16,
+        "boundsSource": "body group getBBox in SVG local user units, transformed by the group's explicit transform list only; all body paths inspected"
+      },
+      {
+        "direction": "south",
+        "pose": "walkA",
+        "team": "ember",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 55,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "strokedPaths": 0,
+        "pathCount": 25,
+        "svgCssSize": 16,
+        "boundsSource": "body group getBBox in SVG local user units, transformed by the group's explicit transform list only; all body paths inspected"
+      },
+      {
+        "direction": "south",
+        "pose": "walkB",
+        "team": "ember",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 55,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "strokedPaths": 0,
+        "pathCount": 25,
+        "svgCssSize": 16,
+        "boundsSource": "body group getBBox in SVG local user units, transformed by the group's explicit transform list only; all body paths inspected"
+      },
+      {
+        "direction": "south",
+        "pose": "meleeWindup",
+        "team": "ember",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "strokedPaths": 0,
+        "pathCount": 25,
+        "svgCssSize": 16,
+        "boundsSource": "body group getBBox in SVG local user units, transformed by the group's explicit transform list only; all body paths inspected"
+      },
+      {
+        "direction": "south",
+        "pose": "contact",
+        "team": "ember",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "strokedPaths": 0,
+        "pathCount": 25,
+        "svgCssSize": 16,
+        "boundsSource": "body group getBBox in SVG local user units, transformed by the group's explicit transform list only; all body paths inspected"
+      },
+      {
+        "direction": "west",
+        "pose": "walkA",
+        "team": "jade",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "strokedPaths": 0,
+        "pathCount": 25,
+        "svgCssSize": 16,
+        "boundsSource": "body group getBBox in SVG local user units, transformed by the group's explicit transform list only; all body paths inspected"
+      },
+      {
+        "direction": "west",
+        "pose": "walkB",
+        "team": "jade",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "strokedPaths": 0,
+        "pathCount": 25,
+        "svgCssSize": 16,
+        "boundsSource": "body group getBBox in SVG local user units, transformed by the group's explicit transform list only; all body paths inspected"
+      },
+      {
+        "direction": "west",
+        "pose": "meleeWindup",
+        "team": "jade",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "strokedPaths": 0,
+        "pathCount": 25,
+        "svgCssSize": 16,
+        "boundsSource": "body group getBBox in SVG local user units, transformed by the group's explicit transform list only; all body paths inspected"
+      },
+      {
+        "direction": "west",
+        "pose": "contact",
+        "team": "jade",
+        "boundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "strokedPaths": 0,
+        "pathCount": 25,
+        "svgCssSize": 16,
+        "boundsSource": "body group getBBox in SVG local user units, transformed by the group's explicit transform list only; all body paths inspected"
+      }
+    ],
+    "diagnosticCount": 16,
+    "baselineMetrics": [
+      {
+        "side": "north",
+        "bounds": {
+          "x": 6,
+          "y": 3,
+          "width": 54,
+          "height": 54
+        },
+        "height": 12.9990234375
+      },
+      {
+        "side": "south",
+        "bounds": {
+          "x": 6,
+          "y": 3,
+          "width": 54,
+          "height": 54
+        },
+        "height": 12.9990234375
+      }
+    ],
+    "declaredMetrics": [
+      {
+        "direction": "north",
+        "pose": "walkA",
+        "team": "ember",
+        "tick": 0,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      },
+      {
+        "direction": "north",
+        "pose": "walkB",
+        "team": "ember",
+        "tick": 17,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      },
+      {
+        "direction": "north",
+        "pose": "meleeWindup",
+        "team": "ember",
+        "tick": 34,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      },
+      {
+        "direction": "north",
+        "pose": "contact",
+        "team": "ember",
+        "tick": 51,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      },
+      {
+        "direction": "east",
+        "pose": "walkA",
+        "team": "jade",
+        "tick": 31,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      },
+      {
+        "direction": "east",
+        "pose": "walkB",
+        "team": "jade",
+        "tick": 48,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      },
+      {
+        "direction": "east",
+        "pose": "meleeWindup",
+        "team": "jade",
+        "tick": 65,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      },
+      {
+        "direction": "east",
+        "pose": "contact",
+        "team": "jade",
+        "tick": 82,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      },
+      {
+        "direction": "south",
+        "pose": "walkA",
+        "team": "ember",
+        "tick": 62,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 55,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      },
+      {
+        "direction": "south",
+        "pose": "walkB",
+        "team": "ember",
+        "tick": 79,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 55,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      },
+      {
+        "direction": "south",
+        "pose": "meleeWindup",
+        "team": "ember",
+        "tick": 96,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      },
+      {
+        "direction": "south",
+        "pose": "contact",
+        "team": "ember",
+        "tick": 113,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      },
+      {
+        "direction": "west",
+        "pose": "walkA",
+        "team": "jade",
+        "tick": 93,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      },
+      {
+        "direction": "west",
+        "pose": "walkB",
+        "team": "jade",
+        "tick": 110,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      },
+      {
+        "direction": "west",
+        "pose": "meleeWindup",
+        "team": "jade",
+        "tick": 127,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      },
+      {
+        "direction": "west",
+        "pose": "contact",
+        "team": "jade",
+        "tick": 144,
+        "bounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchor": {
+          "x": 32,
+          "y": 58
+        },
+        "safeBounds": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "svgSizeCssPx": 16
+      }
+    ],
+    "gradientIdCount": 96,
+    "uniqueGradientIdCount": 96,
+    "localGradientRefs": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "rigMeasureLabel": "Rendered body geometry: 13.00\u201313.00 CSS px \u00b7 16 poses"
+  },
+  "safeBounds": {
+    "x": 4,
+    "y": 6,
+    "right": 60,
+    "bottom": 58
+  },
+  "assertions": [
+    {
+      "id": "north/walkA",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSole": true,
+      "strokeFreeMeasuredPaths": true
+    },
+    {
+      "id": "north/walkB",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSole": true,
+      "strokeFreeMeasuredPaths": true
+    },
+    {
+      "id": "north/meleeWindup",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSole": true,
+      "strokeFreeMeasuredPaths": true
+    },
+    {
+      "id": "north/contact",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSole": true,
+      "strokeFreeMeasuredPaths": true
+    },
+    {
+      "id": "east/walkA",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSole": true,
+      "strokeFreeMeasuredPaths": true
+    },
+    {
+      "id": "east/walkB",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSole": true,
+      "strokeFreeMeasuredPaths": true
+    },
+    {
+      "id": "east/meleeWindup",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSole": true,
+      "strokeFreeMeasuredPaths": true
+    },
+    {
+      "id": "east/contact",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSole": true,
+      "strokeFreeMeasuredPaths": true
+    },
+    {
+      "id": "south/walkA",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSole": true,
+      "strokeFreeMeasuredPaths": true
+    },
+    {
+      "id": "south/walkB",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSole": true,
+      "strokeFreeMeasuredPaths": true
+    },
+    {
+      "id": "south/meleeWindup",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSole": true,
+      "strokeFreeMeasuredPaths": true
+    },
+    {
+      "id": "south/contact",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSole": true,
+      "strokeFreeMeasuredPaths": true
+    },
+    {
+      "id": "west/walkA",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSole": true,
+      "strokeFreeMeasuredPaths": true
+    },
+    {
+      "id": "west/walkB",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSole": true,
+      "strokeFreeMeasuredPaths": true
+    },
+    {
+      "id": "west/meleeWindup",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSole": true,
+      "strokeFreeMeasuredPaths": true
+    },
+    {
+      "id": "west/contact",
+      "bodyHeight13": true,
+      "insideSafeBounds": true,
+      "sharedSole": true,
+      "strokeFreeMeasuredPaths": true
+    }
+  ],
+  "checks": {
+    "nativePoseCount": true,
+    "diagnosticPoseCount": true,
+    "bodyHeights13": true,
+    "allInsideSafeBounds": true,
+    "sharedSole": true,
+    "allMeasuredPathsStrokeFree": true,
+    "gradientIdsUnique": true,
+    "gradientRefsLocal": true,
+    "noGpuFlags": false,
+    "noPageOrConsoleErrors": true,
+    "noGpuDisableOrAngleSelectionFlags": true,
+    "strictZeroGpuRelatedFlagsProven": false
+  },
+  "browserExit": "browser.close() awaited",
+  "gpuRelatedLaunchFlags": [
+    "--enable-unsafe-swiftshader",
+    "--enable-unsafe-swiftshader"
+  ],
+  "strictZeroGpuRelatedFlagsProven": false,
+  "gpuFlagAuditNote": "Playwright auto-added --enable-unsafe-swiftshader twice to headless Chrome. No --disable-gpu, --use-angle, or --use-gl flags appear, but this capture does not meet a strict zero-GPU-related-flags requirement.",
+  "postCaptureAudit": "The raw runner output used a narrow GPU-flag regex that missed --enable-unsafe-swiftshader; native-render-runner-output.json preserves the raw output. This normalized evidence marks strict zero-GPU-flags as unproven.",
+  "server": {
+    "command": "python3 -m http.server 4176 --bind 127.0.0.1",
+    "sessionId": 68377,
+    "pid": 95224,
+    "stopped": true,
+    "stopMethod": "Ctrl-C to the owned server session; it printed Keyboard interrupt received, exiting.",
+    "listenerCheckAfterStop": "lsof -nP -iTCP:4176 -sTCP:LISTEN returned no listener."
+  },
+  "browserClosed": true
+}

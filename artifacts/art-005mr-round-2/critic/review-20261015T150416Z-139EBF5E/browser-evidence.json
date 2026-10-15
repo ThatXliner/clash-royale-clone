@@ -1,0 +1,1609 @@
+{
+  "playwrightVersion": "1.58.2",
+  "chromePath": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+  "screenshots": {
+    "before": {
+      "path": "before-original-vector-1440x1200.png",
+      "width": 1440,
+      "height": 1200,
+      "sha256": "3830a2017827c9953ff1c60ab320802309ccd3b51389312a2dd102ee0a0a78f6"
+    },
+    "after": {
+      "path": "after-vector-rig-1440x1200.png",
+      "width": 1440,
+      "height": 1200,
+      "sha256": "cf364a8a68c3f47591c255ade92bed6b981868fe54f20a522a7f920892a43bca"
+    },
+    "comparison": {
+      "path": "comparison-default-1440x1200.png",
+      "width": 1440,
+      "height": 1252,
+      "sha256": "e2d6381776896c313b7b0712d448ea8eb50f222580bba2ef76bef3a3fdedf19b"
+    },
+    "diagnostic": {
+      "path": "enlarged-diagnostic-only.png",
+      "width": 1340,
+      "height": 615,
+      "sha256": "25dadc1d62261ffe8c3487dfca156d85441905ad568d18d60869e2ef93739653",
+      "classification": "enlarged diagnostic only; not native-scale evidence"
+    }
+  },
+  "consoleErrors": [],
+  "pageErrors": [],
+  "requestFailures": [],
+  "requests": [
+    {
+      "url": "http://127.0.0.1:58394/demo/mossguard-vector-rig.html?view=before",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:58394/demo/mossguard-vector-rig.js",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:58394/src/ui/combat-art.js",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:58394/demo/mossguard-vector-rig.html?view=after",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:58394/demo/mossguard-vector-rig.js",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:58394/src/ui/combat-art.js",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:58394/demo/mossguard-vector-rig.html?view=compare",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:58394/demo/mossguard-vector-rig.js",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:58394/src/ui/combat-art.js",
+      "method": "GET"
+    }
+  ],
+  "commands": {
+    "chrome": {
+      "executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      "args": [
+        "--headless=new",
+        "--remote-debugging-port=0",
+        "--user-data-dir=/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/chrome-profile"
+      ],
+      "cwd": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/private-checkout"
+    }
+  },
+  "audit": {
+    "url": "http://127.0.0.1:58394/demo/mossguard-vector-rig.html?view=compare",
+    "title": "Mossguard Vector Pose Rig · Moss & Ember",
+    "viewport": {
+      "innerWidth": 1440,
+      "innerHeight": 1200,
+      "devicePixelRatio": 1,
+      "scrollWidth": 1440,
+      "scrollHeight": 1252
+    },
+    "displayedMeasurements": {
+      "baseline": "Stroke-inclusive original path body: 13.00 CSS px",
+      "rig": "Rendered body geometry: 13.00–13.00 CSS px · 16 poses"
+    },
+    "baseline": [
+      {
+        "side": "north",
+        "bodyBoundsViewBox": {
+          "x": 6,
+          "y": 3,
+          "width": 54,
+          "height": 54,
+          "right": 60,
+          "bottom": 57
+        },
+        "svgCssSize": {
+          "width": 15.40625,
+          "height": 15.40625
+        },
+        "bodyHeightCssPx": 12.9990234375,
+        "strokeWidths": [
+          2
+        ]
+      },
+      {
+        "side": "south",
+        "bodyBoundsViewBox": {
+          "x": 6,
+          "y": 3,
+          "width": 54,
+          "height": 54,
+          "right": 60,
+          "bottom": 57
+        },
+        "svgCssSize": {
+          "width": 15.40625,
+          "height": 15.40625
+        },
+        "bodyHeightCssPx": 12.9990234375,
+        "strokeWidths": [
+          2
+        ]
+      }
+    ],
+    "native": [
+      {
+        "direction": "north",
+        "pose": "walkA",
+        "team": "ember",
+        "tick": 0,
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "scaleCssPxPerViewBoxUnit": 0.25,
+        "bodyBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyBoundsLocalViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52,
+          "right": 60,
+          "bottom": 58
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchorDeclared": [
+          32,
+          58
+        ],
+        "measuredBodyBottomViewBox": 58,
+        "safeBoundsViewBox": [
+          4,
+          6,
+          56,
+          52
+        ],
+        "bodyInsideSafeBounds": false,
+        "soleHeightMatchesAnchor": true,
+        "allArtBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 55.099998474121094,
+          "right": 60,
+          "bottom": 61.099998474121094
+        },
+        "visiblePathStrokeWidths": [
+          0
+        ],
+        "gradientIds": [
+          "mossguard-native-north-walkA-wood",
+          "mossguard-native-north-walkA-wood-light",
+          "mossguard-native-north-walkA-leaf"
+        ],
+        "gradientRefs": [
+          "mossguard-native-north-walkA-leaf",
+          "mossguard-native-north-walkA-wood",
+          "mossguard-native-north-walkA-wood-light",
+          "mossguard-native-north-walkA-wood-light",
+          "mossguard-native-north-walkA-leaf",
+          "mossguard-native-north-walkA-wood-light",
+          "mossguard-native-north-walkA-wood",
+          "mossguard-native-north-walkA-leaf"
+        ]
+      },
+      {
+        "direction": "north",
+        "pose": "walkB",
+        "team": "ember",
+        "tick": 17,
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "scaleCssPxPerViewBoxUnit": 0.25,
+        "bodyBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyBoundsLocalViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52,
+          "right": 60,
+          "bottom": 58
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchorDeclared": [
+          32,
+          58
+        ],
+        "measuredBodyBottomViewBox": 58,
+        "safeBoundsViewBox": [
+          4,
+          6,
+          56,
+          52
+        ],
+        "bodyInsideSafeBounds": false,
+        "soleHeightMatchesAnchor": true,
+        "allArtBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 55.099998474121094,
+          "right": 60,
+          "bottom": 61.099998474121094
+        },
+        "visiblePathStrokeWidths": [
+          0
+        ],
+        "gradientIds": [
+          "mossguard-native-north-walkB-wood",
+          "mossguard-native-north-walkB-wood-light",
+          "mossguard-native-north-walkB-leaf"
+        ],
+        "gradientRefs": [
+          "mossguard-native-north-walkB-leaf",
+          "mossguard-native-north-walkB-wood",
+          "mossguard-native-north-walkB-wood-light",
+          "mossguard-native-north-walkB-wood-light",
+          "mossguard-native-north-walkB-leaf",
+          "mossguard-native-north-walkB-wood-light",
+          "mossguard-native-north-walkB-wood",
+          "mossguard-native-north-walkB-leaf"
+        ]
+      },
+      {
+        "direction": "north",
+        "pose": "meleeWindup",
+        "team": "ember",
+        "tick": 34,
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "scaleCssPxPerViewBoxUnit": 0.25,
+        "bodyBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyBoundsLocalViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52,
+          "right": 60,
+          "bottom": 58
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchorDeclared": [
+          32,
+          58
+        ],
+        "measuredBodyBottomViewBox": 58,
+        "safeBoundsViewBox": [
+          4,
+          6,
+          56,
+          52
+        ],
+        "bodyInsideSafeBounds": false,
+        "soleHeightMatchesAnchor": true,
+        "allArtBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 55.099998474121094,
+          "right": 60,
+          "bottom": 61.099998474121094
+        },
+        "visiblePathStrokeWidths": [
+          0
+        ],
+        "gradientIds": [
+          "mossguard-native-north-meleeWindup-wood",
+          "mossguard-native-north-meleeWindup-wood-light",
+          "mossguard-native-north-meleeWindup-leaf"
+        ],
+        "gradientRefs": [
+          "mossguard-native-north-meleeWindup-leaf",
+          "mossguard-native-north-meleeWindup-wood",
+          "mossguard-native-north-meleeWindup-wood-light",
+          "mossguard-native-north-meleeWindup-wood-light",
+          "mossguard-native-north-meleeWindup-leaf",
+          "mossguard-native-north-meleeWindup-wood-light",
+          "mossguard-native-north-meleeWindup-wood",
+          "mossguard-native-north-meleeWindup-leaf"
+        ]
+      },
+      {
+        "direction": "north",
+        "pose": "contact",
+        "team": "ember",
+        "tick": 51,
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "scaleCssPxPerViewBoxUnit": 0.25,
+        "bodyBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyBoundsLocalViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52,
+          "right": 60,
+          "bottom": 58
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchorDeclared": [
+          32,
+          58
+        ],
+        "measuredBodyBottomViewBox": 58,
+        "safeBoundsViewBox": [
+          4,
+          6,
+          56,
+          52
+        ],
+        "bodyInsideSafeBounds": false,
+        "soleHeightMatchesAnchor": true,
+        "allArtBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 55.099998474121094,
+          "right": 60,
+          "bottom": 61.099998474121094
+        },
+        "visiblePathStrokeWidths": [
+          0
+        ],
+        "gradientIds": [
+          "mossguard-native-north-contact-wood",
+          "mossguard-native-north-contact-wood-light",
+          "mossguard-native-north-contact-leaf"
+        ],
+        "gradientRefs": [
+          "mossguard-native-north-contact-leaf",
+          "mossguard-native-north-contact-wood",
+          "mossguard-native-north-contact-wood-light",
+          "mossguard-native-north-contact-wood-light",
+          "mossguard-native-north-contact-leaf",
+          "mossguard-native-north-contact-wood-light",
+          "mossguard-native-north-contact-wood",
+          "mossguard-native-north-contact-leaf"
+        ]
+      },
+      {
+        "direction": "east",
+        "pose": "walkA",
+        "team": "jade",
+        "tick": 31,
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "scaleCssPxPerViewBoxUnit": 0.25,
+        "bodyBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyBoundsLocalViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52,
+          "right": 60,
+          "bottom": 58
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchorDeclared": [
+          32,
+          58
+        ],
+        "measuredBodyBottomViewBox": 58,
+        "safeBoundsViewBox": [
+          4,
+          6,
+          56,
+          52
+        ],
+        "bodyInsideSafeBounds": false,
+        "soleHeightMatchesAnchor": true,
+        "allArtBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 55.099998474121094,
+          "right": 60,
+          "bottom": 61.099998474121094
+        },
+        "visiblePathStrokeWidths": [
+          0
+        ],
+        "gradientIds": [
+          "mossguard-native-east-walkA-wood",
+          "mossguard-native-east-walkA-wood-light",
+          "mossguard-native-east-walkA-leaf"
+        ],
+        "gradientRefs": [
+          "mossguard-native-east-walkA-leaf",
+          "mossguard-native-east-walkA-wood",
+          "mossguard-native-east-walkA-wood-light",
+          "mossguard-native-east-walkA-wood-light",
+          "mossguard-native-east-walkA-leaf",
+          "mossguard-native-east-walkA-wood-light",
+          "mossguard-native-east-walkA-wood",
+          "mossguard-native-east-walkA-leaf"
+        ]
+      },
+      {
+        "direction": "east",
+        "pose": "walkB",
+        "team": "jade",
+        "tick": 48,
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "scaleCssPxPerViewBoxUnit": 0.25,
+        "bodyBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyBoundsLocalViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52,
+          "right": 60,
+          "bottom": 58
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchorDeclared": [
+          32,
+          58
+        ],
+        "measuredBodyBottomViewBox": 58,
+        "safeBoundsViewBox": [
+          4,
+          6,
+          56,
+          52
+        ],
+        "bodyInsideSafeBounds": false,
+        "soleHeightMatchesAnchor": true,
+        "allArtBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 55.099998474121094,
+          "right": 60,
+          "bottom": 61.099998474121094
+        },
+        "visiblePathStrokeWidths": [
+          0
+        ],
+        "gradientIds": [
+          "mossguard-native-east-walkB-wood",
+          "mossguard-native-east-walkB-wood-light",
+          "mossguard-native-east-walkB-leaf"
+        ],
+        "gradientRefs": [
+          "mossguard-native-east-walkB-leaf",
+          "mossguard-native-east-walkB-wood",
+          "mossguard-native-east-walkB-wood-light",
+          "mossguard-native-east-walkB-wood-light",
+          "mossguard-native-east-walkB-leaf",
+          "mossguard-native-east-walkB-wood-light",
+          "mossguard-native-east-walkB-wood",
+          "mossguard-native-east-walkB-leaf"
+        ]
+      },
+      {
+        "direction": "east",
+        "pose": "meleeWindup",
+        "team": "jade",
+        "tick": 65,
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "scaleCssPxPerViewBoxUnit": 0.25,
+        "bodyBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyBoundsLocalViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52,
+          "right": 60,
+          "bottom": 58
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchorDeclared": [
+          32,
+          58
+        ],
+        "measuredBodyBottomViewBox": 58,
+        "safeBoundsViewBox": [
+          4,
+          6,
+          56,
+          52
+        ],
+        "bodyInsideSafeBounds": false,
+        "soleHeightMatchesAnchor": true,
+        "allArtBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 55.099998474121094,
+          "right": 60,
+          "bottom": 61.099998474121094
+        },
+        "visiblePathStrokeWidths": [
+          0
+        ],
+        "gradientIds": [
+          "mossguard-native-east-meleeWindup-wood",
+          "mossguard-native-east-meleeWindup-wood-light",
+          "mossguard-native-east-meleeWindup-leaf"
+        ],
+        "gradientRefs": [
+          "mossguard-native-east-meleeWindup-leaf",
+          "mossguard-native-east-meleeWindup-wood",
+          "mossguard-native-east-meleeWindup-wood-light",
+          "mossguard-native-east-meleeWindup-wood-light",
+          "mossguard-native-east-meleeWindup-leaf",
+          "mossguard-native-east-meleeWindup-wood-light",
+          "mossguard-native-east-meleeWindup-wood",
+          "mossguard-native-east-meleeWindup-leaf"
+        ]
+      },
+      {
+        "direction": "east",
+        "pose": "contact",
+        "team": "jade",
+        "tick": 82,
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "scaleCssPxPerViewBoxUnit": 0.25,
+        "bodyBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyBoundsLocalViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52,
+          "right": 60,
+          "bottom": 58
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchorDeclared": [
+          32,
+          58
+        ],
+        "measuredBodyBottomViewBox": 58,
+        "safeBoundsViewBox": [
+          4,
+          6,
+          56,
+          52
+        ],
+        "bodyInsideSafeBounds": false,
+        "soleHeightMatchesAnchor": true,
+        "allArtBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 55.099998474121094,
+          "right": 60,
+          "bottom": 61.099998474121094
+        },
+        "visiblePathStrokeWidths": [
+          0
+        ],
+        "gradientIds": [
+          "mossguard-native-east-contact-wood",
+          "mossguard-native-east-contact-wood-light",
+          "mossguard-native-east-contact-leaf"
+        ],
+        "gradientRefs": [
+          "mossguard-native-east-contact-leaf",
+          "mossguard-native-east-contact-wood",
+          "mossguard-native-east-contact-wood-light",
+          "mossguard-native-east-contact-wood-light",
+          "mossguard-native-east-contact-leaf",
+          "mossguard-native-east-contact-wood-light",
+          "mossguard-native-east-contact-wood",
+          "mossguard-native-east-contact-leaf"
+        ]
+      },
+      {
+        "direction": "south",
+        "pose": "walkA",
+        "team": "ember",
+        "tick": 62,
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "scaleCssPxPerViewBoxUnit": 0.25,
+        "bodyBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 55,
+          "height": 52
+        },
+        "bodyBoundsLocalViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 55,
+          "height": 52,
+          "right": 59,
+          "bottom": 58
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchorDeclared": [
+          32,
+          58
+        ],
+        "measuredBodyBottomViewBox": 58,
+        "safeBoundsViewBox": [
+          4,
+          6,
+          56,
+          52
+        ],
+        "bodyInsideSafeBounds": false,
+        "soleHeightMatchesAnchor": true,
+        "allArtBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 55,
+          "height": 55.099998474121094,
+          "right": 59,
+          "bottom": 61.099998474121094
+        },
+        "visiblePathStrokeWidths": [
+          0
+        ],
+        "gradientIds": [
+          "mossguard-native-south-walkA-wood",
+          "mossguard-native-south-walkA-wood-light",
+          "mossguard-native-south-walkA-leaf"
+        ],
+        "gradientRefs": [
+          "mossguard-native-south-walkA-leaf",
+          "mossguard-native-south-walkA-wood",
+          "mossguard-native-south-walkA-wood-light",
+          "mossguard-native-south-walkA-wood-light",
+          "mossguard-native-south-walkA-leaf",
+          "mossguard-native-south-walkA-wood-light",
+          "mossguard-native-south-walkA-wood",
+          "mossguard-native-south-walkA-leaf"
+        ]
+      },
+      {
+        "direction": "south",
+        "pose": "walkB",
+        "team": "ember",
+        "tick": 79,
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "scaleCssPxPerViewBoxUnit": 0.25,
+        "bodyBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 55,
+          "height": 52
+        },
+        "bodyBoundsLocalViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 55,
+          "height": 52,
+          "right": 59,
+          "bottom": 58
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchorDeclared": [
+          32,
+          58
+        ],
+        "measuredBodyBottomViewBox": 58,
+        "safeBoundsViewBox": [
+          4,
+          6,
+          56,
+          52
+        ],
+        "bodyInsideSafeBounds": false,
+        "soleHeightMatchesAnchor": true,
+        "allArtBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 55,
+          "height": 55.099998474121094,
+          "right": 59,
+          "bottom": 61.099998474121094
+        },
+        "visiblePathStrokeWidths": [
+          0
+        ],
+        "gradientIds": [
+          "mossguard-native-south-walkB-wood",
+          "mossguard-native-south-walkB-wood-light",
+          "mossguard-native-south-walkB-leaf"
+        ],
+        "gradientRefs": [
+          "mossguard-native-south-walkB-leaf",
+          "mossguard-native-south-walkB-wood",
+          "mossguard-native-south-walkB-wood-light",
+          "mossguard-native-south-walkB-wood-light",
+          "mossguard-native-south-walkB-leaf",
+          "mossguard-native-south-walkB-wood-light",
+          "mossguard-native-south-walkB-wood",
+          "mossguard-native-south-walkB-leaf"
+        ]
+      },
+      {
+        "direction": "south",
+        "pose": "meleeWindup",
+        "team": "ember",
+        "tick": 96,
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "scaleCssPxPerViewBoxUnit": 0.25,
+        "bodyBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyBoundsLocalViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52,
+          "right": 60,
+          "bottom": 58
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchorDeclared": [
+          32,
+          58
+        ],
+        "measuredBodyBottomViewBox": 58,
+        "safeBoundsViewBox": [
+          4,
+          6,
+          56,
+          52
+        ],
+        "bodyInsideSafeBounds": false,
+        "soleHeightMatchesAnchor": true,
+        "allArtBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 55.099998474121094,
+          "right": 60,
+          "bottom": 61.099998474121094
+        },
+        "visiblePathStrokeWidths": [
+          0
+        ],
+        "gradientIds": [
+          "mossguard-native-south-meleeWindup-wood",
+          "mossguard-native-south-meleeWindup-wood-light",
+          "mossguard-native-south-meleeWindup-leaf"
+        ],
+        "gradientRefs": [
+          "mossguard-native-south-meleeWindup-leaf",
+          "mossguard-native-south-meleeWindup-wood",
+          "mossguard-native-south-meleeWindup-wood-light",
+          "mossguard-native-south-meleeWindup-wood-light",
+          "mossguard-native-south-meleeWindup-leaf",
+          "mossguard-native-south-meleeWindup-wood-light",
+          "mossguard-native-south-meleeWindup-wood",
+          "mossguard-native-south-meleeWindup-leaf"
+        ]
+      },
+      {
+        "direction": "south",
+        "pose": "contact",
+        "team": "ember",
+        "tick": 113,
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "scaleCssPxPerViewBoxUnit": 0.25,
+        "bodyBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyBoundsLocalViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52,
+          "right": 60,
+          "bottom": 58
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchorDeclared": [
+          32,
+          58
+        ],
+        "measuredBodyBottomViewBox": 58,
+        "safeBoundsViewBox": [
+          4,
+          6,
+          56,
+          52
+        ],
+        "bodyInsideSafeBounds": false,
+        "soleHeightMatchesAnchor": true,
+        "allArtBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 55.099998474121094,
+          "right": 60,
+          "bottom": 61.099998474121094
+        },
+        "visiblePathStrokeWidths": [
+          0
+        ],
+        "gradientIds": [
+          "mossguard-native-south-contact-wood",
+          "mossguard-native-south-contact-wood-light",
+          "mossguard-native-south-contact-leaf"
+        ],
+        "gradientRefs": [
+          "mossguard-native-south-contact-leaf",
+          "mossguard-native-south-contact-wood",
+          "mossguard-native-south-contact-wood-light",
+          "mossguard-native-south-contact-wood-light",
+          "mossguard-native-south-contact-leaf",
+          "mossguard-native-south-contact-wood-light",
+          "mossguard-native-south-contact-wood",
+          "mossguard-native-south-contact-leaf"
+        ]
+      },
+      {
+        "direction": "west",
+        "pose": "walkA",
+        "team": "jade",
+        "tick": 93,
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "scaleCssPxPerViewBoxUnit": 0.25,
+        "bodyBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyBoundsLocalViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52,
+          "right": 60,
+          "bottom": 58
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchorDeclared": [
+          32,
+          58
+        ],
+        "measuredBodyBottomViewBox": 58,
+        "safeBoundsViewBox": [
+          4,
+          6,
+          56,
+          52
+        ],
+        "bodyInsideSafeBounds": false,
+        "soleHeightMatchesAnchor": true,
+        "allArtBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 55.099998474121094,
+          "right": 60,
+          "bottom": 61.099998474121094
+        },
+        "visiblePathStrokeWidths": [
+          0
+        ],
+        "gradientIds": [
+          "mossguard-native-west-walkA-wood",
+          "mossguard-native-west-walkA-wood-light",
+          "mossguard-native-west-walkA-leaf"
+        ],
+        "gradientRefs": [
+          "mossguard-native-west-walkA-leaf",
+          "mossguard-native-west-walkA-wood",
+          "mossguard-native-west-walkA-wood-light",
+          "mossguard-native-west-walkA-wood-light",
+          "mossguard-native-west-walkA-leaf",
+          "mossguard-native-west-walkA-wood-light",
+          "mossguard-native-west-walkA-wood",
+          "mossguard-native-west-walkA-leaf"
+        ]
+      },
+      {
+        "direction": "west",
+        "pose": "walkB",
+        "team": "jade",
+        "tick": 110,
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "scaleCssPxPerViewBoxUnit": 0.25,
+        "bodyBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyBoundsLocalViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52,
+          "right": 60,
+          "bottom": 58
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchorDeclared": [
+          32,
+          58
+        ],
+        "measuredBodyBottomViewBox": 58,
+        "safeBoundsViewBox": [
+          4,
+          6,
+          56,
+          52
+        ],
+        "bodyInsideSafeBounds": false,
+        "soleHeightMatchesAnchor": true,
+        "allArtBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 55.099998474121094,
+          "right": 60,
+          "bottom": 61.099998474121094
+        },
+        "visiblePathStrokeWidths": [
+          0
+        ],
+        "gradientIds": [
+          "mossguard-native-west-walkB-wood",
+          "mossguard-native-west-walkB-wood-light",
+          "mossguard-native-west-walkB-leaf"
+        ],
+        "gradientRefs": [
+          "mossguard-native-west-walkB-leaf",
+          "mossguard-native-west-walkB-wood",
+          "mossguard-native-west-walkB-wood-light",
+          "mossguard-native-west-walkB-wood-light",
+          "mossguard-native-west-walkB-leaf",
+          "mossguard-native-west-walkB-wood-light",
+          "mossguard-native-west-walkB-wood",
+          "mossguard-native-west-walkB-leaf"
+        ]
+      },
+      {
+        "direction": "west",
+        "pose": "meleeWindup",
+        "team": "jade",
+        "tick": 127,
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "scaleCssPxPerViewBoxUnit": 0.25,
+        "bodyBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyBoundsLocalViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52,
+          "right": 60,
+          "bottom": 58
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchorDeclared": [
+          32,
+          58
+        ],
+        "measuredBodyBottomViewBox": 58,
+        "safeBoundsViewBox": [
+          4,
+          6,
+          56,
+          52
+        ],
+        "bodyInsideSafeBounds": false,
+        "soleHeightMatchesAnchor": true,
+        "allArtBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 55.099998474121094,
+          "right": 60,
+          "bottom": 61.099998474121094
+        },
+        "visiblePathStrokeWidths": [
+          0
+        ],
+        "gradientIds": [
+          "mossguard-native-west-meleeWindup-wood",
+          "mossguard-native-west-meleeWindup-wood-light",
+          "mossguard-native-west-meleeWindup-leaf"
+        ],
+        "gradientRefs": [
+          "mossguard-native-west-meleeWindup-leaf",
+          "mossguard-native-west-meleeWindup-wood",
+          "mossguard-native-west-meleeWindup-wood-light",
+          "mossguard-native-west-meleeWindup-wood-light",
+          "mossguard-native-west-meleeWindup-leaf",
+          "mossguard-native-west-meleeWindup-wood-light",
+          "mossguard-native-west-meleeWindup-wood",
+          "mossguard-native-west-meleeWindup-leaf"
+        ]
+      },
+      {
+        "direction": "west",
+        "pose": "contact",
+        "team": "jade",
+        "tick": 144,
+        "svgCssSize": {
+          "width": 16,
+          "height": 16
+        },
+        "scaleCssPxPerViewBoxUnit": 0.25,
+        "bodyBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52
+        },
+        "bodyBoundsLocalViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 52,
+          "right": 60,
+          "bottom": 58
+        },
+        "bodyHeightCssPx": 13,
+        "soleAnchorDeclared": [
+          32,
+          58
+        ],
+        "measuredBodyBottomViewBox": 58,
+        "safeBoundsViewBox": [
+          4,
+          6,
+          56,
+          52
+        ],
+        "bodyInsideSafeBounds": false,
+        "soleHeightMatchesAnchor": true,
+        "allArtBoundsViewBox": {
+          "x": 4,
+          "y": 6,
+          "width": 56,
+          "height": 55.099998474121094,
+          "right": 60,
+          "bottom": 61.099998474121094
+        },
+        "visiblePathStrokeWidths": [
+          0
+        ],
+        "gradientIds": [
+          "mossguard-native-west-contact-wood",
+          "mossguard-native-west-contact-wood-light",
+          "mossguard-native-west-contact-leaf"
+        ],
+        "gradientRefs": [
+          "mossguard-native-west-contact-leaf",
+          "mossguard-native-west-contact-wood",
+          "mossguard-native-west-contact-wood-light",
+          "mossguard-native-west-contact-wood-light",
+          "mossguard-native-west-contact-leaf",
+          "mossguard-native-west-contact-wood-light",
+          "mossguard-native-west-contact-wood",
+          "mossguard-native-west-contact-leaf"
+        ]
+      }
+    ],
+    "diagnostic": [
+      {
+        "direction": "north",
+        "pose": "walkA",
+        "team": "ember",
+        "widthCssPx": 96,
+        "heightCssPx": 96
+      },
+      {
+        "direction": "north",
+        "pose": "walkB",
+        "team": "ember",
+        "widthCssPx": 96,
+        "heightCssPx": 96
+      },
+      {
+        "direction": "north",
+        "pose": "meleeWindup",
+        "team": "ember",
+        "widthCssPx": 96,
+        "heightCssPx": 96
+      },
+      {
+        "direction": "north",
+        "pose": "contact",
+        "team": "ember",
+        "widthCssPx": 96,
+        "heightCssPx": 96
+      },
+      {
+        "direction": "east",
+        "pose": "walkA",
+        "team": "jade",
+        "widthCssPx": 96,
+        "heightCssPx": 96
+      },
+      {
+        "direction": "east",
+        "pose": "walkB",
+        "team": "jade",
+        "widthCssPx": 96,
+        "heightCssPx": 96
+      },
+      {
+        "direction": "east",
+        "pose": "meleeWindup",
+        "team": "jade",
+        "widthCssPx": 96,
+        "heightCssPx": 96
+      },
+      {
+        "direction": "east",
+        "pose": "contact",
+        "team": "jade",
+        "widthCssPx": 96,
+        "heightCssPx": 96
+      },
+      {
+        "direction": "south",
+        "pose": "walkA",
+        "team": "ember",
+        "widthCssPx": 96,
+        "heightCssPx": 96
+      },
+      {
+        "direction": "south",
+        "pose": "walkB",
+        "team": "ember",
+        "widthCssPx": 96,
+        "heightCssPx": 96
+      },
+      {
+        "direction": "south",
+        "pose": "meleeWindup",
+        "team": "ember",
+        "widthCssPx": 96,
+        "heightCssPx": 96
+      },
+      {
+        "direction": "south",
+        "pose": "contact",
+        "team": "ember",
+        "widthCssPx": 96,
+        "heightCssPx": 96
+      },
+      {
+        "direction": "west",
+        "pose": "walkA",
+        "team": "jade",
+        "widthCssPx": 96,
+        "heightCssPx": 96
+      },
+      {
+        "direction": "west",
+        "pose": "walkB",
+        "team": "jade",
+        "widthCssPx": 96,
+        "heightCssPx": 96
+      },
+      {
+        "direction": "west",
+        "pose": "meleeWindup",
+        "team": "jade",
+        "widthCssPx": 96,
+        "heightCssPx": 96
+      },
+      {
+        "direction": "west",
+        "pose": "contact",
+        "team": "jade",
+        "widthCssPx": 96,
+        "heightCssPx": 96
+      }
+    ],
+    "instanceCounts": {
+      "svg": 34,
+      "native": 16,
+      "diagnostic": 16,
+      "gradientIds": 48
+    },
+    "gradientAudit": {
+      "uniqueIds": true,
+      "gradientIds": [
+        "mossguard-native-north-walkA-wood",
+        "mossguard-native-north-walkA-wood-light",
+        "mossguard-native-north-walkA-leaf",
+        "mossguard-native-north-walkB-wood",
+        "mossguard-native-north-walkB-wood-light",
+        "mossguard-native-north-walkB-leaf",
+        "mossguard-native-north-meleeWindup-wood",
+        "mossguard-native-north-meleeWindup-wood-light",
+        "mossguard-native-north-meleeWindup-leaf",
+        "mossguard-native-north-contact-wood",
+        "mossguard-native-north-contact-wood-light",
+        "mossguard-native-north-contact-leaf",
+        "mossguard-native-east-walkA-wood",
+        "mossguard-native-east-walkA-wood-light",
+        "mossguard-native-east-walkA-leaf",
+        "mossguard-native-east-walkB-wood",
+        "mossguard-native-east-walkB-wood-light",
+        "mossguard-native-east-walkB-leaf",
+        "mossguard-native-east-meleeWindup-wood",
+        "mossguard-native-east-meleeWindup-wood-light",
+        "mossguard-native-east-meleeWindup-leaf",
+        "mossguard-native-east-contact-wood",
+        "mossguard-native-east-contact-wood-light",
+        "mossguard-native-east-contact-leaf",
+        "mossguard-native-south-walkA-wood",
+        "mossguard-native-south-walkA-wood-light",
+        "mossguard-native-south-walkA-leaf",
+        "mossguard-native-south-walkB-wood",
+        "mossguard-native-south-walkB-wood-light",
+        "mossguard-native-south-walkB-leaf",
+        "mossguard-native-south-meleeWindup-wood",
+        "mossguard-native-south-meleeWindup-wood-light",
+        "mossguard-native-south-meleeWindup-leaf",
+        "mossguard-native-south-contact-wood",
+        "mossguard-native-south-contact-wood-light",
+        "mossguard-native-south-contact-leaf",
+        "mossguard-native-west-walkA-wood",
+        "mossguard-native-west-walkA-wood-light",
+        "mossguard-native-west-walkA-leaf",
+        "mossguard-native-west-walkB-wood",
+        "mossguard-native-west-walkB-wood-light",
+        "mossguard-native-west-walkB-leaf",
+        "mossguard-native-west-meleeWindup-wood",
+        "mossguard-native-west-meleeWindup-wood-light",
+        "mossguard-native-west-meleeWindup-leaf",
+        "mossguard-native-west-contact-wood",
+        "mossguard-native-west-contact-wood-light",
+        "mossguard-native-west-contact-leaf",
+        "mossguard-diagnostic-north-walkA-wood",
+        "mossguard-diagnostic-north-walkA-wood-light",
+        "mossguard-diagnostic-north-walkA-leaf",
+        "mossguard-diagnostic-north-walkB-wood",
+        "mossguard-diagnostic-north-walkB-wood-light",
+        "mossguard-diagnostic-north-walkB-leaf",
+        "mossguard-diagnostic-north-meleeWindup-wood",
+        "mossguard-diagnostic-north-meleeWindup-wood-light",
+        "mossguard-diagnostic-north-meleeWindup-leaf",
+        "mossguard-diagnostic-north-contact-wood",
+        "mossguard-diagnostic-north-contact-wood-light",
+        "mossguard-diagnostic-north-contact-leaf",
+        "mossguard-diagnostic-east-walkA-wood",
+        "mossguard-diagnostic-east-walkA-wood-light",
+        "mossguard-diagnostic-east-walkA-leaf",
+        "mossguard-diagnostic-east-walkB-wood",
+        "mossguard-diagnostic-east-walkB-wood-light",
+        "mossguard-diagnostic-east-walkB-leaf",
+        "mossguard-diagnostic-east-meleeWindup-wood",
+        "mossguard-diagnostic-east-meleeWindup-wood-light",
+        "mossguard-diagnostic-east-meleeWindup-leaf",
+        "mossguard-diagnostic-east-contact-wood",
+        "mossguard-diagnostic-east-contact-wood-light",
+        "mossguard-diagnostic-east-contact-leaf",
+        "mossguard-diagnostic-south-walkA-wood",
+        "mossguard-diagnostic-south-walkA-wood-light",
+        "mossguard-diagnostic-south-walkA-leaf",
+        "mossguard-diagnostic-south-walkB-wood",
+        "mossguard-diagnostic-south-walkB-wood-light",
+        "mossguard-diagnostic-south-walkB-leaf",
+        "mossguard-diagnostic-south-meleeWindup-wood",
+        "mossguard-diagnostic-south-meleeWindup-wood-light",
+        "mossguard-diagnostic-south-meleeWindup-leaf",
+        "mossguard-diagnostic-south-contact-wood",
+        "mossguard-diagnostic-south-contact-wood-light",
+        "mossguard-diagnostic-south-contact-leaf",
+        "mossguard-diagnostic-west-walkA-wood",
+        "mossguard-diagnostic-west-walkA-wood-light",
+        "mossguard-diagnostic-west-walkA-leaf",
+        "mossguard-diagnostic-west-walkB-wood",
+        "mossguard-diagnostic-west-walkB-wood-light",
+        "mossguard-diagnostic-west-walkB-leaf",
+        "mossguard-diagnostic-west-meleeWindup-wood",
+        "mossguard-diagnostic-west-meleeWindup-wood-light",
+        "mossguard-diagnostic-west-meleeWindup-leaf",
+        "mossguard-diagnostic-west-contact-wood",
+        "mossguard-diagnostic-west-contact-wood-light",
+        "mossguard-diagnostic-west-contact-leaf"
+      ],
+      "allGradientIdsUnique": true,
+      "allGradientRefsLocal": true,
+      "gradientRefCount": 256,
+      "nonLocalGradientRefs": []
+    },
+    "aggregate": {
+      "allBodiesInsideSafeBounds": false,
+      "allSolesMatchAnchor": true,
+      "minBodyHeightCssPx": 13,
+      "maxBodyHeightCssPx": 13,
+      "allNativeCells16CssPx": true,
+      "directions": [
+        "north",
+        "east",
+        "south",
+        "west"
+      ],
+      "poses": [
+        "walkA",
+        "walkB",
+        "meleeWindup",
+        "contact"
+      ],
+      "teams": [
+        "ember",
+        "jade"
+      ]
+    }
+  },
+  "explicitInputStaticAudit": {
+    "forbiddenNondeterminismTokens": [],
+    "hasClockDrivenAnimation": false,
+    "hasExplicitTickValidation": true,
+    "hasReferenceImport": false,
+    "imports": [
+      "../src/ui/combat-art.js"
+    ]
+  },
+  "chromeDevtools": {
+    "port": 58395,
+    "browserPath": "/devtools/browser/e6f14650-0c5b-46cc-8dea-b117bbd2ce74"
+  },
+  "browserVersion": "155.0.8059.40",
+  "chromeVersionPage": {
+    "version": "155.0.8059.40\n              (Official Build)\n              \n              (arm64)",
+    "executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "commandLine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome --headless=new --remote-debugging-port=0 --user-data-dir=/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/chrome-profile --noerrdialogs --no-first-run --flag-switches-begin --flag-switches-end",
+    "os": "macOS Version 26.5 (Build 25F71)"
+  },
+  "chromeProcessFamily": {
+    "psReturncode": 0,
+    "processes": [
+      {
+        "pid": 97344,
+        "ppid": 97343,
+        "command": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome --headless=new --remote-debugging-port=0 --user-data-dir=/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/chrome-profile"
+      },
+      {
+        "pid": 97350,
+        "ppid": 97344,
+        "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/155.0.8059.40/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper --type=gpu-process --gpu-recent-crash-count=0 --headless=new --noerrdialogs --user-data-dir=/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/chrome-profile --gpu-preferences=WAAAAAAAAAAgAQAEAAAAAAAAAAAAAGAAQAAAAAAAAAADAAAAAAAAADgAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAAoAAAAAAAAAAgAAAAAAAAADAAAAAEAAAAAAAAAAAAAAAgAAAAAAAAACAAAAAAAAAA= --shared-files --field-trial-handle=1718379636,r,11391308557360568605,7159900387074040022,262144 --disable-features=PaintHolding --variations-seed-version --pseudonymization-salt-handle=1935764596,r,5675303303556807943,12724635286122752761,4 --trace-process-track-uuid=3190708988185955192 --seatbelt-client=26"
+      },
+      {
+        "pid": 97351,
+        "ppid": 97344,
+        "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/155.0.8059.40/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper --type=utility --utility-sub-type=network.mojom.NetworkService --lang=en-US --service-sandbox-type=network --noerrdialogs --user-data-dir=/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/chrome-profile --shared-files --field-trial-handle=1718379636,r,11391308557360568605,7159900387074040022,262144 --disable-features=PaintHolding --variations-seed-version --pseudonymization-salt-handle=1935764596,r,5675303303556807943,12724635286122752761,4 --trace-process-track-uuid=3190708989122997041 --seatbelt-client=24"
+      },
+      {
+        "pid": 97352,
+        "ppid": 97344,
+        "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/155.0.8059.40/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper --type=utility --utility-sub-type=storage.mojom.StorageService --lang=en-US --service-sandbox-type=service --noerrdialogs --user-data-dir=/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/chrome-profile --shared-files --field-trial-handle=1718379636,r,11391308557360568605,7159900387074040022,262144 --disable-features=PaintHolding --variations-seed-version --pseudonymization-salt-handle=1935764596,r,5675303303556807943,12724635286122752761,4 --trace-process-track-uuid=3190708990060038890 --seatbelt-client=42"
+      },
+      {
+        "pid": 97355,
+        "ppid": 97344,
+        "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/155.0.8059.40/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) --type=renderer --top-chrome-webui --noerrdialogs --user-data-dir=/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/chrome-profile --remote-debugging-port=0 --lang=en-US --num-raster-threads=4 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=6 --launch-time-ticks=266774156144 --shared-files --field-trial-handle=1718379636,r,11391308557360568605,7159900387074040022,262144 --disable-features=PaintHolding --variations-seed-version --pseudonymization-salt-handle=1935764596,r,5675303303556807943,12724635286122752761,4 --trace-process-track-uuid=3190708991934122588 --seatbelt-client=72"
+      },
+      {
+        "pid": 97358,
+        "ppid": 97344,
+        "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/155.0.8059.40/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) --type=renderer --noerrdialogs --user-data-dir=/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/chrome-profile --remote-debugging-port=0 --lang=en-US --num-raster-threads=4 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=7 --launch-time-ticks=266774197707 --shared-files --field-trial-handle=1718379636,r,11391308557360568605,7159900387074040022,262144 --disable-features=PaintHolding --variations-seed-version --pseudonymization-salt-handle=1935764596,r,5675303303556807943,12724635286122752761,4 --trace-process-track-uuid=3190708992871164437 --seatbelt-client=72"
+      },
+      {
+        "pid": 97360,
+        "ppid": 97344,
+        "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/155.0.8059.40/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) --type=renderer --noerrdialogs --user-data-dir=/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/chrome-profile --extension-process --remote-debugging-port=0 --lang=en-US --num-raster-threads=4 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=10 --launch-time-ticks=266774254816 --shared-files --field-trial-handle=1718379636,r,11391308557360568605,7159900387074040022,262144 --disable-features=PaintHolding --variations-seed-version --pseudonymization-salt-handle=1935764596,r,5675303303556807943,12724635286122752761,4 --trace-process-track-uuid=3190708995682289984 --seatbelt-client=80"
+      },
+      {
+        "pid": 97361,
+        "ppid": 97344,
+        "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/155.0.8059.40/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) --type=renderer --noerrdialogs --user-data-dir=/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/chrome-profile --remote-debugging-port=0 --lang=en-US --num-raster-threads=4 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=11 --launch-time-ticks=266774354680 --shared-files --field-trial-handle=1718379636,r,11391308557360568605,7159900387074040022,262144 --disable-features=PaintHolding --variations-seed-version --pseudonymization-salt-handle=1935764596,r,5675303303556807943,12724635286122752761,4 --trace-process-track-uuid=3190708996619331833 --seatbelt-client=97"
+      },
+      {
+        "pid": 97364,
+        "ppid": 97344,
+        "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/155.0.8059.40/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) --type=renderer --noerrdialogs --user-data-dir=/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/chrome-profile --extension-process --remote-debugging-port=0 --lang=en-US --num-raster-threads=4 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=13 --launch-time-ticks=266774399174 --shared-files --field-trial-handle=1718379636,r,11391308557360568605,7159900387074040022,262144 --disable-features=PaintHolding --variations-seed-version --pseudonymization-salt-handle=1935764596,r,5675303303556807943,12724635286122752761,4 --trace-process-track-uuid=3190708998493415531 --seatbelt-client=104"
+      },
+      {
+        "pid": 97365,
+        "ppid": 97344,
+        "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/155.0.8059.40/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) --type=renderer --noerrdialogs --user-data-dir=/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/art-005mr-round-2/critic/review-20261015T150416Z-139EBF5E/chrome-profile --remote-debugging-port=0 --lang=en-US --num-raster-threads=4 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=14 --launch-time-ticks=266774401113 --shared-files --field-trial-handle=1718379636,r,11391308557360568605,7159900387074040022,262144 --disable-features=PaintHolding --variations-seed-version --pseudonymization-salt-handle=1935764596,r,5675303303556807943,12724635286122752761,4 --trace-process-track-uuid=3190708999430457380 --seatbelt-client=102"
+      },
+      {
+        "pid": 97366,
+        "ppid": 97344,
+        "command": "(Google Chrome He)"
+      }
+    ]
+  },
+  "gpuFlagAudit": {
+    "forbiddenFlags": [
+      "--enable-unsafe-swiftshader",
+      "--disable-gpu",
+      "--use-angle",
+      "--use-gl"
+    ],
+    "found": [],
+    "strictZeroGpuFlagsProven": true
+  },
+  "server": {
+    "host": "127.0.0.1",
+    "port": 58394,
+    "requests": [
+      {
+        "method": "GET",
+        "url": "/demo/mossguard-vector-rig.html?view=before"
+      },
+      {
+        "method": "GET",
+        "url": "/demo/mossguard-vector-rig.js"
+      },
+      {
+        "method": "GET",
+        "url": "/src/ui/combat-art.js"
+      },
+      {
+        "method": "GET",
+        "url": "/demo/mossguard-vector-rig.html?view=after"
+      },
+      {
+        "method": "GET",
+        "url": "/demo/mossguard-vector-rig.js"
+      },
+      {
+        "method": "GET",
+        "url": "/src/ui/combat-art.js"
+      },
+      {
+        "method": "GET",
+        "url": "/demo/mossguard-vector-rig.html?view=compare"
+      },
+      {
+        "method": "GET",
+        "url": "/demo/mossguard-vector-rig.js"
+      },
+      {
+        "method": "GET",
+        "url": "/src/ui/combat-art.js"
+      }
+    ],
+    "onlyLocalAssets": true
+  },
+  "pageRuntime": {
+    "pageErrors": [],
+    "consoleErrors": [],
+    "requestFailures": [],
+    "requests": [
+      {
+        "url": "http://127.0.0.1:58394/demo/mossguard-vector-rig.html?view=before",
+        "method": "GET"
+      },
+      {
+        "url": "http://127.0.0.1:58394/demo/mossguard-vector-rig.js",
+        "method": "GET"
+      },
+      {
+        "url": "http://127.0.0.1:58394/src/ui/combat-art.js",
+        "method": "GET"
+      },
+      {
+        "url": "http://127.0.0.1:58394/demo/mossguard-vector-rig.html?view=after",
+        "method": "GET"
+      },
+      {
+        "url": "http://127.0.0.1:58394/demo/mossguard-vector-rig.js",
+        "method": "GET"
+      },
+      {
+        "url": "http://127.0.0.1:58394/src/ui/combat-art.js",
+        "method": "GET"
+      },
+      {
+        "url": "http://127.0.0.1:58394/demo/mossguard-vector-rig.html?view=compare",
+        "method": "GET"
+      },
+      {
+        "url": "http://127.0.0.1:58394/demo/mossguard-vector-rig.js",
+        "method": "GET"
+      },
+      {
+        "url": "http://127.0.0.1:58394/src/ui/combat-art.js",
+        "method": "GET"
+      }
+    ]
+  },
+  "completed": true,
+  "chromeExit": {
+    "exitCode": 0,
+    "signal": null
+  }
+}
