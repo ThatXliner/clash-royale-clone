@@ -1,0 +1,49 @@
+{
+  "attempt": 2,
+  "tool": "OpenAI built-in image_gen.imagegen",
+  "tool_output_hint": "Generated images are saved to /Users/me/.codex/generated_images/01a1407f-4f4c-7712-a914-71cc23c32ef7 as /Users/me/.codex/generated_images/01a1407f-4f4c-7712-a914-71cc23c32ef7/exec-b6a69161-7c8d-4294-ad05-09c498ce033e.png by default.",
+  "tool_output_path": "/Users/me/.codex/generated_images/01a1407f-4f4c-7712-a914-71cc23c32ef7/exec-b6a69161-7c8d-4294-ad05-09c498ce033e.png",
+  "tool_output_sha256": "699d28064446b7fd17d5acaba45fdabcbf91f6ffde82252cd39ff294b792dc35",
+  "tool_output_bytes": 996149,
+  "dimensions": {
+    "width": 1254,
+    "height": 1254
+  },
+  "format": "PNG",
+  "alpha_channel": true,
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "alpha_bounds": {
+    "threshold_5_percent_xyxy_exclusive": [
+      69,
+      17,
+      1044,
+      1245
+    ],
+    "threshold_50_percent_xyxy_exclusive": [
+      70,
+      18,
+      1043,
+      1244
+    ]
+  },
+  "parameters": {
+    "transparent_background": true,
+    "referenced_image_paths": [
+      "/Users/me/.codex/worktrees/9456/art-022b-round-3-private/demo/assets/brackenwheel-portrait.png"
+    ]
+  },
+  "input_image": {
+    "path": "demo/assets/brackenwheel-portrait.png",
+    "role": "accepted original character identity reference only",
+    "sha256": "ad0654107fe957283b1e9e107a3be155934f1032820600bb62f6ddd6851a56bc",
+    "bytes": 2650041
+  },
+  "prompt_path": "artifacts/art-022b-round-3/builder/raw-generation/attempt-02-prompt.txt",
+  "prompt_sha256": "93d5a04954dc04ada4f1c4a67af9d6f218d156702de7be0fe07c5f726dbd4c96",
+  "output_copy_path": "demo/assets/brackenwheel-battle-sprite.png",
+  "output_copy_sha256": "699d28064446b7fd17d5acaba45fdabcbf91f6ffde82252cd39ff294b792dc35",
+  "copy_byte_identical": true
+}

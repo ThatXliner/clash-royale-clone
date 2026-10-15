@@ -1,0 +1,266 @@
+{
+  "asset_id": "brackenwheel-battle-sprite",
+  "version": 3,
+  "authorship": "in-repo-authored",
+  "license": "AGPL-3.0-only",
+  "round": 3,
+  "selected_attempt": 2,
+  "generation_tool": "OpenAI built-in image_gen.imagegen",
+  "generation_mode": "built-in image generation with a transparent background",
+  "attempts": [
+    {
+      "attempt": 1,
+      "selected": false,
+      "selection_note": "Superseded after native arena capture; the next prompt moved further toward flat, separated color blocks.",
+      "prompt_path": "artifacts/art-022b-round-3/builder/raw-generation/attempt-01-prompt.txt",
+      "prompt_sha256": "22c443165df597c35e5df3df36c9df9bb5fe1ee70f2fd31dd564f961ac5e01c1",
+      "tool_receipt_path": "artifacts/art-022b-round-3/builder/raw-generation/attempt-01-tool-receipt.json",
+      "tool_output_path": "/Users/me/.codex/generated_images/01a1407f-4f4c-7712-a914-71cc23c32ef7/exec-694cde55-7117-47ea-a416-5c7c6bcc090e.png",
+      "tool_output_sha256": "369e1dc04dbf22ad733ae639754c0bd2e1ac2e7202f0c2f8b5e294578f15457c",
+      "preserved_source_path": "artifacts/art-022b-round-3/builder/raw-generation/attempt-01-source.png",
+      "preserved_source_sha256": "369e1dc04dbf22ad733ae639754c0bd2e1ac2e7202f0c2f8b5e294578f15457c",
+      "preserved_source_bytes": 1179764,
+      "source_dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "source_alpha_bounds_128_xyxy_exclusive": [
+        81,
+        16,
+        991,
+        1239
+      ],
+      "comparison_webp_path": "artifacts/art-022b-round-3/builder/attempt-01-candidate.webp",
+      "comparison_webp_sha256": "f60717ad28a136ba51d691acc4463d5d0eae404b53674a1b2592028253d1daf0",
+      "comparison_webp_bytes": 52038
+    },
+    {
+      "attempt": 2,
+      "selected": true,
+      "selection_note": "Selected as the final R3 candidate.",
+      "prompt_path": "artifacts/art-022b-round-3/builder/raw-generation/attempt-02-prompt.txt",
+      "prompt_sha256": "93d5a04954dc04ada4f1c4a67af9d6f218d156702de7be0fe07c5f726dbd4c96",
+      "tool_receipt_path": "artifacts/art-022b-round-3/builder/raw-generation/attempt-02-tool-receipt.json",
+      "tool_output_path": "/Users/me/.codex/generated_images/01a1407f-4f4c-7712-a914-71cc23c32ef7/exec-b6a69161-7c8d-4294-ad05-09c498ce033e.png",
+      "tool_output_sha256": "699d28064446b7fd17d5acaba45fdabcbf91f6ffde82252cd39ff294b792dc35",
+      "preserved_source_path": "demo/assets/brackenwheel-battle-sprite.png",
+      "preserved_source_sha256": "699d28064446b7fd17d5acaba45fdabcbf91f6ffde82252cd39ff294b792dc35",
+      "preserved_source_bytes": 996149,
+      "source_dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "source_alpha_bounds_128_xyxy_exclusive": [
+        70,
+        18,
+        1043,
+        1244
+      ],
+      "comparison_webp_path": "public/assets/brackenwheel-battle-sprite.webp",
+      "comparison_webp_sha256": "440ef5d41aa289c8701151ad36916e0cdce1ce3bcfb2996852c0dc3d10d4621c",
+      "comparison_webp_bytes": 49440
+    }
+  ],
+  "attempt_ledger": [
+    "artifacts/art-022b-round-3/builder/raw-generation/attempt-01-tool-receipt.json",
+    "artifacts/art-022b-round-3/builder/raw-generation/attempt-02-tool-receipt.json"
+  ],
+  "input_images": [
+    {
+      "path": "demo/assets/brackenwheel-portrait.png",
+      "role": "accepted original character identity reference only",
+      "sha256": "ad0654107fe957283b1e9e107a3be155934f1032820600bb62f6ddd6851a56bc",
+      "bytes": 2650041,
+      "dimensions": {
+        "width": 1254,
+        "height": 1254
+      }
+    }
+  ],
+  "prompt": "Use case: stylized-concept\nAsset type: original transparent real-time game battle sprite, designed from the start for a 13 CSS px body on a 540\u00d7960 arena at DPR 1\nInput images: Image 1: accepted Brackenwheel portrait, identity reference only. Preserve the same woman through her large auburn curls, warm face, rust-red sleeves, deep teal apron, and copper sickle; simplify her proportions and rendering completely.\nPrimary request: Make an exceptionally clear, original tiny-game character silhouette in a bold chibi cartoon style. Build the design as large, flat, separated color shapes that will still read when only 13 pixels tall. A large auburn head, a bright teal apron, two separate dark boots, and a large bright copper C-shaped sickle are the four dominant unmistakable shapes.\nScene/backdrop: genuine transparent alpha; no environment, ground, platform, shadow, glow, or halo.\nSubject: one adult woman river-worker with an oversized round head, a small sturdy body, one chunky auburn curl mass, a simple warm-peach face, two broad rust-red sleeves, a large solid teal apron covering most of her torso, two short separate dark trousers and two dark boots. One hand clearly grips the short handle of one large open crescent copper sickle.\nStyle/medium: premium 2D mobile-game character icon, graphic chibi cartoon, crisp cel-shaded illustration with very thick clean dark-brown outlines and only a few solid color blocks. Smooth simple silhouettes and one restrained highlight per large shape. It should look deliberately designed as a bold game sprite, not like a miniature painting, portrait, realistic person, sticker, or rendering study.\nComposition/framing: full figure in a front three-quarter standing pose, whole hair through boot soles and the complete sickle entirely inside a square transparent canvas. Head is about 38 percent of figure height, round and distinct above the torso, with only three or four large hair tufts. The apron is one uninterrupted bright deep-teal trapezoid much wider than the waist, without folds or decoration. Rust sleeves are two clearly separate side shapes. Legs spread visibly apart below the apron into two chunky boots with a strong transparent gap between them. Extend one arm outward and visibly join the hand to the sickle handle. Put the copper crescent well outside the body on the viewer-left; make a simple open C with a thick bright-orange blade, dark outline, and a clearly visible empty center. Keep at least a one-pixel-sized native transparent gap between the crescent blade and the woman's head, arm, and torso. Design broad geometric features as if every important mark must survive at 13 pixels: head at least four pixels tall, apron at least three pixels tall, each boot at least two pixels wide with a gap between them, sickle arc at least three pixels wide with a thick visible curve. All four dominant shapes must remain visibly distinct on both light and dark arena colors.\nLighting/mood: even flat light; separate forms by solid color and outline rather than complex lighting.\nColor palette: saturated auburn hair, light warm-peach face, vivid deep-teal apron, clear rust-red sleeves, bright golden-orange copper sickle, near-black brown trousers and boots; strong color contrast between adjacent shapes.\nMaterials/textures: simple smooth cloth and copper blocks; no texture, gradients, tiny stitches, belt ornaments, buttons, or filigree.\nText (verbatim): None.\nConstraints: exactly one original adult woman and one held sickle; coherent complete hands, legs, and feet; visible full-body transparent cutout; portrait identity is preserved through the named colors, hair silhouette, face, apron, and tool only.\nAvoid: realistic body proportions, portrait-like or full-body painterly rendering, soft small gradients, fabric folds, individual hair strands, detailed face, thin sickle, dark or brown-only sickle, hidden hand, merged boots, touching legs, narrow apron, tool crossing the face or torso, detached glow or shadows, scenery, background, opaque checkerboard, extra accessories, extra limbs or fingers, text, watermark, copied commercial-game art.",
+  "prompt_sha256": "93d5a04954dc04ada4f1c4a67af9d6f218d156702de7be0fe07c5f726dbd4c96",
+  "generated_source": {
+    "path": "demo/assets/brackenwheel-battle-sprite.png",
+    "tool_output_path": "/Users/me/.codex/generated_images/01a1407f-4f4c-7712-a914-71cc23c32ef7/exec-b6a69161-7c8d-4294-ad05-09c498ce033e.png",
+    "sha256": "699d28064446b7fd17d5acaba45fdabcbf91f6ffde82252cd39ff294b792dc35",
+    "bytes": 996149,
+    "dimensions": {
+      "width": 1254,
+      "height": 1254
+    },
+    "format": "PNG",
+    "alpha_channel": true,
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "alpha_bounds": {
+      "threshold_5_percent_xyxy_exclusive": [
+        69,
+        17,
+        1044,
+        1245
+      ],
+      "threshold_50_percent_xyxy_exclusive": [
+        70,
+        18,
+        1043,
+        1244
+      ]
+    },
+    "copy_verification": "The generated output and preserved source PNG have matching SHA-256, dimensions, and alpha metadata."
+  },
+  "shipped_output": {
+    "path": "public/assets/brackenwheel-battle-sprite.webp",
+    "sha256": "440ef5d41aa289c8701151ad36916e0cdce1ce3bcfb2996852c0dc3d10d4621c",
+    "bytes": 49440,
+    "dimensions": {
+      "width": 512,
+      "height": 512
+    },
+    "format": "WEBP",
+    "alpha_channel": true,
+    "alpha_extrema_8bit": [
+      0,
+      254
+    ],
+    "alpha_bounds": {
+      "threshold_5_percent_xyxy_exclusive": [
+        28,
+        7,
+        427,
+        509
+      ],
+      "threshold_50_percent_xyxy_exclusive": [
+        28,
+        7,
+        426,
+        508
+      ]
+    },
+    "encoding": {
+      "tool": "cwebp",
+      "version": "1.6.0",
+      "libsharpyuv_version": "0.4.2",
+      "arguments": [
+        "-q",
+        "92",
+        "-alpha_q",
+        "100",
+        "-m",
+        "6",
+        "-mt",
+        "-resize",
+        "512",
+        "512"
+      ],
+      "command": "cwebp -q 92 -alpha_q 100 -m 6 -mt -resize 512 512 demo/assets/brackenwheel-battle-sprite.png -o public/assets/brackenwheel-battle-sprite.webp",
+      "reproducibility": {
+        "repeat_command": "cwebp -q 92 -alpha_q 100 -m 6 -mt -resize 512 512 demo/assets/brackenwheel-battle-sprite.png -o artifacts/art-022b-round-3/builder/reproducibility-repeat.webp",
+        "repeat_output_path": "artifacts/art-022b-round-3/builder/reproducibility-repeat.webp",
+        "repeat_output_sha256": "440ef5d41aa289c8701151ad36916e0cdce1ce3bcfb2996852c0dc3d10d4621c",
+        "byte_identical": true
+      }
+    },
+    "license": "AGPL-3.0-only",
+    "authorship": "in-repo-authored"
+  },
+  "body_scale_measurement": {
+    "definition": "alpha bounds at >= 128/255 on the unchanged image, with the held sickle included in the visible full-figure bounds",
+    "source": {
+      "bounds_xyxy_exclusive": [
+        70,
+        18,
+        1043,
+        1244
+      ],
+      "width_pixels": 973,
+      "height_pixels": 1226,
+      "width_to_height_ratio": 0.79363785,
+      "height_fraction_of_canvas": 0.97767145,
+      "canvas_css_height_for_13_css_px_body": 13.29690049,
+      "canvas_css_height_for_26_css_px_body": 26.59380098
+    },
+    "shipped_output": {
+      "bounds_xyxy_exclusive": [
+        28,
+        7,
+        426,
+        508
+      ],
+      "width_pixels": 398,
+      "height_pixels": 501,
+      "width_to_height_ratio": 0.79441118,
+      "height_fraction_of_canvas": 0.97851562,
+      "canvas_css_height_for_13_css_px_body": 13.28542914,
+      "canvas_css_height_for_26_css_px_body": 26.57085828
+    },
+    "scope_limit": "Alpha geometry does not establish native-scale readability; the independent critic must assess the browser captures."
+  },
+  "visual_validation": {
+    "status": "builder native-scale captures recorded; independent critic review pending",
+    "capture_environment": {
+      "chrome": "Google Chrome 155.0.8059.40",
+      "playwright": "1.58.2",
+      "device_pixel_ratio": 1,
+      "viewport": "540x960",
+      "actual_shipped_webp": true,
+      "enlarged_image_substitution": false,
+      "sprite_sha256": "440ef5d41aa289c8701151ad36916e0cdce1ce3bcfb2996852c0dc3d10d4621c",
+      "arena_sha256": "6b041ff5f08a9f5dc79181918c0b470abf33ca9ec2ae32ce91e41cb2d945b8b5"
+    },
+    "source": {
+      "naturalWidth": 512,
+      "naturalHeight": 512,
+      "alpha128Bounds": {
+        "x": 28,
+        "y": 7,
+        "width": 398,
+        "height": 501
+      },
+      "alpha128Pixels": 111310,
+      "devicePixelRatio": 1
+    },
+    "captures": [
+      {
+        "requestedBodyCssPx": 13,
+        "imageCssSizePx": 13.28125,
+        "measuredBodyCssPx": 12.99591064453125,
+        "devicePixelRatio": 1,
+        "tone": "light",
+        "path": "artifacts/art-022b-round-3/builder/native-captures/13-css-light-native.png",
+        "screenshotPixels": "540x960"
+      },
+      {
+        "requestedBodyCssPx": 13,
+        "imageCssSizePx": 13.28125,
+        "measuredBodyCssPx": 12.99591064453125,
+        "devicePixelRatio": 1,
+        "tone": "dark",
+        "path": "artifacts/art-022b-round-3/builder/native-captures/13-css-dark-native.png",
+        "screenshotPixels": "540x960"
+      },
+      {
+        "requestedBodyCssPx": 26,
+        "imageCssSizePx": 26.5703125,
+        "measuredBodyCssPx": 25.999465942382812,
+        "devicePixelRatio": 1,
+        "tone": "light",
+        "path": "artifacts/art-022b-round-3/builder/native-captures/26-css-light-native.png",
+        "screenshotPixels": "540x960"
+      },
+      {
+        "requestedBodyCssPx": 26,
+        "imageCssSizePx": 26.5703125,
+        "measuredBodyCssPx": 25.999465942382812,
+        "devicePixelRatio": 1,
+        "tone": "dark",
+        "path": "artifacts/art-022b-round-3/builder/native-captures/26-css-dark-native.png",
+        "screenshotPixels": "540x960"
+      }
+    ],
+    "browser_ownership_path": "artifacts/art-022b-round-3/builder/browser-ownership.json",
+    "browser_closure_path": "artifacts/art-022b-round-3/builder/browser-closure.json",
+    "scope_limit": "Builder captures are evidence only and make no pass/fail claim."
+  }
+}

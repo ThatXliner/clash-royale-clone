@@ -1,0 +1,45 @@
+{
+  "restore_command": [
+    "git",
+    "restore",
+    "--",
+    "artifacts/guard-002r-round-1/release-isolation-evidence.json",
+    "artifacts/release-001b-round-2/escaped-css-producer-rejection.json",
+    "artifacts/release-001b-round-2/evidence.json",
+    "artifacts/release-001b-round-2/external-base-producer-rejection.json",
+    "artifacts/release-001b-round-2/opaque-srcdoc-producer-rejection.json"
+  ],
+  "restore_exit_code": 0,
+  "verification": [
+    {
+      "path": "artifacts/guard-002r-round-1/release-isolation-evidence.json",
+      "matches_base_sha256": true,
+      "sha256": "d9669f7fa177f22601590143280012267d695b8a05611c7ad3fdef69a7fd9fb3",
+      "bytes": 39020
+    },
+    {
+      "path": "artifacts/release-001b-round-2/escaped-css-producer-rejection.json",
+      "matches_base_sha256": true,
+      "sha256": "1493a14bc85b28bc0b5a1a0183b783cc5bea4828ca991642c3d2c323dda23d2f",
+      "bytes": 500
+    },
+    {
+      "path": "artifacts/release-001b-round-2/evidence.json",
+      "matches_base_sha256": true,
+      "sha256": "c421ca748d35de98a2ec1cdb8a576e355091c89fb7e2c3655ad9249d3154d9c8",
+      "bytes": 29087
+    },
+    {
+      "path": "artifacts/release-001b-round-2/external-base-producer-rejection.json",
+      "matches_base_sha256": true,
+      "sha256": "6fa0fd3faa63eadd32775de8c94514d12d6d776cff1b2d049a397c38d37558dc",
+      "bytes": 485
+    },
+    {
+      "path": "artifacts/release-001b-round-2/opaque-srcdoc-producer-rejection.json",
+      "matches_base_sha256": true,
+      "sha256": "c6e2844ac3b4d42e6b7b72b766c81adb91dbe8f7fdeb13a294fb9fa500dc5b4a",
+      "bytes": 1333
+    }
+  ]
+}

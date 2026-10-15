@@ -1,0 +1,207 @@
+{
+  "git_diff_check_exit_code": 0,
+  "manifest_record": {
+    "authorship": "in-repo-authored",
+    "byteLength": 49440,
+    "dimensions": {
+      "height": 512,
+      "width": 512
+    },
+    "format": "webp",
+    "id": "brackenwheel-battle-sprite",
+    "kind": "image",
+    "license": "AGPL-3.0-only",
+    "path": "assets/brackenwheel-battle-sprite.webp",
+    "sha256": "440ef5d41aa289c8701151ad36916e0cdce1ce3bcfb2996852c0dc3d10d4621c"
+  },
+  "product_files": [
+    {
+      "path": "demo/assets/brackenwheel-battle-sprite.png",
+      "bytes": 996149,
+      "sha256": "699d28064446b7fd17d5acaba45fdabcbf91f6ffde82252cd39ff294b792dc35"
+    },
+    {
+      "path": "public/assets/brackenwheel-battle-sprite.webp",
+      "bytes": 49440,
+      "sha256": "440ef5d41aa289c8701151ad36916e0cdce1ce3bcfb2996852c0dc3d10d4621c"
+    },
+    {
+      "path": "docs/art/brackenwheel-battle-sprite-provenance.json",
+      "bytes": 13701,
+      "sha256": "4cd8bad77158701a0aa10154299ad381bbd72d44f136db4a0abce2f40d3b9f39"
+    },
+    {
+      "path": "src/content/visual-asset-manifest.js",
+      "bytes": 20001,
+      "sha256": "064f93125e3b078481b7860e6e45e123769e9f8656293064d4b45be7888cf4b0"
+    }
+  ],
+  "product_path_count": 4,
+  "source_matches_selected_tool_receipt": true,
+  "source_alpha_true": true,
+  "webp_dimensions": [
+    512,
+    512
+  ],
+  "webp_at_or_below_1_mib": true,
+  "webp_matches_manifest_hash_and_bytes": true,
+  "webp_reencode_byte_identical": true,
+  "native_capture_environment": {
+    "chrome": "Google Chrome 155.0.8059.40",
+    "playwright": "1.58.2",
+    "device_pixel_ratio": 1,
+    "viewport": "540x960",
+    "actual_shipped_webp": true,
+    "enlarged_image_substitution": false,
+    "sprite_sha256": "440ef5d41aa289c8701151ad36916e0cdce1ce3bcfb2996852c0dc3d10d4621c",
+    "arena_sha256": "6b041ff5f08a9f5dc79181918c0b470abf33ca9ec2ae32ce91e41cb2d945b8b5"
+  },
+  "native_capture_count": 4,
+  "native_captures_540x960": [
+    true,
+    true,
+    true,
+    true
+  ],
+  "native_body_sizes": [
+    12.99591064453125,
+    12.99591064453125,
+    25.999465942382812,
+    25.999465942382812
+  ],
+  "browser_closure": {
+    "browserPid": 43342,
+    "ownedPidsAtCapture": [
+      43342,
+      43349,
+      43350,
+      43351,
+      43353,
+      43354,
+      43355
+    ],
+    "contextClosed": true,
+    "ownedPidsStillAliveAfterClose": [],
+    "profile": "/Users/me/.codex/worktrees/9456/art-022b-round-3-private/artifacts/art-022b-round-3/builder/chrome-profile",
+    "profileRemoved": true
+  },
+  "tests": {
+    "visual-asset-manifest": {
+      "command": "npm run test:visual-asset-manifest",
+      "cwd": "/Users/me/.codex/worktrees/9456/art-022b-round-3-private",
+      "exit_code": 0,
+      "elapsed_seconds": 0.261,
+      "stdout_bytes": 1516,
+      "stderr_bytes": 0,
+      "pass_count": 6,
+      "fail_count": 0,
+      "expected_pass_count": 6
+    },
+    "shipping-isolation-guard": {
+      "command": "npm run test:shipping-isolation-guard",
+      "cwd": "/Users/me/.codex/worktrees/9456/art-022b-round-3-private",
+      "exit_code": 0,
+      "elapsed_seconds": 32.221,
+      "stdout_bytes": 3280,
+      "stderr_bytes": 0,
+      "pass_count": 13,
+      "fail_count": 0,
+      "expected_pass_count": 13
+    },
+    "release-build": {
+      "command": "npm run test:release-build",
+      "cwd": "/Users/me/.codex/worktrees/9456/art-022b-round-3-private",
+      "exit_code": 0,
+      "elapsed_seconds": 54.919,
+      "stdout_bytes": 14261,
+      "stderr_bytes": 0,
+      "pass_count": 22,
+      "fail_count": 0,
+      "expected_pass_count": 22
+    },
+    "shipping-isolation-release": {
+      "command": "npm run test:shipping-isolation-release",
+      "cwd": "/Users/me/.codex/worktrees/9456/art-022b-round-3-private",
+      "GAME_BROWSER_PLAYWRIGHT": "/Users/me/.codex/worktrees/9456/art-022b-round-3-private/node_modules/playwright/index.mjs",
+      "exit_code": 0,
+      "elapsed_seconds": 68.961,
+      "stdout_bytes": 1655,
+      "stderr_bytes": 0,
+      "pass_count": 4,
+      "fail_count": 0,
+      "expected_pass_count": 4
+    }
+  },
+  "post_test_fence": {
+    "base_commit": "402facb2bb62966a0eb0f7d910957446dbdd0fe8",
+    "tracked_dist_files": 77,
+    "tracked_dist_matches_pretest": true,
+    "test_modified_tracked_evidence_count": 5,
+    "test_modified_tracked_evidence_restored_to_base": true,
+    "final_status_entries": 54,
+    "unexpected_status_entries": [],
+    "owned_status_paths": [
+      "src/content/visual-asset-manifest.js",
+      "artifacts/art-022b-round-3/builder/attempt-01-candidate.webp",
+      "artifacts/art-022b-round-3/builder/attempt-01-evidence/browser-closure.json",
+      "artifacts/art-022b-round-3/builder/attempt-01-evidence/browser-ownership.json",
+      "artifacts/art-022b-round-3/builder/attempt-01-evidence/native-capture-receipt.json",
+      "artifacts/art-022b-round-3/builder/attempt-01-evidence/native-capture.stderr.raw",
+      "artifacts/art-022b-round-3/builder/attempt-01-evidence/native-capture.stdout.raw",
+      "artifacts/art-022b-round-3/builder/attempt-01-evidence/native-captures/13-css-dark-native.png",
+      "artifacts/art-022b-round-3/builder/attempt-01-evidence/native-captures/13-css-light-native.png",
+      "artifacts/art-022b-round-3/builder/attempt-01-evidence/native-captures/26-css-dark-native.png",
+      "artifacts/art-022b-round-3/builder/attempt-01-evidence/native-captures/26-css-light-native.png",
+      "artifacts/art-022b-round-3/builder/attempt-01-evidence/native-measurements.json",
+      "artifacts/art-022b-round-3/builder/attempt-01-evidence/reproducibility-repeat.webp",
+      "artifacts/art-022b-round-3/builder/browser-closure.json",
+      "artifacts/art-022b-round-3/builder/browser-ownership.json",
+      "artifacts/art-022b-round-3/builder/capture-native.mjs",
+      "artifacts/art-022b-round-3/builder/dist-after-tests.json",
+      "artifacts/art-022b-round-3/builder/dist-before-test.json",
+      "artifacts/art-022b-round-3/builder/native-capture-receipt.json",
+      "artifacts/art-022b-round-3/builder/native-capture.stderr.raw",
+      "artifacts/art-022b-round-3/builder/native-capture.stdout.raw",
+      "artifacts/art-022b-round-3/builder/native-captures/13-css-dark-native.png",
+      "artifacts/art-022b-round-3/builder/native-captures/13-css-light-native.png",
+      "artifacts/art-022b-round-3/builder/native-captures/26-css-dark-native.png",
+      "artifacts/art-022b-round-3/builder/native-captures/26-css-light-native.png",
+      "artifacts/art-022b-round-3/builder/native-measurements.json",
+      "artifacts/art-022b-round-3/builder/npm-ci-receipt.json",
+      "artifacts/art-022b-round-3/builder/npm-ci.stderr.raw",
+      "artifacts/art-022b-round-3/builder/npm-ci.stdout.raw",
+      "artifacts/art-022b-round-3/builder/post-test-fence.json",
+      "artifacts/art-022b-round-3/builder/raw-generation/attempt-01-prompt.txt",
+      "artifacts/art-022b-round-3/builder/raw-generation/attempt-01-source.png",
+      "artifacts/art-022b-round-3/builder/raw-generation/attempt-01-tool-receipt.json",
+      "artifacts/art-022b-round-3/builder/raw-generation/attempt-02-prompt.txt",
+      "artifacts/art-022b-round-3/builder/raw-generation/attempt-02-tool-receipt.json",
+      "artifacts/art-022b-round-3/builder/release-build.receipt.json",
+      "artifacts/art-022b-round-3/builder/release-build.stderr.raw",
+      "artifacts/art-022b-round-3/builder/release-build.stdout.raw",
+      "artifacts/art-022b-round-3/builder/report.md",
+      "artifacts/art-022b-round-3/builder/reproducibility-repeat.webp",
+      "artifacts/art-022b-round-3/builder/shipping-isolation-guard.receipt.json",
+      "artifacts/art-022b-round-3/builder/shipping-isolation-guard.stderr.raw",
+      "artifacts/art-022b-round-3/builder/shipping-isolation-guard.stdout.raw",
+      "artifacts/art-022b-round-3/builder/shipping-isolation-release.receipt.json",
+      "artifacts/art-022b-round-3/builder/shipping-isolation-release.stderr.raw",
+      "artifacts/art-022b-round-3/builder/shipping-isolation-release.stdout.raw",
+      "artifacts/art-022b-round-3/builder/test-evidence-mutations.json",
+      "artifacts/art-022b-round-3/builder/test-evidence-restore.json",
+      "artifacts/art-022b-round-3/builder/visual-asset-manifest.receipt.json",
+      "artifacts/art-022b-round-3/builder/visual-asset-manifest.stderr.raw",
+      "artifacts/art-022b-round-3/builder/visual-asset-manifest.stdout.raw",
+      "demo/assets/brackenwheel-battle-sprite.png",
+      "docs/art/brackenwheel-battle-sprite-provenance.json",
+      "public/assets/brackenwheel-battle-sprite.webp"
+    ],
+    "product_paths": [
+      "demo/assets/brackenwheel-battle-sprite.png",
+      "docs/art/brackenwheel-battle-sprite-provenance.json",
+      "public/assets/brackenwheel-battle-sprite.webp",
+      "src/content/visual-asset-manifest.js"
+    ],
+    "browser_capture_closure": "artifacts/art-022b-round-3/builder/browser-closure.json"
+  }
+}

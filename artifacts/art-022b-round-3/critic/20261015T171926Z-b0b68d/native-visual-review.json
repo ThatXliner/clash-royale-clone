@@ -1,0 +1,32 @@
+{
+  "basis": "Direct review of four fresh headed-Chrome screenshots of the actual shipped WebP over the full 540x960 arena at DPR 1. Native PNGs are the acceptance evidence; 8x nearest-neighbor crops are diagnostics only.",
+  "native_captures": [
+    "native-captures/13-css-light-native.png",
+    "native-captures/13-css-dark-native.png",
+    "native-captures/26-css-light-native.png",
+    "native-captures/26-css-dark-native.png"
+  ],
+  "body_scale_measurement": "Source image alpha bounds use alpha >= 128/255, not the full canvas. Browser-measured body heights: 12.99591064453125 CSS px at requested 13; 25.999465942382812 CSS px at requested 26.",
+  "13_css_px": {
+    "head_shape": "Readable as a distinct auburn head silhouette on both tones.",
+    "apron": "The teal torso block remains distinct on both tones.",
+    "copper_sickle": "The blade collapses to a small orange mark; the open crescent does not read clearly at native size.",
+    "separate_feet": "The two feet do not resolve as separate shapes at native size, especially on the dark arena.",
+    "result": "FAIL"
+  },
+  "26_css_px": {
+    "head_shape": "Distinct.",
+    "apron": "Distinct.",
+    "copper_sickle": "The open crescent and handle read as one held tool.",
+    "separate_feet": "The two feet are visibly separated.",
+    "result": "PASS"
+  },
+  "overall_result": "FAIL: the 13 CSS px requirement is not met on both arena tones.",
+  "diagnostics": [
+    "diagnostic-8x-13-css-light-native.png",
+    "diagnostic-8x-13-css-dark-native.png",
+    "diagnostic-8x-26-css-light-native.png",
+    "diagnostic-8x-26-css-dark-native.png"
+  ],
+  "no_masking_or_pixel_tolerance": true
+}

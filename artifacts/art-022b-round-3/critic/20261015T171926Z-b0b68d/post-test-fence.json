@@ -1,0 +1,30 @@
+{
+  "candidate_commit": "afd9b341cdf2082937b4c7fad53f664f90be5b1c",
+  "initial_candidate_worktree_clean": true,
+  "candidate_source_hashes_unchanged_by_gates": true,
+  "tracked_dist_file_count": 77,
+  "tracked_dist_hashes_match_pretest": true,
+  "tracked_evidence_files_mutated_by_shipping_isolation_release": [
+    "artifacts/guard-002r-round-1/release-isolation-evidence.json",
+    "artifacts/release-001b-round-2/escaped-css-producer-rejection.json",
+    "artifacts/release-001b-round-2/evidence.json",
+    "artifacts/release-001b-round-2/external-base-producer-rejection.json",
+    "artifacts/release-001b-round-2/opaque-srcdoc-producer-rejection.json"
+  ],
+  "tracked_evidence_restored_from_saved_exact_baseline": true,
+  "restored_evidence_hashes_match_pretest": true,
+  "capture_chrome_context_closed": true,
+  "capture_profile_removed": true,
+  "owned_capture_chrome_processes_remaining": [],
+  "post_gate_chrome_check": "No test-owned Chrome process remained; pre-existing user Chrome PID 93861 and its helper processes were left untouched.",
+  "post_restore_git_status": "Only this critic evidence directory is untracked; no tracked candidate files are modified.",
+  "hash_ledgers": [
+    "source-before.sha256",
+    "source-after.sha256",
+    "dist-before.sha256",
+    "dist-after-tests.sha256",
+    "evidence-before.sha256",
+    "evidence-after-tests-before-restore.sha256",
+    "evidence-after-restore.sha256"
+  ]
+}

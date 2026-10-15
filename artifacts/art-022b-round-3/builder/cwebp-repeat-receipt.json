@@ -1,0 +1,25 @@
+{
+  "command": [
+    "cwebp",
+    "-q",
+    "92",
+    "-alpha_q",
+    "100",
+    "-m",
+    "6",
+    "-mt",
+    "-resize",
+    "512",
+    "512",
+    "demo/assets/brackenwheel-battle-sprite.png",
+    "-o",
+    "artifacts/art-022b-round-3/builder/reproducibility-repeat.webp"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 5.012,
+  "stdout_bytes": 0,
+  "stderr_bytes": 931,
+  "shipped_sha256": "440ef5d41aa289c8701151ad36916e0cdce1ce3bcfb2996852c0dc3d10d4621c",
+  "repeat_sha256": "440ef5d41aa289c8701151ad36916e0cdce1ce3bcfb2996852c0dc3d10d4621c",
+  "byte_identical": true
+}

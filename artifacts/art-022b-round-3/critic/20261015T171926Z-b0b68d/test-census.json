@@ -1,0 +1,46 @@
+{
+  "commands": [
+    {
+      "command": "npm run test:visual-asset-manifest",
+      "direct_exit_code": 0,
+      "passed": 6,
+      "failed": 0,
+      "stdout": "visual-asset-manifest.stdout.raw",
+      "stderr": "visual-asset-manifest.stderr.raw"
+    },
+    {
+      "command": "npm run test:shipping-isolation-guard",
+      "direct_exit_code": null,
+      "exit_note": "The tool yielded after 30 seconds and the returned session handle was not retained. Raw TAP output records 13 pass and 0 fail. Per instruction, the completed gate was not rerun and its direct shell exit is left unqualified.",
+      "passed": 13,
+      "failed": 0,
+      "stdout": "shipping-isolation-guard.stdout.raw",
+      "stderr": "shipping-isolation-guard.stderr.raw"
+    },
+    {
+      "command": "npm run test:release-build",
+      "direct_exit_code": 0,
+      "passed": 22,
+      "failed": 0,
+      "stdout": "release-build.stdout.raw",
+      "stderr": "release-build.stderr.raw"
+    },
+    {
+      "command": "GAME_BROWSER_PLAYWRIGHT=/Users/me/.codex/worktrees/9456/art-022b-round-3-private/node_modules/playwright/index.mjs npm run test:shipping-isolation-release",
+      "direct_exit_code": 0,
+      "passed": 4,
+      "failed": 0,
+      "stdout": "shipping-isolation-release.stdout.raw",
+      "stderr": "shipping-isolation-release.stderr.raw"
+    }
+  ],
+  "reported_total": {
+    "passed": 45,
+    "failed": 0
+  },
+  "npm_ci_direct_exit_code": 0,
+  "node": "v22.22.3",
+  "npm": "10.9.8",
+  "playwright": "1.58.2",
+  "chrome": "Google Chrome 155.0.8059.40"
+}

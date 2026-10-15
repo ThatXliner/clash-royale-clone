@@ -1,0 +1,39 @@
+{
+  "candidate_commit": "afd9b341cdf2082937b4c7fad53f664f90be5b1c",
+  "candidate_parent": "402facb2bb62966a0eb0f7d910957446dbdd0fe8",
+  "accepted_portrait": {
+    "path": "demo/assets/brackenwheel-portrait.png",
+    "sha256": "ad0654107fe957283b1e9e107a3be155934f1032820600bb62f6ddd6851a56bc",
+    "license": "AGPL-3.0-only",
+    "authorship": "in-repo-authored",
+    "use_in_sprite_generation": "accepted original character identity reference only"
+  },
+  "generated_source_png": {
+    "path": "demo/assets/brackenwheel-battle-sprite.png",
+    "generation_tool": "OpenAI built-in image_gen.imagegen",
+    "sha256": "699d28064446b7fd17d5acaba45fdabcbf91f6ffde82252cd39ff294b792dc35",
+    "bytes": 996149,
+    "dimensions": "1254x1254 RGBA",
+    "alpha_extrema": [0, 255],
+    "tool_output_and_preserved_source_byte_identical": true,
+    "cmp_exit_code": 0
+  },
+  "shipped_webp": {
+    "path": "public/assets/brackenwheel-battle-sprite.webp",
+    "sha256": "440ef5d41aa289c8701151ad36916e0cdce1ce3bcfb2996852c0dc3d10d4621c",
+    "bytes": 49440,
+    "dimensions": "512x512 RGBA",
+    "alpha_extrema": [0, 254],
+    "encoding": "cwebp 1.6.0 (libsharpyuv 0.4.2), -q 92 -alpha_q 100 -m 6 -mt -resize 512 512",
+    "independent_repeat_encoding_sha256": "440ef5d41aa289c8701151ad36916e0cdce1ce3bcfb2996852c0dc3d10d4621c",
+    "repeat_output_byte_identical": true,
+    "repeat_cmp_exit_code": 0
+  },
+  "provenance": "candidate-provenance.json contains the full prompt, built-in generation receipts, portrait input hash, source/output hashes, license and encoding record; accepted-portrait-provenance.json is included for the in-repo portrait reference.",
+  "manifest": {
+    "candidate_diff": "one new brackenwheel-battle-sprite record; previous records unchanged",
+    "source_commit_diff_reviewed": true,
+    "visual_asset_manifest_test": "6/6 passed"
+  },
+  "scope": "This audit covers asset provenance, packaging and native-scale silhouette only; it makes no whole-game, UI integration or historical-parity claim."
+}

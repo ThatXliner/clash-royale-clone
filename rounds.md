@@ -9525,3 +9525,12 @@ EVIDENCE: Fresh independent debe648 integration6/6 andeditable12/12 actualexit0,
 BIGGEST GAP: Unresolved raw stat semantics and area-radius conflict remain QUESTIONS; this proves the shared-session role, not complete historical mechanics parity.
 
 Adopt exact25 reviewed source/script/test paths fromdebe, preserving unrelatedacceptedportrait/manifest/metadata. Rootverifiednoneofthese25paths changedonacceptedHEAD since09base, so nooverwriteofacceptedinterveningwork. Criticfreshcontextreusedcleanfrozenprivatebuildercheckout withpre/postGitfences; bothactualrunexits0, no browserused. No newfullendurance orUI/artclaim. CARDS022I stillrequires acceptedbattlecutout; CARDS022Q requiresmatchingcombinedsourcefull18000/default andcustomnaturalterminal/audio/input/restore/restart underunchangedcaps. R1publicGameSessionareacontact/R2publicRLcontact anddefault20checkpoint evidence retainexactscopes. HBRfour-source delta remains separately scoped/deferreduntilcombinedguards, notincludedinthiscoreadoption.
+
+## Round 496 - ART-022B third native-size review and stop
+
+PIECE: ART-022B
+VERDICT: FAIL
+EVIDENCE: Fresh afd9b34 native540x960DPR1 light/dark captures at12.9959/25.9995CSSpx body. Head/apron read at13, but copper sickle loses open crescent and two feet merge;26reads. Facial/hair detail is NOT partofbar orfailure. 45/45TAP cases pass; manifest6/release22/shippingrelease4 directexits0, guard13 directshell exit notretained andremainsunqualified, notinferredfromTAP. Source/dist/test-evidence hashes verified/restored; Chrome/profile closed, user93861untouched.
+BIGGEST GAP: Preserve an open copper crescent and two separate feet at native13CSSpx on both arena tones.
+
+Thirdfailureonsamegap: STOP thishigh-resolution-painted-cutout generation approach. It is wrong-shaped as a single representation for both13and26 pixels; retainthereadabilitybar. No fourthgenerationloop andno assetadoption. Allfailedcandidate4paths, two generationattempts, builder58-filechecksumledger andfreshcritic evidence retained; originalguardexit limitation explicit. NewART022L uses a different repo-native vector authoring method for tiny rendering plus unchanged originalpaintedimagefor26, judgedtogether asonecharacterfamily atbothoriginalsizes. This doesnotretroactivelypassART022B orloweritsbar. Rasterbytesstayunchanged; no codecrop/pad/repaint/fakeraster. ExistingSVG art-systemextension iscode-native output, notimageediting. CARDS022I keepsallactualgame trusted input/restore/audio/PNG/restart requirements andnowdepends on compositeartgate.

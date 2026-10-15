@@ -1,0 +1,29 @@
+{
+  "candidate_commit": "afd9b341cdf2082937b4c7fad53f664f90be5b1c",
+  "candidate_parent": "402facb2bb62966a0eb0f7d910957446dbdd0fe8",
+  "checkout": "/Users/me/.codex/worktrees/9456/art-022b-round-3-private",
+  "initial_worktree_clean": true,
+  "node_path": "/Users/me/.hermes/node/bin/node",
+  "node_version": "v22.22.3",
+  "npm_path": "/Users/me/.local/bin/npm",
+  "npm_version": "10.9.8",
+  "playwright_version": "1.58.2",
+  "chrome_path": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+  "chrome_version": "Google Chrome 155.0.8059.40",
+  "headed": true,
+  "custom_browser_launch_args": [],
+  "node_modules_policy": "npm ci from declared package-lock.json",
+  "capture_viewport_css_px": "540x960",
+  "capture_device_pixel_ratio": 1,
+  "arena_asset": "demo/assets/moss-ember-arena-painted.png",
+  "arena_sha256": "6b041ff5f08a9f5dc79181918c0b470abf33ca9ec2ae32ce91e41cb2d945b8b5",
+  "candidate_sprite_sha256": "440ef5d41aa289c8701151ad36916e0cdce1ce3bcfb2996852c0dc3d10d4621c",
+  "source_png_sha256": "699d28064446b7fd17d5acaba45fdabcbf91f6ffde82252cd39ff294b792dc35",
+  "accepted_portrait_sha256": "ad0654107fe957283b1e9e107a3be155934f1032820600bb62f6ddd6851a56bc",
+  "test_gates": [
+    "npm run test:visual-asset-manifest",
+    "npm run test:shipping-isolation-guard",
+    "npm run test:release-build",
+    "GAME_BROWSER_PLAYWRIGHT=/Users/me/.codex/worktrees/9456/art-022b-round-3-private/node_modules/playwright/index.mjs npm run test:shipping-isolation-release"
+  ]
+}

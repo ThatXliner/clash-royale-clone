@@ -1,0 +1,26 @@
+{
+  "source_png_byte_comparison": {
+    "command": "cmp -s demo/assets/brackenwheel-battle-sprite.png /Users/me/.codex/generated_images/01a1407f-4f4c-7712-a914-71cc23c32ef7/exec-b6a69161-7c8d-4294-ad05-09c498ce033e.png",
+    "exit_code": 0,
+    "result": "byte-identical"
+  },
+  "repeat_webp_encoding": {
+    "command": "cwebp -q 92 -alpha_q 100 -m 6 -mt -resize 512 512 demo/assets/brackenwheel-battle-sprite.png -o artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/cwebp-repeat.webp",
+    "cwebp_version": "1.6.0 (libsharpyuv 0.4.2)",
+    "exit_code": 0,
+    "cmp_command": "cmp -s artifacts/art-022b-round-3/critic/20261015T171926Z-b0b68d/cwebp-repeat.webp public/assets/brackenwheel-battle-sprite.webp",
+    "cmp_exit_code": 0,
+    "source_sha256": "699d28064446b7fd17d5acaba45fdabcbf91f6ffde82252cd39ff294b792dc35",
+    "shipped_sha256": "440ef5d41aa289c8701151ad36916e0cdce1ce3bcfb2996852c0dc3d10d4621c",
+    "repeat_sha256": "440ef5d41aa289c8701151ad36916e0cdce1ce3bcfb2996852c0dc3d10d4621c",
+    "source_bytes": 996149,
+    "shipped_bytes": 49440,
+    "repeat_bytes": 49440
+  },
+  "accepted_portrait_sha256": "ad0654107fe957283b1e9e107a3be155934f1032820600bb62f6ddd6851a56bc",
+  "metadata": {
+    "source_png": {"format": "PNG", "mode": "RGBA", "dimensions": [1254, 1254], "alpha_extrema": [0, 255]},
+    "shipped_webp": {"format": "WEBP", "mode": "RGBA", "dimensions": [512, 512], "alpha_extrema": [0, 254]},
+    "accepted_portrait": {"format": "PNG", "mode": "RGB", "dimensions": [1254, 1254]}
+  }
+}
