@@ -1,0 +1,49 @@
+{
+  "candidate": "bcba6c76ec31215b6dac8208529a6c97b7274ca0",
+  "restoredOnlyPaths": [
+    "artifacts/release-001b-round-2/escaped-css-producer-rejection.json",
+    "artifacts/release-001b-round-2/evidence.json",
+    "artifacts/release-001b-round-2/external-base-producer-rejection.json",
+    "artifacts/release-001b-round-2/opaque-srcdoc-producer-rejection.json"
+  ],
+  "entries": [
+    {
+      "path": "artifacts/release-001b-round-2/escaped-css-producer-rejection.json",
+      "capture": "/private/tmp/cards022i-critic-review-bcba6c76/release-build-run-02-qualified-native-chrome155/checkout-artifacts-after-native-chrome/escaped-css-producer-rejection.json",
+      "postRunSha256": "60b4ff98d04101789f480e5925fd018fe8d26d70374eec181389b130ab19f373",
+      "candidateBaselineSha256": "1493a14bc85b28bc0b5a1a0183b783cc5bea4828ca991642c3d2c323dda23d2f",
+      "restoredSha256": "1493a14bc85b28bc0b5a1a0183b783cc5bea4828ca991642c3d2c323dda23d2f",
+      "restoredToCandidateBaseline": true,
+      "postRunDifferedFromBaseline": true
+    },
+    {
+      "path": "artifacts/release-001b-round-2/evidence.json",
+      "capture": "/private/tmp/cards022i-critic-review-bcba6c76/release-build-run-02-qualified-native-chrome155/checkout-artifacts-after-native-chrome/evidence.json",
+      "postRunSha256": "ca22a8f83e05e70837411703a12580fda2546f7baa30632839c9beb71f622eb2",
+      "candidateBaselineSha256": "c421ca748d35de98a2ec1cdb8a576e355091c89fb7e2c3655ad9249d3154d9c8",
+      "restoredSha256": "c421ca748d35de98a2ec1cdb8a576e355091c89fb7e2c3655ad9249d3154d9c8",
+      "restoredToCandidateBaseline": true,
+      "postRunDifferedFromBaseline": true
+    },
+    {
+      "path": "artifacts/release-001b-round-2/external-base-producer-rejection.json",
+      "capture": "/private/tmp/cards022i-critic-review-bcba6c76/release-build-run-02-qualified-native-chrome155/checkout-artifacts-after-native-chrome/external-base-producer-rejection.json",
+      "postRunSha256": "2c2f3146ad76039b740dca76bbe47cc76beaf88d0b818768d939a70ac941d1af",
+      "candidateBaselineSha256": "6fa0fd3faa63eadd32775de8c94514d12d6d776cff1b2d049a397c38d37558dc",
+      "restoredSha256": "6fa0fd3faa63eadd32775de8c94514d12d6d776cff1b2d049a397c38d37558dc",
+      "restoredToCandidateBaseline": true,
+      "postRunDifferedFromBaseline": true
+    },
+    {
+      "path": "artifacts/release-001b-round-2/opaque-srcdoc-producer-rejection.json",
+      "capture": "/private/tmp/cards022i-critic-review-bcba6c76/release-build-run-02-qualified-native-chrome155/checkout-artifacts-after-native-chrome/opaque-srcdoc-producer-rejection.json",
+      "postRunSha256": "79220b9e357cb022cb520108f253cd5acee4e901041b0fe98d023be3623ad9e5",
+      "candidateBaselineSha256": "c6e2844ac3b4d42e6b7b72b766c81adb91dbe8f7fdeb13a294fb9fa500dc5b4a",
+      "restoredSha256": "c6e2844ac3b4d42e6b7b72b766c81adb91dbe8f7fdeb13a294fb9fa500dc5b4a",
+      "restoredToCandidateBaseline": true,
+      "postRunDifferedFromBaseline": true
+    }
+  ],
+  "privateCheckoutStatusAfterRestore": "",
+  "note": "Captured corrected native-Chrome release-build outputs externally before restoring only the four generated tracked report files to candidate HEAD. No source, test, package, asset, simulator, content, kernel, or reference files were changed by the critic."
+}

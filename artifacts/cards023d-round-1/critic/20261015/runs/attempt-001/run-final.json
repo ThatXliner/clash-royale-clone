@@ -1,0 +1,18 @@
+{
+  "command": [
+    "node",
+    "--test",
+    "tests/app-shell.test.js"
+  ],
+  "cwd": "/tmp/aether-resource-critic-20261015",
+  "pid": 13469,
+  "started_utc": "2026-10-15T19:50:42.245937+00:00",
+  "artifacts": "/tmp/aether-resource-critic-20261015/actual-browser-run-001",
+  "playwright": "1.58.2",
+  "chrome_version": "155.0.8059.40",
+  "gpu_flags": [],
+  "finished_utc": "2026-10-15T19:50:55.408140+00:00",
+  "exit_code": 1,
+  "stdout_prefix_utf8": "TAP version 13\n# Subtest: player shell renders roster-derived cards and launches a paused shared battle frame\nnot ok 1 - player shell renders roster-derived cards and launches a paused shared battle frame\n  ---\n  duration_ms: 12162.173542\n  type: 'test'\n  location: '/private/tmp/aether-resource-critic-20261015/tests/app-shell.test.js:367:1'\n  failureType: 'testCodeFailure'\n  error: \"Cannot find module '/private/tmp/aether-resource-critic-20261015/playwright' imported from /private/tmp/aether-resource-critic-20261015/scripts/release-browser-qualification.js\"\n  code: 'ERR_MODULE_NOT_FOUND'\n  stack: |-\n    finalizeResolution (node:internal/modules/esm/resolve:275:11)\n    moduleResolve (node:internal/modules/esm/resolve:861:10)\n    defaultResolve (node:internal/modules/esm/resolve:985:11)\n    #cachedDefaultResolve (node:internal/modules/esm/loader:747:20)\n    ModuleLoader.resolve (node:internal/modules/esm/loader:724:38)\n    ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:320:38)\n    onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:680:36)\n    TracingChannel.tracePromise (node:diagnostics_channel:350:14)\n    ModuleLoader.import (node:internal/modules/esm/loader:679:21)\n    defaultImportModuleDynamicallyForModule (node:internal/modules/esm/utils:222:31)\n  ...\n1..1\n# tests 1\n# suites 0\n# pass 0\n# fail 1\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 13125.610334\n",
+  "stderr_prefix_utf8": ""
+}

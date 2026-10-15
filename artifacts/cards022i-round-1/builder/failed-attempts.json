@@ -1,0 +1,280 @@
+[
+  {
+    "command": "node --test tests/cards022-browser-integration.test.js",
+    "exitCode": 1,
+    "failure": "Vite was unavailable because the fresh private checkout had no node_modules; this attempt failed during test module import and launched no browser.",
+    "toolResponseExcerpt": "TAP version 13\nError [ERR_MODULE_NOT_FOUND]: Cannot find package 'vite' imported from /private/tmp/codex-brackenwheel-cards022i-builder/scripts/build-release.js\nNode.js v22.22.3\n# tests 0\n# suites 0\n# pass 0\n# fail 1\n# duration_ms 59.978209"
+  },
+  {
+    "command": "node --test tests/cards022-browser-integration.test.js",
+    "exitCode": 1,
+    "failure": "The first built browser run reached the released app but the release server does not expose src/content/editable-deck.js as a standalone URL. This test-only dynamic import was removed; fresh canonical session bytes are now constructed in Node and passed through the supported restore API.",
+    "toolResponseExcerpt": "TAP version 13\n# Subtest: CARDS022I browser integration uses a trusted Brackenwheel drop and natural AI contact\nnot ok 1 - CARDS022I browser integration uses a trusted Brackenwheel drop and natural AI contact\n# duration_ms 16221.740333\n# failureType: testCodeFailure\n# error: 'frame.evaluate: TypeError: Failed to fetch dynamically imported module: http://127.0.0.1:54425/src/content/editable-deck.js'\n# tests 1\n# suites 0\n# pass 0\n# fail 1\n# duration_ms 16370.542792",
+    "evidenceFile": "browser-attempt-2-evidence.json",
+    "browserVersion": "155.0.8059.40"
+  },
+  {
+    "command": "node --test tests/cards022-browser-integration.test.js",
+    "exitCode": 1,
+    "failure": "The actual Chrome release run reached Brackenwheel combat projection and showed SVGElement.className is read-only. Fixed by setting the class attribute; retry includes a focused regression assertion.",
+    "toolResponseExcerpt": "TAP version 13\n# Subtest: CARDS022I browser integration uses a trusted Brackenwheel drop and natural AI contact\nnot ok 1 - CARDS022I browser integration uses a trusted Brackenwheel drop and natural AI contact\n# duration_ms 17138.995583\n# failureType: testCodeFailure\n# error: 'frame.evaluate: TypeError: Cannot set property className of #<SVGElement> which has only a getter'\n#    at sizeBrackenwheelArt (assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-CBclqP2q.js:1561:16)\n# tests 1\n# suites 0\n# pass 0\n# fail 1\n# duration_ms 18155.2285",
+    "browserVersion": "155.0.8059.40",
+    "trustedPointerOutcome": "The test reached the pointer action and failed during the first controller.stepMany render. It did not record a deployment or contact witness; neither is claimed."
+  },
+  {
+    "command": "node --test tests/cards022-browser-integration.test.js",
+    "exitCode": 1,
+    "failure": "The live Chrome test completed the trusted player deployment and found the unforced AI Brackenwheel contact, but the test expected three total hits. Actual replay grouped four 267-damage events in the contact tick; this is one primary plus three secondaries. The full replay had not yet been persisted before the failing assertion, so this entry records only the captured test-run output excerpt, not an invented replay.",
+    "browserVersion": "155.0.8059.40",
+    "toolResponseExcerpt": "# Subtest: CARDS022I browser integration uses a trusted Brackenwheel drop and natural AI contact\nnot ok 1 - CARDS022I browser integration uses a trusted Brackenwheel drop and natural AI contact\n# duration_ms 16857.608292\n# failureType: testCodeFailure\n# Expected values to be strictly deep-equal: expected [267, 267, 267], actual [267, 267, 267, 267]\n# at tests/cards022-browser-integration.test.js:269:12\n# tests 1\n# suites 0\n# pass 0\n# fail 1\n# duration_ms 17088.172959"
+  },
+  {
+    "attempt": "05",
+    "command": "node --test tests/cards022-browser-integration.test.js",
+    "exitCode": 1,
+    "failure": "The actual trusted player and natural AI witness reached replay tick 234 and recorded one primary plus three policy-tagged secondary hits. The harness then incorrectly computed eligible survivors after contact; IDs 4, 5, and 6 had already died, so the post-contact survivors were 7, 8, and 9. The check was removed while retaining exact primary/secondary damage receipt assertions.",
+    "streams": {
+      "stdout": "attempt-05.stdout.txt",
+      "stderr": "attempt-05.stderr.txt",
+      "exitCode": "attempt-05.exitcode.txt",
+      "contactEvidence": "browser-attempt-5-evidence.json"
+    },
+    "streamCapture": "Full test stdout, stderr, and shell exit were captured in separate files."
+  },
+  {
+    "attempt": "06",
+    "command": "node --test tests/cards022-browser-integration.test.js",
+    "exitCode": 1,
+    "failure": "The exact natural contact receipts passed, but the low-confidence melee-area QUESTION banner was empty in battle. This exposed that the existing banner projected only defensive-building policies.",
+    "streams": {
+      "stdout": "attempt-06.stdout.txt",
+      "stderr": "attempt-06.stderr.txt",
+      "exitCode": "attempt-06.exitcode.txt"
+    },
+    "streamCapture": "Full test stdout, stderr, and shell exit were captured in separate files."
+  },
+  {
+    "attempt": "07",
+    "command": "node --test tests/cards022-browser-integration.test.js",
+    "exitCode": 1,
+    "failure": "The new notice projection checked a nonexistent meleeAreaPolicy.kind field; the canonical policy has confidence:'question' and authoritative:false, causing an aggregated custom-deck mount failure and disposed controller.",
+    "streams": {
+      "stdout": "attempt-07.stdout.txt",
+      "stderr": "attempt-07.stderr.txt",
+      "exitCode": "attempt-07.exitcode.txt",
+      "evidence": "cards022-browser-integration-evidence.json"
+    },
+    "streamCapture": "Full test stdout and stderr were captured in separate files; pageerror details were recorded in the JSON evidence."
+  },
+  {
+    "attempt": "probe-undefined-setup",
+    "command": "node --input-type=module probe of createEditableGameSessionSetup",
+    "exitCode": 1,
+    "toolResponseExcerpt": "SyntaxError: \"undefined\" is not valid JSON; the probe parsed the returned serialized setup twice. A corrected Node-only probe was captured as attempt-08.",
+    "streamCapture": "Tool-response excerpt only; the first failed ad-hoc probe was not redirected to separate stream files."
+  },
+  {
+    "attempt": "09",
+    "command": "node --test tests/cards022-browser-integration.test.js",
+    "exitCode": 1,
+    "failure": "The controller was disposed after the same custom-deck-mount error. Enhanced pageerror capture showed an AggregateError but Playwright omitted nested error records; root-cause inspection then found the unsupported kind discriminator.",
+    "streams": {
+      "stdout": "attempt-09.stdout.txt",
+      "stderr": "attempt-09.stderr.txt",
+      "exitCode": "attempt-09.exitcode.txt",
+      "evidence": "cards022-browser-integration-evidence.json"
+    },
+    "streamCapture": "Full test stdout, stderr, and shell exit were captured in separate files."
+  },
+  {
+    "attempt": "10",
+    "command": "node --test tests/app-shell.test.js tests/ui-combat-state.test.js",
+    "exitCode": 1,
+    "failure": "The app-shell expectation still used the old classification copy after the canonical melee-area QUESTION became visible. The helper expectation was updated from the accepted policy shape.",
+    "streams": {
+      "stdout": "attempt-10.stdout.txt",
+      "stderr": "attempt-10.stderr.txt",
+      "exitCode": "attempt-10.exitcode.txt"
+    },
+    "streamCapture": "Full test stdout, stderr, and shell exit were captured in separate files."
+  },
+  {
+    "attempt": "11",
+    "command": "node --test tests/app-shell.test.js tests/ui-combat-state.test.js",
+    "exitCode": 1,
+    "failure": "After the Brackenwheel assertion was corrected, the suite exposed that Aether Well's accepted nested question records were not represented by the structure card UI. A separate focused resource presentation fix is required.",
+    "streams": {
+      "stdout": "attempt-11.stdout.txt",
+      "stderr": "attempt-11.stderr.txt",
+      "exitCode": "attempt-11.exitcode.txt"
+    },
+    "streamCapture": "Full test stdout, stderr, and shell exit were captured in separate files."
+  },
+  {
+    "attempt": "13",
+    "command": "node --test tests/app-shell.test.js tests/ui-combat-state.test.js",
+    "exitCode": 1,
+    "failure": "With the admitted portrait collection ordered Brackenwheel first, the keyboard test's old assumption that Stonehauler was the first replacement no longer held. The test now verifies Brackenwheel receives initial focus, Tabs to Stonehauler, and preserves the original replacement scenario.",
+    "streams": {
+      "stdout": "attempt-13.stdout.txt",
+      "stderr": "attempt-13.stderr.txt",
+      "exitCode": "attempt-13.exitcode.txt"
+    },
+    "streamCapture": "Full test stdout, stderr, and shell exit were captured in separate files."
+  },
+  {
+    "attempt": "15",
+    "command": "node --test tests/cards022-browser-integration.test.js",
+    "exitCode": 1,
+    "failure": "Trusted player and natural AI contact passed. The first two phone checks passed, but after changing viewport to desktop-normal the south Brackenwheel art marker was absent. A diagnostic rerun was needed before any production fix.",
+    "streams": {
+      "stdout": "attempt-15.stdout.txt",
+      "stderr": "attempt-15.stderr.txt",
+      "exitCode": "attempt-15.exitcode.txt"
+    },
+    "streamCapture": "Full test stdout and stderr are separate files; Python subprocess returncode is recorded separately."
+  },
+  {
+    "attempt": "16",
+    "command": "node --test tests/cards022-browser-integration.test.js",
+    "exitCode": 1,
+    "failure": "Instrumented desktop-normal showed six tower markers and no entity markers after viewport change, consistent with the seeded deck having been replaced during layout synchronization. The next attempt corrected exact deck order through the real deck editor.",
+    "streams": {
+      "stdout": "attempt-16.stdout.txt",
+      "stderr": "attempt-16.stderr.txt",
+      "exitCode": "attempt-16.exitcode.txt"
+    },
+    "streamCapture": "Full test stdout and stderr are separate files; Python subprocess returncode is recorded separately."
+  },
+  {
+    "attempt": "17",
+    "command": "node --test tests/cards022-browser-integration.test.js",
+    "exitCode": 1,
+    "failure": "The real editor now selected the exact canonical seed-2 deck order and Brackenwheel remained rendered across all checks. Desktop-normal exposed two issues: the observed image bounds failed the 26px body assertion, and the controller had resumed from the manually paused checkpoint after layout synchronization. The pause cause is confirmed from source and state; the image-size cause remains under measurement.",
+    "streams": {
+      "stdout": "attempt-17.stdout.txt",
+      "stderr": "attempt-17.stderr.txt",
+      "exitCode": "attempt-17.exitcode.txt",
+      "evidence": "browser-attempt-17-evidence.json"
+    },
+    "streamCapture": "Full test stdout and stderr are separate files; Python subprocess returncode is recorded separately."
+  },
+  {
+    "attempt": "18",
+    "command": "node --test tests/app-shell.test.js tests/ui-combat-state.test.js",
+    "exitCode": 1,
+    "failure": "The first bridge activity-transition implementation paused repeated active=true messages, so the existing Deck-to-Battle resume assertion failed. The branch was corrected to leave activity unchanged for repeated active state.",
+    "streams": {
+      "stdout": "attempt-18.stdout.txt",
+      "stderr": "attempt-18.stderr.txt",
+      "exitCode": "attempt-18.exitcode.txt"
+    },
+    "streamCapture": "Full test stdout and stderr are separate files; Python subprocess returncode is recorded separately."
+  },
+  {
+    "attempt": "20",
+    "command": "node --test tests/app-shell.test.js tests/ui-combat-state.test.js",
+    "exitCode": 1,
+    "failure": "The focused suite launched headless Chrome; it was stopped with SIGINT to avoid contending with the ART critic's reserved browser slot. TAP reports app-shell.test.js exitCode 130/signal; no app-shell assertion result is claimed.",
+    "streams": {
+      "stdout": "attempt-20.stdout.txt",
+      "stderr": "attempt-20.stderr.txt",
+      "exitCode": "attempt-20.exitcode.txt"
+    },
+    "streamCapture": "Full test stdout, stderr, and Python-captured child returncode are stored separately. This attempt was interrupted, not counted as a test result."
+  },
+  {
+    "attempt": "21",
+    "command": "node --test tests/cards022-browser-integration.test.js",
+    "exitCode": 1,
+    "failure": "Trusted Brackenwheel deployment, natural AI contact, all four presentation/restore modes, automatic evidence checks through the desktop resize probe, and exact byte-identical restore assertions passed. The run failed only at the bounded 14,400-tick terminal assertion; the paused checkpoint was never resumed before fast-forward. Next attempt resumes the existing session and enters manual-step mode before the same bounded progression.",
+    "streams": {
+      "stdout": "attempt-21.stdout.txt",
+      "stderr": "attempt-21.stderr.txt",
+      "exitCode": "attempt-21.exitcode.txt",
+      "evidence": "browser-attempt-21-cards022-browser-integration-evidence.json",
+      "artifactChecksums": "browser-attempt-21-artifact-checksums.json"
+    },
+    "streamCapture": "Full node --test stdout, stderr, and direct child returncode are in separate files. Attempt evidence and all screenshots are copied and checksummed before the next run.",
+    "browserVersion": "155.0.8059.40",
+    "inputAssertionValidity": "Invalid as an input-state witness: the shipped public controller exposes no `.input` getter, so JSON.stringify(controller.input) was undefined and comparisons to undefined were vacuous. Session, snapshot, and audio byte comparisons remain separately meaningful. The follow-up uses the canonical serialized browser bridge from JSON.parse(controller.serialize()).bridge."
+  },
+  {
+    "attempt": "22",
+    "command": "node --test tests/cards022-browser-integration.test.js",
+    "exitCode": 1,
+    "failure": "The real browser run passed the trusted player/natural AI setup and completed phone-normal automatic-presentation assertions, then the harness referenced the removed beforePresentation local. This is a test harness ReferenceError at line 552, not a production assertion failure; desktop context/redraw and terminal diagnostics were not reached.",
+    "streams": {
+      "stdout": "attempt-22.stdout.txt",
+      "stderr": "attempt-22.stderr.txt",
+      "exitCode": "attempt-22.exitcode.txt",
+      "evidence": "browser-attempt-22-cards022-browser-integration-evidence.json",
+      "artifactChecksums": "browser-attempt-22-artifact-checksums.json"
+    },
+    "streamCapture": "Full node --test stdout, stderr, and direct child returncode are stored separately. Evidence and screenshots produced before the harness error are copied and checksummed.",
+    "browserVersion": "155.0.8059.40",
+    "inputAssertionValidity": "Invalid as an input-state witness: the shipped public controller exposes no `.input` getter, so JSON.stringify(controller.input) was undefined and comparisons to undefined were vacuous. Session, snapshot, and audio byte comparisons remain separately meaningful. The follow-up uses the canonical serialized browser bridge from JSON.parse(controller.serialize()).bridge."
+  },
+  {
+    "attempt": "23",
+    "command": "node --test tests/cards022-browser-integration.test.js",
+    "exitCode": 1,
+    "failure": "Trusted player deployment, natural AI contact setup and both phone modes passed. The production presentation handler also automatically redrew the paused Brackenwheel at 26 physical CSS pixels on desktop, with unchanged session/input/audio/snapshot bytes. The harness selected a later duplicate desktop message whose capture-phase state already had 26px context, then incorrectly required that message to begin from prior 13px phone context; it failed at that assertion before reduced desktop, terminal and restart checks.",
+    "streams": {
+      "stdout": "attempt-23.stdout.txt",
+      "stderr": "attempt-23.stderr.txt",
+      "exitCode": "attempt-23.exitcode.txt",
+      "evidence": "browser-attempt-23-cards022-browser-integration-evidence.json",
+      "artifactChecksums": "browser-attempt-23-artifact-checksums.json"
+    },
+    "streamCapture": "Full node TAP stdout, empty stderr, PID and Python-captured direct child returncode are stored separately. All generated evidence/screenshots from this attempt are copied and checksummed before a retry.",
+    "browserVersion": "155.0.8059.40",
+    "inputAssertionValidity": "Invalid as an input-state witness: the shipped public controller exposes no `.input` getter, so JSON.stringify(controller.input) was undefined and comparisons to undefined were vacuous. Session, snapshot, and audio byte comparisons remain separately meaningful. The follow-up uses the canonical serialized browser bridge from JSON.parse(controller.serialize()).bridge."
+  },
+  {
+    "attempt": "24",
+    "command": "node --test tests/cards022-browser-integration.test.js",
+    "exitCode": 1,
+    "failure": "The trusted natural contact setup and both phone presentation/restore checks passed. Desktop emitted three production presentation messages, but the harness-only diagnostics serializer checked an Array.find miss against null instead of undefined and threw while formatting evidence, before the desktop assertion or terminal flow.",
+    "streams": {
+      "stdout": "attempt-24.stdout.txt",
+      "stderr": "attempt-24.stderr.txt",
+      "exitCode": "attempt-24.exitcode.txt",
+      "evidence": "browser-attempt-24-cards022-browser-integration-evidence.json",
+      "artifactChecksums": "browser-attempt-24-artifact-checksums.json"
+    },
+    "streamCapture": "Full TAP stdout, empty stderr, PID, and Python-captured direct child returncode are stored separately. Phone screenshots/evidence are copied and checksummed.",
+    "browserVersion": "155.0.8059.40",
+    "inputAssertionValidity": "Invalid as an input-state witness: the shipped public controller exposes no `.input` getter, so JSON.stringify(controller.input) was undefined and comparisons to undefined were vacuous. Session, snapshot, and audio byte comparisons remain separately meaningful. The follow-up uses the canonical serialized browser bridge from JSON.parse(controller.serialize()).bridge."
+  },
+  {
+    "attempt": "25",
+    "command": "node --test tests/cards022-browser-integration.test.js",
+    "exitCode": 1,
+    "failure": "Trusted contact setup and phone normal/reduced automatic presentation plus exact restore checks passed. The new desktop trace serializer failed before assertions because `controller.input` is not part of the shipped controller facade, so the test recorded undefined as input bytes. Desktop context had already redrawn at 26px and paused state remained true; the desktop message trace was not persisted by this serializer error. All earlier attempt 21-24 input comparisons are explicitly invalidated as witnesses and session/audio comparisons remain separate.",
+    "streams": {
+      "stdout": "attempt-25.stdout.txt",
+      "stderr": "attempt-25.stderr.txt",
+      "exitCode": "attempt-25.exitcode.txt",
+      "evidence": "browser-attempt-25-cards022-browser-integration-evidence.json",
+      "artifactChecksums": "browser-attempt-25-artifact-checksums.json"
+    },
+    "streamCapture": "Full TAP stdout, empty stderr, PID, Python-captured direct child returncode, phone screenshots, and captured phone evidence are copied/checksummed.",
+    "browserVersion": "155.0.8059.40"
+  },
+  {
+    "attempt": "26",
+    "command": "node --test tests/cards022-browser-integration.test.js",
+    "exitCode": 1,
+    "failure": "The browser run used and compared a nonempty canonical bridge snapshot and public selectedCardId (null after the real drop), preserving session, input bridge/selection, audio, snapshot, and state through paused phone checks. On desktop it failed the harness assertion expecting a pre-handler 13px sample. All three observed bridge messages already showed body context 26 and physical size approximately 26px; the observer is post-handler. The next measurement captures phone geometry/state immediately before page.setViewportSize and compares the resulting automatic desktop redraw/state, leaving message samples as post-handler diagnostics.",
+    "streams": {
+      "stdout": "attempt-26.stdout.txt",
+      "stderr": "attempt-26.stderr.txt",
+      "exitCode": "attempt-26.exitcode.txt",
+      "evidence": "browser-attempt-26-cards022-browser-integration-evidence.json",
+      "artifactChecksums": "browser-attempt-26-artifact-checksums.json"
+    },
+    "streamCapture": "Full TAP stdout, empty stderr, PID, child returncode, contact/setup evidence and phone screenshots are copied and checksummed.",
+    "browserVersion": "155.0.8059.40"
+  }
+]

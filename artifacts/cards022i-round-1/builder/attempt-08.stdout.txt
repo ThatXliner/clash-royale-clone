@@ -1,0 +1,37 @@
+editable true [
+  'areaDamageRadiusMillitiles',
+  'cost',
+  'count',
+  'damage',
+  'deployTimeTicks',
+  'displayName',
+  'entities',
+  'firstHitTicks',
+  'formation',
+  'hitSpeedTicks',
+  'hitpoints',
+  'id',
+  'kind',
+  'movementMillitilesPerSecond',
+  'rangeMillitiles',
+  'rarity',
+  'sightRangeMillitiles',
+  'targetMode'
+] [
+  {
+    archetypeId: 'brackenwheel',
+    meleeAreaPolicy: {
+      authoritative: false,
+      center: 'attacker',
+      confidence: 'question',
+      contactOrder: 'ascending-entity-id',
+      geometry: 'circle-overlap-inclusive',
+      radiusMillitiles: 2000,
+      secondaryDamage: 'base-attack',
+      structureTargets: 'exclude',
+      targetLayers: [Array],
+      version: 'melee-area-question-v1'
+    }
+  }
+] undefined
+shipped false [] undefined undefined

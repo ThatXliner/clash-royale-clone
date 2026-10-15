@@ -1,0 +1,128 @@
+{
+  "attempt": 1,
+  "command": "node --test tests/app-shell.test.js",
+  "result": "failed",
+  "reason": "Desktop Aether detail screenshot was captured, but the helper attempted to click a phone-only hidden Back button; this is a test cleanup failure, not a source assertion failure.",
+  "files": [
+    {
+      "file": "app-shell-attempt-01.stdout.txt",
+      "bytes": 1681,
+      "sha256": "be9894da8625974a8cf327b963779f4d196e75a16a173580128f8948d0bce9f7"
+    },
+    {
+      "file": "app-shell-attempt-01.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "app-shell-attempt-01.exitcode.txt",
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "file": "app-shell-attempt-01.pid.txt",
+      "bytes": 5,
+      "sha256": "bc3ea5e2e749adabd385c9cdd063c402a3848070dbb3914bcbc786643fd5934c"
+    },
+    {
+      "file": "screenshots/aether-well-desktop-1440x933.png",
+      "bytes": 1049251,
+      "sha256": "591f8d5a777e177dc597270d16806dd3ab9dbb69d4b99347c0bba72fb585a3b3"
+    },
+    {
+      "file": "screenshots/aether-well-phone-390x844.png",
+      "bytes": 43240,
+      "sha256": "e87a8e7948a1e99ee0819b59662ec6b9c43fff294f65c7b1928b684dfc7ba8f1"
+    },
+    {
+      "file": "screenshots/coppershade-flock-desktop-1440x933.png",
+      "bytes": 1067682,
+      "sha256": "8931f64788b852bd9e7c11be552bdc41363385f1d29501746f3a774c477b2d4f"
+    },
+    {
+      "file": "screenshots/coppershade-flock-phone-390x844-full.png",
+      "bytes": 58765,
+      "sha256": "c4583dd16418153872efc21f9c375a0ce37d0d9da8d2349386764cae77a84d67"
+    },
+    {
+      "file": "screenshots/coppershade-flock-phone-390x844.png",
+      "bytes": 58765,
+      "sha256": "c4583dd16418153872efc21f9c375a0ce37d0d9da8d2349386764cae77a84d67"
+    },
+    {
+      "file": "screenshots/desktop-card-portraits-1440x933.png",
+      "bytes": 1723055,
+      "sha256": "09228d02d8a2ba721aa5c6580853f854e1bbb6992d61f068d300943a75cd791e"
+    },
+    {
+      "file": "screenshots/duskwing-trio-desktop-1440x933.png",
+      "bytes": 1068128,
+      "sha256": "cc513548492d1dd8ab2d8f2a3cb2b923a097d265a34a816093b3e53f6a92b7bc"
+    },
+    {
+      "file": "screenshots/duskwing-trio-phone-390x844-full.png",
+      "bytes": 60548,
+      "sha256": "9d46c1336624370a5d72030c034e138b9e53c090ba5ef68eb3bb10c9d00b7c67"
+    },
+    {
+      "file": "screenshots/duskwing-trio-phone-390x844.png",
+      "bytes": 60548,
+      "sha256": "9d46c1336624370a5d72030c034e138b9e53c090ba5ef68eb3bb10c9d00b7c67"
+    },
+    {
+      "file": "screenshots/gloamwing-cluster-desktop-1440x933.png",
+      "bytes": 1067673,
+      "sha256": "2ae66106fea384a2913d7e94c4c52350f3a43a1790a6e147b0c19b83cb253762"
+    },
+    {
+      "file": "screenshots/gloamwing-cluster-phone-390x844-full.png",
+      "bytes": 58110,
+      "sha256": "d192af97d333b3c45bde34781288a2a4af5a336c1c20c410607ce0b1ff8d5249"
+    },
+    {
+      "file": "screenshots/gloamwing-cluster-phone-390x844.png",
+      "bytes": 58110,
+      "sha256": "d192af97d333b3c45bde34781288a2a4af5a336c1c20c410607ce0b1ff8d5249"
+    },
+    {
+      "file": "screenshots/phone-card-portraits-390x844.png",
+      "bytes": 306902,
+      "sha256": "7338e417092e286cc6c886a6420d28c94b27407a2b0c3a3d8c6056c51fc0238b"
+    },
+    {
+      "file": "screenshots/phone-card-portraits-full-390x844.png",
+      "bytes": 946434,
+      "sha256": "b8c35b5c5d2e036c9b698e6dec79b7126c74034ecedd30a70084bed5449ab556"
+    },
+    {
+      "file": "screenshots/phone-deck-720x1280.png",
+      "bytes": 151509,
+      "sha256": "a071d040e7543ff3057e70e3f9bb3e0b8fe31d44e1904bf378683c23dedb2dbc"
+    },
+    {
+      "file": "screenshots/phone-home-720x1280.png",
+      "bytes": 424476,
+      "sha256": "661f16fbce88f3538941eebf0ca9d77cf04ad3528e7e4bacb7b713b6cc271be7"
+    },
+    {
+      "file": "screenshots/phone-squall-orb-details-720x1280.png",
+      "bytes": 75873,
+      "sha256": "60b99b4a4003415765d979b29020ad3ec015b0e1a230560923c3087884176767"
+    },
+    {
+      "file": "screenshots/sunthread-pair-desktop-1440x933.png",
+      "bytes": 1044781,
+      "sha256": "340b99ebfd1baaa6ca68d4f3a9c3b8b87e1c9dcff804a7181260fceabbefd246"
+    },
+    {
+      "file": "screenshots/sunthread-pair-phone-390x844-full.png",
+      "bytes": 63173,
+      "sha256": "eed78797f448ba28f1937fed8cb33d02338ff1828ccba7601b815ca83094b457"
+    },
+    {
+      "file": "screenshots/sunthread-pair-phone-390x844.png",
+      "bytes": 63173,
+      "sha256": "eed78797f448ba28f1937fed8cb33d02338ff1828ccba7601b815ca83094b457"
+    }
+  ]
+}

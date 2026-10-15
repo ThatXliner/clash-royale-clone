@@ -1,0 +1,24 @@
+{
+  "sourceCandidate": "bcba6c76ec31215b6dac8208529a6c97b7274ca0",
+  "evidenceTip": "f80c0899a3659a42a4a4033476e37216fc595d73",
+  "adoptedSourcePaths": [],
+  "failedCandidatePaths": [
+    "src/ui/app-shell.js",
+    "src/ui/arena-shell-entry.js",
+    "src/ui/card-lore.js",
+    "src/ui/card-portrait-art.js",
+    "src/ui/combat-state.js",
+    "src/ui/game-browser-entry.js",
+    "tests/app-shell.test.js",
+    "tests/cards021-browser-integration.test.js",
+    "tests/cards022-browser-integration.test.js",
+    "tests/ui-combat-state.test.js"
+  ],
+  "qualifiedIndependentPasses": 72,
+  "optionalSkips": 1,
+  "verdict": "FAIL",
+  "gap": "Unverified unit detail stats are displayed as bare values; only melee-area rule is labelledQUESTION. Canonical question provenance must be visible per affected field.",
+  "verifiedBuilderLedgerEntries": 331,
+  "verifiedCriticLedgerEntries": 73,
+  "scope": "No UI source adoption. Gates and exact PNG/bridge/audio/session/restart proofs pass but do not override visible unknown-stat failure. Initial22cachedChromiumgate unqualified; corrected22nativeChrome155qualified; allraws retained. R2 fixes disclosure only with independentcritic."
+}

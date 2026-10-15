@@ -1,0 +1,3 @@
+Preserved failed observation: the first shell attempt invoked the Chrome executable path unquoted, so zsh treated the space in `Google Chrome.app` as a word break and returned exit 127 (`zsh:1: no such file or directory: /Applications/Google`). The corrected executable proof is in `chrome-executable-proof-02/` and the qualified release run explicitly passed the absolute path through `GAME_BROWSER_CHROME`.
+
+The earlier release-build run (`release-build-run-01/`) exited 0 with 22/22 but used Playwright default Chromium; it remains preserved and is explicitly unqualified for native-Chrome review. The corrected run above is the qualified capture.

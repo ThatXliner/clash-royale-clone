@@ -1,0 +1,30 @@
+{
+  "command": "npm run test:release-build",
+  "cwd": "/private/tmp/cards022i-critic-bcba",
+  "candidate": "bcba6c76ec31215b6dac8208529a6c97b7274ca0",
+  "parent": "226c55248d5c3a6f77e87ef40bb9eb0f32cd5ebf",
+  "node": "v22.22.3",
+  "npm": "10.9.8",
+  "pid": 14362,
+  "execSession": 94560,
+  "environment": {
+    "PATH": "/Users/me/.local/bin:$PATH",
+    "GAME_BROWSER_PLAYWRIGHT": "/private/tmp/cards022i-critic-bcba/node_modules/playwright/index.mjs",
+    "GAME_BROWSER_CHROME": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD": "1"
+  },
+  "chrome": {
+    "version": "Google Chrome 155.0.8059.40",
+    "executableSha256": "428dccc1a45819d23c5db4fb37388883f8d9ba64611cbd6c42395eac4a18b6a4",
+    "proofDirectory": "/private/tmp/cards022i-critic-review-bcba6c76/chrome-executable-proof-02"
+  },
+  "actualExit": 0,
+  "tap": {
+    "tests": 22,
+    "pass": 22,
+    "fail": 0,
+    "skip": 0,
+    "durationMs": 52171.657542
+  },
+  "cleanup": "test/release-001b.test.js registers t.after cleanup for browser, context, and manifest hosts; npm runner exited. User Chrome PID 93861 was untouched."
+}

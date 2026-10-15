@@ -1,0 +1,25 @@
+{
+  "baseCommand": "node --test tests/cards022-browser-integration.test.js",
+  "browserVersion": "155.0.8059.40",
+  "contact": null,
+  "deck": [
+    "brackenwheel",
+    "briar-band",
+    "coilblade",
+    "mossguard",
+    "ironroot",
+    "copperskiff",
+    "brassbolt",
+    "reedsting"
+  ],
+  "failures": [],
+  "lore": "Brackenwheel learned to clear jammed sluice gates by spinning a copperroot sickle through the reeds. After dusk, emberseed sparks trace a ring around her boots, and she counts each flicker as a warning from the river.",
+  "mode": "seed-2 canonical GameSession; unforced natural AI; trusted player pointer",
+  "releaseResult": "fail",
+  "failure": "frame.evaluate: TypeError: Cannot set property className of #<SVGElement> which has only a getter\n    at sizeBrackenwheelArt (http://127.0.0.1:54510/assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-CBclqP2q.js:1561:16)\n    at bindCombatViewModel (http://127.0.0.1:54510/assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-CBclqP2q.js:1627:39)\n    at projectFrame (http://127.0.0.1:54510/assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-CBclqP2q.js:4467:3)\n    at Object.project (http://127.0.0.1:54510/assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-CBclqP2q.js:4568:11)\n    at render (http://127.0.0.1:54510/assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-CBclqP2q.js:4938:25)\n    at Object.stepMany (http://127.0.0.1:54510/assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-CBclqP2q.js:5451:5)\n    at advanceManualSegment (http://127.0.0.1:54510/assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-CBclqP2q.js:6284:29)\n    at Object.stepMany (http://127.0.0.1:54510/assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-CBclqP2q.js:6667:11)\n    at eval (eval at evaluate (:290:30), <anonymous>:3:18)\n    at async <anonymous>:316:30\n    at TestContext.<anonymous> (/private/tmp/codex-brackenwheel-cards022i-builder/tests/cards022-browser-integration.test.js:201:17)",
+  "server": {
+    "exitCode": 0,
+    "stderr": "",
+    "stdout": "{\"host\":\"127.0.0.1\",\"port\":54510}\n"
+  }
+}

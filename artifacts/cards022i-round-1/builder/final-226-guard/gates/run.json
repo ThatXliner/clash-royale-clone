@@ -1,0 +1,48 @@
+{
+  "baseHead": "bcba6c76ec31215b6dac8208529a6c97b7274ca0",
+  "packageJsonSha256": "e3374ae28ad30665ebe0641f56e848d75cb13e1d1ac143c3955f56622be311cf",
+  "packageLockSha256": "d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4",
+  "node": "v22.22.3",
+  "gates": [
+    {
+      "name": "nondeterminism-guard",
+      "command": [
+        "node",
+        "tests/nondeterminism-guard-runner.js",
+        "nondeterminism-guard"
+      ]
+    },
+    {
+      "name": "shipping-isolation-guard",
+      "command": [
+        "node",
+        "tests/shipping-isolation-guard-runner.js",
+        "shipping-isolation-guard"
+      ]
+    },
+    {
+      "name": "shipping-isolation-release",
+      "command": [
+        "node",
+        "tests/shipping-isolation-release-runner.js",
+        "shipping-isolation-release"
+      ]
+    },
+    {
+      "name": "shipping-isolation-host",
+      "command": [
+        "node",
+        "tests/shipping-isolation-host-runner.js",
+        "shipping-isolation-host"
+      ]
+    },
+    {
+      "name": "release-build",
+      "command": [
+        "node",
+        "tests/release-build-runner.js",
+        "release-build"
+      ]
+    }
+  ]
+}

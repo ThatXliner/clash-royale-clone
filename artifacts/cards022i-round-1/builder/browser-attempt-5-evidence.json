@@ -1,0 +1,160 @@
+{
+  "baseCommand": "node --test tests/cards022-browser-integration.test.js",
+  "browserVersion": "155.0.8059.40",
+  "contact": null,
+  "deck": [
+    "brackenwheel",
+    "briar-band",
+    "coilblade",
+    "mossguard",
+    "ironroot",
+    "copperskiff",
+    "brassbolt",
+    "reedsting"
+  ],
+  "failures": [],
+  "lore": "Brackenwheel learned to clear jammed sluice gates by spinning a copperroot sickle through the reeds. After dusk, emberseed sparks trace a ring around her boots, and she counts each flicker as a warning from the river.",
+  "mode": "seed-2 canonical GameSession; unforced natural AI; trusted player pointer",
+  "playerDeployment": {
+    "events": [
+      {
+        "deployment": {
+          "cardId": "brackenwheel",
+          "entityIds": [
+            1
+          ],
+          "point": {
+            "x": 3500,
+            "y": 14500
+          },
+          "sequence": 0,
+          "side": "south",
+          "tick": 0,
+          "type": "deployed"
+        },
+        "side": "south",
+        "spend": {
+          "accepted": true,
+          "amountAfter": 6,
+          "cost": 4,
+          "reason": "accepted",
+          "sequence": 0,
+          "side": "south",
+          "tick": 0,
+          "type": "spend"
+        },
+        "tick": 0,
+        "type": "session-deployed"
+      }
+    ],
+    "pointer": {
+      "isTrusted": true,
+      "clientX": 195.00547790527344,
+      "clientY": 632.99609375
+    },
+    "southDeckSequence": 1,
+    "submit": {
+      "command": {
+        "cardId": "brackenwheel",
+        "commandId": 1,
+        "point": {
+          "x": 3500,
+          "y": 14500
+        },
+        "slot": 1,
+        "tick": 0,
+        "type": "deploy"
+      },
+      "type": "submit"
+    }
+  },
+  "contactObservedBeforeAssertions": {
+    "aiDeployments": [
+      {
+        "deployment": {
+          "cardId": "brackenwheel",
+          "entityIds": [
+            2
+          ],
+          "point": {
+            "x": 3500,
+            "y": 17500
+          },
+          "sequence": 1,
+          "side": "north",
+          "tick": 0,
+          "type": "deployed"
+        },
+        "side": "north",
+        "spend": {
+          "accepted": true,
+          "amountAfter": 6,
+          "cost": 4,
+          "reason": "accepted",
+          "sequence": 1,
+          "side": "north",
+          "tick": 0,
+          "type": "spend"
+        },
+        "tick": 0,
+        "type": "session-deployed"
+      }
+    ],
+    "damage": [
+      {
+        "amount": 267,
+        "currentHealthAfter": 1374,
+        "currentHealthBefore": 1641,
+        "targetId": 2,
+        "type": "damage",
+        "attackerId": 1,
+        "delivery": "melee",
+        "tick": 234
+      },
+      {
+        "amount": 267,
+        "currentHealthAfter": 0,
+        "currentHealthBefore": 202,
+        "targetId": 4,
+        "type": "damage",
+        "attackerId": 1,
+        "attackSequence": 2,
+        "delivery": "melee",
+        "meleeAreaPolicyVersion": "melee-area-question-v1",
+        "tick": 234
+      },
+      {
+        "amount": 267,
+        "currentHealthAfter": 0,
+        "currentHealthBefore": 202,
+        "targetId": 5,
+        "type": "damage",
+        "attackerId": 1,
+        "attackSequence": 2,
+        "delivery": "melee",
+        "meleeAreaPolicyVersion": "melee-area-question-v1",
+        "tick": 234
+      },
+      {
+        "amount": 267,
+        "currentHealthAfter": 0,
+        "currentHealthBefore": 202,
+        "targetId": 6,
+        "type": "damage",
+        "attackerId": 1,
+        "attackSequence": 2,
+        "delivery": "melee",
+        "meleeAreaPolicyVersion": "melee-area-question-v1",
+        "tick": 234
+      }
+    ],
+    "tick": 234
+  },
+  "releaseResult": "fail",
+  "failure": "AssertionError [ERR_ASSERTION]: the eligible north Briar Band identities are read from the real setup and match the receipts\n+ actual - expected\n\n  [\n+   7,\n+   8,\n+   9\n-   4,\n-   5,\n-   6\n  ]\n\n    at TestContext.<anonymous> (file:///private/tmp/codex-brackenwheel-cards022i-builder/tests/cards022-browser-integration.test.js:304:12)\n    at async Test.run (node:internal/test_runner/test:1054:7)\n    at async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)",
+  "server": {
+    "exitCode": 0,
+    "stderr": "",
+    "stdout": "{\"host\":\"127.0.0.1\",\"port\":54636}\n"
+  }
+}

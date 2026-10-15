@@ -1,0 +1,31 @@
+TAP version 13
+# Subtest: CARDS022I browser integration uses a trusted Brackenwheel drop and natural AI contact
+not ok 1 - CARDS022I browser integration uses a trusted Brackenwheel drop and natural AI contact
+  ---
+  duration_ms: 16202.446209
+  type: 'test'
+  location: '/private/tmp/codex-brackenwheel-cards022i-builder/tests/cards022-browser-integration.test.js:80:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    frame.evaluate: RangeError: shipped browser is disposed
+        at assertActive (http://127.0.0.1:54776/assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-Dc2BKzpr.js:6062:40)
+        at Object.pause (http://127.0.0.1:54776/assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-Dc2BKzpr.js:6483:4)
+        at eval (eval at evaluate (:290:30), <anonymous>:3:18)
+        at async <anonymous>:316:30
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    assertActive (http://127.0.0.1:54776/assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-Dc2BKzpr.js:6062:40)
+    Object.pause (http://127.0.0.1:54776/assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-Dc2BKzpr.js:6483:4)
+    eval (eval at evaluate (:290:30), <anonymous>:3:18)
+    async <anonymous>:316:30
+    TestContext.<anonymous> (/private/tmp/codex-brackenwheel-cards022i-builder/tests/cards022-browser-integration.test.js:154:31)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 16437.749583

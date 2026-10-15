@@ -1,0 +1,1938 @@
+src/ui/app-shell.js --- 1/6 --- JavaScript
+ 39  39 let currentView = "home";
+ 40  40 let battleFrame = null;
+ 41  41 let battleFrameReady = false;
+ ..  42 let battleFrameScale = 1;
+ 42  43 
+ 43  44 const formatter = new Intl.NumberFormat("en", { maximumFractionDigits: 2 });
+ 44  45 
+
+src/ui/app-shell.js --- 2/6 --- JavaScript
+ 89  90 }
+ 90  91 
+ 91  92 function classificationHasQuestion(entity) {
+ 92  93   return entity.deliveryPolicy?.kind === "question" || entity.layerPolicy?.kind === "question" ||
+ ..  94     (entity.meleeAreaPolicy?.authoritative === false &&
+ ..  95       entity.meleeAreaPolicy?.confidence === "question");
+ 93  96 }
+ 94  97 
+ 95  98 function questionClassificationCopy(entity) {
+ 96  99   const delivery = entity.delivery === "projectile" ? "ranged" : "melee";
+ 97 100   const layer = entity.layer === "air" ? "Flying" : "Ground";
+ 98 101   const provisionalFields = [];
+ .. 102   if (entity.meleeAreaPolicy?.authoritative === false &&
+ .. 103       entity.meleeAreaPolicy?.confidence === "question") {
+ .. 104     provisionalFields.push("melee area/contact rule");
+ .. 105   }
+ 99 106   if (entity.layerPolicy?.kind === "question") {
+100 107     provisionalFields.push(`${layer.toLocaleLowerCase("en")} layer`);
+101 108   }
+102 109   if (entity.deliveryPolicy?.kind === "question") {
+103 110     provisionalFields.push(`${delivery} delivery`);
+104 111   }
+... 112   const meleeAreaQuestion = entity.meleeAreaPolicy?.authoritative === false &&
+... 113     entity.meleeAreaPolicy?.confidence === "question";
+... 114   const otherProvisionalFields = provisionalFields.filter((field) =>
+... 115     field !== "melee area/contact rule");
+105 116   const confidenceNote = meleeAreaQuestion
+... 117     ? `The melee area/contact rule remains QUESTION and provisional for historical comparison.${otherProvisionalFields.length === 0
+... 118       ? "" : ` The ${otherProvisionalFields.join(" and ")} remain provisional for historical comparison.`}`
+... 119     : provisionalFields.length === 1
+106 120       ? `The ${provisionalFields[0]} remains provisional for historical comparison.`
+107 121       : `The ${provisionalFields.join(" and ")} remain provisional for historical comparison.`;
+108 122   const combatConfidenceNote = entity.archetypeId === "kilnkeeper" &&
+
+src/ui/app-shell.js --- 3/6 --- JavaScript
+130 144         : "Its combat values use the current shared defensive profile.";
+131 145       return `Stationary defensive structure · ${attack}. ${confidence}`;
+132 146     }
+... 147     if (profile?.class === "resource") {
+... 148       return `Stationary resource structure · produces elixir over time and grants ${formatter.format(
+... 149         profile.destructionAmount)} elixir when destroyed. It does not attack.`;
+... 150     }
+133 151     return "Stationary structure · combat targeting is not available in the current profile.";
+134 152   }
+135 153   if (card.entities.length === 1) {
+
+src/ui/app-shell.js --- 4/6 --- JavaScript
+242 function structureProfileMarkup(car  260 function structureProfileMarkup(car
+... d) {                                 ... d) {
+243   const profile = card.buildingRunt  261   const profile = card.buildingRunt
+... ime;                                 ... ime;
+244   if (profile === undefined) return  262   if (profile === undefined) return
+...  "";                                 ...  "";
+...                                      263   const policy = profile.policy ?? 
+...                                      ... {};
+...                                      264   if (profile.class === "resource")
+...                                      ...  {
+...                                      265     const question = Object.values(
+...                                      ... policy).some((record) =>
+...                                      266       record?.disposition === "ques
+...                                      ... tion");
+...                                      267     const suffix = (field) => polic
+...                                      ... y[field]?.disposition === "question
+...                                      ... "
+...                                      268       ? " (QUESTION)" : "";
+...                                      269     const values = [
+...                                      270       ["Cost", `${formatter.format(
+...                                      ... card.cost)} elixir`],
+...                                      271       ["Health", `${formatter.forma
+...                                      ... t(profile.hitpoints)}${suffix("hitp
+...                                      ... oints")}`],
+...                                      272       ["Deploy", `${secondsValue(pr
+...                                      ... ofile.deployTicks)}${suffix("deploy
+...                                      ... Ticks")}`],
+...                                      273       ["Generation", `${formatter.f
+...                                      ... ormat(profile.generationAmount)} el
+...                                      ... ixir${suffix("generationAmount")}`]
+...                                      ... ,
+...                                      274       ["Interval", `${secondsValue(
+...                                      ... profile.generationCadenceTicks)}${s
+...                                      ... uffix("generationCadenceTicks")}`],
+...                                      275       ["Lifetime", `${secondsValue(
+...                                      ... profile.lifetimeTicks)}${suffix("li
+...                                      ... fetimeTicks")}`],
+...                                      276       ["Destroyed", `${formatter.fo
+...                                      ... rmat(profile.destructionAmount)} el
+...                                      ... ixir${suffix("destructionAmount")}`
+...                                      ... ],
+...                                      277       ["Role", "Resource · does not
+...                                      ...  attack"],
+...                                      278     ];
+...                                      279     return `<section class="unit-pr
+...                                      ... ofile structure-profile" aria-label
+...                                      ... ="${html(card.displayName)} statist
+...                                      ... ics">
+...                                      280       <h3>Resource structure · ${qu
+...                                      ... estion ? "QUESTION" : "current prof
+...                                      ... ile"}</h3>
+...                                      281       <p>${question
+...                                      282         ? "Some resource fields rem
+...                                      ... ain QUESTION; source-aligned values
+...                                      ...  keep their existing status."
+...                                      283         : "Values are from the curr
+...                                      ... ent shared structure profile."}</p>
+...                                      284       <div class="stat-grid">${valu
+...                                      ... es.map(([label, value]) => statCell
+...                                      ... (label, value)).join("")}</div>
+...                                      285     </section>`;
+...                                      286   }
+...                                      287   const broadQuestion = policy.disp
+...                                      ... osition === "question";
+245   const question = profile.policy?.  288   const question = broadQuestion ||
+... disposition === "question";          ...  Object.values(policy).some((record
+...                                      ... ) =>
+...                                      289     record?.disposition === "questi
+...                                      ... on");
+246   const suffix = question ? " (QUES  290   const suffix = (field) => broadQu
+... TION)" : "";                         ... estion || policy[field]?.dispositio
+...                                      ... n === "question"
+...                                      291     ? " (QUESTION)" : "";
+247   const splashRadius = profile.clas  292   const splashRadius = profile.clas
+... s === "defensive" &&                 ... s === "defensive" &&
+248     profile.areaDamageRadiusMilliti  293     profile.areaDamageRadiusMilliti
+... les === null                         ... les === null
+249     ? "None" : tileValue(profile.ar  294     ? "None" : tileValue(profile.ar
+... eaDamageRadiusMillitiles);           ... eaDamageRadiusMillitiles);
+250   const values = [                   295   const values = [
+251     ["Cost", `${formatter.format(ca  296     ["Cost", `${formatter.format(ca
+... rd.cost)} elixir`],                  ... rd.cost)} elixir`],
+252     ["Health", `${formatter.format(  297     ["Health", `${formatter.format(
+... profile.hitpoints)}${suffix}`],      ... profile.hitpoints)}${suffix("hitpoi
+...                                      ... nts")}`],
+253     ["Damage", `${formatter.format(  298     ["Damage", `${formatter.format(
+... profile.damage)} per attack${suffix  ... profile.damage)} per attack${suffix
+... }`],                                 ... ("damage")}`],
+254     ["Deploy", `${secondsValue(prof  299     ["Deploy", `${secondsValue(prof
+... ile.deployTicks)}${suffix}`],        ... ile.deployTicks)}${suffix("deployTi
+...                                      ... cks")}`],
+255     ["First hit", `${secondsValue(p  300     ["First hit", `${secondsValue(p
+... rofile.firstHitTicks)}${suffix}`],   ... rofile.firstHitTicks)}${suffix("fir
+...                                      ... stHitTicks")}`],
+256     ["Hit speed", `${secondsValue(p  301     ["Hit speed", `${secondsValue(p
+... rofile.hitSpeedTicks)}${suffix}`],   ... rofile.hitSpeedTicks)}${suffix("hit
+...                                      ... SpeedTicks")}`],
+257     ["Lifetime", `${secondsValue(pr  302     ["Lifetime", `${secondsValue(pr
+... ofile.lifetimeTicks)}${suffix}`],    ... ofile.lifetimeTicks)}${suffix("life
+...                                      ... timeTicks")}`],
+258     ["Range", `${tileValue(profile.  303     ["Range", `${tileValue(profile.
+... maxRangeMillitiles)}${suffix}`],     ... maxRangeMillitiles)}${suffix("maxRa
+...                                      ... ngeMillitiles")}`],
+259     ["Splash radius", `${splashRadi  304     ["Splash radius", `${splashRadi
+... us}${suffix}`],                      ... us}${suffix("areaDamageRadiusMillit
+...                                      ... iles")}`],
+260     ["Targets", `${targetLabel(prof  305     ["Targets", `${targetLabel(prof
+... ile.targetMode ?? card.targetMode)}  ... ile.targetMode ?? card.targetMode)}
+... ${suffix}`],                         ... ${suffix("targetMode")}`],
+261   ];                                 306   ];
+...                                      307   const heading = profile.class ===
+...                                      ...  "resource" ? "Resource structure" 
+...                                      ... : "Defensive structure";
+262   const confidence = question        308   const confidence = question
+263     ? "Cost is source backed; comba  309     ? broadQuestion
+... t values are provisional profile es  ... 
+... timates and remain QUESTION for his  ... 
+... torical comparison."                 ... 
+...                                      310       ? "Cost is source backed; com
+...                                      ... bat values are provisional profile 
+...                                      ... estimates and remain QUESTION for h
+...                                      ... istorical comparison."
+...                                      311       : "Some resource fields remai
+...                                      ... n QUESTION; source-aligned values k
+...                                      ... eep their existing status."
+264     : "Values are from the current   312     : "Values are from the current 
+... shared structure profile.";          ... shared structure profile.";
+265   return `<section class="unit-prof  313   return `<section class="unit-prof
+... ile structure-profile" aria-label="  ... ile structure-profile" aria-label="
+... ${html(card.displayName)} statistic  ... ${html(card.displayName)} statistic
+... s">                                  ... s">
+266     <h3>Defensive structure · ${que  314     <h3>${heading} · ${question ? "
+... stion ? "QUESTION" : "current profi  ... QUESTION" : "current profile"}</h3>
+... le"}</h3>                            ... 
+267     <p>${confidence}</p>             315     <p>${confidence}</p>
+268     <div class="stat-grid">${values  316     <div class="stat-grid">${values
+... .map(([label, value]) => statCell(l  ... .map(([label, value]) => statCell(l
+... abel, value)).join("")}</div>        ... abel, value)).join("")}</div>
+269   </section>`;                       317   </section>`;
+270 }                                    318 }
+271                                      319 
+272 function renderCardDetails(card) {   320 function renderCardDetails(card) {
+
+src/ui/app-shell.js --- 5/6 --- JavaScript
+341 389     active,
+342 390     channel: "moss-and-ember-battle",
+343 391     deckIds: [...currentDeckIds],
+... 392     presentation: {
+... 393       bodyCssPixels: window.innerWidth <= 600 ? 13 : 26,
+... 394       frameScale: battleFrameScale,
+... 395     },
+344 396   }, window.location.origin);
+345 397 }
+346 398 
+
+src/ui/app-shell.js --- 6/6 --- JavaScript
+418 470   battleFrame.style.left = `${(width - 720 * scale) / 2}px`;
+419 471   battleFrame.style.top = `${(height - 1_280 * scale) / 2}px`;
+420 472   battleFrame.style.transform = `scale(${scale})`;
+... 473   battleFrameScale = scale;
+... 474   postBattleState(currentView === "battle");
+421 475 }
+422 476 
+423 477 const battleFrameSlotResizeObserver = new ResizeObserver(layoutBattleFrame);
+
+src/ui/arena-shell-entry.js --- 1/3 --- JavaScript
+ 49       Object.getPrototypeOf(value)    49       Object.getPrototypeOf(value) 
+ .. !== Object.prototype) return null;    .. !== Object.prototype) return null;
+ 50   const descriptors = Object.getOwn   50   const descriptors = Object.getOwn
+ .. PropertyDescriptors(value);           .. PropertyDescriptors(value);
+ 51   const keys = Reflect.ownKeys(desc   51   const keys = Reflect.ownKeys(desc
+ .. riptors);                             .. riptors);
+ 52   if (keys.length !== 3 ||            52   if (keys.length !== 4 ||
+ 53       keys.some((key) => typeof key   53       keys.some((key) => typeof key
+ ..  !== "string" ||                      ..  !== "string" ||
+ 54         !["active", "channel", "dec   54         !["active", "channel", "dec
+ .. kIds"].includes(key)) ||              .. kIds", "presentation"].includes(key
+ ..                                       .. )) ||
+ 55       Object.values(descriptors).so   55       Object.values(descriptors).so
+ .. me((descriptor) =>                    .. me((descriptor) =>
+ 56         !descriptor.enumerable || !   56         !descriptor.enumerable || !
+ .. Object.hasOwn(descriptor, "value"))   .. Object.hasOwn(descriptor, "value"))
+ .. ) return null;                        .. ) return null;
+ 57   if (descriptors.channel.value !==   57   if (descriptors.channel.value !==
+ ..  "moss-and-ember-battle" ||           ..  "moss-and-ember-battle" ||
+
+src/ui/arena-shell-entry.js --- 2/3 --- JavaScript
+ 75  75     checked.push(descriptor.value);
+ 76  76   }
+ 77  77   if (new Set(checked).size !== 8) return null;
+ ..  78   const presentation = descriptors.presentation.value;
+ ..  79   if (presentation === null || typeof presentation !== "object" || Array.isArray(presentation) ||
+ ..  80       Object.getPrototypeOf(presentation) !== Object.prototype) return null;
+ ..  81   const presentationDescriptors = Object.getOwnPropertyDescriptors(presentation);
+ ..  82   const presentationKeys = Reflect.ownKeys(presentationDescriptors);
+ ..  83   if (presentationKeys.length !== 2 ||
+ ..  84       presentationKeys.some((key) => typeof key !== "string" ||
+ ..  85         !["bodyCssPixels", "frameScale"].includes(key)) ||
+ ..  86       Object.values(presentationDescriptors).some((descriptor) =>
+ ..  87         !descriptor.enumerable || !Object.hasOwn(descriptor, "value"))) return null;
+ ..  88   const bodyCssPixels = presentationDescriptors.bodyCssPixels.value;
+ ..  89   const frameScale = presentationDescriptors.frameScale.value;
+ ..  90   if ((bodyCssPixels !== 13 && bodyCssPixels !== 26) ||
+ ..  91       !Number.isFinite(frameScale) || frameScale <= 0 || frameScale > 8) return null;
+ 78  92   return { active: descriptors.active.value, deckIds: checked,
+ ..  93     presentation: { bodyCssPixels, frameScale } };
+ 79  94 }
+ 80  95 
+ 81  96 function sameDeckIds(left, right) {
+
+src/ui/arena-shell-entry.js --- 3/3 --- JavaScript
+488       );                             503       );
+489       if (appFrame) {                504       if (appFrame) {
+490         controller.pause();          505         controller.pause();
+...                                      506         let lastAppFrameActive;
+...                                      507         let lastPresentationContext
+...                                      ... ;
+491         window.addEventListener("me  508         window.addEventListener("me
+... ssage", (event) => {                 ... ssage", (event) => {
+492           if (event.source !== wind  509           if (event.source !== wind
+... ow.parent || event.origin !== windo  ... ow.parent || event.origin !== windo
+... w.location.origin) return;           ... w.location.origin) return;
+493           const message = checkedAp  510           const message = checkedAp
+... pBattleMessage(event.data);          ... pBattleMessage(event.data);
+494           if (message === null) ret  511           if (message === null) ret
+... urn;                                 ... urn;
+...                                      512           const presentationChanged
+...                                      ...  = lastPresentationContext === unde
+...                                      ... fined ||
+...                                      513             lastPresentationContext
+...                                      ... .bodyCssPixels !== message.presenta
+...                                      ... tion.bodyCssPixels ||
+...                                      514             lastPresentationContext
+...                                      ... .frameScale !== message.presentatio
+...                                      ... n.frameScale;
+...                                      515           lastPresentationContext =
+...                                      ...  message.presentation;
+...                                      516           document.documentElement.
+...                                      ... dataset.combatBodyCssPixels = Strin
+...                                      ... g(message.presentation.bodyCssPixel
+...                                      ... s);
+...                                      517           document.documentElement.
+...                                      ... dataset.combatFrameScale = String(m
+...                                      ... essage.presentation.frameScale);
+495           const currentDeck = JSON.  518           const currentDeck = JSON.
+... parse(controller.session.serialize(  ... parse(controller.session.serialize(
+... )).setup.deck;                       ... )).setup.deck;
+...                                      519           const deckChanged = !same
+...                                      ... DeckIds(currentDeck, message.deckId
+...                                      ... s);
+496           if (!sameDeckIds(currentD  520           if (deckChanged) controll
+... eck, message.deckIds)) controller.r  ... er.replaceDeck(message.deckIds);
+... eplaceDeck(message.deckIds);         ... 
+...                                      521           else if (presentationChan
+...                                      ... ged && controller.state.paused) con
+...                                      ... troller.stepMany(0);
+...                                      522           const activeChanged = las
+...                                      ... tAppFrameActive === undefined || la
+...                                      ... stAppFrameActive !== message.active
+...                                      ... ;
+...                                      523           lastAppFrameActive = mess
+...                                      ... age.active;
+497           if (message.active) contr  524           if (!message.active) cont
+... oller.resume();                      ... roller.pause();
+498           else controller.pause();   525           else if (activeChanged) c
+...                                      ... ontroller.resume();
+499         });                          526         });
+500       }                              527       }
+501       return controller;             528       return controller;
+
+src/ui/card-lore.js --- JavaScript
+22 22   "ember-basin": "The Ember Basin stands where the creek turns, its copper lip warmed by emberseeds carried down from the Moss & Ember workshop. At dusk, twin braces hold its long copper-ribbed launch channel above the water, ready to turn any unwelcome visitor away.",
+23 23   "buried-coil": "At the alderwood river workshop, Ilyra winds a young emberseed into a copper coil and seals it beneath a hatch beside the sluice. When raider boots shake the roots, the seed glows and the hatch lifts a riveted lookout to guard the waterwheel.",
+24 24   kilnkeeper: "Kilnkeeper tends the warm river kilns where rootwood beams are steamed and copper vessels are shaped, keeping each emberseed dry between shifts. When raiders threaten the workshop, he loads one emberseed into his broad-mouthed launcher and sends a single burst of sparks skittering across the ground.",
+.. 25   brackenwheel: "Brackenwheel learned to clear jammed sluice gates by spinning a copperroot sickle through the reeds. After dusk, emberseed sparks trace a ring around her boots, and she counts each flicker as a warning from the river.",
+25 26 });
+26 27 
+27 28 export function getCardLore(cardId) {
+
+src/ui/card-portrait-art.js --- 1/2 --- JavaScript
+20 20   "ember-basin": Object.freeze({ asset: "ember-basin-portrait-painted-v2", cell: null }),
+21 21   "buried-coil": Object.freeze({ asset: "buried-coil-portrait", cell: null }),
+22 22   kilnkeeper: Object.freeze({ asset: "kilnkeeper-portrait-painted", cell: null }),
+.. 23   brackenwheel: Object.freeze({ asset: "brackenwheel-portrait-painted", cell: null }),
+23 24 });
+24 25 
+25 26 const PORTRAIT_ASSET_PATHS = Object.freeze({
+
+src/ui/card-portrait-art.js --- 2/2 --- JavaScript
+79 80     "../../public/assets/kilnkeeper-portrait-painted.webp",
+80 81     import.meta.url,
+81 82   ).href,
+.. 83   "brackenwheel-portrait-painted": new URL(
+.. 84     "../../public/assets/brackenwheel-portrait-painted.webp",
+.. 85     import.meta.url,
+.. 86   ).href,
+82 87 });
+83 88 
+84 89 export function getCardPortrait(cardId) {
+
+src/ui/combat-state.js --- 1/5 --- JavaScript
+  5   5   COMBAT_ART_STYLE,
+  6   6   COMBAT_STRUCTURE_ART_IDS,
+  7   7 } from "./combat-art.js";
+  .   8 import { createBrackenwheelScaleArt } from "./brackenwheel-art.js";
+  8   9 import {
+  9  10   ARENA_LENGTH_MILLITILES,
+ 10  11   ARENA_WIDTH_MILLITILES,
+
+src/ui/combat-state.js --- 2/5 --- JavaScript
+ 22  23 const ROLES = new Set(["central", "lane"]);
+ 23  24 const TOKEN = /^[a-z][a-z0-9]*(?:[-:][a-z0-9]+)*$/u;
+ 24  25 
+ 25  26 const COMBAT_STYLE_TEXT = `.combat-layer{position:absolute;z-index:7;inset:0;overflow:hidden;pointer-events:none}.combat-frame{position:absolute;inset:0}.combat-marker{position:absolute;left:calc(var(--combat-x)*100%/18000);top:calc(var(--combat-y)*100%/32000);width:28px;height:28px;translate:-50% -50%;border:3px solid #e4ead7;border-radius:50%;background:#42515a;box-shadow:0 3px 0 #0a1014aa}.combat-marker--tower{z-index:25;width:42px;height:42px;border-radius:9px}.combat-marker--entity-ground{z-index:20}.combat-marker--entity-air{z-index:30;border-style:double;box-shadow:0 8px 6px #0a101466}.combat-marker--north{background:#b95c4c}.combat-marker--south{background:#398ba4}.combat-marker[data-destroyed="true"]{opacity:.42;filter:grayscale(1)}.combat-health{position:absolute;left:50%;bottom:calc(100% + 6px);width:36px;height:5px;translate:-50% 0;transform:scaleX(calc(var(--combat-health)/var(--combat-health-max)));transform-origin:left center;border-radius:3px;background:#b7eb6c;box-shadow:0 0 0 2px #152018}.combat-target-link{position:absolute;z-index:10;inset:0;width:100%;height:100%;overflow:visible}.combat-target-link line{stroke:#f3f5d088;stroke-width:90;stroke-dasharray:180 150}` + COMBAT_ART_STYLE + COMBAT_MOTION_STYLE + COMBAT_DEATH_STYLE + `.combat-marker[data-kind="brackenwheel"]::before{content:"";position:absolute;z-index:-1;inset:-3px;border:2px solid;border-radius:50%;pointer-events:none}.combat-marker[data-kind="brackenwheel"][data-side="north"]::before{border-color:#b95c4c}.combat-marker[data-kind="brackenwheel"][data-side="south"]::before{border-color:#398ba4}`;
+ 26  27 
+ 27  28 export function getCombatStyleText() {
+ 28  29   return COMBAT_STYLE_TEXT;
+
+src/ui/combat-state.js --- 3/5 --- JavaScript
+492 493   return entity.side === "north" ? "south" : "north";
+493 494 }
+... 495 
+... 496 function brackenwheelPresentation(document) {
+... 497   const dataset = document.documentElement?.dataset;
+... 498   if (dataset?.combatBodyCssPixels === undefined && dataset?.combatFrameScale === undefined) {
+... 499     return { bodyCssPixels: 13, frameScale: 1 };
+... 500   }
+... 501   const bodyCssPixels = Number(dataset.combatBodyCssPixels);
+... 502   const frameScale = Number(dataset.combatFrameScale);
+... 503   if ((bodyCssPixels !== 13 && bodyCssPixels !== 26) ||
+... 504       !Number.isFinite(frameScale) || frameScale <= 0 || frameScale > 8) {
+... 505     throw new TypeError("Brackenwheel presentation context is invalid");
+... 506   }
+... 507   return { bodyCssPixels, frameScale };
+... 508 }
+... 509 
+... 510 function sizeBrackenwheelArt(node, art, frameScale) {
+... 511   const frameWidth = Number.parseFloat(art.style.width);
+... 512   const frameHeight = Number.parseFloat(art.style.height);
+... 513   if (!Number.isFinite(frameWidth) || !Number.isFinite(frameHeight)) {
+... 514     throw new TypeError("Brackenwheel art frame dimensions are invalid");
+... 515   }
+... 516   art.setAttribute("class", "combat-art");
+... 517   art.style.width = `${frameWidth / frameScale}px`;
+... 518   art.style.height = `${frameHeight / frameScale}px`;
+... 519   node.style.width = art.style.width;
+... 520   node.style.height = art.style.height;
+... 521 }
+494 522 
+495 523 export function bindCombatViewModel(layer, view) {
+496 524   if (
+
+src/ui/combat-state.js --- 4/5 --- JavaScript
+515 543     .filter(({ fromKey }) => structureKeys.has(fromKey))
+516 544     .map(({ fromKey }) => fromKey));
+517 545   const linksBySource = new Map(canonical.links.map((link) => [link.fromKey, link]));
+... 546   const brackenwheelContext = brackenwheelPresentation(layer.ownerDocument);
+518 547   const reducedMotion = layer.ownerDocument.defaultView?.matchMedia?.(
+519 548     "(prefers-reduced-motion: reduce)",
+520 549   )?.matches === true;
+
+src/ui/combat-state.js --- 5/5 --- JavaScript
+573 602         side: entity.side,
+574 603         tick: canonical.tick,
+575 604       })
+576 605       : entity.kind === "brackenwheel"
+... 606         ? createBrackenwheelScaleArt(layer.ownerDocument, {
+... 607           bodyCssPixels: brackenwheelContext.bodyCssPixels,
+... 608         })
+... 609         : createCombatArt(layer.ownerDocument, entity.kind, entity.side, entity.layer, entity.hidden);
+... 610     if (entity.kind === "brackenwheel") {
+... 611       sizeBrackenwheelArt(node, art, brackenwheelContext.frameScale);
+... 612     }
+577 613     node.appendChild(art);
+578 614     nodes.push(node);
+579 615   }
+
+src/ui/game-browser-entry.js --- 1/4 --- JavaScript
+ 182   return cards;                      182   return cards;
+ 183 }                                    183 }
+ 184                                      184 
+ 185 function buildingPolicyQuestion(se   185 function combatPolicyQuestion(sess
+ ... ssion) {                             ... ion) {
+ 186   const setup = JSON.parse(session   186   const setup = JSON.parse(session
+ ... .serialize()).setup;                 ... .serialize()).setup;
+ 187   const battleSetup = JSON.parse(s   187   const battleSetup = JSON.parse(s
+ ... etup.battleSetup);                   ... etup.battleSetup);
+ 188   const card = battleSetup.roster.   188   const card = battleSetup.roster.
+ ... find(({ buildingRuntime }) =>        ... find(({ buildingRuntime }) =>
+ 189     buildingRuntime?.class === "de   189     buildingRuntime?.class === "de
+ ... fensive" &&                          ... fensive" &&
+ 190     buildingRuntime.policy?.dispos   190     buildingRuntime.policy?.dispos
+ ... ition === "question");               ... ition === "question");
+ 191   if (card === undefined) return n   191   if (card !== undefined) {
+ ... ull;                                 ... 
+ 192   const fields = card.buildingRunt   192     const fields = card.buildingRu
+ ... ime.policy.corpusFields;             ... ntime.policy.corpusFields;
+ 193   const unverifiedFields = Object.   193     const unverifiedFields = Objec
+ ... entries(fields)                      ... t.entries(fields)
+ 194     .filter(([, record]) => record   194       .filter(([, record]) => reco
+ ... .authoritative !== true)             ... rd.authoritative !== true)
+ 195     .map(([field]) => field);        195       .map(([field]) => field);
+ 196   return {                           196     return {
+ 197     cardId: card.id,                 197       cardId: card.id,
+ 198     text: `${card.displayName} com   198       text: `${card.displayName} c
+ ... bat: QUESTION. First-hit timing is   ... ombat: QUESTION. First-hit timing 
+ ...  ${fields.firstHitTicks.value ===    ... is ${fields.firstHitTicks.value ==
+ ... null                                 ... = null
+ 199       ? "absent" : "unverified"};    199         ? "absent" : "unverified"}
+ ... damage, HP, deploy, range and targ   ... ; damage, HP, deploy, range and ta
+ ... et fields are unverified.`,          ... rget fields are unverified.`,
+ 200     unverifiedFields,                200       unverifiedFields,
+ 201   };                                 201     };
+ ...                                      202   }
+ ...                                      203   if (!setup.deck.includes("bracke
+ ...                                      ... nwheel")) return null;
+ ...                                      204   const brackenwheel = battleSetup
+ ...                                      ... .roster.find(({ id }) => id === "b
+ ...                                      ... rackenwheel");
+ ...                                      205   const meleeAreaEntity = brackenw
+ ...                                      ... heel?.entities.find(({ meleeAreaPo
+ ...                                      ... licy }) =>
+ ...                                      206     meleeAreaPolicy?.authoritative
+ ...                                      ...  === false &&
+ ...                                      207     meleeAreaPolicy?.confidence ==
+ ...                                      ... = "question" &&
+ ...                                      208     meleeAreaPolicy?.version === "
+ ...                                      ... melee-area-question-v1");
+ ...                                      209   if (meleeAreaEntity === undefine
+ ...                                      ... d) {
+ ...                                      210     throw new TypeError("Brackenwh
+ ...                                      ... eel deck lacks its melee-area QUES
+ ...                                      ... TION policy");
+ ...                                      211   }
+ ...                                      212   return {
+ ...                                      213     cardId: brackenwheel.id,
+ ...                                      214     text: "Brackenwheel melee area
+ ...                                      ... /contact rule remains QUESTION and
+ ...                                      ...  provisional for historical compar
+ ...                                      ... ison.",
+ ...                                      215     unverifiedFields: ["melee-area
+ ...                                      ... -contact"],
+ ...                                      216   };
+ 202 }                                    217 }
+ 203                                      218 
+ 204 function projectBuildingPolicyQues   219 function projectCombatPolicyQuesti
+ ... tion(questionNotice, session) {      ... on(questionNotice, session) {
+ 205   const policyQuestion = buildingP   220   const policyQuestion = combatPol
+ ... olicyQuestion(session);              ... icyQuestion(session);
+ 206   if (questionNotice === null) {     221   if (questionNotice === null) {
+ 207     if (policyQuestion !== null) {   222     if (policyQuestion !== null) {
+ 208       throw new TypeError("shipped   223       throw new TypeError("shipped
+ ...  browser lacks the defensive QUEST   ...  browser lacks the defensive QUEST
+ ... ION notice");                        ... ION notice");
+
+src/ui/game-browser-entry.js --- 2/4 --- JavaScript
+ 504       }                              519       }
+ 505       const shell = mountArenaShel   520       const shell = mountArenaShel
+ ... l(root);                             ... l(root);
+ 506       const questionNotice = shell   521       const questionNotice = shell
+ ... .querySelector('[data-ui="policy-q   ... .querySelector('[data-ui="policy-q
+ ... uestion"]');                         ... uestion"]');
+ 507       projectBuildingPolicyQuestio   522       projectCombatPolicyQuestion(
+ ... n(questionNotice, authenticSession   ... questionNotice, authenticSession);
+ ... );                                   ... 
+ 508       const deckChoiceInertState =   523       const deckChoiceInertState =
+ ...  deckChoiceEnabled                   ...  deckChoiceEnabled
+ 509         ? Array.from(shell.childre   524         ? Array.from(shell.childre
+ ... n, (node) => [node, node.inert]) :   ... n, (node) => [node, node.inert]) :
+ ...  [];                                 ...  [];
+ 510       const deckChoiceOpenButton =   525       const deckChoiceOpenButton =
+ ...  deckChoiceEnabled                   ...  deckChoiceEnabled
+
+src/ui/game-browser-entry.js --- 3/4 --- JavaScript
+ 941         graph.audioRuntime.rebase(   956         graph.audioRuntime.rebase(
+ ... graph.loop.session);                 ... graph.loop.session);
+ 942       } else graph.audioRuntime.re   957       } else graph.audioRuntime.re
+ ... baseSilently(graph.loop.session);    ... baseSilently(graph.loop.session);
+ 943       lastSession = graph.loop.ses   958       lastSession = graph.loop.ses
+ ... sion;                                ... sion;
+ 944       projectBuildingPolicyQuestio   959       projectCombatPolicyQuestion(
+ ... n(graph.questionNotice, graph.loop   ... graph.questionNotice, graph.loop.s
+ ... .session);                           ... ession);
+ 945       renderRestart(graph);          960       renderRestart(graph);
+ 946       return state;                  961       return state;
+ 947     },                               962     },
+
+src/ui/game-browser-entry.js --- 4/4 --- JavaScript
+ 998           candidate.audioRuntime.r  1013           candidate.audioRuntime.r
+ ... ebase(candidate.loop.session);      .... ebase(candidate.loop.session);
+ 999         } else candidate.audioRunt  1014         } else candidate.audioRunt
+ ... ime.rebaseSilently(candidate.loop.  .... ime.rebaseSilently(candidate.loop.
+ ... session);                           .... session);
+1000         lastSession = candidate.lo  1015         lastSession = candidate.lo
+.... op.session;                         .... op.session;
+1001         projectBuildingPolicyQuest  1016       projectCombatPolicyQuestion(
+.... ion(candidate.questionNotice, cand  .... candidate.questionNotice, candidat
+.... idate.loop.session);                .... e.loop.session);
+1002         renderRestart(candidate);   1017         renderRestart(candidate);
+1003         return state;               1018         return state;
+1004       } finally {                   1019       } finally {
+
+tests/app-shell.test.js --- 1/15 --- JavaScript
+ 18   createEditableGameSessionSetup,     18   createEditableGameSessionSetup,
+ 19 } from "../src/content/editable-dec   19 } from "../src/content/editable-dec
+ .. k.js";                                .. k.js";
+ 20 import { projectSessionNonUnitBattl   20 import { projectSessionNonUnitBattl
+ .. eCard } from "../src/content/sessio   .. eCard } from "../src/content/sessio
+ .. n-card-catalog.js";                   .. n-card-catalog.js";
+ ..                                       21 import { getCardPortrait } from "..
+ ..                                       .. /src/ui/card-portrait-art.js";
+ 21 import { GameSession } from "../src   22 import { GameSession } from "../src
+ .. /sim/game-session.js";                .. /sim/game-session.js";
+ 22 import { buildRelease } from "../sc   23 import { buildRelease } from "../sc
+ .. ripts/build-release.js";              .. ripts/build-release.js";
+ 23                                       24 
+ 24 const PLAYWRIGHT = process.env.GAME   25 const PLAYWRIGHT = process.env.GAME
+ .. _BROWSER_PLAYWRIGHT ??                .. _BROWSER_PLAYWRIGHT ?? "playwright"
+ ..                                       .. ;
+ 25   "/Users/me/.codex/worktrees/d092a   .. 
+ .. 29e-844b-459d-b145-c548db10d485/bil   .. 
+ .. lion/node_modules/.pnpm/playwright@   .. 
+ .. 1.58.2/node_modules/playwright/inde   .. 
+ .. x.mjs";                               .. 
+ 26 const CHROME = process.env.GAME_BRO   26 const CHROME = process.env.GAME_BRO
+ .. WSER_CHROME ??                        .. WSER_CHROME ??
+ 27   "/Applications/Google Chrome.app/   27   "/Applications/Google Chrome.app/
+ .. Contents/MacOS/Google Chrome";        .. Contents/MacOS/Google Chrome";
+ 28 const ARTIFACTS = process.env.APP_S   28 const ARTIFACTS = process.env.APP_S
+ .. HELL_ARTIFACTS ??                     .. HELL_ARTIFACTS ??
+
+tests/app-shell.test.js --- 2/15 --- JavaScript
+ 43  43   EXPECTED_ATLAS_CARD_CELLS.map(([id]) => id),
+ 44  44 );
+ 45  45 const EXPECTED_INDIVIDUAL_PORTRAIT_IDS = Object.freeze([
+ ..  46   "brackenwheel",
+ 46  47   "stonehauler",
+ 47  48   "thornscouts",
+ 48  49   "forgeguard",
+
+tests/app-shell.test.js --- 3/15 --- JavaScript
+ 57   "ember-basin",                      58   "ember-basin",
+ 58 ]);                                   59 ]);
+ 59 const EXPECTED_AIR_SWARM_LORE = Obj   60 const EXPECTED_AIR_SWARM_LORE = Obj
+ .. ect.freeze({                          .. ect.freeze({
+ ..                                       61   brackenwheel: "Brackenwheel learn
+ ..                                       .. ed to clear jammed sluice gates by 
+ ..                                       .. spinning a copperroot sickle throug
+ ..                                       .. h the reeds. After dusk, emberseed 
+ ..                                       .. sparks trace a ring around her boot
+ ..                                       .. s, and she counts each flicker as a
+ ..                                       ..  warning from the river.",
+ 60   "gloamwing-cluster": "Gloamwings    62   "gloamwing-cluster": "Gloamwings 
+ .. rise from the violet reeds at dusk    .. rise from the violet reeds at dusk 
+ .. to follow emberseeds down the river   .. to follow emberseeds down the river
+ .. bank. Five of them wheel around eac   .. bank. Five of them wheel around eac
+ .. h warm spark until ferry bells call   .. h warm spark until ferry bells call
+ ..  them home.",                         ..  them home.",
+ 61   "coppershade-flock": "Coppershade   63   "coppershade-flock": "Coppershade
+ .. s roost in the offcuts piled outsid   .. s roost in the offcuts piled outsid
+ .. e the Rivermark river workshop. Whe   .. e the Rivermark river workshop. Whe
+ .. n the kiln wakes, all six glide ove   .. n the kiln wakes, all six glide ove
+ .. r the canal and trade tiny sparks a   .. r the canal and trade tiny sparks a
+ .. bove their copper-lit nests.",        .. bove their copper-lit nests.",
+ 62 });                                   64 });
+ 63 const EXPECTED_CARD_PORTRAIT_CELLS    65 const EXPECTED_CARD_PORTRAIT_CELLS 
+ .. = Object.freeze([                     .. = Object.freeze([
+ 64   ...EXPECTED_ATLAS_CARD_CELLS,       66   ...EXPECTED_ATLAS_CARD_CELLS,
+ 65   ...EXPECTED_INDIVIDUAL_PORTRAIT_I   67   ...EXPECTED_INDIVIDUAL_PORTRAIT_I
+ .. DS.map((id) => Object.freeze([id, n   .. DS.map((id) => Object.freeze([id, n
+ .. ull])),                               .. ull])),
+ ..                                       68   Object.freeze(["buried-coil", nul
+ ..                                       .. l]),
+ 66 ]);                                   69 ]);
+ 67 const EXPECTED_COLLECTION_IDS = Obj   70 const EXPECTED_COLLECTION_IDS = Obj
+ .. ect.freeze([                          .. ect.freeze([
+ 68   ...EXPECTED_DEFAULT_ROSTER_IDS,     71   ...EXPECTED_DEFAULT_ROSTER_IDS,
+ 69   ...EXPECTED_INDIVIDUAL_PORTRAIT_I   72   ...EXPECTED_INDIVIDUAL_PORTRAIT_I
+ .. DS,                                   .. DS,
+ 70   "buried-coil",                      73   "buried-coil",
+ ..                                       74   "aether-well",
+ 71 ]);                                   75 ]);
+ 72 const EXPECTED_COLLECTION_COUNT = 2   76 const EXPECTED_COLLECTION_COUNT = 2
+ .. 1;                                    .. 3;
+ 73 const EXPECTED_REPLACEMENT_CARD_IDS   77 const EXPECTED_REPLACEMENT_CARD_IDS
+ ..  = Object.freeze([                    ..  = Object.freeze([
+ 74   ...EXPECTED_INDIVIDUAL_PORTRAIT_I   78   ...EXPECTED_INDIVIDUAL_PORTRAIT_I
+ .. DS,                                   .. DS,
+ 75   "buried-coil",                      79   "buried-coil",
+ ..                                       80   "aether-well",
+ 76 ]);                                   81 ]);
+ 77 const CARD_PORTRAIT_SCREENSHOTS = O   82 const CARD_PORTRAIT_SCREENSHOTS = O
+ .. bject.freeze([                        .. bject.freeze([
+ 78   "desktop-card-portraits-1440x933.   83   "desktop-card-portraits-1440x933.
+ .. png",                                 .. png",
+
+tests/app-shell.test.js --- 4/15 --- JavaScript
+126 131   const delivery = entity.delivery === "projectile" ? "ranged" : "melee";
+127 132   const target = entity.targetMode === "ground-and-air"
+128 133     ? "ground and air" : entity.targetMode;
+... 134   const meleeAreaQuestion = entity.meleeAreaPolicy?.authoritative === false &&
+... 135     entity.meleeAreaPolicy?.confidence === "question";
+129 136   const provisionalFields = [];
+... 137   if (meleeAreaQuestion) {
+... 138     provisionalFields.push("melee area/contact rule");
+... 139   }
+130 140   if (entity.layerPolicy?.kind === "question") {
+131 141     provisionalFields.push(`${layer.toLocaleLowerCase("en")} layer`);
+132 142   }
+133 143   if (entity.deliveryPolicy?.kind === "question") {
+134 144     provisionalFields.push(`${delivery} delivery`);
+135 145   }
+... 146   const otherProvisionalFields = provisionalFields.filter((field) =>
+... 147     field !== "melee area/contact rule");
+136 148   const confidenceNote = meleeAreaQuestion
+... 149     ? `The melee area/contact rule remains QUESTION and provisional for historical comparison.${otherProvisionalFields.length === 0
+... 150       ? "" : ` The ${otherProvisionalFields.join(" and ")} remain provisional for historical comparison.`}`
+... 151     : provisionalFields.length === 1
+137 152       ? `The ${provisionalFields[0]} remains provisional for historical comparison.`
+138 153       : `The ${provisionalFields.join(" and ")} remain provisional for historical comparison.`;
+139 154   const combatConfidenceNote = entity.archetypeId === "kilnkeeper" &&
+
+tests/app-shell.test.js --- 5/15 --- JavaScript
+154 169   );
+155 170 }
+... 171 
+... 172 function expectedResourceStats(card) {
+... 173   const profile = card.buildingRuntime;
+... 174   const suffix = (field) => profile.policy[field]?.disposition === "question"
+... 175     ? " (QUESTION)" : "";
+... 176   return {
+... 177     Cost: `${format(card.cost)} elixir`,
+... 178     Health: `${format(profile.hitpoints)}${suffix("hitpoints")}`,
+... 179     Deploy: `${format(profile.deployTicks / 60)} s${suffix("deployTicks")}`,
+... 180     Generation: `${format(profile.generationAmount)} elixir${suffix("generationAmount")}`,
+... 181     Interval: `${format(profile.generationCadenceTicks / 60)} s${suffix("generationCadenceTicks")}`,
+... 182     Lifetime: `${format(profile.lifetimeTicks / 60)} s${suffix("lifetimeTicks")}`,
+... 183     Destroyed: `${format(profile.destructionAmount)} elixir${suffix("destructionAmount")}`,
+... 184     Role: "Resource · does not attack",
+... 185   };
+... 186 }
+... 187 
+... 188 async function assertAetherWellDetails(page) {
+... 189   const card = projectSessionNonUnitBattleCard("aether-well");
+... 190   const profile = card.buildingRuntime;
+... 191   assert.equal(profile.class, "resource");
+... 192   for (const [field, disposition] of [
+... 193     ["hitpoints", "question"],
+... 194     ["deployTicks", "question"],
+... 195     ["generationAmount", "question"],
+... 196     ["generationCadenceTicks", "source-aligned"],
+... 197     ["lifetimeTicks", "source-aligned"],
+... 198     ["destructionAmount", "source-aligned"],
+... 199   ]) {
+... 200     assert.equal(profile.policy[field]?.disposition, disposition,
+... 201       `Aether Well ${field} retains its canonical ${disposition} status`);
+... 202     assert.equal(profile.policy[field]?.value, profile[field],
+... 203       `Aether Well ${field} displays the value carried by its canonical receipt`);
+... 204   }
+... 205   assert.deepEqual(await renderedProfiles(page), [expectedResourceStats(card)],
+... 206     "Aether Well details use only its resource receipt and field-specific confidence");
+... 207   const profileText = await page.locator("[data-card-detail] .unit-profile").innerText();
+... 208   assert.match(profileText, /Resource structure · QUESTION/u);
+... 209   assert.doesNotMatch(profileText, /(?:Damage|First hit|Hit speed|Range|Splash radius|NaN|undefined)/iu,
+... 210     "Aether Well exposes no fabricated attack stats or missing values");
+... 211   assert.equal(await page.locator("[data-card-detail] .detail-description").innerText(),
+... 212     `Stationary resource structure · produces elixir over time and grants ${format(profile.destructionAmount)} elixir when destroyed. It does not attack.`);
+... 213 }
+... 214 
+... 215 async function captureAetherWellDetails(page, width, height) {
+... 216   await page.locator('[data-card-grid] [data-card-id="aether-well"]').click();
+... 217   await assertAetherWellDetails(page);
+... 218   const layout = await page.locator("[data-card-detail]").evaluate((detail) => {
+... 219     const box = detail.getBoundingClientRect();
+... 220     return { viewportWidth: innerWidth, viewportHeight: innerHeight,
+... 221       documentWidth: document.documentElement.scrollWidth,
+... 222       left: box.left, right: box.right, width: box.width };
+... 223   });
+... 224   assert.deepEqual([layout.viewportWidth, layout.viewportHeight, layout.documentWidth],
+... 225     [width, height, width]);
+... 226   assert.ok(layout.left >= 0 && layout.right <= width && layout.width > 0,
+... 227     `Aether Well details fit the ${width}px viewport: ${JSON.stringify(layout)}`);
+... 228   const screenshot = `aether-well-${width === 390 ? "phone-390x844" : "desktop-1440x933"}.png`;
+... 229   await page.screenshot({ path: join(ARTIFACTS, screenshot) });
+... 230   if (width === 390) await page.locator("[data-card-detail] .detail-back").click();
+... 231   return { layout, screenshot: await screenshotEvidence(screenshot) };
+... 232 }
+156 233 
+157 234 async function renderedDetailPortrait(page) {
+158 235   return page.locator("[data-card-detail]").evaluate(async (detail) => {
+
+tests/app-shell.test.js --- 6/15 --- JavaScript
+341         .filter((id) => id !== "squ  418         .filter((id) => id !== "squ
+... all-orb" && id !== "ember-basin")],  ... all-orb" && id !== "ember-basin")],
+342     "the independently expected tro  419     "the independently expected tro
+... op collection contains the complete  ... op collection contains the complete
+... d source roster");                   ... d source roster");
+343     assert.deepEqual(EDITABLE_MIXED  420     assert.deepEqual(EDITABLE_MIXED
+... _DECK_CARD_IDS, EXPECTED_COLLECTION  ... _DECK_CARD_IDS, EXPECTED_COLLECTION
+... _IDS,                                ... _IDS,
+344       "the editable mixed collectio  421       "the editable mixed collectio
+... n adds Squall Orb, Ember Basin, and  ... n preserves the 8-card default and 
+...  Buried Coil to the collection");    ... admits each supported choice");
+345     assert.equal(EXPECTED_COLLECTIO  422     assert.equal(EXPECTED_COLLECTIO
+... N_IDS.length, EXPECTED_COLLECTION_C  ... N_IDS.length, EXPECTED_COLLECTION_C
+... OUNT,                                ... OUNT,
+346       "the mixed editable collectio  423       "the expected mixed editable 
+... n has exactly twenty-one supported   ... collection count matches its admitt
+... cards");                             ... ed card identities");
+347     await page.goto(`${origin}/publ  424     await page.goto(`${origin}/publ
+... ic/index.html`, { waitUntil: "netwo  ... ic/index.html`, { waitUntil: "netwo
+... rkidle" });                          ... rkidle" });
+348     assert.equal(await page.title()  425     assert.equal(await page.title()
+... , "Moss & Ember — Card battler");    ... , "Moss & Ember — Card battler");
+349     assert.equal(await page.locator  426     assert.equal(await page.locator
+... (".app-nav [data-nav-to]").count(),  ... (".app-nav [data-nav-to]").count(),
+...  4);                                 ...  4);
+
+tests/app-shell.test.js --- 7/15 --- JavaScript
+400     for (const card of [...createPl  477     for (const card of [...createPl
+... ayableRoster(),                      ... ayableRoster(),
+401       ...EDITABLE_MIXED_DECK_CARD_I  478       ...EDITABLE_MIXED_DECK_CARD_I
+... DS                                   ... DS
+402         .filter((id) => !EXPECTED_D  479         .filter((id) => !EXPECTED_D
+... EFAULT_ROSTER_IDS.includes(id) &&    ... EFAULT_ROSTER_IDS.includes(id) &&
+403           id !== "squall-orb" && id  480           id !== "squall-orb" && id
+...  !== "ember-basin" && id !== "burie  ...  !== "ember-basin" && id !== "burie
+... d-coil")                             ... d-coil" &&
+...                                      481           id !== "aether-well")
+404         .map((id) => projectSession  482         .map((id) => projectSession
+... TroopBattleCard(id)),                ... TroopBattleCard(id)),
+405       projectSessionNonUnitBattleCa  483       projectSessionNonUnitBattleCa
+... rd("squall-orb"),                    ... rd("squall-orb"),
+406       projectSessionNonUnitBattleCa  484       projectSessionNonUnitBattleCa
+... rd("ember-basin")]) {                ... rd("ember-basin"),
+...                                      485       projectSessionNonUnitBattleCa
+...                                      ... rd("aether-well")]) {
+407       const cardButton = page.locat  486       const cardButton = page.locat
+... or(`[data-card-grid] [data-card-id=  ... or(`[data-card-grid] [data-card-id=
+... "${card.id}"]`);                     ... "${card.id}"]`);
+408       await cardButton.click();      487       await cardButton.click();
+409       assert.equal(await page.locat  488       assert.equal(await page.locat
+... or("[data-card-detail] h2").innerTe  ... or("[data-card-detail] h2").innerTe
+... xt(), card.displayName);             ... xt(), card.displayName);
+410       assert.equal(await page.locat  489       assert.equal(await page.locat
+... or("[data-card-detail] .detail-cost  ... or("[data-card-detail] .detail-cost
+... ").innerText(), String(card.cost));  ... ").innerText(), String(card.cost));
+411       const detailPortrait = await   490       const detailPortrait = await 
+... renderedDetailPortrait(page);        ... renderedDetailPortrait(page);
+...                                      491       const expectedPortrait = getC
+...                                      ... ardPortrait(card.id);
+412       assert.equal(detailPortrait?.  492       assert.equal(detailPortrait?.
+... cardId, card.id,                     ... cardId ?? null,
+...                                      493         expectedPortrait === null ?
+...                                      ...  null : card.id,
+413         `${card.displayName} detail  494       `${card.displayName} detail p
+... s reuse the registered collection p  ... ortrait matches its registered port
+... ortrait`);                           ... rait availability`);
+...                                      495       if (expectedPortrait !== null
+...                                      ... ) {
+414       assert.ok(detailPortrait.imag  496         assert.ok(detailPortrait.im
+... e.decoded && detailPortrait.image.v  ... age.decoded && detailPortrait.image
+... isible &&                            ... .visible &&
+415         detailPortrait.image.bounds  497           detailPortrait.image.boun
+... .width > 0 && detailPortrait.image.  ... ds.width > 0 && detailPortrait.imag
+... bounds.height > 0,                   ... e.bounds.height > 0,
+416       `${card.displayName} detail p  498         `${card.displayName} detail
+... ortrait decodes and renders: ${JSON  ...  portrait decodes and renders: ${JS
+... .stringify(detailPortrait.image)}`)  ... ON.stringify(detailPortrait.image)}
+... ;                                    ... `);
+417       assert.equal(detailPortrait.i  499         assert.equal(detailPortrait
+... mage.src,                            ... .image.src,
+418         await cardButton.locator(".  500           await cardButton.locator(
+... card-art-image").getAttribute("src"  ... ".card-art-image").getAttribute("sr
+... ),                                   ... c"),
+419       `${card.displayName} details   501         `${card.displayName} detail
+... keep the collection's registered po  ... s keep the collection's registered 
+... rtrait mapping`);                    ... portrait mapping`);
+...                                      502       }
+420       if (card.kind === "effect") {  503       if (card.kind === "effect") {
+421         assert.match(await page.loc  504         assert.match(await page.loc
+... ator("[data-card-detail] .detail-de  ... ator("[data-card-detail] .detail-de
+... scription").innerText(),             ... scription").innerText(),
+422           /center-cast area spell/i  505           /center-cast area spell/i
+... u);                                  ... u);
+
+tests/app-shell.test.js --- 8/15 --- JavaScript
+432 515           /QUESTION|confidence/u);
+433 516         await page.screenshot({ path: join(ARTIFACTS, "phone-squall-orb-details-720x1280.png"),
+434 517           fullPage: true });
+435 518       } else if (card.kind === "structure" && card.id === "ember-basin") {
+436 519         const profile = card.buildingRuntime;
+437 520         const suffix = " (QUESTION)";
+438 521         const expectedProfile = {
+
+tests/app-shell.test.js --- 9/15 --- JavaScript
+457 540           /Cost is source backed; combat values are provisional profile estimates/u);
+458 541         assert.equal(await page.locator("[data-card-detail] .card-lore p").innerText(),
+459 542           "The Ember Basin stands where the creek turns, its copper lip warmed by emberseeds carried down from the Moss & Ember workshop. At dusk, twin braces hold its long copper-ribbed launch channel above the water, ready to turn any unwelcome visitor away.");
+460 543       } else if (card.id === "aether-well") {
+... 544         await assertAetherWellDetails(page);
+... 545       } else if (card.kind === "structure") {
+... 546         assert.equal(await page.locator("[data-card-detail] .unit-profile").count(), 1,
+... 547           `${card.displayName} keeps its typed structure profile`);
+... 548         assert.match(await page.locator("[data-card-detail] .unit-profile").innerText(),
+... 549           /QUESTION/u, `${card.displayName} keeps provisional combat values visible`);
+... 550       } else {
+461 551         const profiles = await renderedProfiles(page);
+462 552         assert.deepEqual(profiles, card.entities.map(expectedStats), `${card.displayName} runtime facts`);
+463 553         assert.equal(await page.locator("[data-card-detail] .unit-profile").count(), card.entities.length);
+464 554         const detailDescription = await page.locator("[data-card-detail] .detail-description").innerText();
+465 555         const classificationProfiles = await page.locator("[data-card-detail] .unit-profile > p").allInnerTexts();
+466 556         for (const [index, entity] of card.entities.entries()) {
+467 557           if (entity.layerPolicy?.kind !== "question" && entity.deliveryPolicy?.kind !== "question" &&
+... 558               !(entity.meleeAreaPolicy?.authoritative === false &&
+... 559                 entity.meleeAreaPolicy?.confidence === "question")) continue;
+468 560           const expectedClassification = expectedQuestionClassification(entity);
+469 561           assert.equal(classificationProfiles[index], expectedClassification,
+470 562             `${entity.displayName} profile states its current-game classification and provisional comparison status`);
+
+tests/app-shell.test.js --- 10/15 --- JavaScript
+542 634       ["duskwing-trio", "public/assets/duskwing-trio-painted.webp"],
+543 635       ["gloamwing-cluster", "public/assets/gloamwing-cluster-painted.webp"],
+544 636       ["coppershade-flock", "public/assets/coppershade-flock-painted.webp"],
+... 637       ["brackenwheel", "public/assets/brackenwheel-portrait-painted.webp"],
+... 638       ["buried-coil", "public/assets/buried-coil-portrait.webp"],
+545 639       ["kilnkeeper", "public/assets/kilnkeeper-portrait-painted.webp"],
+546 640       ["squall-orb", "public/assets/squall-orb-painted.webp"],
+547 641       ["ember-basin", "public/assets/ember-basin-portrait-painted-v2.webp"],
+
+tests/app-shell.test.js --- 11/15 --- JavaScript
+582       "every collection portrait re  676       "every collection portrait re
+... mains present on a 390px phone");    ... mains present on a 390px phone");
+583     assert.ok(phonePortraits.every(  677     assert.ok(phonePortraits.every(
+... ({ decoded, window }) => decoded &&  ... ({ decoded, window }) => decoded &&
+584       window.width > 0 && window.he  678       window.width > 0 && window.he
+... ight > 0 && window.right <= 390),    ... ight > 0 && window.right <= 390),
+585     `all ${EXPECTED_COLLECTION_COUN  679     `all ${EXPECTED_CARD_PORTRAIT_C
+... T} portraits remain decoded and ins  ... ELLS.length} mapped portraits remai
+... ide the phone viewport: ${JSON.stri  ... n decoded and inside the phone view
+... ngify(phonePortraits)}`);            ... port: ${JSON.stringify(phonePortrai
+...                                      ... ts)}`);
+586     assert.equal(await page.evaluat  680     assert.equal(await page.evaluat
+... e(() => document.documentElement.sc  ... e(() => document.documentElement.sc
+... rollWidth), 390,                     ... rollWidth), 390,
+587       "the phone collection does no  681       "the phone collection does no
+... t overflow horizontally");           ... t overflow horizontally");
+588     await page.screenshot({ path: j  682     await page.screenshot({ path: j
+... oin(ARTIFACTS, CARD_PORTRAIT_SCREEN  ... oin(ARTIFACTS, CARD_PORTRAIT_SCREEN
+... SHOTS[2]) });                        ... SHOTS[2]) });
+
+tests/app-shell.test.js --- 12/15 --- JavaScript
+644 738       await page.locator("[data-card-detail] .detail-back").click();
+645 739     }
+... 740 
+... 741     const phoneAetherDetails = await captureAetherWellDetails(page, 390, 844);
+646 742 
+647 743     await page.setViewportSize({ width: 1440, height: 933 });
+648 744     await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+
+tests/app-shell.test.js --- 13/15 --- JavaScript
+680 776       desktop: desktopDetailReviews,
+681 777     };
+... 778 
+... 779     const desktopAetherDetails = await captureAetherWellDetails(page, 1440, 933);
+... 780     cardPortraitEvidence.resourceDetails = {
+... 781       phone: phoneAetherDetails,
+... 782       desktop: desktopAetherDetails,
+... 783     };
+682 784 
+683 785     await page.setViewportSize({ width: 1440, height: 933 });
+684 786     await page.locator('[data-card-grid] [data-card-id="briar-band"]').click();
+
+tests/app-shell.test.js --- 14/15 --- JavaScript
+697 799       "duskwing-trio-desktop-1440x933.png",
+698 800       "gloamwing-cluster-desktop-1440x933.png",
+699 801       "coppershade-flock-desktop-1440x933.png",
+... 802       "aether-well-phone-390x844.png",
+... 803       "aether-well-desktop-1440x933.png",
+700 804     ];
+701 805     cardPortraitEvidence.screenshots = await Promise.all(
+702 806       [...CARD_PORTRAIT_SCREENSHOTS, ...detailScreenshotNames].map(screenshotEvidence));
+
+tests/app-shell.test.js --- 15/15 --- JavaScript
+830 934       nodes.map((node) => node.dataset.replacementCardId)),
+831 935     EXPECTED_REPLACEMENT_CARD_IDS,
+832 936     "every missing collection card can replace the selected slot");
+... 937     assert.equal(await page.evaluate(() => document.activeElement?.dataset?.replacementCardId),
+... 938       "brackenwheel", "the first replacement remains keyboard reachable");
+... 939     await page.keyboard.press("Tab");
+833 940     assert.equal(await page.evaluate(() => document.activeElement?.dataset?.replacementCardId),
+834 941       "stonehauler", "the replacement choice is reachable by keyboard");
+835 942     await page.keyboard.press("Enter");
+
+tests/cards021-browser-integration.test.js --- 1/2 --- JavaScript
+ 11  11 
+ 12  12 import { buildRelease } from "../scripts/build-release.js";
+ 13  13 import {
+ ..  14   createEditableGameSessionSetup,
+ ..  15   EDITABLE_MIXED_DECK_CARD_IDS,
+ ..  16 } from "../src/content/editable-deck.js";
+ 14  17 import { PLAYABLE_CARD_IDS } from "../src/content/playable-roster.js";
+ 15  18 
+
+tests/cards021-browser-integration.test.js --- 2/2 --- JavaScript
+864     await page.locator('.app-nav [d  867     await page.locator('.app-nav [d
+... ata-nav-to="cards"]').click();       ... ata-nav-to="cards"]').click();
+865     const cardIds = await page.loca  868     const cardIds = await page.loca
+... tor("[data-card-grid] [data-card-id  ... tor("[data-card-grid] [data-card-id
+... ]").evaluateAll((nodes) =>           ... ]").evaluateAll((nodes) =>
+866       nodes.map((node) => node.data  869       nodes.map((node) => node.data
+... set.cardId));                        ... set.cardId));
+...                                      870     assert.deepEqual(cardIds, EDITA
+...                                      ... BLE_MIXED_DECK_CARD_IDS,
+...                                      871       "the real collection renders 
+...                                      ... the exact currently admitted card i
+...                                      ... dentities in order");
+867     assert.equal(cardIds.length, 21  872     assert.equal(PLAYABLE_CARD_IDS.
+... ,                                    ... length, 8,
+868       "the real collection appends   873       "the default roster remains t
+... Buried Coil while keeping all previ  ... he original eight cards");
+... ous twenty cards");                  ... 
+869     const buriedCard = page.locator  874     const buriedCard = page.locator
+... ('[data-card-grid] [data-card-id="b  ... ('[data-card-grid] [data-card-id="b
+... uried-coil"]');                      ... uried-coil"]');
+870     await buriedCard.click();        875     await buriedCard.click();
+871     assert.equal(await page.locator  876     assert.equal(await page.locator
+... ("[data-card-detail] h2").innerText  ... ("[data-card-detail] h2").innerText
+... (), "Buried Coil");                  ... (), "Buried Coil");
+
+tests/cards022-browser-integration.test.js --- JavaScript
+  1 import assert from "node:assert/strict";
+  2 import { createHash } from "node:crypto";
+  3 import { existsSync, mkdirSync, writeFileSync } from "node:fs";
+  4 import { mkdtemp, rm } from "node:fs/promises";
+  5 import { tmpdir } from "node:os";
+  6 import { join } from "node:path";
+  7 import { spawn } from "node:child_process";
+  8 import test from "node:test";
+  9 
+ 10 import { buildRelease } from "../scripts/build-release.js";
+ 11 import { createEditableGameSessionSetup } from "../src/content/editable-deck.js";
+ 12 import { GameSession } from "../src/sim/game-session.js";
+ 13 
+ 14 const PLAYWRIGHT = process.env.GAME_BROWSER_PLAYWRIGHT ?? "playwright";
+ 15 const CHROME = process.env.GAME_BROWSER_CHROME ??
+ 16   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+ 17 const ARTIFACTS = process.env.CARDS022I_ARTIFACTS ??
+ 18   new URL("../artifacts/cards022i-round-1/builder/", import.meta.url).pathname;
+ 19 const DECK = Object.freeze([
+ 20   "brackenwheel", "briar-band", "coilblade", "mossguard", "ironroot",
+ 21   "copperskiff", "brassbolt", "reedsting",
+ 22 ]);
+ 23 const LORE = "Brackenwheel learned to clear jammed sluice gates by spinning a copperroot sickle through the reeds. After dusk, emberseed sparks trace a ring around her boots, and she counts each flicker as a warning from the river.";
+ 24 
+ 25 function sha256(bytes) {
+ 26   return createHash("sha256").update(bytes).digest("hex");
+ 27 }
+ 28 
+ 29 function canonical(value) {
+ 30   if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
+ 31   if (value !== null && typeof value === "object") {
+ 32     return `{${Object.keys(value).sort().map((key) =>
+ 33       `${JSON.stringify(key)}:${canonical(value[key])}`).join(",")}}`;
+ 34   }
+ 35   return JSON.stringify(value);
+ 36 }
+ 37 
+ 38 function describeError(error) {
+ 39   return {
+ 40     cause: error?.cause instanceof Error ? describeError(error.cause) : null,
+ 41     errors: Array.isArray(error?.errors)
+ 42       ? error.errors.map((nested) => ({ message: String(nested?.message ?? nested),
+ 43         name: nested?.name ?? null, stack: nested?.stack ?? null })) : [],
+ 44     message: String(error?.message ?? error),
+ 45     name: error?.name ?? null,
+ 46     stack: error?.stack ?? null,
+ 47   };
+ 48 }
+ 49 
+ 50 function serverReady(server, stdout, stderr) {
+ 51   return new Promise((resolve, reject) => {
+ 52     let pending = "";
+ 53     let resolved = false;
+ 54     const onData = (chunk) => {
+ 55       stdout.push(chunk.toString("utf8"));
+ 56       if (resolved) return;
+ 57       pending += chunk.toString("utf8");
+ 58       const newline = pending.indexOf("\n");
+ 59       if (newline < 0) return;
+ 60       resolved = true;
+ 61       try { resolve(JSON.parse(pending.slice(0, newline))); }
+ 62       catch (error) { reject(error); }
+ 63     };
+ 64     server.stdout.on("data", onData);
+ 65     server.stderr.on("data", (chunk) => stderr.push(chunk.toString("utf8")));
+ 66     server.once("exit", (code) => reject(new Error(
+ 67       `release server exited before readiness (${code})`)));
+ 68   });
+ 69 }
+ 70 
+ 71 async function clickWorldPoint(page, arena, x, y) {
+ 72   const box = await arena.boundingBox();
+ 73   assert.ok(box && box.width > 0 && box.height > 0,
+ 74     "the released arena has a visible trusted-input surface");
+ 75   const metrics = await arena.evaluate((node) => ({
+ 76     borderLeft: node.clientLeft,
+ 77     borderTop: node.clientTop,
+ 78     clientHeight: node.clientHeight,
+ 79     clientWidth: node.clientWidth,
+ 80     rectHeight: node.getBoundingClientRect().height,
+ 81     rectWidth: node.getBoundingClientRect().width,
+ 82   }));
+ 83   const scaleX = box.width / metrics.rectWidth;
+ 84   const scaleY = box.height / metrics.rectHeight;
+ 85   await page.mouse.click(
+ 86     box.x + (metrics.borderLeft + metrics.clientWidth * x / 18_000) * scaleX,
+ 87     box.y + (metrics.borderTop + metrics.clientHeight * (32_000 - y) / 32_000) * scaleY,
+ 88   );
+ 89 }
+ 90 
+ 91 test("CARDS022I browser integration uses a trusted Brackenwheel drop and natural AI contact", {
+ 92   timeout: 180_000,
+ 93 }, async (t) => {
+ 94   assert.ok(existsSync(CHROME), "the installed Chrome runtime is required");
+ 95   mkdirSync(ARTIFACTS, { recursive: true });
+ 96   const temporary = await mkdtemp(join(tmpdir(), "cards022i-release-"));
+ 97   t.after(() => rm(temporary, { recursive: true, force: true }));
+ 98   const releaseRoot = join(temporary, "artifact");
+ 99   await buildRelease({ output: releaseRoot });
+100   const serverStdout = [];
+101   const serverStderr = [];
+102   const server = spawn(process.execPath, [
+103     new URL("./game-browser-journey-server.js", import.meta.url).pathname,
+104     `--root=${releaseRoot}`,
+105   ], { stdio: ["ignore", "pipe", "pipe"] });
+106   let browser;
+107   const browserErrors = [];
+108   const evidence = { baseCommand: "node --test tests/cards022-browser-integration.test.js",
+109     browserErrors: [], browserVersion: null, contact: null, deck: DECK, failures: browserErrors,
+110     lore: LORE,
+111     loreProvenance: "user-session/root-supplied original Brackenwheel brief; not found in repository history",
+112     mode: "seed-2 canonical GameSession; unforced natural AI; trusted player pointer" };
+113   try {
+114     const address = await serverReady(server, serverStdout, serverStderr);
+115     const origin = `http://${address.host}:${address.port}`;
+116     const { chromium } = await import(PLAYWRIGHT);
+117     browser = await chromium.launch({ executablePath: CHROME, headless: true });
+118     evidence.browserVersion = browser.version();
+119     const context = await browser.newContext({
+120       deviceScaleFactor: 1,
+121       reducedMotion: "no-preference",
+122       viewport: { width: 390, height: 844 },
+123     });
+124     const page = await context.newPage();
+125     page.on("console", (message) => {
+126       if (message.type() === "error") {
+127         browserErrors.push(message.text());
+128         evidence.browserErrors.push({ type: "console", text: message.text() });
+129       }
+130     });
+131     page.on("pageerror", (error) => {
+132       browserErrors.push(String(error));
+133       evidence.browserErrors.push({ type: "pageerror", ...describeError(error) });
+134     });
+135     page.on("requestfailed", (request) => browserErrors.push(
+136       `${request.url()}: ${request.failure()?.errorText}`));
+137     const response = await page.goto(`${origin}/public/index.html`, { waitUntil: "networkidle" });
+138     assert.equal(response.status(), 200);
+139     await page.locator('.app-nav [data-nav-to="cards"]').click();
+140     await page.locator('[data-card-grid] [data-card-id="brackenwheel"]').click();
+141     const portrait = await page.locator("[data-card-detail] .card-art-image").evaluate((image) => ({
+142       complete: image.complete,
+143       naturalHeight: image.naturalHeight,
+144       naturalWidth: image.naturalWidth,
+145       src: new URL(image.currentSrc || image.src, document.baseURI).pathname,
+146     }));
+147     const detailText = await page.locator("[data-card-detail]").innerText();
+148     assert.equal(portrait.src, "/public/assets/brackenwheel-portrait-painted.webp");
+149     assert.ok(portrait.complete && portrait.naturalWidth > 0 && portrait.naturalHeight > 0,
+150       `the original portrait decodes in the released card view: ${JSON.stringify(portrait)}`);
+151     assert.ok(detailText.includes(LORE), "the Brackenwheel card detail shows the approved two-sentence lore");
+152     assert.ok(detailText.includes("melee area/contact rule remains QUESTION"),
+153       "the card detail retains the canonical melee-area QUESTION alongside other provisional labels");
+154     await page.screenshot({ path: join(ARTIFACTS, "phone-brackenwheel-card-detail-390x844.png") });
+155 
+156     await page.locator('.app-nav [data-nav-to="deck"]').click();
+157     const replaceSlot = async (slot, cardId) => {
+158       await page.locator(`[data-replace-slot="${slot}"]`).click();
+159       await page.locator(`[data-replacement-card-id="${cardId}"]`).click();
+160     };
+161     await replaceSlot(3, "brackenwheel");
+162     await replaceSlot(7, "ironroot");
+163     // Move the same admitted eight cards into the canonical public witness
+164     // order using the real replacement controls. Squall Orb is a temporary
+165     // vacancy while the eight-card cycle rotates; it is removed before battle.
+166     await replaceSlot(3, "squall-orb");
+167     await replaceSlot(0, "brackenwheel");
+168     await replaceSlot(2, "coilblade");
+169     await replaceSlot(5, "copperskiff");
+170     await replaceSlot(7, "reedsting");
+171     await replaceSlot(4, "ironroot");
+172     await replaceSlot(6, "brassbolt");
+173     await replaceSlot(1, "briar-band");
+174     await replaceSlot(3, "mossguard");
+175     const selectedDeck = await page.locator("[data-deck-cards] [data-card-id]")
+176       .evaluateAll((nodes) => nodes.map((node) => node.dataset.cardId));
+177     assert.equal(selectedDeck.length, 8);
+178     assert.equal(new Set(selectedDeck).size, 8);
+179     assert.deepEqual(selectedDeck, DECK,
+180       "trusted editor order exactly matches the canonical public seed-2 setup");
+181     assert.deepEqual([...selectedDeck].sort(), [...DECK].sort(),
+182       "the real eight-slot editor admits the same custom card identities as the public seed-2 witness");
+183     await page.locator('.app-nav [data-nav-to="battle"]').click();
+184     const arena = page.frameLocator("[data-battle-frame-slot] iframe").locator('[data-ui="arena"]');
+185     await arena.waitFor({ state: "visible", timeout: 10_000 });
+186     const frame = page.frames().find((candidate) => candidate.url().includes("app-frame=1"));
+187     assert.ok(frame, "Battle mounts the released frame and browser controller");
+188     const moduleUrl = new URL("/src/ui/arena-shell-entry.js", origin).href;
+189     const seededSession = new GameSession(createEditableGameSessionSetup(DECK, 2));
+190     const setup = await frame.evaluate(async ({ entryUrl, sessionBytes, sessionSetup }) => {
+191       const { arenaHudController: controller } = await import(entryUrl);
+192       controller.pause();
+193       controller.replaceDeck(sessionSetup.deck);
+194       controller.resume();
+195       controller.enterManualStepMode();
+196       const envelope = JSON.parse(controller.serialize());
+197       envelope.session = sessionBytes;
+198       envelope.running = false;
+199       controller.restore(canonical(envelope));
+200       controller.enterManualStepMode();
+201       return {
+202         hand: controller.session.state.decks.south.hand,
+203         northHand: controller.session.state.decks.north.hand,
+204         setup: JSON.parse(controller.session.serialize()).setup,
+205         snapshot: controller.serialize(),
+206         state: controller.state,
+207       };
+208       function canonical(value) {
+209         if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
+210         if (value !== null && typeof value === "object") return `{${Object.keys(value).sort()
+211           .map((key) => `${JSON.stringify(key)}:${canonical(value[key])}`).join(",")}}`;
+212         return JSON.stringify(value);
+213       }
+214     }, { entryUrl: moduleUrl, sessionBytes: seededSession.serialize(),
+215       sessionSetup: JSON.parse(seededSession.serialize()).setup });
+216     assert.equal(setup.setup.seed, 2);
+217     assert.deepEqual(setup.setup.deck, DECK);
+218     assert.ok(setup.hand.includes("brackenwheel"));
+219     assert.ok(setup.northHand.includes("brackenwheel"),
+220       "the unforced north AI opening contains Brackenwheel naturally");
+221     assert.equal(setup.setup.legalNorthDeployments.length, 8,
+222       "the canonical setup admits the full deck to unforced AI selection");
+223     await frame.evaluate(() => {
+224       globalThis.__cards022Pointers = [];
+225       document.querySelector('[data-ui="arena"]').addEventListener("pointerup", (event) => {
+226         globalThis.__cards022Pointers.push({ isTrusted: event.isTrusted,
+227           clientX: event.clientX, clientY: event.clientY });
+228       }, true);
+229     });
+230     const cardSlot = page.frameLocator("[data-battle-frame-slot] iframe")
+231       .locator('[data-ui="card-slot"][data-card-id="brackenwheel"]');
+232     await cardSlot.click();
+233     const handCost = Number(await page.frameLocator("[data-battle-frame-slot] iframe")
+234       .locator('[data-ui="hud-hand"] [data-card-id="brackenwheel"] .hud-card__cost').innerText());
+235     assert.equal(handCost, 4, "the actual player hand presents Brackenwheel's live 4-elixir cost");
+236     await clickWorldPoint(page, arena, 3_500, 14_500);
+237     await frame.evaluate(async (entryUrl) => {
+238       const { arenaHudController: controller } = await import(entryUrl);
+239       controller.stepMany(1);
+240     }, moduleUrl);
+241     const playerDeployment = await frame.evaluate(async (entryUrl) => {
+242       const { arenaHudController: controller } = await import(entryUrl);
+243       const session = controller.session;
+244       const events = session.replay.filter(({ side, type, deployment }) =>
+245         type === "session-deployed" && side === "south" &&
+246         deployment?.cardId === "brackenwheel");
+247       return { events, pointers: globalThis.__cards022Pointers,
+248         sequence: session.state.decks.south.sequence,
+249         transcript: JSON.parse(session.serialize()).transcript };
+250     }, moduleUrl);
+251     assert.equal(playerDeployment.events.length, 1,
+252       "one real player deployment receipt records Brackenwheel");
+253     assert.equal(playerDeployment.events[0].spend.cost, handCost);
+254     assert.equal(playerDeployment.sequence, 1,
+255       "the player deck cycle advances exactly once");
+256     assert.equal(playerDeployment.pointers.length, 1);
+257     assert.equal(playerDeployment.pointers[0].isTrusted, true,
+258       "Chrome's trusted pointer event places the player Brackenwheel");
+259     assert.ok(playerDeployment.transcript.some(({ type, command }) =>
+260       type === "submit" && command.type === "deploy" &&
+261       command.cardId === "brackenwheel" && command.point.x === 3_500 &&
+262       command.point.y === 14_500));
+263     evidence.playerDeployment = {
+264       events: playerDeployment.events,
+265       pointer: playerDeployment.pointers[0],
+266       southDeckSequence: playerDeployment.sequence,
+267       submit: playerDeployment.transcript.find(({ type, command }) =>
+268         type === "submit" && command.type === "deploy" &&
+269         command.cardId === "brackenwheel") ?? null,
+270     };
+271 
+272     let contact = null;
+273     for (let attempt = 0; attempt < 10 && contact === null; attempt += 1) {
+274       await frame.evaluate(async (entryUrl) => {
+275         const { arenaHudController: controller } = await import(entryUrl);
+276         controller.fastForwardSegment(60);
+277       }, moduleUrl);
+278       contact = await frame.evaluate(async (entryUrl) => {
+279         const { arenaHudController: controller } = await import(entryUrl);
+280         const replay = controller.session.replay;
+281         const northDeployments = replay.filter(({ side, type, deployment }) =>
+282           type === "session-deployed" && side === "north" &&
+283           deployment?.cardId === "brackenwheel");
+284         const playerBrackenwheel = controller.session.state.battle.units.find(({ cardId, side }) =>
+285           cardId === "brackenwheel" && side === "south");
+286         const northBrackenwheel = controller.session.state.battle.units.find(({ cardId, side }) =>
+287           cardId === "brackenwheel" && side === "north");
+288         const damage = replay.filter(({ attackerId, type }) =>
+289           type === "damage" && attackerId === playerBrackenwheel?.id);
+290         const grouped = new Map();
+291         for (const event of damage) {
+292           const group = grouped.get(event.tick) ?? [];
+293           group.push(event);
+294           grouped.set(event.tick, group);
+295         }
+296         const hit = [...grouped].find(([, events]) => events.length >= 3 &&
+297           events.filter(({ meleeAreaPolicyVersion }) =>
+298             meleeAreaPolicyVersion === "melee-area-question-v1").length >= 2);
+299         if (hit === undefined) return null;
+300         const browserSnapshot = controller.serialize();
+301         const inputBridgeBytes = JSON.parse(browserSnapshot).bridge;
+302         const selectedCardId = controller.state.selectedCardId;
+303         if (typeof inputBridgeBytes !== "string" || inputBridgeBytes.length === 0 ||
+304             (selectedCardId !== null && typeof selectedCardId !== "string")) {
+305           throw new TypeError("contact must expose canonical browser input and selection state");
+306         }
+307         return {
+308           aiDeployments: northDeployments,
+309           damage: hit[1],
+310           primaryTargetId: northBrackenwheel?.id ?? null,
+311           tick: hit[0],
+312           snapshot: browserSnapshot,
+313           sessionBytes: controller.session.serialize(),
+314           audioBytes: controller.audioContinuationBytes,
+315           inputBridgeBytes, selectedCardId,
+316           setup: JSON.parse(controller.session.serialize()).setup,
+317         };
+318       }, moduleUrl);
+319     }
+320     assert.ok(contact, "the unforced AI and trusted player drop reach primary plus secondary Brackenwheel contact");
+321     assert.equal(typeof contact.inputBridgeBytes, "string",
+322       "contact captures the canonical serialized browser input bridge");
+323     assert.ok(contact.inputBridgeBytes.length > 0,
+324       "the contact input-bridge snapshot is nonempty rather than an undefined facade property");
+325     evidence.contactObservedBeforeAssertions = {
+326       aiDeployments: contact.aiDeployments,
+327       damage: contact.damage,
+328       tick: contact.tick,
+329     };
+330     assert.equal(contact.aiDeployments.length, 1,
+331       "the unforced north AI spends for one Brackenwheel deployment");
+332     assert.equal(contact.aiDeployments[0].spend.cost, 4);
+333     assert.deepEqual(contact.damage.map(({ amount }) => amount), [267, 267, 267, 267]);
+334     assert.equal(contact.damage.filter(({ meleeAreaPolicyVersion }) =>
+335       meleeAreaPolicyVersion === "melee-area-question-v1").length, 3,
+336     "the contact has one primary damage receipt and all three policy-tagged eligible secondaries");
+337     assert.equal(new Set(contact.damage.map(({ targetId }) => targetId)).size, 4,
+338       "the primary and three secondary targets receive one causal area contact each");
+339     const primaryDamage = contact.damage.filter(({ meleeAreaPolicyVersion }) =>
+340       meleeAreaPolicyVersion === undefined);
+341     const secondaryDamage = contact.damage.filter(({ meleeAreaPolicyVersion }) =>
+342       meleeAreaPolicyVersion === "melee-area-question-v1");
+343     assert.equal(primaryDamage.length, 1, "one primary target receives one hit");
+344     assert.equal(primaryDamage[0].targetId, contact.primaryTargetId,
+345       "the primary hit targets the north Brackenwheel");
+346     assert.deepEqual(secondaryDamage.map(({ targetId }) => targetId), [4, 5, 6],
+347       "the three secondary receipts hit every eligible north Briar Band entity exactly once");
+348     assert.equal(contact.setup.legalNorthDeployments.length, 8,
+349       "the AI witness remains the ordinary admitted eight-card setup");
+350     const screenshots = [];
+351     const file = "phone-brackenwheel-natural-ai-contact-390x844.png";
+352     await page.screenshot({ path: join(ARTIFACTS, file) });
+353     const screenshotBytes = (await import("node:fs/promises")).readFile(join(ARTIFACTS, file));
+354     screenshots.push({ file, sha256: sha256(await screenshotBytes) });
+355     const result = await frame.evaluate(async ({ entryUrl, contactTick }) => {
+356       const { arenaHudController: controller } = await import(entryUrl);
+357       const marker = document.querySelector('.combat-marker[data-kind="brackenwheel"][data-side="south"]');
+358       const art = marker?.querySelector('.combat-art[data-art-id="brackenwheel"]');
+359       const notice = document.querySelector('[data-ui="policy-question"]');
+360       return {
+361         aiSequence: controller.session.state.decks.north.sequence,
+362         art: art === null ? null : { bodyCssPixels: art.dataset.bodyCssPixels,
+363           renderer: art.dataset.renderer, styleHeight: art.style.height, styleWidth: art.style.width },
+364         frameScale: Number(document.documentElement.dataset.combatFrameScale),
+365         presentationBodyCssPixels: Number(document.documentElement.dataset.combatBodyCssPixels),
+366         contactTick,
+367         notice: notice === null ? null : { cardId: notice.dataset.cardId ?? null,
+368           disposition: notice.dataset.disposition ?? null, hidden: notice.hidden,
+369           text: notice.textContent },
+370         playerSequence: controller.session.state.decks.south.sequence,
+371         state: controller.session.state,
+372       };
+373     }, { entryUrl: moduleUrl, contactTick: contact.tick });
+374     assert.ok(result.art, "the actual combat projection renders Brackenwheel art");
+375     assert.equal(result.notice?.hidden, false,
+376       "the battle shell exposes the current custom deck's unresolved melee policy");
+377     assert.equal(result.notice?.cardId, "brackenwheel");
+378     assert.equal(result.notice?.disposition, "question");
+379     assert.match(result.notice?.text ?? "", /melee area\/contact rule remains QUESTION/u,
+380       "the low-confidence area/contact rule stays visible as QUESTION");
+381     const checkpoint = await frame.evaluate(async (entryUrl) => {
+382       const { arenaHudController: controller } = await import(entryUrl);
+383       controller.pause();
+384       const snapshot = controller.serialize();
+385       const inputBridgeBytes = JSON.parse(snapshot).bridge;
+386       const selectedCardId = controller.state.selectedCardId;
+387       if (typeof inputBridgeBytes !== "string" || inputBridgeBytes.length === 0 ||
+388           (selectedCardId !== null && typeof selectedCardId !== "string")) {
+389         throw new TypeError("browser input bridge snapshot must be a nonempty canonical string");
+390       }
+391       return { audioBytes: controller.audioContinuationBytes,
+392         inputBridgeBytes, selectedCardId,
+393         sessionBytes: controller.session.serialize(),
+394         snapshot, stateBytes: JSON.stringify(controller.state) };
+395     }, moduleUrl);
+396     evidence.pausedCheckpoint = {
+397       audioSha256: sha256(Buffer.from(checkpoint.audioBytes)),
+398       inputBridgeBytes: checkpoint.inputBridgeBytes,
+399       selectedCardId: checkpoint.selectedCardId,
+400       sessionSha256: sha256(Buffer.from(checkpoint.sessionBytes)),
+401       snapshotSha256: sha256(Buffer.from(checkpoint.snapshot)),
+402       stateSha256: sha256(Buffer.from(checkpoint.stateBytes)),
+403     };
+404     await frame.evaluate(async (entryUrl) => {
+405       const { arenaHudController: controller } = await import(entryUrl);
+406       globalThis.__cards022PresentationRefreshes = [];
+407       window.addEventListener("message", (event) => {
+408         if (event.source !== window.parent || event.origin !== window.location.origin ||
+409             event.data?.channel !== "moss-and-ember-battle") return;
+410         const art = document.querySelector(
+411           '.combat-marker[data-kind="brackenwheel"][data-side="south"] .combat-art[data-art-id="brackenwheel"]',
+412         );
+413         const style = art === null ? null : getComputedStyle(art);
+414         const frame = window.frameElement;
+415         const frameStyle = frame === null ? null : getComputedStyle(frame);
+416         const matrix = frameStyle === null ? null : new DOMMatrixReadOnly(frameStyle.transform);
+417         const bodyFraction = art?.dataset.renderer === "native-svg" ? 28.4 / 32 : 501 / 512;
+418         const snapshot = controller.serialize();
+419         const inputBridgeBytes = JSON.parse(snapshot).bridge;
+420         const selectedCardId = controller.state.selectedCardId;
+421         if (typeof inputBridgeBytes !== "string" || inputBridgeBytes.length === 0 ||
+422             (selectedCardId !== null && typeof selectedCardId !== "string")) {
+423           throw new TypeError("presentation input bridge snapshot must be a nonempty canonical string");
+424         }
+425         globalThis.__cards022PresentationRefreshes.push({
+426           active: event.data.active,
+427           deckIds: [...event.data.deckIds],
+428           incoming: { ...event.data.presentation },
+429           observedAfterHandler: {
+430             contextBodyCssPixels: Number(document.documentElement.dataset.combatBodyCssPixels),
+431             contextFrameScale: Number(document.documentElement.dataset.combatFrameScale),
+432             artStyleHeight: art?.style.height ?? null,
+433             artComputedHeight: style?.height ?? null,
+434             outerFrameScale: matrix?.a ?? null,
+435             physicalBodyCssPixels: style === null || matrix === null ? null :
+436               Number.parseFloat(style.height) * bodyFraction * matrix.a,
+437           },
+438           state: { audioBytes: controller.audioContinuationBytes,
+439             inputBridgeBytes, selectedCardId, sessionBytes: controller.session.serialize(),
+440             snapshot, stateBytes: JSON.stringify(controller.state) },
+441         });
+442       }, { capture: true });
+443     }, moduleUrl);
+444     const presentationChecks = [];
+445     const presentationRefreshChecks = [];
+446     for (const mode of [
+447       { label: "phone-normal", motion: "no-preference", viewport: { width: 390, height: 844 },
+448         bodyCssPixels: 13, renderer: "native-svg" },
+449       { label: "phone-reduced", motion: "reduce", viewport: { width: 390, height: 844 },
+450         bodyCssPixels: 13, renderer: "native-svg" },
+451       { label: "desktop-normal", motion: "no-preference", viewport: { width: 1440, height: 933 },
+452         bodyCssPixels: 26, renderer: "painted-webp" },
+453       { label: "desktop-reduced", motion: "reduce", viewport: { width: 1440, height: 933 },
+454         bodyCssPixels: 26, renderer: "painted-webp" },
+455     ]) {
+456       const beforeResize = await frame.evaluate(async (entryUrl) => {
+457         const { arenaHudController: controller } = await import(entryUrl);
+458         const art = document.querySelector(
+459           '.combat-marker[data-kind="brackenwheel"][data-side="south"] .combat-art[data-art-id="brackenwheel"]',
+460         );
+461         const frame = window.frameElement;
+462         if (art === null || frame === null) throw new Error("pre-resize presentation targets are unavailable");
+463         const style = getComputedStyle(art);
+464         const matrix = new DOMMatrixReadOnly(getComputedStyle(frame).transform);
+465         const bodyFraction = art.dataset.renderer === "native-svg" ? 28.4 / 32 : 501 / 512;
+466         const snapshot = controller.serialize();
+467         const inputBridgeBytes = JSON.parse(snapshot).bridge;
+468         const selectedCardId = controller.state.selectedCardId;
+469         if (typeof inputBridgeBytes !== "string" || inputBridgeBytes.length === 0 ||
+470             (selectedCardId !== null && typeof selectedCardId !== "string")) {
+471           throw new TypeError("pre-resize input state must expose the canonical bridge and selected card");
+472         }
+473         return { audioBytes: controller.audioContinuationBytes, inputBridgeBytes, selectedCardId,
+474           sessionBytes: controller.session.serialize(), snapshot,
+475           stateBytes: JSON.stringify(controller.state), paused: controller.state.paused,
+476           presentation: { bodyCssPixels: Number(document.documentElement.dataset.combatBodyCssPixels),
+477             frameScale: Number(document.documentElement.dataset.combatFrameScale),
+478             outerFrameScale: matrix.a,
+479             physicalBodyCssPixels: Number.parseFloat(style.height) * bodyFraction * matrix.a,
+480             artStyleHeight: art.style.height, renderer: art.dataset.renderer } };
+481       }, moduleUrl);
+482       const refreshMessageStart = await frame.evaluate(() =>
+483         globalThis.__cards022PresentationRefreshes.length);
+484       await page.setViewportSize(mode.viewport);
+485       await page.emulateMedia({ reducedMotion: mode.motion });
+486       await frame.waitForFunction(({ bodyCssPixels, reduce }) => {
+487         const frame = window.frameElement;
+488         if (frame === null) return false;
+489         const matrix = new DOMMatrixReadOnly(getComputedStyle(frame).transform);
+490         const art = document.querySelector(
+491           '.combat-marker[data-kind="brackenwheel"][data-side="south"] .combat-art[data-art-id="brackenwheel"]',
+492         );
+493         if (art === null) return false;
+494         const style = getComputedStyle(art);
+495         const fraction = art.dataset.renderer === "native-svg" ? 28.4 / 32 : 501 / 512;
+496         const renderedBodyCssPixels = Number.parseFloat(style.height) * fraction * matrix.a;
+497         return Number(document.documentElement.dataset.combatBodyCssPixels) === bodyCssPixels &&
+498           Math.abs(Number(document.documentElement.dataset.combatFrameScale) - matrix.a) < 1e-6 &&
+499           Math.abs(renderedBodyCssPixels - bodyCssPixels) < 0.02 &&
+500           matchMedia("(prefers-reduced-motion: reduce)").matches === reduce;
+501       }, { bodyCssPixels: mode.bodyCssPixels, reduce: mode.motion === "reduce" });
+502       const refreshed = await frame.evaluate(async ({ entryUrl, refreshMessageStart }) => {
+503         const { arenaHudController: controller } = await import(entryUrl);
+504         const markers = [...document.querySelectorAll('.combat-marker')];
+505         const playerMarker = document.querySelector(
+506           '.combat-marker[data-kind="brackenwheel"][data-side="south"]',
+507         );
+508         const art = document.querySelector(
+509           '.combat-marker[data-kind="brackenwheel"][data-side="south"] .combat-art[data-art-id="brackenwheel"]',
+510         );
+511         const bounds = art?.getBoundingClientRect();
+512         const style = art === null ? null : getComputedStyle(art);
+513         const markerBounds = playerMarker?.getBoundingClientRect();
+514         const outerFrame = window.frameElement;
+515         const outerFrameStyle = outerFrame === null ? null : getComputedStyle(outerFrame);
+516         const outerFrameBounds = outerFrame?.getBoundingClientRect();
+517         const outerMatrix = outerFrameStyle === null
+518           ? null : new DOMMatrixReadOnly(outerFrameStyle.transform);
+519         const bodyCssPixels = Number(document.documentElement.dataset.combatBodyCssPixels);
+520         const frameScale = Number(document.documentElement.dataset.combatFrameScale);
+521         const presentation = { artFound: art !== null,
+522           bodyCssPixels,
+523           artBodyCssPixels: art === null ? null : Number(art.dataset.bodyCssPixels),
+524           artOffsetHeight: art?.offsetHeight ?? null,
+525           artStyleHeight: art?.style.height ?? null,
+526           artComputedHeight: style?.height ?? null,
+527           artTransform: style?.transform ?? null,
+528           artNaturalSize: art instanceof HTMLImageElement
+529             ? { width: art.naturalWidth, height: art.naturalHeight } : null,
+530           frameScale,
+531           outerFrameScale: outerMatrix?.a ?? null,
+532           outerFrameTransform: outerFrameStyle?.transform ?? null,
+533           physicalBodyCssPixels: style === null || outerMatrix === null ? null :
+534             Number.parseFloat(style.height) * (art?.dataset.renderer === "native-svg"
+535               ? 28.4 / 32 : 501 / 512) * outerMatrix.a,
+536           height: bounds?.height ?? null,
+537           markerCount: markers.length,
+538           markerKinds: markers.map((marker) => ({ kind: marker.dataset.kind ?? null,
+539             side: marker.dataset.side ?? null })),
+540           playerMarker: playerMarker === null ? null : {
+541             className: playerMarker.getAttribute("class"),
+542             pose: playerMarker.dataset.pose ?? null,
+543             reaction: playerMarker.dataset.reaction ?? null,
+544             markerStyleHeight: playerMarker.style.height,
+545             markerComputedHeight: getComputedStyle(playerMarker).height,
+546             markerBoundsHeight: markerBounds?.height ?? null,
+547             markerTransform: getComputedStyle(playerMarker).transform,
+548             childArt: playerMarker.firstElementChild?.outerHTML.slice(0, 180) ?? null,
+549             kind: playerMarker.dataset.kind,
+550             side: playerMarker.dataset.side,
+551           },
+552           frameViewport: { innerWidth, innerHeight, clientWidth: document.documentElement.clientWidth,
+553             clientHeight: document.documentElement.clientHeight },
+554           outerFrame: outerFrame === null ? null : {
+555             boundsWidth: outerFrameBounds.width,
+556             boundsHeight: outerFrameBounds.height,
+557             cssTransform: outerFrameStyle.transform,
+558             cssWidth: outerFrameStyle.width,
+559             cssHeight: outerFrameStyle.height,
+560           },
+561           renderer: art?.dataset.renderer ?? null,
+562           reducedMotion: matchMedia("(prefers-reduced-motion: reduce)").matches,
+563           sessionTick: controller.session.state.tick,
+564           setupDeck: JSON.parse(controller.session.serialize()).setup.deck,
+565           paused: controller.state.paused,
+566           controllerTick: controller.state.sessionTick };
+567         const snapshot = controller.serialize();
+568         const inputBridgeBytes = JSON.parse(snapshot).bridge;
+569         const selectedCardId = controller.state.selectedCardId;
+570         if (typeof inputBridgeBytes !== "string" || inputBridgeBytes.length === 0 ||
+571             (selectedCardId !== null && typeof selectedCardId !== "string")) {
+572           throw new TypeError("post-refresh input state must expose the canonical bridge and selected card");
+573         }
+574         const after = { audioBytes: controller.audioContinuationBytes,
+575           inputBridgeBytes, selectedCardId,
+576           sessionBytes: controller.session.serialize(),
+577           snapshot, stateBytes: JSON.stringify(controller.state) };
+578         return { after, presentation,
+579           refreshMessages: globalThis.__cards022PresentationRefreshes.slice(refreshMessageStart) };
+580       }, { entryUrl: moduleUrl, refreshMessageStart });
+581       const presentation = refreshed.presentation;
+582       const currentContextMessage = refreshed.refreshMessages.find(({ incoming }) =>
+583         incoming.bodyCssPixels === mode.bodyCssPixels &&
+584         Math.abs(incoming.frameScale - presentation.frameScale) < 1e-12);
+585       const refreshState = refreshed.after;
+586       presentationRefreshChecks.push({ mode: mode.label,
+587         messageCount: refreshed.refreshMessages.length,
+588         sessionSha256: sha256(Buffer.from(refreshState.sessionBytes)),
+589         snapshotSha256: sha256(Buffer.from(refreshState.snapshot)),
+590         audioSha256: sha256(Buffer.from(refreshState.audioBytes)),
+591         inputBridgeSha256: sha256(Buffer.from(refreshState.inputBridgeBytes)),
+592         selectedCardId: refreshState.selectedCardId });
+593       evidence.presentationRefreshChecks = presentationRefreshChecks;
+594       evidence.presentationDiagnostics ??= [];
+595       evidence.presentationDiagnostics.push({ mode: mode.label,
+596         beforeResize: { ...beforeResize.presentation, paused: beforeResize.paused,
+597           inputBridgeSha256: sha256(Buffer.from(beforeResize.inputBridgeBytes)),
+598           selectedCardId: beforeResize.selectedCardId,
+599           sessionSha256: sha256(Buffer.from(beforeResize.sessionBytes)),
+600           snapshotSha256: sha256(Buffer.from(beforeResize.snapshot)),
+601           audioSha256: sha256(Buffer.from(beforeResize.audioBytes)) },
+602         afterResize: presentation,
+603         messageObserverSample: currentContextMessage?.observedAfterHandler ?? null });
+604       evidence.presentationMessageTrace ??= [];
+605       evidence.presentationMessageTrace.push({ mode: mode.label,
+606         messages: refreshed.refreshMessages.map(({ active, deckIds, incoming,
+607           observedAfterHandler, state }) => ({
+608           active, deckIds, incoming, observedAfterHandler,
+609           stateSha256: Object.fromEntries(Object.entries(state).map(([key, value]) => {
+610             if (value === undefined) throw new TypeError(`captured presentation state ${key} is undefined`);
+611             return [key, sha256(Buffer.from(typeof value === "string" ? value : JSON.stringify(value)))];
+612           })),
+613         })) });
+614       for (const key of ["audioBytes", "inputBridgeBytes", "selectedCardId",
+615         "sessionBytes", "snapshot", "stateBytes"]) {
+616         assert.equal(beforeResize[key], checkpoint[key],
+617           `${mode.label} immediate pre-resize ${key} matches the paused checkpoint`);
+618         assert.equal(refreshed.after[key], beforeResize[key],
+619           `${mode.label} automatic presentation refresh preserves pre-resize ${key}`);
+620         for (const refresh of refreshed.refreshMessages) {
+621           assert.equal(refresh.state[key], beforeResize[key],
+622             `${mode.label} post-handler message observation preserves ${key}`);
+623         }
+624       }
+625       if (mode.label === "desktop-normal") {
+626         assert.equal(beforeResize.presentation.bodyCssPixels, 13,
+627           "the actual pre-resize presentation still uses the phone body size");
+628         assert.ok(Math.abs(beforeResize.presentation.physicalBodyCssPixels - 13) < 0.02,
+629           "the actual pre-resize portrait measures 13 physical CSS pixels");
+630         assert.equal(presentation.bodyCssPixels, 26,
+631           "the production resize projects the desktop body size");
+632         assert.ok(Math.abs(presentation.physicalBodyCssPixels - 26) < 0.02,
+633           "the production resize redraws the portrait at 26 physical CSS pixels");
+634         assert.ok(currentContextMessage,
+635           "the desktop resize is accompanied by a production presentation message");
+636       }
+637       assert.ok(presentation.artFound,
+638         `${mode.label} keeps the player Brackenwheel visible: ${JSON.stringify(presentation)}`);
+639       assert.equal(presentation.bodyCssPixels, mode.bodyCssPixels);
+640       assert.equal(presentation.renderer, mode.renderer);
+641       assert.equal(presentation.reducedMotion, mode.motion === "reduce");
+642       assert.equal(presentation.paused, true,
+643         `${mode.label} keeps the explicitly paused checkpoint paused across layout updates`);
+644       const beforeFile = `brackenwheel-${mode.label}-before-restore.png`;
+645       const afterFile = `brackenwheel-${mode.label}-after-restore.png`;
+646       const before = await page.screenshot({ path: join(ARTIFACTS, beforeFile) });
+647       assert.ok(Math.abs(presentation.outerFrameScale - presentation.frameScale) < 1e-6,
+648         `${mode.label} renderer used the iframe's current CSS transform scale`);
+649       assert.ok(Math.abs(presentation.physicalBodyCssPixels -
+650         mode.bodyCssPixels) < 0.02,
+651       `${mode.label} renders an explicit ${mode.bodyCssPixels}px body at physical CSS size`);
+652       const restored = await frame.evaluate(async ({ entryUrl, snapshot }) => {
+653         const { arenaHudController: controller } = await import(entryUrl);
+654         controller.restore(snapshot);
+655         const restoredSnapshot = controller.serialize();
+656         const inputBridgeBytes = JSON.parse(restoredSnapshot).bridge;
+657         const selectedCardId = controller.state.selectedCardId;
+658         if (typeof inputBridgeBytes !== "string" || inputBridgeBytes.length === 0 ||
+659             (selectedCardId !== null && typeof selectedCardId !== "string")) {
+660           throw new TypeError("restored browser input bridge snapshot must be a nonempty canonical string");
+661         }
+662         return { audioBytes: controller.audioContinuationBytes,
+663           inputBridgeBytes, selectedCardId,
+664           sessionBytes: controller.session.serialize(), snapshot: restoredSnapshot,
+665           stateBytes: JSON.stringify(controller.state) };
+666       }, { entryUrl: moduleUrl, snapshot: checkpoint.snapshot });
+667       assert.equal(restored.snapshot, checkpoint.snapshot,
+668         `${mode.label} restores the exact browser checkpoint`);
+669       assert.equal(restored.sessionBytes, checkpoint.sessionBytes,
+670         `${mode.label} restores exact deterministic session bytes`);
+671       assert.equal(restored.inputBridgeBytes, checkpoint.inputBridgeBytes,
+672         `${mode.label} restores exact serialized browser input-bridge state`);
+673       assert.equal(restored.selectedCardId, checkpoint.selectedCardId,
+674         `${mode.label} restores the exact selected-card input state`);
+675       assert.equal(restored.audioBytes, checkpoint.audioBytes,
+676         `${mode.label} restores exact audio continuation state`);
+677       assert.equal(restored.stateBytes, checkpoint.stateBytes,
+678         `${mode.label} restores the exact projected game state`);
+679       const after = await page.screenshot({ path: join(ARTIFACTS, afterFile) });
+680       assert.deepEqual(after, before, `${mode.label} PNG is byte-identical after restore`);
+681       presentationChecks.push({ ...presentation, beforeResize: beforeResize.presentation,
+682         messageObserverSample: currentContextMessage?.observedAfterHandler ?? null,
+683         mode: mode.label,
+684         bodyCssPixels: mode.bodyCssPixels, before: { file: beforeFile,
+685           bytes: before.length, sha256: sha256(before) },
+686         after: { file: afterFile, bytes: after.length, sha256: sha256(after) } });
+687       evidence.presentationChecks = presentationChecks;
+688     }
+689     evidence.contact = { aiDeploymentCount: contact.aiDeployments.length,
+690       damage: contact.damage.map(({ amount, meleeAreaPolicyVersion, targetId, tick }) =>
+691         ({ amount, meleeAreaPolicyVersion: meleeAreaPolicyVersion ?? null, targetId, tick })),
+692       inputBridgeSnapshot: contact.inputBridgeBytes,
+693       selectedCardId: contact.selectedCardId, naturalAISetup: contact.setup,
+694       presentation: { ...result.art, frameScale: result.frameScale,
+695         bodyCssPixels: result.presentationBodyCssPixels },
+696       presentationChecks, playerDeckSequence: result.playerSequence,
+697       tick: contact.tick };
+698     evidence.screenshots = screenshots;
+699     const terminal = await frame.evaluate(async (entryUrl) => {
+700       const { arenaHudController: controller } = await import(entryUrl);
+701       const initialState = controller.state;
+702       const resumeResult = controller.resume();
+703       const manualStepResult = controller.enterManualStepMode();
+704       const afterResume = { paused: controller.state.paused, running: controller.state.running,
+705         sessionTick: controller.state.sessionTick };
+706       let chunks = 0;
+707       while (!controller.state.terminal && chunks < 12) {
+708         controller.fastForwardSegment(1_200);
+709         chunks += 1;
+710       }
+711       const sessionState = controller.session.state;
+712       const sessionBytes = controller.session.serialize();
+713       return { chunks, initialState, resumeResult, manualStepResult, afterResume,
+714         state: controller.state,
+715         session: { tick: sessionState.tick, paused: sessionState.paused,
+716           terminal: sessionState.terminal,
+717           towers: sessionState.battle.towers.map(({ hitpoints, id }) => ({ hitpoints, id })) },
+718         setup: JSON.parse(sessionBytes).setup };
+719     }, moduleUrl);
+720     evidence.sameDeckTerminalAttempt = terminal;
+721     writeFileSync(join(ARTIFACTS, "cards022-browser-integration-evidence.json"),
+722       `${JSON.stringify(evidence, null, 2)}\n`);
+723     assert.equal(terminal.state.terminal, true,
+724       "the custom eight-card match reaches a natural terminal within the bounded 14,400-tick run");
+725     assert.deepEqual(terminal.setup.deck, DECK,
+726       "the terminal match still uses the selected Brackenwheel eight-card deck");
+727     await frame.locator('[data-ui="restart"]').click();
+728     const restarted = await frame.evaluate(async (entryUrl) => {
+729       const { arenaHudController: controller } = await import(entryUrl);
+730       return { restartCount: controller.state.restartCount,
+731         sessionBytes: controller.session.serialize(), state: controller.state,
+732         setup: JSON.parse(controller.session.serialize()).setup };
+733     }, moduleUrl);
+734     assert.equal(restarted.restartCount, 1, "trusted Play Again performs one same-deck restart");
+735     assert.equal(restarted.state.sessionTick, 0);
+736     assert.deepEqual(restarted.setup.deck, DECK,
+737       "same-deck restart retains all eight selected cards including Brackenwheel");
+738     assert.equal(restarted.setup.seed, 2,
+739       "same-deck restart retains the canonical seed-2 session setup");
+740     evidence.sameDeckRestart = { chunks: terminal.chunks,
+741       terminalTick: terminal.state.sessionTick, deck: restarted.setup.deck,
+742       restartCount: restarted.restartCount, restartedTick: restarted.state.sessionTick };
+743     evidence.screenshots = screenshots;
+744     evidence.snapshotSha256 = sha256(Buffer.from(contact.snapshot));
+745     evidence.sessionSha256 = sha256(Buffer.from(contact.sessionBytes));
+746     evidence.audioContinuationSha256 = sha256(Buffer.from(contact.audioBytes));
+747     evidence.releaseResult = "pass";
+748     evidence.server = { exitCode: null, stderr: serverStderr.join(""), stdout: serverStdout.join("") };
+749     writeFileSync(join(ARTIFACTS, "cards022-browser-integration-evidence.json"),
+750       `${JSON.stringify(evidence, null, 2)}\n`);
+751     assert.deepEqual(browserErrors, []);
+752   } catch (error) {
+753     evidence.releaseResult = "fail";
+754     evidence.failure = String(error?.stack ?? error);
+755     evidence.server = { exitCode: null, stderr: serverStderr.join(""), stdout: serverStdout.join("") };
+756     writeFileSync(join(ARTIFACTS, "cards022-browser-integration-evidence.json"),
+757       `${JSON.stringify(evidence, null, 2)}\n`);
+758     throw error;
+759   } finally {
+760     if (browser !== undefined) await browser.close();
+761     if (server.exitCode === null) {
+762       server.kill("SIGTERM");
+763       await new Promise((resolve) => server.once("exit", resolve));
+764     }
+765     evidence.server = { exitCode: server.exitCode,
+766       stderr: serverStderr.join(""), stdout: serverStdout.join("") };
+767     writeFileSync(join(ARTIFACTS, "cards022-browser-integration-evidence.json"),
+768       `${JSON.stringify(evidence, null, 2)}\n`);
+769   }
+770 });
+771 
+
+tests/ui-combat-state.test.js --- 1/4 --- JavaScript
+105 105   }
+106 106 
+107 107   setAttribute(name, value) { this.attributes.set(name, value); }
+... 108   getAttribute(name) { return this.attributes.get(name) ?? null; }
+108 109 }
+109 110 
+110 111 function dom() {
+
+tests/ui-combat-state.test.js --- 2/4 --- JavaScript
+183   };                                 184   };
+184 }                                    185 }
+...                                      186 
+...                                      187 test("Brackenwheel resolves its acc
+...                                      ... epted portrait and exactly two appr
+...                                      ... oved lore sentences", () => {
+...                                      188   assert.equal(getCardLore("bracken
+...                                      ... wheel"),
+...                                      189     "Brackenwheel learned to clear 
+...                                      ... jammed sluice gates by spinning a c
+...                                      ... opperroot sickle through the reeds.
+...                                      ...  After dusk, emberseed sparks trace
+...                                      ...  a ring around her boots, and she c
+...                                      ... ounts each flicker as a warning fro
+...                                      ... m the river.");
+...                                      190   assert.deepEqual(getCardPortrait(
+...                                      ... "brackenwheel"), {
+...                                      191     asset: "brackenwheel-portrait-p
+...                                      ... ainted",
+...                                      192     cell: null,
+...                                      193     src: new URL("../public/assets/
+...                                      ... brackenwheel-portrait-painted.webp"
+...                                      ... , import.meta.url).href,
+...                                      194   });
+...                                      195   assert.deepEqual(getCardPortraitI
+...                                      ... ds().slice(-1), ["brackenwheel"]);
+...                                      196 });
+...                                      197 
+...                                      198 test("Brackenwheel selects renderer
+...                                      ...  and physical body size from determ
+...                                      ... inistic presentation context", () =
+...                                      ... > {
+...                                      199   for (const { bodyCssPixels, frame
+...                                      ... Scale, renderer, bodyFraction } of 
+...                                      ... [
+...                                      200     { bodyCssPixels: 13, frameScale
+...                                      ... : 0.5, renderer: "native-svg", body
+...                                      ... Fraction: 28.4 / 32 },
+...                                      201     { bodyCssPixels: 26, frameScale
+...                                      ... : 0.75, renderer: "painted-webp", b
+...                                      ... odyFraction: 501 / 512 },
+...                                      202   ]) {
+...                                      203     const { document, layer } = dom
+...                                      ... ();
+...                                      204     document.documentElement = { da
+...                                      ... taset: {
+...                                      205       combatBodyCssPixels: String(b
+...                                      ... odyCssPixels),
+...                                      206       combatFrameScale: String(fram
+...                                      ... eScale),
+...                                      207     } };
+...                                      208     const brackenwheel = entity({ k
+...                                      ... ind: "brackenwheel", side: "south",
+...                                      ...  targetId: null });
+...                                      209     bindCombatViewModel(layer, crea
+...                                      ... teCombatViewModel(state({
+...                                      210       entities: [brackenwheel],
+...                                      211       towers: [],
+...                                      212     })));
+...                                      213     const marker = layer.children[0
+...                                      ... ].children.find((node) => node.data
+...                                      ... set.kind === "brackenwheel");
+...                                      214     const art = marker.children.fin
+...                                      ... d((node) => node.dataset.artId === 
+...                                      ... "brackenwheel");
+...                                      215     assert.equal(art.dataset.render
+...                                      ... er, renderer);
+...                                      216     assert.equal(art.dataset.bodyCs
+...                                      ... sPixels, String(bodyCssPixels));
+...                                      217     assert.equal(art.getAttribute("
+...                                      ... class"), "combat-art",
+...                                      218       "the SVG and painted renderer
+...                                      ...  expose the same stylesheet class t
+...                                      ... hrough a DOM attribute");
+...                                      219     assert.ok(Math.abs(Number.parse
+...                                      ... Float(art.style.width) * frameScale
+...                                      ...  * bodyFraction -
+...                                      220       bodyCssPixels) < 1e-9, "ifram
+...                                      ... e compensation keeps the requested 
+...                                      ... physical body size");
+...                                      221     assert.equal(marker.style.width
+...                                      ... , art.style.width);
+...                                      222     assert.equal(marker.style.heigh
+...                                      ... t, art.style.height);
+...                                      223   }
+...                                      224 });
+185                                      225 
+186 test("non-Briar artwork and all 21   226 test("non-Briar artwork and all acc
+... collection portraits match the acce  ... epted parent portraits match the ac
+... pted 5ed renderer", {                ... cepted 5ed renderer", {
+187   skip: process.env.ART004_PARENT_R  227   skip: process.env.ART004_PARENT_R
+... OOT ? false : "set ART004_PARENT_RO  ... OOT ? false : "set ART004_PARENT_RO
+... OT to the accepted 5ed checkout",    ... OT to the accepted 5ed checkout",
+188 }, async () => {                     228 }, async () => {
+189   const parentRoot = resolve(proces  229   const parentRoot = resolve(proces
+... s.env.ART004_PARENT_ROOT);           ... s.env.ART004_PARENT_ROOT);
+
+tests/ui-combat-state.test.js --- 3/4 --- JavaScript
+214     "the accepted default deck orde  254     "the accepted default deck orde
+... r remains exact");                   ... r remains exact");
+215   assert.deepEqual(createPlayableRo  255   assert.deepEqual(createPlayableRo
+... ster(), parentRoster.createPlayable  ... ster(), parentRoster.createPlayable
+... Roster(),                            ... Roster(),
+216     "default card rendering metadat  256     "default card rendering metadat
+... a remains exact");                   ... a remains exact");
+217   assert.deepEqual(getCombatStyleTe  257   assert.equal(getCombatStyleText()
+... xt(), parentState.getCombatStyleTex  ... , parentState.getCombatStyleText() 
+... t(),                                 ... +
+...                                      258     `.combat-marker[data-kind="brac
+...                                      ... kenwheel"]::before{content:"";posit
+...                                      ... ion:absolute;z-index:-1;inset:-3px;
+...                                      ... border:2px solid;border-radius:50%;
+...                                      ... pointer-events:none}.combat-marker[
+...                                      ... data-kind="brackenwheel"][data-side
+...                                      ... ="north"]::before{border-color:#b95
+...                                      ... c4c}.combat-marker[data-kind="brack
+...                                      ... enwheel"][data-side="south"]::befor
+...                                      ... e{border-color:#398ba4}`,
+218     "the combat presentation rules   259   "the only added combat CSS is Bra
+... remain byte-identical outside Briar  ... ckenwheel's team-readable ring");
+... 's authored frames");                ... 
+219                                      260 
+220   const portraitIds = getCardPortra  261   const portraitIds = getCardPortra
+... itIds();                             ... itIds();
+221   assert.equal(portraitIds.length,   262   assert.equal(portraitIds.length, 
+... 21, "the accepted collection has 21  ... parentPortraits.getCardPortraitIds(
+...  card portrait outputs");            ... ).length + 1,
+...                                      263     "Brackenwheel adds one portrait
+...                                      ...  output to the accepted collection"
+...                                      ... );
+222   assert.deepEqual(portraitIds, par  264   assert.deepEqual(portraitIds, [..
+... entPortraits.getCardPortraitIds(),   ... .parentPortraits.getCardPortraitIds
+...                                      ... (), "brackenwheel"],
+223     "the full accepted collection o  265     "the full accepted collection o
+... rder, including Buried Coil, is pre  ... rder, including Buried Coil, is pre
+... served");                            ... served with Brackenwheel appended")
+...                                      ... ;
+224   assert.ok(portraitIds.includes("b  266   assert.ok(portraitIds.includes("b
+... uried-coil"));                       ... uried-coil"));
+225   for (const cardId of portraitIds)  267   for (const cardId of parentPortra
+...  {                                   ... its.getCardPortraitIds()) {
+226     assert.deepEqual({               268     assert.deepEqual({
+227       lore: getCardLore(cardId),     269       lore: getCardLore(cardId),
+228       portrait: cardPortraitOutput(  270       portrait: cardPortraitOutput(
+... { getCardPortrait }, cardId),        ... { getCardPortrait }, cardId),
+
+tests/ui-combat-state.test.js --- 4/4 --- JavaScript
+231 273       portrait: cardPortraitOutput(parentPortraits, cardId),
+232 274     }, `${cardId} keeps the accepted lore and pixel-source asset`);
+233 275   }
+... 276   assert.deepEqual({
+... 277     lore: getCardLore("brackenwheel"),
+... 278     portrait: cardPortraitOutput({ getCardPortrait }, "brackenwheel"),
+... 279   }, {
+... 280     lore: "Brackenwheel learned to clear jammed sluice gates by spinning a copperroot sickle through the reeds. After dusk, emberseed sparks trace a ring around her boots, and she counts each flicker as a warning from the river.",
+... 281     portrait: {
+... 282       asset: "brackenwheel-portrait-painted",
+... 283       cell: null,
+... 284       imageSha256: createHash("sha256").update(readFileSync(fileURLToPath(
+... 285         new URL("../public/assets/brackenwheel-portrait-painted.webp", import.meta.url),
+... 286       ))).digest("hex"),
+... 287       src: "/public/assets/brackenwheel-portrait-painted.webp",
+... 288     },
+... 289   }, "Brackenwheel adds the accepted standalone portrait without changing parent outputs");
+234 290 
+235 291   const expectedKinds = parentArt.COMBAT_ART_ARCHETYPES
+236 292     .filter((kind) => kind !== "briar-runner").sort();
+

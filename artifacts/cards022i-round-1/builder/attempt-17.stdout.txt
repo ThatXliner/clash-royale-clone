@@ -1,0 +1,28 @@
+TAP version 13
+# Subtest: CARDS022I browser integration uses a trusted Brackenwheel drop and natural AI contact
+not ok 1 - CARDS022I browser integration uses a trusted Brackenwheel drop and natural AI contact
+  ---
+  duration_ms: 19424.172208
+  type: 'test'
+  location: '/private/tmp/codex-brackenwheel-cards022i-builder/tests/cards022-browser-integration.test.js:92:1'
+  failureType: 'testCodeFailure'
+  error: 'desktop-normal renders an explicit 26px body at physical CSS size'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/codex-brackenwheel-cards022i-builder/tests/cards022-browser-integration.test.js:433:14)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 19660.466917

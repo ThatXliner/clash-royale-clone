@@ -1,0 +1,118 @@
+TAP version 13
+# Subtest: player shell renders roster-derived cards and launches a paused shared battle frame
+ok 1 - player shell renders roster-derived cards and launches a paused shared battle frame
+  ---
+  duration_ms: 61293.772583
+  type: 'test'
+  ...
+# Subtest: Brackenwheel resolves its accepted portrait and exactly two approved lore sentences
+ok 2 - Brackenwheel resolves its accepted portrait and exactly two approved lore sentences
+  ---
+  duration_ms: 0.873667
+  type: 'test'
+  ...
+# Subtest: Brackenwheel selects renderer and physical body size from deterministic presentation context
+ok 3 - Brackenwheel selects renderer and physical body size from deterministic presentation context
+  ---
+  duration_ms: 1.53525
+  type: 'test'
+  ...
+# Subtest: non-Briar artwork and all accepted parent portraits match the accepted 5ed renderer
+ok 4 - non-Briar artwork and all accepted parent portraits match the accepted 5ed renderer # SKIP set ART004_PARENT_ROOT to the accepted 5ed checkout
+  ---
+  duration_ms: 0.051625
+  type: 'test'
+  ...
+# Subtest: ui combat state: stable ID order projects exact millitile geometry and layers
+ok 5 - ui combat state: stable ID order projects exact millitile geometry and layers
+  ---
+  duration_ms: 0.504667
+  type: 'test'
+  ...
+# Subtest: ui combat state: high-confidence tower HP bounds health exactly
+ok 6 - ui combat state: high-confidence tower HP bounds health exactly
+  ---
+  duration_ms: 0.599333
+  type: 'test'
+  ...
+# Subtest: ui combat state: damage changes only numerator; death removes entities and terminals towers
+ok 7 - ui combat state: damage changes only numerator; death removes entities and terminals towers
+  ---
+  duration_ms: 0.387542
+  type: 'test'
+  ...
+# Subtest: ui combat state: canonical serialization restores byte-identically
+ok 8 - ui combat state: canonical serialization restores byte-identically
+  ---
+  duration_ms: 1.001333
+  type: 'test'
+  ...
+# Subtest: Buried Coil keeps its original hidden and revealed render geometry through restore
+ok 9 - Buried Coil keeps its original hidden and revealed render geometry through restore
+  ---
+  duration_ms: 1.427458
+  type: 'test'
+  ...
+# Subtest: ui combat state: one-shot and chunked state projection end in identical bytes
+ok 10 - ui combat state: one-shot and chunked state projection end in identical bytes
+  ---
+  duration_ms: 0.445584
+  type: 'test'
+  ...
+# Subtest: ui combat state: bounded causal events survive canonical restore without driving current state
+ok 11 - ui combat state: bounded causal events survive canonical restore without driving current state
+  ---
+  duration_ms: 0.962208
+  type: 'test'
+  ...
+# Subtest: ui combat state: DOM projection is byte-stable with exact inverted arena coordinates
+ok 12 - ui combat state: DOM projection is byte-stable with exact inverted arena coordinates
+  ---
+  duration_ms: 1.163458
+  type: 'test'
+  ...
+# Subtest: ui combat state: a generic target reaction cannot fabricate a Briar Runner attack pose
+ok 13 - ui combat state: a generic target reaction cannot fabricate a Briar Runner attack pose
+  ---
+  duration_ms: 1.031167
+  type: 'test'
+  ...
+# Subtest: ui combat state: terminal restore produces byte-identical DOM and zero health
+ok 14 - ui combat state: terminal restore produces byte-identical DOM and zero health
+  ---
+  duration_ms: 0.513209
+  type: 'test'
+  ...
+# Subtest: ui combat state: DOM binding validates/builds before its single commit
+ok 15 - ui combat state: DOM binding validates/builds before its single commit
+  ---
+  duration_ms: 0.180292
+  type: 'test'
+  ...
+# Subtest: ui combat state: exact shapes, accessors, prototypes, IDs, targets, HP, and bounds fail closed
+ok 16 - ui combat state: exact shapes, accessors, prototypes, IDs, targets, HP, and bounds fail closed
+  ---
+  duration_ms: 0.496166
+  type: 'test'
+  ...
+# Subtest: ui combat state: combat layer mounts inside the shipped arena primitive
+ok 17 - ui combat state: combat layer mounts inside the shipped arena primitive
+  ---
+  duration_ms: 0.292584
+  type: 'test'
+  ...
+# Subtest: Kilnkeeper battle cutout keeps a team ring and enters the animated combat-art set
+ok 18 - Kilnkeeper battle cutout keeps a team ring and enters the animated combat-art set
+  ---
+  duration_ms: 0.066333
+  type: 'test'
+  ...
+1..18
+# tests 18
+# suites 0
+# pass 17
+# fail 0
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 61521.686833

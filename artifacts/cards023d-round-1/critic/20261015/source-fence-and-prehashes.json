@@ -1,0 +1,70 @@
+{
+  "repo": "/tmp/aether-resource-critic-20261015",
+  "head": "bcba6c76ec31215b6dac8208529a6c97b7274ca0",
+  "parent": "226c55248d5c3a6f77e87ef40bb9eb0f32cd5ebf",
+  "builder_evidence_tip": "f80c0899a3659a42a4a4033476e37216fc595d73",
+  "changed_source_test_paths": [
+    "src/ui/app-shell.js",
+    "src/ui/arena-shell-entry.js",
+    "src/ui/card-lore.js",
+    "src/ui/card-portrait-art.js",
+    "src/ui/combat-state.js",
+    "src/ui/game-browser-entry.js",
+    "tests/app-shell.test.js",
+    "tests/cards021-browser-integration.test.js",
+    "tests/cards022-browser-integration.test.js",
+    "tests/ui-combat-state.test.js"
+  ],
+  "source_test_path_count": 10,
+  "source_test_equal_between_source_and_builder_tip": true,
+  "builder_tip_diff_exit": 0,
+  "git_blob_ids_pre_parent_and_post_source": {
+    "pre": {
+      "src/ui/app-shell.js": "61117e3375c33262b226677450d9c2a03987c1f4",
+      "src/ui/arena-shell-entry.js": "5d0724399770366d0a0927965a4d2c01d5a71330",
+      "src/ui/card-lore.js": "cf00c27c3d4767dd5f26bf12a27d5907aa377859",
+      "src/ui/card-portrait-art.js": "0b0117fe871d56586231b65f9f304fdbb5ef0fd6",
+      "src/ui/combat-state.js": "3180434a499931f5253ec2cfdf5dfb86b7bd8c67",
+      "src/ui/game-browser-entry.js": "ca256584329f387a322091383a9e506439335fe7",
+      "tests/app-shell.test.js": "a9801fd555ee2f1b754ba185609eb0f90c23fb91",
+      "tests/cards021-browser-integration.test.js": "d4926342d93ddd32353ebd4946d76b03e571e1cf",
+      "tests/cards022-browser-integration.test.js": null,
+      "tests/ui-combat-state.test.js": "da469e28413a18b68ceebbf5c1d9025383efcd87"
+    },
+    "post": {
+      "src/ui/app-shell.js": "c8da8d0c9bb11ccd49b4c0a7d8319da1daab2a72",
+      "src/ui/arena-shell-entry.js": "5f5f6bc3a60affd08537ba24381a3b6ae85772a6",
+      "src/ui/card-lore.js": "7d8c635a8343d3aee45d02fda985ac27e5a7a152",
+      "src/ui/card-portrait-art.js": "daf55d48212a3d6ddf92995e73ad885e52e81377",
+      "src/ui/combat-state.js": "d4fa0a08030b174c5b795f52eb832faab88b164d",
+      "src/ui/game-browser-entry.js": "62ab029a51445cd06767656454f28338d2f88698",
+      "tests/app-shell.test.js": "bec2143b851e2ce4262fb959fdcc14703d53e9f8",
+      "tests/cards021-browser-integration.test.js": "3ebace8c383e8585d474459acff65a92aad79678",
+      "tests/cards022-browser-integration.test.js": "86d365924c0e01a851a9df420e76e3113cfb24da",
+      "tests/ui-combat-state.test.js": "b693553ef8e48ec7585dec127d4d2db1ca2d116d"
+    }
+  },
+  "sha256_before_browser_test": {
+    "package.json": "e3374ae28ad30665ebe0641f56e848d75cb13e1d1ac143c3955f56622be311cf",
+    "package-lock.json": "d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4",
+    "src/ui/app-shell.js": "7a85e892bdbbcbba047dda8ac2887a86e3eb407459f7807eb442a8d055014575",
+    "src/ui/arena-shell-entry.js": "88e3873cf7298223f8c8a96aceceff3b20185c05dad2f274c045c888ca5443d5",
+    "src/ui/card-lore.js": "d138750639796dbb7fb1b8cdbf5471692490b5a1665ae054109a4af1ca7b4397",
+    "src/ui/card-portrait-art.js": "5d6c2632c03fa8bbfe69b58b5e32cf5e15a33e2e0fbdcb24047be8fcb7fe23cd",
+    "src/ui/combat-state.js": "03a6ac1b4043334d1d1f4cea9697682e8dbee533f73fcad51b357aa638866a86",
+    "src/ui/game-browser-entry.js": "1f160ea55766b05668cb6e3c3ece1936ba979ee81038308d377ddccdb5c0a78d",
+    "tests/app-shell.test.js": "d8d90ac1f6ea92d2fe8b01a905fbbf9d304af7a63c77039bc4be28fbffae372a",
+    "tests/cards021-browser-integration.test.js": "0f9d82c10bc8eb6976d9585e1241c2765604f16498ab387c00f878314e42a159",
+    "tests/cards022-browser-integration.test.js": "cbcd212d7899f3b7cc92aad905f58795dd4c8cb750e749c261f76ff188223f37",
+    "tests/ui-combat-state.test.js": "91e7c735138bb6b3f2f25bb4632fa247ffabbcc7327fb42ae0726bdd985db7a7"
+  },
+  "node": "v22.22.3",
+  "npm": "10.9.8",
+  "failed_attempts": [
+    {
+      "method": "first prehash script assumed every changed path existed in parent",
+      "exit": 1,
+      "result": "tests/cards022-browser-integration.test.js was new at the source commit; corrected by recording null parent blob IDs for added paths"
+    }
+  ]
+}

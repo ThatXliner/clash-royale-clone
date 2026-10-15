@@ -1,0 +1,20 @@
+{
+  "attempts": [
+    {
+      "attempt": 1,
+      "command": "node --test tests/app-shell.test.js",
+      "directExit": 1,
+      "pid": 6775,
+      "failure": "At the desktop Aether detail, the browser captured the screenshot and all resource-profile assertions passed, then Playwright timed out clicking the phone-only hidden detail-back button.",
+      "evidence": "app-shell-attempt-01.stdout.txt, app-shell-attempt-01.stderr.txt, app-shell-attempt-01.exitcode.txt; hashes in app-shell-attempt-01-artifact-checksums.json"
+    },
+    {
+      "attempt": 2,
+      "command": "node --test tests/app-shell.test.js",
+      "directExit": 0,
+      "pid": 7055,
+      "result": "passed",
+      "evidence": "app-shell-attempt-02.stdout.txt, app-shell-attempt-02.stderr.txt, app-shell-attempt-02.exitcode.txt; screenshots-attempt-02/browser-evidence.json; hashes in app-shell-attempt-02-artifact-checksums.json"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "candidate": "bcba6c76ec31215b6dac8208529a6c97b7274ca0",
+  "pairs": [
+    {
+      "state": "phone-normal",
+      "before": "brackenwheel-phone-normal-before-restore.png",
+      "after": "brackenwheel-phone-normal-after-restore.png",
+      "beforeSha256": "a03bbdfa2b56790a4f54fecf14f7184cc56f141ecd2dba8cd178ce956db02c7f",
+      "afterSha256": "a03bbdfa2b56790a4f54fecf14f7184cc56f141ecd2dba8cd178ce956db02c7f",
+      "byteEqual": true,
+      "byteCount": 325560
+    },
+    {
+      "state": "phone-reduced",
+      "before": "brackenwheel-phone-reduced-before-restore.png",
+      "after": "brackenwheel-phone-reduced-after-restore.png",
+      "beforeSha256": "64a2a0e755a8721e9db345760869541e9f69baa9a4e3a784cab6df0cbe43ea07",
+      "afterSha256": "64a2a0e755a8721e9db345760869541e9f69baa9a4e3a784cab6df0cbe43ea07",
+      "byteEqual": true,
+      "byteCount": 325718
+    },
+    {
+      "state": "desktop-normal",
+      "before": "brackenwheel-desktop-normal-before-restore.png",
+      "after": "brackenwheel-desktop-normal-after-restore.png",
+      "beforeSha256": "5b4397992ca2ce73810fb6839dd23b596f3dc0f86e5ef5a1ef9c48bbc5bbf6b0",
+      "afterSha256": "5b4397992ca2ce73810fb6839dd23b596f3dc0f86e5ef5a1ef9c48bbc5bbf6b0",
+      "byteEqual": true,
+      "byteCount": 439834
+    },
+    {
+      "state": "desktop-reduced",
+      "before": "brackenwheel-desktop-reduced-before-restore.png",
+      "after": "brackenwheel-desktop-reduced-after-restore.png",
+      "beforeSha256": "06532c6d7f1ec564ef01202eb4a54cd31ea9467eae48289fb201bac35af86451",
+      "afterSha256": "06532c6d7f1ec564ef01202eb4a54cd31ea9467eae48289fb201bac35af86451",
+      "byteEqual": true,
+      "byteCount": 439980
+    }
+  ],
+  "note": "Actual Playwright/native Chrome 155 capture; screenshots were also visually inspected during the review."
+}

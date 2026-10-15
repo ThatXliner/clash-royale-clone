@@ -1,0 +1,283 @@
+{
+  "baseCommand": "node --test tests/cards022-browser-integration.test.js",
+  "browserErrors": [],
+  "browserVersion": "155.0.8059.40",
+  "contact": null,
+  "deck": [
+    "brackenwheel",
+    "briar-band",
+    "coilblade",
+    "mossguard",
+    "ironroot",
+    "copperskiff",
+    "brassbolt",
+    "reedsting"
+  ],
+  "failures": [],
+  "lore": "Brackenwheel learned to clear jammed sluice gates by spinning a copperroot sickle through the reeds. After dusk, emberseed sparks trace a ring around her boots, and she counts each flicker as a warning from the river.",
+  "loreProvenance": "user-session/root-supplied original Brackenwheel brief; not found in repository history",
+  "mode": "seed-2 canonical GameSession; unforced natural AI; trusted player pointer",
+  "playerDeployment": {
+    "events": [
+      {
+        "deployment": {
+          "cardId": "brackenwheel",
+          "entityIds": [
+            1
+          ],
+          "point": {
+            "x": 3500,
+            "y": 14500
+          },
+          "sequence": 0,
+          "side": "south",
+          "tick": 0,
+          "type": "deployed"
+        },
+        "side": "south",
+        "spend": {
+          "accepted": true,
+          "amountAfter": 6,
+          "cost": 4,
+          "reason": "accepted",
+          "sequence": 0,
+          "side": "south",
+          "tick": 0,
+          "type": "spend"
+        },
+        "tick": 0,
+        "type": "session-deployed"
+      }
+    ],
+    "pointer": {
+      "isTrusted": true,
+      "clientX": 195.00547790527344,
+      "clientY": 632.99609375
+    },
+    "southDeckSequence": 1,
+    "submit": {
+      "command": {
+        "cardId": "brackenwheel",
+        "commandId": 1,
+        "point": {
+          "x": 3500,
+          "y": 14500
+        },
+        "slot": 1,
+        "tick": 0,
+        "type": "deploy"
+      },
+      "type": "submit"
+    }
+  },
+  "contactObservedBeforeAssertions": {
+    "aiDeployments": [
+      {
+        "deployment": {
+          "cardId": "brackenwheel",
+          "entityIds": [
+            2
+          ],
+          "point": {
+            "x": 3500,
+            "y": 17500
+          },
+          "sequence": 1,
+          "side": "north",
+          "tick": 0,
+          "type": "deployed"
+        },
+        "side": "north",
+        "spend": {
+          "accepted": true,
+          "amountAfter": 6,
+          "cost": 4,
+          "reason": "accepted",
+          "sequence": 1,
+          "side": "north",
+          "tick": 0,
+          "type": "spend"
+        },
+        "tick": 0,
+        "type": "session-deployed"
+      }
+    ],
+    "damage": [
+      {
+        "amount": 267,
+        "currentHealthAfter": 1374,
+        "currentHealthBefore": 1641,
+        "targetId": 2,
+        "type": "damage",
+        "attackerId": 1,
+        "delivery": "melee",
+        "tick": 234
+      },
+      {
+        "amount": 267,
+        "currentHealthAfter": 0,
+        "currentHealthBefore": 202,
+        "targetId": 4,
+        "type": "damage",
+        "attackerId": 1,
+        "attackSequence": 2,
+        "delivery": "melee",
+        "meleeAreaPolicyVersion": "melee-area-question-v1",
+        "tick": 234
+      },
+      {
+        "amount": 267,
+        "currentHealthAfter": 0,
+        "currentHealthBefore": 202,
+        "targetId": 5,
+        "type": "damage",
+        "attackerId": 1,
+        "attackSequence": 2,
+        "delivery": "melee",
+        "meleeAreaPolicyVersion": "melee-area-question-v1",
+        "tick": 234
+      },
+      {
+        "amount": 267,
+        "currentHealthAfter": 0,
+        "currentHealthBefore": 202,
+        "targetId": 6,
+        "type": "damage",
+        "attackerId": 1,
+        "attackSequence": 2,
+        "delivery": "melee",
+        "meleeAreaPolicyVersion": "melee-area-question-v1",
+        "tick": 234
+      }
+    ],
+    "tick": 234
+  },
+  "presentationRefreshChecks": [
+    {
+      "mode": "phone-normal",
+      "messageCount": 0,
+      "sessionSha256": "60b83ce992dc824545743418eb77e4205ad3215129d816edb21a060a1bc9b23d",
+      "snapshotSha256": "f36c94f54dd4bd149ecb3c55b1eae4ccd0a615f35f5ae2f0a18a8ab686323d28",
+      "audioSha256": "33ec6906c4fa8a79661c8caf27464539d9faed1f7b9d9e6806fec90633d8048c"
+    }
+  ],
+  "presentationDiagnostics": [
+    {
+      "mode": "phone-normal",
+      "beforeHandler": null,
+      "afterHandler": {
+        "artFound": true,
+        "bodyCssPixels": 13,
+        "artBodyCssPixels": 13,
+        "artOffsetHeight": null,
+        "artStyleHeight": "28.4512px",
+        "artComputedHeight": "28.4375px",
+        "artTransform": "none",
+        "artNaturalSize": null,
+        "frameScale": 0.51484375,
+        "outerFrameScale": 0.514844,
+        "outerFrameTransform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)",
+        "physicalBodyCssPixels": 12.993777671875,
+        "height": 28.4375,
+        "markerCount": 12,
+        "markerKinds": [
+          {
+            "kind": null,
+            "side": "north"
+          },
+          {
+            "kind": null,
+            "side": "north"
+          },
+          {
+            "kind": null,
+            "side": "north"
+          },
+          {
+            "kind": null,
+            "side": "south"
+          },
+          {
+            "kind": null,
+            "side": "south"
+          },
+          {
+            "kind": null,
+            "side": "south"
+          },
+          {
+            "kind": "brackenwheel",
+            "side": "south"
+          },
+          {
+            "kind": "brackenwheel",
+            "side": "north"
+          },
+          {
+            "kind": "brassbolt",
+            "side": "north"
+          },
+          {
+            "kind": "briar-darter",
+            "side": "north"
+          },
+          {
+            "kind": "briar-darter",
+            "side": "north"
+          },
+          {
+            "kind": "briar-darter",
+            "side": "north"
+          }
+        ],
+        "playerMarker": {
+          "className": "combat-marker combat-marker--entity-ground combat-marker--south",
+          "pose": null,
+          "reaction": "idle",
+          "markerStyleHeight": "28.4512px",
+          "markerComputedHeight": "28.4375px",
+          "markerBoundsHeight": 28.4375,
+          "markerTransform": "none",
+          "childArt": "<i class=\"combat-health\" aria-hidden=\"true\"></i>",
+          "kind": "brackenwheel",
+          "side": "south"
+        },
+        "frameViewport": {
+          "innerWidth": 720,
+          "innerHeight": 1280,
+          "clientWidth": 720,
+          "clientHeight": 1280
+        },
+        "outerFrame": {
+          "boundsWidth": 370.6875,
+          "boundsHeight": 659,
+          "cssTransform": "matrix(0.514844, 0, 0, 0.514844, 0, 0)",
+          "cssWidth": "720px",
+          "cssHeight": "1280px"
+        },
+        "renderer": "native-svg",
+        "reducedMotion": false,
+        "sessionTick": 241,
+        "setupDeck": [
+          "brackenwheel",
+          "briar-band",
+          "coilblade",
+          "mossguard",
+          "ironroot",
+          "copperskiff",
+          "brassbolt",
+          "reedsting"
+        ],
+        "paused": true,
+        "controllerTick": 241
+      }
+    }
+  ],
+  "releaseResult": "fail",
+  "failure": "ReferenceError: beforePresentation is not defined\n    at TestContext.<anonymous> (file:///private/tmp/codex-brackenwheel-cards022i-builder/tests/cards022-browser-integration.test.js:552:26)\n    at async Test.run (node:internal/test_runner/test:1054:7)\n    at async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)",
+  "server": {
+    "exitCode": 0,
+    "stderr": "",
+    "stdout": "{\"host\":\"127.0.0.1\",\"port\":56707}\n"
+  }
+}

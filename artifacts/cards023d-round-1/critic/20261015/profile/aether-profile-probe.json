@@ -1,0 +1,128 @@
+{
+  "id": "aether-well",
+  "cost": 6,
+  "profile": {
+    "class": "resource",
+    "deployTicks": 60,
+    "destructionAmount": 1,
+    "generationAmount": 1,
+    "generationCadenceTicks": 540,
+    "hitpoints": 1070,
+    "lifetimeTicks": 3900,
+    "policy": {
+      "version": 2,
+      "cadenceAnchorPolicy": {
+        "authoritative": false,
+        "confidence": "absent",
+        "disposition": "question",
+        "key": "cadenceAnchorPolicy",
+        "source": "pre-evolutions-resource-consumer-semantics-question",
+        "value": "placement-tick-multiples-after-deployment"
+      },
+      "cadenceResetPolicy": {
+        "authoritative": false,
+        "confidence": "absent",
+        "disposition": "question",
+        "key": "cadenceResetPolicy",
+        "source": "pre-evolutions-resource-consumer-semantics-question",
+        "value": "nonlethal-damage-does-not-reset-placement-relative-cadence"
+      },
+      "deployTicks": {
+        "authoritative": false,
+        "confidence": "unverified",
+        "disposition": "question",
+        "key": "deploy_time",
+        "source": "pinned-pre-march-2023-building-constants",
+        "value": 60
+      },
+      "destructionAmount": {
+        "authoritative": true,
+        "confidence": "high",
+        "disposition": "source-aligned",
+        "key": "mana_on_death",
+        "source": "https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/",
+        "value": 1
+      },
+      "expiryOrderingPolicy": {
+        "authoritative": false,
+        "confidence": "absent",
+        "disposition": "question",
+        "key": "expiryOrderingPolicy",
+        "source": "pre-evolutions-resource-consumer-semantics-question",
+        "value": "expiry-transition-suppresses-cadence-and-grants-after-the-destruction-event"
+      },
+      "hitpoints": {
+        "authoritative": false,
+        "confidence": "unverified",
+        "disposition": "question",
+        "key": "hitpoints",
+        "source": "pinned-pre-march-2023-building-constants",
+        "value": 1070
+      },
+      "generationAmount": {
+        "authoritative": false,
+        "confidence": "datamine-only",
+        "disposition": "question",
+        "key": "mana_collect_amount",
+        "source": "pinned-pre-march-2023-building-constants",
+        "value": 1
+      },
+      "generationCadenceTicks": {
+        "authoritative": true,
+        "confidence": "high",
+        "disposition": "source-aligned",
+        "key": "mana_generate_time_ms",
+        "source": "https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/",
+        "value": 540
+      },
+      "lifetimeTicks": {
+        "authoritative": true,
+        "confidence": "high",
+        "disposition": "source-aligned",
+        "key": "life_time",
+        "source": "https://supercell.com/en/games/clashroyale/blog/release-notes/balance-changes-april-2022/",
+        "value": 3900
+      },
+      "placementPolicy": {
+        "authoritative": false,
+        "confidence": "absent",
+        "disposition": "question",
+        "key": "placementPolicy",
+        "source": "pre-evolutions-resource-consumer-semantics-question",
+        "value": "ordinary-ground-entity-deployment-mask-at-building-center"
+      },
+      "recipientPolicy": {
+        "authoritative": false,
+        "confidence": "absent",
+        "disposition": "question",
+        "key": "resourceRecipient",
+        "source": "pre-evolutions-resource-consumer-semantics-question",
+        "value": "building-owner"
+      },
+      "resourceCapacity": {
+        "authoritative": false,
+        "confidence": "absent",
+        "disposition": "question",
+        "key": "mana_generate_limit",
+        "source": "pre-evolutions-resource-consumer-semantics-question",
+        "value": 10
+      },
+      "sameTickOrderingPolicy": {
+        "authoritative": false,
+        "confidence": "absent",
+        "disposition": "question",
+        "key": "sameTickOrderingPolicy",
+        "source": "pre-evolutions-resource-consumer-semantics-question",
+        "value": "combat-destruction-suppresses-cadence;spends-before-natural-generation-before-building-grants"
+      },
+      "simultaneousGenerationOrder": {
+        "authoritative": false,
+        "confidence": "absent",
+        "disposition": "question",
+        "key": "simultaneousGenerationOrder",
+        "source": "pre-evolutions-resource-consumer-semantics-question",
+        "value": "ascending-positive-building-id"
+      }
+    }
+  }
+}
