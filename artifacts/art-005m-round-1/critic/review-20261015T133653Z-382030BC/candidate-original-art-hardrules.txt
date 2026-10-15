@@ -1,0 +1,10 @@
+## Hard rules
+- Original art, original card names, original audio. Never copy assets,
+  names, or text from the real game into the shipped product.
+- Nothing in ./reference is ever imported, copied, or bundled. It is a
+  comparison target only.
+- Simulation must be deterministic: same inputs and seed produce the
+  same outcome, every time. No wall-clock timing in game logic, no
+  unseeded randomness. The whole verification approach depends on this.
+
+## The bar

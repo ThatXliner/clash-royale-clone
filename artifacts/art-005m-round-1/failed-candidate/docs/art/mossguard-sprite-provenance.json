@@ -1,0 +1,219 @@
+{
+  "asset_id": "mossguard-directional-sprite",
+  "version": 1,
+  "candidate_status": "frozen unreviewed asset candidate; independent blind review pending; not registered; no gameplay integration or playability claim",
+  "authorship": "in-repo-authored derivative from original Mossguard portrait, generated with OpenAI built-in imagegen",
+  "license": "AGPL-3.0-only",
+  "license_provenance": "The sole image identity reference is the original top-row second cell of public/assets/card-portraits-painted.webp, documented as AGPL-3.0-only in docs/art/card-portraits-provenance.json. No comparison-game or reference/ art was used.",
+  "input_images": [
+    {
+      "path": "public/assets/card-portraits-painted.webp",
+      "protected_read_path": "/private/tmp/release-guard-round2-builder-033f1107/public/assets/card-portraits-painted.webp",
+      "sha256": "16307a59bde57889e11bcd7b86b54d69ba9985eae6ef436d9703e528fba58e4f",
+      "bytes": 320516,
+      "dimensions": {
+        "width": 1774,
+        "height": 887
+      },
+      "license": "AGPL-3.0-only",
+      "role": "original Mossguard identity anchor only: top-row second portrait cell; remaining atlas cells ignored"
+    }
+  ],
+  "generation_tool": "OpenAI built-in imagegen image-edit tool",
+  "selected_generation_attempt": 3,
+  "generation_attempts": [
+    {
+      "attempt": 1,
+      "tool": "OpenAI built-in imagegen",
+      "tool_output_path": "/Users/me/.codex/generated_images/01a13bab-0835-7b90-b49d-75d8393a6264/exec-de9cc37f-0032-422a-b07e-6729aeb36794.png",
+      "staging_path": "artifacts/art-005m-round-1/builder/raw-generation/attempt-01-source.png",
+      "prompt_path": "artifacts/art-005m-round-1/builder/raw-generation/attempt-01-prompt.txt",
+      "prompt": "Use case: stylized-concept\nAsset type: transparent 4-by-4 directional combat sprite sheet for an original woodland card battler, designed for a character body about 13 CSS pixels tall in live play\nInput images: Image 1 is the original Mossguard portrait atlas. Use only its top-row second portrait cell as the identity anchor; ignore every other atlas cell. Preserve this wooden guardian's broad carved-wood build, hollow wooden mask with black eyeholes, dense green leaf mantle and pauldrons, large leaf-faced wood-rimmed shield, and one free wooden fist.\nPrimary request: transform that original Mossguard character into one clean, consistent directional combat sprite sheet with exactly 16 full-body poses. Keep the same recognizable character and proportions in every cell.\nSubject: a broad stout wooden humanoid guardian with a simple hollow carved wooden mask and two black eyeholes, dense layered green leaves forming a bold mantle and shoulder mass, broad wooden arms and legs, a large round shield whose face is made from overlapping broad leaves and whose rim is carved wood, and a free wooden fist. No sword, axe, crown, extra character, or extra prop.\nComposition and layout: one square canvas divided into exactly 4 equal columns and 4 equal rows with invisible boundaries and no gutters. Each cell contains exactly one complete character, centered horizontally and anchored to the same bottom baseline, with identical apparent body scale and consistent safe margin; all leaves, shield, fists, and feet remain inside their cell. Row 1 faces north (up-screen, away); row 2 faces east (screen-right); row 3 faces south (down-screen, toward viewer); row 4 faces west (screen-left). Rotate the body and shield naturally for each direction; do not mirror a pose to fake the opposite direction.\nColumn poses, repeated consistently in each directional row: column 1 is walk-A with one small forward step and shield carried; column 2 is walk-B with the alternate foot forward and a slight matching body sway; column 3 is melee windup, drawing the shield-bearing arm back and bracing the free fist; column 4 is melee contact, delivering a short shield bash with the broad leaf-faced shield. The four poses in each row must remain the same character, clothing, proportions, and materials.\nCamera and style: readable three-quarter top-down arena character view, polished original hand-painted 2.5D game illustration, broad sculpted wood and leaf forms, clear dark edge contrast, warm key light from upper left, vivid leaf greens against warm wood. Use large color masses and simplified details that survive display at 13px tall; no tiny surface noise or fine texture.\nBackdrop and alpha: isolated character cutouts on a genuinely transparent background. Keep empty pixels transparent, with clean antialiased alpha around the outer silhouette.\nConstraints: exactly 16 cells arranged 4 columns by 4 rows in the stated directions and pose order; one character per cell; shared character identity, scale, ground baseline, lighting, and color treatment; no shadows or effects that change the baseline. No text, labels, numbers, symbols, grid lines, dividers, white/colored/checkerboard background, teamplates, UI, border, watermark, logo, copied commercial-game art, names, or text.\n",
+      "source": {
+        "format": "PNG",
+        "mode": "RGBA",
+        "dimensions": {
+          "width": 1254,
+          "height": 1254
+        },
+        "bytes": 2289911,
+        "alpha_channel": true,
+        "alpha_extrema": [
+          0,
+          255
+        ],
+        "transparent_pixel_count": 775255,
+        "partial_alpha_pixel_count": 796364,
+        "opaque_pixel_count": 897,
+        "sha256": "e4412863de4c7fe106d08b68499c4d31a8bc2d7bf9df1caa44e2c3c47a282b7c"
+      }
+    },
+    {
+      "attempt": 2,
+      "tool": "OpenAI built-in imagegen",
+      "tool_output_path": "/Users/me/.codex/generated_images/01a13bab-0835-7b90-b49d-75d8393a6264/exec-d8f4b432-7705-42c1-b05d-0c6593e9df0b.png",
+      "staging_path": "artifacts/art-005m-round-1/builder/raw-generation/attempt-02-source.png",
+      "prompt_path": "artifacts/art-005m-round-1/builder/raw-generation/attempt-02-prompt.txt",
+      "prompt": "Use case: stylized-concept\nAsset type: transparent 4-by-4 directional combat sprite sheet for an original woodland card battler, intended for live play at about 13 CSS pixels tall\nInput images: Image 1 is the current Mossguard sprite sheet edit target; preserve its full 4-by-4 layout, character, camera, lighting, colors, and pose order. Image 2 is the original Mossguard portrait atlas; use only its top-row second portrait as the identity anchor and ignore all other atlas cells.\nPrimary request: make one focused framing and alpha cleanup pass on the existing sheet. Keep the same 16 directional poses and Mossguard identity, but bring every pose to a consistent body scale and foot baseline, and remove visible colored edge fringes.\nCharacter invariants: one broad stout wooden humanoid guardian per cell, with the same hollow carved wooden mask and black eyeholes, dense green leaf mantle and pauldrons, broad wooden limbs, one large leaf-faced shield with a carved wood rim, and one free wooden fist. No weapon beyond the shield.\nComposition invariants: exactly 4 equal columns and 4 equal rows on a square transparent canvas. Row order stays north, east, south, west; column order stays walk-A, walk-B, melee-windup, melee-contact. Keep each complete character centered horizontally in its cell, same apparent height and width for that facing, with both feet touching one shared baseline within each row; place each shared baseline about 8% of a cell above its bottom edge. Preserve a consistent size between all four poses within each row. East-facing walk-B and melee-contact must match the foot baseline and character scale of east-facing walk-A and melee-windup.\nPose invariants: walk-A and walk-B remain distinct alternating steps; melee-windup draws the shield arm back while bracing the free fist; melee-contact delivers a short shield bash. North faces up-screen, east right, south down-screen, west left. Do not mirror poses to fake directions.\nStyle invariants: retain the existing polished painterly 2.5D wood-and-leaf rendering, warm upper-left light, broad readable silhouette, and strong dark edge contrast. Keep the mask, leaf mantle, shield, and feet distinct as large color masses. No added details or effects.\nAlpha cleanup: isolated cutouts with genuinely transparent empty pixels and clean natural-color antialiasing at each edge. Remove all red, magenta, orange, or other chromatic fringe/halo pixels beyond the natural wood-and-leaf silhouette. No floor, ground shadow, background, glow, checkerboard, or edge-colored debris.\nAvoid: changing character identity or the number/order of poses; shifting feet inconsistently; cropping any part; extra characters, props, text, grid lines, dividers, labels, numbers, UI, border, watermark, logo, copied commercial-game art, names, or text.\n",
+      "source": {
+        "format": "PNG",
+        "mode": "RGBA",
+        "dimensions": {
+          "width": 1254,
+          "height": 1254
+        },
+        "bytes": 2299329,
+        "alpha_channel": true,
+        "alpha_extrema": [
+          0,
+          255
+        ],
+        "transparent_pixel_count": 747596,
+        "partial_alpha_pixel_count": 823732,
+        "opaque_pixel_count": 1188,
+        "sha256": "995b20c3a8a9eac7dbf8f6a163d59ef04cca02d3f2a9bc3a3d53c65424f016c0"
+      }
+    },
+    {
+      "attempt": 3,
+      "tool": "OpenAI built-in imagegen",
+      "tool_output_path": "/Users/me/.codex/generated_images/01a13bab-0835-7b90-b49d-75d8393a6264/exec-8d20d95f-314f-48e7-a7cb-96729b5011c0.png",
+      "staging_path": "artifacts/art-005m-round-1/builder/raw-generation/attempt-03-source.png",
+      "prompt_path": "artifacts/art-005m-round-1/builder/raw-generation/attempt-03-prompt.txt",
+      "prompt": "Use case: stylized-concept\nAsset type: transparent directional combat sprite sheet for an original woodland card battler, designed for a unit rendered about 13 CSS pixels tall in live play\nInput images: Image 1 is the current Mossguard sprite sheet edit target; preserve the character identity and exact 4-by-4 pose sequence. Image 2 is the original Mossguard portrait atlas; use only its top-row second cell as the identity anchor and ignore all other portrait cells.\nPrimary request: correct the sheet's cell framing. Make a square 1280-by-1280 pixel sheet with exact 320-by-320 invisible cells and align every pose to one consistent scale and foot baseline. Keep the existing Mossguard design and recognizable actions.\nCharacter: one broad stout wooden humanoid guardian with a hollow carved wooden mask and black eyeholes, dense green leaf mantle and shoulder leaves, broad wooden arms and legs, one large broad leaf-faced shield with a carved wood rim, and one free wooden fist. No other weapon or prop.\nExact layout: 4 equal columns and 4 equal rows, no gutters or lines. Row 1 faces north (up-screen and away from viewer); row 2 faces east (screen-right); row 3 faces south (down-screen toward viewer); row 4 faces west (screen-left). Column 1 is walk-A, column 2 is walk-B with the alternate foot forward, column 3 is melee-windup, and column 4 is melee-contact with a short shield bash. Each of the 16 cells contains exactly one complete pose.\nExact framing: each 320-by-320 cell contains a character of the same apparent size for its facing; the complete silhouette occupies about 265 pixels of vertical height. Put both feet in every pose on the same local horizontal baseline at y=294 within that cell, leaving about 26 transparent pixels below the baseline. Use this same relative baseline in all four rows and all four columns, especially the east-facing walk-B and shield-contact cells. Keep every leaf, fist, shield, mask, and foot within its cell; center each character horizontally.\nPose and facing invariants: walk-A and walk-B show distinct alternating steps; windup draws the shield arm back while bracing the free fist; contact shows the shield thrust forward. Maintain natural body rotation for the four directions and do not mirror one pose to invent another direction. Keep the same proportions, shield hand, colors, and materials across the entire sheet.\nStyle and edges: polished original hand-painted 2.5D game illustration with broad simple leaf and wood masses, strong natural dark contours, warm upper-left light, and clear contrast between mask, mantle, shield, and limbs. Preserve the current character's visual style while avoiding tiny noise. Edges fade through natural wood or leaf colors into genuine transparency; do not add red, magenta, orange, or other colored fringe, halo, glow, or debris.\nBackdrop and constraints: genuine transparent empty pixels only, no floor or cast shadow. No text, label, numbers, marks, dividers, visible grid, background, checkerboard, teamplate, border, watermark, logo, extra character, copied commercial-game art, names, or text.\n",
+      "source": {
+        "format": "PNG",
+        "mode": "RGBA",
+        "dimensions": {
+          "width": 1254,
+          "height": 1254
+        },
+        "bytes": 2236299,
+        "alpha_channel": true,
+        "alpha_extrema": [
+          0,
+          255
+        ],
+        "transparent_pixel_count": 731340,
+        "partial_alpha_pixel_count": 840118,
+        "opaque_pixel_count": 1058,
+        "sha256": "0f9bc3827ba222ef744f953186779e450cd9749d9c6e12c3e9e1be69e13c6297"
+      }
+    }
+  ],
+  "generated_source": {
+    "path": "demo/assets/mossguard-directional-sprite-source.png",
+    "staging_path": "artifacts/art-005m-round-1/builder/raw-generation/attempt-03-source.png",
+    "format": "PNG",
+    "mode": "RGBA",
+    "dimensions": {
+      "width": 1254,
+      "height": 1254
+    },
+    "bytes": 2236299,
+    "alpha_channel": true,
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixel_count": 731340,
+    "partial_alpha_pixel_count": 840118,
+    "opaque_pixel_count": 1058,
+    "sha256": "0f9bc3827ba222ef744f953186779e450cd9749d9c6e12c3e9e1be69e13c6297",
+    "selected_attempt": 3,
+    "tool_output_path": "/Users/me/.codex/generated_images/01a13bab-0835-7b90-b49d-75d8393a6264/exec-8d20d95f-314f-48e7-a7cb-96729b5011c0.png"
+  },
+  "shipped_output": {
+    "path": "demo/assets/mossguard-directional-sprite.webp",
+    "status": "frozen lossless RGBA-equivalent candidate; size target unmet",
+    "sha256": "4511d38676b362f001b2cd9d89344c32a90fdeaead4454a2ab527209012b6973",
+    "bytes": 1536922,
+    "dimensions": {
+      "width": 1254,
+      "height": 1254
+    },
+    "format": "WebP",
+    "mode": "RGBA",
+    "encoding": "cwebp 1.6.0, lossless -z 9, -exact, -metadata none",
+    "decoded_rgba_byte_equal_to_source_png": true,
+    "one_mib_limit_bytes": 1048576,
+    "one_mib_limit_status": "unmet by 488346 bytes; no lossy encoding or rescale substituted"
+  },
+  "layout_metadata": "docs/art/mossguard-sprite-layout.json",
+  "final_prompt": "Use case: stylized-concept\nAsset type: transparent directional combat sprite sheet for an original woodland card battler, designed for a unit rendered about 13 CSS pixels tall in live play\nInput images: Image 1 is the current Mossguard sprite sheet edit target; preserve the character identity and exact 4-by-4 pose sequence. Image 2 is the original Mossguard portrait atlas; use only its top-row second cell as the identity anchor and ignore all other portrait cells.\nPrimary request: correct the sheet's cell framing. Make a square 1280-by-1280 pixel sheet with exact 320-by-320 invisible cells and align every pose to one consistent scale and foot baseline. Keep the existing Mossguard design and recognizable actions.\nCharacter: one broad stout wooden humanoid guardian with a hollow carved wooden mask and black eyeholes, dense green leaf mantle and shoulder leaves, broad wooden arms and legs, one large broad leaf-faced shield with a carved wood rim, and one free wooden fist. No other weapon or prop.\nExact layout: 4 equal columns and 4 equal rows, no gutters or lines. Row 1 faces north (up-screen and away from viewer); row 2 faces east (screen-right); row 3 faces south (down-screen toward viewer); row 4 faces west (screen-left). Column 1 is walk-A, column 2 is walk-B with the alternate foot forward, column 3 is melee-windup, and column 4 is melee-contact with a short shield bash. Each of the 16 cells contains exactly one complete pose.\nExact framing: each 320-by-320 cell contains a character of the same apparent size for its facing; the complete silhouette occupies about 265 pixels of vertical height. Put both feet in every pose on the same local horizontal baseline at y=294 within that cell, leaving about 26 transparent pixels below the baseline. Use this same relative baseline in all four rows and all four columns, especially the east-facing walk-B and shield-contact cells. Keep every leaf, fist, shield, mask, and foot within its cell; center each character horizontally.\nPose and facing invariants: walk-A and walk-B show distinct alternating steps; windup draws the shield arm back while bracing the free fist; contact shows the shield thrust forward. Maintain natural body rotation for the four directions and do not mirror one pose to invent another direction. Keep the same proportions, shield hand, colors, and materials across the entire sheet.\nStyle and edges: polished original hand-painted 2.5D game illustration with broad simple leaf and wood masses, strong natural dark contours, warm upper-left light, and clear contrast between mask, mantle, shield, and limbs. Preserve the current character's visual style while avoiding tiny noise. Edges fade through natural wood or leaf colors into genuine transparency; do not add red, magenta, orange, or other colored fringe, halo, glow, or debris.\nBackdrop and constraints: genuine transparent empty pixels only, no floor or cast shadow. No text, label, numbers, marks, dividers, visible grid, background, checkerboard, teamplate, border, watermark, logo, extra character, copied commercial-game art, names, or text.\n",
+  "encoding_notes": "PNG is retained byte-for-byte from built-in imagegen. Final WebP is lossless and RGBA-decoded-byte-identical. The 1 MiB target is unmet; no lossy encoding or rescale was substituted.",
+  "review_scope": "A fresh blind critic must inspect the frozen source and lossless WebP, frame occupancy, true facings, pose separation, alpha edges, fractional 313.5px cell geometry, low-confidence proposed foot anchors, south-row padding, and the actual 13 CSS px preview before registration. No gameplay integration or playability claim is made.",
+  "encoding_runs": [
+    {
+      "command": "cwebp -lossless -m 6 -exact -metadata none demo/assets/mossguard-directional-sprite-source.png -o artifacts/art-005m-round-1/builder/mossguard-lossless-m6.webp",
+      "exit_code": 0,
+      "output": "artifacts/art-005m-round-1/builder/mossguard-lossless-m6.webp",
+      "bytes": 1561674,
+      "sha256": "da9461643562cc0fd5408c3b3918f053b87e1d6deef2b0784f56aa79030f467b",
+      "dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "alpha": true,
+      "pixel_equivalence_checked": false,
+      "size_limit_status": "over 1 MiB"
+    },
+    {
+      "command": "cwebp -z 9 -exact -metadata none demo/assets/mossguard-directional-sprite-source.png -o demo/assets/mossguard-directional-sprite.webp",
+      "exit_code": 0,
+      "output": "demo/assets/mossguard-directional-sprite.webp",
+      "bytes": 1536922,
+      "sha256": "4511d38676b362f001b2cd9d89344c32a90fdeaead4454a2ab527209012b6973",
+      "dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "alpha": true,
+      "pixel_equivalence_checked": true,
+      "size_limit_status": "over 1 MiB by 488346 bytes"
+    }
+  ],
+  "pixel_equivalence_check": {
+    "method": "decode source PNG and final WebP to RGBA byte buffers and compare byte-for-byte",
+    "result": "equal",
+    "source_decoded_dimensions": [
+      1254,
+      1254
+    ],
+    "webp_decoded_dimensions": [
+      1254,
+      1254
+    ],
+    "difference_bbox": null,
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "source_and_output_alpha_pixel_counts": {
+      "transparent": 731340,
+      "partial": 840118,
+      "opaque": 1058
+    }
+  },
+  "preview_evidence": {
+    "repeatable_html": "artifacts/art-005m-round-1/builder/mossguard-13px-preview.html",
+    "browser": "Zen",
+    "tab_title": "Mossguard 13px directional sprite preview",
+    "source": "final lossless WebP, clipped by 16 exact fractional source-cell rectangles in CSS and displayed at 13 CSS px per frame",
+    "capture_method": "CUA getScreenshot; screenshot was returned inline in the builder thread, not persisted as a repository file",
+    "viewport": {
+      "width": 3030,
+      "height": 1938
+    },
+    "optional_preview_only_raster": {
+      "path": "artifacts/art-005m-round-1/builder/mossguard-directional-sprite-13px-preview.png",
+      "dimensions": [
+        52,
+        52
+      ],
+      "command": "sips -z 52 52 demo/assets/mossguard-directional-sprite-source.png --out artifacts/art-005m-round-1/builder/mossguard-directional-sprite-13px-preview.png",
+      "purpose": "optional preview; not evidence of per-cell CSS clipping by itself"
+    },
+    "observation": "broad wood and leaf masses and shield remain visible; face detail and pose/facing differences remain uncertain at this scale; no readability pass claimed"
+  }
+}

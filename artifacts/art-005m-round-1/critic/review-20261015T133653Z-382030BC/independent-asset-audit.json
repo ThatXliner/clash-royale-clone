@@ -1,0 +1,128 @@
+{
+  "asset_id": "mossguard-directional-sprite",
+  "candidate_status": "frozen unreviewed asset candidate; independent blind review pending; not registered; no gameplay integration or playability claim",
+  "provenance_sha256s_match": {
+    "source_png": true,
+    "shipped_webp": true,
+    "portrait_input": true
+  },
+  "provenance_bytes_match": {
+    "source_png": true,
+    "shipped_webp": true,
+    "portrait_input": true
+  },
+  "lineage": {
+    "license": "AGPL-3.0-only",
+    "source_portrait_license": "AGPL-3.0-only",
+    "portrait_manifest_license": "AGPL-3.0-only",
+    "input_path": "public/assets/card-portraits-painted.webp",
+    "input_role": "original Mossguard identity anchor only: top-row second portrait cell; remaining atlas cells ignored",
+    "no_reference_input_paths": true
+  },
+  "layout": {
+    "canvas": {
+      "width": 1254,
+      "height": 1254,
+      "format": "PNG",
+      "mode": "RGBA"
+    },
+    "rows": 4,
+    "columns": 4,
+    "cell_width": 313.5,
+    "cell_height": 313.5,
+    "frame_count": 16,
+    "equal_rects_all_16": true,
+    "all_directions": [
+      "north",
+      "east",
+      "south",
+      "west"
+    ],
+    "all_poses": [
+      "walk-A",
+      "walk-B",
+      "melee-windup",
+      "melee-contact"
+    ],
+    "direction_pose_order_correct": true,
+    "anchor_statuses": [
+      "builder-proposed low-confidence estimate; independent asset review required"
+    ],
+    "all_anchors_explicitly_unvalidated": true,
+    "anchor_y_local_min": 253.0,
+    "anchor_y_local_max": 299.0,
+    "anchor_y_local_span": 46.0,
+    "alpha_bbox_bottom_local_y_min": 264.5,
+    "alpha_bbox_bottom_local_y_max": 313.0,
+    "anchor_to_alpha_bottom_local_y_abs_delta_max": 27.0
+  },
+  "decode": {
+    "png_webp_exact_rgba_equal": true,
+    "first_difference": null
+  },
+  "size_gate": {
+    "limit_bytes": 1048576,
+    "actual_bytes": 1536922,
+    "delta_bytes": 488346,
+    "passes": false
+  },
+  "assets": {
+    "source_png": {
+      "sha256": "0f9bc3827ba222ef744f953186779e450cd9749d9c6e12c3e9e1be69e13c6297",
+      "encoded_bytes": 2236299,
+      "format": "PNG",
+      "mode": "RGBA",
+      "dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_counts": {
+        "zero": 731340,
+        "partial_1_to_254": 840118,
+        "full_255": 1058
+      }
+    },
+    "shipped_webp": {
+      "sha256": "4511d38676b362f001b2cd9d89344c32a90fdeaead4454a2ab527209012b6973",
+      "encoded_bytes": 1536922,
+      "format": "WEBP",
+      "mode": "RGBA",
+      "dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_counts": {
+        "zero": 731340,
+        "partial_1_to_254": 840118,
+        "full_255": 1058
+      }
+    },
+    "identity_portrait_atlas": {
+      "sha256": "16307a59bde57889e11bcd7b86b54d69ba9985eae6ef436d9703e528fba58e4f",
+      "encoded_bytes": 320516,
+      "format": "WEBP",
+      "mode": "RGB",
+      "dimensions": {
+        "width": 1774,
+        "height": 887
+      },
+      "alpha_extrema": [
+        255,
+        255
+      ],
+      "alpha_counts": {
+        "zero": 0,
+        "partial_1_to_254": 0,
+        "full_255": 1573538
+      }
+    }
+  }
+}

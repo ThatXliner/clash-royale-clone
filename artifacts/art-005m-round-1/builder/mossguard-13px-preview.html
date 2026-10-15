@@ -1,0 +1,59 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Mossguard 13px directional sprite preview</title>
+<style>
+  html, body { margin: 0; padding: 0; background: transparent; }
+  #preview {
+    position: relative;
+    width: 52px;
+    height: 52px;
+    overflow: hidden;
+    image-rendering: auto;
+  }
+  #atlas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1254px;
+    height: 1254px;
+    display: grid;
+    grid-template-columns: repeat(4, 313.5px);
+    grid-template-rows: repeat(4, 313.5px);
+    transform: scale(0.04146730462519936);
+    transform-origin: top left;
+  }
+  .cell {
+    width: 313.5px;
+    height: 313.5px;
+    overflow: hidden;
+    position: relative;
+  }
+  .cell img {
+    position: absolute;
+    width: 1254px;
+    height: 1254px;
+    max-width: none;
+    top: var(--top);
+    left: var(--left);
+  }
+</style>
+<div id="preview" role="img" aria-label="Mossguard directional sprite sheet, shown as a 52 by 52 pixel atlas with 16 cells of exactly 13 by 13 CSS pixels">
+  <div id="atlas">
+    <div class="cell" title="north walk-A"><img src="../../../demo/assets/mossguard-directional-sprite.webp" style="--left:0px;--top:0px"></div>
+    <div class="cell" title="north walk-B"><img src="../../../demo/assets/mossguard-directional-sprite.webp" style="--left:-313.5px;--top:0px"></div>
+    <div class="cell" title="north melee-windup"><img src="../../../demo/assets/mossguard-directional-sprite.webp" style="--left:-627px;--top:0px"></div>
+    <div class="cell" title="north melee-contact"><img src="../../../demo/assets/mossguard-directional-sprite.webp" style="--left:-940.5px;--top:0px"></div>
+    <div class="cell" title="east walk-A"><img src="../../../demo/assets/mossguard-directional-sprite.webp" style="--left:0px;--top:-313.5px"></div>
+    <div class="cell" title="east walk-B"><img src="../../../demo/assets/mossguard-directional-sprite.webp" style="--left:-313.5px;--top:-313.5px"></div>
+    <div class="cell" title="east melee-windup"><img src="../../../demo/assets/mossguard-directional-sprite.webp" style="--left:-627px;--top:-313.5px"></div>
+    <div class="cell" title="east melee-contact"><img src="../../../demo/assets/mossguard-directional-sprite.webp" style="--left:-940.5px;--top:-313.5px"></div>
+    <div class="cell" title="south walk-A"><img src="../../../demo/assets/mossguard-directional-sprite.webp" style="--left:0px;--top:-627px"></div>
+    <div class="cell" title="south walk-B"><img src="../../../demo/assets/mossguard-directional-sprite.webp" style="--left:-313.5px;--top:-627px"></div>
+    <div class="cell" title="south melee-windup"><img src="../../../demo/assets/mossguard-directional-sprite.webp" style="--left:-627px;--top:-627px"></div>
+    <div class="cell" title="south melee-contact"><img src="../../../demo/assets/mossguard-directional-sprite.webp" style="--left:-940.5px;--top:-627px"></div>
+    <div class="cell" title="west walk-A"><img src="../../../demo/assets/mossguard-directional-sprite.webp" style="--left:0px;--top:-940.5px"></div>
+    <div class="cell" title="west walk-B"><img src="../../../demo/assets/mossguard-directional-sprite.webp" style="--left:-313.5px;--top:-940.5px"></div>
+    <div class="cell" title="west melee-windup"><img src="../../../demo/assets/mossguard-directional-sprite.webp" style="--left:-627px;--top:-940.5px"></div>
+    <div class="cell" title="west melee-contact"><img src="../../../demo/assets/mossguard-directional-sprite.webp" style="--left:-940.5px;--top:-940.5px"></div>
+  </div>
+</div>

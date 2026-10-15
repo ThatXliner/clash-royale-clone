@@ -9408,3 +9408,12 @@ EVIDENCE: Independent frozen46c542a clean checkout passes102/102 focused TAP cas
 BIGGEST GAP: Full109-card execution/parity and matched historical footage remain unproved; source-dependent spell composition remains QUESTION.
 
 Adopt only tests/game-spell-runtime.test.js from46c542a: two setup helpers now include canonical source-confidence QUESTION keys; no assertions removed or weakened. Initial14/15 setup failures and builder corrected-TAP wrapper exit-capture failure retained; fresh critic15/15 actualexit0 supplies proof. All native audit authoring/v1–v8 failures preserved: v8 admitted78%-point deployment produced no attack through600ticks; v9 uses qualified54%-point scenario, not a screenshot retry or production fix. Builder152 checksums and critic checksums independently verified. Evidence under artifacts/release-guard-round-2/. Prior Round384 remains history.
+
+## Round 483 — ART-005M original Mossguard sprite asset
+
+PIECE: ART-005M
+VERDICT: FAIL
+EVIDENCE: Fresh exactc4a0da4 asset-blob review independently decodes1254x1254 PNG/WebP with identical RGBA/alpha0..255 and verifies originalportrait AGPL lineage. ActualZen browser renders16 fractional313.5px frames at13CSSpx; native3456x2234 and190percent diagnostic captures preserved. WebP1536922B exceeds1048576 by488346. Visible red/orange edge fringe; native walk/windup/contact difficult to distinguish. All16 proposed foot anchors low-confidence/unvalidated, localy253–299 span46sourcepx; southalpha reaches313 with0.5px margin.
+BIGGEST GAP: Reduce encoded asset below1MiB while preserving readable clean-edged poses and consistent foot alignment.
+
+No demo/docs/public/renderer adoption or gameplay claim. Rootverified11criticmanifest hashes. Builder3rawgenerations/prompts, bothlosslessencoderoutputs anddecodeproof preserved; builderZen screenshot was displayed butnot saved, criticactualcaptures supplysavedrenderproof. Failedcandidatefourownedblobs archived as evidence only. No source/stat/input/audio/package changes; acceptedfullRound481 remains unchanged.

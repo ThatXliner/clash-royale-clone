@@ -1,0 +1,642 @@
+{
+  "asset": "demo/assets/mossguard-directional-sprite-source.png",
+  "candidate_status": "unreviewed source candidate; no registration or gameplay claim",
+  "source_sha256": "0f9bc3827ba222ef744f953186779e450cd9749d9c6e12c3e9e1be69e13c6297",
+  "canvas": {
+    "width": 1254,
+    "height": 1254,
+    "format": "PNG",
+    "mode": "RGBA"
+  },
+  "grid": {
+    "columns": 4,
+    "rows": 4,
+    "cell_width": 313.5,
+    "cell_height": 313.5,
+    "x_boundaries": [
+      0.0,
+      313.5,
+      627.0,
+      940.5,
+      1254.0
+    ],
+    "y_boundaries": [
+      0.0,
+      313.5,
+      627.0,
+      940.5,
+      1254.0
+    ],
+    "pixel_assignment": "alpha scan assigns source pixels by pixel-center into half-open geometric cell rectangles; on this 1254px canvas the equal geometric cells are fractional and do not correspond to equal integer crops"
+  },
+  "alpha_scan": {
+    "threshold": "alpha > 8/255",
+    "bbox_convention": "pixel bounds are integer; right and bottom are exclusive",
+    "foot_anchor_convention": "alpha-bottom-bound only: bottom edge of the last source pixel with alpha > 8/255; this is not used as a foot-contact anchor"
+  },
+  "row_order": [
+    "north",
+    "east",
+    "south",
+    "west"
+  ],
+  "column_order": [
+    "walk-A",
+    "walk-B",
+    "melee-windup",
+    "melee-contact"
+  ],
+  "frames": [
+    {
+      "row": 0,
+      "column": 0,
+      "direction": "north",
+      "pose": "walk-A",
+      "occupied": true,
+      "source_rect": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 313.5,
+        "bottom_exclusive": 313.5
+      },
+      "alpha_bbox_gt_8_px_xyxy": {
+        "left": 32,
+        "top": 27,
+        "right_exclusive": 281,
+        "bottom_exclusive": 303
+      },
+      "alpha_bottom_bound": {
+        "global_y_bottom_edge": 303,
+        "cell_local_y_bottom_edge": 303.0,
+        "meaning": "bottom edge of lowest source pixel with alpha > 8/255; not asserted to be a foot-contact point"
+      },
+      "true_foot_contact_anchor": {
+        "status": "builder-proposed low-confidence estimate; independent asset review required",
+        "cell_local_source_px": {
+          "x": 157.0,
+          "y": 284.0
+        },
+        "estimated_uncertainty_px_each_axis": 10,
+        "method": "visual estimate of the grounded sole group, separate from alpha bounds; see proposed_anchor_convention",
+        "not_validated": true
+      }
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "direction": "north",
+      "pose": "walk-B",
+      "occupied": true,
+      "source_rect": {
+        "x": 313.5,
+        "y": 0.0,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 627.0,
+        "bottom_exclusive": 313.5
+      },
+      "alpha_bbox_gt_8_px_xyxy": {
+        "left": 349,
+        "top": 30,
+        "right_exclusive": 599,
+        "bottom_exclusive": 304
+      },
+      "alpha_bottom_bound": {
+        "global_y_bottom_edge": 304,
+        "cell_local_y_bottom_edge": 304.0,
+        "meaning": "bottom edge of lowest source pixel with alpha > 8/255; not asserted to be a foot-contact point"
+      },
+      "true_foot_contact_anchor": {
+        "status": "builder-proposed low-confidence estimate; independent asset review required",
+        "cell_local_source_px": {
+          "x": 157.0,
+          "y": 289.0
+        },
+        "estimated_uncertainty_px_each_axis": 10,
+        "method": "visual estimate of the grounded sole group, separate from alpha bounds; see proposed_anchor_convention",
+        "not_validated": true
+      }
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "direction": "north",
+      "pose": "melee-windup",
+      "occupied": true,
+      "source_rect": {
+        "x": 627.0,
+        "y": 0.0,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 940.5,
+        "bottom_exclusive": 313.5
+      },
+      "alpha_bbox_gt_8_px_xyxy": {
+        "left": 647,
+        "top": 31,
+        "right_exclusive": 915,
+        "bottom_exclusive": 307
+      },
+      "alpha_bottom_bound": {
+        "global_y_bottom_edge": 307,
+        "cell_local_y_bottom_edge": 307.0,
+        "meaning": "bottom edge of lowest source pixel with alpha > 8/255; not asserted to be a foot-contact point"
+      },
+      "true_foot_contact_anchor": {
+        "status": "builder-proposed low-confidence estimate; independent asset review required",
+        "cell_local_source_px": {
+          "x": 157.0,
+          "y": 299.0
+        },
+        "estimated_uncertainty_px_each_axis": 10,
+        "method": "visual estimate of the grounded sole group, separate from alpha bounds; see proposed_anchor_convention",
+        "not_validated": true
+      }
+    },
+    {
+      "row": 0,
+      "column": 3,
+      "direction": "north",
+      "pose": "melee-contact",
+      "occupied": true,
+      "source_rect": {
+        "x": 940.5,
+        "y": 0.0,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 1254.0,
+        "bottom_exclusive": 313.5
+      },
+      "alpha_bbox_gt_8_px_xyxy": {
+        "left": 964,
+        "top": 43,
+        "right_exclusive": 1239,
+        "bottom_exclusive": 302
+      },
+      "alpha_bottom_bound": {
+        "global_y_bottom_edge": 302,
+        "cell_local_y_bottom_edge": 302.0,
+        "meaning": "bottom edge of lowest source pixel with alpha > 8/255; not asserted to be a foot-contact point"
+      },
+      "true_foot_contact_anchor": {
+        "status": "builder-proposed low-confidence estimate; independent asset review required",
+        "cell_local_source_px": {
+          "x": 157.0,
+          "y": 290.0
+        },
+        "estimated_uncertainty_px_each_axis": 10,
+        "method": "visual estimate of the grounded sole group, separate from alpha bounds; see proposed_anchor_convention",
+        "not_validated": true
+      }
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "direction": "east",
+      "pose": "walk-A",
+      "occupied": true,
+      "source_rect": {
+        "x": 0.0,
+        "y": 313.5,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 313.5,
+        "bottom_exclusive": 627.0
+      },
+      "alpha_bbox_gt_8_px_xyxy": {
+        "left": 26,
+        "top": 326,
+        "right_exclusive": 290,
+        "bottom_exclusive": 599
+      },
+      "alpha_bottom_bound": {
+        "global_y_bottom_edge": 599,
+        "cell_local_y_bottom_edge": 285.5,
+        "meaning": "bottom edge of lowest source pixel with alpha > 8/255; not asserted to be a foot-contact point"
+      },
+      "true_foot_contact_anchor": {
+        "status": "builder-proposed low-confidence estimate; independent asset review required",
+        "cell_local_source_px": {
+          "x": 157.0,
+          "y": 278.0
+        },
+        "estimated_uncertainty_px_each_axis": 10,
+        "method": "visual estimate of the grounded sole group, separate from alpha bounds; see proposed_anchor_convention",
+        "not_validated": true
+      }
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "direction": "east",
+      "pose": "walk-B",
+      "occupied": true,
+      "source_rect": {
+        "x": 313.5,
+        "y": 313.5,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 627.0,
+        "bottom_exclusive": 627.0
+      },
+      "alpha_bbox_gt_8_px_xyxy": {
+        "left": 339,
+        "top": 330,
+        "right_exclusive": 605,
+        "bottom_exclusive": 601
+      },
+      "alpha_bottom_bound": {
+        "global_y_bottom_edge": 601,
+        "cell_local_y_bottom_edge": 287.5,
+        "meaning": "bottom edge of lowest source pixel with alpha > 8/255; not asserted to be a foot-contact point"
+      },
+      "true_foot_contact_anchor": {
+        "status": "builder-proposed low-confidence estimate; independent asset review required",
+        "cell_local_source_px": {
+          "x": 157.0,
+          "y": 280.0
+        },
+        "estimated_uncertainty_px_each_axis": 10,
+        "method": "visual estimate of the grounded sole group, separate from alpha bounds; see proposed_anchor_convention",
+        "not_validated": true
+      }
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "direction": "east",
+      "pose": "melee-windup",
+      "occupied": true,
+      "source_rect": {
+        "x": 627.0,
+        "y": 313.5,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 940.5,
+        "bottom_exclusive": 627.0
+      },
+      "alpha_bbox_gt_8_px_xyxy": {
+        "left": 670,
+        "top": 330,
+        "right_exclusive": 934,
+        "bottom_exclusive": 607
+      },
+      "alpha_bottom_bound": {
+        "global_y_bottom_edge": 607,
+        "cell_local_y_bottom_edge": 293.5,
+        "meaning": "bottom edge of lowest source pixel with alpha > 8/255; not asserted to be a foot-contact point"
+      },
+      "true_foot_contact_anchor": {
+        "status": "builder-proposed low-confidence estimate; independent asset review required",
+        "cell_local_source_px": {
+          "x": 157.0,
+          "y": 286.0
+        },
+        "estimated_uncertainty_px_each_axis": 10,
+        "method": "visual estimate of the grounded sole group, separate from alpha bounds; see proposed_anchor_convention",
+        "not_validated": true
+      }
+    },
+    {
+      "row": 1,
+      "column": 3,
+      "direction": "east",
+      "pose": "melee-contact",
+      "occupied": true,
+      "source_rect": {
+        "x": 940.5,
+        "y": 313.5,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 1254.0,
+        "bottom_exclusive": 627.0
+      },
+      "alpha_bbox_gt_8_px_xyxy": {
+        "left": 966,
+        "top": 336,
+        "right_exclusive": 1244,
+        "bottom_exclusive": 600
+      },
+      "alpha_bottom_bound": {
+        "global_y_bottom_edge": 600,
+        "cell_local_y_bottom_edge": 286.5,
+        "meaning": "bottom edge of lowest source pixel with alpha > 8/255; not asserted to be a foot-contact point"
+      },
+      "true_foot_contact_anchor": {
+        "status": "builder-proposed low-confidence estimate; independent asset review required",
+        "cell_local_source_px": {
+          "x": 157.0,
+          "y": 279.0
+        },
+        "estimated_uncertainty_px_each_axis": 10,
+        "method": "visual estimate of the grounded sole group, separate from alpha bounds; see proposed_anchor_convention",
+        "not_validated": true
+      }
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "direction": "south",
+      "pose": "walk-A",
+      "occupied": true,
+      "source_rect": {
+        "x": 0.0,
+        "y": 627.0,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 313.5,
+        "bottom_exclusive": 940.5
+      },
+      "alpha_bbox_gt_8_px_xyxy": {
+        "left": 29,
+        "top": 629,
+        "right_exclusive": 298,
+        "bottom_exclusive": 940
+      },
+      "alpha_bottom_bound": {
+        "global_y_bottom_edge": 940,
+        "cell_local_y_bottom_edge": 313.0,
+        "meaning": "bottom edge of lowest source pixel with alpha > 8/255; not asserted to be a foot-contact point"
+      },
+      "true_foot_contact_anchor": {
+        "status": "builder-proposed low-confidence estimate; independent asset review required",
+        "cell_local_source_px": {
+          "x": 157.0,
+          "y": 286.0
+        },
+        "estimated_uncertainty_px_each_axis": 10,
+        "method": "visual estimate of the grounded sole group, separate from alpha bounds; see proposed_anchor_convention",
+        "not_validated": true
+      }
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "direction": "south",
+      "pose": "walk-B",
+      "occupied": true,
+      "source_rect": {
+        "x": 313.5,
+        "y": 627.0,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 627.0,
+        "bottom_exclusive": 940.5
+      },
+      "alpha_bbox_gt_8_px_xyxy": {
+        "left": 342,
+        "top": 633,
+        "right_exclusive": 609,
+        "bottom_exclusive": 940
+      },
+      "alpha_bottom_bound": {
+        "global_y_bottom_edge": 940,
+        "cell_local_y_bottom_edge": 313.0,
+        "meaning": "bottom edge of lowest source pixel with alpha > 8/255; not asserted to be a foot-contact point"
+      },
+      "true_foot_contact_anchor": {
+        "status": "builder-proposed low-confidence estimate; independent asset review required",
+        "cell_local_source_px": {
+          "x": 157.0,
+          "y": 286.0
+        },
+        "estimated_uncertainty_px_each_axis": 10,
+        "method": "visual estimate of the grounded sole group, separate from alpha bounds; see proposed_anchor_convention",
+        "not_validated": true
+      }
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "direction": "south",
+      "pose": "melee-windup",
+      "occupied": true,
+      "source_rect": {
+        "x": 627.0,
+        "y": 627.0,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 940.5,
+        "bottom_exclusive": 940.5
+      },
+      "alpha_bbox_gt_8_px_xyxy": {
+        "left": 652,
+        "top": 628,
+        "right_exclusive": 937,
+        "bottom_exclusive": 940
+      },
+      "alpha_bottom_bound": {
+        "global_y_bottom_edge": 940,
+        "cell_local_y_bottom_edge": 313.0,
+        "meaning": "bottom edge of lowest source pixel with alpha > 8/255; not asserted to be a foot-contact point"
+      },
+      "true_foot_contact_anchor": {
+        "status": "builder-proposed low-confidence estimate; independent asset review required",
+        "cell_local_source_px": {
+          "x": 157.0,
+          "y": 288.0
+        },
+        "estimated_uncertainty_px_each_axis": 10,
+        "method": "visual estimate of the grounded sole group, separate from alpha bounds; see proposed_anchor_convention",
+        "not_validated": true
+      }
+    },
+    {
+      "row": 2,
+      "column": 3,
+      "direction": "south",
+      "pose": "melee-contact",
+      "occupied": true,
+      "source_rect": {
+        "x": 940.5,
+        "y": 627.0,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 1254.0,
+        "bottom_exclusive": 940.5
+      },
+      "alpha_bbox_gt_8_px_xyxy": {
+        "left": 971,
+        "top": 634,
+        "right_exclusive": 1238,
+        "bottom_exclusive": 940
+      },
+      "alpha_bottom_bound": {
+        "global_y_bottom_edge": 940,
+        "cell_local_y_bottom_edge": 313.0,
+        "meaning": "bottom edge of lowest source pixel with alpha > 8/255; not asserted to be a foot-contact point"
+      },
+      "true_foot_contact_anchor": {
+        "status": "builder-proposed low-confidence estimate; independent asset review required",
+        "cell_local_source_px": {
+          "x": 157.0,
+          "y": 286.0
+        },
+        "estimated_uncertainty_px_each_axis": 10,
+        "method": "visual estimate of the grounded sole group, separate from alpha bounds; see proposed_anchor_convention",
+        "not_validated": true
+      }
+    },
+    {
+      "row": 3,
+      "column": 0,
+      "direction": "west",
+      "pose": "walk-A",
+      "occupied": true,
+      "source_rect": {
+        "x": 0.0,
+        "y": 940.5,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 313.5,
+        "bottom_exclusive": 1254.0
+      },
+      "alpha_bbox_gt_8_px_xyxy": {
+        "left": 28,
+        "top": 940,
+        "right_exclusive": 295,
+        "bottom_exclusive": 1212
+      },
+      "alpha_bottom_bound": {
+        "global_y_bottom_edge": 1212,
+        "cell_local_y_bottom_edge": 271.5,
+        "meaning": "bottom edge of lowest source pixel with alpha > 8/255; not asserted to be a foot-contact point"
+      },
+      "true_foot_contact_anchor": {
+        "status": "builder-proposed low-confidence estimate; independent asset review required",
+        "cell_local_source_px": {
+          "x": 157.0,
+          "y": 257.0
+        },
+        "estimated_uncertainty_px_each_axis": 10,
+        "method": "visual estimate of the grounded sole group, separate from alpha bounds; see proposed_anchor_convention",
+        "not_validated": true
+      }
+    },
+    {
+      "row": 3,
+      "column": 1,
+      "direction": "west",
+      "pose": "walk-B",
+      "occupied": true,
+      "source_rect": {
+        "x": 313.5,
+        "y": 940.5,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 627.0,
+        "bottom_exclusive": 1254.0
+      },
+      "alpha_bbox_gt_8_px_xyxy": {
+        "left": 342,
+        "top": 940,
+        "right_exclusive": 610,
+        "bottom_exclusive": 1205
+      },
+      "alpha_bottom_bound": {
+        "global_y_bottom_edge": 1205,
+        "cell_local_y_bottom_edge": 264.5,
+        "meaning": "bottom edge of lowest source pixel with alpha > 8/255; not asserted to be a foot-contact point"
+      },
+      "true_foot_contact_anchor": {
+        "status": "builder-proposed low-confidence estimate; independent asset review required",
+        "cell_local_source_px": {
+          "x": 157.0,
+          "y": 253.0
+        },
+        "estimated_uncertainty_px_each_axis": 10,
+        "method": "visual estimate of the grounded sole group, separate from alpha bounds; see proposed_anchor_convention",
+        "not_validated": true
+      }
+    },
+    {
+      "row": 3,
+      "column": 2,
+      "direction": "west",
+      "pose": "melee-windup",
+      "occupied": true,
+      "source_rect": {
+        "x": 627.0,
+        "y": 940.5,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 940.5,
+        "bottom_exclusive": 1254.0
+      },
+      "alpha_bbox_gt_8_px_xyxy": {
+        "left": 647,
+        "top": 940,
+        "right_exclusive": 911,
+        "bottom_exclusive": 1219
+      },
+      "alpha_bottom_bound": {
+        "global_y_bottom_edge": 1219,
+        "cell_local_y_bottom_edge": 278.5,
+        "meaning": "bottom edge of lowest source pixel with alpha > 8/255; not asserted to be a foot-contact point"
+      },
+      "true_foot_contact_anchor": {
+        "status": "builder-proposed low-confidence estimate; independent asset review required",
+        "cell_local_source_px": {
+          "x": 157.0,
+          "y": 263.0
+        },
+        "estimated_uncertainty_px_each_axis": 10,
+        "method": "visual estimate of the grounded sole group, separate from alpha bounds; see proposed_anchor_convention",
+        "not_validated": true
+      }
+    },
+    {
+      "row": 3,
+      "column": 3,
+      "direction": "west",
+      "pose": "melee-contact",
+      "occupied": true,
+      "source_rect": {
+        "x": 940.5,
+        "y": 940.5,
+        "width": 313.5,
+        "height": 313.5,
+        "right_exclusive": 1254.0,
+        "bottom_exclusive": 1254.0
+      },
+      "alpha_bbox_gt_8_px_xyxy": {
+        "left": 958,
+        "top": 940,
+        "right_exclusive": 1236,
+        "bottom_exclusive": 1217
+      },
+      "alpha_bottom_bound": {
+        "global_y_bottom_edge": 1217,
+        "cell_local_y_bottom_edge": 276.5,
+        "meaning": "bottom edge of lowest source pixel with alpha > 8/255; not asserted to be a foot-contact point"
+      },
+      "true_foot_contact_anchor": {
+        "status": "builder-proposed low-confidence estimate; independent asset review required",
+        "cell_local_source_px": {
+          "x": 157.0,
+          "y": 258.0
+        },
+        "estimated_uncertainty_px_each_axis": 10,
+        "method": "visual estimate of the grounded sole group, separate from alpha bounds; see proposed_anchor_convention",
+        "not_validated": true
+      }
+    }
+  ],
+  "review_note": "This is geometry measured from generated pixels plus low-confidence visual anchor proposals, not a pass. The 13 CSS px browser rendering keeps the broad green mantle/wood body and shield mass visible; face detail and pose/facing differences remain difficult at this scale. The critic must validate or reject all proposed contacts, fractional-cell sampling, facing-dependent bounds, south-row padding, and actual-scale readability. Alpha-bottom bounds are recorded separately from the visual anchor proposals.",
+  "proposed_anchor_convention": {
+    "status": "low-confidence builder proposal; independent asset review required",
+    "coordinate_space": "cell-local source-pixel coordinates, origin at each fractional cell top-left",
+    "point_definition": "approximate midpoint of the visible grounded sole contacts; when one foot appears raised, estimate the supporting sole instead",
+    "method": "manual visual estimate from the full-resolution generated sheet; values are distinct from alpha bounding-box bottoms",
+    "estimated_uncertainty_px_each_axis": 10,
+    "not_a_pass": true
+  },
+  "preview_evidence": {
+    "html": "artifacts/art-005m-round-1/builder/mossguard-13px-preview.html",
+    "rendered_output": "16 clipped source-cell rectangles, each 13 CSS px square; source cell boundaries remain 313.5 by 313.5 pixels before CSS scaling",
+    "capture": "Zen browser tab \u201cMossguard 13px directional sprite preview\u201d; CUA screenshot viewport 3030 by 1938 pixels; captured screenshot was displayed in the builder thread and was not written as a separate file",
+    "optional_raster": "artifacts/art-005m-round-1/builder/mossguard-directional-sprite-13px-preview.png (52 by 52 preview-only SIPS resize; not asset source)"
+  }
+}
