@@ -1,0 +1,50 @@
+
+> moss-and-ember@0.0.0 test:visual-arena-art
+> node tests/visual-arena-art-runner.js visual-arena-art
+
+TAP version 13
+# Subtest: visual arena art: required production art layers ship in the shell page
+ok 1 - visual arena art: required production art layers ship in the shell page
+  ---
+  duration_ms: 0.678958
+  type: 'test'
+  ...
+# Subtest: visual arena art: tower bodies exist for all six towers with distinct faction styling
+ok 2 - visual arena art: tower bodies exist for all six towers with distinct faction styling
+  ---
+  duration_ms: 0.332458
+  type: 'test'
+  ...
+# Subtest: visual arena art: rendered landmarks keep the exact gameplay geometry mapping
+ok 3 - visual arena art: rendered landmarks keep the exact gameplay geometry mapping
+  ---
+  duration_ms: 0.200167
+  type: 'test'
+  ...
+# Subtest: visual arena art: pinned shell primitives are untouched and art stays inside provenance rules
+ok 4 - visual arena art: pinned shell primitives are untouched and art stays inside provenance rules
+  ---
+  duration_ms: 0.651042
+  type: 'test'
+  ...
+# Subtest: visual arena art: shipped asset directory stays manifest-registered
+ok 5 - visual arena art: shipped asset directory stays manifest-registered
+  ---
+  duration_ms: 5.64925
+  type: 'test'
+  ...
+# Subtest: visual arena art: fixed 720×1280 Chrome render keeps gameplay geometry above production art
+ok 6 - visual arena art: fixed 720×1280 Chrome render keeps gameplay geometry above production art
+  ---
+  duration_ms: 2377.197584
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4443.668917

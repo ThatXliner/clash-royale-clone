@@ -9399,3 +9399,12 @@ EVIDENCE: Independent clean exact763e39465fd584ffa4618ea220fbdb3a99fec40c privat
 BIGGEST GAP: This qualifies two eight-card journeys and their audio on the accepted source; exhaustive109-card interactions and matched historical footage remain unproved.
 
 Root verified all104criticchecksums and actual4exit/sourcefence receipts. Defaultoriginal535fileprepost preserved; supplemental537all-public baseline derivedfrompinnedcleanGit andactualpostread explicitlylabeled. Othergates537directprepostexact; kernel523788/SHA115c4314,lockd707c780 unchanged. Originaltwotrackedaudiooutputs restoredbyteexact. ActualnativeaudionpmPID70053; earlier70214messagewasatyposcopedcorrection, not terminalproof. Chromephysicalpointer/E2acceptance used; DOMisTrustednotserialized. NativePCMnotphysicalspeakeracoustics. No source changes orold5edproofsubstitution. Thematchingdefault/KbarsinGAME001GPR7 are satisfiedbythislinkedqualification, withoutaseparatereviewround orall21combinationclaim.
+
+## Round 482 — RELEASE-GUARD-001 current release qualification
+
+PIECE: RELEASE-GUARD-001
+VERDICT: PASS
+EVIDENCE: Independent frozen46c542a clean checkout passes102/102 focused TAP cases with actual exits0, including all15 spell runtime cases. Actual assembled Pages release54files/6137783bytes, Pages64files/6547936bytes; native390x844 and1440x933 audit132requests all200,21portraits decoded in each, no browser errors. Trusted Briar deployment, authentic attack170/pose171 and packaged controller/RL reset-step-restore pass. All7250 tracked files match initial snapshot. Kernel523788 under524288, lock unchanged. Production/public/packages/scripts and156 qualifying endurance/audio/runner paths match763 exactly; Round481 retained on this explicit identity basis, no new full18k run.
+BIGGEST GAP: Full109-card execution/parity and matched historical footage remain unproved; source-dependent spell composition remains QUESTION.
+
+Adopt only tests/game-spell-runtime.test.js from46c542a: two setup helpers now include canonical source-confidence QUESTION keys; no assertions removed or weakened. Initial14/15 setup failures and builder corrected-TAP wrapper exit-capture failure retained; fresh critic15/15 actualexit0 supplies proof. All native audit authoring/v1–v8 failures preserved: v8 admitted78%-point deployment produced no attack through600ticks; v9 uses qualified54%-point scenario, not a screenshot retry or production fix. Builder152 checksums and critic checksums independently verified. Evidence under artifacts/release-guard-round-2/. Prior Round384 remains history.

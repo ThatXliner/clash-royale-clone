@@ -1,0 +1,2210 @@
+{
+  "acceptedBaseline": "763e39465fd584ffa4618ea220fbdb3a99fec40c",
+  "actualPagesBuild": {
+    "fullCandidateRef": "46c542a10df358902fa1147e6d2b7ad04ea80d57",
+    "inventory": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v9/emitted-pages-inventory.json",
+    "pagesBytes": 6547936,
+    "pagesFileCount": 64,
+    "pagesMaxFileBytes": 987565,
+    "pagesPrefix": "/clash-royale-clone/",
+    "pid": 85380,
+    "protectedReferenceIsolation": {
+      "fileCount": 54,
+      "referenceFileCount": 26,
+      "totalBytes": 6137783
+    },
+    "receipt": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/pages-build-receipt.json",
+    "releaseBytes": 6137783,
+    "releaseFileCount": 54,
+    "releaseManifestSha256": "faf6d03e23646f5f97359dbfd53a4d9bd83bcbfec46b0e2ab55e7198621bd913",
+    "releaseMaxFileBytes": 987565,
+    "repository": "ThatXliner/clash-royale-clone",
+    "returncode": 0
+  },
+  "allNativeAttemptHistory": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/native-attempts-index.json",
+  "candidate": "46c542a10df358902fa1147e6d2b7ad04ea80d57",
+  "directParent": "033f1107b22b39f3079670a33a660fba81b95f75",
+  "evidenceRoot": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2",
+  "fences": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/final-fences.json",
+  "focusedGates": {
+    "allPassed": true,
+    "caseTotal": 102,
+    "expectedCaseTotalFromActualTAP": 102,
+    "runs": [
+      {
+        "elapsedSeconds": 1.174,
+        "exitEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/nondeterminism-guard/exit.json",
+        "failed": 0,
+        "name": "nondeterminism-guard",
+        "passed": 10,
+        "pid": 83396,
+        "returncode": 0,
+        "stderrEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/nondeterminism-guard/stderr.raw",
+        "stdoutEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/nondeterminism-guard/stdout.raw",
+        "testCases": 10
+      },
+      {
+        "elapsedSeconds": 32.116,
+        "exitEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/shipping-isolation-guard/exit.json",
+        "failed": 0,
+        "name": "shipping-isolation-guard",
+        "passed": 13,
+        "pid": 83448,
+        "returncode": 0,
+        "stderrEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/shipping-isolation-guard/stderr.raw",
+        "stdoutEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/shipping-isolation-guard/stdout.raw",
+        "testCases": 13
+      },
+      {
+        "elapsedSeconds": 69.413,
+        "exitEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/shipping-isolation-release/exit.json",
+        "failed": 0,
+        "name": "shipping-isolation-release",
+        "passed": 4,
+        "pid": 83526,
+        "returncode": 0,
+        "stderrEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/shipping-isolation-release/stderr.raw",
+        "stdoutEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/shipping-isolation-release/stdout.raw",
+        "testCases": 4
+      },
+      {
+        "elapsedSeconds": 14.326,
+        "exitEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/shipping-isolation-host/exit.json",
+        "failed": 0,
+        "name": "shipping-isolation-host",
+        "passed": 1,
+        "pid": 83714,
+        "returncode": 0,
+        "stderrEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/shipping-isolation-host/stderr.raw",
+        "stdoutEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/shipping-isolation-host/stdout.raw",
+        "testCases": 1
+      },
+      {
+        "elapsedSeconds": 2.887,
+        "exitEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/game-spell-runtime/exit.json",
+        "failed": 0,
+        "name": "game-spell-runtime",
+        "passed": 15,
+        "pid": 84228,
+        "returncode": 0,
+        "stderrEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/game-spell-runtime/stderr.raw",
+        "stdoutEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/game-spell-runtime/stdout.raw",
+        "testCases": 15
+      },
+      {
+        "elapsedSeconds": 15.32,
+        "exitEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/hostile-feed-sprite/exit.json",
+        "failed": 0,
+        "name": "hostile-feed-sprite",
+        "passed": 20,
+        "pid": 84304,
+        "returncode": 0,
+        "stderrEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/hostile-feed-sprite/stderr.raw",
+        "stdoutEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/hostile-feed-sprite/stdout.raw",
+        "testCases": 20
+      },
+      {
+        "elapsedSeconds": 0.253,
+        "exitEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/visual-asset-manifest/exit.json",
+        "failed": 0,
+        "name": "visual-asset-manifest",
+        "passed": 6,
+        "pid": 84816,
+        "returncode": 0,
+        "stderrEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/visual-asset-manifest/stderr.raw",
+        "stdoutEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/visual-asset-manifest/stdout.raw",
+        "testCases": 6
+      },
+      {
+        "elapsedSeconds": 4.638,
+        "exitEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/visual-arena-art/exit.json",
+        "failed": 0,
+        "name": "visual-arena-art",
+        "passed": 6,
+        "pid": 84847,
+        "returncode": 0,
+        "stderrEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/visual-arena-art/stderr.raw",
+        "stdoutEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/visual-arena-art/stdout.raw",
+        "testCases": 6
+      },
+      {
+        "elapsedSeconds": 50.626,
+        "exitEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/release-build/exit.json",
+        "failed": 0,
+        "name": "release-build",
+        "passed": 22,
+        "pid": 84922,
+        "returncode": 0,
+        "stderrEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/release-build/stderr.raw",
+        "stdoutEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/release-build/stdout.raw",
+        "testCases": 22
+      },
+      {
+        "elapsedSeconds": 32.775,
+        "exitEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/publication-pages/exit.json",
+        "failed": 0,
+        "name": "publication-pages",
+        "passed": 5,
+        "pid": 85150,
+        "returncode": 0,
+        "stderrEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/publication-pages/stderr.raw",
+        "stdoutEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/publication-pages/stdout.raw",
+        "testCases": 5
+      }
+    ]
+  },
+  "independentCheckout": "/private/tmp/release-guard-round2-critic-5578e25c51f2",
+  "largestGap": "The release-guard scope does not resolve low-confidence spell timing/refresh/target composition or establish full-game parity; those remain explicit QUESTION items. Native evidence applies to this frozen candidate and these two viewports.",
+  "nativePagesAudit": {
+    "allRequests200": true,
+    "browserErrors": [],
+    "browserRequestCount": 132,
+    "pid": 88068,
+    "prefixResponse": {
+      "bodyEqual": true,
+      "contentLength": 6205,
+      "emittedIndexBytes": 6205,
+      "emittedIndexSha256": "f8dc1c83b36f1941ed896ed009ecbfcc054d1450e5a95af7c3e7c75a56f2ff56",
+      "responseSha256": "f8dc1c83b36f1941ed896ed009ecbfcc054d1450e5a95af7c3e7c75a56f2ff56",
+      "status": 200,
+      "url": "http://127.0.0.1:58914/clash-royale-clone/"
+    },
+    "registeredVisualAssets": [
+      {
+        "bytes": 390962,
+        "id": "moss-ember-arena-painted",
+        "path": "public/assets/moss-ember-arena-painted.webp",
+        "sha256": "22713e1725c21a8f853df5e2af3278689e7e844783606d93c7a12a365d8e930e"
+      },
+      {
+        "bytes": 987565,
+        "id": "briar-runner-painted-sheet",
+        "path": "public/assets/briar-runner-painted-sheet.png",
+        "sha256": "a1aa43df00dacc212beedb4905dddd7a57db412981ea29662bc1d868a97794f4"
+      },
+      {
+        "bytes": 7692,
+        "id": "briar-runner-sprite-sheet",
+        "path": "public/assets/briar-runner-sprite-sheet.svg",
+        "sha256": "5f25d05932e3c56f9a8dfce7ea9b9d02e9ad2fb34ef0ce983733f9b97b6b7a2e"
+      }
+    ],
+    "requestEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v9/native-pages-audit.json",
+    "returncode": 0,
+    "runnerSessionId": 83311,
+    "screenshots": [
+      {
+        "bytes": 89830,
+        "height": 844,
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v9/phone-landing.png",
+        "sha256": "0a7ce5917e8079b525ef7631f66b10a80ac5d9ed952162928111cff06db6e363",
+        "width": 390
+      },
+      {
+        "bytes": 230730,
+        "height": 844,
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v9/phone-game-home.png",
+        "sha256": "9532890c9ed1261130404e9b2e0c814027f4ea2a5c79a9ef492b59fa9e7d6e49",
+        "width": 390
+      },
+      {
+        "bytes": 307083,
+        "height": 844,
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v9/phone-cards.png",
+        "sha256": "99ce42430b9e3c54218202ad1f2ae88517c109e29d0d8a6f86c44b111565d924",
+        "width": 390
+      },
+      {
+        "bytes": 897936,
+        "height": 2506,
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v9/phone-cards-full.png",
+        "sha256": "9359679aeaf78b78e15f575123064268ddbc19b36187ce071c33f7ab1655fc87",
+        "width": 390
+      },
+      {
+        "bytes": 323049,
+        "height": 844,
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v9/phone-battle.png",
+        "sha256": "7c4bee6c34cc1041b2b9c08696fcd943f7ef7c4408922edb46618b3f898b2026",
+        "width": 390
+      },
+      {
+        "bytes": 326980,
+        "height": 844,
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v9/phone-battle-briar.png",
+        "sha256": "119973e955f4593b9ea6a2050d965b79fcfbaf42f7f78a58b484bb763bc95b3c",
+        "width": 390
+      },
+      {
+        "bytes": 404931,
+        "height": 933,
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v9/desktop-landing.png",
+        "sha256": "4d0b37c96ae2424bfa16d048b5de0dbdf7225eb9bc2d3381a6c75efcd780b816",
+        "width": 1440
+      },
+      {
+        "bytes": 479721,
+        "height": 933,
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v9/desktop-game-home.png",
+        "sha256": "6f10d6dce76951d292c750cc7986b88be55a163f98ff74729894df1fe1c336ef",
+        "width": 1440
+      },
+      {
+        "bytes": 883449,
+        "height": 933,
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v9/desktop-cards.png",
+        "sha256": "85cd083e3048e8a4fb967f634f76af74b27d26b88c32f838df79f760f17753ad",
+        "width": 1440
+      },
+      {
+        "bytes": 1624868,
+        "height": 1625,
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v9/desktop-cards-full.png",
+        "sha256": "ab895a80e937fa04591b988f064fc21f77fdc23cfaadd5a3d8d1ff3ac461e83d",
+        "width": 1440
+      },
+      {
+        "bytes": 439559,
+        "height": 933,
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v9/desktop-battle.png",
+        "sha256": "285cf6135c46c09c3e0a7b5a6dbb58a2e2e3389d19334247c316f4356547b183",
+        "width": 1440
+      },
+      {
+        "bytes": 443447,
+        "height": 933,
+        "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v9/desktop-battle-briar.png",
+        "sha256": "aba9fbeb67f5d00f1297caa90f3905a970c8bd20f322e2a228611893d5b015b6",
+        "width": 1440
+      }
+    ],
+    "uniqueRequestedPathCount": 49,
+    "viewports": [
+      {
+        "actualAttack": {
+          "attack": {
+            "attackerId": 1,
+            "sequence": 1,
+            "tick": 170,
+            "type": "attack"
+          },
+          "frame": {
+            "action": "attack",
+            "animationAge": 1,
+            "sourceClass": "melee",
+            "sourceId": 1,
+            "sourceSequence": 1,
+            "sourceTick": 170,
+            "tick": 171
+          },
+          "sessionTick": 171,
+          "source": {
+            "alive": true,
+            "archetypeId": "briar-runner",
+            "id": 1,
+            "side": "south"
+          }
+        },
+        "afterCardSelection": {
+          "selectedCardId": "briar-band",
+          "trustedPointers": [
+            {
+              "cardId": "briar-band",
+              "isTrusted": true,
+              "type": "pointerup",
+              "ui": "card-slot"
+            }
+          ]
+        },
+        "afterFirstStep": {
+          "bridgeDeliveries": [
+            {
+              "admission": {
+                "accepted": true,
+                "commandId": 1,
+                "tick": 0,
+                "type": "player-command-admitted"
+              },
+              "command": {
+                "cardId": "briar-band",
+                "commandId": 1,
+                "point": {
+                  "x": 9000,
+                  "y": 14709
+                },
+                "slot": 1,
+                "tick": 0,
+                "type": "deploy"
+              }
+            }
+          ],
+          "elixirSouth": {
+            "accumulator": 1,
+            "amount": 7
+          },
+          "hand": [
+            "brassbolt",
+            "cinderlings",
+            "reedsting",
+            "copperskiff"
+          ],
+          "selectedCardId": null,
+          "sessionTick": 1,
+          "units": [
+            {
+              "archetypeId": "briar-runner",
+              "id": 1,
+              "side": "south"
+            },
+            {
+              "archetypeId": "cinderling",
+              "id": 7,
+              "side": "north"
+            },
+            {
+              "archetypeId": "cinderling",
+              "id": 8,
+              "side": "north"
+            },
+            {
+              "archetypeId": "cinderling",
+              "id": 9,
+              "side": "north"
+            }
+          ]
+        },
+        "allPortraitsDecoded": true,
+        "arenaDecode": {
+          "complete": true,
+          "id": "moss-ember-arena-painted",
+          "naturalHeight": 1672,
+          "naturalWidth": 941,
+          "path": "/clash-royale-clone/game/public/assets/moss-ember-arena-painted.webp",
+          "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/moss-ember-arena-painted.webp"
+        },
+        "briarDecode": [
+          {
+            "complete": true,
+            "id": "briar-runner-painted-sheet",
+            "naturalHeight": 1254,
+            "naturalWidth": 1254,
+            "path": "/clash-royale-clone/game/public/assets/briar-runner-painted-sheet.png",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/briar-runner-painted-sheet.png"
+          },
+          {
+            "complete": true,
+            "id": "briar-runner-sprite-sheet",
+            "naturalHeight": 150,
+            "naturalWidth": 221,
+            "path": "/clash-royale-clone/game/public/assets/briar-runner-sprite-sheet.svg",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/briar-runner-sprite-sheet.svg"
+          }
+        ],
+        "briarMarkers": [
+          {
+            "artId": "briar-runner",
+            "href": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/briar-runner-painted-sheet.png",
+            "kind": "briar-runner",
+            "spriteAction": "attack",
+            "visible": true
+          },
+          {
+            "artId": "briar-runner",
+            "href": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/briar-runner-painted-sheet.png",
+            "kind": "briar-runner",
+            "spriteAction": "walk",
+            "visible": true
+          },
+          {
+            "artId": "briar-runner",
+            "href": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/briar-runner-painted-sheet.png",
+            "kind": "briar-runner",
+            "spriteAction": "walk",
+            "visible": true
+          },
+          {
+            "artId": "briar-runner",
+            "href": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/briar-runner-painted-sheet.png",
+            "kind": "briar-runner",
+            "spriteAction": "walk",
+            "visible": true
+          },
+          {
+            "artId": "briar-runner",
+            "href": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/briar-runner-painted-sheet.png",
+            "kind": "briar-runner",
+            "spriteAction": "walk",
+            "visible": true
+          },
+          {
+            "artId": "briar-runner",
+            "href": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/briar-runner-painted-sheet.png",
+            "kind": "briar-runner",
+            "spriteAction": "walk",
+            "visible": true
+          }
+        ],
+        "cards": [
+          {
+            "cardId": "coilblade",
+            "cell": "0",
+            "decoded": true,
+            "naturalSize": [
+              1774,
+              887
+            ],
+            "path": "/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "window": {
+              "bottom": 420.875,
+              "height": 177,
+              "right": 190,
+              "width": 177,
+              "x": 13,
+              "y": 243.875
+            }
+          },
+          {
+            "cardId": "mossguard",
+            "cell": "1",
+            "decoded": true,
+            "naturalSize": [
+              1774,
+              887
+            ],
+            "path": "/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "window": {
+              "bottom": 420.875,
+              "height": 177,
+              "right": 377,
+              "width": 177,
+              "x": 200,
+              "y": 243.875
+            }
+          },
+          {
+            "cardId": "copperskiff",
+            "cell": "2",
+            "decoded": true,
+            "naturalSize": [
+              1774,
+              887
+            ],
+            "path": "/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "window": {
+              "bottom": 567.875,
+              "height": 177,
+              "right": 190,
+              "width": 177,
+              "x": 13,
+              "y": 390.875
+            }
+          },
+          {
+            "cardId": "skymaul",
+            "cell": "3",
+            "decoded": true,
+            "naturalSize": [
+              1774,
+              887
+            ],
+            "path": "/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "window": {
+              "bottom": 567.875,
+              "height": 177,
+              "right": 377,
+              "width": 177,
+              "x": 200,
+              "y": 390.875
+            }
+          },
+          {
+            "cardId": "brassbolt",
+            "cell": "4",
+            "decoded": true,
+            "naturalSize": [
+              1774,
+              887
+            ],
+            "path": "/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "window": {
+              "bottom": 714.875,
+              "height": 177,
+              "right": 190,
+              "width": 177,
+              "x": 13,
+              "y": 537.875
+            }
+          },
+          {
+            "cardId": "reedsting",
+            "cell": "5",
+            "decoded": true,
+            "naturalSize": [
+              1774,
+              887
+            ],
+            "path": "/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "window": {
+              "bottom": 714.875,
+              "height": 177,
+              "right": 377,
+              "width": 177,
+              "x": 200,
+              "y": 537.875
+            }
+          },
+          {
+            "cardId": "briar-band",
+            "cell": "6",
+            "decoded": true,
+            "naturalSize": [
+              1774,
+              887
+            ],
+            "path": "/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "window": {
+              "bottom": 861.875,
+              "height": 177,
+              "right": 190,
+              "width": 177,
+              "x": 13,
+              "y": 684.875
+            }
+          },
+          {
+            "cardId": "cinderlings",
+            "cell": "7",
+            "decoded": true,
+            "naturalSize": [
+              1774,
+              887
+            ],
+            "path": "/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "window": {
+              "bottom": 861.875,
+              "height": 177,
+              "right": 377,
+              "width": 177,
+              "x": 200,
+              "y": 684.875
+            }
+          },
+          {
+            "cardId": "stonehauler",
+            "cell": null,
+            "decoded": true,
+            "naturalSize": [
+              1254,
+              1254
+            ],
+            "path": "/clash-royale-clone/game/public/assets/stonehauler-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/stonehauler-painted.webp",
+            "window": {
+              "bottom": 1008.875,
+              "height": 177,
+              "right": 190,
+              "width": 177,
+              "x": 13,
+              "y": 831.875
+            }
+          },
+          {
+            "cardId": "thornscouts",
+            "cell": null,
+            "decoded": true,
+            "naturalSize": [
+              1254,
+              1254
+            ],
+            "path": "/clash-royale-clone/game/public/assets/thornscouts-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/thornscouts-painted.webp",
+            "window": {
+              "bottom": 1008.875,
+              "height": 177,
+              "right": 377,
+              "width": 177,
+              "x": 200,
+              "y": 831.875
+            }
+          },
+          {
+            "cardId": "forgeguard",
+            "cell": null,
+            "decoded": true,
+            "naturalSize": [
+              1254,
+              1254
+            ],
+            "path": "/clash-royale-clone/game/public/assets/forgeguard-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/forgeguard-painted.webp",
+            "window": {
+              "bottom": 1155.875,
+              "height": 177,
+              "right": 190,
+              "width": 177,
+              "x": 13,
+              "y": 978.875
+            }
+          },
+          {
+            "cardId": "cinder-host",
+            "cell": null,
+            "decoded": true,
+            "naturalSize": [
+              512,
+              512
+            ],
+            "path": "/clash-royale-clone/game/public/assets/cinder-host-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/cinder-host-painted.webp",
+            "window": {
+              "bottom": 1155.875,
+              "height": 177,
+              "right": 377,
+              "width": 177,
+              "x": 200,
+              "y": 978.875
+            }
+          },
+          {
+            "cardId": "ironroot",
+            "cell": null,
+            "decoded": true,
+            "naturalSize": [
+              512,
+              512
+            ],
+            "path": "/clash-royale-clone/game/public/assets/ironroot-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/ironroot-painted.webp",
+            "window": {
+              "bottom": 1302.875,
+              "height": 177,
+              "right": 190,
+              "width": 177,
+              "x": 13,
+              "y": 1125.875
+            }
+          },
+          {
+            "cardId": "sunthread-pair",
+            "cell": null,
+            "decoded": true,
+            "naturalSize": [
+              512,
+              512
+            ],
+            "path": "/clash-royale-clone/game/public/assets/sunthread-pair-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/sunthread-pair-painted.webp",
+            "window": {
+              "bottom": 1302.875,
+              "height": 177,
+              "right": 377,
+              "width": 177,
+              "x": 200,
+              "y": 1125.875
+            }
+          },
+          {
+            "cardId": "duskwing-trio",
+            "cell": null,
+            "decoded": true,
+            "naturalSize": [
+              512,
+              512
+            ],
+            "path": "/clash-royale-clone/game/public/assets/duskwing-trio-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/duskwing-trio-painted.webp",
+            "window": {
+              "bottom": 1449.875,
+              "height": 177,
+              "right": 190,
+              "width": 177,
+              "x": 13,
+              "y": 1272.875
+            }
+          },
+          {
+            "cardId": "gloamwing-cluster",
+            "cell": null,
+            "decoded": true,
+            "naturalSize": [
+              512,
+              512
+            ],
+            "path": "/clash-royale-clone/game/public/assets/gloamwing-cluster-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/gloamwing-cluster-painted.webp",
+            "window": {
+              "bottom": 1449.875,
+              "height": 177,
+              "right": 377,
+              "width": 177,
+              "x": 200,
+              "y": 1272.875
+            }
+          },
+          {
+            "cardId": "coppershade-flock",
+            "cell": null,
+            "decoded": true,
+            "naturalSize": [
+              512,
+              512
+            ],
+            "path": "/clash-royale-clone/game/public/assets/coppershade-flock-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/coppershade-flock-painted.webp",
+            "window": {
+              "bottom": 1596.875,
+              "height": 177,
+              "right": 190,
+              "width": 177,
+              "x": 13,
+              "y": 1419.875
+            }
+          },
+          {
+            "cardId": "kilnkeeper",
+            "cell": null,
+            "decoded": true,
+            "naturalSize": [
+              512,
+              512
+            ],
+            "path": "/clash-royale-clone/game/public/assets/kilnkeeper-portrait-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/kilnkeeper-portrait-painted.webp",
+            "window": {
+              "bottom": 1596.875,
+              "height": 177,
+              "right": 377,
+              "width": 177,
+              "x": 200,
+              "y": 1419.875
+            }
+          },
+          {
+            "cardId": "squall-orb",
+            "cell": null,
+            "decoded": true,
+            "naturalSize": [
+              512,
+              512
+            ],
+            "path": "/clash-royale-clone/game/public/assets/squall-orb-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/squall-orb-painted.webp",
+            "window": {
+              "bottom": 1743.875,
+              "height": 177,
+              "right": 190,
+              "width": 177,
+              "x": 13,
+              "y": 1566.875
+            }
+          },
+          {
+            "cardId": "ember-basin",
+            "cell": null,
+            "decoded": true,
+            "naturalSize": [
+              512,
+              512
+            ],
+            "path": "/clash-royale-clone/game/public/assets/ember-basin-portrait-painted-v2.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/ember-basin-portrait-painted-v2.webp",
+            "window": {
+              "bottom": 1743.875,
+              "height": 177,
+              "right": 377,
+              "width": 177,
+              "x": 200,
+              "y": 1566.875
+            }
+          },
+          {
+            "cardId": "buried-coil",
+            "cell": null,
+            "decoded": true,
+            "naturalSize": [
+              512,
+              512
+            ],
+            "path": "/clash-royale-clone/game/public/assets/buried-coil-portrait.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/buried-coil-portrait.webp",
+            "window": {
+              "bottom": 1890.875,
+              "height": 177,
+              "right": 190,
+              "width": 177,
+              "x": 13,
+              "y": 1713.875
+            }
+          }
+        ],
+        "controller": {
+          "attachedArena": true,
+          "deck": [
+            "skymaul",
+            "brassbolt",
+            "reedsting",
+            "briar-band",
+            "cinderlings",
+            "coilblade",
+            "mossguard",
+            "copperskiff"
+          ],
+          "enteredManualStep": true,
+          "exports": [
+            "arenaHudController",
+            "createArenaHudController",
+            "createArenaSessionInjectionCapability",
+            "createInitialArenaHudSystems",
+            "mountArenaShellWithHud"
+          ],
+          "hasControllerApi": true,
+          "initialTick": 0,
+          "restoreState": {
+            "active": true,
+            "backlogTicks": 0,
+            "domTick": 0,
+            "enduranceActive": false,
+            "paused": false,
+            "running": false,
+            "scheduled": false,
+            "selectedCardId": null,
+            "sessionTick": 0,
+            "terminal": false,
+            "terminalPresentationRunning": false,
+            "terminalPresentationTick": 0
+          },
+          "restoredExactly": true,
+          "restoredTick": 0,
+          "resumed": true,
+          "status": {
+            "active": true,
+            "backlogTicks": 0,
+            "domTick": 0,
+            "enduranceActive": false,
+            "paused": false,
+            "restartCount": 0,
+            "running": false,
+            "scheduled": false,
+            "selectedCardId": null,
+            "sessionTick": 0,
+            "terminal": false,
+            "terminalPresentationRunning": false,
+            "terminalPresentationTick": 0
+          },
+          "stepEventCount": 1,
+          "stepTick": 1,
+          "tickIsNumeric": true,
+          "wasRunning": true
+        },
+        "deployment": {
+          "deliveries": [
+            {
+              "admission": {
+                "accepted": true,
+                "commandId": 1,
+                "tick": 0,
+                "type": "player-command-admitted"
+              },
+              "command": {
+                "cardId": "briar-band",
+                "commandId": 1,
+                "point": {
+                  "x": 9000,
+                  "y": 14709
+                },
+                "slot": 1,
+                "tick": 0,
+                "type": "deploy"
+              }
+            }
+          ],
+          "elixirSouth": {
+            "accumulator": 0,
+            "amount": 10
+          },
+          "hand": [
+            "brassbolt",
+            "briar-band",
+            "reedsting",
+            "copperskiff"
+          ],
+          "selectedCardId": null,
+          "sessionTick": 0,
+          "trustedPointers": [
+            {
+              "cardId": "briar-band",
+              "isTrusted": true,
+              "type": "pointerup",
+              "ui": "card-slot"
+            },
+            {
+              "cardId": null,
+              "isTrusted": true,
+              "type": "pointerup",
+              "ui": "arena"
+            }
+          ],
+          "units": []
+        },
+        "firstStepEvents": [
+          {
+            "deployment": {
+              "cardId": "briar-band",
+              "entityIds": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ],
+              "point": {
+                "x": 9000,
+                "y": 14709
+              },
+              "sequence": 0,
+              "side": "south",
+              "tick": 0,
+              "type": "deployed"
+            },
+            "side": "south",
+            "spend": {
+              "accepted": true,
+              "amountAfter": 7,
+              "cost": 3,
+              "reason": "accepted",
+              "sequence": 0,
+              "side": "south",
+              "tick": 0,
+              "type": "spend"
+            },
+            "tick": 0,
+            "type": "session-deployed"
+          },
+          {
+            "deployment": {
+              "cardId": "cinderlings",
+              "entityIds": [
+                7,
+                8,
+                9
+              ],
+              "point": {
+                "x": 3500,
+                "y": 17500
+              },
+              "sequence": 1,
+              "side": "north",
+              "tick": 0,
+              "type": "deployed"
+            },
+            "side": "north",
+            "spend": {
+              "accepted": true,
+              "amountAfter": 9,
+              "cost": 1,
+              "reason": "accepted",
+              "sequence": 1,
+              "side": "north",
+              "tick": 0,
+              "type": "spend"
+            },
+            "tick": 0,
+            "type": "session-deployed"
+          }
+        ],
+        "markerCountBeforeStep": 0,
+        "portraitCount": 21,
+        "postAttackState": {
+          "bridgeDeliveries": [
+            {
+              "admission": {
+                "accepted": true,
+                "commandId": 1,
+                "tick": 0,
+                "type": "player-command-admitted"
+              },
+              "command": {
+                "cardId": "briar-band",
+                "commandId": 1,
+                "point": {
+                  "x": 9000,
+                  "y": 14709
+                },
+                "slot": 1,
+                "tick": 0,
+                "type": "deploy"
+              }
+            }
+          ],
+          "elixirSouth": {
+            "accumulator": 3,
+            "amount": 8
+          },
+          "hand": [
+            "brassbolt",
+            "cinderlings",
+            "reedsting",
+            "copperskiff"
+          ],
+          "sessionTick": 171,
+          "units": [
+            {
+              "archetypeId": "briar-runner",
+              "id": 1,
+              "side": "south"
+            },
+            {
+              "archetypeId": "briar-runner",
+              "id": 2,
+              "side": "south"
+            },
+            {
+              "archetypeId": "briar-runner",
+              "id": 3,
+              "side": "south"
+            },
+            {
+              "archetypeId": "briar-darter",
+              "id": 4,
+              "side": "south"
+            },
+            {
+              "archetypeId": "briar-darter",
+              "id": 5,
+              "side": "south"
+            },
+            {
+              "archetypeId": "briar-darter",
+              "id": 6,
+              "side": "south"
+            },
+            {
+              "archetypeId": "cinderling",
+              "id": 7,
+              "side": "north"
+            },
+            {
+              "archetypeId": "cinderling",
+              "id": 8,
+              "side": "north"
+            },
+            {
+              "archetypeId": "cinderling",
+              "id": 9,
+              "side": "north"
+            },
+            {
+              "archetypeId": "briar-runner",
+              "id": 10,
+              "side": "north"
+            },
+            {
+              "archetypeId": "briar-runner",
+              "id": 11,
+              "side": "north"
+            },
+            {
+              "archetypeId": "briar-runner",
+              "id": 12,
+              "side": "north"
+            },
+            {
+              "archetypeId": "briar-darter",
+              "id": 13,
+              "side": "north"
+            },
+            {
+              "archetypeId": "briar-darter",
+              "id": 14,
+              "side": "north"
+            },
+            {
+              "archetypeId": "briar-darter",
+              "id": 15,
+              "side": "north"
+            },
+            {
+              "archetypeId": "brassbolt",
+              "id": 16,
+              "side": "north"
+            }
+          ]
+        },
+        "preInteraction": {
+          "bridgeDeliveries": [],
+          "browserState": {
+            "active": true,
+            "backlogTicks": 0,
+            "domTick": 0,
+            "enduranceActive": false,
+            "paused": false,
+            "restartCount": 0,
+            "running": false,
+            "scheduled": false,
+            "selectedCardId": null,
+            "sessionTick": 0,
+            "terminal": false,
+            "terminalPresentationRunning": false,
+            "terminalPresentationTick": 0
+          },
+          "elixirSouth": {
+            "accumulator": 0,
+            "amount": 10
+          },
+          "hand": [
+            "brassbolt",
+            "briar-band",
+            "reedsting",
+            "copperskiff"
+          ],
+          "sessionTick": 0,
+          "units": []
+        },
+        "rl": {
+          "exports": [
+            "RLEnvironment",
+            "RL_ACTION_COUNT",
+            "RL_DEFAULT_HORIZON_TICKS",
+            "RL_DEFAULT_STRIDE_TICKS",
+            "RL_ENVIRONMENT_VERSION",
+            "createRLEnvironment"
+          ],
+          "initialTick": 0,
+          "moduleUrl": "http://127.0.0.1:58914/clash-royale-clone/game/src/rl/environment.js",
+          "resetTick": 0,
+          "restoredMatches": true,
+          "restoredTick": 1,
+          "serializedBytes": 47555,
+          "stepStatus": "running",
+          "stepTick": 1,
+          "terminated": false,
+          "truncated": false
+        },
+        "screenshots": {
+          "battle": {
+            "bytes": 323049,
+            "height": 844,
+            "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v9/phone-battle.png",
+            "sha256": "7c4bee6c34cc1041b2b9c08696fcd943f7ef7c4408922edb46618b3f898b2026",
+            "width": 390
+          },
+          "battleAfterBriarDeployment": {
+            "bytes": 326980,
+            "height": 844,
+            "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v9/phone-battle-briar.png",
+            "sha256": "119973e955f4593b9ea6a2050d965b79fcfbaf42f7f78a58b484bb763bc95b3c",
+            "width": 390
+          },
+          "cards": {
+            "bytes": 307083,
+            "height": 844,
+            "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v9/phone-cards.png",
+            "sha256": "99ce42430b9e3c54218202ad1f2ae88517c109e29d0d8a6f86c44b111565d924",
+            "width": 390
+          },
+          "cardsFull": {
+            "bytes": 897936,
+            "height": 2506,
+            "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v9/phone-cards-full.png",
+            "sha256": "9359679aeaf78b78e15f575123064268ddbc19b36187ce071c33f7ab1655fc87",
+            "width": 390
+          },
+          "gameHome": {
+            "bytes": 230730,
+            "height": 844,
+            "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v9/phone-game-home.png",
+            "sha256": "9532890c9ed1261130404e9b2e0c814027f4ea2a5c79a9ef492b59fa9e7d6e49",
+            "width": 390
+          },
+          "landing": {
+            "bytes": 89830,
+            "height": 844,
+            "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v9/phone-landing.png",
+            "sha256": "0a7ce5917e8079b525ef7631f66b10a80ac5d9ed952162928111cff06db6e363",
+            "width": 390
+          }
+        },
+        "viewport": {
+          "height": 844,
+          "width": 390
+        }
+      },
+      {
+        "actualAttack": {
+          "attack": {
+            "attackerId": 1,
+            "sequence": 1,
+            "tick": 170,
+            "type": "attack"
+          },
+          "frame": {
+            "action": "attack",
+            "animationAge": 1,
+            "sourceClass": "melee",
+            "sourceId": 1,
+            "sourceSequence": 1,
+            "sourceTick": 170,
+            "tick": 171
+          },
+          "sessionTick": 171,
+          "source": {
+            "alive": true,
+            "archetypeId": "briar-runner",
+            "id": 1,
+            "side": "south"
+          }
+        },
+        "afterCardSelection": {
+          "selectedCardId": "briar-band",
+          "trustedPointers": [
+            {
+              "cardId": "briar-band",
+              "isTrusted": true,
+              "type": "pointerup",
+              "ui": "card-slot"
+            }
+          ]
+        },
+        "afterFirstStep": {
+          "bridgeDeliveries": [
+            {
+              "admission": {
+                "accepted": true,
+                "commandId": 1,
+                "tick": 0,
+                "type": "player-command-admitted"
+              },
+              "command": {
+                "cardId": "briar-band",
+                "commandId": 1,
+                "point": {
+                  "x": 8999,
+                  "y": 14709
+                },
+                "slot": 1,
+                "tick": 0,
+                "type": "deploy"
+              }
+            }
+          ],
+          "elixirSouth": {
+            "accumulator": 1,
+            "amount": 7
+          },
+          "hand": [
+            "brassbolt",
+            "cinderlings",
+            "reedsting",
+            "copperskiff"
+          ],
+          "selectedCardId": null,
+          "sessionTick": 1,
+          "units": [
+            {
+              "archetypeId": "briar-runner",
+              "id": 1,
+              "side": "south"
+            },
+            {
+              "archetypeId": "cinderling",
+              "id": 7,
+              "side": "north"
+            },
+            {
+              "archetypeId": "cinderling",
+              "id": 8,
+              "side": "north"
+            },
+            {
+              "archetypeId": "cinderling",
+              "id": 9,
+              "side": "north"
+            }
+          ]
+        },
+        "allPortraitsDecoded": true,
+        "arenaDecode": {
+          "complete": true,
+          "id": "moss-ember-arena-painted",
+          "naturalHeight": 1672,
+          "naturalWidth": 941,
+          "path": "/clash-royale-clone/game/public/assets/moss-ember-arena-painted.webp",
+          "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/moss-ember-arena-painted.webp"
+        },
+        "briarDecode": [
+          {
+            "complete": true,
+            "id": "briar-runner-painted-sheet",
+            "naturalHeight": 1254,
+            "naturalWidth": 1254,
+            "path": "/clash-royale-clone/game/public/assets/briar-runner-painted-sheet.png",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/briar-runner-painted-sheet.png"
+          },
+          {
+            "complete": true,
+            "id": "briar-runner-sprite-sheet",
+            "naturalHeight": 150,
+            "naturalWidth": 221,
+            "path": "/clash-royale-clone/game/public/assets/briar-runner-sprite-sheet.svg",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/briar-runner-sprite-sheet.svg"
+          }
+        ],
+        "briarMarkers": [
+          {
+            "artId": "briar-runner",
+            "href": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/briar-runner-painted-sheet.png",
+            "kind": "briar-runner",
+            "spriteAction": "attack",
+            "visible": true
+          },
+          {
+            "artId": "briar-runner",
+            "href": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/briar-runner-painted-sheet.png",
+            "kind": "briar-runner",
+            "spriteAction": "walk",
+            "visible": true
+          },
+          {
+            "artId": "briar-runner",
+            "href": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/briar-runner-painted-sheet.png",
+            "kind": "briar-runner",
+            "spriteAction": "walk",
+            "visible": true
+          },
+          {
+            "artId": "briar-runner",
+            "href": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/briar-runner-painted-sheet.png",
+            "kind": "briar-runner",
+            "spriteAction": "walk",
+            "visible": true
+          },
+          {
+            "artId": "briar-runner",
+            "href": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/briar-runner-painted-sheet.png",
+            "kind": "briar-runner",
+            "spriteAction": "walk",
+            "visible": true
+          },
+          {
+            "artId": "briar-runner",
+            "href": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/briar-runner-painted-sheet.png",
+            "kind": "briar-runner",
+            "spriteAction": "walk",
+            "visible": true
+          }
+        ],
+        "cards": [
+          {
+            "cardId": "coilblade",
+            "cell": "0",
+            "decoded": true,
+            "naturalSize": [
+              1774,
+              887
+            ],
+            "path": "/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "window": {
+              "bottom": 479.8828125,
+              "height": 258.140625,
+              "right": 331.1328125,
+              "width": 258.140625,
+              "x": 72.9921875,
+              "y": 221.7421875
+            }
+          },
+          {
+            "cardId": "mossguard",
+            "cell": "1",
+            "decoded": true,
+            "naturalSize": [
+              1774,
+              887
+            ],
+            "path": "/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "window": {
+              "bottom": 479.890625,
+              "height": 258.15625,
+              "right": 602.296875,
+              "width": 258.15625,
+              "x": 344.140625,
+              "y": 221.734375
+            }
+          },
+          {
+            "cardId": "copperskiff",
+            "cell": "2",
+            "decoded": true,
+            "naturalSize": [
+              1774,
+              887
+            ],
+            "path": "/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "window": {
+              "bottom": 479.8828125,
+              "height": 258.140625,
+              "right": 873.4296875,
+              "width": 258.140625,
+              "x": 615.2890625,
+              "y": 221.7421875
+            }
+          },
+          {
+            "cardId": "skymaul",
+            "cell": "3",
+            "decoded": true,
+            "naturalSize": [
+              1774,
+              887
+            ],
+            "path": "/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "window": {
+              "bottom": 664.8828125,
+              "height": 258.140625,
+              "right": 331.1328125,
+              "width": 258.140625,
+              "x": 72.9921875,
+              "y": 406.7421875
+            }
+          },
+          {
+            "cardId": "brassbolt",
+            "cell": "4",
+            "decoded": true,
+            "naturalSize": [
+              1774,
+              887
+            ],
+            "path": "/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "window": {
+              "bottom": 664.890625,
+              "height": 258.15625,
+              "right": 602.296875,
+              "width": 258.15625,
+              "x": 344.140625,
+              "y": 406.734375
+            }
+          },
+          {
+            "cardId": "reedsting",
+            "cell": "5",
+            "decoded": true,
+            "naturalSize": [
+              1774,
+              887
+            ],
+            "path": "/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "window": {
+              "bottom": 664.8828125,
+              "height": 258.140625,
+              "right": 873.4296875,
+              "width": 258.140625,
+              "x": 615.2890625,
+              "y": 406.7421875
+            }
+          },
+          {
+            "cardId": "briar-band",
+            "cell": "6",
+            "decoded": true,
+            "naturalSize": [
+              1774,
+              887
+            ],
+            "path": "/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "window": {
+              "bottom": 849.8828125,
+              "height": 258.140625,
+              "right": 331.1328125,
+              "width": 258.140625,
+              "x": 72.9921875,
+              "y": 591.7421875
+            }
+          },
+          {
+            "cardId": "cinderlings",
+            "cell": "7",
+            "decoded": true,
+            "naturalSize": [
+              1774,
+              887
+            ],
+            "path": "/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+            "window": {
+              "bottom": 849.890625,
+              "height": 258.15625,
+              "right": 602.296875,
+              "width": 258.15625,
+              "x": 344.140625,
+              "y": 591.734375
+            }
+          },
+          {
+            "cardId": "stonehauler",
+            "cell": null,
+            "decoded": true,
+            "naturalSize": [
+              1254,
+              1254
+            ],
+            "path": "/clash-royale-clone/game/public/assets/stonehauler-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/stonehauler-painted.webp",
+            "window": {
+              "bottom": 849.8828125,
+              "height": 258.140625,
+              "right": 873.4296875,
+              "width": 258.140625,
+              "x": 615.2890625,
+              "y": 591.7421875
+            }
+          },
+          {
+            "cardId": "thornscouts",
+            "cell": null,
+            "decoded": true,
+            "naturalSize": [
+              1254,
+              1254
+            ],
+            "path": "/clash-royale-clone/game/public/assets/thornscouts-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/thornscouts-painted.webp",
+            "window": {
+              "bottom": 1034.8828125,
+              "height": 258.140625,
+              "right": 331.1328125,
+              "width": 258.140625,
+              "x": 72.9921875,
+              "y": 776.7421875
+            }
+          },
+          {
+            "cardId": "forgeguard",
+            "cell": null,
+            "decoded": true,
+            "naturalSize": [
+              1254,
+              1254
+            ],
+            "path": "/clash-royale-clone/game/public/assets/forgeguard-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/forgeguard-painted.webp",
+            "window": {
+              "bottom": 1034.890625,
+              "height": 258.15625,
+              "right": 602.296875,
+              "width": 258.15625,
+              "x": 344.140625,
+              "y": 776.734375
+            }
+          },
+          {
+            "cardId": "cinder-host",
+            "cell": null,
+            "decoded": true,
+            "naturalSize": [
+              512,
+              512
+            ],
+            "path": "/clash-royale-clone/game/public/assets/cinder-host-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/cinder-host-painted.webp",
+            "window": {
+              "bottom": 1034.8828125,
+              "height": 258.140625,
+              "right": 873.4296875,
+              "width": 258.140625,
+              "x": 615.2890625,
+              "y": 776.7421875
+            }
+          },
+          {
+            "cardId": "ironroot",
+            "cell": null,
+            "decoded": true,
+            "naturalSize": [
+              512,
+              512
+            ],
+            "path": "/clash-royale-clone/game/public/assets/ironroot-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/ironroot-painted.webp",
+            "window": {
+              "bottom": 1219.8828125,
+              "height": 258.140625,
+              "right": 331.1328125,
+              "width": 258.140625,
+              "x": 72.9921875,
+              "y": 961.7421875
+            }
+          },
+          {
+            "cardId": "sunthread-pair",
+            "cell": null,
+            "decoded": true,
+            "naturalSize": [
+              512,
+              512
+            ],
+            "path": "/clash-royale-clone/game/public/assets/sunthread-pair-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/sunthread-pair-painted.webp",
+            "window": {
+              "bottom": 1219.890625,
+              "height": 258.15625,
+              "right": 602.296875,
+              "width": 258.15625,
+              "x": 344.140625,
+              "y": 961.734375
+            }
+          },
+          {
+            "cardId": "duskwing-trio",
+            "cell": null,
+            "decoded": true,
+            "naturalSize": [
+              512,
+              512
+            ],
+            "path": "/clash-royale-clone/game/public/assets/duskwing-trio-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/duskwing-trio-painted.webp",
+            "window": {
+              "bottom": 1219.8828125,
+              "height": 258.140625,
+              "right": 873.4296875,
+              "width": 258.140625,
+              "x": 615.2890625,
+              "y": 961.7421875
+            }
+          },
+          {
+            "cardId": "gloamwing-cluster",
+            "cell": null,
+            "decoded": true,
+            "naturalSize": [
+              512,
+              512
+            ],
+            "path": "/clash-royale-clone/game/public/assets/gloamwing-cluster-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/gloamwing-cluster-painted.webp",
+            "window": {
+              "bottom": 1404.8828125,
+              "height": 258.140625,
+              "right": 331.1328125,
+              "width": 258.140625,
+              "x": 72.9921875,
+              "y": 1146.7421875
+            }
+          },
+          {
+            "cardId": "coppershade-flock",
+            "cell": null,
+            "decoded": true,
+            "naturalSize": [
+              512,
+              512
+            ],
+            "path": "/clash-royale-clone/game/public/assets/coppershade-flock-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/coppershade-flock-painted.webp",
+            "window": {
+              "bottom": 1404.890625,
+              "height": 258.15625,
+              "right": 602.296875,
+              "width": 258.15625,
+              "x": 344.140625,
+              "y": 1146.734375
+            }
+          },
+          {
+            "cardId": "kilnkeeper",
+            "cell": null,
+            "decoded": true,
+            "naturalSize": [
+              512,
+              512
+            ],
+            "path": "/clash-royale-clone/game/public/assets/kilnkeeper-portrait-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/kilnkeeper-portrait-painted.webp",
+            "window": {
+              "bottom": 1404.8828125,
+              "height": 258.140625,
+              "right": 873.4296875,
+              "width": 258.140625,
+              "x": 615.2890625,
+              "y": 1146.7421875
+            }
+          },
+          {
+            "cardId": "squall-orb",
+            "cell": null,
+            "decoded": true,
+            "naturalSize": [
+              512,
+              512
+            ],
+            "path": "/clash-royale-clone/game/public/assets/squall-orb-painted.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/squall-orb-painted.webp",
+            "window": {
+              "bottom": 1589.8828125,
+              "height": 258.140625,
+              "right": 331.1328125,
+              "width": 258.140625,
+              "x": 72.9921875,
+              "y": 1331.7421875
+            }
+          },
+          {
+            "cardId": "ember-basin",
+            "cell": null,
+            "decoded": true,
+            "naturalSize": [
+              512,
+              512
+            ],
+            "path": "/clash-royale-clone/game/public/assets/ember-basin-portrait-painted-v2.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/ember-basin-portrait-painted-v2.webp",
+            "window": {
+              "bottom": 1589.890625,
+              "height": 258.15625,
+              "right": 602.296875,
+              "width": 258.15625,
+              "x": 344.140625,
+              "y": 1331.734375
+            }
+          },
+          {
+            "cardId": "buried-coil",
+            "cell": null,
+            "decoded": true,
+            "naturalSize": [
+              512,
+              512
+            ],
+            "path": "/clash-royale-clone/game/public/assets/buried-coil-portrait.webp",
+            "src": "http://127.0.0.1:58914/clash-royale-clone/game/public/assets/buried-coil-portrait.webp",
+            "window": {
+              "bottom": 1589.8828125,
+              "height": 258.140625,
+              "right": 873.4296875,
+              "width": 258.140625,
+              "x": 615.2890625,
+              "y": 1331.7421875
+            }
+          }
+        ],
+        "controller": {
+          "attachedArena": true,
+          "deck": [
+            "skymaul",
+            "brassbolt",
+            "reedsting",
+            "briar-band",
+            "cinderlings",
+            "coilblade",
+            "mossguard",
+            "copperskiff"
+          ],
+          "enteredManualStep": true,
+          "exports": [
+            "arenaHudController",
+            "createArenaHudController",
+            "createArenaSessionInjectionCapability",
+            "createInitialArenaHudSystems",
+            "mountArenaShellWithHud"
+          ],
+          "hasControllerApi": true,
+          "initialTick": 0,
+          "restoreState": {
+            "active": true,
+            "backlogTicks": 0,
+            "domTick": 0,
+            "enduranceActive": false,
+            "paused": false,
+            "running": false,
+            "scheduled": false,
+            "selectedCardId": null,
+            "sessionTick": 0,
+            "terminal": false,
+            "terminalPresentationRunning": false,
+            "terminalPresentationTick": 0
+          },
+          "restoredExactly": true,
+          "restoredTick": 0,
+          "resumed": true,
+          "status": {
+            "active": true,
+            "backlogTicks": 0,
+            "domTick": 0,
+            "enduranceActive": false,
+            "paused": false,
+            "restartCount": 0,
+            "running": false,
+            "scheduled": false,
+            "selectedCardId": null,
+            "sessionTick": 0,
+            "terminal": false,
+            "terminalPresentationRunning": false,
+            "terminalPresentationTick": 0
+          },
+          "stepEventCount": 1,
+          "stepTick": 1,
+          "tickIsNumeric": true,
+          "wasRunning": true
+        },
+        "deployment": {
+          "deliveries": [
+            {
+              "admission": {
+                "accepted": true,
+                "commandId": 1,
+                "tick": 0,
+                "type": "player-command-admitted"
+              },
+              "command": {
+                "cardId": "briar-band",
+                "commandId": 1,
+                "point": {
+                  "x": 8999,
+                  "y": 14709
+                },
+                "slot": 1,
+                "tick": 0,
+                "type": "deploy"
+              }
+            }
+          ],
+          "elixirSouth": {
+            "accumulator": 0,
+            "amount": 10
+          },
+          "hand": [
+            "brassbolt",
+            "briar-band",
+            "reedsting",
+            "copperskiff"
+          ],
+          "selectedCardId": null,
+          "sessionTick": 0,
+          "trustedPointers": [
+            {
+              "cardId": "briar-band",
+              "isTrusted": true,
+              "type": "pointerup",
+              "ui": "card-slot"
+            },
+            {
+              "cardId": null,
+              "isTrusted": true,
+              "type": "pointerup",
+              "ui": "arena"
+            }
+          ],
+          "units": []
+        },
+        "firstStepEvents": [
+          {
+            "deployment": {
+              "cardId": "briar-band",
+              "entityIds": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ],
+              "point": {
+                "x": 8999,
+                "y": 14709
+              },
+              "sequence": 0,
+              "side": "south",
+              "tick": 0,
+              "type": "deployed"
+            },
+            "side": "south",
+            "spend": {
+              "accepted": true,
+              "amountAfter": 7,
+              "cost": 3,
+              "reason": "accepted",
+              "sequence": 0,
+              "side": "south",
+              "tick": 0,
+              "type": "spend"
+            },
+            "tick": 0,
+            "type": "session-deployed"
+          },
+          {
+            "deployment": {
+              "cardId": "cinderlings",
+              "entityIds": [
+                7,
+                8,
+                9
+              ],
+              "point": {
+                "x": 3500,
+                "y": 17500
+              },
+              "sequence": 1,
+              "side": "north",
+              "tick": 0,
+              "type": "deployed"
+            },
+            "side": "north",
+            "spend": {
+              "accepted": true,
+              "amountAfter": 9,
+              "cost": 1,
+              "reason": "accepted",
+              "sequence": 1,
+              "side": "north",
+              "tick": 0,
+              "type": "spend"
+            },
+            "tick": 0,
+            "type": "session-deployed"
+          }
+        ],
+        "markerCountBeforeStep": 0,
+        "portraitCount": 21,
+        "postAttackState": {
+          "bridgeDeliveries": [
+            {
+              "admission": {
+                "accepted": true,
+                "commandId": 1,
+                "tick": 0,
+                "type": "player-command-admitted"
+              },
+              "command": {
+                "cardId": "briar-band",
+                "commandId": 1,
+                "point": {
+                  "x": 8999,
+                  "y": 14709
+                },
+                "slot": 1,
+                "tick": 0,
+                "type": "deploy"
+              }
+            }
+          ],
+          "elixirSouth": {
+            "accumulator": 3,
+            "amount": 8
+          },
+          "hand": [
+            "brassbolt",
+            "cinderlings",
+            "reedsting",
+            "copperskiff"
+          ],
+          "sessionTick": 171,
+          "units": [
+            {
+              "archetypeId": "briar-runner",
+              "id": 1,
+              "side": "south"
+            },
+            {
+              "archetypeId": "briar-runner",
+              "id": 2,
+              "side": "south"
+            },
+            {
+              "archetypeId": "briar-runner",
+              "id": 3,
+              "side": "south"
+            },
+            {
+              "archetypeId": "briar-darter",
+              "id": 4,
+              "side": "south"
+            },
+            {
+              "archetypeId": "briar-darter",
+              "id": 5,
+              "side": "south"
+            },
+            {
+              "archetypeId": "briar-darter",
+              "id": 6,
+              "side": "south"
+            },
+            {
+              "archetypeId": "cinderling",
+              "id": 7,
+              "side": "north"
+            },
+            {
+              "archetypeId": "cinderling",
+              "id": 8,
+              "side": "north"
+            },
+            {
+              "archetypeId": "cinderling",
+              "id": 9,
+              "side": "north"
+            },
+            {
+              "archetypeId": "briar-runner",
+              "id": 10,
+              "side": "north"
+            },
+            {
+              "archetypeId": "briar-runner",
+              "id": 11,
+              "side": "north"
+            },
+            {
+              "archetypeId": "briar-runner",
+              "id": 12,
+              "side": "north"
+            },
+            {
+              "archetypeId": "briar-darter",
+              "id": 13,
+              "side": "north"
+            },
+            {
+              "archetypeId": "briar-darter",
+              "id": 14,
+              "side": "north"
+            },
+            {
+              "archetypeId": "briar-darter",
+              "id": 15,
+              "side": "north"
+            },
+            {
+              "archetypeId": "brassbolt",
+              "id": 16,
+              "side": "north"
+            }
+          ]
+        },
+        "preInteraction": {
+          "bridgeDeliveries": [],
+          "browserState": {
+            "active": true,
+            "backlogTicks": 0,
+            "domTick": 0,
+            "enduranceActive": false,
+            "paused": false,
+            "restartCount": 0,
+            "running": false,
+            "scheduled": false,
+            "selectedCardId": null,
+            "sessionTick": 0,
+            "terminal": false,
+            "terminalPresentationRunning": false,
+            "terminalPresentationTick": 0
+          },
+          "elixirSouth": {
+            "accumulator": 0,
+            "amount": 10
+          },
+          "hand": [
+            "brassbolt",
+            "briar-band",
+            "reedsting",
+            "copperskiff"
+          ],
+          "sessionTick": 0,
+          "units": []
+        },
+        "rl": {
+          "exports": [
+            "RLEnvironment",
+            "RL_ACTION_COUNT",
+            "RL_DEFAULT_HORIZON_TICKS",
+            "RL_DEFAULT_STRIDE_TICKS",
+            "RL_ENVIRONMENT_VERSION",
+            "createRLEnvironment"
+          ],
+          "initialTick": 0,
+          "moduleUrl": "http://127.0.0.1:58914/clash-royale-clone/game/src/rl/environment.js",
+          "resetTick": 0,
+          "restoredMatches": true,
+          "restoredTick": 1,
+          "serializedBytes": 47555,
+          "stepStatus": "running",
+          "stepTick": 1,
+          "terminated": false,
+          "truncated": false
+        },
+        "screenshots": {
+          "battle": {
+            "bytes": 439559,
+            "height": 933,
+            "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v9/desktop-battle.png",
+            "sha256": "285cf6135c46c09c3e0a7b5a6dbb58a2e2e3389d19334247c316f4356547b183",
+            "width": 1440
+          },
+          "battleAfterBriarDeployment": {
+            "bytes": 443447,
+            "height": 933,
+            "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v9/desktop-battle-briar.png",
+            "sha256": "aba9fbeb67f5d00f1297caa90f3905a970c8bd20f322e2a228611893d5b015b6",
+            "width": 1440
+          },
+          "cards": {
+            "bytes": 883449,
+            "height": 933,
+            "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v9/desktop-cards.png",
+            "sha256": "85cd083e3048e8a4fb967f634f76af74b27d26b88c32f838df79f760f17753ad",
+            "width": 1440
+          },
+          "cardsFull": {
+            "bytes": 1624868,
+            "height": 1625,
+            "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v9/desktop-cards-full.png",
+            "sha256": "ab895a80e937fa04591b988f064fc21f77fdc23cfaadd5a3d8d1ff3ac461e83d",
+            "width": 1440
+          },
+          "gameHome": {
+            "bytes": 479721,
+            "height": 933,
+            "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v9/desktop-game-home.png",
+            "sha256": "6f10d6dce76951d292c750cc7986b88be55a163f98ff74729894df1fe1c336ef",
+            "width": 1440
+          },
+          "landing": {
+            "bytes": 404931,
+            "height": 933,
+            "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v9/desktop-landing.png",
+            "sha256": "4d0b37c96ae2424bfa16d048b5de0dbdf7225eb9bc2d3381a6c75efcd780b816",
+            "width": 1440
+          }
+        },
+        "viewport": {
+          "height": 933,
+          "width": 1440
+        }
+      }
+    ]
+  },
+  "rawRunRoot": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs",
+  "runtime": {
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome --version": "Google Chrome 155.0.8059.40",
+    "node --version": "v22.22.3",
+    "node -p require('./node_modules/playwright/package.json').version": "1.58.2",
+    "npm --version": "10.9.8"
+  },
+  "scope": "Independent RELEASE-GUARD-001 candidate review for frozen candidate 46c542a10df358902fa1147e6d2b7ad04ea80d57 only; this is not a full repository, full-109, full-18,000 journey, or historical parity claim.",
+  "verdict": "PASS"
+}

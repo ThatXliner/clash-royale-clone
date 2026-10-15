@@ -1,0 +1,52 @@
+{
+  "acceptedBaseline": "763e39465fd584ffa4618ea220fbdb3a99fec40c",
+  "candidate": "46c542a10df358902fa1147e6d2b7ad04ea80d57",
+  "cleanFinalStatus": true,
+  "directParent": "033f1107b22b39f3079670a33a660fba81b95f75",
+  "expectedCandidate": "46c542a10df358902fa1147e6d2b7ad04ea80d57",
+  "expectedDirectParent": "033f1107b22b39f3079670a33a660fba81b95f75",
+  "finalStatusEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/status-final-immutable.raw",
+  "full109OrHistoricalParityClaim": false,
+  "full18000Rerun": false,
+  "kernel": {
+    "bytes": 523788,
+    "maxBytes": 524288,
+    "sha256": "115c43146f5818c69a98120e856ddaa5d20243fced3609320d90edc7ae933bea"
+  },
+  "packageLock": {
+    "bytes": 26592,
+    "sha256": "d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4"
+  },
+  "parentDelta": [
+    "M\ttests/game-spell-runtime.test.js"
+  ],
+  "parentDeltaAuthorized": true,
+  "planRowAtExactParent": "| RELEASE-GUARD-001 | Preserve source and asset guard admission | Current simulation graph passes the unchanged bounded nondeterminism analyzer and shipping-isolation guard; radius spell extraction preserves all effects and legacy bytes, sprite URLs resolve to original registered assets in source and packaged renders; independent tests, assembled Pages qualification and full endurance retention | GAME-SPELL-001, ART-005S, GAME-001GPR | BUILDING | 29/29 | 1 | Current6dc guards23, Pages5 and shortjourney1 pass with canonical assets and retained146 full endurance. Earlier restore/path failures are resolved for this scope; separately reproduced production release/host isolation failures remain under RELEASE-TEST001 diagnosis before broad release qualification. |",
+  "productionPublicPackageLockDeltaFromAcceptedBaseline": [],
+  "productionPublicPackagesLockMatchAcceptedBaseline": true,
+  "qualifyingEnduranceAudioRunnerHarnessDeltaFromAcceptedBaseline": [],
+  "qualifyingEnduranceAudioRunnerHarnessTrackedPathCount": 156,
+  "qualifyingHarnessesMatchAcceptedBaseline": true,
+  "retainedRound481ProofEligibility": "Exact production/public/package/lock plus 156 selected endurance/audio/harness/runner paths match the accepted 763 baseline; retained proof is used only on that byte-identity basis. No full 18,000-journey run was performed.",
+  "scriptsChangedFromAcceptedBaseline": [],
+  "sourceConfidenceAuthorityLines": [
+    "periodic-spell questions but do not establish complete timing/refresh/pull",
+    "composition. Existing common-schema confidence flags remain unchanged.",
+    "conflicts with the generic QUESTION fixtures. These facts do not certify"
+  ],
+  "spellRuntimeDeltaReview": "The only candidate edit adds sourceConfidencePolicy.fields[].questionKey to the relevant question-record collection in two test setup helpers. No spell runtime assertion/test was deleted, skipped, softened, or waived; `npm run test:game-spell-runtime` ran and passed 15 cases. Low-confidence periodic/status mechanics remain QUESTION in reference/stats/SOURCES.md and linked supplements.",
+  "testsChangedFromAcceptedBaseline": [
+    "M\ttests/game-spell-runtime.test.js"
+  ],
+  "trackedBeforeAfter": {
+    "changedTrackedPaths": [],
+    "equal": true,
+    "finalCount": 7250,
+    "finalHead": "46c542a10df358902fa1147e6d2b7ad04ea80d57",
+    "finalMissingTracked": [],
+    "finalTrackedBytes": 1348943342,
+    "initialCount": 7250,
+    "initialHead": "46c542a10df358902fa1147e6d2b7ad04ea80d57",
+    "initialTrackedBytes": 1348943342
+  }
+}

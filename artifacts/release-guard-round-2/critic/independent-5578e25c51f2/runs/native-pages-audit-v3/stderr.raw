@@ -1,0 +1,23 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: phone live arena background differs from registered asset path
++ actual - expected
+
++ '/clash-royale-clone/game/public/assets/moss-ember-arena-painted.webp'
+- '/clash-royale-clone/game/assets/moss-ember-arena-painted.webp'
+
+    at file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/native-pages-audit.mjs:288:12
+    at runNextTicks (node:internal/process/task_queues:64:5)
+    at process.processImmediate (node:internal/timers:452:9)
+    at process.callbackTrampoline (node:internal/async_hooks:130:17) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: '/clash-royale-clone/game/public/assets/moss-ember-arena-painted.webp',
+  expected: '/clash-royale-clone/game/assets/moss-ember-arena-painted.webp',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.22.3

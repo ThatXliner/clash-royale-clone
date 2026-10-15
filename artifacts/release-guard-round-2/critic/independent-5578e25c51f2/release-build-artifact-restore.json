@@ -1,0 +1,80 @@
+{
+  "captured_utc": "2026-10-14T18:32:10.265569+00:00",
+  "likely_origin": "npm run test:release-build ran tests/release-001b.test.js, which writes this fixed artifact set",
+  "generated_and_baseline": [
+    {
+      "path": "artifacts/release-001b-round-2/evidence.json",
+      "initial_sha256": "c421ca748d35de98a2ec1cdb8a576e355091c89fb7e2c3655ad9249d3154d9c8",
+      "head_sha256": "c421ca748d35de98a2ec1cdb8a576e355091c89fb7e2c3655ad9249d3154d9c8",
+      "generated_sha256": "5c470c0507a49f003ba5183129c5fd75929f2223e741e1e24079c78efb02aeba",
+      "generated_bytes": 33366,
+      "generated_copy": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/release-build-test/evidence.json",
+      "baseline_copy": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/pretest-artifact-backups/artifacts/release-001b-round-2/evidence.json"
+    },
+    {
+      "path": "artifacts/release-001b-round-2/external-base-producer-rejection.json",
+      "initial_sha256": "6fa0fd3faa63eadd32775de8c94514d12d6d776cff1b2d049a397c38d37558dc",
+      "head_sha256": "6fa0fd3faa63eadd32775de8c94514d12d6d776cff1b2d049a397c38d37558dc",
+      "generated_sha256": "c5359123af7b9bb082d4fdfab4cfd7066527c7a98192efdbfcde64997b806591",
+      "generated_bytes": 485,
+      "generated_copy": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/release-build-test/external-base-producer-rejection.json",
+      "baseline_copy": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/pretest-artifact-backups/artifacts/release-001b-round-2/external-base-producer-rejection.json"
+    },
+    {
+      "path": "artifacts/release-001b-round-2/escaped-css-producer-rejection.json",
+      "initial_sha256": "1493a14bc85b28bc0b5a1a0183b783cc5bea4828ca991642c3d2c323dda23d2f",
+      "head_sha256": "1493a14bc85b28bc0b5a1a0183b783cc5bea4828ca991642c3d2c323dda23d2f",
+      "generated_sha256": "d39eaa8dded4de41f8344b6769474baf6075167f071f1878c34481e041af7797",
+      "generated_bytes": 500,
+      "generated_copy": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/release-build-test/escaped-css-producer-rejection.json",
+      "baseline_copy": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/pretest-artifact-backups/artifacts/release-001b-round-2/escaped-css-producer-rejection.json"
+    },
+    {
+      "path": "artifacts/release-001b-round-2/opaque-srcdoc-producer-rejection.json",
+      "initial_sha256": "c6e2844ac3b4d42e6b7b72b766c81adb91dbe8f7fdeb13a294fb9fa500dc5b4a",
+      "head_sha256": "c6e2844ac3b4d42e6b7b72b766c81adb91dbe8f7fdeb13a294fb9fa500dc5b4a",
+      "generated_sha256": "aa4bfd74f4c3985b95db01b4c27809966fd706532688b1e670a49d4c59d58a42",
+      "generated_bytes": 1333,
+      "generated_copy": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/release-build-test/opaque-srcdoc-producer-rejection.json",
+      "baseline_copy": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/pretest-artifact-backups/artifacts/release-001b-round-2/opaque-srcdoc-producer-rejection.json"
+    }
+  ],
+  "restore": {
+    "argv": [
+      "git",
+      "restore",
+      "--source=HEAD",
+      "--worktree",
+      "--",
+      "artifacts/release-001b-round-2/evidence.json",
+      "artifacts/release-001b-round-2/external-base-producer-rejection.json",
+      "artifacts/release-001b-round-2/escaped-css-producer-rejection.json",
+      "artifacts/release-001b-round-2/opaque-srcdoc-producer-rejection.json"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "restored": [
+    {
+      "path": "artifacts/release-001b-round-2/evidence.json",
+      "sha256": "c421ca748d35de98a2ec1cdb8a576e355091c89fb7e2c3655ad9249d3154d9c8",
+      "matches_initial": true
+    },
+    {
+      "path": "artifacts/release-001b-round-2/external-base-producer-rejection.json",
+      "sha256": "6fa0fd3faa63eadd32775de8c94514d12d6d776cff1b2d049a397c38d37558dc",
+      "matches_initial": true
+    },
+    {
+      "path": "artifacts/release-001b-round-2/escaped-css-producer-rejection.json",
+      "sha256": "1493a14bc85b28bc0b5a1a0183b783cc5bea4828ca991642c3d2c323dda23d2f",
+      "matches_initial": true
+    },
+    {
+      "path": "artifacts/release-001b-round-2/opaque-srcdoc-producer-rejection.json",
+      "sha256": "c6e2844ac3b4d42e6b7b72b766c81adb91dbe8f7fdeb13a294fb9fa500dc5b4a",
+      "matches_initial": true
+    }
+  ]
+}

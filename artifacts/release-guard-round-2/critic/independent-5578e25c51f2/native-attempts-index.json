@@ -1,0 +1,104 @@
+{
+  "candidate": "46c542a10df358902fa1147e6d2b7ad04ea80d57",
+  "attempts": [
+    {
+      "name": "native-pages-audit",
+      "pid": 86899,
+      "returncode": 1,
+      "elapsedSeconds": 0.06,
+      "classification": "pre-browser harness audit setup failure; no Chromium was launched",
+      "reason": "auditReleaseArtifact rejected Pages builder generated game/index.html redirect wrapper as outside the release manifest. The actual Pages output intentionally contains this wrapper; revised harness checks exact manifest path equality with only that known wrapper excluded, then runs reference isolation over the manifest files and all Pages files.",
+      "exitEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/native-pages-audit/exit.json",
+      "stdoutEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/native-pages-audit/stdout.raw",
+      "stderrEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/native-pages-audit/stderr.raw"
+    },
+    {
+      "name": "native-pages-audit-v2",
+      "pid": 86956,
+      "returncode": 1,
+      "elapsedSeconds": 24.267,
+      "classification": "pre-final-viewports harness URL-source assumption failure; app/browser had no recorded errors",
+      "reason": "Actual emitted iframe HTML loads src/ui/arena-shell-bootstrap.js, while src/ui/arena-shell-entry.js is a separate standalone module in the release manifest. The revised audit verifies the browser-observed bootstrap URL against the emitted release manifest, then imports the controller module URL derived from standaloneModules in that same emitted manifest.",
+      "exitEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/native-pages-audit-v2/exit.json",
+      "stdoutEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/native-pages-audit-v2/stdout.raw",
+      "stderrEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/native-pages-audit-v2/stderr.raw"
+    },
+    {
+      "name": "native-pages-audit-v3",
+      "pid": 87070,
+      "returncode": 1,
+      "elapsedSeconds": 24.497,
+      "classification": "pre-Battle harness release-path assumption failure; browser and app had no recorded errors",
+      "reason": "Registered visual manifest asset paths are relative to public/assets, while release-manifest paths include public/. Browser-observed arena URL correctly used /game/public/assets/moss-ember-arena-painted.webp. Revised audit now resolves each source registration to its exact emitted release-manifest path and checks the rendered URL against that path.",
+      "exitEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/native-pages-audit-v3/exit.json",
+      "stdoutEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/native-pages-audit-v3/stdout.raw",
+      "stderrEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/native-pages-audit-v3/stderr.raw"
+    },
+    {
+      "name": "native-pages-audit-v4",
+      "pid": 87136,
+      "returncode": 1,
+      "elapsedSeconds": 24.42,
+      "classification": "pre-controller harness Playwright call-signature failure; app/browser had no recorded errors",
+      "reason": "The installed Playwright Frame.evaluate API accepts one serialized argument; the harness supplied the controller URL and deck separately. Revised harness passes both within one object.",
+      "exitEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/native-pages-audit-v4/exit.json",
+      "stdoutEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/native-pages-audit-v4/stdout.raw",
+      "stderrEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/native-pages-audit-v4/stderr.raw"
+    },
+    {
+      "name": "native-pages-audit-v5",
+      "pid": 87214,
+      "returncode": 1,
+      "elapsedSeconds": 24.644,
+      "classification": "post-controller DOM probe harness failure; app/browser had no recorded errors",
+      "reason": "Production HUD sets the card identifier on each data-ui=card-slot node itself, rather than a nested child. Revised audit reads slot.dataset.cardId and retains a child fallback.",
+      "exitEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/native-pages-audit-v5/exit.json",
+      "stdoutEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/native-pages-audit-v5/stdout.raw",
+      "stderrEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/native-pages-audit-v5/stderr.raw"
+    },
+    {
+      "name": "native-pages-audit-v6",
+      "pid": 87320,
+      "returncode": 1,
+      "elapsedSeconds": 24.614,
+      "classification": "post-controller hand-order harness assumption failure; app/browser had no recorded errors",
+      "reason": "The game deck cycle deterministically shuffles the provided eight-card deck into a four-card hand, so the rendered hand is not necessarily DISPLAY_DECK.slice(0,4). Actual rendered hand was brassbolt, briar-band, reedsting, copperskiff. Revised audit requires Briar Band to be present in the actual hand and clicks its observed slot.",
+      "exitEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/native-pages-audit-v6/exit.json",
+      "stdoutEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/native-pages-audit-v6/stdout.raw",
+      "stderrEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/native-pages-audit-v6/stderr.raw"
+    },
+    {
+      "name": "native-pages-audit-v7",
+      "pid": 87393,
+      "returncode": 1,
+      "elapsedSeconds": 34.924,
+      "classification": "manual-step sequencing gap in the audit harness",
+      "reason": "After entering the packaged controller manual-step mode, the harness clicked Briar and the arena at 78% of the measured arena via a child-frame locator, then waited for a marker without advancing the controller. The raw run preserved a marker timeout and no browser errors; it does not establish a failed production deployment.",
+      "exitEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/native-pages-audit-v7/exit.json",
+      "stdoutEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/native-pages-audit-v7/stdout.raw",
+      "stderrEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/native-pages-audit-v7/stderr.raw"
+    },
+    {
+      "name": "native-pages-audit-v8",
+      "pid": 87911,
+      "returncode": 1,
+      "elapsedSeconds": 32.323,
+      "classification": "accepted 78%-point gameplay diagnostic with no attack in the sampled horizon",
+      "reason": "The measured top-page trusted pointer reached the real card slot and arena; the packaged bridge accepted one Briar deploy command. The harness then observed no primary Briar attack after 600 manual ticks at this deeper point. This run is preserved as a genuine scenario result; the fully qualified integration helper uses the 54% arena point and succeeded in v9.",
+      "exitEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/native-pages-audit-v8/exit.json",
+      "stdoutEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/native-pages-audit-v8/stdout.raw",
+      "stderrEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/native-pages-audit-v8/stderr.raw"
+    },
+    {
+      "name": "native-pages-audit-v9",
+      "pid": 88068,
+      "returncode": 0,
+      "elapsedSeconds": 31.374,
+      "classification": "independent final native Pages audit PASS",
+      "reason": "At the existing qualified 54% arena point, actual trusted phone and desktop input admitted Briar, manual stepping reached its primary attack at tick 170, and the real renderer showed six visible Briar sprite markers. Both viewports completed all Pages, asset, controller, and RL checks.",
+      "exitEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/native-pages-audit-v9/exit.json",
+      "stdoutEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/native-pages-audit-v9/stdout.raw",
+      "stderrEvidence": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/runs/native-pages-audit-v9/stderr.raw"
+    }
+  ]
+}

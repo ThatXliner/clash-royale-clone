@@ -1,0 +1,43 @@
+{
+  "captured_utc": "2026-10-14T18:30:40.727986+00:00",
+  "generated": [
+    {
+      "path": "artifacts/release-asset-round-1/builder/pages-painted-briar.png",
+      "evidence_copy": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/publication-pages-test/pages-painted-briar.png",
+      "bytes": 991269,
+      "sha256": "e5ade602993d83a7905df56dde6b55c6242fcf23b4a9644106347225bcb53a25"
+    },
+    {
+      "path": "artifacts/release-asset-round-1/builder/pages-painted-briar.json",
+      "evidence_copy": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/publication-pages-test/pages-painted-briar.json",
+      "bytes": 10311,
+      "sha256": "03364d0318e429e9964c3f31ea0019a8422a6560bf8abf6d6c1bdc70f46ad70b"
+    }
+  ],
+  "restore": {
+    "argv": [
+      "git",
+      "restore",
+      "--source=HEAD",
+      "--worktree",
+      "--",
+      "artifacts/release-asset-round-1/builder/pages-painted-briar.png",
+      "artifacts/release-asset-round-1/builder/pages-painted-briar.json"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "restored": [
+    {
+      "path": "artifacts/release-asset-round-1/builder/pages-painted-briar.png",
+      "bytes": 989096,
+      "sha256": "e19d8fa32236d5f999f8adf83edb572706db37af69619256837a0a7481e61a60"
+    },
+    {
+      "path": "artifacts/release-asset-round-1/builder/pages-painted-briar.json",
+      "bytes": 10308,
+      "sha256": "f90e5c1c827609513f0856103d41a1441f748f401a705a26ee698afe5c7523b8"
+    }
+  ]
+}

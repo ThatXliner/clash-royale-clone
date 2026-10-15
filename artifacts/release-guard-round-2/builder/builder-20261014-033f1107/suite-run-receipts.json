@@ -1,0 +1,170 @@
+[
+  {
+    "name": "nondeterminism-guard",
+    "argv": [
+      "npm",
+      "run",
+      "test:nondeterminism-guard"
+    ],
+    "startedAtUtc": "2026-10-14T18:01:17.145556+00:00",
+    "pid": 75261,
+    "actualExitCode": 0,
+    "durationSeconds": 1.173,
+    "log": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/nondeterminism-guard.tap",
+    "finishedAtUtc": "2026-10-14T18:01:18.319106+00:00"
+  },
+  {
+    "name": "shipping-isolation-guard",
+    "argv": [
+      "npm",
+      "run",
+      "test:shipping-isolation-guard"
+    ],
+    "startedAtUtc": "2026-10-14T18:01:18.319646+00:00",
+    "pid": 75286,
+    "actualExitCode": 0,
+    "durationSeconds": 31.937,
+    "log": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/shipping-isolation-guard.tap",
+    "finishedAtUtc": "2026-10-14T18:01:50.256661+00:00"
+  },
+  {
+    "name": "shipping-isolation-release",
+    "argv": [
+      "npm",
+      "run",
+      "test:shipping-isolation-release"
+    ],
+    "startedAtUtc": "2026-10-14T18:01:50.257255+00:00",
+    "pid": 75354,
+    "actualExitCode": 0,
+    "durationSeconds": 72.319,
+    "log": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/shipping-isolation-release.tap",
+    "finishedAtUtc": "2026-10-14T18:03:02.577366+00:00"
+  },
+  {
+    "name": "shipping-isolation-host",
+    "argv": [
+      "npm",
+      "run",
+      "test:shipping-isolation-host"
+    ],
+    "startedAtUtc": "2026-10-14T18:03:02.577920+00:00",
+    "pid": 76681,
+    "actualExitCode": 0,
+    "durationSeconds": 13.917,
+    "log": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/shipping-isolation-host.tap",
+    "finishedAtUtc": "2026-10-14T18:03:16.495498+00:00"
+  },
+  {
+    "name": "game-spell-runtime",
+    "argv": [
+      "npm",
+      "run",
+      "test:game-spell-runtime"
+    ],
+    "startedAtUtc": "2026-10-14T18:03:16.496004+00:00",
+    "pid": 76722,
+    "actualExitCode": 1,
+    "durationSeconds": 0.435,
+    "log": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/game-spell-runtime.tap",
+    "finishedAtUtc": "2026-10-14T18:03:16.931042+00:00"
+  },
+  {
+    "name": "compact-capability-hostile",
+    "argv": [
+      "node",
+      "--test",
+      "tests/compact-capability-hostile.test.js"
+    ],
+    "startedAtUtc": "2026-10-14T18:03:16.931751+00:00",
+    "pid": 76739,
+    "actualExitCode": 0,
+    "durationSeconds": 1.812,
+    "log": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/compact-capability-hostile.tap",
+    "finishedAtUtc": "2026-10-14T18:03:18.744222+00:00"
+  },
+  {
+    "name": "combat-effect-feed-bound",
+    "argv": [
+      "node",
+      "--test",
+      "tests/combat-effect-feed-bound.test.js"
+    ],
+    "startedAtUtc": "2026-10-14T18:03:18.744807+00:00",
+    "pid": 76743,
+    "actualExitCode": 0,
+    "durationSeconds": 15.031,
+    "log": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/combat-effect-feed-bound.tap",
+    "finishedAtUtc": "2026-10-14T18:03:33.775574+00:00"
+  },
+  {
+    "name": "sprite-unit",
+    "argv": [
+      "node",
+      "--test",
+      "tests/combat-sprite-prototype.test.js"
+    ],
+    "startedAtUtc": "2026-10-14T18:03:33.776201+00:00",
+    "pid": 76761,
+    "actualExitCode": 0,
+    "durationSeconds": 0.098,
+    "log": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/sprite-unit.tap",
+    "finishedAtUtc": "2026-10-14T18:03:33.874686+00:00"
+  },
+  {
+    "name": "visual-asset-manifest",
+    "argv": [
+      "npm",
+      "run",
+      "test:visual-asset-manifest"
+    ],
+    "startedAtUtc": "2026-10-14T18:03:33.875245+00:00",
+    "pid": 76765,
+    "actualExitCode": 0,
+    "durationSeconds": 0.25,
+    "log": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/visual-asset-manifest.tap",
+    "finishedAtUtc": "2026-10-14T18:03:34.125424+00:00"
+  },
+  {
+    "name": "visual-arena-art",
+    "argv": [
+      "npm",
+      "run",
+      "test:visual-arena-art"
+    ],
+    "startedAtUtc": "2026-10-14T18:03:34.126105+00:00",
+    "pid": 76780,
+    "actualExitCode": 0,
+    "durationSeconds": 4.595,
+    "log": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/visual-arena-art.tap",
+    "finishedAtUtc": "2026-10-14T18:03:38.721587+00:00"
+  },
+  {
+    "name": "release-build",
+    "argv": [
+      "npm",
+      "run",
+      "test:release-build"
+    ],
+    "startedAtUtc": "2026-10-14T18:03:38.722338+00:00",
+    "pid": 76822,
+    "actualExitCode": 0,
+    "durationSeconds": 52.114,
+    "log": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/release-build.tap",
+    "finishedAtUtc": "2026-10-14T18:04:30.837257+00:00"
+  },
+  {
+    "name": "publication-pages",
+    "argv": [
+      "npm",
+      "run",
+      "test:publication-pages"
+    ],
+    "startedAtUtc": "2026-10-14T18:04:30.838085+00:00",
+    "pid": 77527,
+    "actualExitCode": 0,
+    "durationSeconds": 32.694,
+    "log": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/publication-pages.tap",
+    "finishedAtUtc": "2026-10-14T18:05:03.532343+00:00"
+  }
+]

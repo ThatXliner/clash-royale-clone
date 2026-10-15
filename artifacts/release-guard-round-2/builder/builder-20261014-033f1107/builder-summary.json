@@ -1,0 +1,460 @@
+{
+  "candidate": "46c542a10df358902fa1147e6d2b7ad04ea80d57",
+  "baseline": "033f1107b22b39f3079670a33a660fba81b95f75",
+  "fullQualificationReference": "763e39465fd584ffa4618ea220fbdb3a99fec40c",
+  "ownedTrackedDelta": [
+    "tests/game-spell-runtime.test.js"
+  ],
+  "committedDelta": "4 insertions, 2 deletions; source-confidence questionKey values added to the canonical QUESTION-key union in two test fixture helpers",
+  "testRuns": [
+    {
+      "name": "nondeterminism-guard",
+      "argv": [
+        "npm",
+        "run",
+        "test:nondeterminism-guard"
+      ],
+      "pid": 75261,
+      "actualExitCode": 0,
+      "durationSeconds": 1.173,
+      "tapSummary": {
+        "tests": 10,
+        "pass": 10,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "rawLog": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/nondeterminism-guard.tap"
+    },
+    {
+      "name": "shipping-isolation-guard",
+      "argv": [
+        "npm",
+        "run",
+        "test:shipping-isolation-guard"
+      ],
+      "pid": 75286,
+      "actualExitCode": 0,
+      "durationSeconds": 31.937,
+      "tapSummary": {
+        "tests": 13,
+        "pass": 13,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "rawLog": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/shipping-isolation-guard.tap"
+    },
+    {
+      "name": "shipping-isolation-release",
+      "argv": [
+        "npm",
+        "run",
+        "test:shipping-isolation-release"
+      ],
+      "pid": 75354,
+      "actualExitCode": 0,
+      "durationSeconds": 72.319,
+      "tapSummary": {
+        "tests": 4,
+        "pass": 4,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "rawLog": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/shipping-isolation-release.tap"
+    },
+    {
+      "name": "shipping-isolation-host",
+      "argv": [
+        "npm",
+        "run",
+        "test:shipping-isolation-host"
+      ],
+      "pid": 76681,
+      "actualExitCode": 0,
+      "durationSeconds": 13.917,
+      "tapSummary": {
+        "tests": 1,
+        "pass": 1,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "rawLog": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/shipping-isolation-host.tap"
+    },
+    {
+      "name": "game-spell-runtime",
+      "argv": [
+        "npm",
+        "run",
+        "test:game-spell-runtime"
+      ],
+      "pid": 76722,
+      "actualExitCode": 1,
+      "durationSeconds": 0.435,
+      "tapSummary": {
+        "tests": 15,
+        "pass": 1,
+        "fail": 14,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "rawLog": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/game-spell-runtime.tap"
+    },
+    {
+      "name": "compact-capability-hostile",
+      "argv": [
+        "node",
+        "--test",
+        "tests/compact-capability-hostile.test.js"
+      ],
+      "pid": 76739,
+      "actualExitCode": 0,
+      "durationSeconds": 1.812,
+      "tapSummary": {
+        "tests": 4,
+        "pass": 4,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "rawLog": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/compact-capability-hostile.tap"
+    },
+    {
+      "name": "combat-effect-feed-bound",
+      "argv": [
+        "node",
+        "--test",
+        "tests/combat-effect-feed-bound.test.js"
+      ],
+      "pid": 76743,
+      "actualExitCode": 0,
+      "durationSeconds": 15.031,
+      "tapSummary": {
+        "tests": 6,
+        "pass": 6,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "rawLog": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/combat-effect-feed-bound.tap"
+    },
+    {
+      "name": "sprite-unit",
+      "argv": [
+        "node",
+        "--test",
+        "tests/combat-sprite-prototype.test.js"
+      ],
+      "pid": 76761,
+      "actualExitCode": 0,
+      "durationSeconds": 0.098,
+      "tapSummary": {
+        "tests": 10,
+        "pass": 10,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "rawLog": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/sprite-unit.tap"
+    },
+    {
+      "name": "visual-asset-manifest",
+      "argv": [
+        "npm",
+        "run",
+        "test:visual-asset-manifest"
+      ],
+      "pid": 76765,
+      "actualExitCode": 0,
+      "durationSeconds": 0.25,
+      "tapSummary": {
+        "tests": 6,
+        "pass": 6,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "rawLog": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/visual-asset-manifest.tap"
+    },
+    {
+      "name": "visual-arena-art",
+      "argv": [
+        "npm",
+        "run",
+        "test:visual-arena-art"
+      ],
+      "pid": 76780,
+      "actualExitCode": 0,
+      "durationSeconds": 4.595,
+      "tapSummary": {
+        "tests": 6,
+        "pass": 6,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "rawLog": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/visual-arena-art.tap"
+    },
+    {
+      "name": "release-build",
+      "argv": [
+        "npm",
+        "run",
+        "test:release-build"
+      ],
+      "pid": 76822,
+      "actualExitCode": 0,
+      "durationSeconds": 52.114,
+      "tapSummary": {
+        "tests": 22,
+        "pass": 22,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "rawLog": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/release-build.tap"
+    },
+    {
+      "name": "publication-pages",
+      "argv": [
+        "npm",
+        "run",
+        "test:publication-pages"
+      ],
+      "pid": 77527,
+      "actualExitCode": 0,
+      "durationSeconds": 32.694,
+      "tapSummary": {
+        "tests": 5,
+        "pass": 5,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "rawLog": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/publication-pages.tap"
+    }
+  ],
+  "correctedSpellRun": {
+    "command": "npm run test:game-spell-runtime",
+    "pid": 79158,
+    "toolSessionId": 81257,
+    "tapSummary": {
+      "tests": 15,
+      "pass": 15,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "npmDirectExitCode": "not captured",
+    "toolWrapperExitCode": 1,
+    "captureFailure": "The zsh wrapper attempted to assign the post-wait exit code to the reserved read-only variable status. The wrapper failure is preserved in spell-corrected.wrapper-error.txt. Do not infer or claim an npm exit code from the TAP summary.",
+    "rawOutput": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/spell-corrected.log"
+  },
+  "browserAudits": [
+    {
+      "version": "v1",
+      "pid": 81367,
+      "actualExitCode": 1,
+      "error": "locator.click: Error: strict mode violation: locator('[data-action=\"begin-battle\"]') resolved to 2 elements:\n    1) <button type=\"button\" class=\"button-primary\" data-action=\"begin-battle\">\u2026</button> aka getByRole('button', { name: 'Enter the arena' })\n    2) <button type=\"button\" data-action=\"begin-battle\" class=\"button-primary button-primary-small\">\u2026</button> aka getByRole('button', { name: 'Got it \u2014 battle' })\n\nCall log:\n\u001b[2m  - waiting for locator('[data-action=\"begin-battle\"]')\u001b[22m\n\n    at browserAudit (/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit.mjs:268:56)\n    at async file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit.mjs:341:3",
+      "rawLog": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit.log",
+      "script": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit.mjs",
+      "lifecycle": {
+        "browserPid": null,
+        "browserClosed": true,
+        "serverClosed": true
+      }
+    },
+    {
+      "version": "-v2",
+      "pid": 81414,
+      "actualExitCode": 1,
+      "error": "AssertionError [ERR_ASSERTION]: browser requested an unmanifested path: \n    at assertManifestRequests (file:///private/tmp/release-guard-round2-builder-033f1107/tests/helpers/release-browser-audit.js:95:12)\n    at browserAudit (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit-v2.mjs:305:32)\n    at async file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit-v2.mjs:341:3",
+      "rawLog": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit-v2.log",
+      "script": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit-v2.mjs",
+      "lifecycle": {
+        "browserPid": null,
+        "browserClosed": true,
+        "serverClosed": true
+      }
+    },
+    {
+      "version": "-v3",
+      "pid": 82103,
+      "actualExitCode": 1,
+      "error": "AssertionError [ERR_ASSERTION]: phone-390x844: actual browser requested game/src/ui/arena-shell-entry.js\n    at browserAudit (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit-v3.mjs:345:15)\n    at async file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit-v3.mjs:369:3",
+      "rawLog": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit-v3.log",
+      "script": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit-v3.mjs",
+      "lifecycle": {
+        "browserPid": null,
+        "browserClosed": true,
+        "serverClosed": true
+      }
+    },
+    {
+      "version": "-v4",
+      "pid": 82184,
+      "actualExitCode": 1,
+      "error": "AssertionError [ERR_ASSERTION]: phone-390x844: actual browser requested game/src/ui/arena-shell.css\n    at browserAudit (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit-v4.mjs:367:15)\n    at async file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit-v4.mjs:392:3",
+      "rawLog": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit-v4.log",
+      "script": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit-v4.mjs",
+      "lifecycle": {
+        "browserPid": null,
+        "browserClosed": true,
+        "serverClosed": true
+      }
+    },
+    {
+      "version": "-v5",
+      "pid": 82247,
+      "actualExitCode": 0,
+      "error": null,
+      "rawLog": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit-v5.log",
+      "script": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit-v5.mjs",
+      "lifecycle": {
+        "browserPid": null,
+        "browserClosed": true,
+        "serverClosed": true
+      }
+    }
+  ],
+  "candidatePagesBuild": {
+    "pid": 79898,
+    "actualExitCode": 0,
+    "startedAtUtc": "2026-10-14T18:11:40.297829+00:00",
+    "finishedAtUtc": "2026-10-14T18:11:55.532943+00:00",
+    "stdout": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-build-candidate.log",
+    "output": "/private/tmp/release-guard-round2-pages-46c542a"
+  },
+  "browserV5Facts": {
+    "nativeChromeVersion": "155.0.8059.40",
+    "viewport": "desktop 1440x933, DPR 1",
+    "requestCount": 66,
+    "allRequestsHttp200": true,
+    "pageErrors": 0,
+    "consoleErrors": 0,
+    "rootPrefixResponse": {
+      "path": "/clash-royale-clone/",
+      "status": 200,
+      "bodyMatchesEmittedIndex": true,
+      "bytes": 6205,
+      "sha256": "f8dc1c83b36f1941ed896ed009ecbfcc054d1450e5a95af7c3e7c75a56f2ff56"
+    },
+    "rl": {
+      "actionCount": 2305,
+      "resetTick": 0,
+      "stepTick": 1,
+      "restoreTick": 1,
+      "secondStepTick": 2
+    },
+    "arenaController": {
+      "importedPrefixed": true,
+      "apiPresent": true,
+      "sessionActive": true,
+      "sessionTick": 11
+    },
+    "registeredPortraits": 21,
+    "canonicalPublicAssets": 27,
+    "releaseFiles": 54,
+    "releaseBytes": 6137783,
+    "assembledPagesFiles": 64,
+    "assembledPagesBytes": 6547936,
+    "protectedPaths": []
+  },
+  "phoneScope": {
+    "viewport": "390x844",
+    "source": "v4 raw physical browser run",
+    "completed": "landing, game home, cards and Battle view; decoded 21 registered portraits; prefixed RL reset/step/restore/step, arena/controller API and arena/Briar assets; reached expected-request assertions",
+    "actualExitCode": 1,
+    "failure": "harness expected direct source CSS /game/src/ui/arena-shell.css; actual built stylesheet request was /game/assets/ui-arena-shell-er5XVwGC.css (HTTP 200). Not an overall passing harness run."
+  },
+  "qualificationRetention": {
+    "candidateVs033And763": "src, public, scripts, package.json, package-lock.json have git diff --quiet actualExitCode 0",
+    "releasePayload": "54 manifest entries identical, 6,137,783 bytes; all 64 assembled files identical except root index.html (bytes equal, candidate SHA/ref dependent)."
+  },
+  "spellDiagnosis": {
+    "originalRawRun": "14/15 failed at construction because Briar Band slot roster[6] has 20 canonical source-confidence questions omitted from test helper union; production current full roster accepts tick 0 when full canonical QUESTION set is supplied.",
+    "repairedRun": "TAP 15/15, but wrapper exit1 because zsh readonly status assignment prevented capturing npm direct exit; direct npm exit intentionally marked not captured."
+  },
+  "browserRunFacts": [
+    {
+      "version": "v1",
+      "pid": 81367,
+      "actualExitCode": 1,
+      "error": "locator.click: Error: strict mode violation: locator('[data-action=\"begin-battle\"]') resolved to 2 elements:\n    1) <button type=\"button\" class=\"button-primary\" data-action=\"begin-battle\">\u2026</button> aka getByRole('button', { name: 'Enter the arena' })\n    2) <button type=\"button\" data-action=\"begin-battle\" class=\"button-primary button-primary-small\">\u2026</button> aka getByRole('button', { name: 'Got it \u2014 battle' })\n\nCall log:\n\u001b[2m  - waiting for locator('[data-action=\"begin-battle\"]')\u001b[22m\n\n    at browserAudit (/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit.mjs:268:56)\n    at async file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit.mjs:341:3",
+      "rawLog": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit.log",
+      "script": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit.mjs",
+      "lifecycle": {
+        "browserPid": null,
+        "browserClosed": true,
+        "serverClosed": true
+      }
+    },
+    {
+      "version": "-v2",
+      "pid": 81414,
+      "actualExitCode": 1,
+      "error": "AssertionError [ERR_ASSERTION]: browser requested an unmanifested path: \n    at assertManifestRequests (file:///private/tmp/release-guard-round2-builder-033f1107/tests/helpers/release-browser-audit.js:95:12)\n    at browserAudit (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit-v2.mjs:305:32)\n    at async file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit-v2.mjs:341:3",
+      "rawLog": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit-v2.log",
+      "script": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit-v2.mjs",
+      "lifecycle": {
+        "browserPid": null,
+        "browserClosed": true,
+        "serverClosed": true
+      }
+    },
+    {
+      "version": "-v3",
+      "pid": 82103,
+      "actualExitCode": 1,
+      "error": "AssertionError [ERR_ASSERTION]: phone-390x844: actual browser requested game/src/ui/arena-shell-entry.js\n    at browserAudit (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit-v3.mjs:345:15)\n    at async file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit-v3.mjs:369:3",
+      "rawLog": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit-v3.log",
+      "script": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit-v3.mjs",
+      "lifecycle": {
+        "browserPid": null,
+        "browserClosed": true,
+        "serverClosed": true
+      }
+    },
+    {
+      "version": "-v4",
+      "pid": 82184,
+      "actualExitCode": 1,
+      "error": "AssertionError [ERR_ASSERTION]: phone-390x844: actual browser requested game/src/ui/arena-shell.css\n    at browserAudit (file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit-v4.mjs:367:15)\n    at async file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit-v4.mjs:392:3",
+      "rawLog": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit-v4.log",
+      "script": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit-v4.mjs",
+      "lifecycle": {
+        "browserPid": null,
+        "browserClosed": true,
+        "serverClosed": true
+      }
+    },
+    {
+      "version": "-v5",
+      "pid": 82247,
+      "actualExitCode": 0,
+      "error": null,
+      "rawLog": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit-v5.log",
+      "script": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107/pages-native-audit-v5.mjs",
+      "lifecycle": {
+        "browserPid": null,
+        "browserClosed": true,
+        "serverClosed": true
+      }
+    }
+  ],
+  "evidenceRoot": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/builder/builder-20261014-033f1107"
+}

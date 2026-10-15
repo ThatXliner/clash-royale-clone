@@ -1,0 +1,20 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: phone iframe HTML module URL differs from emitted manifest path
++ actual - expected
+
++ '/clash-royale-clone/game/src/ui/arena-shell-bootstrap.js'
+- '/clash-royale-clone/game/src/ui/arena-shell-entry.js'
+
+    at file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/native-pages-audit.mjs:271:12 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: '/clash-royale-clone/game/src/ui/arena-shell-bootstrap.js',
+  expected: '/clash-royale-clone/game/src/ui/arena-shell-entry.js',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.22.3

@@ -1,0 +1,78 @@
+{
+  "captured_utc": "2026-10-14T18:28:39.731368+00:00",
+  "generated": [
+    {
+      "path": "artifacts/visual-003b-round-1/initial.png",
+      "evidence_copy": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/visual-arena-art/initial.png",
+      "bytes": 974431,
+      "sha256": "6b5d4bca120a44e9917739413833f2c29135f061e17842d849a4d0fade75b75f",
+      "restored_sha256": "ddd07e0964fb259cb6bc99df1e544a4b8b9bf5ddd36896aa2ab3ed487da7dff2"
+    },
+    {
+      "path": "artifacts/visual-003b-round-1/mid-combat.png",
+      "evidence_copy": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/visual-arena-art/mid-combat.png",
+      "bytes": 972332,
+      "sha256": "cdd58278fb52c8275717dfa8af1d0eb9f4fe166cd0372625eafd07d977842b45",
+      "restored_sha256": "ff538d26f6b55b1293a66faaaf508bafa58b78b9e900cbcadbdb5652c5866f55"
+    },
+    {
+      "path": "artifacts/visual-003b-round-1/render-probe.json",
+      "evidence_copy": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/visual-arena-art/render-probe.json",
+      "bytes": 4934,
+      "sha256": "05e136cd8b61920d3fccb0789bf8681f96c7c23c20c913c701fa1c868eab0b06",
+      "restored_sha256": "f07747bc40f26bc69a0fc31657e9f9bc11f5fd0d7715d7f96942aac000d5bd9f"
+    }
+  ],
+  "restore": {
+    "argv": [
+      "git",
+      "restore",
+      "--source=HEAD",
+      "--worktree",
+      "--",
+      "artifacts/visual-003b-round-1/initial.png",
+      "artifacts/visual-003b-round-1/mid-combat.png",
+      "artifacts/visual-003b-round-1/render-probe.json"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "backup_hashes": [
+    {
+      "path": "artifacts/visual-003b-round-1/initial.png",
+      "tracked": true,
+      "bytes": 124050,
+      "sha256": "ddd07e0964fb259cb6bc99df1e544a4b8b9bf5ddd36896aa2ab3ed487da7dff2",
+      "backup": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/pretest-artifact-backups/artifacts/visual-003b-round-1/initial.png"
+    },
+    {
+      "path": "artifacts/visual-003b-round-1/mid-combat.png",
+      "tracked": true,
+      "bytes": 131602,
+      "sha256": "ff538d26f6b55b1293a66faaaf508bafa58b78b9e900cbcadbdb5652c5866f55",
+      "backup": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/pretest-artifact-backups/artifacts/visual-003b-round-1/mid-combat.png"
+    },
+    {
+      "path": "artifacts/visual-003b-round-1/render-probe.json",
+      "tracked": true,
+      "bytes": 1074,
+      "sha256": "f07747bc40f26bc69a0fc31657e9f9bc11f5fd0d7715d7f96942aac000d5bd9f",
+      "backup": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/pretest-artifact-backups/artifacts/visual-003b-round-1/render-probe.json"
+    },
+    {
+      "path": "artifacts/release-asset-round-1/builder/pages-painted-briar.png",
+      "tracked": true,
+      "bytes": 989096,
+      "sha256": "e19d8fa32236d5f999f8adf83edb572706db37af69619256837a0a7481e61a60",
+      "backup": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/pretest-artifact-backups/artifacts/release-asset-round-1/builder/pages-painted-briar.png"
+    },
+    {
+      "path": "artifacts/release-asset-round-1/builder/pages-painted-briar.json",
+      "tracked": true,
+      "bytes": 10308,
+      "sha256": "f90e5c1c827609513f0856103d41a1441f748f401a705a26ee698afe5c7523b8",
+      "backup": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/pretest-artifact-backups/artifacts/release-asset-round-1/builder/pages-painted-briar.json"
+    }
+  ]
+}

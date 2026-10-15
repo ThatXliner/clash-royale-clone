@@ -1,0 +1,328 @@
+
+> moss-and-ember@0.0.0 test:game-spell-runtime
+> node tests/game-spell-runtime-runner.js game-spell-runtime
+
+TAP version 13
+# Subtest: game spell runtime: isolated sourced receipt changes one shared GameSession unit, not a placeholder
+not ok 1 - game spell runtime: isolated sourced receipt changes one shared GameSession unit, not a placeholder
+  ---
+  duration_ms: 16.934208
+  type: 'test'
+  location: '/private/tmp/release-guard-round2-builder-033f1107/tests/game-spell-runtime.test.js:157:1'
+  failureType: 'testCodeFailure'
+  error: 'roster[6].entities[0] source confidence field lacks a QUESTION record'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    assertSessionTroopSourceConfidenceQuestions (file:///private/tmp/release-guard-round2-builder-033f1107/src/shared/session-troop-source-confidence-authority.js:246:13)
+    file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5941:42
+    Array.map (<anonymous>)
+    file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5923:10
+    Array.map (<anonymous>)
+    checkedSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5905:6)
+    admittedSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:6211:41)
+    new LiveBattle (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:6803:19)
+    validateSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:12014:7)
+    new GameSession (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:12173:21)
+  ...
+# Subtest: game spell runtime: v2 center cast damages enemy ground and air units after its explicit estimated delay
+not ok 2 - game spell runtime: v2 center cast damages enemy ground and air units after its explicit estimated delay
+  ---
+  duration_ms: 8.821417
+  type: 'test'
+  location: '/private/tmp/release-guard-round2-builder-033f1107/tests/game-spell-runtime.test.js:215:1'
+  failureType: 'testCodeFailure'
+  error: 'roster[6].entities[0] source confidence field lacks a QUESTION record'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    assertSessionTroopSourceConfidenceQuestions (file:///private/tmp/release-guard-round2-builder-033f1107/src/shared/session-troop-source-confidence-authority.js:246:13)
+    file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5941:42
+    Array.map (<anonymous>)
+    file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5923:10
+    Array.map (<anonymous>)
+    checkedSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5905:6)
+    admittedSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:6211:41)
+    new LiveBattle (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:6803:19)
+    new LiveBattle (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/live-battle.js:23:5)
+    TestContext.<anonymous> (file:///private/tmp/release-guard-round2-builder-033f1107/tests/game-spell-runtime.test.js:217:18)
+  ...
+# Subtest: game spell runtime: editable GameSession center cast spends, cycles, and restores its pending impact
+not ok 3 - game spell runtime: editable GameSession center cast spends, cycles, and restores its pending impact
+  ---
+  duration_ms: 9.614333
+  type: 'test'
+  location: '/private/tmp/release-guard-round2-builder-033f1107/tests/game-spell-runtime.test.js:274:1'
+  failureType: 'testCodeFailure'
+  error: 'roster[6].entities[0] source confidence field lacks a QUESTION record'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    assertSessionTroopSourceConfidenceQuestions (file:///private/tmp/release-guard-round2-builder-033f1107/src/shared/session-troop-source-confidence-authority.js:246:13)
+    file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5941:42
+    Array.map (<anonymous>)
+    file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5923:10
+    Array.map (<anonymous>)
+    checkedSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5905:6)
+    admittedSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:6211:41)
+    new LiveBattle (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:6803:19)
+    validateSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:12014:7)
+    new GameSession (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:12173:21)
+  ...
+# Subtest: game spell runtime: crown tower radius hit uses the versioned estimated 30 percent modifier
+not ok 4 - game spell runtime: crown tower radius hit uses the versioned estimated 30 percent modifier
+  ---
+  duration_ms: 7.333625
+  type: 'test'
+  location: '/private/tmp/release-guard-round2-builder-033f1107/tests/game-spell-runtime.test.js:313:1'
+  failureType: 'testCodeFailure'
+  error: 'roster[6].entities[0] source confidence field lacks a QUESTION record'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    assertSessionTroopSourceConfidenceQuestions (file:///private/tmp/release-guard-round2-builder-033f1107/src/shared/session-troop-source-confidence-authority.js:246:13)
+    file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5941:42
+    Array.map (<anonymous>)
+    file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5923:10
+    Array.map (<anonymous>)
+    checkedSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5905:6)
+    admittedSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:6211:41)
+    new LiveBattle (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:6803:19)
+    new LiveBattle (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/live-battle.js:23:5)
+    liveProfileBattle (file:///private/tmp/release-guard-round2-builder-033f1107/tests/game-spell-runtime.test.js:129:10)
+  ...
+# Subtest: game spell runtime: circle tangency is included and one millitile beyond is excluded
+not ok 5 - game spell runtime: circle tangency is included and one millitile beyond is excluded
+  ---
+  duration_ms: 7.655125
+  type: 'test'
+  location: '/private/tmp/release-guard-round2-builder-033f1107/tests/game-spell-runtime.test.js:334:1'
+  failureType: 'testCodeFailure'
+  error: 'roster[6].entities[0] source confidence field lacks a QUESTION record'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    assertSessionTroopSourceConfidenceQuestions (file:///private/tmp/release-guard-round2-builder-033f1107/src/shared/session-troop-source-confidence-authority.js:246:13)
+    file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5941:42
+    Array.map (<anonymous>)
+    file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5923:10
+    Array.map (<anonymous>)
+    checkedSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5905:6)
+    admittedSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:6211:41)
+    new LiveBattle (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:6803:19)
+    new LiveBattle (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/live-battle.js:23:5)
+    liveProfileBattle (file:///private/tmp/release-guard-round2-builder-033f1107/tests/game-spell-runtime.test.js:129:10)
+  ...
+# Subtest: game spell runtime: radius center cast damages an enemy building through shared structure health
+not ok 6 - game spell runtime: radius center cast damages an enemy building through shared structure health
+  ---
+  duration_ms: 9.530167
+  type: 'test'
+  location: '/private/tmp/release-guard-round2-builder-033f1107/tests/game-spell-runtime.test.js:357:1'
+  failureType: 'testCodeFailure'
+  error: 'roster[6].entities[0] source confidence field lacks a QUESTION record'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    assertSessionTroopSourceConfidenceQuestions (file:///private/tmp/release-guard-round2-builder-033f1107/src/shared/session-troop-source-confidence-authority.js:246:13)
+    file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5941:42
+    Array.map (<anonymous>)
+    file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5923:10
+    Array.map (<anonymous>)
+    checkedSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5905:6)
+    admittedSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:6211:41)
+    new LiveBattle (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:6803:19)
+    new LiveBattle (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/live-battle.js:23:5)
+    TestContext.<anonymous> (file:///private/tmp/release-guard-round2-builder-033f1107/tests/game-spell-runtime.test.js:358:18)
+  ...
+# Subtest: game spell runtime: receipt is non-roster/non-fidelity and visibly excludes QUESTION mechanics
+ok 7 - game spell runtime: receipt is non-roster/non-fidelity and visibly excludes QUESTION mechanics
+  ---
+  duration_ms: 0.850417
+  type: 'test'
+  ...
+# Subtest: game spell runtime: every admitted effect without the exact profile rejects before routing
+not ok 8 - game spell runtime: every admitted effect without the exact profile rejects before routing
+  ---
+  duration_ms: 11.757042
+  type: 'test'
+  location: '/private/tmp/release-guard-round2-builder-033f1107/tests/game-spell-runtime.test.js:409:1'
+  failureType: 'testCodeFailure'
+  error: 'roster[6].entities[0] source confidence field lacks a QUESTION record'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    assertSessionTroopSourceConfidenceQuestions (file:///private/tmp/release-guard-round2-builder-033f1107/src/shared/session-troop-source-confidence-authority.js:246:13)
+    file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5941:42
+    Array.map (<anonymous>)
+    file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5923:10
+    Array.map (<anonymous>)
+    checkedSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5905:6)
+    admittedSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:6211:41)
+    new LiveBattle (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:6803:19)
+    validateSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:12014:7)
+    new GameSession (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:12173:21)
+  ...
+# Subtest: game spell runtime: LiveBattle rejects unprofiled and no-profile effects atomically
+not ok 9 - game spell runtime: LiveBattle rejects unprofiled and no-profile effects atomically
+  ---
+  duration_ms: 8.580542
+  type: 'test'
+  location: '/private/tmp/release-guard-round2-builder-033f1107/tests/game-spell-runtime.test.js:446:1'
+  failureType: 'testCodeFailure'
+  error: 'roster[6].entities[0] source confidence field lacks a QUESTION record'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    assertSessionTroopSourceConfidenceQuestions (file:///private/tmp/release-guard-round2-builder-033f1107/src/shared/session-troop-source-confidence-authority.js:246:13)
+    file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5941:42
+    Array.map (<anonymous>)
+    file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5923:10
+    Array.map (<anonymous>)
+    checkedSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5905:6)
+    admittedSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:6211:41)
+    new LiveBattle (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:6803:19)
+    new LiveBattle (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/live-battle.js:23:5)
+    liveProfileBattle (file:///private/tmp/release-guard-round2-builder-033f1107/tests/game-spell-runtime.test.js:129:10)
+  ...
+# Subtest: game spell runtime: LiveBattle profile snapshots, forks, restores, and legacy no-profile bytes are causal
+not ok 10 - game spell runtime: LiveBattle profile snapshots, forks, restores, and legacy no-profile bytes are causal
+  ---
+  duration_ms: 6.576208
+  type: 'test'
+  location: '/private/tmp/release-guard-round2-builder-033f1107/tests/game-spell-runtime.test.js:472:1'
+  failureType: 'testCodeFailure'
+  error: 'roster[6].entities[0] source confidence field lacks a QUESTION record'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    assertSessionTroopSourceConfidenceQuestions (file:///private/tmp/release-guard-round2-builder-033f1107/src/shared/session-troop-source-confidence-authority.js:246:13)
+    file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5941:42
+    Array.map (<anonymous>)
+    file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5923:10
+    Array.map (<anonymous>)
+    checkedSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5905:6)
+    admittedSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:6211:41)
+    new LiveBattle (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:6803:19)
+    new LiveBattle (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/live-battle.js:23:5)
+    liveProfileBattle (file:///private/tmp/release-guard-round2-builder-033f1107/tests/game-spell-runtime.test.js:129:10)
+  ...
+# Subtest: game spell runtime: same-tick reducer order is sequence then effect ID, and dead shared targets reject atomically
+not ok 11 - game spell runtime: same-tick reducer order is sequence then effect ID, and dead shared targets reject atomically
+  ---
+  duration_ms: 6.238458
+  type: 'test'
+  location: '/private/tmp/release-guard-round2-builder-033f1107/tests/game-spell-runtime.test.js:500:1'
+  failureType: 'testCodeFailure'
+  error: 'roster[6].entities[0] source confidence field lacks a QUESTION record'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    assertSessionTroopSourceConfidenceQuestions (file:///private/tmp/release-guard-round2-builder-033f1107/src/shared/session-troop-source-confidence-authority.js:246:13)
+    file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5941:42
+    Array.map (<anonymous>)
+    file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5923:10
+    Array.map (<anonymous>)
+    checkedSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5905:6)
+    admittedSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:6211:41)
+    new LiveBattle (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:6803:19)
+    new LiveBattle (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/live-battle.js:23:5)
+    liveProfileBattle (file:///private/tmp/release-guard-round2-builder-033f1107/tests/game-spell-runtime.test.js:129:10)
+  ...
+# Subtest: game spell runtime: spell and unit scheduling cannot share a same-tick sequence
+not ok 12 - game spell runtime: spell and unit scheduling cannot share a same-tick sequence
+  ---
+  duration_ms: 6.376625
+  type: 'test'
+  location: '/private/tmp/release-guard-round2-builder-033f1107/tests/game-spell-runtime.test.js:526:1'
+  failureType: 'testCodeFailure'
+  error: 'roster[6].entities[0] source confidence field lacks a QUESTION record'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    assertSessionTroopSourceConfidenceQuestions (file:///private/tmp/release-guard-round2-builder-033f1107/src/shared/session-troop-source-confidence-authority.js:246:13)
+    file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5941:42
+    Array.map (<anonymous>)
+    file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5923:10
+    Array.map (<anonymous>)
+    checkedSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5905:6)
+    admittedSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:6211:41)
+    new LiveBattle (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:6803:19)
+    new LiveBattle (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/live-battle.js:23:5)
+    liveProfileBattle (file:///private/tmp/release-guard-round2-builder-033f1107/tests/game-spell-runtime.test.js:129:10)
+  ...
+# Subtest: game spell runtime: hostile profile/command shapes and the action/event ceiling are bounded and atomic
+not ok 13 - game spell runtime: hostile profile/command shapes and the action/event ceiling are bounded and atomic
+  ---
+  duration_ms: 6.380708
+  type: 'test'
+  location: '/private/tmp/release-guard-round2-builder-033f1107/tests/game-spell-runtime.test.js:544:1'
+  failureType: 'testCodeFailure'
+  error: 'roster[6].entities[0] source confidence field lacks a QUESTION record'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    assertSessionTroopSourceConfidenceQuestions (file:///private/tmp/release-guard-round2-builder-033f1107/src/shared/session-troop-source-confidence-authority.js:246:13)
+    file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5941:42
+    Array.map (<anonymous>)
+    file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5923:10
+    Array.map (<anonymous>)
+    checkedSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5905:6)
+    admittedSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:6211:41)
+    new LiveBattle (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:6803:19)
+    new LiveBattle (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/live-battle.js:23:5)
+    liveProfileBattle (file:///private/tmp/release-guard-round2-builder-033f1107/tests/game-spell-runtime.test.js:129:10)
+  ...
+# Subtest: game spell runtime: invalid target, unprofiled card, stale, duplicate, and illegal commands are atomic
+not ok 14 - game spell runtime: invalid target, unprofiled card, stale, duplicate, and illegal commands are atomic
+  ---
+  duration_ms: 10.634041
+  type: 'test'
+  location: '/private/tmp/release-guard-round2-builder-033f1107/tests/game-spell-runtime.test.js:619:1'
+  failureType: 'testCodeFailure'
+  error: 'roster[6].entities[0] source confidence field lacks a QUESTION record'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    assertSessionTroopSourceConfidenceQuestions (file:///private/tmp/release-guard-round2-builder-033f1107/src/shared/session-troop-source-confidence-authority.js:246:13)
+    file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5941:42
+    Array.map (<anonymous>)
+    file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5923:10
+    Array.map (<anonymous>)
+    checkedSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5905:6)
+    admittedSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:6211:41)
+    new LiveBattle (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:6803:19)
+    validateSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:12014:7)
+    new GameSession (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:12173:21)
+  ...
+# Subtest: game spell runtime: chunks and restore reproduce profile actions; empty-profile legacy bytes stay v2
+not ok 15 - game spell runtime: chunks and restore reproduce profile actions; empty-profile legacy bytes stay v2
+  ---
+  duration_ms: 7.905375
+  type: 'test'
+  location: '/private/tmp/release-guard-round2-builder-033f1107/tests/game-spell-runtime.test.js:664:1'
+  failureType: 'testCodeFailure'
+  error: 'roster[6].entities[0] source confidence field lacks a QUESTION record'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    assertSessionTroopSourceConfidenceQuestions (file:///private/tmp/release-guard-round2-builder-033f1107/src/shared/session-troop-source-confidence-authority.js:246:13)
+    file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5941:42
+    Array.map (<anonymous>)
+    file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5923:10
+    Array.map (<anonymous>)
+    checkedSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:5905:6)
+    admittedSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:6211:41)
+    new LiveBattle (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:6803:19)
+    validateSetup (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:12014:7)
+    new GameSession (file:///private/tmp/release-guard-round2-builder-033f1107/src/sim/battle-continuation-kernel.js:12173:21)
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 1
+# fail 14
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 248.698833

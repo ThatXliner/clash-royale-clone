@@ -1,0 +1,46 @@
+TAP version 13
+# Subtest: compact wire keeps the existing public feed version and hard bounds
+ok 1 - compact wire keeps the existing public feed version and hard bounds
+  ---
+  duration_ms: 0.404959
+  type: 'test'
+  ...
+# Subtest: compact wire preserves the full v1 logical graph across restore and branches
+ok 2 - compact wire preserves the full v1 logical graph across restore and branches
+  ---
+  duration_ms: 925.5965
+  type: 'test'
+  ...
+# Subtest: direct-contact roots append to compact v2 as the third type without mutating the parent
+ok 3 - direct-contact roots append to compact v2 as the third type without mutating the parent
+  ---
+  duration_ms: 579.918125
+  type: 'test'
+  ...
+# Subtest: compact v2 rejects noncanonical, malformed, and causally forged rows
+ok 4 - compact v2 rejects noncanonical, malformed, and causally forged rows
+  ---
+  duration_ms: 428.564875
+  type: 'test'
+  ...
+# Subtest: compact append byte-bound failure is atomic and keeps the same limits
+ok 5 - compact append byte-bound failure is atomic and keeps the same limits
+  ---
+  duration_ms: 12668.320791
+  type: 'test'
+  ...
+# Subtest: direct-contact byte-bound failure leaves a compact feed unchanged
+ok 6 - direct-contact byte-bound failure leaves a compact feed unchanged
+  ---
+  duration_ms: 335.564583
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 14995.602541

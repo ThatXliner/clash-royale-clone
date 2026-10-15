@@ -1,0 +1,10 @@
+file:///private/tmp/release-guard-round2-critic-5578e25c51f2/scripts/release-isolation-guard.js:7
+  if (!condition) throw new Error(message);
+                        ^
+
+Error: release artifact files differ from its manifest
+    at invariant (file:///private/tmp/release-guard-round2-critic-5578e25c51f2/scripts/release-isolation-guard.js:7:25)
+    at auditReleaseArtifact (file:///private/tmp/release-guard-round2-critic-5578e25c51f2/scripts/release-isolation-guard.js:139:3)
+    at async file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/native-pages-audit.mjs:51:26
+
+Node.js v22.22.3

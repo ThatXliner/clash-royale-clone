@@ -1,0 +1,104 @@
+
+> moss-and-ember@0.0.0 test:game-spell-runtime
+> node tests/game-spell-runtime-runner.js game-spell-runtime
+
+TAP version 13
+# Subtest: game spell runtime: isolated sourced receipt changes one shared GameSession unit, not a placeholder
+ok 1 - game spell runtime: isolated sourced receipt changes one shared GameSession unit, not a placeholder
+  ---
+  duration_ms: 71.094209
+  type: 'test'
+  ...
+# Subtest: game spell runtime: v2 center cast damages enemy ground and air units after its explicit estimated delay
+ok 2 - game spell runtime: v2 center cast damages enemy ground and air units after its explicit estimated delay
+  ---
+  duration_ms: 57.021666
+  type: 'test'
+  ...
+# Subtest: game spell runtime: editable GameSession center cast spends, cycles, and restores its pending impact
+ok 3 - game spell runtime: editable GameSession center cast spends, cycles, and restores its pending impact
+  ---
+  duration_ms: 50.024708
+  type: 'test'
+  ...
+# Subtest: game spell runtime: crown tower radius hit uses the versioned estimated 30 percent modifier
+ok 4 - game spell runtime: crown tower radius hit uses the versioned estimated 30 percent modifier
+  ---
+  duration_ms: 13.3
+  type: 'test'
+  ...
+# Subtest: game spell runtime: circle tangency is included and one millitile beyond is excluded
+ok 5 - game spell runtime: circle tangency is included and one millitile beyond is excluded
+  ---
+  duration_ms: 24.765542
+  type: 'test'
+  ...
+# Subtest: game spell runtime: radius center cast damages an enemy building through shared structure health
+ok 6 - game spell runtime: radius center cast damages an enemy building through shared structure health
+  ---
+  duration_ms: 24.920459
+  type: 'test'
+  ...
+# Subtest: game spell runtime: receipt is non-roster/non-fidelity and visibly excludes QUESTION mechanics
+ok 7 - game spell runtime: receipt is non-roster/non-fidelity and visibly excludes QUESTION mechanics
+  ---
+  duration_ms: 0.590959
+  type: 'test'
+  ...
+# Subtest: game spell runtime: every admitted effect without the exact profile rejects before routing
+ok 8 - game spell runtime: every admitted effect without the exact profile rejects before routing
+  ---
+  duration_ms: 210.996958
+  type: 'test'
+  ...
+# Subtest: game spell runtime: LiveBattle rejects unprofiled and no-profile effects atomically
+ok 9 - game spell runtime: LiveBattle rejects unprofiled and no-profile effects atomically
+  ---
+  duration_ms: 25.135583
+  type: 'test'
+  ...
+# Subtest: game spell runtime: LiveBattle profile snapshots, forks, restores, and legacy no-profile bytes are causal
+ok 10 - game spell runtime: LiveBattle profile snapshots, forks, restores, and legacy no-profile bytes are causal
+  ---
+  duration_ms: 40.171958
+  type: 'test'
+  ...
+# Subtest: game spell runtime: same-tick reducer order is sequence then effect ID, and dead shared targets reject atomically
+ok 11 - game spell runtime: same-tick reducer order is sequence then effect ID, and dead shared targets reject atomically
+  ---
+  duration_ms: 16.312541
+  type: 'test'
+  ...
+# Subtest: game spell runtime: spell and unit scheduling cannot share a same-tick sequence
+ok 12 - game spell runtime: spell and unit scheduling cannot share a same-tick sequence
+  ---
+  duration_ms: 24.070083
+  type: 'test'
+  ...
+# Subtest: game spell runtime: hostile profile/command shapes and the action/event ceiling are bounded and atomic
+ok 13 - game spell runtime: hostile profile/command shapes and the action/event ceiling are bounded and atomic
+  ---
+  duration_ms: 1888.465458
+  type: 'test'
+  ...
+# Subtest: game spell runtime: invalid target, unprofiled card, stale, duplicate, and illegal commands are atomic
+ok 14 - game spell runtime: invalid target, unprofiled card, stale, duplicate, and illegal commands are atomic
+  ---
+  duration_ms: 23.312541
+  type: 'test'
+  ...
+# Subtest: game spell runtime: chunks and restore reproduce profile actions; empty-profile legacy bytes stay v2
+ok 15 - game spell runtime: chunks and restore reproduce profile actions; empty-profile legacy bytes stay v2
+  ---
+  duration_ms: 91.460209
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2680.984125

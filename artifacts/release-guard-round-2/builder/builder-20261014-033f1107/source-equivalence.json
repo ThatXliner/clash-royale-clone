@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "candidate": "46c542a10df358902fa1147e6d2b7ad04ea80d57",
+  "parent": "033f1107b22b39f3079670a33a660fba81b95f75",
+  "baseline033": "033f1107b22b39f3079670a33a660fba81b95f75",
+  "acceptedFullQualification763": "763e39465fd584ffa4618ea220fbdb3a99fec40c",
+  "candidateCommitChangedPaths": [
+    "tests/game-spell-runtime.test.js"
+  ],
+  "candidatePrivateWorktreeStatus": {
+    "actualExitCode": 0,
+    "porcelainLineCount": 0,
+    "clean": true
+  },
+  "sharedCheckoutHead": {
+    "actualExitCode": 0,
+    "sha": "033f1107b22b39f3079670a33a660fba81b95f75",
+    "expectedUnchanged": true
+  },
+  "gitDiffQuietChecks": [
+    {
+      "label": "production baseline 033 vs accepted full qualification 763",
+      "scope": "production source, public runtime, build scripts, package and lock",
+      "argv": [
+        "git",
+        "diff",
+        "--quiet",
+        "033f1107b22b39f3079670a33a660fba81b95f75",
+        "763e39465fd584ffa4618ea220fbdb3a99fec40c",
+        "--",
+        "src",
+        "public",
+        "scripts",
+        "package.json",
+        "package-lock.json"
+      ],
+      "actualExitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "label": "production baseline 033 vs accepted full qualification 763",
+      "scope": "test harness plus package/lock",
+      "argv": [
+        "git",
+        "diff",
+        "--quiet",
+        "033f1107b22b39f3079670a33a660fba81b95f75",
+        "763e39465fd584ffa4618ea220fbdb3a99fec40c",
+        "--",
+        "tests",
+        "package.json",
+        "package-lock.json"
+      ],
+      "actualExitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "label": "baseline 033 vs candidate",
+      "scope": "production source, public runtime, build scripts, package and lock",
+      "argv": [
+        "git",
+        "diff",
+        "--quiet",
+        "033f1107b22b39f3079670a33a660fba81b95f75",
+        "46c542a10df358902fa1147e6d2b7ad04ea80d57",
+        "--",
+        "src",
+        "public",
+        "scripts",
+        "package.json",
+        "package-lock.json"
+      ],
+      "actualExitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "label": "baseline 033 vs candidate",
+      "scope": "test harness plus package/lock",
+      "argv": [
+        "git",
+        "diff",
+        "--quiet",
+        "033f1107b22b39f3079670a33a660fba81b95f75",
+        "46c542a10df358902fa1147e6d2b7ad04ea80d57",
+        "--",
+        "tests",
+        "package.json",
+        "package-lock.json"
+      ],
+      "actualExitCode": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "label": "accepted full qualification 763 vs candidate",
+      "scope": "production source, public runtime, build scripts, package and lock",
+      "argv": [
+        "git",
+        "diff",
+        "--quiet",
+        "763e39465fd584ffa4618ea220fbdb3a99fec40c",
+        "46c542a10df358902fa1147e6d2b7ad04ea80d57",
+        "--",
+        "src",
+        "public",
+        "scripts",
+        "package.json",
+        "package-lock.json"
+      ],
+      "actualExitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "label": "accepted full qualification 763 vs candidate",
+      "scope": "test harness plus package/lock",
+      "argv": [
+        "git",
+        "diff",
+        "--quiet",
+        "763e39465fd584ffa4618ea220fbdb3a99fec40c",
+        "46c542a10df358902fa1147e6d2b7ad04ea80d57",
+        "--",
+        "tests",
+        "package.json",
+        "package-lock.json"
+      ],
+      "actualExitCode": 1,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "builtPages": {
+    "base033": {
+      "output": "/private/tmp/release-guard-round2-pages-033f1107",
+      "fullFileCount": 64,
+      "releaseManifestFileCount": 54,
+      "releaseTotalBytes": 6137783
+    },
+    "candidate46c": {
+      "output": "/private/tmp/release-guard-round2-pages-46c542a",
+      "fullFileCount": 64,
+      "releaseManifestFileCount": 54,
+      "releaseTotalBytes": 6137783
+    },
+    "assembledTreeDiffCount": 1,
+    "assembledTreeDiffs": [
+      {
+        "path": "index.html",
+        "base": {
+          "bytes": 6205,
+          "sha256": "c6e92794a799928d6542a238b38caa46c5f1678186d2dce3c2ff43523df5a04a"
+        },
+        "candidate": {
+          "bytes": 6205,
+          "sha256": "f8dc1c83b36f1941ed896ed009ecbfcc054d1450e5a95af7c3e7c75a56f2ff56"
+        }
+      }
+    ],
+    "releaseManifestEntryDiffCount": 0,
+    "releaseManifestEntryDiffs": [],
+    "releaseManifestWholeMetadataEqual": true
+  },
+  "rawProcedure": {
+    "gitDiffReturnCodeMeaning": "0 means compared paths are byte-identical; 1 means different; any value >1 means git error",
+    "sharedCheckoutStatus": "Only HEAD was checked here because shared checkout has thousands of pre-existing unrelated modifications. No shared checkout cleanup was performed."
+  }
+}

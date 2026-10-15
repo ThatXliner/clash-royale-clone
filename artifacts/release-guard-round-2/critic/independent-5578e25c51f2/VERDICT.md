@@ -1,0 +1,13 @@
+# Independent RELEASE-GUARD-001 review
+
+**Verdict: PASS for frozen candidate `46c542a10df358902fa1147e6d2b7ad04ea80d57` only.**
+
+All 102 focused TAP cases passed with the pinned Node 22.22.3, npm 10.9.8, Playwright 1.58.2, and Chrome 155.0.8059.40. The independent full Pages build used repository `ThatXliner/clash-royale-clone`, the full candidate SHA, and prefix `/clash-royale-clone/`. Its release manifest contains 54 files / 6,137,783 bytes (largest 987,565 bytes); the assembled Pages tree contains 64 files / 6,547,936 bytes. Every emitted file size and SHA was checked, and protected-reference isolation passed.
+
+The final actual Pages audit passed on phone 390×844 and desktop 1440×933. It observed 132 requests across 49 unique paths, all HTTP 200 and within emitted inventories, with no browser errors. All 21 registered card portraits decoded in both viewports; the registered arena, Briar painted PNG, and Briar SVG decoded. Trusted card and arena pointer events admitted the Briar deployment; real packaged-controller and RL reset/step/restore checks passed. Manual stepping reached Briar's primary attack at tick 170, with the renderer projecting its melee attack frame at tick 171; six visible Briar markers used the registered painted asset in each viewport. The actual landing, Cards, and Battle screenshots are preserved under `generated/native-pages-audit-v9/` and were visually inspected.
+
+The candidate’s only parent delta is `tests/game-spell-runtime.test.js`. Its two setup-helper changes include source-confidence question keys; the 15 spell-runtime test cases remain active and all passed. Production, public assets, package files, scripts, and 156 selected endurance/audio/harness/runner paths match accepted baseline `763e39465fd584ffa4618ea220fbdb3a99fec40c` byte-for-byte. The 7,250 tracked files also match the private checkout’s initial snapshot, with clean final status. Kernel: 523,788 bytes, SHA-256 `115c43146f5818c69a98120e856ddaa5d20243fced3609320d90edc7ae933bea`; lock SHA-256 `d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4`.
+
+All native audit attempts v1–v8, including harness authoring failures and the 78%-point no-attack diagnostic, remain preserved with raw logs. The successful v9 used the already-qualified 54% field point. Low-confidence spell timing, refresh, target, and damage-composition questions remain QUESTIONS. This verdict does not claim full 109 parity or rerun the full 18,000-journey suite.
+
+See `final-verdict.json`, `final-fences.json`, `native-attempts-index.json`, `pages-build-receipt.json`, `generated/native-pages-audit-v9/native-pages-audit.json`, and `runs/` for structured evidence and raw command outputs.

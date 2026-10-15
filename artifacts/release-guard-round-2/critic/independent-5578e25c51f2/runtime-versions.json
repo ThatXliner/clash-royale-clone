@@ -1,0 +1,42 @@
+{
+  "captured_utc": "2026-10-14T18:24:27.325495+00:00",
+  "commands": [
+    {
+      "argv": [
+        "node",
+        "--version"
+      ],
+      "returncode": 0,
+      "stdout": "v22.22.3\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "npm",
+        "--version"
+      ],
+      "returncode": 0,
+      "stdout": "10.9.8\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "-p",
+        "require('./node_modules/playwright/package.json').version"
+      ],
+      "returncode": 0,
+      "stdout": "1.58.2\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "--version"
+      ],
+      "returncode": 0,
+      "stdout": "Google Chrome 155.0.8059.40 \n",
+      "stderr": ""
+    }
+  ]
+}

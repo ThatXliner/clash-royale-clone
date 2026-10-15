@@ -1,0 +1,13 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+locator.waitFor: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('.combat-marker[data-kind="briar-runner"]').first()[22m
+
+    at /Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/native-pages-audit.mjs:353:83 {
+  name: 'TimeoutError'
+}
+
+Node.js v22.22.3

@@ -1,0 +1,10 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+Error: Too many arguments. If you need to pass more than 1 argument to the function wrap them in an object.
+    at assertMaxArguments (/private/tmp/release-guard-round2-critic-5578e25c51f2/node_modules/playwright-core/lib/client/jsHandle.js:101:11)
+    at Frame.evaluate (/private/tmp/release-guard-round2-critic-5578e25c51f2/node_modules/playwright-core/lib/client/frame.js:176:44)
+    at file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/native-pages-audit.mjs:295:42
+
+Node.js v22.22.3

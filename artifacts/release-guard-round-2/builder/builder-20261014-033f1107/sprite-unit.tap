@@ -1,0 +1,70 @@
+TAP version 13
+# Subtest: walk and attack frames are selected only from the simulation tick and facing
+ok 1 - walk and attack frames are selected only from the simulation tick and facing
+  ---
+  duration_ms: 1.031334
+  type: 'test'
+  ...
+# Subtest: the vector comparison baseline has two authored frames per facing and action
+ok 2 - the vector comparison baseline has two authored frames per facing and action
+  ---
+  duration_ms: 3.830667
+  type: 'test'
+  ...
+# Subtest: the painted atlas maps every action, facing, and tick frame to a contained source window
+ok 3 - the painted atlas maps every action, facing, and tick frame to a contained source window
+  ---
+  duration_ms: 0.930917
+  type: 'test'
+  ...
+# Subtest: reduced motion holds the first painted atlas column for every facing
+ok 4 - reduced motion holds the first painted atlas column for every facing
+  ---
+  duration_ms: 0.097625
+  type: 'test'
+  ...
+# Subtest: painted Briar artwork carries a persistent bordered team-color footring
+ok 5 - painted Briar artwork carries a persistent bordered team-color footring
+  ---
+  duration_ms: 0.274958
+  type: 'test'
+  ...
+# Subtest: reduced motion fixes the frame while retaining the selected direction and action
+ok 6 - reduced motion fixes the frame while retaining the selected direction and action
+  ---
+  duration_ms: 0.108375
+  type: 'test'
+  ...
+# Subtest: checkpoint restore reproduces the exact sprite frame and reduced-motion state
+ok 7 - checkpoint restore reproduces the exact sprite frame and reduced-motion state
+  ---
+  duration_ms: 0.202541
+  type: 'test'
+  ...
+# Subtest: restore rejects malformed or noncanonical sprite checkpoints
+ok 8 - restore rejects malformed or noncanonical sprite checkpoints
+  ---
+  duration_ms: 0.164542
+  type: 'test'
+  ...
+# Subtest: rendered SVG carries clear team identity, frame identity, and an outlined external atlas use
+ok 9 - rendered SVG carries clear team identity, frame identity, and an outlined external atlas use
+  ---
+  duration_ms: 0.340458
+  type: 'test'
+  ...
+# Subtest: painted renderer carries team identity and the same deterministic atlas frame
+ok 10 - painted renderer carries team identity and the same deterministic atlas frame
+  ---
+  duration_ms: 0.390833
+  type: 'test'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 61.063542

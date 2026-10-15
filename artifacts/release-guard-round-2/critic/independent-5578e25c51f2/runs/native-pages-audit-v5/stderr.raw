@@ -1,0 +1,28 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: phone actual game hand cards
++ actual - expected
+
+  [
++   null,
++   null,
++   null,
++   null
+-   'skymaul',
+-   'brassbolt',
+-   'reedsting',
+-   'briar-band'
+  ]
+
+    at file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/native-pages-audit.mjs:343:12 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: [ null, null, null, null ],
+  expected: [ 'skymaul', 'brassbolt', 'reedsting', 'briar-band' ],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.22.3

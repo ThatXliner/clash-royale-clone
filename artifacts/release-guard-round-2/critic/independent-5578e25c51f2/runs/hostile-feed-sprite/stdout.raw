@@ -1,0 +1,130 @@
+TAP version 13
+# Subtest: compact wire keeps the existing public feed version and hard bounds
+ok 1 - compact wire keeps the existing public feed version and hard bounds
+  ---
+  duration_ms: 0.380958
+  type: 'test'
+  ...
+# Subtest: compact wire preserves the full v1 logical graph across restore and branches
+ok 2 - compact wire preserves the full v1 logical graph across restore and branches
+  ---
+  duration_ms: 923.354959
+  type: 'test'
+  ...
+# Subtest: direct-contact roots append to compact v2 as the third type without mutating the parent
+ok 3 - direct-contact roots append to compact v2 as the third type without mutating the parent
+  ---
+  duration_ms: 586.164667
+  type: 'test'
+  ...
+# Subtest: compact v2 rejects noncanonical, malformed, and causally forged rows
+ok 4 - compact v2 rejects noncanonical, malformed, and causally forged rows
+  ---
+  duration_ms: 424.494666
+  type: 'test'
+  ...
+# Subtest: compact append byte-bound failure is atomic and keeps the same limits
+ok 5 - compact append byte-bound failure is atomic and keeps the same limits
+  ---
+  duration_ms: 12961.41
+  type: 'test'
+  ...
+# Subtest: direct-contact byte-bound failure leaves a compact feed unchanged
+ok 6 - direct-contact byte-bound failure leaves a compact feed unchanged
+  ---
+  duration_ms: 329.945375
+  type: 'test'
+  ...
+# Subtest: walk and attack frames are selected only from the simulation tick and facing
+ok 7 - walk and attack frames are selected only from the simulation tick and facing
+  ---
+  duration_ms: 0.97275
+  type: 'test'
+  ...
+# Subtest: the vector comparison baseline has two authored frames per facing and action
+ok 8 - the vector comparison baseline has two authored frames per facing and action
+  ---
+  duration_ms: 3.52975
+  type: 'test'
+  ...
+# Subtest: the painted atlas maps every action, facing, and tick frame to a contained source window
+ok 9 - the painted atlas maps every action, facing, and tick frame to a contained source window
+  ---
+  duration_ms: 0.939209
+  type: 'test'
+  ...
+# Subtest: reduced motion holds the first painted atlas column for every facing
+ok 10 - reduced motion holds the first painted atlas column for every facing
+  ---
+  duration_ms: 0.0985
+  type: 'test'
+  ...
+# Subtest: painted Briar artwork carries a persistent bordered team-color footring
+ok 11 - painted Briar artwork carries a persistent bordered team-color footring
+  ---
+  duration_ms: 0.2675
+  type: 'test'
+  ...
+# Subtest: reduced motion fixes the frame while retaining the selected direction and action
+ok 12 - reduced motion fixes the frame while retaining the selected direction and action
+  ---
+  duration_ms: 0.108
+  type: 'test'
+  ...
+# Subtest: checkpoint restore reproduces the exact sprite frame and reduced-motion state
+ok 13 - checkpoint restore reproduces the exact sprite frame and reduced-motion state
+  ---
+  duration_ms: 0.20625
+  type: 'test'
+  ...
+# Subtest: restore rejects malformed or noncanonical sprite checkpoints
+ok 14 - restore rejects malformed or noncanonical sprite checkpoints
+  ---
+  duration_ms: 0.173917
+  type: 'test'
+  ...
+# Subtest: rendered SVG carries clear team identity, frame identity, and an outlined external atlas use
+ok 15 - rendered SVG carries clear team identity, frame identity, and an outlined external atlas use
+  ---
+  duration_ms: 0.35525
+  type: 'test'
+  ...
+# Subtest: painted renderer carries team identity and the same deterministic atlas frame
+ok 16 - painted renderer carries team identity and the same deterministic atlas frame
+  ---
+  duration_ms: 0.415375
+  type: 'test'
+  ...
+# Subtest: compact capability: every exported authority has no compact prototype or instance surface
+ok 17 - compact capability: every exported authority has no compact prototype or instance surface
+  ---
+  duration_ms: 38.488667
+  type: 'test'
+  ...
+# Subtest: compact capability: forged, extracted, proxy, and revoked receivers cannot issue a handle
+ok 18 - compact capability: forged, extracted, proxy, and revoked receivers cannot issue a handle
+  ---
+  duration_ms: 19.848916
+  type: 'test'
+  ...
+# Subtest: compact capability: deep-imported kernel exports no issuer and callable exports cannot mint authority
+ok 19 - compact capability: deep-imported kernel exports no issuer and callable exports cannot mint authority
+  ---
+  duration_ms: 12.6275
+  type: 'test'
+  ...
+# Subtest: compact capability: session-owned opaque hops preserve exact continuation and projectile provenance
+ok 20 - compact capability: session-owned opaque hops preserve exact continuation and projectile provenance
+  ---
+  duration_ms: 1639.930167
+  type: 'test'
+  ...
+1..20
+# tests 20
+# suites 0
+# pass 20
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 15282.622583

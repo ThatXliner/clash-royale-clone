@@ -1,0 +1,55 @@
+package-lock sha256 d707c780097d5e60bd33d03a60a35087c04c789f2f44717bb6812913bf933bf4
+package sha256 e3374ae28ad30665ebe0641f56e848d75cb13e1d1ac143c3955f56622be311cf
+release config:
+{
+  "schemaVersion": 1,
+  "qualificationProfile": "game",
+  "entries": [
+    "public/index.html",
+    "public/ui-arena-shell.html",
+    "src/rl/environment.js",
+    "src/ui/arena-shell-entry.js"
+  ],
+  "browserEntrypoints": [
+    "public/index.html"
+  ],
+  "moduleEntrypoints": [
+    "src/rl/environment.js",
+    "src/ui/arena-shell-entry.js"
+  ],
+  "staticAssetRoots": [
+    "public/assets"
+  ],
+  "outputNames": {
+    "public/index": "src/ui/app-shell.js",
+    "public/ui-arena-shell": "src/ui/arena-shell-bootstrap.js",
+    "src/rl/environment": "src/rl/environment.js",
+    "src/ui/arena-shell-entry": "src/ui/arena-shell-entry.js"
+  },
+  "limits": {
+    "maxFiles": 128,
+    "maxFileBytes": 1048576,
+    "maxTotalBytes": 8388608
+  },
+  "allowedExtensions": [
+    ".html",
+    ".css",
+    ".js",
+    ".json",
+    ".gif",
+    ".jpeg",
+    ".jpg",
+    ".mp3",
+    ".mp4",
+    ".ogg",
+    ".otf",
+    ".png",
+    ".svg",
+    ".ttf",
+    ".wav",
+    ".webm",
+    ".webp",
+    ".woff",
+    ".woff2"
+  ]
+}

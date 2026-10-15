@@ -54,7 +54,8 @@ function profiledBattle({ profile = true, radius = false, unprofiledEffectId = n
   const referenced = new Set(roster.flatMap(({ entities }) => entities.flatMap((entity) =>
     [entity.bodyRadiusPolicy, entity.projectileSpeedPolicy]
       .filter((policy) => policy.kind === "question")
-      .map(({ questionKey }) => questionKey))));
+      .map(({ questionKey }) => questionKey)
+      .concat((entity.sourceConfidencePolicy?.fields ?? []).map(({ questionKey }) => questionKey)))));
   const questions = createPlayableRosterQuestionRecords()
     .filter(({ key }) => referenced.has(key));
   const battle = { initialWindupTicks: { central: 0, lane: 0 }, questions, roster };
@@ -135,7 +136,8 @@ function radiusBuildingSetup() {
   roster[1] = structuredClone(projectSessionNonUnitBattleCard("bulwark-needle"));
   const referenced = new Set(roster.flatMap(({ entities }) => entities.flatMap((entity) =>
     [entity.bodyRadiusPolicy, entity.projectileSpeedPolicy]
-      .filter((policy) => policy.kind === "question").map(({ questionKey }) => questionKey))));
+      .filter((policy) => policy.kind === "question").map(({ questionKey }) => questionKey)
+      .concat((entity.sourceConfidencePolicy?.fields ?? []).map(({ questionKey }) => questionKey)))));
   const questions = createPlayableRosterQuestionRecords()
     .filter(({ key }) => referenced.has(key));
   return { initialWindupTicks: { central: 0, lane: 0 }, questions, roster,

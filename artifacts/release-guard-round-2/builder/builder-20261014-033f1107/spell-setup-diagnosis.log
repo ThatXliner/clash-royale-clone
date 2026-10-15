@@ -1,0 +1,109 @@
+{
+  "rosterIds": [
+    "coilblade",
+    "mossguard",
+    "copperskiff",
+    "skymaul",
+    "brassbolt",
+    "reedsting",
+    "briar-band",
+    "cinderlings"
+  ],
+  "fixtureRosterIds": [
+    "squall-orb",
+    "mossguard",
+    "copperskiff",
+    "skymaul",
+    "brassbolt",
+    "reedsting",
+    "briar-band",
+    "cinderlings"
+  ],
+  "offendingSlot": {
+    "index": 6,
+    "cardId": "briar-band",
+    "entityCount": 2,
+    "sourceConfidenceFields": [
+      {
+        "field": "count",
+        "questionKey": "briar-runner.count"
+      },
+      {
+        "field": "damage",
+        "questionKey": "briar-runner.damage"
+      },
+      {
+        "field": "deployTimeTicks",
+        "questionKey": "briar-runner.deploy-time-ticks"
+      },
+      {
+        "field": "firstHitTicks",
+        "questionKey": "briar-runner.first-hit-ticks"
+      },
+      {
+        "field": "hitSpeedTicks",
+        "questionKey": "briar-runner.hit-speed-ticks"
+      },
+      {
+        "field": "hitpoints",
+        "questionKey": "briar-runner.hitpoints"
+      },
+      {
+        "field": "movementMillitilesPerSecond",
+        "questionKey": "briar-runner.movement-millitiles-per-second"
+      },
+      {
+        "field": "rangeMillitiles",
+        "questionKey": "briar-runner.range-millitiles"
+      },
+      {
+        "field": "sightRangeMillitiles",
+        "questionKey": "briar-runner.sight-range-millitiles"
+      },
+      {
+        "field": "targetMode",
+        "questionKey": "briar-runner.target-mode"
+      }
+    ]
+  },
+  "catalogQuestionCount": 33,
+  "omittedPolicyQuestionKeys": [
+    "briar-runner.count",
+    "briar-runner.damage",
+    "briar-runner.deploy-time-ticks",
+    "briar-runner.first-hit-ticks",
+    "briar-runner.hit-speed-ticks",
+    "briar-runner.hitpoints",
+    "briar-runner.movement-millitiles-per-second",
+    "briar-runner.range-millitiles",
+    "briar-runner.sight-range-millitiles",
+    "briar-runner.target-mode",
+    "briar-darter.count",
+    "briar-darter.damage",
+    "briar-darter.deploy-time-ticks",
+    "briar-darter.first-hit-ticks",
+    "briar-darter.hit-speed-ticks",
+    "briar-darter.hitpoints",
+    "briar-darter.movement-millitiles-per-second",
+    "briar-darter.range-millitiles",
+    "briar-darter.sight-range-millitiles",
+    "briar-darter.target-mode"
+  ],
+  "currentFixtureQuestionCount": 12,
+  "correctedFixtureQuestionCount": 32,
+  "currentFixture": {
+    "label": "current-game-spell-test-fixture",
+    "accepted": false,
+    "error": "game session setup has an invalid shape"
+  },
+  "sameFixturePlusOnlyRequiredPolicyQuestions": {
+    "label": "same-fixture-plus-canonical-source-confidence-question-records",
+    "accepted": false,
+    "error": "game session setup has an invalid shape"
+  },
+  "currentCanonicalRoster": {
+    "label": "unmodified-current-playable-roster-with-full-canonical-questions",
+    "accepted": false,
+    "error": "game session setup has an invalid shape"
+  }
+}

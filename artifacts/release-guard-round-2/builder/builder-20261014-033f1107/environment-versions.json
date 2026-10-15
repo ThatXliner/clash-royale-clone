@@ -1,0 +1,41 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "node",
+        "--version"
+      ],
+      "actualExitCode": 0,
+      "stdout": "v22.22.3",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "npm",
+        "--version"
+      ],
+      "actualExitCode": 0,
+      "stdout": "10.9.8",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "-p",
+        "require(\"playwright/package.json\").version"
+      ],
+      "actualExitCode": 0,
+      "stdout": "1.58.2",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "--version"
+      ],
+      "actualExitCode": 0,
+      "stdout": "Google Chrome 155.0.8059.40",
+      "stderr": ""
+    }
+  ]
+}

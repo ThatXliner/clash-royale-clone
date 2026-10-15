@@ -1,0 +1,490 @@
+{
+  "candidate": "46c542a10df358902fa1147e6d2b7ad04ea80d57",
+  "error": {
+    "name": "AssertionError",
+    "message": "phone trusted Briar deployment lands a primary melee attack",
+    "stack": "AssertionError [ERR_ASSERTION]: phone trusted Briar deployment lands a primary melee attack\n    at file:///Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/native-pages-audit-v8.mjs:457:12"
+  },
+  "requests": [
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/",
+      "resourceType": "document",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/assets/site.css",
+      "resourceType": "stylesheet",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/brand/logo.svg",
+      "resourceType": "image",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/brand/gameplay.png",
+      "resourceType": "image",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/brand/banner.svg",
+      "resourceType": "image",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/brand/logo.svg",
+      "resourceType": "other",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/public/index.html",
+      "resourceType": "document",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/src/ui/app-shell.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/rolldown-runtime-Cl99QfTQ.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell-D-709RTF.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CVKh5POa.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-iYK_h2t5.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-jbN8jSqD.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DHGDlboh.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-yR8a61kO.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-B8nL-zLe.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CZT14Dhg.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CyMIgZ_f.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DEU-_oia.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BZudrCfI.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-B5WzjRCK.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-IiXAdE-2.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-7HYgJsNr.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/index-DxvgYUo8.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/asset-D-AK-JuF.css",
+      "resourceType": "stylesheet",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/public/assets/card-portraits-painted.webp",
+      "resourceType": "image",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/public/assets/stonehauler-painted.webp",
+      "resourceType": "image",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/public/assets/thornscouts-painted.webp",
+      "resourceType": "image",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/public/assets/forgeguard-painted.webp",
+      "resourceType": "image",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/public/assets/cinder-host-painted.webp",
+      "resourceType": "image",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/public/assets/ironroot-painted.webp",
+      "resourceType": "image",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/public/assets/sunthread-pair-painted.webp",
+      "resourceType": "image",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/public/assets/duskwing-trio-painted.webp",
+      "resourceType": "image",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/public/assets/gloamwing-cluster-painted.webp",
+      "resourceType": "image",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/public/assets/coppershade-flock-painted.webp",
+      "resourceType": "image",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/public/assets/kilnkeeper-portrait-painted.webp",
+      "resourceType": "image",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/public/assets/squall-orb-painted.webp",
+      "resourceType": "image",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/public/assets/ember-basin-portrait-painted-v2.webp",
+      "resourceType": "image",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/public/assets/buried-coil-portrait.webp",
+      "resourceType": "image",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/public/ui-arena-shell.html?app-frame=1",
+      "resourceType": "document",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/src/ui/arena-shell-bootstrap.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/rolldown-runtime-Cl99QfTQ.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell-D-709RTF.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CVKh5POa.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-iYK_h2t5.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-jbN8jSqD.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DHGDlboh.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-yR8a61kO.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-B8nL-zLe.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CZT14Dhg.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CyMIgZ_f.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DEU-_oia.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BZudrCfI.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-B5WzjRCK.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-IiXAdE-2.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-7HYgJsNr.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry--RvRLFdN.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-DMcE9RV7.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-CUn63G-n.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/assets/ui-arena-shell-er5XVwGC.css",
+      "resourceType": "stylesheet",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/public/assets/moss-ember-arena-painted.webp",
+      "resourceType": "image",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/src/ui/arena-shell-entry.js",
+      "resourceType": "script",
+      "status": 200,
+      "failure": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:58861/clash-royale-clone/game/public/assets/briar-runner-painted-sheet.png",
+      "resourceType": "image",
+      "status": 200,
+      "failure": null
+    }
+  ],
+  "browserErrors": [],
+  "completedViewports": [],
+  "screenshots": [
+    {
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v8/phone-landing.png",
+      "bytes": 89830,
+      "width": 390,
+      "height": 844,
+      "sha256": "0a7ce5917e8079b525ef7631f66b10a80ac5d9ed952162928111cff06db6e363"
+    },
+    {
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v8/phone-game-home.png",
+      "bytes": 230730,
+      "width": 390,
+      "height": 844,
+      "sha256": "9532890c9ed1261130404e9b2e0c814027f4ea2a5c79a9ef492b59fa9e7d6e49"
+    },
+    {
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v8/phone-cards.png",
+      "bytes": 307083,
+      "width": 390,
+      "height": 844,
+      "sha256": "99ce42430b9e3c54218202ad1f2ae88517c109e29d0d8a6f86c44b111565d924"
+    },
+    {
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v8/phone-cards-full.png",
+      "bytes": 897936,
+      "width": 390,
+      "height": 2506,
+      "sha256": "9359679aeaf78b78e15f575123064268ddbc19b36187ce071c33f7ab1655fc87"
+    },
+    {
+      "path": "/Users/me/.codex/worktrees/9456/clash-royale-clone/artifacts/release-guard-round-2/critic/independent-5578e25c51f2/generated/native-pages-audit-v8/phone-battle.png",
+      "bytes": 323127,
+      "width": 390,
+      "height": 844,
+      "sha256": "3c8648bffdbfcc3235d28647789033f2d1a34adb57043eb3e504f5667dd76b8e"
+    }
+  ]
+}
