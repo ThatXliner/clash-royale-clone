@@ -1,0 +1,24 @@
+{
+  "verifiedAt": "2026-10-15T15:23:26.281525+00:00",
+  "deployedSource": "09eae7fd6dc8ba19503328869da3e8c651f4ed43",
+  "workflow": "https://github.com/ThatXliner/clash-royale-clone/actions/runs/38758357255",
+  "receipts": [
+    {
+      "name": "landing",
+      "url": "https://bryanhu.com/clash-royale-clone/",
+      "httpStatus": 200,
+      "sha256": "f30dade7980fbf744d05506ca52f88b2dfef56c3d5da2d6dbd741e7a42ee4f8f",
+      "byteLength": 6205,
+      "sourceStampFound": true
+    },
+    {
+      "name": "game",
+      "url": "https://bryanhu.com/clash-royale-clone/game/public/index.html",
+      "httpStatus": 200,
+      "sha256": "166d3157701bb0d699509586b595375ed38d19384a1aa6ea69fc7f64df24113e",
+      "byteLength": 11284,
+      "sourceStampFound": false
+    }
+  ],
+  "scope": "HTTP and landing source stamp only; production byte-identical to qualified763, no new historical parity claim."
+}
