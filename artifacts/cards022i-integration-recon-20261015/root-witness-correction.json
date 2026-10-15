@@ -1,0 +1,6 @@
+{
+  "source": "4e1acc7c7771453da4306fc2b605a7471d072304",
+  "test": "tests/cards022k-brackenwheel.test.js:321",
+  "correction": "Natural public-RL seed2 witness has primary NorthBrackenwheel target2 plus THREE NorthBriar secondary losses IDs4,5,6 at replaytick234/publicobservation235. Earlier recon/root wording saying two secondary victims was incorrect. The separate constrained GameSession witness at144 has two secondary victims; do not conflate them.",
+  "verification": "Read exact current committed test assertions; QH builder independently traced same natural witness. Not a new browser or interaction-test run."
+}
