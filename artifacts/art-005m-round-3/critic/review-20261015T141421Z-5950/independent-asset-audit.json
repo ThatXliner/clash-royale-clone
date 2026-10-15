@@ -1,0 +1,1033 @@
+{
+  "review": {
+    "candidateCommit": "9fd1f0fabb21ad914abc930bcba8f8d2e700fb7e",
+    "expectedCandidateCommit": "9fd1f0fabb21ad914abc930bcba8f8d2e700fb7e",
+    "candidateHeadMatchesExpected": true,
+    "candidateWorktreeCleanAfterReview": true,
+    "candidateCommitChangedPaths": [
+      "A\tartifacts/art-005m-round-3/builder/attempt-01-lossless.webp",
+      "A\tartifacts/art-005m-round-3/builder/attempt-02-decoded.png",
+      "A\tartifacts/art-005m-round-3/builder/attempt-02-exact-lossless.webp",
+      "A\tartifacts/art-005m-round-3/builder/encoder-and-preview-receipt.txt",
+      "A\tartifacts/art-005m-round-3/builder/native-body-scale-preview.html",
+      "A\tartifacts/art-005m-round-3/builder/native-body-scale-preview.png",
+      "A\tartifacts/art-005m-round-3/builder/raw-generation/attempt-01-prompt.txt",
+      "A\tartifacts/art-005m-round-3/builder/raw-generation/attempt-01-source.png",
+      "A\tartifacts/art-005m-round-3/builder/raw-generation/attempt-01-trigger.md",
+      "A\tartifacts/art-005m-round-3/builder/raw-generation/attempt-02-prompt.txt",
+      "A\tartifacts/art-005m-round-3/builder/raw-generation/attempt-02-source.png",
+      "A\tartifacts/art-005m-round-3/builder/raw-generation/attempt-02-trigger.md",
+      "A\tdemo/assets/mossguard-directional-sprite-source.png",
+      "A\tdemo/assets/mossguard-directional-sprite.webp",
+      "A\tdocs/art/mossguard-sprite-layout.json",
+      "A\tdocs/art/mossguard-sprite-provenance.json"
+    ]
+  },
+  "assetIntegrity": {
+    "sourcePNG": {
+      "path": "/Users/me/.codex/worktrees/mossguard-sprite-asset/clash-royale-clone/demo/assets/mossguard-directional-sprite-source.png",
+      "bytes": 1097073,
+      "sha256": "b77591ef37f2942df4ea38cf6141d34398b2085a5c97ef1c069b26692a5c0e7e",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ]
+    },
+    "losslessWebP": {
+      "path": "/Users/me/.codex/worktrees/mossguard-sprite-asset/clash-royale-clone/demo/assets/mossguard-directional-sprite.webp",
+      "bytes": 760894,
+      "sha256": "d867be223694a0cd83ca859b3949f04ce97ca21dd56abb988e10982fdefbb524",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "within1048576ByteCap": true,
+      "RGBAExactlyEqualToSourcePNG": true
+    },
+    "portraitIdentityInput": {
+      "path": "/Users/me/.codex/worktrees/mossguard-sprite-asset/clash-royale-clone/public/assets/card-portraits-painted.webp",
+      "bytes": 320516,
+      "sha256": "16307a59bde57889e11bcd7b86b54d69ba9985eae6ef436d9703e528fba58e4f",
+      "dimensions": [
+        1774,
+        887
+      ]
+    },
+    "briarLayoutOnlyInput": {
+      "path": "/Users/me/.codex/worktrees/mossguard-sprite-asset/clash-royale-clone/public/assets/briar-runner-painted-sheet.png",
+      "bytes": 987565,
+      "sha256": "a1aa43df00dacc212beedb4905dddd7a57db412981ea29662bc1d868a97794f4",
+      "dimensions": [
+        1254,
+        1254
+      ]
+    }
+  },
+  "lineage": {
+    "projectLicense": "AGPL-3.0-only",
+    "provenanceLicense": "AGPL-3.0-only",
+    "identitySourceHashMatchesProvenance": true,
+    "layoutReferenceHashMatchesProvenance": true,
+    "candidateSourceHashMatchesAttempt2Provenance": true,
+    "candidateWebPHashMatchesAttempt2Provenance": true,
+    "attempt2InputReferences": [
+      "attempt-01 Mossguard sheet for redraw/layout continuity",
+      "original Mossguard portrait atlas cell for identity",
+      "Briar Runner sheet for layout/margins only"
+    ],
+    "attempt2RawSourcePath": "artifacts/art-005m-round-3/builder/raw-generation/attempt-02-source.png",
+    "referenceDirectoryListedAsInput": false,
+    "recordedGenerationTool": "Codex built-in imagegen; transparent_background=true; no external API or CLI"
+  },
+  "layout": {
+    "schemaVersion": 1,
+    "status": "unreviewed builder candidate; anchor proposals and frame extraction need independent review",
+    "sheet": {
+      "source": "demo/assets/mossguard-directional-sprite-source.png",
+      "width": 1254,
+      "height": 1254,
+      "rows": 4,
+      "columns": 4,
+      "cellWidthPx": 313.5,
+      "cellHeightPx": 313.5,
+      "pixelAssignment": "A source pixel belongs to the cell containing its center (x+0.5,y+0.5); integer regions are recorded per frame."
+    },
+    "rowOrder": [
+      "north",
+      "east",
+      "south",
+      "west"
+    ],
+    "columnOrder": [
+      "walk-A",
+      "walk-B",
+      "melee-windup",
+      "melee-contact"
+    ],
+    "frameCount": 16,
+    "all16Equal313_5LogicalRectsInExpectedOrder": true,
+    "metadataBoundsMatchDecodedPNGForAll16": true,
+    "requestedDisplayWindowLocalPx": {
+      "x": 46.75,
+      "y": 46.75,
+      "width": 220,
+      "height": 220,
+      "measuredContainment": "only 4/16 alpha>=128 boxes fit; 0/16 full alpha>0 boxes fit. Do not crop to this window as-is."
+    },
+    "actualFullAlphaBoundsContainedCount": 0,
+    "actualAlpha128BoundsContainedCount": 4,
+    "fullAlphaBoundingBoxesContainedCountMetadataClaim": 0,
+    "alpha128BoundingBoxesContainedCountMetadataClaim": 4,
+    "proposedAnchorYRangeSourcePx": [
+      237.5,
+      286.5
+    ],
+    "anchorYSpreadSourcePx": 49.0,
+    "bodyOnlyHeightValidated": false,
+    "nativeScaleMeasurement": {
+      "preview": "artifacts/art-005m-round-3/builder/native-body-scale-preview.png",
+      "fullSheetCssWidth": 75,
+      "wholeSheetCellCssWidth": 18.75,
+      "alpha128FigureHeightRangeCSSPx": [
+        11.84,
+        12.8
+      ],
+      "includesSproutAndBoots": true,
+      "bodyOnlyHeightValidated": false,
+      "wholeCell13DiagnosticCssWidth": 52,
+      "wholeCell13DiagnosticMeaning": "each logical 313.5px cell is 13 CSS px; figure height is smaller than the 75px full-sheet panel"
+    },
+    "frames": [
+      {
+        "row": 0,
+        "column": 0,
+        "facing": "north",
+        "pose": "walk-A",
+        "logicalRectSourcePx": {
+          "x": 0.0,
+          "y": 0.0,
+          "width": 313.5,
+          "height": 313.5
+        },
+        "pixelCenterAssignedIntegerRectXYXY": [
+          0,
+          0,
+          313,
+          313
+        ],
+        "alphaAnyLocalXYWH": {
+          "x": 21,
+          "y": 19,
+          "width": 285,
+          "height": 293
+        },
+        "alpha16LocalXYWH": {
+          "x": 80,
+          "y": 72,
+          "width": 160,
+          "height": 216
+        },
+        "alpha128LocalXYWH": {
+          "x": 81,
+          "y": 73,
+          "width": 158,
+          "height": 214
+        },
+        "metadataBoundsMatchDecodedPNG": true,
+        "alphaAnyPixels": 25344,
+        "alphaAnyPixelsInside220Window": 23724,
+        "alphaAnyInsidePercent": 93.608,
+        "alpha128Pixels": 20143,
+        "alpha128PixelsInside220Window": 19302,
+        "alpha128InsidePercent": 95.825,
+        "220WindowContainsAllAlphaAny": false,
+        "220WindowContainsAllAlpha128": false,
+        "alpha128BottommostLocalPixelRow": 286,
+        "builderProposedFootContactAnchorLocalPx": {
+          "x": 158.0,
+          "y": 286.5,
+          "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+          "notAnAlphaBBox": true
+        },
+        "anchorToAlpha128BottomRowDeltaPx": 0.0,
+        "anchorBasisAndReviewStatus": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated"
+      },
+      {
+        "row": 0,
+        "column": 1,
+        "facing": "north",
+        "pose": "walk-B",
+        "logicalRectSourcePx": {
+          "x": 313.5,
+          "y": 0.0,
+          "width": 313.5,
+          "height": 313.5
+        },
+        "pixelCenterAssignedIntegerRectXYXY": [
+          313,
+          0,
+          627,
+          313
+        ],
+        "alphaAnyLocalXYWH": {
+          "x": 3,
+          "y": 19,
+          "width": 311,
+          "height": 294
+        },
+        "alpha16LocalXYWH": {
+          "x": 80,
+          "y": 77,
+          "width": 162,
+          "height": 209
+        },
+        "alpha128LocalXYWH": {
+          "x": 81,
+          "y": 78,
+          "width": 161,
+          "height": 207
+        },
+        "metadataBoundsMatchDecodedPNG": true,
+        "alphaAnyPixels": 26369,
+        "alphaAnyPixelsInside220Window": 23661,
+        "alphaAnyInsidePercent": 89.73,
+        "alpha128Pixels": 20290,
+        "alpha128PixelsInside220Window": 19394,
+        "alpha128InsidePercent": 95.584,
+        "220WindowContainsAllAlphaAny": false,
+        "220WindowContainsAllAlpha128": false,
+        "alpha128BottommostLocalPixelRow": 284,
+        "builderProposedFootContactAnchorLocalPx": {
+          "x": 133.0,
+          "y": 284.5,
+          "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+          "notAnAlphaBBox": true
+        },
+        "anchorToAlpha128BottomRowDeltaPx": 0.0,
+        "anchorBasisAndReviewStatus": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated"
+      },
+      {
+        "row": 0,
+        "column": 2,
+        "facing": "north",
+        "pose": "melee-windup",
+        "logicalRectSourcePx": {
+          "x": 627.0,
+          "y": 0.0,
+          "width": 313.5,
+          "height": 313.5
+        },
+        "pixelCenterAssignedIntegerRectXYXY": [
+          627,
+          0,
+          940,
+          313
+        ],
+        "alphaAnyLocalXYWH": {
+          "x": 0,
+          "y": 25,
+          "width": 312,
+          "height": 266
+        },
+        "alpha16LocalXYWH": {
+          "x": 56,
+          "y": 79,
+          "width": 186,
+          "height": 206
+        },
+        "alpha128LocalXYWH": {
+          "x": 57,
+          "y": 79,
+          "width": 184,
+          "height": 205
+        },
+        "metadataBoundsMatchDecodedPNG": true,
+        "alphaAnyPixels": 29683,
+        "alphaAnyPixelsInside220Window": 26972,
+        "alphaAnyInsidePercent": 90.867,
+        "alpha128Pixels": 23821,
+        "alpha128PixelsInside220Window": 22447,
+        "alpha128InsidePercent": 94.232,
+        "220WindowContainsAllAlphaAny": false,
+        "220WindowContainsAllAlpha128": false,
+        "alpha128BottommostLocalPixelRow": 283,
+        "builderProposedFootContactAnchorLocalPx": {
+          "x": 157.0,
+          "y": 283.5,
+          "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+          "notAnAlphaBBox": true
+        },
+        "anchorToAlpha128BottomRowDeltaPx": 0.0,
+        "anchorBasisAndReviewStatus": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated"
+      },
+      {
+        "row": 0,
+        "column": 3,
+        "facing": "north",
+        "pose": "melee-contact",
+        "logicalRectSourcePx": {
+          "x": 940.5,
+          "y": 0.0,
+          "width": 313.5,
+          "height": 313.5
+        },
+        "pixelCenterAssignedIntegerRectXYXY": [
+          940,
+          0,
+          1254,
+          313
+        ],
+        "alphaAnyLocalXYWH": {
+          "x": 1,
+          "y": 27,
+          "width": 297,
+          "height": 286
+        },
+        "alpha16LocalXYWH": {
+          "x": 72,
+          "y": 76,
+          "width": 182,
+          "height": 209
+        },
+        "alpha128LocalXYWH": {
+          "x": 73,
+          "y": 77,
+          "width": 181,
+          "height": 207
+        },
+        "metadataBoundsMatchDecodedPNG": true,
+        "alphaAnyPixels": 29357,
+        "alphaAnyPixelsInside220Window": 26710,
+        "alphaAnyInsidePercent": 90.983,
+        "alpha128Pixels": 23424,
+        "alpha128PixelsInside220Window": 22039,
+        "alpha128InsidePercent": 94.087,
+        "220WindowContainsAllAlphaAny": false,
+        "220WindowContainsAllAlpha128": false,
+        "alpha128BottommostLocalPixelRow": 283,
+        "builderProposedFootContactAnchorLocalPx": {
+          "x": 107.0,
+          "y": 283.5,
+          "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+          "notAnAlphaBBox": true
+        },
+        "anchorToAlpha128BottomRowDeltaPx": 0.0,
+        "anchorBasisAndReviewStatus": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated"
+      },
+      {
+        "row": 1,
+        "column": 0,
+        "facing": "east",
+        "pose": "walk-A",
+        "logicalRectSourcePx": {
+          "x": 0.0,
+          "y": 313.5,
+          "width": 313.5,
+          "height": 313.5
+        },
+        "pixelCenterAssignedIntegerRectXYXY": [
+          0,
+          313,
+          313,
+          627
+        ],
+        "alphaAnyLocalXYWH": {
+          "x": 13,
+          "y": 0,
+          "width": 300,
+          "height": 314
+        },
+        "alpha16LocalXYWH": {
+          "x": 83,
+          "y": 64,
+          "width": 159,
+          "height": 210
+        },
+        "alpha128LocalXYWH": {
+          "x": 84,
+          "y": 65,
+          "width": 157,
+          "height": 208
+        },
+        "metadataBoundsMatchDecodedPNG": true,
+        "alphaAnyPixels": 26408,
+        "alphaAnyPixelsInside220Window": 25165,
+        "alphaAnyInsidePercent": 95.293,
+        "alpha128Pixels": 20868,
+        "alpha128PixelsInside220Window": 20640,
+        "alpha128InsidePercent": 98.907,
+        "220WindowContainsAllAlphaAny": false,
+        "220WindowContainsAllAlpha128": false,
+        "alpha128BottommostLocalPixelRow": 272,
+        "builderProposedFootContactAnchorLocalPx": {
+          "x": 192.5,
+          "y": 271.5,
+          "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+          "notAnAlphaBBox": true
+        },
+        "anchorToAlpha128BottomRowDeltaPx": -1.0,
+        "anchorBasisAndReviewStatus": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated"
+      },
+      {
+        "row": 1,
+        "column": 1,
+        "facing": "east",
+        "pose": "walk-B",
+        "logicalRectSourcePx": {
+          "x": 313.5,
+          "y": 313.5,
+          "width": 313.5,
+          "height": 313.5
+        },
+        "pixelCenterAssignedIntegerRectXYXY": [
+          313,
+          313,
+          627,
+          627
+        ],
+        "alphaAnyLocalXYWH": {
+          "x": 0,
+          "y": 0,
+          "width": 314,
+          "height": 312
+        },
+        "alpha16LocalXYWH": {
+          "x": 73,
+          "y": 63,
+          "width": 180,
+          "height": 209
+        },
+        "alpha128LocalXYWH": {
+          "x": 74,
+          "y": 64,
+          "width": 179,
+          "height": 207
+        },
+        "metadataBoundsMatchDecodedPNG": true,
+        "alphaAnyPixels": 29465,
+        "alphaAnyPixelsInside220Window": 27889,
+        "alphaAnyInsidePercent": 94.651,
+        "alpha128Pixels": 22632,
+        "alpha128PixelsInside220Window": 22424,
+        "alpha128InsidePercent": 99.081,
+        "220WindowContainsAllAlphaAny": false,
+        "220WindowContainsAllAlpha128": false,
+        "alpha128BottommostLocalPixelRow": 270,
+        "builderProposedFootContactAnchorLocalPx": {
+          "x": 196.5,
+          "y": 270.5,
+          "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+          "notAnAlphaBBox": true
+        },
+        "anchorToAlpha128BottomRowDeltaPx": 0.0,
+        "anchorBasisAndReviewStatus": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated"
+      },
+      {
+        "row": 1,
+        "column": 2,
+        "facing": "east",
+        "pose": "melee-windup",
+        "logicalRectSourcePx": {
+          "x": 627.0,
+          "y": 313.5,
+          "width": 313.5,
+          "height": 313.5
+        },
+        "pixelCenterAssignedIntegerRectXYXY": [
+          627,
+          313,
+          940,
+          627
+        ],
+        "alphaAnyLocalXYWH": {
+          "x": 5,
+          "y": 24,
+          "width": 305,
+          "height": 290
+        },
+        "alpha16LocalXYWH": {
+          "x": 84,
+          "y": 68,
+          "width": 160,
+          "height": 204
+        },
+        "alpha128LocalXYWH": {
+          "x": 85,
+          "y": 69,
+          "width": 158,
+          "height": 202
+        },
+        "metadataBoundsMatchDecodedPNG": true,
+        "alphaAnyPixels": 27301,
+        "alphaAnyPixelsInside220Window": 26189,
+        "alphaAnyInsidePercent": 95.927,
+        "alpha128Pixels": 22117,
+        "alpha128PixelsInside220Window": 21804,
+        "alpha128InsidePercent": 98.585,
+        "220WindowContainsAllAlphaAny": false,
+        "220WindowContainsAllAlpha128": false,
+        "alpha128BottommostLocalPixelRow": 270,
+        "builderProposedFootContactAnchorLocalPx": {
+          "x": 163.25,
+          "y": 270.5,
+          "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+          "notAnAlphaBBox": true
+        },
+        "anchorToAlpha128BottomRowDeltaPx": 0.0,
+        "anchorBasisAndReviewStatus": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated"
+      },
+      {
+        "row": 1,
+        "column": 3,
+        "facing": "east",
+        "pose": "melee-contact",
+        "logicalRectSourcePx": {
+          "x": 940.5,
+          "y": 313.5,
+          "width": 313.5,
+          "height": 313.5
+        },
+        "pixelCenterAssignedIntegerRectXYXY": [
+          940,
+          313,
+          1254,
+          627
+        ],
+        "alphaAnyLocalXYWH": {
+          "x": 1,
+          "y": 0,
+          "width": 304,
+          "height": 314
+        },
+        "alpha16LocalXYWH": {
+          "x": 76,
+          "y": 67,
+          "width": 188,
+          "height": 204
+        },
+        "alpha128LocalXYWH": {
+          "x": 77,
+          "y": 68,
+          "width": 186,
+          "height": 202
+        },
+        "metadataBoundsMatchDecodedPNG": true,
+        "alphaAnyPixels": 28754,
+        "alphaAnyPixelsInside220Window": 27735,
+        "alphaAnyInsidePercent": 96.456,
+        "alpha128Pixels": 23301,
+        "alpha128PixelsInside220Window": 23109,
+        "alpha128InsidePercent": 99.176,
+        "220WindowContainsAllAlphaAny": false,
+        "220WindowContainsAllAlpha128": false,
+        "alpha128BottommostLocalPixelRow": 269,
+        "builderProposedFootContactAnchorLocalPx": {
+          "x": 155.5,
+          "y": 269.5,
+          "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+          "notAnAlphaBBox": true
+        },
+        "anchorToAlpha128BottomRowDeltaPx": 0.0,
+        "anchorBasisAndReviewStatus": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated"
+      },
+      {
+        "row": 2,
+        "column": 0,
+        "facing": "south",
+        "pose": "walk-A",
+        "logicalRectSourcePx": {
+          "x": 0.0,
+          "y": 627.0,
+          "width": 313.5,
+          "height": 313.5
+        },
+        "pixelCenterAssignedIntegerRectXYXY": [
+          0,
+          627,
+          313,
+          940
+        ],
+        "alphaAnyLocalXYWH": {
+          "x": 0,
+          "y": 13,
+          "width": 313,
+          "height": 300
+        },
+        "alpha16LocalXYWH": {
+          "x": 80,
+          "y": 54,
+          "width": 164,
+          "height": 207
+        },
+        "alpha128LocalXYWH": {
+          "x": 81,
+          "y": 55,
+          "width": 163,
+          "height": 205
+        },
+        "metadataBoundsMatchDecodedPNG": true,
+        "alphaAnyPixels": 24740,
+        "alphaAnyPixelsInside220Window": 24495,
+        "alphaAnyInsidePercent": 99.01,
+        "alpha128Pixels": 20141,
+        "alpha128PixelsInside220Window": 20141,
+        "alpha128InsidePercent": 100.0,
+        "220WindowContainsAllAlphaAny": false,
+        "220WindowContainsAllAlpha128": true,
+        "alpha128BottommostLocalPixelRow": 259,
+        "builderProposedFootContactAnchorLocalPx": {
+          "x": 143.0,
+          "y": 259.5,
+          "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+          "notAnAlphaBBox": true
+        },
+        "anchorToAlpha128BottomRowDeltaPx": 0.0,
+        "anchorBasisAndReviewStatus": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated"
+      },
+      {
+        "row": 2,
+        "column": 1,
+        "facing": "south",
+        "pose": "walk-B",
+        "logicalRectSourcePx": {
+          "x": 313.5,
+          "y": 627.0,
+          "width": 313.5,
+          "height": 313.5
+        },
+        "pixelCenterAssignedIntegerRectXYXY": [
+          313,
+          627,
+          627,
+          940
+        ],
+        "alphaAnyLocalXYWH": {
+          "x": 0,
+          "y": 5,
+          "width": 314,
+          "height": 301
+        },
+        "alpha16LocalXYWH": {
+          "x": 78,
+          "y": 54,
+          "width": 170,
+          "height": 203
+        },
+        "alpha128LocalXYWH": {
+          "x": 79,
+          "y": 55,
+          "width": 168,
+          "height": 201
+        },
+        "metadataBoundsMatchDecodedPNG": true,
+        "alphaAnyPixels": 25750,
+        "alphaAnyPixelsInside220Window": 25371,
+        "alphaAnyInsidePercent": 98.528,
+        "alpha128Pixels": 20215,
+        "alpha128PixelsInside220Window": 20215,
+        "alpha128InsidePercent": 100.0,
+        "220WindowContainsAllAlphaAny": false,
+        "220WindowContainsAllAlpha128": true,
+        "alpha128BottommostLocalPixelRow": 255,
+        "builderProposedFootContactAnchorLocalPx": {
+          "x": 138.0,
+          "y": 255.5,
+          "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+          "notAnAlphaBBox": true
+        },
+        "anchorToAlpha128BottomRowDeltaPx": 0.0,
+        "anchorBasisAndReviewStatus": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated"
+      },
+      {
+        "row": 2,
+        "column": 2,
+        "facing": "south",
+        "pose": "melee-windup",
+        "logicalRectSourcePx": {
+          "x": 627.0,
+          "y": 627.0,
+          "width": 313.5,
+          "height": 313.5
+        },
+        "pixelCenterAssignedIntegerRectXYXY": [
+          627,
+          627,
+          940,
+          940
+        ],
+        "alphaAnyLocalXYWH": {
+          "x": 1,
+          "y": 19,
+          "width": 257,
+          "height": 279
+        },
+        "alpha16LocalXYWH": {
+          "x": 73,
+          "y": 55,
+          "width": 177,
+          "height": 201
+        },
+        "alpha128LocalXYWH": {
+          "x": 74,
+          "y": 56,
+          "width": 174,
+          "height": 199
+        },
+        "metadataBoundsMatchDecodedPNG": true,
+        "alphaAnyPixels": 27139,
+        "alphaAnyPixelsInside220Window": 27114,
+        "alphaAnyInsidePercent": 99.908,
+        "alpha128Pixels": 22249,
+        "alpha128PixelsInside220Window": 22249,
+        "alpha128InsidePercent": 100.0,
+        "220WindowContainsAllAlphaAny": false,
+        "220WindowContainsAllAlpha128": true,
+        "alpha128BottommostLocalPixelRow": 254,
+        "builderProposedFootContactAnchorLocalPx": {
+          "x": 156.5,
+          "y": 254.5,
+          "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+          "notAnAlphaBBox": true
+        },
+        "anchorToAlpha128BottomRowDeltaPx": 0.0,
+        "anchorBasisAndReviewStatus": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated"
+      },
+      {
+        "row": 2,
+        "column": 3,
+        "facing": "south",
+        "pose": "melee-contact",
+        "logicalRectSourcePx": {
+          "x": 940.5,
+          "y": 627.0,
+          "width": 313.5,
+          "height": 313.5
+        },
+        "pixelCenterAssignedIntegerRectXYXY": [
+          940,
+          627,
+          1254,
+          940
+        ],
+        "alphaAnyLocalXYWH": {
+          "x": 9,
+          "y": 3,
+          "width": 275,
+          "height": 310
+        },
+        "alpha16LocalXYWH": {
+          "x": 80,
+          "y": 55,
+          "width": 170,
+          "height": 201
+        },
+        "alpha128LocalXYWH": {
+          "x": 81,
+          "y": 56,
+          "width": 168,
+          "height": 199
+        },
+        "metadataBoundsMatchDecodedPNG": true,
+        "alphaAnyPixels": 26393,
+        "alphaAnyPixelsInside220Window": 26125,
+        "alphaAnyInsidePercent": 98.985,
+        "alpha128Pixels": 21345,
+        "alpha128PixelsInside220Window": 21345,
+        "alpha128InsidePercent": 100.0,
+        "220WindowContainsAllAlphaAny": false,
+        "220WindowContainsAllAlpha128": true,
+        "alpha128BottommostLocalPixelRow": 254,
+        "builderProposedFootContactAnchorLocalPx": {
+          "x": 100.5,
+          "y": 254.5,
+          "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+          "notAnAlphaBBox": true
+        },
+        "anchorToAlpha128BottomRowDeltaPx": 0.0,
+        "anchorBasisAndReviewStatus": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated"
+      },
+      {
+        "row": 3,
+        "column": 0,
+        "facing": "west",
+        "pose": "walk-A",
+        "logicalRectSourcePx": {
+          "x": 0.0,
+          "y": 940.5,
+          "width": 313.5,
+          "height": 313.5
+        },
+        "pixelCenterAssignedIntegerRectXYXY": [
+          0,
+          940,
+          313,
+          1254
+        ],
+        "alphaAnyLocalXYWH": {
+          "x": 0,
+          "y": 0,
+          "width": 313,
+          "height": 290
+        },
+        "alpha16LocalXYWH": {
+          "x": 75,
+          "y": 36,
+          "width": 161,
+          "height": 205
+        },
+        "alpha128LocalXYWH": {
+          "x": 76,
+          "y": 37,
+          "width": 159,
+          "height": 204
+        },
+        "metadataBoundsMatchDecodedPNG": true,
+        "alphaAnyPixels": 25808,
+        "alphaAnyPixelsInside220Window": 24807,
+        "alphaAnyInsidePercent": 96.121,
+        "alpha128Pixels": 20682,
+        "alpha128PixelsInside220Window": 20373,
+        "alpha128InsidePercent": 98.506,
+        "220WindowContainsAllAlphaAny": false,
+        "220WindowContainsAllAlpha128": false,
+        "alpha128BottommostLocalPixelRow": 240,
+        "builderProposedFootContactAnchorLocalPx": {
+          "x": 133.0,
+          "y": 240.5,
+          "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+          "notAnAlphaBBox": true
+        },
+        "anchorToAlpha128BottomRowDeltaPx": 0.0,
+        "anchorBasisAndReviewStatus": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated"
+      },
+      {
+        "row": 3,
+        "column": 1,
+        "facing": "west",
+        "pose": "walk-B",
+        "logicalRectSourcePx": {
+          "x": 313.5,
+          "y": 940.5,
+          "width": 313.5,
+          "height": 313.5
+        },
+        "pixelCenterAssignedIntegerRectXYXY": [
+          313,
+          940,
+          627,
+          1254
+        ],
+        "alphaAnyLocalXYWH": {
+          "x": 0,
+          "y": 5,
+          "width": 314,
+          "height": 283
+        },
+        "alpha16LocalXYWH": {
+          "x": 81,
+          "y": 36,
+          "width": 166,
+          "height": 204
+        },
+        "alpha128LocalXYWH": {
+          "x": 82,
+          "y": 37,
+          "width": 164,
+          "height": 203
+        },
+        "metadataBoundsMatchDecodedPNG": true,
+        "alphaAnyPixels": 26713,
+        "alphaAnyPixelsInside220Window": 25295,
+        "alphaAnyInsidePercent": 94.692,
+        "alpha128Pixels": 20571,
+        "alpha128PixelsInside220Window": 20309,
+        "alpha128InsidePercent": 98.726,
+        "220WindowContainsAllAlphaAny": false,
+        "220WindowContainsAllAlpha128": false,
+        "alpha128BottommostLocalPixelRow": 239,
+        "builderProposedFootContactAnchorLocalPx": {
+          "x": 137.5,
+          "y": 239.5,
+          "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+          "notAnAlphaBBox": true
+        },
+        "anchorToAlpha128BottomRowDeltaPx": 0.0,
+        "anchorBasisAndReviewStatus": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated"
+      },
+      {
+        "row": 3,
+        "column": 2,
+        "facing": "west",
+        "pose": "melee-windup",
+        "logicalRectSourcePx": {
+          "x": 627.0,
+          "y": 940.5,
+          "width": 313.5,
+          "height": 313.5
+        },
+        "pixelCenterAssignedIntegerRectXYXY": [
+          627,
+          940,
+          940,
+          1254
+        ],
+        "alphaAnyLocalXYWH": {
+          "x": 0,
+          "y": 17,
+          "width": 302,
+          "height": 297
+        },
+        "alpha16LocalXYWH": {
+          "x": 73,
+          "y": 39,
+          "width": 157,
+          "height": 200
+        },
+        "alpha128LocalXYWH": {
+          "x": 73,
+          "y": 40,
+          "width": 156,
+          "height": 198
+        },
+        "metadataBoundsMatchDecodedPNG": true,
+        "alphaAnyPixels": 27563,
+        "alphaAnyPixelsInside220Window": 26729,
+        "alphaAnyInsidePercent": 96.974,
+        "alpha128Pixels": 21558,
+        "alpha128PixelsInside220Window": 21372,
+        "alpha128InsidePercent": 99.137,
+        "220WindowContainsAllAlphaAny": false,
+        "220WindowContainsAllAlpha128": false,
+        "alpha128BottommostLocalPixelRow": 237,
+        "builderProposedFootContactAnchorLocalPx": {
+          "x": 208.0,
+          "y": 237.5,
+          "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+          "notAnAlphaBBox": true
+        },
+        "anchorToAlpha128BottomRowDeltaPx": 0.0,
+        "anchorBasisAndReviewStatus": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated"
+      },
+      {
+        "row": 3,
+        "column": 3,
+        "facing": "west",
+        "pose": "melee-contact",
+        "logicalRectSourcePx": {
+          "x": 940.5,
+          "y": 940.5,
+          "width": 313.5,
+          "height": 313.5
+        },
+        "pixelCenterAssignedIntegerRectXYXY": [
+          940,
+          940,
+          1254,
+          1254
+        ],
+        "alphaAnyLocalXYWH": {
+          "x": 4,
+          "y": 1,
+          "width": 288,
+          "height": 290
+        },
+        "alpha16LocalXYWH": {
+          "x": 61,
+          "y": 39,
+          "width": 187,
+          "height": 199
+        },
+        "alpha128LocalXYWH": {
+          "x": 62,
+          "y": 39,
+          "width": 186,
+          "height": 199
+        },
+        "metadataBoundsMatchDecodedPNG": true,
+        "alphaAnyPixels": 28179,
+        "alphaAnyPixelsInside220Window": 27537,
+        "alphaAnyInsidePercent": 97.722,
+        "alpha128Pixels": 22572,
+        "alpha128PixelsInside220Window": 22378,
+        "alpha128InsidePercent": 99.141,
+        "220WindowContainsAllAlphaAny": false,
+        "220WindowContainsAllAlpha128": false,
+        "alpha128BottommostLocalPixelRow": 237,
+        "builderProposedFootContactAnchorLocalPx": {
+          "x": 115.5,
+          "y": 237.5,
+          "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+          "notAnAlphaBBox": true
+        },
+        "anchorToAlpha128BottomRowDeltaPx": 0.0,
+        "anchorBasisAndReviewStatus": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated"
+      }
+    ]
+  },
+  "actualBrowserRender": {
+    "method": "Google Chrome 155.0.8059.40 headless new, default GPU flags (no --disable-gpu), isolated user-data-dir; one 500x260 CSS viewport capture; deviceScaleFactor 1; 16 isolated frozen logical rect crops; no crop masks/tolerance",
+    "commandPath": "render-command-default-gpu.txt",
+    "exitCode": 0,
+    "pngPath": "actual-browser-16-isolated-frames-default-gpu.png",
+    "pngBytes": 32414,
+    "pngDimensions": [
+      500,
+      260
+    ],
+    "stderrContainsCVDisplayLinkWarnings": true
+  },
+  "firstUnsupportedRenderRetainedAsDiagnostic": {
+    "commandPath": "render-command.txt",
+    "exitCode": 0,
+    "gpuDisabledFlagWasPresent": true,
+    "pngPath": "actual-browser-16-isolated-frames.png"
+  }
+}

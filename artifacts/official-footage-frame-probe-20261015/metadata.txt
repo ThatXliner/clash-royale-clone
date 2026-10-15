@@ -1,0 +1,40 @@
+Source URL: https://www.youtube.com/watch?v=xQBo-Oag2z4
+Video ID: xQBo-Oag2z4
+Query date: 2026-10-15
+Metadata query: yt-dlp --no-warnings --no-playlist --skip-download --print '%(title)s\n%(uploader)s\n%(upload_date)s\n%(duration_string)s\n%(width)sx%(height)s\n%(webpage_url)s\n%(chapters)s' 'https://www.youtube.com/watch?v=xQBo-Oag2z4'
+
+Raw selected YouTube metadata:
+World Finals Day 1! | Clash Royale League 2022
+Clash Royale Esports
+20220923
+4:30:55
+1920x1080
+https://www.youtube.com/watch?v=xQBo-Oag2z4
+[
+  {'start_time': 0, 'end_time': 1650.0, 'title': '<Untitled Chapter 1>'},
+  {'start_time': 1650.0, 'title': 'Tournament Format', 'end_time': 1682.0},
+  {'start_time': 1682.0, 'title': 'Prize Pool', 'end_time': 1733.0},
+  {'start_time': 1733.0, 'title': 'Caster Predictions', 'end_time': 2434.0},
+  {'start_time': 2434.0, 'title': 'Game Number Two', 'end_time': 3085.0},
+  {'start_time': 3085.0, 'title': 'First Match', 'end_time': 4174.0},
+  {'start_time': 4174.0, 'title': 'Game Three', 'end_time': 6279.0},
+  {'start_time': 6279.0, 'title': 'Predictions', 'end_time': 7280.0},
+  {'start_time': 7280.0, 'title': 'Game Two', 'end_time': 16255}
+]
+
+Public format listing (metadata only; no media request):
+ID  EXT   RESOLUTION   FPS  CH | FILESIZE    TBR   PROTO | VCODEC       VBR   ACODEC
+sb3 mhtml 48x27         0       |                       mhtml | images (storyboard)
+sb2 mhtml 80x45         0       |                       mhtml | images (storyboard)
+sb1 mhtml 160x90        0       |                       mhtml | images (storyboard)
+sb0 mhtml 320x180       0       |                       mhtml | images (storyboard)
+139 m4a   audio only            | 94.53MiB   49k  https | audio only
+140 m4a   audio only            | 250.88MiB  129k https | audio only
+251 webm  audio only            | 250.43MiB  129k https | audio only
+160 mp4   256x144      30       | 119.81MiB  62k  https | avc1.4D400C 62k  video only
+134 mp4   640x360      30       | 500.48MiB  258k https | avc1.4D401E 258k video only
+18  mp4   640x360      30   2   | ≈748.77MiB 386k https | avc1.42001E       mp4a.40.2
+298 mp4   1280x720     60       | 2.79GiB    1472k https | avc1.640020 1472k video only (720p60, DASH)
+299 mp4   1920x1080    60       | 5.11GiB    2701k https | avc1.64002A 2701k video only (1080p60, DASH)
+
+The listed sizes describe the entire public stream, not planned segment size. Format 298 retains the 16:9 outer canvas at 720p60 and is the planned lowish-resolution choice if the short-section request is accepted. The actual game viewport/crop has not been seen.

@@ -9426,3 +9426,12 @@ EVIDENCE: Fresh exacte5b8431 blob review independently decodes1254x1254 RGBA,16e
 BIGGEST GAP: Encodedasset remains102798bytes over1MiB, with cleanedges/poseclarity/consistentfootbaseline still required.
 
 No source/public/demo/docs adoption. Rootverifiedcriticchecksums; two rawgenerationattempts/prompts, losslessencode/decodeproof and corrected13framecapture preserved. Earlier16frame/rough15bodyscreenshot retained as diagnostic, not13bodyproof. Candidatefourownedfiles archivedasevidenceonly. ExistingBriar uses a220px displaywindow within313.5pxcells; nextrevision must distinguish bodyextent/displaywindow from wholecell ratherthan claim13frame equals13body. Integrationownershipnote preserved, gameplay/performanceunproved and fullRound481 unchanged.
+
+## Round 485 — ART-005M controlled-scale sheet review
+
+PIECE: ART-005M
+VERDICT: FAIL
+EVIDENCE: Fresh exact9fd1f0f clean review independently verifies760894B losslessWebP under1MiB, identical1254x1254 source/outputRGBA,16equal313.5pxrects, originalportrait/Briar-layout hashes andAGPLlineage. DefaultGPUChrome155 actualisolated16frame render exits0 at75/1254CSSscale. Declared220x220window contains4/16alpha>=128bounds and0/16fullalpha bounds; fullalpha reaches/crosses celledges. Proposed soles237.5–286.5 sourcepx remainlow-confidence, body-onlyheightunvalidated.
+BIGGEST GAP: The declared displaywindow clips visible frame artwork and cannot safely isolate all16poses.
+
+No source/public/demo/docs adoption. Initial--disable-gpu render preserved as methoddiagnostic; separate unchangedasset/HTML defaultGPUcapture exits0, no screenshotmatchingretry. Rootverifiedcriticchecksums and preservedallbuilderattempts/encoders/bodypreview/metadata plus failedcandidatefourownedblobs. Three rounds share alignment/safe-isolation failure: stop whole-sheetgeneration loop pergauntlet; the approach iswrong-shaped, the bar remains. Separate originaleditablevector-rig prototype ART005MR and eventualrealbattle ART005MRI do not erase failedpaintedgoal or establishparity. Official2022footage metadata leads archived; bounded3sec publicmedia probe returned403, yt-dlp1/ffmpeg8 in2.039sec with0bytes/frames, no retry/workaround. VIScalibration remainsblocked.

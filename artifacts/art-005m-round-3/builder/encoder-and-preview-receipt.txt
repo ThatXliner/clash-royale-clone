@@ -1,0 +1,33 @@
+ART-005M round 3 builder receipts
+Branch: codex/art-005m-mossguard-round-3
+Private worktree base: cba1a9845f985b6988ad9b034bdbfcb313382e94
+
+Attempt 01 lossless WebP (preserved before selecting attempt 02)
+Command: cwebp -lossless -exact -z 9 demo/assets/mossguard-directional-sprite-source.png -o demo/assets/mossguard-directional-sprite.webp
+Exit: 0
+Result copied to artifacts/art-005m-round-3/builder/attempt-01-lossless.webp
+Bytes: 947796
+SHA-256: 29b9764c1070fc170d89260d8e0548b2a7e918414619e50680d339abe1a6fb04
+This passed the 1048576-byte cap, but its visible bodies were oversized and the measured full-alpha extents touched/crossed logical cell edges. It was not selected.
+
+Attempt 02 exact lossless WebP (selected candidate)
+Command: cwebp -lossless -exact -z 9 demo/assets/mossguard-directional-sprite-source.png -o artifacts/art-005m-round-3/builder/attempt-02-exact-lossless.webp
+Exit: 0
+WebP copied unchanged to demo/assets/mossguard-directional-sprite.webp
+Bytes: 760894 (287682 bytes below 1048576)
+SHA-256: d867be223694a0cd83ca859b3949f04ce97ca21dd56abb988e10982fdefbb524
+
+Decode and exact pixel check
+Command: dwebp demo/assets/mossguard-directional-sprite.webp -o artifacts/art-005m-round-3/builder/attempt-02-decoded.png
+Exit: 0
+Decoded dimensions: 1254x1254 with alpha.
+Pillow RGBA comparison against the source PNG: exact equality for every pixel, including alpha-zero RGB; alpha channels equal.
+
+Native-scale browser capture
+HTML: artifacts/art-005m-round-3/builder/native-body-scale-preview.html
+Command: /Applications/Google Chrome.app/Contents/MacOS/Google Chrome --headless=new --disable-gpu --hide-scrollbars --force-device-scale-factor=1 --window-size=310,160 --screenshot=artifacts/art-005m-round-3/builder/native-body-scale-preview.png file:///Users/me/.codex/worktrees/mossguard-sprite-asset/clash-royale-clone/artifacts/art-005m-round-3/builder/native-body-scale-preview.html
+Exit: 0 (Chrome emitted CVDisplayLinkCreateWithCGDisplay and first-paint timing diagnostics; screenshot was written.)
+Screenshot: full 1254px atlas rendered at 75 CSS px and 52 CSS px, with no crop/resample of the source file. At 75 CSS px, alpha>=128 figure bounds including sprout/boots measure 11.84-12.80 CSS px high. At 52 CSS px, each fractional cell is 13 CSS px and the figures are smaller; that panel is explicitly diagnostic, not the body-scale proof.
+Screenshot output: artifacts/art-005m-round-3/builder/native-body-scale-preview.png
+
+Generation stopped after two imagegen attempts. No lossy encoding, resizing, cropping, padding, repainting, or third generation was used.

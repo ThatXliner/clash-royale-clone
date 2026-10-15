@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "status": "unreviewed builder candidate; independent asset review pending; not registered or integrated",
+  "assetPaths": {
+    "sourcePNG": "demo/assets/mossguard-directional-sprite-source.png",
+    "losslessWebP": "demo/assets/mossguard-directional-sprite.webp"
+  },
+  "license": "AGPL-3.0-only",
+  "identitySource": {
+    "path": "/private/tmp/release-guard-round2-builder-033f1107/public/assets/card-portraits-painted.webp",
+    "atlasCell": "top row, second cell (Mossguard portrait)",
+    "dimensions": [
+      1774,
+      887
+    ],
+    "bytes": 320516,
+    "sha256": "16307a59bde57889e11bcd7b86b54d69ba9985eae6ef436d9703e528fba58e4f",
+    "use": "identity reference only"
+  },
+  "layoutReference": {
+    "path": "public/assets/briar-runner-painted-sheet.png",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "bytes": 987565,
+    "sha256": "a1aa43df00dacc212beedb4905dddd7a57db412981ea29662bc1d868a97794f4",
+    "use": "framing, safe-margin, baseline and pose organization only; no Briar character design or palette used"
+  },
+  "generationTool": "Codex built-in imagegen; transparent_background=true; no external API or CLI",
+  "attempts": [
+    {
+      "number": 1,
+      "outputPath": "/Users/me/.codex/generated_images/01a13bab-0835-7b90-b49d-75d8393a6264/exec-5be31c49-b4ae-494e-9774-47e942876877.png",
+      "rawSource": "artifacts/art-005m-round-3/builder/raw-generation/attempt-01-source.png",
+      "promptFile": "artifacts/art-005m-round-3/builder/raw-generation/attempt-01-prompt.txt",
+      "triggerFile": "artifacts/art-005m-round-3/builder/raw-generation/attempt-01-trigger.md",
+      "source": {
+        "dimensions": [
+          1254,
+          1254
+        ],
+        "bytes": 1385825,
+        "sha256": "1a087cc95f65d1641964e36c23de066b2826b2f0acf6b7d834543b7024de5d9d",
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "fullAlphaBBoxXYXY": [
+          0,
+          0,
+          1244,
+          1254
+        ],
+        "alphaZeroPixels": 1030792,
+        "partialAlphaPixels": 540432,
+        "opaquePixels": 1292,
+        "uniqueRGBAColors": 218950
+      },
+      "exactLosslessWebP": {
+        "artifact": "artifacts/art-005m-round-3/builder/attempt-01-lossless.webp",
+        "bytes": 947796,
+        "sha256": "29b9764c1070fc170d89260d8e0548b2a7e918414619e50680d339abe1a6fb04",
+        "command": "cwebp -lossless -exact -z 9 demo/assets/mossguard-directional-sprite-source.png -o demo/assets/mossguard-directional-sprite.webp",
+        "exitCode": 0
+      },
+      "selection": "not selected: alpha>0 bounds measured 280\u2013314px in 313.5px cells, touching/crossing cell edges; compact body and safe-window requirement failed despite WebP size pass"
+    },
+    {
+      "number": 2,
+      "outputPath": "/Users/me/.codex/generated_images/01a13bab-0835-7b90-b49d-75d8393a6264/exec-d1ab4e0e-4eb2-4a9d-b39f-21e76fe1c573.png",
+      "rawSource": "artifacts/art-005m-round-3/builder/raw-generation/attempt-02-source.png",
+      "promptFile": "artifacts/art-005m-round-3/builder/raw-generation/attempt-02-prompt.txt",
+      "triggerFile": "artifacts/art-005m-round-3/builder/raw-generation/attempt-02-trigger.md",
+      "inputReferences": [
+        "attempt-01 Mossguard sheet for redraw/layout continuity",
+        "original Mossguard portrait atlas cell for identity",
+        "Briar Runner sheet for layout/margins only"
+      ],
+      "source": {
+        "dimensions": [
+          1254,
+          1254
+        ],
+        "bytes": 1097073,
+        "sha256": "b77591ef37f2942df4ea38cf6141d34398b2085a5c97ef1c069b26692a5c0e7e",
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "fullAlphaBBoxXYXY": [
+          0,
+          19,
+          1245,
+          1254
+        ],
+        "alphaZeroPixels": 1137550,
+        "partialAlphaPixels": 434393,
+        "opaquePixels": 573,
+        "uniqueRGBAColors": 182343
+      },
+      "selected": true,
+      "exactLosslessWebP": {
+        "path": "demo/assets/mossguard-directional-sprite.webp",
+        "bytes": 760894,
+        "capBytes": 1048576,
+        "headroomBytes": 287682,
+        "sha256": "d867be223694a0cd83ca859b3949f04ce97ca21dd56abb988e10982fdefbb524",
+        "command": "cwebp -lossless -exact -z 9 demo/assets/mossguard-directional-sprite-source.png -o artifacts/art-005m-round-3/builder/attempt-02-exact-lossless.webp",
+        "exitCode": 0
+      },
+      "decodeCheck": {
+        "command": "dwebp demo/assets/mossguard-directional-sprite.webp -o artifacts/art-005m-round-3/builder/attempt-02-decoded.png",
+        "exitCode": 0,
+        "dimensions": [
+          1254,
+          1254
+        ],
+        "exactRGBAComparisonToPNG": true,
+        "alphaEqual": true
+      }
+    }
+  ],
+  "previewEvidence": {
+    "html": "artifacts/art-005m-round-3/builder/native-body-scale-preview.html",
+    "screenshot": "artifacts/art-005m-round-3/builder/native-body-scale-preview.png",
+    "method": "headless Chrome, device scale factor 1; full source WebP atlas displayed without cropping at 75 CSS px and 52 CSS px",
+    "commandAndExit": "artifacts/art-005m-round-3/builder/encoder-and-preview-receipt.txt",
+    "screenshotSHA256": "7715c1c3e33851f15e3c69ec17b79afc7c5afab98cb27efe49554a68b431fbd0",
+    "screenshotBytes": 22802,
+    "opaqueFigureHeightAt75CSSPx": {
+      "rangeCSSPixels": [
+        11.84,
+        12.8
+      ],
+      "measurement": "per-cell alpha>=128 bbox height, including sprout and boots; this is not a separately isolated torso/body measurement"
+    },
+    "limitations": "native preview is evidence of full-sheet scale only; pose readability and per-frame extraction require independent review"
+  },
+  "observedUnresolvedIssues": [
+    "nonzero low-alpha pixels touch logical cell-edge strips; full alpha is not cleanly contained in the requested 220x220 windows, and extraction/filter bleed is unverified",
+    "red/orange edge fringe and dense painted texture remain visible",
+    "walk-A versus walk-B differences appear subtle at native scale; windup/contact differences are more apparent but unvalidated",
+    "foot-contact points below are builder proposals, not validated anchors; alpha bounds and footwear contacts are separately recorded"
+  ],
+  "scope": "asset phase only; no gameplay integration, manifest registration, runtime/source/stat/audio changes; ART-005MI remains separate"
+}

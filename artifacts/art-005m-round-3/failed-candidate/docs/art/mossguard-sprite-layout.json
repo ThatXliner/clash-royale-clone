@@ -1,0 +1,934 @@
+{
+  "schemaVersion": 1,
+  "status": "unreviewed builder candidate; anchor proposals and frame extraction need independent review",
+  "sheet": {
+    "source": "demo/assets/mossguard-directional-sprite-source.png",
+    "width": 1254,
+    "height": 1254,
+    "rows": 4,
+    "columns": 4,
+    "cellWidthPx": 313.5,
+    "cellHeightPx": 313.5,
+    "pixelAssignment": "A source pixel belongs to the cell containing its center (x+0.5,y+0.5); integer regions are recorded per frame."
+  },
+  "rowOrder": [
+    "north",
+    "east",
+    "south",
+    "west"
+  ],
+  "columnOrder": [
+    "walk-A",
+    "walk-B",
+    "melee-windup",
+    "melee-contact"
+  ],
+  "requestedDisplayWindowLocalPx": {
+    "x": 46.75,
+    "y": 46.75,
+    "width": 220,
+    "height": 220,
+    "measuredContainment": "only 4/16 alpha>=128 boxes fit; 0/16 full alpha>0 boxes fit. Do not crop to this window as-is."
+  },
+  "alphaExtentsNote": "alphaAnyLocalXYWH includes every nonzero alpha pixel, including low-alpha fringe/specks. alpha128LocalXYWH is a diagnostic threshold only; source alpha is preserved unchanged. A bbox touching a cell-edge strip is not proof that semantic artwork crosses into the neighboring cell, but it makes extraction/filter bleed a review issue.",
+  "baselineNote": "Opaque-foot/sole cues vary by pose within rows and by facing between rows. Proposed anchor coordinates below are separate visual estimates, not assigned from the sheet alpha bbox; all remain unvalidated.",
+  "frames": [
+    {
+      "row": 0,
+      "column": 0,
+      "facing": "north",
+      "pose": "walk-A",
+      "logicalRectSourcePx": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 313.5,
+        "height": 313.5
+      },
+      "pixelCenterAssignedRegionXYXY": [
+        0,
+        0,
+        313,
+        313
+      ],
+      "alphaAnyLocalXYWH": {
+        "x": 21,
+        "y": 19,
+        "width": 285,
+        "height": 293
+      },
+      "alpha16LocalXYWH": {
+        "x": 80,
+        "y": 72,
+        "width": 160,
+        "height": 216
+      },
+      "alpha128LocalXYWH": {
+        "x": 81,
+        "y": 73,
+        "width": 158,
+        "height": 214
+      },
+      "requested220WindowContainsAlphaAny": false,
+      "requested220WindowContainsAlpha128": false,
+      "lowestOpaqueRowSoleCue": {
+        "localY": 286,
+        "xRunsLocal": [
+          [
+            144,
+            172
+          ]
+        ],
+        "use": "coordinate aid only; not treated as foot anchor without visual boot inspection"
+      },
+      "builderProposedFootContactAnchorLocalPx": {
+        "x": 158.0,
+        "y": 286.5,
+        "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+        "notAnAlphaBBox": true
+      }
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "facing": "north",
+      "pose": "walk-B",
+      "logicalRectSourcePx": {
+        "x": 313.5,
+        "y": 0.0,
+        "width": 313.5,
+        "height": 313.5
+      },
+      "pixelCenterAssignedRegionXYXY": [
+        313,
+        0,
+        627,
+        313
+      ],
+      "alphaAnyLocalXYWH": {
+        "x": 3,
+        "y": 19,
+        "width": 311,
+        "height": 294
+      },
+      "alpha16LocalXYWH": {
+        "x": 80,
+        "y": 77,
+        "width": 162,
+        "height": 209
+      },
+      "alpha128LocalXYWH": {
+        "x": 81,
+        "y": 78,
+        "width": 161,
+        "height": 207
+      },
+      "requested220WindowContainsAlphaAny": false,
+      "requested220WindowContainsAlpha128": false,
+      "lowestOpaqueRowSoleCue": {
+        "localY": 284,
+        "xRunsLocal": [
+          [
+            128,
+            138
+          ]
+        ],
+        "use": "coordinate aid only; not treated as foot anchor without visual boot inspection"
+      },
+      "builderProposedFootContactAnchorLocalPx": {
+        "x": 133.0,
+        "y": 284.5,
+        "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+        "notAnAlphaBBox": true
+      }
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "facing": "north",
+      "pose": "melee-windup",
+      "logicalRectSourcePx": {
+        "x": 627.0,
+        "y": 0.0,
+        "width": 313.5,
+        "height": 313.5
+      },
+      "pixelCenterAssignedRegionXYXY": [
+        627,
+        0,
+        940,
+        313
+      ],
+      "alphaAnyLocalXYWH": {
+        "x": 0,
+        "y": 25,
+        "width": 312,
+        "height": 266
+      },
+      "alpha16LocalXYWH": {
+        "x": 56,
+        "y": 79,
+        "width": 186,
+        "height": 206
+      },
+      "alpha128LocalXYWH": {
+        "x": 57,
+        "y": 79,
+        "width": 184,
+        "height": 205
+      },
+      "requested220WindowContainsAlphaAny": false,
+      "requested220WindowContainsAlpha128": false,
+      "lowestOpaqueRowSoleCue": {
+        "localY": 283,
+        "xRunsLocal": [
+          [
+            98,
+            119
+          ],
+          [
+            204,
+            207
+          ]
+        ],
+        "use": "coordinate aid only; not treated as foot anchor without visual boot inspection"
+      },
+      "builderProposedFootContactAnchorLocalPx": {
+        "x": 157.0,
+        "y": 283.5,
+        "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+        "notAnAlphaBBox": true
+      }
+    },
+    {
+      "row": 0,
+      "column": 3,
+      "facing": "north",
+      "pose": "melee-contact",
+      "logicalRectSourcePx": {
+        "x": 940.5,
+        "y": 0.0,
+        "width": 313.5,
+        "height": 313.5
+      },
+      "pixelCenterAssignedRegionXYXY": [
+        940,
+        0,
+        1254,
+        313
+      ],
+      "alphaAnyLocalXYWH": {
+        "x": 1,
+        "y": 27,
+        "width": 297,
+        "height": 286
+      },
+      "alpha16LocalXYWH": {
+        "x": 72,
+        "y": 76,
+        "width": 182,
+        "height": 209
+      },
+      "alpha128LocalXYWH": {
+        "x": 73,
+        "y": 77,
+        "width": 181,
+        "height": 207
+      },
+      "requested220WindowContainsAlphaAny": false,
+      "requested220WindowContainsAlpha128": false,
+      "lowestOpaqueRowSoleCue": {
+        "localY": 283,
+        "xRunsLocal": [
+          [
+            106,
+            108
+          ]
+        ],
+        "use": "coordinate aid only; not treated as foot anchor without visual boot inspection"
+      },
+      "builderProposedFootContactAnchorLocalPx": {
+        "x": 107.0,
+        "y": 283.5,
+        "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+        "notAnAlphaBBox": true
+      }
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "facing": "east",
+      "pose": "walk-A",
+      "logicalRectSourcePx": {
+        "x": 0.0,
+        "y": 313.5,
+        "width": 313.5,
+        "height": 313.5
+      },
+      "pixelCenterAssignedRegionXYXY": [
+        0,
+        313,
+        313,
+        627
+      ],
+      "alphaAnyLocalXYWH": {
+        "x": 13,
+        "y": 0,
+        "width": 300,
+        "height": 314
+      },
+      "alpha16LocalXYWH": {
+        "x": 83,
+        "y": 64,
+        "width": 159,
+        "height": 210
+      },
+      "alpha128LocalXYWH": {
+        "x": 84,
+        "y": 65,
+        "width": 157,
+        "height": 208
+      },
+      "requested220WindowContainsAlphaAny": false,
+      "requested220WindowContainsAlpha128": false,
+      "lowestOpaqueRowSoleCue": {
+        "localY": 272,
+        "xRunsLocal": [
+          [
+            187,
+            198
+          ]
+        ],
+        "use": "coordinate aid only; not treated as foot anchor without visual boot inspection"
+      },
+      "builderProposedFootContactAnchorLocalPx": {
+        "x": 192.5,
+        "y": 271.5,
+        "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+        "notAnAlphaBBox": true
+      }
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "facing": "east",
+      "pose": "walk-B",
+      "logicalRectSourcePx": {
+        "x": 313.5,
+        "y": 313.5,
+        "width": 313.5,
+        "height": 313.5
+      },
+      "pixelCenterAssignedRegionXYXY": [
+        313,
+        313,
+        627,
+        627
+      ],
+      "alphaAnyLocalXYWH": {
+        "x": 0,
+        "y": 0,
+        "width": 314,
+        "height": 312
+      },
+      "alpha16LocalXYWH": {
+        "x": 73,
+        "y": 63,
+        "width": 180,
+        "height": 209
+      },
+      "alpha128LocalXYWH": {
+        "x": 74,
+        "y": 64,
+        "width": 179,
+        "height": 207
+      },
+      "requested220WindowContainsAlphaAny": false,
+      "requested220WindowContainsAlpha128": false,
+      "lowestOpaqueRowSoleCue": {
+        "localY": 270,
+        "xRunsLocal": [
+          [
+            185,
+            208
+          ]
+        ],
+        "use": "coordinate aid only; not treated as foot anchor without visual boot inspection"
+      },
+      "builderProposedFootContactAnchorLocalPx": {
+        "x": 196.5,
+        "y": 270.5,
+        "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+        "notAnAlphaBBox": true
+      }
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "facing": "east",
+      "pose": "melee-windup",
+      "logicalRectSourcePx": {
+        "x": 627.0,
+        "y": 313.5,
+        "width": 313.5,
+        "height": 313.5
+      },
+      "pixelCenterAssignedRegionXYXY": [
+        627,
+        313,
+        940,
+        627
+      ],
+      "alphaAnyLocalXYWH": {
+        "x": 5,
+        "y": 24,
+        "width": 305,
+        "height": 290
+      },
+      "alpha16LocalXYWH": {
+        "x": 84,
+        "y": 68,
+        "width": 160,
+        "height": 204
+      },
+      "alpha128LocalXYWH": {
+        "x": 85,
+        "y": 69,
+        "width": 158,
+        "height": 202
+      },
+      "requested220WindowContainsAlphaAny": false,
+      "requested220WindowContainsAlpha128": false,
+      "lowestOpaqueRowSoleCue": {
+        "localY": 270,
+        "xRunsLocal": [
+          [
+            94,
+            123
+          ],
+          [
+            207,
+            229
+          ]
+        ],
+        "use": "coordinate aid only; not treated as foot anchor without visual boot inspection"
+      },
+      "builderProposedFootContactAnchorLocalPx": {
+        "x": 163.25,
+        "y": 270.5,
+        "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+        "notAnAlphaBBox": true
+      }
+    },
+    {
+      "row": 1,
+      "column": 3,
+      "facing": "east",
+      "pose": "melee-contact",
+      "logicalRectSourcePx": {
+        "x": 940.5,
+        "y": 313.5,
+        "width": 313.5,
+        "height": 313.5
+      },
+      "pixelCenterAssignedRegionXYXY": [
+        940,
+        313,
+        1254,
+        627
+      ],
+      "alphaAnyLocalXYWH": {
+        "x": 1,
+        "y": 0,
+        "width": 304,
+        "height": 314
+      },
+      "alpha16LocalXYWH": {
+        "x": 76,
+        "y": 67,
+        "width": 188,
+        "height": 204
+      },
+      "alpha128LocalXYWH": {
+        "x": 77,
+        "y": 68,
+        "width": 186,
+        "height": 202
+      },
+      "requested220WindowContainsAlphaAny": false,
+      "requested220WindowContainsAlpha128": false,
+      "lowestOpaqueRowSoleCue": {
+        "localY": 269,
+        "xRunsLocal": [
+          [
+            90,
+            110
+          ],
+          [
+            200,
+            222
+          ]
+        ],
+        "use": "coordinate aid only; not treated as foot anchor without visual boot inspection"
+      },
+      "builderProposedFootContactAnchorLocalPx": {
+        "x": 155.5,
+        "y": 269.5,
+        "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+        "notAnAlphaBBox": true
+      }
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "facing": "south",
+      "pose": "walk-A",
+      "logicalRectSourcePx": {
+        "x": 0.0,
+        "y": 627.0,
+        "width": 313.5,
+        "height": 313.5
+      },
+      "pixelCenterAssignedRegionXYXY": [
+        0,
+        627,
+        313,
+        940
+      ],
+      "alphaAnyLocalXYWH": {
+        "x": 0,
+        "y": 13,
+        "width": 313,
+        "height": 300
+      },
+      "alpha16LocalXYWH": {
+        "x": 80,
+        "y": 54,
+        "width": 164,
+        "height": 207
+      },
+      "alpha128LocalXYWH": {
+        "x": 81,
+        "y": 55,
+        "width": 163,
+        "height": 205
+      },
+      "requested220WindowContainsAlphaAny": false,
+      "requested220WindowContainsAlpha128": true,
+      "lowestOpaqueRowSoleCue": {
+        "localY": 259,
+        "xRunsLocal": [
+          [
+            137,
+            149
+          ]
+        ],
+        "use": "coordinate aid only; not treated as foot anchor without visual boot inspection"
+      },
+      "builderProposedFootContactAnchorLocalPx": {
+        "x": 143.0,
+        "y": 259.5,
+        "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+        "notAnAlphaBBox": true
+      }
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "facing": "south",
+      "pose": "walk-B",
+      "logicalRectSourcePx": {
+        "x": 313.5,
+        "y": 627.0,
+        "width": 313.5,
+        "height": 313.5
+      },
+      "pixelCenterAssignedRegionXYXY": [
+        313,
+        627,
+        627,
+        940
+      ],
+      "alphaAnyLocalXYWH": {
+        "x": 0,
+        "y": 5,
+        "width": 314,
+        "height": 301
+      },
+      "alpha16LocalXYWH": {
+        "x": 78,
+        "y": 54,
+        "width": 170,
+        "height": 203
+      },
+      "alpha128LocalXYWH": {
+        "x": 79,
+        "y": 55,
+        "width": 168,
+        "height": 201
+      },
+      "requested220WindowContainsAlphaAny": false,
+      "requested220WindowContainsAlpha128": true,
+      "lowestOpaqueRowSoleCue": {
+        "localY": 255,
+        "xRunsLocal": [
+          [
+            123,
+            153
+          ]
+        ],
+        "use": "coordinate aid only; not treated as foot anchor without visual boot inspection"
+      },
+      "builderProposedFootContactAnchorLocalPx": {
+        "x": 138.0,
+        "y": 255.5,
+        "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+        "notAnAlphaBBox": true
+      }
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "facing": "south",
+      "pose": "melee-windup",
+      "logicalRectSourcePx": {
+        "x": 627.0,
+        "y": 627.0,
+        "width": 313.5,
+        "height": 313.5
+      },
+      "pixelCenterAssignedRegionXYXY": [
+        627,
+        627,
+        940,
+        940
+      ],
+      "alphaAnyLocalXYWH": {
+        "x": 1,
+        "y": 19,
+        "width": 257,
+        "height": 279
+      },
+      "alpha16LocalXYWH": {
+        "x": 73,
+        "y": 55,
+        "width": 177,
+        "height": 201
+      },
+      "alpha128LocalXYWH": {
+        "x": 74,
+        "y": 56,
+        "width": 174,
+        "height": 199
+      },
+      "requested220WindowContainsAlphaAny": false,
+      "requested220WindowContainsAlpha128": true,
+      "lowestOpaqueRowSoleCue": {
+        "localY": 254,
+        "xRunsLocal": [
+          [
+            97,
+            110
+          ],
+          [
+            201,
+            218
+          ]
+        ],
+        "use": "coordinate aid only; not treated as foot anchor without visual boot inspection"
+      },
+      "builderProposedFootContactAnchorLocalPx": {
+        "x": 156.5,
+        "y": 254.5,
+        "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+        "notAnAlphaBBox": true
+      }
+    },
+    {
+      "row": 2,
+      "column": 3,
+      "facing": "south",
+      "pose": "melee-contact",
+      "logicalRectSourcePx": {
+        "x": 940.5,
+        "y": 627.0,
+        "width": 313.5,
+        "height": 313.5
+      },
+      "pixelCenterAssignedRegionXYXY": [
+        940,
+        627,
+        1254,
+        940
+      ],
+      "alphaAnyLocalXYWH": {
+        "x": 9,
+        "y": 3,
+        "width": 275,
+        "height": 310
+      },
+      "alpha16LocalXYWH": {
+        "x": 80,
+        "y": 55,
+        "width": 170,
+        "height": 201
+      },
+      "alpha128LocalXYWH": {
+        "x": 81,
+        "y": 56,
+        "width": 168,
+        "height": 199
+      },
+      "requested220WindowContainsAlphaAny": false,
+      "requested220WindowContainsAlpha128": true,
+      "lowestOpaqueRowSoleCue": {
+        "localY": 254,
+        "xRunsLocal": [
+          [
+            96,
+            105
+          ]
+        ],
+        "use": "coordinate aid only; not treated as foot anchor without visual boot inspection"
+      },
+      "builderProposedFootContactAnchorLocalPx": {
+        "x": 100.5,
+        "y": 254.5,
+        "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+        "notAnAlphaBBox": true
+      }
+    },
+    {
+      "row": 3,
+      "column": 0,
+      "facing": "west",
+      "pose": "walk-A",
+      "logicalRectSourcePx": {
+        "x": 0.0,
+        "y": 940.5,
+        "width": 313.5,
+        "height": 313.5
+      },
+      "pixelCenterAssignedRegionXYXY": [
+        0,
+        940,
+        313,
+        1254
+      ],
+      "alphaAnyLocalXYWH": {
+        "x": 0,
+        "y": 0,
+        "width": 313,
+        "height": 290
+      },
+      "alpha16LocalXYWH": {
+        "x": 75,
+        "y": 36,
+        "width": 161,
+        "height": 205
+      },
+      "alpha128LocalXYWH": {
+        "x": 76,
+        "y": 37,
+        "width": 159,
+        "height": 204
+      },
+      "requested220WindowContainsAlphaAny": false,
+      "requested220WindowContainsAlpha128": false,
+      "lowestOpaqueRowSoleCue": {
+        "localY": 240,
+        "xRunsLocal": [
+          [
+            129,
+            137
+          ]
+        ],
+        "use": "coordinate aid only; not treated as foot anchor without visual boot inspection"
+      },
+      "builderProposedFootContactAnchorLocalPx": {
+        "x": 133.0,
+        "y": 240.5,
+        "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+        "notAnAlphaBBox": true
+      }
+    },
+    {
+      "row": 3,
+      "column": 1,
+      "facing": "west",
+      "pose": "walk-B",
+      "logicalRectSourcePx": {
+        "x": 313.5,
+        "y": 940.5,
+        "width": 313.5,
+        "height": 313.5
+      },
+      "pixelCenterAssignedRegionXYXY": [
+        313,
+        940,
+        627,
+        1254
+      ],
+      "alphaAnyLocalXYWH": {
+        "x": 0,
+        "y": 5,
+        "width": 314,
+        "height": 283
+      },
+      "alpha16LocalXYWH": {
+        "x": 81,
+        "y": 36,
+        "width": 166,
+        "height": 204
+      },
+      "alpha128LocalXYWH": {
+        "x": 82,
+        "y": 37,
+        "width": 164,
+        "height": 203
+      },
+      "requested220WindowContainsAlphaAny": false,
+      "requested220WindowContainsAlpha128": false,
+      "lowestOpaqueRowSoleCue": {
+        "localY": 239,
+        "xRunsLocal": [
+          [
+            136,
+            137
+          ],
+          [
+            138,
+            139
+          ]
+        ],
+        "use": "coordinate aid only; not treated as foot anchor without visual boot inspection"
+      },
+      "builderProposedFootContactAnchorLocalPx": {
+        "x": 137.5,
+        "y": 239.5,
+        "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+        "notAnAlphaBBox": true
+      }
+    },
+    {
+      "row": 3,
+      "column": 2,
+      "facing": "west",
+      "pose": "melee-windup",
+      "logicalRectSourcePx": {
+        "x": 627.0,
+        "y": 940.5,
+        "width": 313.5,
+        "height": 313.5
+      },
+      "pixelCenterAssignedRegionXYXY": [
+        627,
+        940,
+        940,
+        1254
+      ],
+      "alphaAnyLocalXYWH": {
+        "x": 0,
+        "y": 17,
+        "width": 302,
+        "height": 297
+      },
+      "alpha16LocalXYWH": {
+        "x": 73,
+        "y": 39,
+        "width": 157,
+        "height": 200
+      },
+      "alpha128LocalXYWH": {
+        "x": 73,
+        "y": 40,
+        "width": 156,
+        "height": 198
+      },
+      "requested220WindowContainsAlphaAny": false,
+      "requested220WindowContainsAlpha128": false,
+      "lowestOpaqueRowSoleCue": {
+        "localY": 237,
+        "xRunsLocal": [
+          [
+            200,
+            216
+          ]
+        ],
+        "use": "coordinate aid only; not treated as foot anchor without visual boot inspection"
+      },
+      "builderProposedFootContactAnchorLocalPx": {
+        "x": 208.0,
+        "y": 237.5,
+        "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+        "notAnAlphaBBox": true
+      }
+    },
+    {
+      "row": 3,
+      "column": 3,
+      "facing": "west",
+      "pose": "melee-contact",
+      "logicalRectSourcePx": {
+        "x": 940.5,
+        "y": 940.5,
+        "width": 313.5,
+        "height": 313.5
+      },
+      "pixelCenterAssignedRegionXYXY": [
+        940,
+        940,
+        1254,
+        1254
+      ],
+      "alphaAnyLocalXYWH": {
+        "x": 4,
+        "y": 1,
+        "width": 288,
+        "height": 290
+      },
+      "alpha16LocalXYWH": {
+        "x": 61,
+        "y": 39,
+        "width": 187,
+        "height": 199
+      },
+      "alpha128LocalXYWH": {
+        "x": 62,
+        "y": 39,
+        "width": 186,
+        "height": 199
+      },
+      "requested220WindowContainsAlphaAny": false,
+      "requested220WindowContainsAlpha128": false,
+      "lowestOpaqueRowSoleCue": {
+        "localY": 237,
+        "xRunsLocal": [
+          [
+            108,
+            123
+          ]
+        ],
+        "use": "coordinate aid only; not treated as foot anchor without visual boot inspection"
+      },
+      "builderProposedFootContactAnchorLocalPx": {
+        "x": 115.5,
+        "y": 237.5,
+        "basis": "visually estimated boot-sole contact or support-foot midpoint; low confidence and unvalidated",
+        "notAnAlphaBBox": true
+      }
+    }
+  ],
+  "nativeScaleMeasurement": {
+    "preview": "artifacts/art-005m-round-3/builder/native-body-scale-preview.png",
+    "fullSheetCssWidth": 75,
+    "wholeSheetCellCssWidth": 18.75,
+    "alpha128FigureHeightRangeCSSPx": [
+      11.84,
+      12.8
+    ],
+    "includesSproutAndBoots": true,
+    "bodyOnlyHeightValidated": false,
+    "wholeCell13DiagnosticCssWidth": 52,
+    "wholeCell13DiagnosticMeaning": "each logical 313.5px cell is 13 CSS px; figure height is smaller than the 75px full-sheet panel"
+  }
+}
