@@ -9498,3 +9498,12 @@ EVIDENCE: Exactc72 fresh17suites232/235 actualexits: focused95/95; canonicalaudi
 BIGGEST GAP: Carry the added roster occurrence through canonical audit count/digest pins and editable-deck mixed-witness count.
 
 Archive seven R2 failedcandidate scripts/tests plusbuilder andfreshcritic evidence. Root independently parsed17raw TAP/exit ledgers to232/235 andverified69builderchecksums; rootsealedcritic files with explicitnewchecksumledger. Audit internally completed two equal canonical byte runs butfailedtest beforeprinting concretehashes/manifest, so nextbuilder mustregenerate andpreserve thoseartifacts, notinventdigest. Exactruntimeidentity permitsretaining existingmatchingfocused/source/default20checkpoint evidence with scopeexplicit; nextchangedfixture testsneed freshexecution. NewRLcontactwitness passedfresh. DefaultTMPDIR host/release passes resolve priorcheckout-specific temp-root observation; no requiredtmp override. Allcriticprocesses/profiles closed andprivateworktree removed. Unimplementedrawmechanics/radiusconflict remainQUESTION; no fullparity/art/UI/endurance claim.
+
+## Round 493 - ART-022B Brackenwheel cutout revision
+
+PIECE: ART-022B
+VERDICT: FAIL
+EVIDENCE: Frozen 0ed7e07; fresh Chrome155/Playwright1.58.2 DPR1 540x960 light/dark native captures measure body12.9941/25.9958 CSSpx. At13 body remains a rust/teal mark; sickle and boots do not resolve. Manifest6/6, shippingguard13/13, release22/22 and corrected shippingrelease4/4 actualexit0, total45/45. Candidate source/provenance/repeatencoding hashes match; WebP67688B. Four productpaths only; clean candidate and77/77distfiles match baseline. Root verified all79criticledgerentries and9builderhashes.
+BIGGEST GAP: Make the head, apron, copper sickle and separate feet read at native13CSSpx on both arena tones.
+
+No product adoption. Archive exactfourfailedcandidatepaths, builtin generation/provenance evidence, independentnativecaptures andallrawgatehistory. Initialshippingrelease3/4 was unqualified browserpreflight: fileURL suppliedwherefilesystempath required; correctedinvocation hasnewfilenames andactual4/4, no product/testchanges andno repeated22casebuild/staticcapture. c72releaseevidence was correctlyexcluded fromthis0edasset qualification. Browser/server/profile closed, existinguserChrome93861untouched. Nextthirdround mustchange tiny-size art direction toward bold simplified silhouette; unchanged13/26bar andbudgets retained. Stopthisapproach ifsamegapfailsathirdround. Fullgameintegration andhistoricalparity remainunproved.

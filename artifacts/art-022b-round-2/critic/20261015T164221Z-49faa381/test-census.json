@@ -1,0 +1,66 @@
+{
+  "dependency_install": {
+    "command": "/Users/me/.local/bin/npm ci",
+    "direct_exit": 0,
+    "stdout": "npm-ci.stdout.raw",
+    "stderr": "npm-ci.stderr.raw",
+    "exit_file": "npm-ci.exit.txt"
+  },
+  "successful_final_gates": [
+    {
+      "name": "visual-asset manifest tests",
+      "command": "/Users/me/.hermes/node/bin/node --test tests/visual-asset-manifest.test.js",
+      "case_count": 6,
+      "passed": 6,
+      "failed": 0,
+      "direct_exit": 0,
+      "stdout": "visual-asset-manifest.stdout.raw",
+      "stderr": "visual-asset-manifest.stderr.raw",
+      "exit_file": "visual-asset-manifest.exit.txt"
+    },
+    {
+      "name": "shipping isolation guard",
+      "command": "/Users/me/.local/bin/npm run test:shipping-isolation-guard",
+      "case_count": 13,
+      "passed": 13,
+      "failed": 0,
+      "direct_exit": 0,
+      "stdout": "shipping-isolation-guard.stdout.raw",
+      "stderr": "shipping-isolation-guard.stderr.raw",
+      "exit_file": "shipping-isolation-guard.exit.txt"
+    },
+    {
+      "name": "release build",
+      "command": "GAME_BROWSER_CHROME=/Applications/Google Chrome.app/Contents/MacOS/Google Chrome GAME_BROWSER_PLAYWRIGHT=/tmp/art-022b-round2-critic-checkout/node_modules/playwright/index.mjs /Users/me/.local/bin/npm run test:release-build",
+      "case_count": 22,
+      "passed": 22,
+      "failed": 0,
+      "direct_exit": 0,
+      "stdout": "release-build.stdout.raw",
+      "stderr": "release-build.stderr.raw",
+      "exit_file": "release-build.exit.txt"
+    },
+    {
+      "name": "shipping isolation release, corrected filesystem path",
+      "command": "GAME_BROWSER_CHROME=/Applications/Google Chrome.app/Contents/MacOS/Google Chrome GAME_BROWSER_PLAYWRIGHT=/tmp/art-022b-round2-critic-checkout/node_modules/playwright/index.mjs SHIPPING_ISOLATION_RELEASE_EVIDENCE=/tmp/art-022b-round2-critic-20261015T164221Z-49faa381/shipping-isolation-release-evidence-corrected.json /Users/me/.local/bin/npm run test:shipping-isolation-release",
+      "case_count": 4,
+      "passed": 4,
+      "failed": 0,
+      "direct_exit": 0,
+      "stdout": "shipping-isolation-release-corrected.stdout",
+      "stderr": "shipping-isolation-release-corrected.stderr",
+      "exit_file": "shipping-isolation-release-corrected.exit",
+      "process_closure": "shipping-isolation-release-corrected.closure-final.json"
+    }
+  ],
+  "successful_case_total": 45,
+  "initial_method_failure_preserved": {
+    "name": "shipping isolation release, first preflight attempt",
+    "command": "GAME_BROWSER_CHROME=/Applications/Google Chrome.app/Contents/MacOS/Google Chrome GAME_BROWSER_PLAYWRIGHT=file:///tmp/art-022b-round2-critic-checkout/node_modules/playwright/index.mjs /Users/me/.local/bin/npm run test:shipping-isolation-release",
+    "case_count": 4,
+    "passed": 3,
+    "failed": 1,
+    "direct_exit": 1,
+    "result": "Unqualified method failure, not counted among final 45 passing cases. Test calls fs.access(PLAYWRIGHT), so the file URL failed the installed-Playwright preflight at tests/shipping-isolation-release.test.js:413. Original stdout/stderr/exit and partial evidence remain preserved. Corrected filesystem-path run above passed 4/4."
+  }
+}

@@ -1,0 +1,391 @@
+{
+  "dist_exists": true,
+  "files": [
+    {
+      "path": "dist/public/ui-arena-shell.html",
+      "bytes": 486,
+      "sha256": "a88bd327867dd946abdfaa79239e4046b481471e42627034ab68a4b84dbb32be"
+    },
+    {
+      "path": "dist/release-manifest.json",
+      "bytes": 12882,
+      "sha256": "1c9a3f83eb89c6f6f6945567e92f9137cc653d30f4afe69d62713f02987b25c6"
+    },
+    {
+      "path": "dist/src/content/cards/basic-flying.js",
+      "bytes": 16299,
+      "sha256": "6037912f3ad759a7b042eebb6f268828a14eac0dcec5e070ef115a26ed62d083"
+    },
+    {
+      "path": "dist/src/content/cards/basic-melee.js",
+      "bytes": 3418,
+      "sha256": "2e9bc8b269f84a02e1b49d5a4e15a1e3f8a8240d29e0482e719cfd29f09e8bd0"
+    },
+    {
+      "path": "dist/src/content/cards/basic-ranged.js",
+      "bytes": 15100,
+      "sha256": "2a59298577d779a771c7969845d8742afd2974857d6bcf01ef1337049fb02cab"
+    },
+    {
+      "path": "dist/src/content/cards/buildings-defensive.js",
+      "bytes": 34495,
+      "sha256": "3d0a1c1dd38decba0a2d1c771337c6f50aed3cee6c1e3cfcb177767273784c79"
+    },
+    {
+      "path": "dist/src/content/cards/buildings-resource.js",
+      "bytes": 19671,
+      "sha256": "34541c24fa1465f785c46dc676c046b58aed690e0f29216149e74cf18f49e117"
+    },
+    {
+      "path": "dist/src/content/cards/buildings-spawner.js",
+      "bytes": 14635,
+      "sha256": "079afcda602701332c8f8aae8a8c7c1e9f37d7514f8816666211518f9e48840b"
+    },
+    {
+      "path": "dist/src/content/cards/buildings-travel.js",
+      "bytes": 19237,
+      "sha256": "c848aeebc417cd2947b0eda303e722b0359ec03280bff7de5a785fd3813383a6"
+    },
+    {
+      "path": "dist/src/content/cards/champion-abilities.js",
+      "bytes": 23743,
+      "sha256": "d12a52881021135cdff23b03bf7f47b7e19a81b6e5f7448dcf91e95371e4a811"
+    },
+    {
+      "path": "dist/src/content/cards/combat-status-heal.js",
+      "bytes": 20663,
+      "sha256": "d1f2d19217e79f40bbccfaf2462654f6eccebfeaa962cc1eacc44c1203ee8fe0"
+    },
+    {
+      "path": "dist/src/content/cards/combat-status-invisibility.js",
+      "bytes": 31498,
+      "sha256": "306d99f8e818ab93a597e53b3dd7f0b19fc53c4f7f463a997ecee1528f2c809b"
+    },
+    {
+      "path": "dist/src/content/cards/combat-status-stun.js",
+      "bytes": 22255,
+      "sha256": "7c81178932fe7139f7abc068de8f4bc5da8657605941f1c9a3c4206bcd9be58d"
+    },
+    {
+      "path": "dist/src/content/cards/death-conversion-delegated.js",
+      "bytes": 19326,
+      "sha256": "94919be305267ba73ee9e7cb05535d1bf2ae134fefd83f497b03cfd8cd91153d"
+    },
+    {
+      "path": "dist/src/content/cards/death-conversion.js",
+      "bytes": 15563,
+      "sha256": "be95edf03592b7dddba626c81022a97d63491a08b0c4a152f97724134f13ba48"
+    },
+    {
+      "path": "dist/src/content/cards/death-effects.js",
+      "bytes": 18260,
+      "sha256": "10969eb6d3ec687f43f7e9bb89537975d90c131c125829147fa44c8a99e78a81"
+    },
+    {
+      "path": "dist/src/content/cards/death-spawns.js",
+      "bytes": 25321,
+      "sha256": "1d9b0003ade5acaf075acb8073a4336598696346071b805f171e89589d1a733d"
+    },
+    {
+      "path": "dist/src/content/cards/periodic-spawns.js",
+      "bytes": 19418,
+      "sha256": "de2d554f27a54a72b5aef665501786d983436f6e8bd69abf3df37eb322891269"
+    },
+    {
+      "path": "dist/src/content/cards/shields-forms.js",
+      "bytes": 10199,
+      "sha256": "e78d1484c9dd0b20633e81eb48c32223497ac08fa4c20f6b16c4e2461f7329c8"
+    },
+    {
+      "path": "dist/src/content/cards/spawn-placement.js",
+      "bytes": 12784,
+      "sha256": "6aa7e846528c9263e09bc46f625337000d8a63a82948eaf073d329269a3feb5c"
+    },
+    {
+      "path": "dist/src/content/cards/special-combat-rage.js",
+      "bytes": 24915,
+      "sha256": "6b91168d0fa7a4e3c21f811b40bf4f11d724b62a5dfa83066c8165c253285c61"
+    },
+    {
+      "path": "dist/src/content/cards/special-combat-ramp.js",
+      "bytes": 22611,
+      "sha256": "c643f8063f31394b95d605a817b86f377a411cb087a3e53adc2647edeab25c67"
+    },
+    {
+      "path": "dist/src/content/cards/special-combat-reset.js",
+      "bytes": 25794,
+      "sha256": "a7f44f7f97f78a5b713e1090e56e5fb9060322317895c9f39ec4ff652fb163c5"
+    },
+    {
+      "path": "dist/src/content/cards/special-combat-slow.js",
+      "bytes": 21724,
+      "sha256": "e5abbf25edec21f91a3b1b3f4a4b601a3c4ed04d4e3ce4af53d2bc5e560af536"
+    },
+    {
+      "path": "dist/src/content/cards/special-combat-snare.js",
+      "bytes": 23377,
+      "sha256": "31ff46ce654560a2a1f9813fa06fbc0486fdbe6722b1617edfb656b9ce90720b"
+    },
+    {
+      "path": "dist/src/content/cards/special-movement-charge-knockback.js",
+      "bytes": 25324,
+      "sha256": "ae063d833d78cd4bd1e4f8e9dd86eedde3adc6df64989622c5245642bb8e1a7b"
+    },
+    {
+      "path": "dist/src/content/cards/special-movement-charge.js",
+      "bytes": 17698,
+      "sha256": "0ab1102bc859c75e4f20e05092ec9730fe132e21eb814e49070ba5731ffa74ec"
+    },
+    {
+      "path": "dist/src/content/cards/special-movement-dash-knockback.js",
+      "bytes": 19264,
+      "sha256": "ef16c4fb3aaf4b2bd6d2ab0adfc9933a2df774770a340ff1db632ac9eeace649"
+    },
+    {
+      "path": "dist/src/content/cards/special-movement-dash.js",
+      "bytes": 17995,
+      "sha256": "715f3d43530dc10436e3295b9da2e8b3c851ae546f0ed47e05763686d10259f6"
+    },
+    {
+      "path": "dist/src/content/cards/special-movement-jump.js",
+      "bytes": 18772,
+      "sha256": "cb7b76760f1662905ac7ccf84bb89d720eecd30899385c924b1c768f8be5454b"
+    },
+    {
+      "path": "dist/src/content/cards/special-movement-knockback.js",
+      "bytes": 18070,
+      "sha256": "d587f7bcc29628a597b17cb7b1787b442cf29f797b0b7b45e4d9884dc6c38d8f"
+    },
+    {
+      "path": "dist/src/content/cards/special-movement-leap-knockback.js",
+      "bytes": 21027,
+      "sha256": "2ecb904c41881d76aba385c94c0128fc014ec8301c870ea18dad83f1ebecc8e8"
+    },
+    {
+      "path": "dist/src/content/cards/special-movement-recoil.js",
+      "bytes": 19091,
+      "sha256": "f0f13f05ce1b40b6632c7ad80088ff3f495a4313db9c78e960e7def43d5d422f"
+    },
+    {
+      "path": "dist/src/content/cards/special-movement-retarget.js",
+      "bytes": 15203,
+      "sha256": "48635cb6af9054eaba37121c62b055d6a1994280063d158456d05bc2f0013758"
+    },
+    {
+      "path": "dist/src/content/cards/special-projectiles-chain.js",
+      "bytes": 18563,
+      "sha256": "a837cad6adc731dc6a8916ed39a1021c092b283ebdb82a982be44817c4712c86"
+    },
+    {
+      "path": "dist/src/content/cards/special-projectiles-pellets.js",
+      "bytes": 22279,
+      "sha256": "c08956182728d94eed2f22930d26bb35bbb64122676a02f837ce960608b8a32c"
+    },
+    {
+      "path": "dist/src/content/cards/special-projectiles-pierce.js",
+      "bytes": 20450,
+      "sha256": "ef71fd7fb4cb64894ab38110035f2a75fda5c03e33e3b3cefd5a29ad8cc3f4a9"
+    },
+    {
+      "path": "dist/src/content/cards/special-projectiles-reflection.js",
+      "bytes": 24645,
+      "sha256": "06df161e5ff98bd266a82da2bea779c2fe3b8cb3d847f458b4262968261b0715"
+    },
+    {
+      "path": "dist/src/content/cards/special-projectiles-return.js",
+      "bytes": 21827,
+      "sha256": "e34fe64880369975d09e14edfe004b572dbba6ea17bf0bf8e1a80e3d45ddf602"
+    },
+    {
+      "path": "dist/src/content/cards/spells-clone-unit.js",
+      "bytes": 21401,
+      "sha256": "88deb2b97a1e18a9a624fbd2c396f1dc9f794b780ff2f78dec3d6f798f4911de"
+    },
+    {
+      "path": "dist/src/content/cards/spells-copy-card.js",
+      "bytes": 14370,
+      "sha256": "9fcc68af77a6dc6f3b4fabcf44d8037a8f54b24d2950b98c98b2fe723ea4ca89"
+    },
+    {
+      "path": "dist/src/content/cards/spells-instant.js",
+      "bytes": 26158,
+      "sha256": "d62c418b375be6ed28c7f79a115fa3e9c2e425db210018a0d9919bdb7993325a"
+    },
+    {
+      "path": "dist/src/content/cards/spells-periodic.js",
+      "bytes": 26791,
+      "sha256": "a705e0873465c8d88d9e42b9c8561dbb3361cea2fab9e71bdc4fd41ea9432832"
+    },
+    {
+      "path": "dist/src/content/cards/spells-return.js",
+      "bytes": 20100,
+      "sha256": "261a6cef3bc4478aa0eef2411b0154431d7c1d7178ba2588a00584c4e4f30d76"
+    },
+    {
+      "path": "dist/src/content/cards/spells-roll.js",
+      "bytes": 29604,
+      "sha256": "a962103bdcfe64129cd1ab142330ce211f241140e8d46b737c79bf96be78267a"
+    },
+    {
+      "path": "dist/src/content/cards/spells-spawn.js",
+      "bytes": 19758,
+      "sha256": "101f271adea053ce12a01075b3eb3d85a1fb8f6057790bfc4b909ac0b70b1406"
+    },
+    {
+      "path": "dist/src/content/cards/spells-three-wave.js",
+      "bytes": 18266,
+      "sha256": "2b53806558ae34e1ce3dbe511b1ea336c09d01bd1d913fb97dd83f99bf27cef8"
+    },
+    {
+      "path": "dist/src/content/cards/spells-travel-line.js",
+      "bytes": 27268,
+      "sha256": "43c5d1a0e64545bec21d57bd8a9e2620fb9d4aceea42f2cec8820e6e0717b469"
+    },
+    {
+      "path": "dist/src/content/cards/structure-seeker.js",
+      "bytes": 18226,
+      "sha256": "21f5ee94fd3f6be4a439dcc597678aeac8743edc55b67186a95c9ae8b9d12fd9"
+    },
+    {
+      "path": "dist/src/content/cards/swarms.js",
+      "bytes": 5024,
+      "sha256": "16dc7229e3f31bea636022aed2d1dae9fd52c360cef96386635eb9f692d01a7d"
+    },
+    {
+      "path": "dist/src/content/index.js",
+      "bytes": 8434,
+      "sha256": "e428aaba11076bdde7e9c98f8bd32c1ab1071174e65557b282b199ee683e7eb8"
+    },
+    {
+      "path": "dist/src/content/schema.js",
+      "bytes": 12776,
+      "sha256": "4fee9ba313a778c49253a1ff902ae2a49648d0a1be1fb19aa3b2dd2c0561c6f4"
+    },
+    {
+      "path": "dist/src/sim/area-damage.js",
+      "bytes": 8922,
+      "sha256": "7836fb4e98109d63488ae6b7b3bc32247c8724c40c2f2d242704deb6c521af32"
+    },
+    {
+      "path": "dist/src/sim/arena-geometry.js",
+      "bytes": 8223,
+      "sha256": "78763d497d6346e35d6c311f21d36b091ce46b5885bf2832fea9f3a7d50759dd"
+    },
+    {
+      "path": "dist/src/sim/attack-cycle.js",
+      "bytes": 12207,
+      "sha256": "0c3d752dd98d2770b855c46738d4d2d19fe0c4cd06ac46f1c45c394118049a20"
+    },
+    {
+      "path": "dist/src/sim/damage.js",
+      "bytes": 8680,
+      "sha256": "8e704ba06da85355e0749372ca0de4c480808930929fb31bff0a8f4d64744a28"
+    },
+    {
+      "path": "dist/src/sim/deck.js",
+      "bytes": 7833,
+      "sha256": "8e6d179c248ffbb2f2c434d82efc00e127ccd01e5c9ee06e719dd2e2590fbb77"
+    },
+    {
+      "path": "dist/src/sim/deployment.js",
+      "bytes": 8820,
+      "sha256": "f22067c2bfbd1ccdad6f913a50efa19899c7ee4254ffac35b473e3fb8978b563"
+    },
+    {
+      "path": "dist/src/sim/elixir.js",
+      "bytes": 24004,
+      "sha256": "e82274d200e5c6512d756051d0f250571a99564ea2001a0739cf6c39d5faf021"
+    },
+    {
+      "path": "dist/src/sim/entities.js",
+      "bytes": 7903,
+      "sha256": "3bcf5072de4091f37bb9ef0fdc9080b44e3488bb69c43639a263ec27c591684a"
+    },
+    {
+      "path": "dist/src/sim/flying.js",
+      "bytes": 8381,
+      "sha256": "0d1640fac3663e539643a1d851a8198b819bb1713cfb10dc08c1fa66eca1174b"
+    },
+    {
+      "path": "dist/src/sim/formations.js",
+      "bytes": 7615,
+      "sha256": "0749bc802edb64c572a707e8e7b25e75796fa77007b4d5483be901bd35675fac"
+    },
+    {
+      "path": "dist/src/sim/match.js",
+      "bytes": 20405,
+      "sha256": "99e53046bc6932da41f1ba39cc1f43f571be8678c0270835810b35ea4e84b678"
+    },
+    {
+      "path": "dist/src/sim/movement.js",
+      "bytes": 5688,
+      "sha256": "0988abf424abf5edb9d4d4da1dfbfc9f4a56732c065436ee1fc04ccbdd667586"
+    },
+    {
+      "path": "dist/src/sim/pathfinding.js",
+      "bytes": 5865,
+      "sha256": "49729ea021c954e66b2fe0c6f027410974a2cb994f3d092e92a175d6af72d296"
+    },
+    {
+      "path": "dist/src/sim/projectile.js",
+      "bytes": 13960,
+      "sha256": "7065af4288d2cb6617cecd5b18e37f75194ccb4e69013ea425ebb1749d1147aa"
+    },
+    {
+      "path": "dist/src/sim/rng.js",
+      "bytes": 5778,
+      "sha256": "529e8755c760a816c20b0b837e1dee068b92fa3372736cdf8851256d636b2d17"
+    },
+    {
+      "path": "dist/src/sim/spatial.js",
+      "bytes": 10584,
+      "sha256": "6afee6321acfe9eada77d68d3d88361bdff3c08685debf916f1685cf6491607e"
+    },
+    {
+      "path": "dist/src/sim/targeting.js",
+      "bytes": 8267,
+      "sha256": "18bbad382730fe976e13934c98f50a7c999363429abeb7aa7501b78929f56470"
+    },
+    {
+      "path": "dist/src/sim/towers.js",
+      "bytes": 20196,
+      "sha256": "51eda08b560a0ec7efa525570b20885135aa23a822dd495a5dd2ee66c2d197bd"
+    },
+    {
+      "path": "dist/src/ui/arena-shell-entry.js",
+      "bytes": 3057,
+      "sha256": "9217538f7f3af93f6f3d172efed1d5c94a79e70cd521fc2c97911b56fac5d39a"
+    },
+    {
+      "path": "dist/src/ui/arena-shell.css",
+      "bytes": 7065,
+      "sha256": "c59ef6d9979fc19e9357037714b5d97c27d69c3c1ef44a875d58e1fc0904ad5a"
+    },
+    {
+      "path": "dist/src/ui/arena-shell.js",
+      "bytes": 4186,
+      "sha256": "7f6869349736519dc553d5c42da71832c830d314a7bb9befaf6c7c7675fdf57d"
+    },
+    {
+      "path": "dist/src/ui/combat-state.js",
+      "bytes": 20013,
+      "sha256": "09f9f9657607ce925b22cc38cd88e0b81726a261377f992226c1133518d6d589"
+    },
+    {
+      "path": "dist/src/ui/hud-state.js",
+      "bytes": 22303,
+      "sha256": "37293c154f763df41c5896d9876d9d25648b4fc3e3892c732b09b88567edc152"
+    },
+    {
+      "path": "dist/src/ui/input-controller.js",
+      "bytes": 25791,
+      "sha256": "7402c2fe1df760a453a08a8385f94449eb51ad5300a86cce54811a96099063e7"
+    },
+    {
+      "path": "dist/src/ui/placement-feedback.js",
+      "bytes": 23247,
+      "sha256": "35d3c10f16bfb97c0133d7bb9366f67d079cc3a0cb384a3ae24d3066dba9ca50"
+    }
+  ],
+  "git_status": ""
+}

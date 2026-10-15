@@ -1,0 +1,164 @@
+{
+  "asset_id": "brackenwheel-battle-sprite",
+  "version": 2,
+  "authorship": "in-repo-authored",
+  "license": "AGPL-3.0-only",
+  "generation_tool": "OpenAI built-in image_gen.imagegen",
+  "generation_mode": "built-in image generation with a transparent background",
+  "round": 2,
+  "selected_attempt": 1,
+  "attempt_ledger": "artifacts/art-022b-round-2/builder/raw-generation/attempt-01-tool-receipt.json",
+  "input_images": [
+    {
+      "path": "demo/assets/brackenwheel-portrait.png",
+      "role": "accepted original character identity reference only",
+      "sha256": "ad0654107fe957283b1e9e107a3be155934f1032820600bb62f6ddd6851a56bc",
+      "bytes": 2650041,
+      "dimensions": {
+        "width": 1254,
+        "height": 1254
+      }
+    }
+  ],
+  "generated_source": {
+    "path": "demo/assets/brackenwheel-battle-sprite.png",
+    "tool_output_path": "/Users/me/.codex/generated_images/01a1406a-6dc0-7f83-9a35-a2a6e94ebc17/exec-339893fe-298d-4b4b-b860-7383468630e5.png",
+    "sha256": "220db2a560c349a126477ccebbe62d3c9d42c795f775668ef4ee4fc961c7167a",
+    "bytes": 1405765,
+    "dimensions": {
+      "width": 1254,
+      "height": 1254
+    },
+    "format": "PNG",
+    "alpha_channel": true,
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "alpha_bounds": {
+      "threshold_5_percent_xyxy_exclusive": [
+        121,
+        14,
+        1116,
+        1235
+      ],
+      "threshold_50_percent_xyxy_exclusive": [
+        122,
+        15,
+        1115,
+        1234
+      ]
+    },
+    "copy_verification": "The generated output and preserved source PNG have matching SHA-256, dimensions, and alpha metadata."
+  },
+  "prompt": "Use case: stylized-concept\nAsset type: original real-time game battle cutout designed for a 13 CSS px body on a 540\u00d7960 arena at DPR 1\nInput images: Image 1: accepted Brackenwheel portrait, identity reference only; preserve this original woman and broad painterly material style.\nPrimary request: Make a new, instantly readable full-body battle sprite of the same adult female river-worker. Design it from the tiny arena silhouette outward: at 13 px tall it must read as a curly-haired woman, a broad teal apron, rust sleeves, two separated boots, and one unmistakable curved copper sickle.\nScene/backdrop: true transparent background, no environment.\nSubject: warm freckled face, thick dark auburn curls gathered with one small copper pin, deep teal work apron with simple reed stitching and a large clear apron panel, rust-red long sleeves, dark brown work trousers and boots. She holds one substantial but practical copperroot reed sickle with one hand.\nStyle/medium: original polished hand-painted fantasy game art; painterly materials with controlled texture, crisp outer contour, simplified internal detail, bold clean color blocks and strong light-dark separation.\nComposition/framing: whole figure including hair, both hands, entire sickle, two legs and boot soles, centered inside a square with transparent clearance. Use a broad confident stance and broadened shoulders / apron; spread the arms enough to make the full figure-and-tool silhouette nearly square, spanning about 85\u201390% of the canvas width while the body spans about 82\u201386% of its height. Make the head deliberately large (about one quarter of hair-to-boot height) with one clear auburn curl mass and a visible warm face. Keep the apron a single broad teal shape across the torso and upper thighs; keep rust sleeves as distinct side blocks; show a clear gap between both boots. Put the sickle outside the body at her right side, large enough to read as a simple thick copper crescent with an obvious open hook shape at native size; the handle is visibly gripped, the curved head stays below shoulder height and away from the face. Maintain a coherent balanced working pose, with no overlaps that erase the head, apron, tool, or boots.\nLighting/mood: soft even warm daylight, high separation between adjacent shapes.\nColor palette: dark auburn curls, warm face, deep teal apron, rust-red sleeves, clear warm copper sickle, dark brown trousers and boots.\nMaterials/textures: simplified woven cloth and brushed copper; texture only as accents, never finer than the large shapes.\nText (verbatim): None.\nConstraints: exactly one original woman and one held sickle; full body, complete hands and feet; genuine transparent alpha; make the head/apron/tool silhouette recognizable when reduced to 13 px tall.\nAvoid: scenery, glow, sparks, cast shadow, platform, detached tool, thin tiny sickle, weapon over the head, sickle crossing face, narrow tucked arms, merged legs, excessive curls or folds, realistic micro-detail, duplicate limbs, extra fingers, text, watermark, opaque/checkerboard background, copied commercial-game art.\n",
+  "shipped_output": {
+    "path": "public/assets/brackenwheel-battle-sprite.webp",
+    "sha256": "cb7dbd4c5c0be22b0bcfc9e7d6afc5dd8dccd89aa1063872f6e8958e5a8944ca",
+    "bytes": 67688,
+    "dimensions": {
+      "width": 512,
+      "height": 512
+    },
+    "format": "WEBP",
+    "alpha_channel": true,
+    "alpha_extrema_8bit": [
+      0,
+      254
+    ],
+    "alpha_bounds": {
+      "threshold_5_percent_xyxy_exclusive": [
+        49,
+        5,
+        456,
+        505
+      ],
+      "threshold_50_percent_xyxy_exclusive": [
+        50,
+        6,
+        455,
+        504
+      ]
+    },
+    "encoding": {
+      "tool": "cwebp",
+      "version": "1.6.0",
+      "libsharpyuv_version": "0.4.2",
+      "arguments": [
+        "-q",
+        "92",
+        "-alpha_q",
+        "100",
+        "-m",
+        "6",
+        "-mt",
+        "-resize",
+        "512",
+        "512"
+      ],
+      "command": "cwebp -q 92 -alpha_q 100 -m 6 -mt -resize 512 512 demo/assets/brackenwheel-battle-sprite.png -o public/assets/brackenwheel-battle-sprite.webp",
+      "reproducibility": {
+        "repeat_command": "cwebp -q 92 -alpha_q 100 -m 6 -mt -resize 512 512 demo/assets/brackenwheel-battle-sprite.png -o artifacts/art-022b-round-2/builder/reproducibility-repeat.webp",
+        "repeat_output_sha256": "cb7dbd4c5c0be22b0bcfc9e7d6afc5dd8dccd89aa1063872f6e8958e5a8944ca",
+        "byte_identical": true,
+        "verification": "The repeat output was compared byte-for-byte with public/assets/brackenwheel-battle-sprite.webp."
+      }
+    },
+    "license": "AGPL-3.0-only",
+    "authorship": "in-repo-authored"
+  },
+  "body_scale_measurement": {
+    "definition": "alpha bounds at >= 128/255 on the unchanged image, with the held sickle included in the source bounds",
+    "source": {
+      "bounds_xyxy_exclusive": [
+        122,
+        15,
+        1115,
+        1234
+      ],
+      "width_pixels": 993,
+      "height_pixels": 1219,
+      "width_to_height_ratio": 0.81460213,
+      "height_fraction_of_canvas": 0.97208931,
+      "canvas_css_height_for_13_css_px_body": 13.37325677,
+      "canvas_css_height_for_26_css_px_body": 26.74651354
+    },
+    "shipped_output": {
+      "bounds_xyxy_exclusive": [
+        50,
+        6,
+        455,
+        504
+      ],
+      "width_pixels": 405,
+      "height_pixels": 498,
+      "width_to_height_ratio": 0.81325301,
+      "height_fraction_of_canvas": 0.97265625,
+      "canvas_css_height_for_13_css_px_body": 13.36546185,
+      "canvas_css_height_for_26_css_px_body": 26.73092369
+    },
+    "scope_limit": "Derived from alpha bounds only; actual native arena rendering at DPR 1 is reserved for the independent critic."
+  },
+  "visual_validation": {
+    "status": "independent native-scale arena capture pending",
+    "required_arena_css_pixels": {
+      "width": 540,
+      "height": 960
+    },
+    "required_device_scale_factor": 1,
+    "required_body_css_heights": [
+      13,
+      26
+    ],
+    "required_background_tones": [
+      "light",
+      "dark"
+    ],
+    "critic_evidence_path": "artifacts/art-022b-round-2/critic/"
+  },
+  "prior_round_records": {
+    "generation_attempt_ledger": "artifacts/art-022b-round-1/builder/generation-attempts.json",
+    "failed_candidate": "artifacts/art-022b-round-1/failed-candidate/demo/assets/brackenwheel-battle-sprite.png",
+    "critic_verdict": "artifacts/art-022b-round-1/critic/20261015T162300Z-critic-01/reports/verdict.md"
+  }
+}

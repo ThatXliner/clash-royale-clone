@@ -1,0 +1,9 @@
+{
+  "command": "cwebp -q 92 -alpha_q 100 -m 6 -mt -resize 512 512 demo/assets/brackenwheel-battle-sprite.png -o artifacts/art-022b-round-2/builder/reproducibility-repeat.webp",
+  "direct_exit_code": 0,
+  "stdout": "",
+  "stderr": "Saving file '/tmp/art-022b-round2-builder/artifacts/art-022b-round-2/builder/reproducibility-repeat.webp'\nFile:      /tmp/art-022b-round2-builder/demo/assets/brackenwheel-battle-sprite.png\nDimension: 512 x 512 (with alpha)\nOutput:    67688 bytes Y-U-V-All-PSNR 47.56 47.68 47.32   47.54 dB\n           (2.07 bpp)\nblock count:  intra4:        448  (43.75%)\n              intra16:       576  (56.25%)\n              skipped:       484  (47.27%)\nbytes used:  header:            459  (0.7%)\n             mode-partition:   3193  (4.7%)\n             transparency:    19967 (99.0 dB)\n Residuals bytes  |segment 1|segment 2|segment 3|segment 4|  total\n    macroblocks:  |      13%|      16%|      17%|      55%|    1024\n      quantizer:  |      10 |       9 |       7 |       5 |\n   filter level:  |       3 |       2 |       0 |       0 |\nLossless-alpha compressed size: 19966 bytes\n  * Header size: 359 bytes, image data size: 19607\n  * Precision Bits: histogram=4 cache=0\n  * Palette size:   255\n",
+  "repeat_output_sha256": "cb7dbd4c5c0be22b0bcfc9e7d6afc5dd8dccd89aa1063872f6e8958e5a8944ca",
+  "shipped_output_sha256": "cb7dbd4c5c0be22b0bcfc9e7d6afc5dd8dccd89aa1063872f6e8958e5a8944ca",
+  "byte_identical": true
+}

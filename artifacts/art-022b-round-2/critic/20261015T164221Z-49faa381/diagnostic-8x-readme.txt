@@ -1,0 +1,1 @@
+Diagnostic only: nearest-neighbor 8x enlargement of the 48x48-pixel center crop at x=246,y=456 from 13-css-light-native.png. It is not the native-size pass/fail view and does not alter the native screenshot.

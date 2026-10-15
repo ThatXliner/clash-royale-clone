@@ -1,0 +1,13 @@
+ART-022B round 2 isolated critic checkout fence
+Checkout: /tmp/art-022b-round2-critic-checkout
+Candidate: 0ed7e07374fedb2b8036f50a4747246f7d46d72a
+Parent: bdc5c0f7e83c3369e00ad9719679d10f510d0597
+Post-test status clean: true
+All 77 dist files match pre-test byte lengths and SHA-256: true
+Product paths (four):
+  demo/assets/brackenwheel-battle-sprite.png  bytes=1405765  sha256=220db2a560c349a126477ccebbe62d3c9d42c795f775668ef4ee4fc961c7167a
+  docs/art/brackenwheel-battle-sprite-provenance.json  bytes=8175  sha256=d2ac7958fbc4c7a5cc13fb5961b389b34108246341276a079279aace7b123de2
+  public/assets/brackenwheel-battle-sprite.webp  bytes=67688  sha256=cb7dbd4c5c0be22b0bcfc9e7d6afc5dd8dccd89aa1063872f6e8958e5a8944ca
+  src/content/visual-asset-manifest.js  bytes=20001  sha256=78636e3a754812c5adb03779cb0d9e7c50bfd62658b4566441fdb7e69ae63ba3
+
+Other commit additions are builder evidence/provenance records, not additional product paths.

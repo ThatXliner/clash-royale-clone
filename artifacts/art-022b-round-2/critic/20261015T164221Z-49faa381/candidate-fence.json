@@ -1,0 +1,101 @@
+{
+  "repository": "clash-royale-clone isolated fresh checkout",
+  "checkout": "/tmp/art-022b-round2-critic-checkout",
+  "candidate_commit": "0ed7e07374fedb2b8036f50a4747246f7d46d72a",
+  "expected_candidate_commit": "0ed7e07374fedb2b8036f50a4747246f7d46d72a",
+  "parent_commit": "bdc5c0f7e83c3369e00ad9719679d10f510d0597",
+  "expected_parent_commit": "bdc5c0f7e83c3369e00ad9719679d10f510d0597",
+  "detached_checkout_clean_after_test_side_effect_restore": true,
+  "git_status_exit": 0,
+  "git_status_stdout": "",
+  "git_status_stderr": "",
+  "changed_product_paths_exactly_four": [
+    "demo/assets/brackenwheel-battle-sprite.png",
+    "docs/art/brackenwheel-battle-sprite-provenance.json",
+    "public/assets/brackenwheel-battle-sprite.webp",
+    "src/content/visual-asset-manifest.js"
+  ],
+  "product_path_hashes": {
+    "demo/assets/brackenwheel-battle-sprite.png": {
+      "bytes": 1405765,
+      "sha256": "220db2a560c349a126477ccebbe62d3c9d42c795f775668ef4ee4fc961c7167a"
+    },
+    "docs/art/brackenwheel-battle-sprite-provenance.json": {
+      "bytes": 8175,
+      "sha256": "d2ac7958fbc4c7a5cc13fb5961b389b34108246341276a079279aace7b123de2"
+    },
+    "public/assets/brackenwheel-battle-sprite.webp": {
+      "bytes": 67688,
+      "sha256": "cb7dbd4c5c0be22b0bcfc9e7d6afc5dd8dccd89aa1063872f6e8958e5a8944ca"
+    },
+    "src/content/visual-asset-manifest.js": {
+      "bytes": 20001,
+      "sha256": "78636e3a754812c5adb03779cb0d9e7c50bfd62658b4566441fdb7e69ae63ba3"
+    }
+  },
+  "full_candidate_diff_name_status": [
+    "A\tartifacts/art-022b-round-2/builder/checksums.sha256",
+    "A\tartifacts/art-022b-round-2/builder/encoding-evidence.json",
+    "A\tartifacts/art-022b-round-2/builder/raw-generation/attempt-01-prompt.txt",
+    "A\tartifacts/art-022b-round-2/builder/raw-generation/attempt-01-tool-receipt.json",
+    "A\tartifacts/art-022b-round-2/builder/report.md",
+    "A\tartifacts/art-022b-round-2/builder/reproducibility-repeat.webp",
+    "A\tdemo/assets/brackenwheel-battle-sprite.png",
+    "A\tdocs/art/brackenwheel-battle-sprite-provenance.json",
+    "A\tpublic/assets/brackenwheel-battle-sprite.webp",
+    "M\tsrc/content/visual-asset-manifest.js"
+  ],
+  "asset_source": {
+    "tool": "OpenAI built-in image_gen.imagegen",
+    "license": "AGPL-3.0-only",
+    "prompt_exact_match": true,
+    "prompt_sha256": "64ce6f593bc455cc4708ea0ea30178a8af8b2dcae75af47636ea7b8de80d0653",
+    "source_png_bytes": 1405765,
+    "source_png_sha256": "220db2a560c349a126477ccebbe62d3c9d42c795f775668ef4ee4fc961c7167a",
+    "webp_bytes": 67688,
+    "webp_sha256": "cb7dbd4c5c0be22b0bcfc9e7d6afc5dd8dccd89aa1063872f6e8958e5a8944ca",
+    "repeat_encoding_byte_identical": true,
+    "webp_encoding": {
+      "tool": "cwebp",
+      "version": "1.6.0",
+      "libsharpyuv_version": "0.4.2",
+      "arguments": [
+        "-q",
+        "92",
+        "-alpha_q",
+        "100",
+        "-m",
+        "6",
+        "-mt",
+        "-resize",
+        "512",
+        "512"
+      ],
+      "command": "cwebp -q 92 -alpha_q 100 -m 6 -mt -resize 512 512 demo/assets/brackenwheel-battle-sprite.png -o public/assets/brackenwheel-battle-sprite.webp",
+      "reproducibility": {
+        "repeat_command": "cwebp -q 92 -alpha_q 100 -m 6 -mt -resize 512 512 demo/assets/brackenwheel-battle-sprite.png -o artifacts/art-022b-round-2/builder/reproducibility-repeat.webp",
+        "repeat_output_sha256": "cb7dbd4c5c0be22b0bcfc9e7d6afc5dd8dccd89aa1063872f6e8958e5a8944ca",
+        "byte_identical": true,
+        "verification": "The repeat output was compared byte-for-byte with public/assets/brackenwheel-battle-sprite.webp."
+      }
+    }
+  },
+  "strict_manifest_addition_preserves_prior_records": true,
+  "dist_baseline": {
+    "file_count_before": 77,
+    "file_count_after": 77,
+    "exact_hash_and_byte_match": true,
+    "baseline_sha256_manifest": "baseline-dist-status.json"
+  },
+  "restored_test_side_effects": {
+    "paths": [
+      "artifacts/release-001b-round-2/escaped-css-producer-rejection.json",
+      "artifacts/release-001b-round-2/evidence.json",
+      "artifacts/release-001b-round-2/external-base-producer-rejection.json",
+      "artifacts/release-001b-round-2/opaque-srcdoc-producer-rejection.json"
+    ],
+    "restored_from": "candidate HEAD",
+    "checkout_clean_after_restore": true
+  },
+  "source_png_hash_after_all_checks": "220db2a560c349a126477ccebbe62d3c9d42c795f775668ef4ee4fc961c7167a"
+}
