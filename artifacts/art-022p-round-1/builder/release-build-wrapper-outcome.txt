@@ -1,0 +1,5 @@
+Release test output ends with TAP: 22 tests passed, 0 failed.
+After that output, the shell wrapper reported:
+  zsh:20: read-only variable: status
+
+The functions.exec wrapper returned exit code 1 because of this zsh error. The npm child exit code was not separately captured, so this evidence does not claim a direct release-test exit code. The parent requested an independent critic run for a fresh direct exit record.

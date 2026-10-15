@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brackenwheel portrait thumbnail inspection</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 272px; height: 184px; }
+  body { color: #f4f0e5; background: #28312f; font: 11px/14px system-ui, sans-serif; }
+  main { display: grid; grid-template-columns: 64px 128px; gap: 24px; padding: 12px; }
+  figure { position: relative; margin: 0; padding-top: 20px; }
+  figcaption { position: absolute; top: 0; left: 0; white-space: nowrap; }
+  img { display: block; object-fit: cover; image-rendering: auto; }
+  #portrait64 { width: 64px; height: 64px; }
+  #portrait128 { width: 128px; height: 128px; }
+</style>
+</head>
+<body>
+<main>
+  <figure><figcaption>64 CSS px · DPR 1</figcaption><img id="portrait64" src="/assets/brackenwheel-portrait-painted.webp" alt="Brackenwheel, river-workshop sickle maker"></figure>
+  <figure><figcaption>128 CSS px · DPR 1</figcaption><img id="portrait128" src="/assets/brackenwheel-portrait-painted.webp" alt="Brackenwheel, river-workshop sickle maker"></figure>
+</main>
+</body>
+</html>

@@ -1,0 +1,11 @@
+cp /Users/me/.codex/generated_images/01a14027-9905-7ac3-ad21-7572d2d9571a/exec-dc8a4d2b-e3a5-417f-9fce-a2899c81d808.png demo/assets/brackenwheel-portrait.png
+cwebp -q 85 -m 6 -mt -resize 512 512 demo/assets/brackenwheel-portrait.png -o public/assets/brackenwheel-portrait-painted.webp
+cwebp -q 85 -m 6 -mt -resize 512 512 demo/assets/brackenwheel-portrait.png -o artifacts/art-022p-round-1/builder/brackenwheel-reencode-check.webp
+npm run test:visual-asset-manifest
+npm run test:shipping-isolation-guard
+write native-size preview fixture at artifacts/art-022p-round-1/builder/portrait-thumbnails.html
+node artifacts/art-022p-round-1/builder/capture-native-thumbnails.mjs
+node artifacts/art-022p-round-1/builder/capture-native-thumbnails.mjs (exact CSS crop retry)
+ln -s /Users/me/.codex/worktrees/9456/clash-royale-clone/node_modules node_modules (temporary private-checkout dependency link)
+GAME_BROWSER_CHROME=/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome npm run test:release-build
+restore artifacts/release-001b-round-2/evidence.json from captured baseline and unlink temporary node_modules symlink

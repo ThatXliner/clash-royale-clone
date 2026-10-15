@@ -1,0 +1,49 @@
+{
+  "browser": "155.0.8059.40",
+  "browserPath": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+  "node": "v22.22.3",
+  "playwright": "1.58.2",
+  "headless": false,
+  "customLaunchArgs": [],
+  "gpuFlags": "none",
+  "fixtureUrl": "file:///private/tmp/art-022p-builder.txQp2q/repo/artifacts/art-022p-round-1/builder/portrait-thumbnails.html",
+  "layout": {
+    "devicePixelRatio": 1,
+    "image64": {
+      "cssWidth": 64,
+      "cssHeight": 64,
+      "naturalWidth": 512,
+      "naturalHeight": 512
+    },
+    "image128": {
+      "cssWidth": 128,
+      "cssHeight": 128,
+      "naturalWidth": 512,
+      "naturalHeight": 512
+    },
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36"
+  },
+  "screenshots": [
+    {
+      "path": "artifacts/art-022p-round-1/builder/native-thumbnails-fixture.png",
+      "width": 500,
+      "height": 220,
+      "bytes": 53379,
+      "sha256": "94fe32a8c3be6deba8ba4d311dd82a0b0e413097406aab04afb5962ff9acc2f0"
+    },
+    {
+      "path": "artifacts/art-022p-round-1/builder/portrait-64px.png",
+      "width": 64,
+      "height": 64,
+      "bytes": 9552,
+      "sha256": "33f2b97ff28c8e2313916ae99ec5727966c41339ac5271dab029839bfb92d11f"
+    },
+    {
+      "path": "artifacts/art-022p-round-1/builder/portrait-128px.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 36712,
+      "sha256": "9007dc35874a551ee2768a92521dd4a035ac46f0471c1b6e9446090c80e3a535"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+ART-022P builder scope and source fences
+
+Base commit: 3e0734ef95c5cd5b926e9289e5588a020fc0e752
+Checkout: private detached clone at /private/tmp/art-022p-builder.txQp2q/repo
+Original shared checkout: left untouched.
+
+Only owned product paths:
+- demo/assets/brackenwheel-portrait.png
+- public/assets/brackenwheel-portrait-painted.webp
+- docs/art/brackenwheel-portrait-provenance.json
+- src/content/visual-asset-manifest.js (one appended registration)
+
+Only owned evidence path: artifacts/art-022p-round-1/builder/.
+No UI, runtime, lore, card catalog, sprite, PLAN, rounds, or progress files changed.
+No file from ./reference was imported, copied, or bundled. The existing public/assets/card-portraits-painted.webp was inspected and used only as a broad painterly style cue for image generation.
+
+The temporary node_modules symlink used for release testing was removed. Test-generated tracked release evidence was restored to the base commit. No execution workspace, dependency tree, browser profile, or archive was added.
+
+Browser capture used Playwright 1.58.2, Node 22.22.3, and native Chrome 155.0.8059.40 with headless=false, devicePixelRatio=1, custom launch args=[], and no GPU flags. The owned Playwright capture script recorded exit 0 and closed its Browser object. Chrome PID 93861 (top-level app, started 2026-10-15 07:43:36) was the pre-existing user UI browser, not the owned capture process; it was left open.

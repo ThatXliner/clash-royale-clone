@@ -1,0 +1,504 @@
+
+> moss-and-ember@0.0.0 test:release-build
+> node tests/release-build-runner.js release-build
+
+TAP version 13
+# 2026-10-15T15:39:59.870Z pw:browser <launching> /Applications/Google Chrome.app/Contents/MacOS/Google Chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-Dt1bwI --remote-debugging-pipe --no-startup-window
+# 2026-10-15T15:39:59.873Z pw:browser <launched> pid=7458
+# 2026-10-15T15:40:00.351Z pw:browser [pid=7458][err] Trying to load the allocator multiple times. This is *not* supported.
+# 2026-10-15T15:40:00.371Z pw:browser [pid=7458][err] [7465:5960847:1015/084000.369915:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:00.371Z pw:browser [pid=7458][err] [7465:5960922:1015/084000.370243:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:00.371Z pw:browser [pid=7458][err] [7465:5960847:1015/084000.370466:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:00.371Z pw:browser [pid=7458][err] [7465:5960922:1015/084000.370501:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:00.371Z pw:browser [pid=7458][err] [7465:5960847:1015/084000.370596:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:00.371Z pw:browser [pid=7458][err] [7465:5960922:1015/084000.370636:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:00.371Z pw:browser [pid=7458][err] [7465:5960847:1015/084000.370747:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:00.371Z pw:browser [pid=7458][err] [7465:5960922:1015/084000.370781:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:00.371Z pw:browser [pid=7458][err] [7465:5960847:1015/084000.370875:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:00.371Z pw:browser [pid=7458][err] [7465:5960922:1015/084000.370904:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:01.350Z pw:browser [pid=7458] <gracefully close start>
+# 2026-10-15T15:40:01.357Z pw:browser [pid=7458][err] [7458:5960845:1015/084001.357708:ERROR:base/process/process_mac.cc:45] task_policy_set TASK_CATEGORY_POLICY: (os/kern) invalid argument (4)
+# 2026-10-15T15:40:01.357Z pw:browser [pid=7458][err] [7458:5960845:1015/084001.357729:ERROR:base/process/process_mac.cc:90] task_policy_set TASK_SUPPRESSION_POLICY: (os/kern) invalid argument (4)
+# 2026-10-15T15:40:01.446Z pw:browser [pid=7458] <process did exit: exitCode=0, signal=null>
+# 2026-10-15T15:40:01.447Z pw:browser [pid=7458] starting temporary directories cleanup
+# 2026-10-15T15:40:01.456Z pw:browser [pid=7458] finished temporary directories cleanup
+# 2026-10-15T15:40:01.456Z pw:browser [pid=7458] <gracefully close end>
+# 2026-10-15T15:40:12.914Z pw:browser <launching> /Applications/Google Chrome.app/Contents/MacOS/Google Chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-nmdkxc --remote-debugging-pipe --no-startup-window
+# 2026-10-15T15:40:12.915Z pw:browser <launched> pid=7496
+# 2026-10-15T15:40:13.286Z pw:browser [pid=7496][err] Trying to load the allocator multiple times. This is *not* supported.
+# 2026-10-15T15:40:13.303Z pw:browser [pid=7496][err] [7500:5961273:1015/084013.303334:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:13.304Z pw:browser [pid=7496][err] [7500:5961353:1015/084013.303676:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:13.304Z pw:browser [pid=7496][err] [7500:5961273:1015/084013.303964:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:13.304Z pw:browser [pid=7496][err] [7500:5961353:1015/084013.304044:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:13.304Z pw:browser [pid=7496][err] [7500:5961273:1015/084013.304209:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:13.304Z pw:browser [pid=7496][err] [7500:5961353:1015/084013.304264:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:13.304Z pw:browser [pid=7496][err] [7500:5961273:1015/084013.304372:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:13.304Z pw:browser [pid=7496][err] [7500:5961353:1015/084013.304416:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:13.304Z pw:browser [pid=7496][err] [7500:5961273:1015/084013.304526:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:13.305Z pw:browser [pid=7496][err] [7500:5961353:1015/084013.304557:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:14.320Z pw:browser [pid=7496] <gracefully close start>
+# 2026-10-15T15:40:14.327Z pw:browser [pid=7496][err] [7496:5961271:1015/084014.327683:ERROR:base/process/process_mac.cc:45] task_policy_set TASK_CATEGORY_POLICY: (os/kern) invalid argument (4)
+# 2026-10-15T15:40:14.327Z pw:browser [pid=7496][err] [7496:5961271:1015/084014.327703:ERROR:base/process/process_mac.cc:90] task_policy_set TASK_SUPPRESSION_POLICY: (os/kern) invalid argument (4)
+# 2026-10-15T15:40:14.417Z pw:browser [pid=7496] <process did exit: exitCode=0, signal=null>
+# 2026-10-15T15:40:14.417Z pw:browser [pid=7496] starting temporary directories cleanup
+# 2026-10-15T15:40:14.426Z pw:browser [pid=7496] finished temporary directories cleanup
+# 2026-10-15T15:40:14.426Z pw:browser [pid=7496] <gracefully close end>
+# 2026-10-15T15:40:25.481Z pw:browser <launching> /Applications/Google Chrome.app/Contents/MacOS/Google Chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-A7Q7sF --remote-debugging-pipe --no-startup-window
+# 2026-10-15T15:40:25.482Z pw:browser <launched> pid=7527
+# 2026-10-15T15:40:25.865Z pw:browser [pid=7527][err] Trying to load the allocator multiple times. This is *not* supported.
+# 2026-10-15T15:40:25.882Z pw:browser [pid=7527][err] [7531:5961636:1015/084025.882038:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:25.882Z pw:browser [pid=7527][err] [7531:5961705:1015/084025.882343:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:25.883Z pw:browser [pid=7527][err] [7531:5961636:1015/084025.883258:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:25.883Z pw:browser [pid=7527][err] [7531:5961705:1015/084025.883308:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:25.887Z pw:browser [pid=7527][err] [7531:5961636:1015/084025.887139:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:25.887Z pw:browser [pid=7527][err] [7531:5961705:1015/084025.887227:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:25.887Z pw:browser [pid=7527][err] [7531:5961636:1015/084025.887372:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:25.887Z pw:browser [pid=7527][err] [7531:5961705:1015/084025.887404:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:25.887Z pw:browser [pid=7527][err] [7531:5961636:1015/084025.887501:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:25.887Z pw:browser [pid=7527][err] [7531:5961705:1015/084025.887534:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# {"method":"GET","path":"public/index.html","status":200}
+# {"method":"GET","path":"src/ui/app-shell.js","status":200}
+# {"method":"GET","path":"assets/rolldown-runtime-Cl99QfTQ.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell-D-709RTF.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CVKh5POa.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-iYK_h2t5.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-jbN8jSqD.js","status":200}
+# {"method":"GET","path":"assets/asset-D-AK-JuF.css","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-yR8a61kO.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DHGDlboh.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-B8nL-zLe.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CZT14Dhg.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CyMIgZ_f.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BZudrCfI.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-B5WzjRCK.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DEU-_oia.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-IiXAdE-2.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-7HYgJsNr.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index-DxvgYUo8.js","status":200}
+# {"method":"GET","path":"public/assets/cinder-host-painted.webp","status":200}
+# {"method":"GET","path":"public/assets/thornscouts-painted.webp","status":200}
+# {"method":"GET","path":"public/assets/ironroot-painted.webp","status":200}
+# {"method":"GET","path":"public/assets/forgeguard-painted.webp","status":200}
+# {"method":"GET","path":"public/assets/stonehauler-painted.webp","status":200}
+# {"method":"GET","path":"public/assets/card-portraits-painted.webp","status":200}
+# {"method":"GET","path":"public/assets/sunthread-pair-painted.webp","status":200}
+# {"method":"GET","path":"public/assets/duskwing-trio-painted.webp","status":200}
+# {"method":"GET","path":"public/assets/kilnkeeper-portrait-painted.webp","status":200}
+# {"method":"GET","path":"public/assets/coppershade-flock-painted.webp","status":200}
+# {"method":"GET","path":"public/assets/gloamwing-cluster-painted.webp","status":200}
+# {"method":"GET","path":"public/assets/squall-orb-painted.webp","status":200}
+# {"method":"GET","path":"public/assets/ember-basin-portrait-painted-v2.webp","status":200}
+# {"method":"GET","path":"public/assets/buried-coil-portrait.webp","status":200}
+# {"method":"GET","path":"public/ui-arena-shell.html","status":200}
+# {"method":"GET","path":"src/ui/arena-shell-bootstrap.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CVKh5POa.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-iYK_h2t5.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell-D-709RTF.js","status":200}
+# {"method":"GET","path":"assets/rolldown-runtime-Cl99QfTQ.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-jbN8jSqD.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-yR8a61kO.js","status":200}
+# {"method":"GET","path":"assets/ui-arena-shell-er5XVwGC.css","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DHGDlboh.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CZT14Dhg.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-B8nL-zLe.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-CyMIgZ_f.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-BZudrCfI.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry--RvRLFdN.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-DEU-_oia.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-IiXAdE-2.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-7HYgJsNr.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry-B5WzjRCK.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-DMcE9RV7.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/ui-arena-shell~src/ui/arena-shell-entry-CUn63G-n.js","status":200}
+# {"method":"GET","path":"public/assets/moss-ember-arena-painted.webp","status":200}
+# {"method":"GET","path":"src/ui/arena-shell-entry.js","status":200}
+# {"method":"GET","path":"src/rl/environment.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/ui-arena-shell~src/rl/environment~src/ui/arena-shell-entry--RvRLFdN.js","status":200}
+# 2026-10-15T15:40:26.388Z pw:browser [pid=7527] <gracefully close start>
+# 2026-10-15T15:40:26.394Z pw:browser [pid=7527][err] [7531:5961636:1015/084026.394102:ERROR:gpu/command_buffer/service/shared_image/shared_image_manager.cc:260] SharedImageManager::ProduceSkia: Trying to Produce a Skia representation from a non-existent mailbox.
+# 2026-10-15T15:40:26.394Z pw:browser [pid=7527][err] [7531:5961636:1015/084026.394477:ERROR:gpu/command_buffer/service/shared_image/shared_image_manager.cc:376] SharedImageManager::ProduceOverlay: Trying to Produce a Overlay representation from a non-existent mailbox.
+# 2026-10-15T15:40:26.394Z pw:browser [pid=7527][err] [7531:5961636:1015/084026.394487:ERROR:components/viz/service/display_embedder/skia_output_device_buffer_queue.cc:258] Invalid mailbox.
+# 2026-10-15T15:40:26.394Z pw:browser [pid=7527][err] [7527:5961634:1015/084026.394741:ERROR:base/process/process_mac.cc:45] task_policy_set TASK_CATEGORY_POLICY: (os/kern) invalid argument (4)
+# 2026-10-15T15:40:26.394Z pw:browser [pid=7527][err] [7527:5961634:1015/084026.394760:ERROR:base/process/process_mac.cc:90] task_policy_set TASK_SUPPRESSION_POLICY: (os/kern) invalid argument (4)
+# 2026-10-15T15:40:26.511Z pw:browser [pid=7527] <process did exit: exitCode=0, signal=null>
+# 2026-10-15T15:40:26.511Z pw:browser [pid=7527] starting temporary directories cleanup
+# 2026-10-15T15:40:26.522Z pw:browser [pid=7527] finished temporary directories cleanup
+# 2026-10-15T15:40:26.522Z pw:browser [pid=7527] <gracefully close end>
+# Subtest: RELEASE-001B emits a deterministic bounded graph and serves the exact game and RL module
+ok 1 - RELEASE-001B emits a deterministic bounded graph and serves the exact game and RL module
+  ---
+  duration_ms: 38876.073792
+  type: 'test'
+  ...
+# 2026-10-15T15:40:26.583Z pw:browser <launching> /Applications/Google Chrome.app/Contents/MacOS/Google Chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-unuUsl --remote-debugging-pipe --no-startup-window
+# 2026-10-15T15:40:26.584Z pw:browser <launched> pid=7539
+# 2026-10-15T15:40:27.039Z pw:browser [pid=7539][err] Trying to load the allocator multiple times. This is *not* supported.
+# 2026-10-15T15:40:27.073Z pw:browser [pid=7539][err] [7543:5961870:1015/084027.072666:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:27.073Z pw:browser [pid=7539][err] [7543:5961923:1015/084027.072951:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:27.074Z pw:browser [pid=7539][err] [7543:5961870:1015/084027.074266:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:27.074Z pw:browser [pid=7539][err] [7543:5961923:1015/084027.074319:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:27.079Z pw:browser [pid=7539][err] [7543:5961870:1015/084027.079132:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:27.079Z pw:browser [pid=7539][err] [7543:5961923:1015/084027.079231:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:27.079Z pw:browser [pid=7539][err] [7543:5961870:1015/084027.079410:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:27.079Z pw:browser [pid=7539][err] [7543:5961923:1015/084027.079465:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:27.079Z pw:browser [pid=7539][err] [7543:5961870:1015/084027.079717:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:27.079Z pw:browser [pid=7539][err] [7543:5961923:1015/084027.079750:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:27.726Z pw:browser [pid=7539] <gracefully close start>
+# 2026-10-15T15:40:27.836Z pw:browser [pid=7539] <process did exit: exitCode=0, signal=null>
+# 2026-10-15T15:40:27.836Z pw:browser [pid=7539] starting temporary directories cleanup
+# 2026-10-15T15:40:27.845Z pw:browser [pid=7539] finished temporary directories cleanup
+# 2026-10-15T15:40:27.845Z pw:browser [pid=7539] <gracefully close end>
+# 2026-10-15T15:40:27.858Z pw:browser <launching> /Applications/Google Chrome.app/Contents/MacOS/Google Chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-7VKjl1 --remote-debugging-pipe --no-startup-window
+# 2026-10-15T15:40:27.859Z pw:browser <launched> pid=7550
+# 2026-10-15T15:40:28.210Z pw:browser [pid=7550][err] Trying to load the allocator multiple times. This is *not* supported.
+# 2026-10-15T15:40:28.239Z pw:browser [pid=7550][err] [7554:5962055:1015/084028.239448:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:28.239Z pw:browser [pid=7550][err] [7554:5962118:1015/084028.239741:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:28.240Z pw:browser [pid=7550][err] [7554:5962055:1015/084028.240507:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:28.240Z pw:browser [pid=7550][err] [7554:5962118:1015/084028.240565:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:28.241Z pw:browser [pid=7550][err] [7554:5962055:1015/084028.241058:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:28.241Z pw:browser [pid=7550][err] [7554:5962118:1015/084028.241095:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:28.241Z pw:browser [pid=7550][err] [7554:5962055:1015/084028.241459:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:28.241Z pw:browser [pid=7550][err] [7554:5962118:1015/084028.241528:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:28.241Z pw:browser [pid=7550][err] [7554:5962055:1015/084028.241686:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:28.241Z pw:browser [pid=7550][err] [7554:5962118:1015/084028.241740:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# {"method":"GET","path":"public/index.html","status":200}
+# {"method":"GET","path":"public/assets/preload.json","status":200}
+# {"method":"GET","path":"assets/rolldown-runtime-Cl99QfTQ.js","status":200}
+# {"method":"GET","path":"assets/public/index-BQSzDezi.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index-FpGeksB0.js","status":200}
+# {"method":"GET","path":"assets/asset-e9e-E_h5.css","status":200}
+# {"method":"GET","path":"public/assets/preload-small.svg","status":200}
+# {"method":"GET","path":"public/assets/image.svg","status":200}
+# {"method":"GET","path":"public/assets/srcdoc-image.svg","status":200}
+# {"method":"GET","path":"public/assets/input-image.svg","status":200}
+# {"method":"GET","path":"public/assets/srcset-one.svg","status":200}
+# {"method":"GET","path":"public/assets/style-tag.svg","status":200}
+# {"method":"GET","path":"public/assets/prefetch.json","status":200}
+# {"method":"GET","path":"public/assets/inline-style.svg","status":200}
+# {"method":"GET","path":"assets/game-runtime~dynamic-module-BNhxSyBH.js","status":200}
+# {"method":"GET","path":"public/assets/css-url.svg","status":200}
+# {"method":"GET","path":"public/assets/image-set-one.svg","status":200}
+# {"method":"GET","path":"public/assets/audit-worker.js","status":200}
+# {"method":"GET","path":"public/assets/worker-data.json","status":200}
+# 2026-10-15T15:40:28.917Z pw:browser [pid=7550][err] [7554:5962055:1015/084028.916425:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:28.917Z pw:browser [pid=7550][err] [7554:5962118:1015/084028.916491:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# {"method":"GET","path":"public/assets/popup.html","status":200}
+# {"method":"GET","path":"public/assets/popup.js","status":200}
+# {"method":"GET","path":"public/assets/popup-data.json","status":200}
+# {"method":"GET","path":"public/assets/external-style.svg","status":200}
+# {"method":"GET","path":"public/assets/external-style.css","status":200}
+# {"method":"GET","path":"public/assets/xhtml-foreign-object.svg","status":200}
+# {"method":"GET","path":"public/assets/foreign-object-image.svg","status":200}
+# {"method":"GET","path":"public/assets/nested-svg.svg","status":200}
+# {"method":"GET","path":"public/assets/nested-leaf.svg","status":200}
+# {"method":"GET","path":"public/assets/presentation-url.svg","status":200}
+# {"method":"GET","path":"public/assets/presentation-gradient.svg","status":200}
+# 2026-10-15T15:40:29.559Z pw:browser [pid=7550] <gracefully close start>
+# 2026-10-15T15:40:29.686Z pw:browser [pid=7550] <process did exit: exitCode=0, signal=null>
+# 2026-10-15T15:40:29.686Z pw:browser [pid=7550] starting temporary directories cleanup
+# 2026-10-15T15:40:29.694Z pw:browser [pid=7550] finished temporary directories cleanup
+# 2026-10-15T15:40:29.694Z pw:browser [pid=7550] <gracefully close end>
+# Subtest: Chromium manifest audit covers legacy HTML, CSS, SVG and opaque-frame dependency forms
+ok 2 - Chromium manifest audit covers legacy HTML, CSS, SVG and opaque-frame dependency forms
+  ---
+  duration_ms: 3171.651916
+  type: 'test'
+  ...
+# ✗ Build failed in 10ms
+# ✗ Build failed in 4ms
+# ✗ Build failed in 5ms
+# ✗ Build failed in 4ms
+# ✗ Build failed in 4ms
+# ✗ Build failed in 5ms
+# ✗ Build failed in 3ms
+# ✗ Build failed in 4ms
+# ✗ Build failed in 3ms
+# ✗ Build failed in 4ms
+# Subtest: authored modules cannot impersonate Vite's virtual preload helper
+ok 3 - authored modules cannot impersonate Vite's virtual preload helper
+  ---
+  duration_ms: 92.269292
+  type: 'test'
+  ...
+# 2026-10-15T15:40:29.809Z pw:browser <launching> /Applications/Google Chrome.app/Contents/MacOS/Google Chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-3x7Jbj --remote-debugging-pipe --no-startup-window
+# 2026-10-15T15:40:29.810Z pw:browser <launched> pid=7573
+# 2026-10-15T15:40:30.194Z pw:browser [pid=7573][err] Trying to load the allocator multiple times. This is *not* supported.
+# 2026-10-15T15:40:30.214Z pw:browser [pid=7573][err] [7578:5962284:1015/084030.213538:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:30.214Z pw:browser [pid=7573][err] [7578:5962340:1015/084030.213863:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:30.215Z pw:browser [pid=7573][err] [7578:5962284:1015/084030.215381:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:30.215Z pw:browser [pid=7573][err] [7578:5962340:1015/084030.215429:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:30.216Z pw:browser [pid=7573][err] [7578:5962284:1015/084030.216024:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:30.216Z pw:browser [pid=7573][err] [7578:5962340:1015/084030.216065:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:30.216Z pw:browser [pid=7573][err] [7578:5962284:1015/084030.216400:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:30.216Z pw:browser [pid=7573][err] [7578:5962340:1015/084030.216439:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:30.216Z pw:browser [pid=7573][err] [7578:5962284:1015/084030.216542:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:30.216Z pw:browser [pid=7573][err] [7578:5962340:1015/084030.216576:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:30.805Z pw:browser [pid=7573] <gracefully close start>
+# 2026-10-15T15:40:30.809Z pw:browser [pid=7573][err] [7573:5962282:1015/084030.809686:ERROR:base/process/process_mac.cc:45] task_policy_set TASK_CATEGORY_POLICY: (os/kern) invalid argument (4)
+# 2026-10-15T15:40:30.809Z pw:browser [pid=7573][err] [7573:5962282:1015/084030.809705:ERROR:base/process/process_mac.cc:90] task_policy_set TASK_SUPPRESSION_POLICY: (os/kern) invalid argument (4)
+# 2026-10-15T15:40:30.911Z pw:browser [pid=7573] <process did exit: exitCode=0, signal=null>
+# 2026-10-15T15:40:30.911Z pw:browser [pid=7573] starting temporary directories cleanup
+# 2026-10-15T15:40:30.920Z pw:browser [pid=7573] finished temporary directories cleanup
+# 2026-10-15T15:40:30.920Z pw:browser [pid=7573] <gracefully close end>
+# 2026-10-15T15:40:30.925Z pw:browser <launching> /Applications/Google Chrome.app/Contents/MacOS/Google Chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-7TogCf --remote-debugging-pipe --no-startup-window
+# 2026-10-15T15:40:30.926Z pw:browser <launched> pid=7589
+# 2026-10-15T15:40:31.287Z pw:browser [pid=7589][err] Trying to load the allocator multiple times. This is *not* supported.
+# 2026-10-15T15:40:31.306Z pw:browser [pid=7589][err] [7593:5962476:1015/084031.305715:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:31.306Z pw:browser [pid=7589][err] [7593:5962532:1015/084031.306023:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:31.306Z pw:browser [pid=7589][err] [7593:5962476:1015/084031.306897:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:31.306Z pw:browser [pid=7589][err] [7593:5962532:1015/084031.306933:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:31.307Z pw:browser [pid=7589][err] [7593:5962476:1015/084031.307344:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:31.307Z pw:browser [pid=7589][err] [7593:5962532:1015/084031.307384:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:31.307Z pw:browser [pid=7589][err] [7593:5962476:1015/084031.307787:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:31.308Z pw:browser [pid=7589][err] [7593:5962532:1015/084031.307826:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:31.308Z pw:browser [pid=7589][err] [7593:5962476:1015/084031.307934:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:31.308Z pw:browser [pid=7589][err] [7593:5962532:1015/084031.307972:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# {"method":"GET","path":"public/index.html","status":200}
+# {"method":"GET","path":"assets/public/index-DMu9LAgM.js","status":200}
+# {"method":"GET","path":"assets/rolldown-runtime-D66RWv4z.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~public/index-B97FLb6G.js","status":200}
+# {"method":"GET","path":"assets/literal-module-v6PzF-x3.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~literal-module-CSQ7jy-M.js","status":200}
+# {"method":"GET","path":"assets/game-runtime~template-module-DILhzUae.js","status":200}
+# {"method":"GET","path":"assets/template-module-Bhp2-24w.js","status":200}
+# 2026-10-15T15:40:31.900Z pw:browser [pid=7589] <gracefully close start>
+# 2026-10-15T15:40:32.020Z pw:browser [pid=7589] <process did exit: exitCode=0, signal=null>
+# 2026-10-15T15:40:32.021Z pw:browser [pid=7589] starting temporary directories cleanup
+# 2026-10-15T15:40:32.029Z pw:browser [pid=7589] finished temporary directories cleanup
+# 2026-10-15T15:40:32.029Z pw:browser [pid=7589] <gracefully close end>
+# Subtest: Vite preload helpers remain available for authored inline dynamic imports
+ok 4 - Vite preload helpers remain available for authored inline dynamic imports
+  ---
+  duration_ms: 2242.634667
+  type: 'test'
+  ...
+# 2026-10-15T15:40:32.050Z pw:browser <launching> /Applications/Google Chrome.app/Contents/MacOS/Google Chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-598vSK --remote-debugging-pipe --no-startup-window
+# 2026-10-15T15:40:32.050Z pw:browser <launched> pid=7600
+# 2026-10-15T15:40:32.402Z pw:browser [pid=7600][err] Trying to load the allocator multiple times. This is *not* supported.
+# 2026-10-15T15:40:32.430Z pw:browser [pid=7600][err] [7604:5962648:1015/084032.430260:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:32.430Z pw:browser [pid=7600][err] [7604:5962709:1015/084032.430643:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:32.431Z pw:browser [pid=7600][err] [7604:5962648:1015/084032.431351:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:32.431Z pw:browser [pid=7600][err] [7604:5962709:1015/084032.431396:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:32.431Z pw:browser [pid=7600][err] [7604:5962648:1015/084032.431835:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:32.431Z pw:browser [pid=7600][err] [7604:5962709:1015/084032.431871:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:32.432Z pw:browser [pid=7600][err] [7604:5962648:1015/084032.432221:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:32.432Z pw:browser [pid=7600][err] [7604:5962709:1015/084032.432262:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:32.432Z pw:browser [pid=7600][err] [7604:5962648:1015/084032.432361:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:32.432Z pw:browser [pid=7600][err] [7604:5962709:1015/084032.432426:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:33.003Z pw:browser [pid=7600] <gracefully close start>
+# 2026-10-15T15:40:33.113Z pw:browser [pid=7600] <process did exit: exitCode=0, signal=null>
+# 2026-10-15T15:40:33.113Z pw:browser [pid=7600] starting temporary directories cleanup
+# 2026-10-15T15:40:33.122Z pw:browser [pid=7600] finished temporary directories cleanup
+# 2026-10-15T15:40:33.122Z pw:browser [pid=7600] <gracefully close end>
+# 2026-10-15T15:40:33.141Z pw:browser <launching> /Applications/Google Chrome.app/Contents/MacOS/Google Chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-6Sj3KY --remote-debugging-pipe --no-startup-window
+# 2026-10-15T15:40:33.142Z pw:browser <launched> pid=7611
+# 2026-10-15T15:40:33.489Z pw:browser [pid=7611][err] Trying to load the allocator multiple times. This is *not* supported.
+# 2026-10-15T15:40:33.517Z pw:browser [pid=7611][err] [7615:5962824:1015/084033.517062:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:33.520Z pw:browser [pid=7611][err] [7615:5962884:1015/084033.519871:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:33.520Z pw:browser [pid=7611][err] [7615:5962824:1015/084033.520144:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:33.520Z pw:browser [pid=7611][err] [7615:5962884:1015/084033.520190:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:33.520Z pw:browser [pid=7611][err] [7615:5962824:1015/084033.520313:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:33.520Z pw:browser [pid=7611][err] [7615:5962884:1015/084033.520365:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:33.520Z pw:browser [pid=7611][err] [7615:5962824:1015/084033.520463:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:33.520Z pw:browser [pid=7611][err] [7615:5962884:1015/084033.520535:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:33.520Z pw:browser [pid=7611][err] [7615:5962824:1015/084033.520678:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:33.520Z pw:browser [pid=7611][err] [7615:5962884:1015/084033.520713:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:34.086Z pw:browser [pid=7611] <gracefully close start>
+# 2026-10-15T15:40:34.191Z pw:browser [pid=7611] <process did exit: exitCode=0, signal=null>
+# 2026-10-15T15:40:34.191Z pw:browser [pid=7611] starting temporary directories cleanup
+# 2026-10-15T15:40:34.200Z pw:browser [pid=7611] finished temporary directories cleanup
+# 2026-10-15T15:40:34.200Z pw:browser [pid=7611] <gracefully close end>
+# Subtest: CSS-escaped URL dependencies are rejected before publishing
+ok 5 - CSS-escaped URL dependencies are rejected before publishing
+  ---
+  duration_ms: 2175.364458
+  type: 'test'
+  ...
+# 2026-10-15T15:40:34.222Z pw:browser <launching> /Applications/Google Chrome.app/Contents/MacOS/Google Chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-lJ2jSt --remote-debugging-pipe --no-startup-window
+# 2026-10-15T15:40:34.223Z pw:browser <launched> pid=7622
+# 2026-10-15T15:40:34.603Z pw:browser [pid=7622][err] Trying to load the allocator multiple times. This is *not* supported.
+# 2026-10-15T15:40:34.634Z pw:browser [pid=7622][err] [7626:5962995:1015/084034.633835:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:34.636Z pw:browser [pid=7622][err] [7626:5963055:1015/084034.636325:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:34.636Z pw:browser [pid=7622][err] [7626:5962995:1015/084034.636608:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:34.636Z pw:browser [pid=7622][err] [7626:5963055:1015/084034.636656:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:34.637Z pw:browser [pid=7622][err] [7626:5962995:1015/084034.636835:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:34.637Z pw:browser [pid=7622][err] [7626:5963055:1015/084034.636877:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:34.637Z pw:browser [pid=7622][err] [7626:5962995:1015/084034.637026:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:34.637Z pw:browser [pid=7622][err] [7626:5963055:1015/084034.637062:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:34.637Z pw:browser [pid=7622][err] [7626:5962995:1015/084034.637181:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:34.637Z pw:browser [pid=7622][err] [7626:5963055:1015/084034.637243:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:35.193Z pw:browser [pid=7622] <gracefully close start>
+# 2026-10-15T15:40:35.198Z pw:browser [pid=7622][err] [7622:5962993:1015/084035.198784:ERROR:base/process/process_mac.cc:45] task_policy_set TASK_CATEGORY_POLICY: (os/kern) invalid argument (4)
+# 2026-10-15T15:40:35.199Z pw:browser [pid=7622][err] [7622:5962993:1015/084035.198828:ERROR:base/process/process_mac.cc:90] task_policy_set TASK_SUPPRESSION_POLICY: (os/kern) invalid argument (4)
+# 2026-10-15T15:40:35.302Z pw:browser [pid=7622] <process did exit: exitCode=0, signal=null>
+# 2026-10-15T15:40:35.302Z pw:browser [pid=7622] starting temporary directories cleanup
+# 2026-10-15T15:40:35.310Z pw:browser [pid=7622] finished temporary directories cleanup
+# 2026-10-15T15:40:35.310Z pw:browser [pid=7622] <gracefully close end>
+# 2026-10-15T15:40:35.332Z pw:browser <launching> /Applications/Google Chrome.app/Contents/MacOS/Google Chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-8xcKIo --remote-debugging-pipe --no-startup-window
+# 2026-10-15T15:40:35.333Z pw:browser <launched> pid=7633
+# 2026-10-15T15:40:35.699Z pw:browser [pid=7633][err] Trying to load the allocator multiple times. This is *not* supported.
+# 2026-10-15T15:40:35.730Z pw:browser [pid=7633][err] [7637:5963172:1015/084035.728654:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:35.730Z pw:browser [pid=7633][err] [7637:5963230:1015/084035.728951:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:35.730Z pw:browser [pid=7633][err] [7637:5963172:1015/084035.729196:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:35.730Z pw:browser [pid=7633][err] [7637:5963230:1015/084035.729237:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:35.730Z pw:browser [pid=7633][err] [7637:5963172:1015/084035.729377:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:35.730Z pw:browser [pid=7633][err] [7637:5963230:1015/084035.729434:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:35.730Z pw:browser [pid=7633][err] [7637:5963172:1015/084035.729562:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:35.730Z pw:browser [pid=7633][err] [7637:5963230:1015/084035.729618:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:35.730Z pw:browser [pid=7633][err] [7637:5963172:1015/084035.729793:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:35.730Z pw:browser [pid=7633][err] [7637:5963230:1015/084035.729849:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:36.309Z pw:browser [pid=7633] <gracefully close start>
+# 2026-10-15T15:40:36.438Z pw:browser [pid=7633] <process did exit: exitCode=0, signal=null>
+# 2026-10-15T15:40:36.438Z pw:browser [pid=7633] starting temporary directories cleanup
+# 2026-10-15T15:40:36.448Z pw:browser [pid=7633] finished temporary directories cleanup
+# 2026-10-15T15:40:36.448Z pw:browser [pid=7633] <gracefully close end>
+# Subtest: opaque runtime srcdoc requests outside the built manifest are rejected
+ok 6 - opaque runtime srcdoc requests outside the built manifest are rejected
+  ---
+  duration_ms: 2248.029708
+  type: 'test'
+  ...
+# 2026-10-15T15:40:36.469Z pw:browser <launching> /Applications/Google Chrome.app/Contents/MacOS/Google Chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-npp7CS --remote-debugging-pipe --no-startup-window
+# 2026-10-15T15:40:36.470Z pw:browser <launched> pid=7644
+# 2026-10-15T15:40:36.847Z pw:browser [pid=7644][err] Trying to load the allocator multiple times. This is *not* supported.
+# 2026-10-15T15:40:36.866Z pw:browser [pid=7644][err] [7649:5963344:1015/084036.865712:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:36.866Z pw:browser [pid=7644][err] [7649:5963403:1015/084036.866014:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:36.866Z pw:browser [pid=7644][err] [7649:5963344:1015/084036.866769:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:36.870Z pw:browser [pid=7644][err] [7649:5963403:1015/084036.870424:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:36.870Z pw:browser [pid=7644][err] [7649:5963344:1015/084036.870605:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:36.870Z pw:browser [pid=7644][err] [7649:5963403:1015/084036.870644:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:36.870Z pw:browser [pid=7644][err] [7649:5963344:1015/084036.870748:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:36.870Z pw:browser [pid=7644][err] [7649:5963403:1015/084036.870784:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:36.870Z pw:browser [pid=7644][err] [7649:5963344:1015/084036.870865:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:36.870Z pw:browser [pid=7644][err] [7649:5963403:1015/084036.870897:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:37.453Z pw:browser [pid=7644] <gracefully close start>
+# 2026-10-15T15:40:37.557Z pw:browser [pid=7644] <process did exit: exitCode=0, signal=null>
+# 2026-10-15T15:40:37.557Z pw:browser [pid=7644] starting temporary directories cleanup
+# 2026-10-15T15:40:37.566Z pw:browser [pid=7644] finished temporary directories cleanup
+# 2026-10-15T15:40:37.566Z pw:browser [pid=7644] <gracefully close end>
+# 2026-10-15T15:40:37.583Z pw:browser <launching> /Applications/Google Chrome.app/Contents/MacOS/Google Chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-fvLgu5 --remote-debugging-pipe --no-startup-window
+# 2026-10-15T15:40:37.584Z pw:browser <launched> pid=7656
+# 2026-10-15T15:40:37.936Z pw:browser [pid=7656][err] Trying to load the allocator multiple times. This is *not* supported.
+# 2026-10-15T15:40:37.971Z pw:browser [pid=7656][err] [7660:5963517:1015/084037.970151:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:37.971Z pw:browser [pid=7656][err] [7660:5963575:1015/084037.970451:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:37.971Z pw:browser [pid=7656][err] [7660:5963517:1015/084037.970697:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:37.971Z pw:browser [pid=7656][err] [7660:5963575:1015/084037.970742:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:37.971Z pw:browser [pid=7656][err] [7660:5963517:1015/084037.970858:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:37.971Z pw:browser [pid=7656][err] [7660:5963575:1015/084037.970898:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:37.971Z pw:browser [pid=7656][err] [7660:5963517:1015/084037.971012:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:37.971Z pw:browser [pid=7656][err] [7660:5963575:1015/084037.971089:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:37.971Z pw:browser [pid=7656][err] [7660:5963517:1015/084037.971221:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:37.971Z pw:browser [pid=7656][err] [7660:5963575:1015/084037.971276:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+# 2026-10-15T15:40:38.535Z pw:browser [pid=7656] <gracefully close start>
+# 2026-10-15T15:40:38.640Z pw:browser [pid=7656] <process did exit: exitCode=0, signal=null>
+# 2026-10-15T15:40:38.640Z pw:browser [pid=7656] starting temporary directories cleanup
+# 2026-10-15T15:40:38.650Z pw:browser [pid=7656] finished temporary directories cleanup
+# 2026-10-15T15:40:38.650Z pw:browser [pid=7656] <gracefully close end>
+# Subtest: external base dependencies are rejected before publishing
+ok 7 - external base dependencies are rejected before publishing
+  ---
+  duration_ms: 2203.611792
+  type: 'test'
+  ...
+# Subtest: escaped workspace entry paths fail before publication and preserve the prior output
+ok 8 - escaped workspace entry paths fail before publication and preserve the prior output
+  ---
+  duration_ms: 4.321625
+  type: 'test'
+  ...
+# Subtest: internal and external symlink inputs are refused atomically
+    # Subtest: internal target
+    ok 1 - internal target
+      ---
+      duration_ms: 14.505875
+      type: 'test'
+      ...
+    # Subtest: external target
+    ok 2 - external target
+      ---
+      duration_ms: 14.073834
+      type: 'test'
+      ...
+    1..2
+ok 9 - internal and external symlink inputs are refused atomically
+  ---
+  duration_ms: 29.1845
+  type: 'test'
+  ...
+# Subtest: source maps are refused even when found in a configured static input tree
+ok 10 - source maps are refused even when found in a configured static input tree
+  ---
+  duration_ms: 13.980209
+  type: 'test'
+  ...
+# Subtest: file count, per-file size, and aggregate size limits fail atomically
+    # Subtest: file count
+    ok 1 - file count
+      ---
+      duration_ms: 13.62875
+      type: 'test'
+      ...
+    # Subtest: per-file byte cap
+    ok 2 - per-file byte cap
+      ---
+      duration_ms: 13.054083
+      type: 'test'
+      ...
+    # Subtest: aggregate byte cap
+    ok 3 - aggregate byte cap
+      ---
+      duration_ms: 12.489791
+      type: 'test'
+      ...
+    1..3
+ok 11 - file count, per-file size, and aggregate size limits fail atomically
+  ---
+  duration_ms: 39.551542
+  type: 'test'
+  ...
+# Subtest: dangerous and protected output targets are refused before any build work
+    # Subtest: /private/tmp/art-022p-critic-20261015
+    ok 1 - /private/tmp/art-022p-critic-20261015
+      ---
+      duration_ms: 0.480709
+      type: 'test'
+      ...
+    # Subtest: /private/tmp/art-022p-critic-20261015/reference/guard-output
+    ok 2 - /private/tmp/art-022p-critic-20261015/reference/guard-output
+      ---
+      duration_ms: 0.458083
+      type: 'test'
+      ...
+    # Subtest: /private/tmp/art-022p-critic-20261015/dist/guard-output
+    ok 3 - /private/tmp/art-022p-critic-20261015/dist/guard-output
+      ---
+      duration_ms: 0.399583
+      type: 'test'
+      ...
+    # Subtest: /private/tmp
+    ok 4 - /private/tmp
+      ---
+      duration_ms: 0.257542
+      type: 'test'
+      ...
+    # Subtest: /var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T
+    ok 5 - /var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T
+      ---
+      duration_ms: 0.638916
+      type: 'test'
+      ...
+    1..5
+ok 12 - dangerous and protected output targets are refused before any build work
+  ---
+  duration_ms: 2.612708
+  type: 'test'
+  ...
+1..12
+# tests 22
+# suites 0
+# pass 22
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 51925.079958

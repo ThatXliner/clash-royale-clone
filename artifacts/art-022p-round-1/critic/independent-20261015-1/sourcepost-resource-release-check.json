@@ -1,0 +1,118 @@
+{
+  "head": "cb20144cfde7c0cbe32a9d218117c75e0695a8b8",
+  "expectedCandidate": "cb20144cfde7c0cbe32a9d218117c75e0695a8b8",
+  "gitCommonDir": ".git",
+  "gitObjectAlternatesPresent": false,
+  "sourceChangesComparedToParent": [
+    "src/content/visual-asset-manifest.js"
+  ],
+  "kernelAndReleaseCapConfigChangedComparedToParent": [],
+  "visualManifest": {
+    "currentSha256": "0e2a67256be42195027a569478b3d7400ba2c37982f57835b9bb23aaa499f91c",
+    "preReleaseSha256": "0e2a67256be42195027a569478b3d7400ba2c37982f57835b9bb23aaa499f91c",
+    "postReleaseSha256": "0e2a67256be42195027a569478b3d7400ba2c37982f57835b9bb23aaa499f91c",
+    "matchesCandidateManifestComparison": true
+  },
+  "sourceKernel": {
+    "path": "src/sim/battle-continuation-kernel.js",
+    "bytes": 523788,
+    "sha256": "115c43146f5818c69a98120e856ddaa5d20243fced3609320d90edc7ae933bea",
+    "capBytes": 524288,
+    "underCap": true
+  },
+  "release": {
+    "directExit": 0,
+    "fileCount": 55,
+    "totalBytes": 6199797,
+    "totalCapBytes": 8388608,
+    "underTotalCap": true,
+    "largestBundledJavaScriptBytes": 474883,
+    "kernelGraphReported": null,
+    "directSizeAuditExit": 0
+  },
+  "tests": {
+    "visualManifestExit": 0,
+    "shippingIsolationExit": 0
+  },
+  "releaseGeneratedEvidenceRestored": true,
+  "nativeCaptureCleanup": {
+    "pid": 9850,
+    "processStillPresent": false,
+    "profilePathsExist": {
+      "/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-3x7Jbj": false,
+      "/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-598vSK": false,
+      "/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-6Sj3KY": false,
+      "/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-7TogCf": false,
+      "/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-7VKjl1": false,
+      "/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-8xcKIo": false,
+      "/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-A7Q7sF": false,
+      "/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-Dt1bwI": false,
+      "/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-fvLgu5": false,
+      "/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-lJ2jSt": false,
+      "/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-nmdkxc": false,
+      "/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-npp7CS": false,
+      "/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-unuUsl": false,
+      "/var/folders/7l/qx4ns2fn79n6g7l7c1b5p0100000gp/T/playwright_chromiumdev_profile-LFEg9G": false
+    },
+    "fixtureServerPortClosed": true
+  },
+  "releaseChromeCleanup": {
+    "launchCount": 13,
+    "pidChecks": {
+      "7458": {
+        "present": false,
+        "command": null
+      },
+      "7496": {
+        "present": false,
+        "command": null
+      },
+      "7527": {
+        "present": false,
+        "command": null
+      },
+      "7539": {
+        "present": false,
+        "command": null
+      },
+      "7550": {
+        "present": false,
+        "command": null
+      },
+      "7573": {
+        "present": false,
+        "command": null
+      },
+      "7589": {
+        "present": false,
+        "command": null
+      },
+      "7600": {
+        "present": false,
+        "command": null
+      },
+      "7611": {
+        "present": false,
+        "command": null
+      },
+      "7622": {
+        "present": false,
+        "command": null
+      },
+      "7633": {
+        "present": false,
+        "command": null
+      },
+      "7644": {
+        "present": false,
+        "command": null
+      },
+      "7656": {
+        "present": false,
+        "command": null
+      }
+    },
+    "allRecordedPidsAbsent": true,
+    "allRecordedProfilesRemoved": true
+  }
+}

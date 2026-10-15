@@ -1,0 +1,105 @@
+{
+  "command": [
+    "node",
+    "/private/tmp/art-022p-critic-20261015/artifacts/art-022p-round-1/critic/independent-20261015-1/capture-portrait-native.mjs"
+  ],
+  "chromeBinary": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+  "customLaunchArgs": [],
+  "headless": false,
+  "context": {
+    "viewport": {
+      "width": 272,
+      "height": 184
+    },
+    "deviceScaleFactor": 1
+  },
+  "screenshots": [
+    {
+      "path": "portrait-thumbnail-64px.png",
+      "bytes": 9547,
+      "sha256": "a3b7943aa73b98e3c7a83cf69bf8a57c672267d3a6f163d0c0df270fe54fc39a",
+      "dimensions": {
+        "width": 64,
+        "height": 64
+      }
+    },
+    {
+      "path": "portrait-thumbnail-128px.png",
+      "bytes": 35514,
+      "sha256": "84e7f2533537a601d7537544d9b8a4bd9724c13df308898ff8642ad13825e513",
+      "dimensions": {
+        "width": 129,
+        "height": 128
+      }
+    },
+    {
+      "path": "portrait-thumbnail-fixture.png",
+      "bytes": 50028,
+      "sha256": "2e94107370bc80a472c2bf314b0b0926bd06692129cf72af11c7e59a560e8c6e",
+      "dimensions": {
+        "width": 272,
+        "height": 184
+      }
+    }
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "requests": [
+    {
+      "url": "/fixture.html",
+      "method": "GET",
+      "status": 200,
+      "failed": false
+    },
+    {
+      "url": "/assets/brackenwheel-portrait-painted.webp",
+      "method": "GET",
+      "status": 200,
+      "failed": false
+    },
+    {
+      "url": "/favicon.ico",
+      "method": "GET",
+      "status": 204,
+      "failed": false
+    }
+  ],
+  "url": "http://127.0.0.1:60358/fixture.html",
+  "browserVersion": "155.0.8059.40",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+  "render": {
+    "devicePixelRatio": 1,
+    "images": [
+      {
+        "id": "portrait64",
+        "complete": true,
+        "naturalWidth": 512,
+        "naturalHeight": 512,
+        "cssWidth": "64px",
+        "cssHeight": "64px",
+        "box": {
+          "x": 12,
+          "y": 32,
+          "width": 64,
+          "height": 64
+        }
+      },
+      {
+        "id": "portrait128",
+        "complete": true,
+        "naturalWidth": 512,
+        "naturalHeight": 512,
+        "cssWidth": "128px",
+        "cssHeight": "128px",
+        "box": {
+          "x": 127.2890625,
+          "y": 32,
+          "width": 128,
+          "height": 128
+        }
+      }
+    ]
+  },
+  "result": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  [\n    [\n      64,\n      64\n    ],\n    [\n+     129,\n      128,\n-     128\n    ]\n  ]\n\n    at file:///private/tmp/art-022p-critic-20261015/artifacts/art-022p-round-1/critic/independent-20261015-1/capture-portrait-native.mjs:151:10"
+}

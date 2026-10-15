@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Brackenwheel portrait native-size review</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, sans-serif; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: #eeeae1; }
+    main { display: flex; align-items: flex-start; gap: 32px; padding: 24px; }
+    figure { margin: 0; display: grid; gap: 8px; justify-items: start; }
+    figcaption { color: #302b24; font-size: 12px; line-height: 16px; }
+    img { display: block; object-fit: cover; image-rendering: auto; }
+    #portrait-64 { width: 64px; height: 64px; }
+    #portrait-128 { width: 128px; height: 128px; }
+  </style>
+</head>
+<body>
+  <main>
+    <figure>
+      <img id="portrait-64" src="../../../public/assets/brackenwheel-portrait-painted.webp" alt="Brackenwheel portrait at 64 CSS pixels">
+      <figcaption>64 × 64 CSS px</figcaption>
+    </figure>
+    <figure>
+      <img id="portrait-128" src="../../../public/assets/brackenwheel-portrait-painted.webp" alt="Brackenwheel portrait at 128 CSS pixels">
+      <figcaption>128 × 128 CSS px</figcaption>
+    </figure>
+  </main>
+</body>
+</html>

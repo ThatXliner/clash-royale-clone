@@ -1,0 +1,105 @@
+{
+  "sourceRawMetadata": "capture-metadata.raw.json",
+  "sourceRawMetadataSha256": "6b4553ac331b35ebf474c25ebcb57b3ac9f246e6580a9ec397888d4e75148d7c",
+  "result": "PASS",
+  "correction": "The raw metadata path for the 272x184 fixture omits the attempt-2 suffix. The copied PNG is the attempt-2 fixture; its bytes, SHA-256, and dimensions exactly match the raw metadata. Raw metadata and original capture files were not rewritten.",
+  "screenshots": [
+    {
+      "rawMetadataPath": "portrait-thumbnail-64px-attempt-2.png",
+      "correctedEvidencePath": "capture-64px.png",
+      "verified": {
+        "path": "capture-64px.png",
+        "bytes": 9547,
+        "sha256": "a3b7943aa73b98e3c7a83cf69bf8a57c672267d3a6f163d0c0df270fe54fc39a",
+        "dimensions": {
+          "width": 64,
+          "height": 64
+        }
+      }
+    },
+    {
+      "rawMetadataPath": "portrait-thumbnail-128px-attempt-2.png",
+      "correctedEvidencePath": "capture-128px.png",
+      "verified": {
+        "path": "capture-128px.png",
+        "bytes": 36714,
+        "sha256": "2b2b4fc04e08ed89a2be1160d9fd14eb18a28287667152cae6f83a16867f42fa",
+        "dimensions": {
+          "width": 128,
+          "height": 128
+        }
+      }
+    },
+    {
+      "rawMetadataPath": "portrait-thumbnail-fixture.png",
+      "correctedEvidencePath": "fixture-272x184.png",
+      "verified": {
+        "path": "fixture-272x184.png",
+        "bytes": 51483,
+        "sha256": "47a8dfcc6d2bf41e49f69d978ed49d19dfc6cb08d1d1d0f34438e082c066f012",
+        "dimensions": {
+          "width": 272,
+          "height": 184
+        }
+      }
+    }
+  ],
+  "nativeRender": {
+    "devicePixelRatio": 1,
+    "images": [
+      {
+        "id": "portrait64",
+        "complete": true,
+        "naturalWidth": 512,
+        "naturalHeight": 512,
+        "cssWidth": "64px",
+        "cssHeight": "64px",
+        "box": {
+          "x": 12,
+          "y": 32,
+          "width": 64,
+          "height": 64
+        }
+      },
+      {
+        "id": "portrait128",
+        "complete": true,
+        "naturalWidth": 512,
+        "naturalHeight": 512,
+        "cssWidth": "128px",
+        "cssHeight": "128px",
+        "box": {
+          "x": 100,
+          "y": 32,
+          "width": 128,
+          "height": 128
+        }
+      }
+    ]
+  },
+  "browserVersion": "155.0.8059.40",
+  "headless": false,
+  "customLaunchArgs": [],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "requests": [
+    {
+      "url": "/fixture.html",
+      "method": "GET",
+      "status": 200,
+      "failed": false
+    },
+    {
+      "url": "/assets/brackenwheel-portrait-painted.webp",
+      "method": "GET",
+      "status": 200,
+      "failed": false
+    },
+    {
+      "url": "/favicon.ico",
+      "method": "GET",
+      "status": 204,
+      "failed": false
+    }
+  ]
+}

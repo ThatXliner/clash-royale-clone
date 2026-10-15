@@ -521,6 +521,17 @@ const REGISTERED_ASSETS = [
     path: "assets/buried-coil-revealed.svg",
     sha256: "0e677493ea65b9132ed553ec21a1efdf474cc887d6e21d569ff4fc3f96189b53",
   },
+  {
+    authorship: "in-repo-authored",
+    byteLength: 62014,
+    dimensions: { height: 512, width: 512 },
+    format: "webp",
+    id: "brackenwheel-portrait-painted",
+    kind: "image",
+    license: "AGPL-3.0-only",
+    path: "assets/brackenwheel-portrait-painted.webp",
+    sha256: "8c46fd063956905674aab420a0a2513ed83013c31c12c4e45456880f43246096",
+  },
 ];
 
 const MANIFEST = freeze({

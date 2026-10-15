@@ -1,0 +1,77 @@
+{
+  "license": "AGPL-3.0-only",
+  "authorship": "in-repo-authored",
+  "generation_tool": "built-in imagegen",
+  "generation_mode": "built-in default image generation",
+  "encoding_tool": "cwebp 1.6.0 (libsharpyuv 0.4.2)",
+  "generation_settings": {
+    "transparent_background": false,
+    "input_images": [
+      {
+        "asset": "public/assets/card-portraits-painted.webp",
+        "role": "style reference only"
+      }
+    ]
+  },
+  "assets": [
+    {
+      "asset": "public/assets/brackenwheel-portrait-painted.webp",
+      "source_png": "demo/assets/brackenwheel-portrait.png",
+      "generation_output": "/Users/me/.codex/generated_images/01a14027-9905-7ac3-ad21-7572d2d9571a/exec-dc8a4d2b-e3a5-417f-9fce-a2899c81d808.png; copied intact to demo/assets/brackenwheel-portrait.png",
+      "source_sha256": "ad0654107fe957283b1e9e107a3be155934f1032820600bb62f6ddd6851a56bc",
+      "source_bytes": 2650041,
+      "source_dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "sha256": "8c46fd063956905674aab420a0a2513ed83013c31c12c4e45456880f43246096",
+      "bytes": 62014,
+      "dimensions": {
+        "width": 512,
+        "height": 512
+      },
+      "encoding": [
+        "-q",
+        "85",
+        "-m",
+        "6",
+        "-mt",
+        "-resize",
+        "512",
+        "512"
+      ],
+      "encoding_reproducibility": {
+        "encoder": "cwebp 1.6.0 (libsharpyuv 0.4.2)",
+        "command": "cwebp -q 85 -m 6 -mt -resize 512 512 demo/assets/brackenwheel-portrait.png -o public/assets/brackenwheel-portrait-painted.webp",
+        "verification": "Repeated the command against the same source and compared the WebP outputs byte-for-byte with cmp -s.",
+        "repeat_output_sha256": "8c46fd063956905674aab420a0a2513ed83013c31c12c4e45456880f43246096",
+        "byte_identical": true
+      },
+      "input_images": [
+        {
+          "asset": "public/assets/card-portraits-painted.webp",
+          "role": "style reference only"
+        }
+      ],
+      "prompt": "Use case: stylized-concept\nAsset type: original square collectible card portrait for a woodland river-workshop battler\nPrimary request: Paint Brackenwheel, an original female river-workshop woodland maker and close-range fighter, with a highly readable face and her distinctive copperroot curved sickle. Her role is one body making a circular melee sweep, but this is a portrait, not an action sprite.\nScene/backdrop: Softly blurred riverside repair shed beside a reed-choked sluice at late dusk; quiet water-green and weathered wood forms, with only a few tiny emberseed lights.\nSubject: One adult woman centered chest-up, face large and plainly visible. She has warm brown skin, expressive moss-green eyes, a few freckles, and thick dark auburn curls gathered into a practical braided work knot with a small copper pin; no head covering. She wears a practical deep teal river-work apron over a rust-red woven shirt, with reed-fiber stitching and a small copper tool clasp. Hold one clearly recognizable hand tool: a curved, crescent sickle with a polished copperroot handle, dark bark grain, and a restrained copper edge; position it beside her shoulder so the face stays unobstructed. Add a few subtle amber emberseed sparks near the sickle.\nStyle/medium: Original dimensional hand-painted fantasy game portrait, sculpted painterly forms, confident brush texture, crisp readable contours, tactile matte cloth, wood and hammered copper, warm highlights against cool river greens. Use the existing project portrait atlas only as a broad style cue for painterly dimensionality and material rendering; invent a new subject, face, clothing, weapon, and composition.\nComposition/framing: Square close portrait, chest-up three-quarter pose, head and shoulders filling most of the frame; eyes and sickle both remain distinct and fully inside a generous safe inset. Clear large light-dark shapes and strong face contrast so the character remains recognizable at 64 and 128 CSS pixels. No motion arc obscuring the face.\nLighting/mood: Soft dusk light with a small amber workshop glow; alert, capable, warm, quietly watchful.\nColor palette: River teal, moss green, warm brown skin, dark auburn hair, rust-red cloth, aged copper, restrained amber sparks.\nMaterials/textures: Woven reed fibers, worn cotton and leather, matte hammered copper, dark living-root wood grain, softly brushed hair.\nText (verbatim): None.\nConstraints: Exactly one original character; a visible adult human face; one distinctive curved sickle; portrait illustration only; no UI or border.\nAvoid: Any real-game or existing franchise identity, copied commercial character, helmet, hood, familiar hero hairstyle, sword, oversized axe, scythe staff, weapon held across the face, second character, mask, hidden face, full-body pose, busy background, excessive sparks, photorealism, glossy plastic, flat vector art, text, letters, numbers, logos, watermark, card frame.",
+      "visual_fixture": "artifacts/art-022p-round-1/builder/portrait-thumbnails.html",
+      "thumbnail_screenshots": [
+        "artifacts/art-022p-round-1/builder/portrait-64px.png",
+        "artifacts/art-022p-round-1/builder/portrait-128px.png",
+        "artifacts/art-022p-round-1/builder/native-thumbnails-fixture.png"
+      ],
+      "native_thumbnail_capture": {
+        "browser": "Google Chrome 155.0.8059.40",
+        "playwright": "1.58.2",
+        "node": "v22.22.3",
+        "headless": false,
+        "custom_launch_args": [],
+        "device_pixel_ratio": 1,
+        "css_pixel_sizes": [
+          64,
+          128
+        ]
+      }
+    }
+  ]
+}
