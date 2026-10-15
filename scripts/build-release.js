@@ -85,8 +85,8 @@ async function validateOutput(root, output) {
   invariant(absolute !== filesystemRoot, "refusing filesystem root as release output");
   invariant(outputReal !== await realpath(homedir()), "refusing home directory as release output");
   invariant(outputReal !== await realpath(tmpdir()), "refusing temporary directory root as release output");
-  invariant(absolute !== rootReal, "refusing workspace root as release output");
-  invariant(!isWithin(absolute, rootReal), "refusing an output that contains the workspace");
+  invariant(outputReal !== rootReal, "refusing workspace root as release output");
+  invariant(!isWithin(outputReal, rootReal), "refusing an output that contains the workspace");
 
   if (isWithin(rootReal, outputReal)) {
     const segments = relative(rootReal, outputReal).split(sep).filter(Boolean);

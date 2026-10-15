@@ -9642,3 +9642,12 @@ EVIDENCE: Fresh exact722a Chrome155/privatePL1.58.2 under cleanenv. Aetherbrowse
 BIGGEST GAP: Requiredrelease-buildgatefailsenvironment-sensitiveparent/tmp rejectionexpectation, leavingshippingreleaseandhostgatesunverified.
 
 No UI or production source adopted. Allcriticraws/reports/generatedfailedreportscaptured; no testsafterfirstnonzero, allownedruntimeclosed. Subsequentroot-requestedbuilderprobe safelyconfirmsaseparatecanonical-outputgap: outputthroughsymlinkedparentreachesdeliberatelymissingconfig(ENOENT)insteadofworkspace-rootguard; disposablefixturebefore/afterexactandno build. Split RELEASE-GUARD-PATH-001 torepaircanonicalidentityandportablefixtures withseparatefreshcritique, thenfreshAetherR2. Do notinferanAether-specificproductregression or historical/full109/fullendurancecompletion.
+
+## Round 509 - RELEASE-GUARD-PATH-001 canonical output preflight
+
+PIECE: RELEASE-GUARD-PATH-001
+VERDICT: PASS
+EVIDENCE: Fresh candidate a5ac431: focused guards17/17 under TMPDIR=/tmp and17/17 under distinct TMPDIR; release24/24, isolationguard13/13, isolationrelease4/4, host1/1, Pages5/5. Every direct exit0,81 executions,0 skips. Nine independent safe missing-config probes reject exact dangerous paths before configuration without fixture changes; unchanged old source reaches ENOENT through an aliased workspace. Candidate and isolated Pages source/test/package/assets fences match across760 files before/after; four generated release reports restored byte-for-byte. Root inspected actual raw outputs and verified sealed checksums.
+BIGGEST GAP: No remaining gap within canonical output guard scope; Aether live UI, factory extraction and full current endurance retain their separate pending verdicts.
+
+Adopt only scripts/build-release.js and tests/release-001b-guards.test.js plus bounded evidence and tracking. Production fix changes two lexical comparisons to existing canonical outputReal. Guard ordering, errors, caps, reference isolation, game simulation and public APIs unchanged. Preserve builder failed matcher attempt and old-source controls. No full roster, historical parity or full endurance completion claim.

@@ -1,0 +1,44 @@
+{
+  "candidate_fence_before_vs_after": true,
+  "candidate_fence_before_vs_pages_copy_before": true,
+  "pages_copy_fence_before_vs_after": true,
+  "hash_file_count": 760,
+  "mismatches": {
+    "candidate_after": [],
+    "pages_copy_before": [],
+    "pages_copy_after": []
+  },
+  "restored_report_files": {
+    "evidence.json": {
+      "byte_identical": true,
+      "bytes": 29087,
+      "sha256": "c421ca748d35de98a2ec1cdb8a576e355091c89fb7e2c3655ad9249d3154d9c8"
+    },
+    "escaped-css-producer-rejection.json": {
+      "byte_identical": true,
+      "bytes": 500,
+      "sha256": "1493a14bc85b28bc0b5a1a0183b783cc5bea4828ca991642c3d2c323dda23d2f"
+    },
+    "opaque-srcdoc-producer-rejection.json": {
+      "byte_identical": true,
+      "bytes": 1333,
+      "sha256": "c6e2844ac3b4d42e6b7b72b766c81adb91dbe8f7fdeb13a294fb9fa500dc5b4a"
+    },
+    "external-base-producer-rejection.json": {
+      "byte_identical": true,
+      "bytes": 485,
+      "sha256": "6fa0fd3faa63eadd32775de8c94514d12d6d776cff1b2d049a397c38d37558dc"
+    }
+  },
+  "all_four_reports_restored": true,
+  "pages_captured": {
+    "pages-painted-briar.png": {
+      "bytes": 991269,
+      "sha256": "e5ade602993d83a7905df56dde6b55c6242fcf23b4a9644106347225bcb53a25"
+    },
+    "pages-painted-briar.json": {
+      "bytes": 10258,
+      "sha256": "96ef1829d077ef487b3aa9e7a281464ebdda1291c6d116d4a1aef5c20d824f0d"
+    }
+  }
+}

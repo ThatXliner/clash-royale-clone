@@ -1,0 +1,12 @@
+PIECE: RELEASE-GUARD-PATH-001
+VERDICT: PASS
+
+The candidate at `a5ac4317985b284c1d348073a58e1c533fd4ea4b` passed the requested path-guard qualification against baseline `bd9125a06b529317a27ad4c176f4abe4d17fce78`.
+
+Both focused guard executions passed 17/17 tests with zero skips: the top-level `/tmp` checkout under `TMPDIR=/tmp` (physical cwd `/private/tmp/release-001b-critic-run.1c3cbh`) and the separate existing temporary directory. Each output showed distinct workspace, reference, dist, ordinary-ancestor, and temporary-root branches. Nine disposable missing-config preflights produced their exact early filesystem-root, home-root, temporary-root, workspace-root, aliased-workspace, ancestor, aliased-ancestor, reference, and dist guard errors; all fixture snapshots stayed byte-identical. The controlled old-source alias case reached the exact `ENOENT: no such file or directory, lstat '/tmp/release-001b-old-negative-SkXEaT/missing-config.json'` error instead of the workspace guard, confirming regression sensitivity. An additional output-symlink preflight returned `release output must not be a symbolic link` with its fixture unchanged.
+
+The five serial required gates all exited 0: `test:release-build` 24/24, `test:shipping-isolation-guard` 13/13, `test:shipping-isolation-release` 4/4, `test:shipping-isolation-host` 1/1, and `test:publication-pages` 5/5. Across seven TAP invocations including the two focused runs, 81 tests passed, 0 failed, and 0 were skipped. The release-build gate covered normal release/browser qualification, controller and JS-RL module, project-subpath packaging, and emitted reference isolation; the Pages gate also passed its branded landing and mounted-route browser checks.
+
+The independently computed baseline-to-candidate source fence differs only at `scripts/build-release.js` and `tests/release-001b-guards.test.js`. Candidate before/after and isolated Pages-copy before/after fences are identical across 760 files. The four release-001b report artifacts changed during the release-build run and were restored byte-for-byte from saved originals. The Pages copy matched the same 760-file fence; its screenshot and JSON are preserved in this packet. Raw stdout/stderr, direct PIDs/exits, commands, cwd, TMPDIR, and per-run summaries are in `run-ledger.json` and `runs/`.
+
+BIGGEST GAP: Full endurance, full109, and release-complete gates were not run or claimed; they were outside this piece's requested qualification.

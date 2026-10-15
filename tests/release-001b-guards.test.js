@@ -4,6 +4,8 @@ import {
   mkdtemp,
   readFile,
   readdir,
+  readlink,
+  realpath,
   rm,
   symlink,
   writeFile,
@@ -28,7 +30,7 @@ async function snapshot(directory) {
       const path = relative(directory, absolute).split("\\").join("/");
       if (entry.isDirectory()) await visit(absolute);
       else if (entry.isFile()) result[path] = (await readFile(absolute)).toString("base64");
-      else if (entry.isSymbolicLink()) result[path] = `symlink:${await readFile(absolute).catch(() => "")}`;
+      else if (entry.isSymbolicLink()) result[path] = `symlink:${await readlink(absolute)}`;
       else result[path] = `unsupported:${entry.name}`;
     }
   }
@@ -144,17 +146,68 @@ test("file count, per-file size, and aggregate size limits fail atomically", asy
   });
 });
 
+async function aliasedWorkspaceFixture(t) {
+  const sandbox = await mkdtemp(join(tmpdir(), "release-001b-alias-"));
+  t.after(() => rm(sandbox, { recursive: true, force: true }));
+  const canonicalParent = join(sandbox, "canonical-parent");
+  const workspace = join(canonicalParent, "workspace");
+  const parentAlias = join(sandbox, "parent-alias");
+  await mkdir(workspace, { recursive: true });
+  await writeFile(join(workspace, "sentinel.txt"), "keep this file unchanged\n");
+  await symlink(canonicalParent, parentAlias);
+  return {
+    sandbox,
+    workspace,
+    workspaceAlias: join(parentAlias, "workspace"),
+    parentAlias,
+    missingConfigPath: join(sandbox, "missing-release-build.config.json"),
+  };
+}
+
+test("aliased workspace root is rejected before config access without changing the fixture", async (t) => {
+  const fixturePaths = await aliasedWorkspaceFixture(t);
+  const before = await snapshot(fixturePaths.sandbox);
+
+  await assert.rejects(buildRelease({
+    root: fixturePaths.workspaceAlias,
+    output: fixturePaths.workspaceAlias,
+    configPath: fixturePaths.missingConfigPath,
+  }), { message: "refusing workspace root as release output" });
+
+  assert.deepEqual(await snapshot(fixturePaths.sandbox), before,
+    "workspace root preflight must preserve all fixture files and symlink targets");
+});
+
+test("aliased workspace ancestor is rejected before config access without changing the fixture", async (t) => {
+  const fixturePaths = await aliasedWorkspaceFixture(t);
+  const before = await snapshot(fixturePaths.sandbox);
+
+  await assert.rejects(buildRelease({
+    root: fixturePaths.workspace,
+    output: fixturePaths.parentAlias,
+    configPath: fixturePaths.missingConfigPath,
+  }), { message: "refusing an output that contains the workspace" });
+
+  assert.deepEqual(await snapshot(fixturePaths.sandbox), before,
+    "ancestor preflight must preserve all fixture files and symlink targets");
+});
+
 test("dangerous and protected output targets are refused before any build work", async (t) => {
+  const temporaryParent = await mkdtemp(join(tmpdir(), "release-001b-guard-targets-"));
+  const workspace = join(temporaryParent, "workspace");
+  await mkdir(workspace);
+  t.after(() => rm(temporaryParent, { recursive: true, force: true }));
+  const canonicalWorkspace = await realpath(workspace);
   const cases = [
-    [WORKSPACE, /workspace root/u],
-    [join(WORKSPACE, "reference", "guard-output"), /protected repository path/u],
-    [join(WORKSPACE, "dist", "guard-output"), /protected repository path/u],
-    [dirname(WORKSPACE), /contains the workspace/u],
+    [canonicalWorkspace, /workspace root/u],
+    [join(canonicalWorkspace, "reference", "guard-output"), /protected repository path/u],
+    [join(canonicalWorkspace, "dist", "guard-output"), /protected repository path/u],
+    [dirname(canonicalWorkspace), /contains the workspace/u],
     [tmpdir(), /temporary directory root/u],
   ];
   for (const [output, expected] of cases) {
     await t.test(output, async () => {
-      await assert.rejects(buildRelease({ output }), expected);
+      await assert.rejects(buildRelease({ root: canonicalWorkspace, output }), expected);
     });
   }
 });

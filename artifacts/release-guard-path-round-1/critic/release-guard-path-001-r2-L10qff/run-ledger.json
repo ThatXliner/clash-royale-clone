@@ -1,0 +1,524 @@
+{
+  "piece": "RELEASE-GUARD-PATH-001",
+  "baseline_commit": "bd9125a06b529317a27ad4c176f4abe4d17fce78",
+  "candidate_commit": "a5ac4317985b284c1d348073a58e1c533fd4ea4b",
+  "runtime": {
+    "node": "v22.22.3",
+    "node_path": "/Users/me/.hermes/node/bin/node",
+    "npm": "10.9.8",
+    "npm_path": "/Users/me/.hermes/node/bin/npm",
+    "chrome": "Google Chrome 155.0.8059.40",
+    "chrome_path": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "playwright_module": "/Users/me/.codex/worktrees/d092a29e-844b-459d-b145-c548db10d485/billion/node_modules/.pnpm/playwright@1.58.2/node_modules/playwright/index.mjs"
+  },
+  "environment_policy": "Each child was launched with env -i and only the named allowlist in its environment.txt; TMPDIR is explicit per invocation. npm cache was directed into this packet during execution and its exact cache directory was removed before sealing.",
+  "run_count": 10,
+  "runs": [
+    {
+      "name": "focused-tmpdir-root",
+      "pid": 71922,
+      "direct_exit": 0,
+      "cwd_logical": "/private/tmp/release-001b-critic-run.1c3cbh",
+      "cwd_physical": "/private/tmp/release-001b-critic-run.1c3cbh",
+      "tmpdir": "/tmp",
+      "command": "/Users/me/.hermes/node/bin/node --test tests/release-001b-guards.test.js",
+      "allowlist_names": "HOME PATH TMPDIR GAME_BROWSER_CHROME GAME_BROWSER_PLAYWRIGHT npm_config_userconfig npm_config_cache",
+      "env_overrides": {},
+      "stdout": {
+        "path": "runs/focused-tmpdir-root/stdout.raw",
+        "bytes": 3319,
+        "sha256": "ab9d8522e338512b265bc93fe4168e0a714f2a3c226e3a6b869a87a148ff7c3c"
+      },
+      "stderr": {
+        "path": "runs/focused-tmpdir-root/stderr.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "tap": {
+        "tests": 17,
+        "pass": 17,
+        "fail": 0,
+        "skipped": 0,
+        "todo": 0,
+        "duration_ms": 353.175458
+      }
+    },
+    {
+      "name": "focused-alt-tmpdir",
+      "pid": 71942,
+      "direct_exit": 0,
+      "cwd_logical": "/private/tmp/release-001b-critic-run.1c3cbh",
+      "cwd_physical": "/private/tmp/release-001b-critic-run.1c3cbh",
+      "tmpdir": "/private/tmp/release-001b-critic-alt-tmp.olv0re",
+      "command": "/Users/me/.hermes/node/bin/node --test tests/release-001b-guards.test.js",
+      "allowlist_names": "HOME PATH TMPDIR GAME_BROWSER_CHROME GAME_BROWSER_PLAYWRIGHT npm_config_userconfig npm_config_cache",
+      "env_overrides": {},
+      "stdout": {
+        "path": "runs/focused-alt-tmpdir/stdout.raw",
+        "bytes": 3684,
+        "sha256": "d3bc635b805e9acfbf6b31a0ffa3dbecc5358867d2a6a62adceb58825b7c52c8"
+      },
+      "stderr": {
+        "path": "runs/focused-alt-tmpdir/stderr.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "tap": {
+        "tests": 17,
+        "pass": 17,
+        "fail": 0,
+        "skipped": 0,
+        "todo": 0,
+        "duration_ms": 309.534208
+      }
+    },
+    {
+      "name": "independent-candidate-preflights",
+      "pid": 72466,
+      "direct_exit": 0,
+      "cwd_logical": "/private/tmp/release-001b-critic-run.1c3cbh",
+      "cwd_physical": "/private/tmp/release-001b-critic-run.1c3cbh",
+      "tmpdir": "/tmp",
+      "command": "/Users/me/.hermes/node/bin/node /private/tmp/release-001b-critic-run.1c3cbh/artifacts/release-guard-path-round-1/critic/release-guard-path-001-r2-L10qff/candidate-preflight.mjs /private/tmp/release-001b-critic-run.1c3cbh/scripts/build-release.js",
+      "allowlist_names": "HOME PATH TMPDIR GAME_BROWSER_CHROME GAME_BROWSER_PLAYWRIGHT npm_config_userconfig npm_config_cache",
+      "env_overrides": {},
+      "stdout": {
+        "path": "runs/independent-candidate-preflights/stdout.raw",
+        "bytes": 2517,
+        "sha256": "1e42f5d07b2c3b59a64a0aaac3e9720c331b6cc85290897e0b32ec53fb4333dd"
+      },
+      "stderr": {
+        "path": "runs/independent-candidate-preflights/stderr.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "tap": null,
+      "assertions": {
+        "count": 9,
+        "passed": 9,
+        "fixture_unchanged": true,
+        "cases": [
+          {
+            "name": "filesystem-root",
+            "output": "/",
+            "expected": "refusing filesystem root as release output",
+            "actual": "refusing filesystem root as release output",
+            "pass": true
+          },
+          {
+            "name": "home-root",
+            "output": "/Users/me",
+            "expected": "refusing home directory as release output",
+            "actual": "refusing home directory as release output",
+            "pass": true
+          },
+          {
+            "name": "temporary-directory-root",
+            "output": "/tmp",
+            "expected": "refusing temporary directory root as release output",
+            "actual": "refusing temporary directory root as release output",
+            "pass": true
+          },
+          {
+            "name": "workspace-root",
+            "output": "/tmp/release-001b-independent-preflight-ed7kCx/workspace",
+            "expected": "refusing workspace root as release output",
+            "actual": "refusing workspace root as release output",
+            "pass": true
+          },
+          {
+            "name": "workspace-through-symlinked-parent",
+            "output": "/tmp/release-001b-parent-alias-72466/workspace",
+            "expected": "refusing workspace root as release output",
+            "actual": "refusing workspace root as release output",
+            "pass": true
+          },
+          {
+            "name": "ordinary-ancestor",
+            "output": "/tmp/release-001b-independent-preflight-ed7kCx",
+            "expected": "refusing an output that contains the workspace",
+            "actual": "refusing an output that contains the workspace",
+            "pass": true
+          },
+          {
+            "name": "ancestor-through-symlinked-parent",
+            "output": "/tmp/release-001b-parent-alias-72466",
+            "expected": "refusing an output that contains the workspace",
+            "actual": "refusing an output that contains the workspace",
+            "pass": true
+          },
+          {
+            "name": "reference-protected-target",
+            "output": "/tmp/release-001b-independent-preflight-ed7kCx/workspace/reference/probe",
+            "expected": "refusing protected repository path as release output",
+            "actual": "refusing protected repository path as release output",
+            "pass": true
+          },
+          {
+            "name": "dist-protected-target",
+            "output": "/tmp/release-001b-independent-preflight-ed7kCx/workspace/dist/probe",
+            "expected": "refusing protected repository path as release output",
+            "actual": "refusing protected repository path as release output",
+            "pass": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "controlled-old-source-negative",
+      "pid": 72484,
+      "direct_exit": 0,
+      "cwd_logical": "/private/tmp/release-001b-critic-run.1c3cbh",
+      "cwd_physical": "/private/tmp/release-001b-critic-run.1c3cbh",
+      "tmpdir": "/tmp",
+      "command": "/Users/me/.hermes/node/bin/node /private/tmp/release-001b-critic-run.1c3cbh/artifacts/release-guard-path-round-1/critic/release-guard-path-001-r2-L10qff/old-source-negative-control.mjs /private/tmp/release-001b-critic.k9deCm/scripts/build-release.js",
+      "allowlist_names": "HOME PATH TMPDIR GAME_BROWSER_CHROME GAME_BROWSER_PLAYWRIGHT npm_config_userconfig npm_config_cache",
+      "env_overrides": {},
+      "stdout": {
+        "path": "runs/controlled-old-source-negative/stdout.raw",
+        "bytes": 314,
+        "sha256": "2fc7a78ac1b61fee630cb583ecd049a869b85ebbe49d980b6f9c40e0fd383637"
+      },
+      "stderr": {
+        "path": "runs/controlled-old-source-negative/stderr.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "tap": null,
+      "negative_control": {
+        "observed": "ENOENT: no such file or directory, lstat '/tmp/release-001b-old-negative-SkXEaT/missing-config.json'",
+        "expected_regression": "missing-config error instead of workspace-output guard",
+        "fixture_unchanged": true
+      }
+    },
+    {
+      "name": "test-release-build",
+      "pid": 72503,
+      "direct_exit": 0,
+      "cwd_logical": "/private/tmp/release-001b-critic-run.1c3cbh",
+      "cwd_physical": "/private/tmp/release-001b-critic-run.1c3cbh",
+      "tmpdir": "/tmp",
+      "command": "/Users/me/.hermes/node/bin/npm run test:release-build",
+      "allowlist_names": "HOME PATH TMPDIR GAME_BROWSER_CHROME GAME_BROWSER_PLAYWRIGHT npm_config_userconfig npm_config_cache",
+      "env_overrides": {},
+      "stdout": {
+        "path": "runs/test-release-build/stdout.raw",
+        "bytes": 14780,
+        "sha256": "710de3354f74285be7095eff14005864c776dd627e88cc5aa188acbdd9846a14"
+      },
+      "stderr": {
+        "path": "runs/test-release-build/stderr.raw",
+        "bytes": 208,
+        "sha256": "6645281a8b8fdcc235befefb4f549c9f103612aac23c3447122ffffd756534ce"
+      },
+      "tap": {
+        "tests": 24,
+        "pass": 24,
+        "fail": 0,
+        "skipped": 0,
+        "todo": 0,
+        "duration_ms": 53640.763542
+      }
+    },
+    {
+      "name": "test-shipping-isolation-guard",
+      "pid": 72756,
+      "direct_exit": 0,
+      "cwd_logical": "/private/tmp/release-001b-critic-run.1c3cbh",
+      "cwd_physical": "/private/tmp/release-001b-critic-run.1c3cbh",
+      "tmpdir": "/tmp",
+      "command": "/Users/me/.hermes/node/bin/npm run test:shipping-isolation-guard",
+      "allowlist_names": "HOME PATH TMPDIR GAME_BROWSER_CHROME GAME_BROWSER_PLAYWRIGHT npm_config_userconfig npm_config_cache",
+      "env_overrides": {},
+      "stdout": {
+        "path": "runs/test-shipping-isolation-guard/stdout.raw",
+        "bytes": 3279,
+        "sha256": "3aa15f36e638d20c697eb7a33fa202c992a0d1923a56c623fbb60b3ee3d9f41e"
+      },
+      "stderr": {
+        "path": "runs/test-shipping-isolation-guard/stderr.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "tap": {
+        "tests": 13,
+        "pass": 13,
+        "fail": 0,
+        "skipped": 0,
+        "todo": 0,
+        "duration_ms": 32897.864916
+      }
+    },
+    {
+      "name": "test-shipping-isolation-release",
+      "pid": 72834,
+      "direct_exit": 0,
+      "cwd_logical": "/private/tmp/release-001b-critic-run.1c3cbh",
+      "cwd_physical": "/private/tmp/release-001b-critic-run.1c3cbh",
+      "tmpdir": "/tmp",
+      "command": "/Users/me/.hermes/node/bin/npm run test:shipping-isolation-release",
+      "allowlist_names": "HOME PATH TMPDIR GAME_BROWSER_CHROME GAME_BROWSER_PLAYWRIGHT npm_config_userconfig npm_config_cache SHIPPING_ISOLATION_RELEASE_EVIDENCE",
+      "env_overrides": {
+        "SHIPPING_ISOLATION_RELEASE_EVIDENCE": "/private/tmp/release-001b-critic-run.1c3cbh/artifacts/release-guard-path-round-1/critic/release-guard-path-001-r2-L10qff/shipping-isolation-release-evidence.json"
+      },
+      "stdout": {
+        "path": "runs/test-shipping-isolation-release/stdout.raw",
+        "bytes": 1652,
+        "sha256": "0770dc00b73856a99914ac1f74a36ef4cbb438bc8dbe9560d7b142f987b1e848"
+      },
+      "stderr": {
+        "path": "runs/test-shipping-isolation-release/stderr.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "tap": {
+        "tests": 4,
+        "pass": 4,
+        "fail": 0,
+        "skipped": 0,
+        "todo": 0,
+        "duration_ms": 70455.047875
+      }
+    },
+    {
+      "name": "test-shipping-isolation-host",
+      "pid": 73049,
+      "direct_exit": 0,
+      "cwd_logical": "/private/tmp/release-001b-critic-run.1c3cbh",
+      "cwd_physical": "/private/tmp/release-001b-critic-run.1c3cbh",
+      "tmpdir": "/tmp",
+      "command": "/Users/me/.hermes/node/bin/npm run test:shipping-isolation-host",
+      "allowlist_names": "HOME PATH TMPDIR GAME_BROWSER_CHROME GAME_BROWSER_PLAYWRIGHT npm_config_userconfig npm_config_cache SHIPPING_ISOLATION_RELEASE_EVIDENCE",
+      "env_overrides": {
+        "SHIPPING_ISOLATION_RELEASE_EVIDENCE": "/private/tmp/release-001b-critic-run.1c3cbh/artifacts/release-guard-path-round-1/critic/release-guard-path-001-r2-L10qff/shipping-isolation-release-evidence.json"
+      },
+      "stdout": {
+        "path": "runs/test-shipping-isolation-host/stdout.raw",
+        "bytes": 483,
+        "sha256": "17abf20a20b1fc6d939dde565a916e2e59cabd1e62c9263281dc11c7e66b74bb"
+      },
+      "stderr": {
+        "path": "runs/test-shipping-isolation-host/stderr.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "tap": {
+        "tests": 1,
+        "pass": 1,
+        "fail": 0,
+        "skipped": 0,
+        "todo": 0,
+        "duration_ms": 14222.293125
+      }
+    },
+    {
+      "name": "test-publication-pages",
+      "pid": 73796,
+      "direct_exit": 0,
+      "cwd_logical": "/private/tmp/release-001b-pages-run._3jylszv",
+      "cwd_physical": "/private/tmp/release-001b-pages-run._3jylszv",
+      "tmpdir": "/tmp",
+      "command": "/Users/me/.hermes/node/bin/npm run test:publication-pages",
+      "allowlist_names": "HOME PATH TMPDIR GAME_BROWSER_CHROME GAME_BROWSER_PLAYWRIGHT npm_config_userconfig npm_config_cache SHIPPING_ISOLATION_RELEASE_EVIDENCE",
+      "env_overrides": {
+        "SHIPPING_ISOLATION_RELEASE_EVIDENCE": "/private/tmp/release-001b-critic-run.1c3cbh/artifacts/release-guard-path-round-1/critic/release-guard-path-001-r2-L10qff/shipping-isolation-release-evidence.json"
+      },
+      "stdout": {
+        "path": "runs/test-publication-pages/stdout.raw",
+        "bytes": 5164,
+        "sha256": "c6ea50f049d3940f8b8d263f76dab27a550fbbeb17c2ff4e73a144060721906d"
+      },
+      "stderr": {
+        "path": "runs/test-publication-pages/stderr.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "tap": {
+        "tests": 5,
+        "pass": 5,
+        "fail": 0,
+        "skipped": 0,
+        "todo": 0,
+        "duration_ms": 34136.658584
+      }
+    },
+    {
+      "name": "independent-output-symlink-preflight",
+      "pid": 74043,
+      "direct_exit": 0,
+      "cwd_logical": "/private/tmp/release-001b-critic-run.1c3cbh",
+      "cwd_physical": "/private/tmp/release-001b-critic-run.1c3cbh",
+      "tmpdir": "/tmp",
+      "command": "/Users/me/.hermes/node/bin/node /private/tmp/release-001b-critic-run.1c3cbh/artifacts/release-guard-path-round-1/critic/release-guard-path-001-r2-L10qff/output-symlink-preflight.mjs /private/tmp/release-001b-critic-run.1c3cbh/scripts/build-release.js",
+      "allowlist_names": "HOME PATH TMPDIR GAME_BROWSER_CHROME GAME_BROWSER_PLAYWRIGHT npm_config_userconfig npm_config_cache SHIPPING_ISOLATION_RELEASE_EVIDENCE",
+      "env_overrides": {
+        "SHIPPING_ISOLATION_RELEASE_EVIDENCE": "/private/tmp/release-001b-critic-run.1c3cbh/artifacts/release-guard-path-round-1/critic/release-guard-path-001-r2-L10qff/shipping-isolation-release-evidence.json"
+      },
+      "stdout": {
+        "path": "runs/independent-output-symlink-preflight/stdout.raw",
+        "bytes": 91,
+        "sha256": "2dbebcc414934e72bfd1490f47cf82cdd9866df29f0477eb400ff7f15dd9310a"
+      },
+      "stderr": {
+        "path": "runs/independent-output-symlink-preflight/stderr.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "tap": null,
+      "assertions": {
+        "observed": "release output must not be a symbolic link",
+        "fixture_unchanged": true
+      }
+    }
+  ],
+  "totals": {
+    "tap": {
+      "tap_invocations": 7,
+      "tests": 81,
+      "pass": 81,
+      "fail": 0,
+      "skipped": 0
+    },
+    "independent_candidate_path_preflights": {
+      "assertions": 9,
+      "passed": 9,
+      "skipped": 0
+    },
+    "independent_output_symlink_preflight": {
+      "assertions": 1,
+      "passed": 1
+    },
+    "old_source_negative_control": {
+      "cases": 1,
+      "expected_regression_observed": true
+    }
+  },
+  "required_serial_gates": [
+    "npm run test:release-build",
+    "npm run test:shipping-isolation-guard",
+    "npm run test:shipping-isolation-release",
+    "npm run test:shipping-isolation-host",
+    "npm run test:publication-pages"
+  ],
+  "not_run": [
+    "full endurance",
+    "full109",
+    "release-complete"
+  ],
+  "fences": {
+    "candidate_fence_before_vs_after": true,
+    "candidate_fence_before_vs_pages_copy_before": true,
+    "pages_copy_fence_before_vs_after": true,
+    "hash_file_count": 760,
+    "mismatches": {
+      "candidate_after": [],
+      "pages_copy_before": [],
+      "pages_copy_after": []
+    },
+    "restored_report_files": {
+      "evidence.json": {
+        "byte_identical": true,
+        "bytes": 29087,
+        "sha256": "c421ca748d35de98a2ec1cdb8a576e355091c89fb7e2c3655ad9249d3154d9c8"
+      },
+      "escaped-css-producer-rejection.json": {
+        "byte_identical": true,
+        "bytes": 500,
+        "sha256": "1493a14bc85b28bc0b5a1a0183b783cc5bea4828ca991642c3d2c323dda23d2f"
+      },
+      "opaque-srcdoc-producer-rejection.json": {
+        "byte_identical": true,
+        "bytes": 1333,
+        "sha256": "c6e2844ac3b4d42e6b7b72b766c81adb91dbe8f7fdeb13a294fb9fa500dc5b4a"
+      },
+      "external-base-producer-rejection.json": {
+        "byte_identical": true,
+        "bytes": 485,
+        "sha256": "6fa0fd3faa63eadd32775de8c94514d12d6d776cff1b2d049a397c38d37558dc"
+      }
+    },
+    "all_four_reports_restored": true,
+    "pages_captured": {
+      "pages-painted-briar.png": {
+        "bytes": 991269,
+        "sha256": "e5ade602993d83a7905df56dde6b55c6242fcf23b4a9644106347225bcb53a25"
+      },
+      "pages-painted-briar.json": {
+        "bytes": 10258,
+        "sha256": "96ef1829d077ef487b3aa9e7a281464ebdda1291c6d116d4a1aef5c20d824f0d"
+      }
+    }
+  },
+  "candidate_scope": {
+    "baseline_commit": "bd9125a06b529317a27ad4c176f4abe4d17fce78",
+    "candidate_commit": "a5ac4317985b284c1d348073a58e1c533fd4ea4b",
+    "baseline_files": 760,
+    "candidate_files": 760,
+    "changed_non_artifact_paths": [
+      "scripts/build-release.js",
+      "tests/release-001b-guards.test.js"
+    ],
+    "expected_scope_only": true
+  },
+  "release_report_artifacts": [
+    {
+      "path": "artifacts/release-001b-round-2/evidence.json",
+      "before_sha256": "c421ca748d35de98a2ec1cdb8a576e355091c89fb7e2c3655ad9249d3154d9c8",
+      "after_sha256": "c89296e955e07b1e00b914d0ee2d4011b5d27f076906296354aad124dfebf021",
+      "before_bytes": 29087,
+      "after_bytes": 33738,
+      "changed": true
+    },
+    {
+      "path": "artifacts/release-001b-round-2/escaped-css-producer-rejection.json",
+      "before_sha256": "1493a14bc85b28bc0b5a1a0183b783cc5bea4828ca991642c3d2c323dda23d2f",
+      "after_sha256": "540ad73d6bbeeb59bd5bff6b516d1723dae3e5f90d70ccf71e2fc2497243afc6",
+      "before_bytes": 500,
+      "after_bytes": 500,
+      "changed": true
+    },
+    {
+      "path": "artifacts/release-001b-round-2/opaque-srcdoc-producer-rejection.json",
+      "before_sha256": "c6e2844ac3b4d42e6b7b72b766c81adb91dbe8f7fdeb13a294fb9fa500dc5b4a",
+      "after_sha256": "762531c77bafcee2e4ec5387c6052dd0b6cdce66ae96fecf587c4cb4539c6612",
+      "before_bytes": 1333,
+      "after_bytes": 1333,
+      "changed": true
+    },
+    {
+      "path": "artifacts/release-001b-round-2/external-base-producer-rejection.json",
+      "before_sha256": "6fa0fd3faa63eadd32775de8c94514d12d6d776cff1b2d049a397c38d37558dc",
+      "after_sha256": "62431a67d00ae5cda5087ee330f6ef9e7610b4948df3f06b7e1f49de7e70e339",
+      "before_bytes": 485,
+      "after_bytes": 485,
+      "changed": true
+    }
+  ],
+  "pages_copy": {
+    "path": "/private/tmp/release-001b-pages-run._3jylszv",
+    "fence_comparison": {
+      "candidate_before_vs_current": {
+        "equal": true,
+        "file_count": 760,
+        "mismatch_paths": []
+      },
+      "candidate_vs_pages_copy": {
+        "equal": true,
+        "file_count": 760,
+        "mismatch_paths": []
+      },
+      "candidate_root": "/private/tmp/release-001b-critic-run.1c3cbh",
+      "pages_root": "/private/tmp/release-001b-pages-run._3jylszv"
+    },
+    "captured_outputs": {
+      "pages-painted-briar.png": {
+        "bytes": 991269,
+        "sha256": "e5ade602993d83a7905df56dde6b55c6242fcf23b4a9644106347225bcb53a25"
+      },
+      "pages-painted-briar.json": {
+        "bytes": 10258,
+        "sha256": "96ef1829d077ef487b3aa9e7a281464ebdda1291c6d116d4a1aef5c20d824f0d"
+      }
+    }
+  }
+}

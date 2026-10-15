@@ -1,0 +1,70 @@
+{
+  "candidate": "/private/tmp/release-001b-critic-run.1c3cbh/scripts/build-release.js",
+  "tmpdir": "/tmp",
+  "cases": [
+    {
+      "name": "filesystem-root",
+      "output": "/",
+      "expected": "refusing filesystem root as release output",
+      "actual": "refusing filesystem root as release output",
+      "pass": true
+    },
+    {
+      "name": "home-root",
+      "output": "/Users/me",
+      "expected": "refusing home directory as release output",
+      "actual": "refusing home directory as release output",
+      "pass": true
+    },
+    {
+      "name": "temporary-directory-root",
+      "output": "/tmp",
+      "expected": "refusing temporary directory root as release output",
+      "actual": "refusing temporary directory root as release output",
+      "pass": true
+    },
+    {
+      "name": "workspace-root",
+      "output": "/tmp/release-001b-independent-preflight-ed7kCx/workspace",
+      "expected": "refusing workspace root as release output",
+      "actual": "refusing workspace root as release output",
+      "pass": true
+    },
+    {
+      "name": "workspace-through-symlinked-parent",
+      "output": "/tmp/release-001b-parent-alias-72466/workspace",
+      "expected": "refusing workspace root as release output",
+      "actual": "refusing workspace root as release output",
+      "pass": true
+    },
+    {
+      "name": "ordinary-ancestor",
+      "output": "/tmp/release-001b-independent-preflight-ed7kCx",
+      "expected": "refusing an output that contains the workspace",
+      "actual": "refusing an output that contains the workspace",
+      "pass": true
+    },
+    {
+      "name": "ancestor-through-symlinked-parent",
+      "output": "/tmp/release-001b-parent-alias-72466",
+      "expected": "refusing an output that contains the workspace",
+      "actual": "refusing an output that contains the workspace",
+      "pass": true
+    },
+    {
+      "name": "reference-protected-target",
+      "output": "/tmp/release-001b-independent-preflight-ed7kCx/workspace/reference/probe",
+      "expected": "refusing protected repository path as release output",
+      "actual": "refusing protected repository path as release output",
+      "pass": true
+    },
+    {
+      "name": "dist-protected-target",
+      "output": "/tmp/release-001b-independent-preflight-ed7kCx/workspace/dist/probe",
+      "expected": "refusing protected repository path as release output",
+      "actual": "refusing protected repository path as release output",
+      "pass": true
+    }
+  ],
+  "fixtureUnchanged": true
+}
