@@ -203,7 +203,7 @@ test("editable mixed witnesses retain troop questions and exact non-unit profile
   assert.ok(EDITABLE_MIXED_DECK_CARD_IDS.includes("squall-orb"));
   assert.ok(EDITABLE_MIXED_DECK_CARD_IDS.includes("ember-basin"));
   assert.ok(EDITABLE_MIXED_DECK_CARD_IDS.includes("buried-coil"));
-  assert.equal(EDITABLE_MIXED_DECK_CARD_IDS.length, 21);
+  assert.equal(EDITABLE_MIXED_DECK_CARD_IDS.length, 22);
   assert.throws(() => createEditableMixedDeckWitness(PLAYABLE_CARD_IDS),
     /requires an admitted spell or structure/u);
   assert.throws(() => createEditableMixedDeckWitness([

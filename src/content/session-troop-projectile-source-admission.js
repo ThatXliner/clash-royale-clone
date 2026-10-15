@@ -62,7 +62,7 @@ const COMPONENT_FIELDS = Object.freeze([
 ]);
 
 export const AUTHORITATIVE_PROJECTILE_SOURCE_IDS_BY_EXPORT = Object.freeze({
-  createBasicMeleeCatalog: Object.freeze(["coilblade", "ironroot", "mossguard"]),
+  createBasicMeleeCatalog: Object.freeze(["brackenwheel", "coilblade", "ironroot", "mossguard"]),
   createBasicRangedCatalog: Object.freeze(["brassbolt", "reedsting"]),
   createBasicFlyingCatalog: Object.freeze(["copperskiff", "skymaul"]),
   createSwarmCatalog: Object.freeze([
@@ -127,6 +127,25 @@ function sourceRecordKey(exportName, id) {
 // This is the one closed authoritative witness for every admitted source catalog.
 // It is a complete canonical serialization, not a collision-prone digest.
 const EXPECTED_SOURCE_WITNESS_MAP = Object.freeze({
+  [sourceRecordKey("createBasicMeleeCatalog", "brackenwheel")]: canonical({
+    areaDamageRadiusMillitiles: 2000,
+    components: [],
+    cost: 4,
+    count: 1,
+    damage: 267,
+    deployTimeTicks: 60,
+    displayName: "Brackenwheel",
+    firstHitTicks: 84,
+    hitSpeedTicks: 90,
+    hitpoints: 1908,
+    id: "brackenwheel",
+    kind: "unit",
+    movementMillitilesPerSecond: 1000,
+    rangeMillitiles: 1200,
+    rarity: "uncommon",
+    sightRangeMillitiles: 5500,
+    targetMode: "ground",
+  }),
   [sourceRecordKey("createBasicMeleeCatalog", "coilblade")]: canonical({
     areaDamageRadiusMillitiles: null,
     components: [],

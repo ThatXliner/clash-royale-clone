@@ -62,7 +62,15 @@ const KILNKEEPER_PROJECTILE_FIELDS = Object.freeze([
     source: "pinned-royaleapi-54fdef52:cards_stats_projectile#chr_wizardProjectile" }),
 ]);
 
+const MELEE_AREA_QUESTION_FIELDS = Object.freeze([
+  Object.freeze({ field: "areaDamageRadiusMillitiles",
+    questionKeySuffix: "area-damage-radius-millitiles", valueEncoding: "positive-integer" }),
+  Object.freeze({ field: "meleeAreaPolicy.contactOrder",
+    questionKeySuffix: "melee-area-contact-order", valueEncoding: "melee-area-contact-order-code" }),
+]);
+
 const SOURCE_CONFIDENCE_CLAIMS = Object.freeze([
+  Object.freeze({ cardId: "brackenwheel", archetypeId: "brackenwheel" }),
   Object.freeze({ cardId: "briar-band", archetypeId: "briar-runner" }),
   Object.freeze({ cardId: "briar-band", archetypeId: "briar-darter" }),
   Object.freeze({ cardId: "gloamwing-cluster", archetypeId: "gloamwing" }),
@@ -126,8 +134,10 @@ function exact(value, keys, label) {
 
 function expectedPolicy(archetypeId) {
   const fields = [...SOURCE_CONFIDENCE_FIELDS,
+    ...(archetypeId === "brackenwheel" ? MELEE_AREA_QUESTION_FIELDS : []),
     ...(archetypeId === "kilnkeeper" ? KILNKEEPER_PROJECTILE_FIELDS : [])];
   return {
+    ...(archetypeId === "brackenwheel" ? {} : { deploymentInterval: { ...DEPLOYMENT_INTERVAL } }),
     fields: fields.map(({ field, questionKeySuffix, valueEncoding, source }) => {
       const provenance = source ?? (archetypeId === "kilnkeeper" && field === "damage"
         ? KILNKEEPER_DAMAGE_SOURCE
@@ -139,7 +149,6 @@ function expectedPolicy(archetypeId) {
         ...(provenance === undefined ? {} : { source: provenance }),
       };
     }),
-    deploymentInterval: { ...DEPLOYMENT_INTERVAL },
   };
 }
 
@@ -157,11 +166,13 @@ export function getSessionTroopSourceConfidencePolicy(cardId, archetypeId) {
 }
 
 export function assertSessionTroopSourceConfidencePolicy(value, cardId, archetypeId) {
-  const policy = exact(value, ["deploymentInterval", "fields"], "session troop source confidence policy");
   const expected = getSessionTroopSourceConfidencePolicy(cardId, archetypeId);
   if (expected === null) {
     throw new RangeError("session troop source confidence identity is not admitted");
   }
+  const expectedShape = expected.deploymentInterval === undefined
+    ? ["fields"] : ["deploymentInterval", "fields"];
+  const policy = exact(value, expectedShape, "session troop source confidence policy");
   if (!Array.isArray(policy.fields) || policy.fields.length !== expected.fields.length) {
     throw new TypeError("session troop source confidence field inventory is incomplete");
   }
@@ -179,6 +190,7 @@ export function assertSessionTroopSourceConfidencePolicy(value, cardId, archetyp
       valueEncoding: record.valueEncoding,
       ...(reference.source === undefined ? {} : { source: reference.source }) };
   });
+  if (expected.deploymentInterval === undefined) return { fields };
   const interval = exact(policy.deploymentInterval, ["milliseconds", "sourceId", "ticks"],
     "session troop deployment interval receipt");
   if (interval.milliseconds !== DEPLOYMENT_INTERVAL.milliseconds ||
@@ -213,6 +225,12 @@ export function encodeSessionTroopSourceConfidenceValue(valueEncoding, value) {
       throw new TypeError("session troop source confidence boolean is invalid");
     }
     return value ? 1 : 0;
+  }
+  if (valueEncoding === "melee-area-contact-order-code") {
+    if (value !== "ascending-entity-id") {
+      throw new TypeError("session troop melee-area contact order QUESTION is invalid");
+    }
+    return 1;
   }
   if (valueEncoding === "homing-runtime-policy-code") {
     if (typeof value !== "string" || !Object.hasOwn(HOMING_RUNTIME_POLICY_CODES, value)) {

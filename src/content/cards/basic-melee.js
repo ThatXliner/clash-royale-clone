@@ -2,6 +2,25 @@ import { createCardCatalog } from "../schema.js";
 
 const DEFINITIONS = [
   {
+    id: "brackenwheel",
+    displayName: "Brackenwheel",
+    cost: 4,
+    kind: "unit",
+    rarity: "uncommon",
+    hitpoints: 1908,
+    damage: 267,
+    hitSpeedTicks: 90,
+    firstHitTicks: 84,
+    deployTimeTicks: 60,
+    rangeMillitiles: 1200,
+    sightRangeMillitiles: 5500,
+    movementMillitilesPerSecond: 1000,
+    targetMode: "ground",
+    count: 1,
+    areaDamageRadiusMillitiles: 2000,
+    components: [],
+  },
+  {
     id: "mossguard",
     displayName: "Mossguard",
     cost: 3,
@@ -120,6 +139,9 @@ export function createBasicMeleeCombatant(cardId, placement) {
   const card = createBasicMeleeCatalog().find(({ id }) => id === cardId);
   if (card === undefined) {
     throw new RangeError(`unknown basic melee card id: ${cardId}`);
+  }
+  if (card.areaDamageRadiusMillitiles !== null) {
+    throw new RangeError(`${card.displayName} requires the shared battle area reducer`);
   }
   const checked = checkedPlacement(placement);
   return {

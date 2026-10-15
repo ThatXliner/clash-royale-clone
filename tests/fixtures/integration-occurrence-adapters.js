@@ -134,6 +134,41 @@ function duelArtifact(specification, Duel, combatants) {
 }
 
 function basicMelee(specification) {
+  if (specification.id === "brackenwheel") {
+    const record = recordsFor(specification);
+    const setup = JSON.parse(createEditableGameSessionSetup([
+      "brackenwheel", "briar-band", "coilblade", "mossguard", "ironroot",
+      "copperskiff", "brassbolt", "reedsting",
+    ], 2));
+    const battle = new LiveBattle(setup.battleSetup);
+    for (const [sequence, cardId, side, point] of [
+      [0, "brackenwheel", "south", { x: 3_500, y: 14_500 }],
+      [1, "coilblade", "north", { x: 2_500, y: 17_500 }],
+      [2, "mossguard", "north", { x: 3_500, y: 17_500 }],
+      [3, "ironroot", "north", { x: 4_500, y: 17_500 }],
+    ]) {
+      const scheduled = battle.scheduleDeploy(canonical({
+        cardId, point, sequence, side, tick: 0,
+      }));
+      if (scheduled.type !== "deploy-scheduled") {
+        throw new Error("Brackenwheel area encounter deployment was not admitted");
+      }
+    }
+    for (let tick = 0; tick < 145; tick += 1) battle.step();
+    const areaEvents = battle.replay.filter(({ attackerId, meleeAreaPolicyVersion }) =>
+      attackerId === 1 && meleeAreaPolicyVersion === "melee-area-question-v1");
+    if (areaEvents.length !== 2) {
+      throw new Error("Brackenwheel area encounter omitted its two secondary contacts");
+    }
+    return directBytes(
+      specification,
+      "LiveBattle.melee-area-question-v1",
+      record,
+      battle.state,
+      battle.replay,
+      battle.replay,
+    );
+  }
   const placement = (entityId, position) => ({
     entityId,
     position,

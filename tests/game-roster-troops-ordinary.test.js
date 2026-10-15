@@ -32,7 +32,7 @@ import {
 } from "../src/shared/ordinary-projectile-delivery-authority.js";
 
 const ADMITTED_IDS = Object.freeze([
-  "aegis-sage", "bloom-wisp", "bone-regent", "brassbolt", "briar-band",
+  "aegis-sage", "bloom-wisp", "bone-regent", "brackenwheel", "brassbolt", "briar-band",
   "cinder-host", "cinder-ray", "cinderback", "cinderlings", "coilblade", "coppershade-flock", "copperskiff",
   "dawnmender", "dusk-ranger", "duskwing-trio", "emberlance", "forgeguard", "gilded-lancer", "gloamwing-cluster", "iron-borer",
   "ironroot", "kilnkeeper", "mossguard", "prism-warden", "pulse-sentry", "railward", "reedsting",
@@ -365,7 +365,7 @@ function expectedEntityRuntime(entity, questions) {
 test("ordinary troop projection domain is exactly the admitted profile surface", () => {
   const manifest = createSessionTroopProfileManifest();
   assert.deepEqual(manifest.profiles.map(({ id }) => id), ADMITTED_IDS);
-  assert.equal(manifest.profiles.length, 40);
+  assert.equal(manifest.profiles.length, 41);
   assert.deepEqual(ADMITTED_IDS, [...new Set(ADMITTED_IDS)]);
   for (const id of [...QUESTION_IDS, "not-a-troop", "coilblade\u200b"]) {
     assert.throws(() => projectSessionTroopBattleCard(id), /unknown|QUESTION|admitted/u);
@@ -397,12 +397,14 @@ test("every projection is complete, source-agreeing, ordinary-only, and componen
     for (let index = 0; index < projected.entities.length; index += 1) {
       const entity = projected.entities[index];
       const sourceEntity = entitySource(source, index);
-      const hasSourceConfidencePolicy = STAGGERED_CARD_IDS.has(profile.id);
+      const hasSourceConfidencePolicy = STAGGERED_CARD_IDS.has(profile.id) ||
+        profile.id === "brackenwheel";
       assert.equal(Object.hasOwn(entity, "sourceConfidencePolicy"), hasSourceConfidencePolicy,
         `${profile.id} source confidence metadata boundary`);
       const allowedKeys = [...ENTITY_KEYS, ...ORDINARY_POLICY_KEYS,
         ...(sourceEntity.damage === null ? ["damagePolicy"] : []),
         ...(hasSourceConfidencePolicy ? ["sourceConfidencePolicy"] : []),
+        ...(profile.id === "brackenwheel" ? ["meleeAreaPolicy"] : []),
         ...(profile.id === "kilnkeeper"
           ? ["projectileSplashPolicy", "projectileSplashSourceFacts"] : [])];
       assert.deepEqual(Object.keys(entity).sort(), [...allowedKeys].sort(),
@@ -1286,10 +1288,10 @@ test("all official witnesses use uniform HTO policies with exact projection coun
   const projectedEntities = projectedCards.flatMap(({ entities }) => entities);
   const projectedPolicies = projectedEntities.flatMap((entity) =>
     ORDINARY_POLICY_KEYS.map((field) => entity[field]));
-  assert.equal(ADMITTED_IDS.length, 40);
-  assert.equal(projectedEntities.length, 41);
-  assert.equal(new Set(projectedEntities.map(({ archetypeId }) => archetypeId)).size, 40);
-  assert.equal(projectedPolicies.length, 82);
+  assert.equal(ADMITTED_IDS.length, 41);
+  assert.equal(projectedEntities.length, 42);
+  assert.equal(new Set(projectedEntities.map(({ archetypeId }) => archetypeId)).size, 41);
+  assert.equal(projectedPolicies.length, 84);
   assert.ok(projectedEntities.every(({ deliveryPolicy, layerPolicy }) =>
     (deliveryPolicy.kind === "question" || deliveryPolicy.kind === "source-backed") &&
     layerPolicy.kind === "question"));
@@ -1462,7 +1464,8 @@ test("all admitted troop witnesses use one shared LiveBattle deployment and enti
     const witness = createSessionTroopWitness(id);
     const target = witness.roster.find((card) => card.id === id);
     const targetQuestions = questionMap(witness.questions);
-    const intervalReceipt = target.entities[0].sourceConfidencePolicy?.deploymentInterval;
+    const intervalReceipt = STAGGERED_CARD_IDS.has(id)
+      ? target.entities[0].sourceConfidencePolicy?.deploymentInterval : undefined;
     const intervalTicks = intervalReceipt?.ticks ?? 0;
     for (const entity of target.entities) {
       const receipt = entity.sourceConfidencePolicy?.deploymentInterval;

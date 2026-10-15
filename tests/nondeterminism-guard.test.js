@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { basename, join } from "node:path";
@@ -245,13 +245,13 @@ test("nondeterminism-guard: scans every simulation module and probes its runtime
   );
   const result = await guardSimulationDirectory(directory);
   assert.deepEqual(result, {
-    files: EXPECTED_SIMULATION_MODULES.length + 3,
-    runtimeProbed: EXPECTED_SIMULATION_MODULES.length + 3,
+    files: EXPECTED_SIMULATION_MODULES.length + 4,
+    runtimeProbed: EXPECTED_SIMULATION_MODULES.length + 4,
     violations: [],
   });
 });
 
-test("nondeterminism-guard: simulation closure admits only the exact neutral authority", () => {
+test("nondeterminism-guard: simulation closure admits only exact authorities and audits melee policy", () => {
   const simulationRoot = fileURLToPath(new URL("../src/sim/", import.meta.url));
   const authority = join(
     simulationRoot,
@@ -264,6 +264,10 @@ test("nondeterminism-guard: simulation closure admits only the exact neutral aut
   const sourceConfidenceAuthority = join(
     simulationRoot,
     "../shared/session-troop-source-confidence-authority.js",
+  );
+  const meleeAreaAuthority = join(
+    simulationRoot,
+    "../shared/session-troop-melee-area-authority.js",
   );
   const hostileSibling = join(
     simulationRoot,
@@ -285,6 +289,18 @@ test("nondeterminism-guard: simulation closure admits only the exact neutral aut
   const forgedAuthorityImporter = join(
     simulationRoot,
     ".nondeterminism-forged-confidence-import.js",
+  );
+  const meleeAreaHostileImporter = join(
+    simulationRoot,
+    ".nondeterminism-melee-area-hostile-import.js",
+  );
+  const meleeAreaClockImporter = join(
+    simulationRoot,
+    ".nondeterminism-melee-area-clock-import.js",
+  );
+  const meleeAreaRandomImporter = join(
+    simulationRoot,
+    ".nondeterminism-melee-area-random-import.js",
   );
   writeFileSync(hostileSibling, "export const value = 1;\n");
   writeFileSync(forgedAuthority,
@@ -312,6 +328,26 @@ test("nondeterminism-guard: simulation closure admits only the exact neutral aut
     "export { getSessionTroopSourceConfidencePolicy } from " +
       "'../shared/.nondeterminism-forged-confidence-authority.js';\n",
   );
+  writeFileSync(
+    meleeAreaHostileImporter,
+    "import { checkedMeleeAreaQuestionPolicy } from " +
+      "'../shared/session-troop-melee-area-authority.js';\n" +
+      "export { value } from '../shared/.nondeterminism-hostile-sibling.js';\n",
+  );
+  writeFileSync(
+    meleeAreaClockImporter,
+    "import { getSessionTroopMeleeAreaQuestionPolicy } from " +
+      "'../shared/session-troop-melee-area-authority.js';\n" +
+      "export const policy = getSessionTroopMeleeAreaQuestionPolicy('brackenwheel', 'brackenwheel');\n" +
+      "export const now = Date.now();\n",
+  );
+  writeFileSync(
+    meleeAreaRandomImporter,
+    "import { getSessionTroopMeleeAreaQuestionPolicy } from " +
+      "'../shared/session-troop-melee-area-authority.js';\n" +
+      "export const policy = getSessionTroopMeleeAreaQuestionPolicy('brackenwheel', 'brackenwheel');\n" +
+      "export const roll = Math.random();\n",
+  );
   try {
     assert.deepEqual(probeModuleGraph([authority], { root: simulationRoot }), {
       modules: 1,
@@ -325,6 +361,23 @@ test("nondeterminism-guard: simulation closure admits only the exact neutral aut
       modules: 1,
       status: "ok",
     });
+    assert.deepEqual(probeModuleGraph([meleeAreaAuthority], { root: simulationRoot }), {
+      modules: 1,
+      status: "ok",
+    });
+    assert.throws(
+      () => assertDeterministicSources([{
+        file: "../shared/session-troop-melee-area-authority.js",
+        source: `${readFileSync(meleeAreaAuthority, "utf8")}\n` +
+          "export const injectedTime = Date.now();\n" +
+          "export const injectedRandom = Math.random();\n",
+      }]),
+      (error) => error instanceof NondeterminismGuardError &&
+        error.code === "NONDETERMINISTIC_CAPABILITY" &&
+        error.violations.some(({ capability }) => capability === "wall-clock time") &&
+        error.violations.some(({ capability }) => capability === "ambient randomness"),
+      "clock and RNG added to the newly reachable authority remain AST-rejected",
+    );
     assert.throws(
       () => probeModuleGraph([hostileImporter], { root: simulationRoot }),
       (error) => error instanceof NondeterminismGuardError &&
@@ -353,6 +406,27 @@ test("nondeterminism-guard: simulation closure admits only the exact neutral aut
       "a forged confidence authority in a shared sibling is not admitted",
     );
     assert.throws(
+      () => probeModuleGraph([meleeAreaHostileImporter], { root: simulationRoot }),
+      (error) => error instanceof NondeterminismGuardError &&
+        error.code === "RUNTIME_CAPABILITY_VIOLATION" &&
+        /outside module graph root/.test(error.message),
+      "the newly admitted melee authority cannot widen to a shared sibling",
+    );
+    assert.throws(
+      () => probeModuleGraph([meleeAreaClockImporter], { root: simulationRoot }),
+      (error) => error instanceof NondeterminismGuardError &&
+        error.code === "RUNTIME_CAPABILITY_VIOLATION" &&
+        /Date/.test(error.message),
+      "clock access in an importer that reaches the melee authority remains rejected",
+    );
+    assert.throws(
+      () => probeModuleGraph([meleeAreaRandomImporter], { root: simulationRoot }),
+      (error) => error instanceof NondeterminismGuardError &&
+        error.code === "RUNTIME_CAPABILITY_VIOLATION" &&
+        /Math\.random/.test(error.message),
+      "RNG access in an importer that reaches the melee authority remains rejected",
+    );
+    assert.throws(
       () => probeModuleGraph(
         [join(simulationRoot, "../content/session-troop-projectile-profiles.js")],
         { root: simulationRoot },
@@ -364,6 +438,9 @@ test("nondeterminism-guard: simulation closure admits only the exact neutral aut
     );
   } finally {
     rmSync(forgedAuthorityImporter, { force: true });
+    rmSync(meleeAreaRandomImporter, { force: true });
+    rmSync(meleeAreaClockImporter, { force: true });
+    rmSync(meleeAreaHostileImporter, { force: true });
     rmSync(nondeterministicImporter, { force: true });
     rmSync(transitiveHostileImporter, { force: true });
     rmSync(hostileImporter, { force: true });

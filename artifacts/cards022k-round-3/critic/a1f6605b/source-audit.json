@@ -1,0 +1,38 @@
+{
+  "candidate": "debe648006c36be563bad598039e57b1c50f8267",
+  "parent": "c72cd1695258be2af6d3ab4145218bcd673aa1cf",
+  "working_tree_clean": true,
+  "changed_source_script_test_package_kernel_paths": [
+    "tests/editable-deck.test.js",
+    "tests/integration-audit.test.js"
+  ],
+  "only_allowed_test_paths_changed": true,
+  "all_other_source_paths_git_diff_exit": 0,
+  "228_path_fence": {
+    "count": 228,
+    "unique_paths": 228,
+    "before_after_identical": true,
+    "mismatches": []
+  },
+  "fixed_step_kernel": {
+    "src/sim/battle-continuation-kernel.js": {
+      "bytes": 523788,
+      "sha256": "115c43146f5818c69a98120e856ddaa5d20243fced3609320d90edc7ae933bea"
+    }
+  },
+  "canonical_manifest": {
+    "bytes": 682350,
+    "sha256": "259d5fcfbc33e9bcb983676891f8b5d723255e25ca82af53348eaa0363e520b1",
+    "covered_occurrences": 68,
+    "supported_occurrences": 68,
+    "unique_supported_ids": 63,
+    "question_only": 5,
+    "runner_records": 47,
+    "brackenwheel_records": [
+      {
+        "id": "brackenwheel",
+        "exportName": "createBasicMeleeCatalog"
+      }
+    ]
+  }
+}

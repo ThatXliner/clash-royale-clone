@@ -4,6 +4,10 @@ import {
 } from "../shared/ordinary-projectile-delivery-authority.js";
 import { selectAreaTargets } from "./area-target-selection.js";
 import {
+  assertSessionTroopMeleeAreaQuestionPolicy,
+  checkedMeleeAreaQuestionPolicy,
+} from "../shared/session-troop-melee-area-authority.js";
+import {
   MAX_SPATIAL_MILLITILES,
   circlesOverlap,
   validateCircle,
@@ -86,8 +90,16 @@ function checkedProfile(value, label) {
 export function checkedUnitSplashShape(value, label, keys) {
   const descriptors = ownDataObject(value, label);
   const hasProfile = Object.hasOwn(descriptors, "splashProfile");
-  const unit = exact(value, hasProfile ? [...keys, "splashProfile"] : keys, label);
+  const hasMeleeAreaPolicy = Object.hasOwn(descriptors, "meleeAreaPolicy");
+  const unit = exact(value, [
+    ...keys,
+    ...(hasProfile ? ["splashProfile"] : []),
+    ...(hasMeleeAreaPolicy ? ["meleeAreaPolicy"] : []),
+  ], label);
   return {
+    meleeAreaPolicy: hasMeleeAreaPolicy
+      ? checkedMeleeAreaQuestionPolicy(unit.meleeAreaPolicy, `${label}.meleeAreaPolicy`)
+      : null,
     profile: hasProfile ? checkedProfile(unit.splashProfile, `${label}.splashProfile`) : null,
     unit,
   };
@@ -96,15 +108,23 @@ export function checkedUnitSplashShape(value, label, keys) {
 export function checkedSpawnSplashShape(value, label, keys) {
   const descriptors = ownDataObject(value, label);
   const hasProfile = Object.hasOwn(descriptors, "splashProfile");
-  const record = exact(value, hasProfile ? [...keys, "splashProfile"] : keys, label);
+  const hasMeleeAreaPolicy = Object.hasOwn(descriptors, "meleeAreaPolicy");
+  const record = exact(value, [
+    ...keys,
+    ...(hasProfile ? ["splashProfile"] : []),
+    ...(hasMeleeAreaPolicy ? ["meleeAreaPolicy"] : []),
+  ], label);
   return {
+    meleeAreaPolicy: hasMeleeAreaPolicy
+      ? checkedMeleeAreaQuestionPolicy(record.meleeAreaPolicy, `${label}.meleeAreaPolicy`)
+      : null,
     profile: hasProfile ? checkedProfile(record.splashProfile, `${label}.splashProfile`) : null,
     record,
   };
 }
 
 export function checkedCombatUnit(value, label = "battle combat unit") {
-  const { profile, unit } = checkedUnitSplashShape(value, label, COMBAT_UNIT_KEYS);
+  const { meleeAreaPolicy, profile, unit } = checkedUnitSplashShape(value, label, COMBAT_UNIT_KEYS);
   integer(unit.id, 1, Number.MAX_SAFE_INTEGER, `${label}.id`);
   if (!SIDES.has(unit.side)) throw new TypeError(`${label}.side is invalid`);
   if (!LAYERS.has(unit.layer)) throw new TypeError(`${label}.layer is invalid`);
@@ -123,6 +143,9 @@ export function checkedCombatUnit(value, label = "battle combat unit") {
   integer(unit.deployTicks, 0, MAX_TICK, `${label}.deployTicks`);
   integer(unit.firstHitTicks, 0, MAX_TICK, `${label}.firstHitTicks`);
   integer(unit.cadenceTicks, 1, MAX_TICK, `${label}.cadenceTicks`);
+  if (meleeAreaPolicy !== null && unit.delivery !== "melee") {
+    throw new TypeError(`${label}.meleeAreaPolicy requires melee delivery`);
+  }
   if (unit.delivery === "melee") {
     if (unit.projectileSpeed !== null) {
       throw new TypeError(`${label}.projectileSpeed must be null for melee delivery`);
@@ -135,32 +158,44 @@ export function checkedCombatUnit(value, label = "battle combat unit") {
     }
   }
   return { ...unit, position: { ...position },
+    ...(meleeAreaPolicy === null ? {} : { meleeAreaPolicy }),
     ...(profile === null ? {} : { splashProfile: profile }) };
 }
 
 export function copyCombatUnitFields(unit, cloneValue) {
   const fields = Object.fromEntries(COMBAT_UNIT_KEYS.map((key) => [key, cloneValue(unit[key])]));
+  if (Object.hasOwn(unit, "meleeAreaPolicy")) {
+    fields.meleeAreaPolicy = cloneValue(unit.meleeAreaPolicy);
+  }
   if (Object.hasOwn(unit, "splashProfile")) fields.splashProfile = cloneValue(unit.splashProfile);
   return fields;
 }
 
 export function checkedCombatSpawn(value, label = "battle combat spawn") {
-  const { profile, record: command } =
+  const { meleeAreaPolicy, profile, record: command } =
     checkedSpawnSplashShape(value, label, [...COMBAT_UNIT_KEYS, "tick"]);
   const tick = integer(command.tick, 0, MAX_TICK, `${label}.tick`);
   const unit = checkedCombatUnit(Object.fromEntries([
-    ...COMBAT_UNIT_KEYS, ...(profile === null ? [] : ["splashProfile"]),
+    ...COMBAT_UNIT_KEYS,
+    ...(meleeAreaPolicy === null ? [] : ["meleeAreaPolicy"]),
+    ...(profile === null ? [] : ["splashProfile"]),
   ].map((key) => [key, command[key]])), `${label}.unit`);
   return { ...unit, tick };
 }
 
 export function ordinaryProjectileSplashEntityShape(raw, keys) {
-  const hasProfile = raw !== null && typeof raw === "object" && !Array.isArray(raw) &&
+  const hasProjectileProfile = raw !== null && typeof raw === "object" && !Array.isArray(raw) &&
     (Object.hasOwn(raw, "projectileSplashPolicy") ||
       Object.hasOwn(raw, "projectileSplashSourceFacts"));
+  const hasMeleeAreaPolicy = raw !== null && typeof raw === "object" && !Array.isArray(raw) &&
+    Object.hasOwn(raw, "meleeAreaPolicy");
   return {
-    hasProfile,
-    keys: hasProfile ? [...keys, ...SETUP_FIELDS] : keys,
+    hasProfile: hasProjectileProfile || hasMeleeAreaPolicy,
+    keys: [
+      ...keys,
+      ...(hasProjectileProfile ? SETUP_FIELDS : []),
+      ...(hasMeleeAreaPolicy ? ["meleeAreaPolicy"] : []),
+    ],
   };
 }
 
@@ -180,17 +215,29 @@ export function assertOrdinaryProjectileSplashReceipt(entity, cardId, archetypeI
 }
 
 export function ordinaryProjectileSplashEntityFields(entity, cardId, archetypeId, label) {
-  const { profile, sourceFacts } =
-    assertOrdinaryProjectileSplashReceipt(entity, cardId, archetypeId, label);
-  return {
-    projectileSplashPolicy: profile,
-    projectileSplashSourceFacts: sourceFacts,
-  };
+  const fields = {};
+  if (Object.hasOwn(entity, "projectileSplashPolicy") ||
+      Object.hasOwn(entity, "projectileSplashSourceFacts")) {
+    const { profile, sourceFacts } =
+      assertOrdinaryProjectileSplashReceipt(entity, cardId, archetypeId, label);
+    fields.projectileSplashPolicy = profile;
+    fields.projectileSplashSourceFacts = sourceFacts;
+  }
+  if (Object.hasOwn(entity, "meleeAreaPolicy")) {
+    fields.meleeAreaPolicy = assertSessionTroopMeleeAreaQuestionPolicy(
+      entity.meleeAreaPolicy, cardId, archetypeId, `${label}.meleeAreaPolicy`,
+    );
+  }
+  return fields;
 }
 
 export function ordinaryProjectileSplashCombatFields(component) {
-  return component.projectileSplashPolicy === undefined
-    ? {} : { splashProfile: component.projectileSplashPolicy };
+  return {
+    ...(component.projectileSplashPolicy === undefined
+      ? {} : { splashProfile: component.projectileSplashPolicy }),
+    ...(component.meleeAreaPolicy === undefined
+      ? {} : { meleeAreaPolicy: component.meleeAreaPolicy }),
+  };
 }
 
 

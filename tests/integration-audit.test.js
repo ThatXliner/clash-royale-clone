@@ -20,7 +20,7 @@ import {
 } from "../scripts/integration-audit.js";
 
 const EXPECTED_MANIFEST_SHA256 =
-  "ad9cf6fcd67e51fffbc00e77f44c7b2818af5d3f766436f4145048713f03cb51";
+  "259d5fcfbc33e9bcb983676891f8b5d723255e25ca82af53348eaa0363e520b1";
 
 function sha256LooksPinned(value) {
   return /^[\da-f]{64}$/u.test(value);
@@ -226,7 +226,7 @@ test("canonical integration audit removes temporary output after rename failure"
 
 test("canonical integration audit samples all direct occurrence mechanics", () => {
   const artifacts = probeDirectOccurrenceAdapters();
-  assert.equal(artifacts.length, 67);
+  assert.equal(artifacts.length, 68);
   for (const artifact of artifacts) {
     const facades = new Set();
     for (const [field, payloadKey] of [
@@ -304,9 +304,9 @@ test("canonical integration audit executes every supported card and reproduces a
 }, () => {
   const result = auditCanonicalIntegration({ runs: 2 });
 
-  assert.equal(result.supported, 67);
-  assert.equal(result.covered, 67);
-  assert.equal(result.uniqueSupportedIds, 62);
+  assert.equal(result.supported, 68);
+  assert.equal(result.covered, 68);
+  assert.equal(result.uniqueSupportedIds, 63);
   assert.equal(result.question, 5);
   assert.equal(result.runHashes.length, 2);
   assert.equal(result.runHashes[0], result.runHashes[1]);

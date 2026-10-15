@@ -12,7 +12,7 @@ import {
 
 const CLAIMS = Object.freeze([
   ["createBasicFlyingCatalog", ["copperskiff", "skymaul"]],
-  ["createBasicMeleeCatalog", ["coilblade", "ironroot", "mossguard"]],
+  ["createBasicMeleeCatalog", ["brackenwheel", "coilblade", "ironroot", "mossguard"]],
   ["createBasicRangedCatalog", ["brassbolt", "reedsting"]],
   ["createOrdinaryProjectileSquadCatalog", ["coppershade-flock", "duskwing-trio", "sunthread-pair"]],
   ["createOrdinaryProjectileSplashCatalog", ["kilnkeeper"]],

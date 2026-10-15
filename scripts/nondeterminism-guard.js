@@ -60,6 +60,10 @@ const SIMULATION_SOURCE_CONFIDENCE_MODULE = resolve(
   REPOSITORY_SOURCE_ROOT,
   "shared/session-troop-source-confidence-authority.js",
 );
+const SIMULATION_MELEE_AREA_MODULE = resolve(
+  REPOSITORY_SOURCE_ROOT,
+  "shared/session-troop-melee-area-authority.js",
+);
 let parser;
 
 function loadPlatformParser() {
@@ -837,11 +841,11 @@ function graphModuleSpecifiers(tree) {
 
 function graphAllowedPaths(root) {
   if (root === SIMULATION_GRAPH_ROOT) {
-    // The simulation may consume these dependency-direction-neutral,
-    // deterministic authorities. Do not admit the rest of src/shared: an
-    // import escape must remain outside the simulation closure.
+    // The simulation may consume these exact deterministic authorities. Do
+    // not admit the rest of src/shared: escapes must remain outside the graph.
     return { directories: [root], files: [SIMULATION_NEUTRAL_MODULE,
-      SIMULATION_PROJECTILE_DELIVERY_MODULE, SIMULATION_SOURCE_CONFIDENCE_MODULE] };
+      SIMULATION_PROJECTILE_DELIVERY_MODULE, SIMULATION_SOURCE_CONFIDENCE_MODULE,
+      SIMULATION_MELEE_AREA_MODULE] };
   }
   return { directories: [root], files: [] };
 }

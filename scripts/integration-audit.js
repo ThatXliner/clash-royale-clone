@@ -36,7 +36,7 @@ const EXPECTED_OCCURRENCE_BINDINGS = JSON.parse(readFileSync(join(
 
 const claims = [
   claim("createBasicFlyingCatalog", "cards/basic-flying.js", "cards-basic-flying", ["copperskiff", "skymaul"]),
-  claim("createBasicMeleeCatalog", "cards/basic-melee.js", "cards-basic-melee", ["coilblade", "ironroot", "mossguard"]),
+  claim("createBasicMeleeCatalog", "cards/basic-melee.js", "cards-basic-melee", ["brackenwheel", "coilblade", "ironroot", "mossguard"]),
   claim("createBasicRangedCatalog", "cards/basic-ranged.js", "cards-basic-ranged", ["brassbolt", "reedsting"]),
   claim("createOrdinaryProjectileSplashCatalog", "cards/ordinary-projectile-splash.js", "game-roster-troops-ordinary", ["kilnkeeper"]),
   claim("createOrdinaryProjectileSquadCatalog", "cards/ordinary-projectile-squads.js", "game-roster-troops-ordinary", ["coppershade-flock", "duskwing-trio", "sunthread-pair"]),

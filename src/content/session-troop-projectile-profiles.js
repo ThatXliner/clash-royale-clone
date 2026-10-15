@@ -198,6 +198,12 @@ const EXCLUDED_OCCURRENCE_SPECS = Object.freeze([
     status: "admitted",
   },
   {
+    exportName: "createBasicMeleeCatalog",
+    id: "brackenwheel",
+    reason: "the melee area unit is outside the projectile claim surface",
+    status: "admitted",
+  },
+  {
     exportName: "createRampSpecialCatalog",
     id: "cinder-ray",
     reason: "the status/combat occurrence exports no projectile delivery claim",

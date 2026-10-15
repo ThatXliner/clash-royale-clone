@@ -1,0 +1,75 @@
+{
+  "candidate": "debe648006c36be563bad598039e57b1c50f8267",
+  "parent": "c72cd1695258be2af6d3ab4145218bcd673aa1cf",
+  "working_tree_clean_after_tests": true,
+  "changed_source_script_test_package_kernel_paths": [
+    "tests/editable-deck.test.js",
+    "tests/integration-audit.test.js"
+  ],
+  "only_allowed_tests_changed": true,
+  "no_runtime_script_kernel_package_changes_vs_c72": true,
+  "whole_src_package_lock_unchanged_7ef_to_c72": true,
+  "prior_11_production_file_hashes_match_7ef_c72_head": true,
+  "prior_11_production_files": {
+    "src/content/cards/basic-melee.js": true,
+    "src/content/session-card-catalog.js": true,
+    "src/content/session-troop-profile-catalog.js": true,
+    "src/content/session-troop-projectile-profiles.js": true,
+    "src/content/session-troop-projectile-source-admission.js": true,
+    "src/content/session-troop-roster.js": true,
+    "src/shared/session-troop-melee-area-authority.js": true,
+    "src/shared/session-troop-projectile-authority.js": true,
+    "src/shared/session-troop-source-confidence-authority.js": true,
+    "src/sim/area-target-selection.js": true,
+    "src/sim/ordinary-projectile-splash.js": true
+  },
+  "228_path_fence": {
+    "count": 228,
+    "unique": 228,
+    "before_equals_after": true,
+    "mismatch_count": 0
+  },
+  "fixed_step_kernel": {
+    "src/sim/battle-continuation-kernel.js": {
+      "bytes": 523788,
+      "sha256": "115c43146f5818c69a98120e856ddaa5d20243fced3609320d90edc7ae933bea"
+    }
+  },
+  "canonical_manifest": {
+    "bytes": 682350,
+    "sha256": "259d5fcfbc33e9bcb983676891f8b5d723255e25ca82af53348eaa0363e520b1",
+    "covered": 68,
+    "supported": 68,
+    "unique_ids": 63,
+    "question": 5,
+    "runner_records": 47,
+    "brackenwheel": [
+      {
+        "id": "brackenwheel",
+        "exportName": "createBasicMeleeCatalog"
+      }
+    ]
+  },
+  "fresh_suites": {
+    "integration-audit": {
+      "subtest_headers": 6,
+      "tests": 6,
+      "pass": 6,
+      "fail": 0
+    },
+    "editable-deck": {
+      "subtest_headers": 12,
+      "tests": 12,
+      "pass": 12,
+      "fail": 0
+    }
+  },
+  "saved_direct_child_exits": {
+    "integration-audit": "0",
+    "editable-deck": "0"
+  },
+  "raw_stderr_bytes": {
+    "integration-audit": 0,
+    "editable-deck": 0
+  }
+}

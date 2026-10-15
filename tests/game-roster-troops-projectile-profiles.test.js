@@ -74,6 +74,7 @@ const EXPECTED_EXCLUDED = [
   ["ashen-nest", "DEATH_SPAWN_IDENTITY"],
   ["bloom-wisp", "createHealCatalog"],
   ["bone-regent", "createChampionAbilityCatalog"],
+  ["brackenwheel", "createBasicMeleeCatalog"],
   ["cinder-host", "createSwarmCatalog"],
   ["cinder-ray", "createRampSpecialCatalog"],
   ["cinderback", "createRecoilSpecialCatalog"],
@@ -221,6 +222,7 @@ const REBRANDED_BRIAR_COMPONENT_FIELD_MUTATIONS = Object.freeze([
   Object.freeze(["targetMode", "record.components[0].targetMode = \"ground-and-air\";"]),
 ]);
 const EXPECTED_SOURCE_PAIRS = [
+  ["createBasicMeleeCatalog", "brackenwheel"],
   ["createBasicMeleeCatalog", "coilblade"],
   ["createBasicMeleeCatalog", "ironroot"],
   ["createBasicMeleeCatalog", "mossguard"],
@@ -484,8 +486,8 @@ test("projectile profiles: exact admitted occurrence/card/archetype domain and p
       `${source.catalogExport}\u0000${source.record.id}`),
     ...manifest.excludedOccurrences.map(({ exportName, id }) => `${exportName}\u0000${id}`),
   ];
-  assert.equal(classifiedKeys.length, 44);
-  assert.equal(new Set(classifiedKeys).size, 44);
+  assert.equal(classifiedKeys.length, 45);
+  assert.equal(new Set(classifiedKeys).size, 45);
   assert.deepEqual(new Set(classifiedKeys), htpKeys);
   const kilnkeeper = createOrdinaryProjectileSplashCatalog().find(({ id }) => id === "kilnkeeper");
   assert.equal(kilnkeeper.count, 1);
@@ -516,7 +518,7 @@ test("projectile profiles: the complete witness map covers exactly the ten sourc
   )].map(([, exportName, id]) => [exportName, id]);
   const sortPairs = (pairs) => [...pairs].sort(([leftExport, leftId], [rightExport, rightId]) =>
     leftId.localeCompare(rightId) || leftExport.localeCompare(rightExport));
-  assert.equal(pinnedPairs.length, 19);
+  assert.equal(pinnedPairs.length, 20);
   assert.equal(new Set(pinnedPairs.map(([exportName]) => exportName)).size, 10);
   assert.deepEqual(sortPairs(pinnedPairs), sortPairs(EXPECTED_SOURCE_PAIRS));
   assert.match(source, /const AUTHORITATIVE_PROJECTILE_SOURCE_IDS_BY_EXPORT = Object\.freeze\(\{/u);
@@ -547,7 +549,7 @@ test("projectile profiles: every bound row rejects same-ID scalar drift", () => 
     assert.equal(result.accepted, false, `${exportName}/${id} scalar drift was accepted`);
     rejects += 1;
   }
-  assert.equal(rejects, 19);
+  assert.equal(rejects, 20);
 });
 
 test("projectile source admission: rebranded cost drift rejects before every shared consumer", () => {
@@ -1345,9 +1347,9 @@ test("projectile profiles: outputs are fresh, deeply frozen, detached, and canon
   const serialized = serializeSessionTroopProjectileProfileManifest();
   assert.equal(serialized, canonical(first));
   assert.equal(serialized, serializeSessionTroopProjectileProfileManifest());
-  assert.equal(serialized.length, 67953);
+  assert.equal(serialized.length, 68162);
   assert.equal(createHash("sha256").update(serialized).digest("hex"),
-    "086c2826bceff46d8ec96089a1a66132d5cc14d90f19f0ecc36eae7d2f60cfb2");
+    "abc98a533aa975038e68fd23fb5e59a2293b1e71ea51dbcdefcce351d686d972");
   assert.throws(() => { first.profiles[0].id = "forged"; }, TypeError);
   assert.throws(() => { first.questionFixtures.pellets.rayPattern.value[0].x = 0; }, TypeError);
   assert.throws(() => { first.profiles.push(null); }, TypeError);

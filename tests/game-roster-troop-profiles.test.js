@@ -21,6 +21,7 @@ const EXPECTED_OCCURRENCES = [
   ["DEATH_SPAWN_IDENTITY", "ashen-nest", "question"],
   ["createHealCatalog", "bloom-wisp", "admitted"],
   ["createChampionAbilityCatalog", "bone-regent", "admitted"],
+  ["createBasicMeleeCatalog", "brackenwheel", "admitted"],
   ["createBasicRangedCatalog", "brassbolt", "admitted"],
   ["createSwarmCatalog", "briar-band", "admitted"],
   ["createSwarmCatalog", "cinder-host", "admitted"],
@@ -62,7 +63,7 @@ const EXPECTED_OCCURRENCES = [
   ["createRetargetSpecialCatalog", "wayfinder", "admitted"],
 ];
 const EXPECTED_IDS = [
-  "aegis-sage", "ashen-nest", "bloom-wisp", "bone-regent", "brassbolt",
+  "aegis-sage", "ashen-nest", "bloom-wisp", "bone-regent", "brackenwheel", "brassbolt",
   "briar-band", "cinder-host", "cinder-ray", "cinderback", "cinderlings", "coilblade",
   "coppershade-flock", "copperskiff", "dawnmender", "dusk-ranger", "duskwing-trio", "emberlance", "forgeguard", "gilded-lancer",
   "gloam-shepherd", "gloamwing-cluster", "iron-borer", "ironroot", "kilnkeeper", "mossguard", "prism-warden", "pulse-sentry",
@@ -112,13 +113,13 @@ function occurrenceTriples(manifest) {
   );
 }
 
-test("game roster troop profiles: exact 44 occurrence pairs and 42 identity IDs", () => {
+test("game roster troop profiles: exact 45 occurrence pairs and 43 identity IDs", () => {
   const manifest = createSessionTroopProfileManifest();
   assert.deepEqual(occurrenceTriples(manifest), EXPECTED_OCCURRENCES);
-  assert.equal(manifest.occurrences.length, 44);
+  assert.equal(manifest.occurrences.length, 45);
   assert.equal(new Set(manifest.occurrences.map(({ exportName, id }) =>
     `${exportName}\u0000${id}`
-  )).size, 44);
+  )).size, 45);
   assert.deepEqual(
     [...new Set(manifest.occurrences.map(({ id }) => id))].sort(),
     [...EXPECTED_IDS].sort(),
@@ -128,10 +129,10 @@ test("game roster troop profiles: exact 44 occurrence pairs and 42 identity IDs"
 test("game roster troop profiles: exact admitted/question counts and derived session slice", () => {
   const manifest = createSessionTroopProfileManifest();
   assert.deepEqual(manifest.counts, {
-    admittedIds: 40,
-    admittedOccurrences: 42,
-    claimedIds: 42,
-    claimedOccurrences: 44,
+    admittedIds: 41,
+    admittedOccurrences: 43,
+    claimedIds: 43,
+    claimedOccurrences: 45,
     duplicateCompositionIds: 2,
     questionIds: 2,
     questionOccurrences: 2,
@@ -161,8 +162,8 @@ test("game roster troop profiles: admitted profiles are complete, source-backed,
   assert.ok(deepFrozen(first));
   assert.ok(deepFrozen(second));
   assert.deepEqual(first, second);
-  assert.equal(first.profiles.length, 40);
-  assert.equal(new Set(first.profiles.map(({ id }) => id)).size, 40);
+  assert.equal(first.profiles.length, 41);
+  assert.equal(new Set(first.profiles.map(({ id }) => id)).size, 41);
 
   for (const profile of first.profiles) {
     assert.deepEqual(Object.keys(profile).sort(), [

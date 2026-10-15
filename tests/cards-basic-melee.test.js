@@ -19,6 +19,10 @@ const benchmarkCards = new Map(
 );
 
 const EXPECTED = {
+  brackenwheel: {
+    benchmarkKey: "valkyrie",
+    rarity: "uncommon",
+  },
   coilblade: {
     benchmarkKey: "mini-pekka",
     rarity: "uncommon",
@@ -69,7 +73,7 @@ const MECHANIC_FIELDS = [
 const evaluateReferenceParity = createReferenceParityEvaluator(
   benchmark.cards,
   MECHANIC_FIELDS,
-  ["knight", "mini-pekka", "pekka"],
+  ["knight", "mini-pekka", "pekka", "valkyrie"],
 );
 
 function attacks(replay, attackerId) {
@@ -115,27 +119,31 @@ test("basic melee content: catalog is exact, canonical, and isolated", () => {
   assert.deepEqual(
     first.map(({ id, displayName }) => ({ id, displayName })),
     [
+      { id: "brackenwheel", displayName: "Brackenwheel" },
       { id: "coilblade", displayName: "Coilblade" },
       { id: "ironroot", displayName: "Ironroot" },
       { id: "mossguard", displayName: "Mossguard" },
     ],
   );
-  assert.equal(first.length, 3);
+  assert.equal(first.length, 4);
   for (const card of first) {
     assert.equal(card.kind, "unit");
     assert.equal(card.targetMode, "ground");
     assert.equal(card.count, 1);
-    assert.equal(card.areaDamageRadiusMillitiles, null);
+    assert.equal(card.areaDamageRadiusMillitiles,
+      card.id === "brackenwheel" ? 2_000 : null);
     assert.deepEqual(card.components, []);
   }
 
-  first[0].damage = 1;
-  first[0].components.push({});
+  const firstCoilblade = first.find(({ id }) => id === "coilblade");
+  firstCoilblade.damage = 1;
+  firstCoilblade.components.push({});
   const second = createBasicMeleeCatalog();
-  assert.equal(second[0].damage, 720);
-  assert.deepEqual(second[0].components, []);
+  const secondCoilblade = second.find(({ id }) => id === "coilblade");
+  assert.equal(secondCoilblade.damage, 720);
+  assert.deepEqual(secondCoilblade.components, []);
   assert.notStrictEqual(first, second);
-  assert.notStrictEqual(first[0], second[0]);
+  assert.notStrictEqual(firstCoilblade, secondCoilblade);
 });
 
 test("basic melee content: field parity is reported with confidence", (context) => {
@@ -159,7 +167,7 @@ test("basic melee content: field parity is reported with confidence", (context) 
     });
   }
 
-  assert.equal(reports.length, 3);
+  assert.equal(reports.length, 4);
   assert.equal(
     reports.flatMap(({ fields }) => fields).filter(
       ({ disposition }) => (
@@ -167,7 +175,7 @@ test("basic melee content: field parity is reported with confidence", (context) 
         disposition === "question-backed-match"
       ),
     ).length,
-    42,
+    56,
   );
   context.diagnostic(`parity report ${JSON.stringify(reports)}`);
 });
@@ -444,6 +452,72 @@ test("basic melee content: input order and snapshot boundaries are deterministic
   assert.deepEqual(restored.replay, uninterrupted.replay);
   assert.deepEqual(restored.run(1000), uninterrupted.run(1000));
   assert.equal(restored.serialize(), uninterrupted.serialize());
+});
+
+test("basic melee content: splash identity uses only the shared battle reducer", () => {
+  assert.throws(() => createBasicMeleeCombatant("brackenwheel", {
+    entityId: 1, position: 0, radius: 500,
+  }), /shared battle area reducer/u);
+});
+
+test("basic melee content: full raw signature leaves non-schema mechanics unresolved", () => {
+  const linked = JSON.parse(readFileSync(new URL(
+    "../artifacts/melee-area-full-signature-scope/builder/pinned-linked-rows.json",
+    import.meta.url,
+  ), "utf8"));
+  assert.deepEqual(linked.row_field_counts, { cards: 9, troop: 81, character: 289 });
+  assert.equal(linked.scope.comparison_only, true);
+  assert.equal(linked.scope.card_id, 26_000_011);
+  const raw = linked.rows.character;
+  assert.equal(Object.keys(raw).length, 289);
+
+  const unresolved = {
+    attack_finish_time: { value: 100, disposition: "unimplemented-question" },
+    override_attack_finish_time: { value: true, disposition: "unimplemented-question" },
+    mass: { value: 5, disposition: "unimplemented-question" },
+    collision_radius: { value: 500, disposition: "unimplemented-question" },
+    projectile_start_radius: { value: 450, disposition: "unimplemented-question" },
+    projectile_start_z: { value: 450, disposition: "unimplemented-question" },
+    scale: { value: 140, disposition: "unimplemented-question" },
+    multiple_targets: { value: 0, disposition: "unimplemented-question" },
+    all_targets_hit: { value: false, disposition: "unimplemented-question" },
+    movement_speed: { value: "medium", disposition: "unimplemented-question" },
+  };
+  for (const [field, receipt] of Object.entries(unresolved)) {
+    const sourceValue = field === "movement_speed"
+      ? benchmarkCards.get("valkyrie").movement_speed
+      : raw[field];
+    assert.equal(sourceValue, receipt.value, field);
+    assert.equal(receipt.disposition, "unimplemented-question");
+  }
+  const radiusConflict = {
+    normalizedPinnedRadiusMillitiles: 2_000,
+    publisher2019RadiusMillitiles: 2_400,
+    selectedAuthoritativeRadiusMillitiles: null,
+    disposition: "question",
+  };
+  assert.equal(radiusConflict.selectedAuthoritativeRadiusMillitiles, null);
+  assert.equal(radiusConflict.disposition, "question");
+
+  const runtimeCard = createBasicMeleeCatalog().find(({ id }) => id === "brackenwheel");
+  const parity = evaluateReferenceParity(runtimeCard, "valkyrie");
+  assert.deepEqual(parity.authoritativeFailures, []);
+  const questions = new Map(parity.fields.map((field) => [field.benchmarkField, field]));
+  for (const field of benchmarkCards.get("valkyrie").unverified_fields) {
+    assert.ok(questions.has(field) || field === "movement_speed",
+      `${field} is either projected through a QUESTION or explicitly outside common schema`);
+  }
+  assert.equal(benchmarkCards.get("valkyrie").movement_speed, "medium");
+  assert.equal(questions.get("area_damage_radius_tiles").disposition,
+    "question-backed-match");
+  for (const field of [
+    "attack_finish_time", "override_attack_finish_time", "mass",
+    "collision_radius", "projectile_start_radius", "projectile_start_z",
+    "scale", "multiple_targets", "all_targets_hit",
+  ]) {
+    assert.equal(Object.hasOwn(runtimeCard, field), false,
+      `${field} stays out of runtime content`);
+  }
 });
 
 test("basic melee content: projection validates identity and placement", () => {

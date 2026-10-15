@@ -41,6 +41,8 @@ import {
   encodeSessionTroopSourceConfidenceValue,
   getSessionTroopSourceConfidencePolicy,
 } from "../shared/session-troop-source-confidence-authority.js";
+import { getSessionTroopMeleeAreaQuestionPolicy } from
+  "../shared/session-troop-melee-area-authority.js";
 
 const QUESTION_SOURCE = "runtime-playability-estimate-not-comparison-corpus";
 const DELIVERY_VALUES = Object.freeze({ melee: 1, projectile: 2 });
@@ -57,6 +59,7 @@ const QUESTION_ESTIMATES = Object.freeze({
 // custom-deck setup seam.
 export const EDITABLE_DECK_CARD_IDS = Object.freeze([
   ...PLAYABLE_CARD_IDS,
+  "brackenwheel",
   "stonehauler",
   "thornscouts",
   "forgeguard",
@@ -374,6 +377,8 @@ function projectOrdinaryEntity(card, component) {
   };
   const sourceConfidencePolicy = getSessionTroopSourceConfidencePolicy(card.id, archetypeId);
   if (sourceConfidencePolicy !== null) entity.sourceConfidencePolicy = sourceConfidencePolicy;
+  const meleeAreaPolicy = getSessionTroopMeleeAreaQuestionPolicy(card.id, archetypeId);
+  if (meleeAreaPolicy !== null) entity.meleeAreaPolicy = meleeAreaPolicy;
   const splashPolicy = getOrdinaryProjectileSplashProfile(card.id, archetypeId);
   if (splashPolicy !== null) {
     entity.projectileSplashPolicy = splashPolicy;

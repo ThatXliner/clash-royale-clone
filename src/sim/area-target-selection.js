@@ -1,4 +1,6 @@
 import { circlesOverlap } from "./spatial.js";
+import { checkedMeleeAreaQuestionPolicy } from
+  "../shared/session-troop-melee-area-authority.js";
 
 const MAX_AREA_POLICY_UNITS = 1_024;
 const POLICY_KEYS = Object.freeze([
@@ -175,7 +177,10 @@ export function planMeleeAreaAttack({ attacker, attackSequence, isAlive, isTarge
 
 export function planMeleeUnitAttack({ attacker, attackSequence, areaPolicies, controls,
   damage, primaryTargetId, units }) {
-  const policy = meleeAreaPolicyFor(areaPolicies, attacker.id);
+  const policy = attacker.meleeAreaPolicy === undefined
+    ? meleeAreaPolicyFor(areaPolicies, attacker.id)
+    : checkedMeleeAreaQuestionPolicy(attacker.meleeAreaPolicy,
+      "battle combat attacker.meleeAreaPolicy");
   if (policy === undefined) {
     return {
       hitSources: [{ attackerId: attacker.id, delivery: "melee" }],
